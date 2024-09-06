@@ -1,20 +1,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import fs from 'fs';
-import { URL as URL$1, fileURLToPath, pathToFileURL } from 'url';
-import path from 'path';
-import { createHash } from 'crypto';
-import { EOL } from 'os';
-import esmModule, { createRequire, isBuiltin } from 'module';
-import assert from 'assert';
+import assert from "assert";
+import { createHash } from "crypto";
+import fs from "fs";
+import esmModule, { createRequire, isBuiltin } from "module";
+import { EOL } from "os";
+import path from "path";
+import { fileURLToPath, pathToFileURL, URL as URL$1 } from "url";
 
 const SAFE_TIME = 456789e3;
 
 const PortablePath = {
   root: `/`,
   dot: `.`,
-  parent: `..`
+  parent: `..`,
 };
 const npath = Object.create(path);
 const ppath = Object.create(path.posix);
@@ -32,10 +32,12 @@ if (process.platform === `win32`) {
 const contains = function(pathUtils, from, to) {
   from = pathUtils.normalize(from);
   to = pathUtils.normalize(to);
-  if (from === to)
+  if (from === to) {
     return `.`;
-  if (!from.endsWith(pathUtils.sep))
+  }
+  if (!from.endsWith(pathUtils.sep)) {
     from = from + pathUtils.sep;
+  }
   if (to.startsWith(from)) {
     return to.slice(from.length);
   } else {
@@ -50,21 +52,23 @@ const PORTABLE_PATH_REGEXP = /^\/([a-zA-Z]:.*)$/;
 const UNC_PORTABLE_PATH_REGEXP = /^\/unc\/(\.dot\/)?(.*)$/;
 function fromPortablePathWin32(p) {
   let portablePathMatch, uncPortablePathMatch;
-  if (portablePathMatch = p.match(PORTABLE_PATH_REGEXP))
+  if (portablePathMatch = p.match(PORTABLE_PATH_REGEXP)) {
     p = portablePathMatch[1];
-  else if (uncPortablePathMatch = p.match(UNC_PORTABLE_PATH_REGEXP))
+  } else if (uncPortablePathMatch = p.match(UNC_PORTABLE_PATH_REGEXP)) {
     p = `\\\\${uncPortablePathMatch[1] ? `.\\` : ``}${uncPortablePathMatch[2]}`;
-  else
+  } else {
     return p;
+  }
   return p.replace(/\//g, `\\`);
 }
 function toPortablePathWin32(p) {
   p = p.replace(/\\/g, `/`);
   let windowsPathMatch, uncWindowsPathMatch;
-  if (windowsPathMatch = p.match(WINDOWS_PATH_REGEXP))
+  if (windowsPathMatch = p.match(WINDOWS_PATH_REGEXP)) {
     p = `/${windowsPathMatch[1]}`;
-  else if (uncWindowsPathMatch = p.match(UNC_WINDOWS_PATH_REGEXP))
+  } else if (uncWindowsPathMatch = p.match(UNC_WINDOWS_PATH_REGEXP)) {
     p = `/unc/${uncWindowsPathMatch[1] ? `.dot/` : ``}${uncWindowsPathMatch[2]}`;
+  }
   return p;
 }
 const toPortablePath = process.platform === `win32` ? toPortablePathWin32 : (p) => p;
@@ -82,11 +86,17 @@ async function copyPromise(destinationFs, destination, sourceFs, source, opts) {
   const normalizedSource = sourceFs.pathUtils.normalize(source);
   const prelayout = [];
   const postlayout = [];
-  const { atime, mtime } = opts.stableTime ? { atime: defaultTime, mtime: defaultTime } : await sourceFs.lstatPromise(normalizedSource);
+  const { atime, mtime } = opts.stableTime
+    ? { atime: defaultTime, mtime: defaultTime }
+    : await sourceFs.lstatPromise(normalizedSource);
   await destinationFs.mkdirpPromise(destinationFs.pathUtils.dirname(destination), { utimes: [atime, mtime] });
-  await copyImpl(prelayout, postlayout, destinationFs, normalizedDestination, sourceFs, normalizedSource, { ...opts, didParentExist: true });
-  for (const operation of prelayout)
+  await copyImpl(prelayout, postlayout, destinationFs, normalizedDestination, sourceFs, normalizedSource, {
+    ...opts,
+    didParentExist: true,
+  });
+  for (const operation of prelayout) {
     await operation();
+  }
   await Promise.all(postlayout.map((operation) => {
     return operation();
   }));
@@ -99,17 +109,47 @@ async function copyImpl(prelayout, postlayout, destinationFs, destination, sourc
   switch (true) {
     case sourceStat.isDirectory():
       {
-        updated = await copyFolder(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copyFolder(
+          prelayout,
+          postlayout,
+          destinationFs,
+          destination,
+          destinationStat,
+          sourceFs,
+          source,
+          sourceStat,
+          opts,
+        );
       }
       break;
     case sourceStat.isFile():
       {
-        updated = await copyFile(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copyFile(
+          prelayout,
+          postlayout,
+          destinationFs,
+          destination,
+          destinationStat,
+          sourceFs,
+          source,
+          sourceStat,
+          opts,
+        );
       }
       break;
     case sourceStat.isSymbolicLink():
       {
-        updated = await copySymlink(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copySymlink(
+          prelayout,
+          postlayout,
+          destinationFs,
+          destination,
+          destinationStat,
+          sourceFs,
+          source,
+          sourceStat,
+          opts,
+        );
       }
       break;
     default: {
@@ -117,7 +157,10 @@ async function copyImpl(prelayout, postlayout, destinationFs, destination, sourc
     }
   }
   if (opts.linkStrategy?.type !== `HardlinkFromIndex` || !sourceStat.isFile()) {
-    if (updated || destinationStat?.mtime?.getTime() !== mtime.getTime() || destinationStat?.atime?.getTime() !== atime.getTime()) {
+    if (
+      updated || destinationStat?.mtime?.getTime() !== mtime.getTime()
+      || destinationStat?.atime?.getTime() !== atime.getTime()
+    ) {
       postlayout.push(() => destinationFs.lutimesPromise(destination, atime, mtime));
       updated = true;
     }
@@ -135,7 +178,17 @@ async function maybeLStat(baseFs, p) {
     return null;
   }
 }
-async function copyFolder(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copyFolder(
+  prelayout,
+  postlayout,
+  destinationFs,
+  destination,
+  destinationStat,
+  sourceFs,
+  source,
+  sourceStat,
+  opts,
+) {
   if (destinationStat !== null && !destinationStat.isDirectory()) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -161,13 +214,31 @@ async function copyFolder(prelayout, postlayout, destinationFs, destination, des
   const nextOpts = opts.didParentExist && !destinationStat ? { ...opts, didParentExist: false } : opts;
   if (opts.stableSort) {
     for (const entry of entries.sort()) {
-      if (await copyImpl(prelayout, postlayout, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts)) {
+      if (
+        await copyImpl(
+          prelayout,
+          postlayout,
+          destinationFs,
+          destinationFs.pathUtils.join(destination, entry),
+          sourceFs,
+          sourceFs.pathUtils.join(source, entry),
+          nextOpts,
+        )
+      ) {
         updated = true;
       }
     }
   } else {
     const entriesUpdateStatus = await Promise.all(entries.map(async (entry) => {
-      await copyImpl(prelayout, postlayout, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts);
+      await copyImpl(
+        prelayout,
+        postlayout,
+        destinationFs,
+        destinationFs.pathUtils.join(destination, entry),
+        sourceFs,
+        sourceFs.pathUtils.join(source, entry),
+        nextOpts,
+      );
     }));
     if (entriesUpdateStatus.some((status) => status)) {
       updated = true;
@@ -175,12 +246,27 @@ async function copyFolder(prelayout, postlayout, destinationFs, destination, des
   }
   return updated;
 }
-async function copyFileViaIndex(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts, linkStrategy) {
+async function copyFileViaIndex(
+  prelayout,
+  postlayout,
+  destinationFs,
+  destination,
+  destinationStat,
+  sourceFs,
+  source,
+  sourceStat,
+  opts,
+  linkStrategy,
+) {
   const sourceHash = await sourceFs.checksumFilePromise(source, { algorithm: `sha1` });
   const defaultMode = 420;
   const sourceMode = sourceStat.mode & 511;
   const indexFileName = `${sourceHash}${sourceMode !== defaultMode ? sourceMode.toString(8) : ``}`;
-  const indexPath = destinationFs.pathUtils.join(linkStrategy.indexPath, sourceHash.slice(0, 2), `${indexFileName}.dat`);
+  const indexPath = destinationFs.pathUtils.join(
+    linkStrategy.indexPath,
+    sourceHash.slice(0, 2),
+    `${indexFileName}.dat`,
+  );
   let AtomicBehavior;
   ((AtomicBehavior2) => {
     AtomicBehavior2[AtomicBehavior2["Lock"] = 0] = "Lock";
@@ -189,7 +275,8 @@ async function copyFileViaIndex(prelayout, postlayout, destinationFs, destinatio
   let atomicBehavior = 1 /* Rename */;
   let indexStat = await maybeLStat(destinationFs, indexPath);
   if (destinationStat) {
-    const isDestinationHardlinkedFromIndex = indexStat && destinationStat.dev === indexStat.dev && destinationStat.ino === indexStat.ino;
+    const isDestinationHardlinkedFromIndex = indexStat && destinationStat.dev === indexStat.dev
+      && destinationStat.ino === indexStat.ino;
     const isIndexModified = indexStat?.mtimeMs !== defaultTimeMs;
     if (isDestinationHardlinkedFromIndex) {
       if (isIndexModified && linkStrategy.autoRepair) {
@@ -206,7 +293,9 @@ async function copyFileViaIndex(prelayout, postlayout, destinationFs, destinatio
       }
     }
   }
-  const tempPath = !indexStat && atomicBehavior === 1 /* Rename */ ? `${indexPath}.${Math.floor(Math.random() * 4294967296).toString(16).padStart(8, `0`)}` : null;
+  const tempPath = !indexStat && atomicBehavior === 1 /* Rename */
+    ? `${indexPath}.${Math.floor(Math.random() * 4294967296).toString(16).padStart(8, `0`)}`
+    : null;
   let tempPathCleaned = false;
   prelayout.push(async () => {
     if (!indexStat) {
@@ -248,7 +337,17 @@ async function copyFileViaIndex(prelayout, postlayout, destinationFs, destinatio
   });
   return false;
 }
-async function copyFileDirect(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copyFileDirect(
+  prelayout,
+  postlayout,
+  destinationFs,
+  destination,
+  destinationStat,
+  sourceFs,
+  source,
+  sourceStat,
+  opts,
+) {
   if (destinationStat !== null) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -263,14 +362,55 @@ async function copyFileDirect(prelayout, postlayout, destinationFs, destination,
   });
   return true;
 }
-async function copyFile(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copyFile(
+  prelayout,
+  postlayout,
+  destinationFs,
+  destination,
+  destinationStat,
+  sourceFs,
+  source,
+  sourceStat,
+  opts,
+) {
   if (opts.linkStrategy?.type === `HardlinkFromIndex`) {
-    return copyFileViaIndex(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts, opts.linkStrategy);
+    return copyFileViaIndex(
+      prelayout,
+      postlayout,
+      destinationFs,
+      destination,
+      destinationStat,
+      sourceFs,
+      source,
+      sourceStat,
+      opts,
+      opts.linkStrategy,
+    );
   } else {
-    return copyFileDirect(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+    return copyFileDirect(
+      prelayout,
+      postlayout,
+      destinationFs,
+      destination,
+      destinationStat,
+      sourceFs,
+      source,
+      sourceStat,
+      opts,
+    );
   }
 }
-async function copySymlink(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copySymlink(
+  prelayout,
+  postlayout,
+  destinationFs,
+  destination,
+  destinationStat,
+  sourceFs,
+  source,
+  sourceStat,
+  opts,
+) {
   if (destinationStat !== null) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -280,7 +420,10 @@ async function copySymlink(prelayout, postlayout, destinationFs, destination, de
     }
   }
   prelayout.push(async () => {
-    await destinationFs.symlinkPromise(convertPath(destinationFs.pathUtils, await sourceFs.readlinkPromise(source)), destination);
+    await destinationFs.symlinkPromise(
+      convertPath(destinationFs.pathUtils, await sourceFs.readlinkPromise(source)),
+      destination,
+    );
   });
   return true;
 }
@@ -316,8 +459,9 @@ class FakeFS {
       const chunk = Buffer.allocUnsafeSlow(CHUNK_SIZE);
       const hash = createHash(algorithm);
       let bytesRead = 0;
-      while ((bytesRead = await this.readPromise(fd, chunk, 0, CHUNK_SIZE)) !== 0)
+      while ((bytesRead = await this.readPromise(fd, chunk, 0, CHUNK_SIZE)) !== 0) {
         hash.update(bytesRead === CHUNK_SIZE ? chunk : chunk.slice(0, bytesRead));
+      }
       return hash.digest(`hex`);
     } finally {
       await this.closePromise(fd);
@@ -369,9 +513,11 @@ class FakeFS {
       }
     }
     if (stat.isDirectory()) {
-      if (recursive)
-        for (const entry of this.readdirSync(p))
+      if (recursive) {
+        for (const entry of this.readdirSync(p)) {
           this.removeSync(this.pathUtils.resolve(p, entry));
+        }
+      }
       this.rmdirSync(p);
     } else {
       this.unlinkSync(p);
@@ -379,8 +525,9 @@ class FakeFS {
   }
   async mkdirpPromise(p, { chmod, utimes } = {}) {
     p = this.resolve(p);
-    if (p === this.pathUtils.dirname(p))
+    if (p === this.pathUtils.dirname(p)) {
       return void 0;
+    }
     const parts = p.split(this.pathUtils.sep);
     let createdDirectory;
     for (let u = 2; u <= parts.length; ++u) {
@@ -396,8 +543,9 @@ class FakeFS {
           }
         }
         createdDirectory ??= subPath;
-        if (chmod != null)
+        if (chmod != null) {
           await this.chmodPromise(subPath, chmod);
+        }
         if (utimes != null) {
           await this.utimesPromise(subPath, utimes[0], utimes[1]);
         } else {
@@ -410,8 +558,9 @@ class FakeFS {
   }
   mkdirpSync(p, { chmod, utimes } = {}) {
     p = this.resolve(p);
-    if (p === this.pathUtils.dirname(p))
+    if (p === this.pathUtils.dirname(p)) {
       return void 0;
+    }
     const parts = p.split(this.pathUtils.sep);
     let createdDirectory;
     for (let u = 2; u <= parts.length; ++u) {
@@ -427,8 +576,9 @@ class FakeFS {
           }
         }
         createdDirectory ??= subPath;
-        if (chmod != null)
+        if (chmod != null) {
           this.chmodSync(subPath, chmod);
+        }
         if (utimes != null) {
           this.utimesSync(subPath, utimes[0], utimes[1]);
         } else {
@@ -439,7 +589,11 @@ class FakeFS {
     }
     return createdDirectory;
   }
-  async copyPromise(destination, source, { baseFs = this, overwrite = true, stableSort = false, stableTime = false, linkStrategy = null } = {}) {
+  async copyPromise(
+    destination,
+    source,
+    { baseFs = this, overwrite = true, stableSort = false, stableTime = false, linkStrategy = null } = {},
+  ) {
     return await copyPromise(this, destination, baseFs, source, { overwrite, stableSort, stableTime, linkStrategy });
   }
   copySync(destination, source, { baseFs = this, overwrite = true } = {}) {
@@ -449,19 +603,24 @@ class FakeFS {
       this.mkdirpSync(destination);
       const directoryListing = baseFs.readdirSync(source);
       for (const entry of directoryListing) {
-        this.copySync(this.pathUtils.join(destination, entry), baseFs.pathUtils.join(source, entry), { baseFs, overwrite });
+        this.copySync(this.pathUtils.join(destination, entry), baseFs.pathUtils.join(source, entry), {
+          baseFs,
+          overwrite,
+        });
       }
     } else if (stat.isFile()) {
       if (!exists || overwrite) {
-        if (exists)
+        if (exists) {
           this.removeSync(destination);
+        }
         const content = baseFs.readFileSync(source);
         this.writeFileSync(destination, content);
       }
     } else if (stat.isSymbolicLink()) {
       if (!exists || overwrite) {
-        if (exists)
+        if (exists) {
           this.removeSync(destination);
+        }
         const target = baseFs.readlinkSync(source);
         this.symlinkSync(convertPath(this.pathUtils, target), destination);
       }
@@ -484,8 +643,9 @@ class FakeFS {
       current = await this.readFilePromise(p);
     } catch (error) {
     }
-    if (Buffer.compare(current, content) === 0)
+    if (Buffer.compare(current, content) === 0) {
       return;
+    }
     await this.writeFilePromise(p, content, { mode });
   }
   async changeFileTextPromise(p, content, { automaticNewlines, mode } = {}) {
@@ -495,8 +655,9 @@ class FakeFS {
     } catch (error) {
     }
     const normalizedContent = automaticNewlines ? normalizeLineEndings(current, content) : content;
-    if (current === normalizedContent)
+    if (current === normalizedContent) {
       return;
+    }
     await this.writeFilePromise(p, normalizedContent, { mode });
   }
   changeFileSync(p, content, opts = {}) {
@@ -512,8 +673,9 @@ class FakeFS {
       current = this.readFileSync(p);
     } catch (error) {
     }
-    if (Buffer.compare(current, content) === 0)
+    if (Buffer.compare(current, content) === 0) {
       return;
+    }
     this.writeFileSync(p, content, { mode });
   }
   changeFileTextSync(p, content, { automaticNewlines = false, mode } = {}) {
@@ -523,8 +685,9 @@ class FakeFS {
     } catch (error) {
     }
     const normalizedContent = automaticNewlines ? normalizeLineEndings(current, content) : content;
-    if (current === normalizedContent)
+    if (current === normalizedContent) {
       return;
+    }
     this.writeFileSync(p, normalizedContent, { mode });
   }
   async movePromise(fromP, toP) {
@@ -623,26 +786,34 @@ class FakeFS {
   }
   async writeJsonPromise(p, data, { compact = false } = {}) {
     const space = compact ? 0 : 2;
-    return await this.writeFilePromise(p, `${JSON.stringify(data, null, space)}
-`);
+    return await this.writeFilePromise(
+      p,
+      `${JSON.stringify(data, null, space)}
+`,
+    );
   }
   writeJsonSync(p, data, { compact = false } = {}) {
     const space = compact ? 0 : 2;
-    return this.writeFileSync(p, `${JSON.stringify(data, null, space)}
-`);
+    return this.writeFileSync(
+      p,
+      `${JSON.stringify(data, null, space)}
+`,
+    );
   }
   async preserveTimePromise(p, cb) {
     const stat = await this.lstatPromise(p);
     const result = await cb();
-    if (typeof result !== `undefined`)
+    if (typeof result !== `undefined`) {
       p = result;
+    }
     await this.lutimesPromise(p, stat.atime, stat.mtime);
   }
   async preserveTimeSync(p, cb) {
     const stat = this.lstatSync(p);
     const result = cb();
-    if (typeof result !== `undefined`)
+    if (typeof result !== `undefined`) {
       p = result;
+    }
     this.lutimesSync(p, stat.atime, stat.mtime);
   }
 }
@@ -653,13 +824,18 @@ class BasePortableFakeFS extends FakeFS {
 }
 function getEndOfLine(content) {
   const matches = content.match(/\r?\n/g);
-  if (matches === null)
+  if (matches === null) {
     return EOL;
-  const crlf = matches.filter((nl) => nl === `\r
-`).length;
+  }
+  const crlf = matches.filter((nl) =>
+    nl === `\r
+`
+  ).length;
   const lf = matches.length - crlf;
-  return crlf > lf ? `\r
-` : `
+  return crlf > lf
+    ? `\r
+`
+    : `
 `;
 }
 function normalizeLineEndings(originalContent, newContent) {
@@ -848,16 +1024,18 @@ class ProxiedFS extends FakeFS {
   }
   async symlinkPromise(target, p, type) {
     const mappedP = this.mapToBase(p);
-    if (this.pathUtils.isAbsolute(target))
+    if (this.pathUtils.isAbsolute(target)) {
       return this.baseFs.symlinkPromise(this.mapToBase(target), mappedP, type);
+    }
     const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
     const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
     return this.baseFs.symlinkPromise(mappedTarget, mappedP, type);
   }
   symlinkSync(target, p, type) {
     const mappedP = this.mapToBase(p);
-    if (this.pathUtils.isAbsolute(target))
+    if (this.pathUtils.isAbsolute(target)) {
       return this.baseFs.symlinkSync(this.mapToBase(target), mappedP, type);
+    }
     const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
     const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
     return this.baseFs.symlinkSync(mappedTarget, mappedP, type);
@@ -897,7 +1075,7 @@ class ProxiedFS extends FakeFS {
       this.mapToBase(p),
       // @ts-expect-error
       a,
-      b
+      b,
     );
   }
   watchFile(p, a, b) {
@@ -905,7 +1083,7 @@ class ProxiedFS extends FakeFS {
       this.mapToBase(p),
       // @ts-expect-error
       a,
-      b
+      b,
     );
   }
   unwatchFile(p, cb) {
@@ -922,8 +1100,9 @@ class ProxiedFS extends FakeFS {
 
 function direntToPortable(dirent) {
   const portableDirent = dirent;
-  if (typeof dirent.path === `string`)
+  if (typeof dirent.path === `string`) {
     portableDirent.path = npath.toPortablePath(dirent.path);
+  }
   return portableDirent;
 }
 class NodeFS extends BasePortableFakeFS {
@@ -961,18 +1140,20 @@ class NodeFS extends BasePortableFakeFS {
       Object.defineProperty(dirWithFixedPath, `path`, {
         value: p,
         configurable: true,
-        writable: true
+        writable: true,
       });
       return dirWithFixedPath;
     });
   }
   opendirSync(p, opts) {
-    const dir = typeof opts !== `undefined` ? this.realFs.opendirSync(npath.fromPortablePath(p), opts) : this.realFs.opendirSync(npath.fromPortablePath(p));
+    const dir = typeof opts !== `undefined`
+      ? this.realFs.opendirSync(npath.fromPortablePath(p), opts)
+      : this.realFs.opendirSync(npath.fromPortablePath(p));
     const dirWithFixedPath = dir;
     Object.defineProperty(dirWithFixedPath, `path`, {
       value: p,
       configurable: true,
-      writable: true
+      writable: true,
     });
     return dirWithFixedPath;
   }
@@ -1130,7 +1311,11 @@ class NodeFS extends BasePortableFakeFS {
   }
   async renamePromise(oldP, newP) {
     return await new Promise((resolve, reject) => {
-      this.realFs.rename(npath.fromPortablePath(oldP), npath.fromPortablePath(newP), this.makeCallback(resolve, reject));
+      this.realFs.rename(
+        npath.fromPortablePath(oldP),
+        npath.fromPortablePath(newP),
+        this.makeCallback(resolve, reject),
+      );
     });
   }
   renameSync(oldP, newP) {
@@ -1138,7 +1323,12 @@ class NodeFS extends BasePortableFakeFS {
   }
   async copyFilePromise(sourceP, destP, flags = 0) {
     return await new Promise((resolve, reject) => {
-      this.realFs.copyFile(npath.fromPortablePath(sourceP), npath.fromPortablePath(destP), flags, this.makeCallback(resolve, reject));
+      this.realFs.copyFile(
+        npath.fromPortablePath(sourceP),
+        npath.fromPortablePath(destP),
+        flags,
+        this.makeCallback(resolve, reject),
+      );
     });
   }
   copyFileSync(sourceP, destP, flags = 0) {
@@ -1238,7 +1428,11 @@ class NodeFS extends BasePortableFakeFS {
   }
   async linkPromise(existingP, newP) {
     return await new Promise((resolve, reject) => {
-      this.realFs.link(npath.fromPortablePath(existingP), npath.fromPortablePath(newP), this.makeCallback(resolve, reject));
+      this.realFs.link(
+        npath.fromPortablePath(existingP),
+        npath.fromPortablePath(newP),
+        this.makeCallback(resolve, reject),
+      );
     });
   }
   linkSync(existingP, newP) {
@@ -1246,7 +1440,12 @@ class NodeFS extends BasePortableFakeFS {
   }
   async symlinkPromise(target, p, type) {
     return await new Promise((resolve, reject) => {
-      this.realFs.symlink(npath.fromPortablePath(target.replace(/\/+$/, ``)), npath.fromPortablePath(p), type, this.makeCallback(resolve, reject));
+      this.realFs.symlink(
+        npath.fromPortablePath(target.replace(/\/+$/, ``)),
+        npath.fromPortablePath(p),
+        type,
+        this.makeCallback(resolve, reject),
+      );
     });
   }
   symlinkSync(target, p, type) {
@@ -1267,9 +1466,17 @@ class NodeFS extends BasePortableFakeFS {
       if (opts) {
         if (opts.recursive && process.platform === `win32`) {
           if (opts.withFileTypes) {
-            this.realFs.readdir(npath.fromPortablePath(p), opts, this.makeCallback((results) => resolve(results.map(direntToPortable)), reject));
+            this.realFs.readdir(
+              npath.fromPortablePath(p),
+              opts,
+              this.makeCallback((results) => resolve(results.map(direntToPortable)), reject),
+            );
           } else {
-            this.realFs.readdir(npath.fromPortablePath(p), opts, this.makeCallback((results) => resolve(results.map(npath.toPortablePath)), reject));
+            this.realFs.readdir(
+              npath.fromPortablePath(p),
+              opts,
+              this.makeCallback((results) => resolve(results.map(npath.toPortablePath)), reject),
+            );
           }
         } else {
           this.realFs.readdir(npath.fromPortablePath(p), opts, this.makeCallback(resolve, reject));
@@ -1325,7 +1532,7 @@ class NodeFS extends BasePortableFakeFS {
       npath.fromPortablePath(p),
       // @ts-expect-error
       a,
-      b
+      b,
     );
   }
   watchFile(p, a, b) {
@@ -1333,7 +1540,7 @@ class NodeFS extends BasePortableFakeFS {
       npath.fromPortablePath(p),
       // @ts-expect-error
       a,
-      b
+      b,
     );
   }
   unwatchFile(p, cb) {
@@ -1351,34 +1558,41 @@ class NodeFS extends BasePortableFakeFS {
 }
 
 const NUMBER_REGEXP = /^[0-9]+$/;
-const VIRTUAL_REGEXP = /^(\/(?:[^/]+\/)*?(?:\$\$virtual|__virtual__))((?:\/((?:[^/]+-)?[a-f0-9]+)(?:\/([^/]+))?)?((?:\/.*)?))$/;
+const VIRTUAL_REGEXP =
+  /^(\/(?:[^/]+\/)*?(?:\$\$virtual|__virtual__))((?:\/((?:[^/]+-)?[a-f0-9]+)(?:\/([^/]+))?)?((?:\/.*)?))$/;
 const VALID_COMPONENT = /^([^/]+-)?[a-f0-9]+$/;
 class VirtualFS extends ProxiedFS {
   baseFs;
   static makeVirtualPath(base, component, to) {
-    if (ppath.basename(base) !== `__virtual__`)
+    if (ppath.basename(base) !== `__virtual__`) {
       throw new Error(`Assertion failed: Virtual folders must be named "__virtual__"`);
-    if (!ppath.basename(component).match(VALID_COMPONENT))
+    }
+    if (!ppath.basename(component).match(VALID_COMPONENT)) {
       throw new Error(`Assertion failed: Virtual components must be ended by an hexadecimal hash`);
+    }
     const target = ppath.relative(ppath.dirname(base), to);
     const segments = target.split(`/`);
     let depth = 0;
-    while (depth < segments.length && segments[depth] === `..`)
+    while (depth < segments.length && segments[depth] === `..`) {
       depth += 1;
+    }
     const finalSegments = segments.slice(depth);
     const fullVirtualPath = ppath.join(base, component, String(depth), ...finalSegments);
     return fullVirtualPath;
   }
   static resolveVirtual(p) {
     const match = p.match(VIRTUAL_REGEXP);
-    if (!match || !match[3] && match[5])
+    if (!match || !match[3] && match[5]) {
       return p;
+    }
     const target = ppath.dirname(match[1]);
-    if (!match[3] || !match[4])
+    if (!match[3] || !match[4]) {
       return target;
+    }
     const isnum = NUMBER_REGEXP.test(match[4]);
-    if (!isnum)
+    if (!isnum) {
       return p;
+    }
     const depth = Number(match[4]);
     const backstep = `../`.repeat(depth);
     const subpath = match[5] || `.`;
@@ -1396,27 +1610,33 @@ class VirtualFS extends ProxiedFS {
   }
   realpathSync(p) {
     const match = p.match(VIRTUAL_REGEXP);
-    if (!match)
+    if (!match) {
       return this.baseFs.realpathSync(p);
-    if (!match[5])
+    }
+    if (!match[5]) {
       return p;
+    }
     const realpath = this.baseFs.realpathSync(this.mapToBase(p));
     return VirtualFS.makeVirtualPath(match[1], match[3], realpath);
   }
   async realpathPromise(p) {
     const match = p.match(VIRTUAL_REGEXP);
-    if (!match)
+    if (!match) {
       return await this.baseFs.realpathPromise(p);
-    if (!match[5])
+    }
+    if (!match[5]) {
       return p;
+    }
     const realpath = await this.baseFs.realpathPromise(this.mapToBase(p));
     return VirtualFS.makeVirtualPath(match[1], match[3], realpath);
   }
   mapToBase(p) {
-    if (p === ``)
+    if (p === ``) {
       return p;
-    if (this.pathUtils.isAbsolute(p))
+    }
+    if (this.pathUtils.isAbsolute(p)) {
       return VirtualFS.resolveVirtual(p);
+    }
     const resolvedRoot = VirtualFS.resolveVirtual(this.baseFs.resolve(PortablePath.dot));
     const resolvedP = VirtualFS.resolveVirtual(this.baseFs.resolve(p));
     return ppath.relative(resolvedRoot, resolvedP) || PortablePath.dot;
@@ -1426,7 +1646,7 @@ class VirtualFS extends ProxiedFS {
   }
 }
 
-const URL = Number(process.versions.node.split('.', 1)[0]) < 20 ? URL$1 : globalThis.URL;
+const URL = Number(process.versions.node.split(".", 1)[0]) < 20 ? URL$1 : globalThis.URL;
 
 const [major, minor] = process.versions.node.split(`.`).map((value) => parseInt(value, 10));
 const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
@@ -1440,13 +1660,14 @@ function readPackageScope(checkPath) {
   do {
     separatorIndex = checkPath.lastIndexOf(npath.sep);
     checkPath = checkPath.slice(0, separatorIndex);
-    if (checkPath.endsWith(`${npath.sep}node_modules`))
+    if (checkPath.endsWith(`${npath.sep}node_modules`)) {
       return false;
+    }
     const pjson = readPackage(checkPath + npath.sep);
     if (pjson) {
       return {
         data: pjson,
-        path: checkPath
+        path: checkPath,
       };
     }
   } while (separatorIndex > rootSeparatorIndex);
@@ -1454,8 +1675,9 @@ function readPackageScope(checkPath) {
 }
 function readPackage(requestPath) {
   const jsonPath = npath.resolve(requestPath, `package.json`);
-  if (!fs.existsSync(jsonPath))
+  if (!fs.existsSync(jsonPath)) {
     return null;
+  }
   return JSON.parse(fs.readFileSync(jsonPath, `utf8`));
 }
 
@@ -1463,8 +1685,9 @@ async function tryReadFile$1(path2) {
   try {
     return await fs.promises.readFile(path2, `utf8`);
   } catch (error) {
-    if (error.code === `ENOENT`)
+    if (error.code === `ENOENT`) {
       return null;
+    }
     throw error;
   }
 }
@@ -1490,7 +1713,7 @@ function getFileFormat(filepath) {
     }
     case `.wasm`: {
       throw new Error(
-        `Unknown file extension ".wasm" for ${filepath}`
+        `Unknown file extension ".wasm" for ${filepath}`,
       );
     }
     case `.json`: {
@@ -1498,18 +1721,22 @@ function getFileFormat(filepath) {
     }
     case `.js`: {
       const pkg = readPackageScope(filepath);
-      if (!pkg)
+      if (!pkg) {
         return `commonjs`;
+      }
       return pkg.data.type ?? `commonjs`;
     }
     default: {
-      if (entrypointPath !== filepath)
+      if (entrypointPath !== filepath) {
         return null;
+      }
       const pkg = readPackageScope(filepath);
-      if (!pkg)
+      if (!pkg) {
         return `commonjs`;
-      if (pkg.data.type === `module`)
+      }
+      if (pkg.data.type === `module`) {
         return null;
+      }
       return pkg.data.type ?? `commonjs`;
     }
   }
@@ -1517,23 +1744,31 @@ function getFileFormat(filepath) {
 
 async function load$1(urlString, context, nextLoad) {
   const url = tryParseURL(urlString);
-  if (url?.protocol !== `file:`)
+  if (url?.protocol !== `file:`) {
     return nextLoad(urlString, context, nextLoad);
+  }
   const filePath = fileURLToPath(url);
   const format = getFileFormat(filePath);
-  if (!format)
+  if (!format) {
     return nextLoad(urlString, context, nextLoad);
+  }
   if (format === `json`) {
     if (SUPPORTS_IMPORT_ATTRIBUTES_ONLY) {
       if (context.importAttributes?.type !== `json`) {
-        const err = new TypeError(`[ERR_IMPORT_ATTRIBUTE_MISSING]: Module "${urlString}" needs an import attribute of "type: json"`);
+        const err = new TypeError(
+          `[ERR_IMPORT_ATTRIBUTE_MISSING]: Module "${urlString}" needs an import attribute of "type: json"`,
+        );
         err.code = `ERR_IMPORT_ATTRIBUTE_MISSING`;
         throw err;
       }
     } else {
       const type = `importAttributes` in context ? context.importAttributes?.type : context.importAssertions?.type;
       if (type !== `json`) {
-        const err = new TypeError(`[ERR_IMPORT_ASSERTION_TYPE_MISSING]: Module "${urlString}" needs an import ${SUPPORTS_IMPORT_ATTRIBUTES ? `attribute` : `assertion`} of type "json"`);
+        const err = new TypeError(
+          `[ERR_IMPORT_ASSERTION_TYPE_MISSING]: Module "${urlString}" needs an import ${
+            SUPPORTS_IMPORT_ATTRIBUTES ? `attribute` : `assertion`
+          } of type "json"`,
+        );
         err.code = `ERR_IMPORT_ASSERTION_TYPE_MISSING`;
         throw err;
       }
@@ -1542,17 +1777,17 @@ async function load$1(urlString, context, nextLoad) {
   if (process.env.WATCH_REPORT_DEPENDENCIES && process.send) {
     const pathToSend = pathToFileURL(
       npath.fromPortablePath(
-        VirtualFS.resolveVirtual(npath.toPortablePath(filePath))
-      )
+        VirtualFS.resolveVirtual(npath.toPortablePath(filePath)),
+      ),
     ).href;
     process.send({
-      "watch:import": WATCH_MODE_MESSAGE_USES_ARRAYS ? [pathToSend] : pathToSend
+      "watch:import": WATCH_MODE_MESSAGE_USES_ARRAYS ? [pathToSend] : pathToSend,
     });
   }
   return {
     format,
     source: format === `commonjs` ? void 0 : await fs.promises.readFile(filePath, `utf8`),
-    shortCircuit: true
+    shortCircuit: true,
   };
 }
 
@@ -1584,37 +1819,48 @@ function createErrorType(code, messageCreator, errorType) {
 const ERR_PACKAGE_IMPORT_NOT_DEFINED = createErrorType(
   `ERR_PACKAGE_IMPORT_NOT_DEFINED`,
   (specifier, packagePath, base) => {
-    return `Package import specifier "${specifier}" is not defined${packagePath ? ` in package ${packagePath}package.json` : ``} imported from ${base}`;
+    return `Package import specifier "${specifier}" is not defined${
+      packagePath ? ` in package ${packagePath}package.json` : ``
+    } imported from ${base}`;
   },
-  TypeError
+  TypeError,
 );
 const ERR_INVALID_MODULE_SPECIFIER = createErrorType(
   `ERR_INVALID_MODULE_SPECIFIER`,
   (request, reason, base = void 0) => {
     return `Invalid module "${request}" ${reason}${base ? ` imported from ${base}` : ``}`;
   },
-  TypeError
+  TypeError,
 );
 const ERR_INVALID_PACKAGE_TARGET = createErrorType(
   `ERR_INVALID_PACKAGE_TARGET`,
   (pkgPath, key, target, isImport = false, base = void 0) => {
-    const relError = typeof target === `string` && !isImport && target.length && !StringPrototypeStartsWith(target, `./`);
+    const relError = typeof target === `string` && !isImport && target.length
+      && !StringPrototypeStartsWith(target, `./`);
     if (key === `.`) {
       assert(isImport === false);
-      return `Invalid "exports" main target ${JSONStringify(target)} defined in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${relError ? `; targets must start with "./"` : ``}`;
+      return `Invalid "exports" main target ${
+        JSONStringify(target)
+      } defined in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${
+        relError ? `; targets must start with "./"` : ``
+      }`;
     }
-    return `Invalid "${isImport ? `imports` : `exports`}" target ${JSONStringify(
-      target
-    )} defined for '${key}' in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${relError ? `; targets must start with "./"` : ``}`;
+    return `Invalid "${isImport ? `imports` : `exports`}" target ${
+      JSONStringify(
+        target,
+      )
+    } defined for '${key}' in the package config ${pkgPath}package.json${base ? ` imported from ${base}` : ``}${
+      relError ? `; targets must start with "./"` : ``
+    }`;
   },
-  Error
+  Error,
 );
 const ERR_INVALID_PACKAGE_CONFIG = createErrorType(
   `ERR_INVALID_PACKAGE_CONFIG`,
   (path, base, message) => {
     return `Invalid package config ${path}${base ? ` while importing ${base}` : ``}${message ? `. ${message}` : ``}`;
   },
-  Error
+  Error,
 );
 
 function filterOwnProperties(source, keys) {
@@ -1643,7 +1889,7 @@ function getPackageConfig(path, specifier, base, readFileSyncFn) {
       name: void 0,
       type: "none",
       exports: void 0,
-      imports: void 0
+      imports: void 0,
     };
     packageJSONCache.set(path, packageConfig2);
     return packageConfig2;
@@ -1655,14 +1901,14 @@ function getPackageConfig(path, specifier, base, readFileSyncFn) {
     throw new ERR_INVALID_PACKAGE_CONFIG(
       path,
       (base ? `"${specifier}" from ` : "") + fileURLToPath(base || specifier),
-      error.message
+      error.message,
     );
   }
   let { imports, main, name, type } = filterOwnProperties(packageJSON, [
     "imports",
     "main",
     "name",
-    "type"
+    "type",
   ]);
   const exports = ObjectPrototypeHasOwnProperty(packageJSON, "exports") ? packageJSON.exports : void 0;
   if (typeof imports !== "object" || imports === null) {
@@ -1684,7 +1930,7 @@ function getPackageConfig(path, specifier, base, readFileSyncFn) {
     name,
     type,
     exports,
-    imports
+    imports,
   };
   packageJSONCache.set(path, packageConfig);
   return packageConfig;
@@ -1700,7 +1946,7 @@ function getPackageScopeConfig(resolved, readFileSyncFn) {
       fileURLToPath(packageJSONUrl),
       resolved,
       void 0,
-      readFileSyncFn
+      readFileSyncFn,
     );
     if (packageConfig2.exists) {
       return packageConfig2;
@@ -1719,7 +1965,7 @@ function getPackageScopeConfig(resolved, readFileSyncFn) {
     name: void 0,
     type: "none",
     exports: void 0,
-    imports: void 0
+    imports: void 0,
   };
   packageJSONCache.set(packageJSONPath, packageConfig);
   return packageConfig;
@@ -1729,15 +1975,17 @@ function throwImportNotDefined(specifier, packageJSONUrl, base) {
   throw new ERR_PACKAGE_IMPORT_NOT_DEFINED(
     specifier,
     packageJSONUrl && fileURLToPath(new URL(".", packageJSONUrl)),
-    fileURLToPath(base)
+    fileURLToPath(base),
   );
 }
 function throwInvalidSubpath(subpath, packageJSONUrl, internal, base) {
-  const reason = `request is not a valid subpath for the "${internal ? "imports" : "exports"}" resolution of ${fileURLToPath(packageJSONUrl)}`;
+  const reason = `request is not a valid subpath for the "${internal ? "imports" : "exports"}" resolution of ${
+    fileURLToPath(packageJSONUrl)
+  }`;
   throw new ERR_INVALID_MODULE_SPECIFIER(
     subpath,
     reason,
-    base && fileURLToPath(base)
+    base && fileURLToPath(base),
   );
 }
 function throwInvalidPackageTarget(subpath, target, packageJSONUrl, internal, base) {
@@ -1751,14 +1999,16 @@ function throwInvalidPackageTarget(subpath, target, packageJSONUrl, internal, ba
     subpath,
     target,
     internal,
-    base && fileURLToPath(base)
+    base && fileURLToPath(base),
   );
 }
-const invalidSegmentRegEx = /(^|\\|\/)((\.|%2e)(\.|%2e)?|(n|%6e|%4e)(o|%6f|%4f)(d|%64|%44)(e|%65|%45)(_|%5f)(m|%6d|%4d)(o|%6f|%4f)(d|%64|%44)(u|%75|%55)(l|%6c|%4c)(e|%65|%45)(s|%73|%53))(\\|\/|$)/i;
+const invalidSegmentRegEx =
+  /(^|\\|\/)((\.|%2e)(\.|%2e)?|(n|%6e|%4e)(o|%6f|%4f)(d|%64|%44)(e|%65|%45)(_|%5f)(m|%6d|%4d)(o|%6f|%4f)(d|%64|%44)(u|%75|%55)(l|%6c|%4c)(e|%65|%45)(s|%73|%53))(\\|\/|$)/i;
 const patternRegEx = /\*/g;
 function resolvePackageTargetString(target, subpath, match, packageJSONUrl, base, pattern, internal, conditions) {
-  if (subpath !== "" && !pattern && target[target.length - 1] !== "/")
+  if (subpath !== "" && !pattern && target[target.length - 1] !== "/") {
     throwInvalidPackageTarget(match, target, packageJSONUrl, internal, base);
+  }
   if (!StringPrototypeStartsWith(target, "./")) {
     if (internal && !StringPrototypeStartsWith(target, "../") && !StringPrototypeStartsWith(target, "/")) {
       let isURL = false;
@@ -1768,22 +2018,28 @@ function resolvePackageTargetString(target, subpath, match, packageJSONUrl, base
       } catch {
       }
       if (!isURL) {
-        const exportTarget = pattern ? RegExpPrototypeSymbolReplace(patternRegEx, target, () => subpath) : target + subpath;
+        const exportTarget = pattern
+          ? RegExpPrototypeSymbolReplace(patternRegEx, target, () => subpath)
+          : target + subpath;
         return exportTarget;
       }
     }
     throwInvalidPackageTarget(match, target, packageJSONUrl, internal, base);
   }
-  if (RegExpPrototypeExec(
-    invalidSegmentRegEx,
-    StringPrototypeSlice(target, 2)
-  ) !== null)
+  if (
+    RegExpPrototypeExec(
+      invalidSegmentRegEx,
+      StringPrototypeSlice(target, 2),
+    ) !== null
+  ) {
     throwInvalidPackageTarget(match, target, packageJSONUrl, internal, base);
+  }
   const resolved = new URL(target, packageJSONUrl);
   const resolvedPath = resolved.pathname;
   const packagePath = new URL(".", packageJSONUrl).pathname;
-  if (!StringPrototypeStartsWith(resolvedPath, packagePath))
+  if (!StringPrototypeStartsWith(resolvedPath, packagePath)) {
     throwInvalidPackageTarget(match, target, packageJSONUrl, internal, base);
+  }
   if (subpath === "") return resolved;
   if (RegExpPrototypeExec(invalidSegmentRegEx, subpath) !== null) {
     const request = pattern ? StringPrototypeReplace(match, "*", () => subpath) : match + subpath;
@@ -1791,7 +2047,7 @@ function resolvePackageTargetString(target, subpath, match, packageJSONUrl, base
   }
   if (pattern) {
     return new URL(
-      RegExpPrototypeSymbolReplace(patternRegEx, resolved.href, () => subpath)
+      RegExpPrototypeSymbolReplace(patternRegEx, resolved.href, () => subpath),
     );
   }
   return new URL(subpath, resolved);
@@ -1810,7 +2066,8 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
       packageJSONUrl,
       base,
       pattern,
-      internal);
+      internal,
+    );
   } else if (ArrayIsArray(target)) {
     if (target.length === 0) {
       return null;
@@ -1828,7 +2085,7 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
           base,
           pattern,
           internal,
-          conditions
+          conditions,
         );
       } catch (e) {
         lastException = e;
@@ -1846,8 +2103,9 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
       }
       return resolveResult;
     }
-    if (lastException === void 0 || lastException === null)
+    if (lastException === void 0 || lastException === null) {
       return lastException;
+    }
     throw lastException;
   } else if (typeof target === "object" && target !== null) {
     const keys = ObjectGetOwnPropertyNames(target);
@@ -1857,7 +2115,7 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
         throw new ERR_INVALID_PACKAGE_CONFIG(
           fileURLToPath(packageJSONUrl),
           base,
-          '"exports" cannot contain numeric property keys.'
+          "\"exports\" cannot contain numeric property keys.",
         );
       }
     }
@@ -1873,7 +2131,7 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
           base,
           pattern,
           internal,
-          conditions
+          conditions,
         );
         if (resolveResult === void 0) continue;
         return resolveResult;
@@ -1888,7 +2146,7 @@ function resolvePackageTarget(packageJSONUrl, target, subpath, packageSubpath, b
     target,
     packageJSONUrl,
     internal,
-    base
+    base,
   );
 }
 function patternKeyCompare(a, b) {
@@ -1924,7 +2182,7 @@ function packageImportsResolve({ name, base, conditions, readFileSyncFn }) {
           base,
           false,
           true,
-          conditions
+          conditions,
         );
         if (resolveResult != null) {
           return resolveResult;
@@ -1936,17 +2194,22 @@ function packageImportsResolve({ name, base, conditions, readFileSyncFn }) {
         for (let i = 0; i < keys.length; i++) {
           const key = keys[i];
           const patternIndex = StringPrototypeIndexOf(key, "*");
-          if (patternIndex !== -1 && StringPrototypeStartsWith(
-            name,
-            StringPrototypeSlice(key, 0, patternIndex)
-          )) {
+          if (
+            patternIndex !== -1 && StringPrototypeStartsWith(
+              name,
+              StringPrototypeSlice(key, 0, patternIndex),
+            )
+          ) {
             const patternTrailer = StringPrototypeSlice(key, patternIndex + 1);
-            if (name.length >= key.length && StringPrototypeEndsWith(name, patternTrailer) && patternKeyCompare(bestMatch, key) === 1 && StringPrototypeLastIndexOf(key, "*") === patternIndex) {
+            if (
+              name.length >= key.length && StringPrototypeEndsWith(name, patternTrailer)
+              && patternKeyCompare(bestMatch, key) === 1 && StringPrototypeLastIndexOf(key, "*") === patternIndex
+            ) {
               bestMatch = key;
               bestMatchSubpath = StringPrototypeSlice(
                 name,
                 patternIndex,
-                name.length - patternTrailer.length
+                name.length - patternTrailer.length,
               );
             }
           }
@@ -1961,7 +2224,7 @@ function packageImportsResolve({ name, base, conditions, readFileSyncFn }) {
             base,
             true,
             true,
-            conditions
+            conditions,
           );
           if (resolveResult != null) {
             return resolveResult;
@@ -1986,8 +2249,9 @@ function tryReadFile(filePath) {
   try {
     return fs.readFileSync(filePath, `utf8`);
   } catch (err) {
-    if (err.code === `ENOENT`)
+    if (err.code === `ENOENT`) {
       return void 0;
+    }
     throw err;
   }
 }
@@ -1996,33 +2260,38 @@ async function resolvePrivateRequest(specifier, issuer, context, nextResolve) {
     name: specifier,
     base: pathToFileURL(issuer),
     conditions: new Set(context.conditions),
-    readFileSyncFn: tryReadFile
+    readFileSyncFn: tryReadFile,
   });
   if (resolved instanceof URL) {
     return { url: resolved.href, shortCircuit: true };
   } else {
-    if (resolved.startsWith(`#`))
+    if (resolved.startsWith(`#`)) {
       throw new Error(`Mapping from one private import to another isn't allowed`);
+    }
     return resolve$1(resolved, context, nextResolve);
   }
 }
 async function resolve$1(originalSpecifier, context, nextResolve) {
-  if (!findPnpApi || isBuiltin(originalSpecifier))
+  if (!findPnpApi || isBuiltin(originalSpecifier)) {
     return nextResolve(originalSpecifier, context, nextResolve);
+  }
   let specifier = originalSpecifier;
   const url = tryParseURL(specifier, isRelativeRegexp.test(specifier) ? context.parentURL : void 0);
   if (url) {
-    if (url.protocol !== `file:`)
+    if (url.protocol !== `file:`) {
       return nextResolve(originalSpecifier, context, nextResolve);
+    }
     specifier = fileURLToPath(url);
   }
   const { parentURL, conditions = [] } = context;
   const issuer = parentURL && tryParseURL(parentURL)?.protocol === `file:` ? fileURLToPath(parentURL) : process.cwd();
   const pnpapi = findPnpApi(issuer) ?? (url ? findPnpApi(specifier) : null);
-  if (!pnpapi)
+  if (!pnpapi) {
     return nextResolve(originalSpecifier, context, nextResolve);
-  if (specifier.startsWith(`#`))
+  }
+  if (specifier.startsWith(`#`)) {
     return resolvePrivateRequest(specifier, issuer, context, nextResolve);
+  }
   const dependencyNameMatch = specifier.match(pathRegExp);
   let allowLegacyResolve = false;
   if (dependencyNameMatch) {
@@ -2043,25 +2312,28 @@ async function resolve$1(originalSpecifier, context, nextResolve) {
     result = pnpapi.resolveRequest(specifier, issuer, {
       conditions: new Set(conditions),
       // TODO: Handle --experimental-specifier-resolution=node
-      extensions: allowLegacyResolve ? void 0 : []
+      extensions: allowLegacyResolve ? void 0 : [],
     });
   } catch (err) {
-    if (err instanceof Error && `code` in err && err.code === `MODULE_NOT_FOUND`)
+    if (err instanceof Error && `code` in err && err.code === `MODULE_NOT_FOUND`) {
       err.code = `ERR_MODULE_NOT_FOUND`;
+    }
     throw err;
   }
-  if (!result)
+  if (!result) {
     throw new Error(`Resolving '${specifier}' from '${issuer}' failed`);
+  }
   const resultURL = pathToFileURL(result);
   if (url) {
     resultURL.search = url.search;
     resultURL.hash = url.hash;
   }
-  if (!parentURL)
+  if (!parentURL) {
     setEntrypointPath(fileURLToPath(resultURL));
+  }
   return {
     url: resultURL.href,
-    shortCircuit: true
+    shortCircuit: true,
   };
 }
 
@@ -2076,7 +2348,7 @@ if (!HAS_LAZY_LOADED_TRANSLATORS) {
           // @ts-expect-error - The docs says it needs to be a string but
           // links to https://nodejs.org/dist/latest-v20.x/docs/api/fs.html#file-system-flags
           // which says it can be a number which matches the implementation.
-          flag: args[1]
+          flag: args[1],
         });
       } catch {
       }
@@ -2102,7 +2374,7 @@ if (!HAS_LAZY_LOADED_TRANSLATORS) {
             stats.blksize,
             stats.ino,
             stats.size,
-            stats.blocks
+            stats.blocks,
             // atime sec
             // atime ns
             // mtime sec

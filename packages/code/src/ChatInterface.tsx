@@ -1,5 +1,5 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, { memo, useCallback, useEffect, useMemo } from "react";
+import React, {  useCallback, useEffect, useMemo } from "react";
 import { ChatFC, Message } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";

@@ -1,3 +1,4 @@
+import { ImageData } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
@@ -5,7 +6,6 @@ import { useCallback, useMemo } from "react";
 import { Message } from "../types/Message";
 import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 import { useAutoSave } from "./useAutoSave";
-import { ImageData } from "@/lib/interfaces";
 
 export interface UseMessageHandlingProps {
   codeSpace: string;

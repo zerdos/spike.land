@@ -1,68 +1,68 @@
-import { createNewMessage, processMessage, handleError } from '../messageProcessing';
-import { AIHandler } from '@src/AIHandler';
-import { ICode } from '@src/cSess.interface';
-import { ImageData } from '@/lib/interfaces';
-import { Mutex } from 'async-mutex';
-import { describe, it, expect, vi } from 'vitest';
+import { ImageData } from "@/lib/interfaces";
+import { AIHandler } from "@src/AIHandler";
+import { ICode } from "@src/cSess.interface";
+import { Mutex } from "async-mutex";
+import { describe, expect, it, vi } from "vitest";
+import { createNewMessage, handleError, processMessage } from "../messageProcessing";
 
-vi.mock('@src/AIHandler');
-vi.mock('@src/config/aiConfig', () => ({
+vi.mock("@src/AIHandler");
+vi.mock("@src/config/aiConfig", () => ({
   claudeRevery: vi.fn((code) => `Revery: ${code}`),
 }));
 
-describe('messageProcessing', () => {
-  describe('createNewMessage', () => {
-    it('should create a new message with multiple images', async () => {
+describe("messageProcessing", () => {
+  describe("createNewMessage", () => {
+    it("should create a new message with multiple images", async () => {
       const images: ImageData[] = [
-        { data: 'data:image/jpeg;base64,image1data', type: 'image/jpeg' },
-        { data: 'data:image/png;base64,image2data', type: 'image/png' },
+        { data: "data:image/jpeg;base64,image1data", type: "image/jpeg" },
+        { data: "data:image/png;base64,image2data", type: "image/png" },
       ];
-      const content = 'Test message';
+      const content = "Test message";
       const isSystem = false;
 
       const result = await createNewMessage(images, content, isSystem);
 
       expect(result).toEqual({
         id: expect.any(String),
-        role: 'user',
+        role: "user",
         content: [
           {
-            type: 'image',
+            type: "image",
             source: {
-              type: 'base64',
-              media_type: 'image/jpeg',
-              data: 'image1data',
+              type: "base64",
+              media_type: "image/jpeg",
+              data: "image1data",
             },
           },
           {
-            type: 'image',
+            type: "image",
             source: {
-              type: 'base64',
-              media_type: 'image/png',
-              data: 'image2data',
+              type: "base64",
+              media_type: "image/png",
+              data: "image2data",
             },
           },
-          { type: 'text', text: 'Test message' },
+          { type: "text", text: "Test message" },
         ],
       });
     });
 
-    it('should create a new message without images', async () => {
+    it("should create a new message without images", async () => {
       const images: ImageData[] = [];
-      const content = 'Test message';
+      const content = "Test message";
       const isSystem = true;
 
       const result = await createNewMessage(images, content, isSystem);
 
       expect(result).toEqual({
         id: expect.any(String),
-        role: 'system',
-        content: 'Test message',
+        role: "system",
+        content: "Test message",
       });
     });
   });
 
-  describe('processMessage', () => {
+  describe("processMessage", () => {
     const mockAIHandler = {
       sendToAnthropic: vi.fn(),
       sendToGpt4o: vi.fn(),
@@ -76,21 +76,21 @@ describe('messageProcessing', () => {
     const mockSaveMessages = vi.fn();
     const mockMutex = new Mutex();
 
-    it('should process a message successfully', async () => {
+    it("should process a message successfully", async () => {
       mockAIHandler.sendToAnthropic.mockResolvedValue({
-        id: 'assistant-message-id',
-        role: 'assistant',
-        content: 'Assistant response',
+        id: "assistant-message-id",
+        role: "assistant",
+        content: "Assistant response",
       });
 
       const result = await processMessage(
         mockAIHandler,
         mockCSess,
         [],
-        'initial code',
+        "initial code",
         mockSetMessages,
         mockSaveMessages,
-        mockMutex
+        mockMutex,
       );
 
       expect(result).toBe(true);
@@ -99,17 +99,17 @@ describe('messageProcessing', () => {
       expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
 
-    it('should handle errors', async () => {
-      mockAIHandler.sendToAnthropic.mockRejectedValue(new Error('Test error'));
+    it("should handle errors", async () => {
+      mockAIHandler.sendToAnthropic.mockRejectedValue(new Error("Test error"));
 
       const result = await processMessage(
         mockAIHandler,
         mockCSess,
         [],
-        'initial code',
+        "initial code",
         mockSetMessages,
         mockSaveMessages,
-        mockMutex
+        mockMutex,
       );
 
       expect(result).toBe(false);
@@ -117,16 +117,16 @@ describe('messageProcessing', () => {
       expect(mockSaveMessages).not.toHaveBeenCalled();
       expect(mockSetMessages).toHaveBeenCalledWith(expect.arrayContaining([
         expect.objectContaining({
-          role: 'assistant',
-          content: expect.stringContaining('Sorry, there was an error processing your request')
-        })
+          role: "assistant",
+          content: expect.stringContaining("Sorry, there was an error processing your request"),
+        }),
       ]));
       expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
   });
 
-  describe('handleError', () => {
-    it('should add an error message', () => {
+  describe("handleError", () => {
+    it("should add an error message", () => {
       const messages: any[] = [];
       const setMessages = vi.fn();
 
@@ -135,8 +135,8 @@ describe('messageProcessing', () => {
       expect(setMessages).toHaveBeenCalledWith([
         {
           id: expect.any(String),
-          role: 'assistant',
-          content: 'Sorry, there was an error processing your request. Please try again or rephrase your input.',
+          role: "assistant",
+          content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
         },
       ]);
     });

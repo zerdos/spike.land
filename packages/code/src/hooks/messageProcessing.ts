@@ -1,10 +1,10 @@
+import { ImageData } from "@/lib/interfaces";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRevery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
-import { ImageData } from "@/lib/interfaces";
 
 export async function createNewMessage(
   images: ImageData[],
@@ -20,7 +20,7 @@ export async function createNewMessage(
         source: {
           type: "base64",
           media_type: image.type,
-          data: image.data.split(',')[1], // Remove the "data:image/jpeg;base64," prefix
+          data: image.data.split(",")[1], // Remove the "data:image/jpeg;base64," prefix
         },
       });
     });

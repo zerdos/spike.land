@@ -1,4 +1,4 @@
-import { useSyncedStorage } from "./useSyncedStorage";
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -197,7 +197,7 @@ describe("useSyncedStorage", () => {
     });
 
     expect(result1.current[0]).toBe("newValue");
-    
+
     // Wait for the next tick to allow BroadcastChannel to propagate the change
     await new Promise(resolve => setTimeout(resolve, 0));
 

@@ -20,10 +20,11 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types", "@types/node"],
+    "types": ["@cloudflare/workers-types", "@types/node"]
   },
   "exclude": ["**/*.spec.ts", "**/node_modules/*", "**/ .yarn", "**/dist"],
   "include": [
-    "src"
-, "../code/src/utils/diffUtils"  ]
+    "src",
+    "../code/src/utils/diffUtils"
+  ]
 }

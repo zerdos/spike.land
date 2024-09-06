@@ -26,7 +26,6 @@ export interface RenderedApp {
   cleanup: () => void;
 }
 
-
 export interface ImageData {
   imageName: string;
   url: string;

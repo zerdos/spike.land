@@ -7,8 +7,7 @@ Object.assign(globalThis, {
   },
 });
 
-const initAndTransform = (code: string, origin: string) =>
-  transpile(code, origin, wasmModule);
+const initAndTransform = (code: string, origin: string) => transpile(code, origin, wasmModule);
 
 const handleGetRequest = async (codeSpace: string, origin: string) => {
   try {
@@ -41,9 +40,7 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       return new Response(error.message || "unknown error in results", { status: 404 });
     }
 
-    const resText = results.map((result) =>
-      "------+--path: " + result.path + "\n" + result.text
-    ).join("\n");
+    const resText = results.map((result) => "------+--path: " + result.path + "\n" + result.text).join("\n");
 
     return new Response(resText, {
       headers: {

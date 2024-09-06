@@ -1,15 +1,5 @@
-import type {
-  DurableObject,
-  DurableObjectState,
-} from "@cloudflare/workers-types";
-import {
-  CodePatch,
-  createPatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-  md5,
-} from "@spike-land/code";
+import type { DurableObject, DurableObjectState } from "@cloudflare/workers-types";
+import { CodePatch, createPatch, ICodeSession, makeHash, makeSession, md5 } from "@spike-land/code";
 
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -121,9 +111,7 @@ export class Code implements DurableObject {
           !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
       ) {
         // Remove entries younger than 1 minutes
-        this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>
-          currentTime - entry.timestamp >= 60_000
-        );
+        this.autoSaveHistory = this.autoSaveHistory.filter((entry) => currentTime - entry.timestamp >= 60_000);
 
         // Remove entries older than 2 months
         this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>

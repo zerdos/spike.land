@@ -15925,6 +15925,7 @@ __metadata:
     "@cloudflare/vitest-pool-workers": "npm:^0.4.28"
     "@cloudflare/workers-types": "npm:^4.20240903.0"
     "@types/esprima": "npm:^4.0.6"
+    "@types/node": "npm:^22.5.4"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
