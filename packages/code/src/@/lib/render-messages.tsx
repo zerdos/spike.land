@@ -1,3 +1,4 @@
+import React from "react";
 import { getParts } from "@/lib/get-parts";
 import { renderCode } from "@/lib/render-code";
 import { md5 } from "@/lib/md5";
