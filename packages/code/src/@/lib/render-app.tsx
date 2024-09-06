@@ -8,6 +8,7 @@ import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
 import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import {transpile} from "@/lib/shared";
 
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
@@ -36,8 +37,8 @@ async function renderApp(
 
     if (App) {
       AppToRender = App;
-    } else if (transpiled) {
-      AppToRender = (await import(createJsBlob(transpiled))).default;
+    } else if (transpiled || code) {
+      AppToRender = (await import(createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
     } else if (codeSpace) {
       const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(indexJs)).default;
