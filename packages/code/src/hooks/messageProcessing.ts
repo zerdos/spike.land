@@ -30,7 +30,7 @@ export async function createNewMessage(
   return {
     id: Date.now().toString(),
     role: "user",
-    content: content.length > 1 ? content : claudeContent?.trim() || "",
+    content,
   };
 }
 
