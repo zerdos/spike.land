@@ -132,6 +132,11 @@ describe("useSyncedStorage", () => {
     expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
   });
 
+  // Force a re-render to ensure the hook uses the mocked localStorage value
+  act(() => {
+    result.current[1]("dummy"); // This triggers a re-render
+  });
+
   it("should handle function-based state updates correctly", () => {
     const { result } = renderHook(() => useSyncedStorage("testKey", 1));
 
@@ -181,6 +186,11 @@ describe("useSyncedStorage", () => {
     consoleErrorSpy.mockRestore();
   });
 
+  // Clear any remaining console error mocks
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("should synchronize state across tabs using BroadcastChannel", () => {
     const { result: result1 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
     const { result: result2 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
@@ -190,6 +200,11 @@ describe("useSyncedStorage", () => {
     });
 
     expect(result1.current[0]).toBe("newValue");
-    expect(result2.current[0]).toBe("newValue");
+    
+    // Wait for the next tick to allow BroadcastChannel to propagate the change
+    return new Promise(resolve => setTimeout(() => {
+      expect(result2.current[0]).toBe("newValue");
+      resolve();
+    }, 0));
   });
 });
