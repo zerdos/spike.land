@@ -34,3 +34,32 @@ export interface ImageData {
   data: string;
   type: string;
 }
+
+export type MessageContent =
+  | string
+  | Array<{
+    type: "text" | "image";
+    text?: string;
+    source?: {
+      type: "base64";
+      media_type: "image/jpeg" | "image/png";
+      data: string;
+    };
+  }>;
+
+export interface Message {
+  id: string;
+  role: "user" | "system" | "system";
+  content: MessageContent;
+}
+
+export interface LanguageMap {
+  [key: string]: string;
+}
+
+export interface MessagePart {
+  type: "text" | "code";
+  content: string;
+  language?: string;
+  isStreaming?: boolean;
+}

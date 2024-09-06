@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { getParts } from "./getParts";
+import { getParts } from "@/lib/get-parts";
 
 describe("getParts", () => {
   test("should handle text without code blocks", () => {
@@ -298,7 +298,7 @@ These changes will make the Apple Watch Pride Clock look more elegant while main
 
     expect(parts).toMatchSnapshot();
 
-    parts.map(x => {
+    parts.map( (x: { type: string; content: string | string[]; }) => {
       if (x.type === "text") {
         expect(x.content.includes("<<<<<<< SEARCH")).toBe(false);
       }

@@ -1,6 +1,6 @@
+import { extractCodeModification } from "@/lib/chat-utils";
+import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 import { describe, expect, it } from "vitest";
-import { extractCodeModification } from "./chatUtils";
-import { extractDiffContent, isDiffContent } from "./diffUtils";
 
 describe("diffUtils", () => {
   describe("extractDiffContent", () => {

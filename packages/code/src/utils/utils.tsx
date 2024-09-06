@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { DiffEditor } from "../components/DiffEditor";
-import { extractDiffContent, isDiffContent } from "./diffUtils";
-import { getParts } from "./getParts";
+import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
+import { getParts } from "@/lib/get-parts";
 
 // Components
 interface TypingIndicatorProps {
@@ -128,51 +128,6 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }
 );
 
 // Updated renderCode function
-export const renderCode = (value: string, language: string, type: string): JSX.Element => {
-  // console.log("renderCode", value, language);
 
-  if (value.trim().length === 0) {
-    return <></>;
-  }
-  const key = md5(`${value}${language}`);
-
-  if (value.trim().length < 20) {
-    return <pre key={key}>{value.trim()}</pre>;
-  }
-
-  if (type === "text") {
-    return (
-      <Markdown
-        key={key}
-        css={css`
-            margin-top: 12px;
-            margin-bottom: 12px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            letter-spacing: 0.01em;
-          `}
-      >
-        {value}
-      </Markdown>
-    );
-  }
-
-  if (isDiffContent(value)) {
-    const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
-  }
-
-  return <CodeBlock key={key} value={value} language={language} />;
-};
 
 // Updated renderMessage function
-export const renderMessage = (text: string, isUser: boolean): JSX.Element => (
-  <>
-    {getParts(text, isUser).map((part, index) => (
-      <React.Fragment key={index + `-` + md5(part.content)}>
-        {renderCode(part.content, part.language || "typescript", part.type)}
-      </React.Fragment>
-    ))}
-  </>
-);

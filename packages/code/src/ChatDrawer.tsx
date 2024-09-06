@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { MessageInput } from "./chat/components";
-import { Message, MessageContent } from "./types/Message";
+import { Message, MessageContent } from "@/lib/interfaces";
 import { ImageData } from "@/lib/interfaces";
 export type { Message };
 

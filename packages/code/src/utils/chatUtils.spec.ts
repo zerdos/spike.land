@@ -1,5 +1,5 @@
+import { updateSearchReplace } from "@/lib/chat-utils";
 import { describe, expect, it } from "vitest";
-import { updateSearchReplace } from "./chatUtils";
 
 describe("updateSearchReplace", () => {
   it("should return the original code if instructions do not contain \"SEARCH\"", () => {
@@ -15,7 +15,7 @@ describe("updateSearchReplace", () => {
       const a = 1;
       =======
       const a = 2;
-      >>>>>>> REPLACE
+      >>>>>>> REPLACEervices/AIService.ts
     `;
     const codeNow = "const a = 1;";
     const result = updateSearchReplace(instructions, codeNow);

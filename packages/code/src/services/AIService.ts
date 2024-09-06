@@ -1,7 +1,7 @@
+import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
 import { throttle } from "es-toolkit";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
-import { Message, MessageContent } from "../types/Message";
 
 interface AIModelResponse {
   content: string;
