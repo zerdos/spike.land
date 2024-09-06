@@ -15,6 +15,7 @@ export async function handleGPT4Request(
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as {
+    model: string;
     messages: MessageParam[];
     file?: File; // To handle file uploads
   };
@@ -24,6 +25,20 @@ export async function handleGPT4Request(
       "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
     apiKey: env.OPENAI_API_KEY,
   });
+
+  if (body.model === "whisper-1") {
+    const transcription = await openai.audio.transcriptions.create({
+      file: body.file!,
+      model: "whisper-1",
+    });
+
+    return new Response(JSON.stringify(transcription), {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  }
 
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
