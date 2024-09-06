@@ -99,7 +99,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               onClose={onClose}
             />
           </div>
-          <ScrollArea dir={"rtl"} className="flex-grow overflow-y-auto">
+          <ScrollArea className="flex-grow overflow-y-auto">
             <ChatContainer
               messages={messages}
               editingMessageId={editingMessageId}
