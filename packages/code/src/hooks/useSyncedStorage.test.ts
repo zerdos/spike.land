@@ -99,6 +99,7 @@ describe("useSyncedStorage", () => {
   });
 
   it("should use the initial value when storage is empty", () => {
+    localStorageMock.getItem.mockReturnValueOnce(null);
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     expect(result.current[0]).toBe("initialValue");
@@ -118,19 +119,19 @@ describe("useSyncedStorage", () => {
 
   it("should retrieve the value from localStorage if it exists", () => {
     localStorageMock.getItem.mockReturnValueOnce(JSON.stringify("storedValue"));
-
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     expect(result.current[0]).toBe("storedValue");
     expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
+  });
 
-    // Force a re-render to ensure the hook uses the mocked localStorage value
-    act(() => {
-      result.current[1]("dummy"); // This triggers a re-render
-    });
+  it("should handle invalid JSON in localStorage", () => {
+    localStorageMock.getItem.mockReturnValueOnce("invalid JSON");
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    // The value should remain "storedValue" as it's coming from localStorage
-    expect(result.current[0]).toBe("storedValue");
+    expect(result.current[0]).toBe("initialValue");
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
+    expect(console.error).toHaveBeenCalledWith("Error parsing JSON from storage for key 'testKey':", expect.any(Error));
   });
 
   it("should handle function-based state updates correctly", () => {
