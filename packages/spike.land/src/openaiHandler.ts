@@ -30,6 +30,7 @@ export async function handleGPT4Request(
     const transcription = await openai.audio.transcriptions.create({
       file: body.file!,
       model: "whisper-1",
+      language: "en-GB",
     });
 
     return new Response(JSON.stringify(transcription), {

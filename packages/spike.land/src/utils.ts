@@ -68,6 +68,13 @@ export async function readRequestBody(request: Request) {
     return JSON.stringify(await request.json());
   } else if (contentType!.includes("application/text")) {
     return request.text();
+  } else if (contentType!.includes("multipart/form-data")) {
+    const formData = await request.formData();
+    const body: { [key: string]: unknown } = {};
+    for (const entry of formData.entries()) {
+      body[entry[0]] = entry[1];
+    }
+    return JSON.stringify(body);
   } else if (contentType!.includes("text/html")) {
     return request.text();
   } else if (contentType!.includes("form")) {
