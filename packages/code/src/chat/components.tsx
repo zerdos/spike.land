@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 
-import * as ScrollArea from '@radix-ui/react-scroll-area';
+import {ScrollArea} from '@radix-ui/react-scroll-area';
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
@@ -143,7 +143,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   isStreaming,
   isDarkMode,
 }) => {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
   const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
@@ -158,8 +157,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
     messages,
     isStreaming,
     scrollToBottom,
-    scrollAreaRef,
-    scrollAreaRef.current?.scrollHeight,
     lastMessageRef.current,
   ]);
 
@@ -178,10 +175,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   }, [isStreaming]);
 
   return (
-    <ScrollArea.Root>
-    <ScrollArea.Scrollbar orientation="vertical">
 
-
+    <ScrollArea >
     {messages.map((message, index) => (
           <ChatMessage
             key={index + "--" + message.id}
@@ -198,11 +193,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
         <div ref={lastMessageRef} id="typing-indicator" />
+  </ScrollArea>
 
-      <ScrollArea.Thumb />
-    </ScrollArea.Scrollbar>
-    <ScrollArea.Corner />
-  </ScrollArea.Root>     
     
 
        
