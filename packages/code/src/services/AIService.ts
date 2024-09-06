@@ -139,7 +139,6 @@ export class AIService {
 
     return {
       id: result.id,
-      role: "assistant",
       content: result.content,
     };
   }

@@ -88,7 +88,7 @@ export async function processMessage(
       if (success) return true;
 
       // If setting the code fails, try again with a new message
-      const userMessage = await createNewMessage([], claudeRevery(starterCode), false);
+      const userMessage = await createNewMessage([], claudeRevery(starterCode));
       const newMessages = [...updatedMessages, userMessage];
       const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess);
 
