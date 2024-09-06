@@ -1,7 +1,7 @@
+import { cn } from "@/lib/utils";
 import { CodeBlock } from "@/external/CodeBlock";
 import Markdown from "@/external/Markdown";
 import { md5 } from "@/lib/md5";
-import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { DiffEditor } from "../components/DiffEditor";
@@ -15,7 +15,10 @@ interface TypingIndicatorProps {
 
 const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean }> = ({ delay, isDarkMode }) => (
   <motion.div
-    className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-gray-400" : "bg-gray-800"}`}
+    className={cn(
+      "w-2 h-2 rounded-full",
+      isDarkMode ? "bg-gray-400" : "bg-gray-800"
+    )}
     animate={{
       scale: [1, 1.2, 1],
       opacity: [0.5, 1, 0.5],
@@ -59,11 +62,12 @@ interface ColorModeToggleProps {
 export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({ isDarkMode, toggleDarkMode }) => (
   <button
     onClick={toggleDarkMode}
-    className={`p-2 rounded-full backdrop-blur-sm ${
+    className={cn(
+      "p-2 rounded-full backdrop-blur-sm hover:bg-opacity-50 transition-all duration-300",
       isDarkMode
         ? "bg-gray-800/30 text-yellow-400"
         : "bg-yellow-100/30 text-gray-800"
-    } hover:bg-opacity-50 transition-all duration-300`}
+    )}
   >
     {isDarkMode ? "🌙" : "☀️"}
   </button>
@@ -85,14 +89,7 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, typ
   if (type === "text") {
     return (
       <Markdown
-        css={css`
-            margin-top: 12px;
-            margin-bottom: 12px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            letter-spacing: 0.01em;
-          `}
+        className="mt-3 mb-3 font-sans text-sm leading-normal tracking-wide"
       >
         {value}
       </Markdown>
@@ -126,8 +123,3 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }
     ))}
   </>
 );
-
-// Updated renderCode function
-
-
-// Updated renderMessage function
