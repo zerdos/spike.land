@@ -61,7 +61,14 @@ function extractStylesFromStylesheets(key: string): string[] {
   return [
     ...new Set([
       ...Array.from(document.styleSheets)
-        .map((sheet) => Array.from(sheet.cssRules).map(x => x.cssText).filter(x => x.includes(key))).flat(),
+        .map((sheet) => {
+          try {
+            return Array.from(sheet.cssRules).map(x => x.cssText).filter(x => x.includes(key));
+          } catch (e) {
+            console.log(e);
+            return [];
+          }
+        }).flat(),
     ]),
   ];
 }

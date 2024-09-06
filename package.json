@@ -15,7 +15,7 @@
     "test": "yarn workspace @spike-land/code vitest --run",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
-    "deploy:prod": "NODE_ENV=production yarn c:build && cd packages/spike.land &&  yarn prepublishOnly && cd js.spike.land && yarn deploy && cd ../..",
+    "deploy:prod": "yarn c:build && cd packages/spike.land &&  yarn prepublishOnly && cd js.spike.land && yarn deploy && cd ../..",
     "deploy": "yarn fmt && git add . && yarn c:build && yarn c:deploy && git commit -m deploy && git pull  && git push",
     "fastdeploy": "cd packages/code yarn es:build && cd ../spike.land && yarn deploy ",
     "importMap": "yarn workspaces foreach run importMap",
