@@ -1,7 +1,7 @@
 import React from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from "@/components/ui/button";
-import { Bot, X } from "@/external/lucideReact";
+import { Bot, } from "@/external/lucideReact";
 import { ChatHeader, ChatContainer, MessageInput } from "./chat/components";
 import { Message, ImageData } from "@/lib/interfaces";
 
