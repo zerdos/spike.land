@@ -8,6 +8,7 @@ import { TypingIndicator } from "@src/utils/utils";
 import React, { useEffect, useRef, useState } from "react";
 import { ChatContainerProps, ChatHeaderProps, MessageInputProps } from "./types";
 import { renderMessage } from "@/lib/render-messages";
+import { useCodeSpace } from "@src/hooks/useCodeSpace";
 
 export const ChatMessage: React.FC<{
   message: Message;
@@ -249,7 +250,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   isDarkMode,
 }) => {
   const handleSend = () => {
-    handleSendMessage(input, screenshotImage ? [screenshotImage] : []);
+    handleSendMessage(input, screenshotImage ? [{
+      type: "image",
+      mediaType: "image/png",
+      imageName: "screenshot.png",
+      url: location.origin+'/live/'+useCodeSpace()+"/screenshot.png",
+      data: screenshotImage,
+      src: screenshotImage
+    }] : []);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
   };
