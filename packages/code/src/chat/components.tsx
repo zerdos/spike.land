@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import  * as ScrollArea from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
@@ -177,12 +177,11 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   }, [isStreaming]);
 
   return (
-    <ScrollArea
-      className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
-      ref={scrollAreaRef}
-    >
-      <div className="p-4 space-y-4">
-        {messages.map((message, index) => (
+    <ScrollArea.Root>
+    <ScrollArea.Scrollbar orientation="vertical">
+
+
+    {messages.map((message, index) => (
           <ChatMessage
             key={index + "--" + message.id}
             message={message}
@@ -198,8 +197,15 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
         <div ref={lastMessageRef} id="typing-indicator" />
-      </div>
-    </ScrollArea>
+
+      <ScrollArea.Thumb />
+    </ScrollArea.Scrollbar>
+    <ScrollArea.Corner />
+  </ScrollArea.Root>     
+    
+
+       
+    
   );
 });
 
