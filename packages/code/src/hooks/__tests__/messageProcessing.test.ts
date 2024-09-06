@@ -32,9 +32,8 @@ describe("messageProcessing", () => {
         },
       ];
       const content = "Test message";
-      const isSystem = false;
 
-      const result = await createNewMessage(images, content, isSystem);
+      const result = await createNewMessage(images, content);
 
       expect(result).toEqual({
         id: expect.any(String),

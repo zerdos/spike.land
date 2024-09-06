@@ -1,8 +1,8 @@
+import { Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
-import { Message } from "../types/Message";
 
 vi.mock("../services/AIService");
 

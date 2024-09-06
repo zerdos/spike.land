@@ -1,4 +1,4 @@
-import { ImageData } from "@/lib/interfaces";
+import { ImageData, Message } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { act, renderHook } from "@testing-library/react-hooks";
@@ -95,7 +95,7 @@ describe("useMessageHandling", () => {
       id: "message-id",
       role: "user" as const,
       content: [{ type: "text", text: "Original content" }],
-    }];
+    }] as Message[];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages }));
 
     act(() => {
@@ -120,7 +120,7 @@ describe("useMessageHandling", () => {
   it("should handle saving edit", () => {
     const messages = [
       { id: "message-1", role: "user" as const, content: [{ type: "text", text: "Original content" }] },
-    ];
+    ] as Message[];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages, editInput: "Edited content" }));
 
     act(() => {

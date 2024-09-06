@@ -11,7 +11,7 @@ import {  TypingIndicator } from "@src/utils/utils";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 
-import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
+import type { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "@/lib/interfaces";
 
 
 export const ChatHeader: React.FC<ChatHeaderProps> = (

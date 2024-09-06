@@ -1,6 +1,6 @@
 import { ImageData } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
-import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as messageProcessing from "./messageProcessing";

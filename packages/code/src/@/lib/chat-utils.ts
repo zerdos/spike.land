@@ -28,17 +28,17 @@ export const loadMessages = (codeSpace: string): Message[] => {
 };
 
 export const updateSearchReplace = (
-  codeeee: string,
+  oldCode: string,
   codeNow: string,
   em = extractCodeModification,
 ): string => {
   const extractCodeModification = em;
-  if (!codeeee.includes("<<<<<<< SEARCH")) {
+  if (!oldCode.includes("<<<<<<< SEARCH")) {
     return codeNow;
   }
 
   try {
-    const codeToReplace = extractCodeModification(codeeee);
+    const codeToReplace = extractCodeModification(oldCode);
     const modifications = codeToReplace
       .split(MODIFICATION_SEPARATOR)
       .filter((mod) => SEARCH_REPLACE_MARKERS.some((marker) => mod.includes(marker)))

@@ -1,9 +1,9 @@
 import { ImageData } from "@/lib/interfaces";
+import { Message } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";
-import { Message } from "../types/Message";
 import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 import { useAutoSave } from "./useAutoSave";
 
@@ -52,7 +52,7 @@ export const useMessageHandling = ({
       codeSpace,
     );
 
-    const updatedMessages = [...messages, await createNewMessage(images, claudeContent + content, false)];
+    const updatedMessages = [...messages, await createNewMessage(images, claudeContent + content)];
 
     setInput("");
 

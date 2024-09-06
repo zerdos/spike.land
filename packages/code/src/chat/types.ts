@@ -1,7 +1,7 @@
 import { ImageData } from "@/lib/interfaces";
 import { ReactNode } from "react";
 
-import { Message } from "../types/Message";
+import { Message } from "@/lib/interfaces";
 export type { Message };
 
 export interface ChatHeaderProps {
