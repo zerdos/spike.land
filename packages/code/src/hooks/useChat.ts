@@ -1,12 +1,12 @@
-import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { Message } from "@/lib/interfaces";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { useCallback, useRef, useState } from "react";
 
 export const useChat = (
   codeSpace: string,
 ) => {
-  const [messagesRaw, setMessages] = useSyncedStorage(`chatMessages-${codeSpace}`, [] as Message[]);
-  const [isStreaming, setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`, false);
+  const [messagesRaw, setMessages] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, false);
 
   const [input, setInput] = useState("");
   const [codeWhatAiSeen, setAICode] = useState("");

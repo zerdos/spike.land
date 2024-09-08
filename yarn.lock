@@ -3855,6 +3855,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.4.0"
     "@typescript-eslint/typescript-estree": "npm:8.4.0"
     "@typescript/ata": "npm:^0.9.7"
+    "@uidotdev/usehooks": "npm:^2.4.1"
     "@visx/responsive": "npm:^3.10.2"
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@vitest/browser": "npm:^2.0.5"
@@ -4969,6 +4970,16 @@ __metadata:
   peerDependencies:
     typescript: ">=4.4.4"
   checksum: 10/e0a75310cf227998079a370553e8c6b01a4165eaec95279c3f7deeb78eb9babff9fa5824d58b800f7ebbeb44f9728e56fc5bbb2d4d61294188571d5f2b2f9f55
+  languageName: node
+  linkType: hard
+
+"@uidotdev/usehooks@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@uidotdev/usehooks@npm:2.4.1"
+  peerDependencies:
+    react: ">=18.0.0"
+    react-dom: ">=18.0.0"
+  checksum: 10/7f2e1dcfcaf654841150fde36556a257afb2240bca0145586b4e1e9385b85fea108a7dd17c2cbc4c2bd46d136126ffdf84267118933120fe54ad2e028c2dfa68
   languageName: node
   linkType: hard
 

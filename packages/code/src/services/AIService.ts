@@ -140,7 +140,7 @@ export class AIService {
     const lastMessage = messages[messages.length - 1];
 
     return {
-      id: ((+lastMessage.id)+1).toString(),
+      id: ((+lastMessage.id) + 1).toString(),
       role: "assistant",
       content: result.content,
     };

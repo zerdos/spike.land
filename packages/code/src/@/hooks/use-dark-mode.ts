@@ -1,4 +1,4 @@
-import { useSyncedStorage } from "@/hooks/use-synced-storage";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 
 export const useDarkMode = () => {
@@ -7,7 +7,7 @@ export const useDarkMode = () => {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   };
 
-  const [isDarkMode, setIsDarkMode] = useSyncedStorage<boolean>("darkMode", getInitialDarkMode());
+  const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>("darkMode", getInitialDarkMode());
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

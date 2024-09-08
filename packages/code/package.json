@@ -105,6 +105,7 @@
     "@types/isomorphic-fetch": "0.0.39",
     "@typescript-eslint/typescript-estree": "8.4.0",
     "@typescript/ata": "^0.9.7",
+    "@uidotdev/usehooks": "^2.4.1",
     "@visx/responsive": "^3.10.2",
     "ace-builds": "1.36.2",
     "assert": "2.1.0",

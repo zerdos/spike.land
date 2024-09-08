@@ -1,6 +1,7 @@
 import { Progress } from "@/components/ui/progress";
-import { useSyncedStorage } from "@/hooks/use-synced-storage";
+
 import { cn } from "@/lib/utils";
+import { useLocalStorage } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 
 interface AIBuildingOverlayProps {
@@ -8,7 +9,7 @@ interface AIBuildingOverlayProps {
 }
 
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming] = useSyncedStorage(`streaming-${codeSpace}`);
+  const [isStreaming] = useLocalStorage(`streaming-${codeSpace}`);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
