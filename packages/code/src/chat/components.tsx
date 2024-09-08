@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
 import { TypingIndicator } from "@src/utils/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChatContainerProps, ChatHeaderProps, MessageInputProps } from "./types";
 import { renderMessage } from "@/lib/render-messages";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
@@ -141,23 +141,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   isStreaming,
   isDarkMode,
 }) => {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const lastMessageRef = useRef<HTMLDivElement>(null);
 
   const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
-
-  const scrollToBottom = () =>
-    lastMessageRef.current! && lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-
-  useEffect(() => {
-    const timeoutId = setTimeout(scrollToBottom, 100);
-    return () => clearTimeout(timeoutId);
-  }, [
-    messages,
-    isStreaming,
-    scrollToBottom,
-    lastMessageRef.current,
-  ]);
 
   // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {

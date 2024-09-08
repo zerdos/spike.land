@@ -7,7 +7,6 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { ICode } from "./cSess.interface";
-import { useMediaQuery } from "./hooks/useMediaQuery";
 
 const ResizeHandle = () => (
   <PanelResizeHandle className="w-2 bg-white/20 hover:bg-white/40 transition-colors">
@@ -19,7 +18,7 @@ const ResizeHandle = () => (
 
 export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const [hideRest, setHideRest] = useState(true);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  
 
   const reveal = async () => {
     // ... (keep the existing reveal logic)
@@ -76,7 +75,6 @@ export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ 
                 <ChatInterface
                   isOpen={true}
                   onClose={() => {}}
-                  isMobile={isMobile}
                   cSess={cSess}
                 />
               </Panel>

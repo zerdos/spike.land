@@ -12,8 +12,6 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { ICode } from '@/lib/interfaces';
 import { DraggableWindow } from "./DraggableWindow";
-// import { useClerkSWR } from "./hooks/useClerkSWR";
-import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 
 export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const sp = new URLSearchParams(location.search);
@@ -42,8 +40,6 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
         setIsOpen(true);
       }
     }}, []);
-
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const reveal = async () => {
     console.log("Revealing");
@@ -183,7 +179,6 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
               cSess={cSess}
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
-              isMobile={isMobile}
             />
 
             <Button

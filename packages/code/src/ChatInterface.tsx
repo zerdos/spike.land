@@ -13,8 +13,7 @@ export const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
-  isMobile: boolean;
-}> = React.memo(({ onClose, isOpen, isMobile, cSess }) => {
+}> = React.memo(({ onClose, isOpen, cSess }) => {
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -90,8 +89,7 @@ export const ChatInterface: React.FC<{
     isScreenshotLoading,
     screenshotImage,
     handleScreenshotClick,
-    handleCancelScreenshot,
-    isMobile,
+    handleCancelScreenshot
   }), [
     isOpen,
     onClose,
@@ -108,8 +106,7 @@ export const ChatInterface: React.FC<{
     input,
     handleCancelEdit,
     isScreenshotLoading,
-    screenshotImage,
-    isMobile,
+    screenshotImage
   ]);
 
   useEffect(() => {
@@ -158,7 +155,6 @@ export const ChatInterface: React.FC<{
       screenshotImage={screenshotImage}
       handleScreenshotClick={handleScreenshotClick}
       handleCancelScreenshot={handleCancelScreenshot}
-      isMobile={isMobile}
       editingMessageId={editingMessageId}
       editInput={editInput}
       setEditInput={setEditInput}

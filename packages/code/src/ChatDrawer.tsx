@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
@@ -24,7 +24,6 @@ interface ChatDrawerProps {
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
-  isMobile: boolean;
   editingMessageId: string | null;
   editInput: string;
   setEditInput: (input: string) => void;
@@ -49,7 +48,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   screenshotImage,
   handleScreenshotClick,
   handleCancelScreenshot,
-  isMobile,
   editingMessageId,
   editInput,
   setEditInput,
