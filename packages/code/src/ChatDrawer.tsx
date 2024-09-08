@@ -1,12 +1,10 @@
-import React  from 'react';
+import React from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { ChatHeader, ChatContainer, MessageInput } from "./chat/components";
 import { Message, ImageData } from "@/lib/interfaces";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 
 interface ChatDrawerProps {
   isOpen: boolean;
@@ -55,9 +53,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleCancelEdit,
   handleSaveEdit,
 }) => {
-  
-
-
   return (
     <>
       <Button
@@ -78,7 +73,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
       >
-        <div className="flex flex-col h-full" >
+        <div className="flex flex-col h-full">
           <div className="flex-shrink-0">
             <ChatHeader
               isDarkMode={isDarkMode}
@@ -87,36 +82,36 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               onClose={onClose}
             />
           </div>
-          <ScrollArea className="flex-grow overflow-y-auto">
-            <ChatContainer
-              messages={messages}
-              editingMessageId={editingMessageId}
-              editInput={editInput}
-              setEditInput={setEditInput}
-              handleCancelEdit={handleCancelEdit}
-              handleSaveEdit={handleSaveEdit}
-              handleEditMessage={handleEditMessage}
-              isStreaming={isStreaming}
-              isDarkMode={isDarkMode}
-
-            />
+          <div className="flex-grow flex flex-col overflow-hidden">
+            <ScrollArea className="flex-grow">
+              <ChatContainer
+                messages={messages}
+                editingMessageId={editingMessageId}
+                editInput={editInput}
+                setEditInput={setEditInput}
+                handleCancelEdit={handleCancelEdit}
+                handleSaveEdit={handleSaveEdit}
+                handleEditMessage={handleEditMessage}
+                isStreaming={isStreaming}
+                isDarkMode={isDarkMode}
+              />
+              <div id="typing-indicator" />
+            </ScrollArea>
+            <div className="flex-shrink-0">
               <MessageInput
-              input={input}
-              setInput={setInput}
-              handleSendMessage={handleSendMessage}
-              isStreaming={isStreaming}
-              inputRef={inputRef}
-              isScreenshotLoading={isScreenshotLoading}
-              screenshotImage={screenshotImage}
-              handleScreenshotClick={handleScreenshotClick}
-              handleCancelScreenshot={handleCancelScreenshot}
-              isDarkMode={isDarkMode}
-            />
-            <div id="typing-indicator" />
-          </ScrollArea>
-
-        
-
+                input={input}
+                setInput={setInput}
+                handleSendMessage={handleSendMessage}
+                isStreaming={isStreaming}
+                inputRef={inputRef}
+                isScreenshotLoading={isScreenshotLoading}
+                screenshotImage={screenshotImage}
+                handleScreenshotClick={handleScreenshotClick}
+                handleCancelScreenshot={handleCancelScreenshot}
+                isDarkMode={isDarkMode}
+              />
+            </div>
+          </div>
         </div>
       </SwipeableDrawer>
     </>
