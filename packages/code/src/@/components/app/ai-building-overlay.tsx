@@ -48,7 +48,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
         />
         AI is building... This may take a few moments.
       </div>
-      <Progress progress={progress} className="w-full"  />
+      <Progress value={progress} className="w-full"  />
     </div>
   );
 }
