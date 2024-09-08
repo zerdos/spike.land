@@ -1,4 +1,4 @@
-import { createWorkflow, serverFetchUrl } from "@spike-land/code";
+import {  serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
 import { handleEnhancedFetch } from "./enhancedFetchHandler";
 import Env from "./env";
@@ -67,18 +67,18 @@ export default {
       return handleCMSIndexRequest(request, env);
     }
 
-    if (request.url.includes("/langChain/")) {
-      const searchParams = new URLSearchParams(request.url);
-      const q = searchParams.get("q")!;
+    // if (request.url.includes("/langChain/")) {
+    //   const searchParams = new URLSearchParams(request.url);
+    //   const q = searchParams.get("q")!;
 
-      const answer: string = await createWorkflow(q);
+    //   const answer: string = await createWorkflow(q);
 
-      return new Response(answer, {
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-    }
+    //   return new Response(answer, {
+    //     headers: {
+    //       "Content-Type": "text/plain",
+    //     },
+    //   });
+    // }
 
     if (request.url.includes("/api/my-turn")) {
       async function generateTURNCredentials() {
