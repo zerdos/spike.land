@@ -40,13 +40,32 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       return new Response(error.message || "unknown error in results", { status: 404 });
     }
 
-    const resText = results.map((result) => "------+--path: " + result.path + "\n" + result.text).join("\n");
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+    <head profile="http://www.w3.org/2005/10/profile">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+      <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+      <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+      <base href="/">
+      <title>CodeSpace archive for ${codeSpace} </title>
+      <style>
+  ${results.find((result) => result.path.endsWith(".css"))?.text}
+      </style>
+    </head>
+    <body>
+      <div id="embed"></div>
+      <script>
+  ${results.find((result) => result.path.endsWith(".mjs"))?.text}
+      </script>
+    </body>
+    </html>`
 
-    return new Response(resText, {
+    return new Response(html, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
-        "Content-Type": "text/plain",
+        "Content-Type": "text/html",
         "cache-control": "no-cache",
       },
     });
