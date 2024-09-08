@@ -1,6 +1,5 @@
 import { ata } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
-import { useDarkMode } from "@/hooks/use-dark-mode";
 
 const originToUse = location.origin;
 
@@ -160,7 +159,7 @@ export const startMonaco = async ({
   code,
   container,
   codeSpace,
-  onChange,
+  onChange
 }: {
   code: string;
   container: HTMLDivElement;
@@ -226,7 +225,7 @@ async function startMonacoPristine({
       enabled: true,
     },
     definitionLinkOpensInPeek: true,
-    theme: useDarkMode().isDarkMode ? "vs-dark" : "vs-light",
+    theme: "vs-dark",
     autoClosingBrackets: "languageDefined",
   });
 
