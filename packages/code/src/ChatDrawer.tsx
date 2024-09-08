@@ -30,6 +30,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleCancelEdit,
   handleSaveEdit,
 }) => {
+  
   const handlers = useSwipeable({
     onSwipedLeft: onClose,
     trackMouse: true,
