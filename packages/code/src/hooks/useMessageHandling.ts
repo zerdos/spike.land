@@ -109,7 +109,7 @@ export const useMessageHandling = ({
       msg.id === messageId
         ? {
           ...msg,
-          content: Array.isArray(msg.content)
+          content: typeof msg.content === "string" ? msg.content : Array.isArray(msg.content)
             ? msg.content.map(item => item.type === "text" ? { ...item, text: editInput } : item)
             : editInput,
         }
