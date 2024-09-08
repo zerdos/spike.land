@@ -143,6 +143,7 @@ export function importMapReplace(code: string, origin: string): string {
     replaced = replaced.replace(bareImportRegex, `import$1${origin}${oo[pkg as keyof typeof oo]}$2`);
   });
 
+  replaced = ` /* importMapReplace */\n${replaced}`;
   // Preserve original formatting
   const originalLines = str.split("\n");
   const replacedLines = replaced.split("\n");
