@@ -42,6 +42,7 @@ const handleDefaultPage = async () => {
           document.body.appendChild(myEl);
 
           if (rendered) rendered.cleanup();
+          rendered = null;
 
           rendered = await renderApp({
             transpiled,
@@ -62,6 +63,8 @@ const handleDefaultPage = async () => {
 
     window.onmessage = async ({ data }) => {
       try {
+        rendered && rendered.cleanup();
+        rendered = null;
         const { i, transpiled } = data;
 
         // if (!i || !transpiled || mod.counter >= i) return;
