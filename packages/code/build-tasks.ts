@@ -253,6 +253,8 @@ async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void
 
       if (fileStat.isDirectory()) {
         // If it's a directory, recursively process its contents
+
+        if (!filePath.includes(".worker")) 
         await runImportMapReplaceOnAllFilesRecursive(filePath);
       } else {
         // If it's a file, process it
