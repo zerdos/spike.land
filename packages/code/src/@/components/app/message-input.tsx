@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Camera, Send, X } from "@/external/lucideReact";
+import { Camera, Send, X, Upload } from "@/external/lucideReact";
 import { useCodeSpace } from "@/hooks/use-code-space";
 
 import type { MessageInputProps } from "@/lib/interfaces";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const MessageInput: React.FC<MessageInputProps> = ({
@@ -19,17 +19,69 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleCancelScreenshot,
   isDarkMode,
 }) => {
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleSend = () => {
-    handleSendMessage(input, screenshotImage ? [{
-      type: "image/png",
-      mediaType: "image/png",
-      imageName: "screenshot.png",
-      url: location.origin+'/live/'+useCodeSpace()+"/screenshot.png",
-      data: screenshotImage,
-      src: screenshotImage
-    }] : []);
+    const images = [
+      ...(screenshotImage ? [{
+        type: "image/png",
+        mediaType: "image/png",
+        imageName: "screenshot.png",
+        url: location.origin+'/live/'+useCodeSpace()+"/screenshot.png",
+        data: screenshotImage,
+        src: screenshotImage
+      }] : []),
+      ...uploadedImages.map(image => ({
+        type: "image/png",
+        mediaType: "image/png",
+        imageName: "uploaded_image.png",
+        url: image,
+        data: image,
+        src: image
+      }))
+    ];
+    handleSendMessage(input, images);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
+    setUploadedImages([]); // Clear uploaded images after sending
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setUploadedImages(prev => [...prev, e.target?.result as string]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    if (files) {
+      Array.from(files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            setUploadedImages(prev => [...prev, e.target?.result as string]);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  };
+
+  const removeUploadedImage = (index: number) => {
+    setUploadedImages(prev => prev.filter((_, i) => i !== index));
   };
 
   if (isStreaming) {
@@ -37,19 +89,40 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   }
 
   return (
-    <div className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}>
+    <div 
+      className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
       <div className="flex flex-col space-y-2">
-        {screenshotImage && (
-          <div className="relative">
-            <img src={screenshotImage} alt="Screenshot Preview" className="max-w-full h-auto rounded-lg" />
-            <Button
-              variant="secondary"
-              size="sm"
-              className="absolute top-2 right-2"
-              onClick={handleCancelScreenshot}
-            >
-              <X className="h-4 w-4" />
-            </Button>
+        {(screenshotImage || uploadedImages.length > 0) && (
+          <div className="flex flex-wrap gap-2">
+            {screenshotImage && (
+              <div className="relative">
+                <img src={screenshotImage} alt="Screenshot Preview" className="max-w-[100px] h-auto rounded-lg" />
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="absolute top-1 right-1"
+                  onClick={handleCancelScreenshot}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+            )}
+            {uploadedImages.map((image, index) => (
+              <div key={index} className="relative">
+                <img src={image} alt={`Uploaded ${index}`} className="max-w-[100px] h-auto rounded-lg" />
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="absolute top-1 right-1"
+                  onClick={() => removeUploadedImage(index)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+            ))}
           </div>
         )}
         <div className="flex items-end space-x-2">
@@ -87,8 +160,17 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                 : <Camera className="h-4 w-4" />}
             </Button>
             <Button
+              onClick={() => fileInputRef.current?.click()}
+              variant="outline"
+              size="icon"
+              title="Upload image"
+              className="bg-gradient-to-r from-green-500 to-teal-500 text-white hover:from-green-600 hover:to-teal-600"
+            >
+              <Upload className="h-4 w-4" />
+            </Button>
+            <Button
               onClick={handleSend}
-              disabled={input.trim() === "" && !screenshotImage}
+              disabled={input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
               size="icon"
             >
               <Send className="h-4 w-4" />
@@ -96,6 +178,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           </div>
         </div>
       </div>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageUpload}
+        accept="image/*"
+        multiple
+        className="hidden"
+      />
     </div>
   );
 };
