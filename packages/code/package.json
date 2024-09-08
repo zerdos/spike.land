@@ -175,6 +175,7 @@
     "react-resizable-panels": "^2.1.2",
     "react-reverse-portal": "^2.1.2",
     "react-spring": "^9.7.4",
+    "react-swipeable": "^7.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-use": "^17.5.1",
     "recharts": "^2.12.7",

@@ -3937,6 +3937,7 @@ __metadata:
     react-resizable-panels: "npm:^2.1.2"
     react-reverse-portal: "npm:^2.1.2"
     react-spring: "npm:^9.7.4"
+    react-swipeable: "npm:^7.0.1"
     react-syntax-highlighter: "npm:^15.5.0"
     react-use: "npm:^17.5.1"
     recharts: "npm:^2.12.7"
@@ -14744,6 +14745,15 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/80c58fd6aac3594e351e2e7b048d8a5b09508adb21031a38b3c40911fe58295572eddc640d4b20a7be364842c8ed1120fe30097e22ea055316b375b88d4ff02a
+  languageName: node
+  linkType: hard
+
+"react-swipeable@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "react-swipeable@npm:7.0.1"
+  peerDependencies:
+    react: ^16.8.3 || ^17 || ^18
+  checksum: 10/b4aa3e8222e34d53f98df80075bdd7a034b33e733952844931a520158c49a892e53fdd497e53ee0f74c502eec21db3d6c9dbc97e251881c2032fe7fd5a0145c8
   languageName: node
   linkType: hard
 

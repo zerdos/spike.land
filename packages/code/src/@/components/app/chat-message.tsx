@@ -26,7 +26,6 @@ export const ChatMessage: React.FC<{
     handleCancelEdit: () => void;
     handleSaveEdit: (id: string) => void;
     isDarkMode: boolean;
-    onImageUpload: (images: ImageData[]) => void;
   }> = React.memo(({
     message,
     isSelected,
@@ -37,7 +36,6 @@ export const ChatMessage: React.FC<{
     handleCancelEdit,
     handleSaveEdit,
     isDarkMode,
-    onImageUpload,
   }) => {
     const isUser = message.role === "user";
     const isSystem = message.role === "system";
@@ -109,7 +107,6 @@ export const ChatMessage: React.FC<{
       if (files && files.length > 0) {
         const newImages = await Promise.all(Array.from(files).map(processImage));
         setImages((prevImages) => [...prevImages, ...newImages]);
-        onImageUpload([...images, ...newImages]);
       }
     };
 

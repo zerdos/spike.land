@@ -1,5 +1,5 @@
 import React from 'react';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { useSwipeable } from 'react-swipeable';
 import { Button } from "@/components/ui/button";
 import { MessageInput } from "@/components/app/message-input";
 import { Bot } from "@/external/lucideReact";
@@ -30,6 +30,11 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleCancelEdit,
   handleSaveEdit,
 }) => {
+  const handlers = useSwipeable({
+    onSwipedLeft: onClose,
+    trackMouse: true,
+  });
+
   return (
     <>
       <Button
@@ -38,18 +43,19 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
       >
         <Bot className="h-6 w-6" />
       </Button>
-      <SwipeableDrawer
-        anchor="right"
-        open={isOpen}
-        onClose={onClose}
-        onOpen={() => {}}
-        
-        hideBackdrop={true}
-        swipeAreaWidth={30}
-        disableBackdropTransition={false}
-        classes={{
-          paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
-        }}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-[1000] transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={onClose}
+      />
+      <div
+        {...handlers}
+        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] max-w-full ${
+          isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
+        } z-[1001] transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
         <div className="flex flex-col h-full">
           <div className="flex-shrink-0">
@@ -91,7 +97,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
             </div>
           </div>
         </div>
-      </SwipeableDrawer>
+      </div>
     </>
   );
 };
