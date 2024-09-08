@@ -254,9 +254,10 @@ async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void
       if (fileStat.isDirectory()) {
         // If it's a directory, recursively process its contents
 
-        if (!filePath.includes("worker"))  await runImportMapReplaceOnAllFilesRecursive(filePath);
+         await runImportMapReplaceOnAllFilesRecursive(filePath);
       } else {
         // If it's a file, process it
+        if (filePath.includes("worker")) continue;
         const content = await readFile(filePath, "utf8");
         const newContent = importMapReplace(content, "xxxx").split("xxxx/").join("/");
         await writeFile(filePath, newContent);
