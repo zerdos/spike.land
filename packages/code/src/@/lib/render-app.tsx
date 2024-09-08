@@ -21,7 +21,7 @@ async function renderApp(
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
-      rootEl.id = "root";
+     // rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
     // rootEl.id = "root";
