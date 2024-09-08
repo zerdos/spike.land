@@ -87,11 +87,14 @@ const handleDefaultPage = async () => {
           if (signal.aborted) return renderedNew.cleanup();
 
           const res = await handleRender(myEl, renderedNew.cssCache, signal, mod);
-          renderedNew.cleanup();
 
           if (res !== false) {
             const { css, html } = res;
             window.parent.postMessage({ i, css, html }, "*");
+            rendered && rendered.cleanup();
+            rendered = renderedNew;
+            myEl.style.display = "block";
+            myEl.id = "root";
           }
         });
       } catch (error) {
