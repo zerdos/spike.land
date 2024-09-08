@@ -3,7 +3,7 @@ import React, {  useCallback, useEffect, useMemo } from "react";
 import { ChatDrawer } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
-import { useCodeSpace } from "./hooks/useCodeSpace";
+import { useCodeSpace } from "@/hooks/use-code-space";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
 import { ImageData, Message } from "@/lib/interfaces";

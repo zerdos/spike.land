@@ -1,4 +1,4 @@
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 import { ICode } from "./cSess.interface";
 import { AIService } from "./services/AIService";
 

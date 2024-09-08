@@ -1,5 +1,5 @@
-import { ICodeSession } from "@/lib/interfaces";
-import { useCodeSpace } from "./hooks/useCodeSpace";
+import { useCodeSpace } from "@/hooks/use-code-space";
+import type { ICodeSession } from "@/lib/interfaces";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ICode, HistoryItemProps, IHistoryItem } from "@/lib/interfaces";
-import { useCodeSpace } from "@src/hooks/useCodeSpace";
+import { useCodeSpace } from "@/hooks/use-code-space";
 import { format } from "date-fns";
 import React from "react";
 

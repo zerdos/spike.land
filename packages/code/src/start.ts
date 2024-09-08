@@ -1,5 +1,5 @@
+import { useCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
-import { useCodeSpace } from "./hooks/useCodeSpace";
 
 if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");

@@ -1,34 +1,11 @@
 import React from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from "@/components/ui/button";
+import { MessageInput } from "@/components/app/message-input";
 import { Bot } from "@/external/lucideReact";
-import { ChatHeader, ChatContainer, MessageInput } from "./chat/components";
-import { Message, ImageData } from "@/lib/interfaces";
+import { ChatHeader, ChatContainer } from "./chat/components";
+import type { ChatDrawerProps } from "@/lib/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-interface ChatDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-  handleResetChat: () => void;
-  messages: Message[];
-  isStreaming: boolean;
-  input: string;
-  setInput: (input: string) => void;
-  handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
-  inputRef: React.RefObject<HTMLTextAreaElement>;
-  isScreenshotLoading: boolean;
-  screenshotImage: string | null;
-  handleScreenshotClick: () => void;
-  handleCancelScreenshot: () => void;
-  editingMessageId: string | null;
-  editInput: string;
-  setEditInput: (input: string) => void;
-  handleEditMessage: (messageId: string) => void;
-  handleCancelEdit: () => void;
-  handleSaveEdit: (messageId: string) => void;
-}
 
 export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   isOpen,
