@@ -70,28 +70,19 @@ export function importMapReplace(code: string, origin: string): string {
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"${origin}/live/${packageName.slice(2)}/index.js"` + p3;
+    if (packageName.startsWith("./") || packageName.startsWith("../")) {
+      return match; // Keep relative imports as they are
     }
 
     if (packageName.startsWith("/")) {
-      return p1 + `"${origin}${packageName}"` + p3;
-    }
-
-    if (packageName.startsWith(".") || packageName.startsWith("http")) {
-      if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
-        const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
-        if (exports) {
-          return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
-        }
-        return match; // Keep external URLs as they are
+      if (packageName.startsWith("/live")) {
+        return p1 + `"${origin}${packageName}/index.js"` + p3;
       }
-      return match;
+      return match; // Keep absolute imports as they are
     }
 
-    if (packageName.startsWith("/live")) {
-      return p1 + `"${origin}${packageName}/index.js"` + p3;
+    if (packageName.startsWith("http")) {
+      return match; // Keep external URLs as they are
     }
 
     if (packageName.startsWith("@/")) {
@@ -137,26 +128,31 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(dynamicImportTemplatePattern, replacer)
     .replace(topLeveNoFromPattern, replacer);
 
-  replaced = replaced.split("\n").map((line) => {
-    line.trim();
-    return line;
-  }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
-      origin + oo[pkg as keyof typeof oo],
-    );
+    const importRegex = new RegExp(`(import|from)\\s+(['"\`])${pkg}(['"\`])`, "g");
+    replaced = replaced.replace(importRegex, `$1 $2${origin}${oo[pkg as keyof typeof oo]}$3`);
+
+    // Handle dynamic imports
+    const dynamicImportRegex = new RegExp(`import\\((['"\`])${pkg}(['"\`])\\)`, "g");
+    replaced = replaced.replace(dynamicImportRegex, `import($1${origin}${oo[pkg as keyof typeof oo]}$2)`);
+
+    // Handle bare imports
+    const bareImportRegex = new RegExp(`import\\s*(['"\`])${pkg}(['"\`])`, "g");
+    replaced = replaced.replace(bareImportRegex, `import$1${origin}${oo[pkg as keyof typeof oo]}$2`);
   });
 
-  Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`"${pkg}"`).join(
-      "\"" + origin + oo[pkg as keyof typeof oo] + "\"",
-    );
+  // Preserve original formatting
+  const originalLines = str.split("\n");
+  const replacedLines = replaced.split("\n");
+  const preservedLines = originalLines.map((line, index) => {
+    if (index < replacedLines.length) {
+      const leadingSpaces = line.match(/^\s*/)[0];
+      return leadingSpaces + replacedLines[index].trim();
+    }
+    return line;
   });
-
-  return `
-  /** importMapReplace */
-  ` + replaced;
+  return preservedLines.join("\n");
 }
 
 export default importMap;
