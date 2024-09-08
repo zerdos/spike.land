@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { ChatContainerProps, ChatHeaderProps, MessageInputProps } from "./types";
 import { renderMessage } from "@/lib/render-messages";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const ChatMessage: React.FC<{
   message: Message;
@@ -115,11 +116,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (
   >
     <span>AI spike pilot</span>
     <div className="flex items-center space-x-2">
-      <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-        {isDarkMode
-          ? <Sun className="h-4 w-4" />
-          : <Moon className="h-4 w-4" />}
-      </Button>
+      <ThemeToggle /> 
       <Button variant="ghost" size="icon" onClick={handleResetChat}>
         <RefreshCw className="h-4 w-4" />
       </Button>
