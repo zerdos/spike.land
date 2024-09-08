@@ -31,6 +31,7 @@ const handleDefaultPage = async () => {
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
         await mutex.runExclusive(async () => {
+          console.log("Updating rendered app...");
           const { transpiled } = sess;
 
           const myEl = document.createElement("div");
