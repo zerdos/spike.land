@@ -9,7 +9,6 @@ import { Code } from "./services/CodeSession";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
-import { doc } from "prettier";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
