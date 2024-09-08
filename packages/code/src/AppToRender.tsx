@@ -118,6 +118,22 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
           <SignedIn>
             <UserButton />
           </SignedIn>
+
+          {showAutoSaveHistory && (
+              <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
+                  <CodeHistoryCarousel
+                    onClose={() => setShowAutoSaveHistory(false)}
+                    onRestore={() => {
+                      setShowAutoSaveHistory(false);
+                    }}
+                    codeSpace={codeSpace}
+                    cSess={cSess}
+                  />
+                </div>
+              </div>
+            )}
+            
         </header>
       )}
       <div
@@ -197,20 +213,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
               Version History
             </Button>
 
-            {showAutoSaveHistory && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
-                  <CodeHistoryCarousel
-                    onClose={() => setShowAutoSaveHistory(false)}
-                    onRestore={() => {
-                      setShowAutoSaveHistory(false);
-                    }}
-                    codeSpace={codeSpace}
-                    cSess={cSess}
-                  />
-                </div>
-              </div>
-            )}
+          
           </RainbowWrapper>
         )}
       </div>
