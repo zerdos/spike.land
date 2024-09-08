@@ -60,7 +60,7 @@ export class AIService {
 
   private formatMessageContent(content: MessageContent): any {
     if (typeof content === "string") {
-      return { type: "text", text: content };
+      return content;
     } else if (Array.isArray(content)) {
       return content.map(item => {
         if (item.type === "image" && item.source) {
