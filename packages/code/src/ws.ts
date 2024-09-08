@@ -83,22 +83,11 @@ const handleDefaultPage = async () => {
           if (signal.aborted) return renderedNew.cleanup();
 
           const res = await handleRender(myEl, renderedNew.cssCache, signal, mod);
+          renderedNew.cleanup();
 
-          if (res === false) {
-            if (signal.aborted) return renderedNew.cleanup();
-          } else {
+          if (res !== false) {
             const { css, html } = res;
-            if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
-              return renderedNew.cleanup();
-            }
-
             window.parent.postMessage({ i, css, html }, "*");
-
-            rendered && rendered.cleanup();
-
-            rendered = renderedNew;
-
-            myEl.id = "root";
           }
         });
       } catch (error) {

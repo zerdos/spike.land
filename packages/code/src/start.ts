@@ -11,12 +11,14 @@ if (location.pathname.endsWith("embed") === false) {
 
 const codeSpace = useCodeSpace();
 
-if (
-  location.pathname !== `/live/${codeSpace}`
-  && location.pathname.endsWith("dehydrated") === false
-) {
-  const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
+(async () => {
+  if (
+    location.pathname !== `/live/${codeSpace}`
+    && location.pathname.endsWith("dehydrated") === false
+  ) {
+    const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
 
-  let rendered = await renderApp({ codeSpace, rootElement });
-  Object.assign(globalThis, { rendered });
-}
+    let rendered = await renderApp({ codeSpace, rootElement });
+    Object.assign(globalThis, { rendered });
+  }
+})();
