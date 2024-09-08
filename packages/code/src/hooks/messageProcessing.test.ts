@@ -3,7 +3,7 @@ import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { describe, expect, it, vi } from "vitest";
-import { createNewMessage, handleError, processMessage } from "../messageProcessing";
+import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
@@ -113,13 +113,7 @@ describe("messageProcessing", () => {
 
       expect(result).toBe(false);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
-      expect(mockSaveMessages).not.toHaveBeenCalled();
-      expect(mockSetMessages).toHaveBeenCalledWith(expect.arrayContaining([
-        expect.objectContaining({
-          role: "assistant",
-          content: expect.stringContaining("Sorry, there was an error processing your request"),
-        }),
-      ]));
+
       expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
   });

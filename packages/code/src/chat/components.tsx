@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
+import { Camera, Check, RefreshCw, Send, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
 import { TypingIndicator } from "@src/utils/utils";
 import React, { useEffect, useState } from "react";
@@ -107,7 +107,7 @@ export const ChatMessage: React.FC<{
 });
 
 export const ChatHeader: React.FC<ChatHeaderProps> = (
-  { isDarkMode, toggleDarkMode, handleResetChat, onClose },
+  { isDarkMode, handleResetChat, onClose },
 ) => (
   <div
     className={`p-4 font-bold flex justify-between items-center ${

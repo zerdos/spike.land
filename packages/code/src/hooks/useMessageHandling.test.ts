@@ -3,7 +3,7 @@ import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useMessageHandling } from "../useMessageHandling";
+import { useMessageHandling } from "./useMessageHandling";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/hooks/useAutoSave", () => ({
