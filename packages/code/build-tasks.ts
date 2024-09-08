@@ -1,10 +1,11 @@
 import { copy } from "esbuild-plugin-copy";
-import { readdir } from "fs/promises";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 import { environment } from "./helpers.ts";
-
+import {readdir, readFile, stat, writeFile} from "fs/promises";
 export type Environment = "development" | "production";
+import { importMapReplace } from "@src/importMapUtils.ts";
+import path from "path";
 
 const isProduction = environment === "production";
 
@@ -240,4 +241,31 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "esbuild-wasm/esbuild.wasm",
     ],
   });
+
+ 
+async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
+  try {
+    const files = await readdir(dir);
+
+    for (const file of files) {
+      const filePath = path.join(dir, file);
+      const fileStat = await stat(filePath);
+
+      if (fileStat.isDirectory()) {
+        // If it's a directory, recursively process its contents
+        await runImportMapReplaceOnAllFilesRecursive(filePath);
+      } else {
+        // If it's a file, process it
+        const content = await readFile(filePath, "utf8");
+        const newContent = importMapReplace(content, "/");
+        await writeFile(filePath, newContent);
+      }
+    }
+  } catch (error) {
+    console.error(`Error processing directory ${dir}:`, error);
+  }
+}
+
+
+  runImportMapReplaceOnAllFilesRecursive("./dist/@");
 }
