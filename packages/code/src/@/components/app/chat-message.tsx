@@ -6,6 +6,7 @@ import type { Message } from "@/lib/interfaces";
 import { renderMessage } from "@/lib/render-messages";
 import React, { useRef, useState } from "react";
 import { md5 } from "@/lib/md5";
+import { cn } from "@/lib/utils";
 
 interface ImageData {
   imageName: string;
@@ -151,11 +152,12 @@ export const ChatMessage: React.FC<{
 
     return (
       <div
-        className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
+        className={cn("flex mb-4", isUser ? "justify-end" : "justify-start")}
         onDoubleClick={onDoubleClick}
       >
         <div
-          className={`max-w-[80%] p-3 rounded-lg ${
+          className={cn(
+            "max-w-[80%] p-3 rounded-lg",
             isUser
               ? isDarkMode
                 ? "bg-blue-600 text-white"
@@ -167,7 +169,7 @@ export const ChatMessage: React.FC<{
               : isSelected
               ? "bg-gray-200 ring-2 ring-blue-500"
               : "bg-gray-100"
-          }`}
+          )}
         >
           {isEditing
             ? (
@@ -175,13 +177,13 @@ export const ChatMessage: React.FC<{
                 <Textarea
                   value={editInput}
                   onChange={(e) => setEditInput(e.target.value)}
-                  className={isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}
+                  className={cn(isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900")}
                 />
                 <div className="flex justify-between items-center">
                   <Button
                     size="sm"
                     onClick={() => fileInputRef.current?.click()}
-                    className={isDarkMode ? "bg-gray-600" : "bg-gray-200"}
+                    className={cn(isDarkMode ? "bg-gray-600" : "bg-gray-200")}
                   >
                     <ImageIcon className="h-4 w-4 mr-2" />
                     Add Image
