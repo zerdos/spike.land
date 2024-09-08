@@ -1,10 +1,12 @@
 import { importMap, importMapReplace } from "./importMapUtils";
 
-import { md5 } from "@/lib/md5.ts";
+export { md5 } from "@/lib/md5.ts";
+export { routes } from "@/lib/routes.ts";
+
 import { Delta } from "./textDiff";
 export { importMapReplace };
+
 export { serverFetchUrl } from "./enhancedFetch";
-export { routes } from "./routes";
 import { createWorkflow } from "./LangChain";
 export { createWorkflow };
 
@@ -16,5 +18,3 @@ export { importMap };
 export { createPatch, makeHash, stringifySession };
 export type { CodePatch, Delta, ICodeSession };
 export { applyCodePatch, makeSession };
-
-export { md5 };
