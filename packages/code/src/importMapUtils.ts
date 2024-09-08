@@ -15,11 +15,12 @@ export const oo = {
 
 export const importMap = { imports: oo };
 
-export function importMapReplace(code: string, origin: string): string {
+export function importMapReplace(_code: string, origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
-  if (code.includes("importMapReplace")) {
-    return code;
+  if (_code.includes("importMapReplace")) {
+    return _code;
   }
+  const code = _code.split("import*").join("import *");
 
   // Define regex patterns for different types of imports
   const topLevelImportPattern =
