@@ -19,7 +19,7 @@ export async function createNewMessage(
         source: {
           type: "base64",
           media_type: image.type,
-          data: image.data.split(",")[1], // Remove the "data:image/jpeg;base64," prefix
+          data: image.data, // .split(",")[1], // Remove the "data:image/jpeg;base64," prefix
         },
       });
     });
