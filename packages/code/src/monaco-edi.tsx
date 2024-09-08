@@ -211,6 +211,13 @@ async function startMonacoPristine({
     useShadowDOM: false,
     links: true,
     tabSize: 2,
+    minimap: {
+      enabled: true,
+      autohide: true,
+      
+      
+      
+    },
     insertSpaces: false,
     bracketPairColorization: {
       independentColorPoolPerBracketType: true,
