@@ -10,6 +10,7 @@ export const renderPreviewWindow = async (
 ) => {
   if (singleton.started) return;
   singleton.started = true;
+  console.log("Rendering preview window");
 
 
   const rootEl = document.createElement("div");

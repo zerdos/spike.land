@@ -112,7 +112,7 @@ const handleDefaultPage = async () => {
   }
 };
 
-const main = async () => {
+export const main = async () => {
   const codeSpace = useCodeSpace();
   await waitForCSess;
 
@@ -145,7 +145,7 @@ if (location.pathname.startsWith("/live")) {
   }
 })();
 
-export const handleDehydratedPage = () => {
+const handleDehydratedPage = () => {
   try {
     cSess.sub(debounce((sess: ICodeSession) => {
       const { html, css } = sess;

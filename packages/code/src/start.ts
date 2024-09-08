@@ -1,5 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
+import { main } from "./ws";
 
 if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
@@ -18,3 +19,5 @@ const codeSpace = useCodeSpace();
     Object.assign(globalThis, { rendered });
   }
 })();
+
+main();
