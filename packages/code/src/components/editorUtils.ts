@@ -168,7 +168,7 @@ export async function initializeMonaco(
   setValue: (_newCode: string) => void;
 }> {
   addCSSFile("/*monaco-editor?bundle&css");
-  const { startMonaco } = await import("@/components/app/monaco-edi");
+  const { startMonaco } = await import("../monaco-edi");
   return await startMonaco({
     container,
     codeSpace,
