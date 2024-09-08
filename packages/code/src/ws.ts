@@ -51,6 +51,7 @@ const handleDefaultPage = async () => {
           });
 
           myEl.style.display = "block";
+          document.getElementById("root")?.remove();
           myEl.id = "root";
         });
       } catch (error) {
