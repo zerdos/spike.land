@@ -488,7 +488,7 @@ hQIDAQAB
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    ).replace("/start.mjs", `/live/${codeSpace}/wrapper.js`);
+    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`);
 
 
     return new Response(respText, {

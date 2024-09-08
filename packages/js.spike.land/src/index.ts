@@ -15,7 +15,7 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       codeSpace,
       origin,
       format: "esm",
-      splitting: true,
+      splitting: false,
       external: ["/*"],
       wasmModule,
     });
@@ -35,37 +35,13 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       });
     }
 
-    if (!Array.isArray(results)) {
-      const error = results.error as Error;
-      return new Response(error.message || "unknown error in results", { status: 404 });
-    }
 
-    const html = `<!DOCTYPE html>
-    <html lang="en">
-    <head profile="http://www.w3.org/2005/10/profile">
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
-      <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-      <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-      <base href="/">
-      <title>CodeSpace archive for ${codeSpace} </title>
-      <style>
-  ${results.find((result) => result.path.endsWith(".css"))?.text}
-      </style>
-    </head>
-    <body>
-      <div id="embed"></div>
-      <script type="module">
-  ${results.find((result) => result.path.endsWith(".mjs"))?.text}
-      </script>
-    </body>
-    </html>`
 
-    return new Response(html, {
+    return new Response(JSON.stringify(results), {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
-        "Content-Type": "text/html",
+        "Content-Type": "application/json",
         "cache-control": "no-cache",
       },
     });
