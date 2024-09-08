@@ -92,10 +92,7 @@ async function renderApp(
         if (cssCache.sheet) {
           cssCache.sheet.flush();
         }
-        rootEl.innerHTML = "";
-        if (document.body.contains(rootEl)) {
-          document.body.removeChild(rootEl);
-        }
+        rootEl.remove();
 
     }};
 
