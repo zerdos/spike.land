@@ -190,28 +190,20 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
               codeSpace={codeSpace}
               cSess={cSess}
             />
-            {!isOpen && (
+            {!isOpen?  (
               <Button
                 onClick={() => setIsOpen(true)}
                 className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
               >
                 <Bot className="h-6 w-6" />
               </Button>
-            )}
-
-            <ChatInterface
+            ):      <ChatInterface
               cSess={cSess}
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
-            />
+            />}
 
-            <Button
-              onClick={() => setShowAutoSaveHistory((x) => !x)}
-              className="fixed top-4 right-4 z-50"
-              size="sm"
-            >
-              Version History
-            </Button>
+       
 
           
           </RainbowWrapper>

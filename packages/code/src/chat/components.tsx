@@ -37,7 +37,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   handleEditMessage,
   isStreaming,
   isDarkMode,
-  onImageUpload, // Update this prop type
+  
 }) => {
 
   const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
@@ -70,7 +70,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
             handleCancelEdit={handleCancelEdit}
             handleSaveEdit={handleSaveEdit}
             isDarkMode={isDarkMode}
-            onImageUpload={(images: File[]) => onImageUpload(images[0] as import("@/lib/interfaces").ImageData)}
           />
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
