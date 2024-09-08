@@ -1,5 +1,6 @@
 import { ata } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 const originToUse = location.origin;
 
@@ -209,12 +210,13 @@ async function startMonacoPristine({
     scrollPredominantAxis: true,
     automaticLayout: false,
     useShadowDOM: false,
+    wordWrapColumn: 80,
     links: true,
     tabSize: 2,
     minimap: {
       enabled: true,
       autohide: true,
-      
+
       
       
     },
@@ -224,9 +226,8 @@ async function startMonacoPristine({
       enabled: true,
     },
     definitionLinkOpensInPeek: true,
-    theme: "vs-dark",
+    theme: useDarkMode().isDarkMode ? "vs-dark" : "vs",
     autoClosingBrackets: "languageDefined",
-    extraEditorClassName: "custom-monaco-editor", // Add this line
   });
 
   // Add custom key bindings
