@@ -141,7 +141,7 @@ export const handleDehydratedPage = () => {
   try {
     cSess.sub(debounce((sess: ICodeSession) => {
       const { html, css } = sess;
-      const root = document.getElementById("root");
+      const root = document.getElementById("embed");
       if (root && html && css) {
         root.innerHTML = `<style>${css}</style><div>${html}</div>`;
       }
