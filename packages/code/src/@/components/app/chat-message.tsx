@@ -7,8 +7,6 @@ import { renderMessage } from "@/lib/render-messages";
 import React, { useRef, useState } from "react";
 import { md5 } from "@/lib/md5";
 
-// ... existing imports ...
-
 interface ImageData {
   imageName: string;
   url: string;
