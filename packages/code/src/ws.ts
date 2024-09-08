@@ -1,17 +1,18 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
-import { renderApp, renderedAPPS } from "@/lib/render-app";
+import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
+let { rendered } = globalThis as unknown as { rendered: RenderedApp | null };
 const cSess = new Code();
 
 const waitForCSess = cSess.run();
@@ -29,29 +30,31 @@ const handleDefaultPage = async () => {
 
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
-        const { transpiled } = sess;
+        await mutex.runExclusive(async () => {
+          const { transpiled } = sess;
 
-        const myEl = document.createElement("div");
-        myEl.style.cssText = "height: 100%; width: 100%; display: none;";
-        document.body.appendChild(myEl);
+          const myEl = document.createElement("div");
+          myEl.style.cssText = "height: 100%; width: 100%; display: none;";
+          document.body.appendChild(myEl);
 
-        await renderApp({
-          transpiled,
-          codeSpace: cSess.codeSpace,
-          rootElement: myEl,
+          if (rendered) rendered.cleanup();
+
+          rendered = await renderApp({
+            transpiled,
+            codeSpace: cSess.codeSpace,
+            rootElement: myEl,
+          });
+
+          myEl.style.display = "block";
+          myEl.id = "root";
         });
-
-        const root = document.getElementById("root")!;
-        renderedAPPS.get(root)?.cleanup();
-
-        myEl.style.display = "block";
-        myEl.id = "root";
       } catch (error) {
+        if (rendered !== null) rendered.cleanup();
         console.error("Error updating rendered app:", error);
       }
     };
 
-    cSess.sub(debounce(updateRenderedApp, 100));
+    cSess.sub(updateRenderedApp);
 
     window.onmessage = async ({ data }) => {
       try {
@@ -72,27 +75,28 @@ const handleDefaultPage = async () => {
           myEl.style.cssText = "height: 100%; width: 100%; display: none;";
           document.body.appendChild(myEl);
 
-          const rendered = await renderApp({ rootElement: myEl, transpiled });
+          const renderedNew = await renderApp({ rootElement: myEl, transpiled });
 
-          if (!rendered) return false;
+          if (!renderedNew) return false;
 
           await wait(100);
-          if (signal.aborted) return rendered.cleanup();
+          if (signal.aborted) return renderedNew.cleanup();
 
-          const res = await handleRender(myEl, rendered.cssCache, signal, mod);
+          const res = await handleRender(myEl, renderedNew.cssCache, signal, mod);
 
           if (res === false) {
-            if (signal.aborted) return rendered.cleanup();
+            if (signal.aborted) return renderedNew.cleanup();
           } else {
             const { css, html } = res;
             if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
-              return rendered.cleanup();
+              return renderedNew.cleanup();
             }
 
             window.parent.postMessage({ i, css, html }, "*");
 
-            const old = document.getElementById("root")!;
-            renderedAPPS.get(old)?.cleanup();
+            rendered && rendered.cleanup();
+
+            rendered = renderedNew;
 
             myEl.id = "root";
           }

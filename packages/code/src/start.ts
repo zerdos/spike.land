@@ -17,5 +17,6 @@ if (
 ) {
   const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
 
-  renderApp({ codeSpace, rootElement });
+  let rendered = renderApp({ codeSpace, rootElement });
+  Object.assign(globalThis, { rendered });
 }

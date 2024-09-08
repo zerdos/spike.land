@@ -115,7 +115,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
         {onlyEdit
           ? (
             <iframe
-              id="iframeD"
+              id="iframeD"  
               onLoad={() => {
                 reveal();
               }}
@@ -174,7 +174,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
                 </div>
               </div>
             )}
-            
+
             {!isOpen &&  (
               <Button
                 onClick={() => setIsOpen(true)}
