@@ -57,22 +57,22 @@ export const ChatMessage: React.FC<{
                   : Array.isArray(message.content)
                   ? message.content.map((item, index) => {
                     if (item.type === "text") {
-                      return renderMessage(item.text!, isUser);
+                      return <div key={`text-${index}`}>{renderMessage(item.text!, isUser)}</div>;
                     } else if (item.type === "image" && item.source?.type === "base64") {
                       const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
   
                       return (
                         <img
-                          key={index}
+                          key={`image-${index}`}
                           src={imageUrlFromBase64String}
                           alt="Screenshot"
                           className="max-w-full h-auto mt-2 rounded-lg"
                         />
                       );
                     }
-                    return <></>;
+                    return null;
                   })
-                  : <></>}
+                  : null}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -82,13 +82,13 @@ export const ChatMessage: React.FC<{
       } else if (Array.isArray(message.content)) {
         return message.content.map((item, index) => {
           if (item.type === "text") {
-            return renderMessage(item.text!, isUser);
+            return <div key={`text-${index}`}>{renderMessage(item.text!, isUser)}</div>;
           } else if (item.type === "image" && item.source?.type === "base64") {
             const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
   
             return (
               <img
-                key={index}
+                key={`image-${index}`}
                 src={imageUrlFromBase64String}
                 alt="Screenshot"
                 className="max-w-full h-auto mt-2 rounded-lg"
@@ -209,7 +209,7 @@ export const ChatMessage: React.FC<{
                   <div className="flex flex-wrap gap-2 mt-2">
                     {images.map((img, index) => (
                       <img
-                        key={index}
+                        key={`uploaded-${index}`}
                         src={img.src}
                         alt={`Uploaded ${index}`}
                         className="w-16 h-16 object-cover rounded"
