@@ -123,6 +123,10 @@ const handleDefaultPage = async () => {
         if (signal.aborted) return false;
 
         queueRender({ ...cSess.session, i, transpiled });
+        const res = await handleRender(document.getElementById("root") as HTMLDivElement, cSess.cache, signal, mod);
+        if (res) {
+          window.parent.postMessage({ ...res, i, transpiled }, "*");
+        }
       } catch (error) {
         console.error("Error processing message:", error);
       }
