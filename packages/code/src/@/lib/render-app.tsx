@@ -24,7 +24,7 @@ async function renderApp(
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
-    rootEl.id = "root";
+    // rootEl.id = "root";
 
     let AppToRender: React.ComponentType<any>;
 
