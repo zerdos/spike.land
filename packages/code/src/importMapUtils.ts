@@ -20,7 +20,7 @@ export function importMapReplace(_code: string, origin: string): string {
   if (_code.includes("importMapReplace")) {
     return _code;
   }
-  const code = _code.split("import*").join("import *");
+  const code = _code.split("import*as").join("import * as");
 
   // Define regex patterns for different types of imports
   const topLevelImportPattern =
