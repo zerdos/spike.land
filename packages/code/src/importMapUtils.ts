@@ -46,6 +46,7 @@ export function importMapReplace(code: string, origin: string): string {
 
     if (typeof p2 !== "string") {
       const pkg = match.split("\"")[1];
+      if (!pkg) return match;
       if (pkg.startsWith("http")) return match;
       if (pkg.startsWith("/")) return match;
       if (pkg.startsWith("./")) return match;
