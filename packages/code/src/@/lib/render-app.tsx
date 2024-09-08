@@ -48,7 +48,7 @@ async function renderApp(
     });
 
     const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
-      const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
+      const [{ width, height }, setDimensions] = useState({ width: innerWidth, height: innerHeight });
 
       const debouncedSetDimensions = useCallback(
         debounce(
