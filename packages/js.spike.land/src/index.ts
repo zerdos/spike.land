@@ -15,7 +15,7 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       codeSpace,
       origin,
       format: "esm",
-      splitting: false,
+      splitting: true,
       external: ["/*"],
       wasmModule,
     });
