@@ -5,10 +5,6 @@ if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
 }
 
-if (location.pathname.endsWith("embed") === false) {
-  import("./ws");
-}
-
 const codeSpace = useCodeSpace();
 
 (async () => {
