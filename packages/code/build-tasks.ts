@@ -211,7 +211,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     entryPoints: [
       "src/modules.ts",
       "src/motion.ts",
-      "src/start.ts",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",
       "src/reactMod.ts",
@@ -221,6 +220,72 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
       "src/app/globals.css",
+    ],
+    alias: {
+      ...buildOptions.alias,
+      "@src/swVersion": "/swVersion.mjs",
+      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+      ...extraAliases,
+      ...(isProduction ? {} : {
+        // "react": "preact/compat",
+        // "react-dom": "preact/compat",
+      }),
+    },
+    external: [
+      ...(buildOptions.external ?? []),
+      ...Object.values(extraAliases),
+      "/",
+      "/swVersion.mjs",
+      `./${wasmFile}`,
+      "esbuild-wasm/esbuild.wasm",
+    ],
+  });
+
+  await build({
+    ...buildOptions,
+    splitting: false,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: false,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: false,
+    sourcemap: false,
+    target: "es2024",
+    allowOverwrite: true,
+    legalComments: "none",
+    platform: "browser",
+    plugins: [
+      ...buildOptions.plugins,
+      copy({
+        resolveFrom: "cwd",
+        assets: [
+          {
+            from: ["./src/assets/*"],
+            to: ["./dist/assets"],
+          },
+          {
+            from: "./src/assets/manifest.json",
+            to: "./dist",
+          },
+          {
+            from: "./src/index.html",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/favicon.ico",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          },
+        ],
+      }),
+    ],
+    entryPoints: [
+      "src/start.ts",
     ],
     alias: {
       ...buildOptions.alias,
