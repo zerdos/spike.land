@@ -49,7 +49,7 @@ const handleDefaultPage = async () => {
           myEl.id = "root";
         });
       } catch (error) {
-        if (rendered !== null) rendered.cleanup();
+        if (rendered) rendered.cleanup();
         console.error("Error updating rendered app:", error);
       }
     };
