@@ -3,8 +3,6 @@ import { renderApp } from "@/lib/render-app";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 
-export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
-
 interface WrapperProps {
   codeSpace?: string;
   code?: string;
@@ -25,10 +23,7 @@ export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code, s
 
     return () => {
       if (rendered! !== null) {
-        setTimeout(() => {
-
-          rendered && rendered.cleanup();
-        });
+         rendered && rendered.cleanup();    
       }
    
     };

@@ -13,7 +13,6 @@ import {transpile} from "@/lib/shared";
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
-export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
 // Main render function
 async function renderApp(
@@ -26,12 +25,6 @@ async function renderApp(
       document.body.appendChild(rootEl);
     }
     rootEl.id = "root";
-
-    if (renderedAPPS.has(rootEl)) {
-      console.warn("Cleaning up existing app before rendering new one.");
-      renderedAPPS.get(rootEl)?.cleanup();
-      renderedAPPS.delete(rootEl);
-    }
 
     let AppToRender: React.ComponentType<any>;
 
@@ -91,24 +84,20 @@ async function renderApp(
       </CacheProvider>,
     );
 
-    const cleanup = () => {
-      const renderedApp = renderedAPPS.get(rootEl);
-      if (renderedApp) {
-        renderedApp.rRoot.unmount();
-        const { cssCache } = renderedApp;
+    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
+    
+     
+        rRoot.unmount();
+       
         if (cssCache.sheet) {
           cssCache.sheet.flush();
         }
-        renderedApp.rootElement.innerHTML = "";
+        rootEl.innerHTML = "";
         if (document.body.contains(rootEl)) {
           document.body.removeChild(rootEl);
         }
-        renderedAPPS.delete(rootEl);
-      }
-    };
 
-    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
-    renderedAPPS.set(rootEl, renderedApp);
+    }};
 
     return renderedApp;
   } catch (error) {
