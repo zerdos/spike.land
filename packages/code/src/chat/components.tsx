@@ -194,7 +194,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 }) => {
   const handleSend = () => {
     handleSendMessage(input, screenshotImage ? [{
-      type: "image",
+      type: "image/png",
       mediaType: "image/png",
       imageName: "screenshot.png",
       url: location.origin+'/live/'+useCodeSpace()+"/screenshot.png",
