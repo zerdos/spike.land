@@ -87,7 +87,7 @@ async function renderApp(
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
     
      
-        rRoot.unmount();
+        root.unmount();
        
         if (cssCache.sheet) {
           cssCache.sheet.flush();
