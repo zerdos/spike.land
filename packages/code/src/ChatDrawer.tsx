@@ -43,6 +43,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
         open={isOpen}
         onClose={onClose}
         onOpen={() => {}}
+        
         hideBackdrop={true}
         swipeAreaWidth={30}
         disableBackdropTransition={false}
