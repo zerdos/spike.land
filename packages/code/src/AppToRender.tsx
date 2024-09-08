@@ -103,7 +103,15 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
   return (
     <>
       {!hideRest && (
-        <header>
+        <header css={
+          css`
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+          `
+        }>
           <SignedOut>
             <SignInButton />
           </SignedOut>
