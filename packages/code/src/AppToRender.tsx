@@ -79,26 +79,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
   //   // }
   // });
 
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        console.log("Scrolling to last message");
-        document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
-        console.log("Scrolled to last message");
-      }, 100);
-      setTimeout(() => {
-        console.log("PT2 Scrolling to last message");
-        document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
-        console.log("PT2 Scrolled to last message");
-      }, 500);
 
-      setTimeout(() => {
-        console.log("PT3 Scrolling to last message");
-        document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
-        console.log("PT3 Scrolled to last message");
-      }, 1000);
-    }
-  }, [isOpen]);
 
   return (
     <>
@@ -119,20 +100,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
             <UserButton />
           </SignedIn>
 
-          {showAutoSaveHistory && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
-                  <CodeHistoryCarousel
-                    onClose={() => setShowAutoSaveHistory(false)}
-                    onRestore={() => {
-                      setShowAutoSaveHistory(false);
-                    }}
-                    codeSpace={codeSpace}
-                    cSess={cSess}
-                  />
-                </div>
-              </div>
-            )}
+
             
         </header>
       )}
@@ -190,6 +158,23 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
               codeSpace={codeSpace}
               cSess={cSess}
             />
+
+
+{showAutoSaveHistory && (
+              <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
+                  <CodeHistoryCarousel
+                    onClose={() => setShowAutoSaveHistory(false)}
+                    onRestore={() => {
+                      setShowAutoSaveHistory(false);
+                    }}
+                    codeSpace={codeSpace}
+                    cSess={cSess}
+                  />
+                </div>
+              </div>
+            )}
+            
             {!isOpen &&  (
               <Button
                 onClick={() => setIsOpen(true)}
