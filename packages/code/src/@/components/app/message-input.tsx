@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Send, X, Upload } from "@/external/lucideReact";
 import { useCodeSpace } from "@/hooks/use-code-space";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import type { MessageInputProps } from "@/lib/interfaces";
 import React, { useRef, useState } from "react";
@@ -143,31 +144,45 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             ref={inputRef}
           />
           <div className="flex items-center space-x-2">
-            <Button
-              onClick={handleScreenshotClick}
-              variant={screenshotImage ? "secondary" : "outline"}
-              size="icon"
-              title={screenshotImage ? "Remove screenshot" : "Attach screenshot"}
-              disabled={isScreenshotLoading}
-              className={cn(
-                "transition-all duration-300",
-                isScreenshotLoading ? "animate-pulse" : "",
-                "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
-              )}
-            >
-              {isScreenshotLoading
-                ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
-                : <Camera className="h-4 w-4" />}
-            </Button>
-            <Button
-              onClick={() => fileInputRef.current?.click()}
-              variant="outline"
-              size="icon"
-              title="Upload image"
-              className="bg-gradient-to-r from-green-500 to-teal-500 text-white hover:from-green-600 hover:to-teal-600"
-            >
-              <Upload className="h-4 w-4" />
-            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  onClick={handleScreenshotClick}
+                  variant={screenshotImage ? "secondary" : "outline"}
+                  size="icon"
+                  disabled={isScreenshotLoading}
+                  className={cn(
+                    "transition-all duration-300",
+                    isScreenshotLoading ? "animate-pulse" : "",
+                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+                  )}
+                >
+                  {isScreenshotLoading
+                    ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
+                    : <Camera className="h-4 w-4" />}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2">
+                <p>{screenshotImage ? "Remove screenshot" : "Attach screenshot"}</p>
+              </PopoverContent>
+            </Popover>
+            
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  variant="outline"
+                  size="icon"
+                  className="bg-gradient-to-r from-green-500 to-teal-500 text-white hover:from-green-600 hover:to-teal-600"
+                >
+                  <Upload className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2">
+                <p>Upload image</p>
+              </PopoverContent>
+            </Popover>
+            
             <Button
               onClick={handleSend}
               disabled={input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
