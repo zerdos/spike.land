@@ -59,17 +59,9 @@ async function renderApp(
       );
 
       useEffect(() => {
-        const resizeObserver = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-            const { width, height } = entry.contentRect;
-            debouncedSetDimensions({ width, height });
-          }
-        });
-        resizeObserver.observe(rootEl);
-        return () => {
-          resizeObserver.disconnect();
-          debouncedSetDimensions.cancel();
-        };
+        const handleResize = () => debouncedSetDimensions({ width: innerWidth, height: innerHeight });
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
       }, [debouncedSetDimensions]);
 
       return <AppToRender width={width} height={height} />;
