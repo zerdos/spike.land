@@ -10,8 +10,8 @@ export const renderPreviewWindow = async (
 ) => {
   if (singleton.started) return;
   singleton.started = true;
-  console.log("Rendering preview window");
-
+  
+  document.getElementById("embed")!.id = "root";
 
   const rootEl = document.createElement("div");
 
@@ -19,7 +19,7 @@ export const renderPreviewWindow = async (
   rootEl.style.height = "0px";
 
   const root = createRoot(rootEl);
-  document.getElementById("embed")!.appendChild(rootEl);
+  document.getElementById("root")!.appendChild(rootEl);
 
   const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
   root.render(
