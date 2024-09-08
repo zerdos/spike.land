@@ -43,7 +43,7 @@ describe("AIService", () => {
             read: vi.fn()
               .mockResolvedValueOnce({
                 done: false,
-                value: new TextEncoder().encode("Assistant"),
+                value: new TextEncoder().encode("Mocked assistant content"),
               })
               .mockResolvedValueOnce({ done: true }),
           }),
@@ -53,9 +53,10 @@ describe("AIService", () => {
       const onUpdate = vi.fn();
       const result = await aiService.sendToAI("anthropic", mockMessages, onUpdate);
 
+      expect(result).toMatchSnapshot();
       expect(result.role).toBe("assistant");
-      expect(result.content).toBe("Assistant");
-      expect(onUpdate).toHaveBeenCalledWith("Assistant");
+      expect(result.content).toBe("Mocked assistant content");
+      expect(onUpdate).toHaveBeenCalledWith("Mocked assistant content");
     });
 
     it("should throw an error when the response is not OK", async () => {

@@ -137,9 +137,11 @@ export class AIService {
     const endpoint = this.getEndpoint(type);
     const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
 
+    const lastMessage = messages[messages.length - 1];
+
     return {
-      id: result.id,
-      role: "user",
+      id: ((+lastMessage.id)+1).toString(),
+      role: "assistant",
       content: result.content,
     };
   }
