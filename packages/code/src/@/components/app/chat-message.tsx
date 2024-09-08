@@ -1,10 +1,21 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, X } from "@/external/lucideReact";
+import { Check, X, Image as ImageIcon } from "@/external/lucideReact";
 import type { Message } from "@/lib/interfaces";
 import { renderMessage } from "@/lib/render-messages";
+import React, { useRef, useState } from "react";
+import { md5 } from "@/lib/md5";
 
+// ... existing imports ...
+
+interface ImageData {
+  imageName: string;
+  url: string;
+  src: string;
+  mediaType: string;
+  data: string;
+}
 
 export const ChatMessage: React.FC<{
     message: Message;
@@ -16,6 +27,7 @@ export const ChatMessage: React.FC<{
     handleCancelEdit: () => void;
     handleSaveEdit: (id: string) => void;
     isDarkMode: boolean;
+    onImageUpload: (images: ImageData[]) => void;
   }> = React.memo(({
     message,
     isSelected,
@@ -26,6 +38,7 @@ export const ChatMessage: React.FC<{
     handleCancelEdit,
     handleSaveEdit,
     isDarkMode,
+    onImageUpload,
   }) => {
     const isUser = message.role === "user";
     const isSystem = message.role === "system";
@@ -89,6 +102,55 @@ export const ChatMessage: React.FC<{
       return null;
     };
   
+    const [images, setImages] = useState<ImageData[]>([]);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      if (files && files.length > 0) {
+        const newImages = await Promise.all(Array.from(files).map(processImage));
+        setImages((prevImages) => [...prevImages, ...newImages]);
+        onImageUpload([...images, ...newImages]);
+      }
+    };
+
+    const processImage = async (file: File): Promise<ImageData> => {
+      const reader = new FileReader();
+      return new Promise((resolve, reject) => {
+        reader.onload = async (e) => {
+          try {
+            const arrayBuffer = e.target?.result as ArrayBuffer;
+            const blob = new Blob([arrayBuffer], { type: file.type });
+            const base64Data = await blobToBase64(blob);
+            const md5Body = md5(base64Data);
+            const imageName = file.name;
+            const url = `/my-cms/${md5Body}/${imageName}`;
+            await fetch(url, { method: "PUT", body: arrayBuffer });
+            resolve({
+              imageName,
+              url,
+              src: URL.createObjectURL(blob),
+              mediaType: file.type,
+              data: base64Data,
+            });
+          } catch (error) {
+            reject(new Error("Failed to process image"));
+          }
+        };
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsArrayBuffer(file);
+      });
+    };
+
+    const blobToBase64 = (blob: Blob): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
+
     return (
       <div
         className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
@@ -117,14 +179,44 @@ export const ChatMessage: React.FC<{
                   onChange={(e) => setEditInput(e.target.value)}
                   className={isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}
                 />
-                <div className="flex justify-end space-x-2">
-                  <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
-                    <Check className="h-4 w-4" />
+                <div className="flex justify-between items-center">
+                  <Button
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    className={isDarkMode ? "bg-gray-600" : "bg-gray-200"}
+                  >
+                    <ImageIcon className="h-4 w-4 mr-2" />
+                    Add Image
                   </Button>
-                  <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                    <X className="h-4 w-4" />
-                  </Button>
+                  <div className="flex space-x-2">
+                    <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
+                      <Check className="h-4 w-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  ref={fileInputRef}
+                  multiple
+                />
+                {images.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {images.map((img, index) => (
+                      <img
+                        key={index}
+                        src={img.src}
+                        alt={`Uploaded ${index}`}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             )
             : (
@@ -136,4 +228,3 @@ export const ChatMessage: React.FC<{
       </div>
     );
   });
-  

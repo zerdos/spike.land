@@ -96,7 +96,22 @@ export const StartWithPrompt: React.FC = () => {
       reader.readAsDataURL(blob);
     });
   };
-
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+  const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    if (files && files.length > 0 && images.length < 5) {
+      const file = files[0];
+      try {
+        const imageData = await processImage(file);
+        setImages((prevImages) => [...prevImages, imageData]);
+      } catch (error) {
+        console.error("Error processing dropped image:", error);
+      }
+    }
+  };
   const removeImage = (index: number) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
@@ -122,7 +137,9 @@ export const StartWithPrompt: React.FC = () => {
         isDarkMode
           ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
           : "bg-gradient-to-br from-white to-gray-100 text-gray-800"
-      } p-8 space-y-6`}>
+      } p-8 space-y-6`}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}>
       <h1
         className={`text-5xl font-bold text-center mb-8 ${
           isDarkMode
