@@ -9,6 +9,7 @@ import { Code } from "./services/CodeSession";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
+import { doc } from "prettier";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
@@ -28,93 +29,44 @@ const handleDefaultPage = async () => {
 
     const mutex = new Mutex();
 
-    let currentVersion = 0;
-    const renderQueue: ICodeSession[] = [];
-    let isRendering = false;
-
-    const queueRender = (sess: ICodeSession) => {
-      renderQueue.push(sess);
-      processRenderQueue();
-    };
-
-    const processRenderQueue = async () => {
-      if (isRendering || renderQueue.length === 0) return;
-      isRendering = true;
-      const sess = renderQueue.pop()!;
-      renderQueue.length = 0; // Clear queue, we'll render the latest
-      try {
-        await updateRenderedApp(sess);
-      } finally {
-        isRendering = false;
-        processRenderQueue(); // Check if more renders were queued
-      }
-    };
-
     const updateRenderedApp = async (sess: ICodeSession) => {
-      const version = ++currentVersion;
       try {
         await mutex.runExclusive(async () => {
-          console.log(`Updating rendered app... (version ${version})`);
+          console.log("Updating rendered app...");
           const { transpiled, i } = sess;
-
-          if (!transpiled || mod.counter >= i) {
-            console.log(`Skipping render due to outdated data (version ${version})`);
-            return;
-          }
-
+          // if (!transpiled || mod.counter >= i) return;
           mod.transpiled = transpiled;
           mod.counter = i;
-
-          if (version !== currentVersion) {
-            console.log(`A newer version is already being processed (current: ${version}, latest: ${currentVersion})`);
-            return;
-          }
 
           const myEl = document.createElement("div");
           myEl.style.cssText = "height: 100%; width: 100%; display: none;";
           document.body.appendChild(myEl);
 
-          if (rendered) {
-            console.log(`Cleaning up previous render (version ${version})`);
-            rendered.cleanup();
-          }
+          if (rendered) rendered.cleanup();
           rendered = null;
 
-          try {
-            rendered = await renderApp({
-              transpiled,
-              codeSpace: cSess.codeSpace,
-              rootElement: myEl,
-            });
+          rendered = await renderApp({
+            transpiled,
+            codeSpace: cSess.codeSpace,
+            rootElement: myEl,
+          });
 
-            console.log(`Render successful (version ${version})`);
-            myEl.style.display = "block";
-            myEl.id = "root";
-          } catch (error) {
-            console.error(`Error rendering app (version ${version}):`, error);
-          } finally {
-            if (!rendered) {
-              console.log(`Implementing fallback render (version ${version})`);
-              // Implement a fallback render or retry mechanism
-              rendered = await createFallbackRender();
-            }
-          }
+          myEl.style.display = "block";
+          myEl.id = "root";
         });
       } catch (error) {
-        console.error(`Error in updateRenderedApp (version ${version}):`, error);
+        if (rendered) rendered.cleanup();
+        console.error("Error updating rendered app:", error);
       }
     };
 
-    cSess.sub(queueRender);
+    cSess.sub(updateRenderedApp);
 
     window.onmessage = async ({ data }) => {
       try {
         const { i, transpiled } = data;
 
-        if (!i || !transpiled || mod.counter >= i) {
-          console.log("Skipping message due to outdated data");
-          return false;
-        }
+        // if (!i || !transpiled || mod.counter >= i) return;
 
         mod.counter = i;
         mod.controller.abort();
@@ -122,11 +74,34 @@ const handleDefaultPage = async () => {
 
         if (signal.aborted) return false;
 
-        queueRender({ ...cSess.session, i, transpiled });
-        const res = await handleRender(document.getElementById("root") as HTMLDivElement, cSess.cache, signal, mod);
-        if (res) {
-          window.parent.postMessage({ ...res, i, transpiled }, "*");
-        }
+        await mutex.runExclusive(async () => {
+          if (signal.aborted) return;
+
+          const myEl = document.createElement("div");
+          myEl.style.cssText = "height: 100%; width: 100%; display: none;";
+          document.body.appendChild(myEl);
+
+          const renderedNew = await renderApp({ rootElement: myEl, transpiled });
+
+          if (!renderedNew) return false;
+
+          await wait(100);
+          if (signal.aborted) return renderedNew.cleanup();
+
+          const res = await handleRender(myEl, renderedNew.cssCache, signal, mod);
+
+          if (res !== false) {
+            const { css, html } = res;
+            window.parent.postMessage({ i, css, html }, "*");
+            myEl.style.display = "block";
+
+            rendered && rendered.cleanup();
+            rendered = null;
+            rendered = renderedNew;
+            document.getElementById("root")?.remove();
+            myEl.id = "root";
+          }
+        });
       } catch (error) {
         console.error("Error processing message:", error);
       }
@@ -243,7 +218,3 @@ const handleRender = async (
     return false;
   }
 };
-
-// Helper function for fallback render (implementation needed)
-const createFallbackRender = () =>
-  renderApp({ rootElement: document.createElement("div"), transpiled: cSess.session.transpiled });
