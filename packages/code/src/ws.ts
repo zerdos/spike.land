@@ -33,7 +33,7 @@ const handleDefaultPage = async () => {
         await mutex.runExclusive(async () => {
           console.log("Updating rendered app...");
           const { transpiled, i } = sess;
-          if (!transpiled || mod.counter >= i) return;
+          // if (!transpiled || mod.counter >= i) return;
           mod.transpiled = transpiled;
           mod.counter = i;
 
@@ -64,7 +64,7 @@ const handleDefaultPage = async () => {
       try {
         const { i, transpiled } = data;
 
-        if (!i || !transpiled || mod.counter >= i) return;
+        // if (!i || !transpiled || mod.counter >= i) return;
 
         mod.counter = i;
         mod.controller.abort();
