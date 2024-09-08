@@ -257,7 +257,7 @@ async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void
       } else {
         // If it's a file, process it
         const content = await readFile(filePath, "utf8");
-        const newContent = importMapReplace(content, "/");
+        const newContent = importMapReplace(content, "");
         await writeFile(filePath, newContent);
       }
     }
