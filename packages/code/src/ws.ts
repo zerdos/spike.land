@@ -32,7 +32,10 @@ const handleDefaultPage = async () => {
       try {
         await mutex.runExclusive(async () => {
           console.log("Updating rendered app...");
-          const { transpiled } = sess;
+          const { transpiled, i } = sess;
+          if (!transpiled || mod.counter >= i) return;
+          mod.transpiled = transpiled;
+          mod.counter = i;
 
           const myEl = document.createElement("div");
           myEl.style.cssText = "height: 100%; width: 100%; display: none;";
@@ -111,7 +114,7 @@ const main = async () => {
       await initializeApp();
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       handleDehydratedPage();
-    } else if (location.pathname === `/live/${codeSpace}/iframe`) {
+    } else {
       await handleDefaultPage();
     }
   } catch (error) {
