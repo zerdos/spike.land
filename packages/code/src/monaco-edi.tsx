@@ -226,7 +226,7 @@ async function startMonacoPristine({
       enabled: true,
     },
     definitionLinkOpensInPeek: true,
-    theme: useDarkMode().isDarkMode ? "vs-dark" : "vs",
+    theme: useDarkMode().isDarkMode ? "vs-dark" : "vs-light",
     autoClosingBrackets: "languageDefined",
   });
 
