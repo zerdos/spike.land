@@ -10,13 +10,11 @@ export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
 ): Promise<Message> {
-  let content: any[] | string;
+  const imagesContent: any[] = [];
 
   if (images && images.length > 0) {
-    content = [];
-
     images.forEach((image) => {
-      content.push({
+      imagesContent.push({
         type: "image",
         source: {
           type: "base64",
@@ -25,15 +23,13 @@ export async function createNewMessage(
         },
       });
     });
-    content.push({ type: "text", text: claudeContent?.trim() || "" });
-  } else {
-    content = claudeContent;
+    imagesContent.push({ type: "text", text: claudeContent?.trim() || "" });
   }
 
   return {
     id: Date.now().toString(),
     role: "user",
-    content,
+    content: imagesContent.length > 0 ? imagesContent : claudeContent,
   };
 }
 
