@@ -56,6 +56,7 @@ export const ChatInterface: React.FC<{
 
   const handleResetChat = useCallback(() => {
     resetChat();
+    setIsStreaming(false);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
