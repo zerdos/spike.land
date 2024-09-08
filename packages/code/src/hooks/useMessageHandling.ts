@@ -52,7 +52,7 @@ export const useMessageHandling = ({
       codeSpace,
     );
 
-    const updatedMessages = [...messages, await createNewMessage(images, claudeContent + content)];
+    const updatedMessages = [...messages, await createNewMessage(images, claudeContent)];
 
     setInput("");
 

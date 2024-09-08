@@ -10,9 +10,11 @@ export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
 ): Promise<Message> {
-  const content: any[] = [];
+  let content: any[] | string;
 
   if (images && images.length > 0) {
+    content = [];
+
     images.forEach((image) => {
       content.push({
         type: "image",
@@ -23,9 +25,10 @@ export async function createNewMessage(
         },
       });
     });
+    content.push({ type: "text", text: claudeContent?.trim() || "" });
+  } else {
+    content = claudeContent;
   }
-
-  content.push({ type: "text", text: claudeContent?.trim() || "" });
 
   return {
     id: Date.now().toString(),
