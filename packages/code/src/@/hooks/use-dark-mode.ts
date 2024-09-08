@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@uidotdev/usehooks";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useEffect } from "react";
 
 export const useDarkMode = () => {
