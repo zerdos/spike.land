@@ -1,6 +1,7 @@
 import { createClerkClient } from "@clerk/backend";
 import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
+import { HTML } from "./fetchHandler";
 
 export interface AutoSaveEntry {
   timestamp: number;
@@ -47,6 +48,7 @@ export class RouteHandler {
       "index.css": this.handleCssRoute.bind(this),
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
+      "wrapped": this.handleWrapHTMLRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       htm: this.handleHtmlRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
@@ -476,25 +478,39 @@ hQIDAQAB
     return new Response("Not found", { status: 404 });
   }
 
+  private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response> {
+
+    const codeSpace = url.searchParams.get("room");
+    const { html } = this.code.session;
+    const respText = this.code.HTML.replace(
+      `<!-- injectedCss -->`,
+      `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
+    ).replace(
+      "<div id=\"embed\"></div>",
+      `<div id="embed">${html}</div>`,
+    ).replace("/start.mjs", `/live/${codeSpace}/wrapper.js`);
+
+
+    return new Response(respText, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        content_hash: md5(respText),
+        "Content-Type": "text/html; charset=UTF-8",
+      },
+    });
+  }
+
   private async handleWrapRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
-    import "${origin}/live/${codeSpace}/index.css";
-    import "${origin}/app/tw-global.css";
-
-
     import { renderApp } from "${origin}/@/lib/render-app.mjs";
     
-    const render =async () => {
-    await renderApp({ App, rootElement: document.getElementById("embed") });
-    import("${origin}/tw/tw-chunk-be5bad.js");
-  }
-    render();
+    renderApp({ App, rootElement: document.getElementById("embed") });
 
-
-    
     `;
 
     return new Response(code, {
