@@ -14,12 +14,15 @@ export async function createNewMessage(
 
   if (images && images.length > 0) {
     images.forEach((image) => {
+      const imageHeadAndData = image.data.split(",");
+      const mediaType = imageHeadAndData[0].split(":")[1].split(";")[0];
+
       imagesContent.push({
         type: "image",
         source: {
           type: "base64",
-          media_type: image.type,
-          data: image.data.split(",")[1], // Remove the "data:image/jpeg;base64," prefix
+          media_type: mediaType,
+          data: imageHeadAndData[1],
         },
       });
     });
