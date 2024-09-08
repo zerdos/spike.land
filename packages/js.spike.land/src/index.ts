@@ -55,7 +55,7 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
     </head>
     <body>
       <div id="embed"></div>
-      <script>
+      <script type="module">
   ${results.find((result) => result.path.endsWith(".mjs"))?.text}
       </script>
     </body>
