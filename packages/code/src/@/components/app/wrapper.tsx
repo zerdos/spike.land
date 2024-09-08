@@ -24,7 +24,13 @@ export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code, s
     (async () => rendered = await renderApp({ rootElement: containerRef.current!, codeSpace, transpiled, code }))();
 
     return () => {
-      rendered && rendered.cleanup();
+      if (rendered! !== null) {
+        setTimeout(() => {
+
+          rendered && rendered.cleanup();
+        });
+      }
+   
     };
   }, []);
 
