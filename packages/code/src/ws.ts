@@ -52,7 +52,7 @@ const handleDefaultPage = async () => {
 
           myEl.style.display = "block";
           document.getElementById("root")?.remove();
-          myEl.id = "root";
+          // myEl.id = "root";
         });
       } catch (error) {
         if (rendered) rendered.cleanup();
@@ -99,7 +99,7 @@ const handleDefaultPage = async () => {
             rendered = null;
             rendered = renderedNew;
             document.getElementById("root")?.remove();
-            myEl.id = "root";
+            // myEl.id = "root";
           }
         });
       } catch (error) {
