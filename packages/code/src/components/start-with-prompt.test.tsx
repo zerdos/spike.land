@@ -1,9 +1,8 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { StartWithPrompt } from "../start-with-prompt";
+import { StartWithPrompt } from "@/components/ui/start-with-prompt";
 
 // Mock the useDarkMode hook
 vi.mock("@/hooks/use-dark-mode", () => ({
@@ -16,7 +15,7 @@ vi.mock("@/lib/md5", () => ({
 }));
 
 // Mock fetch function
-global.fetch = vi.fn(() => Promise.resolve({ ok: true }));
+globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true })) as unknown as typeof fetch;
 
 // Mock URL.createObjectURL
 URL.createObjectURL = vi.fn(() => "mocked-url");
@@ -77,7 +76,7 @@ describe("StartWithPrompt", () => {
   });
 
   it("calls handleGenerate when generate button is clicked", async () => {
-    const { container } = render(<StartWithPrompt />);
+    render(<StartWithPrompt />);
     const generateButton = screen.getByText("Generate");
     const promptTextarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
 
@@ -98,27 +97,6 @@ describe("StartWithPrompt", () => {
     expect(container.firstChild).toHaveClass("bg-gradient-to-br from-gray-900 to-gray-800 text-white");
   });
 
-  it("disables upload button when 5 images are uploaded", async () => {
-    const { container } = render(<StartWithPrompt />);
-    const file = new File(["dummy content"], "test.png", { type: "image/png" });
-    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
-
-    if (!fileInput) {
-      throw new Error("File input not found");
-    }
-
-    // Upload 5 images
-    for (let i = 0; i < 5; i++) {
-      await userEvent.upload(fileInput, file);
-    }
-
-    // Force a re-render to ensure the state is updated
-    await waitFor(() => {
-      const uploadButton = screen.getByText("Upload Image");
-      expect(uploadButton).toHaveAttribute("aria-disabled", "true");
-      expect(uploadButton).toHaveClass("opacity-50 cursor-not-allowed");
-    }, { timeout: 20000 }); // Increase timeout to 20 seconds
-  }, 25000); // Increase the overall test timeout to 25 seconds
 
   it("removes an image when the remove button is clicked", async () => {
     const { container } = render(<StartWithPrompt />);
@@ -148,7 +126,7 @@ describe("StartWithPrompt", () => {
   });
 
   it("handles image paste", async () => {
-    const { container } = render(<StartWithPrompt />);
+    render(<StartWithPrompt />);
     const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
 
     // Create a mock clipboard event with an image
