@@ -56,7 +56,7 @@ export const processImage = (file: File): Promise<ImageData> => {
         if (blob.size > MAX_FILE_SIZE) {
           const img = new Image();
           img.onload = async () => {
-            blob = await resizeImage(img, 1200); // Resize to 1200px max dimension
+            blob = await resizeImage(img, 800); // Resize to 1200px max dimension
             arrayBuffer = await blob.arrayBuffer();
           };
           img.src = URL.createObjectURL(blob);
