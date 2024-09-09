@@ -224,6 +224,7 @@ const ActionButtons: React.FC<{
           : "bg-blue-100 text-blue-800 hover:bg-blue-200 focus:ring-blue-300"
       } ${disableUpload ? "opacity-50 cursor-not-allowed" : ""}`}
       disabled={disableUpload}
+      aria-disabled={disableUpload}
     >
       Upload Image
     </button>
