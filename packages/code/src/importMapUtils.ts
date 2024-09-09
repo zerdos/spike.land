@@ -138,8 +138,8 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(topLeveNoFromPattern, replacer);
 
   // Remove comments
-  replaced = replaced.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-  
+  replaced = replaced.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+
   // Trim lines and remove empty lines
   replaced = replaced.split("\n").map(line => line.trim()).filter(Boolean).join("\n");
   // Replace specific package paths based on the import map (oo)
