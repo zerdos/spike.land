@@ -97,4 +97,86 @@ describe("StartWithPrompt", () => {
 
     expect(container.firstChild).toHaveClass("bg-gradient-to-br from-gray-900 to-gray-800 text-white");
   });
+
+  it("disables upload button when 5 images are uploaded", async () => {
+    const { container } = render(<StartWithPrompt />);
+    const file = new File(["dummy content"], "test.png", { type: "image/png" });
+    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+
+    if (!fileInput) {
+      throw new Error("File input not found");
+    }
+
+    // Upload 5 images
+    for (let i = 0; i < 5; i++) {
+      await userEvent.upload(fileInput, file);
+    }
+
+    const uploadButton = screen.getByText("Upload Image");
+    expect(uploadButton).toBeDisabled();
+  });
+
+  it("removes an image when the remove button is clicked", async () => {
+    const { container } = render(<StartWithPrompt />);
+    const file = new File(["dummy content"], "test.png", { type: "image/png" });
+    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+
+    if (!fileInput) {
+      throw new Error("File input not found");
+    }
+
+    // Upload an image
+    await userEvent.upload(fileInput, file);
+
+    // Find and click the remove button
+    const removeButton = screen.getByRole("button", { name: "" });
+    await userEvent.click(removeButton);
+
+    // Check if the image is removed
+    expect(screen.queryByAltText("Uploaded 0")).toBeNull();
+  });
+
+  it("handles image paste", async () => {
+    const { container } = render(<StartWithPrompt />);
+    const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
+
+    // Create a mock clipboard event with an image
+    const file = new File(["dummy content"], "pasted-image.png", { type: "image/png" });
+    const clipboardEvent = new Event("paste", { bubbles: true });
+    Object.assign(clipboardEvent, {
+      clipboardData: {
+        items: [
+          { kind: "file", type: "image/png", getAsFile: () => file },
+        ],
+      },
+    });
+
+    // Dispatch the paste event
+    fireEvent(textarea, clipboardEvent);
+
+    // Wait for the component to update
+    await waitFor(() => {
+      expect(screen.getByAltText("Uploaded 0")).toBeTruthy();
+    });
+  });
+
+  it("enlarges image when clicked", async () => {
+    const { container } = render(<StartWithPrompt />);
+    const file = new File(["dummy content"], "test.png", { type: "image/png" });
+    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+
+    if (!fileInput) {
+      throw new Error("File input not found");
+    }
+
+    // Upload an image
+    await userEvent.upload(fileInput, file);
+
+    // Click on the uploaded image
+    const uploadedImage = screen.getByAltText("Uploaded 0");
+    await userEvent.click(uploadedImage);
+
+    // Check if the enlarged image modal is displayed
+    expect(screen.getByAltText("Enlarged")).toBeTruthy();
+  });
 });
