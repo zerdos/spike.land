@@ -113,7 +113,7 @@ describe("StartWithPrompt", () => {
     }
 
     const uploadButton = screen.getByText("Upload Image");
-    expect(uploadButton).toHaveAttribute('aria-disabled', 'true');
+    expect(uploadButton).toHaveAttribute("aria-disabled", "true");
     expect(uploadButton).toBeDisabled();
   });
 
