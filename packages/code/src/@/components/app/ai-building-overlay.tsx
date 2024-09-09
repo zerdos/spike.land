@@ -51,7 +51,7 @@ const useReloadEffect = (isStreaming: boolean) => {
 };
 
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming, setIs] = useLocalStorage<boolean>(`streaming-${codeSpace}`, true);
+  const [isStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, true);
   const progress = useProgressBar(isStreaming);
   useReloadEffect(isStreaming);
 
