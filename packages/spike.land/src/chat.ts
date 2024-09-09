@@ -9,6 +9,10 @@ import { handleReplicateRequest } from "./replicateHandler";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+
+
+  
+
     const logger = new KVLogger("myapp", env.KV);
 
     env.KV.put("lastRequest", request.url);
@@ -121,7 +125,20 @@ export default {
     }
 
     ctx.waitUntil(logger.log(`Request for ${request.url}`));
-    return handleMainFetch(request, env, ctx);
+
+    const cache = caches.default;
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    const resp = await  handleMainFetch(request, env, ctx);
+    if (resp && resp.status === 200 && resp.headers.get('cache-control')?.includes('public')) {
+      ctx.waitUntil(cache.put(request, resp.clone()));
+    }
+
+
+    return resp;
   },
 };
 
