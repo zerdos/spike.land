@@ -220,7 +220,7 @@ const ActionButtons: React.FC<{
         isDarkMode
           ? "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
           : "bg-blue-100 text-blue-800 hover:bg-blue-200 focus:ring-blue-300"
-      }`}
+      } ${disableUpload ? 'opacity-50 cursor-not-allowed' : ''}`}
       disabled={disableUpload}>
       Upload Image
     </button>
