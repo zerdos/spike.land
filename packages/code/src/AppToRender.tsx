@@ -8,6 +8,7 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
+import { useAuth } from "@clerk/clerk-react";
 
 import { ICode } from '@/lib/interfaces';
 import { cn } from "@/lib/utils";
@@ -20,6 +21,7 @@ const Header: FC = () => (
     <SignedIn>
       <UserButton />
     </SignedIn>
+    <Hello />
   </header>
 );
 
@@ -28,9 +30,23 @@ interface AppToRenderProps {
   cSess: ICode;
 }
 
+ export const Hello = () => {
+   const { isSignedIn, sessionId, userId, getToken} = useAuth();
+
+   console.log(isSignedIn, sessionId, userId)
+
+   if (!isSignedIn) {
+      return <div>Not signed in</div>
+    }
+
+
+   return <h2>{userId}</h2> 
+ }
+
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
+
 
   useEffect(() => {
     if (codeSpace.includes('-')) {
