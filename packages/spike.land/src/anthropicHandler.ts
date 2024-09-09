@@ -3,7 +3,7 @@ import { MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
-import type { Message } from "@spike.land";
+import type { Message, MessageContent } from "@spike-land/code";
 
 function base64Encode(buf: ArrayBuffer) {
   let string = '';
@@ -27,27 +27,33 @@ export async function handleAnthropicRequest(
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as RequestBody;
-  const messages = await Promise.all(body.messages.map(async (message) => {
-    if (typeof message.content === "string") {
+  const messages = await Promise.all(body.messages.map(async (message: Message) => {
+    const content: MessageContent = message.content;
+    if (typeof content === "string") {
       return message;
     }
-    const processedContent = await Promise.all(message.content.map(async (content) => {
-      if (content.type === "text") {
-        return content.text;
+
+    const processedContent = await Promise.all(message.content.map(async (content: MessageContent) => {
+      if (content.type !== "image_url") {
+        return content;
       }
-      if (content.type === "image_url") {
+
+
         const url = content.image_url.url;
         const response = await fetch(url);
 
         const data = base64Encode(await response.arrayBuffer());
 
         return {
-          type: "base64",
-          media_type: response.headers.get("Content-Type") || "image/jpeg",
-          data
+          type: "image",
+          source: {
+            type: "base64",
+            media_type: response.headers.get("Content-Type") || "image/jpeg",
+            data
+          }
+         
         };
-      }
-      return content;
+
     }));
 
     return {
