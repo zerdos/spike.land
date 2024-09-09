@@ -89,7 +89,8 @@ describe("importMapReplace", () => {
     expect(result).toContain(`import { useState } from "${origin}/reactMod.mjs"`);
     expect(result).not.toContain(`// This is a comment`);
     expect(result).not.toContain(`// Inline comment`);
-    expect(result).not.toContain(`/* Multi-line\n         comment */`);
+    expect(result).not.toContain(`/* Multi-line`);
+    expect(result).not.toContain(`comment */`);
   });
 
   it("should handle complex scenarios", () => {

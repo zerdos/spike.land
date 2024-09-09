@@ -70,8 +70,8 @@ export function importMapReplace(code: string, origin: string): string {
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"${origin}/live/${packageName.slice(2)}/index.js"` + p3;
+    if (packageName.startsWith("./")) {
+      return match; // Preserve relative imports
     }
 
     if (packageName.startsWith("/")) {
@@ -137,10 +137,11 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(dynamicImportTemplatePattern, replacer)
     .replace(topLeveNoFromPattern, replacer);
 
-  replaced = replaced.split("\n").map((line) => {
-    line.trim();
-    return line;
-  }).filter((line) => !line.startsWith("//")).join("\n");
+  // Remove comments
+  replaced = replaced.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
+  
+  // Trim lines and remove empty lines
+  replaced = replaced.split("\n").map(line => line.trim()).filter(Boolean).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
