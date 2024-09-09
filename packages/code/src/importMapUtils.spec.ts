@@ -149,7 +149,7 @@ describe("importMapReplace", () => {
       import MyTSXModule from "./myModule.tsx";
     `;
     const result = importMapReplace(code, origin);
-    expect(result).toContain(`import MyModule from "${origin}/live/myModule.js"`);
+    expect(result).toContain(`import MyModule from "${origin}/live/myModule.js/index.js"`);
     expect(result).toContain(`import MyTypeScriptModule from "${origin}/live/myModule.ts/index.js"`);
     expect(result).toContain(`import MyJSXModule from "${origin}/live/myModule.jsx/index.js"`);
     expect(result).toContain(`import MyTSXModule from "${origin}/live/myModule.tsx/index.js"`);
