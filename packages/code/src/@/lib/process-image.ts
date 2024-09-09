@@ -53,7 +53,7 @@ export const processImage = (file: File): Promise<ImageData> => {
 
         // Check if the file size is larger than 600 KB
 
-        while (blob.size > MAX_FILE_SIZE) {
+        if (blob.size > MAX_FILE_SIZE) {
           const img = new Image();
           img.onload = async () => {
             blob = await resizeImage(img, 1200); // Resize to 1200px max dimension
