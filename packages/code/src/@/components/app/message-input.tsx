@@ -9,6 +9,7 @@ import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
 import type { ImageData } from "@/lib/interfaces";
+import { enhancedFetch } from "@/lib/enhanced-fetch";
 
 
 export const MessageInput: React.FC<MessageInputProps> = ({
@@ -56,7 +57,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     }
     setScreenShotIsLoading(true);
     
-    const image = await fetch(`/live/${codeSpace}/screenshot`)
+   
+    const image = await enhancedFetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${window.location.origin}/live/${codeSpace}/dehydrated&now=${Date.now()}`)
     const file = await image.arrayBuffer()
 
 
