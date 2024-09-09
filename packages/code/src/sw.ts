@@ -18,8 +18,8 @@ const ESM_CACHE_NAME = "esm-cache-124";
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
   const oldCaches = cacheNames.filter(cacheName =>
-    (cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME) ||
-    (cacheName.startsWith("esm-cache-") && cacheName !== ESM_CACHE_NAME)
+    (cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME)
+    || (cacheName.startsWith("esm-cache-") && cacheName !== ESM_CACHE_NAME)
   );
   return Promise.all(oldCaches.map(cacheName => caches.delete(cacheName)));
 }
@@ -108,9 +108,9 @@ const esmCacheStrategy = new StaleWhileRevalidate({
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/api/") &&
-    (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net") &&
-    !url.pathname.startsWith("/live/") &&
-    !files.has(url.pathname.slice(1)),
+    !url.pathname.startsWith("/api/")
+    && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
+    && !url.pathname.startsWith("/live/")
+    && !files.has(url.pathname.slice(1)),
   esmCacheStrategy,
 );
