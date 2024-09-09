@@ -70,8 +70,8 @@ export function importMapReplace(code: string, origin: string): string {
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"${origin}/live/${packageName.slice(2)}/index.js"` + p3;
+    if (packageName.startsWith("./")) {
+      return match; // Keep relative imports as they are
     }
 
     if (packageName.startsWith("/")) {

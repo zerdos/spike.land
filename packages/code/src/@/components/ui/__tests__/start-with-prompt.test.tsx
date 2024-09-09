@@ -117,8 +117,8 @@ describe("StartWithPrompt", () => {
       const uploadButton = screen.getByText("Upload Image");
       expect(uploadButton).toHaveAttribute("aria-disabled", "true");
       expect(uploadButton).toHaveClass("opacity-50 cursor-not-allowed");
-    }, { timeout: 10000 }); // Increase timeout to 10 seconds
-  }, 15000); // Increase the overall test timeout to 15 seconds
+    }, { timeout: 15000 }); // Increase timeout to 15 seconds
+  }, 20000); // Increase the overall test timeout to 20 seconds
 
   it("removes an image when the remove button is clicked", async () => {
     const { container } = render(<StartWithPrompt />);

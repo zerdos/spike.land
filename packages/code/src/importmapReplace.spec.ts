@@ -78,6 +78,7 @@ describe("importMapReplace", () => {
     const code = `import MyComponent from "./MyComponent";`;
     const result = importMapReplace(code, origin);
     expect(result).toContain(`import MyComponent from "./MyComponent"`);
+    expect(result).not.toContain(`${origin}/live/MyComponent/index.js`);
   });
 
   it("should not replace absolute URLs", async () => {
