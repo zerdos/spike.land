@@ -40,19 +40,19 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace top-level imports with dot in the path", async () => {
+  it("should replace top-level imports with dot in the module name", async () => {
     const code = "import React from \"react.gl\";";
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace top-leveldd imports with dot in the path", async () => {
+  it("should handle relative imports", async () => {
     const code = "import React from \"./box\";";
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace shadcdn ", async () => {
+  it("should replace shadcn-ui imports", async () => {
     const code = `
     import { css } from "@emotion/react";
     import $ from "react";
@@ -68,7 +68,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace coder44 ", async () => {
+  it("should handle multiple imports from different modules", async () => {
     const code = `
     import { css } from "@emotion/react";
     import $ from "react";
@@ -89,7 +89,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace top-level exports", async () => {
+  it("should replace top-level default exports", async () => {
     const code = `export { default } from "react";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
@@ -101,21 +101,15 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace dynamic imports2", async () => {
+  it("should handle dynamic imports with template literals", async () => {
     const code = "const dynamic = 'dd'; const React = import(`${dynamic}dom`);";
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
     expect(result).includes("React = import(`${dynamic}dom`);");
   });
 
-  it("should replace DYNAMID shadcdn imports", async () => {
+  it("should replace shadcn-ui dynamic imports", async () => {
     const code = "import React from \"@/components/ui/alert\";";
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchSnapshot();
-  });
-
-  it("should replace dynamic imports", async () => {
-    const code = `const React = import("react");`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
@@ -138,19 +132,13 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace dynamic imports", async () => {
-    const code = "const module = import(\"some-module\");";
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchSnapshot();
-  });
-
   it("should replace dynamic imports with await", async () => {
     const code = "const module = await import(\"some-module\");";
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace dynamic imports inside a function", async () => {
+  it("should replace dynamic imports inside an async function", async () => {
     const code = `
     import{Buffer as De}from"/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("lamejs");
@@ -168,20 +156,20 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should process this", async () => {
+  it("should process JSX-related imports", async () => {
     const code =
       `eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import"react";var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace the live urls", async () => {
+  it("should replace the live URLs", async () => {
     const code = `import Box from "/live/Box";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
-  it("should not do anything", async () => {
+  it("should not modify non-import statements", async () => {
     const code = ` eturn e[t] === r ||
               (e[t] = r,
                 (t === "prop" || t === "value" || t === "name" ||
@@ -192,7 +180,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace dynamic imports at the end", async () => {
+  it("should replace dynamic imports at the end of the file", async () => {
     const code = `
     import{Buffer as De}from"/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("lamejs");
@@ -214,7 +202,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace dynamic imports at the end", async () => {
+  it("should replace imports from react-spring", async () => {
     const code = `
     import { useSpring, animated } from "react-spring"; // Importing react-spring
     `;
@@ -222,21 +210,59 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should do clever top-level exports", async () => {
+  it("should handle specific named exports", async () => {
     const code = `import { prop, prop2 } from "foo";`;
     const result = importMapReplace(code, origin);
     expect(result).toContain(`"${origin}/*foo?bundle=true&exports=prop,prop2"`);
+    expect(result).toMatchSnapshot();
   });
 
-  it("should handle specific exports", async () => {
+  it("should handle specific exports from tslib", async () => {
     const code = `import { __await, __rest } from "tslib";`;
     const result = importMapReplace(code, origin);
     expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
+    expect(result).toMatchSnapshot();
   });
 
-  it("should handle specific named imports", async () => {
+  it("should handle specific named imports with aliases", async () => {
     const code = `import { __await as aw, __rest  as restNow} from "tslib";`;
     const result = importMapReplace(code, origin);
     expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
+    expect(result).toMatchSnapshot();
+  });
+
+  // New test cases using toMatchSnapshot
+  it("should handle import statements with multiple named imports", async () => {
+    const code = `import { useState, useEffect, useCallback } from "react";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should handle import statements with both default and named imports", async () => {
+    const code = `import React, { useState, useEffect } from "react";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should handle import statements with namespace imports", async () => {
+    const code = `import * as React from "react";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should handle import statements with default imports and aliases", async () => {
+    const code = `import ReactDOM from "react-dom/client";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should handle multiple import statements", async () => {
+    const code = `
+      import React from "react";
+      import { useState } from "react";
+      import axios from "axios";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
   });
 });

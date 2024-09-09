@@ -6,42 +6,47 @@ exports[`importMapReplace > should apply custom mappings 1`] = `
   import CustomPackage from "http://localhost:3000/*custom-package?bundle";"
 `;
 
-exports[`importMapReplace > should ignore absolute URLs 1`] = `
+exports[`importMapReplace > should handle dynamic imports with template literals 1`] = `
 "
   /** importMapReplace */
-  import MyComponent from "http://example.com/MyComponent.js";"
+  const dynamic = 'dd'; const React = import(\`\${dynamic}dom\`);"
 `;
 
-exports[`importMapReplace > should ignore relative URLs 1`] = `
+exports[`importMapReplace > should handle import statements with both default and named imports 1`] = `
 "
   /** importMapReplace */
-  import MyComponent from "http://localhost:3000/live/MyComponent/index.js";"
+  import React, { useState, useEffect } from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace > should not do anything 1`] = `
+exports[`importMapReplace > should handle import statements with default imports and aliases 1`] = `
 "
   /** importMapReplace */
-   eturn e[t] === r ||
-              (e[t] = r,
-                (t === "prop" || t === "value" || t === "name" ||
-                  t === "params" || t === "important" || t === "text") &&
-                e.markDirty()),
-              !0;"
+  import ReactDOM from "http://localhost:3000/reactDomClient.mjs";"
 `;
 
-exports[`importMapReplace > should process this 1`] = `
+exports[`importMapReplace > should handle import statements with multiple named imports 1`] = `
 "
   /** importMapReplace */
-  eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import"http://localhost:3000/reactMod.mjs";var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";"
+  import { useState, useEffect, useCallback } from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace > should replace DYNAMID shadcdn imports 1`] = `
+exports[`importMapReplace > should handle import statements with namespace imports 1`] = `
 "
   /** importMapReplace */
-  import React from "http://localhost:3000/@/components/ui/alert.mjs";"
+  import * as React from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace > should replace coder44  1`] = `
+exports[`importMapReplace > should handle multiple import statements 1`] = `
+"
+  /** importMapReplace */
+  
+      import React from "http://localhost:3000/reactMod.mjs";
+      import { useState } from "http://localhost:3000/reactMod.mjs";
+      import axios from "http://localhost:3000/*axios?bundle";
+    "
+`;
+
+exports[`importMapReplace > should handle multiple imports from different modules 1`] = `
 "
   /** importMapReplace */
   
@@ -56,25 +61,66 @@ exports[`importMapReplace > should replace coder44  1`] = `
     "
 `;
 
+exports[`importMapReplace > should handle relative imports 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/live/box/index.js";"
+`;
+
+exports[`importMapReplace > should handle specific exports from tslib 1`] = `
+"
+  /** importMapReplace */
+  import { __await, __rest } from "http://localhost:3000/*tslib?bundle=true&exports=__await,__rest";"
+`;
+
+exports[`importMapReplace > should handle specific named exports 1`] = `
+"
+  /** importMapReplace */
+  import { prop, prop2 } from "http://localhost:3000/*foo?bundle=true&exports=prop,prop2";"
+`;
+
+exports[`importMapReplace > should handle specific named imports with aliases 1`] = `
+"
+  /** importMapReplace */
+  import { __await as aw, __rest  as restNow} from "http://localhost:3000/*tslib?bundle=true&exports=__await,__rest";"
+`;
+
+exports[`importMapReplace > should ignore absolute URLs 1`] = `
+"
+  /** importMapReplace */
+  import MyComponent from "http://example.com/MyComponent.js";"
+`;
+
+exports[`importMapReplace > should ignore relative URLs 1`] = `
+"
+  /** importMapReplace */
+  import MyComponent from "http://localhost:3000/live/MyComponent/index.js";"
+`;
+
+exports[`importMapReplace > should not modify non-import statements 1`] = `
+"
+  /** importMapReplace */
+   eturn e[t] === r ||
+              (e[t] = r,
+                (t === "prop" || t === "value" || t === "name" ||
+                  t === "params" || t === "important" || t === "text") &&
+                e.markDirty()),
+              !0;"
+`;
+
+exports[`importMapReplace > should process JSX-related imports 1`] = `
+"
+  /** importMapReplace */
+  eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import"http://localhost:3000/reactMod.mjs";var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";"
+`;
+
 exports[`importMapReplace > should replace dynamic imports 1`] = `
 "
   /** importMapReplace */
   const React = import("http://localhost:3000/reactMod.mjs");"
 `;
 
-exports[`importMapReplace > should replace dynamic imports 2`] = `
-"
-  /** importMapReplace */
-  const React = import("http://localhost:3000/reactMod.mjs");"
-`;
-
-exports[`importMapReplace > should replace dynamic imports 3`] = `
-"
-  /** importMapReplace */
-  const module = import("http://localhost:3000/*some-module?bundle");"
-`;
-
-exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
+exports[`importMapReplace > should replace dynamic imports at the end of the file 1`] = `
 "
   /** importMapReplace */
   
@@ -95,15 +141,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
     "
 `;
 
-exports[`importMapReplace > should replace dynamic imports at the end 2`] = `
-"
-  /** importMapReplace */
-  
-    import { useSpring, animated } from "http://localhost:3000/*react-spring?bundle=true&exports=useSpring,animated"; // Importing react-spring
-    "
-`;
-
-exports[`importMapReplace > should replace dynamic imports inside a function 1`] = `
+exports[`importMapReplace > should replace dynamic imports inside an async function 1`] = `
 "
   /** importMapReplace */
   
@@ -126,13 +164,21 @@ exports[`importMapReplace > should replace dynamic imports with await 1`] = `
   const module = await import("http://localhost:3000/*some-module?bundle");"
 `;
 
-exports[`importMapReplace > should replace dynamic imports2 1`] = `
+exports[`importMapReplace > should replace imports from react-spring 1`] = `
 "
   /** importMapReplace */
-  const dynamic = 'dd'; const React = import(\`\${dynamic}dom\`);"
+  
+    import { useSpring, animated } from "http://localhost:3000/*react-spring?bundle=true&exports=useSpring,animated"; // Importing react-spring
+    "
 `;
 
-exports[`importMapReplace > should replace shadcdn  1`] = `
+exports[`importMapReplace > should replace shadcn-ui dynamic imports 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/@/components/ui/alert.mjs";"
+`;
+
+exports[`importMapReplace > should replace shadcn-ui imports 1`] = `
 "
   /** importMapReplace */
   
@@ -148,13 +194,13 @@ exports[`importMapReplace > should replace shadcdn  1`] = `
     "
 `;
 
-exports[`importMapReplace > should replace the live urls 1`] = `
+exports[`importMapReplace > should replace the live URLs 1`] = `
 "
   /** importMapReplace */
   import Box from "http://localhost:3000/live/Box";"
 `;
 
-exports[`importMapReplace > should replace top-level exports 1`] = `
+exports[`importMapReplace > should replace top-level default exports 1`] = `
 "
   /** importMapReplace */
   export { default } from "http://localhost:3000/reactMod.mjs";"
@@ -172,14 +218,8 @@ exports[`importMapReplace > should replace top-level imports 1`] = `
   import React from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace > should replace top-level imports with dot in the path 1`] = `
+exports[`importMapReplace > should replace top-level imports with dot in the module name 1`] = `
 "
   /** importMapReplace */
   import React from "http://localhost:3000/*react.gl?bundle";"
-`;
-
-exports[`importMapReplace > should replace top-leveldd imports with dot in the path 1`] = `
-"
-  /** importMapReplace */
-  import React from "http://localhost:3000/live/box/index.js";"
 `;
