@@ -14,9 +14,9 @@ import { ICode } from '@/lib/interfaces';
 import { DraggableWindow } from "./DraggableWindow";
 
 export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
-  const sp = new URLSearchParams(location.search);
-  const onlyEdit = sp.has("edit");
-  const [hideRest, setHideRest] = useState(true);
+  // const sp = new URLSearchParams(location.search);
+  // const onlyEdit = sp.has("edit");
+  // const [hideRest, setHideRest] = useState(true);
   // const { data, error, isLoading } = useClerkSWR(`/live/${codeSpace}/my`);
 
   // console.log({ data, error, isLoading });
@@ -41,28 +41,28 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
       }
     }}, []);
 
-  const reveal = async () => {
-    console.log("Revealing");
-    const re = document.getElementById("root");
-    const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;
-    const firstEl = re!.lastElementChild as HTMLDivElement;
+  // const reveal = async () => {
+  //   console.log("Revealing");
+  //   const re = document.getElementById("root");
+  //   const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;
+  //   const firstEl = re!.lastElementChild as HTMLDivElement;
 
-    if (!rootEl) return;
+  //   if (!rootEl) return;
 
-    firstEl.style.height = "100%";
-    firstEl.style.opacity = "1";
+  //   firstEl.style.height = "100%";
+  //   firstEl.style.opacity = "1";
 
-    // if (firstEl !== rootEl) {
-    //   re?.removeChild(re.firstElementChild!);
-    // }
+  //   // if (firstEl !== rootEl) {
+  //   //   re?.removeChild(re.firstElementChild!);
+  //   // }
 
-    // rootEl.style.opacity = "1";
-    document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
-      ?.remove();
-    setHideRest(false);
-    if (rootEl) rootEl.remove();
-    // document.querySelector(`#root[iframe]`)?.remove();
-  };
+  //   // rootEl.style.opacity = "1";
+  //   document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
+  //     ?.remove();
+  //   setHideRest(false);
+  //   if (rootEl) rootEl.remove();
+  //   // document.querySelector(`#root[iframe]`)?.remove();
+  // };
 
   // const handleCodeUpdate = (newCode: string) => {
   //   if (editorRef.current) {
@@ -83,7 +83,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
 
   return (
     <>
-      {!hideRest && (
+
         <header css={
           css`
             height: 44px;
@@ -103,7 +103,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
 
             
         </header>
-      )}
+ 
       <div
         css={css`
           height: calc(100vh - 44px);
@@ -112,34 +112,13 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
         `}
         className="relative"
       >
-        {onlyEdit
-          ? (
-            <iframe
-              id="iframeD"  
-              onLoad={() => {
-                reveal();
-              }}
-              css={css`
-            display: none;
-            height: 0;
-            
-            width: 0;
-            border: 0;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
-          `}
-              src={`/live/${codeSpace}/iframe`}
-            />
-          )
-          : (
+  
             <DraggableWindow
               isChatOpen={isOpen}
               codeSpace={codeSpace}
             >
               <iframe
-                onLoad={() => {
-                  reveal();
-                }}
+             
                 css={css`
               height: 100%;
               width: 100%;
@@ -150,9 +129,9 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
                 src={`/live/${codeSpace}/iframe`}
               />
             </DraggableWindow>
-          )}
 
-        {!hideRest && (
+
+
           <RainbowWrapper>
             <Editor
               codeSpace={codeSpace}
@@ -187,7 +166,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
    
           
           </RainbowWrapper>
-        )}
+    
       </div>
           
 <ChatInterface
