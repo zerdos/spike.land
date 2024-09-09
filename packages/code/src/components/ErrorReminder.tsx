@@ -57,7 +57,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
     if (errorType) {
       timer = setTimeout(() => {
         setShowError(true);
-      }, 1000); // 1 second delay
+      }, 300); // 1 second delay
     } else {
       setShowError(false);
     }

@@ -40,7 +40,7 @@ const useReloadEffect = (isStreaming: boolean) => {
     if (previousStreamingState.current && !isStreaming) {
       const timeoutId = setTimeout(() => {
         location.reload();
-      }, 1000);
+      }, 200);
 
       return () => clearTimeout(timeoutId);
     }

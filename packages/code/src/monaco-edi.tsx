@@ -339,7 +339,7 @@ async function startMonacoPristine({
       if (signal.aborted) return;
       editorModel.isEdit = false;
       tsCheck();
-    }, 1000);
+    }, 200);
 
     if (!editorModel.silent) {
       onChange(newCode);

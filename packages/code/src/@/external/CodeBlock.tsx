@@ -25,7 +25,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value, title }) => {
             onClick={() => {
               navigator.clipboard.writeText(value);
               setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
+              setTimeout(() => setCopied(false), 200);
               setIconIndex((iconIndex + 1) % icons.length);
             }}
           >
