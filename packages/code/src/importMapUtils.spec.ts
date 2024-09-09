@@ -1,41 +1,11 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { importMapReplace } from "./importMapUtils";
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
-  beforeAll(() => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn().mockImplementation(() =>
-        Promise.resolve({
-          ok: true,
-          json: () =>
-            Promise.resolve({
-              "name": "some-module",
-              "version": "1.0.0",
-              "main": "index.js",
-              "browser": "browser.js",
-              "module": "module.js",
-              "types": "index.d.ts",
-              "files": [
-                "index.js",
-                "browser.js",
-                "module.js",
-                "index.d.ts",
-              ],
-            }),
-        })
-      ),
-    );
-  });
-
-  afterAll(() => {
-    vi.unstubAllGlobals();
-  });
-
   it("should replace top-level imports", () => {
-    const code = "import React from \"react\";";
+    const code = 'import React from "react";';
     const result = importMapReplace(code, origin);
     expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
   });
@@ -117,6 +87,9 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
     expect(result).toContain(`import { useState } from "${origin}/reactMod.mjs"`);
+    expect(result).not.toContain(`// This is a comment`);
+    expect(result).not.toContain(`// Inline comment`);
+    expect(result).not.toContain(`/* Multi-line\n         comment */`);
   });
 
   it("should handle complex scenarios", () => {
