@@ -17,12 +17,12 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleSendMessage,
   isStreaming,
   inputRef,
-  isScreenshotLoading,
   screenshotImage,
    handleCancelScreenshot,
   isDarkMode,
 }) => {
   const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
+  const [isScreenshotLoading, setScreenShotIsLoading] = useState(false);
   const codeSpace = useCodeSpace();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -50,6 +50,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   const makeScreenshot = async () => {
+    if (uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))) {
+      setUploadedImages(prev => prev.filter(image => !image.imageName.includes(`screenshot-${codeSpace}`)));
+      return;
+    }
+    setScreenShotIsLoading(true);
     
     const image = await fetch(`/live/${codeSpace}/screenshot`)
     const file = await image.arrayBuffer()
@@ -57,6 +62,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
    const imageData = await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/png' }))
     setUploadedImages(prev => [...prev, imageData]);
+    setScreenShotIsLoading(false);
 
 
   }
@@ -144,7 +150,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   onClick={()=>makeScreenshot()}
                   variant={screenshotImage ? "secondary" : "outline"}
                   size="icon"
-                  disabled={!!uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))}
+                  disabled={isScreenshotLoading}
                   className={cn(
                     "transition-all duration-300",
                     isScreenshotLoading ? "animate-pulse" : "",
