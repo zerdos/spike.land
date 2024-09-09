@@ -102,7 +102,8 @@ const cacheFirstStrategy = new CacheFirst({
 registerRoute(
   ({ url }) => {
     const pathname = url.pathname.slice(1);
-    return hashedToOriginal.has(pathname) || hashPattern.test(pathname);
+    const origin = url.origin;
+    return !origin.includes("clerk") && (hashedToOriginal.has(pathname) || hashPattern.test(pathname));
   },
   cacheFirstStrategy,
 );
