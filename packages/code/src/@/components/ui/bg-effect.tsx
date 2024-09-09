@@ -4,19 +4,19 @@ import { cn } from "@/lib/utils";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 
 
-const fadeIn = keyframes`
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-`;
+// const fadeIn = keyframes`
+// from { opacity: 0; transform: translateY(20px); }
+// to { opacity: 1; transform: translateY(0); }
+// `;
 
 const pulse = keyframes`
 0%, 100% { opacity: 1; transform: scale(1); }
 50% { opacity: 0.8; transform: scale(0.98); }
 `;
-const rotate = keyframes`
-from { transform: rotate(0deg); }
-to { transform: rotate(360deg); }
-`;
+// const rotate = keyframes`
+// from { transform: rotate(0deg); }
+// to { transform: rotate(360deg); }
+// `;
 const cornerRotate = keyframes`
 from { transform: rotate(0deg); }
 to { transform: rotate(360deg); }
