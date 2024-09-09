@@ -114,4 +114,16 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toContain(`/** importMapReplace */`);
   });
+
+  it("should handle specific exports", () => {
+    const code = `import { __await, __rest } from "tslib";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
+  });
+
+  it("should handle specific named imports", () => {
+    const code = `import { __await as aw, __rest as restNow} from "tslib";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
+  });
 });

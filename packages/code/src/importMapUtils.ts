@@ -70,7 +70,7 @@ export function importMapReplace(code: string, origin: string): string {
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith("./")) {
+    if (packageName.startsWith("./") || packageName.startsWith("../")) {
       return match; // Preserve relative imports
     }
 
@@ -80,11 +80,6 @@ export function importMapReplace(code: string, origin: string): string {
 
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
       if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
-        const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
-        if (exports) {
-          return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
-        }
         return match; // Keep external URLs as they are
       }
       return match;
@@ -142,6 +137,7 @@ export function importMapReplace(code: string, origin: string): string {
 
   // Trim lines and remove empty lines
   replaced = replaced.split("\n").map(line => line.trim()).filter(Boolean).join("\n");
+  
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
