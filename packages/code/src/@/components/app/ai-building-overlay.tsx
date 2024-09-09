@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from "react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { useCodeSpace } from '@/hooks/use-code-space';
+import { useCodeSpace } from "@/hooks/use-code-space";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
@@ -46,27 +46,27 @@ const useReloadEffect = (isStreaming: boolean) => {
     }
 
     previousStreamingState.current = isStreaming;
-    return
+    return;
   }, [isStreaming]);
 };
 
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`);
+  const [isStreaming, setIs] = useLocalStorage<boolean>(`streaming-${codeSpace}`, true);
   const progress = useProgressBar(isStreaming);
   useReloadEffect(isStreaming);
 
-  if (!isStreaming) return null;
+
+   if (!isStreaming) return null;
 
   return (
-    <div
+      <div
       className={cn(
         "fixed inset-x-0 bottom-0 h-12",
         "bg-gradient-to-r from-pink-500/60 via-blue-500/60 to-green-500/60",
         "flex flex-col justify-center items-center",
         "z-10 backdrop-blur-sm shadow-lg",
       )}
-      aria-label='AI building progress indicator'
-    >
+      aria-label='AI building progress indicator'>
       <div className='flex items-center text-white text-sm font-medium mb-2'>
         <div
           className={cn(
@@ -75,22 +75,24 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
         />
         AI is building... This may take a few moments.
       </div>
-      <Progress value={progress} className="w-full" />
+      <Progress
+        value={progress}
+        className='w-full'
+      />
     </div>
   );
 }
 
 export default function App() {
   const codeSpace = useCodeSpace();
-  
-  const [isStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`);
   return (
     <div className='min-h-screen flex flex-col'>
+    
       <main className='flex-grow p-4 pb-16'>
         <h1 className='text-3xl font-bold mb-4'>Your App Title</h1>
         <p>Your app content goes here</p>
       </main>
-     {isStreaming && <AIBuildingOverlay codeSpace={codeSpace} />}
+     <AIBuildingOverlay codeSpace={codeSpace} />
     </div>
   );
 }
