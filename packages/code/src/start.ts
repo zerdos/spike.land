@@ -20,4 +20,6 @@ const codeSpace = useCodeSpace();
   }
 })();
 
-main();
+if (location.pathname.startsWith("/live")) {
+  main();
+}

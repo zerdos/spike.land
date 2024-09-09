@@ -127,10 +127,6 @@ export const main = async () => {
   }
 };
 
-if (location.pathname.startsWith("/live")) {
-  main();
-}
-
 (() => {
   try {
     cSess.sub(debounce((sess: ICodeSession) => {
