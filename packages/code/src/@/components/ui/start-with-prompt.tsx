@@ -269,6 +269,7 @@ const ImageGallery: React.FC<{
         <button
           onClick={() => removeImage(index)}
           className="absolute -top-2 right-[10%] bg-red-500 hover:bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white shadow-md transition-colors duration-300"
+          aria-label="Remove image"
         >
           <CircleMinus className="w-6 h-6 text-white" />
         </button>

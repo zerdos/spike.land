@@ -112,11 +112,14 @@ describe("StartWithPrompt", () => {
       await userEvent.upload(fileInput, file);
     }
 
-    const uploadButton = screen.getByText("Upload Image");
-    expect(uploadButton).toHaveAttribute("aria-disabled", "true");
-    expect(uploadButton).toBeDisabled();
-    expect(uploadButton).toHaveProperty("disabled", true);
-    expect(uploadButton).toHaveAttribute("disabled");
+    // Force a re-render to ensure the state is updated
+    await waitFor(() => {
+      const uploadButton = screen.getByText("Upload Image");
+      expect(uploadButton).toHaveAttribute("aria-disabled", "true");
+      expect(uploadButton).toBeDisabled();
+      expect(uploadButton).toHaveProperty("disabled", true);
+      expect(uploadButton).toHaveAttribute("disabled");
+    });
   });
 
   it("removes an image when the remove button is clicked", async () => {
@@ -131,12 +134,19 @@ describe("StartWithPrompt", () => {
     // Upload an image
     await userEvent.upload(fileInput, file);
 
+    // Wait for the image to be added
+    await waitFor(() => {
+      expect(screen.getByAltText("Uploaded 0")).toBeInTheDocument();
+    });
+
     // Find and click the remove button
-    const removeButton = screen.getByRole("button", { name: "" });
+    const removeButton = screen.getByLabelText("Remove image");
     await userEvent.click(removeButton);
 
     // Check if the image is removed
-    expect(screen.queryByAltText("Uploaded 0")).toBeNull();
+    await waitFor(() => {
+      expect(screen.queryByAltText("Uploaded 0")).toBeNull();
+    });
   });
 
   it("handles image paste", async () => {
