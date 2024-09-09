@@ -13,18 +13,20 @@ importScripts("/swVersion.js");
 
 const files = new Set(sw.files ? Object.keys(sw.files) : []);
 const CURRENT_CACHE_NAME = `file-cache-${sw.swVersion}`;
+const ESM_CACHE_NAME = "esm-cache-124";
 
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
-  const fileCaches = cacheNames.filter(cacheName =>
-    cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME
+  const oldCaches = cacheNames.filter(cacheName =>
+    (cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME) ||
+    (cacheName.startsWith("esm-cache-") && cacheName !== ESM_CACHE_NAME)
   );
-  return Promise.all(fileCaches.map(cacheName => caches.delete(cacheName)));
+  return Promise.all(oldCaches.map(cacheName => caches.delete(cacheName)));
 }
 
 async function copyMatchingFiles(oldCache: Cache, newCache: Cache, filesJson: typeof sw.files) {
   const oldFileJsonResponse = await oldCache.match("/files.json");
-  if (!oldFileJsonResponse) return;
+  if (!oldFileJsonResponse) return new Set<string>();
 
   const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
   const addedFiles = new Set(["files.json"]);
@@ -60,7 +62,7 @@ sw.addEventListener("activate", (event) => {
       }
 
       await cache.add("/files.json");
-      await sw.skipWaiting();
+      await sw.clients.claim();
       await cleanupOldCaches();
 
       return cache;
@@ -72,12 +74,8 @@ sw.addEventListener("activate", (event) => {
 });
 
 sw.addEventListener("message", async (event) => {
-  try {
-    if (event.data === "skipWaiting") {
-      await sw.skipWaiting();
-    }
-  } catch (error) {
-    console.error("Error in message event:", error);
+  if (event.data === "skipWaiting") {
+    await sw.skipWaiting();
   }
 });
 
@@ -100,7 +98,7 @@ registerRoute(
 );
 
 const esmCacheStrategy = new StaleWhileRevalidate({
-  cacheName: "esm-cache-124",
+  cacheName: ESM_CACHE_NAME,
   plugins: [
     new CacheableResponsePlugin({
       statuses: [0, 200],
@@ -110,10 +108,9 @@ const esmCacheStrategy = new StaleWhileRevalidate({
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/api/")
-    && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
-    && !url.pathname.startsWith("/live/")
-    && !url.pathname.startsWith("/api/")
-    && !files.has(url.pathname.slice(1)),
+    !url.pathname.startsWith("/api/") &&
+    (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net") &&
+    !url.pathname.startsWith("/live/") &&
+    !files.has(url.pathname.slice(1)),
   esmCacheStrategy,
 );
