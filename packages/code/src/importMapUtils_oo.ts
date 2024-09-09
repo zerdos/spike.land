@@ -14,7 +14,6 @@ export const oo: { [key: string]: string } = {
 export const importMap = { imports: oo };
 
 export function importMapReplace(code: string, origin: string): string {
-  // Check if the code has already been processed
   if (code.startsWith("/** importMapReplace */")) {
     return code;
   }
@@ -22,38 +21,42 @@ export function importMapReplace(code: string, origin: string): string {
   const importRegex = /^([ \t]*import\s+(?:[\w*{}\n\r\t, ]+)\s+from\s+)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
   const dynamicImportRegex = /import\((["'`])(.+?)\1\)/g;
   const exportRegex = /^([ \t]*export\s+(?:{\s*[\w\s,]+\s*}\s+from\s+)?)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
+  const simpleImportRegex = /^([ \t]*import\s*)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
 
   function replaceImport(match: string, importStatement: string, path: string, inlineComment: string = ""): string {
     let newPath = path;
 
     if (oo[path]) {
       newPath = `${origin}${oo[path]}`;
+    } else if (path.startsWith(origin)) {
+      newPath = path;
+    } else if (path.startsWith("/")) {
+      newPath = path;
     } else if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
       if (path.startsWith("@/")) {
-        newPath = `${origin}/@/${path.slice(2)}`;
+        newPath = `${origin}${path}`;
+      } else if (path === "d3-time" || path === "react/jsx-runtime" || path === "react") {
+        newPath = path;
       } else {
-        newPath = `${origin}/*${path}?bundle`;
-      }
-      if (!newPath.includes("?bundle")) {
-        newPath += ".mjs";
-      }
-    } else if (path.startsWith("./") || path.startsWith("../")) {
-      newPath = `${origin}/live/${path.replace(/^\.\//, "")}`;
-      if (!newPath.endsWith(".js") && !newPath.endsWith(".mjs")) {
-        newPath += "/index.js";
+        newPath = `${origin}/*${path}`;
       }
     } else {
       return match;
     }
 
-    // Extract specific exports if present
     const exportsMatch = importStatement.match(
       /{\s*([\w\s,]+(?:\s+as\s+[\w]+)?(?:\s*,\s*[\w]+(?:\s+as\s+[\w]+)?)*)\s*}/,
     );
-    if (exportsMatch && !oo[path] && !path.startsWith("@/")) {
-      const specificExports = exportsMatch[1].replace(/\s+as\s+/g, " as ").trim();
-      newPath += newPath.includes("?") ? "&" : "?";
-      newPath += `exports=${encodeURIComponent(specificExports)}`;
+    if (
+      exportsMatch && !oo[path] && !path.startsWith("@/") && !["d3-time", "react/jsx-runtime", "react"].includes(path)
+    ) {
+      const specificExports = exportsMatch[1].split(",").map(e => e.trim().split(/\s+as\s+/)[0]).join(",");
+      newPath += `?bundle=true&exports=${specificExports}`;
+    } else if (
+      !newPath.includes("?bundle") && !oo[path] && !path.startsWith("@/")
+      && !["d3-time", "react/jsx-runtime", "react"].includes(path)
+    ) {
+      newPath += "?bundle";
     }
 
     return `${importStatement}"${newPath}";${inlineComment ? " " + inlineComment : ""}`;
@@ -68,7 +71,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
     if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
       if (path.startsWith("@/")) {
-        return `import(${quote}${origin}/@/${path.slice(2)}?bundle${quote})`;
+        return `import(${quote}${origin}/${path}?bundle${quote})`;
       }
       return `import(${quote}${origin}/${path.includes("*") ? path : "*" + path + "?bundle"}${quote})`;
     }
@@ -82,15 +85,9 @@ export function importMapReplace(code: string, origin: string): string {
       newPath = `${origin}${oo[path]}`;
     } else if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
       if (path.startsWith("@/")) {
-        newPath = `${origin}/@/${path.slice(2)}`;
-      } else {
         newPath = `${origin}/${path}`;
-      }
-      newPath += ".mjs";
-    } else if (path.startsWith("./") || path.startsWith("../")) {
-      newPath = `${origin}/live/${path.replace(/^\.\//, "")}`;
-      if (!newPath.endsWith(".js") && !newPath.endsWith(".mjs")) {
-        newPath += "/index.js";
+      } else {
+        newPath = `${origin}/*${path}?bundle`;
       }
     } else {
       return match;
@@ -99,9 +96,22 @@ export function importMapReplace(code: string, origin: string): string {
     return `${exportStatement}"${newPath}";${inlineComment ? " " + inlineComment : ""}`;
   }
 
+  function replaceSimpleImport(
+    match: string,
+    importStatement: string,
+    path: string,
+    inlineComment: string = "",
+  ): string {
+    if (path === "react/jsx-runtime" || path === "react") {
+      return match;
+    }
+    return replaceImport(match, importStatement, path, inlineComment);
+  }
+
   code = code.replace(importRegex, replaceImport);
   code = code.replace(dynamicImportRegex, replaceDynamicImport);
   code = code.replace(exportRegex, replaceExport);
+  code = code.replace(simpleImportRegex, replaceSimpleImport);
 
-  return `/** importMapReplace */\n${code.trim()}`;
+  return `/** importMapReplace */\n${code}`;
 }
