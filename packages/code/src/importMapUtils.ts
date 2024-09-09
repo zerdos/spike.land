@@ -137,18 +137,14 @@ export function importMapReplace(code: string, origin: string): string {
 
   // Trim lines and remove empty lines
   replaced = replaced.split("\n").map(line => line.trim()).filter(Boolean).join("\n");
-  
+
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.replace(new RegExp(`${origin}/\\*${pkg}\\?bundle`, 'g'), 
-      origin + oo[pkg as keyof typeof oo]
-    );
+    replaced = replaced.replace(new RegExp(`${origin}/\\*${pkg}\\?bundle`, "g"), origin + oo[pkg as keyof typeof oo]);
   });
 
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.replace(new RegExp(`"${pkg}"`, 'g'), 
-      `"${origin}${oo[pkg as keyof typeof oo]}"`
-    );
+    replaced = replaced.replace(new RegExp(`"${pkg}"`, "g"), `"${origin}${oo[pkg as keyof typeof oo]}"`);
   });
 
   return `
