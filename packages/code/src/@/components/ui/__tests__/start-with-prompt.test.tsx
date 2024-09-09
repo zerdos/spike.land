@@ -116,7 +116,7 @@ describe("StartWithPrompt", () => {
     await waitFor(() => {
       const uploadButton = screen.getByText("Upload Image");
       expect(uploadButton).toHaveAttribute("aria-disabled", "true");
-      expect(uploadButton).toBeDisabled();
+      expect(uploadButton).toHaveClass("opacity-50 cursor-not-allowed");
     }, { timeout: 2000 });
   });
 
