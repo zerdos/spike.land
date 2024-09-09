@@ -231,7 +231,6 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  // New test cases using toMatchSnapshot
   it("should handle import statements with multiple named imports", async () => {
     const code = `import { useState, useEffect, useCallback } from "react";`;
     const result = importMapReplace(code, origin);
@@ -256,11 +255,49 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should handle multiple import statements", async () => {
+  it.only("should handle multiple import statements", async () => {
     const code = `
       import React from "react";
       import { useState } from "react";
       import axios from "axios";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  // New test cases
+  it("should handle imports with file extensions", async () => {
+    const code = `
+      import MyModule from "./myModule.js";
+      import MyTypeScriptModule from "./myModule.ts";
+      import MyJSXModule from "./myModule.jsx";
+      import MyTSXModule from "./myModule.tsx";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should handle imports starting with @/", async () => {
+    const code = `
+      import MyComponent from "@/components/MyComponent";
+      import MyUtil from "@/utils/MyUtil";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should not modify code that already contains importMapReplace", async () => {
+    const code = `
+      /** importMapReplace */
+      import React from "react";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toBe(code);
+  });
+
+  it("should handle imports with query parameters", async () => {
+    const code = `
+      import MyModule from "my-module?param1=value1&param2=value2";
     `;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();

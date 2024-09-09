@@ -36,14 +36,39 @@ exports[`importMapReplace > should handle import statements with namespace impor
   import * as React from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace > should handle multiple import statements 1`] = `
+exports[`importMapReplace > should handle imports starting with @/ 1`] = `
 "
   /** importMapReplace */
   
-      import React from "http://localhost:3000/reactMod.mjs";
-      import { useState } from "http://localhost:3000/reactMod.mjs";
-      import axios from "http://localhost:3000/*axios?bundle";
+      import MyComponent from "http://localhost:3000/@/components/MyComponent.mjs";
+      import MyUtil from "http://localhost:3000/@/utils/MyUtil.mjs";
     "
+`;
+
+exports[`importMapReplace > should handle imports with file extensions 1`] = `
+"
+  /** importMapReplace */
+  
+      import MyModule from "./myModule.js";
+      import MyTypeScriptModule from "./myModule.ts";
+      import MyJSXModule from "./myModule.jsx";
+      import MyTSXModule from "./myModule.tsx";
+    "
+`;
+
+exports[`importMapReplace > should handle imports with query parameters 1`] = `
+"
+  /** importMapReplace */
+  
+      import MyModule from "http://localhost:3000/*my-module?param1=value1&param2=value2?bundle";
+    "
+`;
+
+exports[`importMapReplace > should handle multiple import statements 1`] = `
+"/** importMapReplace */
+import React from "http://localhost:3000/reactMod.mjs";
+      import { useState } from "http://localhost:3000/reactMod.mjs";
+      import axios from "http://localhost:3000/axios?bundle";"
 `;
 
 exports[`importMapReplace > should handle multiple imports from different modules 1`] = `
