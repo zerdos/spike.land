@@ -52,15 +52,18 @@ export const processImage = (file: File): Promise<ImageData> => {
         let blob = new Blob([arrayBuffer], { type: file.type });
 
         // Check if the file size is larger than 600 KB
-
         if (blob.size > MAX_FILE_SIZE) {
           const img = new Image();
-          img.onload = async () => {
-            blob = await resizeImage(img, 800); // Resize to 1200px max dimension
-            arrayBuffer = await blob.arrayBuffer();
-          };
-          img.src = URL.createObjectURL(blob);
-          await new Promise((res) => (img.onload = res));
+          const resizedBlob = await new Promise<Blob>((res) => {
+            img.onload = async () => {
+              const resized = await resizeImage(img, 800); // Resize to 800px max dimension
+              res(resized);
+            };
+            img.src = URL.createObjectURL(blob);
+          });
+
+          blob = resizedBlob;
+          arrayBuffer = await resizedBlob.arrayBuffer();
         }
 
         const base64Data = await blobToBase64(blob);
