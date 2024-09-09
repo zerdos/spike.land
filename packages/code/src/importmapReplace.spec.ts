@@ -55,7 +55,9 @@ describe("importMapReplace", () => {
   it("should replace imports with aliases", async () => {
     const code = `import { useState as useStateAlias } from "react";`;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`import { useState as useStateAlias } from "${origin}/*react@18.2.0?bundle=true&exports=useState";`);
+    expect(result).toBe(
+      `import { useState as useStateAlias } from "${origin}/*react@18.2.0?bundle=true&exports=useState";`,
+    );
   });
 
   it("should replace dynamic imports", async () => {
