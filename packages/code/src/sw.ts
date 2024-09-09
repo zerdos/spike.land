@@ -11,9 +11,13 @@ import { CacheOnly, StaleWhileRevalidate } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
-const files = new Set(sw.files ? Object.keys(sw.files) : []);
 const CURRENT_CACHE_NAME = `file-cache-${sw.swVersion}`;
 const ESM_CACHE_NAME = "esm-cache-124";
+
+// Create a reverse mapping of hashed filenames to their original names
+const hashedToOriginal = new Map(
+  Object.entries(sw.files).map(([original, hashed]) => [hashed, original]),
+);
 
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
@@ -24,33 +28,33 @@ async function cleanupOldCaches() {
   return Promise.all(oldCaches.map(cacheName => caches.delete(cacheName)));
 }
 
-async function copyMatchingFiles(oldCache: Cache, newCache: Cache, filesJson: typeof sw.files) {
+async function copyMatchingFiles(oldCache: Cache, newCache: Cache) {
   const oldFileJsonResponse = await oldCache.match("/files.json");
-  if (!oldFileJsonResponse) return new Set<string>();
+  if (!oldFileJsonResponse) return;
 
   const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
   const addedFiles = new Set(["files.json"]);
 
   await Promise.all(
-    Object.entries(filesJson).map(async ([file, hash]) => {
-      if (addedFiles.has(file) || oldFiles[file] !== hash) return;
+    Object.entries(sw.files).map(async ([original, hashed]) => {
+      if (addedFiles.has(hashed)) return;
 
-      const oldResponse = await oldCache.match(`/${file}`);
-      if (oldResponse) {
-        await newCache.put(`/${file}`, oldResponse.clone());
-        addedFiles.add(file);
+      const oldHashed = oldFiles[original];
+      if (oldHashed === hashed) {
+        const oldResponse = await oldCache.match(`/${oldHashed}`);
+        if (oldResponse) {
+          await newCache.put(`/${hashed}`, oldResponse.clone());
+          addedFiles.add(hashed);
+        }
       }
     }),
   );
-
-  return addedFiles;
 }
 
 sw.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     try {
       const cache = await caches.open(CURRENT_CACHE_NAME);
-      const filesJson = sw.files || {};
       const cacheNames = await caches.keys();
       const fileCaches = cacheNames.filter(cacheName =>
         cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME
@@ -58,10 +62,10 @@ sw.addEventListener("activate", (event) => {
 
       for (const oldCacheName of fileCaches) {
         const oldCache = await caches.open(oldCacheName);
-        await copyMatchingFiles(oldCache, cache, filesJson);
+        await copyMatchingFiles(oldCache, cache);
       }
 
-      await cache.add("/files.json");
+      await cache.put("/files.json", new Response(JSON.stringify(sw.files)));
       await sw.clients.claim();
       await cleanupOldCaches();
 
@@ -97,14 +101,10 @@ const filesCacheStrategy = new StaleWhileRevalidate({
 });
 
 registerRoute(
-  ({ url }) => files.has(url.pathname.slice(1)),
+  ({ url }) => hashedToOriginal.has(url.pathname.slice(1)),
   ({ request, url }) => {
-    // Use Cache-Only strategy for files we know are in the cache
-    if (sw.files && sw.files[url.pathname.slice(1)]) {
-      return cacheOnlyStrategy.handle({ request, url });
-    }
-    // Use Stale-While-Revalidate for other files
-    return filesCacheStrategy.handle({ request, url });
+    // Always use Cache-Only strategy for hashed files
+    return cacheOnlyStrategy.handle({ request, url });
   },
 );
 
@@ -122,6 +122,6 @@ registerRoute(
     !url.pathname.startsWith("/api/")
     && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
     && !url.pathname.startsWith("/live/")
-    && !files.has(url.pathname.slice(1)),
+    && !hashedToOriginal.has(url.pathname.slice(1)),
   esmCacheStrategy,
 );
