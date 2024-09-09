@@ -31,7 +31,7 @@ interface AppToRenderProps {
 }
 
  export const Hello = () => {
-   const { isSignedIn, sessionId, userId, getToken} = useAuth();
+   const { isSignedIn, sessionId, userId} = useAuth();
 
    console.log(isSignedIn, sessionId, userId)
 
