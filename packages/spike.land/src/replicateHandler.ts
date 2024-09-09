@@ -24,7 +24,7 @@ const INPUT_DEFAULTS: InputDefaults = {
   prompt_strength: 0.85,
 };
 
-const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
+const REPLICATE_MODEL = "black-forest-labs/flux-pro";
 
 export function parseInputFromUrl(url: string): InputDefaults {
   const urlParams = new URL(url).searchParams;
