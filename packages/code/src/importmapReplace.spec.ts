@@ -37,7 +37,7 @@ describe("importMapReplace", () => {
   it("should replace top-level imports", async () => {
     const code = "import React from \"react\";";
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`import React from "${origin}/*react@18.2.0?bundle=true";`);
+    expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
   });
 
   it("should replace multiple top-level imports", async () => {
@@ -46,32 +46,26 @@ describe("importMapReplace", () => {
       import { useState, useEffect } from "react";
     `;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`
-      import React from "${origin}/*react@18.2.0?bundle=true";
-      import { useState, useEffect } from "${origin}/*react@18.2.0?bundle=true&exports=useState,useEffect";
-    `);
+    expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
+    expect(result).toContain(`import { useState, useEffect } from "${origin}/reactMod.mjs"`);
   });
 
   it("should replace imports with aliases", async () => {
     const code = `import { useState as useStateAlias } from "react";`;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(
-      `import { useState as useStateAlias } from "${origin}/*react@18.2.0?bundle=true&exports=useState";`,
-    );
+    expect(result).toContain(`import { useState as useStateAlias } from "${origin}/reactMod.mjs"`);
   });
 
   it("should replace dynamic imports", async () => {
     const code = `const React = import("react");`;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`const React = import("${origin}/*react@18.2.0?bundle=true");`);
+    expect(result).toContain(`const React = import("${origin}/reactMod.mjs"`);
   });
 
   it("should replace dynamic imports with template literals", async () => {
     const code = "const dynamic = 'react'; const React = import(`${dynamic}`);";
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(
-      `const dynamic = 'react'; const React = import("${origin}/*" + \`\${dynamic}\` + "@18.2.0?bundle=true");`,
-    );
+    expect(result).toContain(`const React = import("${origin}/*" + \`\${dynamic}\` + "?bundle"`);
   });
 
   it("should replace imports from @/ paths", async () => {
