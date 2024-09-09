@@ -141,7 +141,6 @@ const esmCacheStrategy = new StaleWhileRevalidate({
 registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api/")
-    && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
     && !url.pathname.startsWith("/live/")
     && !hashedToOriginal.has(url.pathname.slice(1))
     && !hashPattern.test(url.pathname.slice(1)),
