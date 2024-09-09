@@ -5,7 +5,7 @@ describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
   it("should replace top-level imports", () => {
-    const code = 'import React from "react";';
+    const code = "import React from \"react\";";
     const result = importMapReplace(code, origin);
     expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
   });
