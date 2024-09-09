@@ -173,6 +173,11 @@ describe("StartWithPrompt", () => {
     // Upload an image
     await userEvent.upload(fileInput, file);
 
+    // Wait for the image to be added to the DOM
+    await waitFor(() => {
+      expect(screen.getByAltText("Uploaded 0")).toBeTruthy();
+    });
+
     // Click on the uploaded image
     const uploadedImage = screen.getByAltText("Uploaded 0");
     await userEvent.click(uploadedImage);
