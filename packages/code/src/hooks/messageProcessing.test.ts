@@ -14,8 +14,8 @@ describe("messageProcessing", () => {
   describe("createNewMessage", () => {
     it("should create a new message with multiple images", async () => {
       const images: ImageData[] = [
-        { url: "url1" },
-        { url: "url2" },
+        { imageName: "image1", src: "url1", mediaType: "image/jpeg", data: "base64data1", type: "image", url: "url1" },
+        { imageName: "image2", src: "url2", mediaType: "image/jpeg", data: "base64data2", type: "image", url: "url2" },
       ];
       const content = "Test message";
 
@@ -48,8 +48,8 @@ describe("messageProcessing", () => {
   describe("processMessage", () => {
     let mockAIHandler: AIHandler;
     let mockCSess: ICode;
-    let mockSetMessages: vi.Mock;
-    let mockSaveMessages: vi.Mock;
+    let mockSetMessages: ReturnType<typeof vi.fn>;
+    let mockSaveMessages: ReturnType<typeof vi.fn>;
     let mockMutex: Mutex;
 
     beforeEach(() => {
@@ -74,7 +74,7 @@ describe("messageProcessing", () => {
         content: "Assistant response",
       };
 
-      vi.mocked(mockAIHandler.sendToAnthropic).mockResolvedValue(mockAssistantMessage);
+      (mockAIHandler.sendToAnthropic as ReturnType<typeof vi.fn>).mockResolvedValue(mockAssistantMessage);
 
       const result = await processMessage(
         mockAIHandler,
@@ -93,7 +93,7 @@ describe("messageProcessing", () => {
     });
 
     it("should handle errors", async () => {
-      vi.mocked(mockAIHandler.sendToAnthropic).mockRejectedValue(new Error("Test error"));
+      (mockAIHandler.sendToAnthropic as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Test error"));
 
       const result = await processMessage(
         mockAIHandler,

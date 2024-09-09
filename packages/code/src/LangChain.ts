@@ -33,8 +33,11 @@ export const createWorkflow = async (prompt: string) => {
     },
   );
 
-  const tools = [weatherTool] as ToolNode<AgentState>["tools"];
-  const toolNode = new ToolNode<AgentState>(tools);
+  const tools = [weatherTool];
+  const toolNode = new ToolNode({
+    tools,
+    return_direct: false,
+  } as any);
 
   const model = new ChatAnthropic({
     model: "claude-3-5-sonnet-20240620",
@@ -62,7 +65,7 @@ export const createWorkflow = async (prompt: string) => {
 
   const workflow = new StateGraph<AgentState>({ channels: graphState })
     .addNode("agent", callModel)
-    .addNode("tools", toolNode)
+    .addNode("tools", toolNode as any)
     .addEdge("__start__", "agent")
     .addConditionalEdges("agent", shouldContinue)
     .addEdge("tools", "agent");
