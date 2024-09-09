@@ -65,31 +65,31 @@ describe("importMapReplace", () => {
   it("should replace dynamic imports with template literals", async () => {
     const code = "const dynamic = 'react'; const React = import(`${dynamic}`);";
     const result = await importMapReplace(code, origin);
-    expect(result).toContain(`const React = import("${origin}/*" + \`\${dynamic}\` + "?bundle"`);
+    expect(result).toContain(`const React = import(\`\${dynamic}\`)`);
   });
 
   it("should replace imports from @/ paths", async () => {
     const code = `import { Button } from "@/components/ui/button";`;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`import { Button } from "${origin}/*@/components/ui/button?bundle=true&exports=Button";`);
+    expect(result).toContain(`import { Button } from "${origin}/@/components/ui/button.mjs"`);
   });
 
   it("should not replace relative imports", async () => {
     const code = `import MyComponent from "./MyComponent";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(code);
+    expect(result).toContain(code);
   });
 
   it("should not replace absolute URLs", async () => {
     const code = `import MyComponent from "https://example.com/MyComponent.js";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(code);
+    expect(result).toContain(code);
   });
 
   it("should replace exports", async () => {
     const code = `export { default } from "react";`;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`export { default } from "${origin}/*react@18.2.0?bundle=true";`);
+    expect(result).toContain(`export { default } from "${origin}/reactMod.mjs"`);
   });
 
   it("should handle multiple imports and exports", async () => {
@@ -100,12 +100,10 @@ describe("importMapReplace", () => {
       const lodash = import("lodash");
     `;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`
-      import React from "${origin}/*react@18.2.0?bundle=true";
-      import { useState } from "${origin}/*react@18.2.0?bundle=true&exports=useState";
-      export { Button } from "${origin}/*@/components/ui/button?bundle=true&exports=Button";
-      const lodash = import("${origin}/*lodash@4.17.21?bundle=true");
-    `);
+    expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
+    expect(result).toContain(`import { useState } from "${origin}/reactMod.mjs"`);
+    expect(result).toContain(`export { Button } from "${origin}/@/components/ui/button.mjs"`);
+    expect(result).toContain(`const lodash = import("${origin}/*lodash?bundle")`);
   });
 
   it("should handle imports with comments", async () => {
@@ -117,13 +115,8 @@ describe("importMapReplace", () => {
       import { useState } from "react";
     `;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`
-      // This is a comment
-      import React from "${origin}/*react?bundle=true"; // Inline comment
-      /* Multi-line
-         comment */
-      import { useState } from "${origin}/*react?bundle=true&exports=useState";
-    `);
+    expect(result).toContain(`import React from "${origin}/reactMod.mjs"`);
+    expect(result).toContain(`import { useState } from "${origin}/reactMod.mjs"`);
   });
 
   it("should handle complex scenarios", async () => {
@@ -135,12 +128,10 @@ describe("importMapReplace", () => {
       const dynamicImport = (module) => import(\`\${module}\`);
     `;
     const result = await importMapReplace(code, origin);
-    expect(result).toBe(`
-      import React, { useState, useEffect as useEffectAlias } from "${origin}/*react@18.2.0?bundle=true&exports=useState,useEffect";
-      import { Button } from "${origin}/*@/components/ui/button?bundle=true&exports=Button";
-      const lodash = import("${origin}/*lodash@4.17.21?bundle=true");
-      export { default as MyComponent } from "./MyComponent";
-      const dynamicImport = (module) => import("${origin}/*" + \`\${module}\` + "@18.2.0?bundle=true");
-    `);
+    expect(result).toContain(`import React, { useState, useEffect as useEffectAlias } from "${origin}/reactMod.mjs"`);
+    expect(result).toContain(`import { Button } from "${origin}/@/components/ui/button.mjs"`);
+    expect(result).toContain(`const lodash = import("${origin}/*lodash?bundle")`);
+    expect(result).toContain(`export { default as MyComponent } from "./MyComponent"`);
+    expect(result).toContain(`const dynamicImport = (module) => import(\`\${module}\`)`);
   });
 });

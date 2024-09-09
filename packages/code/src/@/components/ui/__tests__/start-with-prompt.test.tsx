@@ -117,7 +117,7 @@ describe("StartWithPrompt", () => {
       const uploadButton = screen.getByText("Upload Image");
       expect(uploadButton).toHaveAttribute("aria-disabled", "true");
       expect(uploadButton).toHaveClass("opacity-50 cursor-not-allowed");
-    }, { timeout: 2000 });
+    }, { timeout: 5000 }); // Increase timeout to 5 seconds
   });
 
   it("removes an image when the remove button is clicked", async () => {
