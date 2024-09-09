@@ -5,8 +5,8 @@ import { Check, X, Image as ImageIcon } from "@/external/lucideReact";
 import type { Message } from "@/lib/interfaces";
 import { renderMessage } from "@/lib/render-messages";
 import React, { useRef, useState } from "react";
-import { md5 } from "@/lib/md5";
 import { cn } from "@/lib/utils";
+import { processImage } from "@/lib/process-image";
 
 interface ImageData {
   imageName: string;
@@ -56,17 +56,15 @@ export const ChatMessage: React.FC<{
                   ? message.content.map((item, index) => {
                     if (item.type === "text") {
                       return <div key={`text-${index}`}>{renderMessage(item.text!, isUser)}</div>;
-                    } else if (item.type === "image" && item.source?.type === "base64") {
-                      const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
-  
-                      return (
-                        <img
-                          key={`image-${index}`}
-                          src={imageUrlFromBase64String}
-                          alt="Screenshot"
-                          className="max-w-full h-auto mt-2 rounded-lg"
-                        />
-                      );
+                    } else  if (item.type === "image_url") {
+            return (
+              <img
+                key={`image-${index}`}
+                src={item.image_url?.url}
+                alt={item.image_url?.url.includes(`screenshot`) ? "Screenshot" : "Image"}
+                className="max-w-full h-auto mt-2 rounded-lg"
+              />
+            );
                     }
                     return null;
                   })
@@ -81,14 +79,12 @@ export const ChatMessage: React.FC<{
         return message.content.map((item, index) => {
           if (item.type === "text") {
             return <div key={`text-${index}`}>{renderMessage(item.text!, isUser)}</div>;
-          } else if (item.type === "image" && item.source?.type === "base64") {
-            const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
-  
+          } else if (item.type === "image_url") {
             return (
               <img
                 key={`image-${index}`}
-                src={imageUrlFromBase64String}
-                alt="Screenshot"
+                src={item.image_url?.url}
+                alt={item.image_url?.url.includes(`screenshot`) ? "Screenshot" : "Image"}
                 className="max-w-full h-auto mt-2 rounded-lg"
               />
             );
@@ -110,42 +106,6 @@ export const ChatMessage: React.FC<{
       }
     };
 
-    const processImage = async (file: File): Promise<ImageData> => {
-      const reader = new FileReader();
-      return new Promise((resolve, reject) => {
-        reader.onload = async (e) => {
-          try {
-            const arrayBuffer = e.target?.result as ArrayBuffer;
-            const blob = new Blob([arrayBuffer], { type: file.type });
-            const base64Data = await blobToBase64(blob);
-            const md5Body = md5(base64Data);
-            const imageName = file.name;
-            const url = `/my-cms/${md5Body}/${imageName}`;
-            await fetch(url, { method: "PUT", body: arrayBuffer });
-            resolve({
-              imageName,
-              url,
-              src: URL.createObjectURL(blob),
-              mediaType: file.type,
-              data: base64Data,
-            });
-          } catch (error) {
-            reject(new Error("Failed to process image"));
-          }
-        };
-        reader.onerror = () => reject(new Error("Failed to read file"));
-        reader.readAsArrayBuffer(file);
-      });
-    };
-
-    const blobToBase64 = (blob: Blob): Promise<string> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    };
 
     return (
       <div

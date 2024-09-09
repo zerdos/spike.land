@@ -92,7 +92,10 @@ export interface Message {
 export type MessageContent =
   | string
   | Array<{
-    type: "text" | "image";
+    type: "text" | "image" | "image_url";
+    image_url?: {
+      url: string;
+    };
     text?: string;
     source?: {
       type: "base64";
