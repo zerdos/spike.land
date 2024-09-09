@@ -123,35 +123,3 @@ export async function handleAnthropicRequest(
     },
   });
 }
-
-function preprocessMessages(body: RequestBody): RequestBody {
-  const processedBody: RequestBody = { ...body, messages: [...body.messages] };
-
-  if (processedBody.messages.length > 0) {
-    const firstMessage = processedBody.messages[0];
-    if (firstMessage.role !== "user") {
-      processedBody.system = getSystemMessage(firstMessage);
-      processedBody.messages.shift();
-    } else if (Array.isArray(firstMessage.content)) {
-      const systemContent = firstMessage.content.find(c => c.type === "text" && c.text.startsWith("Human:")) as {
-        text: string;
-      } | undefined;
-      if (systemContent) {
-        processedBody.system = systemContent.text.replace("Human:", "").trim();
-        firstMessage.content = firstMessage.content.filter(c => c !== systemContent);
-      }
-    }
-  }
-
-  return processedBody;
-}
-
-function getSystemMessage(message: MessageParam): string {
-  if (typeof message.content === "string") {
-    return message.content;
-  } else if (Array.isArray(message.content)) {
-    const textContent = message.content.find(c => c.type === "text");
-    return textContent ? textContent.text : "";
-  }
-  return "";
-}
