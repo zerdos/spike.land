@@ -6,7 +6,7 @@ interface Env {
 }
 
 export default {
-  async fetch(request, env): Promise<Response> {
+  async fetch(request, env, ctx): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
     let top = searchParams.get("top");
@@ -26,7 +26,7 @@ export default {
         const page = await browser.newPage();
 
         try {
-          await page.goto(url, { waitUntil: "networkidle0" });
+          await page.goto(url);
 
           // Wait for a specific element that indicates your React app is fully loaded
           // Replace '#react-app-loaded' with an appropriate selector for your app
@@ -45,13 +45,17 @@ export default {
           //   await page.waitForTimeout(500); // Wait for scroll to complete
           // }
 
-          img = await page.screenshot({ type: "jpeg" }) as Buffer;
-          await env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 });
+          img = await page.screenshot({ type: "jpeg", fullPage: true, quality: 70, encoding: 'binary' }) as Buffer;
+          
+          ctx.waitUntil(
+          env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 })
+          );
         } catch (error) {
           console.error("Error capturing screenshot:", error);
           return new Response("Error capturing screenshot", { status: 500 });
         } finally {
-          await browser.close();
+          ctx.waitUntil(browser.close());
+         
         }
       }
 
@@ -63,19 +67,3 @@ export default {
     }
   },
 } satisfies ExportedHandler<Env>;
-
-async function waitForElement(
-  page: Page,
-  selector: string,
-  maxRetries: number,
-  retryInterval: number,
-) {
-  for (let i = 0; i < maxRetries; i++) {
-    const element = await page.$(selector);
-    if (element) {
-      return element;
-    }
-    await page.waitForTimeout(retryInterval);
-  }
-  throw new Error(`Element ${selector} not found after ${maxRetries} retries`);
-}
