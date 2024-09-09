@@ -125,7 +125,7 @@ export default {
   },
 };
 
-async function handleCMSIndexRequest(request: Request, env: Env) {
+export async function handleCMSIndexRequest(request: Request, env: Env) {
   const key = request.url;
   const url = new URL(request.url);
   const path = url.pathname;
