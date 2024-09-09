@@ -7,7 +7,7 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { CacheOnly, StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
@@ -90,11 +90,7 @@ sw.addEventListener("install", (event) => {
   event.waitUntil(cleanupOldCaches());
 });
 
-const cacheOnlyStrategy = new CacheOnly({
-  cacheName: CURRENT_CACHE_NAME,
-});
-
-const filesCacheStrategy = new StaleWhileRevalidate({
+const cacheFirstStrategy = new CacheFirst({
   cacheName: CURRENT_CACHE_NAME,
   plugins: [
     new CacheableResponsePlugin({
@@ -108,25 +104,7 @@ registerRoute(
     const pathname = url.pathname.slice(1);
     return hashedToOriginal.has(pathname) || hashPattern.test(pathname);
   },
-  ({ request, url }) => {
-    return caches.match(request).then(response => {
-      if (response) {
-        // If the file is in the cache, serve it directly
-        return response;
-      } else {
-        // If not in cache, fetch it and cache for future use
-        return fetch(request).then(newResponse => {
-          if (newResponse.ok) {
-            const clonedResponse = newResponse.clone();
-            caches.open(CURRENT_CACHE_NAME).then(cache => {
-              cache.put(request, clonedResponse);
-            });
-          }
-          return newResponse;
-        });
-      }
-    });
-  },
+  cacheFirstStrategy,
 );
 
 const esmCacheStrategy = new StaleWhileRevalidate({
@@ -141,8 +119,8 @@ const esmCacheStrategy = new StaleWhileRevalidate({
 registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api/")
-    && !url.pathname.startsWith("/live/")
     && !url.origin.includes("clerk")
+    && !url.pathname.startsWith("/live/")
     && !hashedToOriginal.has(url.pathname.slice(1))
     && !hashPattern.test(url.pathname.slice(1)),
   esmCacheStrategy,
