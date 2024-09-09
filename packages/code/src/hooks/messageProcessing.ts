@@ -14,15 +14,10 @@ export async function createNewMessage(
 
   if (images && images.length > 0) {
     images.forEach((image) => {
-      const imageHeadAndData = image.data.split(",");
-      const mediaType = imageHeadAndData[0].split(":")[1].split(";")[0];
-
       imagesContent.push({
-        type: "image",
-        source: {
-          type: "base64",
-          media_type: mediaType,
-          data: imageHeadAndData[1],
+        "type": "image_url",
+        "image_url": {
+          "url": image.url,
         },
       });
     });
