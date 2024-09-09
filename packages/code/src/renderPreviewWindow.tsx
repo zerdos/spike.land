@@ -7,18 +7,21 @@ import { Suspense, lazy } from "react";
 export const renderPreviewWindow = async (
   { codeSpace, cSess }: { codeSpace: string; cSess: ICode },
 ) => {
+const rootElement =   document.getElementById("embed") as HTMLDivElement;
+rootElement.id = "root";
 
-  const App = lazy(() => import("./AppToRender").then((module) => ({ default: module.AppToRender })));
+  const LazyAppToRender = lazy(() => import("./AppToRender").then((module) => ({ default: module.AppToRender })));
 
 
 
   
-const SpikeLansAPP = ()=> <Suspense fallback={
- <iframe src={`/live/${codeSpace}/iframe`} style={{width: "100%", height: "100%"}}></iframe> 
-}><ClerkProvider publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ" afterSignOutUrl="/">
-<App codeSpace={codeSpace} cSess={cSess} />
-</ClerkProvider>
+const App = ()=> 
+<ClerkProvider publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ" afterSignOutUrl="/">
+<Suspense fallback={
+ <iframe src={`/live/${codeSpace}/iframe`} style={{width: "100%", height: "100vh"}}></iframe> 
+}><LazyAppToRender codeSpace={codeSpace} cSess={cSess} />
 </Suspense>
+</ClerkProvider>
 
-  return renderApp({ App: SpikeLansAPP, rootElement: document.getElementById("embed") as unknown as HTMLDivElement });
+  return renderApp({ App, rootElement });
 };
