@@ -3,11 +3,20 @@ import { MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
+import type { Message } from "@spike.land";
+
+function base64Encode(buf: ArrayBuffer) {
+  let string = '';
+  (new Uint8Array(buf)).forEach(
+    (byte) => { string += String.fromCharCode(byte) }
+  )
+  return btoa(string)
+}
 
 interface RequestBody {
   stream?: boolean;
   system?: string;
-  messages: MessageParam[];
+  messages: Message[];
 }
 
 export async function handleAnthropicRequest(
@@ -18,13 +27,39 @@ export async function handleAnthropicRequest(
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as RequestBody;
+  const messages = await Promise.all(body.messages.map(async (message) => {
+    if (typeof message.content === "string") {
+      return message;
+    }
+    const processedContent = await Promise.all(message.content.map(async (content) => {
+      if (content.type === "text") {
+        return content.text;
+      }
+      if (content.type === "image_url") {
+        const url = content.image_url.url;
+        const response = await fetch(url);
+
+        const data = base64Encode(await response.arrayBuffer());
+
+        return {
+          type: "base64",
+          media_type: response.headers.get("Content-Type") || "image/jpeg",
+          data
+        };
+      }
+      return content;
+    }));
+
+    return {
+      ...message,
+      content: processedContent
+    };
+  }));
 
   const anthropic = new Anthropic({
     baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
     apiKey: env.ANTHROPIC_API_KEY,
   });
-
-//  const processedBody = preprocessMessages(body);``
 
   const conf = {
     model: "claude-3-5-sonnet-20240620",
@@ -32,6 +67,7 @@ export async function handleAnthropicRequest(
     temperature: 0.1,
     stream: true,
     ...body,
+    messages,
   };
 
   if (conf.stream === false) {
@@ -111,3 +147,4 @@ function getSystemMessage(message: MessageParam): string {
   }
   return "";
 }
+
