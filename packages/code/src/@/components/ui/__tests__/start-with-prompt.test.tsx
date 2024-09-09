@@ -116,6 +116,7 @@ describe("StartWithPrompt", () => {
     expect(uploadButton).toHaveAttribute("aria-disabled", "true");
     expect(uploadButton).toBeDisabled();
     expect(uploadButton).toHaveProperty("disabled", true);
+    expect(uploadButton).toHaveAttribute("disabled");
   });
 
   it("removes an image when the remove button is clicked", async () => {
