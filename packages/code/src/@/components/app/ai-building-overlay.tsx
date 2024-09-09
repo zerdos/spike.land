@@ -14,6 +14,9 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
 
   useEffect(() => {
     if (isStreaming) {
+      // lets reload the page
+      // this is a hack to get the page to reload
+      location.reload();
       setProgress(0);
     } else {
       setProgress(100);
