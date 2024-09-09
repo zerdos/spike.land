@@ -115,6 +115,7 @@ describe("StartWithPrompt", () => {
     const uploadButton = screen.getByText("Upload Image");
     expect(uploadButton).toHaveAttribute("aria-disabled", "true");
     expect(uploadButton).toBeDisabled();
+    expect(uploadButton).toHaveProperty("disabled", true);
   });
 
   it("removes an image when the remove button is clicked", async () => {
