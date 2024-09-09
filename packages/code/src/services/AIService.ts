@@ -80,7 +80,7 @@ export class AIService {
     return content;
   }
 
-  private async makeAPICall(endpoint: string, messages: Message[]): Promise<Response> {
+  private async makeAPICall(endpoint: string, messages: Message[], model = ``): Promise<Response> {
     try {
       const formattedMessages = messages.map(({ role, content }) => ({
         role,
@@ -93,7 +93,9 @@ export class AIService {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           stream: true,
+
           messages: formattedMessages,
+          ...(model ? { model } : {}),
         }),
       });
 
@@ -112,9 +114,10 @@ export class AIService {
     endpoint: string,
     messages: Message[],
     onUpdate: (content: string) => void,
+    model?: string,
   ): Promise<AIModelResponse> {
     try {
-      const response = await this.makeAPICall(endpoint, messages);
+      const response = await this.makeAPICall(endpoint, messages, model);
       const reader = response.body?.getReader();
       if (!reader) {
         throw new Error("Response body is not readable!");
@@ -144,7 +147,7 @@ export class AIService {
   ): Promise<Message> {
     try {
       const endpoint = this.getEndpoint(type);
-      const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
+      const result = await this.handleStreamingResponse(endpoint, messages, onUpdate, type === "gpt4o" ? `gpt-4o` : "");
 
       const lastMessage = messages[messages.length - 1];
 
