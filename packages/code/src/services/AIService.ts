@@ -81,25 +81,33 @@ export class AIService {
   }
 
   private async makeAPICall(endpoint: string, messages: Message[]): Promise<Response> {
-    const formattedMessages = messages.map(({ role, content }) => ({
-      role,
-      content: this.formatMessageContent(content),
-    }));
+    try {
+      const formattedMessages = messages.map(({ role, content }) => ({
+        role,
+        content: this.formatMessageContent(content),
+      }));
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        stream: true,
-        messages: formattedMessages,
-      }),
-    });
+      this.config.setIsStreaming(true);
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          stream: true,
+          messages: formattedMessages,
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return response;
+    } catch (error) {
+      console.error("Error making API call:", error);
+      throw error;
+    } finally {
+      this.config.setIsStreaming(false);
     }
-
-    return response;
   }
 
   private async handleStreamingResponse(
@@ -107,7 +115,6 @@ export class AIService {
     messages: Message[],
     onUpdate: (content: string) => void,
   ): Promise<AIModelResponse> {
-    this.config.setIsStreaming(true);
     try {
       const response = await this.makeAPICall(endpoint, messages);
       const reader = response.body?.getReader();
@@ -124,8 +131,9 @@ export class AIService {
         id: Date.now().toString(),
         content,
       };
-    } finally {
-      this.config.setIsStreaming(false);
+    } catch (error) {
+      console.error("Error handling streaming response:", error);
+      throw error;
     }
   }
 
@@ -173,7 +181,6 @@ export class AIService {
     };
 
     try {
-      this.config.setIsStreaming(true);
       const endpoint = this.getEndpoint("openAI");
       const response = await this.handleStreamingResponse(endpoint, messages, updateMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
@@ -193,8 +200,6 @@ export class AIService {
       console.error("Error in AI code processing:", error);
       updateMessages(error instanceof Error ? error.message : String(error));
       throw error;
-    } finally {
-      this.config.setIsStreaming(false);
     }
   }
 
@@ -228,15 +233,19 @@ export class AIService {
     };
 
     try {
-      this.config.setIsStreaming(true);
       const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
         setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
       });
       setMessages((prevMessages) => [...prevMessages, answer]);
 
       return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
-    } finally {
-      this.config.setIsStreaming(false);
+    } catch (error) {
+      console.error("Error retrying with Claude:", error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { id: Date.now().toString(), role: "assistant", content: "I'm sorry, I couldn't help you with this error." },
+      ]);
+      return "";
     }
   }
 

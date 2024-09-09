@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useCodeSpace } from '@/hooks/use-code-space';
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
@@ -45,6 +46,7 @@ const useReloadEffect = (isStreaming: boolean) => {
     }
 
     previousStreamingState.current = isStreaming;
+    return
   }, [isStreaming]);
 };
 
@@ -79,13 +81,16 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
 }
 
 export default function App() {
+  const codeSpace = useCodeSpace();
+  
+  const [isStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`);
   return (
     <div className='min-h-screen flex flex-col'>
       <main className='flex-grow p-4 pb-16'>
         <h1 className='text-3xl font-bold mb-4'>Your App Title</h1>
         <p>Your app content goes here</p>
       </main>
-      <AIBuildingOverlay codeSpace='highlightJsss' />
+     {isStreaming && <AIBuildingOverlay codeSpace={codeSpace} />}
     </div>
   );
 }

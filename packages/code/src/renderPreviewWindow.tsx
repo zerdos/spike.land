@@ -1,30 +1,24 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import { createRoot } from "react-dom/client";
-import { AppToRender } from "./AppToRender";
-import { ICode } from "./cSess.interface";
+import { renderApp } from "@/lib/render-app";
+import type { ICode } from "./cSess.interface";
+import { Suspense, lazy } from "react";
 
-const singleton = { started: false };
 
 export const renderPreviewWindow = async (
   { codeSpace, cSess }: { codeSpace: string; cSess: ICode },
 ) => {
-  if (singleton.started) return;
-  singleton.started = true;
+
+  const App = lazy(() => import("./AppToRender").then((module) => ({ default: module.AppToRender })));
+
+
+
   
-  document.getElementById("embed")!.id = "root";
+const SpikeLansAPP = ()=> <Suspense fallback={
+ <iframe src={`/live/${codeSpace}/iframe`} style={{width: "100%", height: "100%"}}></iframe> 
+}><ClerkProvider publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ" afterSignOutUrl="/">
+<App codeSpace={codeSpace} cSess={cSess} />
+</ClerkProvider>
+</Suspense>
 
-  const rootEl = document.createElement("div");
-
-  rootEl.style.opacity = "0";
-  rootEl.style.height = "0px";
-
-  const root = createRoot(rootEl);
-  document.getElementById("root")!.appendChild(rootEl);
-
-  const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
-  root.render(
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <AppToRender codeSpace={codeSpace} cSess={cSess} />
-    </ClerkProvider>,
-  );
+  return renderApp({ App: SpikeLansAPP, rootElement: document.getElementById("embed") as unknown as HTMLDivElement });
 };

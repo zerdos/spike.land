@@ -9,6 +9,7 @@ import { Code } from "./services/CodeSession";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
+import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
@@ -16,11 +17,6 @@ let { rendered } = globalThis as unknown as { rendered: RenderedApp | null };
 const cSess = new Code();
 
 const waitForCSess = cSess.run();
-
-const run = async () => {
-  const { renderPreviewWindow } = await import("./renderPreviewWindow");
-  renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
-};
 
 const handleDefaultPage = async () => {
   try {
@@ -118,7 +114,7 @@ export const main = async () => {
 
   try {
     if (location.pathname === `/live/${codeSpace}`) {
-      await run();
+      await renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
       await initializeApp();
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       handleDehydratedPage();
