@@ -142,6 +142,7 @@ registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api/")
     && !url.pathname.startsWith("/live/")
+    && !url.origin.includes("clerk")
     && !hashedToOriginal.has(url.pathname.slice(1))
     && !hashPattern.test(url.pathname.slice(1)),
   esmCacheStrategy,
