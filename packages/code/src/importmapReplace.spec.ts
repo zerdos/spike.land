@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { importMapReplace } from "./importMapUtils"; // Updated import
+import { importMapReplace } from "./importMapUtils";
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
@@ -46,7 +46,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace top-leveldd imports with dot in the path", async () => {
+  it("should replace top-level imports with dot in the path", async () => {
     const code = "import React from \"./box\";";
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
@@ -68,7 +68,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-  it("should replace coder44 ", async () => {
+  it("should replace imports", async () => {
     const code = `
     import { css } from "@emotion/react";
     import $ from "react";
