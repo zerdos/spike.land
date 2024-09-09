@@ -5,19 +5,19 @@ describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
   it("should replace top-level imports", () => {
-    const code = 'import React from "react";';
+    const code = "import React from \"react\";";
     const result = importMapReplace(code, origin);
     expect(result).toBe(`/** importMapReplace */\nimport React from "${origin}/reactMod.mjs";`);
   });
 
   it("should replace top-level imports with dot in the module name", () => {
-    const code = 'import React from "react.gl";';
+    const code = "import React from \"react.gl\";";
     const result = importMapReplace(code, origin);
     expect(result).toBe(`/** importMapReplace */\nimport React from "${origin}/*react.gl?bundle";`);
   });
 
   it("should handle relative imports", () => {
-    const code = 'import React from "./box";';
+    const code = "import React from \"./box\";";
     const result = importMapReplace(code, origin);
     expect(result).toBe(`/** importMapReplace */\nimport React from "${origin}/live/box/index.js";`);
   });
@@ -67,13 +67,13 @@ describe("importMapReplace", () => {
   });
 
   it("should ignore absolute URLs", () => {
-    const code = 'import MyComponent from "http://example.com/MyComponent.js";';
+    const code = "import MyComponent from \"http://example.com/MyComponent.js\";";
     const result = importMapReplace(code, origin);
     expect(result).toBe(`/** importMapReplace */\n${code}`);
   });
 
   it("should replace dynamic imports with await", () => {
-    const code = 'const module = await import("some-module");';
+    const code = "const module = await import(\"some-module\");";
     const result = importMapReplace(code, origin);
     expect(result).toBe(`/** importMapReplace */\nconst module = await import("${origin}/*some-module?bundle");`);
   });
@@ -182,31 +182,42 @@ eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement
   it("should handle specific named exports", () => {
     const code = `import { prop, prop2 } from "foo";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`/** importMapReplace */\nimport { prop, prop2 } from "${origin}/*foo?bundle&exports=prop%2C%20prop2";`);
+    expect(result).toBe(
+      `/** importMapReplace */\nimport { prop, prop2 } from "${origin}/*foo?bundle&exports=prop%2C%20prop2";`,
+    );
   });
 
   it("should handle specific exports from tslib", () => {
     const code = `import { __await, __rest } from "tslib";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`/** importMapReplace */\nimport { __await, __rest } from "${origin}/*tslib?bundle&exports=__await%2C%20__rest";`);
+    expect(result).toBe(
+      `/** importMapReplace */\nimport { __await, __rest } from "${origin}/*tslib?bundle&exports=__await%2C%20__rest";`,
+    );
   });
 
   it("should handle specific named imports with aliases", () => {
-    const code = `import { __await as aw, __rest  as restNow} from "http://localhost:3000/*tslib?bundle&exports=__await%20as%20aw%2C%20__rest%20as%20restNow";`;
+    const code =
+      `import { __await as aw, __rest  as restNow} from "http://localhost:3000/*tslib?bundle&exports=__await%20as%20aw%2C%20__rest%20as%20restNow";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`/** importMapReplace */\nimport { __await as aw, __rest  as restNow} from "${origin}/*tslib?bundle&exports=__await%2C%20__rest";`);
+    expect(result).toBe(
+      `/** importMapReplace */\nimport { __await as aw, __rest  as restNow} from "${origin}/*tslib?bundle&exports=__await%2C%20__rest";`,
+    );
   });
 
   it("should handle import statements with multiple named imports", () => {
     const code = `import { useState, useEffect, useCallback } from "react";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`/** importMapReplace */\nimport { useState, useEffect, useCallback } from "${origin}/reactMod.mjs";`);
+    expect(result).toBe(
+      `/** importMapReplace */\nimport { useState, useEffect, useCallback } from "${origin}/reactMod.mjs";`,
+    );
   });
 
   it("should handle import statements with both default and named imports", () => {
     const code = `import React, { useState, useEffect } from "react";`;
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`/** importMapReplace */\nimport React, { useState, useEffect } from "${origin}/reactMod.mjs";`);
+    expect(result).toBe(
+      `/** importMapReplace */\nimport React, { useState, useEffect } from "${origin}/reactMod.mjs";`,
+    );
   });
 
   it("should handle import statements with namespace imports", () => {
