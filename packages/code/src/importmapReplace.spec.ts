@@ -67,7 +67,9 @@ describe("importMapReplace", () => {
   it("should replace dynamic imports with template literals", async () => {
     const code = "const dynamic = 'react'; const React = import(`${dynamic}`);";
     const result = importMapReplace(code, origin);
-    expect(result).toBe(`const dynamic = 'react'; const React = import("${origin}/*" + \`\${dynamic}\` + "?bundle=true");`);
+    expect(result).toBe(
+      `const dynamic = 'react'; const React = import("${origin}/*" + \`\${dynamic}\` + "?bundle=true");`,
+    );
   });
 
   it("should replace imports from @/ paths", async () => {
