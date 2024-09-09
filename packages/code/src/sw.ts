@@ -7,7 +7,7 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheOnly, StaleWhileRevalidate } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
@@ -83,6 +83,10 @@ sw.addEventListener("install", (event) => {
   event.waitUntil(cleanupOldCaches());
 });
 
+const cacheOnlyStrategy = new CacheOnly({
+  cacheName: CURRENT_CACHE_NAME,
+});
+
 const filesCacheStrategy = new StaleWhileRevalidate({
   cacheName: CURRENT_CACHE_NAME,
   plugins: [
@@ -94,7 +98,14 @@ const filesCacheStrategy = new StaleWhileRevalidate({
 
 registerRoute(
   ({ url }) => files.has(url.pathname.slice(1)),
-  filesCacheStrategy,
+  ({ request, url }) => {
+    // Use Cache-Only strategy for files we know are in the cache
+    if (sw.files && sw.files[url.pathname.slice(1)]) {
+      return cacheOnlyStrategy.handle({ request, url });
+    }
+    // Use Stale-While-Revalidate for other files
+    return filesCacheStrategy.handle({ request, url });
+  },
 );
 
 const esmCacheStrategy = new StaleWhileRevalidate({
