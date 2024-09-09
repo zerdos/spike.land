@@ -11,34 +11,17 @@ export const enhancedFetch = async (
     ? anySignal([originalSignal, controller.signal])
     : controller.signal;
 
-  try {
-    const res = await fetch(url, {
-      signal: combinedSignal,
-      ...options,
-    });
-    if (res.ok) {
-      const clone = res.clone();
-      const body = await res.blob();
-      return new Response(body, clone);
-    }
-    throw new Error(res.statusText);
-  } catch (error) {
-    // console.error("Error in enhancedFetch", error);
-
-    return fetch(serverFetchUrl, {
-      signal: combinedSignal,
-      method: "POST",
-      body: JSON.stringify({
-        options: {
-          method: "GET",
-          ...options,
-        },
-        url,
-      }),
-    });
-    controller.abort();
-    throw error;
-  }
+  return fetch(serverFetchUrl, {
+    signal: combinedSignal,
+    method: "POST",
+    body: JSON.stringify({
+      options: {
+        method: "GET",
+        ...options,
+      },
+      url,
+    }),
+  });
 };
 
 function anySignal(signals: AbortSignal[]): AbortSignal {
