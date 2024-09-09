@@ -105,8 +105,6 @@ export class AIService {
     } catch (error) {
       console.error("Error making API call:", error);
       throw error;
-    } finally {
-      this.config.setIsStreaming(false);
     }
   }
 
@@ -134,6 +132,8 @@ export class AIService {
     } catch (error) {
       console.error("Error handling streaming response:", error);
       throw error;
+    } finally {
+      this.config.setIsStreaming(false);
     }
   }
 
@@ -142,16 +142,27 @@ export class AIService {
     messages: Message[],
     onUpdate: (content: string) => void,
   ): Promise<Message> {
-    const endpoint = this.getEndpoint(type);
-    const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
+    try {
+      const endpoint = this.getEndpoint(type);
+      const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
 
-    const lastMessage = messages[messages.length - 1];
+      const lastMessage = messages[messages.length - 1];
 
-    return {
-      id: ((+lastMessage.id) + 1).toString(),
-      role: "assistant",
-      content: result.content,
-    };
+      return {
+        id: ((+lastMessage.id) + 1).toString(),
+        role: "assistant",
+        content: result.content,
+      };
+    } catch (error) {
+      console.error("Error sending to AI:", error);
+      return {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: error instanceof Error ? error.message : String(error),
+      };
+    } finally {
+      this.config.setIsStreaming(false);
+    }
   }
 
   async sendToGpt4o(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
@@ -200,6 +211,8 @@ export class AIService {
       console.error("Error in AI code processing:", error);
       updateMessages(error instanceof Error ? error.message : String(error));
       throw error;
+    } finally {
+      this.config.setIsStreaming(false);
     }
   }
 
@@ -240,12 +253,21 @@ export class AIService {
 
       return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
     } catch (error) {
-      console.error("Error retrying with Claude:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now().toString(), role: "assistant", content: "I'm sorry, I couldn't help you with this error." },
-      ]);
-      return "";
+      try {
+        const answer = await this.sendToGpt4o([...prevMessages, message], (code) => {
+          setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
+        });
+        setMessages((prevMessages) => [...prevMessages, answer]);
+
+        return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
+      } catch (error) {
+        console.error("Error retrying with Claude:", error);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { id: Date.now().toString(), role: "assistant", content: "I'm sorry, I couldn't help you with this error." },
+        ]);
+        return "";
+      }
     }
   }
 
