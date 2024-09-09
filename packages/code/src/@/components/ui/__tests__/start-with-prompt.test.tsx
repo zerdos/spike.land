@@ -18,10 +18,17 @@ vi.mock('@/lib/md5', () => ({
 // Mock fetch function
 global.fetch = vi.fn(() => Promise.resolve({ ok: true }));
 
+// Mock URL.createObjectURL
+URL.createObjectURL = vi.fn(() => 'mocked-url');
+
 describe('StartWithPrompt', () => {
   beforeEach(() => {
     // Mock the useDarkMode hook to return a default value
     (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({ isDarkMode: false });
+    // Clear all mocks before each test
+    vi.clearAllMocks();
+    // Clear sessionStorage before each test
+    sessionStorage.clear();
   });
 
   it('renders without crashing', () => {
@@ -54,31 +61,23 @@ describe('StartWithPrompt', () => {
   it('hides template button when images are uploaded', async () => {
     const { container } = render(<StartWithPrompt />);
     const file = new File(['dummy content'], 'test.png', { type: 'image/png' });
-    const uploadButton = screen.getByText('Upload Image');
     const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
     
     if (!fileInput) {
       throw new Error('File input not found');
     }
 
-    // Simulate clicking the upload button
-    fireEvent.click(uploadButton);
-
     // Simulate file upload
     await userEvent.upload(fileInput, file);
-
-    // Log the images state
-    console.log('File input files:', fileInput.files);
-    console.log('Container HTML:', container.innerHTML);
 
     // Wait for the component to update
     await waitFor(() => {
       expect(screen.queryByText('Choose from templates')).toBeNull();
-    }, { timeout: 3000 });
+    });
   });
 
   it('calls handleGenerate when generate button is clicked', async () => {
-    render(<StartWithPrompt />);
+    const { container } = render(<StartWithPrompt />);
     const generateButton = screen.getByText('Generate');
     const promptTextarea = screen.getByPlaceholderText('Enter your prompt here or paste an image...');
 
