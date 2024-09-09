@@ -3828,7 +3828,7 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
     "@rollup/plugin-html": "npm:^1.0.3"
-    "@tabler/icons-react": "npm:^3.14.0"
+    "@tabler/icons-react": "npm:^3.15.0"
     "@tailwindcss/aspect-ratio": "npm:^0.4.2"
     "@tailwindcss/container-queries": "npm:^0.1.1"
     "@tailwindcss/forms": "npm:^0.5.9"
@@ -4090,21 +4090,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^3.14.0":
-  version: 3.14.0
-  resolution: "@tabler/icons-react@npm:3.14.0"
+"@tabler/icons-react@npm:^3.15.0":
+  version: 3.15.0
+  resolution: "@tabler/icons-react@npm:3.15.0"
   dependencies:
-    "@tabler/icons": "npm:3.14.0"
+    "@tabler/icons": "npm:3.15.0"
   peerDependencies:
     react: ">= 16"
-  checksum: 10/27e807a8a90f58f9ed6a96fb0905229fe859a2abe69606ebd220f8e57366b130aa4aab4293cb831f3ef192efcc6ff41936341aa2360f1561d53e006a9f443f6e
+  checksum: 10/d523b3e2a60bedfbd63a623b68454d496e350d3f29e03027f2ec1bf02f926598359441780fc89fd80f61a494eba1c334e0b3c70fb00773288b7ed7200526ac72
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.14.0":
-  version: 3.14.0
-  resolution: "@tabler/icons@npm:3.14.0"
-  checksum: 10/1ee43ffd90e498a1112bc14902044dd1651404a83db040b352668a13918f3a399b902f41dd0fd1a0134180e3308db3b0535723c74b4dd02195ac1f6db76d488b
+"@tabler/icons@npm:3.15.0":
+  version: 3.15.0
+  resolution: "@tabler/icons@npm:3.15.0"
+  checksum: 10/f7a8b8c495590acf17b0936aae8110ec2a51380e7b0cb5a3cfcf2036440ebf64d751e819888a18502b7e357207031cc62851d8556544f8b46157f05a8f8bb3c5
   languageName: node
   linkType: hard
 

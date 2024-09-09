@@ -5231,7 +5231,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-toggle-group", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.0"],\
           ["@radix-ui/react-tooltip", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.2"],\
           ["@rollup/plugin-html", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.3"],\
-          ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.14.0"],\
+          ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.15.0"],\
           ["@tailwindcss/aspect-ratio", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.4.2"],\
           ["@tailwindcss/container-queries", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.1"],\
           ["@tailwindcss/forms", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.5.9"],\
@@ -5559,27 +5559,27 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@tabler/icons", [\
-      ["npm:3.14.0", {\
-        "packageLocation": "./.yarn/global/cache/@tabler-icons-npm-3.14.0-2fb24daef6-10.zip/node_modules/@tabler/icons/",\
+      ["npm:3.15.0", {\
+        "packageLocation": "./.yarn/global/cache/@tabler-icons-npm-3.15.0-c6667a428b-10.zip/node_modules/@tabler/icons/",\
         "packageDependencies": [\
-          ["@tabler/icons", "npm:3.14.0"]\
+          ["@tabler/icons", "npm:3.15.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@tabler/icons-react", [\
-      ["npm:3.14.0", {\
-        "packageLocation": "./.yarn/global/cache/@tabler-icons-react-npm-3.14.0-9b49e7a533-10.zip/node_modules/@tabler/icons-react/",\
+      ["npm:3.15.0", {\
+        "packageLocation": "./.yarn/global/cache/@tabler-icons-react-npm-3.15.0-3ea065607b-10.zip/node_modules/@tabler/icons-react/",\
         "packageDependencies": [\
-          ["@tabler/icons-react", "npm:3.14.0"]\
+          ["@tabler/icons-react", "npm:3.15.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.14.0", {\
-        "packageLocation": "./.yarn/__virtual__/@tabler-icons-react-virtual-c765554f6e/0/global/cache/@tabler-icons-react-npm-3.14.0-9b49e7a533-10.zip/node_modules/@tabler/icons-react/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.15.0", {\
+        "packageLocation": "./.yarn/__virtual__/@tabler-icons-react-virtual-02f415db74/0/global/cache/@tabler-icons-react-npm-3.15.0-3ea065607b-10.zip/node_modules/@tabler/icons-react/",\
         "packageDependencies": [\
-          ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.14.0"],\
-          ["@tabler/icons", "npm:3.14.0"],\
+          ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.15.0"],\
+          ["@tabler/icons", "npm:3.15.0"],\
           ["@types/react", "npm:18.3.5"],\
           ["react", "npm:18.3.1"]\
         ],\
