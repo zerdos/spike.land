@@ -25,7 +25,7 @@ const moveToCorner = (point: string) => {
   const [x, y] = point.split(",").map(Number);
   return `translate(${x - 50}px, ${y - 50}px)`;
 };
-export const BackgroundEffect: React.FC<{children: React.ReactElement}> = ({children}) => {
+export const BackgroundEffect: React.FC<{children?: React.ReactNode}> = ({children}) => {
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { isDarkMode } = useDarkMode();
