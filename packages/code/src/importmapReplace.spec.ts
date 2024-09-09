@@ -302,4 +302,12 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
+
+  it("should handle react-spring", async () => {
+    const code = `
+      import { animated, useSpring } from "react-spring";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
 });

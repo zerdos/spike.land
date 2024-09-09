@@ -32,10 +32,10 @@ export function importMapReplace(code: string, origin: string): string {
       if (path.startsWith("@/")) {
         newPath = `${origin}/@/${path.slice(2)}`;
       } else {
-        newPath = `${origin}/${path}`;
+        newPath = `${origin}/*${path}?bundle`;
       }
       if (!newPath.includes("?bundle")) {
-        newPath += path === "axios" ? "?bundle" : ".mjs";
+        newPath += ".mjs";
       }
     } else if (path.startsWith("./") || path.startsWith("../")) {
       newPath = `${origin}/live/${path.replace(/^\.\//, "")}`;

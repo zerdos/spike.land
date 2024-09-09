@@ -68,7 +68,7 @@ exports[`importMapReplace > should handle multiple import statements 1`] = `
 "/** importMapReplace */
 import React from "http://localhost:3000/reactMod.mjs";
       import { useState } from "http://localhost:3000/reactMod.mjs";
-      import axios from "http://localhost:3000/axios?bundle";"
+      import axios from "http://localhost:3000/*axios?bundle";"
 `;
 
 exports[`importMapReplace > should handle multiple imports from different modules 1`] = `
