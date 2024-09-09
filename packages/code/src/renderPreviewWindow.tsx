@@ -7,8 +7,7 @@ import { Suspense, lazy } from "react";
 export const renderPreviewWindow = async (
   { codeSpace, cSess }: { codeSpace: string; cSess: ICode },
 ) => {
-const rootElement =   document.getElementById("embed") as HTMLDivElement;
-rootElement.id = "root";
+
 
   const LazyAppToRender = lazy(() => import("./AppToRender").then((module) => ({ default: module.AppToRender })));
 
@@ -23,5 +22,5 @@ const App = ()=>
 </Suspense>
 </ClerkProvider>
 
-  return renderApp({ App, rootElement });
+  return renderApp({ App });
 };
