@@ -62,7 +62,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     const file = await image.arrayBuffer()
 
 
-   const imageData = await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/png' }))
+   const imageData = await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/jpeg' }))
     setUploadedImages(prev => [...prev, imageData]);
     setScreenShotIsLoading(false);
 
