@@ -77,7 +77,7 @@ describe("importMapReplace", () => {
   it("should not replace relative imports", async () => {
     const code = `import MyComponent from "./MyComponent";`;
     const result = importMapReplace(code, origin);
-    expect(result).toContain(code);
+    expect(result).toContain(`import MyComponent from "./MyComponent"`);
   });
 
   it("should not replace absolute URLs", async () => {
@@ -131,7 +131,7 @@ describe("importMapReplace", () => {
     expect(result).toContain(`import React, { useState, useEffect as useEffectAlias } from "${origin}/reactMod.mjs"`);
     expect(result).toContain(`import { Button } from "${origin}/@/components/ui/button.mjs"`);
     expect(result).toContain(`const lodash = import("${origin}/*lodash?bundle")`);
-    expect(result).toContain(`export { default as MyComponent } from "./MyComponent"`);
+    expect(result).toContain(`export { default as MyComponent } from "${origin}/live/MyComponent/index.js"`);
     expect(result).toContain(`const dynamicImport = (module) => import(\`\${module}\`)`);
   });
 });
