@@ -126,4 +126,16 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
   });
+
+  it("should handle imports from @/ paths", () => {
+    const code = `import { Button } from "@/components/ui/button";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(`import { Button } from "${origin}/@/components/ui/button.mjs"`);
+  });
+
+  it("should not replace absolute URLs", () => {
+    const code = `import MyComponent from "https://example.com/MyComponent.js";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(code);
+  });
 });
