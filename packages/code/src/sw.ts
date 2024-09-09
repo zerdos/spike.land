@@ -19,6 +19,9 @@ const hashedToOriginal = new Map(
   Object.entries(sw.files).map(([original, hashed]) => [hashed, original]),
 );
 
+// Regular expression to match filenames with hash-like patterns
+const hashPattern = /\.[a-f0-9]{8,}\.(?:js|css|mjs|ts|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/i;
+
 async function cleanupOldCaches() {
   const cacheNames = await caches.keys();
   const oldCaches = cacheNames.filter(cacheName =>
@@ -101,10 +104,28 @@ const filesCacheStrategy = new StaleWhileRevalidate({
 });
 
 registerRoute(
-  ({ url }) => hashedToOriginal.has(url.pathname.slice(1)),
+  ({ url }) => {
+    const pathname = url.pathname.slice(1);
+    return hashedToOriginal.has(pathname) || hashPattern.test(pathname);
+  },
   ({ request, url }) => {
-    // Always use Cache-Only strategy for hashed files
-    return cacheOnlyStrategy.handle({ request, url });
+    return caches.match(request).then(response => {
+      if (response) {
+        // If the file is in the cache, serve it directly
+        return response;
+      } else {
+        // If not in cache, fetch it and cache for future use
+        return fetch(request).then(newResponse => {
+          if (newResponse.ok) {
+            const clonedResponse = newResponse.clone();
+            caches.open(CURRENT_CACHE_NAME).then(cache => {
+              cache.put(request, clonedResponse);
+            });
+          }
+          return newResponse;
+        });
+      }
+    });
   },
 );
 
@@ -122,6 +143,7 @@ registerRoute(
     !url.pathname.startsWith("/api/")
     && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
     && !url.pathname.startsWith("/live/")
-    && !hashedToOriginal.has(url.pathname.slice(1)),
+    && !hashedToOriginal.has(url.pathname.slice(1))
+    && !hashPattern.test(url.pathname.slice(1)),
   esmCacheStrategy,
 );
