@@ -209,8 +209,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     ],
     entryPoints: [
-      "src/modules.ts",
       "src/motion.ts",
+      "src/start.ts",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",
       "src/reactMod.ts",
@@ -243,7 +243,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    splitting: false,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
@@ -252,10 +251,11 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     treeShaking: isProduction,
     mangleQuoted: false,
     sourcemap: false,
+    splitting: false,
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
-    platform: "browser",
+    platform: "node",
     plugins: [
       ...buildOptions.plugins,
       copy({
@@ -285,13 +285,13 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     ],
     entryPoints: [
-      "src/start.ts",
+      "src/modules.ts"
     ],
     alias: {
       ...buildOptions.alias,
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      ...extraAliases,
+
       ...(isProduction ? {} : {
         // "react": "preact/compat",
         // "react-dom": "preact/compat",
@@ -299,8 +299,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       ...(buildOptions.external ?? []),
-      ...Object.values(extraAliases),
-      "/",
+
+
       "/swVersion.mjs",
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
