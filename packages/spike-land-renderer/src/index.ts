@@ -30,20 +30,20 @@ export default {
 
           // Wait for a specific element that indicates your React app is fully loaded
           // Replace '#react-app-loaded' with an appropriate selector for your app
-          await waitForElement(page, "#root", maxRetries, retryInterval);
+          // await waitForElement(page, "#root", maxRetries, retryInterval);
 
           // wait for 1 second
-          await new Promise(r => setTimeout(r, 1000));
+          // await new Promise(r => setTimeout(r, 1000));
 
-          if (top) {
-            await page.evaluate((topValue) => {
-              window.scrollBy({
-                top: +topValue,
-                behavior: "smooth",
-              });
-            }, top);
-            await page.waitForTimeout(500); // Wait for scroll to complete
-          }
+          // if (top) {
+          //   await page.evaluate((topValue) => {
+          //     window.scrollBy({
+          //       top: +topValue,
+          //       behavior: "smooth",
+          //     });
+          //   }, top);
+          //   await page.waitForTimeout(500); // Wait for scroll to complete
+          // }
 
           img = await page.screenshot({ type: "jpeg" }) as Buffer;
           await env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 });

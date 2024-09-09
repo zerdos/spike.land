@@ -164,3 +164,11 @@ export interface ChatWindowProps {
   isDarkMode: boolean;
   isMobile: boolean;
 }
+
+export interface ImageData {
+  imageName: string;
+  url: string;
+  src: string;
+  mediaType: string;
+  data: string;
+}

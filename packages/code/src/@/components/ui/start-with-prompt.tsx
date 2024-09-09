@@ -4,14 +4,9 @@ import { md5 } from "@/lib/md5";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleMinus } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import type { ImageData } from "@/lib/interfaces";
+import { processImage } from "@/lib/process-image";
 
-interface ImageData {
-  imageName: string;
-  url: string;
-  src: string;
-  mediaType: string;
-  data: string;
-}
 
 export const StartWithPrompt: React.FC = () => {
   const [prompt, setPrompt] = useState("");
@@ -61,41 +56,8 @@ export const StartWithPrompt: React.FC = () => {
     }
   };
 
-  const processImage = (file: File): Promise<ImageData> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        try {
-          const arrayBuffer = e.target?.result as ArrayBuffer;
-          const blob = new Blob([arrayBuffer], { type: file.type });
-          const base64Data = await blobToBase64(blob);
-          const md5Body = md5(base64Data);
-          const imageName = file.name;
-          const url = `/my-cms/${md5Body}/${imageName}`;
-          await fetch(url, { method: "PUT", body: arrayBuffer });
-          resolve({
-            imageName,
-            url,
-            src: URL.createObjectURL(blob),
-            mediaType: file.type,
-            data: base64Data,
-          });
-        } catch (error) {
-          reject(new Error("Failed to process image"));
-        }
-      };
-      reader.onerror = () => reject(new Error("Failed to read file"));
-      reader.readAsArrayBuffer(file);
-    });
-  };
-  const blobToBase64 = (blob: Blob): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  };
+
+
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   };

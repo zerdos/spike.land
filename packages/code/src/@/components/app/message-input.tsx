@@ -7,6 +7,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import type { MessageInputProps } from "@/lib/interfaces";
 import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { processImage } from "@/lib/process-image";
+import type { ImageData } from "@/lib/interfaces";
+
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -16,33 +19,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   inputRef,
   isScreenshotLoading,
   screenshotImage,
-  handleScreenshotClick,
-  handleCancelScreenshot,
+   handleCancelScreenshot,
   isDarkMode,
 }) => {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
+  const codeSpace = useCodeSpace();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    const images = [
-      ...(screenshotImage ? [{
-        type: "image/png",
-        mediaType: "image/png",
-        imageName: "screenshot.png",
-        url: location.origin+'/live/'+useCodeSpace()+"/screenshot.png",
-        data: screenshotImage,
-        src: screenshotImage
-      }] : []),
-      ...uploadedImages.map(image => ({
-        type: "image/png",
-        mediaType: "image/png",
-        imageName: "uploaded_image.png",
-        url: image,
-        data: image,
-        src: image
-      }))
-    ];
-    handleSendMessage(input, images);
+   
+    handleSendMessage(input, uploadedImages);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
@@ -52,11 +38,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     const files = event.target.files;
     if (files) {
       Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setUploadedImages(prev => [...prev, e.target?.result as string]);
-        };
-        reader.readAsDataURL(file);
+        processImage(file).then(imageData => {
+          setUploadedImages(prev => [...prev, imageData]);  
+        });
       });
     }
   };
@@ -65,19 +49,29 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     event.preventDefault();
   };
 
+  const makeScreenshot = async () => {
+    
+    const image = await fetch(`/live/${codeSpace}/screenshot`)
+    const file = await image.arrayBuffer()
+
+
+   const imageData = await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/png' }))
+    setUploadedImages(prev => [...prev, imageData]);
+
+
+  }
+
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const files = event.dataTransfer.files;
     if (files) {
       Array.from(files).forEach(file => {
         if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            setUploadedImages(prev => [...prev, e.target?.result as string]);
-          };
-          reader.readAsDataURL(file);
-        }
-      });
+          processImage(file).then(imageData => {
+            setUploadedImages(prev => [...prev, imageData]);
+          }
+          );
+      }});
     }
   };
 
@@ -113,7 +107,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             )}
             {uploadedImages.map((image, index) => (
               <div key={index} className="relative">
-                <img src={image} alt={`Uploaded ${index}`} className="max-w-[100px] h-auto rounded-lg" />
+                <img key={image.src} src={image.src} alt={`Uploaded ${index}`} className="max-w-[100px] h-auto rounded-lg" />
                 <Button
                   variant="secondary"
                   size="sm"
@@ -147,10 +141,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  onClick={handleScreenshotClick}
+                  onClick={()=>makeScreenshot()}
                   variant={screenshotImage ? "secondary" : "outline"}
                   size="icon"
-                  disabled={isScreenshotLoading}
+                  disabled={!!uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))}
                   className={cn(
                     "transition-all duration-300",
                     isScreenshotLoading ? "animate-pulse" : "",
@@ -184,7 +178,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </Popover>
             
             <Button
-              onClick={handleSend}
+              onClick={()=>handleSend()}
               disabled={input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
               size="icon"
             >
