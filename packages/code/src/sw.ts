@@ -7,7 +7,7 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
@@ -108,7 +108,7 @@ registerRoute(
   cacheFirstStrategy,
 );
 
-const esmCacheStrategy = new StaleWhileRevalidate({
+const esmCacheStrategy = new CacheFirst({
   cacheName: ESM_CACHE_NAME,
   plugins: [
     new CacheableResponsePlugin({
