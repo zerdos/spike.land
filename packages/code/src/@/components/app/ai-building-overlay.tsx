@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
@@ -33,14 +33,18 @@ const useProgressBar = (isStreaming: boolean) => {
 };
 
 const useReloadEffect = (isStreaming: boolean) => {
+  const previousStreamingState = useRef(isStreaming);
+
   useEffect(() => {
-    if (isStreaming) return;
+    if (previousStreamingState.current && !isStreaming) {
+      const timeoutId = setTimeout(() => {
+        location.reload();
+      }, 1000);
 
-    const timeoutId = setTimeout(() => {
-      location.reload();
-    }, 1000);
+      return () => clearTimeout(timeoutId);
+    }
 
-    return () => clearTimeout(timeoutId);
+    previousStreamingState.current = isStreaming;
   }, [isStreaming]);
 };
 
