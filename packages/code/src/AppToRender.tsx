@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { Bot } from "lucide-react";
+import { Bot, History } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -68,17 +68,30 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
             </div>
           )}
 
-          {!isOpen && (
+          <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-[1001]">
             <Button
-              onClick={() => setIsOpen(true)}
+              onClick={() => setShowAutoSaveHistory(true)}
               className={cn(
-                "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
+                "rounded-full w-12 h-12 p-0",
                 "hover:bg-primary/90 transition-colors"
               )}
+              title="Show Version History"
             >
-              <Bot className="h-6 w-6" />
+              <History className="h-6 w-6" />
             </Button>
-          )}
+            {!isOpen && (
+              <Button
+                onClick={() => setIsOpen(true)}
+                className={cn(
+                  "rounded-full w-12 h-12 p-0",
+                  "hover:bg-primary/90 transition-colors"
+                )}
+                title="Open Chat"
+              >
+                <Bot className="h-6 w-6" />
+              </Button>
+            )}
+          </div>
         </RainbowWrapper>
       </div>
       
