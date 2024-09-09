@@ -1,8 +1,8 @@
-import { ImageData } from "@/lib/interfaces";
+import { ImageData, Message } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
@@ -14,22 +14,8 @@ describe("messageProcessing", () => {
   describe("createNewMessage", () => {
     it("should create a new message with multiple images", async () => {
       const images: ImageData[] = [
-        {
-          imageName: "image1.jpg",
-          url: "url1",
-          src: "src1",
-          mediaType: "image/jpeg",
-          data: "data:image/jpeg;base64,image1data",
-          type: "image/jpeg",
-        },
-        {
-          imageName: "image2.png",
-          url: "url2",
-          src: "src2",
-          mediaType: "image/png",
-          data: "data:image/png;base64,image2data",
-          type: "image/png",
-        },
+        { url: "url1" },
+        { url: "url2" },
       ];
       const content = "Test message";
 
@@ -39,48 +25,56 @@ describe("messageProcessing", () => {
         id: expect.any(String),
         role: "user",
         content: [
-          {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: "image/jpeg",
-              data: "image1data",
-            },
-          },
-          {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: "image/png",
-              data: "image2data",
-            },
-          },
+          { type: "image_url", image_url: { url: "url1" } },
+          { type: "image_url", image_url: { url: "url2" } },
           { type: "text", text: "Test message" },
         ],
+      });
+    });
+
+    it("should create a new message without images", async () => {
+      const content = "Test message";
+
+      const result = await createNewMessage([], content);
+
+      expect(result).toEqual({
+        id: expect.any(String),
+        role: "user",
+        content: "Test message",
       });
     });
   });
 
   describe("processMessage", () => {
-    const mockAIHandler = {
-      sendToAnthropic: vi.fn(),
-      sendToGpt4o: vi.fn(),
-    } as unknown as AIHandler;
+    let mockAIHandler: AIHandler;
+    let mockCSess: ICode;
+    let mockSetMessages: vi.Mock;
+    let mockSaveMessages: vi.Mock;
+    let mockMutex: Mutex;
 
-    const mockCSess: ICode = {
-      setCode: vi.fn().mockResolvedValue(true),
-    } as any;
+    beforeEach(() => {
+      mockAIHandler = {
+        sendToAnthropic: vi.fn(),
+        sendToGpt4o: vi.fn(),
+      } as unknown as AIHandler;
 
-    const mockSetMessages = vi.fn();
-    const mockSaveMessages = vi.fn();
-    const mockMutex = new Mutex();
+      mockCSess = {
+        setCode: vi.fn().mockResolvedValue(true),
+      } as unknown as ICode;
+
+      mockSetMessages = vi.fn();
+      mockSaveMessages = vi.fn();
+      mockMutex = new Mutex();
+    });
 
     it("should process a message successfully", async () => {
-      vi.mocked(mockAIHandler.sendToAnthropic).mockResolvedValue({
+      const mockAssistantMessage: Message = {
         id: "assistant-message-id",
         role: "assistant",
         content: "Assistant response",
-      });
+      };
+
+      vi.mocked(mockAIHandler.sendToAnthropic).mockResolvedValue(mockAssistantMessage);
 
       const result = await processMessage(
         mockAIHandler,
@@ -94,7 +88,7 @@ describe("messageProcessing", () => {
 
       expect(result).toBe(true);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
-      expect(mockSaveMessages).toHaveBeenCalled();
+      expect(mockSaveMessages).toHaveBeenCalledWith([mockAssistantMessage]);
       expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
 
@@ -113,14 +107,13 @@ describe("messageProcessing", () => {
 
       expect(result).toBe(false);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
-
       expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
   });
 
   describe("handleError", () => {
     it("should add an error message", () => {
-      const messages: any[] = [];
+      const messages: Message[] = [];
       const setMessages = vi.fn();
 
       handleError(messages, setMessages);

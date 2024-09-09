@@ -155,11 +155,7 @@ export class AIService {
       };
     } catch (error) {
       console.error("Error sending to AI:", error);
-      return {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: error instanceof Error ? error.message : String(error),
-      };
+      throw error; // Throw the error instead of returning an error message
     } finally {
       this.config.setIsStreaming(false);
     }
