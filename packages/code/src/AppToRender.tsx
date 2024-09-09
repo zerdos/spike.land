@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { css } from "@emotion/react";
-import { Bot } from "@/external/lucideReact";
+import { Bot } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -11,15 +10,10 @@ import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 
 import { ICode } from '@/lib/interfaces';
+import { cn } from "@/lib/utils";
 
 const Header: FC = () => (
-  <header css={css`
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-  `}>
+  <header className="h-11 flex items-center justify-between px-3">
     <SignedOut>
       <SignInButton />
     </SignedOut>
@@ -48,21 +42,14 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   }, [codeSpace]);
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header />
-      <div css={css`
-        height: calc(100vh - 44px);
-        width: 100vw;
-        overflow: hidden;
-      `} className="relative">
+      <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
-          <iframe css={css`
-            height: 100%;
-            width: 100%;
-            border: 0;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
-          `} src={`/live/${codeSpace}/iframe`} />
+          <iframe 
+            className="w-full h-full border-0 overflow-auto"
+            src={`/live/${codeSpace}/iframe`} 
+          />
         </DraggableWindow>
 
         <RainbowWrapper>
@@ -84,7 +71,10 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
           {!isOpen && (
             <Button
               onClick={() => setIsOpen(true)}
-              className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
+              className={cn(
+                "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
+                "hover:bg-primary/90 transition-colors"
+              )}
             >
               <Bot className="h-6 w-6" />
             </Button>
@@ -97,6 +87,6 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-    </>
+    </div>
   );
 };
