@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { Bot, History } from "lucide-react";
 
@@ -44,18 +44,11 @@ interface AppToRenderProps {
  }
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const maybeKey = codeSpace.split('-')[1];
+
+  const [isOpen, setIsOpen] = useState(maybeKey && sessionStorage && sessionStorage.getItem(maybeKey) ? true : false);
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
-
-  useEffect(() => {
-    if (codeSpace.includes('-')) {
-      const maybeKey = codeSpace.split('-')[1];
-      if (sessionStorage.getItem(maybeKey)) {
-        setIsOpen(true);
-      }
-    }
-  }, [codeSpace]);
 
   return (
     <div className="flex flex-col h-screen">
