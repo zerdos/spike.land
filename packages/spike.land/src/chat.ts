@@ -6,6 +6,7 @@ import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
+import {  files } from "./staticContent.mjs";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -127,22 +128,18 @@ export default {
     ctx.waitUntil(logger.log(`Request for ${request.url}`));
 
     const cache = caches.default;
-    const cachedResponse = await cache.match(request);
+
+    const mightAsset = url.pathname.slice(1);
+    const cacheKey = new Request(new URL(files[mightAsset] || mightAsset, url.origin).toString(), request);
+    const cachedResponse = await cache.match(cacheKey);
     if (cachedResponse) {
       return cachedResponse;
     }
-    if (url.pathname === "/mani") {
-const manifest =      await import(__STATIC_CONTENT_MANIFEST).then((_manifest) => _manifest).then((manifest)=>JSON.parse(manifest));
-      return new Response(JSON.stringify(manifest), {
-        headers: { "content-type": "application/json" },
-      });
-    }
-
-    const resp = await  handleMainFetch(request, env, ctx);
+   
+    const resp = await handleMainFetch(request, env, ctx);
     if (resp && resp.status === 200 && resp.headers.get('cache-control')?.includes('public')) {
-      ctx.waitUntil(cache.put(request, resp.clone()));
+      ctx.waitUntil(cache.put(cacheKey, resp.clone()));
     }
-
 
     return resp;
   },
