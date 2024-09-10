@@ -453,22 +453,22 @@ __metadata:
   linkType: hard
 
 "@cloudflare/vitest-pool-workers@npm:^0.4.29":
-  version: 0.4.29
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.29"
+  version: 0.4.30
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.30"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
     devalue: "npm:^4.3.0"
     esbuild: "npm:0.17.19"
-    miniflare: "npm:3.20240821.1"
+    miniflare: "npm:3.20240821.2"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.75.0"
+    wrangler: "npm:3.76.0"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 1.3.x - 1.5.x
     "@vitest/snapshot": 1.3.x - 1.5.x
     vitest: 1.3.x - 1.5.x
-  checksum: 10/f8b911b5f9743c4ff40762c103c3449f50bc1633defd45e1ccab74b05b67b6c29e119e5b90a954799fb0263fb27a6c958aea85138211f8e69f4b5743e9faf78b
+  checksum: 10/8e43295a169eef1c61732142fc8bb98e0ba80d48ef5fc363a25168c8a28facb740a88e89f713daa27faa7b1318932fd4756cfd3e7753153dcab79c54f269f8f1
   languageName: node
   linkType: hard
 
@@ -4091,20 +4091,20 @@ __metadata:
   linkType: hard
 
 "@tabler/icons-react@npm:^3.15.0":
-  version: 3.15.0
-  resolution: "@tabler/icons-react@npm:3.15.0"
+  version: 3.16.0
+  resolution: "@tabler/icons-react@npm:3.16.0"
   dependencies:
-    "@tabler/icons": "npm:3.15.0"
+    "@tabler/icons": "npm:3.16.0"
   peerDependencies:
     react: ">= 16"
-  checksum: 10/d523b3e2a60bedfbd63a623b68454d496e350d3f29e03027f2ec1bf02f926598359441780fc89fd80f61a494eba1c334e0b3c70fb00773288b7ed7200526ac72
+  checksum: 10/6eb3a313e33e2dc8e182fa457605285d2b9e9d6b965fcdb044147c457164c61cfe8d190aca3451372971e9df276a65e47b40711f8781d31c79182ce10e0f7950
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.15.0":
-  version: 3.15.0
-  resolution: "@tabler/icons@npm:3.15.0"
-  checksum: 10/f7a8b8c495590acf17b0936aae8110ec2a51380e7b0cb5a3cfcf2036440ebf64d751e819888a18502b7e357207031cc62851d8556544f8b46157f05a8f8bb3c5
+"@tabler/icons@npm:3.16.0":
+  version: 3.16.0
+  resolution: "@tabler/icons@npm:3.16.0"
+  checksum: 10/6a4eeeb7d117dd478b5e888a996344ed22203ad245f7675edb787da236070502f1d7f4b9d3c065f454f9940831fbebd5cd123b24331804d37e7d42d5d7ed5b77
   languageName: node
   linkType: hard
 
@@ -4219,7 +4219,7 @@ __metadata:
       optional: true
     react-test-renderer:
       optional: true
-  checksum: 10/f7b69373feebe99bc7d60595822cc5c00a1a5a4801bc4f99b597256a5c1d23c45a51f359051dd8a7bdffcc23b26f324c582e9433c25804934fd351a886812790
+  checksum: 10/8c8968fc874b30ab46fab53613e8db359ec76462b57ba40c88b4ef3ff6d11eff06427b80c6c2d2b7db4285ccd7935dba74eecb9ec3ebfe515172b9dc87e43c61
   languageName: node
   linkType: hard
 
@@ -8014,9 +8014,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.18
-  resolution: "electron-to-chromium@npm:1.5.18"
-  checksum: 10/7306acc2631dc56a866a169b2ec8588d153284910889ab271f8f36f68073c214191d5a2e24cc9f6ff3739567f43b3853d2a6380af0bc476d75b5548cbff82f0c
+  version: 1.5.19
+  resolution: "electron-to-chromium@npm:1.5.19"
+  checksum: 10/59dae0244682a9fee2bba4b99e2fee41bec428de0763e56de14e189bdddda3c682a89a168306c2d4b3bdcfa3756acdc3d2a5cbefeb1e7f5b6fd289e8c9fd03e6
   languageName: node
   linkType: hard
 
@@ -11439,8 +11439,8 @@ __metadata:
   linkType: hard
 
 "langsmith@npm:^0.1.43":
-  version: 0.1.53
-  resolution: "langsmith@npm:0.1.53"
+  version: 0.1.54
+  resolution: "langsmith@npm:0.1.54"
   dependencies:
     "@types/uuid": "npm:^10.0.0"
     commander: "npm:^10.0.1"
@@ -11459,7 +11459,7 @@ __metadata:
       optional: true
     openai:
       optional: true
-  checksum: 10/67e334523b02026a633ab5340cf5cc4c23de9ebf22f307924ef2684bdc621bea4db88488e5843d18d55f056c8185a78ebcf3c5835906c36818c9ffd4fb6c557d
+  checksum: 10/efd032260ddfb40853a3fd49dd9cf3ef6bd5aaf87aff3325a79bf00058e322f697aeca064f37b3a9f94d138c61223771eb9382a835f32429cc69534f4b4627c5
   languageName: node
   linkType: hard
 
@@ -12476,7 +12476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:3.20240821.1, miniflare@npm:^3.20240821.1":
+"miniflare@npm:3.20240821.1":
   version: 3.20240821.1
   resolution: "miniflare@npm:3.20240821.1"
   dependencies:
@@ -12495,6 +12495,28 @@ __metadata:
   bin:
     miniflare: bootstrap.js
   checksum: 10/ed6945094d714474fb88a157597148d447440c3dd581e08395da8046c9d2958c402976a017b2172981af517c5dd74b635103682a50e971ce4e565f73b89535b0
+  languageName: node
+  linkType: hard
+
+"miniflare@npm:3.20240821.2, miniflare@npm:^3.20240821.1":
+  version: 3.20240821.2
+  resolution: "miniflare@npm:3.20240821.2"
+  dependencies:
+    "@cspotcode/source-map-support": "npm:0.8.1"
+    acorn: "npm:^8.8.0"
+    acorn-walk: "npm:^8.2.0"
+    capnp-ts: "npm:^0.7.0"
+    exit-hook: "npm:^2.2.1"
+    glob-to-regexp: "npm:^0.4.1"
+    stoppable: "npm:^1.1.0"
+    undici: "npm:^5.28.4"
+    workerd: "npm:1.20240821.1"
+    ws: "npm:^8.17.1"
+    youch: "npm:^3.2.2"
+    zod: "npm:^3.22.3"
+  bin:
+    miniflare: bootstrap.js
+  checksum: 10/f443db224c8c64ba9d725126e1ef6e7d6a5b7170e8da267eaae381472801cd2cf41306c90b8608d062e4af5e300a31434a906d377a9c1ea3df132f03a581b960
   languageName: node
   linkType: hard
 
@@ -14316,12 +14338,12 @@ __metadata:
   linkType: hard
 
 "pump@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "pump@npm:3.0.0"
+  version: 3.0.1
+  resolution: "pump@npm:3.0.1"
   dependencies:
     end-of-stream: "npm:^1.1.0"
     once: "npm:^1.3.1"
-  checksum: 10/e42e9229fba14732593a718b04cb5e1cfef8254544870997e0ecd9732b189a48e1256e4e5478148ecb47c8511dca2b09eae56b4d0aad8009e6fac8072923cfc9
+  checksum: 10/9e79c813cccaa848349845dad7fe8c112776eeab27d5d714161253622d44ccd05a1f530656d2e9db15d05acf71b25fd9165663527b07ec1282c5aca72ebb0908
   languageName: node
   linkType: hard
 
@@ -18136,7 +18158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.75.0, wrangler@npm:^3.75.0":
+"wrangler@npm:3.75.0":
   version: 3.75.0
   resolution: "wrangler@npm:3.75.0"
   dependencies:
@@ -18171,6 +18193,44 @@ __metadata:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
   checksum: 10/b12aaca168354abedb49eecc3c399f8059da3d37436d3747cbfb64b51c2b5deb12309992168d6dbc98573fbadc682481707a7a14748a9ce75311839515044c8c
+  languageName: node
+  linkType: hard
+
+"wrangler@npm:3.76.0, wrangler@npm:^3.75.0":
+  version: 3.76.0
+  resolution: "wrangler@npm:3.76.0"
+  dependencies:
+    "@cloudflare/kv-asset-handler": "npm:0.3.4"
+    "@cloudflare/workers-shared": "npm:0.4.1"
+    "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
+    "@esbuild-plugins/node-modules-polyfill": "npm:^0.2.2"
+    blake3-wasm: "npm:^2.1.5"
+    chokidar: "npm:^3.5.3"
+    date-fns: "npm:^3.6.0"
+    esbuild: "npm:0.17.19"
+    fsevents: "npm:~2.3.2"
+    miniflare: "npm:3.20240821.2"
+    nanoid: "npm:^3.3.3"
+    path-to-regexp: "npm:^6.2.0"
+    resolve: "npm:^1.22.8"
+    resolve.exports: "npm:^2.0.2"
+    selfsigned: "npm:^2.0.1"
+    source-map: "npm:^0.6.1"
+    unenv: "npm:unenv-nightly@2.0.0-1724863496.70db6f1"
+    workerd: "npm:1.20240821.1"
+    xxhash-wasm: "npm:^1.0.1"
+  peerDependencies:
+    "@cloudflare/workers-types": ^4.20240821.1
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@cloudflare/workers-types":
+      optional: true
+  bin:
+    wrangler: bin/wrangler.js
+    wrangler2: bin/wrangler.js
+  checksum: 10/9e1d2c3476cbd2c38bf694df0678cb82b956cea479244acf443e33bf10d1ca65fee1e8ffb246db688455ebd385c11ac6058f0e0b847b9a2952bfb2af97c67ce7
   languageName: node
   linkType: hard
 

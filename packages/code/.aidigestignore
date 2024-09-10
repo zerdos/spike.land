@@ -25,9 +25,12 @@ components.json
 .vscode/settings.json
 src/favicon.ico
 src/assets/manifest.json
-
+__snapshots__
+src/@/**/*
 src/assets/app.css
 src/assets/tw-chunk-be5bad.js
+*.spec.ts
 src/__test__/__snapshots__/importmapReplace.spec.ts.snap
 src/__test__/getDirectoryEntriesRecursive.spec.ts
 src/__test__/importmapReplace.spec.ts
+*.test.ts
