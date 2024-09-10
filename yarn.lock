@@ -331,53 +331,53 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.9.2":
-  version: 1.9.2
-  resolution: "@clerk/backend@npm:1.9.2"
+"@clerk/backend@npm:1.10.0":
+  version: 1.10.0
+  resolution: "@clerk/backend@npm:1.10.0"
   dependencies:
-    "@clerk/shared": "npm:2.6.2"
-    "@clerk/types": "npm:4.19.0"
+    "@clerk/shared": "npm:2.7.0"
+    "@clerk/types": "npm:4.20.0"
     cookie: "npm:0.5.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10/e1f0fc106acbdeb4ff8323bac53f42431c4783c029a26db05bd569563fe5ec2d79d254cbb5a60b8eaf6ae0d9baabfdbb158d58cd79efb48e49f2cbadc4773ce6
+  checksum: 10/3d312670c851d3e4dcb43150279f2b0e242fffe6122e417495c49d4fa293400701ba0a50e7c89f28165e1aa864f368cc005825b484aeb40207702680bbea75f7
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:5.7.0":
-  version: 5.7.0
-  resolution: "@clerk/clerk-react@npm:5.7.0"
+"@clerk/clerk-react@npm:5.8.0":
+  version: 5.8.0
+  resolution: "@clerk/clerk-react@npm:5.8.0"
   dependencies:
-    "@clerk/shared": "npm:2.6.2"
-    "@clerk/types": "npm:4.19.0"
+    "@clerk/shared": "npm:2.7.0"
+    "@clerk/types": "npm:4.20.0"
     tslib: "npm:2.4.1"
   peerDependencies:
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10/20b2022b2356306344dc97922a1a4d4ce76e604a448c984fc1fc64b9bb40b005ccd0acefb5926b83f373268b7d26d8a0b9b229c7bd7a26ad295b98d03f1ff3c0
+  checksum: 10/5f11345209fab1d28e3c0d07e4a58f58f1bcbec09b1952b63255c2f8dd6b550ba289c35906b5ba2e0a9940b98d5a6dc4a7468206f7e6e25ab3071db196fd2271
   languageName: node
   linkType: hard
 
-"@clerk/clerk-sdk-node@npm:5.0.35":
-  version: 5.0.35
-  resolution: "@clerk/clerk-sdk-node@npm:5.0.35"
+"@clerk/clerk-sdk-node@npm:5.0.36":
+  version: 5.0.36
+  resolution: "@clerk/clerk-sdk-node@npm:5.0.36"
   dependencies:
-    "@clerk/backend": "npm:1.9.2"
-    "@clerk/shared": "npm:2.6.2"
-    "@clerk/types": "npm:4.19.0"
+    "@clerk/backend": "npm:1.10.0"
+    "@clerk/shared": "npm:2.7.0"
+    "@clerk/types": "npm:4.20.0"
     tslib: "npm:2.4.1"
-  checksum: 10/4e8193a9c5a3b305b71060dfb033a29c2aa01c4c1aa8cadad810b83e9727d5916be1eed401f9802e7b2bc885a80569f01e449b4fad37a409dae3c30f3a50c11d
+  checksum: 10/c32289fa72e19bc0172ba2ca9fa0d4919b01f5d510926c4373ea1e32c87e33d626d952f7cd6e7c8e93922c06b708492bc8ce6429bb252c9fab0c5cd94afb1e67
   languageName: node
   linkType: hard
 
-"@clerk/nextjs@npm:5.4.1":
-  version: 5.4.1
-  resolution: "@clerk/nextjs@npm:5.4.1"
+"@clerk/nextjs@npm:5.5.0":
+  version: 5.5.0
+  resolution: "@clerk/nextjs@npm:5.5.0"
   dependencies:
-    "@clerk/backend": "npm:1.9.2"
-    "@clerk/clerk-react": "npm:5.7.0"
-    "@clerk/shared": "npm:2.6.2"
-    "@clerk/types": "npm:4.19.0"
+    "@clerk/backend": "npm:1.10.0"
+    "@clerk/clerk-react": "npm:5.8.0"
+    "@clerk/shared": "npm:2.7.0"
+    "@clerk/types": "npm:4.20.0"
     crypto-js: "npm:4.2.0"
     path-to-regexp: "npm:6.2.2"
     server-only: "npm:0.0.1"
@@ -386,15 +386,15 @@ __metadata:
     next: ^13.5.4 || ^14.0.3 || >=15.0.0-rc
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10/a3b2ec9cd11e9b4e9e92412ba9607805a5eca1e3faec31fadc73dfc0a0f6ff88111b4bad1d75138344ef22106fbf67418a64e369224c07565cc2b8042bba08e2
+  checksum: 10/99373ccfe2b861b7e12dc983435d91ceef0a21336aded5e5f8afa59434676d50056be99f1baa6b1128f72ad45c36d8aef6abe714ccef71874fb6224aa6389754
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:2.6.2":
-  version: 2.6.2
-  resolution: "@clerk/shared@npm:2.6.2"
+"@clerk/shared@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@clerk/shared@npm:2.7.0"
   dependencies:
-    "@clerk/types": "npm:4.19.0"
+    "@clerk/types": "npm:4.20.0"
     glob-to-regexp: "npm:0.4.1"
     js-cookie: "npm:3.0.5"
     std-env: "npm:^3.7.0"
@@ -407,16 +407,16 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/c365e7901d1c96d96ff094ed6ba3c17036b578f59b51242389f208608d339c2468e6c6f8b13eb11856019ec168e420215c13abd52785f4f8e4b2f6b4b17d0882
+  checksum: 10/a9c2d1611ccc6ebf5d346750910421e58e03771dd30af8c9b0ed43b110e4afbe27804b1fc8e1da18a9ecabff34bcbfdd9b46f1cf154805023515dcae803e3b1a
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:4.19.0":
-  version: 4.19.0
-  resolution: "@clerk/types@npm:4.19.0"
+"@clerk/types@npm:4.20.0":
+  version: 4.20.0
+  resolution: "@clerk/types@npm:4.20.0"
   dependencies:
     csstype: "npm:3.1.1"
-  checksum: 10/75c2190a18d486fbea943ec82b1034250d95b7d8c2e3702cecb606c4e436a5d8507ab8aac4d35763e33bca78cd0bf38042f994032c2bcf75f80d5e418a65cc3a
+  checksum: 10/cf96c61c13f9b61fed24f6c815cf0fd2359df771bf384b03e01c1422241818748c2022f33bdabbf7fd96be73276b93486547d535c8c9c62ff2446b60877d4fc8
   languageName: node
   linkType: hard
 
@@ -3721,7 +3721,7 @@ __metadata:
     body-parser: "npm:1.20.3"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
-    express: "npm:4.19.2"
+    express: "npm:4.20.0"
     node-fetch: "npm:3.3.2"
     openai: "npm:4.58.2"
     p-limit: "npm:6.1.0"
@@ -3752,8 +3752,8 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.27.3"
-    "@clerk/backend": "npm:1.9.2"
-    "@clerk/clerk-sdk-node": "npm:5.0.35"
+    "@clerk/backend": "npm:1.10.0"
+    "@clerk/clerk-sdk-node": "npm:5.0.36"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.29"
     "@cloudflare/workers-types": "npm:4.20240903.0"
@@ -3782,8 +3782,8 @@ __metadata:
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@babel/runtime": "npm:^7.25.6"
-    "@clerk/clerk-react": "npm:5.7.0"
-    "@clerk/nextjs": "npm:5.4.1"
+    "@clerk/clerk-react": "npm:5.8.0"
+    "@clerk/nextjs": "npm:5.5.0"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -3923,7 +3923,7 @@ __metadata:
     process: "npm:^0.11.10"
     qrious: "npm:4.0.2"
     querystring: "npm:^0.2.1"
-    re-resizable: "npm:^6.9.17"
+    re-resizable: "npm:^6.9.18"
     react: "npm:18.3.1"
     react-day-picker: "npm:8.10.1"
     react-dom: "npm:18.3.1"
@@ -6086,26 +6086,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.20.2":
-  version: 1.20.2
-  resolution: "body-parser@npm:1.20.2"
-  dependencies:
-    bytes: "npm:3.1.2"
-    content-type: "npm:~1.0.5"
-    debug: "npm:2.6.9"
-    depd: "npm:2.0.0"
-    destroy: "npm:1.2.0"
-    http-errors: "npm:2.0.0"
-    iconv-lite: "npm:0.4.24"
-    on-finished: "npm:2.4.1"
-    qs: "npm:6.11.0"
-    raw-body: "npm:2.5.2"
-    type-is: "npm:~1.6.18"
-    unpipe: "npm:1.0.0"
-  checksum: 10/3cf171b82190cf91495c262b073e425fc0d9e25cc2bf4540d43f7e7bbca27d6a9eae65ca367b6ef3993eea261159d9d2ab37ce444e8979323952e12eb3df319a
-  languageName: node
-  linkType: hard
-
 "body-parser@npm:1.20.3":
   version: 1.20.3
   resolution: "body-parser@npm:1.20.3"
@@ -8118,6 +8098,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"encodeurl@npm:~2.0.0":
+  version: 2.0.0
+  resolution: "encodeurl@npm:2.0.0"
+  checksum: 10/abf5cd51b78082cf8af7be6785813c33b6df2068ce5191a40ca8b1afe6a86f9230af9a9ce694a5ce4665955e5c1120871826df9c128a642e09c58d592e2807fe
+  languageName: node
+  linkType: hard
+
 "encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
@@ -8965,42 +8952,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:4.19.2":
-  version: 4.19.2
-  resolution: "express@npm:4.19.2"
+"express@npm:4.20.0":
+  version: 4.20.0
+  resolution: "express@npm:4.20.0"
   dependencies:
     accepts: "npm:~1.3.8"
     array-flatten: "npm:1.1.1"
-    body-parser: "npm:1.20.2"
+    body-parser: "npm:1.20.3"
     content-disposition: "npm:0.5.4"
     content-type: "npm:~1.0.4"
     cookie: "npm:0.6.0"
     cookie-signature: "npm:1.0.6"
     debug: "npm:2.6.9"
     depd: "npm:2.0.0"
-    encodeurl: "npm:~1.0.2"
+    encodeurl: "npm:~2.0.0"
     escape-html: "npm:~1.0.3"
     etag: "npm:~1.8.1"
     finalhandler: "npm:1.2.0"
     fresh: "npm:0.5.2"
     http-errors: "npm:2.0.0"
-    merge-descriptors: "npm:1.0.1"
+    merge-descriptors: "npm:1.0.3"
     methods: "npm:~1.1.2"
     on-finished: "npm:2.4.1"
     parseurl: "npm:~1.3.3"
-    path-to-regexp: "npm:0.1.7"
+    path-to-regexp: "npm:0.1.10"
     proxy-addr: "npm:~2.0.7"
     qs: "npm:6.11.0"
     range-parser: "npm:~1.2.1"
     safe-buffer: "npm:5.2.1"
-    send: "npm:0.18.0"
-    serve-static: "npm:1.15.0"
+    send: "npm:0.19.0"
+    serve-static: "npm:1.16.0"
     setprototypeof: "npm:1.2.0"
     statuses: "npm:2.0.1"
     type-is: "npm:~1.6.18"
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
-  checksum: 10/3fcd792536f802c059789ef48db3851b87e78fba103423e524144d79af37da7952a2b8d4e1a007f423329c7377d686d9476ac42e7d9ea413b80345d495e30a3a
+  checksum: 10/4131f566cf8f6d1611475d5ff5d0dbc5c628ad8b525aa2aa2b3da9a23a041efcce09ede10b8a31315b0258ac4e53208a009fd7669ee1eb385936a0d54adb3cde
   languageName: node
   linkType: hard
 
@@ -12056,10 +12043,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge-descriptors@npm:1.0.1":
-  version: 1.0.1
-  resolution: "merge-descriptors@npm:1.0.1"
-  checksum: 10/5abc259d2ae25bb06d19ce2b94a21632583c74e2a9109ee1ba7fd147aa7362b380d971e0251069f8b3eb7d48c21ac839e21fa177b335e82c76ec172e30c31a26
+"merge-descriptors@npm:1.0.3":
+  version: 1.0.3
+  resolution: "merge-descriptors@npm:1.0.3"
+  checksum: 10/52117adbe0313d5defa771c9993fe081e2d2df9b840597e966aadafde04ae8d0e3da46bac7ca4efc37d4d2b839436582659cd49c6a43eacb3fe3050896a105d1
   languageName: node
   linkType: hard
 
@@ -13742,10 +13729,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:0.1.7":
-  version: 0.1.7
-  resolution: "path-to-regexp@npm:0.1.7"
-  checksum: 10/701c99e1f08e3400bea4d701cf6f03517474bb1b608da71c78b1eb261415b645c5670dfae49808c89e12cea2dccd113b069f040a80de012da0400191c6dbd1c8
+"path-to-regexp@npm:0.1.10":
+  version: 0.1.10
+  resolution: "path-to-regexp@npm:0.1.10"
+  checksum: 10/894e31f1b20e592732a87db61fff5b95c892a3fe430f9ab18455ebe69ee88ef86f8eb49912e261f9926fc53da9f93b46521523e33aefd9cb0a7b0d85d7096006
   languageName: node
   linkType: hard
 
@@ -14470,13 +14457,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:^6.9.17":
-  version: 6.9.17
-  resolution: "re-resizable@npm:6.9.17"
+"re-resizable@npm:^6.9.18":
+  version: 6.9.18
+  resolution: "re-resizable@npm:6.9.18"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10/768c3a0fe39d6916caf4e003240d326d62c4d7512c7d3115cc2a98085416fdba80097afdbb93df57b69543c41ce56b33589f2fea6987cd5149faa83cf11c8ba1
+  checksum: 10/cdb2ee8544a2b30053af5cc74ccf56e8d3e470e8e0ed8572424049297cf234d002870dd56c13ce352f222d0dbbc53830c6d07d2cabc83b7aa0311a21361160bf
   languageName: node
   linkType: hard
 
@@ -15570,6 +15557,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"send@npm:0.19.0":
+  version: 0.19.0
+  resolution: "send@npm:0.19.0"
+  dependencies:
+    debug: "npm:2.6.9"
+    depd: "npm:2.0.0"
+    destroy: "npm:1.2.0"
+    encodeurl: "npm:~1.0.2"
+    escape-html: "npm:~1.0.3"
+    etag: "npm:~1.8.1"
+    fresh: "npm:0.5.2"
+    http-errors: "npm:2.0.0"
+    mime: "npm:1.6.0"
+    ms: "npm:2.1.3"
+    on-finished: "npm:2.4.1"
+    range-parser: "npm:~1.2.1"
+    statuses: "npm:2.0.1"
+  checksum: 10/1f6064dea0ae4cbe4878437aedc9270c33f2a6650a77b56a16b62d057527f2766d96ee282997dd53ec0339082f2aad935bc7d989b46b48c82fc610800dc3a1d0
+  languageName: node
+  linkType: hard
+
 "serialize-error@npm:^7.0.1":
   version: 7.0.1
   resolution: "serialize-error@npm:7.0.1"
@@ -15595,15 +15603,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve-static@npm:1.15.0":
-  version: 1.15.0
-  resolution: "serve-static@npm:1.15.0"
+"serve-static@npm:1.16.0":
+  version: 1.16.0
+  resolution: "serve-static@npm:1.16.0"
   dependencies:
     encodeurl: "npm:~1.0.2"
     escape-html: "npm:~1.0.3"
     parseurl: "npm:~1.3.3"
     send: "npm:0.18.0"
-  checksum: 10/699b2d4c29807a51d9b5e0f24955346911437aebb0178b3c4833ad30d3eca93385ff9927254f5c16da345903cad39d9cd4a532198c95a5129cc4ed43911b15a4
+  checksum: 10/29a01f67e8c64a359d49dd0c46bc95bb4aa99781f97845dccbf0c8cd0284c5fd79ad7fb9433a36fac4b6c58b577d3eab314a379142412413b8b5cd73be3cd551
   languageName: node
   linkType: hard
 
