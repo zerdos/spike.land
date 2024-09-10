@@ -17,7 +17,7 @@ export const importMap = { imports: oo };
 
 export function importMapReplace(code: string, origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
-  if (code.includes("importMapReplace")) {
+  if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
   }
 
@@ -155,7 +155,7 @@ export function importMapReplace(code: string, origin: string): string {
   });
 
   return `
-  /** importMapReplace */
+  /** importMapReplace ${!origin && new Date().toISOString()}   */
   ` + replaced;
 }
 
