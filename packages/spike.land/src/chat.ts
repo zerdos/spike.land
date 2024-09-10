@@ -130,7 +130,7 @@ export default {
     const cache = caches.default;
 
     const mightAsset = url.pathname.slice(1);
-    const cacheKey = new Request(new URL(files[mightAsset] || mightAsset, url.origin).toString(), request);
+    const cacheKey = new Request(new URL(files[mightAsset] || mightAsset, url.origin).toString(), request.clone());
     const cachedResponse = await cache.match(cacheKey);
     if (cachedResponse) {
       return cachedResponse;
