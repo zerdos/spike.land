@@ -1,4 +1,3 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
@@ -27,8 +26,8 @@ function Calendar({
           buttonVariants({ variant: "outline" }),
           "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
         ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
+        nav_button_previous: "absolute left-1 flex items-center justify-center",
+        nav_button_next: "absolute right-1 flex items-center justify-center",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell: "text-zinc-500 rounded-md w-8 font-normal text-[0.8rem] dark:text-zinc-400",
@@ -55,10 +54,6 @@ function Calendar({
           "aria-selected:bg-zinc-100 aria-selected:text-zinc-900 dark:aria-selected:bg-zinc-800 dark:aria-selected:text-zinc-50",
         day_hidden: "invisible",
         ...classNames,
-      }}
-      components={{
-        IconLeft: () => <ChevronLeftIcon className="h-4 w-4" />,
-        IconRight: () => <ChevronRightIcon className="h-4 w-4" />,
       }}
       {...props}
     />

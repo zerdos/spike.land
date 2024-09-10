@@ -155,8 +155,8 @@ export function importMapReplace(code: string, origin: string): string {
   });
 
   return `
-  /** importMapReplace ${!origin ? new Date().toISOString() : ""} */
-  ` + replaced;
+/** importMapReplace${!origin ? new Date().toISOString() : ""} */
+` + replaced;
 }
 
 export default importMap;
