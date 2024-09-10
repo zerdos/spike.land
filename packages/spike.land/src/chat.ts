@@ -136,9 +136,9 @@ export default {
       return cachedResponse;
     }
    
-    const resp = await handleMainFetch(request, env, ctx);
+    const resp =await handleMainFetch(request, env, ctx);
     if (resp && resp.status === 200 && resp.headers.get('cache-control')?.includes('public')) {
-      ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+      ctx.waitUntil(cache.put(cacheKey,  new Response(resp.clone().body, resp)));
     }
 
     return resp;
