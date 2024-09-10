@@ -132,8 +132,8 @@ export default {
       return cachedResponse;
     }
     if (url.pathname === "/mani") {
-const manifest =      await import(__STATIC_CONTENT_MANIFEST).then((_manifest) => _manifest.default);
-      return new Response(manifest, {
+const manifest =      await import(__STATIC_CONTENT_MANIFEST).then((_manifest) => _manifest).then((manifest)=>JSON.parse(manifest));
+      return new Response(JSON.stringify(manifest), {
         headers: { "content-type": "application/json" },
       });
     }
