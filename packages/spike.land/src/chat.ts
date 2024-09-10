@@ -131,6 +131,12 @@ export default {
     if (cachedResponse) {
       return cachedResponse;
     }
+    if (url.pathname === "/mani") {
+const manifest =      await import(__STATIC_CONTENT_MANIFEST).then((_manifest) => _manifest.default);
+      return new Response(manifest, {
+        headers: { "content-type": "application/json" },
+      });
+    }
 
     const resp = await  handleMainFetch(request, env, ctx);
     if (resp && resp.status === 200 && resp.headers.get('cache-control')?.includes('public')) {
