@@ -184,7 +184,7 @@ function makeResponse(object: R2ObjectBody, key: string) {
   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
   headers.set(
     "Content-Type",
-    key.endsWith("js")
+    (key.endsWith("js") || key.endsWith("mjs")) 
       ? "application/javascript; charset=UTF-8"
       : key.endsWith("css")
       ? "text/css; charset=UTF-8"
