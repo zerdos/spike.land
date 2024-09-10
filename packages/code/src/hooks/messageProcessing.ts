@@ -5,6 +5,7 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRevery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
+import { createContextManager } from "../contextManager";
 
 export async function createNewMessage(
   images: ImageData[],
@@ -31,21 +32,13 @@ export async function createNewMessage(
   };
 }
 
-function extractTextContent(content: string | Array<{ type: string; text?: string }>): string {
-  if (typeof content === "string") {
-    return content;
-  }
-  const textItem = content.find(item => item.type === "text");
-  return textItem?.text || "";
-}
-
-async function retryWithGpt4(
-  aiHandler: AIHandler,
-  updatedMessages: Message[],
-  onUpdate: (code: string) => Promise<void>,
-): Promise<Message> {
-  return await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
-}
+// async function retryWithGpt4(
+//   aiHandler: AIHandler,
+//   updatedMessages: Message[],
+//   onUpdate: (code: string) => Promise<void>,
+// ): Promise<Message> {
+//   return await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
+// }
 
 export async function processMessage(
   aiHandler: AIHandler,
@@ -55,11 +48,13 @@ export async function processMessage(
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   saveMessages: (newMessages: Message[]) => void,
   mutex: Mutex,
+  codeSpace: string,
 ): Promise<boolean> {
+  const contextManager = createContextManager(codeSpace);
   const sentMessages = [...updatedMessages];
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
-  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess);
+  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess, contextManager);
 
   try {
     let assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, onUpdate);
@@ -72,11 +67,15 @@ export async function processMessage(
 
     if (contentToProcess.includes("An error occurred while processing")) {
       await cSess.setCode(codeNow);
-      assistantMessage = await retryWithGpt4(aiHandler, updatedMessages, onUpdate);
+      assistantMessage = await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
     }
 
     updatedMessages.push(assistantMessage);
     saveMessages(updatedMessages);
+
+    // Update context based on AI response
+    contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
+    contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
 
     const starterCode = updateSearchReplace(contentToProcess, codeNow);
 
@@ -85,9 +84,13 @@ export async function processMessage(
       if (success) return true;
 
       // If setting the code fails, try again with a new message
-      const userMessage = await createNewMessage([], claudeRevery(starterCode));
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        role: "user",
+        content: claudeRevery(starterCode),
+      };
       const newMessages = [...updatedMessages, userMessage];
-      const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess);
+      const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess, contextManager);
 
       assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
 
@@ -99,11 +102,15 @@ export async function processMessage(
 
       if (newContentToProcess.includes("An error occurred while processing")) {
         await cSess.setCode(codeNow);
-        assistantMessage = await retryWithGpt4(aiHandler, newMessages, newOnUpdate);
+        assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
       }
 
       updatedMessages.push(assistantMessage);
       saveMessages(updatedMessages);
+
+      // Update context based on new AI response
+      contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
+      contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
 
       const secondGuess = updateSearchReplace(newContentToProcess, codeNow);
 
@@ -132,10 +139,11 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
 
 function createOnUpdateFunction(
   sentMessages: Message[],
-  preUpdates: any,
+  preUpdates: { last: number; lastCode: string; count: number },
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   cSess: ICode,
+  contextManager: ReturnType<typeof createContextManager>,
 ) {
   return async (code: string) => {
     await mutex.runExclusive(async () => {
@@ -150,6 +158,8 @@ function createOnUpdateFunction(
           preUpdates.count += 1;
           try {
             await trySetCode(cSess, lastCode);
+            // Update context with new code structure
+            contextManager.updateContext("codeStructure", extractCodeStructure(lastCode));
           } catch (error) {
             console.error("Error in runner:", error);
           }
@@ -165,11 +175,23 @@ function createOnUpdateFunction(
   };
 }
 
-export function handleError(updatedMessages: Message[], setMessages: (newMessages: Message[]) => void) {
-  updatedMessages.push({
-    id: Date.now().toString(),
-    role: "assistant",
-    content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
-  });
-  setMessages(updatedMessages);
+function extractCurrentTask(aiResponse: string): string {
+  const taskMatch = aiResponse.match(/Current task: (.*)/);
+  return taskMatch ? taskMatch[1] : "";
+}
+
+function extractCodeStructure(code: string): string {
+  const lines = code.split("\n");
+  const structure = lines.filter(line => line.trim().startsWith("function") || line.trim().startsWith("class")).join(
+    "\n",
+  );
+  return structure || "No clear structure detected";
+}
+
+function extractTextContent(content: string | Array<{ type: string; text?: string }>): string {
+  if (typeof content === "string") {
+    return content;
+  }
+  const textItem = content.find(item => item.type === "text");
+  return textItem?.text || "";
 }

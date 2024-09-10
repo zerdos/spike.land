@@ -111,21 +111,14 @@ export const ChatInterface: React.FC<{
   ]);
 
   useEffect(() => {
-
-
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
       if (sessionStorage.getItem(maybeKey)) {
-
         const {prompt, images} = JSON.parse(sessionStorage.getItem(maybeKey)!) as {prompt: string; images: ImageData[]};
         sessionStorage.removeItem(maybeKey);
-
         memoizedChatFCProps.handleSendMessage(prompt, images)
       }
-
     }
-
-
   }, [isOpen, messages]);
 
   useEffect(() => {
@@ -162,6 +155,7 @@ export const ChatInterface: React.FC<{
       handleEditMessage={handleEditMessage}
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
+      codeSpace={codeSpace}
     />
   );
 });

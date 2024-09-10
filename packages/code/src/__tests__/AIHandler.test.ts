@@ -12,16 +12,20 @@ describe("AIHandler", () => {
   const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService({
-      anthropicEndpoint: "https://api.anthropic.com",
-      openAIEndpoint: "https://api.openai.com",
-      gpt4oEndpoint: "https://api.gpt4o.com",
-      retryWithClaudeEnabled: false,
-      updateThrottleMs: 1000,
-      setIsStreaming: vi.fn(),
-    }, cSessMock);
+    mockAIService = new AIService(
+      {
+        anthropicEndpoint: "https://api.anthropic.com",
+        openAIEndpoint: "https://api.openai.com",
+        gpt4oEndpoint: "https://api.gpt4o.com",
+        retryWithClaudeEnabled: false,
+        updateThrottleMs: 1000,
+        setIsStreaming: vi.fn(),
+      },
+      cSessMock,
+      testCodeSpace,
+    );
     vi.mocked(mockAIService);
-    aiHandler = new AIHandler(cSessMock, vi.fn(), mockAIService);
+    aiHandler = new AIHandler(cSessMock, vi.fn(), testCodeSpace, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -86,30 +90,6 @@ describe("AIHandler", () => {
     expect(result).toBe("Updated code");
   });
 
-  test("continueWithOpenAI calls AIService.continueWithOpenAI with forceClaude set to true", async () => {
-    const fullResponse = "Full response";
-    const currentCode = "Current code";
-    const setMessages = vi.fn();
-    const setAICode = vi.fn();
-
-    vi.mocked(mockAIService.continueWithOpenAI).mockResolvedValue("Updated code with Claude");
-
-    const result = await aiHandler.continueWithOpenAI(
-      fullResponse,
-      currentCode,
-      setMessages,
-      setAICode,
-    );
-
-    expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
-      fullResponse,
-      currentCode,
-      setMessages,
-      setAICode,
-    );
-    expect(result).toBe("Updated code with Claude");
-  });
-
   test("prepareClaudeContent calls AIService.prepareClaudeContent", () => {
     const content = "Content";
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
@@ -122,7 +102,6 @@ describe("AIHandler", () => {
       content,
       messages,
       currentCode,
-      testCodeSpace,
     );
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(

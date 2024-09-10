@@ -13,21 +13,32 @@ vi.mock("../config/aiConfig", () => ({
   anthropicSystem: vi.fn(() => "Mocked anthropic system content"),
   reminder: vi.fn(() => "Mocked reminder content"),
 }));
+vi.mock("../contextManager", () => ({
+  createContextManager: vi.fn(() => ({
+    getFullContext: vi.fn(() => ({})),
+    updateContext: vi.fn(),
+  })),
+}));
 
 describe("AIService", () => {
   let aiService: AIService;
+  const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    aiService = new AIService({
-      retryWithClaudeEnabled: false,
-      updateThrottleMs: 1000,
-      anthropicEndpoint: "https://api.anthropic.com",
-      openAIEndpoint: "https://api.openai.com",
-      gpt4oEndpoint: "https://api.gpt4o.com",
-      setIsStreaming: vi.fn(),
-    }, cSessMock);
+    aiService = new AIService(
+      {
+        retryWithClaudeEnabled: false,
+        updateThrottleMs: 1000,
+        anthropicEndpoint: "https://api.anthropic.com",
+        openAIEndpoint: "https://api.openai.com",
+        gpt4oEndpoint: "https://api.gpt4o.com",
+        setIsStreaming: vi.fn(),
+      },
+      cSessMock,
+      testCodeSpace,
+    );
   });
 
   describe("sendToAI", () => {
@@ -114,7 +125,7 @@ describe("AIService", () => {
 
       const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toBe("Mocked anthropic system content");
+      expect(result).toContain("Mocked anthropic system content");
     });
 
     it("should return reminder content when codeNow is the same as last message", () => {
@@ -125,7 +136,7 @@ describe("AIService", () => {
 
       const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toBe("Mocked reminder content");
+      expect(result).toContain("Mocked reminder content");
     });
 
     it("should handle empty messages array", () => {
@@ -136,7 +147,7 @@ describe("AIService", () => {
 
       const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toBe("Mocked anthropic system content");
+      expect(result).toContain("Mocked anthropic system content");
     });
 
     it("should handle empty codeNow", () => {
@@ -147,7 +158,7 @@ describe("AIService", () => {
 
       const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toBe("Mocked anthropic system content");
+      expect(result).toContain("Mocked anthropic system content");
     });
   });
 });

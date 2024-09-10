@@ -1,5 +1,6 @@
-import { editor } from "@/external/monaco-editor";
+import { editor, Range } from "@/external/monaco-editor";
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createContextManager } from "../contextManager";
 
 interface DiffEditorProps {
   original: string;
@@ -8,6 +9,7 @@ interface DiffEditorProps {
   readOnly?: boolean;
   minHeight?: number;
   maxHeight?: number;
+  codeSpace: string;
 }
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
@@ -17,9 +19,11 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   readOnly = true,
   minHeight = 200,
   maxHeight = 600,
+  codeSpace,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
+  const contextManager = createContextManager(codeSpace);
 
   const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
@@ -33,6 +37,35 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     const modifiedHeight = calculateHeight(modified);
     return Math.max(originalHeight, modifiedHeight);
   }, [original, modified, calculateHeight]);
+
+  const highlightChanges = useCallback((modifiedModel: editor.ITextModel) => {
+    const currentTask = contextManager.getContext('currentTask');
+    if (!currentTask || !diffEditor) return;
+
+    const decorations: editor.IModelDeltaDecoration[] = [];
+    const changes = diffEditor.getLineChanges() || [];
+
+    changes.forEach(change => {
+      const startLineNumber = change.modifiedStartLineNumber;
+      const endLineNumber = change.modifiedEndLineNumber || startLineNumber;
+
+      for (let lineNumber = startLineNumber; lineNumber <= endLineNumber; lineNumber++) {
+        const lineContent = modifiedModel.getLineContent(lineNumber);
+        if (lineContent.toLowerCase().includes(currentTask.toLowerCase())) {
+          decorations.push({
+            range: new Range(lineNumber, 1, lineNumber, 1),
+            options: {
+              isWholeLine: true,
+              className: 'highlightedChange',
+              glyphMarginClassName: 'highlightedChangeGutter'
+            }
+          });
+        }
+      }
+    });
+
+    modifiedModel.deltaDecorations([], decorations);
+  }, [contextManager, diffEditor]);
 
   useEffect(() => {
     if (containerRef.current && !diffEditor) {
@@ -65,11 +98,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
     return () => {
       if (diffEditor) {
-        // const diffModels = diffEditor.getModel();
-        // if (diffModels) {
-        //   diffModels.original.dispose();
-        //   diffModels.modified.dispose();
-        // }
         const diffModels = diffEditor.getModel();
         diffEditor.dispose();
         if (diffModels) {
@@ -78,7 +106,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         }
       }
     };
-  }, [containerRef, containerRef.current, diffEditor]);
+  }, [containerRef, containerRef.current, diffEditor, original, modified, language, readOnly]);
 
   useEffect(() => {
     if (diffEditor) {
@@ -91,9 +119,11 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         if (diffModels.modified.getValue() !== modified) {
           diffModels.modified.setValue(modified);
         }
+
+        highlightChanges(diffModels.modified);
       }
     }
-  }, [diffEditor, original, modified]);
+  }, [diffEditor, original, modified, highlightChanges]);
 
   return (
     <div

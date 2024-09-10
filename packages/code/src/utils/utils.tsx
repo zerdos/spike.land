@@ -77,9 +77,10 @@ interface CodeRendererProps {
   value: string;
   language: string;
   type: string;
+  codeSpace: string;
 }
 
-export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, type }) => {
+export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, codeSpace, language, type }) => {
   const key = md5(value + language);
 
   if (value.trim().length < 20) {
@@ -98,7 +99,7 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, typ
 
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
+    return <DiffEditor codeSpace={codeSpace} key={key} original={original} modified={modified} language={language} />;
   }
 
   return <CodeBlock key={key} value={value} language={language} />;
@@ -107,6 +108,7 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, typ
 interface MessageRendererProps {
   text: string;
   isUser: boolean;
+  codeSpace: string;
 }
 
 // Mock Data
@@ -116,10 +118,10 @@ export const mockResponses: string[] = [
   "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
 ];
 
-export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }) => (
+export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, codeSpace, isUser }) => (
   <>
     {getParts(text, isUser).map((part, index) => (
-      <CodeRenderer key={index} value={part.content} language={part.language || "typescript"} type={part.type} />
+      <CodeRenderer codeSpace={codeSpace} key={index} value={part.content} language={part.language || "typescript"} type={part.type} />
     ))}
   </>
 );

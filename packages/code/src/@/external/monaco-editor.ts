@@ -1,1 +1,1 @@
-export { editor, languages, Uri } from "monaco-editor";
+export { editor, languages, Range, Uri } from "monaco-editor";

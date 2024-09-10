@@ -80,14 +80,6 @@ export const Editor: FC<EditorProps> = (
         mod.current.controller = new AbortController();
         const { signal } = mod.current.controller;
 
-        // await wait(1000);
-        // if (signal.aborted) return;
-
-        // await wait(2000);
-        // if (signal.aborted) return;
-
-        // console.log("delaying setting Editor", data.i);
-
         if (signal.aborted) return;
         mod.current.code = data.code;
         setCurrentCode(data.code);
@@ -139,6 +131,7 @@ export const Editor: FC<EditorProps> = (
         engine={engine as "monaco" | "ace"}
         errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
         containerRef={containerRef}
+        codeSpace={codeSpace}
       />
     </div>
   );

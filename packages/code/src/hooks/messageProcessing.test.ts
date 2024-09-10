@@ -2,13 +2,15 @@ import { ImageData, Message } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createNewMessage, handleError, processMessage } from "./messageProcessing";
+import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
+import { createContextManager } from "../contextManager";
+import { createNewMessage, processMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
   claudeRevery: vi.fn((code) => `Revery: ${code}`),
 }));
+vi.mock("../contextManager");
 
 describe("messageProcessing", () => {
   describe("createNewMessage", () => {
@@ -44,13 +46,13 @@ describe("messageProcessing", () => {
       });
     });
   });
-
   describe("processMessage", () => {
     let mockAIHandler: AIHandler;
     let mockCSess: ICode;
     let mockSetMessages: ReturnType<typeof vi.fn>;
     let mockSaveMessages: ReturnType<typeof vi.fn>;
     let mockMutex: Mutex;
+    let mockContextManager: ReturnType<typeof createContextManager>;
 
     beforeEach(() => {
       mockAIHandler = {
@@ -65,6 +67,12 @@ describe("messageProcessing", () => {
       mockSetMessages = vi.fn();
       mockSaveMessages = vi.fn();
       mockMutex = new Mutex();
+      mockContextManager = {
+        updateContext: vi.fn(),
+        getContext: vi.fn(),
+      } as unknown as ReturnType<typeof createContextManager>;
+
+      (createContextManager as Mock).mockReturnValue(mockContextManager);
     });
 
     it("should process a message successfully", async () => {
@@ -84,12 +92,14 @@ describe("messageProcessing", () => {
         mockSetMessages,
         mockSaveMessages,
         mockMutex,
+        "test-code-space",
       );
 
       expect(result).toBe(true);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
       expect(mockSaveMessages).toHaveBeenCalledWith([mockAssistantMessage]);
       expect(mockCSess.setCode).not.toHaveBeenCalled();
+      expect(mockContextManager.updateContext).toHaveBeenCalledTimes(2);
     });
 
     it("should handle errors", async () => {
@@ -103,28 +113,12 @@ describe("messageProcessing", () => {
         mockSetMessages,
         mockSaveMessages,
         mockMutex,
+        "test-code-space",
       );
 
       expect(result).toBe(false);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
       expect(mockCSess.setCode).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("handleError", () => {
-    it("should add an error message", () => {
-      const messages: Message[] = [];
-      const setMessages = vi.fn();
-
-      handleError(messages, setMessages);
-
-      expect(setMessages).toHaveBeenCalledWith([
-        {
-          id: expect.any(String),
-          role: "assistant",
-          content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
-        },
-      ]);
     });
   });
 });
