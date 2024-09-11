@@ -10,14 +10,14 @@ let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
 export const getPort = () => workerPort;
 export const init = (port: MessagePort | null = null) => {
-  try {
-    if (rpc !== null) return rpc;
+  if (rpc !== null) return rpc;
 
-    workerPort = port
-      || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
+  if (typeof window === "undefined") {
+    const { Worker } = require("worker_threads");
+    const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
     rpc = new RpcProvider(
       (message) =>
-        workerPort.postMessage(
+        worker.postMessage(
           message,
           (hasTransferables(message as unknown)
             ? getTransferables(message as unknown)
@@ -25,28 +25,25 @@ export const init = (port: MessagePort | null = null) => {
         ),
       0,
     ) as unknown as RpcProvider;
-    workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
-    return rpc;
-  } catch {
-    // check if we are running in a node environment
-    if (typeof window === "undefined") {
-      const { Worker } = require("worker_threads");
-      const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
-      rpc = new RpcProvider(
-        (message) =>
-          worker.postMessage(
-            message,
-            (hasTransferables(message as unknown)
-              ? getTransferables(message as unknown)
-              : undefined) as unknown as Transferable[],
-          ),
-        0,
-      ) as unknown as RpcProvider;
 
-      worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
-      return rpc;
-    }
+    worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
+    return rpc;
   }
+
+  workerPort = port
+    || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
+  rpc = new RpcProvider(
+    (message) =>
+      workerPort.postMessage(
+        message,
+        (hasTransferables(message as unknown)
+          ? getTransferables(message as unknown)
+          : undefined) as unknown as Transferable[],
+      ),
+    0,
+  ) as unknown as RpcProvider;
+  workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
+  return rpc;
 };
 
 export const prettierToThrow = async (
