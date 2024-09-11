@@ -1,5 +1,6 @@
 import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
+import { throttle } from "es-toolkit";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { createContextManager } from "../contextManager";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
@@ -85,7 +86,6 @@ export class AIService {
         content: this.formatMessageContent(content),
       }));
 
-      this.config.setIsStreaming(true);
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -114,13 +114,15 @@ export class AIService {
     model?: string,
   ): Promise<string> {
     try {
+      this.config.setIsStreaming(true);
       const response = await this.makeAPICall(endpoint, messages, model);
       const reader = response.body?.getReader();
       if (!reader) {
         throw new Error("Response body is not readable!");
       }
 
-      const content = await this.streamHandler.handleStream(reader, onUpdate);
+      const throttleUpdate = throttle(onUpdate, this.config.updateThrottleMs);
+      const content = await this.streamHandler.handleStream(reader, throttleUpdate);
       onUpdate(content);
 
       return content;
