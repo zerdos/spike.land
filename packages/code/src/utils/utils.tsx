@@ -4,9 +4,8 @@ import Markdown from "@/external/Markdown";
 import { md5 } from "@/lib/md5";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
-import { DiffEditor } from "../components/DiffEditor";
+import { DiffEditor } from "@/components/app/diff-editor";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
-import { getParts } from "@/lib/get-parts";
 
 // Components
 interface TypingIndicatorProps {
@@ -104,22 +103,3 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, typ
   return <CodeBlock key={key} value={value} language={language} />;
 };
 
-interface MessageRendererProps {
-  text: string;
-  isUser: boolean;
-}
-
-// Mock Data
-export const mockResponses: string[] = [
-  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
-  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
-  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
-];
-
-export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }) => (
-  <>
-    {getParts(text, isUser).map((part, index) => (
-      <CodeRenderer key={index} value={part.content} language={part.language || "typescript"} type={part.type} />
-    ))}
-  </>
-);

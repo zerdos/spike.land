@@ -1,4 +1,4 @@
-import { editor } from "monaco-editor";
+import { editor } from "@/external/monaco-editor";
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface DiffEditorProps {

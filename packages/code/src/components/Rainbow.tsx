@@ -45,7 +45,7 @@ const Rainbow = () => {
       position: absolute;
       top: 0;
       left: 0;
-      height: 100vh;
+      height: 100dvh;
       width: 100vw;
       background-blend-mode: overlay;
       background: 

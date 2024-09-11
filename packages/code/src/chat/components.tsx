@@ -27,7 +27,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (
   </div>
 );
 
-export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
+export const ChatContainer: React.FC<ChatContainerProps & { codeSpace: string }> = React.memo(({
   messages,
   editingMessageId,
   editInput,
@@ -37,7 +37,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   handleEditMessage,
   isStreaming,
   isDarkMode,
-  
+  codeSpace,
 }) => {
 
   const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
@@ -70,6 +70,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
             handleCancelEdit={handleCancelEdit}
             handleSaveEdit={handleSaveEdit}
             isDarkMode={isDarkMode}
+            codeSpace={codeSpace}
           />
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}

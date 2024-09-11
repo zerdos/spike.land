@@ -4,15 +4,27 @@ import { AIService } from "./services/AIService";
 
 export class AIHandler {
   private aiService: AIService;
-  constructor(private cSess: ICode, setIsStreaming: (isStreaming: boolean) => void, aiService?: AIService) {
-    this.aiService = aiService || new AIService({
-      anthropicEndpoint: "/api/anthropic",
-      openAIEndpoint: "/api/openai",
-      gpt4oEndpoint: "/api/openai",
-      updateThrottleMs: 1100,
-      retryWithClaudeEnabled: true,
-      setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
-    }, this.cSess);
+  private codeSpace: string;
+
+  constructor(
+    private cSess: ICode,
+    setIsStreaming: (isStreaming: boolean) => void,
+    codeSpace: string,
+    aiService?: AIService,
+  ) {
+    this.codeSpace = codeSpace;
+    this.aiService = aiService || new AIService(
+      {
+        anthropicEndpoint: "/api/anthropic",
+        openAIEndpoint: "/api/openai",
+        gpt4oEndpoint: "/api/openai",
+        updateThrottleMs: 1100,
+        retryWithClaudeEnabled: true,
+        setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
+      },
+      this.cSess,
+      this.codeSpace,
+    );
   }
 
   async sendToAnthropic(

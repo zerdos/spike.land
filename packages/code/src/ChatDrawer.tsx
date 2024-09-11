@@ -7,7 +7,7 @@ import { ChatHeader, ChatContainer } from "./chat/components";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export const ChatDrawer: React.FC<ChatDrawerProps> = ({
+export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
   isOpen,
   onClose,
   isDarkMode,
@@ -29,6 +29,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleEditMessage,
   handleCancelEdit,
   handleSaveEdit,
+  codeSpace,
 }) => {
   
   const handlers = useSwipeable({
@@ -79,6 +80,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
                 handleEditMessage={handleEditMessage}
                 isStreaming={isStreaming}
                 isDarkMode={isDarkMode}
+                codeSpace={codeSpace}
               />
               <div id="typing-indicator" />
             </ScrollArea>

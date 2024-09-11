@@ -1,12 +1,9 @@
+import { createContextManager } from "@/lib/context-manager";
 import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
 import { throttle } from "es-toolkit";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
-
-interface AIModelResponse {
-  content: string;
-  id: string;
-}
+import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
 export interface AIServiceConfig {
   gpt4oEndpoint: string;
@@ -42,11 +39,13 @@ export class AIService {
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
   private cSess: ICode;
+  private contextManager: ReturnType<typeof createContextManager>;
 
-  constructor(config: AIServiceConfig, cSess: ICode) {
+  constructor(config: AIServiceConfig, cSess: ICode, codeSpace: string) {
     this.config = config;
     this.streamHandler = new StreamHandler();
     this.cSess = cSess;
+    this.contextManager = createContextManager(codeSpace);
   }
 
   private getEndpoint(type: AIEndpoint): string {
@@ -87,13 +86,11 @@ export class AIService {
         content: this.formatMessageContent(content),
       }));
 
-      this.config.setIsStreaming(true);
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           stream: true,
-
           messages: formattedMessages,
           ...(model ? { model } : {}),
         }),
@@ -115,23 +112,20 @@ export class AIService {
     messages: Message[],
     onUpdate: (content: string) => void,
     model?: string,
-  ): Promise<AIModelResponse> {
+  ): Promise<string> {
     try {
+      this.config.setIsStreaming(true);
       const response = await this.makeAPICall(endpoint, messages, model);
       const reader = response.body?.getReader();
       if (!reader) {
         throw new Error("Response body is not readable!");
       }
 
-      console.log("handleStreamingResponse, updateThrottleMs:", this.config.updateThrottleMs);
-      const debouncedUpdate = throttle(onUpdate, this.config.updateThrottleMs);
-      const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
+      const throttleUpdate = throttle(onUpdate, this.config.updateThrottleMs);
+      const content = await this.streamHandler.handleStream(reader, throttleUpdate);
       onUpdate(content);
 
-      return {
-        id: Date.now().toString(),
-        content,
-      };
+      return content;
     } catch (error) {
       console.error("Error handling streaming response:", error);
       throw error;
@@ -151,14 +145,18 @@ export class AIService {
 
       const lastMessage = messages[messages.length - 1];
 
+      // Update context based on AI response
+      this.contextManager.updateContext("currentTask", extractCurrentTask(result));
+      this.contextManager.updateContext("codeStructure", extractCodeStructure(result));
+
       return {
         id: ((+lastMessage.id) + 1).toString(),
         role: "assistant",
-        content: result.content,
+        content: result,
       };
     } catch (error) {
       console.error("Error sending to AI:", error);
-      throw error; // Throw the error instead of returning an error message
+      throw error;
     } finally {
       this.config.setIsStreaming(false);
     }
@@ -179,7 +177,7 @@ export class AIService {
     setAICode: (code: string) => void,
   ): Promise<string> {
     const messages: Message[] = [
-      { id: Date.now().toString(), role: "system" as any, content: gptSystem },
+      { id: Date.now().toString(), role: "system", content: gptSystem },
       { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ];
 
@@ -193,7 +191,7 @@ export class AIService {
     try {
       const endpoint = this.getEndpoint("openAI");
       const response = await this.handleStreamingResponse(endpoint, messages, updateMessages);
-      const modifiedCode = this.extractCodeFromResponse(response.content);
+      const modifiedCode = this.extractCodeFromResponse(response);
 
       if (!modifiedCode) {
         setAICode("");
@@ -215,10 +213,7 @@ export class AIService {
     }
   }
 
-  private extractCodeFromResponse(response: string | MessageContent): string {
-    if (typeof response !== "string") {
-      throw new Error("Invalid response content");
-    }
+  private extractCodeFromResponse(response: string): string {
     const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = response.match(codeModificationRegex);
     if (!matches) {
@@ -276,14 +271,27 @@ export class AIService {
     codeNow: string,
     codeSpace: string,
   ): string {
+    const context = this.contextManager.getFullContext();
+    const contextString = JSON.stringify(context, null, 2);
+
     if (messages.length === 0 || codeNow !== messages[messages.length - 1]?.content) {
-      return anthropicSystem({
-        fileName: codeSpace,
-        fileContent: codeNow,
-        userPrompt: content,
-      });
+      return `
+Current project context:
+${contextString}
+
+${
+        anthropicSystem({
+          fileName: codeSpace,
+          fileContent: codeNow,
+          userPrompt: content,
+        })
+      }`;
     } else {
-      return reminder({ userPrompt: content });
+      return `
+Current project context:
+${contextString}
+
+${reminder({ userPrompt: content })}`;
     }
   }
 }

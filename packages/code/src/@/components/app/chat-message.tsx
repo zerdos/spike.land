@@ -26,6 +26,7 @@ export const ChatMessage: React.FC<{
     handleCancelEdit: () => void;
     handleSaveEdit: (id: string) => void;
     isDarkMode: boolean;
+    codeSpace: string;
   }> = React.memo(({
     message,
     isSelected,
