@@ -146,7 +146,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     bundle: false,
     treeShaking: isProduction,
     mangleQuoted: false,
-    dropLabels: ["VI_TEST"],
     sourcemap: false,
     legalComments: "none",
     target: "es2024",
