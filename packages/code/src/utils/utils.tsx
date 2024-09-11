@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { DiffEditor } from "@/components/app/diff-editor";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
-import { getParts } from "@/lib/get-parts";
 
 // Components
 interface TypingIndicatorProps {
@@ -77,10 +76,9 @@ interface CodeRendererProps {
   value: string;
   language: string;
   type: string;
-  codeSpace: string;
 }
 
-export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, codeSpace, language, type }) => {
+export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, type }) => {
   const key = md5(value + language);
 
   if (value.trim().length < 20) {
@@ -105,23 +103,3 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, codeSpace, la
   return <CodeBlock key={key} value={value} language={language} />;
 };
 
-interface MessageRendererProps {
-  text: string;
-  isUser: boolean;
-  codeSpace: string;
-}
-
-// Mock Data
-export const mockResponses: string[] = [
-  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
-  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
-  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
-];
-
-export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, codeSpace, isUser }) => (
-  <>
-    {getParts(text, isUser).map((part, index) => (
-      <CodeRenderer codeSpace={codeSpace} key={index} value={part.content} language={part.language || "typescript"} type={part.type} />
-    ))}
-  </>
-);
