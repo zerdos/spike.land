@@ -134,6 +134,13 @@ export const Editor: FC<EditorProps> = (
         overflow: auto;
     `}
     >
+      <div className="editor-sidebar">
+        <button onClick={() => setShowContext(!showContext)}>
+          {showContext ? 'Hide Context' : 'Show Context'}
+        </button>
+        
+        {showContext && <ContextViewer codeSpace={codeSpace}   />}
+      </div>
       <EditorNode
         engine={engine as "monaco" | "ace"}
         errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
@@ -141,13 +148,7 @@ export const Editor: FC<EditorProps> = (
         codeSpace={codeSpace}
       />
 
-<div className="editor-sidebar">
-        <button onClick={() => setShowContext(!showContext)}>
-          {showContext ? 'Hide Context' : 'Show Context'}
-        </button>
-        
-        {showContext && <ContextViewer codeSpace={codeSpace}   />}
-      </div>
+
     </div>
     
   );
