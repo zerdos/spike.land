@@ -1,6 +1,6 @@
 // contextManager.ts
 
-interface ProjectContext {
+export interface ProjectContext {
   currentTask: string;
   techStack: string;
   completionCriteria: string;
@@ -39,6 +39,23 @@ class ContextManager {
       errorLog: "",
       progressTracker: "",
     };
+  }
+
+  public initializeContext(codeSpace: string): void {
+    const initialContext: ProjectContext = {
+      currentTask: "",
+      techStack: "",
+      completionCriteria: "",
+      codeStructure: "",
+      adaptiveInstructions: "",
+      errorLog: "",
+      progressTracker: "",
+    };
+    localStorage.setItem(`projectContext_${codeSpace}`, JSON.stringify(initialContext));
+  }
+
+  public clearContext(codeSpace: string): void {
+    localStorage.removeItem(`projectContext_${codeSpace}`);
   }
 }
 

@@ -8,6 +8,11 @@ import type { FC } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
+import { ContextViewer } from "./ContextViewer";
+
+
+
+
 
 interface EditorProps {
   codeSpace: string;
@@ -18,6 +23,8 @@ interface EditorProps {
 export const Editor: FC<EditorProps> = (
   { codeSpace, cSess },
 ) => {
+  const [showContext, setShowContext] = useState(false);
+
   const {
     containerRef,
     engine,
@@ -133,6 +140,16 @@ export const Editor: FC<EditorProps> = (
         containerRef={containerRef}
         codeSpace={codeSpace}
       />
+
+<div className="editor-sidebar">
+        <button onClick={() => setShowContext(!showContext)}>
+          {showContext ? 'Hide Context' : 'Show Context'}
+        </button>
+        
+        {showContext && <ContextViewer codeSpace={codeSpace}   />}
+      </div>
     </div>
+    
   );
 };
+

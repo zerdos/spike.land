@@ -102,6 +102,7 @@ describe("AIHandler", () => {
       content,
       messages,
       currentCode,
+      testCodeSpace,
     );
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(

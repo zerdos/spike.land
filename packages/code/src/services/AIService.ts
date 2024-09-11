@@ -2,6 +2,7 @@ import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { createContextManager } from "../contextManager";
+import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
 export interface AIServiceConfig {
   gpt4oEndpoint: string;
@@ -143,8 +144,8 @@ export class AIService {
       const lastMessage = messages[messages.length - 1];
 
       // Update context based on AI response
-      this.contextManager.updateContext("currentTask", this.extractCurrentTask(result));
-      this.contextManager.updateContext("codeStructure", this.extractCodeStructure(result));
+      this.contextManager.updateContext("currentTask", extractCurrentTask(result));
+      this.contextManager.updateContext("codeStructure", extractCodeStructure(result));
 
       return {
         id: ((+lastMessage.id) + 1).toString(),
@@ -260,16 +261,6 @@ export class AIService {
         return "";
       }
     }
-  }
-
-  private extractCodeStructure(aiResponse: string): string {
-    const structureMatch = aiResponse.match(/Code structure:\n([\s\S]*?)(?:\n\n|$)/);
-    return structureMatch ? structureMatch[1] : "";
-  }
-
-  private extractCurrentTask(aiResponse: string): string {
-    const taskMatch = aiResponse.match(/Current task: (.*)/);
-    return taskMatch ? taskMatch[1] : "";
   }
 
   prepareClaudeContent(

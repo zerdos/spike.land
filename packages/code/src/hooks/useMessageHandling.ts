@@ -50,6 +50,7 @@ export const useMessageHandling = ({
       content,
       messages,
       code,
+      codeSpace,
     );
 
     const updatedMessages = [...messages, await createNewMessage(images, claudeContent)];
