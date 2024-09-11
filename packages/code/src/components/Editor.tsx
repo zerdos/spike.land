@@ -1,18 +1,15 @@
+import React, { useEffect, useRef, useState } from "react";
 import { md5 } from "@/lib/md5";
-import { css } from "@emotion/react";
+import { cn } from "@/lib/utils";
 import { ICode } from "@src/cSess.interface";
-
 import { ICodeSession } from "@/lib/interfaces";
-import { useEffect, useRef, useState } from "react";
-import type { FC } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 import { ContextViewer } from "./ContextViewer";
-
-
-
-
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sidebar } from "lucide-react";
 
 interface EditorProps {
   codeSpace: string;
@@ -20,25 +17,11 @@ interface EditorProps {
   readOnly?: boolean;
 }
 
-export const Editor: FC<EditorProps> = (
-  { codeSpace, cSess },
-) => {
+export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const [showContext, setShowContext] = useState(false);
-
-  const {
-    containerRef,
-    engine,
-    editorState,
-    setEditorState,
-  } = useEditorState();
-
+  const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { error, onError } = useErrorHandling();
-
   const [errorType, setError] = useState(error);
-
-  onError((error: string | null) => {
-    setError(error);
-  });
   const [currentCode, setCurrentCode] = useState("");
 
   const mod = useRef({
@@ -50,11 +33,10 @@ export const Editor: FC<EditorProps> = (
     controller: new AbortController(),
   });
 
-  // Use the new auto-save hook
   useAutoSave({
     key: `editor_${codeSpace}`,
     data: { code: currentCode, i: mod.current.i },
-    debounceMs: 60000, // Adjust as needed
+    debounceMs: 60000,
   });
 
   const handleContentChange = async (newCode: string) => {
@@ -66,12 +48,15 @@ export const Editor: FC<EditorProps> = (
 
     if (typeof formattedCode === "string") {
       mod.current.md5Ids.push(md5(formattedCode));
-
-      mod.current.code === formattedCode;
+      mod.current.code = formattedCode;
     }
   };
 
   useEffect(() => {
+    onError((error: string | null) => {
+      setError(error);
+    });
+
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
         if (data.code === mod.current.code) return;
@@ -101,8 +86,6 @@ export const Editor: FC<EditorProps> = (
     }
 
     const initializeEditor = async () => {
-      // Load the latest saved data
-
       mod.current.i = Number(cSess.session.i);
       mod.current.code = cSess.session.code;
       setCurrentCode(cSess.session.code);
@@ -126,31 +109,38 @@ export const Editor: FC<EditorProps> = (
   }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   return (
-    <div
-      css={css`
-        display: block;
-        width: min(100%, 800px);
-        height:100dvh;
-        overflow: auto;
-    `}
-    >
-      <div className="editor-sidebar">
-        <button onClick={() => setShowContext(!showContext)}>
-          {showContext ? 'Hide Context' : 'Show Context'}
-        </button>
-        
-        {showContext && <ContextViewer codeSpace={codeSpace}   />}
+    <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
+      <Card className={cn(
+        "transition-all duration-300 ease-in-out",
+        showContext ? "w-64" : "w-12"
+      )}>
+        <CardContent className="p-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setShowContext(!showContext)}
+            className="mb-4 w-full"
+          >
+            <Sidebar className={cn(
+              "h-4 w-4 transition-all",
+              showContext && "rotate-180"
+            )} />
+          </Button>
+          {showContext && (
+            <div className="overflow-y-auto h-[calc(100vh-64px)]">
+              <ContextViewer codeSpace={codeSpace} />
+            </div>
+          )}
+        </CardContent>
+      </Card>
+      <div className="flex-grow overflow-hidden">
+        <EditorNode
+          engine={engine as "monaco" | "ace"}
+          errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
+          containerRef={containerRef}
+          codeSpace={codeSpace}
+        />
       </div>
-      <EditorNode
-        engine={engine as "monaco" | "ace"}
-        errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
-        containerRef={containerRef}
-        codeSpace={codeSpace}
-      />
-
-
     </div>
-    
   );
 };
-
