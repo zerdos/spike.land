@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -118,12 +118,12 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                 variant="destructive"
                 className="mb-4 bg-red-50 text-red-800 border-red-200"
               >
-                <AlertDescription>{errorMessages[errorType]}</AlertDescription>
-              </Alert>
-              {errorLog && (
+                <AlertTitle>{errorMessages[errorType]}</AlertTitle>
+                <AlertDescription>
+                {errorLog && (
                 <div className="mt-4">
                   <h4 className="font-semibold mb-2 text-sm">Error Log:</h4>
-                  <ScrollArea className="h-[100px] rounded-md border p-4 bg-gray-50">
+                  <ScrollArea className="h-[100px]">
                     <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
                       {errorLog.split('\n').map((log, index) => (
                         <div key={index} className="mb-1">
@@ -134,6 +134,9 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                   </ScrollArea>
                 </div>
               )}
+                </AlertDescription>
+              </Alert>
+              
             </CardContent>
           </Card>
         </motion.div>
