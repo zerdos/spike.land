@@ -119,10 +119,9 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                 className="mb-4 bg-red-50 text-red-800 border-red-200"
               >
                 <AlertTitle>{errorMessages[errorType]}</AlertTitle>
-                <AlertDescription>
-                {errorLog && (
-                <div className="mt-4">
-                  <h4 className="font-semibold mb-2 text-sm">Error Log:</h4>
+                {errorLog &&  <AlertDescription>
+           
+                  <h4 className="font-semibold text-sm">Error Log:</h4>
                   <ScrollArea className="h-[100px]">
                     <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
                       {errorLog.split('\n').map((log, index) => (
@@ -132,9 +131,8 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                       ))}
                     </pre>
                   </ScrollArea>
-                </div>
-              )}
-                </AlertDescription>
+              
+                </AlertDescription>}
               </Alert>
               
             </CardContent>
