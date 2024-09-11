@@ -10,22 +10,42 @@ let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
 export const getPort = () => workerPort;
 export const init = (port: MessagePort | null = null) => {
-  if (rpc !== null) return rpc;
+  try {
+    if (rpc !== null) return rpc;
 
-  workerPort = port
-    || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
-  rpc = new RpcProvider(
-    (message) =>
-      workerPort.postMessage(
-        message,
-        (hasTransferables(message as unknown)
-          ? getTransferables(message as unknown)
-          : undefined) as unknown as Transferable[],
-      ),
-    0,
-  ) as unknown as RpcProvider;
-  workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
-  return rpc;
+    workerPort = port
+      || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
+    rpc = new RpcProvider(
+      (message) =>
+        workerPort.postMessage(
+          message,
+          (hasTransferables(message as unknown)
+            ? getTransferables(message as unknown)
+            : undefined) as unknown as Transferable[],
+        ),
+      0,
+    ) as unknown as RpcProvider;
+    workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
+    return rpc;
+  } catch {
+    // node-js compatible with worker_threads
+
+    const { Worker } = require("worker_threads");
+    const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
+    rpc = new RpcProvider(
+      (message) =>
+        worker.postMessage(
+          message,
+          (hasTransferables(message as unknown)
+            ? getTransferables(message as unknown)
+            : undefined) as unknown as Transferable[],
+        ),
+      0,
+    ) as unknown as RpcProvider;
+
+    worker.on("message", ({ data }) => rpc!.dispatch(data));
+    return rpc;
+  }
 };
 
 export const prettierToThrow = async (
