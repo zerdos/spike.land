@@ -43,7 +43,7 @@ export const init = (port: MessagePort | null = null) => {
       0,
     ) as unknown as RpcProvider;
 
-    worker.on("message", ({ data }) => rpc!.dispatch(data));
+    worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
     return rpc;
   }
 };
