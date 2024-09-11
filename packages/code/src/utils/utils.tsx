@@ -4,7 +4,7 @@ import Markdown from "@/external/Markdown";
 import { md5 } from "@/lib/md5";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
-import { DiffEditor } from "../components/DiffEditor";
+import { DiffEditor } from "@/components/app/diff-editor";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 import { getParts } from "@/lib/get-parts";
 
@@ -99,7 +99,7 @@ export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, codeSpace, la
 
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor codeSpace={codeSpace} key={key} original={original} modified={modified} language={language} />;
+    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
   }
 
   return <CodeBlock key={key} value={value} language={language} />;
