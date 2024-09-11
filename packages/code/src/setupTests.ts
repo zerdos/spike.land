@@ -20,3 +20,5 @@ globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
 
 globalThis.TextEncoder = TextEncoder;
 globalThis.TextDecoder = TextDecoder;
+
+process.env.VI_TEST = "true";

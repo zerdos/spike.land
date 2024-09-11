@@ -1,4 +1,5 @@
 import React from "react";
+import { createContextManager } from "@/lib/context-manager";
 
 type ErrorBoundaryState = {
   hasError: boolean;
@@ -6,8 +7,8 @@ type ErrorBoundaryState = {
   errorInfo: React.ErrorInfo | null;
 };
 
-export class ErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
-  constructor(props: { children: React.ReactNode }) {
+export class ErrorBoundary extends React.Component<{ children: React.ReactNode, codeSpace?: string }, ErrorBoundaryState> {
+  constructor(props: { children: React.ReactNode, codeSpace?: string }) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
@@ -17,6 +18,11 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    if (this.props.codeSpace) {
+      const contextManager = createContextManager(this.props.codeSpace);
+      contextManager.updateContext("errorLog", error.toString());
+    }
+
     this.setState({ errorInfo });
     console.error("Detailed error information:", {
       error: error.toString(),

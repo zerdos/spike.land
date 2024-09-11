@@ -8,11 +8,13 @@ const mutex = new Mutex();
 
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
+const VI_TEST = process.env.VI_TEST === "true";
+
 export const getPort = () => workerPort;
 export const init = (port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
-  if (typeof window === "undefined") {
+  if (VI_TEST) {
     const { Worker } = require("worker_threads");
     const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
     rpc = new RpcProvider(

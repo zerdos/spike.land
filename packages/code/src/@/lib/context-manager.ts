@@ -12,25 +12,37 @@ export interface ProjectContext {
 
 class ContextManager {
   private storageKey: string;
+  private context: ProjectContext;
 
   constructor(codeSpace: string) {
     this.storageKey = `projectContext_${codeSpace}`;
+    this.context = localStorage.getItem(this.storageKey) ? JSON.parse(localStorage.getItem(this.storageKey)!) : {
+      currentTask: "",
+      techStack: "",
+      completionCriteria: "",
+      codeStructure: "",
+      adaptiveInstructions: "",
+      errorLog: "",
+      progressTracker: "",
+    };
   }
 
   public updateContext(key: keyof ProjectContext, content: string): void {
-    const context = this.getFullContext();
-    context[key] = content;
-    localStorage.setItem(this.storageKey, JSON.stringify(context));
+    this.context![key] = content;
+    localStorage.setItem(this.storageKey, JSON.stringify(this.context));
   }
 
   public getContext(key: keyof ProjectContext): string {
-    const context = this.getFullContext();
-    return context[key] || "";
+    return this.context[key] || "";
   }
 
   public getFullContext(): ProjectContext {
-    const storedContext = localStorage.getItem(this.storageKey);
-    return storedContext ? JSON.parse(storedContext) : {
+    return this.context!;
+  }
+
+  public clearContext(): void {
+    localStorage.removeItem(this.storageKey);
+    this.context = localStorage.getItem(this.storageKey) ? JSON.parse(localStorage.getItem(this.storageKey)!) : {
       currentTask: "",
       techStack: "",
       completionCriteria: "",
@@ -39,23 +51,6 @@ class ContextManager {
       errorLog: "",
       progressTracker: "",
     };
-  }
-
-  public initializeContext(codeSpace: string): void {
-    const initialContext: ProjectContext = {
-      currentTask: "",
-      techStack: "",
-      completionCriteria: "",
-      codeStructure: "",
-      adaptiveInstructions: "",
-      errorLog: "",
-      progressTracker: "",
-    };
-    localStorage.setItem(`projectContext_${codeSpace}`, JSON.stringify(initialContext));
-  }
-
-  public clearContext(codeSpace: string): void {
-    localStorage.removeItem(`projectContext_${codeSpace}`);
   }
 }
 

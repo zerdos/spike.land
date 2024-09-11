@@ -6,7 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { createContextManager } from "../contextManager";
+import { createContextManager } from "@/lib/context-manager";
 
 export const EditorNode: React.FC<{
   engine: "monaco" | "ace";
@@ -58,8 +58,10 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
       timer = setTimeout(() => {
         setShowError(true);
         const currentErrorLog = contextManager.getContext('errorLog');
-        const newErrorLog = `${currentErrorLog}\n${new Date().toISOString()}: ${errorType} error occurred`;
+        if (!currentErrorLog) {
+        const newErrorLog = `${new Date().toISOString()}: ${errorType} error occurred`;
         contextManager.updateContext('errorLog', newErrorLog);
+        }
       }, 300);
     } else {
       setShowError(false);

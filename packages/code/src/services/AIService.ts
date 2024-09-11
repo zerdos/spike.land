@@ -1,8 +1,8 @@
+import { createContextManager } from "@/lib/context-manager";
 import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
 import { throttle } from "es-toolkit";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
-import { createContextManager } from "../contextManager";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
 export interface AIServiceConfig {

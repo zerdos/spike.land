@@ -1,11 +1,10 @@
-import { createContextManager, ProjectContext } from "../contextManager";
+import { createContextManager, ProjectContext } from "@/lib/context-manager";
 
 interface ContextHook {
   getContext: (key: keyof ProjectContext) => string;
   updateContext: (key: keyof ProjectContext, content: string) => void;
   getFullContext: () => ProjectContext;
-  initializeContext: (codeSpace: string) => void;
-  clearContext: (codeSpace: string) => void;
+  clearContext: () => void;
 }
 
 export function useContext(codeSpace: string): ContextHook {
@@ -15,7 +14,6 @@ export function useContext(codeSpace: string): ContextHook {
     getContext: contextManager.getContext.bind(contextManager),
     updateContext: contextManager.updateContext.bind(contextManager),
     getFullContext: contextManager.getFullContext.bind(contextManager),
-    initializeContext: contextManager.initializeContext.bind(contextManager),
     clearContext: contextManager.clearContext.bind(contextManager),
   };
 }

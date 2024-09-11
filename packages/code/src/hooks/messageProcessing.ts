@@ -1,11 +1,11 @@
 import { updateSearchReplace } from "@/lib/chat-utils";
+import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRevery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
-import { createContextManager } from "../contextManager";
 
 export async function createNewMessage(
   images: ImageData[],

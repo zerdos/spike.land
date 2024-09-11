@@ -1,16 +1,16 @@
+import { createContextManager } from "@/lib/context-manager";
 import { ImageData, Message } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
-import { createContextManager } from "../contextManager";
 import { createNewMessage, processMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
   claudeRevery: vi.fn((code) => `Revery: ${code}`),
 }));
-vi.mock("../contextManager");
+vi.mock("@/lib/context-manager");
 
 describe("messageProcessing", () => {
   describe("createNewMessage", () => {

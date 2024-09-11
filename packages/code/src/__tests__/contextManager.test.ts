@@ -1,5 +1,5 @@
+import { createContextManager } from "@/lib/context-manager";
 import { beforeEach, describe, expect, test } from "vitest";
-import { createContextManager } from "../contextManager";
 
 describe("ContextManager", () => {
   const codeSpace = "testCodeSpace";
@@ -37,7 +37,6 @@ describe("ContextManager", () => {
   });
 
   test("initializes context", () => {
-    contextManager.initializeContext(codeSpace);
     const context = contextManager.getFullContext();
     expect(context).toEqual({
       currentTask: "",
@@ -52,7 +51,7 @@ describe("ContextManager", () => {
 
   test("clears context", () => {
     contextManager.updateContext("currentTask", "Test task");
-    contextManager.clearContext(codeSpace);
+    contextManager.clearContext();
     const context = contextManager.getFullContext();
     expect(context).toEqual({
       currentTask: "",
