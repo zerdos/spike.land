@@ -28,23 +28,24 @@ export const init = (port: MessagePort | null = null) => {
     workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
     return rpc;
   } catch {
-    // node-js compatible with worker_threads
+    // check if we are running in a node environment
+    if (typeof window === "undefined") {
+      const { Worker } = require("worker_threads");
+      const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
+      rpc = new RpcProvider(
+        (message) =>
+          worker.postMessage(
+            message,
+            (hasTransferables(message as unknown)
+              ? getTransferables(message as unknown)
+              : undefined) as unknown as Transferable[],
+          ),
+        0,
+      ) as unknown as RpcProvider;
 
-    const { Worker } = require("worker_threads");
-    const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
-    rpc = new RpcProvider(
-      (message) =>
-        worker.postMessage(
-          message,
-          (hasTransferables(message as unknown)
-            ? getTransferables(message as unknown)
-            : undefined) as unknown as Transferable[],
-        ),
-      0,
-    ) as unknown as RpcProvider;
-
-    worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
-    return rpc;
+      worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
+      return rpc;
+    }
   }
 };
 
