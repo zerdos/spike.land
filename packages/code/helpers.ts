@@ -37,7 +37,7 @@ export const makeEnv = (
   "process.version.node": JSON.stringify("v20.3.1"),
   "process.env.isBrowser": JSON.stringify(true),
   "process.env.isWebworker": JSON.stringify(true),
-  "process.env.VI_TEST": JSON.stringify(true),
+  "process.env.VI_TEST": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
   "isJest": JSON.stringify(false),
 
