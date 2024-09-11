@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { createContextManager } from "../contextManager";
 
 export const EditorNode: React.FC<{
@@ -92,21 +94,44 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
             }
           }}
         >
-          <Card className={cn("mb-4", errorType && "border-red-500")}>
-            <CardHeader>
-              <CardTitle className="flex items-center text-red-500">
-                <AlertCircle className="h-5 w-5 mr-2" />
+          <Card className={cn("mb-4 border-l-4", {
+            'border-l-red-500': errorType === 'typescript' || errorType === 'transpile',
+            'border-l-yellow-500': errorType === 'prettier',
+            'border-l-orange-500': errorType === 'render'
+          })}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="flex items-center text-lg font-semibold">
+                <AlertCircle className="h-5 w-5 mr-2 text-red-500" />
                 Code Issue Detected
               </CardTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowError(false)}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </CardHeader>
             <CardContent>
-              <Alert variant="destructive">
+              <Alert
+                variant="destructive"
+                className="mb-4 bg-red-50 text-red-800 border-red-200"
+              >
                 <AlertDescription>{errorMessages[errorType]}</AlertDescription>
               </Alert>
               {errorLog && (
-                <div className="mt-4 p-4 bg-gray-100 rounded-md">
+                <div className="mt-4">
                   <h4 className="font-semibold mb-2 text-sm">Error Log:</h4>
-                  <pre className="text-xs whitespace-pre-wrap">{errorLog}</pre>
+                  <ScrollArea className="h-[100px] rounded-md border p-4 bg-gray-50">
+                    <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
+                      {errorLog.split('\n').map((log, index) => (
+                        <div key={index} className="mb-1">
+                          {log}
+                        </div>
+                      ))}
+                    </pre>
+                  </ScrollArea>
                 </div>
               )}
             </CardContent>
