@@ -15,7 +15,13 @@ declare var URL: {
   createObjectURL(obj: Blob | MediaSource): string;
   revokeObjectURL(url: string): void;
 };
+
+declare global  {
+  VI_TEST: boolean;
+}
+
 declare global {
+
   interface Window {
     URL: typeof URL;
   }

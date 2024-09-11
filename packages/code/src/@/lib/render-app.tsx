@@ -69,7 +69,7 @@ async function renderApp(
 
     root.render(
       <CacheProvider value={cssCache}>
-        <ErrorBoundary>
+        <ErrorBoundary {...(codeSpace?{codeSpace}:{})}>
           <AppWithScreenSize />
         </ErrorBoundary>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}

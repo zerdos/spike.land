@@ -52,8 +52,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.25.6",
-    "@clerk/clerk-react": "5.8.0",
-    "@clerk/nextjs": "5.5.0",
+    "@clerk/clerk-react": "5.8.1",
+    "@clerk/nextjs": "5.5.1",
     "@emotion/cache": "11.13.1",
     "@emotion/css-prettifier": "^1.1.4",
     "@emotion/react": "11.13.3",
@@ -61,8 +61,8 @@
     "@github/stable-socket": "1.1.0",
     "@heroicons/react": "^2.1.5",
     "@hookform/resolvers": "^3.9.0",
-    "@langchain/anthropic": "^0.2.17",
-    "@langchain/core": "^0.2.31",
+    "@langchain/anthropic": "^0.2.18",
+    "@langchain/core": "^0.2.32",
     "@langchain/langgraph": "^0.2.2",
     "@monaco-editor/react": "^4.6.0",
     "@mui/material": "6.0.2",
@@ -248,7 +248,7 @@
     "typescript": "^5.6.2",
     "typescript-eslint": "8.5.0",
     "uvu": "0.5.6",
-    "vite": "^5.4.3",
+    "vite": "^5.4.4",
     "vite-tsconfig-paths": "^5.0.1"
   }
 }

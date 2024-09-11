@@ -8,9 +8,28 @@ const mutex = new Mutex();
 
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
+
 export const getPort = () => workerPort;
 export const init = (port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
+
+  if (process.env.VI_TEST === "true") {
+    const { Worker } = require("worker_threads");
+    const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
+    rpc = new RpcProvider(
+      (message) =>
+        worker.postMessage(
+          message,
+          (hasTransferables(message as unknown)
+            ? getTransferables(message as unknown)
+            : undefined) as unknown as Transferable[],
+        ),
+      0,
+    ) as unknown as RpcProvider;
+
+    worker.on("message", ({ data }: { data: unknown }) => rpc!.dispatch(data));
+    return rpc;
+  }
 
   workerPort = port
     || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;

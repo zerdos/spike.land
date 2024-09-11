@@ -4,7 +4,8 @@ import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";
-import { createNewMessage, handleError, processMessage } from "./messageProcessing";
+import { createNewMessage, processMessage } from "./messageProcessing";
+
 import { useAutoSave } from "./useAutoSave";
 
 export interface UseMessageHandlingProps {
@@ -35,7 +36,7 @@ export const useMessageHandling = ({
   cSess,
   setEditInput,
 }: UseMessageHandlingProps) => {
-  const aiHandler = useMemo(() => new AIHandler(cSess, setIsStreaming), [codeSpace]);
+  const aiHandler = useMemo(() => new AIHandler(cSess, setIsStreaming, codeSpace), [codeSpace, cSess, setIsStreaming]);
   const mutex = new Mutex();
 
   const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
@@ -65,13 +66,18 @@ export const useMessageHandling = ({
         setMessages,
         (newMessages: Message[]) => setMessages(newMessages),
         mutex,
+        codeSpace,
       );
       if (success) {
         setAICode(code);
       }
     } catch (error) {
       console.error("Error processing request:", error);
-      handleError(updatedMessages, setMessages);
+      setMessages([...updatedMessages, {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
+      }]);
     }
   }, [
     codeSpace,

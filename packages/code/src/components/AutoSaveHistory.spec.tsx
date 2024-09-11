@@ -63,7 +63,7 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the history items to be rendered
     await waitFor(() => {
-      screen.debug(); // Print the rendered HTML
+   //   screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Version 2")).toBeInTheDocument();
       expect(screen.getByText("Version 1")).toBeInTheDocument();
     }, { timeout: 5000 }); // Increase timeout to 5000ms
@@ -93,7 +93,7 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the component to render
     await waitFor(() => {
-      screen.debug(); // Print the rendered HTML
+    //  screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Code History")).toBeInTheDocument();
     }, { timeout: 5000 }); // Increase timeout to 5000ms
 

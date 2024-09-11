@@ -48,7 +48,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
     top: fullScreen ? 0 : "auto",
     left: fullScreen ? 0 : "auto",
     width: fullScreen ? "100vw" : "100%",
-    height: fullScreen ? "100vh" : "auto",
+    height: fullScreen ? "100dvh" : "auto",
     zIndex: fullScreen ? 9999 : "auto",
     config: { mass: 1, tension: 500, friction: 18 },
   });

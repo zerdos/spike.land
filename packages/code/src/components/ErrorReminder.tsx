@@ -1,16 +1,19 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "@/external/lucideReact";
-import { css } from "@emotion/react";
-import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { AlertCircle, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { createContextManager } from "@/lib/context-manager";
 
-export const EditorNode: React.FC<
-  {
-    engine: "monaco" | "ace";
-    errorType: "typescript" | "prettier" | "transpile" | "render" | null;
-    containerRef: React.Ref<HTMLDivElement>;
-  }
-> = ({ errorType, containerRef }) => {
+export const EditorNode: React.FC<{
+  engine: "monaco" | "ace";
+  errorType: "typescript" | "prettier" | "transpile" | "render" | null;
+  containerRef: React.Ref<HTMLDivElement>;
+  codeSpace: string;
+}> = ({ errorType, containerRef, codeSpace }) => {
   const [errorHeight, setErrorHeight] = useState(0);
 
   return (
@@ -18,6 +21,7 @@ export const EditorNode: React.FC<
       <ErrorReminder
         errorType={errorType}
         onHeightChange={setErrorHeight}
+        codeSpace={codeSpace}
       />
       <motion.div
         className="flex-grow relative"
@@ -27,15 +31,7 @@ export const EditorNode: React.FC<
         <div
           data-testid="editor-container"
           ref={containerRef}
-          css={css`
-              width: 100%;
-              height: 100%;
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-            `}
+          className="absolute inset-0"
         />
       </motion.div>
     </div>
@@ -45,19 +41,28 @@ export const EditorNode: React.FC<
 interface ErrorReminderProps {
   errorType: "typescript" | "prettier" | "transpile" | "render" | null;
   onHeightChange: (height: number) => void;
+  codeSpace: string;
 }
 
-export const ErrorReminder: React.FC<ErrorReminderProps> = (
-  { errorType, onHeightChange },
-) => {
+export const ErrorReminder: React.FC<ErrorReminderProps> = ({
+  errorType,
+  onHeightChange,
+  codeSpace,
+}) => {
   const [showError, setShowError] = useState(false);
+  const contextManager = createContextManager(codeSpace);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (errorType) {
       timer = setTimeout(() => {
         setShowError(true);
-      }, 300); // 1 second delay
+        const currentErrorLog = contextManager.getContext('errorLog');
+        if (!currentErrorLog) {
+        const newErrorLog = `${new Date().toISOString()}: ${errorType} error occurred`;
+        contextManager.updateContext('errorLog', newErrorLog);
+        }
+      }, 300);
     } else {
       setShowError(false);
     }
@@ -65,7 +70,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [errorType]);
+  }, [errorType, codeSpace]);
 
   const errorMessages = {
     typescript: "There might be a TypeScript error in your code. Check the editor for more details.",
@@ -74,21 +79,13 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
     render: "The code was transpiled, but no HTML output was generated. Check your render function.",
   };
 
+  const errorLog = contextManager.getContext('errorLog');
+
   return (
-    <AnimatePresence
-      initial={false}
-      onExitComplete={() => onHeightChange(0)}
-    >
+    <AnimatePresence initial={false} onExitComplete={() => onHeightChange(0)}>
       {showError && errorType && (
         <motion.div
-          css={css`
-        background-color: cornsilk;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 111; 
-            `}
+          className="absolute top-0 left-0 right-0 z-50"
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -99,11 +96,49 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
             }
           }}
         >
-          <Alert variant="destructive" className="mb-4">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Code Issue Detected</AlertTitle>
-            <AlertDescription>{errorMessages[errorType]}</AlertDescription>
-          </Alert>
+          <Card className={cn("mb-4 border-l-4", {
+            'border-l-red-500': errorType === 'typescript' || errorType === 'transpile',
+            'border-l-yellow-500': errorType === 'prettier',
+            'border-l-orange-500': errorType === 'render'
+          })}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="flex items-center text-lg font-semibold">
+                <AlertCircle className="h-5 w-5 mr-2 text-red-500" />
+                Code Issue Detected
+              </CardTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowError(false)}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <Alert
+                variant="destructive"
+                className="mb-4 bg-red-50 text-red-800 border-red-200"
+              >
+                <AlertTitle>{errorMessages[errorType]}</AlertTitle>
+                {errorLog &&  <AlertDescription>
+           
+                  <h4 className="font-semibold text-sm">Error Log:</h4>
+                  <ScrollArea className="h-[100px]">
+                    <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
+                      {errorLog.split('\n').map((log, index) => (
+                        <div key={index} className="mb-1">
+                          {log}
+                        </div>
+                      ))}
+                    </pre>
+                  </ScrollArea>
+              
+                </AlertDescription>}
+              </Alert>
+              
+            </CardContent>
+          </Card>
         </motion.div>
       )}
     </AnimatePresence>

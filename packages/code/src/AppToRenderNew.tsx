@@ -38,7 +38,7 @@ export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ 
             </SignedIn>
           </header>
         )}
-        <PanelGroup direction="horizontal" className="h-[calc(100vh-40px)]">
+        <PanelGroup direction="horizontal" className="h-[calc(100dvh-40px)]">
           <Panel defaultSize={50} minSize={30}>
             <PanelGroup direction="vertical">
               <Panel defaultSize={70} minSize={30}>
