@@ -130,7 +130,7 @@ export const Editor: FC<EditorProps> = (
       css={css`
         display: block;
         width: min(100%, 800px);
-        height:100vh;
+        height:100dvh;
         overflow: auto;
     `}
     >
