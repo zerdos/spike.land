@@ -74,6 +74,10 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
     return formattedCode;
   } catch (error) {
     console.error("Error formatting code:", error);
+
+    const contextManager = createContextManager(useCodeSpace());
+    contextManager.updateContext("errorLog", getErrorDetailsFromHtml(error)!);
+
     setError("prettier");
     throw new Error("Prettier formatting failed");
   }
