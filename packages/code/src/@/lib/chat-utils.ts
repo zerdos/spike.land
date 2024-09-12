@@ -42,14 +42,17 @@ export const updateSearchReplace = (
     const modifications = codeBlocks
       .filter(block => block.includes("======="))
       .map(block => {
-        const [search, replace] = block.split("=======");
-        return {
-          search: search.replace(/^```[\w]*\n/, "").trim(),
-          replace: replace.replace(/```$/, "").trim(),
-        };
-      });
+        const parts = block.split("=======");
+        if (parts.length < 2) return null;
+        const search = parts[0].replace(/^```[\w]*\n/, "").trim();
+        const replace = parts[parts.length - 1].replace(/```$/, "").trim();
+        return { search, replace };
+      })
+      .filter(mod => mod !== null);
 
-    return modifications.reduce((acc, { search, replace }) => {
+    return modifications.reduce((acc, mod) => {
+      if (!mod) return acc;
+      const { search, replace } = mod;
       const result = replacePreservingWhitespace(acc, search, replace);
 
       console.table({
