@@ -54,14 +54,6 @@ export const updateSearchReplace = (
       const { search, replace } = mod;
       const result = acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
 
-      console.table({
-        success: result !== acc,
-        search,
-        replace,
-        before: acc,
-        after: result,
-      });
-
       return result;
     }, codeNow);
   } catch (error) {
@@ -73,3 +65,10 @@ export const updateSearchReplace = (
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
+
+export const extractCodeModification = (response: string): string => {
+  const codeBlocks = response.match(/```[\s\S]*?```/g) || [];
+  return codeBlocks
+    .filter(block => block.includes("<<<<<<< SEARCH") && block.includes(">>>>>>> REPLACE"))
+    .join("\n\n");
+};
