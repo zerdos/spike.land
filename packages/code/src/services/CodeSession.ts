@@ -45,7 +45,7 @@ export class Code implements ICode {
     if (code === this.session.code) return true;
     console.log("Formatting code");
     try {
-      code = await formatCode(code, signal);
+      code = await formatCode(code);
     } catch (error) {
       console.error("Error formatting code:", error);
       return false;
@@ -62,7 +62,7 @@ export class Code implements ICode {
     console.log("Transpiling code");
 
     try {
-      transpiled = await transpileCode(code, signal);
+      transpiled = await transpileCode(code);
     } catch (error) {
       console.error("Error transpiling code");
       return false;
@@ -76,7 +76,7 @@ export class Code implements ICode {
     try {
       console.log("Running code: " + i);
 
-      const res = await runCode({ i, code, transpiled }, signal);
+      const res = await runCode(transpiled);
       if (signal.aborted) return false;
 
       if (res) {

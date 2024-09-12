@@ -9,6 +9,7 @@ import { Code } from "./services/CodeSession";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
+import { md5 } from "./modules";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
@@ -60,11 +61,11 @@ const handleDefaultPage = async () => {
 
     window.onmessage = async ({ data }) => {
       try {
-        const { i, transpiled } = data;
+        const { transpiled } = data;
+        const hash = md5(transpiled);
 
         // if (!i || !transpiled || mod.counter >= i) return;
 
-        mod.counter = i;
         mod.controller.abort();
         const { signal } = (mod.controller = new AbortController());
 
@@ -88,7 +89,7 @@ const handleDefaultPage = async () => {
 
           if (res !== false) {
             const { css, html } = res;
-            window.parent.postMessage({ i, css, html }, "*");
+            window.parent.postMessage({ hash, css, html }, "*");
             myEl.style.display = "block";
 
             rendered && rendered.cleanup();

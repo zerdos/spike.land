@@ -3,7 +3,7 @@ import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
 import type { AIHandler } from "@src/AIHandler";
-import { claudeRevery } from "@src/config/aiConfig";
+import { claudeRecovery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
 
@@ -87,7 +87,7 @@ export async function processMessage(
       const userMessage: Message = {
         id: Date.now().toString(),
         role: "user",
-        content: claudeRevery(starterCode),
+        content: claudeRecovery(starterCode),
       };
       const newMessages = [...updatedMessages, userMessage];
       const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess, contextManager);

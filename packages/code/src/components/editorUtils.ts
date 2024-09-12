@@ -1,5 +1,6 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow, transpile } from "@/lib/shared";
+import { md5 } from "@src/modules";
 import { useRef, useState } from "react";
 
 export interface EditorState {
@@ -44,10 +45,24 @@ const myError = {
 export const useErrorHandling = () => {
   return { error: myError.type, setError: myError.setError, onError: myError.onError };
 };
-export const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
+
+function memoize<T extends (...args: any[]) => any>(fn: T): T {
+  const cache = new Map();
+
+  return ((...args: Parameters<T>): ReturnType<T> => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  }) as T;
+}
+
+export const formatCode = memoize(async (code: string): Promise<string> => {
   const { error, setError } = useErrorHandling();
 
-  if (signal.aborted) throw new Error("Aborted");
   try {
     const formattedCode = await prettierToThrow({ code, toThrow: true });
     console.log("Formatted successfully");
@@ -60,12 +75,11 @@ export const formatCode = async (code: string, signal: AbortSignal): Promise<str
     setError("prettier");
     throw new Error("Prettier formatting failed");
   }
-};
+});
 
-export const transpileCode = async (code: string, signal: AbortSignal): Promise<string> => {
+export const transpileCode = memoize(async (code: string): Promise<string> => {
   const { error, setError } = useErrorHandling();
 
-  if (signal.aborted) return code;
   try {
     const transpiled = await transpile({ code, originToUse: location.origin });
     if (error && error === "transpile") {
@@ -76,25 +90,20 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
     setError("transpile");
     throw new Error("Transpile failed");
   }
-};
+});
 
-export const runCode = async (session: Partial<ICodeSession>, signal: AbortSignal) => {
+export const runCode = memoize(async (transpiled: string) => {
   const { error, setError } = useErrorHandling();
 
   try {
-    const { code, transpiled } = session;
-    const counter = session.i as number;
-
     let resolve: (v: {
-      i: number;
       html: string;
       css: string;
     }) => void;
 
     let reject: (reason: string) => void;
 
-    if (signal.aborted) return false;
-    const promise = new Promise<{ i: number; html: string; css: string }>(
+    const promise = new Promise<{ html: string; css: string }>(
       (_resolve, _reject) => {
         resolve = _resolve;
         reject = _reject;
@@ -102,39 +111,30 @@ export const runCode = async (session: Partial<ICodeSession>, signal: AbortSigna
     );
 
     window.onmessage = (ev) => {
-      const data: { i: number; html: string; css: string } = ev.data;
+      const data: { hash: string; html: string; css: string } = ev.data;
 
-      const { i, html, css } = data;
-      if (i === counter) {
-        resolve({ i, html, css });
+      const { hash, html, css } = data;
+      if (hash === md5(transpiled)) {
+        resolve({ html, css });
       }
     };
 
-    if (signal.aborted) return false;
-    console.log("Sending message iframe first to calculate css", counter);
+    console.log("Sending message iframe first to calculate css", md5(transpiled));
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       transpiled,
-      code,
-      i: counter,
       html: "",
       css: "",
       sender: "Runner / Editor",
     });
 
     const clear = setTimeout(() => {
-      if (signal.aborted) return false;
       reject("timed out");
-      return false;
     }, 1500);
 
-    if (signal.aborted) return false;
     const res = await promise;
-    if (signal.aborted) return false;
 
     clearTimeout(clear);
-
-    if (signal.aborted) return false;
 
     const { html, css } = res;
 
@@ -147,13 +147,13 @@ export const runCode = async (session: Partial<ICodeSession>, signal: AbortSigna
       setError(null);
     }
 
-    return { ...session, html, css };
+    return { html, css };
   } catch (error) {
     console.error(error);
     setError("runner");
     throw error;
   }
-};
+});
 
 export async function initializeMonaco(
   container: HTMLDivElement,

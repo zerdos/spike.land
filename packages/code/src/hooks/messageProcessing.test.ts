@@ -8,7 +8,7 @@ import { createNewMessage, processMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
-  claudeRevery: vi.fn((code) => `Revery: ${code}`),
+  claudeRecovery: vi.fn((code) => `Revery: ${code}`),
 }));
 vi.mock("@/lib/context-manager");
 
