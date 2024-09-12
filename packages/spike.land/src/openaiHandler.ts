@@ -1,6 +1,8 @@
 import { OpenAI } from "openai";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
+import { KVLogger } from "./Logs";
+import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
 
 interface MessageParam {
   role:  "user" | "assistant";
@@ -13,6 +15,7 @@ export async function handleGPT4Request(
   ctx: ExecutionContext,
 ) {
   handleCORS(request);
+  const logger = new KVLogger("ai", env.KV);
 
   const body = JSON.parse(await readRequestBody(request)) as {
     model: string;
@@ -44,20 +47,25 @@ export async function handleGPT4Request(
   const writer = writable.getWriter();
   const textEncoder = new TextEncoder();
 
+  const conf = {
+    stream: true,
+    model: body.model || 'gpt-4o-mini', // Use the model from body, or fallback to 'gpt-4o-mini'
+    messages: body.messages,
+    // Spread the rest of the body properties, excluding 'model' and 'messages'
+    ...Object.fromEntries(Object.entries(body).filter(([key]) => !['model', 'messages'].includes(key))),
+  };
+  
+
+  let answer = "";
   ctx.waitUntil((async () => {
     try {
-      const stream = await openai.chat.completions.create({
-        stream: true,
-        model: body.model || 'gpt-4o-mini', // Use the model from body, or fallback to 'gpt-4o-mini'
-        messages: body.messages,
-        // Spread the rest of the body properties, excluding 'model' and 'messages'
-        ...Object.fromEntries(Object.entries(body).filter(([key]) => !['model', 'messages'].includes(key))),
-      });
+      const stream = await openai.chat.completions.create(conf as ChatCompletionCreateParamsStreaming);;
 
       for await (const part of stream) {
         if (part.choices && part.choices[0] && part.choices[0].delta) {
           const text = part.choices[0].delta.content || "";
           writer.write(textEncoder.encode(text));
+          answer += text;
         }
       }
     } catch (error) {
@@ -67,6 +75,10 @@ export async function handleGPT4Request(
       );
     } finally {
       await writer.close();
+      logger.log(JSON.stringify({
+        conf,
+        answer,
+      }));
     }
   })());
 
