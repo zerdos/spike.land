@@ -1,7 +1,7 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import { Message } from "@/lib/interfaces";
 
-const CODE_MODIFICATION_REGEX = /(<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE|```[\s\S]*?=======[\s\S]*?```)/g;
+const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const MODIFICATION_SEPARATOR = ">>>>>>> REPLACE\n\n<<<<<<< SEARCH";
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
 
@@ -33,29 +33,31 @@ export const updateSearchReplace = (
   em = extractCodeModification,
 ): string => {
   const extractCodeModification = em;
-  if (!oldCode.includes("=======")) {
+  if (!oldCode.includes("<<<<<<< SEARCH")) {
     return codeNow;
   }
 
   try {
     const codeToReplace = extractCodeModification(oldCode);
     const modifications = codeToReplace
-      .split(/(?=```[\s\S]*?=======[\s\S]*?```|<<<<<<< SEARCH)/)
-      .filter((mod) => mod.includes("======="))
-      .map((mod) => mod.replace(/```[\s\S]*?\n|<<<<<<< SEARCH|>>>>>>> REPLACE/g, "").trim());
+      .split(MODIFICATION_SEPARATOR)
+      .filter((mod) => SEARCH_REPLACE_MARKERS.some((marker) => mod.includes(marker)))
+      .map((mod) => mod.replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, ""));
 
     return modifications.reduce((acc, modification) => {
-      const [search, replace] = modification.split("=======").map(part => part.trim());
+      const [search, replace] = modification.split("=======");
 
       const result = replacePreservingWhitespace(
         acc,
-        search,
-        replace.split("\n").map((x) => x.trim()).filter((x) => x).join("\n"),
+        search.trim(),
+        replace.split("\n").slice(1).map((x) => x.trim()).filter((x) => x).join(
+          "\n",
+        ),
       );
 
       console.table({
         success: result !== acc,
-        search,
+        search: search.trim(),
         replace,
         before: acc,
         after: result,
