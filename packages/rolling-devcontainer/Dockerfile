@@ -235,7 +235,7 @@ WORKDIR /home/${USER}
 
 # Install Oh My Zsh with specified plugins and theme
 RUN rm -rf /home/${USER}/.oh-my-zsh \
-    && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
+    && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.0/zsh-in-docker.sh)" -- \
        -t robbyrussell \
        -p git \
        -p gitfast \
