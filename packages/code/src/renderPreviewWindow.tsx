@@ -15,7 +15,7 @@ export const renderPreviewWindow = async (
 
   
 const App = ()=> 
-<ClerkProvider publishableKey="pk_live_Y2e3Bpa2UubGFuZCQ" afterSignOutUrl="/">
+<ClerkProvider publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ" afterSignOutUrl="/">
 <Suspense fallback={
  <iframe src={`/live/${codeSpace}/iframe`} style={{width: "100%", height: "100dvh"}}></iframe> 
 }><LazyAppToRender codeSpace={codeSpace} cSess={cSess} />
