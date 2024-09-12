@@ -116,8 +116,8 @@ export const main = async () => {
   try {
     if (location.pathname === `/live/${codeSpace}`) {
       console.log("Rendering preview window...");
-      await renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
       await initializeApp();
+      await renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       handleDehydratedPage();
     } else {
