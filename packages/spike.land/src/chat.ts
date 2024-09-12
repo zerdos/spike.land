@@ -1,6 +1,6 @@
 import {  serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
-import { handleEnhancedFetch } from "./enhancedFetchHandler";
+// import { handleEnhancedFetch } from "./enhancedFetchHandler";
 import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
@@ -21,7 +21,19 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === serverFetchUrl) {
-      return handleEnhancedFetch(request);
+
+      // export const handleEnhancedFetch = async (request: Request) => {
+        // try {
+           const optionsParam = await request.json() as RequestInit & { url: string };
+       
+           // Perform the fetch
+           // const res = await fetch(optionsParam.url, optionsParam);
+       
+           // // Clone the response
+           // const response = res.clone();
+           // const body = await res.blob();
+           return fetch(optionsParam.url, optionsParam) as unknown as Response;
+      // return handleEnhancedFetch(request);
     }
 
     if (request.url.includes("anthropic")) {
