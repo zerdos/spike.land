@@ -17,9 +17,10 @@ export class KVLogger {
     if (counter === null) {
       await kv.put(`${this.prefix}:counter`, "0");
       counter = "0";
-    } else {
-      await kv.put(`${this.prefix}:counter`, (parseInt(counter as string) + 1).toString());
     }
+    counter = (parseInt(counter as string) + 1).toString()
+
+    await kv.put(`${this.prefix}:counter`, counter);
 
     const dateString = timestamp.toISOString().split("T")[0]; // YYYY-MM-DD
     const timeString = timestamp.toISOString().split("T")[1].split(".")[0]; // HH:MM:SS
