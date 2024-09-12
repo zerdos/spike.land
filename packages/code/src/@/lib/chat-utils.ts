@@ -44,7 +44,9 @@ export const updateSearchReplace = (
     const modifications = em(oldCode)
       .split(MODIFICATION_SEPARATOR)
       .map(block => {
-        const [search, replace] = block.split("=======").map(part => part.replace(/(<<<<<<< SEARCH|>>>>>>> REPLACE)/g, "").trim());
+        const [search, replace] = block.split("=======").map(part =>
+          part.replace(/(<<<<<<< SEARCH|>>>>>>> REPLACE)/g, "").trim()
+        );
         return { search, replace };
       })
       .filter(mod => mod.search && mod.replace);
