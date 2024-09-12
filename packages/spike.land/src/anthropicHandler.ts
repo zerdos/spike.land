@@ -5,6 +5,7 @@ import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import type { Message, MessageContent } from "@spike-land/code";
 import {handleCMSIndexRequest} from "./chat";
+import { KVLogger } from "./Logs";
 
 function base64Encode(buf: ArrayBuffer) {
   let string = '';
@@ -25,6 +26,11 @@ export async function handleAnthropicRequest(
   env: Env,
   ctx: ExecutionContext,
 ) {
+  const logger = new KVLogger("ai", env.KV);
+  
+  ctx.waitUntil(logger.log(`Request for ${request.url}`));
+
+
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as RequestBody;
@@ -91,6 +97,7 @@ export async function handleAnthropicRequest(
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
   const textEncoder = new TextEncoder();
+  let answer = "";
 
   ctx.waitUntil((async () => {
     try {
@@ -102,6 +109,7 @@ export async function handleAnthropicRequest(
         if (part.type === "content_block_start" || part.type === "content_block_delta") {
           const text = "delta" in part ? (part.delta as TextDelta).text : "";
           writer.write(textEncoder.encode(text || ""));
+          answer += text;
         }
       }
     } catch (error) {
@@ -111,6 +119,10 @@ export async function handleAnthropicRequest(
       );
     } finally {
       await writer.close();
+      logger.log(JSON.stringify({
+        conf,
+        answer
+      }));
     }
   })());
 
