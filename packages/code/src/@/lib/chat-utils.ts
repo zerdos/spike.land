@@ -44,8 +44,8 @@ export const updateSearchReplace = (
       .map(block => {
         const parts = block.split("=======");
         if (parts.length < 2) return null;
-        const search = parts[0].replace(/^```[\w]*\n/, "").trim();
-        const replace = parts[parts.length - 1].replace(/```$/, "").trim();
+        const search = parts[0].replace(/^```[\w]*\n/, "").replace(/<<<<<<< SEARCH\n/, "").trim();
+        const replace = parts[parts.length - 1].replace(/>>>>>>> REPLACE\n?```$/, "").trim();
         return { search, replace };
       })
       .filter(mod => mod !== null);
