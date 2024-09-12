@@ -10,7 +10,14 @@ const setupServiceWorker = async () => {
 
   try {
     const sw = new Workbox(`/sw.js`);
-    return sw.register();
+    
+    await sw.register();
+
+    const {swVersion} = await import(`${location.origin}/swVersion.mjs`);
+    localStorage.getItem("swVersion") !== swVersion && sw.messageSkipWaiting();  
+    localStorage.setItem("swVersion", swVersion);
+    
+    return sw;
   } catch (e) {
     console.error("Error setting up service worker:", e);
     return null;
