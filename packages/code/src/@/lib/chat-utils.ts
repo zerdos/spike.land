@@ -52,7 +52,7 @@ export const updateSearchReplace = (
     return modifications.reduce((acc, mod) => {
       if (!mod) return acc;
       const { search, replace } = mod;
-      const result = replacePreservingWhitespace(acc, search, replace);
+      const result = acc.replace(new RegExp(escapeRegExp(search), 'g'), replace);
 
       console.table({
         success: result !== acc,
@@ -69,3 +69,7 @@ export const updateSearchReplace = (
     return codeNow;
   }
 };
+
+function escapeRegExp(string: string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
