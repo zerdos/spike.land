@@ -59,16 +59,7 @@ describe("updateSearchReplace", () => {
   });
 
 
-  it("should handle broken search replace blocks", () => {
-    const codeNow = `
-    const a = 1;
-    const b = 2;
-    const c = 3;
-    `;
-
-    const instructions = `
-\`\`\`tsx
-    const a = 1;
+    const a = 10;
     =======
     const a = 10;
     =======
@@ -80,7 +71,11 @@ describe("updateSearchReplace", () => {
     expect(result).toBe(`
     const a = 10;
     const b = 2;
-    const c = 3;
+    const c = 30;
+\`\`\`
+\`\`\`tsx
+    <<<<<<< SEARCH
+    This is a broken block
     `);
   });
   

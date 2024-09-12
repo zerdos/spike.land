@@ -33,31 +33,28 @@ export const updateSearchReplace = (
   em = extractCodeModification,
 ): string => {
   const extractCodeModification = em;
-  if (!oldCode.includes("<<<<<<< SEARCH")) {
+  if (!oldCode.includes("=======")) {
     return codeNow;
   }
 
   try {
-    const codeToReplace = extractCodeModification(oldCode);
-    const modifications = codeToReplace
-      .split(MODIFICATION_SEPARATOR)
-      .filter((mod) => SEARCH_REPLACE_MARKERS.some((marker) => mod.includes(marker)))
-      .map((mod) => mod.replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, ""));
+    const codeBlocks = oldCode.match(/```[\s\S]*?```/g) || [];
+    const modifications = codeBlocks
+      .filter(block => block.includes("======="))
+      .map(block => {
+        const [search, replace] = block.split("=======");
+        return {
+          search: search.replace(/^```[\w]*\n/, '').trim(),
+          replace: replace.replace(/```$/, '').trim()
+        };
+      });
 
-    return modifications.reduce((acc, modification) => {
-      const [search, replace] = modification.split("=======");
-
-      const result = replacePreservingWhitespace(
-        acc,
-        search.trim(),
-        replace.split("\n").slice(1).map((x) => x.trim()).filter((x) => x).join(
-          "\n",
-        ),
-      );
+    return modifications.reduce((acc, { search, replace }) => {
+      const result = replacePreservingWhitespace(acc, search, replace);
 
       console.table({
         success: result !== acc,
-        search: search.trim(),
+        search,
         replace,
         before: acc,
         after: result,
