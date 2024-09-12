@@ -40,7 +40,6 @@ export const updateSearchReplace = (
   try {
     const codeBlocks = oldCode.match(/```[\s\S]*?```/g) || [];
     const modifications = codeBlocks
-      .filter(block => block.includes("======="))
       .map(block => {
         const parts = block.split("=======");
         if (parts.length < 2) return null;
@@ -48,7 +47,7 @@ export const updateSearchReplace = (
         const replace = parts[parts.length - 1].replace(/>>>>>>> REPLACE\n?```$/, "").trim();
         return { search, replace };
       })
-      .filter(mod => mod !== null);
+      .filter(mod => mod !== null && mod.search && mod.replace);
 
     return modifications.reduce((acc, mod) => {
       if (!mod) return acc;
