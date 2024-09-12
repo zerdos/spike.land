@@ -32,7 +32,6 @@ export const updateSearchReplace = (
   codeNow: string,
   em = extractCodeModification,
 ): string => {
-  const extractCodeModification = em;
   if (!oldCode.includes("=======")) {
     return codeNow;
   }
@@ -48,13 +47,10 @@ export const updateSearchReplace = (
         const replace = replaceMatch[1].trim();
         return { search, replace };
       })
-      .filter(mod => mod !== null && mod.search && mod.replace);
+      .filter((mod): mod is { search: string; replace: string } => mod !== null && !!mod.search && !!mod.replace);
 
-    return modifications.reduce((acc, mod) => {
-      if (!mod) return acc;
-      const { search, replace } = mod;
-      const result = acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
-      return result;
+    return modifications.reduce((acc, { search, replace }) => {
+      return acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
     }, codeNow);
   } catch (error) {
     console.error("Error during code modification:", error);
