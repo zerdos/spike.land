@@ -28,7 +28,6 @@ export async function handleAnthropicRequest(
 ) {
   const logger = new KVLogger("ai", env.KV);
   
-  ctx.waitUntil(logger.log(`Request for ${request.url}`));
 
 
   handleCORS(request);
