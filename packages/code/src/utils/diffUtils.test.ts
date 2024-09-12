@@ -1,9 +1,34 @@
-import { extractCodeModification } from "@/lib/chat-utils";
+import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 import { describe, expect, it } from "vitest";
 
 describe("diffUtils", () => {
   describe("extractDiffContent", () => {
+
+    it("should handle broken search replace blocks", () => {
+      const instructions = `
+      foooo
+  \`\`\`tsx
+const a = 1;
+=======
+const a = 10;
+=======
+     fooo bar blalalal
+  \`\`\`
+  
+  baaar
+     `;
+  
+     const extracted = extractCodeModification(instructions)
+      expect(extracted).toBe(`<<<<<<< SEARCH
+const a = 1;
+=======
+const a = 10;
+>>>>>>> REPLACE`);
+   });
+
+   
+  
     it("should extract original and modified content correctly", () => {
       const diffContent = `
 <<<<<<< SEARCH
@@ -320,5 +345,38 @@ These changes create a darker, more professional look for the code block compone
     const result = extractCodeModification(diffContent);
     expect(result.length).toBe(3311);
     expect(result).toMatchSnapshot();
+  });
+
+  describe("updateSearchReplace", () => {
+    it("should handle broken code blocks", () => {
+      const oldCode = `
+<<<<<<< SEARCH
+const example = () => {
+  console.log("Hello");
+  =======
+  console.log("World");
+  =======
+  return "Hello World";
+};
+>>>>>>> REPLACE
+      `;
+
+      const codeNow = `
+const example = () => {
+  console.log("Hello");
+  return "Hello World";
+};
+      `;
+
+      const result = updateSearchReplace(oldCode, codeNow);
+      const expected = `
+const example = () => {
+  console.log("World");
+  return "Hello World";
+};
+      `;
+
+      expect(result.trim()).toBe(expected.trim());
+    });
   });
 });
