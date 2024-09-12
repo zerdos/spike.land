@@ -75,7 +75,7 @@ export async function handleGPT4Request(
       );
     } finally {
       await writer.close();
-      logger.log(JSON.stringify({
+      await logger.log(JSON.stringify({
         conf,
         answer,
       }));

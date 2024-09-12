@@ -118,7 +118,7 @@ export async function handleAnthropicRequest(
       );
     } finally {
       await writer.close();
-      logger.log(JSON.stringify({
+      await logger.log(JSON.stringify({
         conf,
         answer
       }));
