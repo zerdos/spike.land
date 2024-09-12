@@ -42,11 +42,24 @@ export default {
     }
     if (request.url.includes("ai-logs")) {
      
-      const keys= await  env.KV.list({
-        prefix: "ai:",
-      });
+      function createArray(n: number) {
+        return Array.from({ length: n }, (_, index) => index + 1);
+      }
 
-      return new Response(JSON.stringify(keys), {
+      const counter= Number(await env.KV.get("ai:counter"));  
+
+      const logs = createArray(counter).map(async (i) => {
+        const log = await env.KV.get(`ai:${i}`);
+        if (log !== null) {
+        return JSON.parse(log);
+      }});
+  
+      const resolvedLogs = await Promise.all(logs);
+
+
+      
+
+      return new Response(JSON.stringify(resolvedLogs), {
         headers: {
           "Content-Type": "application/json",
         },
