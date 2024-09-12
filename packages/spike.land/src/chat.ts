@@ -40,6 +40,21 @@ export default {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleAnthropicRequest(request, env, ctx);
     }
+    if (request.url.includes("ai-logs")) {
+     
+      const keys=  env.KV.list({
+        prefix: "ai",
+      });
+
+      return new Response(JSON.stringify(keys), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+     
+    
+    
+    }
 
     if (request.url.includes("api/logged_in/")) {
       const { verifyToken } = await import("@clerk/backend");
