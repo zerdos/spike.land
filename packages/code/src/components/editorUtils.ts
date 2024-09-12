@@ -70,13 +70,18 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
     console.log("Formatted successfully");
     if (error && error === "prettier") {
       setError(null);
+      const contextManager = createContextManager(useCodeSpace());
+      contextManager.updateContext("errorLog", "");
     }
     return formattedCode;
   } catch (error) {
     console.error("Error formatting code:", error);
 
     const contextManager = createContextManager(useCodeSpace());
-    contextManager.updateContext("errorLog", getErrorDetailsFromHtml(error)!);
+    contextManager.updateContext(
+      "errorLog",
+      typeof error === "string" ? error : (error as unknown as { message: string })?.message || JSON.stringify(error),
+    );
 
     setError("prettier");
     throw new Error("Prettier formatting failed");
@@ -171,6 +176,8 @@ export const runCode = memoize(async (transpiled: string) => {
       return false;
     }
     if (error && error === "runner") {
+      const contextManager = createContextManager(useCodeSpace());
+      contextManager.updateContext("errorLog", "");
       setError(null);
     }
 
