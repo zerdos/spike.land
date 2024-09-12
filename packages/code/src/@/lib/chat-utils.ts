@@ -9,6 +9,7 @@ export const extractCodeModification = (response: string): string => {
   const codeBlocks = response.match(/```[\s\S]*?```/g) || [];
   return codeBlocks
     .filter(block => block.includes("<<<<<<< SEARCH") && block.includes(">>>>>>> REPLACE"))
+    .map(block => block.replace(/```[\s\S]*?\n/, "").replace(/\n```$/, ""))
     .join("\n\n");
 };
 
@@ -40,17 +41,13 @@ export const updateSearchReplace = (
   }
 
   try {
-    const codeBlocks = oldCode.match(/```[\s\S]*?```/g) || [];
-    const modifications = codeBlocks
+    const modifications = em(oldCode)
+      .split(MODIFICATION_SEPARATOR)
       .map(block => {
-        const searchMatch = block.match(/<<<<<<< SEARCH\n([\s\S]*?)(?=\n=======)/);
-        const replaceMatch = block.match(/=======\n([\s\S]*?)(?=\n>>>>>>> REPLACE)/);
-        if (!searchMatch || !replaceMatch) return null;
-        const search = searchMatch[1].trim();
-        const replace = replaceMatch[1].trim();
+        const [search, replace] = block.split("=======").map(part => part.replace(/(<<<<<<< SEARCH|>>>>>>> REPLACE)/g, "").trim());
         return { search, replace };
       })
-      .filter((mod): mod is { search: string; replace: string } => mod !== null && !!mod.search && !!mod.replace);
+      .filter(mod => mod.search && mod.replace);
 
     return modifications.reduce((acc, { search, replace }) => {
       return acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
