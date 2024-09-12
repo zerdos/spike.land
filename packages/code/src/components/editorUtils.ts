@@ -1,3 +1,5 @@
+import { useCodeSpace } from "@/hooks/use-code-space";
+import { createContextManager } from "@/lib/context-manager";
 import type { ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { md5 } from "@src/modules";
@@ -77,6 +79,23 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
   }
 });
 
+function getErrorDetailsFromHtml(htmlString: string) {
+  // Create a DOMParser to parse the HTML string
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+
+  // Find the <pre> element within the <details> element
+  const preElement = doc.querySelector("details pre");
+
+  if (preElement) {
+    // Return the text content of the <pre> element
+    return preElement.textContent!.trim();
+  } else {
+    // If no error details are found, return null or an appropriate message
+    return null;
+  }
+}
+
 export const transpileCode = memoize(async (code: string): Promise<string> => {
   const { error, setError } = useErrorHandling();
 
@@ -140,6 +159,10 @@ export const runCode = memoize(async (transpiled: string) => {
 
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
+
+      const contextManager = createContextManager(useCodeSpace());
+      contextManager.updateContext("errorLog", getErrorDetailsFromHtml(html)!);
+
       setError("runner");
       return false;
     }
