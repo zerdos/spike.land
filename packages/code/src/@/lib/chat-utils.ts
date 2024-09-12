@@ -52,7 +52,7 @@ export const updateSearchReplace = (
     return modifications.reduce((acc, mod) => {
       if (!mod) return acc;
       const { search, replace } = mod;
-      const result = acc.replace(new RegExp(escapeRegExp(search), 'g'), replace);
+      const result = acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
 
       console.table({
         success: result !== acc,
@@ -71,5 +71,5 @@ export const updateSearchReplace = (
 };
 
 function escapeRegExp(string: string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
