@@ -42,8 +42,8 @@ export default {
     }
     if (request.url.includes("ai-logs")) {
      
-      const keys=  env.KV.list({
-        prefix: "ai",
+      const keys= await  env.KV.list({
+        prefix: "ai:",
       });
 
       return new Response(JSON.stringify(keys), {
