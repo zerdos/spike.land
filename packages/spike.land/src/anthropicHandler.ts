@@ -80,11 +80,10 @@ export async function handleAnthropicRequest(
     temperature: 0.1,
     stream: true,
     ...body,
-    messages,
   };
 
   if (conf.stream === false) {
-    const response = await anthropic.messages.create(conf);
+    const response = await anthropic.messages.create({...conf, messages});
     return new Response(JSON.stringify(response), {
       headers: {
         "Content-Type": "application/json",

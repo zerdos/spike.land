@@ -48,7 +48,7 @@ export default {
 
       const counter= Number(await env.KV.get("ai:counter"));  
 
-      const logs = createArray(counter).map(async (i) => {
+      const logs = createArray(counter).slice(-20).map(async (i) => {
         const log = await env.KV.get(`ai:${i}`);
         if (log !== null) {
         return JSON.parse(log);
