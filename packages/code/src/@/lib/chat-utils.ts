@@ -41,10 +41,11 @@ export const updateSearchReplace = (
     const codeBlocks = oldCode.match(/```[\s\S]*?```/g) || [];
     const modifications = codeBlocks
       .map(block => {
-        const parts = block.split("=======");
-        if (parts.length < 2) return null;
-        const search = parts[0].replace(/^```[\w]*\n/, "").replace(/<<<<<<< SEARCH\n?/, "").trim();
-        const replace = parts[parts.length - 1].replace(/>>>>>>> REPLACE\n?```$/, "").trim();
+        const searchMatch = block.match(/<<<<<<< SEARCH\n([\s\S]*?)(?=\n=======)/);
+        const replaceMatch = block.match(/=======\n([\s\S]*?)(?=\n>>>>>>> REPLACE)/);
+        if (!searchMatch || !replaceMatch) return null;
+        const search = searchMatch[1].trim();
+        const replace = replaceMatch[1].trim();
         return { search, replace };
       })
       .filter(mod => mod !== null && mod.search && mod.replace);
@@ -53,7 +54,6 @@ export const updateSearchReplace = (
       if (!mod) return acc;
       const { search, replace } = mod;
       const result = acc.replace(new RegExp(escapeRegExp(search), "g"), replace);
-
       return result;
     }, codeNow);
   } catch (error) {
