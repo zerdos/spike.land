@@ -6,7 +6,10 @@ const MODIFICATION_SEPARATOR = ">>>>>>> REPLACE\n\n<<<<<<< SEARCH";
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
 
 export const extractCodeModification = (response: string): string => {
-  return response.match(CODE_MODIFICATION_REGEX)?.join("\n\n") || "";
+  const codeBlocks = response.match(/```[\s\S]*?```/g) || [];
+  return codeBlocks
+    .filter(block => block.includes("<<<<<<< SEARCH") && block.includes(">>>>>>> REPLACE"))
+    .join("\n\n");
 };
 
 export const loadMessages = (codeSpace: string): Message[] => {
@@ -61,10 +64,3 @@ export const updateSearchReplace = (
 function escapeRegExp(string: string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-
-export const extractCodeModification = (response: string): string => {
-  const codeBlocks = response.match(/```[\s\S]*?```/g) || [];
-  return codeBlocks
-    .filter(block => block.includes("<<<<<<< SEARCH") && block.includes(">>>>>>> REPLACE"))
-    .join("\n\n");
-};
