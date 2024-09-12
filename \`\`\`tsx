@@ -1,12 +1,12 @@
   it("should handle broken search replace blocks", () => {
     const codeNow = `
-    const a = 1;
+    const a = 2;
     const b = 2;
     const c = 3;
     `;
 
     const instructions = `
 \`\`\`tsx
-    const a = 1;
+    const a = 2;
     const a = 10;
     const a = 10;

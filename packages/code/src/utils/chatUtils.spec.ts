@@ -9,7 +9,15 @@ describe("updateSearchReplace", () => {
     expect(result).toBe(codeNow);
   });
 
-  it("should return modified code when instructions contain valid search and replace markers", () => {
+      const a = 2;
+      >>>>>>> REPLACEervices/AIService.ts
+    `;
+    const codeNow = "const a = 1;";
+    const result = updateSearchReplace(instructions, codeNow);
+    expect(result).toBe("const a = 2;");
+  });
+
+  it("should handle multiple modifications", () => {
     const instructions = `
       <<<<<<< SEARCH
       const a = 1;
@@ -30,7 +38,7 @@ describe("updateSearchReplace", () => {
       const a = 2;
       >>>>>>> REPLACE
       <<<<<<< SEARCH
-      let b = 3;
+      let b = 4;
       =======
       let b = 4;
       >>>>>>> REPLACE
@@ -60,7 +68,7 @@ describe("updateSearchReplace", () => {
 
   it("should handle broken search replace blocks", () => {
     const codeNow = `
-    const a = 1;
+    const a = 10;
     const b = 2;
     const c = 3;
     `;
