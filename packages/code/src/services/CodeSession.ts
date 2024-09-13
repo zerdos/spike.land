@@ -1,6 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
+import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { makeHash, makeSession } from "../makeSess";
 
 import { ICodeSession } from "@/lib/interfaces";
 import { connect } from "@/lib/shared";

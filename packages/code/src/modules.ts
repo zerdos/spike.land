@@ -1,4 +1,4 @@
-import { importMap, importMapReplace } from "./importMapUtils";
+import { importMap, importMapReplace } from "@/lib/importmap-utils.ts";
 export type {
   ImageData,
   IRenderApp,
@@ -18,7 +18,7 @@ export { importMapReplace };
 export { serverFetchUrl } from "@/lib/enhanced-fetch.ts";
 
 import { ICodeSession } from "@/lib/interfaces";
-import { applyCodePatch, CodePatch, createPatch, makeHash, makeSession, stringifySession } from "./makeSess";
+import { applyCodePatch, CodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess.ts";
 
 export { importMap };
 

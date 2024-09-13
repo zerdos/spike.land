@@ -163,5 +163,3 @@ export const prettierCss = async (inputCSS: string) =>
     trailingComma: "none",
     plugins: [cssParser],
   });
-
-Object.assign(globalThis, { prettierJs, prettierCss });

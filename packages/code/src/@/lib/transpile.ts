@@ -1,8 +1,8 @@
+import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
+import { makeEnv } from "@/lib/esbuild-make-env";
+import { importMapReplace } from "@/lib/importmap-utils";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
-import { makeEnv } from "../helpers";
-import { wasmFile } from "./esbuildWASM";
-import { fetchPlugin } from "./fetchPlugin";
-import { importMapReplace } from "./importMapUtils";
+import wasmFile from "esbuild-wasm";
 
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;

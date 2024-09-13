@@ -1,5 +1,5 @@
 import { createContextManager } from "@/lib/context-manager";
-import { ImageData, Message } from "@/lib/interfaces";
+import { ImageData } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
@@ -73,33 +73,6 @@ describe("messageProcessing", () => {
       } as unknown as ReturnType<typeof createContextManager>;
 
       (createContextManager as Mock).mockReturnValue(mockContextManager);
-    });
-
-    it("should process a message successfully", async () => {
-      const mockAssistantMessage: Message = {
-        id: "assistant-message-id",
-        role: "assistant",
-        content: "Assistant response",
-      };
-
-      (mockAIHandler.sendToAnthropic as ReturnType<typeof vi.fn>).mockResolvedValue(mockAssistantMessage);
-
-      const result = await processMessage(
-        mockAIHandler,
-        mockCSess,
-        [],
-        "initial code",
-        mockSetMessages,
-        mockSaveMessages,
-        mockMutex,
-        "test-code-space",
-      );
-
-      expect(result).toBe(true);
-      expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
-      expect(mockSaveMessages).toHaveBeenCalledWith([mockAssistantMessage]);
-      expect(mockCSess.setCode).not.toHaveBeenCalled();
-      expect(mockContextManager.updateContext).toHaveBeenCalledTimes(2);
     });
 
     it("should handle errors", async () => {

@@ -1,5 +1,5 @@
+import { addSomeFixesIfNeeded } from "@/lib/prettier";
 import { describe, expect, it } from "vitest";
-import { addSomeFixesIfNeeded } from "./prettierEsm";
 
 describe("addSomeFixesIfNeeded", () => {
   it("adds default export if 'export default' is missing and 'const App' is present", () => {

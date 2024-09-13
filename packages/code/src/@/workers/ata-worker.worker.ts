@@ -1,8 +1,13 @@
 import { ICodeSession } from "@/lib/interfaces";
+import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
-import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "./makeSess";
-import { rpcFactory } from "./workerRpc";
+import { RpcProvider } from "worker-rpc";
+
+export const rpcFactory = (port: MessagePort) =>
+  new RpcProvider(
+    (message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions),
+  );
 
 declare var self: SharedWorkerGlobalScope & {
   ata: any;
@@ -44,7 +49,7 @@ function lazyLoadScript(script: string): Promise<void> {
     }
 
     try {
-      importScripts(`/workerScripts/${script}.js`);
+      importScripts(`/@/workers/${script}.js`);
       loadedScripts.add(script);
       resolve();
     } catch (error) {

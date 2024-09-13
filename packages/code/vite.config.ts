@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 // import { Connect } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { importMap, importMapReplace } from "./src/importMapUtils";
+import { importMap, importMapReplace } from "@/lib/importmap-utils";
 
 const PORT = 3000;
 const PROXY_BASE_URL = "https://testing.spike.land";

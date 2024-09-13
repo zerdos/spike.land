@@ -1,5 +1,99 @@
-import { myATA } from "./my-ata";
-import { QueuedFetch } from "./QueuedFetch";
+import { setupTypeAcquisition } from "@typescript/ata";
+import ts from "typescript";
+
+class QueuedFetch {
+  private queue: (() => Promise<void>)[] = [];
+  private ongoingRequests = 0;
+  private maxConcurrent: number;
+  private limitedNumberOfRequests = false;
+  private maxNumberOfRequests: number;
+
+  constructor(maxConcurrent = 5, maxNumberOfRequests = 0) {
+    this.maxNumberOfRequests = maxNumberOfRequests;
+    this.maxConcurrent = maxConcurrent;
+    if (maxNumberOfRequests > 0) {
+      this.limitedNumberOfRequests = true;
+    }
+  }
+
+  async fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+    return new Promise((resolve, reject) => {
+      if (this.limitedNumberOfRequests) {
+        if (this.maxNumberOfRequests-- < 0) {
+          return reject(new Error("Too many requests"));
+        }
+      }
+
+      const request = async () => {
+        try {
+          const response = await fetch(input, init);
+          resolve(response);
+        } catch (error) {
+          reject(error);
+        } finally {
+          this.ongoingRequests--;
+          this.processQueue();
+        }
+      };
+
+      this.queue.push(request);
+      this.processQueue();
+    });
+  }
+
+  private processQueue() {
+    while (this.ongoingRequests < this.maxConcurrent && this.queue.length > 0) {
+      const request = this.queue.shift();
+      if (request) {
+        this.ongoingRequests++;
+        request();
+      }
+    }
+  }
+}
+
+const limitedFetch = new QueuedFetch(4, 1000);
+
+export const myATA = async (code: string) => {
+  const myPromise = new Promise<Map<string, string>>((resolve) => {
+    const ata = setupTypeAcquisition({
+      projectName: "My ATA Project,",
+      logger: console,
+      fetcher: limitedFetch.fetch.bind(limitedFetch) as unknown as typeof fetch,
+      typescript: ts,
+      delegate: {
+        receivedFile: (code: string, path: string) => {
+          // Add code to your runtime at the path...
+          console.log("ATA received file", { code, path });
+        },
+        started: () => {
+          console.log("ATA start");
+        },
+        progress: (downloaded: number, total: number) => {
+          console.log(`Got ${downloaded} out of ${total}`);
+        },
+        finished: (vfs) => {
+          resolve(vfs);
+          console.log("ATA done", vfs);
+        },
+      },
+    });
+
+    ata(code);
+  });
+
+  const filed = await myPromise;
+
+  const monacoExtraLibs: { filePath: string; content: string }[] = [];
+
+  for (const [filePath, content] of filed.entries()) {
+    monacoExtraLibs.push({
+      filePath: filePath.slice(13).split("@types/").join(""),
+      content,
+    });
+  }
+  return monacoExtraLibs;
+};
 
 export async function ata({
   code,

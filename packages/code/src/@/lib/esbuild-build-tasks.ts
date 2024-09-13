@@ -1,13 +1,18 @@
+import { getCommonBuildOptions } from "@/lib/esbuild-build-config";
+import { environment } from "@/lib/esbuild-make-env";
+import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
-import { getCommonBuildOptions } from "./build-config.ts";
-import { build } from "./buildOperations.ts";
-import { environment } from "./helpers.ts";
-import {readdir, readFile, stat, writeFile} from "fs/promises";
+import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMapReplace } from "@src/importMapUtils.ts";
+import { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 
 const isProduction = environment === "production";
+
+const createEntryPoints = async (dir: string): Promise<string[]> => {
+  const files = await readdir(`src/@/${dir}`);
+  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`);
+};
 
 const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
   await build({
@@ -40,35 +45,15 @@ export async function buildWorkers(): Promise<void> {
 }
 
 export async function buildMainScripts(): Promise<void> {
-  const entryPoints = [
-    "src/prettierEsm.ts",
-    "src/memfs.ts",
-    "src/ata.ts",
-    "src/LangChain.ts",
-    "src/dts.ts",
-    "src/ataWorker.ts",
-    "src/chatUtils.ts"
-  ];
+  const workerFiles = await createEntryPoints("workers");
 
   await build({
     ...getCommonBuildOptions(environment),
-    entryPoints,
+    entryPoints: workerFiles,
     format: "iife",
-    outdir: "dist/workerScripts",
+    outdir: "dist/@/workers",
     minify: true,
     outExtension: { ".js": ".js" },
-  });
-}
-
-export async function buildTranspileScript(): Promise<void> {
-  await build({
-    ...getCommonBuildOptions(environment),
-    entryPoints: ["src/transpile.ts"],
-    outExtension: { ".js": ".js" },
-    format: "iife",
-    outdir: "dist/workerScripts",
-    minify: false,
-    treeShaking: false,
   });
 }
 
@@ -112,11 +97,6 @@ export async function buildServiceWorker(): Promise<void> {
     target: "es2024",
   });
 }
-
-const createEntryPoints = async (dir: string): Promise<string[]> => {
-  const files = await readdir(`src/@/${dir}`);
-  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`);
-};
 
 const createAliases = async (dir: string): Promise<Record<string, string>> => {
   const files = await readdir(`src/@/${dir}`);
@@ -213,7 +193,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/motion.ts",
       "src/start.ts",
       "src/emotion.ts",
-      "src/cf-esbuild.mjs",
+      // "src/cf-esbuild.mjs",
       "src/reactMod.ts",
       "src/recharts.ts",
       "src/reactDom.ts",
@@ -286,7 +266,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     ],
     entryPoints: [
-      "src/modules.ts"
+      "src/modules.ts",
     ],
     alias: {
       ...buildOptions.alias,
@@ -301,39 +281,36 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     external: [
       ...(buildOptions.external ?? []),
 
-
       "/swVersion.mjs",
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
   });
 
- 
-async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
-  try {
-    const files = await readdir(dir);
+  async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
+    try {
+      const files = await readdir(dir);
 
-    for (const file of files) {
-      const filePath = path.join(dir, file);
-      const fileStat = await stat(filePath);
+      for (const file of files) {
+        const filePath = path.join(dir, file);
+        const fileStat = await stat(filePath);
 
-      if (fileStat.isDirectory()) {
-        // If it's a directory, recursively process its contents
+        if (fileStat.isDirectory()) {
+          // If it's a directory, recursively process its contents
 
-         await runImportMapReplaceOnAllFilesRecursive(filePath);
-      } else {
-        // If it's a file, process it
-        if (filePath.includes("worker")) continue;
-        const content = await readFile(filePath, "utf8");
-        const newContent = importMapReplace(content, "xxxx").split("xxxx/").join("/");
-        await writeFile(filePath, newContent);
+          await runImportMapReplaceOnAllFilesRecursive(filePath);
+        } else {
+          // If it's a file, process it
+          if (filePath.includes("worker")) continue;
+          const content = await readFile(filePath, "utf8");
+          const newContent = importMapReplace(content, "xxxx").split("xxxx/").join("/");
+          await writeFile(filePath, newContent);
+        }
       }
+    } catch (error) {
+      console.error(`Error processing directory ${dir}:`, error);
     }
-  } catch (error) {
-    console.error(`Error processing directory ${dir}:`, error);
   }
-}
-
 
   runImportMapReplaceOnAllFilesRecursive("./dist/@");
 }

@@ -1,5 +1,5 @@
+import { importMapReplace } from "@/lib/importmap-utils"; // Updated import
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { importMapReplace } from "./importMapUtils"; // Updated import
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";

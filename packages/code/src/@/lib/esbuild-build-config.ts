@@ -1,7 +1,7 @@
 import type { BuildOptions } from "esbuild";
 
-import { Environment } from "./build-tasks.ts";
-import { makeEnv } from "./helpers.ts";
+import type { Environment } from "@/lib/esbuild-make-env";
+import { makeEnv } from "@/lib/esbuild-make-env";
 
 // import { fetchPlugin } from "./src/fetchPlugin.ts";
 

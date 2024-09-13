@@ -5,11 +5,11 @@ import {
   buildMainScripts,
   buildServiceWorker,
   buildTailwind,
-  buildTranspileScript,
+
   buildWasm,
   buildWorkers,
-} from "./build-tasks.ts";
-import { stop } from "./buildOperations.ts";
+} from "@/lib/esbuild-build-tasks";
+import { stop } from "@/lib/esbuild-operations";
 
 const getWasmFile = async (): Promise<string> => {
   const { promises } = await import("node:fs");
@@ -31,7 +31,6 @@ async function main() {
     await buildMainScripts();
     await buildWasm();
     await buildTailwind();
-    await buildTranspileScript();
 
     await buildServiceWorker();
 

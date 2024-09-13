@@ -1,8 +1,8 @@
+import { ICodeSession } from "@/lib/interfaces";
 import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-import { ICodeSession } from "./interfaces";
 
 class WorkerWrapper {
   rpc: RpcProvider;
@@ -45,16 +45,29 @@ class WorkerPool {
     let worker: Worker | SharedWorker;
     let port: MessagePort;
 
-    if (process.env.VI_TEST === "true") {
-      const { Worker } = require("worker_threads");
-      const { join } = require("path");
-      const worker = new Worker(join(__dirname, "../../../dist/workerScripts/ataWorker.js"));
-      port = worker as unknown as MessagePort;
+    if (typeof process !== "undefined" && process.env.VI_TEST === "true") {
+      const { Worker, MessageChannel } = require("worker_threads");
+      worker = new Worker("@/worker/ataWorker");
+
+      const channel = new MessageChannel();
+      port = channel.port1;
+
+      worker.postMessage = (message: any, transferList?: any[]) => {
+        channel.port2.postMessage(message, transferList);
+      };
+
+      channel.port2.onmessage = (event: MessageEvent) => {
+        worker.postMessage(event.data);
+      };
+
+      // Start the port
+      port.start();
+      channel.port2.start();
     } else if (typeof SharedWorker !== "undefined") {
-      worker = new SharedWorker(`/workerScripts/ataWorker.js`);
+      worker = new SharedWorker("/workerScripts/ataWorker.js");
       port = worker.port;
     } else {
-      worker = new Worker(`/workerScripts/ataWorker.js`);
+      worker = new Worker("/workerScripts/ataWorker.js");
       port = worker as unknown as MessagePort;
     }
 
