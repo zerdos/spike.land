@@ -1,5 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { importMap, importMapReplace , md5, prettierJs} from "@spike-land/code";
+import { importMap, importMapReplace} from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -270,18 +270,18 @@ async function handleDefaultCase(
 ) {
   if (!isUrlFile(path.join("/"))) {
     const esmWorker = (await import("./esm.worker")).default;
-    const md5Key = md5(newUrl.toString() + cacheName);
-    const cache = await env.R2.get(md5Key);
-    if (cache) {
-      return new Response(cache.body, {
-        headers: {
-          "Content-Type": "application/javascript; charset=UTF-8",
-          "Cache-Control": "public, max-age=604800",
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-        },
-      }); 
-    }
+    // const md5Key = md5(newUrl.toString() + cacheName);
+    // const cache = await env.R2.get(md5Key);
+    // if (cache) {
+    //   return new Response(cache.body, {
+    //     headers: {
+    //       "Content-Type": "application/javascript; charset=UTF-8",
+    //       "Cache-Control": "public, max-age=604800",
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Cross-Origin-Embedder-Policy": "require-corp",
+    //     },
+    //   }); 
+    // }
     
     const resp = await esmWorker.fetch(request, env, ctx);
     if (!resp.ok) return resp;
