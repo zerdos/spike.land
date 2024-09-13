@@ -1,33 +1,19 @@
 import { ICodeSession } from "@/lib/interfaces";
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
-import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "./makeSess";
-import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
-import type { build as Build, transpile as Transpile } from "./transpile";
 import { rpcFactory } from "./workerRpc";
 
 declare var self: SharedWorkerGlobalScope & {
-  ata: typeof Ata;
-  prettierCss: typeof PrettierCSS;
-  prettierJs: typeof Prettier;
-  createWorkflow: (q: string) => Promise<string>;
-  transpile: typeof Transpile;
-  build: typeof Build;
-  tsx: (code: string) => Promise<string[]>;
-  updateSearchReplace: (instructions: string, code: string, prettierJs: typeof Prettier) => Promise<string>;
+  ata: any;
+  prettierCss: any;
+  prettierJs: any;
+  createWorkflow: any;
+  transpile: any;
+  build: any;
+  tsx: any;
+  updateSearchReplace: any;
 };
-
-importScripts(
-  "/workerScripts/dts.js",
-  "/workerScripts/ata.js",
-  "/workerScripts/prettierEsm.js",
-  "/workerScripts/chatUtils.js",
-  "/workerScripts/transpile.js",
-  "/workerScripts/LangChain.js",
-);
-
-const { ata, prettierJs, transpile, build, tsx, prettierCss, createWorkflow, updateSearchReplace } = self;
 
 const SOCKET_POLICY = {
   timeout: 4000,
@@ -48,6 +34,25 @@ interface Connection {
   oldSession: ICodeSession;
 }
 
+const loadedScripts: Set<string> = new Set();
+
+function lazyLoadScript(script: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (loadedScripts.has(script)) {
+      resolve();
+      return;
+    }
+
+    try {
+      importScripts(`/workerScripts/${script}.js`);
+      loadedScripts.add(script);
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 function start(port: MessagePort) {
   const rpcProvider = rpcFactory(port);
   port.onmessage = ({ data }) => rpcProvider.dispatch(data);
@@ -56,45 +61,51 @@ function start(port: MessagePort) {
 }
 
 function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
-  rpcProvider.registerRpcHandler(
-    "prettierJs",
-    ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
-  );
-  rpcProvider.registerRpcHandler(
-    "createWorkflow",
-    (q: string) => createWorkflow(q),
-  );
-  rpcProvider.registerRpcHandler(
-    "prettierCss",
-    (code: string) => prettierCss(code),
-  );
-  rpcProvider.registerRpcHandler(
-    "ata",
-    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, tsx }),
-  );
-  rpcProvider.registerRpcHandler(
-    "transpile",
-    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
-  );
+  rpcProvider.registerRpcHandler("prettierJs", async ({ code, toThrow }: { code: string; toThrow: boolean }) => {
+    await lazyLoadScript("prettierEsm");
+    return self.prettierJs(code, toThrow);
+  });
+
+  rpcProvider.registerRpcHandler("createWorkflow", async (q: string) => {
+    await lazyLoadScript("LangChain");
+    return self.createWorkflow(q);
+  });
+
+  rpcProvider.registerRpcHandler("prettierCss", async (code: string) => {
+    await lazyLoadScript("prettierEsm");
+    return self.prettierCss(code);
+  });
+
+  rpcProvider.registerRpcHandler("ata", async ({ code, originToUse }: { code: string; originToUse: string }) => {
+    await Promise.all([lazyLoadScript("ata"), lazyLoadScript("dts")]);
+    return self.ata({ code, originToUse, tsx: self.tsx });
+  });
+
+  rpcProvider.registerRpcHandler("transpile", async ({ code, originToUse }: { code: string; originToUse: string }) => {
+    await lazyLoadScript("transpile");
+    return self.transpile(code, originToUse);
+  });
 
   rpcProvider.registerRpcHandler(
     "updateSearchReplace",
-    ({ code, instructions }: { code: string; instructions: string }) =>
-      updateSearchReplace(instructions, code, prettierJs),
+    async ({ code, instructions }: { code: string; instructions: string }) => {
+      await Promise.all([lazyLoadScript("chatUtils"), lazyLoadScript("prettierEsm")]);
+      return self.updateSearchReplace(instructions, code);
+    },
   );
-  rpcProvider.registerRpcHandler(
-    "build",
-    (
-      params: {
-        codeSpace: string;
-        splitting?: boolean;
-        entryPoint?: string;
-        origin: string;
-        format: "esm" | "iife";
-        external?: string[];
-      },
-    ) => build(params),
-  );
+
+  rpcProvider.registerRpcHandler("build", async (params: {
+    codeSpace: string;
+    splitting?: boolean;
+    entryPoint?: string;
+    origin: string;
+    format: "esm" | "iife";
+    external?: string[];
+  }) => {
+    await lazyLoadScript("transpile");
+    return self.build(params);
+  });
+
   rpcProvider.registerSignalHandler(
     "connect",
     ({ signal, sess }: { signal: string; sess: ICodeSession }) => setConnections(signal, sess),
@@ -238,7 +249,8 @@ async function handleHashMismatch(
   if (signal.aborted) return;
   connection.oldSession = await fetchInitialSession(codeSpace);
   if (signal.aborted) return;
-  const transpiled = connection.oldSession.transpiled || await transpile(
+  await lazyLoadScript("transpile");
+  const transpiled = connection.oldSession.transpiled || await self.transpile(
     connection.oldSession.code,
     location.origin,
   );
@@ -259,7 +271,8 @@ async function handleHashMatch(
   const newSession = applyCodePatch(oldSession, data);
   const newHash = makeHash(newSession);
   if (signal.aborted) return;
-  const transpiled = await transpile(newSession.code, location.origin);
+  await lazyLoadScript("transpile");
+  const transpiled = await self.transpile(newSession.code, location.origin);
   if (signal.aborted) return;
   if (data.newHash === newHash) {
     connection.oldSession = newSession;
