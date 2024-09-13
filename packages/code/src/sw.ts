@@ -1,3 +1,5 @@
+importScripts("/swVersion.js");
+
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { __WB_DISABLE_DEV_LOGS: boolean }
@@ -5,11 +7,47 @@ const sw = self as unknown as
   & { files: { [key: string]: string }; fileCacheName: string };
 sw.__WB_DISABLE_DEV_LOGS = true;
 
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
-import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import * as navigationPreload from "workbox-navigation-preload";
+import { precacheAndRoute } from "workbox-precaching";
+import { NavigationRoute, registerRoute, Route } from "workbox-routing";
+import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
 
-importScripts("/swVersion.js");
+// Precache the manifest
+precacheAndRoute(sw.files);
+
+// Enable navigation preload
+navigationPreload.enable();
+
+// Create a new navigation route that uses the Network-first, falling back to
+// cache strategy for navigation requests with its own cache. This route will be
+// handled by navigation preload. The NetworkOnly strategy will work as well.
+const navigationRoute = new NavigationRoute(
+  new NetworkFirst({
+    cacheName: "navigations",
+  }),
+);
+
+// Register the navigation route
+registerRoute(navigationRoute);
+
+// Create a route for image, script, or style requests that use a
+// stale-while-revalidate strategy. This route will be unaffected
+// by navigation preload.
+const staticAssetsRoute = new Route(
+  ({ request }) => {
+    return ["image", "script", "style"].includes(request.destination);
+  },
+  new StaleWhileRevalidate({
+    cacheName: "static-assets",
+  }),
+);
+
+// Register the route handling static assets
+registerRoute(staticAssetsRoute);
+
+// import { CacheableResponsePlugin } from "workbox-cacheable-response";
+// import { registerRoute } from "workbox-routing";
+// import { StaleWhileRevalidate } from "workbox-strategies";
 
 const CURRENT_CACHE_NAME = `file-cache-${sw.swVersion}`;
 const ESM_CACHE_NAME = "esm-cache-124";

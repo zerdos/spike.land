@@ -5257,7 +5257,6 @@ const RAW_RUNTIME_STATE =
           ["@types/text-encoding", "npm:0.0.39"],\
           ["@types/uuid", "npm:10.0.0"],\
           ["@types/wicg-file-system-access", "npm:2023.10.5"],\
-          ["@types/workbox-sw", "npm:4.3.7"],\
           ["@typescript-eslint/eslint-plugin", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.5.0"],\
           ["@typescript-eslint/typescript-estree", "virtual:d25c35f414ecad81d3a675aeea495ced0a2e4bab43dc7243c04270ce25e7b32ad1d816d012faff0a13aab443ec2c8331f099c42ebfd01bb141cc3d7b45782283#npm:8.5.0"],\
           ["@typescript/ata", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.9.7"],\
@@ -5377,6 +5376,8 @@ const RAW_RUNTIME_STATE =
           ["webrtc-adapter", "npm:9.0.1"],\
           ["window-async-local-storage", "npm:1.1.0"],\
           ["workbox-cacheable-response", "npm:7.1.0"],\
+          ["workbox-navigation-preload", "npm:7.1.0"],\
+          ["workbox-precaching", "npm:7.1.0"],\
           ["workbox-routing", "npm:7.1.0"],\
           ["workbox-strategies", "npm:7.1.0"],\
           ["workbox-sw", "npm:7.1.0"],\
@@ -6493,155 +6494,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-wicg-file-system-access-npm-2023.10.5-66b8f42522-10.zip/node_modules/@types/wicg-file-system-access/",\
         "packageDependencies": [\
           ["@types/wicg-file-system-access", "npm:2023.10.5"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-background-sync", [\
-      ["npm:4.3.2", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-background-sync-npm-4.3.2-4de7f2dd0f-10.zip/node_modules/@types/workbox-background-sync/",\
-        "packageDependencies": [\
-          ["@types/workbox-background-sync", "npm:4.3.2"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-broadcast-update", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-broadcast-update-npm-4.3.1-ed8dc06032-10.zip/node_modules/@types/workbox-broadcast-update/",\
-        "packageDependencies": [\
-          ["@types/workbox-broadcast-update", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-build", [\
-      ["npm:5.0.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-build-npm-5.0.1-163e6a5889-10.zip/node_modules/@types/workbox-build/",\
-        "packageDependencies": [\
-          ["@types/workbox-build", "npm:5.0.1"],\
-          ["@types/workbox-routing", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-cacheable-response", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-cacheable-response-npm-4.3.1-f6483d8d47-10.zip/node_modules/@types/workbox-cacheable-response/",\
-        "packageDependencies": [\
-          ["@types/workbox-cacheable-response", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-core", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-core-npm-4.3.1-e268c104ed-10.zip/node_modules/@types/workbox-core/",\
-        "packageDependencies": [\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-expiration", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-expiration-npm-4.3.1-6991c60dc7-10.zip/node_modules/@types/workbox-expiration/",\
-        "packageDependencies": [\
-          ["@types/workbox-expiration", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-google-analytics", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-google-analytics-npm-4.3.1-26017d9ac8-10.zip/node_modules/@types/workbox-google-analytics/",\
-        "packageDependencies": [\
-          ["@types/workbox-google-analytics", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-navigation-preload", [\
-      ["npm:4.3.0", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-navigation-preload-npm-4.3.0-8f2337da70-10.zip/node_modules/@types/workbox-navigation-preload/",\
-        "packageDependencies": [\
-          ["@types/workbox-navigation-preload", "npm:4.3.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-precaching", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-precaching-npm-4.3.1-eef59e4fec-10.zip/node_modules/@types/workbox-precaching/",\
-        "packageDependencies": [\
-          ["@types/workbox-precaching", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-range-requests", [\
-      ["npm:4.3.0", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-range-requests-npm-4.3.0-ddbed61dbb-10.zip/node_modules/@types/workbox-range-requests/",\
-        "packageDependencies": [\
-          ["@types/workbox-range-requests", "npm:4.3.0"],\
-          ["@types/workbox-core", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-routing", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-routing-npm-4.3.1-a2c673dafe-10.zip/node_modules/@types/workbox-routing/",\
-        "packageDependencies": [\
-          ["@types/workbox-routing", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-strategies", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-strategies-npm-4.3.1-b40cd8b2ba-10.zip/node_modules/@types/workbox-strategies/",\
-        "packageDependencies": [\
-          ["@types/workbox-strategies", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"],\
-          ["@types/workbox-routing", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-streams", [\
-      ["npm:4.3.0", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-streams-npm-4.3.0-fbd9eb543d-10.zip/node_modules/@types/workbox-streams/",\
-        "packageDependencies": [\
-          ["@types/workbox-streams", "npm:4.3.0"],\
-          ["@types/workbox-routing", "npm:4.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/workbox-sw", [\
-      ["npm:4.3.7", {\
-        "packageLocation": "./.yarn/global/cache/@types-workbox-sw-npm-4.3.7-af74e7dae3-10.zip/node_modules/@types/workbox-sw/",\
-        "packageDependencies": [\
-          ["@types/workbox-sw", "npm:4.3.7"],\
-          ["@types/workbox-background-sync", "npm:4.3.2"],\
-          ["@types/workbox-broadcast-update", "npm:4.3.1"],\
-          ["@types/workbox-build", "npm:5.0.1"],\
-          ["@types/workbox-cacheable-response", "npm:4.3.1"],\
-          ["@types/workbox-core", "npm:4.3.1"],\
-          ["@types/workbox-expiration", "npm:4.3.1"],\
-          ["@types/workbox-google-analytics", "npm:4.3.1"],\
-          ["@types/workbox-navigation-preload", "npm:4.3.0"],\
-          ["@types/workbox-precaching", "npm:4.3.1"],\
-          ["@types/workbox-range-requests", "npm:4.3.0"],\
-          ["@types/workbox-routing", "npm:4.3.1"],\
-          ["@types/workbox-strategies", "npm:4.3.1"],\
-          ["@types/workbox-streams", "npm:4.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -22440,6 +22292,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/workbox-core-npm-7.1.0-2fe6da9059-10.zip/node_modules/workbox-core/",\
         "packageDependencies": [\
           ["workbox-core", "npm:7.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["workbox-navigation-preload", [\
+      ["npm:7.1.0", {\
+        "packageLocation": "./.yarn/global/cache/workbox-navigation-preload-npm-7.1.0-4226f75555-10.zip/node_modules/workbox-navigation-preload/",\
+        "packageDependencies": [\
+          ["workbox-navigation-preload", "npm:7.1.0"],\
+          ["workbox-core", "npm:7.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["workbox-precaching", [\
+      ["npm:7.1.0", {\
+        "packageLocation": "./.yarn/global/cache/workbox-precaching-npm-7.1.0-a9e92c29b0-10.zip/node_modules/workbox-precaching/",\
+        "packageDependencies": [\
+          ["workbox-precaching", "npm:7.1.0"],\
+          ["workbox-core", "npm:7.1.0"],\
+          ["workbox-routing", "npm:7.1.0"],\
+          ["workbox-strategies", "npm:7.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
