@@ -99,7 +99,7 @@ export async function handleAnthropicRequest(
 
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create(conf) as Stream<
+      const stream = await anthropic.messages.create({...conf, messages}) as Stream<
         Anthropic.Messages.RawMessageStreamEvent
       >;
 
