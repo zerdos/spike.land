@@ -1,5 +1,5 @@
+import SharedWorker from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
-import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 
@@ -48,24 +48,24 @@ class WorkerPool {
 
     if (typeof process !== "undefined" && process.env.VI_TEST === "true") {
       const { Worker, MessageChannel } = require("worker_threads");
-      worker = new Worker("@/worker/ata-worker.worker.js");
+      worker = new Worker("/@/worker/ata-worker.worker.js");
 
       const channel = new MessageChannel();
       port = channel.port1;
 
-      worker.postMessage = (message: any, transferList?: any[]) => {
-        channel.port2.postMessage(message, transferList);
-      };
+      channel.port2.on("message", (message: any) => {
+        worker.dispatchEvent(new MessageEvent("message", { data: message }));
+      });
 
-      channel.port2.onmessage = (event: MessageEvent) => {
-        worker.postMessage(event.data);
-      };
+      worker.addEventListener("message", (message: any) => {
+        channel.port1.postMessage(message);
+      });
 
       // Start the port
       port.start();
       channel.port2.start();
     } else if (typeof SharedWorker !== "undefined") {
-      worker = new SharedWorker("/@/workers/ata-worker.worker.js");
+      worker = new SharedWorker("/@/workers/ata-worker.worker.js", { type: "classic" });
       port = worker.port;
     } else {
       worker = new Worker("/@/workers/ata-worker.worker.js");
