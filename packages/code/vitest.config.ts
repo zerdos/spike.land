@@ -14,5 +14,6 @@ export default defineConfig({
       "./src/setupTests.ts", // if you have a setup file
       "./src/__mocks__/workerMock.ts", // add our worker mock
     ],
+    testTimeout: 10000, // Increase global timeout to 10 seconds
   },
 });

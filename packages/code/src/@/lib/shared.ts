@@ -41,9 +41,23 @@ class WorkerPool {
     }
   }
 
-  private addWorker() {
-    const worker = new SharedWorker(`/workerScripts/ataWorker.js`);
-    const workerWrapper = new WorkerWrapper(worker.port);
+  private async addWorker() {
+    let worker: Worker | SharedWorker;
+    let port: MessagePort;
+
+    if (process.env.VI_TEST === "true") {
+      const { Worker } = require("worker_threads");
+      const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
+      port = worker as unknown as MessagePort;
+    } else if (typeof SharedWorker !== "undefined") {
+      worker = new SharedWorker(`/workerScripts/ataWorker.js`);
+      port = worker.port;
+    } else {
+      worker = new Worker(`/workerScripts/ataWorker.js`);
+      port = worker as unknown as MessagePort;
+    }
+
+    const workerWrapper = new WorkerWrapper(port);
     this.workers.push(workerWrapper);
   }
 
@@ -52,7 +66,7 @@ class WorkerPool {
       let availableWorker = this.workers.find(worker => !worker.busy);
 
       if (!availableWorker) {
-        this.addWorker();
+        await this.addWorker();
         availableWorker = this.workers[this.workers.length - 1];
       }
 
@@ -60,7 +74,7 @@ class WorkerPool {
 
       const freeWorkers = this.workers.filter(worker => !worker.busy).length;
       if (freeWorkers < this.minFreeWorkers) {
-        this.addWorker();
+        this.addWorker().catch(console.error); // Non-blocking
       }
 
       return availableWorker;
@@ -72,12 +86,13 @@ class WorkerPool {
   }
 }
 
+// Usage
 const workerPool = new WorkerPool();
 
-export const init = async () => {
+export async function init() {
   const worker = await workerPool.getWorker();
   return worker.rpc;
-};
+}
 
 export const prettierToThrow = async (
   { code, toThrow }: { code: string; toThrow: boolean },
