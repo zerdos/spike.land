@@ -5247,6 +5247,7 @@ const RAW_RUNTIME_STATE =
           ["@types/autoprefixer", "npm:10.2.0"],\
           ["@types/eslint__js", "npm:8.42.3"],\
           ["@types/esprima", "npm:4.0.6"],\
+          ["@types/estraverse", "npm:5.1.7"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/node", "npm:22.5.4"],\
           ["@types/object-inspect", "npm:1.13.0"],\
@@ -5267,6 +5268,7 @@ const RAW_RUNTIME_STATE =
           ["@vitest/coverage-v8", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.0"],\
           ["@vitest/ui", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.0"],\
           ["ace-builds", "npm:1.36.2"],\
+          ["acorn", "npm:8.12.1"],\
           ["ai-digest", "npm:1.0.6"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
@@ -5293,8 +5295,10 @@ const RAW_RUNTIME_STATE =
           ["esbuild-plugin-copy", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.1"],\
           ["esbuild-style-plugin", "npm:1.6.3"],\
           ["esbuild-wasm", "npm:0.23.1"],\
+          ["escodegen", "npm:2.1.0"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.10.0"],\
           ["eslint-plugin-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.36.1"],\
+          ["estraverse", "npm:5.3.0"],\
           ["events", "npm:3.3.0"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
@@ -6090,6 +6094,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-esprima-npm-4.0.6-7cbac247d5-10.zip/node_modules/@types/esprima/",\
         "packageDependencies": [\
           ["@types/esprima", "npm:4.0.6"],\
+          ["@types/estree", "npm:1.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/estraverse", [\
+      ["npm:5.1.7", {\
+        "packageLocation": "./.yarn/global/cache/@types-estraverse-npm-5.1.7-53cc39d887-10.zip/node_modules/@types/estraverse/",\
+        "packageDependencies": [\
+          ["@types/estraverse", "npm:5.1.7"],\
           ["@types/estree", "npm:1.0.5"]\
         ],\
         "linkType": "HARD"\
