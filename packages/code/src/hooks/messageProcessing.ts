@@ -1,7 +1,5 @@
 import { createContextManager } from "@/lib/context-manager";
-import { ImageData } from "@/lib/interfaces";
-import { Message } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
+import { ICode, ImageData, Message } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
@@ -52,7 +50,6 @@ export async function processMessage(
 ): Promise<boolean> {
   const contextManager = createContextManager(codeSpace);
   const sentMessages = [...updatedMessages];
-  // let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
   const onUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
 
@@ -73,7 +70,6 @@ export async function processMessage(
     updatedMessages.push(assistantMessage);
     saveMessages(updatedMessages);
 
-    // Update context based on AI response
     contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
     contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
 
@@ -82,48 +78,54 @@ export async function processMessage(
     if (starterCode !== codeNow) {
       let retries = 3;
       while (retries > 0) {
-        const success = await trySetCode(cSess, starterCode);
-        if (success) return true;
+        try {
+          const success = await trySetCode(cSess, starterCode);
+          if (success) return true;
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
+          contextManager.updateContext("errorLog", errorMessage);
 
-        const errorLog = contextManager.getContext("errorLog");
-        // If setting the code fails, try again with a new message
-        const userMessage: Message = {
-          id: Date.now().toString(),
-          role: "user",
-          content: claudeRecovery(starterCode, errorLog),
-        };
-        const newMessages = [...updatedMessages, userMessage];
-        const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
+          const userMessage: Message = {
+            id: Date.now().toString(),
+            role: "user",
+            content: claudeRecovery(starterCode, errorMessage),
+          };
+          const newMessages = [...updatedMessages, userMessage];
+          const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
 
-        assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
+          assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
 
-        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-          throw new Error("Invalid assistant message content type in retry");
+          if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+            throw new Error("Invalid assistant message content in retry");
+          }
+
+          const newContentToProcess = extractTextContent(assistantMessage.content);
+
+          if (newContentToProcess.includes("An error occurred while processing")) {
+            await cSess.setCode(codeNow);
+            assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
+          }
+
+          updatedMessages.push(assistantMessage);
+          saveMessages(updatedMessages);
+
+          contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
+          contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
+
+          starterCode = await updateSearchReplace(newContentToProcess, starterCode);
         }
-
-        const newContentToProcess = extractTextContent(assistantMessage.content);
-
-        if (newContentToProcess.includes("An error occurred while processing")) {
-          await cSess.setCode(codeNow);
-          assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
-        }
-
-        updatedMessages.push(assistantMessage);
-        saveMessages(updatedMessages);
-
-        // Update context based on new AI response
-        contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
-        contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
-
-        starterCode = await updateSearchReplace(newContentToProcess, starterCode);
 
         retries--;
       }
 
-      const secondSuccess = await trySetCode(cSess, starterCode);
-      if (secondSuccess) return true;
-
-      throw new Error("Failed to set code after multiple attempts");
+      try {
+        const finalSuccess = await trySetCode(cSess, starterCode);
+        if (finalSuccess) return true;
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        contextManager.updateContext("errorLog", errorMessage);
+        throw new Error(`Failed to set code after multiple attempts. Last error: ${errorMessage}`);
+      }
     }
 
     return true;
@@ -134,13 +136,11 @@ export async function processMessage(
 }
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
-  try {
-    const result = await cSess.setCode(code);
-    return !!result;
-  } catch (error) {
-    console.error("Error setting code:", error);
-    return false;
+  const result = await cSess.setCode(code);
+  if (!result) {
+    throw new Error("Failed to set code");
   }
+  return true;
 }
 
 function createOnUpdateFunction(
