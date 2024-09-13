@@ -47,7 +47,8 @@ class WorkerPool {
 
     if (process.env.VI_TEST === "true") {
       const { Worker } = require("worker_threads");
-      const worker = new Worker(__dirname + "/workerScripts/ataWorker.js");
+      const { join } = require("path");
+      const worker = new Worker(join(__dirname, "../../../dist/workerScripts/ataWorker.js"));
       port = worker as unknown as MessagePort;
     } else if (typeof SharedWorker !== "undefined") {
       worker = new SharedWorker(`/workerScripts/ataWorker.js`);
