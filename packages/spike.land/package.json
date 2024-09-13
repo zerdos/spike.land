@@ -34,12 +34,12 @@
     "esbuild-wasm": "0.23.1",
     "esm-worker": "0.135.17",
     "immutable": "4.3.7",
-    "openai": "^4.60.0",
+    "openai": "^4.60.1",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",
     "replicate": "^0.32.1",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.1"
   },
   "publishConfig": {
     "access": "public"
