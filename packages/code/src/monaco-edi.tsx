@@ -3,9 +3,9 @@ import { editor, languages, Uri } from "@/external/monaco-editor";
 
 const originToUse = location.origin;
 
-const refreshAta = async (code: string, originToUse: string) => {
+const refreshAta = async (code: string) => {
   try {
-    const extraLibs = (await ata({ code, originToUse })).map((
+    const extraLibs = (await ata({ code })).map((
       { filePath, content },
     ) => ({
       filePath: originToUse + filePath,
@@ -129,7 +129,7 @@ const monacoContribution = async (code: string) => {
     diagnosticCodesToIgnore: [2691],
   });
 
-  fetchAndCreateExtraModels(code, originToUse).then(() => refreshAta(code, originToUse));
+  fetchAndCreateExtraModels(code, originToUse).then(() => refreshAta(code));
 
   return code;
 };
@@ -270,7 +270,7 @@ async function startMonacoPristine({
       }
     }
 
-    if (needNewAta) await refreshAta(model.getValue(), originToUse);
+    if (needNewAta) await refreshAta(model.getValue());
 
     const suggestionDiagnostics = await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString());

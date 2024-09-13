@@ -12,7 +12,7 @@ import { format } from "prettier/standalone";
  */
 const createSpaceString = (length: number): string => " ".repeat(length);
 
-const removeBlockComments = (code) => {
+const removeBlockComments = (code: string) => {
   // Use a regular expression to match block comments
   const blockCommentRegex = /\{\/\*\*([\s\S]*?)\*\/\}/g;
 

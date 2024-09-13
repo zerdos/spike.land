@@ -76,9 +76,9 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
     return self.prettierCss(code);
   });
 
-  rpcProvider.registerRpcHandler("ata", async ({ code, originToUse }: { code: string; originToUse: string }) => {
+  rpcProvider.registerRpcHandler("ata", async ({ code }: { code: string }) => {
     await Promise.all([lazyLoadScript("ata"), lazyLoadScript("dts")]);
-    return self.ata({ code, originToUse, tsx: self.tsx });
+    return self.ata({ code, tsx: self.tsx });
   });
 
   rpcProvider.registerRpcHandler("transpile", async ({ code, originToUse }: { code: string; originToUse: string }) => {
