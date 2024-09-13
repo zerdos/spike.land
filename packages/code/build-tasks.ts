@@ -47,6 +47,7 @@ export async function buildMainScripts(): Promise<void> {
     "src/LangChain.ts",
     "src/dts.ts",
     "src/ataWorker.ts",
+    "src/chatUtils.ts"
   ];
 
   await build({
