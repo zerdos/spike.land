@@ -25,7 +25,7 @@ export function importMapReplace(code: string, origin: string): string {
   }
 
   const ast = recast.parse(code, {
-    parser: require("@babel/parser"),
+    parser: require("acorn"),
   });
 
   recast.visit(ast, {
