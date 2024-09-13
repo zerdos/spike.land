@@ -87,6 +87,5 @@ export const updateSearchReplace = (
       ),
     );
   });
-
   return replacedCode;
 };

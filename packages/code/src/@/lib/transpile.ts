@@ -53,28 +53,32 @@ export const transpile = async (
 
     const jsxImportSource = code.includes("@emotion/") ? "@emotion/react" : "react";
 
-    const transformedCode = await transform(code, {
-      loader: "tsx",
-      format: "esm",
-      treeShaking: true,
-      platform: "browser",
-      minify: false,
-      charset: "utf8",
-      keepNames: true,
-      tsconfigRaw: {
-        compilerOptions: {
-          jsx: "react-jsx",
-          jsxFragmentFactory: "Fragment",
-          jsxImportSource,
+    try {
+      const transformedCode = await transform(code, {
+        loader: "tsx",
+        format: "esm",
+        treeShaking: true,
+        platform: "browser",
+        minify: false,
+        charset: "utf8",
+        keepNames: true,
+        tsconfigRaw: {
+          compilerOptions: {
+            jsx: "react-jsx",
+            jsxFragmentFactory: "Fragment",
+            jsxImportSource,
+          },
         },
-      },
-      target: "es2024",
-    });
+        target: "es2024",
+      });
 
-    return importMapReplace(transformedCode.code, origin);
+      return importMapReplace(transformedCode.code, origin);
+    } catch (error) {
+      throw new Error(`Error during transpilation: ${error instanceof Error ? error.message : error}`);
+    }
   } catch (error) {
     console.error("Error during transpilation:", error);
-    return { error };
+    throw { error };
   }
 };
 

@@ -66,6 +66,10 @@ export class Code implements ICode {
 
     try {
       transpiled = await transpileCode(code);
+      if (!transpiled) {
+        console.error("Error transpiling code");
+        return false;
+      }
     } catch (error) {
       console.error("Error transpiling code");
       return false;

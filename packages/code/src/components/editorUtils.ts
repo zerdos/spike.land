@@ -63,13 +63,14 @@ function memoize<T extends (...args: any[]) => any>(fn: T): T {
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
   const { error, setError } = useErrorHandling();
+  const contextManager = createContextManager(useCodeSpace());
 
   try {
     const formattedCode = await prettierToThrow({ code, toThrow: true });
     console.log("Formatted successfully");
     if (error && error === "prettier") {
       setError(null);
-      const contextManager = createContextManager(useCodeSpace());
+
       contextManager.updateContext("errorLog", "");
     }
     return formattedCode;
@@ -82,7 +83,6 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
 
     // we should see line breaks instead of \n -s in the pre block
     const errorMessageWithLineBreaks = errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`);
-    const contextManager = createContextManager(useCodeSpace());
     contextManager.updateContext(
       "errorLog",
       errorMessageWithLineBreaks,
@@ -112,21 +112,27 @@ function getErrorDetailsFromHtml(htmlString: string) {
 
 export const transpileCode = memoize(async (code: string): Promise<string> => {
   const { error, setError } = useErrorHandling();
+  const contextManager = createContextManager(useCodeSpace());
 
   try {
     const transpiled = await transpile({ code, originToUse: location.origin });
     if (error && error === "transpile") {
+      contextManager.updateContext("errorLog", "");
       setError(null);
     }
     return transpiled;
   } catch (error) {
+    if (error instanceof Error) {
+      contextManager.updateContext("errorLog", error.message);
+    }
     setError("transpile");
-    throw new Error("Transpile failed");
+    return "";
   }
 });
 
 export const runCode = memoize(async (transpiled: string) => {
   const { error, setError } = useErrorHandling();
+  const contextManager = createContextManager(useCodeSpace());
 
   try {
     let resolve: (v: {
@@ -174,14 +180,12 @@ export const runCode = memoize(async (transpiled: string) => {
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
 
-      const contextManager = createContextManager(useCodeSpace());
       contextManager.updateContext("errorLog", getErrorDetailsFromHtml(html)!);
 
       setError("runner");
       return false;
     }
     if (error && error === "runner") {
-      const contextManager = createContextManager(useCodeSpace());
       contextManager.updateContext("errorLog", "");
       setError(null);
     }
