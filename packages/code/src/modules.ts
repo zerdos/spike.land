@@ -1,4 +1,4 @@
-import { importMap, importMapReplace } from "./importMapUtils_oo.ts";
+import { importMap, importMapReplace } from "@/lib/importmap-utils.ts";
 export type {
   ImageData,
   IRenderApp,
@@ -14,7 +14,7 @@ export { routes } from "@/lib/routes.ts";
 
 import { Delta } from "./textDiff";
 export { importMapReplace };
-// export { prettierJs } from "@/lib/prettier.ts";
+export { prettierJs } from "@/lib/prettier.ts";
 
 export { serverFetchUrl } from "@/lib/enhanced-fetch.ts";
 
