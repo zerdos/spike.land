@@ -76,10 +76,16 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
   } catch (error) {
     console.error("Error formatting code:", error);
 
+    const errorMessage = typeof error === "string"
+      ? error
+      : (error as unknown as { message: string })?.message || JSON.stringify(error);
+
+    // we should see line breaks instead of \n -s in the pre block
+    const errorMessageWithLineBreaks = errorMessage.replace(/\\n/g, "\n");
     const contextManager = createContextManager(useCodeSpace());
     contextManager.updateContext(
       "errorLog",
-      typeof error === "string" ? error : (error as unknown as { message: string })?.message || JSON.stringify(error),
+      errorMessageWithLineBreaks,
     );
 
     setError("prettier");
