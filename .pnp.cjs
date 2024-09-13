@@ -5370,6 +5370,7 @@ const RAW_RUNTIME_STATE =
           ["tty-browserify", "npm:0.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"],\
           ["typescript-eslint", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.5.0"],\
+          ["typescript-parsec", "npm:0.3.4"],\
           ["url", "npm:0.11.4"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:10.0.0"],\
@@ -21215,6 +21216,15 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/typescript",\
           "typescript"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["typescript-parsec", [\
+      ["npm:0.3.4", {\
+        "packageLocation": "./.yarn/global/cache/typescript-parsec-npm-0.3.4-7d89d4ad02-10.zip/node_modules/typescript-parsec/",\
+        "packageDependencies": [\
+          ["typescript-parsec", "npm:0.3.4"]\
         ],\
         "linkType": "HARD"\
       }]\

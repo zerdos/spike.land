@@ -3968,6 +3968,7 @@ __metadata:
     tty-browserify: "npm:^0.0.1"
     typescript: "npm:^5.6.2"
     typescript-eslint: "npm:8.5.0"
+    typescript-parsec: "npm:^0.3.4"
     url: "npm:^0.11.4"
     util: "npm:0.12.5"
     uuid: "npm:10.0.0"
@@ -17182,6 +17183,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 10/d6be19355c5bca594af3cfb7df6c882d8c91a00d8e31bd0176e20b161ac9fb3c50b6aaf51d0995bd77f5d2fda75ed46531e2d8c2dca82a2b934811c7d2faf781
+  languageName: node
+  linkType: hard
+
+"typescript-parsec@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "typescript-parsec@npm:0.3.4"
+  checksum: 10/057693e41043dd879898bb3eee76035c9ca1f1a17aedbfab9c687edfb32397592f6243c29be796eca33b73d586f9c184316890b26809421200adb1e8dd0846d8
   languageName: node
   linkType: hard
 
