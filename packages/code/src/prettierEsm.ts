@@ -12,12 +12,21 @@ import { format } from "prettier/standalone";
  */
 const createSpaceString = (length: number): string => " ".repeat(length);
 
+const removeBlockComments = (code) => {
+  // Use a regular expression to match block comments
+  const blockCommentRegex = /\{\/\*\*([\s\S]*?)\*\/\}/g;
+
+  // Replace all occurrences of block comments with an empty string
+  return code.replace(blockCommentRegex, "");
+};
+
 /**
  * Processes and formats CSS-in-JS code, specifically dealing with the `css` template literal syntax.
  * @param code - The input code string to process.
  * @returns The processed and formatted code string.
  */
-export const addSomeFixesIfNeeded = (code: string): string => {
+export const addSomeFixesIfNeeded = (_code: string): string => {
+  const code = removeBlockComments(_code);
   try {
     let [start, ...rest] = code.split("css`");
 

@@ -76,3 +76,12 @@ css={css\`
 
 export default () => <></>; // Empty default export"
 `;
+
+exports[`addSomeFixesIfNeeded > removes block comments 1`] = `
+"
+    <div>
+    
+    </div>
+
+export default () => <></>; // Empty default export"
+`;

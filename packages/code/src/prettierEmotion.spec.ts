@@ -47,6 +47,14 @@ describe("addSomeFixesIfNeeded", () => {
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
 
+  it("removes block comments", () => {
+    const code = `
+    <div>
+    {/** This is a comment */}
+    </div>`;
+    expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
+  });
+
   it("handles adds default export if 'export default' is missing", () => {
     const code = "export const myUtilityFN = () => {};";
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
