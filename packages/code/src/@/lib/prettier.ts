@@ -134,24 +134,7 @@ const prettierConfig: Options = {
   plugins: [pluginEstree, pluginTypescript],
 };
 
-export const prettierJs = async (
-  code: string,
-  toThrow = false,
-): Promise<string> => {
-  try {
-    return await format(addSomeFixesIfNeeded(code), prettierConfig);
-  } catch (error) {
-    const msg = JSON.stringify({
-      message: (error as unknown as { message: string })?.message,
-      error,
-      code,
-    });
-    console.error("Prettier error", msg);
-    if (toThrow) throw Error(msg);
-    if (code === "Types not found") return "export {}";
-    return code;
-  }
-};
+export const prettierJs = (code: string) => format(code, prettierConfig);
 
 export const prettierCss = async (inputCSS: string) =>
   format(inputCSS, {
