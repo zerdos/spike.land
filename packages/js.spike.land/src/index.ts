@@ -1,5 +1,6 @@
 import { build, transpile } from "@spike-land/code";
-import wasmModule from "esbuild-wasm/esbuild.wasm";
+import {wasmFile} from "../../code/dist/esbuildWASM.mjs";
+
 
 Object.assign(globalThis, {
   performance: {
@@ -17,7 +18,7 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
       format: "esm",
       splitting: false,
       external: ["/*"],
-      wasmModule,
+      wasmModule: wasmFile,
     });
 
     if (!results) {
@@ -34,8 +35,6 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
         },
       });
     }
-
-
 
     return new Response(JSON.stringify(results), {
       headers: {
@@ -97,3 +96,5 @@ export default {
     });
   },
 };
+
+
