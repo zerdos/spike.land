@@ -36,7 +36,6 @@ export const buildOptions: BuildOptions = {
     "worker_threads": "threads",
     "http": "browser-http",
     "os": "os-browserify",
-    "crypto": "browser-crypto",
     assert: "assert",
     "graceful-fs": "./src/memfs",
     fs: "./src/memfs",

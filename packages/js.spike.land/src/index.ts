@@ -1,5 +1,5 @@
 import { build, transpile } from "@spike-land/code";
-import {wasmFile} from "../../code/dist/esbuildWASM.mjs";
+import {wasmFile} from "";
 
 
 Object.assign(globalThis, {
@@ -8,7 +8,7 @@ Object.assign(globalThis, {
   },
 });
 
-const initAndTransform = (code: string, origin: string) => transpile(code, origin, wasmModule);
+const initAndTransform = (code: string, origin: string) => transpile(code, origin, wasmFile);
 
 const handleGetRequest = async (codeSpace: string, origin: string) => {
   try {

@@ -3874,7 +3874,6 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     ava: "npm:6.1.3"
     avl: "npm:1.5.3"
-    browser-crypto: "npm:^2.1.0"
     browser-http: "npm:^4.0.2"
     browserify: "npm:^17.0.0"
     buffer: "npm:6.0.3"
@@ -6177,13 +6176,6 @@ __metadata:
   version: 1.1.0
   resolution: "brorand@npm:1.1.0"
   checksum: 10/8a05c9f3c4b46572dec6ef71012b1946db6cae8c7bb60ccd4b7dd5a84655db49fe043ecc6272e7ef1f69dc53d6730b9e2a3a03a8310509a3d797a618cbee52be
-  languageName: node
-  linkType: hard
-
-"browser-crypto@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "browser-crypto@npm:2.1.0"
-  checksum: 10/5be117bad39514d88932560d821bb92b68324a6b2c5328f4444475ac25a6118f6820b47d80d243182b41892e25d3f966dddf388bb9f17aa6ba48399722b4916d
   languageName: node
   linkType: hard
 
