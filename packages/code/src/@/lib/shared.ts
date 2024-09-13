@@ -1,4 +1,4 @@
-import SharedWorker from "@/external/shared-worker";
+import SharedWorkerPolyfill from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
@@ -7,10 +7,10 @@ import { RpcProvider } from "worker-rpc";
 
 class WorkerWrapper {
   rpc: RpcProvider;
-  workerPort: MessagePort;
+  workerPort: MessagePort | Worker;
   busy: boolean = false;
 
-  constructor(port: MessagePort) {
+  constructor(port: MessagePort | Worker) {
     this.workerPort = port;
     this.rpc = new RpcProvider(
       (message) =>
@@ -43,16 +43,8 @@ class WorkerPool {
   }
 
   private async addWorker() {
-    let worker: Worker | SharedWorker;
-    let port: MessagePort;
-
-    if (typeof SharedWorker !== "undefined") {
-      worker = new SharedWorker("/@/workers/ata-worker.worker.js", { type: "classic" });
-      port = worker.port as unknown as MessagePort;
-    } else {
-      worker = new Worker("/@/workers/ata-worker.worker.js");
-      port = worker as unknown as MessagePort;
-    }
+    const worker = new SharedWorkerPolyfill("/@/workers/ata-worker.worker.js", { type: "classic" });
+    const port = worker.port;
 
     const workerWrapper = new WorkerWrapper(port);
     this.workers.push(workerWrapper);
