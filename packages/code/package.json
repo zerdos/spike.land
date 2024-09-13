@@ -103,6 +103,7 @@
     "@tanstack/react-virtual": "^3.10.7",
     "@types/autoprefixer": "^10.2.0",
     "@types/isomorphic-fetch": "0.0.39",
+    "@types/workbox-sw": "^4.3.7",
     "@typescript-eslint/typescript-estree": "8.5.0",
     "@typescript/ata": "^0.9.7",
     "@uidotdev/usehooks": "^2.4.1",

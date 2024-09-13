@@ -3855,6 +3855,7 @@ __metadata:
     "@types/text-encoding": "npm:^0.0.39"
     "@types/uuid": "npm:10.0.0"
     "@types/wicg-file-system-access": "npm:2023.10.5"
+    "@types/workbox-sw": "npm:^4.3.7"
     "@typescript-eslint/eslint-plugin": "npm:^8.5.0"
     "@typescript-eslint/typescript-estree": "npm:8.5.0"
     "@typescript/ata": "npm:^0.9.7"
@@ -4796,6 +4797,137 @@ __metadata:
   version: 2023.10.5
   resolution: "@types/wicg-file-system-access@npm:2023.10.5"
   checksum: 10/f161b76d0c53b3e72238acf7ed5af3893018a845cd9e0a507394ba219607808d34957f6247e1ef091a8ea9131495dca8f12804c6bd75c5c34bf0b990f561be57
+  languageName: node
+  linkType: hard
+
+"@types/workbox-background-sync@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "@types/workbox-background-sync@npm:4.3.2"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/f69a0330a598d08b5b68a8ceb36edc6b0f36b383729021db57eee0cccbd143c6a8373a13d684e3b0532203933d3bae4eb3a9c9819199295fd3d40fffcc6b67c1
+  languageName: node
+  linkType: hard
+
+"@types/workbox-broadcast-update@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-broadcast-update@npm:4.3.1"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/1504ea5bb0fd488ecf816fb164febe5628c3a9ca566387670c05ebdcc48bbc740ea3347893a801fd067252412f4d2493af82fbed80d5a046b28c6eeb57530757
+  languageName: node
+  linkType: hard
+
+"@types/workbox-build@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@types/workbox-build@npm:5.0.1"
+  dependencies:
+    "@types/workbox-routing": "npm:*"
+  checksum: 10/48ebea5aaf7dca2332cd8f4b4dd361de91442eef47334a97f089858840a5f5a46785502890faa43b5f46aa10170669ecb437ce579f91efa578fa45f9981b8ca5
+  languageName: node
+  linkType: hard
+
+"@types/workbox-cacheable-response@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-cacheable-response@npm:4.3.1"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/a8ccc18e682b83b9416f10667cad6caeb6d78e5a6d20661c8eb489b20f9f215022e15e4be0e5e6fa563cd6c54332c3212533ed6b2da23b0fff0514bfaefbe3fd
+  languageName: node
+  linkType: hard
+
+"@types/workbox-core@npm:*, @types/workbox-core@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-core@npm:4.3.1"
+  checksum: 10/1eda06ab99fc6b79f5077586a0ef675e8ce5a9f4d9b8db6fe7dee7cf15a8c9328b184944dd772d1b088beede873aa3e1a90c378bea6ed47fb82bce9a51edb531
+  languageName: node
+  linkType: hard
+
+"@types/workbox-expiration@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-expiration@npm:4.3.1"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/0ef222a9e687d3c1d53dfaab3f774ea4b675aeb8df63109a40b2ca2de50bc52d201e96d50baa1af9f3380139eb5687ae9086fd060053636f29355da8f891bfc3
+  languageName: node
+  linkType: hard
+
+"@types/workbox-google-analytics@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-google-analytics@npm:4.3.1"
+  checksum: 10/c8cc12d19fe949b1ef01dd5fed681666101a6612a65d6571e5ca6d90b22034e0f55e13bb1768d6cba828d50b1f67d62e28f1eb4fe76bc00ba94d3c460a77c32a
+  languageName: node
+  linkType: hard
+
+"@types/workbox-navigation-preload@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@types/workbox-navigation-preload@npm:4.3.0"
+  checksum: 10/882fdc9e30f0c5510485be415dc2d77317db96a16eb98b0856fa2f1145a5afdeefb8f664fa5533c2a0e754b41ac55ffe6e65c075e7d57f4d0e7020c43ac58acf
+  languageName: node
+  linkType: hard
+
+"@types/workbox-precaching@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-precaching@npm:4.3.1"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/240cdd7bec22d03faafbe34bbb499d41759adb6ff24e633c4a3c019d8260718d47c1af765b0175905a584e8dea626edb8b4c4b79d2a27faeded778a7bd6c1b3a
+  languageName: node
+  linkType: hard
+
+"@types/workbox-range-requests@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@types/workbox-range-requests@npm:4.3.0"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+  checksum: 10/7fd4875f52aaeb8c8ee2e0c6fe0e1e21996d205f24f7756e6d361c59105a091988cf5072ab2923c110dc59747be07b8da1a60ae78c16d0100dca13b1ecbd6315
+  languageName: node
+  linkType: hard
+
+"@types/workbox-routing@npm:*, @types/workbox-routing@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-routing@npm:4.3.1"
+  checksum: 10/69ee4318d5df7bd6c9501a0a46c0adf33e4f48617459b42e8d1da6fba208c71149f84bf28483a495697ae7118baae74410189d70ace5bdb2ab9d8c5f70a1e269
+  languageName: node
+  linkType: hard
+
+"@types/workbox-strategies@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/workbox-strategies@npm:4.3.1"
+  dependencies:
+    "@types/workbox-core": "npm:*"
+    "@types/workbox-routing": "npm:*"
+  checksum: 10/cf7a5138647af3f622c128f8746ca8541c222545cff3428c4bf3c7dc223888d0cd8860270822fde5665d406905a3a9139d77b2019c1cec5442e7a1fc63266da3
+  languageName: node
+  linkType: hard
+
+"@types/workbox-streams@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@types/workbox-streams@npm:4.3.0"
+  dependencies:
+    "@types/workbox-routing": "npm:*"
+  checksum: 10/fce03e9995e04f8f70c61712bb53b74ad17ee2fda1f8c8d410ea9453533144ec75953076050fe0fba3725eb5da734cbfbfff9c7f09a49f2d94e6529d14886e48
+  languageName: node
+  linkType: hard
+
+"@types/workbox-sw@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "@types/workbox-sw@npm:4.3.7"
+  dependencies:
+    "@types/workbox-background-sync": "npm:^4.3.2"
+    "@types/workbox-broadcast-update": "npm:^4.3.1"
+    "@types/workbox-build": "npm:^5.0.1"
+    "@types/workbox-cacheable-response": "npm:^4.3.1"
+    "@types/workbox-core": "npm:^4.3.1"
+    "@types/workbox-expiration": "npm:^4.3.1"
+    "@types/workbox-google-analytics": "npm:^4.3.1"
+    "@types/workbox-navigation-preload": "npm:^4.3.0"
+    "@types/workbox-precaching": "npm:^4.3.1"
+    "@types/workbox-range-requests": "npm:^4.3.0"
+    "@types/workbox-routing": "npm:^4.3.1"
+    "@types/workbox-strategies": "npm:^4.3.1"
+    "@types/workbox-streams": "npm:^4.3.0"
+  checksum: 10/85fa5a87b10146e4292e315a609b5b4381c37a73bf4585104caac499f5c7d20ddfb89b94ef7f1ae2587b18b8361a51927de2c38d34cda4657ac451555441453f
   languageName: node
   linkType: hard
 
