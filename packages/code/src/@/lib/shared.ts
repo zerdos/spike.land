@@ -184,9 +184,9 @@ export const createWorkflow = async (q: string): Promise<string> => {
   }
 };
 
-const transpileID = async (
+export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
-): Promise<string | undefined> => {
+): Promise<string> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("transpile", { code, originToUse });
@@ -198,24 +198,7 @@ const transpileID = async (
   } finally {
     workerPool.releaseWorker(worker);
   }
-};
-
-export const transpile = async (
-  { code, originToUse }: { code: string; originToUse: string },
-): Promise<string> => {
-  try {
-    const transpiled = await transpileID({ code, originToUse });
-    if (transpiled === "/** js.spike.land */\n[object Object]") {
-      throw new Error("transpile error", { cause: transpiled });
-    }
-    if (typeof transpiled !== "string") {
-      throw new Error("transpile error", { cause: transpiled });
-    }
-    return transpiled;
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
+  return ""; // Add a return statement here
 };
 
 export const build = async (

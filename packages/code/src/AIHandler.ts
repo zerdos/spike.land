@@ -1,5 +1,5 @@
-import type { Message } from "@/lib/interfaces";
-import { ICode } from "./cSess.interface";
+import type { ICode, Message } from "@/lib/interfaces";
+
 import { AIService } from "./services/AIService";
 
 export class AIHandler {
