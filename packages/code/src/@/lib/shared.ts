@@ -82,6 +82,11 @@ export const tsx = (
     filePath: string;
   }[]>;
 
+export const updateSearchReplace = (
+  instructions: string,
+  code: string,
+) => init().rpc("updateSearchReplace", { code, instructions }) as Promise<string>;
+
 export const createWorkflow = (
   q: string,
 ) => init().rpc("createWorkflow", q) as Promise<string>;

@@ -1,5 +1,6 @@
-import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
+import { extractCodeModification } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
+import { updateSearchReplace } from "@/lib/shared";
 import { describe, expect, it } from "vitest";
 
 describe("diffUtils", () => {
@@ -344,7 +345,7 @@ These changes create a darker, more professional look for the code block compone
   });
 
   describe("updateSearchReplace", () => {
-    it("should handle broken code blocks", () => {
+    it("should handle broken code blocks", async () => {
       const oldCode = `
 <<<<<<< SEARCH
 const example = () => {
@@ -362,7 +363,7 @@ console.log("World");
   return "Hello World";
       `;
 
-      const result = updateSearchReplace(oldCode, codeNow);
+      const result = await updateSearchReplace(oldCode, codeNow);
       const expected = `
   console.log("Hello");
   return "Hello World";

@@ -1,7 +1,7 @@
-import { updateSearchReplace } from "@/lib/chat-utils";
 import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
+import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
@@ -77,7 +77,7 @@ export async function processMessage(
     contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
     contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
 
-    const starterCode = updateSearchReplace(contentToProcess, codeNow);
+    const starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
     if (starterCode !== codeNow) {
       const success = await trySetCode(cSess, starterCode);
@@ -112,7 +112,7 @@ export async function processMessage(
       contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
       contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
 
-      const secondGuess = updateSearchReplace(newContentToProcess, codeNow);
+      const secondGuess = await updateSearchReplace(newContentToProcess, codeNow);
 
       const secondSuccess = await trySetCode(cSess, secondGuess);
       if (secondSuccess) return true;
@@ -147,7 +147,7 @@ function createOnUpdateFunction(
 ) {
   return async (code: string) => {
     await mutex.runExclusive(async () => {
-      const lastCode = updateSearchReplace(code, cSess.session.code);
+      const lastCode = await updateSearchReplace(code, cSess.session.code);
 
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);

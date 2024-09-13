@@ -15,17 +15,19 @@ declare var self: SharedWorkerGlobalScope & {
   transpile: typeof Transpile;
   build: typeof Build;
   tsx: (code: string) => Promise<string[]>;
+  updateSearchReplace: (instructions: string, code: string) => Promise<string>;
 };
 
 importScripts(
   "/workerScripts/dts.js",
   "/workerScripts/ata.js",
   "/workerScripts/prettierEsm.js",
+  "/workerScripts/chatUtils.js",
   "/workerScripts/transpile.js",
   "/workerScripts/LangChain.js",
 );
 
-const { ata, prettierJs, transpile, build, tsx, prettierCss, createWorkflow } = self;
+const { ata, prettierJs, transpile, build, tsx, prettierCss, createWorkflow, updateSearchReplace } = self;
 
 const SOCKET_POLICY = {
   timeout: 4000,
@@ -73,6 +75,11 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   rpcProvider.registerRpcHandler(
     "transpile",
     ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
+  );
+
+  rpcProvider.registerRpcHandler(
+    "updateSearchReplace",
+    ({ code, instructions }: { code: string; instructions: string }) => updateSearchReplace(instructions, code),
   );
   rpcProvider.registerRpcHandler(
     "build",
