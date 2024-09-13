@@ -1,7 +1,7 @@
 import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
+import { ICode } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
-import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 import { createNewMessage, processMessage } from "./messageProcessing";

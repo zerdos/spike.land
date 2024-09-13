@@ -3,9 +3,9 @@ import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 
 import { ICodeSession } from "@/lib/interfaces";
+import { ICode } from "@/lib/interfaces";
 import { connect } from "@/lib/shared";
 import { formatCode, runCode, transpileCode } from "../components/editorUtils";
-import { ICode } from "../cSess.interface";
 
 export class Code implements ICode {
   session: ICodeSession;

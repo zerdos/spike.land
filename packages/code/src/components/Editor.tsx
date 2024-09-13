@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { md5 } from "@/lib/md5";
 import { cn } from "@/lib/utils";
-import { ICode } from "@src/cSess.interface";
+import { ICode } from "@/lib/interfaces";
 import { ICodeSession } from "@/lib/interfaces";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";

@@ -1,4 +1,4 @@
-import type { ICode } from "@src/cSess.interface";
+import type { ICode } from "@/lib/interfaces";
 import React, { useCallback, useEffect, useState } from "react";
 import { loadVersionHistory, Version } from "../codeHistoryUtils";
 import type { IHistoryItem } from "@/lib/interfaces";

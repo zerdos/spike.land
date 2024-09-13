@@ -1,7 +1,7 @@
 import { ImageData } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
+import { ICode } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
-import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";
 import { createNewMessage, processMessage } from "./messageProcessing";

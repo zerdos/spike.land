@@ -1,6 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
 import { renderApp } from "@/lib/render-app";
-import type { ICode } from "./cSess.interface";
+import type { ICode } from "@/lib/interfaces";
 import { Suspense, lazy } from "react";
 
 
