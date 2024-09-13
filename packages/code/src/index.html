@@ -1,74 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    <meta name="description" content="spike.land, an online content Editor with AI support">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
-    <meta name="HandheldFriendly" content="true" >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
-    
-    <!-- Content Security Policy (unchanged) -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    media-src 'self' blob: ;
-    script-src 'self' https://js.spike.land https://cdn.jsdelivr.net https://esm.sh https://static.cloudflareinsights.com data: https://clerk.spike.land blob: 'unsafe-eval' 'unsafe-inline';
-    worker-src 'self' https://esm.sh blob:;
-    style-src 'self' https://esm.sh 'unsafe-inline' https://fonts.googleapis.com;
-    connect-src 'self' https://cdn.jsdelivr.net blob: https://esm.sh https://clerk.spike.land wss://*.peerjs.com;
-    font-src 'self' data: blob: https://esm.sh https://fonts.gstatic.com;
-    img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
-">
+// sw.js
 
-    <link rel="manifest" href="/manifest.json" type="application/manifest+json">
-    <link rel="preload" href="/app/tw-global.css" as="style">
-    <link rel="stylesheet" href="/app/tw-global.css">
+// Import Workbox from CDN
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js');
 
-    <!-- Inline style for initial theme -->
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-        }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #000000;
-                --text-color: #ffffff;
-            }
-        }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-    </style>
+// Disable Workbox logging in production
+workbox.setConfig({ debug: false });
 
-    <!-- Script to set initial theme -->
-    <script>
-        (function() {
-            function setInitialTheme() {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.add('light');
-                }
-            }
-            setInitialTheme();
-        })();
-    </script>
+// Import swVersion.js to get swVersion and sw.files
+importScripts('/swVersion.js');
 
-    <!-- injectedCss -->
+// Precache hashed assets using sw.files
+const precacheManifest = Object.values(sw.files).map((hashed) => ({ url: `/${hashed}` }));
+workbox.precaching.precacheAndRoute(precacheManifest);
 
-    <base href="/">
-    <link rel="shortcut icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
-    <title>Instant React Editor</title>
-    <script src="/tw/tw-chunk-be5bad.js"></script>
-</head>
-<body>
-    <div id="embed"></div>
-    <script type="module" src="/start.mjs"></script>
-</body>
-</html>
+// Cache-first strategy for images, styles, and fonts
+workbox.routing.registerRoute(
+  ({ request }) => ['style', 'image', 'font'].includes(request.destination),
+  new workbox.strategies.CacheFirst({
+    cacheName: 'static-resources',
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new workbox.expiration.ExpirationPlugin({
+        maxEntries: 100,
+        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+      }),
+    ],
+  })
+);
+
+// Network-first strategy for API requests
+workbox.routing.registerRoute(
+  ({ url }) => url.pathname.startsWith('/api/'),
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'api-cache',
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+// Stale-while-revalidate strategy for scripts (e.g., ESM modules)
+workbox.routing.registerRoute(
+  ({ request }) => request.destination === 'script',
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'esm-cache',
+    plugins: [
+      new workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
+
+// Handle 'skipWaiting' message
+self.addEventListener('message', (event) => {
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
