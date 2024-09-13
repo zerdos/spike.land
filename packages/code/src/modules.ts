@@ -1,4 +1,4 @@
-import { importMap, importMapReplace } from "./impmaputils.ts";
+import { importMap, importMapReplace } from "./impmaputils";
 export type {
   ImageData,
   IRenderApp,

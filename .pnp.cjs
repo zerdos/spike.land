@@ -5186,6 +5186,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/code/",\
         "packageDependencies": [\
           ["@spike-land/code", "workspace:packages/code"],\
+          ["@babel/parser", "npm:7.25.6"],\
           ["@babel/runtime", "npm:7.25.6"],\
           ["@clerk/clerk-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.8.2"],\
           ["@clerk/nextjs", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.5.2"],\
@@ -5273,6 +5274,7 @@ const RAW_RUNTIME_STATE =
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:6.0.0"],\
+          ["ast-types", "npm:0.14.2"],\
           ["async-hooks", "npm:1.3.1"],\
           ["async-mutex", "npm:0.5.0"],\
           ["autoprefixer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:10.4.20"],\
@@ -5348,6 +5350,7 @@ const RAW_RUNTIME_STATE =
           ["react-swipeable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.0.1"],\
           ["react-syntax-highlighter", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:15.5.0"],\
           ["react-use", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:17.5.1"],\
+          ["recast", "npm:0.23.9"],\
           ["recharts", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.12.7"],\
           ["serve-handler", "npm:6.1.5"],\
           ["sonner", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.0"],\
@@ -8025,6 +8028,22 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/ast-types-npm-0.13.4-69f7e68df8-10.zip/node_modules/ast-types/",\
         "packageDependencies": [\
           ["ast-types", "npm:0.13.4"],\
+          ["tslib", "npm:2.7.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.14.2", {\
+        "packageLocation": "./.yarn/global/cache/ast-types-npm-0.14.2-43c4ac4b0d-10.zip/node_modules/ast-types/",\
+        "packageDependencies": [\
+          ["ast-types", "npm:0.14.2"],\
+          ["tslib", "npm:2.7.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.16.1", {\
+        "packageLocation": "./.yarn/global/cache/ast-types-npm-0.16.1-596f974e68-10.zip/node_modules/ast-types/",\
+        "packageDependencies": [\
+          ["ast-types", "npm:0.16.1"],\
           ["tslib", "npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
@@ -18659,6 +18678,20 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["readdirp", "npm:3.6.0"],\
           ["picomatch", "npm:2.3.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["recast", [\
+      ["npm:0.23.9", {\
+        "packageLocation": "./.yarn/global/cache/recast-npm-0.23.9-420177fdc4-10.zip/node_modules/recast/",\
+        "packageDependencies": [\
+          ["recast", "npm:0.23.9"],\
+          ["ast-types", "npm:0.16.1"],\
+          ["esprima", "npm:4.0.1"],\
+          ["source-map", "npm:0.6.1"],\
+          ["tiny-invariant", "npm:1.3.3"],\
+          ["tslib", "npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -1,8 +1,7 @@
 // src/importMapUtils.ts
 
-import * as acorn from "acorn";
-import * as escodegen from "escodegen";
-import * as estraverse from "estraverse";
+import { namedTypes } from "ast-types";
+import * as recast from "recast";
 
 export const importMap = {
   imports: {
@@ -25,24 +24,48 @@ export function importMapReplace(code: string, origin: string): string {
     return code;
   }
 
-  const ast = acorn.parse(code, { sourceType: "module", ecmaVersion: "latest" });
+  const ast = recast.parse(code, {
+    parser: require("@babel/parser"),
+  });
 
-  estraverse.replace(ast, {
-    enter(node) {
-      if (node.type === "ImportDeclaration" || node.type === "ExportNamedDeclaration") {
-        if (node.source && node.source.type === "Literal") {
-          node.source.value = resolveModuleSpecifier(node.source.value, origin, node.specifiers);
-        }
-      } else if (node.type === "CallExpression" && node.callee.type === "Import") {
-        const arg = node.arguments[0];
-        if (arg && arg.type === "Literal") {
-          arg.value = resolveModuleSpecifier(arg.value, origin);
-        }
+  recast.visit(ast, {
+    visitImportDeclaration(path) {
+      const node = path.node;
+      if (node.source && node.source.value && typeof node.source.value === "string") {
+        node.source.value = resolveModuleSpecifier(
+          node.source.value,
+          origin,
+          node.specifiers as namedTypes.ImportSpecifier[],
+        );
       }
+      this.traverse(path);
+    },
+    visitExportNamedDeclaration(path) {
+      const node = path.node;
+      if (node.source && node.source.value && typeof node.source.value === "string") {
+        node.source.value = resolveModuleSpecifier(
+          node.source.value,
+          origin,
+          node.specifiers as namedTypes.ExportSpecifier[],
+        );
+      }
+      this.traverse(path);
+    },
+    visitCallExpression(path) {
+      const node = path.node;
+      if (
+        node.callee.type === "Import"
+        && node.arguments.length === 1
+        && node.arguments[0].type === "StringLiteral"
+      ) {
+        const arg = node.arguments[0];
+        arg.value = resolveModuleSpecifier(arg.value, origin);
+      }
+      this.traverse(path);
     },
   });
 
-  const replacedCode = escodegen.generate(ast, { comment: true });
+  const replacedCode = recast.print(ast).code;
 
   return `/** importMapReplace${!origin ? new Date().toISOString() : ""} */\n${replacedCode}`;
 }
@@ -50,7 +73,7 @@ export function importMapReplace(code: string, origin: string): string {
 function resolveModuleSpecifier(
   moduleName: string,
   origin: string,
-  specifiers?: any[],
+  specifiers?: (namedTypes.ImportSpecifier | namedTypes.ExportSpecifier)[],
 ): string {
   const { imports } = importMap;
 
@@ -77,11 +100,50 @@ function resolveModuleSpecifier(
     return moduleName;
   }
 
+  // Handle data URIs
+  if (moduleName.startsWith("data:text")) {
+    return `${moduleName}/index.js`;
+  }
+
+  // Handle specific origin-based paths
+  if (moduleName.startsWith(`${origin}/live`) && !moduleName.includes("index.js")) {
+    return `${moduleName}/index.js`;
+  }
+
+  if (moduleName.startsWith("./") && !moduleName.slice(2).includes(".")) {
+    return `${origin}/live/${moduleName.slice(2)}/index.js`;
+  }
+
+  if (moduleName.startsWith("/live")) {
+    return `${origin}${moduleName}/index.js`;
+  }
+
+  if (moduleName.startsWith("@/")) {
+    return `${origin}/${moduleName}.mjs`;
+  }
+
+  // Handle file extensions
+  const extension = moduleName.split(".").pop()!;
+  if (["js", "mjs", "ts", "tsx"].includes(extension)) {
+    return `${origin}/${moduleName}`;
+  }
+
   // Handle specific exports
   if (specifiers && specifiers.length > 0) {
     const exportedNames = specifiers
-      .filter((specifier) => specifier.type === "ImportSpecifier" || specifier.type === "ExportSpecifier")
-      .map((specifier) => specifier.imported.name || specifier.exported.name)
+      .filter(
+        (specifier) => specifier.type === "ImportSpecifier" || specifier.type === "ExportSpecifier",
+      )
+      .map((specifier) => {
+        if (specifier.imported && specifier.imported.type === "Identifier") {
+          return specifier.imported.name;
+        } else if (specifier.exported && specifier.exported.type === "Identifier") {
+          return specifier.exported.name;
+        } else {
+          return null;
+        }
+      })
+      .filter((name): name is string => name !== null)
       .join(",");
 
     return `${origin}/*${moduleName}?bundle=true&exports=${exportedNames}`;
