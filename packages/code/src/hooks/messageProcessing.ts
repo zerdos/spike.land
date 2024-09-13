@@ -1,12 +1,11 @@
 import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
+import { ICode } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
-import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 export async function createNewMessage(
   images: ImageData[],
