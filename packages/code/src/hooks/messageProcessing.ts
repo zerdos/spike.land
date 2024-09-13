@@ -54,7 +54,7 @@ export async function processMessage(
   const sentMessages = [...updatedMessages];
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
-  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess, contextManager);
+  const onUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
 
   try {
     let assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, onUpdate);
@@ -90,7 +90,7 @@ export async function processMessage(
         content: claudeRecovery(starterCode),
       };
       const newMessages = [...updatedMessages, userMessage];
-      const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess, contextManager);
+      const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
 
       assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
 
