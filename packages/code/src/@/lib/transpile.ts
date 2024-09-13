@@ -74,11 +74,10 @@ export const transpile = async (
 
       return importMapReplace(transformedCode.code, origin);
     } catch (error) {
-      throw new Error(`Error during transpilation: ${error instanceof Error ? error.message : error}`);
+      throw error;
     }
   } catch (error) {
-    console.error("Error during transpilation:", error);
-    throw { error };
+    throw error;
   }
 };
 
