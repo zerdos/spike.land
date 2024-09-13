@@ -20,15 +20,14 @@ declare const self: {
   };
 };
 
-const mod: ModuleInitializer = (globalThis as unknown as { mod: ModuleInitializer }).mod =
-  (globalThis as unknown as { mod: ModuleInitializer }).mod || {
-    init: false,
-    initialize: async (wasmModule: WebAssembly.Module) => {
-      if (mod.init === true) return true;
-      await initialize({ wasmModule, worker: false });
-      return mod.init = true;
-    },
-  };
+const mod: ModuleInitializer = {
+  init: false,
+  initialize: async (wasmModule: WebAssembly.Module) => {
+    if (mod.init === true) return true;
+    await initialize({ wasmModule, worker: false });
+    return mod.init = true;
+  },
+};
 
 const mutex = new Mutex();
 
