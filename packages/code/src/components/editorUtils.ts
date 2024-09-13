@@ -81,7 +81,7 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
       : (error as unknown as { message: string })?.message || JSON.stringify(error);
 
     // we should see line breaks instead of \n -s in the pre block
-    const errorMessageWithLineBreaks = errorMessage.replace(/\\n/g, "\n");
+    const errorMessageWithLineBreaks = errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`);
     const contextManager = createContextManager(useCodeSpace());
     contextManager.updateContext(
       "errorLog",

@@ -10,6 +10,9 @@ export default defineConfig({
     },
     environment: "jsdom",
     globals: true,
-    setupFiles: ["./src/setupTests.ts"], // if you have a setup file
+    setupFiles: [
+      "./src/setupTests.ts", // if you have a setup file
+      "./src/__mocks__/workerMock.ts", // add our worker mock
+    ],
   },
 });
