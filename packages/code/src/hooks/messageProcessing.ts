@@ -14,9 +14,9 @@ export async function createNewMessage(
   if (images && images.length > 0) {
     images.forEach((image) => {
       imagesContent.push({
-        "type": "image_url",
-        "image_url": {
-          "url": image.url,
+        type: "image_url",
+        image_url: {
+          url: image.url,
         },
       });
     });
@@ -29,14 +29,6 @@ export async function createNewMessage(
     content: imagesContent.length > 0 ? imagesContent : claudeContent,
   };
 }
-
-// async function retryWithGpt4(
-//   aiHandler: AIHandler,
-//   updatedMessages: Message[],
-//   onUpdate: (code: string) => Promise<void>,
-// ): Promise<Message> {
-//   return await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
-// }
 
 export async function processMessage(
   aiHandler: AIHandler,
@@ -51,27 +43,27 @@ export async function processMessage(
   const contextManager = createContextManager(codeSpace);
   let sentMessages = [...updatedMessages];
 
-  const onUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
+  const onUpdate = createOnUpdateFunction(
+    sentMessages,
+    mutex,
+    setMessages,
+    cSess,
+    contextManager,
+  );
 
   try {
-    let assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, onUpdate);
-
-    if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-      throw new Error("Invalid assistant message content type");
-    }
-
-    const contentToProcess = extractTextContent(assistantMessage.content);
-
-    if (contentToProcess.includes("An error occurred while processing")) {
-      await cSess.setCode(codeNow);
-      assistantMessage = await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
-    }
+    let assistantMessage = await sendAssistantMessage(
+      aiHandler,
+      cSess,
+      codeNow,
+      updatedMessages,
+      onUpdate,
+    );
 
     sentMessages.push(assistantMessage);
     saveMessages(sentMessages);
 
-    // contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
-    // contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
+    let contentToProcess = extractTextContent(assistantMessage.content);
 
     let starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
@@ -89,103 +81,104 @@ export async function processMessage(
         };
 
         sentMessages.push(userMessage);
-        const newOnUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
+        const newOnUpdate = createOnUpdateFunction(
+          sentMessages,
+          mutex,
+          setMessages,
+          cSess,
+          contextManager,
+        );
 
-        assistantMessage = await aiHandler.sendToAnthropic(sentMessages, newOnUpdate);
-
-        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-          throw new Error("Invalid assistant message content in retry");
-        }
-
-        const newContentToProcess = extractTextContent(assistantMessage.content);
-
-        if (newContentToProcess.includes("An error occurred while processing")) {
-          await cSess.setCode(codeNow);
-          assistantMessage = await aiHandler.sendToGpt4o(sentMessages, newOnUpdate);
-        }
+        assistantMessage = await sendAssistantMessage(
+          aiHandler,
+          cSess,
+          codeNow,
+          sentMessages,
+          newOnUpdate,
+        );
 
         sentMessages.push(assistantMessage);
         saveMessages(sentMessages);
 
-        contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
-        contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
+        contentToProcess = extractTextContent(assistantMessage.content);
 
-        starterCode = await updateSearchReplace(newContentToProcess, starterCode);
+        starterCode = await updateSearchReplace(contentToProcess, starterCode);
         retries--;
       }
     }
 
-    try {
-      const finalSuccess = await trySetCode(cSess, starterCode);
-      if (finalSuccess) return true;
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      contextManager.updateContext("errorLog", errorMessage);
-      throw new Error(`Failed to set code after multiple attempts. Last error: ${errorMessage}`);
-    }
+    const finalSuccess = await trySetCode(cSess, starterCode);
+    return finalSuccess;
   } catch (error) {
+    console.error(`Error processing message: ${error}`);
     return false;
   }
-  return false;
 }
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
-  const result = await cSess.setCode(code);
-  if (!result) {
-    throw new Error("Failed to set code");
+  try {
+    const result = await cSess.setCode(code);
+    return result;
+  } catch (error) {
+    console.error(`Failed to set code: ${error}`);
+    return false;
   }
-  return true;
 }
 
 function createOnUpdateFunction(
   sentMessages: Message[],
-  // preUpdates: { last: number; lastCode: string; count: number },
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   cSess: ICode,
   contextManager: ReturnType<typeof createContextManager>,
 ) {
-  let controller = new AbortController();
-
   return async (code: string) => {
-    controller.abort();
-    controller = new AbortController();
-    const { signal } = controller;
-
-    setMessages([...sentMessages, {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: code,
-    }]);
+    setMessages([
+      ...sentMessages,
+      {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: code,
+      },
+    ]);
 
     await mutex.runExclusive(async () => {
-      if (signal.aborted) return;
       const lastCode = await updateSearchReplace(code, cSess.session.code);
-
-      if (signal.aborted) return;
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
     });
   };
 }
 
-function extractCurrentTask(aiResponse: string): string {
-  const taskMatch = aiResponse.match(/Current task: (.*)/);
-  return taskMatch ? taskMatch[1] : "";
+async function sendAssistantMessage(
+  aiHandler: AIHandler,
+  cSess: ICode,
+  codeNow: string,
+  messages: Message[],
+  onUpdate: (code: string) => Promise<void>,
+): Promise<Message> {
+  let assistantMessage = await aiHandler.sendToAnthropic(messages, onUpdate);
+
+  if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+    throw new Error("Invalid assistant message content type");
+  }
+
+  const contentToProcess = extractTextContent(assistantMessage.content);
+
+  if (contentToProcess.includes("An error occurred while processing")) {
+    await cSess.setCode(codeNow);
+    assistantMessage = await aiHandler.sendToGpt4o(messages, onUpdate);
+  }
+
+  return assistantMessage;
 }
 
-function extractCodeStructure(code: string): string {
-  const lines = code.split("\n");
-  const structure = lines.filter(line => line.trim().startsWith("function") || line.trim().startsWith("class")).join(
-    "\n",
-  );
-  return structure || "No clear structure detected";
-}
-
-function extractTextContent(content: string | Array<{ type: string; text?: string }>): string {
+function extractTextContent(
+  content: string | Array<{ type: string; text?: string }>,
+): string {
   if (typeof content === "string") {
     return content;
   }
-  const textItem = content.find(item => item.type === "text");
+  const textItem = content.find((item) => item.type === "text");
   return textItem?.text || "";
 }
