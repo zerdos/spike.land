@@ -1,117 +1,212 @@
-export const oo: { [key: string]: string } = {
-  "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-  "react/jsx-runtime": "/jsx.mjs",
-  "react-dom/server": "/reactDomServer.mjs",
-  "react-dom/client": "/reactDomClient.mjs",
-  "@emotion/react": "/emotion.mjs",
-  "react": "/reactMod.mjs",
-  "framer-motion": "/motion.mjs",
-  "react-dom": "/reactDom.mjs",
-  "foo-bar": "/fooBar.mjs",
-  "recharts": "/recharts.mjs",
-};
+// src/importMapUtils_oo.ts
 
-export const importMap = { imports: oo };
+export const importMap = {
+  imports: {
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom/server": "/reactDomServer.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/reactMod.mjs",
+    "framer-motion": "/motion.mjs",
+    "react-dom": "/reactDom.mjs",
+    "foo-bar": "/fooBar.mjs",
+    "recharts": "/recharts.mjs",
+  },
+} as { imports: Record<string, string> };
 
 export function importMapReplace(code: string, origin: string): string {
-  if (code.startsWith("/** importMapReplace */")) {
+  // Return early if the code already contains "importMapReplace" to avoid double processing
+  if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
   }
 
-  const importRegex = /^([ \t]*import\s+(?:[\w*{}\n\r\t, ]+)\s+from\s+)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
-  const dynamicImportRegex = /import\((["'`])(.+?)\1\)/g;
-  const exportRegex = /^([ \t]*export\s+(?:{\s*[\w\s,]+\s*}\s+from\s+)?)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
-  const simpleImportRegex = /^([ \t]*import\s*)["'](.*[@\w_-]+)["']\s*;?\s*(\/\/.*)?\s*$/gm;
+  // Convert code to string if it's not already a string
+  const codeStr = typeof code === "string"
+    ? code
+    : new TextDecoder().decode(new Uint8Array(code));
 
-  function replaceImport(match: string, importStatement: string, path: string, inlineComment: string = ""): string {
-    let newPath = path;
+  // Define regex patterns for different types of imports
+  const importPatterns = [
+    {
+      // Static imports
+      pattern: /(import\s*(?:[\w{},*\s]+)\s*from\s*)(['"`][^'"`]+['"`])/g,
+      processor: processStaticImport,
+    },
+    {
+      // Dynamic imports
+      pattern: /(import\()\s*(['"`][^'"`]+['"`])\s*(\))/g,
+      processor: processDynamicImport,
+    },
+    {
+      // Export from
+      pattern: /(export\s*(?:[\w{},*\s]+)\s*from\s*)(['"`][^'"`]+['"`])/g,
+      processor: processExportFrom,
+    },
+    {
+      // Import without from
+      pattern: /(?<![."@\w-])(import\s*)(['"`][^'"`]+['"`])/g,
+      processor: processBareImport,
+    },
+  ];
 
-    if (oo[path]) {
-      newPath = `${origin}${oo[path]}`;
-    } else if (path.startsWith(origin)) {
-      newPath = path;
-    } else if (path.startsWith("/")) {
-      newPath = path;
-    } else if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
-      if (path.startsWith("@/")) {
-        newPath = `${origin}${path}`;
-      } else if (path === "d3-time" || path === "react/jsx-runtime" || path === "react") {
-        newPath = path;
-      } else {
-        newPath = `${origin}/*${path}`;
-      }
-    } else {
-      return match;
-    }
+  let replacedCode = codeStr;
 
-    const exportsMatch = importStatement.match(
-      /{\s*([\w\s,]+(?:\s+as\s+[\w]+)?(?:\s*,\s*[\w]+(?:\s+as\s+[\w]+)?)*)\s*}/,
-    );
-    if (
-      exportsMatch && !oo[path] && !path.startsWith("@/") && !["d3-time", "react/jsx-runtime", "react"].includes(path)
-    ) {
-      const specificExports = exportsMatch[1].split(",").map(e => e.trim().split(/\s+as\s+/)[0]).join(",");
-      newPath += `?bundle=true&exports=${specificExports}`;
-    } else if (
-      !newPath.includes("?bundle") && !oo[path] && !path.startsWith("@/")
-      && !["d3-time", "react/jsx-runtime", "react"].includes(path)
-    ) {
-      newPath += "?bundle";
-    }
-
-    return `${importStatement}"${newPath}";${inlineComment ? " " + inlineComment : ""}`;
+  for (const { pattern, processor } of importPatterns) {
+    replacedCode = replacedCode.replace(pattern, (...args) => {
+      const relevantArgs = args.slice(0, -2) as [string, ...any[]];
+      relevantArgs.push(origin);
+      return processor(relevantArgs[0], relevantArgs[1], relevantArgs[2], relevantArgs[3]);
+    });
   }
 
-  function replaceDynamicImport(match: string, quote: string, path: string): string {
-    if (path.includes("${")) {
-      return match;
-    }
-    if (oo[path]) {
-      return `import(${quote}${origin}${oo[path]}${quote})`;
-    }
-    if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
-      if (path.startsWith("@/")) {
-        return `import(${quote}${origin}/${path}?bundle${quote})`;
-      }
-      return `import(${quote}${origin}/${path.includes("*") ? path : "*" + path + "?bundle"}${quote})`;
-    }
-    return match;
-  }
+  // Remove comments and trim lines
+  replacedCode = replacedCode
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => !line.startsWith("//"))
+    .join("\n");
 
-  function replaceExport(match: string, exportStatement: string, path: string, inlineComment: string = ""): string {
-    let newPath = path;
+  // Replace specific package paths based on the import map
+  Object.entries(importMap.imports).forEach(([pkg, path]) => {
+    const fullPath = `${origin}${path}`;
+    const escapedPkg = pkg.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`"${escapedPkg}"`, "g");
+    replacedCode = replacedCode.replace(regex, `"${fullPath}"`);
+  });
 
-    if (oo[path]) {
-      newPath = `${origin}${oo[path]}`;
-    } else if (!path.startsWith("http") && !path.startsWith("./") && !path.startsWith("../")) {
-      if (path.startsWith("@/")) {
-        newPath = `${origin}/${path}`;
-      } else {
-        newPath = `${origin}/*${path}?bundle`;
-      }
-    } else {
-      return match;
-    }
-
-    return `${exportStatement}"${newPath}";${inlineComment ? " " + inlineComment : ""}`;
-  }
-
-  function replaceSimpleImport(
-    match: string,
-    importStatement: string,
-    path: string,
-    inlineComment: string = "",
-  ): string {
-    if (path === "react/jsx-runtime" || path === "react") {
-      return match;
-    }
-    return replaceImport(match, importStatement, path, inlineComment);
-  }
-
-  code = code.replace(importRegex, replaceImport);
-  code = code.replace(dynamicImportRegex, replaceDynamicImport);
-  code = code.replace(exportRegex, replaceExport);
-  code = code.replace(simpleImportRegex, replaceSimpleImport);
-
-  return `/** importMapReplace */\n${code}`;
+  return `
+/** importMapReplace${!origin ? new Date().toISOString() : ""} */\n${replacedCode}`;
 }
+
+function resolveModuleSpecifier(
+  moduleName: string,
+  origin: string,
+  importedItems?: string,
+): string {
+  if (moduleName in importMap.imports) {
+    return `${origin}${importMap.imports[moduleName]}`;
+  }
+
+  // Handle external URLs
+  if (moduleName.startsWith("http")) {
+    if (!moduleName.startsWith(origin)) {
+      const url = new URL(moduleName);
+      const queryParams = url.searchParams;
+      if (queryParams.get("bundle") === "true" && queryParams.has("exports")) {
+        const pkgName = url.pathname.slice(1); // Remove leading '/'
+        const exports = queryParams.get("exports");
+        return `${origin}/*${pkgName}?bundle=true&exports=${exports}`;
+      }
+      return moduleName; // Keep external URLs as they are
+    }
+  }
+
+  // Do not change relative paths
+  if (moduleName.startsWith(".") || moduleName.startsWith("/")) {
+    return moduleName;
+  }
+
+  // Handle data URIs
+  if (moduleName.startsWith("data:text")) {
+    return `${moduleName}/index.js`;
+  }
+
+  // Handle specific origin-based paths
+  if (moduleName.startsWith(`${origin}/live`) && !moduleName.includes("index.js")) {
+    return `${moduleName}/index.js`;
+  }
+
+  if (moduleName.startsWith("./") && !moduleName.slice(2).includes(".")) {
+    return `${origin}/live/${moduleName.slice(2)}/index.js`;
+  }
+
+  if (moduleName.startsWith("/live")) {
+    return `${origin}${moduleName}/index.js`;
+  }
+
+  if (moduleName.startsWith("@/")) {
+    return `${origin}/${moduleName}.mjs`;
+  }
+
+  // Handle file extensions
+  const extension = moduleName.split(".").pop()!;
+  if (["js", "mjs", "ts", "tsx"].includes(extension)) {
+    return `${origin}/${moduleName}`;
+  }
+
+  // Handle specific exports
+  if (importedItems) {
+    return `${origin}/*${moduleName}?bundle=true&exports=${importedItems}`;
+  }
+
+  // Default case
+  return `${origin}/*${moduleName}?bundle`;
+}
+
+function processStaticImport(
+  p1: string,
+  p2: string,
+  origin: string,
+): string {
+  const moduleName = p2.slice(1, -1);
+
+  // Extract imported items
+  const importItemsMatch = p1.match(/import\s*{\s*([^}]+)\s*}/);
+  let importedItems = "";
+
+  if (importItemsMatch) {
+    importedItems = importItemsMatch[1]
+      .split(",")
+      .map(item => item.trim().split(/\s+as\s+/)[0].trim())
+      .join(",");
+  }
+
+  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin, importedItems);
+  return `${p1}"${newModuleSpecifier}"`;
+}
+
+function processDynamicImport(
+  p1: string,
+  p2: string,
+  p3: string,
+  origin: string,
+): string {
+  const moduleName = p2.slice(1, -1);
+  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin);
+  return `${p1}"${newModuleSpecifier}"${p3}`;
+}
+
+function processExportFrom(
+  p1: string,
+  p2: string,
+  origin: string,
+): string {
+  const moduleName = p2.slice(1, -1);
+
+  // Extract exported items
+  const exportItemsMatch = p1.match(/export\s*{\s*([^}]+)\s*}/);
+  let exportedItems = "";
+
+  if (exportItemsMatch) {
+    exportedItems = exportItemsMatch[1]
+      .split(",")
+      .map(item => item.trim().split(/\s+as\s+/)[0].trim())
+      .join(",");
+  }
+
+  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin, exportedItems);
+  return `${p1}"${newModuleSpecifier}"`;
+}
+
+function processBareImport(
+  p1: string,
+  p2: string,
+  origin: string,
+): string {
+  const moduleName = p2.slice(1, -1);
+  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin);
+  return `${p1}"${newModuleSpecifier}"`;
+}
+
+export default importMap;

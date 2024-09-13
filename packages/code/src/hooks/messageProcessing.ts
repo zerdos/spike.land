@@ -49,7 +49,7 @@ export async function processMessage(
   codeSpace: string,
 ): Promise<boolean> {
   const contextManager = createContextManager(codeSpace);
-  const sentMessages = [...updatedMessages];
+  let sentMessages = [...updatedMessages];
 
   const onUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
 
@@ -67,72 +67,66 @@ export async function processMessage(
       assistantMessage = await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
     }
 
-    updatedMessages.push(assistantMessage);
-    saveMessages(updatedMessages);
+    sentMessages.push(assistantMessage);
+    saveMessages(sentMessages);
 
-    contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
-    contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
+    // contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
+    // contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
 
     let starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
     if (starterCode !== codeNow) {
       let retries = 3;
       while (retries > 0) {
-        try {
-          const success = await trySetCode(cSess, starterCode);
-          if (success) return true;
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : String(error);
-          contextManager.updateContext("errorLog", errorMessage);
+        const success = await trySetCode(cSess, starterCode);
+        if (success) return true;
 
-          const userMessage: Message = {
-            id: Date.now().toString(),
-            role: "user",
-            content: claudeRecovery(starterCode, errorMessage),
-          };
-          const newMessages = [...updatedMessages, userMessage];
-          const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
+        const errorMessage = contextManager.getContext("errorLog");
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          role: "user",
+          content: claudeRecovery(starterCode, errorMessage),
+        };
 
-          assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
+        sentMessages.push(userMessage);
+        const newOnUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
 
-          if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-            throw new Error("Invalid assistant message content in retry");
-          }
+        assistantMessage = await aiHandler.sendToAnthropic(sentMessages, newOnUpdate);
 
-          const newContentToProcess = extractTextContent(assistantMessage.content);
-
-          if (newContentToProcess.includes("An error occurred while processing")) {
-            await cSess.setCode(codeNow);
-            assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
-          }
-
-          updatedMessages.push(assistantMessage);
-          saveMessages(updatedMessages);
-
-          contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
-          contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
-
-          starterCode = await updateSearchReplace(newContentToProcess, starterCode);
+        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+          throw new Error("Invalid assistant message content in retry");
         }
 
-        retries--;
-      }
+        const newContentToProcess = extractTextContent(assistantMessage.content);
 
-      try {
-        const finalSuccess = await trySetCode(cSess, starterCode);
-        if (finalSuccess) return true;
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : String(error);
-        contextManager.updateContext("errorLog", errorMessage);
-        throw new Error(`Failed to set code after multiple attempts. Last error: ${errorMessage}`);
+        if (newContentToProcess.includes("An error occurred while processing")) {
+          await cSess.setCode(codeNow);
+          assistantMessage = await aiHandler.sendToGpt4o(sentMessages, newOnUpdate);
+        }
+
+        sentMessages.push(assistantMessage);
+        saveMessages(sentMessages);
+
+        contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
+        contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
+
+        starterCode = await updateSearchReplace(newContentToProcess, starterCode);
+        retries--;
       }
     }
 
-    return true;
+    try {
+      const finalSuccess = await trySetCode(cSess, starterCode);
+      if (finalSuccess) return true;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      contextManager.updateContext("errorLog", errorMessage);
+      throw new Error(`Failed to set code after multiple attempts. Last error: ${errorMessage}`);
+    }
   } catch (error) {
-    console.error("Error in processMessage:", error);
     return false;
   }
+  return false;
 }
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
