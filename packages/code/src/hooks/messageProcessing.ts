@@ -52,6 +52,7 @@ export async function processMessage(
   );
 
   try {
+    console.log("Processing message");
     let assistantMessage = await sendAssistantMessage(
       aiHandler,
       cSess,
@@ -67,11 +68,13 @@ export async function processMessage(
 
     let starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
-    if (starterCode !== codeNow) {
+    if (starterCode === codeNow) {
       let retries = 3;
       while (retries > 0) {
-        const success = await trySetCode(cSess, starterCode);
-        if (success) return true;
+        if (starterCode !== codeNow) {
+          const success = await trySetCode(cSess, starterCode);
+          if (success) return true;
+        }
 
         const errorMessage = contextManager.getContext("errorLog");
         const userMessage: Message = {
@@ -81,6 +84,7 @@ export async function processMessage(
         };
 
         sentMessages.push(userMessage);
+
         const newOnUpdate = createOnUpdateFunction(
           sentMessages,
           mutex,
