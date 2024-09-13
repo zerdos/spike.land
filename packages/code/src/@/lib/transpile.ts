@@ -1,6 +1,7 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
 import { importMapReplace } from "@/lib/importmap-utils";
+import { wasmFile } from "@src/esbuildWASM";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 
 interface ModuleInitializer {
@@ -9,6 +10,7 @@ interface ModuleInitializer {
 }
 
 declare const self: {
+  wasmFile: string;
   mod: {
     init: boolean | Promise<boolean>;
     initialize: (
@@ -34,7 +36,7 @@ const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string
     await mod.initialize(wasmModule);
   } else if (origin) {
     await initialize({
-      wasmURL: new URL(`${origin}/esbuild-wasm/esbuild.wasm`).toString(),
+      wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
       worker: false,
     });
     mod.init = true;

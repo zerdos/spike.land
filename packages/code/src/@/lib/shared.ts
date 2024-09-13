@@ -2,7 +2,7 @@ import { ICodeSession } from "@/lib/interfaces";
 import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
+
 import { RpcProvider } from "worker-rpc";
 
 class WorkerWrapper {
