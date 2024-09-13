@@ -1,5 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { importMap, importMapReplace } from "@spike-land/code";
+import { importMap, importMapReplace , prettierJs} from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -288,8 +288,7 @@ async function handleDefaultCase(
       && (contentType && contentType.indexOf("charset"))
     ) {
       try {
-        return new Response(
-          importMapReplace(await resp.text(), u.origin),
+        return new Response( await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin)),
           {
             ...resp,
             headers,
