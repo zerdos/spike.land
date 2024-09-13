@@ -15,7 +15,7 @@ declare var self: SharedWorkerGlobalScope & {
   transpile: typeof Transpile;
   build: typeof Build;
   tsx: (code: string) => Promise<string[]>;
-  updateSearchReplace: (instructions: string, code: string) => Promise<string>;
+  updateSearchReplace: (instructions: string, code: string, prettierJs: typeof Prettier) => Promise<string>;
 };
 
 importScripts(
@@ -79,7 +79,8 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
 
   rpcProvider.registerRpcHandler(
     "updateSearchReplace",
-    ({ code, instructions }: { code: string; instructions: string }) => updateSearchReplace(instructions, code),
+    ({ code, instructions }: { code: string; instructions: string }) =>
+      updateSearchReplace(instructions, code, prettierJs),
   );
   rpcProvider.registerRpcHandler(
     "build",

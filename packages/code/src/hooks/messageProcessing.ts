@@ -145,37 +145,26 @@ function createOnUpdateFunction(
   cSess: ICode,
   contextManager: ReturnType<typeof createContextManager>,
 ) {
+  let controller = new AbortController();
+
   return async (code: string) => {
+    controller.abort();
+    controller = new AbortController();
+    const { signal } = controller;
+
+    setMessages([...sentMessages, {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: code,
+    }]);
+
     await mutex.runExclusive(async () => {
+      if (signal.aborted) return;
       const lastCode = await updateSearchReplace(code, cSess.session.code);
 
+      if (signal.aborted) return;
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
-
-      // const lastChunk = code.slice(preUpdates.last + 1);
-      // if (lastChunk.includes(">>>>>>> REPLACE")) {
-      //   const nextStr = code.slice(preUpdates.last + 1);
-      //   preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE") + preUpdates.last + 17;
-      //   const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
-
-      //   if (lastCode !== preUpdates.lastCode) {
-      //     preUpdates.lastCode = lastCode;
-      //     preUpdates.count += 1;
-      //     try {
-      //       await trySetCode(cSess, lastCode);
-      //       // Update context with new code structure
-      //       contextManager.updateContext("codeStructure", extractCodeStructure(lastCode));
-      //     } catch (error) {
-      //       console.error("Error in runner:", error);
-      //     }
-      //   }
-      // }
-
-      setMessages([...sentMessages, {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: code,
-      }]);
     });
   };
 }
