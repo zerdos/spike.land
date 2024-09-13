@@ -1,4 +1,4 @@
-declare module "esbuild-wasm/esbuild.wasm" {
-  declare const fn: string;
-  export default fn;
+declare module "*.wasm" {
+  const value: string;
+  export default value;
 }

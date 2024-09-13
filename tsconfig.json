@@ -32,5 +32,5 @@
     "typeRoots": ["./node_modules/@types", "./src"]
   },
   "exclude": ["dts", "node_modules", "dist"],
-  "include": ["packages/**/*.ts", "packages/**/*.tsx"]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/js.spike.land/src/esbuild-wasm/esbuild.wasm.mjs"]
 }
