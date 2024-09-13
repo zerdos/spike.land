@@ -1,8 +1,19 @@
 // src/index.ts
-const SharedWorkerSupported = "SharedWorker" in globalThis;
+const SharedWorkerSupported = typeof SharedWorker !== "undefined";
 
-type WorkerOptions = WorkerOptions;
-type SharedWorkerOptions = WorkerOptions;
+let ActualWorker: typeof Worker;
+let ActualSharedWorker: typeof SharedWorker;
+
+if (typeof Worker !== "undefined") {
+  ActualWorker = Worker;
+  ActualSharedWorker = SharedWorker;
+} else {
+  // Use dynamic import for the mock
+  import("./worker-mock").then((module) => {
+    ActualWorker = module.MockWorker;
+    ActualSharedWorker = module.MockSharedWorker;
+  });
+}
 
 class SharedWorkerPolyfill {
   /**
@@ -12,9 +23,9 @@ class SharedWorkerPolyfill {
 
   constructor(url: string | URL, opts?: WorkerOptions) {
     if (SharedWorkerSupported) {
-      this.ActualWorker = new SharedWorker(url, opts as SharedWorkerOptions);
+      this.ActualWorker = new ActualSharedWorker(url, opts);
     } else {
-      this.ActualWorker = new Worker(url, opts);
+      this.ActualWorker = new ActualWorker(url, opts);
     }
   }
 
@@ -68,11 +79,11 @@ class SharedWorkerPolyfill {
   /**
    * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
    */
-  postMessage(message: any, transfer?: Transferable[]): void {
+  postMessage(message: any, options?: StructuredSerializeOptions): void {
     if (SharedWorkerSupported) {
-      (this.ActualWorker as SharedWorker).port.postMessage(message, transfer);
+      (this.ActualWorker as SharedWorker).port.postMessage(message, options);
     } else {
-      (this.ActualWorker as Worker).postMessage(message, transfer);
+      (this.ActualWorker as Worker).postMessage(message, options);
     }
   }
 
@@ -98,7 +109,9 @@ class SharedWorkerPolyfill {
    * Returns a MessagePort object used to communicate with and control the shared worker.
    */
   get port(): MessagePort {
-    return SharedWorkerSupported ? (this.ActualWorker as SharedWorker).port : (this.ActualWorker as unknown as MessagePort);
+    return SharedWorkerSupported
+      ? (this.ActualWorker as SharedWorker).port
+      : (this.ActualWorker as unknown as MessagePort);
   }
 
   /**
@@ -112,7 +125,11 @@ class SharedWorkerPolyfill {
     this.ActualWorker.onerror = value;
   }
 
-  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void {
     if (SharedWorkerSupported && type !== "error") {
       (this.ActualWorker as SharedWorker).port.addEventListener(type, listener, options);
     } else {
@@ -120,7 +137,11 @@ class SharedWorkerPolyfill {
     }
   }
 
-  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void {
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void {
     if (SharedWorkerSupported && type !== "error") {
       (this.ActualWorker as SharedWorker).port.removeEventListener(type, listener, options);
     } else {
