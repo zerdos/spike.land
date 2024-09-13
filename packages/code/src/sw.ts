@@ -7,13 +7,14 @@ const sw = self as unknown as
   & { files: { [key: string]: string }; fileCacheName: string };
 sw.__WB_DISABLE_DEV_LOGS = true;
 
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import * as navigationPreload from "workbox-navigation-preload";
 import { precacheAndRoute } from "workbox-precaching";
 import { NavigationRoute, registerRoute, Route } from "workbox-routing";
 import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 // Precache the manifest
-precacheAndRoute(sw.files);
+precacheAndRoute(Object.keys(sw.files).map((key) => ({ url: sw.files[key] })));
 
 // Enable navigation preload
 navigationPreload.enable();
