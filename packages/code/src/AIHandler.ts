@@ -18,7 +18,7 @@ export class AIHandler {
         anthropicEndpoint: "/api/anthropic",
         openAIEndpoint: "/api/openai",
         gpt4oEndpoint: "/api/openai",
-        updateThrottleMs: 300,
+        updateThrottleMs: 1300,
         retryWithClaudeEnabled: true,
         setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
       },
