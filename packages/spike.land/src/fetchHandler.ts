@@ -1,5 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { importMap, importMapReplace , prettierJs} from "@spike-land/code";
+import { importMap, importMapReplace , md5, prettierJs} from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -258,6 +258,8 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
   }
 }
 
+const cacheName = "eeeKvCache123";
+
 async function handleDefaultCase(
   path: string[],
   request: Request,
@@ -268,6 +270,19 @@ async function handleDefaultCase(
 ) {
   if (!isUrlFile(path.join("/"))) {
     const esmWorker = (await import("./esm.worker")).default;
+    const md5Key = md5(newUrl.toString() + cacheName);
+    const cache = await env.R2.get(md5Key);
+    if (cache) {
+      return new Response(cache.body, {
+        headers: {
+          "Content-Type": "application/javascript; charset=UTF-8",
+          "Cache-Control": "public, max-age=604800",
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+        },
+      }); 
+    }
+    
     const resp = await esmWorker.fetch(request, env, ctx);
     if (!resp.ok) return resp;
 
@@ -288,7 +303,14 @@ async function handleDefaultCase(
       && (contentType && contentType.indexOf("charset"))
     ) {
       try {
-        return new Response( await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin)),
+        const content = await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
+        ctx.waitUntil(env.R2.put(md5Key, content));
+
+
+        
+
+        return new Response( 
+          content,
           {
             ...resp,
             headers,
