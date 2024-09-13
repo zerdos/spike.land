@@ -1,9 +1,31 @@
-import { extractCodeModification } from "@/lib/chat-utils";
+import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 import { describe, expect, it } from "vitest";
 
 describe("diffUtils", () => {
   describe("extractDiffContent", () => {
+    it("should handle broken search replace blocks", () => {
+      const instructions = `
+      foooo
+  \`\`\`tsx
+const a = 1;
+=======
+const a = 10;
+=======
+     fooo bar blalalal
+  \`\`\`
+  
+  baaar
+     `;
+
+      const extracted = extractCodeModification(instructions).join("\n\n");
+      expect(extracted).toBe(`<<<<<<< SEARCH
+const a = 1;
+=======
+const a = 10;
+>>>>>>> REPLACE`);
+    });
+
     it("should extract original and modified content correctly", () => {
       const diffContent = `
 <<<<<<< SEARCH
@@ -317,8 +339,36 @@ Replace the copy button with this updated version:
 These changes create a darker, more professional look for the code block component, remove the Mac-style buttons for a cleaner appearance, and provide multiple icon options for the copy functionality. The component now has a more versatile and customizable feel, suitable for various user preferences in your online code editor.
     `;
 
-    const result = extractCodeModification(diffContent);
-    expect(result.length).toBe(3311);
+    const result = extractCodeModification(diffContent).join("\n\n");
     expect(result).toMatchSnapshot();
+  });
+
+  describe("updateSearchReplace", () => {
+    it("should handle broken code blocks", () => {
+      const oldCode = `
+<<<<<<< SEARCH
+const example = () => {
+  console.log("Hello");
+  =======
+console.log("World");
+  =======
+  return "Hello World";
+};
+>>>>>>> REPLACE
+      `;
+
+      const codeNow = `
+  console.log("Hello");
+  return "Hello World";
+      `;
+
+      const result = updateSearchReplace(oldCode, codeNow);
+      const expected = `
+  console.log("Hello");
+  return "Hello World";
+      `;
+
+      expect(result.trim()).toBe(expected.trim());
+    });
   });
 });

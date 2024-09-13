@@ -1,4 +1,4 @@
-import { updateSearchReplace } from "@/lib/chat-utils";
+import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
 import { describe, expect, it } from "vitest";
 
 describe("updateSearchReplace", () => {
@@ -23,12 +23,15 @@ describe("updateSearchReplace", () => {
   });
 
   it("should handle multiple modifications", () => {
-    const instructions = `
+    const inst = `
       <<<<<<< SEARCH
       const a = 1;
       =======
       const a = 2;
-      >>>>>>> REPLACE
+      >>>>>>> REPLACEs
+
+
+    
       <<<<<<< SEARCH
       let b = 3;
       =======
@@ -36,25 +39,97 @@ describe("updateSearchReplace", () => {
       >>>>>>> REPLACE
     `;
     const codeNow = "const a = 1;\nlet b = 3;";
-    const result = updateSearchReplace(instructions, codeNow);
+    const instructions = extractCodeModification(inst);
+    expect(instructions).toMatchSnapshot();
+
+    const result = updateSearchReplace(inst, codeNow);
     expect(result).toBe("const a = 2;\nlet b = 4;");
   });
 
   it("should return the original code if an error occurs", () => {
     const instructions = `
       <<<<<<< SEARCH
-      const a = 1;
+      const asqqaa = 1;
       =======
       const a = 2;
-      >>>>>>> REPLACE
+      >s>>>>>> REPLACE
     `;
     const codeNow = "const a = 1; ";
 
-    const em = () => {
-      throw new Error("Mock error");
-    };
-
-    const result = updateSearchReplace(instructions, codeNow, em);
+    const result = updateSearchReplace(instructions, codeNow);
     expect(result).toBe(codeNow);
+  });
+
+  it("should handle broken search replace blocks", () => {
+    const codeNow = `
+    const a = 1;
+    const b = 2;
+    const c = 3;
+    `;
+
+    const instructions = `
+\`\`\`tsx
+    const a = 1;
+    =======
+    const a = 10;
+    =======
+    fooo bar blalalal
+\`\`\`
+    `;
+
+    const result = updateSearchReplace(instructions, codeNow);
+    expect(result).toBe(`
+    const a = 10;
+    const b = 2;
+    const c = 3;
+    `);
+  });
+
+  it("should handle broken search replace blocks", () => {
+    const codeNow = `
+    const a = 1;
+    const b = 2;
+    const c = 3;
+    `;
+
+    const instructions = `
+\`\`\`tsx
+    const a = 1;
+    =======
+    const a = 10;
+    =======
+    fooo bar blalalal
+\`\`\`
+
+
+some text between
+\`\`\`tsx
+    const b = 2;
+    =======
+    const b = 20;
+ \`\`\`
+ 
+ 
+
+\`\`\`tsx
+    <<<<<<< SEARCH
+    const c = 3;
+    =======
+    const c = 30;
+\`\`\`
+\`\`\`tsx
+    <<<<<<< SEARCH
+    This is a broken block
+    =======
+    This should be ignored
+\`\`\`
+    `;
+
+    const result = updateSearchReplace(instructions, codeNow);
+    expect(result).toBe(`
+    const a = 10;
+    const b = 20;
+    const c = 30;
+    `);
   });
 });
