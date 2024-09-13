@@ -47,7 +47,7 @@ class WorkerPool {
 
     if (typeof process !== "undefined" && process.env.VI_TEST === "true") {
       const { Worker, MessageChannel } = require("worker_threads");
-      worker = new Worker("@/worker/ataWorker.worker.js");
+      worker = new Worker("@/worker/ata-worker.worker.js");
 
       const channel = new MessageChannel();
       port = channel.port1;
@@ -64,10 +64,10 @@ class WorkerPool {
       port.start();
       channel.port2.start();
     } else if (typeof SharedWorker !== "undefined") {
-      worker = new SharedWorker("/@/workers/ataWorker.worker.js");
+      worker = new SharedWorker("/@/workers/ata-worker.worker.js");
       port = worker.port;
     } else {
-      worker = new Worker("/@/workers/ataWorker.worker.js");
+      worker = new Worker("/@/workers/ata-worker.worker.js");
       port = worker as unknown as MessagePort;
     }
 
