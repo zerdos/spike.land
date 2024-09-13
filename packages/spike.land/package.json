@@ -18,13 +18,13 @@
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240909.0",
     "typescript": "5.6.2",
-    "wrangler": "3.76.0"
+    "wrangler": "3.77.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.3",
     "@clerk/backend": "1.11.1",
     "@clerk/clerk-sdk-node": "5.0.38",
-    "@cloudflare/vitest-pool-workers": "^0.4.30",
+    "@cloudflare/vitest-pool-workers": "^0.4.31",
     "@remix-run/cloudflare": "^2.12.0",
     "@remix-run/react": "^2.12.0",
     "@spike-land/code": "0.9.55",
@@ -34,7 +34,7 @@
     "esbuild-wasm": "0.23.1",
     "esm-worker": "0.135.17",
     "immutable": "4.3.7",
-    "openai": "^4.59.0",
+    "openai": "^4.60.0",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",

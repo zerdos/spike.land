@@ -32,8 +32,10 @@ export class Code implements ICode {
   }
 
   broadCastSessChanged() {
+    if (this.broadcastedCounter >= this.session.i) return;
+
     this.broadcastedCounter = this.session.i;
-    this.subs.forEach(cb => cb(this.session));
+    this.subs.forEach(cb => setTimeout(() => cb(this.session)));
   }
 
   async setCode(rawCode: string) {
@@ -53,6 +55,7 @@ export class Code implements ICode {
 
     if (this.session.code === code) {
       console.log("After the formatting -  its unchanged!");
+
       return code;
     }
 
@@ -105,6 +108,7 @@ export class Code implements ICode {
 
     console.log("Sending message to BC", this.session);
 
+    this.broadCastSessChanged();
     this.BC.postMessage({
       ...this.session,
       sender: "Editor",
