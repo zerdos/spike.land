@@ -9,7 +9,6 @@ interface ModuleInitializer {
   init: boolean | Promise<boolean>;
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
 }
-c;
 
 declare const self: {
   wasmFile: string;
