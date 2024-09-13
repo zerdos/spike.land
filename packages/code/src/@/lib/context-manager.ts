@@ -5,6 +5,7 @@ export interface ProjectContext {
   techStack: string;
   completionCriteria: string;
   codeStructure: string;
+  currentDraft: string;
   adaptiveInstructions: string;
   errorLog: string;
   progressTracker: string;
@@ -33,6 +34,7 @@ class ContextManager {
       currentTask: "",
       techStack: "",
       completionCriteria: "",
+      currentDraft: "",
       codeStructure: "",
       adaptiveInstructions: "",
       errorLog: "",

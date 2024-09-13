@@ -139,7 +139,7 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
 
 function createOnUpdateFunction(
   sentMessages: Message[],
-  preUpdates: { last: number; lastCode: string; count: number },
+  // preUpdates: { last: number; lastCode: string; count: number },
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   cSess: ICode,
@@ -147,24 +147,29 @@ function createOnUpdateFunction(
 ) {
   return async (code: string) => {
     await mutex.runExclusive(async () => {
-      const lastChunk = code.slice(preUpdates.last + 1);
-      if (lastChunk.includes(">>>>>>> REPLACE")) {
-        const nextStr = code.slice(preUpdates.last + 1);
-        preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE") + preUpdates.last + 17;
-        const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
+      const lastCode = updateSearchReplace(code, cSess.session.code);
 
-        if (lastCode !== preUpdates.lastCode) {
-          preUpdates.lastCode = lastCode;
-          preUpdates.count += 1;
-          try {
-            await trySetCode(cSess, lastCode);
-            // Update context with new code structure
-            contextManager.updateContext("codeStructure", extractCodeStructure(lastCode));
-          } catch (error) {
-            console.error("Error in runner:", error);
-          }
-        }
-      }
+      const success = await trySetCode(cSess, lastCode);
+      contextManager.updateContext("currentDraft", success ? "" : lastCode);
+
+      // const lastChunk = code.slice(preUpdates.last + 1);
+      // if (lastChunk.includes(">>>>>>> REPLACE")) {
+      //   const nextStr = code.slice(preUpdates.last + 1);
+      //   preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE") + preUpdates.last + 17;
+      //   const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
+
+      //   if (lastCode !== preUpdates.lastCode) {
+      //     preUpdates.lastCode = lastCode;
+      //     preUpdates.count += 1;
+      //     try {
+      //       await trySetCode(cSess, lastCode);
+      //       // Update context with new code structure
+      //       contextManager.updateContext("codeStructure", extractCodeStructure(lastCode));
+      //     } catch (error) {
+      //       console.error("Error in runner:", error);
+      //     }
+      //   }
+      // }
 
       setMessages([...sentMessages, {
         id: Date.now().toString(),
