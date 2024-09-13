@@ -258,7 +258,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
   }
 }
 
-const cacheName = "eeeKvCache124";
+// const cacheName = "eeeKvCache124";
 
 async function handleDefaultCase(
   path: string[],
@@ -303,14 +303,14 @@ async function handleDefaultCase(
       && (contentType && contentType.indexOf("charset"))
     ) {
       try {
-        const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
-        ctx.waitUntil(env.R2.put(md5Key, content));
+        // const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
+        // ctx.waitUntil(env.R2.put(md5Key, content));
 
 
         
 
         return new Response( 
-          importMapReplace(await resp.text()),
+          importMapReplace(await resp.text(), u.origin),
           {
             ...resp,
             headers,
