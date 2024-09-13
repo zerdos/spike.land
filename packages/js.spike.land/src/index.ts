@@ -131,6 +131,7 @@ const handlePostRequest = async (request: Request) => {
   if (typeof respText === "string") {
     return new Response(respText, {
       headers: {
+        "content-type": "application/javascript",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
       },
