@@ -35,7 +35,7 @@ const RESOLUTION = {
 Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
-export const claudeRecovery = (codeNow: string) =>
+export const claudeRecovery = (codeNow: string, errorLog: string) =>
   `Hey,
 something went wrong with processing your code. Its not even running.
 Did you send the change request in the correct format? 
@@ -53,6 +53,11 @@ I followed the instructions you gave me, but it seems that I'm still stuck. The 
 
 \`\`\`tsx
 ${codeNow}
+\`\`\`
+
+The error what I am getting is:
+\`\`\`
+${errorLog}
 \`\`\`
 
 Could you help me with this error? I'm stuck.

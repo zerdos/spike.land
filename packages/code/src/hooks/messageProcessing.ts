@@ -6,6 +6,7 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 export async function createNewMessage(
   images: ImageData[],
@@ -77,44 +78,50 @@ export async function processMessage(
     contextManager.updateContext("currentTask", extractCurrentTask(contentToProcess));
     contextManager.updateContext("codeStructure", extractCodeStructure(contentToProcess));
 
-    const starterCode = await updateSearchReplace(contentToProcess, codeNow);
+    let starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
     if (starterCode !== codeNow) {
-      const success = await trySetCode(cSess, starterCode);
-      if (success) return true;
+      let retries = 3;
+      while (retries > 0) {
+        const success = await trySetCode(cSess, starterCode);
+        if (success) return true;
 
-      // If setting the code fails, try again with a new message
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        role: "user",
-        content: claudeRecovery(starterCode),
-      };
-      const newMessages = [...updatedMessages, userMessage];
-      const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
+        const errorLog = contextManager.getContext("errorLog");
+        // If setting the code fails, try again with a new message
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          role: "user",
+          content: claudeRecovery(starterCode, errorLog),
+        };
+        const newMessages = [...updatedMessages, userMessage];
+        const newOnUpdate = createOnUpdateFunction(newMessages, mutex, setMessages, cSess, contextManager);
 
-      assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
+        assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
 
-      if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-        throw new Error("Invalid assistant message content type in retry");
+        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+          throw new Error("Invalid assistant message content type in retry");
+        }
+
+        const newContentToProcess = extractTextContent(assistantMessage.content);
+
+        if (newContentToProcess.includes("An error occurred while processing")) {
+          await cSess.setCode(codeNow);
+          assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
+        }
+
+        updatedMessages.push(assistantMessage);
+        saveMessages(updatedMessages);
+
+        // Update context based on new AI response
+        contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
+        contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
+
+        starterCode = await updateSearchReplace(newContentToProcess, starterCode);
+
+        retries--;
       }
 
-      const newContentToProcess = extractTextContent(assistantMessage.content);
-
-      if (newContentToProcess.includes("An error occurred while processing")) {
-        await cSess.setCode(codeNow);
-        assistantMessage = await aiHandler.sendToGpt4o(newMessages, newOnUpdate);
-      }
-
-      updatedMessages.push(assistantMessage);
-      saveMessages(updatedMessages);
-
-      // Update context based on new AI response
-      contextManager.updateContext("currentTask", extractCurrentTask(newContentToProcess));
-      contextManager.updateContext("codeStructure", extractCodeStructure(newContentToProcess));
-
-      const secondGuess = await updateSearchReplace(newContentToProcess, codeNow);
-
-      const secondSuccess = await trySetCode(cSess, secondGuess);
+      const secondSuccess = await trySetCode(cSess, starterCode);
       if (secondSuccess) return true;
 
       throw new Error("Failed to set code after multiple attempts");
