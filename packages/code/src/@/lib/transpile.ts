@@ -2,12 +2,14 @@ import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { wasmFile } from "@src/esbuildWASM";
+import { Mutex } from "async-mutex";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
 }
+c;
 
 declare const self: {
   wasmFile: string;
@@ -29,6 +31,8 @@ const mod: ModuleInitializer = (globalThis as unknown as { mod: ModuleInitialize
     },
   };
 
+const mutex = new Mutex();
+
 const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string) => {
   if (mod.init) return;
 
@@ -39,6 +43,7 @@ const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string
       wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
       worker: false,
     });
+
     mod.init = true;
   } else {
     throw new Error("Either wasmModule or origin must be provided");
@@ -50,41 +55,43 @@ export const transpile = async (
   origin: string,
   wasmModule?: WebAssembly.Module,
 ): Promise<string | { error: unknown }> => {
-  try {
-    await initializeModule(wasmModule, origin);
-
+  return mutex.runExclusive(async () => {
     try {
-      const transformedCode = await transform(code, {
-        loader: "tsx",
-        format: "esm",
-        treeShaking: true,
-        platform: "browser",
-        minify: false,
-        charset: "utf8",
-        keepNames: true,
-        tsconfigRaw: {
-          compilerOptions: {
-            jsx: "react-jsx",
-            jsxFragmentFactory: "Fragment",
-            jsxImportSource: "@emotion/react",
-          },
-        },
-        target: "es2024",
-      });
+      await initializeModule(wasmModule, origin);
 
-      return importMapReplace(transformedCode.code, origin);
+      try {
+        const transformedCode = await transform(code, {
+          loader: "tsx",
+          format: "esm",
+          treeShaking: true,
+          platform: "browser",
+          minify: false,
+          charset: "utf8",
+          keepNames: true,
+          tsconfigRaw: {
+            compilerOptions: {
+              jsx: "react-jsx",
+              jsxFragmentFactory: "Fragment",
+              jsxImportSource: "@emotion/react",
+            },
+          },
+          target: "es2024",
+        });
+
+        return importMapReplace(transformedCode.code, origin);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error during transpile:", error.message);
+        }
+        throw error;
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error during transpile:", error.message);
       }
       throw error;
     }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Error during transpile:", error.message);
-    }
-    throw error;
-  }
+  });
 };
 
 const getDefaultBuildOptions = (
@@ -173,16 +180,18 @@ export const build = async ({
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }): Promise<string | import("esbuild-wasm").OutputFile[] | { error: unknown } | undefined> => {
-  try {
-    await initializeModule(wasmModule, origin);
-    const defaultOpts = getDefaultBuildOptions(codeSpace, origin, entryPoint, external, splitting, format);
-    const result = await esmBuild(defaultOpts);
+  return mutex.runExclusive(async () => {
+    try {
+      await initializeModule(wasmModule, origin);
+      const defaultOpts = getDefaultBuildOptions(codeSpace, origin, entryPoint, external, splitting, format);
+      const result = await esmBuild(defaultOpts);
 
-    return splitting ? result.outputFiles : result.outputFiles![0].text;
-  } catch (error) {
-    console.error("Error during build:", error);
-    return { error };
-  }
+      return splitting ? result.outputFiles : result.outputFiles![0].text;
+    } catch (error) {
+      console.error("Error during build:", error);
+      return { error };
+    }
+  });
 };
 
 Object.assign(globalThis, { transpile, build });
