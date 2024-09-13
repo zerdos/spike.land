@@ -17,7 +17,6 @@ export const makeEnv = (
   "process.env.isBrowser": string;
   "process.env.isWebworker": string;
   "process.env.VI_TEST": string;
-  "process.env.ESBUILD_BINARY_PATH": string;
   isBrowser: string;
   isJest: string;
   "process.env.version": string;

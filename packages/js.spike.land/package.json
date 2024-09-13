@@ -12,8 +12,7 @@
     "deploy:dev": "wrangler deploy  src/index.ts",
     "prepublishOnly": "wrangler deploy src/index.ts",
     "predeploy": "yarn x:build",
-    "x:build": "echo oook",
-    "xs:build": "rm -rf ./src/esbuild.wasm && cp ../code/dist/esbuild*.wasm ./src/esbuild.wasm"
+    "x:build": "rm -rf ./src/esbuild.wasm && cp ../code/dist/esbuild*.wasm ./src/esbuild.wasm"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",

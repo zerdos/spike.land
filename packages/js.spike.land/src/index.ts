@@ -1,5 +1,5 @@
-import { build, transpile } from "@spike-land/code";
-import {wasmFile} from "";
+import { build, transpile } from "@spike-land/code/src/@/lib/transpile";
+import wasmFile from "./esbuild.wasm";
 
 
 Object.assign(globalThis, {

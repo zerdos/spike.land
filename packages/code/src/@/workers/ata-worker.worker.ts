@@ -49,7 +49,7 @@ function lazyLoadScript(script: string): Promise<void> {
     }
 
     try {
-      importScripts(`/@/workers/${script}.js`);
+      importScripts(`/@/workers/${script}.worker.js`);
       loadedScripts.add(script);
       resolve();
     } catch (error) {
@@ -67,17 +67,17 @@ function start(port: MessagePort) {
 
 function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   rpcProvider.registerRpcHandler("prettierJs", async ({ code, toThrow }: { code: string; toThrow: boolean }) => {
-    await lazyLoadScript("prettierEsm");
+    await lazyLoadScript("prettier-esm");
     return self.prettierJs(code, toThrow);
   });
 
   rpcProvider.registerRpcHandler("createWorkflow", async (q: string) => {
-    await lazyLoadScript("LangChain");
+    await lazyLoadScript("lang-chain");
     return self.createWorkflow(q);
   });
 
   rpcProvider.registerRpcHandler("prettierCss", async (code: string) => {
-    await lazyLoadScript("prettierEsm");
+    await lazyLoadScript("prettier-esm");
     return self.prettierCss(code);
   });
 
@@ -94,7 +94,7 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   rpcProvider.registerRpcHandler(
     "updateSearchReplace",
     async ({ code, instructions }: { code: string; instructions: string }) => {
-      await lazyLoadScript("chatUtils");
+      await lazyLoadScript("chat-utils");
       return self.updateSearchReplace(instructions, code);
     },
   );

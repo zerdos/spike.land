@@ -64,10 +64,10 @@ class WorkerPool {
       port.start();
       channel.port2.start();
     } else if (typeof SharedWorker !== "undefined") {
-      worker = new SharedWorker("/workerScripts/ataWorker.js");
+      worker = new SharedWorker("/@/workers/ataWorker.js");
       port = worker.port;
     } else {
-      worker = new Worker("/workerScripts/ataWorker.js");
+      worker = new Worker("/@/workers/ataWorker.js");
       port = worker as unknown as MessagePort;
     }
 
