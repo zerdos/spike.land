@@ -303,7 +303,7 @@ async function handleDefaultCase(
       && (contentType && contentType.indexOf("charset"))
     ) {
       try {
-        const content =    importMapReplace(await resp.text())// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
+        const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
         ctx.waitUntil(env.R2.put(md5Key, content));
 
 
