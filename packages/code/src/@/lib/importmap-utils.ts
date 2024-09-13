@@ -81,7 +81,7 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
       if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
         const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?exports=");
+        const [pkgName, exports] = oldUrl.pathname.slice(1);
         if (exports) {
           return p1 + `"${origin}/*${pkgName}"` + p3;
         }
@@ -106,7 +106,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     // Handle specific exports
-    const [pkgName, exports] = packageName.split("?exports=");
+    const [pkgName, exports] = packageName.split("/");
     if (exports) {
       return p1 + `"${origin}/*${pkgName}"` + p3;
     }
