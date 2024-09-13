@@ -51,8 +51,6 @@ export const transpile = async (
   try {
     await initializeModule(wasmModule, origin);
 
-    const jsxImportSource = code.includes("@emotion/") ? "@emotion/react" : "react";
-
     try {
       const transformedCode = await transform(code, {
         loader: "tsx",
@@ -66,7 +64,7 @@ export const transpile = async (
           compilerOptions: {
             jsx: "react-jsx",
             jsxFragmentFactory: "Fragment",
-            jsxImportSource,
+            jsxImportSource: "@emotion/react",
           },
         },
         target: "es2024",
@@ -74,9 +72,15 @@ export const transpile = async (
 
       return importMapReplace(transformedCode.code, origin);
     } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error during transpile:", error.message);
+      }
       throw error;
     }
   } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error during transpile:", error.message);
+    }
     throw error;
   }
 };

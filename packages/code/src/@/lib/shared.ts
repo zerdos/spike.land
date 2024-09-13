@@ -2,6 +2,7 @@ import { ICodeSession } from "@/lib/interfaces";
 import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import { RpcProvider } from "worker-rpc";
 
 class WorkerWrapper {
@@ -185,10 +186,15 @@ export const createWorkflow = async (q: string): Promise<string> => {
 
 const transpileID = async (
   { code, originToUse }: { code: string; originToUse: string },
-): Promise<string> => {
+): Promise<string | undefined> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("transpile", { code, originToUse });
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+      throw e;
+    }
   } finally {
     workerPool.releaseWorker(worker);
   }
@@ -208,7 +214,7 @@ export const transpile = async (
     return transpiled;
   } catch (e) {
     console.error(e);
-    throw new Error("transpile error", { cause: e });
+    throw e;
   }
 };
 
