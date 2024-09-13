@@ -52,7 +52,7 @@ export async function processMessage(
 ): Promise<boolean> {
   const contextManager = createContextManager(codeSpace);
   const sentMessages = [...updatedMessages];
-  let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
+  // let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
   const onUpdate = createOnUpdateFunction(sentMessages, mutex, setMessages, cSess, contextManager);
 
