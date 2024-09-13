@@ -3885,7 +3885,7 @@ __metadata:
     date-fns: "npm:^3.6.0"
     detective-typescript: "npm:13.0.0"
     dprint: "npm:^0.47.2"
-    embla-carousel-react: "npm:^8.2.1"
+    embla-carousel-react: "npm:^8.3.0"
     es-toolkit: "npm:^1.18.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
@@ -3966,7 +3966,7 @@ __metadata:
     uuid: "npm:10.0.0"
     uvu: "npm:0.5.6"
     vaul: "npm:^0.9.2"
-    vite: "npm:^5.4.4"
+    vite: "npm:^5.4.5"
     vite-tsconfig-paths: "npm:^5.0.1"
     vitest: "npm:^2.1.0"
     vm: "npm:^0.1.0"
@@ -8055,31 +8055,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"embla-carousel-react@npm:^8.2.1":
-  version: 8.2.1
-  resolution: "embla-carousel-react@npm:8.2.1"
+"embla-carousel-react@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "embla-carousel-react@npm:8.3.0"
   dependencies:
-    embla-carousel: "npm:8.2.1"
-    embla-carousel-reactive-utils: "npm:8.2.1"
+    embla-carousel: "npm:8.3.0"
+    embla-carousel-reactive-utils: "npm:8.3.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.1 || ^18.0.0
-  checksum: 10/bf4be85305773894389b848f7d6c48b46e7ee98be7ea9a46653c703f2982f942123da15b554d9d2b50ab16a0bc0595f19b0dafd3f8ccfbc102676792ba578a60
+  checksum: 10/48b71504208741d051f09d26ec7925c4470c0c7b9dce1275079d1ab1a32f7892456b953df2836f1be7555061aaac595509d78ab12c0e1370dd7f77df682639f6
   languageName: node
   linkType: hard
 
-"embla-carousel-reactive-utils@npm:8.2.1":
-  version: 8.2.1
-  resolution: "embla-carousel-reactive-utils@npm:8.2.1"
+"embla-carousel-reactive-utils@npm:8.3.0":
+  version: 8.3.0
+  resolution: "embla-carousel-reactive-utils@npm:8.3.0"
   peerDependencies:
-    embla-carousel: 8.2.1
-  checksum: 10/17fd9f89f2b8af3ee9f15abcfe354ea9abac6fbc42a5e5342072bca93a5a3ea4df1d8e657dcdbc6b9efa205192377365bb7d8daa1f6c181e3d9a464e92bb61fc
+    embla-carousel: 8.3.0
+  checksum: 10/8d1db9a65455dbbee4de7e163c470b2a7552dee13153e95c8754d37389e29dbd03b9a7b11018c84ed59b4db616846cf39de8ea828f50945ab9ea1e99fe9e7289
   languageName: node
   linkType: hard
 
-"embla-carousel@npm:8.2.1":
-  version: 8.2.1
-  resolution: "embla-carousel@npm:8.2.1"
-  checksum: 10/504aa1dc112b5717491534459ab9707068613cd5f618cb24d20f53d137fbc3c18641fff15cf86b006d4886f96726b9ff513525ca2fd0ea0dca87e2b53afc9569
+"embla-carousel@npm:8.3.0":
+  version: 8.3.0
+  resolution: "embla-carousel@npm:8.3.0"
+  checksum: 10/939db8fbe604f1d46a1c3150bf8be7f5a566924e426a02762c0c97dcf474973fdb128a113d96a57e953753657fb69298f31247e7dfbc4d820fbb691c54502249
   languageName: node
   linkType: hard
 
@@ -17665,7 +17665,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.0, vite@npm:^5.4.4":
+"vite@npm:^5.0.0":
   version: 5.4.4
   resolution: "vite@npm:5.4.4"
   dependencies:
@@ -17705,6 +17705,49 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10/8c2ded5cc99464362d35af6b78bd6466b9c36533a26311d360c327d0a1580d0016f4f3c4828ded5945be4adc2990f257eae85ff95b4522a6d040cdfef6e5f7b2
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.4.5":
+  version: 5.4.5
+  resolution: "vite@npm:5.4.5"
+  dependencies:
+    esbuild: "npm:^0.21.3"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.4.43"
+    rollup: "npm:^4.20.0"
+  peerDependencies:
+    "@types/node": ^18.0.0 || >=20.0.0
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    sass-embedded: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/ef794392c44cdc0b4256e6a58697ebf9b86536dde04ba6449a853664c8a9441c4ae8c380c35d7e78556f197a738d46921e076064a4ff7a7448e5905d55262baf
   languageName: node
   linkType: hard
 
