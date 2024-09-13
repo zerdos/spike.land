@@ -89,7 +89,7 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   rpcProvider.registerRpcHandler(
     "updateSearchReplace",
     async ({ code, instructions }: { code: string; instructions: string }) => {
-      await Promise.all([lazyLoadScript("chatUtils"), lazyLoadScript("prettierEsm")]);
+      await lazyLoadScript("chatUtils");
       return self.updateSearchReplace(instructions, code);
     },
   );
