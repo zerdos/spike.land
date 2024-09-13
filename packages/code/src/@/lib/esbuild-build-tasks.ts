@@ -163,38 +163,12 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     platform: "browser",
     plugins: [
       ...buildOptions.plugins,
-      copy({
-        resolveFrom: "cwd",
-        assets: [
-          {
-            from: ["./src/assets/*"],
-            to: ["./dist/assets"],
-          },
-          {
-            from: "./src/assets/manifest.json",
-            to: "./dist",
-          },
-          {
-            from: "./src/index.html",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/favicon.ico",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-          },
-        ],
-      }),
     ],
     entryPoints: [
       "src/motion.ts",
       "src/start.ts",
       "src/emotion.ts",
       "src/reactMod.ts",
-      "src/cf-esbuild.mjs",
       "src/recharts.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
@@ -267,6 +241,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/modules.ts",
+      "src/cf-esbuild.mjs",
     ],
     alias: {
       ...buildOptions.alias,
