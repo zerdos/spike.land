@@ -258,7 +258,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
   }
 }
 
-const cacheName = "eeeKvCache123";
+const cacheName = "eeeKvCache124";
 
 async function handleDefaultCase(
   path: string[],
