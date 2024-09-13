@@ -1,7 +1,6 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
 import { importMapReplace } from "@/lib/importmap-utils";
-import { wasmFile } from "@src/esbuildWASM";
 import { Mutex } from "async-mutex";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 
@@ -37,6 +36,8 @@ const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string
   if (wasmModule) {
     await mod.initialize(wasmModule);
   } else if (origin) {
+    const { wasmFile } = await import("@src/esbuildWASM");
+
     await initialize({
       wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
       worker: false,
