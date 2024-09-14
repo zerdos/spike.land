@@ -233,7 +233,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     treeShaking: isProduction,
     mangleQuoted: false,
     sourcemap: false,
-    outdir: "dist",
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
