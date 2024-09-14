@@ -1,7 +1,6 @@
 // src/importMapUtils.ts
 
 export const oo = {
-  "@/": "/@/",
   "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/server": "/reactDomServer.mjs",
@@ -100,7 +99,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName?.startsWith("@/")) {
-      return p1 + `"${packageName}.mjs"` + p3;
+      return p1 + `"/${packageName}.mjs"` + p3;
     }
 
     if (packageName.includes(".")) {
