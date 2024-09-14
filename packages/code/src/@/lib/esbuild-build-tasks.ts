@@ -252,18 +252,18 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      ...extraAliases,
+      // ...extraAliases,
       // ...buildOptions.alias,
-      "@src/swVersion": "/swVersion.mjs",
+      // "@src/swVersion": "/swVersion.mjs",
       // ...(isProduction ? {} : {
       // "react": "preact/compat",
       // "react-dom": "preact/compat",
       // }),
     },
     external: [
-      ...Object.values(extraAliases),
-      "/swVersion.mjs",
-      "esbuild-wasm/esbuild.wasm",
+      ...Object.keys(extraAliases),
+      // "/swVersion.mjs",
+      // "esbuild-wasm/esbuild.wasm",
     ],
   });
 
@@ -290,20 +290,20 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/start.ts",
     ],
     alias: {
-      ...buildOptions.alias,
-      ...importMap.imports,
-      ...extraAliases,
       // ...buildOptions.alias,
-      "@src/swVersion": "/swVersion.mjs",
-      s,
+      // ...importMap.imports,
+      // ...extraAliases,
+      // ...buildOptions.alias,
+      // "@src/swVersion": "/swVersion.mjs",
+
       // ...(isProduction ? {} : {
       // "react": "preact/compat",
       // "react-dom": "preact/compat",
       // }),
     },
     external: [
-      ...Object.values(importMap.imports),
-      ...Object.values(extraAliases),
+      ...Object.keys(importMap.imports),
+      ...Object.keys(extraAliases),
       "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm",
     ],
