@@ -77,6 +77,13 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
   }
 });
 
+function getErrorDetailsFromHtml(htmlString: string) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+  const preElement = doc.querySelector("details pre");
+  return preElement ? preElement.textContent!.trim() : null;
+}
+
 // Refactored transpileCode function without hooks
 export const transpileCode = memoize(async (code: string): Promise<string> => {
   try {
