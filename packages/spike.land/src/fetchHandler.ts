@@ -3,12 +3,11 @@ import { importMap, importMapReplace} from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
-import { handleCORS, isChunk, isUrlFile } from "./utils";
+import { handleCORS, isUrlFile } from "./utils";
 
-export const HTML = async (env: Env) =>
-  await (await getAssetFromKV(
+export const HTML = async (env: Env) =>(await (await getAssetFromKV(
     {
-      request: new Request("/index.html"),
+      request: new Request("/index.html", { headers: { "accept": "text/html" } }),
       async waitUntil(promise) {
         await promise;
       },
@@ -17,7 +16,7 @@ export const HTML = async (env: Env) =>
       ASSET_NAMESPACE: env.__STATIC_CONTENT,
       ASSET_MANIFEST,
     },
-  )).text();
+  )).text())
 
 export async function handleFetchApi(
   path: string[],

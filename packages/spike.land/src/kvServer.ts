@@ -58,8 +58,11 @@ return {  isAsset,
               }
            
               const headers = new Headers(kvResp.headers);
+              if (filePath.endsWith(".html")) {
+                headers.set("Content-Type", "text/html"); 
+              }
               kvResp.headers.forEach((v, k) => headers.append(k, v));
-              // if (isChunk(request.url)) {
+            
               headers.append(
                 "Cache-Control",
                 "public, max-age=604800, immutable",
