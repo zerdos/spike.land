@@ -124,7 +124,7 @@ export async function ata({
             ref: "",
             content,
           };
-          await ataRecursive(content, new URL(resp.url + "/../").toString());
+          await ataRecursive(content, new URL(resp.url).origin);
         } catch (error) {
           console.error("error", error);
         }
