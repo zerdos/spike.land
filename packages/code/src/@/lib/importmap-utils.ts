@@ -10,6 +10,7 @@ export const oo = {
   "framer-motion": "/motion.mjs",
   "react-dom": "/reactDom.mjs",
   "recharts": "/recharts.mjs",
+  "": "/",
 };
 
 export const importMap = { imports: oo };
