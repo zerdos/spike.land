@@ -2,27 +2,27 @@ import SharedWorkerPolyfill from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
-
 import { RpcProvider } from "worker-rpc";
+
+type WorkerPort = MessagePort | Worker;
 
 class WorkerWrapper {
   rpc: RpcProvider;
-  workerPort: MessagePort | Worker;
+  workerPort: WorkerPort;
   busy: boolean = false;
 
-  constructor(port: MessagePort | Worker) {
+  constructor(port: WorkerPort) {
     this.workerPort = port;
-    this.rpc = new RpcProvider(
-      (message) =>
-        this.workerPort.postMessage(
-          message,
-          (hasTransferables(message as unknown)
-            ? getTransferables(message as unknown)
-            : undefined) as unknown as Transferable[],
-        ),
-      0,
-    ) as unknown as RpcProvider;
-    this.workerPort.onmessage = ({ data }) => this.rpc.dispatch(data);
+    this.rpc = new RpcProvider((message: any) =>
+      this.workerPort.postMessage(
+        message,
+        hasTransferables(message) ? getTransferables(message) : undefined,
+      )
+    );
+
+    this.workerPort.onmessage = (event: MessageEvent) => {
+      this.rpc.dispatch(event.data);
+    };
   }
 }
 
@@ -42,8 +42,10 @@ class WorkerPool {
     }
   }
 
-  private async addWorker() {
-    const worker = new SharedWorkerPolyfill("/@/workers/ata-worker.worker.js", { type: "classic" });
+  private addWorker() {
+    const worker = new SharedWorkerPolyfill("/@/workers/ata-worker.worker.js", {
+      type: "classic",
+    });
     const port = worker.port;
 
     const workerWrapper = new WorkerWrapper(port);
@@ -52,18 +54,18 @@ class WorkerPool {
 
   async getWorker(): Promise<WorkerWrapper> {
     return this.mutex.runExclusive(async () => {
-      let availableWorker = this.workers.find(worker => !worker.busy);
+      let availableWorker = this.workers.find((worker) => !worker.busy);
 
       if (!availableWorker) {
-        await this.addWorker();
+        this.addWorker();
         availableWorker = this.workers[this.workers.length - 1];
       }
 
       availableWorker.busy = true;
 
-      const freeWorkers = this.workers.filter(worker => !worker.busy).length;
+      const freeWorkers = this.workers.filter((worker) => !worker.busy).length;
       if (freeWorkers < this.minFreeWorkers) {
-        this.addWorker().catch(console.error); // Non-blocking
+        this.addWorker(); // Now synchronous
       }
 
       return availableWorker;
@@ -83,9 +85,13 @@ export async function init() {
   return worker.rpc;
 }
 
-export const prettierToThrow = async (
-  { code, toThrow }: { code: string; toThrow: boolean },
-): Promise<string> => {
+export const prettierToThrow = async ({
+  code,
+  toThrow,
+}: {
+  code: string;
+  toThrow: boolean;
+}): Promise<string> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("prettierJs", { code, toThrow });
@@ -95,22 +101,28 @@ export const prettierToThrow = async (
 };
 
 const prettierMemo = new Map<string, string>();
+
 export const prettier = async (code: string): Promise<string> => {
   if (prettierMemo.has(code)) return prettierMemo.get(code)!;
 
   const worker = await workerPool.getWorker();
   try {
-    const c = await worker.rpc.rpc("prettierJs", { code, toThrow: false }) as string;
-    prettierMemo.set(code, c);
-    return c;
+    const formattedCode = (await worker.rpc.rpc("prettierJs", {
+      code,
+      toThrow: false,
+    })) as string;
+    prettierMemo.set(code, formattedCode);
+    return formattedCode;
   } finally {
     workerPool.releaseWorker(worker);
   }
 };
 
-export const ata = async (
-  { code }: { code: string },
-): Promise<{ content: string; filePath: string }[]> => {
+export const ata = async ({
+  code,
+}: {
+  code: string;
+}): Promise<{ content: string; filePath: string }[]> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("ata", { code });
@@ -158,33 +170,39 @@ export const createWorkflow = async (q: string): Promise<string> => {
   }
 };
 
-export const transpile = async (
-  { code, originToUse }: { code: string; originToUse: string },
-): Promise<string> => {
+export const transpile = async ({
+  code,
+  originToUse,
+}: {
+  code: string;
+  originToUse: string;
+}): Promise<string> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("transpile", { code, originToUse });
   } catch (e) {
-    if (e instanceof Error) {
-      console.error(e.message);
-      throw e;
-    }
+    console.error(e);
+    throw e;
   } finally {
     workerPool.releaseWorker(worker);
   }
-  return ""; // Add a return statement here
 };
 
-export const build = async (
-  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "", external = [] }: {
-    codeSpace: string;
-    splitting?: boolean;
-    external?: string[];
-    origin: string;
-    entryPoint?: string;
-    format: "esm" | "iife";
-  },
-): Promise<string> => {
+export const build = async ({
+  codeSpace,
+  origin,
+  format = "esm",
+  splitting = false,
+  entryPoint = "",
+  external = [],
+}: {
+  codeSpace: string;
+  splitting?: boolean;
+  external?: string[];
+  origin: string;
+  entryPoint?: string;
+  format: "esm" | "iife";
+}): Promise<string> => {
   const worker = await workerPool.getWorker();
   try {
     return await worker.rpc.rpc("build", {
@@ -209,7 +227,7 @@ export const connect = async ({
 }): Promise<void> => {
   const worker = await workerPool.getWorker();
   try {
-    await worker.rpc.signal("connect", { signal, sess });
+    await worker.rpc.rpc("connect", { signal, sess });
   } finally {
     workerPool.releaseWorker(worker);
   }
