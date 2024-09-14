@@ -9,13 +9,13 @@ export const oo = {
   "react": "/reactMod.mjs",
   "framer-motion": "/motion.mjs",
   "react-dom": "/reactDom.mjs",
-  "foo-bar": "/fooBar.mjs",
   "recharts": "/recharts.mjs",
 };
 
 export const importMap = { imports: oo };
 
 export function importMapReplace(code: string, origin: string): string {
+  return code;
   // Return early if the code already contains "importMapReplace" to avoid double processing
   if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
