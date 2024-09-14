@@ -5271,6 +5271,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/user-event", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:14.5.2"],\
           ["@types/autoprefixer", "npm:10.2.0"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
+          ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.5.5"],\
           ["@types/react", "npm:18.3.5"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -5325,6 +5326,7 @@ const RAW_RUNTIME_STATE =
           ["jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:25.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.441.0"],\
+          ["mime-types", "npm:2.1.35"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.51.0"],\
           ["next-i18next", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:15.3.1"],\
@@ -6169,6 +6171,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/mdast", "npm:4.0.4"],\
           ["@types/unist", "npm:3.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/mime-types", [\
+      ["npm:2.1.4", {\
+        "packageLocation": "./.yarn/global/cache/@types-mime-types-npm-2.1.4-ea40d0e262-10.zip/node_modules/@types/mime-types/",\
+        "packageDependencies": [\
+          ["@types/mime-types", "npm:2.1.4"]\
         ],\
         "linkType": "HARD"\
       }]\

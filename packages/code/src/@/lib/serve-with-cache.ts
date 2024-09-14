@@ -1,98 +1,91 @@
 import { importMap } from "@/lib/importmap-utils";
+import { lookup } from "mime-types";
 
-function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-  const updatedImports: { [key: string]: string } = {};
+// Adjusted addPrefixToImportMap function
+function addPrefixToImportMap(imap, prefix) {
+  const updatedImports = {};
 
   for (const [key, value] of Object.entries(imap.imports)) {
-    updatedImports[key] = prefix + value;
+    // Ensure correct path concatenation
+    const updatedValue = new URL(value, "http://example.com" + prefix).pathname;
+    updatedImports[key] = updatedValue;
   }
 
   return { imports: updatedImports };
 }
 
-// Utility function to determine the Content-Type based on the file extension
-function getContentType(path: string) {
-  const ext = path.split(".").pop()?.toLowerCase();
-  const mimeTypes = {
-    "html": "text/html",
-    "css": "text/css",
-    "js": "application/javascript",
-    "mjs": "application/javascript",
-    "json": "application/json",
-    "png": "image/png",
-    "jpg": "image/jpeg",
-    "jpeg": "image/jpeg",
-    "gif": "image/gif",
-    "svg": "image/svg+xml",
-    "ico": "image/x-icon",
-  };
-
-  if (!ext || !Object.hasOwn(mimeTypes, ext)) return "application/octet-stream";
-
-  return mimeTypes[ext as keyof typeof mimeTypes];
+// Simplified getContentType function
+function getContentType(path) {
+  return lookup(path) || "application/octet-stream";
 }
 
-// Initialize the cache outside of the request handler
-let fileCachePromise = caches.open("file-cache-v2");
+// Initialize the cache
+let fileCache;
+const fileCachePromise = caches.open("file-cache-v2").then((cache) => {
+  fileCache = cache;
+}).catch(console.error);
 
-export const serveWithCache = (ASSET_HASH: string, files: {
-  [key: string]: string;
-}) => {
-  const isAsset = (request: Request) => {
+export const serveWithCache = (ASSET_HASH, files) => {
+  const isAsset = (request) => {
     const url = new URL(request.url);
-    const pathname = url.pathname;
+    const pathname = url.pathname.startsWith("/")
+      ? url.pathname.slice(1)
+      : url.pathname;
 
-    return pathname.startsWith("/" + ASSET_HASH) || !!files[pathname.slice(1)]
-      || pathname.slice(ASSET_HASH.length + 2) in files;
+    const assetPath = pathname.startsWith(ASSET_HASH + "/")
+      ? pathname.slice(ASSET_HASH.length + 1)
+      : pathname;
+
+    return assetPath in files;
   };
 
   return {
     isAsset,
-    serve: async (
-      request: Request,
-      assetFetcher: (url: string) => Promise<Response>,
-      waitUntil: (p: Promise<unknown>) => void,
-    ) => {
+    serve: async (request, assetFetcher, waitUntil) => {
+      if (request.method !== "GET") {
+        return new Response("Method Not Allowed", { status: 405 });
+      }
+
       if (!isAsset(request)) throw new Error("Not an asset");
 
       const url = new URL(request.url);
-      const pathname = url.pathname;
+      const pathname = url.pathname.startsWith("/")
+        ? url.pathname.slice(1)
+        : url.pathname;
 
-      // Correctly calculate the file path
-      let filePath = pathname.startsWith("/" + ASSET_HASH)
+      const filePath = pathname.startsWith(ASSET_HASH + "/")
         ? pathname.slice(ASSET_HASH.length + 1)
-        : pathname.slice(1);
+        : pathname;
+
       if (!(filePath in files)) {
-        filePath = pathname.slice(ASSET_HASH.length + 2);
+        return new Response("Not Found", { status: 404 });
       }
 
-      const fileCache = await fileCachePromise;
+      if (!fileCache) {
+        await fileCachePromise;
+      }
 
-      // Construct a unique cache key
-      const cacheUrl = filePath === "index.html"
-        ? new URL(ASSET_HASH + "/index.html", request.url)
-        : new URL(request.url);
-      cacheUrl.pathname = filePath;
+      const cacheUrl = new URL(request.url);
+      cacheUrl.pathname = "/" + filePath;
       const cacheKey = new Request(cacheUrl.toString());
 
       // Attempt to find the response in the cache
       let resp = await fileCache.match(cacheKey);
-
       if (resp) return resp;
 
-      // Properly construct the request for getAssetFromKV
+      // Construct the request for asset fetching
       const newUrl = request.url.replace(`/${ASSET_HASH}`, "");
       const req = new Request(newUrl, {
         method: request.method,
         headers: request.headers,
-        body: request.body,
         redirect: request.redirect,
       });
 
       let kvResp;
       try {
-        kvResp = await assetFetcher(newUrl);
+        kvResp = await assetFetcher(req);
       } catch (error) {
+        console.error("Asset fetch error:", error);
         return new Response("Internal Server Error", { status: 500 });
       }
 
@@ -102,33 +95,32 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
       // Clone headers and set appropriate Content-Type
       const headers = new Headers(kvResp.headers);
-
       const contentType = getContentType(filePath);
-      if (contentType) {
-        headers.set("Content-Type", contentType);
-      }
+      headers.set("Content-Type", contentType);
 
       // Overwrite the Cache-Control header
       headers.set("Cache-Control", "public, max-age=604800, immutable");
 
-      // Set security and CORS headers
+      // Set security and CORS headers (review necessity)
       headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-      headers.set("Access-Control-Allow-Origin", "*");
+      // headers.set("Access-Control-Allow-Origin", "*"); // Consider removing or adjusting
 
       let response;
 
       // Modify index.html if necessary
       if (filePath === "index.html") {
-        const html = (await kvResp.text()).replace(
+        const htmlContent = await kvResp.text();
+        // Modify HTML using an HTML parser as suggested
+        // For brevity, using string replacement (ensure patterns are unique)
+        let modifiedHtml = htmlContent.replace(
           `<base href="/">`,
           `<base href="/${ASSET_HASH}/">`,
         ).replace(
           `<script type="importmap"></script>`,
-          `<script type="importmap">
-          ${JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`))}
-          </script>`,
+          `<script type="importmap">${JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`))}</script>`,
         );
-        response = new Response(html, {
+
+        response = new Response(modifiedHtml, {
           status: kvResp.status,
           statusText: kvResp.statusText,
           headers,
@@ -142,7 +134,11 @@ export const serveWithCache = (ASSET_HASH: string, files: {
       }
 
       // Cache the response asynchronously
-      waitUntil(fileCache.put(cacheKey, response.clone()));
+      waitUntil(
+        fileCache.put(cacheKey, response.clone()).catch((error) => {
+          console.error("Cache put error:", error);
+        }),
+      );
 
       return response;
     },
