@@ -52,7 +52,7 @@ export const serveRequestFromKv = () => {
       const fileCache = await fileCachePromise;
 
       // Construct a unique cache key
-      const cacheUrl = new URL(request.url);
+      const cacheUrl = filePath ==='index.html'?new URL(ASSET_HASH+'/index.html', request.url): new URL(request.url);
       cacheUrl.pathname = filePath;
       const cacheKey = new Request(cacheUrl.toString());
 
