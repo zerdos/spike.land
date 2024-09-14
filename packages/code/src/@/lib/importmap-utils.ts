@@ -13,6 +13,7 @@ export const oo = {
 };
 
 export const importMap = { imports: oo };
+const externalString = "external=" + Object.keys(oo).join(",");
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
@@ -51,7 +52,7 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
 
-      return `import "/*${match.split("\"")[1]}?bundle";`;
+      return `import "/${match.split("\"")[1]}?${externalString}";`;
     }
 
     if (p2.startsWith("`") && p2.endsWith("`")) {
@@ -83,7 +84,7 @@ export function importMapReplace(code: string, origin: string): string {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
-          return p1 + `"/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+          return p1 + `"/${pkgName}?${externalString}&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -106,9 +107,9 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     // Handle specific exports
-    const [pkgName, exports] = packageName.split("?bundle=true&exports=");
+    const [pkgName, exports] = packageName.split(`?${externalString}&exports=`);
     if (exports) {
-      return p1 + `"/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+      return p1 + `"/${pkgName}?${externalString}&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -118,10 +119,10 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName, _alias] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
+      return p1 + `"/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
     }
 
-    return p1 + `"/*${packageName}?bundle"` + p3;
+    return p1 + `"/${packageName}?${externalString}"` + p3;
   };
 
   // Convert code to string if it's not already a string
@@ -143,7 +144,7 @@ export function importMapReplace(code: string, origin: string): string {
   }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`/*${pkg}?bundle`).join(
+    replaced = replaced.split(`/${pkg}?${externalString}`).join(
       origin + oo[pkg as keyof typeof oo],
     );
   });
