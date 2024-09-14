@@ -260,7 +260,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      ...Object.keys(extraAliases),
+      ...Object.values(extraAliases),
       "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm",
     ],
