@@ -3,7 +3,7 @@ import type { BuildOptions } from "esbuild";
 import type { Environment } from "@/lib/esbuild-make-env";
 import { makeEnv } from "@/lib/esbuild-make-env";
 
-// import { fetchPlugin } from "./src/fetchPlugin.ts";
+import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 
 export const buildOptions: BuildOptions = {
   target: "es2024",
@@ -79,6 +79,6 @@ export const getCommonBuildOptions = (environment: Environment) => ({
     //   },
     // }),
     // autoprefixer(),
-    //  fetchPlugin()
+    fetchPlugin(),
   ],
 });

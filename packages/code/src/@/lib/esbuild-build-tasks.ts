@@ -127,6 +127,73 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: false,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: false,
+    sourcemap: false,
+    splitting: false,
+    target: "es2024",
+    allowOverwrite: true,
+    legalComments: "none",
+    platform: "node",
+    plugins: [
+      ...buildOptions.plugins,
+      copy({
+        resolveFrom: "cwd",
+        assets: [
+          {
+            from: ["./src/assets/*"],
+            to: ["./dist/assets"],
+          },
+          {
+            from: "./src/assets/manifest.json",
+            to: "./dist",
+          },
+          {
+            from: "./src/index.html",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/favicon.ico",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          },
+        ],
+      }),
+    ],
+    entryPoints: [
+      "src/cf-esbuild.mjs",
+      "src/modules.ts",
+    ],
+    alias: {
+      ...buildOptions.alias,
+      "@src/swVersion": "/swVersion.mjs",
+
+      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+
+      ...(isProduction ? {} : {
+        // "react": "preact/compat",
+        // "react-dom": "preact/compat",
+      }),
+    },
+    external: [
+      ...(buildOptions.external ?? []),
+      "esbuild-wasm",
+      "/swVersion.mjs",
+      `./${wasmFile}`,
+      "esbuild-wasm/esbuild.wasm",
+    ],
+  });
+
+  await build({
+    ...buildOptions,
     splitting: false,
     format: "esm",
     minifySyntax: isProduction,
@@ -175,7 +242,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/reactDomClient.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
-      "src/app/globals.css",
     ],
     alias: {
       // ...buildOptions.alias,
@@ -187,51 +253,9 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     },
     external: [
-      "@/",
-      "/",
-      "/swVersion.mjs",
-      `./${wasmFile}`,
-      "esbuild-wasm/esbuild.wasm",
-    ],
-  });
-
-  await build({
-    ...buildOptions,
-    format: "esm",
-    minifySyntax: isProduction,
-    minifyIdentifiers: isProduction,
-    minifyWhitespace: false,
-    bundle: true,
-    treeShaking: isProduction,
-    mangleQuoted: false,
-    sourcemap: false,
-    splitting: false,
-    target: "es2024",
-    allowOverwrite: true,
-    legalComments: "none",
-    packages: "external",
-    platform: "node",
-    plugins: [
-      ...buildOptions.plugins,
-    ],
-    entryPoints: [
-      "src/cf-esbuild.mjs",
-      "src/modules.ts",
-    ],
-    alias: {
-      ...buildOptions.alias,
-      "@src/swVersion": "/swVersion.mjs",
-
-      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-
-      ...(isProduction ? {} : {
-        // "react": "preact/compat",
-        // "react-dom": "preact/compat",
-      }),
-    },
-    external: [
-      ...(buildOptions.external ?? []),
-      "esbuild-wasm",
+      "src/@/",
+      "@/*",
+      "/*",
       "/swVersion.mjs",
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
@@ -252,37 +276,14 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
   //   target: "es2024",
   //   allowOverwrite: true,
   //   legalComments: "none",
+  //   packages: "external",
   //   platform: "node",
   //   plugins: [
   //     ...buildOptions.plugins,
-  //     copy({
-  //       resolveFrom: "cwd",
-  //       assets: [
-  //         {
-  //           from: ["./src/assets/*"],
-  //           to: ["./dist/assets"],
-  //         },
-  //         {
-  //           from: "./src/assets/manifest.json",
-  //           to: "./dist",
-  //         },
-  //         {
-  //           from: "./src/index.html",
-  //           to: "./dist",
-  //         },
-  //         {
-  //           from: "./src/assets/favicons/favicon.ico",
-  //           to: "./dist",
-  //         },
-  //         {
-  //           from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-  //           to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-  //         },
-  //       ],
-  //     }),
   //   ],
   //   entryPoints: [
-
+  //     "src/cf-esbuild.mjs",
+  //     "src/modules.ts",
   //   ],
   //   alias: {
   //     ...buildOptions.alias,
@@ -297,6 +298,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
   //   },
   //   external: [
   //     ...(buildOptions.external ?? []),
+  //     "@/",
   //     "esbuild-wasm",
   //     "/swVersion.mjs",
   //     `./${wasmFile}`,

@@ -22,7 +22,7 @@
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
     "prebuild": "yarn test || echo FAILED",
-    "tw": "yarn tailwindcss -i dist/app/globals.css -c tailwind.config.js --postcss -m -o dist/app/tw-global.css",
+    "tw": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.js --postcss -m -o dist/app/tw-global.css",
     "build": "rm -rf dist dts && yarn types && yarn tsx esbuild-dev.ts && cp -r dts/src/@/ dist/@/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && yarn tw",
     "sw": "echo ok"
   },
