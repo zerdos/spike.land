@@ -10,7 +10,7 @@ function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
 
   for (const [key, value] of Object.entries(imap.imports)) {
     // Ensure correct path concatenation
-    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix).pathname;
+    const updatedValue = new URL(value.slice(1), "httpx://example.com" + prefix).pathname;
     updatedImports[key] = updatedValue;
   }
 
@@ -136,7 +136,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
         const scriptTag = root.querySelector("script[type=\"importmap\"]");
         if (scriptTag) {
           scriptTag.set_content(
-            JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`)),
+            JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
           );
         }
 
