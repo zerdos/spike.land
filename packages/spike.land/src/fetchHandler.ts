@@ -258,7 +258,6 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
   }
 }
 
-// const cacheName = "eeeKvCache124";
 
 async function handleDefaultCase(
   path: string[],
@@ -269,58 +268,28 @@ async function handleDefaultCase(
   newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
+    const esmCache = await caches.open("esm125");
+    const cacheKey = new Request(newUrl.toString());
+
+    let response = await esmCache.match(cacheKey);
+    if (response) { 
+      return response;;
+    }
+
     const esmWorker = (await import("./esm.worker")).default;
-    // const md5Key = md5(newUrl.toString() + cacheName);
-    // const cache = await env.R2.get(md5Key);
-    // if (cache) {
-    //   return new Response(cache.body, {
-    //     headers: {
-    //       "Content-Type": "application/javascript; charset=UTF-8",
-    //       "Cache-Control": "public, max-age=604800",
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Cross-Origin-Embedder-Policy": "require-corp",
-    //     },
-    //   }); 
-    // }
-    
+  
+
     const resp = await esmWorker.fetch(request, env, ctx);
+
     if (!resp.ok) return resp;
 
-    const headers = new Headers(resp.headers);
-    if (request.url.indexOf(".wasm") !== -1) {
-      headers.append("Content-Type", "application/wasm");
-    }
+    const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
+    
+    let response2 = new Response(content, { ...resp, headers: new Headers(resp.headers) });
 
-    headers.append("Cross-Origin-Embedder-Policy", "require-corp");
-    const contentType = headers.get("Content-type");
+    ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
 
-    if (
-      request.url.indexOf(".wasm") === -1
-      && !request.url.endsWith(".map")
-      && !request.url.endsWith(".json")
-      && !request.url.endsWith(".ts")
-      && request.url.indexOf(".worker") === -1
-      && (contentType && contentType.indexOf("charset"))
-    ) {
-      try {
-        // const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
-        // ctx.waitUntil(env.R2.put(md5Key, content));
-
-
-        
-
-        return new Response( 
-          importMapReplace(await resp.text(), u.origin),
-          {
-            ...resp,
-            headers,
-          },
-        );
-      } catch {
-        return new Response(resp.body, { ...resp, headers });
-      }
-    }
-    return new Response(resp.body, { ...resp, headers });
+    return response2;
   }
 
   const file = newUrl.pathname.slice(0, 7) === ("/assets/")
