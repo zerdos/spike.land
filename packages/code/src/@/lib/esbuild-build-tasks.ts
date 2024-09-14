@@ -253,7 +253,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      // ...extraAliases,
+      ...extraAliases,
       // ...extraAliases,
       // ...buildOptions.alias,
       // "@src/swVersion": "/swVersion.mjs",
@@ -263,7 +263,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      ...Object.keys(extraAliases),
+      ...Object.values(extraAliases),
       // "/swVersion.mjs",
       // "esbuild-wasm/esbuild.wasm",
     ],
