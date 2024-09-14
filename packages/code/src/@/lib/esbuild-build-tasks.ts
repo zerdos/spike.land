@@ -70,11 +70,11 @@ export const buildWasm = async (): Promise<void> => {
 export async function buildTailwind(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
-    entryPoints: ["src/assets/tw-chunk-be5bad.js"],
+    entryPoints: ["src/assets/shims.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: true,
-    outdir: "dist/tw",
+    outdir: "dist",
     minifyIdentifiers: true,
     mangleProps: /_$/,
     mangleQuoted: true,
