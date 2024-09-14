@@ -292,7 +292,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      // ...importMap.imports,
+      ...importMap.imports,
       ...extraAliases,
       // ...buildOptions.alias,
       // "@src/swVersion": "/swVersion.mjs",
@@ -304,7 +304,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       "/module",
-      ...Object.keys(importMap.imports),
+      ...Object.values(importMap.imports),
       ...Object.values(extraAliases),
     ],
   });
