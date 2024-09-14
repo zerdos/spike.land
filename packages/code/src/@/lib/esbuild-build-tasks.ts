@@ -261,8 +261,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     },
     external: [
-      "src/@/",
-      "@/*",
       "/*",
       "/swVersion.mjs",
       `./${wasmFile}`,
