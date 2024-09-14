@@ -115,7 +115,12 @@ export const serveRequestFromKv = () => {
           `<base href="/">`,
           `<base href="/${ASSET_HASH}/">`
         ).replace(`<script type="importmap"></script>`, `<script type="importmap">
-          ${JSON.stringify(importMap).split(': "').join(': "'+ASSET_HASH)}
+          ${JSON.stringify({
+            imports: {
+             ...(Object.keys(importMap.imports).map((key) => "/"+ ASSET_HASH + importMap.imports[key]))
+            
+            }
+          })}
           </script>`);
         response = new Response(html, {
           status: kvResp.status,
