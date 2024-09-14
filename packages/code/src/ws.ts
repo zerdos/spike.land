@@ -6,10 +6,10 @@ import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
+import { md5 } from "@/lib/md5";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
-import { md5 } from "./modules";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";

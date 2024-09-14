@@ -9,7 +9,7 @@ export type {
   RenderedApp,
 } from "@/lib/interfaces.ts";
 
-export { serveWithCache } from "@/lib/serve-with-cache.ts";
+export { serveWithCache } from "@/lib/serve-with-cache";
 
 export { md5 } from "@/lib/md5.ts";
 export { routes } from "@/lib/routes.ts";
@@ -17,7 +17,7 @@ export { routes } from "@/lib/routes.ts";
 import { Delta } from "./textDiff";
 export { importMapReplace };
 
-export { serverFetchUrl } from "@/lib/enhanced-fetch.ts";
+export { serverFetchUrl } from "@/lib/enhanced-fetch";
 
 import { ICodeSession } from "@/lib/interfaces";
 import { applyCodePatch, CodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess.ts";
