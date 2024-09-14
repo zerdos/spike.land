@@ -283,6 +283,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     allowOverwrite: true,
     legalComments: "none",
     platform: "browser",
+    mainFields: ["module", "main"],
     banner: {
       js: "import { createRequire } from 'module'; const require = createRequire(import.meta.url);",
     },
@@ -292,7 +293,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/start.ts",
-      "module",
     ],
     alias: {
       ...buildOptions.alias,
