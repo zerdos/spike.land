@@ -187,7 +187,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     },
     external: [
-      ...standaloneEntryPoints,
+      "@/",
       "/",
       "/swVersion.mjs",
       `./${wasmFile}`,
@@ -216,71 +216,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/cf-esbuild.mjs",
-    ],
-    alias: {
-      ...buildOptions.alias,
-      "@src/swVersion": "/swVersion.mjs",
-
-      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-
-      ...(isProduction ? {} : {
-        // "react": "preact/compat",
-        // "react-dom": "preact/compat",
-      }),
-    },
-    external: [
-      ...(buildOptions.external ?? []),
-      "esbuild-wasm",
-      "/swVersion.mjs",
-      `./${wasmFile}`,
-      "esbuild-wasm/esbuild.wasm",
-    ],
-  });
-
-  await build({
-    ...buildOptions,
-    format: "esm",
-    minifySyntax: isProduction,
-    minifyIdentifiers: isProduction,
-    minifyWhitespace: false,
-    bundle: true,
-    treeShaking: isProduction,
-    mangleQuoted: false,
-    sourcemap: false,
-    splitting: false,
-    target: "es2024",
-    allowOverwrite: true,
-    legalComments: "none",
-    platform: "node",
-    plugins: [
-      ...buildOptions.plugins,
-      copy({
-        resolveFrom: "cwd",
-        assets: [
-          {
-            from: ["./src/assets/*"],
-            to: ["./dist/assets"],
-          },
-          {
-            from: "./src/assets/manifest.json",
-            to: "./dist",
-          },
-          {
-            from: "./src/index.html",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/favicon.ico",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-          },
-        ],
-      }),
-    ],
-    entryPoints: [
       "src/modules.ts",
     ],
     alias: {
@@ -303,6 +238,72 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
   });
 
+  // await build({
+  //   ...buildOptions,
+  //   format: "esm",
+  //   minifySyntax: isProduction,
+  //   minifyIdentifiers: isProduction,
+  //   minifyWhitespace: false,
+  //   bundle: true,
+  //   treeShaking: isProduction,
+  //   mangleQuoted: false,
+  //   sourcemap: false,
+  //   splitting: false,
+  //   target: "es2024",
+  //   allowOverwrite: true,
+  //   legalComments: "none",
+  //   platform: "node",
+  //   plugins: [
+  //     ...buildOptions.plugins,
+  //     copy({
+  //       resolveFrom: "cwd",
+  //       assets: [
+  //         {
+  //           from: ["./src/assets/*"],
+  //           to: ["./dist/assets"],
+  //         },
+  //         {
+  //           from: "./src/assets/manifest.json",
+  //           to: "./dist",
+  //         },
+  //         {
+  //           from: "./src/index.html",
+  //           to: "./dist",
+  //         },
+  //         {
+  //           from: "./src/assets/favicons/favicon.ico",
+  //           to: "./dist",
+  //         },
+  //         {
+  //           from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+  //           to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+  //         },
+  //       ],
+  //     }),
+  //   ],
+  //   entryPoints: [
+
+  //   ],
+  //   alias: {
+  //     ...buildOptions.alias,
+  //     "@src/swVersion": "/swVersion.mjs",
+
+  //     "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+
+  //     ...(isProduction ? {} : {
+  //       // "react": "preact/compat",
+  //       // "react-dom": "preact/compat",
+  //     }),
+  //   },
+  //   external: [
+  //     ...(buildOptions.external ?? []),
+  //     "esbuild-wasm",
+  //     "/swVersion.mjs",
+  //     `./${wasmFile}`,
+  //     "esbuild-wasm/esbuild.wasm",
+  //   ],
+  // });
+
   async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
     try {
       const files = await readdir(dir);
@@ -319,7 +320,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
           // If it's a file, process it
           if (filePath.includes("worker")) continue;
           const content = await readFile(filePath, "utf8");
-          const newContent = importMapReplace(content, "xxxx").split("xxxx/").join("/");
+          const newContent = importMapReplace(content, "/");
           await writeFile(filePath, newContent);
         }
       }
