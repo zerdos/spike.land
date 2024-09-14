@@ -4,7 +4,7 @@ import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMapReplace } from "@/lib/importmap-utils";
+import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 
 const isProduction = environment === "production";
@@ -242,7 +242,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/motion.ts",
-      "src/start.ts",
       "src/emotion.ts",
       "src/reactMod.ts",
       "src/recharts.ts",
@@ -262,6 +261,47 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
+      ...Object.values(extraAliases),
+      "/swVersion.mjs",
+      "esbuild-wasm/esbuild.wasm",
+    ],
+  });
+
+  await build({
+    ...buildOptions,
+    splitting: true,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: false,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: false,
+    sourcemap: false,
+    outdir: "dist/",
+    target: "es2024",
+    allowOverwrite: true,
+    legalComments: "none",
+    platform: "browser",
+    plugins: [
+      ...buildOptions.plugins,
+    ],
+    entryPoints: [
+      "src/start.ts",
+    ],
+    alias: {
+      ...buildOptions.alias,
+      ...importMap.imports,
+      ...extraAliases,
+      // ...buildOptions.alias,
+      "@src/swVersion": "/swVersion.mjs",
+      // ...(isProduction ? {} : {
+      // "react": "preact/compat",
+      // "react-dom": "preact/compat",
+      // }),
+    },
+    external: [
+      ...Object.values(importMap.imports),
       ...Object.values(extraAliases),
       "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm",
