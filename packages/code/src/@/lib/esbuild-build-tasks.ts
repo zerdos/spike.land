@@ -269,7 +269,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    splitting: true,
+    splitting: false,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
@@ -295,6 +295,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       ...extraAliases,
       // ...buildOptions.alias,
       "@src/swVersion": "/swVersion.mjs",
+      s,
       // ...(isProduction ? {} : {
       // "react": "preact/compat",
       // "react-dom": "preact/compat",
