@@ -143,11 +143,11 @@ export function importMapReplace(code: string, origin: string): string {
     return line;
   }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
-  Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`/${pkg}?${externalString}`).join(
-      origin + oo[pkg as keyof typeof oo],
-    );
-  });
+  // Object.keys(oo).forEach((pkg) => {
+  //   replaced = replaced.split(`/${pkg}?${externalString}`).join(
+  //     origin + oo[pkg as keyof typeof oo],
+  //   );
+  // });
 
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`"${pkg}"`).join(
