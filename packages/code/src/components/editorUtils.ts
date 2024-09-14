@@ -3,6 +3,7 @@ import { createContextManager } from "@/lib/context-manager";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { md5 } from "@src/modules";
 import { useRef, useState } from "react";
+import { ErrorType } from "./ErrorMessages";
 
 export interface EditorState {
   started: boolean;
@@ -27,10 +28,10 @@ export const useEditorState = () => {
 
 // Improved error handling hook
 export const useErrorHandling = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorType>(null);
   const contextManager = createContextManager(useCodeSpace());
 
-  const handleError = (errorType: string, errorMessage: string) => {
+  const handleError = (errorType: ErrorType, errorMessage: string) => {
     setError(errorType);
     contextManager.updateContext("errorLog", errorMessage);
   };

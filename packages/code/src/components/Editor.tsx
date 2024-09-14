@@ -20,8 +20,8 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const [showContext, setShowContext] = useState(false);
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
-  const { error, onError } = useErrorHandling();
-  const [errorType, setError] = useState(error);
+  const { error, handleError } = useErrorHandling();
+
   const [currentCode, setCurrentCode] = useState("");
 
   const mod = useRef({
@@ -53,9 +53,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   };
 
   useEffect(() => {
-    onError((error: string | null) => {
-      setError(error);
-    });
+
+    if (error) {
+      handleError("typescript", error);
+    }
+
+    
 
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
@@ -136,7 +139,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       <div className="flex-grow overflow-hidden">
         <EditorNode
           engine={engine as "monaco" | "ace"}
-          errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
+          errorType={error}
           containerRef={containerRef}
           codeSpace={codeSpace}
         />
