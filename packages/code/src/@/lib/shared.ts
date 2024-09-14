@@ -224,11 +224,16 @@ export const connect = async ({
 }: {
   signal: string;
   sess: ICodeSession;
-}): Promise<void> => {
+}): Promise<() => void> => {
   const worker = await workerPool.getWorker();
   try {
     await worker.rpc.rpc("connect", { signal, sess });
-  } finally {
+    return () => {
+      workerPool.releaseWorker(worker);
+    };
+  } catch (e) {
+    console.error(e);
     workerPool.releaseWorker(worker);
+    throw e;
   }
 };

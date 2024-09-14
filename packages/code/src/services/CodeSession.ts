@@ -76,6 +76,7 @@ export class Code implements ICode {
   private BC: BroadcastChannel;
   private subs: ((sess: ICodeSession) => void)[] = [];
   private codeProcessor: CodeProcessor;
+  private releaseWorker = () => {};
 
   constructor() {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
@@ -83,6 +84,11 @@ export class Code implements ICode {
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(self.crypto.randomUUID());
     this.BC = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
     this.codeProcessor = new CodeProcessor();
+  }
+  // destructor
+  async release() {
+    this.releaseWorker();
+    this.BC.close();
   }
 
   sub(fn: (sess: ICodeSession) => void) {
@@ -128,7 +134,7 @@ export class Code implements ICode {
   async run() {
     this.session = await this.init();
     if (location.pathname === `/live/${this.codeSpace}`) {
-      connect({ signal: `${this.codeSpace} ${this.user}`, sess: this.session });
+      this.releaseWorker = await connect({ signal: `${this.codeSpace} ${this.user}`, sess: this.session });
     }
   }
 }
