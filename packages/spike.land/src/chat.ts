@@ -138,19 +138,20 @@ export default {
 
       if (files[filePath]) {
 
-        return new Response(JSON.stringify({
-          filePath,
-          file: files[filePath],
-        }), { headers: { "Content-Type": "application/json" } });
+        // return new Response(JSON.stringify({
+        //   filePath,
+        //   file: files[filePath],
+        // }), { headers: { "Content-Type": "application/json" } });
 
         const fileCache = await caches.open("fileCache");
-        const  cacheKey = new Request(new URL(files[path], url.origin).toString());
+
+        const  cacheKey = new Request(new URL(files[filePath], url.origin).toString());
         let resp = await fileCache.match(cacheKey);
         if (resp) return resp;
 
 
         
-        const req = new Request(new URL(path, url.origin).toString(), request.clone());
+        const req = new Request(request.url.replace(`/${ASSET_HASH}`, ``), request.clone());
         let kvResp = await getAssetFromKV(
           {
             request: req,
@@ -170,12 +171,12 @@ export default {
      
         const headers = new Headers(kvResp.headers);
         kvResp.headers.forEach((v, k) => headers.append(k, v));
-        if (isChunk(request.url)) {
-          headers.append(
-            "Cache-Control",
-            "public, max-age=604800, immutable",
-          );
-        }
+        // if (isChunk(request.url)) {
+        headers.append(
+          "Cache-Control",
+          "public, max-age=604800, immutable",
+        );
+        // }
 
 
         headers.append("Cross-Origin-Embedder-Policy", "require-corp");
