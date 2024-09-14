@@ -56,13 +56,14 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
     let timer: NodeJS.Timeout;
     if (errorType) {
       timer = setTimeout(() => {
+        if (!errorType) return;
         setShowError(true);
         const currentErrorLog = contextManager.getContext('errorLog');
         if (!currentErrorLog) {
         const newErrorLog = `${new Date().toISOString()}: ${errorType} error occurred`;
         contextManager.updateContext('errorLog', newErrorLog);
         }
-      }, 300);
+      }, 500);
     } else {
       setShowError(false);
     }

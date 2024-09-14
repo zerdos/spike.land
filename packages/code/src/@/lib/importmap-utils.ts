@@ -149,11 +149,11 @@ export function importMapReplace(code: string, origin: string): string {
   //   );
   // });
 
-  Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`"${pkg}"`).join(
-      "\"" + pkg + "\"",
-    );
-  });
+  // Object.keys(oo).forEach((pkg) => {
+  //   replaced = replaced.split(`"${pkg}"`).join(
+  //     "\"" + pkg + "\"",
+  //   );
+  // });
 
   return `
 /** importMapReplace${!origin ? new Date().toISOString() : ""} */
