@@ -290,7 +290,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/start.ts",
     ],
     alias: {
-      // ...buildOptions.alias,
+      ...buildOptions.alias,
       // ...importMap.imports,
       // ...extraAliases,
       // ...buildOptions.alias,
@@ -304,8 +304,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     external: [
       ...Object.keys(importMap.imports),
       ...Object.keys(extraAliases),
-      "/swVersion.mjs",
-      "esbuild-wasm/esbuild.wasm",
     ],
   });
 
