@@ -292,7 +292,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/start.ts",
-      "moeule",
     ],
     alias: {
       ...buildOptions.alias,
