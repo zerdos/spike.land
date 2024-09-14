@@ -4,7 +4,6 @@ import type { Environment } from "@/lib/esbuild-make-env";
 import { makeEnv } from "@/lib/esbuild-make-env";
 
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
-import path from "path";
 
 export const buildOptions: BuildOptions = {
   target: "es2024",
