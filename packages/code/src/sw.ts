@@ -103,7 +103,8 @@ registerRoute(
   ({ url }) => {
     const pathname = url.pathname.slice(1);
     const origin = url.origin;
-    return !origin.includes("clerk") && (hashedToOriginal.has(pathname) || hashPattern.test(pathname));
+    return !origin.includes("clerk") && pathname.startsWith(swVersion)
+      && (hashedToOriginal.has(pathname) || hashPattern.test(pathname));
   },
   cacheFirstStrategy,
 );

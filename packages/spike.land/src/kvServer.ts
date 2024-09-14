@@ -43,7 +43,8 @@ export const serveRequestFromKv = () => {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    return pathname.startsWith("/" + ASSET_HASH) || !!files[pathname.slice(1)];
+
+    return pathname.startsWith("/" + ASSET_HASH) || !!files[pathname.slice(1)] || pathname.slice(ASSET_HASH.length + 2) in files;
   };
 
   return {
@@ -55,9 +56,12 @@ export const serveRequestFromKv = () => {
       const pathname = url.pathname;
 
       // Correctly calculate the file path
-      const filePath = pathname.startsWith("/" + ASSET_HASH)
+      let filePath = pathname.startsWith("/" + ASSET_HASH)
         ? pathname.slice(ASSET_HASH.length + 1)
         : pathname.slice(1);
+      if (! (filePath in files)) {
+        filePath = pathname.slice(ASSET_HASH.length + 2);
+      }
 
       const fileCache = await fileCachePromise;
 

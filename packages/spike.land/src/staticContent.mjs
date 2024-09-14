@@ -5,7 +5,7 @@ export { ASSET_MANIFEST };
 // const assets = JSON.parse(                              );
 
 export const files = JSON.parse(ASSET_MANIFEST);
-export const ASSET_HASH = "x-"+md5(JSON.stringify(files)).slice(0,4)+"-z-"+md5('z',ASSET_MANIFEST).slice(0,4) 
+export const ASSET_HASH = md5(Object.values(files).join(""));
 // let files = {};)
 
 // Object.keys(assets).forEach((file) => files = { ...files, [`/${file}`]: `/` + assets[file] });
