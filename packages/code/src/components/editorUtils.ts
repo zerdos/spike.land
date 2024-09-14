@@ -1,8 +1,5 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
-import { createContextManager } from "@/lib/context-manager";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { md5 } from "@src/modules";
-import { useRef, useState } from "react";
 import { ErrorType } from "./ErrorMessages";
 
 export interface EditorState {
@@ -68,49 +65,29 @@ function memoize<T extends (...args: any[]) => Promise<any>>(fn: T): T {
   }) as T;
 }
 
+// Refactored formatCode function without hooks
 export const formatCode = memoize(async (code: string): Promise<string> => {
-  const { error, handleError, clearError } = useErrorHandling();
-
   try {
-    const formattedCode = await prettierToThrow({ code, toThrow: true });
-    if (error === "prettier") {
-      clearError();
-    }
-    return formattedCode;
+    return await prettierToThrow({ code, toThrow: true });
   } catch (error) {
     const errorMessage = typeof error === "string"
       ? error
       : (error as Error).message || JSON.stringify(error);
-    handleError("prettier", errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`));
-    throw new Error("Prettier formatting failed");
+    throw new Error(`Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`)}`);
   }
 });
 
-function getErrorDetailsFromHtml(htmlString: string) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, "text/html");
-  const preElement = doc.querySelector("details pre");
-  return preElement ? preElement.textContent!.trim() : null;
-}
-
+// Refactored transpileCode function without hooks
 export const transpileCode = memoize(async (code: string): Promise<string> => {
-  const { error, handleError, clearError } = useErrorHandling();
-
   try {
-    const transpiled = await transpile({ code, originToUse: location.origin });
-    if (error === "transpile") {
-      clearError();
-    }
-    return transpiled;
+    return await transpile({ code, originToUse: location.origin });
   } catch (error) {
-    handleError("transpile", error instanceof Error ? error.message : String(error));
-    return "";
+    throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 });
 
+// Refactored runCode function without hooks
 export const runCode = memoize(async (transpiled: string) => {
-  const { error, handleError, clearError } = useErrorHandling();
-
   try {
     let resolve: (v: { html: string; css: string }) => void;
     let reject: (reason: string) => void;
@@ -151,18 +128,12 @@ export const runCode = memoize(async (transpiled: string) => {
 
     if (html.includes("Oops! Something went wrong")) {
       const errorDetails = getErrorDetailsFromHtml(html);
-      handleError("runner", errorDetails || "Unknown error occurred");
-      return false;
-    }
-
-    if (error === "runner") {
-      clearError();
+      throw new Error(`Runner error: ${errorDetails || "Unknown error occurred"}`);
     }
 
     return { html, css };
   } catch (error) {
-    handleError("runner", error instanceof Error ? error.message : String(error));
-    throw error;
+    throw new Error(`Running code failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 });
 
