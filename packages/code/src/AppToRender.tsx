@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { Bot, History } from "lucide-react";
+import { Bot, History } from "@/external/lucideReact";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";

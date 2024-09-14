@@ -9,7 +9,7 @@ import { EditorNode } from "./ErrorReminder";
 import { ContextViewer } from "./ContextViewer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sidebar } from "lucide-react";
+import { Sidebar } from "@/external/lucideReact";
 
 interface EditorProps {
   codeSpace: string;
