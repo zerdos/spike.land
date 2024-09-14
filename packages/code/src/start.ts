@@ -1,6 +1,6 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-Object.assign(globalThis, { require });
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
+// Object.assign(globalThis, { require });
 
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
