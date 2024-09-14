@@ -1,7 +1,7 @@
 import { createClerkClient } from "@clerk/backend";
 import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
-import { HTML } from "./fetchHandler";
+import { ASSET_HASH } from "./staticContent.mjs";
 
 export interface AutoSaveEntry {
   timestamp: number;
@@ -129,7 +129,7 @@ export class RouteHandler {
           ).replace(
             "<div id=\"embed\"></div>",
             `<div id="embed">${html}</div>`,
-          );
+          ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
 
           const headers = new Headers({
             "Access-Control-Allow-Origin": "*",
@@ -379,7 +379,7 @@ hQIDAQAB
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    );
+    ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -406,7 +406,7 @@ hQIDAQAB
       "<div id=\"embed\"></div>",
       "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
         + codeSpace + "/iframe\"></iframe></div>",
-    );
+    ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -488,7 +488,7 @@ hQIDAQAB
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`);
+    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
 
 
     return new Response(respText, {
