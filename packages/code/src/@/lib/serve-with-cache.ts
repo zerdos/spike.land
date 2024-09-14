@@ -25,7 +25,7 @@ function getContentType(path: string) {
 // Initialize the cache
 let _fileCache: Cache | undefined;
 
-const fileCachePromise = caches.open("file-cache-v2").then((cache) => {
+const fileCachePromise = caches.open("file-cache-v3").then((cache) => {
   _fileCache = cache;
 }).catch(console.error);
 
@@ -78,6 +78,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + filePath;
+      if (filePath === "index.html") cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
       const cacheKey = new Request(cacheUrl.toString());
 
       // Attempt to find the response in the cache
