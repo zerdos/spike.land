@@ -20,13 +20,16 @@ function getContentType(path) {
 }
 
 // Initialize the cache
-let fileCache;
+let _fileCache: Cache | undefined;
+
 const fileCachePromise = caches.open("file-cache-v2").then((cache) => {
   fileCache = cache;
 }).catch(console.error);
 
-export const serveWithCache = (ASSET_HASH, files) => {
-  const isAsset = (request) => {
+export const serveWithCache = (ASSET_HASH: string, files: {
+  [key: string]: string;
+}) => {
+  const isAsset = (request: Request) => {
     const url = new URL(request.url);
     const pathname = url.pathname.startsWith("/")
       ? url.pathname.slice(1)
@@ -41,7 +44,11 @@ export const serveWithCache = (ASSET_HASH, files) => {
 
   return {
     isAsset,
-    serve: async (request, assetFetcher, waitUntil) => {
+    serve: async (
+      request: Request,
+      assetFetcher: (req: Request) => Promise<Response>,
+      waitUntil: (p: Promise<unknown>) => void,
+    ) => {
       if (request.method !== "GET") {
         return new Response("Method Not Allowed", { status: 405 });
       }
@@ -61,9 +68,10 @@ export const serveWithCache = (ASSET_HASH, files) => {
         return new Response("Not Found", { status: 404 });
       }
 
-      if (!fileCache) {
+      if (_fileCache === undefined) {
         await fileCachePromise;
       }
+      const fileCache = _fileCache!;
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + filePath;
