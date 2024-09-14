@@ -25,7 +25,7 @@ function getContentType(path: string) {
 // Initialize the cache
 let _fileCache: Cache | undefined;
 
-const fileCachePromise = caches.open("file-cache-v7").then((cache) => {
+const fileCachePromise = caches.open("file-cache-v10").then((cache) => {
   _fileCache = cache;
 }).catch(console.error);
 

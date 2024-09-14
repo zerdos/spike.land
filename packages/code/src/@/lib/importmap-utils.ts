@@ -99,7 +99,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName?.startsWith("@/")) {
-      return p1 + `"/${packageName}.mjs"` + p3;
+      return p1 + `"${packageName}.mjs"` + p3;
     }
 
     if (packageName.includes(".")) {
