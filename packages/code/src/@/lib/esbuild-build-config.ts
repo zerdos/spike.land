@@ -12,8 +12,9 @@ export const buildOptions: BuildOptions = {
   bundle: true,
   outExtension: { ".js": ".mjs" },
   alias: {
-    path: "path-browserify",
+    path: "path-browserify/",
     buffer: "buffer/",
+
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
     util: "util/",
