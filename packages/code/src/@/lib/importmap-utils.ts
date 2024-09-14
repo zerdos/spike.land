@@ -56,7 +56,7 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg?.startsWith("./")) return match;
       if (pkg?.startsWith(",")) return match;
 
-      return `import "/${match.split("\"")[1]}?${externalString}";`;
+      return `import "${origin}/${match.split("\"")[1]}?${externalString}";`;
     }
 
     if (p2?.startsWith("`") && p2.endsWith("`")) {
