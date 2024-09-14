@@ -7,6 +7,7 @@ import { Mutex } from "async-mutex";
 // Define the properties of `self` with proper types
 declare var self: SharedWorkerGlobalScope & {
   ata: unknown;
+  connections: Map<string, Connection>;
   prettierCss: unknown;
   prettierJs: unknown;
   createWorkflow: unknown;
@@ -34,7 +35,7 @@ interface Connection {
 }
 
 // Use a Map for better management of connections
-const connections: Map<string, Connection> = new Map();
+const connections: Map<string, Connection> = self.connections || new Map();
 const mutex = new Mutex();
 
 /**
@@ -471,4 +472,5 @@ const SENDER_WORKER_HASH_MISMATCH_RELOAD = "WORKER_HASH_MISMATCH_RELOAD";
 // Expose the setConnections function to the global scope
 Object.assign(self, {
   setConnections,
+  connections,
 });
