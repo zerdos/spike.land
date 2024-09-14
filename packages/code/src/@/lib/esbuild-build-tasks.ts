@@ -285,7 +285,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     platform: "browser",
     mainFields: ["module", "main"],
     banner: {
-      js: "import { createRequire } from '/module'; const require = createRequire(import.meta.url);",
+      js:
+        "import { createRequire } from '/module?bundle=true&exports=createRequire'; const require = createRequire(import.meta.url);",
     },
 
     plugins: [
