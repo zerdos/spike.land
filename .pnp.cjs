@@ -5307,7 +5307,7 @@ const RAW_RUNTIME_STATE =
           ["date-fns", "npm:4.0.0-beta.1"],\
           ["detective-typescript", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:13.0.0"],\
           ["embla-carousel-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.3.0"],\
-          ["es-toolkit", "npm:1.18.0"],\
+          ["es-toolkit", "npm:1.19.0"],\
           ["esbuild", "npm:0.23.1"],\
           ["esbuild-plugin-copy", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.1"],\
           ["esbuild-style-plugin", "npm:1.6.3"],\
@@ -5335,7 +5335,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:7.0.2"],\
           ["path-browserify", "npm:1.0.1"],\
           ["perf_hooks", "npm:0.0.1"],\
-          ["postcss", "npm:8.4.45"],\
+          ["postcss", "npm:8.4.47"],\
           ["postcss-import", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.1.0"],\
           ["preact", "npm:10.24.0"],\
           ["prettier", "npm:3.3.3"],\
@@ -5354,7 +5354,7 @@ const RAW_RUNTIME_STATE =
           ["react-markdown", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.0.1"],\
           ["react-qrious", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.5.6"],\
           ["react-refresh", "npm:0.14.2"],\
-          ["react-resizable-panels", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.2"],\
+          ["react-resizable-panels", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.3"],\
           ["react-reverse-portal", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.2"],\
           ["react-spring", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.7.4"],\
           ["react-swipeable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.0.1"],\
@@ -8002,7 +8002,7 @@ const RAW_RUNTIME_STATE =
           ["fraction.js", "npm:4.3.7"],\
           ["normalize-range", "npm:0.1.2"],\
           ["picocolors", "npm:1.1.0"],\
-          ["postcss", "npm:8.4.45"],\
+          ["postcss", "npm:8.4.47"],\
           ["postcss-value-parser", "npm:4.2.0"]\
         ],\
         "packagePeers": [\
@@ -10792,10 +10792,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["es-toolkit", [\
-      ["npm:1.18.0", {\
-        "packageLocation": "./.yarn/global/cache/es-toolkit-npm-1.18.0-2957fe3591-10.zip/node_modules/es-toolkit/",\
+      ["npm:1.19.0", {\
+        "packageLocation": "./.yarn/global/cache/es-toolkit-npm-1.19.0-a1024004ba-10.zip/node_modules/es-toolkit/",\
         "packageDependencies": [\
-          ["es-toolkit", "npm:1.18.0"]\
+          ["es-toolkit", "npm:1.19.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16908,6 +16908,16 @@ const RAW_RUNTIME_STATE =
           ["source-map-js", "npm:1.2.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.4.47", {\
+        "packageLocation": "./.yarn/global/cache/postcss-npm-8.4.47-2f4d4be1fa-10.zip/node_modules/postcss/",\
+        "packageDependencies": [\
+          ["postcss", "npm:8.4.47"],\
+          ["nanoid", "npm:3.3.7"],\
+          ["picocolors", "npm:1.1.0"],\
+          ["source-map-js", "npm:1.2.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["postcss-import", [\
@@ -16930,7 +16940,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["postcss-import", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.1.0"],\
           ["@types/postcss", null],\
-          ["postcss", "npm:8.4.45"],\
+          ["postcss", "npm:8.4.47"],\
           ["postcss-value-parser", "npm:4.2.0"],\
           ["read-cache", "npm:1.0.0"],\
           ["resolve", "patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"]\
@@ -17972,17 +17982,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["react-resizable-panels", [\
-      ["npm:2.1.2", {\
-        "packageLocation": "./.yarn/global/cache/react-resizable-panels-npm-2.1.2-22aec41389-10.zip/node_modules/react-resizable-panels/",\
+      ["npm:2.1.3", {\
+        "packageLocation": "./.yarn/global/cache/react-resizable-panels-npm-2.1.3-b9b9816aa1-10.zip/node_modules/react-resizable-panels/",\
         "packageDependencies": [\
-          ["react-resizable-panels", "npm:2.1.2"]\
+          ["react-resizable-panels", "npm:2.1.3"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.2", {\
-        "packageLocation": "./.yarn/__virtual__/react-resizable-panels-virtual-67e881b1b0/0/global/cache/react-resizable-panels-npm-2.1.2-22aec41389-10.zip/node_modules/react-resizable-panels/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.3", {\
+        "packageLocation": "./.yarn/__virtual__/react-resizable-panels-virtual-dc8793b10b/0/global/cache/react-resizable-panels-npm-2.1.3-b9b9816aa1-10.zip/node_modules/react-resizable-panels/",\
         "packageDependencies": [\
-          ["react-resizable-panels", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.2"],\
+          ["react-resizable-panels", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.3"],\
           ["@types/react", "npm:18.3.5"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["react", "npm:18.3.1"],\

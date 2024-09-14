@@ -3882,7 +3882,7 @@ __metadata:
     date-fns: "npm:^4.0.0-beta.1"
     detective-typescript: "npm:13.0.0"
     embla-carousel-react: "npm:^8.3.0"
-    es-toolkit: "npm:^1.18.0"
+    es-toolkit: "npm:^1.19.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
     esbuild-style-plugin: "npm:^1.6.3"
@@ -3910,7 +3910,7 @@ __metadata:
     p-map: "npm:7.0.2"
     path-browserify: "npm:1.0.1"
     perf_hooks: "npm:^0.0.1"
-    postcss: "npm:^8.4.45"
+    postcss: "npm:^8.4.47"
     postcss-import: "npm:^16.1.0"
     preact: "npm:^10.24.0"
     prettier: "npm:3.3.3"
@@ -3929,7 +3929,7 @@ __metadata:
     react-markdown: "npm:^9.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.2"
-    react-resizable-panels: "npm:^2.1.2"
+    react-resizable-panels: "npm:^2.1.3"
     react-reverse-portal: "npm:^2.1.2"
     react-spring: "npm:^9.7.4"
     react-swipeable: "npm:^7.0.1"
@@ -8267,10 +8267,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:^1.18.0":
-  version: 1.18.0
-  resolution: "es-toolkit@npm:1.18.0"
-  checksum: 10/a0fa3b618e688ea4cc79f4d7a94a149a79facfb705165ac9ce54359ed5dc0a52f7fabbfbe3e4de276e5681b3a222941a740a69075769280e1a316f7c9a918e00
+"es-toolkit@npm:^1.19.0":
+  version: 1.19.0
+  resolution: "es-toolkit@npm:1.19.0"
+  checksum: 10/ad511bfb5eb3fcfce9d28535d06ccc64e61764d4db6ab24ba751705dcc4ab2a1681b344e73edb6de37128eefbf79472186cb991b739adbe8d333a0312f3dd74b
   languageName: node
   linkType: hard
 
@@ -13663,7 +13663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1":
+"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1, picocolors@npm:^1.1.0":
   version: 1.1.0
   resolution: "picocolors@npm:1.1.0"
   checksum: 10/a2ad60d94d185c30f2a140b19c512547713fb89b920d32cc6cf658fa786d63a37ba7b8451872c3d9fc34883971fb6e5878e07a20b60506e0bb2554dce9169ccb
@@ -13928,7 +13928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.31, postcss@npm:^8.4.43, postcss@npm:^8.4.45":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.31, postcss@npm:^8.4.43":
   version: 8.4.45
   resolution: "postcss@npm:8.4.45"
   dependencies:
@@ -13936,6 +13936,17 @@ __metadata:
     picocolors: "npm:^1.0.1"
     source-map-js: "npm:^1.2.0"
   checksum: 10/7eaf7346d04929ee979548ece5e34d253eae6f175346e298b2c4621ad6f4ee00adfe7abe72688640e910c0361ae50537c5dda3e35fd1066491282c342b3ee5c8
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.47":
+  version: 8.4.47
+  resolution: "postcss@npm:8.4.47"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.1.0"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/f2b50ba9b6fcb795232b6bb20de7cdc538c0025989a8ed9c4438d1960196ba3b7eaff41fdb1a5c701b3504651ea87aeb685577707f0ae4d6ce6f3eae5df79a81
   languageName: node
   linkType: hard
 
@@ -14486,13 +14497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "react-resizable-panels@npm:2.1.2"
+"react-resizable-panels@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "react-resizable-panels@npm:2.1.3"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/cd97ef764cc83e51bd9a0b406c00155eee25ad4917d8b4fffbaf09e6da04571ef34ce9d9ba2733459e082960070be729584b04456c8139040cdc83e510c967f0
+  checksum: 10/74c2a3eae004047c556dc3972985ea916eb37535bfccf5a411f54dbc4cc08ff658d845847d1df744574241da1b226653322acf9cdbcfa8a04f8ad4033e9244b0
   languageName: node
   linkType: hard
 
@@ -15644,7 +15655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.2.0":
+"source-map-js@npm:^1.2.0, source-map-js@npm:^1.2.1":
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
   checksum: 10/ff9d8c8bf096d534a5b7707e0382ef827b4dd360a577d3f34d2b9f48e12c9d230b5747974ee7c607f0df65113732711bb701fe9ece3c7edbd43cb2294d707df3
