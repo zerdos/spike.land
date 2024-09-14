@@ -6,6 +6,9 @@ import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import { isChunk } from "./utils";
 // import {  files } from "./staticContent.mjs";
 
 export default {
@@ -124,6 +127,60 @@ export default {
     //     },
     //   });
     // }
+
+    if (url.pathname.startsWith(`/${ASSET_HASH}/`)) {
+
+      const path = url.pathname.slice(ASSET_HASH.length + 2);
+  
+
+      if (files[path]) {
+
+        const fileCache = await caches.open("fileCache");
+        const  cacheKey = new Request(new URL(files[path], url.origin).toString());
+        let resp = await fileCache.match(cacheKey);
+        if (resp) return resp;
+
+
+        
+        const req = new Request(new URL(path, url.origin).toString());
+        let kvResp = await getAssetFromKV(
+          {
+            request: req,
+            waitUntil(promise) {
+              return ctx.waitUntil(promise);
+            },
+          },
+          {
+            ASSET_NAMESPACE: env.__STATIC_CONTENT,
+            ASSET_MANIFEST,
+          }
+        );
+    
+        if (!kvResp.ok) {
+          return kvResp;
+        }
+    
+        const headers = new Headers(kvResp.headers);
+        kvResp.headers.forEach((v, k) => headers.append(k, v));
+        if (isChunk(request.url)) {
+          headers.append(
+            "Cache-Control",
+            "public, max-age=604800, immutable",
+          );
+        }
+
+
+        headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+        headers.append("Access-Control-Allow-Origin", "*");
+
+  
+        kvResp = new Response(kvResp.body, { ...kvResp, headers });
+        ctx.waitUntil(fileCache.put(cacheKey, kvResp.clone()));
+
+    
+        return kvResp;
+      }
+    }
 
     if (request.url.includes("/api/my-turn")) {
       async function generateTURNCredentials() {

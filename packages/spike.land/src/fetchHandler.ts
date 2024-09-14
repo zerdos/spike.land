@@ -296,48 +296,5 @@ async function handleDefaultCase(
     ? newUrl.pathname.slice(8)
     : newUrl.pathname.slice(1);
 
-  if (files[file]) {
-    let kvResp = await getAssetFromKV(
-      {
-        request,
-        waitUntil(promise) {
-          return ctx.waitUntil(promise);
-        },
-      },
-      {
-        ASSET_NAMESPACE: env.__STATIC_CONTENT,
-        ASSET_MANIFEST,
-      }
-    );
-
-    if (!kvResp.ok) {
-      return kvResp;
-    }
-
-    const headers = new Headers(kvResp.headers);
-    kvResp.headers.forEach((v, k) => headers.append(k, v));
-    if (isChunk(request.url)) {
-      headers.append(
-        "Cache-Control",
-        "public, max-age=604800, immutable",
-      );
-    }
-    headers.append("Cross-Origin-Embedder-Policy", "require-corp");
-    headers.append("Access-Control-Allow-Origin", "*");
-
-    // if (
-    //   request.url.indexOf("/@/") === -1 && !request.url.endsWith(".ts")
-    //   && !request.url.includes(".worker.")
-    // ) {
-    //   const content = await kvResp.text();
-    //   const transformed = importMapReplace(content, u.origin);
-    //   return new Response(transformed, { ...kvResp, headers });
-    // }
-
-    kvResp = new Response(kvResp.body, { ...kvResp, headers });
-
-    return kvResp;
-  }
-
-  return new Response("not found :((( ", { status: 404 });
+    return new Response("not found :((( ", { status: 404 });
 }
