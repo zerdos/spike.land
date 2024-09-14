@@ -1,4 +1,4 @@
-import SharedWorkerPolyfill from "@/external/shared-worker";
+import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
@@ -43,7 +43,7 @@ class WorkerPool {
   }
 
   private addWorker() {
-    const worker = new SharedWorkerPolyfill("/@/workers/ata-worker.worker.js", {
+    const worker = new AlwaysSupportedSharedWorker("/@/workers/ata-worker.worker.js", {
       type: "classic",
     });
     const port = worker.port;
