@@ -54,21 +54,25 @@ class WorkerPool {
 
   async getWorker(): Promise<WorkerWrapper> {
     return this.mutex.runExclusive(async () => {
-      let availableWorker = this.workers.find((worker) => !worker.busy);
+      try {
+        let availableWorker = this.workers.find((worker) => !worker.busy);
 
-      if (!availableWorker) {
-        this.addWorker();
-        availableWorker = this.workers[this.workers.length - 1];
+        if (!availableWorker) {
+          this.addWorker();
+          availableWorker = this.workers[this.workers.length - 1];
+        }
+
+        availableWorker.busy = true;
+
+        const freeWorkers = this.workers.filter((worker) => !worker.busy).length;
+        if (freeWorkers < this.minFreeWorkers) {
+          this.addWorker(); // Now synchronous
+        }
+
+        return availableWorker;
+      } finally {
+        console.log("finally");
       }
-
-      availableWorker.busy = true;
-
-      const freeWorkers = this.workers.filter((worker) => !worker.busy).length;
-      if (freeWorkers < this.minFreeWorkers) {
-        this.addWorker(); // Now synchronous
-      }
-
-      return availableWorker;
     });
   }
 
@@ -227,7 +231,7 @@ export const connect = async ({
 }): Promise<() => void> => {
   const worker = await workerPool.getWorker();
   try {
-    await worker.rpc.rpc("connect", { signal, sess });
+    worker.rpc.signal("connect", { signal, sess });
     return () => {
       workerPool.releaseWorker(worker);
     };
