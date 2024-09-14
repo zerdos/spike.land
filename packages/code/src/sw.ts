@@ -7,7 +7,7 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
@@ -90,7 +90,7 @@ sw.addEventListener("install", (event) => {
   event.waitUntil(cleanupOldCaches());
 });
 
-const cacheFirstStrategy = new StaleWhileRevalidate({
+const cacheFirstStrategy = new CacheFirst({
   cacheName: CURRENT_CACHE_NAME,
   plugins: [
     new CacheableResponsePlugin({

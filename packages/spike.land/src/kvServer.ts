@@ -36,7 +36,7 @@ function getContentType(path: string) {
 }
 
 // Initialize the cache outside of the request handler
-let fileCachePromise = caches.open("file-cache-v1");
+let fileCachePromise = caches.open("file-cache-v2");
 
 export const serveRequestFromKv = () => {
   const isAsset = (request: Request) => {
