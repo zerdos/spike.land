@@ -74,7 +74,7 @@ export const transpile = async (
       target: "es2024",
     });
 
-    return importMapReplace(transformedCode.code, origin);
+    return importMapReplace(transformedCode.code, "");
   } catch (error) {
     console.error("Error during transpilation:", error);
     return { error };
