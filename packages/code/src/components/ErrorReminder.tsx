@@ -7,10 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { createContextManager } from "@/lib/context-manager";
+import { errorMessages } from "./ErrorMessages"
+import type { ErrorType } from "./ErrorMessages";
+import { useErrorEffect } from "@src/hooks/useErrorEffect";
 
 export const EditorNode: React.FC<{
   engine: "monaco" | "ace";
-  errorType: "typescript" | "prettier" | "transpile" | "render" | null;
+  errorType: ErrorType;
   containerRef: React.Ref<HTMLDivElement>;
   codeSpace: string;
 }> = ({ errorType, containerRef, codeSpace }) => {
@@ -39,7 +42,7 @@ export const EditorNode: React.FC<{
 };
 
 interface ErrorReminderProps {
-  errorType: "typescript" | "prettier" | "transpile" | "render" | null;
+  errorType: ErrorType;
   onHeightChange: (height: number) => void;
   codeSpace: string;
 }
@@ -51,37 +54,12 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
 }) => {
   const [showError, setShowError] = useState(false);
   const contextManager = createContextManager(codeSpace);
+  useErrorEffect(errorType, codeSpace, contextManager, setShowError);
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (errorType) {
-      timer = setTimeout(() => {
-        if (!errorType) return;
-        setShowError(true);
-        const currentErrorLog = contextManager.getContext('errorLog');
-        if (!currentErrorLog) {
-        const newErrorLog = `${new Date().toISOString()}: ${errorType} error occurred`;
-        contextManager.updateContext('errorLog', newErrorLog);
-        }
-      }, 500);
-    } else {
-      setShowError(false);
-    }
 
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [errorType, codeSpace]);
-
-  const errorMessages = {
-    typescript: "There might be a TypeScript error in your code. Check the editor for more details.",
-    prettier: "There was an issue formatting your code. It might contain syntax errors.",
-    transpile: "Your code couldn't be transpiled. There might be a syntax or compilation error.",
-    render: "The code was transpiled, but no HTML output was generated. Check your render function.",
-  };
 
   const errorLog = contextManager.getContext('errorLog');
-
+  
   return (
     <AnimatePresence initial={false} onExitComplete={() => onHeightChange(0)}>
       {showError && errorType && (

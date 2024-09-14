@@ -25,121 +25,93 @@ export const useEditorState = () => {
   return { containerRef, engine, editorState, setEditorState };
 };
 
-const myError = {
-  type: null as string | null,
-  setError: (newType: string | null) => {
-    myError.type = newType;
-    try {
-      myError.subscribers.forEach((subscriber) => {
-        subscriber(myError.type);
-      });
-    } catch (error) {
-      console.error("Error in error handling", error);
-    }
-  },
-  onError: (onError: (err: string | null) => void) => {
-    myError.subscribers.push(onError);
-  },
-  subscribers: [] as ((err: string | null) => void)[],
-};
-
+// Improved error handling hook
 export const useErrorHandling = () => {
-  return { error: myError.type, setError: myError.setError, onError: myError.onError };
+  const [error, setError] = useState<string | null>(null);
+  const contextManager = createContextManager(useCodeSpace());
+
+  const handleError = (errorType: string, errorMessage: string) => {
+    setError(errorType);
+    contextManager.updateContext("errorLog", errorMessage);
+  };
+
+  const clearError = () => {
+    setError(null);
+    contextManager.updateContext("errorLog", "");
+  };
+
+  return { error, handleError, clearError };
 };
 
-function memoize<T extends (...args: any[]) => any>(fn: T): T {
+// Improved memoize function that handles async functions and errors
+function memoize<T extends (...args: any[]) => Promise<any>>(fn: T): T {
   const cache = new Map();
 
-  return ((...args: Parameters<T>): ReturnType<T> => {
+  return (async (...args: Parameters<T>): Promise<ReturnType<T>> => {
     const key = JSON.stringify(args);
     if (cache.has(key)) {
-      return cache.get(key);
+      const cachedResult = cache.get(key);
+      if (cachedResult instanceof Error) {
+        throw cachedResult;
+      }
+      return cachedResult;
     }
-    const result = fn(...args);
-    cache.set(key, result);
-    return result;
+    try {
+      const result = await fn(...args);
+      cache.set(key, result);
+      return result;
+    } catch (error) {
+      cache.set(key, error);
+      throw error;
+    }
   }) as T;
 }
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
-  const { error, setError } = useErrorHandling();
-  const contextManager = createContextManager(useCodeSpace());
+  const { error, handleError, clearError } = useErrorHandling();
 
   try {
     const formattedCode = await prettierToThrow({ code, toThrow: true });
-    console.log("Formatted successfully");
-    if (error && error === "prettier") {
-      setError(null);
-
-      contextManager.updateContext("errorLog", "");
+    if (error === "prettier") {
+      clearError();
     }
     return formattedCode;
   } catch (error) {
-    console.error("Error formatting code:", error);
-
     const errorMessage = typeof error === "string"
       ? error
-      : (error as unknown as { message: string })?.message || JSON.stringify(error);
-
-    // we should see line breaks instead of \n -s in the pre block
-    const errorMessageWithLineBreaks = errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`);
-    contextManager.updateContext(
-      "errorLog",
-      errorMessageWithLineBreaks,
-    );
-
-    setError("prettier");
+      : (error as Error).message || JSON.stringify(error);
+    handleError("prettier", errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`));
     throw new Error("Prettier formatting failed");
   }
 });
 
 function getErrorDetailsFromHtml(htmlString: string) {
-  // Create a DOMParser to parse the HTML string
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString, "text/html");
-
-  // Find the <pre> element within the <details> element
   const preElement = doc.querySelector("details pre");
-
-  if (preElement) {
-    // Return the text content of the <pre> element
-    return preElement.textContent!.trim();
-  } else {
-    // If no error details are found, return null or an appropriate message
-    return null;
-  }
+  return preElement ? preElement.textContent!.trim() : null;
 }
 
 export const transpileCode = memoize(async (code: string): Promise<string> => {
-  const { error, setError } = useErrorHandling();
-  const contextManager = createContextManager(useCodeSpace());
+  const { error, handleError, clearError } = useErrorHandling();
 
   try {
     const transpiled = await transpile({ code, originToUse: location.origin });
-    if (error && error === "transpile") {
-      contextManager.updateContext("errorLog", "");
-      setError(null);
+    if (error === "transpile") {
+      clearError();
     }
     return transpiled;
   } catch (error) {
-    if (error instanceof Error) {
-      contextManager.updateContext("errorLog", error.message);
-    }
-    setError("transpile");
+    handleError("transpile", error instanceof Error ? error.message : String(error));
     return "";
   }
 });
 
 export const runCode = memoize(async (transpiled: string) => {
-  const { error, setError } = useErrorHandling();
-  const contextManager = createContextManager(useCodeSpace());
+  const { error, handleError, clearError } = useErrorHandling();
 
   try {
-    let resolve: (v: {
-      html: string;
-      css: string;
-    }) => void;
-
+    let resolve: (v: { html: string; css: string }) => void;
     let reject: (reason: string) => void;
 
     const promise = new Promise<{ html: string; css: string }>(
@@ -151,7 +123,6 @@ export const runCode = memoize(async (transpiled: string) => {
 
     window.onmessage = (ev) => {
       const data: { hash: string; html: string; css: string } = ev.data;
-
       const { hash, html, css } = data;
       if (hash === md5(transpiled)) {
         resolve({ html, css });
@@ -178,22 +149,18 @@ export const runCode = memoize(async (transpiled: string) => {
     const { html, css } = res;
 
     if (html.includes("Oops! Something went wrong")) {
-      console.error("Error in runner: no html");
-
-      contextManager.updateContext("errorLog", getErrorDetailsFromHtml(html)!);
-
-      setError("runner");
+      const errorDetails = getErrorDetailsFromHtml(html);
+      handleError("runner", errorDetails || "Unknown error occurred");
       return false;
     }
-    if (error && error === "runner") {
-      contextManager.updateContext("errorLog", "");
-      setError(null);
+
+    if (error === "runner") {
+      clearError();
     }
 
     return { html, css };
   } catch (error) {
-    console.error(error);
-    setError("runner");
+    handleError("runner", error instanceof Error ? error.message : String(error));
     throw error;
   }
 });
