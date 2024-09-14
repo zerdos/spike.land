@@ -1,5 +1,6 @@
 import { importMap } from "@/lib/importmap-utils";
 import { lookup } from "mime-types";
+import { parse } from "node-html-parser";
 
 // Adjusted addPrefixToImportMap function
 function addPrefixToImportMap(imap, prefix) {
@@ -120,13 +121,21 @@ export const serveWithCache = (ASSET_HASH: string, files: {
         const htmlContent = await kvResp.text();
         // Modify HTML using an HTML parser as suggested
         // For brevity, using string replacement (ensure patterns are unique)
-        let modifiedHtml = htmlContent.replace(
-          `<base href="/">`,
-          `<base href="/${ASSET_HASH}/">`,
-        ).replace(
-          `<script type="importmap"></script>`,
-          `<script type="importmap">${JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`))}</script>`,
-        );
+        const root = parse(htmlContent);
+
+        // Update <base> tag
+        const baseTag = root.querySelector("base[href=\"/\"]");
+        if (baseTag) {
+          baseTag.setAttribute("href", `/${ASSET_HASH}/`);
+        }
+
+        // Update import map
+        const scriptTag = root.querySelector("script[type=\"importmap\"]");
+        if (scriptTag) {
+          scriptTag.set_content(JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`)));
+        }
+
+        const modifiedHtml = root.toString();
 
         response = new Response(modifiedHtml, {
           status: kvResp.status,
