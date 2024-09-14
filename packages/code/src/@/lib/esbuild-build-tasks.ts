@@ -6,6 +6,7 @@ import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
 import { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 const isProduction = environment === "production";
 
@@ -232,6 +233,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     treeShaking: isProduction,
     mangleQuoted: false,
     sourcemap: false,
+    outdir: "dist",
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
@@ -260,7 +262,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      "/*",
+      ...standaloneEntryPoints,
       "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm",
     ],
