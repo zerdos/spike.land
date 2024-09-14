@@ -307,7 +307,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      // ...Object.values(importMap.imports),
+      ...Object.values(importMap.imports),
       ...Object.values(extraAliases),
     ],
   });
