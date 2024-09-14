@@ -2,89 +2,105 @@ import { ICodeSession } from "@/lib/interfaces";
 import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { RpcProvider } from "worker-rpc";
 
-export const rpcFactory = (port: MessagePort) =>
-  new RpcProvider(
-    (message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions),
-  );
-
-declare var self: SharedWorkerGlobalScope & {
-  ata: any;
-  prettierCss: any;
-  prettierJs: any;
-  createWorkflow: any;
-  transpile: any;
-  build: any;
+interface ExtendedSharedWorkerGlobalScope extends SharedWorkerGlobalScope {
+  ata: (params: { code: string; tsx: any }) => Promise<any>;
+  prettierCss: (code: string) => Promise<string>;
+  prettierJs: (code: string, toThrow: boolean) => Promise<string>;
+  createWorkflow: (q: string) => Promise<any>;
+  transpile: (code: string, originToUse: string) => Promise<string>;
+  build: (params: BuildParams) => Promise<any>;
   tsx: any;
-  updateSearchReplace: any;
-  setConnections: any;
-};
-
-function start(port: MessagePort) {
-  const rpcProvider = rpcFactory(port);
-  port.onmessage = ({ data }) => rpcProvider.dispatch(data);
-
-  registerRpcHandlers(rpcProvider);
+  updateSearchReplace: (instructions: string, code: string) => Promise<string>;
+  setConnections: (signal: string, sess: ICodeSession) => void;
 }
 
-function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
-  rpcProvider.registerRpcHandler("prettierJs", async ({ code, toThrow }: { code: string; toThrow: boolean }) => {
-    await lazyLoadScript("prettier-esm");
-    return self.prettierJs(code, toThrow);
-  });
+declare var self: ExtendedSharedWorkerGlobalScope;
 
-  rpcProvider.registerRpcHandler("createWorkflow", async (q: string) => {
-    await lazyLoadScript("lang-chain");
-    return self.createWorkflow(q);
-  });
+interface BuildParams {
+  codeSpace: string;
+  splitting?: boolean;
+  entryPoint?: string;
+  origin: string;
+  format: "esm" | "iife";
+  external?: string[];
+}
 
-  rpcProvider.registerRpcHandler("prettierCss", async (code: string) => {
-    await lazyLoadScript("prettier-esm");
-    return self.prettierCss(code);
-  });
+const rpcFactory = (port: MessagePort): RpcProvider =>
+  new RpcProvider((message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions));
 
-  rpcProvider.registerRpcHandler("ata", async ({ code }: { code: string }) => {
-    await Promise.all([lazyLoadScript("ata"), lazyLoadScript("dts")]);
-    return self.ata({ code, tsx: self.tsx });
-  });
+const loadedScripts = new Set<string>();
 
-  rpcProvider.registerRpcHandler("transpile", async ({ code, originToUse }: { code: string; originToUse: string }) => {
-    await lazyLoadScript("transpile");
-    return self.transpile(code, originToUse);
-  });
+const safelyLoadScript = async (scriptName: string): Promise<void> => {
+  if (!loadedScripts.has(scriptName)) {
+    await lazyLoadScript(scriptName);
+    loadedScripts.add(scriptName);
+  }
+};
 
-  rpcProvider.registerRpcHandler(
-    "updateSearchReplace",
-    async ({ code, instructions }: { code: string; instructions: string }) => {
-      await lazyLoadScript("chat-utils");
+const handleRpcError = async (handler: () => Promise<any>): Promise<any> => {
+  try {
+    return await handler();
+  } catch (error) {
+    console.error("RPC handler error:", error);
+    throw new Error("An error occurred while processing the request");
+  }
+};
+
+const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
+  const handlers: [string, (...args: any[]) => Promise<any>][] = [
+    ["prettierJs", async ({ code, toThrow }: { code: string; toThrow: boolean }) => {
+      await safelyLoadScript("prettier-esm");
+      return self.prettierJs(code, toThrow);
+    }],
+    ["createWorkflow", async (q: string) => {
+      await safelyLoadScript("lang-chain");
+      return self.createWorkflow(q);
+    }],
+    ["prettierCss", async (code: string) => {
+      await safelyLoadScript("prettier-esm");
+      return self.prettierCss(code);
+    }],
+    ["ata", async ({ code }: { code: string }) => {
+      await Promise.all([safelyLoadScript("ata"), safelyLoadScript("dts")]);
+      return self.ata({ code, tsx: self.tsx });
+    }],
+    ["transpile", async ({ code, originToUse }: { code: string; originToUse: string }) => {
+      await safelyLoadScript("transpile");
+      return self.transpile(code, originToUse);
+    }],
+    ["updateSearchReplace", async ({ code, instructions }: { code: string; instructions: string }) => {
+      await safelyLoadScript("chat-utils");
       return self.updateSearchReplace(instructions, code);
-    },
-  );
+    }],
+    ["build", async (params: BuildParams) => {
+      await safelyLoadScript("transpile");
+      return self.build(params);
+    }],
+  ];
 
-  rpcProvider.registerRpcHandler("build", async (params: {
-    codeSpace: string;
-    splitting?: boolean;
-    entryPoint?: string;
-    origin: string;
-    format: "esm" | "iife";
-    external?: string[];
-  }) => {
-    await lazyLoadScript("transpile");
-    return self.build(params);
+  handlers.forEach(([name, handler]) => {
+    rpcProvider.registerRpcHandler(name, (...args) => handleRpcError(() => handler(...args)));
   });
 
   rpcProvider.registerSignalHandler(
     "connect",
     async ({ signal, sess }: { signal: string; sess: ICodeSession }) => {
-      await lazyLoadScript("socket");
+      await safelyLoadScript("socket");
       self.setConnections(signal, sess);
     },
   );
-}
+};
 
-self.onconnect = (e) => start(e.ports[0]);
+const start = (port: MessagePort): void => {
+  const rpcProvider = rpcFactory(port);
+  port.onmessage = ({ data }) => rpcProvider.dispatch(data);
+  registerRpcHandlers(rpcProvider);
+};
+
+self.onconnect = (e: MessageEvent) => start(e.ports[0]);
 
 if (!("SharedWorkerGlobalScope" in self)) {
-  start(self as typeof self & MessagePort);
+  start(self as unknown as MessagePort);
 }
 
 export {};
