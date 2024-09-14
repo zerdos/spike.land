@@ -3,8 +3,10 @@ import { lookup } from "mime-types";
 import { parse } from "node-html-parser";
 
 // Adjusted addPrefixToImportMap function
-function addPrefixToImportMap(imap, prefix) {
-  const updatedImports = {};
+function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+  const updatedImports: {
+    [key: string]: string;
+  } = {};
 
   for (const [key, value] of Object.entries(imap.imports)) {
     // Ensure correct path concatenation
@@ -16,7 +18,7 @@ function addPrefixToImportMap(imap, prefix) {
 }
 
 // Simplified getContentType function
-function getContentType(path) {
+function getContentType(path: string) {
   return lookup(path) || "application/octet-stream";
 }
 
@@ -24,7 +26,7 @@ function getContentType(path) {
 let _fileCache: Cache | undefined;
 
 const fileCachePromise = caches.open("file-cache-v2").then((cache) => {
-  fileCache = cache;
+  _fileCache = cache;
 }).catch(console.error);
 
 export const serveWithCache = (ASSET_HASH: string, files: {
