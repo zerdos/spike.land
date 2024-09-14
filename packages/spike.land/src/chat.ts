@@ -130,10 +130,18 @@ export default {
 
     if (url.pathname.startsWith(`/${ASSET_HASH}/`)) {
 
-      const path = url.pathname.slice(ASSET_HASH.length + 2);
-  
+    // return new Response("Not Found", { status: 404 });  
 
-      if (files[path]) {
+      const filePath = url.pathname.slice(ASSET_HASH.length + 2);
+
+      
+
+      if (files[filePath]) {
+
+        return new Response(JSON.stringify({
+          filePath,
+          file: files[filePath],
+        }), { headers: { "Content-Type": "application/json" } });
 
         const fileCache = await caches.open("fileCache");
         const  cacheKey = new Request(new URL(files[path], url.origin).toString());
@@ -142,7 +150,7 @@ export default {
 
 
         
-        const req = new Request(new URL(path, url.origin).toString());
+        const req = new Request(new URL(path, url.origin).toString(), request.clone());
         let kvResp = await getAssetFromKV(
           {
             request: req,
@@ -159,7 +167,7 @@ export default {
         if (!kvResp.ok) {
           return kvResp;
         }
-    
+     
         const headers = new Headers(kvResp.headers);
         kvResp.headers.forEach((v, k) => headers.append(k, v));
         if (isChunk(request.url)) {
