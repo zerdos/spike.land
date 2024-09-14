@@ -1,7 +1,6 @@
 // src/importMapUtils.ts
 
 export const oo = {
-  "@/": "/@/",
   "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/server": "/reactDomServer.mjs",
