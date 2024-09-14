@@ -246,12 +246,14 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/reactMod.ts",
       "src/recharts.ts",
       "src/reactDom.ts",
+      "src/start.ts",
       "src/reactDomClient.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
     ],
     alias: {
       ...buildOptions.alias,
+      ...extraAliases,
       // ...extraAliases,
       // ...buildOptions.alias,
       // "@src/swVersion": "/swVersion.mjs",
@@ -261,53 +263,52 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      ...Object.keys(extraAliases),
+      ...Object.values(extraAliases),
       // "/swVersion.mjs",
       // "esbuild-wasm/esbuild.wasm",
     ],
   });
 
-  await build({
-    ...buildOptions,
-    splitting: false,
-    format: "esm",
-    minifySyntax: isProduction,
-    minifyIdentifiers: isProduction,
-    minifyWhitespace: false,
-    bundle: true,
-    treeShaking: isProduction,
-    mangleQuoted: false,
-    sourcemap: false,
-    outdir: "dist/",
-    target: "es2024",
-    allowOverwrite: true,
-    legalComments: "none",
-    platform: "browser",
+  // await build({
+  //   ...buildOptions,
+  //   splitting: false,
+  //   format: "esm",
+  //   minifySyntax: isProduction,
+  //   minifyIdentifiers: isProduction,
+  //   minifyWhitespace: false,
+  //   bundle: true,
+  //   treeShaking: isProduction,
+  //   mangleQuoted: false,
+  //   sourcemap: false,
+  //   outdir: "dist/",
+  //   target: "es2024",
+  //   allowOverwrite: true,
+  //   legalComments: "none",
+  //   platform: "browser",
 
-    plugins: [
-      ...buildOptions.plugins,
-    ],
-    entryPoints: [
-      "src/start.ts",
-    ],
-    alias: {
-      ...buildOptions.alias,
-      // ...importMap.imports,
-      ...extraAliases,
-      // ...buildOptions.alias,
-      // "@src/swVersion": "/swVersion.mjs",
+  //   plugins: [
+  //     ...buildOptions.plugins,
+  //   ],
+  //   entryPoints: [
 
-      // ...(isProduction ? {} : {
-      // "react": "preact/compat",
-      // "react-dom": "preact/compat",
-      // }),
-    },
-    external: [
-      "/module",
-      ...Object.keys(importMap.imports),
-      ...Object.values(extraAliases),
-    ],
-  });
+  //   ],
+  //   alias: {
+  //     ...buildOptions.alias,
+  //     // ...importMap.imports,
+  //     ...extraAliases,
+  //     // ...buildOptions.alias,
+  //     // "@src/swVersion": "/swVersion.mjs",
+
+  //     // ...(isProduction ? {} : {
+  //     // "react": "preact/compat",
+  //     // "react-dom": "preact/compat",
+  //     // }),
+  //   },
+  //   external: [
+  //     ...Object.keys(importMap.imports),
+  //     ...Object.values(extraAliases),
+  //   ],
+  // });
 
   // await build({
   //   ...buildOptions,

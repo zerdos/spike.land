@@ -25,7 +25,7 @@ function getContentType(path: string) {
 // Initialize the cache
 let _fileCache: Cache | undefined;
 
-const fileCachePromise = caches.open("file-cache-v6").then((cache) => {
+const fileCachePromise = caches.open("file-cache-v7").then((cache) => {
   _fileCache = cache;
 }).catch(console.error);
 
@@ -135,7 +135,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
         // Update import map
         const scriptTag = root.querySelector("script[type=\"importmap\"]");
         if (scriptTag) {
-          scriptTag.set_content(JSON.stringify(importMap));
+          scriptTag.set_content(JSON.stringify(addPrefixToImportMap(importMap, "/" + ASSET_HASH)));
         }
 
         const modifiedHtml = root.toString();
