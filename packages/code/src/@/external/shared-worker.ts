@@ -54,7 +54,7 @@ class SharedWorkerPolyfill {
    * Clones message and transmits it to worker's global environment.
    */
   postMessage(message: any, transfer?: Transferable[]): void {
-    this.port.postMessage(message, transfer);
+    transfer ? this.port.postMessage(message, transfer) : this.port.postMessage(message);
   }
 
   /**
