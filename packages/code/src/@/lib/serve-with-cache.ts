@@ -10,7 +10,7 @@ function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
 
   for (const [key, value] of Object.entries(imap.imports)) {
     // Ensure correct path concatenation
-    const updatedValue = new URL(value, "http://example.com" + prefix).pathname;
+    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix).pathname;
     updatedImports[key] = updatedValue;
   }
 

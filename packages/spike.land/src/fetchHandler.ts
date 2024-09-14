@@ -5,7 +5,8 @@ import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 import { handleCORS, isUrlFile } from "./utils";
 
-export const HTML = async (env: Env) =>(await (await getAssetFromKV(
+export const HTML = async (env: Env) =>
+(await (await getAssetFromKV(
     {
       request: new Request("/index.html", { headers: { "accept": "text/html" } }),
       async waitUntil(promise) {
