@@ -71,7 +71,7 @@ class WorkerPool {
 
         return availableWorker;
       } finally {
-        console.log("finally");
+        // console.log("finally");
       }
     });
   }
