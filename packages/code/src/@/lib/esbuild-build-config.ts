@@ -10,7 +10,6 @@ export const buildOptions: BuildOptions = {
   sourcemap: false,
   outdir: "dist",
   bundle: true,
-  pure: ["console.log", "console.error", "console.warn"],
   outExtension: { ".js": ".mjs" },
   alias: {
     path: "path-browserify",
@@ -18,11 +17,11 @@ export const buildOptions: BuildOptions = {
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
     util: "util/",
+    module: "module/",
     perf_hooks: "src/browserify/perf_hooks.ts",
     tty: "tty-browserify",
     constants: "constants/",
     vm: "vm-browserify",
-    module: "module/",
     events: "events/",
 
     // events: "events",
@@ -41,7 +40,6 @@ export const buildOptions: BuildOptions = {
     fs: "./src/memfs",
   },
   external: [
-    "esm-worker",
     "/swVersion.js",
 
     "__STATIC_CONTENT_MANIFEST",

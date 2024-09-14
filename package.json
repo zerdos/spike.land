@@ -38,10 +38,6 @@
     "@emotion/react": "11.13.3",
     "@playwright/test": "1.47.1",
     "@spike-land/ai-devtools": "workspace:^",
-    "@types/eslint": "9.6.1",
-    "@types/esprima": "^4.0.6",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "8.5.0",
     "@typescript-eslint/parser": "8.5.0",
     "@yarnpkg/sdks": "3.2.0",
@@ -52,9 +48,5 @@
     "react": "18.3.1",
     "typescript": "5.6.2"
   },
-  "packageManager": "yarn@4.4.1",
-  "dependencies": {
-    "@tailwindcss/typography": "^0.5.15",
-    "clsx": "^2.1.1"
-  }
+  "packageManager": "yarn@4.4.1"
 }

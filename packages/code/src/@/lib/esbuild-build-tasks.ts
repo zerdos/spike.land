@@ -210,6 +210,48 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
+    packages: "external",
+    platform: "node",
+    plugins: [
+      ...buildOptions.plugins,
+    ],
+    entryPoints: [
+      "src/cf-esbuild.mjs",
+    ],
+    alias: {
+      ...buildOptions.alias,
+      "@src/swVersion": "/swVersion.mjs",
+
+      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+
+      ...(isProduction ? {} : {
+        // "react": "preact/compat",
+        // "react-dom": "preact/compat",
+      }),
+    },
+    external: [
+      ...(buildOptions.external ?? []),
+      "esbuild-wasm",
+      "/swVersion.mjs",
+      `./${wasmFile}`,
+      "esbuild-wasm/esbuild.wasm",
+    ],
+  });
+
+  await build({
+    ...buildOptions,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: false,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: false,
+    sourcemap: false,
+    splitting: false,
+    target: "es2024",
+    allowOverwrite: true,
+    legalComments: "none",
     platform: "node",
     plugins: [
       ...buildOptions.plugins,
