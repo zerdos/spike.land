@@ -34,7 +34,7 @@ return {  isAsset,
             if (!fileCache) await initCache();
       
       
-              const  cacheKey = new Request(new URL(files[filePath], url.origin).toString());
+              const  cacheKey = new Request(new URL(filePath===`index.html`?ASSET_HASH+"/":''+ files[filePath], url.origin).toString());
               let resp = await fileCache.match(cacheKey);
 
 
