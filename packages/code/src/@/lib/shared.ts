@@ -16,7 +16,7 @@ class WorkerWrapper {
     this.rpc = new RpcProvider((message: any) =>
       this.workerPort.postMessage(
         message,
-        hasTransferables(message) ? getTransferables(message) : undefined,
+        hasTransferables(message) ? getTransferables(message) : [],
       )
     );
 
