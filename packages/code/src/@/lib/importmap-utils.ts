@@ -15,7 +15,7 @@ export const oo = {
 export const importMap = { imports: oo };
 
 export function importMapReplace(code: string, origin: string): string {
-  return code;
+  // return code;
   // Return early if the code already contains "importMapReplace" to avoid double processing
   if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
@@ -51,7 +51,7 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
 
-      return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
+      return `import "/*${match.split("\"")[1]}?bundle";`;
     }
 
     if (p2.startsWith("`") && p2.endsWith("`")) {
@@ -65,17 +65,17 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (
-      packageName.startsWith(`${origin}/live`)
+      packageName.startsWith(`/live`)
       && !packageName.includes("index.js")
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (packageName.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"${origin}/live/${packageName.slice(2)}/index.js"` + p3;
+      return p1 + `"/live/${packageName.slice(2)}/index.js"` + p3;
     }
 
     if (packageName.startsWith("/")) {
-      return p1 + `"${origin}${packageName}"` + p3;
+      return p1 + `"${packageName}"` + p3;
     }
 
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
@@ -83,7 +83,7 @@ export function importMapReplace(code: string, origin: string): string {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
-          return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+          return p1 + `"/*${pkgName}?bundle=true&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -91,24 +91,24 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName.startsWith("/live")) {
-      return p1 + `"${origin}${packageName}/index.js"` + p3;
+      return p1 + `"${packageName}/index.js"` + p3;
     }
 
     if (packageName.startsWith("@/")) {
-      return p1 + `"${origin}/${packageName}.mjs"` + p3;
+      return p1 + `"/${packageName}.mjs"` + p3;
     }
 
     if (packageName.includes(".")) {
       const extension = packageName.split(".").pop()!;
       if (["js", "mjs", "ts", "tsx"].includes(extension)) {
-        return p1 + `"${origin}/${packageName}"` + p3;
+        return p1 + `"/${packageName}"` + p3;
       }
     }
 
     // Handle specific exports
     const [pkgName, exports] = packageName.split("?bundle=true&exports=");
     if (exports) {
-      return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+      return p1 + `"/*${pkgName}?bundle=true&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -118,10 +118,10 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName, _alias] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"${origin}/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
+      return p1 + `"/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
     }
 
-    return p1 + `"${origin}/*${packageName}?bundle"` + p3;
+    return p1 + `"/*${packageName}?bundle"` + p3;
   };
 
   // Convert code to string if it's not already a string
@@ -143,14 +143,14 @@ export function importMapReplace(code: string, origin: string): string {
   }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
+    replaced = replaced.split(`/*${pkg}?bundle`).join(
       origin + oo[pkg as keyof typeof oo],
     );
   });
 
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`"${pkg}"`).join(
-      "\"" + origin + oo[pkg as keyof typeof oo] + "\"",
+      "\"" + pkg + "\"",
     );
   });
 
