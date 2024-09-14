@@ -262,7 +262,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       // }),
     },
     external: [
-      ...standaloneEntryPoints,
+      ...standaloneEntryPoints.map((entry) => `/${entry}`),
       "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm",
     ],
