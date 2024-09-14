@@ -286,7 +286,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     mainFields: ["module", "main"],
     banner: {
       js:
-        "import { createRequire } from '/module?bundle=true&exports=createRequire'; const require = createRequire(import.meta.url);",
+        "import { createRequire } from '/module@1.2.5?exports=createRequire'; const require = createRequire(import.meta.url);",
     },
 
     plugins: [
