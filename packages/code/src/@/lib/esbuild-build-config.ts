@@ -4,6 +4,7 @@ import type { Environment } from "@/lib/esbuild-make-env";
 import { makeEnv } from "@/lib/esbuild-make-env";
 
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
+import path from "path";
 
 export const buildOptions: BuildOptions = {
   target: "es2024",
@@ -12,9 +13,9 @@ export const buildOptions: BuildOptions = {
   bundle: true,
   outExtension: { ".js": ".mjs" },
   alias: {
-    path: "src/browserify/path.ts",
     buffer: "buffer/",
 
+    path: "path-browserify",
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
     util: "util/",

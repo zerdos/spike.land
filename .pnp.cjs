@@ -5274,6 +5274,7 @@ const RAW_RUNTIME_STATE =
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.5.5"],\
+          ["@types/path-browserify", "npm:1.0.3"],\
           ["@types/react", "npm:18.3.5"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/react-syntax-highlighter", "npm:15.5.13"],\
@@ -5337,6 +5338,7 @@ const RAW_RUNTIME_STATE =
           ["object-inspect", "npm:1.13.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:7.0.2"],\
+          ["path-browserify", "npm:1.0.1"],\
           ["perf_hooks", "npm:0.0.1"],\
           ["postcss", "npm:8.4.47"],\
           ["postcss-import", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.1.0"],\
@@ -6248,6 +6250,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-parse-json-npm-4.0.2-f87f65692e-10.zip/node_modules/@types/parse-json/",\
         "packageDependencies": [\
           ["@types/parse-json", "npm:4.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/path-browserify", [\
+      ["npm:1.0.3", {\
+        "packageLocation": "./.yarn/global/cache/@types-path-browserify-npm-1.0.3-ad09821516-10.zip/node_modules/@types/path-browserify/",\
+        "packageDependencies": [\
+          ["@types/path-browserify", "npm:1.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
