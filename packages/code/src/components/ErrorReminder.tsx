@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -59,7 +59,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
 
 
   const errorLog = contextManager.getContext('errorLog');
-  
+
   return (
     <AnimatePresence initial={false} onExitComplete={() => onHeightChange(0)}>
       {showError && errorType && (

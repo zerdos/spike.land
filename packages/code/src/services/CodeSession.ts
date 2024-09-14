@@ -1,148 +1,126 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
+import { ICode, ICodeSession } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-
-import { ICodeSession } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
 import { connect } from "@/lib/shared";
 import { formatCode, runCode, transpileCode } from "../components/editorUtils";
+
+interface BroadcastMessage extends ICodeSession {
+  sender: string;
+}
+
+class CodeProcessor {
+  private controller: AbortController;
+
+  constructor() {
+    this.controller = new AbortController();
+  }
+
+  async process(rawCode: string): Promise<ICodeSession | false> {
+    this.controller.abort();
+    this.controller = new AbortController();
+    const { signal } = this.controller;
+
+    try {
+      const formattedCode = await this.formatCode(rawCode, signal);
+      if (signal.aborted) return false;
+
+      const transpiled = await this.transpileCode(formattedCode, signal);
+      if (signal.aborted) return false;
+
+      const { html, css } = await this.runCode(transpiled, signal);
+      if (signal.aborted) return false;
+
+      return { code: formattedCode, transpiled, html, css, i: Date.now() };
+    } catch (error) {
+      console.error("Error processing code:", error);
+      return false;
+    }
+  }
+
+  private async formatCode(code: string, signal: AbortSignal): Promise<string> {
+    try {
+      return await formatCode(code);
+    } catch (error) {
+      throw new Error(`Error formatting code: ${error}`);
+    }
+  }
+
+  private async transpileCode(code: string, signal: AbortSignal): Promise<string> {
+    try {
+      const transpiled = await transpileCode(code);
+      if (!transpiled) throw new Error("Transpilation resulted in empty output");
+      return transpiled;
+    } catch (error) {
+      throw new Error(`Error transpiling code: ${error}`);
+    }
+  }
+
+  private async runCode(transpiled: string, signal: AbortSignal): Promise<{ html: string; css: string }> {
+    try {
+      const res = await runCode(transpiled);
+      if (!res) throw new Error("Running code produced no output");
+      return res;
+    } catch (error) {
+      throw new Error(`Error running code: ${error}`);
+    }
+  }
+}
 
 export class Code implements ICode {
   session: ICodeSession;
   head: string;
   user: string;
-  broadcastedCounter = 0;
-  codeSpace = useCodeSpace();
-  private BC = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
-
-  ignoreUsers: string[] = [];
-  waiting: (() => boolean)[] = [];
-  buffy: Promise<void>[] = [];
-  private controller = new AbortController();
+  private broadcastedCounter = 0;
+  private codeSpace = useCodeSpace();
+  private BC: BroadcastChannel;
   private subs: ((sess: ICodeSession) => void)[] = [];
+  private codeProcessor: CodeProcessor;
+
   constructor() {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.head = makeHash(this.session);
-    this.user = localStorage.getItem(`${this.codeSpace} user`)
-      || md5(self.crypto.randomUUID());
+    this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(self.crypto.randomUUID());
+    this.BC = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
+    this.codeProcessor = new CodeProcessor();
   }
 
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
   }
 
-  broadCastSessChanged() {
+  private broadCastSessChanged() {
     if (this.broadcastedCounter >= this.session.i) return;
-
     this.broadcastedCounter = this.session.i;
     this.subs.forEach(cb => setTimeout(() => cb(this.session)));
   }
 
-  async setCode(rawCode: string) {
-    this.controller.abort();
-    this.controller = new AbortController();
-    const { signal } = this.controller;
-    let code = rawCode;
+  async setCode(rawCode: string): Promise<string | boolean> {
+    if (rawCode === this.session.code) return true;
 
-    if (code === this.session.code) return true;
-    console.log("Formatting code");
-    try {
-      code = await formatCode(code);
-    } catch (error) {
-      console.error("Error formatting code:", error);
-      return false;
-    }
+    const processedSession = await this.codeProcessor.process(rawCode);
+    if (!processedSession) return false;
 
-    if (this.session.code === code) {
-      console.log("After the formatting -  its unchanged!");
-
-      return code;
-    }
-
-    if (signal.aborted) return false;
-    let transpiled = "";
-
-    console.log("Transpiling code");
-
-    try {
-      transpiled = await transpileCode(code);
-      if (!transpiled) {
-        console.error("Error transpiling code");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error transpiling code");
-      return false;
-    }
-
-    let html = "";
-    let css = "";
-    if (signal.aborted) return false;
-    const i = ++this.session.i;
-
-    try {
-      console.log("Running code: " + i);
-
-      const res = await runCode(transpiled);
-      if (signal.aborted) return false;
-
-      if (res) {
-        html = res.html;
-        css = res.css;
-      } else {
-        console.error("Error running the code, no error");
-        return false;
-      }
-    } catch (e) {
-      if (signal.aborted) return false;
-      console.error("Error running the code", e);
-      return false;
-    }
-
-    if (signal.aborted) return false;
-
-    console.log("Sending message to BC: ", i);
-    this.session = makeSession({
-      code,
-      i,
-      transpiled,
-      html,
-      css,
-    });
-
-    console.log("Sending message to BC", this.session);
-
+    this.session = processedSession;
     this.broadCastSessChanged();
-    this.BC.postMessage({
-      ...this.session,
-      sender: "Editor",
-    });
+    this.BC.postMessage({ ...this.session, sender: "Editor" } as BroadcastMessage);
 
-    console.log("Runner succeeded");
     return this.session.code;
   }
 
-  async init() {
-    this.BC.onmessage = ({ data }) => {
-      // if (data.i > mod.i) {
-
-      this.session.code = data.code;
-      this.session.i = data.i;
-      this.session.html = data.html;
-      this.session.css = data.css;
-      this.session.transpiled = data.transpiled;
-
-      if (this.session.i > this.broadcastedCounter) {
+  async init(): Promise<ICodeSession> {
+    this.BC.onmessage = ({ data }: MessageEvent<BroadcastMessage>) => {
+      if (data.i > this.session.i) {
+        this.session = data;
         this.broadCastSessChanged();
       }
     };
+
     try {
       const response = await fetch(`/live/${this.codeSpace}/session.json`);
-      const data: ICodeSession = await response.json();
-      return makeSession(data);
+      return makeSession(await response.json());
     } catch (error) {
       console.error("Error fetching session data:", error);
-      // Use default session data for testing environment
       return makeSession({ i: 0, code: "", html: "", css: "" });
     }
   }

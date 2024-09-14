@@ -43,7 +43,7 @@ const handleDefaultPage = async () => {
 
           rendered = await renderApp({
             transpiled,
-            codeSpace: cSess.codeSpace,
+            codeSpace: useCodeSpace(),
             rootElement: myEl,
           });
 
