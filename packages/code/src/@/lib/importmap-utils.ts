@@ -49,40 +49,41 @@ export function importMapReplace(code: string, origin: string): string {
 
     if (typeof p2 !== "string") {
       const pkg = match.split("\"")[1];
-      if (pkg.startsWith("http")) return match;
-      if (pkg.startsWith("/")) return match;
-      if (pkg.startsWith("./")) return match;
-      if (pkg.startsWith(",")) return match;
+      if (!pkg) return match;
+      if (pkg?.startsWith("http")) return match;
+      if (pkg?.startsWith("/")) return match;
+      if (pkg?.startsWith("./")) return match;
+      if (pkg?.startsWith(",")) return match;
 
       return `import "/${match.split("\"")[1]}?${externalString}";`;
     }
 
-    if (p2.startsWith("`") && p2.endsWith("`")) {
+    if (p2?.startsWith("`") && p2.endsWith("`")) {
       // This is a template literal, we should keep it as is
       return match;
     }
 
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
-    if (packageName.startsWith("data:text")) {
+    if (packageName?.startsWith("data:text")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (
-      packageName.startsWith(`/live`)
+      packageName?.startsWith(`/live`)
       && !packageName.includes("index.js")
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith("./") && !packageName.slice(1).includes(".")) {
+    if (packageName?.startsWith("./") && !packageName.slice(1).includes(".")) {
       return p1 + `"/live/${packageName.slice(2)}/index.js"` + p3;
     }
 
-    if (packageName.startsWith("/")) {
+    if (packageName?.startsWith("/")) {
       return p1 + `"${packageName}"` + p3;
     }
 
-    if (packageName.startsWith(".") || packageName.startsWith("http")) {
-      if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
+    if (packageName?.startsWith(".") || packageName?.startsWith("http")) {
+      if (packageName?.startsWith("http") && !packageName?.startsWith(origin)) {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
@@ -93,11 +94,11 @@ export function importMapReplace(code: string, origin: string): string {
       return match;
     }
 
-    if (packageName.startsWith("/live")) {
+    if (packageName?.startsWith("/live")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
 
-    if (packageName.startsWith("@/")) {
+    if (packageName?.startsWith("@/")) {
       return p1 + `"/${packageName}.mjs"` + p3;
     }
 
@@ -143,7 +144,7 @@ export function importMapReplace(code: string, origin: string): string {
   replaced = replaced.split("\n").map((line) => {
     line.trim();
     return line;
-  }).filter((line) => !line.startsWith("//")).join("\n");
+  }).filter((line) => !line?.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   // Object.keys(oo).forEach((pkg) => {
   //   replaced = replaced.split(`/${pkg}?${externalString}`).join(
