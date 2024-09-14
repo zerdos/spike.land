@@ -20,12 +20,13 @@ return {  isAsset,
             if (!isAsset(request)) throw new Error("Not an asset");
            
             const url = new URL(request.url);
+            const pathname = url.pathname.slice(1);
 
 
 
 
 
-            const filePath = url.pathname.slice(ASSET_HASH.length + 2) 
+            const filePath = pathname.startsWith(ASSET_HASH)? url.pathname.slice(ASSET_HASH.length): pathname;  
             
 
       
@@ -35,6 +36,8 @@ return {  isAsset,
       
               const  cacheKey = new Request(new URL(files[filePath], url.origin).toString());
               let resp = await fileCache.match(cacheKey);
+
+
               if (resp) return resp;
       
       
@@ -73,8 +76,10 @@ return {  isAsset,
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               headers.append("Access-Control-Allow-Origin", "*");
       
-        
-              kvResp = new Response(kvResp.body, { ...kvResp, headers });
+              if (filePath === "index.html") {
+                const html = (await kvResp.text()).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
+                kvResp = new Response(html, { ...kvResp, headers }); 
+              } else  kvResp = new Response(kvResp.body, { ...kvResp, headers });
               ctx.waitUntil(fileCache.put(cacheKey, kvResp.clone()));
       
           
