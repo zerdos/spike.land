@@ -12,7 +12,7 @@ export const buildOptions: BuildOptions = {
   bundle: true,
   outExtension: { ".js": ".mjs" },
   alias: {
-    path: "path-browserify/",
+    path: "src/browserify/path.ts",
     buffer: "buffer/",
 
     "node:buffer": "buffer/",
