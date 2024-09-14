@@ -1,6 +1,16 @@
+import { useCodeSpace } from "@/hooks/use-code-space";
+import { createContextManager } from "@/lib/context-manager";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { md5 } from "@src/modules";
+import { useRef, useState } from "react";
 import { ErrorType } from "./ErrorMessages";
+
+export interface EditorState {
+  started: boolean;
+  sub: boolean;
+  code: string;
+  setValue: (code: string) => void;
+}
 
 export interface EditorState {
   started: boolean;
@@ -65,7 +75,6 @@ function memoize<T extends (...args: any[]) => Promise<any>>(fn: T): T {
   }) as T;
 }
 
-// Refactored formatCode function without hooks
 export const formatCode = memoize(async (code: string): Promise<string> => {
   try {
     return await prettierToThrow({ code, toThrow: true });

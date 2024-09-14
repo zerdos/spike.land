@@ -7,4 +7,4 @@ export const errorMessages = {
   render: "The code was transpiled, but no HTML output was generated. Check your render function.",
 };
 
-export type ErrorType = keyof typeof errorMessages;
+export type ErrorType = keyof typeof errorMessages | null;
