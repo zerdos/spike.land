@@ -85,6 +85,8 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
   rpcProvider.registerSignalHandler(
     "connect",
     async ({ signal, sess }: { signal: string; sess: ICodeSession }) => {
+      console.log("Connecting to signal", signal, sess);
+
       await safelyLoadScript("socket");
       self.setConnections(signal, sess);
     },

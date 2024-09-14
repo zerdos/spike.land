@@ -43,6 +43,10 @@ const mutex = new Mutex();
  * @param sess - The initial code session.
  */
 async function setConnections(signal: string, sess: ICodeSession): Promise<void> {
+  console.log("Setting up connections...");
+  console.log("Signal:", signal);
+  console.log("Session:", sess);
+
   const [codeSpace, user] = signal.split(" ");
 
   let connection = connections.get(codeSpace);
