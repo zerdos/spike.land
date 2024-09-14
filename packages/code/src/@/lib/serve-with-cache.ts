@@ -135,7 +135,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
         // Update import map
         const scriptTag = root.querySelector("script[type=\"importmap\"]");
         if (scriptTag) {
-          scriptTag.set_content(JSON.stringify(addPrefixToImportMap(importMap, "/" + ASSET_HASH)));
+          scriptTag.set_content(JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)));
         }
 
         const modifiedHtml = root.toString();
