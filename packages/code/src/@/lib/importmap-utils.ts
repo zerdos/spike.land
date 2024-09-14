@@ -1,6 +1,7 @@
 // src/importMapUtils.ts
 
 export const oo = {
+  "@/": "/@/",
   "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/server": "/reactDomServer.mjs",
@@ -13,7 +14,8 @@ export const oo = {
 };
 
 export const importMap = { imports: oo };
-const externalString = "bundle=true&external=" + Object.keys(oo).join(",");
+const externalString = "bundle=true&external="
+  + Object.keys(oo).filter(o => !o.endsWith("/") && o !== "@emotion/react/jsx-runtime").join(",");
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;

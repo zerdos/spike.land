@@ -108,14 +108,22 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
   );
 };
 
+const uiEntryPoints = await createEntryPoints("components/ui");
+const libEntryPoints = await createEntryPoints("lib");
+const externalEntryPoints = await createEntryPoints("external");
+const appEntryPoints = await createEntryPoints("components/app");
+const hooksEntryPoints = await createEntryPoints("hooks");
+
+const standaloneEntryPoints = [
+  ...uiEntryPoints,
+  ...libEntryPoints,
+  ...externalEntryPoints,
+  ...appEntryPoints,
+  ...hooksEntryPoints,
+];
+
 export async function buildMainBundle(wasmFile: string): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
-
-  const uiEntryPoints = await createEntryPoints("components/ui");
-  const libEntryPoints = await createEntryPoints("lib");
-  const externalEntryPoints = await createEntryPoints("external");
-  const appEntryPoints = await createEntryPoints("components/app");
-  const hooksEntryPoints = await createEntryPoints("hooks");
 
   await build({
     ...buildOptions,
@@ -134,17 +142,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     alias: undefined,
     outdir: "dist/@/",
     platform: "browser",
-    entryPoints: [...uiEntryPoints, ...libEntryPoints, ...externalEntryPoints, ...appEntryPoints, ...hooksEntryPoints],
+    entryPoints: standaloneEntryPoints,
   });
 
-  const uiAliases = await createAliases("components/ui");
-  const libAliases = await createAliases("lib");
-  const externalAliases = await createAliases("external");
-  const appAliases = await createAliases("components/app");
-  const hooksAliases = await createAliases("hooks");
-
-  const extraAliases = { ...uiAliases, ...libAliases, ...externalAliases, ...appAliases, ...hooksAliases };
-  console.log(JSON.stringify(extraAliases, null, 2));
+  // console.log(JSON.stringify(extraAliases, null, 2));
 
   await build({
     ...buildOptions,
@@ -177,18 +178,16 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/app/globals.css",
     ],
     alias: {
-      ...buildOptions.alias,
+      // ...buildOptions.alias,
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      ...extraAliases,
       ...(isProduction ? {} : {
         // "react": "preact/compat",
         // "react-dom": "preact/compat",
       }),
     },
     external: [
-      ...(buildOptions.external ?? []),
-      ...Object.values(extraAliases),
+      ...standaloneEntryPoints,
       "/",
       "/swVersion.mjs",
       `./${wasmFile}`,
