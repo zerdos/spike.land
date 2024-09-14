@@ -122,6 +122,14 @@ const standaloneEntryPoints = [
   ...hooksEntryPoints,
 ];
 
+const extraAliases = {
+  ...await createAliases("components/ui"),
+  ...await createAliases("lib"),
+  ...await createAliases("external"),
+  ...await createAliases("components/app"),
+  ...await createAliases("hooks"),
+};
+
 export async function buildMainBundle(wasmFile: string): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
 
@@ -201,7 +209,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     minifyWhitespace: false,
     bundle: false,
     treeShaking: isProduction,
-    mangleQuoted: false,
     sourcemap: false,
     legalComments: "none",
     target: "es2024",
@@ -244,6 +251,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/emotionJsxRuntime.ts",
     ],
     alias: {
+      ...extraAliases,
       // ...buildOptions.alias,
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
