@@ -3,63 +3,77 @@ const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
   private worker: Worker;
+  public port: MessagePort;
 
   constructor(url: string | URL, opts?: WorkerOptions) {
     this.worker = new Worker(url, opts);
+
+    // Create a MessageChannel
+    const channel = new MessageChannel();
+    this.port = channel.port1;
+
+    // Send port2 to the worker
+    this.worker.postMessage({ type: "init" }, [channel.port2]);
+
+    // Forward error events from the worker to the port
+    this.worker.onerror = (event) => {
+      const errorEvent = new ErrorEvent("error", {
+        message: event.message,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno,
+        error: event.error,
+      });
+      this.port.dispatchEvent(errorEvent);
+    };
   }
 
   /**
-   * An EventListener called when MessageEvent of type message is fired on the port—that is, when the port receives a message.
+   * An EventListener called when MessageEvent of type 'message' is fired on the port—that is, when the port receives a message.
    */
-  get onmessage(): ((ev: MessageEvent) => any) | null {
-    return this.worker.onmessage;
+  get onmessage(): ((this: MessagePort, ev: MessageEvent) => any) | null {
+    return this.port.onmessage;
   }
 
-  set onmessage(value: ((ev: MessageEvent) => any) | null) {
-    this.worker.onmessage = value;
+  set onmessage(value: ((this: MessagePort, ev: MessageEvent) => any) | null) {
+    this.port.onmessage = value;
   }
 
   /**
-   * An EventListener called when a MessageEvent of type MessageError is fired—that is, when it receives a message that cannot be deserialized.
+   * An EventListener called when a MessageEvent of type 'messageerror' is fired—that is, when it receives a message that cannot be deserialized.
    */
-  get onmessageerror(): ((ev: MessageEvent) => any) | null {
-    return this.worker.onmessageerror;
+  get onmessageerror(): ((this: MessagePort, ev: MessageEvent) => any) | null {
+    return this.port.onmessageerror;
   }
 
-  set onmessageerror(value: ((ev: MessageEvent) => any) | null) {
-    this.worker.onmessageerror = value;
+  set onmessageerror(value: ((this: MessagePort, ev: MessageEvent) => any) | null) {
+    this.port.onmessageerror = value;
   }
 
   /**
-   * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
+   * Clones message and transmits it to worker's global environment.
    */
-  postMessage(message: any, options?: StructuredSerializeOptions): void {
-    this.worker.postMessage(message, options);
+  postMessage(message: any, transfer?: Transferable[]): void {
+    this.port.postMessage(message, transfer);
   }
 
   /**
-   * Immediately terminates the worker. This does not let worker finish its operations; it is halted at once. ServiceWorker instances do not support this method.
+   * Immediately terminates the worker.
    */
   terminate(): void {
     this.worker.terminate();
+    this.port.close();
   }
 
   /**
    * Disconnects the port, so it is no longer active.
    */
   close(): void {
-    this.terminate();
+    this.port.close();
   }
 
   /**
-   * Returns a MessagePort object used to communicate with and control the shared worker.
-   */
-  get port(): MessagePort {
-    return this.worker as unknown as MessagePort;
-  }
-
-  /**
-   * Is an EventListener that is called whenever an ErrorEvent of type error event occurs.
+   * Is an EventListener that is called whenever an ErrorEvent of type 'error' occurs.
    */
   get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => any) | null {
     return this.worker.onerror;
@@ -74,7 +88,7 @@ class SharedWorkerPolyfill {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
   ): void {
-    this.worker.addEventListener(type, listener, options);
+    this.port.addEventListener(type, listener, options);
   }
 
   removeEventListener(
@@ -82,14 +96,14 @@ class SharedWorkerPolyfill {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
   ): void {
-    this.worker.removeEventListener(type, listener, options);
+    this.port.removeEventListener(type, listener, options);
   }
 
   /**
    * Dispatches an event to this EventTarget.
    */
   dispatchEvent(event: Event): boolean {
-    return this.worker.dispatchEvent(event);
+    return this.port.dispatchEvent(event);
   }
 }
 
