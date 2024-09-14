@@ -3,6 +3,16 @@ import { ASSET_HASH, files, ASSET_MANIFEST } from "./staticContent.mjs";
 import Env from "./env";
 import { importMap } from "@spike-land/code";
 
+function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+  const updatedImports: { [key: string]: string } = {};
+
+  for (const [key, value] of Object.entries(imap.imports)) {
+    updatedImports[key] = prefix + value;
+  }
+
+  return { imports: updatedImports };
+}
+
 // Utility function to determine the Content-Type based on the file extension
 function getContentType(path: string) {
   const ext = path.split('.').pop()?.toLowerCase() 
@@ -115,12 +125,7 @@ export const serveRequestFromKv = () => {
           `<base href="/">`,
           `<base href="/${ASSET_HASH}/">`
         ).replace(`<script type="importmap"></script>`, `<script type="importmap">
-          ${JSON.stringify({
-            imports: {
-             ...(Object.keys(importMap.imports).map((key) => "/"+ ASSET_HASH + importMap.imports[key]))
-            
-            }
-          })}
+          ${JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}`))}
           </script>`);
         response = new Response(html, {
           status: kvResp.status,
