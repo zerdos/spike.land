@@ -6,6 +6,7 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
 import { serveRequestFromKv } from "./kvServer";
+import { importMap } from "@spike-land/code";
 
 export default {
   kvServer: serveRequestFromKv(),
@@ -34,6 +35,10 @@ export default {
            // const body = await res.blob();
            return fetch(optionsParam.url, optionsParam) as unknown as Response;
       // return handleEnhancedFetch(request);
+    }
+
+    if (request.url.includes("importMap")) {
+      return new Response(JSON.stringify(importMap));
     }
 
     if (request.url.includes("anthropic")) {

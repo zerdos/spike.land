@@ -282,7 +282,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     entryPoints: [
       "src/modules.ts",
-      "src/cf-esbuild.mjs",
     ],
     alias: {
       ...buildOptions.alias,
