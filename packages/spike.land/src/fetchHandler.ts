@@ -269,7 +269,7 @@ async function handleDefaultCase(
 ) {
   if (!isUrlFile(path.join("/"))) {
     const esmCache = await caches.open("esm125");
-    const cacheKey = new Request(newUrl.toString());
+    const cacheKey = new Request(request.url.toString());
 
     let response = await esmCache.match(cacheKey);
     if (response) { 
@@ -307,7 +307,7 @@ async function handleDefaultCase(
       {
         ASSET_NAMESPACE: env.__STATIC_CONTENT,
         ASSET_MANIFEST,
-      },
+      }
     );
 
     if (!kvResp.ok) {
