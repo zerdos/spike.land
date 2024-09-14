@@ -3912,7 +3912,7 @@ __metadata:
     perf_hooks: "npm:^0.0.1"
     postcss: "npm:^8.4.45"
     postcss-import: "npm:^16.1.0"
-    preact: "npm:^10.23.2"
+    preact: "npm:^10.24.0"
     prettier: "npm:3.3.3"
     prism-react-renderer: "npm:^2.4.0"
     process: "npm:^0.11.10"
@@ -13939,10 +13939,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.23.2":
-  version: 10.23.2
-  resolution: "preact@npm:10.23.2"
-  checksum: 10/188e220a90eb5dca757a28d4a88bed0d23b1e80ea6f9e9d2447e109e754b428db62429cc65dc38214037b638323232476c59b6daec9a6eb7b780f933b010808c
+"preact@npm:^10.24.0":
+  version: 10.24.0
+  resolution: "preact@npm:10.24.0"
+  checksum: 10/855506eedfc6b348059fefc3573b061113f7dc52c6275cb3553835956a180d8f473b5fda1825dd1f1900b1ef08723b5c22f3edd17c4553a6da9e97e27ae84590
   languageName: node
   linkType: hard
 

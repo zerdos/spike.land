@@ -148,7 +148,7 @@
     "p-map": "7.0.2",
     "path-browserify": "1.0.1",
     "perf_hooks": "^0.0.1",
-    "preact": "^10.23.2",
+    "preact": "^10.24.0",
     "prettier": "3.3.3",
     "prism-react-renderer": "^2.4.0",
     "process": "^0.11.10",

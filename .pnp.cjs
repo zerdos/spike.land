@@ -5337,7 +5337,7 @@ const RAW_RUNTIME_STATE =
           ["perf_hooks", "npm:0.0.1"],\
           ["postcss", "npm:8.4.45"],\
           ["postcss-import", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.1.0"],\
-          ["preact", "npm:10.23.2"],\
+          ["preact", "npm:10.24.0"],\
           ["prettier", "npm:3.3.3"],\
           ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.4.0"],\
           ["process", "npm:0.11.10"],\
@@ -17185,10 +17185,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["preact", [\
-      ["npm:10.23.2", {\
-        "packageLocation": "./.yarn/global/cache/preact-npm-10.23.2-7ff1643e1f-10.zip/node_modules/preact/",\
+      ["npm:10.24.0", {\
+        "packageLocation": "./.yarn/global/cache/preact-npm-10.24.0-1e922a9bf3-10.zip/node_modules/preact/",\
         "packageDependencies": [\
-          ["preact", "npm:10.23.2"]\
+          ["preact", "npm:10.24.0"]\
         ],\
         "linkType": "HARD"\
       }]\
