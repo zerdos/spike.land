@@ -4,6 +4,8 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 
+export { wasmFile };
+
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
