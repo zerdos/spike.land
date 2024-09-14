@@ -2,83 +2,46 @@
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
-  private worker: SharedWorker | Worker;
+  private worker: Worker;
 
   constructor(url: string | URL, opts?: WorkerOptions) {
-    if (sharedWorkerSupported) {
-      this.worker = new SharedWorker(url, opts);
-    } else {
-      this.worker = new Worker(url, opts);
-    }
+    this.worker = new Worker(url, opts);
   }
 
   /**
    * An EventListener called when MessageEvent of type message is fired on the port—that is, when the port receives a message.
    */
   get onmessage(): ((ev: MessageEvent) => any) | null {
-    if (this.worker instanceof SharedWorker) {
-      return this.worker.port.onmessage;
-    } else {
-      return this.worker.onmessage;
-    }
+    return this.worker.onmessage;
   }
 
   set onmessage(value: ((ev: MessageEvent) => any) | null) {
-    if (this.worker instanceof SharedWorker) {
-      this.worker.port.onmessage = value;
-    } else {
-      this.worker.onmessage = value;
-    }
+    this.worker.onmessage = value;
   }
 
   /**
    * An EventListener called when a MessageEvent of type MessageError is fired—that is, when it receives a message that cannot be deserialized.
    */
   get onmessageerror(): ((ev: MessageEvent) => any) | null {
-    if (this.worker instanceof SharedWorker) {
-      return this.worker.port.onmessageerror;
-    } else {
-      return this.worker.onmessageerror;
-    }
+    return this.worker.onmessageerror;
   }
 
   set onmessageerror(value: ((ev: MessageEvent) => any) | null) {
-    if (this.worker instanceof SharedWorker) {
-      this.worker.port.onmessageerror = value;
-    } else {
-      this.worker.onmessageerror = value;
-    }
-  }
-
-  /**
-   * Starts the sending of messages queued on the port (only needed when using EventTarget.addEventListener; it is implied when using MessagePort.onmessage.)
-   */
-  start(): void {
-    if (this.worker instanceof SharedWorker) {
-      this.worker.port.start();
-    }
+    this.worker.onmessageerror = value;
   }
 
   /**
    * Clones message and transmits it to worker's global environment. transfer can be passed as a list of objects that are to be transferred rather than cloned.
    */
   postMessage(message: any, options?: StructuredSerializeOptions): void {
-    if (this.worker instanceof SharedWorker) {
-      this.worker.port.postMessage(message, options);
-    } else {
-      this.worker.postMessage(message, options);
-    }
+    this.worker.postMessage(message, options);
   }
 
   /**
    * Immediately terminates the worker. This does not let worker finish its operations; it is halted at once. ServiceWorker instances do not support this method.
    */
   terminate(): void {
-    if (this.worker instanceof SharedWorker) {
-      this.worker.port.close();
-    } else {
-      this.worker.terminate();
-    }
+    this.worker.terminate();
   }
 
   /**
@@ -92,9 +55,7 @@ class SharedWorkerPolyfill {
    * Returns a MessagePort object used to communicate with and control the shared worker.
    */
   get port(): MessagePort {
-    return this.worker instanceof SharedWorker
-      ? this.worker.port
-      : (this.worker as unknown as MessagePort);
+    return this.worker as unknown as MessagePort;
   }
 
   /**
@@ -113,11 +74,7 @@ class SharedWorkerPolyfill {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
   ): void {
-    if (this.worker instanceof SharedWorker && type !== "error") {
-      this.worker.port.addEventListener(type, listener, options);
-    } else {
-      this.worker.addEventListener(type, listener, options);
-    }
+    this.worker.addEventListener(type, listener, options);
   }
 
   removeEventListener(
@@ -125,11 +82,7 @@ class SharedWorkerPolyfill {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
   ): void {
-    if (this.worker instanceof SharedWorker && type !== "error") {
-      this.worker.port.removeEventListener(type, listener, options);
-    } else {
-      this.worker.removeEventListener(type, listener, options);
-    }
+    this.worker.removeEventListener(type, listener, options);
   }
 
   /**
