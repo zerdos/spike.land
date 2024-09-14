@@ -1,19 +1,33 @@
-import {  serverFetchUrl } from "@spike-land/code";
+import {  serverFetchUrl, serveWithCache } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
 import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
-import { serveRequestFromKv } from "./kvServer";
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 export default {
-  kvServer: serveRequestFromKv(),
+  kvServer: serveWithCache(ASSET_HASH, files),
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+
+    const assetFetcher = (url: string) =>  getAssetFromKV(
+      {
+        request: new Request(url),
+        waitUntil(promise) {
+          return ctx.waitUntil(promise);
+      }
+      },
+      {
+        ASSET_NAMESPACE: env.__STATIC_CONTENT,
+        ASSET_MANIFEST,
+      }
+    );
 
     const url = new URL(request.url);
 
-    if (this.kvServer.isAsset(request)) return this.kvServer.serve(request, env, ctx);
+    if (this.kvServer.isAsset(request)) return this.kvServer.serve(request, assetFetcher, (p: Promise<unknown>)=>ctx.waitUntil(p)) ;
 
     const logger = new KVLogger("myapp", env.KV);
 
