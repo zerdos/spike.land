@@ -48,5 +48,8 @@
     "react": "18.3.1",
     "typescript": "5.6.2"
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.4.1",
+  "dependencies": {
+    "module": "^1.2.5"
+  }
 }
