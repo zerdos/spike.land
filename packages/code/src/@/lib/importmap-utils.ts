@@ -13,7 +13,7 @@ export const oo = {
 };
 
 export const importMap = { imports: oo };
-const externalString = "external=" + Object.keys(oo).join(",");
+const externalString = "external=" + Object.keys(oo).join(",") + "&bundle=true";
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
