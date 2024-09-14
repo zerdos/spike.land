@@ -251,6 +251,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/emotionJsxRuntime.ts",
     ],
     alias: {
+      ...buildOptions.alias,
       ...extraAliases,
       // ...buildOptions.alias,
       "@src/swVersion": "/swVersion.mjs",

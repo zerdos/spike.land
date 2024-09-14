@@ -3911,7 +3911,7 @@ __metadata:
     object-inspect: "npm:^1.13.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
-    path-browserify: "npm:1.0.1"
+    path-browserify: "npm:^1.0.1"
     perf_hooks: "npm:^0.0.1"
     postcss: "npm:^8.4.47"
     postcss-import: "npm:^16.1.0"
@@ -13583,7 +13583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-browserify@npm:1.0.1, path-browserify@npm:^1.0.0":
+"path-browserify@npm:^1.0.0, path-browserify@npm:^1.0.1":
   version: 1.0.1
   resolution: "path-browserify@npm:1.0.1"
   checksum: 10/7e7368a5207e7c6b9051ef045711d0dc3c2b6203e96057e408e6e74d09f383061010d2be95cb8593fe6258a767c3e9fc6b2bfc7ce8d48ae8c3d9f6994cca9ad8
