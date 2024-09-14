@@ -283,11 +283,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     allowOverwrite: true,
     legalComments: "none",
     platform: "browser",
-    mainFields: ["module", "main"],
-    banner: {
-      js:
-        "import { createRequire } from '/module@1.2.5?exports=createRequire'; const require = createRequire(import.meta.url);",
-    },
 
     plugins: [
       ...buildOptions.plugins,
@@ -297,7 +292,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      ...importMap.imports,
+      // ...importMap.imports,
       ...extraAliases,
       // ...buildOptions.alias,
       // "@src/swVersion": "/swVersion.mjs",
@@ -309,7 +304,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       "/module",
-      ...Object.values(importMap.imports),
+      ...Object.keys(importMap.imports),
       ...Object.values(extraAliases),
     ],
   });
