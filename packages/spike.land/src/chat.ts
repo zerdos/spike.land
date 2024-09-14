@@ -16,8 +16,8 @@ export default {
  
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
 
-    const assetFetcher = (req: Request) => getAssetFromKV(
-      { request: req, waitUntil: ctx.waitUntil },
+    const assetFetcher = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
+      { request: req, waitUntil },
       {
         ASSET_NAMESPACE: env.__STATIC_CONTENT,
         ASSET_MANIFEST,

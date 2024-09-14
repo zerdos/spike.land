@@ -25,7 +25,7 @@ function getContentType(path: string) {
 // Initialize the cache
 let _fileCache: Cache | undefined;
 
-const fileCachePromise = caches.open("file-cache-v4").then((cache) => {
+const fileCachePromise = caches.open("file-cache-v5").then((cache) => {
   _fileCache = cache;
 }).catch(console.error);
 
@@ -49,7 +49,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
     isAsset,
     serve: async (
       request: Request,
-      assetFetcher: (req: Request) => Promise<Response>,
+      assetFetcher: (req: Request, waitUntil: (p: Promise<unknown>) => void) => Promise<Response>,
       waitUntil: (p: Promise<unknown>) => void,
     ) => {
       if (request.method !== "GET") {
@@ -95,7 +95,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
       let kvResp;
       try {
-        kvResp = await assetFetcher(req);
+        kvResp = await assetFetcher(req, waitUntil);
       } catch (error) {
         console.error("Asset fetch error:", error);
         return new Response("Internal Server Error", { status: 500 });
