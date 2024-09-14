@@ -1,27 +1,24 @@
 import {  serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
-// import { handleEnhancedFetch } from "./enhancedFetchHandler";
 import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
-import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { isChunk } from "./utils";
-// import {  files } from "./staticContent.mjs";
+import { serveRequestFromKv } from "./kvServer";
 
 export default {
+  kvServer: serveRequestFromKv(),
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
 
+    const url = new URL(request.url);
 
-  
+    if (this.kvServer.isAsset(request)) return this.kvServer.serve(request, env, ctx);
 
     const logger = new KVLogger("myapp", env.KV);
 
     env.KV.put("lastRequest", request.url);
 
-    const url = new URL(request.url);
 
     if (url.pathname === serverFetchUrl) {
 
@@ -113,82 +110,6 @@ export default {
 
     if (request.url.includes("/my-cms/")) {
       return handleCMSIndexRequest(request, env);
-    }
-
-    // if (request.url.includes("/langChain/")) {
-    //   const searchParams = new URLSearchParams(request.url);
-    //   const q = searchParams.get("q")!;
-
-    //   const answer: string = await createWorkflow(q);
-
-    //   return new Response(answer, {
-    //     headers: {
-    //       "Content-Type": "text/plain",
-    //     },
-    //   });
-    // }
-
-    if (url.pathname.startsWith(`/${ASSET_HASH}/`)) {
-
-    // return new Response("Not Found", { status: 404 });  
-
-      const filePath = url.pathname.slice(ASSET_HASH.length + 2);
-
-      
-
-      if (files[filePath]) {
-
-        // return new Response(JSON.stringify({
-        //   filePath,
-        //   file: files[filePath],
-        // }), { headers: { "Content-Type": "application/json" } });
-
-        const fileCache = await caches.open("fileCache");
-
-        const  cacheKey = new Request(new URL(files[filePath], url.origin).toString());
-        let resp = await fileCache.match(cacheKey);
-        if (resp) return resp;
-
-
-        
-        const req = new Request(request.url.replace(`/${ASSET_HASH}`, ``), request.clone());
-        let kvResp = await getAssetFromKV(
-          {
-            request: req,
-            waitUntil(promise) {
-              return ctx.waitUntil(promise);
-            },
-          },
-          {
-            ASSET_NAMESPACE: env.__STATIC_CONTENT,
-            ASSET_MANIFEST,
-          }
-        );
-    
-        if (!kvResp.ok) {
-          return kvResp;
-        }
-     
-        const headers = new Headers(kvResp.headers);
-        kvResp.headers.forEach((v, k) => headers.append(k, v));
-        // if (isChunk(request.url)) {
-        headers.append(
-          "Cache-Control",
-          "public, max-age=604800, immutable",
-        );
-        // }
-
-
-        headers.append("Cross-Origin-Embedder-Policy", "require-corp");
-        headers.append("Access-Control-Allow-Origin", "*");
-
-  
-        kvResp = new Response(kvResp.body, { ...kvResp, headers });
-        ctx.waitUntil(fileCache.put(cacheKey, kvResp.clone()));
-
-    
-        return kvResp;
-      }
     }
 
     if (request.url.includes("/api/my-turn")) {
