@@ -88,7 +88,7 @@ export function importMapReplace(code: string, origin: string): string {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
-          return p1 + `"/${pkgName}?${externalString}&exports=${exports}"` + p3;
+          return p1 + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -106,14 +106,14 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.includes(".")) {
       const extension = packageName.split(".").pop()!;
       if (["js", "mjs", "ts", "tsx"].includes(extension)) {
-        return p1 + `"/${packageName}"` + p3;
+        return p1 + `"${origin}/${packageName}"` + p3;
       }
     }
 
     // Handle specific exports
     const [pkgName, exports] = packageName.split(`?${externalString}&exports=`);
     if (exports) {
-      return p1 + `"/${pkgName}?${externalString}&exports=${exports}"` + p3;
+      return p1 + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -123,10 +123,10 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName, _alias] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
+      return p1 + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
     }
 
-    return p1 + `"/${packageName}?${externalString}"` + p3;
+    return p1 + `"${origin}/${packageName}?${externalString}"` + p3;
   };
 
   // Convert code to string if it's not already a string
