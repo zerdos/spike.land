@@ -9,9 +9,10 @@ import ErrorBoundary from "@/components/app/error-boundary";
 import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import {transpile} from "@/lib/shared";
+import { importMapReplace } from "./importmap-utils";
 
-const createJsBlob = (code: string | Uint8Array): string =>
-  URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+const createJsBlob = (code: string): string =>
+  URL.createObjectURL(new Blob([importMapReplace(code.split('importMapReplace').join(""), origin)], { type: "application/javascript" }));
 
 
 // Main render function
