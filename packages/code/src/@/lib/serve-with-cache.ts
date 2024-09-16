@@ -78,6 +78,10 @@ export const serveWithCache = (
         return new Response("Method Not Allowed", { status: 405 });
       }
 
+      if (!isAsset(request)) {
+        return new Response("Not Found", { status: 404 });
+      }
+
       if (!isAsset(request)) throw new Error("Not an asset");
 
       const url = new URL(request.url);
