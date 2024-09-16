@@ -24,7 +24,7 @@ function getContentType(path: string) {
 export const serveWithCache = (
   ASSET_HASH: string,
   files: { [key: string]: string },
-  cacheToUse: () => Promise<Cache>,
+  cacheToUse: () => Promise<Cache>
 ) => {
   let _fileCache: Cache | null | undefined;
   const fileCachePromise = cacheToUse()
@@ -50,6 +50,7 @@ export const serveWithCache = (
     return assetPath in files;
   };
 
+  // Instance-specific in-flight requests map
   const inFlightRequests = new Map<string, Promise<Response>>();
 
   return {
@@ -58,9 +59,9 @@ export const serveWithCache = (
       request: Request,
       assetFetcher: (
         req: Request,
-        waitUntil: (p: Promise<unknown>) => void,
+        waitUntil: (p: Promise<unknown>) => void
       ) => Promise<Response>,
-      waitUntil: (p: Promise<unknown>) => void,
+      waitUntil: (p: Promise<unknown>) => void
     ) => {
       if (request.method !== "GET") {
         return new Response("Method Not Allowed", { status: 405 });
@@ -87,10 +88,6 @@ export const serveWithCache = (
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + files[filePath];
-
-      if (filePath === "index.html") {
-        cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
-      }
       const cacheKey = new Request(cacheUrl.toString());
       const cacheKeyString = cacheUrl.toString();
 
@@ -107,9 +104,10 @@ export const serveWithCache = (
         return inFlightResponse.clone();
       }
 
-      // Construct the request for asset fetching
-      const newUrl = request.url.replace(`/${ASSET_HASH}`, "");
-      const req = new Request(newUrl, {
+      // Construct the new URL based on the files mapping
+      const newUrl = new URL(request.url);
+      newUrl.pathname = "/" + files[filePath];
+      const req = new Request(newUrl.toString(), {
         method: request.method,
         headers: request.headers,
         redirect: request.redirect,
@@ -151,16 +149,16 @@ export const serveWithCache = (
           const root = parse(htmlContent);
 
           // Update <base> tag
-          const baseTag = root.querySelector("base[href=\"/\"]");
+          const baseTag = root.querySelector('base[href="/"]');
           if (baseTag) {
             baseTag.setAttribute("href", `/${ASSET_HASH}/`);
           }
 
           // Update import map
-          const scriptTag = root.querySelector("script[type=\"importmap\"]");
+          const scriptTag = root.querySelector('script[type="importmap"]');
           if (scriptTag) {
             scriptTag.set_content(
-              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
+              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`))
             );
           }
 
@@ -184,7 +182,7 @@ export const serveWithCache = (
           waitUntil(
             _fileCache.put(cacheKey, response.clone()).catch((error) => {
               console.error("Cache put error:", error);
-            }),
+            })
           );
         }
 
