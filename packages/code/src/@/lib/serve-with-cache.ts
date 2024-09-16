@@ -24,7 +24,7 @@ function getContentType(path: string) {
 export const serveWithCache = (
   ASSET_HASH: string,
   files: { [key: string]: string },
-  cacheToUse: () => Promise<Cache>
+  cacheToUse: () => Promise<Cache>,
 ) => {
   let _fileCache: Cache | null | undefined;
   const fileCachePromise = cacheToUse()
@@ -59,9 +59,9 @@ export const serveWithCache = (
       request: Request,
       assetFetcher: (
         req: Request,
-        waitUntil: (p: Promise<unknown>) => void
+        waitUntil: (p: Promise<unknown>) => void,
       ) => Promise<Response>,
-      waitUntil: (p: Promise<unknown>) => void
+      waitUntil: (p: Promise<unknown>) => void,
     ) => {
       if (request.method !== "GET") {
         return new Response("Method Not Allowed", { status: 405 });
@@ -149,16 +149,16 @@ export const serveWithCache = (
           const root = parse(htmlContent);
 
           // Update <base> tag
-          const baseTag = root.querySelector('base[href="/"]');
+          const baseTag = root.querySelector("base[href=\"/\"]");
           if (baseTag) {
             baseTag.setAttribute("href", `/${ASSET_HASH}/`);
           }
 
           // Update import map
-          const scriptTag = root.querySelector('script[type="importmap"]');
+          const scriptTag = root.querySelector("script[type=\"importmap\"]");
           if (scriptTag) {
             scriptTag.set_content(
-              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`))
+              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
             );
           }
 
@@ -182,7 +182,7 @@ export const serveWithCache = (
           waitUntil(
             _fileCache.put(cacheKey, response.clone()).catch((error) => {
               console.error("Cache put error:", error);
-            })
+            }),
           );
         }
 

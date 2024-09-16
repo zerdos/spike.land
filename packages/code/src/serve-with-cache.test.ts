@@ -242,46 +242,46 @@ describe("serveWithCache", () => {
   it("should handle different asset versions (different ASSET_HASH)", async () => {
     const filesV1 = { "main.js": "main.abc123.js" };
     const filesV2 = { "main.js": "main.def456.js" };
-  
+
     const { serve: serveV1 } = serveWithCache("v1", filesV1, cacheToUse);
     const { serve: serveV2 } = serveWithCache("v2", filesV2, cacheToUse);
-  
+
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(assetFetcher).mockImplementation((req) => {
       if (req.url.includes("main.abc123.js")) {
         return Promise.resolve(
-          new Response('console.log("v1");', {
+          new Response("console.log(\"v1\");", {
             headers: { "Content-Type": "application/javascript" },
-          })
+          }),
         );
       } else if (req.url.includes("main.def456.js")) {
         return Promise.resolve(
-          new Response('console.log("v2");', {
+          new Response("console.log(\"v2\");", {
             headers: { "Content-Type": "application/javascript" },
-          })
+          }),
         );
       } else {
         return Promise.resolve(
-          new Response('console.log("unknown");', {
+          new Response("console.log(\"unknown\");", {
             headers: { "Content-Type": "application/javascript" },
-          })
+          }),
         );
       }
     });
-  
+
     const resultV1 = await serveV1(
       new Request("https://example.com/v1/main.js"),
       assetFetcher,
-      waitUntil
+      waitUntil,
     );
     const resultV2 = await serveV2(
       new Request("https://example.com/v2/main.js"),
       assetFetcher,
-      waitUntil
+      waitUntil,
     );
-  
-    expect(await resultV1.text()).toBe('console.log("v1");');
-    expect(await resultV2.text()).toBe('console.log("v2");');
+
+    expect(await resultV1.text()).toBe("console.log(\"v1\");");
+    expect(await resultV2.text()).toBe("console.log(\"v2\");");
   });
 
   it("should handle assets with special characters in the filename", async () => {
