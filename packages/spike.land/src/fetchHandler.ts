@@ -113,8 +113,7 @@ function handleFilesJson(withFiles = true): Response {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Content-Encoding": "gzip",
-      "Cache-Control": "no-cache",
-      ASSET_HASH,
+      "Cache-Control": "no-cache"
     },
   });
 }
