@@ -2,10 +2,7 @@ import { Wrapper } from "@/components/app/wrapper";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import WorkerMock from "./__mocks__/workerMock";
 
-// Set up WorkerMock
-(global as any).Worker = WorkerMock;
 
 vi.mock("./shared", () => ({
   transpile: vi.fn().mockResolvedValue("mocked transpiled code"),

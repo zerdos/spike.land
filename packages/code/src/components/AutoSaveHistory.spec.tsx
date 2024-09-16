@@ -4,10 +4,7 @@ import { cSessMock } from "@src/config/cSessMock";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CodeHistoryCarousel } from "./AutoSaveHistory";
-import WorkerMock from "../__mocks__/workerMock";
 
-// Set up WorkerMock
-(global as any).Worker = WorkerMock;
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({
