@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { createContextManager } from "@/lib/context-manager";
+import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { md5 } from "@src/modules";
 import { useRef, useState } from "react";
 import { ErrorType } from "./ErrorMessages";
 

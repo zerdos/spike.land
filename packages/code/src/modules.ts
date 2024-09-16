@@ -9,7 +9,7 @@ export type {
   RenderedApp,
 } from "@/lib/interfaces.ts";
 
-export { serveWithCache } from "@/lib/serve-with-cache";
+export { serveWithCache } from "@/lib/serve-with-cache.ts";
 
 export { md5 } from "@/lib/md5.ts";
 export { routes } from "@/lib/routes.ts";
