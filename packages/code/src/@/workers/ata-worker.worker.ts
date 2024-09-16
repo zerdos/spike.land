@@ -3,7 +3,7 @@ import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { RpcProvider } from "worker-rpc";
 
 interface ExtendedSharedWorkerGlobalScope extends SharedWorkerGlobalScope {
-  ata: (params: { code: string; tsx: any }) => Promise<any>;
+  ata: (params: { code: string; originToUse: string; tsx: any }) => Promise<any>;
   prettierCss: (code: string) => Promise<string>;
   prettierJs: (code: string, toThrow: boolean) => Promise<string>;
   createWorkflow: (q: string) => Promise<any>;
@@ -60,9 +60,9 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
       await safelyLoadScript("prettier-esm");
       return self.prettierCss(code);
     }],
-    ["ata", async ({ code }: { code: string }) => {
+    ["ata", async ({ code, originToUse }: { code: string; originToUse: string }) => {
       await Promise.all([safelyLoadScript("ata"), safelyLoadScript("dts")]);
-      return self.ata({ code, tsx: self.tsx });
+      return self.ata({ code, originToUse, tsx: self.tsx });
     }],
     ["transpile", async ({ code, originToUse }: { code: string; originToUse: string }) => {
       await safelyLoadScript("transpile");
