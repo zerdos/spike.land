@@ -4,13 +4,12 @@ import { parse } from "node-html-parser";
 
 // Adjusted addPrefixToImportMap function
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-  const updatedImports: {
-    [key: string]: string;
-  } = {};
+  const updatedImports: { [key: string]: string } = {};
 
   for (const [key, value] of Object.entries(imap.imports)) {
     // Ensure correct path concatenation
-    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix).pathname;
+    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix)
+      .pathname;
     updatedImports[key] = updatedValue;
   }
 
@@ -22,14 +21,21 @@ function getContentType(path: string) {
   return lookup(path) || "application/octet-stream";
 }
 
-export const serveWithCache = (ASSET_HASH: string, files: {
-  [key: string]: string;
-}, cacheToUse: () => Promise<Cache>) => {
-  let _fileCache: Cache | undefined;
-  const fileCachePromise = cacheToUse().then((cache) => {
-    _fileCache = cache;
-    return cache;
-  });
+export const serveWithCache = (
+  ASSET_HASH: string,
+  files: { [key: string]: string },
+  cacheToUse: () => Promise<Cache>,
+) => {
+  let _fileCache: Cache | null | undefined;
+  const fileCachePromise = cacheToUse()
+    .then((cache) => {
+      _fileCache = cache;
+      return cache;
+    })
+    .catch((error) => {
+      console.error("Cache creation failed:", error);
+      _fileCache = null; // Indicate that cache is unavailable
+    });
 
   const isAsset = (request: Request) => {
     const url = new URL(request.url);
@@ -43,13 +49,17 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
     return assetPath in files;
   };
-  const inFlightRequests = new Map();
+
+  const inFlightRequests = new Map<string, Promise<Response>>();
 
   return {
     isAsset,
     serve: async (
       request: Request,
-      assetFetcher: (req: Request, waitUntil: (p: Promise<unknown>) => void) => Promise<Response>,
+      assetFetcher: (
+        req: Request,
+        waitUntil: (p: Promise<unknown>) => void,
+      ) => Promise<Response>,
       waitUntil: (p: Promise<unknown>) => void,
     ) => {
       if (request.method !== "GET") {
@@ -74,23 +84,26 @@ export const serveWithCache = (ASSET_HASH: string, files: {
       if (_fileCache === undefined) {
         await fileCachePromise;
       }
-      const fileCache = _fileCache!;
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + files[filePath];
 
-      if (filePath === "index.html") cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
+      if (filePath === "index.html") {
+        cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
+      }
       const cacheKey = new Request(cacheUrl.toString());
-
       const cacheKeyString = cacheUrl.toString();
 
-      // Attempt to find the response in the cache
-      let resp = await fileCache.match(cacheKey);
-      if (resp) return resp.clone(); // Clone here as well, if needed
+      let resp: Response | undefined;
+      if (_fileCache) {
+        // Attempt to find the response in the cache
+        resp = await _fileCache.match(cacheKey);
+        if (resp) return resp.clone();
+      }
 
       if (inFlightRequests.has(cacheKeyString)) {
         // Wait for the in-flight fetch to complete
-        const inFlightResponse = await inFlightRequests.get(cacheKeyString);
+        const inFlightResponse = await inFlightRequests.get(cacheKeyString)!;
         return inFlightResponse.clone();
       }
 
@@ -104,7 +117,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
       // Create a promise to represent the in-flight fetch
       const inFlightPromise = (async () => {
-        let kvResp;
+        let kvResp: Response;
         try {
           kvResp = await assetFetcher(req, waitUntil);
         } catch (error) {
@@ -128,8 +141,9 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
         // Set security and CORS headers (review necessity)
         headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        // headers.set("Access-Control-Allow-Origin", "*"); // Consider removing or adjusting
 
-        let response;
+        let response: Response;
 
         // Modify index.html if necessary
         if (filePath === "index.html") {
@@ -165,12 +179,14 @@ export const serveWithCache = (ASSET_HASH: string, files: {
           });
         }
 
-        // Cache the response asynchronously
-        waitUntil(
-          fileCache.put(cacheKey, response.clone()).catch((error) => {
-            console.error("Cache put error:", error);
-          }),
-        );
+        // Cache the response asynchronously if cache is available
+        if (_fileCache) {
+          waitUntil(
+            _fileCache.put(cacheKey, response.clone()).catch((error) => {
+              console.error("Cache put error:", error);
+            }),
+          );
+        }
 
         // Remove the in-flight request from the map
         inFlightRequests.delete(cacheKeyString);

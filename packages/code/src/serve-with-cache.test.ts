@@ -59,23 +59,23 @@ describe("serveWithCache", () => {
 
   it("should serve assets from cache if available", async () => {
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
-    const cachedResponse = new Response("cached content", { status: 200, headers: { 'Content-Type': 'text/plain' } });
+    const cachedResponse = new Response("cached content", { status: 200, headers: { "Content-Type": "text/plain" } });
     vi.mocked(cache.match).mockResolvedValue(cachedResponse);
-  
+
     const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
-  
+
     // Compare the response body
     expect(await result.text()).toBe("cached content");
-  
+
     // Compare the status code
     expect(result.status).toBe(cachedResponse.status);
-  
+
     // Compare headers
     expect(result.headers.get("Content-Type")).toBe(cachedResponse.headers.get("Content-Type"));
-  
+
     // Ensure assetFetcher was not called
     expect(assetFetcher).not.toHaveBeenCalled();
-  
+
     // Verify cache.match was called with the correct request
     expect(cache.match).toHaveBeenCalledWith(expect.any(Request));
   });
@@ -323,17 +323,24 @@ describe("serveWithCache", () => {
   });
 
   it("should handle cacheToUse failures", async () => {
-    const errorCacheToUse = vi.fn().mockRejectedValue(new Error("Cache creation failed"));
+    const errorCacheToUse = vi
+      .fn()
+      .mockRejectedValue(new Error("Cache creation failed"));
     const { serve } = serveWithCache(ASSET_HASH, files, errorCacheToUse);
     const fetchedResponse = new Response("console.log(\"test\");", {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
-    const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
+    const result = await serve(
+      new Request("https://example.com/abc123/main.js"),
+      assetFetcher,
+      waitUntil,
+    );
 
     expect(await result.text()).toBe("console.log(\"test\");");
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
+    expect(assetFetcher).toHaveBeenCalled(); // Verify asset was fetched
   });
 
   it("should handle empty responses", async () => {
