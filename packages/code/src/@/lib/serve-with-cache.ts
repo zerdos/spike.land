@@ -90,7 +90,6 @@ export const serveWithCache = (
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = filePath === "index.html" ? "/" + ASSET_HASH : "" + "/" + files[filePath];
       const cacheKey = new Request(cacheUrl.toString());
-      const cacheKeyString = cacheUrl.toString();
 
       let resp: Response | undefined;
       if (_fileCache) {
