@@ -148,34 +148,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     allowOverwrite: true,
     legalComments: "none",
     platform: "node",
-    plugins: [
-      ...buildOptions.plugins,
-      copy({
-        resolveFrom: "cwd",
-        assets: [
-          {
-            from: ["./src/assets/*"],
-            to: ["./dist/assets"],
-          },
-          {
-            from: "./src/assets/manifest.json",
-            to: "./dist",
-          },
-          {
-            from: "./src/index.html",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/favicon.ico",
-            to: "./dist",
-          },
-          {
-            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-          },
-        ],
-      }),
-    ],
+    plugins: [],
     entryPoints: [
       "src/cf-esbuild.mjs",
       "src/modules.ts",
@@ -216,6 +189,34 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     alias: undefined,
     outdir: "dist/@/",
     platform: "browser",
+    plugins: [
+      ...buildOptions.plugins,
+      copy({
+        resolveFrom: "cwd",
+        assets: [
+          {
+            from: ["./src/assets/*"],
+            to: ["./dist/assets"],
+          },
+          {
+            from: "./src/assets/manifest.json",
+            to: "./dist",
+          },
+          {
+            from: "./src/index.html",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/favicon.ico",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          },
+        ],
+      }),
+    ],
     entryPoints: standaloneEntryPoints,
   });
 

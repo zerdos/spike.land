@@ -5445,6 +5445,7 @@ const RAW_RUNTIME_STATE =
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.0"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
+          ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.5.5"],\
           ["async-mutex", "npm:0.5.0"],\
           ["avl", "npm:1.5.3"],\
@@ -5452,6 +5453,7 @@ const RAW_RUNTIME_STATE =
           ["esm-worker", "npm:0.135.17"],\
           ["hono", "npm:4.6.1"],\
           ["immutable", "npm:4.3.7"],\
+          ["mime-types", "npm:2.1.35"],\
           ["miniflare", "npm:3.20240909.1"],\
           ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.61.1"],\
           ["openai-edge", "npm:1.2.2"],\

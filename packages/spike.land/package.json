@@ -17,6 +17,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240909.0",
+    "@types/mime-types": "^2.1.4",
     "typescript": "5.6.2",
     "wrangler": "3.78.2"
   },
@@ -35,6 +36,7 @@
     "esm-worker": "0.135.17",
     "hono": "^4.6.1",
     "immutable": "4.3.7",
+    "mime-types": "^2.1.35",
     "miniflare": "^3.20240909.1",
     "openai": "^4.61.1",
     "openai-edge": "1.2.2",
