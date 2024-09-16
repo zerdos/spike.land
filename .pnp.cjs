@@ -5299,6 +5299,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/user-event", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:14.5.2"],\
           ["@types/autoprefixer", "npm:10.2.0"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
+          ["@types/mime-db", "npm:1.43.5"],\
           ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.5.5"],\
           ["@types/path-browserify", "npm:1.0.3"],\
@@ -5356,6 +5357,7 @@ const RAW_RUNTIME_STATE =
           ["jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:25.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.441.0"],\
+          ["mime-db", "npm:1.53.0"],\
           ["mime-types", "npm:2.1.35"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.51.0"],\
@@ -5445,6 +5447,7 @@ const RAW_RUNTIME_STATE =
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.0"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
+          ["@types/mime-db", "npm:1.43.5"],\
           ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.5.5"],\
           ["async-mutex", "npm:0.5.0"],\
@@ -5453,6 +5456,7 @@ const RAW_RUNTIME_STATE =
           ["esm-worker", "npm:0.135.17"],\
           ["hono", "npm:4.6.1"],\
           ["immutable", "npm:4.3.7"],\
+          ["mime-db", "npm:1.53.0"],\
           ["mime-types", "npm:2.1.35"],\
           ["miniflare", "npm:3.20240909.1"],\
           ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.61.1"],\
@@ -6204,6 +6208,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/mdast", "npm:4.0.4"],\
           ["@types/unist", "npm:3.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/mime-db", [\
+      ["npm:1.43.5", {\
+        "packageLocation": "./.yarn/global/cache/@types-mime-db-npm-1.43.5-f5334e6bb8-10.zip/node_modules/@types/mime-db/",\
+        "packageDependencies": [\
+          ["@types/mime-db", "npm:1.43.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15346,6 +15359,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/mime-db-npm-1.52.0-b5371d6fd2-10.zip/node_modules/mime-db/",\
         "packageDependencies": [\
           ["mime-db", "npm:1.52.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:1.53.0", {\
+        "packageLocation": "./.yarn/global/cache/mime-db-npm-1.53.0-14fcdba2be-10.zip/node_modules/mime-db/",\
+        "packageDependencies": [\
+          ["mime-db", "npm:1.53.0"]\
         ],\
         "linkType": "HARD"\
       }]\
