@@ -77,6 +77,8 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + files[filePath];
+
+      // we added a hash to the index.html file, so we need to adjust the path
       if (filePath === "index.html") cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
       const cacheKey = new Request(cacheUrl.toString());
 

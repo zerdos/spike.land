@@ -17,6 +17,7 @@ vi.mock("mime-types", () => ({
     if (path.endsWith(".js")) return "application/javascript";
     if (path.endsWith(".css")) return "text/css";
     if (path.endsWith(".png")) return "image/png";
+    if (path.endsWith(".txt")) return "text/plain";
     return "application/octet-stream";
   },
 }));
@@ -29,6 +30,8 @@ describe("serveWithCache", () => {
     "styles.css": "styles_css_content_hash",
     "image.png": "image_png_content_hash",
     "special-char-file-πφ.js": "special_char_content_hash",
+    "empty.txt": "",
+    "large-file.bin": "large_file_content_hash",
   };
   let cache: Cache;
   let cacheToUse: () => Promise<Cache>;
@@ -101,7 +104,6 @@ describe("serveWithCache", () => {
     expect(result.headers.get("Content-Type")).toBe("text/html");
     expect(cache.put).toHaveBeenCalledWith(expect.any(Request), expect.any(Response));
 
-    // Additional assertions for index.html handling
     const resultText = await result.text();
     expect(resultText).toContain(`<base href="/${ASSET_HASH}/"`);
     expect(resultText).toContain(`"imports":`);
@@ -124,8 +126,9 @@ describe("serveWithCache", () => {
   it("should handle non-existent assets", async () => {
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
 
-    await expect(serve(new Request("https://example.com/abc123/nonexistent.js"), assetFetcher, waitUntil)).rejects
-      .toThrow("Not an asset");
+    const result = await serve(new Request("https://example.com/abc123/nonexistent.js"), assetFetcher, waitUntil);
+    expect(result.status).toBe(404);
+    expect(await result.text()).toBe("Not Found");
   });
 
   it("should handle asset fetcher errors", async () => {
@@ -153,8 +156,6 @@ describe("serveWithCache", () => {
     expect(result.headers.get("Cache-Control")).toBe("public, max-age=604800, immutable");
     expect(result.headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
   });
-
-  // New test cases
 
   it("should handle different file types correctly", async () => {
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
@@ -200,7 +201,6 @@ describe("serveWithCache", () => {
 
     expect(await result.text()).toBe("console.log(\"test\");");
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
-    // The request should still be served even if caching fails
   });
 
   it("should handle concurrent requests for the same asset", async () => {
@@ -220,7 +220,7 @@ describe("serveWithCache", () => {
 
     const results = await Promise.all(requests);
 
-    expect(fetchCount).toBe(1); // Asset should only be fetched once
+    expect(fetchCount).toBe(1);
     results.forEach(async (result) => {
       expect(await result.text()).toBe("console.log(\"test\");");
       expect(result.headers.get("Content-Type")).toBe("application/javascript");
@@ -302,6 +302,33 @@ describe("serveWithCache", () => {
 
     expect(await result.text()).toBe("console.log(\"test\");");
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
-    // The request should still be served even if waitUntil fails
+  });
+
+  it("should handle cacheToUse failures", async () => {
+    const errorCacheToUse = vi.fn().mockRejectedValue(new Error("Cache creation failed"));
+    const { serve } = serveWithCache(ASSET_HASH, files, errorCacheToUse);
+    const fetchedResponse = new Response("console.log(\"test\");", {
+      headers: { "Content-Type": "application/javascript" },
+    });
+    vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
+
+    const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
+
+    expect(await result.text()).toBe("console.log(\"test\");");
+    expect(result.headers.get("Content-Type")).toBe("application/javascript");
+  });
+
+  it("should handle empty responses", async () => {
+    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    vi.mocked(cache.match).mockResolvedValue(undefined);
+    const emptyResponse = new Response("", {
+      headers: { "Content-Type": "text/plain" },
+    });
+    vi.mocked(assetFetcher).mockResolvedValue(emptyResponse);
+
+    const result = await serve(new Request("https://example.com/abc123/empty.txt"), assetFetcher, waitUntil);
+
+    expect(await result.text()).toBe("");
+    expect(result.headers.get("Content-Type")).toBe("text/plain");
   });
 });
