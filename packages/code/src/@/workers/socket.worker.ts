@@ -470,7 +470,7 @@ const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 const SENDER_WORKER_HASH_MISMATCH_RELOAD = "WORKER_HASH_MISMATCH_RELOAD";
 
 // Expose the setConnections function to the global scope
-Object.assign(self, {
+Object.assign(globalThis, {
   setConnections,
   connections,
 });

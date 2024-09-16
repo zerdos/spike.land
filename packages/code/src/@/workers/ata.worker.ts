@@ -1,5 +1,6 @@
 import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
+const self = globalThis;
 
 class QueuedFetch {
   private queue: (() => Promise<void>)[] = [];

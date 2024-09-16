@@ -253,10 +253,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      ...extraAliases
+      ...extraAliases,
     },
     external: [
-      ...Object.values(extraAliases)
+      ...Object.values(extraAliases),
     ],
   });
 

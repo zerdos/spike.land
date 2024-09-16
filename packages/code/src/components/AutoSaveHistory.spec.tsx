@@ -4,6 +4,10 @@ import { cSessMock } from "@src/config/cSessMock";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CodeHistoryCarousel } from "./AutoSaveHistory";
+import WorkerMock from "../__mocks__/workerMock";
+
+// Set up WorkerMock
+(global as any).Worker = WorkerMock;
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({
@@ -63,10 +67,9 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the history items to be rendered
     await waitFor(() => {
-   //   screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Version 2")).toBeInTheDocument();
       expect(screen.getByText("Version 1")).toBeInTheDocument();
-    }, { timeout: 5000 }); // Increase timeout to 5000ms
+    }, { timeout: 5000 });
 
     // Find and click the first "Restore" button
     const restoreButtons = screen.getAllByText("Restore");
@@ -78,7 +81,7 @@ describe("CodeHistoryCarousel", () => {
         code: "console.log(\"Version 2\");",
         timestamp: 1625184000000,
       }));
-    }, { timeout: 5000 }); // Increase timeout to 5000ms
+    }, { timeout: 5000 });
   });
 
   it("handles close button click", async () => {
@@ -93,9 +96,8 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the component to render
     await waitFor(() => {
-    //  screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Code History")).toBeInTheDocument();
-    }, { timeout: 5000 }); // Increase timeout to 5000ms
+    }, { timeout: 5000 });
 
     // Find and click the "Close" button
     const closeButton = screen.getByText("Close");

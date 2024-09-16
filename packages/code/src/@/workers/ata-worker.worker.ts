@@ -14,7 +14,7 @@ interface ExtendedSharedWorkerGlobalScope extends SharedWorkerGlobalScope {
   setConnections: (signal: string, sess: ICodeSession) => void;
 }
 
-declare var self: ExtendedSharedWorkerGlobalScope;
+const self = globalThis as unknown as ExtendedSharedWorkerGlobalScope;
 
 interface BuildParams {
   codeSpace: string;

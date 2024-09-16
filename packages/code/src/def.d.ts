@@ -15,10 +15,7 @@ declare var URL: {
   createObjectURL(obj: Blob | MediaSource): string;
   revokeObjectURL(url: string): void;
 };
-
-declare global  {
-  VI_TEST: boolean;
-}
+declare var VI_TEST: string;
 
 declare global {
 

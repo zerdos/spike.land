@@ -9,4 +9,4 @@ Object.assign(globalThis, {
   },
 });
 
-Object.assign(self, { tsx });
+Object.assign(globalThis, { tsx });

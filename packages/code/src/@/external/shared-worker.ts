@@ -6,8 +6,12 @@ class SharedWorkerPolyfill {
   public port: MessagePort;
 
   constructor(url: string | URL, opts?: WorkerOptions) {
-    this.worker = new Worker(url, opts);
-
+    if ((globalThis as any).VI_TEST) {
+      const Worker = require("worker_threads").Worker;
+      this.worker = new Worker(__dirname + "/../../../dist/" + url, opts);
+    } else {
+      this.worker = new Worker(url, opts);
+    }
     // Create a MessageChannel
     const channel = new MessageChannel();
     this.port = channel.port1;

@@ -10,4 +10,4 @@ export const updateSearchReplace = async (
   return up(instructions, code);
 };
 
-Object.assign(self, { updateSearchReplace });
+Object.assign(globalThis, { updateSearchReplace });
