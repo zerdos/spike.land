@@ -44,7 +44,11 @@ sw.addEventListener("fetch", (event) => {
       (async () => {
         return serve(
           request,
-          (url) => fetch(url),
+          (req, waitUntil) => {
+            let resp = fetch(req);
+            waitUntil(resp);
+            return resp;
+          },
           (p) => event.waitUntil(p),
         );
       })(),
