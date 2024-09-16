@@ -44,7 +44,13 @@ sw.addEventListener("fetch", (event) => {
       serve(
         request,
         (req, waitUntil) => {
-          const respPromise = fetch(req);
+          const url = new URL(req.url);
+          const ASSET_HASH= files.ASSET_HASH;
+          if (!url.pathname.includes(ASSET_HASH)) {
+            url.pathname = "/"+ASSET_HASH+url.pathname; 
+          }
+
+          const respPromise = fetch(url.toString());
           waitUntil(respPromise);
           return respPromise;
         },
