@@ -1,6 +1,7 @@
 import { importMap } from "@/lib/importmap-utils";
 import { lookup } from "mime-types";
 import { parse } from "node-html-parser";
+import { md5 } from "./md5";
 
 // Adjusted addPrefixToImportMap function
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
@@ -22,10 +23,10 @@ function getContentType(path: string) {
 }
 
 export const serveWithCache = (
-  ASSET_HASH: string,
   files: { [key: string]: string },
   cacheToUse: () => Promise<Cache>,
 ) => {
+  const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
   let _fileCache: Cache | null | undefined;
   const fileCachePromise = cacheToUse()
     .then((cache) => {

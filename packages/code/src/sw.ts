@@ -10,12 +10,11 @@ importScripts("/swVersion.js");
 import { serveWithCache } from "@/lib/serve-with-cache";
 // Now, self.swVersion and self.files are available
 
-const ASSET_HASH = sw.swVersion;
 const files = sw.files;
 sw.fileCacheName = `file-cache-v12`;
 
 // Instantiate serveWithCache
-const { isAsset, serve } = serveWithCache(ASSET_HASH, files, () => caches.open(sw.fileCacheName));
+const { isAsset, serve } = serveWithCache(files, () => caches.open(sw.fileCacheName));
 
 // Event listeners for the service worker lifecycle
 

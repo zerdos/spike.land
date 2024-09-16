@@ -23,7 +23,6 @@ vi.mock("mime-types", () => ({
 }));
 
 describe("serveWithCache", () => {
-  const ASSET_HASH = "abc123";
   const files = {
     "index.html": "index_content_hash",
     "main.js": "main_js_content_hash",
@@ -32,6 +31,7 @@ describe("serveWithCache", () => {
     "special-char-file-πφ.js": "special_char_content_hash",
     "empty.txt": "",
     "large-file.bin": "large_file_content_hash",
+    "ASSET_HASH": "abc123",
   };
   let cache: Cache;
   let cacheToUse: () => Promise<Cache>;
@@ -49,7 +49,7 @@ describe("serveWithCache", () => {
   });
 
   it("should correctly identify assets", async () => {
-    const { isAsset } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { isAsset } = serveWithCache(files, cacheToUse);
 
     expect(isAsset(new Request("https://example.com/abc123/index.html"))).toBe(true);
     expect(isAsset(new Request("https://example.com/abc123/main.js"))).toBe(true);
@@ -58,7 +58,7 @@ describe("serveWithCache", () => {
   });
 
   it("should serve assets from cache if available", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     const cachedResponse = new Response("cached content", { status: 200, headers: { "Content-Type": "text/plain" } });
     vi.mocked(cache.match).mockResolvedValue(cachedResponse);
 
@@ -80,7 +80,7 @@ describe("serveWithCache", () => {
     expect(cache.match).toHaveBeenCalledWith(expect.any(Request));
   });
   it("should fetch and cache assets if not in cache", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("fetched content", {
       headers: { "Content-Type": "application/javascript" },
@@ -97,7 +97,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle index.html specially", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response(
       "<!DOCTYPE html><html><head><base href=\"/\"><script type=\"importmap\"></script></head><body></body></html>",
@@ -115,13 +115,13 @@ describe("serveWithCache", () => {
     expect(cache.put).toHaveBeenCalledWith(expect.any(Request), expect.any(Response));
 
     const resultText = await result.text();
-    expect(resultText).toContain(`<base href="/${ASSET_HASH}/"`);
+    expect(resultText).toContain(`<base href="/abc123/"`);
     expect(resultText).toContain(`"imports":`);
-    expect(resultText).toContain(`"/${ASSET_HASH}/react.js"`);
+    expect(resultText).toContain(`"/abc123/react.js"`);
   });
 
   it("should handle non-GET requests", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
 
     const result = await serve(
       new Request("https://example.com/abc123/main.js", { method: "POST" }),
@@ -134,7 +134,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle non-existent assets", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
 
     const result = await serve(new Request("https://example.com/abc123/nonexistent.js"), assetFetcher, waitUntil);
     expect(result.status).toBe(404);
@@ -142,7 +142,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle asset fetcher errors", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(assetFetcher).mockRejectedValue(new Error("Fetch error"));
 
@@ -153,7 +153,7 @@ describe("serveWithCache", () => {
   });
 
   it("should set correct headers for non-HTML assets", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("console.log(\"test\");", {
       headers: { "Content-Type": "application/javascript" },
@@ -168,7 +168,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle different file types correctly", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
 
     const cssResponse = new Response("body { color: red; }", { headers: { "Content-Type": "text/css" } });
@@ -185,7 +185,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle requests with query parameters", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("console.log(\"test\");", {
       headers: { "Content-Type": "application/javascript" },
@@ -199,7 +199,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle cache put failures", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(cache.put).mockRejectedValue(new Error("Cache put failed"));
     const fetchedResponse = new Response("console.log(\"test\");", {
@@ -214,7 +214,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle concurrent requests for the same asset", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     let fetchCount = 0;
     vi.mocked(assetFetcher).mockImplementation(() => {
@@ -243,8 +243,8 @@ describe("serveWithCache", () => {
     const filesV1 = { "main.js": "main.abc123.js" };
     const filesV2 = { "main.js": "main.def456.js" };
 
-    const { serve: serveV1 } = serveWithCache("v1", filesV1, cacheToUse);
-    const { serve: serveV2 } = serveWithCache("v2", filesV2, cacheToUse);
+    const { serve: serveV1 } = serveWithCache(filesV1, cacheToUse);
+    const { serve: serveV2 } = serveWithCache(filesV2, cacheToUse);
 
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(assetFetcher).mockImplementation((req) => {
@@ -290,7 +290,7 @@ describe("serveWithCache", () => {
       "index.html": "index.html",
       "special-char-file-πφ.js": "special-char-file-πφ.hash.js",
     };
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("console.log(\"special\");", {
       headers: { "Content-Type": "application/javascript" },
@@ -308,7 +308,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle different status codes from assetFetcher", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
 
     vi.mocked(assetFetcher).mockResolvedValueOnce(new Response("Not Found", { status: 404 }));
@@ -322,7 +322,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle large files", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const largeContent = "a".repeat(1024 * 1024); // 1MB of data
     const fetchedResponse = new Response(largeContent, {
@@ -337,7 +337,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle waitUntil errors", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("console.log(\"test\");", {
       headers: { "Content-Type": "application/javascript" },
@@ -355,7 +355,7 @@ describe("serveWithCache", () => {
     const errorCacheToUse = vi
       .fn()
       .mockRejectedValue(new Error("Cache creation failed"));
-    const { serve } = serveWithCache(ASSET_HASH, files, errorCacheToUse);
+    const { serve } = serveWithCache(files, errorCacheToUse);
     const fetchedResponse = new Response("console.log(\"test\");", {
       headers: { "Content-Type": "application/javascript" },
     });
@@ -373,7 +373,7 @@ describe("serveWithCache", () => {
   });
 
   it("should handle empty responses", async () => {
-    const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
+    const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const emptyResponse = new Response("", {
       headers: { "Content-Type": "text/plain" },

@@ -8,7 +8,7 @@ import { handleReplicateRequest } from "./replicateHandler";
 import Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
-import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 
 export default {
@@ -16,7 +16,7 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
 
   
-    const kvServer = serveWithCache(ASSET_HASH, files, () => caches.open("file-cache-v18"));
+    const kvServer = serveWithCache(files, () => caches.open("file-cache-v18"));
 
     if (kvServer.isAsset(request)) {
       const assetFetcher = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
