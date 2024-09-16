@@ -28,14 +28,6 @@ export const serveWithCache = (
 ) => {
   const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
 
-  const filesWithHash = Object.entries(files).reduce(
-    (acc, [key, value]) => {
-      acc[key] = `${ASSET_HASH}/${value}`;
-      return acc;
-    },
-    {} as { [key: string]: string },
-  );
-
   let _fileCache: Cache | null | undefined;
   const fileCachePromise = cacheToUse()
     .then((cache) => {
@@ -81,8 +73,6 @@ export const serveWithCache = (
       if (!isAsset(request)) {
         return new Response("Not Found", { status: 404 });
       }
-
-      if (!isAsset(request)) throw new Error("Not an asset");
 
       const url = new URL(request.url);
       const pathname = url.pathname.startsWith("/")

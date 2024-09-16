@@ -588,6 +588,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@edge-runtime/primitives@npm:5.1.0":
+  version: 5.1.0
+  resolution: "@edge-runtime/primitives@npm:5.1.0"
+  checksum: 10/765c8feb02adfb257d7a610bea9ecb7c5bffb1a0fc838498767e949df6da02163d4c99efd66d7a2c5af2e5dba71e0e45364dc4d9b6ae746f42377409f56d687f
+  languageName: node
+  linkType: hard
+
+"@edge-runtime/vm@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@edge-runtime/vm@npm:4.0.3"
+  dependencies:
+    "@edge-runtime/primitives": "npm:5.1.0"
+  checksum: 10/69ea4217be91cdcf9c0e55530b4b75d2f5d1f8c40db107b3c3451ed6c891ce4bf388b20418c2604f3fc83a618edfb6ffd1b67231c79709be2180c5ef2427309a
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-plugin@npm:^11.12.0":
   version: 11.12.0
   resolution: "@emotion/babel-plugin@npm:11.12.0"
@@ -3797,6 +3813,7 @@ __metadata:
   dependencies:
     "@clerk/clerk-react": "npm:5.9.0"
     "@clerk/nextjs": "npm:5.5.3"
+    "@edge-runtime/vm": "npm:^4.0.3"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -3904,6 +3921,7 @@ __metadata:
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.5.0"
     framer-motion: "npm:11.5.4"
+    happy-dom: "npm:^15.7.4"
     i18next: "npm:^23.15.1"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -8162,7 +8180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"entities@npm:^4.2.0, entities@npm:^4.4.0":
+"entities@npm:^4.2.0, entities@npm:^4.4.0, entities@npm:^4.5.0":
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 10/ede2a35c9bce1aeccd055a1b445d41c75a14a2bb1cd22e242f20cf04d236cdcd7f9c859eb83f76885327bfae0c25bf03303665ee1ce3d47c5927b98b0e3e3d48
@@ -9970,6 +9988,17 @@ __metadata:
     through2: "npm:2.X"
     vinyl: "npm:1.X"
   checksum: 10/b5f80b6d2f17be59c576cc5967ea8e8bec4cee902838309d6da34937d6465ad2a8156d4dbfeea3d1ca816245b91a45d4b8929686a3ab9c0b4fc88229a70f9954
+  languageName: node
+  linkType: hard
+
+"happy-dom@npm:^15.7.4":
+  version: 15.7.4
+  resolution: "happy-dom@npm:15.7.4"
+  dependencies:
+    entities: "npm:^4.5.0"
+    webidl-conversions: "npm:^7.0.0"
+    whatwg-mimetype: "npm:^3.0.0"
+  checksum: 10/fd5026e8a2d9437f161e4c6d9725ffe68f6d31cd09ac7d729b3cd5dd2207a3833272607171da1caf4b1247839ead8bd01a4381a0e31909589af29d27fa24a0f5
   languageName: node
   linkType: hard
 
@@ -17735,6 +17764,13 @@ __metadata:
   dependencies:
     iconv-lite: "npm:0.6.3"
   checksum: 10/bbef815eb67f91487c7f2ef96329743f5fd8357d7d62b1119237d25d41c7e452dff8197235b2d3c031365a17f61d3bb73ca49d0ed1582475aa4a670815e79534
+  languageName: node
+  linkType: hard
+
+"whatwg-mimetype@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "whatwg-mimetype@npm:3.0.0"
+  checksum: 10/96f9f628c663c2ae05412c185ca81b3df54bcb921ab52fe9ebc0081c1720f25d770665401eb2338ab7f48c71568133845638e18a81ed52ab5d4dcef7d22b40ef
   languageName: node
   linkType: hard
 
