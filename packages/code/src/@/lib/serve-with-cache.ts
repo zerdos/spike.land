@@ -116,7 +116,10 @@ export const serveWithCache = (
 
       // Construct the new URL based on the files mapping
       const newUrl = new URL(request.url);
-      newUrl.pathname = "/" + (files[filePath] || filePath);
+
+      newUrl.pathname = "/" + (files[filePath] ? filePath : pathname);
+      newUrl.pathname = newUrl.pathname.replace(ASSET_HASH + "/", "");
+
       const req = new Request(newUrl.toString(), {
         method: request.method,
         headers: request.headers,
