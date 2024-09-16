@@ -2,6 +2,7 @@ import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
 import { lookup } from "mime-types";
 import { parse } from "node-html-parser";
+import { object } from "zod";
 
 // Adjusted addPrefixToImportMap function
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
@@ -26,7 +27,17 @@ export const serveWithCache = (
   files: { [key: string]: string },
   cacheToUse: () => Promise<Cache>,
 ) => {
+
   const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
+  
+  const filesWithHash = Object.entries(files).reduce(
+    (acc, [key, value]) => {
+      acc[key] = `${ASSET_HASH}/${value}`;
+      return acc;
+    },
+    {} as { [key: string]: string },
+  );
+
   let _fileCache: Cache | null | undefined;
   const fileCachePromise = cacheToUse()
     .then((cache) => {
@@ -48,7 +59,7 @@ export const serveWithCache = (
       ? pathname.slice(ASSET_HASH.length + 1)
       : pathname;
 
-    return assetPath in files || assetPath in Object.values(files);
+    return assetPath in files || assetPath in Object.values(files) || pathname in files || pathname in Object.values(files);
   };
 
   // Instance-specific in-flight requests map
@@ -88,7 +99,7 @@ export const serveWithCache = (
       }
 
       const cacheUrl = new URL(request.url);
-      cacheUrl.pathname = filePath === "index.html" ? "/" + ASSET_HASH : "" + "/" + files[filePath];
+      cacheUrl.pathname = filePath === "index.html" ? "/" + ASSET_HASH : "" + "/" + (files[filePath] || filePath);
       const cacheKey = new Request(cacheUrl.toString());
 
       let resp: Response | undefined;
