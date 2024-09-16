@@ -13,7 +13,7 @@ import { importMapReplace } from "@/lib/importmap-utils";
 
 const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
-    new Blob([importMapReplace(code.split('importMapReplace').join(""), origin)], { type: "application/javascript"}) ), location.origin).toString();
+    new Blob([importMapReplace(code.split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`)], { type: "application/javascript"}) ), location.origin).toString();
     
     
 
