@@ -48,7 +48,7 @@ export const serveWithCache = (
       ? pathname.slice(ASSET_HASH.length + 1)
       : pathname;
 
-    return assetPath in files;
+    return assetPath in files || assetPath in Object.values(files);
   };
 
   // Instance-specific in-flight requests map
@@ -107,7 +107,7 @@ export const serveWithCache = (
 
       // Construct the new URL based on the files mapping
       const newUrl = new URL(request.url);
-      newUrl.pathname = "/" + files[filePath];
+      newUrl.pathname = "/" + (files[filePath] || filePath);
       const req = new Request(newUrl.toString(), {
         method: request.method,
         headers: request.headers,
