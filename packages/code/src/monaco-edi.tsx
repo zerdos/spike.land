@@ -5,7 +5,7 @@ const originToUse = location.origin;
 
 const refreshAta = async (code: string) => {
   try {
-    const extraLibs = (await ata({ code })).map((
+    const extraLibs = (await ata({ code, originToUse: location.origin })).map((
       { filePath, content },
     ) => ({
       filePath: originToUse + filePath,

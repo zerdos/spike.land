@@ -124,12 +124,14 @@ export const prettier = async (code: string): Promise<string> => {
 
 export const ata = async ({
   code,
+  originToUse,
 }: {
   code: string;
+  originToUse: string;
 }): Promise<{ content: string; filePath: string }[]> => {
   const worker = await workerPool.getWorker();
   try {
-    return await worker.rpc.rpc("ata", { code });
+    return await worker.rpc.rpc("ata", { code, originToUse });
   } finally {
     workerPool.releaseWorker(worker);
   }
