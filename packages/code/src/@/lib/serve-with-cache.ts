@@ -43,6 +43,7 @@ export const serveWithCache = (ASSET_HASH: string, files: {
 
     return assetPath in files;
   };
+  const inFlightRequests = new Map();
 
   return {
     isAsset,
@@ -78,13 +79,20 @@ export const serveWithCache = (ASSET_HASH: string, files: {
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = "/" + files[filePath];
 
-      // we added a hash to the index.html file, so we need to adjust the path
       if (filePath === "index.html") cacheUrl.pathname = "/" + ASSET_HASH + cacheUrl.pathname;
       const cacheKey = new Request(cacheUrl.toString());
 
+      const cacheKeyString = cacheUrl.toString();
+
       // Attempt to find the response in the cache
       let resp = await fileCache.match(cacheKey);
-      if (resp) return resp;
+      if (resp) return resp.clone(); // Clone here as well, if needed
+
+      if (inFlightRequests.has(cacheKeyString)) {
+        // Wait for the in-flight fetch to complete
+        const inFlightResponse = await inFlightRequests.get(cacheKeyString);
+        return inFlightResponse.clone();
+      }
 
       // Construct the request for asset fetching
       const newUrl = request.url.replace(`/${ASSET_HASH}`, "");
@@ -94,76 +102,89 @@ export const serveWithCache = (ASSET_HASH: string, files: {
         redirect: request.redirect,
       });
 
-      let kvResp;
-      try {
-        kvResp = await assetFetcher(req, waitUntil);
-      } catch (error) {
-        console.error("Asset fetch error:", error);
-        return new Response("Internal Server Error", { status: 500 });
-      }
-
-      if (!kvResp.ok) {
-        return kvResp;
-      }
-
-      // Clone headers and set appropriate Content-Type
-      const headers = new Headers(kvResp.headers);
-      const contentType = getContentType(filePath);
-      headers.set("Content-Type", contentType);
-
-      // Overwrite the Cache-Control header
-      headers.set("Cache-Control", "public, max-age=604800, immutable");
-
-      // Set security and CORS headers (review necessity)
-      headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-      // headers.set("Access-Control-Allow-Origin", "*"); // Consider removing or adjusting
-
-      let response;
-
-      // Modify index.html if necessary
-      if (filePath === "index.html") {
-        const htmlContent = await kvResp.text();
-        // Modify HTML using an HTML parser as suggested
-        // For brevity, using string replacement (ensure patterns are unique)
-        const root = parse(htmlContent);
-
-        // Update <base> tag
-        const baseTag = root.querySelector("base[href=\"/\"]");
-        if (baseTag) {
-          baseTag.setAttribute("href", `/${ASSET_HASH}/`);
+      // Create a promise to represent the in-flight fetch
+      const inFlightPromise = (async () => {
+        let kvResp;
+        try {
+          kvResp = await assetFetcher(req, waitUntil);
+        } catch (error) {
+          console.error("Asset fetch error:", error);
+          inFlightRequests.delete(cacheKeyString);
+          return new Response("Internal Server Error", { status: 500 });
         }
 
-        // Update import map
-        const scriptTag = root.querySelector("script[type=\"importmap\"]");
-        if (scriptTag) {
-          scriptTag.set_content(
-            JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
-          );
+        if (!kvResp.ok) {
+          inFlightRequests.delete(cacheKeyString);
+          return kvResp;
         }
 
-        const modifiedHtml = root.toString();
+        // Clone headers and set appropriate Content-Type
+        const headers = new Headers(kvResp.headers);
+        const contentType = getContentType(filePath);
+        headers.set("Content-Type", contentType);
 
-        response = new Response(modifiedHtml, {
-          status: kvResp.status,
-          statusText: kvResp.statusText,
-          headers,
-        });
-      } else {
-        response = new Response(kvResp.body, {
-          status: kvResp.status,
-          statusText: kvResp.statusText,
-          headers,
-        });
-      }
+        // Overwrite the Cache-Control header
+        headers.set("Cache-Control", "public, max-age=604800, immutable");
 
-      // Cache the response asynchronously
-      waitUntil(
-        fileCache.put(cacheKey, response.clone()).catch((error) => {
-          console.error("Cache put error:", error);
-        }),
-      );
+        // Set security and CORS headers (review necessity)
+        headers.set("Cross-Origin-Embedder-Policy", "require-corp");
 
-      return response;
+        let response;
+
+        // Modify index.html if necessary
+        if (filePath === "index.html") {
+          const htmlContent = await kvResp.text();
+          const root = parse(htmlContent);
+
+          // Update <base> tag
+          const baseTag = root.querySelector("base[href=\"/\"]");
+          if (baseTag) {
+            baseTag.setAttribute("href", `/${ASSET_HASH}/`);
+          }
+
+          // Update import map
+          const scriptTag = root.querySelector("script[type=\"importmap\"]");
+          if (scriptTag) {
+            scriptTag.set_content(
+              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
+            );
+          }
+
+          const modifiedHtml = root.toString();
+
+          response = new Response(modifiedHtml, {
+            status: kvResp.status,
+            statusText: kvResp.statusText,
+            headers,
+          });
+        } else {
+          response = new Response(kvResp.body, {
+            status: kvResp.status,
+            statusText: kvResp.statusText,
+            headers,
+          });
+        }
+
+        // Cache the response asynchronously
+        waitUntil(
+          fileCache.put(cacheKey, response.clone()).catch((error) => {
+            console.error("Cache put error:", error);
+          }),
+        );
+
+        // Remove the in-flight request from the map
+        inFlightRequests.delete(cacheKeyString);
+
+        return response;
+      })();
+
+      // Store the in-flight promise
+      inFlightRequests.set(cacheKeyString, inFlightPromise);
+
+      // Await the in-flight fetch and clone the response before returning
+      const response = await inFlightPromise;
+
+      return response.clone();
     },
   };
 };

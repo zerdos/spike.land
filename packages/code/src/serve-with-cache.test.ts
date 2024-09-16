@@ -59,16 +59,26 @@ describe("serveWithCache", () => {
 
   it("should serve assets from cache if available", async () => {
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
-    const cachedResponse = new Response("cached content");
+    const cachedResponse = new Response("cached content", { status: 200, headers: { 'Content-Type': 'text/plain' } });
     vi.mocked(cache.match).mockResolvedValue(cachedResponse);
-
+  
     const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
-
-    expect(result).toBe(cachedResponse);
+  
+    // Compare the response body
+    expect(await result.text()).toBe("cached content");
+  
+    // Compare the status code
+    expect(result.status).toBe(cachedResponse.status);
+  
+    // Compare headers
+    expect(result.headers.get("Content-Type")).toBe(cachedResponse.headers.get("Content-Type"));
+  
+    // Ensure assetFetcher was not called
     expect(assetFetcher).not.toHaveBeenCalled();
+  
+    // Verify cache.match was called with the correct request
     expect(cache.match).toHaveBeenCalledWith(expect.any(Request));
   });
-
   it("should fetch and cache assets if not in cache", async () => {
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
@@ -209,12 +219,14 @@ describe("serveWithCache", () => {
     let fetchCount = 0;
     vi.mocked(assetFetcher).mockImplementation(() => {
       fetchCount++;
-      return Promise.resolve(new Response("console.log(\"test\");", {
-        headers: { "Content-Type": "application/javascript" },
-      }));
+      return Promise.resolve(
+        new Response("console.log(\"test\");", {
+          headers: { "Content-Type": "application/javascript" },
+        }),
+      );
     });
 
-    const requests = Array(5).fill(null).map(() => 
+    const requests = Array(5).fill(null).map(() =>
       serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil)
     );
 
@@ -234,16 +246,18 @@ describe("serveWithCache", () => {
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(assetFetcher).mockImplementation((req) => {
       const version = req.url.includes("/v1/") ? "v1" : "v2";
-      return Promise.resolve(new Response(`console.log("${version}");`, {
-        headers: { "Content-Type": "application/javascript" },
-      }));
+      return Promise.resolve(
+        new Response(`console.log("${version}");`, {
+          headers: { "Content-Type": "application/javascript" },
+        }),
+      );
     });
 
     const resultV1 = await serveV1(new Request("https://example.com/v1/main.js"), assetFetcher, waitUntil);
     const resultV2 = await serveV2(new Request("https://example.com/v2/main.js"), assetFetcher, waitUntil);
 
-    expect(await resultV1.text()).toBe('console.log("v1");');
-    expect(await resultV2.text()).toBe('console.log("v2");');
+    expect(await resultV1.text()).toBe("console.log(\"v1\");");
+    expect(await resultV2.text()).toBe("console.log(\"v2\");");
   });
 
   it("should handle assets with special characters in the filename", async () => {
@@ -254,7 +268,11 @@ describe("serveWithCache", () => {
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
-    const result = await serve(new Request("https://example.com/abc123/special-char-file-πφ.js"), assetFetcher, waitUntil);
+    const result = await serve(
+      new Request("https://example.com/abc123/special-char-file-πφ.js"),
+      assetFetcher,
+      waitUntil,
+    );
 
     expect(await result.text()).toBe("console.log(\"special\");");
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
