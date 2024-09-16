@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ICode, HistoryItemProps, IHistoryItem } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { format } from "date-fns";
+import { format } from "date-fns/format";
 import React from "react";
 
 // HistoryItem component
