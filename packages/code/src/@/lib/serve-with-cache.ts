@@ -1,5 +1,6 @@
 import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
+import { routes } from "@/lib/routes";
 import { lookup } from "mime-types";
 import { parse } from "node-html-parser";
 
@@ -58,6 +59,32 @@ export const serveWithCache = (
 
   return {
     isAsset,
+    shouldBeCached: (request: Request) => {
+      if (isAsset(request)) {
+        return true;
+      }
+
+      if (request.url.includes("/live/") || request.url.includes("/my-cms/") || request.url.includes("/api/")) {
+        return false;
+      }
+
+      const pathname = new URL(request.url).pathname;
+      if (Object.hasOwn(routes, pathname)) {
+        return false;
+      }
+
+      return true;
+    },
+
+    serveAndCache: async (
+      request: Request,
+      assetFetcher: (
+        req: Request,
+        waitUntil: (p: Promise<unknown>) => void,
+      ) => Promise<Response>,
+    ) => {
+    },
+
     serve: async (
       request: Request,
       assetFetcher: (
