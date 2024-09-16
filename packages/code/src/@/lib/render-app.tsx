@@ -12,7 +12,10 @@ import {transpile} from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 
 const createJsBlob = (code: string): string =>
-  URL.createObjectURL(new Blob([importMapReplace(code.split('importMapReplace').join(""), origin)], { type: "application/javascript" }));
+  new URL(URL.createObjectURL(
+    new Blob([importMapReplace(code.split('importMapReplace').join(""), origin)], { type: "application/javascript"}) ), location.origin).toString();
+    
+    
 
 
 // Main render function
@@ -32,7 +35,7 @@ async function renderApp(
     if (App) {
       AppToRender = App;
     } else if (transpiled || code) {
-      AppToRender = (await import(createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
+      AppToRender = (await import(   createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
     } else if (codeSpace) {
       const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(indexJs)).default;
