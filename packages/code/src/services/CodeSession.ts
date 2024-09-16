@@ -22,13 +22,13 @@ class CodeProcessor {
     const { signal } = this.controller;
 
     try {
-      const formattedCode = await this.formatCode(rawCode, signal);
+      const formattedCode = await this.formatCode(rawCode);
       if (signal.aborted) return false;
 
-      const transpiled = await this.transpileCode(formattedCode, signal);
+      const transpiled = await this.transpileCode(formattedCode);
       if (signal.aborted) return false;
 
-      const { html, css } = await this.runCode(transpiled, signal);
+      const { html, css } = await this.runCode(transpiled);
       if (signal.aborted) return false;
 
       return { code: formattedCode, transpiled, html, css, i: Date.now() };
@@ -38,7 +38,7 @@ class CodeProcessor {
     }
   }
 
-  private async formatCode(code: string, signal: AbortSignal): Promise<string> {
+  private async formatCode(code: string): Promise<string> {
     try {
       return await formatCode(code);
     } catch (error) {
@@ -46,7 +46,7 @@ class CodeProcessor {
     }
   }
 
-  private async transpileCode(code: string, signal: AbortSignal): Promise<string> {
+  private async transpileCode(code: string): Promise<string> {
     try {
       const transpiled = await transpileCode(code);
       if (!transpiled) throw new Error("Transpilation resulted in empty output");
@@ -56,7 +56,7 @@ class CodeProcessor {
     }
   }
 
-  private async runCode(transpiled: string, signal: AbortSignal): Promise<{ html: string; css: string }> {
+  private async runCode(transpiled: string): Promise<{ html: string; css: string }> {
     try {
       const res = await runCode(transpiled);
       if (!res) throw new Error("Running code produced no output");
