@@ -4,7 +4,7 @@ import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMap, importMapReplace } from "@/lib/importmap-utils";
+import { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 
 const isProduction = environment === "production";
@@ -253,106 +253,12 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      ...extraAliases,
-      // ...extraAliases,
-      // ...buildOptions.alias,
-      // "@src/swVersion": "/swVersion.mjs",
-      // ...(isProduction ? {} : {
-      // "react": "preact/compat",
-      // "react-dom": "preact/compat",
-      // }),
+      ...extraAliases
     },
     external: [
-      ...Object.values(extraAliases),
-      // "/swVersion.mjs",
-      // "esbuild-wasm/esbuild.wasm",
+      ...Object.values(extraAliases)
     ],
   });
-
-  // await build({
-  //   ...buildOptions,
-  //   splitting: false,
-  //   format: "esm",
-  //   minifySyntax: isProduction,
-  //   minifyIdentifiers: isProduction,
-  //   minifyWhitespace: false,
-  //   bundle: true,
-  //   treeShaking: isProduction,
-  //   mangleQuoted: false,
-  //   sourcemap: false,
-  //   outdir: "dist/",
-  //   target: "es2024",
-  //   allowOverwrite: true,
-  //   legalComments: "none",
-  //   platform: "browser",
-
-  //   plugins: [
-  //     ...buildOptions.plugins,
-  //   ],
-  //   entryPoints: [
-
-  //   ],
-  //   alias: {
-  //     ...buildOptions.alias,
-  //     // ...importMap.imports,
-  //     ...extraAliases,
-  //     // ...buildOptions.alias,
-  //     // "@src/swVersion": "/swVersion.mjs",
-
-  //     // ...(isProduction ? {} : {
-  //     // "react": "preact/compat",
-  //     // "react-dom": "preact/compat",
-  //     // }),
-  //   },
-  //   external: [
-  //     ...Object.keys(importMap.imports),
-  //     ...Object.values(extraAliases),
-  //   ],
-  // });
-
-  // await build({
-  //   ...buildOptions,
-  //   format: "esm",
-  //   minifySyntax: isProduction,
-  //   minifyIdentifiers: isProduction,
-  //   minifyWhitespace: false,
-  //   bundle: true,
-  //   treeShaking: isProduction,
-  //   mangleQuoted: false,
-  //   sourcemap: false,
-  //   splitting: false,
-  //   target: "es2024",
-  //   allowOverwrite: true,
-  //   legalComments: "none",
-  //   packages: "external",
-  //   platform: "node",
-  //   plugins: [
-  //     ...buildOptions.plugins,
-  //   ],
-  //   entryPoints: [
-  //     "src/cf-esbuild.mjs",
-  //     "src/modules.ts",
-  //   ],
-  //   alias: {
-  //     ...buildOptions.alias,
-  //     "@src/swVersion": "/swVersion.mjs",
-
-  //     "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-
-  //     ...(isProduction ? {} : {
-  //       // "react": "preact/compat",
-  //       // "react-dom": "preact/compat",
-  //     }),
-  //   },
-  //   external: [
-  //     ...(buildOptions.external ?? []),
-  //     "@/",
-  //     "esbuild-wasm",
-  //     "/swVersion.mjs",
-  //     `./${wasmFile}`,
-  //     "esbuild-wasm/esbuild.wasm",
-  //   ],
-  // });
 
   async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
     try {

@@ -3,7 +3,7 @@
 exports[`importMapReplace > should apply custom mappings 1`] = `
 "
 /** importMapReplace */
-import CustomPackage from "/custom-package?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";"
+import CustomPackage from "http://localhost:3000/custom-package?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";"
 `;
 
 exports[`importMapReplace > should ignore absolute URLs 1`] = `
@@ -52,7 +52,7 @@ exports[`importMapReplace > should replace coder44  1`] = `
 
     import { useEffect, useState, useRef } from "react";
     import type { FC } from "react";
-    import QRTerminal from "/qrcode-terminal?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";
+    import QRTerminal from "http://localhost:3000/qrcode-terminal?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";
     "
 `;
 
@@ -71,7 +71,7 @@ const React = import("react");"
 exports[`importMapReplace > should replace dynamic imports 3`] = `
 "
 /** importMapReplace */
-const module = import("/some-module?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");"
+const module = import("http://localhost:3000/some-module?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");"
 `;
 
 exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
@@ -79,13 +79,13 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
 /** importMapReplace */
 
     import{Buffer as De}from"/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
-    let { Mp3Encoder: t } = await import("/lamejs?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"/d3-time?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
+    let { Mp3Encoder: t } = await import("http://localhost:3000/lamejs?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/d3-time?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
-        let{default:c}=await import("/axios?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+        let{default:c}=await import("http://localhost:3000/axios?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
         
-        const module = await import("/some-module?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+        const module = await import("http://localhost:3000/some-module?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
         // do something with module
       }
         import"react/jsx-runtime";
@@ -99,7 +99,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 2`] = `
 "
 /** importMapReplace */
 
-    import { useSpring, animated } from "/react-spring?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=useSpring,animated"; // Importing react-spring
+    import { useSpring, animated } from "http://localhost:3000/react-spring?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=useSpring,animated"; // Importing react-spring
     "
 `;
 
@@ -108,13 +108,13 @@ exports[`importMapReplace > should replace dynamic imports inside a function 1`]
 /** importMapReplace */
 
     import{Buffer as De}from"/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
-    let { Mp3Encoder: t } = await import("/lamejs?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"/d3-time?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
+    let { Mp3Encoder: t } = await import("http://localhost:3000/lamejs?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/d3-time?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
-        let{default:c}=await import("/axios?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+        let{default:c}=await import("http://localhost:3000/axios?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
         
-        const module = await import("/some-module?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
+        const module = await import("http://localhost:3000/some-module?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");
         // do something with module
       }
     "
@@ -123,7 +123,7 @@ exports[`importMapReplace > should replace dynamic imports inside a function 1`]
 exports[`importMapReplace > should replace dynamic imports with await 1`] = `
 "
 /** importMapReplace */
-const module = await import("/some-module?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");"
+const module = await import("http://localhost:3000/some-module?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts");"
 `;
 
 exports[`importMapReplace > should replace dynamic imports2 1`] = `
@@ -144,7 +144,7 @@ exports[`importMapReplace > should replace shadcdn  1`] = `
 
     import { useEffect, useState, useRef } from "react";
     import type { FC } from "react";
-    import QRTerminal from "/qrcode-terminal?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";
+    import QRTerminal from "http://localhost:3000/qrcode-terminal?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";
     "
 `;
 
@@ -175,7 +175,7 @@ import React from "react";"
 exports[`importMapReplace > should replace top-level imports with dot in the path 1`] = `
 "
 /** importMapReplace */
-import React from "/react.gl?bundle=true&external=@emotion/react/jsx-runtime,react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";"
+import React from "http://localhost:3000/react.gl?bundle=true&external=react/jsx-runtime,react-dom/server,react-dom/client,@emotion/react,react,framer-motion,react-dom,recharts";"
 `;
 
 exports[`importMapReplace > should replace top-leveldd imports with dot in the path 1`] = `
