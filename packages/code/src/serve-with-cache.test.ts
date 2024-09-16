@@ -285,6 +285,11 @@ describe("serveWithCache", () => {
   });
 
   it("should handle assets with special characters in the filename", async () => {
+    const files = {
+      "main.js": "main.hash.js",
+      "index.html": "index.html",
+      "special-char-file-πφ.js": "special-char-file-πφ.hash.js",
+    };
     const { serve } = serveWithCache(ASSET_HASH, files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response("console.log(\"special\");", {
