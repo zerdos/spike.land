@@ -41,17 +41,15 @@ sw.addEventListener("fetch", (event) => {
 
   if (isAsset(request)) {
     event.respondWith(
-      (async () => {
-        return serve(
-          request,
-          (req, waitUntil) => {
-            let resp = fetch(req);
-            waitUntil(resp);
-            return resp;
-          },
-          (p) => event.waitUntil(p),
-        );
-      })(),
+      serve(
+        request,
+        (req, waitUntil) => {
+          const respPromise = fetch(req);
+          waitUntil(respPromise);
+          return respPromise;
+        },
+        event.waitUntil.bind(event),
+      ),
     );
   } else {
     // For non-asset requests, you can implement other strategies or fetch from the network
