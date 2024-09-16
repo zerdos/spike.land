@@ -165,6 +165,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       }),
     },
     external: [
+      "ts-md5",
       ...(buildOptions.external ?? []),
       "esbuild-wasm",
       "/swVersion.mjs",
