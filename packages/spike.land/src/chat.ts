@@ -10,7 +10,6 @@ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-const kvServer = serveWithCache(ASSET_HASH, files, () => caches.open("file-cache-v18"));
 
 export default {
  
@@ -23,6 +22,7 @@ export default {
         ASSET_MANIFEST,
       }
     );
+    const kvServer = serveWithCache(ASSET_HASH, files, () => caches.open("file-cache-v18"));
 
     if (kvServer.isAsset(request)) {
       return kvServer.serve(request, assetFetcher, (p: Promise<unknown>) => ctx.waitUntil(p));
