@@ -15,16 +15,17 @@ export default {
  
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
 
-    const assetFetcher = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
-      { request: req, waitUntil },
-      {
-        ASSET_NAMESPACE: env.__STATIC_CONTENT,
-        ASSET_MANIFEST,
-      }
-    );
+  
     const kvServer = serveWithCache(ASSET_HASH, files, () => caches.open("file-cache-v18"));
 
     if (kvServer.isAsset(request)) {
+      const assetFetcher = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
+        { request: req, waitUntil },
+        {
+          ASSET_NAMESPACE: env.__STATIC_CONTENT,
+          ASSET_MANIFEST,
+        }
+      );
       return kvServer.serve(request, assetFetcher, (p: Promise<unknown>) => ctx.waitUntil(p));
     }
 
