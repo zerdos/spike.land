@@ -2,10 +2,8 @@
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
-  & { __WB_DISABLE_DEV_LOGS: boolean }
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string };
-sw.__WB_DISABLE_DEV_LOGS = true;
 
 importScripts("/swVersion.js");
 
@@ -18,14 +16,12 @@ sw.fileCacheName = `sw-file-cache-v13`; // Updated cache name to avoid conflicts
 // Instantiate serveWithCache
 const { isAsset, serve } = serveWithCache(files, () => caches.open(sw.fileCacheName));
 
-// Install event
-self.addEventListener("install", (event) => {
+sw.oninstall = () => {
   // Activate the new service worker immediately
   sw.skipWaiting();
-});
+};
 
-// Activate event
-self.addEventListener("activate", (event) => {
+sw.onactivate = (event) => {
   event.waitUntil(
     (async () => {
       // Delete old caches if any
@@ -39,17 +35,18 @@ self.addEventListener("activate", (event) => {
       await sw.clients.claim();
     })(),
   );
-});
+};
 
-// Fetch event
-self.addEventListener("fetch", (event) => {
+sw.onfetch = (event) => {
   const request = event.request;
 
   if (isAsset(request)) {
+    console.log("Its probably a file", request.url);
     event.respondWith(
       serve(
         request,
         (req, waitUntil) => {
+          console.log("Fetching from network", req.url);
           const respPromise = fetch(req);
           waitUntil(respPromise);
           return respPromise;
@@ -58,7 +55,8 @@ self.addEventListener("fetch", (event) => {
       ),
     );
   } else {
+    console.log("Its probably not a file", request.url);
     // For non-asset requests, fetch from the network
     event.respondWith(fetch(request));
   }
-});
+};
