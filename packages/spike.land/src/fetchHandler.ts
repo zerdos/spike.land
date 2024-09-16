@@ -109,7 +109,7 @@ function handleWebSocket(request: Request): Response {
 
 function handleFilesJson(withFiles = true): Response {
   const f = withFiles ? files : [];
-  return new Response(JSON.stringify({ ...f, ASSET_HASH }), {
+  return new Response(JSON.stringify(files), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Content-Encoding": "gzip",

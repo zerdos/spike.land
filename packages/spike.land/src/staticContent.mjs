@@ -4,8 +4,9 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 export { ASSET_MANIFEST };
 // const assets = JSON.parse(                              );
 
-export const files = JSON.parse(ASSET_MANIFEST);
-export const ASSET_HASH = md5(Object.values(files).join(""));
+const f = JSON.parse(ASSET_MANIFEST);
+export const ASSET_HASH = md5(Object.values(f).join(""));
+export const files = {...f, ASSET_HASH};
 // let files = {};)
 
 // Object.keys(assets).forEach((file) => files = { ...files, [`/${file}`]: `/` + assets[file] });

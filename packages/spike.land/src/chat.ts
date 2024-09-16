@@ -29,6 +29,8 @@ export default {
       return kvServer.serve(request, assetFetcher, (p: Promise<unknown>) => ctx.waitUntil(p));
     }
 
+    //   "files.json": async () => handleFilesJson(),
+
 
     const url = new URL(request.url);
 
