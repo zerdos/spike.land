@@ -41,12 +41,12 @@ sw.onfetch = (event) => {
   const request = event.request;
 
   if (isAsset(request)) {
-    console.log("Its probably a file", request.url);
+    // console.log("Its probably a file", request.url);
     event.respondWith(
       serve(
         request,
         (req, waitUntil) => {
-          console.log("Fetching from network", req.url);
+          // console.log("Fetching from network", req.url);
           const respPromise = fetch(req);
           waitUntil(respPromise);
           return respPromise;
@@ -55,7 +55,7 @@ sw.onfetch = (event) => {
       ),
     );
   } else {
-    console.log("Its probably not a file", request.url);
+    // console.log("Its probably not a file", request.url);
     // For non-asset requests, fetch from the network
     event.respondWith(fetch(request));
   }
