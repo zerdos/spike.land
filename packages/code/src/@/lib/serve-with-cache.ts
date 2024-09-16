@@ -99,9 +99,9 @@ export const serveWithCache = (
         if (resp) return resp.clone();
       }
 
-      if (inFlightRequests.has(cacheKeyString)) {
+      if (inFlightRequests.has(request.url)) {
         // Wait for the in-flight fetch to complete
-        const inFlightResponse = await inFlightRequests.get(cacheKeyString)!;
+        const inFlightResponse = await inFlightRequests.get(request.url)!;
         return inFlightResponse.clone();
       }
 
@@ -115,18 +115,18 @@ export const serveWithCache = (
       });
 
       // Create a promise to represent the in-flight fetch
-      const inFlightPromise = (async () => {
+      const inFlightPromise = (async (req: Request) => {
         let kvResp: Response;
         try {
           kvResp = await assetFetcher(req, waitUntil);
         } catch (error) {
           console.error("Asset fetch error:", error);
-          inFlightRequests.delete(cacheKeyString);
+          inFlightRequests.delete(request.url);
           return new Response("Internal Server Error", { status: 500 });
         }
 
         if (!kvResp.ok) {
-          inFlightRequests.delete(cacheKeyString);
+          inFlightRequests.delete(request.url);
           return kvResp;
         }
 
@@ -188,13 +188,13 @@ export const serveWithCache = (
         }
 
         // Remove the in-flight request from the map
-        inFlightRequests.delete(cacheKeyString);
+        inFlightRequests.delete(request.url);
 
         return response;
-      })();
+      })(req);
 
       // Store the in-flight promise
-      inFlightRequests.set(cacheKeyString, inFlightPromise);
+      inFlightRequests.set(request.url, inFlightPromise);
 
       // Await the in-flight fetch and clone the response before returning
       const response = await inFlightPromise;
