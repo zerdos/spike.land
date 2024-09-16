@@ -76,14 +76,14 @@ export const serveWithCache = (
       return true;
     },
 
-    serveAndCache: async (
-      request: Request,
-      assetFetcher: (
-        req: Request,
-        waitUntil: (p: Promise<unknown>) => void,
-      ) => Promise<Response>,
-    ) => {
-    },
+    // serveAndCache: async (
+    //   request: Request,
+    //   assetFetcher: (
+    //     req: Request,
+    //     waitUntil: (p: Promise<unknown>) => void,
+    //   ) => Promise<Response>,
+    // ) => {
+    // },
 
     serve: async (
       request: Request,
