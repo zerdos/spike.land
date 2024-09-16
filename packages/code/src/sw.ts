@@ -1,3 +1,5 @@
+// Updated Service Worker Code
+
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { __WB_DISABLE_DEV_LOGS: boolean }
@@ -8,35 +10,39 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 importScripts("/swVersion.js");
 
 import { serveWithCache } from "@/lib/serve-with-cache";
-// Now, self.swVersion and self.files are available
 
+// Now, self.swVersion and self.files are available
 const files = sw.files;
-sw.fileCacheName = `file-cache-v12`;
+sw.fileCacheName = `sw-file-cache-v13`; // Updated cache name to avoid conflicts
 
 // Instantiate serveWithCache
 const { isAsset, serve } = serveWithCache(files, () => caches.open(sw.fileCacheName));
 
-// Event listeners for the service worker lifecycle
-
 // Install event
-
-self.addEventListener("install", () => {
+self.addEventListener("install", (event) => {
   // Activate the new service worker immediately
   sw.skipWaiting();
 });
 
 // Activate event
-sw.onactivate = (event) => {
-  // Claim clients so the service worker takes control immediately
-  event.waitUntil(sw.clients.claim());
-};
-
-sw.onactivate = (event) => {
-  event.waitUntil(sw.clients.claim());
-};
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      // Delete old caches if any
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames
+          .filter((cacheName) => cacheName !== sw.fileCacheName)
+          .map((cacheName) => caches.delete(cacheName)),
+      );
+      // Claim clients so the service worker takes control immediately
+      await sw.clients.claim();
+    })(),
+  );
+});
 
 // Fetch event
-sw.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", (event) => {
   const request = event.request;
 
   if (isAsset(request)) {
@@ -44,13 +50,7 @@ sw.addEventListener("fetch", (event) => {
       serve(
         request,
         (req, waitUntil) => {
-          const url = new URL(req.url);
-          const ASSET_HASH = files.ASSET_HASH;
-          if (!url.pathname.includes(ASSET_HASH)) {
-            url.pathname = "/" + ASSET_HASH + url.pathname;
-          }
-
-          const respPromise = fetch(url.toString());
+          const respPromise = fetch(req);
           waitUntil(respPromise);
           return respPromise;
         },
@@ -58,7 +58,7 @@ sw.addEventListener("fetch", (event) => {
       ),
     );
   } else {
-    // For non-asset requests, you can implement other strategies or fetch from the network
+    // For non-asset requests, fetch from the network
     event.respondWith(fetch(request));
   }
 });
