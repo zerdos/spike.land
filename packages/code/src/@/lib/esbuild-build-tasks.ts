@@ -135,14 +135,13 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    format: "cjs",
+    format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
     minifyWhitespace: false,
     bundle: true,
     treeShaking: isProduction,
     mangleQuoted: false,
-    outExtension: { ".js": ".cjs" },
     sourcemap: false,
     splitting: false,
     target: "es2024",
@@ -167,7 +166,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       "ts-md5",
-      "mime-db",
       "node-html-parser",
       "immutable",
       "fast-diff",
