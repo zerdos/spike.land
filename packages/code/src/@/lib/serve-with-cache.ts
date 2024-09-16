@@ -1,7 +1,7 @@
 import { importMap } from "@/lib/importmap-utils";
+import { md5 } from "@/lib/md5";
 import { lookup } from "mime-types";
 import { parse } from "node-html-parser";
-import { md5 } from "./md5";
 
 // Adjusted addPrefixToImportMap function
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
