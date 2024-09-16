@@ -10,7 +10,7 @@ function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
 
   for (const [key, value] of Object.entries(imap.imports)) {
     // Ensure correct path concatenation
-    const updatedValue = new URL(value.slice(1), "httpx://example.com" + prefix).pathname;
+    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix).pathname;
     updatedImports[key] = updatedValue;
   }
 
@@ -22,16 +22,15 @@ function getContentType(path: string) {
   return lookup(path) || "application/octet-stream";
 }
 
-// Initialize the cache
-let _fileCache: Cache | undefined;
-
-const fileCachePromise = caches.open("file-cache-v13").then((cache) => {
-  _fileCache = cache;
-}).catch(console.error);
-
 export const serveWithCache = (ASSET_HASH: string, files: {
   [key: string]: string;
-}) => {
+}, cacheToUse: () => Promise<Cache>) => {
+  let _fileCache: Cache | undefined;
+  const fileCachePromise = cacheToUse().then((cache) => {
+    _fileCache = cache;
+    return cache;
+  });
+
   const isAsset = (request: Request) => {
     const url = new URL(request.url);
     const pathname = url.pathname.startsWith("/")

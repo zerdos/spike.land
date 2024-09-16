@@ -10,7 +10,7 @@ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-const kvServer = serveWithCache(ASSET_HASH, files);
+const kvServer = serveWithCache(ASSET_HASH, files, () => caches.open("file-cache-v18"));
 
 export default {
  
