@@ -27,9 +27,8 @@ export const serveWithCache = (
   files: { [key: string]: string },
   cacheToUse: () => Promise<Cache>,
 ) => {
-
   const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
-  
+
   const filesWithHash = Object.entries(files).reduce(
     (acc, [key, value]) => {
       acc[key] = `${ASSET_HASH}/${value}`;
@@ -59,7 +58,8 @@ export const serveWithCache = (
       ? pathname.slice(ASSET_HASH.length + 1)
       : pathname;
 
-    return assetPath in files || assetPath in Object.values(files) || pathname in files || pathname in Object.values(files);
+    return assetPath in files || assetPath in Object.values(files) || pathname in files
+      || pathname in Object.values(files);
   };
 
   // Instance-specific in-flight requests map
