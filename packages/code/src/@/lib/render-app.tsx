@@ -46,6 +46,10 @@ async function renderApp(
     } else if (codeSpace) {
       const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(indexJs)).default;
+      if (!AppToRender) {
+        emptyApp = true;
+        AppToRender = (await import(createJsBlob((await transpile({code: `export default ()=><div></div>`, originToUse:  location.origin}))))).default;
+      }
     } else {
       AppToRender = () => <div>Mock App for Testing</div>;
     }
