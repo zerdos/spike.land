@@ -10,7 +10,6 @@ import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import {transpile} from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
-import { A } from "@clerk/clerk-react/dist/controlComponents-BHtK_hbj";
 
 const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
@@ -32,7 +31,7 @@ async function renderApp(
     // rootEl.id = "root";
 
     let AppToRender: React.ComponentType<any>;
-
+    let emptyApp = false;
 
 
     if (App) {
@@ -40,6 +39,7 @@ async function renderApp(
     } else if (transpiled || code) {
       if (transpiled?.indexOf("export default") === -1) {
         //empty App, export default ()=><div></div>
+        emptyApp = true;
         AppToRender = (await import(createJsBlob((await transpile({code: `export default ()=><div></div>`, originToUse:  location.origin}))))).default;
       }else 
       AppToRender = (await import(   createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
@@ -79,7 +79,7 @@ async function renderApp(
     });
 
     root.render(
-      <CacheProvider value={cssCache}>
+      emptyApp ? <AppToRender /> : <CacheProvider value={cssCache}>
         <ErrorBoundary {...(codeSpace?{codeSpace}:{})}>
           <AppWithScreenSize />
         </ErrorBoundary>

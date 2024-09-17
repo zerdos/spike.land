@@ -23,7 +23,7 @@ export const StartWithPrompt: React.FC = () => {
         if (file && images.length < 5) {
           try {
             const imageData = await processImage(file);
-            setImages((prevImages) => [...prevImages, imageData]);
+            setImages((prevImages: ImageData[]) => [...prevImages, imageData]);
           } catch (error) {
             console.error("Error processing pasted image:", error);
           }
