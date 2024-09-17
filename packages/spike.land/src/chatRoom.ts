@@ -75,7 +75,9 @@ export class Code implements DurableObject {
               // full empty state
 
               this.session = makeSession({
-                code: ``,
+                code: `
+                  // write your code here
+                `,
                 i: 1,
                 html: "<div></div>",
                 css: "",
