@@ -89,7 +89,7 @@ export const StartWithPrompt: React.FC = () => {
       }),
     );
 
-    location.href = `/live/empty-${key}`;
+    location.href = `/live/x-${key}`;
   };
 
   return (
