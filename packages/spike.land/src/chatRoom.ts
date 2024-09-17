@@ -65,16 +65,32 @@ export class Code implements DurableObject {
             throw new Error("Invalid codeSpace");
           }
 
+
+          
           const source = codeSpaceParts.length === 2
             ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
             : `${this.origin}/live/code-main/session.json`;
 
+            if (codeSpaceParts[0] === 'x'){
+              // full empty state
+
+              this.session = makeSession({
+                code: ``,
+                i: 1,
+                html: "<div></div>",
+                css: "",
+              });
+
+
+            } else {  
           const backupCode = await fetch(
             source,
           ).then((r) => r.json()) as ICodeSession;
           this.backupSession = backupCode;
+        
           await this.state.storage.put("session", this.backupSession);
           this.session = this.backupSession;
+        }
           const head = makeHash(this.session);
           await this.state.storage.put("head", head);
         }
