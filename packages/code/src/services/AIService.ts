@@ -141,12 +141,7 @@ export class AIService {
   ): Promise<Message> {
     try {
       const endpoint = this.getEndpoint(type);
-      const result = await this.handleStreamingResponse(
-        endpoint,
-        messages,
-        onUpdate,
-        type === "gpt4o" ? `o1-preview` : "o1-mini",
-      );
+      const result = await this.handleStreamingResponse(endpoint, messages, onUpdate, type === "gpt4o" ? `gpt-4o` : "");
 
       const lastMessage = messages[messages.length - 1];
 
@@ -245,7 +240,7 @@ export class AIService {
     };
 
     try {
-      const answer = await this.sendToGpt4o([...prevMessages, message], (code) => {
+      const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
         setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
       });
       setMessages((prevMessages) => [...prevMessages, answer]);
@@ -253,7 +248,7 @@ export class AIService {
       return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
     } catch (error) {
       try {
-        const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
+        const answer = await this.sendToGpt4o([...prevMessages, message], (code) => {
           setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
         });
         setMessages((prevMessages) => [...prevMessages, answer]);
