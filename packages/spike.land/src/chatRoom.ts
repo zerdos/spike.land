@@ -76,7 +76,10 @@ export class Code implements DurableObject {
 
               this.session = makeSession({
                 code: `
-                  // write your code here
+// x-${codeSpaceParts[1]}.tsx
+
+// write your code here
+
                 `,
                 i: 1,
                 html: "<div></div>",
