@@ -42,7 +42,8 @@ export interface ICode {
   session: ICodeSession;
 
   screenShot: () => Promise<ImageData>;
-
+  currentCodeWithExtraModels: () => Promise<string>;
+  setModelsByCurrentCode: (code: string) => Promise<void>;
   setCode(rawCode: string): Promise<string | boolean>;
   sub: (fn: (sess: ICodeSession) => void) => void;
 }
