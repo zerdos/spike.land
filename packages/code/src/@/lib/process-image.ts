@@ -66,7 +66,7 @@ export const processImage = (file: File): Promise<ImageData> => {
 
           blob = resizedBlob;
           arrayBuffer = await resizedBlob.arrayBuffer();
-          size -= 100;
+          size -= 250;
         }
 
         const base64Data = await blobToBase64(blob);
