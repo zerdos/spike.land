@@ -78,7 +78,7 @@ interface CodeRendererProps {
   type: string;
 }
 
-export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, type }) => {
+export const CodeRendererX: React.FC<CodeRendererProps> = ({ value, language, type }) => {
   const key = md5(value + language);
 
   if (value.trim().length < 20) {
