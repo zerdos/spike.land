@@ -48,10 +48,10 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         innerContainer.style.width = containerRef.current.getClientRects()[0].width + 'px';
         innerContainer.style.height =  containerRef.current.getClientRects()[0].height + 'px';
   
-        const innerStyle = document.createElement('style');
-        innerStyle.innerText =
-          '@import "/*monaco-editor?bundle&css"';
-        shadowRoot.appendChild(innerStyle);
+        if (!monacoInnerStyle.innerText) {
+        monacoInnerStyle.innerText =await (await fetch("/*monaco-editor?bundle&css")).text();
+        }
+        shadowRoot.appendChild(monacoInnerStyle);
 
       const diffEditor = editor.createDiffEditor(innerContainer, {
         diffAlgorithm: "advanced",

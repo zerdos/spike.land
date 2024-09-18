@@ -1,5 +1,6 @@
 import { ata } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
+import { glob } from "fs";
 
 const originToUse = location.origin;
 
@@ -208,11 +209,16 @@ async function startMonacoPristine({
 			innerContainer.style.width = container.getClientRects()[0].width + 'px';
 			innerContainer.style.height =  container.getClientRects()[0].width + 'px';
 
-      const innerStyle = document.createElement('style');
-			innerStyle.innerText =
-				'@import "/*monaco-editor?bundle&css";';
-			shadowRoot.appendChild(innerStyle);
+      
 
+      const monacoInnerStyle = (globalThis as unknown as {monacoInnerStyle: HTMLStyleElement }).monacoInnerStyle || document.createElement('style');
+      if (!monacoInnerStyle.innerText) {
+      monacoInnerStyle.innerText =await (await fetch("/*monaco-editor?bundle&css")).text();
+      }
+      shadowRoot.appendChild(monacoInnerStyle);
+
+		
+      Object.assign(globalThis, { monacoInnerStyle });
     
 
   const myEditor = editor.create(innerContainer, {
