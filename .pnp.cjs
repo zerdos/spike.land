@@ -5337,6 +5337,7 @@ const RAW_RUNTIME_STATE =
           ["file-type", "npm:19.5.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.5.4"],\
           ["happy-dom", "npm:15.7.4"],\
+          ["html2canvas", "npm:1.4.1"],\
           ["i18next", "npm:23.15.1"],\
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
@@ -8194,6 +8195,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["base64-arraybuffer", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/base64-arraybuffer-npm-1.0.2-18f4899892-10.zip/node_modules/base64-arraybuffer/",\
+        "packageDependencies": [\
+          ["base64-arraybuffer", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["base64-js", [\
       ["npm:1.5.1", {\
         "packageLocation": "./.yarn/global/cache/base64-js-npm-1.5.1-b2f7275641-10.zip/node_modules/base64-js/",\
@@ -9649,6 +9659,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["css-in-js-utils", "npm:3.1.0"],\
           ["hyphenate-style-name", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["css-line-break", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "./.yarn/global/cache/css-line-break-npm-2.1.0-a1fd810d69-10.zip/node_modules/css-line-break/",\
+        "packageDependencies": [\
+          ["css-line-break", "npm:2.1.0"],\
+          ["utrie", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12864,6 +12884,17 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/html-url-attributes-npm-3.0.0-97ec54d630-10.zip/node_modules/html-url-attributes/",\
         "packageDependencies": [\
           ["html-url-attributes", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["html2canvas", [\
+      ["npm:1.4.1", {\
+        "packageLocation": "./.yarn/global/cache/html2canvas-npm-1.4.1-fa13983145-10.zip/node_modules/html2canvas/",\
+        "packageDependencies": [\
+          ["html2canvas", "npm:1.4.1"],\
+          ["css-line-break", "npm:2.1.0"],\
+          ["text-segmentation", "npm:1.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20424,6 +20455,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["text-segmentation", [\
+      ["npm:1.0.3", {\
+        "packageLocation": "./.yarn/global/cache/text-segmentation-npm-1.0.3-634201c349-10.zip/node_modules/text-segmentation/",\
+        "packageDependencies": [\
+          ["text-segmentation", "npm:1.0.3"],\
+          ["utrie", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["text-table", [\
       ["npm:0.2.0", {\
         "packageLocation": "./.yarn/global/cache/text-table-npm-0.2.0-d92a778b59-10.zip/node_modules/text-table/",\
@@ -21506,6 +21547,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/utils-merge-npm-1.0.1-363bbdfbca-10.zip/node_modules/utils-merge/",\
         "packageDependencies": [\
           ["utils-merge", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["utrie", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/utrie-npm-1.0.2-909cbd985c-10.zip/node_modules/utrie/",\
+        "packageDependencies": [\
+          ["utrie", "npm:1.0.2"],\
+          ["base64-arraybuffer", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\

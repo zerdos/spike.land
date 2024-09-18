@@ -157,6 +157,7 @@ export const ChatInterface: React.FC<{
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
       codeSpace={codeSpace}
+      screenShot={()=>cSess.screenShot()}
     />
   );
 });

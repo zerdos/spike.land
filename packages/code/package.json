@@ -134,6 +134,7 @@
     "fetch-retry": "6.0.0",
     "file-type": "19.5.0",
     "framer-motion": "11.5.4",
+    "html2canvas": "^1.4.1",
     "i18next": "^23.15.1",
     "immutable": "4.3.7",
     "input-otp": "^1.2.4",

@@ -18,6 +18,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleSendMessage,
   isStreaming,
   inputRef,
+  screenShot,
   screenshotImage,
    handleCancelScreenshot,
   isDarkMode,
@@ -51,18 +52,18 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   const makeScreenshot = async () => {
-    if (uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))) {
-      setUploadedImages(prev => prev.filter(image => !image.imageName.includes(`screenshot-${codeSpace}`)));
-      return;
-    }
-    setScreenShotIsLoading(true);
+    // if (uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))) {
+    //   setUploadedImages(prev => prev.filter(image => !image.imageName.includes(`screenshot-${codeSpace}`)));
+    //   return;
+    // }
+    // setScreenShotIsLoading(true);
     
    
-    const image = await enhancedFetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${window.location.origin}/live/${codeSpace}/dehydrated&now=${Date.now()}`)
-    const file = await image.arrayBuffer()
+    // const image = await enhancedFetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${window.location.origin}/live/${codeSpace}/dehydrated&now=${Date.now()}`)
+    // const file = await image.arrayBuffer()
 
 
-   const imageData = await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/jpeg' }))
+   const imageData =  await screenShot()   //  await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/jpeg' }))
     setUploadedImages(prev => [...prev, imageData]);
     setScreenShotIsLoading(false);
 

@@ -7,6 +7,7 @@ import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
 import { md5 } from "@/lib/md5";
+import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
@@ -61,6 +62,23 @@ const handleDefaultPage = async () => {
 
     window.onmessage = async ({ data }) => {
       try {
+        if (data.type !== "screenShot") {
+          try {
+            const codeSpace = useCodeSpace();
+            const html2canvas = (await import("html2canvas")).default;
+            const canvas = await html2canvas(document.body);
+            const blob = await new Promise<Blob>((resolve) => canvas.toBlob(resolve, "image/png"));
+            const file = new File([blob], `screenshot-${codeSpace}.png`, { type: "image/png" });
+            const imageData = await processImage(file);
+            window.parent.postMessage({ type: "screenShot", imageData }, "*");
+          } catch (error) {
+            console.error("Error taking screenshot:", error);
+            return false;
+          } finally {
+            return false;
+          }
+        }
+
         const { transpiled } = data;
         const hash = md5(transpiled);
 

@@ -20,6 +20,7 @@ export interface MessageInputProps {
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
+  screenShot: () => Promise<ImageData>;
 }
 
 export interface ChatWindowProps {
@@ -39,6 +40,8 @@ export type ICodeSession = {
 
 export interface ICode {
   session: ICodeSession;
+
+  screenShot: () => Promise<ImageData>;
 
   setCode(rawCode: string): Promise<string | boolean>;
   sub: (fn: (sess: ICodeSession) => void) => void;
@@ -154,6 +157,7 @@ export interface ChatDrawerProps {
   handleEditMessage: (messageId: string) => void;
   handleCancelEdit: () => void;
   handleSaveEdit: (messageId: string) => void;
+  screenShot: () => Promise<ImageData>;
 }
 
 export interface ChatHeaderProps {

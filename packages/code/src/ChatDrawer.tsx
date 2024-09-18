@@ -30,6 +30,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
   handleCancelEdit,
   handleSaveEdit,
   codeSpace,
+  screenShot
 }) => {
   
   const handlers = useSwipeable({
@@ -88,6 +89,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
               <MessageInput
                 input={input}
                 setInput={setInput}
+                screenShot={screenShot}
                 handleSendMessage={handleSendMessage}
                 isStreaming={isStreaming}
                 inputRef={inputRef}

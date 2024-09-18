@@ -1,9 +1,9 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { ICode, ICodeSession } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
-import { formatCode, runCode, transpileCode } from "../components/editorUtils";
+import { formatCode, runCode, screenShot, transpileCode } from "../components/editorUtils";
 
 interface BroadcastMessage extends ICodeSession {
   sender: string;
@@ -89,6 +89,9 @@ export class Code implements ICode {
   async release() {
     this.releaseWorker();
     this.BC.close();
+  }
+  screenShot() {
+    return screenShot() as Promise<ImageData>;
   }
 
   sub(fn: (sess: ICodeSession) => void) {

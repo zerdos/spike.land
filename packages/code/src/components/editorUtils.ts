@@ -1,5 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { createContextManager } from "@/lib/context-manager";
+import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { useRef, useState } from "react";
@@ -103,6 +104,31 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
 });
 
 // Refactored runCode function without hooks
+export const screenShot = () => {
+  let resolve: (img: ImageData) => void;
+  let reject: (reason: string) => void;
+
+  const promise = new Promise<ImageData>(
+    (_resolve, _reject) => {
+      resolve = _resolve;
+      reject = _reject;
+    },
+  );
+
+  window.onmessage = (ev) => {
+    if (ev.data.type === "screenShot") {
+      const imageData = ev.data.imageData as ImageData;
+      resolve(imageData);
+    }
+  };
+
+  document.querySelector("iframe")?.contentWindow?.postMessage({
+    type: "screenShot",
+    sender: "Runner / Editor",
+  });
+
+  return promise;
+};
 export const runCode = memoize(async (transpiled: string) => {
   try {
     let resolve: (v: { html: string; css: string }) => void;
