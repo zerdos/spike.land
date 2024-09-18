@@ -5,14 +5,16 @@ import { ChatContainerProps, ChatHeaderProps } from "@/lib/interfaces";
 import { TypingIndicator } from "@src/utils/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { ChatMessage } from "@/components/app/chat-message";
+import { cn } from "@/lib/utils";
 
 export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
   ({ isDarkMode, handleResetChat, onClose }) => {
     const headerClassName = useMemo(
       () =>
-        `p-4 font-bold flex justify-between items-center ${
+        cn(
+          "p-4 font-bold flex justify-between items-center",
           isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
-        }`,
+        ),
       [isDarkMode]
     );
 
@@ -55,10 +57,8 @@ export const ChatContainer: React.FC<
     isStreaming
   );
 
-  // Memoize the messages to prevent unnecessary re-renders
   const memoizedMessages = useMemo(() => messages, [messages]);
 
-  // Memoize the functions passed to child components
   const memoizedHandleEditMessage = useCallback(
     (id: string) => handleEditMessage(id),
     [handleEditMessage]
@@ -79,11 +79,10 @@ export const ChatContainer: React.FC<
     [handleSaveEdit]
   );
 
-  // Optimize the typing indicator effect
   useEffect(() => {
     if (isStreaming) {
       setTypingIndicatorMustShow(true);
-      return ()=>{};
+      return () => {};
     } else {
       const timeoutId = setTimeout(() => {
         setTypingIndicatorMustShow(false);
@@ -92,23 +91,37 @@ export const ChatContainer: React.FC<
     }
   }, [isStreaming]);
 
+  const renderMessage = useCallback(
+    (message: any, index: number) => (
+      <ChatMessage
+        key={`${index}--${message.id}`}
+        message={message}
+        isSelected={editingMessageId === message.id}
+        onDoubleClick={() => memoizedHandleEditMessage(message.id)}
+        isEditing={editingMessageId === message.id}
+        editInput={editInput}
+        setEditInput={memoizedSetEditInput}
+        handleCancelEdit={memoizedHandleCancelEdit}
+        handleSaveEdit={memoizedHandleSaveEdit}
+        isDarkMode={isDarkMode}
+        codeSpace={codeSpace}
+      />
+    ),
+    [
+      editingMessageId,
+      editInput,
+      memoizedHandleEditMessage,
+      memoizedSetEditInput,
+      memoizedHandleCancelEdit,
+      memoizedHandleSaveEdit,
+      isDarkMode,
+      codeSpace,
+    ]
+  );
+
   return (
     <div className="p-4 space-y-4">
-      {memoizedMessages.map((message, index) => (
-        <ChatMessage
-          key={`${index}--${message.id}`}
-          message={message}
-          isSelected={editingMessageId === message.id}
-          onDoubleClick={() => memoizedHandleEditMessage(message.id)}
-          isEditing={editingMessageId === message.id}
-          editInput={editInput}
-          setEditInput={memoizedSetEditInput}
-          handleCancelEdit={memoizedHandleCancelEdit}
-          handleSaveEdit={memoizedHandleSaveEdit}
-          isDarkMode={isDarkMode}
-          codeSpace={codeSpace}
-        />
-      ))}
+      {memoizedMessages.map(renderMessage)}
       {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
     </div>
   );
