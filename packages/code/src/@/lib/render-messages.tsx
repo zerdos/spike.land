@@ -67,7 +67,7 @@ export const ChatMessageBlock: FC<ChatMessageBlockProps> = memo(({ text, isUser 
   return (
     <>
       {messageParts.map((part, index) => (
-        <React.Fragment key={`${index}-${md5(part.content)}`}>
+        <React.Fragment key={index}>
           <Code
             value={part.content}
             language={part.language || 'typescript'}

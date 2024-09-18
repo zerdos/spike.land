@@ -102,7 +102,7 @@ interface ImagePart {
   };
 }
 
-type MessagePart = TextPart | ImageUrlPart | ImagePart;
+export type MessagePart = TextPart | ImageUrlPart | ImagePart;
 export type MessageContent = string | MessagePart[];
 
 // Main message interface

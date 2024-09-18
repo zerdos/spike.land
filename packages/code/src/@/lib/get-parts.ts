@@ -1,4 +1,4 @@
-import { LanguageMap, MessagePart } from "@/lib/interfaces";
+import { LanguageMap } from "@/lib/interfaces";
 
 const programmingLanguages: LanguageMap = {
   javascript: ".js",
@@ -48,10 +48,15 @@ const cleanMessageText = (text: string, isUser: boolean): string => {
   }
   return text;
 };
+interface ChatMessagePart {
+  type: "text" | "code";
+  content: string;
+  language?: string;
+}
 
-const parseMessageParts = (text: string): MessagePart[] => {
+const parseMessageParts = (text: string): ChatMessagePart[] => {
   const codeBlockRegex = /```(\w+)?\s*([\s\S]*?)```/g;
-  const parts: MessagePart[] = [];
+  const parts: ChatMessagePart[] = [];
   let lastIndex = 0;
   let match;
 
@@ -85,7 +90,6 @@ const parseMessageParts = (text: string): MessagePart[] => {
         type: "code",
         language: getLanguage(lastOpenBlockMatch[1]),
         content: lastOpenBlockMatch[2].trim(),
-        isStreaming: true,
       });
     } else {
       const textContent = lastPart.trim();
@@ -146,7 +150,7 @@ const extendTextWithDiffMarkers = (text: string): string => {
   return extendedText;
 };
 
-export const getParts = (text: string, isUser: boolean): MessagePart[] => {
+export const getParts = (text: string, isUser: boolean): ChatMessagePart[] => {
   const extendedText = extendTextWithDiffMarkers(text);
   const cleanedText = cleanMessageText(extendedText, isUser);
   return parseMessageParts(cleanedText).filter(part => part.type !== "text" || part.content.length > 0);
