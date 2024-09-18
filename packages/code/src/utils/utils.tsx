@@ -1,11 +1,6 @@
 import { cn } from "@/lib/utils";
-import { CodeBlock } from "@/external/CodeBlock";
-import Markdown from "@/external/Markdown";
-import { md5 } from "@/lib/md5";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
-import { DiffEditor } from "@/components/app/diff-editor";
-import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
 
 // Components
 interface TypingIndicatorProps {
@@ -52,54 +47,3 @@ export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) 
     </div>
   );
 };
-
-interface ColorModeToggleProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
-export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({ isDarkMode, toggleDarkMode }) => (
-  <button
-    onClick={toggleDarkMode}
-    className={cn(
-      "p-2 rounded-full backdrop-blur-sm hover:bg-opacity-50 transition-all duration-300",
-      isDarkMode
-        ? "bg-gray-800/30 text-yellow-400"
-        : "bg-yellow-100/30 text-gray-800"
-    )}
-  >
-    {isDarkMode ? "🌙" : "☀️"}
-  </button>
-);
-
-interface CodeRendererProps {
-  value: string;
-  language: string;
-  type: string;
-}
-
-export const CodeRendererX: React.FC<CodeRendererProps> = ({ value, language, type }) => {
-  const key = md5(value + language);
-
-  if (value.trim().length < 20) {
-    return <pre>{value.trim()}</pre>;
-  }
-
-  if (type === "text") {
-    return (
-      <Markdown
-        className="mt-3 mb-3 font-sans text-sm leading-normal tracking-wide"
-      >
-        {value}
-      </Markdown>
-    );
-  }
-
-  if (isDiffContent(value)) {
-    const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
-  }
-
-  return <CodeBlock key={key} value={value} language={language} />;
-};
-
