@@ -37,7 +37,7 @@ async function renderApp(
     if (App) {
       AppToRender = App;
     } else if (transpiled || code) {
-      if (transpiled?.indexOf("export default") === -1) {
+      if (transpiled?.indexOf("stdin_default") === -1) {
         //empty App, export default ()=><div></div>
         emptyApp = true;
         AppToRender = (await import(createJsBlob((await transpile({code: `export default ()=><div></div>`, originToUse:  location.origin}))))).default;
