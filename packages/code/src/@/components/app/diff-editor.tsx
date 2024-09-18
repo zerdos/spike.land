@@ -11,8 +11,8 @@ interface DiffEditorProps {
   maxHeight?: number;
 }
 
-const minHeight = 200;
-const maxHeight = 1200;
+const minHeight = 100;
+const maxHeight = window.innerHeight - 200;
 
 const calculateHeight = (text: string) => {
   const lines = text.split(/\r\n|\r|\n/).length ;
