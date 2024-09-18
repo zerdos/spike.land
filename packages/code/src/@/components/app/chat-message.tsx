@@ -36,7 +36,7 @@ interface ChatMessageProps {
 
 type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
 
-const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
+export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   const {
     message,
     isSelected,
