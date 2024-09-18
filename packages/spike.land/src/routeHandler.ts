@@ -125,7 +125,10 @@ export class RouteHandler {
           const { html } = this.code.session;
           const respText = this.code.HTML.replace(
             `<!-- injectedCss -->`,
-            `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
+            `<link rel="preload" href="app/tw-global.css" as="style">
+             <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+             <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+             `,
           ).replace(
             "<div id=\"embed\"></div>",
             `<div id="embed">${html}</div>`,
