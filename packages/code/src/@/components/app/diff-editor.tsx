@@ -66,6 +66,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
           enabled: false,
         },
         lineNumbers: "off",
+        useShadowDOM: true,
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
         renderSideBySide: false,

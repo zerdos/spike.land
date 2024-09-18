@@ -232,7 +232,7 @@ async function startMonacoPristine({
     scrollBeyondLastLine: true,
     scrollPredominantAxis: true,
     automaticLayout: false,
-    useShadowDOM: false,
+    useShadowDOM: true,
     wordWrapColumn: 80,
     links: true,
     tabSize: 2,
