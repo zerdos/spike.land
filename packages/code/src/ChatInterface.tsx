@@ -111,6 +111,12 @@ export const ChatInterface: React.FC<{
   ]);
 
   useEffect(() => {
+    if (isOpen) {
+
+      setTimeout(() => {
+        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    }
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
       if (sessionStorage.getItem(maybeKey)) {

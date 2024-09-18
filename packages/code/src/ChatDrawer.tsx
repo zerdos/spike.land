@@ -82,7 +82,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
                 isDarkMode={isDarkMode}
                 codeSpace={codeSpace}
               />
-              <div id="typing-indicator" />
+              <div id="after-last-message" />
             </ScrollArea>
             <div className="flex-shrink-0">
               <MessageInput
