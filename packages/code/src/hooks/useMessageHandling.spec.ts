@@ -1,4 +1,4 @@
-import { ImageData } from "@/lib/interfaces";
+import type { ImageData } from "@/lib/interfaces";
 import type { Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
@@ -32,6 +32,15 @@ vi.mock("../shared", () => ({
 }));
 
 describe("useMessageHandling", () => {
+  const mockImageData: ImageData = {
+    imageName: "mock-screenshot.png",
+    url: "https://example.com/mock-screenshot.png",
+    src: "data:image/png;base64,mockedBase64Data",
+    mediaType: "image/png",
+    data: "mockedBase64Data",
+    type: "image/png",
+  };
+
   const mockCsess = {
     ...cSessMock,
     session: {
@@ -41,6 +50,7 @@ describe("useMessageHandling", () => {
     broadCastSessChanged: vi.fn(),
     setCode: vi.fn().mockResolvedValue(true),
     sub: vi.fn(),
+    screenShot: vi.fn().mockResolvedValue(mockImageData),
   };
 
   const mockProps = {
@@ -81,16 +91,7 @@ describe("useMessageHandling", () => {
 
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
-    const testImages: ImageData[] = [
-      {
-        imageName: "test.jpg",
-        url: "http://example.com/test.jpg",
-        src: "data:image/jpeg;base64,testdata",
-        mediaType: "image/jpeg",
-        data: "data:image/jpeg;base64,testdata",
-        type: "image/jpeg",
-      },
-    ];
+    const testImages: ImageData[] = [mockImageData];
 
     await act(async () => {
       await result.current.handleSendMessage("Test message", testImages);

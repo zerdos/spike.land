@@ -48,10 +48,12 @@ const cleanMessageText = (text: string, isUser: boolean): string => {
   }
   return text;
 };
+
 interface ChatMessagePart {
   type: "text" | "code";
   content: string;
   language?: string;
+  isStreaming?: boolean;
 }
 
 const parseMessageParts = (text: string): ChatMessagePart[] => {
@@ -90,6 +92,7 @@ const parseMessageParts = (text: string): ChatMessagePart[] => {
         type: "code",
         language: getLanguage(lastOpenBlockMatch[1]),
         content: lastOpenBlockMatch[2].trim(),
+        isStreaming: true,
       });
     } else {
       const textContent = lastPart.trim();

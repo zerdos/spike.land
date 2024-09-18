@@ -1,5 +1,4 @@
-import { ICodeSession } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
+import { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 
 class SessMock implements ICode {
   buffy: Promise<void>[] = [];
@@ -29,6 +28,17 @@ class SessMock implements ICode {
 
     this.broadCastSessChanged();
     return rawCode;
+  }
+
+  async screenShot(): Promise<ImageData> {
+    return {
+      imageName: "mock-screenshot.png",
+      url: "https://example.com/mock-screenshot.png",
+      src: "data:image/png;base64,mockedBase64Data",
+      mediaType: "image/png",
+      data: "mockedBase64Data",
+      type: "image/png",
+    };
   }
 }
 

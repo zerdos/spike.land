@@ -67,7 +67,15 @@ const handleDefaultPage = async () => {
             const codeSpace = useCodeSpace();
             const html2canvas = (await import("html2canvas")).default;
             const canvas = await html2canvas(document.body);
-            const blob = await new Promise<Blob>((resolve) => canvas.toBlob(resolve, "image/png"));
+            const blob = await new Promise<Blob>((resolve) => {
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  resolve(blob);
+                } else {
+                  throw new Error("Failed to create blob from canvas");
+                }
+              }, "image/png");
+            });
             const file = new File([blob], `screenshot-${codeSpace}.png`, { type: "image/png" });
             const imageData = await processImage(file);
             window.parent.postMessage({ type: "screenShot", imageData }, "*");

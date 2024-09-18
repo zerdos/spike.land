@@ -103,15 +103,13 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
   }
 });
 
-// Refactored runCode function without hooks
+// Refactored screenShot function without unused reject variable
 export const screenShot = () => {
   let resolve: (img: ImageData) => void;
-  let reject: (reason: string) => void;
 
   const promise = new Promise<ImageData>(
-    (_resolve, _reject) => {
+    (_resolve) => {
       resolve = _resolve;
-      reject = _reject;
     },
   );
 
@@ -129,6 +127,7 @@ export const screenShot = () => {
 
   return promise;
 };
+
 export const runCode = memoize(async (transpiled: string) => {
   try {
     let resolve: (v: { html: string; css: string }) => void;

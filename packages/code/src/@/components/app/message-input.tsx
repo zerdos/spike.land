@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Send, X, Upload } from "@/external/lucideReact";
-import { useCodeSpace } from "@/hooks/use-code-space";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import type { MessageInputProps } from "@/lib/interfaces";
@@ -9,8 +8,6 @@ import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
 import type { ImageData } from "@/lib/interfaces";
-import { enhancedFetch } from "@/lib/enhanced-fetch";
-
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -20,16 +17,14 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   inputRef,
   screenShot,
   screenshotImage,
-   handleCancelScreenshot,
+  handleCancelScreenshot,
   isDarkMode,
 }) => {
   const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
   const [isScreenshotLoading, setScreenShotIsLoading] = useState(false);
-  const codeSpace = useCodeSpace();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-   
     handleSendMessage(input, uploadedImages);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
@@ -52,22 +47,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   const makeScreenshot = async () => {
-    // if (uploadedImages.find(image => image.imageName.includes(`screenshot-${codeSpace}`))) {
-    //   setUploadedImages(prev => prev.filter(image => !image.imageName.includes(`screenshot-${codeSpace}`)));
-    //   return;
-    // }
-    // setScreenShotIsLoading(true);
-    
-   
-    // const image = await enhancedFetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${window.location.origin}/live/${codeSpace}/dehydrated&now=${Date.now()}`)
-    // const file = await image.arrayBuffer()
-
-
-   const imageData =  await screenShot()   //  await processImage(new File([file], `screenshot-${codeSpace}.jpeg`, { type: 'image/jpeg' }))
+    const imageData = await screenShot()
     setUploadedImages(prev => [...prev, imageData]);
     setScreenShotIsLoading(false);
-
-
   }
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
