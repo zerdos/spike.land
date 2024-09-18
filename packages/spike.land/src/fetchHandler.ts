@@ -282,9 +282,12 @@ async function handleDefaultCase(
 
     if (!resp.ok) return resp;
 
-    const content =    importMapReplace(await resp.text(), u.origin)// await prettierJs( importMapReplace(  await prettierJs( await resp.text() ) , u.origin));
+       const content =  (resp.headers.get("Content-Type") === "application/javascript")? new Response( await resp.text().then(x=> importMapReplace(x, u.origin))):resp
+       
+       
     
-    let response2 = new Response(content, { ...resp, headers: new Headers(resp.headers) });
+
+    let response2 = new Response(content.body, { ...resp, headers: new Headers(resp.headers) });
 
     ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
 
