@@ -484,7 +484,7 @@ hQIDAQAB
     return new Response("Not found", { status: 404 });
   }
 
-  private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response> {
+private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response> {
 
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
