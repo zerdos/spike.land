@@ -212,7 +212,7 @@ export const serveWithCache = (
         }
 
         // Cache the response asynchronously if cache is available
-        if (_fileCache) {
+        if (_fileCache && response.status === 200) {
           waitUntil(
             _fileCache.put(cacheKey, response.clone()).catch((error) => {
               console.error("Cache put error:", error);
