@@ -83,6 +83,7 @@ export const ChatContainer: React.FC<
   useEffect(() => {
     if (isStreaming) {
       setTypingIndicatorMustShow(true);
+      return ()=>{};
     } else {
       const timeoutId = setTimeout(() => {
         setTypingIndicatorMustShow(false);
