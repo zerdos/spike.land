@@ -1,3 +1,4 @@
+import React, { useRef, useState, useCallback, useMemo, memo } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,16 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Check, X, Image as ImageIcon } from "@/external/lucideReact";
 import type { Message } from "@/lib/interfaces";
 import { ChatMessageBlock } from "@/lib/render-messages";
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useMemo,
-  memo,
-} from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
-import { R } from "@clerk/clerk-react/dist/controlComponents-BHtK_hbj";
 
 interface ImageData {
   imageName: string;
@@ -41,7 +34,9 @@ interface ChatMessageProps {
   codeSpace: string;
 }
 
-export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
+type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
+
+const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   const {
     message,
     isSelected,
@@ -60,7 +55,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   const [images, setImages] = useState<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Memoize the content rendering function
   const renderContent = useCallback(() => {
     if (isSystem) {
       return (
@@ -68,86 +62,45 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
           <AccordionItem value="item-1">
             <AccordionTrigger>System prompt</AccordionTrigger>
             <AccordionContent>
-              {typeof message.content === "string"
-                ? (
-                  <ChatMessageBlock text={message.content} isUser={isUser} />
-                )
-                : Array.isArray(message.content)
-                ? message.content.map((item, index) => {
-                    if (item.type === "text") {
-                      return (
-                        <div key={`text-${index}`}>
-                          <ChatMessageBlock text={item.text!} isUser={isUser} />
-                        </div>
-                      );
-                    } else if (item.type === "image_url") {
-                      return (
-                        <img
-                          key={`image-${index}`}
-                          src={item.image_url?.url}
-                          alt={
-                            item.image_url?.url.includes(`screenshot`)
-                              ? "Screenshot"
-                              : "Image"
-                          }
-                          className="max-w-full h-auto mt-2 rounded-lg"
-                        />
-                      );
-                    }
-                    return null;
-                  })
-                : null}
+              {renderMessageContent(message.content, isUser)}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       );
     }
     
-    const _content  = typeof message.content !== "string"? message.content: [{
-      type: "text",
-      text: message.content as string
-    }]
-
-    if (typeof message.content === "string") {
-    return null;
-  }
-  const content  = _content as typeof message.content;
-
-    
-    return content .map((item, index) => {
-        if (item.type === "text") {
-          return (
-            <div key={`text-${index}`}>
-              <ChatMessageBlock text={item.text!} isUser={isUser} />
-            </div>
-          );
-        } else if (item.type === "image_url") {
-        
-          return (
-            <img
-              key={`image-${index}`}
-              src={item.image_url.url}
-              alt={
-                item.image_url?.url.includes(`screenshot`)
-                  ? "Screenshot"
-                  : "Image"
-              }
-              className="max-w-full h-auto mt-2 rounded-lg"
-            />
-          );
-        }
-        return null;
-      });
-   
+    return renderMessageContent(message.content, isUser);
   }, [isSystem, message.content, isUser]);
 
-  // Memoize the className for the outer div
+  const renderMessageContent = (content: string | MessageContent, isUser: boolean) => {
+    const _content = typeof content === "string" ? [{ type: "text", text: content }] : content;
+    
+    return _content.map((item, index) => {
+      if (item.type === "text" && item.text) {
+        return (
+          <div key={`text-${index}`}>
+            <ChatMessageBlock text={item.text} isUser={isUser} />
+          </div>
+        );
+      } else if (item.type === "image_url" && item.image_url) {
+        return (
+          <img
+            key={`image-${index}`}
+            src={item.image_url.url}
+            alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
+            className="max-w-full h-auto mt-2 rounded-lg"
+          />
+        );
+      }
+      return null;
+    });
+  };
+
   const outerDivClassName = useMemo(
     () => cn("flex mb-4", isUser ? "justify-end" : "justify-start"),
     [isUser]
   );
 
-  // Memoize the className for the message container
   const messageContainerClassName = useMemo(
     () =>
       cn(
@@ -167,7 +120,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
     [isUser, isDarkMode, isSelected]
   );
 
-  // Memoize the handleImageUpload function
   const handleImageUpload = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event.target.files;
@@ -181,13 +133,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
     []
   );
 
-  // Memoize the background class for the Textarea
   const textareaClassName = useMemo(
     () => cn(isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"),
     [isDarkMode]
   );
 
-  // Memoize the button background class
   const buttonBgClass = useMemo(
     () => cn(isDarkMode ? "bg-gray-600" : "bg-gray-200"),
     [isDarkMode]
@@ -216,11 +166,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
                 <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
                   <Check className="h-4 w-4" />
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={handleCancelEdit}
-                >
+                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
                   <X className="h-4 w-4" />
                 </Button>
               </div>
