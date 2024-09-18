@@ -55,8 +55,6 @@ export async function processMessage(
     console.log("Processing message");
     let assistantMessage = await sendAssistantMessage(
       aiHandler,
-      cSess,
-      codeNow,
       updatedMessages,
       onUpdate,
     );
@@ -95,8 +93,6 @@ export async function processMessage(
 
         assistantMessage = await sendAssistantMessage(
           aiHandler,
-          cSess,
-          codeNow,
           sentMessages,
           newOnUpdate,
         );
@@ -156,8 +152,6 @@ function createOnUpdateFunction(
 
 async function sendAssistantMessage(
   aiHandler: AIHandler,
-  cSess: ICode,
-  codeNow: string,
   messages: Message[],
   onUpdate: (code: string) => Promise<void>,
 ): Promise<Message> {
@@ -170,7 +164,6 @@ async function sendAssistantMessage(
   const contentToProcess = extractTextContent(assistantMessage.content);
 
   if (contentToProcess.includes("An error occurred while processing")) {
-    await cSess.setCode(codeNow);
     assistantMessage = await aiHandler.sendToGpt4o(messages, onUpdate);
   }
 
