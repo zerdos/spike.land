@@ -18,6 +18,7 @@ import React, {
 } from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
+import { R } from "@clerk/clerk-react/dist/controlComponents-BHtK_hbj";
 
 interface ImageData {
   imageName: string;
@@ -102,10 +103,16 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
       );
     }
     
-    const content  = typeof message.content !== "string"? message.content: [{
+    const _content  = typeof message.content !== "string"? message.content: [{
       type: "text",
       text: message.content as string
-    }] as  typeof message.content 
+    }]
+
+    if (typeof message.content === "string") {
+    return null;
+  }
+  const content  = _content as typeof message.content;
+
     
     return content .map((item, index) => {
         if (item.type === "text") {

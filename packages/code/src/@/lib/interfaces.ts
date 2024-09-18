@@ -93,13 +93,23 @@ interface ImageUrlPart {
   image_url: ImageUrl;
 }
 
-type MessagePart = TextPart | ImageUrlPart;
+interface ImagePart {
+  type: "image";
+  source: {
+    type: string;
+    media_type: string;
+    data: string;
+  };
+}
+
+type MessagePart = TextPart | ImageUrlPart | ImagePart;
+export type MessageContent = string | MessagePart[];
 
 // Main message interface
 export interface Message {
   id: string;
   role: Role;
-  content: MessagePart[];
+  content: MessageContent;
 }
 
 // Utility type for cases where you might have a simple string content

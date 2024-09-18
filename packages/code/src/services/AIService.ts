@@ -62,7 +62,7 @@ export class AIService {
       return content;
     } else if (Array.isArray(content)) {
       return content.map(item => {
-        if (item.type === "image" && item.source) {
+        if (item.type === "image") {
           return {
             type: "image",
             source: {
