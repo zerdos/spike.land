@@ -44,6 +44,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         diffWordWrap: "on",
         wordWrap: "on",
         wordWrapColumn: 80,
+        padding: { top: 20, bottom: 20 },
         automaticLayout: false,
         onlyShowAccessibleDiffViewer: true,
         hideUnchangedRegions: {
