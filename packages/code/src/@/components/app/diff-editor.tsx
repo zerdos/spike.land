@@ -1,7 +1,6 @@
 import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
 import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
-export { useThrottle } from "@uidotdev/usehooks";
 
 interface DiffEditorProps {
   original: string;
