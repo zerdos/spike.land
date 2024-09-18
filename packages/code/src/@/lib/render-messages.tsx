@@ -14,22 +14,20 @@ interface CodeProps {
 }
 
 const Code: FC<CodeProps> = memo(({ value, language, type }) => {
-  const trimmedValue = useMemo(() => value.trim(), [value]);
+  const trimmedValue = value.trim();
 
   if (trimmedValue.length === 0) {
     return null;
   }
 
-  const key = useMemo(() => md5(`${trimmedValue}${language}`), [trimmedValue, language]);
 
   if (trimmedValue.length < 20) {
-    return <pre key={key}>{trimmedValue}</pre>;
+    return <pre>{trimmedValue}</pre>;
   }
 
   if (type === "text") {
     return (
       <Markdown
-        key={key}
         className={cn(
           "mt-3 mb-3 font-sans text-sm leading-normal tracking-wide",
         )}
@@ -43,7 +41,6 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
     const { original, modified } = extractDiffContent(trimmedValue);
     return (
       <DiffEditor
-        key={key}
         original={original}
         modified={modified}
         language={language}
@@ -51,7 +48,7 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
     );
   }
 
-  return <CodeBlock key={key} value={trimmedValue} language={language} />;
+  return <CodeBlock value={trimmedValue} language={language} />;
 });
 
 Code.displayName = "Code";
