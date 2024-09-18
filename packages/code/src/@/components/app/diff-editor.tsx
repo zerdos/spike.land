@@ -96,7 +96,10 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
           diffModels.modified.setValue(modified);
           diffEditorRef.current.layout();
         }
-
+        diffEditorRef.current.layout({
+          height: editorHeight,
+          width: containerRef.current?.clientWidth || 0,
+        });
 
       }
       }}, [original, modified]);
