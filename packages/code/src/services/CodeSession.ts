@@ -133,7 +133,9 @@ export class Code implements ICode {
   async currentCodeWithExtraModels() {
     const extraModels = await fetchAndCreateExtraModels(this.session.code, location.origin);
 
-    const filesToMdx = Object.entries(extraModels).map(([codeSpace, code]) => toString(codeSpace, code));
+    const filesToMdx = Object.entries(extraModels).filter(([x]) => x !== this.codeSpace).map(([codeSpace, code]) =>
+      toString(codeSpace, code)
+    );
     const currentCode = toString(this.codeSpace, this.session.code);
 
     return [currentCode, ...filesToMdx].join("\n");
