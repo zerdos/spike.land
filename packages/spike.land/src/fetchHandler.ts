@@ -287,7 +287,7 @@ async function handleDefaultCase(
       const importMapReplaced = importMapReplace(text, u.origin);
       
 
-      let response2 = new Response(text, { ...resp, headers: new Headers(resp.headers) });
+      let response2 = new Response(importMapReplaced, { ...resp, headers: new Headers(resp.headers) });
 
       ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
   
