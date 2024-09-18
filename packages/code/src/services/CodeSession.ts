@@ -1,4 +1,3 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
@@ -16,7 +15,7 @@ async function fetchAndCreateExtraModels(
   const models = code.matchAll(search);
 
   const search2 = new RegExp(
-    ` from "\./[a-zA-Z0-9\\-_]+`,
+    ` from "./[a-zA-Z0-9\\-_]+`,
     "gm",
   );
   const models2 = code.matchAll(search2);

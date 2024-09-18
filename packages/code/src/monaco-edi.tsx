@@ -49,7 +49,7 @@ async function fetchAndCreateExtraModels(
   const models = code.matchAll(search);
 
   const search2 = new RegExp(
-    ` from "\./[a-zA-Z0-9\\-_]+`,
+    ` from "./[a-zA-Z0-9\\-_]+`,
     "gm",
   );
   const models2 = code.matchAll(search2);
