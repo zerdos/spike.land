@@ -1,6 +1,6 @@
 import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
-import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -11,32 +11,27 @@ interface DiffEditorProps {
   maxHeight?: number;
 }
 
+const minHeight = 200;
+const maxHeight = 600;
+
+const calculateHeight = (text: string) => {
+  const lines = text.split(/\r\n|\r|\n/).length;
+  return Math.min(maxHeight, Math.max(minHeight, lines * 20));
+};
+
+
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   original,
   modified: _modified,
   language = "text/plain",
-  readOnly = true,
-  minHeight = 200,
-  maxHeight = 600,
+  readOnly = true
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
-  
+  const [editorHeight, setEditorHeight] = useState(minHeight);  
   const modified = useThrottle(_modified, 200);
 
 
-  const calculateHeight = useCallback((content: string) => {
-    const lineCount = content.split("\n").length;
-    const lineHeight = 20;
-    const padding = 20;
-    return Math.min(Math.max(lineCount * lineHeight + padding, minHeight), maxHeight);
-  }, [minHeight, maxHeight]);
-
-  const editorHeight = useMemo(() => {
-    const originalHeight = calculateHeight(original);
-    const modifiedHeight = calculateHeight(_modified);
-    return Math.max(originalHeight, modifiedHeight);
-  }, [original, modified, calculateHeight]);
 
   useEffect(() => {
     if (containerRef.current && !diffEditorRef.current) {
@@ -79,6 +74,10 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
           diffModels.modified.dispose();
         }
         diffEditorRef.current = null;
+
+        const originalHeight = calculateHeight(original);
+        const modifiedHeight = calculateHeight(modified);
+        setEditorHeight(Math.max(originalHeight, modifiedHeight));  
       }
     };
   }, [language, readOnly]); // Only run when language or readOnly changes
@@ -95,7 +94,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         if (diffModels.modified.getValue() !== modified) {
           console.log("Setting modified model");
           diffModels.modified.setValue(modified);
-          diffEditorRef.current.layout();
         }
       }
       }}, [original, modified]);
