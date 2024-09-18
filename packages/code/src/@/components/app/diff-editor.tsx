@@ -95,6 +95,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         if (diffModels.modified.getValue() !== modified) {
           console.log("Setting modified model");
           diffModels.modified.setValue(modified);
+          diffEditorRef.current.layout();
         }
       }
       }}, [original, modified]);
