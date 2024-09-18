@@ -1,5 +1,5 @@
 import { ata } from "@/lib/shared";
-import { editor, languages, version,  Uri } from "@/external/monaco-editor";
+import { editor, languages, css,  Uri } from "@/external/monaco-editor";
 
 const originToUse = location.origin;
 
@@ -210,11 +210,10 @@ async function startMonacoPristine({
 
       
 
-      const monacoInnerStyle = (globalThis as unknown as {monacoInnerStyle: HTMLStyleElement }).monacoInnerStyle || document.createElement('style');
-      if (!monacoInnerStyle.innerText) {
-      monacoInnerStyle.innerText = 	'@import "/monaco-editor/min/vs/editor/editor.main.css";';
-     
-      }
+      const monacoInnerStyle = document.createElement('style');
+      
+      monacoInnerStyle.innerText = css;
+      
       shadowRoot.appendChild(monacoInnerStyle);
 
 		
