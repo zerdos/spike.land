@@ -118,13 +118,15 @@ const handleDefaultPage = async () => {
 
           if (res !== false) {
             const { css, html } = res;
-            window.parent.postMessage({ hash, css, html }, "*");
-            myEl.style.display = "block";
+            renderedNew.cleanup();
 
-            rendered && rendered.cleanup();
-            rendered = null;
-            rendered = renderedNew;
-            document.getElementById("embed")?.remove();
+            window.parent.postMessage({ hash, css, html }, "*");
+            // myEl.style.display = "block";
+
+            // rendered && rendered.cleanup();
+            // rendered = null;
+            // rendered = renderedNew;
+            // document.getElementById("embed")?.remove();
             // myEl.id = "root";
           }
         });
