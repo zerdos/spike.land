@@ -1,6 +1,6 @@
 import { ata } from "@/lib/shared";
-import { editor, languages, css,  Uri } from "@/external/monaco-editor";
-
+import { editor, languages,  Uri } from "@/external/monaco-editor";
+import {version} from "monaco-editor/package.json"; 
 const originToUse = location.origin;
 
 const refreshAta = async (code: string) => {
@@ -212,7 +212,8 @@ async function startMonacoPristine({
 
       const monacoInnerStyle = document.createElement('style');
       
-      monacoInnerStyle.innerText = css;
+    const monacoInnerText = `@import "${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
+      Object.assign(globalThis, { monacoInnerText });
       
       shadowRoot.appendChild(monacoInnerStyle);
 

@@ -1,4 +1,4 @@
-import { editor, css } from "@/external/monaco-editor";
+import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
 import React, { memo, useEffect, useRef } from "react";
 
@@ -50,8 +50,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   
           const monacoInnerStyle = document.createElement('style');
       
-          monacoInnerStyle.innerText = css;
-        shadowRoot.appendChild(monacoInnerStyle.cloneNode(true));
+          monacoInnerStyle.innerText = (globalThis as unknown as {monacoInnerText: string}).monacoInnerText;
+         shadowRoot.appendChild(monacoInnerStyle);
 
       const diffEditor = editor.createDiffEditor(innerContainer, {
         diffAlgorithm: "advanced",
