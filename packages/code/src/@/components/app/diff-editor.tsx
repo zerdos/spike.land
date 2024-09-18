@@ -1,5 +1,7 @@
 import { editor } from "@/external/monaco-editor";
+import { useThrottle } from "@uidotdev/usehooks";
 import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
+export { useThrottle } from "@uidotdev/usehooks";
 
 interface DiffEditorProps {
   original: string;
@@ -20,6 +22,21 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
+  
+  const updateDiffEditor = useThrottle(() => {
+    if (diffEditorRef.current) {
+      const diffModels = diffEditorRef.current.getModel();
+      if (diffModels) {
+        if (diffModels.original.getValue() !== original) {
+          diffModels.original.setValue(original);
+        }
+
+        if (diffModels.modified.getValue() !== modified) {
+          diffModels.modified.setValue(modified);
+        }
+      }
+    }}, 200);
+
 
   const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
@@ -76,20 +93,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     };
   }, [language, readOnly]); // Only run when language or readOnly changes
 
-  useEffect(() => {
-    if (diffEditorRef.current) {
-      const diffModels = diffEditorRef.current.getModel();
-      if (diffModels) {
-        if (diffModels.original.getValue() !== original) {
-          diffModels.original.setValue(original);
-        }
-
-        if (diffModels.modified.getValue() !== modified) {
-          diffModels.modified.setValue(modified);
-        }
-      }
-    }
-  }, [original, modified]);
+  useEffect(()=>updateDiffEditor(), [original, modified]);
 
   return (
     <div
