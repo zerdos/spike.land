@@ -13,7 +13,7 @@ interface DiffEditorProps {
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   original,
-  modified: modifiedProp,
+  modified: _modified,
   language = "text/plain",
   readOnly = true,
   minHeight = 200,
@@ -22,7 +22,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
   
-  const modified = useThrottle(modifiedProp, 500);
+  const modified = useThrottle(_modified, 200);
 
 
   const calculateHeight = useCallback((content: string) => {
@@ -34,7 +34,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
   const editorHeight = useMemo(() => {
     const originalHeight = calculateHeight(original);
-    const modifiedHeight = calculateHeight(modified);
+    const modifiedHeight = calculateHeight(_modified);
     return Math.max(originalHeight, modifiedHeight);
   }, [original, modified, calculateHeight]);
 
@@ -80,7 +80,19 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     };
   }, [language, readOnly]); // Only run when language or readOnly changes
 
-  useEffect(()=>updateDiffEditor(), [original, modified]);
+  useEffect(()=> {
+    if (diffEditorRef.current) {
+      const diffModels = diffEditorRef.current.getModel();
+      if (diffModels) {
+        if (diffModels.original.getValue() !== original) {
+          diffModels.original.setValue(original);
+        }
+
+        if (diffModels.modified.getValue() !== modified) {
+          diffModels.modified.setValue(modified);
+        }
+      }
+      }}, [original, modified]);
 
   return (
     <div
