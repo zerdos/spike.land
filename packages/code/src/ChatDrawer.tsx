@@ -53,7 +53,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
       />
       <div
         {...handlers}
-        className={`fixed top-0 right-0 h-full w-full sm:w-[600px] max-w-full ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[638px] max-w-full ${
           isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
         } z-[1001] transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
