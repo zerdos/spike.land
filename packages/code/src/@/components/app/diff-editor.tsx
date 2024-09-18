@@ -39,21 +39,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   useEffect(() => {
     if (containerRef.current && !diffEditorRef.current) {
 
-      const shadowRoot = containerRef.current.attachShadow({
-        mode: 'closed'
-      });
-  
-      const innerContainer = document.createElement('div');
-        shadowRoot.appendChild(innerContainer);
-        innerContainer.style.width = containerRef.current.getClientRects()[0].width + 'px';
-        innerContainer.style.height =  containerRef.current.getClientRects()[0].height + 'px';
-  
-          const monacoInnerStyle = document.createElement('style');
-      
-          monacoInnerStyle.innerText = (globalThis as unknown as {monacoInnerText: string}).monacoInnerText;
-         shadowRoot.appendChild(monacoInnerStyle);
-
-      const diffEditor = editor.createDiffEditor(innerContainer, {
+      const diffEditor = editor.createDiffEditor(containerRef.current, {
         diffAlgorithm: "advanced",
         readOnly,
         diffWordWrap: "on",
@@ -73,6 +59,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         renderOverviewRuler: false,
         theme: "vs-dark",
       });
+
+    
 
       diffEditor.setModel({
         original: editor.createModel(original, language),

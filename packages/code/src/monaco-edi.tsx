@@ -199,31 +199,23 @@ async function startMonacoPristine({
   const model = editor.getModel(uri)
     || editor.createModel(replacedCode, "typescript", uri);
 
-    const shadowRoot = container.attachShadow({
-      mode: 'closed'
-    });
 
-    const innerContainer = document.createElement('div');
-			shadowRoot.appendChild(innerContainer);
-			innerContainer.style.width = container.getClientRects()[0].width + 'px';
-			innerContainer.style.height =  container.getClientRects()[0].height + 'px';
+    const link = document.createElement('link');
 
-      
+    const promiseIsResolved = new Promise((resolve) => {
+      link.onload = resolve;
+    })
 
-      
-      const monacoInnerText = `@import "${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
-      
-      Object.assign(globalThis, { monacoInnerText });
+    link.rel = 'stylesheet';
+    link.href = `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
+    document.head.appendChild(link);  
 
-      const monacoInnerStyle = document.createElement('style');
-      monacoInnerStyle.innerText = monacoInnerText;
-
-      shadowRoot.appendChild(monacoInnerStyle);
+      await promiseIsResolved;
 
 		
     
 
-  const myEditor = editor.create(innerContainer, {
+  const myEditor = editor.create(container, {
     model,
     scrollbar: {
       scrollByPage: false,
