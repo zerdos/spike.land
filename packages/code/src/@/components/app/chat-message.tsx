@@ -56,8 +56,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log("ChatMessage rendered for message", message.id);
-  }, [message.id]);
+    console.log("ChatMessage rendered for message");
+  }, []);
 
   const renderContent = useCallback(() => {
     if (isSystem) {
