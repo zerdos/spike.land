@@ -282,16 +282,30 @@ async function handleDefaultCase(
 
     if (!resp.ok) return resp;
 
-       const content =  (resp.headers.get("Content-Type") === "application/javascript")? new Response( await resp.text().then(x=> importMapReplace(x, u.origin))):resp
+    if (resp.headers.get("Content-Type") === "application/json") {
+      const text = await resp.text();
+      const importMapReplaced = importMapReplace(text, u.origin);
+      
+
+      let response2 = new Response(text, { ...resp, headers: new Headers(resp.headers) });
+
+      ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
+  
+      return response2;
+
+    }
+    
+
+
+    ctx.waitUntil(esmCache.put(cacheKey, resp.clone()));
+
+    return resp
+
        
        
     
 
-    let response2 = new Response(content.body, { ...resp, headers: new Headers(resp.headers) });
 
-    ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
-
-    return response2;
   }
 
   const file = newUrl.pathname.slice(0, 7) === ("/assets/")
