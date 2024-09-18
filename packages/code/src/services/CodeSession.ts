@@ -35,9 +35,11 @@ async function fetchAndCreateExtraModels(
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
       .toString();
 
+    if (extraModels[codeSpace]) continue;
     const res = await fetch(extraModel);
     code = await res.text();
     extraModels[codeSpace] = code;
+    await fetchAndCreateExtraModels(code, originToUse);
   }
 
   return extraModels;
