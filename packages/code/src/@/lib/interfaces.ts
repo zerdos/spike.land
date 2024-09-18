@@ -74,33 +74,39 @@ export interface LanguageMap {
   [key: string]: string;
 }
 
-export interface MessagePart {
-  type: "text" | "code";
-  content: string;
-  language?: string;
-  isStreaming?: boolean;
+// Basic types
+type Role = "user" | "system" | "assistant";
+
+// Image-specific types
+interface ImageUrl {
+  url: string;
 }
 
+// Content part interfaces
+type TextPart = {
+  type: "text";
+  text: string;
+};
+
+interface ImageUrlPart {
+  type: "image_url";
+  image_url: ImageUrl;
+}
+
+type MessagePart = TextPart | ImageUrlPart;
+
+// Main message interface
 export interface Message {
   id: string;
-  role: "user" | "system" | "assistant";
-  content: MessageContent;
+  role: Role;
+  content: MessagePart[];
 }
 
-export type MessageContent =
-  | string
-  | Array<{
-    type: "text" | "image" | "image_url";
-    image_url?: {
-      url: string;
-    };
-    text?: string;
-    source?: {
-      type: "base64";
-      media_type: "image/jpeg" | "image/png";
-      data: string;
-    };
-  }>;
+// Utility type for cases where you might have a simple string content
+export type SimpleMessage = Omit<Message, "content"> & { content: string };
+
+// Union type to allow both complex and simple message formats
+export type AnyMessage = Message | SimpleMessage;
 
 export interface IHistoryItem {
   timestamp: number;

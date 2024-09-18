@@ -100,10 +100,14 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
           </AccordionItem>
         </Accordion>
       );
-    } else if (typeof message.content === "string") {
-      return <ChatMessageBlock text={message.content} isUser={isUser} />;
-    } else if (Array.isArray(message.content)) {
-      return message.content.map((item, index) => {
+    }
+    
+    const content  = typeof message.content !== "string"? message.content: [{
+      type: "text",
+      text: message.content as string
+    }] as  typeof message.content 
+    
+    return content .map((item, index) => {
         if (item.type === "text") {
           return (
             <div key={`text-${index}`}>
@@ -111,10 +115,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
             </div>
           );
         } else if (item.type === "image_url") {
+        
           return (
             <img
               key={`image-${index}`}
-              src={item.image_url?.url}
+              src={item.image_url.url}
               alt={
                 item.image_url?.url.includes(`screenshot`)
                   ? "Screenshot"
@@ -126,8 +131,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
         }
         return null;
       });
-    }
-    return null;
+   
   }, [isSystem, message.content, isUser]);
 
   // Memoize the className for the outer div
