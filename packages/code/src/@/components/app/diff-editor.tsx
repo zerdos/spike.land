@@ -16,7 +16,7 @@ const maxHeight = 600;
 
 const calculateHeight = (text: string) => {
   const lines = text.split(/\r\n|\r|\n/).length - 6;
-  return Math.min(maxHeight, Math.max(minHeight, lines * 20));
+  return Math.min(maxHeight, Math.max(minHeight, lines * 19));
 };
 
 
@@ -111,7 +111,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       ref={containerRef}
       style={{
         width: "100%",
-        height: `100%`,
+        height: `${editorHeight}px`,
         maxHeight: `${maxHeight}px`,
         minHeight: `${minHeight}px`,
         border: "1px solid #ccc",
