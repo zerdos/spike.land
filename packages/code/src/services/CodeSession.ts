@@ -166,7 +166,7 @@ export class Code implements ICode {
    * Updates the code for each code space if it has changed.
    * @param newCodes - The code string containing multiple code spaces and their code content.
    */
-  async setModelsByCurrentCode(newCodes: string): Promise<void> {
+  async setModelsByCurrentCode(newCodes: string): Promise<string> {
     const sections = newCodes.split(/^#\s+/gm).filter(Boolean);
     const errors: string[] = [];
 
@@ -199,6 +199,8 @@ export class Code implements ICode {
         }
       }
     }
+
+    return errors.join("\n");
   }
 
   async release(): Promise<void> {

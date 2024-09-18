@@ -33,8 +33,8 @@ export async function createNewMessage(
 export async function processMessage(
   aiHandler: AIHandler,
   cSess: ICode,
-  updatedMessages: Message[],
   codeNow: string,
+  updatedMessages: Message[],
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   saveMessages: (newMessages: Message[]) => void,
   mutex: Mutex,
@@ -117,8 +117,8 @@ export async function processMessage(
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
   try {
-    const result = await cSess.setCode(code);
-    return !!result;
+    const errors = await cSess.setModelsByCurrentCode(code);
+    return errors.length === 0;
   } catch (error) {
     console.error(`Failed to set code: ${error}`);
     return false;

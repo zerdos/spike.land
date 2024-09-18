@@ -51,9 +51,7 @@ This format helps to clearly identify the changes to be made.
 
 I followed the instructions you gave me, but it seems that I'm still stuck. The code I have is:
 
-\`\`\`tsx
 ${codeNow}
-\`\`\`
 
 The error what I am getting is:
 \`\`\`

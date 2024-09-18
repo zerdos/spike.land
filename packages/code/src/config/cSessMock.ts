@@ -40,6 +40,17 @@ class SessMock implements ICode {
       type: "image/png",
     };
   }
+
+  async currentCodeWithExtraModels(): Promise<string> {
+    // Mock implementation
+    return this.session.code;
+  }
+
+  async setModelsByCurrentCode(code: string): Promise<void> {
+    // Mock implementation
+    this.session.code = code;
+    this.broadCastSessChanged();
+  }
 }
 
 export const cSessMock = new SessMock();

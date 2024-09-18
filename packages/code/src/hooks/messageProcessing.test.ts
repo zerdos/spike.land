@@ -82,7 +82,6 @@ describe("messageProcessing", () => {
         mockAIHandler,
         mockCSess,
         [],
-        "initial code",
         mockSetMessages,
         mockSaveMessages,
         mockMutex,

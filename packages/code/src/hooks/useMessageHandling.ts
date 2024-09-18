@@ -42,7 +42,7 @@ export const useMessageHandling = ({
   const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
-    const { code } = cSess.session;
+    const code = await cSess.currentCodeWithExtraModels();
 
     useAutoSave(codeSpace);
 
@@ -61,8 +61,8 @@ export const useMessageHandling = ({
       const success = await processMessage(
         aiHandler,
         cSess,
-        updatedMessages,
         code,
+        updatedMessages,
         setMessages,
         (newMessages: Message[]) => setMessages(newMessages),
         mutex,
