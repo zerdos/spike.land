@@ -47,7 +47,7 @@ sw.onfetch = (event) => {
         request,
         (req, waitUntil) => {
           // console.log("Fetching from network", req.url);
-          const respPromise = fetch(req);
+          const respPromise = fetch(req, { redirect: "follow" });
           waitUntil(respPromise);
           return respPromise;
         },
