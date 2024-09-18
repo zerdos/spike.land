@@ -212,7 +212,8 @@ async function startMonacoPristine({
 
       const monacoInnerStyle = (globalThis as unknown as {monacoInnerStyle: HTMLStyleElement }).monacoInnerStyle || document.createElement('style');
       if (!monacoInnerStyle.innerText) {
-      monacoInnerStyle.innerText =await (await fetch("/*monaco-editor?bundle&css")).text();
+      monacoInnerStyle.innerText = 	'@import "/monaco-editor/min/vs/editor/editor.main.css";';
+     
       }
       shadowRoot.appendChild(monacoInnerStyle);
 
