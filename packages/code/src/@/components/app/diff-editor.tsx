@@ -15,7 +15,7 @@ const minHeight = 200;
 const maxHeight = 600;
 
 const calculateHeight = (text: string) => {
-  const lines = text.split(/\r\n|\r|\n/).length - 6;
+  const lines = text.split(/\r\n|\r|\n/).length ;
   return Math.min(maxHeight, Math.max(minHeight, lines * 19));
 };
 
