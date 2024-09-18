@@ -210,11 +210,14 @@ async function startMonacoPristine({
 
       
 
-      const monacoInnerStyle = document.createElement('style');
       
-    const monacoInnerText = `@import "${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
+      const monacoInnerText = `@import "${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css";`;
+      
       Object.assign(globalThis, { monacoInnerText });
-      
+
+      const monacoInnerStyle = document.createElement('style');
+      monacoInnerStyle.innerText = monacoInnerText;
+
       shadowRoot.appendChild(monacoInnerStyle);
 
 		
