@@ -94,7 +94,7 @@ export const ChatContainer: React.FC<
   const renderMessage = useCallback(
     (message: any, index: number) => (
       <ChatMessage
-        key={`${index}--${message.id}`}
+        key={`${index}`}
         message={message}
         isSelected={editingMessageId === message.id}
         onDoubleClick={() => memoizedHandleEditMessage(message.id)}
