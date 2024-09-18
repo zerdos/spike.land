@@ -115,7 +115,7 @@ export const ChatInterface: React.FC<{
 
       setTimeout(() => {
         document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
-      }, 100);
+      });
     }
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
@@ -129,11 +129,6 @@ export const ChatInterface: React.FC<{
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isScreenshotLoading) {
-      interval = setInterval(() => {
-        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
-      }, 300);
-    }
     return () => clearInterval(interval);
   }, [isStreaming]);
 

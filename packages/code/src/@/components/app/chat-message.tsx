@@ -72,7 +72,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
         </Accordion>
       );
     }
-    
+  
     return renderMessageContent(message.content, isUser);
   }, [isSystem, message.content, isUser]);
 

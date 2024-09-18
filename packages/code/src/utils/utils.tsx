@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 
 // Components
 interface TypingIndicatorProps {
@@ -31,23 +31,8 @@ const TypingDots: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
   </div>
 );
 
-export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const interval = setInterval(() => {
-
-      console.log("typing");
-      if (ref.current) {
-          ref.current.scrollIntoView({ behavior: "instant", block: "end" });
-      }
-    }, 200);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div ref={ref} className="flex space-x-2 items-center p-2">
+export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => <div className="flex space-x-2 items-center p-2">
       <span className="text-sm text-gray-500">AI is typing</span>
       <TypingDots isDarkMode={isDarkMode} />
     </div>
-  );
-};
+  
