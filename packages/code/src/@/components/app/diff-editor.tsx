@@ -15,7 +15,7 @@ const minHeight = 100;
 const maxHeight = window.innerHeight - 200;
 
 const calculateHeight = (text: string) => {
-  const lines = text.split(/\r\n|\r|\n/).length ;
+  const lines = text.split(/\r\n|\r|\n/).length +1 ;
   return Math.min(maxHeight, Math.max(minHeight, lines * 19));
 };
 
