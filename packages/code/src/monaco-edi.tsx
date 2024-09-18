@@ -1,5 +1,5 @@
 import { ata } from "@/lib/shared";
-import { editor, languages, Uri } from "@/external/monaco-editor";
+import { editor, languages, version,  Uri } from "@/external/monaco-editor";
 
 const originToUse = location.origin;
 
