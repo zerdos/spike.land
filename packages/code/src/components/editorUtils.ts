@@ -165,7 +165,6 @@ export async function initializeMonaco(
   isEdit: boolean;
   setValue: (_newCode: string) => void;
 }> {
-  addCSSFile("/*monaco-editor?bundle&css");
   const { startMonaco } = await import("../monaco-edi");
   return await startMonaco({
     container,
@@ -186,12 +185,4 @@ export async function initializeAce(
 }> {
   const { startAce } = await import("../startAce");
   return await startAce(code, onChange, container);
-}
-
-export function addCSSFile(filename: string): void {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = filename;
-  document.head.appendChild(link);
 }
