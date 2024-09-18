@@ -1,6 +1,5 @@
 import { ata } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
-import { glob } from "fs";
 
 const originToUse = location.origin;
 
