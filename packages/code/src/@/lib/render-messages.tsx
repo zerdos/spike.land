@@ -1,6 +1,5 @@
 import React, { FC, memo, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
-import { md5 } from "@/lib/md5";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  
 import { DiffEditor } from "@/components/app/diff-editor";

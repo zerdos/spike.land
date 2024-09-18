@@ -1,6 +1,6 @@
 import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -21,15 +21,18 @@ const calculateHeight = (text: string) => {
 
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
-  original,
-  modified: _modified,
+  original: _original = "",
+  modified: _modified = "",
   language = "text/plain",
   readOnly = true
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
-  const [editorHeight, setEditorHeight] = useState(minHeight);  
+  
+  const original = useThrottle(_original, 200);
   const modified = useThrottle(_modified, 200);
+
+  const editorHeight =Math.max(calculateHeight(original), calculateHeight(modified));
 
 
 
@@ -75,9 +78,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         }
         diffEditorRef.current = null;
 
-        const originalHeight = calculateHeight(original);
-        const modifiedHeight = calculateHeight(modified);
-        setEditorHeight(Math.max(originalHeight, modifiedHeight));  
+      
       }
     };
   }, [language, readOnly]); // Only run when language or readOnly changes
