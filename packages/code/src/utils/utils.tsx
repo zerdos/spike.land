@@ -38,7 +38,7 @@ export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) 
 
       console.log("typing");
       if (ref.current) {
-          ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+          ref.current.scrollIntoView({ behavior: "instant", block: "end" });
       }
     }, 200);
     return () => clearInterval(interval);
