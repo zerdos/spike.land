@@ -46,7 +46,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         diffWordWrap: "on",
         wordWrap: "on",
         wordWrapColumn: 80,
-        automaticLayout: true,
+        automaticLayout: false,
         onlyShowAccessibleDiffViewer: true,
         hideUnchangedRegions: {
           enabled: false,
@@ -65,6 +65,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       });
 
       diffEditorRef.current = diffEditor;
+      diffEditor.layout();
     }
 
     return () => {
