@@ -13,7 +13,7 @@ interface DiffEditorProps {
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   original,
-  modified,
+  modified: modifiedProp,
   language = "text/plain",
   readOnly = true,
   minHeight = 200,
@@ -22,19 +22,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
   
-  const updateDiffEditor = useThrottle(() => {
-    if (diffEditorRef.current) {
-      const diffModels = diffEditorRef.current.getModel();
-      if (diffModels) {
-        if (diffModels.original.getValue() !== original) {
-          diffModels.original.setValue(original);
-        }
-
-        if (diffModels.modified.getValue() !== modified) {
-          diffModels.modified.setValue(modified);
-        }
-      }
-    }}, 200);
+  const modified = useThrottle(modifiedProp, 500);
 
 
   const calculateHeight = useCallback((content: string) => {
