@@ -62,7 +62,7 @@ const handleDefaultPage = async () => {
 
     window.onmessage = async ({ data }) => {
       try {
-        if (data.type !== "screenShot") {
+        if (data.type === "screenShot") {
           try {
             const codeSpace = useCodeSpace();
             const html2canvas = (await import("html2canvas")).default;
