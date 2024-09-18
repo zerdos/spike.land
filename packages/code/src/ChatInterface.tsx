@@ -131,7 +131,7 @@ export const ChatInterface: React.FC<{
     let interval: NodeJS.Timeout;
     if (isScreenshotLoading) {
       interval = setInterval(() => {
-        document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
+        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
       }, 300);
     }
     return () => clearInterval(interval);

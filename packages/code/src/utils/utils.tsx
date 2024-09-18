@@ -32,16 +32,20 @@ const TypingDots: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
 );
 
 export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => {
+  const ref = React.useRef<HTMLDivElement>(null);
   useEffect(() => {
     const interval = setInterval(() => {
+
       console.log("typing");
-      document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
-    }, 1000);
+      if (ref.current) {
+          ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }, 200);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div id="typing-indicator" className="flex space-x-2 items-center p-2">
+    <div ref={ref} className="flex space-x-2 items-center p-2">
       <span className="text-sm text-gray-500">AI is typing</span>
       <TypingDots isDarkMode={isDarkMode} />
     </div>
