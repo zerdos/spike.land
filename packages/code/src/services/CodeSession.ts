@@ -5,6 +5,45 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { formatCode, runCode, screenShot, transpileCode } from "../components/editorUtils";
 
+async function fetchAndCreateExtraModels(
+  code: string,
+  originToUse: string,
+) {
+  const search = new RegExp(
+    ` from "(${originToUse})/live/[a-zA-Z0-9\\-_]+`,
+    "gm",
+  );
+  const models = code.matchAll(search);
+
+  const search2 = new RegExp(
+    ` from "\./[a-zA-Z0-9\\-_]+`,
+    "gm",
+  );
+  const models2 = code.matchAll(search2);
+
+  const search3 = new RegExp(
+    ` from "/live/[a-zA-Z0-9\\-_]+`,
+    "gm",
+  );
+  const models3 = code.matchAll(search3);
+
+  const extraModels: {
+    [key: string]: string;
+  } = {};
+
+  for (const match of [...models, ...models2, ...models3]) {
+    const codeSpace = match[0].split("/").pop()!;
+    const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
+      .toString();
+
+    const res = await fetch(extraModel);
+    code = await res.text();
+    extraModels[codeSpace] = code;
+  }
+
+  return extraModels;
+}
+
 interface BroadcastMessage extends ICodeSession {
   sender: string;
 }
@@ -67,23 +106,39 @@ class CodeProcessor {
   }
 }
 
+const toString = (codeSpace: string, code: string) =>
+  `# ${codeSpace}.tsx
+
+\`\`\`tsx
+${code}
+\`\`\`
+
+`;
+
 export class Code implements ICode {
   session: ICodeSession;
   head: string;
   user: string;
   private broadcastedCounter = 0;
-  private codeSpace = useCodeSpace();
   private BC: BroadcastChannel;
   private subs: ((sess: ICodeSession) => void)[] = [];
   private codeProcessor: CodeProcessor;
   private releaseWorker = () => {};
 
-  constructor() {
+  constructor(private codeSpace: string) {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.head = makeHash(this.session);
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(self.crypto.randomUUID());
     this.BC = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
     this.codeProcessor = new CodeProcessor();
+  }
+  async currentCodeWithExtraModels() {
+    const extraModels = await fetchAndCreateExtraModels(this.session.code, location.origin);
+
+    const filesToMdx = Object.entries(extraModels).map(([codeSpace, code]) => toString(codeSpace, code));
+    const currentCode = toString(this.codeSpace, this.session.code);
+
+    return [currentCode, ...filesToMdx].join("\n");
   }
   // destructor
   async release() {

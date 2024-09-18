@@ -16,7 +16,9 @@ import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
 let { rendered } = globalThis as unknown as { rendered: RenderedApp | null };
-const cSess = new Code();
+
+const cSess = new Code(useCodeSpace());
+Object.assign(globalThis, { cSess });
 
 const waitForCSess = cSess.run();
 
@@ -89,6 +91,7 @@ const handleDefaultPage = async () => {
 
         const { transpiled } = data;
         const hash = md5(transpiled);
+        console.log("Rendering - from parent", hash);
 
         // if (!i || !transpiled || mod.counter >= i) return;
 
