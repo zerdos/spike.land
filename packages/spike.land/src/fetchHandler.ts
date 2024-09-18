@@ -282,7 +282,7 @@ async function handleDefaultCase(
 
     if (!resp.ok) return resp;
 
-    if (resp.headers.get("Content-Type") === "application/json") {
+    if (resp.headers.get("Content-Type")?.includes("javascript")) {
       const text = await resp.text();
       const importMapReplaced = importMapReplace(text, u.origin);
       
