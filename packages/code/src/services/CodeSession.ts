@@ -7,6 +7,7 @@ import { formatCode, runCode, screenShot, transpileCode } from "../components/ed
 async function fetchAndCreateExtraModels(
   code: string,
   originToUse: string,
+  extraModels: { [key: string]: string } = {},
 ) {
   const search = new RegExp(
     ` from "(${originToUse})/live/[a-zA-Z0-9\\-_]+`,
@@ -26,10 +27,6 @@ async function fetchAndCreateExtraModels(
   );
   const models3 = code.matchAll(search3);
 
-  const extraModels: {
-    [key: string]: string;
-  } = {};
-
   for (const match of [...models, ...models2, ...models3]) {
     const codeSpace = match[0].split("/").pop()!;
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
@@ -39,7 +36,7 @@ async function fetchAndCreateExtraModels(
     const res = await fetch(extraModel);
     code = await res.text();
     extraModels[codeSpace] = code;
-    await fetchAndCreateExtraModels(code, originToUse);
+    await fetchAndCreateExtraModels(code, originToUse, extraModels);
   }
 
   return extraModels;
