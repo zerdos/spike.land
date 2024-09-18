@@ -38,7 +38,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
   useEffect(() => {
     if (containerRef.current && !diffEditorRef.current) {
-      console.log("Creating diff editor");
       const diffEditor = editor.createDiffEditor(containerRef.current, {
         diffAlgorithm: "advanced",
         readOnly,
@@ -89,19 +88,15 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       const diffModels = diffEditorRef.current.getModel();
       if (diffModels) {
         if (diffModels.original.getValue() !== original) {
-          console.log("Setting original model");
           diffModels.original.setValue(original);
           diffEditorRef.current.layout();
         }
 
         if (diffModels.modified.getValue() !== modified) {
-          console.log("Setting modified model");
           diffModels.modified.setValue(modified);
           diffEditorRef.current.layout();
         }
 
-  const lineChanges =       diffEditorRef.current.getLineChanges()
-  console.log({lineChanges});
 
       }
       }}, [original, modified]);
