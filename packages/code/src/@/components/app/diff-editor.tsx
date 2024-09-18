@@ -1,6 +1,6 @@
 import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -66,8 +66,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
       diffEditorRef.current = diffEditor;
       diffEditor.layout();
-  const lineChanges =       diffEditor.getLineChanges()
-  console.log({lineChanges});
     }
 
     return () => {
@@ -93,12 +91,18 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         if (diffModels.original.getValue() !== original) {
           console.log("Setting original model");
           diffModels.original.setValue(original);
+          diffEditorRef.current.layout();
         }
 
         if (diffModels.modified.getValue() !== modified) {
           console.log("Setting modified model");
           diffModels.modified.setValue(modified);
+          diffEditorRef.current.layout();
         }
+
+  const lineChanges =       diffEditorRef.current.getLineChanges()
+  console.log({lineChanges});
+
       }
       }}, [original, modified]);
 
