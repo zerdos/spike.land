@@ -87,10 +87,6 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     setUploadedImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  if (isStreaming) {
-    return null; // Hide input when AI is typing
-  }
-
   return (
     <div 
       className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}
@@ -130,6 +126,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         )}
         <div className="flex items-end space-x-2">
           <Textarea
+            disabled={isStreaming}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => {
@@ -187,7 +184,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             
             <Button
               onClick={()=>handleSend()}
-              disabled={input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
+              disabled={ isStreaming || input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
               size="icon"
             >
               <Send className="h-4 w-4" />
