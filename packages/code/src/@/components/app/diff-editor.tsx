@@ -111,8 +111,9 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       ref={containerRef}
       style={{
         width: "100%",
-        height: `${editorHeight}px`,
+        height: `100%`,
         maxHeight: `${maxHeight}px`,
+        minHeight: `${minHeight}px`,
         border: "1px solid #ccc",
         borderRadius: "4px",
         overflow: "hidden",
