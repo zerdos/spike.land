@@ -267,7 +267,7 @@ async function handleDefaultCase(
   newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
-    const esmCache = await caches.open("esm125");
+    const esmCache = await caches.open("esm127");
     const cacheKey = new Request(request.url.toString());
 
     let response = await esmCache.match(cacheKey);
