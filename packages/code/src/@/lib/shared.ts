@@ -1,6 +1,5 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
-import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 
@@ -28,7 +27,6 @@ class WorkerWrapper {
 
 class WorkerPool {
   private workers: WorkerWrapper[] = [];
-  private mutex = new Mutex();
   private minFreeWorkers: number;
 
   constructor(minFreeWorkers: number = 2) {
