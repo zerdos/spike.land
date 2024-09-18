@@ -62,9 +62,12 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         original: editor.createModel(original, language),
         modified: editor.createModel(modified, language),
       });
+      
 
       diffEditorRef.current = diffEditor;
       diffEditor.layout();
+  const lineChanges =       diffEditor.getLineChanges()
+  console.log({lineChanges});
     }
 
     return () => {
