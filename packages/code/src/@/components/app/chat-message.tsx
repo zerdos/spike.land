@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo, memo } from "react";
+import React, { useRef, useState, useCallback, useMemo, memo, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -54,6 +54,10 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
 
   const [images, setImages] = useState<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log("ChatMessage rendered for message", message.id);
+  }, [message.id]);
 
   const renderContent = useCallback(() => {
     if (isSystem) {
