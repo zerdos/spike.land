@@ -206,7 +206,7 @@ async function startMonacoPristine({
     const innerContainer = document.createElement('div');
 			shadowRoot.appendChild(innerContainer);
 			innerContainer.style.width = container.getClientRects()[0].width + 'px';
-			innerContainer.style.height =  container.getClientRects()[0].width + 'px';
+			innerContainer.style.height =  container.getClientRects()[0].height + 'px';
 
       
 
@@ -218,7 +218,6 @@ async function startMonacoPristine({
       shadowRoot.appendChild(monacoInnerStyle);
 
 		
-      Object.assign(globalThis, { monacoInnerStyle });
     
 
   const myEditor = editor.create(innerContainer, {
