@@ -1,5 +1,6 @@
 // CodeSession.ts
 
+import { formatCodeAsSection } from "@/lib/chat-utils";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
@@ -110,14 +111,6 @@ class CodeProcessor {
     }
   }
 }
-
-const formatCodeAsSection = (codeSpace: string, code: string): string => `
-# ${codeSpace}.tsx
-
-\`\`\`tsx
-${code}
-\`\`\`
-`;
 
 export class Code implements ICode {
   session: ICodeSession = makeSession({ i: 0, code: "", html: "", css: "" });

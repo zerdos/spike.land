@@ -4,6 +4,14 @@ import { Message } from "@/lib/interfaces";
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
 
+export const formatCodeAsSection = (codeSpace: string, code: string): string => `
+# ${codeSpace}.tsx
+
+\`\`\`tsx
+${code}
+\`\`\`
+`;
+
 export const extractCodeModification = (response: string): string[] => {
   // console.log("No code modifications found in response");
 
@@ -87,5 +95,19 @@ export const updateSearchReplace = (
       ),
     );
   });
-  return replacedCode;
+
+  let tsxCodeBocks = codeNow.match(/```tsx([\s\S]*?)```/g);
+
+  let newCode = "";
+
+  if (tsxCodeBocks) {
+    [...tsxCodeBocks].map((block) => {
+      const code = block.replace(/```tsx|```/g, "").trim();
+      const codeSpace = code.split("\n")[0].trim().replace(/\.tsx$/, "").replace("//", "");
+
+      newCode += formatCodeAsSection(codeSpace, code) + "\n";
+    });
+  }
+
+  return replacedCode + "\n" + newCode;
 };
