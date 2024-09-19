@@ -51,7 +51,7 @@ export const processImage = (file: File): Promise<ImageData> => {
         let arrayBuffer = e.target?.result as ArrayBuffer;
         let blob = new Blob([arrayBuffer], { type: file.type });
 
-        let size = 3200;
+        let size = 1600;
         // Check if the file size is larger than 600 KB
         while (blob.size > MAX_FILE_SIZE) {
           const img = new Image();

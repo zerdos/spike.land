@@ -95,13 +95,13 @@ function getErrorDetailsFromHtml(htmlString: string) {
 }
 
 // Refactored transpileCode function without hooks
-export const transpileCode = memoize(async (code: string): Promise<string> => {
+export const transpileCode = async (code: string): Promise<string> => {
   try {
     return await transpile({ code, originToUse: location.origin });
   } catch (error) {
     throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-});
+};
 
 // Refactored screenShot function without unused reject variable
 export const screenShot = () => {
