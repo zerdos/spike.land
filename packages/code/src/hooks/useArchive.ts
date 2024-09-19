@@ -72,7 +72,7 @@ export const useSpeedy2 = async () => {
     connect-src 'self' https://cdn.jsdelivr.net blob: https://esm.sh https://clerk.spike.land wss://*.peerjs.com;
     font-src 'self' data: blob: https://esm.sh https://fonts.gstatic.com;
     img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
-">x§
+">
 
     <!-- Inline style for initial theme -->
     <style>
