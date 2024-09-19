@@ -60,7 +60,9 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
   const cache = new Map<string, Promise<any>>();
 
   return ((...args: Parameters<T>): ReturnType<T> => {
-    const key = keyResolver ? keyResolver(...args) : JSON.stringify(args);
+    // Exclude the last argument (assumed to be AbortSignal) from the key
+    const keyArgs = args.slice(0, -1);
+    const key = keyResolver ? keyResolver(...keyArgs) : JSON.stringify(keyArgs);
 
     if (cache.has(key)) {
       return cache.get(key) as ReturnType<T>;
@@ -69,8 +71,9 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
     const promise = fn(...args);
     cache.set(key, promise);
 
+    // Clean up cache on rejection
     promise.catch(() => {
-      cache.delete(key); // Remove failed promises from cache
+      cache.delete(key);
     });
 
     return promise as ReturnType<T>;
@@ -129,55 +132,71 @@ export const screenShot = () => {
   return promise;
 };
 
-export const runCode = memoize(async (transpiled: string) => {
-  try {
-    let resolve: (v: { html: string; css: string }) => void;
-    let reject: (reason: string) => void;
+export const runCode = memoize(
+  async (transpiled: string, signal: AbortSignal) => {
+    const requestId = md5(transpiled);
 
-    const promise = new Promise<{ html: string; css: string }>(
-      (_resolve, _reject) => {
-        resolve = _resolve;
-        reject = _reject;
-      },
-    );
-
-    window.onmessage = (ev) => {
-      const data: { hash: string; html: string; css: string } = ev.data;
-      const { hash, html, css } = data;
-      if (hash === md5(transpiled)) {
-        resolve({ html, css });
-      }
-    };
-
-    console.log("Sending message iframe first to calculate css", md5(transpiled));
-
-    document.querySelector("iframe")?.contentWindow?.postMessage({
-      transpiled,
-      html: "",
-      css: "",
-      sender: "Runner / Editor",
-    });
-
-    const clear = setTimeout(() => {
-      reject("timed out");
-    }, 1500);
-
-    const res = await promise;
-
-    clearTimeout(clear);
-
-    const { html, css } = res;
-
-    if (html.includes("Oops! Something went wrong")) {
-      const errorDetails = getErrorDetailsFromHtml(html);
-      throw new Error(`Runner error: ${errorDetails || "Unknown error occurred"}`);
+    // Check if the signal is already aborted
+    if (signal.aborted) {
+      throw new DOMException("Aborted", "AbortError");
     }
 
-    return { html, css };
-  } catch (error) {
-    throw new Error(`Running code failed: ${error instanceof Error ? error.message : String(error)}`);
-  }
-});
+    return new Promise<{ html: string; css: string }>((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        cleanup();
+        reject(new Error("Timed out"));
+      }, 1500);
+
+      const messageHandler = (ev: MessageEvent) => {
+        const data = ev.data;
+        if (data && data.requestId === requestId) {
+          if (data.type === "result") {
+            clearTimeout(timeoutId);
+            cleanup();
+            if (data.error) {
+              reject(new Error(data.error));
+            } else {
+              resolve({ html: data.html, css: data.css });
+            }
+          }
+        }
+      };
+
+      const cleanup = () => {
+        window.removeEventListener("message", messageHandler);
+        signal.removeEventListener("abort", onAbort);
+        clearTimeout(timeoutId);
+      };
+
+      const onAbort = () => {
+        cleanup();
+        // Send a cancellation message to the iframe
+        document.querySelector("iframe")?.contentWindow?.postMessage(
+          {
+            type: "cancel",
+            requestId,
+          },
+          "*",
+        );
+        reject(new DOMException("Aborted", "AbortError"));
+      };
+
+      window.addEventListener("message", messageHandler);
+      signal.addEventListener("abort", onAbort);
+
+      // Send the code to the iframe along with the requestId
+      document.querySelector("iframe")?.contentWindow?.postMessage(
+        {
+          type: "run",
+          requestId,
+          transpiled,
+        },
+        "*",
+      );
+    });
+  },
+  (transpiled) => md5(transpiled), // Memoization key based on transpiled code
+);
 
 export async function initializeMonaco(
   container: HTMLDivElement,

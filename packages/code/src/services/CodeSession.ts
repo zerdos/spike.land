@@ -69,7 +69,7 @@ class CodeProcessor {
     skipRunning: boolean = false,
     counter: number,
     _cacheBust = false,
-    signal?: AbortSignal,
+    signal: AbortSignal,
   ): Promise<ICodeSession | false> {
     try {
       const formattedCode = await this.formatCode(rawCode);
@@ -83,7 +83,7 @@ class CodeProcessor {
 
       try {
         const codeToRun = transpiledCode;
-        const res = await this.runCode(codeToRun);
+        const res = await this.runCode(codeToRun, signal);
         if (signal?.aborted) return false;
 
         if (res) {
@@ -136,14 +136,16 @@ class CodeProcessor {
     }
   }
 
-  private async runCode(code: string): Promise<{ html: string; css: string }> {
+  private async runCode(code: string, signal: AbortSignal): Promise<{ html: string; css: string }> {
     try {
-      const result = await runCodeUtil(code);
+      const result = await runCodeUtil(code, signal);
       if (!result) {
+        if (signal.aborted) return { html: "", css: "" };
         throw new Error("Running code produced no output");
       }
       return result;
     } catch (error) {
+      if (signal.aborted) return { html: "", css: "" };
       throw new Error(`Error running code: ${error}`);
     }
   }

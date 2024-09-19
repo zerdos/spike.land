@@ -15,47 +15,45 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
-let { rendered } = globalThis as unknown as { rendered: RenderedApp | null };
-
-const cSess = new Code(useCodeSpace());
+const codeSpace = useCodeSpace();
+const cSess = new Code(codeSpace);
 Object.assign(globalThis, { cSess });
 
 const waitForCSess = cSess.run();
 
 const handleDefaultPage = async () => {
   try {
-    const mod = { ...cSess.session, counter: cSess.session.i, controller: new AbortController() };
-
     const mutex = new Mutex();
+    const runningOperations = new Map<
+      string,
+      { controller: AbortController; cleanup: () => void }
+    >();
 
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
         await mutex.runExclusive(async () => {
           console.log("Updating rendered app...");
-          const { transpiled, i } = sess;
-          // if (!transpiled || mod.counter >= i) return;
-          mod.transpiled = transpiled;
-          mod.counter = i;
+          const { transpiled } = sess;
 
           const myEl = document.createElement("div");
           myEl.style.cssText = "height: 100%; width: 100%; display: none;";
           document.body.appendChild(myEl);
 
-          if (rendered) rendered.cleanup();
+          // Clean up previous rendered app if any
+          rendered?.cleanup();
           rendered = null;
 
           rendered = await renderApp({
             transpiled,
-            codeSpace: useCodeSpace(),
+            codeSpace,
             rootElement: myEl,
           });
 
           myEl.style.display = "block";
           document.getElementById("embed")?.remove();
-          // myEl.id = "root";
         });
       } catch (error) {
-        if (rendered) rendered.cleanup();
+        rendered?.cleanup();
         console.error("Error updating rendered app:", error);
       }
     };
@@ -64,91 +62,139 @@ const handleDefaultPage = async () => {
 
     window.onmessage = async ({ data }) => {
       try {
-        if (data.type === "screenShot") {
-          try {
-            const codeSpace = useCodeSpace();
-            const html2canvas = (await import("html2canvas")).default;
-            const canvas = await html2canvas(document.body);
-            const blob = await new Promise<Blob>((resolve) => {
-              canvas.toBlob((blob) => {
-                if (blob) {
-                  resolve(blob);
-                } else {
-                  throw new Error("Failed to create blob from canvas");
-                }
-              }, "image/png");
-            });
-            const file = new File([blob], `screenshot-${codeSpace}.png`, { type: "image/png" });
-            const imageData = await processImage(file);
-            window.parent.postMessage({ type: "screenShot", imageData }, "*");
-          } catch (error) {
-            console.error("Error taking screenshot:", error);
-            return false;
-          } finally {
-            return false;
-          }
+        const { type, requestId } = data;
+        if (!type) return;
+
+        if (type === "screenShot") {
+          await handleScreenshot();
+        } else if (type === "run" && requestId) {
+          await handleRunMessage(data, requestId, mutex, runningOperations);
+        } else if (type === "cancel" && requestId) {
+          handleCancelMessage(requestId, runningOperations);
         }
-
-        const { transpiled } = data;
-        const hash = md5(transpiled);
-        console.log("Rendering - from parent", hash);
-
-        // if (!i || !transpiled || mod.counter >= i) return;
-
-        mod.controller.abort();
-        const { signal } = (mod.controller = new AbortController());
-
-        if (signal.aborted) return false;
-
-        await mutex.runExclusive(async () => {
-          if (signal.aborted) return;
-
-          const myEl = document.createElement("div");
-          myEl.style.cssText = "height: 100%; width: 100%; display: none;";
-          document.body.appendChild(myEl);
-
-          const renderedNew = await renderApp({ rootElement: myEl, transpiled });
-
-          if (!renderedNew) return false;
-
-          await wait(100);
-          if (signal.aborted) return renderedNew.cleanup();
-
-          const res = await handleRender(myEl, renderedNew.cssCache, signal, mod);
-
-          if (res !== false) {
-            const { css, html } = res;
-            renderedNew.cleanup();
-
-            window.parent.postMessage({ hash, css, html }, "*");
-            // myEl.style.display = "block";
-
-            // rendered && rendered.cleanup();
-            // rendered = null;
-            // rendered = renderedNew;
-            // document.getElementById("embed")?.remove();
-            // myEl.id = "root";
-          }
-        });
       } catch (error) {
         console.error("Error processing message:", error);
       }
-      return false;
     };
   } catch (error) {
     console.error("Error in handleDefaultPage:", error);
   }
 };
 
+const handleRunMessage = async (
+  data: any,
+  requestId: string,
+  mutex: Mutex,
+  runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,
+) => {
+  const { transpiled } = data;
+
+  // Abort any existing operation with the same requestId
+  if (runningOperations.has(requestId)) {
+    const { controller, cleanup } = runningOperations.get(requestId)!;
+    controller.abort();
+    cleanup();
+    runningOperations.delete(requestId);
+  }
+
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  const operation = { controller, cleanup: () => {} };
+  runningOperations.set(requestId, operation);
+
+  await mutex.runExclusive(async () => {
+    if (signal.aborted) return;
+
+    const myEl = document.createElement("div");
+    myEl.style.cssText = "height: 100%; width: 100%; display: none;";
+    document.body.appendChild(myEl);
+
+    const renderedNew = await renderApp({
+      rootElement: myEl,
+      transpiled,
+    });
+
+    if (!renderedNew) {
+      runningOperations.delete(requestId);
+      return;
+    }
+
+    operation.cleanup = renderedNew.cleanup;
+
+    await wait(100);
+    if (signal.aborted) {
+      renderedNew.cleanup();
+      runningOperations.delete(requestId);
+      return;
+    }
+
+    const res = await handleRender(myEl, renderedNew.cssCache, signal);
+
+    if (res !== false) {
+      const { css, html } = res;
+      renderedNew.cleanup();
+
+      window.parent.postMessage(
+        {
+          type: "result",
+          requestId,
+          html,
+          css,
+        },
+        "*",
+      );
+    } else {
+      renderedNew.cleanup();
+    }
+
+    runningOperations.delete(requestId);
+  });
+};
+
+const handleCancelMessage = (
+  requestId: string,
+  runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,
+) => {
+  if (runningOperations.has(requestId)) {
+    const { controller, cleanup } = runningOperations.get(requestId)!;
+    controller.abort();
+    cleanup();
+    runningOperations.delete(requestId);
+  }
+};
+
+const handleScreenshot = async () => {
+  try {
+    const html2canvas = (await import("html2canvas")).default;
+    const canvas = await html2canvas(document.body);
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error("Failed to create blob from canvas"));
+        }
+      }, "image/png");
+    });
+    const file = new File([blob], `screenshot-${codeSpace}.png`, {
+      type: "image/png",
+    });
+    const imageData = await processImage(file);
+    window.parent.postMessage({ type: "screenShot", imageData }, "*");
+  } catch (error) {
+    console.error("Error taking screenshot:", error);
+  }
+};
+
 export const main = async () => {
-  const codeSpace = useCodeSpace();
   await waitForCSess;
 
   try {
     if (location.pathname === `/live/${codeSpace}`) {
       console.log("Rendering preview window...");
       await initializeApp();
-      await renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
+      await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       handleDehydratedPage();
     } else {
@@ -161,10 +207,12 @@ export const main = async () => {
 
 (() => {
   try {
-    cSess.sub(debounce((sess: ICodeSession) => {
-      const { i, code, transpiled } = sess;
-      console.table({ i, code, transpiled });
-    }, 100));
+    cSess.sub(
+      debounce((sess: ICodeSession) => {
+        const { i, code, transpiled } = sess;
+        console.table({ i, code, transpiled });
+      }, 100),
+    );
   } catch (error) {
     console.error("Error in cSess subscription:", error);
   }
@@ -172,13 +220,15 @@ export const main = async () => {
 
 const handleDehydratedPage = () => {
   try {
-    cSess.sub(debounce((sess: ICodeSession) => {
-      const { html, css } = sess;
-      const root = document.getElementById("embed");
-      if (root && html && css) {
-        root.innerHTML = `<style>${css}</style><div>${html}</div>`;
-      }
-    }, 100));
+    cSess.sub(
+      debounce((sess: ICodeSession) => {
+        const { html, css } = sess;
+        const root = document.getElementById("embed");
+        if (root && html && css) {
+          root.innerHTML = `<style>${css}</style><div>${html}</div>`;
+        }
+      }, 100),
+    );
   } catch (error) {
     console.error("Error handling dehydrated page:", error);
   }
@@ -188,15 +238,8 @@ const handleRender = async (
   rootEl: HTMLDivElement,
   cache: EmotionCache,
   signal: AbortSignal,
-  mod: {
-    counter: number;
-    code: string;
-    transpiled: string;
-    controller: AbortController;
-  },
-) => {
+): Promise<{ css: string; html: string } | false> => {
   try {
-    const counter = mod.counter;
     if (!rootEl) return false;
 
     for (let attempts = 5; attempts > 0; attempts--) {
@@ -210,21 +253,25 @@ const handleRender = async (
 
       let css = mineFromCaches(cache);
       const criticalClasses = new Set(
-        css.map(line => {
-          const rule = line.slice(1, line.indexOf("{")).trim();
-          return html.includes(rule) ? rule : null;
-        })
-          .filter(Boolean),
+        css
+          .map((line) => {
+            const rule = line.slice(1, line.indexOf("{")).trim();
+            return html.includes(rule) ? rule : null;
+          })
+          .filter(Boolean) as string[],
       );
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText)
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
+          (x) => x.cssText,
+        )
         : [];
 
-      let eCss = css.filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(
-        x => x.trim(),
-      ).filter(Boolean);
+      const eCss = css
+        .filter((line) => Array.from(criticalClasses).some((rule) => rule ? line.includes(rule) : false))
+        .map((x) => x.trim())
+        .filter(Boolean);
 
       let cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
       try {
@@ -233,9 +280,12 @@ const handleRender = async (
         console.error("Error prettifying CSS:", error);
       }
 
-      if (mod.counter !== counter) return false;
+      if (signal.aborted) return false;
 
-      return { css: cssStrings.split(cache.key).join("x"), html: html.split(cache.key).join("x") };
+      return {
+        css: cssStrings.split(cache.key).join("x"),
+        html: html.split(cache.key).join("x"),
+      };
     }
     return false;
   } catch (error) {
