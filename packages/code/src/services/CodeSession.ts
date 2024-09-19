@@ -259,7 +259,7 @@ export class Code implements ICode {
     return this.session.code;
   }
 
-  private async initialize(): Promise<ICodeSession> {
+  private async initialize(code: string = ""): Promise<ICodeSession> {
     this.broadcastChannel.onmessage = ({ data }: MessageEvent<BroadcastMessage>) => {
       if (data.i > this.session.i) {
         this.session = data;
@@ -268,6 +268,9 @@ export class Code implements ICode {
     };
 
     try {
+      if (code && code.length > 0) {
+        return makeSession({ i: 0, code: code + "\n\n\n\n\n", html: "", css: "" });
+      }
       const response = await fetch(`/live/${this.codeSpace}/session.json`);
       const sessionData = await response.json();
       return makeSession(sessionData);
@@ -277,8 +280,8 @@ export class Code implements ICode {
     }
   }
 
-  async init(): Promise<ICodeSession> {
-    return this.initialize();
+  async init(code: string = ""): Promise<ICodeSession> {
+    return this.initialize(code);
   }
 
   async run(): Promise<void> {
