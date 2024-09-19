@@ -22,12 +22,12 @@ Object.assign(globalThis, { auth, wait, build });
 
 export const useSpeedy2 = async () => {
   const codeSpace = useCodeSpace();
-  const external = ["/*"];
+
   console.log({ external });
   let res = await build({
     codeSpace,
     splitting: false,
-    external,
+
     origin: location.origin,
     format: "esm",
   }) as unknown as { text: string; path: string; contents: ArrayBuffer }[];
@@ -72,7 +72,7 @@ export const useSpeedy2 = async () => {
     connect-src 'self' https://cdn.jsdelivr.net blob: https://esm.sh https://clerk.spike.land wss://*.peerjs.com;
     font-src 'self' data: blob: https://esm.sh https://fonts.gstatic.com;
     img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
-">
+">x§
 
     <!-- Inline style for initial theme -->
     <style>
