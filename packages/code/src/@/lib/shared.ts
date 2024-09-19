@@ -30,7 +30,7 @@ class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
 
-  constructor(minFreeWorkers: number = 1) {
+  constructor(minFreeWorkers: number = 2) {
     this.minFreeWorkers = minFreeWorkers;
     this.initializeWorkers();
   }
@@ -64,7 +64,7 @@ class WorkerPool {
         return nonBusyWorker;
       }
 
-      this.addWorker("tag"); // Now synchronous
+      this.addWorker(tag); // Now synchronous
       availableWorker = this.workers[this.workers.length - 1];
     }
 
@@ -72,7 +72,7 @@ class WorkerPool {
 
     const freeWorkers = this.workers.filter((worker) => !worker.busy).length;
     if (freeWorkers < this.minFreeWorkers) {
-      this.addWorker("tag"); // Now synchronous
+      this.addWorker(tag); // Now synchronous
     }
 
     return availableWorker;
