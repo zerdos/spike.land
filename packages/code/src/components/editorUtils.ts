@@ -80,6 +80,88 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
   }) as unknown as T;
 }
 
+export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
+  fn: T,
+  keyResolver?: (...args: Parameters<T>) => string,
+): T {
+  type Callbacks = {
+    resolve: (value: any) => void;
+    reject: (reason?: any) => void;
+    signal: AbortSignal;
+  };
+
+  const cache = new Map<string, { promise: Promise<any>; callbacks: Callbacks[] }>();
+
+  return ((...args: Parameters<T>): ReturnType<T> => {
+    const keyArgs = args.slice(0, -1);
+    const signal = args[args.length - 1] as AbortSignal;
+    const key = keyResolver ? keyResolver(...keyArgs) : JSON.stringify(keyArgs);
+
+    if (cache.has(key)) {
+      const entry = cache.get(key)!;
+      const { promise, callbacks } = entry;
+
+      if (signal.aborted) {
+        return Promise.reject(new DOMException("Aborted", "AbortError")) as ReturnType<T>;
+      }
+
+      const newPromise = new Promise<any>((resolve, reject) => {
+        callbacks.push({ resolve, reject, signal });
+        signal.addEventListener("abort", () => {
+          reject(new DOMException("Aborted", "AbortError"));
+        });
+      });
+
+      promise.then(
+        (value) => {
+          callbacks.forEach((cb) => cb.resolve(value));
+        },
+        (error) => {
+          callbacks.forEach((cb) => cb.reject(error));
+        },
+      );
+
+      return newPromise as ReturnType<T>;
+    } else {
+      if (signal.aborted) {
+        return Promise.reject(new DOMException("Aborted", "AbortError")) as ReturnType<T>;
+      }
+
+      const callbacks: Callbacks[] = [];
+      const promise = fn(...args).then(
+        (value) => {
+          cache.delete(key);
+          return value;
+        },
+        (error) => {
+          cache.delete(key);
+          throw error;
+        },
+      );
+
+      cache.set(key, { promise, callbacks });
+
+      const newPromise = new Promise<any>((resolve, reject) => {
+        callbacks.push({ resolve, reject, signal });
+        signal.addEventListener("abort", () => {
+          reject(new DOMException("Aborted", "AbortError"));
+        });
+      });
+
+      promise.then(
+        (value) => {
+          callbacks.forEach((cb) => cb.resolve(value));
+        },
+        (error) => {
+          callbacks.forEach((cb) => cb.reject(error));
+        },
+      );
+
+      return newPromise as ReturnType<T>;
+    }
+  }) as unknown as T;
+}
+
 export const formatCode = memoize(async (code: string): Promise<string> => {
   try {
     return await prettierToThrow({ code, toThrow: true });
@@ -132,7 +214,7 @@ export const screenShot = () => {
   return promise;
 };
 
-export const runCode = memoize(
+export const runCode = memoizeWithAbort(
   async (transpiled: string, signal: AbortSignal) => {
     const requestId = md5(transpiled);
 
