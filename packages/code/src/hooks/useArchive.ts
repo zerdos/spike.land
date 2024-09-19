@@ -40,8 +40,8 @@ export const useSpeedy2 = async () => {
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
-  const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
-  const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
+  // const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
+  const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
   const html = `<!DOCTYPE html>
