@@ -53,27 +53,28 @@ export const useErrorHandling = () => {
 };
 
 // Improved memoize function that handles async functions and errors
-function memoize<T extends (...args: any[]) => Promise<any>>(fn: T): T {
-  const cache = new Map();
+function memoize<T extends (...args: any[]) => Promise<any>>(
+  fn: T,
+  keyResolver?: (...args: Parameters<T>) => string,
+): T {
+  const cache = new Map<string, Promise<any>>();
 
-  return (async (...args: Parameters<T>): Promise<ReturnType<T>> => {
-    const key = JSON.stringify(args);
+  return ((...args: Parameters<T>): ReturnType<T> => {
+    const key = keyResolver ? keyResolver(...args) : JSON.stringify(args);
+
     if (cache.has(key)) {
-      const cachedResult = cache.get(key);
-      if (cachedResult instanceof Error) {
-        throw cachedResult;
-      }
-      return cachedResult;
+      return cache.get(key) as ReturnType<T>;
     }
-    try {
-      const result = await fn(...args);
-      cache.set(key, result);
-      return result;
-    } catch (error) {
-      cache.set(key, error);
-      throw error;
-    }
-  }) as T;
+
+    const promise = fn(...args);
+    cache.set(key, promise);
+
+    promise.catch(() => {
+      cache.delete(key); // Remove failed promises from cache
+    });
+
+    return promise as ReturnType<T>;
+  }) as unknown as T;
 }
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
@@ -95,13 +96,13 @@ function getErrorDetailsFromHtml(htmlString: string) {
 }
 
 // Refactored transpileCode function without hooks
-export const transpileCode = async (code: string): Promise<string> => {
+export const transpileCode = memoize(async (code: string): Promise<string> => {
   try {
     return await transpile({ code, originToUse: location.origin });
   } catch (error) {
     throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-};
+});
 
 // Refactored screenShot function without unused reject variable
 export const screenShot = () => {

@@ -66,9 +66,9 @@ class CodeProcessor {
    */
   async process(
     rawCode: string,
-    skipRunning: boolean,
+    skipRunning: boolean = false,
     counter: number,
-    cacheBust = false,
+    _cacheBust = false,
     signal?: AbortSignal,
   ): Promise<ICodeSession | false> {
     try {
@@ -82,9 +82,7 @@ class CodeProcessor {
       let css = "";
 
       try {
-        const codeToRun = cacheBust
-          ? transpiledCode + "\n\n" + `const cacheBust=${Date.now()};`
-          : transpiledCode;
+        const codeToRun = transpiledCode;
         const res = await this.runCode(codeToRun);
         if (signal?.aborted) return false;
 
