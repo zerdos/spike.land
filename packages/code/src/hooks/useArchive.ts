@@ -25,7 +25,7 @@ export const useSpeedy2 = async () => {
   console.log({ external });
   let res = await build({
     codeSpace,
-    splitting: true,
+    splitting: false,
     external,
     origin: location.origin,
     format: "esm",
