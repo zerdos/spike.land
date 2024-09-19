@@ -1,6 +1,6 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, {  useCallback, useEffect, useMemo } from "react";
-import { ChatDrawer } from "./ChatDrawer";
+import { ChatDrawer } from "@/components/app/chat-drawer";
 import { ICode } from "@/lib/interfaces";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "@/hooks/use-code-space";
