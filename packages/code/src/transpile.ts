@@ -144,7 +144,7 @@ const getDefaultBuildOptions = (
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
   entryPoints: entryPoint ? [entryPoint] : [`${origin}/live/${codeSpace}/wrapper.js`],
-  plugins: [fetchPlugin(origin)],
+
   alias: {
     ...importMap.imports,
   },
@@ -168,6 +168,7 @@ export const build = async ({
   origin: string;
   entryPoint?: string;
   external?: string[];
+
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }): Promise<string | import("esbuild-wasm").OutputFile[] | { error: unknown } | undefined> => {
