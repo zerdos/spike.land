@@ -37,6 +37,12 @@ sw.onactivate = (event) => {
   );
 };
 
+sw.onmessage = ({ data }) => {
+  if (data === "SKIP_WAITING" && data["type"] !== "SKIP_WAITING") {
+    sw.skipWaiting();
+  }
+};
+
 sw.onfetch = (event) => {
   const request = event.request;
 
