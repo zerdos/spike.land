@@ -74,7 +74,7 @@ class CodeProcessor {
 
       try {
         const res = await this.runCode(
-          transpiledCode,
+          cacheBust ? transpileCode + "\n\n" + `const cacheBust=${Date.now()};` : transpiledCode,
         );
         if (res) {
           html = res.html;
