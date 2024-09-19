@@ -281,16 +281,15 @@ export class Code implements ICode {
   }
 
   async init(code: string = ""): Promise<ICodeSession> {
-    return this.initialize(code);
+    this.session = await this.initialize(code);
+
+    this.releaseWorker = await connect({
+      signal: `${this.codeSpace} ${this.user}`,
+      sess: this.session,
+    });
   }
 
   async run(): Promise<void> {
-    this.session = await this.initialize();
-    if (location.pathname === `/live/${this.codeSpace}`) {
-      this.releaseWorker = await connect({
-        signal: `${this.codeSpace} ${this.user}`,
-        sess: this.session,
-      });
-    }
+    await this.initialize();
   }
 }
