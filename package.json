@@ -21,7 +21,6 @@
     "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",
     "yarn:publish": "yarn workspaces foreach run publish",
-    "push:prod": "NODE_ENV=production yarn build-and-push",
     "re:build": "NODE_ENV=production yarn clean && yarn build",
     "build:all": "yarn workspaces foreach run re:build",
     "build:prod": "NODE_ENV=production yarn build:all",

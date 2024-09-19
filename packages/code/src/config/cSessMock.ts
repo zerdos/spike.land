@@ -22,7 +22,7 @@ class SessMock implements ICode {
     this.subs.forEach(cb => cb(this.session));
   }
 
-  async setCode(rawCode: string) {
+  async setCode(rawCode: string): Promise<string> {
     this.session.code = rawCode;
     this.session.i++;
 
@@ -46,10 +46,11 @@ class SessMock implements ICode {
     return this.session.code;
   }
 
-  async setModelsByCurrentCode(code: string): Promise<void> {
+  async setModelsByCurrentCode(code: string): Promise<string> {
     // Mock implementation
     this.session.code = code;
     this.broadCastSessChanged();
+    return code;
   }
 }
 
