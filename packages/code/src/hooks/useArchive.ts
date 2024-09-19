@@ -57,7 +57,7 @@ export const useSpeedy2 = async () => {
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
     ${appCss}
-    ${wrapperCss} 
+
     ${css}
   </style>
 </head>
