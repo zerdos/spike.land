@@ -13,13 +13,6 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
-export interface EditorState {
-  started: boolean;
-  sub: boolean;
-  code: string;
-  setValue: (code: string) => void;
-}
-
 export const useEditorState = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [editorState, setEditorState] = useState<EditorState>({
@@ -34,7 +27,6 @@ export const useEditorState = () => {
   return { containerRef, engine, editorState, setEditorState };
 };
 
-// Improved error handling hook
 export const useErrorHandling = () => {
   const [error, setError] = useState<ErrorType>(null);
   const contextManager = createContextManager(useCodeSpace());
@@ -52,7 +44,6 @@ export const useErrorHandling = () => {
   return { error, handleError, clearError };
 };
 
-// Improved memoize function that handles async functions and errors
 function memoize<T extends (...args: any[]) => Promise<any>>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
@@ -60,9 +51,7 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
   const cache = new Map<string, Promise<any>>();
 
   return ((...args: Parameters<T>): ReturnType<T> => {
-    // Exclude the last argument (assumed to be AbortSignal) from the key
-    const keyArgs = args.slice(0, -1);
-    const key = keyResolver ? keyResolver(...keyArgs) : JSON.stringify(keyArgs);
+    const key = keyResolver ? keyResolver(...args) : JSON.stringify(args);
 
     if (cache.has(key)) {
       return cache.get(key) as ReturnType<T>;
@@ -71,7 +60,6 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
     const promise = fn(...args);
     cache.set(key, promise);
 
-    // Clean up cache on rejection
     promise.catch(() => {
       cache.delete(key);
     });
@@ -93,7 +81,7 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
   const cache = new Map<string, { promise: Promise<any>; callbacks: Callbacks[] }>();
 
   return ((...args: Parameters<T>): ReturnType<T> => {
-    const keyArgs = args.slice(0, -1);
+    const keyArgs = args.slice(0, -1) as typeof args;
     const signal = args[args.length - 1] as AbortSignal;
     const key = keyResolver ? keyResolver(...keyArgs) : JSON.stringify(keyArgs);
 
@@ -162,7 +150,7 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
   }) as unknown as T;
 }
 
-export const formatCode = memoize(async (code: string, signal: AbortSignal): Promise<string> => {
+export const formatCode = memoize(async (code: string): Promise<string> => {
   try {
     return await prettierToThrow({ code, toThrow: true });
   } catch (error) {
@@ -173,15 +161,7 @@ export const formatCode = memoize(async (code: string, signal: AbortSignal): Pro
   }
 }, (code) => md5(code));
 
-function getErrorDetailsFromHtml(htmlString: string) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, "text/html");
-  const preElement = doc.querySelector("details pre");
-  return preElement ? preElement.textContent!.trim() : null;
-}
-
-// Refactored transpileCode function without hooks
-export const transpileCode = memoize(async (code: string, signal: AbortSignal): Promise<string> => {
+export const transpileCode = memoize(async (code: string): Promise<string> => {
   try {
     return await transpile({ code, originToUse: location.origin });
   } catch (error) {
@@ -189,7 +169,6 @@ export const transpileCode = memoize(async (code: string, signal: AbortSignal): 
   }
 }, (code) => md5(code));
 
-// Refactored screenShot function without unused reject variable
 export const screenShot = () => {
   let resolve: (img: ImageData) => void;
 
@@ -218,7 +197,6 @@ export const runCode = memoizeWithAbort(
   async (transpiled: string, signal: AbortSignal) => {
     const requestId = md5(transpiled);
 
-    // Check if the signal is already aborted
     if (signal.aborted) {
       throw new DOMException("Aborted", "AbortError");
     }
@@ -252,7 +230,6 @@ export const runCode = memoizeWithAbort(
 
       const onAbort = () => {
         cleanup();
-        // Send a cancellation message to the iframe
         document.querySelector("iframe")?.contentWindow?.postMessage(
           {
             type: "cancel",
@@ -266,7 +243,6 @@ export const runCode = memoizeWithAbort(
       window.addEventListener("message", messageHandler);
       signal.addEventListener("abort", onAbort);
 
-      // Send the code to the iframe along with the requestId
       document.querySelector("iframe")?.contentWindow?.postMessage(
         {
           type: "run",
@@ -277,7 +253,7 @@ export const runCode = memoizeWithAbort(
       );
     });
   },
-  (transpiled) => md5(transpiled), // Memoization key based on transpiled code
+  (transpiled) => md5(transpiled),
 );
 
 export async function initializeMonaco(

@@ -78,9 +78,11 @@ describe("messageProcessing", () => {
     it("should handle errors", async () => {
       (mockAIHandler.sendToAnthropic as ReturnType<typeof vi.fn>).mockRejectedValue(new Error("Test error"));
 
+      const code = "Test message";
       const result = await processMessage(
         mockAIHandler,
         mockCSess,
+        code,
         [],
         mockSetMessages,
         mockSaveMessages,

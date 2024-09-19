@@ -82,7 +82,7 @@ async function renderApp(
       return <AppToRender width={width} height={height} />;
     });
 
-    root.render(
+ root.render(
      <CacheProvider value={cssCache}>
      {emptyApp ? <AppToRender />: <ErrorBoundary {...(codeSpace?{codeSpace}:{})}>
           <AppWithScreenSize />
@@ -94,6 +94,7 @@ async function renderApp(
 
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
     
+      
      
         root.unmount();
        

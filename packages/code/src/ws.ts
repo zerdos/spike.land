@@ -1,5 +1,5 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
@@ -20,11 +20,11 @@ Object.assign(globalThis, { cSess });
 
 declare global {
   interface Window {
-    rendered: ReturnType<typeof renderApp> | null;
+    rendered: RenderedApp | null;
   }
 }
 
-let rendered: ReturnType<typeof renderApp> | null = window.rendered;
+let { rendered } = window;
 
 const waitForCSess = cSess.run();
 

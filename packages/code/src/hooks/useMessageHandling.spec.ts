@@ -1,11 +1,11 @@
-import type { ImageData } from "@/lib/interfaces";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import type { Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as messageProcessing from "./messageProcessing";
 import * as useAutoSave from "./useAutoSave";
-import { useMessageHandling } from "./useMessageHandling";
+import { useMessageHandling, UseMessageHandlingProps } from "./useMessageHandling";
 
 // Mock dependencies
 vi.mock("@src/AIHandler", () => ({
@@ -15,7 +15,7 @@ vi.mock("@src/AIHandler", () => ({
 }));
 vi.mock("@src/services/runner");
 vi.mock("./messageProcessing", () => ({
-  createNewMessage: vi.fn((content) => ({
+  createNewMessage: vi.fn((content: any) => ({
     id: "mock-id",
     role: "user",
     content,
@@ -41,19 +41,20 @@ describe("useMessageHandling", () => {
     type: "image/png",
   };
 
-  const mockCsess = {
+  const mockCsess: ICode = {
     ...cSessMock,
     session: {
       ...cSessMock.session,
       code: "test code",
     },
-    broadCastSessChanged: vi.fn(),
-    setCode: vi.fn().mockResolvedValue(true),
+    setCode: vi.fn().mockResolvedValue("test code"),
     sub: vi.fn(),
     screenShot: vi.fn().mockResolvedValue(mockImageData),
+    currentCodeWithExtraModels: vi.fn().mockResolvedValue("test code with extra models"),
+    setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
   };
 
-  const mockProps = {
+  const mockProps: UseMessageHandlingProps = {
     codeSpace: "test-space",
     messages: [],
     setMessages: vi.fn(),
@@ -66,7 +67,6 @@ describe("useMessageHandling", () => {
     editInput: "",
     setEditInput: vi.fn(),
     cSess: mockCsess,
-    setCodeWhatAiSeen: vi.fn(),
   };
 
   beforeEach(() => {
@@ -82,7 +82,14 @@ describe("useMessageHandling", () => {
     vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
-      async (_, __, ___, ____, setMessages, saveMessages) => {
+      async (
+        _: any,
+        __: any,
+        ___: any,
+        ____: any,
+        setMessages: (arg0: Message[]) => void,
+        saveMessages: (arg0: Message[]) => void,
+      ) => {
         setMessages([mockNewMessage]);
         saveMessages([mockNewMessage]);
         return true;

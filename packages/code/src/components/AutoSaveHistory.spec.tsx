@@ -5,7 +5,6 @@ import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CodeHistoryCarousel } from "./AutoSaveHistory";
 
-
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({
   useVirtualizer: vi.fn().mockReturnValue({

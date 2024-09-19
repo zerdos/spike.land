@@ -1,8 +1,7 @@
 // CodeSession.ts
 
-import { formatCodeAsSection } from "@/lib/chat-utils";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
-import { makeHash, makeSession } from "@/lib/make-sess";
+import { makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import {
@@ -11,15 +10,7 @@ import {
   screenShot,
   transpileCode as transpileCodeUtil,
 } from "../components/editorUtils";
-import { wait } from "../wait";
 
-/**
- * Recursively fetches and collects code from import statements in the provided code.
- * @param code - The code to search for import statements.
- * @param origin - The base origin URL to use for fetching.
- * @param extraModels - A map to store fetched code modules.
- * @returns A map of code modules keyed by their code space.
- */
 async function fetchAndCreateExtraModels(
   code: string,
   origin: string,
@@ -55,15 +46,6 @@ interface BroadcastMessage extends ICodeSession {
 }
 
 class CodeProcessor {
-  /**
-   * Processes the code by formatting, transpiling, and running it.
-   * @param rawCode - The raw code to process.
-   * @param skipRunning - Whether to skip running the code.
-   * @param counter - The current session counter.
-   * @param cacheBust - Whether to cache bust during transpilation.
-   * @param signal - Optional AbortSignal to cancel the processing.
-   * @returns The processed code session or false if processing was aborted or failed.
-   */
   async process(
     rawCode: string,
     skipRunning: boolean = false,
@@ -72,35 +54,29 @@ class CodeProcessor {
     signal: AbortSignal,
   ): Promise<ICodeSession | false> {
     try {
-      const formattedCode = await this.formatCode(rawCode, signal);
+      const formattedCode = await this.formatCode(rawCode);
       if (signal?.aborted) return false;
 
-      const transpiledCode = await this.transpileCode(formattedCode, signal);
+      const transpiledCode = await this.transpileCode(formattedCode);
       if (signal?.aborted) return false;
 
       let html = "<div></div>";
       let css = "";
 
-      try {
-        const codeToRun = transpiledCode;
-        const res = await this.runCode(codeToRun, signal);
-        if (signal?.aborted) return false;
+      if (!skipRunning) {
+        try {
+          const res = await this.runCode(transpiledCode, signal);
+          if (signal?.aborted) return false;
 
-        if (res) {
-          html = res.html;
-          css = res.css;
-        }
-      } catch (error) {
-        if (skipRunning) {
-          console.error("Error running code, but skipRunning:", {
-            formattedCode,
-            transpiledCode,
-            error,
-          });
-        } else {
-          throw new Error(`Error running code: ${error}`);
+          if (res) {
+            html = res.html;
+            css = res.css;
+          }
+        } catch (error) {
+          console.error("Error running code:", error);
         }
       }
+
       if (signal?.aborted) return false;
 
       return {
@@ -116,17 +92,17 @@ class CodeProcessor {
     }
   }
 
-  private async formatCode(code: string, signal: AbortSignal): Promise<string> {
+  private async formatCode(code: string): Promise<string> {
     try {
-      return await formatCodeUtil(code, signal);
+      return await formatCodeUtil(code);
     } catch (error) {
       throw new Error(`Error formatting code: ${error}`);
     }
   }
 
-  private async transpileCode(code: string, signal: AbortSignal): Promise<string> {
+  private async transpileCode(code: string): Promise<string> {
     try {
-      const transpiled = await transpileCodeUtil(code, signal);
+      const transpiled = await transpileCodeUtil(code);
       if (!transpiled) {
         throw new Error("Transpilation resulted in empty output");
       }
@@ -152,29 +128,23 @@ class CodeProcessor {
 }
 
 export class Code implements ICode {
-  session: ICodeSession = makeSession({ i: 0, code: "", html: "", css: "" });
-  head: string = makeHash(this.session);
-  user: string;
+  session: ICodeSession;
+  private user: string;
   private broadcastedCounter = 0;
   private broadcastChannel: BroadcastChannel;
   private subscribers: Array<(session: ICodeSession) => void> = [];
   private codeProcessor = new CodeProcessor();
   private releaseWorker: () => void = () => {};
   private models: Map<string, Code> = new Map();
-
   private setCodeController: AbortController | null = null;
 
   constructor(private codeSpace: string) {
+    this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
     this.broadcastChannel = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
-    this.models.set(this.codeSpace, this); // Add self to models map
+    this.models.set(this.codeSpace, this);
   }
 
-  /**
-   * Initializes the code session.
-   * @param code - Optional initial code.
-   * @returns The initialized code session.
-   */
   async init(code: string = ""): Promise<ICodeSession> {
     this.session = await this.initialize(code);
 
@@ -193,11 +163,6 @@ export class Code implements ICode {
     return this.session;
   }
 
-  /**
-   * Initializes the code session, fetching existing session data if available.
-   * @param code - Optional initial code.
-   * @returns The initialized code session.
-   */
   private async initialize(code: string = ""): Promise<ICodeSession> {
     try {
       if (code && code.length > 0) {
@@ -213,22 +178,13 @@ export class Code implements ICode {
     }
   }
 
-  /**
-   * Sets the code and processes it.
-   * If a previous processing is in progress, it will be aborted.
-   * @param rawCode - The new code to set.
-   * @param skipRunning - Whether to skip running the code.
-   * @param cacheBust - Whether to cache bust during transpilation.
-   * @returns The processed code or false if processing failed.
-   */
   async setCode(
     rawCode: string,
     skipRunning = false,
     cacheBust = false,
-  ): Promise<string | boolean> {
-    if (rawCode === this.session.code) return true;
+  ): Promise<string> {
+    if (rawCode === this.session.code) return this.session.code;
 
-    // Abort any previous processing
     if (this.setCodeController) {
       this.setCodeController.abort();
     }
@@ -243,9 +199,8 @@ export class Code implements ICode {
       cacheBust,
       signal,
     );
-    if (!processedSession) return false;
+    if (!processedSession || signal.aborted) return this.session.code;
 
-    if (signal.aborted) return false;
     this.session = makeSession(processedSession);
     this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
@@ -256,11 +211,6 @@ export class Code implements ICode {
     return this.session.code;
   }
 
-  /**
-   * Parses the provided code string to extract code spaces and their code content.
-   * Updates the code for each code space if it has changed.
-   * @param newCodes - The code string containing multiple code spaces and their code content.
-   */
   async setModelsByCurrentCode(newCodes: string): Promise<string> {
     const sections = newCodes.split(/^#\s+/gm).filter(Boolean);
     const errors: string[] = [];
@@ -285,15 +235,14 @@ export class Code implements ICode {
         this.models.set(codeSpace, codeInstance);
       }
 
-      // Check if the code has changed
       if (codeInstance.session.code !== codeContent) {
-        const success = await codeInstance.setCode(
+        const updatedCode = await codeInstance.setCode(
           codeContent + "\n\n\n",
           codeSpace !== this.codeSpace,
           true,
         );
 
-        if (!success) {
+        if (updatedCode !== codeContent + "\n\n\n") {
           errors.push(`Failed to update code for ${codeSpace}`);
         }
       }
@@ -311,25 +260,22 @@ export class Code implements ICode {
     return errors.join("\n");
   }
 
-  /**
-   * Generates the current code along with any extra models as a formatted string.
-   * @returns The formatted code string including extra models.
-   */
   async currentCodeWithExtraModels(): Promise<string> {
     const extraModels = await fetchAndCreateExtraModels(this.session.code, location.origin);
 
     const extraCodeSections = Object.entries(extraModels)
       .filter(([codeSpace]) => codeSpace !== this.codeSpace)
-      .map(([codeSpace, code]) => formatCodeAsSection(codeSpace, code));
+      .map(([codeSpace, code]) => this.formatCodeAsSection(codeSpace, code));
 
-    const currentCodeSection = formatCodeAsSection(this.codeSpace, this.session.code);
+    const currentCodeSection = this.formatCodeAsSection(this.codeSpace, this.session.code);
 
     return [currentCodeSection, ...extraCodeSections].join("\n");
   }
 
-  /**
-   * Broadcasts the session change to subscribers and through the BroadcastChannel.
-   */
+  private formatCodeAsSection(codeSpace: string, code: string): string {
+    return `# ${codeSpace}.tsx\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
+  }
+
   private broadcastSessionChange(): void {
     if (this.broadcastedCounter >= this.session.i) return;
     this.broadcastedCounter = this.session.i;
@@ -340,33 +286,19 @@ export class Code implements ICode {
     } as BroadcastMessage);
   }
 
-  /**
-   * Subscribes to session changes.
-   * @param callback - The callback to invoke when the session changes.
-   */
   sub(callback: (session: ICodeSession) => void): void {
     this.subscribers.push(callback);
   }
 
-  /**
-   * Releases resources associated with the Code instance.
-   */
   async release(): Promise<void> {
     this.releaseWorker();
     this.broadcastChannel.close();
   }
 
-  /**
-   * Takes a screenshot of the current code.
-   * @returns The image data of the screenshot.
-   */
   screenShot(): Promise<ImageData> {
     return screenShot();
   }
 
-  /**
-   * Runs the code by initializing the session.
-   */
   async run(): Promise<void> {
     await this.init();
   }
