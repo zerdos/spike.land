@@ -1,4 +1,5 @@
-import { Plugin } from "esbuild-wasm";
+import { importMap } from "@/lib/importmap-utils";
+import type { Plugin } from "esbuild-wasm";
 
 const urlCache = new Map<string, string>();
 
@@ -6,7 +7,7 @@ const urlCache = new Map<string, string>();
 // import { enhancedFetch } from "./enhancedFetch.ts";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 
-export const fetchPlugin = () => ({
+export const fetchPlugin = (origin: string) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -23,10 +24,18 @@ export const fetchPlugin = () => ({
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
-      path: new URL(args.path, args.importer).toString(),
-      namespace: "http-url",
-    }));
+    build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => {
+      let path = new URL(args.path, args.importer).toString();
+
+      if (importMap.imports[args.path]) {
+        path = origin + importMap.imports[args.path];
+      }
+
+      return {
+        path,
+        namespace: "http-url",
+      };
+    });
 
     // When a URL is loaded, we want to actually download the content
     // from the internet. This has just enough logic to be able to

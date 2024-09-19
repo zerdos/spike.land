@@ -144,7 +144,7 @@ const getDefaultBuildOptions = (
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
   entryPoints: entryPoint ? [entryPoint] : [`${origin}/live/${codeSpace}/wrapper.js`],
-  plugins: [fetchPlugin()],
+  plugins: [fetchPlugin(origin)],
   alias: {
     ...importMap.imports,
   },
