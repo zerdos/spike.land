@@ -234,17 +234,18 @@ export class Code implements ICode {
     }
     this.setCodeController = new AbortController();
     const { signal } = this.setCodeController;
+    const counter = this.session.i + 1;
 
     const processedSession = await this.codeProcessor.process(
       rawCode,
       skipRunning,
-      this.session.i + 1,
+      counter,
       cacheBust,
       signal,
     );
     if (!processedSession) return false;
 
-    this.session = processedSession;
+    this.session = makeSession(processedSession);
     this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
       ...this.session,
