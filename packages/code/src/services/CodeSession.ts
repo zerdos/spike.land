@@ -6,6 +6,7 @@ import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { formatCode, runCode, screenShot, transpileCode } from "../components/editorUtils";
+import { wait } from "../wait";
 
 /**
  * Recursively fetches and collects code from import statements in the provided code.
@@ -218,21 +219,20 @@ export class Code implements ICode {
           true,
         );
 
-        if (success && this.codeSpace !== codeSpace) {
-          this.session.i++;
-          this.session = makeSession({
-            ...this.session,
-            transpiled: await transpileCode(this.session.code) + "\n\n\n\n\n" + `const cacheBust4=${this.session.i};`,
-          });
-
-          this.broadcastSessionChange();
-        }
-
         if (!success) {
           errors.push(`Failed to update code for ${codeSpace}`);
         }
       }
     }
+
+    await wait(200);
+    this.session.i++;
+    this.session = makeSession({
+      ...this.session,
+      transpiled: await transpileCode(this.session.code) + "\n\n\n\n\n" + `const cacheBust4=${this.session.i};`,
+    });
+
+    this.broadcastSessionChange();
 
     return errors.join("\n");
   }
