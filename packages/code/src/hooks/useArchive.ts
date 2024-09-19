@@ -74,9 +74,7 @@ export const useSpeedy2 = async () => {
     img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
 ">
 
-    <link rel="manifest" href="/manifest.json" type="application/manifest+json">
-    <link rel="preload" href="/app/tw-global.css" as="style">
-    <link rel="stylesheet" href="/app/tw-global.css">
+π
 
 
     <!-- Inline style for initial theme -->

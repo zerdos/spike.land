@@ -186,17 +186,9 @@ export const build = async ({
       const defaultOpts = getDefaultBuildOptions(codeSpace, origin, entryPoint, external, splitting, format);
       const result = await esmBuild({
         ...defaultOpts,
-        alias: {
-          "react-dom": origin + importMap.imports["react-dom"],
-          "react": origin + importMap.imports["react"],
-          "react/jsx-runtime": origin + importMap.imports["react/jsx-runtime"],
-          "react-dom/client": origin + importMap.imports["react-dom/client"],
-          "@emotion/react": origin + importMap.imports["@emotion/react"],
-          "@emotion/react/jsx-runtime": origin + importMap.imports["@emotion/react/jsx-runtime"],
-          "framer-motion": origin + importMap.imports["framer-motion"],
-          "react-dom/server": origin + importMap.imports["react-dom/server"],
-          "recharts": origin + importMap.imports["recharts"],
-        },
+        external: [
+          ...Object.keys(importMap.imports),
+        ],
       });
 
       return splitting ? result.outputFiles : result.outputFiles![0].text;
