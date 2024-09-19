@@ -22,6 +22,10 @@ const codeSpace = useCodeSpace();
     let rendered = await renderApp({ codeSpace, rootElement });
     Object.assign(window, { rendered });
   }
+  if (location.pathname.startsWith("/my-cms")) {
+    window.renderedApp.cleanup();
+    main();
+  }
 })();
 
 if (location.pathname.startsWith("/live")) {

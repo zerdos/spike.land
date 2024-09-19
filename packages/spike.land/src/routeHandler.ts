@@ -518,7 +518,7 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
     import { renderApp } from "${origin}/@/lib/render-app.mjs";
     
-    renderApp({ App, rootElement: document.getElementById("embed") });
+    window.renderedApp = renderApp({ App, rootElement: document.getElementById("embed") });
 
     `;
 
