@@ -271,6 +271,7 @@ export class Code implements ICode {
       if (code && code.length > 0) {
         return makeSession({ i: 0, code: code + "\n\n\n\n\n", html: "", css: "" });
       }
+
       const response = await fetch(`/live/${this.codeSpace}/session.json`);
       const sessionData = await response.json();
       return makeSession(sessionData);
@@ -291,6 +292,6 @@ export class Code implements ICode {
   }
 
   async run(): Promise<void> {
-    await this.initialize();
+    await this.init();
   }
 }
