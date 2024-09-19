@@ -48,7 +48,7 @@ export const useSpeedy2 = async () => {
   const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
-  const { swVersion } = await import("/swVersion.mjs");
+  const { swVersion } = await import(`${origin}/swVersion.mjs`);
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
