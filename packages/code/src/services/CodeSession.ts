@@ -264,7 +264,7 @@ export class Code implements ICode {
   async setCode(rawCode: string, skipRunning = false, cacheBust = false): Promise<string | boolean> {
     if (rawCode === this.session.code) return true;
 
-    const processedSession = await this.codeProcessor.process(rawCode, skipRunning, this.session.i + 1, cacheBust);
+    const processedSession = await this.codeProcessor.process(rawCode, skipRunning, this.session.i, cacheBust);
     if (!processedSession) return false;
 
     this.session = processedSession;
