@@ -90,7 +90,7 @@ class CodeProcessor {
         transpiled: transpiledCode,
         html,
         css,
-        i: Date.now(),
+        i: counter,
       };
     } catch (error) {
       console.error("Error processing code:", error);
@@ -206,7 +206,7 @@ export class Code implements ICode {
       if (codeInstance.session.code !== codeContent) {
         const success = await codeInstance.setCode(codeContent, codeSpace !== this.codeSpace);
 
-        if (success) {
+        if (success && this.codeSpace !== codeSpace) {
           this.session.i++;
           this.broadcastSessionChange();
         }
