@@ -204,7 +204,7 @@ export class Code implements ICode {
 
       // Check if the code has changed
       if (codeInstance.session.code !== codeContent) {
-        const success = await codeInstance.setCode(codeContent, codeSpace !== this.codeSpace);
+        const success = await codeInstance.setCode(codeContent + "\n//" + Date.now(), codeSpace !== this.codeSpace);
 
         if (success && this.codeSpace !== codeSpace) {
           this.session.i++;
