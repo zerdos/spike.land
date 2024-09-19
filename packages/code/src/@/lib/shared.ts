@@ -30,7 +30,7 @@ class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
 
-  constructor(minFreeWorkers: number = 2) {
+  constructor(minFreeWorkers: number = 4) {
     this.minFreeWorkers = minFreeWorkers;
     this.initializeWorkers();
   }
@@ -42,7 +42,7 @@ class WorkerPool {
   }
 
   private addWorker(tag: string) {
-    const worker = new AlwaysSupportedSharedWorker("/@/workers/ata-worker.worker.js");
+    const worker = new AlwaysSupportedSharedWorker("/@/workers/ata-worker.worker.js?workerId=" + this.workers.length);
 
     const port = worker.port;
 
