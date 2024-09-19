@@ -187,6 +187,11 @@ export class Code implements ICode {
       if (codeInstance.session.code !== codeContent) {
         const success = await codeInstance.setCode(codeContent);
 
+        if (success) {
+          this.session.i++;
+          this.broadcastSessionChange();
+        }
+
         if (!success) {
           errors.push(`Failed to update code for ${codeSpace}`);
         }
@@ -213,6 +218,10 @@ export class Code implements ICode {
     if (this.broadcastedCounter >= this.session.i) return;
     this.broadcastedCounter = this.session.i;
     this.subscribers.forEach((cb) => setTimeout(() => cb(this.session)));
+    this.broadcastChannel.postMessage({
+      ...this.session,
+      sender: "Editor",
+    } as BroadcastMessage);
   }
 
   async setCode(rawCode: string): Promise<string | boolean> {
