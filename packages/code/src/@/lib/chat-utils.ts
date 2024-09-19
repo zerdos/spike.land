@@ -96,18 +96,18 @@ export const updateSearchReplace = (
     );
   });
 
-  let tsxCodeBocks = codeNow.match(/```tsx([\s\S]*?)```/g);
+  // let tsxCodeBocks = codeNow.match(/```tsx([\s\S]*?)```/g);
 
-  let newCode = "";
+  // let newCode = "";
 
-  if (tsxCodeBocks) {
-    [...tsxCodeBocks].map((block) => {
-      const code = block.replace(/```tsx|```/g, "").trim();
-      const codeSpace = code.split("\n")[0].trim().replace(/\.tsx$/, "").replace("//", "");
+  // if (tsxCodeBocks) {
+  //   [...tsxCodeBocks].map((block) => {
+  //     const code = block.replace(/```tsx|```/g, "").trim();
+  //     const codeSpace = code.split("\n")[0].trim().replace(/\.tsx$/, "").replace("//", "");
 
-      newCode += formatCodeAsSection(codeSpace, code) + "\n";
-    });
-  }
+  //     newCode += formatCodeAsSection(codeSpace, code) + "\n";
+  //   });
+  // }
 
-  return replacedCode + "\n" + newCode;
+  return replacedCode;
 };
