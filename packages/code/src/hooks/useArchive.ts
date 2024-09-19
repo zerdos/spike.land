@@ -74,9 +74,6 @@ export const useSpeedy2 = async () => {
     img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
 ">
 
-π
-
-
     <!-- Inline style for initial theme -->
     <style>
         :root {
