@@ -51,7 +51,12 @@ interface BroadcastMessage extends ICodeSession {
 class CodeProcessor {
   private controller = new AbortController();
 
-  async process(rawCode: string, skipRunning: boolean, counter: number): Promise<ICodeSession | false> {
+  async process(
+    rawCode: string,
+    skipRunning: boolean,
+    counter: number,
+    cacheBust = false,
+  ): Promise<ICodeSession | false> {
     this.controller.abort();
     this.controller = new AbortController();
     const { signal } = this.controller;
@@ -61,13 +66,16 @@ class CodeProcessor {
       if (signal.aborted) return false;
 
       const transpiledCode = await this.transpileCode(formattedCode);
+
       if (signal.aborted) return false;
 
       let html = "<div></div>";
       let css = "";
 
       try {
-        const res = await this.runCode(transpiledCode);
+        const res = await this.runCode(
+          cacheBust ? transpileCode + "\n\n" + `const cacheBust=${Date.now()};` : transpiledCode,
+        );
         if (res) {
           html = res.html;
           css = res.css;
@@ -204,7 +212,11 @@ export class Code implements ICode {
 
       // Check if the code has changed
       if (codeInstance.session.code !== codeContent) {
-        const success = await codeInstance.setCode(codeContent + "\n//" + Date.now(), codeSpace !== this.codeSpace);
+        const success = await codeInstance.setCode(
+          codeContent + "\n//" + Date.now(),
+          codeSpace !== this.codeSpace,
+          true,
+        );
 
         if (success && this.codeSpace !== codeSpace) {
           this.session.i++;
@@ -243,10 +255,10 @@ export class Code implements ICode {
     } as BroadcastMessage);
   }
 
-  async setCode(rawCode: string, skipRunning = false): Promise<string | boolean> {
+  async setCode(rawCode: string, skipRunning = false, cacheBust = false): Promise<string | boolean> {
     if (rawCode === this.session.code) return true;
 
-    const processedSession = await this.codeProcessor.process(rawCode, skipRunning, this.session.i + 1);
+    const processedSession = await this.codeProcessor.process(rawCode, skipRunning, this.session.i + 1, cacheBust);
     if (!processedSession) return false;
 
     this.session = processedSession;
