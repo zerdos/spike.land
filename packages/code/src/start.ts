@@ -28,6 +28,6 @@ const codeSpace = useCodeSpace();
   // }
 })();
 
-if (location.pathname.startsWith("/live")) {
+if (location.pathname.startsWith("/live") || location.pathname.startsWith("/live-cms")) {
   main();
 }

@@ -197,7 +197,7 @@ export const main = async () => {
   await waitForCSess;
 
   try {
-    if (location.pathname === `/live/${codeSpace}` || location.pathname === `/my-cms/${codeSpace}`) {
+    if (location.pathname === `/live/${codeSpace}` || location.pathname === `/live-cms/${codeSpace}`) {
       console.log("Rendering preview window...");
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
