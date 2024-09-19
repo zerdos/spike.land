@@ -42,7 +42,9 @@ export const useSpeedy2 = async () => {
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const globCss = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
-  const shims = res.find(x => x.path.includes("shims.js"))?.text || "";
+
+  const shims = await fetch(`/shims.js`).then((res) => res.text());
+
   const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
@@ -115,8 +117,9 @@ export const useSpeedy2 = async () => {
 </head>
 <body>
   <div id="embed">${htm}</div>
-  <script>${shims}</script>
   <script type="module">${wrapperJs}</script>
+  <script>${shims}</script>
+
  
 </body>
 </html>`;
