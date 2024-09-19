@@ -15,6 +15,7 @@ const codeSpace = useCodeSpace();
 (async () => {
   if (
     location.pathname !== `/live/${codeSpace}`
+    && location.pathname !== `/live-cms/${codeSpace}`
     && location.pathname.endsWith("dehydrated") === false
   ) {
     const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
