@@ -48,11 +48,12 @@ export const useSpeedy2 = async () => {
   const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
+  const { swVersion } = await import("/swVersion.mjs");
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-    <base href="/live-cms/">
+    <base href="/${swVersion}/">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="description" content="spike.land, an online content Editor with AI support">
@@ -119,7 +120,7 @@ export const useSpeedy2 = async () => {
 </body>
 </html>`;
   // <script src="/assets/tw-chunk-be5bad.js" defer></script>
-  await fetch(`/my-cms/${codeSpace}.html`, {
+  await fetch(`/live-cms/${codeSpace}.html`, {
     method: "PUT",
     headers: {
       "Content-Type": "text/html",
