@@ -1,6 +1,6 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
-import { importMapReplace } from "@/lib/importmap-utils";
+import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { wasmFile } from "@src/esbuildWASM";
 import { Mutex } from "async-mutex";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
@@ -184,7 +184,12 @@ export const build = async ({
     try {
       await initializeModule(wasmModule, origin);
       const defaultOpts = getDefaultBuildOptions(codeSpace, origin, entryPoint, external, splitting, format);
-      const result = await esmBuild(defaultOpts);
+      const result = await esmBuild({
+        ...defaultOpts,
+        alias: {
+          ...importMap.imports,
+        },
+      });
 
       return splitting ? result.outputFiles : result.outputFiles![0].text;
     } catch (error) {
