@@ -222,7 +222,7 @@ export class Code implements ICode {
           this.session.i++;
           this.session = makeSession({
             ...this.session,
-            transpiled: this.session.transpiled + "\n\n\n\n\n" + `const cacheBust4=${this.session.i};`,
+            transpiled: await transpileCode(this.session.code) + "\n\n\n\n\n" + `const cacheBust4=${this.session.i};`,
           });
 
           this.broadcastSessionChange();
