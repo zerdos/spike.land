@@ -187,7 +187,15 @@ export const build = async ({
       const result = await esmBuild({
         ...defaultOpts,
         alias: {
-          ...importMap.imports,
+          "react-dom": importMap.imports["react-dom"],
+          "react": importMap.imports["react"],
+          "react/jsx-runtime": importMap.imports["react/jsx-runtime"],
+          "react-dom/client": importMap.imports["react-dom/client"],
+          "@emotion/react": importMap.imports["@emotion/react"],
+          "@emotion/react/jsx-runtime": importMap.imports["@emotion/react/jsx-runtime"],
+          "framer-motion": importMap.imports["framer-motion"],
+          "react-dom/server": importMap.imports["react-dom/server"],
+          "recharts": importMap.imports["recharts"],
         },
       });
 
