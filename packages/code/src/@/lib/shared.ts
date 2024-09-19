@@ -30,7 +30,7 @@ class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
 
-  constructor(minFreeWorkers: number = 4) {
+  constructor(minFreeWorkers: number = 1) {
     this.minFreeWorkers = minFreeWorkers;
     this.initializeWorkers();
   }
