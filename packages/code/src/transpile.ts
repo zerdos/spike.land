@@ -146,12 +146,9 @@ const getDefaultBuildOptions = (
   entryPoints: entryPoint ? [entryPoint] : [`${origin}/live/${codeSpace}/wrapper.js`],
   plugins: [fetchPlugin()],
   alias: {
-    "@/": `${origin}/@/`,
     ...importMap.imports,
   },
-  external: [
-    `${origin}/@/`,
-  ],
+  external,
 
   assetNames: "assets/[name]-[hash]",
   publicPath: "/",
