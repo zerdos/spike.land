@@ -52,7 +52,7 @@ export const useSpeedy2 = async () => {
 <html lang="en">
 <head>
   <meta charset="utf-8">
-    <base href="/">
+    <base href="/live-cms/">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="description" content="spike.land, an online content Editor with AI support">

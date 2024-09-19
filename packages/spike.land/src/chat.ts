@@ -133,6 +133,10 @@ export default {
       return handleCMSIndexRequest(request, env);
     }
 
+    if (request.url.includes("/live-cms/")) {
+      return handleCMSIndexRequest(request, env);
+    }
+
     if (request.url.includes("/api/my-turn")) {
       async function generateTURNCredentials() {
         const url =
@@ -207,13 +211,18 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
     case "GET":
       let object = await env.R2.get(url.origin + path);
       if (!object) {
+     
         object = await env.R2.get(url.origin + path + ".html");
       }
 
       if (!object) {
-        // 404
-        return new Response("File not found", { status: 404 });
+        const myPath = path.split("/").slice(-2)[0];
+        object = await env.R2.get(url.origin + path + ".html");
       }
+      if(!object) {
+        return new Response("Not found", { status: 404 });  
+      }
+
       return makeResponse(object, key); 
     default:
       return new Response("Method not allowed", { status: 405 });
