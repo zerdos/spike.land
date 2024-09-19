@@ -162,7 +162,7 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
   }) as unknown as T;
 }
 
-export const formatCode = memoize(async (code: string): Promise<string> => {
+export const formatCode = memoize(async (code: string, signal: AbortSignal): Promise<string> => {
   try {
     return await prettierToThrow({ code, toThrow: true });
   } catch (error) {
@@ -181,7 +181,7 @@ function getErrorDetailsFromHtml(htmlString: string) {
 }
 
 // Refactored transpileCode function without hooks
-export const transpileCode = memoize(async (code: string): Promise<string> => {
+export const transpileCode = memoize(async (code: string, signal: AbortSignal): Promise<string> => {
   try {
     return await transpile({ code, originToUse: location.origin });
   } catch (error) {

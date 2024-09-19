@@ -72,10 +72,10 @@ class CodeProcessor {
     signal: AbortSignal,
   ): Promise<ICodeSession | false> {
     try {
-      const formattedCode = await this.formatCode(rawCode);
+      const formattedCode = await this.formatCode(rawCode, signal);
       if (signal?.aborted) return false;
 
-      const transpiledCode = await this.transpileCode(formattedCode);
+      const transpiledCode = await this.transpileCode(formattedCode, signal);
       if (signal?.aborted) return false;
 
       let html = "<div></div>";
@@ -116,17 +116,17 @@ class CodeProcessor {
     }
   }
 
-  private async formatCode(code: string): Promise<string> {
+  private async formatCode(code: string, signal: AbortSignal): Promise<string> {
     try {
-      return await formatCodeUtil(code);
+      return await formatCodeUtil(code, signal);
     } catch (error) {
       throw new Error(`Error formatting code: ${error}`);
     }
   }
 
-  private async transpileCode(code: string): Promise<string> {
+  private async transpileCode(code: string, signal: AbortSignal): Promise<string> {
     try {
-      const transpiled = await transpileCodeUtil(code);
+      const transpiled = await transpileCodeUtil(code, signal);
       if (!transpiled) {
         throw new Error("Transpilation resulted in empty output");
       }
