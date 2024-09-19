@@ -49,15 +49,62 @@ export const useSpeedy2 = async () => {
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <script type="importmap">
-  ${JSON.stringify(importMap)}
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Spike.land, an online content Editor with AI support">
+    <base href="/">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="spike.land, an online content Editor with AI support">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
 
-  <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    
+    <!-- Content Security Policy (unchanged) -->
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    media-src 'self' blob: ;
+    script-src 'self' https://js.spike.land https://cdn.jsdelivr.net https://esm.sh https://static.cloudflareinsights.com data: https://clerk.spike.land blob: 'unsafe-eval' 'unsafe-inline';
+    worker-src 'self' https://storage.googleapis.com https://esm.sh blob:;
+    style-src 'self' https://esm.sh 'unsafe-inline' https://fonts.googleapis.com;
+    connect-src 'self' https://cdn.jsdelivr.net blob: https://esm.sh https://clerk.spike.land wss://*.peerjs.com;
+    font-src 'self' data: blob: https://esm.sh https://fonts.gstatic.com;
+    img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
+">
+
+    <link rel="manifest" href="/manifest.json" type="application/manifest+json">
+    <link rel="preload" href="/app/tw-global.css" as="style">
+    <link rel="stylesheet" href="/app/tw-global.css">
+
+
+    <!-- Inline style for initial theme -->
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #000000;
+                --text-color: #ffffff;
+            }
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+
+
+
+
+    <script type="importmap">
+    ${JSON.stringify(importMap)}
+    </script>
+
+ 
+
+
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
     ${appCss}
@@ -67,6 +114,7 @@ export const useSpeedy2 = async () => {
 </head>
 <body>
   <div id="embed">${htm}</div>
+  <script src="shims.js"></script>
   <script type="module">${wrapperJs}</script>
  
 </body>
