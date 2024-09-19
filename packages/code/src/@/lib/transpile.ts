@@ -187,15 +187,15 @@ export const build = async ({
       const result = await esmBuild({
         ...defaultOpts,
         alias: {
-          "react-dom": importMap.imports["react-dom"],
-          "react": importMap.imports["react"],
-          "react/jsx-runtime": importMap.imports["react/jsx-runtime"],
-          "react-dom/client": importMap.imports["react-dom/client"],
-          "@emotion/react": importMap.imports["@emotion/react"],
-          "@emotion/react/jsx-runtime": importMap.imports["@emotion/react/jsx-runtime"],
-          "framer-motion": importMap.imports["framer-motion"],
-          "react-dom/server": importMap.imports["react-dom/server"],
-          "recharts": importMap.imports["recharts"],
+          "react-dom": origin + importMap.imports["react-dom"],
+          "react": origin + importMap.imports["react"],
+          "react/jsx-runtime": origin + importMap.imports["react/jsx-runtime"],
+          "react-dom/client": origin + importMap.imports["react-dom/client"],
+          "@emotion/react": origin + importMap.imports["@emotion/react"],
+          "@emotion/react/jsx-runtime": origin + importMap.imports["@emotion/react/jsx-runtime"],
+          "framer-motion": origin + importMap.imports["framer-motion"],
+          "react-dom/server": origin + importMap.imports["react-dom/server"],
+          "recharts": origin + importMap.imports["recharts"],
         },
       });
 
