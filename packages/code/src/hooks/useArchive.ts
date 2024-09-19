@@ -40,8 +40,9 @@ export const useSpeedy2 = async () => {
   // });
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
+  const globCss = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
-  // const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
+  const shims = res.find(x => x.path.includes("shims.js"))?.text || "";
   const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
@@ -100,7 +101,7 @@ export const useSpeedy2 = async () => {
 
     <script type="importmap">
     ${JSON.stringify(importMap)}
-    </script>
+    </script> 
 
  
 
@@ -108,13 +109,13 @@ export const useSpeedy2 = async () => {
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
     ${appCss}
-
+    ${globCss}
     ${css}
   </style>
 </head>
 <body>
   <div id="embed">${htm}</div>
-  <script src="shims.js"></script>
+  <script>${shims}</script>
   <script type="module">${wrapperJs}</script>
  
 </body>
