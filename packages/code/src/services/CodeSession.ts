@@ -5,6 +5,7 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import { formatCode, runCode, screenShot, transpileCode } from "../components/editorUtils";
 
 /**
@@ -51,7 +52,7 @@ interface BroadcastMessage extends ICodeSession {
 class CodeProcessor {
   private controller = new AbortController();
 
-  async process(rawCode: string): Promise<ICodeSession | false> {
+  async process(rawCode: string, skipRunning): Promise<ICodeSession | false> {
     this.controller.abort();
     this.controller = new AbortController();
     const { signal } = this.controller;
@@ -63,7 +64,22 @@ class CodeProcessor {
       const transpiledCode = await this.transpileCode(formattedCode);
       if (signal.aborted) return false;
 
-      const { html, css } = await this.runCode(transpiledCode);
+      let html = "<div></div>";
+      let css = "";
+
+      try {
+        const res = await this.runCode(transpiledCode);
+        if (res) {
+          html = res.html;
+          css = res.css;
+        }
+      } catch (error) {
+        if (skipRunning) {
+          console.error("Error running code, but skipRunning:", error);
+        } else {
+          throw new Error(`Error running code: ${error}`);
+        }
+      }
       if (signal.aborted) return false;
 
       return {
@@ -185,7 +201,7 @@ export class Code implements ICode {
 
       // Check if the code has changed
       if (codeInstance.session.code !== codeContent) {
-        const success = await codeInstance.setCode(codeContent);
+        const success = await codeInstance.setCode(codeContent, codeSpace === this.codeSpace);
 
         if (success) {
           this.session.i++;
@@ -224,10 +240,10 @@ export class Code implements ICode {
     } as BroadcastMessage);
   }
 
-  async setCode(rawCode: string): Promise<string | boolean> {
+  async setCode(rawCode: string, skipRunning = false): Promise<string | boolean> {
     if (rawCode === this.session.code) return true;
 
-    const processedSession = await this.codeProcessor.process(rawCode);
+    const processedSession = await this.codeProcessor.process(rawCode, skipRunning);
     if (!processedSession) return false;
 
     this.session = processedSession;
