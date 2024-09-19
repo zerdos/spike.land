@@ -171,7 +171,7 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
       : (error as Error).message || JSON.stringify(error);
     throw new Error(`Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`)}`);
   }
-});
+}, (code) => md5(code));
 
 function getErrorDetailsFromHtml(htmlString: string) {
   const parser = new DOMParser();
@@ -187,7 +187,7 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
   } catch (error) {
     throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-});
+}, (code) => md5(code));
 
 // Refactored screenShot function without unused reject variable
 export const screenShot = () => {
