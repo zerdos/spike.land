@@ -5,6 +5,7 @@ import { wait } from "../wait";
 
 import { build } from "@/lib/shared";
 import { useAuth } from "@clerk/clerk-react";
+import { importMap } from "@src/modules";
 
 const auth = () => {
   const { getToken } = useAuth();
@@ -48,6 +49,9 @@ export const useSpeedy2 = async () => {
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script type="importmap">
+  ${JSON.stringify(importMap)}
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
