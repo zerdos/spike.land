@@ -51,7 +51,7 @@ interface BroadcastMessage extends ICodeSession {
 class CodeProcessor {
   private controller = new AbortController();
 
-  async process(rawCode: string, skipRunning: boolean): Promise<ICodeSession | false> {
+  async process(rawCode: string, skipRunning: boolean, counter: number): Promise<ICodeSession | false> {
     this.controller.abort();
     this.controller = new AbortController();
     const { signal } = this.controller;
@@ -246,7 +246,7 @@ export class Code implements ICode {
   async setCode(rawCode: string, skipRunning = false): Promise<string | boolean> {
     if (rawCode === this.session.code) return true;
 
-    const processedSession = await this.codeProcessor.process(rawCode, skipRunning);
+    const processedSession = await this.codeProcessor.process(rawCode, skipRunning, this.session.i + 1);
     if (!processedSession) return false;
 
     this.session = processedSession;
