@@ -73,10 +73,10 @@ export function importMapReplace(code: string, origin: string): string {
       packageName?.startsWith(`/live`)
       && !packageName.includes("index.js")
     ) {
-      return p1 + `"${packageName}/index.js/${Date.now()}"` + p3;
+      return p1 + `"${packageName}/index.js"` + p3;
     }
     if (packageName?.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"/live/${packageName.slice(2)}/index.js/${Date.now()}"` + p3;
+      return p1 + `"/live/${packageName.slice(2)}/index.js"` + p3;
     }
 
     if (packageName?.startsWith("/")) {
@@ -96,7 +96,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName?.startsWith("/live")) {
-      return p1 + `"${packageName}/index.js/${Date.now()}"` + p3;
+      return p1 + `"${packageName}/index.js"` + p3;
     }
 
     if (packageName?.startsWith("@/")) {
