@@ -245,6 +245,7 @@ export class Code implements ICode {
     );
     if (!processedSession) return false;
 
+    if (signal.aborted) return false;
     this.session = makeSession(processedSession);
     this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
@@ -298,8 +299,6 @@ export class Code implements ICode {
       }
     }
 
-    await wait(200);
-    this.session.i++;
     this.session = makeSession({
       ...this.session,
       transpiled: (await transpileCodeUtil(this.session.code))
