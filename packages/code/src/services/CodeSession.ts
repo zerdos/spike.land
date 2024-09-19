@@ -213,7 +213,7 @@ export class Code implements ICode {
       // Check if the code has changed
       if (codeInstance.session.code !== codeContent) {
         const success = await codeInstance.setCode(
-          codeContent + "\n//" + Date.now(),
+          codeContent + "\n\n\n",
           codeSpace !== this.codeSpace,
           true,
         );
