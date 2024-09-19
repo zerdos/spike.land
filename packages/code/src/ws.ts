@@ -1,12 +1,11 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
-import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
@@ -18,6 +17,14 @@ import { wait } from "./wait";
 const codeSpace = useCodeSpace();
 const cSess = new Code(codeSpace);
 Object.assign(globalThis, { cSess });
+
+declare global {
+  interface Window {
+    rendered: ReturnType<typeof renderApp> | null;
+  }
+}
+
+let rendered: ReturnType<typeof renderApp> | null = window.rendered;
 
 const waitForCSess = cSess.run();
 
@@ -36,7 +43,7 @@ const handleDefaultPage = async () => {
           const { transpiled } = sess;
 
           const myEl = document.createElement("div");
-          myEl.style.cssText = "height: 100%; width: 100%; display: none;";
+          myEl.style.cssText = "height: 100%; width: 100%;";
           document.body.appendChild(myEl);
 
           // Clean up previous rendered app if any
@@ -49,7 +56,6 @@ const handleDefaultPage = async () => {
             rootElement: myEl,
           });
 
-          myEl.style.display = "block";
           document.getElementById("embed")?.remove();
         });
       } catch (error) {

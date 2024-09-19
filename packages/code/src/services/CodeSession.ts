@@ -336,7 +336,6 @@ export class Code implements ICode {
     this.subscribers.forEach((cb) => setTimeout(() => cb(this.session)));
     this.broadcastChannel.postMessage({
       ...this.session,
-      transpiled: this.session.transpiled + "\n\n\n\n\n" + `const cacheBust=${this.session.i};`,
       sender: "Editor",
     } as BroadcastMessage);
   }

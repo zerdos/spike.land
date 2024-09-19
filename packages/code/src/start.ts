@@ -20,7 +20,7 @@ const codeSpace = useCodeSpace();
     const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
 
     let rendered = await renderApp({ codeSpace, rootElement });
-    Object.assign(globalThis, { rendered });
+    Object.assign(window, { rendered });
   }
 })();
 
