@@ -1,6 +1,6 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
-import { importMapReplace } from "@/lib/importmap-utils";
+import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 
@@ -140,12 +140,19 @@ const getDefaultBuildOptions = (
   minifyIdentifiers: true,
   minifyWhitespace: true,
   splitting,
-  external,
   format,
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
   entryPoints: entryPoint ? [entryPoint] : [`${origin}/live/${codeSpace}/wrapper.js`],
   plugins: [fetchPlugin()],
+  alias: {
+    "@/": `${origin}/@/`,
+    ...importMap.imports,
+  },
+  external: [
+    `${origin}/@/`,
+  ],
+
   assetNames: "assets/[name]-[hash]",
   publicPath: "/",
 });
