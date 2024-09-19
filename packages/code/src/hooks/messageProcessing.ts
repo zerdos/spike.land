@@ -117,8 +117,8 @@ export async function processMessage(
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
   try {
-    const errors = await cSess.setModelsByCurrentCode(code);
-    return errors.length === 0;
+    const success = await cSess.setCode(code);
+    return !!success;
   } catch (error) {
     console.error(`Failed to set code: ${error}`);
     return false;

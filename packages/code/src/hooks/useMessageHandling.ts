@@ -42,7 +42,7 @@ export const useMessageHandling = ({
   const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
-    const code = await cSess.currentCodeWithExtraModels();
+    const code = await cSess.session.code;
 
     useAutoSave(codeSpace);
 
