@@ -287,6 +287,7 @@ export class Code implements ICode {
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
     });
+    return this.session;
   }
 
   async run(): Promise<void> {
