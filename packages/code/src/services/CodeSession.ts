@@ -5,7 +5,6 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import { formatCode, runCode, screenShot, transpileCode } from "../components/editorUtils";
 
 /**
@@ -52,7 +51,7 @@ interface BroadcastMessage extends ICodeSession {
 class CodeProcessor {
   private controller = new AbortController();
 
-  async process(rawCode: string, skipRunning): Promise<ICodeSession | false> {
+  async process(rawCode: string, skipRunning: boolean): Promise<ICodeSession | false> {
     this.controller.abort();
     this.controller = new AbortController();
     const { signal } = this.controller;
@@ -75,7 +74,11 @@ class CodeProcessor {
         }
       } catch (error) {
         if (skipRunning) {
-          console.error("Error running code, but skipRunning:", error);
+          console.error("Error running code, but skipRunning:", {
+            formattedCode,
+            transpiledCode,
+            error,
+          });
         } else {
           throw new Error(`Error running code: ${error}`);
         }
