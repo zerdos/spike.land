@@ -140,6 +140,7 @@ const getDefaultBuildOptions = (
   minifyIdentifiers: true,
   minifyWhitespace: true,
   splitting,
+  plugins: [fetchPlugin(origin)],
   format,
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
