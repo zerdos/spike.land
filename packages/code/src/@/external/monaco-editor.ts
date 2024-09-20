@@ -47,7 +47,7 @@ const baseUrl = document.head.baseURI;
 //   return workerPool[label] as Worker;
 // };
 
-window.MonacoEnvironment = {
+const MonacoEnvironment = {
   baseUrl,
 
   getWorkerUrl: (_moduleId: string, _label: string) => {
@@ -66,3 +66,6 @@ window.MonacoEnvironment = {
     return baseUrl + `@/monaco-editor/esm/editor.worker.js`;
   },
 };
+
+Object.assign(window, { MonacoEnvironment });
+Object.assign(globalThis, { MonacoEnvironment });
