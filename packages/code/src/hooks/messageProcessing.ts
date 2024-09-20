@@ -4,6 +4,7 @@ import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import type { Mutex } from "async-mutex";
+import clsx from "clsx";
 
 export async function createNewMessage(
   images: ImageData[],
@@ -144,6 +145,11 @@ function createOnUpdateFunction(
 
     await mutex.runExclusive(async () => {
       const lastCode = await updateSearchReplace(code, cSess.session.code);
+      const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", cSess.session.code);
+
+      if (lastCode !== lastReplaceModeIsOn) {
+        return;
+      }
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
     });
