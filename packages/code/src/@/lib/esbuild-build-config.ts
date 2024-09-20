@@ -79,6 +79,6 @@ export const getCommonBuildOptions = (environment: Environment) => ({
     //   },
     // }),
     // autoprefixer(),
-    fetchPlugin(),
+    fetchPlugin("/"),
   ],
 });

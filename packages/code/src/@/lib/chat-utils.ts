@@ -1,8 +1,5 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import { Message } from "@/lib/interfaces";
-import { R } from "@clerk/clerk-react/dist/controlComponents-BHtK_hbj";
-import { RadarChart } from "recharts";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
