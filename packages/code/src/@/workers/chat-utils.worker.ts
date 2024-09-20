@@ -7,7 +7,13 @@ export const updateSearchReplace = async (
   console.log("instructions", instructions);
   console.log("code", code);
 
-  return up(instructions, code);
+  const result = up(instructions, code);
+  const resultBad = up(instructions + "\nfooo\n", code);
+  if (result !== resultBad) {
+    return code;
+  }
+
+  return result;
 };
 
 Object.assign(globalThis, { updateSearchReplace });
