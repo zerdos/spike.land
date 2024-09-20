@@ -5,27 +5,27 @@ const baseUrl = document.head.baseURI;
 
 // class TsWorker extends Worker {
 //   constructor() {
-//     super(baseUrl + `@/monaco-editor/esm/ts.worker.js`);
+//     super(baseUrl + `@/workers/monaco/ts.worker.js`);
 //   }
 // }
 // class CssWorker extends Worker {
 //   constructor() {
-//     super(baseUrl + `@/monaco-editor/esm/css.worker.js`);
+//     super(baseUrl + `@/workers/monaco/css.worker.js`);
 //   }
 // }
 // class HtmlWorker extends Worker {
 //   constructor() {
-//     super(baseUrl + `@/monaco-editor/esm/html.worker.js`);
+//     super(baseUrl + `@/workers/monaco/html.worker.js`);
 //   }
 // }
 // class JsonWorker extends Worker {
 //   constructor() {
-//     super(baseUrl + `@/monaco-editor/esm/json.worker.js`);
+//     super(baseUrl + `@/workers/monaco/json.worker.js`);
 //   }
 // }
 // class EditorWorker extends Worker {
 //   constructor() {
-//     super(baseUrl + `@/monaco-editor/esm/editor.worker.js`);
+//     super(baseUrl + `@/workers/monaco/editor.worker.js`);
 //   }
 // }
 
@@ -52,18 +52,18 @@ const MonacoEnvironment = {
 
   getWorkerUrl: (_moduleId: string, _label: string) => {
     if (_label === "typescript" || _label === "javascript") {
-      return baseUrl + `@/monaco-editor/esm/ts.worker.js`;
+      return baseUrl + `@/workers/monaco/ts.worker.js`;
     }
     if (_label === "json") {
-      return baseUrl + `@/monaco-editor/esm/json.worker.js`;
+      return baseUrl + `@/workers/monaco/json.worker.js`;
     }
     if (_label === "css") {
-      return baseUrl + `@/monaco-editor/esm/css.worker.js`;
+      return baseUrl + `@/workers/monaco/css.worker.js`;
     }
     if (_label === "html") {
-      return baseUrl + `@/monaco-editor/esm/html.worker.js`;
+      return baseUrl + `@/workers/monaco/html.worker.js`;
     }
-    return baseUrl + `@/monaco-editor/esm/editor.worker.js`;
+    return baseUrl + `@/workers/monaco/editor.worker.js`;
   },
 };
 
