@@ -134,24 +134,6 @@ const monacoContribution = async (code: string) => {
   return code;
 };
 
-self.MonacoEnvironment = {
-  baseUrl: originToUse,
-  getWorkerUrl: (_moduleId: string, label: string) => {
-    if (label === "html") {
-      return `/@/monaco-editor/esm/html.worker.js`;
-    }
-    if (label === "json") {
-      return `/@/monaco-editor/esm/json.worker.js`;
-    }
-    if (label === "css") {
-      return `/@/monaco-editor/esm/css.worker.js`;
-    }
-    if (label === "typescript" || label === "javascript") {
-      return `/@/monaco-editor/esm/ts.worker.js`;
-    }
-    return `/@/monaco-editor/esm/editor.worker.js`;
-  },
-};
 
 const mod: Record<string, Awaited<ReturnType<typeof startMonacoPristine>>> = {};
 
