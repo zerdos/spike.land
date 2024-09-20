@@ -1,5 +1,8 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import { Message } from "@/lib/interfaces";
+import { R } from "@clerk/clerk-react/dist/controlComponents-BHtK_hbj";
+import { RadarChart } from "recharts";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
@@ -87,13 +90,31 @@ export const updateSearchReplace = (
   ).map((mod: string[]) => {
     const [search, replace] = mod;
 
-    return replacedCode = replacePreservingWhitespace(
+    const starterCode = replacedCode;
+
+    replacedCode = replacePreservingWhitespace(
       replacedCode,
       search.trim(),
       replace.split("\n").slice(1).map((x) => x.trim()).filter((x) => x).join(
         "\n",
       ),
     );
+
+    const replacedFirst = replacedCode;
+    replacedCode = starterCode;
+
+    replacedCode = replacePreservingWhitespace(
+      replacedCode,
+      search.trim(),
+      replace.split("\n").slice(1).map((x) => x.trim()).filter((x) => x).join(
+        "\n",
+      ) + "foo\n",
+    );
+    const replacedSecond = replacedCode;
+    if (replacedFirst === replacedSecond) {
+      return replacedFirst;
+    }
+    return starterCode;
   });
 
   // let tsxCodeBocks = codeNow.match(/```tsx([\s\S]*?)```/g);
