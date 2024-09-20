@@ -52,7 +52,14 @@ export async function buildMainScripts(): Promise<void> {
     entryPoints: workerFiles,
     format: "iife",
     outdir: "dist/@/workers",
-    minify: true,
+    minify: false,
+    minifySyntax: false,
+    minifyIdentifiers: false,
+    minifyWhitespace: false,
+    mangleQuoted: false,
+
+    platform: "browser",
+
     outExtension: { ".js": ".js" },
   });
 }
