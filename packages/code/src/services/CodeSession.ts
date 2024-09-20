@@ -4,7 +4,6 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import {
   formatCode as formatCodeUtil,
   runCode as runCodeUtil,

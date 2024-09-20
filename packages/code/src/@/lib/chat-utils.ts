@@ -108,6 +108,8 @@ export const updateSearchReplace = (
       ) + "foo\n",
     );
     const replacedSecond = replacedCode;
+    replacedCode = replacedFirst;
+
     if (replacedFirst === replacedSecond) {
       return replacedFirst;
     }
