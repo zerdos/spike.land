@@ -4,13 +4,24 @@ import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  
 import { DiffEditor } from "@/components/app/diff-editor";
 import { CodeBlock } from "@/external/CodeBlock";
-import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
+import {  isDiffContent } from "@/lib/diff-utils";
 
 interface CodeProps {
   value: string;
   language: string;
   type: string;
 }
+
+
+const extractDiffContent = (content: string): { original: string; modified: string } => {
+  const original = content.split("=======")[0]?.split("<<<<<<< SEARCH")[1]?.trim() || "";
+  const modified = content.split("=======")[1]?.split(">>>>>>> REPLACE")[0]?.trim() || "";
+
+  return {
+    original,
+    modified,
+  };
+};
 
 const Code: FC<CodeProps> = memo(({ value, language, type }) => {
   const trimmedValue = value.trim();
