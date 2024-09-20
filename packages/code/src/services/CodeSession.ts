@@ -4,6 +4,7 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import {
   formatCode as formatCodeUtil,
   runCode as runCodeUtil,
@@ -96,6 +97,7 @@ class CodeProcessor {
     try {
       return await formatCodeUtil(code);
     } catch (error) {
+      console.error("Error formatting code:", { code });
       throw new Error(`Error formatting code: ${error}`);
     }
   }
@@ -104,10 +106,12 @@ class CodeProcessor {
     try {
       const transpiled = await transpileCodeUtil(code);
       if (!transpiled) {
+        console.log("Error Transpiled code:", { code });
         throw new Error("Transpilation resulted in empty output");
       }
       return transpiled;
     } catch (error) {
+      console.log("Error Transpiled code:", { code });
       throw new Error(`Error transpiling code: ${error}`);
     }
   }
@@ -122,6 +126,7 @@ class CodeProcessor {
       return result;
     } catch (error) {
       if (signal.aborted) return { html: "", css: "" };
+      console.error("Error running code:", { code });
       throw new Error(`Error running code: ${error}`);
     }
   }
