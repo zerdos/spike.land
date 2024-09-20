@@ -1,5 +1,6 @@
 import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
-import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
+import { isDiffContent } from "@/lib/diff-utils";
+import { extractDiffContent } from "@/lib/render-messages";
 
 import { describe, expect, it } from "vitest";
 
