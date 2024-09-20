@@ -2,19 +2,19 @@ export { editor, languages, Uri } from "monaco-editor";
 
 window.MonacoEnvironment = {
   baseUrl: location.origin,
-  getWorkerUrl: (_moduleId: string, label: string) => {
-    if (label === "html") {
-      return `/@/monaco-editor/esm/html.worker.js`;
-    }
+  getWorker: (_workerId: string, label: string) => {
     if (label === "json") {
-      return `/@/monaco-editor/esm/json.worker.js`;
+      return new Worker(`/@/monaco-editor/esm/json.worker.js`);
     }
     if (label === "css") {
-      return `/@/monaco-editor/esm/css.worker.js`;
+      return new Worker(`/@/monaco-editor/esm/css.worker.js`);
+    }
+    if (label === "html") {
+      return new Worker(`/@/monaco-editor/esm/html.worker.js`);
     }
     if (label === "typescript" || label === "javascript") {
-      return `/@/monaco-editor/esm/ts.worker.js`;
+      return new Worker(`/@/monaco-editor/esm/ts.worker.js`);
     }
-    return `/@/monaco-editor/esm/editor.worker.js`;
+    return new Worker(`/@/monaco-editor/esm/editor.worker.js`);
   },
 };
