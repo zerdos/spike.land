@@ -1,32 +1,50 @@
 export { editor, languages, Uri } from "monaco-editor";
 
 const baseUrl = document.head.baseURI;
-const workerPool: Record<string, null | Worker> = {};
-const getWorker = (_workerId: string, label: string, justRefill = false) => {
+const workerPool: Record<string, unknown> = {};
+
+class TsWorker extends Worker {
+  constructor() {
+    super(baseUrl + `@/monaco-editor/esm/ts.worker.js`);
+  }
+}
+class CssWorker extends Worker {
+  constructor() {
+    super(baseUrl + `@/monaco-editor/esm/css.worker.js`);
+  }
+}
+class HtmlWorker extends Worker {
+  constructor() {
+    super(baseUrl + `@/monaco-editor/esm/html.worker.js`);
+  }
+}
+class JsonWorker extends Worker {
+  constructor() {
+    super(baseUrl + `@/monaco-editor/esm/json.worker.js`);
+  }
+}
+class EditorWorker extends Worker {
+  constructor() {
+    super(baseUrl + `@/monaco-editor/esm/editor.worker.js`);
+  }
+}
+
+const getWorker = (_workerId: string, label: string) => {
   if (label === "json") {
-    workerPool[label] = workerPool[label] || new Worker(baseUrl + `@/monaco-editor/esm/json.worker.js`);
+    workerPool[label] = workerPool[label] || JsonWorker;
   }
   if (label === "css") {
-    workerPool[label] = workerPool[label] || new Worker(baseUrl + `@/monaco-editor/esm/css.worker.js`);
+    workerPool[label] = workerPool[label] || CssWorker;
   }
   if (label === "html") {
-    workerPool[label] = workerPool[label] || new Worker(baseUrl + `@/monaco-editor/esm/html.worker.js`);
+    workerPool[label] = workerPool[label] || HtmlWorker;
   }
   if (label === "typescript" || label === "javascript") {
-    workerPool[label] = workerPool[label] || new Worker(baseUrl + `@/monaco-editor/esm/ts.worker.js`);
+    workerPool[label] = workerPool[label] || TsWorker;
   }
-  workerPool[label] = workerPool[label] || new Worker(baseUrl + `@/monaco-editor/esm/editor.worker.js`);
+  workerPool[label] = workerPool[label] || EditorWorker;
 
-  if (justRefill) {
-    return workerPool[label];
-  }
-
-  const returnWorker = workerPool[label];
-  workerPool[label] = null;
-  workerPool[label] = getWorker(label, label, true);
-  // ref
-
-  return returnWorker;
+  return workerPool[label] as Worker;
 };
 
 window.MonacoEnvironment = {
