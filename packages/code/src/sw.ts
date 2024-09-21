@@ -3,15 +3,14 @@
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { swVersion: string }
-  & { cSessions: { [key: string]: ICode } }
+  & { cSessions: { [key: string]: CodeSessionBC } }
   & { files: { [key: string]: string }; fileCacheName: string };
 
 importScripts("/swVersion.js");
 
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { ICode } from "@/lib/interfaces";
 import { serveWithCache } from "@/lib/serve-with-cache";
-import { Code } from "./services/CodeSession";
+import { CodeSessionBC } from "./services/CodeSession";
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;
@@ -68,7 +67,7 @@ sw.onfetch = (event) => {
     if (request.url.includes("/live/") || request.url.includes("/session")) {
       const codeSpace = useCodeSpace(request.url);
       if (!sw.cSessions[codeSpace]) {
-        sw.cSessions[codeSpace] = new Code(codeSpace);
+        sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
         sw.cSessions[codeSpace].init();
       }
 

@@ -132,12 +132,43 @@ class CodeProcessor {
   }
 }
 
+export class CodeSessionBC {
+  private broadcastChannel: BroadcastChannel;
+  session: ICodeSession | null = null;
+
+  constructor(private codeSpace: string) {
+    this.broadcastChannel = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
+  }
+  async init(): Promise<ICodeSession> {
+    return this.session = this.session
+      || (await fetch(`/live/${this.codeSpace}/session.json`).then(response => response.json())) as ICodeSession;
+  }
+  sub(callback: (session: ICodeSession) => void): void {
+    this.broadcastChannel.onmessage = ({ data }: MessageEvent<BroadcastMessage>) => {
+      {
+        if (data.i > this.session!.i) {
+          this.session = data;
+          callback(data);
+        }
+      }
+    };
+  }
+  postMessage(session: BroadcastMessage): void {
+    this.broadcastChannel.postMessage(session);
+  }
+  close(): void {
+    this.broadcastChannel.close();
+  }
+}
+
 export class Code implements ICode {
   session: ICodeSession;
   private user: string;
   private broadcastedCounter = 0;
+  private broadcastChannel: CodeSessionBC;
+
   private broadcastMd5 = "";
-  private broadcastChannel: BroadcastChannel;
+
   private subscribers: Array<(session: ICodeSession) => void> = [];
   private codeProcessor = new CodeProcessor();
   private releaseWorker: () => void = () => {};
@@ -147,24 +178,26 @@ export class Code implements ICode {
   constructor(private codeSpace: string) {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
-    this.broadcastChannel = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
+    this.broadcastChannel = new CodeSessionBC(codeSpace);
     this.models.set(this.codeSpace, this);
   }
 
   async init(code: string = ""): Promise<ICodeSession> {
-    this.session = await this.initialize(code);
+    this.session = await this.broadcastChannel.init();
 
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
     });
 
-    this.broadcastChannel.onmessage = ({ data }: MessageEvent<BroadcastMessage>) => {
-      if (data.i > this.session.i) {
-        this.session = data;
-        this.broadcastSessionChange();
-      }
-    };
+    this.broadcastChannel.sub(() => {
+      return (data: ICodeSession) => {
+        if (data.i > this.session.i) {
+          this.session = data;
+          this.broadcastSessionChange();
+        }
+      };
+    });
 
     return this.session;
   }
