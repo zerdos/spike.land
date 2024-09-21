@@ -1,15 +1,18 @@
 import { createContextManager } from "@/lib/context-manager";
-import { ICode, ImageData, Message } from "@/lib/interfaces";
+import { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import type { Mutex } from "async-mutex";
 
+/**
+ * Creates a new message, optionally including images.
+ */
 export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
 ): Promise<Message> {
-  const imagesContent: any[] = [];
+  const imagesContent: MessageContent = [];
 
   if (images && images.length > 0) {
     images.forEach((image) => {
@@ -20,7 +23,7 @@ export async function createNewMessage(
         },
       });
     });
-    imagesContent.push({ type: "text", text: claudeContent?.trim() || "" });
+    imagesContent.push({ type: "text", text: claudeContent.trim() || "" });
   }
 
   return {
@@ -30,6 +33,9 @@ export async function createNewMessage(
   };
 }
 
+/**
+ * Processes messages with retries, handling assistant responses and updating code accordingly.
+ */
 export async function processMessage(
   aiHandler: AIHandler,
   cSess: ICode,
@@ -41,12 +47,10 @@ export async function processMessage(
   codeSpace: string,
 ): Promise<boolean> {
   const contextManager = createContextManager(codeSpace);
-  let sentMessages = [...updatedMessages];
-  let maxRetries = 3;
+  const sentMessages = [...updatedMessages];
+  const maxRetries = 3;
   let retries = 0;
-  const mod = {
-    controller: new AbortController(),
-  };
+  const mod = { controller: new AbortController() };
 
   const onUpdate = createOnUpdateFunction(
     sentMessages,
@@ -61,70 +65,41 @@ export async function processMessage(
   while (retries < maxRetries) {
     try {
       console.log(`Processing message (attempt ${retries + 1})`);
+
       let assistantMessage = await sendAssistantMessage(
         aiHandler,
         sentMessages,
         onUpdate,
       );
+
       mod.controller.abort();
 
       sentMessages.push(assistantMessage);
       saveMessages(sentMessages);
 
-      let contentToProcess = extractTextContent(assistantMessage.content);
+      const success = await processAssistantMessage(
+        assistantMessage,
+        codeNow,
+        cSess,
+      );
 
-      let starterCode1 = await updateSearchReplace(contentToProcess, codeNow);
-      let starterCode2 = await updateSearchReplace(contentToProcess + `\n foo \n`, codeNow);
-
-      let starterCode = starterCode1;
-      if (starterCode1 !== starterCode2) {
-        starterCode = codeNow;
-      }
-
-      if (starterCode !== codeNow) {
-        const success = await trySetCode(cSess, starterCode);
-        if (success) return true;
-      }
+      if (success) return true;
 
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
-        const userMessage: Message = {
-          id: Date.now().toString(),
-          role: "user",
-          content: claudeRecovery(starterCode, errorMessage),
-        };
-
-        sentMessages.push(userMessage);
-
-        const newOnUpdate = createOnUpdateFunction(
+        const errorHandled = await handleErrorMessage(
+          errorMessage,
+          codeNow,
           sentMessages,
+          aiHandler,
           mutex,
           setMessages,
           cSess,
           contextManager,
-          starterCode,
           mod,
         );
-
-        assistantMessage = await sendAssistantMessage(
-          aiHandler,
-          sentMessages,
-          newOnUpdate,
-        );
-        mod.controller.abort();
-
-        setMessages([
-          ...sentMessages,
-          assistantMessage,
-        ]);
-
-        contentToProcess = extractTextContent(assistantMessage.content);
-
-        starterCode = await updateSearchReplace(contentToProcess, codeNow);
+        if (errorHandled) return true;
       }
-
-      const finalSuccess = await trySetCode(cSess, starterCode);
-      if (finalSuccess) return true;
 
       retries++;
     } catch (error) {
@@ -137,6 +112,9 @@ export async function processMessage(
   return false;
 }
 
+/**
+ * Attempts to set the code in the code session.
+ */
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
   try {
     const success = await cSess.setCode(code);
@@ -147,6 +125,9 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
   }
 }
 
+/**
+ * Creates an onUpdate function to handle assistant updates.
+ */
 function createOnUpdateFunction(
   sentMessages: Message[],
   mutex: Mutex,
@@ -154,19 +135,14 @@ function createOnUpdateFunction(
   cSess: ICode,
   contextManager: ReturnType<typeof createContextManager>,
   startCode: string,
-  mod: {
-    controller: AbortController;
-  },
+  mod: { controller: AbortController },
 ) {
   return async (code: string) => {
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    const signal = mod.controller.signal;
-
-    if (signal.aborted) {
-      console.log("Aborted onUpdate 1");
+    if (mod.controller.signal.aborted) {
+      console.log("Aborted onUpdate before starting");
       return;
     }
+
     setMessages([
       ...sentMessages,
       {
@@ -176,34 +152,38 @@ function createOnUpdateFunction(
       },
     ]);
 
-    if (signal.aborted) {
-      console.log("Aborted onUpdate2");
+    if (mod.controller.signal.aborted) {
+      console.log("Aborted onUpdate after setMessages");
       return;
     }
+
     await mutex.runExclusive(async () => {
-      if (signal.aborted) {
-        console.log("Aborted onUpdate3");
+      if (mod.controller.signal.aborted) {
+        console.log("Aborted onUpdate inside mutex");
         return;
       }
+
       const lastCode = await updateSearchReplace(code, startCode);
-      if (signal.aborted) {
-        return;
-      }
       const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", startCode);
 
       if (lastCode !== lastReplaceModeIsOn) {
         return;
       }
-      if (signal.aborted) {
-        console.log("Aborted onUpdate4");
+
+      if (mod.controller.signal.aborted) {
+        console.log("Aborted onUpdate before trySetCode");
         return;
       }
+
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
     });
   };
 }
 
+/**
+ * Sends a message to the assistant and handles fallback if necessary.
+ */
 async function sendAssistantMessage(
   aiHandler: AIHandler,
   messages: Message[],
@@ -224,6 +204,82 @@ async function sendAssistantMessage(
   return assistantMessage;
 }
 
+/**
+ * Processes the assistant's message to update the code.
+ */
+async function processAssistantMessage(
+  assistantMessage: Message,
+  codeNow: string,
+  cSess: ICode,
+): Promise<boolean> {
+  let contentToProcess = extractTextContent(assistantMessage.content);
+
+  const starterCode1 = await updateSearchReplace(contentToProcess, codeNow);
+  const starterCode2 = await updateSearchReplace(contentToProcess + `\n foo \n`, codeNow);
+
+  let starterCode = starterCode1 !== starterCode2 ? codeNow : starterCode1;
+
+  if (starterCode !== codeNow) {
+    const success = await trySetCode(cSess, starterCode);
+    if (success) return true;
+  }
+
+  return false;
+}
+
+/**
+ * Handles error messages by sending a recovery message and processing the response.
+ */
+async function handleErrorMessage(
+  errorMessage: string,
+  codeNow: string,
+  sentMessages: Message[],
+  aiHandler: AIHandler,
+  mutex: Mutex,
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+  cSess: ICode,
+  contextManager: ReturnType<typeof createContextManager>,
+  mod: { controller: AbortController },
+): Promise<boolean> {
+  const userMessage: Message = {
+    id: Date.now().toString(),
+    role: "user",
+    content: claudeRecovery(codeNow, errorMessage),
+  };
+
+  sentMessages.push(userMessage);
+
+  const newOnUpdate = createOnUpdateFunction(
+    sentMessages,
+    mutex,
+    setMessages,
+    cSess,
+    contextManager,
+    codeNow,
+    mod,
+  );
+
+  let assistantMessage = await sendAssistantMessage(
+    aiHandler,
+    sentMessages,
+    newOnUpdate,
+  );
+
+  mod.controller.abort();
+
+  setMessages([...sentMessages, assistantMessage]);
+
+  let contentToProcess = extractTextContent(assistantMessage.content);
+
+  const starterCode = await updateSearchReplace(contentToProcess, codeNow);
+  const success = await trySetCode(cSess, starterCode);
+
+  return success;
+}
+
+/**
+ * Extracts text content from a message.
+ */
 function extractTextContent(
   content: string | Array<{ type: string; text?: string }>,
 ): string {

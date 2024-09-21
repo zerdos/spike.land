@@ -105,7 +105,7 @@ describe("serveWithCache", () => {
       "<!DOCTYPE html><html><head><base href=\"/\"><script type=\"importmap\"></script></head><body></body></html>",
       {
         headers: { "Content-Type": "text/html" },
-      }
+      },
     );
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 

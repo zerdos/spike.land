@@ -157,8 +157,8 @@ export const serveWithCache = (
           status: kvResp.status,
           statusText: kvResp.statusText,
           headers,
-        }); 
-        
+        });
+
         // Cache the response asynchronously if cache is available
         if (_fileCache && response.status === 200) {
           waitUntil(
