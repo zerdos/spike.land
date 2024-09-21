@@ -174,21 +174,6 @@ export class Code implements ICode {
     return this.session;
   }
 
-  private async initialize(code: string = ""): Promise<ICodeSession> {
-    try {
-      if (code && code.length > 0) {
-        return makeSession({ i: 0, code: code + "\n\n\n\n\n", html: "", css: "" });
-      }
-
-      const response = await fetch(`/live/${this.codeSpace}/session.json`);
-      const sessionData = await response.json();
-      return makeSession(sessionData);
-    } catch (error) {
-      console.error("Error fetching session data:", error);
-      return makeSession({ i: 0, code: "", html: "", css: "" });
-    }
-  }
-
   async setCode(
     rawCode: string,
     skipRunning = false,

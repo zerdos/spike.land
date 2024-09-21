@@ -65,7 +65,8 @@ sw.onfetch = (event) => {
     );
   } else {
     if (request.url.includes("/live/") || request.url.includes("/session")) {
-      const codeSpace = useCodeSpace(request.url);
+      const pathname = new URL(request.url).pathname;
+      const codeSpace = useCodeSpace(pathname);
       if (!sw.cSessions[codeSpace]) {
         sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
         sw.cSessions[codeSpace].init();

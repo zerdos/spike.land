@@ -12,7 +12,7 @@ export class CodeSessionBC {
       || (await fetch(`/live/${this.codeSpace}/session.json`).then(response => response.json())) as ICodeSession;
   }
   sub(callback: (session: ICodeSession) => void): void {
-    this.broadcastChannel.onmessage = ({ data }: MessageEvent<BroadcastMessage>) => {
+    this.broadcastChannel.onmessage = ({ data }: MessageEvent<ICodeSession>) => {
       {
         if (data.i > this.session!.i) {
           this.session = data;
