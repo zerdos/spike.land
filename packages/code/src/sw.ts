@@ -12,6 +12,7 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
 import { serveWithCache } from "@/lib/serve-with-cache";
+import { routes } from "./modules";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
@@ -67,6 +68,8 @@ sw.onmessage = ({ data }) => {
 
 sw.onfetch = (event) => {
   const request = event.request;
+  const url = new URL(request.url);
+  const pathname = url.pathname;
 
   if (isAsset(request)) {
     // console.log("Its probably a file", request.url);
@@ -83,17 +86,12 @@ sw.onfetch = (event) => {
       ),
     );
   } else if (
-    request.url.includes("/live/")
-    && (request.url.includes("/session")
-      || request.url.includes("/index.tsx")
-      || request.url.includes("/iframe")
-      || request.url.includes("/index.js")
-      || request.url.includes("/index.css"))
+    request.url.includes("/live/") || pathname in routes || pathname === ""
   ) {
-    // console.log("Its probably a file", request.url);
+    const codeSpace = useCodeSpace(pathname);
+
     event.respondWith((async () => {
       const pathname = new URL(request.url).pathname;
-      const codeSpace = useCodeSpace(pathname);
 
       if (!sw.cSessions[codeSpace]) {
         const bcSession = new CodeSessionBC(codeSpace);
@@ -120,7 +118,10 @@ sw.onfetch = (event) => {
         return new Response(session?.code || "", {
           headers: { "Content-Type": "application/typescript", "Cache-Control": "no-cache" },
         });
-      } else if (pathname.includes("iframe")) {
+      } else if (
+        pathname.includes("iframe") || pathname.includes("embed") || pathname.length < 2
+        || pathname.includes("dehydrated") || pathname in routes
+      ) {
         const HTML = await (await serve(
           new Request(location.origin + "/index.html"),
           (req, waitUntil) => {
