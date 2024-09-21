@@ -51,6 +51,7 @@ export async function processMessage(
     setMessages,
     cSess,
     contextManager,
+    codeNow,
   );
 
   while (retries < maxRetries) {
@@ -96,6 +97,7 @@ export async function processMessage(
           setMessages,
           cSess,
           contextManager,
+          starterCode,
         );
 
         assistantMessage = await sendAssistantMessage(
@@ -144,6 +146,7 @@ function createOnUpdateFunction(
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   cSess: ICode,
   contextManager: ReturnType<typeof createContextManager>,
+  startCode: string,
 ) {
   return async (code: string) => {
     setMessages([
@@ -156,8 +159,8 @@ function createOnUpdateFunction(
     ]);
 
     await mutex.runExclusive(async () => {
-      const lastCode = await updateSearchReplace(code, cSess.session.code);
-      const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", cSess.session.code);
+      const lastCode = await updateSearchReplace(code, startCode);
+      const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", startCode);
 
       if (lastCode !== lastReplaceModeIsOn) {
         return;
