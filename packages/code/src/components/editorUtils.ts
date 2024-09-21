@@ -1,10 +1,6 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
-import { createContextManager } from "@/lib/context-manager";
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { useRef, useState } from "react";
-import { ErrorType } from "./ErrorMessages";
 
 export interface EditorState {
   started: boolean;
@@ -12,37 +8,6 @@ export interface EditorState {
   code: string;
   setValue: (code: string) => void;
 }
-
-export const useEditorState = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [editorState, setEditorState] = useState<EditorState>({
-    started: false,
-    sub: false,
-    code: "",
-    setValue: () => {},
-  });
-
-  const engine = "monaco"; // Or determine this dynamically
-
-  return { containerRef, engine, editorState, setEditorState };
-};
-
-export const useErrorHandling = () => {
-  const [error, setError] = useState<ErrorType>(null);
-  const contextManager = createContextManager(useCodeSpace());
-
-  const handleError = (errorType: ErrorType, errorMessage: string) => {
-    setError(errorType);
-    contextManager.updateContext("errorLog", errorMessage);
-  };
-
-  const clearError = () => {
-    setError(null);
-    contextManager.updateContext("errorLog", "");
-  };
-
-  return { error, handleError, clearError };
-};
 
 function memoize<T extends (...args: any[]) => Promise<any>>(
   fn: T,

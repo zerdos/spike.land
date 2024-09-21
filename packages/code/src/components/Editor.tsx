@@ -4,12 +4,13 @@ import { cn } from "@/lib/utils";
 import { ICode } from "@/lib/interfaces";
 import { ICodeSession } from "@/lib/interfaces";
 import { useAutoSave } from "../hooks/autoSave";
-import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
+import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 import { ContextViewer } from "./ContextViewer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sidebar } from "@/external/lucideReact";
+import { useEditorState, useErrorHandling } from "@src/hooks/use-editor-state";
 
 interface EditorProps {
   codeSpace: string;
