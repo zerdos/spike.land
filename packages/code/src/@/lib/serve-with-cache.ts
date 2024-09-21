@@ -2,21 +2,6 @@
 import { md5 } from "@/lib/md5";
 import { routes } from "@/lib/routes";
 import { lookup } from "mime-types";
-// import { parse } from "node-html-parser";
-
-// Adjusted addPrefixToImportMap function
-// function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-//   const updatedImports: { [key: string]: string } = {};
-
-//   for (const [key, value] of Object.entries(imap.imports)) {
-//     // Ensure correct path concatenation
-//     const updatedValue = new URL(value.slice(1), "http://example.com" + prefix)
-//       .pathname;
-//     updatedImports[key] = updatedValue;
-//   }
-
-//   return { imports: updatedImports };
-// }
 
 // Simplified getContentType function
 function getContentType(path: string) {
@@ -75,15 +60,6 @@ export const serveWithCache = (
 
       return true;
     },
-
-    // serveAndCache: async (
-    //   request: Request,
-    //   assetFetcher: (
-    //     req: Request,
-    //     waitUntil: (p: Promise<unknown>) => void,
-    //   ) => Promise<Response>,
-    // ) => {
-    // },
 
     serve: async (
       request: Request,
@@ -177,40 +153,12 @@ export const serveWithCache = (
 
         let response: Response;
 
-        // Modify index.html if necessary
-        // if (filePath === "index.html") {
-        //   const htmlContent = await kvResp.text();
-        //   const root = parse(htmlContent);
-
-        //   // Update <base> tag
-        //   const baseTag = root.querySelector("base[href=\"/\"]");
-        //   if (baseTag) {
-        //     baseTag.setAttribute("href", `/${ASSET_HASH}/`);
-        //   }
-
-        //   // Update import map
-        //   const scriptTag = root.querySelector("script[type=\"importmap\"]");
-        //   if (scriptTag) {
-        //     scriptTag.set_content(
-        //       JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
-        //     );
-        //   }
-
-        //   const modifiedHtml = root.toString();
-
-        //   response = new Response(modifiedHtml, {
-        //     status: kvResp.status,
-        //     statusText: kvResp.statusText,
-        //     headers,
-        //   });
-        // } else {
         response = new Response(kvResp.body, {
           status: kvResp.status,
           statusText: kvResp.statusText,
           headers,
-        });
-        // }
-        //
+        }); 
+        
         // Cache the response asynchronously if cache is available
         if (_fileCache && response.status === 200) {
           waitUntil(

@@ -105,7 +105,7 @@ describe("serveWithCache", () => {
       "<!DOCTYPE html><html><head><base href=\"/\"><script type=\"importmap\"></script></head><body></body></html>",
       {
         headers: { "Content-Type": "text/html" },
-      },
+      }
     );
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
@@ -117,9 +117,8 @@ describe("serveWithCache", () => {
     expect(cache.put).toHaveBeenCalledWith(expect.any(Request), expect.any(Response));
 
     const resultText = await result.text();
-    expect(resultText).toContain(`<base href="/abc123/"`);
-    expect(resultText).toContain(`"imports":`);
-    expect(resultText).toContain(`"/abc123/react.js"`);
+    expect(resultText).toContain(`<base href="/"`);
+    expect(resultText).not.to.contain(`"imports":`);
   });
 
   it("should handle non-GET requests", async () => {
