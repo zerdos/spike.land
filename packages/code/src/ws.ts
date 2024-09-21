@@ -45,7 +45,10 @@ const handleDefaultPage = async () => {
           const { transpiled } = sess;
 
           renderedMd5 = md5(transpiled);
-          if (renderedMd5 === window.renderedMd5) return;
+          if (renderedMd5 === window.renderedMd5) {
+            console.log("Skipping update as md5 is the same");
+            return;
+          }
           window.renderedMd5 = renderedMd5;
 
           const myEl = document.createElement("div");
