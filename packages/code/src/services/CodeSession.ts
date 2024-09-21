@@ -199,13 +199,14 @@ export class Code implements ICode {
 
     const session = makeSession(processedSession);
     if (hash(session) === hash(this.session)) return this.session.code;
+
     this.session = makeSession({ ...session, i: this.session.i + 1 });
 
-    this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
       ...this.session,
       sender: "Editor",
     } as BroadcastMessage);
+    this.broadcastSessionChange();
 
     return this.session.code;
   }
