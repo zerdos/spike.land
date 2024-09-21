@@ -16,7 +16,7 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
 
   
-    const kvServer = serveWithCache(files, () => caches.open("file-cache-v21"));
+    const kvServer = serveWithCache(files, () => caches.open("file-cache-22"));
 
     if (kvServer.isAsset(request)) {
       const assetFetcher  = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(

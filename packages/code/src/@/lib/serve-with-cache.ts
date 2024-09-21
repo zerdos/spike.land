@@ -119,7 +119,7 @@ export const serveWithCache = (
       }
 
       const cacheUrl = new URL(request.url);
-      cacheUrl.pathname = filePath === "index.html" ? "/" + ASSET_HASH : "" + "/" + (files[filePath] || filePath);
+      cacheUrl.pathname = files[filePath] || filePath;
       const cacheKey = new Request(cacheUrl.toString());
 
       let resp: Response | undefined;
@@ -178,39 +178,39 @@ export const serveWithCache = (
         let response: Response;
 
         // Modify index.html if necessary
-        if (filePath === "index.html") {
-          const htmlContent = await kvResp.text();
-          const root = parse(htmlContent);
+        // if (filePath === "index.html") {
+        //   const htmlContent = await kvResp.text();
+        //   const root = parse(htmlContent);
 
-          // Update <base> tag
-          const baseTag = root.querySelector("base[href=\"/\"]");
-          if (baseTag) {
-            baseTag.setAttribute("href", `/${ASSET_HASH}/`);
-          }
+        //   // Update <base> tag
+        //   const baseTag = root.querySelector("base[href=\"/\"]");
+        //   if (baseTag) {
+        //     baseTag.setAttribute("href", `/${ASSET_HASH}/`);
+        //   }
 
-          // Update import map
-          const scriptTag = root.querySelector("script[type=\"importmap\"]");
-          if (scriptTag) {
-            scriptTag.set_content(
-              JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
-            );
-          }
+        //   // Update import map
+        //   const scriptTag = root.querySelector("script[type=\"importmap\"]");
+        //   if (scriptTag) {
+        //     scriptTag.set_content(
+        //       JSON.stringify(addPrefixToImportMap(importMap, `/${ASSET_HASH}/`)),
+        //     );
+        //   }
 
-          const modifiedHtml = root.toString();
+        //   const modifiedHtml = root.toString();
 
-          response = new Response(modifiedHtml, {
-            status: kvResp.status,
-            statusText: kvResp.statusText,
-            headers,
-          });
-        } else {
-          response = new Response(kvResp.body, {
-            status: kvResp.status,
-            statusText: kvResp.statusText,
-            headers,
-          });
-        }
-
+        //   response = new Response(modifiedHtml, {
+        //     status: kvResp.status,
+        //     statusText: kvResp.statusText,
+        //     headers,
+        //   });
+        // } else {
+        response = new Response(kvResp.body, {
+          status: kvResp.status,
+          statusText: kvResp.statusText,
+          headers,
+        });
+        // }
+        //
         // Cache the response asynchronously if cache is available
         if (_fileCache && response.status === 200) {
           waitUntil(

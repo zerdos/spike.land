@@ -497,7 +497,7 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`)
+    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
 
 
     return new Response(respText, {
