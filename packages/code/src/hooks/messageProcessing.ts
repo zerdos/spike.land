@@ -158,11 +158,13 @@ function createOnUpdateFunction(
     controller: AbortController;
   },
 ) {
-  mod.controller.abort();
-  mod.controller = new AbortController();
-  const signal = mod.controller.signal;
   return async (code: string) => {
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    const signal = mod.controller.signal;
+
     if (signal.aborted) {
+      console.log("Aborted onUpdate 1");
       return;
     }
     setMessages([
@@ -175,10 +177,12 @@ function createOnUpdateFunction(
     ]);
 
     if (signal.aborted) {
+      console.log("Aborted onUpdate2");
       return;
     }
     await mutex.runExclusive(async () => {
       if (signal.aborted) {
+        console.log("Aborted onUpdate3");
         return;
       }
       const lastCode = await updateSearchReplace(code, startCode);
@@ -191,6 +195,7 @@ function createOnUpdateFunction(
         return;
       }
       if (signal.aborted) {
+        console.log("Aborted onUpdate4");
         return;
       }
       const success = await trySetCode(cSess, lastCode);
