@@ -1,4 +1,4 @@
-import React, { FC, memo, useMemo } from "react";
+import React, { FC, memo, Suspense, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  
@@ -52,11 +52,15 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
   if (isDiffContent(trimmedValue)) {
     const { original, modified } = extractDiffContent(trimmedValue);
     return (
-      <DiffEditorLazy
+     <Suspense fallback={<pre>
+        {trimmedValue}
+     </pre>}>
+        <DiffEditorLazy
         original={original}
         modified={modified}
         language={language}
       />
+      </Suspense>
     );
   }
 
