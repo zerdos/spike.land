@@ -178,6 +178,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "react-use": "^17.5.1",
     "recharts": "^2.12.7",
+    "shadcn-ui": "^0.9.1",
     "sonner": "^1.5.0",
     "stream": "^0.0.3",
     "stream-browserify": "3.0.0",
