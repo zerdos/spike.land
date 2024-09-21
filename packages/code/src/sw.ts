@@ -9,8 +9,26 @@ const sw = self as unknown as
 importScripts("/swVersion.js");
 
 import { useCodeSpace } from "@/hooks/use-code-space";
+import { importMap } from "@/lib/importmap-utils";
+import { md5 } from "@/lib/md5";
 import { serveWithCache } from "@/lib/serve-with-cache";
 import { CodeSessionBC } from "./services/CodeSessionBc";
+
+function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+  const updatedImports: { [key: string]: string } = {};
+
+  for (const [key, value] of Object.entries(imap.imports)) {
+    // Ensure correct path concatenation
+
+    const updatedValue = new URL((value as string).slice(1), "http://example.com" + prefix)
+      .pathname;
+    updatedImports[key] = updatedValue;
+  }
+
+  return { imports: updatedImports };
+}
+
+const imap = addPrefixToImportMap(importMap, `/${swVersion}/`);
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;
@@ -68,6 +86,7 @@ sw.onfetch = (event) => {
     request.url.includes("/live/")
     && (request.url.includes("/session")
       || request.url.includes("/index.tsx")
+      || request.url.includes("/iframe")
       || request.url.includes("/index.js")
       || request.url.includes("/index.css"))
   ) {
@@ -87,7 +106,8 @@ sw.onfetch = (event) => {
         await bcSession.init();
       }
 
-      const session = sw.cSessions[codeSpace].session;
+      const session = sw.cSessions[codeSpace].session!;
+
       if (pathname.includes("index.js")) {
         return new Response(session?.transpiled || "", {
           headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
@@ -100,6 +120,46 @@ sw.onfetch = (event) => {
         return new Response(session?.code || "", {
           headers: { "Content-Type": "application/typescript", "Cache-Control": "no-cache" },
         });
+      } else if (pathname.includes("iframe")) {
+        const HTML = await (await serve(
+          new Request(location.origin + "/index.html"),
+          (req, waitUntil) => {
+            // console.log("Fetching from network", req.url);
+            const respPromise = fetch(req, { redirect: "follow" });
+            waitUntil(respPromise);
+            return respPromise;
+          },
+          event.waitUntil.bind(event),
+        )).text();
+
+        const { html } = session;
+
+        const respText = HTML.replace(
+          `<script type="importmap"></script>`,
+          `<script type="importmap">${JSON.stringify(imap)}</script>`,
+        ).replace(
+          `<link rel="preload" href="app/tw-global.css" as="style">`,
+          `<link rel="preload" href="app/tw-global.css" as="style">
+                 <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+                 <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+                 `,
+        ).replace(
+          "<div id=\"embed\"></div>",
+          `<div id="embed">${html}</div>`,
+        ).replace(`<base href="/">`, `<base href="/${swVersion}/">`);
+
+        const headers = new Headers({
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cross-Origin-Resource-Policy": "cross-origin",
+          "Cross-Origin-Opener-Policy": "same-origin",
+          "Cache-Control": "no-cache",
+          "Content-Encoding": "gzip",
+          "Content-Type": "text/html; charset=UTF-8",
+          "content_hash": md5(respText),
+        });
+
+        return new Response(respText, { headers });
       }
 
       return new Response(JSON.stringify(session), {
