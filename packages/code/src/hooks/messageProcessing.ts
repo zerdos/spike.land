@@ -4,7 +4,6 @@ import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import type { Mutex } from "async-mutex";
-import clsx from "clsx";
 
 export async function createNewMessage(
   images: ImageData[],
