@@ -5,14 +5,13 @@ import Markdown from "@/external/Markdown";
 
 import { CodeBlock } from "@/external/CodeBlock";
 import {  isDiffContent } from "@/lib/diff-utils";
+import { DiffEditor } from "@/components/app/diff-editor-lazy";
 
 interface CodeProps {
   value: string;
   language: string;
   type: string;
 }
-
-const DiffEditorLazy = React.lazy(() => import("@/components/app/diff-editor").then ((module) => ({ default: module.DiffEditor })));  
 
 
 export const extractDiffContent = (content: string): { original: string; modified: string } => {
@@ -51,14 +50,11 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
 
   if (isDiffContent(trimmedValue)) {
     const { original, modified } = extractDiffContent(trimmedValue);
-    return (
-     <Suspense fallback={<div></div>}>
-        <DiffEditorLazy
+    return ( <DiffEditor
         original={original}
         modified={modified}
         language={language}
       />
-      </Suspense>
     );
   }
 
