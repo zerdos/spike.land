@@ -98,12 +98,14 @@ export async function processMessage(
           newOnUpdate,
         );
 
-        sentMessages.push(assistantMessage);
-        saveMessages(sentMessages);
+        setMessages([
+          ...sentMessages,
+          assistantMessage,
+        ]);
 
         contentToProcess = extractTextContent(assistantMessage.content);
 
-        starterCode = await updateSearchReplace(contentToProcess, starterCode);
+        starterCode = await updateSearchReplace(contentToProcess, codeNow);
       }
 
       const finalSuccess = await trySetCode(cSess, starterCode);
