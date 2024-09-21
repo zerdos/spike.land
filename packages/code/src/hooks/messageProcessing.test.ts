@@ -1,11 +1,6 @@
-import { createContextManager } from "@/lib/context-manager";
 import { ImageData } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
-import * as sharedModule from "@/lib/shared";
-import { AIHandler } from "@src/AIHandler";
-import { Mutex } from "async-mutex";
-import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
-import { createNewMessage, processMessage } from "./messageProcessing";
+import { describe, expect, it, vi } from "vitest";
+import { createNewMessage } from "./messageProcessing";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
