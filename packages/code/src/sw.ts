@@ -10,7 +10,6 @@ importScripts("/swVersion.js");
 
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { serveWithCache } from "@/lib/serve-with-cache";
-import { makeSession } from "./modules";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Now, self.swVersion and self.files are available

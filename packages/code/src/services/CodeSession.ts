@@ -136,12 +136,8 @@ class CodeProcessor {
 export class Code implements ICode {
   session: ICodeSession;
   private user: string;
-  private broadcastedCounter = 0;
   private broadcastChannel: CodeSessionBC;
 
-  private broadcastMd5 = "";
-
-  private subscribers: Array<(session: ICodeSession) => void> = [];
   private codeProcessor = new CodeProcessor();
   private releaseWorker: () => void = () => {};
   private models: Map<string, Code> = new Map();
@@ -195,7 +191,6 @@ export class Code implements ICode {
 
     this.session = makeSession({ ...session, i: this.session.i + 1 });
 
-    this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
       ...this.session,
       sender: "Editor",
