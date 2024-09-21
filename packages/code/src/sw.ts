@@ -70,9 +70,19 @@ sw.onfetch = (event) => {
     event.respondWith((async () => {
       const pathname = new URL(request.url).pathname;
       const codeSpace = useCodeSpace(pathname);
-      const session = makeSession(
-        sw.cSessions[codeSpace]?.session || await (sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace)).init(),
-      );
+
+      if (!sw.cSessions[codeSpace]) {
+        const bcSession = new CodeSessionBC(codeSpace);
+
+        sw.cSessions[codeSpace] = bcSession;
+        bcSession.sub((session) => {
+          sw.cSessions[codeSpace].session = session;
+        });
+
+        await bcSession.init();
+      }
+
+      const session = sw.cSessions[codeSpace].session;
 
       return new Response(JSON.stringify(session), {
         headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
