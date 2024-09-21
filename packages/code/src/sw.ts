@@ -162,6 +162,8 @@ sw.onfetch = (event) => {
         });
 
         return new Response(respText, { headers });
+      } else {
+        return fetch(request);
       }
 
       return new Response(JSON.stringify(session), {
