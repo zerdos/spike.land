@@ -44,6 +44,9 @@ export async function processMessage(
   let sentMessages = [...updatedMessages];
   let maxRetries = 3;
   let retries = 0;
+  const mod = {
+    controller: new AbortController(),
+  };
 
   const onUpdate = createOnUpdateFunction(
     sentMessages,
@@ -52,6 +55,7 @@ export async function processMessage(
     cSess,
     contextManager,
     codeNow,
+    mod,
   );
 
   while (retries < maxRetries) {
@@ -62,6 +66,7 @@ export async function processMessage(
         sentMessages,
         onUpdate,
       );
+      mod.controller.abort();
 
       sentMessages.push(assistantMessage);
       saveMessages(sentMessages);
@@ -98,6 +103,7 @@ export async function processMessage(
           cSess,
           contextManager,
           starterCode,
+          mod,
         );
 
         assistantMessage = await sendAssistantMessage(
@@ -105,6 +111,7 @@ export async function processMessage(
           sentMessages,
           newOnUpdate,
         );
+        mod.controller.abort();
 
         setMessages([
           ...sentMessages,
@@ -147,8 +154,17 @@ function createOnUpdateFunction(
   cSess: ICode,
   contextManager: ReturnType<typeof createContextManager>,
   startCode: string,
+  mod: {
+    controller: AbortController;
+  },
 ) {
+  mod.controller.abort();
+  mod.controller = new AbortController();
+  const signal = mod.controller.signal;
   return async (code: string) => {
+    if (signal.aborted) {
+      return;
+    }
     setMessages([
       ...sentMessages,
       {
@@ -158,11 +174,23 @@ function createOnUpdateFunction(
       },
     ]);
 
+    if (signal.aborted) {
+      return;
+    }
     await mutex.runExclusive(async () => {
+      if (signal.aborted) {
+        return;
+      }
       const lastCode = await updateSearchReplace(code, startCode);
+      if (signal.aborted) {
+        return;
+      }
       const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", startCode);
 
       if (lastCode !== lastReplaceModeIsOn) {
+        return;
+      }
+      if (signal.aborted) {
         return;
       }
       const success = await trySetCode(cSess, lastCode);
