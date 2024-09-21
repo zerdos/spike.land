@@ -7,10 +7,10 @@ class SharedWorkerPolyfill {
 
   constructor(url: string, opts?: WorkerOptions) {
     if ((globalThis as any).VI_TEST === "true") {
-      const Worker = require("worker_threads").Worker;
+      const Worker2 = require("worker_threads").Worker;
       // if url has ? then strip it
 
-      this.worker = new Worker(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
+      this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
     } else {
       this.worker = new Worker(url, opts);
     }
