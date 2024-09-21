@@ -6,6 +6,7 @@ import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
+import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
@@ -21,10 +22,11 @@ Object.assign(globalThis, { cSess });
 declare global {
   interface Window {
     rendered: RenderedApp | null;
+    renderedMd5: string;
   }
 }
 
-let { rendered } = window;
+let { rendered, renderedMd5 } = window;
 
 const waitForCSess = cSess.run();
 
@@ -41,6 +43,10 @@ const handleDefaultPage = async () => {
         await mutex.runExclusive(async () => {
           console.log("Updating rendered app...");
           const { transpiled } = sess;
+
+          const renderedMd5 = md5(transpiled);
+          if (renderedMd5 === window.renderedMd5) return;
+          window.renderedMd5 = renderedMd5;
 
           const myEl = document.createElement("div");
           myEl.style.cssText = "height: 100%; width: 100%;";
