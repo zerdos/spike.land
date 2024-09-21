@@ -10,7 +10,7 @@ importScripts("/swVersion.js");
 
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { serveWithCache } from "@/lib/serve-with-cache";
-import { CodeSessionBC } from "./services/CodeSession";
+import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;
