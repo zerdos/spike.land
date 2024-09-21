@@ -11,8 +11,8 @@ importScripts("/swVersion.js");
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
+import { routes } from "@/lib/routes";
 import { serveWithCache } from "@/lib/serve-with-cache";
-import { routes } from "./modules";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
@@ -90,7 +90,7 @@ sw.onfetch = (event) => {
       }),
     );
   } else if (
-    request.url.includes("/live/") || pathname in routes || pathname === ""
+    pathname.includes("/live/") || pathname in routes
   ) {
     const codeSpace = useCodeSpace(pathname);
 
