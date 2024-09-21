@@ -67,7 +67,13 @@ export async function processMessage(
 
       let contentToProcess = extractTextContent(assistantMessage.content);
 
-      let starterCode = await updateSearchReplace(contentToProcess, codeNow);
+      let starterCode1 = await updateSearchReplace(contentToProcess, codeNow);
+      let starterCode2 = await updateSearchReplace(contentToProcess + `\n foo \n`, codeNow);
+
+      let starterCode = starterCode1;
+      if (starterCode1 !== starterCode2) {
+        starterCode = codeNow;
+      }
 
       if (starterCode !== codeNow) {
         const success = await trySetCode(cSess, starterCode);
