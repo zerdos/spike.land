@@ -134,7 +134,6 @@ const handleRunMessage = async (
 
     operation.cleanup = renderedNew.cleanup;
 
-    await wait(100);
     if (signal.aborted) {
       renderedNew.cleanup();
       runningOperations.delete(requestId);
