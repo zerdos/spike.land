@@ -2,7 +2,7 @@ import React, { FC, memo, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  
-import { DiffEditor } from "@/components/app/diff-editor";
+
 import { CodeBlock } from "@/external/CodeBlock";
 import {  isDiffContent } from "@/lib/diff-utils";
 
@@ -11,6 +11,8 @@ interface CodeProps {
   language: string;
   type: string;
 }
+
+const DiffEditorLazy = React.lazy(() => import("@/components/app/diff-editor").then ((module) => ({ default: module.DiffEditor })));  
 
 
 export const extractDiffContent = (content: string): { original: string; modified: string } => {
@@ -50,7 +52,7 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
   if (isDiffContent(trimmedValue)) {
     const { original, modified } = extractDiffContent(trimmedValue);
     return (
-      <DiffEditor
+      <DiffEditorLazy
         original={original}
         modified={modified}
         language={language}

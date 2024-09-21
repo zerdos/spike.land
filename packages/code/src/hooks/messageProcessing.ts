@@ -42,6 +42,8 @@ export async function processMessage(
 ): Promise<boolean> {
   const contextManager = createContextManager(codeSpace);
   let sentMessages = [...updatedMessages];
+  let maxRetries = 3;
+  let retries = 0;
 
   const onUpdate = createOnUpdateFunction(
     sentMessages,
@@ -51,30 +53,29 @@ export async function processMessage(
     contextManager,
   );
 
-  try {
-    console.log("Processing message");
-    let assistantMessage = await sendAssistantMessage(
-      aiHandler,
-      updatedMessages,
-      onUpdate,
-    );
+  while (retries < maxRetries) {
+    try {
+      console.log(`Processing message (attempt ${retries + 1})`);
+      let assistantMessage = await sendAssistantMessage(
+        aiHandler,
+        sentMessages,
+        onUpdate,
+      );
 
-    sentMessages.push(assistantMessage);
-    saveMessages(sentMessages);
+      sentMessages.push(assistantMessage);
+      saveMessages(sentMessages);
 
-    let contentToProcess = extractTextContent(assistantMessage.content);
+      let contentToProcess = extractTextContent(assistantMessage.content);
 
-    let starterCode = await updateSearchReplace(contentToProcess, codeNow);
+      let starterCode = await updateSearchReplace(contentToProcess, codeNow);
 
-    if (starterCode === codeNow) {
-      let retries = 3;
-      while (retries > 0) {
-        if (starterCode !== codeNow) {
-          const success = await trySetCode(cSess, starterCode);
-          if (success) return true;
-        }
+      if (starterCode !== codeNow) {
+        const success = await trySetCode(cSess, starterCode);
+        if (success) return true;
+      }
 
-        const errorMessage = contextManager.getContext("errorLog");
+      const errorMessage = contextManager.getContext("errorLog");
+      if (errorMessage) {
         const userMessage: Message = {
           id: Date.now().toString(),
           role: "user",
@@ -103,16 +104,20 @@ export async function processMessage(
         contentToProcess = extractTextContent(assistantMessage.content);
 
         starterCode = await updateSearchReplace(contentToProcess, starterCode);
-        retries--;
       }
-    }
 
-    const finalSuccess = await trySetCode(cSess, starterCode);
-    return finalSuccess;
-  } catch (error) {
-    console.error(`Error processing message: ${error}`);
-    return false;
+      const finalSuccess = await trySetCode(cSess, starterCode);
+      if (finalSuccess) return true;
+
+      retries++;
+    } catch (error) {
+      console.error(`Error processing message (attempt ${retries + 1}): ${error}`);
+      retries++;
+    }
   }
+
+  console.error("Max retries reached. Failed to process message.");
+  return false;
 }
 
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {

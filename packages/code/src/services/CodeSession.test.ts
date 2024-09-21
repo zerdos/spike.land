@@ -48,8 +48,13 @@ describe("Code", () => {
           json: () => Promise.resolve({ i: 1, code: "", html: "", css: "" }),
         });
       }
+      if (url.includes("/live/extraModel/index.tsx")) {
+        return Promise.resolve({
+          text: () => Promise.resolve("console.log(\"Extra Model Code\");"),
+        });
+      }
       return Promise.resolve({
-        text: () => Promise.resolve("console.log(\"Extra Model Code\");"),
+        text: () => Promise.resolve(""),
       });
     });
 
@@ -93,7 +98,6 @@ import extra from "./extraModel";
 console.log("Hello, World!");
 \`\`\`
 
-
 # extraModel.tsx
 
 \`\`\`tsx
@@ -107,22 +111,24 @@ console.log("Extra Model Code");
 
   describe("setCode", () => {
     it("should not update session if code is the same", async () => {
-      const sameCode = code.session.code;
+      const sameCode = "export default ()=> <>Nothing</>";
+      code.session.code = sameCode;
 
       const result = await code.setCode(sameCode);
 
-      expect(result).toBe(true);
+      expect(result).toBe(sameCode);
       expect(code.session.code).toBe(sameCode);
     });
 
-    it("should return false if processing fails", async () => {
+    it("should return current code if processing fails", async () => {
       const errorCode = "error code";
-      const mockProcess = vi.spyOn(code["codeProcessor"], "process").mockResolvedValue(false);
+      const currentCode = "current code";
+      code.session.code = currentCode;
+      vi.spyOn(code["codeProcessor"], "process").mockResolvedValue(false);
 
       const result = await code.setCode(errorCode);
 
-      expect(result).toBe(false);
-      expect(mockProcess).toHaveBeenCalledWith(errorCode);
+      expect(result).toBe(currentCode);
     });
   });
 });

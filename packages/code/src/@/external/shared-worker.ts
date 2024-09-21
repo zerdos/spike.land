@@ -5,10 +5,12 @@ class SharedWorkerPolyfill {
   private worker: Worker;
   public port: MessagePort;
 
-  constructor(url: string | URL, opts?: WorkerOptions) {
+  constructor(url: string, opts?: WorkerOptions) {
     if ((globalThis as any).VI_TEST) {
       const Worker = require("worker_threads").Worker;
-      this.worker = new Worker(__dirname + "/../../../dist/" + url, opts);
+      // if url has ? then strip it
+
+      this.worker = new Worker(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
     } else {
       this.worker = new Worker(url, opts);
     }
