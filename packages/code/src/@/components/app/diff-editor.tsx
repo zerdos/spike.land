@@ -2,27 +2,24 @@ import { editor } from "@/external/monaco-editor";
 import { useThrottle } from "@uidotdev/usehooks";
 import React, { memo, useEffect, useRef } from "react";
 
-interface DiffEditorProps {
+export interface DiffEditorProps {
   original: string;
   modified: string;
   language?: string;
   readOnly?: boolean;
   minHeight?: number;
   maxHeight?: number;
+  editorHeight?: number;
 }
 
-const minHeight = 100;
-const maxHeight = window.innerHeight - 200;
-
-const calculateHeight = (text: string) => {
-  const lines = text.split(/\r\n|\r|\n/).length +2 ;
-  return Math.min(maxHeight, Math.max(minHeight, lines * 19)) + 40; ;
-};
 
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   original: _original = "",
   modified: _modified = "",
+  minHeight,
+  maxHeight,
+  editorHeight= minHeight || 200,
   language = "text/plain",
   readOnly = true
 }) => {
@@ -31,9 +28,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   
   const original = useThrottle(_original, 200);
   const modified = useThrottle(_modified, 200);
-
-  const editorHeight =Math.max(calculateHeight(original), calculateHeight(modified));
-
 
 
   useEffect(() => {

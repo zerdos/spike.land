@@ -52,9 +52,7 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
   if (isDiffContent(trimmedValue)) {
     const { original, modified } = extractDiffContent(trimmedValue);
     return (
-     <Suspense fallback={<pre>
-        {trimmedValue}
-     </pre>}>
+     <Suspense fallback={<div></div>}>
         <DiffEditorLazy
         original={original}
         modified={modified}
