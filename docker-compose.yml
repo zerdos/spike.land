@@ -1,9 +1,8 @@
-version: "3.9"
 services:
   devcontainer: 
     image: devimages/bookworm-devcontainer  
     build: 
-      dockerfile: packages/bookworm-devcontainer  
+      dockerfile: ./packages/bookworm-devcontainer/Dockerfile 
       context: .
     tmpfs:
       - /home/$USER/tmpfs:exec
