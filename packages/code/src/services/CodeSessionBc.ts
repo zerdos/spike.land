@@ -13,9 +13,11 @@ export class CodeSessionBC {
   }
   sub(callback: (session: ICodeSession) => void): void {
     this.broadcastChannel.onmessage = ({ data }: MessageEvent<ICodeSession>) => {
+      console.log("broadcastChannel.onmessage", data);
       {
-        if (data.i > this.session!.i) {
+        if (data.i) {
           this.session = data;
+
           callback(data);
         }
       }
