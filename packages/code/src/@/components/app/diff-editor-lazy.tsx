@@ -1,7 +1,8 @@
 import type {DiffEditorProps} from "@/components/app/diff-editor";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 
-const DiffEditorLazy = React.lazy(() => import("@/components/app/diff-editor").then ((module) => ({ default: module.DiffEditor })));  
+
+const DiffEditorLazy = lazy(() => import("@/components/app/diff-editor").then ((module) => ({ default: module.DiffEditor })));  
 
 
 
