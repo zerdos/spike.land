@@ -65,20 +65,21 @@ sw.onfetch = (event) => {
       ),
     );
   } else if (request.url.includes("/live/") || request.url.includes("/session")) {
-    const pathname = new URL(request.url).pathname;
-    const codeSpace = useCodeSpace(pathname);
-    if (!sw.cSessions[codeSpace]) {
-      sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
-      sw.cSessions[codeSpace].init();
-    }
-
-    const session = sw.cSessions[codeSpace].session;
     // console.log("Its probably a file", request.url);
-    event.respondWith(
-      new Response(JSON.stringify(session), {
+    event.respondWith((async () => {
+      const pathname = new URL(request.url).pathname;
+      const codeSpace = useCodeSpace(pathname);
+      if (!sw.cSessions[codeSpace]) {
+        sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
+        await sw.cSessions[codeSpace].init();
+      }
+
+      const session = sw.cSessions[codeSpace].session;
+
+      return new Response(JSON.stringify(session), {
         headers: { "Content-Type": "application/json" },
-      }),
-    );
+      });
+    })());
   }
 
   // console.log("Its probably not a file", request.url);
