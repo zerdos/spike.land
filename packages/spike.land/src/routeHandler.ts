@@ -2,11 +2,30 @@ import { createClerkClient } from "@clerk/backend";
 import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
 import { ASSET_HASH } from "./staticContent.mjs";
+import { importMap } from "@spike-land/code";
 
 export interface AutoSaveEntry {
   timestamp: number;
   code: string;
 }
+
+function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+  const updatedImports: { [key: string]: string } = {};
+
+  for (const [key, value] of Object.entries(imap.imports)) {
+    // Ensure correct path concatenation
+
+    const updatedValue = new URL((value as string).slice(1), "http://example.com" + prefix)
+      .pathname;
+    updatedImports[key] = updatedValue;
+  }
+
+  return { imports: updatedImports };
+}
+
+const imap =  addPrefixToImportMap(importMap, `/${ASSET_HASH}/`);
+
+
 
 export class RouteHandler {
   constructor(private code: Code) {}
@@ -124,6 +143,9 @@ export class RouteHandler {
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
           const respText = this.code.HTML.replace(
+            `<script type="importmap"></script>`,
+            `<script type="importmap">${JSON.stringify(imap)}</script>`,
+          )          .replace(
             `<link rel="preload" href="app/tw-global.css" as="style">`,
             `<link rel="preload" href="app/tw-global.css" as="style">
                     <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
@@ -377,6 +399,9 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const { html, css } = this.code.session;
     const respText = this.code.HTML.replace(
+      `<script type="importmap"></script>`,
+      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+    )       .replace(
       `<link rel="preload" href="app/tw-global.css" as="style">`,
      `<link rel="preload" href="app/tw-global.css" as="style">
              <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
@@ -409,6 +434,9 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
     const respText = this.code.HTML.replace(
+      `<script type="importmap"></script>`,
+      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+    )       .replace(
       "<div id=\"embed\"></div>",
       "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
         + codeSpace + "/iframe\"></iframe></div>",
@@ -488,7 +516,14 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
 
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
+
+    
+
     const respText = this.code.HTML.replace(
+      `<script type="importmap"></script>`,
+      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+    ).
+    replace(
       `<link rel="preload" href="app/tw-global.css" as="style">`,
       `<link rel="preload" href="app/tw-global.css" as="style">
               <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
