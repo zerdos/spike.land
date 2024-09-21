@@ -44,7 +44,7 @@ const handleDefaultPage = async () => {
           console.log("Updating rendered app...");
           const { transpiled } = sess;
 
-          const renderedMd5 = md5(transpiled);
+          renderedMd5 = md5(transpiled);
           if (renderedMd5 === window.renderedMd5) return;
           window.renderedMd5 = renderedMd5;
 
