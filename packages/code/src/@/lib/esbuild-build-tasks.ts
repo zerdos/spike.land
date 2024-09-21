@@ -53,12 +53,16 @@ export async function buildMainScripts(): Promise<void> {
     format: "iife",
     outdir: "dist/@/workers",
     minify: false,
+
     minifySyntax: false,
     minifyIdentifiers: false,
     minifyWhitespace: false,
     mangleQuoted: false,
 
     platform: "browser",
+    external: [
+      "worker_threads",
+    ],
 
     outExtension: { ".js": ".js" },
   });
@@ -96,10 +100,13 @@ export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
     entryPoints: ["src/sw.ts"],
-    format: "esm",
+    format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: false,
     minifyIdentifiers: false,
+    external: [
+      "worker_threads",
+    ],
     minifyWhitespace: false,
     target: "es2024",
   });

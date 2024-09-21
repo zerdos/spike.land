@@ -3,11 +3,15 @@
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { swVersion: string }
+  & { cSessions: { [key: string]: ICode } }
   & { files: { [key: string]: string }; fileCacheName: string };
 
 importScripts("/swVersion.js");
 
+import { useCodeSpace } from "@/hooks/use-code-space";
+import { ICode } from "@/lib/interfaces";
 import { serveWithCache } from "@/lib/serve-with-cache";
+import { Code } from "./services/CodeSession";
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;
@@ -61,6 +65,22 @@ sw.onfetch = (event) => {
       ),
     );
   } else {
+    if (request.url.includes("/live/") || request.url.includes("/session")) {
+      const codeSpace = useCodeSpace(request.url);
+      if (!sw.cSessions[codeSpace]) {
+        sw.cSessions[codeSpace] = new Code(codeSpace);
+        sw.cSessions[codeSpace].init();
+      }
+
+      const session = sw.cSessions[codeSpace].session;
+      // console.log("Its probably a file", request.url);
+      event.respondWith(
+        new Response(JSON.stringify(session), {
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    }
+
     // console.log("Its probably not a file", request.url);
     // For non-asset requests, fetch from the network
     event.respondWith(fetch(request));

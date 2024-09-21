@@ -6,7 +6,7 @@ class SharedWorkerPolyfill {
   public port: MessagePort;
 
   constructor(url: string, opts?: WorkerOptions) {
-    if ((globalThis as any).VI_TEST) {
+    if ((globalThis as any).VI_TEST === "true") {
       const Worker = require("worker_threads").Worker;
       // if url has ? then strip it
 

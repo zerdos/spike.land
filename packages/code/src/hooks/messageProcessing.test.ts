@@ -124,6 +124,8 @@ describe("messageProcessing", () => {
 
       vi.spyOn(sharedModule, "updateSearchReplace")
         .mockResolvedValueOnce("First modified code")
+        .mockResolvedValueOnce("First modified code")
+        .mockResolvedValueOnce("Second modified code")
         .mockResolvedValueOnce("Second modified code");
 
       const result = await processMessage(
@@ -158,6 +160,10 @@ describe("messageProcessing", () => {
         role: "assistant",
         content: "GPT-4 response",
       });
+
+      vi.spyOn(sharedModule, "updateSearchReplace")
+        .mockResolvedValueOnce("GPT-4 response")
+        .mockResolvedValueOnce("GPT-4 response");
 
       const result = await processMessage(
         mockAIHandler,

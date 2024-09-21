@@ -14,6 +14,10 @@ class SessMock implements ICode {
     css: "",
   };
 
+  init: () => Promise<ICodeSession> = async () => {
+    return this.session;
+  };
+
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
   }

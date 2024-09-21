@@ -47,6 +47,7 @@ describe("useMessageHandling", () => {
       ...cSessMock.session,
       code: "test code",
     },
+    init: vi.fn(),
     setCode: vi.fn().mockResolvedValue("test code"),
     sub: vi.fn(),
     screenShot: vi.fn().mockResolvedValue(mockImageData),

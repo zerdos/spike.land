@@ -32,7 +32,6 @@ export const buildOptions: BuildOptions = {
     "node:os": "os-browserify",
     "node:util": "util",
     "node:events": "events",
-    "worker_threads": "threads",
     "http": "browser-http",
     "os": "os-browserify",
     assert: "assert",
