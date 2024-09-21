@@ -64,26 +64,25 @@ sw.onfetch = (event) => {
         event.waitUntil.bind(event),
       ),
     );
-  } else {
-    if (request.url.includes("/live/") || request.url.includes("/session")) {
-      const pathname = new URL(request.url).pathname;
-      const codeSpace = useCodeSpace(pathname);
-      if (!sw.cSessions[codeSpace]) {
-        sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
-        sw.cSessions[codeSpace].init();
-      }
-
-      const session = sw.cSessions[codeSpace].session;
-      // console.log("Its probably a file", request.url);
-      event.respondWith(
-        new Response(JSON.stringify(session), {
-          headers: { "Content-Type": "application/json" },
-        }),
-      );
+  } else if (request.url.includes("/live/") || request.url.includes("/session")) {
+    const pathname = new URL(request.url).pathname;
+    const codeSpace = useCodeSpace(pathname);
+    if (!sw.cSessions[codeSpace]) {
+      sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
+      sw.cSessions[codeSpace].init();
     }
 
-    // console.log("Its probably not a file", request.url);
-    // For non-asset requests, fetch from the network
-    event.respondWith(fetch(request));
+    const session = sw.cSessions[codeSpace].session;
+    // console.log("Its probably a file", request.url);
+    event.respondWith(
+      new Response(JSON.stringify(session), {
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
   }
+
+  // console.log("Its probably not a file", request.url);
+  // For non-asset requests, fetch from the network
+
+  event.respondWith(fetch(request));
 };
