@@ -1,4 +1,5 @@
 import { ICodeSession } from "@/lib/interfaces";
+import { makeSession } from "@/lib/make-sess";
 
 export class CodeSessionBC {
   private broadcastChannel: BroadcastChannel;
@@ -23,9 +24,9 @@ export class CodeSessionBC {
           if (this.session && data.i > this.session.i) {
             console.log("broadcastChannel.onmessage", data);
 
-            this.session = data;
+            this.session = makeSession(data);
 
-            callback(data);
+            callback(this.session);
           }
         }
       }
