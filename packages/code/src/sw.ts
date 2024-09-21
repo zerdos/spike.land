@@ -80,10 +80,10 @@ sw.onfetch = (event) => {
         headers: { "Content-Type": "application/json" },
       });
     })());
+  } else {
+    // console.log("Its probably not a file", request.url);
+    // For non-asset requests, fetch from the network
+
+    event.respondWith(fetch(request));
   }
-
-  // console.log("Its probably not a file", request.url);
-  // For non-asset requests, fetch from the network
-
-  event.respondWith(fetch(request));
 };
