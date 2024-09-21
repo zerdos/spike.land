@@ -1,22 +1,22 @@
-import { importMap } from "@/lib/importmap-utils";
+// import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
 import { routes } from "@/lib/routes";
 import { lookup } from "mime-types";
-import { parse } from "node-html-parser";
+// import { parse } from "node-html-parser";
 
 // Adjusted addPrefixToImportMap function
-function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-  const updatedImports: { [key: string]: string } = {};
+// function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+//   const updatedImports: { [key: string]: string } = {};
 
-  for (const [key, value] of Object.entries(imap.imports)) {
-    // Ensure correct path concatenation
-    const updatedValue = new URL(value.slice(1), "http://example.com" + prefix)
-      .pathname;
-    updatedImports[key] = updatedValue;
-  }
+//   for (const [key, value] of Object.entries(imap.imports)) {
+//     // Ensure correct path concatenation
+//     const updatedValue = new URL(value.slice(1), "http://example.com" + prefix)
+//       .pathname;
+//     updatedImports[key] = updatedValue;
+//   }
 
-  return { imports: updatedImports };
-}
+//   return { imports: updatedImports };
+// }
 
 // Simplified getContentType function
 function getContentType(path: string) {
