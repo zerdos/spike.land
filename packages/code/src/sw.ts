@@ -64,7 +64,7 @@ sw.onfetch = (event) => {
         event.waitUntil.bind(event),
       ),
     );
-  } else if (request.url.includes("/live/") || request.url.includes("/session")) {
+  } else if (request.url.includes("/live/") && request.url.includes("/session")) {
     // console.log("Its probably a file", request.url);
     event.respondWith((async () => {
       const pathname = new URL(request.url).pathname;
