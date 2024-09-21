@@ -14,6 +14,7 @@ import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;
+sw.cSessions = sw.cSessions || {};
 sw.fileCacheName = `sw-file-cache-v13`; // Updated cache name to avoid conflicts
 
 // Instantiate serveWithCache
