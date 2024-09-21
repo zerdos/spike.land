@@ -64,7 +64,13 @@ sw.onfetch = (event) => {
         event.waitUntil.bind(event),
       ),
     );
-  } else if (request.url.includes("/live/") && request.url.includes("/session")) {
+  } else if (
+    request.url.includes("/live/")
+    && (request.url.includes("/session")
+      || request.url.includes("/index.tsx")
+      || request.url.includes("/index.js")
+      || request.url.includes("/index.css"))
+  ) {
     // console.log("Its probably a file", request.url);
     event.respondWith((async () => {
       const pathname = new URL(request.url).pathname;
@@ -82,6 +88,19 @@ sw.onfetch = (event) => {
       }
 
       const session = sw.cSessions[codeSpace].session;
+      if (pathname.includes("index.js")) {
+        return new Response(session?.transpiled || "", {
+          headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
+        });
+      } else if (pathname.includes("index.css")) {
+        return new Response(session?.css || "", {
+          headers: { "Content-Type": "text/css", "Cache-Control": "no-cache" },
+        });
+      } else if (pathname.includes("index.tsx")) {
+        return new Response(session?.code || "", {
+          headers: { "Content-Type": "application/typescript", "Cache-Control": "no-cache" },
+        });
+      }
 
       return new Response(JSON.stringify(session), {
         headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
