@@ -120,7 +120,8 @@ sw.onfetch = (event) => {
         });
       } else if (
         pathname.includes("iframe") || pathname.includes("embed") || pathname.length < 2
-        || pathname.includes("dehydrated") || pathname in routes
+        || pathname.includes("dehydrated") || pathname in routes || pathname === `/live/${codeSpace}/`
+        || pathname === `/live/${codeSpace}`
       ) {
         const HTML = await (await serve(
           new Request(location.origin + "/index.html"),
