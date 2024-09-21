@@ -110,6 +110,10 @@ sw.onfetch = (event) => {
         return new Response(session?.transpiled || "", {
           headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
         });
+      } else if (pathname.includes("session")) {
+        return new Response(JSON.stringify(session), {
+          headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
+        });
       } else if (pathname.includes("index.css")) {
         return new Response(session?.css || "", {
           headers: { "Content-Type": "text/css", "Cache-Control": "no-cache" },

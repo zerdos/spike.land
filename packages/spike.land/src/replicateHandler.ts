@@ -114,6 +114,7 @@ export async function handleReplicateRequest(
         headers: {
           "Content-Type": `image/${input.output_format}`,
           "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "public, max-age=31536000, immutable",
         },
       });
     }
