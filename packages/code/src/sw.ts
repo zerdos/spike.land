@@ -165,10 +165,6 @@ sw.onfetch = (event) => {
       } else {
         return fetch(request);
       }
-
-      return new Response(JSON.stringify(session), {
-        headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
-      });
     })());
   } else {
     // console.log("Its probably not a file", request.url);
