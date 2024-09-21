@@ -10,6 +10,7 @@ importScripts("/swVersion.js");
 
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { serveWithCache } from "@/lib/serve-with-cache";
+import { makeSession } from "./modules";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Now, self.swVersion and self.files are available
@@ -69,15 +70,12 @@ sw.onfetch = (event) => {
     event.respondWith((async () => {
       const pathname = new URL(request.url).pathname;
       const codeSpace = useCodeSpace(pathname);
-      if (!sw.cSessions[codeSpace]) {
-        sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace);
-        await sw.cSessions[codeSpace].init();
-      }
-
-      const session = sw.cSessions[codeSpace].session;
+      const session = makeSession(
+        sw.cSessions[codeSpace]?.session || await (sw.cSessions[codeSpace] = new CodeSessionBC(codeSpace)).init(),
+      );
 
       return new Response(JSON.stringify(session), {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
       });
     })());
   } else {

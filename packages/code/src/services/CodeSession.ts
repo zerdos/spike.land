@@ -154,7 +154,7 @@ export class Code implements ICode {
     this.models.set(this.codeSpace, this);
   }
 
-  async init(code: string = ""): Promise<ICodeSession> {
+  async init(): Promise<ICodeSession> {
     this.session = await this.broadcastChannel.init();
 
     this.releaseWorker = await connect({
