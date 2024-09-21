@@ -83,7 +83,11 @@ sw.onfetch = (event) => {
           return respPromise;
         },
         event.waitUntil.bind(event),
-      ),
+      ).catch((error) => {
+        console.error("Error in serve", error);
+        sw.skipWaiting();
+        return fetch(request);
+      }),
     );
   } else if (
     request.url.includes("/live/") || pathname in routes || pathname === ""
