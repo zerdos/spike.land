@@ -161,16 +161,6 @@ export class Code implements ICode {
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
     });
-
-    this.broadcastChannel.sub(() => {
-      return (data: ICodeSession) => {
-        if (data.i > this.session.i) {
-          this.session = data;
-          this.broadcastSessionChange();
-        }
-      };
-    });
-
     return this.session;
   }
 
@@ -255,7 +245,7 @@ export class Code implements ICode {
         + `const cacheBust4=${this.session.i};`,
     });
 
-    this.broadcastSessionChange();
+    this.broadcastChannel.postMessage(this.session);
 
     return errors.join("\n");
   }
@@ -276,24 +266,8 @@ export class Code implements ICode {
     return `# ${codeSpace}.tsx\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
   }
 
-  private broadcastSessionChange(): void {
-    if (this.broadcastedCounter >= this.session.i) return;
-    this.broadcastedCounter = this.session.i;
-
-    const broadcastMd5 = md5(this.session.transpiled);
-    if (this.broadcastMd5 === broadcastMd5) return;
-
-    this.broadcastMd5 = broadcastMd5;
-
-    this.subscribers.forEach((cb) => setTimeout(() => cb(this.session)));
-    this.broadcastChannel.postMessage({
-      ...this.session,
-      sender: "Editor",
-    } as BroadcastMessage);
-  }
-
   sub(callback: (session: ICodeSession) => void): void {
-    this.subscribers.push(callback);
+    this.broadcastChannel.sub(callback);
   }
 
   async release(): Promise<void> {
