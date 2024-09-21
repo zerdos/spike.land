@@ -41,7 +41,6 @@ const handleDefaultPage = async () => {
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
         await mutex.runExclusive(async () => {
-          console.log("Updating rendered app...");
           const { transpiled } = sess;
 
           renderedMd5 = md5(transpiled);
@@ -50,6 +49,7 @@ const handleDefaultPage = async () => {
             return;
           }
           window.renderedMd5 = renderedMd5;
+          console.log("Updating rendered app...");
 
           const myEl = document.createElement("div");
           myEl.style.cssText = "height: 100%; width: 100%;";

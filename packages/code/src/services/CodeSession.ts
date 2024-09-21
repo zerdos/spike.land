@@ -4,6 +4,7 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
+import { hash } from "immutable";
 import {
   formatCode as formatCodeUtil,
   runCode as runCodeUtil,
@@ -135,6 +136,7 @@ export class Code implements ICode {
   session: ICodeSession;
   private user: string;
   private broadcastedCounter = 0;
+  private broadcastMd5 = "";
   private broadcastChannel: BroadcastChannel;
   private subscribers: Array<(session: ICodeSession) => void> = [];
   private codeProcessor = new CodeProcessor();
@@ -194,7 +196,7 @@ export class Code implements ICode {
     }
     this.setCodeController = new AbortController();
     const { signal } = this.setCodeController;
-    const counter = this.session.i + 1;
+    const counter = this.session.i;
 
     const processedSession = await this.codeProcessor.process(
       rawCode,
@@ -205,7 +207,10 @@ export class Code implements ICode {
     );
     if (!processedSession || signal.aborted) return this.session.code;
 
-    this.session = makeSession(processedSession);
+    const session = makeSession(processedSession);
+    if (hash(session) === hash(this.session)) return this.session.code;
+    this.session = makeSession({ ...session, i: this.session.i + 1 });
+
     this.broadcastSessionChange();
     this.broadcastChannel.postMessage({
       ...this.session,
@@ -283,6 +288,12 @@ export class Code implements ICode {
   private broadcastSessionChange(): void {
     if (this.broadcastedCounter >= this.session.i) return;
     this.broadcastedCounter = this.session.i;
+
+    const broadcastMd5 = md5(this.session.transpiled);
+    if (this.broadcastMd5 === broadcastMd5) return;
+
+    this.broadcastMd5 = broadcastMd5;
+
     this.subscribers.forEach((cb) => setTimeout(() => cb(this.session)));
     this.broadcastChannel.postMessage({
       ...this.session,
