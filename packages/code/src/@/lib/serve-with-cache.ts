@@ -1,6 +1,7 @@
 // import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
 import { routes } from "@/lib/routes";
+import cache from "@src/emotionCache";
 import { lookup } from "mime-types";
 
 // Simplified getContentType function
@@ -26,7 +27,9 @@ export const serveWithCache = (
     });
 
   const isAsset = (request: Request) => {
+    // without search params
     const url = new URL(request.url);
+
     const pathname = url.pathname.startsWith("/")
       ? url.pathname.slice(1)
       : url.pathname;
@@ -96,6 +99,9 @@ export const serveWithCache = (
 
       const cacheUrl = new URL(request.url);
       cacheUrl.pathname = files[filePath] || filePath;
+      cacheUrl.search = "";
+      cacheUrl.hash = "";
+
       const cacheKey = new Request(cacheUrl.toString());
 
       let resp: Response | undefined;
