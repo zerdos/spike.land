@@ -115,8 +115,6 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.47.2"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.11.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.36.1"],\
-          ["module", "npm:1.2.5"],\
-          ["n", "npm:10.0.0"],\
           ["playwright", "npm:1.47.2"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"]\
@@ -16544,8 +16542,6 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.47.2"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.11.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.36.1"],\
-          ["module", "npm:1.2.5"],\
-          ["n", "npm:10.0.0"],\
           ["playwright", "npm:1.47.2"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"]\
@@ -16671,15 +16667,6 @@ const RAW_RUNTIME_STATE =
           ["any-promise", "npm:1.3.0"],\
           ["object-assign", "npm:4.1.1"],\
           ["thenify-all", "npm:1.6.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["n", [\
-      ["npm:10.0.0", {\
-        "packageLocation": "./.yarn/unplugged/n-npm-10.0.0-df9a648a39/node_modules/n/",\
-        "packageDependencies": [\
-          ["n", "npm:10.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
