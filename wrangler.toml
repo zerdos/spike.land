@@ -35,11 +35,3 @@ preview_bucket_name = "npmprod"
 # [[r2_buckets]]
 # binding = "R2_BUCKET" 
 # bucket_name = "ze3w"
-
-[[migrations]]
-tag = "v2" # Should be unique for each entry
-new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
-
-[[migrations]]
-tag = "v1" # Should be unique for each entry
-new_classes = ["Users"] # Array of new classes
