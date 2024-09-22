@@ -26,7 +26,7 @@ export default () => {
       }
 
       const arrayBuffer = await response.arrayBuffer();
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const audioContext = new window.AudioContext();
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
@@ -69,8 +69,7 @@ export default () => {
             src={audioUrl}
             className='w-full'
             onPlay={() => {
-              const audioContext = new (window.AudioContext ||
-                window.webkitAudioContext)();
+              const audioContext = new AudioContext();
               audioContext.resume();
             }}>
             Your browser does not support the audio element.
