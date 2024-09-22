@@ -33,7 +33,7 @@ export async function handleGPT4Request(
   });
 
   if (body.model === "tts-1") {
-    const transcription = await openai.audio.speech.create({
+    return openai.audio.speech.create({
       model: "tts-1-hd",
       voice: 'alloy',
       input: "Hello, how are you?",
@@ -41,34 +41,6 @@ export async function handleGPT4Request(
       speed: 1.0
     });
 
-    const { readable, writable } = new TransformStream();
-    const writer = writable.getWriter();
-    const reader = transcription.body!.getReader();
-    ctx.waitUntil((async () => {
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            await writer.close();
-            break;
-          }
-          await writer.write(value);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        writer.write(
-          new TextEncoder().encode("An error occurred while processing your request."),
-        );
-      }
-    })());
-  
-//mp3
-    return new Response(readable, {
-      headers: {
-        "Content-Type": "audio/mpeg",
-        "Access-Control-Allow-Origin": "*",
-      }
-    } )
   }
 
     
