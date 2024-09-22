@@ -76,7 +76,7 @@ sw.onfetch = (event) => {
       lastFetch = Date.now();
 
       const response = await fetch("/files.json");
-      const data = await response.json() as { [key: string]: string, ASSET_HASH: string };
+      const data = await response.json() as { [key: string]: string; ASSET_HASH: string };
       if (sw.swVersion !== data.ASSET_HASH) {
         sw.swVersion = data.ASSET_HASH;
         sw.files = data;
