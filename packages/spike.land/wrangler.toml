@@ -18,6 +18,9 @@ bindings = [
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
+[site]
+bucket = "../code/dist" # Add the directory with your static assets
+
 [vars]
 
 ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed

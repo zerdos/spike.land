@@ -6,6 +6,7 @@ export default interface Env {
   ESM_TOKEN?: string;
   OPENAI_API_KEY: string;
   KV: KVNamespace;
+  __STATIC_CONTENT: KVNamespace;
   NPM_REGISTRY?: string;
   REPLICATE_API_TOKEN: string;
   ANTHROPIC_API_KEY: string;
