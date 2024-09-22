@@ -20,6 +20,9 @@ export async function handleGPT4Request(
   const body = JSON.parse(await readRequestBody(request)) as {
     model: string;
     messages: MessageParam[];
+    input?: string;
+    voice?: string;
+
     file?: File; // To handle file uploads
   };
 
