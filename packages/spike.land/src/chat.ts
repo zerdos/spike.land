@@ -196,7 +196,7 @@ export default {
 
     return handleMainFetch(request, env, ctx);;
   },
-};
+}; 
 
 export async function handleCMSIndexRequest(request: Request, env: Env) {
   const key = request.url;
