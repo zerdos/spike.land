@@ -36,6 +36,8 @@ export async function handleGPT4Request(
       model: "tts-1",
       voice: 'alloy',
       input: "Hello, how are you?",
+      response_format: "mp3",
+      speed: 1.0
     });
     return transcription;
     
