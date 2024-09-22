@@ -11,7 +11,7 @@ const isProduction = environment === "production";
 
 const createEntryPoints = async (dir: string): Promise<string[]> => {
   const files = await readdir(`src/@/${dir}`);
-  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`);
+  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`).filter(file=>!file.endsWith(".d.ts"));
 };
 
 const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
