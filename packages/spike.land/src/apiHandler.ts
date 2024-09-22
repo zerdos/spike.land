@@ -1,7 +1,6 @@
-import { md5 } from "@spike-land/code";
+import { HTML } from "@spike-land/code";
 import Env from "./env";
 
-import { HTML } from "./fetchHandler";
 
 export async function handleApiRequest(
   path: string[],
@@ -65,7 +64,7 @@ export async function handleApiRequest(
       return new Response("Not found", { status: 404 });
   }
 
-  const respText = await HTML(env);
+  const respText = await HTML;
 
   const headers = new Headers({
     "Access-Control-Allow-Origin": "*",
@@ -74,8 +73,7 @@ export async function handleApiRequest(
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cache-Control": "no-cache",
     "Content-Encoding": "gzip",
-    "Content-Type": "text/html; charset=UTF-8",
-    "content_hash": md5(respText),
+    "Content-Type": "text/html; charset=UTF-8"
   });
 
   return new Response(respText, { status: 200, headers });

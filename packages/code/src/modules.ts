@@ -8,7 +8,9 @@ export type {
   MessagePart,
   RenderedApp,
 } from "@/lib/interfaces.ts";
+import HTML from "./index.html";
 
+export { HTML };
 export { serveWithCache } from "@/lib/serve-with-cache.ts";
 
 export { md5 } from "@/lib/md5.ts";

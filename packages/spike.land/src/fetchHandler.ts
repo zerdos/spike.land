@@ -1,23 +1,7 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { importMap, importMapReplace} from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
-import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 import { handleCORS, isUrlFile } from "./utils";
-
-export const HTML = async (env: Env) =>
-(await (await getAssetFromKV(
-    {
-      request: new Request("/index.html", { headers: { "accept": "text/html" } }),
-      async waitUntil(promise) {
-        await promise;
-      },
-    },
-    {
-      ASSET_NAMESPACE: env.__STATIC_CONTENT,
-      ASSET_MANIFEST,
-    },
-  )).text())
 
 export async function handleFetchApi(
   path: string[],
@@ -35,11 +19,8 @@ export async function handleFetchApi(
   const handlers: Record<string, () => Promise<Response>> = {
     ping: async () => handlePing(),
     websocket: async () => handleWebSocket(request),
-    "files.json": async () => handleFilesJson(),
-    "assetHash.json": async () => handleFilesJson(false),
-    "swVersion.mjs": async () => handleSwVersionResponse(path[0], ASSET_HASH, undefined),
     "node_modules": async () => handleUnpkg(path),
-    "swVersion.js": async () => handleSwVersionResponse(path[0], ASSET_HASH, files),
+
     "importMap.json": async () => handleImportMapJson(),
     "robots.txt": async () => {
       const cont = `
@@ -107,16 +88,6 @@ function handleWebSocket(request: Request): Response {
   return new Response(null, { status: 101, webSocket: pair[0] });
 }
 
-function handleFilesJson(withFiles = true): Response {
-  const f = withFiles ? files : [];
-  return new Response(JSON.stringify(files), {
-    headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      "Content-Encoding": "gzip",
-      "Cache-Control": "no-cache"
-    },
-  });
-}
 
 const handleUnpkg = (path: string[]) =>
   fetch(
@@ -128,8 +99,7 @@ function handleImportMapJson(): Response {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Cache-Control": "no-cache",
-      "Content-Encoding": "gzip",
-      ASSET_HASH,
+      "Content-Encoding": "gzip"
     },
   });
 }
@@ -283,11 +253,12 @@ async function handleDefaultCase(
     if (!resp.ok) return resp;
 
     if (resp.headers.get("Content-Type")?.includes("javascript")) {
+      
       const text = await resp.text();
       const importMapReplaced = importMapReplace(text, u.origin);
       
 
-      let response2 = new Response(importMapReplaced, { ...resp, headers: new Headers(resp.headers) });
+      let response2 = new Response(importMapReplaced, {  headers: new Headers(resp.headers) });
 
       ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
   

@@ -9,7 +9,6 @@ import { WebSocketHandler } from "./websocketHandler";
 export { md5 };
 
 export class Code implements DurableObject {
-  public HTML: string = "";
 
   private routeHandler: RouteHandler;
   wsHandler: WebSocketHandler;
@@ -49,7 +48,6 @@ export class Code implements DurableObject {
     this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
 
-    this.HTML = await fetch(this.origin + "/index.html").then((r) => r.text());
 
     await this.state.blockConcurrencyWhile(async () => {
       try {

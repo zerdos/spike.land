@@ -1,29 +1,13 @@
 import { createClerkClient } from "@clerk/backend";
 import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
-import { ASSET_HASH } from "./staticContent.mjs";
-import { importMap } from "@spike-land/code";
+import { importMap, HTML } from "@spike-land/code";
 
 export interface AutoSaveEntry {
   timestamp: number;
   code: string;
 }
 
-function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-  const updatedImports: { [key: string]: string } = {};
-
-  for (const [key, value] of Object.entries(imap.imports)) {
-    // Ensure correct path concatenation
-
-    const updatedValue = new URL((value as string).slice(1), "http://example.com" + prefix)
-      .pathname;
-    updatedImports[key] = updatedValue;
-  }
-
-  return { imports: updatedImports };
-}
-
-const imap =  addPrefixToImportMap(importMap, `/${ASSET_HASH}/`);
 
 
 
@@ -142,9 +126,9 @@ export class RouteHandler {
           await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
-          const respText = this.code.HTML.replace(
+          const respText = HTML.replace(
             `<script type="importmap"></script>`,
-            `<script type="importmap">${JSON.stringify(imap)}</script>`,
+            `<script type="importmap">${JSON.stringify(importMap)}</script>`,
           )          .replace(
             `<link rel="preload" href="app/tw-global.css" as="style">`,
             `<link rel="preload" href="app/tw-global.css" as="style">
@@ -153,8 +137,7 @@ export class RouteHandler {
                     `,
           ).replace(
             "<div id=\"embed\"></div>",
-            `<div id="embed">${html}</div>`,
-          ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
+            `<div id="embed">${html}</div>`);
 
           const headers = new Headers({
             "Access-Control-Allow-Origin": "*",
@@ -398,9 +381,9 @@ hQIDAQAB
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html, css } = this.code.session;
-    const respText = this.code.HTML.replace(
+    const respText = HTML.replace(
       `<script type="importmap"></script>`,
-      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     )       .replace(
       `<link rel="preload" href="app/tw-global.css" as="style">`,
      `<link rel="preload" href="app/tw-global.css" as="style">
@@ -410,7 +393,7 @@ hQIDAQAB
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
+    )
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -433,14 +416,14 @@ hQIDAQAB
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
-    const respText = this.code.HTML.replace(
+    const respText = HTML.replace(
       `<script type="importmap"></script>`,
-      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     )       .replace(
       "<div id=\"embed\"></div>",
       "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
         + codeSpace + "/iframe\"></iframe></div>",
-    ).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
+    )
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -519,9 +502,9 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
 
     
 
-    const respText = this.code.HTML.replace(
+    const respText = HTML.replace(
       `<script type="importmap"></script>`,
-      `<script type="importmap">${JSON.stringify(imap)}</script>`,
+      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).
     replace(
       `<link rel="preload" href="app/tw-global.css" as="style">`,
@@ -532,7 +515,7 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
-    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`).replace(`<base href="/">`,`<base href="/${ASSET_HASH}/">`);
+    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`);
 
 
     return new Response(respText, {
