@@ -26,7 +26,7 @@ export const useSpeedy2 = async () => {
   console.log({ external });
   let res = await build({
     codeSpace,
-    splitting: false,
+    splitting: true,
 
     origin: location.origin,
     format: "esm",
@@ -45,7 +45,8 @@ export const useSpeedy2 = async () => {
 
   const shims = await fetch(`/shims.js`).then((res) => res.text());
 
-  const wrapperJs = res; // .find(x => x.path.includes("wrapper.mjs"))?.text || "";
+  const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
+  const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
   const { swVersion } = await import(`${origin}/swVersion.mjs`);
@@ -108,6 +109,7 @@ export const useSpeedy2 = async () => {
   <style> 
     ${appCss}
     ${globCss}
+    ${wrapperCss}
     ${css}
   </style>
 </head>
