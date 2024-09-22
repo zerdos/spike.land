@@ -15,7 +15,13 @@ const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
     new Blob([importMapReplace(code.split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`)], { type: "application/javascript"}) ), location.origin).toString();
     
+
     
+declare global {
+  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
+}
+
+globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
 
 // Main render function
@@ -92,7 +98,7 @@ async function renderApp(
       </CacheProvider>,
     );
 
-    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
+    renderedApps.set(rootEl, { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
     
       
      
@@ -102,8 +108,13 @@ async function renderApp(
           cssCache.sheet.flush();
         }
         rootEl.remove();
+        renderedApps.delete(rootEl);
 
-    }};
+    }});
+
+    const renderedApp = renderedApps.get(rootEl)!;
+
+
 
     return renderedApp;
   } catch (error) {

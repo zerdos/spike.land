@@ -197,7 +197,7 @@ export class Code implements DurableObject {
       }
 
       if (!this.transpiled) {
-        const resp = await fetch(`https://js.spike.land`, {
+        const resp = this.env.ESBUILD.fetch!( new Request("https://esbuild.spikeland.workers.dev") , {
           method: "POST",
           body: this.session.code,
           headers: { TR_ORIGIN: this.origin },

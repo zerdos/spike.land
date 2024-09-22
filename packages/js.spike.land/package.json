@@ -8,21 +8,19 @@
   "scripts": {
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
-    "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler deploy ../code/dist/cf-esbuild.mjs",
+    "deploy": "wrangler deploy ",
     "prepublishOnly": "wrangler deploy src/index.ts",
-    "predeploy": "yarn x:build",
-    "x:build": "rm -rf ./src/esbuild.wasm && cp ../code/dist/esbuild*.wasm ./src/esbuild.wasm"
+    "predeploy": "yarn x:build"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240919.0",
     "typescript": "5.6.2",
-    "wrangler": "3.78.2"
+    "wrangler": "3.78.7"
   },
   "dependencies": {
     "@spike-land/code": "0.9.55",
-    "esbuild-wasm": "0.23.1"
+    "esbuild-wasm": "0.24.0"
   },
   "publishConfig": {
     "access": "public"

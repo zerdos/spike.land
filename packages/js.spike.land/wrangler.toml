@@ -1,10 +1,12 @@
 
-name = "transform"
+name = "esbuild"
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
-compatibility_date = "2021-10-16"
+compatibility_date = "2022-10-31"
+compatibility_flags = ["nodejs_compat"] 
 main = "../code/dist/cf-esbuild.mjs"
 logpush = true
+
 
 [[rules]]
 type = "CompiledWasm"

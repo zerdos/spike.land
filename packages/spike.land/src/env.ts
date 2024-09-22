@@ -12,6 +12,7 @@ export default interface Env {
   ANTHROPIC_API_KEY: string;
   CLERK_SECRET_KEY: string;
   CF_REAL_TURN_TOKEN: string;
+  ESBUILD: ExportedHandler;
   NPM_TOKEN?: string;
   CODE: DurableObjectNamespace;
   LIMITERS: DurableObjectNamespace;

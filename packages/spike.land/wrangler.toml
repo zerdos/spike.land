@@ -7,6 +7,11 @@ compatibility_flags = ["nodejs_compat"]
 main = "./src/cf-workers.ts"
 logpush = true
 
+[[env.production.services]]
+binding = "ESBUILD"
+service = "esbuild"
+
+
 kv_namespaces = [
     { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5", preview_id = "9db106837d4d437a962612dd04197581" }
 ]
@@ -82,6 +87,11 @@ NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm regist
 binding = "R2"
 bucket_name = "esm"
 preview_bucket_name = "esm"
+
+[[env.testing.services]]
+binding = "ESBUILD"
+service = "esbuild"
+
 
 
 # [[env.testing.r2_buckets]]
