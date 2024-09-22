@@ -1,4 +1,3 @@
-import { ASSET_HASH, files } from "./staticContent.mjs";
 
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
@@ -13,8 +12,6 @@ export function isUrlFile(pathname: string) {
   if (!lastSegment || (lastSegment && !lastSegment.includes("."))) {
     return false;
   }
-
-  if (files[url]) return true;
 
   return false;
 }
@@ -55,8 +52,7 @@ export function handleRedirectResponse(url: URL, start: string): Response {
         "Location": `${url.origin}/live/${start}`,
         "Content-Type": "text/html;charset=UTF-8",
         "Cache-Control": "no-cache",
-        "Content-Encoding": "gzip",
-        ASSET_HASH: ASSET_HASH,
+        "Content-Encoding": "gzip"
       },
     },
   );

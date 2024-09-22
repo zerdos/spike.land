@@ -13,7 +13,6 @@ export default interface Env {
   CF_REAL_TURN_TOKEN: string;
   NPM_TOKEN?: string;
   CODE: DurableObjectNamespace;
-  __STATIC_CONTENT: KVNamespace;
   LIMITERS: DurableObjectNamespace;
   R2: R2Bucket;
 }
