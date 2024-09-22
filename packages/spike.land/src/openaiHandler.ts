@@ -39,11 +39,39 @@ export async function handleGPT4Request(
       response_format: "mp3",
       speed: 1.0
     });
-    return transcription;
-    
+
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+    const reader = transcription.body!.getReader();
+    ctx.waitUntil((async () => {
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            await writer.close();
+            break;
+          }
+          await writer.write(value);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        writer.write(
+          textEncoder.encode("An error occurred while processing your request."),
+        );
+      }
+    })());
+  
+//mp3
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "audio/mpeg",
+        "Access-Control-Allow-Origin": "*",
+      }
+    } )
   }
 
-
+    
+  
   if (body.model === "whisper-1") {
     const transcription = await openai.audio.transcriptions.create({
       file: body.file!,
