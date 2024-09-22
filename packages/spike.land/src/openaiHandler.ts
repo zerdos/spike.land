@@ -42,7 +42,7 @@ export async function handleGPT4Request(
         voice,
         input: body.input || "Hello, how are you?",
         response_format: "mp3",
-        speed: 1.0
+        speed: 1.2
       });
 
       // Convert the ReadableStream to ArrayBuffer
