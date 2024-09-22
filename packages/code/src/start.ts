@@ -6,6 +6,14 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
 import { main } from "./ws";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister();
+    }
+  });
+}
+
 if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
 }
