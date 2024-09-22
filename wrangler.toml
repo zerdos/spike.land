@@ -7,3 +7,39 @@ compatibility_date = "2024-09-22"
 binding = "CODESPACE"
 service = "spike-land"
 environment = "production"
+
+kv_namespaces = [
+    { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5", preview_id = "9db106837d4d437a962612dd04197581" }
+]
+
+
+[durable_objects]
+bindings = [
+    { name = "CODE", class_name = "Code" },
+    { name = "LIMITERS", class_name = "CodeRateLimiter" }
+]
+
+[vars]
+
+ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
+NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
+
+# - OPENAI_API_KEY
+# - ELEVENLABS   
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "npmprod"
+preview_bucket_name = "npmprod"
+
+# [[r2_buckets]]
+# binding = "R2_BUCKET" 
+# bucket_name = "ze3w"
+
+[[migrations]]
+tag = "v2" # Should be unique for each entry
+new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Users"] # Array of new classes
