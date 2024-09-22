@@ -1,15 +1,48 @@
-import { Md5 } from "ts-md5";
+import { hash } from "immutable";
 
-export const md5 = (input: string): string => generateDeterministicKey(input).slice(0, 8);
+export const md5 = (input: string): string => generateDeterministicKey(input);
 
 const generateDeterministicKey = (input: string): string => {
-  const hash = Md5.hashStr(input).toString();
-  const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let result = "";
-  for (let i = 0; i < hash.length; i++) {
-    const charCode = hash.charCodeAt(i);
-    result += validChars[charCode % validChars.length];
+  let str = intToString(hash(input));
+  while (str.length < 8) {
+    str = str + str;
+  }
+  return str.slice(0, 8);
+};
+
+function intToString(n: number): string {
+  let num = n + 2 ** 30;
+  if (num > 2 ** 31) {
+    throw new Error("Input must be a 32-bit unsigned integer", n);
   }
 
-  return result.slice(0, 8);
-};
+  // Define character sets
+  const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const alphanumeric = alpha + "0123456789";
+
+  // Convert to base 62 for the second part
+  let base62 = "";
+  do {
+    base62 = alphanumeric[num % 62] + base62;
+    num = Math.floor(num / 62);
+  } while (num > 0);
+
+  // Ensure at least one alphabetic character for the first part
+  if (base62.length === 0 || !alpha.includes(base62[0])) {
+    base62 = "a" + base62;
+  }
+
+  // Split into two parts
+  let alphaPart = "";
+  let alphanumericPart = "";
+
+  for (let char of base62) {
+    if (alphaPart.length === 0 || alpha.includes(char)) {
+      alphaPart += char;
+    } else {
+      alphanumericPart += char;
+    }
+  }
+
+  return alphaPart + alphanumericPart;
+}
