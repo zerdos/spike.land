@@ -5,7 +5,7 @@ interface Env {
 }
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-    const codeSpace =  context.params.codeSpace as string;
+    const codeSpace =  context.params['code-space'] as string;
 
     const id = context.env.CODESPACE.idFromString(codeSpace);
     const stub = context.env.CODESPACE.get(id);

@@ -12310,6 +12310,7 @@ __metadata:
     playwright: "npm:1.47.2"
     react: "npm:18.3.1"
     typescript: "npm:5.6.2"
+    wrangler: "npm:^3.78.7"
   languageName: unknown
   linkType: soft
 
@@ -17534,7 +17535,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.78.7, wrangler@npm:^3.78.2":
+"wrangler@npm:3.78.7, wrangler@npm:^3.78.2, wrangler@npm:^3.78.7":
   version: 3.78.7
   resolution: "wrangler@npm:3.78.7"
   dependencies:
