@@ -14,8 +14,6 @@
     "dts"
   ],
   "scripts": {
-    "test": "vitest --no-color --silent --reporter basic run",
-    "test-slim": "{vitest --silent   --no-color --typecheck --run --reporter basic | grep -v ✓ | grep -v ok } 2>/dev/null ",
     "codebase": "ai-digest -i $(pwd)/src --show-output-files",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
@@ -24,10 +22,13 @@
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
-    "prebuild": "yarn test || echo FAILED",
     "tw": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.js --postcss -m -o dist/app/tw-global.css",
-    "build": "rm -rf dist dts && yarn types && npx -y tsx esbuild-dev.ts && cp -r dts/src/@ dist/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && yarn tw",
-    "sw": "echo ok"
+    "sw": "echo ok",
+  "test": "vitest --no-color --reporter verbose run",
+  "test-slim": "{vitest --verbose --no-color --typecheck --run --reporter verbose | grep -v ✓ | grep -v ok } 2>/dev/null ",
+  "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
+  "build": "echo 'Starting build...' && rm -rf dist dts && yarn types && npx -y tsx esbuild-dev.ts && cp -r dts/src/@ dist/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && yarn tw && echo 'Build completed successfully!'"
+
   },
   "keywords": [
     "monaco",
