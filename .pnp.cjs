@@ -321,14 +321,6 @@ const RAW_RUNTIME_STATE =
       "npm:0.47.2"\
     ],\
     [\
-      "@edge-runtime/primitives",\
-      "npm:5.1.0"\
-    ],\
-    [\
-      "@edge-runtime/vm",\
-      "npm:4.0.3"\
-    ],\
-    [\
       "@emotion/babel-plugin",\
       "npm:11.12.0"\
     ],\
@@ -6626,25 +6618,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@edge-runtime/primitives", [\
-      ["npm:5.1.0", {\
-        "packageLocation": "../../../../../Users/z/.yarn/berry/cache/@edge-runtime-primitives-npm-5.1.0-e149043f9f-10c0.zip/node_modules/@edge-runtime/primitives/",\
-        "packageDependencies": [\
-          ["@edge-runtime/primitives", "npm:5.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@edge-runtime/vm", [\
-      ["npm:4.0.3", {\
-        "packageLocation": "../../../../../Users/z/.yarn/berry/cache/@edge-runtime-vm-npm-4.0.3-52e91b84e3-10c0.zip/node_modules/@edge-runtime/vm/",\
-        "packageDependencies": [\
-          ["@edge-runtime/vm", "npm:4.0.3"],\
-          ["@edge-runtime/primitives", "npm:5.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@emotion/babel-plugin", [\
       ["npm:11.12.0", {\
         "packageLocation": "../../../../../Users/z/.yarn/berry/cache/@emotion-babel-plugin-npm-11.12.0-690c383ac1-10c0.zip/node_modules/@emotion/babel-plugin/",\
@@ -12459,8 +12432,6 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/code", "workspace:packages/code"],\
           ["@clerk/clerk-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.9.1"],\
           ["@clerk/nextjs", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.6.0"],\
-          ["@cloudflare/workers-types", "npm:4.20240919.0"],\
-          ["@edge-runtime/vm", "npm:4.0.3"],\
           ["@emotion/babel-plugin", "npm:11.12.0"],\
           ["@emotion/cache", "npm:11.13.1"],\
           ["@emotion/css-prettifier", "npm:1.1.4"],\
@@ -28492,7 +28463,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/vitest-virtual-c27ccf170b/6/Users/z/.yarn/berry/cache/vitest-npm-2.1.1-74ca7d77ee-10c0.zip/node_modules/vitest/",\
         "packageDependencies": [\
           ["vitest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.1"],\
-          ["@edge-runtime/vm", "npm:4.0.3"],\
+          ["@edge-runtime/vm", null],\
           ["@types/edge-runtime__vm", null],\
           ["@types/happy-dom", null],\
           ["@types/jsdom", null],\
