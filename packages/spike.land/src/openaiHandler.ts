@@ -33,15 +33,39 @@ export async function handleGPT4Request(
   });
 
   if (body.model === "tts-1") {
-    return openai.audio.speech.create({
-      model: "tts-1-hd",
-      voice: 'alloy',
-      input: "Hello, how are you?",
-      response_format: "mp3",
-      speed: 1.0
-    });
+    try {
+      const speechResponse = await openai.audio.speech.create({
+        model: "tts-1-hd",
+        voice: body.voice || 'alloy',
+        input: body.input || "Hello, how are you?",
+        response_format: "mp3",
+        speed: 1.0
+      });
 
+      // Convert the ReadableStream to ArrayBuffer
+      const arrayBuffer = await speechResponse.arrayBuffer();
+
+      // Return the audio file
+      return new Response(arrayBuffer, {
+        headers: {
+          "Content-Type": "audio/mpeg",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error) {
+      console.error("Error in TTS:", error);
+      return new Response(JSON.stringify({ error: "TTS processing failed" }), {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
   }
+
+
+  
 
     
   
