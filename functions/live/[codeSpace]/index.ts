@@ -11,5 +11,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     const stub = context.env.CODESPACE.get(id);
 
     
-    return stub.fetch(context.request);
+    const stubPathName = new URL(context.request.url).pathname.split('/').slice(2).join('/');
+    const stubUrl = new URL(stubPathName,context.request.url).toString();
+    const updatedContext = {
+        ...context,
+        request: new Request(stubUrl)
+    } as unknown as typeof context;
+
+    return stub.fetch(updatedContext.request);
   };
