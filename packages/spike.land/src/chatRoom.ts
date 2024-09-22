@@ -5,6 +5,7 @@ import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
+import { aw } from "vitest/dist/chunks/reporters.WnPwkmgA";
 
 export { md5 };
 
@@ -197,11 +198,15 @@ export class Code implements DurableObject {
       }
 
       if (!this.transpiled) {
-        const resp = this.env.ESBUILD.fetch!( new Request("https://esbuild.spikeland.workers.dev") , {
+        const waitUntil = async(p: Promise<unknown>) => await p as void;
+
+        const resp = await this.env.ESBUILD.fetch!( new Request("https://esbuild.spikeland.workers.dev") , {
           method: "POST",
           body: this.session.code,
           headers: { TR_ORIGIN: this.origin },
-        });
+        }, {waitUntil, passThroughOnException: ()=> {}});
+        
+
         this.transpiled = await resp.text();
       }
 
