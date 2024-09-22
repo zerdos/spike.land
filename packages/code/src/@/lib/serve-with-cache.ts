@@ -165,6 +165,12 @@ export const serveWithCache = (
           headers,
         });
 
+        if (response.status !== 200) {
+          inFlightRequests.delete(request.url);
+
+          return response;
+        }
+
         // Cache the response asynchronously if cache is available
         if (_fileCache && response.status === 200) {
           waitUntil(
