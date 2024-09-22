@@ -85,7 +85,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
 async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   try {
     const response = await fetch(`/live/${codeSpace}/session`);
-    const data = await response.json();
+    const data = await response.json() as ICodeSession;
     return makeSession(data);
   } catch (error) {
     console.error(`Failed to fetch initial session for ${codeSpace}:`, error);
