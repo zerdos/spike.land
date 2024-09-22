@@ -12323,6 +12323,7 @@ __metadata:
     eslint: "npm:9.11.0"
     eslint-plugin-react: "npm:7.36.1"
     module: "npm:^1.2.5"
+    n: "npm:^10.0.0"
     playwright: "npm:1.47.2"
     react: "npm:18.3.1"
     typescript: "npm:5.6.2"
@@ -12430,6 +12431,16 @@ __metadata:
     object-assign: "npm:^4.0.1"
     thenify-all: "npm:^1.0.0"
   checksum: 10/8427de0ece99a07e9faed3c0c6778820d7543e3776f9a84d22cf0ec0a8eb65f6e9aee9c9d353ff9a105ff62d33a9463c6ca638974cc652ee8140cd1e35951c87
+  languageName: node
+  linkType: hard
+
+"n@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "n@npm:10.0.0"
+  bin:
+    n: bin/n
+  checksum: 10/934392d566ffa8df2bf74fb21c329678694fa4caff19f68f5290babfc0f0f227f405488a9b4420bdc2856228f9bc83cb1b6807de64e232ed7a11a352889b1839
+  conditions: "!os=win32"
   languageName: node
   linkType: hard
 
