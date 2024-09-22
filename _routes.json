@@ -1,0 +1,9 @@
+{
+    "version": 1,
+    "exclude": [
+        "/favicon.ico"
+        "/@/**/*"
+    ]
+  }
+  
+  
