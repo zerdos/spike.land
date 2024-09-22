@@ -21,6 +21,7 @@ export async function handleGPT4Request(
     model: string;
     messages: MessageParam[];
     input?: string;
+    speed?: number;
     voice?: string;
 
     file?: File; // To handle file uploads
@@ -42,7 +43,7 @@ export async function handleGPT4Request(
         voice,
         input: body.input || "Hello, how are you?",
         response_format: "mp3",
-        speed: 1.2
+        speed: body.speed || 1,
       });
 
       // Convert the ReadableStream to ArrayBuffer
