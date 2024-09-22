@@ -29,7 +29,7 @@ export const useSpeedy2 = async () => {
     splitting: true,
 
     origin: location.origin,
-    format: "esm",
+    format: "iife",
   }) as unknown as { text: string; path: string; contents: ArrayBuffer }[];
 
   // res.map(async (f) => {
