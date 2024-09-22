@@ -1,11 +1,11 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 
-export async function handleErrors(
+async function handleErrors(
   request: Request,
   cb: () => Promise<Response>,
 ) {
   try {
-    return await cb();
+    return cb();
   } catch (err) {
     if (request.headers.get("Upgrade") === "websocket") {
       let stack: string | undefined = "";
