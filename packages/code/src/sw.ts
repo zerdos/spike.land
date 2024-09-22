@@ -65,8 +65,26 @@ sw.onmessage = ({ data }) => {
     sw.skipWaiting();
   }
 };
+let lastFetch = 0;
 
 sw.onfetch = (event) => {
+  event.waitUntil(
+    (async () => {
+      if (Date.now() - lastFetch < 60_000) {
+        return;
+      }
+      lastFetch = Date.now();
+
+      const response = await fetch("/files.json");
+      const data = await response.json();
+      if (sw.swVersion !== data.ASSET_HASH) {
+        sw.swVersion = data.ASSET_HASH;
+        sw.files = data;
+        sw.registration.waiting?.postMessage("SKIP_WAITING");
+      }
+    })(),
+  );
+
   const request = event.request;
   const url = new URL(request.url);
   const pathname = url.pathname;
