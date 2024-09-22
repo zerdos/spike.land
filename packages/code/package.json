@@ -16,10 +16,10 @@
   "scripts": {
     "codebase": "ai-digest -i $(pwd)/src --show-output-files",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
-    "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
+    "types": "tsc --emitDeclarationOnly || echo ok",
     "types:cp": "cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/  && cp -r dts/src/@ dist/. ",
     "typecheck": "tsc --noEmit --pretty false",
-    "clean": "rm -rf .tsBuildInfo dist dts",
+    "clean": "rm -rf .tsBuildInfo dist dts && mkdir -p dist dts",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
