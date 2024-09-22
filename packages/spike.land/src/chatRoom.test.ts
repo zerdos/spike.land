@@ -1,31 +1,76 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import app from './chatRoom';
+import { Code } from './chatRoom';
 import { RouteHandler } from './routeHandler';
+import type Env from './env';
 
 vi.mock('./routeHandler');
 
 describe('Hono app routes', () => {
-  let mockRouteHandler: jest.Mocked<RouteHandler>;
+  const state = {
+    storage: {},
+    id: 'test',
+    metadata: {
+      room: 'test',
+    },
+  } as any;
+
+  const env: Env = {
+    ESM_ORIGIN: 'test',
+    ESM_TOKEN: 'test',
+    OPENAI_API_KEY: 'test',
+    KV: {} as any,
+    __STATIC_CONTENT: {} as any,
+    REPLICATE_API_TOKEN: 'test',
+    ANTHROPIC_API_KEY: 'test',
+    CLERK_SECRET_KEY: 'test',
+    CF_REAL_TURN_TOKEN: 'test',
+    ESBUILD: {} as any,
+    CODE: {} as any,
+    LIMITERS: {} as any,
+    R2: {} as any,
+  };
+
+  let app: Code;
+  let mockRouteHandler: {
+    handleUsersRoute: ReturnType<typeof vi.fn>;
+    handleWebsocketRoute: ReturnType<typeof vi.fn>;
+    handleCodeRoute: ReturnType<typeof vi.fn>;
+    handleSessionRoute: ReturnType<typeof vi.fn>;
+    handleAutoSaveRoute: ReturnType<typeof vi.fn>;
+    handleLiveRoute: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
-    mockRouteHandler = new RouteHandler({} as any) as jest.Mocked<RouteHandler>;
-    vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler);
+    mockRouteHandler = {
+      handleUsersRoute: vi.fn(),
+      handleWebsocketRoute: vi.fn(),
+      handleCodeRoute: vi.fn(),
+      handleSessionRoute: vi.fn(),
+      handleAutoSaveRoute: vi.fn(),
+      handleLiveRoute: vi.fn(),
+    };
+
+    vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as any);
+
+    app = new Code(state, env);
+    // @ts-ignore: Mocking the fetch method for testing
+    app.fetch = vi.fn(app.fetch.bind(app));
   });
 
   it('should handle /users route', async () => {
-    const mockResponse = new Response('Users response');
-    mockRouteHandler.handleUsersRoute.mockResolvedValue(mockResponse);
+    const mockUserResponse = new Response('Users response');
+    mockRouteHandler.handleUsersRoute.mockResolvedValue(mockUserResponse);
 
-    const res = await app.request('/users?room=test');
+    const res = await app.fetch(new Request('https://example.com/users?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Users response');
   });
 
   it('should handle /websocket route', async () => {
-    const mockResponse = new Response('Websocket response');
-    mockRouteHandler.handleWebsocketRoute.mockResolvedValue(mockResponse);
+    const websocketResponse = new Response('Websocket response');
+    mockRouteHandler.handleWebsocketRoute.mockResolvedValue(websocketResponse);
 
-    const res = await app.request('/websocket?room=test');
+    const res = await app.fetch(new Request('https://example.com/websocket?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Websocket response');
   });
@@ -34,7 +79,7 @@ describe('Hono app routes', () => {
     const mockResponse = new Response('Code response');
     mockRouteHandler.handleCodeRoute.mockResolvedValue(mockResponse);
 
-    const res = await app.request('/code?room=test');
+    const res = await app.fetch(new Request('https://example.com/code?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Code response');
   });
@@ -43,18 +88,16 @@ describe('Hono app routes', () => {
     const mockResponse = new Response('Session response');
     mockRouteHandler.handleSessionRoute.mockResolvedValue(mockResponse);
 
-    const res = await app.request('/session?room=test');
+    const res = await app.fetch(new Request('https://example.com/session?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Session response');
   });
-
-  // Add similar tests for other routes...
 
   it('should handle /auto-save route', async () => {
     const mockResponse = new Response('Auto-save response');
     mockRouteHandler.handleAutoSaveRoute.mockResolvedValue(mockResponse);
 
-    const res = await app.request('/auto-save/history?room=test');
+    const res = await app.fetch(new Request('https://example.com/auto-save/history?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Auto-save response');
   });
@@ -63,7 +106,7 @@ describe('Hono app routes', () => {
     const mockResponse = new Response('Live response');
     mockRouteHandler.handleLiveRoute.mockResolvedValue(mockResponse);
 
-    const res = await app.request('/live/some/path?room=test');
+    const res = await app.fetch(new Request('https://example.com/live/some/path?room=test'));
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('Live response');
   });
