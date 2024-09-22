@@ -1,28 +1,28 @@
-import { Workbox } from "workbox-window";
+// import { Workbox } from "workbox-window";
 
-const setupServiceWorker = async () => {
-  if (
-    !navigator.serviceWorker || localStorage.getItem("sw") === "false"
-    || location.origin.indexOf("localhost") !== -1
-  ) {
-    return null;
-  }
+// const setupServiceWorker = async () => {
+//   if (
+//     !navigator.serviceWorker || localStorage.getItem("sw") === "false"
+//     || location.origin.indexOf("localhost") !== -1
+//   ) {
+//     return null;
+//   }
 
-  try {
-    const sw = new Workbox(`/sw.js`);
+//   try {
+//     const sw = new Workbox(`/sw.js`);
     
-    await sw.register();
+//     await sw.register();
 
-    const {swVersion} = await import(`${location.origin}/swVersion.mjs`);
-    localStorage.getItem("swVersion") !== swVersion && sw.messageSkipWaiting();  
-    localStorage.setItem("swVersion", swVersion);
+//     const {swVersion} = await import(`${location.origin}/swVersion.mjs`);
+//     localStorage.getItem("swVersion") !== swVersion && sw.messageSkipWaiting();  
+//     localStorage.setItem("swVersion", swVersion);
     
-    return sw;
-  } catch (e) {
-    console.error("Error setting up service worker:", e);
-    return null;
-  }
-};
+//     return sw;
+//   } catch (e) {
+//     console.error("Error setting up service worker:", e);
+//     return null;
+//   }
+// };
 
 const createLangChainWorkflow = async (prompt: string) => {
   try {

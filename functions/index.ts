@@ -7,4 +7,4 @@ interface Env {
 
 export const onRequest: PagesFunction<Env> = async (ctx) => {
     return ctx.env.CODESPACE.fetch!(ctx.request, ctx.env.CODESPACE, ctx);
-}
+}   
