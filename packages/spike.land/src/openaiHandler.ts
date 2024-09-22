@@ -27,13 +27,14 @@ export async function handleGPT4Request(
   };
 
   const openai = new OpenAI({
-    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
+    // baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
+    baseURL: "https://api.openai.com/v1",
     apiKey: env.OPENAI_API_KEY,
   });
 
   if (body.model === "tts-1") {
     const transcription = await openai.audio.speech.create({
-      model: "tts-1",
+      model: "tts-1-hd",
       voice: 'alloy',
       input: "Hello, how are you?",
       response_format: "mp3",
@@ -56,7 +57,7 @@ export async function handleGPT4Request(
       } catch (error) {
         console.error("Error:", error);
         writer.write(
-          textEncoder.encode("An error occurred while processing your request."),
+          new TextEncoder().encode("An error occurred while processing your request."),
         );
       }
     })());
