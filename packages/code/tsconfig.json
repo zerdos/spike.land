@@ -92,7 +92,6 @@
       "vitest"
     ]
   },
-
   "include": [
     "./*.ts",
     "./*.tsx",
@@ -103,6 +102,5 @@
     "src/**/*.mjs",
     "helpers.ts"
   ],
-  "exclude": [".yarn", "dist", "esbuild-depts.ts", "functions/**/*", "node_modules/**/*"]
-
+  "exclude": [".yarn", "dist", "esbuild-depts.ts"]
 }

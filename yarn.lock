@@ -12314,6 +12314,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
+    "@cloudflare/workers-types": "npm:^4.20240919.0"
     "@emotion/react": "npm:11.13.3"
     "@playwright/test": "npm:1.47.2"
     "@spike-land/ai-devtools": "workspace:^"
