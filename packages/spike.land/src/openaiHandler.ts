@@ -27,15 +27,15 @@ export async function handleGPT4Request(
   };
 
   const openai = new OpenAI({
-    // baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
-    baseURL: "https://api.openai.com/v1",
+    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
+    // baseURL: "https://api.openai.com/v1",
     apiKey: env.OPENAI_API_KEY,
   });
 
   if (body.model === "tts-1") {
     try {
       const speechResponse = await openai.audio.speech.create({
-        model: "tts-1-hd",
+        model: "tts-1",
         voice: body.voice || 'alloy',
         input: body.input || "Hello, how are you?",
         response_format: "mp3",
