@@ -1,11 +1,11 @@
 // CodeSession.ts
 
-import { useCodeSpace } from "@/hooks/use-code-space";
+// import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
-import { build } from "@/lib/shared";
+// import { build } from "@/lib/shared";
 import { hash } from "immutable";
 import {
   formatCode as formatCodeUtil,
@@ -77,20 +77,20 @@ class CodeProcessor {
             css = res.css;
           }
         } catch (error) {
-          const res = await build({
-            codeSpace: useCodeSpace(),
-            format: "esm",
-            splitting: true,
-            origin: location.origin,
-          });
+          // const res = await build({
+          //   codeSpace: useCodeSpace(),
+          //   format: "esm",
+          //   splitting: true,
+          //   origin: location.origin,
+          // });
 
-          const transpiledCode = res.find((r) => r.path.includes("wrapper.mjs"))?.text;
-          const extraCss = res.find((r) => r.path.includes("wrapper.css"))?.text;
+          // const transpiledCode = res.find((r) => r.path.includes("wrapper.mjs"))?.text;
+          // const extraCss = res.find((r) => r.path.includes("wrapper.css"))?.text;
 
-          const resp = await this.runCode(transpiledCode, signal);
-          if (signal?.aborted) return false;
-          html = resp.html;
-          css = extraCss + resp.css;
+          // const resp = await this.runCode(transpiledCode, signal);
+          // if (signal?.aborted) return false;
+          // html = resp.html;
+          // css = extraCss + resp.css;
 
           console.error("Error running code:", error);
         }
