@@ -103,5 +103,6 @@
     "src/**/*.mjs",
     "helpers.ts"
   ],
-  "exclude": [".yarn", "dist", "esbuild-depts.ts"]
+  "exclude": [".yarn", "dist", "esbuild-depts.ts", "functions/**/*", "node_modules/**/*"]
+
 }

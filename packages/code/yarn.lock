@@ -383,6 +383,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cloudflare/workers-types@npm:^4.20240919.0":
+  version: 4.20240919.0
+  resolution: "@cloudflare/workers-types@npm:4.20240919.0"
+  checksum: 10c0/35a738d9159b528e5eb4c26b85d3d548b9302d2b666c2f7ea491db8f4d62e5cc75731987ae2e24d0c0791b4c57fa8fafdf3d6fd384d7ecfd5e326668417968fa
+  languageName: node
+  linkType: hard
+
 "@edge-runtime/primitives@npm:5.1.0":
   version: 5.1.0
   resolution: "@edge-runtime/primitives@npm:5.1.0"
@@ -3446,6 +3453,7 @@ __metadata:
   dependencies:
     "@clerk/clerk-react": "npm:5.9.1"
     "@clerk/nextjs": "npm:5.6.0"
+    "@cloudflare/workers-types": "npm:^4.20240919.0"
     "@edge-runtime/vm": "npm:^4.0.3"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:11.13.1"
