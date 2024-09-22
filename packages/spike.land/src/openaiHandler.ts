@@ -28,6 +28,17 @@ export async function handleGPT4Request(
     apiKey: env.OPENAI_API_KEY,
   });
 
+  if (body.model === "tts-1") {
+    const transcription = await openai.audio.speech.create({
+      model: "tts-1",
+      voice: 'alloy',
+      input: "Hello, how are you?",
+    });
+    return transcription;
+    
+  }
+
+
   if (body.model === "whisper-1") {
     const transcription = await openai.audio.transcriptions.create({
       file: body.file!,
