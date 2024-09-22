@@ -13,7 +13,7 @@ const generateDeterministicKey = (input: string): string => {
 function intToString(n: number): string {
   let num = n + 2 ** 30;
   if (num > 2 ** 31) {
-    throw new Error("Input must be a 32-bit unsigned integer", n);
+    throw new Error("Input must be a 32-bit unsigned integer");
   }
 
   // Define character sets
