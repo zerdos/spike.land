@@ -42,9 +42,6 @@ new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
 [[migrations]]
 tag = "v1" # Should be unique for each entry
 new_classes = ["Users"] # Array of new classes
-
-[site]
-bucket = "../code/dist" # Add the directory with your static assets
  
 [env.testing]
 
