@@ -1,4 +1,4 @@
-import { ExportedHandler, PagesFunction } from '@cloudflare/workers-types';
+import { ExportedHandler, PagesFunction, Request } from '@cloudflare/workers-types';
 
 
 interface Env {
@@ -6,5 +6,10 @@ interface Env {
 }
 
 export const onRequest: PagesFunction<Env> = async (ctx) => {
-    return ctx.env.CODESPACE.fetch!(ctx.request, ctx.env.CODESPACE, ctx);
+    const allParams = ['live', ...ctx.params.catchall];
+
+    const path = allParams.join('/');
+    const url = new URL("/"+path,ctx.request.url).toString( );
+    
+    return ctx.env.CODESPACE.fetch!(new Request(url), ctx.env.CODESPACE, ctx);
 }   
