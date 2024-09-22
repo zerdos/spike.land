@@ -5,7 +5,6 @@ import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
-import { aw } from "vitest/dist/chunks/reporters.WnPwkmgA";
 
 export { md5 };
 
@@ -198,16 +197,25 @@ export class Code implements DurableObject {
       }
 
       if (!this.transpiled) {
-        const waitUntil = async(p: Promise<unknown>) => await p as void;
-
-        const resp = await this.env.ESBUILD.fetch!( new Request("https://esbuild.spikeland.workers.dev") , {
-          method: "POST",
-          body: this.session.code,
-          headers: { TR_ORIGIN: this.origin },
-        }, {waitUntil, passThroughOnException: ()=> {}});
-        
-
-        this.transpiled = await resp.text();
+        try {
+          const resp = await fetch("https://esbuild.spikeland.workers.dev", {
+            method: "POST",
+            body: this.session.code,
+            headers: {
+              "TR_ORIGIN": this.origin,
+              // Include any additional headers required for authentication
+            },
+          });
+      
+          if (!resp.ok) {
+            throw new Error(`ESBUILD service responded with status ${resp.status}`);
+          }
+      
+          this.transpiled = await resp.text();
+        } catch (error) {
+          console.error("Error transpiling code:", error);
+          // Handle the error as appropriate for your application
+        }
       }
 
       if (!this.initialized) {

@@ -32,11 +32,14 @@ export async function handleGPT4Request(
     apiKey: env.OPENAI_API_KEY,
   });
 
-  if (body.model === "tts-1") {
+  if (body.model === "tts-1" || body.model === "tts-1-hd") {
     try {
+      const validVoices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
+      const voice = validVoices.includes(body.voice ?? "") ? body.voice as "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer" : "alloy";
+      
       const speechResponse = await openai.audio.speech.create({
-        model: "tts-1",
-        voice: body.voice || 'alloy',
+        model: body.model,
+        voice,
         input: body.input || "Hello, how are you?",
         response_format: "mp3",
         speed: 1.0
