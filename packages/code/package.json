@@ -17,8 +17,9 @@
     "codebase": "ai-digest -i $(pwd)/src --show-output-files",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
+    "types:cp": "cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/  && cp -r dts/src/@ dist/. ",
     "typecheck": "tsc --noEmit --pretty false",
-    "clean": "rm -rf .tsBuildInfo src/vendor dist dts",
+    "clean": "rm -rf .tsBuildInfo dist dts",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
@@ -27,7 +28,7 @@
   "test": "vitest --no-color --reporter verbose run",
   "test-slim": "{vitest --verbose --no-color --typecheck --run --reporter verbose | grep -v ✓ | grep -v ok } 2>/dev/null ",
   "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
-  "build": "echo 'Starting build...' && rm -rf dist dts && yarn types && npx -y tsx esbuild-dev.ts && cp -r dts/src/@ dist/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && yarn tw && echo 'Build completed successfully!'"
+  "build": "echo 'Starting build...' && yarn clean && ((yarn types && types:cp) & npx -y tsx esbuild-dev.ts & yarn tw) && echo 'Build completed successfully!'"
 
   },
   "keywords": [
