@@ -59,7 +59,7 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     this.origin = url.origin;
     this.codeSpace = this.getCodeSpace(url);
-    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+    await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
@@ -162,7 +162,7 @@ export class Code implements DurableObject {
     
     try {
       this.codeSpace = this.getCodeSpace(url);
-      this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
+     await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
@@ -170,7 +170,7 @@ export class Code implements DurableObject {
         const oldSession = makeSession(this.session);
 
         await this.state.storage.put("session", this.session);
-        this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+      await  this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
         const newSession = await this.state.storage.get<ICodeSession>("session");
         if (newSession === undefined) {
           throw new Error("newSession is undefined");
@@ -235,7 +235,7 @@ export class Code implements DurableObject {
     
     this.session.codeSpace = this.codeSpace;  
     const head = makeHash(this.session);
-    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+   await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
     await this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
