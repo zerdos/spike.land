@@ -23,7 +23,7 @@
     "re:build": "NODE_ENV=production yarn clean && yarn build",
     "build:all": "yarn workspaces foreach run re:build",
     "build:prod": "NODE_ENV=production yarn build:all",
-    "build": "cd packages/code && yarn build",
+    "build":  "yarn workspaces foreach -A -p run build",
     "lint": "yarn fmt",
     "docker:build": "yarn workspaces foreach run docker:build",
     "docker:push": "yarn workspaces foreach run docker:push",
