@@ -15,7 +15,7 @@ export class Code implements DurableObject {
   private transpiled = "";
   private origin = "";
   private initialized = false;
-  private codeSpace = "";
+  private codeSpace: string | null = null;
 
   session: ICodeSession;
   private backupSession: ICodeSession;
@@ -48,9 +48,17 @@ export class Code implements DurableObject {
     this.wsHandler = new WebSocketHandler(this);
   }
 
+  private getCodeSpace(url: URL): string {
+    const codeSpace = url.searchParams.get("room");
+    if (!codeSpace) {
+      throw new Error("CodeSpace not provided in URL parameters");
+    }
+    return codeSpace;
+  }
+
   private async initializeSession(url: URL) {
     this.origin = url.origin;
-    this.codeSpace = url.searchParams.get("room")!;
+    this.codeSpace = this.getCodeSpace(url);
     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
     await this.state.blockConcurrencyWhile(async () => {
@@ -112,42 +120,37 @@ export class Code implements DurableObject {
   }
 
   public async autoSave() {
-    if (this.autoSaveHistory.find((x) => x.code === this.session.code)) return;
-
     const currentTime = Date.now();
-    if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
-      const currentCode = this.session.code;
+    if (currentTime - this.lastAutoSave < this.autoSaveInterval) return;
 
-      // Check if the code has changed since the last auto-save
-      if (
-        this.autoSaveHistory.length === 0
-        || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
-      ) {
-        // Remove entries younger than 1 minutes
-        this.autoSaveHistory = this.autoSaveHistory.filter((entry) => currentTime - entry.timestamp >= 60_000);
+    const currentCode = this.session.code;
+    const lastEntry = this.autoSaveHistory[this.autoSaveHistory.length - 1];
+    
+    if (!lastEntry || currentCode !== lastEntry.code) {
+      // Remove entries younger than 1 minute and older than 2 months in one pass
+      const oneMinuteAgo = currentTime - 60_000;
+      const twoMonthsAgo = currentTime - 60000 * 60 * 24 * 60;
+      
+      this.autoSaveHistory = this.autoSaveHistory.filter(entry => 
+        entry.timestamp <= oneMinuteAgo && entry.timestamp > twoMonthsAgo
+      );
 
-        // Remove entries older than 2 months
-        this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>
-          currentTime - entry.timestamp <= 60000 * 60 * 24 * 60
-        );
+      // Add new entry
+      this.autoSaveHistory.push({
+        timestamp: currentTime,
+        code: currentCode,
+      });
 
-        // Add new entry
-        this.autoSaveHistory.push({
-          timestamp: currentTime,
-          code: currentCode,
-        });
+      // Save the updated history
+      this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
-        // Save the updated history
-        this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
+      // Save the current version with timestamp
+      this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
 
-        // Save the current version with timestamp
-        this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
+      // Update last auto-save time
+      this.lastAutoSave = currentTime;
 
-        // Update last auto-save time
-        this.lastAutoSave = currentTime;
-
-        console.log("Auto-saved code at", new Date(currentTime).toISOString());
-      }
+      console.log("Auto-saved code at", new Date(currentTime).toISOString());
     }
   }
 
@@ -156,9 +159,11 @@ export class Code implements DurableObject {
     if (this.session) {
       this.origin = url.origin;
     }
-    this.codeSpace = url.searchParams.get("room")!;
-    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
+    
     try {
+      this.codeSpace = this.getCodeSpace(url);
+      this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
+
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
         this.transpiled = this.session.transpiled;
@@ -177,6 +182,7 @@ export class Code implements DurableObject {
       }
     } catch (e) {
       console.error(e);
+      return new Response("Error processing request", { status: 400 });
     }
 
     return handleErrors(request, async () => {
@@ -223,6 +229,10 @@ export class Code implements DurableObject {
   }
 
   async updateSessionStorage(msg: CodePatch) {
+    if (!this.codeSpace) {
+      throw new Error("CodeSpace not set");
+    }
+    
     this.session.codeSpace = this.codeSpace;  
     const head = makeHash(this.session);
     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
@@ -270,17 +280,14 @@ export class Code implements DurableObject {
     return this.codeSpace;
   }
 
-  // New method to get auto-save history
   async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
     return this.autoSaveHistory;
   }
 
-  // New method to get auto-save history
   async setAutoSaveHistory(history: AutoSaveEntry[]): Promise<AutoSaveEntry[]> {
     return this.autoSaveHistory = history;
   }
 
-  // New method to restore code from a specific auto-save entry
   async restoreFromAutoSave(timestamp: number): Promise<boolean> {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
