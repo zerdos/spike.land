@@ -95,7 +95,8 @@ export class Code implements DurableObject {
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
           }
-          this.session.codeSpace = codeSpace;
+
+          this.session.codeSpace =  this.session.codeSpace  ||codeSpace;
 
           const head = makeHash(this.session);
           this.state.storage.put("head", head);
@@ -113,7 +114,7 @@ export class Code implements DurableObject {
       }
       finally {
         
-      this.session.codeSpace = codeSpace;
+      this.session.codeSpace =   this.session.codeSpace ||codeSpace;
       if (this.session.i>10000) this.session.i = 1;
       }
     });
