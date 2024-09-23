@@ -1,5 +1,5 @@
 import type Env from "./env";
-import { makeSession, ICodeSession, createPatch, CodePatch } from "@spike-land/code";
+import { makeSession, ICodeSession, createPatch, CodePatch, makeHash } from "@spike-land/code";
 
 const chunked = (counter: number): string => {
     const res: number[] = [];
@@ -11,9 +11,8 @@ const chunked = (counter: number): string => {
     return res.reverse().join("/");
 };
 
-const getX = (env: Env) => async (codeSpace: string, counter: number): Promise<ICodeSession | null> => {
+const getX = (env: Env) => async (key: string): Promise<any | null> => {
     try {
-        const key = `${codeSpace}/${chunked(counter)}`;
         const object = await env.X9.get(key);
         if (!object) {
             return null;
@@ -21,18 +20,17 @@ const getX = (env: Env) => async (codeSpace: string, counter: number): Promise<I
         const text = await object.text();
         return JSON.parse(text);
     } catch (error) {
-        console.error(`Error retrieving data for ${codeSpace}/${counter}:`, error);
+        console.error(`Error retrieving data for ${key}:`, error);
         return null;
     }
 };
 
-const saveX = (env: Env) => async (codeSpace: string, counter: number, data: unknown): Promise<void> => {
+const saveX = (env: Env) => async (key: string, data: unknown): Promise<void> => {
     try {
-        const key = `${codeSpace}/${chunked(counter)}`;
         const body = JSON.stringify(data);
-        await env.X9.put(key, body);
+         env.X9.put(key, body);
     } catch (error) {
-        console.error(`Error saving data for ${codeSpace}/${counter}:`, error);
+        console.error(`Error saving data for ${key}:`, error);
     }
 };
 
@@ -48,17 +46,27 @@ export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<vo
     const saveVal = saveX(env);
 
     try {
-        await saveVal(s.codeSpace, s.counter, s);
+        // Get the previous session
+        const prevKey = `${s.codeSpace}/${chunked(s.counter - 1)}`;
+        const prevSess = await getVal(prevKey);
 
-        const oldSess = cache.get(`${s.codeSpace}/${s.counter - 1}`) || await getVal(s.codeSpace, s.counter - 1);
-        if (oldSess) {
-            const patch: CodePatch = createPatch(oldSess, s);
+        // Save the current session
+        const currentKey = `${s.codeSpace}/${chunked(s.counter)}`;
+         saveVal(currentKey, s);
 
-            if (s.counter % 10 === 0) {
-                await saveVal(s.codeSpace, s.counter, { ...oldSess, ...patch });
-            } else {
-                await saveVal(s.codeSpace, s.counter, patch);
-            }
+        // Save the current session to its hash key
+        const hashKey = makeHash(s);
+         saveVal(hashKey, s);
+
+        if (prevSess) {
+            // Create and save the patch
+            const patch: CodePatch = createPatch(prevSess, s);
+            const prevHashKey = makeHash(prevSess);
+             saveVal(prevHashKey, {
+                prevHash: makeHash(prevSess),
+                nextHash: hashKey,
+                patch: patch
+            });
         }
     } catch (error) {
         console.error(`Error in logCodeSpace for ${s.codeSpace}:`, error);
