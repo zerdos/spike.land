@@ -42,7 +42,7 @@ preview_bucket_name = "npmprod"
 [[r2_buckets]]
 binding = "X9"
 bucket_name = "code-chain"
-preview_bucket_name = "npmprod"
+preview_bucket_name = "code-chain"
 
 
 # [[r2_buckets]]
