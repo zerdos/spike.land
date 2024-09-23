@@ -26,7 +26,7 @@
     "tw": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.js --postcss -m -o dist/app/tw-global.css",
     "sw": "echo ok",
     "test": "vitest --no-color --reporter verbose run",
-    "test-slim": "{vitest --verbose --no-color --typecheck --run --reporter verbose | grep -v ✓ | grep -v ok } 2>/dev/null ",
+    "test-slim": "vitest --no-color --typecheck --run 2>/dev/null ",
     "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
     "build": "echo 'Starting build...' && yarn clean && yarn concurrently --kill-others-on-fail \"yarn types && yarn types:cp\" \"npx -y tsx esbuild-dev.ts\" \"yarn tw\" && echo 'Build completed successfully!' || echo 'Build FAILED'"
   },
