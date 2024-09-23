@@ -102,6 +102,7 @@ class CodeProcessor {
         code: formattedCode,
         transpiled: transpiledCode,
         html,
+        codeSpace: "",
         css,
         i: counter,
       };
@@ -161,7 +162,7 @@ export class Code implements ICode {
   private setCodeController: AbortController | null = null;
 
   constructor(private codeSpace: string) {
-    this.session = makeSession({ i: 0, code: "", html: "", css: "" });
+    this.session = makeSession({ i: 0, code: "", html: "", css: "", codeSpace, transpiled: "" });
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
     this.broadcastChannel = new CodeSessionBC(codeSpace);
     this.broadcastChannel.sub((session) => {
@@ -203,7 +204,7 @@ export class Code implements ICode {
     );
     if (!processedSession || signal.aborted) return this.session.code;
 
-    const session = makeSession(processedSession);
+    const session = makeSession({ ...processedSession, codeSpace: this.codeSpace });
     if (hash(session) === hash(this.session)) return this.session.code;
 
     this.session = makeSession({ ...session, i: this.session.i + 1 });

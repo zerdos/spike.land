@@ -357,6 +357,7 @@ interface BroadcastMessageData {
   changes?: boolean;
   html: string;
   css: string;
+  codeSpace: string;
   code: string;
   transpiled: string;
   sender?: string;
@@ -420,7 +421,7 @@ async function handleBroadcastMessage(
 
         if (connection.lastCounter < bMod!.i) {
           const { code, html, css, i, transpiled } = bMod!;
-          const json = stringifySession({ code, html, css, i, transpiled });
+          const json = stringifySession({ code, html, css, codeSpace, i, transpiled });
           try {
             await fetch(`/live/${codeSpace}/session`, {
               method: "POST",

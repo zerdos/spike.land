@@ -50,11 +50,12 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
 
 export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
 
-export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
+export const makeSession = (p: ICodeSession): ICodeSession =>
   Record<ICodeSession>({
     i: 0,
     code: "",
     html: "",
+    codeSpace: "",
     css: "",
     transpiled: "",
   })({

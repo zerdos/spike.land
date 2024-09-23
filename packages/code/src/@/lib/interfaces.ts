@@ -32,6 +32,7 @@ export interface ChatWindowProps {
 
 export type ICodeSession = {
   code: string;
+  codeSpace: string;
   i: number;
   html: string;
   css: string;

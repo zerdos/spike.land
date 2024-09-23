@@ -261,7 +261,9 @@ export class RouteHandler {
         const s = makeSession(
           typeof session === "string" ? JSON.parse(session) : session,
         );
-        return new Response(stringifySession({ ...s }), {
+        const codeSpace = url.searchParams.get("room");
+
+        return new Response(stringifySession({ ...s, codeSpace }), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -304,6 +306,7 @@ export class RouteHandler {
 
   private async handleLazyRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
+   
     return new Response(
       `import { jsx as jsX } from "@emotion/react";
        import {LoadRoom} from "/live/lazy/js";

@@ -166,6 +166,7 @@ export class Code implements DurableObject {
       this.origin = url.origin;
     }
     this.codeSpace = url.searchParams.get("room")!;
+    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
     try {
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
@@ -297,3 +298,7 @@ export class Code implements DurableObject {
     return false;
   }
 }
+function logCodeSpace(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

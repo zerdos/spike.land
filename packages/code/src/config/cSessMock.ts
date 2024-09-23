@@ -8,6 +8,7 @@ class SessMock implements ICode {
 
   session: ICodeSession = {
     code: "",
+    codeSpace: "",
     html: "",
     i: 34,
     transpiled: "",
