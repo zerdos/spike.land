@@ -47,10 +47,10 @@ export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<vo
         if (oldSess) {
             const patch: CodePatch = createPatch(oldSess, s);
 
-            if (s.counter % 10 === 0) {
-                await saveVal(s.codeSpace, s.counter, { ...oldSess, ...patch });
+            if (oldSess.counter % 10 === 0) {
+                saveVal(oldSess.codeSpace, oldSess.counter, { ...oldSess, ...patch });
             } else {
-                await saveVal(s.codeSpace, s.counter, patch);
+                saveVal(oldSess.codeSpace, oldSess.counter, patch);
             }
         }
     } catch (error) {
