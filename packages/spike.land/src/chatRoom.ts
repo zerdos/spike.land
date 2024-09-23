@@ -112,6 +112,11 @@ export class Code implements DurableObject {
         console.error("Error initializing session:", error);
         this.session = this.backupSession;
       }
+      finally {
+        
+      this.session.codeSpace = codeSpace;
+      if (this.session.i>10000) this.session.i = 1;
+      }
     });
     await this.xLog(this.session);
   }
