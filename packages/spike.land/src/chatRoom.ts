@@ -59,7 +59,7 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     this.origin = url.origin;
     this.codeSpace = this.getCodeSpace(url);
-    await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
@@ -94,20 +94,21 @@ export class Code implements DurableObject {
             const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
             this.backupSession = backupCode;
           
-            await this.state.storage.put("session", this.backupSession);
+            this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
           }
           this.session.codeSpace = this.codeSpace;
 
           const head = makeHash(this.session);
-          await this.state.storage.put("head", head);
+          this.state.storage.put("head", head);
         }
 
         // Initialize auto-save history
-        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory");
+     this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then( savedHistory=> {
         if (savedHistory) {
           this.autoSaveHistory = savedHistory;
         }
+      });
       } catch (error) {
         console.error("Error initializing session:", error);
         this.session = this.backupSession;
@@ -162,15 +163,15 @@ export class Code implements DurableObject {
     
     try {
       this.codeSpace = this.getCodeSpace(url);
-     await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
+     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
         this.transpiled = this.session.transpiled;
         const oldSession = makeSession(this.session);
 
-        await this.state.storage.put("session", this.session);
-      await  this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+        this.state.storage.put("session", this.session);
+        this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
         const newSession = await this.state.storage.get<ICodeSession>("session");
         if (newSession === undefined) {
           throw new Error("newSession is undefined");
@@ -197,20 +198,21 @@ export class Code implements DurableObject {
 
       if (!this.transpiled) {
         try {
-          const resp = await fetch("https://esbuild.spikeland.workers.dev", {
+          fetch("https://esbuild.spikeland.workers.dev", {
             method: "POST",
             body: this.session.code,
             headers: {
               "TR_ORIGIN": this.origin,
               // Include any additional headers required for authentication
             },
-          });
+          }).then(async (resp) => { 
       
           if (!resp.ok) {
             throw new Error(`ESBUILD service responded with status ${resp.status}`);
           }
       
           this.transpiled = await resp.text();
+        }); 
         } catch (error) {
           console.error("Error transpiling code:", error);
           // Handle the error as appropriate for your application
@@ -218,9 +220,12 @@ export class Code implements DurableObject {
       }
 
       if (!this.initialized) {
-        await this.initializeSession(url);
-        await this.setupAutoSave();
+        this.initializeSession(url).then(() => {  ;
+        this.setupAutoSave()
         this.initialized = true;
+    
+        });
+       
       }
 
       const path = url.pathname.slice(1).split("/");
@@ -235,8 +240,9 @@ export class Code implements DurableObject {
     
     this.session.codeSpace = this.codeSpace;  
     const head = makeHash(this.session);
-   await this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
-    await this.state.storage.put(head, {
+   
+     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+     this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
       reversePatch: msg.reversePatch,
@@ -246,18 +252,18 @@ export class Code implements DurableObject {
       oldHash?: string;
       reversePatch?: string;
     } | null;
-    await this.state.storage.put(msg.oldHash, {
+     this.state.storage.put(msg.oldHash, {
       oldHash: oldData?.oldHash || "",
       reversePatch: oldData?.reversePatch || [],
       newHash: msg.newHash,
       patch: msg.patch,
     });
 
-    await this.state.storage.put("head", head);
+     this.state.storage.put("head", head);
     this.transpiled = "";
 
     // Trigger auto-save after updating session storage
-    await this.autoSave();
+     this.autoSave();
   }
 
   getState() {
@@ -289,7 +295,7 @@ export class Code implements DurableObject {
     if (entry) {
       this.session.code = entry.code;
       this.session.codeSpace = this.codeSpace;
-      await this.state.storage.put("session", this.session);
+      this.state.storage.put("session", this.session);
       this.transpiled = ""; // Reset transpiled code
       return true;
     }
