@@ -18,7 +18,7 @@ const saveVal = async (codeSpace: string, counter:number, data: unknown) => awai
 
 const cache = new Map<string, ICodeSession>();
 
-const logCodeSpace =async (sess: ICodeSession) => {
+export const logCodeSpace =async (sess: ICodeSession) => {
 
     if(cache.has(sess.codeSpace)) return;
     const s = makeSession(sess);

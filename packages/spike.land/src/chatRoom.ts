@@ -5,7 +5,7 @@ import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
-
+import { logCodeSpace } from "./x-code";
 export { md5 };
 
 export class Code implements DurableObject {
@@ -47,6 +47,7 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
+    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
 
     await this.state.blockConcurrencyWhile(async () => {
@@ -174,6 +175,7 @@ export class Code implements DurableObject {
         const oldSession = makeSession(this.session);
 
         await this.state.storage.put("session", this.session);
+        logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
         const newSession = await this.state.storage.get<ICodeSession>("session");
         if (newSession === undefined) {
           throw new Error("newSession is undefined");
@@ -232,6 +234,7 @@ export class Code implements DurableObject {
 
   async updateSessionStorage(msg: CodePatch) {
     const head = makeHash(this.session);
+    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
     await this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
@@ -297,8 +300,5 @@ export class Code implements DurableObject {
     }
     return false;
   }
-}
-function logCodeSpace(arg0: any) {
-  throw new Error("Function not implemented.");
 }
 
