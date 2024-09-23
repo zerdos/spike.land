@@ -67,7 +67,7 @@ export class Code implements DurableObject {
         if (storedSession && storedSession.i) {
           this.session = {...storedSession, codeSpace: this.codeSpace};
         } else {
-          const codeSpaceParts = this.codeSpace.split("-");
+          const codeSpaceParts = this.codeSpace!.split("-");
           if (codeSpaceParts.length > 2) {
             throw new Error("Invalid codeSpace");
           }
@@ -274,10 +274,6 @@ export class Code implements DurableObject {
 
   getTranspiled() {
     return this.transpiled;
-  }
-
-  getCodeSpace() {
-    return this.codeSpace;
   }
 
   async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
