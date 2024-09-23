@@ -1,12 +1,21 @@
 import type Env from "./env";   
 import { makeSession, ICodeSession, stringifySession, md5, createPatch } from "@spike-land/code";
 
-const getX= (env: Env) =>async (codeSpace: string, counter:number) => await env.X9.get(`${codeSpace}/${counter}`).then(x=>x?.json());
 
-const saveX = (env: Env)=> async (codeSpace: string, counter:number, data: unknown) => env.X9.put(`${codeSpace}/${counter}`, JSON.stringify(data));
-    
+const chunked = (counter: number) => {
+    const res = [];
+    while (counter > 100) {
+        res.push(counter % 100);
+        counter = Math.floor(counter / 100);
+    }
+    res.push(counter);
+    return res.reverse().join("/");
+}
 
 
+const getX= (env: Env) =>async (codeSpace: string, counter:number) => await env.X9.get(`${codeSpace}/${chunked(counter)}`).then(x=>x?.json());
+
+const saveX = (env: Env)=> async (codeSpace: string, counter:number, data: unknown) => env.X9.put(`${codeSpace}/${chunked(counter)}`, JSON.stringify(data));
 
 
 const cache = new Map<string, ICodeSession>();
