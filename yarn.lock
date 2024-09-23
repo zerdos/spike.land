@@ -3933,7 +3933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-html@npm:^1.0.3":
+"@rollup/plugin-html@npm:^1.0.4":
   version: 1.0.4
   resolution: "@rollup/plugin-html@npm:1.0.4"
   peerDependencies:
@@ -4207,7 +4207,7 @@ __metadata:
     "@radix-ui/react-toggle": "npm:^1.1.0"
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
-    "@rollup/plugin-html": "npm:^1.0.3"
+    "@rollup/plugin-html": "npm:^1.0.4"
     "@tabler/icons-react": "npm:^3.17.0"
     "@tailwindcss/aspect-ratio": "npm:^0.4.2"
     "@tailwindcss/container-queries": "npm:^0.1.1"
