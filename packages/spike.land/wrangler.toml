@@ -38,6 +38,13 @@ binding = "R2"
 bucket_name = "npmprod"
 preview_bucket_name = "npmprod"
 
+
+[[r2_buckets]]
+binding = "X9"
+bucket_name = "code-chain"
+preview_bucket_name = "npmprod"
+
+
 # [[r2_buckets]]
 # binding = "R2_BUCKET" 
 # bucket_name = "ze3w"

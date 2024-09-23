@@ -1,16 +1,11 @@
+import type Env from "./env";   
 import { makeSession, ICodeSession, stringifySession, md5, createPatch } from "@spike-land/code";
 
 const codeChain = "https://x-chain.spike.land";
 
-const getVal =async (codeSpace: string, counter:number) => await fetch(`${codeChain}/${codeSpace}/${counter}`).then(x=>x.json());
+const getX= (env: Env) =>async (codeSpace: string, counter:number) => await env.X9.get(`${codeChain}/${codeSpace}/${counter}`).then(x=>x?.json());
 
-const saveVal = async (codeSpace: string, counter:number, data: unknown) => await fetch(`${codeChain}/${codeSpace}/${counter}`, {
-    method: "PUT",
-    body: JSON.stringify(data),
-    headers: {
-        "Content-Type": "application/json",
-    },
-}).then(x=>x.json());
+const saveX = (env: Env)=> async (codeSpace: string, counter:number, data: unknown) => env.X9.put(`${codeChain}/${codeSpace}/${counter}`, JSON.stringify(data));
 
 
 
@@ -18,13 +13,16 @@ const saveVal = async (codeSpace: string, counter:number, data: unknown) => awai
 
 const cache = new Map<string, ICodeSession>();
 
-export const logCodeSpace =async (sess: ICodeSession) => {
+
+export const logCodeSpace =(env: Env) => async ( sess: ICodeSession) => {
 
     if(cache.has(sess.codeSpace)) return;
     const s = makeSession(sess);
     cache.set(s.codeSpace, s);
 
-   await  saveVal ( s.codeSpace , s.counter, s);
+   const getVal = getX(env);
+   const saveVal = saveX(env);
+    await  saveVal ( s.codeSpace , s.counter, s);
 
     
 

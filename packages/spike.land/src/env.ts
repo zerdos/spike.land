@@ -17,4 +17,5 @@ export default interface Env {
   CODE: DurableObjectNamespace;
   LIMITERS: DurableObjectNamespace;
   R2: R2Bucket;
+  X9: R2Bucket;
 }

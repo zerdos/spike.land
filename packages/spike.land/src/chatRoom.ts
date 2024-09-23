@@ -16,14 +16,19 @@ export class Code implements DurableObject {
   private origin = "";
   private initialized = false;
   private codeSpace = "";
+
   session: ICodeSession;
   private backupSession: ICodeSession;
   private autoSaveInterval: number = 60000; // 1 minute in milliseconds
   private lastAutoSave: number = 0;
   private autoSaveHistory: AutoSaveEntry[] = [];
+  private xLog: (sess: ICodeSession) => Promise<void>;
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.env = env;
+    
+    this.xLog = logCodeSpace(this.env);
+
 
     this.backupSession = makeSession({
       code: `export default () => (
@@ -47,7 +52,7 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
-    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
 
     await this.state.blockConcurrencyWhile(async () => {
@@ -167,7 +172,7 @@ export class Code implements DurableObject {
       this.origin = url.origin;
     }
     this.codeSpace = url.searchParams.get("room")!;
-    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
+    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});  
     try {
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
@@ -175,7 +180,7 @@ export class Code implements DurableObject {
         const oldSession = makeSession(this.session);
 
         await this.state.storage.put("session", this.session);
-        logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+        this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
         const newSession = await this.state.storage.get<ICodeSession>("session");
         if (newSession === undefined) {
           throw new Error("newSession is undefined");
@@ -234,7 +239,7 @@ export class Code implements DurableObject {
 
   async updateSessionStorage(msg: CodePatch) {
     const head = makeHash(this.session);
-    logCodeSpace({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
+    this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
     await this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
