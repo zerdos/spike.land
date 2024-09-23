@@ -1,3 +1,4 @@
+import { get } from "http";
 import type Env from "./env";
 import { makeSession, ICodeSession, createPatch, CodePatch, makeHash } from "@spike-land/code";
 
@@ -37,36 +38,42 @@ const saveX = (env: Env) => async (key: string, data: unknown): Promise<void> =>
 const cache = new Map<string, ICodeSession>();
 
 export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<void> => {
-    if (cache.has(sess.codeSpace)) return;
+    const getVal = getX(env);
+ 
+    const oldSess=  cache.has(sess.codeSpace) ? cache.get(sess.codeSpace) :  await getVal(sess.codeSpace); 
+
 
     const s = makeSession(sess);
-    cache.set(s.codeSpace, s);
 
-    const getVal = getX(env);
+    if (oldSess) {
+        if (makeHash(oldSess) === makeHash(s)) {
+            return;
+        }
+    } else {
+            cache.set(s.codeSpace, s);
+    }
+    
+    
+
+   
     const saveVal = saveX(env);
+
 
     try {
         // Get the previous session
-        const prevKey = `${s.codeSpace}/${chunked(s.counter - 1)}`;
-        const prevSess = await getVal(prevKey);
-
         // Save the current session
-        const currentKey = `${s.codeSpace}/${chunked(s.counter)}`;
-         saveVal(currentKey, s);
+         saveVal(makeHash(s), s);
 
         // Save the current session to its hash key
         const hashKey = makeHash(s);
+        saveVal(s.codeSpace, s);
          saveVal(hashKey, s);
 
-        if (prevSess) {
+        if (oldSess) {
             // Create and save the patch
-            const patch: CodePatch = createPatch(prevSess, s);
-            const prevHashKey = makeHash(prevSess);
-             saveVal(prevHashKey, {
-                prevHash: makeHash(prevSess),
-                nextHash: hashKey,
-                patch: patch
-            });
+            const patch: CodePatch = createPatch(oldSess, s);
+            
+             saveVal(makeHash(oldSess), patch);
         }
     } catch (error) {
         console.error(`Error in logCodeSpace for ${s.codeSpace}:`, error);
