@@ -2,6 +2,7 @@ import type { Options as KvAssetHandlerOptions } from "@cloudflare/kv-asset-hand
 import { getAssetFromKV, MethodNotAllowedError, NotFoundError } from "@cloudflare/kv-asset-handler";
 import type { AppLoadContext, ServerBuild } from "@remix-run/cloudflare";
 import { createRequestHandler as createRemixRequestHandler } from "@remix-run/cloudflare";
+import Env from "./env";
 
 /**
  * A function that returns the value to use as `context` in route `loader` and

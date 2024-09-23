@@ -14,21 +14,7 @@ describe('Hono app routes', () => {
     },
   } as any;
 
-  const env: Env = {
-    ESM_ORIGIN: 'test',
-    ESM_TOKEN: 'test',
-    OPENAI_API_KEY: 'test',
-    KV: {} as any,
-    __STATIC_CONTENT: {} as any,
-    REPLICATE_API_TOKEN: 'test',
-    ANTHROPIC_API_KEY: 'test',
-    CLERK_SECRET_KEY: 'test',
-    CF_REAL_TURN_TOKEN: 'test',
-    ESBUILD: {} as any,
-    CODE: {} as any,
-    LIMITERS: {} as any,
-    R2: {} as any,
-  };
+  const env = { } as Env;
 
   let app: Code;
   let mockRouteHandler: {
