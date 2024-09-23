@@ -206,13 +206,15 @@ export class Code implements ICode {
     );
     if (!processedSession || signal.aborted) return this.session.code;
 
-    const session = makeSession({ ...processedSession, codeSpace: this.codeSpace });
+    const codeSpace = this.session.codeSpace;
+    const session = makeSession({ ...processedSession, codeSpace });
     if (hash(session) === hash(this.session)) return this.session.code;
 
     this.session = makeSession({ ...session, i: this.session.i + 1 });
 
     this.broadcastChannel.postMessage({
       ...this.session,
+      codeSpace,
       sender: "Editor",
     } as BroadcastMessage);
 
