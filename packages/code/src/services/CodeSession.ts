@@ -163,6 +163,8 @@ export class Code implements ICode {
 
   constructor(private codeSpace: string) {
     this.session = makeSession({ i: 0, code: "", html: "", css: "", codeSpace, transpiled: "" });
+    if (this.session.code.startsWith(`\n// ${codeSpace}.tsx\n`)) this.session.code = `\n// ${codeSpace}.tsx\n`;
+
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
     this.broadcastChannel = new CodeSessionBC(codeSpace);
     this.broadcastChannel.sub((session) => {
