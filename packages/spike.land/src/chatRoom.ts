@@ -15,7 +15,6 @@ export class Code implements DurableObject {
   private transpiled = "";
   private origin = "";
   private initialized = false;
-  private codeSpace: string | null = null;
 
   session: ICodeSession;
   private backupSession: ICodeSession;
@@ -238,11 +237,10 @@ export class Code implements DurableObject {
   }
 
   async updateSessionStorage(msg: CodePatch) {
-    if (!this.codeSpace) {
+    if (!this.session.codeSpace) {
       throw new Error("CodeSpace not set");
     }
     
-    this.session.codeSpace = this.codeSpace;  
     const head = makeHash(this.session);
    
      this.xLog(this.session);
@@ -298,8 +296,7 @@ export class Code implements DurableObject {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
       this.session.code = entry.code;
-      this.session.codeSpace = this.codeSpace;
-      this.state.storage.put("session", this.session);
+        this.state.storage.put("session", this.session);
       this.transpiled = ""; // Reset transpiled code
       return true;
     }
