@@ -4,10 +4,14 @@ services:
     build: 
       dockerfile: ./packages/bookworm-devcontainer/Dockerfile 
       context: .
+      args:
+        - USER=${USER}
     tmpfs:
       - /home/${USER}/tmpfs:exec
     shm_size: 8gb
     privileged: true
+    environment:
+      - USER=${USER}
 
 
     volumes:
