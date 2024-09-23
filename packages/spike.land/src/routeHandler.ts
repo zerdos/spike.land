@@ -258,12 +258,14 @@ export class RouteHandler {
         { allowConcurrency: false },
       );
       if (session) {
+       
         const s = makeSession(
           typeof session === "string" ? JSON.parse(session) : session,
         );
+
         const codeSpace = url.searchParams.get("room");
 
-        return new Response(stringifySession({ ...s, codeSpace }), {
+        return new Response(stringifySession({ ...s, i: s.i>10000?0:s.i ,codeSpace }), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
