@@ -14,7 +14,8 @@
     "test": "yarn workspace @spike-land/code vitest --run",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
-    "deploy:prod": "yarn c:build && cd packages/spike.land &&  yarn prepublishOnly && cd ../js.spike.land && yarn deploy && cd ../..",
+    "deploy:prod": "yarn workspace @spike-land/code-worker prepublishOnly",
+    "deploy:esbuild": "yarn workspace @spike-land/transpile deploy",
     "deploy": "yarn fmt && git add . && yarn c:build && yarn c:deploy && git commit -m deploy && git pull  && git push",
     "fastdeploy": "cd packages/code yarn es:build && cd ../spike.land && yarn deploy ",
     "importMap": "yarn workspaces foreach run importMap",
@@ -26,11 +27,12 @@
     "lint": "yarn fmt",
     "docker:build": "yarn workspaces foreach run docker:build",
     "docker:push": "yarn workspaces foreach run docker:push",
-    "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
+    "push": "git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
     "fmt:code": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
-    "ai-commit": "ai-commit"
+    "ai-commit": "ai-commit",
+    "deploy:x": "yarn build && yarn concurrently --kill-others-on-fail \"yarn fmt && git pull && yarn && yarn fmt && git add . \"  \"yarn c:deploy\" \"yarn deploy:prod\" \"yarn deploy:esbuild\" && yarn push "
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240919.0",
@@ -40,6 +42,7 @@
     "@typescript-eslint/eslint-plugin": "8.6.0",
     "@typescript-eslint/parser": "8.6.0",
     "@yarnpkg/sdks": "3.2.0",
+    "concurrently": "^9.0.1",
     "dprint": "0.47.2",
     "eslint": "9.11.0",
     "eslint-plugin-react": "7.36.1",

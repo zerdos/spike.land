@@ -38,12 +38,12 @@ export const logCodeSpace =(env: Env) => async ( sess: ICodeSession) => {
 
  
  
-    const oldSess = cache.get(`${s.codeSpace}/${s.counter-1}`) || await getVal(s.codeSpace,s.counter-1);
+    const oldSess = cache.get(`${s.codeSpace}/${s.counter-1}`) || await getVal(s.codeSpace,s.i-1);
     if (oldSess) {
 
     const patch =     createPatch(oldSess,s);
 
-    (oldSess.i %10 === 0 )? (  await  saveVal(oldSess.codeSpace.codeSpace,oldSess.counter, {...patch, ...oldSess})) :   (await saveVal(oldSess.codeSpace.codeSpace,oldSess.counter, patch));
+    (oldSess.i %10 === 0 )? (  await  saveVal(oldSess.codeSpace.codeSpace,oldSess.i, {...patch, ...oldSess})) :   (await saveVal(oldSess.codeSpace.codeSpace,oldSess.counter, patch));
     }
 
 }
