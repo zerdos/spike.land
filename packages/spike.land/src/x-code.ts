@@ -1,11 +1,9 @@
 import type Env from "./env";   
 import { makeSession, ICodeSession, stringifySession, md5, createPatch } from "@spike-land/code";
 
-const codeChain = "https://x-chain.spike.land";
+const getX= (env: Env) =>async (codeSpace: string, counter:number) => await env.X9.get(`${codeSpace}/${counter}`).then(x=>x?.json());
 
-const getX= (env: Env) =>async (codeSpace: string, counter:number) => await env.X9.get(`${codeChain}/${codeSpace}/${counter}`).then(x=>x?.json());
-
-const saveX = (env: Env)=> async (codeSpace: string, counter:number, data: unknown) => env.X9.put(`${codeChain}/${codeSpace}/${counter}`, JSON.stringify(data));
+const saveX = (env: Env)=> async (codeSpace: string, counter:number, data: unknown) => env.X9.put(`$${codeSpace}/${counter}`, JSON.stringify(data));
 
 
 
