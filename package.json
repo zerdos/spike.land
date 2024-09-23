@@ -32,7 +32,7 @@
     "fmt": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
     "fmt:code": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
     "ai-commit": "ai-commit",
-    "deploy:x": "yarn build && yarn concurrently --kill-others-on-fail \"yarn fmt && git pull && yarn && yarn fmt && git add . \"  \"yarn c:deploy\" \"yarn deploy:prod\" \"yarn deploy:esbuild\" && yarn push "
+    "deploy:x": "yarn c:build && yarn concurrently --kill-others-on-fail \"yarn fmt && yarn && yarn fmt && git add . \"  \"yarn c:deploy\" \"yarn deploy:prod\" \"yarn deploy:esbuild\" && yarn push "
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240919.0",

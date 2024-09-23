@@ -12,7 +12,7 @@ export class Code implements DurableObject {
 
   private routeHandler: RouteHandler;
   wsHandler: WebSocketHandler;
-  private transpiled = "";
+
   private origin = "";
   private initialized = false;
 
@@ -171,8 +171,9 @@ export class Code implements DurableObject {
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
-        this.transpiled = this.session.transpiled;
+        this.session.transpiled = this.session.transpiled;
         const oldSession = makeSession(this.session);
+        this.session.transpiled =this.session.transpiled;
 
         this.state.storage.put("session", this.session);
         this.xLog(this.session);
@@ -200,7 +201,7 @@ export class Code implements DurableObject {
         this.origin = url.origin;
       }
 
-      if (!this.transpiled) {
+      if (!this.session.transpiled) {
         try {
           fetch("https://esbuild.spikeland.workers.dev", {
             method: "POST",
@@ -215,7 +216,7 @@ export class Code implements DurableObject {
             throw new Error(`ESBUILD service responded with status ${resp.status}`);
           }
       
-          this.transpiled = await resp.text();
+         this.session.transpiled = await resp.text();
         }); 
         } catch (error) {
           console.error("Error transpiling code:", error);
@@ -263,7 +264,7 @@ export class Code implements DurableObject {
     });
 
      this.state.storage.put("head", head);
-    this.transpiled = "";
+   this.session.transpiled = "";
 
     // Trigger auto-save after updating session storage
      this.autoSave();
@@ -281,10 +282,6 @@ export class Code implements DurableObject {
     return this.origin;
   }
 
-  getTranspiled() {
-    return this.transpiled;
-  }
-
   async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
     return this.autoSaveHistory;
   }
@@ -298,7 +295,6 @@ export class Code implements DurableObject {
     if (entry) {
       this.session.code = entry.code;
         this.state.storage.put("session", this.session);
-      this.transpiled = ""; // Reset transpiled code
       return true;
     }
     return false;

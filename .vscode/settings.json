@@ -69,7 +69,7 @@
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true
   },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",
   "typescript.tsserver.logToFile": true,
