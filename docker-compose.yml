@@ -5,11 +5,17 @@ services:
       dockerfile: ./packages/bookworm-devcontainer/Dockerfile 
       context: .
     tmpfs:
-      - /home/$USER/tmpfs:exec
-    shm_size: 4gb
+      - /home/gitpod/tmpfs:exec
+    shm_size: 8gb
     privileged: true
     volumes:
-      # - $HOME:/home/$USER/host:delegated
+      - /home/gitpod/.gitconfig:/home/gitpod/.gitconfig
+      - /home/gitpod/.ssh:/home/gitpod/.ssh
+      - /home/gitpod/.vscode:/home/gitpod/.vscode 
+      - /home/gitpod/.vscode-server:/home/gitpod/.vscode-server
+      - /home/gitpod/.vscode-remote:/home/gitpod/.vscode-remote
+      - /home/gitpod/.vscode-web:/home/gitpod/.vscode-web
+      
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "6080:6080"
