@@ -1,4 +1,4 @@
-import { get } from "http";
+
 import type Env from "./env";
 import { makeSession, ICodeSession, createPatch, CodePatch, makeHash } from "@spike-land/code";
 
@@ -49,12 +49,10 @@ export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<vo
         if (makeHash(oldSess) === makeHash(s)) {
             return;
         }
-    } else {
-            cache.set(s.codeSpace, s);
-    }
+    } 
     
     
-
+    cache.set(s.codeSpace, s);
    
     const saveVal = saveX(env);
 
@@ -62,18 +60,18 @@ export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<vo
     try {
         // Get the previous session
         // Save the current session
-         saveVal(makeHash(s), s);
+        await saveVal(makeHash(s), s);
 
         // Save the current session to its hash key
-        const hashKey = makeHash(s);
-        saveVal(s.codeSpace, s);
-         saveVal(hashKey, s);
+     
+        await saveVal(s.codeSpace, s);
+        await saveVal(makeHash(s), s);
 
         if (oldSess) {
             // Create and save the patch
             const patch: CodePatch = createPatch(oldSess, s);
             
-             saveVal(makeHash(oldSess), patch);
+            await saveVal(makeHash(oldSess), patch);
         }
     } catch (error) {
         console.error(`Error in logCodeSpace for ${s.codeSpace}:`, error);
