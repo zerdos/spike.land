@@ -1,5 +1,5 @@
 import type Env from "./env";
-import { makeSession, ICodeSession, stringifySession, md5, createPatch } from "@spike-land/code";
+import { makeSession, ICodeSession, createPatch, CodePatch } from "@spike-land/code";
 
 const chunked = (counter: number): string => {
     const res: number[] = [];
@@ -45,7 +45,7 @@ export const logCodeSpace = (env: Env) => async (sess: ICodeSession): Promise<vo
 
         const oldSess = cache.get(`${s.codeSpace}/${s.counter - 1}`) || await getVal(s.codeSpace, s.counter - 1);
         if (oldSess) {
-            const patch = createPatch(oldSess, s);
+            const patch: CodePatch = createPatch(oldSess, s);
 
             if (s.counter % 10 === 0) {
                 await saveVal(s.codeSpace, s.counter, { ...oldSess, ...patch });
