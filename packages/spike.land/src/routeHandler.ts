@@ -252,47 +252,8 @@ export class RouteHandler {
     url: URL,
     path: string[],
   ): Promise<Response> {
-    if (path[1]) {
-      const session = await this.code.getState().storage.get<string | object>(
-        path[1],
-        { allowConcurrency: false },
-      );
-      if (session) {
-       
-        const s = makeSession(
-          typeof session === "string" ? JSON.parse(session) : session,
-        );
-
-        const codeSpace = url.searchParams.get("room");
-
-        return new Response(stringifySession({ ...s, i: s.i>10000?0:s.i ,codeSpace }), {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cache-Control": "no-cache",
-            "Content-Encoding": "gzip",
-            content_hash: md5(session),
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-        });
-      } else {
-        return new Response(
-          JSON.stringify({ success: false, statusCode: 404 }),
-          {
-            status: 404,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Content-Encoding": "gzip",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          },
-        );
-      }
-    }
-    const body = stringifySession(this.code.session);
+    const codeSpace = url.searchParams.get("room");
+    const body = stringifySession(makeSession({...this.code.session, codeSpace}));
     return new Response(body, {
       status: 200,
       headers: {
@@ -300,7 +261,6 @@ export class RouteHandler {
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
         "Content-Encoding": "gzip",
-        content_hash: md5(body),
         "Content-Type": "application/json; charset=UTF-8",
       },
     });
