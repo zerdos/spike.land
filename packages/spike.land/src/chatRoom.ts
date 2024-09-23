@@ -29,7 +29,6 @@ export class Code implements DurableObject {
     
     this.xLog = logCodeSpace(this.env);
 
-
     this.backupSession = makeSession({
       code: `export default () => (
         <div>
@@ -54,63 +53,50 @@ export class Code implements DurableObject {
     this.codeSpace = url.searchParams.get("room")!;
     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
 
-
     await this.state.blockConcurrencyWhile(async () => {
       try {
-        const storedSession = await this.state.storage.get<ICodeSession>(
-          "session",
-        );
+        const storedSession = await this.state.storage.get<ICodeSession>("session");
         if (storedSession && storedSession.i) {
           this.session = {...storedSession, codeSpace: this.codeSpace};
         } else {
-          // const codeSpaceDashed =  this.codeSpace.includes("-");
           const codeSpaceParts = this.codeSpace.split("-");
           if (codeSpaceParts.length > 2) {
             throw new Error("Invalid codeSpace");
           }
 
-
-          
-          const source = codeSpaceParts.length === 2
-            ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
-            : `${this.origin}/live/code-main/session.json`;
-
-            if (codeSpaceParts[0] === 'x'){
-              // full empty state
-
-              this.session = makeSession({
-                code: `
+          if (codeSpaceParts[0] === 'x') {
+            // full empty state
+            this.session = makeSession({
+              code: `
 // x-${codeSpaceParts[1]}.tsx
 
 // write your code here
 
-                `,
-                i: 1,
-                codeSpace: this.codeSpace,
-                html: "<div></div>",
-                css: "",
-              });
+              `,
+              i: 1,
+              codeSpace: this.codeSpace,
+              html: "<div></div>",
+              css: "",
+            });
+          } else {  
+            const source = codeSpaceParts.length === 2
+              ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
+              : `${this.origin}/live/code-main/session.json`;
 
-
-            } else {  
-          const backupCode = await fetch(
-            source,
-          ).then((r) => r.json()) as ICodeSession;
-          this.backupSession = backupCode;
-        
-          await this.state.storage.put("session", this.backupSession);
-          this.session = this.backupSession;
-        }
-        this.session.codeSpace = this.codeSpace;
+            const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
+            this.backupSession = backupCode;
+          
+            await this.state.storage.put("session", this.backupSession);
+            this.session = this.backupSession;
+          }
+          this.session.codeSpace = this.codeSpace;
 
           const head = makeHash(this.session);
           await this.state.storage.put("head", head);
         }
 
         // Initialize auto-save history
-        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>(
-          "autoSaveHistory",
-        );
+        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory");
         if (savedHistory) {
           this.autoSaveHistory = savedHistory;
         }
@@ -135,8 +121,7 @@ export class Code implements DurableObject {
       // Check if the code has changed since the last auto-save
       if (
         this.autoSaveHistory.length === 0
-        || currentCode
-          !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
+        || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
       ) {
         // Remove entries younger than 1 minutes
         this.autoSaveHistory = this.autoSaveHistory.filter((entry) => currentTime - entry.timestamp >= 60_000);
@@ -156,10 +141,7 @@ export class Code implements DurableObject {
         this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
         // Save the current version with timestamp
-        this.state.storage.put(
-          `savedVersion_${currentTime}`,
-          currentCode,
-        );
+        this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
 
         // Update last auto-save time
         this.lastAutoSave = currentTime;
@@ -311,4 +293,3 @@ export class Code implements DurableObject {
     return false;
   }
 }
-
