@@ -61,7 +61,7 @@ export class Code implements DurableObject {
           "session",
         );
         if (storedSession && storedSession.i) {
-          this.session = storedSession;
+          this.session = {...storedSession, codeSpace: this.codeSpace};
         } else {
           // const codeSpaceDashed =  this.codeSpace.includes("-");
           const codeSpaceParts = this.codeSpace.split("-");
@@ -86,6 +86,7 @@ export class Code implements DurableObject {
 
                 `,
                 i: 1,
+                codeSpace: this.codeSpace,
                 html: "<div></div>",
                 css: "",
               });
@@ -100,6 +101,8 @@ export class Code implements DurableObject {
           await this.state.storage.put("session", this.backupSession);
           this.session = this.backupSession;
         }
+        this.session.codeSpace = this.codeSpace;
+
           const head = makeHash(this.session);
           await this.state.storage.put("head", head);
         }
@@ -238,6 +241,7 @@ export class Code implements DurableObject {
   }
 
   async updateSessionStorage(msg: CodePatch) {
+    this.session.codeSpace = this.codeSpace;  
     const head = makeHash(this.session);
     this.xLog({...this.session, codeSpace: this.codeSpace, counter: this.session.i});
     await this.state.storage.put(head, {
@@ -299,6 +303,7 @@ export class Code implements DurableObject {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
       this.session.code = entry.code;
+      this.session.codeSpace = this.codeSpace;
       await this.state.storage.put("session", this.session);
       this.transpiled = ""; // Reset transpiled code
       return true;
