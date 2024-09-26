@@ -4,6 +4,7 @@ import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import type { Mutex } from "async-mutex";
+import { debounce } from "es-toolkit";
 
 /**
  * Creates a new message, optionally including images.
@@ -137,47 +138,56 @@ function createOnUpdateFunction(
   startCode: string,
   mod: { controller: AbortController },
 ) {
+  let accumulatedCode = "";
+  let rafId: number | null = null;
+
+  const updateState = () => {
+    setMessages([
+      ...sentMessages,
+      {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: accumulatedCode,
+      },
+    ]);
+    rafId = null;
+  };
+
+  const debouncedMutexOperation = debounce(async () => {
+    if (mod.controller.signal.aborted) {
+      console.log("Aborted onUpdate inside mutex");
+      return;
+    }
+
+    const lastCode = await updateSearchReplace(accumulatedCode, startCode);
+    const lastReplaceModeIsOn = await updateSearchReplace(accumulatedCode + " \nfoo \n", startCode);
+
+    if (lastCode !== lastReplaceModeIsOn) {
+      return;
+    }
+
+    if (mod.controller.signal.aborted) {
+      console.log("Aborted onUpdate before trySetCode");
+      return;
+    }
+
+    const success = await trySetCode(cSess, lastCode);
+    contextManager.updateContext("currentDraft", success ? "" : lastCode);
+  }, 100);
+
   return async (code: string) => {
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
       return;
     }
 
-    setMessages([
-      ...sentMessages,
-      {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: code,
-      },
-    ]);
+    accumulatedCode = code;
 
-    if (mod.controller.signal.aborted) {
-      console.log("Aborted onUpdate after setMessages");
-      return;
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateState);
     }
 
-    await mutex.runExclusive(async () => {
-      if (mod.controller.signal.aborted) {
-        console.log("Aborted onUpdate inside mutex");
-        return;
-      }
-
-      const lastCode = await updateSearchReplace(code, startCode);
-      const lastReplaceModeIsOn = await updateSearchReplace(code + " \nfoo \n", startCode);
-
-      if (lastCode !== lastReplaceModeIsOn) {
-        return;
-      }
-
-      if (mod.controller.signal.aborted) {
-        console.log("Aborted onUpdate before trySetCode");
-        return;
-      }
-
-      const success = await trySetCode(cSess, lastCode);
-      contextManager.updateContext("currentDraft", success ? "" : lastCode);
-    });
+    await mutex.runExclusive(debouncedMutexOperation);
   };
 }
 
