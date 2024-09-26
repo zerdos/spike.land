@@ -4228,6 +4228,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/autoprefixer": "npm:^10.2.0"
     "@types/isomorphic-fetch": "npm:0.0.39"
+    "@types/lodash": "npm:^4"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.2"
@@ -4286,6 +4287,7 @@ __metadata:
     input-otp: "npm:^1.2.4"
     jsdom: "npm:^25.0.1"
     localforage: "npm:^1.10.0"
+    lodash: "npm:^4.17.21"
     lucide-react: "npm:^0.446.0"
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
@@ -4910,6 +4912,13 @@ __metadata:
   version: 3.0.6
   resolution: "@types/less@npm:3.0.6"
   checksum: 10c0/07109689295d1ce88158f52f799b71925121b2e5ae4dd58c3f23709b1e0b76e8c145f052f883bc3e06cc52d42f173706fcedbc23d9c49b6895b4cf357965d21f
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.17.9
+  resolution: "@types/lodash@npm:4.17.9"
+  checksum: 10c0/54de935e835508b5f835a5dfaedd2b9a299685a21d11e9c5cd2dde57331d03bc2f98b71d2424ca8460f447ecd55a673e45ccdb70e58f9f72745710f6b91abc60
   languageName: node
   linkType: hard
 

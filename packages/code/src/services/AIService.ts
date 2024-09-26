@@ -1,7 +1,7 @@
 import { createContextManager } from "@/lib/context-manager";
 import { Message, MessageContent } from "@/lib/interfaces";
 import { ICode } from "@/lib/interfaces";
-import { throttle } from "es-toolkit";
+import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
@@ -21,17 +21,17 @@ class StreamHandler {
 
   async handleStream(
     reader: ReadableStreamDefaultReader<Uint8Array>,
-    onUpdate: (content: string) => void,
+    onUpdate: (chunk: string) => void,
   ): Promise<string> {
-    let content = "";
+    const chunks: string[] = [];
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = this.decoder.decode(value);
-      content += chunk;
-      onUpdate(content);
+      chunks.push(chunk);
+      onUpdate(chunk); // Pass only the latest chunk
     }
-    return content.trim();
+    return chunks.join('').trim();
   }
 }
 
@@ -110,7 +110,7 @@ export class AIService {
   private async handleStreamingResponse(
     endpoint: string,
     messages: Message[],
-    onUpdate: (content: string) => void,
+    onUpdate: (chunk: string) => void,
     model?: string,
   ): Promise<string> {
     try {
@@ -123,8 +123,6 @@ export class AIService {
 
       const throttleUpdate = throttle(onUpdate, this.config.updateThrottleMs);
       const content = await this.streamHandler.handleStream(reader, throttleUpdate);
-      onUpdate(content);
-
       return content;
     } catch (error) {
       console.error("Error handling streaming response:", error);
@@ -137,7 +135,7 @@ export class AIService {
   async sendToAI(
     type: AIEndpoint,
     messages: Message[],
-    onUpdate: (content: string) => void,
+    onUpdate: (chunk: string) => void,
   ): Promise<Message> {
     try {
       const endpoint = this.getEndpoint(type);
@@ -162,11 +160,11 @@ export class AIService {
     }
   }
 
-  async sendToGpt4o(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
+  async sendToGpt4o(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
     return this.sendToAI("gpt4o", messages, onUpdate);
   }
 
-  async sendToAnthropic(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
+  async sendToAnthropic(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
     return this.sendToAI("anthropic", messages, onUpdate);
   }
 
@@ -181,11 +179,21 @@ export class AIService {
       { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ];
 
-    const updateMessages = (newCode: string) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now().toString(), role: "assistant", content: newCode },
-      ]);
+    const updateMessages = (newChunk: string) => {
+      setMessages((prevMessages) => {
+        const lastMessage = prevMessages[prevMessages.length - 1];
+        if (lastMessage && lastMessage.role === 'assistant') {
+          // Append to the last assistant message
+          lastMessage.content += newChunk;
+          return [...prevMessages];
+        } else {
+          // Create a new assistant message
+          return [
+            ...prevMessages,
+            { id: Date.now().toString(), role: "assistant", content: newChunk },
+          ];
+        }
+      });
     };
 
     try {
@@ -240,16 +248,32 @@ export class AIService {
     };
 
     try {
-      const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
-        setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
+      const answer = await this.sendToAnthropic([...prevMessages, message], (chunk) => {
+        setMessages((prevMessages) => {
+          const lastMessage = prevMessages[prevMessages.length - 1];
+          if (lastMessage && lastMessage.role === 'assistant') {
+            lastMessage.content += chunk;
+            return [...prevMessages];
+          } else {
+            return [...prevMessages, { ...message, content: chunk }];
+          }
+        });
       });
       setMessages((prevMessages) => [...prevMessages, answer]);
 
       return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
     } catch (error) {
       try {
-        const answer = await this.sendToGpt4o([...prevMessages, message], (code) => {
-          setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
+        const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
+          setMessages((prevMessages) => {
+            const lastMessage = prevMessages[prevMessages.length - 1];
+            if (lastMessage && lastMessage.role === 'assistant') {
+              lastMessage.content += chunk;
+              return [...prevMessages];
+            } else {
+              return [...prevMessages, { ...message, content: chunk }];
+            }
+          });
         });
         setMessages((prevMessages) => [...prevMessages, answer]);
 
