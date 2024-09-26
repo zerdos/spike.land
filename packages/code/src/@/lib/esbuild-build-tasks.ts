@@ -4,7 +4,7 @@ import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMap, importMapReplace } from "@/lib/importmap-utils";
+import { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 // import path from "path";
 
