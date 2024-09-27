@@ -31,7 +31,7 @@ class StreamHandler {
       chunks.push(chunk);
       onUpdate(chunk); // Pass only the latest chunk
     }
-    return chunks.join('').trim();
+    return chunks.join("").trim();
   }
 }
 
@@ -182,7 +182,7 @@ export class AIService {
     const updateMessages = (newChunk: string) => {
       setMessages((prevMessages) => {
         const lastMessage = prevMessages[prevMessages.length - 1];
-        if (lastMessage && lastMessage.role === 'assistant') {
+        if (lastMessage && lastMessage.role === "assistant") {
           // Append to the last assistant message
           lastMessage.content += newChunk;
           return [...prevMessages];
@@ -251,7 +251,7 @@ export class AIService {
       const answer = await this.sendToAnthropic([...prevMessages, message], (chunk) => {
         setMessages((prevMessages) => {
           const lastMessage = prevMessages[prevMessages.length - 1];
-          if (lastMessage && lastMessage.role === 'assistant') {
+          if (lastMessage && lastMessage.role === "assistant") {
             lastMessage.content += chunk;
             return [...prevMessages];
           } else {
@@ -267,7 +267,7 @@ export class AIService {
         const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
           setMessages((prevMessages) => {
             const lastMessage = prevMessages[prevMessages.length - 1];
-            if (lastMessage && lastMessage.role === 'assistant') {
+            if (lastMessage && lastMessage.role === "assistant") {
               lastMessage.content += chunk;
               return [...prevMessages];
             } else {
