@@ -1,7 +1,5 @@
-// import { importMap } from "@/lib/importmap-utils";
 import { md5 } from "@/lib/md5";
 import { routes } from "@/lib/routes";
-
 import { lookup } from "mime-types";
 
 // Simplified getContentType function
@@ -27,19 +25,12 @@ export const serveWithCache = (
     });
 
   const isAsset = (request: Request) => {
-    // without search params
     const url = new URL(request.url);
-
-    const pathname = url.pathname.startsWith("/")
-      ? url.pathname.slice(1)
-      : url.pathname;
-
+    const pathname = url.pathname.startsWith("/") ? url.pathname.slice(1) : url.pathname;
     const assetPath = pathname.startsWith(ASSET_HASH + "/")
       ? pathname.slice(ASSET_HASH.length + 1)
       : pathname;
-
-    return assetPath in files || assetPath in Object.values(files) || pathname in files
-      || pathname in Object.values(files);
+    return assetPath in files || pathname in files;
   };
 
   // Instance-specific in-flight requests map
@@ -51,17 +42,13 @@ export const serveWithCache = (
       if (isAsset(request)) {
         return true;
       }
-
-      if (request.url.includes("/live/") || request.url.includes("/my-cms/") || request.url.includes("/api/")) {
+      const url = new URL(request.url);
+      if (
+        url.pathname.startsWith("/live/") || url.pathname.startsWith("/my-cms/") || url.pathname.startsWith("/api/")
+      ) {
         return false;
       }
-
-      const pathname = new URL(request.url).pathname;
-      if (Object.hasOwn(routes, pathname)) {
-        return false;
-      }
-
-      return true;
+      return !Object.hasOwn(routes, url.pathname);
     },
 
     serve: async (
@@ -81,10 +68,7 @@ export const serveWithCache = (
       }
 
       const url = new URL(request.url);
-      const pathname = url.pathname.startsWith("/")
-        ? url.pathname.slice(1)
-        : url.pathname;
-
+      const pathname = url.pathname.startsWith("/") ? url.pathname.slice(1) : url.pathname;
       const filePath = pathname.startsWith(ASSET_HASH + "/")
         ? pathname.slice(ASSET_HASH.length + 1)
         : pathname;
@@ -104,95 +88,86 @@ export const serveWithCache = (
 
       const cacheKey = new Request(cacheUrl.toString());
 
-      let resp: Response | undefined;
       if (_fileCache) {
         // Attempt to find the response in the cache
-        resp = await _fileCache.match(cacheKey);
-        if (resp) return resp.clone();
-      }
+        const cachedResp = await _fileCache.match(cacheKey);
+        if (cachedResp) return cachedResp.clone();
 
-      if (inFlightRequests.has(request.url)) {
-        // Wait for the in-flight fetch to complete
-        const inFlightResponse = await inFlightRequests.get(request.url)!;
-        return inFlightResponse.clone();
-      }
-
-      // Construct the new URL based on the files mapping
-      const newUrl = new URL(request.url);
-
-      newUrl.pathname = "/" + (files[filePath] ? filePath : pathname);
-      newUrl.pathname = newUrl.pathname.replace(ASSET_HASH + "/", "");
-
-      const req = new Request(newUrl.toString(), {
-        method: request.method,
-        headers: request.headers,
-        redirect: request.redirect,
-      });
-
-      // Create a promise to represent the in-flight fetch
-      const inFlightPromise = (async (req: Request) => {
-        let kvResp: Response;
-        try {
-          kvResp = await assetFetcher(req, waitUntil);
-        } catch (error) {
-          console.error("Asset fetch error:", error);
-          inFlightRequests.delete(request.url);
-          return new Response("Internal Server Error", { status: 500 });
+        if (inFlightRequests.has(request.url)) {
+          // Wait for the in-flight fetch to complete
+          const inFlightResponse = await inFlightRequests.get(request.url)!;
+          return inFlightResponse.clone();
         }
 
-        if (!kvResp.ok) {
-          inFlightRequests.delete(request.url);
-          return kvResp;
-        }
+        // Construct the new URL based on the files mapping
+        const newUrl = new URL(request.url);
+        newUrl.pathname = "/" + (files[filePath] || filePath);
+        newUrl.pathname = newUrl.pathname.replace(ASSET_HASH + "/", "");
 
-        // Clone headers and set appropriate Content-Type
-        const headers = new Headers(kvResp.headers);
-        const contentType = getContentType(filePath);
-        headers.set("Content-Type", contentType);
-
-        // Overwrite the Cache-Control header
-        headers.set("Cache-Control", "public, max-age=604800, immutable");
-
-        // Set security and CORS headers (review necessity)
-        headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-        // headers.set("Access-Control-Allow-Origin", "*"); // Consider removing or adjusting
-
-        let response: Response;
-
-        response = new Response(kvResp.body, {
-          status: kvResp.status,
-          statusText: kvResp.statusText,
-          headers,
+        const req = new Request(newUrl.toString(), {
+          method: request.method,
+          headers: request.headers,
+          redirect: request.redirect,
         });
 
-        if (response.status !== 200) {
+        // Create a promise to represent the in-flight fetch
+        const inFlightPromise = (async (req: Request) => {
+          let kvResp: Response;
+          try {
+            kvResp = await assetFetcher(req, waitUntil);
+          } catch (error) {
+            console.error("Asset fetch error:", error);
+            inFlightRequests.delete(request.url);
+            return new Response("Internal Server Error", { status: 500 });
+          }
+
+          if (!kvResp.ok) {
+            inFlightRequests.delete(request.url);
+            return kvResp;
+          }
+
+          // Clone headers and set appropriate Content-Type
+          const headers = new Headers(kvResp.headers);
+          const contentType = getContentType(filePath);
+          headers.set("Content-Type", contentType);
+
+          // Overwrite the Cache-Control header
+          headers.set("Cache-Control", "public, max-age=604800, immutable");
+
+          // Set security headers
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+
+          const response = new Response(kvResp.body, {
+            status: kvResp.status,
+            statusText: kvResp.statusText,
+            headers,
+          });
+
+          if (response.status === 200) {
+            // Cache the response asynchronously if cache is available
+            waitUntil(
+              _fileCache.put(cacheKey, response.clone()).catch((error) => {
+                console.error("Cache put error:", error);
+              }),
+            );
+          }
+
+          // Remove the in-flight request from the map
           inFlightRequests.delete(request.url);
 
           return response;
-        }
+        })(req);
 
-        // Cache the response asynchronously if cache is available
-        if (_fileCache && response.status === 200) {
-          waitUntil(
-            _fileCache.put(cacheKey, response.clone()).catch((error) => {
-              console.error("Cache put error:", error);
-            }),
-          );
-        }
+        // Store the in-flight promise
+        inFlightRequests.set(request.url, inFlightPromise);
 
-        // Remove the in-flight request from the map
-        inFlightRequests.delete(request.url);
+        // Await the in-flight fetch and clone the response before returning
+        const response = await inFlightPromise;
+        return response.clone();
+      }
 
-        return response;
-      })(req);
-
-      // Store the in-flight promise
-      inFlightRequests.set(request.url, inFlightPromise);
-
-      // Await the in-flight fetch and clone the response before returning
-      const response = await inFlightPromise;
-
-      return response.clone();
+      // If we reach here, it means the cache is not available
+      return new Response("Service Unavailable", { status: 503 });
     },
   };
 };

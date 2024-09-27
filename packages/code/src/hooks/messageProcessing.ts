@@ -241,7 +241,6 @@ async function sendAssistantMessage(
   }
 }
 
-
 /**
  * Processes the assistant's message to update the code.
  */
@@ -313,7 +312,6 @@ async function handleErrorMessage(
 
   return success;
 }
-
 
 /**
  * Extracts text content from a message.
