@@ -8,7 +8,7 @@ import { handleReplicateRequest } from "./replicateHandler";
 import Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
-import { ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { ASSET_MANIFEST,ASSET_HASH,  files } from "./staticContent.mjs";
 
 
 
@@ -38,6 +38,14 @@ export default {
 
     env.KV.put("lastRequest", request.url);
 
+    if (url.pathname === "/swVersion.js") {
+    return new Response(`self.swVersion = "${ASSET_HASH}";`, {  
+      headers: {
+        ''
+        "Content-Type": "application/javascript",
+      }
+    });
+  }
 
     if (url.pathname === serverFetchUrl) {
 
