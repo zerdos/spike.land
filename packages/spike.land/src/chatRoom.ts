@@ -62,8 +62,9 @@ export class Code implements DurableObject {
     await this.state.blockConcurrencyWhile(async () => {
       try {
         const storedSession = await this.state.storage.get<ICodeSession>("session");
+
         if (storedSession && storedSession.i) {
-          this.session = {...storedSession, codeSpace };
+          this.session = makeSession({...storedSession, codeSpace });
         } else {
           const codeSpaceParts = codeSpace!.split("-");
           if (codeSpaceParts.length > 2) {
@@ -96,8 +97,13 @@ export class Code implements DurableObject {
             this.session = this.backupSession;
           }
 
-          this.session.codeSpace =  this.session.codeSpace  ||codeSpace;
 
+
+
+          if (!this.session.codeSpace) { 
+            this.session.codeSpace = codeSpace;
+          }
+          this.state.storage.put("session", this.session);
           const head = makeHash(this.session);
           this.state.storage.put("head", head);
         }
