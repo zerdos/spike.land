@@ -203,21 +203,20 @@ export class Code implements DurableObject {
 
       if (!this.session.transpiled) {
         try {
-          fetch("https://esbuild.spikeland.workers.dev", {
+         this.session.transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
             method: "POST",
             body: this.session.code,
             headers: {
               "TR_ORIGIN": this.origin,
               // Include any additional headers required for authentication
             },
-          }).then(async (resp) => { 
-      
-          if (!resp.ok) {
-            throw new Error(`ESBUILD service responded with status ${resp.status}`);
-          }
-      
-         this.session.transpiled = await resp.text();
-        }); 
+          })).text();
+
+
+
+        
+          this.state.storage.put("session", this.session);
+        
         } catch (error) {
           console.error("Error transpiling code:", error);
           // Handle the error as appropriate for your application
