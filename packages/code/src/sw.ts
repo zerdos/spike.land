@@ -86,8 +86,8 @@ sw.onfetch = (event) => {
   );
 
   const request = event.request;
-  const url = new URL(request.url);
-  const pathname = url.pathname;
+  // const url = new URL(request.url);
+  // const pathname = url.pathname;
 
   if (isAsset(request)) {
     // console.log("Its probably a file", request.url);
@@ -107,95 +107,97 @@ sw.onfetch = (event) => {
         return fetch(request);
       }),
     );
-  } else if (
-    pathname.includes("/live/") || pathname in routes
-  ) {
-    const codeSpace = useCodeSpace(pathname);
-
-    event.respondWith((async () => {
-      const pathname = new URL(request.url).pathname;
-
-      if (!sw.cSessions[codeSpace]) {
-        const bcSession = new CodeSessionBC(codeSpace);
-
-        sw.cSessions[codeSpace] = bcSession;
-        bcSession.sub((session) => {
-          sw.cSessions[codeSpace].session = session;
-        });
-
-        await bcSession.init();
-      }
-
-      const session = sw.cSessions[codeSpace].session!;
-
-      if (pathname.includes("index.js")) {
-        return new Response(session?.transpiled || "", {
-          headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
-        });
-      } else if (pathname.includes("session")) {
-        return new Response(JSON.stringify(session), {
-          headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
-        });
-      } else if (pathname.includes("index.css")) {
-        return new Response(session?.css || "", {
-          headers: { "Content-Type": "text/css", "Cache-Control": "no-cache" },
-        });
-      } else if (pathname.includes("index.tsx")) {
-        return new Response(session?.code || "", {
-          headers: { "Content-Type": "application/typescript", "Cache-Control": "no-cache" },
-        });
-      } else if (
-        pathname.includes("iframe") || pathname.includes("embed") || pathname.length < 2
-        || pathname.includes("dehydrated") || pathname in routes || pathname === `/live/${codeSpace}/`
-        || pathname === `/live/${codeSpace}`
-      ) {
-        const HTML = await (await serve(
-          new Request(location.origin + "/index.html"),
-          (req, waitUntil) => {
-            // console.log("Fetching from network", req.url);
-            const respPromise = fetch(req, { redirect: "follow" });
-            waitUntil(respPromise);
-            return respPromise;
-          },
-          event.waitUntil.bind(event),
-        )).text();
-
-        const { html } = session;
-
-        const respText = HTML.replace(
-          `<script type="importmap"></script>`,
-          `<script type="importmap">${JSON.stringify(imap)}</script>`,
-        ).replace(
-          `<link rel="preload" href="app/tw-global.css" as="style">`,
-          `<link rel="preload" href="app/tw-global.css" as="style">
-                 <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
-                 <link rel="stylesheet" href="/live/${codeSpace}/index.css">
-                 `,
-        ).replace(
-          "<div id=\"embed\"></div>",
-          `<div id="embed">${html}</div>`,
-        ).replace(`<base href="/">`, `<base href="/${swVersion}/">`);
-
-        const headers = new Headers({
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cross-Origin-Resource-Policy": "cross-origin",
-          "Cross-Origin-Opener-Policy": "same-origin",
-          "Cache-Control": "no-cache",
-          "Content-Encoding": "gzip",
-          "Content-Type": "text/html; charset=UTF-8",
-          "content_hash": md5(respText),
-        });
-
-        return new Response(respText, { headers });
-      } else {
-        return fetch(request);
-      }
-    })());
-  } else {
-    // console.log("Its probably not a file", request.url);
-    // For non-asset requests, fetch from the network
-
-    event.respondWith(fetch(request));
   }
+
+  //   else if (
+  //     pathname.includes("/live/") || pathname in routes
+  //   ) {
+  //     const codeSpace = useCodeSpace(pathname);
+
+  //     event.respondWith((async () => {
+  //       const pathname = new URL(request.url).pathname;
+
+  //       if (!sw.cSessions[codeSpace]) {
+  //         const bcSession = new CodeSessionBC(codeSpace);
+
+  //         sw.cSessions[codeSpace] = bcSession;
+  //         bcSession.sub((session) => {
+  //           sw.cSessions[codeSpace].session = session;
+  //         });
+
+  //         await bcSession.init();
+  //       }
+
+  //       const session = sw.cSessions[codeSpace].session!;
+
+  //       if (pathname.includes("index.js")) {
+  //         return new Response(session?.transpiled || "", {
+  //           headers: { "Content-Type": "application/javascript", "Cache-Control": "no-cache" },
+  //         });
+  //       } else if (pathname.includes("session")) {
+  //         return new Response(JSON.stringify(session), {
+  //           headers: { "Content-Type": "application/json", "Cache-Control": "no-cache" },
+  //         });
+  //       } else if (pathname.includes("index.css")) {
+  //         return new Response(session?.css || "", {
+  //           headers: { "Content-Type": "text/css", "Cache-Control": "no-cache" },
+  //         });
+  //       } else if (pathname.includes("index.tsx")) {
+  //         return new Response(session?.code || "", {
+  //           headers: { "Content-Type": "application/typescript", "Cache-Control": "no-cache" },
+  //         });
+  //       } else if (
+  //         pathname.includes("iframe") || pathname.includes("embed") || pathname.length < 2
+  //         || pathname.includes("dehydrated") || pathname in routes || pathname === `/live/${codeSpace}/`
+  //         || pathname === `/live/${codeSpace}`
+  //       ) {
+  //         const HTML = await (await serve(
+  //           new Request(location.origin + "/index.html"),
+  //           (req, waitUntil) => {
+  //             // console.log("Fetching from network", req.url);
+  //             const respPromise = fetch(req, { redirect: "follow" });
+  //             waitUntil(respPromise);
+  //             return respPromise;
+  //           },
+  //           event.waitUntil.bind(event),
+  //         )).text();
+
+  //         const { html } = session;
+
+  //         const respText = HTML.replace(
+  //           `<script type="importmap"></script>`,
+  //           `<script type="importmap">${JSON.stringify(imap)}</script>`,
+  //         ).replace(
+  //           `<link rel="preload" href="app/tw-global.css" as="style">`,
+  //           `<link rel="preload" href="app/tw-global.css" as="style">
+  //                  <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+  //                  <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+  //                  `,
+  //         ).replace(
+  //           "<div id=\"embed\"></div>",
+  //           `<div id="embed">${html}</div>`,
+  //         ).replace(`<base href="/">`, `<base href="/${swVersion}/">`);
+
+  //         const headers = new Headers({
+  //           "Access-Control-Allow-Origin": "*",
+  //           "Cross-Origin-Embedder-Policy": "require-corp",
+  //           "Cross-Origin-Resource-Policy": "cross-origin",
+  //           "Cross-Origin-Opener-Policy": "same-origin",
+  //           "Cache-Control": "no-cache",
+  //           "Content-Encoding": "gzip",
+  //           "Content-Type": "text/html; charset=UTF-8",
+  //           "content_hash": md5(respText),
+  //         });
+
+  //         return new Response(respText, { headers });
+  //       } else {
+  //         return fetch(request);
+  //       }
+  //     })());
+  //   } else {
+  //     // console.log("Its probably not a file", request.url);
+  //     // For non-asset requests, fetch from the network
+
+  //     event.respondWith(fetch(request));
+  //   }
 };
