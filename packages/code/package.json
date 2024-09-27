@@ -217,11 +217,6 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.2",
-<<<<<<< HEAD
-    "@types/lodash": "^4",
-=======
-    "@types/lodash": "^4.17.9",
->>>>>>> 0602d31ec72fe7b8b4384101fc78a879cb6c8d92
     "@types/mime-db": "^1.43.5",
     "@types/mime-types": "^2.1.4",
     "@types/node": "^22.7.3",
