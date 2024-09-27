@@ -39,9 +39,9 @@ export default {
     env.KV.put("lastRequest", request.url);
 
     if (url.pathname === "/swVersion.js") {
-    return new Response(`self.swVersion = "${ASSET_HASH}";`, {  
+    return new Response(`self.swVersion = "${ASSET_HASH}"; self.files= ${JSON.stringify(files)};`, {  
       headers: {
-        ''
+
         "Content-Type": "application/javascript",
       }
     });
