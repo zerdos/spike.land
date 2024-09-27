@@ -4,7 +4,7 @@ import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import type { Mutex } from "async-mutex";
-import { debounce } from "es-toolkit";
+import { throttle } from "es-toolkit";
 
 /**
  * Creates a new message, optionally including images.
@@ -54,7 +54,6 @@ export async function processMessage(
   const mod = { controller: new AbortController() };
 
   const onUpdate = createOnUpdateFunction(
-    sentMessages,
     mutex,
     setMessages,
     cSess,
@@ -130,7 +129,6 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
  * Creates an onUpdate function to handle assistant updates.
  */
 function createOnUpdateFunction(
-  sentMessages: Message[],
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   cSess: ICode,
@@ -169,7 +167,7 @@ function createOnUpdateFunction(
     }
   };
 
-  const debouncedMutexOperation = debounce(async () => {
+  const debouncedMutexOperation = throttle(async () => {
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate inside mutex");
       return;
@@ -289,7 +287,6 @@ async function handleErrorMessage(
   sentMessages.push(userMessage);
 
   const newOnUpdate = createOnUpdateFunction(
-    sentMessages,
     mutex,
     setMessages,
     cSess,
