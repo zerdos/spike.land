@@ -139,18 +139,34 @@ function createOnUpdateFunction(
   mod: { controller: AbortController },
 ) {
   let accumulatedCode = "";
-  let rafId: number | null = null;
+  let lastUpdateTime = 0;
+  const updateInterval = 100; // Update UI every 100ms
 
   const updateState = () => {
-    setMessages([
-      ...sentMessages,
-      {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: accumulatedCode,
-      },
-    ]);
-    rafId = null;
+    const now = Date.now();
+    if (now - lastUpdateTime >= updateInterval) {
+      setMessages((prevMessages) => {
+        const lastMessage = prevMessages[prevMessages.length - 1];
+        if (lastMessage && lastMessage.role === "assistant") {
+          // Update the last assistant message
+          return [
+            ...prevMessages.slice(0, -1),
+            { ...lastMessage, content: accumulatedCode },
+          ];
+        } else {
+          // Add a new assistant message
+          return [
+            ...prevMessages,
+            {
+              id: now.toString(),
+              role: "assistant",
+              content: accumulatedCode,
+            },
+          ];
+        }
+      });
+      lastUpdateTime = now;
+    }
   };
 
   const debouncedMutexOperation = debounce(async () => {
@@ -159,21 +175,26 @@ function createOnUpdateFunction(
       return;
     }
 
-    const lastCode = await updateSearchReplace(accumulatedCode, startCode);
-    const lastReplaceModeIsOn = await updateSearchReplace(accumulatedCode + " \nfoo \n", startCode);
+    try {
+      const lastCode = await updateSearchReplace(accumulatedCode, startCode);
+      const lastReplaceModeIsOn = await updateSearchReplace(accumulatedCode + " \nfoo \n", startCode);
 
-    if (lastCode !== lastReplaceModeIsOn) {
-      return;
+      if (lastCode !== lastReplaceModeIsOn) {
+        return;
+      }
+
+      if (mod.controller.signal.aborted) {
+        console.log("Aborted onUpdate before trySetCode");
+        return;
+      }
+
+      const success = await trySetCode(cSess, lastCode);
+      contextManager.updateContext("currentDraft", success ? "" : lastCode);
+    } catch (error) {
+      console.error("Error in debouncedMutexOperation:", error);
+      contextManager.updateContext("errorLog", (error as Error).message);
     }
-
-    if (mod.controller.signal.aborted) {
-      console.log("Aborted onUpdate before trySetCode");
-      return;
-    }
-
-    const success = await trySetCode(cSess, lastCode);
-    contextManager.updateContext("currentDraft", success ? "" : lastCode);
-  }, 100);
+  }, 200);
 
   return async (code: string) => {
     if (mod.controller.signal.aborted) {
@@ -182,12 +203,14 @@ function createOnUpdateFunction(
     }
 
     accumulatedCode = code;
+    updateState();
 
-    if (!rafId) {
-      rafId = requestAnimationFrame(updateState);
+    try {
+      await mutex.runExclusive(debouncedMutexOperation);
+    } catch (error) {
+      console.error("Error in mutex operation:", error);
+      contextManager.updateContext("errorLog", (error as Error).message);
     }
-
-    await mutex.runExclusive(debouncedMutexOperation);
   };
 }
 
@@ -199,19 +222,25 @@ async function sendAssistantMessage(
   messages: Message[],
   onUpdate: (code: string) => Promise<void>,
 ): Promise<Message> {
-  let assistantMessage = await aiHandler.sendToAnthropic(messages, onUpdate);
+  try {
+    let assistantMessage = await aiHandler.sendToAnthropic(messages, onUpdate);
 
-  if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-    throw new Error("Invalid assistant message content type");
+    if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+      throw new Error("Invalid assistant message content type");
+    }
+
+    const contentToProcess = extractTextContent(assistantMessage.content);
+
+    if (contentToProcess.includes("An error occurred while processing")) {
+      console.log("Falling back to GPT-4");
+      assistantMessage = await aiHandler.sendToGpt4o(messages, onUpdate);
+    }
+
+    return assistantMessage;
+  } catch (error) {
+    console.error("Error in sendAssistantMessage:", error);
+    throw error;
   }
-
-  const contentToProcess = extractTextContent(assistantMessage.content);
-
-  if (contentToProcess.includes("An error occurred while processing")) {
-    assistantMessage = await aiHandler.sendToGpt4o(messages, onUpdate);
-  }
-
-  return assistantMessage;
 }
 
 /**
