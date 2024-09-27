@@ -20,17 +20,17 @@
     "@types/mime-db": "^1.43.5",
     "@types/mime-types": "^2.1.4",
     "typescript": "5.6.2",
-    "wrangler": "3.78.11"
+    "wrangler": "3.78.12"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.3",
     "@clerk/backend": "1.13.5",
     "@clerk/clerk-sdk-node": "5.0.45",
-    "@cloudflare/vitest-pool-workers": "^0.5.11",
+    "@cloudflare/vitest-pool-workers": "^0.5.12",
     "@remix-run/cloudflare": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@spike-land/code": "0.9.55",
-    "@types/node": "^22.7.3",
+    "@types/node": "^22.7.4",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.24.0",
