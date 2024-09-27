@@ -1,7 +1,7 @@
 import {
   buildMainBundle,
   buildMainScripts,
-  // buildServiceWorker,
+  buildServiceWorker,
   buildTailwind,
   buildWasm,
   buildWorkers,
@@ -44,8 +44,8 @@ async function main() {
     console.log("buildTailwind completed.");
 
     // console.log("Starting buildServiceWorker...");
-    // await buildServiceWorker();
-    // console.log("buildServiceWorker completed.");
+    await buildServiceWorker();
+    console.log("buildServiceWorker completed.");
 
     console.log("Fetching WASM file...");
     const wasmFile = await getWasmFile();
