@@ -12,7 +12,7 @@ const setupServiceWorker = async () => {
     wb.update();
 
   //  await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-  
+  }
 //   if (
 //     !navigator.serviceWorker || localStorage.getItem("sw") === "false"
 //     || location.origin.indexOf("localhost") !== -1

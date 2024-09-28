@@ -1,5 +1,4 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
 import type { CodeSessionBC as CsBc, serveWithCache as ServeWithCache } from "./sw-deps";
 
 importScripts("/swVersion.js");
