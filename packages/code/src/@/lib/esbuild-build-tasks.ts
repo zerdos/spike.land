@@ -294,7 +294,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    splitting: true,
+    splitting: false,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
