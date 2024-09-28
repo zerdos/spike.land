@@ -13,6 +13,7 @@ import { prettierCss } from "@/lib/shared";
 import { debounce, throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
+import { wait } from "./wait";
 
 const codeSpace = useCodeSpace();
 const cSess = new Code(codeSpace);
@@ -254,6 +255,10 @@ const handleRender = async (
 ): Promise<{ css: string; html: string } | false> => {
   try {
     if (!rootEl) return false;
+    if (!rootEl.innerHTML) await wait(100);
+    if (!rootEl.innerHTML) await wait(200);
+    if (!rootEl.innerHTML) await wait(400);
+
     const html = rootEl.innerHTML;
 
     for (let attempts = 5; attempts > 0; attempts--) {
