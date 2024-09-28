@@ -10,6 +10,7 @@ const sw = self as unknown as ServiceWorkerGlobalScope & {
 importScripts("/swVersion.js");
 
 import { serveWithCache } from "@/lib/serve-with-cache";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Initialize cSessions
@@ -107,18 +108,19 @@ sw.addEventListener("fetch", (event) => {
       })(),
     );
   }
-
   const request = event.request;
+  const assetFetcher = (request: Request) => {
+    const respPromise = fetch(request);
+    event.waitUntil(respPromise);
+
+    return respPromise;
+  };
 
   if (isAsset(request)) {
     event.respondWith(
       serve(
         request,
-        (req, waitUntil) => {
-          const respPromise = fetch(req, { redirect: "follow" });
-          waitUntil(respPromise);
-          return respPromise;
-        },
+        assetFetcher,
         event.waitUntil.bind(event),
       ).catch((error) => {
         console.error("Error in serve", error);

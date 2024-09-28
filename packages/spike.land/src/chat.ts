@@ -18,6 +18,7 @@ export default {
 
   
     const kvServer = serveWithCache(files, () => caches.open("file-cache-24"));
+    
     if (kvServer.isAsset(request)) {
       const assetFetcher  = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
         { request: req, waitUntil },
