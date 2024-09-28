@@ -139,6 +139,13 @@ export class AIService {
   ): Promise<Message> {
     try {
       const endpoint = this.getEndpoint(type);
+      const maxMessages = 8;
+      if (messages.length > maxMessages) {
+        messages = messages.slice(-maxMessages);
+      }
+      if (messages[messages.length - 1].role === "assistant") {
+        messages = messages.slice(0, -1);
+      }
       const result = await this.handleStreamingResponse(endpoint, messages, onUpdate, type === "gpt4o" ? `gpt-4o` : "");
 
       const lastMessage = messages[messages.length - 1];
@@ -165,7 +172,7 @@ export class AIService {
   }
 
   async sendToAnthropic(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
-    return this.sendToAI("anthropic", messages, onUpdate);
+    return this.sendToAI("anthropic", messages.slice(-8).slice(0, 7), onUpdate);
   }
 
   async continueWithOpenAI(

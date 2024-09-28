@@ -56,6 +56,13 @@ export const useMessageHandling = ({
 
     messages.push(newMessage);
     setMessages((messages) => [...messages, newMessage]);
+    const assistantMessagePlaceholder: Message = {
+      id: Date.now().toString(),
+      role: "assistant",
+      content: "On it...",
+    };
+    messages.push(assistantMessagePlaceholder);
+    setMessages((m) => [...m, assistantMessagePlaceholder]);
 
     setInput("");
 
