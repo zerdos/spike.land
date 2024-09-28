@@ -128,7 +128,7 @@ export const ChatContainer: React.FC<
     <div className="p-4 space-y-4">
       {messages.map((v, i)=>{
 
-        const hash = md5(JSON.stringify(v));
+        const hash = isStreaming && (i===messages.length-1)? 'streaming': md5(JSON.stringify(v));
 
         return renderMessage(v, `${i}-${hash}`);
       })}
