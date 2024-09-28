@@ -37,9 +37,9 @@ let configPromise = fetchConfig();
 // Access the files from sw.files
 const files = sw.files;
 
-const filesArray = Object.entries(files) as unknown as [string, { cacheKey: string; name: string }][];
+const filesArray = Object.entries(files) as unknown as [string, string][];
 const filesByCacheKeys = filesArray.reduce((acc, [key, value]) => {
-  acc[value.cacheKey] = value.name;
+  acc[key] = value;
   return acc;
 }, {} as { [key: string]: string });
 
