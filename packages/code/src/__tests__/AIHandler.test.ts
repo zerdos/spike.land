@@ -85,6 +85,7 @@ describe("AIHandler", () => {
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
       fullResponse,
       currentCode,
+      [],
       setMessages,
       setAICode,
     );
