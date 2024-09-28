@@ -4,7 +4,7 @@ import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMapReplace } from "@/lib/importmap-utils";
+import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 // import path from "path";
 
@@ -289,6 +289,38 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       ...extraAliases,
     },
     external: [
+      ...Object.values(extraAliases),
+    ],
+  });
+
+  await build({
+    ...buildOptions,
+    splitting: true,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: false,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: false,
+    sourcemap: false,
+    outdir: "dist/",
+    target: "es2024",
+    allowOverwrite: true,
+    legalComments: "none",
+    platform: "browser",
+    plugins: [
+      ...buildOptions.plugins,
+    ],
+    entryPoints: [
+      "src/start.ts",
+    ],
+    alias: {
+      ...buildOptions.alias,
+      ...extraAliases,
+    },
+    external: [
+      ...Object.keys(importMap.imports),
       ...Object.values(extraAliases),
     ],
   });
