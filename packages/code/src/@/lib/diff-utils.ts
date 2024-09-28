@@ -1,5 +1,13 @@
+import { extractDiffContent } from "@/lib/diff-utils";
+
 export const isDiffContent = (content: string): boolean => {
-  return content.includes("<<<<<<< SEARCH");
+  if (content.includes("<<<<<<< SEARCH")) {
+    // const {original, modified } = extractDiffContent(content + "\nFoo_bar_baz");
+    // if (original && modified && !original.includes('Foo_bar_baz') && !modified.includes('Foo_bar_baz')) {
+    //   return true;
+    // }
+  }
+  return false;
 };
 
 export function replacePreservingWhitespace(

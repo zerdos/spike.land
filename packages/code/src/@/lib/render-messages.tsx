@@ -6,6 +6,7 @@ import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/external/CodeBlock";
 import {  isDiffContent } from "@/lib/diff-utils";
 import { DiffEditor } from "@/components/app/diff-editor-lazy";
+import { md5 } from "@/lib/md5";
 
 interface CodeProps {
   value: string;
@@ -49,10 +50,14 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
   }
 
   if (isDiffContent(trimmedValue)) {
-    const { original, modified } = extractDiffContent(trimmedValue);
+  
+    const { original, modified } = extractDiffContent(trimmedValue+"\nFoo_Bar_baz_893");
+    const o = original.includes('Foo_Bar_baz_893')? '': original;
+    const m = modified.includes('Foo_Bar_baz_893')? '': modified;
+
     return ( <DiffEditor
-        original={original}
-        modified={modified}
+        original={o}
+        modified={m}
         language={language}
       />
     );
@@ -74,7 +79,7 @@ export const ChatMessageBlock: FC<ChatMessageBlockProps> = memo(({ text, isUser 
   return (
     <>
       {messageParts.map((part, index) => (
-        <React.Fragment key={index}>
+        <React.Fragment key={md5(part.content)}>
           <Code
             value={part.content}
             language={part.language || 'typescript'}

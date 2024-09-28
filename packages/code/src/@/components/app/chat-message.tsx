@@ -12,6 +12,7 @@ import type { Message } from "@/lib/interfaces";
 import { ChatMessageBlock } from "@/lib/render-messages";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
+import { md5 } from "@src/modules";
 
 interface ImageData {
   imageName: string;
@@ -81,8 +82,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
     
     return _content.map((item, index) => {
       if (item.type === "text" && item.text) {
+        const hashText = md5(item.text);
         return (
-          <div key={`text-${index}`}>
+          <div key={`${index}-${hashText}`}>
             <ChatMessageBlock text={item.text} isUser={isUser} />
           </div>
         );
