@@ -9,7 +9,7 @@ import { Code } from "./services/CodeSession";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
-import { prettierCss } from "@/lib/shared";
+import { generateCSS, prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -248,6 +248,19 @@ const handleDehydratedPage = () => {
   }
 };
 
+function getClassNamesFromHTML(htmlString: string) {
+  const classNames = new Set<string>();
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = htmlString;
+  const elements = tempDiv.getElementsByTagName("*");
+  for (let el of elements) {
+    if (el.className) {
+      el.className.split(" ").forEach((cls) => classNames.add(cls));
+    }
+  }
+  return Array.from(classNames);
+}
+
 const handleRender = async (
   rootEl: HTMLDivElement,
   cache: EmotionCache,
@@ -260,6 +273,8 @@ const handleRender = async (
     if (!rootEl.innerHTML) await wait(400);
 
     const html = rootEl.innerHTML;
+    const classNames = getClassNamesFromHTML(html);
+    const twCss = await generateCSS({ classNames });
 
     if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
@@ -275,19 +290,19 @@ const handleRender = async (
           .filter(Boolean) as string[],
       );
 
-      const styleElement = document.querySelector("head > style:last-child");
-      const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
-          (x) => x.cssText,
-        )
-        : [];
+      // const styleElement = document.querySelector("head > style:last-child");
+      // const tailWindClasses = styleElement
+      //   ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
+      //     (x) => x.cssText,
+      //   )
+      //   : [];
 
       const eCss = css
         .filter((line) => Array.from(criticalClasses).some((rule) => rule ? line.includes(rule) : false))
         .map((x) => x.trim())
         .filter(Boolean);
 
-      let cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
+      let cssStrings = [...eCss, ...twCss].sort().join("\n");
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
       } catch (error) {

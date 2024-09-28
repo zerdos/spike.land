@@ -12,6 +12,7 @@ interface ExtendedSharedWorkerGlobalScope extends SharedWorkerGlobalScope {
   tsx: any;
   updateSearchReplace: (instructions: string, code: string) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
+  generateCSS: (classNames: string[]) => Promise<string>;
 }
 
 const self = globalThis as unknown as ExtendedSharedWorkerGlobalScope;
@@ -75,6 +76,10 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
     ["build", async (params: BuildParams) => {
       await safelyLoadScript("transpile");
       return self.build(params);
+    }],
+    ["generateCSS", async (classNames: string[]) => {
+      await safelyLoadScript("generate-css");
+      return self.generateCSS(classNames);
     }],
   ];
 

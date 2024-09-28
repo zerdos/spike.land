@@ -34,6 +34,7 @@ export const buildOptions: BuildOptions = {
     "node:events": "events",
     "http": "browser-http",
     "os": "os-browserify",
+    "crypto": "crypto-browserify",
     assert: "assert",
     "graceful-fs": "./src/memfs",
     fs: "./src/memfs",
