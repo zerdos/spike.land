@@ -1,59 +1,9 @@
-import { build } from "@/lib/shared";
-import { wait } from "../wait";
+import { useSpeedy2 } from "./useArchive";
 
 export const useDownload = (codeSpace: string, onlyReturn = false) => {
   return async () => {
-    const TW = await ((await fetch("/assets/tw-chunk-be5bad.js")).text());
-
-    const resetCSS = await ((await fetch("/assets/tw-global.css")).text());
-    let indexMjs: string;
-
-    const buildWithRetry = async () => {
-      try {
-        return await build({
-          codeSpace,
-          origin: location.origin,
-          format: "iife",
-        });
-      } catch (e) {
-        console.error("Build failed, retrying after 1 second:", e);
-        await wait(1000);
-        return await build({
-          codeSpace,
-          origin: location.origin,
-          format: "iife",
-        });
-      }
-    };
-
-    indexMjs = await buildWithRetry();
-
-    if (!indexMjs) {
-      console.error("Failed to build index.mjs");
-      return;
-    }
-
-    const content = `
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-
-  <base href="/">
-  <title>Instant React Editor</title>
-  <style>
-  ${resetCSS}
-  </style>
-</head>
-<body>
-  <div id="embed"></div>
-  <script>
-    ${TW}
-    ${indexMjs}
-  </script>
-</body>
-</html>`;
+    await useSpeedy2();
+    const content = await fetch(`/live-cms/${codeSpace}.html`).then((res) => res.text());
 
     if (onlyReturn) {
       return content;
