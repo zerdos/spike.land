@@ -316,10 +316,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
+      ...importMap.imports,
       ...extraAliases,
     },
     external: [
-      ...Object.keys(importMap.imports),
       ...Object.values(extraAliases),
     ],
   });
