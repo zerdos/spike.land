@@ -54,9 +54,7 @@ export const useMessageHandling = ({
     );
     const newMessage = await createNewMessage(images, claudeContent);
 
-    messages.push(newMessage);
-
-    setMessages(messages);
+    setMessages((messages) => [...messages, newMessage]);
 
     setInput("");
 
@@ -69,13 +67,12 @@ export const useMessageHandling = ({
       }
     } catch (error) {
       console.error("Error processing request:", error);
-      messages.push({
+
+      setMessages((m) => [...m, {
         id: Date.now().toString(),
         role: "assistant",
         content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
-      });
-
-      setMessages(messages);
+      }]);
     }
   }, [
     codeSpace,

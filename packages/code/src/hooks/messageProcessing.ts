@@ -71,8 +71,7 @@ export async function processMessage(
 
       mod.controller.abort();
 
-      messages.push(assistantMessage);
-      setMessages(messages);
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
 
       const success = await processAssistantMessage(
         assistantMessage,
@@ -288,7 +287,7 @@ async function handleErrorMessage(
     content: claudeRecovery(codeNow, errorMessage),
   };
 
-  messages.push(userMessage);
+  setMessages((prevMessages) => [...prevMessages, userMessage]);
 
   const newOnUpdate = createOnUpdateFunction(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
@@ -302,8 +301,7 @@ async function handleErrorMessage(
 
   mod.controller.abort();
 
-  messages.push(assistantMessage);
-  setMessages(messages);
+  setMessages((prevMessages) => [...prevMessages, assistantMessage]);
 
   let contentToProcess = extractTextContent(assistantMessage.content);
 
