@@ -70,7 +70,9 @@ export const initializeApp = async () => {
       useSpeedy,
     });
 
-    // await setupServiceWorker();
+    await setupServiceWorker();
+
+
   } catch (error) {
     console.error("Error initializing app:", error);
   }
