@@ -1,5 +1,6 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
+import Mutex from "async-mutex/lib/Mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 
@@ -80,7 +81,6 @@ class WorkerPool {
 
   releaseWorker(worker: WorkerWrapper) {
     worker.busy = false;
-    worker.tag = "default";
   }
 }
 
@@ -179,6 +179,7 @@ export const createWorkflow = async (q: string): Promise<string> => {
     workerPool.releaseWorker(worker);
   }
 };
+const mutex = new Mutex();
 
 export const transpile = async ({
   code,
@@ -186,17 +187,18 @@ export const transpile = async ({
 }: {
   code: string;
   originToUse: string;
-}): Promise<string> => {
-  const worker = workerPool.getWorker("esbuild");
-  try {
-    return await worker.rpc.rpc("transpile", { code, originToUse });
-  } catch (e) {
-    console.error(e);
-    throw e;
-  } finally {
-    workerPool.releaseWorker(worker);
-  }
-};
+}): Promise<string> =>
+  mutex.runExclusive(async () => {
+    const worker = workerPool.getWorker("esbuild");
+    try {
+      return await worker.rpc.rpc("transpile", { code, originToUse });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    } finally {
+      workerPool.releaseWorker(worker);
+    }
+  });
 
 export const build = async ({
   codeSpace,
