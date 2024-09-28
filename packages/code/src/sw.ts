@@ -52,29 +52,35 @@ const { isAsset, serve } = serveWithCache(
   },
 );
 
-// Service Worker Installation
+// Updated Install Event Handler
 sw.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
-      const config = await configPromise;
-      if (config?.killSwitch) {
-        // If killSwitch is activated, unregister and delete caches
-        await sw.registration.unregister();
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
-      } else {
-        // Proceed with installation
-        sw.skipWaiting();
-      }
+      // Proceed with installation
+      console.log("Service Worker installing.");
+      await sw.skipWaiting();
     })(),
   );
 });
 
-// Service Worker Activation
+// Updated Activate Event Handler
 sw.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
-      await configPromise; // Ensure the config is fetched
+      console.log("Service Worker activating.");
+
+      // Ensure the config is fetched
+      const config = await configPromise;
+
+      if (config?.killSwitch) {
+        // If killSwitch is activated, unregister and delete caches
+        console.log("Kill switch activated. Unregistering Service Worker.");
+        await sw.registration.unregister();
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
+        return;
+      }
+
       // Delete old caches except the current one
       const cacheNames = await caches.keys();
       await Promise.all(
@@ -82,8 +88,11 @@ sw.addEventListener("activate", (event) => {
           .filter((cacheName) => cacheName !== sw.fileCacheName)
           .map((cacheName) => caches.delete(cacheName)),
       );
+
       // Take control of all clients immediately
-      // await sw.clients.claim();
+      await sw.clients.claim();
+
+      console.log("Service Worker activated and controlling.");
     })(),
   );
 });
