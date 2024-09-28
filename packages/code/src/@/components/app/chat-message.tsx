@@ -12,7 +12,7 @@ import type { Message } from "@/lib/interfaces";
 import { ChatMessageBlock } from "@/lib/render-messages";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
-import { md5 } from "@src/modules";
+import { md5 } from "@/lib/md5";
 
 interface ImageData {
   imageName: string;
