@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ChatContainerProps } from "@/lib/interfaces";
 
 import { ChatMessage } from "@/components/app/chat-message";
