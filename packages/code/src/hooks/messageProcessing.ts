@@ -6,6 +6,7 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 const mutex = new Mutex();
 
@@ -171,15 +172,17 @@ function createOnUpdateFunction({
     }
   };
 
-  const throttledMutexOperation = throttle(async () => {
-    if (mod.controller.signal.aborted) {
+  const throttledMutexOperation = throttle(async (signal: AbortSignal) => {
+    if (signal.aborted) {
       console.log("Aborted onUpdate inside mutex");
       return;
     }
 
     try {
       const lastCode = await updateSearchReplace(accumulatedCode, startCode);
+      if (signal.aborted) return;
       const lastReplaceModeIsOn = await updateSearchReplace(accumulatedCode + " \nfoo \n", startCode);
+      if (signal.aborted) return;
 
       if (lastCode !== lastReplaceModeIsOn) {
         return;
@@ -189,6 +192,7 @@ function createOnUpdateFunction({
         console.log("Aborted onUpdate before trySetCode");
         return;
       }
+      if (signal.aborted) return;
 
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
@@ -208,7 +212,10 @@ function createOnUpdateFunction({
     updateState();
 
     try {
-      await mutex.runExclusive(throttledMutexOperation);
+      mod.controller.abort();
+      mod.controller = new AbortController();
+      const { signal } = mod.controller;
+      await mutex.runExclusive(() => throttledMutexOperation(signal));
     } catch (error) {
       console.error("Error in mutex operation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);

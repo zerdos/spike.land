@@ -52,7 +52,7 @@ export const useMessageHandling = ({
       code,
       codeSpace,
     );
-    const newMessage = await createNewMessage(images, claudeContent);
+    const newUserMessage = await createNewMessage(images, claudeContent);
 
     // messages.push(newMessage);
     // setMessages((messages) => [...messages, newMessage]);
@@ -68,7 +68,7 @@ export const useMessageHandling = ({
 
     try {
       const success = await processMessage(
-        { aiHandler, cSess, codeNow: code, messages, setMessages, newUserMessage: newMessage },
+        { aiHandler, cSess, codeNow: code, messages, setMessages, newUserMessage },
       );
       if (success) {
         setAICode(code);
