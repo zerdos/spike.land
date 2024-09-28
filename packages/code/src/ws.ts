@@ -10,10 +10,9 @@ import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
-import { debounce } from "es-toolkit";
+import { debounce, throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
-import { wait } from "./wait";
 
 const codeSpace = useCodeSpace();
 const cSess = new Code(codeSpace);
@@ -222,7 +221,7 @@ export const main = async () => {
 (() => {
   try {
     cSess.sub(
-      debounce((sess: ICodeSession) => {
+      throttle((sess: ICodeSession) => {
         const { i, code, transpiled } = sess;
         console.table({ i, code, transpiled });
       }, 100),
@@ -235,7 +234,7 @@ export const main = async () => {
 const handleDehydratedPage = () => {
   try {
     cSess.sub(
-      debounce((sess: ICodeSession) => {
+      throttle((sess: ICodeSession) => {
         const { html, css } = sess;
         const root = document.getElementById("embed");
         if (root && html && css) {

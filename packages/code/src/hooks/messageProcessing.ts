@@ -160,7 +160,7 @@ function createOnUpdateFunction({
     }
   };
 
-  const debouncedMutexOperation = throttle(async () => {
+  const throttledMutexOperation = throttle(async () => {
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate inside mutex");
       return;
@@ -182,7 +182,7 @@ function createOnUpdateFunction({
       const success = await trySetCode(cSess, lastCode);
       contextManager.updateContext("currentDraft", success ? "" : lastCode);
     } catch (error) {
-      console.error("Error in debouncedMutexOperation:", error);
+      console.error("Error in throttledMutexOperation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);
     }
   }, 200);
@@ -197,7 +197,7 @@ function createOnUpdateFunction({
     updateState();
 
     try {
-      await mutex.runExclusive(debouncedMutexOperation);
+      await mutex.runExclusive(throttledMutexOperation);
     } catch (error) {
       console.error("Error in mutex operation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);

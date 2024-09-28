@@ -1,4 +1,4 @@
-import { debounce } from "es-toolkit";
+import { debounce, throttle } from "es-toolkit";
 import { useCallback, useState } from "react";
 
 export const useErrorHandling = (engine: string) => {
@@ -6,8 +6,8 @@ export const useErrorHandling = (engine: string) => {
     "typescript" | "prettier" | "transpile" | "render" | null
   >(null);
 
-  const debouncedTypeCheck = useCallback(
-    debounce(
+  const throttledTypeCheck = useCallback(
+    throttle(
       async (initialLoadRef: React.MutableRefObject<boolean>) => {
         if (engine === "monaco") {
           const { editor, languages } = await import("@/external/monaco-editor");
@@ -34,7 +34,7 @@ export const useErrorHandling = (engine: string) => {
     [engine],
   );
 
-  return { errorType, setErrorType, debouncedTypeCheck };
+  return { errorType, setErrorType, throttledTypeCheck };
 };
 
 Object.assign(globalThis, { useErrorHandling });

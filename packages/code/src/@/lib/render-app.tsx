@@ -1,6 +1,6 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { debounce } from "es-toolkit";
+import { debounce, throttle } from "es-toolkit";
 import React, { useCallback, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -71,8 +71,8 @@ async function renderApp(
     const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
       const [{ width, height }, setDimensions] = useState({ width: innerWidth, height: innerHeight });
 
-      const debouncedSetDimensions = useCallback(
-        debounce(
+      const throttledSetDimensions = useCallback(
+        throttle(
           (dim: { width: number; height: number }) => setDimensions(dim),
           100,
         ),
@@ -80,10 +80,10 @@ async function renderApp(
       );
 
       useEffect(() => {
-        const handleResize = () => debouncedSetDimensions({ width: innerWidth, height: innerHeight });
+        const handleResize = () => throttledSetDimensions({ width: innerWidth, height: innerHeight });
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-      }, [debouncedSetDimensions]);
+      }, [throttledSetDimensions]);
 
       return <AppToRender width={width} height={height} />;
     });
