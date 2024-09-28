@@ -1,8 +1,17 @@
-// import { Workbox } from "workbox-window";
+import { Workbox } from "workbox-window";
 
 const setupServiceWorker = async () => {
   if (navigator.serviceWorker) {
-   await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+    const wb = new Workbox("/sw.js", { scope: "/" });
+    wb.controlling.then((sw) => {
+      sw.state === "activated" && window.location.reload();
+ //     window.location.reload();
+    } );
+
+    wb.register();
+    wb.update();
+
+  //  await navigator.serviceWorker.register('/sw.js', { scope: '/' });
   }
 //   if (
 //     !navigator.serviceWorker || localStorage.getItem("sw") === "false"
@@ -11,15 +20,7 @@ const setupServiceWorker = async () => {
 //     return null;
 //   }
 
-if ('serviceWorker' in navigator) {
-  setInterval(() => {
-    navigator.serviceWorker.getRegistration().then((registration) => {
-      if (registration) {
-        registration.update();
-      }
-    });
-  }, 60 * 60 * 1000); 
-}
+
 
 fetch('/sw-config.json')
   .then((response) => response.json() as Promise<{ killSwitch: boolean, version: "v14" }>)

@@ -1,3 +1,5 @@
+import { useCodeSpace } from "@/hooks/use-code-space";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 import type { CodeSessionBC as CsBc, serveWithCache as ServeWithCache } from "./sw-deps";
 
 importScripts("/swVersion.js");
@@ -10,7 +12,7 @@ const { serveWithCache, CodeSessionBC } = globalThis as unknown as {
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
   swVersion: string;
-  cSessions: { [key: string]: typeof CodeSessionBC };
+  cSessions: { [key: string]: CsBc };
   files: { [key: string]: string };
   fileCacheName: string;
 };
@@ -82,17 +84,9 @@ sw.addEventListener("activate", (event) => {
           .map((cacheName) => caches.delete(cacheName)),
       );
       // Take control of all clients immediately
-      await sw.clients.claim();
+      // await sw.clients.claim();
     })(),
   );
-});
-
-// Message Handler
-sw.addEventListener("message", (event) => {
-  const { data } = event;
-  if (data && data.type === "SKIP_WAITING") {
-    sw.skipWaiting();
-  }
 });
 
 // Periodically check for killSwitch
@@ -140,6 +134,21 @@ sw.addEventListener("fetch", (event) => {
       }),
     );
   } else {
+    if (request.url.includes("/live/") && request.url.includes("/session")) {
+      const pathname = new URL(request.url).pathname;
+      const codeSpace = useCodeSpace(pathname);
+
+      const codeSession = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
+
+      const session = codeSession.init();
+
+      event.respondWith(
+        session.then((session) =>
+          new Response(JSON.stringify(session), { headers: { "Content-Type": "application/json" } })
+        ),
+      );
+      return;
+    }
     // For non-asset requests, fetch from the network
     event.respondWith(fetch(request));
   }
