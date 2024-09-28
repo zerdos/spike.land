@@ -4,6 +4,7 @@ import { ChatContainerProps } from "@/lib/interfaces";
 import { ChatMessage } from "@/components/app/chat-message";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { md5 } from "@/lib/md5";
 
 
 
@@ -62,7 +63,6 @@ export const ChatContainer: React.FC<
     isStreaming
   );
 
-  const memoizedMessages = useMemo(() => messages, [messages]);
 
   const memoizedHandleEditMessage = useCallback(
     (id: string) => handleEditMessage(id),
@@ -97,9 +97,9 @@ export const ChatContainer: React.FC<
   }, [isStreaming]);
 
   const renderMessage = useCallback(
-    (message: any, index: number) => (
+    (message: any, hashedKey: string) => (
       <ChatMessage
-        key={index}
+        key={hashedKey}
         message={message}
         isSelected={editingMessageId === message.id}
         onDoubleClick={() => memoizedHandleEditMessage(message.id)}
@@ -126,7 +126,12 @@ export const ChatContainer: React.FC<
 
   return (
     <div className="p-4 space-y-4">
-      {memoizedMessages.map(renderMessage)}
+      {messages.map((v, i)=>{
+
+        const hash = md5(JSON.stringify(v));
+
+        return renderMessage(v, `${i}-${hash}`);
+      })}
       {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
     </div>
   );
