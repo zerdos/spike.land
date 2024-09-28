@@ -51,7 +51,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
 
   return (
     <img
-      src={`/replicate/${btoa(params)}.${props.output_format}`}
+      src={`/replicate/${btoa(params)}.${props.output_format || DEFAULT_PROPS.output_format}`}
       alt={props.prompt || DEFAULT_PROPS.prompt}
       className={containerClassName}
     />
