@@ -44,6 +44,7 @@ export class AIHandler {
   async continueWithOpenAI(
     fullResponse: string,
     currentCode: string,
+    messages: Message[],
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string | void> {

@@ -77,6 +77,7 @@ describe("AIHandler", () => {
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
       currentCode,
+      [],
       setMessages,
       setAICode,
     );
