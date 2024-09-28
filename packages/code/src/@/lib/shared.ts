@@ -85,9 +85,10 @@ class WorkerPool {
 }
 
 // Usage
-const workerPool = new WorkerPool();
+let workerPool: WorkerPool;
 
 export async function init() {
+  workerPool = new WorkerPool();
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
 }
