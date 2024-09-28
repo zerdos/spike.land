@@ -7,6 +7,7 @@ import { CodeBlock } from "@/external/CodeBlock";
 import {  isDiffContent } from "@/lib/diff-utils";
 import { DiffEditor } from "@/components/app/diff-editor-lazy";
 import { md5 } from "@/lib/md5";
+import { extractCodeModification } from "@/lib/chat-utils";
 
 interface CodeProps {
   value: string;
@@ -15,7 +16,9 @@ interface CodeProps {
 }
 
 
-export const extractDiffContent = (content: string): { original: string; modified: string } => {
+export const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
+ 
+  const content = extractCodeModification(rawContent)[0];
   const original = content.split("=======")[0]?.split("<<<<<<< SEARCH")[1]?.trim() || "";
   const modified = content.split("=======")[1]?.split(">>>>>>> REPLACE")[0]?.trim() || "";
 
