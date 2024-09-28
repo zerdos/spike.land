@@ -109,23 +109,22 @@ sw.addEventListener("fetch", (event) => {
     );
   }
   const request = event.request;
-  const assetFetcher = (request: Request) => {
-    const url = new URL(request.url);
-    const file = url.pathname.slice(1);
-    const respPromise = (file in filesByCacheKeys)
-      ? fetch(new Request(request.url.replace(file, filesByCacheKeys[file])))
-      : fetch(request);
-
-    event.waitUntil(respPromise);
-
-    return respPromise;
-  };
 
   if (isAsset(request)) {
-    event.respondWith(
+    return event.respondWith(
       serve(
         request,
-        assetFetcher,
+        (request: Request) => {
+          const url = new URL(request.url);
+          const file = url.pathname.slice(1);
+          const respPromise = (file in filesByCacheKeys)
+            ? fetch(new Request(request.url.replace(file, filesByCacheKeys[file])))
+            : fetch(request);
+
+          event.waitUntil(respPromise);
+
+          return respPromise;
+        },
         event.waitUntil.bind(event),
       ).catch((error) => {
         console.error("Error in serve", error);
@@ -141,7 +140,7 @@ sw.addEventListener("fetch", (event) => {
 
     sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
 
-    event.respondWith(
+    return event.respondWith(
       sw.cSessions[codeSpace].init().then((session) =>
         new Response(JSON.stringify(session), {
           ...request,
@@ -149,7 +148,6 @@ sw.addEventListener("fetch", (event) => {
         })
       ),
     );
-    return;
   }
   // For non-asset requests, fetch from the network
   event.respondWith(fetch(request));
