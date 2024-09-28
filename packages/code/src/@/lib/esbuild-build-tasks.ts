@@ -4,7 +4,7 @@ import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import importMap, { importMapReplace } from "@/lib/importmap-utils";
+import { importMapReplace } from "@/lib/importmap-utils";
 import path from "path";
 // import path from "path";
 
@@ -256,7 +256,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    splitting: true,
+    splitting: false,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
@@ -279,65 +279,16 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/reactMod.ts",
       "src/recharts.ts",
       "src/reactDom.ts",
+      "src/start.ts",
       "src/reactDomClient.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
     ],
     alias: {
-      ...extraAliases,
-    },
-    external: [
-      ...Object.values(extraAliases),
-    ],
-  });
-
-  await build({
-    ...buildOptions,
-    splitting: false,
-    format: "esm",
-    minifySyntax: isProduction,
-    minifyIdentifiers: isProduction,
-    minifyWhitespace: false,
-    bundle: true,
-    treeShaking: isProduction,
-    mangleQuoted: false,
-    sourcemap: false,
-    outdir: "dist/",
-    target: "es2024",
-    allowOverwrite: true,
-    legalComments: "none",
-    platform: "browser",
-    plugins: [
-      ...buildOptions.plugins,
-    ],
-    entryPoints: [
-      "src/start.ts",
-    ],
-    alias: {
       ...buildOptions.alias,
-      "react": "/reactMod.mjs",
-      "react-dom": "/reactDom.mjs",
-      "@emotion/react": "/emotion.mjs",
-      "framer-motion": "/motion.mjs",
-      "recharts": "/recharts.mjs",
-      "react-dom/client": "/reactDomClient.mjs",
-      "react/jsx-runtime": "/jsx.mjs",
-      "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-      "react-dom/server": "/reactDomServer.mjs",
-
       ...extraAliases,
     },
     external: [
-      "/jsx.mjs",
-      "/emotionJsxRuntime.mjs",
-      "/reactDomServer.mjs",
-      "/reactDomClient.mjs",
-      "/emotion.mjs",
-      "/reactMod.mjs",
-      "/motion.mjs",
-      "/reactDom.mjs",
-      "/recharts.mjs",
-
       ...Object.values(extraAliases),
     ],
   });
