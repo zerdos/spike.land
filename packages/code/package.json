@@ -127,7 +127,7 @@
     "date-fns": "^4.1.0",
     "detective-typescript": "13.0.0",
     "embla-carousel-react": "^8.3.0",
-    "es-toolkit": "^1.21.0",
+    "es-toolkit": "^1.22.0",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-style-plugin": "^1.6.3",
     "esbuild-wasm": "0.24.0",
