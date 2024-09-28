@@ -87,7 +87,7 @@ class WorkerPool {
 // Usage
 let workerPool: WorkerPool;
 
-export async function init() {
+async function init() {
   workerPool = new WorkerPool();
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
@@ -235,6 +235,9 @@ export const connect = async ({
   signal: string;
   sess: ICodeSession;
 }): Promise<() => void> => {
+  if (!workerPool) {
+    await init();
+  }
   const worker = workerPool.getWorker("connect");
   try {
     worker.rpc.signal("connect", { signal, sess });
