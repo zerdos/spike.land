@@ -6,7 +6,6 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 const mutex = new Mutex();
 
