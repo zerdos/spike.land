@@ -43,18 +43,15 @@ export const useSpeedy2 = async () => {
   const globCss = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
-  const shims = await fetch(`/shims.js`).then((res) => res.text());
+  const shims = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
 
   const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
-  const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
-  const { swVersion } = await import(`${origin}/swVersion.mjs`);
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-    <base href="/${swVersion}/">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <meta name="description" content="spike.land, an online content Editor with AI support">
@@ -107,7 +104,6 @@ export const useSpeedy2 = async () => {
 
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
-    ${appCss}
     ${globCss}
     ${wrapperCss}
     ${css}
