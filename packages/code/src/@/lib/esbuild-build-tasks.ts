@@ -256,7 +256,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
   await build({
     ...buildOptions,
-    splitting: false,
+    splitting: true,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
@@ -266,7 +266,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     mangleQuoted: false,
     sourcemap: false,
     outdir: "dist/",
-    target: "es2024",
+    target: "es2022",
     allowOverwrite: true,
     legalComments: "none",
     platform: "browser",
