@@ -12,7 +12,7 @@ const setupServiceWorker = async () => {
     wb.update();
 
   //  await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-  }
+  
 //   if (
 //     !navigator.serviceWorker || localStorage.getItem("sw") === "false"
 //     || location.origin.indexOf("localhost") !== -1
@@ -26,6 +26,7 @@ fetch('/sw-config.json')
   .then((response) => response.json() as Promise<{ killSwitch: boolean, version: "v14" }>)
   .then((config) => {
     if (config.killSwitch && navigator.serviceWorker) {
+      
       navigator.serviceWorker.getRegistration().then((registration) => {
         if (registration) {
           registration.unregister().then(() => {
