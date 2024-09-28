@@ -10,7 +10,6 @@ const sw = self as unknown as ServiceWorkerGlobalScope & {
 importScripts("/swVersion.js");
 
 import { serveWithCache } from "@/lib/serve-with-cache";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Initialize cSessions
@@ -34,6 +33,12 @@ let configPromise = fetchConfig();
 
 // Access the files from sw.files
 const files = sw.files;
+
+const filesArray = Object.entries(files) as unknown as [string, { cacheKey: string; name: string }][];
+const filesByCacheKeys = filesArray.reduce((acc, [key, value]) => {
+  acc[value.cacheKey] = value.name;
+  return acc;
+}, {} as { [key: string]: string });
 
 // Instantiate serveWithCache with dynamic cache name
 const { isAsset, serve } = serveWithCache(
@@ -110,7 +115,16 @@ sw.addEventListener("fetch", (event) => {
   }
   const request = event.request;
   const assetFetcher = (request: Request) => {
-    const respPromise = fetch(request);
+    const url = new URL(request.url);
+    const file = url.pathname.slice(1);
+    let respPromise = fetch(request);
+    if (file in files) {
+      respPromise = fetch(request);
+    } else if (file in filesByCacheKeys) {
+      const req = new Request(request.url.replace(url.pathname, filesByCacheKeys[file]));
+      respPromise = fetch(req);
+    }
+
     event.waitUntil(respPromise);
 
     return respPromise;
