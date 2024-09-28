@@ -105,7 +105,7 @@ export async function buildTailwind(): Promise<void> {
     legalComments: "none",
     drop: ["console"],
     minifyWhitespace: true,
-    target: "es2024",
+    target: "es2022",
   });
 }
 
@@ -121,7 +121,7 @@ export async function buildServiceWorker(): Promise<void> {
       "worker_threads",
     ],
     minifyWhitespace: false,
-    target: "es2024",
+    target: "es2022",
   });
 }
 
@@ -171,7 +171,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     mangleQuoted: false,
     sourcemap: false,
     splitting: false,
-    target: "es2024",
+    target: "es2022",
     allowOverwrite: true,
     legalComments: "none",
     platform: "node",
@@ -208,15 +208,15 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ...buildOptions,
     splitting: false,
     format: "esm",
-    minifySyntax: true,
-    minifyIdentifiers: true,
-    minifyWhitespace: true,
+    minifySyntax: false,
+    minifyIdentifiers: false,
+    minifyWhitespace: false,
     bundle: false,
-    treeShaking: true,
+    treeShaking: false,
     sourcemap: false,
     ignoreAnnotations: false,
     legalComments: "none",
-    target: "es2024",
+    target: "es2022",
     external: undefined,
     alias: undefined,
     outdir: "dist/@/",
