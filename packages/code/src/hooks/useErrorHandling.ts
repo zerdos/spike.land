@@ -1,4 +1,4 @@
-import { debounce, throttle } from "es-toolkit";
+import { throttle } from "es-toolkit";
 import { useCallback, useState } from "react";
 
 export const useErrorHandling = (engine: string) => {

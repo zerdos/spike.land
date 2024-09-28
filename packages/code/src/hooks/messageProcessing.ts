@@ -41,16 +41,16 @@ export async function createNewMessage(
  * Processes messages with retries, handling assistant responses and updating code accordingly.
  */
 export async function processMessage(
-  { aiHandler, cSess, codeNow, updatedMessages, setMessages }: {
+  { aiHandler, cSess, codeNow, messages, setMessages }: {
     aiHandler: AIHandler;
     cSess: ICode;
     codeNow: string;
-    updatedMessages: Message[];
+    messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   },
 ): Promise<boolean> {
   const contextManager = createContextManager(useCodeSpace());
-  const sentMessages = [...updatedMessages];
+
   const maxRetries = 3;
   let retries = 0;
   const mod = { controller: new AbortController() };
@@ -65,13 +65,14 @@ export async function processMessage(
 
       let assistantMessage = await sendAssistantMessage(
         aiHandler,
-        sentMessages,
+        messages,
         onUpdate,
       );
 
       mod.controller.abort();
 
-      sentMessages.push(assistantMessage);
+      messages.push(assistantMessage);
+      setMessages(messages);
 
       const success = await processAssistantMessage(
         assistantMessage,
@@ -84,7 +85,7 @@ export async function processMessage(
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
         const errorHandled = await handleErrorMessage(
-          { errorMessage, codeNow, sentMessages, aiHandler, setMessages, cSess, contextManager, mod },
+          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager, mod },
         );
         if (errorHandled) return true;
       }
@@ -264,7 +265,7 @@ async function handleErrorMessage(
   {
     errorMessage,
     codeNow,
-    sentMessages,
+    messages,
     aiHandler,
     setMessages,
     cSess,
@@ -273,7 +274,7 @@ async function handleErrorMessage(
   }: {
     errorMessage: string;
     codeNow: string;
-    sentMessages: Message[];
+    messages: Message[];
     aiHandler: AIHandler;
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     cSess: ICode;
@@ -287,7 +288,7 @@ async function handleErrorMessage(
     content: claudeRecovery(codeNow, errorMessage),
   };
 
-  sentMessages.push(userMessage);
+  messages.push(userMessage);
 
   const newOnUpdate = createOnUpdateFunction(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
@@ -295,13 +296,14 @@ async function handleErrorMessage(
 
   let assistantMessage = await sendAssistantMessage(
     aiHandler,
-    sentMessages,
+    messages,
     newOnUpdate,
   );
 
   mod.controller.abort();
 
-  setMessages([...sentMessages, assistantMessage]);
+  messages.push(assistantMessage);
+  setMessages(messages);
 
   let contentToProcess = extractTextContent(assistantMessage.content);
 

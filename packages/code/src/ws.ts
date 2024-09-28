@@ -10,7 +10,7 @@ import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
-import { debounce, throttle } from "es-toolkit";
+import { throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";

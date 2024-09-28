@@ -1,6 +1,6 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { debounce, throttle } from "es-toolkit";
+import { throttle } from "es-toolkit";
 import React, { useCallback, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 

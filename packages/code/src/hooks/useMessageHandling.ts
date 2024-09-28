@@ -52,26 +52,30 @@ export const useMessageHandling = ({
       code,
       codeSpace,
     );
+    const newMessage = await createNewMessage(images, claudeContent);
 
-    const updatedMessages = [...messages, await createNewMessage(images, claudeContent)];
-    setMessages(updatedMessages);
+    messages.push(newMessage);
+
+    setMessages(messages);
 
     setInput("");
 
     try {
       const success = await processMessage(
-        { aiHandler, cSess, codeNow: code, updatedMessages, setMessages },
+        { aiHandler, cSess, codeNow: code, messages, setMessages },
       );
       if (success) {
         setAICode(code);
       }
     } catch (error) {
       console.error("Error processing request:", error);
-      setMessages([...updatedMessages, {
+      messages.push({
         id: Date.now().toString(),
         role: "assistant",
         content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
-      }]);
+      });
+
+      setMessages(messages);
     }
   }, [
     codeSpace,

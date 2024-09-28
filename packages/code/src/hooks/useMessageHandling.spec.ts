@@ -84,7 +84,7 @@ describe("useMessageHandling", () => {
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async (
-        { aiHandler: _processMessage, cSess: _cSess, codeNow: _codeNow, updatedMessages: _, setMessages },
+        { aiHandler: _processMessage, cSess: _cSess, codeNow: _codeNow, messages: _, setMessages },
       ) => {
         setMessages([mockNewMessage]);
         return true;
