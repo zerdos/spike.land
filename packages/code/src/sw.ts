@@ -1,16 +1,19 @@
-// sw.ts
+import type { CodeSessionBC as CsBc, serveWithCache as ServeWithCache } from "./sw-deps";
+
+importScripts("/swVersion.js");
+importScripts("/sw-deps.js");
+
+const { serveWithCache, CodeSessionBC } = globalThis as unknown as {
+  serveWithCache: typeof ServeWithCache;
+  CodeSessionBC: typeof CsBc;
+};
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
   swVersion: string;
-  cSessions: { [key: string]: CodeSessionBC };
+  cSessions: { [key: string]: typeof CodeSessionBC };
   files: { [key: string]: string };
   fileCacheName: string;
 };
-
-importScripts("/swVersion.js");
-
-import { serveWithCache } from "@/lib/serve-with-cache";
-import { CodeSessionBC } from "./services/CodeSessionBc";
 
 // Initialize cSessions
 sw.cSessions = sw.cSessions || {};
