@@ -261,6 +261,7 @@ const handleRender = async (
 
     const html = rootEl.innerHTML;
 
+    if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
 
