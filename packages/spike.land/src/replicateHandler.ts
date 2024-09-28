@@ -27,7 +27,7 @@ const INPUT_DEFAULTS: InputDefaults = {
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
 export function parseInputFromUrl(url: string): InputDefaults {
-  const urlParams = new URLSearchParams(atob(  new URL(url).pathname.split("/").pop()!   ));
+  const urlParams = new URLSearchParams(atob(  new URL(url).pathname.split("/").pop()!.split(".")[0]  )); 
   return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
     const value = urlParams.get(key);
     if (value !== null) {

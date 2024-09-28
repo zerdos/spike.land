@@ -51,7 +51,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
 
   return (
     <img
-      src={`/replicate.webp?${params}`}
+      src={`/replicate/${btoa(params)}.${props.output_format}`}
       alt={props.prompt || DEFAULT_PROPS.prompt}
       className={containerClassName}
     />
