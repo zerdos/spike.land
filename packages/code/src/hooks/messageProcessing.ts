@@ -59,20 +59,26 @@ export async function processMessage(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
   );
 
+  // Create a copy of the messages array to work with
+  let workingMessages = [...messages];
+
   while (retries < maxRetries) {
     try {
       console.log(`Processing message (attempt ${retries + 1})`);
 
       let assistantMessage = await sendAssistantMessage(
         aiHandler,
-        messages,
+        workingMessages,
         onUpdate,
       );
 
       mod.controller.abort();
 
-      messages.push(assistantMessage);
-      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      // Add the assistant message to the working messages array
+      workingMessages.push(assistantMessage);
+
+      // Update the state with all messages, including the new assistant message
+      setMessages([...workingMessages]);
 
       const success = await processAssistantMessage(
         assistantMessage,
@@ -85,7 +91,7 @@ export async function processMessage(
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
         const errorHandled = await handleErrorMessage(
-          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager, mod },
+          { errorMessage, codeNow, messages: workingMessages, aiHandler, setMessages, cSess, contextManager, mod },
         );
         if (errorHandled) return true;
       }
@@ -100,7 +106,6 @@ export async function processMessage(
   console.error("Max retries reached. Failed to process message.");
   return false;
 }
-
 /**
  * Attempts to set the code in the code session.
  */
@@ -288,8 +293,11 @@ async function handleErrorMessage(
     content: claudeRecovery(codeNow, errorMessage),
   };
 
-  messages.push(userMessage);
-  setMessages((prevMessages) => [...prevMessages, userMessage]);
+  // Create a new array with all existing messages plus the new user message
+  const updatedMessages = [...messages, userMessage];
+
+  // Update the state with all messages, including the new user message
+  setMessages(updatedMessages);
 
   const newOnUpdate = createOnUpdateFunction(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
@@ -297,14 +305,17 @@ async function handleErrorMessage(
 
   let assistantMessage = await sendAssistantMessage(
     aiHandler,
-    messages,
+    updatedMessages,
     newOnUpdate,
   );
 
   mod.controller.abort();
 
-  messages.push(assistantMessage);
-  setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+  // Add the assistant message to the updated messages array
+  updatedMessages.push(assistantMessage);
+
+  // Update the state with all messages, including the new assistant message
+  setMessages([...updatedMessages]);
 
   let contentToProcess = extractTextContent(assistantMessage.content);
 
@@ -313,7 +324,6 @@ async function handleErrorMessage(
 
   return success;
 }
-
 /**
  * Extracts text content from a message.
  */
