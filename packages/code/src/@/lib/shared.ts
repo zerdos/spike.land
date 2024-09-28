@@ -1,6 +1,6 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import { ICodeSession } from "@/lib/interfaces";
-import Mutex from "async-mutex/lib/Mutex";
+import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 
