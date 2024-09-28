@@ -284,10 +284,19 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/emotionJsxRuntime.ts",
     ],
     alias: {
-      ...buildOptions.alias,
+      "react": "/reactMod.mjs",
+      "react-dom": "/reactDom.mjs",
+      "@emotion/react": "/emotion.mjs",
+      "framer-motion": "/motion.mjs",
+      "recharts": "/recharts.mjs",
+      "react-dom/client": "/reactDomClient.mjs",
+      "react/jsx-runtime": "/jsx.mjs",
+      "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+
       ...extraAliases,
     },
     external: [
+      "/",
       ...Object.values(extraAliases),
     ],
   });
