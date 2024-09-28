@@ -132,23 +132,25 @@ sw.addEventListener("fetch", (event) => {
         return fetch(request);
       }),
     );
-  } else {
-    if (request.url.includes("/live/") && request.url.includes("/session")) {
-      const pathname = new URL(request.url).pathname;
-      const codeSpace = useCodeSpace(pathname);
-
-      const codeSession = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
-
-      const session = codeSession.init();
-
-      event.respondWith(
-        session.then((session) =>
-          new Response(JSON.stringify(session), { headers: { "Content-Type": "application/json" } })
-        ),
-      );
-      return;
-    }
-    // For non-asset requests, fetch from the network
-    event.respondWith(fetch(request));
   }
+  if (request.url.includes("/live/") && request.url.includes("/session")) {
+    console.log("session request", request.url);
+
+    const codeSpace = useCodeSpace(new URL(request.url).pathname);
+    console.log("codeSpace", codeSpace);
+
+    sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
+
+    event.respondWith(
+      sw.cSessions[codeSpace].init().then((session) =>
+        new Response(JSON.stringify(session), {
+          ...request,
+          headers: { "Content-Type": "application/json", ...request.headers },
+        })
+      ),
+    );
+    return;
+  }
+  // For non-asset requests, fetch from the network
+  event.respondWith(fetch(request));
 });
