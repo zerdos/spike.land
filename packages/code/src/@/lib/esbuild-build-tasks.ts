@@ -279,7 +279,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/reactMod.ts",
       "src/recharts.ts",
       "src/reactDom.ts",
-      "src/start.ts",
       "src/reactDomClient.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
