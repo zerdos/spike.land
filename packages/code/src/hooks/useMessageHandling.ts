@@ -54,21 +54,21 @@ export const useMessageHandling = ({
     );
     const newMessage = await createNewMessage(images, claudeContent);
 
-    messages.push(newMessage);
-    setMessages((messages) => [...messages, newMessage]);
-    const assistantMessagePlaceholder: Message = {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: "On it...",
-    };
-    messages.push(assistantMessagePlaceholder);
-    setMessages((m) => [...m, assistantMessagePlaceholder]);
+    // messages.push(newMessage);
+    // setMessages((messages) => [...messages, newMessage]);
+    // const assistantMessagePlaceholder: Message = {
+    // id: Date.now().toString(),
+    // role: "assistant",
+    // content: "On it...",
+    // };
+    // messages.push(assistantMessagePlaceholder);
+    // setMessages((m) => [...m, assistantMessagePlaceholder]);
 
     setInput("");
 
     try {
       const success = await processMessage(
-        { aiHandler, cSess, codeNow: code, messages, setMessages, newMessage },
+        { aiHandler, cSess, codeNow: code, messages, setMessages, newUserMessage: newMessage },
       );
       if (success) {
         setAICode(code);
