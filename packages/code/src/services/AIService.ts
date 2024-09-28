@@ -29,7 +29,7 @@ class StreamHandler {
       if (done) break;
       const chunk = this.decoder.decode(value);
       chunks.push(chunk);
-      onUpdate(chunk); // Pass only the latest chunk
+      onUpdate(chunks.join("").trim()); // Pass only the latest chunk
     }
     return chunks.join("").trim();
   }
@@ -171,34 +171,26 @@ export class AIService {
   async continueWithOpenAI(
     fullResponse: string,
     codeNow: string,
+    messages: Message[],
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string> {
-    const messages: Message[] = [
+    const messagesNew: Message[] = [
       { id: Date.now().toString(), role: "system", content: gptSystem },
       { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ];
 
     const updateMessages = (newChunk: string) => {
-      setMessages((prevMessages) => {
-        const lastMessage = prevMessages[prevMessages.length - 1];
-        if (lastMessage && lastMessage.role === "assistant") {
-          // Append to the last assistant message
-          lastMessage.content += newChunk;
-          return [...prevMessages];
-        } else {
-          // Create a new assistant message
-          return [
-            ...prevMessages,
-            { id: Date.now().toString(), role: "assistant", content: newChunk },
-          ];
-        }
-      });
+      setMessages([...messages, {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: newChunk,
+      }]);
     };
 
     try {
       const endpoint = this.getEndpoint("openAI");
-      const response = await this.handleStreamingResponse(endpoint, messages, updateMessages);
+      const response = await this.handleStreamingResponse(endpoint, messagesNew, updateMessages);
       const modifiedCode = this.extractCodeFromResponse(response);
 
       if (!modifiedCode) {
@@ -234,6 +226,7 @@ export class AIService {
     fullResponse: string,
     codeNow: string,
     error: unknown,
+    messages: Message[],
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
     prevMessages: Message[],
@@ -261,7 +254,7 @@ export class AIService {
       });
       setMessages((prevMessages) => [...prevMessages, answer]);
 
-      return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
+      return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
     } catch (error) {
       try {
         const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {

@@ -50,6 +50,7 @@ export class AIHandler {
     return this.aiService.continueWithOpenAI(
       fullResponse,
       currentCode,
+      messages,
       setMessages,
       setAICode,
     );
