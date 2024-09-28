@@ -10,10 +10,10 @@ import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
+import { wait } from "@/lib/wait";
 import { throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
-import { wait } from "./wait";
 
 const codeSpace = useCodeSpace();
 const cSess = new Code(codeSpace);

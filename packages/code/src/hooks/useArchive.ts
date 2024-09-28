@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { md5 } from "@/lib/md5";
 
-import { wait } from "../wait";
+import { wait } from "@/lib/wait";
 
 import { build } from "@/lib/shared";
 import { useAuth } from "@clerk/clerk-react";
