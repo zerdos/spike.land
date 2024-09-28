@@ -1,8 +1,8 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { createContextManager } from "@/lib/context-manager";
 import { EditorState } from "@src/components/editorUtils";
 import { ErrorType } from "@src/components/ErrorMessages";
 import { useRef, useState } from "react";
+import { useContext } from "./useContext";
 
 export const useEditorState = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export const useEditorState = () => {
   
   export const useErrorHandling = () => {
     const [error, setError] = useState<ErrorType>(null);
-    const contextManager = createContextManager(useCodeSpace());
+    const contextManager = useContext(useCodeSpace());
   
     const handleError = (errorType: ErrorType, errorMessage: string) => {
       setError(errorType);

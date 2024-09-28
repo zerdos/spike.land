@@ -19,6 +19,7 @@ const setupServiceWorker = async () => {
 //     localStorage.setItem("swVersion", swVersion);
     
 //     return sw;
+return null;
   } catch (e) {
     console.error("Error setting up service worker:", e);
     return null;

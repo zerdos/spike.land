@@ -8,28 +8,25 @@ const sw = self as unknown as
 
 importScripts("/swVersion.js");
 
-import { useCodeSpace } from "@/hooks/use-code-space";
-import { importMap } from "@/lib/importmap-utils";
-import { md5 } from "@/lib/md5";
-import { routes } from "@/lib/routes";
+// import { importMap } from "@/lib/importmap-utils";
 import { serveWithCache } from "@/lib/serve-with-cache";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
-function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
-  const updatedImports: { [key: string]: string } = {};
+// function addPrefixToImportMap(imap: typeof importMap, prefix: string) {
+//   const updatedImports: { [key: string]: string } = {};
 
-  for (const [key, value] of Object.entries(imap.imports)) {
-    // Ensure correct path concatenation
+//   for (const [key, value] of Object.entries(imap.imports)) {
+//     // Ensure correct path concatenation
 
-    const updatedValue = new URL((value as string).slice(1), "http://example.com" + prefix)
-      .pathname;
-    updatedImports[key] = updatedValue;
-  }
+//     const updatedValue = new URL((value as string).slice(1), "http://example.com" + prefix)
+//       .pathname;
+//     updatedImports[key] = updatedValue;
+//   }
 
-  return { imports: updatedImports };
-}
+//   return { imports: updatedImports };
+// }
 
-const imap = addPrefixToImportMap(importMap, `/${swVersion}/`);
+// const imap = addPrefixToImportMap(importMap, `/${swVersion}/`);
 
 // Now, self.swVersion and self.files are available
 const files = sw.files;

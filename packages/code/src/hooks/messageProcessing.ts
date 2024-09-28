@@ -1,10 +1,13 @@
+import { useCodeSpace } from "@/hooks/use-code-space";
 import { createContextManager } from "@/lib/context-manager";
 import { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
-import type { Mutex } from "async-mutex";
+import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
+
+const mutex = new Mutex();
 
 /**
  * Creates a new message, optionally including images.
@@ -38,28 +41,22 @@ export async function createNewMessage(
  * Processes messages with retries, handling assistant responses and updating code accordingly.
  */
 export async function processMessage(
-  aiHandler: AIHandler,
-  cSess: ICode,
-  codeNow: string,
-  updatedMessages: Message[],
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  saveMessages: (newMessages: Message[]) => void,
-  mutex: Mutex,
-  codeSpace: string,
+  { aiHandler, cSess, codeNow, updatedMessages, setMessages }: {
+    aiHandler: AIHandler;
+    cSess: ICode;
+    codeNow: string;
+    updatedMessages: Message[];
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  },
 ): Promise<boolean> {
-  const contextManager = createContextManager(codeSpace);
+  const contextManager = createContextManager(useCodeSpace());
   const sentMessages = [...updatedMessages];
   const maxRetries = 3;
   let retries = 0;
   const mod = { controller: new AbortController() };
 
   const onUpdate = createOnUpdateFunction(
-    mutex,
-    setMessages,
-    cSess,
-    contextManager,
-    codeNow,
-    mod,
+    { setMessages, cSess, contextManager, startCode: codeNow, mod },
   );
 
   while (retries < maxRetries) {
@@ -75,7 +72,6 @@ export async function processMessage(
       mod.controller.abort();
 
       sentMessages.push(assistantMessage);
-      saveMessages(sentMessages);
 
       const success = await processAssistantMessage(
         assistantMessage,
@@ -88,15 +84,7 @@ export async function processMessage(
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
         const errorHandled = await handleErrorMessage(
-          errorMessage,
-          codeNow,
-          sentMessages,
-          aiHandler,
-          mutex,
-          setMessages,
-          cSess,
-          contextManager,
-          mod,
+          { errorMessage, codeNow, sentMessages, aiHandler, setMessages, cSess, contextManager, mod },
         );
         if (errorHandled) return true;
       }
@@ -128,14 +116,19 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
 /**
  * Creates an onUpdate function to handle assistant updates.
  */
-function createOnUpdateFunction(
-  mutex: Mutex,
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  cSess: ICode,
-  contextManager: ReturnType<typeof createContextManager>,
-  startCode: string,
-  mod: { controller: AbortController },
-) {
+function createOnUpdateFunction({
+  setMessages,
+  cSess,
+  contextManager,
+  startCode,
+  mod,
+}: {
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  cSess: ICode;
+  contextManager: ReturnType<typeof createContextManager>;
+  startCode: string;
+  mod: { controller: AbortController };
+}) {
   let accumulatedCode = "";
   let lastUpdateTime = 0;
   const updateInterval = 100; // Update UI every 100ms
@@ -268,15 +261,25 @@ async function processAssistantMessage(
  * Handles error messages by sending a recovery message and processing the response.
  */
 async function handleErrorMessage(
-  errorMessage: string,
-  codeNow: string,
-  sentMessages: Message[],
-  aiHandler: AIHandler,
-  mutex: Mutex,
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  cSess: ICode,
-  contextManager: ReturnType<typeof createContextManager>,
-  mod: { controller: AbortController },
+  {
+    errorMessage,
+    codeNow,
+    sentMessages,
+    aiHandler,
+    setMessages,
+    cSess,
+    contextManager,
+    mod,
+  }: {
+    errorMessage: string;
+    codeNow: string;
+    sentMessages: Message[];
+    aiHandler: AIHandler;
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    cSess: ICode;
+    contextManager: ReturnType<typeof createContextManager>;
+    mod: { controller: AbortController };
+  },
 ): Promise<boolean> {
   const userMessage: Message = {
     id: Date.now().toString(),
@@ -287,12 +290,7 @@ async function handleErrorMessage(
   sentMessages.push(userMessage);
 
   const newOnUpdate = createOnUpdateFunction(
-    mutex,
-    setMessages,
-    cSess,
-    contextManager,
-    codeNow,
-    mod,
+    { setMessages, cSess, contextManager, startCode: codeNow, mod },
   );
 
   let assistantMessage = await sendAssistantMessage(

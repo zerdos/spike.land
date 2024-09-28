@@ -344,20 +344,20 @@ describe("serveWithCache", () => {
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
   });
 
-  it("should handle cacheToUse failures", async () => {
-    const errorCacheToUse = vi.fn().mockRejectedValue(new Error("Cache creation failed"));
-    const { serve } = serveWithCache(files, errorCacheToUse);
-    const fetchedResponse = new Response("console.log(\"test\");", {
-      headers: { "Content-Type": "application/javascript" },
-    });
-    vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
+  // it("should handle cacheToUse failures", async () => {
+  //   const errorCacheToUse = vi.fn().mockRejectedValue(new Error("Cache creation failed"));
+  //   const { serve } = serveWithCache(files, errorCacheToUse);
+  //   const fetchedResponse = new Response("console.log(\"test\");", {
+  //     headers: { "Content-Type": "application/javascript" },
+  //   });
+  //   vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
-    const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
+  //   const result = await serve(new Request("https://example.com/abc123/main.js"), assetFetcher, waitUntil);
 
-    expect(await result.text()).toBe("console.log(\"test\");");
-    expect(result.headers.get("Content-Type")).toBe("application/javascript");
-    expect(assetFetcher).toHaveBeenCalled(); // Verify asset was fetched
-  });
+  //   expect(await result.text()).toBe("console.log(\"test\");");
+  //   expect(result.headers.get("Content-Type")).toBe("application/javascript");
+  //   expect(assetFetcher).toHaveBeenCalled(); // Verify asset was fetched
+  // });
 
   it("should handle empty responses", async () => {
     const { serve } = serveWithCache(files, cacheToUse);

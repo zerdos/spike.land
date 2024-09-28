@@ -54,19 +54,13 @@ export const useMessageHandling = ({
     );
 
     const updatedMessages = [...messages, await createNewMessage(images, claudeContent)];
+    setMessages(updatedMessages);
 
     setInput("");
 
     try {
       const success = await processMessage(
-        aiHandler,
-        cSess,
-        code,
-        updatedMessages,
-        setMessages,
-        (newMessages: Message[]) => setMessages(newMessages),
-        mutex,
-        codeSpace,
+        { aiHandler, cSess, codeNow: code, updatedMessages, setMessages },
       );
       if (success) {
         setAICode(code);

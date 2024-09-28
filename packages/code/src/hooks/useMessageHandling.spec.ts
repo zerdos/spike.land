@@ -80,19 +80,13 @@ describe("useMessageHandling", () => {
       role: "user",
       content: [{ type: "text", text: "Test message" }],
     };
-    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async (
-        _: any,
-        __: any,
-        ___: any,
-        ____: any,
-        setMessages: (arg0: Message[]) => void,
-        saveMessages: (arg0: Message[]) => void,
+        { aiHandler: _processMessage, cSess: _cSess, codeNow: _codeNow, updatedMessages: _, setMessages },
       ) => {
         setMessages([mockNewMessage]);
-        saveMessages([mockNewMessage]);
         return true;
       },
     );
