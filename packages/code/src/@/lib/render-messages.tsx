@@ -18,8 +18,8 @@ interface CodeProps {
 
 export const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
  
-  const content = extractCodeModification(rawContent)[0];
-  
+  const content = extractCodeModification(rawContent)[0] || rawContent; 
+
   const original = content.split("=======")[0]?.split("<<<<<<< SEARCH")[1]?.trim() || "";
   const modified = content.split("=======")[1]?.split(">>>>>>> REPLACE")[0]?.trim() || "";
 
