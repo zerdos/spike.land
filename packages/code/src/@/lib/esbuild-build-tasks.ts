@@ -323,11 +323,21 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "react-dom/client": "/reactDomClient.mjs",
       "react/jsx-runtime": "/jsx.mjs",
       "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+      "react-dom/server": "/reactDomServer.mjs",
 
       ...extraAliases,
     },
     external: [
-      "/",
+      "/jsx.mjs",
+      "/emotionJsxRuntime.mjs",
+      "/reactDomServer.mjs",
+      "/reactDomClient.mjs",
+      "/emotion.mjs",
+      "/reactMod.mjs",
+      "/motion.mjs",
+      "/reactDom.mjs",
+      "/recharts.mjs",
+
       ...Object.values(extraAliases),
     ],
   });
