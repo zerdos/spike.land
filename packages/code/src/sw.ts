@@ -120,7 +120,7 @@ sw.addEventListener("fetch", (event) => {
     const url = new URL(request.url);
     const file = url.pathname.slice(1);
     const respPromise = (file in filesByCacheKeys)
-      ? fetch(new Request(request.url.replace(url.pathname, filesByCacheKeys[file])))
+      ? fetch(new Request(request.url.replace(file, filesByCacheKeys[file])))
       : fetch(request);
 
     event.waitUntil(respPromise);
