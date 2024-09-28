@@ -255,15 +255,10 @@ const handleRender = async (
 ): Promise<{ css: string; html: string } | false> => {
   try {
     if (!rootEl) return false;
+    const html = rootEl.innerHTML;
 
     for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
-
-      const html = rootEl.innerHTML;
-      if (!html) {
-        await wait(100);
-        continue;
-      }
 
       let css = mineFromCaches(cache);
       const criticalClasses = new Set(
