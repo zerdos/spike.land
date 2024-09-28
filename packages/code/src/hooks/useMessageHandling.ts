@@ -68,7 +68,7 @@ export const useMessageHandling = ({
 
     try {
       const success = await processMessage(
-        { aiHandler, cSess, codeNow: code, messages, setMessages },
+        { aiHandler, cSess, codeNow: code, messages, setMessages, newMessage },
       );
       if (success) {
         setAICode(code);

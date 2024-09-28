@@ -41,12 +41,13 @@ export async function createNewMessage(
  * Processes messages with retries, handling assistant responses and updating code accordingly.
  */
 export async function processMessage(
-  { aiHandler, cSess, codeNow, messages, setMessages }: {
+  { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
     aiHandler: AIHandler;
     cSess: ICode;
     codeNow: string;
     messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    newUserMessage: Message;
   },
 ): Promise<boolean> {
   const contextManager = createContextManager(useCodeSpace());
@@ -54,6 +55,10 @@ export async function processMessage(
   const maxRetries = 3;
   let retries = 0;
   const mod = { controller: new AbortController() };
+
+  // Add the user message to the messages array
+  messages.push(newUserMessage);
+  setMessages((prevMessages) => [...prevMessages, newUserMessage]);
 
   const onUpdate = createOnUpdateFunction(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
