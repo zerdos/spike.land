@@ -143,6 +143,7 @@ export default {
     if (request.url.includes("replicate")) {
         
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
+      
       return handleReplicateRequest(request, env, ctx);
     }
 

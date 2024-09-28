@@ -108,6 +108,11 @@ export async function handleReplicateRequest(
     const input = parseInputFromUrl(request.url);
     const md5Prompt = md5("replicate salt " + JSON.stringify(input));
 
+    const cacheKey = new Request(request.url, request);
+    let resp = await caches.default.match(cacheKey);
+    if (resp) return resp;
+    
+
     const saved = await env.R2.get(md5Prompt);
     if (saved) {
       return new Response(saved.body, {
@@ -129,13 +134,17 @@ export async function handleReplicateRequest(
       throw new Error("Invalid image URL from Replicate API" + imageUrl);
     }
 
-    return await fetchAndSaveImage(
+    resp =  await fetchAndSaveImage(
       imageUrl,
       env,
       md5Prompt,
       input.output_format,
       ctx,
-    );
+    )!;
+
+    ctx.waitUntil(caches.default.put(cacheKey, resp.clone()));
+    return resp;
+
   } catch (e: unknown) {
     console.error("Error in handleReplicateRequest:", e);
     return new Response(
