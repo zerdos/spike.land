@@ -135,6 +135,7 @@ const getDefaultBuildOptions = (
     ".gif": "dataurl",
     ".svg": "dataurl",
     ".woff": "dataurl",
+    ".webp": "dataurl",
     ".woff2": "dataurl",
     ".eot": "dataurl",
     ".otf": "dataurl",
