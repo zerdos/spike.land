@@ -37,9 +37,8 @@ let configPromise = fetchConfig();
 // Access the files from sw.files
 const files = sw.files;
 
-const filesArray = Object.entries(files) as unknown as [string, string][];
-const filesByCacheKeys = filesArray.reduce((acc, [key, value]) => {
-  acc[key] = value;
+const filesByCacheKeys = Object.entries(files).reduce((acc, [key, value]) => {
+  acc[value] = key;
   return acc;
 }, {} as { [key: string]: string });
 
@@ -120,13 +119,9 @@ sw.addEventListener("fetch", (event) => {
   const assetFetcher = (request: Request) => {
     const url = new URL(request.url);
     const file = url.pathname.slice(1);
-    let respPromise = fetch(request);
-    if (file in files) {
-      respPromise = fetch(request);
-    } else if (file in filesByCacheKeys) {
-      const req = new Request(request.url.replace(url.pathname, filesByCacheKeys[file]));
-      respPromise = fetch(req);
-    }
+    const respPromise = (file in filesByCacheKeys)
+      ? fetch(new Request(request.url.replace(url.pathname, filesByCacheKeys[file])))
+      : fetch(request);
 
     event.waitUntil(respPromise);
 
@@ -141,7 +136,6 @@ sw.addEventListener("fetch", (event) => {
         event.waitUntil.bind(event),
       ).catch((error) => {
         console.error("Error in serve", error);
-        sw.skipWaiting();
         return fetch(request);
       }),
     );
