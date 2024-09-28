@@ -8,6 +8,34 @@ const setupServiceWorker = async () => {
 //     return null;
 //   }
 
+if ('serviceWorker' in navigator) {
+  setInterval(() => {
+    navigator.serviceWorker.getRegistration().then((registration) => {
+      if (registration) {
+        registration.update();
+      }
+    });
+  }, 60 * 60 * 1000); 
+}
+
+fetch('/sw-config.json')
+  .then((response) => response.json() as Promise<{ killSwitch: boolean, version: "v14" }>)
+  .then((config) => {
+    if (config.killSwitch && navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        if (registration) {
+          registration.unregister().then(() => {
+            window.location.reload();
+          });
+        }
+      });
+    }
+  })
+  .catch((error) => {
+    console.error('Failed to fetch configuration:', error);
+  });
+
+
   try {
     const { Workbox } = await import("workbox-window");
     const sw = new Workbox(`/sw.js`);

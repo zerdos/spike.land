@@ -34,14 +34,63 @@ sw.cSessions = sw.cSessions || {};
 sw.fileCacheName = `sw-file-cache-v13`; // Updated cache name to avoid conflicts
 
 // Instantiate serveWithCache
-const { isAsset, serve } = serveWithCache(files, () => caches.open(sw.fileCacheName));
+const { isAsset, serve } = serveWithCache(
+  files,
+  async () =>
+    await caches.open(
+      await fetch("/sw-config.json").then((response) => response.json() as unknown as { version: string }).then((
+        config,
+      ) => `sw-file-cache-${config.version}`),
+    ),
+);
 
 sw.oninstall = () => {
   // Activate the new service worker immediately
   sw.skipWaiting();
 };
+sw.oninstall = (event) => {
+  event.waitUntil(
+    fetch("/sw-config.json")
+      .then((response) => response.json() as Promise<{ killSwitch: boolean; version: "v14" }>)
+      .then(async (config) => {
+        if (config.killSwitch) {
+          await sw.registration.unregister();
+          const cacheNames = await caches.keys();
+          return await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
+        }
+        sw.skipWaiting();
+        return Promise.resolve(); // Add this line to return a resolved promise
+      })
+      .catch((error) => {
+        console.error("Failed to fetch configuration:", error);
 
+        // Handle fetch error (e.g., proceed with installation or retry)
+      }),
+  );
+};
+
+let lastConfigCheck = 0;
 sw.onactivate = (event) => {
+  if (Date.now() - lastConfigCheck > 60 * 60 * 1000) { // Check every hour
+    lastConfigCheck = Date.now();
+    event.waitUntil(
+      fetch("/sw-config.json")
+        .then((response) => response.json() as Promise<{ killSwitch: boolean; version: "v14" }>)
+        .then(async (config) => {
+          if (config.killSwitch) {
+            return sw.registration.unregister().then(() => {
+              return sw.clients.matchAll().then((clients) => {
+                (clients as unknown as WindowClient[]).forEach((client) => client.navigate(client.url));
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to fetch configuration:", error);
+        }),
+    );
+  }
+
   event.waitUntil(
     (async () => {
       // Delete old caches if any

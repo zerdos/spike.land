@@ -46,6 +46,14 @@ export default {
       }
     });
   }
+  
+  if (url.pathname === "/sw-config.json") {
+    return new Response(JSON.stringify({ killSwitch: false, version: "v14" }), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }); 
+  }
 
     if (url.pathname === serverFetchUrl) {
 
