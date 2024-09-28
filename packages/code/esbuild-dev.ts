@@ -2,7 +2,6 @@ import {
   buildMainBundle,
   buildMainScripts,
   buildServiceWorker,
-  buildTailwind,
   buildWasm,
   buildWorkers,
 } from "@/lib/esbuild-build-tasks";
@@ -38,10 +37,6 @@ async function main() {
     console.log("Starting buildWasm...");
     await buildWasm();
     console.log("buildWasm completed.");
-
-    console.log("Starting buildTailwind...");
-    await buildTailwind();
-    console.log("buildTailwind completed.");
 
     // console.log("Starting buildServiceWorker...");
     await buildServiceWorker();

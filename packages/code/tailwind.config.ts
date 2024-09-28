@@ -972,7 +972,7 @@ export default {
 		'3/4': '75%',
 		full: '100%',
 	  }),
-	  size: ({ theme }) => ({
+	  size: ({ theme }: {theme: (name: string)=>({}) }) => ({
 		auto: 'auto',
 		...theme('spacing'),
 		'1/2': '50%',
