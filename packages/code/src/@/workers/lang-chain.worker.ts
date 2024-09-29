@@ -37,7 +37,7 @@ const createWorkflow = async (prompt: string) => {
 
   const tools = [weatherTool];
   const toolNode = new ToolNode({
-    tools: tools, // Ensure tools is correctly typed
+    tools: tools as any, // Cast to any to bypass TypeScript error
     return_direct: false,
   });
 
