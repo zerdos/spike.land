@@ -763,6 +763,9 @@ export default {
 	  ringColor: ({ theme }) => ({
 		DEFAULT: theme('colors.blue.500', '#3b82f6'),
 		...theme('colors'),
+		extends: {
+			'focus-visible': theme('colors.blue.500', '#3b82f6'),
+		},
 	  }),
 	  ringOffsetColor: ({ theme }) => theme('colors'),
 	  ringOffsetWidth: {
