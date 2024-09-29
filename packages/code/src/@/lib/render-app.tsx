@@ -18,9 +18,7 @@ const createJsBlob = (code: string): string =>
 
     
 declare global {
-  interface Global {
-    renderedApps: WeakMap<HTMLElement, RenderedApp>;
-  }
+  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
 globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
@@ -100,7 +98,7 @@ async function renderApp(
       </CacheProvider>,
     );
 
-    renderedApps.set(rootEl, { 
+    globalThis.renderedApps.set(rootEl, { 
       rootElement: rootEl, 
       rRoot: root, 
       App, 
@@ -115,7 +113,7 @@ async function renderApp(
       }
     });
 
-    const renderedApp = renderedApps.get(rootEl)!;
+    const renderedApp = globalThis.renderedApps.get(rootEl)!;
 
 
 
