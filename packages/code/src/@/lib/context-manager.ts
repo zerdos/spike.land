@@ -48,4 +48,5 @@ class ContextManager {
   }
 }
 
+export const createContextManager = (codeSpace: string) => new ContextManager(codeSpace);
 export { ContextManager, createContextManager };

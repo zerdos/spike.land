@@ -1,5 +1,6 @@
 import type { ErrorType } from "@src/components/ErrorMessages";
 import { useEffect } from "react";
+import type { ProjectContext } from "@/lib/context-manager";
 
 export const useErrorEffect = (
   errorType: ErrorType | null,
