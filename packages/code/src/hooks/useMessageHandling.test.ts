@@ -18,11 +18,23 @@ describe("useMessageHandling", () => {
   const mockSetEditInput = vi.fn();
 
   const mockCSess: ICode = {
+    ...cSessMock,
     session: {
-      code: "initial code",
+      ...cSessMock.session,
+      code: "test code",
+      codeSpace: "test-space",
+      i: 0,
+      html: "",
+      css: "",
+      transpiled: "",
     },
-    setCode: vi.fn(),
-  } as Partial<ICode>;
+    init: vi.fn(),
+    setCode: vi.fn().mockResolvedValue("test code"),
+    sub: vi.fn(),
+    screenShot: vi.fn().mockResolvedValue(mockImageData),
+    currentCodeWithExtraModels: vi.fn().mockResolvedValue("test code with extra models"),
+    setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
+  };
 
   const defaultProps = {
     codeSpace: "testCodeSpace",
