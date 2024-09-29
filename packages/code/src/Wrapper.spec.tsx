@@ -1,5 +1,4 @@
-import type { Wrapper } from "@/components/app/wrapper";
-import { Wrapper as WrapperComponent } from "@/components/app/wrapper";
+import { Wrapper } from "@/components/app/wrapper";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

@@ -9,7 +9,7 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
-function memoize<T extends (...args: unknown[]) => Promise<unknown>>(
+function memoize<T extends (...args: any[]) => Promise<any>>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
 ): T {
@@ -30,7 +30,7 @@ function memoize<T extends (...args: unknown[]) => Promise<unknown>>(
     });
 
     return promise as ReturnType<T>;
-  }) as unknown as T;
+  }) as T;
 }
 
 export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(

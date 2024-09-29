@@ -73,8 +73,8 @@ class CodeProcessor {
           if (signal?.aborted) return false;
 
           if (res) {
-            html = res.html;
-            css = res.css;
+            html = res.html || "<div></div>";
+            css = res.css || "";
           }
         } catch (error) {
           // const res = await build({

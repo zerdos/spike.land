@@ -21,6 +21,10 @@ declare global {
   let renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
+declare global {
+  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
+}
+
 globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
 

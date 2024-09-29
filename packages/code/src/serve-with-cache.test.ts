@@ -486,14 +486,16 @@ describe("serveWithCache", () => {
     // Update the import map mock
     const importMapMock = {
       imports: {
+        "/@/": "/",
+        "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+        "react/jsx-runtime": "/jsx.mjs",
+        "react-dom/server": "/reactDomServer.mjs",
+        "react-dom/client": "/reactDomClient.mjs",
+        "@emotion/react": "/emotion.mjs",
         "react": "/react.js",
+        "framer-motion": "/motion.mjs",
         "react-dom": "/react-dom.js",
-        "./local-module.js": "./local-module.js",
-      },
-      scopes: {
-        "/scoped/": {
-          "scoped-lib": "/scoped-lib.js",
-        },
+        "recharts": "/recharts.mjs",
       },
     };
 
