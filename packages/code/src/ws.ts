@@ -248,28 +248,28 @@ const handleDehydratedPage = () => {
   }
 };
 
-function getClassNamesFromHTML(htmlString: string) {
-  const classNames = new Set<string>();
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = htmlString;
-  const elements = tempDiv.getElementsByTagName("*");
-  for (let el of elements) {
-    let className = "";
-    if (typeof el.className === "string") {
-      className = el.className;
-    } else if (typeof el.className === "object" && "baseVal" in el.className) {
-      // Handle SVGAnimatedString
-      className = (el.className as SVGAnimatedString).baseVal;
-    }
-    if (className) {
-      className
-        .trim()
-        .split(/\s+/)
-        .forEach((cls) => classNames.add(cls));
-    }
-  }
-  return Array.from(classNames);
-}
+// function getClassNamesFromHTML(htmlString: string) {
+//   const classNames = new Set<string>();
+//   const tempDiv = document.createElement("div");
+//   tempDiv.innerHTML = htmlString;
+//   const elements = tempDiv.getElementsByTagName("*");
+//   for (let el of elements) {
+//     let className = "";
+//     if (typeof el.className === "string") {
+//       className = el.className;
+//     } else if (typeof el.className === "object" && "baseVal" in el.className) {
+//       // Handle SVGAnimatedString
+//       className = (el.className as SVGAnimatedString).baseVal;
+//     }
+//     if (className) {
+//       className
+//         .trim()
+//         .split(/\s+/)
+//         .forEach((cls) => classNames.add(cls));
+//     }
+//   }
+//   return Array.from(classNames);
+// }
 
 const handleRender = async (
   rootEl: HTMLDivElement,
@@ -283,8 +283,8 @@ const handleRender = async (
     if (!rootEl.innerHTML) await wait(400);
 
     const html = rootEl.innerHTML;
-    const classNames = getClassNamesFromHTML(html);
-    const twCss = await generateCSS(classNames);
+    // const classNames = getClassNamesFromHTML(html);
+    // const twCss = await generateCSS(classNames);
 
     if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
