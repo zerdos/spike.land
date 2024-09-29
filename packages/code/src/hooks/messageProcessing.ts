@@ -4,6 +4,7 @@ import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
+import { md5 } from "@src/modules";
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
 
@@ -54,7 +55,7 @@ export async function processMessage(
 
   const maxRetries = 3;
   let retries = 0;
-  const mod = { controller: new AbortController() };
+  const mod = { controller: new AbortController(), lastCode: codeNow, actions: [] };
 
   // Add the user message to the messages array
   messages.push(newUserMessage);
@@ -140,7 +141,7 @@ function createOnUpdateFunction({
   startCode: string;
   mod: { controller: AbortController };
 }) {
-  let accumulatedCode = "";
+  let instructions = "";
   let lastUpdateTime = 0;
   const updateInterval = 100; // Update UI every 100ms
 
@@ -153,7 +154,7 @@ function createOnUpdateFunction({
           // Update the last assistant message
           return [
             ...prevMessages.slice(0, -1),
-            { ...lastMessage, content: accumulatedCode },
+            { ...lastMessage, content: instructions },
           ];
         } else {
           // Add a new assistant message
@@ -162,7 +163,7 @@ function createOnUpdateFunction({
             {
               id: now.toString(),
               role: "assistant",
-              content: accumulatedCode,
+              content: instructions,
             },
           ];
         }
@@ -171,38 +172,40 @@ function createOnUpdateFunction({
     }
   };
 
-  const throttledMutexOperation = throttle(async (signal: AbortSignal) => {
-    if (signal.aborted) {
-      console.log("Aborted onUpdate inside mutex");
-      return;
-    }
-
+  const throttledMutexOperation = throttle(async (signal: AbortSignal, mod) => {
     try {
-      const lastCode = await updateSearchReplace({ instructions: accumulatedCode, code: startCode });
-      if (signal.aborted) return;
-      const lastReplaceModeIsOn = await updateSearchReplace({
-        instructions: accumulatedCode + " \nfoo \n",
-        code: startCode,
-      });
-      if (signal.aborted) return;
+      const lastSuccessCut = mod.actions.findIndex((a) => a.type === "update") + 1 || 0;
 
-      if (lastCode !== lastReplaceModeIsOn) {
-        return;
+      const lastCode = mod.lastCode;
+      mod.lastCode = await updateSearchReplace({ instructions: instructions.slice(lastSuccessCut), code: lastCode });
+
+      if (md5(mod.lastCode) === md5(lastCode)) {
+        mod.actions.push({ type: "skip", chars: instructions.length, startPos: lastSuccessCut, hash: md5(lastCode) });
+      } else {
+        mod.actions.push({
+          type: "updated",
+          chars: instructions.length,
+          startPos: lastSuccessCut,
+          hash: md5(mod.lastCode),
+        });
+        if (signal.aborted) {
+          console.log("Aborted onUpdate while updating");
+          return;
+        }
+        const success = await trySetCode(cSess, lastCode);
+        mod.actions.push({
+          type: success ? "success" : "error",
+          chars: instructions.length,
+          startPos: lastSuccessCut,
+          hash: md5(mod.lastCode),
+        });
+        contextManager.updateContext("currentDraft", success ? "" : lastCode);
       }
-
-      if (mod.controller.signal.aborted) {
-        console.log("Aborted onUpdate before trySetCode");
-        return;
-      }
-      if (signal.aborted) return;
-
-      const success = await trySetCode(cSess, lastCode);
-      contextManager.updateContext("currentDraft", success ? "" : lastCode);
     } catch (error) {
       console.error("Error in throttledMutexOperation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);
     }
-  }, 200);
+  }, 100);
 
   return async (code: string) => {
     if (mod.controller.signal.aborted) {
@@ -210,14 +213,15 @@ function createOnUpdateFunction({
       return;
     }
 
-    accumulatedCode = code;
+    instructions = code;
     updateState();
 
     try {
       mod.controller.abort();
       mod.controller = new AbortController();
       const { signal } = mod.controller;
-      await mutex.runExclusive(() => throttledMutexOperation(signal));
+
+      await mutex.runExclusive(() => throttledMutexOperation(signal, mod));
     } catch (error) {
       console.error("Error in mutex operation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);
