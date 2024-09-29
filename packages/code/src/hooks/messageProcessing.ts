@@ -173,25 +173,36 @@ function createOnUpdateFunction({
   };
 
   const throttledMutexOperation = throttle(async (signal: AbortSignal, mod) => {
+    if (signal.aborted) {
+      console.log("Aborted onUpdate before updating");
+      return;
+    }
     try {
-      const lastSuccessCut = mod.actions.findIndex((a) => a.type === "update") + 1 || 0;
+      const lastSuccessCut = mod.actions[mod.actions.length - 1]?.startPos || 0;
 
       const lastCode = mod.lastCode;
       mod.lastCode = await updateSearchReplace({ instructions: instructions.slice(lastSuccessCut), code: lastCode });
 
       if (md5(mod.lastCode) === md5(lastCode)) {
-        mod.actions.push({ type: "skip", chars: instructions.length, startPos: lastSuccessCut, hash: md5(lastCode) });
+        mod.actions.push({
+          type: "skip",
+          chars: instructions.length,
+          startPos: lastSuccessCut,
+          lastSuccessCut,
+          hash: md5(lastCode),
+        });
+        console.table(mod.actions[mod.actions.length - 1]);
       } else {
         mod.actions.push({
           type: "updated",
+          lastCode: mod.lastCode,
           chars: instructions.length,
+          lastSuccessCut: instructions.length,
           startPos: lastSuccessCut,
           hash: md5(mod.lastCode),
         });
-        if (signal.aborted) {
-          console.log("Aborted onUpdate while updating");
-          return;
-        }
+        console.table(mod.actions[mod.actions.length - 1]);
+
         const success = await trySetCode(cSess, lastCode);
         mod.actions.push({
           type: success ? "success" : "error",
@@ -199,6 +210,7 @@ function createOnUpdateFunction({
           startPos: lastSuccessCut,
           hash: md5(mod.lastCode),
         });
+        console.table(mod.actions[mod.actions.length - 1]);
         contextManager.updateContext("currentDraft", success ? "" : lastCode);
       }
     } catch (error) {
