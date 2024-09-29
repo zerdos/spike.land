@@ -24,7 +24,7 @@ class ContextManager {
     localStorage.setItem(this.storageKey, JSON.stringify(context));
   }
 
-  public getContext(key: keyof ProjectContext): string {
+  public getContext(key: string): string {
     const context = this.getFullContext();
     return context[key] || "";
   }
@@ -47,4 +47,5 @@ class ContextManager {
   }
 }
 
+export const createContextManager = (codeSpace: string) => new ContextManager(codeSpace);
 export { ContextManager, createContextManager };
