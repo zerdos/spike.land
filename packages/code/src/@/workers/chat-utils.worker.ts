@@ -6,8 +6,8 @@ export const updateSearchReplace = async (
   console.log("instructions", instructions);
   console.log("code", code);
 
-  const result = up({ codeNow: instructions, oldCode: code });
-  const resultBad = up({ codeNow: instructions + "\nfooo\n", oldCode: code });
+  const result = up({ codeNow: code, oldCode: instructions });
+  const resultBad = up({ codeNow: code, oldCode: instructions + "\nfooo\n" });
   if (result !== resultBad) {
     return code;
   }
