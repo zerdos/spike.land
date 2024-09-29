@@ -13,16 +13,6 @@ interface ModuleInitializer {
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
 }
 
-declare const self: {
-  wasmFile: string;
-  mod: {
-    init: boolean | Promise<boolean>;
-    initialize: (
-      wasmModule: WebAssembly.Module,
-    ) => Promise<boolean> | boolean;
-  };
-};
-
 const mod: ModuleInitializer = {
   init: false,
   initialize: async (wasmModule: WebAssembly.Module) => {
@@ -179,7 +169,7 @@ export const build = async ({
   external?: string[];
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
-}): Promise<string | import("esbuild-wasm").OutputFile[] | { error: unknown } | undefined> => {
+}) => {
   return mutex.runExclusive(async () => {
     try {
       await initializeModule(wasmModule, origin);

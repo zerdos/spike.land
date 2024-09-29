@@ -14,10 +14,12 @@ class WorkerWrapper {
 
   constructor(port: WorkerPort) {
     this.workerPort = port;
-    this.rpc = new RpcProvider((message: any) =>
+    this.rpc = new RpcProvider((message) =>
       this.workerPort.postMessage(
         message,
-        hasTransferables(message) ? getTransferables(message) : [],
+        (hasTransferables(message as unknown)
+          ? getTransferables(message as unknown)
+          : undefined) as unknown as Transferable[],
       )
     );
 
@@ -103,24 +105,6 @@ export const prettierToThrow = async ({
   const worker = workerPool.getWorker("prettier");
   try {
     return await worker.rpc.rpc("prettierJs", { code, toThrow });
-  } finally {
-    workerPool.releaseWorker(worker);
-  }
-};
-
-const prettierMemo = new Map<string, string>();
-
-export const prettier = async (code: string): Promise<string> => {
-  if (prettierMemo.has(code)) return prettierMemo.get(code)!;
-
-  const worker = workerPool.getWorker("prettier");
-  try {
-    const formattedCode = (await worker.rpc.rpc("prettierJs", {
-      code,
-      toThrow: false,
-    })) as string;
-    prettierMemo.set(code, formattedCode);
-    return formattedCode;
   } finally {
     workerPool.releaseWorker(worker);
   }
