@@ -1,7 +1,7 @@
 class MockWorker {
-  onmessage: ((this: Worker, ev: MessageEvent) => any) | null = null;
-  onmessageerror: ((this: Worker, ev: MessageEvent) => any) | null = null;
-  onerror: ((this: AbstractWorker, ev: ErrorEvent) => any) | null = null;
+  onmessage: ((this: Worker, ev: MessageEvent) => void) | null = null;
+  onmessageerror: ((this: Worker, ev: MessageEvent) => void) | null = null;
+  onerror: ((this: AbstractWorker, ev: ErrorEvent) => void) | null = null;
 
   addEventListener() {}
   removeEventListener() {}

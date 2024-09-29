@@ -19,7 +19,9 @@ export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code, s
 
     let rendered: RenderedApp | null;
 
-    (async () => rendered = await renderApp({ rootElement: containerRef.current!, codeSpace, transpiled, code }))();
+    (async () => {
+      rendered = await renderApp({ rootElement: containerRef.current!, codeSpace, transpiled, code });
+    })();
 
     return () => {
       if (rendered! !== null) {

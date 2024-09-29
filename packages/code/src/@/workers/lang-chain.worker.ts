@@ -39,7 +39,7 @@ const createWorkflow = async (prompt: string) => {
   const toolNode = new ToolNode({
     tools,
     return_direct: false,
-  } as any);
+  });
 
   const model = new ChatAnthropic({
     model: "claude-3-5-sonnet-20240620",
@@ -72,7 +72,7 @@ const createWorkflow = async (prompt: string) => {
     .addConditionalEdges("agent", shouldContinue)
     .addEdge("tools", "agent");
   const checkpointer = new MemorySaver();
-  const app = workflow.compile({ checkpointer });
+  const app = workflow.compile({ checkpointer }) as unknown as { invoke: (state: AgentState, config: { configurable: { thread_id: string } }) => Promise<AgentState> };
 
   console.log("Compiled the workflow!");
 

@@ -120,7 +120,7 @@ export function importMapReplace(code: string, origin: string): string {
     const importMatch = match.match(/import\s*{\s*([^}]+)\s*}/);
     if (importMatch) {
       const importedItems = importMatch[1].split(",").map(item => {
-        const [originalName, _alias] = item.trim().split(/\s+as\s+/);
+        const [originalName] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
       return p1 + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;

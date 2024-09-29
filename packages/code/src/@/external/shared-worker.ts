@@ -6,8 +6,8 @@ class SharedWorkerPolyfill {
   public port: MessagePort;
 
   constructor(url: string, opts?: WorkerOptions) {
-    if ((globalThis as any).VI_TEST) {
-      const Worker2 = require("worker_threads").Worker;
+    if ((globalThis as unknown).VI_TEST) {
+      const { Worker: Worker2 } = await import("worker_threads");
       // if url has ? then strip it
 
       this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
@@ -37,29 +37,29 @@ class SharedWorkerPolyfill {
   /**
    * An EventListener called when MessageEvent of type 'message' is fired on the port—that is, when the port receives a message.
    */
-  get onmessage(): ((this: MessagePort, ev: MessageEvent) => any) | null {
+  get onmessage(): ((this: MessagePort, ev: MessageEvent) => void) | null {
     return this.port.onmessage;
   }
 
-  set onmessage(value: ((this: MessagePort, ev: MessageEvent) => any) | null) {
+  set onmessage(value: ((this: MessagePort, ev: MessageEvent) => void) | null) {
     this.port.onmessage = value;
   }
 
   /**
    * An EventListener called when a MessageEvent of type 'messageerror' is fired—that is, when it receives a message that cannot be deserialized.
    */
-  get onmessageerror(): ((this: MessagePort, ev: MessageEvent) => any) | null {
+  get onmessageerror(): ((this: MessagePort, ev: MessageEvent) => void) | null {
     return this.port.onmessageerror;
   }
 
-  set onmessageerror(value: ((this: MessagePort, ev: MessageEvent) => any) | null) {
+  set onmessageerror(value: ((this: MessagePort, ev: MessageEvent) => void) | null) {
     this.port.onmessageerror = value;
   }
 
   /**
    * Clones message and transmits it to worker's global environment.
    */
-  postMessage(message: any, transfer?: Transferable[]): void {
+  postMessage(message: unknown, transfer?: Transferable[]): void {
     transfer ? this.port.postMessage(message, transfer) : this.port.postMessage(message);
   }
 
@@ -81,11 +81,11 @@ class SharedWorkerPolyfill {
   /**
    * Is an EventListener that is called whenever an ErrorEvent of type 'error' occurs.
    */
-  get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => any) | null {
+  get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => void) | null {
     return this.worker.onerror;
   }
 
-  set onerror(value: ((this: AbstractWorker, ev: ErrorEvent) => any) | null) {
+  set onerror(value: ((this: AbstractWorker, ev: ErrorEvent) => void) | null) {
     this.worker.onerror = value;
   }
 

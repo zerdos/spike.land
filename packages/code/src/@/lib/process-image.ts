@@ -82,7 +82,7 @@ export const processImage = (file: File): Promise<ImageData> => {
           mediaType: file.type,
           data: url,
         } as ImageData);
-      } catch (error) {
+      } catch {
         reject(new Error("Failed to process image"));
       }
     };
