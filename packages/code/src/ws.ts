@@ -9,7 +9,7 @@ import { Code } from "./services/CodeSession";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
-import { generateCSS, prettierCss } from "@/lib/shared";
+import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -248,28 +248,28 @@ const handleDehydratedPage = () => {
   }
 };
 
-// function getClassNamesFromHTML(htmlString: string) {
-//   const classNames = new Set<string>();
-//   const tempDiv = document.createElement("div");
-//   tempDiv.innerHTML = htmlString;
-//   const elements = tempDiv.getElementsByTagName("*");
-//   for (let el of elements) {
-//     let className = "";
-//     if (typeof el.className === "string") {
-//       className = el.className;
-//     } else if (typeof el.className === "object" && "baseVal" in el.className) {
-//       // Handle SVGAnimatedString
-//       className = (el.className as SVGAnimatedString).baseVal;
-//     }
-//     if (className) {
-//       className
-//         .trim()
-//         .split(/\s+/)
-//         .forEach((cls) => classNames.add(cls));
-//     }
-//   }
-//   return Array.from(classNames);
-// }
+function getClassNamesFromHTML(htmlString: string) {
+  const classNames = new Set<string>();
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = htmlString;
+  const elements = tempDiv.getElementsByTagName("*");
+  for (let el of elements) {
+    let className = "";
+    if (typeof el.className === "string") {
+      className = el.className;
+    } else if (typeof el.className === "object" && "baseVal" in el.className) {
+      // Handle SVGAnimatedString
+      className = (el.className as SVGAnimatedString).baseVal;
+    }
+    if (className) {
+      className
+        .trim()
+        .split(/\s+/)
+        .forEach((cls) => classNames.add(cls));
+    }
+  }
+  return Array.from(classNames);
+}
 
 const handleRender = async (
   rootEl: HTMLDivElement,
@@ -284,7 +284,6 @@ const handleRender = async (
 
     const html = rootEl.innerHTML;
     // const classNames = getClassNamesFromHTML(html);
-    // const twCss = await generateCSS(classNames);
 
     if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
@@ -300,19 +299,28 @@ const handleRender = async (
           .filter(Boolean) as string[],
       );
 
-      // const styleElement = document.querySelector("head > style:last-child");
-      // const tailWindClasses = styleElement
-      //   ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
-      //     (x) => x.cssText,
-      //   )
-      //   : [];
+      const styleElement = document.querySelector("head > style:last-child");
+      const tailWindClasses = styleElement
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
+          (x) => x.cssText,
+        )
+        : [];
 
       const eCss = css
         .filter((line) => Array.from(criticalClasses).some((rule) => rule ? line.includes(rule) : false))
         .map((x) => x.trim())
         .filter(Boolean);
 
-      let cssStrings = [...eCss, ...twCss].sort().join("\n");
+      const htmlClasses = getClassNamesFromHTML(html);
+      let cssStrings = [...eCss, ...tailWindClasses].sort().filter(x => {
+        // we have all the classnames from the html, filering out those css rules that are not used
+        // in the html
+
+        const rule = x.slice(1, x.indexOf("{")).trim();
+
+        return htmlClasses.includes(rule);
+      }).join("\n");
+
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
       } catch (error) {

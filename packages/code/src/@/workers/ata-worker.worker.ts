@@ -12,7 +12,6 @@ type WorkerFunctions = {
   tsx: (code: string) => Promise<string[]>;
   updateSearchReplace: (instructions: string, code: string) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
-  generateCSS: (classNames: string[]) => Promise<string>;
 };
 
 const self: SharedWorkerGlobalScope & { onconnect?: (e: MessageEvent) => void } & WorkerFunctions =
@@ -39,7 +38,6 @@ const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   updateSearchReplace: ["chat-utils"],
   build: ["transpile"],
   tsx: ["dts"],
-  generateCSS: ["css"],
   setConnections: ["socket"],
 };
 
