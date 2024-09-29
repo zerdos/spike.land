@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export const useErrorEffect = (
   errorType: ErrorType | null,
   codeSpace: string,
-  contextManager: { getContext: (key: string) => string; updateContext: (key: string, value: string) => void },
+  contextManager: { getContext: (key: keyof ProjectContext) => string; updateContext: (key: keyof ProjectContext, value: string) => void },
   setShowError: (show: boolean) => void,
 ) => {
   useEffect(() => {
