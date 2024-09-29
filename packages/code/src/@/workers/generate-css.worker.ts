@@ -16,12 +16,12 @@ Object.assign(globalThis, {
 async function generateCSS(classNames: string[]) {
   const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n");
 
-  const result = await postcss([
+  const result = postcss([
     tailwindcss(),
     autoprefixer(),
   ]);
 
-  return result.process(cssString).css;
+  return await result.process(cssString).then((result) => result.css);
 }
 
 Object.assign(globalThis, { generateCSS });
