@@ -10,7 +10,7 @@ type WorkerFunctions = {
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
-  updateSearchReplace: (instructions: string, code: string) => Promise<string>;
+  updateSearchReplace: ({ instructions, code }: { instructions: string; code: string }) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 };
 

@@ -178,9 +178,12 @@ function createOnUpdateFunction({
     }
 
     try {
-      const lastCode = await updateSearchReplace(accumulatedCode, startCode);
+      const lastCode = await updateSearchReplace({ instructions: accumulatedCode, code: startCode });
       if (signal.aborted) return;
-      const lastReplaceModeIsOn = await updateSearchReplace(accumulatedCode + " \nfoo \n", startCode);
+      const lastReplaceModeIsOn = await updateSearchReplace({
+        instructions: accumulatedCode + " \nfoo \n",
+        code: startCode,
+      });
       if (signal.aborted) return;
 
       if (lastCode !== lastReplaceModeIsOn) {
@@ -261,8 +264,8 @@ async function processAssistantMessage(
 ): Promise<boolean> {
   const contentToProcess = extractTextContent(assistantMessage.content);
 
-  const starterCode1 = await updateSearchReplace(contentToProcess, codeNow);
-  const starterCode2 = await updateSearchReplace(contentToProcess + `\n foo \n`, codeNow);
+  const starterCode1 = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
+  const starterCode2 = await updateSearchReplace({ instructions: contentToProcess + `\n foo \n`, code: codeNow });
 
   const starterCode = starterCode1 !== starterCode2 ? codeNow : starterCode1;
 
@@ -330,7 +333,7 @@ async function handleErrorMessage(
 
   const contentToProcess = extractTextContent(assistantMessage.content);
 
-  const starterCode = await updateSearchReplace(contentToProcess, codeNow);
+  const starterCode = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
   const success = await trySetCode(cSess, starterCode);
 
   return success;

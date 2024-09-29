@@ -77,8 +77,7 @@ export const loadMessages = (codeSpace: string): Message[] => {
 };
 
 export const updateSearchReplace = (
-  oldCode: string,
-  codeNow: string,
+  { oldCode, codeNow }: { oldCode: string; codeNow: string },
 ): string => {
   let replacedCode = codeNow;
 
