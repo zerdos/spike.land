@@ -30,7 +30,7 @@ export interface ChatWindowProps {
   isDarkMode: boolean;
 }
 
-export type ICodeSession = {
+export interface ICodeSession {
   code: string;
   codeSpace: string;
   i: number;
