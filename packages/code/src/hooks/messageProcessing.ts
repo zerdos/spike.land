@@ -331,10 +331,14 @@ async function handleErrorMessage(
   // Update the state with all messages, including the new assistant message
   setMessages([...updatedMessages]);
 
-  const contentToProcess = extractTextContent(assistantMessage.content);
+  const assistantFullMessage: string = assistantMessage.content as string;
+  await newOnUpdate(assistantFullMessage);
 
-  const starterCode = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
-  const success = await trySetCode(cSess, starterCode);
+  //  const contentToProcess = extractTextContent(assistantMessage.content);
+
+  //  const starterCode = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
+  /// const success = await trySetCode(cSess, starterCode);
+  const success = cSess.session.code !== codeNow;
 
   return success;
 }
