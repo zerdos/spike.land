@@ -180,12 +180,17 @@ function createOnUpdateFunction({
     try {
       const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
       const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
+      const SKIP = mod.actions[mod.actions.length - 1]?.SKIPPED || 0;
+      const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
+
       const lastCode = mod.lastCode;
       const chunk = instructions.slice(startPos);
       mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
 
       if (md5(mod.lastCode) === md5(lastCode)) {
         mod.actions.push({
+          TRIED: TRIED + 1,
+          SKIP: SKIP + 1,
           DIFFs,
           chars: instructions.length,
           type: "skip",
@@ -200,6 +205,8 @@ function createOnUpdateFunction({
         console.table(mod.actions[mod.actions.length - 1]);
       } else {
         mod.actions.push({
+          TRIED: TRIED + 1,
+          SKIP,
           DIFFs: DIFFs + 1,
           chars: instructions.length,
           type: "updated",
@@ -213,6 +220,9 @@ function createOnUpdateFunction({
 
         const success = await trySetCode(cSess, lastCode);
         mod.actions.push({
+          TRIED,
+          SKIP,
+          DIFFs,
           chars: instructions.length,
           chunk,
           type: success ? "success" : "error",
