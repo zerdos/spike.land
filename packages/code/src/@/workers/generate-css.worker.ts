@@ -2,6 +2,7 @@ import autoprefixer from "autoprefixer";
 import postcss from "postcss";
 import tailwindcss from "tailwindcss";
 import preflightCss from "tailwindcss/lib/css/preflight.css";
+import TwConfig from "../../../tailwind.config";
 
 Object.assign(globalThis, {
   __dirname: "/",
@@ -18,7 +19,7 @@ async function generateCSS(classNames: string[]) {
   const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n").split("/").join(`\\/`);
 
   const result = await postcss([
-    tailwindcss(),
+    tailwindcss(TwConfig),
     autoprefixer(),
   ]);
 
