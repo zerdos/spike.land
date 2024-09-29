@@ -1,4 +1,4 @@
-import { createContextManager } from "@/lib/context-manager";
+import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
 import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
