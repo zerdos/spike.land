@@ -37,7 +37,7 @@ export class AsyncLocalStorage {
   clear = clear;
   getStore = () => this.currentStore;
 
-  run(store: any, callback: Function, ...args: any[]): any {
+  run(store: Record<string, unknown>, callback: (...args: unknown[]) => unknown, ...args: unknown[]): unknown {
     const previousStore = this.currentStore;
     this.currentStore = store;
 

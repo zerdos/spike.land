@@ -105,9 +105,7 @@ function createWebSocket(codeSpace: string, connection: Connection): Socket {
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
   const delegate = createSocketDelegate(connection, codeSpace);
-  const webSocket = new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
-  webSocket.open();
-  return webSocket;
+  return new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
 }
 
 /**
@@ -163,10 +161,10 @@ async function handleSocketMessage(
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
-  let data: any;
+  let data: Record<string, unknown>;
   try {
     data = JSON.parse(message);
-  } catch (error) {
+  } catch {
     console.error("Invalid JSON received:", message);
     return;
   }

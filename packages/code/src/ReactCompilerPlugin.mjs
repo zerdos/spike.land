@@ -1,3 +1,4 @@
+/* global console, performance */
 import { readTextFile } from "../esbuild-depts.ts";
 
 import * as babel from "@babel/core";

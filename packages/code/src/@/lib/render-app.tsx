@@ -18,7 +18,7 @@ const createJsBlob = (code: string): string =>
 
     
 declare global {
-  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
 globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
@@ -28,6 +28,7 @@ globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, Re
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
 ): Promise<RenderedApp | null> {
+  let AppToRender: React.ComponentType<unknown>;
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {

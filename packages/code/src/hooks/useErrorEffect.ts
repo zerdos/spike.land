@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export const useErrorEffect = (
   errorType: ErrorType | null,
   codeSpace: string,
-  contextManager: any, // TODO: Replace 'any' with the correct type
+  contextManager: { getContext: (key: string) => string; updateContext: (key: string, value: string) => void },
   setShowError: (show: boolean) => void,
 ) => {
   useEffect(() => {
