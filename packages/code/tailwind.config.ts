@@ -5,6 +5,11 @@ export default {
 	presets: [],
 	darkMode: 'media', // or 'class'
 	theme: {
+		extend: {
+			colors: {
+				ring: '#FF4400'
+			}
+		},
 	  accentColor: ({ theme }) => ({
 		...theme('colors'),
 		auto: 'auto',
@@ -763,9 +768,6 @@ export default {
 	  ringColor: ({ theme }) => ({
 		DEFAULT: theme('colors.blue.500', '#3b82f6'),
 		...theme('colors'),
-		extends: {
-			'focus-visible': theme('colors.blue.500', '#3b82f6'),
-		},
 	  }),
 	  ringOffsetColor: ({ theme }) => theme('colors'),
 	  ringOffsetWidth: {
@@ -774,7 +776,7 @@ export default {
 		2: '2px',
 		4: '4px',
 		8: '8px',
-	  },	
+	  },
 	  ringOpacity: ({ theme }) => ({
 		DEFAULT: '0.5',
 		...theme('opacity'),
