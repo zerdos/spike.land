@@ -82,7 +82,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
               onClick={() => setShowAutoSaveHistory(true)}
               className={cn(
                 "rounded-full w-12 h-12 p-0",
-                "hover:bg-primary/90 transition-colors"
+                "hover:bg-primary transition-colors"
               )}
               title="Show Version History"
             >
@@ -93,7 +93,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
                 onClick={() => setIsOpen(true)}
                 className={cn(
                   "rounded-full w-12 h-12 p-0",
-                  "hover:bg-primary/90 transition-colors"
+                  "hover:bg-primary transition-colors"
                 )}
                 title="Open Chat"
               >
