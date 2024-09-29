@@ -54,7 +54,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
   });
 
   return (
-    <animated.div ref={containerRef} style={springProps as React.CSSProperties} className="overflow-hidden">
+    <animated.div ref={containerRef} style={springProps as unknown as React.CSSProperties} className="overflow-hidden">
       <AspectRatio ratio={fullScreen ? undefined : ratio}>
         <iframe
           ref={ref}

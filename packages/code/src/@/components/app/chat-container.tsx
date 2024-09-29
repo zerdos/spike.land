@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import type { ChatContainerProps } from "@/lib/interfaces";
+import type { ChatContainerProps, Message } from "@/lib/interfaces";
 
 import { ChatMessage } from "@/components/app/chat-message";
 import { motion } from "framer-motion";
@@ -126,10 +126,8 @@ export const ChatContainer: React.FC<
 
   return (
     <div className="p-4 space-y-4">
-      {messages.map((v, i)=>{
-
-        const hash = isStreaming && (i===messages.length-1)? 'streaming': md5(JSON.stringify(v));
-
+      {messages.map((v: Message, i) => {
+        const hash = isStreaming && (i === messages.length - 1) ? 'streaming' : md5(JSON.stringify(v));
         return renderMessage(v, `${i}-${hash}`);
       })}
       {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}

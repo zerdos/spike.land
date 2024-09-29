@@ -18,7 +18,7 @@ const createJsBlob = (code: string): string =>
 
     
 declare global {
-  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
 globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
@@ -68,8 +68,8 @@ async function renderApp(
       container: rootEl.parentNode!,
     });
 
-    const AppWithScreenSize: React.FC<{ width: number; height: number }> = React.memo(function AppWithScreenSize({ width, height }) {
-      const [{ width, height }, setDimensions] = useState({ width: innerWidth, height: innerHeight });
+    const AppWithScreenSize: React.FC<{ width: number; height: number }> = React.memo(function AppWithScreenSize() {
+      const [dimensions, setDimensions] = useState({ width: innerWidth, height: innerHeight });
 
       const throttledSetDimensions = useCallback(
         throttle(
@@ -85,7 +85,7 @@ async function renderApp(
         return () => window.removeEventListener("resize", handleResize);
       }, [throttledSetDimensions]);
 
-      return <AppToRender width={width} height={height} />;
+      return <AppToRender width={dimensions.width} height={dimensions.height} />;
     });
 
  root.render(
