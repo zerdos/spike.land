@@ -157,8 +157,20 @@ export const stat = async (
 };
 
 export const cwd = async (): Promise<string> => "/";
+export const readFileSync = (filePath: string): string => {
+  // Define a type for the global object that includes the expected properties
+  interface GlobalWithFiles {
+    [key: string]: string;
+  }
 
+  // Type assertion to let TypeScript know about the shape of the global object
+  const globalFiles = globalThis as unknown as GlobalWithFiles;
+
+  // Check if the filePath exists in the global object and return its content
+  return Object.hasOwn(globalFiles, filePath) ? globalFiles[filePath] : "";
+};
 const FS: {
+  readFileSync: (filePath: string) => string;
   readFile: (filePath: string) => Promise<string>;
   unlink: (filePath: string) => Promise<void>;
   mkdir: (filePath: string) => Promise<void>;
@@ -184,7 +196,16 @@ const FS: {
     } | null
   >;
   cwd: () => Promise<string>;
-} = { readFile, unlink, mkdir, writeFile, readdir, stat, cwd };
+} = {
+  readFile,
+  unlink,
+  mkdir,
+  writeFile,
+  readdir,
+  stat,
+  cwd,
+  readFileSync,
+};
 
 export default FS;
 
