@@ -54,7 +54,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
   codeSpace,
 }) => {
   const [showError, setShowError] = useState(false);
-  const contextManager: ContextManager = createContextManager(codeSpace);
+  const contextManager: { getContext: (key: string) => string; updateContext: (key: string, value: string) => void } = createContextManager(codeSpace);
   useErrorEffect(errorType, codeSpace, contextManager, setShowError);
 
 
