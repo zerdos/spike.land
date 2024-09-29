@@ -37,7 +37,7 @@ export interface ICodeSession {
   html: string;
   css: string;
   transpiled: string;
-};
+}
 
 export interface ICode {
   session: ICodeSession;

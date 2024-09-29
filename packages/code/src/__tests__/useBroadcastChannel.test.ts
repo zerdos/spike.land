@@ -10,10 +10,11 @@ describe("useBroadcastChannel", () => {
     mockAddEventListener = vi.fn();
     mockRemoveEventListener = vi.fn();
 
-    (globalThis as unknown as { BroadcastChannel: () => Record<string, unknown> }).BroadcastChannel = vi.fn().mockImplementation(() => ({
-      addEventListener: mockAddEventListener,
-      removeEventListener: mockRemoveEventListener,
-    }));
+    (globalThis as unknown as { BroadcastChannel: () => Record<string, unknown> }).BroadcastChannel = vi.fn()
+      .mockImplementation(() => ({
+        addEventListener: mockAddEventListener,
+        removeEventListener: mockRemoveEventListener,
+      }));
   });
 
   it("creates a BroadcastChannel with the correct name", () => {

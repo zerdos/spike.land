@@ -6,30 +6,28 @@ class SharedWorkerPolyfill {
   public port: MessagePort = null!;
 
   constructor(url: string, opts?: WorkerOptions) {
-
-    if ((globalThis as unknown as {VI_TEST: string}).VI_TEST !== 'undefined') {
+    if ((globalThis as unknown as { VI_TEST: string }).VI_TEST !== "undefined") {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
-        this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts || {}) as unknown as Worker;
+        this.worker = new Worker2(
+          __dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")),
+          opts || {},
+        ) as unknown as Worker;
         this.initializeWorker();
       });
-    } else { 
-
-
+    } else {
       this.worker = new Worker(url, opts);
       this.initializeWorker();
     }
-
-    
-    }
+  }
 
   private initializeWorker() {
-      this.port = this.worker as unknown as MessagePort;
+    this.port = this.worker as unknown as MessagePort;
     // Send port2 to the worker
-      this.worker.postMessage({ type: "init" }, [this.port]);
+    this.worker.postMessage({ type: "init" }, [this.port]);
 
     // Forward error events from the worker to the port
-    if (this.worker && 'onerror' in this.worker) {
+    if (this.worker && "onerror" in this.worker) {
       this.worker.onerror = (event: ErrorEvent) => {
         const errorEvent = new ErrorEvent("error", {
           message: event.message,
@@ -62,14 +60,16 @@ class SharedWorkerPolyfill {
   }
 
   set onmessageerror(value: ((this: MessagePort, ev: MessageEvent) => void) | null) {
-  this.port.onmessageerror = value;
+    this.port.onmessageerror = value;
   }
 
   /**
    * Clones message and transmits it to worker's global environment.
    */
-  postMessage = (message: unknown, transfer?: Transferable[]) => (transfer ? this.port.postMessage(message, transfer) : this.port.postMessage(message));
-  
+  postMessage = (
+    message: unknown,
+    transfer?: Transferable[],
+  ) => (transfer ? this.port.postMessage(message, transfer) : this.port.postMessage(message));
 
   /**
    * Immediately terminates the worker.
@@ -90,11 +90,11 @@ class SharedWorkerPolyfill {
    * Is an EventListener that is called whenever an ErrorEvent of type 'error' occurs.
    */
   get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => void) | null {
-    return 'onerror' in this.worker ? this.worker.onerror : null;
+    return "onerror" in this.worker ? this.worker.onerror : null;
   }
 
   set onerror(value: ((this: AbstractWorker, ev: ErrorEvent) => void) | null) {
-    if ('onerror' in this.worker) {
+    if ("onerror" in this.worker) {
       this.worker.onerror = value;
     }
   }

@@ -69,7 +69,9 @@ const createWorkflow = async (prompt: string) => {
     .addConditionalEdges("agent", shouldContinue)
     .addEdge("tools", "agent");
   const checkpointer = new MemorySaver();
-  const app = workflow.compile({ checkpointer }) as { invoke: (state: AgentState, config: { configurable: { thread_id: string } }) => Promise<AgentState> };
+  const app = workflow.compile({ checkpointer }) as {
+    invoke: (state: AgentState, config: { configurable: { thread_id: string } }) => Promise<AgentState>;
+  };
 
   console.log("Compiled the workflow!");
 

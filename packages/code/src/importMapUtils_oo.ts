@@ -17,7 +17,7 @@ export const importMap = {
 
 export function importMapReplace(code: string | ArrayBuffer, origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
-  if (typeof code === 'string' && code.slice(0, 30).includes("importMapReplace")) {
+  if (typeof code === "string" && code.slice(0, 30).includes("importMapReplace")) {
     return code;
   }
   if (code instanceof ArrayBuffer) {

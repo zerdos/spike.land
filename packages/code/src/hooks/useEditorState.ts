@@ -12,7 +12,9 @@ export const useEditorState = (codeSpace: string) => {
       ? (globalThis as any).cSess.session.code
       : "",
     started: false,
-    setValue: (code: string) => { console.log(code); },
+    setValue: (code: string) => {
+      console.log(code);
+    },
   });
 
   const initialLoadRef = useRef(true);

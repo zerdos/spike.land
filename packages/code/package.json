@@ -22,7 +22,7 @@
     "clean": "rm -rf .tsBuildInfo dist dts && mkdir -p dist dts",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "lint": "eslint  --no-color --quiet --fix",
+    "lint": "eslint --cache  --no-color --quiet --fix",
     "tw": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.ts --postcss -m -o dist/app/tw-global.css",
     "sw": "echo ok",
     "test": "yarn typecheck && yarn lint &&  --no-color --reporter verbose run",

@@ -1,8 +1,8 @@
-import type { Message, ICode, ImageData } from "@/lib/interfaces";
+import type { ICode, ImageData, Message } from "@/lib/interfaces";
+import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useMessageHandling } from "./useMessageHandling";
-import { cSessMock } from "@src/config/cSessMock";
 
 const mockImageData: ImageData = {
   imageName: "mock-screenshot.png",
