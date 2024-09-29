@@ -249,13 +249,23 @@ const handleDehydratedPage = () => {
 };
 
 function getClassNamesFromHTML(htmlString: string) {
-  const classNames = new Set<string>();
+  const classNames = new Set();
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = htmlString;
   const elements = tempDiv.getElementsByTagName("*");
   for (let el of elements) {
-    if (el.className) {
-      el.className.split(" ").forEach((cls) => classNames.add(cls));
+    let className = "";
+    if (typeof el.className === "string") {
+      className = el.className;
+    } else if (typeof el.className === "object" && "baseVal" in el.className) {
+      // Handle SVGAnimatedString
+      className = (el.className as SVGAnimatedString).baseVal;
+    }
+    if (className) {
+      className
+        .trim()
+        .split(/\s+/)
+        .forEach((cls) => classNames.add(cls));
     }
   }
   return Array.from(classNames);
