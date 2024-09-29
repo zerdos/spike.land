@@ -141,14 +141,12 @@ export const ata = async ({
   }
 };
 
-export const generateCSS = async ({
-  classNames,
-}: {
-  classNames: string[];
-}): Promise<string> => {
+export const generateCSS = async (
+  classNames: string[],
+): Promise<string> => {
   const worker = workerPool.getWorker("generateCSS");
   try {
-    return await worker.rpc.rpc("generateCSS", { classNames });
+    return await worker.rpc.rpc("generateCSS", classNames);
   } finally {
     workerPool.releaseWorker(worker);
   }
