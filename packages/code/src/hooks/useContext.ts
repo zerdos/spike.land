@@ -2,7 +2,7 @@ import type { ProjectContext } from "@/lib/context-manager";
 import { ContextManager } from "@/lib/context-manager";
 
 interface ContextHook {
-  getContext: (key: string ) => string;
+  getContext: (key: string) => string;
   updateContext: (key: string, content: string) => void;
   getFullContext: () => ProjectContext;
   clearContext: () => void;

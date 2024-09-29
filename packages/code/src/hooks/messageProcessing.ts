@@ -136,7 +136,7 @@ function createOnUpdateFunction({
 }: {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   cSess: ICode;
-  contextManager: ReturnType<typeof new ContextManager>;
+  contextManager: ContextManager;
   startCode: string;
   mod: { controller: AbortController };
 }) {
@@ -297,7 +297,7 @@ async function handleErrorMessage(
     aiHandler: AIHandler;
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     cSess: ICode;
-    contextManager: ReturnType<typeof new ContextManager>;
+    contextManager: ContextManager;
     mod: { controller: AbortController };
   },
 ): Promise<boolean> {

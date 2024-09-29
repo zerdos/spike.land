@@ -14,7 +14,7 @@ vi.mock("../config/aiConfig", () => ({
   reminder: vi.fn(() => "Mocked reminder content"),
 }));
 vi.mock("../contextManager", () => ({
-  new ContextManager: vi.fn(() => ({
+  ContextManager: vi.fn(() => ({
     getFullContext: vi.fn(() => ({})),
     updateContext: vi.fn(),
   })),

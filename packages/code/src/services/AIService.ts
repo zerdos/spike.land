@@ -265,7 +265,6 @@ export class AIService {
     } catch (error) {
       console.error("Error retrying with Claude:", error);
       try {
-        
         const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
           setMessages((prevMessages) => {
             const lastMessage = prevMessages[prevMessages.length - 1];
