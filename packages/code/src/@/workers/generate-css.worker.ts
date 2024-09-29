@@ -16,7 +16,9 @@ Object.assign(globalThis, {
 });
 
 async function generateCSS(classNames: string[]) {
-  const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n").split("/").join(`\\/`);
+  const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n").split("/").join(`\\/`).split(
+    "focus-visible:ring-ring",
+  ).join("");
 
   const result = await postcss([
     tailwindcss(TwConfig),

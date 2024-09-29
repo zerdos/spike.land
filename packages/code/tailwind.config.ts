@@ -774,7 +774,7 @@ export default {
 		2: '2px',
 		4: '4px',
 		8: '8px',
-	  },
+	  },	
 	  ringOpacity: ({ theme }) => ({
 		DEFAULT: '0.5',
 		...theme('opacity'),
