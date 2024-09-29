@@ -52,13 +52,11 @@ const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string
 };
 
 export const transpile = async (
-  code: string,
-  origin: string,
-  wasmModule?: WebAssembly.Module,
+  { code, originToUse, wasmModule }: { code: string; originToUse: string; wasmModule?: WebAssembly.Module },
 ): Promise<string | { error: unknown }> => {
   return mutex.runExclusive(async () => {
     try {
-      await initializeModule(wasmModule, origin);
+      await initializeModule(wasmModule, originToUse);
 
       try {
         const transformedCode = await transform(code, {
@@ -79,7 +77,7 @@ export const transpile = async (
           target: "es2024",
         });
 
-        return importMapReplace(transformedCode.code, origin);
+        return importMapReplace(transformedCode.code, originToUse);
       } catch (error) {
         if (error instanceof Error) {
           console.error("Error during transpile:", error.message);

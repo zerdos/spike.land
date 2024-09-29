@@ -5,7 +5,7 @@ import { RpcProvider } from "worker-rpc";
 type WorkerFunctions = {
   ata: (params: { code: string; originToUse: string }) => Promise<unknown>;
   prettierCss: (code: string) => Promise<string>;
-  prettierJs: (params: { code: string; toThrow: boolean }) => Promise<string>;
+  prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean }) => Promise<string>;
   createWorkflow: (q: string) => Promise<unknown>;
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;

@@ -195,14 +195,16 @@ const mutex = new Mutex();
 export const transpile = async ({
   code,
   originToUse,
+  wasmModule,
 }: {
   code: string;
   originToUse: string;
+  wasmModule?: WebAssembly.Module;
 }): Promise<string> =>
   mutex.runExclusive(async () => {
     const worker = workerPool.getWorker("esbuild");
     try {
-      return await worker.rpc.rpc("transpile", { code, originToUse });
+      return await worker.rpc.rpc("transpile", { code, originToUse, wasmModule });
     } catch (e) {
       console.error(e);
       throw e;
