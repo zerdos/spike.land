@@ -176,7 +176,7 @@ export const updateSearchReplace = async (
 ): Promise<string> => {
   const worker = workerPool.getWorker("search-replace");
   try {
-    return await worker.rpc.rpc("updateSearchReplace", { code, instructions });
+    return await worker.rpc.rpc("updateSearchReplace", code, instructions);
   } finally {
     workerPool.releaseWorker(worker);
   }
