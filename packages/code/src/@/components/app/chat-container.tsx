@@ -97,7 +97,7 @@ export const ChatContainer: React.FC<
   }, [isStreaming]);
 
   const renderMessage = useCallback(
-    (message: any, hashedKey: string) => (
+    (message: Message, hashedKey: string) => (
       <ChatMessage
         key={hashedKey}
         message={message}
