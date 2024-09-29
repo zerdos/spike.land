@@ -106,7 +106,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                   <h4 className="font-semibold text-sm">Error Log:</h4>
                   <ScrollArea className="h-[100px]">
                     <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
-                      {errorLog.split('\n').map((log, index) => (
+                      {errorLog.split('\n').map((log: string, index: number) => (
                         <div key={index} className="mb-1">
                           {log}
                         </div>
