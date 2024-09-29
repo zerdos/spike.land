@@ -10,22 +10,30 @@ Object.assign(globalThis, {
   process: {
     cwd: () => "/",
     emitWarning: () => {},
-    env: { NODE_ENV: "development" },
+    env: { NODE_ENV: "production" },
     platform: "browser",
   },
 });
 
 async function generateCSS(classNames: string[]) {
-  const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n").split("/").join(`\\/`).split(
-    "focus-visible:ring-ring",
-  ).join("");
+  const safeClassNames = classNames
+    .map(cls => cls.replace(/[^\w-/:]/g, ""))
+    .filter(Boolean);
 
-  const result = await postcss([
-    tailwindcss(TwConfig),
-    autoprefixer(),
-  ]);
+  const cssString = safeClassNames
+    .map(cls => `.${cls} { @apply ${cls}; }`)
+    .join("\n");
 
-  return result.process(cssString, { from: undefined }).then((result) => result.css);
+  try {
+    const result = await postcss([
+      tailwindcss(TwConfig),
+      autoprefixer,
+    ]).process(cssString, { from: undefined });
+
+    return result.css;
+  } catch (error) {
+    throw new Error(`CSS generation failed: ${(error as Error).message}`);
+  }
 }
 
 Object.assign(globalThis, { generateCSS });
