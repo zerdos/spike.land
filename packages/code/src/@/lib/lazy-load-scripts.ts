@@ -1,4 +1,5 @@
-const loadedScripts: Set<string> = new Set();
+const loadedScripts: Set<string> = (globalThis as { [key: string]: any }).loadedScripts || new Set<string>();
+(globalThis as { [key: string]: any }).loadedScripts = loadedScripts;
 
 export const lazyLoadScript = (scriptName: string): void => {
   if (!loadedScripts.has(scriptName)) {

@@ -1,3 +1,6 @@
+lazyLoadScript("dts");
+
+import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
 const self = globalThis;
@@ -99,6 +102,7 @@ export const myATA = async (code: string) => {
 const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string> }).tsx as unknown as (
   code: string,
 ) => Promise<string[]>;
+
 export async function ata({
   code,
   originToUse,
