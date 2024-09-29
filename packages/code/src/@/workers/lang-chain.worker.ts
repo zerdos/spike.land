@@ -37,7 +37,7 @@ const createWorkflow = async (prompt: string) => {
 
   const tools = [weatherTool];
   const toolNode = new ToolNode({
-    tools: tools as any, // Cast to any to avoid TypeScript error
+    tools: tools, // Ensure tools is correctly typed
     return_direct: false,
   });
 
@@ -67,7 +67,7 @@ const createWorkflow = async (prompt: string) => {
 
   const workflow = new StateGraph<AgentState>({ channels: graphState })
     .addNode("agent", callModel)
-    .addNode("tools", toolNode as any)
+    .addNode("tools", toolNode)
     .addEdge("__start__", "agent")
     .addConditionalEdges("agent", shouldContinue)
     .addEdge("tools", "agent");
