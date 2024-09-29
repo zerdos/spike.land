@@ -9,7 +9,7 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
-function memoize<T extends (...args: any[]) => Promise<any>>(
+function memoize<T extends (...args: unknown[]) => Promise<unknown>>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
 ): T {

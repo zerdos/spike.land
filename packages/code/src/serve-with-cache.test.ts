@@ -497,7 +497,7 @@ describe("serveWithCache", () => {
       },
     };
 
-    vi.mocked(require("@/lib/importmap-utils")).importMap = importMapMock;
+    vi.mocked(await import("@/lib/importmap-utils")).importMap = importMapMock;
 
     const { serve } = serveWithCache(files, cacheToUse);
 

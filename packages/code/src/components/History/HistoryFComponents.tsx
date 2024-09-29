@@ -49,7 +49,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
 );
 
 // RestoreStatusAlert component
-const RestoreStatusAlert = ({ status }: { status: any }) => (
+const RestoreStatusAlert = ({ status }: { status: { type: string; message: string } }) => (
   <Alert variant={status.type === "error" ? "destructive" : "default"}>
     <AlertTitle>
       {status.type === "loading"
