@@ -15,7 +15,7 @@ Object.assign(globalThis, {
 });
 
 async function generateCSS(classNames: string[]) {
-  const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n");
+  const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n").split("/").join(`\\/`);
 
   const result = await postcss([
     tailwindcss(),
