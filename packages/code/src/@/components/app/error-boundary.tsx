@@ -19,7 +19,7 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode, 
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     if (this.props.codeSpace) {
-      const contextManager = createContextManager(this.props.codeSpace);
+      const contextManager = new ContextManager(this.props.codeSpace);
       contextManager.updateContext("errorLog", error.toString());
     }
 

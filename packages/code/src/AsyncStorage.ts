@@ -50,7 +50,7 @@ export class AsyncLocalStorage {
 
   // This method mimics the behavior of asyncLocalStorage.getStore()
   // in the Node.js implementation
-  getStoreSync(): any {
+  getStoreSync() {
     return this.currentStore;
   }
 }

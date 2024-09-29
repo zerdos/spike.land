@@ -39,13 +39,13 @@ export class AIService {
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
   private cSess: ICode;
-  private contextManager: ReturnType<typeof createContextManager>;
+  private contextManager: ContextManager;
 
   constructor(config: AIServiceConfig, cSess: ICode, codeSpace: string) {
     this.config = config;
     this.streamHandler = new StreamHandler();
     this.cSess = cSess;
-    this.contextManager = createContextManager(codeSpace);
+    this.contextManager = new ContextManager(codeSpace);
   }
 
   private getEndpoint(type: AIEndpoint): string {
@@ -57,7 +57,7 @@ export class AIService {
     return endpointMap[type];
   }
 
-  private formatMessageContent(content: MessageContent): any {
+  private formatMessageContent(content: MessageContent) {
     if (typeof content === "string") {
       return content;
     } else if (Array.isArray(content)) {
@@ -263,7 +263,9 @@ export class AIService {
 
       return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
     } catch (error) {
+      console.error("Error retrying with Claude:", error);
       try {
+        
         const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
           setMessages((prevMessages) => {
             const lastMessage = prevMessages[prevMessages.length - 1];
@@ -278,7 +280,7 @@ export class AIService {
         setMessages((prevMessages) => [...prevMessages, answer]);
 
         return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
-      } catch (_error) {
+      } catch (error) {
         console.error("Error retrying with Claude:", error);
         setMessages((prevMessages) => [
           ...prevMessages,

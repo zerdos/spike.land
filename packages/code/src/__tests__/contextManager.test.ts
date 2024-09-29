@@ -3,12 +3,12 @@ import { beforeEach, describe, expect, test } from "vitest";
 
 describe("ContextManager", () => {
   const codeSpace = "testCodeSpace";
-  let contextManager: ReturnType<typeof createContextManager>;
+  let contextManager: ContextManager;
 
   beforeEach(() => {
     // Clear localStorage before each test
     localStorage.clear();
-    contextManager = createContextManager(codeSpace);
+    contextManager = new ContextManager(codeSpace);
   });
 
   test("initializes with empty context", () => {

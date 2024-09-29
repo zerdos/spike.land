@@ -1,14 +1,11 @@
-import type { ProjectContext } from "@/lib/context-manager";
+import type { ContextManager } from "@/lib/context-manager";
 import type { ErrorType } from "@src/components/ErrorMessages";
 import { useEffect } from "react";
 
 export const useErrorEffect = (
   errorType: ErrorType | null,
   codeSpace: string,
-  contextManager: {
-    getContext: (key: keyof ProjectContext) => string;
-    updateContext: (key: keyof ProjectContext, content: string) => void;
-  },
+  contextManager:  ContextManager,
   setShowError: (show: boolean) => void,
 ) => {
   useEffect(() => {

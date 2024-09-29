@@ -50,7 +50,7 @@ export async function processMessage(
     newUserMessage: Message;
   },
 ): Promise<boolean> {
-  const contextManager = createContextManager(useCodeSpace());
+  const contextManager = new ContextManager(useCodeSpace());
 
   const maxRetries = 3;
   let retries = 0;
@@ -136,7 +136,7 @@ function createOnUpdateFunction({
 }: {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   cSess: ICode;
-  contextManager: ReturnType<typeof createContextManager>;
+  contextManager: ReturnType<typeof new ContextManager>;
   startCode: string;
   mod: { controller: AbortController };
 }) {
@@ -297,7 +297,7 @@ async function handleErrorMessage(
     aiHandler: AIHandler;
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     cSess: ICode;
-    contextManager: ReturnType<typeof createContextManager>;
+    contextManager: ReturnType<typeof new ContextManager>;
     mod: { controller: AbortController };
   },
 ): Promise<boolean> {

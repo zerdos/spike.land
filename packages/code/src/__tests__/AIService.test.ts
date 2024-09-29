@@ -14,7 +14,7 @@ vi.mock("../config/aiConfig", () => ({
   reminder: vi.fn(() => "Mocked reminder content"),
 }));
 vi.mock("../contextManager", () => ({
-  createContextManager: vi.fn(() => ({
+  new ContextManager: vi.fn(() => ({
     getFullContext: vi.fn(() => ({})),
     updateContext: vi.fn(),
   })),
@@ -91,7 +91,7 @@ describe("AIService", () => {
       ];
       const onUpdate = vi.fn();
 
-      const sendToAISpy = vi.spyOn(aiService, "sendToAI" as any);
+      const sendToAISpy = vi.spyOn(aiService, "sendToAI");
       sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "Response" });
 
       await aiService.sendToAnthropic(mockMessages, onUpdate);
@@ -107,7 +107,7 @@ describe("AIService", () => {
       ];
       const onUpdate = vi.fn();
 
-      const sendToAISpy = vi.spyOn(aiService, "sendToAI" as any);
+      const sendToAISpy = vi.spyOn(aiService, "sendToAI");
       sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "Response" });
 
       await aiService.sendToGpt4o(mockMessages, onUpdate);
