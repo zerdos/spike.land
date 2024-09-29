@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-export default {
+const config: Config = {
 	content: ["./src/**/*.tsx"],
 	presets: [],
 	darkMode: 'media', // or 'class'
@@ -1107,3 +1107,4 @@ export default {
 
 } 
 
+export default config;
