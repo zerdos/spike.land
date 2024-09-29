@@ -179,40 +179,45 @@ function createOnUpdateFunction({
     }
     try {
       const lastSuccessCut = mod.actions[mod.actions.length - 1]?.startPos || 0;
-
+      const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
       const lastCode = mod.lastCode;
       const chunk = instructions.slice(lastSuccessCut);
       mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
 
       if (md5(mod.lastCode) === md5(lastCode)) {
         mod.actions.push({
-          type: "skip",
+          DIFFs,
           chars: instructions.length,
+          type: "skip",
+
           startPos: lastSuccessCut,
-          lastSuccessCut,
-          chunk,
           chunLength: chunk.length,
+          chunk,
+
+          lastSuccessCut,
           hash: md5(lastCode),
         });
         console.table(mod.actions[mod.actions.length - 1]);
       } else {
         mod.actions.push({
-          type: "updated",
-          lastCode: mod.lastCode,
+          DIFFs: DIFFs + 1,
           chars: instructions.length,
-          lastSuccessCut: instructions.length,
+          type: "updated",
           startPos: lastSuccessCut,
-          chunk,
           chunLength: chunk.length,
+          chunk,
+          lastSuccessCut,
           hash: md5(mod.lastCode),
         });
         console.table(mod.actions[mod.actions.length - 1]);
 
         const success = await trySetCode(cSess, lastCode);
         mod.actions.push({
-          type: success ? "success" : "error",
           chars: instructions.length,
+          chunk,
+          type: success ? "success" : "error",
           startPos: lastSuccessCut,
+          lastCode,
           hash: md5(mod.lastCode),
         });
         console.table(mod.actions[mod.actions.length - 1]);
