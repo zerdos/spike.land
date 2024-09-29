@@ -1,5 +1,5 @@
 import React from "react";
-import { createContextManager } from "@/lib/context-manager";
+import { ContextManager } from "@/lib/context-manager";
 
 type ErrorBoundaryState = {
   hasError: boolean;

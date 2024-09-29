@@ -1,4 +1,4 @@
-import { createContextManager } from "@/lib/context-manager";
+import { ContextManager } from "@/lib/context-manager";
 import { beforeEach, describe, expect, test } from "vitest";
 
 describe("ContextManager", () => {

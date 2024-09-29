@@ -1,5 +1,5 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { createContextManager } from "@/lib/context-manager";
+import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";

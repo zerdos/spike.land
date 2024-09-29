@@ -1,5 +1,5 @@
 import type { ProjectContext } from "@/lib/context-manager";
-import { createContextManager } from "@/lib/context-manager";
+import { ContextManager } from "@/lib/context-manager";
 
 interface ContextHook {
   getContext: (key: keyof ProjectContext) => string;
