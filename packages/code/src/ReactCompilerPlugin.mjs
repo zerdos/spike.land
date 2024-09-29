@@ -22,7 +22,9 @@ export function ReactCompilerEsbuildPlugin({
         if (timings.length < 1) return;
 
         const totalTime = timings.reduce((sum, x) => sum + x, 0).toFixed(0);
+        // eslint-disable-next-line no-console
         console.log(`[⚛️  React Compiler] ${timings.length} files changed`);
+        // eslint-disable-next-line no-console
         console.log(`[⚛️  React Compiler] Used ${totalTime} ms`);
 
         timings = [];

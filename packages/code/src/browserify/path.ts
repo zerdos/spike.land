@@ -22,7 +22,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function assertPath(path: any) {
+function assertPath(path: unknown) {
   if (typeof path !== "string") {
     throw new TypeError("Path must be a string. Received " + JSON.stringify(path));
   }

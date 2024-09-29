@@ -9,23 +9,21 @@ import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 import { Code } from "./ws";
 
 declare global {
-  var sharedWorker: SharedWorker
-  var rRoot: ReturnType<typeof Cr>;
-  var cssCache: EmotionCache;
-  var firstRender: {
+  let sharedWorker: SharedWorker;
+  let rRoot: ReturnType<typeof Cr>;
+  let cssCache: EmotionCache;
+  let firstRender: {
     code: string;
     css: string;
     html: string;
   };
 
-  // var session: ICodeSession;
-  // var esbuildEsm: Transpile;
-  var swVersion: string;
-  var apps: { [key: string]: FC<{ appId: string }> };
-  var eCaches: { [key: string]: EmotionCache };
-  const emotionReact: typeof ear;
+  let swVersion: string;
+  let apps: { [key: string]: FC<{ appId: string }> };
+  let eCaches: { [key: string]: EmotionCache };
+  let emotionReact: typeof ear;
 
-  const workerDom: boolean;
+  let workerDom: boolean;
   export namespace ReactJSXRuntime {
     export const jsx: typeof EmotionReact.jsx;
   }

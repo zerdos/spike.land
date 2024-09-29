@@ -24,10 +24,9 @@ export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code, s
     })().catch(console.error);
 
     return () => {
-      if (rendered! !== null) {
-         rendered && rendered.cleanup();    
+      if (rendered !== null && rendered !== undefined) {
+        rendered.cleanup();
       }
-   
     };
   }, []);
 

@@ -15,7 +15,7 @@ export const importMap = {
   },
 } as { imports: Record<string, string> };
 
-export function importMapReplace(code: string, origin: string): string {
+export function importMapReplace(code: string | ArrayBuffer, origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
   if (code.slice(0, 30).includes("importMapReplace")) {
     return code;

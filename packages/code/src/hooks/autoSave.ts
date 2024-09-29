@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 
 interface AutoSaveOptions {
   key: string;
-  data: any;
+  data: unknown;
   debounceMs?: number;
 }
 

@@ -278,7 +278,7 @@ export class AIService {
         setMessages((prevMessages) => [...prevMessages, answer]);
 
         return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
-      } catch (error) {
+      } catch (_error) {
         console.error("Error retrying with Claude:", error);
         setMessages((prevMessages) => [
           ...prevMessages,

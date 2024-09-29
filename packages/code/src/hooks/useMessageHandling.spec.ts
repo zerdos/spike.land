@@ -56,7 +56,7 @@ describe("useMessageHandling", () => {
     setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
   };
 
-  const mockProps: UseMessageHandlingProps = {
+  const mockProps: Partial<UseMessageHandlingProps> = {
     codeSpace: "test-space",
     messages: [],
     setMessages: vi.fn(),

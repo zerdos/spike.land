@@ -1,4 +1,4 @@
-const JSX = require("react/jsx-runtime");
+import JSX from "react/jsx-runtime";
 
 export const { jsx, jsxs, Fragment } = JSX;
 

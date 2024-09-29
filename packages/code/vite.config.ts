@@ -106,7 +106,7 @@ export default defineConfig({
         target: PROXY_BASE_URL,
         changeOrigin: true,
         configure: (proxy, _options) => {
-          proxy.on("proxyRes", (proxyRes, _req, res) => {
+          proxy.on("proxyRes", (proxyRes, req, res) => {
             let body = "";
             proxyRes.on("data", (chunk) => {
               body += chunk;

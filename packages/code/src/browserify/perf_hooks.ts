@@ -6,6 +6,7 @@ const nodeTiming = {};
 // This could be implemented by wrapping the `PerformanceObserver` callback
 // and using `performance.measure()` with a special name (like "timerified [fn]")
 // Then when `entryTypes: ['function']` is passed we observe "measure" instead and filter the entries.
+// eslint-disable-next-line @typescript-eslint/ban-types
 function timerify<T extends Function>(fn: T): T {
   return fn;
 }

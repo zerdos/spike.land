@@ -61,8 +61,8 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
       controller: new AbortController(),
       oldSession: makeSession(sess),
       lastCounter: 0,
-      broadcastChannel: null as any, // Will be initialized below
-      webSocket: null as any, // Will be initialized below
+      broadcastChannel: null as unknown as BroadcastChannel, // Will be initialized below
+      webSocket: null as unknown as Socket, // Will be initialized below
     };
 
     // Initialize the WebSocket and BroadcastChannel

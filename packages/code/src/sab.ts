@@ -43,7 +43,7 @@ export function str2sab(str: string) {
 // }
 
 export function ab2str(buf: ArrayBuffer) {
-  // @ts-ignore
+  // @ts-expect-error: Argument of type 'Uint16Array' is not assignable to parameter of type 'number[]'.
   return String.fromCharCode.apply(null, new Uint16Array(buf));
 }
 

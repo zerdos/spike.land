@@ -185,7 +185,7 @@ async function startMonacoPristine({
     const link = document.createElement('link');
 
     const promiseIsResolved = new Promise((resolve) => {
-      link.onload = resolve;
+      link.onload = () => resolve();
     })
 
     link.rel = 'stylesheet';

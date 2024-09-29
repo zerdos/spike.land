@@ -22,7 +22,7 @@ describe("useMessageHandling", () => {
       code: "initial code",
     },
     setCode: vi.fn(),
-  } as any;
+  } as Partial<ICode>;
 
   const defaultProps = {
     codeSpace: "testCodeSpace",
