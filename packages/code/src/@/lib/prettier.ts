@@ -72,7 +72,7 @@ export const addSomeFixesIfNeeded = (_code: string): string => {
 const formatCssContent = (cssContent: string, indent: string): string => {
   // Replace interpolations with placeholders
   const placeholderPrefix = "__INTERPOLATION_PLACEHOLDER_";
-  let interpolations: string[] = [];
+  const interpolations: string[] = [];
   let placeholderIndex = 0;
 
   const contentWithPlaceholders = cssContent.replace(/\${(.*?)}/g, (match) => {

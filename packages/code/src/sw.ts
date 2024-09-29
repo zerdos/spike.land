@@ -11,8 +11,8 @@ const { serveWithCache, CodeSessionBC } = globalThis as unknown as {
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
   swVersion: string;
-  cSessions: { [key: string]: CsBc };
-  files: { [key: string]: string };
+  cSessions: Record<string, CsBc>;
+  files: Record<string, string>;
   fileCacheName: string;
 };
 
@@ -33,7 +33,7 @@ async function fetchConfig() {
 }
 
 // Fetch the configuration initially
-let configPromise = fetchConfig();
+const configPromise = fetchConfig();
 
 // Access the files from sw.files
 const files = sw.files;
@@ -41,7 +41,7 @@ const files = sw.files;
 const filesByCacheKeys = Object.entries(files).reduce((acc, [key, value]) => {
   acc[value] = key;
   return acc;
-}, {} as { [key: string]: string });
+}, {} as Record<string, string>);
 
 // Instantiate serveWithCache with dynamic cache name
 const { isAsset, serve } = serveWithCache(
@@ -74,7 +74,7 @@ sw.addEventListener("activate", (event) => {
 
       if (config?.killSwitch) {
         // If killSwitch is activated, unregister and delete caches
-        console.log("Kill switch activated. Unregistering Service Worker.");
+        console.log("Kill switch activated. unRegistering Service Worker.");
         await sw.registration.unregister();
         const cacheNames = await caches.keys();
         await Promise.all(cacheNames.map((cache) => caches.delete(cache)));

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { ChatContainerProps } from "@/lib/interfaces";
+import type { ChatContainerProps } from "@/lib/interfaces";
 
 import { ChatMessage } from "@/components/app/chat-message";
 import { motion } from "framer-motion";

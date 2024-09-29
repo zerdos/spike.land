@@ -1,5 +1,5 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -58,7 +58,7 @@ class WorkerPool {
     let availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag);
 
     if (!availableWorker) {
-      let nonBusyWorker = this.workers.find((worker) => !worker.busy);
+      const nonBusyWorker = this.workers.find((worker) => !worker.busy);
       if (nonBusyWorker) {
         nonBusyWorker.tag = tag;
         nonBusyWorker.busy = true;

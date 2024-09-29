@@ -8,14 +8,14 @@ declare module "/live/code-main/js" {
 }
 declare module "/*";
 
-declare var URL: {
+declare let URL: {
   new (url: string | URL, base?: string | URL): URL;
   prototype: URL;
   canParse(url: string | URL, base?: string): boolean;
   createObjectURL(obj: Blob | MediaSource): string;
   revokeObjectURL(url: string): void;
 };
-declare var VI_TEST: string;
+declare let VI_TEST: string;
 
 declare global {
 

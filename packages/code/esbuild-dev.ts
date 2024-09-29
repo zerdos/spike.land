@@ -1,3 +1,4 @@
+
 import {
   buildMainBundle,
   buildMainScripts,
@@ -5,9 +6,10 @@ import {
   buildWasm,
   buildWorkers,
 } from "@/lib/esbuild-build-tasks";
+
 import { stop } from "@/lib/esbuild-operations";
 
-const getWasmFile = async (): Promise<string> => {
+const getWasmFile = async () => {
   const { promises } = await import("node:fs");
   const { readdir } = promises;
 
@@ -19,6 +21,7 @@ const getWasmFile = async (): Promise<string> => {
       return file;
     }
   }
+
   console.error("WASM file not found in ./dist");
   throw new Error("WASM file not found");
 };

@@ -1,11 +1,12 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
-import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
+import type { Socket } from "@github/stable-socket";
+import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 
 // Define the properties of `self` with proper types
-declare var self: SharedWorkerGlobalScope & {
+declare let self: SharedWorkerGlobalScope & {
   ata: unknown;
   connections: Map<string, Connection>;
   prettierCss: unknown;

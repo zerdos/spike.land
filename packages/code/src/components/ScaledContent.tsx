@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { JSX } from "@emotion/react/jsx-runtime";
+import type { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
 
 export const ScaledContent = (

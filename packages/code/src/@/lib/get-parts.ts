@@ -1,4 +1,4 @@
-import { LanguageMap } from "@/lib/interfaces";
+import type { LanguageMap } from "@/lib/interfaces";
 
 const programmingLanguages: LanguageMap = {
   javascript: ".js",

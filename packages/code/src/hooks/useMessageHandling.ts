@@ -1,6 +1,6 @@
-import { ImageData } from "@/lib/interfaces";
-import { Message } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
+import type { ImageData } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";

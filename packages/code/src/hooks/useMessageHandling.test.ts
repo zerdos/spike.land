@@ -1,5 +1,5 @@
-import { Message } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useMessageHandling } from "./useMessageHandling";

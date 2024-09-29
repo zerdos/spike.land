@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { TextDecoder, TextEncoder } from "text-encoding";
-import { Mock, vi } from "vitest";
+import type { Mock } from "vitest";
+import { vi } from "vitest";
 
 // Add type definitions for ResizeObserver
 declare global {
@@ -8,8 +9,8 @@ declare global {
     ResizeObserver: Mock;
   }
 
-  var TextEncoder: typeof TextEncoder;
-  var TextDecoder: typeof TextDecoder;
+  // const TextEncoder: typeof TextEncoder;
+  // const TextDecoder: typeof TextDecoder;
 }
 
 globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({

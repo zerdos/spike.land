@@ -1,4 +1,4 @@
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 
 export class CodeSessionBC {

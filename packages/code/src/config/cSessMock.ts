@@ -1,4 +1,4 @@
-import { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 
 class SessMock implements ICode {
   buffy: Promise<void>[] = [];

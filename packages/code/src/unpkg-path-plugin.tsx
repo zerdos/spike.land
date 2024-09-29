@@ -1,4 +1,4 @@
-import * as esbuild from "esbuild-wasm";
+import type * as esbuild from "esbuild-wasm";
 
 export const unpkgPathPlugin = (origin: string) => ({
   name: "unpkg-path-plugin",

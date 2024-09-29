@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, X } from "@/external/lucideReact";
-import { ChatHeaderProps } from "@/lib/interfaces";
+import type { ChatHeaderProps } from "@/lib/interfaces";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 

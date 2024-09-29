@@ -5,7 +5,8 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as messageProcessing from "./messageProcessing";
 import * as useAutoSave from "./useAutoSave";
-import { useMessageHandling, UseMessageHandlingProps } from "./useMessageHandling";
+import type { UseMessageHandlingProps } from "./useMessageHandling";
+import { useMessageHandling } from "./useMessageHandling";
 
 // Mock dependencies
 vi.mock("@src/AIHandler", () => ({

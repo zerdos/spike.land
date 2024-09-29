@@ -1,6 +1,6 @@
 import { createContextManager } from "@/lib/context-manager";
-import { Message, MessageContent } from "@/lib/interfaces";
-import { ICode } from "@/lib/interfaces";
+import type { Message, MessageContent } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";

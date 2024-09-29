@@ -1,5 +1,5 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];

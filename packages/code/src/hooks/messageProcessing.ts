@@ -1,6 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { createContextManager } from "@/lib/context-manager";
-import { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
+import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
@@ -65,13 +65,13 @@ export async function processMessage(
   );
 
   // Create a copy of the messages array to work with
-  let workingMessages = [...messages];
+  const workingMessages = [...messages];
 
   while (retries < maxRetries) {
     try {
       console.log(`Processing message (attempt ${retries + 1})`);
 
-      let assistantMessage = await sendAssistantMessage(
+      const assistantMessage = await sendAssistantMessage(
         aiHandler,
         workingMessages,
         onUpdate,
@@ -259,12 +259,12 @@ async function processAssistantMessage(
   codeNow: string,
   cSess: ICode,
 ): Promise<boolean> {
-  let contentToProcess = extractTextContent(assistantMessage.content);
+  const contentToProcess = extractTextContent(assistantMessage.content);
 
   const starterCode1 = await updateSearchReplace(contentToProcess, codeNow);
   const starterCode2 = await updateSearchReplace(contentToProcess + `\n foo \n`, codeNow);
 
-  let starterCode = starterCode1 !== starterCode2 ? codeNow : starterCode1;
+  const starterCode = starterCode1 !== starterCode2 ? codeNow : starterCode1;
 
   if (starterCode !== codeNow) {
     const success = await trySetCode(cSess, starterCode);
@@ -314,7 +314,7 @@ async function handleErrorMessage(
     { setMessages, cSess, contextManager, startCode: codeNow, mod },
   );
 
-  let assistantMessage = await sendAssistantMessage(
+  const assistantMessage = await sendAssistantMessage(
     aiHandler,
     updatedMessages,
     newOnUpdate,
@@ -328,7 +328,7 @@ async function handleErrorMessage(
   // Update the state with all messages, including the new assistant message
   setMessages([...updatedMessages]);
 
-  let contentToProcess = extractTextContent(assistantMessage.content);
+  const contentToProcess = extractTextContent(assistantMessage.content);
 
   const starterCode = await updateSearchReplace(contentToProcess, codeNow);
   const success = await trySetCode(cSess, starterCode);

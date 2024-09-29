@@ -1,4 +1,4 @@
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { RpcProvider } from "worker-rpc";
 

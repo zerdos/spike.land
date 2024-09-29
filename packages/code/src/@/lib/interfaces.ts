@@ -1,5 +1,5 @@
 import type { EmotionCache } from "@emotion/cache";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { Root } from "react-dom/client";
 
 export interface ChatHeaderProps {

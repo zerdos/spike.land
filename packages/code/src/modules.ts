@@ -16,13 +16,14 @@ export { serveWithCache } from "@/lib/serve-with-cache.ts";
 export { md5 } from "@/lib/md5.ts";
 export { routes } from "@/lib/routes.ts";
 
-import { Delta } from "./textDiff";
+import type { Delta } from "./textDiff";
 export { importMapReplace };
 
 export { serverFetchUrl } from "@/lib/enhanced-fetch";
 
-import { ICodeSession } from "@/lib/interfaces";
-import { applyCodePatch, CodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess.ts";
+import type { ICodeSession } from "@/lib/interfaces";
+import type { CodePatch } from "@/lib/make-sess.ts";
+import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess.ts";
 
 export { importMap };
 

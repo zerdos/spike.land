@@ -113,7 +113,7 @@ export async function ata({
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
-  let res = (await tsx(code)).filter((x) => x.includes("@/"));
+  const res = (await tsx(code)).filter((x) => x.includes("@/"));
   try {
     await Promise.all(
       res.map(async function(r: string) {

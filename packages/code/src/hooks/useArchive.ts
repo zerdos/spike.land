@@ -24,7 +24,7 @@ export const useSpeedy2 = async () => {
   const codeSpace = useCodeSpace();
 
   console.log({ external });
-  let res = await build({
+  const res = await build({
     codeSpace,
     splitting: true,
 

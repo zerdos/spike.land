@@ -3,7 +3,8 @@ import { makeEnv } from "@/lib/esbuild-make-env";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { wasmFile } from "@src/esbuildWASM";
 import { Mutex } from "async-mutex";
-import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
+import type { BuildOptions } from "esbuild-wasm";
+import { build as esmBuild, initialize, transform } from "esbuild-wasm";
 
 export { wasmFile };
 

@@ -2,7 +2,7 @@ import { FaDownload, MdFullscreen as FullscreenIcon } from "@/external/icons";
 import { css } from "@emotion/react";
 import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
-import { FC } from "react";
+import type { FC } from "react";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
 

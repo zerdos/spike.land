@@ -1,4 +1,4 @@
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";

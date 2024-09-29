@@ -1,4 +1,4 @@
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useCallback, useRef, useState } from "react";
 

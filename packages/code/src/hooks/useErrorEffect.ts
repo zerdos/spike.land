@@ -1,4 +1,4 @@
-import { ErrorType } from "@src/components/ErrorMessages";
+import type { ErrorType } from "@src/components/ErrorMessages";
 import { useEffect } from "react";
 
 export const useErrorEffect = (

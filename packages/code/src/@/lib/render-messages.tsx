@@ -1,4 +1,5 @@
-import React, { FC, memo, useMemo } from "react";
+import type { FC} from "react";
+import React, { memo, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  

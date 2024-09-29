@@ -6,7 +6,7 @@ import {ChatInterface} from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
-import { ICode } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 
 const ResizeHandle = () => (
   <PanelResizeHandle className="w-2 bg-white/20 hover:bg-white/40 transition-colors">

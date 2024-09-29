@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { loadVersionHistory, Version } from "../codeHistoryUtils";
+import type { Version } from "../codeHistoryUtils";
+import { loadVersionHistory } from "../codeHistoryUtils";
 
 interface HistoryItem {
   code: string;

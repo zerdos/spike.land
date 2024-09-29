@@ -36,7 +36,7 @@ function intToString(n: number): string {
   let alphaPart = "";
   let alphanumericPart = "";
 
-  for (let char of base62) {
+  for (const char of base62) {
     if (alphaPart.length === 0 || alpha.includes(char)) {
       alphaPart += char;
     } else {

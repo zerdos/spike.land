@@ -1,4 +1,4 @@
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import diff from "fast-diff";
 import { hash, Record } from "immutable";
 

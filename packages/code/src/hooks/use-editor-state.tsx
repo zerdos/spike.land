@@ -1,6 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { EditorState } from "@src/components/editorUtils";
-import { ErrorType } from "@src/components/ErrorMessages";
+import type { EditorState } from "@src/components/editorUtils";
+import type { ErrorType } from "@src/components/ErrorMessages";
 import { useRef, useState } from "react";
 import { useContext } from "./useContext";
 

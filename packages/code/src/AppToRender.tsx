@@ -1,4 +1,5 @@
-import { FC, useState } from 'react';
+import type { FC} from 'react';
+import { useState } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { Bot, History } from "@/external/lucideReact";
 
@@ -10,7 +11,7 @@ import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { useAuth } from "@clerk/clerk-react";
 
-import { ICode } from '@/lib/interfaces';
+import type { ICode } from '@/lib/interfaces';
 import { cn } from "@/lib/utils";
 
 const Header: FC = () => (

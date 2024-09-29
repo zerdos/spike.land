@@ -1,6 +1,7 @@
 import type { ICode } from "@/lib/interfaces";
 import React, { useCallback, useEffect, useState } from "react";
-import { loadVersionHistory, Version } from "../codeHistoryUtils";
+import type { Version } from "../codeHistoryUtils";
+import { loadVersionHistory } from "../codeHistoryUtils";
 import type { IHistoryItem } from "@/lib/interfaces";
 import { FullScreenHistoryView, } from "./History/HistoryFComponents";
 

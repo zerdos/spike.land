@@ -1,4 +1,4 @@
-import { ImageData } from "@/lib/interfaces";
+import type { ImageData } from "@/lib/interfaces";
 import { describe, expect, it, vi } from "vitest";
 import { createNewMessage } from "./messageProcessing";
 

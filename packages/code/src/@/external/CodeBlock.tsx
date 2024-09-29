@@ -1,7 +1,8 @@
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 import { ClipboardDocumentIcon, ClipboardIcon, DocumentDuplicateIcon } from "@heroicons/react/20/solid";
-import { FC, memo, useState } from "react";
+import type { FC} from "react";
+import { memo, useState } from "react";
 
 interface Props {
   language: string;

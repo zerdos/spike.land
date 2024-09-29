@@ -1,4 +1,5 @@
-import { useState, useEffect, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { keyframes } from "@emotion/react";
 import { cn } from "@/lib/utils";
 import { useDarkMode } from "@/hooks/use-dark-mode";

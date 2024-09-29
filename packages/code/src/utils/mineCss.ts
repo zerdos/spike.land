@@ -1,4 +1,4 @@
-import { EmotionCache } from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 
 /**
  * Extracts CSS styles from various sources in the document.

@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 
-import { EmotionCache } from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
@@ -290,7 +290,7 @@ const handleRender = async (
     for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
 
-      let css = mineFromCaches(cache);
+      const css = mineFromCaches(cache);
       const criticalClasses = new Set(
         css
           .map((line) => {

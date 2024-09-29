@@ -1,8 +1,8 @@
 import type { EmotionCache } from "@emotion/cache";
-import EmotionReact from "@emotion/react";
+import type EmotionReact from "@emotion/react";
 import type { FC } from "react";
 import type {} from "react-dom";
-import ear from "@emotion/react";
+import type ear from "@emotion/react";
 import { RequestInitWithRetry } from "fetch-retry";
 import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";

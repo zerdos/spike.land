@@ -1,6 +1,6 @@
 import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 
 // Define a type for the gradient colors
 type GradientColor = {
