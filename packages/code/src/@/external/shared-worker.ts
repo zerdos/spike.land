@@ -2,7 +2,7 @@
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
-  private worker: Worker;
+  private worker!: Worker;
   public port: MessagePort;
 
   constructor(url: string, opts?: WorkerOptions) {
@@ -10,16 +10,20 @@ class SharedWorkerPolyfill {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
         this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
+        this.initializeWorker();
       });
     } else {
       this.worker = new Worker(url, opts);
+      this.initializeWorker();
     }
     // Create a MessageChannel
     const channel = new MessageChannel();
     this.port = channel.port1;
+  }
 
+  private initializeWorker() {
     // Send port2 to the worker
-    this.worker.postMessage({ type: "init" }, [channel.port2]);
+    this.worker.postMessage({ type: "init" }, [this.port]);
 
     // Forward error events from the worker to the port
     this.worker.onerror = (event) => {

@@ -68,7 +68,7 @@ async function renderApp(
       container: rootEl.parentNode!,
     });
 
-    const AppWithScreenSize: React.FC<{ width: number; height: number }> = React.memo(function AppWithScreenSize() {
+    const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
       const [dimensions, setDimensions] = useState({ width: innerWidth, height: innerHeight });
 
       const throttledSetDimensions = useCallback(
