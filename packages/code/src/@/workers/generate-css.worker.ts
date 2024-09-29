@@ -14,15 +14,15 @@ Object.assign(globalThis, {
   },
 });
 
-function generateCSS(classNames: string[]) {
+async function generateCSS(classNames: string[]) {
   const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n");
 
-  const result = postcss([
+  const result = await postcss([
     tailwindcss(),
     autoprefixer(),
   ]);
 
-  return result.process(cssString).css;
+  return result.process(cssString).then((result) => result.css);
 }
 
 Object.assign(globalThis, { generateCSS });
