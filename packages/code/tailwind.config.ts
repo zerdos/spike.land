@@ -12,12 +12,8 @@ const config: Config = {
 				ring: 'hsl(215, 20.2%, 65.1%)',
 				background: 'hsl(0, 0%, 100%)',
 				foreground: 'hsl(222.2, 47.4%, 11.2%)',
-				primary: ({ opacityValue }: {opacityValue: any}) => {
-					if (opacityValue !== undefined) {
-					  return `hsla(222.2, 47.4%, 11.2%, ${opacityValue})`;
-					}
-					return 'hsl(222.2, 47.4%, 11.2%)';
-				  },
+				primary: 'hsl(222.2, 47.4%, 11.2%)',
+				'primary\/90': 'hsl(222.2, 47.4%, 11.2%)',	
 				'primary-foreground': 'hsl(210, 40%, 98%)',
 				secondary: 'hsl(210, 40%, 96.1%)',
 				'secondary-foreground': 'hsl(222.2, 47.4%, 11.2%)',
