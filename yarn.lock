@@ -1749,13 +1749,13 @@ __metadata:
   linkType: hard
 
 "@langchain/langgraph-checkpoint@npm:~0.0.6":
-  version: 0.0.7
-  resolution: "@langchain/langgraph-checkpoint@npm:0.0.7"
+  version: 0.0.8
+  resolution: "@langchain/langgraph-checkpoint@npm:0.0.8"
   dependencies:
     uuid: "npm:^10.0.0"
   peerDependencies:
     "@langchain/core": ">=0.2.31 <0.4.0"
-  checksum: 10c0/c1a2c05c86056dd99ffa6d547e71dfffc81f53cdb12c4f9bde1e50ea810cbc63665b21e02fedc85dcf2376387fd6835c51923b83c2c8b683956af7b0217fe417
+  checksum: 10c0/f72b908f4e416169cdaf2ec8989d941eb2cd544448957285cb2f5e2234dc14f1535481b7bcefaa7f33c0b44e02b15eb59ef03de0d579c552f2547a34b647b9ec
   languageName: node
   linkType: hard
 
@@ -4336,7 +4336,7 @@ __metadata:
     stream-browserify: "npm:3.0.0"
     swr: "npm:^2.2.5"
     tailwind-merge: "npm:^2.5.2"
-    tailwindcss: "npm:^3.4.13"
+    tailwindcss: "npm:3.4.13"
     tailwindcss-animate: "npm:^1.0.7"
     text-encoding: "npm:^0.7.0"
     transferables: "npm:1.0.3"
@@ -14740,17 +14740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^2.0.12":
-  version: 2.1.3
-  resolution: "react-resizable-panels@npm:2.1.3"
-  peerDependencies:
-    react: ^16.14.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/65257545a935f8bd664b234659bb72535f37ba3ff2a1f09e4063315a8a4651604a6dc3da73b80895d6f15f2c52f9ca5c3e0affa3e1db7aa77b8b430df221bc68
-  languageName: node
-  linkType: hard
-
-"react-resizable-panels@npm:^2.1.4":
+"react-resizable-panels@npm:^2.0.12, react-resizable-panels@npm:^2.1.4":
   version: 2.1.4
   resolution: "react-resizable-panels@npm:2.1.4"
   peerDependencies:
@@ -16606,7 +16596,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.4.13":
+"tailwindcss@npm:3.4.13":
   version: 3.4.13
   resolution: "tailwindcss@npm:3.4.13"
   dependencies:
