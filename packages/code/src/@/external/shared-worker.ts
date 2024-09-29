@@ -25,7 +25,7 @@ class SharedWorkerPolyfill {
 
   private initializeWorker() {
     // Send port2 to the worker
-    this.worker.postMessage({ type: "init" }, [this.port as unknown as Transferable]);
+    this.worker.postMessage({ type: "init" }, [this.port]);
 
     // Forward error events from the worker to the port
     if ('onerror' in this.worker) {
