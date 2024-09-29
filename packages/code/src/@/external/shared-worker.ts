@@ -25,19 +25,21 @@ class SharedWorkerPolyfill {
 
   private initializeWorker() {
     // Send port2 to the worker
-    this.worker.postMessage({ type: "init" }, [this.port]);
+    this.worker.postMessage({ type: "init" }, [this.port as unknown as Transferable]);
 
     // Forward error events from the worker to the port
-    this.worker.onerror = (event) => {
-      const errorEvent = new ErrorEvent("error", {
-        message: event.message,
-        filename: event.filename,
-        lineno: event.lineno,
-        colno: event.colno,
-        error: event.error,
-      });
-      this.port.dispatchEvent(errorEvent);
-    };
+    if ('onerror' in this.worker) {
+      this.worker.onerror = (event: ErrorEvent) => {
+        const errorEvent = new ErrorEvent("error", {
+          message: event.message,
+          filename: event.filename,
+          lineno: event.lineno,
+          colno: event.colno,
+          error: event.error,
+        });
+        this.port.dispatchEvent(errorEvent);
+      };
+    }
   }
 
   /**
@@ -88,11 +90,13 @@ class SharedWorkerPolyfill {
    * Is an EventListener that is called whenever an ErrorEvent of type 'error' occurs.
    */
   get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => void) | null {
-    return this.worker.onerror;
+    return 'onerror' in this.worker ? this.worker.onerror : null;
   }
 
   set onerror(value: ((this: AbstractWorker, ev: ErrorEvent) => void) | null) {
-    this.worker.onerror = value;
+    if ('onerror' in this.worker) {
+      this.worker.onerror = value;
+    }
   }
 
   addEventListener(
