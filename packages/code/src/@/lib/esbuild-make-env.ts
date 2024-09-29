@@ -14,6 +14,7 @@ export const makeEnv = (
   "process.versions.node": string;
   "process.versions.pnp": string;
   "process.version.node": string;
+  "process.env.LANG": string;
   "process.env.isBrowser": string;
   "process.env.isWebworker": string;
   "process.env.VI_TEST": string;
@@ -37,6 +38,7 @@ export const makeEnv = (
   "process.versions.pnp": JSON.stringify(false),
   "process.version.node": JSON.stringify("v20.3.1"),
   "process.env.isBrowser": JSON.stringify(true),
+  "process.env.LANG": JSON.stringify("en_US.UTF-8"),
   "process.env.isWebworker": JSON.stringify(true),
   "process.env.VI_TEST": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
