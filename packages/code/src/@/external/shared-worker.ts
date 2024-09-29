@@ -2,19 +2,21 @@
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
-  private worker!: Worker;
+  private worker!: Worker | import("worker_threads").Worker;
   public port: MessagePort;
 
   constructor(url: string, opts?: WorkerOptions) {
     if (typeof (globalThis as any).VI_TEST !== 'undefined') {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
-        this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts);
+        this.worker = new Worker2(__dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")), opts as any);
         this.initializeWorker();
       });
-    } else {
+    } else if (typeof Worker !== 'undefined') {
       this.worker = new Worker(url, opts);
       this.initializeWorker();
+    } else {
+      throw new Error('Workers are not supported in this environment');
     }
     // Create a MessageChannel
     const channel = new MessageChannel();
