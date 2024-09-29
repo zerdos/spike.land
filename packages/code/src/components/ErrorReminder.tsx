@@ -6,6 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import type { ContextManager } from "@/lib/context-manager";
 import { createContextManager } from "@/lib/context-manager";
 import { errorMessages } from "./ErrorMessages"
 import type { ErrorType } from "./ErrorMessages";
@@ -53,7 +54,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
   codeSpace,
 }) => {
   const [showError, setShowError] = useState(false);
-  const contextManager = createContextManager(codeSpace);
+  const contextManager: ContextManager = createContextManager(codeSpace);
   useErrorEffect(errorType, codeSpace, contextManager, setShowError);
 
 
