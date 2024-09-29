@@ -67,6 +67,10 @@ export async function buildMainScripts(): Promise<void> {
     legalComments: "none",
     sourcemap: false,
     keepNames: false,
+    loader: {
+      ...getCommonBuildOptions(environment).loader,
+      ".css": "text",
+    },
     mangleProps: /_$/,
     mangleCache: { "_": false },
     mangleQuoted: true,
