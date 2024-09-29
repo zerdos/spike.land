@@ -1,6 +1,7 @@
 // contextManager.ts
 
 export interface ProjectContext {
+  [key: string]: string;
   currentTask: string;
   techStack: string;
   completionCriteria: string;
@@ -18,7 +19,7 @@ class ContextManager {
     this.storageKey = `projectContext_${codeSpace}`;
   }
 
-  public updateContext(key: keyof ProjectContext, content: string): void {
+  public updateContext(key: string, content: string): void {
     const context = this.getFullContext();
     context[key] = content;
     localStorage.setItem(this.storageKey, JSON.stringify(context));
@@ -48,4 +49,3 @@ class ContextManager {
 }
 
 export const createContextManager = (codeSpace: string) => new ContextManager(codeSpace);
-export { ContextManager, createContextManager };
