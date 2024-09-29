@@ -3,6 +3,8 @@ import postcss from "postcss";
 import tailwindcss from "tailwindcss";
 
 Object.assign(globalThis, {
+  __dirname: "/",
+
   process: {
     cwd: () => "/",
     emitWarning: () => {},
