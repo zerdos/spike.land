@@ -23,7 +23,7 @@ async function generateCSS(classNames: string[]) {
     autoprefixer(),
   ]);
 
-  return result.process(cssString).then((result) => result.css);
+  return result.process(cssString, { from: undefined }).then((result) => result.css);
 }
 
 Object.assign(globalThis, { generateCSS });
