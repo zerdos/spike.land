@@ -25,7 +25,7 @@ export function importMapReplace(code: string | ArrayBuffer, origin: string): st
     const prefix = view.slice(0, 30);
     const decoder = new TextDecoder();
     if (decoder.decode(prefix).includes("importMapReplace")) {
-      return code;
+      return decoder.decode(code);
     }
   }
 

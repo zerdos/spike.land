@@ -18,10 +18,6 @@ const createJsBlob = (code: string): string =>
 
     
 declare global {
-  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
-}
-
-declare global {
   var renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 

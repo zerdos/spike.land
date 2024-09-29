@@ -30,7 +30,7 @@ function memoize<T extends (...args: any[]) => Promise<any>>(
     });
 
     return promise as ReturnType<T>;
-  }) as T;
+  }) as unknown as T;
 }
 
 export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(

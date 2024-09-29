@@ -1,8 +1,17 @@
-import type { Message } from "@/lib/interfaces";
-import type { ICode } from "@/lib/interfaces";
+import type { Message, ICode, ImageData } from "@/lib/interfaces";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useMessageHandling } from "./useMessageHandling";
+import { cSessMock } from "@src/config/cSessMock";
+
+const mockImageData: ImageData = {
+  imageName: "mock-screenshot.png",
+  url: "https://example.com/mock-screenshot.png",
+  src: "data:image/png;base64,mockedBase64Data",
+  mediaType: "image/png",
+  data: "mockedBase64Data",
+  type: "image/png",
+};
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/hooks/useAutoSave", () => ({
