@@ -96,14 +96,15 @@ export const myATA = async (code: string) => {
   return monacoExtraLibs;
 };
 
+const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string> }).tsx as unknown as (
+  code: string,
+) => Promise<string[]>;
 export async function ata({
   code,
   originToUse,
-  tsx,
 }: {
   code: string;
   originToUse: string;
-  tsx: (code: string) => Promise<string[]>;
 }): Promise<{
   filePath: string;
   content: string;

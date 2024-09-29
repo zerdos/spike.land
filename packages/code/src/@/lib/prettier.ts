@@ -28,7 +28,8 @@ const removeBlockComments = (code: string) => {
 export const addSomeFixesIfNeeded = (_code: string): string => {
   const code = removeBlockComments(_code);
   try {
-    let [start, ...rest] = code.split("css`");
+    const rest = code.split("css`");
+    let start = rest.shift() ?? "";
 
     if (rest.length) {
       if (!code.includes("@emotion/react") && !code.includes(" css ")) {
@@ -134,7 +135,16 @@ const prettierConfig: Options = {
   plugins: [pluginEstree, pluginTypescript],
 };
 
-export const prettierJs = (code: string) => format(code, prettierConfig);
+export const prettierJs = async ({ code, toThrow }: { code: string; toThrow: boolean }) => {
+  try {
+    return await format(code, prettierConfig);
+  } catch (error) {
+    if (toThrow) {
+      throw error;
+    }
+    return code;
+  }
+};
 
 export const prettierCss = async (inputCSS: string) =>
   format(inputCSS, {

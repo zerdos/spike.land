@@ -288,7 +288,7 @@ async function handleHashMismatch(
 
   if (signal.aborted) return;
 
-  await lazyLoadScript("transpile");
+  lazyLoadScript("transpile");
   if (typeof self.transpile !== "function") {
     throw new Error("Transpile function is not available.");
   }
@@ -324,7 +324,7 @@ async function handleHashMatch(
 
   if (signal.aborted) return;
 
-  await lazyLoadScript("transpile");
+  lazyLoadScript("transpile");
   if (typeof self.transpile !== "function") {
     throw new Error("Transpile function is not available.");
   }

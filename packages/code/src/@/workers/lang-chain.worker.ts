@@ -12,7 +12,7 @@ interface AgentState {
   messages: BaseMessage[];
 }
 
-export const createWorkflow = async (prompt: string) => {
+const createWorkflow = async (prompt: string) => {
   const graphState: StateGraphArgs<AgentState>["channels"] = {
     messages: {
       reducer: (x: BaseMessage[], y: BaseMessage[]) => x.concat(y),
@@ -86,4 +86,5 @@ export const createWorkflow = async (prompt: string) => {
   return finalMessage;
 };
 
+export type { createWorkflow };
 Object.assign(globalThis, { createWorkflow });

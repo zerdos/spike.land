@@ -1,18 +1,13 @@
 const loadedScripts: Set<string> = new Set();
 
-export function lazyLoadScript(script: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (loadedScripts.has(script)) {
-      resolve();
-      return;
-    }
-
+export const lazyLoadScript = (scriptName: string): void => {
+  if (!loadedScripts.has(scriptName)) {
     try {
-      importScripts(`/@/workers/${script}.worker.js`);
-      loadedScripts.add(script);
-      resolve();
+      importScripts(`/@/workers/${scriptName}.worker.js`);
+      loadedScripts.add(scriptName);
     } catch (error) {
-      reject(error);
+      console.error(`Error loading script ${scriptName}:`, error);
+      throw error;
     }
-  });
-}
+  }
+};
