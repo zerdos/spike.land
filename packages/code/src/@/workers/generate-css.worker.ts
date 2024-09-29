@@ -1,7 +1,15 @@
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
-
 import tailwindcss from "tailwindcss";
+
+Object.assign(globalThis, {
+  process: {
+    cwd: () => "/",
+    emitWarning: () => {},
+    env: { NODE_ENV: "development" },
+    platform: "browser",
+  },
+});
 
 async function generateCSS(classNames: string[]) {
   const cssString = classNames.map((cls) => `.${cls} { @apply ${cls}; }`).join("\n");
