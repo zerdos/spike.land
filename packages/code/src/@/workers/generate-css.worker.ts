@@ -22,7 +22,7 @@ async function generateCSS(classNames: string[]) {
 
   const cssString = safeClassNames
     .map(cls => `.${cls} { @apply ${cls}; }`)
-    .join("\n").split("/").join(`\\/`);
+    .join("\n");
 
   try {
     const result = await postcss([
