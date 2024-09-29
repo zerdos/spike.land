@@ -7,26 +7,26 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-			  border: 'hsla(214.3, 31.8%, 91.4%, 1)',
-			  input: 'hsla(214.3, 31.8%, 91.4%, 1)',
-			  ring: 'hsla(215, 20.2%, 65.1%, 1)',
-			  background: 'hsla(0, 0%, 100%, 1)',
-			  foreground: 'hsla(222.2, 47.4%, 11.2%, 1)',
-			  primary: 'hsla(222.2, 47.4%, 11.2%, 1)',
-			  'primary-foreground': 'hsla(210, 40%, 98%, 1)',
-			  secondary: 'hsla(210, 40%, 96.1%, 1)',
-			  'secondary-foreground': 'hsla(222.2, 47.4%, 11.2%, 1)',
-			  destructive: 'hsla(0, 100%, 50%, 1)',
-			  "destructive-foreground": 'hsla(210, 40%, 98%, 1)',
-			  muted: 'hsla(210, 40%, 96.1%, 1)',
-			  "muted-foreground": 'hsla(215.4, 16.3%, 46.9%, 1)',
-			  accent: 'hsla(210, 40%, 96.1%, 1)',
-			  "accent-foreground": 'hsla(222.2, 47.4%, 11.2%, 1)',
-			  popover: 'hsla(0, 0%, 100%, 1)',
-			  "popover-foreground": 'hsla(222.2, 47.4%, 11.2%, 1)',
-			  card: 'hsla(0, 0%, 100%, 1)',
-			  "card-foreground": 'hsla(222.2, 47.4%, 11.2%, 1)',
-			},
+				border: 'hsl(214.3, 31.8%, 91.4%)',
+				input: 'hsl(214.3, 31.8%, 91.4%)',
+				ring: 'hsl(215, 20.2%, 65.1%)',
+				background: 'hsl(0, 0%, 100%)',
+				foreground: 'hsl(222.2, 47.4%, 11.2%)',
+				primary: 'hsl(222.2, 47.4%, 11.2%)',
+				'primary-foreground': 'hsl(210, 40%, 98%)',
+				secondary: 'hsl(210, 40%, 96.1%)',
+				'secondary-foreground': 'hsl(222.2, 47.4%, 11.2%)',
+				destructive: 'hsl(0, 100%, 50%)',
+				'destructive-foreground': 'hsl(210, 40%, 98%)',
+				muted: 'hsl(210, 40%, 96.1%)',
+				'muted-foreground': 'hsl(215.4, 16.3%, 46.9%)',
+				accent: 'hsl(210, 40%, 96.1%)',
+				'accent-foreground': 'hsl(222.2, 47.4%, 11.2%)',
+				popover: 'hsl(0, 0%, 100%)',
+				'popover-foreground': 'hsl(222.2, 47.4%, 11.2%)',
+				card: 'hsl(0, 0%, 100%)',
+				'card-foreground': 'hsl(222.2, 47.4%, 11.2%)',
+			  },
 			borderRadius: {
 			  lg: '0.5rem',
 			  md: 'calc(0.5rem - 2px)',
@@ -46,7 +46,7 @@ export default {
 			  'accordion-down': 'accordion-down 0.2s ease-out',
 			  'accordion-up': 'accordion-up 0.2s ease-out'
 			}
-		  },
+		  },	
 	  accentColor: ({ theme }) => ({
 		...theme('colors'),
 		auto: 'auto',
@@ -1105,5 +1105,5 @@ export default {
 	plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography'),  require('@tailwindcss/forms'),require('@tailwindcss/aspect-ratio'),    require('@tailwindcss/container-queries')],
 
 
-} satisfies Config
+} 
 
