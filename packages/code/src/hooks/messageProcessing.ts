@@ -181,7 +181,8 @@ function createOnUpdateFunction({
       const lastSuccessCut = mod.actions[mod.actions.length - 1]?.startPos || 0;
 
       const lastCode = mod.lastCode;
-      mod.lastCode = await updateSearchReplace({ instructions: instructions.slice(lastSuccessCut), code: lastCode });
+      const chunk = instructions.slice(lastSuccessCut);
+      mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
 
       if (md5(mod.lastCode) === md5(lastCode)) {
         mod.actions.push({
@@ -189,6 +190,8 @@ function createOnUpdateFunction({
           chars: instructions.length,
           startPos: lastSuccessCut,
           lastSuccessCut,
+          chunk,
+          chunLength: chunk.length,
           hash: md5(lastCode),
         });
         console.table(mod.actions[mod.actions.length - 1]);
@@ -199,6 +202,8 @@ function createOnUpdateFunction({
           chars: instructions.length,
           lastSuccessCut: instructions.length,
           startPos: lastSuccessCut,
+          chunk,
+          chunLength: chunk.length,
           hash: md5(mod.lastCode),
         });
         console.table(mod.actions[mod.actions.length - 1]);
