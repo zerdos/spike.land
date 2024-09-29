@@ -253,7 +253,7 @@ function getClassNamesFromHTML(htmlString: string) {
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = htmlString;
   const elements = tempDiv.getElementsByTagName("*");
-  for (let el of elements) {
+  for (const el of elements) {
     let className = "";
     if (typeof el.className === "string") {
       className = el.className;
