@@ -51,7 +51,7 @@ export interface ICode {
 
 export interface IRenderApp {
   rootElement?: HTMLDivElement;
-  App?: React.ComponentType<any>;
+  App?: React.ComponentType<unknown>;
   codeSpace?: string;
   transpiled?: string;
   code?: string;

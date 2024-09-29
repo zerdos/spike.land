@@ -1,6 +1,6 @@
 import React from "react";
 
-const RESOLUTION: Record<string, [number, number]> = {
+const RESOLUTION = {
   "9:21": [640, 1536],
   "9:16": [768, 1344],
   "16:9": [896, 1584],

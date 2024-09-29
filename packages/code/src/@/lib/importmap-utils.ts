@@ -27,8 +27,8 @@ export function importMapReplace(code: string, origin: string): string {
 
   // Define regex patterns for different types of imports
   const topLevelImportPattern =
-    /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-  const topLevelNoFromPattern = /(?<![.\"@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
+    /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
 
   const topLevelExportPattern =
     /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;

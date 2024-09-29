@@ -18,7 +18,7 @@ const createJsBlob = (code: string): string =>
 
     
 declare global {
-  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
 globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
@@ -98,19 +98,20 @@ async function renderApp(
       </CacheProvider>,
     );
 
-    renderedApps.set(rootEl, { rootElement: rootEl, rRoot: root, App, cssCache, cleanup: () => {
-    
-      
-     
+    renderedApps.set(rootEl, { 
+      rootElement: rootEl, 
+      rRoot: root, 
+      App, 
+      cssCache, 
+      cleanup: () => {
         root.unmount();
-       
         if (cssCache.sheet) {
           cssCache.sheet.flush();
         }
         rootEl.remove();
         renderedApps.delete(rootEl);
-
-    }});
+      }
+    });
 
     const renderedApp = renderedApps.get(rootEl)!;
 
