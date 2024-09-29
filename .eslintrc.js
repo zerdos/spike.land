@@ -33,12 +33,10 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "@typescript-eslint/no-empty-interface": ["error", { "allowSingleExtends": true }],
     "no-useless-escape": "warn",
-    "@typescript-eslint/no-unsafe-function-type": "off",
     "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
     "@typescript-eslint/no-require-imports": "warn",
     "prefer-rest-params": "warn",
     "no-var": "error",
     "@typescript-eslint/ban-ts-comment": ["error", { "ts-expect-error": "allow-with-description", "ts-ignore": "allow-with-description" }],
-    "@typescript-eslint/no-empty-object-type": ["error", { "allowObjectTypes": true }],
   },
 };
