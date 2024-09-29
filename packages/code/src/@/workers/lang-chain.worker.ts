@@ -36,9 +36,7 @@ const createWorkflow = async (prompt: string) => {
   );
 
   const tools = [weatherTool];
-  const toolNode = new ToolNode(tools, {
-    return_direct: false,
-  });
+  const toolNode = new ToolNode(tools);
 
   const model = new ChatAnthropic({
     model: "claude-3-5-sonnet-20240620",
