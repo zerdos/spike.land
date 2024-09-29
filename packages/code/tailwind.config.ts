@@ -7,6 +7,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				accent: "44FF00",
 				ring: '#FF4400'
 			}
 		},
