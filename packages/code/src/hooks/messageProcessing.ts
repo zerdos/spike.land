@@ -104,6 +104,11 @@ export async function processMessage(
       // Update the state with all messages, including the new assistant message
       setMessages([...workingMessages]);
 
+      if (codeNow !== cSess.session.code) {
+        const success = await trySetCode(cSess, cSess.session.code);
+        if (success) return true;
+      }
+
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
         const errorHandled = await handleErrorMessage(
