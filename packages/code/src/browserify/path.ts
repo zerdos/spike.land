@@ -115,6 +115,24 @@ function _format(
   return dir + sep + base;
 }
 
+interface PosixInterface {
+  resolve(...paths: string[]): string;
+  normalize(path: string): string;
+  isAbsolute(path: string): boolean;
+  join(...paths: string[]): string;
+  relative(from: string, to: string): string;
+  _makeLong(path: string): string;
+  dirname(path: string): string;
+  basename(path: string, ext?: string): string;
+  extname(path: string): string;
+  format(pathObject: { root?: string; dir?: string; base?: string; ext?: string; name?: string } | null): string;
+  parse(path: string): { root: string; dir: string; base: string; ext: string; name: string };
+  sep: string;
+  delimiter: string;
+  win32: null;
+  posix: PosixInterface | null;
+}
+
 const posix = {
   // path.resolve([from ...], to)
   resolve(...paths: string[]): string {
@@ -547,8 +565,8 @@ const posix = {
   sep: "/",
   delimiter: ":",
   win32: null,
-  posix: null as unknown as typeof posix,
-};
+  posix: null,
+} as PosixInterface;
 
 posix.posix = posix;
 

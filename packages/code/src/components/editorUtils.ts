@@ -9,46 +9,58 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
-function memoize<T extends (...args: any[]) => Promise<any>>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFunction = (...args: any[]) => any;
+
+function memoize<T extends AnyFunction>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
 ): T {
-  const cache = new Map<string, Promise<any>>();
+  const cache = new Map<string, ReturnType<T>>();
 
   return ((...args: Parameters<T>): ReturnType<T> => {
     const key = keyResolver ? keyResolver(...args) : JSON.stringify(args);
 
     if (cache.has(key)) {
-      return cache.get(key) as ReturnType<T>;
+      return cache.get(key)!;
     }
 
-    const promise = fn(...args);
-    cache.set(key, promise);
+    const result = fn(...args);
+    cache.set(key, result);
 
-    promise.catch(() => {
-      cache.delete(key);
-    });
+    if (result instanceof Promise) {
+      result.catch(() => {
+        cache.delete(key);
+      });
+    }
 
-    return promise as ReturnType<T>;
-  }) as unknown as T;
+    return result;
+  }) as T;
 }
 
-export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
+type MemoizedFunctionWithAbort<T extends AnyFunction> = (
+  ...args: [...Parameters<T>, AbortSignal]
+) => ReturnType<T>;
+
+export function memoizeWithAbort<T extends AnyFunction>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
-): T {
+): MemoizedFunctionWithAbort<T> {
   type Callbacks = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolve: (value: any) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reject: (reason?: any) => void;
     signal: AbortSignal;
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cache = new Map<string, { promise: Promise<any>; callbacks: Callbacks[] }>();
 
-  return ((...args: Parameters<T>): ReturnType<T> => {
-    const keyArgs = args.slice(0, -1) as typeof args;
-    const signal = args[args.length - 1] as AbortSignal;
-    const key = keyResolver ? keyResolver(...keyArgs) : JSON.stringify(keyArgs);
+  return ((...args: [...Parameters<T>, AbortSignal]): ReturnType<T> => {
+    const signal = args.pop() as AbortSignal;
+    const fnArgs = args.slice(0, -1) as Parameters<T>;
+    const key = keyResolver ? keyResolver(...fnArgs) : JSON.stringify(fnArgs);
 
     if (cache.has(key)) {
       const entry = cache.get(key)!;
@@ -58,6 +70,7 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
         return Promise.reject(new DOMException("Aborted", "AbortError")) as ReturnType<T>;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -66,10 +79,12 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
       });
 
       promise.then(
-        (value) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-        (error) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },
       );
@@ -81,12 +96,14 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
       }
 
       const callbacks: Callbacks[] = [];
-      const promise = fn(...args).then(
-        (value) => {
+      const promise = fn(...fnArgs).then(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value: any) => {
           cache.delete(key);
           return value;
         },
-        (error) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error: any) => {
           cache.delete(key);
           throw error;
         },
@@ -94,6 +111,7 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
 
       cache.set(key, { promise, callbacks });
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -102,17 +120,19 @@ export function memoizeWithAbort<T extends (...args: any[]) => Promise<any>>(
       });
 
       promise.then(
-        (value) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-        (error) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },
       );
 
       return newPromise as ReturnType<T>;
     }
-  }) as unknown as T;
+  }) as MemoizedFunctionWithAbort<T>;
 }
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
@@ -122,9 +142,9 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
     const errorMessage = typeof error === "string"
       ? error
       : (error as Error).message || JSON.stringify(error);
-    throw new Error(`Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split(`\"`).join(`"`)}`);
+    throw new Error(`Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split("\"").join("\"")}`);
   }
-}, (code) => md5(code));
+}, (code: string) => md5(code));
 
 export const transpileCode = memoize(async (code: string): Promise<string> => {
   try {
@@ -132,39 +152,30 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
   } catch (error) {
     throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-}, (code) => md5(code));
+}, (code: string) => md5(code));
 
-export const screenShot = () => {
-  let resolve: (img: ImageData) => void;
+export const screenShot = (): Promise<ImageData> => {
+  return new Promise<ImageData>((resolve) => {
+    const messageHandler = (ev: MessageEvent): void => {
+      if (ev.data.type === "screenShot") {
+        const imageData = ev.data.imageData as ImageData;
+        window.removeEventListener("message", messageHandler);
+        resolve(imageData);
+      }
+    };
 
-  const promise = new Promise<ImageData>(
-    (_resolve) => {
-      resolve = _resolve;
-    },
-  );
+    window.addEventListener("message", messageHandler);
 
-  window.onmessage = (ev) => {
-    if (ev.data.type === "screenShot") {
-      const imageData = ev.data.imageData as ImageData;
-      resolve(imageData);
-    }
-  };
-
-  document.querySelector("iframe")?.contentWindow?.postMessage({
-    type: "screenShot",
-    sender: "Runner / Editor",
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      type: "screenShot",
+      sender: "Runner / Editor",
+    }, "*");
   });
-
-  return promise;
 };
 
 export const runCode = memoizeWithAbort(
-  async (transpiled: string, signal: AbortSignal) => {
+  async (transpiled: string): Promise<{ html: string; css: string }> => {
     const requestId = md5(transpiled);
-
-    if (signal.aborted) {
-      throw new DOMException("Aborted", "AbortError");
-    }
 
     return new Promise<{ html: string; css: string }>((resolve, reject) => {
       const timeoutId = setTimeout(() => {
@@ -172,10 +183,10 @@ export const runCode = memoizeWithAbort(
         reject(new Error("Timed out"));
       }, 1500);
 
-      const messageHandler = (ev: MessageEvent) => {
+      const messageHandler = (ev: MessageEvent): void => {
         const data = ev.data;
         if (data && data.requestId === requestId) {
-          if (data.type === "result") {
+          if (data.typonAborte === "result") {
             clearTimeout(timeoutId);
             cleanup();
             if (data.error) {
@@ -187,26 +198,11 @@ export const runCode = memoizeWithAbort(
         }
       };
 
-      const cleanup = () => {
+      const cleanup = (): void => {
         window.removeEventListener("message", messageHandler);
-        signal.removeEventListener("abort", onAbort);
-        clearTimeout(timeoutId);
-      };
-
-      const onAbort = () => {
-        cleanup();
-        document.querySelector("iframe")?.contentWindow?.postMessage(
-          {
-            type: "cancel",
-            requestId,
-          },
-          "*",
-        );
-        reject(new DOMException("Aborted", "AbortError"));
       };
 
       window.addEventListener("message", messageHandler);
-      signal.addEventListener("abort", onAbort);
 
       document.querySelector("iframe")?.contentWindow?.postMessage(
         {
@@ -218,7 +214,7 @@ export const runCode = memoizeWithAbort(
       );
     });
   },
-  (transpiled) => md5(transpiled),
+  (transpiled: string) => md5(transpiled),
 );
 
 export async function initializeMonaco(
