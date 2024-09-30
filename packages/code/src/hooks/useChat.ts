@@ -1,7 +1,6 @@
 import type { Message } from "@/lib/interfaces";
-import { md5 } from "@src/modules";
+import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { is } from "immutable";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useChat = (
