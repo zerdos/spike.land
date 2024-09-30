@@ -20,7 +20,7 @@ export const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [m, setM] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
-  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, true);
+  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
 
   const [input, setInput] = useState("");
   const [codeWhatAiSeen, setAICode] = useState("");
