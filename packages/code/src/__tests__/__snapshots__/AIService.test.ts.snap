@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`AIService > sendToAI > should send messages to AI and return an assistant message 1`] = `
-{
-  "content": "Mocked assistant content",
-  "id": "1727720246493",
-  "role": "assistant",
-}
-`;

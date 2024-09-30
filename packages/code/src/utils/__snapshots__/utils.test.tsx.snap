@@ -121,7 +121,6 @@ To further improve this feature, you could consider:
   },
   {
     "content": "",
-    "isStreaming": true,
     "language": "plaintext",
     "type": "code",
   },
@@ -303,7 +302,6 @@ exports[`getParts > should handle multiple search and replace markers2 1`] = `
       let b = 3;
       =======
       let b =",
-    "isStreaming": true,
     "language": "diff",
     "type": "code",
   },
