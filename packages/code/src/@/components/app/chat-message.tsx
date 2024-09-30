@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo, memo } from "react";
+import React, { useRef, useState, useCallback, useMemo, memo, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -35,6 +35,8 @@ interface ChatMessageProps {
   codeSpace: string;
 }
 
+type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
+
 export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   const {
     message,
@@ -49,10 +51,56 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
   } = props;
 
   const isUser = message.role === "user";
-
+  const isSystem = message.role === "system";
 
   const [images, setImages] = useState<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log("ChatMessage rendered for message");
+  }, []);
+
+  const renderContent = useCallback(() => {
+    if (isSystem) {
+      return (
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger>System prompt</AccordionTrigger>
+            <AccordionContent>
+              {renderMessageContent(message.content, isUser)}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      );
+    }
+  
+    return renderMessageContent(message.content, isUser);
+  }, [isSystem, message.content, isUser]);
+
+  const renderMessageContent = (content: string | MessageContent, isUser: boolean) => {
+    const _content = typeof content === "string" ? [{ type: "text", text: content }] : content;
+    
+    return _content.map((item, index) => {
+      if (item.type === "text" && item.text) {
+        const hashText = md5(item.text);
+        return (
+          <div key={`${index}-${hashText}`}>
+            <ChatMessageBlock text={item.text} isUser={isUser} />
+          </div>
+        );
+      } else if (item.type === "image_url" && item.image_url) {
+        return (
+          <img
+            key={`image-${index}`}
+            src={item.image_url.url}
+            alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
+            className="max-w-full h-auto mt-2 rounded-lg"
+          />
+        );
+      }
+      return null;
+    });
+  };
 
   const outerDivClassName = useMemo(
     () => cn("flex mb-4", isUser ? "justify-end" : "justify-start"),
@@ -151,35 +199,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
             )}
           </div>
         ) : (
-          <div className="break-words">
-          {message.role==='system'? <Accordion type="single" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger>System prompt</AccordionTrigger>
-            <AccordionContent>
-              {(typeof message.content === "string" ? [{ type: "text", text: message.content }] : message.content).map((item, index) => {
-      if (item.type === "text" && item.text) {
-        const hashText = md5(item.text);
-        return (
-          <div key={`${index}-${hashText}`}>
-            <ChatMessageBlock text={item.text} isUser={isUser} />
-          </div>
-        );
-      } else if (item.type === "image_url" && 'image_url' in item) {
-        return (
-          <img
-            key={`image-${index}`}
-            src={item.image_url.url}
-            alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
-            className="max-w-full h-auto mt-2 rounded-lg"
-          />
-        );
-      }
-      return null;
-    } )}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>:<></>}
-          </div>
+          <div className="break-words">{renderContent()}</div>
         )}
       </div>
     </div>
