@@ -60,7 +60,7 @@ sw.addEventListener("install", (event) => {
       console.log("Service Worker installing.");
       const config = await configPromise;
       if (config && swVersion === config.swVersion) {
-        const cacheName = `sw-file-cache-${config.version}`;
+        const cacheName = `sw-file-cache-${config.swVersion}`;
         const keys = await caches.keys();
 
         if (keys.includes(cacheName)) {
@@ -86,6 +86,10 @@ sw.addEventListener("activate", (event) => {
 
       // Ensure the config is fetched
       const config = await configPromise;
+      if (!config) {
+        console.error("Failed to fetch configuration. Skipping activation.");
+        return;
+      }
 
       if (config?.killSwitch) {
         // If killSwitch is activated, unregister and delete caches
@@ -96,11 +100,12 @@ sw.addEventListener("activate", (event) => {
         return;
       }
 
+      const cacheSWName = `sw-file-cache-${config.swVersion}`;
       // Delete old caches except the current one
       const cacheNames = await caches.keys();
       await Promise.all(
         cacheNames
-          .filter((cacheName) => cacheName !== sw.fileCacheName)
+          .filter((cacheName) => cacheName !== sw.fileCacheName && cacheName !== cacheSWName)
           .map((cacheName) => caches.delete(cacheName)),
       );
 
