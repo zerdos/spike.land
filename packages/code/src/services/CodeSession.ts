@@ -174,12 +174,18 @@ export class Code implements ICode {
 
   async init(): Promise<ICodeSession> {
     this.session = await this.broadcastChannel.init();
-    const { swVersion } = await import("/swVersion.mjs");
+    let swVersion = "unknown";
+    try {
+      const swVersionModule = await import("../../swVersion.mjs");
+      swVersion = swVersionModule.swVersion;
+    } catch (error) {
+      console.warn("Failed to import swVersion.mjs:", error);
+    }
 
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
-      swVersion: swVersion,
+      swVersion,
     });
     return this.session;
   }
