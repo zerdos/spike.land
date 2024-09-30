@@ -76,21 +76,20 @@ export async function processMessage(
   const maxRetries = 3;
   let retries = 0;
 
-  const mod: Mod = { controller: new AbortController(), lastCode: codeNow, actions: [] };
-
-  // Add the user message to the messages array
-  messages.push(newUserMessage);
-  setMessages((prevMessages) => [...prevMessages, newUserMessage]);
-
-  const onUpdate = createOnUpdateFunction(
-    { setMessages, cSess, contextManager, mod },
-  );
-
-  // Create a copy of the messages array to work with
-  const workingMessages = [...messages];
-
   while (retries < maxRetries) {
     try {
+      const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
+
+      // Add the user message to the messages array
+      messages.push(newUserMessage);
+      setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+
+      const onUpdate = createOnUpdateFunction(
+        { setMessages, cSess, contextManager, mod },
+      );
+
+      // Create a copy of the messages array to work with
+      const workingMessages = [...messages];
       console.log(`Processing message (attempt ${retries + 1})`);
 
       const assistantMessage = await sendAssistantMessage(
@@ -98,8 +97,6 @@ export async function processMessage(
         workingMessages,
         onUpdate,
       );
-
-      mod.controller.abort();
 
       // Add the assistant message to the working messages array
       workingMessages.push(assistantMessage);
@@ -122,7 +119,6 @@ export async function processMessage(
     }
   }
 
-  console.error("Max retries reached. Failed to process message.");
   return false;
 }
 /**
