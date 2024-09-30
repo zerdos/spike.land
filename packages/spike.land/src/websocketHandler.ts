@@ -297,6 +297,11 @@ export class WebSocketHandler {
   private async handlePatch(data: IData, respondWith: (obj: unknown) => void) {
     const oldHash = makeHash(this.code.session);
 
+    if (oldHash=== data.newHash) {
+      return 
+    }
+    
+
     if (oldHash !== data.oldHash) {
       return respondWith({
         error: `old hashes not matching`,

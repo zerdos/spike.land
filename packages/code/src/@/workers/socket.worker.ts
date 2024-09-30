@@ -26,7 +26,7 @@ interface Connection {
   broadcastChannel: BroadcastChannel;
   lastCounter: number;
   codeSpace: string;
-  webSocket: Awaited<ReturnType<typeof connectWithRetry>>;
+  webSocket: Socket;
   controller: AbortController;
   user: string;
   oldSession: ICodeSession;
@@ -60,7 +60,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     controller: new AbortController(),
     oldSession: makeSession(sess),
     lastCounter: sess.i,
-    broadcastChannel: null as unknown as BroadcastChannel,
+    broadcastChannel: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
     webSocket: await createWebSocket(codeSpace),
   };
 
@@ -68,7 +68,6 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
 
   connections.set(codeSpace, connection);
   addHandlers(codeSpace);
-  createBroadcastChannel(codeSpace);
   console.log("New connection created and stored");
 }
 
@@ -93,10 +92,9 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
 /**
  * Creates a WebSocket connection for the given code space.
  * @param codeSpace - The code space identifier.
- * @param connection - The connection context.
  * @returns The initialized WebSocket.
  */
-async function createWebSocket(codeSpace: string) {
+async function createWebSocket(codeSpace: string): Promise<Socket> {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
@@ -106,11 +104,9 @@ async function createWebSocket(codeSpace: string) {
 
 /**
  * Creates the delegate object for handling WebSocket events.
- * @param connection - The connection context.
  * @param codeSpace - The code space identifier.
- * @returns The delegate object with event handlers.
  */
-function addHandlers(codeSpace: string) {
+function addHandlers(codeSpace: string): void {
   const connection = connections.get(codeSpace);
 
   if (!connection) {
@@ -119,11 +115,6 @@ function addHandlers(codeSpace: string) {
   }
 
   const ws = connection.webSocket;
-
-  if (!ws) {
-    console.error("WebSocket not found for codeSpace:", codeSpace);
-    return;
-  }
 
   ws.onclose = () => {
     console.log("WebSocket closed");
@@ -142,37 +133,8 @@ function addHandlers(codeSpace: string) {
 }
 
 /**
- * Creates a BroadcastChannel for inter-thread communication.
- * @param codeSpace - The code space identifier.
- * @param connection - The connection context.
- * @returns The initialized BroadcastChannel.
- */
-function createBroadcastChannel(
-  codeSpace: string,
-): BroadcastChannel {
-  const connection = connections.get(codeSpace);
-  if (!connection) {
-    console.error("Connection not found for codeSpace:", codeSpace);
-    return;
-  }
-
-  const channelName = `${location.origin}/live/${codeSpace}/`;
-  console.log(`Creating BroadcastChannel: ${channelName}`);
-  const broadcastChannel = new BroadcastChannel(channelName);
-  broadcastChannel.onmessage = ({ data }) => {
-    console.log(`Received broadcast message for codeSpace: ${codeSpace}`, data);
-    handleBroadcastMessage(data, connection).catch((error) => {
-      console.error("Error handling broadcast message:", error);
-    });
-  };
-  return broadcastChannel;
-}
-
-/**
  * Handles incoming socket messages and dispatches them based on their type.
- * @param ws - The WebSocket instance.
  * @param message - The received message as a string.
- * @param connection - The connection context.
  * @param codeSpace - The code space identifier.
  */
 async function handleSocketMessage(
@@ -185,10 +147,6 @@ async function handleSocketMessage(
     return;
   }
   const ws = connection.webSocket;
-  if (!ws) {
-    console.error("WebSocket not found for codeSpace:", codeSpace);
-    return;
-  }
 
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
   let data: Record<string, unknown>;
@@ -468,7 +426,7 @@ async function handleBroadcastMessage(
       bMod = {
         ...data,
         controller: new AbortController(),
-        timeoutId: 0 as unknown as ReturnType<typeof setTimeout>,
+        timeoutId: setTimeout(() => {}, 0),
       };
       broadcastMod.set(codeSpace, bMod);
     } else {
