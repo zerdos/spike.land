@@ -133,8 +133,8 @@ export const ChatInterface: React.FC<{
     }
   }, [isOpen, codeSpace, handleSendMessage]);
 
-  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]): void => {
-    handleSendMessage(message, images || []);
+  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]): Promise<void> => {
+    return handleSendMessage(message, images || []);
   }, [handleSendMessage]);
 
   const memoizedSetInput = useCallback((value: string): void => {
@@ -149,7 +149,7 @@ export const ChatInterface: React.FC<{
     setEditInput(value);
   }, []);
 
-  const memoizedScreenShot = useCallback((): Promise<void> => cSess.screenShot(), [cSess]);
+  const memoizedScreenShot = useCallback((): Promise<ImageData> => cSess.screenShot(), [cSess]);
 
   if (!isOpen) return null;
 

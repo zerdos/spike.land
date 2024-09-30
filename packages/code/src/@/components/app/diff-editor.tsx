@@ -1,5 +1,5 @@
+import React, { memo, useEffect, useRef, useCallback } from "react";
 import { editor } from "@/external/monaco-editor";
-import React, { memo, useEffect, useRef } from "react";
 
 export interface DiffEditorProps {
   original: string;
@@ -11,39 +11,29 @@ export interface DiffEditorProps {
   editorHeight?: number;
 }
 
-
-
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
-  original = "", 
+  original = "",
   modified = "",
-  minHeight,
-  maxHeight,
-  editorHeight= minHeight || 200,
+  minHeight = 200,
+  maxHeight = Infinity,
+  editorHeight = minHeight,
   language = "text/plain",
   readOnly = true
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
-  
 
-
-
-  useEffect(() => {
+  const createEditor = useCallback(() => {
     if (containerRef.current && !diffEditorRef.current) {
-
       const diffEditor = editor.createDiffEditor(containerRef.current, {
-        
         readOnly,
-        
         wordWrap: "on",
         inDiffEditor: true,
         wordWrapColumn: 80,
         padding: { top: 20, bottom: 20 },
-        automaticLayout: false,
+        automaticLayout: true,
         onlyShowAccessibleDiffViewer: false,
-        hideUnchangedRegions: {
-          enabled: false,
-        },
+        hideUnchangedRegions: { enabled: false },
         lineNumbers: "off",
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
@@ -52,21 +42,38 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         theme: "vs-dark",
       });
 
-    
-
       diffEditor.setModel({
-        original: editor.createModel(original || '', language),
-        modified: editor.createModel(modified || '', language),
+        original: editor.createModel(original, language),
+        modified: editor.createModel(modified, language),
       });
-      
 
       diffEditorRef.current = diffEditor;
       diffEditor.layout();
     }
+  }, [language, readOnly, original, modified]);
 
+  const updateEditor = useCallback(() => {
+    if (diffEditorRef.current) {
+      const diffModels = diffEditorRef.current.getModel();
+      if (diffModels) {
+        if (diffModels.original.getValue() !== original) {
+          diffModels.original.setValue(original);
+        }
+        if (diffModels.modified.getValue() !== modified) {
+          diffModels.modified.setValue(modified);
+        }
+        diffEditorRef.current.layout({
+          height: editorHeight,
+          width: containerRef.current?.clientWidth || 0,
+        });
+      }
+    }
+  }, [original, modified, editorHeight]);
+
+  useEffect(() => {
+    createEditor();
     return () => {
       if (diffEditorRef.current) {
-        
         const diffModels = diffEditorRef.current.getModel();
         diffEditorRef.current.dispose();
         if (diffModels) {
@@ -74,32 +81,13 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
           diffModels.modified.dispose();
         }
         diffEditorRef.current = null;
-
-      
       }
     };
-  }, []); // Only run when language or readOnly changes
+  }, [createEditor]);
 
-  useEffect(()=> {
-    if (diffEditorRef.current) {
-      const diffModels = diffEditorRef.current.getModel();
-      if (diffModels) {
-        if (diffModels.original.getValue() !== original) {
-          diffModels.original.setValue(original);
-          diffEditorRef.current.layout();
-        }
-
-        if (diffModels.modified.getValue() !== modified) {
-          diffModels.modified.setValue(modified);
-          diffEditorRef.current.layout();
-        }
-        diffEditorRef.current.layout({
-          height: editorHeight,
-          width: containerRef.current?.clientWidth || 0,
-        });
-
-      }
-      }}, [original, modified]);
+  useEffect(() => {
+    updateEditor();
+  }, [updateEditor]);
 
   return (
     <div
