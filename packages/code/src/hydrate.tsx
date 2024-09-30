@@ -1,17 +1,29 @@
 
 const setupServiceWorker = async () => {
   
-  if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
+  // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
     const { Workbox } = await import( "workbox-window");
 
     const wb = new Workbox("/sw.js");
-  
-    wb.register();
-    setInterval(() => {
-      wb.update();
-    }, 60 * 60 * 1000); // every hour
+
+    const sw = await wb.active;
+
+    if (!sw) return wb.register();
+
+    if (sw.state === "redundant") return  wb.update();
+
+  if (sw.state === "activated") {
+    return
   }
-};
+  
+
+  
+
+    // setInterval(() => {
+    //   wb.update();
+    // }, 60 * 60 * 1000); // every hour
+  }
+// };
 
 
 Object.assign(globalThis, { setupServiceWorker });
