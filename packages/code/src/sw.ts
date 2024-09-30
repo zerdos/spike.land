@@ -114,7 +114,7 @@ sw.addEventListener("activate", (event) => {
       );
 
       // Take control of all clients immediately
-
+      await sw.clients.claim();
       console.log("Service Worker activated and controlling.");
     })(),
   );
