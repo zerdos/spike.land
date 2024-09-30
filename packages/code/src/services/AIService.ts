@@ -82,7 +82,7 @@ export class AIService {
 
   private async makeAPICall(endpoint: string, messages: Message[], model = ``): Promise<Response> {
     try {
-      const formattedMessages = messages.map(({ role, content }) => ({
+      const formattedMessages = messages.slice(-6).map(({ role, content }) => ({
         role,
         content: this.formatMessageContent(content),
       }));
@@ -143,22 +143,18 @@ export class AIService {
 
       const result = await this.handleStreamingResponse(
         endpoint,
-        messages.slice(-8),
+        messages,
         onUpdate,
         type === "gpt4o" ? `gpt-4o` : "",
       );
 
-      const lastMessage = messages[messages.length - 1];
+      messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: result });
 
       // Update context based on AI response
       this.contextManager.updateContext("currentTask", extractCurrentTask(result));
       this.contextManager.updateContext("codeStructure", extractCodeStructure(result));
 
-      return {
-        id: ((+lastMessage.id) + 1).toString(),
-        role: "assistant",
-        content: result,
-      };
+      return messages[messages.length - 1];
     } catch (error) {
       console.error("Error sending to AI:", error);
       throw error;
