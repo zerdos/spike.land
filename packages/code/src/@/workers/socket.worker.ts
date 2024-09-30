@@ -1,5 +1,4 @@
 import type { ICodeSession } from "@/lib/interfaces";
-import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
 import type { Socket } from "@github/stable-socket";
 import { connectWithRetry } from "@github/stable-socket";
@@ -12,8 +11,6 @@ declare let self: SharedWorkerGlobalScope & {
   prettierCss: unknown;
   prettierJs: unknown;
   createWorkflow: unknown;
-  transpile: (code: string, origin: string) => Promise<string>;
-  build: unknown;
   tsx: unknown;
   updateSearchReplace: unknown;
   setConnections: (signal: string, sess: ICodeSession) => Promise<void>;
@@ -390,28 +387,12 @@ async function handleHashMatch(
     return;
   }
 
-  console.log("Lazy loading transpile script");
-  lazyLoadScript("transpile");
-  if (typeof self.transpile !== "function") {
-    console.error("Transpile function is not available");
-    throw new Error("Transpile function is not available.");
-  }
-
-  console.log("Transpiling new code");
-  const transpiled = await self.transpile(newSession.code, location.origin);
-
-  if (signal.aborted) {
-    console.log("Hash match handling aborted after transpiling");
-    return;
-  }
-
   if (data.newHash === newHash) {
     console.log("New hash matches received hash");
     connection.oldSession = newSession;
     const { broadcastChannel } = connection;
     broadcastChannel.postMessage({
       ...newSession,
-      transpiled,
       sender: SENDER_WORKER_HASH_MATCH,
     });
     console.log("Broadcasted new session");
