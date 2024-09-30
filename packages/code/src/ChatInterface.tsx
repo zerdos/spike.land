@@ -2,7 +2,6 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, {  useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
-import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
@@ -32,6 +31,7 @@ export const ChatInterface: React.FC<{
 
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
 
+  
   const setMessages = (newMessages: Message[]) => {
     console.log("setMessages", newMessages);
     const newMessagesFiltered = newMessages.filter(x => x);
