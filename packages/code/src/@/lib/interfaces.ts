@@ -61,7 +61,7 @@ export interface RenderedApp {
   rootElement: HTMLDivElement;
   code?: string;
   rRoot: Root;
-  App?: React.ComponentType<any>;
+  App?: React.ComponentType<unknown>;
   cssCache: EmotionCache;
   cleanup: () => void;
 }

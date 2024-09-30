@@ -6,7 +6,6 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { md5 } from "@src/modules";
 import { Mutex } from "async-mutex";
-import { throttle } from "es-toolkit";
 
 const mutex = new Mutex();
 
@@ -38,6 +37,26 @@ export async function createNewMessage(
   };
 }
 
+interface Mod {
+  controller: AbortController;
+  lastCode: string;
+  actions: Array<Action>;
+}
+
+interface Action {
+  TRIED: number;
+  SKIP: number;
+  DIFFs: number;
+  chars: number;
+  type: string;
+  lastCode?: string;
+  startPos: number;
+  chunLength: number;
+  chunk: string;
+  lastSuccessCut: number;
+  hash: string;
+}
+
 /**
  * Processes messages with retries, handling assistant responses and updating code accordingly.
  */
@@ -55,14 +74,15 @@ export async function processMessage(
 
   const maxRetries = 3;
   let retries = 0;
-  const mod = { controller: new AbortController(), lastCode: codeNow, actions: [] };
+
+  const mod: Mod = { controller: new AbortController(), lastCode: codeNow, actions: [] };
 
   // Add the user message to the messages array
   messages.push(newUserMessage);
   setMessages((prevMessages) => [...prevMessages, newUserMessage]);
 
   const onUpdate = createOnUpdateFunction(
-    { setMessages, cSess, contextManager, startCode: codeNow, mod },
+    { setMessages, cSess, contextManager, mod },
   );
 
   // Create a copy of the messages array to work with
@@ -132,14 +152,12 @@ function createOnUpdateFunction({
   setMessages,
   cSess,
   contextManager,
-  startCode,
   mod,
 }: {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   cSess: ICode;
   contextManager: ContextManager;
-  startCode: string;
-  mod: { controller: AbortController };
+  mod: Mod;
 }) {
   let instructions = "";
   let lastUpdateTime = 0;
@@ -172,74 +190,6 @@ function createOnUpdateFunction({
     }
   };
 
-  const throttledMutexOperation = throttle(async (signal: AbortSignal, mod) => {
-    if (signal.aborted) {
-      console.log("Aborted onUpdate before updating");
-      return;
-    }
-    try {
-      const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
-      const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
-      const SKIP = mod.actions[mod.actions.length - 1]?.SKIPPED || 0;
-      const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
-
-      const lastCode = mod.lastCode;
-      const chunk = instructions.slice(startPos);
-      mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
-
-      if (md5(mod.lastCode) === md5(lastCode)) {
-        mod.actions.push({
-          TRIED: TRIED + 1,
-          SKIP: SKIP + 1,
-          DIFFs,
-          chars: instructions.length,
-          type: "skip",
-
-          startPos,
-          chunLength: chunk.length,
-          chunk,
-
-          lastSuccessCut: startPos,
-          hash: md5(lastCode),
-        });
-        console.table(mod.actions[mod.actions.length - 1]);
-      } else {
-        mod.actions.push({
-          TRIED: TRIED + 1,
-          SKIP,
-          DIFFs: DIFFs + 1,
-          chars: instructions.length,
-          type: "updated",
-          startPos,
-          chunLength: chunk.length,
-          chunk,
-          lastSuccessCut: instructions.length,
-          hash: md5(mod.lastCode),
-        });
-        console.table(mod.actions[mod.actions.length - 1]);
-
-        const success = await trySetCode(cSess, lastCode);
-        mod.actions.push({
-          TRIED,
-          SKIP,
-          DIFFs,
-          chars: instructions.length,
-          chunk,
-          type: success ? "success" : "error",
-          startPos,
-          lastSuccessCut: success ? instructions.length : startPos,
-          lastCode,
-          hash: md5(mod.lastCode),
-        });
-        console.table(mod.actions[mod.actions.length - 1]);
-        contextManager.updateContext("currentDraft", success ? "" : lastCode);
-      }
-    } catch (error) {
-      console.error("Error in throttledMutexOperation:", error);
-      contextManager.updateContext("errorLog", (error as Error).message);
-    }
-  }, 100);
-
   return async (code: string) => {
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
@@ -254,7 +204,76 @@ function createOnUpdateFunction({
       mod.controller = new AbortController();
       const { signal } = mod.controller;
 
-      await mutex.runExclusive(() => throttledMutexOperation(signal, mod));
+      await mutex.runExclusive(async () => {
+        {
+          if (signal.aborted) {
+            console.log("Aborted onUpdate before updating");
+            return;
+          }
+          try {
+            const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
+            const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
+            const SKIP = mod.actions[mod.actions.length - 1]?.SKIP || 0;
+            const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
+
+            const lastCode = mod.lastCode;
+            const chunk = instructions.slice(startPos);
+            mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
+
+            if (md5(mod.lastCode) === md5(lastCode)) {
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP: SKIP + 1,
+                DIFFs,
+                chars: instructions.length,
+                type: "skip",
+
+                startPos,
+                chunLength: chunk.length,
+                chunk,
+
+                lastSuccessCut: startPos,
+                hash: md5(lastCode),
+              });
+              console.table(mod.actions[mod.actions.length - 1]);
+            } else {
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP,
+                DIFFs: DIFFs + 1,
+                chars: instructions.length,
+                type: "updated",
+                startPos,
+                chunLength: chunk.length,
+                chunk,
+                lastSuccessCut: instructions.length,
+                hash: md5(mod.lastCode),
+              });
+              console.table(mod.actions[mod.actions.length - 1]);
+
+              const success = await trySetCode(cSess, lastCode);
+              mod.actions.push({
+                TRIED,
+                SKIP,
+                DIFFs,
+                chars: instructions.length,
+                chunk,
+                type: success ? "success" : "error",
+                startPos,
+                lastSuccessCut: success ? instructions.length : startPos,
+                lastCode: lastCode,
+                hash: md5(mod.lastCode),
+                chunLength: chunk.length,
+              });
+              console.table(mod.actions[mod.actions.length - 1]);
+              contextManager.updateContext("currentDraft", success ? "" : lastCode);
+            }
+          } catch (error) {
+            console.error("Error in throttledMutexOperation:", error);
+            contextManager.updateContext("errorLog", (error as Error).message);
+          }
+        }
+      });
     } catch (error) {
       console.error("Error in mutex operation:", error);
       contextManager.updateContext("errorLog", (error as Error).message);
@@ -335,7 +354,7 @@ async function handleErrorMessage(
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     cSess: ICode;
     contextManager: ContextManager;
-    mod: { controller: AbortController };
+    mod: Mod;
   },
 ): Promise<boolean> {
   const userMessage: Message = {
@@ -351,7 +370,7 @@ async function handleErrorMessage(
   setMessages(updatedMessages);
 
   const newOnUpdate = createOnUpdateFunction(
-    { setMessages, cSess, contextManager, startCode: codeNow, mod },
+    { setMessages, cSess, contextManager, mod },
   );
 
   const assistantMessage = await sendAssistantMessage(
