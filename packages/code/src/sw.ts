@@ -138,6 +138,13 @@ sw.addEventListener("fetch", (event) => {
             (client as WindowClient).navigate(client.url);
           });
         }
+        if (config?.swVersion !== swVersion) {
+          await sw.registration.unregister();
+          const clients = await sw.clients.matchAll();
+          clients.forEach((client) => {
+            (client as WindowClient).navigate(client.url);
+          });
+        }
       })(),
     );
   }
