@@ -34,7 +34,7 @@ export const updateSearchReplace = async (
   console.log("Attempting to prettify the code");
 
   try {
-    const resultPretty = await prettierJs({ code, toThrow: true });
+    const resultPretty = await prettierJs({ code: result, toThrow: true });
     console.log("Code successfully prettified");
     return resultPretty;
   } catch (error) {

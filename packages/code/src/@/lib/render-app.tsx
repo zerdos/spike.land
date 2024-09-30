@@ -25,7 +25,12 @@ declare global {
 
 (globalThis as GlobalWithRenderedApps).renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
-type FlexibleComponentType = React.ComponentType<any>;
+interface BaseProps {
+  width?: number;
+  height?: number;
+}
+
+type FlexibleComponentType<P = {}> = React.ComponentType<P & BaseProps>;
 
 // Main render function
 async function renderApp(
@@ -85,7 +90,7 @@ async function renderApp(
         return () => window.removeEventListener("resize", handleResize);
       }, [throttledSetDimensions]);
 
-      return <AppToRender {...dimensions} />;
+      return <AppToRender width={dimensions.width} height={dimensions.height} />;
     });
 
     root.render(
