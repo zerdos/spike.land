@@ -63,6 +63,8 @@ export const ChatInterface: React.FC<{
 
 
   useEffect(() => {
+    console.log("ChatInterface rendered");
+    console.log("messages", messages);
     if (messages.length === 0) {
       setIsStreaming(false);
       return;
@@ -71,22 +73,31 @@ export const ChatInterface: React.FC<{
   }, [messages]);
 
   useEffect(() => {
+    console.log("ChatInterface rendered");
     // Your code here
 
     if (isStreaming) {
       const lastMessage = messages[messages.length - 1];
-      const lastHash = md5(JSON.stringify(lastMessage));
+   
       const interval = setInterval(() => {
         if (messages.length === 0) {
+          console.log("No messages setIsStreaming = false");
+
           setIsStreaming(false);
           return;
         }
 
         const newMessage = messages[messages.length - 1];
 
-        const newHash = md5(JSON.stringify(newMessage));
-        if (lastHash === newHash) {
+
+        if (md5(lastMessage) === md5(newMessage)) {
+          console.log("No new messages setIsStreaming = false");
+        
           setIsStreaming(false);
+        } else {
+          console.log("New messages setIsStreaming = true");
+          console.log("lastMessage", md5(lastMessage));
+          console.log("newMessage", md5(newMessage));
         }
       }, 1000);
       return () => clearInterval(interval);
