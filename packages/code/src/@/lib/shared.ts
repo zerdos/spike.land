@@ -49,6 +49,7 @@ class WorkerPool {
     const workerWrapper = new WorkerWrapper(port);
     workerWrapper.tag = tag;
     this.workers.push(workerWrapper);
+    return workerWrapper;
   }
 
   getWorker(tag: string = "default") {
@@ -58,23 +59,11 @@ class WorkerPool {
         return connectWorker;
       }
     }
-    let availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag);
-
-    if (!availableWorker) {
-      const nonBusyWorker = this.workers.find((worker) => !worker.busy);
-      if (nonBusyWorker) {
-        nonBusyWorker.tag = tag;
-        nonBusyWorker.busy = true;
-        return nonBusyWorker;
-      }
-
-      this.addWorker(tag); // Now synchronous
-      availableWorker = this.workers[this.workers.length - 1];
-    }
+    const availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag) || this.addWorker(tag);
 
     availableWorker.busy = true;
 
-    const freeWorkers = this.workers.filter((worker) => !worker.busy).length;
+    const freeWorkers = this.workers.filter((worker) => !worker.busy && worker.tag === tag).length;
     if (freeWorkers < this.minFreeWorkers) {
       this.addWorker(tag); // Now synchronous
     }
@@ -91,7 +80,7 @@ class WorkerPool {
 let workerPool: WorkerPool;
 
 async function init() {
-  workerPool = new WorkerPool();
+  workerPool = new WorkerPool(2);
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
 }
