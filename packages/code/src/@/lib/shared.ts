@@ -3,9 +3,6 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { swVersion } from "/swVersion.mjs";
 
 type WorkerPort = MessagePort | Worker;
 
@@ -35,16 +32,18 @@ class WorkerWrapper {
 class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
+  private swVersion: string;
 
-  constructor(minFreeWorkers: number = 0) {
+  constructor(minFreeWorkers: number = 0, swVersion: string) {
     this.minFreeWorkers = minFreeWorkers;
+    this.swVersion = swVersion;
   }
 
   private addWorker(tag: string) {
     const worker = new AlwaysSupportedSharedWorker(
       tag === "connect"
-        ? `/@/workers/ata-worker.worker.js?v=${swVersion}&workerId=connect`
-        : `/@/workers/ata-worker.worker.js?v=${swVersion}&workerId=${tag}-${this.workers.length}`,
+        ? `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=connect`
+        : `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=${tag}-${this.workers.length}`,
     );
 
     const port = worker.port;
@@ -82,8 +81,8 @@ class WorkerPool {
 // Usage
 let workerPool: WorkerPool;
 
-function init() {
-  workerPool = new WorkerPool(0);
+function init(swVersion: string) {
+  workerPool = new WorkerPool(0, swVersion);
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
 }
@@ -211,12 +210,14 @@ export const build = async ({
 export const connect = async ({
   signal,
   sess,
+  swVersion,
 }: {
   signal: string;
   sess: ICodeSession;
+  swVersion: string;
 }): Promise<() => void> => {
   if (!workerPool) {
-    init();
+    init(swVersion);
   }
   const worker = workerPool.getWorker("connect");
   try {

@@ -3,7 +3,7 @@ import { useSpeedy2 } from "./useArchive";
 export const useDownload = (codeSpace: string, onlyReturn = false) => {
   console.log(`useDownload hook called with codeSpace: ${codeSpace}, onlyReturn: ${onlyReturn}`);
 
-  return async () => {
+  return async (): Promise<string | void> => {
     console.log("Starting download process");
 
     try {
@@ -38,6 +38,7 @@ export const useDownload = (codeSpace: string, onlyReturn = false) => {
       URL.revokeObjectURL(blobUrl);
 
       console.log("Download process completed");
+      return;
     } catch (error) {
       console.error("Error in useDownload:", error);
       throw error;

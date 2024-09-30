@@ -14,7 +14,7 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({ codeSpace }) => {
     setContext(getFullContext());
   }, [getFullContext]);
 
-  const handleChange = (key: keyof ProjectContext, value: string) => {
+  const handleChange = (key: string & keyof ProjectContext, value: string) => {
     updateContext(key, value);
     setContext(prevContext => ({ ...prevContext, [key]: value }));
   };
@@ -22,12 +22,12 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({ codeSpace }) => {
   return (
     <div className="context-viewer">
       <h2>Project Context</h2>
-      {(Object.keys(context) as Array<keyof ProjectContext>).map((key) => (
+      {(Object.keys(context) as Array<string & keyof ProjectContext>).map((key) => (
         <div key={key} className="context-item">
           <label htmlFor={key}>{key}:</label>
           <textarea
             id={key}
-            value={context[key]}
+            value={context[key] as string}
             onChange={(e) => handleChange(key, e.target.value)}
             rows={3}
           />

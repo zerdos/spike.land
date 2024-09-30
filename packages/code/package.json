@@ -25,8 +25,9 @@
     "lint": "eslint --cache  --no-color --quiet --fix",
     "tw": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.ts --postcss -m -o dist/app/tw-global.css",
     "sw": "echo ok",
-    "test": "yarn typecheck && yarn lint &&  --no-color --reporter verbose run",
-    "test-slim": "vitest --no-color --typecheck --run 2>/dev/null ",
+    "test": "yarn vitest --no-color --reporter verbose run",
+    "test-slim": "yarn typecheck && yarn lint &&  yarn vitest --no-color --reporter verbose run",
+
     "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
     "build": "echo 'Starting build...' && yarn clean && yarn concurrently --kill-others-on-fail \"yarn types && yarn types:cp\" \"npx -y tsx esbuild-dev.ts\" \"yarn tw\" && echo 'Build completed successfully!' || echo 'Build FAILED'"
   },

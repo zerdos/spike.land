@@ -6,9 +6,9 @@ import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
+import type { IRenderApp, RenderedApp, FlexibleComponentType } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import {transpile} from "@/lib/shared";
+import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 
 const createJsBlob = (code: string): string =>
@@ -25,13 +25,6 @@ declare global {
 
 (globalThis as GlobalWithRenderedApps).renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
-interface BaseProps {
-  width?: number;
-  height?: number;
-}
-
-type FlexibleComponentType<P = {}> = React.ComponentType<P & BaseProps>;
-
 // Main render function
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
@@ -46,7 +39,7 @@ async function renderApp(
     let emptyApp = false;
 
     if (App) {
-      AppToRender = App as FlexibleComponentType;
+      AppToRender = App;
     } else if (transpiled || code) {
       if (transpiled?.indexOf("stdin_default") === -1) {
         emptyApp = true;
@@ -107,7 +100,7 @@ async function renderApp(
     (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, { 
       rootElement: rootEl, 
       rRoot: root, 
-      App: App as FlexibleComponentType, 
+      App: AppToRender, 
       cssCache, 
       cleanup: () => {
         root.unmount();

@@ -1,6 +1,13 @@
 import type { EmotionCache } from "@emotion/cache";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import type { Root } from "react-dom/client";
+
+interface BaseProps {
+  width?: number;
+  height?: number;
+}
+
+export type FlexibleComponentType<P = unknown> = ComponentType<P & BaseProps>;
 
 export interface ChatHeaderProps {
   isDarkMode: boolean;
@@ -51,7 +58,7 @@ export interface ICode {
 
 export interface IRenderApp {
   rootElement?: HTMLDivElement;
-  App?: React.ComponentType<Record<string, unknown>>;
+  App?: FlexibleComponentType;
   codeSpace?: string;
   transpiled?: string;
   code?: string;
@@ -61,7 +68,7 @@ export interface RenderedApp {
   rootElement: HTMLDivElement;
   code?: string;
   rRoot: Root;
-  App?: React.ComponentType<unknown>;
+  App?: FlexibleComponentType;
   cssCache: EmotionCache;
   cleanup: () => void;
 }
@@ -162,13 +169,6 @@ export interface ChatDrawerProps {
   screenShot: () => Promise<ImageData>;
 }
 
-export interface ChatHeaderProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-  handleResetChat: () => void;
-  onClose: () => void;
-}
-
 export interface ChatContainerProps {
   messages: Message[];
   editingMessageId: string | null;
@@ -179,19 +179,4 @@ export interface ChatContainerProps {
   handleEditMessage: (id: string) => void;
   isStreaming: boolean;
   isDarkMode: boolean;
-}
-
-export interface ChatWindowProps {
-  isOpen: boolean;
-  children: ReactNode;
-  isDarkMode: boolean;
-  isMobile: boolean;
-}
-
-export interface ImageData {
-  imageName: string;
-  url: string;
-  src: string;
-  mediaType: string;
-  data: string;
 }

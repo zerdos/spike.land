@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./CodeSession";
 
+// Mock swVersion
+vi.mock("/swVersion.mjs", () => ({
+  swVersion: "mocked-version",
+}));
+
 // Mock dependencies
 vi.mock("../lib/make-sess", () => ({
   makeHash: vi.fn().mockReturnValue("mockHash"),
