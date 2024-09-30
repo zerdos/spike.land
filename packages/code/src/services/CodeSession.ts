@@ -179,6 +179,7 @@ export class Code implements ICode {
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
+      swVersion: process.env.SW_VERSION || "unknown", // Add this line
     });
     return this.session;
   }

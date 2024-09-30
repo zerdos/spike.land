@@ -346,10 +346,10 @@ async function handleErrorMessage(
   };
 
   // Create a new array with all existing messages plus the new user message
-  const updatedMessages = [...messages, userMessage];
+  messages.push(userMessage);
 
   // Update the state with all messages, including the new user message
-  setMessages(updatedMessages);
+  setMessages([...messages]);
 
   const newOnUpdate = createOnUpdateFunction(
     { setMessages, cSess, contextManager, mod },
@@ -357,22 +357,19 @@ async function handleErrorMessage(
 
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
-    updatedMessages,
+    messages,
     newOnUpdate,
   );
 
   // Add the assistant message to the updated messages array
-  updatedMessages.push({
+  messages.push({
     role: "assistant",
     id: Date.now().toString(),
     content: assistantMessage.content,
   });
 
   // Update the state with all messages, including the new assistant message
-  setMessages([...updatedMessages]);
-
-  const assistantFullMessage: string = assistantMessage.content as string;
-  await newOnUpdate(assistantFullMessage);
+  setMessages([...messages]);
 
   //  const contentToProcess = extractTextContent(assistantMessage.content);
 
