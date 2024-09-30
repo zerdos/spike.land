@@ -18,7 +18,7 @@ export class CodeSessionBC {
           }
 
           if (this.session && data.i > this.session.i) {
-            console.log("broadcastChannel.onmessage", data);
+            // console.log("broadcastChannel.onmessage", data);
 
             this.session = makeSession(data);
 

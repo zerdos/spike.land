@@ -1,4 +1,4 @@
-import type { ICode, ImageData } from "@/lib/interfaces";
+import type { ICode, ImageData, Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -20,9 +20,6 @@ vi.mock("./messageProcessing", () => ({
     content,
   })),
   processMessage: vi.fn(),
-}));
-vi.mock("./useAutoSave", () => ({
-  useAutoSave: vi.fn(),
 }));
 vi.mock("../shared", () => ({
   ...vi.importActual("../shared"),
@@ -73,7 +70,7 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle sending a message", async () => {
-    const mockNewMessage = {
+    const mockNewMessage: Message = {
       id: "new-message-id",
       role: "user",
       content: [{ type: "text", text: "Test message" }],
