@@ -137,7 +137,10 @@ export const tsx = async (code: string): Promise<{ content: string; filePath: st
 
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
-): Promise<string> => {
+): Promise<{
+  result: string;
+  len: number;
+}> => {
   const worker = workerPool.getWorker("search-replace");
   try {
     return await worker.rpc.rpc("updateSearchReplace", { instructions, code });

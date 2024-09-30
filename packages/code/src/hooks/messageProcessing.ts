@@ -212,7 +212,10 @@ function createOnUpdateFunction({
 
             const lastCode = mod.lastCode;
             const chunk = instructions.slice(startPos);
-            mod.lastCode = await updateSearchReplace({ instructions: chunk, code: lastCode });
+
+            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+            // chunk = chunk.slice(0, len);
+            mod.lastCode = result;
 
             if (md5(mod.lastCode) === md5(lastCode)) {
               mod.actions.push({
@@ -238,9 +241,9 @@ function createOnUpdateFunction({
                 chars: instructions.length,
                 type: "updated",
                 startPos,
-                chunLength: chunk.length,
-                chunk,
-                lastSuccessCut: instructions.length + startPos,
+                chunLength: len,
+                chunk: chunk.slice(0, len),
+                lastSuccessCut: len + startPos,
                 hash: md5(mod.lastCode),
               });
               console.table(mod.actions[mod.actions.length - 1]);
