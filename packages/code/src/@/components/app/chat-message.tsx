@@ -82,7 +82,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
     
     return _content.map((item, index) => {
       if (item.type === "text" && item.text) {
-        const hashText = md5(item.text);
+        const hashText = index +"--"+ md5(item.text);
         return (
           <div key={`${hashText}`}>
             <ChatMessageBlock text={item.text} isUser={isUser} />

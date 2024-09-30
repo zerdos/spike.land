@@ -115,6 +115,7 @@ export const ChatInterface: React.FC<{
           console.log("No new messages setIsStreaming = false");
         
           setIsStreaming(false);
+          
         } else {
           console.log("New messages setIsStreaming = true");
           console.log("lastMessage", md5(lastMessage));
