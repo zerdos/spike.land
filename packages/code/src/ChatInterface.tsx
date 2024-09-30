@@ -10,14 +10,13 @@ import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { useImmer } from "use-immer";
 
-
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
 export const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
-}> = React.memo(({ onClose, isOpen, cSess }) => {
+}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -31,32 +30,22 @@ export const ChatInterface: React.FC<{
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const setMessages = (newMessages: Message[]): void => {
+    if (md5(messages) === md5(newMessages)) {
+      console.log("setMessages: same messages, returning");
+      return;
+    }
 
+    setImmer(newMessages);
 
-  const setMessages = (newMessages: Message[] ) => {
-    
-      if (md5(messages) === md5(newMessages)) {
-
-        console.log("setMessages: same messages, returning");
-        return ;
+    setTimeout(() => {
+      if (md5(m || []) === md5(messages)) {
+        setM(newMessages);
       }
+    }, 1000);
+  };
 
-      setImmer(newMessages);
-
-      setTimeout(() => {
-        if (md5(m || []) === md5(messages)) {
-            setM(newMessages);
-          return ;
-        }
-      }, 1000);
-
-
-
-      return ;
-  }
-
-
-  const resetChat = useCallback(() => {
+  const resetChat = useCallback((): void => {
     setMessages([]);
     setInput("");
     setAICode("");
@@ -112,7 +101,7 @@ export const ChatInterface: React.FC<{
     }
   }, [isStreaming, messages, setIsStreaming]);
 
-  const handleResetChat = useCallback(() => {
+  const handleResetChat = useCallback((): void => {
     resetChat();
     setIsStreaming(false);
     if (inputRef.current) {
@@ -144,23 +133,23 @@ export const ChatInterface: React.FC<{
     }
   }, [isOpen, codeSpace, handleSendMessage]);
 
-  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]) => {
-    return handleSendMessage(message, images || []);
+  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]): void => {
+    handleSendMessage(message, images || []);
   }, [handleSendMessage]);
 
-  const memoizedSetInput = useCallback((value: string) => {
+  const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
   }, []);
 
-  const memoizedHandleEditMessage = useCallback((messageId: string) => {
+  const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     handleEditMessage(messageId);
   }, [handleEditMessage]);
 
-  const memoizedSetEditInput = useCallback((value: string) => {
+  const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
   }, []);
 
-  const memoizedScreenShot = useCallback(() => cSess.screenShot(), [cSess]);
+  const memoizedScreenShot = useCallback((): Promise<void> => cSess.screenShot(), [cSess]);
 
   if (!isOpen) return null;
 
