@@ -275,13 +275,9 @@ export class AIService {
 
         return "";
       } catch {
-        const lastMessage = messages.pop()!;
+        const lastMessage = [...messages].pop()!;
 
-        if (lastMessage.role === "user") {
-          messages = messagesPush(messages, lastMessage);
-        }
-
-        setMessages([...messages]);
+        setMessages([...messages, lastMessage]);
 
         const content = messages.filter((message) => message.role === "assistant").pop()?.content;
 
