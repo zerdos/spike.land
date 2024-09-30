@@ -1,9 +1,8 @@
-import type { ICode, ImageData, Message } from "@/lib/interfaces";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as messageProcessing from "./messageProcessing";
-import * as useAutoSave from "./useAutoSave";
 import type { UseMessageHandlingProps } from "./useMessageHandling";
 import { useMessageHandling } from "./useMessageHandling";
 
@@ -73,7 +72,38 @@ describe("useMessageHandling", () => {
     vi.clearAllMocks();
   });
 
-  // ... (keep other tests unchanged)
+  it("should handle sending a message", async () => {
+    const mockNewMessage = {
+      id: "new-message-id",
+      role: "user",
+      content: [{ type: "text", text: "Test message" }],
+    };
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
+    vi.spyOn(messageProcessing, "processMessage").mockImplementation(
+      async ({ setMessages }) => {
+        setMessages([mockNewMessage]);
+        return true;
+      },
+    );
+
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    await act(async () => {
+      await result.current.handleSendMessage("Test message", [mockImageData]);
+    });
+
+    expect(mockProps.setInput).toHaveBeenCalledWith("");
+    expect(messageProcessing.processMessage).toHaveBeenCalledWith(expect.objectContaining({
+      aiHandler: expect.any(Object),
+      cSess: mockCsess,
+      codeNow: "test code",
+      messages: expect.any(Array),
+      setMessages: expect.any(Function),
+      newUserMessage: expect.any(Object),
+    }));
+    expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
+    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
+  });
 
   it("should handle error during message processing", async () => {
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(

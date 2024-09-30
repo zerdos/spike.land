@@ -208,7 +208,7 @@ function createOnUpdateFunction({
             // chunk = chunk.slice(0, len);
             mod.lastCode = result;
 
-            if (md5(mod.lastCode) === md5(lastCode)) {
+            if (len === 0) {
               mod.actions.push({
                 TRIED: TRIED + 1,
                 SKIP: SKIP + 1,
@@ -253,7 +253,7 @@ function createOnUpdateFunction({
                 lastCode: mod.lastCode,
                 prevCode: lastCode,
                 hash: md5(mod.lastCode),
-                chunLength: chunk.length,
+                chunLength: len,
               });
               console.table(mod.actions[mod.actions.length - 1]);
               contextManager.updateContext("currentDraft", success ? "" : lastCode);

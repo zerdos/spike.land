@@ -27,7 +27,6 @@
     "sw": "echo ok",
     "test": "yarn vitest --no-color --reporter verbose run",
     "test-slim": "yarn typecheck && yarn lint &&  yarn vitest --no-color --reporter verbose run",
-
     "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
     "build": "echo 'Starting build...' && yarn clean && yarn concurrently --kill-others-on-fail \"yarn types && yarn types:cp\" \"npx -y tsx esbuild-dev.ts\" \"yarn tw\" && echo 'Build completed successfully!' || echo 'Build FAILED'"
   },
