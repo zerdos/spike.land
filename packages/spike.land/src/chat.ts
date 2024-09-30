@@ -8,7 +8,7 @@ import { handleReplicateRequest } from "./replicateHandler";
 import Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
-import { ASSET_MANIFEST,ASSET_HASH,  files } from "./staticContent.mjs";
+import { ASSET_MANIFEST, ASSET_HASH,  files } from "./staticContent.mjs";
 
 
 
