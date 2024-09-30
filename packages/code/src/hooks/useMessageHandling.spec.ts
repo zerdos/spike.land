@@ -182,7 +182,7 @@ describe("useMessageHandling", () => {
       role: "user",
       content: [
         { type: "text", text: "Test message with image" },
-        { type: "image", imageData: mockImageData },
+        { type: "image_url", image_url: { url: mockImageData.url } },
       ],
     };
     vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));

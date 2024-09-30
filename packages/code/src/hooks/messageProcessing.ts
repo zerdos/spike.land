@@ -88,7 +88,7 @@ export async function processMessage(
       }
 
       const onUpdate = createOnUpdateFunction(
-        { setMessages, cSess, contextManager, mod },
+        { setMessages, messages, cSess, contextManager, mod },
       );
 
       // Create a copy of the messages array to work with
@@ -147,11 +147,13 @@ async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
  */
 function createOnUpdateFunction({
   setMessages,
+  messages,
   cSess,
   contextManager,
   mod,
 }: {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  messages: Message[];
   cSess: ICode;
   contextManager: ContextManager;
   mod: Mod;
@@ -163,29 +165,12 @@ function createOnUpdateFunction({
   const updateState = () => {
     const now = Date.now();
     if (now - lastUpdateTime >= updateInterval) {
-      setMessages((prevMessages) => {
-        const lastMessage = prevMessages.pop()!;
-
-        if (lastMessage && lastMessage.role === "assistant") {
-          // Update the last assistant message
-
-          lastMessage.content = instructions;
-          return [
-            ...prevMessages,
-            lastMessage,
-          ];
-        }
-        // Add a new assistant message
-        return [
-          ...prevMessages,
-          lastMessage,
-          {
-            id: now.toString(),
-            role: "assistant",
-            content: instructions,
-          },
-        ].filter(Boolean) as Message[];
+      messages = messagesPush(messages, {
+        id: now.toString(),
+        role: "assistant",
+        content: instructions,
       });
+      setMessages([...messages]);
       lastUpdateTime = now;
     }
   };
@@ -351,7 +336,7 @@ async function handleErrorMessage(
   setMessages([...messages]);
 
   const newOnUpdate = createOnUpdateFunction(
-    { setMessages, cSess, contextManager, mod },
+    { setMessages, messages, cSess, contextManager, mod },
   );
 
   const assistantMessage = await sendAssistantMessage(
