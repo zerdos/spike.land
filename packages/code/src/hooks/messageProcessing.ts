@@ -82,7 +82,7 @@ export async function processMessage(
 
       // Add the user message to the messages array
       messages.push(newUserMessage);
-      setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+      setMessages([...messages]);
 
       const onUpdate = createOnUpdateFunction(
         { setMessages, cSess, contextManager, mod },
