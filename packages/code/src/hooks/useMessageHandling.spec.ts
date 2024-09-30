@@ -16,7 +16,7 @@ vi.mock("@src/AIHandler", () => ({
 }));
 vi.mock("@src/services/runner");
 vi.mock("./messageProcessing", () => ({
-  createNewMessage: vi.fn((content: any) => ({
+  createNewMessage: vi.fn((content: string | ImageData[]) => ({
     id: "mock-id",
     role: "user",
     content,
@@ -84,9 +84,7 @@ describe("useMessageHandling", () => {
     vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
-      async (
-        { aiHandler: _processMessage, cSess: _cSess, codeNow: _codeNow, messages: _, setMessages },
-      ) => {
+      async ({ setMessages }) => {
         setMessages([mockNewMessage]);
         return true;
       },

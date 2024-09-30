@@ -53,10 +53,10 @@ export const useMessageHandling = ({
       codeSpace,
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
-    messages.push(newUserMessage);
+    messagesPush(messages, newUserMessage);
     setMessages([...messages]);
 
-    // messages.push(newMessage);
+    // messagesPush(message,newMessage);
     // setMessages((messages) => [...messages, newMessage]);
     // const assistantMessagePlaceholder: Message = {
     // id: Date.now().toString(),
@@ -83,7 +83,7 @@ export const useMessageHandling = ({
         role: "assistant",
         content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
       };
-      messages.push(sorry);
+      messagesPush(messages, sorry);
       setMessages([...messages]);
     }
   }, [
@@ -140,3 +140,17 @@ export const useMessageHandling = ({
     handleSaveEdit,
   };
 };
+
+function messagesPush(messages: Message[], newMessage: Message) {
+  if (!messages.length) {
+    return [newMessage];
+  }
+  const lastMessage = messages.pop()!;
+  if (lastMessage.role === newMessage.role) {
+    messages.push(newMessage);
+    return messages;
+  }
+  messages.push(lastMessage);
+  messages.push(newMessage);
+  return messages;
+}
