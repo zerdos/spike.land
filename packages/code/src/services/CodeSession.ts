@@ -21,9 +21,9 @@ async function fetchAndCreateExtraModels(
   extraModels: Record<string, string> = {},
 ): Promise<Record<string, string>> {
   const patterns = [
-    ` from "(${origin})/live/[\\w\\-]+"`,
-    ` from "\\./(?!@/)[\\w\\-]+"`,
-    ` from "/live/[\\w\\-]+"`,
+    ` from "(${origin})/live/[\\w-]+"`,
+    ` from "\\./((?!@/)[\\w-]+)"`,
+    ` from "/live/[\\w-]+"`,
   ];
 
   const regex = new RegExp(patterns.join("|"), "gm");
@@ -54,7 +54,6 @@ class CodeProcessor {
     rawCode: string,
     skipRunning: boolean = false,
     counter: number,
-    _cacheBust = false,
     signal: AbortSignal,
   ): Promise<ICodeSession | false> {
     try {
@@ -179,7 +178,7 @@ export class Code implements ICode {
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
-      swVersion: process.env.SW_VERSION || "unknown", // Add this line
+      swVersion: process.env.SW_VERSION || "unknown",
     });
     return this.session;
   }
@@ -202,7 +201,6 @@ export class Code implements ICode {
       rawCode,
       skipRunning,
       counter,
-      cacheBust,
       signal,
     );
     if (!processedSession || signal.aborted) return this.session.code;
@@ -231,7 +229,7 @@ export class Code implements ICode {
       const codeSpaceLine = lines.shift();
       if (!codeSpaceLine) continue;
 
-      const codeSpaceMatch = codeSpaceLine.match(/^([\w\-\.]+)\.tsx$/);
+      const codeSpaceMatch = codeSpaceLine.match(/^([\w-.]+)\.tsx$/);
       if (!codeSpaceMatch) continue;
       const codeSpace = codeSpaceMatch[1];
 

@@ -81,7 +81,8 @@ export async function processMessage(
       const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
 
       // Add the user message to the messages array
-      messages.push(newUserMessage);
+      if (newUserMessage) messages.push(newUserMessage);
+
       setMessages([...messages]);
 
       const onUpdate = createOnUpdateFunction(
@@ -185,7 +186,7 @@ function createOnUpdateFunction({
             role: "assistant",
             content: instructions,
           },
-        ];
+        ].filter(Boolean) as Message[];
       });
       lastUpdateTime = now;
     }
