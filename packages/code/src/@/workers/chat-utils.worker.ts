@@ -42,6 +42,7 @@ export const updateSearchReplace = async (
   const len = low;
 
   console.log("Attempting to prettify the code");
+  console.log("Code length:", { result, len, instructions: instructions.slice(0, len) });
 
   try {
     const resultPretty = await prettierJs({ code: result, toThrow: true });
