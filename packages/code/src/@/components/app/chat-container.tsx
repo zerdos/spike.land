@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import type { ChatContainerProps, Message } from "@/lib/interfaces";
-
 import { ChatMessage } from "@/components/app/chat-message";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// Components
 interface TypingIndicatorProps {
   isDarkMode: boolean;
 }
@@ -41,9 +39,7 @@ const TypingIndicator: React.FC<TypingIndicatorProps> = React.memo(({ isDarkMode
   </div>
 ));
 
-export const ChatContainer: React.FC<
-  ChatContainerProps & { codeSpace: string }
-> = React.memo((props) => {
+export const ChatContainer: React.FC<ChatContainerProps & { codeSpace: string }> = React.memo((props) => {
   const {
     messages,
     editingMessageId,
@@ -80,15 +76,17 @@ export const ChatContainer: React.FC<
   );
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     if (isStreaming) {
       setTypingIndicatorMustShow(true);
-      return () => {};
     } else {
-      const timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setTypingIndicatorMustShow(false);
       }, 1000);
-      return () => clearTimeout(timeoutId);
     }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [isStreaming]);
 
   const renderMessage = useCallback(
