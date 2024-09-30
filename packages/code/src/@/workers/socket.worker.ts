@@ -73,6 +73,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     });
   };
 
+  connection.webSocket.open();
   console.log("New connection created and stored");
 }
 
