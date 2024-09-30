@@ -7,7 +7,7 @@ export const useChat = (
   codeSpace: string,
 ) => {
   const [messagesRaw, setMessages] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
-  const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, false);
+  const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, true);
 
   const [input, setInput] = useState("");
   const [codeWhatAiSeen, setAICode] = useState("");
