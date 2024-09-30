@@ -1,7 +1,9 @@
+import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
 import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
+import { set } from "immutable";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
@@ -139,14 +141,13 @@ export class AIService {
   ): Promise<Message> {
     try {
       const endpoint = this.getEndpoint(type);
-      const maxMessages = 8;
-      if (messages.length > maxMessages) {
-        messages = messages.slice(-maxMessages);
-      }
-      if (messages[messages.length - 1].role === "assistant") {
-        messages = messages.slice(0, -1);
-      }
-      const result = await this.handleStreamingResponse(endpoint, messages, onUpdate, type === "gpt4o" ? `gpt-4o` : "");
+
+      const result = await this.handleStreamingResponse(
+        endpoint,
+        messages.slice(0, -8),
+        onUpdate,
+        type === "gpt4o" ? `gpt-4o` : "",
+      );
 
       const lastMessage = messages[messages.length - 1];
 
@@ -188,11 +189,9 @@ export class AIService {
     ];
 
     const updateMessages = (newChunk: string) => {
-      setMessages([...messages, {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: newChunk,
-      }]);
+      messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: newChunk });
+
+      setMessages([...messages]);
     };
 
     try {
@@ -249,42 +248,36 @@ export class AIService {
 
     try {
       const answer = await this.sendToAnthropic([...prevMessages, message], (chunk) => {
-        setMessages((prevMessages) => {
-          const lastMessage = prevMessages[prevMessages.length - 1];
-          if (lastMessage && lastMessage.role === "assistant") {
-            lastMessage.content += chunk;
-            return [...prevMessages];
-          } else {
-            return [...prevMessages, { ...message, content: chunk }];
-          }
-        });
+        messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
+
+        setMessages([...messages]);
       });
-      setMessages((prevMessages) => [...prevMessages, answer]);
+      messages = messagesPush(messages, answer);
+
+      setMessages([...messages]);
 
       return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
     } catch (error) {
       console.error("Error retrying with Claude:", error);
       try {
         const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
-          setMessages((prevMessages) => {
-            const lastMessage = prevMessages[prevMessages.length - 1];
-            if (lastMessage && lastMessage.role === "assistant") {
-              lastMessage.content += chunk;
-              return [...prevMessages];
-            } else {
-              return [...prevMessages, { ...message, content: chunk }];
-            }
-          });
-        });
-        setMessages((prevMessages) => [...prevMessages, answer]);
+          messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
 
-        return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
+          setMessages([...messages]);
+        });
+
+        messages = messagesPush(messages, answer);
+        setMessages([...messages]);
+
+        return "";
       } catch (error) {
         console.error("Error retrying with Claude:", error);
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { id: Date.now().toString(), role: "assistant", content: "I'm sorry, I couldn't help you with this error." },
-        ]);
+        messages = messagesPush(messages, {
+          id: Date.now().toString(),
+          role: "assistant",
+          content: "I'm sorry, I couldn't help you with this error.",
+        });
+        setMessages([...messages]);
         return "";
       }
     }

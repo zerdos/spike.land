@@ -1,6 +1,20 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { Message } from "@/lib/interfaces";
 
+export function messagesPush(messages: Message[], newMessage: Message) {
+  if (!messages.length) {
+    return [newMessage];
+  }
+  const lastMessage = messages.pop()!;
+  if (lastMessage.role === newMessage.role) {
+    messages.push(newMessage);
+    return messages;
+  }
+  messages.push(lastMessage);
+  messages.push(newMessage);
+  return messages;
+}
+
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
 

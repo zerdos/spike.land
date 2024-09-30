@@ -1,3 +1,4 @@
+import { messagesPush } from "@/lib/chat-utils";
 import type { ImageData } from "@/lib/interfaces";
 import type { Message } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
@@ -140,17 +141,3 @@ export const useMessageHandling = ({
     handleSaveEdit,
   };
 };
-
-function messagesPush(messages: Message[], newMessage: Message) {
-  if (!messages.length) {
-    return [newMessage];
-  }
-  const lastMessage = messages.pop()!;
-  if (lastMessage.role === newMessage.role) {
-    messages.push(newMessage);
-    return messages;
-  }
-  messages.push(lastMessage);
-  messages.push(newMessage);
-  return messages;
-}
