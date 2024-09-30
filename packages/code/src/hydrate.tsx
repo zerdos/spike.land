@@ -1,13 +1,14 @@
-import { Workbox } from "workbox-window";
 
 const setupServiceWorker = async () => {
-  if (navigator.serviceWorker) {
+  if (!navigator.serviceWorker) {
+    const { Workbox } = await import( "workbox-window");
+
     const wb = new Workbox("/sw.js");
   
     wb.register();
     setInterval(() => {
       wb.update();
-    }, 60 * 60 * 1000); //
+    }, 60 * 60 * 1000); // every hour
   }
 };
 
