@@ -55,7 +55,7 @@ export default {
       },
     }); 
   }
-  if (url.pathname === "ASSET_MANIFEST") {
+  if (url.pathname === "/ASSET_MANIFEST") {
     return new Response(ASSET_MANIFEST as unknown as string, {
       headers: {
         "Content-Type": "application/json",
