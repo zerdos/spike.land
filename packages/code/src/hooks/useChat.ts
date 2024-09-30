@@ -1,7 +1,7 @@
 import type { Message } from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
+
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 export const useChat = (
   codeSpace: string,
@@ -17,44 +17,6 @@ export const useChat = (
 
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
   const messages = messagesRaw.filter(x => x);
-
-  useEffect(() => {
-    if (messages.length === 0) {
-      setIsStreaming(false);
-      return;
-    }
-    setIsStreaming(true);
-  }, [messages]);
-
-  useEffect(() => {
-    setIsStreaming(false);
-  }, []);
-
-  useEffect(() => {
-    // Your code here
-
-    if (isStreaming) {
-      const lastMessage = messages[messages.length - 1];
-      const lastHash = md5(JSON.stringify(lastMessage));
-      const interval = setInterval(() => {
-        if (messages.length === 0) {
-          setIsStreaming(false);
-          return;
-        }
-
-        const newMessage = messages[messages.length - 1];
-
-        const newHash = md5(JSON.stringify(newMessage));
-        if (lastHash === newHash) {
-          setIsStreaming(false);
-        }
-      }, 1000);
-      return () => clearInterval(interval);
-
-      // Add a default return statement
-    }
-    return () => {};
-  }, [isStreaming, messages]);
 
   const resetChat = useCallback(() => {
     setMessages([]);

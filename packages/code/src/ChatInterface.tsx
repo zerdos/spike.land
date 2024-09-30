@@ -7,6 +7,7 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 
 
 export const ChatInterface: React.FC<{
@@ -53,6 +54,52 @@ export const ChatInterface: React.FC<{
     setEditInput,
     cSess,
   });
+
+  
+
+
+
+
+
+
+  useEffect(() => {
+    if (messages.length === 0) {
+      setIsStreaming(false);
+      return;
+    }
+    setIsStreaming(true);
+  }, [messages]);
+
+  useEffect(() => {
+    setIsStreaming(false);
+  }, []);
+
+  useEffect(() => {
+    // Your code here
+
+    if (isStreaming) {
+      const lastMessage = messages[messages.length - 1];
+      const lastHash = md5(JSON.stringify(lastMessage));
+      const interval = setInterval(() => {
+        if (messages.length === 0) {
+          setIsStreaming(false);
+          return;
+        }
+
+        const newMessage = messages[messages.length - 1];
+
+        const newHash = md5(JSON.stringify(newMessage));
+        if (lastHash === newHash) {
+          setIsStreaming(false);
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+
+      // Add a default return statement
+    }
+    return () => {};
+  }, [isStreaming, messages]);
+
 
   const handleResetChat = useCallback(() => {
     resetChat();
