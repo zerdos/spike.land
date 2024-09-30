@@ -64,9 +64,11 @@ describe("AIService", () => {
       const onUpdate = vi.fn();
       const result = await aiService.sendToAI("anthropic", mockMessages, onUpdate);
 
-      expect(result).toMatchSnapshot();
-      expect(result.role).toBe("assistant");
-      expect(result.content).toBe("Mocked assistant content");
+      expect(result).toEqual({
+        id: expect.any(String),
+        role: "assistant",
+        content: "Mocked assistant content",
+      });
       expect(onUpdate).toHaveBeenCalledWith("Mocked assistant content");
     });
 
