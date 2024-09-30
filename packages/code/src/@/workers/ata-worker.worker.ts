@@ -86,11 +86,11 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
 
   rpcProvider.registerSignalHandler(
     "connect",
-    ({ signal, sess }: { signal: string; sess: ICodeSession }) => {
+    async ({ signal, sess }: { signal: string; sess: ICodeSession }) => {
       console.log("Connecting to signal", signal, sess);
 
       lazyLoadScript("socket");
-      self.setConnections(signal, sess);
+      await (globalThis as unknown as typeof self).setConnections(signal, sess);
     },
   );
 };

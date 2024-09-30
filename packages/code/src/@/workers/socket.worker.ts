@@ -2,7 +2,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
 import type { Socket } from "@github/stable-socket";
-import { BufferedSocket, StableSocket } from "@github/stable-socket";
+import { connectWithRetry } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 
 // Define the properties of `self` with proper types
@@ -29,7 +29,7 @@ interface Connection {
   broadcastChannel: BroadcastChannel;
   lastCounter: number;
   codeSpace: string;
-  webSocket: Socket;
+  webSocket: Awaited<ReturnType<typeof connectWithRetry>>;
   controller: AbortController;
   user: string;
   oldSession: ICodeSession;
@@ -53,34 +53,25 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
 
   const [codeSpace, user] = signal.split(" ");
 
-  let connection = connections.get(codeSpace);
+  if (connections.has(codeSpace)) return;
 
-  if (!connection) {
-    console.log("Creating new connection for codeSpace:", codeSpace);
-    // Create a new connection
-    connection = {
-      user,
-      codeSpace,
-      controller: new AbortController(),
-      oldSession: makeSession(sess),
-      lastCounter: 0,
-      broadcastChannel: null as unknown as BroadcastChannel, // Will be initialized below
-      webSocket: null as unknown as Socket, // Will be initialized below
-    };
+  console.log("Creating new connection for codeSpace:", codeSpace);
+  // Create a new connection
+  const connection: Connection = {
+    user,
+    codeSpace,
+    controller: new AbortController(),
+    oldSession: makeSession(sess),
+    lastCounter: sess.i,
+    broadcastChannel: null as unknown as BroadcastChannel, // Will be initialized below
+    webSocket: await createWebSocket(codeSpace),
+  };
 
-    // Initialize the WebSocket and BroadcastChannel
-    connection.webSocket = createWebSocket(codeSpace, connection);
-    connection.broadcastChannel = createBroadcastChannel(codeSpace, connection);
+  // Initialize the WebSocket and BroadcastChannel
 
-    connections.set(codeSpace, connection);
-    console.log("New connection created and stored");
-  } else {
-    console.log("Updating existing connection for codeSpace:", codeSpace);
-    // Update existing connection if necessary
-    connection.user = user;
-    connection.codeSpace = codeSpace;
-    // Optionally update oldSession if required
-  }
+  connections.set(codeSpace, connection);
+  addHandlers(codeSpace);
+  console.log("New connection created and stored");
 }
 
 /**
@@ -107,13 +98,12 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
  * @param connection - The connection context.
  * @returns The initialized WebSocket.
  */
-function createWebSocket(codeSpace: string, connection: Connection): Socket {
+async function createWebSocket(codeSpace: string) {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
   console.log("Creating WebSocket connection to:", url);
-  const delegate = createSocketDelegate(connection, codeSpace);
-  return new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
+  return connectWithRetry(url, SOCKET_POLICY);
 }
 
 /**
@@ -122,28 +112,34 @@ function createWebSocket(codeSpace: string, connection: Connection): Socket {
  * @param codeSpace - The code space identifier.
  * @returns The delegate object with event handlers.
  */
-function createSocketDelegate(connection: Connection, codeSpace: string) {
-  return {
-    socketDidOpen: () => {
-      console.log(`WebSocket opened for codeSpace: ${codeSpace}`);
-    },
-    socketDidClose: () => {
-      console.log(`WebSocket closed for codeSpace: ${codeSpace}`);
-    },
-    socketDidFinish: () => {
-      console.log(`WebSocket finished for codeSpace: ${codeSpace}`);
-    },
-    socketDidReceiveMessage: (ws: Socket, message: string) => {
-      console.log(`Received WebSocket message for codeSpace: ${codeSpace}`, message);
-      handleSocketMessage(ws, message, connection, codeSpace).catch((error) => {
-        console.error("Error handling socket message:", error);
-      });
-    },
-    socketShouldRetry: (_socket: Socket, code: number) => {
-      const shouldRetry = code !== 1008;
-      console.log(`WebSocket retry decision for codeSpace: ${codeSpace}. Code: ${code}, Should retry: ${shouldRetry}`);
-      return shouldRetry;
-    },
+function addHandlers(codeSpace: string) {
+  const connection = connections.get(codeSpace);
+
+  if (!connection) {
+    console.error("Connection not found for codeSpace:", codeSpace);
+    return;
+  }
+
+  const ws = connection.webSocket;
+
+  if (!ws) {
+    console.error("WebSocket not found for codeSpace:", codeSpace);
+    return;
+  }
+
+  ws.onclose = () => {
+    console.log("WebSocket closed");
+  };
+
+  ws.onerror = (error) => {
+    console.error("WebSocket error:", error);
+  };
+
+  ws.onmessage = ({ data }) => {
+    console.log("Received WebSocket message:", data);
+    handleSocketMessage(data, codeSpace).catch((error) => {
+      console.error("Error handling socket message:", error);
+    });
   };
 }
 
@@ -177,11 +173,20 @@ function createBroadcastChannel(
  * @param codeSpace - The code space identifier.
  */
 async function handleSocketMessage(
-  ws: Socket,
   message: string,
-  connection: Connection,
   codeSpace: string,
 ): Promise<void> {
+  const connection = connections.get(codeSpace);
+  if (!connection) {
+    console.error("Connection not found for codeSpace:", codeSpace);
+    return;
+  }
+  const ws = connection.webSocket;
+  if (!ws) {
+    console.error("WebSocket not found for codeSpace:", codeSpace);
+    return;
+  }
+
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
   let data: Record<string, unknown>;
   try {
