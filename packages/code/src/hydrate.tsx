@@ -1,6 +1,7 @@
 
 const setupServiceWorker = async () => {
-  if (!navigator.serviceWorker) {
+  
+  if (!navigator.serviceWorker || (navigator.serviceWorker.controller?.state  === "redundant")) {
     const { Workbox } = await import( "workbox-window");
 
     const wb = new Workbox("/sw.js");
