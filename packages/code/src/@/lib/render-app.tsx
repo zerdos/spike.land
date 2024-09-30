@@ -10,6 +10,7 @@ import type { IRenderApp, RenderedApp, FlexibleComponentType } from "@/lib/inter
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
@@ -67,23 +68,12 @@ async function renderApp(
     });
 
     const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
-      const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+     
 
-      const throttledSetDimensions = useCallback(
-        throttle(
-          (dim: { width: number; height: number }) => setDimensions(dim),
-          100,
-        ),
-        [],
-      );
+      const {width, height} = useWindowSize();
 
-      useEffect(() => {
-        const handleResize = () => throttledSetDimensions({ width: window.innerWidth, height: window.innerHeight });
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-      }, [throttledSetDimensions]);
-
-      return <AppToRender width={dimensions.width} height={dimensions.height} />;
+   
+      return <AppToRender width={width!} height={height!} />;
     });
 
     root.render(
