@@ -89,20 +89,20 @@ export async function processMessage(
       );
 
       // Create a copy of the messages array to work with
-      const workingMessages = [...messages];
+
       console.log(`Processing message (attempt ${retries + 1})`);
 
       const assistantMessage = await sendAssistantMessage(
         aiHandler,
-        workingMessages,
+        messages,
         onUpdate,
       );
 
       // Add the assistant message to the working messages array
-      workingMessages.push(assistantMessage);
+      messages.push(assistantMessage);
 
       // Update the state with all messages, including the new assistant message
-      setMessages([...workingMessages]);
+      setMessages([...messages]);
 
       if (codeNow !== cSess.session.code) {
         const success = await trySetCode(cSess, cSess.session.code);
@@ -112,7 +112,7 @@ export async function processMessage(
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
         const errorHandled = await handleErrorMessage(
-          { errorMessage, codeNow, messages: workingMessages, aiHandler, setMessages, cSess, contextManager, mod },
+          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager, mod },
         );
         if (errorHandled) return true;
       }
@@ -161,24 +161,27 @@ function createOnUpdateFunction({
     const now = Date.now();
     if (now - lastUpdateTime >= updateInterval) {
       setMessages((prevMessages) => {
-        const lastMessage = prevMessages[prevMessages.length - 1];
+        const lastMessage = prevMessages.pop()!;
+
         if (lastMessage && lastMessage.role === "assistant") {
           // Update the last assistant message
-          return [
-            ...prevMessages.slice(0, -1),
-            { ...lastMessage, content: instructions },
-          ];
-        } else {
-          // Add a new assistant message
+
+          lastMessage.content = instructions;
           return [
             ...prevMessages,
-            {
-              id: now.toString(),
-              role: "assistant",
-              content: instructions,
-            },
+            lastMessage,
           ];
         }
+        // Add a new assistant message
+        return [
+          ...prevMessages,
+          lastMessage,
+          {
+            id: now.toString(),
+            role: "assistant",
+            content: instructions,
+          },
+        ];
       });
       lastUpdateTime = now;
     }
