@@ -15,14 +15,11 @@ const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
     new Blob([importMapReplace(code.split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`)], { type: "application/javascript"}) ), location.origin).toString();
     
-
-    
 declare global {
   var renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
-globalThis.renderedApps = globalThis.renderedApps || new WeakMap<HTMLElement, RenderedApp>();
-
+(globalThis as any).renderedApps = (globalThis as any).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
 // Main render function
 async function renderApp(
@@ -31,24 +28,21 @@ async function renderApp(
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
-     // rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
-    // rootEl.id = "root";
 
-    let AppToRender: React.ComponentType<any>;
+    let AppToRender: React.ComponentType<Record<string, unknown>>;
     let emptyApp = false;
 
-
     if (App) {
-      AppToRender = App;
+      AppToRender = App as React.ComponentType<Record<string, unknown>>;
     } else if (transpiled || code) {
       if (transpiled?.indexOf("stdin_default") === -1) {
-        //empty App, export default ()=><div></div>
         emptyApp = true;
         AppToRender = (await import(createJsBlob((await transpile({code: `export default ()=><div></div>`, originToUse:  location.origin}))))).default;
-      }else 
-      AppToRender = (await import(   createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
+      } else {
+        AppToRender = (await import(createJsBlob(transpiled || await transpile({code: code!, originToUse: location.origin})))).default;
+      }
     } else if (codeSpace) {
       const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(indexJs)).default;
@@ -69,7 +63,7 @@ async function renderApp(
     });
 
     const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
-      const [dimensions, setDimensions] = useState({ width: innerWidth, height: innerHeight });
+      const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
 
       const throttledSetDimensions = useCallback(
         throttle(
@@ -80,7 +74,7 @@ async function renderApp(
       );
 
       useEffect(() => {
-        const handleResize = () => throttledSetDimensions({ width: innerWidth, height: innerHeight });
+        const handleResize = () => throttledSetDimensions({ width: window.innerWidth, height: window.innerHeight });
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
       }, [throttledSetDimensions]);
@@ -88,17 +82,18 @@ async function renderApp(
       return <AppToRender width={dimensions.width} height={dimensions.height} />;
     });
 
- root.render(
-     <CacheProvider value={cssCache}>
-     {emptyApp ? <AppToRender />: <ErrorBoundary {...(codeSpace?{codeSpace}:{})}>
-          <AppWithScreenSize />
-        </ErrorBoundary>
-  }
+    root.render(
+      <CacheProvider value={cssCache}>
+        {emptyApp ? <AppToRender /> : (
+          <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
+            <AppWithScreenSize />
+          </ErrorBoundary>
+        )}
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
       </CacheProvider>,
     );
 
-    globalThis.renderedApps.set(rootEl, { 
+    (globalThis as any).renderedApps.set(rootEl, { 
       rootElement: rootEl, 
       rRoot: root, 
       App, 
@@ -109,13 +104,13 @@ async function renderApp(
           cssCache.sheet.flush();
         }
         rootEl.remove();
-        renderedApps.delete(rootEl);
+        (globalThis as any).renderedApps.delete(rootEl);
       }
     });
 
-    const renderedApp = globalThis.renderedApps.get(rootEl)!;
+    const renderedApp = (globalThis as any).renderedApps.get(rootEl)!;
 
-
+    console.log("Rendered app:", renderedApp);
 
     return renderedApp;
   } catch (error) {

@@ -12,17 +12,18 @@ export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
 ) => {
   console.log("updateSearchReplace function called");
-  console.log("Received instructions:", instructions);
-  console.log("Received code:", code);
+  console.log("Received instructions:", { instructions });
+  console.log("Received code:", { code });
 
   const result = up(instructions, code);
-  console.log("Result after up(instructions, code):", result);
+  // console.log("Result after up(instructions, code):", result);
 
   const resultBad = up(instructions + "\nfooo\n", code);
-  console.log("Result after up(instructions + '\\nfooo\\n', code):", resultBad);
+  // console.log("Result after up(instructions + '\\nfooo\\n', code):", resultBad);
 
   if (result !== resultBad) {
     console.log("result !== resultBad, returning original code");
+
     return code;
   }
   if (result === code) {
