@@ -63,7 +63,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     controller: new AbortController(),
     oldSession: makeSession(sess),
     lastCounter: sess.i,
-    broadcastChannel: null as unknown as BroadcastChannel, // Will be initialized below
+    broadcastChannel: null as unknown as BroadcastChannel,
     webSocket: await createWebSocket(codeSpace),
   };
 
@@ -71,6 +71,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
 
   connections.set(codeSpace, connection);
   addHandlers(codeSpace);
+  createBroadcastChannel(codeSpace);
   console.log("New connection created and stored");
 }
 
@@ -151,8 +152,13 @@ function addHandlers(codeSpace: string) {
  */
 function createBroadcastChannel(
   codeSpace: string,
-  connection: Connection,
 ): BroadcastChannel {
+  const connection = connections.get(codeSpace);
+  if (!connection) {
+    console.error("Connection not found for codeSpace:", codeSpace);
+    return;
+  }
+
   const channelName = `${location.origin}/live/${codeSpace}/`;
   console.log(`Creating BroadcastChannel: ${channelName}`);
   const broadcastChannel = new BroadcastChannel(channelName);
