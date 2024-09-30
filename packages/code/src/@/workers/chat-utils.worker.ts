@@ -22,7 +22,7 @@ export const updateSearchReplace = async (
     return { result: code, len: 0 };
   }
 
-  if (result === code) {
+  if (result === code || result === up("", code)) {
     console.log("No changes made, returning original code");
     return { result: code, len: 0 };
   }
