@@ -1,7 +1,6 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { throttle } from "es-toolkit";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  } from "react";
 import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
