@@ -37,7 +37,7 @@ interface ChatMessageProps {
 
 type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
 
-export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
+export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
   const {
     message,
     isSelected,
@@ -84,7 +84,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
       if (item.type === "text" && item.text) {
         const hashText = md5(item.text);
         return (
-          <div key={`${index}-${hashText}`}>
+          <div key={`${hashText}`}>
             <ChatMessageBlock text={item.text} isUser={isUser} />
           </div>
         );
@@ -204,7 +204,6 @@ export const ChatMessage: React.FC<ChatMessageProps> = memo((props) => {
       </div>
     </div>
   );
-});
 
 ChatMessage.displayName = "ChatMessage";
 
