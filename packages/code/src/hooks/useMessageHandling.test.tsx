@@ -30,7 +30,7 @@ describe("useMessageHandling", () => {
     ...cSessMock,
     session: {
       ...cSessMock.session,
-      code: "test code",
+      code: "export default () => <h1>Hello</h1>",
       codeSpace: "test-space",
       i: 0,
       html: "",

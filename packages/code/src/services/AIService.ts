@@ -82,7 +82,7 @@ export class AIService {
 
   private async makeAPICall(endpoint: string, messages: Message[], model = ``): Promise<Response> {
     try {
-      const formattedMessages = messages.slice(-6).map(({ role, content }) => ({
+      const formattedMessages = messages.slice(-5).map(({ role, content }) => ({
         role,
         content: this.formatMessageContent(content),
       }));
