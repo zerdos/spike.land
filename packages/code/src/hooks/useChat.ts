@@ -45,7 +45,7 @@ export const useChat = (
         const newMessage = messages[messages.length - 1];
 
         const newHash = md5(JSON.stringify(newMessage));
-        if (lastHash !== newHash) {
+        if (lastHash === newHash) {
           setIsStreaming(false);
         }
       }, 1000);
