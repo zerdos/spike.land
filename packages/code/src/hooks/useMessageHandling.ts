@@ -37,13 +37,13 @@ export const useMessageHandling = ({
   cSess,
   setEditInput,
 }: UseMessageHandlingProps) => {
-  const aiHandler = useMemo(() => new AIHandler(cSess, setIsStreaming, codeSpace), [codeSpace, cSess, setIsStreaming]);
+  const aiHandler = new AIHandler(cSess, setIsStreaming, codeSpace);
   const mutex = new Mutex();
 
   const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
-    const code = await cSess.session.code;
+    const code = cSess.session.code;
 
     useAutoSave(codeSpace);
 
@@ -129,6 +129,7 @@ export const useMessageHandling = ({
         }
         : msg
     );
+
     setMessages([...messages]);
     setEditingMessageId(null);
     setEditInput("");
