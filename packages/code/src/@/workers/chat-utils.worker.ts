@@ -1,6 +1,5 @@
 import { updateSearchReplace as up } from "@/lib/chat-utils";
 import type { prettierJs as prettier } from "@/lib/prettier";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 importScripts("/@/workers/prettier-esm.worker.js");
 
 const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).prettierJs;
@@ -14,6 +13,9 @@ export const updateSearchReplace = async (
   const result = up(instructions, code);
   const resultBad = up(instructions + "\nfooo\n", code);
   if (result !== resultBad) {
+    return code;
+  }
+  if (result === code) {
     return code;
   }
 
