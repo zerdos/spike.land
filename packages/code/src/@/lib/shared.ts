@@ -57,6 +57,12 @@ class WorkerPool {
   }
 
   getWorker(tag: string = "default") {
+    if (tag === "connect") {
+      const connectWorker = this.workers.find((worker) => worker.tag === tag);
+      if (connectWorker) {
+        return connectWorker;
+      }
+    }
     let availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag);
 
     if (!availableWorker) {
