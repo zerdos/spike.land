@@ -14,12 +14,16 @@ import { importMapReplace } from "@/lib/importmap-utils";
 const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
     new Blob([importMapReplace(code.split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`)], { type: "application/javascript"}) ), location.origin).toString();
-    
+
+type GlobalWithRenderedApps = typeof globalThis & {
+  renderedApps: WeakMap<HTMLElement, RenderedApp>;
+};
+
 declare global {
-  var renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
-(globalThis as any).renderedApps = (globalThis as any).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
+(globalThis as GlobalWithRenderedApps).renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
 // Main render function
 async function renderApp(
@@ -31,11 +35,11 @@ async function renderApp(
       document.body.appendChild(rootEl);
     }
 
-    let AppToRender: React.ComponentType<Record<string, unknown>>;
+    let AppToRender: React.ComponentType<Record<string, unknown> | unknown>;
     let emptyApp = false;
 
     if (App) {
-      AppToRender = App as React.ComponentType<Record<string, unknown>>;
+      AppToRender = App;
     } else if (transpiled || code) {
       if (transpiled?.indexOf("stdin_default") === -1) {
         emptyApp = true;
@@ -93,7 +97,7 @@ async function renderApp(
       </CacheProvider>,
     );
 
-    (globalThis as any).renderedApps.set(rootEl, { 
+    (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, { 
       rootElement: rootEl, 
       rRoot: root, 
       App, 
@@ -104,11 +108,11 @@ async function renderApp(
           cssCache.sheet.flush();
         }
         rootEl.remove();
-        (globalThis as any).renderedApps.delete(rootEl);
+        (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);
       }
     });
 
-    const renderedApp = (globalThis as any).renderedApps.get(rootEl)!;
+    const renderedApp = (globalThis as GlobalWithRenderedApps).renderedApps.get(rootEl)!;
 
     console.log("Rendered app:", renderedApp);
 

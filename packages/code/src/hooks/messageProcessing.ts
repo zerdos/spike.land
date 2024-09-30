@@ -6,6 +6,7 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { md5 } from "@src/modules";
 import { Mutex } from "async-mutex";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 const mutex = new Mutex();
 
@@ -247,7 +248,7 @@ function createOnUpdateFunction({
                 startPos,
                 chunLength: chunk.length,
                 chunk,
-                lastSuccessCut: instructions.length,
+                lastSuccessCut: instructions.length + startPos,
                 hash: md5(mod.lastCode),
               });
               console.table(mod.actions[mod.actions.length - 1]);
