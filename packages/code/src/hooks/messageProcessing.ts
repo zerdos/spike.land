@@ -99,7 +99,11 @@ export async function processMessage(
       );
 
       // Add the assistant message to the working messages array
-      messages.push(assistantMessage);
+      messages.push({
+        role: "assistant",
+        id: Date.now().toString(),
+        content: assistantMessage.content,
+      });
 
       // Update the state with all messages, including the new assistant message
       setMessages([...messages]);
