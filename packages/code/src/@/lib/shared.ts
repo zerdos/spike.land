@@ -36,7 +36,7 @@ class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
 
-  constructor(minFreeWorkers: number = 1) {
+  constructor(minFreeWorkers: number = 0) {
     this.minFreeWorkers = minFreeWorkers;
   }
 
@@ -83,7 +83,7 @@ class WorkerPool {
 let workerPool: WorkerPool;
 
 function init() {
-  workerPool = new WorkerPool(2);
+  workerPool = new WorkerPool(0);
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
 }
