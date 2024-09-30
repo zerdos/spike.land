@@ -4232,6 +4232,7 @@ __metadata:
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.4"
+    "@types/object-hash": "npm:^3"
     "@types/path-browserify": "npm:^1.0.3"
     "@types/react": "npm:18.3.10"
     "@types/react-dom": "npm:18.3.0"
@@ -4298,6 +4299,7 @@ __metadata:
     next-themes: "npm:^0.3.0"
     node-html-parser: "npm:^6.1.13"
     node-source-walk: "npm:7.0.0"
+    object-hash: "npm:^3.0.0"
     object-inspect: "npm:^1.13.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
@@ -5005,6 +5007,13 @@ __metadata:
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/ea3e2530bb887d4d9c5eb58f0dd16b2af37e4323da2970f3b513403f45db1e0d54ba39b3de838ba7b2d40d38329aeed0bda4a0a39922d006c68aca5ee22e6e46
+  languageName: node
+  linkType: hard
+
+"@types/object-hash@npm:^3":
+  version: 3.0.6
+  resolution: "@types/object-hash@npm:3.0.6"
+  checksum: 10c0/a5450cafdbc33c840be2c36fb1ace96cce7aa580177cf68dbdbda80f18938207692d74c76403321c99f43460ac31981c4af7fe8b49eca1570f8e9a4c01eaf33d
   languageName: node
   linkType: hard
 
