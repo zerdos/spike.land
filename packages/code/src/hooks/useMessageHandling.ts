@@ -53,6 +53,8 @@ export const useMessageHandling = ({
       codeSpace,
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
+    messages.push(newUserMessage);
+    setMessages([...messages]);
 
     // messages.push(newMessage);
     // setMessages((messages) => [...messages, newMessage]);
@@ -82,7 +84,7 @@ export const useMessageHandling = ({
         content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
       };
       messages.push(sorry);
-      setMessages((m) => [...m, sorry]);
+      setMessages([...messages]);
     }
   }, [
     codeSpace,
@@ -115,8 +117,8 @@ export const useMessageHandling = ({
     setEditInput("");
   }, [setEditingMessageId, setEditInput]);
 
-  const handleSaveEdit = useCallback((messageId: string) => {
-    const updatedMessages = messages.map((msg) =>
+  const handleSaveEdit = (messageId: string) => {
+    messages = messages.map((msg) =>
       msg.id === messageId
         ? {
           ...msg,
@@ -126,10 +128,10 @@ export const useMessageHandling = ({
         }
         : msg
     );
-    setMessages(updatedMessages);
+    setMessages([...messages]);
     setEditingMessageId(null);
     setEditInput("");
-  }, [messages, editInput, setMessages, setEditingMessageId, setEditInput]);
+  };
 
   return {
     handleSendMessage,
