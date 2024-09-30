@@ -69,7 +69,7 @@ sw.addEventListener("install", (event) => {
         }
         const cache = await caches.open(cacheName);
         await cache.addAll(
-          Object.values(files),
+          Object.values(files).map((file) => new Request(new URL(file, location.href).href)),
         );
 
         await sw.skipWaiting();
