@@ -1,5 +1,5 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
@@ -8,6 +8,8 @@ import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
+import { useImmer } from "use-immer";
+
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -20,6 +22,7 @@ export const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [m, setM] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
+  const [messages, setImmer] = useImmer<Message[]>(m || []);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
 
   const [input, setInput] = useState("");
@@ -28,22 +31,28 @@ export const ChatInterface: React.FC<{
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const messages = useMemo(() => m || [], [m]);
 
-  const setMessages = useCallback((newMessages: React.SetStateAction<Message[]>) => {
-    setM((prevMessages) => {
-      const updatedMessages = typeof newMessages === 'function' ? newMessages(prevMessages || []) : newMessages;
-      const OLD = prevMessages || [];
-      console.log("setMessages", updatedMessages);
 
-      if (md5(OLD) === md5(updatedMessages)) {
+  const setMessages = (newMessages: Message[] ) => {
+    
+      if (md5(messages) === md5(newMessages)) {
+
         console.log("setMessages: same messages, returning");
-        return prevMessages;
+        return '';
       }
 
-      return updatedMessages;
-    });
-  }, [setM]);
+      setImmer(newMessages);
+
+      setTimeout(() => {
+        if (md5(m || []) === md5(messages)) {
+            setM(newMessages);
+          return '';
+        }
+      }, 1000);
+
+      return '';
+  }
+
 
   const resetChat = useCallback(() => {
     setMessages([]);
