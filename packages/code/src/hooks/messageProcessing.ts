@@ -50,6 +50,7 @@ interface Action {
   chars: number;
   type: string;
   lastCode?: string;
+  prevCode?: string;
   startPos: number;
   chunLength: number;
   chunk: string;
@@ -251,7 +252,7 @@ function createOnUpdateFunction({
               });
               console.table(mod.actions[mod.actions.length - 1]);
 
-              const success = await trySetCode(cSess, lastCode);
+              const success = await trySetCode(cSess, mod.lastCode);
               mod.actions.push({
                 TRIED,
                 SKIP,
@@ -261,7 +262,8 @@ function createOnUpdateFunction({
                 type: success ? "success" : "error",
                 startPos,
                 lastSuccessCut: success ? instructions.length : startPos,
-                lastCode: lastCode,
+                lastCode: mod.lastCode,
+                prevCode: lastCode,
                 hash: md5(mod.lastCode),
                 chunLength: chunk.length,
               });
