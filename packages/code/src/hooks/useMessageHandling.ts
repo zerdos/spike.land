@@ -45,7 +45,7 @@ export const useMessageHandling = ({
       codeSpace,
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
-    messagesPush(messages, newUserMessage);
+    messages = messagesPush(messages, newUserMessage);
     setMessages([...messages]);
 
     setInput("");
@@ -70,7 +70,7 @@ export const useMessageHandling = ({
         role: "assistant",
         content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
       };
-      messagesPush(messages, sorry);
+      messages = messagesPush(messages, sorry);
       setMessages([...messages]);
     }
   };

@@ -97,15 +97,21 @@ describe("useMessageHandling", () => {
       aiHandler: expect.any(Object),
       cSess: mockCsess,
       codeNow: "test code",
-      messages: expect.any(Array),
+      messages: expect.arrayContaining([mockNewMessage]),
       setMessages: expect.any(Function),
-      newUserMessage: expect.any(Object),
+      newUserMessage: mockNewMessage,
     }));
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
     expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
   });
 
   it("should handle error during message processing", async () => {
+    const mockNewMessage: Message = {
+      id: "new-message-id",
+      role: "user",
+      content: [{ type: "text", text: "Test message" }],
+    };
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async () => {
         throw new Error("Processing error");
@@ -120,6 +126,7 @@ describe("useMessageHandling", () => {
 
     expect(mockProps.setMessages).toHaveBeenCalledWith(
       expect.arrayContaining([
+        mockNewMessage,
         expect.objectContaining({
           role: "assistant",
           content: expect.stringContaining("Sorry, there was an error processing your request"),
@@ -135,7 +142,7 @@ describe("useMessageHandling", () => {
       result.current.handleSaveEdit("non-existent-id");
     });
 
-    expect(mockProps.setMessages).not.toHaveBeenCalled();
+    expect(mockProps.setMessages).toHaveBeenCalled();
     expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
   });
