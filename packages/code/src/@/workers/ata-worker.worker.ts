@@ -1,6 +1,22 @@
 import type { ICodeSession } from "@/lib/interfaces";
-import { lazyLoadScript } from "@/lib/lazy-load-scripts";
+import { lazyLoadScript as loadSC } from "@/lib/lazy-load-scripts";
 import { RpcProvider } from "worker-rpc";
+
+importScripts("/swVersion.js");
+
+const sw = this as unknown as ServiceWorkerGlobalScope & {
+  swVersion: string;
+  files: Record<string, string>;
+  fileCacheName: string;
+};
+
+const lazyLoadScript = (scriptName: string): void => {
+  const file = sw.files["@/workers/" + scriptName + ".worker.js"];
+  const fileParts = file.split(".").slice(-2);
+  fileParts.pop();
+  const hash = fileParts[0];
+  return loadSC(scriptName, hash);
+};
 
 type WorkerFunctions = {
   ata: (params: { code: string; originToUse: string }) => Promise<unknown>;

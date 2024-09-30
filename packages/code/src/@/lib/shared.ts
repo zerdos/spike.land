@@ -3,6 +3,9 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { swVersion } from "/sw-config.json" assert { type: "json" };
 
 type WorkerPort = MessagePort | Worker;
 
@@ -40,8 +43,8 @@ class WorkerPool {
   private addWorker(tag: string) {
     const worker = new AlwaysSupportedSharedWorker(
       tag === "connect"
-        ? "/@/workers/ata-worker.worker.js?workerId=connect"
-        : `/@/workers/ata-worker.worker.js?workerId=${tag}-${this.workers.length}`,
+        ? `/@/workers/ata-worker.worker.js?v=${swVersion}&workerId=connect`
+        : `/@/workers/ata-worker.worker.js?v=${swVersion}&workerId=${tag}-${this.workers.length}`,
     );
 
     const port = worker.port;
@@ -79,7 +82,7 @@ class WorkerPool {
 // Usage
 let workerPool: WorkerPool;
 
-async function init() {
+function init() {
   workerPool = new WorkerPool(2);
   const worker = workerPool.getWorker("connect");
   return worker.rpc;
@@ -213,11 +216,12 @@ export const connect = async ({
   sess: ICodeSession;
 }): Promise<() => void> => {
   if (!workerPool) {
-    await init();
+    init();
   }
   const worker = workerPool.getWorker("connect");
   try {
     worker.rpc.signal("connect", { signal, sess });
+
     return () => {
       workerPool.releaseWorker(worker);
     };

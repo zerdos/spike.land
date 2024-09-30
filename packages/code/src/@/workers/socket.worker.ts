@@ -36,7 +36,7 @@ interface Connection {
 }
 
 // Use a Map for better management of connections
-const connections: Map<string, Connection> = self.connections || new Map();
+const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections || new Map();
 const mutex = new Mutex();
 
 /**
