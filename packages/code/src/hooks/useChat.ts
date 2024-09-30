@@ -16,10 +16,11 @@ export const useChat = (
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const messages = messagesRaw.filter(x => x);
+
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
 
   const setMessages = (newMessages: Message[]) => {
-    const messages = messagesRaw.filter(x => x);
     const newMessagesFiltered = newMessages.filter(x => x);
 
     if (md5(messages) === md5(newMessagesFiltered)) {
