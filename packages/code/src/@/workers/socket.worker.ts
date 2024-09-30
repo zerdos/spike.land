@@ -1,7 +1,7 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
 import type { Socket } from "@github/stable-socket";
-import { connectWithRetry } from "@github/stable-socket";
+import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 
 // Define the properties of `self` with proper types
@@ -26,7 +26,7 @@ interface Connection {
   broadcastChannel: BroadcastChannel;
   lastCounter: number;
   codeSpace: string;
-  webSocket: Awaited<ReturnType<typeof createWebSocket>>;
+  webSocket: Socket;
   controller: AbortController;
   user: string;
   oldSession: ICodeSession;
@@ -61,7 +61,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     oldSession: makeSession(sess),
     lastCounter: sess.i,
     broadcastChannel: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
-    webSocket: await createWebSocket(codeSpace),
+    webSocket: createWebSocket(codeSpace),
   };
 
   // Initialize the WebSocket and BroadcastChannel
@@ -73,7 +73,6 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     });
   };
 
-  addHandlers(codeSpace);
   console.log("New connection created and stored");
 }
 
@@ -100,47 +99,39 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
  * @param codeSpace - The code space identifier.
  * @returns The initialized WebSocket.
  */
-async function createWebSocket(codeSpace: string) {
+function createWebSocket(codeSpace: string) {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
   console.log("Creating WebSocket connection to:", url);
-  return connectWithRetry(url, SOCKET_POLICY);
-}
 
-/**
- * Creates the delegate object for handling WebSocket events.
- * @param codeSpace - The code space identifier.
- */
-function addHandlers(codeSpace: string): void {
-  const connection = connections.get(codeSpace);
-
-  if (!connection) {
-    console.error("Connection not found for codeSpace:", codeSpace);
-    return;
-  }
-
-  const ws = connection.webSocket;
-  ws.onopen = async () => {
-    console.log("WebSocket opened");
+  const delegate = {
+    socketDidOpen(socket: Socket) {
+      console.log("Socket opened");
+      // Socket is ready to write.
+    },
+    socketDidClose(socket: Socket, code?: number, reason?: string) {
+      console.log("Socket closed", code, reason);
+      // Socket closed and will retry the connection.
+    },
+    socketDidFinish(socket: Socket) {
+      console.log("Socket finished");
+      // Socket closed for good and will not retry.
+    },
+    socketDidReceiveMessage(socket: Socket, message: string) {
+      // Socket read data from the connection.
+      console.log("Socket message:", message);
+      handleSocketMessage(message, codeSpace).catch((error) => {
+        console.error("Error handling socket message:", error);
+      });
+    },
+    socketShouldRetry(socket: Socket, code: number): boolean {
+      // Socket reconnects unless server returns the policy violation code.
+      return code !== 1008;
+    },
   };
 
-  ws.onclose = async () => {
-    console.log("WebSocket closed");
-  };
-
-  ws.onmessage = async ({ data }) => {
-    console.log("Received WebSocket message:", data);
-
-    if (typeof data !== "string") {
-      console.error("Invalid WebSocket message received:", data);
-      return;
-    }
-
-    handleSocketMessage(JSON.stringify(data), codeSpace).catch((error) => {
-      console.error("Error handling socket message:", error);
-    });
-  };
+  return new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
 }
 
 /**
