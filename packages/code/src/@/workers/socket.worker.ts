@@ -107,26 +107,26 @@ function createWebSocket(codeSpace: string) {
   console.log("Creating WebSocket connection to:", url);
 
   const delegate = {
-    socketDidOpen(socket: Socket) {
+    socketDidOpen() {
       console.log("Socket opened");
       // Socket is ready to write.
     },
-    socketDidClose(socket: Socket, code?: number, reason?: string) {
+    socketDidClose(_socket: Socket, code?: number, reason?: string) {
       console.log("Socket closed", code, reason);
       // Socket closed and will retry the connection.
     },
-    socketDidFinish(socket: Socket) {
+    socketDidFinish() {
       console.log("Socket finished");
       // Socket closed for good and will not retry.
     },
-    socketDidReceiveMessage(socket: Socket, message: string) {
+    socketDidReceiveMessage(_socket: Socket, message: string) {
       // Socket read data from the connection.
       console.log("Socket message:", message);
       handleSocketMessage(message, codeSpace).catch((error) => {
         console.error("Error handling socket message:", error);
       });
     },
-    socketShouldRetry(socket: Socket, code: number): boolean {
+    socketShouldRetry(_socket: Socket, code: number): boolean {
       // Socket reconnects unless server returns the policy violation code.
       return code !== 1008;
     },
