@@ -21,9 +21,11 @@ export const useChat = (
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
 
   const setMessages = (newMessages: Message[]) => {
+    console.log("setMessages", newMessages);
     const newMessagesFiltered = newMessages.filter(x => x);
 
     if (md5(messages) === md5(newMessagesFiltered)) {
+      console.log("setMessages: same messages, returning");
       return;
     }
 
