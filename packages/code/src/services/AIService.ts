@@ -168,7 +168,7 @@ export class AIService {
   }
 
   async sendToAnthropic(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
-    return this.sendToAI("anthropic", messages.slice(-8).slice(0, 7), onUpdate);
+    return this.sendToAI("anthropic", messages, onUpdate);
   }
 
   async continueWithOpenAI(
@@ -230,7 +230,6 @@ export class AIService {
     messages: Message[],
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
-    prevMessages: Message[],
   ): Promise<string> {
     console.log("Retrying with Claude");
     const message: Message = {
@@ -241,21 +240,31 @@ export class AIService {
       }\nCould you help me with this error? I'm stuck.`,
     };
 
+    messages = messagesPush(messages, message);
+    setMessages([...messages]);
+
     try {
-      const answer = await this.sendToAnthropic([...prevMessages, message], (chunk) => {
+      const answer = await this.sendToAnthropic(messages, (chunk) => {
         messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
 
         setMessages([...messages]);
       });
+
       messages = messagesPush(messages, answer);
 
       setMessages([...messages]);
-
-      return await this.continueWithOpenAI(answer.content as string, codeNow, messages, setMessages, setAICode);
+      return "";
     } catch (error) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "user") {
+        messages = messagesPush(messages, lastMessage);
+      }
+
+      setMessages([...messages]);
+
       console.error("Error retrying with Claude:", error);
       try {
-        const answer = await this.sendToGpt4o([...prevMessages, message], (chunk) => {
+        const answer = await this.sendToGpt4o(messages, (chunk) => {
           messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
 
           setMessages([...messages]);
@@ -265,16 +274,33 @@ export class AIService {
         setMessages([...messages]);
 
         return "";
-      } catch (error) {
-        console.error("Error retrying with Claude:", error);
-        messages = messagesPush(messages, {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: "I'm sorry, I couldn't help you with this error.",
-        });
+      } catch {
+        const lastMessage = messages.pop()!;
+
+        if (lastMessage.role === "user") {
+          messages = messagesPush(messages, lastMessage);
+        }
+
         setMessages([...messages]);
-        return "";
+
+        const content = messages.filter((message) => message.role === "assistant").pop()?.content;
+
+        const mini = await this.continueWithOpenAI(content as string, codeNow, messages, setMessages, setAICode);
+        if (mini) {
+          const assistantMessage: Message = {
+            id: Date.now().toString(),
+            role: "assistant",
+            content: mini,
+          };
+
+          messages = messagesPush(messages, assistantMessage);
+          setMessages([...messages]);
+
+          return mini;
+        }
       }
+
+      return "";
     }
   }
 

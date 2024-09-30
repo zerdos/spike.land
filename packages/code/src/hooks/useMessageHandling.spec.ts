@@ -21,7 +21,6 @@ vi.mock("./messageProcessing", () => ({
     role: "user",
     content,
   })),
-  handleError: vi.fn(),
   processMessage: vi.fn(),
 }));
 vi.mock("./useAutoSave", () => ({
@@ -171,6 +170,77 @@ describe("useMessageHandling", () => {
     expect(mockProps.setMessages).toHaveBeenCalledWith([
       { id: "1", role: "user", content: [{ type: "text", text: "Edited message" }] },
     ]);
+    expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
+    expect(mockProps.setEditInput).toHaveBeenCalledWith("");
+  });
+
+  // New test cases
+
+  it("should handle sending a message with images", async () => {
+    const mockNewMessage: Message = {
+      id: "new-message-id",
+      role: "user",
+      content: [
+        { type: "text", text: "Test message with image" },
+        { type: "image", imageData: mockImageData },
+      ],
+    };
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));
+    vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
+    vi.spyOn(messageProcessing, "processMessage").mockImplementation(
+      async ({ setMessages }) => {
+        setMessages([mockNewMessage]);
+        return true;
+      },
+    );
+
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    await act(async () => {
+      await result.current.handleSendMessage("Test message with image", [mockImageData]);
+    });
+
+    expect(mockProps.setInput).toHaveBeenCalledWith("");
+    expect(messageProcessing.processMessage).toHaveBeenCalled();
+    expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
+    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
+  });
+
+  it("should handle error during message processing", async () => {
+    vi.spyOn(messageProcessing, "processMessage").mockImplementation(
+      async () => {
+        throw new Error("Processing error");
+      },
+    );
+
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    await act(async () => {
+      await result.current.handleSendMessage("Test message");
+    });
+
+    expect(mockProps.setIsStreaming).toHaveBeenCalledWith(false);
+  });
+
+  it("should handle editing a non-existent message", () => {
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    act(() => {
+      result.current.handleEditMessage("non-existent-id");
+    });
+
+    expect(mockProps.setEditingMessageId).not.toHaveBeenCalled();
+    expect(mockProps.setEditInput).not.toHaveBeenCalled();
+  });
+
+  it("should not save edit for non-existent message", () => {
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    act(() => {
+      result.current.handleSaveEdit("non-existent-id");
+    });
+
+    expect(mockProps.setMessages).not.toHaveBeenCalled();
     expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
   });
