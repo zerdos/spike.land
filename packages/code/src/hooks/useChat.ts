@@ -33,7 +33,13 @@ export const useChat = (
       const lastMessage = messages[messages.length - 1];
       const lastHash = md5(JSON.stringify(lastMessage));
       const interval = setInterval(() => {
+        if (messages.length === 0) {
+          setIsStreaming(false);
+          return;
+        }
+
         const newMessage = messages[messages.length - 1];
+
         const newHash = md5(JSON.stringify(newMessage));
         if (lastHash !== newHash) {
           setIsStreaming(false);
