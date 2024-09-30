@@ -4,14 +4,14 @@ import { RpcProvider } from "worker-rpc";
 
 importScripts("/swVersion.js");
 
-const sw = this as unknown as ServiceWorkerGlobalScope & {
+interface SharedWorkerGlobalScope {
   swVersion: string;
   files: Record<string, string>;
   fileCacheName: string;
-};
+}
 
 const lazyLoadScript = (scriptName: string): void => {
-  const file = sw.files["@/workers/" + scriptName + ".worker.js"];
+  const file = (globalThis as unknown as SharedWorkerGlobalScope).files["@/workers/" + scriptName + ".worker.js"];
   const fileParts = file.split(".").slice(-2);
   fileParts.pop();
   const hash = fileParts[0];
