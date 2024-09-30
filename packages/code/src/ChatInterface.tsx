@@ -71,10 +71,6 @@ export const ChatInterface: React.FC<{
   }, [messages]);
 
   useEffect(() => {
-    setIsStreaming(false);
-  }, []);
-
-  useEffect(() => {
     // Your code here
 
     if (isStreaming) {
@@ -98,7 +94,7 @@ export const ChatInterface: React.FC<{
       // Add a default return statement
     }
     return () => {};
-  }, [isStreaming, messages]);
+  }, []);
 
 
   const handleResetChat = useCallback(() => {
