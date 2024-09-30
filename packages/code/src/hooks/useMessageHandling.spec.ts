@@ -1,5 +1,4 @@
-import type { ICode, ImageData } from "@/lib/interfaces";
-import type { Message } from "@/lib/interfaces";
+import type { ICode, ImageData, Message } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -80,7 +79,7 @@ describe("useMessageHandling", () => {
       role: "user",
       content: [{ type: "text", text: "Test message" }],
     };
-    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async ({ setMessages }) => {
@@ -136,8 +135,8 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle saving edit", () => {
-    const messages = [
-      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] } as Message,
+    const messages: Message[] = [
+      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] },
     ];
     const { result } = renderHook(() =>
       useMessageHandling({
@@ -159,8 +158,8 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle saving edit for message with array content", () => {
-    const messages = [
-      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] } as Message,
+    const messages: Message[] = [
+      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] },
     ];
     const { result } = renderHook(() =>
       useMessageHandling({
@@ -181,8 +180,6 @@ describe("useMessageHandling", () => {
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
   });
 
-  // New test cases
-
   it("should handle sending a message with images", async () => {
     const mockNewMessage: Message = {
       id: "new-message-id",
@@ -192,7 +189,7 @@ describe("useMessageHandling", () => {
         { type: "image_url", image_url: { url: mockImageData.url } },
       ],
     };
-    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(await Promise.resolve(mockNewMessage));
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async ({ setMessages }) => {
@@ -230,7 +227,7 @@ describe("useMessageHandling", () => {
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
     await act(async () => {
-      await result.current.handleSendMessage("Test message");
+      await result.current.handleSendMessage("Test message", []);
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith(expect.arrayContaining([

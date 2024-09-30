@@ -22,19 +22,19 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function assertPath(path: unknown) {
+function assertPath(path: unknown): asserts path is string {
   if (typeof path !== "string") {
     throw new TypeError("Path must be a string. Received " + JSON.stringify(path));
   }
 }
 
 // Resolves . and .. elements in a path with directory names
-function normalizeStringPosix(path: string, allowAboveRoot: boolean) {
+function normalizeStringPosix(path: string, allowAboveRoot: boolean): string {
   let res = "";
   let lastSegmentLength = 0;
   let lastSlash = -1;
   let dots = 0;
-  let code;
+  let code: number | undefined;
   for (let i = 0; i <= path.length; ++i) {
     if (i < path.length) {
       code = path.charCodeAt(i);
@@ -100,7 +100,10 @@ function normalizeStringPosix(path: string, allowAboveRoot: boolean) {
   return res;
 }
 
-function _format(sep: string, pathObject: { dir: any; root: any; base: any; name: any; ext: any }) {
+function _format(
+  sep: string,
+  pathObject: { dir?: string; root?: string; base?: string; name?: string; ext?: string },
+): string {
   const dir = pathObject.dir || pathObject.root;
   const base = pathObject.base || (pathObject.name || "") + (pathObject.ext || "");
   if (!dir) {
@@ -114,17 +117,17 @@ function _format(sep: string, pathObject: { dir: any; root: any; base: any; name
 
 const posix = {
   // path.resolve([from ...], to)
-  resolve: function resolve() {
+  resolve(...paths: string[]): string {
     let resolvedPath = "";
     let resolvedAbsolute = false;
-    let cwd;
+    let cwd: string = "";
 
-    for (let i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-      var path;
+    for (let i = paths.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      let path: string;
       if (i >= 0) {
-        path = arguments[i];
+        path = paths[i];
       } else {
-        if (cwd === undefined) {
+        if (cwd === "") {
           cwd = process.cwd();
         }
         path = cwd;
@@ -160,7 +163,7 @@ const posix = {
     }
   },
 
-  normalize: function normalize(path: string) {
+  normalize(path: string): string {
     assertPath(path);
 
     if (path.length === 0) return ".";
@@ -178,18 +181,18 @@ const posix = {
     return path;
   },
 
-  isAbsolute: function isAbsolute(path: string) {
+  isAbsolute(path: string): boolean {
     assertPath(path);
     return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
   },
 
-  join: function join() {
-    if (arguments.length === 0) {
+  join(...paths: string[]): string {
+    if (paths.length === 0) {
       return ".";
     }
-    let joined;
-    for (let i = 0; i < arguments.length; ++i) {
-      const arg = arguments[i];
+    let joined: string | undefined;
+    for (let i = 0; i < paths.length; ++i) {
+      const arg = paths[i];
       assertPath(arg);
       if (arg.length > 0) {
         if (joined === undefined) {
@@ -205,14 +208,14 @@ const posix = {
     return posix.normalize(joined);
   },
 
-  relative: function relative(from: string, to: string) {
+  relative(from: string, to: string): string {
     assertPath(from);
     assertPath(to);
 
     if (from === to) return "";
 
-    from = posix.resolve();
-    to = posix.resolve();
+    from = posix.resolve(from);
+    to = posix.resolve(to);
 
     if (from === to) return "";
 
@@ -300,11 +303,11 @@ const posix = {
     }
   },
 
-  _makeLong: function _makeLong(path: any) {
+  _makeLong(path: string): string {
     return path;
   },
 
-  dirname: function dirname(path: string) {
+  dirname(path: string): string {
     assertPath(path);
     if (path.length === 0) return ".";
     let code = path.charCodeAt(0);
@@ -329,14 +332,14 @@ const posix = {
     return path.slice(0, end);
   },
 
-  basename: function basename(path: string, ext: string | undefined) {
+  basename(path: string, ext?: string): string {
     if (ext !== undefined && typeof ext !== "string") throw new TypeError("\"ext\" argument must be a string");
     assertPath(path);
 
     let start = 0;
     let end = -1;
     let matchedSlash = true;
-    let i;
+    let i: number;
 
     if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
       if (ext.length === path.length && ext === path) return "";
@@ -401,7 +404,7 @@ const posix = {
     }
   },
 
-  extname: function extname(path: string) {
+  extname(path: string): string {
     assertPath(path);
     let startDot = -1;
     let startPart = 0;
@@ -415,7 +418,6 @@ const posix = {
       if (code === 47 /*/*/) {
         // If we reached a path separator that was not part of a set of path
         // separators at the end of the string, stop now
-
         if (!matchedSlash) {
           startPart = i + 1;
           break;
@@ -454,21 +456,21 @@ const posix = {
     return path.slice(startDot, end);
   },
 
-  format: function format(pathObject: null) {
+  format(pathObject: { root?: string; dir?: string; base?: string; ext?: string; name?: string } | null): string {
     if (pathObject === null || typeof pathObject !== "object") {
       throw new TypeError("The \"pathObject\" argument must be of type Object. Received type " + typeof pathObject);
     }
     return _format("/", pathObject);
   },
 
-  parse: function parse(path: string) {
+  parse(path: string): { root: string; dir: string; base: string; ext: string; name: string } {
     assertPath(path);
 
     const ret = { root: "", dir: "", base: "", ext: "", name: "" };
     if (path.length === 0) return ret;
     let code = path.charCodeAt(0);
     const isAbsolute = code === 47 /*/*/;
-    let start;
+    let start: number;
     if (isAbsolute) {
       ret.root = "/";
       start = 1;
@@ -547,6 +549,8 @@ const posix = {
   win32: null,
   posix: null,
 };
+
+// Remove the assignment of posix to null
 
 export default posix;
 
