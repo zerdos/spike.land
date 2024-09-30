@@ -6,15 +6,12 @@ const setupServiceWorker = async () => {
     console.log("Workbox imported");
 
     const wb = new Workbox("/sw.js");
+    wb.register();
+
     console.log("Workbox instance created");
 
     const sw = await wb.active;
     console.log("Active service worker:", sw);
-
-    if (!sw) {
-      console.log("No active service worker, registering new one");
-      return wb.register();
-    }
 
     if (sw.state === "redundant") {
       console.log("Service worker is redundant, updating");
