@@ -23,7 +23,7 @@ sw.cSessions = sw.cSessions || {};
 async function fetchConfig() {
   try {
     const response = await fetch("/sw-config.json");
-    const config = (await response.json()) as { killSwitch: boolean; version: string };
+    const config = (await response.json()) as { killSwitch: boolean; version: string; swVersion: string };
     sw.fileCacheName = `sw-file-cache-${config.version}`;
     return config;
   } catch (error) {
@@ -58,7 +58,22 @@ sw.addEventListener("install", (event) => {
     (async () => {
       // Proceed with installation
       console.log("Service Worker installing.");
-      await sw.skipWaiting();
+      const config = await configPromise;
+      if (config && swVersion === config.swVersion) {
+        const cacheName = `sw-file-cache-${config.version}`;
+        const keys = await caches.keys();
+
+        if (keys.includes(cacheName)) {
+          console.log("Cache already exists. Skipping installation.");
+          return;
+        }
+        const cache = await caches.open(cacheName);
+        await cache.addAll(
+          Object.values(files),
+        );
+
+        await sw.skipWaiting();
+      }
     })(),
   );
 });
