@@ -120,7 +120,7 @@ const posix = {
   resolve(...paths: string[]): string {
     let resolvedPath = "";
     let resolvedAbsolute = false;
-    let cwd: string = "";
+    let cwd = "";
 
     for (let i = paths.length - 1; i >= -1 && !resolvedAbsolute; i--) {
       let path: string;
@@ -547,10 +547,10 @@ const posix = {
   sep: "/",
   delimiter: ":",
   win32: null,
-  posix: null,
+  posix: null as unknown as typeof posix,
 };
 
-// Remove the assignment of posix to null
+posix.posix = posix;
 
 export default posix;
 

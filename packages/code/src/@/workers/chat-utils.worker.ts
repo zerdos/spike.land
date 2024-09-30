@@ -9,10 +9,13 @@ const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).pr
 
 console.log("prettierJs function imported:", prettierJs);
 
+const REPLACE = ">>>>>>> REPLACE";
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
 ): Promise<{ result: string; resultPretty?: string; len: number }> => {
   console.log("updateSearchReplace function called", { instructions, code });
+  const hadReplace = instructions.includes(REPLACE);
+  instructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
 
   const result = up(instructions, code);
   const resultWithExtra = up(instructions + "\nfooo\n", code);
@@ -28,17 +31,19 @@ export const updateSearchReplace = async (
   }
 
   // Logarithmic search to find the effective instruction length
-  let low = 0;
-  let high = instructions.length;
-  while (low < high) {
-    const mid = Math.floor((low + high + 1) / 2);
-    if (result === up(instructions.slice(0, mid), code)) {
-      low = mid;
-    } else {
-      high = mid - 1;
+  let low = instructions.length;
+  if (!hadReplace) {
+    low = 0;
+    let high = instructions.length;
+    while (low < high) {
+      const mid = Math.floor((low + high + 1) / 2);
+      if (result === up(instructions.slice(0, mid), code)) {
+        low = mid;
+      } else {
+        high = mid - 1;
+      }
     }
   }
-
   const len = low;
 
   console.log("Attempting to prettify the code");
