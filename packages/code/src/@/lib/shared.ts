@@ -35,13 +35,6 @@ class WorkerPool {
 
   constructor(minFreeWorkers: number = 1) {
     this.minFreeWorkers = minFreeWorkers;
-    this.initializeWorkers();
-  }
-
-  private initializeWorkers() {
-    for (let i = 0; i < this.minFreeWorkers; i++) {
-      this.addWorker("default");
-    }
   }
 
   private addWorker(tag: string) {
