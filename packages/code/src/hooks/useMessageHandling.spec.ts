@@ -21,6 +21,9 @@ vi.mock("./messageProcessing", () => ({
   })),
   processMessage: vi.fn(),
 }));
+vi.mock("./useAutoSave", () => ({
+  useAutoSave: vi.fn(),
+}));
 vi.mock("../shared", () => ({
   ...vi.importActual("../shared"),
   prettierToThrow: vi.fn(),
@@ -51,7 +54,7 @@ describe("useMessageHandling", () => {
   };
 
   const mockProps: UseMessageHandlingProps = {
-    codeSpace: "test-space" as const,
+    codeSpace: "test-space",
     messages: [],
     setMessages: vi.fn(),
     setInput: vi.fn(),
@@ -115,12 +118,14 @@ describe("useMessageHandling", () => {
       await result.current.handleSendMessage("Test message", []);
     });
 
-    expect(mockProps.setMessages).toHaveBeenCalledWith(expect.arrayContaining([
-      expect.objectContaining({
-        role: "assistant",
-        content: expect.stringContaining("Sorry, there was an error processing your request"),
-      }),
-    ]));
+    expect(mockProps.setMessages).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          role: "assistant",
+          content: expect.stringContaining("Sorry, there was an error processing your request"),
+        }),
+      ]),
+    );
   });
 
   it("should not save edit for non-existent message", () => {

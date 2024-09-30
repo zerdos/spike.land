@@ -6,8 +6,6 @@ import { AIHandler } from "@src/AIHandler";
 import { useCallback } from "react";
 import { createNewMessage, processMessage } from "./messageProcessing";
 
-import { useAutoSave } from "./useAutoSave";
-
 export interface UseMessageHandlingProps {
   codeSpace: string;
   messages: Message[];
@@ -39,8 +37,6 @@ export const useMessageHandling = ({
 
   const handleSendMessage = async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
-
-    useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
       content,
