@@ -54,24 +54,19 @@ export const useMessageHandling = ({
     messagesPush(messages, newUserMessage);
     setMessages([...messages]);
 
-    // messagesPush(message,newMessage);
-    // setMessages((messages) => [...messages, newMessage]);
-    // const assistantMessagePlaceholder: Message = {
-    // id: Date.now().toString(),
-    // role: "assistant",
-    // content: "On it...",
-    // };
-    // messages.push(assistantMessagePlaceholder);
-    // setMessages((m) => [...m, assistantMessagePlaceholder]);
-
     setInput("");
 
     try {
-      const success = await processMessage(
-        { aiHandler, cSess, codeNow: code, messages, setMessages, newUserMessage },
-      );
+      const success = await processMessage({
+        aiHandler,
+        cSess,
+        codeNow: code,
+        messages,
+        setMessages,
+        newUserMessage,
+      });
       if (success) {
-        setAICode(code);
+        setAICode(cSess.session.code);
       }
     } catch (error) {
       console.error("Error processing request:", error);
