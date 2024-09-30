@@ -1,9 +1,7 @@
-import type { FC } from "react";
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useCallback } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
-import Markdown from "@/external/Markdown";  
-
+import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/external/CodeBlock";
 import { isDiffContent } from "@/lib/diff-utils";
 import { DiffEditor } from "@/components/app/diff-editor-lazy";
@@ -16,22 +14,19 @@ interface CodeProps {
   type: string;
 }
 
-export const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
-  const content = extractCodeModification(rawContent)[0] || rawContent; 
-
-  const original = content.split("=======")[0]?.split("<<<<<<< SEARCH")[1]?.trim() || "";
-  const modified = content.split("=======")[1]?.split(">>>>>>> REPLACE")[0]?.trim() || "";
-
+const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
+  const content = extractCodeModification(rawContent)[0] || rawContent;
+  const [, originalPart = "", modifiedPart = ""] = content.split(/<<<<<<< SEARCH|=======|>>>>>>> REPLACE/);
   return {
-    original,
-    modified,
+    original: originalPart.trim(),
+    modified: modifiedPart.trim(),
   };
 };
 
-const Code: FC<CodeProps> = memo(({ value, language, type }) => {
+const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
   const trimmedValue = useMemo(() => value.trim(), [value]);
 
-  const content = useMemo(() => {
+  const renderContent = useCallback(() => {
     if (trimmedValue.length === 0) {
       return null;
     }
@@ -69,7 +64,7 @@ const Code: FC<CodeProps> = memo(({ value, language, type }) => {
     return <CodeBlock value={trimmedValue} language={language} />;
   }, [trimmedValue, type, language]);
 
-  return content;
+  return useMemo(() => renderContent(), [renderContent]);
 });
 
 Code.displayName = "Code";
@@ -79,7 +74,7 @@ interface ChatMessageBlockProps {
   isUser: boolean;
 }
 
-export const ChatMessageBlock: FC<ChatMessageBlockProps> = memo(({ text, isUser }) => {
+export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(({ text, isUser }) => {
   const messageParts = useMemo(() => getParts(text, isUser), [text, isUser]);
 
   return (
