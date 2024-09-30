@@ -1,6 +1,6 @@
 import React from "react";
 
-const RESOLUTION: Record<string, [number, number]> = {
+type RESOLUTION = {
   "9:21": [640, 1536],
   "9:16": [768, 1344],
   "16:9": [896, 1584],
@@ -10,13 +10,13 @@ const RESOLUTION: Record<string, [number, number]> = {
   "2:3": [832, 1216],
   "3:2": [1216, 832],
   "1:1": [1024, 1024],
-} as const;
+};
 
 interface ImageLoaderProps {
   cfg?: number;
   steps?: number;
   prompt: string;
-  aspect_ratio?: keyof typeof RESOLUTION;
+  aspect_ratio?: keyof RESOLUTION;
   output_format?: "webp" | "png" | "jpeg";
   output_quality?: number;
   negative_prompt?: string;

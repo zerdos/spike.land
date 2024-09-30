@@ -30,7 +30,7 @@ export function importMapReplace(code: string, origin: string): string {
   const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
 
   const topLevelExportPattern =
-    /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+    /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
   const dynamicImportTemplatePattern = /(import\()(`[^`]+`)(\))/g;
 

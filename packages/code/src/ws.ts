@@ -97,7 +97,7 @@ const handleDefaultPage = async () => {
 };
 
 const handleRunMessage = async (
-  data: any,
+  data: { transpiled: string; requestId: string },
   requestId: string,
   mutex: Mutex,
   runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,

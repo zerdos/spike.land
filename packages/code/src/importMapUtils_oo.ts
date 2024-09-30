@@ -61,8 +61,8 @@ export function importMapReplace(code: string | ArrayBuffer, origin: string): st
   let replacedCode = codeStr;
 
   for (const { pattern, processor } of importPatterns) {
-    replacedCode = replacedCode.replace(pattern, (...args) => {
-      const relevantArgs = args.slice(0, -2) as [string, ...any[]];
+    replacedCode = replacedCode.replace(pattern, (...args: [string, ...string[]]) => {
+      const relevantArgs = args.slice(0, -2);
       relevantArgs.push(origin);
       return processor(relevantArgs[0], relevantArgs[1], relevantArgs[2], relevantArgs[3]);
     });

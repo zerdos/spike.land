@@ -3,16 +3,15 @@ import type EmotionReact from "@emotion/react";
 import type { FC } from "react";
 import type {} from "react-dom";
 import type ear from "@emotion/react";
-import { RequestInitWithRetry } from "fetch-retry";
+
 import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
-import { Code } from "./ws";
 
 declare global {
   let sharedWorker: SharedWorker;
   let rRoot: ReturnType<typeof Cr>;
   let cssCache: EmotionCache;
-  let firstRender: {
+let firstRender: {
     code: string;
     css: string;
     html: string;

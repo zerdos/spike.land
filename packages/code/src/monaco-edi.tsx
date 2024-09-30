@@ -68,8 +68,9 @@ async function fetchAndCreateExtraModels(
 
     const res = await fetch(extraModel);
     const content = await res.text();
-    editor.getModel(mUri)
-      || editor.createModel(content, "typescript", mUri);
+    if (!editor.getModel(mUri)) {
+      editor.createModel(content, "typescript", mUri);
+    }
   }
 }
 
