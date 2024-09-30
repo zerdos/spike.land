@@ -1,4 +1,5 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
+import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { updateSearchReplace } from "@/lib/shared";
@@ -81,9 +82,10 @@ export async function processMessage(
       const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
 
       // Add the user message to the messages array
-      if (newUserMessage) messages.push(newUserMessage);
-
-      setMessages([...messages]);
+      if (newUserMessage) {
+        messages = messagesPush(messages, newUserMessage);
+        setMessages([...messages]);
+      }
 
       const onUpdate = createOnUpdateFunction(
         { setMessages, cSess, contextManager, mod },
@@ -100,11 +102,7 @@ export async function processMessage(
       );
 
       // Add the assistant message to the working messages array
-      messages.push({
-        role: "assistant",
-        id: Date.now().toString(),
-        content: assistantMessage.content,
-      });
+      messages = messagesPush(messages, assistantMessage);
 
       // Update the state with all messages, including the new assistant message
       setMessages([...messages]);
@@ -347,7 +345,7 @@ async function handleErrorMessage(
   };
 
   // Create a new array with all existing messages plus the new user message
-  messages.push(userMessage);
+  messages = messagesPush(messages, userMessage);
 
   // Update the state with all messages, including the new user message
   setMessages([...messages]);
@@ -363,11 +361,7 @@ async function handleErrorMessage(
   );
 
   // Add the assistant message to the updated messages array
-  messages.push({
-    role: "assistant",
-    id: Date.now().toString(),
-    content: assistantMessage.content,
-  });
+  messages = messagesPush(messages, assistantMessage);
 
   // Update the state with all messages, including the new assistant message
   setMessages([...messages]);

@@ -3,7 +3,6 @@ import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
 import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
-import { set } from "immutable";
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
@@ -144,7 +143,7 @@ export class AIService {
 
       const result = await this.handleStreamingResponse(
         endpoint,
-        messages.slice(0, -8),
+        messages.slice(-8),
         onUpdate,
         type === "gpt4o" ? `gpt-4o` : "",
       );
