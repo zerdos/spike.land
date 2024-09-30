@@ -18,7 +18,7 @@ export const ChatInterface: React.FC<{
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [messages, setM] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [m, setM] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
   const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, true);
 
   const [input, setInput] = useState("");
@@ -27,6 +27,7 @@ export const ChatInterface: React.FC<{
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null); 
 
+  const messages = m || [];
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
 
 
