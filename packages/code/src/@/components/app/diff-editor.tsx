@@ -1,5 +1,4 @@
 import { editor } from "@/external/monaco-editor";
-import { useThrottle } from "@uidotdev/usehooks";
 import React, { memo, useEffect, useRef } from "react";
 
 export interface DiffEditorProps {
@@ -15,8 +14,8 @@ export interface DiffEditorProps {
 
 
 export const DiffEditor: React.FC<DiffEditorProps> = memo(({
-  original: _original = "",
-  modified: _modified = "",
+  original = "", 
+  modified = "",
   minHeight,
   maxHeight,
   editorHeight= minHeight || 200,
@@ -26,8 +25,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
   
-  const original = useThrottle(_original, 100);
-  const modified = useThrottle(_modified, 100);
+
 
 
   useEffect(() => {

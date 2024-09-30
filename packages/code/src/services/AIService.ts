@@ -2,7 +2,6 @@ import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
-import { throttle } from "es-toolkit"; // Reverted back to es-toolkit
 import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
@@ -122,8 +121,8 @@ export class AIService {
         throw new Error("Response body is not readable!");
       }
 
-      const throttleUpdate = throttle(onUpdate, this.config.updateThrottleMs);
-      const content = await this.streamHandler.handleStream(reader, throttleUpdate);
+      // const throttleUpdate = (onUpdate, this.config.updateThrottleMs);
+      const content = await this.streamHandler.handleStream(reader, onUpdate);
       return content;
     } catch (error) {
       console.error("Error handling streaming response:", error);

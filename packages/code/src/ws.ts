@@ -11,7 +11,6 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import { throttle } from "es-toolkit";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 
@@ -222,10 +221,10 @@ export const main = async () => {
 (() => {
   try {
     cSess.sub(
-      throttle((sess: ICodeSession) => {
+      (sess: ICodeSession) => {
         const { i, code, transpiled } = sess;
         console.table({ i, code, transpiled });
-      }, 100),
+      },
     );
   } catch (error) {
     console.error("Error in cSess subscription:", error);
@@ -235,13 +234,13 @@ export const main = async () => {
 const handleDehydratedPage = () => {
   try {
     cSess.sub(
-      throttle((sess: ICodeSession) => {
+      (sess: ICodeSession) => {
         const { html, css } = sess;
         const root = document.getElementById("embed");
         if (root && html && css) {
           root.innerHTML = `<style>${css}</style><div>${html}</div>`;
         }
-      }, 100),
+      },
     );
   } catch (error) {
     console.error("Error handling dehydrated page:", error);

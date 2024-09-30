@@ -1,4 +1,3 @@
-import { throttle } from "es-toolkit";
 import { useCallback, useState } from "react";
 
 export const useErrorHandling = (engine: string) => {
@@ -7,30 +6,27 @@ export const useErrorHandling = (engine: string) => {
   >(null);
 
   const throttledTypeCheck = useCallback(
-    throttle(
-      async (initialLoadRef: React.MutableRefObject<boolean>) => {
-        if (engine === "monaco") {
-          const { editor, languages } = await import("@/external/monaco-editor");
-          const model = editor.getModels()[0];
-          const worker = await languages.typescript
-            .getTypeScriptWorker();
-          const client = await worker(model.uri);
-          const diagnostics = await client.getSemanticDiagnostics(
-            model.uri.toString(),
-          );
+    async (initialLoadRef: React.MutableRefObject<boolean>) => {
+      if (engine === "monaco") {
+        const { editor, languages } = await import("@/external/monaco-editor");
+        const model = editor.getModels()[0];
+        const worker = await languages.typescript
+          .getTypeScriptWorker();
+        const client = await worker(model.uri);
+        const diagnostics = await client.getSemanticDiagnostics(
+          model.uri.toString(),
+        );
 
-          if (diagnostics.length > 0 && !initialLoadRef.current) {
-            Object.assign(globalThis, { diagnostics });
-            console.error("TypeScript error:", diagnostics);
-            setErrorType("typescript");
-          } else {
-            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
-          }
+        if (diagnostics.length > 0 && !initialLoadRef.current) {
+          Object.assign(globalThis, { diagnostics });
+          console.error("TypeScript error:", diagnostics);
+          setErrorType("typescript");
+        } else {
+          setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
         }
-        initialLoadRef.current = false;
-      },
-      1000,
-    ),
+      }
+      initialLoadRef.current = false;
+    },
     [engine],
   );
 

@@ -223,7 +223,7 @@ function createOnUpdateFunction({
                 lastSuccessCut: startPos,
                 hash: md5(lastCode),
               });
-              console.table(mod.actions[mod.actions.length - 1]);
+              // console.table(mod.actions[mod.actions.length - 1]);
             } else {
               mod.actions.push({
                 TRIED: TRIED + 1,
