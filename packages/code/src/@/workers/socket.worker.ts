@@ -199,16 +199,16 @@ async function handleSocketMessage(
 
   if (data.changes) {
     console.log("Handling changes message");
-    await handleChanges(data, connection);
+    await handleChanges(data as { changes: unknown }, connection);
   } else if (data.strSess) {
     console.log("Handling session string message");
-    await handleSessionString(data, ws, connection);
+    await handleSessionString(data as { strSess: string }, ws, connection);
   } else if (data.type === "handShake") {
     console.log("Handling handshake message");
-    await handleHandshake(ws, data, connection, codeSpace);
+    await handleHandshake(ws, data as { hashCode: number; type: string }, connection, codeSpace);
   } else if (data.newHash && data.oldHash) {
     console.log("Handling hash update message");
-    await handleHashUpdate(data, connection, codeSpace);
+    await handleHashUpdate(data as { newHash: string; oldHash: string }, connection, codeSpace);
   } else {
     console.log("Unhandled message type:", data);
   }
@@ -219,7 +219,7 @@ async function handleSocketMessage(
  * @param data - The received data.
  * @param connection - The connection context.
  */
-async function handleChanges(data: any, connection: Connection): Promise<void> {
+async function handleChanges(data: { changes: unknown }, connection: Connection): Promise<void> {
   console.log("Handling changes:", data);
   const { broadcastChannel } = connection;
   broadcastChannel.postMessage({ ...data, sender: SENDER_WORKER_HANDLE_CHANGES });
@@ -233,7 +233,7 @@ async function handleChanges(data: any, connection: Connection): Promise<void> {
  * @param connection - The connection context.
  */
 async function handleSessionString(
-  data: any,
+  data: { strSess: string },
   ws: Socket,
   connection: Connection,
 ): Promise<void> {
@@ -291,7 +291,7 @@ async function handleHandshake(
  * @param codeSpace - The code space identifier.
  */
 async function handleHashUpdate(
-  data: any,
+  data: { newHash: string; oldHash: string },
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
@@ -349,27 +349,9 @@ async function handleHashMismatch(
     return;
   }
 
-  console.log("Lazy loading transpile script");
-  lazyLoadScript("transpile");
-  if (typeof self.transpile !== "function") {
-    console.error("Transpile function is not available");
-    throw new Error("Transpile function is not available.");
-  }
-
-  console.log("Transpiling code");
-  const transpiled = connection.oldSession.transpiled
-    || (await self.transpile(connection.oldSession.code, location.origin));
-
-  if (signal.aborted) {
-    console.log("Hash mismatch handling aborted after transpiling");
-    return;
-  }
-
-  console.log("Broadcasting new session with transpiled code");
   const { broadcastChannel, oldSession } = connection;
   broadcastChannel.postMessage({
     ...oldSession,
-    transpiled,
     sender: SENDER_WORKER_HASH_MISMATCH,
   });
 }
@@ -382,7 +364,7 @@ async function handleHashMismatch(
  * @param signal - The AbortSignal to handle cancellation.
  */
 async function handleHashMatch(
-  data: any,
+  data: { newHash: string; oldHash: string },
   connection: Connection,
   oldSession: ICodeSession,
   signal: AbortSignal,
