@@ -25,6 +25,8 @@ declare global {
 
 (globalThis as GlobalWithRenderedApps).renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps || new WeakMap<HTMLElement, RenderedApp>();
 
+type FlexibleComponentType = React.ComponentType<any>;
+
 // Main render function
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
@@ -35,11 +37,11 @@ async function renderApp(
       document.body.appendChild(rootEl);
     }
 
-    let AppToRender: React.ComponentType<Record<string, unknown> | unknown>;
+    let AppToRender: FlexibleComponentType;
     let emptyApp = false;
 
     if (App) {
-      AppToRender = App;
+      AppToRender = App as FlexibleComponentType;
     } else if (transpiled || code) {
       if (transpiled?.indexOf("stdin_default") === -1) {
         emptyApp = true;
@@ -83,7 +85,7 @@ async function renderApp(
         return () => window.removeEventListener("resize", handleResize);
       }, [throttledSetDimensions]);
 
-      return <AppToRender width={dimensions.width} height={dimensions.height} />;
+      return <AppToRender {...dimensions} />;
     });
 
     root.render(
@@ -100,7 +102,7 @@ async function renderApp(
     (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, { 
       rootElement: rootEl, 
       rRoot: root, 
-      App, 
+      App: App as FlexibleComponentType, 
       cssCache, 
       cleanup: () => {
         root.unmount();

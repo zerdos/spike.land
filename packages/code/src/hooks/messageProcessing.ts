@@ -6,7 +6,6 @@ import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { md5 } from "@src/modules";
 import { Mutex } from "async-mutex";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
 
 const mutex = new Mutex();
 
@@ -107,14 +106,6 @@ export async function processMessage(
 
       // Update the state with all messages, including the new assistant message
       setMessages([...workingMessages]);
-
-      const success = await processAssistantMessage(
-        assistantMessage,
-        codeNow,
-        cSess,
-      );
-
-      if (success) return true;
 
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
@@ -314,29 +305,6 @@ async function sendAssistantMessage(
 }
 
 /**
- * Processes the assistant's message to update the code.
- */
-async function processAssistantMessage(
-  assistantMessage: Message,
-  codeNow: string,
-  cSess: ICode,
-): Promise<boolean> {
-  const contentToProcess = extractTextContent(assistantMessage.content);
-
-  const starterCode1 = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
-  const starterCode2 = await updateSearchReplace({ instructions: contentToProcess + `\n foo \n`, code: codeNow });
-
-  const starterCode = starterCode1 !== starterCode2 ? codeNow : starterCode1;
-
-  if (starterCode !== codeNow) {
-    const success = await trySetCode(cSess, starterCode);
-    if (success) return true;
-  }
-
-  return false;
-}
-
-/**
  * Handles error messages by sending a recovery message and processing the response.
  */
 async function handleErrorMessage(
@@ -381,8 +349,6 @@ async function handleErrorMessage(
     updatedMessages,
     newOnUpdate,
   );
-
-  mod.controller.abort();
 
   // Add the assistant message to the updated messages array
   updatedMessages.push(assistantMessage);
