@@ -261,7 +261,8 @@ export class WebSocketHandler {
       }
 
       if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
-        return this.handlePatch(data, respondWith);
+
+        return this.handlePatch(data, respondWith, (obj) => this.broadcast(obj, session));
       }
     } catch (exp) {
       console.error(exp);
@@ -294,7 +295,7 @@ export class WebSocketHandler {
     }
   }
 
-  private async handlePatch(data: IData, respondWith: (obj: unknown) => void) {
+  private async handlePatch(data: IData, respondWith: (obj: unknown) => void, broadcast: (obj: unknown) => void) {  
     const oldHash = makeHash(this.code.session);
 
     if (oldHash=== data.newHash) {
@@ -321,7 +322,7 @@ export class WebSocketHandler {
       this.code.session = newState;
       await this.code.getState().storage.put("session", this.code.session);
 
-      this.broadcast(data as CodePatch);
+      broadcast(data as CodePatch);
 
       return respondWith({ hashCode: data.newHash });
     } catch (err) {
@@ -342,7 +343,7 @@ export class WebSocketHandler {
       });
   }
 
-  public broadcast(msg: CodePatch | string) {
+  public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
     const message = typeof msg === "string"
       ? msg
       : JSON.stringify({ ...msg, i: this.code.session.i });
@@ -352,6 +353,9 @@ export class WebSocketHandler {
     }
 
     this.wsSessions.forEach((s) => {
+      if (s === session) {
+        return;
+      } 
       try {
         s.webSocket.send(message);
       } catch (error) {
