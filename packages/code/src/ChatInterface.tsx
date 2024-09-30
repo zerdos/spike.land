@@ -38,7 +38,7 @@ export const ChatInterface: React.FC<{
       if (md5(messages) === md5(newMessages)) {
 
         console.log("setMessages: same messages, returning");
-        return '';
+        return ;
       }
 
       setImmer(newMessages);
@@ -46,11 +46,11 @@ export const ChatInterface: React.FC<{
       setTimeout(() => {
         if (md5(m || []) === md5(messages)) {
             setM(newMessages);
-          return '';
+          return ;
         }
       }, 1000);
 
-      return '';
+      return ;
   }
 
 

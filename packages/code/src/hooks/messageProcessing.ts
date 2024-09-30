@@ -68,7 +68,7 @@ export async function processMessage(
     cSess: ICode;
     codeNow: string;
     messages: Message[];
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    setMessages: (messages: Message[]) => void;
     newUserMessage: Message;
   },
 ): Promise<boolean> {
@@ -152,7 +152,7 @@ function createOnUpdateFunction({
   contextManager,
   mod,
 }: {
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  setMessages: (messages: Message[]) => void;
   messages: Message[];
   cSess: ICode;
   contextManager: ContextManager;
@@ -318,7 +318,7 @@ async function handleErrorMessage(
     codeNow: string;
     messages: Message[];
     aiHandler: AIHandler;
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    setMessages: (messages: Message[]) => void;
     cSess: ICode;
     contextManager: ContextManager;
     mod: Mod;

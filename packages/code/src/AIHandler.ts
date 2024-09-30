@@ -45,7 +45,7 @@ export class AIHandler {
     fullResponse: string,
     currentCode: string,
     messages: Message[],
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setMessages: (messages: Message[]) => void,
     setAICode: (code: string) => void,
   ): Promise<string | void> {
     return this.aiService.continueWithOpenAI(

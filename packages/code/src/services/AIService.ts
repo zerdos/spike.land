@@ -175,7 +175,7 @@ export class AIService {
     fullResponse: string,
     codeNow: string,
     messages: Message[],
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setMessages: (messages: Message[]) => void,
     setAICode: (code: string) => void,
   ): Promise<string> {
     const messagesNew: Message[] = [
@@ -228,7 +228,7 @@ export class AIService {
     codeNow: string,
     error: unknown,
     messages: Message[],
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setMessages: (messages: Message[]) => void,
     setAICode: (code: string) => void,
   ): Promise<string> {
     console.log("Retrying with Claude");

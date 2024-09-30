@@ -9,7 +9,7 @@ import { createNewMessage, processMessage } from "./messageProcessing";
 export interface UseMessageHandlingProps {
   codeSpace: string;
   messages: Message[];
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  setMessages: (messages: Message[]) => void;
   setInput: React.Dispatch<React.SetStateAction<string>>;
   setIsStreaming: React.Dispatch<React.SetStateAction<boolean>>;
   codeWhatAiSeen: string;
