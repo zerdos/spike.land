@@ -362,7 +362,11 @@ async function handleErrorMessage(
   );
 
   // Add the assistant message to the updated messages array
-  updatedMessages.push(assistantMessage);
+  updatedMessages.push({
+    role: "assistant",
+    id: Date.now().toString(),
+    content: assistantMessage.content,
+  });
 
   // Update the state with all messages, including the new assistant message
   setMessages([...updatedMessages]);
