@@ -19,6 +19,10 @@ export const useChat = (
   const messages = messagesRaw.filter(x => x);
 
   useEffect(() => {
+    if (messages.length === 0) {
+      setIsStreaming(false);
+      return;
+    }
     setIsStreaming(true);
   }, [messages]);
 
