@@ -1,4 +1,5 @@
 import type { Message } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useCallback, useRef, useState } from "react";
@@ -6,7 +7,7 @@ import { useCallback, useRef, useState } from "react";
 export const useChat = (
   codeSpace: string,
 ) => {
-  const [messagesRaw, setMessages] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [messagesRaw, setM] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
   const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, true);
 
   const [input, setInput] = useState("");
@@ -16,7 +17,17 @@ export const useChat = (
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
-  const messages = messagesRaw.filter(x => x);
+
+  const setMessages = (newMessages: Message[]) => {
+    const messages = messagesRaw.filter(x => x);
+    const newMessagesFiltered = newMessages.filter(x => x);
+
+    if (md5(messages) === md5(newMessagesFiltered)) {
+      return;
+    }
+
+    setM(newMessagesFiltered);
+  };
 
   const resetChat = useCallback(() => {
     setMessages([]);
