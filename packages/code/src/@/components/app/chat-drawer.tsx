@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Button } from "@/components/ui/button";
 import { MessageInput } from "@/components/app/message-input";
@@ -9,7 +9,11 @@ import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from '@/components/app/chat-header';  
 import { cn } from "@/lib/utils";
 
-export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
+const MemoizedChatHeader = React.memo(ChatHeader);
+const MemoizedChatContainer = React.memo(ChatContainer);
+const MemoizedMessageInput = React.memo(MessageInput);
+
+export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = React.memo(({
   isOpen,
   onClose,
   isDarkMode,
@@ -40,10 +44,28 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
     trackMouse: true,
   });
 
+  const memoizedHandlers = useMemo(() => handlers, [onClose]);
+
+  const handleButtonClick = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
+  const handleBackdropClick = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
+  const drawerClassName = useMemo(() => {
+    return cn(
+      "fixed top-0 right-0 h-full w-full sm:w-[638px] max-w-full z-[1001] transition-transform duration-300 ease-in-out",
+      isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900',
+      isOpen ? 'translate-x-0' : 'translate-x-full'
+    );
+  }, [isDarkMode, isOpen]);
+
   return (
     <>
       <Button
-        onClick={onClose}
+        onClick={handleButtonClick}
         className={cn(
           "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
           isOpen ? 'hidden' : 'flex'
@@ -56,19 +78,15 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
           "fixed inset-0 bg-black bg-opacity-50 z-[1000] transition-opacity duration-300",
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
-        onClick={onClose}
+        onClick={handleBackdropClick}
       />
       <div
-        {...handlers}
-        className={cn(
-          "fixed top-0 right-0 h-full w-full sm:w-[638px] max-w-full z-[1001] transition-transform duration-300 ease-in-out",
-          isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900',
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        )}
+        {...memoizedHandlers}
+        className={drawerClassName}
       >
         <div className="flex flex-col h-full">
           <div className="flex-shrink-0">
-            <ChatHeader
+            <MemoizedChatHeader
               isDarkMode={isDarkMode}
               toggleDarkMode={toggleDarkMode}
               handleResetChat={handleResetChat}
@@ -77,7 +95,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
           </div>
           <div className="flex-grow flex flex-col overflow-hidden">
             <ScrollArea className="flex-grow">
-              <ChatContainer
+              <MemoizedChatContainer
                 messages={messages}
                 editingMessageId={editingMessageId}
                 editInput={editInput}
@@ -89,10 +107,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
                 isDarkMode={isDarkMode}
                 codeSpace={codeSpace}
               />
-                <div id="after-last-message" />
+              <div id="after-last-message" />
             </ScrollArea>
             <div className="flex-shrink-0">
-              <MessageInput
+              <MemoizedMessageInput
                 input={input}
                 setInput={setInput}
                 screenShot={screenShot}
@@ -111,4 +129,4 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = ({
       </div>
     </>
   );
-};
+});

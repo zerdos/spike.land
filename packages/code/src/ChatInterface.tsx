@@ -1,5 +1,5 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, {  useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
@@ -9,6 +9,7 @@ import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 
+const MemoizedChatDrawer = React.memo(ChatDrawer);
 
 export const ChatInterface: React.FC<{
   isOpen: boolean;
@@ -18,31 +19,31 @@ export const ChatInterface: React.FC<{
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [m, setM] = useLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
-  const [isStreaming, setIsStreaming] = useLocalStorage(`streaming-${codeSpace}`, true);
+  const [m, setM] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
+  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, true);
 
   const [input, setInput] = useState("");
   const [codeWhatAiSeen, setAICode] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
-  const inputRef = useRef<HTMLTextAreaElement>(null); 
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const messages = m || [];
-  // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
+  const messages = useMemo(() => m || [], [m]);
 
+  const setMessages = useCallback((newMessages: React.SetStateAction<Message[]>) => {
+    setM((prevMessages) => {
+      const updatedMessages = typeof newMessages === 'function' ? newMessages(prevMessages || []) : newMessages;
+      const OLD = prevMessages || [];
+      console.log("setMessages", updatedMessages);
 
-  const setMessages = (newMessages: Message[]) => {
-    const OLD = (messages || []).filter(x => x);
-    console.log("setMessages", newMessages);
-    const newMessagesFiltered = newMessages.filter(x => x);
+      if (md5(OLD) === md5(updatedMessages)) {
+        console.log("setMessages: same messages, returning");
+        return prevMessages;
+      }
 
-    if (md5(OLD) === md5(newMessagesFiltered)) {
-      console.log("setMessages: same messages, returning");
-      return;
-    }
-
-    setM(newMessagesFiltered);
-  };
+      return updatedMessages;
+    });
+  }, [setM]);
 
   const resetChat = useCallback(() => {
     setMessages([]);
@@ -53,7 +54,7 @@ export const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setMessages, setIsStreaming, setInput, setAICode, setEditingMessageId, setEditInput]);
+  }, [setMessages]);
 
   const {
     handleSendMessage,
@@ -63,7 +64,7 @@ export const ChatInterface: React.FC<{
   } = useMessageHandling({
     codeSpace,
     messages,
-    setMessages: setMessages as React.Dispatch<React.SetStateAction<Message[]>>,
+    setMessages,
     setInput,
     setIsStreaming: setIsStreaming as React.Dispatch<React.SetStateAction<boolean>>,
     codeWhatAiSeen,
@@ -75,60 +76,30 @@ export const ChatInterface: React.FC<{
     cSess,
   });
 
-  
-
-
-
-
-
-
   useEffect(() => {
     console.log("ChatInterface rendered");
     console.log("messages", messages);
     console.log("messHash", md5(messages));
-    if (messages.length === 0) {
-      setIsStreaming(false);
-      return;
-    }
-    setIsStreaming(true);
-  }, [messages]);
+    setIsStreaming(messages.length > 0);
+  }, [messages, setIsStreaming]);
 
   useEffect(() => {
-    console.log("ChatInterface rendered");
-    // Your code here
-
-    if (isStreaming) {
+    if (isStreaming && messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
-   
-      const interval = setInterval(() => {
-        if (messages.length === 0) {
-          console.log("No messages setIsStreaming = false");
-
-          setIsStreaming(false);
-          return;
-        }
-
+      const interval = setTimeout(() => {
         const newMessage = messages[messages.length - 1];
-
-
         if (md5(lastMessage) === md5(newMessage)) {
           console.log("No new messages setIsStreaming = false");
-        
           setIsStreaming(false);
-          
         } else {
           console.log("New messages setIsStreaming = true");
           console.log("lastMessage", md5(lastMessage));
           console.log("newMessage", md5(newMessage));
         }
       }, 1000);
-      return () => clearInterval(interval);
-
-      // Add a default return statement
+      return () => clearTimeout(interval);
     }
-    return () => {};
-  }, []);
-
+  }, [isStreaming, messages, setIsStreaming]);
 
   const handleResetChat = useCallback(() => {
     resetChat();
@@ -136,7 +107,7 @@ export const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [inputRef]);
+  }, [resetChat, setIsStreaming]);
 
   const {
     isScreenshotLoading,
@@ -147,29 +118,43 @@ export const ChatInterface: React.FC<{
 
   useEffect(() => {
     if (isOpen) {
-
       setTimeout(() => {
         document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
       });
     }
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
-      if (sessionStorage.getItem(maybeKey)) {
-        const {prompt, images} = JSON.parse(sessionStorage.getItem(maybeKey)!) as {prompt: string; images: ImageData[]};
+      const storedData = sessionStorage.getItem(maybeKey);
+      if (storedData) {
+        const {prompt, images} = JSON.parse(storedData) as {prompt: string; images: ImageData[]};
         sessionStorage.removeItem(maybeKey);
-        handleSendMessage(prompt, images)
+        handleSendMessage(prompt, images);
       }
     }
-  }, [isOpen, messages]);
+  }, [isOpen, codeSpace, handleSendMessage]);
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    return () => clearInterval(interval);
-  }, [isStreaming]);
+  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]) => {
+    return handleSendMessage(message, images || []);
+  }, [handleSendMessage]);
+
+  const memoizedSetInput = useCallback((value: string) => {
+    setInput(value);
+  }, []);
+
+  const memoizedHandleEditMessage = useCallback((messageId: string) => {
+    handleEditMessage(messageId);
+  }, [handleEditMessage]);
+
+  const memoizedSetEditInput = useCallback((value: string) => {
+    setEditInput(value);
+  }, []);
+
+  const memoizedScreenShot = useCallback(() => cSess.screenShot(), [cSess]);
 
   if (!isOpen) return null;
+
   return (
-    <ChatDrawer
+    <MemoizedChatDrawer
       isOpen={isOpen}
       onClose={onClose}
       isDarkMode={isDarkMode}
@@ -178,8 +163,8 @@ export const ChatInterface: React.FC<{
       messages={messages}
       isStreaming={!!isStreaming}
       input={input}
-      setInput={setInput}
-      handleSendMessage={handleSendMessage}
+      setInput={memoizedSetInput}
+      handleSendMessage={memoizedHandleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}
@@ -187,12 +172,12 @@ export const ChatInterface: React.FC<{
       handleCancelScreenshot={handleCancelScreenshot}
       editingMessageId={editingMessageId}
       editInput={editInput}
-      setEditInput={setEditInput}
-      handleEditMessage={handleEditMessage}
+      setEditInput={memoizedSetEditInput}
+      handleEditMessage={memoizedHandleEditMessage}
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
       codeSpace={codeSpace}
-      screenShot={()=>cSess.screenShot()}
+      screenShot={memoizedScreenShot}
     />
   );
 });

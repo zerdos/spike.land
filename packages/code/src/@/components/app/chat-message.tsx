@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo, useEffect } from "react";
+import React, { useRef, useState, useCallback, useMemo } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -37,7 +37,47 @@ interface ChatMessageProps {
 
 type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
 
-export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
+const MessageContent: React.FC<{ content: string | MessageContent; isUser: boolean }> = React.memo(({ content, isUser }) => {
+  const _content = typeof content === "string" ? [{ type: "text", text: content }] : content;
+  
+  return (
+    <>
+      {_content.map((item, index) => {
+        if (item.type === "text" && item.text) {
+          const hashText = index + "--" + md5(item.text);
+          return (
+            <div key={`${hashText}`}>
+              <ChatMessageBlock text={item.text} isUser={isUser} />
+            </div>
+          );
+        } else if (item.type === "image_url" && item.image_url) {
+          return (
+            <img
+              key={`image-${index}`}
+              src={item.image_url.url}
+              alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
+              className="max-w-full h-auto mt-2 rounded-lg"
+            />
+          );
+        }
+        return null;
+      })}
+    </>
+  );
+});
+
+const SystemMessage: React.FC<{ content: string | MessageContent; isUser: boolean }> = React.memo(({ content, isUser }) => (
+  <Accordion type="single" collapsible>
+    <AccordionItem value="item-1">
+      <AccordionTrigger>System prompt</AccordionTrigger>
+      <AccordionContent>
+        <MessageContent content={content} isUser={isUser} />
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+));
+
+export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
   const {
     message,
     isSelected,
@@ -56,51 +96,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
   const [images, setImages] = useState<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    console.log("ChatMessage rendered for message");
-  }, []);
-
-  const renderContent = useCallback(() => {
+  const renderContent = useMemo(() => {
     if (isSystem) {
-      return (
-        <Accordion type="single" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger>System prompt</AccordionTrigger>
-            <AccordionContent>
-              {renderMessageContent(message.content, isUser)}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      );
+      return <SystemMessage content={message.content} isUser={isUser} />;
     }
-  
-    return renderMessageContent(message.content, isUser);
+    return <MessageContent content={message.content} isUser={isUser} />;
   }, [isSystem, message.content, isUser]);
-
-  const renderMessageContent = (content: string | MessageContent, isUser: boolean) => {
-    const _content = typeof content === "string" ? [{ type: "text", text: content }] : content;
-    
-    return _content.map((item, index) => {
-      if (item.type === "text" && item.text) {
-        const hashText = index +"--"+ md5(item.text);
-        return (
-          <div key={`${hashText}`}>
-            <ChatMessageBlock text={item.text} isUser={isUser} />
-          </div>
-        );
-      } else if (item.type === "image_url" && item.image_url) {
-        return (
-          <img
-            key={`image-${index}`}
-            src={item.image_url.url}
-            alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
-            className="max-w-full h-auto mt-2 rounded-lg"
-          />
-        );
-      }
-      return null;
-    });
-  };
 
   const outerDivClassName = useMemo(
     () => cn("flex mb-4", isUser ? "justify-end" : "justify-start"),
@@ -149,6 +150,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
     [isDarkMode]
   );
 
+  const handleSaveEditClick = useCallback(() => handleSaveEdit(message.id), [handleSaveEdit, message.id]);
+
   return (
     <div className={outerDivClassName} onDoubleClick={onDoubleClick}>
       <div className={messageContainerClassName}>
@@ -169,7 +172,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
                 Add Image
               </Button>
               <div className="flex space-x-2">
-                <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
+                <Button size="sm" onClick={handleSaveEditClick}>
                   <Check className="h-4 w-4" />
                 </Button>
                 <Button size="sm" variant="outline" onClick={handleCancelEdit}>
@@ -199,12 +202,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
             )}
           </div>
         ) : (
-          <div className="break-words">{renderContent()}</div>
+          <div className="break-words">{renderContent}</div>
         )}
       </div>
     </div>
   );
-};
+});
 
 ChatMessage.displayName = "ChatMessage";
 
