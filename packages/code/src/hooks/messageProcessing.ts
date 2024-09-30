@@ -2,10 +2,10 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import { updateSearchReplace } from "@/lib/shared";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
-import { md5 } from "@src/modules";
 import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
