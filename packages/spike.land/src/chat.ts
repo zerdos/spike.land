@@ -47,6 +47,14 @@ export default {
       }
     });
   }
+
+  if (url.pathname === "/swVersion.mjs") {
+    return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {  
+      headers: {
+        "Content-Type": "application/javascript",
+      }
+    });
+  }
   
   if (url.pathname === "/sw-config.json") {
     return new Response(JSON.stringify({ killSwitch: false, version: "v14", swVersion: ASSET_HASH }), {

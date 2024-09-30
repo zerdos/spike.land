@@ -5,7 +5,7 @@ import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { swVersion } from "/sw-config.json" assert { type: "json" };
+import { swVersion } from "/swVersion.mjs";
 
 type WorkerPort = MessagePort | Worker;
 
