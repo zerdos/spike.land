@@ -459,6 +459,7 @@ async function handleBroadcastMessage(
         if (connection.lastCounter < bMod!.i) {
           console.log("Updating session");
           const { code, html, css, i, transpiled } = bMod!;
+
           const json = stringifySession({ code, html, css, codeSpace, i, transpiled });
           try {
             await fetch(`/live/${codeSpace}/session`, {

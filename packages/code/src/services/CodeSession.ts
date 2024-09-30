@@ -190,6 +190,10 @@ export class Code implements ICode {
     return this.session;
   }
 
+  public hash = () => {
+    makeSession({ ...this.session });
+  };
+
   async setCode(
     rawCode: string,
     skipRunning = false,

@@ -60,6 +60,8 @@ export const makeSession = (p: ICodeSession): ICodeSession =>
     transpiled: "",
   })({
     i: p.i || 0,
+
+    codeSpace: p.codeSpace || "",
     code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
     css: (p.css || ""),

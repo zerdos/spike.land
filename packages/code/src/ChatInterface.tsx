@@ -50,7 +50,7 @@ export const ChatInterface: React.FC<{
         }
       }, 1000);
 
-      
+
 
       return ;
   }
@@ -86,7 +86,7 @@ export const ChatInterface: React.FC<{
     setEditInput,
     cSess,
   });
-
+  
   useEffect(() => {
     console.log("ChatInterface rendered");
     console.log("messages", messages);
