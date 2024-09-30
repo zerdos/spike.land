@@ -40,14 +40,12 @@ export const useMessageHandling = ({
   const handleSendMessage = async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
-    const code = cSess.session.code;
-
     useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
       content,
       messages,
-      code,
+      cSess.session.code,
       codeSpace,
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
@@ -60,7 +58,7 @@ export const useMessageHandling = ({
       const success = await processMessage({
         aiHandler,
         cSess,
-        codeNow: code,
+        codeNow: cSess.session.code,
         messages,
         setMessages,
         newUserMessage,

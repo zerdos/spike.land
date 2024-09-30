@@ -98,7 +98,14 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
-    expect(messageProcessing.processMessage).toHaveBeenCalled();
+    expect(messageProcessing.processMessage).toHaveBeenCalledWith(expect.objectContaining({
+      aiHandler: expect.any(Object),
+      cSess: mockCsess,
+      codeNow: "test code",
+      messages: expect.any(Array),
+      setMessages: expect.any(Function),
+      newUserMessage: expect.any(Object),
+    }));
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
     expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
   });
@@ -201,7 +208,14 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
-    expect(messageProcessing.processMessage).toHaveBeenCalled();
+    expect(messageProcessing.processMessage).toHaveBeenCalledWith(expect.objectContaining({
+      aiHandler: expect.any(Object),
+      cSess: mockCsess,
+      codeNow: "test code",
+      messages: expect.any(Array),
+      setMessages: expect.any(Function),
+      newUserMessage: expect.any(Object),
+    }));
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
     expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
   });
@@ -219,7 +233,12 @@ describe("useMessageHandling", () => {
       await result.current.handleSendMessage("Test message");
     });
 
-    expect(mockProps.setIsStreaming).toHaveBeenCalledWith(false);
+    expect(mockProps.setMessages).toHaveBeenCalledWith(expect.arrayContaining([
+      expect.objectContaining({
+        role: "assistant",
+        content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
+      }),
+    ]));
   });
 
   it("should handle editing a non-existent message", () => {
