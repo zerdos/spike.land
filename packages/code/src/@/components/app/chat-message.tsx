@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo, memo, useEffect } from "react";
+import React, { useRef, useState, useCallback, useMemo, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
