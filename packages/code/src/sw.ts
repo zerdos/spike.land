@@ -68,9 +68,13 @@ sw.addEventListener("install", (event) => {
           return;
         }
         const cache = await caches.open(cacheName);
-        await cache.addAll(
-          Object.values(files).map((file) => "/" + file),
-        );
+        try {
+          await cache.addAll(
+            Object.values(files).map((file) => "/" + file),
+          );
+        } catch (error) {
+          console.error("Error in cache.addAll", error);
+        }
 
         await sw.skipWaiting();
       }
