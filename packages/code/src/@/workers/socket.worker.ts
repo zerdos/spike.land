@@ -67,6 +67,12 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
   // Initialize the WebSocket and BroadcastChannel
 
   connections.set(codeSpace, connection);
+  connection.broadcastChannel.onmessage = (event) => {
+    handleBroadcastMessage(event.data, connection).catch((error) => {
+      console.error("Error handling broadcast message:", error);
+    });
+  };
+
   addHandlers(codeSpace);
   console.log("New connection created and stored");
 }
@@ -532,6 +538,7 @@ Object.assign(globalThis, {
 // Add event listener for broadcast channel messages
 self.addEventListener("connect", (event: MessageEvent) => {
   const port = event.ports[0];
+
   port.addEventListener("message", (event: MessageEvent) => {
     const connection = connections.get(event.data.codeSpace);
     if (connection) {
