@@ -38,15 +38,18 @@ interface ChatMessageProps {
 type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
 
 const MessageContent: React.FC<{ content: string | MessageContent; isUser: boolean }> = React.memo(({ content, isUser }) => {
-  const _content = typeof content === "string" ? [{ type: "text", text: content }] : content;
+  const _content = useMemo(() => 
+    typeof content === "string" ? [{ type: "text", text: content }] : content,
+    [content]
+  );
   
   return (
     <>
       {_content.map((item, index) => {
         if (item.type === "text" && item.text) {
-          const hashText = index + "--" + md5(item.text);
+          const hashText = `${index}--${md5(item.text)}`;
           return (
-            <div key={`${hashText}`}>
+            <div key={hashText}>
               <ChatMessageBlock text={item.text} isUser={isUser} />
             </div>
           );
@@ -152,56 +155,58 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
 
   const handleSaveEditClick = useCallback(() => handleSaveEdit(message.id), [handleSaveEdit, message.id]);
 
+  const renderEditingContent = useCallback(() => (
+    <div className="flex flex-col space-y-2">
+      <Textarea
+        value={editInput}
+        onChange={(e) => setEditInput(e.target.value)}
+        className={textareaClassName}
+      />
+      <div className="flex justify-between items-center">
+        <Button
+          size="sm"
+          onClick={() => fileInputRef.current?.click()}
+          className={buttonBgClass}
+        >
+          <ImageIcon className="h-4 w-4 mr-2" />
+          Add Image
+        </Button>
+        <div className="flex space-x-2">
+          <Button size="sm" onClick={handleSaveEditClick}>
+            <Check className="h-4 w-4" />
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="hidden"
+        ref={fileInputRef}
+        multiple
+      />
+      {images.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {images.map((img, index) => (
+            <img
+              key={`uploaded-${index}`}
+              src={img.src}
+              alt={`Uploaded ${index}`}
+              className="w-16 h-16 object-cover rounded"
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  ), [editInput, textareaClassName, buttonBgClass, handleSaveEditClick, handleCancelEdit, handleImageUpload, images]);
+
   return (
     <div className={outerDivClassName} onDoubleClick={onDoubleClick}>
       <div className={messageContainerClassName}>
-        {isEditing ? (
-          <div className="flex flex-col space-y-2">
-            <Textarea
-              value={editInput}
-              onChange={(e) => setEditInput(e.target.value)}
-              className={textareaClassName}
-            />
-            <div className="flex justify-between items-center">
-              <Button
-                size="sm"
-                onClick={() => fileInputRef.current?.click()}
-                className={buttonBgClass}
-              >
-                <ImageIcon className="h-4 w-4 mr-2" />
-                Add Image
-              </Button>
-              <div className="flex space-x-2">
-                <Button size="sm" onClick={handleSaveEditClick}>
-                  <Check className="h-4 w-4" />
-                </Button>
-                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-              ref={fileInputRef}
-              multiple
-            />
-            {images.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
-                {images.map((img, index) => (
-                  <img
-                    key={`uploaded-${index}`}
-                    src={img.src}
-                    alt={`Uploaded ${index}`}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        ) : (
+        {isEditing ? renderEditingContent() : (
           <div className="break-words">{renderContent}</div>
         )}
       </div>
