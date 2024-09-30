@@ -126,10 +126,10 @@ export const ChatContainer: React.FC<
 
   return (
     <div className="p-4 space-y-4">
-      {messages.map((v: Message, i) => {
-        const hash = isStreaming && (i === messages.length - 1) ? 'streaming' : md5(JSON.stringify(v));
-        return renderMessage(v, `${i}-${hash}`);
-      })}
+      {
+         messages.map(v => renderMessage(v, md5(v)))
+      }
+      
       {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
     </div>
   );

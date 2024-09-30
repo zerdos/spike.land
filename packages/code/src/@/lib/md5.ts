@@ -1,8 +1,8 @@
 import { hash } from "immutable";
 
-export const md5 = (input: string): string => generateDeterministicKey(input);
+export const md5 = (input: unknown): string => generateDeterministicKey(input);
 
-const generateDeterministicKey = (input: string): string => {
+const generateDeterministicKey = (input: unknown): string => {
   let str = intToString(hash(input));
   while (str.length < 8) {
     str = str + str;
