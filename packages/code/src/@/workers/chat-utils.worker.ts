@@ -31,11 +31,10 @@ export const updateSearchReplace = async (
     return code;
   }
 
-  let resultPretty = code;
   console.log("Attempting to prettify the code");
 
   try {
-    resultPretty = await prettierJs({ code, toThrow: true });
+    const resultPretty = await prettierJs({ code, toThrow: true });
     console.log("Code successfully prettified");
     return resultPretty;
   } catch (error) {
