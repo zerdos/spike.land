@@ -54,6 +54,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
   let connection = connections.get(codeSpace);
 
   if (!connection) {
+    console.log("Creating new connection...");
     // Create a new connection
     connection = {
       user,
@@ -71,6 +72,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
 
     connections.set(codeSpace, connection);
   } else {
+    console.log("Updating existing connection...", { connection });
     // Update existing connection if necessary
     connection.user = user;
     connection.codeSpace = codeSpace;
@@ -120,6 +122,7 @@ function createSocketDelegate(connection: Connection, codeSpace: string) {
     socketDidClose: () => {},
     socketDidFinish: () => {},
     socketDidReceiveMessage: (ws: Socket, message: string) => {
+      console.log("Received message:", message);
       handleSocketMessage(ws, message, connection, codeSpace).catch((error) => {
         console.error("Error handling socket message:", error);
       });
@@ -141,6 +144,7 @@ function createBroadcastChannel(
   const channelName = `${location.origin}/live/${codeSpace}/`;
   const broadcastChannel = new BroadcastChannel(channelName);
   broadcastChannel.onmessage = ({ data }) => {
+    console.log("Received broadcast message:", data);
     handleBroadcastMessage(data, connection).catch((error) => {
       console.error("Error handling broadcast message:", error);
     });
