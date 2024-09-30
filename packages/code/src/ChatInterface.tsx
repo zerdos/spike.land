@@ -1,5 +1,5 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, {  useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {  useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
@@ -31,7 +31,7 @@ export const ChatInterface: React.FC<{
 
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
 
-  
+
   const setMessages = (newMessages: Message[]) => {
     console.log("setMessages", newMessages);
     const newMessagesFiltered = newMessages.filter(x => x);
@@ -144,47 +144,6 @@ export const ChatInterface: React.FC<{
     handleCancelScreenshot,
   } = useScreenshot(codeSpace);
 
-  const memoizedChatFCProps = useMemo(() => ({
-    isOpen,
-    onClose,
-    handleEditMessage,
-    handleResetChat,
-    handleSaveEdit,
-    handleSendMessage,
-    isStreaming,
-    messages,
-    isDarkMode,
-    toggleDarkMode,
-    editingMessageId,
-    editInput,
-    setEditInput,
-    input,
-    setInput,
-    inputRef,
-    handleCancelEdit,
-    isScreenshotLoading,
-    screenshotImage,
-    handleScreenshotClick,
-    handleCancelScreenshot
-  }), [
-    isOpen,
-    onClose,
-    handleEditMessage,
-    handleResetChat,
-    handleSaveEdit,
-    handleSendMessage,
-    isStreaming,
-    messages,
-    isDarkMode,
-    toggleDarkMode,
-    editingMessageId,
-    editInput,
-    input,
-    handleCancelEdit,
-    isScreenshotLoading,
-    screenshotImage
-  ]);
-
   useEffect(() => {
     if (isOpen) {
 
@@ -197,7 +156,7 @@ export const ChatInterface: React.FC<{
       if (sessionStorage.getItem(maybeKey)) {
         const {prompt, images} = JSON.parse(sessionStorage.getItem(maybeKey)!) as {prompt: string; images: ImageData[]};
         sessionStorage.removeItem(maybeKey);
-        memoizedChatFCProps.handleSendMessage(prompt, images)
+        handleSendMessage(prompt, images)
       }
     }
   }, [isOpen, messages]);
