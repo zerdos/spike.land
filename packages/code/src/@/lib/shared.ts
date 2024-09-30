@@ -46,7 +46,9 @@ class WorkerPool {
 
   private addWorker(tag: string) {
     const worker = new AlwaysSupportedSharedWorker(
-      `/@/workers/ata-worker.worker.js?workerId=${tag}-${this.workers.length}`,
+      tag === "connect"
+        ? "/@/workers/ata-worker.worker.js?workerId=connect"
+        : `/@/workers/ata-worker.worker.js?workerId=${tag}-${this.workers.length}`,
     );
 
     const port = worker.port;
