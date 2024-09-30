@@ -26,8 +26,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
   
-  const original = useThrottle(_original, 200);
-  const modified = useThrottle(_modified, 200);
+  const original = useThrottle(_original, 100);
+  const modified = useThrottle(_modified, 100);
 
 
   useEffect(() => {
