@@ -204,6 +204,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
       </div>
     </div>
   );
+};
 
 ChatMessage.displayName = "ChatMessage";
 
