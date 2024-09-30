@@ -3,8 +3,7 @@ import type { ImageData } from "@/lib/interfaces";
 import type { Message } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
 import { AIHandler } from "@src/AIHandler";
-import { Mutex } from "async-mutex";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { createNewMessage, processMessage } from "./messageProcessing";
 
 import { useAutoSave } from "./useAutoSave";
@@ -30,7 +29,6 @@ export const useMessageHandling = ({
   setMessages,
   setInput,
   setIsStreaming,
-  codeWhatAiSeen,
   setAICode,
   setEditingMessageId,
   editInput,
@@ -38,9 +36,8 @@ export const useMessageHandling = ({
   setEditInput,
 }: UseMessageHandlingProps) => {
   const aiHandler = new AIHandler(cSess, setIsStreaming, codeSpace);
-  const mutex = new Mutex();
 
-  const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
+  const handleSendMessage = async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
     const code = cSess.session.code;
@@ -87,18 +84,7 @@ export const useMessageHandling = ({
       messagesPush(messages, sorry);
       setMessages([...messages]);
     }
-  }, [
-    codeSpace,
-    messages,
-    setMessages,
-    setInput,
-    setIsStreaming,
-    codeWhatAiSeen,
-    setAICode,
-    cSess,
-    aiHandler,
-    mutex,
-  ]);
+  };
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
