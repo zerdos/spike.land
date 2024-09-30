@@ -174,11 +174,12 @@ export class Code implements ICode {
 
   async init(): Promise<ICodeSession> {
     this.session = await this.broadcastChannel.init();
+    const { swVersion } = await import("/swVersion.mjs");
 
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
-      swVersion: process.env.SW_VERSION || "unknown",
+      swVersion: swVersion,
     });
     return this.session;
   }
@@ -186,7 +187,6 @@ export class Code implements ICode {
   async setCode(
     rawCode: string,
     skipRunning = false,
-    cacheBust = false,
   ): Promise<string> {
     if (rawCode === this.session.code) return this.session.code;
 
@@ -248,7 +248,6 @@ export class Code implements ICode {
         const updatedCode = await codeInstance.setCode(
           codeContent + "\n\n\n",
           codeSpace !== this.codeSpace,
-          true,
         );
 
         if (updatedCode !== codeContent + "\n\n\n") {
