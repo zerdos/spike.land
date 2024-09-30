@@ -1,11 +1,11 @@
-import type { FC} from "react";
+import type { FC } from "react";
 import React, { memo, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";  
 
 import { CodeBlock } from "@/external/CodeBlock";
-import {  isDiffContent } from "@/lib/diff-utils";
+import { isDiffContent } from "@/lib/diff-utils";
 import { DiffEditor } from "@/components/app/diff-editor-lazy";
 import { md5 } from "@/lib/md5";
 import { extractCodeModification } from "@/lib/chat-utils";
@@ -16,9 +16,7 @@ interface CodeProps {
   type: string;
 }
 
-
 export const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
- 
   const content = extractCodeModification(rawContent)[0] || rawContent; 
 
   const original = content.split("=======")[0]?.split("<<<<<<< SEARCH")[1]?.trim() || "";
@@ -31,44 +29,47 @@ export const extractDiffContent = (rawContent: string): { original: string; modi
 };
 
 const Code: FC<CodeProps> = memo(({ value, language, type }) => {
-  const trimmedValue = value.trim();
+  const trimmedValue = useMemo(() => value.trim(), [value]);
 
-  if (trimmedValue.length === 0) {
-    return null;
-  }
+  const content = useMemo(() => {
+    if (trimmedValue.length === 0) {
+      return null;
+    }
 
+    if (trimmedValue.length < 20) {
+      return <pre>{trimmedValue}</pre>;
+    }
 
-  if (trimmedValue.length < 20) {
-    return <pre>{trimmedValue}</pre>;
-  }
+    if (type === "text") {
+      return (
+        <Markdown
+          className={cn(
+            "mt-3 mb-3 font-sans text-sm leading-normal tracking-wide",
+          )}
+        >
+          {trimmedValue}
+        </Markdown>
+      );
+    }
 
-  if (type === "text") {
-    return (
-      <Markdown
-        className={cn(
-          "mt-3 mb-3 font-sans text-sm leading-normal tracking-wide",
-        )}
-      >
-        {trimmedValue}
-      </Markdown>
-    );
-  }
+    if (isDiffContent(trimmedValue)) {
+      const { original, modified } = extractDiffContent(trimmedValue + "\nFoo_Bar_baz_893");
+      const o = original.includes('Foo_Bar_baz_893') ? '' : original;
+      const m = modified.includes('Foo_Bar_baz_893') ? '' : modified;
 
-  if (isDiffContent(trimmedValue)) {
-  
-    const { original, modified } = extractDiffContent(trimmedValue+"\nFoo_Bar_baz_893");
-    const o = original.includes('Foo_Bar_baz_893')? '': original;
-    const m = modified.includes('Foo_Bar_baz_893')? '': modified;
+      return (
+        <DiffEditor
+          original={o}
+          modified={m}
+          language={language}
+        />
+      );
+    }
 
-    return ( <DiffEditor
-        original={o}
-        modified={m}
-        language={language}
-      />
-    );
-  }
+    return <CodeBlock value={trimmedValue} language={language} />;
+  }, [trimmedValue, type, language]);
 
-  return <CodeBlock value={trimmedValue} language={language} />;
+  return content;
 });
 
 Code.displayName = "Code";
@@ -84,7 +85,7 @@ export const ChatMessageBlock: FC<ChatMessageBlockProps> = memo(({ text, isUser 
   return (
     <>
       {messageParts.map((part, index) => (
-        <React.Fragment key={index +"-" +md5(part.content)}>
+        <React.Fragment key={`${index}-${md5(part.content)}`}>
           <Code
             value={part.content}
             language={part.language || 'typescript'}
