@@ -220,10 +220,15 @@ async function handleSessionString(
  */
 async function handleHandshake(
   ws: Socket,
-  data: any,
+  data: {
+    hashCode: number;
+    type: string;
+  },
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
+  console.log("Handling handshake...");
+  console.log("Data:", { data });
   ws.send(JSON.stringify({ name: connection.user }));
 
   const oldSessionHash = makeHash(connection.oldSession);
