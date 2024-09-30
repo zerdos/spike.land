@@ -26,7 +26,7 @@ interface Connection {
   broadcastChannel: BroadcastChannel;
   lastCounter: number;
   codeSpace: string;
-  webSocket: Socket;
+  webSocket: Awaited<ReturnType<typeof createWebSocket>>;
   controller: AbortController;
   user: string;
   oldSession: ICodeSession;
@@ -94,7 +94,7 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
  * @param codeSpace - The code space identifier.
  * @returns The initialized WebSocket.
  */
-async function createWebSocket(codeSpace: string): Promise<Socket> {
+async function createWebSocket(codeSpace: string) {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
@@ -115,18 +115,23 @@ function addHandlers(codeSpace: string): void {
   }
 
   const ws = connection.webSocket;
+  ws.onopen = async () => {
+    console.log("WebSocket opened");
+  };
 
-  ws.onclose = () => {
+  ws.onclose = async () => {
     console.log("WebSocket closed");
   };
 
-  ws.onerror = (error) => {
-    console.error("WebSocket error:", error);
-  };
-
-  ws.onmessage = ({ data }) => {
+  ws.onmessage = async ({ data }) => {
     console.log("Received WebSocket message:", data);
-    handleSocketMessage(data, codeSpace).catch((error) => {
+
+    if (typeof data !== "string") {
+      console.error("Invalid WebSocket message received:", data);
+      return;
+    }
+
+    handleSocketMessage(JSON.stringify(data), codeSpace).catch((error) => {
       console.error("Error handling socket message:", error);
     });
   };
@@ -205,7 +210,7 @@ async function handleSessionString(
 ): Promise<void> {
   console.log("Handling session string:", data);
   const { oldSession, user } = connection;
-  const sess = makeSession(data.strSess);
+  const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
   const patch = createPatch(sess, oldSession);
   console.log("Created patch:", patch);
   ws.send(JSON.stringify({ ...patch, name: user, i: oldSession.i }));
@@ -336,7 +341,11 @@ async function handleHashMatch(
   signal: AbortSignal,
 ): Promise<void> {
   console.log("Handling hash match");
-  const newSession = applyCodePatch(oldSession, data);
+  const newSession = applyCodePatch(oldSession, {
+    ...data,
+    patch: [],
+    reversePatch: [],
+  });
   const newHash = makeHash(newSession);
   console.log("New hash:", newHash);
 
@@ -518,6 +527,20 @@ const SENDER_WORKER_HASH_MISMATCH_RELOAD = "WORKER_HASH_MISMATCH_RELOAD";
 Object.assign(globalThis, {
   setConnections,
   connections,
+});
+
+// Add event listener for broadcast channel messages
+self.addEventListener("connect", (event: MessageEvent) => {
+  const port = event.ports[0];
+  port.addEventListener("message", (event: MessageEvent) => {
+    const connection = connections.get(event.data.codeSpace);
+    if (connection) {
+      handleBroadcastMessage(event.data, connection).catch((error) => {
+        console.error("Error handling broadcast message:", error);
+      });
+    }
+  });
+  port.start();
 });
 
 console.log("Socket worker setup complete");
