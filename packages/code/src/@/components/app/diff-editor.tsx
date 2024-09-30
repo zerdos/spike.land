@@ -56,8 +56,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     
 
       diffEditor.setModel({
-        original: editor.createModel(original, language),
-        modified: editor.createModel(modified, language),
+        original: editor.createModel(original || '', language),
+        modified: editor.createModel(modified || '', language),
       });
       
 
@@ -79,7 +79,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       
       }
     };
-  }, [language, readOnly]); // Only run when language or readOnly changes
+  }, []); // Only run when language or readOnly changes
 
   useEffect(()=> {
     if (diffEditorRef.current) {
