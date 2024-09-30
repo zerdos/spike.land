@@ -20,7 +20,16 @@ export const useChat = (
   const messages = messagesRaw.filter(x => x);
 
   useEffect(() => {
+    setIsStreaming(true);
+  }, [messages]);
+
+  useEffect(() => {
+    setIsStreaming(false);
+  }, []);
+
+  useEffect(() => {
     // Your code here
+
     if (isStreaming) {
       const lastMessage = messages[messages.length - 1];
       const lastHash = md5(JSON.stringify(lastMessage));
