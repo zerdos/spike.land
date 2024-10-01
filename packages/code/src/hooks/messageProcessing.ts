@@ -8,6 +8,7 @@ import { wait } from "@/lib/wait";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
+import { throttle } from "es-toolkit";
 
 const mutex = new Mutex();
 
@@ -93,6 +94,8 @@ export async function processMessage(
         { setMessages, messages, cSess, contextManager, mod },
       );
 
+      const throttledOnUpdate = throttle(onUpdate, 500, { edges: ["trailing"] });
+
       // Create a copy of the messages array to work with
 
       console.log(`Processing message (attempt ${retries + 1})`);
@@ -100,7 +103,7 @@ export async function processMessage(
       const assistantMessage = await sendAssistantMessage(
         aiHandler,
         messages,
-        onUpdate,
+        throttledOnUpdate as unknown as typeof onUpdate,
       );
 
       // Add the assistant message to the working messages array
@@ -331,10 +334,12 @@ async function handleErrorMessage(
     { setMessages, messages, cSess, contextManager, mod },
   );
 
+  const throttledOnUpdate = throttle(newOnUpdate, 500, { edges: ["trailing"] });
+
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
     messages,
-    newOnUpdate,
+    throttledOnUpdate as unknown as typeof newOnUpdate,
   );
 
   // Add the assistant message to the updated messages array
