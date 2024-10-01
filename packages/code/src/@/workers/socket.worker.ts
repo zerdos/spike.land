@@ -3,7 +3,6 @@ import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } 
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
-import { connect } from "http2";
 
 // Define the properties of `self` with proper types
 declare let self: SharedWorkerGlobalScope & {
@@ -191,7 +190,7 @@ async function handleSocketMessage(
     await handleSessionString(data as { strSess: string }, ws, connection);
   } else if (data.type === "handShake") {
     console.log("Handling handshake message");
-    await handleHandshake(ws, data as { hashCode: string }, connection, codeSpace);
+    await handleHandshake(ws, data as { hashCode: string; type: string }, connection, codeSpace);
   } else if (data.newHash && data.oldHash) {
     console.log("Handling hash update message");
     await handleHashUpdate(data as { newHash: string; oldHash: string }, connection, codeSpace);
@@ -460,7 +459,10 @@ async function handleBroadcastMessage(
       bMod.controller = new AbortController();
     }
 
-    const signal = bMod.controller.signal;
+    bMod.controller.abort();
+    bMod.controller = new AbortController();
+
+    const { signal } = bMod.controller;
 
     console.log("Clearing existing timeout");
     clearTimeout(bMod.timeoutId);
@@ -468,6 +470,10 @@ async function handleBroadcastMessage(
     console.log("Scheduling session update");
     bMod.timeoutId = setTimeout(() => {
       (async () => {
+        if (bMod.i === connection.lastCounter) {
+          console.log("Session already up to date");
+          return;
+        }
         if (signal.aborted) {
           console.log("Session update aborted");
           return;
