@@ -1,18 +1,21 @@
 import { updateSearchReplace as up } from "@/lib/chat-utils";
 import type { prettierJs as prettier } from "@/lib/prettier";
+import type { transpile as transform } from "@/lib/transpile";
 
 importScripts("/@/workers/prettier-esm.worker.js");
+importScripts("/@/workers/transpile.worker.js");
 
 console.log("chat-utils.worker.ts loaded");
 
 const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).prettierJs;
+const transpile = (globalThis as unknown as { transpile: typeof transform }).transpile;
 
 console.log("prettierJs function imported:", prettierJs);
 
 const REPLACE = ">>>>>>> REPLACE";
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
-): Promise<{ result: string; resultPretty?: string; len: number }> => {
+): Promise<{ result: string; transpiled?: string; len: number }> => {
   console.log("updateSearchReplace function called", { instructions, code });
   const hadReplace = instructions.includes(REPLACE);
   instructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
@@ -66,8 +69,15 @@ export const updateSearchReplace = async (
   if (res1 !== result) {
     try {
       const resultPretty = await prettierJs({ code: res1, toThrow: true });
+      const transpiled = await transpile({ code: resultPretty, originToUse: location.origin });
+
+      if (typeof transpiled !== "string") {
+        console.error("Error while transpiling code:", transpiled);
+        throw new Error("Transpilation failed");
+      }
+
       console.log("Code successfully prettified");
-      return { result: resultPretty, len: res0len + 1 };
+      return { result: resultPretty, len: res0len + 1, transpiled };
     } catch (error) {
       console.error("Error while prettifying code:", error);
       // return { result: res1, len: 0 };

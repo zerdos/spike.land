@@ -243,24 +243,7 @@ function createOnUpdateFunction({
                 });
                 console.table(mod.actions[mod.actions.length - 1]);
 
-                const success = await trySetCode(cSess, mod.lastCode, true);
-
-                mod.actions.push({
-                  TRIED,
-                  SKIP,
-                  DIFFs,
-                  chars: instructions.length,
-                  chunk,
-                  type: success ? "success" : "error",
-                  startPos,
-                  lastSuccessCut: len + startPos,
-                  lastCode: mod.lastCode,
-                  prevCode: lastCode,
-                  hash: md5(mod.lastCode),
-                  chunLength: len,
-                });
-                console.table(mod.actions[mod.actions.length - 1]);
-                contextManager.updateContext("currentDraft", success ? "" : lastCode);
+                trySetCode(cSess, mod.lastCode, true);
               }
             }
           } catch (error) {
