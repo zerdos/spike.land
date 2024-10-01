@@ -37,6 +37,7 @@ export class CodeSessionBC {
     this.subscribers.push(callback);
   }
   postMessage(session: ICodeSession): void {
+    this.subscribers.forEach(cb => setTimeout(() => cb(session)));
     this.broadcastChannel.postMessage(session);
   }
   close(): void {

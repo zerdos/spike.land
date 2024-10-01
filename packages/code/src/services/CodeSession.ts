@@ -55,12 +55,12 @@ class CodeProcessor {
     skipRunning: boolean = false,
     counter: number,
     signal: AbortSignal,
-  ): Promise<ICodeSession | false> {
+  ): Promise<Partial<ICodeSession> | false> {
     try {
-      const formattedCode = await this.formatCode(rawCode);
+      const transpiledCode = await this.transpileCode(rawCode);
       if (signal?.aborted) return false;
 
-      const transpiledCode = await this.transpileCode(formattedCode);
+      const formattedCodePromise = this.formatCode(rawCode);
       if (signal?.aborted) return false;
 
       let html = "<div></div>";
@@ -69,6 +69,7 @@ class CodeProcessor {
       if (!skipRunning) {
         try {
           const res = await this.runCode(transpiledCode, signal);
+
           if (signal?.aborted) return false;
 
           if (res) {
@@ -98,10 +99,9 @@ class CodeProcessor {
       if (signal?.aborted) return false;
 
       return {
-        code: formattedCode,
+        code: await formattedCodePromise,
         transpiled: transpiledCode,
         html,
-        codeSpace: "",
         css,
         i: counter,
       };
@@ -215,15 +215,13 @@ export class Code implements ICode {
     );
     if (!processedSession || signal.aborted) return this.session.code;
 
-    const codeSpace = this.session.codeSpace;
-    const session = makeSession({ ...processedSession, codeSpace });
+    const session = makeSession({ ...this.session, ...processedSession });
     if (hash(session) === hash(this.session)) return this.session.code;
 
     this.session = makeSession({ ...session, i: this.session.i + 1 });
 
     this.broadcastChannel.postMessage({
       ...this.session,
-      codeSpace,
       sender: "Editor",
     } as BroadcastMessage);
 

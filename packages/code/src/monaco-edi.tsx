@@ -1,6 +1,7 @@
 import { ata } from "@/lib/shared";
 import { editor, languages,  Uri } from "@/external/monaco-editor";
 import {version} from "monaco-editor/package.json"; 
+import {throttle} from "es-toolkit";
 const originToUse = location.origin;
 
 const refreshAta = async (code: string) => {
@@ -327,6 +328,8 @@ async function startMonacoPristine({
     editorModel.isEdit = false;
   });
 
+  const throttledTsCheck = throttle(tsCheck, 10000);
+
   model.onDidChangeContent(() => {
     const newCode = model.getValue();
     editorModel.isEdit = true;
@@ -336,7 +339,7 @@ async function startMonacoPristine({
     setTimeout(() => {
       if (signal.aborted) return;
       editorModel.isEdit = false;
-      tsCheck();
+      throttledTsCheck();
     }, 200);
 
     if (!editorModel.silent) {

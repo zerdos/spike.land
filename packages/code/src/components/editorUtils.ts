@@ -181,7 +181,7 @@ export const runCode = memoizeWithAbort(
       const timeoutId = setTimeout(() => {
         cleanup();
         reject(new Error("Timed out"));
-      }, 1500);
+      }, 5000);
 
       const messageHandler = (ev: MessageEvent): void => {
         const data = ev.data;
