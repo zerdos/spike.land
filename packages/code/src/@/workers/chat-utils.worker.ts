@@ -4,7 +4,7 @@ const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
 
 // Debug function
-const debug = (message: string, ...args: any[]) => {
+const debug = (message: string, ...args: unknown[]) => {
   console.log(`[DEBUG] ${message}`, ...args);
 };
 
