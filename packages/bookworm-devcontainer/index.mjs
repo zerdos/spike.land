@@ -14,6 +14,9 @@ const run = async () => {
   // devGenerator.setDotnet("6");
   devGenerator.setDeno();
   devGenerator.setVscode();
+  devGenerator.setGit();
+  devGenerator.setPython();
+  
 
   const { Dockerfile, README } = await devGenerator.generate();
 

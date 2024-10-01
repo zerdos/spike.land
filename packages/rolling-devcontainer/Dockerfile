@@ -84,11 +84,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* 
 
 # Define the user and set up sudo permissions
+ARG USER_UID=1000
+ARG USER_GID=1000
+
 ARG USER="gitpod"
 ENV USER=${USER}
 
-RUN addgroup --gid 1001 ${USER} \
-    && adduser --uid 1001 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+
+RUN addgroup --gid ${USER_GID} ${USER} \
+    && adduser --uid ${USER_UID} --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
     && adduser ${USER} sudo \
     && chown ${USER}:${USER} -R /home/${USER} \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \

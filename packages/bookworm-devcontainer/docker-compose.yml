@@ -1,16 +1,25 @@
 services:
   devcontainer:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID}
+        USER_GID: ${GID}
     tmpfs:
-      - /home/$USER/tmpfs:exec
-    shm_size: 4gb
+      - ${HOME}/tmpfs:size=8g,rw,exec,uid=${UID},gid=${GID}
+    shm_size: 8gb
     privileged: true
+    environment:
+      - USER=${USER}
+      - HOME=${HOME}
+    command: /bin/sh -c "while sleep 1000; do :; done"
     volumes:
-      # - $HOME:/home/$USER/host:delegated
-      - /var/run/docker.sock:/var/run/docker.sock
-      - yarn:/yarn
+      - .:${HOME}/workspace:rw
+      - ${HOME}/.config:${HOME}/.config
+      - ${HOME}/.cache:${HOME}/.cache
+      - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
+      - /var/run/docker.sock:/HOME/run/docker.sock
     ports:
-      - "6080:6080"
-      - "5901:5901"
-volumes:
-  yarn:
+      - 6080:6080
+      - 5901:5901
