@@ -2,7 +2,7 @@
 
 // import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
-import { makeSession } from "@/lib/make-sess";
+import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 // import { build } from "@/lib/shared";
@@ -191,7 +191,11 @@ export class Code implements ICode {
   }
 
   public hash = () => {
-    makeSession({ ...this.session });
+    makeHash(makeSession({ ...this.session }));
+  };
+
+  static makeHash = (session: ICodeSession) => {
+    makeHash(session);
   };
 
   async setCode(
