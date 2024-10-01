@@ -196,67 +196,72 @@ function createOnUpdateFunction({
             return;
           }
           try {
-            const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
-            const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
-            const SKIP = mod.actions[mod.actions.length - 1]?.SKIP || 0;
-            const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
+            let finished = false;
 
-            const lastCode = mod.lastCode;
-            const chunk = instructions.slice(startPos);
+            while (!finished) {
+              const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
+              const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
+              const SKIP = mod.actions[mod.actions.length - 1]?.SKIP || 0;
+              const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
 
-            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
-            // chunk = chunk.slice(0, len);
-            mod.lastCode = result;
+              const lastCode = mod.lastCode;
+              const chunk = instructions.slice(startPos);
 
-            if (len === 0) {
-              mod.actions.push({
-                TRIED: TRIED + 1,
-                SKIP: SKIP + 1,
-                DIFFs,
-                chars: instructions.length,
-                type: "skip",
+              const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+              // chunk = chunk.slice(0, len);
+              mod.lastCode = result;
 
-                startPos,
-                chunLength: chunk.length,
-                chunk,
+              if (len === 0) {
+                finished = true;
+                mod.actions.push({
+                  TRIED: TRIED + 1,
+                  SKIP: SKIP + 1,
+                  DIFFs,
+                  chars: instructions.length,
+                  type: "skip",
 
-                lastSuccessCut: startPos,
-                hash: md5(lastCode),
-              });
-              // console.table(mod.actions[mod.actions.length - 1]);
-            } else {
-              mod.actions.push({
-                TRIED: TRIED + 1,
-                SKIP,
-                DIFFs: DIFFs + 1,
-                chars: instructions.length,
-                type: "updated",
-                startPos,
-                chunLength: len,
-                chunk: chunk.slice(0, len),
-                lastSuccessCut: len + startPos,
-                hash: md5(mod.lastCode),
-              });
-              console.table(mod.actions[mod.actions.length - 1]);
+                  startPos,
+                  chunLength: chunk.length,
+                  chunk,
 
-              const success = await trySetCode(cSess, mod.lastCode, true);
+                  lastSuccessCut: startPos,
+                  hash: md5(lastCode),
+                });
+                // console.table(mod.actions[mod.actions.length - 1]);
+              } else {
+                mod.actions.push({
+                  TRIED: TRIED + 1,
+                  SKIP,
+                  DIFFs: DIFFs + 1,
+                  chars: instructions.length,
+                  type: "updated",
+                  startPos,
+                  chunLength: len,
+                  chunk: chunk.slice(0, len),
+                  lastSuccessCut: len + startPos,
+                  hash: md5(mod.lastCode),
+                });
+                console.table(mod.actions[mod.actions.length - 1]);
 
-              mod.actions.push({
-                TRIED,
-                SKIP,
-                DIFFs,
-                chars: instructions.length,
-                chunk,
-                type: success ? "success" : "error",
-                startPos,
-                lastSuccessCut: len + startPos,
-                lastCode: mod.lastCode,
-                prevCode: lastCode,
-                hash: md5(mod.lastCode),
-                chunLength: len,
-              });
-              console.table(mod.actions[mod.actions.length - 1]);
-              contextManager.updateContext("currentDraft", success ? "" : lastCode);
+                const success = await trySetCode(cSess, mod.lastCode, true);
+
+                mod.actions.push({
+                  TRIED,
+                  SKIP,
+                  DIFFs,
+                  chars: instructions.length,
+                  chunk,
+                  type: success ? "success" : "error",
+                  startPos,
+                  lastSuccessCut: len + startPos,
+                  lastCode: mod.lastCode,
+                  prevCode: lastCode,
+                  hash: md5(mod.lastCode),
+                  chunLength: len,
+                });
+                console.table(mod.actions[mod.actions.length - 1]);
+                contextManager.updateContext("currentDraft", success ? "" : lastCode);
+              }
             }
           } catch (error) {
             console.error("Error in throttledMutexOperation:", error);
