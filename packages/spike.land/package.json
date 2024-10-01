@@ -20,13 +20,13 @@
     "@types/mime-db": "^1.43.5",
     "@types/mime-types": "^2.1.4",
     "typescript": "5.6.2",
-    "wrangler": "3.78.12"
+    "wrangler": "3.79.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.3",
     "@clerk/backend": "1.13.6",
     "@clerk/clerk-sdk-node": "5.0.46",
-    "@cloudflare/vitest-pool-workers": "^0.5.12",
+    "@cloudflare/vitest-pool-workers": "^0.5.13",
     "@remix-run/cloudflare": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@spike-land/code": "0.9.55",
@@ -40,7 +40,7 @@
     "mime-db": "^1.53.0",
     "mime-types": "^2.1.35",
     "miniflare": "^3.20240925.0",
-    "openai": "^4.66.1",
+    "openai": "^4.67.0",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",
