@@ -6878,6 +6878,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/css-prettifier", "npm:1.1.4"],\
           ["@emotion/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.13.3"],\
           ["@emotion/styled", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.13.0"],\
+          ["@eslint/eslintrc", "npm:3.1.0"],\
           ["@eslint/js", "npm:9.11.1"],\
           ["@github/stable-socket", "npm:1.1.0"],\
           ["@heroicons/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.5"],\

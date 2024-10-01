@@ -97,7 +97,7 @@ describe("getParts", () => {
   });
 
   test("should handle nested code blocks", () => {
-    const input = "Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n\`\`\`json\n{\"key\": \"value\"}\n\`\`\``);\n}\n```";
+    const input = 'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getParts(input, true);
     expect(result).toEqual([
       {
@@ -107,7 +107,7 @@ describe("getParts", () => {
       {
         type: "code",
         language: "javascript",
-        content: "function example() {\n  console.log(`Inner block:\n\`\`\`json\n{\"key\": \"value\"}\n\`\`\``);\n}",
+        content: 'function example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}',
       },
     ]);
   });

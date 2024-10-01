@@ -4177,6 +4177,7 @@ __metadata:
     "@emotion/css-prettifier": "npm:^1.1.4"
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
+    "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.11.1"
     "@github/stable-socket": "npm:1.1.0"
     "@heroicons/react": "npm:^2.1.5"
