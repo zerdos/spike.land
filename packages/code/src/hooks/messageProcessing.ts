@@ -4,6 +4,7 @@ import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { updateSearchReplace } from "@/lib/shared";
+import { wait } from "@/lib/wait";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
@@ -244,13 +245,14 @@ function createOnUpdateFunction({
                 });
                 console.table(mod.actions[mod.actions.length - 1]);
 
-                trySetCode(cSess, mod.lastCode, true);
+                await trySetCode(cSess, mod.lastCode, true);
               }
             }
           } catch (error) {
             console.error("Error in throttledMutexOperation:", error);
             contextManager.updateContext("errorLog", (error as Error).message);
           }
+          await wait(200);
         }
       });
     } catch (error) {
