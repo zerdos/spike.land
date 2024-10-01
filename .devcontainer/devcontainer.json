@@ -16,7 +16,7 @@
 
   // The optional 'workspaceFolder' property is the path VS Code should open by default when
   // connected. This is typically a file mount in .devcontainer/docker-compose.yml
-  "workspaceFolder": "/home/${USER}/workspace",
+  "workspaceFolder": "/home/node/workspace",
 
   // Set *default* container specific settings.json values on container create.
 
@@ -33,7 +33,8 @@
     }
   },
   // Use 'forwardPorts' to make a l ist of ports inside the container available locally.
-  "forwardPorts": [6080],
+  "forwardPorts": [6080, 3333],
+  "postStartCommand": "cp /home/node/.oh-my-zsh/.zshrc /home/node/ &&  yarn install",
 
   // Uncomment the next line if you want start specific services in your Docker Compose config.
   // "runServices": [],
@@ -45,5 +46,5 @@
   // "postCreateCommand": "apt-get update && apt-get install -y curl",
 
   // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
-  "remoteUser": "gitpod"
+  "remoteUser": "node"
 }

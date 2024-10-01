@@ -1,26 +1,23 @@
 services:
-  devcontainer: 
-    image: devimages/bookworm-devcontainer  
-    build: 
-      dockerfile: ./packages/bookworm-devcontainer/Dockerfile 
+  devcontainer:
+    build:
       context: .
+      dockerfile: Dockerfile
       args:
-        - USER=${USER}
+        USER_UID: ${UID}
+        USER_GID: ${GID}
     tmpfs:
-      - /home/${USER}/tmpfs:exec
-    shm_size: 8gb
+      - /home/node/tmpfs:size=100m
+    shm_size: 2gb
     privileged: true
     environment:
-      - USER=${USER}
-
-
+      - USER=node
+      - HOME=/home/node
+    command: /bin/sh -c "while sleep 1000; do :; done"
     volumes:
-      - .:/workspace
-      - /home/${USER}/.gitconfig:/home/gitpod/.gitconfig
-      - /home/${USER}/.ssh:/home/gitpod/.ssh
-      - /home/${USER}/.vscode:/home/gitpod/.vscode 
- 
-      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/home/node/workspace:rw
+      - ${HOME}/.config:/home/node/.config
+      - ${HOME}/.cache:/home/node/.cache
+      - ${HOME}/.oh-my-zsh:/home/node/.oh-my-zsh
     ports:
-      - "6080:6080"
-      - "5901:5901"
+      - "3333:3333"
