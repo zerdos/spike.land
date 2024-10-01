@@ -246,13 +246,13 @@ function createOnUpdateFunction({
                 console.table(mod.actions[mod.actions.length - 1]);
 
                 await trySetCode(cSess, mod.lastCode, true);
+                await wait(200);
               }
             }
           } catch (error) {
             console.error("Error in throttledMutexOperation:", error);
             contextManager.updateContext("errorLog", (error as Error).message);
           }
-          await wait(200);
         }
       });
     } catch (error) {
