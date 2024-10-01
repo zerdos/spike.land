@@ -18,6 +18,8 @@ RUN addgroup -g ${USER_GID} node
 # Recreate 'node' user with host's UID, add to 'node' group
 RUN adduser -u ${USER_UID} -G node -s /bin/sh -D node
 
+RUN mkdir -p /home/node/tmpfs
+VOLUME [ "/home/node/tmpfs" ]
 # Set ownership of the home directory
 RUN chown -R node:node /home/node
 
