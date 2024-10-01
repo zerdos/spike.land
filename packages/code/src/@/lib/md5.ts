@@ -4,6 +4,7 @@ import { Md5 } from "ts-md5";
 export const md5 = (input: object | string): string => generateDeterministicKey(input);
 
 const generateDeterministicKey = (input: object | string): string => {
+  if (!input) input = "empty";
   let str = intToString(hash(Md5.hashStr(typeof input === "string" ? input : JSON.stringify(input))));
   while (str.length < 8) {
     str = str + str;
