@@ -67,34 +67,34 @@ export const updateSearchReplace = async (
   }
   const res1 = up(instructions.slice(0, res0len + 1), code);
   if (res1 !== result) {
-    try {
-      const resultPretty = await prettierJs({ code: res1, toThrow: true });
-      const transpiled = await transpile({ code: resultPretty, originToUse: location.origin });
+    // try {
+    // const resultPretty = await prettierJs({ code: res1, toThrow: true });
+    // const transpiled = await transpile({ code: resultPretty, originToUse: location.origin });
 
-      if (typeof transpiled !== "string") {
-        console.error("Error while transpiling code:", transpiled);
-        throw new Error("Transpilation failed");
-      }
+    // if (typeof transpiled !== "string") {
+    // console.error("Error while transpiling code:", transpiled);
+    // throw new Error("Transpilation failed");
+    // }
 
-      console.log("Code successfully prettified");
-      return { result: resultPretty, len: res0len + 1, transpiled };
-    } catch (error) {
-      console.error("Error while prettifying code:", error);
-      // return { result: res1, len: 0 };
-    }
+    console.log("Code successfully prettified");
+    return { result: res1, len: res0len + 1 };
+    // } catch (error) {
+    // console.error("Error while prettifying code:", error);
+    // return { result: res1, len: 0 };
+    // }
   }
 
   console.log("Attempting to prettify the code");
   console.log("Code length:", { result, len, instructions: instructions.slice(0, len) });
 
-  try {
-    const resultPretty = await prettierJs({ code: result, toThrow: true });
-    console.log("Code successfully prettified");
-    return { result: resultPretty, len };
-  } catch (error) {
-    console.error("Error while prettifying code:", error);
-    return { result: code, len: 0 };
-  }
+  // try {
+  // const resultPretty = await prettierJs({ code: result, toThrow: true });
+  // console.log("Code successfully prettified");
+  // return { result: resultPretty, len };
+  // } catch (error) {
+  // console.error("Error while prettifying code:", error);
+  return { result: code, len: 0 };
+  // }
 };
 
 Object.assign(globalThis, { updateSearchReplace });

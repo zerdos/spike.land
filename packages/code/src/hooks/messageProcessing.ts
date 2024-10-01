@@ -81,6 +81,7 @@ export async function processMessage(
     try {
       const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
 
+      Object.assign(globalThis, { BUILD_LOG: mod });
       // Add the user message to the messages array
       if (newUserMessage) {
         messages = messagesPush(messages, newUserMessage);
