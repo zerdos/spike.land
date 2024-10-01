@@ -275,6 +275,11 @@ export class Code implements DurableObject {
      this.autoSave();
   }
 
+  setSession(session: ICodeSession) {
+    this.session = session;
+    this.state.storage.put("session", this.session);
+  }
+
   getState() {
     return this.state;
   }

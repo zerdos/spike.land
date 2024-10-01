@@ -320,7 +320,9 @@ export class WebSocketHandler {
       });
 
       this.code.session = newState;
-      await this.code.getState().storage.put("session", this.code.session);
+
+      this.code.setSession(newState);
+      
 
       broadcast(data as CodePatch);
 
