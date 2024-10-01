@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sidebar } from "@/external/lucideReact";
 import { useEditorState, useErrorHandling } from "@src/hooks/use-editor-state";
+import { c } from "vite/dist/node/types.d-aGj9QkWt";
 
 interface EditorProps {
   codeSpace: string;
@@ -23,7 +24,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { error, handleError } = useErrorHandling();
 
-  const [currentCode, setCurrentCode] = useState("");
+  // const [currentCode, setCurrentCode] = useState("");
 
   const mod = useRef({
     i: 0,
@@ -36,7 +37,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   useAutoSave({
     key: `editor_${codeSpace}`,
-    data: { code: currentCode, i: mod.current.i },
+    data: { code: cSess.session.code, i: cSess.session.i },
     debounceMs: 60000,
   });
 
@@ -63,8 +64,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-        if (data.code === mod.current.code) return;
-        if (data.code === currentCode) return;
+        // if (data.code === mod.current.code) return;
+        // if (data.code === currentCode) return;
 
         const md5Code = md5(data.code);
 
@@ -72,13 +73,13 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         mod.current.md5Ids.push(md5Code);
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
-        mod.current.controller.abort();
-        mod.current.controller = new AbortController();
-        const { signal } = mod.current.controller;
+        // mod.current.controller.abort();
+        // mod.current.controller = new AbortController();
+        // const { signal } = mod.current.controller;
 
-        if (signal.aborted) return;
-        mod.current.code = data.code;
-        setCurrentCode(data.code);
+        // if (signal.aborted) return;
+        // mod.current.code = data.code;
+        // setCurrentCode(data.code);
         console.log("Set new code to editor", md5Code);
         editorState.setValue(data.code);
       };

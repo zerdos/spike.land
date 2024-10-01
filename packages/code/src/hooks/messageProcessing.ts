@@ -132,9 +132,9 @@ export async function processMessage(
 /**
  * Attempts to set the code in the code session.
  */
-async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
+async function trySetCode(cSess: ICode, code: string, skipRunning = false): Promise<boolean> {
   try {
-    const success = await cSess.setCode(code);
+    const success = await cSess.setCode(code, skipRunning);
     return !!success;
   } catch (error) {
     console.error(`Failed to set code: ${error}`);
@@ -239,7 +239,7 @@ function createOnUpdateFunction({
               });
               console.table(mod.actions[mod.actions.length - 1]);
 
-              const success = await trySetCode(cSess, mod.lastCode);
+              const success = await trySetCode(cSess, mod.lastCode, true);
 
               mod.actions.push({
                 TRIED,
