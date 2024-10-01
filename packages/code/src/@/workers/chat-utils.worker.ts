@@ -1,83 +1,65 @@
 import { updateSearchReplace as up } from "@/lib/chat-utils";
-// import type { prettierJs as prettier } from "@/lib/prettier";
 
-// importScripts("/@/workers/prettier-esm.worker.js");
-
-// console.log("chat-utils.worker.ts loaded");
-
-// const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).prettierJs;
-
-// console.log("prettierJs function imported:", pretpretttierJs);
-
+const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
+
+// Debug function
+const debug = (message: string, ...args: any[]) => {
+  console.log(`[DEBUG] ${message}`, ...args);
+};
+
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
 ): Promise<{ result: string; transpiled?: string; len: number }> => {
-  console.log("updateSearchReplace function called", { instructions, code });
-  const hadReplace = instructions.includes(REPLACE);
-  instructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
+  debug("Function called with instructions length:", instructions.length);
+  debug("Code length:", code.length);
 
-  const result = up(instructions, code);
-  const resultWithExtra = up(
-    instructions + "\
-fooo\
-    ",
-    code,
-  );
+  if (instructions.includes(SEARCH) && !instructions.includes(REPLACE)) {
+    debug("SEARCH found without REPLACE");
+    const rAll = up(instructions, code);
+    const rAllWithExtra = up(instructions + "\nfooo dooo baf   ", code);
 
-  if (result !== resultWithExtra) {
-    console.log("Result differs with extra instructions, returning original code");
-    return { result: code, len: 0 };
+    if (rAll !== rAllWithExtra) {
+      debug("Replace block not finished");
+      return { result: code, len: 0 };
+    }
+
+    debug("Replace block finished");
+    return { result: rAll, len: instructions.length };
   }
 
-  if (result === code || result === up("", code)) {
-    console.log("No changes made, returning original code");
-    return { result: code, len: 0 };
+  if (instructions.includes(REPLACE)) {
+    debug("REPLACE found");
+    const trimmedInstructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
+    const rAll = up(trimmedInstructions, code);
+    debug("Trimmed instructions length:", trimmedInstructions.length);
+    return { result: rAll, len: trimmedInstructions.length };
   }
 
-  // Logarithmic search to find the effective instruction length
+  const rAll = up(instructions, code);
+  if (rAll === code) {
+    debug("No changes in code");
+    return { result: rAll, len: instructions.length };
+  }
 
-  let low = instructions.length;
-  if (!hadReplace) {
-    low = 0;
-    let high = instructions.length;
-    while (low < high) {
-      const mid = Math.floor((low + high + 1) / 2);
-      if (result === up(instructions.slice(0, mid), code)) {
-        low = mid;
-      } else {
-        high = mid - 1;
-      }
+  debug("Searching for minimum instructions to change code");
+  let low = 0;
+  let high = instructions.length;
+  while (low < high) {
+    const mid = Math.floor((low + high + 1) / 2);
+    debug("Binary search - low:", low, "high:", high, "mid:", mid);
+    if (code === up(instructions.slice(0, mid), code)) {
+      low = mid;
+    } else {
+      high = mid - 1;
     }
   }
-  const len = low;
+  const len = high + 1;
+  const rMin = up(instructions.slice(0, len), code);
+  debug("Minimum instructions length found:", len);
 
-  const res0 = up(instructions.slice(0, 10), code);
-  let res0len = 0;
-  if (res0 !== result) {
-    low = 10;
-    let high = len;
-    while (low < high) {
-      const mid = Math.floor((low + high + 1) / 2);
-      if (res0 === up(instructions.slice(0, mid), code)) {
-        low = mid;
-      } else {
-        high = mid - 1;
-      }
-    }
-    res0len = low;
-  }
-  const res1 = up(instructions.slice(0, res0len + 1), code);
-  if (res1 !== result) {
-    console.log("Code successfully prettified");
-    return { result: res1, len: res0len + 1 };
-  }
-
-  console.log("Attempting to prettify the code");
-  console.log("Code length:", { result, len, instructions: instructions.slice(0, len) });
-
-  return { result: code, len: 0 };
+  return { result: rMin, len };
 };
 
 Object.assign(globalThis, { updateSearchReplace });
-console.log("chat-utils.worker.ts initialization complete");
+debug("chat-utils.worker.ts initialization complete");
