@@ -4,7 +4,7 @@ import { ClipboardDocumentIcon, ClipboardIcon, DocumentDuplicateIcon } from "@he
 import type { FC} from "react";
 import { memo, useState } from "react";
 
-interface Props {
+export interface CodeBlockProps {
   language: string;
   value: string;
   title?: string;
@@ -12,7 +12,7 @@ interface Props {
 
 
 
-export const CodeBlock: FC<Props> = memo(({ language, value, title }) => {
+export const CodeBlock: FC<CodeBlockProps> = memo(({ language, value, title }) => {
   const [copied, setCopied] = useState(false);
   const [iconIndex, setIconIndex] = useState(0);
   const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];

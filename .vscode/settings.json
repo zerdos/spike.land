@@ -69,7 +69,6 @@
     "**/node_modules/*/**": true,
     "**/.hg/store/**": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",
   "typescript.tsserver.logToFile": true,
@@ -78,5 +77,6 @@
   "livePreview.defaultPreviewPath": "/packages/code/src/index.html",
   "editor.tabCompletion": "on",
   "diffEditor.codeLens": true,
-  "MutableAI.upsell": false
+  "MutableAI.upsell": false,
+  "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }

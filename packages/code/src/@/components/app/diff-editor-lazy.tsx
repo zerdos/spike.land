@@ -1,5 +1,7 @@
 import type {DiffEditorProps} from "@/components/app/diff-editor";
 import { Suspense, lazy } from "react";
+import type {FC} from "react";
+
 
 
 const DiffEditorLazy = lazy(() => import("@/components/app/diff-editor").then ((module) => ({ default: module.DiffEditor })));  
@@ -17,7 +19,7 @@ const calculateHeight = (text: string) => {
   const editorHeight = (original: string, modified:string)=>Math.max(calculateHeight(original), calculateHeight(modified));
 
 
-export const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language, readOnly }) => <Suspense fallback={<div
+export const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language, readOnly }) => <Suspense fallback={<div
     style={{
         width: "100%",
         height: `${editorHeight(original, modified)}px`,
@@ -29,3 +31,4 @@ export const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, lang
     }}></div>}>
   <DiffEditorLazy original={original} modified={modified} language={language} readOnly={readOnly} editorHeight={editorHeight(original, modified)} minHeight={minHeight} maxHeight={maxHeight} />
 </Suspense>
+

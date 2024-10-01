@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const { existsSync } = require(`fs`);
-const { createRequire, register } = require(`module`);
-const { resolve } = require(`path`);
-const { pathToFileURL } = require(`url`);
+const {existsSync} = require(`fs`);
+const {createRequire, register} = require(`module`);
+const {resolve} = require(`path`);
+const {pathToFileURL} = require(`url`);
 
 const relPnpApiPath = "../../../../.pnp.cjs";
 
