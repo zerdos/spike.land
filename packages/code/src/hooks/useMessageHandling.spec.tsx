@@ -59,8 +59,6 @@ describe("useMessageHandling", () => {
     setMessages: vi.fn(),
     setInput: vi.fn(),
     setIsStreaming: vi.fn(),
-    codeWhatAiSeen: "initial code",
-    setAICode: vi.fn(),
     editingMessageId: null,
     setEditingMessageId: vi.fn(),
     editInput: "",
@@ -102,7 +100,6 @@ describe("useMessageHandling", () => {
       newUserMessage: mockNewMessage,
     }));
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
-    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
   });
 
   it("should handle error during message processing", async () => {

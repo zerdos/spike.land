@@ -25,7 +25,6 @@ export const ChatInterface: React.FC<{
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
 
   const [input, setInput] = useState("");
-  const [codeWhatAiSeen, setAICode] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -48,7 +47,6 @@ export const ChatInterface: React.FC<{
   const resetChat = useCallback((): void => {
     setMessages([]);
     setInput("");
-    setAICode("");
     setEditingMessageId(null);
     setEditInput("");
     if (inputRef.current) {
@@ -67,8 +65,6 @@ export const ChatInterface: React.FC<{
     setMessages,
     setInput,
     setIsStreaming: setIsStreaming as React.Dispatch<React.SetStateAction<boolean>>,
-    codeWhatAiSeen,
-    setAICode,
     editingMessageId,
     setEditingMessageId,
     editInput,

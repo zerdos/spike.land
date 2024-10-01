@@ -12,8 +12,6 @@ export interface UseMessageHandlingProps {
   setMessages: (messages: Message[]) => void;
   setInput: React.Dispatch<React.SetStateAction<string>>;
   setIsStreaming: React.Dispatch<React.SetStateAction<boolean>>;
-  codeWhatAiSeen: string;
-  setAICode: React.Dispatch<React.SetStateAction<string>>;
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
@@ -27,7 +25,6 @@ export const useMessageHandling = ({
   setMessages,
   setInput,
   setIsStreaming,
-  setAICode,
   setEditingMessageId,
   editInput,
   cSess,
@@ -59,8 +56,9 @@ export const useMessageHandling = ({
         setMessages,
         newUserMessage,
       });
+
       if (success) {
-        setAICode(cSess.session.code);
+        return;
       }
     } catch (error) {
       console.error("Error processing request:", error);
