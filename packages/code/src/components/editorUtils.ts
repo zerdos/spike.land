@@ -186,10 +186,10 @@ export const runCode = memoizeWithAbort(
       const messageHandler = (ev: MessageEvent): void => {
         const data = ev.data;
         if (data && data.requestId === requestId) {
-          if (data.typonAborte === "result") {
+          if (data.type === "runResponse") {
             clearTimeout(timeoutId);
             cleanup();
-            if (data.error) {
+            if (data.html === "" || data.css === "" || data.html.includes("Oops! Something went wrong.")) {
               reject(new Error(data.error));
             } else {
               resolve({ html: data.html, css: data.css });
