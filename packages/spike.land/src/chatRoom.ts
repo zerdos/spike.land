@@ -177,10 +177,8 @@ export class Code implements DurableObject {
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
-        this.session.transpiled = this.session.transpiled;
         const oldSession = makeSession(this.session);
-        this.session.transpiled =this.session.transpiled;
-
+     
         this.state.storage.put("session", this.session);
         this.xLog(this.session);
         const newSession = await this.state.storage.get<ICodeSession>("session");
@@ -218,10 +216,8 @@ export class Code implements DurableObject {
             },
           })).text();
 
-
-
-        
-          this.state.storage.put("session", this.session);
+          this.setSession(makeSession(this.session)
+          );
         
         } catch (error) {
           console.error("Error transpiling code:", error);
@@ -269,7 +265,6 @@ export class Code implements DurableObject {
     });
 
      this.state.storage.put("head", head);
-   this.session.transpiled = "";
 
     // Trigger auto-save after updating session storage
      this.autoSave();
