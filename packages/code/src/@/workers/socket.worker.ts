@@ -1,6 +1,6 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
-import type { Socket } from "@github/stable-socket";
+import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 
@@ -31,6 +31,20 @@ interface Connection {
   user: string;
   oldSession: ICodeSession;
 }
+
+type WsMessage = {
+  i: number;
+  changes: unknown;
+  strSess: string;
+  type: string;
+  newHash: string;
+  oldHash: string;
+  error?: string;
+  codeSpace: string;
+  code: string;
+  transpiled: string;
+  hashCode: number;
+};
 
 // Use a Map for better management of connections
 const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections || new Map();
@@ -119,7 +133,7 @@ function createWebSocket(codeSpace: string) {
       console.log("Socket finished");
       // Socket closed for good and will not retry.
     },
-    socketDidReceiveMessage(_socket: Socket, message: string) {
+    socketDidReceiveMessage(_socket: Socket, message: WsMessage) {
       // Socket read data from the connection.
       console.log("Socket message:", message);
       handleSocketMessage(message, codeSpace).catch((error) => {
@@ -132,7 +146,7 @@ function createWebSocket(codeSpace: string) {
     },
   };
 
-  return new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
+  return new BufferedSocket(new StableSocket(url, delegate as unknown as SocketDelegate, SOCKET_POLICY));
 }
 
 /**
@@ -141,7 +155,7 @@ function createWebSocket(codeSpace: string) {
  * @param codeSpace - The code space identifier.
  */
 async function handleSocketMessage(
-  message: string,
+  data: WsMessage,
   codeSpace: string,
 ): Promise<void> {
   const connection = connections.get(codeSpace);
@@ -152,14 +166,6 @@ async function handleSocketMessage(
   const ws = connection.webSocket;
 
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
-  let data: Record<string, unknown>;
-  try {
-    data = JSON.parse(message);
-    console.log("Parsed message data:", data);
-  } catch {
-    console.error("Invalid JSON received:", message);
-    return;
-  }
 
   if (typeof data.i === "number") {
     connection.lastCounter = data.i;
