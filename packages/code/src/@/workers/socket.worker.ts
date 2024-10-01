@@ -3,6 +3,7 @@ import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } 
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
+import { connect } from "http2";
 
 // Define the properties of `self` with proper types
 declare let self: SharedWorkerGlobalScope & {
@@ -25,6 +26,7 @@ const SOCKET_POLICY = {
 interface Connection {
   broadcastChannel: BroadcastChannel;
   lastCounter: number;
+  lastHash: string;
   codeSpace: string;
   webSocket: Socket;
   controller: AbortController;
@@ -43,7 +45,7 @@ type WsMessage = {
   codeSpace: string;
   code: string;
   transpiled: string;
-  hashCode: number;
+  hashCode: string;
 };
 
 // Use a Map for better management of connections
@@ -73,6 +75,7 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     codeSpace,
     controller: new AbortController(),
     oldSession: makeSession(sess),
+    lastHash: makeHash(sess),
     lastCounter: sess.i,
     broadcastChannel: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
     webSocket: createWebSocket(codeSpace),
@@ -167,6 +170,14 @@ async function handleSocketMessage(
 
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
 
+  if (data.hashCode || data.newHash) {
+    connection.lastHash = data.hashCode || data.newHash;
+    const oldSessionHash = makeHash(connection.oldSession);
+    if (oldSessionHash === connection.lastHash) {
+      connection.lastCounter = connection.oldSession.i;
+    }
+  }
+
   if (typeof data.i === "number") {
     connection.lastCounter = data.i;
     console.log(`Updated lastCounter to: ${data.i}`);
@@ -180,7 +191,7 @@ async function handleSocketMessage(
     await handleSessionString(data as { strSess: string }, ws, connection);
   } else if (data.type === "handShake") {
     console.log("Handling handshake message");
-    await handleHandshake(ws, data as { hashCode: number; type: string }, connection, codeSpace);
+    await handleHandshake(ws, data as { hashCode: string }, connection, codeSpace);
   } else if (data.newHash && data.oldHash) {
     console.log("Handling hash update message");
     await handleHashUpdate(data as { newHash: string; oldHash: string }, connection, codeSpace);
@@ -231,7 +242,7 @@ async function handleSessionString(
 async function handleHandshake(
   ws: Socket,
   data: {
-    hashCode: number;
+    hashCode: string;
     type: string;
   },
   connection: Connection,
@@ -245,7 +256,7 @@ async function handleHandshake(
   const oldSessionHash = makeHash(connection.oldSession);
   console.log("Old session hash:", oldSessionHash);
   console.log("Received hash code:", data.hashCode);
-  if (oldSessionHash !== String(data.hashCode)) {
+  if (oldSessionHash !== data.hashCode) {
     console.log("Hash mismatch, fetching new session");
     connection.oldSession = await fetchInitialSession(codeSpace);
     const { broadcastChannel, oldSession } = connection;
