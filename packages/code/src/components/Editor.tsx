@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sidebar } from "@/external/lucideReact";
 import { useEditorState, useErrorHandling } from "@src/hooks/use-editor-state";
-import { c } from "vite/dist/node/types.d-aGj9QkWt";
 
 interface EditorProps {
   codeSpace: string;
@@ -93,7 +92,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const initializeEditor = async () => {
       mod.current.i = Number(cSess.session.i);
       mod.current.code = cSess.session.code;
-      setCurrentCode(cSess.session.code);
+//      setCurrentCode(cSess.session.code);
 
       if (!containerRef || !containerRef.current) return;
 

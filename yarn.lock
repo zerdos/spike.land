@@ -1729,9 +1729,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:^0.3.4":
-  version: 0.3.4
-  resolution: "@langchain/core@npm:0.3.4"
+"@langchain/core@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@langchain/core@npm:0.3.5"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -1744,7 +1744,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10c0/7dace38bea86b7044b0f25b6a4bd596342f996e3c84e042553b1d10e4a767449fe2641cc66f8a09bcac1afe11a411ca93391ab859dfacebd6b5eea24bda8a40a
+  checksum: 10c0/6a8e00c7ed1f8f89c12cdc8cdd2458cc83cc7dc58d38c9c4d172d4745876f38bb36cbfa030d1a82fc1665db8a600e3b4413772150a4559f059c43e4506aae7fc
   languageName: node
   linkType: hard
 
@@ -4181,7 +4181,7 @@ __metadata:
     "@heroicons/react": "npm:^2.1.5"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.3.3"
-    "@langchain/core": "npm:^0.3.4"
+    "@langchain/core": "npm:^0.3.5"
     "@langchain/langgraph": "npm:^0.2.10"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:6.1.1"
@@ -4232,7 +4232,7 @@ __metadata:
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.4"
-    "@types/object-hash": "npm:^3"
+    "@types/object-hash": "npm:^3.0.6"
     "@types/path-browserify": "npm:^1.0.3"
     "@types/react": "npm:18.3.10"
     "@types/react-dom": "npm:18.3.0"
@@ -5012,7 +5012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/object-hash@npm:^3":
+"@types/object-hash@npm:^3.0.6":
   version: 3.0.6
   resolution: "@types/object-hash@npm:3.0.6"
   checksum: 10c0/a5450cafdbc33c840be2c36fb1ace96cce7aa580177cf68dbdbda80f18938207692d74c76403321c99f43460ac31981c4af7fe8b49eca1570f8e9a4c01eaf33d
