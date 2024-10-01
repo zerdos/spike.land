@@ -2,21 +2,21 @@ import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { Message } from "@/lib/interfaces";
 import { produce } from "immer";
 
-export function messagesPush(messages: Message[], newMessage: Message) {
-  const newMessages = produce(messages, draft => {
+export function messagesPush(messages: Message[], newMessage: Message): Message[] {
+  console.log("Pushing new message", { role: newMessage.role });
+  return produce(messages, draft => {
     if (!draft.length) {
-      draft.push(newMessage);
+      draft.push({ ...newMessage });
       return;
     }
     const lastMessage = draft[draft.length - 1];
-    newMessage.id = lastMessage.id + 1;
+    const newId = typeof lastMessage.id === "number" ? String(lastMessage.id + 1) : String(Date.now());
     if (lastMessage.role === newMessage.role) {
-      draft[draft.length - 1] = newMessage;
-      return;
+      draft[draft.length - 1] = { ...newMessage, id: newId };
+    } else {
+      draft.push({ ...newMessage, id: newId });
     }
-    draft.push(newMessage);
   });
-  return newMessages;
 }
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
