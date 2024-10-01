@@ -95,7 +95,7 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/spike.land"\
     }\
   ],\
-  "enableTopLevelFallback": false,\
+  "enableTopLevelFallback": true,\
   "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
   "fallbackExclusionList": [\
   ],\
