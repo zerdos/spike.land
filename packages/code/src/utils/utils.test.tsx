@@ -5,13 +5,13 @@ describe("getParts", () => {
   test("should handle empty input", () => {
     const input = "";
     const result = getParts(input, true);
-    expect(result).toEqual([]);
+    expect(result).toMatchInlineSnapshot([]);
   });
 
   test("should handle text without code blocks", () => {
     const input = "This is a simple text message.";
     const result = getParts(input, true);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "This is a simple text message.",
@@ -22,7 +22,7 @@ describe("getParts", () => {
   test("should handle text with a single code block", () => {
     const input = "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
     const result = getParts(input, false);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Here is some code:",
@@ -38,7 +38,7 @@ describe("getParts", () => {
   test("should handle text with multiple code blocks", () => {
     const input = "First block:\n```javascript\nlet a = 1;\n```\nSecond block:\n```python\nprint(\"Hello\")\n```";
     const result = getParts(input, true);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "First block:",
@@ -63,7 +63,7 @@ describe("getParts", () => {
   test("should handle code blocks with no language specified", () => {
     const input = "Code without language:\n```\nsome code\n```";
     const result = getParts(input, false);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Code without language:",
@@ -79,7 +79,7 @@ describe("getParts", () => {
   test("should handle search and replace markers", () => {
     const input = "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getParts(input, true);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Before",
@@ -99,7 +99,7 @@ describe("getParts", () => {
   test("should handle nested code blocks", () => {
     const input = 'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getParts(input, true);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Outer block:",
@@ -124,7 +124,7 @@ describe("getParts", () => {
   test("should handle an incomplete code block at the end", () => {
     const input = "Some text\n```javascript\nlet x = 10;\nconsole.log(x);";
     const result = getParts(input, false);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Some text",
@@ -154,7 +154,7 @@ describe("getParts", () => {
     `;
 
     const result = getParts(input, true);
-    expect(result).toEqual([
+    expect(result).toMatchInlineSnapshot([
       {
         type: "text",
         content: "first change:",
@@ -192,13 +192,25 @@ describe("getParts", () => {
     `;
 
     const result = getParts(input, true);
-    expect(result[0].content.trim()).toEqual("first change:");
-    expect(result[1].content.trim()).toEqual(
-      "<<<<<<< SEARCH\n      const a = 1;\n      =======\n      const a = 2;\n      ======="
+    expect(result[0].content.trim()).toMatchInlineSnapshot(`"first change:"`);
+  expect(result[1].content.trim()).toMatchInlineSnapshot(
+      `
+    "<<<<<<< SEARCH
+          const a = 1;
+          =======
+          const a = 2;
+          >>>>>>> REPLACE"
+  `
     );
-    expect(result[2].content.trim()).toEqual("second change:");
-    expect(result[3].content.trim()).toEqual(
-      "<<<<<<< SEARCH\n      let b = 3;\n      =======\n      let b ="
+    expect(result[2].content.trim()).toMatchInlineSnapshot(`"second change:"`);
+    expect(result[3].content.trim()).toMatchInlineSnapshot(
+      `
+      "<<<<<<< SEARCH
+            let b = 3;
+            =======
+            let b =
+          >>>>>>> REPLACE"
+    `
     );
   });
 });
