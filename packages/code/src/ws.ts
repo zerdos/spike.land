@@ -96,7 +96,10 @@ const handleDefaultPage = async () => {
 };
 
 const handleRunMessage = async (
-data: { transpiled: string; requestId: string; }, requestId: string, mutex: Mutex, runningOperations: Map<string, { controller: AbortController; cleanup: () => void; }>,
+  data: { transpiled: string; requestId: string },
+  requestId: string,
+  mutex: Mutex,
+  runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,
 ) => {
   const { transpiled } = data;
 
@@ -112,8 +115,8 @@ data: { transpiled: string; requestId: string; }, requestId: string, mutex: Mute
   const operation = { controller, cleanup: () => {} };
   runningOperations.set(requestId, operation);
 
-  // await mutex.runExclusive(async () => {
-  // if (signal.aborted) return;
+  // Declare the 'signal' variable
+  const signal = controller.signal;
 
   const myEl = document.createElement("div");
   myEl.style.cssText = "height: 100%; width: 100%; display: none;";
@@ -149,7 +152,6 @@ data: { transpiled: string; requestId: string; }, requestId: string, mutex: Mute
   operation.cleanup();
 
   runningOperations.delete(requestId);
-  // });
 };
 
 const handleCancelMessage = (
