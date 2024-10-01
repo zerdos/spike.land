@@ -11,22 +11,20 @@ import { throttle } from "es-toolkit";
 
 const mutex = new Mutex();
 
-/**
- * Creates a new message, optionally including images.
- */
+console.log("Initializing message processing module");
+
 export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
 ): Promise<Message> {
+  console.log("Creating new message", { imageCount: images.length, contentLength: claudeContent.length });
   const imagesContent: MessageContent = [];
 
   if (images && images.length > 0) {
     images.forEach((image) => {
       imagesContent.push({
         type: "image_url",
-        image_url: {
-          url: image.url,
-        },
+        image_url: { url: image.url },
       });
     });
     imagesContent.push({ type: "text", text: claudeContent.trim() || "" });
@@ -52,7 +50,6 @@ interface Action {
   chars: number;
   type: string;
   lastCode?: string;
-  prevCode?: string;
   startPos: number;
   chunLength: number;
   chunk: string;
@@ -60,9 +57,6 @@ interface Action {
   hash: string;
 }
 
-/**
- * Processes messages with retries, handling assistant responses and updating code accordingly.
- */
 export async function processMessage(
   { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
     aiHandler: AIHandler;
@@ -73,6 +67,7 @@ export async function processMessage(
     newUserMessage: Message;
   },
 ): Promise<boolean> {
+  console.log("Processing message", { codeLength: codeNow.length, messageCount: messages.length });
   const contextManager = new ContextManager(useCodeSpace());
 
   const maxRetries = 3;
@@ -83,19 +78,13 @@ export async function processMessage(
       const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
 
       Object.assign(globalThis, { BUILD_LOG: mod });
-      // Add the user message to the messages array
       if (newUserMessage) {
         messages = messagesPush(messages, newUserMessage);
         setMessages([...messages]);
       }
 
-      const onUpdate = createOnUpdateFunction(
-        { setMessages, messages, cSess, contextManager, mod },
-      );
-
+      const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager, mod });
       const throttledOnUpdate = throttle(onUpdate, 500, { edges: ["trailing"] });
-
-      // Create a copy of the messages array to work with
 
       console.log(`Processing message (attempt ${retries + 1})`);
 
@@ -105,50 +94,51 @@ export async function processMessage(
         throttledOnUpdate as unknown as typeof onUpdate,
       );
 
-      // Add the assistant message to the working messages array
       messages = messagesPush(messages, assistantMessage);
-
-      // Update the state with all messages, including the new assistant message
       setMessages([...messages]);
 
       if (codeNow !== cSess.session.code) {
         const success = await trySetCode(cSess, cSess.session.code);
-        if (success) return true;
+        if (success) {
+          console.log("Code updated successfully");
+          return true;
+        }
       }
 
       const errorMessage = contextManager.getContext("errorLog");
       if (errorMessage) {
+        console.log("Error detected, attempting to handle", { errorMessage });
         const errorHandled = await handleErrorMessage(
           { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager, mod },
         );
-        if (errorHandled) return true;
+        if (errorHandled) {
+          console.log("Error handled successfully");
+          return true;
+        }
       }
 
       retries++;
     } catch (error) {
-      console.error(`Error processing message (attempt ${retries + 1}): ${error}`);
+      console.error(`Error processing message (attempt ${retries + 1}):`, error);
       retries++;
     }
   }
 
+  console.log("Failed to process message after max retries");
   return false;
 }
-/**
- * Attempts to set the code in the code session.
- */
+
 async function trySetCode(cSess: ICode, code: string, skipRunning = false): Promise<boolean> {
   try {
+    console.log("Attempting to set code", { codeLength: code.length, skipRunning });
     const success = await cSess.setCode(code, skipRunning);
     return !!success;
   } catch (error) {
-    console.error(`Failed to set code: ${error}`);
+    console.error("Failed to set code:", error);
     return false;
   }
 }
 
-/**
- * Creates an onUpdate function to handle assistant updates.
- */
 function createOnUpdateFunction({
   setMessages,
   messages,
@@ -164,7 +154,7 @@ function createOnUpdateFunction({
 }) {
   let instructions = "";
   let lastUpdateTime = 0;
-  const updateInterval = 100; // Update UI every 100ms
+  const updateInterval = 100;
 
   const updateState = () => {
     const now = Date.now();
@@ -194,66 +184,71 @@ function createOnUpdateFunction({
       const { signal } = mod.controller;
 
       await mutex.runExclusive(async () => {
-        {
-          if (signal.aborted) {
-            console.log("Aborted onUpdate before updating");
-            return;
-          }
-          try {
-            let finished = false;
+        if (signal.aborted) {
+          console.log("Aborted onUpdate before updating");
+          return;
+        }
+        try {
+          let finished = false;
+          let iterationCount = 0;
+          const maxIterations = 1000; // Prevent infinite loop
 
-            while (!finished) {
-              const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
-              const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
-              const SKIP = mod.actions[mod.actions.length - 1]?.SKIP || 0;
-              const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
+          while (!finished && iterationCount < maxIterations) {
+            iterationCount++;
+            const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
+            const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
+            const SKIP = mod.actions[mod.actions.length - 1]?.SKIP || 0;
+            const TRIED = mod.actions[mod.actions.length - 1]?.TRIED || 0;
 
-              const lastCode = mod.lastCode;
-              const chunk = instructions.slice(startPos);
+            const lastCode = mod.lastCode;
+            const chunk = instructions.slice(startPos);
 
-              const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
-              // chunk = chunk.slice(0, len);
-              mod.lastCode = result;
+            console.log("Processing chunk", { startPos, chunkLength: chunk.length });
 
-              if (len === 0) {
-                finished = true;
-                mod.actions.push({
-                  TRIED: TRIED + 1,
-                  SKIP: SKIP + 1,
-                  DIFFs,
-                  chars: instructions.length,
-                  type: "skip",
+            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+            mod.lastCode = result;
 
-                  startPos,
-                  chunLength: chunk.length,
-                  chunk,
+            if (len === 0) {
+              finished = true;
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP: SKIP + 1,
+                DIFFs,
+                chars: instructions.length,
+                type: "skip",
+                startPos,
+                chunLength: chunk.length,
+                chunk,
+                lastSuccessCut: startPos,
+                hash: md5(lastCode),
+              });
+              console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
+            } else {
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP,
+                DIFFs: DIFFs + 1,
+                chars: instructions.length,
+                type: "updated",
+                startPos,
+                chunLength: len,
+                chunk: chunk.slice(0, len),
+                lastSuccessCut: len + startPos,
+                hash: md5(mod.lastCode),
+              });
+              console.log("Updated chunk", { startPos, chunkLength: len });
 
-                  lastSuccessCut: startPos,
-                  hash: md5(lastCode),
-                });
-                // console.table(mod.actions[mod.actions.length - 1]);
-              } else {
-                mod.actions.push({
-                  TRIED: TRIED + 1,
-                  SKIP,
-                  DIFFs: DIFFs + 1,
-                  chars: instructions.length,
-                  type: "updated",
-                  startPos,
-                  chunLength: len,
-                  chunk: chunk.slice(0, len),
-                  lastSuccessCut: len + startPos,
-                  hash: md5(mod.lastCode),
-                });
-                console.table(mod.actions[mod.actions.length - 1]);
-
-                await trySetCode(cSess, mod.lastCode, true);
-              }
+              const success = await trySetCode(cSess, mod.lastCode, true);
+              console.log("Code update result:", success);
             }
-          } catch (error) {
-            console.error("Error in throttledMutexOperation:", error);
-            contextManager.updateContext("errorLog", (error as Error).message);
           }
+
+          if (iterationCount >= maxIterations) {
+            console.warn("Reached maximum iterations, forcing finish");
+          }
+        } catch (error) {
+          console.error("Error in throttledMutexOperation:", error);
+          contextManager.updateContext("errorLog", (error as Error).message);
         }
       });
     } catch (error) {
@@ -263,15 +258,13 @@ function createOnUpdateFunction({
   };
 }
 
-/**
- * Sends a message to the assistant and handles fallback if necessary.
- */
 async function sendAssistantMessage(
   aiHandler: AIHandler,
   messages: Message[],
   onUpdate: (code: string) => Promise<void>,
 ): Promise<Message> {
   try {
+    console.log("Sending message to assistant");
     let assistantMessage = await aiHandler.sendToAnthropic(messages, onUpdate);
 
     if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
@@ -292,9 +285,6 @@ async function sendAssistantMessage(
   }
 }
 
-/**
- * Handles error messages by sending a recovery message and processing the response.
- */
 async function handleErrorMessage(
   {
     errorMessage,
@@ -316,16 +306,14 @@ async function handleErrorMessage(
     mod: Mod;
   },
 ): Promise<boolean> {
+  console.log("Handling error message", { errorMessageLength: errorMessage.length });
   const userMessage: Message = {
     id: Date.now().toString(),
     role: "user",
     content: claudeRecovery(codeNow, errorMessage),
   };
 
-  // Create a new array with all existing messages plus the new user message
   messages = messagesPush(messages, userMessage);
-
-  // Update the state with all messages, including the new user message
   setMessages([...messages]);
 
   const newOnUpdate = createOnUpdateFunction(
@@ -340,23 +328,15 @@ async function handleErrorMessage(
     throttledOnUpdate as unknown as typeof newOnUpdate,
   );
 
-  // Add the assistant message to the updated messages array
   messages = messagesPush(messages, assistantMessage);
-
-  // Update the state with all messages, including the new assistant message
   setMessages([...messages]);
 
-  //  const contentToProcess = extractTextContent(assistantMessage.content);
-
-  //  const starterCode = await updateSearchReplace({ instructions: contentToProcess, code: codeNow });
-  /// const success = await trySetCode(cSess, starterCode);
   const success = cSess.session.code !== codeNow;
+  console.log("Error handling result:", success);
 
   return success;
 }
-/**
- * Extracts text content from a message.
- */
+
 function extractTextContent(
   content: string | Array<{ type: string; text?: string }>,
 ): string {
@@ -366,3 +346,5 @@ function extractTextContent(
   const textItem = content.find((item) => item.type === "text");
   return textItem?.text || "";
 }
+
+console.log("Message processing module initialized");
