@@ -7,15 +7,13 @@ services:
         USER_UID: ${UID}
         USER_GID: ${GID}
     tmpfs:
-      - /home/node/tmpfs:size=100m
-    shm_size: 2gb
+      - /home/node/tmpfs:size=8gb,rw,uid=${UID},gid=${GID}
+    shm_size: 8gb
     privileged: true
     environment:
       - USER=node
       - HOME=/home/node
     command: /bin/sh -c "while sleep 1000; do :; done"
-     tmpfs:
-      - /home/node/tmpfs:uid=${UID},gid=${GID}
     volumes:
       - .:/home/node/workspace:rw
       - ${HOME}/.config:/home/node/.config
