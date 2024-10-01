@@ -9,11 +9,11 @@ export function messagesPush(messages: Message[], newMessage: Message) {
       return;
     }
     const lastMessage = draft[draft.length - 1];
+    newMessage.id = lastMessage.id + 1;
     if (lastMessage.role === newMessage.role) {
       draft[draft.length - 1] = newMessage;
       return;
     }
-    newMessage.id = lastMessage.id + 1;
     draft.push(newMessage);
   });
   return newMessages;
