@@ -50,7 +50,7 @@ export class WebSocketHandler {
 
   constructor(private code: Code) {}
 
-  async handleUserSession(webSocket: WebSocket) {
+  handleUserSession(webSocket: WebSocket) {
     webSocket.accept();
     const session: WebsocketSession = {
       name: "",
@@ -110,7 +110,8 @@ export class WebSocketHandler {
     });
   }
 
-  async handleWebsocketSession(webSocket: WebSocket) {
+  
+   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
     const session: WebsocketSession = {
       name: "",
@@ -175,7 +176,7 @@ export class WebSocketHandler {
     }
   }
 
-  private async processWsMessage(msg: MessageEvent, session: WebsocketSession) {
+  private  processWsMessage(msg: MessageEvent, session: WebsocketSession) {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
@@ -242,9 +243,9 @@ export class WebSocketHandler {
       session.name = data.name;
     }
 
-    if (data.type === "handshake") {
-      return this.handleHandshake(data, respondWith);
-    }
+    // if (data.type === "handshake") {
+    //   return this.handleHandshake(data, respondWith);
+    // }
 
     if (data.i && this.code.session.i && this.code.session.i > data.i) {
       return respondWith({ error: "i is not up to date" });
@@ -270,32 +271,32 @@ export class WebSocketHandler {
     }
   }
 
-  private async handleHandshake(
-    data: IData,
-    respondWith: (obj: unknown) => void,
-  ) {
-    const commit = data.hashCode;
-    while (commit && commit !== makeHash(this.code.session)) {
-      const oldNode = await this.code.getState().storage.get<CodePatch>(
-        "" + commit,
-        { allowConcurrency: true },
-      );
-      const newNode = await this.code.getState().storage.get<CodePatch>(
-        "" + oldNode!.newHash,
-        {
-          allowConcurrency: true,
-        },
-      );
-      return respondWith({
-        oldHash: commit,
-        newHash: oldNode!.newHash,
-        patch: oldNode!.patch,
-        reversePatch: newNode!.reversePatch,
-      });
-    }
-  }
+  // private async handleHandshake(
+  //   data: IData,
+  //   respondWith: (obj: unknown) => void,
+  // ) {
+  //   const commit = data.hashCode;
+  //   while (commit && commit !== makeHash(this.code.session)) {
+  //     const oldNode = await this.code.getState().storage.get<CodePatch>(
+  //       "" + commit,
+  //       { allowConcurrency: true },
+  //     );
+  //     const newNode = await this.code.getState().storage.get<CodePatch>(
+  //       "" + oldNode!.newHash,
+  //       {
+  //         allowConcurrency: true,
+  //       },
+  //     );
+  //     return respondWith({
+  //       oldHash: commit,
+  //       newHash: oldNode!.newHash,
+  //       patch: oldNode!.patch,
+  //       reversePatch: newNode!.reversePatch,
+  //     });
+  //   }
+  // }
 
-  private async handlePatch(data: IData, respondWith: (obj: unknown) => void, broadcast: (obj: unknown) => void) {  
+  private handlePatch(data: IData, respondWith: (obj: unknown) => void, broadcast: (obj: unknown) => void) {  
     const oldHash = makeHash(this.code.session);
 
     if (oldHash=== data.newHash) {
@@ -320,13 +321,14 @@ export class WebSocketHandler {
       });
 
       this.code.session = newState;
-
-      this.code.setSession(newState);
+      respondWith({ hashCode: data.newHash });
+      broadcast(data as CodePatch);
+     return  this.code.setSession(newState);
       
 
-      broadcast(data as CodePatch);
 
-      return respondWith({ hashCode: data.newHash });
+
+      
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
     }
