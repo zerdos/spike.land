@@ -462,6 +462,7 @@ async function handleBroadcastMessage(
     bMod.controller.abort();
     bMod.controller = new AbortController();
 
+    const bModI = bMod.i;
     const { signal } = bMod.controller;
 
     console.log("Clearing existing timeout");
@@ -470,7 +471,10 @@ async function handleBroadcastMessage(
     console.log("Scheduling session update");
     bMod.timeoutId = setTimeout(() => {
       (async () => {
-        if (bMod.i === connection.lastCounter) {
+        if (bModI > connection.lastCounter) {
+          console.log({ bModI, lastCounter: connection.lastCounter });
+        }
+        {
           console.log("Session already up to date");
           return;
         }
