@@ -98,6 +98,8 @@ export const ChatInterface: React.FC<{
         }
       }, 1000);
       return () => clearTimeout(interval);
+    } else {
+      return undefined;
     }
   }, [isStreaming, messages, setIsStreaming]);
 

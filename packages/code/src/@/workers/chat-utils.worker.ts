@@ -1,16 +1,13 @@
 import { updateSearchReplace as up } from "@/lib/chat-utils";
-import type { prettierJs as prettier } from "@/lib/prettier";
-import type { transpile as transform } from "@/lib/transpile";
+// import type { prettierJs as prettier } from "@/lib/prettier";
 
-importScripts("/@/workers/prettier-esm.worker.js");
-importScripts("/@/workers/transpile.worker.js");
+// importScripts("/@/workers/prettier-esm.worker.js");
 
-console.log("chat-utils.worker.ts loaded");
+// console.log("chat-utils.worker.ts loaded");
 
-const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).prettierJs;
-const transpile = (globalThis as unknown as { transpile: typeof transform }).transpile;
+// const prettierJs = (globalThis as unknown as { prettierJs: typeof prettier }).prettierJs;
 
-console.log("prettierJs function imported:", prettierJs);
+// console.log("prettierJs function imported:", pretpretttierJs);
 
 const REPLACE = ">>>>>>> REPLACE";
 export const updateSearchReplace = async (
@@ -21,7 +18,12 @@ export const updateSearchReplace = async (
   instructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
 
   const result = up(instructions, code);
-  const resultWithExtra = up(instructions + "\nfooo\n", code);
+  const resultWithExtra = up(
+    instructions + "\
+fooo\
+    ",
+    code,
+  );
 
   if (result !== resultWithExtra) {
     console.log("Result differs with extra instructions, returning original code");
@@ -67,34 +69,14 @@ export const updateSearchReplace = async (
   }
   const res1 = up(instructions.slice(0, res0len + 1), code);
   if (res1 !== result) {
-    // try {
-    // const resultPretty = await prettierJs({ code: res1, toThrow: true });
-    // const transpiled = await transpile({ code: resultPretty, originToUse: location.origin });
-
-    // if (typeof transpiled !== "string") {
-    // console.error("Error while transpiling code:", transpiled);
-    // throw new Error("Transpilation failed");
-    // }
-
     console.log("Code successfully prettified");
     return { result: res1, len: res0len + 1 };
-    // } catch (error) {
-    // console.error("Error while prettifying code:", error);
-    // return { result: res1, len: 0 };
-    // }
   }
 
   console.log("Attempting to prettify the code");
   console.log("Code length:", { result, len, instructions: instructions.slice(0, len) });
 
-  // try {
-  // const resultPretty = await prettierJs({ code: result, toThrow: true });
-  // console.log("Code successfully prettified");
-  // return { result: resultPretty, len };
-  // } catch (error) {
-  // console.error("Error while prettifying code:", error);
   return { result: code, len: 0 };
-  // }
 };
 
 Object.assign(globalThis, { updateSearchReplace });

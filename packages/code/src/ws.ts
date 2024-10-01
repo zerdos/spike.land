@@ -2,7 +2,6 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 
 import type { EmotionCache } from "@emotion/cache";
-import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
@@ -31,7 +30,6 @@ const waitForCSess = cSess.run();
 
 const handleDefaultPage = async () => {
   try {
-    const mutex = new Mutex();
     const runningOperations = new Map<
       string,
       { controller: AbortController; cleanup: () => void }
@@ -39,33 +37,31 @@ const handleDefaultPage = async () => {
 
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
-        await mutex.runExclusive(async () => {
-          const { transpiled } = sess;
+        const { transpiled } = sess;
 
-          renderedMd5 = md5(transpiled);
-          if (renderedMd5 === window.renderedMd5) {
-            console.log("Skipping update as md5 is the same");
-            return;
-          }
-          window.renderedMd5 = renderedMd5;
-          console.log("Updating rendered app...");
+        renderedMd5 = md5(transpiled);
+        if (renderedMd5 === window.renderedMd5) {
+          console.log("Skipping update as md5 is the same");
+          return;
+        }
+        window.renderedMd5 = renderedMd5;
+        console.log("Updating rendered app...");
 
-          const myEl = document.createElement("div");
-          myEl.style.cssText = "height: 100%; width: 100%;";
-          document.body.appendChild(myEl);
+        const myEl = document.createElement("div");
+        myEl.style.cssText = "height: 100%; width: 100%;";
+        document.body.appendChild(myEl);
 
-          // Clean up previous rendered app if any
-          rendered?.cleanup();
-          rendered = null;
+        // Clean up previous rendered app if any
+        rendered?.cleanup();
+        rendered = null;
 
-          rendered = await renderApp({
-            transpiled,
-            codeSpace,
-            rootElement: myEl,
-          });
-
-          document.getElementById("embed")?.remove();
+        rendered = await renderApp({
+          transpiled,
+          codeSpace,
+          rootElement: myEl,
         });
+
+        document.getElementById("embed")?.remove();
       } catch (error) {
         rendered?.cleanup();
         console.error("Error updating rendered app:", error);
@@ -82,7 +78,7 @@ const handleDefaultPage = async () => {
         if (type === "screenShot") {
           await handleScreenshot();
         } else if (type === "run" && requestId) {
-          await handleRunMessage(data, requestId, mutex, runningOperations);
+          await handleRunMessage(data, requestId, runningOperations);
         } else if (type === "cancel" && requestId) {
           handleCancelMessage(requestId, runningOperations);
         }
@@ -98,7 +94,6 @@ const handleDefaultPage = async () => {
 const handleRunMessage = async (
   data: { transpiled: string; requestId: string },
   requestId: string,
-  mutex: Mutex,
   runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,
 ) => {
   const { transpiled } = data;
@@ -252,7 +247,7 @@ function getClassNamesFromHTML(htmlString: string) {
     if (className) {
       className
         .trim()
-        .split(/\s+/)
+        .split(/\\s+/)
         .forEach((cls) => classNames.add(cls));
     }
   }
@@ -307,7 +302,10 @@ const handleRender = async (
         const rule = x.slice(1, x.indexOf("{")).trim();
 
         return htmlClasses.includes(rule);
-      }).join("\n");
+      }).join(
+        "\
+        ",
+      );
 
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
