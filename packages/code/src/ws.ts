@@ -96,10 +96,7 @@ const handleDefaultPage = async () => {
 };
 
 const handleRunMessage = async (
-  data: { transpiled: string; requestId: string },
-  requestId: string,
-  mutex: Mutex,
-  runningOperations: Map<string, { controller: AbortController; cleanup: () => void }>,
+data: { transpiled: string; requestId: string; }, requestId: string, mutex: Mutex, runningOperations: Map<string, { controller: AbortController; cleanup: () => void; }>,
 ) => {
   const { transpiled } = data;
 
@@ -112,57 +109,47 @@ const handleRunMessage = async (
   }
 
   const controller = new AbortController();
-  const { signal } = controller;
-
   const operation = { controller, cleanup: () => {} };
   runningOperations.set(requestId, operation);
 
-  await mutex.runExclusive(async () => {
-    if (signal.aborted) return;
+  // await mutex.runExclusive(async () => {
+  // if (signal.aborted) return;
 
-    const myEl = document.createElement("div");
-    myEl.style.cssText = "height: 100%; width: 100%; display: none;";
-    document.body.appendChild(myEl);
+  const myEl = document.createElement("div");
+  myEl.style.cssText = "height: 100%; width: 100%; display: none;";
+  document.body.appendChild(myEl);
 
-    const renderedNew = await renderApp({
-      rootElement: myEl,
-      transpiled,
-    });
-
-    if (!renderedNew) {
-      runningOperations.delete(requestId);
-      return;
-    }
-
-    operation.cleanup = renderedNew.cleanup;
-
-    if (signal.aborted) {
-      renderedNew.cleanup();
-      runningOperations.delete(requestId);
-      return;
-    }
-
-    const res = await handleRender(myEl, renderedNew.cssCache, signal);
-
-    if (res !== false) {
-      const { css, html } = res;
-      renderedNew.cleanup();
-
-      window.parent.postMessage(
-        {
-          type: "result",
-          requestId,
-          html,
-          css,
-        },
-        "*",
-      );
-    } else {
-      renderedNew.cleanup();
-    }
-
-    runningOperations.delete(requestId);
+  const renderedNew = await renderApp({
+    rootElement: myEl,
+    transpiled,
   });
+
+  if (!renderedNew) {
+    runningOperations.delete(requestId);
+    return;
+  }
+
+  operation.cleanup = renderedNew.cleanup;
+
+  const res = await handleRender(myEl, renderedNew.cssCache, signal);
+
+  if (res !== false) {
+    const { css, html } = res;
+
+    window.parent.postMessage(
+      {
+        type: "result",
+        requestId,
+        html,
+        css,
+      },
+      "*",
+    );
+  }
+  operation.cleanup();
+
+  runningOperations.delete(requestId);
+  // });
 };
 
 const handleCancelMessage = (
