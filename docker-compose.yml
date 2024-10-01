@@ -14,6 +14,8 @@ services:
       - USER=node
       - HOME=/home/node
     command: /bin/sh -c "while sleep 1000; do :; done"
+     tmpfs:
+      - /home/node/tmpfs:uid=${UID},gid=${GID}
     volumes:
       - .:/home/node/workspace:rw
       - ${HOME}/.config:/home/node/.config
