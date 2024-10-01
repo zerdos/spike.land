@@ -477,9 +477,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workerd-linux-arm64@npm:1.20240925.0":
+"@cloudflare/workerd-linux-arm64@npm:1.20240925.0, @cloudflare/workerd-linux-arm64@npm:^1.20240925.0":
   version: 1.20240925.0
   resolution: "@cloudflare/workerd-linux-arm64@npm:1.20240925.0"
+  checksum: 10c0/1e9db22e081d25deee4c672171711cf209e3ec409c21406653108208f7dab34641d43e5316d0a112c508e3e0de4beca105f4c8f9b5f268aea4f457890ba67f82
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
@@ -12885,6 +12886,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
+    "@cloudflare/workerd-linux-arm64": "npm:^1.20240925.0"
     "@cloudflare/workers-types": "npm:^4.20240925.0"
     "@emotion/react": "npm:11.13.3"
     "@playwright/test": "npm:1.47.2"

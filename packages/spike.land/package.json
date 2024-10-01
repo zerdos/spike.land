@@ -9,8 +9,8 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn deploy:dev",
-    "deploy:dev": "wrangler deploy --env=testing --minify ./src/cf-workers.ts --experimental-versions ",
-    "prepublishOnly": "wrangler deploy --minify ./src/cf-workers.ts --experimental-versions ",
+    "deploy:dev": "npx wrangler deploy --env=testing --minify ./src/cf-workers.ts --experimental-versions ",
+    "prepublishOnly": "npx wrangler deploy --minify ./src/cf-workers.ts --experimental-versions ",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
   },

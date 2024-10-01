@@ -7,7 +7,7 @@ ARG USER_GID=1000
 USER root
 
 # Install necessary packages
-RUN apk update && apk add --no-cache git zsh shadow
+RUN apk update && apk add --no-cache git zsh shadow perl
 
 # Delete existing 'node' user and group
 RUN usermod -aG 1000 node && deluser node
