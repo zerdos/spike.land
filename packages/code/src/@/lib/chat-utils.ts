@@ -13,6 +13,7 @@ export function messagesPush(messages: Message[], newMessage: Message) {
       draft[draft.length - 1] = newMessage;
       return;
     }
+    newMessage.id = lastMessage.id + 1;
     draft.push(newMessage);
   });
   return newMessages;
