@@ -107,7 +107,16 @@ describe("getParts", () => {
       {
         type: "code",
         language: "javascript",
-        content: 'function example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}',
+        content: "function example() {\n  console.log(`Inner block:",
+      },
+      {
+        type: "text",
+        content: "json\n{\"key\": \"value\"}",
+      },
+      {
+        type: "code",
+        language: "plaintext",
+        content: "`);\n}",
       },
     ]);
   });
@@ -124,7 +133,6 @@ describe("getParts", () => {
         type: "code",
         language: "javascript",
         content: "let x = 10;\nconsole.log(x);",
-        isStreaming: true,
       },
     ]);
   });
