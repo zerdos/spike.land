@@ -4477,6 +4477,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike-land/trixie-devcontainer@workspace:packages/trixie-devcontainer":
+  version: 0.0.0-use.local
+  resolution: "@spike-land/trixie-devcontainer@workspace:packages/trixie-devcontainer"
+  dependencies:
+    "@spike-land/devcontainer-generator": "npm:0.9.55"
+  languageName: unknown
+  linkType: soft
+
 "@szmarczak/http-timer@npm:^4.0.5":
   version: 4.0.6
   resolution: "@szmarczak/http-timer@npm:4.0.6"

@@ -93,6 +93,10 @@ const RAW_RUNTIME_STATE =
     {\
       "name": "@spike-land/code-worker",\
       "reference": "workspace:packages/spike.land"\
+    },\
+    {\
+      "name": "@spike-land/trixie-devcontainer",\
+      "reference": "workspace:packages/trixie-devcontainer"\
     }\
   ],\
   "enableTopLevelFallback": true,\
@@ -7244,6 +7248,16 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.24.0"],\
           ["typescript", "patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"],\
           ["wrangler", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:3.79.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@spike-land/trixie-devcontainer", [\
+      ["workspace:packages/trixie-devcontainer", {\
+        "packageLocation": "./packages/trixie-devcontainer/",\
+        "packageDependencies": [\
+          ["@spike-land/trixie-devcontainer", "workspace:packages/trixie-devcontainer"],\
+          ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"]\
         ],\
         "linkType": "SOFT"\
       }]\

@@ -1,0 +1,27 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID}
+        USER_GID: ${GID}
+        USER: ${USER}
+        HOME: ${HOME}
+    tmpfs:
+      - ${HOME}/tmpfs:size=1g,rw,exec,uid=${UID},gid=${GID}
+    shm_size: 4gb
+    privileged: true
+    environment:
+      - USER=${USER}
+      - HOME=${HOME}
+      - XDG_CONFIG_DIRS=/etc/xdg
+    volumes:
+      - .:${HOME}/workspace:rw
+      - ${HOME}/.config:${HOME}/.config
+      - ${HOME}/.cache:${HOME}/.cache
+      - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
+      - /var/run/docker.sock:/HOME/run/docker.sock
+    ports:
+      - 6080:6080
+      - 5901:5901
