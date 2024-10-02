@@ -6,14 +6,16 @@ services:
       args:
         USER_UID: ${UID}
         USER_GID: ${GID}
+        USER: ${USER}
+        HOME: ${HOME}
     tmpfs:
-      - ${HOME}/tmpfs:size=8g,rw,exec,uid=${UID},gid=${GID}
-    shm_size: 8gb
+      - ${HOME}/tmpfs:size=1g,rw,exec,uid=${UID},gid=${GID}
+    shm_size: 4gb
     privileged: true
     environment:
       - USER=${USER}
       - HOME=${HOME}
-    command: /bin/sh -c "while sleep 1000; do :; done"
+      - XDG_CONFIG_DIRS=/etc/xdg
     volumes:
       - .:${HOME}/workspace:rw
       - ${HOME}/.config:${HOME}/.config

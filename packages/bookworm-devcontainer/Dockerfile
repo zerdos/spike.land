@@ -84,11 +84,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* 
 
 # Define the user and set up sudo permissions
+ARG USER_UID=1000
+ARG USER_GID=1000
+
 ARG USER="gitpod"
 ENV USER=${USER}
 
-RUN addgroup --gid 1001 ${USER} \
-    && adduser --uid 1001 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+
+RUN addgroup --gid ${USER_GID} ${USER} \
+    && adduser --uid ${USER_UID} --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
     && adduser ${USER} sudo \
     && chown ${USER}:${USER} -R /home/${USER} \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
@@ -97,7 +101,7 @@ RUN addgroup --gid 1001 ${USER} \
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \
     && chmod +x /usr/bin/startx /usr/bin/startWithBash \
-    && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
+    && echo "(sudo service dbus start && sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
     && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash \
     && chmod +x /usr/bin/startWithBash \
     && apt-get clean -y \
@@ -193,15 +197,15 @@ RUN echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gi
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         xfce4 \
-       nano \
+        xfce4-session \
+        nano \
         terminator \
         gpg-agent \
-        # xfce4-goodies \
     && apt-get autoremove -y \
     && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
+    && rm -rf /var/lib/apt/lists/*
 
-    
+
 ### chromium.Dockerfile
 # Update the package list
 RUN apt-get update && \

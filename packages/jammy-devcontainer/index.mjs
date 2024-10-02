@@ -8,7 +8,7 @@ const run = async () => {
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
   devGenerator.setZsh();
-  devGenerator.setRemoteDesktop("noVNC");
+devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
   // devGenerator.setDotnet("6");
   devGenerator.setDeno();
