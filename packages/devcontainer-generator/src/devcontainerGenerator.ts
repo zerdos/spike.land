@@ -235,7 +235,7 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{amd_dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet3],
+            softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512],
           );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"]

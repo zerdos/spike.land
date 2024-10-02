@@ -50,8 +50,6 @@ RUN apt-get update \
        fonts-liberation \
        libcurl4 \
        libappindicator3-1 \
-       libcurl3-gnutls \
-       libcurl3-nss \
        xdg-utils \
        wget \
        gpg-agent \
@@ -71,6 +69,7 @@ RUN apt-get update \
     && apt-get install --install-recommends -y \
        autocutsel \
        dbus \
+       build-essential \
        dbus-x11 \
        xfwm4 \
        zsh \
