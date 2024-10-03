@@ -198,40 +198,47 @@ function createOnUpdateFunction({
 
             console.log("Processing chunk", { startPos, chunkLength: chunk.length });
 
-            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
-            mod.lastCode = result;
+            if (chunk.length !== 0) {
+              const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+              mod.lastCode = result;
 
-            if (len === 0) {
-              finished = true;
-              mod.actions.push({
-                TRIED: TRIED + 1,
-                SKIP: SKIP + 1,
-                DIFFs,
-                chars: instructions.length,
-                type: "skip",
-                startPos,
-                chunLength: chunk.length,
-                chunk,
-                lastSuccessCut: startPos,
-                hash: md5(lastCode),
-              });
-              console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
+              if (lastCode === mod.lastCode) {
+                if (len === 0) {
+                  finished = true;
+                  mod.actions.push({
+                    TRIED: TRIED + 1,
+                    SKIP: SKIP + 1,
+                    DIFFs,
+                    chars: instructions.length,
+                    type: "skip",
+                    startPos,
+                    chunLength: chunk.length,
+                    chunk,
+                    lastSuccessCut: startPos,
+                    hash: md5(lastCode),
+                  });
+                  console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
+                } else {
+                  mod.actions.push({
+                    TRIED: TRIED + 1,
+                    SKIP,
+                    DIFFs: DIFFs + 1,
+                    chars: instructions.length,
+                    type: "updated",
+                    startPos,
+                    chunLength: len,
+                    chunk: chunk.slice(0, len),
+                    lastSuccessCut: len + startPos,
+                    hash: md5(mod.lastCode),
+                  });
+                  console.log("Updated chunk", { startPos, chunkLength: len });
+                }
+              }
             } else {
-              mod.actions.push({
-                TRIED: TRIED + 1,
-                SKIP,
-                DIFFs: DIFFs + 1,
-                chars: instructions.length,
-                type: "updated",
-                startPos,
-                chunLength: len,
-                chunk: chunk.slice(0, len),
-                lastSuccessCut: len + startPos,
-                hash: md5(mod.lastCode),
-              });
-              console.log("Updated chunk", { startPos, chunkLength: len });
+              finished = true;
             }
           }
+
           if (startCode !== mod.lastCode) {
             await trySetCode(cSess, mod.lastCode);
           }
