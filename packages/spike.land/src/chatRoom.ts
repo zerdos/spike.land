@@ -6,7 +6,7 @@ import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import { createCodeHistoryManager } from "./x-code";
-import type { CodeHistoryManager, CodeHistoryEntry } from "./x-code";
+import type { CodeHistoryManager } from "./x-code";
 export { md5 };
 
 export class Code implements DurableObject {
@@ -136,7 +136,7 @@ export class Code implements DurableObject {
     setInterval(() => this.autoSave(), this.autoSaveInterval);
   }
 
-  public async getCodeHistory(): Promise<CodeHistoryEntry[]> {
+  public async getCodeHistory(): ReturnType<CodeHistoryManager["getHistory"]> {
     return this.historyManager.getHistory(this.session.codeSpace);
   }
 

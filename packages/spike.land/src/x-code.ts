@@ -12,17 +12,16 @@ export interface CodeHistoryEntry {
   timestamp: number;
   hash: string;
   patch?: CodePatch;
+  previousEntryId?: string;
 }
 
 export class CodeHistoryManager {
   private env: Env;
   private cache: Map<string, ICodeSession>;
-  private historyCache: Map<string, CodeHistoryEntry[]>;
 
   constructor(env: Env) {
     this.env = env;
     this.cache = new Map<string, ICodeSession>();
-    this.historyCache = new Map<string, CodeHistoryEntry[]>();
   }
 
   private async getFromStorage(key: string): Promise<any | null> {
@@ -48,103 +47,190 @@ export class CodeHistoryManager {
     }
   }
 
+  private generateEntryId(codeSpace: string, timestamp: number): string {
+    return `${codeSpace}:history:${timestamp}`;
+  }
+
   async logCodeSpace(sess: ICodeSession): Promise<void> {
     const s = makeSession(sess);
-    const oldSess =
-      this.cache.get(s.codeSpace) || (await this.getFromStorage(s.codeSpace));
-    const isFirstTime = !oldSess;
+    const codeSpace = s.codeSpace;
+    const currentTimestamp = Date.now();
 
-    if (!isFirstTime && makeHash(oldSess) === makeHash(s)) {
+    const oldSession =
+      this.cache.get(codeSpace) || (await this.getLatestSession(codeSpace));
+    const isFirstTime = !oldSession;
+
+    if (!isFirstTime && makeHash(oldSession) === makeHash(s)) {
       return; // No changes
     }
 
-    this.cache.set(s.codeSpace, s);
+    this.cache.set(codeSpace, s);
 
     try {
+      const entryId = this.generateEntryId(codeSpace, currentTimestamp);
+
       const historyEntry: CodeHistoryEntry = {
-        timestamp: Date.now(),
+        timestamp: currentTimestamp,
         hash: makeHash(s),
       };
 
       if (isFirstTime) {
         // First time: save the full session under codeSpace
-        await this.saveToStorage(s.codeSpace, s);
+        await this.saveToStorage(codeSpace, s);
       } else {
         // Subsequent changes: store only the patch
-        historyEntry.patch = createPatch(oldSess, s);
+        historyEntry.patch = createPatch(oldSession, s);
+        // Link to the previous entry
+        const latestEntryId = await this.getLatestEntryId(codeSpace);
+        historyEntry.previousEntryId = latestEntryId!;
       }
 
-      await this.appendToHistory(s.codeSpace, historyEntry);
+      // Save the history entry
+      await this.saveToStorage(entryId, historyEntry);
+
+      // Update the latest entry ID
+      await this.saveToStorage(`${codeSpace}:latestEntryId`, entryId);
     } catch (error) {
-      console.error(`Error in logCodeSpace for ${s.codeSpace}:`, error);
+      console.error(`Error in logCodeSpace for ${codeSpace}:`, error);
     }
   }
 
-  private async appendToHistory(
+  private async getLatestEntryId(codeSpace: string): Promise<string | null> {
+    const key = `${codeSpace}:latestEntryId`;
+    return await this.getFromStorage(key);
+  }
+
+  private async getLatestSession(codeSpace: string): Promise<ICodeSession | null> {
+    const latestEntryId = await this.getLatestEntryId(codeSpace);
+    if (!latestEntryId) {
+      // Return the initial session
+      return await this.getFromStorage(codeSpace);
+    }
+    // Reconstruct the session from the latest entry
+    return await this.getSessionAtEntryId(codeSpace, latestEntryId);
+  }
+
+  async getHistory(
     codeSpace: string,
-    entry: CodeHistoryEntry
-  ): Promise<void> {
-    const historyKey = `${codeSpace}:history`;
-    let history = this.historyCache.get(codeSpace);
+    startEntryId: string | null = null,
+    limit: number = 10
+  ): Promise<{ entries: CodeHistoryEntry[]; nextEntryId: string | null }> {
+    let entryId = startEntryId || (await this.getLatestEntryId(codeSpace));
+    const entries: CodeHistoryEntry[] = [];
 
-    if (!history) {
-      history =  (await this.getFromStorage(historyKey)) || [];
-      this.historyCache.set(codeSpace, history!);
+    while (entryId && entries.length < limit) {
+      const entry: CodeHistoryEntry = await this.getFromStorage(entryId);
+      if (!entry) {
+        break;
+      }
+      entries.push(entry);
+      entryId = entry.previousEntryId || null;
     }
 
-    history!.push(entry);
-    await this.saveToStorage(historyKey, history);
-  }
-
-  async getHistory(codeSpace: string): Promise<CodeHistoryEntry[]> {
-    const historyKey = `${codeSpace}:history`;
-    if (this.historyCache.has(codeSpace)) {
-      return this.historyCache.get(codeSpace)!;
-    }
-    const history = (await this.getFromStorage(historyKey)) || [];
-    this.historyCache.set(codeSpace, history);
-    return history;
+    return {
+      entries,
+      nextEntryId: entryId,
+    };
   }
 
   async getSessionAtTimestamp(
     codeSpace: string,
     timestamp: number
   ): Promise<ICodeSession | null> {
-    try {
-      let targetSession = this.cache.get(`${codeSpace}:initial`);
+    // Start from the latest entry and walk back until we find the entry at or before the timestamp
+    let entryId = await this.getLatestEntryId(codeSpace);
+    if (!entryId) {
+      // No history entries, return the initial session
+      return await this.getFromStorage(codeSpace);
+    }
 
-      if (!targetSession) {
-        targetSession = await this.getFromStorage(codeSpace);
-        if (!targetSession) {
-          return null;
-        }
-        this.cache.set(`${codeSpace}:initial`, targetSession);
+    let targetSession: ICodeSession | null = null;
+    const entries: CodeHistoryEntry[] = [];
+
+    while (entryId) {
+      const entry: CodeHistoryEntry = await this.getFromStorage(entryId);
+      if (!entry) {
+        break;
       }
-
-      const history = await this.getHistory(codeSpace);
-      for (const entry of history) {
-        if (entry.timestamp > timestamp) {
-          break;
-        }
-        if (entry.patch) {
-          targetSession = applyCodePatch(targetSession, entry.patch);
-        } else if (entry.hash !== makeHash(targetSession)) {
-          // Handle inconsistency
-          console.warn(`Hash mismatch at timestamp ${entry.timestamp}`);
-          return null;
-        }
+      if (entry.timestamp <= timestamp) {
+        break;
       }
+      entries.push(entry);
+      entryId = entry.previousEntryId || null;
+    }
 
-      // Update cache for subsequent operations
-      this.cache.set(codeSpace, targetSession);
-      return targetSession;
-    } catch (error) {
-      console.error(
-        `Error retrieving session at timestamp ${timestamp} for ${codeSpace}:`,
-        error
-      );
+    // Get the base session
+    targetSession = entryId
+      ? await this.getSessionAtEntryId(codeSpace, entryId)
+      : await this.getFromStorage(codeSpace);
+
+    if (!targetSession) {
       return null;
     }
+
+    // Apply patches in reverse order
+    for (let i = entries.length - 1; i >= 0; i--) {
+      const entry = entries[i];
+      if (entry.patch) {
+        targetSession = applyCodePatch(targetSession, {
+          ...entry.patch,
+          patch: entry.patch.reversePatch,
+          reversePatch: entry.patch.patch,
+        });
+      }
+    }
+
+    return targetSession;
+  }
+
+  private async getSessionAtEntryId(
+    codeSpace: string,
+    entryId: string
+  ): Promise<ICodeSession | null> {
+    const entries: CodeHistoryEntry[] = [];
+    let currentEntryId: string | null = entryId;
+
+    while (currentEntryId) {
+      const entry: CodeHistoryEntry = await this.getFromStorage(currentEntryId);
+      if (!entry) {
+        break;
+      }
+      entries.unshift(entry); // Build the list from oldest to newest
+      currentEntryId = entry.previousEntryId || null;
+    }
+
+    // Get the initial session
+    let session = await this.getFromStorage(codeSpace);
+    if (!session) {
+      return null;
+    }
+
+    // Apply patches sequentially
+    for (const entry of entries) {
+      if (entry.patch) {
+        session = applyCodePatch(session, entry.patch);
+      }
+    }
+
+    return session;
+  }
+
+  // Load more functionality
+  async loadMoreTimestamps(
+    codeSpace: string,
+    startEntryId: string | null = null,
+    limit: number = 10
+  ): Promise<{ timestamps: number[]; nextEntryId: string | null }> {
+    const { entries, nextEntryId } = await this.getHistory(
+      codeSpace,
+      startEntryId,
+      limit
+    );
+    const timestamps = entries.map((entry) => entry.timestamp);
+    return {
+      timestamps,
+      nextEntryId,
+    };
   }
 
   async revertToTimestamp(
@@ -156,17 +242,6 @@ export class CodeHistoryManager {
       await this.logCodeSpace(session);
     }
     return session;
-  }
-
-  // Cleanup mechanism to remove old history entries beyond a certain limit
-  async cleanupHistory(codeSpace: string, maxEntries: number): Promise<void> {
-    const historyKey = `${codeSpace}:history`;
-    const history = await this.getHistory(codeSpace);
-    if (history.length > maxEntries) {
-      const trimmedHistory = history.slice(-maxEntries);
-      this.historyCache.set(codeSpace, trimmedHistory);
-      await this.saveToStorage(historyKey, trimmedHistory);
-    }
   }
 }
 
