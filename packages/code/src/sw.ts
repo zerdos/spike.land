@@ -67,14 +67,14 @@ sw.addEventListener("install", (event) => {
           console.log("Cache already exists. Skipping installation.");
           return;
         }
-        const cache = await caches.open(cacheName);
-        try {
-          await cache.addAll(
-            Object.values(files).map((file) => "/" + file),
-          );
-        } catch (error) {
-          console.error("Error in cache.addAll", error);
-        }
+        await caches.open(cacheName);
+        // try {
+        //   await cache.addAll(
+        //     Object.values(files).map((file) => "/" + file),
+        //   );
+        // } catch (error) {
+        //   console.error("Error in cache.addAll", error);
+        // }
 
         await sw.skipWaiting();
       }
