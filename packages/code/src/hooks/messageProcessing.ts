@@ -343,6 +343,8 @@ function updateMessagesFromInstructions(
   setMessages: (messages: Message[]) => void,
   messagesPush: (messages: Message[], message: Message) => Message[],
 ) {
+  console.log("Updating messages from instructions", { instructionsLength: instructions.length });
+
   messages = messagesPush(messages, {
     id: Date.now().toString(),
     role: "assistant",
