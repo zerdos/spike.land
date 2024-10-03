@@ -4,6 +4,7 @@ import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { updateSearchReplace } from "@/lib/shared";
+import { wait } from "@/lib/wait";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
@@ -108,6 +109,7 @@ export async function processMessage(
       setMessages([...messages]);
 
       await onUpdate(assistantMessage.content as string);
+      await wait(1000);
 
       if (mod.lastCode === cSess.session.code && codeNow !== cSess.session.code) {
         return true;
