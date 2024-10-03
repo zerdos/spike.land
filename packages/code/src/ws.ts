@@ -158,6 +158,7 @@ const handleDefaultPage = async (cSess: ICode) => {
         });
 
         document.getElementById("embed")?.remove();
+        myEl.setAttribute("id", "embed");
       } catch (error) {
         rendered?.cleanup();
         console.error("Error updating rendered app:", error);
