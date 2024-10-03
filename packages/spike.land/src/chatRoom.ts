@@ -91,7 +91,7 @@ export class Code implements DurableObject {
               : `${this.origin}/live/code-main/session.json`;
 
             const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
-            this.backupSession = backupCode;
+            this.backupSession = makeSession({...backupCode, codeSpace });
           
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
