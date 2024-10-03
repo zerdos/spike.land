@@ -5,7 +5,8 @@ import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
-import { logCodeSpace } from "./x-code";
+import { createCodeHistoryManager } from "./x-code";
+import type { CodeHistoryManager, CodeHistoryEntry } from "./x-code";
 export { md5 };
 
 export class Code implements DurableObject {
@@ -21,12 +22,15 @@ export class Code implements DurableObject {
   private autoSaveInterval: number = 60000; // 1 minute in milliseconds
   private lastAutoSave: number = 0;
   private autoSaveHistory: AutoSaveEntry[] = [];
+
   private xLog: (sess: ICodeSession) => Promise<void>;
+  private historyManager: CodeHistoryManager;
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.env = env;
-    
-    this.xLog = logCodeSpace(this.env);
+    this.historyManager = createCodeHistoryManager(this.env);
+    this.xLog = this.historyManager.logCodeSpace.bind(this.historyManager);
+
 
     this.backupSession = makeSession({
       code: `export default () => (
@@ -130,6 +134,10 @@ export class Code implements DurableObject {
 
   private setupAutoSave() {
     setInterval(() => this.autoSave(), this.autoSaveInterval);
+  }
+
+  public async getCodeHistory(): Promise<CodeHistoryEntry[]> {
+    return this.historyManager.getHistory(this.session.codeSpace);
   }
 
   public async autoSave() {

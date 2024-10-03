@@ -194,12 +194,10 @@ export class Code implements ICode {
   }
 
   public hash = () => {
-    makeHash(makeSession({ ...this.session }));
+    return makeHash(makeSession({ ...this.session }));
   };
 
-  static makeHash = (session: ICodeSession) => {
-    makeHash(session);
-  };
+  makeHash = (session: ICodeSession) => makeHash(session);
 
   async getCode(): Promise<string> {
     if (mutex.isLocked()) await mutex.waitForUnlock();

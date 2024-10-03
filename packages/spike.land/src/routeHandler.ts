@@ -71,12 +71,28 @@ export class RouteHandler {
       // New routes for auto-save functionality
 
       "auto-save": this.handleAutoSaveRoute.bind(this),
+
+      "history": this.handleCodeHistory.bind(this),
       // New route for serving saved versions
       live: this.handleLiveRoute.bind(this),
     };
 
     return routes[route] || null;
+
   }
+  private async handleCodeHistory(){
+    const history = await this.code.getCodeHistory();
+    return new Response(JSON.stringify(history), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+  
   private async handleAutoSaveRoute(
     request: Request,
     url: URL,
