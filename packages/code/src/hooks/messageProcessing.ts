@@ -58,11 +58,11 @@ interface Action {
   hash: string;
 }
 
-const mod = {
+const mod: Mod = {
   controller: new AbortController(),
   lastCode: "",
   actions: [],
-} as Mod;
+};
 
 export async function processMessage(
   { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
@@ -82,7 +82,6 @@ export async function processMessage(
 
   while (retries < maxRetries) {
     try {
-      // const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };od
       mod.lastCode = cSess.session.code;
       mod.actions = [];
 
@@ -179,7 +178,7 @@ function createOnUpdateFunction({
           const startCode = mod.lastCode;
           let finished = false;
           let iterationCount = 0;
-          const maxIterations = 1000; // Prevent infinite loop
+          const maxIterations = 1000;
 
           while (!finished && iterationCount < maxIterations) {
             if (signal.aborted) {
@@ -198,44 +197,46 @@ function createOnUpdateFunction({
 
             console.log("Processing chunk", { startPos, chunkLength: chunk.length });
 
-            if (chunk.length !== 0) {
-              const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
-              mod.lastCode = result;
-
-              if (lastCode === mod.lastCode) {
-                if (len === 0) {
-                  finished = true;
-                }
-                mod.actions.push({
-                  TRIED: TRIED + 1,
-                  SKIP: SKIP + 1,
-                  DIFFs,
-                  chars: instructions.length,
-                  type: "skip",
-                  startPos,
-                  chunkLength: chunk.length,
-                  chunk,
-                  lastSuccessCut: startPos,
-                  hash: md5(lastCode),
-                });
-                console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
-              } else {
-                mod.actions.push({
-                  TRIED: TRIED + 1,
-                  SKIP,
-                  DIFFs: DIFFs + 1,
-                  chars: instructions.length,
-                  type: "updated",
-                  startPos,
-                  chunkLength: len,
-                  chunk: chunk.slice(0, len),
-                  lastSuccessCut: len + startPos,
-                  hash: md5(mod.lastCode),
-                });
-                console.log("Updated chunk", { startPos, chunkLength: len });
-              }
-            } else {
+            if (chunk.length === 0) {
               finished = true;
+              break;
+            }
+
+            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+
+            if (lastCode === result) {
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP: SKIP + 1,
+                DIFFs,
+                chars: instructions.length,
+                type: "skip",
+                startPos,
+                chunkLength: chunk.length,
+                chunk,
+                lastSuccessCut: startPos,
+                hash: md5(lastCode),
+              });
+              console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
+
+              // If no changes were made, move to the next chunk
+              mod.lastCode = lastCode;
+              finished = startPos + chunk.length >= instructions.length;
+            } else {
+              mod.lastCode = result;
+              mod.actions.push({
+                TRIED: TRIED + 1,
+                SKIP,
+                DIFFs: DIFFs + 1,
+                chars: instructions.length,
+                type: "updated",
+                startPos,
+                chunkLength: len,
+                chunk: chunk.slice(0, len),
+                lastSuccessCut: len + startPos,
+                hash: md5(mod.lastCode),
+              });
+              console.log("Updated chunk", { startPos, chunkLength: len });
             }
           }
 
