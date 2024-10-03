@@ -222,8 +222,9 @@ function createOnUpdateFunction({
                 hash: md5(mod.lastCode),
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
-
-              await trySetCode(cSess, mod.lastCode);
+              if (lastCode !== mod.lastCode) {
+                await trySetCode(cSess, mod.lastCode);
+              }
             }
           }
 
