@@ -58,7 +58,7 @@ const handleRender = async (
     if (!rootEl.innerHTML) await wait(200);
     if (!rootEl.innerHTML) await wait(400);
 
-    const html = rootEl.innerHTML;
+    const html = htmlDecode(rootEl.innerHTML);
     // const classNames = getClassNamesFromHTML(html);
 
     if (!html) return false;
@@ -70,7 +70,7 @@ const handleRender = async (
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
         ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
-          (x) => x.cssText,
+          (x) => x.cssText.split("\\").join(""),
         )
         : [];
 
@@ -90,7 +90,7 @@ const handleRender = async (
         .filter(Boolean);
 
       const htmlClasses = getClassNamesFromHTML(html);
-      let cssStrings = [...eCss, ...tailWindClasses].sort().filter(x => {
+      let cssStrings = [...eCss].sort().filter(x => {
         // we have all the classnames from the html, filering out those css rules that are not used
         // in the html
 
@@ -98,8 +98,7 @@ const handleRender = async (
 
         return htmlClasses.includes(rule);
       }).join(
-        "\
-        ",
+        "\n",
       );
 
       try {
@@ -323,4 +322,9 @@ function getClassNamesFromHTML(htmlString: string) {
     }
   }
   return Array.from(classNames);
+}
+
+function htmlDecode(input: string) {
+  const doc = new DOMParser().parseFromString(input, "text/html");
+  return doc.documentElement.textContent;
 }
