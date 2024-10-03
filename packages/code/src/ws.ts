@@ -168,13 +168,13 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     window.onmessage = async ({ data }) => {
       try {
-        const { type, requestId } = data;
+        const { type, requestId, transpiled } = data;
         if (!type) return;
 
         if (type === "screenShot") {
           await handleScreenshot();
         } else if (type === "run" && requestId) {
-          const resp = await handleRunMessage({ transpiled: data.transpiled, requestId });
+          const resp = await handleRunMessage({ transpiled, requestId });
 
           return window.parent.postMessage({
             type: "runResponse",

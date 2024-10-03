@@ -160,6 +160,7 @@ export const screenShot = (): Promise<ImageData> => {
       if (ev.data.type === "screenShot") {
         const imageData = ev.data.imageData as ImageData;
         window.removeEventListener("message", messageHandler);
+
         resolve(imageData);
       }
     };
