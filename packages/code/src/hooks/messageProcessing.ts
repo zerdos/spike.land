@@ -84,7 +84,9 @@ export async function processMessage(
       }
 
       const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager, mod });
-      const throttledOnUpdate = throttle(onUpdate, 500, { edges: ["trailing"] });
+      const throttledOnUpdate = throttle((instructions: string) => onUpdate(instructions), 500, {
+        edges: ["trailing"],
+      });
 
       console.log(`Processing message (attempt ${retries + 1})`);
 
@@ -302,7 +304,7 @@ async function handleErrorMessage(
     { setMessages, messages, cSess, contextManager, mod },
   );
 
-  const throttledOnUpdate = throttle(newOnUpdate, 500, { edges: ["trailing"] });
+  const throttledOnUpdate = throttle((instructions: string) => newOnUpdate(instructions), 500, { edges: ["trailing"] });
 
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
