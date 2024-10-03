@@ -59,7 +59,7 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
   return ((...args: [...Parameters<T>, AbortSignal]): ReturnType<T> => {
     const signal = args.pop() as AbortSignal;
-    const fnArgs = args.slice(0, -1) as Parameters<T>;
+    const fnArgs = args as unknown as Parameters<T>;
     const key = keyResolver ? keyResolver(...fnArgs) : JSON.stringify(fnArgs);
 
     if (cache.has(key)) {
