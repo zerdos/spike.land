@@ -324,9 +324,14 @@ function getClassNamesFromHTML(htmlString: string) {
   return Array.from(classNames);
 }
 
-function htmlDecode(input: string) {
+function htmlDecode(input: string): string {
   const doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.documentElement.getHTML().split("><").join(">\n<").split("&amp;").join("&").split("&gt;").join(">").split(
-    "&lt;",
-  ).join("<").split("&quot;").join("\"").split("&apos;").join("'").split("&nbsp;").join(" ");
+  return doc.documentElement.innerHTML
+    .split("><").join(">\n<")
+    .replace(/&amp;/g, "&")
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&quot;/g, "\"")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ");
 }
