@@ -152,31 +152,13 @@ function createOnUpdateFunction({
   contextManager: ContextManager;
   mod: Mod;
 }) {
-  let instructions = "";
-  let lastUpdateTime = 0;
-  const updateInterval = 100;
+  return async (instructions: string) => {
+    updateMessagesFromInstructions(instructions, messages, setMessages, messagesPush);
 
-  const updateState = () => {
-    const now = Date.now();
-    if (now - lastUpdateTime >= updateInterval) {
-      messages = messagesPush(messages, {
-        id: now.toString(),
-        role: "assistant",
-        content: instructions,
-      });
-      setMessages([...messages]);
-      lastUpdateTime = now;
-    }
-  };
-
-  return async (code: string) => {
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
       return;
     }
-
-    instructions = code;
-    updateState();
 
     try {
       mod.controller.abort();
@@ -348,3 +330,17 @@ function extractTextContent(
 }
 
 console.log("Message processing module initialized");
+function updateMessagesFromInstructions(
+  instructions: string,
+  messages: Message[],
+  setMessages: (messages: Message[]) => void,
+  messagesPush: (messages: Message[], message: Message) => Message[],
+) {
+  messages = messagesPush(messages, {
+    id: Date.now().toString(),
+    role: "assistant",
+    content: instructions,
+  } as Message);
+
+  setMessages([...messages]);
+}
