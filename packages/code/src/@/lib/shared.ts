@@ -1,3 +1,4 @@
+import { swVersion } from "/swVersion.mjs";
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import type { ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
@@ -82,9 +83,14 @@ class WorkerPool {
 let workerPool: WorkerPool;
 
 function init(swVersion: string) {
-  workerPool = new WorkerPool(0, swVersion);
+  workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool || new WorkerPool(0, swVersion);
+  Object.assign(globalThis, { workerPool });
   const worker = workerPool.getWorker("connect");
+
   return worker.rpc;
+}
+if (!workerPool) {
+  init(swVersion);
 }
 
 export const prettierToThrow = async ({
