@@ -69,7 +69,7 @@ const handleRender = async (
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(x => x.cssText.startsWith(".")).map(
           (x) => x.cssText.split("\\").join(""),
         )
         : [];
