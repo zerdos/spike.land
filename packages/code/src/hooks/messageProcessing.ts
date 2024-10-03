@@ -99,6 +99,8 @@ export async function processMessage(
       messages = messagesPush(messages, assistantMessage);
       setMessages([...messages]);
 
+      await onUpdate(assistantMessage.content as string);
+
       if (mod.lastCode === cSess.session.code && codeNow !== cSess.session.code) {
         return true;
       }
@@ -311,6 +313,7 @@ async function handleErrorMessage(
 
   messages = messagesPush(messages, assistantMessage);
   setMessages([...messages]);
+  await newOnUpdate(assistantMessage.content as string);
 
   const success = cSess.session.code === mod.lastCode;
   console.log("Error handling result:", success);
