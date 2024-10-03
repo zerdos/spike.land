@@ -57,6 +57,12 @@ interface Action {
   hash: string;
 }
 
+const mod = {
+  controller: new AbortController(),
+  lastCode: "",
+  actions: [],
+} as Mod;
+
 export async function processMessage(
   { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
     aiHandler: AIHandler;
@@ -75,7 +81,9 @@ export async function processMessage(
 
   while (retries < maxRetries) {
     try {
-      const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };
+      // const mod: Mod = { controller: new AbortController(), lastCode: cSess.session.code, actions: [] };od
+      mod.lastCode = cSess.session.code;
+      mod.actions = [];
 
       Object.assign(globalThis, { BUILD_LOG: mod });
       if (newUserMessage) {
@@ -83,7 +91,7 @@ export async function processMessage(
         setMessages([...messages]);
       }
 
-      const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager, mod });
+      const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager });
       const throttledOnUpdate = throttle((instructions: string) => onUpdate(instructions), 500, {
         edges: ["trailing"],
       });
@@ -144,13 +152,11 @@ function createOnUpdateFunction({
   messages,
   cSess,
   contextManager,
-  mod,
 }: {
   setMessages: (messages: Message[]) => void;
   messages: Message[];
   cSess: ICode;
   contextManager: ContextManager;
-  mod: Mod;
 }) {
   return async (instructions: string) => {
     updateMessagesFromInstructions(instructions, messages, setMessages, messagesPush);
@@ -277,7 +283,6 @@ async function handleErrorMessage(
     setMessages,
     cSess,
     contextManager,
-    mod,
   }: {
     errorMessage: string;
     codeNow: string;
@@ -286,7 +291,6 @@ async function handleErrorMessage(
     setMessages: (messages: Message[]) => void;
     cSess: ICode;
     contextManager: ContextManager;
-    mod: Mod;
   },
 ): Promise<boolean> {
   console.log("Handling error message", { errorMessageLength: errorMessage.length });
@@ -300,7 +304,7 @@ async function handleErrorMessage(
   setMessages([...messages]);
 
   const newOnUpdate = createOnUpdateFunction(
-    { setMessages, messages, cSess, contextManager, mod },
+    { setMessages, messages, cSess, contextManager },
   );
 
   const throttledOnUpdate = throttle((instructions: string) => newOnUpdate(instructions), 500, { edges: ["trailing"] });
@@ -313,6 +317,7 @@ async function handleErrorMessage(
 
   messages = messagesPush(messages, assistantMessage);
   setMessages([...messages]);
+
   await newOnUpdate(assistantMessage.content as string);
 
   const success = cSess.session.code === mod.lastCode;
