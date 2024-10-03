@@ -19,7 +19,7 @@ export const updateSearchReplace = async (
     const rAll = up(instructions, code);
     const rAllWithExtra = up(instructions + "\nfooo dooo baf   ", code);
 
-    if (rAll !== rAllWithExtra) {
+    if (code === rAll || rAll !== rAllWithExtra) {
       debug("Replace block not finished");
       return { result: code, len: 0 };
     }
