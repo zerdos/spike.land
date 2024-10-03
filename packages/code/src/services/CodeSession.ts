@@ -59,10 +59,10 @@ class CodeProcessor {
     signal: AbortSignal,
   ): Promise<Partial<ICodeSession> | false> {
     try {
-      const transpiledCode = await this.transpileCode(rawCode);
+      const formattedCode = await this.formatCode(rawCode);
       if (signal?.aborted) return false;
 
-      const formattedCodePromise = this.formatCode(rawCode);
+      const transpiledCode = await this.transpileCode(formattedCode);
       if (signal?.aborted) return false;
 
       let html = "<div></div>";
@@ -101,7 +101,7 @@ class CodeProcessor {
       if (signal?.aborted) return false;
 
       return {
-        code: await formattedCodePromise,
+        code: formattedCode,
         transpiled: transpiledCode,
         html,
         css,

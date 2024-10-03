@@ -76,7 +76,7 @@ export const ChatInterface: React.FC<{
     console.log("ChatInterface rendered");
     console.log("messages", messages);
     console.log("messHash", md5(messages));
-    setIsStreaming(messages.length > 0);
+    setIsStreaming(messages.length > 0);   
   }, [messages, setIsStreaming]);
 
   useEffect(() => {

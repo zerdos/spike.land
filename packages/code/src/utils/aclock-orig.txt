@@ -1,0 +1,198 @@
+// aclock.tsx
+import React, { useEffect, useRef, useState } from "react";
+import type { FC } from "react";
+// Remove this line as we're not using Emotion
+
+export const SportyClock: FC<{}> = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const radius = canvas.height / 2;
+    ctx.translate(radius, radius);
+
+    const drawFace = (ctx: CanvasRenderingContext2D, radius: number) => {
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#001f3f"; // Dark navy color
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#ffffff";
+      ctx.stroke();
+    };
+    const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {
+      ctx.font = `bold ${radius * 0.13}px 'Arial', sans-serif`;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ffffff";
+      // Draw sporty lines
+      for (let i = 0; i < 60; i++) {
+        const ang = (i * Math.PI) / 30;
+        ctx.beginPath();
+        ctx.rotate(ang);
+        ctx.moveTo(radius * 0.9, 0);
+        ctx.lineTo(radius, 0);
+        ctx.strokeStyle = i % 5 === 0 ? "#ffffff" : "#a0a0a0";
+        ctx.lineWidth = i % 5 === 0 ? 3 : 1;
+        ctx.stroke();
+        ctx.rotate(-ang);
+      }
+      for (let num = 1; num <= 12; num++) {
+        const ang = (num * Math.PI) / 6;
+        ctx.rotate(ang);
+        ctx.translate(0, -radius * 0.75);
+        ctx.rotate(-ang);
+        ctx.fillText(num.toString(), 0, 0);
+        ctx.rotate(ang);
+        ctx.translate(0, radius * 0.75);
+        ctx.rotate(-ang);
+      }
+    };
+
+    const drawTime = (ctx: CanvasRenderingContext2D, radius: number) => {
+      const now = new Date();
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+      const second = now.getSeconds();
+
+      // Digital display
+      ctx.save();
+      ctx.font = `bold ${radius * 0.15}px 'Arial', sans-serif`;
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.fillText(
+        `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`,
+        0,
+        radius * 0.5,
+      );
+      ctx.restore();
+      // Hour
+      ctx.save();
+      const hourAng = ((hour % 12) + minute / 60) * (Math.PI / 6);
+      ctx.rotate(hourAng);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -radius * 0.5);
+      ctx.stroke();
+      ctx.restore();
+      // Minute
+      ctx.save();
+      const minuteAng = (minute + second / 60) * (Math.PI / 30);
+      ctx.rotate(minuteAng);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = "#ff3333";
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -radius * 0.7);
+      ctx.stroke();
+      ctx.restore();
+      // Second
+      ctx.save();
+      const secondAng = second * (Math.PI / 30);
+      ctx.rotate(secondAng);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#ff9999";
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, -radius * 0.85);
+      ctx.stroke();
+      ctx.restore();
+      // Center dot
+      ctx.beginPath();
+      ctx.arc(0, 0, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+    };
+
+    const drawClock = () => {
+      drawFace(ctx, radius);
+      drawNumbers(ctx, radius);
+      drawTime(ctx, radius);
+    };
+
+    const intervalId = setInterval(() => {
+      ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+      drawClock();
+    }, 1000);
+    drawClock();
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  return (
+    <div className='relative flex items-center justify-center min-h-screen bg-gradient-to-br from-navy-900 to-navy-700 overflow-hidden'>
+      <div
+        className='absolute inset-0 opacity-20 bg-repeat bg-[length:100px_100px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.3'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 120s linear infinite",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-15 bg-repeat bg-[length:80px_80px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.2'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 90s linear infinite reverse",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-10 bg-repeat bg-[length:60px_60px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-20 bg-repeat bg-[length:100px_100px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.3'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 120s linear infinite",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-15 bg-repeat bg-[length:80px_80px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.2'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 90s linear infinite reverse",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-10 bg-repeat bg-[length:60px_60px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        }}></div>
+      <canvas
+        ref={canvasRef}
+        width='320'
+        height='320'
+        className='w-72 h-72 sm:w-88 sm:h-88 md:w-104 md:h-104 rounded-full shadow-lg bg-white/10 backdrop-blur-sm p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl z-10 border-4 border-blue-200'
+      />
+    </div>
+  );
+};
+
+export default SportyClock;
+
+const additionalKeyframes = `
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+`;
+
+const styleTag = document.createElement("style");
+styleTag.textContent = additionalKeyframes;
+document.head.appendChild(styleTag);

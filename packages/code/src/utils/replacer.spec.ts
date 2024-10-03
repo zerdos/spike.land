@@ -72,3 +72,28 @@ test("should update search replace", async () => {
 
   expect(v12.result).toMatchSnapshot();
 });
+
+test("should update search replace with a single block", async () => {
+  const original = await readFile(__dirname + "/aclock-orig.txt", "utf8");
+  const instructions = await readFile(__dirname + "/acllock-inst.txt", "utf8");
+
+  const r1 = await updateSearchReplace({ instructions, code: original });
+  expect(r1.len).toMatchInlineSnapshot(`2358`);
+
+  const v2 = await updateSearchReplace({ instructions: instructions.slice(r1.len), code: r1.result });
+  expect(v2.len).toMatchInlineSnapshot(`541`);
+
+  const v3 = await updateSearchReplace({ instructions: instructions.slice(r1.len + v2.len), code: v2.result });
+  expect(v3.len).toMatchInlineSnapshot(`454`);
+
+  const v4 = await updateSearchReplace({ instructions: instructions.slice(r1.len + v2.len + v3.len), code: v3.result });
+  expect(v4.len).toMatchInlineSnapshot(`1046`);
+
+  const v5 = await updateSearchReplace({
+    instructions: instructions.slice(r1.len + v2.len + v3.len + v4.len),
+    code: v4.result,
+  });
+  expect(v5.len).toMatchInlineSnapshot(`0`);
+
+  expect(v5.result).toMatchSnapshot();
+});
