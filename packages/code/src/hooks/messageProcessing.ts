@@ -173,6 +173,7 @@ function createOnUpdateFunction({
 
       return await mutex.runExclusive(async () => {
         try {
+          const startCode = mod.lastCode;
           let finished = false;
           let iterationCount = 0;
           const maxIterations = 1000; // Prevent infinite loop
@@ -226,10 +227,10 @@ function createOnUpdateFunction({
                 hash: md5(mod.lastCode),
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
-              if (lastCode !== mod.lastCode) {
-                await trySetCode(cSess, mod.lastCode);
-              }
             }
+          }
+          if (startCode !== mod.lastCode) {
+            await trySetCode(cSess, mod.lastCode);
           }
 
           if (iterationCount >= maxIterations) {
