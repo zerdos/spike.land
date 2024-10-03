@@ -81,7 +81,7 @@ const handleRender = async (
           ...css,
         ].filter((line) => {
           const rule = line.slice(1, line.indexOf("{")).trim();
-          return htmlClasses.includes(rule);
+          return htmlClasses.some(x => x.includes(rule));
         }),
       );
 
