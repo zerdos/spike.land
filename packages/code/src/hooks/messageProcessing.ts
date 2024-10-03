@@ -176,6 +176,7 @@ function createOnUpdateFunction({
           const maxIterations = 1000; // Prevent infinite loop
 
           while (!finished && iterationCount < maxIterations) {
+            console.log("Starting iteration", iterationCount);
             iterationCount++;
             const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
             const DIFFs = mod.actions[mod.actions.length - 1]?.DIFFs || 0;
@@ -220,8 +221,7 @@ function createOnUpdateFunction({
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
 
-              const success = await trySetCode(cSess, mod.lastCode, true);
-              console.log("Code update result:", success);
+              trySetCode(cSess, mod.lastCode);
             }
           }
 
