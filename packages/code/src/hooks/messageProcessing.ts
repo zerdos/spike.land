@@ -221,7 +221,7 @@ function createOnUpdateFunction({
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
 
-              trySetCode(cSess, mod.lastCode);
+              await trySetCode(cSess, mod.lastCode);
             }
           }
 
