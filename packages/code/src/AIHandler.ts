@@ -41,22 +41,6 @@ export class AIHandler {
     return this.aiService.sendToGpt4o(messages, onUpdate);
   }
 
-  async continueWithOpenAI(
-    fullResponse: string,
-    currentCode: string,
-    messages: Message[],
-    setMessages: (messages: Message[]) => void,
-    setAICode: (code: string) => void,
-  ): Promise<string | void> {
-    return this.aiService.continueWithOpenAI(
-      fullResponse,
-      currentCode,
-      messages,
-      setMessages,
-      setAICode,
-    );
-  }
-
   prepareClaudeContent(
     content: string,
     messages: Message[],

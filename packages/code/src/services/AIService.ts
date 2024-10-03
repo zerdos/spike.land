@@ -1,8 +1,7 @@
-import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
 import type { ICode } from "@/lib/interfaces";
-import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
+import { anthropicSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
 export interface AIServiceConfig {
@@ -147,13 +146,11 @@ export class AIService {
         type === "gpt4o" ? `gpt-4o` : "",
       );
 
-      messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: result });
-
       // Update context based on AI response
       this.contextManager.updateContext("currentTask", extractCurrentTask(result));
       this.contextManager.updateContext("codeStructure", extractCodeStructure(result));
 
-      return messages[messages.length - 1];
+      return { id: Date.now().toString(), role: "assistant", content: result } as Message;
     } catch (error) {
       console.error("Error sending to AI:", error);
       throw error;
@@ -168,135 +165,6 @@ export class AIService {
 
   async sendToAnthropic(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
     return this.sendToAI("anthropic", messages, onUpdate);
-  }
-
-  async continueWithOpenAI(
-    fullResponse: string,
-    codeNow: string,
-    messages: Message[],
-    setMessages: (messages: Message[]) => void,
-    setAICode: (code: string) => void,
-  ): Promise<string> {
-    const messagesNew: Message[] = [
-      { id: Date.now().toString(), role: "system", content: gptSystem },
-      { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
-    ];
-
-    const updateMessages = (newChunk: string) => {
-      messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: newChunk });
-
-      setMessages([...messages]);
-    };
-
-    try {
-      const endpoint = this.getEndpoint("openAI");
-      const response = await this.handleStreamingResponse(endpoint, messagesNew, updateMessages);
-      const modifiedCode = this.extractCodeFromResponse(response);
-
-      if (!modifiedCode) {
-        setAICode("");
-        updateMessages("");
-        return "";
-      }
-
-      const success = await this.cSess.setCode(modifiedCode);
-      if (!success) {
-        throw new Error("Error setting code");
-      }
-      return modifiedCode;
-    } catch (error) {
-      console.error("Error in AI code processing:", error);
-      updateMessages(error instanceof Error ? error.message : String(error));
-      throw error;
-    } finally {
-      this.config.setIsStreaming(false);
-    }
-  }
-
-  private extractCodeFromResponse(response: string): string {
-    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
-    const matches = response.match(codeModificationRegex);
-    if (!matches) {
-      return "";
-    }
-    return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
-  }
-
-  async retryWithClaude(
-    fullResponse: string,
-    codeNow: string,
-    error: unknown,
-    messages: Message[],
-    setMessages: (messages: Message[]) => void,
-    setAICode: (code: string) => void,
-  ): Promise<string> {
-    console.log("Retrying with Claude");
-    const message: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: `${codeNow}\n**** instructions ****\n${fullResponse}\n**** error ****\n${
-        error instanceof Error ? error.toString() : String(error)
-      }\nCould you help me with this error? I'm stuck.`,
-    };
-
-    messages = messagesPush(messages, message);
-    setMessages([...messages]);
-
-    try {
-      const answer = await this.sendToAnthropic(messages, (chunk) => {
-        messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
-
-        setMessages([...messages]);
-      });
-
-      messages = messagesPush(messages, answer);
-
-      setMessages([...messages]);
-      return "";
-    } catch (error) {
-      const lastMessage = messages[messages.length - 1];
-      if (lastMessage.role === "user") {
-        messages = messagesPush(messages, lastMessage);
-      }
-
-      setMessages([...messages]);
-
-      console.error("Error retrying with Claude:", error);
-      try {
-        const answer = await this.sendToGpt4o(messages, (chunk) => {
-          messages = messagesPush(messages, { id: Date.now().toString(), role: "assistant", content: chunk });
-
-          setMessages([...messages]);
-        });
-
-        messages = messagesPush(messages, answer);
-        setMessages([...messages]);
-
-        return "";
-      } catch {
-        const lastMessage = [...messages].pop()!;
-
-        setMessages([...messages, lastMessage]);
-
-        const content = messages.filter((message) => message.role === "assistant").pop()?.content;
-
-        const mini = await this.continueWithOpenAI(content as string, codeNow, messages, setMessages, setAICode);
-        if (mini) {
-          const assistantMessage: Message = {
-            id: Date.now().toString(),
-            role: "assistant",
-            content: mini,
-          };
-
-          messages = messagesPush(messages, assistantMessage);
-          setMessages([...messages]);
-
-          return mini;
-        }
-      }
-
-      return "";
-    }
   }
 
   prepareClaudeContent(
