@@ -189,7 +189,7 @@ export const runCode = memoizeWithAbort(
           if (data.type === "runResponse") {
             clearTimeout(timeoutId);
             cleanup();
-            if (data.html === "" || data.css === "" || data.html.includes("Oops! Something went wrong.")) {
+            if (data.html === "" || data.html.includes("Oops! Something went wrong.")) {
               reject(new Error("Error running code" + data.html));
             } else {
               resolve({ html: data.html, css: data.css });
