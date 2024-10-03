@@ -1,5 +1,4 @@
 import type { Message } from "@/lib/interfaces";
-import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AIService } from "../services/AIService";
 
@@ -36,7 +35,6 @@ describe("AIService", () => {
         gpt4oEndpoint: "https://api.gpt4o.com",
         setIsStreaming: vi.fn(),
       },
-      cSessMock,
       testCodeSpace,
     );
   });

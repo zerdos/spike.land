@@ -1,5 +1,4 @@
 import type { Message } from "@/lib/interfaces";
-import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
@@ -21,11 +20,10 @@ describe("AIHandler", () => {
         updateThrottleMs: 1000,
         setIsStreaming: vi.fn(),
       },
-      cSessMock,
       testCodeSpace,
     );
     vi.mocked(mockAIService);
-    aiHandler = new AIHandler(cSessMock, vi.fn(), testCodeSpace, mockAIService);
+    aiHandler = new AIHandler(vi.fn(), testCodeSpace);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -64,32 +62,6 @@ describe("AIHandler", () => {
       updates,
     );
     expect(result).toEqual(expectedResponse);
-  });
-
-  test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
-    const fullResponse = "Full response";
-    const currentCode = "Current code";
-    const setMessages = vi.fn();
-    const setAICode = vi.fn();
-
-    vi.mocked(mockAIService.continueWithOpenAI).mockResolvedValue("Updated code");
-
-    const result = await aiHandler.continueWithOpenAI(
-      fullResponse,
-      currentCode,
-      [],
-      setMessages,
-      setAICode,
-    );
-
-    expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
-      fullResponse,
-      currentCode,
-      [],
-      setMessages,
-      setAICode,
-    );
-    expect(result).toBe("Updated code");
   });
 
   test("prepareClaudeContent calls AIService.prepareClaudeContent", () => {

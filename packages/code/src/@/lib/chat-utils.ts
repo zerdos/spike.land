@@ -106,3 +106,28 @@ export const updateSearchReplace = (instructions: string, codeNow: string): stri
     return codeNow;
   }
 };
+
+export const replaceFirstCodeMod = (instructions: string, codeNow: string): string => {
+  try {
+    let replacedCode = codeNow;
+
+    const mods = extractCodeModification(instructions);
+
+    if (mods.length > 0) {
+      const [search, replace] = mods[0].replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "").split("=======");
+
+      if (search && replace) {
+        replacedCode = replacePreservingWhitespace(
+          replacedCode,
+          search.trim(),
+          replace.trim(),
+        );
+      }
+    }
+
+    return replacedCode;
+  } catch (error) {
+    console.error("Error in updateSearchReplace:", error);
+    return codeNow;
+  }
+};

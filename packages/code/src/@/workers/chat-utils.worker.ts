@@ -1,4 +1,4 @@
-import { updateSearchReplace as up } from "@/lib/chat-utils";
+import { replaceFirstCodeMod as up } from "@/lib/chat-utils";
 
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
