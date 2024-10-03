@@ -1,5 +1,5 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
+import type { ICode, ICodeSession, RenderedApp } from "@/lib/interfaces";
 
 import type { EmotionCache } from "@emotion/cache";
 import { initializeApp } from "./hydrate";
@@ -14,8 +14,6 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import { mineFromCaches } from "./utils/mineCss";
 
 const codeSpace = useCodeSpace();
-const cSess = new Code(codeSpace);
-Object.assign(globalThis, { cSess });
 
 declare global {
   interface Window {
@@ -25,8 +23,6 @@ declare global {
 }
 
 let { rendered, renderedMd5 } = window;
-
-const waitForCSess = cSess.run();
 
 const handleScreenshot = async () => {
   try {
@@ -133,7 +129,7 @@ type RunAnswerType = {
   css: string;
   requestId: string;
 };
-const handleDefaultPage = async () => {
+const handleDefaultPage = async (cSess: ICode) => {
   try {
     const updateRenderedApp = async (sess: ICodeSession) => {
       try {
@@ -251,7 +247,22 @@ const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string;
 };
 
 export const main = async () => {
+  const cSess = new Code(codeSpace);
+  const waitForCSess = cSess.run();
   await waitForCSess;
+  Object.assign(globalThis, { cSess });
+  (() => {
+    try {
+      cSess.sub(
+        (sess: ICodeSession) => {
+          const { i, code, transpiled } = sess;
+          console.table({ i, code, transpiled });
+        },
+      );
+    } catch (error) {
+      console.error("Error in cSess subscription:", error);
+    }
+  })();
 
   try {
     if (location.pathname === `/live/${codeSpace}` || location.pathname === `/live-cms/${codeSpace}`) {
@@ -259,29 +270,16 @@ export const main = async () => {
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
-      handleDehydratedPage();
+      handleDehydratedPage(cSess);
     } else {
-      await handleDefaultPage();
+      await handleDefaultPage(cSess);
     }
   } catch (error) {
     console.error("Error in main function:", error);
   }
 };
 
-(() => {
-  try {
-    cSess.sub(
-      (sess: ICodeSession) => {
-        const { i, code, transpiled } = sess;
-        console.table({ i, code, transpiled });
-      },
-    );
-  } catch (error) {
-    console.error("Error in cSess subscription:", error);
-  }
-})();
-
-const handleDehydratedPage = () => {
+const handleDehydratedPage = (cSess: ICode) => {
   try {
     cSess.sub(
       (sess: ICodeSession) => {
