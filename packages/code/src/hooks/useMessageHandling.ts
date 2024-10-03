@@ -30,7 +30,7 @@ export const useMessageHandling = ({
   cSess,
   setEditInput,
 }: UseMessageHandlingProps) => {
-  const aiHandler = new AIHandler(cSess, setIsStreaming, codeSpace);
+  const aiHandler = new AIHandler(setIsStreaming, codeSpace);
 
   const handleSendMessage = async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;

@@ -1,6 +1,5 @@
 import { ContextManager } from "@/lib/context-manager";
 import type { Message, MessageContent } from "@/lib/interfaces";
-import type { ICode } from "@/lib/interfaces";
 import { anthropicSystem, reminder } from "../config/aiConfig";
 import { extractCodeStructure, extractCurrentTask } from "../utils/contextUtils";
 
@@ -37,13 +36,11 @@ class StreamHandler {
 export class AIService {
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
-  private cSess: ICode;
   private contextManager: ContextManager;
 
-  constructor(config: AIServiceConfig, cSess: ICode, codeSpace: string) {
+  constructor(config: AIServiceConfig, codeSpace: string) {
     this.config = config;
     this.streamHandler = new StreamHandler();
-    this.cSess = cSess;
     this.contextManager = new ContextManager(codeSpace);
   }
 

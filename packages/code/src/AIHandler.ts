@@ -1,4 +1,4 @@
-import type { ICode, Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 
 import { AIService } from "./services/AIService";
 
@@ -7,7 +7,6 @@ export class AIHandler {
   private codeSpace: string;
 
   constructor(
-    private cSess: ICode,
     setIsStreaming: (isStreaming: boolean) => void,
     codeSpace: string,
     aiService?: AIService,
@@ -22,7 +21,6 @@ export class AIHandler {
         retryWithClaudeEnabled: true,
         setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
       },
-      this.cSess,
       this.codeSpace,
     );
   }
