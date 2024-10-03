@@ -117,7 +117,7 @@ export async function processMessage(
       if (errorMessage) {
         console.log("Error detected, attempting to handle", { errorMessage });
         const errorHandled = await handleErrorMessage(
-          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager, mod },
+          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager },
         );
         if (errorHandled) {
           console.log("Error handled successfully");
