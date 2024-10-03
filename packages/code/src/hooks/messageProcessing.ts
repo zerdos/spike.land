@@ -171,7 +171,7 @@ function createOnUpdateFunction({
       mod.controller = new AbortController();
       const { signal } = mod.controller;
 
-      await mutex.runExclusive(async () => {
+      return await mutex.runExclusive(async () => {
         try {
           let finished = false;
           let iterationCount = 0;
