@@ -172,16 +172,16 @@ function createOnUpdateFunction({
       const { signal } = mod.controller;
 
       await mutex.runExclusive(async () => {
-        if (signal.aborted) {
-          console.log("Aborted onUpdate before updating");
-          return;
-        }
         try {
           let finished = false;
           let iterationCount = 0;
           const maxIterations = 1000; // Prevent infinite loop
 
           while (!finished && iterationCount < maxIterations) {
+            if (signal.aborted) {
+              console.log("Aborted onUpdate before updating");
+              return;
+            }
             console.log("Starting iteration", iterationCount);
             iterationCount++;
             const startPos = mod.actions[mod.actions.length - 1]?.lastSuccessCut || 0;
