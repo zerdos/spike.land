@@ -161,6 +161,10 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 #   && npm i -g npm yarn
 ### noVNC.Dockerfile
 
+
+
+
+# Update the package list
 # Set environment variable for the port
 ENV PORT=6080
 

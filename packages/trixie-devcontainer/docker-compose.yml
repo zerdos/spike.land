@@ -1,3 +1,4 @@
+
 services:
   devcontainer:
     build:
@@ -7,21 +8,19 @@ services:
         USER_UID: ${UID}
         USER_GID: ${GID}
         USER: ${USER}
-        HOME: ${HOME}
     tmpfs:
-      - ${HOME}/tmpfs:size=1g,rw,exec,uid=${UID},gid=${GID}
-    shm_size: 4gb
-    privileged: true
+      - /home/${USER}:exec,size=8g,uid=${UID},gid=${GID}
+    command: >
+      /bin/sh -c "
+      chown -R ${USER}:${USER} /home/${USER} &&
+      su - ${USER} -c '/usr/bin/startWithBash'
+      "
     environment:
       - USER=${USER}
-      - HOME=${HOME}
-      - XDG_CONFIG_DIRS=/etc/xdg
     volumes:
-      - .:${HOME}/workspace:rw
-      - ${HOME}/.config:${HOME}/.config
-      - ${HOME}/.cache:${HOME}/.cache
-      - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
-      - /var/run/docker.sock:/HOME/run/docker.sock
+      - ${HOME}/.config:/home/${USER}/.config:ro
+      - ${HOME}/.cache:/home/${USER}/.cache:ro
+      - ${HOME}/.oh-my-zsh:/home/${USER}/.oh-my-zsh:ro
     ports:
       - 6080:6080
       - 5901:5901
