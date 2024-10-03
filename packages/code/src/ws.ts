@@ -73,35 +73,19 @@ const handleRender = async (
           (x) => x.cssText.split("\\").join(""),
         )
         : [];
+      const htmlClasses = getClassNamesFromHTML(html);
 
       const criticalClasses = new Set(
         [
           ...tailWindClasses,
-          ...(css
-            .map((line) => {
-              const rule = line.slice(1, line.indexOf("{")).trim();
-              return html.includes(rule) ? rule : null;
-            })
-            .filter(Boolean) as string[]),
-        ],
+          ...css,
+        ].filter((line) => {
+          const rule = line.slice(1, line.indexOf("{")).trim();
+          return htmlClasses.includes(rule);
+        }),
       );
 
-      const eCss = css
-        .filter((line) => Array.from(criticalClasses).some((rule) => rule ? line.includes(rule) : false))
-        .map((x) => x.trim())
-        .filter(Boolean);
-
-      const htmlClasses = getClassNamesFromHTML(html);
-      let cssStrings = [...eCss].sort().filter(x => {
-        // we have all the classnames from the html, filering out those css rules that are not used
-        // in the html
-
-        const rule = x.slice(1, x.indexOf("{")).trim();
-
-        return htmlClasses.includes(rule);
-      }).join(
-        "\n",
-      );
+      let cssStrings = [...criticalClasses].sort().join("\n");
 
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
