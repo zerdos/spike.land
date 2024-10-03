@@ -1,5 +1,5 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICode, ICodeSession, RenderedApp } from "@/lib/interfaces";
+import type { ICode, ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 
 import type { EmotionCache } from "@emotion/cache";
 import { initializeApp } from "./hydrate";
@@ -41,7 +41,7 @@ const handleScreenshot = async () => {
       type: "image/png",
     });
     const imageData = await processImage(file);
-    window.parent.postMessage({ type: "screenShot", imageData }, "*");
+    window.parent.postMessage({ type: "screenShot", imageData } as IframeMessage, "*");
   } catch (error) {
     console.error("Error taking screenshot:", error);
   }
@@ -168,20 +168,21 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     cSess.sub(updateRenderedApp);
 
-    window.onmessage = async ({ data }) => {
+    window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
-        const { type, requestId, transpiled } = data;
+        const { type, requestId } = data;
         if (!type) return;
 
         if (type === "screenShot") {
           await handleScreenshot();
         } else if (type === "run" && requestId) {
+          const { transpiled } = data;
           const resp = await handleRunMessage({ transpiled, requestId });
 
           return window.parent.postMessage({
             type: "runResponse",
             ...resp,
-          }, "*");
+          } as IframeMessage, "*");
         }
       } catch (error) {
         console.error("Error processing message:", error);
@@ -194,6 +195,8 @@ const handleDefaultPage = async (cSess: ICode) => {
 
 const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string; requestId: string }) => {
   const { runningOperations } = mod;
+
+  console.log("Handling run message:", { transpiled, requestId });
 
   if (runningOperations.has(requestId)) {
     const res = await runningOperations.get(requestId);

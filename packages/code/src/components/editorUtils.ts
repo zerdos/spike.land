@@ -1,4 +1,4 @@
-import type { ImageData } from "@/lib/interfaces";
+import type { IframeMessage, ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
 
@@ -184,14 +184,13 @@ export const runCode = memoizeWithAbort(
         reject(new Error("Timed out"));
       }, 5000);
 
-      const messageHandler = (ev: MessageEvent): void => {
-        const data = ev.data;
+      const messageHandler = ({ data }: { data: IframeMessage }): void => {
         if (data && data.requestId === requestId) {
           if (data.type === "runResponse") {
             clearTimeout(timeoutId);
             cleanup();
             if (data.html === "" || data.css === "" || data.html.includes("Oops! Something went wrong.")) {
-              reject(new Error(data.error));
+              reject(new Error("Error running code" + data.html));
             } else {
               resolve({ html: data.html, css: data.css });
             }
@@ -210,7 +209,7 @@ export const runCode = memoizeWithAbort(
           type: "run",
           requestId,
           transpiled,
-        },
+        } as IframeMessage,
         "*",
       );
     });

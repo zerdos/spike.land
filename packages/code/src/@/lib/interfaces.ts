@@ -82,6 +82,35 @@ export interface ImageData {
   type: string;
 }
 
+export type IframeMessage = {
+  type: "run";
+  requestId: string;
+  transpiled: string;
+} | {
+  type: "runResponse";
+  requestId: string;
+  html: string;
+  css: string;
+} | {
+  type: "render";
+  requestId: string;
+} | {
+  type: "rendered";
+  requestId: string;
+  data: {
+    html: string;
+    css: string;
+  };
+} | {
+  type: "error";
+  requestId: string;
+  error: string;
+} | {
+  type: "screenShot";
+  requestId: string;
+  imageData: ImageData;
+};
+
 export interface LanguageMap {
   [key: string]: string;
 }
