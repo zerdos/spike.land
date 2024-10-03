@@ -196,7 +196,7 @@ const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string;
     requestId,
   };
 
-  await runningOperations.set(
+  runningOperations.set(
     requestId,
     (async () => {
       try {
@@ -235,7 +235,9 @@ const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string;
     })(),
   );
 
-  return result;
+  const res = await runningOperations.get(requestId)!;
+
+  return res;
 };
 
 export const main = async () => {
