@@ -237,7 +237,7 @@ function createOnUpdateFunction({
           }
 
           if (startCode !== mod.lastCode) {
-            await trySetCode(cSess, mod.lastCode);
+            await trySetCode(cSess, mod.lastCode, true);
           }
 
           if (iterationCount >= maxIterations) {
