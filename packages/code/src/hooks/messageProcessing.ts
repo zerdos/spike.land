@@ -99,12 +99,8 @@ export async function processMessage(
       messages = messagesPush(messages, assistantMessage);
       setMessages([...messages]);
 
-      if (codeNow !== cSess.session.code) {
-        const success = await trySetCode(cSess, cSess.session.code);
-        if (success) {
-          console.log("Code updated successfully");
-          return true;
-        }
+      if (mod.lastCode === cSess.session.code && codeNow !== cSess.session.code) {
+        return true;
       }
 
       const errorMessage = contextManager.getContext("errorLog");
@@ -316,7 +312,7 @@ async function handleErrorMessage(
   messages = messagesPush(messages, assistantMessage);
   setMessages([...messages]);
 
-  const success = cSess.session.code !== codeNow;
+  const success = cSess.session.code === mod.lastCode;
   console.log("Error handling result:", success);
 
   return success;
