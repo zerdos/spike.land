@@ -52,7 +52,7 @@ interface Action {
   type: string;
   lastCode?: string;
   startPos: number;
-  chunLength: number;
+  chunkLength: number;
   chunk: string;
   lastSuccessCut: number;
   hash: string;
@@ -213,7 +213,7 @@ function createOnUpdateFunction({
                   chars: instructions.length,
                   type: "skip",
                   startPos,
-                  c: chunk.length,
+                  chunkLength: chunk.length,
                   chunk,
                   lastSuccessCut: startPos,
                   hash: md5(lastCode),
@@ -227,7 +227,7 @@ function createOnUpdateFunction({
                   chars: instructions.length,
                   type: "updated",
                   startPos,
-                  chunLength: len,
+                  chunkLength: len,
                   chunk: chunk.slice(0, len),
                   lastSuccessCut: len + startPos,
                   hash: md5(mod.lastCode),
