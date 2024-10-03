@@ -144,7 +144,8 @@ const handleDefaultPage = async (cSess: ICode) => {
         console.log("Updating rendered app...");
 
         const myEl = document.createElement("div");
-        myEl.style.cssText = "height: 100%; width: 100%;";
+        myEl.style.cssText =
+          "isolation: isolate;  height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
         document.body.appendChild(myEl);
 
         // Clean up previous rendered app if any
