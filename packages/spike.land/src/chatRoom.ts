@@ -95,6 +95,7 @@ export class Code implements DurableObject {
           
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
+            this.xLog(this.session);
           }
 
 
@@ -124,7 +125,7 @@ export class Code implements DurableObject {
       if (this.session.i>10000) this.session.i = 1;
       }
     });
-    await this.xLog(this.session);
+    this.xLog(this.session);
   }
 
   private setupAutoSave() {
