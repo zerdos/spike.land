@@ -66,14 +66,6 @@ const handleRender = async (
       if (signal.aborted) return false;
 
       const css = mineFromCaches(cache);
-      const criticalClasses = new Set(
-        css
-          .map((line) => {
-            const rule = line.slice(1, line.indexOf("{")).trim();
-            return html.includes(rule) ? rule : null;
-          })
-          .filter(Boolean) as string[],
-      );
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
@@ -81,6 +73,16 @@ const handleRender = async (
           (x) => x.cssText,
         )
         : [];
+
+      const criticalClasses = new Set(
+        ...tailWindClasses,
+        ...(css
+          .map((line) => {
+            const rule = line.slice(1, line.indexOf("{")).trim();
+            return html.includes(rule) ? rule : null;
+          })
+          .filter(Boolean) as string[]),
+      );
 
       const eCss = css
         .filter((line) => Array.from(criticalClasses).some((rule) => rule ? line.includes(rule) : false))
