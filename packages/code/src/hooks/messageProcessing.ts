@@ -92,7 +92,7 @@ export async function processMessage(
       }
 
       const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager });
-      const throttledOnUpdate = throttle((instructions: string) => onUpdate(instructions), 500, {
+      const throttledOnUpdate = throttle((instructions: string) => onUpdate(instructions), 100, {
         edges: ["trailing"],
       });
 
@@ -307,7 +307,7 @@ async function handleErrorMessage(
     { setMessages, messages, cSess, contextManager },
   );
 
-  const throttledOnUpdate = throttle((instructions: string) => newOnUpdate(instructions), 500, { edges: ["trailing"] });
+  const throttledOnUpdate = throttle((instructions: string) => newOnUpdate(instructions), 100, { edges: ["trailing"] });
 
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
