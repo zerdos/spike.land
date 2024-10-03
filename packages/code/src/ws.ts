@@ -326,5 +326,7 @@ function getClassNamesFromHTML(htmlString: string) {
 
 function htmlDecode(input: string) {
   const doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.documentElement.getHTML();
+  return doc.documentElement.getHTML().split("><").join(">\n<").split("&amp;").join("&").split("&gt;").join(">").split(
+    "&lt;",
+  ).join("<").split("&quot;").join("\"").split("&apos;").join("'").split("&nbsp;").join(" ");
 }
