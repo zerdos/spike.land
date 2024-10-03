@@ -58,11 +58,7 @@ interface Action {
   hash: string;
 }
 
-const mod: Mod = {
-  controller: new AbortController(),
-  lastCode: "",
-  actions: [],
-};
+const mod: Mod = { controller: new AbortController(), lastCode: "", actions: [] };
 
 export async function processMessage(
   { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
@@ -332,7 +328,7 @@ async function handleErrorMessage(
 
   await newOnUpdate(assistantMessage.content as string);
 
-  const success = cSess.session.code === mod.lastCode;
+  const success = cSess.getCode() === mod.lastCode;
   console.log("Error handling result:", success);
 
   return success;

@@ -6,6 +6,7 @@ import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 // import { build } from "@/lib/shared";
+import { Mutex } from "async-mutex";
 import { hash } from "immutable";
 import {
   formatCode as formatCodeUtil,
@@ -14,6 +15,7 @@ import {
   transpileCode as transpileCodeUtil,
 } from "../components/editorUtils";
 import { CodeSessionBC } from "./CodeSessionBc";
+const mutex = new Mutex();
 
 async function fetchAndCreateExtraModels(
   code: string,
@@ -151,7 +153,8 @@ class CodeProcessor {
 }
 
 export class Code implements ICode {
-  session: ICodeSession;
+  session: ICodeSession; // #endregion
+
   private user: string;
   private broadcastChannel: CodeSessionBC;
 
@@ -198,38 +201,50 @@ export class Code implements ICode {
     makeHash(session);
   };
 
+  async getCode(): Promise<string> {
+    if (mutex.isLocked()) await mutex.waitForUnlock();
+    return this.session.code;
+  }
+
   async setCode(
     rawCode: string,
     skipRunning = false,
   ): Promise<string> {
-    if (rawCode === this.session.code) return this.session.code;
+    if (mutex.isLocked()) await mutex.waitForUnlock();
+    mutex.acquire();
 
-    if (this.setCodeController) {
-      this.setCodeController.abort();
+    try {
+      if (rawCode === this.session.code) return this.session.code;
+
+      if (this.setCodeController) {
+        this.setCodeController.abort();
+      }
+      this.setCodeController = new AbortController();
+      const { signal } = this.setCodeController;
+      const counter = this.session.i;
+
+      const processedSession = await this.codeProcessor.process(
+        rawCode,
+        skipRunning,
+        counter,
+        signal,
+      );
+      if (!processedSession || signal.aborted) return this.session.code;
+
+      const session = makeSession({ ...this.session, ...processedSession });
+      if (hash(session) === hash(this.session)) return this.session.code;
+
+      this.session = makeSession({ ...session, i: this.session.i + 1 });
+
+      this.broadcastChannel.postMessage({
+        ...this.session,
+        sender: "Editor",
+      } as BroadcastMessage);
+
+      return this.session.code;
+    } finally {
+      mutex.release();
     }
-    this.setCodeController = new AbortController();
-    const { signal } = this.setCodeController;
-    const counter = this.session.i;
-
-    const processedSession = await this.codeProcessor.process(
-      rawCode,
-      skipRunning,
-      counter,
-      signal,
-    );
-    if (!processedSession || signal.aborted) return this.session.code;
-
-    const session = makeSession({ ...this.session, ...processedSession });
-    if (hash(session) === hash(this.session)) return this.session.code;
-
-    this.session = makeSession({ ...session, i: this.session.i + 1 });
-
-    this.broadcastChannel.postMessage({
-      ...this.session,
-      sender: "Editor",
-    } as BroadcastMessage);
-
-    return this.session.code;
   }
 
   async setModelsByCurrentCode(newCodes: string): Promise<string> {
