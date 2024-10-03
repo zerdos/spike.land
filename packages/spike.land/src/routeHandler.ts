@@ -350,8 +350,8 @@ hQIDAQAB
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     )       .replace(
-      `<link rel="preload" href="app/tw-global.css" as="style">`,
-     `<link rel="preload" href="app/tw-global.css" as="style">
+      `<link rel="preload" href="/app/tw-global.css" as="style">`,
+     `<link rel="preload" href="/app/tw-global.css" as="style">
              <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
              <link rel="stylesheet" href="/live/${codeSpace}/index.css">
              `,
@@ -472,8 +472,8 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).
     replace(
-      `<link rel="preload" href="app/tw-global.css" as="style">`,
-      `<link rel="preload" href="app/tw-global.css" as="style">
+      `<link rel="preload" href="/app/tw-global.css" as="style">`,
+      `<link rel="preload" href="/app/tw-global.css" as="style">
               <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
               <link rel="stylesheet" href="/live/${codeSpace}/index.css">
               `,
