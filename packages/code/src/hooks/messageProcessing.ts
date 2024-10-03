@@ -96,16 +96,19 @@ export async function processMessage(
       const assistantMessage = await sendAssistantMessage(
         aiHandler,
         messages,
-        throttledOnUpdate as unknown as typeof onUpdate,
+        throttledOnUpdate as unknown as (code: string) => Promise<void>,
       );
 
       messages = messagesPush(messages, assistantMessage);
       setMessages([...messages]);
 
-      await onUpdate(assistantMessage.content as string);
-
-      if (mod.lastCode === await cSess.getCode() && codeNow !== mod.lastCode) {
-        return true;
+      const last = await onUpdate(assistantMessage.content as string);
+      if (last) {
+        console.log("Last code", last);
+        const success = await cSess.setCode(last);
+        if (success) {
+          return true;
+        }
       }
 
       const errorMessage = contextManager.getContext("errorLog");
@@ -147,7 +150,6 @@ function createOnUpdateFunction({
   setMessages,
   messages,
   cSess,
-  contextManager,
 }: {
   setMessages: (messages: Message[]) => void;
   messages: Message[];
@@ -159,7 +161,7 @@ function createOnUpdateFunction({
 
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
-      return;
+      return mod.lastCode;
     }
 
     try {
@@ -241,14 +243,16 @@ function createOnUpdateFunction({
           if (iterationCount >= maxIterations) {
             console.warn("Reached maximum iterations, forcing finish");
           }
+          return mod.lastCode;
         } catch (error) {
           console.error("Error in throttledMutexOperation:", error);
-          contextManager.updateContext("errorLog", (error as Error).message);
+
+          return mod.lastCode;
         }
       });
     } catch (error) {
       console.error("Error in mutex operation:", error);
-      contextManager.updateContext("errorLog", (error as Error).message);
+      return mod.lastCode;
     }
   };
 }
@@ -318,7 +322,7 @@ async function handleErrorMessage(
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
     messages,
-    throttledOnUpdate as unknown as typeof newOnUpdate,
+    throttledOnUpdate as unknown as (code: string) => Promise<void>,
   );
 
   messages = messagesPush(messages, assistantMessage);
@@ -326,10 +330,10 @@ async function handleErrorMessage(
 
   await newOnUpdate(assistantMessage.content as string);
 
-  const success = await cSess.getCode() === mod.lastCode;
+  const success = await cSess.setCode(mod.lastCode);
   console.log("Error handling result:", success);
 
-  return success;
+  return !!success;
 }
 
 function extractTextContent(
