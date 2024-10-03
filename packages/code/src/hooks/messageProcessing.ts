@@ -139,6 +139,7 @@ export async function processMessage(
 async function trySetCode(cSess: ICode, code: string, skipRunning = false): Promise<boolean> {
   try {
     console.log("Attempting to set code", { codeLength: code.length, skipRunning });
+    if (mod.lastCode === cSess.session.code) return true;
     const success = await cSess.setCode(code, skipRunning);
     return !!success;
   } catch (error) {
