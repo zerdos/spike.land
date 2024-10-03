@@ -75,13 +75,15 @@ const handleRender = async (
         : [];
 
       const criticalClasses = new Set(
-        ...tailWindClasses,
-        ...(css
-          .map((line) => {
-            const rule = line.slice(1, line.indexOf("{")).trim();
-            return html.includes(rule) ? rule : null;
-          })
-          .filter(Boolean) as string[]),
+        [
+          ...tailWindClasses,
+          ...(css
+            .map((line) => {
+              const rule = line.slice(1, line.indexOf("{")).trim();
+              return html.includes(rule) ? rule : null;
+            })
+            .filter(Boolean) as string[]),
+        ],
       );
 
       const eCss = css
