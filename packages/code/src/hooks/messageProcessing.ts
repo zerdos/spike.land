@@ -4,7 +4,6 @@ import { ContextManager } from "@/lib/context-manager";
 import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { updateSearchReplace } from "@/lib/shared";
-import { wait } from "@/lib/wait";
 import type { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
 import { Mutex } from "async-mutex";
@@ -78,7 +77,7 @@ export async function processMessage(
 
   while (retries < maxRetries) {
     try {
-      mod.lastCode = cSess.session.code;
+      mod.lastCode = await cSess.getCode();
       mod.actions = [];
 
       Object.assign(globalThis, { BUILD_LOG: mod });
@@ -104,9 +103,8 @@ export async function processMessage(
       setMessages([...messages]);
 
       await onUpdate(assistantMessage.content as string);
-      await wait(1000);
 
-      if (mod.lastCode === cSess.session.code && codeNow !== cSess.session.code) {
+      if (mod.lastCode === await cSess.getCode() && codeNow !== mod.lastCode) {
         return true;
       }
 
@@ -136,7 +134,7 @@ export async function processMessage(
 async function trySetCode(cSess: ICode, code: string, skipRunning = false): Promise<boolean> {
   try {
     console.log("Attempting to set code", { codeLength: code.length, skipRunning });
-    if (mod.lastCode === cSess.session.code) return true;
+    if (mod.lastCode === await cSess.getCode()) return true;
     const success = await cSess.setCode(code, skipRunning);
     return !!success;
   } catch (error) {
@@ -328,7 +326,7 @@ async function handleErrorMessage(
 
   await newOnUpdate(assistantMessage.content as string);
 
-  const success = cSess.getCode() === mod.lastCode;
+  const success = await cSess.getCode() === mod.lastCode;
   console.log("Error handling result:", success);
 
   return success;

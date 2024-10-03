@@ -53,6 +53,7 @@ export interface ICode {
   currentCodeWithExtraModels: () => Promise<string>;
   setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean>;
+  getCode(): Promise<string>;
   sub: (fn: (sess: ICodeSession) => void) => void;
 }
 
