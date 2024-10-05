@@ -124,6 +124,11 @@ sw.addEventListener("activate", (event) => {
 let lastConfigCheck = 0;
 
 sw.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   if (Date.now() - lastConfigCheck > 60 * 60 * 1000) {
     // Check every hour
     lastConfigCheck = Date.now();
