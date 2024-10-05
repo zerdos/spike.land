@@ -14,6 +14,16 @@ import { ASSET_MANIFEST, ASSET_HASH,  files } from "./staticContent.mjs";
 export default {
  
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    const url = new URL(request.url);
+
+
+    if (url.pathname === "/@/swVersion.mjs" || url.pathname === "/swVersion.mjs")  {
+      return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {  
+        headers: {
+          "Content-Type": "application/javascript",
+        }
+      });
+    }
 
   
     const kvServer = serveWithCache(files, () => caches.open("file-cache-24"));
@@ -31,7 +41,6 @@ export default {
     //   "files.json": async () => handleFilesJson(),
 
 
-    const url = new URL(request.url);
 
   
     const logger = new KVLogger("myapp", env.KV);
