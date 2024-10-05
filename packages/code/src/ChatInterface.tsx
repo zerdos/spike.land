@@ -79,6 +79,31 @@ export const ChatInterface: React.FC<{
   
 
   useEffect(() => {
+    const BC= new BroadcastChannel(`${codeSpace}-chat`);
+    BC.onmessage = (event: {data: 
+      { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string }}) => {
+      const { messages, isStreaming, message, chunk } = event.data;
+      if (messages) {
+        setImmer(messages);
+      }
+      if (isStreaming) {
+        setIsStreaming(isStreaming);
+      }
+      if (message) {
+
+        setImmer((prev: Message[])=>([...prev, message]));  
+      }
+      if (chunk) {
+        setImmer((prev: Message[])=>{
+          const lastMessage = prev[prev.length - 1];
+          lastMessage.content += chunk
+ 
+          return prev;
+
+        });
+      }
+
+    };
     if (isStreaming && messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
       const interval = setTimeout(() => {

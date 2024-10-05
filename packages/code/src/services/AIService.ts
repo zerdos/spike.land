@@ -15,6 +15,10 @@ export interface AIServiceConfig {
 type AIEndpoint = "gpt4o" | "anthropic" | "openAI";
 
 class StreamHandler {
+  constructor(private BC: BroadcastChannel) {
+    this.BC = BC;
+  }
+
   private decoder = new TextDecoder();
 
   async handleStream(
@@ -26,6 +30,7 @@ class StreamHandler {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = this.decoder.decode(value);
+      this.BC.postMessage({ chunk });
       chunks.push(chunk);
       onUpdate(chunks.join("").trim()); // Pass only the latest chunk
     }
@@ -37,10 +42,13 @@ export class AIService {
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
   private contextManager: ContextManager;
+  private BC: BroadcastChannel;
 
   constructor(config: AIServiceConfig, codeSpace: string) {
     this.config = config;
-    this.streamHandler = new StreamHandler();
+    this.BC = new BroadcastChannel(`${codeSpace}-chat`);
+
+    this.streamHandler = new StreamHandler(this.BC);
     this.contextManager = new ContextManager(codeSpace);
   }
 

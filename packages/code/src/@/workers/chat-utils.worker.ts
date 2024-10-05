@@ -1,4 +1,3 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
 import { replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import { messagesPush } from "@/lib/chat-utils";
 import { ContextManager } from "@/lib/context-manager";
@@ -16,6 +15,8 @@ import { Code } from "../../services/CodeSession";
 const handleSendMessage = async (
   { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
 ) => {
+  const BC = new BroadcastChannel(`${codeSpace}-chat`);
+
   const [, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
   const messStorage = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
   let messages = messStorage[0] || [];
@@ -37,6 +38,7 @@ const handleSendMessage = async (
   const newUserMessage = await createNewMessage(images, claudeContent);
   messages = messagesPush(messages, newUserMessage);
   setMessages([...messages]);
+  BC.postMessage({ message: newUserMessage });
 
   try {
     const success = await processMessage({
@@ -125,7 +127,7 @@ export async function processMessage(
   },
 ): Promise<boolean> {
   console.log("Processing message", { codeLength: codeNow.length, messageCount: messages.length });
-  const contextManager = new ContextManager(useCodeSpace());
+  const contextManager = new ContextManager(cSess.session.codeSpace);
 
   const maxRetries = 3;
   let retries = 0;
