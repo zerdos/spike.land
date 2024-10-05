@@ -60,11 +60,18 @@ export class Code implements DurableObject {
   }
 
   private async initializeSession(url: URL) {
+    if (this.initialized) return;
     this.origin = url.origin;
     const codeSpace = this.getCodeSpace(url);
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
+
+      if (this.initialized) return;
+      this.origin = url.origin;
+      const codeSpace = this.getCodeSpace(url);
+  
+
         const storedSession = await this.state.storage.get<ICodeSession>("session");
 
         if (storedSession && storedSession.i) {
@@ -124,11 +131,15 @@ export class Code implements DurableObject {
         this.session = this.backupSession;
       }
       finally {
+        this.initialized = true;
         
       this.session.codeSpace =   this.session.codeSpace ||codeSpace;
       if (this.session.i>10000) this.session.i = 1;
       }
+
+
     });
+
     this.xLog(this.session);
   }
 
@@ -179,6 +190,16 @@ export class Code implements DurableObject {
     const url = new URL(request.url);
     if (this.session) {
       this.origin = url.origin;
+    }
+   
+    if (!this.initialized) {
+      
+      await this.initializeSession(url).then(() => {  ;
+      this.setupAutoSave()
+
+  
+      });
+     
     }
     
     try {
@@ -234,14 +255,7 @@ export class Code implements DurableObject {
         }
       }
 
-      if (!this.initialized) {
-        this.initializeSession(url).then(() => {  ;
-        this.setupAutoSave()
-        this.initialized = true;
-    
-        });
-       
-      }
+  
 
       const path = url.pathname.slice(1).split("/");
       return this.routeHandler.handleRoute(request, url, path);
