@@ -102,7 +102,7 @@ export async function processMessage(
       messages = messagesPush(messages, assistantMessage);
       setMessages([...messages]);
 
-      const last = await onUpdate(assistantMessage.content as string);
+      const last = await onUpdate(assistantMessage.content as string, true);
       if (last) {
         console.log("Last code", last);
         const success = await cSess.setCode(last);
@@ -156,9 +156,12 @@ function createOnUpdateFunction({
   cSess: ICode;
   contextManager: ContextManager;
 }) {
-  return async (instructions: string) => {
+  return async (instructions: string, doIt = false) => {
     updateMessagesFromInstructions(instructions, messages, setMessages, messagesPush);
 
+    if (!doIt) {
+      return mod.lastCode;
+    }
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
       return mod.lastCode;
