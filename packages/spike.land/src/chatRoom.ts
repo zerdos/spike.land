@@ -246,8 +246,7 @@ export class Code implements DurableObject {
             },
           })).text();
 
-          this.setSession(makeSession(this.session)
-          );
+          this.setSession(makeSession(this.session));
         
         } catch (error) {
           console.error("Error transpiling code:", error);
