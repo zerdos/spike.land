@@ -3150,7 +3150,7 @@ var transpile = async ({ code, originToUse, wasmModule }) => {
           },
           target: "es2024"
         });
-        return importMapReplace(transformedCode.code, "/");
+        return importMapReplace(transformedCode.code, "");
       } catch (error) {
         if (error instanceof Error) {
           console.error("Error during transpile:", error.message);
