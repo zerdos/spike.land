@@ -30,6 +30,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       const diffEditor = editor.createDiffEditor(containerRef.current, {
         readOnly,
         wordWrap: "on",
+        diffAlgorithm: "advanced",
         inDiffEditor: true,
         wordWrapColumn: 80,
         padding: { top: 20, bottom: 20 },
