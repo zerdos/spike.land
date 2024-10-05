@@ -1,6 +1,6 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
-import importMap, { importMapReplace } from "@/lib/importmap-utils";
+import importMap from "@/lib/importmap-utils";
 import { wasmFile } from "@src/esbuildWASM";
 import { Mutex } from "async-mutex";
 import type { BuildOptions } from "esbuild-wasm";
@@ -67,7 +67,7 @@ export const transpile = async (
           target: "es2024",
         });
 
-        return importMapReplace(transformedCode.code, "");
+        return transformedCode.code;
       } catch (error) {
         if (error instanceof Error) {
           console.error("Error during transpile:", error.message);
