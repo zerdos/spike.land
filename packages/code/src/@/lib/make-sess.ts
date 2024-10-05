@@ -51,9 +51,9 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
 export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
 
 export const makeSession = (p: ICodeSession) => {
-  if (!p.code.startsWith(`// ${p.codeSpace}.tsx\n`)) {
-    p.code = `// ${p.codeSpace}.tsx\n${p.code.slice(0, p.code.indexOf("import") + 1)}${p.code}`;
-  }
+  // remove everything before the first import
+  p.code = p.code.replace(/^(.|\n)*?(import)/, "import");
+  p.code = `// ${p.codeSpace}.tsx\n${p.code}`;
 
   const rec = Record<ICodeSession>({
     i: p.i || 0,
