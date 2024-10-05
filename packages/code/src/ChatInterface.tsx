@@ -72,12 +72,6 @@ export const ChatInterface: React.FC<{
     cSess,
   });
   
-  useEffect(() => {
-    console.log("ChatInterface rendered");
-    console.log("messages", messages);
-    console.log("messHash", md5(messages));
-    setIsStreaming(messages.length > 0);   
-  }, [messages, setIsStreaming]);
 
   useEffect(() => {
     if (isStreaming && messages.length > 0) {
@@ -97,7 +91,7 @@ export const ChatInterface: React.FC<{
     } else {
       return undefined;
     }
-  }, [isStreaming, messages, setIsStreaming]);
+  }, []);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
