@@ -1,5 +1,5 @@
 import { createClerkClient } from "@clerk/backend";
-import { makeSession, md5, stringifySession } from "@spike-land/code";
+import { importMapReplace, makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
 import { importMap, HTML } from "@spike-land/code";
 
@@ -628,29 +628,9 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleJsRoute(request: Request): Promise<Response> {
-    let code = this.code.session.code;
-    const timestamp = new URL(request.url).searchParams.get("timestamp");
+    const  replaced = importMapReplace(this.code.session.transpiled, this.code.getOrigin());
 
-    if (timestamp) {
-      const savedVersion = await this.code.getState().storage.get(
-        `savedVersion_${timestamp}`,
-      );
-      if (savedVersion) {
-        code = savedVersion as string;
-      }
-    }
-
-    const transpiled = await fetch(`https://js.spike.land`, {
-      method: "POST",
-      body: code,
-      headers: { TR_ORIGIN: this.code.getOrigin() },
-    }).then((r) => r.text());
-
-    const replaced = transpiled.replace(
-      /https:\/\/spike\.land\//g,
-      `${this.code.getOrigin()}/`,
-    );
-    return new Response(replaced, {
+    return new Response( replaced, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
