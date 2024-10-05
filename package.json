@@ -35,8 +35,8 @@
     "deploy:x": "yarn c:build && yarn concurrently --kill-others-on-fail \"yarn fmt && yarn && yarn fmt && git add . \"  \"yarn c:deploy\" \"yarn deploy:prod\" \"yarn deploy:esbuild\" && yarn push "
   },
   "devDependencies": {
-    "@cloudflare/workerd-linux-arm64": "^1.20240925.0",
-    "@cloudflare/workers-types": "^4.20240925.0",
+    "@cloudflare/workerd-linux-arm64": "^1.20241004.0",
+    "@cloudflare/workers-types": "^4.20241004.0",
     "@emotion/react": "11.13.3",
     "@playwright/test": "1.47.2",
     "@spike-land/ai-devtools": "workspace:^",
@@ -45,12 +45,12 @@
     "@yarnpkg/sdks": "3.2.0",
     "concurrently": "^9.0.1",
     "dprint": "0.47.2",
-    "eslint": "9.11.1",
+    "eslint": "9.12.0",
     "eslint-plugin-react": "7.37.1",
     "playwright": "1.47.2",
     "react": "18.3.1",
     "typescript": "5.6.2",
-    "wrangler": "^3.79.0"
+    "wrangler": "^3.80.0"
   },
   "packageManager": "yarn@4.5.0",
   "dependencies": {

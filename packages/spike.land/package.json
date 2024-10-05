@@ -16,17 +16,17 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/workers-types": "4.20240925.0",
+    "@cloudflare/workers-types": "4.20241004.0",
     "@types/mime-db": "^1.43.5",
     "@types/mime-types": "^2.1.4",
     "typescript": "5.6.2",
-    "wrangler": "3.79.0"
+    "wrangler": "3.80.0"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.27.3",
+    "@anthropic-ai/sdk": "^0.28.0",
     "@clerk/backend": "1.13.8",
     "@clerk/clerk-sdk-node": "5.0.48",
-    "@cloudflare/vitest-pool-workers": "^0.5.13",
+    "@cloudflare/vitest-pool-workers": "^0.5.14",
     "@remix-run/cloudflare": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@spike-land/code": "0.9.55",
