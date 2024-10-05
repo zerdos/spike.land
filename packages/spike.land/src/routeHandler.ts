@@ -39,7 +39,6 @@ export class RouteHandler {
       websocket: this.handleWebsocketRoute.bind(this),
       code: this.handleCodeRoute.bind(this),
       "index.tsx": this.handleCodeRoute.bind(this),
-      session: this.handleSessionRoute.bind(this),
       "session.json": this.handleSessionRoute.bind(this),
       lazy: this.handleLazyRoute.bind(this),
       request: this.handleRequestRoute.bind(this),

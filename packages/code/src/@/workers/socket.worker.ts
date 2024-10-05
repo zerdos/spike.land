@@ -473,11 +473,31 @@ async function handleBroadcastMessage(
       (async () => {
         if (bModI > connection.lastCounter) {
           console.log({ bModI, lastCounter: connection.lastCounter });
-        }
-        {
-          console.log("Session already up to date");
+        } else {
+          console.log("Skipping session update due to outdated counter");
+
+          if (bModI === connection.lastCounter) {
+            // nothing to update
+            console.log("Nothing to update");
+            return;
+          }
+
+          // fetching the latest session
+          // and broadcasting it to the channel
+
+          const session = await fetchInitialSession(codeSpace);
+          const { broadcastChannel } = connection;
+          broadcastChannel.postMessage({
+            ...session,
+            sender: SENDER_WORKER_HANDLE_CHANGES,
+          });
+          connection.oldSession = session;
+          connection.lastCounter = session.i;
+          console.log("Session updated successfully");
+
           return;
         }
+
         if (signal.aborted) {
           console.log("Session update aborted");
           return;

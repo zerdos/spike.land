@@ -176,7 +176,7 @@ sw.addEventListener("fetch", (event) => {
       }),
     );
   }
-  if (request.url.includes("/live/") && request.url.includes("/session")) {
+  if (request.url.includes("/live/") && request.url.includes("/session.json")) {
     console.log("session request", request.url);
 
     const codeSpace = useCodeSpace(new URL(request.url).pathname);
