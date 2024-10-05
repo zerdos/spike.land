@@ -65,7 +65,7 @@ export default {
   if (url.pathname === "/transpile" && request.method === "POST") {
     const body = await request.text()
   
-    return env.ESBUILD.fetch({
+    return await env.ESBUILD.fetch({
       body, 
       method: "POST",
       headers: {
