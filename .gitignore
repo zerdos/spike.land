@@ -126,3 +126,4 @@ files.md
 codebase.md
 *.d.ts
 *.m.ts
+.wrangler
