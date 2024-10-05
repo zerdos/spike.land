@@ -65,15 +65,22 @@ export default {
   if (url.pathname === "/transpile" && request.method === "POST") {
     const body = await request.text()
 
-   return await fetch("https://esbuild.spikeland.workers.dev", {
-      method: "POST",
-      body,
-            headers: {
-        "TR_ORIGIN": url.origin,
-        // Include any additional headers required for authentication
-      },
-    }).then((res) => res.text()); 
-  
+   const transpiled = await (await fetch("https://esbuild.spikeland.workers.dev", {
+    method: "POST",
+    body: body,
+    headers: {
+      "TR_ORIGIN": url.origin,
+      // Include any additional headers required for authentication
+    },
+  })).text();
+
+  return new Response(transpiled, {
+    headers: {
+      "Content-Type": "application/javascript",
+    },
+  });
+
+
     // return await env.ESBUILD.fetch({
     //   body, 
     //   method: "POST",
