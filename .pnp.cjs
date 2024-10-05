@@ -7448,6 +7448,7 @@ const RAW_RUNTIME_STATE =
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.1"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.12.1"],\
           ["@spike-land/code", "workspace:packages/code"],\
+          ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@types/mime-db", "npm:1.43.5"],\
           ["@types/mime-types", "npm:2.1.4"],\
           ["@types/node", "npm:22.7.4"],\

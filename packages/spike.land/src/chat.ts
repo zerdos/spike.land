@@ -11,7 +11,6 @@ import { serveWithCache } from "@spike-land/code";
 import { ASSET_MANIFEST, ASSET_HASH,  files } from "./staticContent.mjs";
 
 
-
 export default {
  
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -63,13 +62,26 @@ export default {
       },
     }); 
   }
+  if (url.pathname === "/transpile" && request.method === "POST") {
+    const body = await request.text()
+  
+    return env.ESBUILD.fetch({
+      body, 
+      method: "POST",
+      headers: {
+        "TR_ORIGIN": url.origin,
+      }
+
+    }
+  );
+}
   if (url.pathname === "/ASSET_MANIFEST") {
     return new Response(ASSET_MANIFEST as unknown as string, {
       headers: {
         "Content-Type": "application/json",
       },
-  });
-}
+  })
+  }
 
     if (url.pathname === serverFetchUrl) {
 

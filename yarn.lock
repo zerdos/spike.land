@@ -4874,6 +4874,7 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.12.1"
     "@remix-run/react": "npm:^2.12.1"
     "@spike-land/code": "npm:0.9.55"
+    "@spike-land/transpile": "npm:0.9.55"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.4"
@@ -5203,7 +5204,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/transpile@workspace:packages/js.spike.land":
+"@spike-land/transpile@npm:0.9.55, @spike-land/transpile@workspace:packages/js.spike.land":
   version: 0.0.0-use.local
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:

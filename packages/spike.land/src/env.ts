@@ -1,3 +1,4 @@
+import type * as ESBUILD from "@spike-land/transpile";
 /// <reference types="@cloudflare/workers-types" />
 
 // import {DurableObjectNamespace, KVNamespace} from "@cloudflare/workers-types"
@@ -12,7 +13,7 @@ export default interface Env {
   ANTHROPIC_API_KEY: string;
   CLERK_SECRET_KEY: string;
   CF_REAL_TURN_TOKEN: string;
-  ESBUILD: ExportedHandler;
+  ESBUILD: ESBUILD;
   NPM_TOKEN?: string;
   CODE: DurableObjectNamespace;
   LIMITERS: DurableObjectNamespace;
