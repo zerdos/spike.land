@@ -4,16 +4,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
       args:
         USER_UID: ${UID}
         USER_GID: ${GID}
         USER: ${USER}
+    privileged: true
+    shm_size: 8gb
+    platform: linux/arm64
     tmpfs:
       - /home/${USER}/tmpfs:exec,size=8g,uid=${UID},gid=${GID}
     environment:
       - USER=${USER}
     volumes:
-      - ${HOME}/.config:/home/${USER}/.config
       - ${HOME}/.cache:/home/${USER}/.cache
       - ${HOME}/.oh-my-zsh:/home/${USER}/.oh-my-zsh
     ports:
