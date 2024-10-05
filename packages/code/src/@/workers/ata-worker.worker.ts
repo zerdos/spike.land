@@ -51,7 +51,7 @@ const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   prettierCss: ["prettier-esm"],
   ata: ["ata", "dts"],
   transpile: ["transpile"],
-  updateSearchReplace: ["chat-utils"],
+  updateSearchReplace: ["chat-utils", "transpile", "prettier-esm"],
   build: ["transpile"],
   tsx: ["dts"],
   setConnections: ["socket"],

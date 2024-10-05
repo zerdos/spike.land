@@ -143,6 +143,8 @@ export const updateSearchReplace = async (
 ): Promise<{
   result: string;
   len: number;
+  transpiled?: string;
+  formatted?: string;
 }> => {
   const worker = workerPool.getWorker("search-replace");
   try {

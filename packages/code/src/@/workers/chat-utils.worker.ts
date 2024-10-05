@@ -1,14 +1,18 @@
 import { replaceFirstCodeMod as up } from "@/lib/chat-utils";
+import type { prettierJs } from "@/lib/prettier";
+import type { transpile } from "@/lib/transpile";
 
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
+
+const m = globalThis as unknown as { transpile: typeof transpile; prettierJs: typeof prettierJs };
 
 // Debug function
 const debug = (message: string, ...args: unknown[]) => {
   console.log(`[DEBUG] ${message}`, ...args);
 };
 
-export const updateSearchReplace = async (
+const ups = async (
   { instructions, code }: { instructions: string; code: string },
 ): Promise<{ result: string; transpiled?: string; len: number }> => {
   debug("Function called with instructions length:", instructions.length);
@@ -59,6 +63,32 @@ export const updateSearchReplace = async (
   debug("Minimum instructions length found:", len);
 
   return { result: rMin, len };
+};
+
+export const updateSearchReplace = async (
+  { instructions, code }: { instructions: string; code: string },
+): Promise<{ result: string; transpiled?: string; formatted?: string; len: number }> => {
+  const { result, len } = await ups({ instructions, code });
+
+  if (result === code) {
+    debug("No changes in code");
+    return { result, len };
+  }
+  if (len === 0) {
+    throw new Error("Replace block not finished");
+  }
+
+  const formatted = await m.prettierJs({ code: result, toThrow: true });
+  const transpiled = await m.transpile({ code: formatted, originToUse: location.origin });
+
+  if (typeof transpiled !== "string" || typeof formatted !== "string") {
+    return {
+      result: code,
+      len: 0,
+    };
+  }
+
+  return { result, formatted, transpiled, len };
 };
 
 Object.assign(globalThis, { updateSearchReplace });

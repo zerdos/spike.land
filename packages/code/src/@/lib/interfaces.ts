@@ -54,6 +54,13 @@ export interface ICode {
   setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean>;
   getCode(): Promise<string>;
+  setCodeAndTranspiled({
+    formatted,
+    transpiled,
+  }: {
+    formatted: string;
+    transpiled: string;
+  }): boolean;
   sub: (fn: (sess: ICodeSession) => void) => void;
 }
 

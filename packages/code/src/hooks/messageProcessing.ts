@@ -171,7 +171,6 @@ function createOnUpdateFunction({
 
       return await mutex.runExclusive(async () => {
         try {
-          const startCode = mod.lastCode;
           let finished = false;
           let iterationCount = 0;
           const maxIterations = 1000;
@@ -198,7 +197,10 @@ function createOnUpdateFunction({
               break;
             }
 
-            const { result, len } = await updateSearchReplace({ instructions: chunk, code: lastCode });
+            const { result, len, formatted, transpiled } = await updateSearchReplace({
+              instructions: chunk,
+              code: lastCode,
+            });
 
             if (lastCode === result) {
               mod.actions.push({
@@ -234,10 +236,12 @@ function createOnUpdateFunction({
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
             }
-          }
-
-          if (startCode !== mod.lastCode) {
-            await trySetCode(cSess, mod.lastCode);
+            if (formatted && transpiled) {
+              cSess.setCodeAndTranspiled({
+                formatted,
+                transpiled,
+              });
+            }
           }
 
           if (iterationCount >= maxIterations) {

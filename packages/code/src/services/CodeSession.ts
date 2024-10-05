@@ -204,6 +204,28 @@ export class Code implements ICode {
     return this.session.code;
   }
 
+  setCodeAndTranspiled({
+    formatted,
+    transpiled,
+  }: {
+    formatted: string;
+    transpiled: string;
+  }): boolean {
+    if (this.session.code === formatted && this.session.transpiled === transpiled) {
+      return false;
+    }
+
+    this.session = makeSession({
+      ...this.session,
+      code: formatted,
+      transpiled,
+      i: this.session.i + 1,
+    });
+
+    this.broadcastChannel.postMessage(this.session);
+    return true;
+  }
+
   async setCode(
     rawCode: string,
     skipRunning = false,
