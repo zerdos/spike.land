@@ -61,6 +61,8 @@ const handlePostRequest = async (request: Request) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
+        "Content-Type": "application/javascript",
+        "cache-control": "no-cache",
       },
     });
   }
