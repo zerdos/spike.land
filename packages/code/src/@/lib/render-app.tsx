@@ -11,9 +11,11 @@ import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
 
+const origin = location.origin; 
+
 const createJsBlob = (code: string): string =>
   new URL(URL.createObjectURL(
-    new Blob([importMapReplace(importMapReplace(code, location.origin).split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`)], { type: "application/javascript"}) ), location.origin).toString();
+    new Blob([importMapReplace(code.split('importMapReplace').join(""), origin).split(`"/@/`).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`)], { type: "application/javascript"}) ), location.origin).toString();
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
