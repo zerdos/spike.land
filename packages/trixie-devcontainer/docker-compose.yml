@@ -9,18 +9,13 @@ services:
         USER_GID: ${GID}
         USER: ${USER}
     tmpfs:
-      - /home/${USER}:exec,size=8g,uid=${UID},gid=${GID}
-    command: >
-      /bin/sh -c "
-      chown -R ${USER}:${USER} /home/${USER} &&
-      su - ${USER} -c '/usr/bin/startWithBash'
-      "
+      - /home/${USER}/tmpfs:exec,size=8g,uid=${UID},gid=${GID}
     environment:
       - USER=${USER}
     volumes:
-      - ${HOME}/.config:/home/${USER}/.config:ro
-      - ${HOME}/.cache:/home/${USER}/.cache:ro
-      - ${HOME}/.oh-my-zsh:/home/${USER}/.oh-my-zsh:ro
+      - ${HOME}/.config:/home/${USER}/.config
+      - ${HOME}/.cache:/home/${USER}/.cache
+      - ${HOME}/.oh-my-zsh:/home/${USER}/.oh-my-zsh
     ports:
       - 6080:6080
       - 5901:5901
