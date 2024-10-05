@@ -1,6 +1,6 @@
-import { swVersion } from "/swVersion.mjs";
 import AlwaysSupportedSharedWorker from "@/external/shared-worker";
 import type { ICodeSession } from "@/lib/interfaces";
+import { swVersion } from "@/lib/swVersion";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -80,7 +80,7 @@ class WorkerPool {
 }
 
 // Usage
-let workerPool: WorkerPool;
+let workerPool: WorkerPool = new WorkerPool(0, swVersion);
 
 function init(swVersion: string) {
   workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool || new WorkerPool(0, swVersion);
@@ -88,9 +88,6 @@ function init(swVersion: string) {
   const worker = workerPool.getWorker("connect");
 
   return worker.rpc;
-}
-if (!workerPool) {
-  init(swVersion);
 }
 
 export const prettierToThrow = async ({

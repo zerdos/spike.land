@@ -102,5 +102,5 @@
     "src/**/*.mjs",
     "helpers.ts"
   ],
-  "exclude": [".yarn", "dist", "esbuild-depts.ts"]
+  "exclude": [".yarn", "dist", "esbuild-depts.ts", "assets", "node_modules"]  
 }

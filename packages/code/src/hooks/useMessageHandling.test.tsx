@@ -43,6 +43,7 @@ describe("useMessageHandling", () => {
     screenShot: vi.fn().mockResolvedValue(mockImageData),
     currentCodeWithExtraModels: vi.fn().mockResolvedValue("test code with extra models"),
     setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
+    getCode: vi.fn().mockResolvedValue("test code"),
   };
 
   const defaultProps = {

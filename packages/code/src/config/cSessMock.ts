@@ -57,6 +57,9 @@ class SessMock implements ICode {
     this.broadCastSessChanged();
     return code;
   }
+  async getCode(): Promise<string> {
+    return this.session.code;
+  }
 }
 
 export const cSessMock = new SessMock();

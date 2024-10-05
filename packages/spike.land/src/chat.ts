@@ -48,7 +48,7 @@ export default {
     });
   }
 
-  if (url.pathname === "/swVersion.mjs") {
+  if (url.pathname === "/@/swVersion.mjs" || url.pathname === "/swVersion.mjs")  {
     return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {  
       headers: {
         "Content-Type": "application/javascript",

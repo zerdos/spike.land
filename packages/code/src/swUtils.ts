@@ -1,4 +1,4 @@
-import { swVersion } from "./swVersion";
+import { swVersion } from "@/lib/swVersion";
 async function testRegistration() {
   if ("serviceWorker" in navigator) {
     try {
