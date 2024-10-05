@@ -64,16 +64,25 @@ export default {
   }
   if (url.pathname === "/transpile" && request.method === "POST") {
     const body = await request.text()
-  
-    return await env.ESBUILD.fetch({
-      body, 
-      method: "POST",
-      headers: {
-        "TR_ORIGIN": url.origin,
-      }
 
-    }
-  );
+    return await fetch("https://esbuild.spikeland.workers.dev", {
+      method: "POST",
+      body,
+            headers: {
+        "TR_ORIGIN": url.origin,
+        // Include any additional headers required for authentication
+      },
+    })
+  
+    // return await env.ESBUILD.fetch({
+    //   body, 
+    //   method: "POST",
+    //   headers: {
+    //     "TR_ORIGIN": url.origin,
+    //   }
+
+    // }
+ // );
 }
   if (url.pathname === "/ASSET_MANIFEST") {
     return new Response(ASSET_MANIFEST as unknown as string, {
