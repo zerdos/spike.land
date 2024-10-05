@@ -26,7 +26,9 @@ type WorkerFunctions = {
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
-  updateSearchReplace: ({ instructions, code }: { instructions: string; code: string }) => Promise<string>;
+  handleSendMessage: (
+    { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
+  ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 };
 
@@ -51,7 +53,7 @@ const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   prettierCss: ["prettier-esm"],
   ata: ["ata", "dts"],
   transpile: ["transpile"],
-  updateSearchReplace: ["chat-utils", "transpile", "prettier-esm"],
+  handleSendMessage: ["chat-utils", "transpile", "prettier-esm"],
   build: ["transpile"],
   tsx: ["dts"],
   setConnections: ["socket"],

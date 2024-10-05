@@ -7,6 +7,10 @@ interface BaseProps {
   height?: number;
 }
 
+export interface UseMessageHandlingProps {
+  codeSpace: string;
+}
+
 export type FlexibleComponentType<P = unknown> = ComponentType<P & BaseProps>;
 
 export interface ChatHeaderProps {
@@ -20,7 +24,11 @@ export interface MessageInputProps {
   input: string;
   isDarkMode: boolean;
   setInput: (value: string) => void;
-  handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
+  handleSendMessage: ({ codeSpace, prompt, images }: {
+    codeSpace: string;
+    prompt: string;
+    images: ImageData[];
+  }) => Promise<void>;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
@@ -191,7 +199,9 @@ export interface ChatDrawerProps {
   isStreaming: boolean;
   input: string;
   setInput: (input: string) => void;
-  handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
+  handleSendMessage: (
+    { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
+  ) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;

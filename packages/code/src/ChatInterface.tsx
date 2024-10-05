@@ -3,12 +3,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { useMessageHandling } from "./hooks/useMessageHandling";
+
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { useImmer } from "use-immer";
+import { handleSendMessage } from "@/lib/shared";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -54,23 +55,27 @@ export const ChatInterface: React.FC<{
     }
   }, [setMessages]);
 
-  const {
-    handleSendMessage,
-    handleEditMessage,
-    handleCancelEdit,
-    handleSaveEdit,
-  } = useMessageHandling({
-    codeSpace,
-    messages,
-    setMessages,
-    setInput,
-    setIsStreaming: setIsStreaming as React.Dispatch<React.SetStateAction<boolean>>,
-    editingMessageId,
-    setEditingMessageId,
-    editInput,
-    setEditInput,
-    cSess,
-  });
+  const handleCancelEdit = useCallback(() => {
+    setEditingMessageId(null);
+    setEditInput("");
+  }, [setEditingMessageId, setEditInput]);
+
+  const handleSaveEdit = (messageId: string) => {
+    const mess = messages.map((msg) =>
+      msg.id === messageId
+        ? {
+          ...msg,
+          content: typeof msg.content === "string" ? msg.content : Array.isArray(msg.content)
+            ? msg.content.map(item => item.type === "text" ? { ...item, text: editInput } : item)
+            : editInput,
+        }
+        : msg
+    );
+
+    setMessages([...mess]);
+    setEditingMessageId(null);
+    setEditInput("");
+  };
   
 
   useEffect(() => {
@@ -120,22 +125,32 @@ export const ChatInterface: React.FC<{
       if (storedData) {
         const {prompt, images} = JSON.parse(storedData) as {prompt: string; images: ImageData[]};
         sessionStorage.removeItem(maybeKey);
-        handleSendMessage(prompt, images);
+        setInput('');
+        handleSendMessage({codeSpace, prompt, images});
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
 
-  const memoizedHandleSendMessage = useCallback((message: string, images?: ImageData[]): Promise<void> => {
-    return handleSendMessage(message, images || []);
-  }, [handleSendMessage]);
+
 
   const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
   }, []);
 
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
-    handleEditMessage(messageId);
-  }, [handleEditMessage]);
+    setEditingMessageId(messageId);
+
+      const messageToEdit = messages.find((msg) => msg.id === messageId);
+      if (!messageToEdit) {
+        console.error("Invalid message for editing");
+        return;
+      }
+      const contentToEdit = Array.isArray(messageToEdit.content)
+        ? messageToEdit.content.find(item => item.type === "text")?.text || ""
+        : messageToEdit.content;
+  
+      setEditInput(contentToEdit);
+  }, [handleSendMessage]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
@@ -156,7 +171,7 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      handleSendMessage={memoizedHandleSendMessage}
+      handleSendMessage={({codeSpace, prompt, images}: {codeSpace: string, prompt: string, images: ImageData[]}) => handleSendMessage({ codeSpace, prompt, images })}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

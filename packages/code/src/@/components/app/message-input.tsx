@@ -8,6 +8,7 @@ import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
 import type { ImageData } from "@/lib/interfaces";
+import { useCodeSpace } from "@/hooks/use-code-space";
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -25,7 +26,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    handleSendMessage(input, uploadedImages);
+    handleSendMessage({codeSpace: useCodeSpace(), prompt: input, images: uploadedImages});
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
