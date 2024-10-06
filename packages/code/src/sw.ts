@@ -305,7 +305,7 @@ sw.addEventListener("fetch", (event) => {
         const session = await sw.cSessions[codeSpace].init();
 
         if (typeof session.transpiled !== "string" || session.transpiled === "") {
-          const transpiled = await transpile({ code: session.code, originToUse: "" }) as unknown as string;
+          const transpiled = await transpile({ code: session.code, originToUse: location.origin }) as unknown as string;
           session.transpiled = transpiled;
           await sw.cSessions[codeSpace].postMessage({
             ...session,
