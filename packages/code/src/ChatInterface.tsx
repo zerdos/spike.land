@@ -81,8 +81,8 @@ export const ChatInterface: React.FC<{
   useEffect(() => {
     const BC= new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = (event: {data: 
-      { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string }}) => {
-      const { messages, isStreaming, message, chunk } = event.data;
+      { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
+      const { messages, isStreaming, message, chunk, code } = event.data;
       if (messages) {
         setImmer(messages);
       }
@@ -92,6 +92,9 @@ export const ChatInterface: React.FC<{
       if (message) {
 
         setImmer((prev: Message[])=>([...prev, message]));  
+      }
+      if (code){
+        cSess.setCode(code);
       }
       if (chunk) {
         setImmer((prev: Message[])=>{

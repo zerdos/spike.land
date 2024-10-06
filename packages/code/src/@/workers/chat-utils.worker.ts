@@ -10,7 +10,7 @@ import { claudeRecovery } from "@src/config/aiConfig";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
-import { Code } from "../../services/CodeSession";
+import { CodeSessionBC } from "../../services/CodeSessionBc";
 
 const handleSendMessage = async (
   { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
@@ -22,7 +22,24 @@ const handleSendMessage = async (
   let messages = messStorage[0] || [];
   const setMessages = messStorage[1];
 
-  const cSess = new Code(codeSpace);
+  const cSess = new CodeSessionBC(codeSpace);
+  const extendedBcSess = {
+    ...cSess,
+    setCode: async (rawCode: string, skipRunning = false) => {
+      if (skipRunning) {
+        const formatted = await m.prettierJs({ code: rawCode, toThrow: true });
+        const transpiled = await m.transpile({ code: formatted, originToUse: location.origin })!;
+        if (typeof transpiled !== "string") {
+          return false;
+        }
+
+        cSess.setCodeAndTranspiled({ formatted, transpiled });
+        return true;
+      } else BC.postMessage({ code: rawCode });
+      return true;
+    },
+  };
+
   await cSess.init();
 
   const aiHandler = new AIHandler(setIsStreaming, codeSpace);
@@ -32,7 +49,7 @@ const handleSendMessage = async (
   const claudeContent = aiHandler.prepareClaudeContent(
     prompt,
     messages,
-    cSess.session.code,
+    cSess.session?.code,
     codeSpace,
   );
   const newUserMessage = await createNewMessage(images, claudeContent);
@@ -43,7 +60,7 @@ const handleSendMessage = async (
   try {
     const success = await processMessage({
       aiHandler,
-      cSess,
+      cSess: extendedBcSess as unknown as ICode,
       codeNow: cSess.session.code,
       messages,
       setMessages,

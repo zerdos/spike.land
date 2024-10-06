@@ -58,8 +58,8 @@ export interface ICode {
   session: ICodeSession;
   init: () => Promise<ICodeSession>;
   screenShot: () => Promise<ImageData>;
-  currentCodeWithExtraModels: () => Promise<string>;
-  setModelsByCurrentCode: (code: string) => Promise<string>;
+  // currentCodeWithExtraModels: () => Promise<string>;
+  // setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean>;
   getCode(): Promise<string>;
   setCodeAndTranspiled({
