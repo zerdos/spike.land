@@ -23,7 +23,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   const containerRef = useRef<HTMLDivElement>(null);
   const diffEditorRef = useRef<editor.IStandaloneDiffEditor | null>(null);
 
-  const { original, modified } = useThrottle({ original: _original, modified: _modified }, 1000);
+  const { original, modified } = useThrottle({ original: _original, modified: _modified }, 200);
 
   const createEditor = useCallback(() => {
     if (containerRef.current && !diffEditorRef.current) {
