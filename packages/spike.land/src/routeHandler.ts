@@ -55,13 +55,16 @@ export class RouteHandler {
       htm: this.handleHtmlRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
       screenshot: this.handleScreenShotRoute.bind(this),
+
+      my: this.handleMyCode.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
       "": this.handleEditorRoute.bind(this),
+
       undefined: this.handleEditorRoute.bind(this),
       "null": this.handleEditorRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
-      my: this.handleMyCode.bind(this),
+  
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
       embed: this.handleDefaultRoute.bind(this),

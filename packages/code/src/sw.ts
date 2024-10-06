@@ -27,13 +27,16 @@ importScripts("/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash)
 
 importScripts("/sw-deps.js" + "?hash=" + hash); // sw-deps.js
 
-const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace, transpile } = globalThis as unknown as {
-  serveWithCache: typeof ServeWithCache;
-  CodeSessionBC: typeof CsBc;
-  useCodeSpace: typeof UseCodeSpace;
-  importMapReplace: typeof ImportMapReplace;
-  transpile: typeof Trp;
-};
+const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace, transpile, HTML, importMap } =
+  globalThis as unknown as {
+    serveWithCache: typeof ServeWithCache;
+    CodeSessionBC: typeof CsBc;
+    useCodeSpace: typeof UseCodeSpace;
+    importMapReplace: typeof ImportMapReplace;
+    transpile: typeof Trp;
+    HTML: string;
+    importMap: Record<string, string>;
+  };
 
 // Initialize cSessions
 sw.cSessions = sw.cSessions || {};
@@ -259,93 +262,121 @@ sw.addEventListener("fetch", (event) => {
   }
 
   if (request.url.includes("/live/")) {
+    event.respondWith(fakeServer(request));
+    return;
+  }
+
+  async function fakeServer(request: Request) {
     const codeSpace = useCodeSpace(new URL(request.url).pathname);
     console.log("CodeSpace:", codeSpace);
 
     sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
+    const session = await sw.cSessions[codeSpace].init();
 
     if (
       request.url.includes("/session.json")
     ) {
       console.log("Session request:", request.url);
 
-      event.respondWith(
-        sw.cSessions[codeSpace].init().then((session) =>
-          new Response(JSON.stringify(session), {
-            headers: {
-              "Content-Type": "application/json",
-              ...request.headers,
-            },
-          })
-        ),
-      );
-      return;
+      return new Response(JSON.stringify(session), {
+        headers: {
+          "Content-Type": "application/json",
+          ...request.headers,
+        },
+      });
     } else if (
       request.url.includes("/index.tsx")
     ) {
       console.log("Index request:", request.url);
 
-      event.respondWith(
-        sw.cSessions[codeSpace].init().then((session) =>
-          new Response(session.code, {
-            headers: {
-              "Content-Type": "application/javascript; charset=UTF-8",
-              ...request.headers,
-            },
-          })
-        ),
-      );
-      return;
+      return new Response(session.code, {
+        headers: {
+          "Content-Type": "application/javascript; charset=UTF-8",
+          ...request.headers,
+        },
+      });
     } else if (
       request.url.includes("/index.js")
     ) {
       console.log("Transpiled request:", request.url);
 
-      const sessPr = (async () => {
-        const session = await sw.cSessions[codeSpace].init();
+      if (typeof session.transpiled !== "string" || session.transpiled === "") {
+        const transpiled = await transpile({ code: session.code, originToUse: location.origin }) as unknown as string;
+        session.transpiled = transpiled;
+        await sw.cSessions[codeSpace].postMessage({
+          ...session,
+          transpiled,
+          i: session.i + 1,
+        });
+      }
 
-        if (typeof session.transpiled !== "string" || session.transpiled === "") {
-          const transpiled = await transpile({ code: session.code, originToUse: location.origin }) as unknown as string;
-          session.transpiled = transpiled;
-          await sw.cSessions[codeSpace].postMessage({
-            ...session,
-            transpiled,
-            i: session.i + 1,
-          });
-        }
-        return session;
-      })();
-
-      event.respondWith(sessPr.then((session) =>
-        new Response(
-          importMapReplace(session.transpiled, location.origin),
-          {
-            headers: {
-              "Content-Type": "application/javascript; charset=UTF-8",
-              ...request.headers,
-            },
+      return new Response(
+        importMapReplace(session.transpiled, location.origin),
+        {
+          headers: {
+            "Content-Type": "application/javascript; charset=UTF-8",
+            ...request.headers,
           },
-        )
-      ));
-
-      return;
+        },
+      );
     } else if (
       request.url.includes("/index.css")
     ) {
-      console.log("Patch request:", request.url);
+      console.log("css request:", request.url);
 
-      event.respondWith(
-        sw.cSessions[codeSpace].init().then((session) =>
-          new Response(session.css, {
-            headers: {
-              "Content-Type": "text/css; charset=UTF-8",
-              ...request.headers,
-            },
-          })
-        ),
+      return new Response(session.css, {
+        headers: {
+          "Content-Type": "text/css; charset=UTF-8",
+          ...request.headers,
+        },
+      });
+    } else if (
+      request.url.includes("/hydrated")
+      || request.url.includes("/worker")
+      || request.url.includes("/dehydrated")
+      || request.url.includes("/iframe")
+      || request.url.includes("/embed")
+      || request.url.includes("/public")
+    ) {
+      //
+      // hydrated: this.handleDefaultRoute.bind(this),
+      // worker: this.handleDefaultRoute.bind(this),
+
+      // dehydrated: this.handleDefaultRoute.bind(this),
+      // iframe: this.handleDefaultRoute.bind(this),
+      // embed: this.handleDefaultRoute.bind(this),
+
+      // public: this.handleDefaultRoute.bind(this),
+
+      const respText = HTML.replace(
+        `<script type="importmap"></script>`,
+        `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+      ).replace(
+        `<link rel="preload" href="/app/tw-global.css" as="style">`,
+        `<link rel="preload" href="/app/tw-global.css" as="style">
+               <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+               <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+               `,
+      ).replace(
+        "<div id=\"embed\"></div>",
+        `<div id="embed">${session.html}</div>`,
       );
 
-      return;
+      const headers = new Headers({
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cross-Origin-Resource-Policy": "cross-origin",
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cache-Control": "no-cache",
+        "Content-Encoding": "gzip",
+        "Content-Type": "text/html; charset=UTF-8",
+      });
+
+      return new Response(respText, { status: 200, headers });
+    } else {
+      console.log("Default request:", request.url);
+
+      return fetch(request);
     }
   }
 
