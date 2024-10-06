@@ -165,7 +165,8 @@ sw.addEventListener("activate", (event) => {
       const stillMissing = setDifference(allKeys, updatedMyKeys);
 
       for (const url of stillMissing) {
-        const request = new Request(url);
+        const { pathname, origin } = new URL(url);
+        const request = new Request(new URL(filesByCacheKeys[pathname.slice(1)], origin).toString());
         try {
           const response = await fetch(request);
           if (response.ok) {
