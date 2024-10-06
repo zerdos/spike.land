@@ -5,6 +5,8 @@ import type {
   useCodeSpace as UseCodeSpace,
 } from "./sw-deps";
 
+import type { transpile as Trp } from "@/lib/transpile";
+
 importScripts("/swVersion.js");
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
@@ -18,13 +20,19 @@ const swDepsInFiles = sw.files["sw-deps.js"].split(".");
 swDepsInFiles.pop(); // js
 const hash = swDepsInFiles.pop(); // hash
 
+const transpileWorker = sw.files["@/workers/transpile.worker.js"].split(".");
+transpileWorker.pop(); // js
+const transpileWorkerHash = transpileWorker.pop(); // hash
+importScripts("/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash);
+
 importScripts("/sw-deps.js" + "?hash=" + hash); // sw-deps.js
 
-const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace } = globalThis as unknown as {
+const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace, transpile } = globalThis as unknown as {
   serveWithCache: typeof ServeWithCache;
   CodeSessionBC: typeof CsBc;
   useCodeSpace: typeof UseCodeSpace;
   importMapReplace: typeof ImportMapReplace;
+  transpile: typeof Trp;
 };
 
 // Initialize cSessions
@@ -294,13 +302,19 @@ sw.addEventListener("fetch", (event) => {
       console.log("Transpiled request:", request.url);
 
       event.respondWith(
-        sw.cSessions[codeSpace].init().then((session) =>
-          new Response(importMapReplace(session.transpiled, location.origin), {
-            headers: {
-              "Content-Type": "application/javascript; charset=UTF-8",
-              ...request.headers,
+        sw.cSessions[codeSpace].init().then(async (session) =>
+          new Response(
+            importMapReplace(
+              session.transpiled || await transpile({ code: session.code, originToUse: "" }) as unknown as string,
+              location.origin,
+            ),
+            {
+              headers: {
+                "Content-Type": "application/javascript; charset=UTF-8",
+                ...request.headers,
+              },
             },
-          })
+          )
         ),
       );
       return;
