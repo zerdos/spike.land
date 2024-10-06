@@ -33,7 +33,7 @@
     "fmt:code": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
     "ai-commit": "ai-commit",
     "deploy:prod": "NODE_ENV=production yarn c:build && yarn c:deploy:prod",
-    "deploy:x": "yarn c:build && yarn concurrently --kill-others-on-fail \"yarn fmt && yarn && yarn fmt && git add . \"  \"yarn c:deploy\" \"yarn c:deploy:prod\" \"yarn deploy:esbuild\" && yarn push "
+    "deploy:x": "yarn c:build && yarn concurrently --kill-others-on-fail \"yarn fmt && yarn && yarn fmt && git add . \"  \"yarn c:deploy && yarn deploy:prod\"  \"yarn deploy:esbuild\" && yarn push "
   },
   "devDependencies": {
     "@cloudflare/workerd-linux-arm64": "^1.20241004.0",
