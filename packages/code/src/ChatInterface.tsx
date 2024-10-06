@@ -22,9 +22,8 @@ export const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [mess, setMess] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, [])
+  const [messages, setMessages] = useState<Message[]>(mess || []);  
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
-  const messages = mess || [];
-  const setMessages = setMess as React.Dispatch<React.SetStateAction<Message[]>>;
   const [input, setInput] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
@@ -39,6 +38,17 @@ export const ChatInterface: React.FC<{
       inputRef.current.value = "";
     }
   }, [setMessages]);
+
+  useEffect(() => {
+    // if hast changed in the last 3 seconds, save it
+    const messagesHash = md5(messages.map((msg) => md5(msg)).join(""));
+    const interval = setInterval(() => {
+      const messagesHashNow = md5(messages.map((msg) => md5(msg)).join(""));
+      if (messagesHash !== messagesHashNow) return;
+      setMess(messages);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [messages, setMess]);
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);

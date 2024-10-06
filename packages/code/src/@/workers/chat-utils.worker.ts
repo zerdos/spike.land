@@ -13,7 +13,7 @@ import { throttle } from "es-toolkit";
 import { CodeSessionBC } from "../../services/CodeSessionBc";
 
 const handleSendMessage = async (
-  { messages, codeSpace, prompt, images }: {
+  { messages = [], codeSpace, prompt, images }: {
     messages: Message[];
     codeSpace: string;
     prompt: string;
@@ -70,7 +70,7 @@ const handleSendMessage = async (
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
     messages = messagesPush(messages, newUserMessage);
-    setMessages(messages);
+    setMessages([...messages]);
 
     try {
       const success = await processMessage({
