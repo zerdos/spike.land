@@ -1,12 +1,18 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
-import type { CodeSessionBC as CsBc, serveWithCache as ServeWithCache } from "./sw-deps";
+import type {
+  CodeSessionBC as CsBc,
+  importMapReplace as ImportMapReplace,
+  serveWithCache as ServeWithCache,
+  useCodeSpace as UseCodeSpace,
+} from "./sw-deps";
 
 importScripts("/swVersion.js");
 importScripts("/sw-deps.js");
 
-const { serveWithCache, CodeSessionBC } = globalThis as unknown as {
+const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace } = globalThis as unknown as {
   serveWithCache: typeof ServeWithCache;
   CodeSessionBC: typeof CsBc;
+  useCodeSpace: typeof UseCodeSpace;
+  importMapReplace: typeof ImportMapReplace;
 };
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
@@ -239,28 +245,78 @@ sw.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (
-    request.url.includes("/live/")
-    && request.url.includes("/session.json")
-  ) {
-    console.log("Session request:", request.url);
-
+  if (request.url.includes("/live/")) {
     const codeSpace = useCodeSpace(new URL(request.url).pathname);
     console.log("CodeSpace:", codeSpace);
 
     sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
 
-    event.respondWith(
-      sw.cSessions[codeSpace].init().then((session) =>
-        new Response(JSON.stringify(session), {
-          headers: {
-            "Content-Type": "application/json",
-            ...request.headers,
-          },
-        })
-      ),
-    );
-    return;
+    if (
+      request.url.includes("/session.json")
+    ) {
+      console.log("Session request:", request.url);
+
+      event.respondWith(
+        sw.cSessions[codeSpace].init().then((session) =>
+          new Response(JSON.stringify(session), {
+            headers: {
+              "Content-Type": "application/json",
+              ...request.headers,
+            },
+          })
+        ),
+      );
+      return;
+    } else if (
+      request.url.includes("/index.tsx")
+    ) {
+      console.log("Index request:", request.url);
+
+      event.respondWith(
+        sw.cSessions[codeSpace].init().then((session) =>
+          new Response(session.code, {
+            headers: {
+              "Content-Type": "application/javascript; charset=UTF-8",
+              ...request.headers,
+            },
+          })
+        ),
+      );
+      return;
+    } else if (
+      request.url.includes("/index.js")
+    ) {
+      console.log("Transpiled request:", request.url);
+
+      event.respondWith(
+        sw.cSessions[codeSpace].init().then((session) =>
+          new Response(importMapReplace(session.transpiled, location.origin), {
+            headers: {
+              "Content-Type": "application/javascript; charset=UTF-8",
+              ...request.headers,
+            },
+          })
+        ),
+      );
+      return;
+    } else if (
+      request.url.includes("/index.css")
+    ) {
+      console.log("Patch request:", request.url);
+
+      event.respondWith(
+        sw.cSessions[codeSpace].init().then((session) =>
+          new Response(session.css, {
+            headers: {
+              "Content-Type": "text/css; charset=UTF-8",
+              ...request.headers,
+            },
+          })
+        ),
+      );
+
+      return;
+    }
   }
 
   // For non-asset requests, fetch from the network
