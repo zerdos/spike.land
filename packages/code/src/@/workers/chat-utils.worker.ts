@@ -31,6 +31,8 @@ const handleSendMessage = async (
   };
 
   const cSess = new CodeSessionBC(codeSpace);
+  await cSess.init();
+
   const extendedBcSess = {
     ...cSess,
     setCode: async (rawCode: string, skipRunning = false) => {
@@ -47,8 +49,6 @@ const handleSendMessage = async (
       return true;
     },
   };
-
-  await cSess.init();
 
   const setIsStreaming = (isStreaming: boolean) => BC.postMessage({ isStreaming });
   const aiHandler = new AIHandler(setIsStreaming, codeSpace);

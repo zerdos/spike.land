@@ -8,7 +8,6 @@ import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
-import { useImmer } from "use-immer";
 import { handleSendMessage } from "@/lib/shared";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
@@ -21,29 +20,14 @@ export const ChatInterface: React.FC<{
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [m, setM] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
-  const [messages, setImmer] = useImmer<Message[]>(m || []);
+  const [mess, setMess] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, [])
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
-
+  const messages = mess || [];
+  const setMessages = setMess as React.Dispatch<React.SetStateAction<Message[]>>;
   const [input, setInput] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const setMessages = (newMessages: Message[]): void => {
-    if (md5(messages) === md5(newMessages)) {
-      console.log("setMessages: same messages, returning");
-      return;
-    }
-
-    setImmer(newMessages);
-
-    setTimeout(() => {
-      if (md5(m || []) === md5(messages)) {
-        setM(newMessages);
-      }
-    }, 1000);
-  };
 
   const resetChat = useCallback((): void => {
     setMessages([]);
@@ -61,7 +45,7 @@ export const ChatInterface: React.FC<{
   }, [setEditingMessageId, setEditInput]);
 
   const handleSaveEdit = (messageId: string) => {
-    const mess = messages.map((msg) =>
+    const mess = messages!.map((msg) =>
       msg.id === messageId
         ? {
           ...msg,
@@ -84,20 +68,20 @@ export const ChatInterface: React.FC<{
       { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
       const { messages, isStreaming, message, chunk, code } = event.data;
       if (messages) {
-        setImmer(messages);
+        setMessages(messages);
       }
       if (isStreaming) {
         setIsStreaming(isStreaming);
       }
       if (message) {
 
-        setImmer((prev: Message[])=>([...prev, message]));  
+        setMessages((prev: Message[])=>([...prev, message]));  
       }
       if (code){
         cSess.setCode(code);
       }
       if (chunk) {
-        setImmer((prev: Message[])=>{
+        setMessages((prev: Message[])=>{
           const lastMessage = prev[prev.length - 1];
           lastMessage.content += chunk
  
