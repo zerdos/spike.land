@@ -35,6 +35,11 @@ const handleSendMessage = async (
 
   const extendedBcSess = {
     ...cSess,
+    setCodeAndTranspiled: async ({ formatted, transpiled }: { formatted: string; transpiled: string }) =>
+      cSess.setCodeAndTranspiled({ formatted, transpiled }),
+    init: () => cSess.init(),
+    session: cSess.session!,
+    getCode: () => cSess.getCode(),
     setCode: async (rawCode: string, skipRunning = false) => {
       if (skipRunning) {
         const formatted = await m.prettierJs({ code: rawCode, toThrow: true });
