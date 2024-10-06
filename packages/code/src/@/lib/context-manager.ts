@@ -13,16 +13,23 @@ export interface ProjectContext {
 }
 
 class ContextManager {
-  private storageKey: string;
+  private codeSpace: string = "";
+  private currentTask: string = "";
+  private techStack: string = "";
+  private completionCriteria: string = "";
+  private codeStructure: string = "";
+  private currentDraft: string = "";
+  private adaptiveInstructions: string = "";
+  private errorLog: string = "";
+  private progressTracker: string = "";
 
   constructor(codeSpace: string) {
-    this.storageKey = `projectContext_${codeSpace}`;
+    this.codeSpace = codeSpace;
   }
 
   public updateContext(key: string, content: string): void {
     const context = this.getFullContext();
     context[key] = content;
-    localStorage.setItem(this.storageKey, JSON.stringify(context));
   }
 
   public getContext(key: string): string {
@@ -31,20 +38,28 @@ class ContextManager {
   }
 
   public getFullContext(): ProjectContext {
-    return localStorage.getItem(this.storageKey) ? JSON.parse(localStorage.getItem(this.storageKey)!) : {
-      currentTask: "",
-      techStack: "",
-      completionCriteria: "",
-      currentDraft: "",
-      codeStructure: "",
-      adaptiveInstructions: "",
-      errorLog: "",
-      progressTracker: "",
+    return {
+      codeSpace: this.codeSpace,
+      currentTask: this.currentTask,
+      techStack: this.techStack,
+      completionCriteria: this.completionCriteria,
+      codeStructure: this.codeStructure,
+      currentDraft: this.currentDraft,
+      adaptiveInstructions: this.adaptiveInstructions,
+      errorLog: this.errorLog,
+      progressTracker: this.progressTracker,
     };
   }
 
   public clearContext(): void {
-    localStorage.removeItem(this.storageKey);
+    this.currentTask = "";
+    this.techStack = "";
+    this.completionCriteria = "";
+    this.codeStructure = "";
+    this.currentDraft = "";
+    this.adaptiveInstructions = "";
+    this.errorLog = "";
+    this.progressTracker = "";
   }
 }
 

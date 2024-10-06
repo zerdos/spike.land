@@ -58,7 +58,7 @@ const handleSendMessage = async (
   const claudeContent = aiHandler.prepareClaudeContent(
     prompt,
     messages,
-    cSess.session?.code,
+    cSess.session!.code,
     codeSpace,
   );
   const newUserMessage = await createNewMessage(images, claudeContent);
@@ -69,7 +69,7 @@ const handleSendMessage = async (
     const success = await processMessage({
       aiHandler,
       cSess: extendedBcSess as unknown as ICode,
-      codeNow: cSess.session.code,
+      codeNow: cSess.session!.code,
       messages,
       setMessages,
 
