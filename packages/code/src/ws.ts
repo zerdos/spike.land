@@ -2,7 +2,7 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 
 import type { EmotionCache } from "@emotion/cache";
-import { initializeApp } from "./hydrate";
+import { initializeApp, setupServiceWorker } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
 import { md5 } from "@/lib/md5";
@@ -323,3 +323,7 @@ function htmlDecode(input: string): string {
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, " ");
 }
+
+setTimeout(async () => {
+  await setupServiceWorker();
+}, 0);

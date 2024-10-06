@@ -1,4 +1,4 @@
-const setupServiceWorker = async () => {
+export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
   
   // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
@@ -49,9 +49,7 @@ const createLangChainWorkflow = async (prompt: string) => {
 
 export const initializeApp = async () => {
   console.log("Initializing app...");
-  setTimeout(async () => {
-    await setupServiceWorker();
-  }, 0);
+
   try {
     const [
       { enhancedFetch },
