@@ -6,7 +6,7 @@ class SharedWorkerPolyfill {
   public port: MessagePort = null!;
 
   constructor(url: string, opts?: WorkerOptions) {
-    if (process.env.VI_TEST !== "false") {
+    if (process.env.VI_TEST) {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
         this.worker = new Worker2(
