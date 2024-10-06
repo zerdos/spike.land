@@ -49,6 +49,9 @@ const createLangChainWorkflow = async (prompt: string) => {
 
 export const initializeApp = async () => {
   console.log("Initializing app...");
+  setTimeout(async () => {
+    await setupServiceWorker();
+  }, 0);
   try {
     const [
       { enhancedFetch },
@@ -67,7 +70,6 @@ export const initializeApp = async () => {
     });
     console.log("Global objects assigned");
 
-    await setupServiceWorker();
     console.log("App initialization completed");
 
   } catch (error) {
