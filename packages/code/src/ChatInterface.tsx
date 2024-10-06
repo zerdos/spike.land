@@ -153,8 +153,9 @@ export const ChatInterface: React.FC<{
       if (storedData) {
         const {prompt, images} = JSON.parse(storedData) as {prompt: string; images: ImageData[]};
         sessionStorage.removeItem(maybeKey);
+        const messages = [{ id: Date.now().toString(), role: "user", content: prompt } as Message ];
         setInput('');
-        handleSendMessage({codeSpace, prompt, images});
+        handleSendMessage({messages, codeSpace, prompt, images});
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
@@ -199,7 +200,7 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      handleSendMessage={({codeSpace, prompt, images}: {codeSpace: string, prompt: string, images: ImageData[]}) => handleSendMessage({ codeSpace, prompt, images })}
+      handleSendMessage={({messages, codeSpace, prompt, images}: {messages: Message[], codeSpace: string, prompt: string, images: ImageData[]}) => handleSendMessage({ messages,  codeSpace, prompt, images })}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

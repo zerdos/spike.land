@@ -7,20 +7,28 @@ import type { prettierJs } from "@/lib/prettier";
 import type { transpile } from "@/lib/transpile";
 import { AIHandler } from "@src/AIHandler";
 import { claudeRecovery } from "@src/config/aiConfig";
-import { useLocalStorage } from "@uidotdev/usehooks";
+
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
 import { CodeSessionBC } from "../../services/CodeSessionBc";
 
 const handleSendMessage = async (
-  { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
+  { messages, codeSpace, prompt, images }: {
+    messages: Message[];
+    codeSpace: string;
+    prompt: string;
+    images: ImageData[];
+  },
 ) => {
   const BC = new BroadcastChannel(`${codeSpace}-chat`);
 
-  const [, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
-  const messStorage = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
-  let messages = messStorage[0] || [];
-  const setMessages = messStorage[1];
+  BC.postMessage({ isStreaming: true });
+
+  const setMessages = (_messages: Message[]) => {
+    messages = _messages;
+    BC.postMessage({ messages });
+    return messages;
+  };
 
   const cSess = new CodeSessionBC(codeSpace);
   const extendedBcSess = {
@@ -42,6 +50,7 @@ const handleSendMessage = async (
 
   await cSess.init();
 
+  const setIsStreaming = (isStreaming: boolean) => BC.postMessage({ isStreaming });
   const aiHandler = new AIHandler(setIsStreaming, codeSpace);
 
   if (!prompt.trim()) return;
@@ -54,7 +63,6 @@ const handleSendMessage = async (
   );
   const newUserMessage = await createNewMessage(images, claudeContent);
   messages = messagesPush(messages, newUserMessage);
-  setMessages([...messages]);
   BC.postMessage({ message: newUserMessage });
 
   try {
@@ -64,6 +72,7 @@ const handleSendMessage = async (
       codeNow: cSess.session.code,
       messages,
       setMessages,
+
       newUserMessage,
     });
 

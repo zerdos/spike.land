@@ -23,8 +23,10 @@ export interface ChatHeaderProps {
 export interface MessageInputProps {
   input: string;
   isDarkMode: boolean;
+  messages: Message[];
   setInput: (value: string) => void;
-  handleSendMessage: ({ codeSpace, prompt, images }: {
+  handleSendMessage: ({ messages, codeSpace, prompt, images }: {
+    messages: Message[];
     codeSpace: string;
     prompt: string;
     images: ImageData[];
@@ -200,7 +202,12 @@ export interface ChatDrawerProps {
   input: string;
   setInput: (input: string) => void;
   handleSendMessage: (
-    { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
+    { messages, codeSpace, prompt, images }: {
+      messages: Message[];
+      codeSpace: string;
+      prompt: string;
+      images: ImageData[];
+    },
   ) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;

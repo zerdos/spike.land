@@ -120,6 +120,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> = Rea
           </ScrollArea>
           <MemoizedMessageInput
             input={input}
+            messages={messages}
             setInput={setInput}
             screenShot={screenShot}
             handleSendMessage={handleSendMessage}

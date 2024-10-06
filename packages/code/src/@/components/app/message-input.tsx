@@ -13,6 +13,7 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
   setInput,
+  messages,
   handleSendMessage,
   isStreaming,
   inputRef,
@@ -26,7 +27,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    handleSendMessage({codeSpace: useCodeSpace(), prompt: input, images: uploadedImages});
+    handleSendMessage({messages ,codeSpace: useCodeSpace(), prompt: input, images: uploadedImages});
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
