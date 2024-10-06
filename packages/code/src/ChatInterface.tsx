@@ -65,7 +65,7 @@ export const ChatInterface: React.FC<{
 
   useEffect(() => {
     const BC= new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = (event: {data: 
+    BC.onmessage = async (event: {data: 
       { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
       const e= event.data;
       if (e.messages) {
@@ -79,7 +79,7 @@ export const ChatInterface: React.FC<{
         setMessages(msgs);  
       }
       if (e.code){
-        cSess.setCode(e.code);
+       await cSess.setCode(e.code);
       }
       if (e.chunk) {
         setMessages((prev: Message[])=>{
