@@ -3,14 +3,7 @@ import { makeSession } from "@/lib/make-sess";
 
 export class CodeSessionBC {
   private broadcastChannel: BroadcastChannel;
-  session: ICodeSession = {
-    code: "",
-    codeSpace: "",
-    i: 0,
-    html: "",
-    css: "",
-    transpiled: "",
-  };
+  session: ICodeSession | null = null;
   subscribers: Array<(session: ICodeSession) => void> = [];
 
   constructor(private codeSpace: string) {
@@ -43,12 +36,18 @@ export class CodeSessionBC {
     formatted: string;
     transpiled: string;
   }): Promise<boolean> {
+    if (!this.session) {
+      this.session = await this.init();
+    }
     this.session = { ...this.session, code: formatted, transpiled, i: this.session.i + 1 };
     this.postMessage(this.session);
     return true;
   }
 
   async getCode() {
+    if (!this.session) {
+      this.session = await this.init();
+    }
     return this.session.code;
   }
 
