@@ -97,3 +97,37 @@ test("should update search replace with a single block", async () => {
 
   expect(v5.result).toMatchSnapshot();
 });
+
+test("x-landing", async () => {
+  const original = `
+// x-landing.tsx
+export default () => (<>Write your code here!</>);
+  `;
+  const instructions = await readFile(__dirname + "/x-landing-inst.txt", "utf8");
+
+  const r1 = await updateSearchReplace({ instructions, code: original });
+  expect(r1.len).toMatchInlineSnapshot(`948`);
+
+  const v2 = await updateSearchReplace({ instructions: instructions.slice(r1.len), code: r1.result });
+  expect(v2.len).toMatchInlineSnapshot(`586`);
+
+  const v3 = await updateSearchReplace({ instructions: instructions.slice(r1.len + v2.len), code: v2.result });
+  expect(v3.len).toMatchInlineSnapshot(`1502`);
+
+  const v4 = await updateSearchReplace({ instructions: instructions.slice(r1.len + v2.len + v3.len), code: v3.result });
+  expect(v4.len).toMatchInlineSnapshot(`927`);
+
+  const v5 = await updateSearchReplace({
+    instructions: instructions.slice(r1.len + v2.len + v3.len + v4.len),
+    code: v4.result,
+  });
+  expect(v5.len).toMatchInlineSnapshot(`1407`);
+
+  const v6 = await updateSearchReplace({
+    instructions: instructions.slice(r1.len + v2.len + v3.len + v4.len + v5.len),
+    code: v5.result,
+  });
+  expect(v6.len).toMatchInlineSnapshot(`615`);
+
+  expect(v6.result).toMatchSnapshot();
+});

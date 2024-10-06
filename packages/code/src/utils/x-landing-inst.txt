@@ -1,0 +1,132 @@
+Thank you for providing the design image. I'll create a React component to replicate this design for the Spike.land website. I'll break it down into sections and implement them step by step.
+
+1. Let's start with the basic structure and header:
+
+<<<<<<< SEARCH
+export default () => (<>Write your code here!</>);
+=======
+import { ImageLoader } from '@/components/ui/image-loader';
+
+export default function SpikeLand() {
+  return (
+    <div className="bg-black text-white min-h-screen">
+      <header className="text-center py-8">
+        <h1 className="text-4xl font-bold mb-2">Spike.land: Create Anything, Instantly</h1>
+        <p className="text-lg mb-4">The fastest, easiest way to build websites, apps, and games with AI coding.</p>
+        <button className="bg-red-600 text-white px-6 py-2 rounded-full font-semibold">Start Creating for Free</button>
+      </header>
+      {/* We'll add more sections here */}
+    </div>
+  );
+}
+>>>>>>> REPLACE
+
+This change sets up the basic structure of the page with a dark background, white text, and the header section with the main title, subtitle, and a call-to-action button.
+
+2. Now, let's add the main feature image:
+
+<<<<<<< SEARCH
+      {/* We'll add more sections here */}
+=======
+      {/* We'll add more sections here */}
+      <section className="max-w-4xl mx-auto mb-16">
+        <ImageLoader 
+          prompt="A person using a tablet in a dimly lit room with a large screen showing Spike.land interface" 
+          aspect_ratio="16:9"
+        />
+      </section>
+>>>>>>> REPLACE
+
+This section adds the main feature image using the ImageLoader component. The prompt describes the scene we see in the original design.
+
+3. Let's add the "Create Without Limits" section:
+
+<<<<<<< SEARCH
+      <section className="max-w-4xl mx-auto mb-16">
+        <ImageLoader 
+          prompt="A person using a tablet in a dimly lit room with a large screen showing Spike.land interface" 
+          aspect_ratio="16:9"
+        />
+      </section>
+=======
+      <section className="max-w-4xl mx-auto mb-16">
+        <ImageLoader 
+          prompt="A person using a tablet in a dimly lit room with a large screen showing Spike.land interface" 
+          aspect_ratio="16:9"
+        />
+      </section>
+      
+      <section className="max-w-6xl mx-auto mb-16">
+        <h2 className="text-3xl font-bold text-center mb-8">Create Without Limits</h2>
+        <div className="grid grid-cols-3 gap-4">
+          {['Website Prototyping', 'AI Personal Assistant', 'Code Free Creation', 'Collaborate in Real-Time', 'Works on Any Device', 'Share with the World'].map((title, index) => (
+            <div key={index} className="bg-gray-800 p-4 rounded-lg">
+              <ImageLoader prompt={`Icon for ${title}`} aspect_ratio="1:1" className="w-16 h-16 mb-2" />
+              <h3 className="text-lg font-semibold mb-2">{title}</h3>
+              <p className="text-sm text-gray-400">Short description of the feature goes here.</p>
+            </div>
+          ))}
+        </div>
+      </section>
+>>>>>>> REPLACE
+
+This change adds the "Create Without Limits" section with a grid of features, each with an icon, title, and description.
+
+4. Now, let's add the "How It Works" section:
+
+<<<<<<< SEARCH
+      </section>
+=======
+      </section>
+      
+      <section className="max-w-4xl mx-auto mb-16">
+        <h2 className="text-3xl font-bold text-center mb-8">How It Works</h2>
+        <div className="flex justify-between">
+          {['Ideate', 'Create', 'Launch'].map((step, index) => (
+            <div key={index} className="text-center">
+              <ImageLoader prompt={`Icon for ${step} step in app creation process`} aspect_ratio="1:1" className="w-24 h-24 mb-4" />
+              <h3 className="text-xl font-semibold mb-2">{index + 1}. {step}</h3>
+              <p className="text-sm text-gray-400">Description of the {step.toLowerCase()} step.</p>
+            </div>
+          ))}
+        </div>
+      </section>
+>>>>>>> REPLACE
+
+This section adds the "How It Works" part, showing the three steps of the process: Ideate, Create, and Launch.
+
+5. Finally, let's add the testimonials section:
+
+<<<<<<< SEARCH
+      </section>
+=======
+      </section>
+      
+      <section className="max-w-4xl mx-auto mb-16">
+        <h2 className="text-3xl font-bold text-center mb-8">What Our Users Say</h2>
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { name: 'Sarah J., Graphic Designer', quote: 'Spike.land is a game-changer for us creatives. We create without limits. It\'s so easy to use, even my kids can build their own websites now!' },
+            { name: 'Mark K., Entrepreneur', quote: 'I\'ve tried many website builders, but Spike.land is on a league of its own. The AI assistance is like having a pro developer by my side!' },
+            { name: 'Dr. Emily R., Computer Science Professor', quote: 'As an educator, I\'ve found Spike.land to be an invaluable tool for teaching web development. It makes learning to code fun and accessible for students of all skill levels.' }
+          ].map((testimonial, index) => (
+            <div key={index} className="bg-gray-800 p-6 rounded-lg">
+              <p className="text-sm mb-4">"{testimonial.quote}"</p>
+              <p className="text-xs text-gray-400">- {testimonial.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+>>>>>>> REPLACE
+
+This change adds the testimonials section with three user quotes.
+
+These changes create a basic structure that closely resembles the design in the image. Here are some suggestions for improvements:
+
+1. Add proper navigation and footer components.
+2. Implement responsive design for mobile devices.
+3. Add animations or transitions to enhance user experience.
+4. Implement actual functionality for the "Start Creating for Free" button.
+5. Use actual icons instead of generated images for better performance and consistency.
+
+Let me know if you want to make any specific changes or additions to this implementation!

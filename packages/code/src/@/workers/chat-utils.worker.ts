@@ -539,6 +539,15 @@ export const updateSearchReplace = async (
     throw new Error("Replace block not finished");
   }
 
+  if (!m.prettierJs) {
+    const prettierJs = (await import(`@/lib/prettier`)).prettierJs;
+    m.prettierJs = prettierJs;
+  }
+
+  if (!m.transpile) {
+    const transpile = async ({ code }: { code: string; originToUse: string }) => code;
+    m.transpile = transpile;
+  }
   const formatted = await m.prettierJs({ code: result, toThrow: true });
   const transpiled = await m.transpile({ code: formatted, originToUse: location.origin });
 
