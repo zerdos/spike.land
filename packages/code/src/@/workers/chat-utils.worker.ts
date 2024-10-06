@@ -70,7 +70,7 @@ const handleSendMessage = async (
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
     messages = messagesPush(messages, newUserMessage);
-    BC.postMessage({ message: newUserMessage });
+    setMessages(messages);
 
     try {
       const success = await processMessage({
