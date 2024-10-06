@@ -23,7 +23,11 @@ sw.cSessions = sw.cSessions || {};
 async function fetchConfig() {
   try {
     const response = await fetch("/sw-config.json");
-    const config = (await response.json()) as { killSwitch: boolean; version: string; swVersion: string };
+    const config = (await response.json()) as {
+      killSwitch: boolean;
+      version: string;
+      swVersion: string;
+    };
     sw.fileCacheName = `sw-file-cache-${config.version}`;
     return config;
   } catch (error) {
@@ -43,6 +47,15 @@ const filesByCacheKeys = Object.entries(files).reduce((acc, [key, value]) => {
   return acc;
 }, {} as Record<string, string>);
 
+// Utility functions for set operations
+function setDifference<T>(setA: Set<T>, setB: Set<T>) {
+  return new Set([...setA].filter((x) => !setB.has(x)));
+}
+
+function setIntersection<T>(setA: Set<T>, setB: Set<T>) {
+  return new Set([...setA].filter((x) => setB.has(x)));
+}
+
 // Instantiate serveWithCache with dynamic cache name
 const { isAsset, serve } = serveWithCache(
   files,
@@ -56,10 +69,9 @@ const { isAsset, serve } = serveWithCache(
 sw.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
-      // Proceed with installation
       console.log("Service Worker installing.");
       const config = await configPromise;
-      if (config && swVersion === config.swVersion) {
+      if (config && sw.swVersion === config.swVersion) {
         const cacheName = `sw-file-cache-${config.swVersion}`;
         const keys = await caches.keys();
 
@@ -68,10 +80,11 @@ sw.addEventListener("install", (event) => {
           return;
         }
         await caches.open(cacheName);
+
+        // Uncomment and modify if you need to pre-cache assets
         // try {
-        //   await cache.addAll(
-        //     Object.values(files).map((file) => "/" + file),
-        //   );
+        //   const cache = await caches.open(cacheName);
+        //   await cache.addAll(Object.values(files).map((file) => "/" + file));
         // } catch (error) {
         //   console.error("Error in cache.addAll", error);
         // }
@@ -95,9 +108,9 @@ sw.addEventListener("activate", (event) => {
         return;
       }
 
-      if (config?.killSwitch) {
+      if (config.killSwitch) {
         // If killSwitch is activated, unregister and delete caches
-        console.log("Kill switch activated. unRegistering Service Worker.");
+        console.log("Kill switch activated. Unregistering Service Worker.");
         await sw.registration.unregister();
         const cacheNames = await caches.keys();
         await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
@@ -105,13 +118,68 @@ sw.addEventListener("activate", (event) => {
       }
 
       const cacheSWName = `sw-file-cache-${config.swVersion}`;
-      // Delete old caches except the current one
-      const cacheNames = await caches.keys();
-      await Promise.all(
-        cacheNames
-          .filter((cacheName) => cacheName !== sw.fileCacheName && cacheName !== cacheSWName)
-          .map((cacheName) => caches.delete(cacheName)),
+      const myCache = await caches.open(cacheSWName);
+
+      // Put files.json into cache
+      await myCache.put(
+        "/files.json",
+        new Response(JSON.stringify(files), {
+          headers: { "Content-Type": "application/json" },
+        }),
       );
+
+      // Get list of cache names excluding the current one
+      const cacheNames = (await caches.keys()).filter(
+        (cacheName) => cacheName !== cacheSWName && cacheName.startsWith("sw-file-cache"),
+      );
+
+      const allKeys = new Set(
+        Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
+      );
+
+      const myCacheKeys = await myCache.keys();
+      const myKeys = new Set(myCacheKeys.map((request) => request.url));
+
+      const missing = setDifference(allKeys, myKeys);
+
+      // Copy missing items from old caches
+      for (const cacheName of cacheNames) {
+        const oldCache = await caches.open(cacheName);
+        const oldCacheKeys = await oldCache.keys();
+        const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
+
+        const oldCacheHasItems = setIntersection(oldKeys, missing);
+
+        for (const url of oldCacheHasItems) {
+          const request = new Request(url);
+          const response = await oldCache.match(request);
+          if (response) {
+            await myCache.put(request, response);
+          }
+        }
+      }
+
+      // Fetch any remaining missing files from the network
+      const updatedMyCacheKeys = await myCache.keys();
+      const updatedMyKeys = new Set(updatedMyCacheKeys.map((request) => request.url));
+      const stillMissing = setDifference(allKeys, updatedMyKeys);
+
+      for (const url of stillMissing) {
+        const request = new Request(url);
+        try {
+          const response = await fetch(request);
+          if (response.ok) {
+            await myCache.put(request, response.clone());
+          } else {
+            console.error(`Failed to fetch ${url}: ${response.statusText}`);
+          }
+        } catch (error) {
+          console.error(`Error fetching ${url}:`, error);
+        }
+      }
+
+      // Delete old caches
+      await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
 
       // Take control of all clients immediately
       await sw.clients.claim();
@@ -124,8 +192,10 @@ sw.addEventListener("activate", (event) => {
 let lastConfigCheck = 0;
 
 sw.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") {
-    event.respondWith(fetch(event.request));
+  const request = event.request;
+
+  if (request.method !== "GET") {
+    event.respondWith(fetch(request));
     return;
   }
 
@@ -135,14 +205,7 @@ sw.addEventListener("fetch", (event) => {
     event.waitUntil(
       (async () => {
         const config = await fetchConfig();
-        if (config?.killSwitch) {
-          await sw.registration.unregister();
-          const clients = await sw.clients.matchAll();
-          clients.forEach((client) => {
-            (client as WindowClient).navigate(client.url);
-          });
-        }
-        if (config?.swVersion !== swVersion) {
+        if (config?.killSwitch || config?.swVersion !== sw.swVersion) {
           await sw.registration.unregister();
           const clients = await sw.clients.matchAll();
           clients.forEach((client) => {
@@ -152,22 +215,19 @@ sw.addEventListener("fetch", (event) => {
       })(),
     );
   }
-  const request = event.request;
 
   if (isAsset(request)) {
-    return event.respondWith(
+    event.respondWith(
       serve(
         request,
-        (request: Request) => {
-          const url = new URL(request.url);
+        (req: Request) => {
+          const url = new URL(req.url);
           const file = url.pathname.slice(1);
-          const respPromise = (file in filesByCacheKeys)
-            ? fetch(new Request(request.url.replace(file, filesByCacheKeys[file])))
-            : fetch(request);
-
-          event.waitUntil(respPromise);
-
-          return respPromise;
+          const cacheFile = filesByCacheKeys[file];
+          const newUrl = cacheFile
+            ? req.url.replace(file, cacheFile)
+            : req.url;
+          return fetch(newUrl);
         },
         event.waitUntil.bind(event),
       ).catch((error) => {
@@ -175,24 +235,33 @@ sw.addEventListener("fetch", (event) => {
         return fetch(request);
       }),
     );
+    return;
   }
-  if (request.url.includes("/live/") && request.url.includes("/session.json")) {
-    console.log("session request", request.url);
+
+  if (
+    request.url.includes("/live/")
+    && request.url.includes("/session.json")
+  ) {
+    console.log("Session request:", request.url);
 
     const codeSpace = useCodeSpace(new URL(request.url).pathname);
-    console.log("codeSpace", codeSpace);
+    console.log("CodeSpace:", codeSpace);
 
     sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
 
-    return event.respondWith(
+    event.respondWith(
       sw.cSessions[codeSpace].init().then((session) =>
         new Response(JSON.stringify(session), {
-          ...request,
-          headers: { "Content-Type": "application/json", ...request.headers },
+          headers: {
+            "Content-Type": "application/json",
+            ...request.headers,
+          },
         })
       ),
     );
+    return;
   }
+
   // For non-asset requests, fetch from the network
   event.respondWith(fetch(request));
 });
