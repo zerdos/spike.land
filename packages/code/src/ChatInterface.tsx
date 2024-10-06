@@ -47,14 +47,20 @@ export const ChatInterface: React.FC<{
   }, []);
 
   useEffect(() => {
+
+    if (isOpen) {
+      setTimeout(() => {
+        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
+      });
+    }
     // if hast changed in the last seconds, save it
     const messagesHash = md5(messages.map((msg) => md5(msg)).join(""));
-    const interval = setInterval(() => {
+    const interval = setTimeout(() => {
       const messagesHashNow = md5(messages.map((msg) => md5(msg)).join(""));
       if (messagesHash !== messagesHashNow) return;
       setMess(messages);
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearTimeout(interval);
   }, [messages]);
 
   const handleCancelEdit = useCallback(() => {
@@ -138,11 +144,7 @@ export const ChatInterface: React.FC<{
   } = useScreenshot(codeSpace);
 
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
-      });
-    }
+
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
       const storedData = sessionStorage.getItem(maybeKey);
@@ -164,6 +166,7 @@ export const ChatInterface: React.FC<{
 
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     setEditingMessageId(messageId);
+
 
       const messageToEdit = messages.find((msg) => msg.id === messageId);
       if (!messageToEdit) {
