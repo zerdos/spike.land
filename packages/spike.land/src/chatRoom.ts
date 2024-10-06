@@ -233,7 +233,7 @@ export class Code implements DurableObject {
 
       if (!this.session.transpiled) {
         try {
-         this.session.transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
+          const transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
             method: "POST",
             body: this.session.code,
             headers: {
@@ -242,7 +242,7 @@ export class Code implements DurableObject {
             },
           })).text();
 
-          this.setSession(makeSession(this.session));
+          this.setSession(makeSession(...this.session,transpiled ));
         
         } catch (error) {
           console.error("Error transpiling code:", error);
