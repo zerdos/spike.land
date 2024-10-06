@@ -64,7 +64,7 @@ export const makeSession = (p: ICodeSession) => {
     code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
     css: (p.css || ""),
-    transpiled: p.transpiled || "",
+    transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
   });
 
   return rec(p).toJS();
