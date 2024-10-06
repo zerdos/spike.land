@@ -199,34 +199,50 @@ async function startMonacoPristine({
 		
     
 
-  const myEditor = editor.create(container, {
-    model,
-    scrollbar: {
-      scrollByPage: false,
-      alwaysConsumeMouseWheel: false,
-    },
-    scrollBeyondLastLine: true,
-    scrollPredominantAxis: true,
-    automaticLayout: false,
-    wordWrapColumn: 80,
-    links: true,
-    tabSize: 2,
-    minimap: {
-      enabled: true,
-      autohide: true,
-
-      
-      
-    },
-    insertSpaces: false,
-    bracketPairColorization: {
-      independentColorPoolPerBracketType: true,
-      enabled: true,
-    },
-    definitionLinkOpensInPeek: true,
-    theme: "vs-dark",
-    autoClosingBrackets: "languageDefined",
-  });
+      const myEditor = editor.create(container, {
+        model, // Assuming 'model' is defined elsewhere
+        // Scrollbar settings
+        scrollbar: {
+          vertical: 'auto', // Automatically shows/hides vertical scrollbar
+          horizontal: 'auto', // Automatically shows/hides horizontal scrollbar
+          scrollByPage: false,
+          alwaysConsumeMouseWheel: true, // Defaults to true
+        },
+        scrollBeyondLastLine: true, // Allows scrolling beyond the last line
+        scrollPredominantAxis: true, // Scrolls only in the predominant direction
+        automaticLayout: true, // Automatically adjusts layout on window resize
+        wordWrap: 'off', // Disables word wrapping (default)
+        wordWrapColumn: 80, // Column at which to wrap lines (used if wordWrap is set)
+        links: true, // Detects and hyperlinks URLs
+        tabSize: 2, // Sets tab size to 2 spaces
+        insertSpaces: true, // Inserts spaces when pressing Tab
+        minimap: {
+          enabled: true, // Displays the minimap
+          autohide: false, // Minimap is always visible
+          side: 'right', // Positions minimap on the right
+          showSlider: 'mouseover', // Slider appears on mouseover
+        },
+        bracketPairColorization: {
+          enabled: true, // Enables bracket pair colorization
+          independentColorPoolPerBracketType: true,
+        },
+        definitionLinkOpensInPeek: true, // Opens definitions in a peek view
+        theme: 'vs-dark', // Sets the editor theme to dark
+        autoClosingBrackets: 'languageDefined', // Auto-closes brackets based on language
+        autoIndent: 'advanced', // Enhances auto-indentation
+        formatOnType: true, // Formats code as you type
+        formatOnPaste: true, // Formats code when pasted
+        renderWhitespace: 'boundary', // Renders whitespace characters at boundaries
+        cursorBlinking: 'blink', // Sets cursor to blink
+        smoothScrolling: true, // Enables smooth scrolling
+        suggestOnTriggerCharacters: true, // Shows suggestions on trigger characters
+        acceptSuggestionOnEnter: 'on', // Accepts suggestions when pressing Enter
+        fontFamily: 'monospace', // Uses monospace font for better readability
+        fontSize: 14, // Sets font size to 14px
+        lineNumbers: 'on', // Displays line numbers
+        folding: true, // Enables code folding
+        codeLens: true, // Shows inline code actions
+      });
 
   // Add custom key bindings
   // myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
