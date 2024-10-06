@@ -9,6 +9,7 @@ import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { handleSendMessage } from "@/lib/shared";
+import { messagesPush } from "@/lib/chat-utils";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -66,24 +67,24 @@ export const ChatInterface: React.FC<{
     const BC= new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = (event: {data: 
       { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
-      const { messages, isStreaming, message, chunk, code } = event.data;
-      if (messages) {
+      const e= event.data;
+      if (e.messages) {
         setMessages(messages);
       }
-      if (isStreaming) {
-        setIsStreaming(isStreaming);
+      if (e.isStreaming!==undefined) {
+        setIsStreaming(e.isStreaming);
       }
-      if (message) {
-
-        setMessages((prev: Message[])=>([...prev, message]));  
+      if (e.message) {
+        const msgs = messagesPush(messages,e.message);
+        setMessages(msgs);  
       }
-      if (code){
-        cSess.setCode(code);
+      if (e.code){
+        cSess.setCode(e.code);
       }
-      if (chunk) {
+      if (e.chunk) {
         setMessages((prev: Message[])=>{
           const lastMessage = prev[prev.length - 1];
-          lastMessage.content += chunk
+          lastMessage.content += e.chunk!
  
           return prev;
 
