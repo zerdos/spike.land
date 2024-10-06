@@ -52,7 +52,9 @@ export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeS
 
 export const makeSession = (p: ICodeSession) => {
   // remove everything before the first import
-  p.code = p.code.split("\n").filter((l) => !(l.startsWith("//") && l.includes(".tsx"))).join("\n");
+  p.code = p.code.split("\n").filter((l) =>
+    !(l.startsWith("//") && l.includes(".tsx") || l.trim() === ("// " + p.codeSpace))
+  ).join("\n");
 
   p.code = `// ${p.codeSpace}.tsx\n${p.code}`;
 
