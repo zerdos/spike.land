@@ -6,11 +6,11 @@ class SharedWorkerPolyfill {
   public port: MessagePort = null!;
 
   constructor(url: string, opts?: WorkerOptions) {
-    if ((globalThis as unknown as { VI_TEST: string }).VI_TEST !== "undefined") {
+    if (process.env.VI_TEST !== "false") {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
         this.worker = new Worker2(
-          __dirname + "/../../../dist/" + url.slice(0, url.indexOf("?")),
+          new URL(import.meta.url + "/../../../dist/" + url.slice(0, url.indexOf("?"))).toString(),
           opts || {},
         ) as unknown as Worker;
         this.initializeWorker();
