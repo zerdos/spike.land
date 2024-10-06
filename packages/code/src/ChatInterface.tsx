@@ -22,7 +22,7 @@ export const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [mess, setMess] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, [])
-  const [messages, setMessages] = useState<Message[]>(mess || []);  
+  const [messages, setMessages] = useState<Message[]>([]);  
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
   const [input, setInput] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
@@ -40,15 +40,21 @@ export const ChatInterface: React.FC<{
   }, [setMessages]);
 
   useEffect(() => {
-    // if hast changed in the last 3 seconds, save it
+    if (mess && mess.length > 0) {
+      setMessages(mess);
+    }
+  }, []);
+
+  useEffect(() => {
+    // if hast changed in the last seconds, save it
     const messagesHash = md5(messages.map((msg) => md5(msg)).join(""));
     const interval = setInterval(() => {
       const messagesHashNow = md5(messages.map((msg) => md5(msg)).join(""));
       if (messagesHash !== messagesHashNow) return;
       setMess(messages);
-    }, 3000);
+    }, 1000);
     return () => clearInterval(interval);
-  }, [messages, setMess]);
+  }, [messages]);
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
