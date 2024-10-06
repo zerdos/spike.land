@@ -24,76 +24,83 @@ const handleSendMessage = async (
 
   BC.postMessage({ isStreaming: true });
 
+  const setIsStreaming = (isStreaming: boolean) => BC.postMessage({ isStreaming });
+
   const setMessages = (_messages: Message[]) => {
     messages = _messages;
     BC.postMessage({ messages });
     return messages;
   };
 
-  const cSess = new CodeSessionBC(codeSpace);
-  await cSess.init();
-
-  const extendedBcSess = {
-    ...cSess,
-    setCodeAndTranspiled: async ({ formatted, transpiled }: { formatted: string; transpiled: string }) =>
-      cSess.setCodeAndTranspiled({ formatted, transpiled }),
-    init: () => cSess.init(),
-    session: cSess.session!,
-    getCode: () => cSess.getCode(),
-    setCode: async (rawCode: string, skipRunning = false) => {
-      if (skipRunning) {
-        const formatted = await m.prettierJs({ code: rawCode, toThrow: true });
-        const transpiled = await m.transpile({ code: formatted, originToUse: location.origin })!;
-        if (typeof transpiled !== "string") {
-          return false;
-        }
-
-        cSess.setCodeAndTranspiled({ formatted, transpiled });
-        return true;
-      } else BC.postMessage({ code: rawCode });
-      return true;
-    },
-  };
-
-  const setIsStreaming = (isStreaming: boolean) => BC.postMessage({ isStreaming });
-  const aiHandler = new AIHandler(setIsStreaming, codeSpace);
-
-  if (!prompt.trim()) return;
-
-  const claudeContent = aiHandler.prepareClaudeContent(
-    prompt,
-    messages,
-    cSess.session!.code,
-    codeSpace,
-  );
-  const newUserMessage = await createNewMessage(images, claudeContent);
-  messages = messagesPush(messages, newUserMessage);
-  BC.postMessage({ message: newUserMessage });
-
   try {
-    const success = await processMessage({
-      aiHandler,
-      cSess: extendedBcSess as unknown as ICode,
-      codeNow: cSess.session!.code,
-      messages,
-      setMessages,
+    const cSess = new CodeSessionBC(codeSpace);
+    await cSess.init();
 
-      newUserMessage,
-    });
+    const extendedBcSess = {
+      ...cSess,
+      setCodeAndTranspiled: async ({ formatted, transpiled }: { formatted: string; transpiled: string }) =>
+        cSess.setCodeAndTranspiled({ formatted, transpiled }),
+      init: () => cSess.init(),
+      session: cSess.session!,
+      getCode: () => cSess.getCode(),
+      setCode: async (rawCode: string, skipRunning = false) => {
+        if (skipRunning) {
+          const formatted = await m.prettierJs({ code: rawCode, toThrow: true });
+          const transpiled = await m.transpile({ code: formatted, originToUse: location.origin })!;
+          if (typeof transpiled !== "string") {
+            return false;
+          }
 
-    if (success) {
-      return;
-    }
-  } catch (error) {
-    console.error("Error processing request:", error);
-
-    const sorry: Message = {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
+          cSess.setCodeAndTranspiled({ formatted, transpiled });
+          return true;
+        } else BC.postMessage({ code: rawCode });
+        return true;
+      },
     };
-    messages = messagesPush(messages, sorry);
-    setMessages([...messages]);
+
+    const aiHandler = new AIHandler(setIsStreaming, codeSpace);
+
+    if (!prompt.trim()) return;
+
+    const claudeContent = aiHandler.prepareClaudeContent(
+      prompt,
+      messages,
+      cSess.session!.code,
+      codeSpace,
+    );
+    const newUserMessage = await createNewMessage(images, claudeContent);
+    messages = messagesPush(messages, newUserMessage);
+    BC.postMessage({ message: newUserMessage });
+
+    try {
+      const success = await processMessage({
+        aiHandler,
+        cSess: extendedBcSess as unknown as ICode,
+        codeNow: cSess.session!.code,
+        messages,
+        setMessages,
+
+        newUserMessage,
+      });
+
+      if (success) {
+        return;
+      }
+    } catch (error) {
+      console.error("Error processing request:", error);
+
+      const sorry: Message = {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
+      };
+      messages = messagesPush(messages, sorry);
+      setMessages([...messages]);
+    }
+  } catch (e) {
+    console.log(e);
+  } finally {
+    BC.postMessage({ isStreaming: false });
   }
 };
 
