@@ -1,4 +1,4 @@
-import { ata } from "@/lib/shared";
+import { ata, prettierToThrow } from "@/lib/shared";
 import { editor, languages,  Uri } from "@/external/monaco-editor";
 import {version} from "monaco-editor/package.json"; 
 import {throttle} from "es-toolkit";
@@ -183,6 +183,19 @@ async function startMonacoPristine({
   const model = editor.getModel(uri)
     || editor.createModel(replacedCode, "typescript", uri);
 
+
+
+ languages.registerDocumentFormattingEditProvider('typescript', {
+       provideDocumentFormattingEdits: async (model) => {
+        const formattedText = await prettierToThrow({ code: model.getValue(), toThrow: false });
+        return [
+          {
+            range: model.getFullModelRange(),
+            text: formattedText,
+          }
+        ];
+      },
+    });
 
     const link = document.createElement('link');
 
