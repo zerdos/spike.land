@@ -301,22 +301,33 @@ sw.addEventListener("fetch", (event) => {
     ) {
       console.log("Transpiled request:", request.url);
 
-      event.respondWith(
-        sw.cSessions[codeSpace].init().then(async (session) =>
-          new Response(
-            importMapReplace(
-              session.transpiled || await transpile({ code: session.code, originToUse: "" }) as unknown as string,
-              location.origin,
-            ),
-            {
-              headers: {
-                "Content-Type": "application/javascript; charset=UTF-8",
-                ...request.headers,
-              },
+      const sessPr = (async () => {
+        const session = await sw.cSessions[codeSpace].init();
+
+        if (typeof session.transpiled !== "string" || session.transpiled === "") {
+          const transpiled = await transpile({ code: session.code, originToUse: "" }) as unknown as string;
+          session.transpiled = transpiled;
+          await sw.cSessions[codeSpace].postMessage({
+            ...session,
+            transpiled,
+            i: session.i + 1,
+          });
+        }
+        return session;
+      })();
+
+      event.respondWith(sessPr.then((session) =>
+        new Response(
+          importMapReplace(session.transpiled, location.origin),
+          {
+            headers: {
+              "Content-Type": "application/javascript; charset=UTF-8",
+              ...request.headers,
             },
-          )
-        ),
-      );
+          },
+        )
+      ));
+
       return;
     } else if (
       request.url.includes("/index.css")
