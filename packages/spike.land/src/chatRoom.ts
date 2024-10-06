@@ -86,14 +86,10 @@ export class Code implements DurableObject {
             // full empty state
             this.session = makeSession({
               codeSpace,
-              code: `
-// x-${codeSpaceParts[1]}.tsx
-
-// write your code here
-
+              code: `export default () => (<>Write your code here!</>);
               `,
               i: 1,          
-              html: "<div></div>",
+              html: "<div>Write your code here!</div>",
               css: "",
             });
           } else {  
