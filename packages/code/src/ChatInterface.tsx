@@ -9,6 +9,7 @@ import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { handleSendMessage } from "@/lib/shared";
+import {useImmer} from "use-immer"
 import { messagesPush } from "@/lib/chat-utils";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
@@ -22,7 +23,7 @@ export const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [mess, setMess] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, [])
-  const [messages, setMessages] = useState<Message[]>([]);  
+  const [messages, setMessages] = useImmer<Message[]>([]);  
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
   const [input, setInput] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
@@ -85,46 +86,40 @@ export const ChatInterface: React.FC<{
       { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
       const e= event.data;
       if (e.messages) {
-        setMessages(messages);
-      }
+        setMessages(e.messages);
+      } 
+
+
+
+            
+
+
       if (e.isStreaming!==undefined) {
         setIsStreaming(e.isStreaming);
       }
       if (e.message) {
-        const msgs = messagesPush(messages,e.message);
-        setMessages(msgs);  
+        setMessages(  (draft) => {
+          return messagesPush(draft, e.message as Message);
+        } );  
       }
       if (e.code){
        await cSess.setCode(e.code);
       }
       if (e.chunk) {
+        if (messages.length > 1){
         setMessages((prev: Message[])=>{
           const lastMessage = prev[prev.length - 1];
+          if (lastMessage.role !== "assistant") return prev;
           lastMessage.content += e.chunk!
  
           return prev;
 
         });
       }
+      }
 
     };
-    if (isStreaming && messages.length > 0) {
-      const lastMessage = messages[messages.length - 1];
-      const interval = setTimeout(() => {
-        const newMessage = messages[messages.length - 1];
-        if (md5(lastMessage) === md5(newMessage)) {
-          console.log("No new messages setIsStreaming = false");
-          setIsStreaming(false);
-        } else {
-          console.log("New messages setIsStreaming = true");
-          console.log("lastMessage", md5(lastMessage));
-          console.log("newMessage", md5(newMessage));
-        }
-      }, 1000);
-      return () => clearTimeout(interval);
-    } else {
-      return undefined;
-    }
+   
   }, []);
 
   const handleResetChat = useCallback((): void => {
