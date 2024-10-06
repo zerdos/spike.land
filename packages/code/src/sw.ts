@@ -6,20 +6,25 @@ import type {
 } from "./sw-deps";
 
 importScripts("/swVersion.js");
-importScripts("/sw-deps.js");
-
-const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace } = globalThis as unknown as {
-  serveWithCache: typeof ServeWithCache;
-  CodeSessionBC: typeof CsBc;
-  useCodeSpace: typeof UseCodeSpace;
-  importMapReplace: typeof ImportMapReplace;
-};
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
   swVersion: string;
   cSessions: Record<string, CsBc>;
   files: Record<string, string>;
   fileCacheName: string;
+};
+
+const swDepsInFiles = sw.files["sw-deps.js"].split(".");
+swDepsInFiles.pop(); // js
+const hash = swDepsInFiles.pop(); // hash
+
+importScripts("/sw-deps.js" + "?hash=" + hash); // sw-deps.js
+
+const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace } = globalThis as unknown as {
+  serveWithCache: typeof ServeWithCache;
+  CodeSessionBC: typeof CsBc;
+  useCodeSpace: typeof UseCodeSpace;
+  importMapReplace: typeof ImportMapReplace;
 };
 
 // Initialize cSessions
