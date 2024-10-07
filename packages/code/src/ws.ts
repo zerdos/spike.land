@@ -81,7 +81,7 @@ const handleRender = async (
           (x) => x.cssText.split("\\").join(""),
         )
         : [];
-      const htmlClasses = getClassNamesFromHTML(html);
+      const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
       const criticalClasses = new Set(
         [
@@ -90,7 +90,7 @@ const handleRender = async (
         ].filter((line) => {
           if (line.startsWith("@")) return true;
           const rule = line.slice(1, line.indexOf("{")).trim();
-          return htmlClasses.some((x) => x.includes(rule));
+          return htmlClasses.has(rule);
         }),
       );
 
