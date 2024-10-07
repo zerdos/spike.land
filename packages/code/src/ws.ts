@@ -10,6 +10,7 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { Style } from "util";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
@@ -72,15 +73,10 @@ const handleRender = async (
 
       const emotionStyles = extractStyles();
 
-      const tailWindClasses = document.querySelector("head > style:last-child")?.textContent?.split("}").map(x =>
-        x + "}"
-      );
-      if (tailWindClasses) {
-        const firstLine = tailWindClasses[0].split("*/").pop()!;
-        tailWindClasses[0] = firstLine;
-        tailWindClasses?.pop();
-      }
-      const tailWindClassesX = tailWindClasses?.map(x => x.split("\\:").join(":")) || [];
+      const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+      const sheet = tailWindClasses?.sheet as CSSStyleSheet;
+      const tailWindClassesX = sheet ? [...sheet.cssRules].map(x => x.cssText) : [];
+
       const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
       const criticalClasses = new Set(
