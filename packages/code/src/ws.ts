@@ -224,6 +224,7 @@ const handleRunMessage = async (
         const renderedNew = await renderApp({
           rootElement: myEl,
           transpiled,
+          prerender: true,
         });
 
         if (!renderedNew || signal.aborted) {

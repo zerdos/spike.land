@@ -61,21 +61,26 @@ function getEmotionStyles(key: string): string[] {
  * @returns A string of concatenated styles.
  */
 function extractStylesFromStylesheets(key: string): string[] {
-  return [
-    ...new Set([
-      ...Array.from(document.styleSheets)
-        .map((sheet) => {
-          try {
-            return Array.from(sheet.cssRules).map((x) => x.cssText).filter(
-              (x) => x.includes(key),
-            );
-          } catch (e) {
-            console.log(e);
-            return [];
-          }
-        }).flat(),
-    ]),
-  ];
+  try {
+    return [
+      ...new Set([
+        ...Array.from(document.styleSheets)
+          .map((sheet) => {
+            try {
+              return Array.from(sheet.cssRules).map((x) => x.cssText).filter(
+                (x) => x.includes(key),
+              );
+            } catch (e) {
+              console.log(e);
+              return [];
+            }
+          }).flat(),
+      ]),
+    ];
+  } catch (error) {
+    console.warn("Failed to extract styles from stylesheets:", error);
+    return [];
+  }
 }
 
 export { mineFromCaches };

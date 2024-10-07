@@ -43,7 +43,7 @@ declare global {
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, prerender=false }: IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement ||
@@ -99,7 +99,7 @@ async function renderApp(
 
     const cssCache = createCache({
       key: md5(transpiled! || code! || Math.random().toString()),
-      speedy: true,
+      speedy: prerender?false:true,
       container: rootEl.parentNode!,
     });
 
