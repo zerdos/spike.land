@@ -179,6 +179,11 @@ async function handleSocketMessage(
 
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
 
+  if (data.type === "ping") {
+    console.log("Received ping message");
+    return;
+  }
+
   if (data.hashCode) {
     console.log("Received hash code:", data.hashCode);
     console.log("Last hash:", connection.lastHash);
