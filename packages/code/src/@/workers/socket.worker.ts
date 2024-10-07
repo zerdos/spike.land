@@ -179,9 +179,14 @@ async function handleSocketMessage(
 
   console.log(`Handling socket message for codeSpace: ${codeSpace}`);
 
-  if (data.hashCode || data.newHash) {
-    if (connection.lastHash === data.newHash || connection.lastHash === data.hashCode) {
+  if (data.hashCode) {
+    console.log("Received hash code:", data.hashCode);
+    console.log("Last hash:", connection.lastHash);
+
+    if (connection.lastHash === data.hashCode) {
+      console.log("setting lastCounter to oldSession.i", connection.oldSession.i);
       connection.lastCounter = connection.oldSession.i;
+
       console.log("Skipping message due to hash match");
       return;
     }
@@ -207,6 +212,11 @@ async function handleSocketMessage(
       codeSpace,
     );
   } else if (data.newHash && data.oldHash) {
+    if (connection.lastHash === data.newHash) {
+      console.log("Skipping hash update due to hash match");
+      connection.lastCounter = connection.oldSession.i;
+      return;
+    }
     console.log("Handling hash update message");
     await handleHashUpdate(
       data as { newHash: string; oldHash: string; hashCode: string },
