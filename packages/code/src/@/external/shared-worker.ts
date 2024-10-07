@@ -1,4 +1,7 @@
+import { getTransferables, hasTransferables } from "transferables";
+
 // src/index.ts
+
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
@@ -24,7 +27,14 @@ class SharedWorkerPolyfill {
   private initializeWorker() {
     this.port = this.worker as unknown as MessagePort;
     // Send port2 to the worker
-    this.worker.postMessage({ type: "init" }, [this.port]);
+
+    const message = { type: "init", port: this.port };
+    this.worker.postMessage(
+      message,
+      (hasTransferables(message as unknown)
+        ? getTransferables(message as unknown)
+        : undefined) as unknown as Transferable[],
+    );
 
     // Forward error events from the worker to the port
     if (this.worker && "onerror" in this.worker) {
