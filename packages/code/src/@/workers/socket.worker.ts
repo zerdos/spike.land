@@ -396,6 +396,7 @@ async function handleHashMatch(
   if (data.newHash === newHash || data.hashCode === newHash) {
     console.log("New hash matches received hash");
     connection.oldSession = newSession;
+    connection.lastHash = newHash;
     const { broadcastChannel } = connection;
     broadcastChannel.postMessage({
       ...newSession,
