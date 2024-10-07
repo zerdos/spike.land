@@ -41,7 +41,7 @@
     "mime-db": "^1.53.0",
     "mime-types": "^2.1.35",
     "miniflare": "^3.20240925.0",
-    "openai": "^4.67.1",
+    "openai": "^4.67.2",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",
