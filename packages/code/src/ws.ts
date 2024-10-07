@@ -10,6 +10,7 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { get } from "http";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
@@ -326,6 +327,12 @@ function getClassNamesFromHTML(htmlString: string) {
         .forEach((cls) => classNames.add(cls));
     }
   }
+  tempDiv.childNodes.forEach((el) => {
+    if (el instanceof HTMLElement) {
+      const elementClassNames = getClassNamesFromHTML(el.innerHTML);
+      elementClassNames.forEach((cls) => classNames.add(cls));
+    }
+  });
   return Array.from(classNames);
 }
 
