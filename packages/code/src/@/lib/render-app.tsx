@@ -167,7 +167,7 @@ async function renderApp(
       rRoot: root,
       App: AppToRender,
       cssCache: cssCache.cache,
-      styles: cssCache.extractStyles(),
+      extractStyles: cssCache.extractStyles.bind(cssCache),
       cleanup: () => {
         root.unmount();
         if (cssCache.cache.sheet) {
