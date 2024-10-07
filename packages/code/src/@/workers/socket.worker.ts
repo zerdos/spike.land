@@ -525,6 +525,7 @@ async function handleBroadcastMessage(
       if (patchMessage.oldHash === oldHash) {
         console.log("Patch created successfully, updating session");
         connection.oldSession = newSession;
+        connection.lastHash = newHash;
         connection.webSocket.send(
           JSON.stringify({
             ...patchMessage,
