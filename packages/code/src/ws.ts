@@ -11,6 +11,7 @@ import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { get } from "http";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
@@ -73,14 +74,17 @@ const handleRender = async (
 
       const emotionStyles = extractStyles();
 
-      const styleElement = document.querySelector("head > style:last-child");
-      const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(
-          (x) => x.cssText.startsWith("."),
-        ).map(
-          (x) => x.cssText.split("\\").join(""),
-        )
-        : [];
+      const styleElements = document.querySelectorAll("head > style");
+      const tailWindClassesAll = [...styleElements].map((styleElement) =>
+        styleElement
+          ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(
+            (x) => x.cssText.startsWith("."),
+          ).map(
+            (x) => x.cssText.split("\\").join(""),
+          )
+          : []
+      );
+      const tailWindClasses = tailWindClassesAll.flat();
       const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
       const criticalClasses = new Set(
