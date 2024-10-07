@@ -1,7 +1,3 @@
-// import { getTransferables, hasTransferables } from "transferables";
-
-// src/index.ts
-
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
