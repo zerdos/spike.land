@@ -74,31 +74,22 @@ const handleRender = async (
 
       const emotionStyles = extractStyles();
 
-      const styleElements = document.querySelectorAll("head > style");
-      const tailWindClassesAll = [...styleElements].map((styleElement) =>
-        styleElement
-          ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(
-            (x) => x.cssText.startsWith("."),
-          ).map(
-            (x) => x.cssText.split("\\").join(""),
-          )
-          : []
+      const tailWindClasses = document.querySelector("head > style:last-child")?.textContent?.split("}").map(x =>
+        x + "}"
       );
-      const tailWindClasses = tailWindClassesAll.flat();
+      tailWindClasses?.pop();
+
       const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
       const criticalClasses = new Set(
-        [
-          ...tailWindClasses,
-          ...emotionStyles,
-        ].filter((line) => {
+        emotionStyles.filter((line) => {
           if (line.startsWith("@")) return true;
           const rule = line.slice(1, line.indexOf("{")).trim();
           return htmlClasses.has(rule);
         }),
       );
 
-      let cssStrings = [...criticalClasses].sort().join("\n");
+      let cssStrings = [...(tailWindClasses ? tailWindClasses : []), ...criticalClasses].sort().join("\n");
 
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
