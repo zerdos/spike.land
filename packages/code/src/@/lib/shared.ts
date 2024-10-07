@@ -1,4 +1,4 @@
-import AlwaysSupportedSharedWorker from "@/external/shared-worker";
+import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
 import type { ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { swVersion } from "@/lib/swVersion";
 import { Mutex } from "async-mutex";
