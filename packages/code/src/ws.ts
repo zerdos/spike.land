@@ -10,8 +10,6 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import { get } from "http";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
@@ -77,8 +75,12 @@ const handleRender = async (
       const tailWindClasses = document.querySelector("head > style:last-child")?.textContent?.split("}").map(x =>
         x + "}"
       );
-      tailWindClasses?.pop();
-
+      if (tailWindClasses) {
+        const firstLine = tailWindClasses[0].split("*/").pop()!;
+        tailWindClasses[0] = firstLine;
+        tailWindClasses?.pop();
+      }
+      const tailWindClassesX = tailWindClasses?.map(x => x.split("\\:").join(":")) || [];
       const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
       const criticalClasses = new Set(
@@ -89,7 +91,7 @@ const handleRender = async (
         }),
       );
 
-      let cssStrings = [...(tailWindClasses ? tailWindClasses : []), ...criticalClasses].sort().join("\n");
+      let cssStrings = [...tailWindClassesX, ...criticalClasses].sort().join("\n");
 
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
