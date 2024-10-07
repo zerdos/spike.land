@@ -22,17 +22,8 @@ import { useWindowSize } from "@uidotdev/usehooks";
  * @returns An array of CSS rule strings.
  */
 function extractEmotionStyles(cache: EmotionCache): string[] {
-  const { inserted, registered } = cache;
-  const rules: string[] = [];
 
-  Object.keys(inserted).forEach((id) => {
-    const rule = registered[id];
-    if (rule) {
-      rules.push(rule);
-    }
-  });
-
-  return rules;
+  return [...cache.sheet.tags].map(x=>x.innerText);
 }
 
 
