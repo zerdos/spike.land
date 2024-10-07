@@ -55,7 +55,10 @@ export function memoizeWithAbort<T extends AnyFunction>(
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cache = new Map<string, { promise: Promise<any>; callbacks: Callbacks[] }>();
+  const cache = new Map<
+    string,
+    { promise: Promise<any>; callbacks: Callbacks[] }
+  >();
 
   return ((...args: [...Parameters<T>, AbortSignal]): ReturnType<T> => {
     const signal = args.pop() as AbortSignal;
@@ -67,7 +70,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
       const { promise, callbacks } = entry;
 
       if (signal.aborted) {
-        return Promise.reject(new DOMException("Aborted", "AbortError")) as ReturnType<T>;
+        return Promise.reject(
+          new DOMException("Aborted", "AbortError"),
+        ) as ReturnType<T>;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,7 +97,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
       return newPromise as ReturnType<T>;
     } else {
       if (signal.aborted) {
-        return Promise.reject(new DOMException("Aborted", "AbortError")) as ReturnType<T>;
+        return Promise.reject(
+          new DOMException("Aborted", "AbortError"),
+        ) as ReturnType<T>;
       }
 
       const callbacks: Callbacks[] = [];
@@ -142,7 +149,9 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
     const errorMessage = typeof error === "string"
       ? error
       : (error as Error).message || JSON.stringify(error);
-    throw new Error(`Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split("\"").join("\"")}`);
+    throw new Error(
+      `Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split("\"").join("\"")}`,
+    );
   }
 }, (code: string) => md5(code));
 
@@ -150,7 +159,9 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
   try {
     return await transpile({ code, originToUse: location.origin });
   } catch (error) {
-    throw new Error(`Transpilation failed: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Transpilation failed: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }, (code: string) => md5(code));
 
@@ -189,7 +200,10 @@ export const runCode = memoizeWithAbort(
           if (data.type === "runResponse") {
             clearTimeout(timeoutId);
             cleanup();
-            if (data.html === "" || data.html.includes("Oops! Something went wrong.")) {
+            if (
+              data.html === ""
+              || data.html.includes("Oops! Something went wrong.")
+            ) {
               reject(new Error("Error running code" + data.html));
             } else {
               resolve({ html: data.html, css: data.css });

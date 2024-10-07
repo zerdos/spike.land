@@ -34,7 +34,9 @@ describe.skip("AIHandler", () => {
       content: "Hi there!",
     };
 
-    vi.mocked(mockAIService.sendToAnthropic).mockResolvedValue(expectedResponse);
+    vi.mocked(mockAIService.sendToAnthropic).mockResolvedValue(
+      expectedResponse,
+    );
     const updates = vi.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
@@ -70,7 +72,9 @@ describe.skip("AIHandler", () => {
     const currentCode = "Current code";
 
     const preparedContent = "Prepared content";
-    vi.mocked(mockAIService.prepareClaudeContent).mockReturnValue(preparedContent);
+    vi.mocked(mockAIService.prepareClaudeContent).mockReturnValue(
+      preparedContent,
+    );
 
     const result = aiHandler.prepareClaudeContent(
       content,

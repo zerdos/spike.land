@@ -9,7 +9,7 @@ import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { handleSendMessage } from "@/lib/shared";
-import {useImmer} from "use-immer"
+import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
@@ -22,9 +22,15 @@ export const ChatInterface: React.FC<{
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [mess, setMess] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, [])
-  const [messages, setMessages] = useImmer<Message[]>([]);  
-  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
+  const [mess, setMess] = useLocalStorage<Message[]>(
+    `chatMessages-${codeSpace}`,
+    [],
+  );
+  const [messages, setMessages] = useImmer<Message[]>([]);
+  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
+    `streaming-${codeSpace}`,
+    false,
+  );
   const [input, setInput] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
@@ -47,10 +53,12 @@ export const ChatInterface: React.FC<{
   }, []);
 
   useEffect(() => {
-
     if (isOpen) {
       setTimeout(() => {
-        document.getElementById("after-last-message")?.scrollIntoView({ behavior: "instant", block: "end" });
+        document.getElementById("after-last-message")?.scrollIntoView({
+          behavior: "instant",
+          block: "end",
+        });
       });
     }
     // if hast changed in the last seconds, save it
@@ -73,8 +81,12 @@ export const ChatInterface: React.FC<{
       msg.id === messageId
         ? {
           ...msg,
-          content: typeof msg.content === "string" ? msg.content : Array.isArray(msg.content)
-            ? msg.content.map(item => item.type === "text" ? { ...item, text: editInput } : item)
+          content: typeof msg.content === "string"
+            ? msg.content
+            : Array.isArray(msg.content)
+            ? msg.content.map((item) =>
+              item.type === "text" ? { ...item, text: editInput } : item
+            )
             : editInput,
         }
         : msg
@@ -84,48 +96,48 @@ export const ChatInterface: React.FC<{
     setEditingMessageId(null);
     setEditInput("");
   };
-  
 
   useEffect(() => {
-    const BC= new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (event: {data: 
-      { messages?: Message[]; isStreaming?: boolean; message?: Message; chunk?: string, code?: string }}) => {
-      const e= event.data;
+    const BC = new BroadcastChannel(`${codeSpace}-chat`);
+    BC.onmessage = async (
+      event: {
+        data: {
+          messages?: Message[];
+          isStreaming?: boolean;
+          message?: Message;
+          chunk?: string;
+          code?: string;
+        };
+      },
+    ) => {
+      const e = event.data;
       if (e.messages) {
         setMessages(e.messages);
-      } 
+      }
 
-
-
-            
-
-
-      if (e.isStreaming!==undefined) {
+      if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
       if (e.message) {
-        setMessages(  (draft) => {
+        setMessages((draft) => {
           return messagesPush(draft, e.message as Message);
-        } );  
-      }
-      if (e.code){
-       await cSess.setCode(e.code);
-      }
-      if (e.chunk) {
-        if (messages.length > 1){
-        setMessages((prev: Message[])=>{
-          const lastMessage = prev[prev.length - 1];
-          if (lastMessage.role !== "assistant") return prev;
-          lastMessage.content += e.chunk!
- 
-          return prev;
-
         });
       }
+      if (e.code) {
+        await cSess.setCode(e.code);
       }
+      if (e.chunk) {
+        if (messages.length > 1) {
+          setMessages((prev: Message[]) => {
+            const lastMessage = prev[prev.length - 1];
+            if (lastMessage.role !== "assistant") return prev;
+            lastMessage.content += e.chunk!;
 
+            return prev;
+          });
+        }
+      }
     };
-   
   }, []);
 
   const handleResetChat = useCallback((): void => {
@@ -144,21 +156,27 @@ export const ChatInterface: React.FC<{
   } = useScreenshot(codeSpace);
 
   useEffect(() => {
-
     if (codeSpace.includes("-")) {
       const maybeKey = codeSpace.split("-")[1];
       const storedData = sessionStorage.getItem(maybeKey);
       if (storedData) {
-        const {prompt, images} = JSON.parse(storedData) as {prompt: string; images: ImageData[]};
+        const { prompt, images } = JSON.parse(storedData) as {
+          prompt: string;
+          images: ImageData[];
+        };
         sessionStorage.removeItem(maybeKey);
-        const messages = [{ id: Date.now().toString(), role: "user", content: prompt } as Message ];
-        setInput('');
-        handleSendMessage({messages, codeSpace, prompt, images});
+        const messages = [
+          {
+            id: Date.now().toString(),
+            role: "user",
+            content: prompt,
+          } as Message,
+        ];
+        setInput("");
+        handleSendMessage({ messages, codeSpace, prompt, images });
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
-
-
 
   const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
@@ -167,24 +185,26 @@ export const ChatInterface: React.FC<{
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     setEditingMessageId(messageId);
 
+    const messageToEdit = messages.find((msg) => msg.id === messageId);
+    if (!messageToEdit) {
+      console.error("Invalid message for editing");
+      return;
+    }
+    const contentToEdit = Array.isArray(messageToEdit.content)
+      ? messageToEdit.content.find((item) => item.type === "text")?.text || ""
+      : messageToEdit.content;
 
-      const messageToEdit = messages.find((msg) => msg.id === messageId);
-      if (!messageToEdit) {
-        console.error("Invalid message for editing");
-        return;
-      }
-      const contentToEdit = Array.isArray(messageToEdit.content)
-        ? messageToEdit.content.find(item => item.type === "text")?.text || ""
-        : messageToEdit.content;
-  
-      setEditInput(contentToEdit);
+    setEditInput(contentToEdit);
   }, [handleSendMessage]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
   }, []);
 
-  const memoizedScreenShot = useCallback((): Promise<ImageData> => cSess.screenShot(), [cSess]);
+  const memoizedScreenShot = useCallback(
+    (): Promise<ImageData> => cSess.screenShot(),
+    [cSess],
+  );
 
   if (!isOpen) return null;
 
@@ -199,7 +219,14 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      handleSendMessage={({messages, codeSpace, prompt, images}: {messages: Message[], codeSpace: string, prompt: string, images: ImageData[]}) => handleSendMessage({ messages,  codeSpace, prompt, images })}
+      handleSendMessage={(
+        { messages, codeSpace, prompt, images }: {
+          messages: Message[];
+          codeSpace: string;
+          prompt: string;
+          images: ImageData[];
+        },
+      ) => handleSendMessage({ messages, codeSpace, prompt, images })}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

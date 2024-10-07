@@ -16,7 +16,7 @@ export const oo = {
 export const importMap = { imports: oo };
 
 const externalString = "bundle=true&external="
-  + Object.keys(oo).filter(o => !o.endsWith("/") && o !== "@emotion/react/jsx-runtime").join(",");
+  + Object.keys(oo).filter((o) => !o.endsWith("/") && o !== "@emotion/react/jsx-runtime").join(",");
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
@@ -85,9 +85,12 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName?.startsWith(".") || packageName?.startsWith("http")) {
       if (packageName?.startsWith("http") && !packageName?.startsWith(origin)) {
         const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
+        const [pkgName, exports] = oldUrl.pathname.slice(1).split(
+          "?bundle=true&exports=",
+        );
         if (exports) {
-          return p1 + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
+          return p1
+            + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -112,17 +115,19 @@ export function importMapReplace(code: string, origin: string): string {
     // Handle specific exports
     const [pkgName, exports] = packageName.split(`?${externalString}&exports=`);
     if (exports) {
-      return p1 + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
+      return p1
+        + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
     const importMatch = match.match(/import\s*{\s*([^}]+)\s*}/);
     if (importMatch) {
-      const importedItems = importMatch[1].split(",").map(item => {
+      const importedItems = importMatch[1].split(",").map((item) => {
         const [originalName] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
+      return p1
+        + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
     }
 
     return p1 + `"${origin}/${packageName}?${externalString}"` + p3;

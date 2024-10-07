@@ -1,39 +1,39 @@
 // eslint.config.mjs
 
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
 
 export default [
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
     ignores: [
-      '**/*.js',
-      '**/*.jsx',
-      '**/*.cjs',
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.cjs",
       "dist/**",
       "dts/**",
       "tw-chunk**",
-      'node_modules/**',
-      '_old_tailwind.config.js',
-      '.eslintrc.cjs'
+      "node_modules/**",
+      "_old_tailwind.config.js",
+      ".eslintrc.cjs",
     ],
   },
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json',
+        project: "./tsconfig.json",
       },
     },
     rules: {
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
         {
-          prefer: 'type-imports',
+          prefer: "type-imports",
           disallowTypeAnnotations: true,
-          fixStyle: 'separate-type-imports',
+          fixStyle: "separate-type-imports",
         },
       ],
     },

@@ -1,4 +1,3 @@
-
 import {
   buildMainBundle,
   buildMainScripts,

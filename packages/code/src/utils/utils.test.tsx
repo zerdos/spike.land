@@ -20,7 +20,8 @@ describe("getParts", () => {
   });
 
   test("should handle text with a single code block", () => {
-    const input = "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
+    const input =
+      "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
     const result = getParts(input, false);
     expect(result).toMatchInlineSnapshot([
       {
@@ -36,7 +37,8 @@ describe("getParts", () => {
   });
 
   test("should handle text with multiple code blocks", () => {
-    const input = "First block:\n```javascript\nlet a = 1;\n```\nSecond block:\n```python\nprint(\"Hello\")\n```";
+    const input =
+      'First block:\n```javascript\nlet a = 1;\n```\nSecond block:\n```python\nprint("Hello")\n```';
     const result = getParts(input, true);
     expect(result).toMatchInlineSnapshot([
       {
@@ -55,7 +57,7 @@ describe("getParts", () => {
       {
         type: "code",
         language: "python",
-        content: "print(\"Hello\")",
+        content: 'print("Hello")',
       },
     ]);
   });
@@ -77,7 +79,8 @@ describe("getParts", () => {
   });
 
   test("should handle search and replace markers", () => {
-    const input = "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
+    const input =
+      "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getParts(input, true);
     expect(result).toMatchInlineSnapshot([
       {
@@ -97,7 +100,8 @@ describe("getParts", () => {
   });
 
   test("should handle nested code blocks", () => {
-    const input = 'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
+    const input =
+      'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getParts(input, true);
     expect(result).toMatchInlineSnapshot([
       {
@@ -111,7 +115,7 @@ describe("getParts", () => {
       },
       {
         type: "text",
-        content: "json\n{\"key\": \"value\"}",
+        content: 'json\n{"key": "value"}',
       },
       {
         type: "code",
@@ -162,7 +166,8 @@ describe("getParts", () => {
       {
         type: "code",
         language: "diff",
-        content: "<<<<<<< SEARCH\n      const a = 1;\n      =======\n      const a = 2;\n      >>>>>>> REPLACE",
+        content:
+          "<<<<<<< SEARCH\n      const a = 1;\n      =======\n      const a = 2;\n      >>>>>>> REPLACE",
       },
       {
         type: "text",
@@ -171,7 +176,8 @@ describe("getParts", () => {
       {
         type: "code",
         language: "diff",
-        content: "<<<<<<< SEARCH\n      let b = 3;\n      =======\n      let b = 4;\n      >>>>>>> REPLACE",
+        content:
+          "<<<<<<< SEARCH\n      let b = 3;\n      =======\n      let b = 4;\n      >>>>>>> REPLACE",
       },
     ]);
   });
@@ -193,14 +199,14 @@ describe("getParts", () => {
 
     const result = getParts(input, true);
     expect(result[0].content.trim()).toMatchInlineSnapshot(`"first change:"`);
-  expect(result[1].content.trim()).toMatchInlineSnapshot(
+    expect(result[1].content.trim()).toMatchInlineSnapshot(
       `
     "<<<<<<< SEARCH
           const a = 1;
           =======
           const a = 2;
           >>>>>>> REPLACE"
-  `
+  `,
     );
     expect(result[2].content.trim()).toMatchInlineSnapshot(`"second change:"`);
     expect(result[3].content.trim()).toMatchInlineSnapshot(
@@ -210,7 +216,7 @@ describe("getParts", () => {
             =======
             let b =
           >>>>>>> REPLACE"
-    `
+    `,
     );
   });
 });

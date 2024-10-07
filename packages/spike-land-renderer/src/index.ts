@@ -45,17 +45,21 @@ export default {
           //   await page.waitForTimeout(500); // Wait for scroll to complete
           // }
 
-          img = await page.screenshot({ type: "jpeg", fullPage: true, quality: 70, encoding: 'binary' }) as Buffer;
-          
+          img = await page.screenshot({
+            type: "jpeg",
+            fullPage: true,
+            quality: 70,
+            encoding: "binary",
+          }) as Buffer;
+
           ctx.waitUntil(
-          env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 })
+            env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 }),
           );
         } catch (error) {
           console.error("Error capturing screenshot:", error);
           return new Response("Error capturing screenshot", { status: 500 });
         } finally {
           ctx.waitUntil(browser.close());
-         
         }
       }
 

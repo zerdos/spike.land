@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-export const useAsyncState = <T>(asyncFn: () => Promise<T>, deps: React.DependencyList = []) => {
+export const useAsyncState = <T>(
+  asyncFn: () => Promise<T>,
+  deps: React.DependencyList = [],
+) => {
   const [state, setState] = useState<T | null>(null);
 
   useEffect(() => {

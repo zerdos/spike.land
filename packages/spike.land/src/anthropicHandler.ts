@@ -4,15 +4,17 @@ import type { Stream } from "@anthropic-ai/sdk/streaming";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import type { Message, MessageContent } from "@spike-land/code";
-import {handleCMSIndexRequest} from "./chat";
+import { handleCMSIndexRequest } from "./chat";
 import { KVLogger } from "./Logs";
 
 function base64Encode(buf: ArrayBuffer) {
-  let string = '';
+  let string = "";
   (new Uint8Array(buf)).forEach(
-    (byte) => { string += String.fromCharCode(byte) }
-  )
-  return btoa(string)
+    (byte) => {
+      string += String.fromCharCode(byte);
+    },
+  );
+  return btoa(string);
 }
 
 interface RequestBody {
@@ -27,50 +29,50 @@ export async function handleAnthropicRequest(
   ctx: ExecutionContext,
 ) {
   const logger = new KVLogger("ai", env.KV);
-  
-
 
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as RequestBody;
 
-  const messages = await Promise.all(body.messages.map(async (message: Message) => {
-    const content: MessageContent = message.content;
-    if (typeof content === "string") {
-      return message;
-    }
-
-    const processedContent = await Promise.all(message.content.map(async (content: MessageContent) => {
-      if (content.type !== "image_url") {
-        return content;
+  const messages = await Promise.all(
+    body.messages.map(async (message: Message) => {
+      const content: MessageContent = message.content;
+      if (typeof content === "string") {
+        return message;
       }
 
-
-        const url = content.image_url.url;
-        const response = await handleCMSIndexRequest(new Request(url), env);
-
-        const data = base64Encode(await response.arrayBuffer());
-
-        return {
-          type: "image",
-          source: {
-            type: "base64",
-            media_type: response.headers.get("Content-Type") || "image/jpeg",
-            data
+      const processedContent = await Promise.all(
+        message.content.map(async (content: MessageContent) => {
+          if (content.type !== "image_url") {
+            return content;
           }
-         
-        };
 
-    }));
+          const url = content.image_url.url;
+          const response = await handleCMSIndexRequest(new Request(url), env);
 
-    return {
-      ...message,
-      content: processedContent
-    };
-  }));
+          const data = base64Encode(await response.arrayBuffer());
+
+          return {
+            type: "image",
+            source: {
+              type: "base64",
+              media_type: response.headers.get("Content-Type") || "image/jpeg",
+              data,
+            },
+          };
+        }),
+      );
+
+      return {
+        ...message,
+        content: processedContent,
+      };
+    }),
+  );
 
   const anthropic = new Anthropic({
-    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
+    baseURL:
+      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
     apiKey: env.ANTHROPIC_API_KEY,
   });
 
@@ -83,7 +85,7 @@ export async function handleAnthropicRequest(
   };
 
   if (conf.stream === false) {
-    const response = await anthropic.messages.create({...conf, messages});
+    const response = await anthropic.messages.create({ ...conf, messages });
     return new Response(JSON.stringify(response), {
       headers: {
         "Content-Type": "application/json",
@@ -99,12 +101,18 @@ export async function handleAnthropicRequest(
 
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create({...conf, messages}) as Stream<
+      const stream = await anthropic.messages.create({
+        ...conf,
+        messages,
+      }) as Stream<
         Anthropic.Messages.RawMessageStreamEvent
       >;
 
       for await (const part of stream) {
-        if (part.type === "content_block_start" || part.type === "content_block_delta") {
+        if (
+          part.type === "content_block_start" ||
+          part.type === "content_block_delta"
+        ) {
           const text = "delta" in part ? (part.delta as TextDelta).text : "";
           writer.write(textEncoder.encode(text || ""));
           answer += text;
@@ -119,7 +127,7 @@ export async function handleAnthropicRequest(
       await writer.close();
       await logger.log(JSON.stringify({
         conf,
-        answer
+        answer,
       }));
     }
   })());

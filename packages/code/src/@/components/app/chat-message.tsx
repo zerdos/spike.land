@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, X, Image as ImageIcon } from "@/external/lucideReact";
+import { Check, Image as ImageIcon, X } from "@/external/lucideReact";
 import type { Message } from "@/lib/interfaces";
 import { ChatMessageBlock } from "@/lib/render-messages";
 import { cn } from "@/lib/utils";
@@ -35,14 +35,19 @@ interface ChatMessageProps {
   codeSpace: string;
 }
 
-type MessageContent = Array<{ type: string; text?: string; image_url?: { url: string } }>;
+type MessageContent = Array<
+  { type: string; text?: string; image_url?: { url: string } }
+>;
 
-const MessageContent: React.FC<{ content: string | MessageContent; isUser: boolean }> = React.memo(({ content, isUser }) => {
-  const _content = useMemo(() => 
-    typeof content === "string" ? [{ type: "text", text: content }] : content,
-    [content]
+const MessageContent: React.FC<
+  { content: string | MessageContent; isUser: boolean }
+> = React.memo(({ content, isUser }) => {
+  const _content = useMemo(
+    () =>
+      typeof content === "string" ? [{ type: "text", text: content }] : content,
+    [content],
   );
-  
+
   return (
     <>
       {_content.map((item, index) => {
@@ -58,7 +63,9 @@ const MessageContent: React.FC<{ content: string | MessageContent; isUser: boole
             <img
               key={`image-${index}`}
               src={item.image_url.url}
-              alt={item.image_url.url.includes(`screenshot`) ? "Screenshot" : "Image"}
+              alt={item.image_url.url.includes(`screenshot`)
+                ? "Screenshot"
+                : "Image"}
               className="max-w-full h-auto mt-2 rounded-lg"
             />
           );
@@ -69,7 +76,9 @@ const MessageContent: React.FC<{ content: string | MessageContent; isUser: boole
   );
 });
 
-const SystemMessage: React.FC<{ content: string | MessageContent; isUser: boolean }> = React.memo(({ content, isUser }) => (
+const SystemMessage: React.FC<
+  { content: string | MessageContent; isUser: boolean }
+> = React.memo(({ content, isUser }) => (
   <Accordion type="single" collapsible>
     <AccordionItem value="item-1">
       <AccordionTrigger>System prompt</AccordionTrigger>
@@ -108,7 +117,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
 
   const outerDivClassName = useMemo(
     () => cn("flex mb-4", isUser ? "justify-end" : "justify-start"),
-    [isUser]
+    [isUser],
   );
 
   const messageContainerClassName = useMemo(
@@ -116,18 +125,16 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
       cn(
         "max-w-[80%] p-3 rounded-lg",
         isUser
-          ? isDarkMode
-            ? "bg-blue-600 text-white"
-            : "bg-blue-500 text-white"
+          ? isDarkMode ? "bg-blue-600 text-white" : "bg-blue-500 text-white"
           : isDarkMode
           ? isSelected
             ? "bg-gray-700 ring-2 ring-blue-500"
             : "bg-gray-800 text-white"
           : isSelected
           ? "bg-gray-200 ring-2 ring-blue-500"
-          : "bg-gray-100"
+          : "bg-gray-100",
       ),
-    [isUser, isDarkMode, isSelected]
+    [isUser, isDarkMode, isSelected],
   );
 
   const handleImageUpload = useCallback(
@@ -135,80 +142,94 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
       const files = event.target.files;
       if (files && files.length > 0) {
         const newImages = await Promise.all(
-          Array.from(files).map(processImage)
+          Array.from(files).map(processImage),
         );
         setImages((prevImages) => [...prevImages, ...newImages]);
       }
     },
-    []
+    [],
   );
 
   const textareaClassName = useMemo(
     () => cn(isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"),
-    [isDarkMode]
+    [isDarkMode],
   );
 
   const buttonBgClass = useMemo(
     () => cn(isDarkMode ? "bg-gray-600" : "bg-gray-200"),
-    [isDarkMode]
+    [isDarkMode],
   );
 
-  const handleSaveEditClick = useCallback(() => handleSaveEdit(message.id), [handleSaveEdit, message.id]);
+  const handleSaveEditClick = useCallback(() => handleSaveEdit(message.id), [
+    handleSaveEdit,
+    message.id,
+  ]);
 
-  const renderEditingContent = useCallback(() => (
-    <div className="flex flex-col space-y-2">
-      <Textarea
-        value={editInput}
-        onChange={(e) => setEditInput(e.target.value)}
-        className={textareaClassName}
-      />
-      <div className="flex justify-between items-center">
-        <Button
-          size="sm"
-          onClick={() => fileInputRef.current?.click()}
-          className={buttonBgClass}
-        >
-          <ImageIcon className="h-4 w-4 mr-2" />
-          Add Image
-        </Button>
-        <div className="flex space-x-2">
-          <Button size="sm" onClick={handleSaveEditClick}>
-            <Check className="h-4 w-4" />
+  const renderEditingContent = useCallback(
+    () => (
+      <div className="flex flex-col space-y-2">
+        <Textarea
+          value={editInput}
+          onChange={(e) => setEditInput(e.target.value)}
+          className={textareaClassName}
+        />
+        <div className="flex justify-between items-center">
+          <Button
+            size="sm"
+            onClick={() => fileInputRef.current?.click()}
+            className={buttonBgClass}
+          >
+            <ImageIcon className="h-4 w-4 mr-2" />
+            Add Image
           </Button>
-          <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-            <X className="h-4 w-4" />
-          </Button>
+          <div className="flex space-x-2">
+            <Button size="sm" onClick={handleSaveEditClick}>
+              <Check className="h-4 w-4" />
+            </Button>
+            <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+          ref={fileInputRef}
+          multiple
+        />
+        {images.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {images.map((img, index) => (
+              <img
+                key={`uploaded-${index}`}
+                src={img.src}
+                alt={`Uploaded ${index}`}
+                className="w-16 h-16 object-cover rounded"
+              />
+            ))}
+          </div>
+        )}
       </div>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageUpload}
-        className="hidden"
-        ref={fileInputRef}
-        multiple
-      />
-      {images.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-2">
-          {images.map((img, index) => (
-            <img
-              key={`uploaded-${index}`}
-              src={img.src}
-              alt={`Uploaded ${index}`}
-              className="w-16 h-16 object-cover rounded"
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  ), [editInput, textareaClassName, buttonBgClass, handleSaveEditClick, handleCancelEdit, handleImageUpload, images]);
+    ),
+    [
+      editInput,
+      textareaClassName,
+      buttonBgClass,
+      handleSaveEditClick,
+      handleCancelEdit,
+      handleImageUpload,
+      images,
+    ],
+  );
 
   return (
     <div className={outerDivClassName} onDoubleClick={onDoubleClick}>
       <div className={messageContainerClassName}>
-        {isEditing ? renderEditingContent() : (
-          <div className="break-words">{renderContent}</div>
-        )}
+        {isEditing
+          ? renderEditingContent()
+          : <div className="break-words">{renderContent}</div>}
       </div>
     </div>
   );

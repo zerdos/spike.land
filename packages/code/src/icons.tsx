@@ -1,7 +1,13 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
 
-import { MdPhoneAndroid, MdQrCode, MdShare, MdTabletAndroid, MdTv } from "@/external/icons";
+import {
+  MdPhoneAndroid,
+  MdQrCode,
+  MdShare,
+  MdTabletAndroid,
+  MdTv,
+} from "@/external/icons";
 
 const Wrap: FC<{ children: JSX.Element }> = ({ children }) => (
   <span

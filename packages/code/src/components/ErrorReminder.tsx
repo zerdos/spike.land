@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, X } from "@/external/lucideReact";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContextManager } from "@/lib/context-manager";
-import { errorMessages } from "./ErrorMessages"
+import { errorMessages } from "./ErrorMessages";
 import type { ErrorType } from "./ErrorMessages";
 import { useErrorEffect } from "@src/hooks/useErrorEffect";
 
@@ -56,12 +56,13 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
   const contextManager = new ContextManager(codeSpace);
   useErrorEffect(errorType, codeSpace, contextManager, setShowError);
 
-
-
-  const errorLog = contextManager.getContext('errorLog');
+  const errorLog = contextManager.getContext("errorLog");
 
   return (
-    <AnimatePresence initial={false} onExitComplete={() => onHeightChange(0)}>
+    <AnimatePresence
+      initial={false}
+      onExitComplete={() => onHeightChange(0)}
+    >
       {showError && errorType && (
         <motion.div
           className="absolute top-0 left-0 right-0 z-50"
@@ -75,11 +76,14 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
             }
           }}
         >
-          <Card className={cn("mb-4 border-l-4", {
-            'border-l-red-500': errorType === 'typescript' || errorType === 'transpile',
-            'border-l-yellow-500': errorType === 'prettier',
-            'border-l-orange-500': errorType === 'render'
-          })}>
+          <Card
+            className={cn("mb-4 border-l-4", {
+              "border-l-red-500": errorType === "typescript" ||
+                errorType === "transpile",
+              "border-l-yellow-500": errorType === "prettier",
+              "border-l-orange-500": errorType === "render",
+            })}
+          >
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="flex items-center text-lg font-semibold">
                 <AlertCircle className="h-5 w-5 mr-2 text-red-500" />
@@ -100,22 +104,21 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
                 className="mb-4 bg-red-50 text-red-800 border-red-200"
               >
                 <AlertTitle>{errorMessages[errorType]}</AlertTitle>
-                {errorLog &&  <AlertDescription>
-           
-                  <h4 className="font-semibold text-sm">Error Log:</h4>
-                  <ScrollArea className="h-[100px]">
-                    <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
+                {errorLog && (
+                  <AlertDescription>
+                    <h4 className="font-semibold text-sm">Error Log:</h4>
+                    <ScrollArea className="h-[100px]">
+                      <pre className="text-xs font-mono whitespace-pre-wrap text-gray-700">
                       {errorLog.split('\n').map((log: string, index: number) => (
                         <div key={index} className="mb-1">
                           {log}
                         </div>
                       ))}
-                    </pre>
-                  </ScrollArea>
-              
-                </AlertDescription>}
+                      </pre>
+                    </ScrollArea>
+                  </AlertDescription>
+                )}
               </Alert>
-              
             </CardContent>
           </Card>
         </motion.div>

@@ -2,15 +2,20 @@ import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { Message } from "@/lib/interfaces";
 import { produce } from "immer";
 
-export function messagesPush(messages: Message[], newMessage: Message): Message[] {
+export function messagesPush(
+  messages: Message[],
+  newMessage: Message,
+): Message[] {
   console.log("Pushing new message", { role: newMessage.role });
-  return produce(messages, draft => {
+  return produce(messages, (draft) => {
     if (!draft.length) {
       draft.push({ ...newMessage });
       return;
     }
     const lastMessage = draft[draft.length - 1];
-    const newId = typeof lastMessage.id === "number" ? String(lastMessage.id + 1) : String(Date.now());
+    const newId = typeof lastMessage.id === "number"
+      ? String(lastMessage.id + 1)
+      : String(Date.now());
     if (lastMessage.role === newMessage.role) {
       draft[draft.length - 1] = { ...newMessage, id: newId };
     } else {
@@ -22,7 +27,10 @@ export function messagesPush(messages: Message[], newMessage: Message): Message[
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
 
-export const formatCodeAsSection = (codeSpace: string, code: string): string => `
+export const formatCodeAsSection = (
+  codeSpace: string,
+  code: string,
+): string => `
 # ${codeSpace}.tsx
 
 \`\`\`tsx
@@ -38,14 +46,14 @@ export const extractCodeModification = (response: string): string[] => {
 
   const myBlocks = codeBlockMatches.filter((block) => SEARCH_REPLACE_MARKERS.some((marker) => block.includes(marker)))
     .map((myBlock) => {
-      const block = myBlock.trim().split("<<<<<<< SEARCH").join("=======").split(">>>>>>> REPLACE").join("=======")
+      const block = myBlock.trim().split("<<<<<<< SEARCH").join("=======")
+        .split(">>>>>>> REPLACE").join("=======")
         .split("\n");
       block.shift();
       block.pop();
 
-      const parts = block.map(x => x.trim()).filter(x => x).join("\n").split("=======").filter(part =>
-        part.trim().length > 0
-      );
+      const parts = block.map((x) => x.trim()).filter((x) => x).join("\n")
+        .split("=======").filter((part) => part.trim().length > 0);
 
       if (parts.length < 2) return ``;
       if (parts.length === 2) {
@@ -70,9 +78,11 @@ ${parts[1].trim()}
 
 export const loadMessages = (codeSpace: string): Message[] => {
   const key = `chatMessages-${codeSpace}`;
-  const rawMessages = JSON.parse(localStorage.getItem(key) || "[]") as Message[];
+  const rawMessages = JSON.parse(
+    localStorage.getItem(key) || "[]",
+  ) as Message[];
 
-  const validMessages = rawMessages.filter(m => !!m.role);
+  const validMessages = rawMessages.filter((m) => !!m.role);
 
   const uniqueRoleMessages = validMessages.reduce((acc, current, index) => {
     if (index === 0 || current.role !== validMessages[index - 1].role) {
@@ -84,12 +94,18 @@ export const loadMessages = (codeSpace: string): Message[] => {
   return uniqueRoleMessages;
 };
 
-export const updateSearchReplace = (instructions: string, codeNow: string): string => {
+export const updateSearchReplace = (
+  instructions: string,
+  codeNow: string,
+): string => {
   try {
     let replacedCode = codeNow;
 
     extractCodeModification(instructions).forEach((mod: string) => {
-      const [search, replace] = mod.replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "").split("=======");
+      const [search, replace] = mod.replace(
+        /<<<<<<< SEARCH|>>>>>>> REPLACE/g,
+        "",
+      ).split("=======");
 
       if (search && replace) {
         replacedCode = replacePreservingWhitespace(
@@ -107,14 +123,20 @@ export const updateSearchReplace = (instructions: string, codeNow: string): stri
   }
 };
 
-export const replaceFirstCodeMod = (instructions: string, codeNow: string): string => {
+export const replaceFirstCodeMod = (
+  instructions: string,
+  codeNow: string,
+): string => {
   try {
     let replacedCode = codeNow;
 
     const mods = extractCodeModification(instructions);
 
     if (mods.length > 0) {
-      const [search, replace] = mods[0].replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "").split("=======");
+      const [search, replace] = mods[0].replace(
+        /<<<<<<< SEARCH|>>>>>>> REPLACE/g,
+        "",
+      ).split("=======");
 
       if (search && replace) {
         replacedCode = replacePreservingWhitespace(

@@ -49,7 +49,9 @@ describe("useMessageHandling", () => {
     setCode: vi.fn().mockResolvedValue("test code"),
     sub: vi.fn(),
     screenShot: vi.fn().mockResolvedValue(mockImageData),
-    currentCodeWithExtraModels: vi.fn().mockResolvedValue("test code with extra models"),
+    currentCodeWithExtraModels: vi.fn().mockResolvedValue(
+      "test code with extra models",
+    ),
     setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
     getCode: vi.fn().mockResolvedValue("test code"),
   };
@@ -77,7 +79,9 @@ describe("useMessageHandling", () => {
       role: "user",
       content: [{ type: "text", text: "Test message" }],
     };
-    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(
+      mockNewMessage,
+    );
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async ({ setMessages }) => {
         setMessages([mockNewMessage]);
@@ -92,14 +96,16 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
-    expect(messageProcessing.processMessage).toHaveBeenCalledWith(expect.objectContaining({
-      aiHandler: expect.any(Object),
-      cSess: mockCsess,
-      codeNow: "test code",
-      messages: expect.arrayContaining([mockNewMessage]),
-      setMessages: expect.any(Function),
-      newUserMessage: mockNewMessage,
-    }));
+    expect(messageProcessing.processMessage).toHaveBeenCalledWith(
+      expect.objectContaining({
+        aiHandler: expect.any(Object),
+        cSess: mockCsess,
+        codeNow: "test code",
+        messages: expect.arrayContaining([mockNewMessage]),
+        setMessages: expect.any(Function),
+        newUserMessage: mockNewMessage,
+      }),
+    );
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
   });
 
@@ -109,7 +115,9 @@ describe("useMessageHandling", () => {
       role: "user",
       content: [{ type: "text", text: "Test message" }],
     };
-    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(
+      mockNewMessage,
+    );
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
       async () => {
         throw new Error("Processing error");
@@ -127,7 +135,9 @@ describe("useMessageHandling", () => {
         mockNewMessage,
         expect.objectContaining({
           role: "assistant",
-          content: expect.stringContaining("Sorry, there was an error processing your request"),
+          content: expect.stringContaining(
+            "Sorry, there was an error processing your request",
+          ),
         }),
       ]),
     );

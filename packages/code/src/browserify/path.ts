@@ -24,7 +24,9 @@
 
 function assertPath(path: unknown): asserts path is string {
   if (typeof path !== "string") {
-    throw new TypeError("Path must be a string. Received " + JSON.stringify(path));
+    throw new TypeError(
+      "Path must be a string. Received " + JSON.stringify(path),
+    );
   }
 }
 
@@ -48,8 +50,9 @@ function normalizeStringPosix(path: string, allowAboveRoot: boolean): string {
         // NOOP
       } else if (lastSlash !== i - 1 && dots === 2) {
         if (
-          res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/
-          || res.charCodeAt(res.length - 2) !== 46 /*.*/
+          res.length < 2 || lastSegmentLength !== 2
+          || res.charCodeAt(res.length - 1) !== 46
+          || /*.*/ res.charCodeAt(res.length - 2) !== 46 /*.*/
         ) {
           if (res.length > 2) {
             const lastSlashIndex = res.lastIndexOf("/");
@@ -102,10 +105,17 @@ function normalizeStringPosix(path: string, allowAboveRoot: boolean): string {
 
 function _format(
   sep: string,
-  pathObject: { dir?: string; root?: string; base?: string; name?: string; ext?: string },
+  pathObject: {
+    dir?: string;
+    root?: string;
+    base?: string;
+    name?: string;
+    ext?: string;
+  },
 ): string {
   const dir = pathObject.dir || pathObject.root;
-  const base = pathObject.base || (pathObject.name || "") + (pathObject.ext || "");
+  const base = pathObject.base
+    || (pathObject.name || "") + (pathObject.ext || "");
   if (!dir) {
     return base;
   }
@@ -125,8 +135,18 @@ interface PosixInterface {
   dirname(path: string): string;
   basename(path: string, ext?: string): string;
   extname(path: string): string;
-  format(pathObject: { root?: string; dir?: string; base?: string; ext?: string; name?: string } | null): string;
-  parse(path: string): { root: string; dir: string; base: string; ext: string; name: string };
+  format(
+    pathObject: {
+      root?: string;
+      dir?: string;
+      base?: string;
+      ext?: string;
+      name?: string;
+    } | null,
+  ): string;
+  parse(
+    path: string,
+  ): { root: string; dir: string; base: string; ext: string; name: string };
   sep: string;
   delimiter: string;
   win32: null;
@@ -351,7 +371,9 @@ const posix = {
   },
 
   basename(path: string, ext?: string): string {
-    if (ext !== undefined && typeof ext !== "string") throw new TypeError("\"ext\" argument must be a string");
+    if (ext !== undefined && typeof ext !== "string") {
+      throw new TypeError("\"ext\" argument must be a string");
+    }
     assertPath(path);
 
     let start = 0;
@@ -474,14 +496,27 @@ const posix = {
     return path.slice(startDot, end);
   },
 
-  format(pathObject: { root?: string; dir?: string; base?: string; ext?: string; name?: string } | null): string {
+  format(
+    pathObject: {
+      root?: string;
+      dir?: string;
+      base?: string;
+      ext?: string;
+      name?: string;
+    } | null,
+  ): string {
     if (pathObject === null || typeof pathObject !== "object") {
-      throw new TypeError("The \"pathObject\" argument must be of type Object. Received type " + typeof pathObject);
+      throw new TypeError(
+        "The \"pathObject\" argument must be of type Object. Received type "
+          + typeof pathObject,
+      );
     }
     return _format("/", pathObject);
   },
 
-  parse(path: string): { root: string; dir: string; base: string; ext: string; name: string } {
+  parse(
+    path: string,
+  ): { root: string; dir: string; base: string; ext: string; name: string } {
     assertPath(path);
 
     const ret = { root: "", dir: "", base: "", ext: "", name: "" };
@@ -542,8 +577,9 @@ const posix = {
       || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1
     ) {
       if (end !== -1) {
-        if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);
-        else ret.base = ret.name = path.slice(startPart, end);
+        if (startPart === 0 && isAbsolute) {
+          ret.base = ret.name = path.slice(1, end);
+        } else ret.base = ret.name = path.slice(startPart, end);
       }
     } else {
       if (startPart === 0 && isAbsolute) {

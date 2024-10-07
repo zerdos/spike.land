@@ -11,7 +11,8 @@ interface SharedWorkerGlobalScope {
 }
 
 const lazyLoadScript = (scriptName: string): void => {
-  const file = (globalThis as unknown as SharedWorkerGlobalScope).files["@/workers/" + scriptName + ".worker.js"];
+  const file = (globalThis as unknown as SharedWorkerGlobalScope)
+    .files["@/workers/" + scriptName + ".worker.js"];
   const fileParts = file.split(".").slice(-2);
   fileParts.pop();
   const hash = fileParts[0];
@@ -21,19 +22,29 @@ const lazyLoadScript = (scriptName: string): void => {
 type WorkerFunctions = {
   ata: (params: { code: string; originToUse: string }) => Promise<unknown>;
   prettierCss: (code: string) => Promise<string>;
-  prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean }) => Promise<string>;
+  prettierJs: (
+    { code, toThrow }: { code: string; toThrow: boolean },
+  ) => Promise<string>;
   createWorkflow: (q: string) => Promise<unknown>;
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
   handleSendMessage: (
-    { codeSpace, prompt, images }: { codeSpace: string; prompt: string; images: ImageData[] },
+    { codeSpace, prompt, images }: {
+      codeSpace: string;
+      prompt: string;
+      images: ImageData[];
+    },
   ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 };
 
-const self: SharedWorkerGlobalScope & { onconnect?: (e: MessageEvent) => void } & WorkerFunctions =
-  globalThis as unknown as SharedWorkerGlobalScope & { onconnect?: (e: MessageEvent) => void } & WorkerFunctions;
+const self:
+  & SharedWorkerGlobalScope
+  & { onconnect?: (e: MessageEvent) => void }
+  & WorkerFunctions = globalThis as unknown as SharedWorkerGlobalScope & {
+    onconnect?: (e: MessageEvent) => void;
+  } & WorkerFunctions;
 
 interface BuildParams {
   codeSpace: string;
@@ -71,7 +82,9 @@ const handleRpcError = async (
     const func = self[name];
 
     if (typeof self[name] !== "function") {
-      throw new Error(`Function ${name} is not defined on self after loading scripts.`);
+      throw new Error(
+        `Function ${name} is not defined on self after loading scripts.`,
+      );
     }
 
     return await (func as (...args: unknown[]) => Promise<unknown>)(...args);
@@ -83,7 +96,10 @@ const handleRpcError = async (
 
 const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
   (Object.keys(workerFiles) as (keyof WorkerFunctions)[]).forEach((name) => {
-    rpcProvider.registerRpcHandler(name, (...args) => handleRpcError(name, args));
+    rpcProvider.registerRpcHandler(
+      name,
+      (...args) => handleRpcError(name, args),
+    );
   });
 
   rpcProvider.registerSignalHandler(

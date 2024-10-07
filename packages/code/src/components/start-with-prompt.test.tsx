@@ -15,7 +15,9 @@ vi.mock("@/lib/md5", () => ({
 }));
 
 // Mock fetch function
-globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true })) as unknown as typeof fetch;
+globalThis.fetch = vi.fn(() =>
+  Promise.resolve({ ok: true })
+) as unknown as typeof fetch;
 
 // Mock URL.createObjectURL
 URL.createObjectURL = vi.fn(() => "mocked-url");
@@ -23,7 +25,9 @@ URL.createObjectURL = vi.fn(() => "mocked-url");
 describe("StartWithPrompt", () => {
   beforeEach(() => {
     // Mock the useDarkMode hook to return a default value
-    (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({ isDarkMode: false });
+    (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      isDarkMode: false,
+    });
     // Clear all mocks before each test
     vi.clearAllMocks();
     // Clear sessionStorage before each test
@@ -37,7 +41,9 @@ describe("StartWithPrompt", () => {
 
   it("updates prompt when user types", async () => {
     render(<StartWithPrompt />);
-    const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
+    const textarea = screen.getByPlaceholderText(
+      "Enter your prompt here or paste an image...",
+    );
     await userEvent.type(textarea, "Test prompt");
     expect(textarea).toHaveValue("Test prompt");
   });
@@ -60,7 +66,9 @@ describe("StartWithPrompt", () => {
   it("hides template button when images are uploaded", async () => {
     const { container } = render(<StartWithPrompt />);
     const file = new File(["dummy content"], "test.png", { type: "image/png" });
-    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+    const fileInput = container.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
 
     if (!fileInput) {
       throw new Error("File input not found");
@@ -78,7 +86,9 @@ describe("StartWithPrompt", () => {
   it("calls handleGenerate when generate button is clicked", async () => {
     render(<StartWithPrompt />);
     const generateButton = screen.getByText("Generate");
-    const promptTextarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
+    const promptTextarea = screen.getByPlaceholderText(
+      "Enter your prompt here or paste an image...",
+    );
 
     await userEvent.type(promptTextarea, "Test prompt");
     await userEvent.click(generateButton);
@@ -86,22 +96,29 @@ describe("StartWithPrompt", () => {
     expect(sessionStorage.getItem("mocked-md5-Test prompt")).toBeTruthy();
 
     // Check if the sessionStorage was set correctly
-    const sessionData = JSON.parse(sessionStorage.getItem("mocked-md5-Test prompt") || "{}");
+    const sessionData = JSON.parse(
+      sessionStorage.getItem("mocked-md5-Test prompt") || "{}",
+    );
     expect(sessionData.prompt).toBe("Test prompt");
   });
 
   it("changes styles based on dark mode", () => {
-    (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({ isDarkMode: true });
+    (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+      isDarkMode: true,
+    });
     const { container } = render(<StartWithPrompt />);
 
-    expect(container.firstChild).toHaveClass("bg-gradient-to-br from-gray-900 to-gray-800 text-white");
+    expect(container.firstChild).toHaveClass(
+      "bg-gradient-to-br from-gray-900 to-gray-800 text-white",
+    );
   });
-
 
   it("removes an image when the remove button is clicked", async () => {
     const { container } = render(<StartWithPrompt />);
     const file = new File(["dummy content"], "test.png", { type: "image/png" });
-    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+    const fileInput = container.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
 
     if (!fileInput) {
       throw new Error("File input not found");
@@ -127,10 +144,14 @@ describe("StartWithPrompt", () => {
 
   it("handles image paste", async () => {
     render(<StartWithPrompt />);
-    const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
+    const textarea = screen.getByPlaceholderText(
+      "Enter your prompt here or paste an image...",
+    );
 
     // Create a mock clipboard event with an image
-    const file = new File(["dummy content"], "pasted-image.png", { type: "image/png" });
+    const file = new File(["dummy content"], "pasted-image.png", {
+      type: "image/png",
+    });
     const clipboardEvent = new Event("paste", { bubbles: true });
     Object.assign(clipboardEvent, {
       clipboardData: {
@@ -152,7 +173,9 @@ describe("StartWithPrompt", () => {
   it("enlarges image when clicked", async () => {
     const { container } = render(<StartWithPrompt />);
     const file = new File(["dummy content"], "test.png", { type: "image/png" });
-    const fileInput = container.querySelector("input[type=\"file\"]") as HTMLInputElement;
+    const fileInput = container.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
 
     if (!fileInput) {
       throw new Error("File input not found");

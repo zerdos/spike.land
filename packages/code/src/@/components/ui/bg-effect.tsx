@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { keyframes } from "@emotion/react";
 import { cn } from "@/lib/utils";
 import { useDarkMode } from "@/hooks/use-dark-mode";
@@ -37,13 +37,13 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
     <div
       className={cn(
         "absolute inset-0 overflow-hidden",
-        isDarkMode ? "bg-black" : "bg-white"
+        isDarkMode ? "bg-black" : "bg-white",
       )}
     >
       <div
         className={cn(
           "absolute inset-0 opacity-50 z-10",
-          isDarkMode ? "bg-black" : "bg-white"
+          isDarkMode ? "bg-black" : "bg-white",
         )}
       />
       <svg
@@ -54,14 +54,23 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
         style={{
           animation: `${pulse} 4s ease-in-out infinite`,
           filter: "blur(8px)",
-          transform: `translate(${(mousePosition.x / window.innerWidth - 0.5) * 20}px, ${
-            (mousePosition.y / window.innerHeight - 0.5) * 20
-          }px)`,
+          transform: `translate(${
+            (mousePosition.x / window.innerWidth - 0.5) * 20
+          }px, ${(mousePosition.y / window.innerHeight - 0.5) * 20}px)`,
           transition: "transform 0.1s ease-out",
         }}
       >
         <defs>
-          {["0,0", "100,0", "0,100", "100,100", "50,0", "100,50", "50,100", "0,50"].map(
+          {[
+            "0,0",
+            "100,0",
+            "0,100",
+            "100,100",
+            "50,0",
+            "100,50",
+            "50,100",
+            "0,50",
+          ].map(
             (point, index) => (
               <radialGradient
                 key={index}
@@ -75,24 +84,47 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
                   offset="0%"
                   stopColor={isDarkMode ? "#ff00ff" : "#ff8080"}
                   style={{
-                    animation: `${pulse} ${3 + index}s ease-in-out infinite alternate`,
+                    animation: `${pulse} ${
+                      3 + index
+                    }s ease-in-out infinite alternate`,
                   }}
                 />
-                <stop offset="25%" stopColor={isDarkMode ? "#8000ff" : "#ff8000"} />
-                <stop offset="50%" stopColor={isDarkMode ? "#0080ff" : "#80ff00"} />
+                <stop
+                  offset="25%"
+                  stopColor={isDarkMode ? "#8000ff" : "#ff8000"}
+                />
+                <stop
+                  offset="50%"
+                  stopColor={isDarkMode ? "#0080ff" : "#80ff00"}
+                />
                 <stop
                   offset="75%"
                   stopColor={isDarkMode ? "#00ffff" : "#0080ff"}
                   style={{
-                    animation: `${pulse} ${4 + index}s ease-in-out infinite alternate-reverse`,
+                    animation: `${pulse} ${
+                      4 + index
+                    }s ease-in-out infinite alternate-reverse`,
                   }}
                 />
-                <stop offset="100%" stopColor={isDarkMode ? "#000000" : "#ffffff"} stopOpacity="0" />
+                <stop
+                  offset="100%"
+                  stopColor={isDarkMode ? "#000000" : "#ffffff"}
+                  stopOpacity="0"
+                />
               </radialGradient>
-            )
+            ),
           )}
         </defs>
-        {["0,0", "100,0", "0,100", "100,100", "50,0", "100,50", "50,100", "0,50"].map(
+        {[
+          "0,0",
+          "100,0",
+          "0,100",
+          "100,100",
+          "50,0",
+          "100,50",
+          "50,100",
+          "0,50",
+        ].map(
           (point, index) => (
             <g
               key={index}
@@ -111,15 +143,19 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
                 <path
                   key={i}
                   d={`M${point} L${
-                    parseFloat(point.split(",")[0]) + 60 * Math.cos((i * Math.PI) / 36)
-                  },${parseFloat(point.split(",")[1]) + 60 * Math.sin((i * Math.PI) / 36)}`}
+                    parseFloat(point.split(",")[0]) +
+                    60 * Math.cos((i * Math.PI) / 36)
+                  },${
+                    parseFloat(point.split(",")[1]) +
+                    60 * Math.sin((i * Math.PI) / 36)
+                  }`}
                   stroke={`url(#grad${index % 4})`}
                   strokeWidth="0.3"
                   fill="none"
                 />
               ))}
             </g>
-          )
+          ),
         )}
       </svg>
       {children}

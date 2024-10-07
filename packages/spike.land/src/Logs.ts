@@ -18,7 +18,7 @@ export class KVLogger {
       await kv.put(`${this.prefix}:counter`, "0");
       counter = "0";
     }
-    counter = (parseInt(counter as string) + 1).toString()
+    counter = (parseInt(counter as string) + 1).toString();
 
     await kv.put(`${this.prefix}:counter`, counter);
 

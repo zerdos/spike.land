@@ -38,15 +38,22 @@ const handleSendMessage = async (
 
     const extendedBcSess = {
       ...cSess,
-      setCodeAndTranspiled: async ({ formatted, transpiled }: { formatted: string; transpiled: string }) =>
-        cSess.setCodeAndTranspiled({ formatted, transpiled }),
+      setCodeAndTranspiled: async (
+        { formatted, transpiled }: { formatted: string; transpiled: string },
+      ) => cSess.setCodeAndTranspiled({ formatted, transpiled }),
       init: () => cSess.init(),
       session: cSess.session!,
       getCode: () => cSess.getCode(),
       setCode: async (rawCode: string, skipRunning = false) => {
         if (skipRunning) {
-          const formatted = await m.prettierJs({ code: rawCode, toThrow: true });
-          const transpiled = await m.transpile({ code: formatted, originToUse: location.origin })!;
+          const formatted = await m.prettierJs({
+            code: rawCode,
+            toThrow: true,
+          });
+          const transpiled = await m.transpile({
+            code: formatted,
+            originToUse: location.origin,
+          })!;
           if (typeof transpiled !== "string") {
             return false;
           }
@@ -112,7 +119,10 @@ export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
 ): Promise<Message> {
-  console.log("Creating new message", { imageCount: images.length, contentLength: claudeContent.length });
+  console.log("Creating new message", {
+    imageCount: images.length,
+    contentLength: claudeContent.length,
+  });
   const imagesContent: MessageContent = [];
 
   if (images && images.length > 0) {
@@ -152,7 +162,11 @@ interface Action {
   hash: string;
 }
 
-const mod: Mod = { controller: new AbortController(), lastCode: "", actions: [] };
+const mod: Mod = {
+  controller: new AbortController(),
+  lastCode: "",
+  actions: [],
+};
 
 export async function processMessage(
   { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
@@ -164,7 +178,10 @@ export async function processMessage(
     newUserMessage: Message;
   },
 ): Promise<boolean> {
-  console.log("Processing message", { codeLength: codeNow.length, messageCount: messages.length });
+  console.log("Processing message", {
+    codeLength: codeNow.length,
+    messageCount: messages.length,
+  });
   const contextManager = new ContextManager(cSess.session.codeSpace);
 
   const maxRetries = 3;
@@ -181,10 +198,19 @@ export async function processMessage(
         setMessages([...messages]);
       }
 
-      const onUpdate = createOnUpdateFunction({ setMessages, messages, cSess, contextManager });
-      const throttledOnUpdate = throttle((instructions: string) => onUpdate(instructions), 100, {
-        edges: ["trailing"],
+      const onUpdate = createOnUpdateFunction({
+        setMessages,
+        messages,
+        cSess,
+        contextManager,
       });
+      const throttledOnUpdate = throttle(
+        (instructions: string) => onUpdate(instructions),
+        100,
+        {
+          edges: ["trailing"],
+        },
+      );
 
       console.log(`Processing message (attempt ${retries + 1})`);
 
@@ -210,7 +236,15 @@ export async function processMessage(
       if (errorMessage) {
         console.log("Error detected, attempting to handle", { errorMessage });
         const errorHandled = await handleErrorMessage(
-          { errorMessage, codeNow, messages, aiHandler, setMessages, cSess, contextManager },
+          {
+            errorMessage,
+            codeNow,
+            messages,
+            aiHandler,
+            setMessages,
+            cSess,
+            contextManager,
+          },
         );
         if (errorHandled) {
           console.log("Error handled successfully");
@@ -220,7 +254,10 @@ export async function processMessage(
 
       retries++;
     } catch (error) {
-      console.error(`Error processing message (attempt ${retries + 1}):`, error);
+      console.error(
+        `Error processing message (attempt ${retries + 1}):`,
+        error,
+      );
       retries++;
     }
   }
@@ -229,9 +266,16 @@ export async function processMessage(
   return false;
 }
 
-async function trySetCode(cSess: ICode, code: string, skipRunning = false): Promise<boolean> {
+async function trySetCode(
+  cSess: ICode,
+  code: string,
+  skipRunning = false,
+): Promise<boolean> {
   try {
-    console.log("Attempting to set code", { codeLength: code.length, skipRunning });
+    console.log("Attempting to set code", {
+      codeLength: code.length,
+      skipRunning,
+    });
     if (mod.lastCode === await cSess.getCode()) return true;
     const success = await cSess.setCode(code, skipRunning);
     return !!success;
@@ -252,7 +296,12 @@ function createOnUpdateFunction({
   contextManager: ContextManager;
 }) {
   return async (instructions: string) => {
-    updateMessagesFromInstructions(instructions, messages, setMessages, messagesPush);
+    updateMessagesFromInstructions(
+      instructions,
+      messages,
+      setMessages,
+      messagesPush,
+    );
 
     if (mod.controller.signal.aborted) {
       console.log("Aborted onUpdate before starting");
@@ -285,7 +334,10 @@ function createOnUpdateFunction({
             const lastCode = mod.lastCode;
             const chunk = instructions.slice(startPos);
 
-            console.log("Processing chunk", { startPos, chunkLength: chunk.length });
+            console.log("Processing chunk", {
+              startPos,
+              chunkLength: chunk.length,
+            });
 
             if (chunk.length === 0) {
               finished = true;
@@ -310,7 +362,10 @@ function createOnUpdateFunction({
                 lastSuccessCut: startPos,
                 hash: md5(lastCode),
               });
-              console.log("Skipped chunk", { startPos, chunkLength: chunk.length });
+              console.log("Skipped chunk", {
+                startPos,
+                chunkLength: chunk.length,
+              });
 
               // If no changes were made, move to the next chunk
               mod.lastCode = lastCode;
@@ -365,7 +420,10 @@ async function sendAssistantMessage(
     console.log("Sending message to assistant");
     let assistantMessage = await aiHandler.sendToAnthropic(messages, onUpdate);
 
-    if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+    if (
+      typeof assistantMessage.content !== "string"
+      && !Array.isArray(assistantMessage.content)
+    ) {
       throw new Error("Invalid assistant message content type");
     }
 
@@ -402,7 +460,9 @@ async function handleErrorMessage(
     contextManager: ContextManager;
   },
 ): Promise<boolean> {
-  console.log("Handling error message", { errorMessageLength: errorMessage.length });
+  console.log("Handling error message", {
+    errorMessageLength: errorMessage.length,
+  });
   const userMessage: Message = {
     id: Date.now().toString(),
     role: "user",
@@ -416,7 +476,11 @@ async function handleErrorMessage(
     { setMessages, messages, cSess, contextManager },
   );
 
-  const throttledOnUpdate = throttle((instructions: string) => newOnUpdate(instructions), 100, { edges: ["trailing"] });
+  const throttledOnUpdate = throttle(
+    (instructions: string) => newOnUpdate(instructions),
+    100,
+    { edges: ["trailing"] },
+  );
 
   const assistantMessage = await sendAssistantMessage(
     aiHandler,
@@ -452,7 +516,9 @@ function updateMessagesFromInstructions(
   setMessages: (messages: Message[]) => void,
   messagesPush: (messages: Message[], message: Message) => Message[],
 ) {
-  console.log("Updating messages from instructions", { instructionsLength: instructions.length });
+  console.log("Updating messages from instructions", {
+    instructionsLength: instructions.length,
+  });
 
   messages = messagesPush(messages, {
     id: Date.now().toString(),
@@ -466,7 +532,10 @@ function updateMessagesFromInstructions(
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
 
-const m = globalThis as unknown as { transpile: typeof transpile; prettierJs: typeof prettierJs };
+const m = globalThis as unknown as {
+  transpile: typeof transpile;
+  prettierJs: typeof prettierJs;
+};
 
 // Debug function
 const debug = (message: string, ...args: unknown[]) => {
@@ -495,7 +564,10 @@ const ups = async (
 
   if (instructions.includes(REPLACE)) {
     debug("REPLACE found");
-    const trimmedInstructions = instructions.slice(0, instructions.indexOf(REPLACE) + REPLACE.length);
+    const trimmedInstructions = instructions.slice(
+      0,
+      instructions.indexOf(REPLACE) + REPLACE.length,
+    );
     const rAll = up(trimmedInstructions, code);
     debug("Trimmed instructions length:", trimmedInstructions.length);
     return { result: rAll, len: trimmedInstructions.length };
@@ -528,7 +600,9 @@ const ups = async (
 
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
-): Promise<{ result: string; transpiled?: string; formatted?: string; len: number }> => {
+): Promise<
+  { result: string; transpiled?: string; formatted?: string; len: number }
+> => {
   const { result, len } = await ups({ instructions, code });
 
   if (result === code) {
@@ -549,7 +623,10 @@ export const updateSearchReplace = async (
     m.transpile = transpile;
   }
   const formatted = await m.prettierJs({ code: result, toThrow: true });
-  const transpiled = await m.transpile({ code: formatted, originToUse: location.origin });
+  const transpiled = await m.transpile({
+    code: formatted,
+    originToUse: location.origin,
+  });
 
   if (typeof transpiled !== "string" || typeof formatted !== "string") {
     return {

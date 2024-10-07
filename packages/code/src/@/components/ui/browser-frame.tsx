@@ -27,7 +27,10 @@ const BrowserFrame = React.forwardRef<HTMLDivElement, BrowserFrameProps>(
         <div className="bg-gray-100 p-2 flex items-center space-x-2">
           <div className="flex space-x-1">
             {["red", "yellow", "green"].map((color) => (
-              <div key={color} className={`w-3 h-3 rounded-full bg-${color}-400`} />
+              <div
+                key={color}
+                className={`w-3 h-3 rounded-full bg-${color}-400`}
+              />
             ))}
           </div>
           <div className="flex-grow bg-white rounded px-2 py-1 text-sm text-gray-600">
@@ -35,7 +38,9 @@ const BrowserFrame = React.forwardRef<HTMLDivElement, BrowserFrameProps>(
           </div>
         </div>
         <div className="absolute top-[40px] left-0 right-0 bottom-0 bg-white overflow-hidden">
-          <div className="w-[calc(100%+4px)] h-[calc(100%+4px)] -m-[2px]">{children}</div>
+          <div className="w-[calc(100%+4px)] h-[calc(100%+4px)] -m-[2px]">
+            {children}
+          </div>
         </div>
         <animated.div
           style={animation}

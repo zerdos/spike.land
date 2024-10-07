@@ -84,7 +84,9 @@ export class WebSocketHandler {
       }
 
       if (data.target && data.target !== session.name) {
-        const targetSession = this.userSessions.find((x) => x.name === data.target);
+        const targetSession = this.userSessions.find((x) =>
+          x.name === data.target
+        );
         if (targetSession) {
           targetSession.webSocket.send(msg.data);
         }
@@ -105,13 +107,14 @@ export class WebSocketHandler {
         sess.webSocket.send(JSON.stringify(users));
       } catch (error) {
         sess.quit = true;
-        this.userSessions = this.userSessions.filter((session) => session !== sess);
+        this.userSessions = this.userSessions.filter((session) =>
+          session !== sess
+        );
       }
     });
   }
 
-  
-   handleWebsocketSession(webSocket: WebSocket) {
+  handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
     const session: WebsocketSession = {
       name: "",
@@ -162,8 +165,8 @@ export class WebSocketHandler {
     const wsReadyStateOpen = 1;
 
     if (
-      conn.readyState !== wsReadyStateConnecting
-      && conn.readyState !== wsReadyStateOpen
+      conn.readyState !== wsReadyStateConnecting &&
+      conn.readyState !== wsReadyStateOpen
     ) {
       conn.close();
       return;
@@ -176,13 +179,14 @@ export class WebSocketHandler {
     }
   }
 
-  private  processWsMessage(msg: MessageEvent, session: WebsocketSession) {
+  private processWsMessage(msg: MessageEvent, session: WebsocketSession) {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
 
-    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) =>
+      session.webSocket.send(JSON.stringify(obj));
 
     let data: IData;
     try {
@@ -253,8 +257,8 @@ export class WebSocketHandler {
 
     try {
       if (
-        data.target && data.type
-        && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+        data.target && data.type &&
+        ["new-ice-candidate", "video-offer", "video-answer"].includes(
           data.type,
         )
       ) {
@@ -262,8 +266,11 @@ export class WebSocketHandler {
       }
 
       if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
-
-        return this.handlePatch(data, respondWith, (obj) => this.broadcast(obj, session));
+        return this.handlePatch(
+          data,
+          respondWith,
+          (obj) => this.broadcast(obj, session),
+        );
       }
     } catch (exp) {
       console.error(exp);
@@ -296,13 +303,16 @@ export class WebSocketHandler {
   //   }
   // }
 
-  private handlePatch(data: IData, respondWith: (obj: unknown) => void, broadcast: (obj: unknown) => void) {  
+  private handlePatch(
+    data: IData,
+    respondWith: (obj: unknown) => void,
+    broadcast: (obj: unknown) => void,
+  ) {
     const oldHash = makeHash(this.code.session);
 
-    if (oldHash=== data.newHash) {
-      return 
+    if (oldHash === data.newHash) {
+      return;
     }
-    
 
     if (oldHash !== data.oldHash) {
       return respondWith({
@@ -323,12 +333,7 @@ export class WebSocketHandler {
       this.code.session = newState;
       respondWith({ hashCode: data.newHash });
       broadcast(data as CodePatch);
-     return  this.code.setSession(newState);
-      
-
-
-
-      
+      return this.code.setSession(newState);
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
     }
@@ -359,7 +364,7 @@ export class WebSocketHandler {
     this.wsSessions.forEach((s) => {
       if (s === session) {
         return;
-      } 
+      }
       try {
         s.webSocket.send(message);
       } catch (error) {

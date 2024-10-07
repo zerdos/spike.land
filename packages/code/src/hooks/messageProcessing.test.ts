@@ -13,8 +13,22 @@ describe("messageProcessing", () => {
   describe("createNewMessage", () => {
     it("should create a new message with multiple images", async () => {
       const images: ImageData[] = [
-        { imageName: "image1", src: "url1", mediaType: "image/jpeg", data: "base64data1", type: "image", url: "url1" },
-        { imageName: "image2", src: "url2", mediaType: "image/jpeg", data: "base64data2", type: "image", url: "url2" },
+        {
+          imageName: "image1",
+          src: "url1",
+          mediaType: "image/jpeg",
+          data: "base64data1",
+          type: "image",
+          url: "url1",
+        },
+        {
+          imageName: "image2",
+          src: "url2",
+          mediaType: "image/jpeg",
+          data: "base64data2",
+          type: "image",
+          url: "url2",
+        },
       ];
       const claudeContent = "Test message";
 

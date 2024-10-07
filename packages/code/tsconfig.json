@@ -82,7 +82,6 @@
       "Webworker.Iterable"
     ],
 
-    
     "allowUmdGlobalAccess": true,
     "types": [
       "@types/wicg-file-system-access",
@@ -102,5 +101,5 @@
     "src/**/*.mjs",
     "helpers.ts"
   ],
-  "exclude": [".yarn", "dist", "esbuild-depts.ts", "assets", "node_modules"]  
+  "exclude": [".yarn", "dist", "esbuild-depts.ts", "assets", "node_modules"]
 }

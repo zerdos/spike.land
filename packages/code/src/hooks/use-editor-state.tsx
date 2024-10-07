@@ -5,33 +5,32 @@ import { useRef, useState } from "react";
 import { useContext } from "./useContext";
 
 export const useEditorState = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [editorState, setEditorState] = useState<EditorState>({
-      started: false,
-      sub: false,
-      code: "",
-      setValue: () => {},
-    });
-  
-    const engine = "monaco"; // Or determine this dynamically
-  
-    return { containerRef, engine, editorState, setEditorState };
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [editorState, setEditorState] = useState<EditorState>({
+    started: false,
+    sub: false,
+    code: "",
+    setValue: () => {},
+  });
+
+  const engine = "monaco"; // Or determine this dynamically
+
+  return { containerRef, engine, editorState, setEditorState };
+};
+
+export const useErrorHandling = () => {
+  const [error, setError] = useState<ErrorType>(null);
+  const contextManager = useContext(useCodeSpace());
+
+  const handleError = (errorType: ErrorType, errorMessage: string) => {
+    setError(errorType);
+    contextManager.updateContext("errorLog", errorMessage);
   };
-  
-  export const useErrorHandling = () => {
-    const [error, setError] = useState<ErrorType>(null);
-    const contextManager = useContext(useCodeSpace());
-  
-    const handleError = (errorType: ErrorType, errorMessage: string) => {
-      setError(errorType);
-      contextManager.updateContext("errorLog", errorMessage);
-    };
-  
-    const clearError = () => {
-      setError(null);
-      contextManager.updateContext("errorLog", "");
-    };
-  
-    return { error, handleError, clearError };
+
+  const clearError = () => {
+    setError(null);
+    contextManager.updateContext("errorLog", "");
   };
-  
+
+  return { error, handleError, clearError };
+};

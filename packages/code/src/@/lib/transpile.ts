@@ -24,7 +24,10 @@ const mod: ModuleInitializer = {
 
 const mutex = new Mutex();
 
-const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string) => {
+const initializeModule = async (
+  wasmModule?: WebAssembly.Module,
+  origin?: string,
+) => {
   if (mod.init) return;
 
   if (wasmModule) {
@@ -42,7 +45,11 @@ const initializeModule = async (wasmModule?: WebAssembly.Module, origin?: string
 };
 
 export const transpile = async (
-  { code, originToUse, wasmModule }: { code: string; originToUse: string; wasmModule?: WebAssembly.Module },
+  { code, originToUse, wasmModule }: {
+    code: string;
+    originToUse: string;
+    wasmModule?: WebAssembly.Module;
+  },
 ): Promise<string | { error: unknown }> => {
   return mutex.runExclusive(async () => {
     try {
@@ -147,7 +154,9 @@ const getDefaultBuildOptions = (
   format,
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
-  entryPoints: entryPoint ? [entryPoint] : [`${origin}/live/${codeSpace}/wrapper.js`],
+  entryPoints: entryPoint
+    ? [entryPoint]
+    : [`${origin}/live/${codeSpace}/wrapper.js`],
   plugins: [fetchPlugin(origin)],
   assetNames: "assets/[name]-[hash]",
   publicPath: "/",
@@ -173,7 +182,14 @@ export const build = async ({
   return mutex.runExclusive(async () => {
     try {
       await initializeModule(wasmModule, origin);
-      const defaultOpts = getDefaultBuildOptions(codeSpace, origin, entryPoint, external, splitting, format);
+      const defaultOpts = getDefaultBuildOptions(
+        codeSpace,
+        origin,
+        entryPoint,
+        external,
+        splitting,
+        format,
+      );
       const result = await esmBuild({
         ...defaultOpts,
         external: [

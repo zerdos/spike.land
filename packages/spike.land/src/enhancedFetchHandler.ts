@@ -12,7 +12,6 @@ export const handleEnhancedFetch = async (request: Request) => {
 
     // Rest of the commented code remains unchanged
     // ...
-
   } catch (error) {
     console.error("Server-side fetch error:", error);
     return new Response("Server-side fetch failed", { status: 500 });

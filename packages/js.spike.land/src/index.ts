@@ -1,4 +1,8 @@
-import { build, transpile, wasmFile as wasmModule} from "@spike-land/code/src/transpile";
+import {
+  build,
+  transpile,
+  wasmFile as wasmModule,
+} from "@spike-land/code/src/transpile";
 
 Object.assign(globalThis, {
   performance: {
@@ -6,7 +10,8 @@ Object.assign(globalThis, {
   },
 });
 
-const initAndTransform = (code: string, origin: string) => transpile(code, origin, wasmModule);
+const initAndTransform = (code: string, origin: string) =>
+  transpile(code, origin, wasmModule);
 
 const handleGetRequest = async (codeSpace: string, origin: string) => {
   try {
@@ -33,8 +38,6 @@ const handleGetRequest = async (codeSpace: string, origin: string) => {
         },
       });
     }
-
-
 
     return new Response(JSON.stringify(results), {
       headers: {

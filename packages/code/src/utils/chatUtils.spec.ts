@@ -205,7 +205,9 @@ describe("loadMessages", () => {
 
     const result = loadMessages(codeSpace);
     expect(result).toEqual(messages);
-    expect(localStorage.getItem).toHaveBeenCalledWith(`chatMessages-${codeSpace}`);
+    expect(localStorage.getItem).toHaveBeenCalledWith(
+      `chatMessages-${codeSpace}`,
+    );
   });
 
   it("should filter out messages without a role", () => {

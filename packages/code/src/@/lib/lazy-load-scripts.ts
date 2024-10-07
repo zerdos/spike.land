@@ -4,7 +4,8 @@ interface GlobalWithLoadedScripts {
 
 const globalWithLoadedScripts = globalThis as GlobalWithLoadedScripts;
 
-const loadedScripts: Set<string> = globalWithLoadedScripts.loadedScripts || new Set<string>();
+const loadedScripts: Set<string> = globalWithLoadedScripts.loadedScripts
+  || new Set<string>();
 globalWithLoadedScripts.loadedScripts = loadedScripts;
 
 export const lazyLoadScript = (scriptName: string, v = "0"): void => {

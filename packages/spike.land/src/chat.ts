@@ -1,4 +1,4 @@
-import {  serverFetchUrl } from "@spike-land/code";
+import { serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
@@ -8,154 +8,165 @@ import { handleReplicateRequest } from "./replicateHandler";
 import Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
-import { ASSET_MANIFEST, ASSET_HASH,  files } from "./staticContent.mjs";
-
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 export default {
- 
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
 
-
-    if (url.pathname === "/@/lib/swVersion.mjs" || url.pathname === "/swVersion.mjs")  {
-      return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {  
+    if (
+      url.pathname === "/@/lib/swVersion.mjs" ||
+      url.pathname === "/swVersion.mjs"
+    ) {
+      return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
         headers: {
           "Content-Type": "application/javascript",
-        }
+        },
       });
     }
 
-  
     const kvServer = serveWithCache(files, () => caches.open("file-cache-24"));
-    
+
     if (kvServer.isAsset(request)) {
-      const assetFetcher  = (req: Request, waitUntil:  (p: Promise<unknown>) =>void) => getAssetFromKV(
-        { request: req, waitUntil },
-        {
-          ASSET_NAMESPACE: env.__STATIC_CONTENT,
-          ASSET_MANIFEST,
-        }
+      const assetFetcher = (
+        req: Request,
+        waitUntil: (p: Promise<unknown>) => void,
+      ) =>
+        getAssetFromKV(
+          { request: req, waitUntil },
+          {
+            ASSET_NAMESPACE: env.__STATIC_CONTENT,
+            ASSET_MANIFEST,
+          },
+        );
+      return kvServer.serve(
+        request,
+        assetFetcher,
+        (p: Promise<unknown>) => ctx.waitUntil(p),
       );
-      return kvServer.serve(request, assetFetcher, (p: Promise<unknown>) => ctx.waitUntil(p));
     }
     //   "files.json": async () => handleFilesJson(),
 
-
-
-  
     const logger = new KVLogger("myapp", env.KV);
 
     env.KV.put("lastRequest", request.url);
 
     if (url.pathname === "/swVersion.js") {
-    return new Response(`self.swVersion = "${ASSET_HASH}"; self.files= ${JSON.stringify(files)};`, {  
-      headers: {
-
-        "Content-Type": "application/javascript",
-      }
-    });
-  }
-
-  if (url.pathname === "/@/swVersion.mjs" || url.pathname === "/swVersion.mjs")  {
-    return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {  
-      headers: {
-        "Content-Type": "application/javascript",
-      }
-    });
-  }
-  
-  if (url.pathname === "/sw-config.json") {
-    return new Response(JSON.stringify({ killSwitch: false, version: "v14", swVersion: ASSET_HASH }), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }); 
-  }
-  if (url.pathname === "/transpile" && request.method === "POST") {
-    const body = await request.text()
-
-   const transpiled = await (await fetch("https://esbuild.spikeland.workers.dev", {
-    method: "POST",
-    body: body,
-    headers: {
-      "TR_ORIGIN": url.origin,
-      // Include any additional headers required for authentication
-    },
-  })).text();
-
-  return new Response(transpiled, {
-    headers: {
-      "Content-Type": "application/javascript",
-    },
-  });
-
-
-    // return await env.ESBUILD.fetch({
-    //   body, 
-    //   method: "POST",
-    //   headers: {
-    //     "TR_ORIGIN": url.origin,
-    //   }
-
-    // }
- // );
-}
-  if (url.pathname === "/ASSET_MANIFEST") {
-    return new Response(ASSET_MANIFEST as unknown as string, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-  })
-  }
-
-    if (url.pathname === serverFetchUrl) {
-
-      // export const handleEnhancedFetch = async (request: Request) => {
-        // try {
-           const optionsParam = await request.json() as RequestInit & { url: string };
-       
-           // Perform the fetch
-           // const res = await fetch(optionsParam.url, optionsParam);
-       
-           // // Clone the response
-           // const response = res.clone();
-           // const body = await res.blob();
-           return fetch(optionsParam.url, optionsParam) as unknown as Response;
-      // return handleEnhancedFetch(request);
+      return new Response(
+        `self.swVersion = "${ASSET_HASH}"; self.files= ${
+          JSON.stringify(files)
+        };`,
+        {
+          headers: {
+            "Content-Type": "application/javascript",
+          },
+        },
+      );
     }
 
+    if (
+      url.pathname === "/@/swVersion.mjs" || url.pathname === "/swVersion.mjs"
+    ) {
+      return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
+        headers: {
+          "Content-Type": "application/javascript",
+        },
+      });
+    }
+
+    if (url.pathname === "/sw-config.json") {
+      return new Response(
+        JSON.stringify({
+          killSwitch: false,
+          version: "v14",
+          swVersion: ASSET_HASH,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    }
+    if (url.pathname === "/transpile" && request.method === "POST") {
+      const body = await request.text();
+
+      const transpiled =
+        await (await fetch("https://esbuild.spikeland.workers.dev", {
+          method: "POST",
+          body: body,
+          headers: {
+            "TR_ORIGIN": url.origin,
+            // Include any additional headers required for authentication
+          },
+        })).text();
+
+      return new Response(transpiled, {
+        headers: {
+          "Content-Type": "application/javascript",
+        },
+      });
+
+      // return await env.ESBUILD.fetch({
+      //   body,
+      //   method: "POST",
+      //   headers: {
+      //     "TR_ORIGIN": url.origin,
+      //   }
+
+      // }
+      // );
+    }
+    if (url.pathname === "/ASSET_MANIFEST") {
+      return new Response(ASSET_MANIFEST as unknown as string, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    if (url.pathname === serverFetchUrl) {
+      // export const handleEnhancedFetch = async (request: Request) => {
+      // try {
+      const optionsParam = await request.json() as RequestInit & {
+        url: string;
+      };
+
+      // Perform the fetch
+      // const res = await fetch(optionsParam.url, optionsParam);
+
+      // // Clone the response
+      // const response = res.clone();
+      // const body = await res.blob();
+      return fetch(optionsParam.url, optionsParam) as unknown as Response;
+      // return handleEnhancedFetch(request);
+    }
 
     if (request.url.includes("anthropic")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleAnthropicRequest(request, env, ctx);
     }
     if (request.url.includes("ai-logs")) {
-     
       function createArray(n: number) {
         return Array.from({ length: n }, (_, index) => index + 1);
       }
 
-      const counter= Number(await env.KV.get("ai:counter"));  
+      const counter = Number(await env.KV.get("ai:counter"));
 
       const logs = createArray(counter).slice(-20).map(async (i) => {
         const log = await env.KV.get(`ai:${i}`);
         if (log !== null) {
-        return JSON.parse(log);
-      }});
-  
+          return JSON.parse(log);
+        }
+      });
+
       const resolvedLogs = await Promise.all(logs);
-
-
-      
 
       return new Response(JSON.stringify(resolvedLogs), {
         headers: {
           "Content-Type": "application/json",
         },
       });
-     
-    
-    
     }
 
     if (request.url.includes("api/logged_in/")) {
@@ -193,9 +204,8 @@ export default {
       // return handleRemixRequest(request, env, ctx);
     }
     if (request.url.includes("replicate")) {
-        
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
-      
+
       return handleReplicateRequest(request, env, ctx);
     }
 
@@ -257,15 +267,15 @@ export default {
     // if (cachedResponse) {
     //   return makeResponse(cachedResponse as any, mightAsset);
     // }
-   
+
     // const resp =await handleMainFetch(request, env, ctx);
     // if (resp && resp.status === 200 && resp.headers.get('cache-control')?.includes('public')) {
     //   ctx.waitUntil(cache.put(cacheKey,  new Response(resp.clone().body, resp)))
     // }
 
-    return handleMainFetch(request, env, ctx);;
+    return handleMainFetch(request, env, ctx);
   },
-}; 
+};
 
 export async function handleCMSIndexRequest(request: Request, env: Env) {
   const key = request.url;
@@ -281,7 +291,6 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
     case "GET":
       let object = await env.R2.get(url.origin + path);
       if (!object) {
-     
         object = await env.R2.get(url.origin + path + ".html");
       }
 
@@ -289,19 +298,17 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
         const myPath = path.split("/").slice(-2)[0];
         object = await env.R2.get(url.origin + path + ".html");
       }
-      if(!object) {
-        return new Response("Not found", { status: 404 });  
+      if (!object) {
+        return new Response("Not found", { status: 404 });
       }
 
-      return makeResponse(object, key); 
+      return makeResponse(object, key);
     default:
       return new Response("Method not allowed", { status: 405 });
   }
 }
 
-
 function makeResponse(object: R2ObjectBody, key: string) {
-
   const headers = new Headers();
   if (object.writeHttpMetadata) object.writeHttpMetadata(headers);
 
@@ -311,7 +318,7 @@ function makeResponse(object: R2ObjectBody, key: string) {
   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
   headers.set(
     "Content-Type",
-    (key.endsWith("js") || key.endsWith("mjs")) 
+    (key.endsWith("js") || key.endsWith("mjs"))
       ? "application/javascript; charset=UTF-8"
       : key.endsWith("css")
       ? "text/css; charset=UTF-8"

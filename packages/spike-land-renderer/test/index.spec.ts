@@ -1,5 +1,10 @@
 // test/index.spec.ts
-import { createExecutionContext, env, SELF, waitOnExecutionContext } from "cloudflare:test";
+import {
+  createExecutionContext,
+  env,
+  SELF,
+  waitOnExecutionContext,
+} from "cloudflare:test";
 import { describe, expect, it } from "vitest";
 import worker from "../src/index";
 

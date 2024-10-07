@@ -4,13 +4,19 @@ import { useEffect } from "react";
 export const useDarkMode = () => {
   const getInitialDarkMode = (): boolean => {
     if (typeof window === "undefined") return false;
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return window.matchMedia
+      && window.matchMedia("(prefers-color-scheme: dark)").matches;
   };
 
-  const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>("darkMode", getInitialDarkMode());
+  const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>(
+    "darkMode",
+    getInitialDarkMode(),
+  );
 
   useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const darkModeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    );
     const handleChange = () => {
       if (localStorage.getItem("darkMode") === null) {
         setIsDarkMode(darkModeMediaQuery.matches);
@@ -28,7 +34,7 @@ export const useDarkMode = () => {
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prevMode => !prevMode);
+    setIsDarkMode((prevMode) => !prevMode);
   };
 
   return { isDarkMode: !!isDarkMode, toggleDarkMode };

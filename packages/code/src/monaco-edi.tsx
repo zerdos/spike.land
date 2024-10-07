@@ -1,7 +1,7 @@
 import { ata, prettierToThrow } from "@/lib/shared";
-import { editor, languages,  Uri } from "@/external/monaco-editor";
-import {version} from "monaco-editor/package.json"; 
-import {throttle} from "es-toolkit";
+import { editor, languages, Uri } from "@/external/monaco-editor";
+import { version } from "monaco-editor/package.json";
+import { throttle } from "es-toolkit";
 const originToUse = location.origin;
 
 const refreshAta = async (code: string) => {
@@ -51,7 +51,7 @@ async function fetchAndCreateExtraModels(
 
   const search2 = new RegExp(
     ` from "\\./(?!@/)[a-zA-Z0-9\\-_]+`,
-    "gm"
+    "gm",
   );
   const models2 = code.matchAll(search2);
 
@@ -136,14 +136,13 @@ const monacoContribution = async (code: string) => {
   return code;
 };
 
-
 const mod: Record<string, Awaited<ReturnType<typeof startMonacoPristine>>> = {};
 
 export const startMonaco = async ({
   code,
   container,
   codeSpace,
-  onChange
+  onChange,
 }: {
   code: string;
   container: HTMLDivElement;
@@ -180,82 +179,81 @@ async function startMonacoPristine({
 }) {
   const replacedCode = await monacoContribution(code);
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
-  const model = editor.getModel(uri)
-    || editor.createModel(replacedCode, "typescript", uri);
+  const model = editor.getModel(uri) ||
+    editor.createModel(replacedCode, "typescript", uri);
 
-
-
- languages.registerDocumentFormattingEditProvider('typescript', {
-       provideDocumentFormattingEdits: async (model) => {
-        const formattedText = await prettierToThrow({ code: model.getValue(), toThrow: false });
-        return [
-          {
-            range: model.getFullModelRange(),
-            text: formattedText,
-          }
-        ];
-      },
-    });
-
-    const link = document.createElement('link');
-
-    const promiseIsResolved = new Promise<void>((resolve) => {
-      link.onload = () => resolve();
-    })
-
-    link.rel = 'stylesheet';
-    link.href = `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
-    document.head.appendChild(link);  
-
-      await promiseIsResolved;
-
-		
-    
-
-      const myEditor = editor.create(container, {
-        model, // Assuming 'model' is defined elsewhere
-        // Scrollbar settings
-        scrollbar: {
-          vertical: 'auto', // Automatically shows/hides vertical scrollbar
-          horizontal: 'auto', // Automatically shows/hides horizontal scrollbar
-          scrollByPage: false,
-          alwaysConsumeMouseWheel: true, // Defaults to true
-        },
-        scrollBeyondLastLine: true, // Allows scrolling beyond the last line
-        scrollPredominantAxis: true, // Scrolls only in the predominant direction
-        automaticLayout: true, // Automatically adjusts layout on window resize
-        wordWrap: 'off', // Disables word wrapping (default)
-        wordWrapColumn: 80, // Column at which to wrap lines (used if wordWrap is set)
-        links: true, // Detects and hyperlinks URLs
-        tabSize: 2, // Sets tab size to 2 spaces
-        insertSpaces: true, // Inserts spaces when pressing Tab
-        minimap: {
-          enabled: true, // Displays the minimap
-          autohide: false, // Minimap is always visible
-          side: 'right', // Positions minimap on the right
-          showSlider: 'mouseover', // Slider appears on mouseover
-        },
-        bracketPairColorization: {
-          enabled: true, // Enables bracket pair colorization
-          independentColorPoolPerBracketType: true,
-        },
-        definitionLinkOpensInPeek: true, // Opens definitions in a peek view
-        theme: 'vs-dark', // Sets the editor theme to dark
-        autoClosingBrackets: 'languageDefined', // Auto-closes brackets based on language
-        autoIndent: 'advanced', // Enhances auto-indentation
-        formatOnType: true, // Formats code as you type
-        formatOnPaste: true, // Formats code when pasted
-        renderWhitespace: 'boundary', // Renders whitespace characters at boundaries
-        cursorBlinking: 'blink', // Sets cursor to blink
-        smoothScrolling: true, // Enables smooth scrolling
-        suggestOnTriggerCharacters: true, // Shows suggestions on trigger characters
-        acceptSuggestionOnEnter: 'on', // Accepts suggestions when pressing Enter
-        fontFamily: 'monospace', // Uses monospace font for better readability
-        fontSize: 14, // Sets font size to 14px
-        lineNumbers: 'on', // Displays line numbers
-        folding: true, // Enables code folding
-        codeLens: true, // Shows inline code actions
+  languages.registerDocumentFormattingEditProvider("typescript", {
+    provideDocumentFormattingEdits: async (model) => {
+      const formattedText = await prettierToThrow({
+        code: model.getValue(),
+        toThrow: false,
       });
+      return [
+        {
+          range: model.getFullModelRange(),
+          text: formattedText,
+        },
+      ];
+    },
+  });
+
+  const link = document.createElement("link");
+
+  const promiseIsResolved = new Promise<void>((resolve) => {
+    link.onload = () => resolve();
+  });
+
+  link.rel = "stylesheet";
+  link.href =
+    `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
+  document.head.appendChild(link);
+
+  await promiseIsResolved;
+
+  const myEditor = editor.create(container, {
+    model, // Assuming 'model' is defined elsewhere
+    // Scrollbar settings
+    scrollbar: {
+      vertical: "auto", // Automatically shows/hides vertical scrollbar
+      horizontal: "auto", // Automatically shows/hides horizontal scrollbar
+      scrollByPage: false,
+      alwaysConsumeMouseWheel: true, // Defaults to true
+    },
+    scrollBeyondLastLine: true, // Allows scrolling beyond the last line
+    scrollPredominantAxis: true, // Scrolls only in the predominant direction
+    automaticLayout: true, // Automatically adjusts layout on window resize
+    wordWrap: "off", // Disables word wrapping (default)
+    wordWrapColumn: 80, // Column at which to wrap lines (used if wordWrap is set)
+    links: true, // Detects and hyperlinks URLs
+    tabSize: 2, // Sets tab size to 2 spaces
+    insertSpaces: true, // Inserts spaces when pressing Tab
+    minimap: {
+      enabled: true, // Displays the minimap
+      autohide: false, // Minimap is always visible
+      side: "right", // Positions minimap on the right
+      showSlider: "mouseover", // Slider appears on mouseover
+    },
+    bracketPairColorization: {
+      enabled: true, // Enables bracket pair colorization
+      independentColorPoolPerBracketType: true,
+    },
+    definitionLinkOpensInPeek: true, // Opens definitions in a peek view
+    theme: "vs-dark", // Sets the editor theme to dark
+    autoClosingBrackets: "languageDefined", // Auto-closes brackets based on language
+    autoIndent: "advanced", // Enhances auto-indentation
+    formatOnType: true, // Formats code as you type
+    formatOnPaste: true, // Formats code when pasted
+    renderWhitespace: "boundary", // Renders whitespace characters at boundaries
+    cursorBlinking: "blink", // Sets cursor to blink
+    smoothScrolling: true, // Enables smooth scrolling
+    suggestOnTriggerCharacters: true, // Shows suggestions on trigger characters
+    acceptSuggestionOnEnter: "on", // Accepts suggestions when pressing Enter
+    fontFamily: "monospace", // Uses monospace font for better readability
+    fontSize: 14, // Sets font size to 14px
+    lineNumbers: "on", // Displays line numbers
+    folding: true, // Enables code folding
+    codeLens: true, // Shows inline code actions
+  });
 
   // Add custom key bindings
   // myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
@@ -281,7 +279,8 @@ async function startMonacoPristine({
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
-    const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker =
+      await (await languages.typescript.getTypeScriptWorker())(uri);
 
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -302,7 +301,9 @@ async function startMonacoPristine({
 
     const suggestionDiagnostics = await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString());
-    suggestionDiagnostics.forEach((d) => console.error(d.messageText.toString()));
+    suggestionDiagnostics.forEach((d) =>
+      console.error(d.messageText.toString())
+    );
 
     ttt.checking = 0;
   };
@@ -311,10 +312,11 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics = await (await (await languages.typescript.getTypeScriptWorker())(
-        uri,
-      ))
-        .getSuggestionDiagnostics(uri.toString());
+      const diagnostics =
+        await (await (await languages.typescript.getTypeScriptWorker())(
+          uri,
+        ))
+          .getSuggestionDiagnostics(uri.toString());
       return diagnostics.map((d) => d.messageText.toString());
     },
     isEdit: false,

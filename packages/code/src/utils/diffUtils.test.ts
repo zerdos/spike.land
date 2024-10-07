@@ -200,7 +200,9 @@ With this change, the text color will change to white when a user hovers over th
 
     const result = isDiffContent(diffContent);
     expect(result).toBe(true);
-    expect(extractDiffContent(diffContent).original).toBe("transition: color 0.3s ease;");
+    expect(extractDiffContent(diffContent).original).toBe(
+      "transition: color 0.3s ease;",
+    );
     expect(extractDiffContent(diffContent).modified).toBe(
       "transition: color 0.3s ease;\n                       &:hover {\n                         color: ${color};\n                       }",
     );

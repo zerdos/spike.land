@@ -23,20 +23,29 @@ const hash = swDepsInFiles.pop(); // hash
 const transpileWorker = sw.files["@/workers/transpile.worker.js"].split(".");
 transpileWorker.pop(); // js
 const transpileWorkerHash = transpileWorker.pop(); // hash
-importScripts("/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash);
+importScripts(
+  "/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash,
+);
 
 importScripts("/sw-deps.js" + "?hash=" + hash); // sw-deps.js
 
-const { serveWithCache, CodeSessionBC, useCodeSpace, importMapReplace, transpile, HTML, importMap } =
-  globalThis as unknown as {
-    serveWithCache: typeof ServeWithCache;
-    CodeSessionBC: typeof CsBc;
-    useCodeSpace: typeof UseCodeSpace;
-    importMapReplace: typeof ImportMapReplace;
-    transpile: typeof Trp;
-    HTML: string;
-    importMap: Record<string, string>;
-  };
+const {
+  serveWithCache,
+  CodeSessionBC,
+  useCodeSpace,
+  importMapReplace,
+  transpile,
+  HTML,
+  importMap,
+} = globalThis as unknown as {
+  serveWithCache: typeof ServeWithCache;
+  CodeSessionBC: typeof CsBc;
+  useCodeSpace: typeof UseCodeSpace;
+  importMapReplace: typeof ImportMapReplace;
+  transpile: typeof Trp;
+  HTML: string;
+  importMap: Record<string, string>;
+};
 
 // Initialize cSessions
 sw.cSessions = sw.cSessions || {};
@@ -183,12 +192,16 @@ sw.addEventListener("activate", (event) => {
 
       // Fetch any remaining missing files from the network
       const updatedMyCacheKeys = await myCache.keys();
-      const updatedMyKeys = new Set(updatedMyCacheKeys.map((request) => request.url));
+      const updatedMyKeys = new Set(
+        updatedMyCacheKeys.map((request) => request.url),
+      );
       const stillMissing = setDifference(allKeys, updatedMyKeys);
 
       for (const url of stillMissing) {
         const { pathname, origin } = new URL(url);
-        const request = new Request(new URL(filesByCacheKeys[pathname.slice(1)], origin).toString());
+        const request = new Request(
+          new URL(filesByCacheKeys[pathname.slice(1)], origin).toString(),
+        );
         try {
           const response = await fetch(request);
           if (response.ok) {
@@ -202,7 +215,9 @@ sw.addEventListener("activate", (event) => {
       }
 
       // Delete old caches
-      await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
+      await Promise.all(
+        cacheNames.map((cacheName) => caches.delete(cacheName)),
+      );
 
       // Take control of all clients immediately
       await sw.clients.claim();
@@ -247,9 +262,7 @@ sw.addEventListener("fetch", (event) => {
           const url = new URL(req.url);
           const file = url.pathname.slice(1);
           const cacheFile = filesByCacheKeys[file];
-          const newUrl = cacheFile
-            ? req.url.replace(file, cacheFile)
-            : req.url;
+          const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
           return fetch(newUrl);
         },
         event.waitUntil.bind(event),
@@ -270,7 +283,8 @@ sw.addEventListener("fetch", (event) => {
     const codeSpace = useCodeSpace(new URL(request.url).pathname);
     console.log("CodeSpace:", codeSpace);
 
-    sw.cSessions[codeSpace] = sw.cSessions[codeSpace] || new CodeSessionBC(codeSpace);
+    sw.cSessions[codeSpace] = sw.cSessions[codeSpace]
+      || new CodeSessionBC(codeSpace);
     const session = await sw.cSessions[codeSpace].init();
 
     if (
@@ -301,7 +315,10 @@ sw.addEventListener("fetch", (event) => {
       console.log("Transpiled request:", request.url);
 
       if (typeof session.transpiled !== "string" || session.transpiled === "") {
-        const transpiled = await transpile({ code: session.code, originToUse: location.origin }) as unknown as string;
+        const transpiled = await transpile({
+          code: session.code,
+          originToUse: location.origin,
+        }) as unknown as string;
         session.transpiled = transpiled;
         await sw.cSessions[codeSpace].postMessage({
           ...session,

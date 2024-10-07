@@ -3,7 +3,9 @@ import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
-export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }> = ({
+export const IframeWrapper: React.FC<
+  { codeSpace: string; fullScreen: boolean }
+> = ({
   codeSpace,
   fullScreen = false,
 }) => {
@@ -54,7 +56,11 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
   });
 
   return (
-    <animated.div ref={containerRef} style={springProps as unknown as React.CSSProperties} className="overflow-hidden">
+    <animated.div
+      ref={containerRef}
+      style={springProps as unknown as React.CSSProperties}
+      className="overflow-hidden"
+    >
       <AspectRatio ratio={fullScreen ? undefined : ratio}>
         <iframe
           ref={ref}

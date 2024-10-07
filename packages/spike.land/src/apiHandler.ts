@@ -1,7 +1,6 @@
 import { HTML } from "@spike-land/code";
 import Env from "./env";
 
-
 export async function handleApiRequest(
   path: string[],
   request: Request,
@@ -73,7 +72,7 @@ export async function handleApiRequest(
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cache-Control": "no-cache",
     "Content-Encoding": "gzip",
-    "Content-Type": "text/html; charset=UTF-8"
+    "Content-Type": "text/html; charset=UTF-8",
   });
 
   return new Response(respText, { status: 200, headers });

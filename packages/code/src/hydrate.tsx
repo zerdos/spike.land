@@ -1,35 +1,34 @@
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
-  
+
   // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
-    const { Workbox } = await import( "workbox-window");
-    console.log("Workbox imported");
+  const { Workbox } = await import("workbox-window");
+  console.log("Workbox imported");
 
-    const wb = new Workbox("/sw.js");
-   const sw = await  wb.register();
+  const wb = new Workbox("/sw.js");
+  const sw = await wb.register();
 
-    console.log("Workbox instance created");
+  console.log("Workbox instance created");
 
+  console.log("Active service worker:", sw);
 
-    console.log("Active service worker:", sw);
-
-if (!sw) {
-      console.log("Service worker not found, registering");
-      return;
-}
-
-    if (sw.active?.state === "redundant") {
-      console.log("Service worker is redundant, updating");
-      return wb.update();
-    }
-
-    if (sw.active?.state === "activated") {
-      console.log("Service worker is already activated");
-      return;
-    }
-  
-    console.log("Service worker setup completed");
+  if (!sw) {
+    console.log("Service worker not found, registering");
+    return;
   }
+
+  if (sw.active?.state === "redundant") {
+    console.log("Service worker is redundant, updating");
+    return wb.update();
+  }
+
+  if (sw.active?.state === "activated") {
+    console.log("Service worker is already activated");
+    return;
+  }
+
+  console.log("Service worker setup completed");
+};
 // };
 
 Object.assign(globalThis, { setupServiceWorker });
@@ -69,7 +68,6 @@ export const initializeApp = async () => {
     console.log("Global objects assigned");
 
     console.log("App initialization completed");
-
   } catch (error) {
     console.error("Error initializing app:", error);
   }

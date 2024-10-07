@@ -62,11 +62,13 @@ class WorkerPool {
         return connectWorker;
       }
     }
-    const availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag) || this.addWorker(tag);
+    const availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag)
+      || this.addWorker(tag);
 
     availableWorker.busy = true;
 
-    const freeWorkers = this.workers.filter((worker) => !worker.busy && worker.tag === tag).length;
+    const freeWorkers = this.workers.filter((worker) => !worker.busy && worker.tag === tag)
+      .length;
     if (freeWorkers < this.minFreeWorkers) {
       this.addWorker(tag); // Now synchronous
     }
@@ -83,7 +85,8 @@ class WorkerPool {
 let workerPool: WorkerPool = new WorkerPool(0, swVersion);
 
 function init(swVersion: string) {
-  workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool || new WorkerPool(0, swVersion);
+  workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool
+    || new WorkerPool(0, swVersion);
   Object.assign(globalThis, { workerPool });
   const worker = workerPool.getWorker("connect");
 
@@ -129,7 +132,9 @@ export const prettierCss = async (code: string): Promise<string> => {
   }
 };
 
-export const tsx = async (code: string): Promise<{ content: string; filePath: string }[]> => {
+export const tsx = async (
+  code: string,
+): Promise<{ content: string; filePath: string }[]> => {
   const worker = workerPool.getWorker("tsx");
   try {
     return await worker.rpc.rpc("tsc", code);
@@ -148,7 +153,12 @@ export const handleSendMessage = async (
 ): Promise<void> => {
   const worker = workerPool.getWorker("search-replace");
   try {
-    return await worker.rpc.rpc("handleSendMessage", { messages, codeSpace, prompt, images });
+    return await worker.rpc.rpc("handleSendMessage", {
+      messages,
+      codeSpace,
+      prompt,
+      images,
+    });
   } finally {
     workerPool.releaseWorker(worker);
   }
@@ -176,7 +186,11 @@ export const transpile = async ({
   mutex.runExclusive(async () => {
     const worker = workerPool.getWorker("esbuild");
     try {
-      return await worker.rpc.rpc("transpile", { code, originToUse, wasmModule });
+      return await worker.rpc.rpc("transpile", {
+        code,
+        originToUse,
+        wasmModule,
+      });
     } catch (e) {
       console.error(e);
       throw e;

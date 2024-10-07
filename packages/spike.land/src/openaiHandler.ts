@@ -5,7 +5,7 @@ import { KVLogger } from "./Logs";
 import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
 
 interface MessageParam {
-  role:  "user" | "assistant";
+  role: "user" | "assistant";
   content: string;
 }
 
@@ -28,7 +28,8 @@ export async function handleGPT4Request(
   };
 
   const openai = new OpenAI({
-    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
+    baseURL:
+      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
     // baseURL: "https://api.openai.com/v1",
     apiKey: env.OPENAI_API_KEY,
   });
@@ -36,8 +37,10 @@ export async function handleGPT4Request(
   if (body.model === "tts-1" || body.model === "tts-1-hd") {
     try {
       const validVoices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
-      const voice = validVoices.includes(body.voice ?? "") ? body.voice as "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer" : "alloy";
-      
+      const voice = validVoices.includes(body.voice ?? "")
+        ? body.voice as "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer"
+        : "alloy";
+
       const speechResponse = await openai.audio.speech.create({
         model: body.model,
         voice,
@@ -68,11 +71,6 @@ export async function handleGPT4Request(
     }
   }
 
-
-  
-
-    
-  
   if (body.model === "whisper-1") {
     const transcription = await openai.audio.transcriptions.create({
       file: body.file!,
@@ -94,17 +92,22 @@ export async function handleGPT4Request(
 
   const conf = {
     stream: true,
-    model: body.model || 'gpt-4o-mini', // Use the model from body, or fallback to 'gpt-4o-mini'
+    model: body.model || "gpt-4o-mini", // Use the model from body, or fallback to 'gpt-4o-mini'
     messages: body.messages,
     // Spread the rest of the body properties, excluding 'model' and 'messages'
-    ...Object.fromEntries(Object.entries(body).filter(([key]) => !['model', 'messages'].includes(key))),
+    ...Object.fromEntries(
+      Object.entries(body).filter(([key]) =>
+        !["model", "messages"].includes(key)
+      ),
+    ),
   };
-  
 
   let answer = "";
   ctx.waitUntil((async () => {
     try {
-      const stream = await openai.chat.completions.create(conf as ChatCompletionCreateParamsStreaming);;
+      const stream = await openai.chat.completions.create(
+        conf as ChatCompletionCreateParamsStreaming,
+      );
 
       for await (const part of stream) {
         if (part.choices && part.choices[0] && part.choices[0].delta) {

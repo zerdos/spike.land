@@ -41,7 +41,10 @@ const handleScreenshot = async () => {
       type: "image/png",
     });
     const imageData = await processImage(file);
-    window.parent.postMessage({ type: "screenShot", imageData } as IframeMessage, "*");
+    window.parent.postMessage(
+      { type: "screenShot", imageData } as IframeMessage,
+      "*",
+    );
   } catch (error) {
     console.error("Error taking screenshot:", error);
   }
@@ -69,7 +72,9 @@ const handleRender = async (
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(x => x.cssText.startsWith(".")).map(
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).filter(
+          (x) => x.cssText.startsWith("."),
+        ).map(
           (x) => x.cssText.split("\\").join(""),
         )
         : [];
@@ -81,7 +86,7 @@ const handleRender = async (
           ...css,
         ].filter((line) => {
           const rule = line.slice(1, line.indexOf("{")).trim();
-          return htmlClasses.some(x => x.includes(rule));
+          return htmlClasses.some((x) => x.includes(rule));
         }),
       );
 
@@ -109,7 +114,10 @@ const handleRender = async (
   }
 };
 
-const mod = { controller: new AbortController(), runningOperations: new Map<string, Promise<RunAnswerType>>() };
+const mod = {
+  controller: new AbortController(),
+  runningOperations: new Map<string, Promise<RunAnswerType>>(),
+};
 
 type RunAnswerType = {
   html: string;
@@ -180,7 +188,9 @@ const handleDefaultPage = async (cSess: ICode) => {
   }
 };
 
-const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string; requestId: string }) => {
+const handleRunMessage = async (
+  { transpiled, requestId }: { transpiled: string; requestId: string },
+) => {
   const { runningOperations } = mod;
 
   console.log("Handling run message:", { transpiled, requestId });
@@ -259,7 +269,10 @@ export const main = async () => {
   })();
 
   try {
-    if (location.pathname === `/live/${codeSpace}` || location.pathname === `/live-cms/${codeSpace}`) {
+    if (
+      location.pathname === `/live/${codeSpace}`
+      || location.pathname === `/live-cms/${codeSpace}`
+    ) {
       console.log("Rendering preview window...");
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });

@@ -9,7 +9,10 @@ class SharedWorkerPolyfill {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
         this.worker = new Worker2(
-          new URL(import.meta.url + "/../../../dist/" + url.slice(0, url.indexOf("?"))).toString(),
+          new URL(
+            import.meta.url + "/../../../dist/"
+              + url.slice(0, url.indexOf("?")),
+          ).toString(),
           opts || {},
         ) as unknown as Worker;
         this.initializeWorker();
@@ -62,7 +65,9 @@ class SharedWorkerPolyfill {
     return this.port.onmessageerror;
   }
 
-  set onmessageerror(value: ((this: MessagePort, ev: MessageEvent) => void) | null) {
+  set onmessageerror(
+    value: ((this: MessagePort, ev: MessageEvent) => void) | null,
+  ) {
     this.port.onmessageerror = value;
   }
 
@@ -72,7 +77,9 @@ class SharedWorkerPolyfill {
   postMessage = (
     message: unknown,
     transfer?: Transferable[],
-  ) => (transfer ? this.port.postMessage(message, transfer) : this.port.postMessage(message));
+  ) => (transfer
+    ? this.port.postMessage(message, transfer)
+    : this.port.postMessage(message));
 
   /**
    * Immediately terminates the worker.
@@ -126,6 +133,8 @@ class SharedWorkerPolyfill {
   }
 }
 
-const WorkerToExport = sharedWorkerSupported ? SharedWorker : SharedWorkerPolyfill;
+const WorkerToExport = sharedWorkerSupported
+  ? SharedWorker
+  : SharedWorkerPolyfill;
 
 export default WorkerToExport;

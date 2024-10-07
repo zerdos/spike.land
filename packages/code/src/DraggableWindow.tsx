@@ -1,5 +1,5 @@
 import { MotionConfig } from "framer-motion";
-import type { FC} from "react";
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useWindowSize } from "react-use";
 import { DraggableWindowContent } from "./components/DraggableWindowContent";

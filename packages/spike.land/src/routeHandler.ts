@@ -1,15 +1,17 @@
 import { createClerkClient } from "@clerk/backend";
-import { importMapReplace, makeSession, md5, stringifySession } from "@spike-land/code";
+import {
+  importMapReplace,
+  makeSession,
+  md5,
+  stringifySession,
+} from "@spike-land/code";
 import { Code } from "./chatRoom";
-import { importMap, HTML } from "@spike-land/code";
+import { HTML, importMap } from "@spike-land/code";
 
 export interface AutoSaveEntry {
   timestamp: number;
   code: string;
 }
-
-
-
 
 export class RouteHandler {
   constructor(private code: Code) {}
@@ -64,7 +66,7 @@ export class RouteHandler {
       "null": this.handleEditorRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
-  
+
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
       embed: this.handleDefaultRoute.bind(this),
@@ -80,9 +82,8 @@ export class RouteHandler {
     };
 
     return routes[route] || null;
-
   }
-  private async handleCodeHistory(){
+  private async handleCodeHistory() {
     const history = await this.code.getCodeHistory();
     return new Response(JSON.stringify(history), {
       status: 200,
@@ -94,7 +95,7 @@ export class RouteHandler {
       },
     });
   }
-  
+
   private async handleAutoSaveRoute(
     request: Request,
     url: URL,
@@ -147,15 +148,16 @@ export class RouteHandler {
           const respText = HTML.replace(
             `<script type="importmap"></script>`,
             `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-          )          .replace(
+          ).replace(
             `<link rel="preload" href="/app/tw-global.css" as="style">`,
             `<link rel="preload" href="/app/tw-global.css" as="style">
                     <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
                     <link rel="stylesheet" href="/live/${codeSpace}/index.css">
                     `,
           ).replace(
-            "<div id=\"embed\"></div>",
-            `<div id="embed">${html}</div>`);
+            '<div id="embed"></div>',
+            `<div id="embed">${html}</div>`,
+          );
 
           const headers = new Headers({
             "Access-Control-Allow-Origin": "*",
@@ -199,7 +201,8 @@ export class RouteHandler {
       // If this timestamp doesn't exist in the map, or if this entry is more recent,
       // update the map
       if (
-        !uniqueMap.has(timestamp) || entry.timestamp > uniqueMap.get(timestamp)!.timestamp
+        !uniqueMap.has(timestamp) ||
+        entry.timestamp > uniqueMap.get(timestamp)!.timestamp
       ) {
         uniqueMap.set(timestamp, { ...entry, timestamp });
       }
@@ -271,7 +274,9 @@ export class RouteHandler {
     path: string[],
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
-    const body = stringifySession(makeSession({...this.code.session, codeSpace}));
+    const body = stringifySession(
+      makeSession({ ...this.code.session, codeSpace }),
+    );
     return new Response(body, {
       status: 200,
       headers: {
@@ -286,7 +291,7 @@ export class RouteHandler {
 
   private async handleLazyRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
-   
+
     return new Response(
       `import { jsx as jsX } from "@emotion/react";
        import {LoadRoom} from "/live/lazy/js";
@@ -367,16 +372,16 @@ hQIDAQAB
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-    )       .replace(
+    ).replace(
       `<link rel="preload" href="/app/tw-global.css" as="style">`,
-     `<link rel="preload" href="/app/tw-global.css" as="style">
+      `<link rel="preload" href="/app/tw-global.css" as="style">
              <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
              <link rel="stylesheet" href="/live/${codeSpace}/index.css">
              `,
     ).replace(
-      "<div id=\"embed\"></div>",
+      '<div id="embed"></div>',
       `<div id="embed">${html}</div>`,
-    )
+    );
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -402,11 +407,11 @@ hQIDAQAB
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-    )       .replace(
-      "<div id=\"embed\"></div>",
-      "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
-        + codeSpace + "/iframe\"></iframe></div>",
-    )
+    ).replace(
+      '<div id="embed"></div>',
+      '<div id="embed"><iframe height= "100%" width= "100%" border= "0" overflow= "auto" src="/live/' +
+        codeSpace + '/iframe"></iframe></div>',
+    );
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
@@ -478,28 +483,27 @@ hQIDAQAB
     return new Response("Not found", { status: 404 });
   }
 
-private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response> {
-
+  private async handleWrapHTMLRoute(
+    request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
-
-    
 
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-    ).
-    replace(
-      `<link rel="preload" href="/app/tw-global.css" as="style">`,
-      `<link rel="preload" href="/app/tw-global.css" as="style">
+    )
+      .replace(
+        `<link rel="preload" href="/app/tw-global.css" as="style">`,
+        `<link rel="preload" href="/app/tw-global.css" as="style">
               <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
               <link rel="stylesheet" href="/live/${codeSpace}/index.css">
               `,
-    ).replace(
-      "<div id=\"embed\"></div>",
-      `<div id="embed">${html}</div>`,
-    ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`);
-
+      ).replace(
+        '<div id="embed"></div>',
+        `<div id="embed">${html}</div>`,
+      ).replace("/start.mjs", `https://js.spike.land?codeSpace=${codeSpace}`);
 
     return new Response(respText, {
       headers: {
@@ -543,7 +547,7 @@ private async handleWrapHTMLRoute(request: Request, url: URL): Promise<Response>
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
     return fetch(
-      `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/embed&now=${Date.now()}`, 
+      `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/embed&now=${Date.now()}`,
     ) as unknown as Promise<Response>;
   }
 
@@ -630,9 +634,12 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleJsRoute(request: Request): Promise<Response> {
-    const  replaced = importMapReplace(this.code.session.transpiled, this.code.getOrigin());
+    const replaced = importMapReplace(
+      this.code.session.transpiled,
+      this.code.getOrigin(),
+    );
 
-    return new Response( replaced, {
+    return new Response(replaced, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",

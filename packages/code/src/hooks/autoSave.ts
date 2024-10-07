@@ -8,7 +8,9 @@ interface AutoSaveOptions {
 
 const MAX_HISTORY_LENGTH = 100; // Adjust this value as needed
 
-export const useAutoSave = ({ key, data, debounceMs = 1000 }: AutoSaveOptions) => {
+export const useAutoSave = (
+  { key, data, debounceMs = 1000 }: AutoSaveOptions,
+) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const saveData = useCallback(async () => {
@@ -20,7 +22,9 @@ export const useAutoSave = ({ key, data, debounceMs = 1000 }: AutoSaveOptions) =
       await localStorage.setItem(storageKey, JSON.stringify(data));
 
       // Update the inventory of timestamps
-      const inventory = JSON.parse(await localStorage.getItem(`${key}_inventory`) || "[]");
+      const inventory = JSON.parse(
+        await localStorage.getItem(`${key}_inventory`) || "[]",
+      );
       inventory.push(timestamp);
 
       // Limit the inventory size

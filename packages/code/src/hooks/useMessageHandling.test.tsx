@@ -41,7 +41,9 @@ describe("useMessageHandling", () => {
     setCode: vi.fn().mockResolvedValue("test code"),
     sub: vi.fn(),
     screenShot: vi.fn().mockResolvedValue(mockImageData),
-    currentCodeWithExtraModels: vi.fn().mockResolvedValue("test code with extra models"),
+    currentCodeWithExtraModels: vi.fn().mockResolvedValue(
+      "test code with extra models",
+    ),
     setModelsByCurrentCode: vi.fn().mockResolvedValue("updated code"),
     getCode: vi.fn().mockResolvedValue("test code"),
   };
@@ -73,7 +75,9 @@ describe("useMessageHandling", () => {
       role: "user" as const,
       content: [{ type: "text", text: "Original content" }],
     }] as Message[];
-    const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages }));
+    const { result } = renderHook(() =>
+      useMessageHandling({ ...defaultProps, messages })
+    );
 
     act(() => {
       result.current.handleEditMessage("message-id");
@@ -96,16 +100,30 @@ describe("useMessageHandling", () => {
 
   it("should handle saving edit", () => {
     const messages = [
-      { id: "message-1", role: "user" as const, content: [{ type: "text", text: "Original content" }] },
+      {
+        id: "message-1",
+        role: "user" as const,
+        content: [{ type: "text", text: "Original content" }],
+      },
     ] as Message[];
-    const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages, editInput: "Edited content" }));
+    const { result } = renderHook(() =>
+      useMessageHandling({
+        ...defaultProps,
+        messages,
+        editInput: "Edited content",
+      })
+    );
 
     act(() => {
       result.current.handleSaveEdit("message-1");
     });
 
     expect(mockSetMessages).toHaveBeenCalledWith([
-      { id: "message-1", role: "user", content: [{ type: "text", text: "Edited content" }] },
+      {
+        id: "message-1",
+        role: "user",
+        content: [{ type: "text", text: "Edited content" }],
+      },
     ]);
     expect(mockSetEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockSetEditInput).toHaveBeenCalledWith("");
