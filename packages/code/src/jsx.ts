@@ -1,5 +1,6 @@
-import JSX from "react/jsx-runtime";
+import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 
-export const { jsx, jsxs, Fragment } = JSX;
+export { Fragment, jsx, jsxs };
+const JSX = { jsx, jsxs, Fragment };
 
 export default JSX;
