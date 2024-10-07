@@ -1,4 +1,4 @@
-const sharedWorkerSupported = typeof SharedWorker !== "undefined";
+πcπ∂ƒπonst sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
 class SharedWorkerPolyfill {
   private worker: Worker = null!;
