@@ -495,74 +495,6 @@ async function handleBroadcastMessage(
     clearTimeout(bMod.timeoutId);
 
     console.log("Scheduling session update");
-    bMod.timeoutId = setTimeout(() => {
-      (async () => {
-        if (bModI > connection.lastCounter) {
-          console.log({ bModI, lastCounter: connection.lastCounter });
-        } else {
-          console.log("Skipping session update due to outdated counter");
-
-          if (bModI === connection.lastCounter) {
-            // nothing to update
-            console.log("Nothing to update");
-            return;
-          }
-
-          // fetching the latest session
-          // and broadcasting it to the channel
-
-          const session = await fetchInitialSession(codeSpace);
-          const { broadcastChannel } = connection;
-          broadcastChannel.postMessage({
-            ...session,
-            sender: SENDER_WORKER_HANDLE_CHANGES,
-          });
-          connection.oldSession = session;
-          connection.lastCounter = session.i;
-          console.log("Session updated successfully");
-
-          return;
-        }
-
-        if (signal.aborted) {
-          console.log("Session update aborted");
-          return;
-        }
-
-        if (connection.lastCounter < bMod!.i) {
-          console.log("Updating session");
-          const { code, html, css, i, transpiled } = bMod!;
-
-          const json = stringifySession({
-            code,
-            html,
-            css,
-            codeSpace,
-            i,
-            transpiled,
-          });
-          try {
-            await fetch(`/live/${codeSpace}/session`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: json,
-            });
-            console.log("Session updated successfully");
-          } catch (error) {
-            console.error("Failed to update session:", error);
-          }
-        } else {
-          console.log("Session update skipped due to outdated counter");
-        }
-
-        console.log("Cleaning up broadcast modification");
-        broadcastMod.delete(codeSpace);
-      })().catch((error) => {
-        console.error("Error in setTimeout callback:", error);
-      });
-    }, 1000);
 
     console.log("Processing session changes");
     const oldSession = makeSession(connection.oldSession);
@@ -584,6 +516,74 @@ async function handleBroadcastMessage(
           }),
         );
         console.log("Patch sent to WebSocket");
+        bMod.timeoutId = setTimeout(() => {
+          (async () => {
+            if (bModI > connection.lastCounter) {
+              console.log({ bModI, lastCounter: connection.lastCounter });
+            } else {
+              console.log("Skipping session update due to outdated counter");
+
+              if (bModI === connection.lastCounter) {
+                // nothing to update
+                console.log("Nothing to update");
+                return;
+              }
+
+              // fetching the latest session
+              // and broadcasting it to the channel
+
+              const session = await fetchInitialSession(codeSpace);
+              const { broadcastChannel } = connection;
+              broadcastChannel.postMessage({
+                ...session,
+                sender: SENDER_WORKER_HANDLE_CHANGES,
+              });
+              connection.oldSession = session;
+              connection.lastCounter = session.i;
+              console.log("Session updated successfully");
+
+              return;
+            }
+
+            if (signal.aborted) {
+              console.log("Session update aborted");
+              return;
+            }
+
+            if (connection.lastCounter < bMod!.i) {
+              console.log("Updating session");
+              const { code, html, css, i, transpiled } = bMod!;
+
+              const json = stringifySession({
+                code,
+                html,
+                css,
+                codeSpace,
+                i,
+                transpiled,
+              });
+              try {
+                await fetch(`/live/${codeSpace}/session`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: json,
+                });
+                console.log("Session updated successfully");
+              } catch (error) {
+                console.error("Failed to update session:", error);
+              }
+            } else {
+              console.log("Session update skipped due to outdated counter");
+            }
+
+            console.log("Cleaning up broadcast modification");
+            broadcastMod.delete(codeSpace);
+          })().catch((error) => {
+            console.error("Error in setTimeout callback:", error);
+          });
+        }, 5000);
       } else {
         console.log("Patch creation failed due to hash mismatch");
       }
