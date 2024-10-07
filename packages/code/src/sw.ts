@@ -408,9 +408,7 @@ sw.addEventListener("fetch", (event) => {
         `<script type="importmap">${JSON.stringify(importMap)}</script>`,
       ).replace(
         `<link rel="preload" href="/app/tw-global.css" as="style">`,
-        `<link rel="preload" href="/live/${codeSpace}/index.css" as="style">
-        <link rel="stylesheet" href="/live/${codeSpace}/index.css">
-      `,
+        `<style>${session.css}</style>`,
       ).replace(
         "<div id=\"embed\"></div>",
         `<div id="embed">${session.html}</div>`,
