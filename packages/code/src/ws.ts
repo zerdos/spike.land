@@ -55,7 +55,7 @@ const handleRender = async (
   renderedNew: RenderedApp,
   signal: AbortSignal,
 ): Promise<{ css: string; html: string } | false> => {
-  const { extractStyles, rootElement } = renderedNew;
+  const { extractStyles, cssCache, rootElement } = renderedNew;
 
   try {
     if (!rootElement) return false;
