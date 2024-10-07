@@ -1,4 +1,5 @@
 import createCache from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import React, {} from "react";
 import { createRoot } from "react-dom/client";
@@ -14,6 +15,43 @@ import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
+
+/**
+ * Extracts CSS styles from Emotion cache for server-side rendering.
+ * @param cache - The Emotion cache object.
+ * @returns An array of CSS rule strings.
+ */
+function extractEmotionStyles(cache: EmotionCache): string[] {
+  const { inserted, registered } = cache;
+  const rules: string[] = [];
+
+  Object.keys(inserted).forEach((id) => {
+    const rule = registered[id];
+    if (rule) {
+      rules.push(rule);
+    }
+  });
+
+  return rules;
+}
+
+
+/**
+ * Creates an Emotion cache and extracts its styles.
+ * @param options - Options for creating the Emotion cache.
+ * @returns An object containing the cache and extracted styles.
+ */
+export function createEmotionCache(options?: Parameters<typeof createCache>[0]) {
+  const cache = createCache(options || { key: 'css' });
+  
+  return {
+    cache,
+    extractStyles: () => extractEmotionStyles(cache),
+  };
+}
+
+
+
 
 const origin = location.origin;
 
@@ -97,7 +135,7 @@ async function renderApp(
 
     const root = createRoot(rootEl);
 
-    const cssCache = createCache({
+    const cssCache = createEmotionCache({
       key: md5(transpiled! || code! || Math.random().toString()),
       speedy: prerender?false:true,
       container: rootEl.parentNode!,
@@ -112,7 +150,7 @@ async function renderApp(
     );
 
     root.render(
-      <CacheProvider value={cssCache}>
+      <CacheProvider value={cssCache.cache}>
         {emptyApp
           ? <AppToRender />
           : (
@@ -128,11 +166,12 @@ async function renderApp(
       rootElement: rootEl,
       rRoot: root,
       App: AppToRender,
-      cssCache,
+      cssCache: cssCache.cache,
+      styles: cssCache.extractStyles(),
       cleanup: () => {
         root.unmount();
-        if (cssCache.sheet) {
-          cssCache.sheet.flush();
+        if (cssCache.cache.sheet) {
+          cssCache.cache.sheet.flush();
         }
         rootEl.remove();
         (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);

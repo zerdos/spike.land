@@ -89,6 +89,7 @@ export interface RenderedApp {
   rRoot: Root;
   App?: FlexibleComponentType;
   cssCache: EmotionCache;
+  styles: string[];
   cleanup: () => void;
 }
 
