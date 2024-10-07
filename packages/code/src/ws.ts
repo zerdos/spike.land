@@ -91,7 +91,9 @@ const handleRender = async (
         }),
       );
 
-      let cssStrings = [...tailWindClassesX, ...criticalClasses].sort().join("\n");
+      const critical = [...criticalClasses].sort();
+
+      let cssStrings = [...tailWindClassesX, ...critical].join("\n");
 
       try {
         cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
