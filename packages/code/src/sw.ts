@@ -391,6 +391,46 @@ sw.addEventListener("fetch", (event) => {
 
       return new Response(respText, { status: 200, headers });
     } else if (
+      request.url.endsWith(`/live/${codeSpace}/xxx`)
+    ) {
+      //
+      // hydrated: this.handleDefaultRoute.bind(this),
+      // worker: this.handleDefaultRoute.bind(this),
+
+      // dehydrated: this.handleDefaultRoute.bind(this),
+      // iframe: this.handleDefaultRoute.bind(this),
+      // embed: this.handleDefaultRoute.bind(this),
+
+      // public: this.handleDefaultRoute.bind(this),
+
+      const respText = HTML.replace(
+        `<script type="importmap"></script>`,
+        `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+      ).replace(
+        `<link rel="preload" href="/app/tw-global.css" as="style">`,
+        `<link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+        <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+      `,
+      ).replace(
+        "<div id=\"embed\"></div>",
+        `<div id="embed">${session.html}</div>`,
+      ).replace(`<link rel="stylesheet" href="/app/tw-global.css">`, "").replace(
+        `<script src="/assets/tw-chunk-4a7018.js"></script>`,
+        "",
+      );
+
+      const headers = new Headers({
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cross-Origin-Resource-Policy": "cross-origin",
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cache-Control": "no-cache",
+        "Content-Encoding": "gzip",
+        "Content-Type": "text/html; charset=UTF-8",
+      });
+
+      return new Response(respText, { status: 200, headers });
+    } else if (
       request.url.endsWith(`/live/${codeSpace}`)
       || request.url.endsWith(`/live/${codeSpace}/`)
     ) {
