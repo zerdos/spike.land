@@ -373,7 +373,7 @@ async function handleHashMismatch(
  * @param signal - The AbortSignal to handle cancellation.
  */
 async function handleHashMatch(
-  data: { newHash: string; oldHash: string },
+  data: { newHash: string; oldHash: string; hashCode: string },
   connection: Connection,
   oldSession: ICodeSession,
   signal: AbortSignal,
@@ -392,7 +392,7 @@ async function handleHashMatch(
     return;
   }
 
-  if (data.newHash === newHash) {
+  if (data.newHash === newHash || data.hashCode === newHash) {
     console.log("New hash matches received hash");
     connection.oldSession = newSession;
     const { broadcastChannel } = connection;

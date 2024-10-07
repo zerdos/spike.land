@@ -274,7 +274,7 @@ sw.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (request.url.includes("/live/")) {
+  if (request.method === "GET" && request.url.includes("/live/")) {
     event.respondWith(fakeServer(request));
     return;
   }
