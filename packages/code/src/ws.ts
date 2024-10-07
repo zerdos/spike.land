@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 
-import type { EmotionCache } from "@emotion/cache";
+// import type { EmotionCache } from "@emotion/cache";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
@@ -11,7 +11,8 @@ import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { renderPreviewWindow } from "./renderPreviewWindow";
-import { mineFromCaches } from "./utils/mineCss";
+// import { mineFromCaches } from "./utils/mineCss";
+// import { render } from "@testing-library/react";
 
 const codeSpace = useCodeSpace();
 
@@ -51,24 +52,25 @@ const handleScreenshot = async () => {
 };
 
 const handleRender = async (
-  rootEl: HTMLDivElement,
-  cache: EmotionCache,
+  renderedNew: RenderedApp,
   signal: AbortSignal,
 ): Promise<{ css: string; html: string } | false> => {
-  try {
-    if (!rootEl) return false;
-    if (!rootEl.innerHTML) await wait(100);
-    if (!rootEl.innerHTML) await wait(200);
-    if (!rootEl.innerHTML) await wait(400);
+  const { extractStyles, rootElement } = renderedNew;
 
-    const html = htmlDecode(rootEl.innerHTML);
+  try {
+    if (!rootElement) return false;
+    if (!rootElement.innerHTML) await wait(100);
+    if (!rootElement.innerHTML) await wait(200);
+    if (!rootElement.innerHTML) await wait(400);
+
+    const html = htmlDecode(rootElement.innerHTML);
     // const classNames = getClassNamesFromHTML(html);
 
     if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
 
-      const css = mineFromCaches(cache);
+      const emotionStyles = extractStyles();
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
@@ -83,7 +85,7 @@ const handleRender = async (
       const criticalClasses = new Set(
         [
           ...tailWindClasses,
-          ...css,
+          ...emotionStyles,
         ].filter((line) => {
           const rule = line.slice(1, line.indexOf("{")).trim();
           return htmlClasses.some((x) => x.includes(rule));
@@ -101,8 +103,8 @@ const handleRender = async (
       if (signal.aborted) return false;
 
       return {
-        css: cssStrings.split(cache.key).join("x"),
-        html: html.split(cache.key).join("x"),
+        css: cssStrings.split(cssCache.key).join("x"),
+        html: html.split(cssCache.key).join("x"),
       };
     }
     return false;
@@ -110,7 +112,7 @@ const handleRender = async (
     console.error("Error in handleRender:", error);
     return false;
   } finally {
-    rootEl.remove();
+    rootElement.remove();
   }
 };
 
@@ -231,7 +233,7 @@ const handleRunMessage = async (
           return result;
         }
 
-        const res = await handleRender(myEl, renderedNew.cssCache, signal);
+        const res = await handleRender(renderedNew, signal);
 
         result.html = res && res.html ? res.html : "";
         result.css = res && res.css ? res.css : "";
