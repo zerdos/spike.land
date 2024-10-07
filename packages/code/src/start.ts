@@ -26,7 +26,8 @@ const codeSpace = useCodeSpace();
     && location.pathname !== `/live-cms/${codeSpace}`
     && location.pathname.endsWith("dehydrated") === false
   ) {
-    const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
+    const rootElement = (document.getElementById("root")
+      || document.getElementById("embed")) as HTMLDivElement;
 
     const rendered = await renderApp({ codeSpace, rootElement });
     Object.assign(window, { rendered });
@@ -37,6 +38,9 @@ const codeSpace = useCodeSpace();
   // }
 })();
 
-if (location.pathname.startsWith("/live") || location.pathname.startsWith("/live-cms")) {
+if (
+  location.pathname.startsWith("/live")
+  || location.pathname.startsWith("/live-cms")
+) {
   main();
 }

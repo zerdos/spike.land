@@ -21,7 +21,9 @@ vi.mock("../components/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   runCode: vi.fn().mockImplementation(() => Promise.resolve({ html: "<div></div>", css: "body {}" })),
-  screenShot: vi.fn().mockResolvedValue({ dataUrl: "data:image/png;base64,..." }),
+  screenShot: vi.fn().mockResolvedValue({
+    dataUrl: "data:image/png;base64,...",
+  }),
 }));
 
 describe("Code", () => {

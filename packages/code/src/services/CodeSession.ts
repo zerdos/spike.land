@@ -36,7 +36,8 @@ async function fetchAndCreateExtraModels(
     const codeSpace = matchedPath.split("/").pop()?.replace(/"$/, "");
     if (!codeSpace || extraModels[codeSpace]) continue;
 
-    const extraModelUrl = new URL(`/live/${codeSpace}/index.tsx`, origin).toString();
+    const extraModelUrl = new URL(`/live/${codeSpace}/index.tsx`, origin)
+      .toString();
     const response = await fetch(extraModelUrl);
     const fetchedCode = await response.text();
 
@@ -136,7 +137,10 @@ class CodeProcessor {
     }
   }
 
-  private async runCode(code: string, signal: AbortSignal): Promise<{ html: string; css: string }> {
+  private async runCode(
+    code: string,
+    signal: AbortSignal,
+  ): Promise<{ html: string; css: string }> {
     try {
       const result = await runCodeUtil(code, signal);
       if (!result) {
@@ -164,10 +168,20 @@ export class Code implements ICode {
   private setCodeController: AbortController | null = null;
 
   constructor(private codeSpace: string) {
-    this.session = makeSession({ i: 0, code: "", html: "", css: "", codeSpace, transpiled: "" });
-    if (this.session.code.startsWith(`\n// ${codeSpace}.tsx\n`)) this.session.code = `\n// ${codeSpace}.tsx\n`;
+    this.session = makeSession({
+      i: 0,
+      code: "",
+      html: "",
+      css: "",
+      codeSpace,
+      transpiled: "",
+    });
+    if (this.session.code.startsWith(`\n// ${codeSpace}.tsx\n`)) {
+      this.session.code = `\n// ${codeSpace}.tsx\n`;
+    }
 
-    this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
+    this.user = localStorage.getItem(`${this.codeSpace} user`)
+      || md5(crypto.randomUUID());
     this.broadcastChannel = new CodeSessionBC(codeSpace);
     this.broadcastChannel.sub((session) => {
       this.session = session;
@@ -211,7 +225,9 @@ export class Code implements ICode {
     formatted: string;
     transpiled: string;
   }): boolean {
-    if (this.session.code === formatted && this.session.transpiled === transpiled) {
+    if (
+      this.session.code === formatted && this.session.transpiled === transpiled
+    ) {
       return false;
     }
 
@@ -280,7 +296,9 @@ export class Code implements ICode {
       if (!codeSpaceMatch) continue;
       const codeSpace = codeSpaceMatch[1];
 
-      const codeContentMatch = lines.join("\n").match(/```tsx\s*([\s\S]*?)\s*```/m);
+      const codeContentMatch = lines.join("\n").match(
+        /```tsx\s*([\s\S]*?)\s*```/m,
+      );
       if (!codeContentMatch) continue;
       const codeContent = codeContentMatch[1];
 
@@ -316,13 +334,19 @@ export class Code implements ICode {
   }
 
   async currentCodeWithExtraModels(): Promise<string> {
-    const extraModels = await fetchAndCreateExtraModels(this.session.code, location.origin);
+    const extraModels = await fetchAndCreateExtraModels(
+      this.session.code,
+      location.origin,
+    );
 
     const extraCodeSections = Object.entries(extraModels)
       .filter(([codeSpace]) => codeSpace !== this.codeSpace)
       .map(([codeSpace, code]) => this.formatCodeAsSection(codeSpace, code));
 
-    const currentCodeSection = this.formatCodeAsSection(this.codeSpace, this.session.code);
+    const currentCodeSection = this.formatCodeAsSection(
+      this.codeSpace,
+      this.session.code,
+    );
 
     return [currentCodeSection, ...extraCodeSections].join("\n");
   }

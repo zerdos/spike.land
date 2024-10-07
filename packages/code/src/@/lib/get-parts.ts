@@ -100,7 +100,7 @@ const parseMessageParts = (text: string): ChatMessagePart[] => {
     }
   }
 
-  return parts.map(part =>
+  return parts.map((part) =>
     part.type === "text"
       ? {
         ...part,
@@ -129,7 +129,9 @@ const extendTextWithDiffMarkers = (text: string): string => {
   }
 
   if (countEqual > countReplace) {
-    const parts = extendedText.split(/(<<<<<<<\s*SEARCH|=======|>>>>>>>\s*REPLACE)/g);
+    const parts = extendedText.split(
+      /(<<<<<<<\s*SEARCH|=======|>>>>>>>\s*REPLACE)/g,
+    );
     let isFirstEqual = true;
     for (let i = 0; i < parts.length; i++) {
       if (parts[i].trim() === "<<<<<<< SEARCH") {
@@ -145,8 +147,14 @@ const extendTextWithDiffMarkers = (text: string): string => {
     extendedText = parts.join("");
   }
 
-  extendedText = extendedText.replace(/<<<<<<< SEARCH/g, "```diff\n<<<<<<< SEARCH");
-  extendedText = extendedText.replace(/>>>>>>> REPLACE/g, ">>>>>>> REPLACE\n```");
+  extendedText = extendedText.replace(
+    /<<<<<<< SEARCH/g,
+    "```diff\n<<<<<<< SEARCH",
+  );
+  extendedText = extendedText.replace(
+    />>>>>>> REPLACE/g,
+    ">>>>>>> REPLACE\n```",
+  );
 
   return extendedText;
 };
@@ -154,5 +162,5 @@ const extendTextWithDiffMarkers = (text: string): string => {
 export const getParts = (text: string, isUser: boolean): ChatMessagePart[] => {
   const extendedText = extendTextWithDiffMarkers(text);
   const cleanedText = cleanMessageText(extendedText, isUser);
-  return parseMessageParts(cleanedText).filter(part => part.type !== "text" || part.content.length > 0);
+  return parseMessageParts(cleanedText).filter((part) => part.type !== "text" || part.content.length > 0);
 };

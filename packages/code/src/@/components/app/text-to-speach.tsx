@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 export default () => {
   const [text, setText] = useState("");
@@ -33,7 +33,9 @@ export default () => {
       source.connect(audioContext.destination);
       source.start(0);
 
-      setAudioUrl(URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" })));
+      setAudioUrl(
+        URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" })),
+      );
       setIsAudioReady(true);
     } catch (error) {
       console.error("Error generating speech:", error);
@@ -44,34 +46,36 @@ export default () => {
   };
 
   return (
-    <div className='p-4'>
-      <h1 className='text-2xl font-bold mb-4'>Text to Speech</h1>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Text to Speech</h1>
       <textarea
-        className='w-full p-2 border rounded mb-4 bg-white dark:bg-gray-800 text-black dark:text-white transition-colors duration-200'
+        className="w-full p-2 border rounded mb-4 bg-white dark:bg-gray-800 text-black dark:text-white transition-colors duration-200"
         rows={4}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder='Enter text to be spoken!!!'
+        placeholder="Enter text to be spoken!!!"
       />
       <button
-        className='bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50'
+        className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
         onClick={handleSpeak}
-        disabled={isLoading || !text.trim()}>
+        disabled={isLoading || !text.trim()}
+      >
         {isLoading ? "Generating..." : "Generate Speech"}
       </button>
       {isAudioReady && (
-        <div className='mt-4'>
-          <p className='text-green-500 mb-2'>
+        <div className="mt-4">
+          <p className="text-green-500 mb-2">
             Audio generated successfully! Click play to listen.
           </p>
           <audio
             controls
             src={audioUrl}
-            className='w-full'
+            className="w-full"
             onPlay={() => {
               const audioContext = new AudioContext();
               audioContext.resume();
-            }}>
+            }}
+          >
             Your browser does not support the audio element.
           </audio>
         </div>

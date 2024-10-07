@@ -1,4 +1,3 @@
-
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
@@ -19,9 +18,9 @@ export function isUrlFile(pathname: string) {
 export function handleCORS(request: Request) {
   const headers = request.headers;
   if (
-    headers.get("Origin") !== null
-    && headers.get("Access-Control-Request-Method") !== null
-    && headers.get("Access-Control-Request-Headers") !== null
+    headers.get("Origin") !== null &&
+    headers.get("Access-Control-Request-Method") !== null &&
+    headers.get("Access-Control-Request-Headers") !== null
   ) {
     return new Response(null, {
       headers: {
@@ -52,7 +51,7 @@ export function handleRedirectResponse(url: URL, start: string): Response {
         "Location": `${url.origin}/live/${start}`,
         "Content-Type": "text/html;charset=UTF-8",
         "Cache-Control": "no-cache",
-        "Content-Encoding": "gzip"
+        "Content-Encoding": "gzip",
       },
     },
   );

@@ -12,7 +12,10 @@ function mineFromCaches(cache: EmotionCache): string[] {
   try {
     return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)];
   } catch (error) {
-    console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
+    console.warn(
+      "Failed to extract styles from DOM, falling back to stylesheet parsing:",
+      error,
+    );
     return extractStylesFromStylesheets(key);
   }
 }
@@ -63,7 +66,9 @@ function extractStylesFromStylesheets(key: string): string[] {
       ...Array.from(document.styleSheets)
         .map((sheet) => {
           try {
-            return Array.from(sheet.cssRules).map(x => x.cssText).filter(x => x.includes(key));
+            return Array.from(sheet.cssRules).map((x) => x.cssText).filter(
+              (x) => x.includes(key),
+            );
           } catch (e) {
             console.log(e);
             return [];

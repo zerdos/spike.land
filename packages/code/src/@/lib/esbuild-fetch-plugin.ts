@@ -28,7 +28,8 @@ export const fetchPlugin = (origin: string) => ({
       let path = new URL(args.path, args.importer).toString();
 
       if (importMap.imports[args.path as keyof typeof importMap.imports]) {
-        path = origin + importMap.imports[args.path as keyof typeof importMap.imports];
+        path = origin
+          + importMap.imports[args.path as keyof typeof importMap.imports];
       }
 
       return {

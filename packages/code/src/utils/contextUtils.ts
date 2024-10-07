@@ -10,8 +10,8 @@ export function extractCodeStructure(code: string): string {
   // to provide a more detailed code structure analysis.
   const lines = code.split("\n");
   const structure = lines
-    .filter(line => /^(class|function|const|let|var|import|export)/.test(line.trim()))
-    .map(line => line.trim())
+    .filter((line) => /^(class|function|const|let|var|import|export)/.test(line.trim()))
+    .map((line) => line.trim())
     .join("\n");
   return structure;
 }

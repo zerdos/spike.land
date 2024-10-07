@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-declare module "/Wrapper.mjs"; 
+declare module "/Wrapper.mjs";
 
 declare module "/live/code-main/js" {
   const returnFn: () => ReactNode;
@@ -18,7 +18,6 @@ declare let URL: {
 declare let VI_TEST: string;
 
 declare global {
-
   interface Window {
     URL: typeof URL;
   }

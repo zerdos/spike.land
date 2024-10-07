@@ -1,8 +1,13 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 import React, { useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
-import {ChatInterface} from "./ChatInterface";
+import { ChatInterface } from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
@@ -16,9 +21,10 @@ const ResizeHandle = () => (
   </PanelResizeHandle>
 );
 
-export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
+export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = (
+  { codeSpace, cSess },
+) => {
   const [hideRest, setHideRest] = useState(true);
-  
 
   const reveal = async () => {
     // ... (keep the existing reveal logic)

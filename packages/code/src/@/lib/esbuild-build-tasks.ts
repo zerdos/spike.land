@@ -12,7 +12,9 @@ const isProduction = environment === "production";
 
 const createEntryPoints = async (dir: string): Promise<string[]> => {
   const files = await readdir(`src/@/${dir}`);
-  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`).filter(file => !file.endsWith(".d.ts"));
+  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`).filter(
+    (file) => !file.endsWith(".d.ts"),
+  );
 };
 
 const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
@@ -281,7 +283,9 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ],
   });
 
-  async function runImportMapReplaceOnAllFilesRecursive(dir: string): Promise<void> {
+  async function runImportMapReplaceOnAllFilesRecursive(
+    dir: string,
+  ): Promise<void> {
     try {
       const files = await readdir(dir);
 

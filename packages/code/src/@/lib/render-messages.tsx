@@ -1,8 +1,8 @@
-import React, { memo, useMemo, useCallback } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { getParts } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
-import {CodeBlock} from "@/components/app/code-block-lazy";
+import { CodeBlock } from "@/components/app/code-block-lazy";
 import { isDiffContent } from "@/lib/diff-utils";
 import { DiffEditor } from "@/components/app/diff-editor-lazy";
 import { md5 } from "@/lib/md5";
@@ -14,9 +14,13 @@ interface CodeProps {
   type: string;
 }
 
-const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
+const extractDiffContent = (
+  rawContent: string,
+): { original: string; modified: string } => {
   const content = extractCodeModification(rawContent)[0] || rawContent;
-  const [, originalPart = "", modifiedPart = ""] = content.split(/<<<<<<< SEARCH|=======|>>>>>>> REPLACE/);
+  const [, originalPart = "", modifiedPart = ""] = content.split(
+    /<<<<<<< SEARCH|=======|>>>>>>> REPLACE/,
+  );
   return {
     original: originalPart.trim(),
     modified: modifiedPart.trim(),
@@ -48,9 +52,11 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
     }
 
     if (isDiffContent(trimmedValue)) {
-      const { original, modified } = extractDiffContent(trimmedValue + "\nFoo_Bar_baz_893");
-      const o = original.includes('Foo_Bar_baz_893') ? '' : original;
-      const m = modified.includes('Foo_Bar_baz_893') ? '' : modified;
+      const { original, modified } = extractDiffContent(
+        trimmedValue + "\nFoo_Bar_baz_893",
+      );
+      const o = original.includes("Foo_Bar_baz_893") ? "" : original;
+      const m = modified.includes("Foo_Bar_baz_893") ? "" : modified;
 
       return (
         <DiffEditor
@@ -74,23 +80,25 @@ interface ChatMessageBlockProps {
   isUser: boolean;
 }
 
-export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(({ text, isUser }) => {
-  const messageParts = useMemo(() => getParts(text, isUser), [text, isUser]);
+export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(
+  ({ text, isUser }) => {
+    const messageParts = useMemo(() => getParts(text, isUser), [text, isUser]);
 
-  return (
-    <>
-      {messageParts.map((part, index) => (
-        <React.Fragment key={`${index}-${md5(part.content)}`}>
-          <Code
-            value={part.content}
-            language={part.language || 'typescript'}
-            type={part.type}
-          />
-        </React.Fragment>
-      ))}
-    </>
-  );
-});
+    return (
+      <>
+        {messageParts.map((part, index) => (
+          <React.Fragment key={`${index}-${md5(part.content)}`}>
+            <Code
+              value={part.content}
+              language={part.language || "typescript"}
+              type={part.type}
+            />
+          </React.Fragment>
+        ))}
+      </>
+    );
+  },
+);
 
 ChatMessageBlock.displayName = "ChatMessageBlock";
 

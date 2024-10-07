@@ -47,8 +47,9 @@ export const useSpeedy2 = async () => {
 
   const shims = await fetch(`/assets/tw-chunk-4a7018.js`).then((res) => res.text());
 
-  const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
-  const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
+  const wrapperJs = res.find((x) => x.path.includes("wrapper.mjs"))?.text || "";
+  const wrapperCss = res.find((x) => x.path.includes("wrapper.css"))?.text
+    || "";
 
   const html = `<!DOCTYPE html>
 <html lang="en">

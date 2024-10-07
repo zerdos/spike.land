@@ -21,7 +21,10 @@ const createWorkflow = async (prompt: string) => {
 
   const weatherTool = tool(
     async ({ query }) => {
-      if (query.toLowerCase().includes("sf") || query.toLowerCase().includes("san francisco")) {
+      if (
+        query.toLowerCase().includes("sf")
+        || query.toLowerCase().includes("san francisco")
+      ) {
         return "It's 60 degrees and foggy.";
       }
       return "It's 90 degrees and sunny.";
@@ -70,7 +73,10 @@ const createWorkflow = async (prompt: string) => {
     .addEdge("tools", "agent");
   const checkpointer = new MemorySaver();
   const app = workflow.compile({ checkpointer }) as {
-    invoke: (state: AgentState, config: { configurable: { thread_id: string } }) => Promise<AgentState>;
+    invoke: (
+      state: AgentState,
+      config: { configurable: { thread_id: string } },
+    ) => Promise<AgentState>;
   };
 
   console.log("Compiled the workflow!");

@@ -24,7 +24,7 @@ class SessMock implements ICode {
   }
 
   broadCastSessChanged() {
-    this.subs.forEach(cb => cb(this.session));
+    this.subs.forEach((cb) => cb(this.session));
   }
 
   async setCode(rawCode: string): Promise<string> {

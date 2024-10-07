@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { Version } from "../codeHistoryUtils";
 import { loadVersionHistory } from "../codeHistoryUtils";
 import type { IHistoryItem } from "@/lib/interfaces";
-import { FullScreenHistoryView, } from "./History/HistoryFComponents";
+import { FullScreenHistoryView } from "./History/HistoryFComponents";
 
 interface CodeHistoryCarouselProps {
   codeSpace: string;
@@ -28,7 +28,9 @@ export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
       const data: Version[] = await loadVersionHistory(codeSpace);
       setHistory(
         data
-          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
+          .filter((x) =>
+            !x.code.includes("History") && !x.code.includes("e/pp")
+          )
           .sort((a, b) => b.timestamp - a.timestamp)
           .map((version) => ({ ...version, timestamp: version.timestamp })),
       );
@@ -48,7 +50,9 @@ export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
   const handleRestore = useCallback(
     async (item: IHistoryItem) => {
       try {
-        const response = await fetch(`/live/${codeSpace}/auto-save/restore/${item.timestamp}`);
+        const response = await fetch(
+          `/live/${codeSpace}/auto-save/restore/${item.timestamp}`,
+        );
         if (!response.ok) throw new Error("Failed to restore version");
 
         onRestore(item);
@@ -67,7 +71,8 @@ export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
   return (
     <FullScreenHistoryView
       history={history}
-      onDelete={(timestamp: number) => setHistory(h => h.filter((x) => x.timestamp !== timestamp))}
+      onDelete={(timestamp: number) =>
+        setHistory((h) => h.filter((x) => x.timestamp !== timestamp))}
       onRestore={(item: IHistoryItem) => handleRestore(item)}
       onClose={() => onClose()}
       cSess={cSess}

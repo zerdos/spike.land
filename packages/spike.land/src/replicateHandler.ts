@@ -16,7 +16,7 @@ interface InputDefaults {
 const INPUT_DEFAULTS: InputDefaults = {
   cfg: 3.5,
   steps: 28,
-  prompt: "a photo of vibrant artistic graffiti on a wall saying \"SD3 medium\"",
+  prompt: 'a photo of vibrant artistic graffiti on a wall saying "SD3 medium"',
   aspect_ratio: "16:9",
   output_format: "webp",
   output_quality: 90,
@@ -27,14 +27,14 @@ const INPUT_DEFAULTS: InputDefaults = {
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
 export function parseInputFromUrl(url: string): InputDefaults {
-  const urlParams = new URLSearchParams(atob(  new URL(url).pathname.split("/").pop()!.split(".")[0]  )); 
+  const urlParams = new URLSearchParams(
+    atob(new URL(url).pathname.split("/").pop()!.split(".")[0]),
+  );
   return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
     const value = urlParams.get(key);
     if (value !== null) {
       Object.assign(acc, {
-        [key]: typeof defaultValue === "number"
-          ? Number(value)
-          : value,
+        [key]: typeof defaultValue === "number" ? Number(value) : value,
       });
     }
     return acc;
@@ -63,7 +63,9 @@ async function fetchAndSaveImage(
     const response = await fetch(imageUrl);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch image: ${response.status} ${response.statusText}`,
+      );
     }
 
     // Clone the response for R2 storage
@@ -111,7 +113,6 @@ export async function handleReplicateRequest(
     const cacheKey = new Request(request.url, request);
     let resp = await caches.default.match(cacheKey);
     if (resp) return resp;
-    
 
     const saved = await env.R2.get(md5Prompt);
     if (saved) {
@@ -134,7 +135,7 @@ export async function handleReplicateRequest(
       throw new Error("Invalid image URL from Replicate API" + imageUrl);
     }
 
-    resp =  await fetchAndSaveImage(
+    resp = await fetchAndSaveImage(
       imageUrl,
       env,
       md5Prompt,
@@ -144,7 +145,6 @@ export async function handleReplicateRequest(
 
     ctx.waitUntil(caches.default.put(cacheKey, resp.clone()));
     return resp;
-
   } catch (e: unknown) {
     console.error("Error in handleReplicateRequest:", e);
     return new Response(

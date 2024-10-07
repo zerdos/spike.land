@@ -1,5 +1,5 @@
 import { Textarea } from "@/components/ui/textarea";
-  import { useDarkMode } from "@/hooks/use-dark-mode";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { md5 } from "@/lib/md5";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleMinus } from "lucide-react";
@@ -7,14 +7,15 @@ import React, { useEffect, useRef, useState } from "react";
 import type { ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
 
-
 export const StartWithPrompt: React.FC = () => {
   const [prompt, setPrompt] = useState("");
   const [images, setImages] = useState<ImageData[]>([]);
   const [enlargedImage, setEnlargedImage] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isDarkMode } = useDarkMode();
-  const handlePaste = async (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+  const handlePaste = async (
+    event: React.ClipboardEvent<HTMLTextAreaElement>,
+  ) => {
     const items = event.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
       if (items[i].type.indexOf("image") !== -1) {
@@ -43,7 +44,9 @@ export const StartWithPrompt: React.FC = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = event.target.files;
     if (files && files.length > 0 && images.length < 5) {
       const file = files[0];
@@ -55,8 +58,6 @@ export const StartWithPrompt: React.FC = () => {
       }
     }
   };
-
-
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -224,7 +225,9 @@ const ImageGallery: React.FC<{
           whileTap={{ scale: 0.95 }}
         />
         <span
-          className={`mt-2 text-xs truncate w-full text-center ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+          className={`mt-2 text-xs truncate w-full text-center ${
+            isDarkMode ? "text-gray-300" : "text-gray-600"
+          }`}
         >
           {img.imageName}
         </span>

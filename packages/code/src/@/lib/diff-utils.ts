@@ -1,8 +1,11 @@
 export const isDiffContent = (content: string): boolean => {
-  return content.includes("<<<<<<< SEARCH") || content.includes("=======") || content.includes(">>>>>>> REPLACE");
+  return content.includes("<<<<<<< SEARCH") || content.includes("=======")
+    || content.includes(">>>>>>> REPLACE");
 };
 
-export function extractDiffContent(content: string): { original: string; modified: string } {
+export function extractDiffContent(
+  content: string,
+): { original: string; modified: string } {
   const searchMarker = "<<<<<<< SEARCH";
   const separatorMarker = "=======";
   const replaceMarker = ">>>>>>> REPLACE";
@@ -16,11 +19,18 @@ export function extractDiffContent(content: string): { original: string; modifie
     const replaceIndex = content.indexOf(replaceMarker, separatorIndex);
 
     if (separatorIndex !== -1) {
-      original = content.slice(searchIndex + searchMarker.length, separatorIndex).trim();
+      original = content.slice(
+        searchIndex + searchMarker.length,
+        separatorIndex,
+      ).trim();
       if (replaceIndex !== -1) {
-        modified = content.slice(separatorIndex + separatorMarker.length, replaceIndex).trim();
+        modified = content.slice(
+          separatorIndex + separatorMarker.length,
+          replaceIndex,
+        ).trim();
       } else {
-        modified = content.slice(separatorIndex + separatorMarker.length).trim();
+        modified = content.slice(separatorIndex + separatorMarker.length)
+          .trim();
       }
     } else {
       original = content.slice(searchIndex + searchMarker.length).trim();

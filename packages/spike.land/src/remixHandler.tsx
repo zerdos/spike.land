@@ -1,5 +1,9 @@
 import type { Options as KvAssetHandlerOptions } from "@cloudflare/kv-asset-handler";
-import { getAssetFromKV, MethodNotAllowedError, NotFoundError } from "@cloudflare/kv-asset-handler";
+import {
+  getAssetFromKV,
+  MethodNotAllowedError,
+  NotFoundError,
+} from "@cloudflare/kv-asset-handler";
 import type { AppLoadContext, ServerBuild } from "@remix-run/cloudflare";
 import { createRequestHandler as createRemixRequestHandler } from "@remix-run/cloudflare";
 import Env from "./env";
@@ -89,8 +93,8 @@ export async function handleAsset(
     });
   } catch (error: unknown) {
     if (
-      error instanceof MethodNotAllowedError
-      || error instanceof NotFoundError
+      error instanceof MethodNotAllowedError ||
+      error instanceof NotFoundError
     ) {
       return null;
     }

@@ -65,7 +65,7 @@ export class AIService {
     if (typeof content === "string") {
       return content;
     } else if (Array.isArray(content)) {
-      return content.map(item => {
+      return content.map((item) => {
         if (item.type === "image") {
           return {
             type: "image",
@@ -83,7 +83,11 @@ export class AIService {
     return content;
   }
 
-  private async makeAPICall(endpoint: string, messages: Message[], model = ``): Promise<Response> {
+  private async makeAPICall(
+    endpoint: string,
+    messages: Message[],
+    model = ``,
+  ): Promise<Response> {
     try {
       const formattedMessages = messages.slice(-5).map(({ role, content }) => ({
         role,
@@ -152,10 +156,20 @@ export class AIService {
       );
 
       // Update context based on AI response
-      this.contextManager.updateContext("currentTask", extractCurrentTask(result));
-      this.contextManager.updateContext("codeStructure", extractCodeStructure(result));
+      this.contextManager.updateContext(
+        "currentTask",
+        extractCurrentTask(result),
+      );
+      this.contextManager.updateContext(
+        "codeStructure",
+        extractCodeStructure(result),
+      );
 
-      return { id: Date.now().toString(), role: "assistant", content: result } as Message;
+      return {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: result,
+      } as Message;
     } catch (error) {
       console.error("Error sending to AI:", error);
       throw error;
@@ -164,11 +178,17 @@ export class AIService {
     }
   }
 
-  async sendToGpt4o(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
+  async sendToGpt4o(
+    messages: Message[],
+    onUpdate: (chunk: string) => void,
+  ): Promise<Message> {
     return this.sendToAI("gpt4o", messages, onUpdate);
   }
 
-  async sendToAnthropic(messages: Message[], onUpdate: (chunk: string) => void): Promise<Message> {
+  async sendToAnthropic(
+    messages: Message[],
+    onUpdate: (chunk: string) => void,
+  ): Promise<Message> {
     return this.sendToAI("anthropic", messages, onUpdate);
   }
 
@@ -181,7 +201,10 @@ export class AIService {
     const context = this.contextManager.getFullContext();
     const contextString = JSON.stringify(context, null, 2);
 
-    if (messages.length === 0 || codeNow !== messages[messages.length - 1]?.content) {
+    if (
+      messages.length === 0
+      || codeNow !== messages[messages.length - 1]?.content
+    ) {
       return `
 Current project context:
 ${contextString}

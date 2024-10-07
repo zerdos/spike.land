@@ -60,7 +60,11 @@ describe("AIService", () => {
       } as unknown as Response);
 
       const onUpdate = vi.fn();
-      const result = await aiService.sendToAI("anthropic", mockMessages, onUpdate);
+      const result = await aiService.sendToAI(
+        "anthropic",
+        mockMessages,
+        onUpdate,
+      );
 
       expect(result).toEqual({
         id: expect.any(String),
@@ -80,7 +84,8 @@ describe("AIService", () => {
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAI("anthropic", mockMessages, vi.fn())).rejects.toThrow("HTTP error! status: 500");
+      await expect(aiService.sendToAI("anthropic", mockMessages, vi.fn()))
+        .rejects.toThrow("HTTP error! status: 500");
     });
   });
 
@@ -92,11 +97,19 @@ describe("AIService", () => {
       const onUpdate = vi.fn();
 
       const sendToAISpy = vi.spyOn(aiService, "sendToAI");
-      sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "Response" });
+      sendToAISpy.mockResolvedValue({
+        id: "2",
+        role: "assistant",
+        content: "Response",
+      });
 
       await aiService.sendToAnthropic(mockMessages, onUpdate);
 
-      expect(sendToAISpy).toHaveBeenCalledWith("anthropic", mockMessages, onUpdate);
+      expect(sendToAISpy).toHaveBeenCalledWith(
+        "anthropic",
+        mockMessages,
+        onUpdate,
+      );
     });
   });
 
@@ -108,7 +121,11 @@ describe("AIService", () => {
       const onUpdate = vi.fn();
 
       const sendToAISpy = vi.spyOn(aiService, "sendToAI");
-      sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "Response" });
+      sendToAISpy.mockResolvedValue({
+        id: "2",
+        role: "assistant",
+        content: "Response",
+      });
 
       await aiService.sendToGpt4o(mockMessages, onUpdate);
 
@@ -119,22 +136,40 @@ describe("AIService", () => {
   describe("prepareClaudeContent", () => {
     it("should return anthropic content when codeNow is different from last message", () => {
       const content = "User prompt";
-      const messages: Message[] = [{ id: "1", role: "user", content: "Old code" }];
+      const messages: Message[] = [{
+        id: "1",
+        role: "user",
+        content: "Old code",
+      }];
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(
+        content,
+        messages,
+        codeNow,
+        codeSpace,
+      );
 
       expect(result).toContain("Mocked anthropic system content");
     });
 
     it("should return reminder content when codeNow is the same as last message", () => {
       const content = "User prompt";
-      const messages: Message[] = [{ id: "1", role: "user", content: "Same code" }];
+      const messages: Message[] = [{
+        id: "1",
+        role: "user",
+        content: "Same code",
+      }];
       const codeNow = "Same code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(
+        content,
+        messages,
+        codeNow,
+        codeSpace,
+      );
 
       expect(result).toContain("Mocked reminder content");
     });
@@ -145,18 +180,32 @@ describe("AIService", () => {
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(
+        content,
+        messages,
+        codeNow,
+        codeSpace,
+      );
 
       expect(result).toContain("Mocked anthropic system content");
     });
 
     it("should handle empty codeNow", () => {
       const content = "User prompt";
-      const messages: Message[] = [{ id: "1", role: "user", content: "Old code" }];
+      const messages: Message[] = [{
+        id: "1",
+        role: "user",
+        content: "Old code",
+      }];
       const codeNow = "";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(
+        content,
+        messages,
+        codeNow,
+        codeSpace,
+      );
 
       expect(result).toContain("Mocked anthropic system content");
     });

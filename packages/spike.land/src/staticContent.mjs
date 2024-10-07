@@ -6,4 +6,4 @@ export { ASSET_MANIFEST };
 
 const f = JSON.parse(ASSET_MANIFEST);
 export const ASSET_HASH = md5(ASSET_MANIFEST);
-export const files = f
+export const files = f;

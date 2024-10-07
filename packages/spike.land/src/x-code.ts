@@ -1,11 +1,11 @@
 import type Env from "./env";
 import type { ICodeSession } from "@spike-land/code";
 import {
-  makeSession,
-  makeHash,
-  createPatch,
   applyCodePatch,
   CodePatch,
+  createPatch,
+  makeHash,
+  makeSession,
 } from "@spike-land/code";
 
 export interface CodeHistoryEntry {
@@ -56,8 +56,8 @@ export class CodeHistoryManager {
     const codeSpace = s.codeSpace;
     const currentTimestamp = Date.now();
 
-    const oldSession =
-      this.cache.get(codeSpace) || (await this.getLatestSession(codeSpace));
+    const oldSession = this.cache.get(codeSpace) ||
+      (await this.getLatestSession(codeSpace));
     const isFirstTime = !oldSession;
 
     if (!isFirstTime && makeHash(oldSession) === makeHash(s)) {
@@ -100,7 +100,9 @@ export class CodeHistoryManager {
     return await this.getFromStorage(key);
   }
 
-  private async getLatestSession(codeSpace: string): Promise<ICodeSession | null> {
+  private async getLatestSession(
+    codeSpace: string,
+  ): Promise<ICodeSession | null> {
     const latestEntryId = await this.getLatestEntryId(codeSpace);
     if (!latestEntryId) {
       // Return the initial session
@@ -113,7 +115,7 @@ export class CodeHistoryManager {
   async getHistory(
     codeSpace: string,
     startEntryId: string | null = null,
-    limit: number = 10
+    limit: number = 10,
   ): Promise<{ entries: CodeHistoryEntry[]; nextEntryId: string | null }> {
     let entryId = startEntryId || (await this.getLatestEntryId(codeSpace));
     const entries: CodeHistoryEntry[] = [];
@@ -135,7 +137,7 @@ export class CodeHistoryManager {
 
   async getSessionAtTimestamp(
     codeSpace: string,
-    timestamp: number
+    timestamp: number,
   ): Promise<ICodeSession | null> {
     // Start from the latest entry and walk back until we find the entry at or before the timestamp
     let entryId = await this.getLatestEntryId(codeSpace);
@@ -185,7 +187,7 @@ export class CodeHistoryManager {
 
   private async getSessionAtEntryId(
     codeSpace: string,
-    entryId: string
+    entryId: string,
   ): Promise<ICodeSession | null> {
     const entries: CodeHistoryEntry[] = [];
     let currentEntryId: string | null = entryId;
@@ -219,12 +221,12 @@ export class CodeHistoryManager {
   async loadMoreTimestamps(
     codeSpace: string,
     startEntryId: string | null = null,
-    limit: number = 10
+    limit: number = 10,
   ): Promise<{ timestamps: number[]; nextEntryId: string | null }> {
     const { entries, nextEntryId } = await this.getHistory(
       codeSpace,
       startEntryId,
-      limit
+      limit,
     );
     const timestamps = entries.map((entry) => entry.timestamp);
     return {
@@ -235,7 +237,7 @@ export class CodeHistoryManager {
 
   async revertToTimestamp(
     codeSpace: string,
-    timestamp: number
+    timestamp: number,
   ): Promise<ICodeSession | null> {
     const session = await this.getSessionAtTimestamp(codeSpace, timestamp);
     if (session) {

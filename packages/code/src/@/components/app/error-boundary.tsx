@@ -7,8 +7,11 @@ type ErrorBoundaryState = {
   errorInfo: React.ErrorInfo | null;
 };
 
-export class ErrorBoundary extends React.Component<{ children: React.ReactNode, codeSpace?: string }, ErrorBoundaryState> {
-  constructor(props: { children: React.ReactNode, codeSpace?: string }) {
+export class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; codeSpace?: string },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: React.ReactNode; codeSpace?: string }) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
@@ -39,8 +42,8 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode, 
             Oops! Something went wrong.
           </h1>
           <p>
-            We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem
-            persists.
+            We're sorry for the inconvenience. Please try refreshing the page or
+            contact support if the problem persists.
           </p>
           {process.env.NODE_ENV !== "production" && (
             <details className="mt-4">

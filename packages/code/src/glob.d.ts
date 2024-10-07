@@ -11,7 +11,7 @@ declare global {
   let sharedWorker: SharedWorker;
   let rRoot: ReturnType<typeof Cr>;
   let cssCache: EmotionCache;
-let firstRender: {
+  let firstRender: {
     code: string;
     css: string;
     html: string;

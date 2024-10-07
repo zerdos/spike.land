@@ -20,7 +20,8 @@ interface EditorProps {
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const [showContext, setShowContext] = useState(false);
-  const { containerRef, engine, editorState, setEditorState } = useEditorState();
+  const { containerRef, engine, editorState, setEditorState } =
+    useEditorState();
   const { error, handleError } = useErrorHandling();
 
   // const [currentCode, setCurrentCode] = useState("");
@@ -54,15 +55,14 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   };
 
   useEffect(() => {
-
     if (error) {
       handleError("typescript", error);
     }
 
-    
-
     if (editorState.started && !editorState.sub) {
-      const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
+      const handleBroadcastMessage = async (
+        { data }: { data: ICodeSession },
+      ) => {
         // if (data.code === mod.current.code) return;
         // if (data.code === currentCode) return;
 
@@ -85,20 +85,29 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
       cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
 
-      setEditorState(e => ({ ...e, sub: true }));
+      setEditorState((e) => ({ ...e, sub: true }));
       return;
     }
 
     const initializeEditor = async () => {
       mod.current.i = Number(cSess.session.i);
       mod.current.code = cSess.session.code;
-//      setCurrentCode(cSess.session.code);
+      //      setCurrentCode(cSess.session.code);
 
       if (!containerRef || !containerRef.current) return;
 
       const editorModule = await (engine === "monaco"
-        ? initializeMonaco(containerRef.current, codeSpace, mod.current.code, handleContentChange)
-        : initializeAce(containerRef.current, mod.current.code, handleContentChange));
+        ? initializeMonaco(
+          containerRef.current,
+          codeSpace,
+          mod.current.code,
+          handleContentChange,
+        )
+        : initializeAce(
+          containerRef.current,
+          mod.current.code,
+          handleContentChange,
+        ));
 
       console.log("Editor initialized", mod.current.i);
       setEditorState({
@@ -114,10 +123,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
-      <Card className={cn(
-        "transition-all duration-300 ease-in-out",
-        showContext ? "w-64" : "w-12"
-      )}>
+      <Card
+        className={cn(
+          "transition-all duration-300 ease-in-out",
+          showContext ? "w-64" : "w-12",
+        )}
+      >
         <CardContent className="p-2">
           <Button
             variant="outline"
@@ -125,10 +136,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
             onClick={() => setShowContext(!showContext)}
             className="mb-4 w-full"
           >
-            <Sidebar className={cn(
-              "h-4 w-4 transition-all",
-              showContext && "rotate-180"
-            )} />
+            <Sidebar
+              className={cn(
+                "h-4 w-4 transition-all",
+                showContext && "rotate-180",
+              )}
+            />
           </Button>
           {showContext && (
             <div className="overflow-y-auto h-[calc(100vh-64px)]">

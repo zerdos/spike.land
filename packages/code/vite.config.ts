@@ -13,12 +13,15 @@ const PROXY_BASE_URL = "https://testing.spike.land";
 // const importMapFiles = Object.values(importMap.imports);
 const importMapLibs = Object.keys(importMap.imports);
 
-const needsReplacement = (content: string): boolean => importMapLibs.some(lib => content.includes(lib));
+const needsReplacement = (content: string): boolean =>
+  importMapLibs.some((lib) => content.includes(lib));
 
 const processContent = (content: string, baseUrl: string): string => {
   const withoutBaseUrl = content.split(PROXY_BASE_URL + "/").join("/");
   if (withoutBaseUrl.startsWith("{")) return withoutBaseUrl;
-  return needsReplacement(content) ? importMapReplace(withoutBaseUrl, baseUrl) : withoutBaseUrl;
+  return needsReplacement(content)
+    ? importMapReplace(withoutBaseUrl, baseUrl)
+    : withoutBaseUrl;
 };
 
 // const customMiddleware: Connect.NextHandleFunction = async (req, res, next) => {
@@ -113,8 +116,15 @@ export default defineConfig({
             });
             proxyRes.on("end", () => {
               if (!res.headersSent) {
-                const processedContent = processContent(body, `http://localhost:${PORT}`);
-                res.setHeader("Content-Type", proxyRes.headers["content-type"] || "application/octet-stream");
+                const processedContent = processContent(
+                  body,
+                  `http://localhost:${PORT}`,
+                );
+                res.setHeader(
+                  "Content-Type",
+                  proxyRes.headers["content-type"] ||
+                    "application/octet-stream",
+                );
                 res.setHeader("Cache-Control", "no-cache");
                 res.end(processedContent);
               }

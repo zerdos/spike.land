@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Camera, Send, X, Upload } from "@/external/lucideReact";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Camera, Send, Upload, X } from "@/external/lucideReact";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import type { MessageInputProps } from "@/lib/interfaces";
 import React, { useRef, useState } from "react";
@@ -27,7 +31,12 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    handleSendMessage({messages ,codeSpace: useCodeSpace(), prompt: input, images: uploadedImages});
+    handleSendMessage({
+      messages,
+      codeSpace: useCodeSpace(),
+      prompt: input,
+      images: uploadedImages,
+    });
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
@@ -36,9 +45,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      Array.from(files).forEach(file => {
-        processImage(file).then(imageData => {
-          setUploadedImages(prev => [...prev, imageData]);  
+      Array.from(files).forEach((file) => {
+        processImage(file).then((imageData) => {
+          setUploadedImages((prev) => [...prev, imageData]);
         });
       });
     }
@@ -49,31 +58,31 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   const makeScreenshot = async () => {
-    const imageData = await screenShot()
-    setUploadedImages(prev => [...prev, imageData]);
+    const imageData = await screenShot();
+    setUploadedImages((prev) => [...prev, imageData]);
     setScreenShotIsLoading(false);
-  }
+  };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const files = event.dataTransfer.files;
     if (files) {
-      Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-          processImage(file).then(imageData => {
-            setUploadedImages(prev => [...prev, imageData]);
-          }
-          );
-      }});
+      Array.from(files).forEach((file) => {
+        if (file.type.startsWith("image/")) {
+          processImage(file).then((imageData) => {
+            setUploadedImages((prev) => [...prev, imageData]);
+          });
+        }
+      });
     }
   };
 
   const removeUploadedImage = (index: number) => {
-    setUploadedImages(prev => prev.filter((_, i) => i !== index));
+    setUploadedImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
-    <div 
+    <div
       className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
@@ -83,7 +92,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           <div className="flex flex-wrap gap-2">
             {screenshotImage && (
               <div className="relative">
-                <img src={screenshotImage} alt="Screenshot Preview" className="max-w-[100px] h-auto rounded-lg" />
+                <img
+                  src={screenshotImage}
+                  alt="Screenshot Preview"
+                  className="max-w-[100px] h-auto rounded-lg"
+                />
                 <Button
                   variant="secondary"
                   size="sm"
@@ -96,12 +109,18 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             )}
             {uploadedImages.map((image, index) => (
               <div key={index} className="relative">
-                <img key={image.src} src={image.src} alt={`Uploaded ${index}`} className="max-w-[100px] h-auto rounded-lg" />
+                <img
+                  key={image.src}
+                  src={image.src}
+                  alt={`Uploaded ${index}`}
+                  className="max-w-[100px] h-auto rounded-lg"
+                />
                 <Button
                   variant="secondary"
                   size="sm"
                   className="absolute top-1 right-1"
-                  onClick={() => removeUploadedImage(index)}
+                  onClick={() =>
+                    removeUploadedImage(index)}
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -123,7 +142,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             placeholder="Type a message..."
             className={cn(
               "flex-1 min-h-[40px] max-h-[120px] resize-none",
-              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"
+              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900",
             )}
             ref={inputRef}
           />
@@ -131,26 +150,31 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  onClick={()=>makeScreenshot()}
+                  onClick={() => makeScreenshot()}
                   variant={screenshotImage ? "secondary" : "outline"}
                   size="icon"
                   disabled={isScreenshotLoading}
                   className={cn(
                     "transition-all duration-300",
                     isScreenshotLoading ? "animate-pulse" : "",
-                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600",
                   )}
                 >
                   {isScreenshotLoading
-                    ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
+                    ? (
+                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary">
+                      </div>
+                    )
                     : <Camera className="h-4 w-4" />}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-2">
-                <p>{screenshotImage ? "Remove screenshot" : "Attach screenshot"}</p>
+                <p>
+                  {screenshotImage ? "Remove screenshot" : "Attach screenshot"}
+                </p>
               </PopoverContent>
             </Popover>
-            
+
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -166,10 +190,12 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                 <p>Upload image</p>
               </PopoverContent>
             </Popover>
-            
+
             <Button
-              onClick={()=>handleSend()}
-              disabled={ isStreaming || input.trim() === "" && !screenshotImage && uploadedImages.length === 0}
+              onClick={() => handleSend()}
+              disabled={isStreaming ||
+                input.trim() === "" && !screenshotImage &&
+                  uploadedImages.length === 0}
               size="icon"
             >
               <Send className="h-4 w-4" />

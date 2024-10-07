@@ -13,7 +13,10 @@ export const processImage = (file: File): Promise<ImageData> => {
     });
   };
 
-  const resizeImage = (img: HTMLImageElement, maxSize: number): Promise<Blob> => {
+  const resizeImage = (
+    img: HTMLImageElement,
+    maxSize: number,
+  ): Promise<Blob> => {
     return new Promise((resolve) => {
       const canvas = document.createElement("canvas");
       let width = img.width;

@@ -15,9 +15,14 @@ export const importMap = {
   },
 } as { imports: Record<string, string> };
 
-export function importMapReplace(code: string | ArrayBuffer, origin: string): string {
+export function importMapReplace(
+  code: string | ArrayBuffer,
+  origin: string,
+): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
-  if (typeof code === "string" && code.slice(0, 30).includes("importMapReplace")) {
+  if (
+    typeof code === "string" && code.slice(0, 30).includes("importMapReplace")
+  ) {
     return code;
   }
   if (code instanceof ArrayBuffer) {
@@ -61,11 +66,19 @@ export function importMapReplace(code: string | ArrayBuffer, origin: string): st
   let replacedCode = codeStr;
 
   for (const { pattern, processor } of importPatterns) {
-    replacedCode = replacedCode.replace(pattern, (...args: [string, ...string[]]) => {
-      const relevantArgs = args.slice(0, -2);
-      relevantArgs.push(origin);
-      return processor(relevantArgs[0], relevantArgs[1], relevantArgs[2], relevantArgs[3]);
-    });
+    replacedCode = replacedCode.replace(
+      pattern,
+      (...args: [string, ...string[]]) => {
+        const relevantArgs = args.slice(0, -2);
+        relevantArgs.push(origin);
+        return processor(
+          relevantArgs[0],
+          relevantArgs[1],
+          relevantArgs[2],
+          relevantArgs[3],
+        );
+      },
+    );
   }
 
   // Remove comments and trim lines
@@ -121,7 +134,9 @@ function resolveModuleSpecifier(
   }
 
   // Handle specific origin-based paths
-  if (moduleName.startsWith(`${origin}/live`) && !moduleName.includes("index.js")) {
+  if (
+    moduleName.startsWith(`${origin}/live`) && !moduleName.includes("index.js")
+  ) {
     return `${moduleName}/index.js`;
   }
 
@@ -166,11 +181,15 @@ function processStaticImport(
   if (importItemsMatch) {
     importedItems = importItemsMatch[1]
       .split(",")
-      .map(item => item.trim().split(/\s+as\s+/)[0].trim())
+      .map((item) => item.trim().split(/\s+as\s+/)[0].trim())
       .join(",");
   }
 
-  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin, importedItems);
+  const newModuleSpecifier = resolveModuleSpecifier(
+    moduleName,
+    origin,
+    importedItems,
+  );
   return `${p1}"${newModuleSpecifier}"`;
 }
 
@@ -199,11 +218,15 @@ function processExportFrom(
   if (exportItemsMatch) {
     exportedItems = exportItemsMatch[1]
       .split(",")
-      .map(item => item.trim().split(/\s+as\s+/)[0].trim())
+      .map((item) => item.trim().split(/\s+as\s+/)[0].trim())
       .join(",");
   }
 
-  const newModuleSpecifier = resolveModuleSpecifier(moduleName, origin, exportedItems);
+  const newModuleSpecifier = resolveModuleSpecifier(
+    moduleName,
+    origin,
+    exportedItems,
+  );
   return `${p1}"${newModuleSpecifier}"`;
 }
 

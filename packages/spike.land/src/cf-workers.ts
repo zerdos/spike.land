@@ -1,4 +1,7 @@
-import type { ExportedHandler, Request as CFRequest } from "@cloudflare/workers-types";
+import type {
+  ExportedHandler,
+  Request as CFRequest,
+} from "@cloudflare/workers-types";
 import chat from "./chat";
 import { Code } from "./chatRoom";
 import type MyEnv from "./env";
@@ -17,9 +20,13 @@ const mainHandler: ExportedHandler<MyEnv> = {
     if (url.pathname.startsWith("/r2/")) {
       const r2Request = new Request(
         new URL(url.pathname.slice(3), url.origin),
-        request
+        request,
       ) as unknown as CFRequest;
-      return (R2BucketHandler.fetch as (request: CFRequest, env: MyEnv, ctx: ExecutionContext) => Promise<Response>)(r2Request, env, ctx);
+      return (R2BucketHandler.fetch as (
+        request: CFRequest,
+        env: MyEnv,
+        ctx: ExecutionContext,
+      ) => Promise<Response>)(r2Request, env, ctx);
     }
 
     const chatResponse = await chat.fetch(request, env, ctx);

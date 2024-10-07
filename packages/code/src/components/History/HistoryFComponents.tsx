@@ -3,16 +3,22 @@ import { Wrapper } from "@/components/app/wrapper";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ICode, HistoryItemProps, IHistoryItem } from "@/lib/interfaces";
+import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { format } from "date-fns/format";
 import React from "react";
 
 // HistoryItem component
 const HistoryItem: React.FC<HistoryItemProps> = (
-  { item, index, totalItems, onRestore, onDelete }
+  { item, index, totalItems, onRestore, onDelete },
 ) => (
   <Card className={cn("flex flex-col h-full")}>
     <CardHeader>
@@ -30,7 +36,9 @@ const HistoryItem: React.FC<HistoryItemProps> = (
           <DialogTrigger asChild>
             <Button variant="outline">View Source</Button>
           </DialogTrigger>
-          <DialogContent className={cn("max-w-3xl max-h-[80vh] overflow-y-auto")}>
+          <DialogContent
+            className={cn("max-w-3xl max-h-[80vh] overflow-y-auto")}
+          >
             <DialogHeader>
               <DialogTitle>
                 Source Code - Version {totalItems - index}
@@ -42,14 +50,18 @@ const HistoryItem: React.FC<HistoryItemProps> = (
           </DialogContent>
         </Dialog>
         <Button onClick={() => onRestore(item)}>Restore</Button>
-        <Button variant="destructive" onClick={() => onDelete(item.timestamp)}>Delete</Button>
+        <Button variant="destructive" onClick={() => onDelete(item.timestamp)}>
+          Delete
+        </Button>
       </div>
     </CardContent>
   </Card>
 );
 
 // RestoreStatusAlert component
-const RestoreStatusAlert = ({ status }: { status: { type: string; message: string } }) => (
+const RestoreStatusAlert = (
+  { status }: { status: { type: string; message: string } },
+) => (
   <Alert variant={status.type === "error" ? "destructive" : "default"}>
     <AlertTitle>
       {status.type === "loading"
@@ -68,7 +80,7 @@ const FullScreenHistoryView: React.FC<{
   onRestore: (item: IHistoryItem) => void;
   onClose: () => void;
   onDelete: (timestamp: number) => void;
-  cSess: ICode; 
+  cSess: ICode;
 }> = ({ history, onRestore, onClose, onDelete, cSess }) => (
   <div className={cn("fixed inset-0 bg-white z-50")}>
     <ScrollArea className={cn("h-full")}>
@@ -77,7 +89,9 @@ const FullScreenHistoryView: React.FC<{
           <h2 className={cn("text-2xl font-bold")}>Code History</h2>
           <Button onClick={onClose}>Close</Button>
         </div>
-        <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")}>
+        <div
+          className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")}
+        >
           {history.map((item, index) => (
             <HistoryItem
               key={item.timestamp}
@@ -86,7 +100,9 @@ const FullScreenHistoryView: React.FC<{
               totalItems={history.length}
               onDelete={async (timestamp) => {
                 try {
-                  await fetch(`/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`);
+                  await fetch(
+                    `/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`,
+                  );
                   onDelete(timestamp);
                 } catch (error) {
                   console.error(error);

@@ -6,4 +6,11 @@ import { CodeSessionBC } from "./services/CodeSessionBc";
 
 export type { CodeSessionBC, HTML, importMapReplace, serveWithCache, useCodeSpace };
 
-Object.assign(globalThis, { serveWithCache, CodeSessionBC, importMapReplace, useCodeSpace, HTML, importMap });
+Object.assign(globalThis, {
+  serveWithCache,
+  CodeSessionBC,
+  importMapReplace,
+  useCodeSpace,
+  HTML,
+  importMap,
+});

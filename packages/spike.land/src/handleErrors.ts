@@ -4,7 +4,7 @@ export function handleErrors(
   request: Request,
   cb: () => Promise<Response>,
 ) {
-    return cb().catch(err => {
+  return cb().catch((err) => {
     if (request.headers.get("Upgrade") === "websocket") {
       let stack: string | undefined = "";
 
@@ -28,12 +28,8 @@ export function handleErrors(
 
       return new Response(stack, { status: 500 });
     }
-  }
-  );
+  });
 }
-
-
-
 
 // export async function handleErrors(
 //   request: Request<unknown>,

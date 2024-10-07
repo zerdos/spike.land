@@ -58,7 +58,10 @@ console.log("Socket worker initialized");
  * @param signal - A string containing the code space and user.
  * @param sess - The initial code session.
  */
-async function setConnections(signal: string, sess: ICodeSession): Promise<void> {
+async function setConnections(
+  signal: string,
+  sess: ICodeSession,
+): Promise<void> {
   console.log("Setting up connections...");
   console.log("Signal:", signal);
   console.log("Session:", sess);
@@ -76,7 +79,9 @@ async function setConnections(signal: string, sess: ICodeSession): Promise<void>
     oldSession: makeSession(sess),
     lastHash: makeHash(sess),
     lastCounter: sess.i,
-    broadcastChannel: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
+    broadcastChannel: new BroadcastChannel(
+      `${location.origin}/live/${codeSpace}/`,
+    ),
     webSocket: createWebSocket(codeSpace),
   };
 
@@ -118,7 +123,9 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
  */
 function createWebSocket(codeSpace: string) {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
-  const host = location.host === "localhost" ? "testing.spike.land" : location.host;
+  const host = location.host === "localhost"
+    ? "testing.spike.land"
+    : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
   console.log("Creating WebSocket connection to:", url);
 
@@ -148,7 +155,9 @@ function createWebSocket(codeSpace: string) {
     },
   };
 
-  return new BufferedSocket(new StableSocket(url, delegate as unknown as SocketDelegate, SOCKET_POLICY));
+  return new BufferedSocket(
+    new StableSocket(url, delegate as unknown as SocketDelegate, SOCKET_POLICY),
+  );
 }
 
 /**
@@ -190,10 +199,19 @@ async function handleSocketMessage(
     await handleSessionString(data as { strSess: string }, ws, connection);
   } else if (data.type === "handShake") {
     console.log("Handling handshake message");
-    await handleHandshake(ws, data as { hashCode: string; type: string }, connection, codeSpace);
+    await handleHandshake(
+      ws,
+      data as { hashCode: string; type: string },
+      connection,
+      codeSpace,
+    );
   } else if (data.newHash && data.oldHash) {
     console.log("Handling hash update message");
-    await handleHashUpdate(data as { newHash: string; oldHash: string }, connection, codeSpace);
+    await handleHashUpdate(
+      data as { newHash: string; oldHash: string },
+      connection,
+      codeSpace,
+    );
   } else {
     console.log("Unhandled message type:", data);
   }
@@ -204,10 +222,16 @@ async function handleSocketMessage(
  * @param data - The received data.
  * @param connection - The connection context.
  */
-async function handleChanges(data: { changes: unknown }, connection: Connection): Promise<void> {
+async function handleChanges(
+  data: { changes: unknown },
+  connection: Connection,
+): Promise<void> {
   console.log("Handling changes:", data);
   const { broadcastChannel } = connection;
-  broadcastChannel.postMessage({ ...data, sender: SENDER_WORKER_HANDLE_CHANGES });
+  broadcastChannel.postMessage({
+    ...data,
+    sender: SENDER_WORKER_HANDLE_CHANGES,
+  });
   console.log("Changes broadcasted to channel");
 }
 
@@ -435,7 +459,9 @@ async function handleBroadcastMessage(
   console.log("Handling broadcast message:", data);
   if (data.changes) {
     console.log("Sending changes to WebSocket");
-    connection.webSocket.send(JSON.stringify({ ...data, name: connection.user }));
+    connection.webSocket.send(
+      JSON.stringify({ ...data, name: connection.user }),
+    );
     return;
   }
 
@@ -507,7 +533,14 @@ async function handleBroadcastMessage(
           console.log("Updating session");
           const { code, html, css, i, transpiled } = bMod!;
 
-          const json = stringifySession({ code, html, css, codeSpace, i, transpiled });
+          const json = stringifySession({
+            code,
+            html,
+            css,
+            codeSpace,
+            i,
+            transpiled,
+          });
           try {
             await fetch(`/live/${codeSpace}/session`, {
               method: "POST",

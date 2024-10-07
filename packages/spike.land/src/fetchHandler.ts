@@ -1,4 +1,4 @@
-import { importMap, importMapReplace} from "@spike-land/code";
+import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { handleCORS, isUrlFile } from "./utils";
@@ -88,7 +88,6 @@ function handleWebSocket(request: Request): Response {
   return new Response(null, { status: 101, webSocket: pair[0] });
 }
 
-
 const handleUnpkg = (path: string[]) =>
   fetch(
     new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
@@ -99,7 +98,7 @@ function handleImportMapJson(): Response {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Cache-Control": "no-cache",
-      "Content-Encoding": "gzip"
+      "Content-Encoding": "gzip",
     },
   });
 }
@@ -211,7 +210,9 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     case "GET":
       const object = await env.R2.get(key);
       if (!object) {
-        const paths = key.split("/").slice(-2).map((p) => p.replace(/\.mjs$/, ".js"));
+        const paths = key.split("/").slice(-2).map((p) =>
+          p.replace(/\.mjs$/, ".js")
+        );
         return handleApiRequest(["room", ...paths], request, env);
       }
       const headers = new Headers();
@@ -227,7 +228,6 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
   }
 }
 
-
 async function handleDefaultCase(
   path: string[],
   request: Request,
@@ -241,47 +241,37 @@ async function handleDefaultCase(
     const cacheKey = new Request(request.url.toString());
 
     let response = await esmCache.match(cacheKey);
-    if (response) { 
-      return response;;
+    if (response) {
+      return response;
     }
 
     const esmWorker = (await import("./esm.worker")).default;
-  
 
     const resp = await esmWorker.fetch(request, env, ctx);
 
     if (!resp.ok) return resp;
 
     if (resp.headers.get("Content-Type")?.includes("javascript")) {
-      
       const text = await resp.text();
       const importMapReplaced = importMapReplace(text, u.origin);
-      
 
-      let response2 = new Response(importMapReplaced, {  headers: new Headers(resp.headers) });
+      let response2 = new Response(importMapReplaced, {
+        headers: new Headers(resp.headers),
+      });
 
       ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
-  
+
       return response2;
-
     }
-    
-
 
     ctx.waitUntil(esmCache.put(cacheKey, resp.clone()));
 
-    return resp
-
-       
-       
-    
-
-
+    return resp;
   }
 
   const file = newUrl.pathname.slice(0, 7) === ("/assets/")
     ? newUrl.pathname.slice(8)
     : newUrl.pathname.slice(1);
 
-    return new Response("not found :((( ", { status: 404 });
+  return new Response("not found :((( ", { status: 404 });
 }

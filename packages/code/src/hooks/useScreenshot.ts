@@ -4,7 +4,9 @@ export const useScreenshot = (codeSpace: string) => {
   const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
   const [screenshotImage, setScreenshotImage] = useState<string | null>(null);
 
-  const screenshotToBase64Maker = async (codeSpace: string): Promise<string> => {
+  const screenshotToBase64Maker = async (
+    codeSpace: string,
+  ): Promise<string> => {
     const response = await fetch(`/live/${codeSpace}/screenshot`);
     const blob = await response.blob();
     return new Promise((resolve) => {

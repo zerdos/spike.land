@@ -1,5 +1,15 @@
-import type { DurableObject, DurableObjectState } from "@cloudflare/workers-types";
-import { CodePatch, createPatch, ICodeSession, makeHash, makeSession, md5 } from "@spike-land/code";
+import type {
+  DurableObject,
+  DurableObjectState,
+} from "@cloudflare/workers-types";
+import {
+  CodePatch,
+  createPatch,
+  ICodeSession,
+  makeHash,
+  makeSession,
+  md5,
+} from "@spike-land/code";
 
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -10,7 +20,6 @@ import type { CodeHistoryManager } from "./x-code";
 export { md5 };
 
 export class Code implements DurableObject {
-
   private routeHandler: RouteHandler;
   wsHandler: WebSocketHandler;
 
@@ -30,7 +39,6 @@ export class Code implements DurableObject {
     this.env = env;
     this.historyManager = createCodeHistoryManager(this.env);
     this.xLog = this.historyManager.logCodeSpace.bind(this.historyManager);
-
 
     this.backupSession = makeSession({
       code: `export default () => (
@@ -66,49 +74,48 @@ export class Code implements DurableObject {
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
+        if (this.initialized) return;
+        this.origin = url.origin;
+        const codeSpace = this.getCodeSpace(url);
 
-      if (this.initialized) return;
-      this.origin = url.origin;
-      const codeSpace = this.getCodeSpace(url);
-  
-
-        const storedSession = await this.state.storage.get<ICodeSession>("session");
+        const storedSession = await this.state.storage.get<ICodeSession>(
+          "session",
+        );
 
         if (storedSession && storedSession.i) {
-          this.session = makeSession({...storedSession, codeSpace });
+          this.session = makeSession({ ...storedSession, codeSpace });
         } else {
           const codeSpaceParts = codeSpace!.split("-");
           if (codeSpaceParts.length > 2) {
             throw new Error("Invalid codeSpace");
           }
 
-          if (codeSpaceParts[0] === 'x') {
+          if (codeSpaceParts[0] === "x") {
             // full empty state
             this.session = makeSession({
               codeSpace,
               code: `export default () => (<>Write your code here!</>);
               `,
-              i: 1,          
+              i: 1,
               html: "<div>Write your code here!</div>",
               css: "",
             });
-          } else {  
+          } else {
             const source = codeSpaceParts.length === 2
               ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
               : `${this.origin}/live/code-main/session.json`;
 
-            const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
-            this.backupSession = makeSession({...backupCode, codeSpace });
-          
+            const backupCode = await fetch(source).then((r) =>
+              r.json()
+            ) as ICodeSession;
+            this.backupSession = makeSession({ ...backupCode, codeSpace });
+
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
             this.xLog(this.session);
           }
 
-
-
-
-          if (!this.session.codeSpace) { 
+          if (!this.session.codeSpace) {
             this.session.codeSpace = codeSpace;
           }
           this.state.storage.put("session", this.session);
@@ -117,23 +124,22 @@ export class Code implements DurableObject {
         }
 
         // Initialize auto-save history
-     this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then( savedHistory=> {
-        if (savedHistory) {
-          this.autoSaveHistory = savedHistory;
-        }
-      });
+        this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then(
+          (savedHistory) => {
+            if (savedHistory) {
+              this.autoSaveHistory = savedHistory;
+            }
+          },
+        );
       } catch (error) {
         console.error("Error initializing session:", error);
         this.session = this.backupSession;
-      }
-      finally {
+      } finally {
         this.initialized = true;
-        
-      this.session.codeSpace =   this.session.codeSpace ||codeSpace;
-      if (this.session.i>10000) this.session.i = 1;
+
+        this.session.codeSpace = this.session.codeSpace || codeSpace;
+        if (this.session.i > 10000) this.session.i = 1;
       }
-
-
     });
 
     this.xLog(this.session);
@@ -153,13 +159,13 @@ export class Code implements DurableObject {
 
     const currentCode = this.session.code;
     const lastEntry = this.autoSaveHistory[this.autoSaveHistory.length - 1];
-    
+
     if (!lastEntry || currentCode !== lastEntry.code) {
       // Remove entries younger than 1 minute and older than 2 months in one pass
       const oneMinuteAgo = currentTime - 60_000;
       const twoMonthsAgo = currentTime - 60000 * 60 * 24 * 60;
-      
-      this.autoSaveHistory = this.autoSaveHistory.filter(entry => 
+
+      this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>
         entry.timestamp <= oneMinuteAgo && entry.timestamp > twoMonthsAgo
       );
 
@@ -187,27 +193,25 @@ export class Code implements DurableObject {
     if (this.session) {
       this.origin = url.origin;
     }
-   
-    if (!this.initialized) {
-      
-      await this.initializeSession(url).then(() => {  ;
-      this.setupAutoSave()
 
-  
+    if (!this.initialized) {
+      await this.initializeSession(url).then(() => {
+        this.setupAutoSave();
       });
-     
     }
-    
+
     try {
-     this.xLog(this.session);  
+      this.xLog(this.session);
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         this.session = await request.json();
         const oldSession = makeSession(this.session);
-     
+
         this.state.storage.put("session", this.session);
         this.xLog(this.session);
-        const newSession = await this.state.storage.get<ICodeSession>("session");
+        const newSession = await this.state.storage.get<ICodeSession>(
+          "session",
+        );
         if (newSession === undefined) {
           throw new Error("newSession is undefined");
         }
@@ -233,24 +237,22 @@ export class Code implements DurableObject {
 
       if (!this.session.transpiled) {
         try {
-          const transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
-            method: "POST",
-            body: this.session.code,
-            headers: {
-              "TR_ORIGIN": this.origin,
-              // Include any additional headers required for authentication
-            },
-          })).text();
+          const transpiled =
+            (await fetch("https://esbuild.spikeland.workers.dev", {
+              method: "POST",
+              body: this.session.code,
+              headers: {
+                "TR_ORIGIN": this.origin,
+                // Include any additional headers required for authentication
+              },
+            })).text();
 
-          this.setSession(makeSession(...this.session,transpiled ));
-        
+          this.setSession(makeSession(...this.session, transpiled));
         } catch (error) {
           console.error("Error transpiling code:", error);
           // Handle the error as appropriate for your application
         }
       }
-
-  
 
       const path = url.pathname.slice(1).split("/");
       return this.routeHandler.handleRoute(request, url, path);
@@ -261,11 +263,11 @@ export class Code implements DurableObject {
     if (!this.session.codeSpace) {
       throw new Error("CodeSpace not set");
     }
-    
+
     const head = makeHash(this.session);
-   
-     this.xLog(this.session);
-     this.state.storage.put(head, {
+
+    this.xLog(this.session);
+    this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
       reversePatch: msg.reversePatch,
@@ -275,17 +277,17 @@ export class Code implements DurableObject {
       oldHash?: string;
       reversePatch?: string;
     } | null;
-     this.state.storage.put(msg.oldHash, {
+    this.state.storage.put(msg.oldHash, {
       oldHash: oldData?.oldHash || "",
       reversePatch: oldData?.reversePatch || [],
       newHash: msg.newHash,
       patch: msg.patch,
     });
 
-     this.state.storage.put("head", head);
+    this.state.storage.put("head", head);
 
     // Trigger auto-save after updating session storage
-     this.autoSave();
+    this.autoSave();
   }
 
   setSession(session: ICodeSession) {
@@ -317,7 +319,7 @@ export class Code implements DurableObject {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
       this.session.code = entry.code;
-        this.state.storage.put("session", this.session);
+      this.state.storage.put("session", this.session);
       return true;
     }
     return false;
