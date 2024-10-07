@@ -175,8 +175,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
 
       ...(isProduction ? {} : {
-        // "react": "preact/compat",
-        // "react-dom": "preact/compat",
+        "react": "preact/compat",
+        "react-dom": "preact/compat",
       }),
     },
     external: [
@@ -277,6 +277,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     alias: {
       ...buildOptions.alias,
       ...extraAliases,
+      ...(isProduction ? {} : {
+        "react": "preact/compat",
+        "react-dom": "preact/compat",
+      }),
     },
     external: [
       ...Object.values(extraAliases),
