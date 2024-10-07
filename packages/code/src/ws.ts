@@ -87,6 +87,7 @@ const handleRender = async (
           ...tailWindClasses,
           ...emotionStyles,
         ].filter((line) => {
+          if (line.startsWith("@")) return true;
           const rule = line.slice(1, line.indexOf("{")).trim();
           return htmlClasses.some((x) => x.includes(rule));
         }),
