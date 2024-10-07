@@ -142,10 +142,11 @@ function createWebSocket(codeSpace: string) {
       console.log("Socket finished");
       // Socket closed for good and will not retry.
     },
-    socketDidReceiveMessage(_socket: Socket, message: WsMessage) {
+    socketDidReceiveMessage(_socket: Socket, message: string) {
       // Socket read data from the connection.
       console.log("Socket message:", message);
-      handleSocketMessage(message, codeSpace).catch((error) => {
+      const data: WsMessage = typeof message === "string" ? JSON.parse(message) : message;
+      handleSocketMessage(data, codeSpace).catch((error) => {
         console.error("Error handling socket message:", error);
       });
     },
