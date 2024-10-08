@@ -95,18 +95,21 @@ export async function handleGPT4Request(
 
 
 
-    const transcription = await openai.audio.transcriptions.create({
-      model: "whisper-1",
-      file: new Response(await body.file.arrayBuffer(), {
-        //url: "/file.wav",
-        
-        headers: {
-          "Content-Type": "audio/wav",
-          
-        },
-      }),
-      language: "en-GB",
-    });
+
+      // const newBody = new FormData();
+      // newBody.append("file", body.file);
+      // newBody.append("model", body.model);
+      // newBody.append("language", "en-GB");
+
+    const transcription = await openai.audio.transcriptions.create(
+      {
+        model:"whisper-1",
+        file: body.file,
+        response_format: "text",
+      }
+    );
+    
+  
 
     return new Response(JSON.stringify(transcription), {
       headers: {
