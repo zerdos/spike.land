@@ -14,6 +14,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import { init } from "./tw-dev-setup";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
+const m = { init: 0 };
 
 const codeSpace = useCodeSpace();
 
@@ -146,6 +147,11 @@ const handleDefaultPage = async (cSess: ICode) => {
         rendered?.cleanup();
         rendered = null;
 
+        if (!m.init) {
+          const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+          tailWindClasses?.setInnerContent(sess.css);
+        }
+
         rendered = await renderApp({
           transpiled,
           codeSpace,
@@ -161,8 +167,6 @@ const handleDefaultPage = async (cSess: ICode) => {
     };
 
     cSess.sub(updateRenderedApp);
-
-    const m = { init: 0 };
 
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
