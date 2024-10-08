@@ -109,6 +109,9 @@ export async function handleGPT4Request(
        
         response_format: "text",
         ...(body.prompt ? {prompt: body.prompt!} : {}),
+      }, {
+        maxRetries: 3,
+        stream: true,
       }
     );
     
