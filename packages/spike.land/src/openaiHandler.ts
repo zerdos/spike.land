@@ -105,8 +105,7 @@ export async function handleGPT4Request(
       {
         model:"whisper-1",
         file: body.file,
-        language: "en-GB",
-        // response_format: "text",
+        response_format: "text",
       }
     );
     
