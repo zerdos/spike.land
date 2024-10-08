@@ -199,6 +199,19 @@ export default {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleGPT4Request(request, env, ctx);
     }
+    if (request.url.includes("whisper")) {
+      
+
+      const blob =await request.arrayBuffer();
+
+      const inputs = {
+        audio: [...new Uint8Array(blob)]
+      };
+      const response = await env.AI.run('@cf/openai/whisper', inputs);
+  
+      return Response.json({ response });
+
+    }
     if (request.url.includes("remix")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
       // return handleRemixRequest(request, env, ctx);
