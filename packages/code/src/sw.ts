@@ -369,8 +369,8 @@ sw.addEventListener("fetch", (event) => {
         `<script type="importmap"></script>`,
         `<script type="importmap">${JSON.stringify(importMap)}</script>`,
       ).replace(
-        `<link rel="preload" href="/app/tw-global.css" as="style">`,
-        `<link rel="preload" href="/app/tw-global.css" as="style">
+        `<!-- Inline LINK for initial theme -->`,
+        `
                <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
                <link rel="stylesheet" href="/live/${codeSpace}/index.css">
                `,
@@ -407,7 +407,7 @@ sw.addEventListener("fetch", (event) => {
         `<script type="importmap"></script>`,
         `<script type="importmap">${JSON.stringify(importMap)}</script>`,
       ).replace(
-        `<link rel="preload" href="/app/tw-global.css" as="style">`,
+        `<!-- Inline LINK for initial theme -->`,
         `<style>${session.css}</style>`,
       ).replace(
         "<div id=\"embed\"></div>",

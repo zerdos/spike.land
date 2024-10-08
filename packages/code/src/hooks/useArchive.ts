@@ -5,7 +5,6 @@ import { wait } from "@/lib/wait";
 
 import { build } from "@/lib/shared";
 import { useAuth } from "@clerk/clerk-react";
-import { importMap } from "@src/modules";
 
 const auth = () => {
   const { getToken } = useAuth();
@@ -302,8 +301,6 @@ export const useSpeedy = async (codeSpace: string) => {
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
- <link rel="preload" href="/app/tw-global.css" as="style">
-    <link rel="stylesheet" href="/app/tw-global.css">
   <style>  
     ${updatedCss}
   </style>

@@ -161,6 +161,17 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     cSess.sub(updateRenderedApp);
 
+    setTimeout(() => {
+      if (window.location.pathname.endsWith("/iframe")) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = location.origin + "/app/tw-global.css";
+        link.onload = () => import(location.origin + "/assets/tw-chunk-4a7018.js");
+        document.head.appendChild(link);
+      }
+    });
+
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
         const { type, requestId } = data;
