@@ -204,12 +204,6 @@ sw.addEventListener("install", (event) => {
 
         await sw.skipWaiting();
         console.log("Service Worker installed.");
-        sw.clients.claim();
-        sw.clients.matchAll().then((clients) => {
-          clients.forEach((client) => {
-            client.postMessage("reload");
-          });
-        });
       }
     })(),
   );
@@ -264,7 +258,13 @@ sw.addEventListener("activate", (event) => {
       );
 
       // Take control of all clients immediately
-      await sw.clients.claim();
+      sw.clients.claim();
+      sw.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage("reload");
+        });
+      });
+
       console.log("Service Worker activated and controlling.");
     })(),
   );
