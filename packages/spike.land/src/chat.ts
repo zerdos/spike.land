@@ -214,7 +214,9 @@ export default {
     }
     if (request.url.includes("summarize")) {
       const response = await env.AI.run("@cf/facebook/bart-large-cnn", {
-        input_text: await request.text(),
+        input_text: await request.json<{
+          text: string
+        }>().then((data) => data.text),
         max_length: 1024
       });
       return Response.json({response});
