@@ -276,7 +276,7 @@ export const main = async () => {
       || location.pathname === `/live-cms/${codeSpace}`
     ) {
       console.log("Rendering preview window...");
-      init();
+      await init();
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
