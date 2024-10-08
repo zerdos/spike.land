@@ -104,7 +104,10 @@ export async function handleGPT4Request(
 
   } catch (error) {
     console.error("Error in Whisper:", error);
-    return new Response(JSON.stringify({ error: "Whisper processing failed" }), {
+    return new Response(JSON.stringify({ 
+      body: body,
+      file: body.file,
+      error: "Whisper processing failed" }), {
       status: 500,
       headers: {
         "Content-Type": "application/json",
