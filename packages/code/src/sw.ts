@@ -165,12 +165,18 @@ sw.addEventListener("install", (event) => {
           const request = new Request(
             new URL(filesByCacheKeys[cacheKey], origin).toString(),
           );
+          const parts = filesByCacheKeys[cacheKey].split(".");
+          parts.pop();
+          const hash = parts.pop();
           const cacheRequest = new Request(
             new URL(cacheKey, origin).toString(),
           );
           try {
             const response = await queuedFetch.fetch(request);
 
+            if (response.headers.get("x-hash") !== hash) {
+              throw new Error(`Hash mismatch for ${url}`);
+            }
             if (response.ok) {
               await myCache.put(cacheRequest, response.clone());
             } else {

@@ -117,6 +117,10 @@ export const serveWithCache = (
 
         // Create a promise to represent the in-flight fetch
         const inFlightPromise = (async (req: Request) => {
+          const fileParts = (files[filePath] ? files[filePath] : filePath).split(".");
+          fileParts.pop();
+          const hash = fileParts.pop()!;
+
           let kvResp: Response;
           try {
             kvResp = await assetFetcher(req, waitUntil);
@@ -135,6 +139,7 @@ export const serveWithCache = (
           const headers = new Headers(kvResp.headers);
           const contentType = getContentType(filePath);
           headers.set("Content-Type", contentType);
+          headers.set("x-hash", hash);
 
           // Overwrite the Cache-Control header
           headers.set("Cache-Control", "public, max-age=604800, immutable");
