@@ -24,7 +24,8 @@ export async function handleGPT4Request(
     speed?: number;
     voice?: string;
 
-    file?: File; // To handle file uploads
+    // base64 encoded file
+    file?: string;
   };
 
   const openai = new OpenAI({
@@ -72,8 +73,9 @@ export async function handleGPT4Request(
   }
 
   if (body.model === "whisper-1") {
+    const base64StringFile = body.file!;
     const transcription = await openai.audio.transcriptions.create({
-      file: body.file!,
+      file: new File([Uint8Array.from(atob(base64StringFile), (c) => c.charCodeAt(0))], "audio.wav"),
       model: "whisper-1",
       language: "en-GB",
     });
