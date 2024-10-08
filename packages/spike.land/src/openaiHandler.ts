@@ -88,7 +88,7 @@ export async function handleGPT4Request(
       );
     }
 
-    const file = await body.file.arrayBuffer();
+    const file = await request.blob();
 
     try {
 
