@@ -1,6 +1,7 @@
 import { WebSocket } from "@cloudflare/workers-types";
 import { applyCodePatch, CodePatch, Delta, makeHash } from "@spike-land/code";
 import { Code } from "./chatRoom";
+import { hash } from "crypto";
 
 const PING_TIMEOUT = 30000;
 
@@ -318,6 +319,7 @@ export class WebSocketHandler {
       return respondWith({
         error: `old hashes not matching`,
         i: this.code.session.i,
+        hash: oldHash,
         strSess: this.code.session,
       });
     }

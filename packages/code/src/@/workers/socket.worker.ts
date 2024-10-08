@@ -45,6 +45,7 @@ type WsMessage = {
   code: string;
   transpiled: string;
   hashCode: string;
+  hash: string;
 };
 
 // Use a Map for better management of connections
@@ -195,6 +196,33 @@ async function handleSocketMessage(
       console.log("Skipping message due to hash match");
       return;
     }
+  }
+
+  if (data.hash && data.i > connection.lastCounter && data.strSess) {
+    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
+    if (data.hash !== makeHash(sess)) {
+      console.log("Hash mismatch, skipping message");
+      return;
+    }
+    connection.lastHash = data.hash;
+    connection.lastCounter = data.i;
+    connection.oldSession = sess;
+    // const patch = createPatch(sess, connection.oldSession);
+    connection.broadcastChannel.postMessage({
+      ...sess,
+      sender: SENDER_WORKER_HANDLE_CHANGES,
+    });
+    return;
+  }
+  if (data.hash && data.i < connection.lastCounter && data.strSess) {
+    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
+    if (data.hash !== makeHash(sess)) {
+      console.log("Hash mismatch, skipping message");
+      return;
+    }
+    const patch = createPatch(sess, connection.oldSession);
+    connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user, i: connection.oldSession.i }));
+    return;
   }
 
   if (typeof data.i === "number") {
