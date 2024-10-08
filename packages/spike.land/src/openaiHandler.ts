@@ -1,4 +1,4 @@
-import { OpenAI } from "openai";
+import  OpenAI  from "openai";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import { KVLogger } from "./Logs";
@@ -17,7 +17,7 @@ export async function handleGPT4Request(
   handleCORS(request);
   const logger = new KVLogger("ai", env.KV);
 
-  const body = JSON.parse(await readRequestBody(request)) as {
+  const body = await readRequestBody(request) as {
     model: string;
     messages: MessageParam[];
     input?: string;
@@ -25,7 +25,7 @@ export async function handleGPT4Request(
     voice?: string;
 
     // base64 encoded file
-    file?: string;
+    file?: File;
   };
 
   const openai = new OpenAI({
@@ -75,8 +75,7 @@ export async function handleGPT4Request(
   if (body.model === "whisper-1") {
     const base64StringFile = body.file!.split(",")[1];
     const transcription = await openai.audio.transcriptions.create({
-      file: new File([Uint8Array.from(atob(base64StringFile), (c) => c.charCodeAt(0))], "audio.wav"),
-      model: "whisper-1",
+     ...body,
       language: "en-GB",
     });
 

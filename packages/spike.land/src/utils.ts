@@ -60,7 +60,7 @@ export function handleRedirectResponse(url: URL, start: string): Response {
 export async function readRequestBody(request: Request) {
   const contentType = request.headers.get("content-type");
   if (contentType!.includes("application/json")) {
-    return JSON.stringify(await request.json());
+    return request.json();
   } else if (contentType!.includes("application/text")) {
     return request.text();
   } else if (contentType!.includes("multipart/form-data")) {
@@ -69,7 +69,7 @@ export async function readRequestBody(request: Request) {
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
     }
-    return JSON.stringify(body);
+    return body;
   } else if (contentType!.includes("text/html")) {
     return request.text();
   } else if (contentType!.includes("form")) {
@@ -78,7 +78,7 @@ export async function readRequestBody(request: Request) {
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
     }
-    return JSON.stringify(body);
+    return body;
   } else {
     return "a file";
   }
