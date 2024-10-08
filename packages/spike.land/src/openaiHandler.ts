@@ -97,7 +97,14 @@ export async function handleGPT4Request(
 
     const transcription = await openai.audio.transcriptions.create({
       model: "whisper-1",
-      file: body.file,
+      file: new Response(await body.file.arrayBuffer(), {
+        //url: "/file.wav",
+        
+        headers: {
+          "Content-Type": "audio/wav",
+          
+        },
+      }),
       language: "en-GB",
     });
 
@@ -112,7 +119,6 @@ export async function handleGPT4Request(
     console.error("Error in Whisper:", error);
     return new Response(JSON.stringify({ 
       body,
-      file: new TextDecoder().decode(await body.file.arrayBuffer()),
       error: "Whisper processing failed" }), {
       status: 500,
       headers: {
