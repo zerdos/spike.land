@@ -21,7 +21,7 @@ export async function handleMainFetch(
 
     const redirect = routes[url.pathname as keyof typeof routes];
     if (redirect) {
-      return handleFetchApi(["live", redirect, "xxx"], request, env, ctx);
+      return handleFetchApi(["live", redirect, "embed"], request, env, ctx);
     }
 
     const path = url.pathname.slice(1).split("/");
