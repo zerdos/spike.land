@@ -162,10 +162,15 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     cSess.sub(updateRenderedApp);
 
-    init();
+    const m = { init: 0 };
 
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
+        if (!m.init) {
+          m.init = 1;
+          await init();
+        }
+
         const { type, requestId } = data;
         if (!type) return;
 
