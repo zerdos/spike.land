@@ -11,6 +11,7 @@ import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { renderPreviewWindow } from "./renderPreviewWindow";
+import { init } from "./tw-dev-setup";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
 
@@ -161,16 +162,7 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     cSess.sub(updateRenderedApp);
 
-    setTimeout(() => {
-      if (window.location.pathname.endsWith("/iframe")) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.type = "text/css";
-        link.href = location.origin + "/app/tw-global.css";
-        link.onload = () => import(location.origin + "/assets/tw-chunk-4a7018.js");
-        document.head.appendChild(link);
-      }
-    });
+    init();
 
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
@@ -284,6 +276,7 @@ export const main = async () => {
       || location.pathname === `/live-cms/${codeSpace}`
     ) {
       console.log("Rendering preview window...");
+      init();
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
