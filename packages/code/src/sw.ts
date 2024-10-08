@@ -172,8 +172,11 @@ sw.addEventListener("install", (event) => {
             new URL(cacheKey, origin).toString(),
           );
           try {
-            const response = await queuedFetch.fetch(request);
+            const response = await queuedFetch.fetch(request, { cache: "no-store" });
 
+            if (!response.headers.has("x-hash")) {
+              throw new Error(`Hash header missing for ${url}`);
+            }
             if (response.headers.get("x-hash") !== hash) {
               throw new Error(`Hash mismatch for ${url}`);
             }
