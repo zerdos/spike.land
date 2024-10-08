@@ -11,6 +11,7 @@ import { useLocalStorage } from "react-use";
 import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
+import { useDictation } from "@/hooks/use-dictation";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -31,7 +32,8 @@ export const ChatInterface: React.FC<{
     `streaming-${codeSpace}`,
     false,
   );
-  const [input, setInput] = useState("");
+  const [input, setInput] = useDictation("");
+
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);

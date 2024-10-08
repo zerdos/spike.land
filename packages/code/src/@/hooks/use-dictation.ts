@@ -101,7 +101,7 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         const currentTime = new Date().getTime();
-        if (currentTime - lastKeyTime <= 300) {
+        if (currentTime - lastKeyTime <= 200) {
           if (isRecording) {
             stopRecording();
           } else {
