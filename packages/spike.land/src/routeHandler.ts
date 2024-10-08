@@ -374,10 +374,7 @@ hQIDAQAB
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).replace(
       `<!-- Inline LINK for initial theme -->`,
-      `<!-- Inline LINK for initial theme -->
-             <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
-             <link rel="stylesheet" href="/live/${codeSpace}/index.css">
-             `,
+      `<style>${css}</style>`,
     ).replace(
       '<div id="embed"></div>',
       `<div id="embed">${html}</div>`,
