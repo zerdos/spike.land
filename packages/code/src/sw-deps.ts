@@ -1,12 +1,11 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
+import { QueuedFetch } from "@/lib/queued-fetch";
 import { serveWithCache } from "@/lib/serve-with-cache";
 import HTML from "./index.html";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-import { QueuedFetch } from "@/lib/queued-fetch"; 
 
-
-export type { CodeSessionBC, HTML, importMapReplace, serveWithCache, useCodeSpace, QueuedFetch, importMap };
+export type { CodeSessionBC, HTML, importMap, importMapReplace, QueuedFetch, serveWithCache, useCodeSpace };
 
 Object.assign(globalThis, {
   serveWithCache,

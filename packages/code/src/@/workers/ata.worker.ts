@@ -1,14 +1,10 @@
 lazyLoadScript("dts");
 
 import { lazyLoadScript } from "@/lib/lazy-load-scripts";
+import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
-import { QueuedFetch } from "@/lib/queued-fetch"; 
 import ts from "typescript";
 const self = globalThis;
-
-
-
-
 
 export const myATA = async (code: string) => {
   const limitedFetch = new QueuedFetch(4, 1000);

@@ -1,9 +1,9 @@
 import type {
   CodeSessionBC as CsBc,
   importMapReplace as ImportMapReplace,
+  QueuedFetch as Qf,
   serveWithCache as ServeWithCache,
   useCodeSpace as UseCodeSpace,
-  QueuedFetch as Qf,
 } from "./sw-deps";
 
 import type { transpile as Trp } from "@/lib/transpile";
@@ -178,8 +178,6 @@ sw.addEventListener("activate", (event) => {
 
       const missing = setDifference(allKeys, myKeys);
 
-
-
       // Copy missing items from old caches
       for (const cacheName of cacheNames) {
         const oldCache = await caches.open(cacheName);
@@ -205,7 +203,6 @@ sw.addEventListener("activate", (event) => {
       const stillMissing = setDifference(allKeys, updatedMyKeys);
 
       Promise.all([...stillMissing].map(async (url) => {
-    
         const { pathname, origin } = new URL(url);
         const request = new Request(
           new URL(filesByCacheKeys[pathname.slice(1)], origin).toString(),
@@ -220,8 +217,7 @@ sw.addEventListener("activate", (event) => {
         } catch (error) {
           console.error(`Error fetching ${url}:`, error);
         }
-      }
-      ));
+      }));
 
       // Delete old caches
       await Promise.all(
