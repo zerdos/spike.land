@@ -178,6 +178,10 @@ sw.addEventListener("install", (event) => {
               throw new Error(`Hash header missing for ${url}`);
             }
             if (response.headers.get("x-hash") !== hash) {
+              console.error(`Hash mismatch for ${url}`);
+              console.error(`Expected: ${hash}`);
+              console.error(`Received: ${response.headers.get("x-hash")}`);
+
               throw new Error(`Hash mismatch for ${url}`);
             }
             if (response.ok) {
