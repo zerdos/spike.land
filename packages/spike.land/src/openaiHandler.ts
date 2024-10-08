@@ -73,7 +73,7 @@ export async function handleGPT4Request(
   }
 
   if (body.model === "whisper-1") {
-    const base64StringFile = body.file!;
+    const base64StringFile = body.file!.split(",")[1];
     const transcription = await openai.audio.transcriptions.create({
       file: new File([Uint8Array.from(atob(base64StringFile), (c) => c.charCodeAt(0))], "audio.wav"),
       model: "whisper-1",
