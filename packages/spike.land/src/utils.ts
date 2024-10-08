@@ -1,3 +1,5 @@
+import { b } from "vitest/dist/chunks/suite.BMWOKiTe";
+
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
@@ -68,6 +70,9 @@ export async function readRequestBody(request: Request) {
     const body: { [key: string]: unknown } = {};
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
+    }
+    if (body["record.wav"]){
+      body.file = await formData.get("record.wav");
     }
     return body;
   } else if (contentType!.includes("text/html")) {
