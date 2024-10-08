@@ -219,6 +219,26 @@ sw.addEventListener("install", (event) => {
 sw.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
+      // integrity check
+      const myCache = await caches.open(sw.fileCacheName);
+      const allKeys = new Set(
+        Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
+      );
+
+      // const myCacheKeys = await myCache.keys();
+      // const myKeys = new Set(myCacheKeys.map((request) => request.url));
+
+      const updatedMyCacheKeys2 = await myCache.keys();
+      const updatedMyKeys2 = new Set(
+        updatedMyCacheKeys2.map((request) => request.url),
+      );
+      const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
+      if (stillMissing2.size) {
+        console.error("Failed to fetch the following files:", [...stillMissing2]);
+        sw.registration.unregister();
+        return;
+      }
+
       console.log("Service Worker activating.");
 
       // Ensure the config is fetched
