@@ -6,9 +6,10 @@ import { CircleMinus } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import type { ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
+import { useDictation } from "@/hooks/use-dictation";
 
 export const StartWithPrompt: React.FC = () => {
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useDictation("");
   const [images, setImages] = useState<ImageData[]>([]);
   const [enlargedImage, setEnlargedImage] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
