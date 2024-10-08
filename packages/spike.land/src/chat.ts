@@ -212,6 +212,13 @@ export default {
       return Response.json({ response });
 
     }
+    if (request.url.includes("summarize")) {
+      const response = await env.AI.run("@cf/facebook/bart-large-cnn", {
+        input_text: await request.text(),
+        max_length: 1024
+      });
+      return Response.json(response);
+    }
     if (request.url.includes("remix")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
       // return handleRemixRequest(request, env, ctx);
