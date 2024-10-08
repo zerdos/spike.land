@@ -346,12 +346,12 @@ function getClassNamesFromHTML(htmlString: string) {
 function htmlDecode(input: string): string {
   return input
     .split("><").join(">\n<")
-    .replaceAll(/&amp;/g, "&")
-    .replaceAll(/&gt;/g, ">")
-    .replaceAll(/&lt;/g, "<")
-    .replaceAll(/&quot;/g, "\"")
-    .replaceAll(/&apos;/g, "'")
-    .replaceAll(/&nbsp;/g, " ");
+    .replace(/&amp;/g, "&")
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&quot;/g, "\"")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ");
 }
 
 setTimeout(async () => {
