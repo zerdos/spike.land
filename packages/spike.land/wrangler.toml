@@ -20,6 +20,9 @@ bindings = [
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
+[ai]
+binding = "AI" # i.e. available in your Worker on env.AI
+
 [site]
 bucket = "../code/dist" # Add the directory with your static assets
 
@@ -80,6 +83,9 @@ preview_bucket_name = "esm"
 binding = "X9"
 bucket_name = "code-chain"
 preview_bucket_name = "code-chain"
+
+[env.testing.ai]
+binding = "AI" # i.e. available in your Worker on env.AI
 
 [[env.testing.services]]
 binding = "ESBUILD"
