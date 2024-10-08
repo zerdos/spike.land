@@ -73,9 +73,25 @@ export async function handleGPT4Request(
   }
 
   if (body.model === "whisper-1") {
-    const base64StringFile = body.file!.split(",")[1];
+    if (!body.file) {
+      return new Response(
+        JSON.stringify({ error: "No audio file provided" }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        },
+      );
+    }
+
+    try {
+
+
     const transcription = await openai.audio.transcriptions.create({
-     ...body,
+      model: "whisper-1",
+      file: body.file!,
       language: "en-GB",
     });
 
@@ -85,7 +101,18 @@ export async function handleGPT4Request(
         "Access-Control-Allow-Origin": "*",
       },
     });
+
+  } catch (error) {
+    console.error("Error in Whisper:", error);
+    return new Response(JSON.stringify({ error: "Whisper processing failed" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
   }
+}
 
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
