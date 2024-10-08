@@ -63,7 +63,7 @@ async function fetchConfig() {
       version: string;
       swVersion: string;
     };
-    sw.fileCacheName = `sw-file-cache-${config.version}`;
+
     return config;
   } catch (error) {
     console.error("Failed to fetch configuration:", error);
