@@ -301,9 +301,10 @@ async function startMonacoPristine({
 
     const suggestionDiagnostics = await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString());
-    suggestionDiagnostics.forEach((d) =>
-      console.error(d.messageText.toString())
-    );
+
+
+    
+    console.log({ suggestionDiagnostics });
 
     ttt.checking = 0;
   };
