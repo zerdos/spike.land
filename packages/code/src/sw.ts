@@ -183,7 +183,7 @@ sw.addEventListener("install", (event) => {
         );
         const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
         if (stillMissing2.size) {
-          console.error("Failed to fetch the following files:", stillMissing2);
+          console.error("Failed to fetch the following files:", [...stillMissing2]);
           sw.registration.unregister();
           return;
         }
