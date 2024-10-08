@@ -33,18 +33,18 @@ export const setupServiceWorker = async () => {
 
 Object.assign(globalThis, { setupServiceWorker });
 
-// const createLangChainWorkflow = async (prompt: string) => {
-//   console.log("Creating LangChain workflow with prompt:", prompt);
-//   try {
-//     const { createWorkflow } = await import("@/lib/shared");
-//     const workflow = await createWorkflow(prompt);
-//     console.log("LangChain workflow created successfully");
-//     return workflow;
-//   } catch (error) {
-//     console.error("Error creating LangChain workflow:", error);
-//     throw error;
-//   }
-// };
+const createLangChainWorkflow = async (prompt: string) => {
+  console.log("Creating LangChain workflow with prompt:", prompt);
+  try {
+    const { createWorkflow } = await import("@/lib/shared");
+    const workflow = await createWorkflow(prompt);
+    console.log("LangChain workflow created successfully");
+    return workflow;
+  } catch (error) {
+    console.error("Error creating LangChain workflow:", error);
+    throw error;
+  }
+};
 
 export const initializeApp = async () => {
   console.log("Initializing app...");
@@ -59,7 +59,7 @@ export const initializeApp = async () => {
     ]);
     console.log("Modules imported successfully");
 
-    // Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
+    Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
     Object.assign(globalThis, {
       enhancedFetch,
       useArchive,
