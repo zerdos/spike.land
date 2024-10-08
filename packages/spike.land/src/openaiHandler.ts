@@ -26,8 +26,9 @@ export async function handleGPT4Request(
     voice?: string;
 
     // base64 encoded file
-    file?: File;
+    file?: Blob;
   };
+
 
   const openai = new OpenAI({
     baseURL:
@@ -87,16 +88,16 @@ export async function handleGPT4Request(
       );
     }
 
+    const file = await body.file.arrayBuffer();
+
     try {
 
-      const file = body.file as File;
 
 
     const transcription = await openai.audio.transcriptions.create({
       model: "whisper-1",
       file: new Response(file, { 
         headers: { "Content-Type": "audio/wav",
-
        } }),
       language: "en-GB",
     });
@@ -112,6 +113,7 @@ export async function handleGPT4Request(
     console.error("Error in Whisper:", error);
     return new Response(JSON.stringify({ 
       body,
+      file,
       error: "Whisper processing failed" }), {
       status: 500,
       headers: {
