@@ -3,6 +3,7 @@ import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import { KVLogger } from "./Logs";
 import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
+import { b } from "vitest/dist/chunks/suite.BMWOKiTe";
 
 interface MessageParam {
   role: "user" | "assistant";
@@ -88,10 +89,15 @@ export async function handleGPT4Request(
 
     try {
 
+      const file = body.file as File;
+
 
     const transcription = await openai.audio.transcriptions.create({
       model: "whisper-1",
-      file: body.file!,
+      file: new Response(file, { 
+        headers: { "Content-Type": "audio/wav",
+
+       } }),
       language: "en-GB",
     });
 
@@ -105,8 +111,7 @@ export async function handleGPT4Request(
   } catch (error) {
     console.error("Error in Whisper:", error);
     return new Response(JSON.stringify({ 
-      body: body,
-      file: body.file,
+      body,
       error: "Whisper processing failed" }), {
       status: 500,
       headers: {
