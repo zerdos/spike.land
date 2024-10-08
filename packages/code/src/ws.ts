@@ -76,7 +76,7 @@ const handleRender = async (
 
       const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
       const sheet = tailWindClasses?.sheet as CSSStyleSheet;
-      const tailWindClassesX = sheet ? [...sheet.cssRules].map(x => x.cssText) : [];
+      const tailWindClassesX = sheet ? [...sheet.cssRules].map(x => x.cssText.split("\\").join("")) : [];
 
       const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
