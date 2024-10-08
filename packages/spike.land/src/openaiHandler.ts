@@ -22,6 +22,7 @@ export async function handleGPT4Request(
     model: string;
     messages: MessageParam[];
     input?: string;
+    prompt?: string;
     speed?: number;
     voice?: string;
 
@@ -105,7 +106,9 @@ export async function handleGPT4Request(
       {
         model:"whisper-1",
         file: body.file,
+       
         response_format: "text",
+        ...(body.prompt ? {prompt: body.prompt!} : {}),
       }
     );
     
