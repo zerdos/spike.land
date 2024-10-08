@@ -217,7 +217,7 @@ export default {
         input_text: await request.text(),
         max_length: 1024
       });
-      return Response.json(response);
+      return Response.json({response});
     }
     if (request.url.includes("remix")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
