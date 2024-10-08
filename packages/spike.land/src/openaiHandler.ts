@@ -111,7 +111,8 @@ export async function handleGPT4Request(
         ...(body.prompt ? {prompt: body.prompt!} : {}),
       }, {
         maxRetries: 3,
-        stream: true,
+        stream: false,
+
       }
     );
     
