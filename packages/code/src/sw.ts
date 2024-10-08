@@ -161,13 +161,18 @@ sw.addEventListener("install", (event) => {
 
         Promise.all([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
+          const cacheKey = pathname.slice(1);
           const request = new Request(
-            new URL(filesByCacheKeys[pathname.slice(1)], origin).toString(),
+            new URL(filesByCacheKeys[cacheKey], origin).toString(),
+          );
+          const cacheRequest = new Request(
+            new URL(cacheKey, origin).toString(),
           );
           try {
             const response = await queuedFetch.fetch(request);
+
             if (response.ok) {
-              await myCache.put(request, response.clone());
+              await myCache.put(cacheRequest, response.clone());
             } else {
               console.error(`Failed to fetch ${url}: ${response.statusText}`);
             }
