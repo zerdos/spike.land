@@ -1789,19 +1789,19 @@ __metadata:
   linkType: hard
 
 "@langchain/langgraph-checkpoint@npm:~0.0.9":
-  version: 0.0.9
-  resolution: "@langchain/langgraph-checkpoint@npm:0.0.9"
+  version: 0.0.10
+  resolution: "@langchain/langgraph-checkpoint@npm:0.0.10"
   dependencies:
     uuid: "npm:^10.0.0"
   peerDependencies:
     "@langchain/core": ">=0.2.31 <0.4.0"
-  checksum: 10c0/5c63d9962433379cfd07c251518b1aa833f3dde9ed172d7393ddd44844e263fb5ef8abdcda0fb52e00edc1d09bb39b8694029ad43e3a03f3ede5de87ae075c8c
+  checksum: 10c0/3fc1ecee1743bd43b8d98ddd4310991b9704430edffcedd701026ff0c3423ca7394a125c591dd65b412ef1afdcd0b48b701e2e9902346da2d2caf7d5e6757d57
   languageName: node
   linkType: hard
 
-"@langchain/langgraph@npm:^0.2.11":
-  version: 0.2.11
-  resolution: "@langchain/langgraph@npm:0.2.11"
+"@langchain/langgraph@npm:^0.2.12":
+  version: 0.2.12
+  resolution: "@langchain/langgraph@npm:0.2.12"
   dependencies:
     "@langchain/langgraph-checkpoint": "npm:~0.0.9"
     double-ended-queue: "npm:^2.1.0-0"
@@ -1809,7 +1809,7 @@ __metadata:
     zod: "npm:^3.23.8"
   peerDependencies:
     "@langchain/core": ">=0.2.31 <0.4.0"
-  checksum: 10c0/2eb9cf0c4dbcd420256a37af7515e70ff6323eeaa2a31a8369385d247f106ea211d59a1e955be84c305add7079d1e5aaaa262b44336343eb5eeb722333129de5
+  checksum: 10c0/c9cee694a9e78bc7586c1f19d99f4be12defcef99de7130404c048ea15bffa778a6051e296a8055c77e7cdf0f8b5f87f5b50728f59e1f989f65e8c3dc6a3d81d
   languageName: node
   linkType: hard
 
@@ -4152,7 +4152,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.7.4"
+    "@types/node": "npm:22.7.5"
     body-parser: "npm:1.20.3"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -4198,7 +4198,7 @@ __metadata:
     "@spike-land/transpile": "npm:0.9.55"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
-    "@types/node": "npm:^22.7.4"
+    "@types/node": "npm:^22.7.5"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.0"
@@ -4237,7 +4237,7 @@ __metadata:
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.3.3"
     "@langchain/core": "npm:^0.3.7"
-    "@langchain/langgraph": "npm:^0.2.11"
+    "@langchain/langgraph": "npm:^0.2.12"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:6.1.2"
     "@okikio/sharedworker": "npm:1.0.7"
@@ -4286,7 +4286,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
-    "@types/node": "npm:^22.7.4"
+    "@types/node": "npm:^22.7.5"
     "@types/object-hash": "npm:^3.0.6"
     "@types/path-browserify": "npm:^1.0.3"
     "@types/react": "npm:^18.3.11"
@@ -4442,7 +4442,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.7.4"
+    "@types/node": "npm:22.7.5"
     esbuild-wasm: "npm:0.24.0"
   languageName: unknown
   linkType: soft
@@ -5066,21 +5066,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.7.4, @types/node@npm:^22.5.5, @types/node@npm:^22.7.4":
-  version: 22.7.4
-  resolution: "@types/node@npm:22.7.4"
+"@types/node@npm:*, @types/node@npm:22.7.5, @types/node@npm:^22.5.5, @types/node@npm:^22.7.5":
+  version: 22.7.5
+  resolution: "@types/node@npm:22.7.5"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/c22bf54515c78ff3170142c1e718b90e2a0003419dc2d55f79c9c9362edd590a6ab1450deb09ff6e1b32d1b4698da407930b16285e8be3a009ea6cd2695cac01
+  checksum: 10c0/cf11f74f1a26053ec58066616e3a8685b6bcd7259bc569738b8f752009f9f0f7f85a1b2d24908e5b0f752482d1e8b6babdf1fbb25758711ec7bb9500bfcd6e60
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.11.18":
-  version: 18.19.54
-  resolution: "@types/node@npm:18.19.54"
+  version: 18.19.55
+  resolution: "@types/node@npm:18.19.55"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10c0/ea3e2530bb887d4d9c5eb58f0dd16b2af37e4323da2970f3b513403f45db1e0d54ba39b3de838ba7b2d40d38329aeed0bda4a0a39922d006c68aca5ee22e6e46
+  checksum: 10c0/19ffeca0086b45cba08d4585623cd0d80fbacb659debde82a4baa008fc0c25ba6c21cd721f3a9f0be74f70940694b00458cac61c89f8b2a1e55ca4322a9aad2b
   languageName: node
   linkType: hard
 
@@ -8330,9 +8330,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.28":
-  version: 1.5.32
-  resolution: "electron-to-chromium@npm:1.5.32"
-  checksum: 10c0/d0c0c418fae6f7714fb6cfeb8f6a74a9504cf41ed6a4119d5388d94442ee224238c331bacc5917f2c89e3ffebd1b9f870ea5c0951c473ca7e58debef0f3e9137
+  version: 1.5.33
+  resolution: "electron-to-chromium@npm:1.5.33"
+  checksum: 10c0/46b914e85ce9ff5d57b78782f750ca6585c5aa713c0e6f70225bc6cf0f7637ce40567ccfd0d9a95d84120164fef01c8ff42c7cd206afdb1bace481e187a3919f
   languageName: node
   linkType: hard
 
@@ -9971,13 +9971,6 @@ __metadata:
   version: 1.2.0
   resolution: "get-east-asian-width@npm:1.2.0"
   checksum: 10c0/914b1e217cf38436c24b4c60b4c45289e39a45bf9e65ef9fd343c2815a1a02b8a0215aeec8bf9c07c516089004b6e3826332481f40a09529fcadbf6e579f286b
-  languageName: node
-  linkType: hard
-
-"get-func-name@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "get-func-name@npm:2.0.2"
-  checksum: 10c0/89830fd07623fa73429a711b9daecdb304386d237c71268007f788f113505ef1d4cc2d0b9680e072c5082490aec9df5d7758bf5ac6f1c37062855e8e3dc0b9df
   languageName: node
   linkType: hard
 
@@ -11733,8 +11726,8 @@ __metadata:
   linkType: hard
 
 "langsmith@npm:^0.1.56":
-  version: 0.1.61
-  resolution: "langsmith@npm:0.1.61"
+  version: 0.1.62
+  resolution: "langsmith@npm:0.1.62"
   dependencies:
     "@types/uuid": "npm:^10.0.0"
     commander: "npm:^10.0.1"
@@ -11747,7 +11740,7 @@ __metadata:
   peerDependenciesMeta:
     openai:
       optional: true
-  checksum: 10c0/9e650bc48f95cf8b19e9d870109632da4a1b66cb275b5d84bb8e111d9f56e766a662c4fcf1852f243730e3187c99b0cbfd6f00dc52d8ace0dc3e1c6e6eaaaa9a
+  checksum: 10c0/cf95da78cbe29a91bb837543b9443d85622974b864481618b143e850901fd8166fdd53c1f3bb401d9c2159c9589089b40522a63a674586bca125887ef702ea2b
   languageName: node
   linkType: hard
 
@@ -11989,11 +11982,9 @@ __metadata:
   linkType: hard
 
 "loupe@npm:^3.1.0, loupe@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "loupe@npm:3.1.1"
-  dependencies:
-    get-func-name: "npm:^2.0.1"
-  checksum: 10c0/99f88badc47e894016df0c403de846fedfea61154aadabbf776c8428dd59e8d8378007135d385d737de32ae47980af07d22ba7bec5ef7beebd721de9baa0a0af
+  version: 3.1.2
+  resolution: "loupe@npm:3.1.2"
+  checksum: 10c0/b13c02e3ddd6a9d5f8bf84133b3242de556512d824dddeea71cce2dbd6579c8f4d672381c4e742d45cf4423d0701765b4a6e5fbc24701def16bc2b40f8daa96a
   languageName: node
   linkType: hard
 
@@ -16159,7 +16150,7 @@ __metadata:
     "@cloudflare/vitest-pool-workers": "npm:^0.5.15"
     "@cloudflare/workers-types": "npm:^4.20241004.0"
     "@types/esprima": "npm:^4.0.6"
-    "@types/node": "npm:^22.7.4"
+    "@types/node": "npm:^22.7.5"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.6.2"
     vitest: "npm:2.1.2"
