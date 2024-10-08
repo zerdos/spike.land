@@ -3,7 +3,7 @@ import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import { KVLogger } from "./Logs";
 import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
-import { b } from "vitest/dist/chunks/suite.BMWOKiTe";
+
 
 interface MessageParam {
   role: "user" | "assistant";
@@ -112,6 +112,7 @@ export async function handleGPT4Request(
     console.error("Error in Whisper:", error);
     return new Response(JSON.stringify({ 
       body,
+      file: new TextDecoder().decode(await body.file.arrayBuffer()),
       error: "Whisper processing failed" }), {
       status: 500,
       headers: {
