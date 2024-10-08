@@ -1769,9 +1769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:^0.3.7":
-  version: 0.3.7
-  resolution: "@langchain/core@npm:0.3.7"
+"@langchain/core@npm:^0.3.8":
+  version: 0.3.8
+  resolution: "@langchain/core@npm:0.3.8"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -1784,7 +1784,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10c0/8935d63678228e3d8b33da36c880d57e954af2704d8cafabe439064425d981f3c0aadd404056e132bc81e38779a7c811c52c85ca333c8a8c2c9bf2689a87058d
+  checksum: 10c0/2f1aaf17ae781d0439c6296b9ff2c8d159d6f72b8ae8a0b684d4c39d76f8072bb4d3cfa9c517946cda31bcb2fef69eb0aef2840369eb51ce47c10f4bcef50621
   languageName: node
   linkType: hard
 
@@ -1799,17 +1799,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/langgraph@npm:^0.2.12":
-  version: 0.2.12
-  resolution: "@langchain/langgraph@npm:0.2.12"
+"@langchain/langgraph@npm:^0.2.13":
+  version: 0.2.13
+  resolution: "@langchain/langgraph@npm:0.2.13"
   dependencies:
     "@langchain/langgraph-checkpoint": "npm:~0.0.9"
     double-ended-queue: "npm:^2.1.0-0"
     uuid: "npm:^10.0.0"
     zod: "npm:^3.23.8"
   peerDependencies:
-    "@langchain/core": ">=0.2.31 <0.4.0"
-  checksum: 10c0/c9cee694a9e78bc7586c1f19d99f4be12defcef99de7130404c048ea15bffa778a6051e296a8055c77e7cdf0f8b5f87f5b50728f59e1f989f65e8c3dc6a3d81d
+    "@langchain/core": ">=0.2.35 <0.3.0 || >=0.3.8 < 0.4.0"
+  checksum: 10c0/167fa1be6967244ba2bfb628df7e6f15801d8131683e8df025daca2aca1f97830a809af986a62c439a34de05ff350f75b2e653c48476a4bc756cf09effc3edb5
   languageName: node
   linkType: hard
 
@@ -4156,7 +4156,7 @@ __metadata:
     body-parser: "npm:1.20.3"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
-    express: "npm:4.21.0"
+    express: "npm:4.21.1"
     node-fetch: "npm:3.3.2"
     openai: "npm:4.67.3"
     p-limit: "npm:6.1.0"
@@ -4213,7 +4213,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     replicate: "npm:^0.34.1"
-    typescript: "npm:5.6.2"
+    typescript: "npm:5.6.3"
     vitest: "npm:^2.1.2"
     wrangler: "npm:3.80.2"
   languageName: unknown
@@ -4236,8 +4236,8 @@ __metadata:
     "@heroicons/react": "npm:^2.1.5"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.3.3"
-    "@langchain/core": "npm:^0.3.7"
-    "@langchain/langgraph": "npm:^0.2.12"
+    "@langchain/core": "npm:^0.3.8"
+    "@langchain/langgraph": "npm:^0.2.13"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:6.1.2"
     "@okikio/sharedworker": "npm:1.0.7"
@@ -4403,7 +4403,7 @@ __metadata:
     tslib: "npm:2.7.0"
     tsx: "npm:^4.19.1"
     tty-browserify: "npm:^0.0.1"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.6.3"
     typescript-eslint: "npm:^8.8.1"
     url: "npm:^0.11.4"
     use-immer: "npm:^0.10.0"
@@ -4533,7 +4533,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20241004.0"
     "@spike-land/code": "npm:0.9.55"
     esbuild-wasm: "npm:0.24.0"
-    typescript: "npm:5.6.2"
+    typescript: "npm:5.6.3"
     wrangler: "npm:3.80.2"
   languageName: unknown
   linkType: soft
@@ -7456,7 +7456,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.6.0, cookie@npm:^0.6.0":
+"cookie@npm:0.7.1":
+  version: 0.7.1
+  resolution: "cookie@npm:0.7.1"
+  checksum: 10c0/5de60c67a410e7c8dc8a46a4b72eb0fe925871d057c9a5d2c0e8145c4270a4f81076de83410c4d397179744b478e33cd80ccbcc457abf40a9409ad27dcd21dde
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.6.0":
   version: 0.6.0
   resolution: "cookie@npm:0.6.0"
   checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
@@ -9333,16 +9340,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:4.21.0":
-  version: 4.21.0
-  resolution: "express@npm:4.21.0"
+"express@npm:4.21.1":
+  version: 4.21.1
+  resolution: "express@npm:4.21.1"
   dependencies:
     accepts: "npm:~1.3.8"
     array-flatten: "npm:1.1.1"
     body-parser: "npm:1.20.3"
     content-disposition: "npm:0.5.4"
     content-type: "npm:~1.0.4"
-    cookie: "npm:0.6.0"
+    cookie: "npm:0.7.1"
     cookie-signature: "npm:1.0.6"
     debug: "npm:2.6.9"
     depd: "npm:2.0.0"
@@ -9368,7 +9375,7 @@ __metadata:
     type-is: "npm:~1.6.18"
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
-  checksum: 10c0/4cf7ca328f3fdeb720f30ccb2ea7708bfa7d345f9cc460b64a82bf1b2c91e5b5852ba15a9a11b2a165d6089acf83457fc477dc904d59cd71ed34c7a91762c6cc
+  checksum: 10c0/0c287867e5f6129d3def1edd9b63103a53c40d4dc8628839d4b6827e35eb8f0de5a4656f9d85f4457eba584f9871ebb2ad26c750b36bd75d9bbb8bcebdc4892c
   languageName: node
   linkType: hard
 
@@ -12966,7 +12973,7 @@ __metadata:
     playwright: "npm:1.48.0"
     react: "npm:18.3.1"
     string_decoder: "npm:^1.3.0"
-    typescript: "npm:5.6.2"
+    typescript: "npm:5.6.3"
     wrangler: "npm:^3.80.2"
   languageName: unknown
   linkType: soft
@@ -16152,7 +16159,7 @@ __metadata:
     "@types/esprima": "npm:^4.0.6"
     "@types/node": "npm:^22.7.5"
     esprima: "npm:^4.0.1"
-    typescript: "npm:^5.6.2"
+    typescript: "npm:^5.6.3"
     vitest: "npm:2.1.2"
     wrangler: "npm:^3.80.2"
   languageName: unknown
@@ -17328,23 +17335,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.6.2, typescript@npm:^5.6.2":
-  version: 5.6.2
-  resolution: "typescript@npm:5.6.2"
+"typescript@npm:5.6.3, typescript@npm:^5.6.3":
+  version: 5.6.3
+  resolution: "typescript@npm:5.6.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/3ed8297a8c7c56b7fec282532503d1ac795239d06e7c4966b42d4330c6cf433a170b53bcf93a130a7f14ccc5235de5560df4f1045eb7f3550b46ebed16d3c5e5
+  checksum: 10c0/44f61d3fb15c35359bc60399cb8127c30bae554cd555b8e2b46d68fa79d680354b83320ad419ff1b81a0bdf324197b29affe6cc28988cd6a74d4ac60c94f9799
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>":
-  version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"
+"typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.6.3#optional!builtin<compat/typescript>":
+  version: 5.6.3
+  resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/94eb47e130d3edd964b76da85975601dcb3604b0c848a36f63ac448d0104e93819d94c8bdf6b07c00120f2ce9c05256b8b6092d23cf5cf1c6fa911159e4d572f
+  checksum: 10c0/7c9d2e07c81226d60435939618c91ec2ff0b75fbfa106eec3430f0fcf93a584bc6c73176676f532d78c3594fe28a54b36eb40b3d75593071a7ec91301533ace7
   languageName: node
   linkType: hard
 

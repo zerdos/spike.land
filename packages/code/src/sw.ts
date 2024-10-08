@@ -16,6 +16,7 @@ const sw = self as unknown as ServiceWorkerGlobalScope & {
   files: Record<string, string>;
   fileCacheName: string;
 };
+sw.fileCacheName = `sw-file-cache-${sw.swVersion}`;
 
 const swDepsInFiles = sw.files["sw-deps.js"].split(".");
 swDepsInFiles.pop(); // js
@@ -101,35 +102,104 @@ const { isAsset, serve } = serveWithCache(
 
 // Updated Install Event Handler
 sw.addEventListener("install", (event) => {
+  const queuedFetch = new QueuedFetch(4);
+
   event.waitUntil(
     (async () => {
       console.log("Service Worker installing.");
       const config = await configPromise;
       if (config && sw.swVersion === config.swVersion) {
-        const cacheName = `sw-file-cache-${config.swVersion}`;
-        const keys = await caches.keys();
+        // const keys = await caches.keys();
 
-        if (keys.includes(cacheName)) {
-          console.log("Cache already exists. Skipping installation.");
+        const myCache = await caches.open(sw.fileCacheName);
+        const myCacheKeys = await myCache.keys();
+        const myKeys = new Set(myCacheKeys.map((request) => request.url));
+
+        if (!myCacheKeys.length) {
+          await myCache.put(
+            "/files.json",
+            new Response(JSON.stringify(files), {
+              headers: { "Content-Type": "application/json" },
+            }),
+          );
+        }
+
+        // Get list of cache names excluding the current one
+        const cacheNames = (await caches.keys()).filter(
+          (cacheName) => cacheName !== sw.fileCacheName,
+        );
+
+        const allKeys = new Set(
+          Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
+        );
+
+        const missing = setDifference(allKeys, myKeys);
+
+        // Copy missing items from old caches
+        for (const cacheName of cacheNames) {
+          const oldCache = await caches.open(cacheName);
+          const oldCacheKeys = await oldCache.keys();
+          const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
+
+          const oldCacheHasItems = setIntersection(oldKeys, missing);
+
+          for (const url of oldCacheHasItems) {
+            const request = new Request(url);
+            const response = await oldCache.match(request);
+            if (response) {
+              await myCache.put(request, response);
+            }
+          }
+        }
+
+        // Fetch any remaining missing files from the network
+        const updatedMyCacheKeys = await myCache.keys();
+        const updatedMyKeys = new Set(
+          updatedMyCacheKeys.map((request) => request.url),
+        );
+        const stillMissing = setDifference(allKeys, updatedMyKeys);
+
+        Promise.all([...stillMissing].map(async (url) => {
+          const { pathname, origin } = new URL(url);
+          const request = new Request(
+            new URL(filesByCacheKeys[pathname.slice(1)], origin).toString(),
+          );
+          try {
+            const response = await queuedFetch.fetch(request);
+            if (response.ok) {
+              await myCache.put(request, response.clone());
+            } else {
+              console.error(`Failed to fetch ${url}: ${response.statusText}`);
+            }
+          } catch (error) {
+            console.error(`Error fetching ${url}:`, error);
+          }
+        }));
+
+        // integrity check
+        const updatedMyCacheKeys2 = await myCache.keys();
+        const updatedMyKeys2 = new Set(
+          updatedMyCacheKeys2.map((request) => request.url),
+        );
+        const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
+        if (stillMissing2.size) {
+          console.error("Failed to fetch the following files:", stillMissing2);
+          sw.registration.unregister();
           return;
         }
-        await caches.open(cacheName);
-
-        // Uncomment and modify if you need to pre-cache assets
-        // try {
-        //   const cache = await caches.open(cacheName);
-        //   await cache.addAll(Object.values(files).map((file) => "/" + file));
-        // } catch (error) {
-        //   console.error("Error in cache.addAll", error);
-        // }
 
         await sw.skipWaiting();
+        console.log("Service Worker installed.");
+        sw.clients.claim();
+        sw.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage("reload");
+          });
+        });
       }
     })(),
   );
 });
-
-const queuedFetch = new QueuedFetch(4);
 
 // Updated Activate Event Handler
 sw.addEventListener("activate", (event) => {
@@ -146,79 +216,14 @@ sw.addEventListener("activate", (event) => {
 
       if (config.killSwitch) {
         // If killSwitch is activated, unregister and delete caches
-        console.log("Kill switch activated. Unregistering Service Worker.");
+        console.log("Kill switch activated. Un-registering Service Worker.");
         await sw.registration.unregister();
         const cacheNames = await caches.keys();
         await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
         return;
       }
 
-      const cacheSWName = `sw-file-cache-${config.swVersion}`;
-      const myCache = await caches.open(cacheSWName);
-
-      // Put files.json into cache
-      await myCache.put(
-        "/files.json",
-        new Response(JSON.stringify(files), {
-          headers: { "Content-Type": "application/json" },
-        }),
-      );
-
-      // Get list of cache names excluding the current one
-      const cacheNames = (await caches.keys()).filter(
-        (cacheName) => cacheName !== cacheSWName && cacheName.startsWith("sw-file-cache"),
-      );
-
-      const allKeys = new Set(
-        Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
-      );
-
-      const myCacheKeys = await myCache.keys();
-      const myKeys = new Set(myCacheKeys.map((request) => request.url));
-
-      const missing = setDifference(allKeys, myKeys);
-
-      // Copy missing items from old caches
-      for (const cacheName of cacheNames) {
-        const oldCache = await caches.open(cacheName);
-        const oldCacheKeys = await oldCache.keys();
-        const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
-
-        const oldCacheHasItems = setIntersection(oldKeys, missing);
-
-        for (const url of oldCacheHasItems) {
-          const request = new Request(url);
-          const response = await oldCache.match(request);
-          if (response) {
-            await myCache.put(request, response);
-          }
-        }
-      }
-
-      // Fetch any remaining missing files from the network
-      const updatedMyCacheKeys = await myCache.keys();
-      const updatedMyKeys = new Set(
-        updatedMyCacheKeys.map((request) => request.url),
-      );
-      const stillMissing = setDifference(allKeys, updatedMyKeys);
-
-      Promise.all([...stillMissing].map(async (url) => {
-        const { pathname, origin } = new URL(url);
-        const request = new Request(
-          new URL(filesByCacheKeys[pathname.slice(1)], origin).toString(),
-        );
-        try {
-          const response = await queuedFetch.fetch(request);
-          if (response.ok) {
-            await myCache.put(request, response.clone());
-          } else {
-            console.error(`Failed to fetch ${url}: ${response.statusText}`);
-          }
-        } catch (error) {
-          console.error(`Error fetching ${url}:`, error);
-        }
-      }));
-
+      const cacheNames = (await caches.keys()).filter(x => x !== sw.fileCacheName);
       // Delete old caches
       await Promise.all(
         cacheNames.map((cacheName) => caches.delete(cacheName)),
