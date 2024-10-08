@@ -200,9 +200,24 @@ export default {
       return handleGPT4Request(request, env, ctx);
     }
     if (request.url.includes("whisper")) {
+
+      
       
 
-      const blob =await request.arrayBuffer();
+      const formData =await request.formData();
+
+      const body: { [key: string]: unknown;
+        file: File 
+       } = { file: new File([], "") };
+      for (const entry of formData.entries()) {
+        body[entry[0]] = entry[1];
+      }
+      if (body["record.wav"]){
+        body.file = await formData.get("record.wav") as unknown as File;
+      }
+
+
+      const blob = await body.file!.arrayBuffer();
 
       const inputs = {
         audio: [...new Uint8Array(blob)]
