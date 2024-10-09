@@ -1,4 +1,3 @@
-import { P } from "@clerk/clerk-react/dist/controlComponents-CByvIpDK";
 import type {
   CodeSessionBC as CsBc,
   importMapReplace as ImportMapReplace,
@@ -166,7 +165,7 @@ sw.addEventListener("install", (event) => {
           const request = new Request(
             new URL(filesByCacheKeys[cacheKey], origin).toString(),
           );
-          const parts = filesByCacheKeys[cacheKey].split(".");
+          const parts = cacheKey.split(".");
           parts.pop();
           const hash = parts.pop();
           if (hash?.length !== 10) {
