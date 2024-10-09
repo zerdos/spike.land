@@ -1,6 +1,10 @@
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 
 class SessMock implements ICode {
+  setCodeAndTranspiled(): boolean {
+    // Currently not using formatted and transpiled
+    throw new Error("Method not implemented.");
+  }
   buffy: Promise<void>[] = [];
   codeSpace: string = "mock-code-space";
 
