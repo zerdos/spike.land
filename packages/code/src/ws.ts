@@ -95,10 +95,10 @@ const handleRender = async (
 
     // let cssStrings = [...criticalClasses]
 
-    let cssStrings = [tailWindClassesX, emotionStyles].join("\n");
+    const cssStrings = [tailWindClassesX, emotionStyles].join("\n");
 
     try {
-      cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+      // cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
     } catch (error) {
       console.error("Error prettifying CSS:", error);
     }
