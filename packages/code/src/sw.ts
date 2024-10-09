@@ -72,21 +72,7 @@ const config = async () => {
   if (!cf || Date.now() > cf.validUntil) {
     cf = await fetchConfig();
     configPromise = cf;
-  }
-
-  if (!await config()) {
-    console.error("Failed to fetch configuration. Skipping activation.");
-    // sw.registration.unregister();
-    // return;
-  }
-
-  if ((await config())!.killSwitch) {
-    // If killSwitch is activated, unregister and delete caches
-    console.log("Kill switch activated. Un-registering Service Worker.");
-    await sw.registration.unregister();
-    const cacheNames = await caches.keys();
-    await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
-    return;
+    return cf;
   }
 
   return cf;
