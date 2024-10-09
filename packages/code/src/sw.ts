@@ -1,10 +1,4 @@
-import type {
-  CodeSessionBC as CsBc,
-  importMapReplace as ImportMapReplace,
-  QueuedFetch as Qf,
-  serveWithCache as ServeWithCache,
-  useCodeSpace as UseCodeSpace,
-} from "./sw-deps";
+import type { fakeServer as FakeServer, QueuedFetch as Qf, serveWithCache as ServeWithCache } from "./sw-deps";
 
 import type { transpile as Trp } from "@/lib/transpile";
 
@@ -12,7 +6,6 @@ importScripts("/swVersion.js");
 
 const sw = self as unknown as ServiceWorkerGlobalScope & {
   swVersion: string;
-  cSessions: Record<string, CsBc>;
   files: Record<string, string>;
   fileCacheName: string;
 };
@@ -32,47 +25,72 @@ importScripts(
 importScripts("/sw-deps.js" + "?hash=" + hash); // sw-deps.js
 
 const {
+  fakeServer,
   serveWithCache,
-  CodeSessionBC,
-  useCodeSpace,
-  importMapReplace,
   QueuedFetch,
-  transpile,
-  HTML,
-  importMap,
 } = globalThis as unknown as {
+  fakeServer: typeof FakeServer;
   QueuedFetch: typeof Qf;
   serveWithCache: typeof ServeWithCache;
-  CodeSessionBC: typeof CsBc;
-  useCodeSpace: typeof UseCodeSpace;
-  importMapReplace: typeof ImportMapReplace;
+
   transpile: typeof Trp;
   HTML: string;
   importMap: Record<string, string>;
 };
 
 // Initialize cSessions
-sw.cSessions = sw.cSessions || {};
+
+type Config = {
+  killSwitch: boolean;
+  version: string;
+  swVersion: string;
+  validUntil: number;
+};
 
 // Function to fetch configuration and update sw.fileCacheName
 async function fetchConfig() {
   try {
     const response = await fetch("/sw-config.json");
-    const config = (await response.json()) as {
-      killSwitch: boolean;
-      version: string;
-      swVersion: string;
-    };
+    const config = (await response.json()) as Config;
 
     return config;
   } catch (error) {
     console.error("Failed to fetch configuration:", error);
-    return null;
+    return {
+      killSwitch: true,
+      version: "",
+      swVersion: "",
+      validUntil: 0,
+    };
   }
 }
 
 // Fetch the configuration initially
-const configPromise = fetchConfig();
+let configPromise: Promise<Config> | Config = fetchConfig().then((config) => configPromise = config);
+const config = async () => {
+  let cf = await configPromise;
+  if (!cf || Date.now() > cf.validUntil) {
+    cf = await fetchConfig();
+    configPromise = cf;
+  }
+
+  if (!await config()) {
+    console.error("Failed to fetch configuration. Skipping activation.");
+    sw.registration.unregister();
+    return;
+  }
+
+  if ((await config())!.killSwitch) {
+    // If killSwitch is activated, unregister and delete caches
+    console.log("Kill switch activated. Un-registering Service Worker.");
+    await sw.registration.unregister();
+    const cacheNames = await caches.keys();
+    await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
+    return;
+  }
+
+  return cf;
+};
 
 // Access the files from sw.files
 const files = sw.files;
@@ -107,8 +125,8 @@ sw.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
       console.log("Service Worker installing.");
-      const config = await configPromise;
-      if (config && sw.swVersion === config.swVersion) {
+
+      if (sw.swVersion === (await config())!.swVersion) {
         // const keys = await caches.keys();
 
         const myCache = await caches.open(sw.fileCacheName);
@@ -243,23 +261,7 @@ sw.addEventListener("activate", (event) => {
         return;
       }
 
-      console.log("Service Worker activating.");
-
-      // Ensure the config is fetched
-      const config = await configPromise;
-      if (!config) {
-        console.error("Failed to fetch configuration. Skipping activation.");
-        return;
-      }
-
-      if (config.killSwitch) {
-        // If killSwitch is activated, unregister and delete caches
-        console.log("Kill switch activated. Un-registering Service Worker.");
-        await sw.registration.unregister();
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((cache) => caches.delete(cache)));
-        return;
-      }
+      console.log("Service Worker activating."); // Ensure the config is fetched
 
       const cacheNames = (await caches.keys()).filter(x => x !== sw.fileCacheName);
       // Delete old caches
@@ -280,35 +282,13 @@ sw.addEventListener("activate", (event) => {
   );
 });
 
-// Periodically check for killSwitch
-let lastConfigCheck = 0;
-
 sw.addEventListener("fetch", (event) => {
   const request = event.request;
 
   if (request.method !== "GET") {
     event.respondWith(fetch(request));
     return;
-  }
-
-  if (Date.now() - lastConfigCheck > 60 * 60 * 1000) {
-    // Check every hour
-    lastConfigCheck = Date.now();
-    event.waitUntil(
-      (async () => {
-        const config = await fetchConfig();
-        if (config?.killSwitch || config?.swVersion !== sw.swVersion) {
-          await sw.registration.unregister();
-          const clients = await sw.clients.matchAll();
-          clients.forEach((client) => {
-            (client as WindowClient).navigate(client.url);
-          });
-        }
-      })(),
-    );
-  }
-
-  if (isAsset(request)) {
+  } else if (isAsset(request)) {
     event.respondWith(
       serve(
         request,
@@ -326,141 +306,9 @@ sw.addEventListener("fetch", (event) => {
       }),
     );
     return;
-  }
-
-  if (request.method === "GET" && request.url.includes("/live/")) {
+  } else if (request.method === "GET" && request.url.includes("/live/")) {
     event.respondWith(fakeServer(request));
     return;
-  }
-
-  async function fakeServer(request: Request) {
-    const codeSpace = useCodeSpace(new URL(request.url).pathname);
-    console.log("CodeSpace:", codeSpace);
-
-    sw.cSessions[codeSpace] = sw.cSessions[codeSpace]
-      || new CodeSessionBC(codeSpace);
-    const session = await sw.cSessions[codeSpace].init();
-
-    if (
-      request.url.includes("/session.json")
-    ) {
-      console.log("Session request:", request.url);
-
-      return new Response(JSON.stringify(session), {
-        headers: {
-          "Content-Type": "application/json",
-          ...request.headers,
-        },
-      });
-    } else if (
-      request.url.includes("/index.tsx")
-    ) {
-      console.log("Index request:", request.url);
-
-      return new Response(session.code, {
-        headers: {
-          "Content-Type": "application/javascript; charset=UTF-8",
-          ...request.headers,
-        },
-      });
-    } else if (
-      request.url.includes("/index.js")
-    ) {
-      console.log("Transpiled request:", request.url);
-
-      if (typeof session.transpiled !== "string" || session.transpiled === "") {
-        const transpiled = await transpile({
-          code: session.code,
-          originToUse: location.origin,
-        }) as unknown as string;
-        session.transpiled = transpiled;
-        await sw.cSessions[codeSpace].postMessage({
-          ...session,
-          transpiled,
-          i: session.i + 1,
-        });
-      }
-
-      return new Response(
-        importMapReplace(session.transpiled, location.origin),
-        {
-          headers: {
-            "Content-Type": "application/javascript; charset=UTF-8",
-            ...request.headers,
-          },
-        },
-      );
-    } else if (
-      request.url.includes("/index.css")
-    ) {
-      console.log("css request:", request.url);
-
-      return new Response(session.css, {
-        headers: {
-          "Content-Type": "text/css; charset=UTF-8",
-          ...request.headers,
-        },
-      });
-    } else if (
-      request.url.includes("/hydrated")
-      || request.url.includes("/worker")
-      || request.url.includes("/dehydrated")
-      || request.url.includes("/iframe")
-      || request.url.includes("/embed")
-      || request.url.includes("/public")
-      || request.url.endsWith(`/live/${codeSpace}/xxx`)
-    ) {
-      const respText = HTML.replace(
-        `<script type="importmap"></script>`,
-        `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-      ).replace(
-        `<!-- Inline LINK for initial theme -->`,
-        `<style>${session.css}</style>`,
-      ).replace(
-        "<div id=\"embed\"></div>",
-        `<div id="embed">${session.html}</div>`,
-      );
-
-      const headers = new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Resource-Policy": "cross-origin",
-        "Cross-Origin-Opener-Policy": "same-origin",
-        "Cache-Control": "no-cache",
-        "Content-Encoding": "gzip",
-        "Content-Type": "text/html; charset=UTF-8",
-      });
-
-      return new Response(respText, { status: 200, headers });
-    } else if (
-      request.url.endsWith(`/live/${codeSpace}`)
-      || request.url.endsWith(`/live/${codeSpace}/`)
-    ) {
-      const respText = HTML.replace(
-        `<script type="importmap"></script>`,
-        `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-      ).replace(
-        "<div id=\"embed\"></div>",
-        "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
-          + codeSpace + "/iframe\"></iframe></div>",
-      );
-
-      const headers = new Headers({
-        "Access-Control-Allow-Origin": "*",
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Resource-Policy": "cross-origin",
-        "Cross-Origin-Opener-Policy": "same-origin",
-        "Cache-Control": "no-cache",
-        "Content-Encoding": "gzip",
-        "Content-Type": "text/html; charset=UTF-8",
-      });
-
-      return new Response(respText, { status: 200, headers });
-    } else {
-      console.log("Default request:", request.url);
-
-      return fetch(request);
-    }
   }
 
   // For non-asset requests, fetch from the network

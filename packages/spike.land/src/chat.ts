@@ -80,6 +80,7 @@ export default {
           killSwitch: false,
           version: "v14",
           swVersion: ASSET_HASH,
+          valid: Date.now()+1000*60*60,
         }),
         {
           headers: {

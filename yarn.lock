@@ -4292,6 +4292,7 @@ __metadata:
     "@types/react": "npm:^18.3.11"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
+    "@types/recordrtc": "npm:^5"
     "@types/serve-handler": "npm:^6.1.4"
     "@types/text-encoding": "npm:^0.0.39"
     "@types/uuid": "npm:10.0.0"
@@ -4388,6 +4389,7 @@ __metadata:
     react-syntax-highlighter: "npm:^15.5.0"
     react-use: "npm:^17.5.1"
     recharts: "npm:^2.12.7"
+    recordrtc: "npm:^5.6.2"
     shadcdn: "npm:^0.0.7"
     sonner: "npm:^1.5.0"
     stream: "npm:^0.0.3"
@@ -5153,6 +5155,13 @@ __metadata:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10c0/ce80512246ca5bda69db85b9f4f1835189334acfb6b2c4f3eda8cabff1ff1a3ea9ce4f3b895bdbc18c94140aa45592331aa3fdeb557f525c1b048de7ce84fc0e
+  languageName: node
+  linkType: hard
+
+"@types/recordrtc@npm:^5":
+  version: 5.6.14
+  resolution: "@types/recordrtc@npm:5.6.14"
+  checksum: 10c0/a8520ac055a6f27f964ccc7f7b46391c432b67f6415ad493db8138d6aca19c945d634283f5965c9cb6368c967ca3890fb17539f9804d564d056e7c4286805073
   languageName: node
   linkType: hard
 
@@ -15147,6 +15156,13 @@ __metadata:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/2522d841a1f4e4c0a37046ddb61fa958ac37a66df63dcd4c6cb9113e3f7a71892d74e44494a55bc40faa0afd74d9cf58fec3d2ce53a8ddf997e75367bdd033fc
+  languageName: node
+  linkType: hard
+
+"recordrtc@npm:^5.6.2":
+  version: 5.6.2
+  resolution: "recordrtc@npm:5.6.2"
+  checksum: 10c0/ca7723d7a790db91d67cd7500e9bb847cf21c934318516c0a0d42619e80bc417f7d7df3f7e6d62d8da51513926c37eb754d2e10731831e77e50bb3c0a849d730
   languageName: node
   linkType: hard
 

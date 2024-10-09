@@ -55,12 +55,16 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
     if (mediaRecorderRef.current && isRecording) {
       setIsRecording(false);
       return new Promise<void>((resolve) => {
-        mediaRecorderRef.current.stopRecording(async () => {
-          const blob = mediaRecorderRef.current.getBlob();
-          mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        mediaRecorderRef.current?.stopRecording(async () => {
+          const blob = mediaRecorderRef.current?.getBlob();
+          mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
           mediaStreamRef.current = null;
           setIsProcessing(true);
-          await processAudio(blob);
+          if (blob) {
+            await processAudio(blob);
+          } else {
+            setError("Recording failed. Please try again.");
+          }
           setIsProcessing(false);
           resolve();
         });
@@ -92,7 +96,7 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
       setMessage((prevMessage) => prevMessage + " " + text);
     } catch (error) {
       console.error("Error in audio processing:", error);
-      setError(`An error occurred: ${error.message}`);
+      setError(`An error occurred: ${(error as Error).message}`);
     }
   };
 
@@ -121,6 +125,7 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
 
     const audioContext = new AudioContext();
     const analyser = audioContext.createAnalyser();
+    if (!mediaStreamRef.current) return;
     const microphone = audioContext.createMediaStreamSource(mediaStreamRef.current);
     microphone.connect(analyser);
     analyser.fftSize = 2048;
@@ -160,7 +165,7 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
   return [message, setMessage, { isRecording, isProcessing, error }] as const;
 }
 
-async function sendData(url: string, data: any) {
+async function sendData(url: string, data: Record<string, File | string>) {
   const formData = new FormData();
 
   for (const name in data) {

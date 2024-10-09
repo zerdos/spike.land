@@ -7022,6 +7022,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.11"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/react-syntax-highlighter", "npm:15.5.13"],\
+          ["@types/recordrtc", "npm:5.6.14"],\
           ["@types/serve-handler", "npm:6.1.4"],\
           ["@types/text-encoding", "npm:0.0.39"],\
           ["@types/uuid", "npm:10.0.0"],\
@@ -7118,6 +7119,7 @@ const RAW_RUNTIME_STATE =
           ["react-syntax-highlighter", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:15.5.0"],\
           ["react-use", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:17.5.1"],\
           ["recharts", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.12.7"],\
+          ["recordrtc", "npm:5.6.2"],\
           ["shadcdn", "npm:0.0.7"],\
           ["sonner", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.0"],\
           ["stream", "npm:0.0.3"],\
@@ -8149,6 +8151,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/react-transition-group", "npm:4.4.11"],\
           ["@types/react", "npm:18.3.11"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/recordrtc", [\
+      ["npm:5.6.14", {\
+        "packageLocation": "../../../../../Users/z/.yarn/berry/cache/@types-recordrtc-npm-5.6.14-41b079ad89-10c0.zip/node_modules/@types/recordrtc/",\
+        "packageDependencies": [\
+          ["@types/recordrtc", "npm:5.6.14"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20250,6 +20261,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["recharts-scale", "npm:0.4.5"],\
           ["decimal.js-light", "npm:2.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["recordrtc", [\
+      ["npm:5.6.2", {\
+        "packageLocation": "../../../../../Users/z/.yarn/berry/cache/recordrtc-npm-5.6.2-2f7179dbad-10c0.zip/node_modules/recordrtc/",\
+        "packageDependencies": [\
+          ["recordrtc", "npm:5.6.2"]\
         ],\
         "linkType": "HARD"\
       }]\
