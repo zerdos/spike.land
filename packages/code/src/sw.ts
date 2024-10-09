@@ -158,9 +158,9 @@ sw.addEventListener("install", (event) => {
           const parts = cacheKey.split(".");
           parts.pop();
           const hash = parts.pop();
-          if (hash?.length !== 10) {
+          if (hash?.length !== 10 && hash?.length !== 8) {
             console.error(`Invalid hash for ${url}`);
-            console.error(`Expected: 10 characters`);
+            console.error(`Expected: 8- 10 characters`);
             console.error(`Received: ${hash}`);
             throw new Error(`Invalid hash for ${url}`);
           }
