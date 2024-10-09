@@ -84,7 +84,7 @@ class WorkerPool {
 let workerPool: WorkerPool;
 
 async function init() {
-  const { swVersion } = await import("@/lib/swVersion");
+  const { swVersion } = await import("@/lib/sw-version");
 
   workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool
     || new WorkerPool(0, swVersion);

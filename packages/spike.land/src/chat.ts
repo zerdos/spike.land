@@ -17,7 +17,7 @@ export default {
  
 
     if (
-      url.pathname === "/@/lib/swVersion.mjs" ||
+      url.pathname === "/@/lib/sw-version.mjs" ||
       url.pathname === "/swVersion.mjs"
     ) {
       const filesPart = files["@/swVersion.mjs"].split(".");
