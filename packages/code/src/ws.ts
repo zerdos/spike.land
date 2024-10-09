@@ -105,7 +105,7 @@ const handleRender = async (
     ].map((x) => x.cssText.split("\\")).join("");
 
     const htmlClasses = new Set(
-      getClassNamesFromHTML(html).join(" ").split(" "),
+      getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
     );
 
     console.log("HTML classes:", htmlClasses);
