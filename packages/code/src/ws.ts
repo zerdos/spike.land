@@ -96,6 +96,7 @@ const handleRender = async (
     const html = htmlDecode(rootElement.innerHTML);
 
     const emotionStyles = extractStyles();
+    console.log("Emotion styles:", emotionStyles);
 
     const tailWindClassesX = [
       ...(document.querySelector<HTMLStyleElement>(
@@ -106,6 +107,8 @@ const handleRender = async (
     const htmlClasses = new Set(
       getClassNamesFromHTML(html).join(" ").split(" "),
     );
+
+    console.log("HTML classes:", htmlClasses);
 
     const criticalClasses = new Set(
       emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
@@ -120,8 +123,9 @@ const handleRender = async (
     }
 
     const cssStyled = cssStrings.split(cssCache.key).join("x");
+    console.log("CSS styled:", cssStyled);
     return {
-      css: tailWindClassesX + cssStyled,
+      css: tailWindClassesX + "\n" + cssStyled,
       html: html.split(cssCache.key).join("x"),
     };
   }
