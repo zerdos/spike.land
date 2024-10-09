@@ -76,8 +76,8 @@ const config = async () => {
 
   if (!await config()) {
     console.error("Failed to fetch configuration. Skipping activation.");
-    sw.registration.unregister();
-    return;
+    // sw.registration.unregister();
+    // return;
   }
 
   if ((await config())!.killSwitch) {
@@ -226,7 +226,7 @@ sw.addEventListener("install", (event) => {
         const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
         if (stillMissing2.size) {
           console.error("Failed to fetch the following files:", [...stillMissing2]);
-          sw.registration.unregister();
+          // sw.registration.unregister();
           return;
         }
 
@@ -257,7 +257,7 @@ sw.addEventListener("activate", (event) => {
       const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
       if (stillMissing2.size) {
         console.error("Failed to fetch the following files:", [...stillMissing2]);
-        sw.registration.unregister();
+        // sw.registration.unregister();
         return;
       }
 
