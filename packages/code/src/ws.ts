@@ -1,14 +1,14 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
-import { initializeApp, setupServiceWorker } from "./hydrate";
-import { Code } from "./services/CodeSession";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
+import { Code } from "./services/CodeSession";
 import { init } from "./tw-dev-setup";
 
 // Global variables and types
@@ -43,7 +43,7 @@ const htmlDecode = (input: string): string => {
     .replace(/&amp;/g, "&")
     .replace(/&gt;/g, ">")
     .replace(/&lt;/g, "<")
-    .replace(/&quot;/g, '"')
+    .replace(/&quot;/g, "\"")
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, " ");
 };
@@ -106,10 +106,10 @@ const handleRender = async (renderedNew: RenderedApp): Promise<{ css: string; ht
     const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
 
     const criticalClasses = new Set(
-      emotionStyles.filter(line => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim()))
+      emotionStyles.filter(line => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
     );
 
-    let cssStrings = [...tailWindClassesX, ...criticalClasses].join("\n");
+    let cssStrings = criticalClasses.join("\n");
 
     try {
       cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
@@ -118,7 +118,7 @@ const handleRender = async (renderedNew: RenderedApp): Promise<{ css: string; ht
     }
 
     return {
-      css: cssStrings.split(cssCache.key).join("x"),
+      css: tailWindClassesX + ssStrings.split(cssCache.key).join("x"),
       html: html.split(cssCache.key).join("x"),
     };
   }
