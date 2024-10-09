@@ -153,29 +153,7 @@ sw.addEventListener("install", (event) => {
 
         const missing = setDifference(allKeys, myKeys);
 
-        // Copy missing items from old caches
-        for (const cacheName of cacheNames) {
-          const oldCache = await caches.open(cacheName);
-          const oldCacheKeys = await oldCache.keys();
-          const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
-
-          const oldCacheHasItems = setIntersection(oldKeys, missing);
-
-          for (const url of oldCacheHasItems) {
-            const request = new Request(url);
-            const response = await oldCache.match(request);
-            if (response) {
-              await myCache.put(request, response);
-            }
-          }
-        }
-
-        // Fetch any remaining missing files from the network
-        const updatedMyCacheKeys = await myCache.keys();
-        const updatedMyKeys = new Set(
-          updatedMyCacheKeys.map((request) => request.url),
-        );
-        const stillMissing = setDifference(allKeys, updatedMyKeys);
+        const stillMissing = await getMissingFiles(missing, cacheNames, myCache);
 
         Promise.all([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
@@ -314,3 +292,30 @@ sw.addEventListener("fetch", (event) => {
   // For non-asset requests, fetch from the network
   event.respondWith(fetch(request));
 });
+
+async function getMissingFiles(missing: Set<string>, cacheNames: string[], myCache: Cache) {
+  // Copy missing items from old caches
+  for (const cacheName of cacheNames) {
+    const oldCache = await caches.open(cacheName);
+    const oldCacheKeys = await oldCache.keys();
+    const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
+
+    const oldCacheHasItems = setIntersection(oldKeys, missing);
+
+    for (const url of oldCacheHasItems) {
+      const request = new Request(url);
+      const response = await oldCache.match(request);
+      if (response) {
+        await myCache.put(request, response);
+      }
+    }
+  }
+
+  // Fetch any remaining missing files from the network
+  const updatedMyCacheKeys = await myCache.keys();
+  const updatedMyKeys = new Set(
+    updatedMyCacheKeys.map((request) => request.url),
+  );
+  const stillMissing = setDifference(missing, updatedMyKeys);
+  return stillMissing;
+}
