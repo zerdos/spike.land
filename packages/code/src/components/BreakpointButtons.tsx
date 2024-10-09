@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
 import { Phone, Tablet, Tv } from "../icons";
+import { cn } from "../lib/utils";
 
 type BreakpointButtonsProps = {
   width: number;
@@ -17,11 +17,7 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
   return (
     <motion.div
       layout
-      css={css`
-        overflow: hidden;
-        display: flex;
-        justify-content: space-evenly;
-      `}
+      className="overflow-hidden flex justify-evenly"
       initial={{ height: 0, width: 0 }}
       animate={{ height: 42, width: "100%" }}
     >
@@ -36,13 +32,9 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
         {breakPoints.map((size, index) => (
           <ToggleButton key={size} value={size}>
             <span
-              css={css`
-                color: ${
-                width === size
-                  ? "var(--text-color-highlight)"
-                  : "var(--text-color-normal)"
-              };
-              `}
+              className={cn(
+                width === size ? "text-highlight" : "text-normal"
+              )}
             >
               {index === 0 ? <Phone /> : index === 1 ? <Tablet /> : <Tv />}
             </span>

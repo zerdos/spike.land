@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
+import { cn } from "../lib/utils";
 
 type ScaleRangeButtonsProps = {
   scaleRange: number;
@@ -18,11 +18,7 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
   return (
     <motion.div
       layout
-      css={css`
-        overflow: hidden;
-        display: flex;
-        justify-content: space-evenly;
-      `}
+      className="overflow-hidden flex justify-evenly"
       initial={{ height: 0, width: 0 }}
       animate={{ height: 42, width: "100%" }}
     >
@@ -45,13 +41,9 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
           .map((size) => (
             <ToggleButton key={size} value={size}>
               <span
-                css={css`
-                  color: ${
-                  size === scaleRange
-                    ? "var(--text-color-highlight)"
-                    : "var(--text-color-normal)"
-                };
-                `}
+                className={cn(
+                  size === scaleRange ? "text-highlight" : "text-normal"
+                )}
               >
                 {size}%
               </span>

@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { ActionButtons } from "./ActionButtons";
 import { BreakpointButtons } from "./BreakpointButtons";
 import { ContentWrapper } from "./ContentWrapper";
@@ -38,15 +37,8 @@ export const DraggableWindowContent = (
     rgba: (r: number, g: number, b: number, a: number) => string;
   },
 ) => (
-  <div className="overflow-hidden" id={"DraggableWindow"} style={{ display: "flex" }}>
-    <div
-      css={css`
-          display: flex;
-          width: 100%;
-          flex-direction: column;
-          align-items: center;
-        `}
-    >
+  <div className="overflow-hidden flex" id="DraggableWindow">
+    <div className="flex w-full flex-col items-center">
       <ScaleRangeButtons
         scaleRange={scaleRange}
         setScaleRange={setScaleRange}

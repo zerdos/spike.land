@@ -1,26 +1,21 @@
-import { css } from "@emotion/react";
-import type { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
 
 export const ScaledContent = (
   { children, innerHeight, width, scale, bgColor, rgba }: {
-    children: JSX.Element;
+    children: React.ReactElement;
     innerHeight: number;
     width: number;
     scale: number;
     bgColor: number[];
     rgba: (r: number, g: number, b: number, a: number) => string;
   },
-): JSX.Element => (
+): React.ReactElement => (
   <motion.div
     transition={{ zoom: { type: "spring" }, delay: 0 }}
-    css={css`
-        transform-origin: top left;
-        display: inline-block;
-        border-radius: 8px;
-        background-color: ${rgba(bgColor[0], bgColor[1], bgColor[2], 0.5)};
-        overflow: hidden;
-      `}
+    className="origin-top-left inline-block rounded-lg overflow-hidden"
+    style={{
+      backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5)
+    }}
     initial={{
       height: innerHeight,
       width: innerWidth,

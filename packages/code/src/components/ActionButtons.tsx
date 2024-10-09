@@ -1,10 +1,10 @@
-import { FaDownload, MdFullscreen as FullscreenIcon } from "@/external/icons";
-import { css } from "@emotion/react";
 import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import type { FC } from "react";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
+import { FaDownload } from "react-icons/fa";
+import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 
 type ActionButtonsProps = {
   codeSpace: string;
@@ -18,24 +18,16 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
   return (
     <motion.div
       layout
-      css={css`overflow: hidden;`}
+      className="overflow-hidden"
       initial={{ height: 0, width: 0 }}
       animate={{ height: "100%", width: 88 }}
     >
-      <div
-        css={css`
-          padding: 16px;
-          display: flex;
-          overflow: hidden;
-          align-items: center;
-          flex-direction: column;
-        `}
-      >
+      <div className="p-4 flex overflow-hidden items-center flex-col">
         <Tooltip title="Toggle Fullscreen" placement="left">
           <Fab
             onClick={() => document.querySelector("#root")?.requestFullscreen()}
           >
-            <span css={css`font-size: 20pt;`}>
+            <span className="text-3xl">
               <FullscreenIcon />
             </span>
           </Fab>
