@@ -90,11 +90,10 @@ const handleRender = async (
   for (let attempts = 5; attempts > 0; attempts--) {
     if (!rootElement.innerHTML) {
       await wait(50);
-      if (!rootElement?.innerHTML) return false;
+      if (!rootElement?.innerHTML) continue;
     }
 
     const html = htmlDecode(rootElement.innerHTML);
-    if (!html) continue;
 
     const emotionStyles = extractStyles();
     const tailWindClasses = document.querySelector<HTMLStyleElement>(
