@@ -221,7 +221,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
             to: ["./dist/assets"],
           },
           {
-            from: "./src/assets/manifest.json",
+            from: "./src/assets/manifest.webmanifest",
             to: "./dist",
           },
           {

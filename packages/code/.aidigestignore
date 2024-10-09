@@ -24,7 +24,7 @@ install-components.sh
 components.json
 .vscode/settings.json
 src/favicon.ico
-src/assets/manifest.json
+src/assets/manifest.webmanifest
 __snapshots__
 src/@/**/*
 src/assets/app.css
