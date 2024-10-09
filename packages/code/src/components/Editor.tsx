@@ -62,8 +62,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         const md5Code = md5(data.code);
 
         if (mod.current.md5Ids.includes(md5Code)) return;
-        
-        mod.current.md5Ids.push(md5Code);
+
+        mod.current.md5Ids.push(md5Code);  
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
         // mod.current.controller.abort();
