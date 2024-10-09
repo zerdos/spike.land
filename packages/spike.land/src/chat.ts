@@ -20,13 +20,10 @@ export default {
       url.pathname === "/@/lib/sw-version.mjs" ||
       url.pathname === "/swVersion.mjs"
     ) {
-      const filesPart = files["@/swVersion.mjs"].split(".");
-      const ext = filesPart.pop();
-      const hash = filesPart.pop();
       return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
         headers: {
           "Content-Type": "application/javascript",
-          "x-hash": hash,
+          "x-hash": ASSET_HASH,
         },
       });
     }
