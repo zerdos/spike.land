@@ -1,3 +1,4 @@
+import { P } from "@clerk/clerk-react/dist/controlComponents-CByvIpDK";
 import type {
   CodeSessionBC as CsBc,
   importMapReplace as ImportMapReplace,
@@ -168,6 +169,12 @@ sw.addEventListener("install", (event) => {
           const parts = filesByCacheKeys[cacheKey].split(".");
           parts.pop();
           const hash = parts.pop();
+          if (hash?.length !== 10) {
+            console.error(`Invalid hash for ${url}`);
+            console.error(`Expected: 10 characters`);
+            console.error(`Received: ${hash}`);
+            throw new Error(`Invalid hash for ${url}`);
+          }
           const cacheRequest = new Request(
             new URL(cacheKey, origin).toString(),
           );
