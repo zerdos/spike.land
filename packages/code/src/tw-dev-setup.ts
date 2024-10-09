@@ -23,7 +23,7 @@ export const init = async (): Promise<void> => {
 
   try {
     await Promise.all([
-      loadCSS(`${origin}${CSS_PATH}`),
+      // loadCSS(`${origin}${CSS_PATH}`),
       loadScript(`${origin}${JS_PATH}`),
     ]);
   } catch (error) {
@@ -34,6 +34,7 @@ export const init = async (): Promise<void> => {
 
 const loadCSS = (href: string): Promise<void> => {
   return new Promise((resolve, reject) => {
+    // document.querySelector('[]')
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
