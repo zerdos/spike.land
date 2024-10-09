@@ -147,13 +147,17 @@ sw.addEventListener("install", (event) => {
           (cacheName) => cacheName !== sw.fileCacheName,
         );
 
+        console.log({ cacheNames });
+
         const allKeys = new Set(
           Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
         );
 
         const missing = setDifference(allKeys, myKeys);
+        console.log({ missing });
 
         const stillMissing = await getMissingFiles(missing, cacheNames, myCache);
+        console.log({ stillMissing });
 
         Promise.all([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
