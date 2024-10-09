@@ -184,6 +184,13 @@ export const transpile = async ({
   wasmModule?: WebAssembly.Module;
 }): Promise<string> =>
   mutex.runExclusive(async () => {
+    const tp = (globalThis as unknown as {
+      transpile?: typeof transpile;
+    }).transpile;
+
+    if (tp) {
+      return tp({ code, originToUse, wasmModule });
+    }
     const worker = workerPool.getWorker("esbuild");
     try {
       return await worker.rpc.rpc("transpile", {
