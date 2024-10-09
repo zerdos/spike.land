@@ -14,13 +14,19 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
 
+ 
+
     if (
       url.pathname === "/@/lib/swVersion.mjs" ||
       url.pathname === "/swVersion.mjs"
     ) {
+      const filesPart = files["@/swVersion.mjs"].split(".");
+      const ext = filesPart.pop();
+      const hash = filesPart.pop();
       return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
         headers: {
           "Content-Type": "application/javascript",
+          "x-hash": hash,
         },
       });
     }
@@ -63,21 +69,7 @@ export default {
         },
       );
     }
-
-    if (
-      url.pathname === "/@/swVersion.mjs" || url.pathname === "/swVersion.mjs"
-    ) {
-      const filesPart = files["@/swVersion.mjs"].split(".");
-      const ext = filesPart.pop();
-      const hash = filesPart.pop();
-      return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
-        headers: {
-          "Content-Type": "application/javascript",
-          "x-hash": hash
-        },
-      });
-    }
-
+  
     if (url.pathname === "/sw-config.json") {
       return new Response(
         JSON.stringify({
