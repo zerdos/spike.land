@@ -69,6 +69,7 @@ export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = (
               <Panel defaultSize={70} minSize={30}>
                 <div className="h-full w-full">
                   <iframe
+                    title="Live Preview"
                     onLoad={reveal}
                     className="h-full w-full border-0"
                     src={`/live/${codeSpace}/iframe`}

@@ -64,6 +64,7 @@ export const IframeWrapper: React.FC<
       <AspectRatio ratio={fullScreen ? undefined : ratio}>
         <iframe
           ref={ref}
+          title="Live Preview"
           className={cn(
             "w-full h-full origin-top-left border-0",
             fullScreen ? "fixed top-0 left-0" : "",

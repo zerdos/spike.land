@@ -76,6 +76,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
           <iframe
+            title="Live Preview"
             className="w-full h-full border-0 overflow-auto"
             src={`/live/${codeSpace}/iframe`}
           />
