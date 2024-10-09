@@ -41,19 +41,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     debounceMs: 60000,
   });
 
-  const handleContentChange = async (newCode: string) => {
-    console.log("Content change", mod.current.i, md5(newCode));
-
-    if (newCode.includes("/** invalid")) return;
-
-    const formattedCode = await cSess.setCode(newCode);
-
-    if (typeof formattedCode === "string") {
-      mod.current.md5Ids.push(md5(formattedCode));
-      mod.current.code = formattedCode;
-    }
-  };
-
+  const handleContentChange = (newCode: string) => cSess.setCode(newCode);
+ 
   useEffect(() => {
     if (error) {
       handleError("typescript", error);
