@@ -27,7 +27,7 @@ const twUp = async () => {
   await m.init;
 };
 
-Object.assign(globalThis, twUp);
+Object.assign(globalThis, { twUp });
 
 const codeSpace = useCodeSpace();
 
