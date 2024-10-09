@@ -77,11 +77,9 @@ const handleRender = async (
 
     console.log("Emotion styles:", emotionStyles);
 
-    const tailWindClassesX = [
-      ...(document.querySelector<HTMLStyleElement>(
-        "head > style:last-child",
-      )?.sheet?.cssRules || []) as CSSRuleList,
-    ].map((x) => x.cssText);
+    const tailWindClassesX = [...document.querySelectorAll<HTMLStyleElement>("head > style")].map(
+      z => ([...(z.sheet?.cssRules || [])].map(x => x.cssText)),
+    ).flat().join("\n");
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),

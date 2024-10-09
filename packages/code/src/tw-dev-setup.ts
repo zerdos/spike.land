@@ -22,6 +22,7 @@ export const init = async (): Promise<void> => {
   }
 
   try {
+    removeAllStyleBlocks();
     await Promise.all([
       loadCSS(`${origin}${CSS_PATH}`),
       loadScript(`${origin}${JS_PATH}`),
@@ -52,4 +53,9 @@ const loadScript = (src: string): Promise<void> => {
     script.onerror = reject;
     document.head.appendChild(script);
   });
+};
+
+const removeAllStyleBlocks = (): void => {
+  const styleBlocks = document.querySelectorAll("head > style");
+  styleBlocks.forEach((block) => block.remove());
 };
