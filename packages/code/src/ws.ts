@@ -6,7 +6,7 @@ import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { Style } from "node:util";
+
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -86,7 +86,7 @@ const handleRender = async (
   renderedNew: RenderedApp,
 ): Promise<{ css: string; html: string } | false> => {
   // confirm
-  const { extractStyles, cssCache, rootElement } = renderedNew;
+  const { cssCache, rootElement } = renderedNew;
 
   for (let attempts = 5; attempts > 0; attempts--) {
     if (!rootElement.innerHTML) {

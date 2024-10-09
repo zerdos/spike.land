@@ -1,5 +1,4 @@
 import createCache from "@emotion/cache";
-import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import React, {} from "react";
 import { createRoot } from "react-dom/client";
@@ -16,14 +15,6 @@ import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
 
-/**
- * Extracts CSS styles from Emotion cache for server-side rendering.
- * @param cache - The Emotion cache object.
- * @returns An array of CSS rule strings.
- */
-function extractEmotionStyles(cache: EmotionCache): string[] {
-  return [...cache.sheet.tags].map((x) => x.innerText);
-}
 
 /**
  * Creates an Emotion cache and extracts its styles.
@@ -36,8 +27,7 @@ export function createEmotionCache(
   const cache = createCache(options || { key: "css" });
 
   return {
-    cache,
-    extractStyles: () => extractEmotionStyles(cache),
+    cache
   };
 }
 
@@ -124,7 +114,7 @@ async function renderApp(
 
     const root = createRoot(rootEl);
 
-    const cssCache = createEmotionCache({
+    const cssCache = createCache({
       key: md5(transpiled! || code! || Math.random().toString()),
       speedy: prerender ? false : true,
       container: rootEl.parentNode!,
@@ -139,7 +129,7 @@ async function renderApp(
     );
 
     root.render(
-      <CacheProvider value={cssCache.cache}>
+      <CacheProvider value={cssCache}>
         {emptyApp
           ? <AppToRender />
           : (
@@ -155,12 +145,11 @@ async function renderApp(
       rootElement: rootEl,
       rRoot: root,
       App: AppToRender,
-      cssCache: cssCache.cache,
-      extractStyles: cssCache.extractStyles.bind(cssCache),
+      cssCache,
       cleanup: () => {
         root.unmount();
-        if (cssCache.cache.sheet) {
-          cssCache.cache.sheet.flush();
+        if (cssCache.sheet) {
+          cssCache.sheet.flush();
         }
         rootEl.remove();
         (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);
