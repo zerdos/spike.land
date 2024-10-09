@@ -5,7 +5,12 @@ const LIVE_PATH = "/live/";
 const CSS_PATH = "/app/tw-global.css";
 const JS_PATH = "/assets/tw-chunk-4a7018.js";
 
+let initialized = false;
 export const init = async (): Promise<void> => {
+  if (initialized) {
+    return;
+  }
+  initialized = true;
   const codeSpace = useCodeSpace();
   const { pathname, origin } = window.location;
 

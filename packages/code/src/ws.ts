@@ -9,26 +9,14 @@ import { Mutex } from "async-mutex";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
-import { init } from "./tw-dev-setup";
+import { init as twUp } from "./tw-dev-setup";
+
+Object.assign(globalThis, { twUp });
 
 // Global variables and types
 const codeSpace = useCodeSpace();
 let rendered: RenderedApp | null = null;
 let renderedMd5 = "";
-
-declare global {
-  var twUp: (() => Promise<void>) | undefined;
-}
-
-// Utility functions
-async function twUp() {
-  if (!globalThis.twUp) {
-    globalThis.twUp = async () => {
-      await init();
-    };
-  }
-  await globalThis.twUp();
-}
 
 const htmlDecode = (input: string): string => {
   return input
@@ -47,7 +35,7 @@ const getClassNamesFromHTML = (htmlString: string): string[] => {
   tempDiv.innerHTML = htmlString;
 
   const processElement = (el: Element) => {
-    let className = el.className;
+    const className = el.className;
     if (typeof className === "string") {
       className.trim().split(/\s+/).forEach((cls) => classNames.add(cls));
     } else if (typeof className === "object" && "baseVal" in className) {
