@@ -6,6 +6,7 @@ import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { Style } from "node:util";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -95,7 +96,10 @@ const handleRender = async (
 
     const html = htmlDecode(rootElement.innerHTML);
 
-    const emotionStyles = extractStyles();
+    const emotionStyles = [...cssCache.sheet.tags].map((
+      tag: HTMLStyleElement,
+    ) => ([...tag.sheet!.cssRules!].map(x => x.cssText))).flat();
+
     console.log("Emotion styles:", emotionStyles);
 
     const tailWindClassesX = [
