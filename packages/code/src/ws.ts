@@ -15,7 +15,19 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import { init } from "./tw-dev-setup";
 // import { mineFromCaches } from "./utils/mineCss";
 // import { render } from "@testing-library/react";
-const m = { init: 0 };
+const m = { init: null as unknown as null | Promise<void> };
+
+const twUp = async () => {
+  if (m.init === null) {
+    m.init = init();
+  }
+
+  m.init = init();
+
+  await m.init;
+};
+
+Object.assign(globalThis, twUp);
 
 const codeSpace = useCodeSpace();
 
@@ -175,9 +187,9 @@ const handleDefaultPage = async (cSess: ICode) => {
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
         if (!m.init) {
-          m.init = 1;
-          await init();
+          m.init = init();
         }
+        await m.init;
 
         const { type, requestId } = data;
         if (!type) return;
