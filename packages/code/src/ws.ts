@@ -138,51 +138,46 @@ type RunAnswerType = {
   css: string;
   requestId: string;
 };
+
+const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
+  renderedMd5 = md5(transpiled);
+  if (renderedMd5 === window.renderedMd5) {
+    console.log("Skipping update as md5 is the same");
+    return;
+  }
+  window.renderedMd5 = renderedMd5;
+  console.log("Updating rendered app...");
+
+  const myEl = document.createElement("div");
+  myEl.style.cssText = "isolation: isolate;  height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
+  document.body.appendChild(myEl);
+
+  // Clean up previous rendered app if any
+  rendered?.cleanup();
+  rendered = null;
+
+  // if (!m.init) {
+  // const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+  // tailWindClasses?.setInnerContent(sess.css);
+  // }
+
+  rendered = await renderApp({
+    transpiled,
+    codeSpace,
+    rootElement: myEl,
+  });
+
+  document.getElementById("embed")?.remove();
+  myEl.setAttribute("id", "embed");
+  return rendered;
+};
+
 const handleDefaultPage = async (cSess: ICode) => {
   try {
-    const updateRenderedApp = async (sess: ICodeSession) => {
-      try {
-        const { transpiled } = sess;
-
-        renderedMd5 = md5(transpiled);
-        if (renderedMd5 === window.renderedMd5) {
-          console.log("Skipping update as md5 is the same");
-          return;
-        }
-        window.renderedMd5 = renderedMd5;
-        console.log("Updating rendered app...");
-
-        const myEl = document.createElement("div");
-        myEl.style.cssText =
-          "isolation: isolate;  height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
-        document.body.appendChild(myEl);
-
-        // Clean up previous rendered app if any
-        rendered?.cleanup();
-        rendered = null;
-
-        // if (!m.init) {
-        // const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
-        // tailWindClasses?.setInnerContent(sess.css);
-        // }
-
-        rendered = await renderApp({
-          transpiled,
-          codeSpace,
-          rootElement: myEl,
-        });
-
-        document.getElementById("embed")?.remove();
-        myEl.setAttribute("id", "embed");
-      } catch (error) {
-        rendered?.cleanup();
-        console.error("Error updating rendered app:", error);
-      }
-    };
-
     cSess.sub(updateRenderedApp);
 
     const mutex = new Mutex();
+
     let counter = 0;
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
@@ -243,43 +238,11 @@ const handleRunMessage = async (
     requestId,
     (async () => {
       try {
-        renderedMd5 = md5(transpiled);
-        if (renderedMd5 === window.renderedMd5) {
-          window[renderedMd5] = window[renderedMd5] || {
-            css: "",
-            html: "",
-          };
-          result.css = window[renderedMd5]?.css || "";
-          result.html = window[renderedMd5]?.html || "";
-          return result;
-        }
-        // window.renderedMd5 = renderedMd5;
-        // console.log("Updating rendered app...");
-
-        const myEl = document.createElement("div");
-        myEl.style.cssText =
-          "isolation: isolate;  height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
-        document.body.appendChild(myEl);
-
-        // // Clean up previous rendered app if any
-        rendered?.cleanup();
-        rendered = null;
-
-        // if (!m.init) {
-        //   const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
-        //   tailWindClasses?.setInnerContent(sess.css);
-        // }
-
-        rendered = await renderApp({
+        const renderedApp = await updateRenderedApp({
           transpiled,
-          codeSpace,
-          rootElement: myEl,
-        });
+        })!;
 
-        document.getElementById("embed")?.remove();
-        myEl.setAttribute("id", "embed");
-
-        const res = await handleRender(rendered!);
+        const res = await handleRender(renderedApp!);
 
         result.html = res && res.html ? res.html : "";
         result.css = res && res.css ? res.css : "";
