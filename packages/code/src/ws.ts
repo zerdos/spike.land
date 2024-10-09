@@ -251,6 +251,7 @@ const handleRunMessage = async (
         myEl.remove();
         renderedNew.cleanup();
         parentElement.remove();
+        return result;
       } catch (error) {
         console.error("Error running code:", error);
         return {
@@ -259,8 +260,6 @@ const handleRunMessage = async (
           requestId,
         };
       }
-
-      return result;
     })(),
   );
 
