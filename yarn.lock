@@ -331,16 +331,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.13.8":
-  version: 1.13.8
-  resolution: "@clerk/backend@npm:1.13.8"
+"@clerk/backend@npm:1.13.9":
+  version: 1.13.9
+  resolution: "@clerk/backend@npm:1.13.9"
   dependencies:
     "@clerk/shared": "npm:2.9.0"
     "@clerk/types": "npm:4.25.0"
-    cookie: "npm:0.5.0"
+    cookie: "npm:0.7.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10c0/1f81accffae9c9584c455e2ebfc12d13a7c9eec87f0499cc56c4ecaf3ba4df5a9a6542a6fb43ae22d727b89c497ff876ee38c52dabec0a9eb6e39f15883e4c43
+  checksum: 10c0/aa7599431314fd24bf5550c26594c070ba299aae167e9546bbe288422548e579f37a23f0a2b8808f76ccf307bb9e4ee3efc0c4b24e0d0897dfbc0c342502002d
   languageName: node
   linkType: hard
 
@@ -358,23 +358,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-sdk-node@npm:5.0.48":
-  version: 5.0.48
-  resolution: "@clerk/clerk-sdk-node@npm:5.0.48"
+"@clerk/clerk-sdk-node@npm:5.0.49":
+  version: 5.0.49
+  resolution: "@clerk/clerk-sdk-node@npm:5.0.49"
   dependencies:
-    "@clerk/backend": "npm:1.13.8"
+    "@clerk/backend": "npm:1.13.9"
     "@clerk/shared": "npm:2.9.0"
     "@clerk/types": "npm:4.25.0"
     tslib: "npm:2.4.1"
-  checksum: 10c0/e917aaa816635f200369d8fc8b10a48634a20c796952ed8a6b4867ce4849424680271466207ade686245d42c162b1a5c61d3334391da5465498fa633c2a6d1e4
+  checksum: 10c0/016ae3d73ce1a179150eb7491201b73ab88646dfc4428b7888c6f8768cb8c122ffac70069da561a4ee881e214dc62bc90b30c06fb7dc68c43f0e91520af0cfeb
   languageName: node
   linkType: hard
 
-"@clerk/nextjs@npm:5.7.1":
-  version: 5.7.1
-  resolution: "@clerk/nextjs@npm:5.7.1"
+"@clerk/nextjs@npm:5.7.2":
+  version: 5.7.2
+  resolution: "@clerk/nextjs@npm:5.7.2"
   dependencies:
-    "@clerk/backend": "npm:1.13.8"
+    "@clerk/backend": "npm:1.13.9"
     "@clerk/clerk-react": "npm:5.11.0"
     "@clerk/shared": "npm:2.9.0"
     "@clerk/types": "npm:4.25.0"
@@ -385,7 +385,7 @@ __metadata:
     next: ^13.5.4 || ^14.0.3 || >=15.0.0-rc
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10c0/f36a1f4d5cb37f67ad26ffda569266152124ddcc412693cac018ed881ead2d5665df3b52fbdb98b3e6991a35ff24c8b7d3024bee3e92efa5409ec3049291dc19
+  checksum: 10c0/26d7cc2c0eac3fcde1cd5afba9262b7e6b7111a9d167c3d7372030f00fe43e3df4fba68e734c72ee27a3873893c8293d0028145bfc3e6fed7eccd65dfbee80cb
   languageName: node
   linkType: hard
 
@@ -4188,8 +4188,8 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.29.0"
-    "@clerk/backend": "npm:1.13.8"
-    "@clerk/clerk-sdk-node": "npm:5.0.48"
+    "@clerk/backend": "npm:1.13.9"
+    "@clerk/clerk-sdk-node": "npm:5.0.49"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:^0.5.16"
     "@cloudflare/workers-types": "npm:4.20241004.0"
@@ -4213,7 +4213,7 @@ __metadata:
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
-    replicate: "npm:^0.34.1"
+    replicate: "npm:^1.0.0"
     typescript: "npm:5.6.3"
     vitest: "npm:^2.1.2"
     wrangler: "npm:3.80.2"
@@ -4225,7 +4225,7 @@ __metadata:
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@clerk/clerk-react": "npm:5.11.0"
-    "@clerk/nextjs": "npm:5.7.1"
+    "@clerk/nextjs": "npm:5.7.2"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -4307,7 +4307,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^2.1.2"
     "@vitest/ui": "npm:^2.1.2"
     ace-builds: "npm:1.36.2"
-    ai-digest: "npm:^1.0.6"
+    ai-digest: "npm:^1.0.7"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     async-hooks: "npm:^1.3.1"
@@ -5901,9 +5901,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai-digest@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "ai-digest@npm:1.0.6"
+"ai-digest@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "ai-digest@npm:1.0.7"
   dependencies:
     commander: "npm:^12.1.0"
     glob: "npm:^11.0.0"
@@ -5912,7 +5912,7 @@ __metadata:
     js-tiktoken: "npm:^1.0.12"
   bin:
     ai-digest: dist/index.js
-  checksum: 10c0/ca6ef80258fdc1749a229f501d9f61dfd8da7ab8c2c5221cd42bbf5a247c8a1edbe4af96a94cf072e02851d4a4abafb9d2b91a84aa8a4dae191d58f3e620f5ef
+  checksum: 10c0/8f7c523037a3168b384742c690d5e433be3d176ebe6cb6bccb61cd4043da8fa31198ca253ce02010ecf1567abff532a2d25b2d07fd83b2034b36a93db7529220
   languageName: node
   linkType: hard
 
@@ -7459,10 +7459,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.5.0, cookie@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "cookie@npm:0.5.0"
-  checksum: 10c0/c01ca3ef8d7b8187bae434434582288681273b5a9ed27521d4d7f9f7928fe0c920df0decd9f9d3bbd2d14ac432b8c8cf42b98b3bdd5bfe0e6edddeebebe8b61d
+"cookie@npm:0.7.0":
+  version: 0.7.0
+  resolution: "cookie@npm:0.7.0"
+  checksum: 10c0/15c20c9b85431c8565b1750f9bccff0bd289b943d956e25fffce3b146e57934075965c8305a4e3a65a70622c9ed483e013daf9159d9c50f5c3f97f2e7c8117ac
   languageName: node
   linkType: hard
 
@@ -7470,6 +7470,13 @@ __metadata:
   version: 0.7.1
   resolution: "cookie@npm:0.7.1"
   checksum: 10c0/5de60c67a410e7c8dc8a46a4b72eb0fe925871d057c9a5d2c0e8145c4270a4f81076de83410c4d397179744b478e33cd80ccbcc457abf40a9409ad27dcd21dde
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "cookie@npm:0.5.0"
+  checksum: 10c0/c01ca3ef8d7b8187bae434434582288681273b5a9ed27521d4d7f9f7928fe0c920df0decd9f9d3bbd2d14ac432b8c8cf42b98b3bdd5bfe0e6edddeebebe8b61d
   languageName: node
   linkType: hard
 
@@ -15284,15 +15291,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"replicate@npm:^0.34.1":
-  version: 0.34.1
-  resolution: "replicate@npm:0.34.1"
+"replicate@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "replicate@npm:1.0.0"
   dependencies:
     readable-stream: "npm:>=4.0.0"
   dependenciesMeta:
     readable-stream:
       optional: true
-  checksum: 10c0/01adc3f300aa93a0f46268cc6e389c71af2fe904929b9f4987d92ad42533abb784b056c8258b9a9661fcf0c08288985298b39a60ed6a9598e6313bd5b1f8d320
+  checksum: 10c0/15cc8d20a30130bdd138b41a7e7fa4d5be0e0754bdef61224129754c0d667409a109c40907afb2bfe75ad885257a60c92f09ad56ce25a97053e6be66952ce916
   languageName: node
   linkType: hard
 
