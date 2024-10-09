@@ -10,7 +10,7 @@ import { Mutex } from "async-mutex";
 import { hash } from "immutable";
 import {
   formatCode as formatCodeUtil,
-  runCode as runCodeUtil,
+  runCode,
   screenShot,
   transpileCode as transpileCodeUtil,
 } from "../components/editorUtils";
@@ -71,7 +71,7 @@ class CodeProcessor {
 
       if (!skipRunning) {
         try {
-          const res = await this.runCode(transpiledCode, signal);
+          const res = await this.runCode(transpiledCode, counter, signal);
 
           if (signal?.aborted) return false;
 
@@ -139,10 +139,11 @@ class CodeProcessor {
 
   private async runCode(
     code: string,
+    i: number,
     signal: AbortSignal,
   ): Promise<{ html: string; css: string }> {
     try {
-      const result = await runCodeUtil(code, signal);
+      const result = await runCode(code, i, signal);
       if (!result) {
         if (signal.aborted) return { html: "", css: "" };
         throw new Error("Running code produced no output");
@@ -157,7 +158,7 @@ class CodeProcessor {
 }
 
 export class Code implements ICode {
-  session: ICodeSession; // #endregion
+  session: ICodeSession;
 
   private user: string;
   private broadcastChannel: CodeSessionBC;

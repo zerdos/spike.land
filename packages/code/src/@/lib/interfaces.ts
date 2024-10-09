@@ -105,6 +105,7 @@ export interface ImageData {
 export type IframeMessage = {
   type: "run";
   requestId: string;
+  i: number;
   transpiled: string;
 } | {
   type: "runResponse";

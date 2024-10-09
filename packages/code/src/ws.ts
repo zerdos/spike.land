@@ -10,6 +10,7 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { Mutex } from "async-mutex";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { init } from "./tw-dev-setup";
 // import { mineFromCaches } from "./utils/mineCss";
@@ -22,6 +23,10 @@ declare global {
   interface Window {
     rendered: RenderedApp | null;
     renderedMd5: string;
+    [key: string]: {
+      html: string;
+      css: string;
+    };
   }
 }
 
@@ -55,7 +60,6 @@ const handleScreenshot = async () => {
 
 const handleRender = async (
   renderedNew: RenderedApp,
-  signal: AbortSignal,
 ): Promise<{ css: string; html: string } | false> => {
   const { extractStyles, cssCache, rootElement } = renderedNew;
 
@@ -70,8 +74,6 @@ const handleRender = async (
 
     if (!html) return false;
     for (let attempts = 5; attempts > 0; attempts--) {
-      if (signal.aborted) return false;
-
       const emotionStyles = extractStyles();
 
       const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
@@ -98,7 +100,7 @@ const handleRender = async (
         console.error("Error prettifying CSS:", error);
       }
 
-      if (signal.aborted) return false;
+      // if (signal.aborted) return false??
 
       return {
         css: cssStrings.split(cssCache.key).join("x"),
@@ -147,10 +149,10 @@ const handleDefaultPage = async (cSess: ICode) => {
         rendered?.cleanup();
         rendered = null;
 
-        if (!m.init) {
-          const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
-          tailWindClasses?.setInnerContent(sess.css);
-        }
+        // if (!m.init) {
+        // const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+        // tailWindClasses?.setInnerContent(sess.css);
+        // }
 
         rendered = await renderApp({
           transpiled,
@@ -168,6 +170,8 @@ const handleDefaultPage = async (cSess: ICode) => {
 
     cSess.sub(updateRenderedApp);
 
+    const mutex = new Mutex();
+    let counter = 0;
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
         if (!m.init) {
@@ -181,13 +185,20 @@ const handleDefaultPage = async (cSess: ICode) => {
         if (type === "screenShot") {
           await handleScreenshot();
         } else if (type === "run" && requestId) {
-          const { transpiled } = data;
-          const resp = await handleRunMessage({ transpiled, requestId });
-          console.log("Sending run response:", { resp });
-          return window.parent.postMessage({
-            type: "runResponse",
-            ...resp,
-          } as IframeMessage, "*");
+          const { transpiled, i } = data;
+          if (i <= counter) return;
+          counter = i;
+
+          return await mutex.runExclusive(async () => {
+            if (data.i !== counter) return;
+
+            const resp = await handleRunMessage({ transpiled, requestId });
+            console.log("Sending run response:", { resp });
+            return window.parent.postMessage({
+              type: "runResponse",
+              ...resp,
+            } as IframeMessage, "*");
+          });
         }
       } catch (error) {
         console.error("Error processing message:", error);
@@ -220,37 +231,49 @@ const handleRunMessage = async (
     requestId,
     (async () => {
       try {
-        console.log("Running code:", { transpiled });
-        mod.controller.abort();
-        mod.controller = new AbortController();
-        const { signal } = mod.controller;
-
-        const parentElement = document.createElement("div");
-        const myEl = document.createElement("div");
-        parentElement.appendChild(myEl);
-
-        myEl.style.cssText = "height: 100%; width: 100%; display: none;";
-        // document.body.appendChild(myEl);
-
-        const renderedNew = await renderApp({
-          rootElement: myEl,
-          transpiled,
-          prerender: true,
-        });
-
-        console.log("Rendered new:", { renderedNew });
-
-        if (!renderedNew || signal.aborted) {
+        renderedMd5 = md5(transpiled);
+        if (renderedMd5 === window.renderedMd5) {
+          window[renderedMd5] = window[renderedMd5] || {
+            css: "",
+            html: "",
+          };
+          result.css = window[renderedMd5]?.css || "";
+          result.html = window[renderedMd5]?.html || "";
           return result;
         }
+        // window.renderedMd5 = renderedMd5;
+        // console.log("Updating rendered app...");
 
-        const res = await handleRender(renderedNew, signal);
+        const myEl = document.createElement("div");
+        myEl.style.cssText =
+          "isolation: isolate;  height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
+        document.body.appendChild(myEl);
+
+        // // Clean up previous rendered app if any
+        rendered?.cleanup();
+        rendered = null;
+
+        // if (!m.init) {
+        //   const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+        //   tailWindClasses?.setInnerContent(sess.css);
+        // }
+
+        rendered = await renderApp({
+          transpiled,
+          codeSpace,
+          rootElement: myEl,
+        });
+
+        document.getElementById("embed")?.remove();
+        myEl.setAttribute("id", "embed");
+
+        const res = await handleRender(rendered!);
 
         result.html = res && res.html ? res.html : "";
         result.css = res && res.css ? res.css : "";
-        myEl.remove();
-        renderedNew.cleanup();
-        parentElement.remove();
+        window[renderedMd5].css = result.css;
+        window[renderedMd5].html = result.html;
+
         return result;
       } catch (error) {
         console.error("Error running code:", error);

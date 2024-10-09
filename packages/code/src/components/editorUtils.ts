@@ -54,10 +54,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
     signal: AbortSignal;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cache = new Map<
     string,
-    { promise: Promise<any>; callbacks: Callbacks[] }
+    { promise: Promise<ReturnType<T>>; callbacks: Callbacks[] }
   >();
 
   return ((...args: [...Parameters<T>, AbortSignal]): ReturnType<T> => {
@@ -186,7 +185,7 @@ export const screenShot = (): Promise<ImageData> => {
 };
 
 export const runCode = memoizeWithAbort(
-  async (transpiled: string): Promise<{ html: string; css: string }> => {
+  async (transpiled: string, i: number): Promise<{ html: string; css: string }> => {
     const requestId = md5(transpiled);
 
     return new Promise<{ html: string; css: string }>((resolve, reject) => {
@@ -222,6 +221,7 @@ export const runCode = memoizeWithAbort(
         {
           type: "run",
           requestId,
+          i,
           transpiled,
         } as IframeMessage,
         "*",
