@@ -216,7 +216,7 @@ const handleRunMessage = async (
     requestId,
   };
 
-  runningOperations.set(
+  await runningOperations.set(
     requestId,
     (async () => {
       try {
