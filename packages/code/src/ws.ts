@@ -96,6 +96,7 @@ const handleScreenshot = async () => {
 const handleRender = async (
   renderedNew: RenderedApp,
 ): Promise<{ css: string; html: string } | false> => {
+  // confirm
   const { extractStyles, cssCache, rootElement } = renderedNew;
 
   if (!rootElement || !rootElement.innerHTML) {
@@ -126,7 +127,7 @@ const handleRender = async (
       ),
     );
 
-    let cssStrings = criticalClasses.join("\n");
+    let cssStrings = [...criticalClasses].join("\n");
 
     try {
       cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
@@ -135,7 +136,7 @@ const handleRender = async (
     }
 
     return {
-      css: tailWindClassesX + ssStrings.split(cssCache.key).join("x"),
+      css: tailWindClassesX + cssStrings.split(cssCache.key).join("x"),
       html: html.split(cssCache.key).join("x"),
     };
   }
@@ -143,12 +144,12 @@ const handleRender = async (
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
-  renderedMd5 = md5(transpiled);
-  if (renderedMd5 === window.renderedMd5) {
+  const hashed = md5(transpiled);
+  if (hashed === renderedMd5) {
     console.log("Skipping update as md5 is the same");
     return;
   }
-  window.renderedMd5 = renderedMd5;
+  renderedMd5 = hashed;
   console.log("Updating rendered app...");
 
   const myEl = document.createElement("div");
