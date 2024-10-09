@@ -30,30 +30,29 @@ const htmlDecode = (input: string): string => {
     .replace(/&nbsp;/g, " ");
 };
 
-const getClassNamesFromHTML = (htmlString: string): string[] => {
-  const classNames = new Set<string>();
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = htmlString;
+//   const classNames = new Set<string>();
+//   const tempDiv = document.createElement("div");
+//   tempDiv.innerHTML = htmlString;
 
-  const processElement = (el: Element) => {
-    const className = el.className;
-    if (typeof className === "string") {
-      className.trim().split(/\s+/).forEach((cls) => classNames.add(cls));
-    } else if (typeof className === "object" && "baseVal" in className) {
-      (className as SVGAnimatedString).baseVal.trim().split(/\s+/).forEach(
-        (cls) => classNames.add(cls),
-      );
-    }
-    el.childNodes.forEach((child) => {
-      if (child instanceof Element) {
-        processElement(child);
-      }
-    });
-  };
+//   const processElement = (el: Element) => {
+//     const className = el.className;
+//     if (typeof className === "string") {
+//       className.trim().split(/\s+/).forEach((cls) => classNames.add(cls));
+//     } else if (typeof className === "object" && "baseVal" in className) {
+//       (className as SVGAnimatedString).baseVal.trim().split(/\s+/).forEach(
+//         (cls) => classNames.add(cls),
+//       );
+//     }
+//     el.childNodes.forEach((child) => {
+//       if (child instanceof Element) {
+//         processElement(child);
+//       }
+//     });
+//   };
 
-  processElement(tempDiv);
-  return Array.from(classNames);
-};
+//   processElement(tempDiv);
+//   return Array.from(classNames);
+// };
 
 // Main functions
 const handleScreenshot = async () => {
@@ -98,7 +97,7 @@ const handleRender = async (
 
     const emotionStyles = [...cssCache.sheet.tags].map((
       tag: HTMLStyleElement,
-    ) => ([...tag.sheet!.cssRules!].map(x => x.cssText))).flat();
+    ) => ([...tag.sheet!.cssRules!].map(x => x.cssText))).flat().join("\n").split(cssCache.key).join("x");
 
     console.log("Emotion styles:", emotionStyles);
 
@@ -108,17 +107,19 @@ const handleRender = async (
       )?.sheet?.cssRules || []) as CSSRuleList,
     ].map((x) => x.cssText.split("\\")).join("");
 
-    const htmlClasses = new Set(
-      getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
-    );
+    // const htmlClasses = new Set(
+    //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
+    // );
 
-    console.log("HTML classes:", htmlClasses);
+    // console.log("HTML classes:", htmlClasses);
 
-    const criticalClasses = new Set(
-      emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
-    );
+    // const criticalClasses = new Set(
+    //   emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
+    // );
 
-    let cssStrings = [...criticalClasses].join("\n");
+    // let cssStrings = [...criticalClasses]
+
+    let cssStrings = [tailWindClassesX, emotionStyles].join("\n");
 
     try {
       cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
@@ -126,10 +127,10 @@ const handleRender = async (
       console.error("Error prettifying CSS:", error);
     }
 
-    const cssStyled = cssStrings.split(cssCache.key).join("x");
-    console.log("CSS styled:", cssStyled);
+    // const cssStyled = cssStrings.split(cssCache.key).join("x");
+    // console.log("CSS styled:", cssStyled);
     return {
-      css: tailWindClassesX + "\n" + cssStyled,
+      css: cssStrings,
       html: html.split(cssCache.key).join("x"),
     };
   }
