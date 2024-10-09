@@ -10,7 +10,7 @@ class SharedWorkerPolyfill {
         // if url has ? then strip it
         this.worker = new Worker2(
           new URL(
-            import.meta.url + "/../../../dist/"
+            "/../../../dist/"
               + url.slice(0, url.indexOf("?")),
           ).toString(),
           opts || {},
