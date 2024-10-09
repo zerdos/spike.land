@@ -179,7 +179,7 @@ const handleDefaultPage = async (cSess: ICode) => {
             const resp = await handleRunMessage(transpiled);
             console.log("Sending run response:", { resp });
             return window.parent.postMessage(
-              { type: "runResponse", ...resp } as IframeMessage,
+              { type: "runResponse", requestId, ...resp } as IframeMessage,
               "*",
             );
           });
