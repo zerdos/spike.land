@@ -299,6 +299,7 @@ export class Code implements ICode {
     if (!processedSession || signal.aborted) return this.session.code;
 
     const session = makeSession({ ...this.session, ...processedSession });
+
     if (hash(session) === hash(this.session)) return this.session.code;
 
     this.session = makeSession({ ...session, i: this.session.i + 1 });
