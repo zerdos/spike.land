@@ -85,6 +85,7 @@ export async function fakeServer(request: Request) {
     || request.url.includes("/embed")
     || request.url.includes("/public")
     || request.url.endsWith(`/live/${codeSpace}/xxx`)
+    || request.url.endsWith(`/live/${codeSpace}/`)
   ) {
     const respText = HTML.replace(
       `<script type="importmap"></script>`,

@@ -96,22 +96,19 @@ const handleRender = async (
     const html = htmlDecode(rootElement.innerHTML);
 
     const emotionStyles = extractStyles();
-    const tailWindClasses = document.querySelector<HTMLStyleElement>(
-      "head > style:last-child",
-    );
-    const sheet = tailWindClasses?.sheet as CSSStyleSheet;
-    const tailWindClassesX = sheet
-      ? [...sheet.cssRules].map((x) => x.cssText.split("\\").join(""))
-      : [];
+
+    const tailWindClassesX = [
+      ...(document.querySelector<HTMLStyleElement>(
+        "head > style:last-child",
+      )?.sheet?.cssRules || []) as CSSRuleList,
+    ].map((x) => x.cssText.split("\\")).join("");
+
     const htmlClasses = new Set(
       getClassNamesFromHTML(html).join(" ").split(" "),
     );
 
     const criticalClasses = new Set(
-      emotionStyles.filter((line) =>
-        line.startsWith("@")
-        || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())
-      ),
+      emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
     );
 
     let cssStrings = [...criticalClasses].join("\n");
@@ -122,8 +119,9 @@ const handleRender = async (
       console.error("Error prettifying CSS:", error);
     }
 
+    const cssStyled = cssStrings.split(cssCache.key).join("x");
     return {
-      css: tailWindClassesX + cssStrings.split(cssCache.key).join("x"),
+      css: tailWindClassesX + cssStyled,
       html: html.split(cssCache.key).join("x"),
     };
   }
