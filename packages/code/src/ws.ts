@@ -253,6 +253,11 @@ const handleRunMessage = async (
         parentElement.remove();
       } catch (error) {
         console.error("Error running code:", error);
+        return {
+          html: "",
+          css: "",
+          requestId,
+        };
       }
 
       return result;
