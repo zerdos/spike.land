@@ -38,7 +38,7 @@ export const DraggableWindowContent = (
     rgba: (r: number, g: number, b: number, a: number) => string;
   },
 ) => (
-  <div id={"DraggableWindow"} style={{ display: "flex" }}>
+  <div className="overflow-hidden" id={"DraggableWindow"} style={{ display: "flex" }}>
     <div
       css={css`
           display: flex;
