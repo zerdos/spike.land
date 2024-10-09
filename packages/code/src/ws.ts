@@ -17,25 +17,18 @@ let rendered: RenderedApp | null = null;
 let renderedMd5 = "";
 
 declare global {
-  interface Window {
-    rendered: RenderedApp | null;
-    renderedMd5: string;
-    [key: string]: {
-      html: string;
-      css: string;
-    };
-  }
+  var twUp: (() => Promise<void>) | undefined;
 }
 
 // Utility functions
-const twUp = async () => {
+async function twUp() {
   if (!globalThis.twUp) {
     globalThis.twUp = async () => {
       await init();
     };
   }
   await globalThis.twUp();
-};
+}
 
 const htmlDecode = (input: string): string => {
   return input
@@ -148,28 +141,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
   return rendered;
 };
 
-const handleRunMessage = async ({ transpiled, requestId }: { transpiled: string; requestId: string }) => {
-  console.log("Handling run message:", { transpiled, requestId });
-
-  const result = { html: "", css: "", requestId };
-
-  try {
-    const renderedApp = await updateRenderedApp({ transpiled });
-    if (renderedApp) {
-      const res = await handleRender(renderedApp);
-      if (res) {
-        result.html = res.html;
-        result.css = res.css;
-        window[renderedMd5].css = result.css;
-        window[renderedMd5].html = result.html;
-      }
-    }
-  } catch (error) {
-    console.error("Error running code:", error);
-  }
-
-  return result;
-};
+const handleRunMessage = (transpiled: string) => updateRenderedApp({ transpiled }).then((r) => handleRender(r!));
 
 const handleDefaultPage = async (cSess: ICode) => {
   try {
@@ -192,7 +164,7 @@ const handleDefaultPage = async (cSess: ICode) => {
 
           return await mutex.runExclusive(async () => {
             if (data.i !== counter) return;
-            const resp = await handleRunMessage({ transpiled, requestId });
+            const resp = await handleRunMessage(transpiled);
             console.log("Sending run response:", { resp });
             return window.parent.postMessage({ type: "runResponse", ...resp } as IframeMessage, "*");
           });
