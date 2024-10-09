@@ -183,7 +183,7 @@ const handleDefaultPage = async (cSess: ICode) => {
         } else if (type === "run" && requestId) {
           const { transpiled } = data;
           const resp = await handleRunMessage({ transpiled, requestId });
-
+          console.log("Sending run response:", { resp });
           return window.parent.postMessage({
             type: "runResponse",
             ...resp,
