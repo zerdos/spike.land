@@ -220,6 +220,7 @@ const handleRunMessage = async (
     requestId,
     (async () => {
       try {
+        console.log("Running code:", { transpiled });
         mod.controller.abort();
         mod.controller = new AbortController();
         const { signal } = mod.controller;
@@ -236,6 +237,8 @@ const handleRunMessage = async (
           transpiled,
           prerender: true,
         });
+
+        console.log("Rendered new:", { renderedNew });
 
         if (!renderedNew || signal.aborted) {
           return result;
