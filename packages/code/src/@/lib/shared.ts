@@ -1,6 +1,5 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
 import type { ICodeSession, ImageData, Message } from "@/lib/interfaces";
-import { swVersion } from "@/lib/swVersion";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -82,15 +81,17 @@ class WorkerPool {
 }
 
 // Usage
-let workerPool: WorkerPool = new WorkerPool(0, swVersion);
+let workerPool: WorkerPool;
 
-function init(swVersion: string) {
+async function init() {
+  const { swVersion } = await import("@/lib/swVersion");
+
   workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool
     || new WorkerPool(0, swVersion);
   Object.assign(globalThis, { workerPool });
-  const worker = workerPool.getWorker("connect");
+  // const worker = (await init()).getWorker("connect");
 
-  return worker.rpc;
+  return workerPool;
 }
 
 export const prettierToThrow = async ({
@@ -100,11 +101,11 @@ export const prettierToThrow = async ({
   code: string;
   toThrow: boolean;
 }): Promise<string> => {
-  const worker = workerPool.getWorker("prettier");
+  const worker = (await init()).getWorker("prettier");
   try {
     return await worker.rpc.rpc("prettierJs", { code, toThrow });
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
@@ -115,31 +116,31 @@ export const ata = async ({
   code: string;
   originToUse: string;
 }): Promise<{ content: string; filePath: string }[]> => {
-  const worker = workerPool.getWorker("ata");
+  const worker = (await init()).getWorker("ata");
   try {
     return await worker.rpc.rpc("ata", { code, originToUse });
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
 export const prettierCss = async (code: string): Promise<string> => {
-  const worker = workerPool.getWorker("prettier");
+  const worker = (await init()).getWorker("prettier");
   try {
     return await worker.rpc.rpc("prettierCss", code);
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
 export const tsx = async (
   code: string,
 ): Promise<{ content: string; filePath: string }[]> => {
-  const worker = workerPool.getWorker("tsx");
+  const worker = (await init()).getWorker("tsx");
   try {
     return await worker.rpc.rpc("tsc", code);
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
@@ -151,7 +152,7 @@ export const handleSendMessage = async (
     images: ImageData[];
   },
 ): Promise<void> => {
-  const worker = workerPool.getWorker("search-replace");
+  const worker = (await init()).getWorker("search-replace");
   try {
     return await worker.rpc.rpc("handleSendMessage", {
       messages,
@@ -160,19 +161,19 @@ export const handleSendMessage = async (
       images,
     });
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
 export const createWorkflow = async (q: string): Promise<string> => {
-  const worker = workerPool.getWorker("workflow");
+  const worker = (await init()).getWorker("workflow");
   try {
     return await worker.rpc.rpc("createWorkflow", q);
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
-const mutex = new Mutex();
+let mutex: Mutex;
 
 export const transpile = async ({
   code,
@@ -182,8 +183,11 @@ export const transpile = async ({
   code: string;
   originToUse: string;
   wasmModule?: WebAssembly.Module;
-}): Promise<string> =>
-  mutex.runExclusive(async () => {
+}): Promise<string> => {
+  if (!mutex) {
+    mutex = new Mutex();
+  }
+  return mutex.runExclusive(async () => {
     const tp = (globalThis as unknown as {
       transpile?: typeof transpile;
     }).transpile;
@@ -191,7 +195,7 @@ export const transpile = async ({
     if (tp) {
       return tp({ code, originToUse, wasmModule });
     }
-    const worker = workerPool.getWorker("esbuild");
+    const worker = (await init()).getWorker("esbuild");
     try {
       return await worker.rpc.rpc("transpile", {
         code,
@@ -202,9 +206,10 @@ export const transpile = async ({
       console.error(e);
       throw e;
     } finally {
-      workerPool.releaseWorker(worker);
+      (await init()).releaseWorker(worker);
     }
   });
+};
 
 export const build = async ({
   codeSpace,
@@ -221,7 +226,7 @@ export const build = async ({
   entryPoint?: string;
   format: "esm" | "iife";
 }): Promise<string> => {
-  const worker = workerPool.getWorker("esbuild");
+  const worker = (await init()).getWorker("esbuild");
   try {
     return await worker.rpc.rpc("build", {
       codeSpace,
@@ -232,32 +237,28 @@ export const build = async ({
       format,
     });
   } finally {
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
   }
 };
 
 export const connect = async ({
   signal,
   sess,
-  swVersion,
 }: {
   signal: string;
   sess: ICodeSession;
   swVersion: string;
 }): Promise<() => void> => {
-  if (!workerPool) {
-    init(swVersion);
-  }
-  const worker = workerPool.getWorker("connect");
+  const worker = (await init()).getWorker("connect");
   try {
     worker.rpc.signal("connect", { signal, sess });
 
-    return () => {
-      workerPool.releaseWorker(worker);
+    return async () => {
+      (await init()).releaseWorker(worker);
     };
   } catch (e) {
     console.error(e);
-    workerPool.releaseWorker(worker);
+    (await init()).releaseWorker(worker);
     throw e;
   }
 };
