@@ -87,15 +87,15 @@ const handleRender = async (
   // confirm
   const { extractStyles, cssCache, rootElement } = renderedNew;
 
-  if (!rootElement || !rootElement.innerHTML) {
-    await wait(400);
-    if (!rootElement?.innerHTML) return false;
-  }
-
-  const html = htmlDecode(rootElement.innerHTML);
-  if (!html) return false;
-
   for (let attempts = 5; attempts > 0; attempts--) {
+    if (!rootElement.innerHTML) {
+      await wait(50);
+      if (!rootElement?.innerHTML) return false;
+    }
+
+    const html = htmlDecode(rootElement.innerHTML);
+    if (!html) continue;
+
     const emotionStyles = extractStyles();
     const tailWindClasses = document.querySelector<HTMLStyleElement>(
       "head > style:last-child",
