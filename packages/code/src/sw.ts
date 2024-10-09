@@ -127,11 +127,15 @@ sw.addEventListener("install", (event) => {
       console.log("Service Worker installing.");
 
       if (sw.swVersion === (await config())!.swVersion) {
+        console.log("SwVersion matches. Fetching files.");
+
         // const keys = await caches.keys();
 
         const myCache = await caches.open(sw.fileCacheName);
         const myCacheKeys = await myCache.keys();
         const myKeys = new Set(myCacheKeys.map((request) => request.url));
+
+        console.log({ myKeys });
 
         if (!myCacheKeys.length) {
           await myCache.put(
@@ -215,6 +219,7 @@ sw.addEventListener("install", (event) => {
         await sw.skipWaiting();
         console.log("Service Worker installed.");
       }
+      console.log("Service Worker installed."); // Ensure the config is fetched
     })(),
   );
 });
