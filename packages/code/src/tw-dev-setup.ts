@@ -9,7 +9,10 @@ export const init = async (): Promise<void> => {
   const codeSpace = useCodeSpace();
   const { pathname, origin } = window.location;
 
-  if (!pathname.endsWith(IFRAME_PATH) && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)) {
+  if (
+    !pathname.endsWith(IFRAME_PATH)
+    && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
+  ) {
     return;
   }
 

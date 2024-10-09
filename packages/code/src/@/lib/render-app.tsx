@@ -22,27 +22,24 @@ import { useWindowSize } from "@uidotdev/usehooks";
  * @returns An array of CSS rule strings.
  */
 function extractEmotionStyles(cache: EmotionCache): string[] {
-
-  return [...cache.sheet.tags].map(x=>x.innerText);
+  return [...cache.sheet.tags].map((x) => x.innerText);
 }
-
 
 /**
  * Creates an Emotion cache and extracts its styles.
  * @param options - Options for creating the Emotion cache.
  * @returns An object containing the cache and extracted styles.
  */
-export function createEmotionCache(options?: Parameters<typeof createCache>[0]) {
-  const cache = createCache(options || { key: 'css' });
-  
+export function createEmotionCache(
+  options?: Parameters<typeof createCache>[0],
+) {
+  const cache = createCache(options || { key: "css" });
+
   return {
     cache,
     extractStyles: () => extractEmotionStyles(cache),
   };
 }
-
-
-
 
 const origin = location.origin;
 
@@ -72,7 +69,8 @@ declare global {
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, prerender=false }: IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, prerender = false }:
+    IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement ||
@@ -128,7 +126,7 @@ async function renderApp(
 
     const cssCache = createEmotionCache({
       key: md5(transpiled! || code! || Math.random().toString()),
-      speedy: prerender?false:true,
+      speedy: prerender ? false : true,
       container: rootEl.parentNode!,
     });
 

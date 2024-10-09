@@ -1,9 +1,8 @@
-import  OpenAI  from "openai";
+import OpenAI from "openai";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import { KVLogger } from "./Logs";
 import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
-
 
 interface MessageParam {
   role: "user" | "assistant";
@@ -29,7 +28,6 @@ export async function handleGPT4Request(
     // base64 encoded file
     file?: File;
   };
-
 
   const openai = new OpenAI({
     baseURL:
@@ -89,51 +87,45 @@ export async function handleGPT4Request(
       );
     }
 
-  
-  
-
     try {
-
-
-
-
       // const newBody = new FormData();
       // newBody.append("file", body.file);
       // newBody.append("model", body.model);
       // newBody.append("language", "en-GB");
 
-    const transcription = await openai.audio.transcriptions.create(
-      {
-        model:"whisper-1",
-        file: body.file,
-       
-        response_format: "text",
-        ...(body.prompt ? {prompt: body.prompt!} : {}),
-      }
-    );
-    
-  
+      const transcription = await openai.audio.transcriptions.create(
+        {
+          model: "whisper-1",
+          file: body.file,
 
-    return new Response(JSON.stringify(transcription), {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+          response_format: "text",
+          ...(body.prompt ? { prompt: body.prompt! } : {}),
+        },
+      );
 
-  } catch (error) {
-    console.error("Error in Whisper:", error);
-    return new Response(JSON.stringify({ 
-      body,
-      error: "Whisper processing failed" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+      return new Response(JSON.stringify(transcription), {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error) {
+      console.error("Error in Whisper:", error);
+      return new Response(
+        JSON.stringify({
+          body,
+          error: "Whisper processing failed",
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        },
+      );
+    }
   }
-}
 
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();

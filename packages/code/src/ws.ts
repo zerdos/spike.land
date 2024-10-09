@@ -49,11 +49,13 @@ const getClassNamesFromHTML = (htmlString: string): string[] => {
   const processElement = (el: Element) => {
     let className = el.className;
     if (typeof className === "string") {
-      className.trim().split(/\s+/).forEach(cls => classNames.add(cls));
+      className.trim().split(/\s+/).forEach((cls) => classNames.add(cls));
     } else if (typeof className === "object" && "baseVal" in className) {
-      (className as SVGAnimatedString).baseVal.trim().split(/\s+/).forEach(cls => classNames.add(cls));
+      (className as SVGAnimatedString).baseVal.trim().split(/\s+/).forEach(
+        (cls) => classNames.add(cls),
+      );
     }
-    el.childNodes.forEach(child => {
+    el.childNodes.forEach((child) => {
       if (child instanceof Element) {
         processElement(child);
       }
@@ -70,17 +72,30 @@ const handleScreenshot = async () => {
     const html2canvas = (await import("html2canvas")).default;
     const canvas = await html2canvas(document.body);
     const blob = await new Promise<Blob>((resolve, reject) => {
-      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Failed to create blob from canvas")), "image/png");
+      canvas.toBlob(
+        (blob) =>
+          blob
+            ? resolve(blob)
+            : reject(new Error("Failed to create blob from canvas")),
+        "image/png",
+      );
     });
-    const file = new File([blob], `screenshot-${codeSpace}.png`, { type: "image/png" });
+    const file = new File([blob], `screenshot-${codeSpace}.png`, {
+      type: "image/png",
+    });
     const imageData = await processImage(file);
-    window.parent.postMessage({ type: "screenShot", imageData } as IframeMessage, "*");
+    window.parent.postMessage(
+      { type: "screenShot", imageData } as IframeMessage,
+      "*",
+    );
   } catch (error) {
     console.error("Error taking screenshot:", error);
   }
 };
 
-const handleRender = async (renderedNew: RenderedApp): Promise<{ css: string; html: string } | false> => {
+const handleRender = async (
+  renderedNew: RenderedApp,
+): Promise<{ css: string; html: string } | false> => {
   const { extractStyles, cssCache, rootElement } = renderedNew;
 
   if (!rootElement || !rootElement.innerHTML) {
@@ -93,13 +108,22 @@ const handleRender = async (renderedNew: RenderedApp): Promise<{ css: string; ht
 
   for (let attempts = 5; attempts > 0; attempts--) {
     const emotionStyles = extractStyles();
-    const tailWindClasses = document.querySelector<HTMLStyleElement>("head > style:last-child");
+    const tailWindClasses = document.querySelector<HTMLStyleElement>(
+      "head > style:last-child",
+    );
     const sheet = tailWindClasses?.sheet as CSSStyleSheet;
-    const tailWindClassesX = sheet ? [...sheet.cssRules].map(x => x.cssText.split("\\").join("")) : [];
-    const htmlClasses = new Set(getClassNamesFromHTML(html).join(" ").split(" "));
+    const tailWindClassesX = sheet
+      ? [...sheet.cssRules].map((x) => x.cssText.split("\\").join(""))
+      : [];
+    const htmlClasses = new Set(
+      getClassNamesFromHTML(html).join(" ").split(" "),
+    );
 
     const criticalClasses = new Set(
-      emotionStyles.filter(line => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
+      emotionStyles.filter((line) =>
+        line.startsWith("@")
+        || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())
+      ),
     );
 
     let cssStrings = criticalClasses.join("\n");
@@ -166,7 +190,10 @@ const handleDefaultPage = async (cSess: ICode) => {
             if (data.i !== counter) return;
             const resp = await handleRunMessage(transpiled);
             console.log("Sending run response:", { resp });
-            return window.parent.postMessage({ type: "runResponse", ...resp } as IframeMessage, "*");
+            return window.parent.postMessage(
+              { type: "runResponse", ...resp } as IframeMessage,
+              "*",
+            );
           });
         }
       } catch (error) {
@@ -203,7 +230,10 @@ export const main = async () => {
   });
 
   try {
-    if (location.pathname === `/live/${codeSpace}` || location.pathname === `/live-cms/${codeSpace}`) {
+    if (
+      location.pathname === `/live/${codeSpace}`
+      || location.pathname === `/live-cms/${codeSpace}`
+    ) {
       console.log("Rendering preview window...");
       await twUp();
       await initializeApp();

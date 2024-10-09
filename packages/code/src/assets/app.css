@@ -1,7 +1,4 @@
-
-
 /* Apply a border-box model to all elements */
-
 
 /*
   1. Use a more-intuitive box-sizing model.
@@ -51,7 +48,7 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
   height: 100dvh;
   height: 100svh;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
 }
 
 body > #root > div {
@@ -65,17 +62,11 @@ body > #embed > iframe {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-
   input:focus, .apex-item-text:focus, .apex-item-textarea:focus {
-  
-          font-size: 16px;
-  
-      }
-  
-      .apex-item-select, .apex-item-text, .apex-item-textarea {
-  
-          font-size: 16px;
-  
-      }
-  
+    font-size: 16px;
   }
+
+  .apex-item-select, .apex-item-text, .apex-item-textarea {
+    font-size: 16px;
+  }
+}

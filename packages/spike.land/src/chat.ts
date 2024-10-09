@@ -14,8 +14,6 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
 
- 
-
     if (
       url.pathname === "/@/lib/sw-version.mjs" ||
       url.pathname === "/swVersion.mjs"
@@ -66,14 +64,14 @@ export default {
         },
       );
     }
-  
+
     if (url.pathname === "/sw-config.json") {
       return new Response(
         JSON.stringify({
           killSwitch: false,
           version: "v14",
           swVersion: ASSET_HASH,
-          valid: Date.now()+1000*60*60,
+          valid: Date.now() + 1000 * 60 * 60,
         }),
         {
           headers: {
@@ -194,45 +192,39 @@ export default {
       return handleGPT4Request(request, env, ctx);
     }
     if (request.url.includes("whisper")) {
+      const formData = await request.formData();
 
-      
-      
-
-      const formData =await request.formData();
-
-      const body: { [key: string]: unknown;
-        file: File 
-       } = { file: new File([], "") };
+      const body: { [key: string]: unknown; file: File } = {
+        file: new File([], ""),
+      };
       for (const entry of formData.entries()) {
         body[entry[0]] = entry[1];
       }
-      if (body["record.wav"]){
+      if (body["record.wav"]) {
         body.file = await formData.get("record.wav") as unknown as File;
       }
-
 
       const blob = await body.file!.arrayBuffer();
 
       const inputs = {
-        audio: [...new Uint8Array(blob)]
+        audio: [...new Uint8Array(blob)],
       };
-      const response = await env.AI.run('@cf/openai/whisper-tiny-en', inputs);
-  
+      const response = await env.AI.run("@cf/openai/whisper-tiny-en", inputs);
+
       return new Response(response.text, {
         headers: {
           "Content-Type": "text/plain",
-        }
-    });
-
+        },
+      });
     }
     if (request.url.includes("summarize")) {
       const response = await env.AI.run("@cf/facebook/bart-large-cnn", {
         input_text: await request.json<{
-          text: string
+          text: string;
         }>().then((data) => data.text),
-        max_length: 1024
+        max_length: 1024,
       });
-      return Response.json({response});
+      return Response.json({ response });
     }
     if (request.url.includes("remix")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));

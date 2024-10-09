@@ -10219,7 +10219,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["browserslist", "npm:4.24.0"],\
           ["caniuse-lite", "npm:1.0.30001667"],\
-          ["electron-to-chromium", "npm:1.5.33"],\
+          ["electron-to-chromium", "npm:1.5.34"],\
           ["node-releases", "npm:2.0.18"],\
           ["update-browserslist-db", "virtual:6b67324c878ea06e56ed3caefea53f7683e6ecc2f59a5ccb4eed038528684d5d9ad5763adbad2b939021498b8316c469d622a567bb66012ffd14e8022cf45739#npm:1.1.1"]\
         ],\
@@ -12154,10 +12154,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["electron-to-chromium", [\
-      ["npm:1.5.33", {\
-        "packageLocation": "../../.yarn/berry/cache/electron-to-chromium-npm-1.5.33-bc121806cf-10c0.zip/node_modules/electron-to-chromium/",\
+      ["npm:1.5.34", {\
+        "packageLocation": "../../.yarn/berry/cache/electron-to-chromium-npm-1.5.34-b04fe773b8-10c0.zip/node_modules/electron-to-chromium/",\
         "packageDependencies": [\
-          ["electron-to-chromium", "npm:1.5.33"]\
+          ["electron-to-chromium", "npm:1.5.34"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12438,10 +12438,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["es-iterator-helpers", [\
-      ["npm:1.0.19", {\
-        "packageLocation": "../../.yarn/berry/cache/es-iterator-helpers-npm-1.0.19-5a0b930ca7-10c0.zip/node_modules/es-iterator-helpers/",\
+      ["npm:1.1.0", {\
+        "packageLocation": "../../.yarn/berry/cache/es-iterator-helpers-npm-1.1.0-47deee3fe3-10c0.zip/node_modules/es-iterator-helpers/",\
         "packageDependencies": [\
-          ["es-iterator-helpers", "npm:1.0.19"],\
+          ["es-iterator-helpers", "npm:1.1.0"],\
           ["call-bind", "npm:1.0.7"],\
           ["define-properties", "npm:1.2.1"],\
           ["es-abstract", "npm:1.23.3"],\
@@ -12454,7 +12454,7 @@ const RAW_RUNTIME_STATE =
           ["has-proto", "npm:1.0.3"],\
           ["has-symbols", "npm:1.0.3"],\
           ["internal-slot", "npm:1.0.7"],\
-          ["iterator.prototype", "npm:1.1.2"],\
+          ["iterator.prototype", "npm:1.1.3"],\
           ["safe-array-concat", "npm:1.1.2"]\
         ],\
         "linkType": "HARD"\
@@ -12840,7 +12840,7 @@ const RAW_RUNTIME_STATE =
           ["array.prototype.flatmap", "npm:1.3.2"],\
           ["array.prototype.tosorted", "npm:1.1.4"],\
           ["doctrine", "npm:2.1.0"],\
-          ["es-iterator-helpers", "npm:1.0.19"],\
+          ["es-iterator-helpers", "npm:1.1.0"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.12.0"],\
           ["estraverse", "npm:5.3.0"],\
           ["hasown", "npm:2.0.2"],\
@@ -15545,10 +15545,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["iterator.prototype", [\
-      ["npm:1.1.2", {\
-        "packageLocation": "../../.yarn/berry/cache/iterator.prototype-npm-1.1.2-009f234a21-10c0.zip/node_modules/iterator.prototype/",\
+      ["npm:1.1.3", {\
+        "packageLocation": "../../.yarn/berry/cache/iterator.prototype-npm-1.1.3-2bcc06f3f8-10c0.zip/node_modules/iterator.prototype/",\
         "packageDependencies": [\
-          ["iterator.prototype", "npm:1.1.2"],\
+          ["iterator.prototype", "npm:1.1.3"],\
           ["define-properties", "npm:1.2.1"],\
           ["get-intrinsic", "npm:1.2.4"],\
           ["has-symbols", "npm:1.0.3"],\

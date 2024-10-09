@@ -33,7 +33,7 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
           <ToggleButton key={size} value={size}>
             <span
               className={cn(
-                width === size ? "text-highlight" : "text-normal"
+                width === size ? "text-highlight" : "text-normal",
               )}
             >
               {index === 0 ? <Phone /> : index === 1 ? <Tablet /> : <Tv />}

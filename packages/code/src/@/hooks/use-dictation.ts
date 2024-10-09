@@ -6,7 +6,10 @@ interface UseDictationOptions {
   maxSilenceDuration?: number;
 }
 
-export function useDictation(defaultValue: string = "", options: UseDictationOptions = {}) {
+export function useDictation(
+  defaultValue: string = "",
+  options: UseDictationOptions = {},
+) {
   const [message, setMessage] = useState(defaultValue);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -47,7 +50,9 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
       setIsRecording(true);
     } catch (error) {
       console.error("Error accessing microphone:", error);
-      setError("Unable to access the microphone. Please check your permissions.");
+      setError(
+        "Unable to access the microphone. Please check your permissions.",
+      );
     }
   }, []);
 
@@ -80,12 +85,16 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
 
     try {
       const apiResponse = await sendData("/api/openai", {
-        "record.wav": new File([audioBlob], "record.wav", { type: "audio/wav" }),
+        "record.wav": new File([audioBlob], "record.wav", {
+          type: "audio/wav",
+        }),
         model: "whisper-1",
       });
 
       if (!apiResponse.ok) {
-        throw new Error(`Whisper API responded with status: ${apiResponse.status}`);
+        throw new Error(
+          `Whisper API responded with status: ${apiResponse.status}`,
+        );
       }
 
       const text = (await apiResponse.text())
@@ -126,7 +135,9 @@ export function useDictation(defaultValue: string = "", options: UseDictationOpt
     const audioContext = new AudioContext();
     const analyser = audioContext.createAnalyser();
     if (!mediaStreamRef.current) return;
-    const microphone = audioContext.createMediaStreamSource(mediaStreamRef.current);
+    const microphone = audioContext.createMediaStreamSource(
+      mediaStreamRef.current,
+    );
     microphone.connect(analyser);
     analyser.fftSize = 2048;
     const bufferLength = analyser.fftSize;
@@ -182,7 +193,10 @@ async function sendData(url: string, data: Record<string, File | string>) {
     }
     return resp;
   } catch {
-    const resp = await fetch("/api/whisper", { method: "POST", body: formData });
+    const resp = await fetch("/api/whisper", {
+      method: "POST",
+      body: formData,
+    });
     if (resp.ok) return resp;
     return await fetch(url, { method: "POST", body: formData });
   }
