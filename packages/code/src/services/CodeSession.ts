@@ -177,6 +177,7 @@ export class Code implements ICode {
       codeSpace,
       transpiled: "",
     });
+
     if (this.session.code.startsWith(`\n// ${codeSpace}.tsx\n`)) {
       this.session.code = `\n// ${codeSpace}.tsx\n`;
     }

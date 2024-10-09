@@ -26,6 +26,7 @@ export const MotionContainer = (
       css={css`
       z-index: 1002;
       backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       position: fixed;
     `}
       drag
