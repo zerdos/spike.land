@@ -30,30 +30,6 @@ const htmlDecode = (input: string): string => {
     .replace(/&nbsp;/g, " ");
 };
 
-//   const classNames = new Set<string>();
-//   const tempDiv = document.createElement("div");
-//   tempDiv.innerHTML = htmlString;
-
-//   const processElement = (el: Element) => {
-//     const className = el.className;
-//     if (typeof className === "string") {
-//       className.trim().split(/\s+/).forEach((cls) => classNames.add(cls));
-//     } else if (typeof className === "object" && "baseVal" in className) {
-//       (className as SVGAnimatedString).baseVal.trim().split(/\s+/).forEach(
-//         (cls) => classNames.add(cls),
-//       );
-//     }
-//     el.childNodes.forEach((child) => {
-//       if (child instanceof Element) {
-//         processElement(child);
-//       }
-//     });
-//   };
-
-//   processElement(tempDiv);
-//   return Array.from(classNames);
-// };
-
 // Main functions
 const handleScreenshot = async () => {
   try {
@@ -105,7 +81,7 @@ const handleRender = async (
       ...(document.querySelector<HTMLStyleElement>(
         "head > style:last-child",
       )?.sheet?.cssRules || []) as CSSRuleList,
-    ].map((x) => x.cssText.split("\\")).join("");
+    ].map((x) => x.cssText);
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
