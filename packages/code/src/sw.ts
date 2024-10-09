@@ -66,9 +66,9 @@ async function fetchConfig() {
 }
 
 // Fetch the configuration initially
-let configPromise: Promise<Config> | Config = fetchConfig().then((config) => configPromise = config);
+let configPromise: Promise<Config> | Config;
 const config = async () => {
-  let cf = await configPromise;
+  let cf = await (fetchConfig().then((config) => configPromise = config));
   if (!cf || Date.now() > cf.validUntil) {
     cf = await fetchConfig();
     configPromise = cf;
