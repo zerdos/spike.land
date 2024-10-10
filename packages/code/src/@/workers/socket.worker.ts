@@ -620,7 +620,7 @@ async function handleBroadcastMessage(
                 transpiled,
               });
               try {
-                await fetch(`/live/${codeSpace}/session`, {
+                await fetch(`/live/${codeSpace}/session.json`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
