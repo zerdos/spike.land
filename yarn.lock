@@ -4367,6 +4367,7 @@ __metadata:
     postcss-import: "npm:^16.1.0"
     postcss-js: "npm:^4.0.1"
     preact: "npm:^10.24.2"
+    preact-render-to-string: "npm:^6.5.11"
     prettier: "npm:3.3.3"
     prism-react-renderer: "npm:^2.4.0"
     process: "npm:^0.11.10"
@@ -14299,6 +14300,15 @@ __metadata:
     picocolors: "npm:^1.1.0"
     source-map-js: "npm:^1.2.1"
   checksum: 10c0/929f68b5081b7202709456532cee2a145c1843d391508c5a09de2517e8c4791638f71dd63b1898dba6712f8839d7a6da046c72a5e44c162e908f5911f57b5f44
+  languageName: node
+  linkType: hard
+
+"preact-render-to-string@npm:^6.5.11":
+  version: 6.5.11
+  resolution: "preact-render-to-string@npm:6.5.11"
+  peerDependencies:
+    preact: ">=10"
+  checksum: 10c0/a68b704c1343756022fb41322154b45e39f6021b940cbc97e86c292627d017d019700339a17d67b42c308b14fc5323fc120c798f785d6a3e993c8f273610bfe2
   languageName: node
   linkType: hard
 

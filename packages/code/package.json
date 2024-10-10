@@ -160,6 +160,7 @@
     "perf_hooks": "^0.0.1",
     "postcss-js": "^4.0.1",
     "preact": "^10.24.2",
+    "preact-render-to-string": "^6.5.11",
     "prettier": "3.3.3",
     "prism-react-renderer": "^2.4.0",
     "process": "^0.11.10",

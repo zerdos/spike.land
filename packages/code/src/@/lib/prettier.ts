@@ -1,7 +1,7 @@
 import emotion from "@emotion/css-prettifier";
 import type { Options } from "prettier";
 import pluginEstree from "prettier/plugins/estree";
-import cssParser from "prettier/plugins/postcss";
+import postCss from "prettier/plugins/postcss";
 import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 
@@ -161,5 +161,5 @@ export const prettierCss = async (inputCSS: string) =>
     useTabs: false,
     singleQuote: false,
     trailingComma: "none",
-    plugins: [cssParser],
+    plugins: [postCss],
   });

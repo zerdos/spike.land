@@ -7097,6 +7097,7 @@ const RAW_RUNTIME_STATE =
           ["postcss-import", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.1.0"],\
           ["postcss-js", "virtual:9becc1cf754f2aff2ef6f2378e39bba4444057ad388012cba22170c3c681facb4aa49c67b0d3480037c94b07b801a3a1df5bfa0b2aab093f4a5047e2197efbfb#npm:4.0.1"],\
           ["preact", "npm:10.24.2"],\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.11"],\
           ["prettier", "npm:3.3.3"],\
           ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.4.0"],\
           ["process", "npm:0.11.10"],\
@@ -18878,6 +18879,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/preact-npm-10.24.2-f3978de4e5-10c0.zip/node_modules/preact/",\
         "packageDependencies": [\
           ["preact", "npm:10.24.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["preact-render-to-string", [\
+      ["npm:6.5.11", {\
+        "packageLocation": "../../.yarn/berry/cache/preact-render-to-string-npm-6.5.11-431b4c85e0-10c0.zip/node_modules/preact-render-to-string/",\
+        "packageDependencies": [\
+          ["preact-render-to-string", "npm:6.5.11"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.11", {\
+        "packageLocation": "./.yarn/__virtual__/preact-render-to-string-virtual-9a4fa570cd/3/.yarn/berry/cache/preact-render-to-string-npm-6.5.11-431b4c85e0-10c0.zip/node_modules/preact-render-to-string/",\
+        "packageDependencies": [\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.11"],\
+          ["@types/preact", null],\
+          ["preact", "npm:10.24.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/preact",\
+          "preact"\
         ],\
         "linkType": "HARD"\
       }]\

@@ -92,7 +92,8 @@ export async function fakeServer(request: Request) {
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).replace(
       `<!-- Inline LINK for initial theme -->`,
-      `<style>${session.css}</style>`,
+      `<link rel="preload" href="/live/${session.codeSpace}/index.css" as="style" />
+    <link rel="stylesheet" href="/live/${session.codeSpace}/index.css" />`,
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${session.html}</div>`,
