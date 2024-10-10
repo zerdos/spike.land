@@ -51,16 +51,6 @@ p, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto Flex", sans-serif;
 }
 
-body > #root > div {
-  height: 100dvh;
-  height: 100svh;
-}
-
-body > #embed > iframe {
-  height: 100dvh;
-  height: 100svh;
-}
-
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input:focus, .apex-item-text:focus, .apex-item-textarea:focus {
     font-size: 16px;
@@ -69,4 +59,22 @@ body > #embed > iframe {
   .apex-item-select, .apex-item-text, .apex-item-textarea {
     font-size: 16px;
   }
+}
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

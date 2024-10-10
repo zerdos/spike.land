@@ -181,7 +181,7 @@ const handleDehydratedPage = (cSess: ICode) => {
       const { html, css } = sess;
       const root = document.getElementById("embed");
       if (root && html && css) {
-        root.innerHTML = `<style>${css}</style><div>${html}</div>`;
+        root.innerHTML = `<style type="text/css">${css}</style><div>${html}</div>`;
       }
     });
   } catch (error) {

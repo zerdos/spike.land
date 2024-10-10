@@ -19,7 +19,7 @@ const moveToCorner = (point: string) => {
   return `translate(${x - 50}px, ${y - 50}px)`;
 };
 
-export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
+export const  BackgroundEffect = ({ children }: { children: ReactNode }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { isDarkMode } = useDarkMode();
 
@@ -40,12 +40,6 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
         isDarkMode ? "bg-black" : "bg-white",
       )}
     >
-      <div
-        className={cn(
-          "absolute inset-0 opacity-50 z-10",
-          isDarkMode ? "bg-black" : "bg-white",
-        )}
-      />
       <svg
         className={cn("absolute inset-0 w-full h-full z-0")}
         xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +149,7 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
                 />
               ))}
             </g>
-          ),
+          )
         )}
       </svg>
       {children}

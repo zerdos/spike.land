@@ -76,7 +76,7 @@ export const useSpeedy2 = async () => {
 ">
 
     <!-- Inline style for initial theme -->
-    <style>
+    <style type="text/css">
         :root {
             --bg-color: #ffffff;
             --text-color: #000000;
@@ -95,7 +95,7 @@ export const useSpeedy2 = async () => {
     </style>
 
   <title>CodeSpace archive for ${codeSpace}</title>
-  <style> 
+  <style type="text/css"> 
     ${appCss}
     ${globCss}
     ${wrapperCss}
@@ -158,7 +158,7 @@ export const useArchive = async (codeSpace: string) => {
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
-  <style>
+  <style type="text/css">
     ${gJunk}
     ${css}
   </style>
@@ -301,7 +301,7 @@ export const useSpeedy = async (codeSpace: string) => {
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
-  <style>  
+  <style type="text/css">  
     ${updatedCss}
   </style>
 </head>
