@@ -60,8 +60,8 @@ export class CodeSessionBC {
     return this.session.code;
   }
 
-  async init(): Promise<ICodeSession> {
-    return this.session = this.session
+  async init(session: ICodeSession | null = null): Promise<ICodeSession> {
+    return this.session = session || this.session
       || (await fetch(`/live/${this.codeSpace}/session.json`).then((response) => response.json())) as ICodeSession;
   }
 

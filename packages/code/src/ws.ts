@@ -1,15 +1,15 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
-import type { ICode, ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
+import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import { Mutex } from "async-mutex";
 
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
+import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init as twUp } from "./tw-dev-setup";
 
 // Global variables and types
@@ -136,34 +136,15 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
 const handleRunMessage = async (transpiled: string) =>
   (await twUp()) && handleRender((await updateRenderedApp({ transpiled }))!);
 
-const handleDefaultPage = async (cSess: ICode) => {
+const handleDefaultPage = async () => {
   try {
-    cSess.sub(updateRenderedApp);
-    const mutex = new Mutex();
-    let counter = 0;
-
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
       try {
-        await twUp();
-        const { type, requestId } = data;
+        const { type } = data;
         if (!type) return;
 
         if (type === "screenShot") {
           await handleScreenshot();
-        } else if (type === "run" && requestId) {
-          const { transpiled, i } = data;
-          if (i <= counter) return;
-          counter = i;
-
-          return await mutex.runExclusive(async () => {
-            if (data.i !== counter) return;
-            const resp = await handleRunMessage(transpiled);
-            console.log("Sending run response:", { resp });
-            return window.parent.postMessage(
-              { type: "runResponse", requestId, ...resp } as IframeMessage,
-              "*",
-            );
-          });
         }
       } catch (error) {
         console.error("Error processing message:", error);
@@ -174,43 +155,36 @@ const handleDefaultPage = async (cSess: ICode) => {
   }
 };
 
-const handleDehydratedPage = (cSess: ICode) => {
-  try {
-    cSess.sub((sess: ICodeSession) => {
-      const { html, css } = sess;
-      const root = document.getElementById("embed");
-      if (root && html && css) {
-        root.innerHTML = `<style type="text/css">${css}</style><div>${html}</div>`;
-      }
-    });
-  } catch (error) {
-    console.error("Error handling dehydrated page:", error);
-  }
-};
-
 export const main = async () => {
-  const cSess = new Code(codeSpace);
-  await cSess.run();
-  Object.assign(globalThis, { cSess });
-
-  cSess.sub((sess: ICodeSession) => {
-    const { i, code, transpiled } = sess;
-    console.table({ i, code, transpiled });
-  });
+  const cSessBr = new CodeSessionBC(codeSpace);
+  const session = await cSessBr.init();
 
   try {
     if (
       location.pathname === `/live/${codeSpace}`
       || location.pathname === `/live-cms/${codeSpace}`
     ) {
+      const cSess = new Code(codeSpace);
+      await cSess.init(session);
+      Object.assign(globalThis, { cSess });
+
+      cSessBr.sub((sess: ICodeSession) => {
+        const { i, code, transpiled } = sess;
+        console.table({ i, code, transpiled });
+      });
+
       console.log("Rendering preview window...");
       await twUp();
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
-      handleDehydratedPage(cSess);
+      const handleDehydratedPage = ({ html, css }: ICodeSession) =>
+        document.getElementById("embed")!.innerHTML = `<style type="text/css">${css}</style><div>${html}</div>`;
+
+      cSessBr.sub((sess: ICodeSession) => handleDehydratedPage(sess));
     } else {
-      await handleDefaultPage(cSess);
+      cSessBr.sub((s) => updateRenderedApp(s));
+      await handleDefaultPage();
     }
   } catch (error) {
     console.error("Error in main function:", error);
@@ -222,4 +196,4 @@ setTimeout(async () => {
   await setupServiceWorker();
 }, 0);
 
-Object.assign(globalThis, { twUp, handleRunMessage, handleScreenshot });
+Object.assign(globalThis, { twUp, handleRunMessage, handleScreenshot, updateRenderedApp });

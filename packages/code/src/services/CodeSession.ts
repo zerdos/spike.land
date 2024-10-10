@@ -187,8 +187,8 @@ export class Code implements ICode {
     this.models.set(this.codeSpace, this);
   }
 
-  async init(): Promise<ICodeSession> {
-    this.session = await this.broadcastChannel.init();
+  async init(session: ICodeSession | null = null): Promise<ICodeSession> {
+    this.session = await this.broadcastChannel.init(session);
     let swVersion = "unknown";
     try {
       const swVersionModule = await import(`${location.origin}/swVersion.mjs`);
