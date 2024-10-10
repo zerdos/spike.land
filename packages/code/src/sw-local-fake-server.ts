@@ -118,9 +118,8 @@ export async function fakeServer(request: Request) {
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).replace(
-      "<div id=\"embed\"></div>",
-      "<div id=\"embed\"><iframe title=\"Live preview\" height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
-        + codeSpace + "/iframe\"></iframe></div>",
+      `<div id="embed"></div>`,
+      `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/iframe"></iframe></div>`,
     );
 
     const headers = new Headers({

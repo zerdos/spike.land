@@ -49,6 +49,12 @@ p, h1, h2, h3, h4, h5, h6 {
   height: 100dvh;
   height: 100svh;
   font-family: "Roboto Flex", sans-serif;
+  iframe {
+    height: 100%;
+    width: 100%;
+    border: none;
+    overflow: auto;
+  }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
