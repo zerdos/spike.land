@@ -69,7 +69,7 @@ export default {
       return new Response(
         JSON.stringify({
           killSwitch: false,
-          version: "v14",
+          version: "v15",
           swVersion: ASSET_HASH,
           valid: Date.now() + 1000 * 60 * 60,
         }),
