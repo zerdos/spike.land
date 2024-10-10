@@ -6,9 +6,9 @@ const CSS_PATH = "/app/tw-global.css";
 const JS_PATH = "/assets/tw-chunk-4a7018.js";
 
 let initialized = false;
-export const init = async (): Promise<void> => {
+export const init = async (): Promise<true> => {
   if (initialized) {
-    return;
+    return true;
   }
   initialized = true;
   const codeSpace = useCodeSpace();
@@ -18,7 +18,7 @@ export const init = async (): Promise<void> => {
     !pathname.endsWith(IFRAME_PATH)
     && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
   ) {
-    return;
+    return true;
   }
 
   try {
@@ -27,8 +27,10 @@ export const init = async (): Promise<void> => {
       loadCSS(`${origin}${CSS_PATH}`),
       loadScript(`${origin}${JS_PATH}`),
     ]);
+    return true;
   } catch (error) {
     console.error("Failed to load resources:", error);
+    return true;
     // Optionally, you could throw the error here if you want calling code to handle it
   }
 };

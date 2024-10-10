@@ -12,8 +12,6 @@ import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { init as twUp } from "./tw-dev-setup";
 
-Object.assign(globalThis, { twUp });
-
 // Global variables and types
 const codeSpace = useCodeSpace();
 let rendered: RenderedApp | null = null;
@@ -135,7 +133,8 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
   return rendered;
 };
 
-const handleRunMessage = (transpiled: string) => updateRenderedApp({ transpiled }).then((r) => handleRender(r!));
+const handleRunMessage = async (transpiled: string) =>
+  (await twUp()) && handleRender((await updateRenderedApp({ transpiled }))!);
 
 const handleDefaultPage = async (cSess: ICode) => {
   try {
@@ -222,3 +221,5 @@ export const main = async () => {
 setTimeout(async () => {
   await setupServiceWorker();
 }, 0);
+
+Object.assign(globalThis, { twUp, handleRunMessage, handleScreenshot });
