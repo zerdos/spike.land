@@ -153,7 +153,7 @@ sw.addEventListener("install", (event) => {
         );
         console.log({ stillMissing });
 
-        Promise.all([...stillMissing].map(async (url) => {
+        await Promise.allSettled([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
           const cacheKey = pathname.slice(1);
           const request = new Request(
