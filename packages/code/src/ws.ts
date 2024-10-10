@@ -140,12 +140,14 @@ type RunAnswerType = {
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
-  renderedMd5 = md5(transpiled);
-  if (renderedMd5 === window.renderedMd5) {
+  const currentHash = md5(transpiled);
+
+  if (renderedMd5 === currentHash) {
     console.log("Skipping update as md5 is the same");
-    return;
+
+    return rendered;
   }
-  window.renderedMd5 = renderedMd5;
+
   console.log("Updating rendered app...");
 
   const myEl = document.createElement("div");
@@ -166,6 +168,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
     codeSpace,
     rootElement: myEl,
   });
+  renderedMd5 = currentHash;
 
   document.getElementById("embed")?.remove();
   myEl.setAttribute("id", "embed");
