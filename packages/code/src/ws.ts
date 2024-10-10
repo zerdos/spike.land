@@ -193,6 +193,8 @@ export const main = async () => {
 
 // Initialize service worker
 setTimeout(async () => {
+  if (window.parent !== window) return;
+
   await setupServiceWorker();
 }, 0);
 
