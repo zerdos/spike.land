@@ -85,13 +85,15 @@ export async function fakeServer(request: Request) {
     || request.url.includes("/embed")
     || request.url.includes("/public")
     || request.url.endsWith(`/live/${codeSpace}/xxx`)
+    || request.url.endsWith(`/live/${codeSpace}/`)
   ) {
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
     ).replace(
       `<!-- Inline LINK for initial theme -->`,
-      `<style>${session.css}</style>`,
+      `<link rel="preload" href="/live/${session.codeSpace}/index.css" as="style" />
+    <link rel="stylesheet" href="/live/${session.codeSpace}/index.css" />`,
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${session.html}</div>`,

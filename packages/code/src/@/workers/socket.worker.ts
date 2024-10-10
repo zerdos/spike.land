@@ -146,7 +146,9 @@ function createWebSocket(codeSpace: string) {
     socketDidReceiveMessage(_socket: Socket, message: string) {
       // Socket read data from the connection.
       console.log("Socket message:", message);
-      const data: WsMessage = typeof message === "string" ? JSON.parse(message) : message;
+      const data: WsMessage = typeof message === "string"
+        ? JSON.parse(message)
+        : message;
       handleSocketMessage(data, codeSpace).catch((error) => {
         console.error("Error handling socket message:", error);
       });
@@ -190,7 +192,10 @@ async function handleSocketMessage(
     console.log("Last hash:", connection.lastHash);
 
     if (connection.lastHash === data.hashCode) {
-      console.log("setting lastCounter to oldSession.i", connection.oldSession.i);
+      console.log(
+        "setting lastCounter to oldSession.i",
+        connection.oldSession.i,
+      );
       connection.lastCounter = connection.oldSession.i;
 
       console.log("Skipping message due to hash match");
@@ -221,7 +226,13 @@ async function handleSocketMessage(
       return;
     }
     const patch = createPatch(sess, connection.oldSession);
-    connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user, i: connection.oldSession.i }));
+    connection.webSocket.send(
+      JSON.stringify({
+        ...patch,
+        name: connection.user,
+        i: connection.oldSession.i,
+      }),
+    );
     return;
   }
 

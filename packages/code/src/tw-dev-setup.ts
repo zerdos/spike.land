@@ -5,15 +5,24 @@ const LIVE_PATH = "/live/";
 const CSS_PATH = "/app/tw-global.css";
 const JS_PATH = "/assets/tw-chunk-4a7018.js";
 
+let initialized = false;
 export const init = async (): Promise<void> => {
+  if (initialized) {
+    return;
+  }
+  initialized = true;
   const codeSpace = useCodeSpace();
   const { pathname, origin } = window.location;
 
-  if (!pathname.endsWith(IFRAME_PATH) && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)) {
+  if (
+    !pathname.endsWith(IFRAME_PATH)
+    && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
+  ) {
     return;
   }
 
   try {
+    removeAllStyleBlocks();
     await Promise.all([
       loadCSS(`${origin}${CSS_PATH}`),
       loadScript(`${origin}${JS_PATH}`),
@@ -44,4 +53,9 @@ const loadScript = (src: string): Promise<void> => {
     script.onerror = reject;
     document.head.appendChild(script);
   });
+};
+
+const removeAllStyleBlocks = (): void => {
+  const styleBlocks = document.querySelectorAll("head > style");
+  styleBlocks.forEach((block) => block.remove());
 };

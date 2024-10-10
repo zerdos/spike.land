@@ -1,7 +1,6 @@
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
 
-
   // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
   const { Workbox } = await import("workbox-window");
   console.log("Workbox imported");
@@ -78,5 +77,4 @@ navigator.serviceWorker.addEventListener("message", (event) => {
   if (event.data === "reload") {
     location.reload();
   }
-
-})
+});

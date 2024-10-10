@@ -41,19 +41,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     debounceMs: 60000,
   });
 
-  const handleContentChange = async (newCode: string) => {
-    console.log("Content change", mod.current.i, md5(newCode));
-
-    if (newCode.includes("/** invalid")) return;
-
-    const formattedCode = await cSess.setCode(newCode);
-
-    if (typeof formattedCode === "string") {
-      mod.current.md5Ids.push(md5(formattedCode));
-      mod.current.code = formattedCode;
-    }
-  };
-
+  const handleContentChange = (newCode: string) => {
+  
+    mod.current.md5Ids.push(md5(newCode));
+    cSess.setCode(newCode);
+  }
+ 
   useEffect(() => {
     if (error) {
       handleError("typescript", error);
@@ -69,7 +62,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         const md5Code = md5(data.code);
 
         if (mod.current.md5Ids.includes(md5Code)) return;
-        mod.current.md5Ids.push(md5Code);
+
+        mod.current.md5Ids.push(md5Code);  
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
         // mod.current.controller.abort();

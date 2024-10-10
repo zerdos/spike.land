@@ -146,10 +146,14 @@ sw.addEventListener("install", (event) => {
         const missing = setDifference(allKeys, myKeys);
         console.log({ missing });
 
-        const stillMissing = await getMissingFiles(missing, cacheNames, myCache);
+        const stillMissing = await getMissingFiles(
+          missing,
+          cacheNames,
+          myCache,
+        );
         console.log({ stillMissing });
 
-        Promise.all([...stillMissing].map(async (url) => {
+        await Promise.allSettled([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
           const cacheKey = pathname.slice(1);
           const request = new Request(
@@ -168,7 +172,9 @@ sw.addEventListener("install", (event) => {
             new URL(cacheKey, origin).toString(),
           );
           try {
-            const response = await queuedFetch.fetch(request, { cache: "no-store" });
+            const response = await queuedFetch.fetch(request, {
+              cache: "no-store",
+            });
 
             if (!response.headers.has("x-hash")) {
               throw new Error(`Hash header missing for ${url}`);
@@ -197,7 +203,9 @@ sw.addEventListener("install", (event) => {
         );
         const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
         if (stillMissing2.size) {
-          console.error("Failed to fetch the following files:", [...stillMissing2]);
+          console.error("Failed to fetch the following files:", [
+            ...stillMissing2,
+          ]);
           // sw.registration.unregister();
           return;
         }
@@ -229,14 +237,16 @@ sw.addEventListener("activate", (event) => {
       );
       const stillMissing2 = setDifference(allKeys, updatedMyKeys2);
       if (stillMissing2.size) {
-        console.error("Failed to fetch the following files:", [...stillMissing2]);
+        console.error("Failed to fetch the following files:", [
+          ...stillMissing2,
+        ]);
         // sw.registration.unregister();
         return;
       }
 
       console.log("Service Worker activating."); // Ensure the config is fetched
 
-      const cacheNames = (await caches.keys()).filter(x => x !== sw.fileCacheName);
+      const cacheNames = (await caches.keys()).filter((x) => x !== sw.fileCacheName);
       // Delete old caches
       await Promise.all(
         cacheNames.map((cacheName) => caches.delete(cacheName)),
@@ -288,7 +298,11 @@ sw.addEventListener("fetch", (event) => {
   event.respondWith(fetch(request));
 });
 
-async function getMissingFiles(missing: Set<string>, cacheNames: string[], myCache: Cache) {
+async function getMissingFiles(
+  missing: Set<string>,
+  cacheNames: string[],
+  myCache: Cache,
+) {
   // Copy missing items from old caches
   for (const cacheName of cacheNames) {
     const oldCache = await caches.open(cacheName);

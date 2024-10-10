@@ -42,7 +42,7 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
             <ToggleButton key={size} value={size}>
               <span
                 className={cn(
-                  size === scaleRange ? "text-highlight" : "text-normal"
+                  size === scaleRange ? "text-highlight" : "text-normal",
                 )}
               >
                 {size}%

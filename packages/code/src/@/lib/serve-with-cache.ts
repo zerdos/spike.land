@@ -117,7 +117,8 @@ export const serveWithCache = (
 
         // Create a promise to represent the in-flight fetch
         const inFlightPromise = (async (req: Request) => {
-          const fileParts = (files[filePath] ? files[filePath] : filePath).split(".");
+          const fileParts = (files[filePath] ? files[filePath] : filePath)
+            .split(".");
           fileParts.pop();
           const hash = fileParts.pop()!;
 

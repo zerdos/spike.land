@@ -185,7 +185,10 @@ export const screenShot = (): Promise<ImageData> => {
 };
 
 export const runCode = memoizeWithAbort(
-  async (transpiled: string, i: number): Promise<{ html: string; css: string }> => {
+  async (
+    transpiled: string,
+    i: number,
+  ): Promise<{ html: string; css: string }> => {
     const requestId = md5(transpiled);
 
     return new Promise<{ html: string; css: string }>((resolve, reject) => {

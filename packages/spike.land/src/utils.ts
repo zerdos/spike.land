@@ -71,7 +71,7 @@ export async function readRequestBody(request: Request) {
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
     }
-    if (body["record.wav"]){
+    if (body["record.wav"]) {
       body.file = await formData.get("record.wav");
     }
     return body;

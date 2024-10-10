@@ -1,6 +1,8 @@
 export * from "@emotion/react";
 
-export * from "@emotion/react/jsx-runtime";
+import * as JSX from "@emotion/react/jsx-runtime";
+
+export const { jsx, jsxs, Fragment } = JSX;
 
 // import * as JSX from "@emotion/react/jsx-runtime";
 // // @ts-ignore

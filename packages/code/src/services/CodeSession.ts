@@ -243,46 +243,73 @@ export class Code implements ICode {
     this.broadcastChannel.postMessage(this.session);
     return true;
   }
+  private isRunning = false;
+  private pendingRun: string | null = null;
 
-  async setCode(
+  async setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean> {
+    if (this.isRunning) {
+      // If already running, replace any pending run with this new request
+      this.pendingRun = rawCode;
+
+      // Wait for the current run to finish
+      while (this.isRunning) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+
+      // Check if this run is still the most recent request
+      if (this.pendingRun !== rawCode) {
+        console.log("Skipping outdated run request");
+        return false;
+      }
+    }
+
+    // Set running flag and clear pending run
+    this.isRunning = true;
+    this.pendingRun = null;
+
+    try {
+      return await this.setCodePriv(rawCode, skipRunning);
+    } finally {
+      // Ensure the flag is reset even if an error occurs
+      this.isRunning = false;
+    }
+    return false;
+  }
+
+  private async setCodePriv(
     rawCode: string,
     skipRunning = false,
   ): Promise<string> {
-    if (mutex.isLocked()) await mutex.waitForUnlock();
-    mutex.acquire();
+    if (rawCode === this.session.code) return this.session.code;
 
-    try {
-      if (rawCode === this.session.code) return this.session.code;
-
-      if (this.setCodeController) {
-        this.setCodeController.abort();
-      }
-      this.setCodeController = new AbortController();
-      const { signal } = this.setCodeController;
-      const counter = this.session.i;
-
-      const processedSession = await this.codeProcessor.process(
-        rawCode,
-        skipRunning,
-        counter,
-        signal,
-      );
-      if (!processedSession || signal.aborted) return this.session.code;
-
-      const session = makeSession({ ...this.session, ...processedSession });
-      if (hash(session) === hash(this.session)) return this.session.code;
-
-      this.session = makeSession({ ...session, i: this.session.i + 1 });
-
-      this.broadcastChannel.postMessage({
-        ...this.session,
-        sender: "Editor",
-      } as BroadcastMessage);
-
-      return this.session.code;
-    } finally {
-      mutex.release();
+    if (this.setCodeController) {
+      this.setCodeController.abort();
     }
+    this.setCodeController = new AbortController();
+
+    const { signal } = this.setCodeController;
+    const counter = this.session.i;
+
+    const processedSession = await this.codeProcessor.process(
+      rawCode,
+      skipRunning || !!this.pendingRun,
+      counter,
+      signal,
+    );
+    if (!processedSession || signal.aborted) return this.session.code;
+
+    const session = makeSession({ ...this.session, ...processedSession });
+
+    if (hash(session) === hash(this.session)) return this.session.code;
+
+    this.session = makeSession({ ...session, i: this.session.i + 1 });
+
+    this.broadcastChannel.postMessage({
+      ...this.session,
+      sender: "Editor",
+    } as BroadcastMessage);
+
+    return this.session.code;
   }
 
   async setModelsByCurrentCode(newCodes: string): Promise<string> {

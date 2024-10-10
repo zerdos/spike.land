@@ -302,8 +302,6 @@ async function startMonacoPristine({
     const suggestionDiagnostics = await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString());
 
-
-    
     console.log({ suggestionDiagnostics });
 
     ttt.checking = 0;
@@ -375,9 +373,15 @@ async function startMonacoPristine({
     }, 200);
 
     if (!editorModel.silent) {
-      onChange(newCode);
+  
+      setTimeout(() => {
+        if (signal.aborted) return;
+        prettierToThrow({code: newCode, toThrow: true}).then(onChange)
+    }, 100);
     }
-  });
+  
+  } 
+  );
 
   return editorModel;
 }
