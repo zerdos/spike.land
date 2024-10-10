@@ -71,7 +71,7 @@ class CodeProcessor {
 
       if (!skipRunning) {
         try {
-          const res = await this.runCode(transpiledCode, counter, signal);
+          const res = await this.runCode(transpiledCode);
 
           if (signal?.aborted) return false;
 
@@ -139,18 +139,14 @@ class CodeProcessor {
 
   private async runCode(
     code: string,
-    i: number,
-    signal: AbortSignal,
   ): Promise<{ html: string; css: string }> {
     try {
-      const result = await runCode(code, i, signal);
+      const result = await runCode(code);
       if (!result) {
-        if (signal.aborted) return { html: "", css: "" };
         throw new Error("Running code produced no output");
       }
       return result;
     } catch (error) {
-      if (signal.aborted) return { html: "", css: "" };
       console.error("Error running code:", { code });
       throw new Error(`Error running code: ${error}`);
     }

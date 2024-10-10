@@ -1,4 +1,4 @@
-import type { IframeMessage, ImageData } from "@/lib/interfaces";
+import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
 
@@ -184,55 +184,15 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-export const runCode = memoizeWithAbort(
-  async (
-    transpiled: string,
-    i: number,
-  ): Promise<{ html: string; css: string }> => {
-    const requestId = md5(transpiled);
+export const runCode = (transpiled: string): Promise<{ html: string; css: string }> | false => {
+  if (typeof window === "undefined") {
+    return false;
+  }
 
-    return new Promise<{ html: string; css: string }>((resolve, reject) => {
-      const timeoutId = setTimeout(() => {
-        cleanup();
-        reject(new Error("Timed out"));
-      }, 5000);
-
-      const messageHandler = ({ data }: { data: IframeMessage }): void => {
-        if (data && data.requestId === requestId) {
-          if (data.type === "runResponse") {
-            clearTimeout(timeoutId);
-            cleanup();
-            if (
-              data.html === ""
-              || data.html.includes("Oops! Something went wrong.")
-            ) {
-              reject(new Error("Error running code" + data.html));
-            } else {
-              resolve({ html: data.html, css: data.css });
-            }
-          }
-        }
-      };
-
-      const cleanup = (): void => {
-        window.removeEventListener("message", messageHandler);
-      };
-
-      window.addEventListener("message", messageHandler);
-
-      document.querySelector("iframe")?.contentWindow?.postMessage(
-        {
-          type: "run",
-          requestId,
-          i,
-          transpiled,
-        } as IframeMessage,
-        "*",
-      );
-    });
-  },
-  (transpiled: string) => md5(transpiled),
-);
+  return (window.frames[0] as unknown as {
+    handleRunMessage: (transpiled: string) => Promise<{ html: string; css: string; js: string }>;
+  }).handleRunMessage(transpiled);
+};
 
 export async function initializeMonaco(
   container: HTMLDivElement,
