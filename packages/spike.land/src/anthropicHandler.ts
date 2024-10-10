@@ -32,7 +32,7 @@ export async function handleAnthropicRequest(
 
   handleCORS(request);
 
-  const body = JSON.parse(await readRequestBody(request)) as RequestBody;
+  const body = await readRequestBody(request) as RequestBody;
 
   const messages = await Promise.all(
     body.messages.map(async (message: Message) => {
