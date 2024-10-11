@@ -3,6 +3,7 @@ export {
   Bot,
   Camera,
   Check,
+  FullscreenIcon,
   History,
   Image,
   Moon,

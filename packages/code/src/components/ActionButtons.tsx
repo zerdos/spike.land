@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import type { FC } from "react";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
-import { FaDownload } from "react-icons/fa";
-import { MdFullscreen as FullscreenIcon } from "react-icons/md";
+import { FaDownload } from "@/external/icons";
+import {FullscreenIcon} from "@/external/lucideReact";
+
 
 type ActionButtonsProps = {
   codeSpace: string;
