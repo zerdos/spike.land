@@ -15,7 +15,11 @@ export class QueuedFetch {
     this.retryDelay = _retryDelay;
     this.maxNumberOfRequests = maxNumberOfRequests;
     this.maxConcurrent = maxConcurrent;
-    this.fetchWithRetry = fetchBuilder(fetch, { retries: this.retries, retryDelay: this.retryDelay });
+    this.fetchWithRetry = fetchBuilder(fetch, {
+      retries: this.retries,
+      retryDelay: this.retryDelay,
+      retryOn: [429, 500, 503, 504, 408, 413, 431, 451, 502],
+    });
     if (maxNumberOfRequests > 0) {
       this.limitedNumberOfRequests = true;
     }
