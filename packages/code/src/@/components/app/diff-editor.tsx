@@ -1,6 +1,5 @@
-// x-bcSf64bc.tsx
 import React from "react";
-import { diffChars } from "diff";
+import { diffTrimmedLines } from "diff";
 import styled from "@emotion/styled";
 
 interface DiffViewerProps {
@@ -30,8 +29,8 @@ const DiffPart = styled.span<DiffPartProps>`
   }}
 `;
 
-const DiffViewer: React.FC<DiffViewerProps> = ({ original, modified }) => {
-  const diff = diffChars(original || "", modified || original);
+export const DiffViewer: React.FC<DiffViewerProps> = ({ original, modified }) => {
+  const diff = diffTrimmedLines(original || "", modified || original);
 
   return (
     <DiffContainer>
@@ -58,8 +57,7 @@ const modified= `
 <DiffContainer>
   {diff.map((part, index) => (
     <DiffPart key={index} added={part.added} removed={part.removed}>
-     
-      {yoooooo}
+      {part.value}
     </DiffPart>
   ))}
 </DiffContainer>
@@ -67,8 +65,6 @@ const modified= `
 
 export default () => <DiffViewer original={original} modified={modified} />;
 
-
-export const DiffEditor = DiffViewer;
 
 // import React, { memo, useCallback, useEffect, useRef } from "react";
 // import { editor } from "@/external/monaco-editor";

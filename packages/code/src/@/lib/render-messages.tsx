@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/components/app/code-block-lazy";
 import { isDiffContent } from "@/lib/diff-utils";
-import { DiffEditor } from "@/components/app/diff-editor";
+import { DiffViewer } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
 import { extractCodeModification } from "@/lib/chat-utils";
 
@@ -59,7 +59,7 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
       const m = modified.includes("Foo_Bar_baz_893") ? "" : modified;
 
       return (
-        <DiffEditor
+        <DiffViewer
           original={o}
           modified={m}
         />
