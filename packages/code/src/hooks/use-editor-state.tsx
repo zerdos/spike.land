@@ -3,6 +3,7 @@ import type { EditorState } from "@src/components/editorUtils";
 import type { ErrorType } from "@src/components/ErrorMessages";
 import { useRef, useState } from "react";
 import { useContext } from "./useContext";
+import { isMobile } from "@src/isMobile";
 
 export const useEditorState = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,7 +14,7 @@ export const useEditorState = () => {
     setValue: () => {},
   });
 
-  const engine = "monaco"; // Or determine this dynamically
+  const engine =isMobile() ? "ace" : "monaco";
 
   return { containerRef, engine, editorState, setEditorState };
 };
