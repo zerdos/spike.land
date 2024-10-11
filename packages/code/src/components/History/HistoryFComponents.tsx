@@ -13,9 +13,13 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
-import { format } from "date-fns/format";
 import React from "react";
 
+const format = (date: Date): string =>
+  new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "full",
+    timeStyle: "short",
+  }).format(date);
 // HistoryItem component
 const HistoryItem: React.FC<HistoryItemProps> = (
   { item, index, totalItems, onRestore, onDelete },
@@ -26,7 +30,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
     </CardHeader>
     <CardContent className={cn("flex-grow flex flex-col")}>
       <p className={cn("text-sm text-gray-500 mb-2")}>
-        {format(new Date(item.timestamp), "PPpp")}
+        {format(new Date(item.timestamp))}
       </p>
       <div className={cn("flex-grow mb-4")}>
         <Wrapper code={item.code} />
