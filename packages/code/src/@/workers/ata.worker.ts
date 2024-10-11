@@ -73,6 +73,7 @@ export async function ata({
     await Promise.all(
       res.map(async function(r: string) {
         try {
+          if (originToUse.endsWith(".d.ts")) return;
           const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
           const content = await resp.text();
           impRes[r] = {
@@ -232,6 +233,7 @@ declare module 'react' {
             newBase = r;
           } else {
             try {
+              if (originToUse.endsWith(".d.ts")) return;
               const response = await queuedFetch.fetch(`${originToUse}/*${r}`, {
                 redirect: "follow",
               });
@@ -248,6 +250,7 @@ declare module 'react' {
             } catch (error) {
               let response;
               try {
+                if (originToUse.endsWith(".d.ts")) return;
                 response = await queuedFetch.fetch(`${originToUse}/${r}`, {
                   redirect: "follow",
                 });
@@ -260,6 +263,7 @@ declare module 'react' {
               }
 
               if (!response || !response.ok) {
+                if (originToUse.endsWith(".d.ts")) return;
                 response = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`, {
                   redirect: "follow",
                 });
@@ -320,6 +324,7 @@ declare module 'react' {
       if (extensionList.includes(extension!)) return;
     }
     try {
+      if (originToUse.endsWith(".d.ts")) return;
       const response = await queuedFetch.fetch(
         `${originToUse}/${npmPackage}/package.json`,
         {
