@@ -1,4 +1,4 @@
-import fetchWithRetry from "fetch-retry";
+import fetchBuilder from "fetch-retry";
 
 export class QueuedFetch {
   private queue: (() => Promise<void>)[] = [];
@@ -8,12 +8,14 @@ export class QueuedFetch {
   private maxNumberOfRequests: number;
   private retries: number;
   private retryDelay: number;
+  private fetchWithRetry: typeof fetch;
 
   constructor(maxConcurrent = 5, maxNumberOfRequests = 0, _retries = 3, _retryDelay = 300) {
-    thus.retries = _retries;
+    this.retries = _retries;
     this.retryDelay = _retryDelay;
     this.maxNumberOfRequests = maxNumberOfRequests;
     this.maxConcurrent = maxConcurrent;
+    this.fetchWithRetry = fetchBuilder(fetch, { retries: this.retries, retryDelay: this.retryDelay });
     if (maxNumberOfRequests > 0) {
       this.limitedNumberOfRequests = true;
     }
@@ -29,7 +31,7 @@ export class QueuedFetch {
 
       const request = async () => {
         try {
-          const response = await fetchWithRetry(input, { ...init, retries: this.retries, retryDelay: this.retryDelay });
+          const response = await this.fetchWithRetry(input, init);
           resolve(response);
         } catch (error) {
           reject(error);
