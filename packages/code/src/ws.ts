@@ -120,7 +120,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
   console.log("Updating rendered app...");
 
   const myEl = document.createElement("div");
-  myEl.style.cssText = "isolation: isolate; height: 100dvh; height: 100svh; font-family: 'Roboto Flex', sans-serif;";
+  myEl.setAttribute("id", "root");
   document.body.appendChild(myEl);
 
   rendered?.cleanup();
