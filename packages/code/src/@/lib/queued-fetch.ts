@@ -26,6 +26,21 @@ export class QueuedFetch {
   }
 
   async fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+    const url = new URL(input as string);
+    const pathname = url.pathname;
+
+    const fileparts = pathname.split("/");
+    const filename = fileparts[fileparts.length - 1];
+    if (!filename.includes(".")) {
+      return new Response("just files allowed", { status: 400 });
+    }
+    fileparts.pop();
+    const basefolder = fileparts.pop();
+
+    if (basefolder?.includes(".ts")) {
+      return new Response("just files allowed", { status: 400 });
+    }
+
     return new Promise((resolve, reject) => {
       if (this.limitedNumberOfRequests) {
         if (this.maxNumberOfRequests-- < 0) {

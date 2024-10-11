@@ -7,6 +7,7 @@ import ts from "typescript";
 const self = globalThis;
 
 export const myATA = async (code: string) => {
+  console.log("ATA code", { code });
   const limitedFetch = new QueuedFetch(4, 1000);
   const myPromise = new Promise<Map<string, string>>((resolve) => {
     const ata = setupTypeAcquisition({
@@ -36,6 +37,7 @@ export const myATA = async (code: string) => {
   });
 
   const filed = await myPromise;
+  console.log("ATA filed", { filed });
 
   const monacoExtraLibs: { filePath: string; content: string }[] = [];
 
@@ -45,6 +47,7 @@ export const myATA = async (code: string) => {
       content,
     });
   }
+  console.log("ATA monacoExtraLibs", { monacoExtraLibs });
   return monacoExtraLibs;
 };
 
@@ -69,6 +72,7 @@ export async function ata({
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
   const res = (await tsx(code)).filter((x) => x.includes("@/"));
+  console.log("res", { res });
   try {
     await Promise.all(
       res.map(async function(r: string) {
@@ -194,8 +198,10 @@ declare module 'react' {
   } catch (error) {
     console.error("error", error);
   }
+  console.log("thisATA", { thisATA });
 
   const ataBIG = await myATA(code);
+  console.log("ataBIG", { ataBIG });
 
   return [...ataBIG, ...thisATA];
 
