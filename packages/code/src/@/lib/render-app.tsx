@@ -14,6 +14,8 @@ import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { ThemeProvider } from "@/components/ui/theme-provider"
+
 
 
 /**
@@ -123,12 +125,16 @@ async function renderApp(
     const AppWithScreenSize: React.FC = React.memo(
       function AppWithScreenSize() {
         const { width, height } = useWindowSize();
+        
 
-        return <AppToRender width={width!} height={height!} />;
+        return <AppToRender width={width!} height={height!} />
+      
       },
     );
 
     root.render(
+      <ThemeProvider>
+        <React.Fragment>
       <CacheProvider value={cssCache}>
         {emptyApp
           ? <AppToRender />
@@ -137,8 +143,10 @@ async function renderApp(
               <AppWithScreenSize />
             </ErrorBoundary>
           )}
-        {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-      </CacheProvider>,
+      
+      </CacheProvider>   {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+      </React.Fragment>
+      </ThemeProvider>,
     );
 
     (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, {
