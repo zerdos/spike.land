@@ -31,15 +31,11 @@ const DiffPart = styled.span<DiffPartProps>`
 `;
 
 const DiffViewer: React.FC<DiffViewerProps> = ({ original, modified }) => {
-  const diff = diffChars(original, modified);
+  const diff = diffChars(original || "", modified || original);
 
   return (
     <DiffContainer>
-      {diff.map((part: {
-        added?: boolean;
-        removed?: boolean;
-        value: string;
-      }, index: number) => (
+      {diff.map((part, index) => (
         <DiffPart key={index} added={part.added} removed={part.removed}>
           {part.value}
         </DiffPart>
@@ -56,16 +52,18 @@ const original = `
     </DiffPart>
   ))}
 </DiffContainer>
-`
+`;
 
-const modified = `
+const modified= `
 <DiffContainer>
   {diff.map((part, index) => (
     <DiffPart key={index} added={part.added} removed={part.removed}>
-      {part.value}
+     
+      {yoooooo}
     </DiffPart>
   ))}
-</DiffContainer>`
+</DiffContainer>
+`;
 
 export default () => <DiffViewer original={original} modified={modified} />;
 
