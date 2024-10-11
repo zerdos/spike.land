@@ -11,7 +11,6 @@ export const importMap = {
     "framer-motion": "/motion.mjs",
     "react-dom": "/reactDom.mjs",
     "foo-bar": "/fooBar.mjs",
-    "recharts": "/recharts.mjs",
   },
 } as { imports: Record<string, string> };
 

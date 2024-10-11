@@ -616,7 +616,6 @@ describe("serveWithCache", () => {
         "react": "/react.js",
         "framer-motion": "/motion.mjs",
         "react-dom": "/react-dom.js",
-        "recharts": "/recharts.mjs",
       },
     };
 
