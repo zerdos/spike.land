@@ -13,16 +13,31 @@ describe("ContextManager", () => {
 
   test("initializes with empty context", () => {
     const context = contextManager.getFullContext();
-    expect(context).toEqual({
-      currentTask: "",
-      techStack: "",
-      completionCriteria: "",
-      codeStructure: "",
-      adaptiveInstructions: "",
-      errorLog: "",
-      progressTracker: "",
-      currentDraft: "",
-    });
+    expect(context).toMatchInlineSnapshot(
+      {
+        currentTask: "",
+        techStack: "",
+        completionCriteria: "",
+        codeStructure: "",
+        adaptiveInstructions: "",
+        errorLog: "",
+        progressTracker: "",
+        currentDraft: "",
+      },
+      `
+      {
+        "adaptiveInstructions": "",
+        "codeSpace": "testCodeSpace",
+        "codeStructure": "",
+        "completionCriteria": "",
+        "currentDraft": "",
+        "currentTask": "",
+        "errorLog": "",
+        "progressTracker": "",
+        "techStack": "",
+      }
+    `,
+    );
   });
 
   test("updates and retrieves context correctly", () => {
@@ -30,28 +45,43 @@ describe("ContextManager", () => {
     contextManager.updateContext("techStack", "React, TypeScript");
     contextManager.updateContext("currentDraft", "Draft content");
 
-    expect(contextManager.getContext("currentTask")).toBe("Test task");
-    expect(contextManager.getContext("techStack")).toBe("React, TypeScript");
-    expect(contextManager.getContext("currentDraft")).toBe("Draft content");
+    expect(contextManager.getContext("currentTask")).toMatchInlineSnapshot("Test task");
+    expect(contextManager.getContext("techStack")).toMatchInlineSnapshot("React, TypeScript");
+    expect(contextManager.getContext("currentDraft")).toMatchInlineSnapshot("Draft content");
 
     const fullContext = contextManager.getFullContext();
-    expect(fullContext.currentTask).toBe("Test task");
-    expect(fullContext.techStack).toBe("React, TypeScript");
-    expect(fullContext.currentDraft).toBe("Draft content");
+    expect(fullContext.currentTask).toMatchInlineSnapshot("Test task");
+    expect(fullContext.techStack).toMatchInlineSnapshot("React, TypeScript");
+    expect(fullContext.currentDraft).toMatchInlineSnapshot("Draft content");
   });
 
   test("initializes context", () => {
     const context = contextManager.getFullContext();
-    expect(context).toEqual({
-      currentTask: "",
-      techStack: "",
-      completionCriteria: "",
-      codeStructure: "",
-      adaptiveInstructions: "",
-      errorLog: "",
-      progressTracker: "",
-      currentDraft: "",
-    });
+    expect(context).toMatchInlineSnapshot(
+      {
+        currentTask: "",
+        techStack: "",
+        completionCriteria: "",
+        codeStructure: "",
+        adaptiveInstructions: "",
+        errorLog: "",
+        progressTracker: "",
+        currentDraft: "",
+      },
+      `
+      {
+        "adaptiveInstructions": "",
+        "codeSpace": "testCodeSpace",
+        "codeStructure": "",
+        "completionCriteria": "",
+        "currentDraft": "",
+        "currentTask": "",
+        "errorLog": "",
+        "progressTracker": "",
+        "techStack": "",
+      }
+    `,
+    );
   });
 
   test("clears context", () => {
@@ -59,15 +89,30 @@ describe("ContextManager", () => {
     contextManager.updateContext("currentDraft", "Draft content");
     contextManager.clearContext();
     const context = contextManager.getFullContext();
-    expect(context).toEqual({
-      currentTask: "",
-      techStack: "",
-      completionCriteria: "",
-      codeStructure: "",
-      adaptiveInstructions: "",
-      errorLog: "",
-      progressTracker: "",
-      currentDraft: "",
-    });
+    expect(context).toMatchInlineSnapshot(
+      {
+        currentTask: "",
+        techStack: "",
+        completionCriteria: "",
+        codeStructure: "",
+        adaptiveInstructions: "",
+        errorLog: "",
+        progressTracker: "",
+        currentDraft: "",
+      },
+      `
+      {
+        "adaptiveInstructions": "",
+        "codeSpace": "testCodeSpace",
+        "codeStructure": "",
+        "completionCriteria": "",
+        "currentDraft": "",
+        "currentTask": "",
+        "errorLog": "",
+        "progressTracker": "",
+        "techStack": "",
+      }
+    `,
+    );
   });
 });

@@ -1,6 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
-import { describe, expect, it, vi } from "vitest";
 import { createNewMessage } from "@/workers/chat-utils.worker";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@src/AIHandler");
 vi.mock("@src/config/aiConfig", () => ({
