@@ -105,6 +105,7 @@ export async function buildServiceWorker(): Promise<void> {
     outExtension: { ".js": ".js" },
     minifySyntax: false,
     minifyIdentifiers: false,
+    treeShaking: true,
     external: [
       "worker_threads",
     ],
