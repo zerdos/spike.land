@@ -11,7 +11,8 @@ const cSessions: {
 } = {};
 
 export async function fakeServer(request: Request) {
-  const codeSpace = useCodeSpace(new URL(request.url).pathname);
+  const { pathname } = new URL(request.url);
+  const codeSpace = useCodeSpace(pathname);
   console.log("CodeSpace:", codeSpace);
 
   cSessions[codeSpace] = cSessions[codeSpace]
