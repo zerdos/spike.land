@@ -53,7 +53,7 @@ components=(
 # Loop through each component and install it
 for component in "${components[@]}"; do
     echo "Installing $component..."
-    echo yes | yarn shadcn add  --overwrite $component
+    echo yes | npx shadcn add  --overwrite $component
     echo "$component installed!"
 done
 
