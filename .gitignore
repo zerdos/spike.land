@@ -127,3 +127,5 @@ codebase.md
 *.d.ts
 *.m.ts
 .wrangler
+.pnp
+.pnp.*
