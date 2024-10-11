@@ -268,12 +268,12 @@ sw.addEventListener("activate", (event) => {
 
 sw.addEventListener("fetch", (event) => {
   const request = event.request;
+  const pathname = new URL(request.url).pathname;
 
   if (request.method !== "GET") {
     event.respondWith(fetch(request));
     return;
   } else if (isAsset(request)) {
-    const pathname = new URL(request.url).pathname;
     event.respondWith(
       serve(
         request,
