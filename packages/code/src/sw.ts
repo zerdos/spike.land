@@ -1,5 +1,6 @@
 import type { fakeServer as FakeServer, QueuedFetch as Qf, serveWithCache as ServeWithCache } from "./sw-deps";
 
+import { routes } from "@/lib/routes";
 import type { transpile as Trp } from "@/lib/transpile";
 
 importScripts("/swVersion.js");
@@ -289,7 +290,7 @@ sw.addEventListener("fetch", (event) => {
       }),
     );
     return;
-  } else if (request.method === "GET" && request.url.includes("/live/")) {
+  } else if (request.method === "GET" && (request.url.includes("/live/") || pathname in Object.keys(routes))) {
     event.respondWith(fakeServer(request));
     return;
   }

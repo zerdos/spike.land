@@ -1,5 +1,6 @@
 import { useCodeSpace } from "@/hooks/use-code-space";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
+import { routes } from "@/lib/routes";
 import { transpile } from "@/lib/shared";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
@@ -78,7 +79,8 @@ export async function fakeServer(request: Request) {
       },
     });
   } else if (
-    request.url.includes("/hydrated")
+    pathname in Object.keys(routes)
+    || request.url.includes("/hydrated")
     || request.url.includes("/worker")
     || request.url.includes("/dehydrated")
     || request.url.includes("/iframe")
