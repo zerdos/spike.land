@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
-    "deploy": "npx wrangler deploy ",
+    "deploy": "wrangler deploy ",
     "prepublishOnly": "npx ywrangler deploy src/index.ts",
     "predeploy": "yarn x:build"
   },
