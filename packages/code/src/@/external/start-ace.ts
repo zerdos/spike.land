@@ -1,6 +1,7 @@
 import { edit } from "ace-builds";
 import "ace-builds/src-min-noconflict/theme-monokai";
 import "ace-builds/src-min-noconflict/mode-typescript";
+import { prettierToThrow } from "@/lib/shared";
 
 const mod = {
   value: "",
@@ -36,7 +37,7 @@ export async function startAce(
     const value = editor.session.getValue();
     if (mod.value !== value) {
       mod.value = value;
-      cb(value);
+      prettierToThrow({ code: value, toThrow: true }).then(cb);
     }
   });
 
