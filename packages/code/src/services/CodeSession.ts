@@ -226,7 +226,7 @@ export class Code implements ICode {
     if (
       this.session.code === formatted && this.session.transpiled === transpiled
     ) {
-      return false;
+      return true;
     }
 
     this.session = makeSession({
@@ -265,6 +265,9 @@ export class Code implements ICode {
 
     try {
       return await this.setCodePriv(rawCode, skipRunning);
+    } catch (error) {
+      console.error("Error setting code:", error);
+      return false;
     } finally {
       // Ensure the flag is reset even if an error occurs
       this.isRunning = false;
