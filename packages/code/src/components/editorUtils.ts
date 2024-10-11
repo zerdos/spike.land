@@ -224,6 +224,6 @@ export async function initializeAce(
   getErrors: () => Promise<string[]>;
   setValue: (code: string) => void;
 }> {
-  const { startAce } = await import("../startAce");
+  const { startAce } = await import("@/external/start-ace");
   return await startAce(code, onChange, container);
 }
