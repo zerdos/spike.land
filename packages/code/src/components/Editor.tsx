@@ -1,17 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { md5 } from "@/lib/md5";
-import { cn } from "@/lib/utils";
 import type { ICode } from "@/lib/interfaces";
 import type { ICodeSession } from "@/lib/interfaces";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
-import { ContextViewer } from "./ContextViewer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Sidebar } from "@/external/lucideReact";
 import { useEditorState, useErrorHandling } from "@src/hooks/use-editor-state";
-import { useCodeSpace } from "@/hooks/use-code-space";
 
 interface EditorProps {
   codeSpace: string;
@@ -131,33 +125,33 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   );
 };
 
-const EditorContext = ()=>{
-  const [showContext, setShowContext] = useState(false);
-  const codeSpace = useCodeSpace();
-return <Card
-className={cn(
-  "transition-all duration-300 ease-in-out",
-  showContext ? "w-64" : "w-12",
-)}
->
-<CardContent className="p-2">
-  <Button
-    variant="outline"
-    size="icon"
-    onClick={() => setShowContext(!showContext)}
-    className="mb-4 w-full"
-  >
-    <Sidebar
-      className={cn(
-        "h-4 w-4 transition-all",
-        showContext && "rotate-180",
-      )}
-    />
-  </Button>
-  {showContext && (
-    <div className="overflow-y-auto h-[calc(100vh-64px)]">
-      <ContextViewer codeSpace={codeSpace} />
-    </div>
-  )}
-</CardContent>
-</Card>}
+// const EditorContext = ()=>{
+//   const [showContext, setShowContext] = useState(false);
+//   const codeSpace = useCodeSpace();
+// return <Card
+// className={cn(
+//   "transition-all duration-300 ease-in-out",
+//   showContext ? "w-64" : "w-12",
+// )}
+// >
+// <CardContent className="p-2">
+//   <Button
+//     variant="outline"
+//     size="icon"
+//     onClick={() => setShowContext(!showContext)}
+//     className="mb-4 w-full"
+//   >
+//     <Sidebar
+//       className={cn(
+//         "h-4 w-4 transition-all",
+//         showContext && "rotate-180",
+//       )}
+//     />
+//   </Button>
+//   {showContext && (
+//     <div className="overflow-y-auto h-[calc(100vh-64px)]">
+//       <ContextViewer codeSpace={codeSpace} />
+//     </div>
+//   )}
+// </CardContent>
+// </Card>}
