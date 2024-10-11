@@ -100,7 +100,7 @@ export const buildWasm = async (): Promise<void> => {
 export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
-    entryPoints: ["src/sw.ts", "src/sw-deps.ts"],
+    entryPoints: ["src/sw.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: false,
@@ -110,6 +110,21 @@ export async function buildServiceWorker(): Promise<void> {
       "worker_threads",
     ],
     minifyWhitespace: false,
+    target: "es2022",
+  });
+
+  await build({
+    ...getCommonBuildOptions(environment),
+    entryPoints: ["src/sw-deps.ts"],
+    format: "iife",
+    outExtension: { ".js": ".js" },
+    minifySyntax: true,
+    minifyIdentifiers: true,
+    treeShaking: true,
+    external: [
+      "worker_threads",
+    ],
+    minifyWhitespace: true,
     target: "es2022",
   });
 }
