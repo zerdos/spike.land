@@ -68,6 +68,8 @@ const modified= `
 export default () => <DiffViewer original={original} modified={modified} />;
 
 
+export const DiffEditor = DiffViewer;
+
 // import React, { memo, useCallback, useEffect, useRef } from "react";
 // import { editor } from "@/external/monaco-editor";
 // import { useThrottle } from "@uidotdev/usehooks";

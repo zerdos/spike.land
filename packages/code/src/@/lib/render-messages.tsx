@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/components/app/code-block-lazy";
 import { isDiffContent } from "@/lib/diff-utils";
-import { DiffEditor } from "@/components/app/diff-editor-lazy";
+import { DiffEditor } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
 import { extractCodeModification } from "@/lib/chat-utils";
 
@@ -62,7 +62,6 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
         <DiffEditor
           original={o}
           modified={m}
-          language={language}
         />
       );
     }
