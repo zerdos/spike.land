@@ -273,6 +273,7 @@ sw.addEventListener("fetch", (event) => {
     event.respondWith(fetch(request));
     return;
   } else if (isAsset(request)) {
+    const pathname = new URL(request.url).pathname;
     event.respondWith(
       serve(
         request,
