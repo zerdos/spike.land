@@ -8,7 +8,7 @@ const self = globalThis;
 
 export const myATA = async (code: string) => {
   console.log("ATA code", { code });
-  const limitedFetch = new QueuedFetch(4, 1000);
+  const limitedFetch = new QueuedFetch(4, 1000, 0);
   const myPromise = new Promise<Map<string, string>>((resolve) => {
     const ata = setupTypeAcquisition({
       projectName: "My ATA Project,",
