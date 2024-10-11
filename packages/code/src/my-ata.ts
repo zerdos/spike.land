@@ -1,6 +1,6 @@
+import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
-import { QueuedFetch } from "./QueuedFetch";
 
 const limitedFetch = new QueuedFetch(4, 1000);
 
