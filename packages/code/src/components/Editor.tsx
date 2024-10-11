@@ -117,6 +117,14 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
+      <div className="flex-grow overflow-hidden">
+        <EditorNode
+          engine={engine as "monaco" | "ace"}
+          errorType={error}
+          containerRef={containerRef}
+          codeSpace={codeSpace}
+        />
+      </div>
       <Card
         className={cn(
           "transition-all duration-300 ease-in-out",
@@ -144,14 +152,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           )}
         </CardContent>
       </Card>
-      <div className="flex-grow overflow-hidden">
-        <EditorNode
-          engine={engine as "monaco" | "ace"}
-          errorType={error}
-          containerRef={containerRef}
-          codeSpace={codeSpace}
-        />
-      </div>
     </div>
   );
 };
