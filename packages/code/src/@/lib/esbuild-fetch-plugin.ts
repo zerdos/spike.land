@@ -60,7 +60,7 @@ export const fetchPlugin = (origin: string) => ({
       }
 
       if (argsPath === args.path && !args.path.endsWith(".tsx")) {
-        argsPath = `${origin}/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
+        argsPath = `/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
       }
 
       const response = await fetch(argsPath);

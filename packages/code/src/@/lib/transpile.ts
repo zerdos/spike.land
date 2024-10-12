@@ -189,7 +189,7 @@ export const build = async ({
         external: [
           ...Object.keys(importMap.imports),
         ],
-        entryPoints: [`${origin}/live/${codeSpace}/index.tsx`], // Ensure this matches the expected type
+        entryPoints: entryPoints ? entryPoints : [`${origin}/live/${codeSpace}/index.tsx`], // Ensure this matches the expected type
         // ... other properties
       } as BuildOptions;
 
