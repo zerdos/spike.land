@@ -478,7 +478,7 @@ async function handleErrorMessage(
 
   const throttledOnUpdate = throttle(
     (instructions: string) => newOnUpdate(instructions),
-    100,
+    500,
     { edges: ["trailing"] },
   );
 
@@ -548,26 +548,34 @@ const ups = async (
   debug("Function called with instructions length:", instructions.length);
   debug("Code length:", code.length);
 
-  if (instructions.includes(SEARCH) && !instructions.includes(REPLACE)) {
-    debug("SEARCH found without REPLACE");
-    const rAll = up(instructions, code);
-    const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
-
-    if (code === rAll || rAll !== rAllWithExtra) {
-      debug("Replace block not finished");
-      return { result: code, len: 0 };
-    }
-
-    debug("Replace block finished");
-    return { result: rAll, len: instructions.length };
+  // Early return if instructions are empty
+  if (instructions.length === 0) {
+    return { result: code, len: 0 };
   }
 
-  if (instructions.includes(REPLACE)) {
+  const searchIndex = instructions.indexOf(SEARCH);
+  const replaceIndex = instructions.indexOf(REPLACE);
+
+  if (searchIndex !== -1 && replaceIndex === -1) {
+    debug("SEARCH found without REPLACE");
+    const rAll = up(instructions, code);
+
+    // Only perform the extra check if rAll is different from code
+    if (rAll !== code) {
+      const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
+      if (rAll !== rAllWithExtra) {
+        debug("Replace block finished");
+        return { result: rAll, len: instructions.length };
+      }
+    }
+
+    debug("Replace block not finished");
+    return { result: code, len: 0 };
+  }
+
+  if (replaceIndex !== -1) {
     debug("REPLACE found");
-    const trimmedInstructions = instructions.slice(
-      0,
-      instructions.indexOf(REPLACE) + REPLACE.length,
-    );
+    const trimmedInstructions = instructions.slice(0, replaceIndex + REPLACE.length);
     const rAll = up(trimmedInstructions, code);
     debug("Trimmed instructions length:", trimmedInstructions.length);
     return { result: rAll, len: trimmedInstructions.length };
@@ -580,18 +588,27 @@ const ups = async (
   }
 
   debug("Searching for minimum instructions to change code");
-  let low = 0;
-  let high = instructions.length;
+
+  // Use exponential search followed by binary search
+  let jump = 1;
+  while (jump < instructions.length && up(instructions.slice(0, jump), code) === code) {
+    jump *= 2;
+  }
+
+  let low = jump / 2;
+  let high = Math.min(jump, instructions.length);
+
   while (low < high) {
-    const mid = Math.floor((low + high + 1) / 2);
+    const mid = Math.floor((low + high) / 2);
     debug("Binary search - low:", low, "high:", high, "mid:", mid);
     if (code === up(instructions.slice(0, mid), code)) {
-      low = mid;
+      low = mid + 1;
     } else {
-      high = mid - 1;
+      high = mid;
     }
   }
-  const len = high + 1;
+
+  const len = low;
   const rMin = up(instructions.slice(0, len), code);
   debug("Minimum instructions length found:", len);
 
@@ -613,26 +630,25 @@ export const updateSearchReplace = async (
     throw new Error("Replace block not finished");
   }
 
+  // Lazy load prettier and transpile functions
   if (!m.prettierJs) {
-    const prettierJs = (await import(`@/lib/prettier`)).prettierJs;
-    m.prettierJs = prettierJs;
+    m.prettierJs = (await import(`@/lib/prettier`)).prettierJs;
+  }
+  if (!m.transpile) {
+    m.transpile = async ({ code }: { code: string; originToUse: string }) => code;
   }
 
-  if (!m.transpile) {
-    const transpile = async ({ code }: { code: string; originToUse: string }) => code;
-    m.transpile = transpile;
-  }
-  const formatted = await m.prettierJs({ code: result, toThrow: true });
-  const transpiled = await m.transpile({
-    code: formatted,
-    originToUse: location.origin,
-  });
+  // Use Promise.all to run formatting and transpilation concurrently
+  const [formatted, transpiled] = await Promise.all([
+    m.prettierJs({ code: result, toThrow: true }),
+    m.transpile({
+      code: result, // Use result instead of formatted to start transpilation immediately
+      originToUse: location.origin,
+    }),
+  ]);
 
   if (typeof transpiled !== "string" || typeof formatted !== "string") {
-    return {
-      result: code,
-      len: 0,
-    };
+    return { result: code, len: 0 };
   }
 
   return { result, formatted, transpiled, len };
