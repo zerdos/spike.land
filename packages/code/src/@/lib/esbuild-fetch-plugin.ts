@@ -75,6 +75,7 @@ export const fetchPlugin = (origin: string) => ({
         | "text"
         | "base64"
         | "file"
+        | "tsx"
         | "dataurl"
         | "binary"
         | "woff"
@@ -100,6 +101,8 @@ export const fetchPlugin = (origin: string) => ({
         loader = "json";
       } else if (contentType.includes("font/")) {
         loader = "binary";
+      } else if (args.path.endsWith(".tsx")) {
+        loader = "tsx";
       }
 
       return { contents, loader };
