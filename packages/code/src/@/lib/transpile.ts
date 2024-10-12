@@ -5,7 +5,6 @@ import { wasmFile } from "@src/esbuildWASM";
 import { Mutex } from "async-mutex";
 import type { BuildOptions } from "esbuild-wasm";
 import { build as esmBuild, initialize, transform } from "esbuild-wasm";
-import { jsx } from "react/jsx-runtime";
 
 export { wasmFile };
 
@@ -157,9 +156,6 @@ const getDefaultBuildOptions = ({
   minifyIdentifiers: true,
   minifyWhitespace: true,
   splitting,
-  jsxImportSource: "@emotion/react",
-  jsxFragmentFactory: "Fragment",
-  jsx: "react-jsx",
   external,
   metafile,
   tsconfigRaw: {
