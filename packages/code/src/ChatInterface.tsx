@@ -129,6 +129,7 @@ export const ChatInterface: React.FC<{
       if (e.code) {
         console.log("Setting code", e.code); 
         cSess.setCode(e.code);
+        return;
       }
 
       if (e.chunk) {
