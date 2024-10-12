@@ -187,6 +187,19 @@ async function handleSocketMessage(
     return;
   }
 
+  if (data.strSess) {
+    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
+    const patch = createPatch(sess, connection.oldSession);
+    connection.webSocket.send(
+      JSON.stringify({
+        ...patch,
+        name: connection.user,
+        i: connection.oldSession.i,
+      }),
+    );
+    return;
+  }
+
   if (data.hashCode) {
     console.log("Received hash code:", data.hashCode);
     console.log("Last hash:", connection.lastHash);
