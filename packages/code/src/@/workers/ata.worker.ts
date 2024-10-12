@@ -1,6 +1,3 @@
-lazyLoadScript("dts");
-
-import { lazyLoadScript } from "@/lib/lazy-load-scripts";
 import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";

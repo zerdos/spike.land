@@ -1,5 +1,5 @@
 import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
-import { lazyLoadScript as loadSC } from "@/lib/lazy-load-scripts";
+
 import { RpcProvider } from "worker-rpc";
 
 importScripts("/swVersion.js");
@@ -11,12 +11,7 @@ interface SharedWorkerGlobalScope {
 }
 
 const lazyLoadScript = (scriptName: string): void => {
-  const file = (globalThis as unknown as SharedWorkerGlobalScope)
-    .files["@/workers/" + scriptName + ".worker.js"];
-  const fileParts = file.split(".").slice(-2);
-  fileParts.pop();
-  const hash = fileParts[0];
-  return loadSC(scriptName, hash);
+  importScripts(`/@/workers/${scriptName}.worker.js`);
 };
 
 type WorkerFunctions = {
