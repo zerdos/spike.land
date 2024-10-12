@@ -1,4 +1,4 @@
-import type { ICodeSession } from "@/lib/interfaces";
+import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
 import { lazyLoadScript as loadSC } from "@/lib/lazy-load-scripts";
 import { RpcProvider } from "worker-rpc";
 
@@ -30,11 +30,7 @@ type WorkerFunctions = {
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
   handleSendMessage: (
-    { codeSpace, prompt, images }: {
-      codeSpace: string;
-      prompt: string;
-      images: ImageData[];
-    },
+    { codeSpace, prompt, images, code }: HandleSendMessageProps,
   ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 };
@@ -64,7 +60,8 @@ const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   prettierCss: ["prettier-esm"],
   ata: ["ata", "dts"],
   transpile: ["transpile"],
-  handleSendMessage: ["chat-utils", "transpile", "prettier-esm"],
+  handleSendMessage: ["chat-utils" // "transpile", "prettier-esm"
+  ],
   build: ["transpile"],
   tsx: ["dts"],
   setConnections: ["socket"],

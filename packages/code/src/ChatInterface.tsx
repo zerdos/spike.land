@@ -1,7 +1,7 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
-import type { ICode } from "@/lib/interfaces";
+import type {  ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
 
 import { useScreenshot } from "./hooks/useScreenshot";
@@ -127,7 +127,7 @@ export const ChatInterface: React.FC<{
       }
 
       if (e.code) {
-        await cSess.setCode(e.code);
+        cSess.setCode(e.code);
       }
 
       if (e.chunk) {
@@ -194,7 +194,7 @@ export const ChatInterface: React.FC<{
           } as Message,
         ];
         setInput("");
-        handleSendMessage({ messages, codeSpace, prompt, images });
+        handleSendMessage({ messages, codeSpace, prompt, images, code: cSess.session.code });
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
@@ -240,14 +240,7 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      handleSendMessage={(
-        { messages, codeSpace, prompt, images }: {
-          messages: Message[];
-          codeSpace: string;
-          prompt: string;
-          images: ImageData[];
-        },
-      ) => handleSendMessage({ messages, codeSpace, prompt, images })}
+      handleSendMessage={handleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

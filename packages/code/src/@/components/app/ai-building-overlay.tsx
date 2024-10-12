@@ -27,7 +27,7 @@ export function AIBuildingOverlay({ isStreaming }: AIBuildingOverlayProps) {
         />
         AI is building... This may take a few moments.
       </div>
-      <Progress className="w-full" indeterminate />
+      <Progress className="w-full"  />
     </div>
   );
 }

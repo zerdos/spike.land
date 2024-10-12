@@ -1,26 +1,28 @@
 import { replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import { messagesPush } from "@/lib/chat-utils";
-import { ContextManager } from "@/lib/context-manager";
-import type { ICode, ImageData, Message, MessageContent } from "@/lib/interfaces";
+// import { ContextManager } from "@/lib/context-manager";
+import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import type { prettierJs } from "@/lib/prettier";
-import type { transpile } from "@/lib/transpile";
+// import type { prettierJs } from "@/lib/prettier";
+// import type { transpile } from "@/lib/transpile";
 import { AIHandler } from "@src/AIHandler";
-import { claudeRecovery } from "@src/config/aiConfig";
+// import { claudeRecovery } from "@src/config/aiConfig";
 
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
-import { CodeSessionBC } from "../../services/CodeSessionBc";
+// import { CodeSessionBC } from "../../services/CodeSessionBc";
+
+const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 
 const handleSendMessage = async (
-  { messages = [], codeSpace, prompt, images }: {
-    messages: Message[];
-    codeSpace: string;
-    prompt: string;
-    images: ImageData[];
-  },
+  { messages = [], codeSpace, prompt, images, code }: HandleSendMessageProps,
 ) => {
-  const BC = new BroadcastChannel(`${codeSpace}-chat`);
+  let BC = broadcastChannelsByCodeSpace[codeSpace];
+
+  if (!BC) {
+    BC = new BroadcastChannel(`${codeSpace}-chat`);
+    broadcastChannelsByCodeSpace[codeSpace] = BC;
+  }
 
   BC.postMessage({ isStreaming: true });
 
@@ -33,37 +35,37 @@ const handleSendMessage = async (
   };
 
   try {
-    const cSess = new CodeSessionBC(codeSpace);
-    await cSess.init();
+    // const cSess = new CodeSessionBC(codeSpace);
+    // await cSess.init();
 
-    const extendedBcSess = {
-      ...cSess,
-      setCodeAndTranspiled: async (
-        { formatted, transpiled }: { formatted: string; transpiled: string },
-      ) => cSess.setCodeAndTranspiled({ formatted, transpiled }),
-      init: () => cSess.init(),
-      session: cSess.session!,
-      getCode: () => cSess.getCode(),
-      setCode: async (rawCode: string, skipRunning = false) => {
-        if (skipRunning) {
-          const formatted = await m.prettierJs({
-            code: rawCode,
-            toThrow: true,
-          });
-          const transpiled = await m.transpile({
-            code: formatted,
-            originToUse: location.origin,
-          })!;
-          if (typeof transpiled !== "string") {
-            return false;
-          }
+    // const extendedBcSess = {
+    //   ...cSess,
+    //   setCodeAndTranspiled: async (
+    //     { formatted, transpiled }: { formatted: string; transpiled: string },
+    //   ) => cSess.setCodeAndTranspiled({ formatted, transpiled }),
+    //   init: () => cSess.init(),
+    //   session: cSess.session!,
+    //   getCode: () => cSess.getCode(),
+    //   setCode: async (rawCode: string, skipRunning = false) => {
+    //     if (skipRunning) {
+    //       const formatted = await m.prettierJs({
+    //         code: rawCode,
+    //         toThrow: true,
+    //       });
+    //       const transpiled = await m.transpile({
+    //         code: formatted,
+    //         originToUse: location.origin,
+    //       })!;
+    //       if (typeof transpiled !== "string") {
+    //         return false;
+    //       }
 
-          cSess.setCodeAndTranspiled({ formatted, transpiled });
-          return true;
-        } else BC.postMessage({ code: rawCode });
-        return true;
-      },
-    };
+    //       cSess.setCodeAndTranspiled({ formatted, transpiled });
+    //       return true;
+    //     } else BC.postMessage({ code: rawCode });
+    //     return true;
+    //   },
+    // };
 
     const aiHandler = new AIHandler(setIsStreaming, codeSpace);
 
@@ -72,7 +74,7 @@ const handleSendMessage = async (
     const claudeContent = aiHandler.prepareClaudeContent(
       prompt,
       messages,
-      cSess.session!.code,
+      code,
       codeSpace,
     );
     const newUserMessage = await createNewMessage(images, claudeContent);
@@ -82,11 +84,10 @@ const handleSendMessage = async (
     try {
       const success = await processMessage({
         aiHandler,
-        cSess: extendedBcSess as unknown as ICode,
-        codeNow: cSess.session!.code,
+        codeNow: code,
         messages,
+        codeSpace,
         setMessages,
-
         newUserMessage,
       });
 
@@ -169,10 +170,10 @@ const mod: Mod = {
 };
 
 export async function processMessage(
-  { aiHandler, cSess, codeNow, messages, setMessages, newUserMessage }: {
+  { aiHandler, codeNow, messages, setMessages, newUserMessage, codeSpace }: {
     aiHandler: AIHandler;
-    cSess: ICode;
     codeNow: string;
+    codeSpace: string;
     messages: Message[];
     setMessages: (messages: Message[]) => void;
     newUserMessage: Message;
@@ -182,14 +183,14 @@ export async function processMessage(
     codeLength: codeNow.length,
     messageCount: messages.length,
   });
-  const contextManager = new ContextManager(cSess.session.codeSpace);
+  // const contextManager = new ContextManager(codeSpace);
 
   const maxRetries = 3;
   let retries = 0;
 
   while (retries < maxRetries) {
     try {
-      mod.lastCode = await cSess.getCode();
+      mod.lastCode = codeNow;
       mod.actions = [];
 
       Object.assign(globalThis, { BUILD_LOG: mod });
@@ -201,12 +202,12 @@ export async function processMessage(
       const onUpdate = createOnUpdateFunction({
         setMessages,
         messages,
-        cSess,
-        contextManager,
+        BC: broadcastChannelsByCodeSpace[codeSpace],
       });
+
       const throttledOnUpdate = throttle(
         (instructions: string) => onUpdate(instructions),
-        100,
+        500,
         {
           edges: ["trailing"],
         },
@@ -224,33 +225,31 @@ export async function processMessage(
       setMessages([...messages]);
 
       const last = await onUpdate(assistantMessage.content as string);
-      if (last) {
+      if (last && last !== codeNow) {
         console.log("Last code", last);
-        const success = await trySetCode(cSess, last);
-        if (success) {
-          return true;
-        }
+
+        broadcastChannelsByCodeSpace[codeSpace].postMessage({ code: last });
+        return true;
       }
 
-      const errorMessage = contextManager.getContext("errorLog");
-      if (errorMessage) {
-        console.log("Error detected, attempting to handle", { errorMessage });
-        const errorHandled = await handleErrorMessage(
-          {
-            errorMessage,
-            codeNow,
-            messages,
-            aiHandler,
-            setMessages,
-            cSess,
-            contextManager,
-          },
-        );
-        if (errorHandled) {
-          console.log("Error handled successfully");
-          return true;
-        }
-      }
+      // const errorMessage = contextManager.getContext("errorLog");
+      // if (errorMessage) {
+      //   console.log("Error detected, attempting to handle", { errorMessage });
+      //   const errorHandled = await handleErrorMessage(
+      //     {
+      //       errorMessage,
+      //       codeNow,
+      //       messages,
+      //       aiHandler,
+      //       setMessages,
+      //       contextManager,
+      //     },
+      //   );
+      //   if (errorHandled) {
+      //     console.log("Error handled successfully");
+      //     return true;
+      //   }
+      // }
 
       retries++;
     } catch (error) {
@@ -266,34 +265,18 @@ export async function processMessage(
   return false;
 }
 
-async function trySetCode(
-  cSess: ICode,
-  code: string,
-  skipRunning = false,
-): Promise<boolean> {
-  try {
-    console.log("Attempting to set code", {
-      codeLength: code.length,
-      skipRunning,
-    });
-    if (mod.lastCode === await cSess.getCode()) return true;
-    const success = await cSess.setCode(code, skipRunning);
-    return !!success;
-  } catch (error) {
-    console.error("Failed to set code:", error);
-    return false;
-  }
-}
-
 function createOnUpdateFunction({
   setMessages,
   messages,
-  cSess,
+  // cSess,
+  // contextManager,
+  BC,
 }: {
   setMessages: (messages: Message[]) => void;
   messages: Message[];
-  cSess: ICode;
-  contextManager: ContextManager;
+  // cSess: ICode;
+  // contextManager: ContextManager;
+  BC: BroadcastChannel;
 }) {
   return async (instructions: string) => {
     updateMessagesFromInstructions(
@@ -317,7 +300,7 @@ function createOnUpdateFunction({
         try {
           let finished = false;
           let iterationCount = 0;
-          const maxIterations = 1000;
+          const maxIterations = 20;
 
           while (!finished && iterationCount < maxIterations) {
             if (signal.aborted) {
@@ -344,7 +327,7 @@ function createOnUpdateFunction({
               break;
             }
 
-            const { result, len, formatted, transpiled } = await updateSearchReplace({
+            const { result, len } = await updateSearchReplace({
               instructions: chunk,
               code: lastCode,
             });
@@ -386,12 +369,15 @@ function createOnUpdateFunction({
               });
               console.log("Updated chunk", { startPos, chunkLength: len });
             }
-            if (formatted && transpiled) {
-              cSess.setCodeAndTranspiled({
-                formatted,
-                transpiled,
-              });
-            }
+
+            BC.postMessage({ code: mod.lastCode });
+
+            // if (formatted && transpiled) {
+            //   cSess.setCodeAndTranspiled({
+            //     formatted,
+            //     transpiled,
+            //   });
+            // }
           }
 
           if (iterationCount >= maxIterations) {
@@ -441,64 +427,6 @@ async function sendAssistantMessage(
   }
 }
 
-async function handleErrorMessage(
-  {
-    errorMessage,
-    codeNow,
-    messages,
-    aiHandler,
-    setMessages,
-    cSess,
-    contextManager,
-  }: {
-    errorMessage: string;
-    codeNow: string;
-    messages: Message[];
-    aiHandler: AIHandler;
-    setMessages: (messages: Message[]) => void;
-    cSess: ICode;
-    contextManager: ContextManager;
-  },
-): Promise<boolean> {
-  console.log("Handling error message", {
-    errorMessageLength: errorMessage.length,
-  });
-  const userMessage: Message = {
-    id: Date.now().toString(),
-    role: "user",
-    content: claudeRecovery(codeNow, errorMessage),
-  };
-
-  messages = messagesPush(messages, userMessage);
-  setMessages([...messages]);
-
-  const newOnUpdate = createOnUpdateFunction(
-    { setMessages, messages, cSess, contextManager },
-  );
-
-  const throttledOnUpdate = throttle(
-    (instructions: string) => newOnUpdate(instructions),
-    500,
-    { edges: ["trailing"] },
-  );
-
-  const assistantMessage = await sendAssistantMessage(
-    aiHandler,
-    messages,
-    throttledOnUpdate as unknown as (code: string) => Promise<void>,
-  );
-
-  messages = messagesPush(messages, assistantMessage);
-  setMessages([...messages]);
-
-  await newOnUpdate(assistantMessage.content as string);
-
-  const success = await cSess.setCode(mod.lastCode);
-  console.log("Error handling result:", success);
-
-  return !!success;
-}
-
 function extractTextContent(
   content: string | Array<{ type: string; text?: string }>,
 ): string {
@@ -532,10 +460,10 @@ function updateMessagesFromInstructions(
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
 
-const m = globalThis as unknown as {
-  transpile: typeof transpile;
-  prettierJs: typeof prettierJs;
-};
+// const m = globalThis as unknown as {
+//   transpile: typeof transpile;
+//   prettierJs: typeof prettierJs;
+// };
 
 // Debug function
 const debug = (message: string, ...args: unknown[]) => {
@@ -617,42 +545,39 @@ const ups = async (
 
 export const updateSearchReplace = async (
   { instructions, code }: { instructions: string; code: string },
-): Promise<
-  { result: string; transpiled?: string; formatted?: string; len: number }
-> => {
-  const { result, len } = await ups({ instructions, code });
+) => ups({ instructions, code });
 
-  if (result === code) {
-    debug("No changes in code");
-    return { result, len };
-  }
-  if (len === 0) {
-    throw new Error("Replace block not finished");
-  }
+// if (result === code) {
+//   debug("No changes in code");
+//   return { result, len };
+// }
+// if (len === 0) {
+//   throw new Error("Replace block not finished");
+// }
 
-  // Lazy load prettier and transpile functions
-  if (!m.prettierJs) {
-    m.prettierJs = (await import(`@/lib/prettier`)).prettierJs;
-  }
-  if (!m.transpile) {
-    m.transpile = async ({ code }: { code: string; originToUse: string }) => code;
-  }
+// // Lazy load prettier and transpile functions
+// if (!m.prettierJs) {
+//   m.prettierJs = (await import(`@/lib/prettier`)).prettierJs;
+// }
+// if (!m.transpile) {
+//   m.transpile = async ({ code }: { code: string; originToUse: string }) => code;
+// }
 
-  // Use Promise.all to run formatting and transpilation concurrently
-  const [formatted, transpiled] = await Promise.all([
-    m.prettierJs({ code: result, toThrow: true }),
-    m.transpile({
-      code: result, // Use result instead of formatted to start transpilation immediately
-      originToUse: location.origin,
-    }),
-  ]);
+// // Use Promise.all to run formatting and transpilation concurrently
+// const [formatted, transpiled] = await Promise.all([
+//   m.prettierJs({ code: result, toThrow: true }),
+//   m.transpile({
+//     code: result, // Use result instead of formatted to start transpilation immediately
+//     originToUse: location.origin,
+//   }),
+// ]);
 
-  if (typeof transpiled !== "string" || typeof formatted !== "string") {
-    return { result: code, len: 0 };
-  }
+// if (typeof transpiled !== "string" || typeof formatted !== "string") {
+//   return { result: code, len: 0 };
+// }
 
-  return { result, formatted, transpiled, len };
-};
+// return { result, formatted, transpiled, len };
+// };
 
 Object.assign(globalThis, { handleSendMessage });
 debug("chat-utils.worker.ts initialization complete");
