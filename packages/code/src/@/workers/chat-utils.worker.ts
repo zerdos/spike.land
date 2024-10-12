@@ -551,7 +551,7 @@ const ups = async (
   if (instructions.includes(SEARCH) && !instructions.includes(REPLACE)) {
     debug("SEARCH found without REPLACE");
     const rAll = up(instructions, code);
-    const rAllWithExtra = up(instructions + "\nfooo dooo baf   ", code);
+    const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
 
     if (code === rAll || rAll !== rAllWithExtra) {
       debug("Replace block not finished");

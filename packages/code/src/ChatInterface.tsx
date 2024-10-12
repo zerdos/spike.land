@@ -12,6 +12,8 @@ import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";
+import { Mutex } from "async-mutex";
+
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -20,7 +22,9 @@ export const ChatInterface: React.FC<{
   cSess: ICode;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const codeSpace = useCodeSpace();
+  const codeSpace = useCodeSpace()
+  const [newMessageContent, setNewMessageContent] = useState<string>("");
+
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [mess, setMess] = useLocalStorage<Message[]>(
@@ -36,6 +40,7 @@ export const ChatInterface: React.FC<{
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
+  const mutex = useRef(new Mutex());
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const resetChat = useCallback((): void => {
@@ -100,6 +105,11 @@ export const ChatInterface: React.FC<{
   };
 
   useEffect(() => {
+    setNewMessageContent("")
+  
+  }, [messages.length]);
+
+  useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (
       event: {
@@ -112,6 +122,11 @@ export const ChatInterface: React.FC<{
         };
       },
     ) => {
+
+      if (!mutex.current) {return}  
+
+      await mutex.current.runExclusive(async () => {
+    
       const e = event.data;
       if (e.messages) {
         setMessages(e.messages);
@@ -124,27 +139,35 @@ export const ChatInterface: React.FC<{
       } if (e.code) {
         await cSess.setCode(e.code);
       }if (e.chunk) {
+        let updatedMessageContent = newMessageContent + e.chunk!;
+        setNewMessageContent((previousContent) => updatedMessageContent=previousContent + e.chunk!);
+
+
         if (messages.length > 1) {
+
           setMessages((previousMessages) => {
 
             const lastMessage = previousMessages.pop();
-            const updatedLastMessage = {
+            const updatedLastMessage =  {
               ...lastMessage,
-              content: lastMessage!.content + e.chunk!,
+              content:lastMessage?.role ==='assistant'? updatedMessageContent :lastMessage!.content 
             };
             return [...previousMessages, updatedLastMessage];
           }
         );
         }
-        
+      }
+    });
+
+
 
 
 
                 // const [...previousMessages, lastMessage] = messages;
           // setMessages(([...prev]) => {
             // );
-      }
-    };
+      
+                };
   }, []);
 
   const handleResetChat = useCallback((): void => {
@@ -214,6 +237,7 @@ export const ChatInterface: React.FC<{
   );
 
   if (!isOpen) return null;
+
 
   return (
     <MemoizedChatDrawer
