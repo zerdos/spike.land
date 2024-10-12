@@ -115,65 +115,53 @@ export const ChatInterface: React.FC<{
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (
-      event: {
-        data: {
-          messages?: Message[];
-          isStreaming?: boolean;
-          message?: Message;
-          chunk?: string;
-          code?: string;
-        };
-      },
-    ) => {
-
-
-    
+    BC.onmessage = async (event) => {
       const e = event.data;
-      console.table    ({...e});
+  
       if (e.messages) {
         setMessages(e.messages);
       } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
-      }      if (e.message) {
+      }
+  
+      if (e.message) {
         setMessages((draft) => {
           return messagesPush(draft, e.message as Message);
         });
-      } if (e.code) {
-        await cSess.setCode(e.code);
-      }if (e.chunk) {
-        let updatedMessageContent = newMessageContent + e.chunk!;
-        setNewMessageContent((previousContent) => updatedMessageContent=previousContent + e.chunk!);
-
-
-        if (mess!.length > 1) {
-
-          setMessages((previousMessages) => {
-
-            const lastMessage = previousMessages[previousMessages.length - 1];
-
-          if (lastMessage?.role!=="assistant") {
-            return [...previousMessages, lastMessage, { id: Date.now().toString(), role: "assistant", content: updatedMessageContent }];
-          } 
-      
-          
-            return [...previousMessages, {...lastMessage, content: updatedMessageContent }];
-          }
-        );
-        }
       }
-
-
-
-
-
-
-                // const [...previousMessages, lastMessage] = messages;
-          // setMessages(([...prev]) => {
-            // );
-      
-                };
+  
+      if (e.code) {
+        await cSess.setCode(e.code);
+      }
+  
+      if (e.chunk) {
+        setNewMessageContent((previousContent) => previousContent + e.chunk!);
+  
+        setMessages((previousMessages) => {
+          const lastMessage = previousMessages[previousMessages.length - 1];
+  
+          if (lastMessage?.role !== "assistant") {
+            // Add a new assistant message
+            return [
+              ...previousMessages,
+              { id: Date.now().toString(), role: "assistant", content: previousMessages.length ? previousMessages[previousMessages.length - 1].content + e.chunk! : e.chunk! },
+            ];
+          } else {
+            // Update the last assistant message
+            return [
+              ...previousMessages.slice(0, -1),
+              { ...lastMessage, content: lastMessage.content + e.chunk! },
+            ];
+          }
+        });
+      }
+    };
+  
+    return () => {
+      BC.close();
+    };
   }, []);
+  
 
   const handleResetChat = useCallback((): void => {
     resetChat();
