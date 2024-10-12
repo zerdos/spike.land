@@ -78,6 +78,14 @@ export const ChatInterface: React.FC<{
     return () => clearTimeout(interval);
   }, [messages]);
 
+  
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === "assistant") {
+      setNewMessageContent(lastMessage.content as string);
+    } else    setNewMessageContent("");
+  }, [messages.length]);
+
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
     setEditInput("");
@@ -104,10 +112,6 @@ export const ChatInterface: React.FC<{
     setEditInput("");
   };
 
-  useEffect(() => {
-    setNewMessageContent("")
-  
-  }, [messages.length]);
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
@@ -142,16 +146,18 @@ export const ChatInterface: React.FC<{
         setNewMessageContent((previousContent) => updatedMessageContent=previousContent + e.chunk!);
 
 
-        if (messages.length > 1) {
+        if (mess!.length > 1) {
 
           setMessages((previousMessages) => {
 
             const lastMessage = previousMessages.pop();
-            const updatedLastMessage =  {
-              ...lastMessage,
-              content:lastMessage?.role ==='assistant'? updatedMessageContent :lastMessage!.content 
-            };
-            return [...previousMessages, updatedLastMessage];
+
+          if (lastMessage?.role!=="assistant") {
+            return [...previousMessages, lastMessage, { id: Date.now().toString(), role: "assistant", content: updatedMessageContent }];
+          } 
+      
+          
+            return [...previousMessages, {...lastMessage, content: updatedMessageContent }];
           }
         );
         }
