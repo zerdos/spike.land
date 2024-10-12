@@ -8,6 +8,8 @@ import { build as esmBuild, initialize, transform } from "esbuild-wasm";
 
 export { wasmFile };
 
+export type MyBuildOptions = BuildOptions & { codeSpace: string; origin: string; wasmModule?: WebAssembly.Module };
+
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
@@ -62,6 +64,7 @@ export const transpile = async (
           treeShaking: true,
           platform: "browser",
           minify: false,
+
           charset: "utf8",
           keepNames: true,
           tsconfigRaw: {
@@ -90,14 +93,15 @@ export const transpile = async (
   });
 };
 
-const getDefaultBuildOptions = (
-  codeSpace: string,
-  origin: string,
-  entryPoint?: string,
-  external: string[] = [],
-  splitting = false,
-  format: "esm" | "iife" = "esm",
-): BuildOptions => ({
+const getDefaultBuildOptions = ({
+  metafile = false,
+  entryPoints,
+  external,
+  origin,
+  codeSpace,
+  splitting,
+  format,
+}: MyBuildOptions) => ({
   resolveExtensions: [
     ".tsx",
     ".ts",
@@ -121,22 +125,22 @@ const getDefaultBuildOptions = (
     ".ttf",
   ],
   loader: {
-    ".js": "js",
-    ".mjs": "js",
-    ".json": "json",
-    ".tsx": "tsx",
-    ".png": "dataurl",
-    ".jpg": "dataurl",
-    ".jpeg": "dataurl",
-    ".gif": "dataurl",
-    ".svg": "dataurl",
-    ".woff": "dataurl",
-    ".webp": "dataurl",
-    ".woff2": "dataurl",
-    ".eot": "dataurl",
-    ".otf": "dataurl",
-    ".ttf": "file",
-    ".css": "css",
+    ".js": "js" as const,
+    ".mjs": "js" as const,
+    ".json": "json" as const,
+    ".tsx": "tsx" as const,
+    ".png": "dataurl" as const,
+    ".jpg": "dataurl" as const,
+    ".jpeg": "dataurl" as const,
+    ".gif": "dataurl" as const,
+    ".svg": "dataurl" as const,
+    ".woff": "dataurl" as const,
+    ".webp": "dataurl" as const,
+    ".woff2": "dataurl" as const,
+    ".eot": "dataurl" as const,
+    ".otf": "dataurl" as const,
+    ".ttf": "file" as const,
+    ".css": "css" as const,
   },
   write: false,
   target: "esnext",
@@ -151,11 +155,12 @@ const getDefaultBuildOptions = (
   minifyWhitespace: true,
   splitting,
   external,
+  metafile,
   format,
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
-  entryPoints: entryPoint
-    ? [entryPoint]
+  entryPoints: entryPoints
+    ? [entryPoints]
     : [`${origin}/live/${codeSpace}/wrapper.js`],
   plugins: [fetchPlugin(origin)],
   assetNames: "assets/[name]-[hash]",
@@ -165,37 +170,30 @@ const getDefaultBuildOptions = (
 export const build = async ({
   codeSpace,
   origin,
-  entryPoint,
+  entryPoints,
   external = [],
   splitting = false,
+  wasmModule = undefined,
+  metafile = false,
   format = "esm",
-  wasmModule,
-}: {
-  codeSpace: string;
-  format: "esm" | "iife";
-  origin: string;
-  entryPoint?: string;
-  external?: string[];
-  splitting?: boolean;
-  wasmModule?: WebAssembly.Module;
-}) => {
+}: MyBuildOptions) => {
   return mutex.runExclusive(async () => {
     try {
       await initializeModule(wasmModule, origin);
       const defaultOpts = getDefaultBuildOptions(
-        codeSpace,
-        origin,
-        entryPoint,
-        external,
-        splitting,
-        format,
+        { codeSpace, origin, entryPoints, external, metafile, splitting, format },
       );
-      const result = await esmBuild({
+
+      const buildOptions = {
         ...defaultOpts,
         external: [
           ...Object.keys(importMap.imports),
         ],
-      });
+        entryPoints: ["src/index.ts"], // Ensure this matches the expected type
+        // ... other properties
+      } as BuildOptions;
+
+      const result = await esmBuild(buildOptions);
 
       return splitting ? result.outputFiles : result.outputFiles![0].text;
     } catch (error) {

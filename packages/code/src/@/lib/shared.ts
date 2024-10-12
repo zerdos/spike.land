@@ -1,5 +1,6 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
 import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
+import type { MyBuildOptions } from "@/lib/transpile";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -212,16 +213,9 @@ export const build = async ({
   origin,
   format = "esm",
   splitting = false,
-  entryPoint = "",
+  entryPoints,
   external = [],
-}: {
-  codeSpace: string;
-  splitting?: boolean;
-  external?: string[];
-  origin: string;
-  entryPoint?: string;
-  format: "esm" | "iife";
-}): Promise<string> => {
+}: MyBuildOptions): Promise<string> => {
   const worker = (await init()).getWorker("esbuild");
   try {
     return await worker.rpc.rpc("build", {
@@ -229,7 +223,7 @@ export const build = async ({
       origin,
       splitting,
       external,
-      entryPoint,
+      entryPoints,
       format,
     });
   } finally {
