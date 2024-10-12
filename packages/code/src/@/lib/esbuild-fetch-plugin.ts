@@ -59,7 +59,7 @@ export const fetchPlugin = (origin: string) => ({
         argsPath = argsPath + ".mjs";
       }
 
-      if (argsPath === args.path) {
+      if (argsPath === args.path && !args.path.endsWith(".tsx")) {
         argsPath = `${origin}/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
       }
 
