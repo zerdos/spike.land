@@ -115,29 +115,34 @@ export const ChatInterface: React.FC<{
       const e = event.data;
       if (e.messages) {
         setMessages(e.messages);
-      }
-
-      if (e.isStreaming !== undefined) {
+      } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
-      }
-      if (e.message) {
+      }      if (e.message) {
         setMessages((draft) => {
           return messagesPush(draft, e.message as Message);
         });
-      }
-      if (e.code) {
+      } if (e.code) {
         await cSess.setCode(e.code);
-      }
-      if (e.chunk) {
+      }if (e.chunk) {
         if (messages.length > 1) {
-          setMessages((prev: Message[]) => {
-            const lastMessage = prev[prev.length - 1];
-            if (lastMessage.role !== "assistant") return prev;
-            lastMessage.content += e.chunk!;
+          setMessages((previousMessages) => {
 
-            return prev;
-          });
+            const lastMessage = previousMessages.pop();
+            const updatedLastMessage = {
+              ...lastMessage,
+              content: lastMessage!.content + e.chunk!,
+            };
+            return [...previousMessages, updatedLastMessage];
+          }
+        );
         }
+        
+
+
+
+                // const [...previousMessages, lastMessage] = messages;
+          // setMessages(([...prev]) => {
+            // );
       }
     };
   }, []);
