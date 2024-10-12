@@ -8,13 +8,7 @@ class SharedWorkerPolyfill {
     if (process.env.VI_TEST) {
       import("worker_threads").then(({ Worker: Worker2 }) => {
         // if url has ? then strip it
-        this.worker = new Worker2(
-          new URL(
-            "/../../../dist/"
-              + url.slice(0, url.indexOf("?")),
-          ).toString(),
-          opts || {},
-        ) as unknown as Worker;
+        this.worker = new Worker2(url) as unknown as Worker;
         this.initializeWorker();
       });
     } else {

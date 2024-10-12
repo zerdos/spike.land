@@ -20,20 +20,24 @@ export interface ChatHeaderProps {
   onClose: () => void;
 }
 
+export interface HandleSendMessageProps {
+  messages: Message[];
+  codeSpace: string;
+  prompt: string;
+  images: ImageData[];
+  code: string;
+}
+
 export interface MessageInputProps {
   input: string;
   isDarkMode: boolean;
   messages: Message[];
   setInput: (value: string) => void;
-  handleSendMessage: ({ messages, codeSpace, prompt, images }: {
-    messages: Message[];
-    codeSpace: string;
-    prompt: string;
-    images: ImageData[];
-  }) => Promise<void>;
+  handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
+  code: string;
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
@@ -202,15 +206,9 @@ export interface ChatDrawerProps {
   messages: Message[];
   isStreaming: boolean;
   input: string;
+  code: string;
   setInput: (input: string) => void;
-  handleSendMessage: (
-    { messages, codeSpace, prompt, images }: {
-      messages: Message[];
-      codeSpace: string;
-      prompt: string;
-      images: ImageData[];
-    },
-  ) => Promise<void>;
+  handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;

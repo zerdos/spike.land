@@ -1,7 +1,7 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
-import type { ICode } from "@/lib/interfaces";
+import type {  ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
 
 import { useScreenshot } from "./hooks/useScreenshot";
@@ -21,6 +21,8 @@ export const ChatInterface: React.FC<{
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = useCodeSpace();
+  // const [newMessageContent, setNewMessageContent] = useState<string>("");
+
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [mess, setMess] = useLocalStorage<Message[]>(
@@ -36,6 +38,7 @@ export const ChatInterface: React.FC<{
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const resetChat = useCallback((): void => {
@@ -73,6 +76,13 @@ export const ChatInterface: React.FC<{
     return () => clearTimeout(interval);
   }, [messages]);
 
+  // useEffect(() => {
+  //   const lastMessage = messages[messages.length - 1];
+  //   if (lastMessage?.role === "assistant") {
+  //     setNewMessageContent(lastMessage.content as string);
+  //   } else    setNewMessageContent("");
+  // }, [messages.length]);
+
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
     setEditInput("");
@@ -101,44 +111,54 @@ export const ChatInterface: React.FC<{
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (
-      event: {
-        data: {
-          messages?: Message[];
-          isStreaming?: boolean;
-          message?: Message;
-          chunk?: string;
-          code?: string;
-        };
-      },
-    ) => {
+    BC.onmessage = async (event) => {
       const e = event.data;
+
       if (e.messages) {
         setMessages(e.messages);
-      }
-
-      if (e.isStreaming !== undefined) {
+      } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
+
       if (e.message) {
         setMessages((draft) => {
           return messagesPush(draft, e.message as Message);
         });
       }
-      if (e.code) {
-        await cSess.setCode(e.code);
-      }
-      if (e.chunk) {
-        if (messages.length > 1) {
-          setMessages((prev: Message[]) => {
-            const lastMessage = prev[prev.length - 1];
-            if (lastMessage.role !== "assistant") return prev;
-            lastMessage.content += e.chunk!;
 
-            return prev;
-          });
-        }
+      if (e.code) {
+        console.log("Setting code", e.code); 
+       await cSess.setCode(e.code);
       }
+
+      if (e.chunk) {
+        // setNewMessageContent((previousContent) => previousContent + e.chunk!);
+
+        setMessages((previousMessages) => {
+          const lastMessage = previousMessages[previousMessages.length - 1];
+
+          if (lastMessage?.role !== "assistant") {
+            // Add a new assistant message
+            return [
+              ...previousMessages,
+              {
+                id: Date.now().toString(),
+                role: "assistant",
+                content: e.chunk!,
+              },
+            ];
+          } else {
+            // Update the last assistant message
+            return [
+              ...previousMessages.slice(0, -1),
+              { ...lastMessage, content: lastMessage.content + e.chunk! },
+            ];
+          }
+        });
+      }
+    };
+    return () => {
+      BC.close();
     };
   }, []);
 
@@ -175,7 +195,7 @@ export const ChatInterface: React.FC<{
           } as Message,
         ];
         setInput("");
-        handleSendMessage({ messages, codeSpace, prompt, images });
+        cSess.getCode().then((code) => handleSendMessage({ messages, codeSpace, prompt, images, code }));
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
@@ -221,14 +241,8 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      handleSendMessage={(
-        { messages, codeSpace, prompt, images }: {
-          messages: Message[];
-          codeSpace: string;
-          prompt: string;
-          images: ImageData[];
-        },
-      ) => handleSendMessage({ messages, codeSpace, prompt, images })}
+      code={cSess.session.code}
+      handleSendMessage={handleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

@@ -22,6 +22,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
     handleResetChat,
     messages,
     isStreaming,
+    code,
     input,
     setInput,
     handleSendMessage,
@@ -118,6 +119,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
             </ScrollArea>
             <MemoizedMessageInput
               input={input}
+              code={code}
               messages={messages}
               setInput={setInput}
               screenShot={screenShot}

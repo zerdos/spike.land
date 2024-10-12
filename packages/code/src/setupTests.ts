@@ -23,4 +23,5 @@ globalThis.TextEncoder = TextEncoder;
 globalThis.TextDecoder = TextDecoder;
 
 const VI_TEST = true;
+process.env.VI_TEST = VI_TEST.toString();
 Object.assign(globalThis, { VI_TEST });

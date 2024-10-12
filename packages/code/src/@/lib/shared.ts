@@ -1,5 +1,5 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
-import type { ICodeSession, ImageData, Message } from "@/lib/interfaces";
+import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -145,18 +145,14 @@ export const tsx = async (
 };
 
 export const handleSendMessage = async (
-  { messages, codeSpace, prompt, images }: {
-    messages: Message[];
-    codeSpace: string;
-    prompt: string;
-    images: ImageData[];
-  },
+  { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
 ): Promise<void> => {
   const worker = (await init()).getWorker("search-replace");
   try {
     return await worker.rpc.rpc("handleSendMessage", {
       messages,
       codeSpace,
+      code,
       prompt,
       images,
     });
