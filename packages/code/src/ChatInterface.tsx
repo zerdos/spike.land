@@ -150,7 +150,7 @@ export const ChatInterface: React.FC<{
 
           setMessages((previousMessages) => {
 
-            const lastMessage = previousMessages.pop();
+            const lastMessage = previousMessages[previousMessages.length - 1];
 
           if (lastMessage?.role!=="assistant") {
             return [...previousMessages, lastMessage, { id: Date.now().toString(), role: "assistant", content: updatedMessageContent }];
