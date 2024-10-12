@@ -56,111 +56,47 @@ interface ChatMessagePart {
 }
 
 const parseMessageParts = (text: string): ChatMessagePart[] => {
-  const codeBlockRegex = /```(\w+)?\s*([\s\S]*?)```/g;
+  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
   const parts: ChatMessagePart[] = [];
   let lastIndex = 0;
   let match;
 
   while ((match = codeBlockRegex.exec(text)) !== null) {
     if (match.index > lastIndex) {
-      const textContent = text.slice(lastIndex, match.index).trim();
-      if (textContent.length > 0) {
-        parts.push({ type: "text", content: textContent });
+      const textContent = text.slice(lastIndex, match.index);
+      if (textContent.trim()) {
+        parts.push({ type: "text", content: textContent.trim() });
       }
     }
 
     const language = getLanguage(match[1]);
-    const code = match[2].trim();
+    const code = match[2];
 
     parts.push({ type: "code", language, content: code });
 
-    lastIndex = match.index + match[0].length;
+    lastIndex = codeBlockRegex.lastIndex;
   }
 
   if (lastIndex < text.length) {
-    const lastPart = text.slice(lastIndex);
-    const lastOpenBlockMatch = lastPart.match(/```(\w+)?\s*([\s\S]*)/);
-    if (lastOpenBlockMatch && lastOpenBlockMatch.index !== undefined) {
-      if (lastOpenBlockMatch.index > 0) {
-        const textContent = lastPart.slice(0, lastOpenBlockMatch.index).trim();
-        if (textContent.length > 0) {
-          parts.push({ type: "text", content: textContent });
-        }
-      }
-      parts.push({
-        type: "code",
-        language: getLanguage(lastOpenBlockMatch[1]),
-        content: lastOpenBlockMatch[2].trim(),
-      });
-    } else {
-      const textContent = lastPart.trim();
-      if (textContent.length > 0) {
-        parts.push({ type: "text", content: textContent });
-      }
+    const remainingText = text.slice(lastIndex);
+    if (remainingText.trim()) {
+      parts.push({ type: "text", content: remainingText.trim() });
     }
   }
 
-  return parts.map((part) =>
-    part.type === "text"
-      ? {
-        ...part,
-        content: part.content
-          .replace(/<<<<<<< SEARCH/g, "")
-          .replace(/>>>>>>> REPLACE/g, "")
-          .trim(),
-      }
-      : part
-  );
+  return parts;
 };
 
 const extendTextWithDiffMarkers = (text: string): string => {
-  const countSearch = (text.match(/<<<<<<< SEARCH/g) || []).length;
-  const countEqual = (text.match(/=======/g) || []).length;
-  const countReplace = (text.match(/>>>>>>> REPLACE/g) || []).length;
-
-  if (countSearch === 0 && countEqual === 0 && countReplace === 0) {
-    return text;
-  }
-
-  let extendedText = text;
-
-  if (countSearch !== countEqual) {
-    extendedText += "=======\n";
-  }
-
-  if (countEqual > countReplace) {
-    const parts = extendedText.split(
-      /(<<<<<<<\s*SEARCH|=======|>>>>>>>\s*REPLACE)/g,
-    );
-    let isFirstEqual = true;
-    for (let i = 0; i < parts.length; i++) {
-      if (parts[i].trim() === "<<<<<<< SEARCH") {
-        isFirstEqual = true;
-      } else if (parts[i].trim() === "=======") {
-        if (isFirstEqual) {
-          isFirstEqual = false;
-        } else {
-          parts[i] = ">>>>>>> REPLACE";
-        }
-      }
-    }
-    extendedText = parts.join("");
-  }
-
-  extendedText = extendedText.replace(
-    /<<<<<<< SEARCH/g,
-    "```diff\n<<<<<<< SEARCH",
-  );
-  extendedText = extendedText.replace(
-    />>>>>>> REPLACE/g,
-    ">>>>>>> REPLACE\n```",
-  );
-
-  return extendedText;
+  return text.replace(/<<<<<<<\s*SEARCH[\s\S]*?>>>>>>> REPLACE/g, (match) => {
+    return "```diff\n" + match.trim() + "\n```";
+  });
 };
 
 export const getParts = (text: string, isUser: boolean): ChatMessagePart[] => {
   const extendedText = extendTextWithDiffMarkers(text);
   const cleanedText = cleanMessageText(extendedText, isUser);
-  return parseMessageParts(cleanedText).filter((part) => part.type !== "text" || part.content.length > 0);
+  return parseMessageParts(cleanedText).filter(
+    (part) => part.type !== "text" || part.content.length > 0,
+  );
 };

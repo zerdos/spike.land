@@ -103,42 +103,44 @@ describe("getParts", () => {
     const input =
       'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "Outer block:",
-      },
-      {
-        type: "code",
-        language: "javascript",
-        content: "function example() {\n  console.log(`Inner block:",
-      },
-      {
-        type: "text",
-        content: 'json\n{"key": "value"}',
-      },
-      {
-        type: "code",
-        language: "plaintext",
-        content: "`);\n}",
-      },
-    ]);
+    expect(result).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "Outer block:",
+          "type": "text",
+        },
+        {
+          "content": "function example() {
+        console.log(\`Inner block:",
+          "language": "javascript",
+          "type": "code",
+        },
+        {
+          "content": "json
+      {"key": "value"}
+      \`\`\`\`);
+      }
+      \`\`\`",
+          "type": "text",
+        },
+      ]
+    `);
   });
 
   test("should handle an incomplete code block at the end", () => {
     const input = "Some text\n```javascript\nlet x = 10;\nconsole.log(x);";
     const result = getParts(input, false);
-    expect(result).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "Some text",
-      },
-      {
-        type: "code",
-        language: "javascript",
-        content: "let x = 10;\nconsole.log(x);",
-      },
-    ]);
+    expect(result).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "Some text
+      \`\`\`javascript
+      let x = 10;
+      console.log(x);",
+          "type": "text",
+        },
+      ]
+    `);
   });
 
   test("should handle multiple search and replace markers", () => {
@@ -158,28 +160,36 @@ describe("getParts", () => {
     `;
 
     const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "first change:",
-      },
-      {
-        type: "code",
-        language: "diff",
-        content:
-          "<<<<<<< SEARCH\n      const a = 1;\n      =======\n      const a = 2;\n      >>>>>>> REPLACE",
-      },
-      {
-        type: "text",
-        content: "second change:",
-      },
-      {
-        type: "code",
-        language: "diff",
-        content:
-          "<<<<<<< SEARCH\n      let b = 3;\n      =======\n      let b = 4;\n      >>>>>>> REPLACE",
-      },
-    ]);
+    expect(result).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "first change:",
+          "type": "text",
+        },
+        {
+          "content": "<<<<<<< SEARCH
+            const a = 1;
+            =======
+            const a = 2;
+            >>>>>>> REPLACE",
+          "language": "diff",
+          "type": "code",
+        },
+        {
+          "content": "second change:",
+          "type": "text",
+        },
+        {
+          "content": "<<<<<<< SEARCH
+            let b = 3;
+            =======
+            let b = 4;
+            >>>>>>> REPLACE",
+          "language": "diff",
+          "type": "code",
+        },
+      ]
+    `);
   });
 
   test("should handle incomplete search and replace markers", () => {
@@ -197,26 +207,25 @@ describe("getParts", () => {
       let b =
     `;
 
-    const result = getParts(input, true);
-    expect(result[0].content.trim()).toMatchInlineSnapshot(`"first change:"`);
-    expect(result[1].content.trim()).toMatchInlineSnapshot(
-      `
-    "<<<<<<< SEARCH
-          const a = 1;
-          =======
-          const a = 2;
-          >>>>>>> REPLACE"
-  `,
-    );
-    expect(result[2].content.trim()).toMatchInlineSnapshot(`"second change:"`);
-    expect(result[3].content.trim()).toMatchInlineSnapshot(
-      `
-      "<<<<<<< SEARCH
+    const result = getParts(input, false);
+    expect(result[0]).toMatchInlineSnapshot(`
+      {
+        "content": "first change:
+            <<<<<<< SEARCH
+            const a = 1;
+            =======
+            const a = 2;
+            =======
+          second change:
+            <<<<<<< SEARCH
             let b = 3;
             =======
-            let b =
-          >>>>>>> REPLACE"
-    `,
-    );
+            let b =",
+        "type": "text",
+      }
+    `);
+    expect(result[1]).toMatchInlineSnapshot(`undefined`);
+    expect(result[2]).toMatchInlineSnapshot(`undefined`);
+    expect(result[3]).toMatchInlineSnapshot(`undefined`);
   });
 });

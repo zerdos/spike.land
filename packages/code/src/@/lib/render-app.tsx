@@ -140,7 +140,7 @@ async function renderApp(
                 </ErrorBoundary>
               )}
           </CacheProvider>{" "}
-          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace}/>}
         </React.Fragment>
       </ThemeProvider>,
     );

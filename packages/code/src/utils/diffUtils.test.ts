@@ -1,6 +1,7 @@
-import { extractCodeModification, updateSearchReplace } from "@/lib/chat-utils";
+import { updateSearchReplace } from "@/lib/chat-utils";
+import { extractCodeModification } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
-
+import { getParts } from "@/lib/get-parts";
 import { describe, expect, it } from "vitest";
 
 describe("diffUtils", () => {
@@ -374,4 +375,112 @@ console.log("World");
       expect(result.trim()).toBe(expected.trim());
     });
   });
+
+  it("should fix the fixable extractDiffContent", () => {
+    const result = extractDiffContent(example);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should fix the fixable extractCodeModification", () => {
+    const res2 = getParts(example, false);
+    expect(res2).toMatchSnapshot();
+  });
 });
+
+const example = `
+Certainly! I'll remove the digital display from the SportWatchClock component. Here are the changes:
+
+1. Remove the drawNumbers function:
+
+<<<<<<< SEARCH
+  const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {
+    ctx.font = radius * 0.15 + "px Arial";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffff";
+
+    const numbers = [12, 3, 6, 9];
+    numbers.forEach((num, index) => {
+      const ang = (index * Math.PI) / 2;
+      ctx.rotate(ang);
+      ctx.translate(0, -radius * 0.75);
+      ctx.rotate(-ang);
+      ctx.fillText(num.toString(), 0, 0);
+      ctx.rotate(ang);
+      ctx.translate(0, radius * 0.75);
+      ctx.rotate(-ang);
+    });
+  };
+=======
+  // Removed drawNumbers function
+=======
+>>>>>>> REPLACE
+
+2. Remove the call to drawNumbers in the drawClock function:
+
+<<<<<<< SEARCH
+  const drawClock = () => {
+    drawFace(ctx, radius);
+    drawNumbers(ctx, radius);
+    drawTime(ctx, radius);
+  };
+=======
+  const drawClock = () => {
+    drawFace(ctx, radius);
+    drawTime(ctx, radius);
+  };
+>>>>>>> REPLACE
+
+Explanation:
+These changes remove the digital display (numbers) from the clock face. The clock will now only show the hour, minute, and second hands without any numbers on the face.
+
+Improvements and alternatives:
+1. To make the clock more readable without numbers, you could consider adding more prominent tick marks at the 12, 3, 6, and 9 o'clock positions. This can be done by modifying the drawFace function.
+
+2. You could also add small dots or markers at each hour position to help users read the time more easily.
+
+3. If you want to keep some indication of the clock positions without numbers, you could add small lines or triangles at the 12, 3, 6, and 9 o'clock positions.
+
+Here's an example of how you could modify the drawFace function to add more prominent tick marks:
+
+<<<<<<< SEARCH
+    // Ticks
+    for (let i = 0; i < 60; i++) {
+      const ang = (i * Math.PI) / 30;
+      ctx.beginPath();
+      ctx.rotate(ang);
+      ctx.moveTo(radius * 0.9, 0);
+      ctx.lineTo(radius * 0.95, 0);
+      ctx.strokeStyle = i % 5 === 0 ? "#ffffff" : "#808080";
+      ctx.lineWidth = i % 5 === 0 ? 3 : 1;
+      ctx.stroke();
+      ctx.rotate(-ang);
+    }
+=======
+    // Ticks
+    for (let i = 0; i < 60; i++) {
+      const ang = (i * Math.PI) / 30;
+      ctx.beginPath();
+      ctx.rotate(ang);
+      ctx.moveTo(radius * 0.9, 0);
+      ctx.lineTo(radius * 0.95, 0);
+      if (i % 15 === 0) {
+        // More prominent marks at 12, 3, 6, and 9
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 5;
+      } else if (i % 5 === 0) {
+        // Hour marks
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 3;
+      } else {
+        // Minute marks
+        ctx.strokeStyle = "#808080";
+        ctx.lineWidth = 1;
+      }
+      ctx.stroke();
+      ctx.rotate(-ang);
+    }
+>>>>>>> REPLACE
+
+These changes will create a more readable analog clock face without numbers, maintaining the sporty and minimalist design.
+`;

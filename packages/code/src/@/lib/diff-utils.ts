@@ -22,18 +22,18 @@ export function extractDiffContent(
       original = content.slice(
         searchIndex + searchMarker.length,
         separatorIndex,
-      ).trim();
+      ).split(separatorMarker).join("").trim();
       if (replaceIndex !== -1) {
         modified = content.slice(
           separatorIndex + separatorMarker.length,
           replaceIndex,
-        ).trim();
+        ).split(separatorMarker).join("").trim();
       } else {
-        modified = content.slice(separatorIndex + separatorMarker.length)
+        modified = content.slice(separatorIndex + separatorMarker.length).split(separatorMarker).join("")
           .trim();
       }
     } else {
-      original = content.slice(searchIndex + searchMarker.length).trim();
+      original = content.slice(searchIndex + searchMarker.length).split(separatorMarker).join("").trim();
     }
   }
 
