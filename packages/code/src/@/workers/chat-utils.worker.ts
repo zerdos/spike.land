@@ -10,6 +10,7 @@ import { AIHandler } from "@src/AIHandler";
 
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
+
 // import { CodeSessionBC } from "../../services/CodeSessionBc";
 
 const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
@@ -23,50 +24,20 @@ const handleSendMessage = async (
     BC = new BroadcastChannel(`${codeSpace}-chat`);
     broadcastChannelsByCodeSpace[codeSpace] = BC;
   }
-
+  console.log("Handling send message", { isStreaming: true });
   BC.postMessage({ isStreaming: true });
 
   const setIsStreaming = (isStreaming: boolean) => BC.postMessage({ isStreaming });
 
   const setMessages = (_messages: Message[]) => {
     messages = _messages;
+    // BC.postMessage({ messages });
+    console.log("Setting messages", { messages });
     BC.postMessage({ messages });
     return messages;
   };
 
   try {
-    // const cSess = new CodeSessionBC(codeSpace);
-    // await cSess.init();
-
-    // const extendedBcSess = {
-    //   ...cSess,
-    //   setCodeAndTranspiled: async (
-    //     { formatted, transpiled }: { formatted: string; transpiled: string },
-    //   ) => cSess.setCodeAndTranspiled({ formatted, transpiled }),
-    //   init: () => cSess.init(),
-    //   session: cSess.session!,
-    //   getCode: () => cSess.getCode(),
-    //   setCode: async (rawCode: string, skipRunning = false) => {
-    //     if (skipRunning) {
-    //       const formatted = await m.prettierJs({
-    //         code: rawCode,
-    //         toThrow: true,
-    //       });
-    //       const transpiled = await m.transpile({
-    //         code: formatted,
-    //         originToUse: location.origin,
-    //       })!;
-    //       if (typeof transpiled !== "string") {
-    //         return false;
-    //       }
-
-    //       cSess.setCodeAndTranspiled({ formatted, transpiled });
-    //       return true;
-    //     } else BC.postMessage({ code: rawCode });
-    //     return true;
-    //   },
-    // };
-
     const aiHandler = new AIHandler(setIsStreaming, codeSpace);
 
     if (!prompt.trim()) return;
@@ -224,32 +195,13 @@ export async function processMessage(
       messages = messagesPush(messages, assistantMessage);
       setMessages([...messages]);
 
-      const last = await onUpdate(assistantMessage.content as string);
-      if (last && last !== codeNow) {
-        console.log("Last code", last);
+      await onUpdate(assistantMessage.content as string);
+      if (mod.lastCode === codeNow) {
+        console.log("Last code", mod.lastCode);
 
-        broadcastChannelsByCodeSpace[codeSpace].postMessage({ code: last });
+        // broadcastChannelsByCodeSpace[codeSpace].postMessage({ code: last });
         return true;
       }
-
-      // const errorMessage = contextManager.getContext("errorLog");
-      // if (errorMessage) {
-      //   console.log("Error detected, attempting to handle", { errorMessage });
-      //   const errorHandled = await handleErrorMessage(
-      //     {
-      //       errorMessage,
-      //       codeNow,
-      //       messages,
-      //       aiHandler,
-      //       setMessages,
-      //       contextManager,
-      //     },
-      //   );
-      //   if (errorHandled) {
-      //     console.log("Error handled successfully");
-      //     return true;
-      //   }
-      // }
 
       retries++;
     } catch (error) {
@@ -370,8 +322,6 @@ function createOnUpdateFunction({
               console.log("Updated chunk", { startPos, chunkLength: len });
             }
 
-            BC.postMessage({ code: mod.lastCode });
-
             // if (formatted && transpiled) {
             //   cSess.setCodeAndTranspiled({
             //     formatted,
@@ -383,6 +333,11 @@ function createOnUpdateFunction({
           if (iterationCount >= maxIterations) {
             console.warn("Reached maximum iterations, forcing finish");
           }
+
+          console.log("Finished iteration", iterationCount);
+          console.log("current code", mod.lastCode);
+          BC.postMessage({ code: mod.lastCode });
+
           return mod.lastCode;
         } catch (error) {
           console.error("Error in throttledMutexOperation:", error);
