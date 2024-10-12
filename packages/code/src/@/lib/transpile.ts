@@ -125,7 +125,9 @@ const getDefaultBuildOptions = ({
     ".ttf",
   ],
   loader: {
-    ".js": "js" as const,
+    ".js": "jsx" as const,
+    ".jsx": "jsx" as const,
+
     ".mjs": "js" as const,
     ".json": "json" as const,
     ".tsx": "tsx" as const,
