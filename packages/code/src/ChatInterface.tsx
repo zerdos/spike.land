@@ -13,8 +13,6 @@ import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";
 
-
-
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
 export const ChatInterface: React.FC<{
@@ -22,7 +20,7 @@ export const ChatInterface: React.FC<{
   cSess: ICode;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const codeSpace = useCodeSpace()
+  const codeSpace = useCodeSpace();
   // const [newMessageContent, setNewMessageContent] = useState<string>("");
 
   const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -78,7 +76,6 @@ export const ChatInterface: React.FC<{
     return () => clearTimeout(interval);
   }, [messages]);
 
-  
   // useEffect(() => {
   //   const lastMessage = messages[messages.length - 1];
   //   if (lastMessage?.role === "assistant") {
@@ -112,39 +109,42 @@ export const ChatInterface: React.FC<{
     setEditInput("");
   };
 
-
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
-  
+
       if (e.messages) {
         setMessages(e.messages);
       } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
-  
+
       if (e.message) {
         setMessages((draft) => {
           return messagesPush(draft, e.message as Message);
         });
       }
-  
+
       if (e.code) {
         await cSess.setCode(e.code);
       }
-  
+
       if (e.chunk) {
         // setNewMessageContent((previousContent) => previousContent + e.chunk!);
-      
+
         setMessages((previousMessages) => {
           const lastMessage = previousMessages[previousMessages.length - 1];
-      
+
           if (lastMessage?.role !== "assistant") {
             // Add a new assistant message
             return [
               ...previousMessages,
-              { id: Date.now().toString(), role: "assistant", content: e.chunk! },
+              {
+                id: Date.now().toString(),
+                role: "assistant",
+                content: e.chunk!,
+              },
             ];
           } else {
             // Update the last assistant message
@@ -155,14 +155,11 @@ export const ChatInterface: React.FC<{
           }
         });
       }
-      
-  
-    }
+    };
     return () => {
       BC.close();
     };
   }, []);
-  
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -231,7 +228,6 @@ export const ChatInterface: React.FC<{
   );
 
   if (!isOpen) return null;
-
 
   return (
     <MemoizedChatDrawer
