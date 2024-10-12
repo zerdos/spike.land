@@ -6,6 +6,7 @@ import { useCodeSpace } from "@/hooks/use-code-space";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
+  building?: boolean;
 }
 
 const useProgressBar = (isStreaming: boolean) => {
@@ -39,26 +40,36 @@ const useReloadEffect = (isStreaming: boolean) => {
   useEffect(() => {
     if (previousStreamingState.current && !isStreaming) {
       const timeoutId = setTimeout(() => {
-        location.reload();
+        window.location.reload();
       }, 200);
 
       return () => clearTimeout(timeoutId);
     }
 
     previousStreamingState.current = isStreaming;
-    return;
   }, [isStreaming]);
 };
 
-export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`);
+export function AIBuildingOverlay({ codeSpace, building }: AIBuildingOverlayProps) {
+  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
+    `streaming-${codeSpace}`,
+    building ?? false
+  );
+
   const progress = useProgressBar(isStreaming);
   useReloadEffect(isStreaming);
+
+  useEffect(() => {
+    if (building !== undefined) {
+      setIsStreaming(building);
+    }
+  }, [building, setIsStreaming]);
 
   if (!isStreaming) return null;
 
   return (
     <div
+      data-testid={`ai-building-overlay-${codeSpace}`}
       className={cn(
         "fixed inset-x-0 bottom-0 h-12",
         "bg-gradient-to-r from-pink-500/60 via-blue-500/60 to-green-500/60",
