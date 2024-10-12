@@ -44,13 +44,24 @@ export const fetchPlugin = (origin: string) => ({
     // would probably need to be more complex.
 
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-      const response = await fetch(args.path, { redirect: "follow" });
+      let argsPath = args.path;
+      Object.keys(importMap.imports).map((pkg) => {
+        if (argsPath.startsWith(pkg)) {
+          args.path = args.path.replace(pkg, importMap.imports[pkg as keyof typeof importMap.imports]);
+        }
+      });
+
+      if (argsPath.startsWith(origin) && !(argsPath.endsWith(".mjs") || argsPath.endsWith(".js"))) {
+        argsPath = argsPath + ".mjs";
+      }
+
+      if (argsPath === args.path) {
+        argsPath = `${origin}/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
+      }
+
+      const response = await fetch(argsPath);
       const contents = await response.text();
-      // if (contents.slice(0, 100çç).includes("importMapReplace")) {
-      //   Object.keys(oo).map((pkg) => {
-      //     contents = contents.replace(new RegExp(`"${oo[pkg]}"`, "g"), `"${pkg}"`);
-      //   });
-      // }
+
       const contentType = response.headers.get("content-type") || "";
 
       let loader:

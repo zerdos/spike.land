@@ -143,7 +143,7 @@ const getDefaultBuildOptions = ({
     ".css": "css" as const,
   },
   write: false,
-  target: "esnext",
+  target: "es2022",
   outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
   treeShaking: true,
   legalComments: "none",
