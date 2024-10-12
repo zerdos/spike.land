@@ -156,6 +156,13 @@ const getDefaultBuildOptions = ({
   splitting,
   external,
   metafile,
+  tsconfigRaw: {
+    compilerOptions: {
+      jsx: "react-jsx",
+      jsxFragmentFactory: "Fragment",
+      jsxImportSource: "@emotion/react",
+    },
+  },
   format,
   platform: "browser",
   outExtension: { ".js": ".mjs", ".css": ".css" },
