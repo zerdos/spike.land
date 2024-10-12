@@ -37,6 +37,7 @@ export interface MessageInputProps {
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
+  code: string;
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
@@ -205,10 +206,9 @@ export interface ChatDrawerProps {
   messages: Message[];
   isStreaming: boolean;
   input: string;
+  code: string;
   setInput: (input: string) => void;
-  handleSendMessage: (
-    { messages, codeSpace, prompt, images }: HandleSendMessageProps,
-  ) => Promise<void>;
+  handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;

@@ -21,6 +21,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleSendMessage,
   isStreaming,
   inputRef,
+  code,
   screenShot,
   screenshotImage,
   handleCancelScreenshot,
@@ -36,7 +37,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       codeSpace: useCodeSpace(),
       prompt: input,
       images: uploadedImages,
-      code: "",
+      code: code,
     });
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending

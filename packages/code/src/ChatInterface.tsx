@@ -195,7 +195,7 @@ export const ChatInterface: React.FC<{
           } as Message,
         ];
         setInput("");
-        handleSendMessage({ messages, codeSpace, prompt, images, code: cSess.session.code });
+        cSess.getCode().then((code) => handleSendMessage({ messages, codeSpace, prompt, images, code }));
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
@@ -241,6 +241,7 @@ export const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
+      code={cSess.session.code}
       handleSendMessage={handleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
