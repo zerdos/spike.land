@@ -133,6 +133,13 @@ function createWebSocket(codeSpace: string) {
   const delegate = {
     socketDidOpen() {
       console.log("Socket opened");
+
+      const connection = connections.get(codeSpace)!;
+
+      connection.webSocket.send(
+        JSON.stringify({ type: "handShake", name: connection.user, hashCode: connection.lastHash }),
+      );
+
       // Socket is ready to write.
     },
     socketDidClose(_socket: Socket, code?: number, reason?: string) {
