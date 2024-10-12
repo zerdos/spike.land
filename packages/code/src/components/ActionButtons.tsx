@@ -4,8 +4,7 @@ import type { FC } from "react";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
 import { FaDownload } from "@/external/icons";
-import {FullscreenIcon} from "@/external/lucideReact";
-
+import { FullscreenIcon } from "@/external/lucideReact";
 
 type ActionButtonsProps = {
   codeSpace: string;

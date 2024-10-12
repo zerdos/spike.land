@@ -107,7 +107,10 @@ function handleHtmlResponse(session: ICodeSession) {
   return new Response(respText, { status: 200, headers });
 }
 
-function handleIndexCss(request: Request<unknown, CfProperties<unknown>>, session: ICodeSession) {
+function handleIndexCss(
+  request: Request<unknown, CfProperties<unknown>>,
+  session: ICodeSession,
+) {
   console.log("css request:", request.url);
 
   return new Response(session.css, {
@@ -149,7 +152,10 @@ async function handleIndexJs(
   );
 }
 
-function handleIndexTsx(request: Request<unknown, CfProperties<unknown>>, session: ICodeSession) {
+function handleIndexTsx(
+  request: Request<unknown, CfProperties<unknown>>,
+  session: ICodeSession,
+) {
   console.log("Index request:", request.url);
 
   return new Response(session.code, {
@@ -160,7 +166,10 @@ function handleIndexTsx(request: Request<unknown, CfProperties<unknown>>, sessio
   });
 }
 
-function handleSessionJson(request: Request<unknown, CfProperties<unknown>>, session: ICodeSession) {
+function handleSessionJson(
+  request: Request<unknown, CfProperties<unknown>>,
+  session: ICodeSession,
+) {
   console.log("Session request:", request.url);
 
   return new Response(JSON.stringify(session), {

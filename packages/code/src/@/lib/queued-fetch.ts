@@ -10,7 +10,12 @@ export class QueuedFetch {
   private retryDelay: number;
   private fetchWithRetry: typeof fetch;
 
-  constructor(maxConcurrent = 5, maxNumberOfRequests = 0, _retries = 3, _retryDelay = 300) {
+  constructor(
+    maxConcurrent = 5,
+    maxNumberOfRequests = 0,
+    _retries = 3,
+    _retryDelay = 300,
+  ) {
     this.retries = _retries;
     this.retryDelay = _retryDelay;
     this.maxNumberOfRequests = maxNumberOfRequests;

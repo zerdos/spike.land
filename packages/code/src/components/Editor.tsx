@@ -14,7 +14,6 @@ interface EditorProps {
 }
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
- 
   const { containerRef, engine, editorState, setEditorState } =
     useEditorState();
   const { error, handleError } = useErrorHandling();
@@ -37,11 +36,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   });
 
   const handleContentChange = (newCode: string) => {
-  
     mod.current.md5Ids.push(md5(newCode));
     cSess.setCode(newCode);
-  }
- 
+  };
+
   useEffect(() => {
     if (error) {
       handleError("typescript", error);
@@ -58,7 +56,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         if (mod.current.md5Ids.includes(md5Code)) return;
 
-        mod.current.md5Ids.push(md5Code);  
+        mod.current.md5Ids.push(md5Code);
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
         // mod.current.controller.abort();
@@ -120,7 +118,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           codeSpace={codeSpace}
         />
       </div>
-      
     </div>
   );
 };

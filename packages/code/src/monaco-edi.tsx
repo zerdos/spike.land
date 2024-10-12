@@ -373,15 +373,12 @@ async function startMonacoPristine({
     }, 200);
 
     if (!editorModel.silent) {
-  
       setTimeout(() => {
         if (signal.aborted) return;
-        prettierToThrow({code: newCode, toThrow: true}).then(onChange)
-    }, 100);
+        prettierToThrow({ code: newCode, toThrow: true }).then(onChange);
+      }, 100);
     }
-  
-  } 
-  );
+  });
 
   return editorModel;
 }

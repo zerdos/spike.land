@@ -23,13 +23,15 @@ interface DiffPartProps {
 
 const DiffPart = styled.span<DiffPartProps>`
   ${({ added, removed }) => {
-    if (added) return "background-color: #e6ffec; color: #22863a;";
-    if (removed) return "background-color: #ffeef0; color: #cb2431;";
-    return "";
-  }}
+  if (added) return "background-color: #e6ffec; color: #22863a;";
+  if (removed) return "background-color: #ffeef0; color: #cb2431;";
+  return "";
+}}
 `;
 
-export const DiffViewer: React.FC<DiffViewerProps> = ({ original, modified }) => {
+export const DiffViewer: React.FC<DiffViewerProps> = (
+  { original, modified },
+) => {
   const diff = diffTrimmedLines(original || "", modified || original);
 
   return (
@@ -53,7 +55,7 @@ const original = `
 </DiffContainer>
 `;
 
-const modified= `
+const modified = `
 <DiffContainer>
   {diff.map((part, index) => (
     <DiffPart key={index} added={part.added} removed={part.removed}>
@@ -64,7 +66,6 @@ const modified= `
 `;
 
 export default () => <DiffViewer original={original} modified={modified} />;
-
 
 // import React, { memo, useCallback, useEffect, useRef } from "react";
 // import { editor } from "@/external/monaco-editor";

@@ -14,7 +14,7 @@ export const useEditorState = () => {
     setValue: () => {},
   });
 
-  const engine =isMobile() ? "ace" : "monaco";
+  const engine = isMobile() ? "ace" : "monaco";
 
   return { containerRef, engine, editorState, setEditorState };
 };

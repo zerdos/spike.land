@@ -19,7 +19,7 @@ const moveToCorner = (point: string) => {
   return `translate(${x - 50}px, ${y - 50}px)`;
 };
 
-export const  BackgroundEffect = ({ children }: { children: ReactNode }) => {
+export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { isDarkMode } = useDarkMode();
 
@@ -149,7 +149,7 @@ export const  BackgroundEffect = ({ children }: { children: ReactNode }) => {
                 />
               ))}
             </g>
-          )
+          ),
         )}
       </svg>
       {children}

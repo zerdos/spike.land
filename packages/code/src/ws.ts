@@ -71,12 +71,15 @@ const handleRender = async (
 
     const emotionStyles = [...cssCache.sheet.tags].map((
       tag: HTMLStyleElement,
-    ) => ([...tag.sheet!.cssRules!].map(x => x.cssText))).flat().join("\n").split(cssCache.key).join("x");
+    ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat().join("\n")
+      .split(cssCache.key).join("x");
 
     console.log("Emotion styles:", emotionStyles);
 
-    const tailWindClassesX = [...document.querySelectorAll<HTMLStyleElement>("head > style")].map(
-      z => ([...(z.sheet?.cssRules || [])].map(x => x.cssText)),
+    const tailWindClassesX = [
+      ...document.querySelectorAll<HTMLStyleElement>("head > style"),
+    ].map(
+      (z) => ([...(z.sheet?.cssRules || [])].map((x) => x.cssText)),
     ).flat().join("\n");
 
     // const htmlClasses = new Set(
@@ -198,4 +201,9 @@ setTimeout(async () => {
   await setupServiceWorker();
 }, 0);
 
-Object.assign(globalThis, { twUp, handleRunMessage, handleScreenshot, updateRenderedApp });
+Object.assign(globalThis, {
+  twUp,
+  handleRunMessage,
+  handleScreenshot,
+  updateRenderedApp,
+});

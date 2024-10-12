@@ -45,9 +45,15 @@ describe("ContextManager", () => {
     contextManager.updateContext("techStack", "React, TypeScript");
     contextManager.updateContext("currentDraft", "Draft content");
 
-    expect(contextManager.getContext("currentTask")).toMatchInlineSnapshot("Test task");
-    expect(contextManager.getContext("techStack")).toMatchInlineSnapshot("React, TypeScript");
-    expect(contextManager.getContext("currentDraft")).toMatchInlineSnapshot("Draft content");
+    expect(contextManager.getContext("currentTask")).toMatchInlineSnapshot(
+      "Test task",
+    );
+    expect(contextManager.getContext("techStack")).toMatchInlineSnapshot(
+      "React, TypeScript",
+    );
+    expect(contextManager.getContext("currentDraft")).toMatchInlineSnapshot(
+      "Draft content",
+    );
 
     const fullContext = contextManager.getFullContext();
     expect(fullContext.currentTask).toMatchInlineSnapshot("Test task");

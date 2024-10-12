@@ -291,7 +291,10 @@ sw.addEventListener("fetch", (event) => {
       }),
     );
     return;
-  } else if (request.method === "GET" && (request.url.includes("/live/") || pathname in Object.keys(routes))) {
+  } else if (
+    request.method === "GET"
+    && (request.url.includes("/live/") || pathname in Object.keys(routes))
+  ) {
     event.respondWith(fakeServer(request));
     return;
   }

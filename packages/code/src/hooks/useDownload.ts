@@ -1,6 +1,9 @@
 import { useSpeedy2 } from "./useArchive";
 
-const download = async (codeSpace: string, onlyReturn: boolean): Promise<string | void> => {
+const download = async (
+  codeSpace: string,
+  onlyReturn: boolean,
+): Promise<string | void> => {
   console.log(
     `useDownload hook called with codeSpace: ${codeSpace}, onlyReturn: ${onlyReturn}`,
   );

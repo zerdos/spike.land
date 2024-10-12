@@ -184,13 +184,17 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-export const runCode = (transpiled: string): Promise<{ html: string; css: string }> | false => {
+export const runCode = (
+  transpiled: string,
+): Promise<{ html: string; css: string }> | false => {
   if (typeof window === "undefined") {
     return false;
   }
 
   return (window.frames[0] as unknown as {
-    handleRunMessage: (transpiled: string) => Promise<{ html: string; css: string; js: string }>;
+    handleRunMessage: (
+      transpiled: string,
+    ) => Promise<{ html: string; css: string; js: string }>;
   }).handleRunMessage(transpiled);
 };
 

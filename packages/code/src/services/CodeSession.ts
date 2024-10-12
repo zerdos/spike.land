@@ -242,14 +242,17 @@ export class Code implements ICode {
   private isRunning = false;
   private pendingRun: string | null = null;
 
-  async setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean> {
+  async setCode(
+    rawCode: string,
+    skipRunning?: boolean,
+  ): Promise<string | boolean> {
     if (this.isRunning) {
       // If already running, replace any pending run with this new request
       this.pendingRun = rawCode;
 
       // Wait for the current run to finish
       while (this.isRunning) {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
 
       // Check if this run is still the most recent request

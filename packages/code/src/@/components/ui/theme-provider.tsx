@@ -1,50 +1,49 @@
-import { useDarkMode } from "@/hooks/use-dark-mode"
-import { createContext, useContext } from "react"
+import { useDarkMode } from "@/hooks/use-dark-mode";
+import { createContext, useContext } from "react";
 
-type Theme = "dark" | "light" | "system"
-
+type Theme = "dark" | "light" | "system";
 
 type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+};
 
 const initialState: ThemeProviderState = {
   theme: "system",
   setTheme: () => null,
-}
+};
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
-  children
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const {isDarkMode, toggleDarkMode} =  useDarkMode();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-const theme: Theme = isDarkMode ? "dark" : "light";
-
+  const theme: Theme = isDarkMode ? "dark" : "light";
 
   const value = {
-    theme, 
-    setTheme: (mode: Theme) => ((mode === 'dark' && !isDarkMode) || (mode === 'light' && isDarkMode)
-
-    ) && toggleDarkMode()
-  }
+    theme,
+    setTheme: (mode: Theme) =>
+      ((mode === "dark" && !isDarkMode) || (mode === "light" && isDarkMode)) &&
+      toggleDarkMode(),
+  };
 
   return (
     <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
-  )
+  );
 }
 
 export const useTheme = () => {
-  const context = useContext(ThemeProviderContext)
+  const context = useContext(ThemeProviderContext);
 
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+  if (context === undefined) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
 
-  return context
-}
+  return context;
+};
