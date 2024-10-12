@@ -23,7 +23,7 @@ export const ChatInterface: React.FC<{
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = useCodeSpace()
-  const [newMessageContent, setNewMessageContent] = useState<string>("");
+  // const [newMessageContent, setNewMessageContent] = useState<string>("");
 
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -79,12 +79,12 @@ export const ChatInterface: React.FC<{
   }, [messages]);
 
   
-  useEffect(() => {
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.role === "assistant") {
-      setNewMessageContent(lastMessage.content as string);
-    } else    setNewMessageContent("");
-  }, [messages.length]);
+  // useEffect(() => {
+  //   const lastMessage = messages[messages.length - 1];
+  //   if (lastMessage?.role === "assistant") {
+  //     setNewMessageContent(lastMessage.content as string);
+  //   } else    setNewMessageContent("");
+  // }, [messages.length]);
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
@@ -135,16 +135,16 @@ export const ChatInterface: React.FC<{
       }
   
       if (e.chunk) {
-        setNewMessageContent((previousContent) => previousContent + e.chunk!);
-  
+        // setNewMessageContent((previousContent) => previousContent + e.chunk!);
+      
         setMessages((previousMessages) => {
           const lastMessage = previousMessages[previousMessages.length - 1];
-  
+      
           if (lastMessage?.role !== "assistant") {
             // Add a new assistant message
             return [
               ...previousMessages,
-              { id: Date.now().toString(), role: "assistant", content: previousMessages.length ? previousMessages[previousMessages.length - 1].content + e.chunk! : e.chunk! },
+              { id: Date.now().toString(), role: "assistant", content: e.chunk! },
             ];
           } else {
             // Update the last assistant message
@@ -155,8 +155,9 @@ export const ChatInterface: React.FC<{
           }
         });
       }
-    };
+      
   
+    }
     return () => {
       BC.close();
     };
