@@ -12,7 +12,7 @@ import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";
-import { Mutex } from "async-mutex";
+
 
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
@@ -40,7 +40,7 @@ export const ChatInterface: React.FC<{
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
-  const mutex = useRef(new Mutex());
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const resetChat = useCallback((): void => {
@@ -123,11 +123,10 @@ export const ChatInterface: React.FC<{
       },
     ) => {
 
-      if (!mutex.current) {return}  
 
-      await mutex.current.runExclusive(async () => {
     
       const e = event.data;
+      console.table    ({...e});
       if (e.messages) {
         setMessages(e.messages);
       } else if (e.isStreaming !== undefined) {
@@ -157,7 +156,7 @@ export const ChatInterface: React.FC<{
         );
         }
       }
-    });
+
 
 
 
