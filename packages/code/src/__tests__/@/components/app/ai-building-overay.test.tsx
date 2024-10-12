@@ -30,7 +30,7 @@ describe('AIBuildingOverlay', () => {
   it('should remember the building state when false', () => {
     const codeSpace = 'test';
     vi.mocked(useLocalStorage).mockReturnValue([false, vi.fn()]);
-    const { queryByTestId } = render(<AIBuildingOverlay isStreaming={false}x />);
+    const { queryByTestId } = render(<AIBuildingOverlay isStreaming={false} />);
     expect(queryByTestId(`ai-building-overlay-${codeSpace}`)).not.toBeInTheDocument();
   });
 });
