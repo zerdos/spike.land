@@ -169,7 +169,7 @@ const extendTextWithDiffMarkers = (
   return result;
 };
 
-interface ParsingState {
+export interface ParsingState {
   isInCodeBlock: boolean;
   currentLanguage?: string;
   accumulatedContent: string;
@@ -177,7 +177,7 @@ interface ParsingState {
   accumulatedDiffContent: string;
 }
 
-export const getParts = (
+export const getPartsStreaming = (
   text: string,
   isUser: boolean,
   state: ParsingState = {
