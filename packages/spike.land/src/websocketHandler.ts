@@ -1,7 +1,6 @@
 import { WebSocket } from "@cloudflare/workers-types";
 import { applyCodePatch, CodePatch, Delta, makeHash } from "@spike-land/code";
 import { Code } from "./chatRoom";
-import { hash } from "crypto";
 
 const PING_TIMEOUT = 30000;
 
@@ -248,10 +247,6 @@ export class WebSocketHandler {
       session.name = data.name;
     }
 
-    // if (data.type === "handshake") {
-    //   return this.handleHandshake(data, respondWith);
-    // }
-
     if (data.i && this.code.session.i && this.code.session.i > data.i) {
       return respondWith({ error: "i is not up to date" });
     }
@@ -278,31 +273,6 @@ export class WebSocketHandler {
       return respondWith({ error: "unknown error", exp: exp || {} });
     }
   }
-
-  // private async handleHandshake(
-  //   data: IData,
-  //   respondWith: (obj: unknown) => void,
-  // ) {
-  //   const commit = data.hashCode;
-  //   while (commit && commit !== makeHash(this.code.session)) {
-  //     const oldNode = await this.code.getState().storage.get<CodePatch>(
-  //       "" + commit,
-  //       { allowConcurrency: true },
-  //     );
-  //     const newNode = await this.code.getState().storage.get<CodePatch>(
-  //       "" + oldNode!.newHash,
-  //       {
-  //         allowConcurrency: true,
-  //       },
-  //     );
-  //     return respondWith({
-  //       oldHash: commit,
-  //       newHash: oldNode!.newHash,
-  //       patch: oldNode!.patch,
-  //       reversePatch: newNode!.reversePatch,
-  //     });
-  //   }
-  // }
 
   private handlePatch(
     data: IData,
@@ -363,18 +333,31 @@ export class WebSocketHandler {
       this.code.updateSessionStorage(msg);
     }
 
+    console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
+
+    let successfulBroadcasts = 0;
     this.wsSessions.forEach((s) => {
       if (s === session) {
         return;
       }
       try {
         s.webSocket.send(message);
+        successfulBroadcasts++;
       } catch (error) {
+        console.error(`Failed to send message to session ${s.name}:`, error);
         s.quit = true;
         s.blockedMessages.push(message);
       }
     });
 
+    console.log(`Successfully broadcasted to ${successfulBroadcasts} sessions`);
+
+    const initialSessionCount = this.wsSessions.length;
     this.wsSessions = this.wsSessions.filter((s) => !s.quit);
+    const removedSessions = initialSessionCount - this.wsSessions.length;
+    
+    if (removedSessions > 0) {
+      console.log(`Removed ${removedSessions} disconnected sessions`);
+    }
   }
 }
