@@ -198,14 +198,24 @@ async function handleSocketMessage(
     const sess = makeSession(
       typeof data.strSess === "string" ? JSON.parse(data.strSess) : data.strSess as ICodeSession,
     );
-    const patch = createPatch(sess, connection.oldSession);
-    connection.webSocket.send(
-      JSON.stringify({
-        ...patch,
-        name: connection.user,
-        i: connection.oldSession.i,
-      }),
-    );
+    if (sess.i >= connection.oldSession.i) {
+      connection.oldSession = sess;
+      connection.lastHash = makeHash(sess);
+      connection.lastCounter = sess.i;
+      connection.broadcastChannel.postMessage({
+        ...sess,
+        sender: "WORKER_HANDLE_CHANGES",
+      });
+    } else {
+      const patch = createPatch(sess, connection.oldSession);
+      connection.webSocket.send(
+        JSON.stringify({
+          ...patch,
+          name: connection.user,
+          i: connection.oldSession.i,
+        }),
+      );
+    }
     return;
   }
 
