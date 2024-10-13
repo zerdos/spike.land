@@ -3,7 +3,7 @@ import type { HandleSendMessageProps, ImageData, Message, MessageContent } from 
 import { md5 } from "@/lib/md5";
 import { AIHandler } from "@src/AIHandler";
 import { Mutex } from "async-mutex";
-import { throttle } from "es-toolkit";
+// import { throttle } from "es-toolkit";
 
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
@@ -13,6 +13,7 @@ const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 interface Mod {
   controller: AbortController;
   lastCode: string;
+  chunks: string[];
   actions: Action[];
 }
 
@@ -136,16 +137,16 @@ class ChatHandler {
         this.mod.actions = [];
 
         const onUpdate = this.createOnUpdateFunction();
-        const throttledOnUpdate = throttle(
-          async (instructions: string) => {
-            await onUpdate(instructions);
-          },
-          500,
-          { edges: ["trailing"] },
-        );
+        // const throttledOnUpdate = throttle(
+        //   async (instructions: string) => {
+        //     await onUpdate(instructions);
+        //   },
+        //   500,
+        //   { edges: ["trailing"] },
+        // );
 
         const assistantMessage = await this.sendAssistantMessage(
-          throttledOnUpdate as unknown as typeof onUpdate,
+          (chunk: string) => onUpdate(chunk),
         );
         this.messages = messagesPush(this.messages, assistantMessage);
         this.setMessages([...this.messages]);
@@ -171,8 +172,10 @@ class ChatHandler {
   }
 
   private createOnUpdateFunction(): (instructions: string) => Promise<void> {
-    return async (instructions: string) => {
-      this.updateMessagesFromInstructions(instructions);
+    return async (chunk: string) => {
+      mod.chunks.push(chunk);
+      mod.instructionsLive = mod.chunks.join("");
+      const instructions = instructionsLive;
 
       if (this.mod.controller.signal.aborted) {
         console.log("Aborted onUpdate before starting");
@@ -186,7 +189,7 @@ class ChatHandler {
       return this.mutex.runExclusive(async () => {
         try {
           let iterationCount = 0;
-          const maxIterations = 20;
+          const maxIterations = 10;
 
           while (iterationCount < maxIterations) {
             if (signal.aborted) {
@@ -227,6 +230,8 @@ class ChatHandler {
           this.BC.postMessage({ code: this.mod.lastCode });
         } catch (error) {
           console.error("Error in throttledMutexOperation:", error);
+        } finally {
+          updateMessagesFromInstructions(instructions);
         }
       });
     };

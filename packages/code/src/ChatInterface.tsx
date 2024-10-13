@@ -15,7 +15,7 @@ import { useDictation } from "@/hooks/use-dictation";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
-export const ChatInterface: React.FC<{
+const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
@@ -259,3 +259,8 @@ export const ChatInterface: React.FC<{
     />
   );
 });
+
+
+ChatInterface.displayName = "ChatInterface";
+        
+export { ChatInterface };

@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useMemo } from "react";
-import { getParts } from "@/lib/get-parts";
+import React, { memo, useCallback, useMemo, useRef } from "react";
+import { getPartsStreaming } from "@/lib/get-parts";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/components/app/code-block-lazy";
@@ -52,16 +52,11 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
     }
 
     if (isDiffContent(trimmedValue)) {
-      const { original, modified } = extractDiffContent(
-        trimmedValue + "\nFoo_Bar_baz_893",
-      );
-      const o = original.includes("Foo_Bar_baz_893") ? "" : original;
-      const m = modified.includes("Foo_Bar_baz_893") ? "" : modified;
-
+      const { original, modified } = extractDiffContent(trimmedValue);
       return (
         <DiffViewer
-          original={o}
-          modified={m}
+          original={original}
+          modified={modified}
         />
       );
     }
@@ -81,7 +76,18 @@ interface ChatMessageBlockProps {
 
 export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(
   ({ text, isUser }) => {
-    const messageParts = useMemo(() => getParts(text, isUser), [text, isUser]);
+    const parsingStateRef = useRef<ParsingState>({
+      isInCodeBlock: false,
+      accumulatedContent: '',
+      isInDiffBlock: false,
+      accumulatedDiffContent: '',
+    });
+
+    const messageParts = useMemo(() => {
+      const { parts, state } = getPartsStreaming(text, isUser, parsingStateRef.current);
+      parsingStateRef.current = state;
+      return parts;
+    }, [text, isUser]);
 
     return (
       <>
@@ -89,7 +95,7 @@ export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(
           <React.Fragment key={`${index}-${md5(part.content)}`}>
             <Code
               value={part.content}
-              language={part.language || "typescript"}
+              language={part.language || "plaintext"}
               type={part.type}
             />
           </React.Fragment>
