@@ -150,8 +150,8 @@ function createWebSocket(codeSpace: string) {
       console.log("Socket finished");
       // Socket closed for good and will not retry.
     },
-    socketDidReceiveMessage(_socket: Socket, message: string) {
-      // Socket read data from the connection.
+    socketDidReceiveMessage(socket: Socket, message: string) {
+      connections.get(codeSpace)!.webSocket = socket; // Socket read data from the connection.
       console.log("Socket message:", message);
       const data: WsMessage = typeof message === "string"
         ? JSON.parse(message)
@@ -195,7 +195,9 @@ async function handleSocketMessage(
   }
 
   if (data.strSess) {
-    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
+    const sess = makeSession(
+      typeof data.strSess === "string" ? JSON.parse(data.strSess) : data.strSess as ICodeSession,
+    );
     const patch = createPatch(sess, connection.oldSession);
     connection.webSocket.send(
       JSON.stringify({
