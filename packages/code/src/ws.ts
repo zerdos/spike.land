@@ -120,7 +120,7 @@ const handleRender = async (
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
-  await twUp();
+  if (!renderedMd5) await twUp();
 
   const hashed = md5(transpiled);
   if (hashed === renderedMd5) {
