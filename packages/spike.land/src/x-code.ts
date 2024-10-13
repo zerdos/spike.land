@@ -1,8 +1,8 @@
 import type Env from "./env";
-import type { ICodeSession } from "@spike-land/code";
+import type { ICodeSession ,
+  CodePatch} from "@spike-land/code";
 import {
   applyCodePatch,
-  CodePatch,
   createPatch,
   makeHash,
   makeSession,

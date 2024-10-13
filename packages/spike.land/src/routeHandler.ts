@@ -5,7 +5,7 @@ import {
   md5,
   stringifySession,
 } from "@spike-land/code";
-import { Code } from "./chatRoom";
+import type { Code } from "./chatRoom";
 import { HTML, importMap } from "@spike-land/code";
 
 export interface AutoSaveEntry {
@@ -508,7 +508,7 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
-    let code = `import App from "${origin}/live/${codeSpace}/index.js";
+    const code = `import App from "${origin}/live/${codeSpace}/index.js";
     import { renderApp } from "${origin}/@/lib/render-app.mjs";
     
     window.renderedApp = renderApp({ App, rootElement: document.getElementById("embed") });
@@ -546,7 +546,7 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
-    let code = `import App from "${origin}/live/${codeSpace}/index.js";
+    const code = `import App from "${origin}/live/${codeSpace}/index.js";
     import  { jsx as _jsx } from "${origin}/jsx.mjs";
     import {createEmotionServer, createCache, CacheProvider} from "${origin}/emotion.mjs";
      import { renderToString, renderToStaticMarkup, renderToReadableStream } from "${origin}/reactDomServer.mjs";
@@ -608,7 +608,7 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleHtmlRoute(request: Request): Promise<Response> {
-    let html = this.code.session.html;
+    const html = this.code.session.html;
 
     return new Response(html, {
       headers: {

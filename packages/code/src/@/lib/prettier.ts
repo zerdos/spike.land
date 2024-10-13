@@ -36,10 +36,10 @@ export const addSomeFixesIfNeeded = (_code: string): string => {
         const [first, ...rest] = start.split("\n");
         // insert the import to the 2nd line
         if (first.startsWith("//")) {
-          start = [first, "import { css } from \"@emotion/react\";", ...rest]
+          start = [first, 'import { css } from "@emotion/react";', ...rest]
             .join("\n");
         } else {
-          start = ["import { css } from \"@emotion/react\";", first, ...rest]
+          start = ['import { css } from "@emotion/react";', first, ...rest]
             .join("\n");
         }
       }
@@ -110,8 +110,8 @@ const formatCssContent = (cssContent: string, indent: string): string => {
  */
 const addDefaultExportIfNeeded = (code: string): string => {
   if (
-    !code.includes("export default") && !code.includes("export const")
-    && !code.includes("const App")
+    !code.includes("export default") && !code.includes("export const") &&
+    !code.includes("const App")
   ) {
     return `${code}\n\nexport default () => <></>; // Empty default export`;
   }
@@ -142,7 +142,7 @@ const prettierConfig: Options = {
 };
 
 export const prettierJs = async (
-  { code, toThrow }: { code: string; toThrow: boolean },
+  { code, toThrow }: { code: string; toThrow: boolean; },
 ) => {
   try {
     return await format(code, prettierConfig);

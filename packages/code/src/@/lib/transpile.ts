@@ -8,7 +8,11 @@ import { build as esmBuild, initialize, transform } from "esbuild-wasm";
 
 export { wasmFile };
 
-export type MyBuildOptions = BuildOptions & { codeSpace: string; origin: string; wasmModule?: WebAssembly.Module };
+export type MyBuildOptions = BuildOptions & {
+  codeSpace: string;
+  origin: string;
+  wasmModule?: WebAssembly.Module;
+};
 
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;
@@ -52,7 +56,7 @@ export const transpile = async (
     originToUse: string;
     wasmModule?: WebAssembly.Module;
   },
-): Promise<string | { error: unknown }> => {
+): Promise<string | { error: unknown; }> => {
   return mutex.runExclusive(async () => {
     try {
       await initializeModule(wasmModule, originToUse);

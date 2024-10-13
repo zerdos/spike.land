@@ -23,7 +23,7 @@ const htmlDecode = (input: string): string => {
     .replace(/&amp;/g, "&")
     .replace(/&gt;/g, ">")
     .replace(/&lt;/g, "<")
-    .replace(/&quot;/g, "\"")
+    .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, " ");
 };
@@ -57,7 +57,7 @@ const handleScreenshot = async () => {
 
 const handleRender = async (
   renderedNew: RenderedApp | null,
-): Promise<{ css: string; html: string } | false> => {
+): Promise<{ css: string; html: string; } | false> => {
   // confirm
   if (renderedNew === null) {
     return {
@@ -119,7 +119,7 @@ const handleRender = async (
   return false;
 };
 
-const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
+const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   await twUp();
 
   const hashed = md5(transpiled);
@@ -145,10 +145,11 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
   return rendered;
 };
 
-const handleRunMessage = (transpiled: string) => updateRenderedApp({ transpiled }).then(handleRender);
+const handleRunMessage = (transpiled: string) =>
+  updateRenderedApp({ transpiled }).then(handleRender);
 const handleDefaultPage = async () => {
   try {
-    window.onmessage = async ({ data }: { data: IframeMessage }) => {
+    window.onmessage = async ({ data }: { data: IframeMessage; }) => {
       try {
         const { type } = data;
         if (!type) return;
@@ -171,8 +172,8 @@ export const main = async () => {
 
   try {
     if (
-      location.pathname === `/live/${codeSpace}`
-      || location.pathname === `/live-cms/${codeSpace}`
+      location.pathname === `/live/${codeSpace}` ||
+      location.pathname === `/live-cms/${codeSpace}`
     ) {
       const cSess = new Code(codeSpace);
       await cSess.init(session);
@@ -189,7 +190,8 @@ export const main = async () => {
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       const handleDehydratedPage = ({ html, css }: ICodeSession) =>
-        document.getElementById("embed")!.innerHTML = `<style type="text/css">${css}</style><div>${html}</div>`;
+        document.getElementById("embed")!.innerHTML =
+          `<style type="text/css">${css}</style><div>${html}</div>`;
 
       cSessBr.sub((sess: ICodeSession) => handleDehydratedPage(sess));
     } else {

@@ -61,8 +61,10 @@ export class CodeSessionBC {
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
-    return this.session = session || this.session
-      || (await fetch(`/live/${this.codeSpace}/session.json`).then((response) => response.json())) as ICodeSession;
+    return this.session = session || this.session ||
+      (await fetch(`/live/${this.codeSpace}/session.json`).then((response) =>
+        response.json()
+      )) as ICodeSession;
   }
 
   sub(callback: (session: ICodeSession) => void): void {

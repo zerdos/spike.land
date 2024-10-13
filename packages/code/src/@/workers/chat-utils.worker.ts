@@ -60,8 +60,8 @@ class ChatHandler {
     this.code = code;
     this.messages = messages;
 
-    this.BC = broadcastChannelsByCodeSpace[codeSpace]
-      || new BroadcastChannel(`${codeSpace}-chat`);
+    this.BC = broadcastChannelsByCodeSpace[codeSpace] ||
+      new BroadcastChannel(`${codeSpace}-chat`);
     broadcastChannelsByCodeSpace[codeSpace] = this.BC;
 
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
@@ -301,8 +301,8 @@ class ChatHandler {
       );
 
       if (
-        typeof assistantMessage.content !== "string"
-        && !Array.isArray(assistantMessage.content)
+        typeof assistantMessage.content !== "string" &&
+        !Array.isArray(assistantMessage.content)
       ) {
         throw new Error("Invalid assistant message content type");
       }
@@ -327,7 +327,7 @@ class ChatHandler {
   }
 
   private extractTextContent(
-    content: string | Array<{ type: string; text?: string }>,
+    content: string | Array<{ type: string; text?: string; }>,
   ): string {
     if (typeof content === "string") return content;
     const textItem = content.find((item) => item.type === "text");
@@ -349,7 +349,7 @@ class ChatHandler {
   }: {
     instructions: string;
     code: string;
-  }): Promise<{ result: string; len: number }> {
+  }): Promise<{ result: string; len: number; }> {
     if (instructions.length === 0) return { result: code, len: 0 };
 
     const searchIndex = instructions.indexOf(SEARCH);

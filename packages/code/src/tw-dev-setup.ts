@@ -15,8 +15,8 @@ export const init = async (): Promise<true> => {
   const { pathname, origin } = window.location;
 
   if (
-    !pathname.endsWith(IFRAME_PATH)
-    && !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
+    !pathname.endsWith(IFRAME_PATH) &&
+    !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
   ) {
     return true;
   }

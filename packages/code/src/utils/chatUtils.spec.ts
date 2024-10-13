@@ -2,7 +2,7 @@ import { extractCodeModification, loadMessages, updateSearchReplace } from "@/li
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("updateSearchReplace", () => {
-  it("should return the original code if instructions do not contain \"SEARCH\"", () => {
+  it('should return the original code if instructions do not contain "SEARCH"', () => {
     const instructions = "Some random instructions";
     const codeNow = "const a = 1;";
     const result = updateSearchReplace(instructions, codeNow);

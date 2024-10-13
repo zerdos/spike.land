@@ -8,7 +8,7 @@ function getContentType(path: string) {
 }
 
 export const serveWithCache = (
-  files: { [key: string]: string },
+  files: { [key: string]: string; },
   cacheToUse: () => Promise<Cache>,
 ) => {
   const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
@@ -46,8 +46,8 @@ export const serveWithCache = (
       }
       const url = new URL(request.url);
       if (
-        url.pathname.startsWith("/live/")
-        || url.pathname.startsWith("/my-cms/") || url.pathname.startsWith("/api/")
+        url.pathname.startsWith("/live/") ||
+        url.pathname.startsWith("/my-cms/") || url.pathname.startsWith("/api/")
       ) {
         return false;
       }

@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
+import type { TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
-import Env from "./env";
+import type Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import type { Message, MessageContent } from "@spike-land/code";
 import { handleCMSIndexRequest } from "./chat";

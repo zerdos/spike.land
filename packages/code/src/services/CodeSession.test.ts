@@ -20,7 +20,9 @@ vi.mock("../lib/shared", () => ({
 vi.mock("../components/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
-  runCode: vi.fn().mockImplementation(() => Promise.resolve({ html: "<div></div>", css: "body {}" })),
+  runCode: vi.fn().mockImplementation(() =>
+    Promise.resolve({ html: "<div></div>", css: "body {}" })
+  ),
   screenShot: vi.fn().mockResolvedValue({
     dataUrl: "data:image/png;base64,...",
   }),
@@ -57,7 +59,7 @@ describe("Code", () => {
       }
       if (url.includes("/live/extraModel/index.tsx")) {
         return Promise.resolve({
-          text: () => Promise.resolve("console.log(\"Extra Model Code\");"),
+          text: () => Promise.resolve('console.log("Extra Model Code");'),
         });
       }
       return Promise.resolve({
@@ -80,7 +82,7 @@ describe("Code", () => {
 
   describe("currentCodeWithExtraModels", () => {
     it("should return current code when no extra models are present", async () => {
-      code.session.code = "console.log(\"Hello, World!\");";
+      code.session.code = 'console.log("Hello, World!");';
       const result = await code.currentCodeWithExtraModels();
 
       const expected = `# testCodeSpace.tsx
@@ -94,7 +96,7 @@ console.log("Hello, World!");
     });
 
     it("should return current code with extra models", async () => {
-      code.session.code = "import extra from \"./extraModel\";\nconsole.log(\"Hello, World!\");";
+      code.session.code = 'import extra from "./extraModel";\nconsole.log("Hello, World!");';
 
       const result = await code.currentCodeWithExtraModels();
 

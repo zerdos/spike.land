@@ -1,4 +1,4 @@
-type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string };
+type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string; };
 
 const handleFile = async (handle: FileSystemFileHandle, nestedPath: string) => {
   const file = await handle.getFile();
@@ -43,7 +43,7 @@ export const getDirectoryEntriesRecursive = async (
     }
   }
   const directoryEntries = await Promise.all(directoryEntryPromises);
-  const entries: { [key: string]: FileSystemEntry } = {};
+  const entries: { [key: string]: FileSystemEntry; } = {};
   directoryEntries.forEach((directoryEntry) => {
     entries[directoryEntry.name!] = directoryEntry;
   });
@@ -53,7 +53,7 @@ export const getDirectoryEntriesRecursive = async (
 export const getDirectoryHandleAndFileName = async (
   filePath: string,
 ): Promise<
-  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }
+  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined; }
 > => {
   const pathParts = filePath.split("/").filter((x) => x);
   const fileName = pathParts.pop()?.trim();

@@ -26,7 +26,7 @@ describe("useBroadcastChannel", () => {
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
     expect(
-      (globalThis as unknown as { BroadcastChannel: () => object })
+      (globalThis as unknown as { BroadcastChannel: () => object; })
         .BroadcastChannel,
     ).toHaveBeenCalledWith(
       `${location.origin}/live/${codeSpace}/`,

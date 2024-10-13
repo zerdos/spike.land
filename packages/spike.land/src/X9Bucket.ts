@@ -1,5 +1,5 @@
-import { ExportedHandler } from "@cloudflare/workers-types";
-import MyEnv from "./env";
+import type { ExportedHandler } from "@cloudflare/workers-types";
+import type MyEnv from "./env";
 
 const handlePut = async (
   key: string,

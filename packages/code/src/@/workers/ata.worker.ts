@@ -36,7 +36,7 @@ export const myATA = async (code: string) => {
   const filed = await myPromise;
   console.log("ATA filed", { filed });
 
-  const monacoExtraLibs: { filePath: string; content: string }[] = [];
+  const monacoExtraLibs: { filePath: string; content: string; }[] = [];
 
   for (const [filePath, content] of filed.entries()) {
     monacoExtraLibs.push({
@@ -48,7 +48,7 @@ export const myATA = async (code: string) => {
   return monacoExtraLibs;
 };
 
-const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string> })
+const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string>; })
   .tsx as unknown as (
     code: string,
   ) => Promise<string[]>;
@@ -64,9 +64,9 @@ export async function ata({
   content: string;
 }[]> {
   const queuedFetch = new QueuedFetch(4, 2000);
-  let thisATA: { content: string; filePath: string }[] = [];
+  let thisATA: { content: string; filePath: string; }[] = [];
 
-  const impRes: Record<string, { url: string; content: string; ref: string }> = {};
+  const impRes: Record<string, { url: string; content: string; ref: string; }> = {};
 
   const res = (await tsx(code)).filter((x) => x.includes("@/"));
   console.log("res", { res });
@@ -182,7 +182,9 @@ declare module 'react' {
       ...extras,
     ];
 
-    thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
+    thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) =>
+      extraLibs.find((p) => p.filePath === y)
+    )
       .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
         (c) => ({
           content: c!.content,
@@ -247,8 +249,8 @@ declare module 'react' {
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes
-                || await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes ||
+                await extractUrlFromResponse(response, r);
               if (newBase) newBase = new URL(newBase).toString();
             } catch (error) {
               let response;
@@ -408,8 +410,8 @@ declare module 'react' {
         });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js")
-          || ref.includes(".mts")
+        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
+          ref.includes(".mts")
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,

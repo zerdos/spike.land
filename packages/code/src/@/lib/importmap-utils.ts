@@ -14,8 +14,8 @@ export const oo = {
 
 export const importMap = { imports: oo };
 
-const externalString = "bundle=true&external="
-  + Object.keys(oo).filter((o) => !o.endsWith("/") && o !== "@emotion/react/jsx-runtime").join(",");
+const externalString = "bundle=true&external=" +
+  Object.keys(oo).filter((o) => !o.endsWith("/") && o !== "@emotion/react/jsx-runtime").join(",");
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
@@ -25,7 +25,8 @@ export function importMapReplace(code: string, origin: string): string {
   }
 
   // Define regex patterns for different types of imports
-  const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const topLevelImportPattern =
+    /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
 
   const topLevelExportPattern =
@@ -47,14 +48,14 @@ export function importMapReplace(code: string, origin: string): string {
     const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
 
     if (typeof p2 !== "string") {
-      const pkg = match.split("\"")[1];
+      const pkg = match.split('"')[1];
       if (!pkg) return match;
       if (pkg?.startsWith("http")) return match;
       if (pkg?.startsWith("/")) return match;
       if (pkg?.startsWith("./")) return match;
       if (pkg?.startsWith(",")) return match;
 
-      return `import "${origin}/${match.split("\"")[1]}?${externalString}";`;
+      return `import "${origin}/${match.split('"')[1]}?${externalString}";`;
     }
 
     if (p2?.startsWith("`") && p2.endsWith("`")) {
@@ -68,8 +69,8 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (
-      packageName?.startsWith(`/live`)
-      && !packageName.includes("index.js")
+      packageName?.startsWith(`/live`) &&
+      !packageName.includes("index.js")
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
@@ -88,8 +89,8 @@ export function importMapReplace(code: string, origin: string): string {
           "?bundle=true&exports=",
         );
         if (exports) {
-          return p1
-            + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
+          return p1 +
+            `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -114,8 +115,8 @@ export function importMapReplace(code: string, origin: string): string {
     // Handle specific exports
     const [pkgName, exports] = packageName.split(`?${externalString}&exports=`);
     if (exports) {
-      return p1
-        + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
+      return p1 +
+        `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -125,8 +126,8 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1
-        + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
+      return p1 +
+        `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
     }
 
     return p1 + `"${origin}/${packageName}?${externalString}"` + p3;

@@ -91,9 +91,8 @@ export async function deleteAllServiceWorkers() {
       const currentCache = "file-cache-" + swVersion;
       const isCurrentFilesInCache = fileCaches.includes(currentCache);
       if (isCurrentFilesInCache) {
-        const deleteCachePromises = fileCaches.filter((cacheName) => cacheName !== currentCache).map((cacheName) =>
-          caches.delete(cacheName)
-        );
+        const deleteCachePromises = fileCaches.filter((cacheName) => cacheName !== currentCache)
+          .map((cacheName) => caches.delete(cacheName));
 
         // Wait for all cache delete operations to complete
         await Promise.all(deleteCachePromises);

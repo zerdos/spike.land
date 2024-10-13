@@ -5,7 +5,7 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
 
-import Env from "./env";
+import type Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-land/code";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";

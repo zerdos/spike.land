@@ -2,18 +2,20 @@ import type {
   DurableObject,
   DurableObjectState,
 } from "@cloudflare/workers-types";
-import {
+import type {
   CodePatch,
+  ICodeSession} from "@spike-land/code";
+import {
   createPatch,
-  ICodeSession,
   makeHash,
   makeSession,
   md5,
 } from "@spike-land/code";
 
-import Env from "./env";
+import type Env from "./env";
 import { handleErrors } from "./handleErrors";
-import { AutoSaveEntry, RouteHandler } from "./routeHandler";
+import type { AutoSaveEntry} from "./routeHandler";
+import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import { createCodeHistoryManager } from "./x-code";
 import type { CodeHistoryManager } from "./x-code";

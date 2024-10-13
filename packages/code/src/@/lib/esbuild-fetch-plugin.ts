@@ -28,8 +28,8 @@ export const fetchPlugin = (origin: string) => ({
       let path = new URL(args.path, args.importer).toString();
 
       if (importMap.imports[args.path as keyof typeof importMap.imports]) {
-        path = origin
-          + importMap.imports[args.path as keyof typeof importMap.imports];
+        path = origin +
+          importMap.imports[args.path as keyof typeof importMap.imports];
       }
 
       return {
@@ -47,14 +47,17 @@ export const fetchPlugin = (origin: string) => ({
       let argsPath = args.path;
       Object.keys(importMap.imports).map((pkg) => {
         if (argsPath.startsWith(pkg)) {
-          args.path = args.path.replace(pkg, importMap.imports[pkg as keyof typeof importMap.imports]);
+          args.path = args.path.replace(
+            pkg,
+            importMap.imports[pkg as keyof typeof importMap.imports],
+          );
         }
       });
 
       if (
-        argsPath.startsWith(origin)
-        && !(argsPath.endsWith(".mjs") || argsPath.endsWith(".js") || argsPath.endsWith(".json")
-          || argsPath.endsWith(".css") || argsPath.endsWith(".tsx") || argsPath.endsWith(".ts"))
+        argsPath.startsWith(origin) &&
+        !(argsPath.endsWith(".mjs") || argsPath.endsWith(".js") || argsPath.endsWith(".json") ||
+          argsPath.endsWith(".css") || argsPath.endsWith(".tsx") || argsPath.endsWith(".ts"))
       ) {
         argsPath = argsPath + ".mjs";
       }
@@ -91,8 +94,8 @@ export const fetchPlugin = (origin: string) => ({
         // Process @import statements in CSS
         return { contents: await processCSS(contents, args.path), loader };
       } else if (
-        contentType.includes("application/javascript")
-        || args.path.endsWith(".js") || args.path.endsWith(".mjs")
+        contentType.includes("application/javascript") ||
+        args.path.endsWith(".js") || args.path.endsWith(".mjs")
       ) {
         loader = "js";
       } else if (

@@ -202,8 +202,8 @@ export class AIService {
     const contextString = JSON.stringify(context, null, 2);
 
     if (
-      messages.length === 0
-      || codeNow !== messages[messages.length - 1]?.content
+      messages.length === 0 ||
+      codeNow !== messages[messages.length - 1]?.content
     ) {
       return `
 Current project context:

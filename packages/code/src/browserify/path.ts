@@ -50,9 +50,9 @@ function normalizeStringPosix(path: string, allowAboveRoot: boolean): string {
         // NOOP
       } else if (lastSlash !== i - 1 && dots === 2) {
         if (
-          res.length < 2 || lastSegmentLength !== 2
-          || res.charCodeAt(res.length - 1) !== 46
-          || /*.*/ res.charCodeAt(res.length - 2) !== 46 /*.*/
+          res.length < 2 || lastSegmentLength !== 2 ||
+          res.charCodeAt(res.length - 1) !== 46 || /*.*/
+          res.charCodeAt(res.length - 2) !== 46 /*.*/
         ) {
           if (res.length > 2) {
             const lastSlashIndex = res.lastIndexOf("/");
@@ -114,8 +114,8 @@ function _format(
   },
 ): string {
   const dir = pathObject.dir || pathObject.root;
-  const base = pathObject.base
-    || (pathObject.name || "") + (pathObject.ext || "");
+  const base = pathObject.base ||
+    (pathObject.name || "") + (pathObject.ext || "");
   if (!dir) {
     return base;
   }
@@ -146,7 +146,7 @@ interface PosixInterface {
   ): string;
   parse(
     path: string,
-  ): { root: string; dir: string; base: string; ext: string; name: string };
+  ): { root: string; dir: string; base: string; ext: string; name: string; };
   sep: string;
   delimiter: string;
   win32: null;
@@ -372,7 +372,7 @@ const posix = {
 
   basename(path: string, ext?: string): string {
     if (ext !== undefined && typeof ext !== "string") {
-      throw new TypeError("\"ext\" argument must be a string");
+      throw new TypeError('"ext" argument must be a string');
     }
     assertPath(path);
 
@@ -485,11 +485,11 @@ const posix = {
     }
 
     if (
-      startDot === -1 || end === -1
+      startDot === -1 || end === -1 ||
       // We saw a non-dot character immediately before the dot
-      || preDotState === 0
+      preDotState === 0 ||
       // The (right-most) trimmed path component is exactly '..'
-      || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1
     ) {
       return "";
     }
@@ -507,8 +507,8 @@ const posix = {
   ): string {
     if (pathObject === null || typeof pathObject !== "object") {
       throw new TypeError(
-        "The \"pathObject\" argument must be of type Object. Received type "
-          + typeof pathObject,
+        'The "pathObject" argument must be of type Object. Received type ' +
+          typeof pathObject,
       );
     }
     return _format("/", pathObject);
@@ -516,7 +516,7 @@ const posix = {
 
   parse(
     path: string,
-  ): { root: string; dir: string; base: string; ext: string; name: string } {
+  ): { root: string; dir: string; base: string; ext: string; name: string; } {
     assertPath(path);
 
     const ret = { root: "", dir: "", base: "", ext: "", name: "" };
@@ -570,11 +570,11 @@ const posix = {
     }
 
     if (
-      startDot === -1 || end === -1
+      startDot === -1 || end === -1 ||
       // We saw a non-dot character immediately before the dot
-      || preDotState === 0
+      preDotState === 0 ||
       // The (right-most) trimmed path component is exactly '..'
-      || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1
     ) {
       if (end !== -1) {
         if (startPart === 0 && isAbsolute) {

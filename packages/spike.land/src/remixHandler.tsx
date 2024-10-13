@@ -6,7 +6,7 @@ import {
 } from "@cloudflare/kv-asset-handler";
 import type { AppLoadContext, ServerBuild } from "@remix-run/cloudflare";
 import { createRequestHandler as createRemixRequestHandler } from "@remix-run/cloudflare";
-import Env from "./env";
+import type Env from "./env";
 
 /**
  * A function that returns the value to use as `context` in route `loader` and
@@ -41,10 +41,10 @@ export function createRequestHandler({
   getLoadContext?: GetLoadContextFunction;
   mode?: string;
 }): RequestHandler {
-  let handleRequest = createRemixRequestHandler(build, mode);
+  const handleRequest = createRemixRequestHandler(build, mode);
 
   return async (event: FetchEvent) => {
-    let loadContext = await getLoadContext?.(event);
+    const loadContext = await getLoadContext?.(event);
 
     return handleRequest(event.request, loadContext);
   };
@@ -66,9 +66,9 @@ export async function handleAsset(
     }
 
     let cacheControl = {};
-    let url = new URL(event.request.url);
-    let assetpath = build.assets.url.split("/").slice(0, -1).join("/");
-    let requestpath = url.pathname.split("/").slice(0, -1).join("/");
+    const url = new URL(event.request.url);
+    const assetpath = build.assets.url.split("/").slice(0, -1).join("/");
+    const requestpath = url.pathname.split("/").slice(0, -1).join("/");
 
     if (requestpath.startsWith(assetpath)) {
       // Assets are hashed by Remix so are safe to cache in the browser
@@ -112,13 +112,13 @@ export function createEventHandler({
   getLoadContext?: GetLoadContextFunction;
   mode?: string;
 }) {
-  let handleRequest = createRequestHandler({
+  const handleRequest = createRequestHandler({
     build,
     getLoadContext,
     mode,
   });
 
-  let handleEvent = async (event: FetchEvent) => {
+  const handleEvent = async (event: FetchEvent) => {
     let response = await handleAsset(event, build);
 
     if (!response) {

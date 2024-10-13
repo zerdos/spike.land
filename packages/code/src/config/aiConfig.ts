@@ -103,7 +103,7 @@ The user's first message follows:
 ${userPrompt}
 `;
 
-export const reminder = ({ userPrompt }: { userPrompt: string }) => `
+export const reminder = ({ userPrompt }: { userPrompt: string; }) => `
 
 ${userPrompt}
 

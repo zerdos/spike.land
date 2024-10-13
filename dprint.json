@@ -1,9 +1,19 @@
 {
+  "lineWidth": 100,
+  "indentWidth": 2,
+  "useTabs": false,
+  "newLineKind": "lf",
   "typescript": {
-    "indentWidth": 2,
-    "lineWidth": 120
+    "quoteStyle": "preferDouble",
+    "semiColons": "always",
+   "binaryExpression.operatorPosition": "sameLine",
+    "jsx.quoteStyle": "preferDouble",
+    
+    "trailingCommas": "onlyMultiLine"
   },
-  "json": {},
+  "json": {
+    "indentWidth": 2
+  },
   "markdown": {},
   "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md}"],
   "excludes": [

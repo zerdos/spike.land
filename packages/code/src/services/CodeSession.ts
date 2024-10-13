@@ -139,7 +139,7 @@ class CodeProcessor {
 
   private async runCode(
     code: string,
-  ): Promise<{ html: string; css: string }> {
+  ): Promise<{ html: string; css: string; }> {
     try {
       const result = await runCode(code);
       if (!result) {
@@ -178,8 +178,8 @@ export class Code implements ICode {
       this.session.code = `\n// ${codeSpace}.tsx\n`;
     }
 
-    this.user = localStorage.getItem(`${this.codeSpace} user`)
-      || md5(crypto.randomUUID());
+    this.user = localStorage.getItem(`${this.codeSpace} user`) ||
+      md5(crypto.randomUUID());
     this.broadcastChannel = new CodeSessionBC(codeSpace);
     this.broadcastChannel.sub((session) => {
       this.session = session;
@@ -354,9 +354,9 @@ export class Code implements ICode {
 
     this.session = makeSession({
       ...this.session,
-      transpiled: (await transpileCodeUtil(this.session.code))
-        + "\n\n\n\n\n"
-        + `const cacheBust4=${this.session.i};`,
+      transpiled: (await transpileCodeUtil(this.session.code)) +
+        "\n\n\n\n\n" +
+        `const cacheBust4=${this.session.i};`,
     });
 
     this.broadcastChannel.postMessage(this.session);

@@ -22,8 +22,8 @@ const createWorkflow = async (prompt: string) => {
   const weatherTool = tool(
     async ({ query }) => {
       if (
-        query.toLowerCase().includes("sf")
-        || query.toLowerCase().includes("san francisco")
+        query.toLowerCase().includes("sf") ||
+        query.toLowerCase().includes("san francisco")
       ) {
         return "It's 60 degrees and foggy.";
       }
@@ -75,7 +75,7 @@ const createWorkflow = async (prompt: string) => {
   const app = workflow.compile({ checkpointer }) as {
     invoke: (
       state: AgentState,
-      config: { configurable: { thread_id: string } },
+      config: { configurable: { thread_id: string; }; },
     ) => Promise<AgentState>;
   };
 

@@ -1,6 +1,12 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess";
-import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
+import {
+  applyCodePatch,
+  createPatch,
+  makeHash,
+  makeSession,
+  stringifySession,
+} from "@/lib/make-sess";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
@@ -50,7 +56,8 @@ type WsMessage = {
 };
 
 // Use a Map for better management of connections
-const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections || new Map();
+const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections ||
+  new Map();
 const mutex = new Mutex();
 
 console.log("Socket worker initialized");
@@ -276,15 +283,15 @@ async function handleSocketMessage(
 
   if (data.changes) {
     console.log("Handling changes message");
-    await handleChanges(data as { changes: unknown }, connection);
+    await handleChanges(data as { changes: unknown; }, connection);
   } else if (data.strSess) {
     console.log("Handling session string message");
-    await handleSessionString(data as { strSess: string }, ws, connection);
+    await handleSessionString(data as { strSess: string; }, ws, connection);
   } else if (data.type === "handShake") {
     console.log("Handling handshake message");
     await handleHandshake(
       ws,
-      data as { hashCode: string; type: string },
+      data as { hashCode: string; type: string; },
       connection,
       codeSpace,
     );
@@ -311,7 +318,7 @@ async function handleSocketMessage(
  * @param connection - The connection context.
  */
 async function handleChanges(
-  data: { changes: unknown },
+  data: { changes: unknown; },
   connection: Connection,
 ): Promise<void> {
   console.log("Handling changes:", data);
@@ -330,7 +337,7 @@ async function handleChanges(
  * @param connection - The connection context.
  */
 async function handleSessionString(
-  data: { strSess: string },
+  data: { strSess: string; },
   ws: Socket,
   connection: Connection,
 ): Promise<void> {

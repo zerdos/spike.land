@@ -1,5 +1,5 @@
 import { routes } from "@spike-land/code";
-import Env from "./env";
+import type Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";
 import { handleUnauthorizedRequest } from "./utils";

@@ -1,4 +1,8 @@
-import type { fakeServer as FakeServer, QueuedFetch as Qf, serveWithCache as ServeWithCache } from "./sw-deps";
+import type {
+  fakeServer as FakeServer,
+  QueuedFetch as Qf,
+  serveWithCache as ServeWithCache,
+} from "./sw-deps";
 
 import { routes } from "@/lib/routes";
 import type { transpile as Trp } from "@/lib/transpile";
@@ -141,7 +145,9 @@ sw.addEventListener("install", (event) => {
         console.log({ cacheNames });
 
         const allKeys = new Set(
-          Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
+          Object.keys(filesByCacheKeys).map((fileName) =>
+            new URL("/" + fileName, location.origin).toString()
+          ),
         );
 
         const missing = setDifference(allKeys, myKeys);
@@ -226,7 +232,9 @@ sw.addEventListener("activate", (event) => {
       // integrity check
       const myCache = await caches.open(sw.fileCacheName);
       const allKeys = new Set(
-        Object.keys(filesByCacheKeys).map((fileName) => new URL("/" + fileName, location.origin).toString()),
+        Object.keys(filesByCacheKeys).map((fileName) =>
+          new URL("/" + fileName, location.origin).toString()
+        ),
       );
 
       // const myCacheKeys = await myCache.keys();
@@ -292,8 +300,8 @@ sw.addEventListener("fetch", (event) => {
     );
     return;
   } else if (
-    request.method === "GET"
-    && (request.url.includes("/live/") || pathname in Object.keys(routes))
+    request.method === "GET" &&
+    (request.url.includes("/live/") || pathname in Object.keys(routes))
   ) {
     event.respondWith(fakeServer(request));
     return;

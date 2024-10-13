@@ -62,8 +62,8 @@ class WorkerPool {
         return connectWorker;
       }
     }
-    const availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag)
-      || this.addWorker(tag);
+    const availableWorker = this.workers.find((worker) => !worker.busy && worker.tag === tag) ||
+      this.addWorker(tag);
 
     availableWorker.busy = true;
 
@@ -86,8 +86,8 @@ let workerPool: WorkerPool;
 async function init() {
   const { swVersion } = await import("@/lib/sw-version");
 
-  workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool
-    || new WorkerPool(0, swVersion);
+  workerPool = (globalThis as unknown as { workerPool: WorkerPool; }).workerPool ||
+    new WorkerPool(0, swVersion);
   Object.assign(globalThis, { workerPool });
 
   return workerPool;
@@ -114,7 +114,7 @@ export const ata = async ({
 }: {
   code: string;
   originToUse: string;
-}): Promise<{ content: string; filePath: string }[]> => {
+}): Promise<{ content: string; filePath: string; }[]> => {
   const worker = (await init()).getWorker("ata");
   try {
     return await worker.rpc.rpc("ata", { code, originToUse });
@@ -134,7 +134,7 @@ export const prettierCss = async (code: string): Promise<string> => {
 
 export const tsx = async (
   code: string,
-): Promise<{ content: string; filePath: string }[]> => {
+): Promise<{ content: string; filePath: string; }[]> => {
   const worker = (await init()).getWorker("tsx");
   try {
     return await worker.rpc.rpc("tsc", code);

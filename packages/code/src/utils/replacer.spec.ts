@@ -67,8 +67,8 @@ test("should update search replace", async () => {
 
   const v10 = await updateSearchReplace({
     instructions: instructions.slice(
-      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len
-        + v9.len,
+      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len +
+        v9.len,
     ),
     code: v9.result,
   });
@@ -76,8 +76,8 @@ test("should update search replace", async () => {
 
   const v11 = await updateSearchReplace({
     instructions: instructions.slice(
-      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len
-        + v9.len + v10.len,
+      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len +
+        v9.len + v10.len,
     ),
     code: v10.result,
   });
@@ -85,8 +85,8 @@ test("should update search replace", async () => {
 
   const v12 = await updateSearchReplace({
     instructions: instructions.slice(
-      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len
-        + v9.len + v10.len + v11.len,
+      r1.len + v2.len + v3.len + v4.len + v5.len + v6.len + v7.len + v8.len +
+        v9.len + v10.len + v11.len,
     ),
     code: v11.result,
   });

@@ -16,8 +16,8 @@ export async function fakeServer(request: Request) {
   const codeSpace = useCodeSpace(pathname);
   console.log("CodeSpace:", codeSpace);
 
-  cSessions[codeSpace] = cSessions[codeSpace]
-    || new CodeSessionBC(codeSpace);
+  cSessions[codeSpace] = cSessions[codeSpace] ||
+    new CodeSessionBC(codeSpace);
   const session = await cSessions[codeSpace].init();
 
   if (
@@ -37,20 +37,20 @@ export async function fakeServer(request: Request) {
   ) {
     return handleIndexCss(request, session);
   } else if (
-    pathname in Object.keys(routes)
-    || request.url.includes("/hydrated")
-    || request.url.includes("/worker")
-    || request.url.includes("/dehydrated")
-    || request.url.includes("/iframe")
-    || request.url.includes("/embed")
-    || request.url.includes("/public")
-    || request.url.endsWith(`/live/${codeSpace}/xxx`)
-    || request.url.endsWith(`/live/${codeSpace}/`)
+    pathname in Object.keys(routes) ||
+    request.url.includes("/hydrated") ||
+    request.url.includes("/worker") ||
+    request.url.includes("/dehydrated") ||
+    request.url.includes("/iframe") ||
+    request.url.includes("/embed") ||
+    request.url.includes("/public") ||
+    request.url.endsWith(`/live/${codeSpace}/xxx`) ||
+    request.url.endsWith(`/live/${codeSpace}/`)
   ) {
     return handleHtmlResponse(session);
   } else if (
-    request.url.endsWith(`/live/${codeSpace}`)
-    || request.url.endsWith(`/live/${codeSpace}/`)
+    request.url.endsWith(`/live/${codeSpace}`) ||
+    request.url.endsWith(`/live/${codeSpace}/`)
   ) {
     return buildHTMLResponse(codeSpace);
   } else {
@@ -90,7 +90,7 @@ function handleHtmlResponse(session: ICodeSession) {
     `<link rel="preload" href="/live/${session.codeSpace}/index.css" as="style" />
     <link rel="stylesheet" href="/live/${session.codeSpace}/index.css" />`,
   ).replace(
-    "<div id=\"embed\"></div>",
+    '<div id="embed"></div>',
     `<div id="embed">${session.html}</div>`,
   );
 

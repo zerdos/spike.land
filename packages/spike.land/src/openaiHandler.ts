@@ -1,8 +1,8 @@
 import OpenAI from "openai";
-import Env from "./env";
+import type Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 import { KVLogger } from "./Logs";
-import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
+import type { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
 
 interface MessageParam {
   role: "user" | "assistant";

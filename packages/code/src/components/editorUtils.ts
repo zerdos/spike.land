@@ -56,7 +56,7 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
   const cache = new Map<
     string,
-    { promise: Promise<ReturnType<T>>; callbacks: Callbacks[] }
+    { promise: Promise<ReturnType<T>>; callbacks: Callbacks[]; }
   >();
 
   return ((...args: [...Parameters<T>, AbortSignal]): ReturnType<T> => {
@@ -149,7 +149,7 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
       ? error
       : (error as Error).message || JSON.stringify(error);
     throw new Error(
-      `Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split("\"").join("\"")}`,
+      `Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split('"').join('"')}`,
     );
   }
 }, (code: string) => md5(code));
@@ -186,7 +186,7 @@ export const screenShot = (): Promise<ImageData> => {
 
 export const runCode = (
   transpiled: string,
-): Promise<{ html: string; css: string }> | false => {
+): Promise<{ html: string; css: string; }> | false => {
   if (typeof window === "undefined") {
     return false;
   }
@@ -194,7 +194,7 @@ export const runCode = (
   return (window.frames[0] as unknown as {
     handleRunMessage: (
       transpiled: string,
-    ) => Promise<{ html: string; css: string; js: string }>;
+    ) => Promise<{ html: string; css: string; js: string; }>;
   }).handleRunMessage(transpiled);
 };
 

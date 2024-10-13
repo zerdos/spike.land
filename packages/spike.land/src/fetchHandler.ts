@@ -1,6 +1,6 @@
 import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
-import Env from "./env";
+import type Env from "./env";
 import { handleCORS, isUrlFile } from "./utils";
 
 export async function handleFetchApi(
@@ -240,7 +240,7 @@ async function handleDefaultCase(
     const esmCache = await caches.open("esm127");
     const cacheKey = new Request(request.url.toString());
 
-    let response = await esmCache.match(cacheKey);
+    const response = await esmCache.match(cacheKey);
     if (response) {
       return response;
     }
@@ -255,7 +255,7 @@ async function handleDefaultCase(
       const text = await resp.text();
       const importMapReplaced = importMapReplace(text, u.origin);
 
-      let response2 = new Response(importMapReplaced, {
+      const response2 = new Response(importMapReplaced, {
         headers: new Headers(resp.headers),
       });
 

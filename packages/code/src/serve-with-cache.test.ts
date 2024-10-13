@@ -133,7 +133,7 @@ describe("serveWithCache", () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     const fetchedResponse = new Response(
-      "<!DOCTYPE html><html><head><base href=\"/\"><script type=\"importmap\"></script></head><body></body></html>",
+      '<!DOCTYPE html><html><head><base href="/"><script type="importmap"></script></head><body></body></html>',
       {
         headers: { "Content-Type": "text/html" },
       },
@@ -202,7 +202,7 @@ describe("serveWithCache", () => {
   it("should set correct headers for non-HTML assets", async () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
-    const fetchedResponse = new Response("console.log(\"test\");", {
+    const fetchedResponse = new Response('console.log("test");', {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
@@ -254,7 +254,7 @@ describe("serveWithCache", () => {
   it("should handle requests with query parameters", async () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
-    const fetchedResponse = new Response("console.log(\"test\");", {
+    const fetchedResponse = new Response('console.log("test");', {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
@@ -265,7 +265,7 @@ describe("serveWithCache", () => {
       waitUntil,
     );
 
-    expect(await result.text()).toBe("console.log(\"test\");");
+    expect(await result.text()).toBe('console.log("test");');
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
   });
 
@@ -273,7 +273,7 @@ describe("serveWithCache", () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
     vi.mocked(cache.put).mockRejectedValue(new Error("Cache put failed"));
-    const fetchedResponse = new Response("console.log(\"test\");", {
+    const fetchedResponse = new Response('console.log("test");', {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
@@ -284,7 +284,7 @@ describe("serveWithCache", () => {
       waitUntil,
     );
 
-    expect(await result.text()).toBe("console.log(\"test\");");
+    expect(await result.text()).toBe('console.log("test");');
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
   });
 
@@ -295,7 +295,7 @@ describe("serveWithCache", () => {
     vi.mocked(assetFetcher).mockImplementation(() => {
       fetchCount++;
       return Promise.resolve(
-        new Response("console.log(\"test\");", {
+        new Response('console.log("test");', {
           headers: { "Content-Type": "application/javascript" },
         }),
       );
@@ -315,7 +315,7 @@ describe("serveWithCache", () => {
 
     expect(fetchCount).toBe(1);
     results.forEach(async (result) => {
-      expect(await result.text()).toBe("console.log(\"test\");");
+      expect(await result.text()).toBe('console.log("test");');
       expect(result.headers.get("Content-Type")).toBe("application/javascript");
     });
   });
@@ -332,19 +332,19 @@ describe("serveWithCache", () => {
       const url = new URL(req.url);
       if (url.pathname.includes("abc123")) {
         return Promise.resolve(
-          new Response("console.log(\"v1\");", {
+          new Response('console.log("v1");', {
             headers: { "Content-Type": "application/javascript" },
           }),
         );
       } else if (url.pathname.includes("def456")) {
         return Promise.resolve(
-          new Response("console.log(\"v2\");", {
+          new Response('console.log("v2");', {
             headers: { "Content-Type": "application/javascript" },
           }),
         );
       } else {
         return Promise.resolve(
-          new Response("console.log(\"unknown\");", {
+          new Response('console.log("unknown");', {
             headers: { "Content-Type": "application/javascript" },
           }),
         );
@@ -362,14 +362,14 @@ describe("serveWithCache", () => {
       waitUntil,
     );
 
-    expect(await resultV1.text()).toBe("console.log(\"v1\");");
-    expect(await resultV2.text()).toBe("console.log(\"v2\");");
+    expect(await resultV1.text()).toBe('console.log("v1");');
+    expect(await resultV2.text()).toBe('console.log("v2");');
   });
 
   it.skip("should handle assets with special characters in the filename", async () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
-    const fetchedResponse = new Response("console.log(\"special\");", {
+    const fetchedResponse = new Response('console.log("special");', {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
@@ -380,7 +380,7 @@ describe("serveWithCache", () => {
       waitUntil,
     );
 
-    expect(await result.text()).toBe("console.log(\"special\");");
+    expect(await result.text()).toBe('console.log("special");');
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
   });
 
@@ -432,7 +432,7 @@ describe("serveWithCache", () => {
   it("should handle waitUntil errors", async () => {
     const { serve } = serveWithCache(files, cacheToUse);
     vi.mocked(cache.match).mockResolvedValue(undefined);
-    const fetchedResponse = new Response("console.log(\"test\");", {
+    const fetchedResponse = new Response('console.log("test");', {
       headers: { "Content-Type": "application/javascript" },
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
@@ -446,7 +446,7 @@ describe("serveWithCache", () => {
       errorWaitUntil,
     );
 
-    expect(await result.text()).toBe("console.log(\"test\");");
+    expect(await result.text()).toBe('console.log("test");');
     expect(result.headers.get("Content-Type")).toBe("application/javascript");
   });
 
@@ -624,7 +624,7 @@ describe("serveWithCache", () => {
     const { serve } = serveWithCache(files, cacheToUse);
 
     const fetchedResponse = new Response(
-      "<!DOCTYPE html><html><head><script type=\"importmap\"></script></head><body></body></html>",
+      '<!DOCTYPE html><html><head><script type="importmap"></script></head><body></body></html>',
       { headers: { "Content-Type": "text/html" } },
     );
 

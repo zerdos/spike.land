@@ -44,7 +44,9 @@ export const extractCodeModification = (response: string): string[] => {
   const codeBlockMatches = response.match(/```[\s\S]*?```/g);
   if (!codeBlockMatches) return match;
 
-  const myBlocks = codeBlockMatches.filter((block) => SEARCH_REPLACE_MARKERS.some((marker) => block.includes(marker)))
+  const myBlocks = codeBlockMatches.filter((block) =>
+    SEARCH_REPLACE_MARKERS.some((marker) => block.includes(marker))
+  )
     .map((myBlock) => {
       const block = myBlock.trim().split("<<<<<<< SEARCH").join("=======")
         .split(">>>>>>> REPLACE").join("=======")

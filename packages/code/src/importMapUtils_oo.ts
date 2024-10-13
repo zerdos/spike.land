@@ -12,7 +12,7 @@ export const importMap = {
     "react-dom": "/reactDom.mjs",
     "foo-bar": "/fooBar.mjs",
   },
-} as { imports: Record<string, string> };
+} as { imports: Record<string, string>; };
 
 export function importMapReplace(
   code: string | ArrayBuffer,

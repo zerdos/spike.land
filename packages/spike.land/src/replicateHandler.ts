@@ -1,6 +1,6 @@
 import { md5 } from "@spike-land/code";
 import Replicate from "replicate";
-import Env from "./env";
+import type Env from "./env";
 
 interface InputDefaults {
   cfg: number;

@@ -29,7 +29,7 @@ export const useSpeedy2 = async () => {
 
     origin: location.origin,
     format: "esm",
-  }) as unknown as { text: string; path: string; contents: ArrayBuffer }[];
+  }) as unknown as { text: string; path: string; contents: ArrayBuffer; }[];
 
   // res.map(async (f) => {
   //   await fetch(f.path.slice(1), {
@@ -47,8 +47,8 @@ export const useSpeedy2 = async () => {
   const shims = await fetch(`/assets/tw-chunk-4a7018.js`).then((res) => res.text());
 
   const wrapperJs = res.find((x) => x.path.includes("wrapper.mjs"))?.text || "";
-  const wrapperCss = res.find((x) => x.path.includes("wrapper.css"))?.text
-    || "";
+  const wrapperCss = res.find((x) => x.path.includes("wrapper.css"))?.text ||
+    "";
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -237,7 +237,7 @@ export const useSpeedy = async (codeSpace: string) => {
   //   });}
 
   const getMimeType = (extension: string) => {
-    const mimeTypes: { [key: string]: string } = {
+    const mimeTypes: { [key: string]: string; } = {
       "woff": "font/woff",
       "woff2": "font/woff2",
       "ttf": "font/ttf",

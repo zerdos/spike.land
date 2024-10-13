@@ -14,10 +14,10 @@ const lazyLoadScript = (scriptName: string): void => {
 };
 
 type WorkerFunctions = {
-  ata: (params: { code: string; originToUse: string }) => Promise<unknown>;
+  ata: (params: { code: string; originToUse: string; }) => Promise<unknown>;
   prettierCss: (code: string) => Promise<string>;
   prettierJs: (
-    { code, toThrow }: { code: string; toThrow: boolean },
+    { code, toThrow }: { code: string; toThrow: boolean; },
   ) => Promise<string>;
   createWorkflow: (q: string) => Promise<unknown>;
   transpile: (code: string, originToUse: string) => Promise<string>;
@@ -31,7 +31,7 @@ type WorkerFunctions = {
 
 const self:
   & SharedWorkerGlobalScope
-  & { onconnect?: (e: MessageEvent) => void }
+  & { onconnect?: (e: MessageEvent) => void; }
   & WorkerFunctions = globalThis as unknown as SharedWorkerGlobalScope & {
     onconnect?: (e: MessageEvent) => void;
   } & WorkerFunctions;
@@ -46,7 +46,9 @@ interface BuildParams {
 }
 
 const rpcFactory = (port: MessagePort): RpcProvider =>
-  new RpcProvider((message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions));
+  new RpcProvider((message, transfer) =>
+    port.postMessage(message, transfer as StructuredSerializeOptions)
+  );
 
 const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   prettierJs: ["prettier-esm"],
@@ -95,7 +97,7 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
 
   rpcProvider.registerSignalHandler(
     "connect",
-    async ({ signal, sess }: { signal: string; sess: ICodeSession }) => {
+    async ({ signal, sess }: { signal: string; sess: ICodeSession; }) => {
       console.log("Connecting to signal", signal, sess);
 
       lazyLoadScript("socket");

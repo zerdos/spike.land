@@ -178,7 +178,7 @@ export interface Message {
 }
 
 // Utility type for cases where you might have a simple string content
-export type SimpleMessage = Omit<Message, "content"> & { content: string };
+export type SimpleMessage = Omit<Message, "content"> & { content: string; };
 
 // Union type to allow both complex and simple message formats
 export type AnyMessage = Message | SimpleMessage;

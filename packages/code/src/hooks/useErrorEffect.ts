@@ -15,7 +15,9 @@ export const useErrorEffect = (
       timer = setTimeout(() => {
         setShowError(true);
         const currentErrorLog = contextManager.getContext("errorLog") || "";
-        const newErrorLog = `${currentErrorLog}\n${new Date().toISOString()}: ${errorType} error occurred`;
+        const newErrorLog = `${currentErrorLog}\n${
+          new Date().toISOString()
+        }: ${errorType} error occurred`;
         contextManager.updateContext("errorLog", newErrorLog.trim());
       }, 500);
     } else {

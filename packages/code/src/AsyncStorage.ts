@@ -22,7 +22,18 @@ export const getStore = async () => {
   return store;
 };
 
-export { clear, getAllkeys, getItem, mergeItem, multiGet, multiMerge, multiRemove, multiSet, removeItem, setItem };
+export {
+  clear,
+  getAllkeys,
+  getItem,
+  mergeItem,
+  multiGet,
+  multiMerge,
+  multiRemove,
+  multiSet,
+  removeItem,
+  setItem,
+};
 
 export class AsyncLocalStorage {
   private currentStore: Record<string, unknown> | null = null;

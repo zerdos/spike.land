@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-  
+    "jsx": "react-jsxdev",
+    "jsxImportSource": "@emotion/react",
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext"],
     "types": ["@cloudflare/workers-types"]
   },
-  "exclude": ["dts", "node_modules", "dist", "functions/**/*"],
+  "exclude": ["dts", "node_modules", "dist", "functions"],
   "include": ["packages/**/*.ts", "packages/**/*.tsx"]
 }
