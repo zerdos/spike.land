@@ -54,63 +54,54 @@ interface ChatMessagePart {
   content: string;
   language?: string;
 }
+
 const parseMessageParts = (
   text: string,
   state: ParsingState,
 ): { parts: ChatMessagePart[]; state: ParsingState; } => {
+  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)(?:```|$)/g;
   const parts: ChatMessagePart[] = [];
-  let index = 0;
+  let lastIndex = 0;
+  let match;
 
-  while (index < text.length) {
-    if (state.isInCodeBlock) {
-      const codeBlockEnd = text.indexOf("```", index);
-      if (codeBlockEnd === -1) {
-        // Incomplete code ChatMessageBlock
-        state.accumulatedContent += text.slice(index);
-        break;
-      } else {
-        // Complete code block
-        state.accumulatedContent += text.slice(index, codeBlockEnd);
-        parts.push({
-          type: "code",
-          language: getLanguage(state.currentLanguage),
-          content: state.accumulatedContent,
-        });
-        index = codeBlockEnd + 3; // Skip closing ```
-        state.isInCodeBlock = false;
-        state.currentLanguage = undefined;
-        state.accumulatedContent = "";
+  while ((match = codeBlockRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      const textContent = text.slice(lastIndex, match.index);
+      if (textContent.trim().length > 0) {
+        parts.push({ type: "text", content: textContent.trim() });
       }
+    }
+
+    const language = getLanguage(match[1]);
+    const code = match[2];
+
+    parts.push({ type: "code", language, content: code });
+
+    lastIndex = codeBlockRegex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    const remainingText = text.slice(lastIndex);
+    if (state.isInCodeBlock) {
+      // Inside an incomplete code block
+      state.accumulatedContent += remainingText;
+      parts.push({
+        type: "code",
+        language: getLanguage(state.currentLanguage),
+        content: state.accumulatedContent,
+      });
+    } else if (state.isInDiffBlock) {
+      // Inside an incomplete diff block
+      state.accumulatedDiffContent += remainingText;
+      parts.push({
+        type: "code",
+        language: "diff",
+        content: state.accumulatedDiffContent,
+      });
     } else {
-      const codeBlockStart = text.indexOf("```", index);
-      if (codeBlockStart === -1) {
-        // No more code blocks
-        const remainingText = text.slice(index).trim();
-        if (remainingText.length > 0) {
-          parts.push({ type: "text", content: remainingText });
-        }
-        break;
-      } else {
-        // Text before the code block
-        const textContent = text.slice(index, codeBlockStart).trim();
-        if (textContent.length > 0) {
-          parts.push({ type: "text", content: textContent });
-        }
-        index = codeBlockStart + 3; // Skip ```
-        // Get language specifier
-        const newlineIndex = text.indexOf("\n", index);
-        if (newlineIndex === -1) {
-          // Incomplete language specifier
-          state.isInCodeBlock = true;
-          state.currentLanguage = text.slice(index).trim();
-          state.accumulatedContent = "";
-          break;
-        } else {
-          state.currentLanguage = text.slice(index, newlineIndex).trim();
-          index = newlineIndex + 1;
-          state.isInCodeBlock = true;
-          state.accumulatedContent = "";
-        }
+      // Regular text
+      if (remainingText.trim().length > 0) {
+        parts.push({ type: "text", content: remainingText.trim() });
       }
     }
   }
@@ -131,11 +122,14 @@ const extendTextWithDiffMarkers = (
       if (endIndex === -1) {
         // Diff block not yet complete
         state.accumulatedDiffContent += text.slice(index);
+        // Wrap the accumulated diff content in a code block without closing it
+        result += "```diff\n" + state.accumulatedDiffContent;
+        // Do not close the code block; wait for more data
         break;
       } else {
         // Diff block ends here
         state.accumulatedDiffContent += text.slice(index, endIndex + ">>>>>>> REPLACE".length);
-        result += "```diff\n" + state.accumulatedDiffContent.trim() + "\n```";
+        result += "```diff\n" + state.accumulatedDiffContent + "\n```";
         state.isInDiffBlock = false;
         state.accumulatedDiffContent = "";
         index = endIndex + ">>>>>>> REPLACE".length;
@@ -143,23 +137,26 @@ const extendTextWithDiffMarkers = (
     } else {
       const startIndex = text.indexOf("<<<<<<< SEARCH", index);
       if (startIndex === -1) {
-        // No diff block starts, append the rest
+        // No diff block starts; append the rest
         result += text.slice(index);
         break;
       } else {
         // Append text before the diff block
         result += text.slice(index, startIndex);
         index = startIndex;
+        // Start of a new diff block
         const endIndex = text.indexOf(">>>>>>> REPLACE", index);
         if (endIndex === -1) {
           // Diff block not yet complete
           state.isInDiffBlock = true;
           state.accumulatedDiffContent = text.slice(index);
+          // Wrap the accumulated diff content in a code block without closing it
+          result += "```diff\n" + state.accumulatedDiffContent;
           break;
         } else {
           // Diff block ends here
           const diffContent = text.slice(index, endIndex + ">>>>>>> REPLACE".length);
-          result += "```diff\n" + diffContent.trim() + "\n```";
+          result += "```diff\n" + diffContent + "\n```";
           index = endIndex + ">>>>>>> REPLACE".length;
         }
       }
@@ -169,7 +166,7 @@ const extendTextWithDiffMarkers = (
   return result;
 };
 
-export interface ParsingState {
+interface ParsingState {
   isInCodeBlock: boolean;
   currentLanguage?: string;
   accumulatedContent: string;

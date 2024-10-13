@@ -37,6 +37,7 @@ module.exports = [
       ...reactPlugin.configs.recommended.rules,
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+      "react/display-name": "off",
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
