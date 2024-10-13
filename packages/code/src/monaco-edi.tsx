@@ -2,6 +2,7 @@ import { ata, prettierToThrow } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
 import { version } from "monaco-editor/package.json";
 import { throttle } from "es-toolkit";
+
 const originToUse = location.origin;
 
 const refreshAta = async (code: string) => {
@@ -184,6 +185,7 @@ async function startMonacoPristine({
 
   languages.registerDocumentFormattingEditProvider("typescript", {
     provideDocumentFormattingEdits: async (model) => {
+      
       const formattedText = await prettierToThrow({
         code: model.getValue(),
         toThrow: false,

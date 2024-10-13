@@ -1,10 +1,10 @@
 import emotion from "@emotion/css-prettifier";
+import emotionPlugin from "@emotion/css-prettifier";
 import type { Options } from "prettier";
 import pluginEstree from "prettier/plugins/estree";
 import postCss from "prettier/plugins/postcss";
 import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
-
 /**
  * Creates a string of spaces of the specified length.
  * @param length - The number of spaces to create.
@@ -121,12 +121,12 @@ const addDefaultExportIfNeeded = (code: string): string => {
 const prettierConfig: Options = {
   arrowParens: "always",
   bracketSpacing: true,
-  embeddedLanguageFormatting: "auto",
+  embeddedLanguageFormatting: "off",
   insertPragma: false,
   bracketSameLine: false,
   jsxSingleQuote: false,
   htmlWhitespaceSensitivity: "strict",
-  printWidth: 120,
+  printWidth: 1000, // Increased to reduce wrapping
   proseWrap: "preserve",
   quoteProps: "as-needed",
   requirePragma: false,
@@ -135,12 +135,9 @@ const prettierConfig: Options = {
   tabWidth: 2,
   trailingComma: "es5",
   useTabs: false,
-  parser: "typescript",
-  singleAttributePerLine: true,
-  plugins: [pluginEstree, pluginTypescript],
-  endOfLine: "auto",
-  rangeStart: 0,
-  rangeEnd: Infinity,
+  parser: "typescript", // Prettier will infer the parser based on file extension
+  singleAttributePerLine: false,
+  plugins: [pluginEstree, pluginTypescript, emotionPlugin],
 };
 
 export const prettierJs = async (
