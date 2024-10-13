@@ -37,7 +37,6 @@ export class RouteHandler {
         path: string[],
       ) => Promise<Response>;
     } = {
-      users: this.handleUsersRoute.bind(this),
       websocket: this.handleWebsocketRoute.bind(this),
       code: this.handleCodeRoute.bind(this),
       "index.tsx": this.handleCodeRoute.bind(this),
@@ -235,15 +234,7 @@ export class RouteHandler {
     }
   }
 
-  private async handleUsersRoute(request: Request): Promise<Response> {
-    if (request.headers.get("Upgrade") !== "websocket") {
-      return new Response("Expected websocket", { status: 400 });
-    }
-
-    const pair = new WebSocketPair();
-    await this.code.wsHandler.handleUserSession(pair[1] as WebSocket);
-    return new Response(null, { status: 101, webSocket: pair[0] });
-  }
+ 
 
   private async handleWebsocketRoute(request: Request): Promise<Response> {
     if (request.headers.get("Upgrade") !== "websocket") {

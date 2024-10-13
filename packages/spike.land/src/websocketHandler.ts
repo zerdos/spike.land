@@ -46,83 +46,10 @@ interface YMessage {
 export class WebSocketHandler {
   private topics = new Map<string, Set<WebSocket>>();
   private wsSessions: WebsocketSession[] = [];
-  private userSessions: WebsocketSession[] = [];
 
+  
   constructor(private code: Code) {}
 
-  handleUserSession(webSocket: WebSocket) {
-    webSocket.accept();
-    const session: WebsocketSession = {
-      name: "",
-      quit: false,
-      subscribedTopics: new Set(),
-      webSocket,
-      pongReceived: true,
-      blockedMessages: [],
-    };
-    this.userSessions.push(session);
-
-    this.broadcastUsers();
-
-    webSocket.addEventListener("close", () => {
-      this.userSessions = this.userSessions.filter((x) => x !== session);
-      this.broadcastUsers();
-    });
-
-    webSocket.addEventListener("message", (msg: MessageEvent) => {
-      const data: IData = JSON.parse(msg.data as string);
-
-      if (!session.name && data.name) {
-        this.userSessions.filter((sess) => sess.name === data.name).forEach(
-          (sess) => {
-            sess.webSocket.close();
-            sess.name = "";
-          },
-        );
-        session.name = data.name;
-        const oldHash = makeHash(this.code.session);
-        if (data.hashCode !== oldHash) {
-          return session.webSocket.send(JSON.stringify({
-            error: `old hashes not matching`,
-            i: this.code.session.i,
-            hash: oldHash,
-            strSess: this.code.session,
-          }));
-        }
-        // session.name = data.name;
-        // this.broadcastUsers();
-      }
-
-      if (data.target && data.target !== session.name) {
-        const targetSession = this.userSessions.find((x) =>
-          x.name === data.target
-        );
-        if (targetSession) {
-          targetSession.webSocket.send(msg.data);
-        }
-      }
-    });
-
-    const closeOrErrorHandler = () => {
-      session.quit = true;
-    };
-    webSocket.addEventListener("close", closeOrErrorHandler);
-    webSocket.addEventListener("error", closeOrErrorHandler);
-  }
-
-  public broadcastUsers() {
-    const users = this.userSessions.filter((x) => x.name).map((x) => x.name);
-    this.userSessions.forEach((sess) => {
-      try {
-        sess.webSocket.send(JSON.stringify(users));
-      } catch (error) {
-        sess.quit = true;
-        this.userSessions = this.userSessions.filter((session) =>
-          session !== sess
-        );
-      }
-    });
-  }
 
   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
@@ -208,6 +135,27 @@ export class WebSocketHandler {
     }
 
     const message = data as unknown as YMessage;
+
+    if (!session.name && data.name) {
+      this.wsSessions.filter((sess) => sess.name === data.name).forEach(
+        (sess) => {
+          sess.webSocket.close();
+          sess.name = "";
+        },
+      );
+      session.name = data.name;
+      const oldHash = makeHash(this.code.session);
+      if (data.hashCode !== oldHash) {
+        return respondWith({
+          error: `old hashes not matching`,
+          i: this.code.session.i,
+          hash: oldHash,
+          strSess: this.code.session,
+        });
+      }
+      // session.name = data.name;
+      // this.broadcastUsers();
+    }
 
     if (message && message.type) {
       switch (message.type) {
