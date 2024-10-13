@@ -56,9 +56,16 @@ const handleScreenshot = async () => {
 };
 
 const handleRender = async (
-  renderedNew: RenderedApp,
+  renderedNew: RenderedApp | null,
 ): Promise<{ css: string; html: string } | false> => {
   // confirm
+  if (renderedNew === null) {
+    return {
+      css: "",
+      html: "",
+    };
+  }
+
   const { cssCache, rootElement } = renderedNew;
 
   for (let attempts = 5; attempts > 0; attempts--) {
@@ -113,6 +120,8 @@ const handleRender = async (
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
+  await twUp();
+
   const hashed = md5(transpiled);
   if (hashed === renderedMd5) {
     console.log("Skipping update as md5 is the same");
@@ -136,9 +145,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string }) => {
   return rendered;
 };
 
-const handleRunMessage = async (transpiled: string) =>
-  (await twUp()) && handleRender((await updateRenderedApp({ transpiled }))!);
-
+const handleRunMessage = (transpiled: string) => updateRenderedApp({ transpiled }).then(handleRender);
 const handleDefaultPage = async () => {
   try {
     window.onmessage = async ({ data }: { data: IframeMessage }) => {
