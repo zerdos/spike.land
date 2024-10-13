@@ -360,26 +360,11 @@ async function startMonacoPristine({
     editorModel.isEdit = false;
   });
 
-  const throttledTsCheck = throttle(tsCheck, 10000);
+  const throttledTsCheck = throttle(()=>tsCheck(), 10000);
 
-  model.onDidChangeContent(() => {
-    const newCode = model.getValue();
-    editorModel.isEdit = true;
-    abortController.abort();
-    const { signal } = abortController = new AbortController();
-
-    setTimeout(() => {
-      if (signal.aborted) return;
-      editorModel.isEdit = false;
-      throttledTsCheck();
-    }, 200);
-
-    if (!editorModel.silent) {
-      setTimeout(() => {
-        if (signal.aborted) return;
-        prettierToThrow({ code: newCode, toThrow: true }).then(onChange);
-      }, 100);
-    }
+  model.onDidChangeContent(() => { 
+    onChange(model.getValue());
+    throttledTsCheck();
   });
 
   return editorModel;
