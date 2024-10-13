@@ -16,7 +16,8 @@ export default {
 
     if (
       url.pathname === "/@/lib/sw-version.mjs" ||
-      url.pathname === "/swVersion.mjs"
+      url.pathname === "/swVersion.mjs" ||
+      url.pathname === "/@/lib/swVersion.mjs"
     ) {
       return new Response(`export const swVersion = "${ASSET_HASH}" ;`, {
         headers: {
@@ -315,7 +316,7 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
     case "DELETE":
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
-    case "GET":
+    case "GET":{
       let object = await env.R2.get(url.origin + path);
       if (!object) {
         object = await env.R2.get(url.origin + path + ".html");
@@ -323,13 +324,14 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
 
       if (!object) {
         const myPath = path.split("/").slice(-2)[0];
-        object = await env.R2.get(url.origin + path + ".html");
+        object = await env.R2.get(url.origin + myPath + ".html");
       }
       if (!object) {
         return new Response("Not found", { status: 404 });
       }
 
       return makeResponse(object, key);
+    }
     default:
       return new Response("Method not allowed", { status: 405 });
   }
