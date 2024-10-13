@@ -66,6 +66,7 @@ export class RouteHandler {
       "auto-save": this.handleAutoSaveRoute.bind(this),
       "history": this.handleCodeHistory.bind(this),
       live: this.handleLiveRoute.bind(this),
+      "load-more": this.handleLoadMoreTimestamps.bind(this),
     };
 
     return routes[route] || null;
@@ -105,7 +106,6 @@ export class RouteHandler {
             });
           }
 
-          // Use Code class method to restore the code
           const success = await this.code.restoreCode(restoreTimestamp);
 
           if (success) {
@@ -117,8 +117,13 @@ export class RouteHandler {
           }
         }
         default:
-          // Use Code class method to save the current code
-          await this.code.saveCode();
+          try {
+            await this.code.saveCode();
+          } catch (error) {
+            console.error("Error saving code:", error);
+            return new Response("Failed to save code", { status: 500 });
+          }
+
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
           const respText = HTML.replace(
@@ -173,7 +178,32 @@ export class RouteHandler {
     }
   }
 
-  // Add back the missing method implementations (with minimal functionality for now)
+  private async handleLoadMoreTimestamps(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
+    try {
+      const startEntryId = url.searchParams.get("startEntryId") || null;
+      const limit = Number(url.searchParams.get("limit")) || 10;
+
+      const result = await this.code.loadMoreTimestamps(startEntryId, limit);
+
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error) {
+      console.error("Error in handleLoadMoreTimestamps:", error);
+      return new Response("Failed to load more timestamps", {
+        status: 500,
+      });
+    }
+  }
+
   private async handleUsersRoute(request: Request): Promise<Response> {
     // Implement the users route logic here
     return new Response("Users route not implemented", { status: 501 });
