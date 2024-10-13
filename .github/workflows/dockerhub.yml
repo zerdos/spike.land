@@ -35,13 +35,13 @@ jobs:
         id: extract_version
         uses: Saionaro/extract-package-version@v1.2.1
         with:
-          path: packages/${{ matrix.image-name }}
+          path: devcontainers/${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v3.1.1
         with:
           context: ./
-          file: ./packages/${{ matrix.image-name }}/Dockerfile
+          file: ./devcontainers/${{ matrix.image-name }}/Dockerfile
           push: true
           platforms: ${{ matrix.platform }}
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
