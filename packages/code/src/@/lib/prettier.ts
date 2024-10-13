@@ -125,8 +125,8 @@ const prettierConfig: Options = {
   insertPragma: false,
   bracketSameLine: false,
   jsxSingleQuote: false,
-  htmlWhitespaceSensitivity: "css",
-  printWidth: 80,
+  htmlWhitespaceSensitivity: "strict",
+  printWidth: 120,
   proseWrap: "preserve",
   quoteProps: "as-needed",
   requirePragma: false,
@@ -135,9 +135,12 @@ const prettierConfig: Options = {
   tabWidth: 2,
   trailingComma: "es5",
   useTabs: false,
-  parser: "typescript", // Prettier will infer the parser based on file extension
-  singleAttributePerLine: false,
+  parser: "typescript",
+  singleAttributePerLine: true,
   plugins: [pluginEstree, pluginTypescript],
+  endOfLine: "auto",
+  rangeStart: 0,
+  rangeEnd: Infinity,
 };
 
 export const prettierJs = async (
