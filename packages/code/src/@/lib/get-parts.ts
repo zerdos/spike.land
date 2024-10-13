@@ -155,6 +155,7 @@ const extendTextWithDiffMarkers = (
           break;
         } else {
           // Diff block ends here
+
           const diffContent = text.slice(index, endIndex + ">>>>>>> REPLACE".length);
           result += "```diff\n" + diffContent + "\n```";
           index = endIndex + ">>>>>>> REPLACE".length;
