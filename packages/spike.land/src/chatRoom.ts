@@ -86,21 +86,8 @@ export class Code implements DurableObject {
       this.xLog(this.session);
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
-        this.session = await request.json();
-        const oldSession = makeSession(this.session);
-
-        this.state.storage.put("session", this.session);
-        this.xLog(this.session);
-        const newSession = await this.state.storage.get<ICodeSession>(
-          "session",
-        );
-        if (newSession === undefined) {
-          throw new Error("newSession is undefined");
-        }
-
-        const patch = createPatch(oldSession, newSession);
-
-        this.wsHandler.broadcast(patch);
+        const newSession = await request.json();
+        await this.updateAndBroadcastSession(newSession);
       }
     } catch (e) {
       console.error(e);
@@ -119,17 +106,16 @@ export class Code implements DurableObject {
 
       if (!this.session.transpiled) {
         try {
-          const transpiled =
-            (await fetch("https://esbuild.spikeland.workers.dev", {
-              method: "POST",
-              body: this.session.code,
-              headers: {
-                "TR_ORIGIN": this.origin,
-                // Include any additional headers required for authentication
-              },
-            })).text();
+          const transpiled = await (await fetch("https://esbuild.spikeland.workers.dev", {
+            method: "POST",
+            body: this.session.code,
+            headers: {
+              "TR_ORIGIN": this.origin,
+              // Include any additional headers required for authentication
+            },
+          })).text();
 
-          this.setSession(makeSession(...this.session, transpiled));
+          await this.updateAndBroadcastSession(makeSession({...this.session, transpiled}));
         } catch (error) {
           console.error("Error transpiling code:", error);
           // Handle the error as appropriate for your application
@@ -145,9 +131,18 @@ export class Code implements DurableObject {
     // ... (implementation remains the same)
   }
 
+  async updateAndBroadcastSession(newSession: ICodeSession) {
+    const oldSession = makeSession(this.session);
+    this.session = newSession;
+    await this.state.storage.put("session", this.session);
+    await this.xLog(this.session);
+    
+    const patch = createPatch(oldSession, this.session);
+    this.wsHandler.broadcast(patch);
+  }
+
   setSession(session: ICodeSession) {
-    this.session = session;
-    this.state.storage.put("session", this.session);
+    this.updateAndBroadcastSession(session);
   }
 
   getState() {
@@ -170,8 +165,7 @@ export class Code implements DurableObject {
   async restoreCode(timestamp: number): Promise<boolean> {
     const restoredSession = await this.historyManager.getSessionAtTimestamp(this.session.codeSpace, timestamp);
     if (restoredSession) {
-      this.session = restoredSession;
-      this.state.storage.put("session", this.session);
+      await this.updateAndBroadcastSession(restoredSession);
       return true;
     }
     return false;
