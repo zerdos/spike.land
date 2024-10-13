@@ -80,7 +80,17 @@ export class WebSocketHandler {
           },
         );
         session.name = data.name;
-        this.broadcastUsers();
+        const oldHash = makeHash(this.code.session);
+        if (data.hashCode !== oldHash) {
+          return session.webSocket.send(JSON.stringify({
+            error: `old hashes not matching`,
+            i: this.code.session.i,
+            hash: oldHash,
+            strSess: this.code.session,
+          }));
+        }
+        // session.name = data.name;
+        // this.broadcastUsers();
       }
 
       if (data.target && data.target !== session.name) {
