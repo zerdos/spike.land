@@ -11,6 +11,14 @@ export interface UseMessageHandlingProps {
   codeSpace: string;
 }
 
+export interface ParsingState {
+  isInCodeBlock: boolean;
+  currentLanguage?: string;
+  accumulatedContent: string;
+  isInDiffBlock: boolean;
+  accumulatedDiffContent: string;
+}
+
 export type FlexibleComponentType<P = unknown> = ComponentType<P & BaseProps>;
 
 export interface ChatHeaderProps {

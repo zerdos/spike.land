@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef } from "react";
 import { getPartsStreaming } from "@/lib/get-parts";
-import type { ParsingState } from "@/lib/get-parts";
+import type { ParsingState } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
 import { CodeBlock } from "@/components/app/code-block-lazy";

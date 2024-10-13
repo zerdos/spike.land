@@ -1,4 +1,4 @@
-import type { LanguageMap } from "@/lib/interfaces";
+import type { LanguageMap, ParsingState } from "@/lib/interfaces";
 
 const programmingLanguages: LanguageMap = {
   javascript: ".js",
@@ -166,14 +166,6 @@ const extendTextWithDiffMarkers = (
 
   return result;
 };
-
-interface ParsingState {
-  isInCodeBlock: boolean;
-  currentLanguage?: string;
-  accumulatedContent: string;
-  isInDiffBlock: boolean;
-  accumulatedDiffContent: string;
-}
 
 export const getPartsStreaming = (
   text: string,

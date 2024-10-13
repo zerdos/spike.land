@@ -172,8 +172,6 @@ class ChatHandler {
 
   private createOnUpdateFunction(): (instructions: string) => Promise<void> {
     return async (instructions: string) => {
-      this.updateMessagesFromInstructions(instructions);
-
       if (this.mod.controller.signal.aborted) {
         console.log("Aborted onUpdate before starting");
         return;
@@ -332,15 +330,6 @@ class ChatHandler {
     if (typeof content === "string") return content;
     const textItem = content.find((item) => item.type === "text");
     return textItem?.text || "";
-  }
-
-  private updateMessagesFromInstructions(instructions: string) {
-    this.messages = messagesPush(this.messages, {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: instructions,
-    });
-    this.setMessages([...this.messages]);
   }
 
   static async updateSearchReplace({
