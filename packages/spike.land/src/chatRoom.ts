@@ -13,7 +13,7 @@ import {
 
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
-import { AutoSaveEntry, RouteHandler } from "./routeHandler";
+import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import { createCodeHistoryManager } from "./x-code";
 import type { CodeHistoryManager } from "./x-code";
@@ -28,9 +28,6 @@ export class Code implements DurableObject {
 
   session: ICodeSession;
   private backupSession: ICodeSession;
-  private autoSaveInterval: number = 60000; // 1 minute in milliseconds
-  private lastAutoSave: number = 0;
-  private autoSaveHistory: AutoSaveEntry[] = [];
 
   private xLog: (sess: ICodeSession) => Promise<void>;
   private historyManager: CodeHistoryManager;
@@ -122,15 +119,6 @@ export class Code implements DurableObject {
           const head = makeHash(this.session);
           this.state.storage.put("head", head);
         }
-
-        // Initialize auto-save history
-        this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then(
-          (savedHistory) => {
-            if (savedHistory) {
-              this.autoSaveHistory = savedHistory;
-            }
-          },
-        );
       } catch (error) {
         console.error("Error initializing session:", error);
         this.session = this.backupSession;
@@ -145,47 +133,8 @@ export class Code implements DurableObject {
     this.xLog(this.session);
   }
 
-  private setupAutoSave() {
-    setInterval(() => this.autoSave(), this.autoSaveInterval);
-  }
-
   public async getCodeHistory(): ReturnType<CodeHistoryManager["getHistory"]> {
     return this.historyManager.getHistory(this.session.codeSpace);
-  }
-
-  public async autoSave() {
-    const currentTime = Date.now();
-    if (currentTime - this.lastAutoSave < this.autoSaveInterval) return;
-
-    const currentCode = this.session.code;
-    const lastEntry = this.autoSaveHistory[this.autoSaveHistory.length - 1];
-
-    if (!lastEntry || currentCode !== lastEntry.code) {
-      // Remove entries younger than 1 minute and older than 2 months in one pass
-      const oneMinuteAgo = currentTime - 60_000;
-      const twoMonthsAgo = currentTime - 60000 * 60 * 24 * 60;
-
-      this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>
-        entry.timestamp <= oneMinuteAgo && entry.timestamp > twoMonthsAgo
-      );
-
-      // Add new entry
-      this.autoSaveHistory.push({
-        timestamp: currentTime,
-        code: currentCode,
-      });
-
-      // Save the updated history
-      this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
-
-      // Save the current version with timestamp
-      this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
-
-      // Update last auto-save time
-      this.lastAutoSave = currentTime;
-
-      console.log("Auto-saved code at", new Date(currentTime).toISOString());
-    }
   }
 
   async fetch(request: Request): Promise<Response> {
@@ -195,9 +144,7 @@ export class Code implements DurableObject {
     }
 
     if (!this.initialized) {
-      await this.initializeSession(url).then(() => {
-        this.setupAutoSave();
-      });
+      await this.initializeSession(url);
     }
 
     try {
@@ -266,7 +213,7 @@ export class Code implements DurableObject {
 
     const head = makeHash(this.session);
 
-    this.xLog(this.session);
+    await this.historyManager.logCodeSpace(this.session);
     this.state.storage.put(head, {
       ...this.session,
       oldHash: msg.oldHash,
@@ -285,9 +232,6 @@ export class Code implements DurableObject {
     });
 
     this.state.storage.put("head", head);
-
-    // Trigger auto-save after updating session storage
-    this.autoSave();
   }
 
   setSession(session: ICodeSession) {
@@ -307,16 +251,14 @@ export class Code implements DurableObject {
     return this.origin;
   }
 
-  async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
-    return this.autoSaveHistory;
+  // New methods to interact with CodeHistoryManager
+  async saveCode(): Promise<void> {
+    await this.historyManager.logCodeSpace(this.session);
   }
 
-  async setAutoSaveHistory(history: AutoSaveEntry[]): Promise<AutoSaveEntry[]> {
-    return this.autoSaveHistory = history;
-  }
-
-  async restoreFromAutoSave(timestamp: number): Promise<boolean> {
-    const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
+  async restoreCode(timestamp: number): Promise<boolean> {
+    const history = await this.historyManager.getHistory(this.session.codeSpace);
+    const entry = history.find(e => e.timestamp === timestamp);
     if (entry) {
       this.session.code = entry.code;
       this.state.storage.put("session", this.session);
