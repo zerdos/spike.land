@@ -1,4 +1,5 @@
 import type { ICodeSession } from "@/lib/interfaces";
+import type { CodePatch } from "@/lib/make-sess";
 import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "@/lib/make-sess";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
@@ -196,7 +197,7 @@ async function handleSocketMessage(
 
   if (data.strSess) {
     const sess = makeSession(
-      typeof data.strSess === "string" ? JSON.parse(data.strSess) : data.strSess as ICodeSession,
+      (typeof data.strSess === "string" ? JSON.parse(data.strSess) : data.strSess) as ICodeSession,
     );
     if (sess.i >= connection.oldSession.i) {
       connection.oldSession = sess;
@@ -295,7 +296,7 @@ async function handleSocketMessage(
     }
     console.log("Handling hash update message");
     await handleHashUpdate(
-      data as { newHash: string; oldHash: string; hashCode: string },
+      data as unknown as CodePatch,
       connection,
       codeSpace,
     );
@@ -387,7 +388,7 @@ async function handleHandshake(
  * @param codeSpace - The code space identifier.
  */
 async function handleHashUpdate(
-  data: { newHash: string; oldHash: string; hashCode: string },
+  data: CodePatch,
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
@@ -460,17 +461,13 @@ async function handleHashMismatch(
  * @param signal - The AbortSignal to handle cancellation.
  */
 async function handleHashMatch(
-  data: { newHash: string; oldHash: string; hashCode: string },
+  data: CodePatch,
   connection: Connection,
   oldSession: ICodeSession,
   signal: AbortSignal,
 ): Promise<void> {
   console.log("Handling hash match");
-  const newSession = applyCodePatch(oldSession, {
-    ...data,
-    patch: [],
-    reversePatch: [],
-  });
+  const newSession = applyCodePatch(oldSession, data);
   const newHash = makeHash(newSession);
   console.log("New hash:", newHash);
 
@@ -479,7 +476,7 @@ async function handleHashMatch(
     return;
   }
 
-  if (data.newHash === newHash || data.hashCode === newHash) {
+  if (data.newHash === newHash) {
     console.log("New hash matches received hash");
     connection.oldSession = newSession;
     connection.lastHash = newHash;
@@ -490,23 +487,7 @@ async function handleHashMatch(
     });
     console.log("Broadcasted new session");
   } else {
-    console.log("New hash does not match received hash");
-    if (signal.aborted) {
-      console.log("Hash match handling aborted before fetching new session");
-      return;
-    }
-    console.log("Fetching new session due to hash mismatch");
-    connection.oldSession = await fetchInitialSession(connection.codeSpace);
-    if (signal.aborted) {
-      console.log("Hash match handling aborted after fetching new session");
-      return;
-    }
-    const { broadcastChannel } = connection;
-    broadcastChannel.postMessage({
-      ...connection.oldSession,
-      sender: SENDER_WORKER_HASH_MISMATCH_RELOAD,
-    });
-    console.log("Broadcasted reloaded session");
+    throw new Error("New hash does not match received hash");
   }
 }
 
@@ -689,7 +670,7 @@ const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
 const SENDER_WORKER_HANDSHAKE = "WORKER_HANDSHAKE";
 const SENDER_WORKER_HASH_MISMATCH = "WORKER_HASH_MISMATCH";
 const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
-const SENDER_WORKER_HASH_MISMATCH_RELOAD = "WORKER_HASH_MISMATCH_RELOAD";
+// const SENDER_WORKER_HASH_MISMATCH_RELOAD = "WORKER_HASH_MISMATCH_RELOAD";
 
 // Expose the setConnections function to the global scope
 Object.assign(globalThis, {
