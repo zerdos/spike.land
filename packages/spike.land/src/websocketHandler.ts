@@ -1,5 +1,5 @@
 import { WebSocket } from "@cloudflare/workers-types";
-import { applyCodePatch, CodePatch, Delta, makeHash } from "@spike-land/code";
+import { applyCodePatch, CodePatch, Delta, makeHash, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
@@ -150,7 +150,7 @@ export class WebSocketHandler {
           error: `old hashes not matching`,
           i: this.code.session.i,
           hash: oldHash,
-          strSess: this.code.session,
+          strSess: stringifySession(this.code.session),
         });
       }
       // session.name = data.name;
@@ -248,7 +248,7 @@ export class WebSocketHandler {
         error: `old hashes not matching`,
         i: this.code.session.i,
         hash: oldHash,
-        strSess: this.code.session,
+        strSess: stringifySession(this.code.session)
       });
     }
 
