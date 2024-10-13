@@ -3,10 +3,10 @@
     "jsx": "react-jsxdev",
     "jsxImportSource": "@emotion/react",
     "target": "esnext",
-    "module": "esnext",
+    "module": "CommonJS",
     "lib": ["esnext"],
     "types": ["@cloudflare/workers-types"]
   },
   "exclude": ["dts", "node_modules", "dist", "functions"],
-  "include": ["packages/**/*.ts", "packages/**/*.tsx"]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "eslint.config.cjs"]
 }

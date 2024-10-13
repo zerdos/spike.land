@@ -1,26 +1,24 @@
 // eslint.config.cjs
 
 const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
+const tsEslint = require("typescript-eslint");
 const reactPlugin = require("eslint-plugin-react");
 
 module.exports = [
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...tsEslint.configs.recommended,
   {
     ignores: [
-      "dist",
-      "dts",
+      "dist/**/*",
+      "dts/**/*",
       "tw-chunk**",
-
-      "node_modules",
-      "s",
+      "node_modules/**/*",
     ],
   },
   {
-    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.cjs", "**/*.mjs"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.mjs"],
     languageOptions: {
-      parser: tseslint.parser,
+      parser: tsEslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
         ecmaVersion: 2022,
@@ -31,15 +29,14 @@ module.exports = [
       },
     },
     plugins: {
-      "@typescript-eslint": tseslint.plugin,
+      "@typescript-eslint": tsEslint.plugin,
       "react": reactPlugin
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
+      ...tsEslint.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
-      "react/react-in-jsx-scope": ['off'],
-      "react/prop-types": ["off"
-      ],
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
@@ -54,6 +51,17 @@ module.exports = [
       react: {
         version: "detect",
       },
+    },
+  },
+  {
+    files: ["eslint.config.cjs"],
+    languageOptions: {
+      sourceType: "commonjs",
+      ecmaVersion: 2022,
+    },
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-var-requires": "off",
     },
   },
 ];

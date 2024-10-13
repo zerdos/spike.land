@@ -96,7 +96,7 @@ export class RouteHandler {
   }
 
   private async handleAutoSaveRoute(
-    request: Request,
+    _request: Request,
     url: URL,
     path: string[],
   ): Promise<Response> {
@@ -105,7 +105,7 @@ export class RouteHandler {
     try {
       switch (action) {
         case "history":
-          const subAction = path[2];
+          { const subAction = path[2];
           if (subAction === "delete") {
             const itemToDelete = path[3];
             const uniqueHistory = await this.getUniqueHistory();
@@ -119,7 +119,7 @@ export class RouteHandler {
             });
           }
 
-          return this.getAutoSaveHistory();
+          return this.getAutoSaveHistory(); }
 
         case "restore": {
           const restoreTimestamp = Number(path[2]);
@@ -141,7 +141,7 @@ export class RouteHandler {
           }
         }
         default:
-          await this.code.autoSave();
+          { await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
           const respText = HTML.replace(
@@ -169,7 +169,7 @@ export class RouteHandler {
             "content_hash": md5(respText),
           });
 
-          return new Response(respText, { status: 200, headers });
+          return new Response(respText, { status: 200, headers }); }
       }
     } catch (error) {
       console.error("Error in handleAutoSaveRoute:", error);
@@ -260,9 +260,8 @@ export class RouteHandler {
   }
 
   private async handleSessionRoute(
-    request: Request,
+    _request: Request,
     url: URL,
-    path: string[],
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const body = stringifySession(
@@ -280,7 +279,7 @@ export class RouteHandler {
     });
   }
 
-  private async handleLazyRoute(request: Request, url: URL): Promise<Response> {
+  private async handleLazyRoute(_request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
 
     return new Response(
@@ -392,7 +391,7 @@ hQIDAQAB
   ): Promise<Response> {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
-    const { html } = this.code.session;
+
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
@@ -415,7 +414,7 @@ hQIDAQAB
     return new Response(respText, { status: 200, headers });
   }
 
-  private async handleRoomRoute(request: Request, url: URL): Promise<Response> {
+  private async handleRoomRoute(_request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     return new Response(JSON.stringify({ codeSpace }), {
       status: 200,
@@ -430,7 +429,7 @@ hQIDAQAB
 
   private async handlePathRoute(
     _request: Request,
-    url: URL,
+    _url: URL,
     path: string[],
   ): Promise<Response> {
     return new Response(path.join("----"), {
@@ -445,8 +444,8 @@ hQIDAQAB
   }
 
   private async handleLiveRoute(
-    request: Request,
-    url: URL,
+    _request: Request,
+    _url: URL,
     path: string[],
   ): Promise<Response> {
     if (path[3] === "index.tsx" && path[4]) {
@@ -472,7 +471,7 @@ hQIDAQAB
   }
 
   private async handleWrapHTMLRoute(
-    request: Request,
+    _request: Request,
     url: URL,
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
@@ -504,7 +503,7 @@ hQIDAQAB
     });
   }
 
-  private async handleWrapRoute(request: Request, url: URL): Promise<Response> {
+  private async handleWrapRoute(_request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
@@ -528,9 +527,8 @@ hQIDAQAB
   }
 
   private async handleScreenShotRoute(
-    request: Request,
-    url: URL,
-    path: string[],
+    _request: Request,
+    url: URL
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
@@ -540,7 +538,7 @@ hQIDAQAB
   }
 
   private async handleRenderToStr(
-    request: Request,
+    _request: Request,
     url: URL,
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
@@ -607,7 +605,7 @@ let { html, css, ids } = extractCritical(renderToString(element))
     });
   }
 
-  private async handleHtmlRoute(request: Request): Promise<Response> {
+  private async handleHtmlRoute(): Promise<Response> {
     const html = this.code.session.html;
 
     return new Response(html, {
@@ -621,7 +619,7 @@ let { html, css, ids } = extractCritical(renderToString(element))
     });
   }
 
-  private async handleJsRoute(request: Request): Promise<Response> {
+  private async handleJsRoute(): Promise<Response> {
     const replaced = importMapReplace(
       this.code.session.transpiled,
       this.code.getOrigin(),
@@ -639,7 +637,7 @@ let { html, css, ids } = extractCritical(renderToString(element))
     });
   }
 
-  private async handleCssRoute(request: Request): Promise<Response> {
+  private async handleCssRoute(): Promise<Response> {
     return new Response(this.code.session.css, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -664,8 +662,8 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleHashCodeRoute(
-    request: Request,
-    url: URL,
+    _request: Request,
+    _url: URL,
     path: string[],
   ): Promise<Response> {
     const hashCode = String(Number(path[1]));

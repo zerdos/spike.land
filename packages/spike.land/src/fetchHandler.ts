@@ -103,24 +103,6 @@ function handleImportMapJson(): Response {
   });
 }
 
-function handleSwVersionResponse(
-  type: string,
-  ASSET_HASH: string,
-  files: unknown,
-) {
-  const content = files === undefined
-    ? `export const swVersion = "${ASSET_HASH}";`
-    : `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)};`;
-
-  return new Response(content, {
-    headers: {
-      "content-type": "application/javascript; charset=utf-8",
-      "Cache-Control": "no-cache",
-      "Content-Encoding": "gzip",
-    },
-  });
-}
-
 async function handleIpfsRequest(request: Request): Promise<Response> {
   const u = new URL(request.url, "https://cloudflare-ipfs.com");
   const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
@@ -135,7 +117,7 @@ async function handleIpfsRequest(request: Request): Promise<Response> {
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
-  const [_, codeSpace, ...remainingPath] = path;
+  const [, codeSpace, ...remainingPath] = path;
 
   if (!codeSpace) {
     return new Response("Invalid codeSpace", { status: 400 });
