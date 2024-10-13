@@ -1,5 +1,5 @@
 import emotion from "@emotion/css-prettifier";
-import emotionPlugin from "@emotion/css-prettifier";
+// import emotionPlugin from "@emotion/css-prettifier";
 import type { Options } from "prettier";
 import pluginEstree from "prettier/plugins/estree";
 import postCss from "prettier/plugins/postcss";
@@ -137,7 +137,8 @@ const prettierConfig: Options = {
   useTabs: false,
   parser: "typescript", // Prettier will infer the parser based on file extension
   singleAttributePerLine: false,
-  plugins: [pluginEstree, pluginTypescript, emotionPlugin],
+  plugins: [pluginEstree, pluginTypescript // emotionPlugin
+  ],
 };
 
 export const prettierJs = async (
