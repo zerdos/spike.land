@@ -1,5 +1,6 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
 import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
+import type { MyBuildOptions } from "@/lib/transpile";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -69,7 +70,7 @@ class WorkerPool {
     const freeWorkers = this.workers.filter((worker) => !worker.busy && worker.tag === tag)
       .length;
     if (freeWorkers < this.minFreeWorkers) {
-      this.addWorker(tag); // Now synchronous
+      this.addWorker(tag);
     }
 
     return availableWorker;
@@ -80,7 +81,6 @@ class WorkerPool {
   }
 }
 
-// Usage
 let workerPool: WorkerPool;
 
 async function init() {
@@ -89,7 +89,6 @@ async function init() {
   workerPool = (globalThis as unknown as { workerPool: WorkerPool }).workerPool
     || new WorkerPool(0, swVersion);
   Object.assign(globalThis, { workerPool });
-  // const worker = (await init()).getWorker("connect");
 
   return workerPool;
 }
@@ -169,6 +168,7 @@ export const createWorkflow = async (q: string): Promise<string> => {
     (await init()).releaseWorker(worker);
   }
 };
+
 let mutex: Mutex;
 
 export const transpile = async ({
@@ -212,16 +212,9 @@ export const build = async ({
   origin,
   format = "esm",
   splitting = false,
-  entryPoint = "",
+  entryPoints,
   external = [],
-}: {
-  codeSpace: string;
-  splitting?: boolean;
-  external?: string[];
-  origin: string;
-  entryPoint?: string;
-  format: "esm" | "iife";
-}): Promise<string> => {
+}: MyBuildOptions): Promise<string> => {
   const worker = (await init()).getWorker("esbuild");
   try {
     return await worker.rpc.rpc("build", {
@@ -229,7 +222,7 @@ export const build = async ({
       origin,
       splitting,
       external,
-      entryPoint,
+      entryPoints,
       format,
     });
   } finally {

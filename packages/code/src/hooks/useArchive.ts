@@ -191,7 +191,7 @@ export const useSpeedy = async (codeSpace: string) => {
       return await build({
         codeSpace,
         splitting: true,
-        entryPoint,
+        entryPoints: entryPoint ? [entryPoint] : [],
         origin: location.origin,
         format: "esm",
       });
@@ -201,7 +201,7 @@ export const useSpeedy = async (codeSpace: string) => {
       return await build({
         codeSpace,
         splitting: true,
-        entryPoint,
+        entryPoints: entryPoint ? [entryPoint] : [],
         origin: location.origin,
         format: "esm",
       });

@@ -1,11 +1,33 @@
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 interface AIBuildingOverlayProps {
-  isStreaming: boolean;
+  codeSpace: string;
 }
 
-export function AIBuildingOverlay({ isStreaming }: AIBuildingOverlayProps) {
+export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
+  const [isStreaming, setIsSteaming] = useState(false);
+
+  useEffect(() => {
+    const BC = new BroadcastChannel("chat-" + codeSpace);
+
+    BC.onmessage = (e) => {
+      if (e.data.isStreaming !== false) setIsSteaming(false);
+      else      setIsSteaming(true);
+    };
+
+    const timeout = setTimeout(() => {
+      setIsSteaming(false);
+    }, 1000);
+    
+  return () => {
+    clearTimeout(timeout);
+    BC.close();
+  }
+
+  }, []);
+  
   if (!isStreaming) return null;
 
   return (

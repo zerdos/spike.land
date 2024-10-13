@@ -133,6 +133,13 @@ function createWebSocket(codeSpace: string) {
   const delegate = {
     socketDidOpen() {
       console.log("Socket opened");
+
+      const connection = connections.get(codeSpace)!;
+
+      connection.webSocket.send(
+        JSON.stringify({ type: "handShake", name: connection.user, hashCode: connection.lastHash }),
+      );
+
       // Socket is ready to write.
     },
     socketDidClose(_socket: Socket, code?: number, reason?: string) {
@@ -184,6 +191,19 @@ async function handleSocketMessage(
 
   if (data.type === "ping") {
     console.log("Received ping message");
+    return;
+  }
+
+  if (data.strSess) {
+    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
+    const patch = createPatch(sess, connection.oldSession);
+    connection.webSocket.send(
+      JSON.stringify({
+        ...patch,
+        name: connection.user,
+        i: connection.oldSession.i,
+      }),
+    );
     return;
   }
 

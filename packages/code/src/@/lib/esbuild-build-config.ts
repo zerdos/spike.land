@@ -9,6 +9,7 @@ export const buildOptions: BuildOptions = {
   target: "es2024",
   sourcemap: false,
   outdir: "dist",
+
   bundle: true,
   outExtension: { ".js": ".mjs" },
   alias: {
