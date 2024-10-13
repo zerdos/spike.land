@@ -56,7 +56,7 @@ interface ChatMessagePart {
 }
 
 const parseMessageParts = (text: string): ChatMessagePart[] => {
-  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
+  const codeBlockRegex = /```(\w+)?\n([\s\S]*?)(?:```|$)/g;
   const parts: ChatMessagePart[] = [];
   let lastIndex = 0;
   let match;
@@ -64,7 +64,7 @@ const parseMessageParts = (text: string): ChatMessagePart[] => {
   while ((match = codeBlockRegex.exec(text)) !== null) {
     if (match.index > lastIndex) {
       const textContent = text.slice(lastIndex, match.index);
-      if (textContent.trim()) {
+      if (textContent.trim().length > 0) {
         parts.push({ type: "text", content: textContent.trim() });
       }
     }
@@ -79,7 +79,7 @@ const parseMessageParts = (text: string): ChatMessagePart[] => {
 
   if (lastIndex < text.length) {
     const remainingText = text.slice(lastIndex);
-    if (remainingText.trim()) {
+    if (remainingText.trim().length > 0) {
       parts.push({ type: "text", content: remainingText.trim() });
     }
   }
