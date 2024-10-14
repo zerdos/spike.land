@@ -45,7 +45,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       trackMouse: true,
     });
 
-    const memoizedHandlers = useMemo(() => handlers, [onClose]);
+    const memoizedHandlers = useMemo(() => handlers, [handlers, onClose]);
 
     const handleButtonClick = useCallback(() => {
       onClose();

@@ -43,4 +43,6 @@ const modified = `
 </DiffContainer>
 `;
 
-export default () => <DiffViewer original={original} modified={modified} />;
+const DiffEditor: FC = () => <DiffViewer original={original} modified={modified} />;
+
+export default DiffEditor;

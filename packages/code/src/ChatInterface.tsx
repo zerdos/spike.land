@@ -49,13 +49,13 @@ const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setMessages]);
+  }, [setInput, setMessages]);
 
   useEffect(() => {
     if (mess && mess.length > 0) {
       setMessages(mess);
     }
-  }, []);
+  }, [mess, setMessages]);
 
   useEffect(() => {
     if (isOpen) {
@@ -74,7 +74,7 @@ const ChatInterface: React.FC<{
       setMess(messages);
     }, 1000);
     return () => clearTimeout(interval);
-  }, [messages]);
+  }, [isOpen, messages, setMess]);
 
   // useEffect(() => {
   //   const lastMessage = messages[messages.length - 1];
@@ -160,7 +160,7 @@ const ChatInterface: React.FC<{
     return () => {
       BC.close();
     };
-  }, []);
+  }, [cSess, codeSpace, setIsStreaming, setMessages]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -200,11 +200,11 @@ const ChatInterface: React.FC<{
         );
       }
     }
-  }, [isOpen, codeSpace, handleSendMessage]);
+  }, [isOpen, codeSpace, setInput, cSess]);
 
   const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
-  }, []);
+  }, [setInput]);
 
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     setEditingMessageId(messageId);
@@ -219,7 +219,7 @@ const ChatInterface: React.FC<{
       : messageToEdit.content;
 
     setEditInput(contentToEdit);
-  }, [handleSendMessage]);
+  }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);

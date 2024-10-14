@@ -9,8 +9,7 @@ export async function handleFetchApi(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
-  const u = new URL(request.url);
-  const newUrl = new URL(path.join("/"), u.origin);
+
 
   if (request.method === "OPTIONS") {
     return handleCORS(request);
@@ -43,7 +42,7 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemap
-Sitemap: ${u.origin}/sitemap.xml
+Sitemap: ${new URL(request.url).origin}/sitemap.xml
       `;
       return new Response(cont, {
         headers: {
@@ -63,7 +62,7 @@ Sitemap: ${u.origin}/sitemap.xml
   const handler = handlers[path[0]];
   return handler
     ? handler()
-    : handleDefaultCase(path, request, env, ctx, u, newUrl);
+    : handleDefaultCase(path, request, env, ctx);
 }
 
 function handlePing(): Response {
@@ -152,7 +151,7 @@ async function handlePublicRequest(
   const key = `live/${codeSpace}/${path.join("/")}`;
 
   switch (request.method) {
-    case "GET":
+    case "GET":{
       const object = await env.R2.get(key);
       if (!object) {
         return new Response("File not found", { status: 404 });
@@ -163,7 +162,7 @@ async function handlePublicRequest(
       headers.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
       headers.set("Access-Control-Allow-Origin", "*");
       return new Response(object.body, { headers });
-
+    }
     case "PUT":
       if (!request.body) {
         return new Response("Missing request body", { status: 400 });
@@ -189,7 +188,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     case "DELETE":
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
-    case "GET":
+    case "GET":{
       const object = await env.R2.get(key);
       if (!object) {
         const paths = key.split("/").slice(-2).map((p) =>
@@ -205,6 +204,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
       headers.set("Cross-Origin-Embedder-Policy", "require-corp");
       headers.set("Content-Type", "application/javascript; charset=UTF-8");
       return new Response(object.body, { headers });
+    }
     default:
       return new Response("Method not allowed", { status: 405 });
   }
@@ -215,8 +215,6 @@ async function handleDefaultCase(
   request: Request,
   env: Env,
   ctx: ExecutionContext,
-  u: URL,
-  newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
     const esmCache = await caches.open("esm127");
@@ -235,7 +233,7 @@ async function handleDefaultCase(
 
     if (resp.headers.get("Content-Type")?.includes("javascript")) {
       const text = await resp.text();
-      const importMapReplaced = importMapReplace(text, u.origin);
+      const importMapReplaced = importMapReplace(text, new URL(request.url).origin);
 
       const response2 = new Response(importMapReplaced, {
         headers: new Headers(resp.headers),
@@ -250,10 +248,6 @@ async function handleDefaultCase(
 
     return resp;
   }
-
-  const file = newUrl.pathname.slice(0, 7) === ("/assets/")
-    ? newUrl.pathname.slice(8)
-    : newUrl.pathname.slice(1);
 
   return new Response("not found :((( ", { status: 404 });
 }

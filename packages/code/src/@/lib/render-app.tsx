@@ -31,7 +31,7 @@ export function createEmotionCache(
   };
 }
 
-const origin = location.origin.includes("localhost")?'https://testing.spike.land':location.origin;
+const origin = location.origin;
 
 const createJsBlob = (code: string): string =>
   new URL(

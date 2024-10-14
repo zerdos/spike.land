@@ -84,9 +84,9 @@ export default {
       ? "https://testing.spike.land"
       : "https://spike.land";
 
-    // if (request.method === "GET") {
-    //   return handleGetRequest(codeSpace, origin);
-    // }
+    if (request.method === "GET") {
+      return handleGetRequest(codeSpace, origin);
+    }
 
     if (request.method === "POST") {
       return handlePostRequest(request);
