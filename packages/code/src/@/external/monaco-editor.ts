@@ -50,8 +50,10 @@ const origin = location.origin.includes("localhost")
 //   return workerPool[label] as Worker;
 // };
 
+const baseUrl = origin + "/";
+
 const MonacoEnvironment = {
-  baseUrl: origin + "/",
+  baseUrl,
 
   getWorkerUrl: (_moduleId: string, _label: string) => {
     if (_label === "typescript" || _label === "javascript") {
