@@ -30,6 +30,10 @@ class WorkerWrapper {
   }
 }
 
+const origin = location.origin.includes("localhost")
+  ? "https://testing.spike.land"
+  : location.origin;
+
 class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
@@ -43,8 +47,8 @@ class WorkerPool {
   private addWorker(tag: string) {
     const worker = new AlwaysSupportedSharedWorker(
       tag === "connect"
-        ? `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=connect`
-        : `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=${tag}-${this.workers.length}`,
+        ? `${origin}/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=connect`
+        : `${origin}/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=${tag}-${this.workers.length}`,
     );
 
     const port = worker.port;
