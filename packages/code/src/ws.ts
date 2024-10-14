@@ -185,7 +185,7 @@ export const main = async () => {
       });
 
       console.log("Rendering preview window...");
-      await twUp();
+      // await twUp();
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {

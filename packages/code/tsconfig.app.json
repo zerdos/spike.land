@@ -11,6 +11,9 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "DOM.AsyncIterable"],
     "module": "ESNext",
     "outDir": "dts",
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "dts",
 
     "skipLibCheck": true,
 
@@ -30,5 +33,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dts"]
 }

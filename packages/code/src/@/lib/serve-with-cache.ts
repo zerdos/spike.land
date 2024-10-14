@@ -144,7 +144,7 @@ export const serveWithCache = (
 
           // Overwrite the Cache-Control header
           headers.set("Cache-Control", "public, max-age=604800, immutable");
-
+          headers.set("Access-Control-Allow-Origin", "*");
           // Set security headers
           headers.set("Cross-Origin-Embedder-Policy", "require-corp");
 

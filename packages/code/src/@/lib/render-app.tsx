@@ -31,7 +31,7 @@ export function createEmotionCache(
   };
 }
 
-const origin = location.origin;
+const origin = location.origin.includes("localhost")?'http://testing.spike.land':location.origin;
 
 const createJsBlob = (code: string): string =>
   new URL(
@@ -42,7 +42,7 @@ const createJsBlob = (code: string): string =>
         ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`),
       ], { type: "application/javascript" }),
     ),
-    location.origin,
+    origin,
   ).toString();
 
 type GlobalWithRenderedApps = typeof globalThis & {
@@ -82,7 +82,7 @@ async function renderApp(
           createJsBlob(
             await transpile({
               code: `export default ()=><div></div>`,
-              originToUse: location.origin,
+              originToUse: origin,
             }),
           )
         )).default;
@@ -90,12 +90,12 @@ async function renderApp(
         AppToRender = (await import(
           createJsBlob(
             transpiled ||
-              await transpile({ code: code!, originToUse: location.origin }),
+              await transpile({ code: code!, originToUse: origin }),
           )
         )).default;
       }
     } else if (codeSpace) {
-      const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
+      const indexJs = `${origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(indexJs)).default;
       if (!AppToRender) {
         emptyApp = true;
@@ -103,7 +103,7 @@ async function renderApp(
           createJsBlob(
             await transpile({
               code: `export default ()=><div></div>`,
-              originToUse: location.origin,
+              originToUse: origin,
             }),
           )
         )).default;
@@ -114,8 +114,13 @@ async function renderApp(
 
     const root = createRoot(rootEl);
 
+    const cacheKey =md5(transpiled || code).toLocaleLowerCase().replace(/[0-9]/g, '');
+    ///remove the numbers
+    // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
+
+
     const cssCache = createCache({
-      key: md5(transpiled! || code! || Math.random().toString()),
+      key:cacheKey,
       speedy: prerender ? false : true,
       container: rootEl.parentNode!,
     });

@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src"],
   "exclude": ["node_modules", "dts"],  // Fixed the exclude pattern
   "references": [
     { "path": "./tsconfig.app.json" },
@@ -8,11 +8,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "target": "esnext",
+    "module": "esnext",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
   
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "outDir": "dts",
 
     "paths": {

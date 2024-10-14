@@ -1,6 +1,10 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 
+const origin = location.origin.includes("localhost")
+  ? "http://testing.spike.land"
+  : location.origin;
+
 export class CodeSessionBC {
   private broadcastChannel: BroadcastChannel;
   session: ICodeSession | null = null;
@@ -62,7 +66,7 @@ export class CodeSessionBC {
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     return this.session = session || this.session ||
-      (await fetch(`/live/${this.codeSpace}/session.json`).then((response) =>
+      (await fetch(`${origin}/live/${this.codeSpace}/session.json`).then((response) =>
         response.json()
       )) as ICodeSession;
   }
