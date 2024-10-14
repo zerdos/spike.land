@@ -114,7 +114,7 @@ async function renderApp(
 
     const root = createRoot(rootEl);
 
-    const cacheKey =md5(transpiled || code).toLocaleLowerCase().replace(/[0-9]/g, '');
+    const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(/[0-9]/g, '');
     ///remove the numbers
     // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
 
