@@ -5,8 +5,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
 import { main } from "./ws";
-import "./index.css";
-import "./assets/app.css";
 
 // if ("serviceWorker" in navigator) {
 //   navigator.serviceWorker.getRegistrations().then((registrations) => {
