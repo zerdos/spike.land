@@ -1,26 +1,26 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import { md5 } from "@/lib/md5";
 
 import { wait } from "@/lib/wait";
 
 import { build } from "@/lib/shared";
-import { useAuth } from "@clerk/clerk-react";
+// import { useAuth } from "@clerk/clerk-react";
 
-const auth = () => {
-  const { getToken } = useAuth();
-  const authenticatedFetch = async (url: string, options: RequestInit) => {
-    return fetch(url, {
-      ...options,
-      headers: { Authorization: `Bearer ${await getToken()}` },
-    }).then((res) => res.json());
-  };
-  Object.assign(globalThis, { authenticatedFetch });
-};
+// const auth = () => {
+//   const { getToken } = useAuth();
+//   const authenticatedFetch = async (url: string, options: RequestInit) => {
+//     return fetch(url, {
+//       ...options,
+//       headers: { Authorization: `Bearer ${await getToken()}` },
+//     }).then((res) => res.json());
+//   };
+//   Object.assign(globalThis, { authenticatedFetch });
+// };
 
-Object.assign(globalThis, { auth, wait, build });
+Object.assign(globalThis, {  wait, build });
 
-export const useSpeedy2 = async () => {
-  const codeSpace = useCodeSpace();
+export const getSpeedy2 = async () => {
+  const codeSpace = getCodeSpace();
 
   console.log({ external });
   const res = await build({
@@ -121,7 +121,7 @@ export const useSpeedy2 = async () => {
 
   console.log({ res });
 };
-Object.assign(globalThis, { useSpeedy2 });
+Object.assign(globalThis, { getSpeedy2 });
 
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {

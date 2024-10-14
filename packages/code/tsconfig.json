@@ -1,105 +1,17 @@
 {
-  "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
-    /* Basic Options */
-
-    "allowJs": false,
-    "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true,
-
-    "jsx": "react-jsx",
-    "declaration": true,
-    "checkJs": false,
-    "jsxImportSource": "@emotion/react",
-    "sourceMap": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-
-    /* Strict Type-Checking Options */
-
-    /* Additional Checks */
-    // "noUnusedLocals": true,                /* Report errors on unused locals. */
-    // "noUnusedParameters": true,            /* Report errors on unused parameters. */
-    // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
-    // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
-    // "noUncheckedIndexedAccess": true,      /* Include 'undefined' in index signature results */
-
-    /* Module Resolution Options */
-    // "rootDirs": [".", "../../../node_modules"],
-    "strict": true,
-    "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    "resolveJsonModule": true,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    // "noEmit": true,
-    "outDir": "dts",
-    "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true,
-    // "isolatedDeclarations": true,
-
-    // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
-    // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
-
-    /* Source Map Options */
-    // "sourceRoot": "",                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
-    // "mapRoot": "",                         /* Specify the location where debugger should locate map files instead of generated locations. */
-    // "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
-    // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
-
-    /* Experimental Options */
-    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
-    // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
-    "composite": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/@/*"],
-      "@src/*": ["./src/*"]
-    },
-
-    "isolatedModules": true,
-    "removeComments": false,
-    "module": "ESNext",
-    "incremental": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true, /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "target": "ES2022",
-
-    "lib": [
-      "ESNext",
-      "DOM",
-      "ESNext.BigInt",
-      "ESNext.String",
-      "ESNext.Promise",
-      "DOM.AsyncIterable",
-      "ESNext.AsyncIterable",
-      "DOM.Iterable",
-      "WebWorker",
-      "WebWorker.ImportScripts",
-      "Webworker.Iterable"
-    ],
-
-    "allowUmdGlobalAccess": true,
-    "types": [
-      "@types/wicg-file-system-access",
-      "@types/node",
-      "@types/react",
-      "@types/react-dom",
-      "vitest"
-    ]
-  },
-  "include": [
-    "./*.ts",
-    "./*.tsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.mjs",
-    "helpers.ts"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ],
-  "exclude": [".yarn", "dist", "esbuild-depts.ts", "assets", "node_modules"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "dts",
+    "paths": {
+      "@/*": [
+        "./src/@/*"
+      ]
+    },
+  }
 }

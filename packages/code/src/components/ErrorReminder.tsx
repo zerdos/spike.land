@@ -9,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContextManager } from "@/lib/context-manager";
 import { errorMessages } from "./ErrorMessages";
 import type { ErrorType } from "./ErrorMessages";
-import { useErrorEffect } from "@src/hooks/useErrorEffect";
+import { useErrorEffect } from "../hooks/useErrorEffect";
 
 export const EditorNode: React.FC<{
   engine: "monaco" | "ace";

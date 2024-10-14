@@ -1,9 +1,9 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
-import type { EditorState } from "@src/components/editorUtils";
-import type { ErrorType } from "@src/components/ErrorMessages";
+import { getCodeSpace } from "@/hooks/use-code-space";
+import type { EditorState } from "../components/editorUtils";
+import type { ErrorType } from "../components/ErrorMessages";
 import { useRef, useState } from "react";
 import { useContext } from "./useContext";
-import { isMobile } from "@src/isMobile";
+import { isMobile } from "../isMobile";
 
 export const useEditorState = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -21,7 +21,7 @@ export const useEditorState = () => {
 
 export const useErrorHandling = () => {
   const [error, setError] = useState<ErrorType>(null);
-  const contextManager = useContext(useCodeSpace());
+  const contextManager = useContext(getCodeSpace());
 
   const handleError = (errorType: ErrorType, errorMessage: string) => {
     setError(errorType);

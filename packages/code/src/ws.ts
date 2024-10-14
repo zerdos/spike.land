@@ -1,4 +1,4 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
@@ -13,7 +13,7 @@ import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init as twUp } from "./tw-dev-setup";
 
 // Global variables and types
-const codeSpace = useCodeSpace();
+const codeSpace = getCodeSpace();
 let rendered: RenderedApp | null = null;
 let renderedMd5 = "";
 

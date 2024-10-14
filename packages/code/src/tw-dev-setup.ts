@@ -1,4 +1,4 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 
 const IFRAME_PATH = "/iframe";
 const LIVE_PATH = "/live/";
@@ -11,7 +11,7 @@ export const init = async (): Promise<true> => {
     return true;
   }
   initialized = true;
-  const codeSpace = useCodeSpace();
+  const codeSpace = getCodeSpace();
   const { pathname, origin } = window.location;
 
   if (

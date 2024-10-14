@@ -1,17 +1,17 @@
 import { describe, expect, test } from "vitest";
-import { getParts } from "@/lib/get-parts";
+import { getPartsStreaming } from "@/lib/get-parts";
 
 describe("getParts", () => {
   test("should handle empty input", () => {
     const input = "";
-    const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([]);
+    const result = getPartsStreaming(input, true);
+    expect(result.parts).toMatchInlineSnapshot([]);
   });
 
   test("should handle text without code blocks", () => {
     const input = "This is a simple text message.";
-    const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([
+    const result = getPartsStreaming(input, true);
+    expect(result.parts).toMatchInlineSnapshot([
       {
         type: "text",
         content: "This is a simple text message.",
@@ -22,8 +22,8 @@ describe("getParts", () => {
   test("should handle text with a single code block", () => {
     const input =
       "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
-    const result = getParts(input, false);
-    expect(result).toMatchInlineSnapshot([
+    const result = getPartsStreaming(input, false);
+    expect(result.parts).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Here is some code:",
@@ -39,33 +39,35 @@ describe("getParts", () => {
   test("should handle text with multiple code blocks", () => {
     const input =
       'First block:\n```javascript\nlet a = 1;\n```\nSecond block:\n```python\nprint("Hello")\n```';
-    const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "First block:",
-      },
-      {
-        type: "code",
-        language: "javascript",
-        content: "let a = 1;",
-      },
-      {
-        type: "text",
-        content: "Second block:",
-      },
-      {
-        type: "code",
-        language: "python",
-        content: 'print("Hello")',
-      },
-    ]);
+    const result = getPartsStreaming(input, true);
+    expect(result).toMatchInlineSnapshot(`
+      [
+        {
+          "type": "text",
+          "content": "First block:",
+        },
+        {
+          "type": "code",
+          "language": "javascript",
+          "content": "let a = 1;",
+        },
+        {
+          "type": "text",
+          "content": "Second block:",
+        },
+        {
+          "type": "code",
+          "language": "python",
+          "content": "print(\\"Hello\\")",
+        },
+      ]
+    `);
   });
 
   test("should handle code blocks with no language specified", () => {
     const input = "Code without language:\n```\nsome code\n```";
-    const result = getParts(input, false);
-    expect(result).toMatchInlineSnapshot([
+    const result = getPartsStreaming(input, false);
+    expect(result.parts).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Code without language:",
@@ -81,8 +83,8 @@ describe("getParts", () => {
   test("should handle search and replace markers", () => {
     const input =
       "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
-    const result = getParts(input, true);
-    expect(result).toMatchInlineSnapshot([
+    const result = getPartsStreaming(input, true);
+    expect(result.parts).toMatchInlineSnapshot([
       {
         type: "text",
         content: "Before",
@@ -102,44 +104,64 @@ describe("getParts", () => {
   test("should handle nested code blocks", () => {
     const input =
       'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
-    const result = getParts(input, true);
+    const result = getPartsStreaming(input, true);
     expect(result).toMatchInlineSnapshot(`
-      [
-        {
-          "content": "Outer block:",
-          "type": "text",
-        },
-        {
-          "content": "function example() {
-        console.log(\`Inner block:",
-          "language": "javascript",
-          "type": "code",
-        },
-        {
-          "content": "json
+      {
+        "parts": [
+          {
+            "content": "Outer block:",
+            "type": "text",
+          },
+          {
+            "content": "function example() {
+        console.log(\`Inner block:
+      ",
+            "language": "javascript",
+            "type": "code",
+          },
+          {
+            "content": "json
       {"key": "value"}
       \`\`\`\`);
       }
       \`\`\`",
-          "type": "text",
+            "type": "text",
+          },
+        ],
+        "state": {
+          "accumulatedContent": "",
+          "accumulatedDiffContent": "",
+          "isInCodeBlock": false,
+          "isInDiffBlock": false,
         },
-      ]
+      }
     `);
   });
 
   test("should handle an incomplete code block at the end", () => {
     const input = "Some text\n```javascript\nlet x = 10;\nconsole.log(x);";
-    const result = getParts(input, false);
+    const result = getPartsStreaming(input, false);
     expect(result).toMatchInlineSnapshot(`
-      [
-        {
-          "content": "Some text
-      \`\`\`javascript
-      let x = 10;
+      {
+        "parts": [
+          {
+            "content": "Some text",
+            "type": "text",
+          },
+          {
+            "content": "let x = 10;
       console.log(x);",
-          "type": "text",
+            "language": "javascript",
+            "type": "code",
+          },
+        ],
+        "state": {
+          "accumulatedContent": "",
+          "accumulatedDiffContent": "",
+          "isInCodeBlock": false,
+          "isInDiffBlock": false,
         },
-      ]
+      }
     `);
   });
 
@@ -159,36 +181,46 @@ describe("getParts", () => {
       >>>>>>> REPLACE
     `;
 
-    const result = getParts(input, true);
+    const result = getPartsStreaming(input, true);
     expect(result).toMatchInlineSnapshot(`
-      [
-        {
-          "content": "first change:",
-          "type": "text",
-        },
-        {
-          "content": "<<<<<<< SEARCH
+      {
+        "parts": [
+          {
+            "content": "first change:",
+            "type": "text",
+          },
+          {
+            "content": "<<<<<<< SEARCH
             const a = 1;
             =======
             const a = 2;
-            >>>>>>> REPLACE",
-          "language": "diff",
-          "type": "code",
-        },
-        {
-          "content": "second change:",
-          "type": "text",
-        },
-        {
-          "content": "<<<<<<< SEARCH
+            >>>>>>> REPLACE
+      ",
+            "language": "diff",
+            "type": "code",
+          },
+          {
+            "content": "second change:",
+            "type": "text",
+          },
+          {
+            "content": "<<<<<<< SEARCH
             let b = 3;
             =======
             let b = 4;
-            >>>>>>> REPLACE",
-          "language": "diff",
-          "type": "code",
+            >>>>>>> REPLACE
+      ",
+            "language": "diff",
+            "type": "code",
+          },
+        ],
+        "state": {
+          "accumulatedContent": "",
+          "accumulatedDiffContent": "",
+          "isInCodeBlock": false,
+          "isInDiffBlock": false,
         },
-      ]
+      }
     `);
   });
 
@@ -207,25 +239,10 @@ describe("getParts", () => {
       let b =
     `;
 
-    const result = getParts(input, false);
-    expect(result[0]).toMatchInlineSnapshot(`
-      {
-        "content": "first change:
-            <<<<<<< SEARCH
-            const a = 1;
-            =======
-            const a = 2;
-            =======
-          second change:
-            <<<<<<< SEARCH
-            let b = 3;
-            =======
-            let b =",
-        "type": "text",
-      }
-    `);
-    expect(result[1]).toMatchInlineSnapshot(`undefined`);
-    expect(result[2]).toMatchInlineSnapshot(`undefined`);
-    expect(result[3]).toMatchInlineSnapshot(`undefined`);
+    const result = getPartsStreaming(input, false);
+    expect(result.parts[0]).toMatchInlineSnapshot(`undefined`);
+    expect(result.parts[1]).toMatchInlineSnapshot(`undefined`);
+    expect(result.parts[2]).toMatchInlineSnapshot(`undefined`);
+    expect(result.parts[3]).toMatchInlineSnapshot(`undefined`);
   });
 });

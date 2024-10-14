@@ -9,7 +9,7 @@ vi.mock("@/hooks/use-local-storage", () => ({
 }));
 
 vi.mock("@/hooks/use-code-space", () => ({
-  useCodeSpace: vi.fn(),
+  getCodeSpace: vi.fn(),
 }));
 
 describe("AIBuildingOverlay", () => {

@@ -1,7 +1,7 @@
 import { updateSearchReplace } from "@/lib/chat-utils";
 import { extractCodeModification } from "@/lib/chat-utils";
 import { extractDiffContent, isDiffContent } from "@/lib/diff-utils";
-import { getParts } from "@/lib/get-parts";
+import { getPartsStreaming } from "@/lib/get-parts";
 import { describe, expect, it } from "vitest";
 
 describe("diffUtils", () => {
@@ -382,7 +382,7 @@ console.log("World");
   });
 
   it("should fix the fixable extractCodeModification", () => {
-    const res2 = getParts(example, false);
+    const res2 = getPartsStreaming(example, false);
     expect(res2).toMatchSnapshot();
   });
 });

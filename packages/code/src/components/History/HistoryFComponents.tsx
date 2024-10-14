@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import React from "react";
 
 const format = (date: Date): string =>
@@ -105,7 +105,7 @@ const FullScreenHistoryView: React.FC<{
               onDelete={async (timestamp) => {
                 try {
                   await fetch(
-                    `/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`,
+                    `/live/${getCodeSpace()}/auto-save/history/delete/${timestamp}`,
                   );
                   onDelete(timestamp);
                 } catch (error) {

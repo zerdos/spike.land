@@ -5,7 +5,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
-import { useEditorState, useErrorHandling } from "@src/hooks/use-editor-state";
+import { useEditorState, useErrorHandling } from "../hooks/use-editor-state";
 
 interface EditorProps {
   codeSpace: string;
@@ -72,7 +72,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
       cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
 
-      setEditorState((e) => ({ ...e, sub: true }));
+      setEditorState((e: typeof editorState) => ({ ...e, sub: true }));
       return;
     }
 
@@ -124,7 +124,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
 // const EditorContext = ()=>{
 //   const [showContext, setShowContext] = useState(false);
-//   const codeSpace = useCodeSpace();
+//   const codeSpace = getCodeSpace();
 // return <Card
 // className={cn(
 //   "transition-all duration-300 ease-in-out",

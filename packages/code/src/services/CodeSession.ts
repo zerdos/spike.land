@@ -1,6 +1,6 @@
 // CodeSession.ts
 
-// import { useCodeSpace } from "@/hooks/use-code-space";
+// import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
@@ -81,7 +81,7 @@ class CodeProcessor {
           }
         } catch (error) {
           // const res = await build({
-          //   codeSpace: useCodeSpace(),
+          //   codeSpace: getCodeSpace(),
           //   format: "esm",
           //   splitting: true,
           //   origin: location.origin,

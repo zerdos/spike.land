@@ -1,4 +1,4 @@
-import { useSpeedy2 } from "./useArchive";
+import { getSpeedy2 } from "./useArchive";
 
 const download = async (
   codeSpace: string,
@@ -10,8 +10,8 @@ const download = async (
   console.log("Starting download process");
 
   try {
-    await useSpeedy2();
-    console.log("useSpeedy2 completed");
+    await getSpeedy2();
+    console.log("getSpeedy2 completed");
 
     const url = `/live-cms/${codeSpace}.html`;
     console.log(`Fetching content from: ${url}`);

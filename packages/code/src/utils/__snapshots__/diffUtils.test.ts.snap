@@ -209,15 +209,16 @@ Copied!
 `;
 
 exports[`diffUtils > should fix the fixable extractCodeModification 1`] = `
-[
-  {
-    "content": "Certainly! I'll remove the digital display from the SportWatchClock component. Here are the changes:
+{
+  "parts": [
+    {
+      "content": "Certainly! I'll remove the digital display from the SportWatchClock component. Here are the changes:
 
 1. Remove the drawNumbers function:",
-    "type": "text",
-  },
-  {
-    "content": "<<<<<<< SEARCH
+      "type": "text",
+    },
+    {
+      "content": "<<<<<<< SEARCH
   const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {
     ctx.font = radius * 0.15 + "px Arial";
     ctx.textBaseline = "middle";
@@ -239,16 +240,17 @@ exports[`diffUtils > should fix the fixable extractCodeModification 1`] = `
 =======
   // Removed drawNumbers function
 =======
->>>>>>> REPLACE",
-    "language": "diff",
-    "type": "code",
-  },
-  {
-    "content": "2. Remove the call to drawNumbers in the drawClock function:",
-    "type": "text",
-  },
-  {
-    "content": "<<<<<<< SEARCH
+>>>>>>> REPLACE
+",
+      "language": "diff",
+      "type": "code",
+    },
+    {
+      "content": "2. Remove the call to drawNumbers in the drawClock function:",
+      "type": "text",
+    },
+    {
+      "content": "<<<<<<< SEARCH
   const drawClock = () => {
     drawFace(ctx, radius);
     drawNumbers(ctx, radius);
@@ -259,12 +261,13 @@ exports[`diffUtils > should fix the fixable extractCodeModification 1`] = `
     drawFace(ctx, radius);
     drawTime(ctx, radius);
   };
->>>>>>> REPLACE",
-    "language": "diff",
-    "type": "code",
-  },
-  {
-    "content": "Explanation:
+>>>>>>> REPLACE
+",
+      "language": "diff",
+      "type": "code",
+    },
+    {
+      "content": "Explanation:
 These changes remove the digital display (numbers) from the clock face. The clock will now only show the hour, minute, and second hands without any numbers on the face.
 
 Improvements and alternatives:
@@ -275,10 +278,10 @@ Improvements and alternatives:
 3. If you want to keep some indication of the clock positions without numbers, you could add small lines or triangles at the 12, 3, 6, and 9 o'clock positions.
 
 Here's an example of how you could modify the drawFace function to add more prominent tick marks:",
-    "type": "text",
-  },
-  {
-    "content": "<<<<<<< SEARCH
+      "type": "text",
+    },
+    {
+      "content": "<<<<<<< SEARCH
     // Ticks
     for (let i = 0; i < 60; i++) {
       const ang = (i * Math.PI) / 30;
@@ -315,15 +318,23 @@ Here's an example of how you could modify the drawFace function to add more prom
       ctx.stroke();
       ctx.rotate(-ang);
     }
->>>>>>> REPLACE",
-    "language": "diff",
-    "type": "code",
+>>>>>>> REPLACE
+",
+      "language": "diff",
+      "type": "code",
+    },
+    {
+      "content": "These changes will create a more readable analog clock face without numbers, maintaining the sporty and minimalist design.",
+      "type": "text",
+    },
+  ],
+  "state": {
+    "accumulatedContent": "",
+    "accumulatedDiffContent": "",
+    "isInCodeBlock": false,
+    "isInDiffBlock": false,
   },
-  {
-    "content": "These changes will create a more readable analog clock face without numbers, maintaining the sporty and minimalist design.",
-    "type": "text",
-  },
-]
+}
 `;
 
 exports[`diffUtils > should fix the fixable extractDiffContent 1`] = `

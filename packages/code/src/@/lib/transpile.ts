@@ -1,7 +1,7 @@
 import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
 import { makeEnv } from "@/lib/esbuild-make-env";
 import importMap from "@/lib/importmap-utils";
-import { wasmFile } from "@src/esbuildWASM";
+import { wasmFile } from "../../esbuildWASM";
 import { Mutex } from "async-mutex";
 import type { BuildOptions } from "esbuild-wasm";
 import { build as esmBuild, initialize, transform } from "esbuild-wasm";

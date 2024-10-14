@@ -2,7 +2,7 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
@@ -20,7 +20,7 @@ const ChatInterface: React.FC<{
   cSess: ICode;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const codeSpace = useCodeSpace();
+  const codeSpace = getCodeSpace();
   // const [newMessageContent, setNewMessageContent] = useState<string>("");
 
   const { isDarkMode, toggleDarkMode } = useDarkMode();

@@ -2,9 +2,10 @@
 // const require = createRequire(import.meta.url);
 // Object.assign(globalThis, { require });
 
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
 import { main } from "./ws";
+import "./index.css";
 
 // if ("serviceWorker" in navigator) {
 //   navigator.serviceWorker.getRegistrations().then((registrations) => {
@@ -18,7 +19,7 @@ if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
 }
 
-const codeSpace = useCodeSpace();
+const codeSpace = getCodeSpace();
 
 (async () => {
   if (

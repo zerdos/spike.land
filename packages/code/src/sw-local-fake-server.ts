@@ -1,4 +1,4 @@
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { transpile } from "@/lib/shared";
@@ -13,7 +13,7 @@ const cSessions: {
 
 export async function fakeServer(request: Request) {
   const { pathname } = new URL(request.url);
-  const codeSpace = useCodeSpace(pathname);
+  const codeSpace = getCodeSpace(pathname);
   console.log("CodeSpace:", codeSpace);
 
   cSessions[codeSpace] = cSessions[codeSpace] ||
@@ -108,7 +108,7 @@ function handleHtmlResponse(session: ICodeSession) {
 }
 
 function handleIndexCss(
-  request: Request<unknown, CfProperties<unknown>>,
+  request: Request,
   session: ICodeSession,
 ) {
   console.log("css request:", request.url);
@@ -122,7 +122,7 @@ function handleIndexCss(
 }
 
 async function handleIndexJs(
-  request: Request<unknown, CfProperties<unknown>>,
+  request: Request,
   session: ICodeSession,
   codeSpace: string,
 ) {
@@ -153,7 +153,7 @@ async function handleIndexJs(
 }
 
 function handleIndexTsx(
-  request: Request<unknown, CfProperties<unknown>>,
+  request: Request,
   session: ICodeSession,
 ) {
   console.log("Index request:", request.url);
@@ -167,7 +167,7 @@ function handleIndexTsx(
 }
 
 function handleSessionJson(
-  request: Request<unknown, CfProperties<unknown>>,
+  request: Request,
   session: ICodeSession,
 ) {
   console.log("Session request:", request.url);

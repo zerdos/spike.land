@@ -12,7 +12,7 @@ import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { processImage } from "@/lib/process-image";
 import type { ImageData } from "@/lib/interfaces";
-import { useCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space";
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -34,7 +34,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const handleSend = () => {
     handleSendMessage({
       messages,
-      codeSpace: useCodeSpace(),
+      codeSpace: getCodeSpace(),
       prompt: input,
       images: uploadedImages,
       code: code,
