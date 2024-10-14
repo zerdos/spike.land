@@ -8,6 +8,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "composite": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
   
     "declaration": true,
     "emitDeclarationOnly": true,

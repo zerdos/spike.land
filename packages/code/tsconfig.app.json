@@ -11,6 +11,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "DOM.AsyncIterable"],
     "module": "ESNext",
     "outDir": "dts",
+
     "skipLibCheck": true,
 
     /* Bundler mode */
