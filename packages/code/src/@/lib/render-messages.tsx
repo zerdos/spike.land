@@ -79,13 +79,17 @@ export const ChatMessageBlock: React.FC<ChatMessageBlockProps> = memo(
   ({ text, isUser }) => {
     const parsingStateRef = useRef<ParsingState>({
       isInCodeBlock: false,
-      accumulatedContent: '',
+      accumulatedContent: "",
       isInDiffBlock: false,
-      accumulatedDiffContent: '',
+      accumulatedDiffContent: "",
     });
 
     const messageParts = useMemo(() => {
-      const { parts, state } = getPartsStreaming(text, isUser, parsingStateRef.current);
+      const { parts, state } = getPartsStreaming(
+        text,
+        isUser,
+        parsingStateRef.current,
+      );
       parsingStateRef.current = state;
       return parts;
     }, [text, isUser]);

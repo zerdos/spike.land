@@ -145,7 +145,11 @@ function createWebSocket(codeSpace: string) {
       const connection = connections.get(codeSpace)!;
 
       connection.webSocket.send(
-        JSON.stringify({ type: "handShake", name: connection.user, hashCode: connection.lastHash }),
+        JSON.stringify({
+          type: "handShake",
+          name: connection.user,
+          hashCode: connection.lastHash,
+        }),
       );
 
       // Socket is ready to write.
@@ -204,7 +208,9 @@ async function handleSocketMessage(
 
   if (data.strSess) {
     const sess = makeSession(
-      (typeof data.strSess === "string" ? JSON.parse(data.strSess) : data.strSess) as ICodeSession,
+      (typeof data.strSess === "string"
+        ? JSON.parse(data.strSess)
+        : data.strSess) as ICodeSession,
     );
     if (sess.i >= connection.oldSession.i) {
       connection.oldSession = sess;

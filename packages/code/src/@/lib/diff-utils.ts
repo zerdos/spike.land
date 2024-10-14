@@ -29,12 +29,16 @@ export function extractDiffContent(
           replaceIndex,
         ).split(separatorMarker).join("").trim();
       } else {
-        modified = content.slice(separatorIndex + separatorMarker.length).split(separatorMarker)
+        modified = content.slice(separatorIndex + separatorMarker.length).split(
+          separatorMarker,
+        )
           .join("")
           .trim();
       }
     } else {
-      original = content.slice(searchIndex + searchMarker.length).split(separatorMarker).join("")
+      original = content.slice(searchIndex + searchMarker.length).split(
+        separatorMarker,
+      ).join("")
         .trim();
     }
   }

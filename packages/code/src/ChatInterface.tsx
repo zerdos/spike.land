@@ -1,7 +1,7 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
-import type {  ICode } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { useCodeSpace } from "@/hooks/use-code-space";
 
 import { useScreenshot } from "./hooks/useScreenshot";
@@ -127,8 +127,8 @@ const ChatInterface: React.FC<{
       }
 
       if (e.code) {
-        console.log("Setting code", e.code); 
-       await cSess.setCode(e.code);
+        console.log("Setting code", e.code);
+        await cSess.setCode(e.code);
       }
 
       if (e.chunk) {
@@ -195,7 +195,9 @@ const ChatInterface: React.FC<{
           } as Message,
         ];
         setInput("");
-        cSess.getCode().then((code) => handleSendMessage({ messages, codeSpace, prompt, images, code }));
+        cSess.getCode().then((code) =>
+          handleSendMessage({ messages, codeSpace, prompt, images, code })
+        );
       }
     }
   }, [isOpen, codeSpace, handleSendMessage]);
@@ -260,7 +262,6 @@ const ChatInterface: React.FC<{
   );
 });
 
-
 ChatInterface.displayName = "ChatInterface";
-        
+
 export { ChatInterface };

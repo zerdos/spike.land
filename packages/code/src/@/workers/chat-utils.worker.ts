@@ -90,7 +90,10 @@ class ChatHandler {
         this.code,
         this.codeSpace,
       );
-      const newUserMessage = await ChatHandler.createNewMessage(images, claudeContent);
+      const newUserMessage = await ChatHandler.createNewMessage(
+        images,
+        claudeContent,
+      );
       this.messages = messagesPush(this.messages, newUserMessage);
       this.setMessages([...this.messages]);
 
@@ -161,7 +164,10 @@ class ChatHandler {
 
         retries++;
       } catch (error) {
-        console.error(`Error processing message (attempt ${retries + 1}):`, error);
+        console.error(
+          `Error processing message (attempt ${retries + 1}):`,
+          error,
+        );
         retries++;
       }
     }
@@ -305,7 +311,9 @@ class ChatHandler {
         throw new Error("Invalid assistant message content type");
       }
 
-      const contentToProcess = this.extractTextContent(assistantMessage.content);
+      const contentToProcess = this.extractTextContent(
+        assistantMessage.content,
+      );
 
       if (
         contentToProcess.includes("An error occurred while processing")
@@ -348,7 +356,9 @@ class ChatHandler {
       const rAll = up(instructions, code);
       if (rAll !== code) {
         const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
-        if (rAll !== rAllWithExtra) return { result: rAll, len: instructions.length };
+        if (rAll !== rAllWithExtra) {
+          return { result: rAll, len: instructions.length };
+        }
       }
       return { result: code, len: 0 };
     }
@@ -358,14 +368,20 @@ class ChatHandler {
         0,
         replaceIndex + REPLACE.length,
       );
-      return { result: up(trimmedInstructions, code), len: trimmedInstructions.length };
+      return {
+        result: up(trimmedInstructions, code),
+        len: trimmedInstructions.length,
+      };
     }
 
     const rAll = up(instructions, code);
     if (rAll === code) return { result: rAll, len: instructions.length };
 
     let jump = 1;
-    while (jump < instructions.length && up(instructions.slice(0, jump), code) === code) {
+    while (
+      jump < instructions.length &&
+      up(instructions.slice(0, jump), code) === code
+    ) {
       jump *= 2;
     }
 

@@ -194,7 +194,15 @@ export const build = async ({
     try {
       await initializeModule(wasmModule, origin);
       const defaultOpts = getDefaultBuildOptions(
-        { codeSpace, origin, entryPoints, external, metafile, splitting, format },
+        {
+          codeSpace,
+          origin,
+          entryPoints,
+          external,
+          metafile,
+          splitting,
+          format,
+        },
       );
 
       const buildOptions = {
@@ -202,7 +210,9 @@ export const build = async ({
         external: [
           ...Object.keys(importMap.imports),
         ],
-        entryPoints: entryPoints ? entryPoints : [`${origin}/live/${codeSpace}/index.tsx`], // Ensure this matches the expected type
+        entryPoints: entryPoints
+          ? entryPoints
+          : [`${origin}/live/${codeSpace}/index.tsx`], // Ensure this matches the expected type
         // ... other properties
       } as BuildOptions;
 

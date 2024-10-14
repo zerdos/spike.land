@@ -128,7 +128,10 @@ const extendTextWithDiffMarkers = (
         break;
       } else {
         // Diff block ends here
-        state.accumulatedDiffContent += text.slice(index, endIndex + ">>>>>>> REPLACE".length);
+        state.accumulatedDiffContent += text.slice(
+          index,
+          endIndex + ">>>>>>> REPLACE".length,
+        );
         result += "```diff\n" + state.accumulatedDiffContent + "\n```";
         state.isInDiffBlock = false;
         state.accumulatedDiffContent = "";
@@ -156,7 +159,10 @@ const extendTextWithDiffMarkers = (
         } else {
           // Diff block ends here
 
-          const diffContent = text.slice(index, endIndex + ">>>>>>> REPLACE".length);
+          const diffContent = text.slice(
+            index,
+            endIndex + ">>>>>>> REPLACE".length,
+          );
           result += "```diff\n" + diffContent + "\n```";
           index = endIndex + ">>>>>>> REPLACE".length;
         }

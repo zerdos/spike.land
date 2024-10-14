@@ -185,7 +185,6 @@ async function startMonacoPristine({
 
   languages.registerDocumentFormattingEditProvider("typescript", {
     provideDocumentFormattingEdits: async (model) => {
-      
       const formattedText = await prettierToThrow({
         code: model.getValue(),
         toThrow: false,
@@ -360,9 +359,9 @@ async function startMonacoPristine({
     editorModel.isEdit = false;
   });
 
-  const throttledTsCheck = throttle(()=>tsCheck(), 10000);
+  const throttledTsCheck = throttle(() => tsCheck(), 10000);
 
-  model.onDidChangeContent(() => { 
+  model.onDidChangeContent(() => {
     onChange(model.getValue());
     throttledTsCheck();
   });

@@ -56,8 +56,10 @@ export const fetchPlugin = (origin: string) => ({
 
       if (
         argsPath.startsWith(origin) &&
-        !(argsPath.endsWith(".mjs") || argsPath.endsWith(".js") || argsPath.endsWith(".json") ||
-          argsPath.endsWith(".css") || argsPath.endsWith(".tsx") || argsPath.endsWith(".ts"))
+        !(argsPath.endsWith(".mjs") || argsPath.endsWith(".js") ||
+          argsPath.endsWith(".json") ||
+          argsPath.endsWith(".css") || argsPath.endsWith(".tsx") ||
+          argsPath.endsWith(".ts"))
       ) {
         argsPath = argsPath + ".mjs";
       }

@@ -1,4 +1,3 @@
-
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import React, {} from "react";
@@ -141,7 +140,7 @@ async function renderApp(
                 </ErrorBoundary>
               )}
           </CacheProvider>{" "}
-          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace}/>}
+          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
         </React.Fragment>
       </ThemeProvider>,
     );

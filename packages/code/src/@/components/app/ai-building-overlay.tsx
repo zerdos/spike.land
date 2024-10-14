@@ -14,20 +14,19 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
 
     BC.onmessage = (e) => {
       if (e.data.isStreaming !== false) setIsSteaming(false);
-      else      setIsSteaming(true);
+      else setIsSteaming(true);
     };
 
     const timeout = setTimeout(() => {
       setIsSteaming(false);
     }, 1000);
-    
-  return () => {
-    clearTimeout(timeout);
-    BC.close();
-  }
 
+    return () => {
+      clearTimeout(timeout);
+      BC.close();
+    };
   }, []);
-  
+
   if (!isStreaming) return null;
 
   return (
@@ -49,7 +48,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
         />
         AI is building... This may take a few moments.
       </div>
-      <Progress className="w-full"  />
+      <Progress className="w-full" />
     </div>
   );
 }
