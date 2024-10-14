@@ -1,3 +1,4 @@
+import reactDomDefault from "react-dom";
 import * as ReactDOM from "react-dom";
 
 export const createPortal = ReactDOM.createPortal;
@@ -12,3 +13,4 @@ export const unstable_batchedUpdates = ReactDOM.unstable_batchedUpdates;
 export const version: string = ReactDOM.version;
 
 // export default ReactDOM;
+export default reactDomDefault;
