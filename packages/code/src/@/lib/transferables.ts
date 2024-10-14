@@ -3,7 +3,7 @@
 
 /**
  * Represents the prototype from which all typed arrays are derived. This can be used to check if an object is a typed array.
- * 
+ *
  * @example
  * ```ts
  * const isTypedArray = (obj: any): obj is TypedArray => obj instanceof TypedArray;
@@ -11,13 +11,11 @@
  * ```
  */
 
-
-
 export const TypedArray: unknown = Object.getPrototypeOf(Int8Array);
 
 /**
  * Represents the AudioData interface from the Web Audio API, allowing manipulation of audio data directly.
- * 
+ *
  * @example
  * ```ts
  * if (AudioData) {
@@ -29,7 +27,7 @@ export const AudioData = globalThis.AudioData;
 
 /**
  * Represents the ImageBitmap interface, enabling manipulation of images in a way that is optimized for performance.
- * 
+ *
  * @example
  * ```ts
  * createImageBitmap(blob).then((imageBitmap) => {
@@ -41,7 +39,7 @@ export const ImageBitmap = globalThis.ImageBitmap;
 
 /**
  * Represents the VideoFrame interface, part of the WebCodecs API, allowing low-level manipulation of video frames.
- * 
+ *
  * @example
  * ```ts
  * if (VideoFrame) {
@@ -53,7 +51,7 @@ export const VideoFrame = globalThis.VideoFrame;
 
 /**
  * Represents the OffscreenCanvas interface, enabling canvas rendering to be done off the main thread.
- * 
+ *
  * @example
  * ```ts
  * if (OffscreenCanvas) {
@@ -66,7 +64,7 @@ export const OffscreenCanvas = globalThis.OffscreenCanvas;
 
 /**
  * Represents the RTCDataChannel interface, used for bidirectional peer-to-peer transfers of arbitrary data.
- * 
+ *
  * @example
  * ```ts
  * const peerConnection = new RTCPeerConnection();
@@ -78,7 +76,7 @@ export const RTCDataChannel = globalThis.RTCDataChannel;
 
 /**
  * Represents the MessageChannel interface, providing a way to send data between different parts of your application.
- * 
+ *
  * @example
  * ```ts
  * const channel = new MessageChannel();
@@ -107,11 +105,9 @@ const ReadableStreamExists = "ReadableStream" in globalThis;
 const WritableStreamExists = "WritableStream" in globalThis;
 const TransformStreamExists = "TransformStream" in globalThis;
 
-const StreamExists = (
-  ReadableStreamExists &&
+const StreamExists = ReadableStreamExists &&
   WritableStreamExists &&
-  TransformStreamExists
-);
+  TransformStreamExists;
 
 const MessageChannelExists = "MessageChannel" in globalThis;
 const MessagePortExists = "MessagePort" in globalThis;
@@ -124,21 +120,19 @@ const VideoFrameExists = "VideoFrame" in globalThis;
 const OffscreenCanvasExists = "OffscreenCanvas" in globalThis;
 const RTCDataChannelExists = "RTCDataChannel" in globalThis;
 
-const TransferableExists = (
-  ArrayBufferExists &&
+const TransferableExists = ArrayBufferExists &&
   MessagePortExists &&
   AudioDataExists &&
   ImageBitmapExists &&
   VideoFrameExists &&
   OffscreenCanvasExists &&
-  RTCDataChannelExists
-);
+  RTCDataChannelExists;
 
 const structuredCloneExists = "structuredClone" in globalThis;
 
 /**
  * Summary of the available transferable objects in the current JavaScript runtime, useful for feature detection.
- * 
+ *
  * @example
  * ```ts
  * if (AVAILABLE_TRANSFERABLE_OBJECTS.AudioDataExists) {
@@ -167,7 +161,7 @@ export const AVAILABLE_TRANSFERABLE_OBJECTS = {
 
 /**
  * Type definition for all typed array variants, useful for type checking and TypeScript interfaces.
- * 
+ *
  * @example
  * ```ts
  * function processTypedArray(typedArray: TypeTypedArray) {
@@ -175,11 +169,20 @@ export const AVAILABLE_TRANSFERABLE_OBJECTS = {
  * }
  * ```
  */
-export type TypeTypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+export type TypeTypedArray =
+  | Int8Array
+  | Uint8Array
+  | Uint8ClampedArray
+  | Int16Array
+  | Uint16Array
+  | Int32Array
+  | Uint32Array
+  | Float32Array
+  | Float64Array;
 
 /**
  * Type definition for all transferable object types, supporting efficient data transfer operations.
- * 
+ *
  * @example
  * ```ts
  * function transferObjects(transferable: TypeTransferable) {
@@ -187,7 +190,18 @@ export type TypeTypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16A
  * }
  * ```
  */
-export type TypeTransferable = ArrayBufferLike | ArrayBuffer | MessagePort | ReadableStream | WritableStream | TransformStream | AudioData | ImageBitmap | VideoFrame | OffscreenCanvas | RTCDataChannel;
+export type TypeTransferable =
+  | ArrayBufferLike
+  | ArrayBuffer
+  | MessagePort
+  | ReadableStream
+  | WritableStream
+  | TransformStream
+  | AudioData
+  | ImageBitmap
+  | VideoFrame
+  | OffscreenCanvas
+  | RTCDataChannel;
 
 /**
  * Tests if certain transferable objects are actually supported in a specific js environment when using `structuredClone` and `MessageChannel postMessage`
@@ -198,92 +212,102 @@ export async function isSupported(): Promise<{
 }> {
   async function getChannels() {
     try {
-      if (!MessageChannelExists)
+      if (!MessageChannelExists) {
         return false;
+      }
 
       const msgChanl = new MessageChannel();
-      const obj = { port1: msgChanl.port1 }
-      const clonedObj = structuredCloneExists ? structuredClone(obj, {
-        transfer: [
-          msgChanl.port1,
-        ]
-      }) : obj;
+      const obj = { port1: msgChanl.port1 };
+      const clonedObj = structuredCloneExists
+        ? structuredClone(obj, {
+          transfer: [
+            msgChanl.port1,
+          ],
+        })
+        : obj;
 
-      const messageChannel = new MessageChannel()
-      const obj1 = { port1: clonedObj.port1 }
+      const messageChannel = new MessageChannel();
+      const obj1 = { port1: clonedObj.port1 };
       await new Promise<void>(resolve => {
         messageChannel.port1.postMessage(obj1, [
           obj1.port1,
-        ])
+        ]);
         messageChannel.port1.onmessage = () => {
-          resolve()
-        }
+          resolve();
+        };
         messageChannel.port2.onmessage = ({ data }) => {
           messageChannel.port2.postMessage(data, [
             data.port1,
           ]);
-        }
-      })
+        };
+      });
       messageChannel.port1.close();
     } catch {
       return false;
     }
 
     return true;
-  };
+  }
 
   async function getStreams() {
     try {
-      if (!StreamExists)
+      if (!StreamExists) {
         return false;
+      }
 
-      if (!MessageChannelExists && !structuredCloneExists)
+      if (!MessageChannelExists && !structuredCloneExists) {
         return false;
+      }
 
       const streams = {
         readonly: new ReadableStream(),
         writeonly: new WritableStream(),
-        tranformonly: new TransformStream()
-      }
+        tranformonly: new TransformStream(),
+      };
 
-      const clonedObj = structuredCloneExists ? structuredClone(streams, {
-        transfer: [
-          streams.readonly as unknown as Transferable,
-          streams.writeonly as unknown as Transferable,
-          streams.tranformonly as unknown as Transferable,
-        ]
-      }) : streams;
+      const clonedObj = structuredCloneExists
+        ? structuredClone(streams, {
+          transfer: [
+            streams.readonly as unknown as Transferable,
+            streams.writeonly as unknown as Transferable,
+            streams.tranformonly as unknown as Transferable,
+          ],
+        })
+        : streams;
 
       if (MessageChannelExists) {
-        const messageChannel = new MessageChannel()
+        const messageChannel = new MessageChannel();
         const streams1 = clonedObj;
         await new Promise<void>(resolve => {
           messageChannel.port1.postMessage(streams1, [
             streams1.readonly as unknown as Transferable,
             streams1.writeonly as unknown as Transferable,
             streams1.tranformonly as unknown as Transferable,
-          ])
+          ]);
           messageChannel.port1.onmessage = () => {
             resolve();
-          }
+          };
           messageChannel.port2.onmessage = ({ data }) => {
-            messageChannel.port2.postMessage(data, [
-              data.readonly as unknown as Transferable,
-              data.writeonly as unknown as Transferable,
-              data.tranformonly as unknown as Transferable,
-            ].filter(x => x !== undefined));
-          }
-        })
+            messageChannel.port2.postMessage(
+              data,
+              [
+                data.readonly as unknown as Transferable,
+                data.writeonly as unknown as Transferable,
+                data.tranformonly as unknown as Transferable,
+              ].filter(x => x !== undefined),
+            );
+          };
+        });
         messageChannel.port1.close();
       }
-    } catch{
+    } catch {
       return false;
     }
 
     return true;
-  };
+  }
 
-  const [channel, streams] = await Promise.all([getChannels(), getStreams()])
+  const [channel, streams] = await Promise.all([getChannels(), getStreams()]);
   return { channel, streams };
 }
 
@@ -296,7 +320,7 @@ export function isObject(obj: unknown): obj is object | ((...args: unknown[]) =>
 
 /**
  * Check if an object is an instanceof [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) or [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView)
- * 
+ *
  * > `DataView` a lower level `TypedArray` which can function while ignoring the platforms inherent endianness. Read more on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView)
  */
 export function isTypedArray(obj: unknown): obj is TypeTypedArray | DataView {
@@ -305,7 +329,7 @@ export function isTypedArray(obj: unknown): obj is TypeTypedArray | DataView {
 
 /**
  * Check's if an object is `ReadableStream`, `WritableStream` and/or `TransformStream`
- * 
+ *
  * > Note: None of the stream API's are transferables in Safari 😥
  */
 export function isStream(obj: unknown): obj is ReadableStream | WritableStream | TransformStream {
@@ -321,7 +345,7 @@ export function isStream(obj: unknown): obj is ReadableStream | WritableStream |
  */
 export function isMessageChannel(obj: unknown): obj is MessageChannel {
   return (
-    (MessageChannelExists && obj instanceof MessageChannel)
+    MessageChannelExists && obj instanceof MessageChannel
   );
 }
 
@@ -350,13 +374,17 @@ export function filterOutDuplicates<T>(array: T[]): T[] {
 /**
  * Creates an array of transferable objects which exist in a given input, up to a max number of iterations
  * Thanks @aaorris for the help optimizing perf.
- * 
+ *
  * @param obj Input object
  * @param streams Includes streams as transferable
  * @param maxCount Maximum number of iterations
  * @returns An array of transferable objects
  */
-export function getTransferables(obj: unknown, streams = false, maxCount = 10_000): TypeTransferable[] {
+export function getTransferables(
+  obj: unknown,
+  streams = false,
+  maxCount = 10_000,
+): TypeTransferable[] {
   const result = new Set<TypeTransferable>([]);
   const queues = [[obj]];
 
@@ -374,12 +402,10 @@ export function getTransferables(obj: unknown, streams = false, maxCount = 10_00
       } else if (isMessageChannel(item)) {
         result.add(item.port1);
         result.add(item.port2);
-      }
-
-      /**  
-       * Streams are circular objects, to avoid an infinite loop 
-       * we need to ensure that the object is not a stream 
-      */
+      } /**
+       * Streams are circular objects, to avoid an infinite loop
+       * we need to ensure that the object is not a stream
+       */
       else if (!isStream(item) && isObject(item)) {
         const values = Array.isArray(item) ? item : Object.values(item);
         if (values.length) queues.push(values);
@@ -395,13 +421,17 @@ export function getTransferables(obj: unknown, streams = false, maxCount = 10_00
 /**
  * An iterator that contains the transferable objects from the input, up to a max number of iterations
  * Thanks @aaorris for the help optimizing perf.
- * 
+ *
  * @param obj Input object
  * @param streams Includes streams as transferable
  * @param maxCount Maximum number of iterations
  * @returns Iterator that contains the transferable objects from the input
  */
-export function* getTransferable(obj: unknown, streams = false, maxCount = 10_000): Generator<TypeTransferable | TypeTypedArray | MessageChannel | DataView> {
+export function* getTransferable(
+  obj: unknown,
+  streams = false,
+  maxCount = 10_000,
+): Generator<TypeTransferable | TypeTypedArray | MessageChannel | DataView> {
   const seen = new Set<TypeTransferable>([]);
   const queues = [[obj]];
 
@@ -431,12 +461,10 @@ export function* getTransferable(obj: unknown, streams = false, maxCount = 10_00
 
         seen.add(item.port1);
         seen.add(item.port2);
-      }
-
-      /**  
-       * Streams are circular objects, to avoid an infinite loop 
-       * we need to ensure that the object is not a stream 
-      */
+      } /**
+       * Streams are circular objects, to avoid an infinite loop
+       * we need to ensure that the object is not a stream
+       */
       else if (!isStream(item) && isObject(item)) {
         const values = Array.isArray(item) ? item : Object.values(item);
         if (values.length) queues.push(values);
@@ -452,7 +480,7 @@ export function* getTransferable(obj: unknown, streams = false, maxCount = 10_00
 /**
  * Quickly checks to see if input contains at least one transferable object, up to a max number of iterations
  * Thanks @aaorris for the help optimizing perf.
- * 
+ *
  * @param obj Input object
  * @param streams Includes streams as transferable
  * @param maxCount Maximum number of iterations
@@ -470,17 +498,15 @@ export function hasTransferables(obj: unknown, streams = false, maxCount = 10_00
 
       if (
         isTypedArray(item) ||
-        isTransferable(item) || 
-        (streams && isStream(item)) || 
+        isTransferable(item) ||
+        (streams && isStream(item)) ||
         isMessageChannel(item)
       ) {
         return true;
-      }
-
-      /**  
-       * Streams are circular objects, to avoid an infinite loop 
-       * we need to ensure that the object is not a stream 
-      */
+      } /**
+       * Streams are circular objects, to avoid an infinite loop
+       * we need to ensure that the object is not a stream
+       */
       else if (!isStream(item) && isObject(item)) {
         const values = Array.isArray(item) ? item : Object.values(item);
         if (values.length > 0) queues.push(values);

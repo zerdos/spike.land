@@ -1,9 +1,9 @@
 import { messagesPush, replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { AIHandler } from "../../AIHandler";
 import { Mutex } from "async-mutex";
 import { throttle } from "es-toolkit";
+import { AIHandler } from "../../AIHandler";
 
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";

@@ -17,7 +17,7 @@ import { build } from "@/lib/shared";
 //   Object.assign(globalThis, { authenticatedFetch });
 // };
 
-Object.assign(globalThis, {  wait, build });
+Object.assign(globalThis, { wait, build });
 
 export const getSpeedy2 = async () => {
   const codeSpace = getCodeSpace();

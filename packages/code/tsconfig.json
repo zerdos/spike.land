@@ -1,17 +1,22 @@
 {
-  "files": [],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dts"],  // Fixed the exclude pattern
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "composite": true,
+  
     "declaration": true,
-    "declarationDir": "dts",
+    "emitDeclarationOnly": true,
+    "outDir": "dts",
+
     "paths": {
       "@/*": [
         "./src/@/*"
       ]
-    },
+    }
   }
 }

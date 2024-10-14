@@ -10,6 +10,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "DOM.AsyncIterable"],
     "module": "ESNext",
+    "outDir": "dts",
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -18,8 +19,9 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "jsxImportSource": "@emotion/react",
-    "noEmit": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
+    "composite": true,
 
     /* Linting */
     "strict": true,

@@ -1,8 +1,8 @@
 import AlwaysSupportedSharedWorker from "@/external/shared-w-polyfill";
 import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
+import { getTransferables, hasTransferables } from "@/lib/transferables";
 import type { MyBuildOptions } from "@/lib/transpile";
 import { Mutex } from "async-mutex";
-import { getTransferables, hasTransferables } from "@/lib/transferables";
 import { RpcProvider } from "worker-rpc";
 
 type WorkerPort = MessagePort | Worker;

@@ -1,6 +1,6 @@
 import type { ContextManager } from "@/lib/context-manager";
-import type { ErrorType } from "../components/ErrorMessages";
 import { useEffect } from "react";
+import type { ErrorType } from "../components/ErrorMessages";
 
 export const useErrorEffect = (
   errorType: ErrorType | null,
