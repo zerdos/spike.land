@@ -7,6 +7,7 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import { Bot, History } from "@/external/lucideReact";
+import {css} from "@emotion/react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -71,7 +72,14 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   }, [isOpen, showAutoSaveHistory]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div css={css`
+      height: 100dvh;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    `}>
+
+      
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
