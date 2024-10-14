@@ -1,6 +1,9 @@
 export { editor, languages, Uri } from "monaco-editor";
 
-const baseUrl = document.head.baseURI;
+const origin = location.origin.includes("localhost")
+  ? "https://testing.spike.land"
+  : location.origin;
+
 // const workerPool: Record<string, unknown> = {};
 
 // class TsWorker extends Worker {
@@ -48,7 +51,7 @@ const baseUrl = document.head.baseURI;
 // };
 
 const MonacoEnvironment = {
-  baseUrl,
+  baseUrl: origin + "/",
 
   getWorkerUrl: (_moduleId: string, _label: string) => {
     if (_label === "typescript" || _label === "javascript") {

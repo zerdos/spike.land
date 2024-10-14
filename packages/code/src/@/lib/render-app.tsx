@@ -31,7 +31,7 @@ export function createEmotionCache(
   };
 }
 
-const origin = location.origin.includes("localhost")?'http://testing.spike.land':location.origin;
+const origin = location.origin.includes("localhost")?'https://testing.spike.land':location.origin;
 
 const createJsBlob = (code: string): string =>
   new URL(
@@ -78,7 +78,7 @@ async function renderApp(
     } else if (transpiled || code) {
       if (transpiled?.indexOf("stdin_default") === -1) {
         emptyApp = true;
-        AppToRender = (await import(
+        AppToRender = (await import(   /* @vite-ignore */ 
           createJsBlob(
             await transpile({
               code: `export default ()=><div></div>`,
@@ -87,7 +87,7 @@ async function renderApp(
           )
         )).default;
       } else {
-        AppToRender = (await import(
+        AppToRender = (await import( /* @vite-ignore */ 
           createJsBlob(
             transpiled ||
               await transpile({ code: code!, originToUse: origin }),
@@ -96,10 +96,10 @@ async function renderApp(
       }
     } else if (codeSpace) {
       const indexJs = `${origin}/live/${codeSpace}/index.js`;
-      AppToRender = (await import(indexJs)).default;
+      AppToRender = (await import(/* @vite-ignore */  indexJs)).default;
       if (!AppToRender) {
         emptyApp = true;
-        AppToRender = (await import(
+        AppToRender = (await import(   /* @vite-ignore */ 
           createJsBlob(
             await transpile({
               code: `export default ()=><div></div>`,

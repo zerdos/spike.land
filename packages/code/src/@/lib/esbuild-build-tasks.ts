@@ -189,11 +189,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "@src/swVersion": "/swVersion.mjs",
 
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-
-      ...(isProduction ? {} : {
-        "react": "preact/compat",
-        "react-dom": "preact/compat",
-      }),
+      // ...(isProduction ? {} : {
+      //   "react": "preact/compat",
+      //   "react-dom": "preact/compat",
+      // }),
     },
     external: [
       "module",

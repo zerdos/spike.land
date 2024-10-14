@@ -2,7 +2,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 
 const origin = location.origin.includes("localhost")
-  ? "http://testing.spike.land"
+  ? "https://testing.spike.land"
   : location.origin;
 
 export class CodeSessionBC {
