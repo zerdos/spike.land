@@ -191,7 +191,7 @@ export class Code implements ICode {
     this.session = await this.broadcastChannel.init(session);
     let swVersion = "unknown";
     try {
-      const swVersionModule = await import(`${location.origin}/swVersion.mjs`);
+      const swVersionModule = await import(/* @vite-ignore */ `${location.origin}/swVersion.mjs`);
       swVersion = swVersionModule.swVersion;
     } catch (error) {
       console.warn("Failed to import swVersion.mjs:", error);
