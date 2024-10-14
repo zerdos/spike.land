@@ -1,14 +1,14 @@
 import path from "path"
-import { defineConfig } from 'vite'
+import { defineConfig, ProxyOptions } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 // const newLocal = /^\/api/
 import {importMap} from "./src/@/lib/importmap-utils.ts"
 
 // const createProxyServer
 
-const importMapProxy = Object.keys(importMap.imports).reduce((acc, key: string) => {
-  acc[`/${key}`] = {
-    target: importMap.imports[key],
+const importMapProxy = Object.values(importMap.imports).reduce((acc, key: string) => {
+  acc[key] = {
+    target: 'https://testing.spike.land'+ key,
     changeOrigin: true
   };
   return acc;
