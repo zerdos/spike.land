@@ -67,10 +67,10 @@ const ChatInterface: React.FC<{
       });
     }
     // if hast changed in the last seconds, save it
-    const messagesHash = md5(messages.map((msg) => md5(msg)).join(""));
+    const messagesHash = md5(messages.map((msg) => md5(msg.id)).join(""));
     const interval = setTimeout(() => {
-      const messagesHashNow = md5(messages.map((msg) => md5(msg)).join(""));
-      if (messagesHash !== messagesHashNow) return;
+      const messagesHashNow = md5(messages.map((msg) => md5(msg.id)).join(""));
+      if (messagesHash === messagesHashNow) return;
       setMess(messages);
     }, 1000);
     return () => clearTimeout(interval);
