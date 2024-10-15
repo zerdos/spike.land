@@ -14,8 +14,8 @@ import { init as twUp } from "./tw-dev-setup";
 
 // Global variables and types
 const codeSpace = getCodeSpace();
-let rendered: RenderedApp | null = null;
-let renderedMd5 = "";
+
+let renderedMd5 = (globalThis as unknown as { renderedMd5: string; }).renderedMd5 as string | "";
 
 const htmlDecode = (input: string): string => {
   return input
@@ -122,6 +122,8 @@ const handleRender = async (
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   if (!renderedMd5) await twUp();
 
+  let rendered = [...renderedApps][0];
+
   const hashed = md5(transpiled);
   if (hashed === renderedMd5) {
     console.log("Skipping update as md5 is the same");
@@ -143,7 +145,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   myEl.setAttribute("id", "embed");
   document.body.appendChild(myEl);
 
-  rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
+  rendered = (await renderApp({ transpiled, codeSpace, rootElement: myEl }))!;
 
   return rendered;
 };

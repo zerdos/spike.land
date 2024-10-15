@@ -97,7 +97,7 @@ export interface IRenderApp {
 }
 
 export interface RenderedApp {
-  rootElement?: HTMLDivElement;
+  rootElement: HTMLDivElement;
   code?: string;
   rRoot: Root;
   App?: FlexibleComponentType;

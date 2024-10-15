@@ -32,8 +32,7 @@ const codeSpace = getCodeSpace();
     const rootElement = (document.getElementById("root") ||
       document.getElementById("embed")) as HTMLDivElement;
 
-    const rendered = await renderApp({ codeSpace, rootElement });
-    Object.assign(window, { rendered });
+    await renderApp({ codeSpace, rootElement });
   }
   // if (location.pathname.startsWith("/my-cms")) {
   //   window.renderedApp.cleanup();

@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import React, {} from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
@@ -63,10 +63,11 @@ async function renderApp(
 ): Promise<RenderedApp | null> {
   try {
 
+    let rootEl;
 
     if (!root) {
 
-      const rootEl = rootElement ||
+      rootEl = rootElement ||
       document.getElementById("embed") as HTMLDivElement ||
       document.createElement("div");
     if (!document.body.contains(rootEl)) {
@@ -154,8 +155,19 @@ async function renderApp(
       </ThemeProvider>,
     );
 
-    const renderedApp: RenderedApp =     {
-      rRoot: root!,
+    const findRenderedApp = (root: Root) => {
+      for (const renderedApp of renderedApps) {
+        if (renderedApp.rRoot === root) {
+          return renderedApp;
+        }
+      }
+
+      return null;
+    }
+
+    const renderedApp: RenderedApp =  findRenderedApp(root!) || { 
+    rootElement: rootEl,
+    rRoot: root!,
     App: AppToRender,
     cssCache,
     cleanup: () => {
@@ -165,7 +177,7 @@ async function renderApp(
       }
       renderedApps.delete(renderedApp);
     }
-  };
+  } as RenderedApp;
 
     renderedApps.add(renderedApp);
 

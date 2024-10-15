@@ -154,7 +154,7 @@ class ChatHandler {
         this.mod.actions = [];
 
         const assistantMessage = await this.sendAssistantMessage(
-          this.onUpdate.bind(this),
+          (chunk: string) => this.onUpdate(chunk),
         );
 
         this.setMessages(messagesPush(this.messages, assistantMessage));
@@ -316,7 +316,7 @@ class ChatHandler {
   }
 
   private async sendAssistantMessage(
-    onUpdate: (code: string) => Promise<void>,
+    onUpdate: (code: string) => void,
   ): Promise<Message> {
     try {
       let assistantMessage = await this.aiHandler.sendToAnthropic(
