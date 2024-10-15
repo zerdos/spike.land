@@ -138,7 +138,7 @@ class ChatHandler {
       try {
         this.mod.actions = [];
 
-        const onUpdate = this.createOnUpdateFunction();
+        const onUpdate = this.createOnUpdateFunction().bind(this);
         const throttledOnUpdate = throttle(
           async (instructions: string) => {
             await onUpdate(instructions);
