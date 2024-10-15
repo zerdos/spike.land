@@ -80,7 +80,7 @@ export class WebSocketHandler {
         session.pongReceived = false;
         try {
           webSocket.send(JSON.stringify({ type: "ping" }));
-        } catch (e) {
+        } catch{
           webSocket.close();
         }
       }
@@ -112,7 +112,7 @@ export class WebSocketHandler {
 
     try {
       conn.send(JSON.stringify(message));
-    } catch (e) {
+    } catch {
       conn.close();
     }
   }

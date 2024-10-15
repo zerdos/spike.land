@@ -24,7 +24,7 @@ export class CodeHistoryManager {
     this.cache = new Map<string, ICodeSession>();
   }
 
-  private async getFromStorage(key: string): Promise<any | null> {
+  private async getFromStorage(key: string): Promise<ICodeSession | null> {
     try {
       const object = await this.env.X9.get(key);
       if (!object) {
