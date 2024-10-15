@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { md5 } from "@/lib/md5";
 import type { ICode } from "@/lib/interfaces";
 import type { ICodeSession } from "@/lib/interfaces";
@@ -35,10 +35,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     debounceMs: 60000,
   });
 
-  const handleContentChange = (newCode: string) => {
+  const handleContentChange = useCallback((newCode: string) => {
     mod.current.md5Ids.push(md5(newCode));
     cSess.setCode(newCode);
-  };
+  }, [cSess]);
 
   useEffect(() => {
     if (error) {
@@ -106,7 +106,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
 
     initializeEditor();
-  }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
+  }, [editorState.started, codeSpace, engine, containerRef, setEditorState, error, editorState, handleError, cSess, handleContentChange]);
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">

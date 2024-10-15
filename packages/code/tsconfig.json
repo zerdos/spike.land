@@ -1,5 +1,9 @@
 {
-  "include": ["src"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts"
+  ],
   "exclude": ["node_modules", "dts"],  // Fixed the exclude pattern
   "references": [
     { "path": "./tsconfig.app.json" },
@@ -9,6 +13,7 @@
     "baseUrl": ".",
     "composite": true,
     "skipLibCheck": true,
+    "incremental": true,
     "noEmit": true,
     "esModuleInterop": true,
     "target": "esnext",

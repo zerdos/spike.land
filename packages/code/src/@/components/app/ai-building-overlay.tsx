@@ -25,7 +25,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
       clearTimeout(timeout);
       BC.close();
     };
-  }, []);
+  }, [codeSpace]);
 
   if (!isStreaming) return null;
 

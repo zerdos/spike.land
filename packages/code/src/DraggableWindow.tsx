@@ -51,7 +51,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     };
     const timeoutId = setTimeout(reveal, 2000);
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [setBgColor]);
 
   const duration = Number(sessionStorage?.getItem("duration")) || 1;
   const type = sessionStorage?.getItem("type") || "spring";

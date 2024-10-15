@@ -27,8 +27,10 @@ export const ThemeToggle = () => {
   );
 };
 
-export default () => (
+const ThemeToggleWrapper = () => (
   <div className="flex justify-center items-center min-h-screen p-4">
     <ThemeToggle />
   </div>
 );
+
+export default ThemeToggleWrapper;

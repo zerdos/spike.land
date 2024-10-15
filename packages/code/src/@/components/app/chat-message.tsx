@@ -215,6 +215,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
     ),
     [
       editInput,
+      setEditInput,
       textareaClassName,
       buttonBgClass,
       handleSaveEditClick,

@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "outDir": "dts",
     "composite": true,
+    "incremental": true,
     
 
     /* Bundler mode */
