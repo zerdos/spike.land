@@ -1,6 +1,6 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import { createContext, useContext } from "react";
-import type { ReactNode, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
 
 
 type Theme = 'light' | 'dark';
