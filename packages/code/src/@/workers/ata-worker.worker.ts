@@ -1,11 +1,7 @@
 import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
 import { RpcProvider } from "worker-rpc";
 
-importScripts("/swVersion.js");
-
 interface SharedWorkerGlobalScope {
-  swVersion: string;
-  files: Record<string, string>;
   fileCacheName: string;
 }
 
