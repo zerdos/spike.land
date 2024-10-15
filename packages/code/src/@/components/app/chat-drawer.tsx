@@ -9,7 +9,6 @@ import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { cn } from "@/lib/utils";
 import { Drawer } from 'vaul';
-import { css } from '@emotion/react'; 
 
 const MemoizedChatHeader = React.memo(ChatHeader);
 const MemoizedChatContainer = React.memo(ChatContainer);
@@ -76,11 +75,17 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
         <Drawer.Content 
-        css={css`
-          background-color: rgb(31 41 55);
-        `}
+    
         
-          className="right-0 top-0 bottom-0 fixed z-10 outline-none w-[512px] flex"
+          className={cn(
+             "right-0 top-0 bottom-0 fixed z-10 outline-none w-[512px] flex",
+              isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
+            )
+          }
+          
+          
+          
+          
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >

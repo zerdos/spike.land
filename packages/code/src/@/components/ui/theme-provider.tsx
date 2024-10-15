@@ -36,7 +36,7 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider value={value}>
-      <div className="transition-colors duration-300">
+      <div className="transition-colors duration-600">
         {children}
       </div>
     </ThemeProviderContext.Provider>
