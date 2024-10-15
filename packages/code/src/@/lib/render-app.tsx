@@ -16,21 +16,8 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
-/**
- * Creates an Emotion cache and extracts its styles.
- * @param options - Options for creating the Emotion cache.
- * @returns An object containing the cache and extracted styles.
- */
-export function createEmotionCache(
-  options?: Parameters<typeof createCache>[0],
-) {
-  const cache = createCache(options || { key: "css" });
 
-  return {
-    cache,
-  };
-}
-
+let firstRender = true; 
 const origin = location.origin;
 
 const createJsBlob = (code: string): string =>
@@ -120,10 +107,11 @@ async function renderApp(
 
 
     const cssCache = createCache({
-      key:cacheKey,
+      key: firstRender? 'x': cacheKey,
       speedy: prerender ? false : true,
       container: rootEl.parentNode!,
     });
+    firstRender = false;
 
     const AppWithScreenSize: React.FC = React.memo(
       function AppWithScreenSize() {
