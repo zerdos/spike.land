@@ -519,7 +519,6 @@ hQIDAQAB
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
-        "Access-Control-Allow-Origin": "*",
         "x-typescript-types": this.code.getOrigin() + "/live/index.tsx",
         content_hash: md5(code),
         "Content-Type": "application/javascript; charset=UTF-8",
@@ -631,7 +630,6 @@ let { html, css, ids } = extractCritical(renderToString(element))
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
-        "Access-Control-Allow-Origin": "*",
         "x-typescript-types": this.code.getOrigin() + "/live/index.tsx",
         content_hash: md5(replaced),
         "Content-Type": "application/javascript; charset=UTF-8",
@@ -644,7 +642,6 @@ let { html, css, ids } = extractCritical(renderToString(element))
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
-        "Access-Control-Allow-Origin": "*",
         "Cache-Control": "no-cache",
         content_hash: md5(this.code.session.css),
         "Content-Type": "text/css; charset=UTF-8",

@@ -86,7 +86,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
     
     
 
-  },[]);
+  },[codeSpace]);
   
     
 
