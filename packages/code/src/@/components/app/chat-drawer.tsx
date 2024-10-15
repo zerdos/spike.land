@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { cn } from "@/lib/utils";
+import { Drawer } from 'vaul';
 
 const MemoizedChatHeader = React.memo(ChatHeader);
 const MemoizedChatContainer = React.memo(ChatContainer);
@@ -80,20 +81,22 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       ), [isOpen]);
 
     return (
-      <>
+      <Drawer.Root direction="right">
+      <Drawer.Trigger className="relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white">
+
         <Button
           onClick={handleButtonClick}
           className={buttonClassName}
         >
           <Bot className="h-6 w-6" />
         </Button>
-        <div
-          className={backdropClassName}
-          onClick={handleBackdropClick}
-        />
-        <div
-          {...memoizedHandlers}
-          className={drawerClassName}
+        </Drawer.Trigger>
+        <Drawer.Portal>
+        <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+        <Drawer.Content
+          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex"
+          // The gap between the edge of the screen and the drawer is 8px in this case.
+          style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
           <div className="flex flex-col h-full">
             <MemoizedChatHeader
@@ -133,8 +136,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
               isDarkMode={isDarkMode}
             />
           </div>
-        </div>
-      </>
+</Drawer.Content>
+</Drawer.Portal>
+</Drawer.Root>
     );
   });
 
