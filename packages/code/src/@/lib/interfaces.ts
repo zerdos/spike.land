@@ -87,6 +87,7 @@ export interface ICode {
 }
 
 export interface IRenderApp {
+  root?: Root;
   rootElement?: HTMLDivElement;
   App?: FlexibleComponentType;
   codeSpace?: string;
@@ -96,7 +97,7 @@ export interface IRenderApp {
 }
 
 export interface RenderedApp {
-  rootElement: HTMLDivElement;
+  rootElement?: HTMLDivElement;
   code?: string;
   rRoot: Root;
   App?: FlexibleComponentType;

@@ -46,29 +46,34 @@ const createJsBlob = (code: string): string =>
   ).toString();
 
 type GlobalWithRenderedApps = typeof globalThis & {
-  renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  renderedApps: Set<RenderedApp>
 };
 
 declare global {
-  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
+  let renderedApps: Set<RenderedApp>;
 }
 
 (globalThis as GlobalWithRenderedApps).renderedApps =
   (globalThis as GlobalWithRenderedApps).renderedApps ||
-  new WeakMap<HTMLElement, RenderedApp>();
+  new Set<RenderedApp>();
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, prerender = false }:
-    IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, prerender = false, root }:     IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
-    const rootEl = rootElement ||
+
+
+    if (!root) {
+
+      const rootEl = rootElement ||
       document.getElementById("embed") as HTMLDivElement ||
       document.createElement("div");
     if (!document.body.contains(rootEl)) {
       document.body.appendChild(rootEl);
     }
+    root = createRoot(rootEl);
+    } 
 
     let AppToRender: FlexibleComponentType;
     let emptyApp = false;
@@ -112,7 +117,7 @@ async function renderApp(
       AppToRender = () => <div>Mock App for Testing</div>;
     }
 
-    const root = createRoot(rootEl);
+
 
     const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(/[0-9]/g, '');
     ///remove the numbers
@@ -120,9 +125,8 @@ async function renderApp(
 
 
     const cssCache = createCache({
-      key:cacheKey,
-      speedy: prerender ? false : true,
-      container: rootEl.parentNode!,
+      key: cacheKey,
+      speedy: prerender ? false : true
     });
 
     const AppWithScreenSize: React.FC = React.memo(
@@ -150,26 +154,22 @@ async function renderApp(
       </ThemeProvider>,
     );
 
-    (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, {
-      rootElement: rootEl,
-      rRoot: root,
-      App: AppToRender,
-      cssCache,
-      cleanup: () => {
-        root.unmount();
-        if (cssCache.sheet) {
-          cssCache.sheet.flush();
-        }
-        rootEl.remove();
-        (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);
-      },
-    });
+    const renderedApp: RenderedApp =     {
+      rRoot: root!,
+    App: AppToRender,
+    cssCache,
+    cleanup: () => {
+      root!.unmount();
+      if (cssCache.sheet) {
+        cssCache.sheet.flush();
+      }
+      renderedApps.delete(renderedApp);
+    }
+  };
 
-    const renderedApp = (globalThis as GlobalWithRenderedApps).renderedApps.get(
-      rootEl,
-    )!;
+    renderedApps.add(renderedApp);
 
-    console.log("Rendered app:", renderedApp);
+
 
     return renderedApp;
   } catch (error) {

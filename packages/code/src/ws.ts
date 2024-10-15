@@ -129,19 +129,22 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
     return rendered;
   }
   renderedMd5 = hashed;
+
+  if (rendered) {
+    return renderApp({
+      root: rendered.rRoot,
+      transpiled,
+    });
+  }
+
   console.log("Updating rendered app...");
 
   const myEl = document.createElement("div");
-  myEl.setAttribute("id", "root");
+  myEl.setAttribute("id", "embed");
   document.body.appendChild(myEl);
-
-  rendered?.cleanup();
-  rendered = null;
 
   rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
 
-  document.getElementById("embed")?.remove();
-  myEl.setAttribute("id", "embed");
   return rendered;
 };
 
