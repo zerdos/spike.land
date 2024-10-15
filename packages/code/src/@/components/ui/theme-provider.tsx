@@ -1,24 +1,21 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { createContext, useContext } from "react";
+import type { ReactNode } from "react";
 
-type Theme = "dark" | "light" | "system";
 
-type ThemeProviderState = {
+type Theme = 'light' | 'dark';
+
+interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-};
+}
 
-const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
-};
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+const ThemeProviderContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -31,19 +28,26 @@ export function ThemeProvider({
       toggleDarkMode(),
   };
 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(theme);
+  }, [theme]);
+
   return (
     <ThemeProviderContext.Provider value={value}>
-      {children}
+      <div className="transition-colors duration-300">
+        {children}
+      </div>
     </ThemeProviderContext.Provider>
   );
 }
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
-
   if (context === undefined) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
-
   return context;
 };
+
