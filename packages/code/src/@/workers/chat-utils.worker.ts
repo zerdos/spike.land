@@ -158,8 +158,16 @@ class ChatHandler {
           id: Date.now().toString(),
           role: "user",
           content: `I'm sorry, I might have made a mistake. Can you please try again?
-          error: ${this.mod.lastError}
-          last code after applying your instructions: ${this.mod.lastCode}
+error:
+\`\`\`error
+${this.mod.lastError}
+\`\`\`
+
+last code after applying your instructions: 
+          
+\`\`\`typescript
+${this.mod.lastCode}
+\`\`\`
           `,
         };
         this.setMessages(messagesPush(this.messages, userMessage));
