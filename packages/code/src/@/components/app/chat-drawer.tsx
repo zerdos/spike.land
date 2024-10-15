@@ -9,6 +9,7 @@ import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { cn } from "@/lib/utils";
 import { Drawer } from 'vaul';
+import { css } from '@emotion/react'; 
 
 const MemoizedChatHeader = React.memo(ChatHeader);
 const MemoizedChatContainer = React.memo(ChatContainer);
@@ -62,7 +63,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       ), [isOpen]);
 
     return (
-      <Drawer.Root direction="right" open={isOpen}>
+      <Drawer.Root direction="right" open={isOpen} modal={false}>
       <Drawer.Trigger className="relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white">
 
         <Button
@@ -74,12 +75,16 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         </Drawer.Trigger>
         <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-        <Drawer.Content
-          className="right-0 top-0 bottom-0 fixed z-10 outline-none w-[310px] flex"
+        <Drawer.Content 
+        css={css`
+          background-color: rgb(31 41 55);
+        `}
+        
+          className="right-0 top-0 bottom-0 fixed z-10 outline-none w-[620px] flex"
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full w-full">
             <MemoizedChatHeader
               isDarkMode={isDarkMode}
               toggleDarkMode={toggleDarkMode}
