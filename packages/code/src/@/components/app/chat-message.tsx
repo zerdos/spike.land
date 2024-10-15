@@ -123,7 +123,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = React.memo((props) => {
   const messageContainerClassName = useMemo(
     () =>
       cn(
-        "max-w-[80%] p-3 rounded-lg",
+        "max-w-[90%] p-3 rounded-lg",
         isUser
           ? isDarkMode ? "bg-blue-600 text-white" : "bg-blue-500 text-white"
           : isDarkMode
