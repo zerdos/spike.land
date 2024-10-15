@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from "react";
-import { useSwipeable } from "react-swipeable";
 import { Button } from "@/components/ui/button";
 import { MessageInput } from "@/components/app/message-input";
 import { Bot } from "@/external/lucideReact";
@@ -41,10 +40,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
     codeSpace,
     screenShot,
   }) => {
-    const handlers = useSwipeable({
-      onSwipedLeft: onClose,
-      trackMouse: true,
-    });
 
 
 

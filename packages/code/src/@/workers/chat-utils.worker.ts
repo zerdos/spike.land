@@ -14,6 +14,7 @@ const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 interface Mod {
   controller: AbortController;
   lastCode: string;
+  lastError: string;
   instructions: string;
   actions: Action[];
 }
@@ -56,6 +57,7 @@ class ChatHandler {
     this.mod = {
       controller: new AbortController(),
       lastCode: code,
+      lastError: "",
       instructions: "",
       actions: [],
     };
@@ -151,6 +153,19 @@ class ChatHandler {
     this.mod.lastCode = this.code;
 
     while (retries < maxRetries) {
+      if (this.mod.lastError) {
+        const userMessage: Message = {
+          id: Date.now().toString(),
+          role: "user",
+          content: `I'm sorry, I might have made a mistake. Can you please try again?
+          error: ${this.mod.lastError}
+          last code after applying your instructions: ${this.mod.lastCode}
+          `,
+        };
+        this.setMessages(messagesPush(this.messages, userMessage));
+        this.mod.lastError = "";
+        this.mod.instructions = "";
+      }
       try {
         this.mod.actions = [];
 
@@ -167,7 +182,7 @@ class ChatHandler {
           this.mod.lastCode = this.code;
         }
 
-        if (this.mod.lastCode !== this.code) {
+        if (this.mod.lastCode !== this.code && !this.mod.lastError) {
           return true;
         }
 
@@ -234,33 +249,42 @@ class ChatHandler {
           if (this.mod.lastCode !== this.lastCode) {
             this.lastCode = this.mod.lastCode;
 
-            const formatted = await (globalThis as unknown as {
-              prettierJs: ({ code, toThrow }: {
-                code: string;
-                toThrow: boolean;
-              }) => Promise<string>;
-            }).prettierJs({ code: this.mod.lastCode, toThrow: true });
+            try {
+              const formatted = await (globalThis as unknown as {
+                prettierJs: ({ code, toThrow }: {
+                  code: string;
+                  toThrow: boolean;
+                }) => Promise<string>;
+              }).prettierJs({ code: this.mod.lastCode, toThrow: true });
 
-            const transpiled = await (globalThis as unknown as {
-              transpile: ({ code, originToUse }: {
-                code: string;
-                originToUse: string;
-              }) => Promise<string>;
-            }).transpile({ code: formatted, originToUse: location.origin });
+              const transpiled = await (globalThis as unknown as {
+                transpile: ({ code, originToUse }: {
+                  code: string;
+                  originToUse: string;
+                }) => Promise<string>;
+              }).transpile({ code: formatted, originToUse: location.origin });
 
-            this.BC.postMessage({ code: formatted, transpiled });
+              this.BC.postMessage({ code: formatted, transpiled });
+            } catch (error) {
+              if (error instanceof Error) {
+                this.mod.lastError = error.message;
+              } else {
+                this.mod.lastError = JSON.stringify(error);
+              }
+              console.error("Error in updateCode:", error);
+            }
+
+            if (iterationCount >= maxIterations) {
+              console.warn("Reached maximum iterations, forcing finish");
+              break;
+            }
           }
 
-          if (iterationCount >= maxIterations) {
-            console.warn("Reached maximum iterations, forcing finish");
-            break;
-          }
+          console.log("Finished iteration", iterationCount);
+          console.log("current code", this.mod.lastCode);
         }
-
-        console.log("Finished iteration", iterationCount);
-        console.log("current code", this.mod.lastCode);
       } catch (error) {
-        console.error("Error in throttledMutexOperation:", error);
+        console.error("Error in updateCode:", error);
       }
     });
   }
