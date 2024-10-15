@@ -1,5 +1,6 @@
 import { messagesPush, replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
+
 import { md5 } from "@/lib/md5";
 import { Mutex } from "async-mutex";
 
@@ -233,7 +234,21 @@ class ChatHandler {
           if (this.mod.lastCode !== this.lastCode) {
             this.lastCode = this.mod.lastCode;
 
-            this.BC.postMessage({ code: this.mod.lastCode });
+            const formatted = await (globalThis as unknown as {
+              prettierJs: ({ code, toThrow }: {
+                code: string;
+                toThrow: boolean;
+              }) => Promise<string>;
+            }).prettierJs({ code: this.mod.lastCode, toThrow: true });
+
+            const transpiled = await (globalThis as unknown as {
+              transpile: ({ code, originToUse }: {
+                code: string;
+                originToUse: string;
+              }) => Promise<string>;
+            }).transpile({ code: formatted, originToUse: location.origin });
+
+            this.BC.postMessage({ code: formatted, transpiled });
           }
 
           if (iterationCount >= maxIterations) {
