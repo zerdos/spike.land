@@ -14,41 +14,13 @@ export interface AIServiceConfig {
 
 type AIEndpoint = "gpt4o" | "anthropic" | "openAI";
 
-class StreamHandler {
-  constructor(private BC: BroadcastChannel) {
-    this.BC = BC;
-  }
-
-  private decoder = new TextDecoder();
-
-  async handleStream(
-    reader: ReadableStreamDefaultReader<Uint8Array>,
-    onUpdate: (chunk: string) => void,
-  ): Promise<string> {
-    const chunks: string[] = [];
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = this.decoder.decode(value);
-      this.BC.postMessage({ chunk });
-      chunks.push(chunk);
-      onUpdate(chunks.join("").trim()); // Pass only the latest chunk
-    }
-    return chunks.join("").trim();
-  }
-}
-
 export class AIService {
   private config: AIServiceConfig;
-  private streamHandler: StreamHandler;
   private contextManager: ContextManager;
-  private BC: BroadcastChannel;
 
   constructor(config: AIServiceConfig, codeSpace: string) {
     this.config = config;
-    this.BC = new BroadcastChannel(`${codeSpace}-chat`);
 
-    this.streamHandler = new StreamHandler(this.BC);
     this.contextManager = new ContextManager(codeSpace);
   }
 
@@ -129,9 +101,30 @@ export class AIService {
         throw new Error("Response body is not readable!");
       }
 
-      // const throttleUpdate = (onUpdate, this.config.updateThrottleMs);
-      const content = await this.streamHandler.handleStream(reader, onUpdate);
+      let content = "";
+      const decoder = new TextDecoder();
+      const buffer = [];
+      await reader.read().then(function processText({ done, value }) {
+        if (done) {
+          return;
+        }
+
+        buffer.push(value);
+        const chunk = decoder.decode(value, { stream: true });
+        content += chunk;
+        onUpdate(chunk);
+
+        // Update the content in the UI
+
+        // Process the next chunk
+        return reader.read().then(processText);
+      });
+
       return content;
+
+      // const throttleUpdate = (onUpdate, this.config.updateThrottleMs);
+
+      // return content;
     } catch (error) {
       console.error("Error handling streaming response:", error);
       throw error;

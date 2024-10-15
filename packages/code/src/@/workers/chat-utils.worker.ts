@@ -2,7 +2,7 @@ import { messagesPush, replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { Mutex } from "async-mutex";
-import { throttle } from "es-toolkit";
+
 import { AIHandler } from "../../AIHandler";
 
 const SEARCH = "<<<<<<< SEARCH";
@@ -13,6 +13,7 @@ const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 interface Mod {
   controller: AbortController;
   lastCode: string;
+  instructions: string;
   actions: Action[];
 }
 
@@ -32,7 +33,7 @@ interface Action {
 
 class ChatHandler {
   private mod: Mod;
-  private mutex: Mutex;
+  private mutex = new Mutex();
   private BC: BroadcastChannel;
   private lastCode: string;
   private messages: Message[];
@@ -54,9 +55,10 @@ class ChatHandler {
     this.mod = {
       controller: new AbortController(),
       lastCode: code,
+      instructions: "",
       actions: [],
     };
-    this.mutex = new Mutex();
+
     this.codeSpace = codeSpace;
     this.code = code;
     this.messages = messages;
@@ -68,8 +70,11 @@ class ChatHandler {
 
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
     this.setMessages = (_messages: Message[]) => {
-      this.messages = _messages;
-      this.BC.postMessage({ messages: this.messages });
+      const md5Messages = md5(JSON.stringify(_messages));
+      if (md5Messages !== md5(JSON.stringify(this.messages))) {
+        this.messages = _messages;
+        this.BC.postMessage({ messages: this.messages });
+      }
     };
 
     this.aiHandler = new AIHandler(this.setIsStreaming, codeSpace);
@@ -83,6 +88,16 @@ class ChatHandler {
     images: ImageData[];
   }) {
     this.BC.postMessage({ isStreaming: true });
+    this.mod.instructions = "";
+
+    // this.BC.onmessage = (event) => {
+
+    //   if (event.data.chunk) {
+    //     this.mod.instructions += event.data.chunk;
+    //     this.updateCode();
+    //   }
+    // }
+
     try {
       if (!prompt.trim()) return;
 
@@ -96,10 +111,8 @@ class ChatHandler {
         images,
         claudeContent,
       );
-      this.messages = messagesPush(this.messages, newUserMessage);
-      this.setMessages([...this.messages]);
-
-      await this.processMessage();
+      this.setMessages(messagesPush(this.messages, newUserMessage));
+      this.processMessage();
     } catch (e) {
       console.error("Error in handleMessage:", e);
     } finally {
@@ -140,27 +153,20 @@ class ChatHandler {
       try {
         this.mod.actions = [];
 
-        const onUpdate = this.createOnUpdateFunction().bind(this);
-        const throttledOnUpdate = throttle(
-          async (instructions: string) => {
-            await onUpdate(instructions);
-          },
-          1500,
-          { edges: ["trailing"] },
+        const assistantMessage = await this.sendAssistantMessage(
+          this.onUpdate.bind(this),
         );
 
-        const assistantMessage = await this.sendAssistantMessage(
-          throttledOnUpdate as unknown as typeof onUpdate,
-        );
-        this.messages = messagesPush(this.messages, assistantMessage);
-        this.setMessages([...this.messages]);
+        this.setMessages(messagesPush(this.messages, assistantMessage));
+
+        await this.updateCode();
 
         if (typeof this.mod.lastCode !== "string") {
           console.error("Invalid mod.lastCode type:", typeof this.mod.lastCode);
           this.mod.lastCode = this.code;
         }
 
-        if (this.mod.lastCode === this.code) {
+        if (this.mod.lastCode !== this.code) {
           return true;
         }
 
@@ -178,69 +184,76 @@ class ChatHandler {
     return false;
   }
 
-  private createOnUpdateFunction(): (instructions: string) => Promise<void> {
-    return async (instructions: string) => {
-      if (this.mod.controller.signal.aborted) {
+  private async updateCode() {
+    this.mod.controller.abort();
+    this.mod.controller = new AbortController();
+    const { signal } = this.mod.controller;
+
+    return this.mutex.runExclusive(async () => {
+      if (signal.aborted) {
         console.log("Aborted onUpdate before starting");
         return;
       }
 
-      this.mod.controller.abort();
-      this.mod.controller = new AbortController();
-      const { signal } = this.mod.controller;
+      try {
+        let iterationCount = 0;
+        const maxIterations = 20;
 
-      return this.mutex.runExclusive(async () => {
-        try {
-          let iterationCount = 0;
-          const maxIterations = 20;
-
-          while (iterationCount < maxIterations) {
-            if (signal.aborted) {
-              console.log("Aborted onUpdate before updating");
-              return;
-            }
-
-            iterationCount++;
-            const { startPos, DIFFs, SKIP, TRIED } = this.getLastActionInfo();
-            const chunk = instructions.slice(startPos);
-
-            if (chunk.length === 0) break;
-
-            const { result, len } = await ChatHandler.updateSearchReplace({
-              instructions: chunk,
-              code: this.mod.lastCode,
-            });
-
-            this.updateModActions({
-              result,
-              len,
-              startPos,
-              DIFFs,
-              SKIP,
-              TRIED,
-              chunk,
-              instructions,
-            });
-
-            if (this.mod.lastCode !== this.lastCode) {
-              this.lastCode = this.mod.lastCode;
-
-              this.BC.postMessage({ code: this.mod.lastCode });
-            }
-
-            if (iterationCount >= maxIterations) {
-              console.warn("Reached maximum iterations, forcing finish");
-              break;
-            }
+        while (iterationCount < maxIterations) {
+          if (signal.aborted) {
+            console.log("Aborted onUpdate before updating");
+            return;
           }
 
-          console.log("Finished iteration", iterationCount);
-          console.log("current code", this.mod.lastCode);
-        } catch (error) {
-          console.error("Error in throttledMutexOperation:", error);
+          iterationCount++;
+          const { startPos, DIFFs, SKIP, TRIED } = this.getLastActionInfo();
+
+          const instructions = this.mod.instructions;
+
+          const chunk = instructions.slice(startPos);
+
+          if (chunk.length === 0) break;
+
+          const { result, len } = await ChatHandler.updateSearchReplace({
+            instructions: chunk,
+            code: this.mod.lastCode,
+          });
+
+          this.updateModActions({
+            result,
+            len,
+            startPos,
+            DIFFs,
+            SKIP,
+            TRIED,
+            chunk,
+            instructions,
+          });
+
+          if (this.mod.lastCode !== this.lastCode) {
+            this.lastCode = this.mod.lastCode;
+
+            this.BC.postMessage({ code: this.mod.lastCode });
+          }
+
+          if (iterationCount >= maxIterations) {
+            console.warn("Reached maximum iterations, forcing finish");
+            break;
+          }
         }
-      });
-    };
+
+        console.log("Finished iteration", iterationCount);
+        console.log("current code", this.mod.lastCode);
+      } catch (error) {
+        console.error("Error in throttledMutexOperation:", error);
+      }
+    });
+  }
+
+  private onUpdate(chunk: string) {
+    this.BC.postMessage({ chunk });
+    this.mod.instructions += chunk;
+    this.updateCode();
   }
 
   private getLastActionInfo() {
@@ -310,6 +323,15 @@ class ChatHandler {
         this.messages,
         onUpdate,
       );
+
+      if (typeof assistantMessage === "string") {
+        assistantMessage = {
+          id: Date.now().toString(),
+          role: "assistant",
+          content: assistantMessage,
+        };
+        return assistantMessage;
+      }
 
       if (
         typeof assistantMessage.content !== "string" &&
