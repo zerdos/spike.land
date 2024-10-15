@@ -34,6 +34,7 @@ class ChatHandler {
   private mod: Mod;
   private mutex: Mutex;
   private BC: BroadcastChannel;
+  private lastCode: string;
   private messages: Message[];
   private codeSpace: string;
   private code: string;
@@ -52,7 +53,7 @@ class ChatHandler {
   }) {
     this.mod = {
       controller: new AbortController(),
-      lastCode: "",
+      lastCode: code,
       actions: [],
     };
     this.mutex = new Mutex();
@@ -63,6 +64,7 @@ class ChatHandler {
     this.BC = broadcastChannelsByCodeSpace[codeSpace] ||
       new BroadcastChannel(`${codeSpace}-chat`);
     broadcastChannelsByCodeSpace[codeSpace] = this.BC;
+    this.lastCode = code;
 
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
     this.setMessages = (_messages: Message[]) => {
@@ -188,7 +190,6 @@ class ChatHandler {
       const { signal } = this.mod.controller;
 
       return this.mutex.runExclusive(async () => {
-        const lastModCode = this.mod.lastCode;
         try {
           let iterationCount = 0;
           const maxIterations = 20;
@@ -221,6 +222,12 @@ class ChatHandler {
               instructions,
             });
 
+            if (this.mod.lastCode !== this.lastCode) {
+              this.lastCode = this.mod.lastCode;
+
+              this.BC.postMessage({ code: this.mod.lastCode });
+            }
+
             if (iterationCount >= maxIterations) {
               console.warn("Reached maximum iterations, forcing finish");
               break;
@@ -231,10 +238,6 @@ class ChatHandler {
           console.log("current code", this.mod.lastCode);
         } catch (error) {
           console.error("Error in throttledMutexOperation:", error);
-        } finally {
-          if (lastModCode !== this.mod.lastCode) {
-            this.BC.postMessage({ code: this.mod.lastCode });
-          }
         }
       });
     };
