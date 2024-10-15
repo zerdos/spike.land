@@ -16,6 +16,7 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { useAuth } from "@clerk/clerk-react";
+import { fakeServer } from "./sw-local-fake-server";
 
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
@@ -66,6 +67,28 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       : false,
   );
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
+  const [iframeSrc, setIframeSrc] = useState(`/live/${codeSpace}/iframe`); 
+
+  useEffect(() => {
+  
+    (async()=> {
+      if (location.origin.includes("localhost")) {
+      const fakeResponse = await fakeServer({url: `${location.origin}/live/${codeSpace}/iframe`} as Request);
+      const indexHtml = await fakeResponse.blob();
+
+      console.log("indexHtml", indexHtml);
+
+     const iframeUrl =   URL.createObjectURL(indexHtml);
+      setIframeSrc(iframeUrl); 
+      }
+ 
+    })();
+    
+    
+
+  },[]);
+  
+    
 
   useEffect(() => {
     console.log("AppToRender state changed:", { isOpen, showAutoSaveHistory });
@@ -83,7 +106,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
-          <iframe title="Live preview" src={`/live/${codeSpace}/iframe`}>
+          <iframe title="Live preview" src={iframeSrc}>
           </iframe>
         </DraggableWindow>
 

@@ -4,7 +4,7 @@ import { routes } from "@/lib/routes";
 import { transpile } from "@/lib/shared";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
-import HTML from "./index.html";
+import HTML from "./index.html?raw";
 import type { ICodeSession } from "./modules";
 
 const cSessions: {
@@ -47,7 +47,11 @@ export async function fakeServer(request: Request) {
     request.url.endsWith(`/live/${codeSpace}/xxx`) ||
     request.url.endsWith(`/live/${codeSpace}/`)
   ) {
-    return handleHtmlResponse(session);
+    // let html = HTML;
+    // if (request.url.includes("localhost")) {
+    // html = await fetch(HTML).then((resp) => resp.text());
+    // }
+    return handleHtmlResponse(session, HTML);
   } else if (
     request.url.endsWith(`/live/${codeSpace}`) ||
     request.url.endsWith(`/live/${codeSpace}/`)
@@ -81,7 +85,7 @@ function buildHTMLResponse(codeSpace: string) {
   return new Response(respText, { status: 200, headers });
 }
 
-function handleHtmlResponse(session: ICodeSession) {
+function handleHtmlResponse(session: ICodeSession, HTML: string) {
   const respText = HTML.replace(
     `<script type="importmap"></script>`,
     `<script type="importmap">${JSON.stringify(importMap)}</script>`,

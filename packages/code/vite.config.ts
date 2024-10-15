@@ -2,14 +2,15 @@ import path from "path"
 import { defineConfig, ProxyOptions } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 // const newLocal = /^\/api/
-import {importMap} from "./src/@/lib/importmap-utils.ts"
+import {importMap} from "./src/@/lib/importmap-utils"
 
 // const createProxyServer
 
 const importMapProxy = Object.values(importMap.imports).reduce((acc, key: string) => {
   acc[key] = {
     target: 'https://testing.spike.land'+ key,
-    changeOrigin: true
+    changeOrigin: true,
+    rewrite: (path) => path.replace(key, ""),
   };
   return acc;
 }, {} as Record<string, ProxyOptions>);
@@ -22,11 +23,15 @@ export default defineConfig({
   })],
 
   appType: "spa",
+  assetsInclude: [
+    // "src/index.html",
+    // "src/assets/app.css",
+  ],
 
   server: {
    proxy: {
       "/@/": {
-        target: "https://testing.spike.land/@/",
+        target: "https://testing.spike.land/@",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/@/, ""),
       },
@@ -42,6 +47,16 @@ export default defineConfig({
         target: "https://testing.spike.land/sw.js",
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/sw.js/, ""),
+      },
+      '/start.mjs': {
+        target: "https://testing.spike.land/start.mjs",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/start.mjs/, ""),
+      },
+      '/swVersion.mjs': {
+        target: "https://testing.spike.land/swVersion.mjs",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/swVersion.mjs/, ""),
       },
 
 
