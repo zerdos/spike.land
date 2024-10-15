@@ -188,6 +188,7 @@ class ChatHandler {
       const { signal } = this.mod.controller;
 
       return this.mutex.runExclusive(async () => {
+        const lastModCode = this.mod.lastCode;
         try {
           let iterationCount = 0;
           const maxIterations = 20;
@@ -228,9 +229,12 @@ class ChatHandler {
 
           console.log("Finished iteration", iterationCount);
           console.log("current code", this.mod.lastCode);
-          this.BC.postMessage({ code: this.mod.lastCode });
         } catch (error) {
           console.error("Error in throttledMutexOperation:", error);
+        } finally {
+          if (lastModCode !== this.mod.lastCode) {
+            this.BC.postMessage({ code: this.mod.lastCode });
+          }
         }
       });
     };

@@ -74,7 +74,7 @@ export const CodeBlock: FC<CodeBlockProps> = memo(
   },
 );
 
-export default () => (
+const ExampleCodeBlock = () => (
   <div className="p-4 bg-gray-950 rounded-xl">
     <CodeBlock
       value={`
@@ -85,3 +85,5 @@ export default () => (
     />
   </div>
 );
+
+export default ExampleCodeBlock;
