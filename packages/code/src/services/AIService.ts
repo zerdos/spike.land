@@ -104,9 +104,9 @@ export class AIService {
       let content = "";
       const decoder = new TextDecoder();
       const buffer = [];
-      await reader.read().then(function processText({ done, value }) {
+      await reader.read().then(function processText({ done, value }): Promise<void> {
         if (done) {
-          return;
+          return Promise.resolve();
         }
 
         buffer.push(value);
