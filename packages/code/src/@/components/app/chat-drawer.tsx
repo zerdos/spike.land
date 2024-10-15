@@ -61,18 +61,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       [onClose],
     );
 
-    const drawerClassName = useMemo(() =>
-      cn(
-        "fixed top-0 right-0 h-full w-full sm:w-[638px] max-w-full z-[1001] transition-transform duration-300 ease-in-out",
-        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900",
-        isOpen ? "translate-x-0" : "translate-x-full",
-      ), [isDarkMode, isOpen]);
 
-    const backdropClassName = useMemo(() =>
-      cn(
-        "fixed inset-0 bg-black bg-opacity-50 z-[1000] transition-opacity duration-300",
-        isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
-      ), [isOpen]);
 
     const buttonClassName = useMemo(() =>
       cn(
@@ -81,7 +70,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       ), [isOpen]);
 
     return (
-      <Drawer.Root direction="right">
+      <Drawer.Root direction="right" open={isOpen}>
       <Drawer.Trigger className="relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white">
 
         <Button
