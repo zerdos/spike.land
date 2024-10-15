@@ -127,11 +127,14 @@ const ChatInterface: React.FC<{
       }
 
       if (e.code) {
+        console.log("*************************");
         console.log("Setting code", e.code);
         await cSess.setCode(e.code);
       }
 
       if (e.chunk) {
+
+        console.log("chunk", e.chunk);  
         // setNewMessageContent((previousContent) => previousContent + e.chunk!);
 
         setMessages((previousMessages) => {
