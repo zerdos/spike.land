@@ -179,8 +179,8 @@ async function renderApp(
     }
   } as RenderedApp;
 
-  renderApp.cssCache = cssCache;
-  
+  Object.assign(renderedApp, {cssCache});
+
 
   renderedApps.add(renderedApp);
 
