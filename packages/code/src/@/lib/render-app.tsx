@@ -82,7 +82,7 @@ async function renderApp(
     if (App) {
       AppToRender = App;
     } else if (transpiled || code) {
-      if (transpiled?.indexOf("stdin_default") === -1) {
+      if (transpiled?.indexOf("stdin_default") === -1 && code?.indexOf("as default") === -1) {
         emptyApp = true;
         AppToRender = (await import(   /* @vite-ignore */ 
           createJsBlob(
