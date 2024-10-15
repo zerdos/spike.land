@@ -189,18 +189,17 @@ export class Code implements ICode {
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     this.session = await this.broadcastChannel.init(session);
-    let swVersion = "unknown";
-    try {
-      const swVersionModule = await import(/* @vite-ignore */ `${location.origin}/swVersion.mjs`);
-      swVersion = swVersionModule.swVersion;
-    } catch (error) {
-      console.warn("Failed to import swVersion.mjs:", error);
-    }
+    // let swVersion = "unknown";
+    // try {
+    //   const swVersionModule = await import(/* @vite-ignore */ `${location.origin}/swVersion.mjs`);
+    //   swVersion = swVersionModule.swVersion;
+    // } catch (error) {
+    //   console.warn("Failed to import swVersion.mjs:", error);
+    // }
 
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${this.user}`,
       sess: this.session,
-      swVersion,
     });
     return this.session;
   }

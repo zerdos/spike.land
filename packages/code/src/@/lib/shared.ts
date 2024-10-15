@@ -236,7 +236,6 @@ export const connect = async ({
 }: {
   signal: string;
   sess: ICodeSession;
-  swVersion: string;
 }): Promise<() => void> => {
   const worker = (await init()).getWorker("connect");
   try {
