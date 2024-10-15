@@ -46,21 +46,13 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
       trackMouse: true,
     });
 
-    const memoizedHandlers = useMemo(() => handlers, [handlers]);
+
 
     const handleButtonClick = useCallback(() => {
       onClose();
     }, [onClose]);
 
-    const handleBackdropClick = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      },
-      [onClose],
-    );
-
+  
 
 
     const buttonClassName = useMemo(() =>
@@ -83,7 +75,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
         <Drawer.Content
-          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex"
+          className="fixed z-10 outline-none w-[620px] flex"
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
