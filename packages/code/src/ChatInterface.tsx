@@ -163,7 +163,7 @@ const ChatInterface: React.FC<{
     return () => {
       BC.close();
     };
-  }, [cSess, codeSpace, setIsStreaming, setMessages]);
+  }, []);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
