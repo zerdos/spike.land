@@ -80,7 +80,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
           background-color: rgb(31 41 55);
         `}
         
-          className="right-0 top-0 bottom-0 fixed z-10 outline-none w-[620px] flex"
+          className="right-0 top-0 bottom-0 fixed z-10 outline-none w-[512px] flex"
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
