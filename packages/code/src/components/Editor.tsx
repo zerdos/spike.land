@@ -106,7 +106,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
 
     initializeEditor();
-  }, [editorState.started, codeSpace, engine, containerRef, setEditorState, error, editorState, handleError, cSess, handleContentChange]);
+  }, []);
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
