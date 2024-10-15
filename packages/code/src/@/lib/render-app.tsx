@@ -179,7 +179,10 @@ async function renderApp(
     }
   } as RenderedApp;
 
-    renderedApps.add(renderedApp);
+  renderApp.cssCache = cssCache;
+  
+
+  renderedApps.add(renderedApp);
 
 
 
