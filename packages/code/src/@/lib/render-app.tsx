@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import React, {} from "react";
-import { createRoot, Root } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
@@ -46,35 +46,29 @@ const createJsBlob = (code: string): string =>
   ).toString();
 
 type GlobalWithRenderedApps = typeof globalThis & {
-  renderedApps: Set<RenderedApp>
+  renderedApps: WeakMap<HTMLElement, RenderedApp>;
 };
 
 declare global {
-  let renderedApps: Set<RenderedApp>;
+  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
 }
 
 (globalThis as GlobalWithRenderedApps).renderedApps =
   (globalThis as GlobalWithRenderedApps).renderedApps ||
-  new Set<RenderedApp>();
+  new WeakMap<HTMLElement, RenderedApp>();
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, prerender = false, root }:     IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, prerender = false }:
+    IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
-
-    let rootEl;
-
-    if (!root) {
-
-      rootEl = rootElement ||
+    const rootEl = rootElement ||
       document.getElementById("embed") as HTMLDivElement ||
       document.createElement("div");
     if (!document.body.contains(rootEl)) {
       document.body.appendChild(rootEl);
     }
-    root = createRoot(rootEl);
-    } 
 
     let AppToRender: FlexibleComponentType;
     let emptyApp = false;
@@ -118,7 +112,7 @@ async function renderApp(
       AppToRender = () => <div>Mock App for Testing</div>;
     }
 
-
+    const root = createRoot(rootEl);
 
     const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(/[0-9]/g, '');
     ///remove the numbers
@@ -126,8 +120,9 @@ async function renderApp(
 
 
     const cssCache = createCache({
-      key: cacheKey,
-      speedy: prerender ? false : true
+      key:cacheKey,
+      speedy: prerender ? false : true,
+      container: rootEl.parentNode!,
     });
 
     const AppWithScreenSize: React.FC = React.memo(
@@ -155,36 +150,26 @@ async function renderApp(
       </ThemeProvider>,
     );
 
-    const findRenderedApp = (root: Root) => {
-      for (const renderedApp of renderedApps) {
-        if (renderedApp.rRoot === root) {
-          return renderedApp;
+    (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, {
+      rootElement: rootEl,
+      rRoot: root,
+      App: AppToRender,
+      cssCache,
+      cleanup: () => {
+        root.unmount();
+        if (cssCache.sheet) {
+          cssCache.sheet.flush();
         }
-      }
+        rootEl.remove();
+        (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);
+      },
+    });
 
-      return null;
-    }
+    const renderedApp = (globalThis as GlobalWithRenderedApps).renderedApps.get(
+      rootEl,
+    )!;
 
-    const renderedApp: RenderedApp =  findRenderedApp(root!) || { 
-    rootElement: rootEl,
-    rRoot: root!,
-    App: AppToRender,
-    cssCache,
-    cleanup: () => {
-      root!.unmount();
-      if (cssCache.sheet) {
-        cssCache.sheet.flush();
-      }
-      renderedApps.delete(renderedApp);
-    }
-  } as RenderedApp;
-
-  Object.assign(renderedApp, {cssCache});
-
-
-  renderedApps.add(renderedApp);
-
-
+    console.log("Rendered app:", renderedApp);
 
     return renderedApp;
   } catch (error) {
