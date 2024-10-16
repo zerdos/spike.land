@@ -386,10 +386,9 @@ hQIDAQAB
   }
 
   private async handleEditorRoute(
-    _request: Request,
-    url: URL,
+  
   ): Promise<Response> {
-
+    const origin: string = this.code.getOrigin();
 
     return fetch(origin+`/index.html`)
   }
