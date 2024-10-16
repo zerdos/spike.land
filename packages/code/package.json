@@ -243,7 +243,7 @@
     "@types/serve-handler": "^6.1.4",
     "@types/text-encoding": "^0.0.39",
     "@types/uuid": "10.0.0",
-    "@types/web": "^0.0.171",
+    "@types/web": "^0.0.172",
     "@types/wicg-file-system-access": "2023.10.5",
     "@vitejs/plugin-react": "^4.3.2",
     "@vitejs/plugin-react-swc": "^3.7.1",
