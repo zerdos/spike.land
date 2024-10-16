@@ -386,11 +386,32 @@ hQIDAQAB
   }
 
   private async handleEditorRoute(
-  
+    _request: Request,
+    url: URL,
   ): Promise<Response> {
-    const origin: string = this.code.getOrigin();
+    // const url = new URL(r);
+    const codeSpace = url.searchParams.get("room");
 
-    return fetch(origin+`/index.html`)
+    const respText = HTML.replace(
+      `<script type="importmap"></script>`,
+      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+    ).replace(
+      '<div id="embed"></div>',
+      `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/iframe"></iframe></div>`,
+    );
+
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Resource-Policy": "cross-origin",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "gzip",
+      "Content-Type": "text/html; charset=UTF-8",
+      "content_hash": md5(respText),
+    });
+
+    return new Response(respText, { status: 200, headers });
   }
 
   private async handleRoomRoute(_request: Request, url: URL): Promise<Response> {
