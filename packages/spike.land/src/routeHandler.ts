@@ -548,11 +548,12 @@ hQIDAQAB
     import { jsx } from "@emotion/react/jsx-runtime";
      import { renderToString } from "react-dom/server";
     
-    const str = renderToString(App);
+    const str = renderToString( /*#__PURE__*/_jsx(App, {}));
     
     globalThis.renderedStr = str;
 
 
+  }
     `;
 
     return new Response(code, {
