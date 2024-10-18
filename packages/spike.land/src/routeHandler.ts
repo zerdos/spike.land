@@ -51,6 +51,7 @@ export class RouteHandler {
       "index.css": this.handleCssRoute.bind(this),
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
+      "wrapper.js": this.handleWrapRoute.bind(this),
       "wrapped": this.handleWrapHTMLRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       htm: this.handleHtmlRoute.bind(this),
@@ -545,51 +546,16 @@ hQIDAQAB
     const origin: string = this.code.getOrigin();
 
     const code = `import App from "${origin}/live/${codeSpace}/index.js";
-    import  { jsx as _jsx } from "${origin}/jsx.mjs";
-    import {createEmotionServer, createCache, CacheProvider} from "${origin}/emotion.mjs";
-     import { renderToString, renderToStaticMarkup, renderToReadableStream } from "${origin}/reactDomServer.mjs";
+    import { jsx } from "@emotion/react/jsx-runtime";
+     import { renderToString } from "react-dom/server";
     
-     const key = 'css'
-const cache = createCache({ key })
-const { extractCritical } = createEmotionServer(cache)
-
-
-     let element = /*#__PURE__*/_jsx(CacheProvider, {
-  value: cache,
-  children: /*#__PURE__*/_jsx(App, {})
-});
-
-export const toStr =  () => {
-  const key = 'custom'
-const cache = createCache({ key })
-
-let { html, css, ids } = extractCritical(renderToString(element))
-
+    const str = renderToString( /*#__PURE__*/_jsx(App, {}));
     return { html, css, ids };
 
-}
-    export const toStatic =  () => {
-    const markup = renderToStaticMarkup( /*#__PURE__*/_jsx(App, {}));
-   
-    let { html, css, ids } = extractCritical(renderToStaticMarkup(element))
-
-    return { html, css, ids };
-    return markup;
-  }
-
-
-  export const toStream = async () => {
-  
-    const stream = await renderToReadableStream( /*#__PURE__*/_jsx(App, {}), {
-  
-
-  });
-  return new Response(stream, {
-    headers: { 'content-type': 'text/html' },
-  })
     
-  
-  ;
+    globalThis.renderedStr = str;
+
+
   }
     `;
 

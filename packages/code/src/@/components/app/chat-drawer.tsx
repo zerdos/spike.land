@@ -34,7 +34,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
     editingMessageId,
     editInput,
     setEditInput,
-    handleEditMessage,
+  handleEditMessage
     handleCancelEdit,
     handleSaveEdit,
     codeSpace,
