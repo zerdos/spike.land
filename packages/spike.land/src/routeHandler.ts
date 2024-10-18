@@ -51,7 +51,6 @@ export class RouteHandler {
       "index.css": this.handleCssRoute.bind(this),
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
-      "wrapper.js": this.handleWrapRoute.bind(this),
       "wrapped": this.handleWrapHTMLRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       htm: this.handleHtmlRoute.bind(this),
@@ -550,13 +549,10 @@ hQIDAQAB
      import { renderToString } from "react-dom/server";
     
     const str = renderToString( /*#__PURE__*/_jsx(App, {}));
-    return { html, css, ids };
-
     
     globalThis.renderedStr = str;
 
 
-  }
     `;
 
     return new Response(code, {
