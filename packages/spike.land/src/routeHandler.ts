@@ -548,7 +548,7 @@ hQIDAQAB
     import { jsx } from "@emotion/react/jsx-runtime";
      import { renderToString } from "react-dom/server";
     
-    const str = renderToString( /*#__PURE__*/_jsx(App, {}));
+    const str = renderToString(App);
     
     globalThis.renderedStr = str;
 
