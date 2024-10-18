@@ -1,1 +1,1 @@
-export { renderToSrting } from "react-dom/server";
+export { renderToString } from "react-dom/server";
