@@ -292,10 +292,11 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     alias: {
       ...buildOptions.alias,
       ...extraAliases,
-      ...(isProduction ? {} : {
-        "react": "preact/compat",
-        "react-dom": "preact/compat",
-      }),
+      // ;,
+      // ...(isProduction ? {} : {
+      //   "react": "preact/compat",
+      //   "react-dom": "preact/compat",
+      // }),
     },
     external: [
       ...Object.values(extraAliases),
