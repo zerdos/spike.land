@@ -186,7 +186,6 @@ export class AIService {
   }
 
   prepareClaudeContent(
-    content: string,
     messages: Message[],
     codeNow: string,
     codeSpace: string,
@@ -206,7 +205,6 @@ ${
         anthropicSystem({
           fileName: codeSpace,
           fileContent: codeNow,
-          userPrompt: content,
         })
       }`;
     } else {
@@ -214,7 +212,7 @@ ${
 Current project context:
 ${contextString}
 
-${reminder({ userPrompt: content })}`;
+${reminder}`;
     }
   }
 }

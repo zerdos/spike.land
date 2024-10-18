@@ -63,10 +63,9 @@ Usw only the code block format to provide the changes.
 `;
 
 export const anthropicSystem = (
-  { fileName, fileContent, userPrompt }: {
+  { fileName, fileContent }: {
     fileName: string;
     fileContent: string;
-    userPrompt: string;
   },
 ) =>
   `Hey,
@@ -98,15 +97,9 @@ Response format:
 5. Don't include installation instructions or package.json modifications
 
 Always focus on concise, targeted updates rather than full file replacements.
-
-The user's first message follows:
-${userPrompt}
 `;
 
-export const reminder = ({ userPrompt }: { userPrompt: string; }) => `
-
-${userPrompt}
-
+export const reminder = `
 Reminder from the system:
 Please remember that just give the user 
 instructions what to do, NEVER don't provide 

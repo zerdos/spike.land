@@ -105,15 +105,25 @@ class ChatHandler {
       if (!prompt.trim()) return;
 
       const claudeContent = this.aiHandler.prepareClaudeContent(
-        prompt,
         this.messages,
         this.code,
         this.codeSpace,
       );
+
       const newUserMessage = await ChatHandler.createNewMessage(
         images,
         claudeContent,
       );
+      if (typeof newUserMessage.content === "string") {
+        this.setMessages(messagesPush(this.messages, newUserMessage));
+        return;
+      } else if (newUserMessage.content) {
+        if (Array.isArray(newUserMessage.content)) {
+          newUserMessage.content.push({ type: "text", text: prompt });
+        } else {
+          newUserMessage.content = [{ type: "text", text: prompt }];
+        }
+      }
       this.setMessages(messagesPush(this.messages, newUserMessage));
       this.processMessage();
     } catch (e) {
