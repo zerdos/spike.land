@@ -40,11 +40,13 @@ export class AIHandler {
   }
 
   prepareClaudeContent(
+    content: string,
     messages: Message[],
     currentCode: string,
     codeSpace: string,
   ): string {
     return this.aiService.prepareClaudeContent(
+      content,
       messages,
       currentCode,
       codeSpace,
