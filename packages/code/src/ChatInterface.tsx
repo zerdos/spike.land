@@ -129,6 +129,7 @@ const ChatInterface: React.FC<{
       if (e.code) {
         console.log("*************************");
         console.log("Setting code", e.code);
+        setMessages(messages);
         await cSess.setCode(e.code);
       }
 
