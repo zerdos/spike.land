@@ -3,10 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import type { ICode } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
-
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
 import { useLocalStorage } from "react-use";
 import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
@@ -21,18 +19,16 @@ const ChatInterface: React.FC<{
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = getCodeSpace();
-  // const [newMessageContent, setNewMessageContent] = useState<string>("");
-
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [mess, setMess] = useLocalStorage<Message[]>(
+  const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(
     `chatMessages-${codeSpace}`,
-    [],
+    []
   );
   const [messages, setMessages] = useImmer<Message[]>([]);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
-    false,
+    false
   );
   const [input, setInput] = useDictation("");
 
@@ -43,19 +39,28 @@ const ChatInterface: React.FC<{
 
   const resetChat = useCallback((): void => {
     setMessages([]);
+    setStoredMessages([]);
     setInput("");
     setEditingMessageId(null);
     setEditInput("");
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setInput, setMessages]);
+  }, [setInput, setMessages, setStoredMessages]);
 
+  // Load initial messages from localStorage
   useEffect(() => {
-    if (mess && mess.length > 0) {
-      setMessages(mess);
+    if (storedMessages && storedMessages.length > 0) {
+      setMessages(storedMessages);
     }
-  }, [mess, setMessages]);
+  }, []);
+
+  // Save messages to localStorage when they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      setStoredMessages(messages);
+    }
+  }, [messages, setStoredMessages]);
 
   useEffect(() => {
     if (isOpen) {
@@ -66,41 +71,26 @@ const ChatInterface: React.FC<{
         });
       });
     }
-    // if hast changed in the last seconds, save it
-    const messagesHash = md5(messages.map((msg) => md5(msg.id)).join(""));
-    const interval = setTimeout(() => {
-      const messagesHashNow = md5(messages.map((msg) => md5(msg.id)).join(""));
-      if (messagesHash === messagesHashNow) return;
-      setMess(messages);
-    }, 1000);
-    return () => clearTimeout(interval);
-  }, [isOpen, messages, setMess]);
-
-  // useEffect(() => {
-  //   const lastMessage = messages[messages.length - 1];
-  //   if (lastMessage?.role === "assistant") {
-  //     setNewMessageContent(lastMessage.content as string);
-  //   } else    setNewMessageContent("");
-  // }, [messages.length]);
+  }, [isOpen]);
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
     setEditInput("");
-  }, [setEditingMessageId, setEditInput]);
+  }, []);
 
   const handleSaveEdit = (messageId: string) => {
     const mess = messages!.map((msg) =>
       msg.id === messageId
         ? {
-          ...msg,
-          content: typeof msg.content === "string"
-            ? msg.content
-            : Array.isArray(msg.content)
-            ? msg.content.map((item) =>
-              item.type === "text" ? { ...item, text: editInput } : item
-            )
-            : editInput,
-        }
+            ...msg,
+            content: typeof msg.content === "string"
+              ? editInput
+              : Array.isArray(msg.content)
+              ? msg.content.map((item) =>
+                  item.type === "text" ? { ...item, text: editInput } : item
+                )
+              : editInput,
+          }
         : msg
     );
 
@@ -127,21 +117,16 @@ const ChatInterface: React.FC<{
       }
 
       if (e.code) {
-        console.log("*************************");
         console.log("Setting code", e.code);
+        setMessages(messages);
         await cSess.setCode(e.code);
       }
 
       if (e.chunk) {
-
-        console.log("chunk", e.chunk);  
-        // setNewMessageContent((previousContent) => previousContent + e.chunk!);
-
         setMessages((previousMessages) => {
           const lastMessage = previousMessages[previousMessages.length - 1];
 
           if (lastMessage?.role !== "assistant") {
-            // Add a new assistant message
             return [
               ...previousMessages,
               {
@@ -151,7 +136,6 @@ const ChatInterface: React.FC<{
               },
             ];
           } else {
-            // Update the last assistant message
             return [
               ...previousMessages.slice(0, -1),
               { ...lastMessage, content: lastMessage.content + e.chunk! },
@@ -163,7 +147,7 @@ const ChatInterface: React.FC<{
     return () => {
       BC.close();
     };
-  }, []);
+  }, [codeSpace, messages, setMessages, cSess, setIsStreaming]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -230,7 +214,7 @@ const ChatInterface: React.FC<{
 
   const memoizedScreenShot = useCallback(
     (): Promise<ImageData> => cSess.screenShot(),
-    [cSess],
+    [cSess]
   );
 
   if (!isOpen) return null;
