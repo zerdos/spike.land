@@ -209,7 +209,6 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
       return new Response("Method not allowed", { status: 405 });
   }
 }
-
 async function handleDefaultCase(
   path: string[],
   request: Request,
@@ -217,38 +216,30 @@ async function handleDefaultCase(
   ctx: ExecutionContext,
 ) {
   if (!isUrlFile(path.join("/"))) {
-    
-
     const response = await env.R2.get(request.url.toString());
     if (response) {
-      const source = await response.text()
-      const resp = new Response(response.body, {
-
+      const source = await response.text();
+      const resp = new Response(source, {
         headers: {
           ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
           "Cache-Control": "public, immutable, max-age=31536000",
         }
       });
-      return resp;;
+      return resp;
     }
-  
 
     const esmWorker = (await import("./esm.worker")).default;
-
     const resp = await esmWorker.fetch(request, env, ctx);
 
     if (!resp.ok) return resp;
 
     const text = await resp.text();
 
-
     if (resp.headers.get("Content-Type")?.includes("javascript")) {
       ctx.waitUntil(env.R2.put(request.url.toString(), text));
     }
 
-    const bodyText = importMapReplace(text, new URL(request.url).origin);
-
-    return new Response(bodyText, {
+    return new Response(text, {
       headers: {
         ...resp.headers,
         "Content-Type": "application/javascript; charset=UTF-8",
