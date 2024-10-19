@@ -2,7 +2,7 @@ import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
 import { handleCORS, isUrlFile } from "./utils";
-
+import { makeResponse } from "./makeResponse";
 export async function handleFetchApi(
   path: string[],
   request: Request,
@@ -217,13 +217,21 @@ async function handleDefaultCase(
   ctx: ExecutionContext,
 ) {
   if (!isUrlFile(path.join("/"))) {
-    const esmCache = await caches.open("esm127");
-    const cacheKey = new Request(request.url.toString());
+    
 
-    const response = await esmCache.match(cacheKey);
+    const response = await env.R2.get(request.url.toString());
     if (response) {
-      return response;
+      const source = await response.text()
+      const resp = new Response(response.body, {
+
+        headers: {
+          ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
+          "Cache-Control": "public, immutable, max-age=31536000",
+        }
+      });
+      return resp;;
     }
+  
 
     const esmWorker = (await import("./esm.worker")).default;
 
@@ -231,22 +239,22 @@ async function handleDefaultCase(
 
     if (!resp.ok) return resp;
 
+    const text = await resp.text();
+
+
     if (resp.headers.get("Content-Type")?.includes("javascript")) {
-      const text = await resp.text();
-      const importMapReplaced = importMapReplace(text, new URL(request.url).origin);
-
-      const response2 = new Response(importMapReplaced, {
-        headers: new Headers(resp.headers),
-      });
-
-      ctx.waitUntil(esmCache.put(cacheKey, response2.clone()));
-
-      return response2;
+      ctx.waitUntil(env.R2.put(request.url.toString(), text));
     }
 
-    ctx.waitUntil(esmCache.put(cacheKey, resp.clone()));
+    const bodyText = importMapReplace(text, new URL(request.url).origin);
 
-    return resp;
+    return new Response(bodyText, {
+      headers: {
+        ...resp.headers,
+        "Content-Type": "application/javascript; charset=UTF-8",
+        "Cache-Control": "public, immutable, max-age=31536000",
+      },
+    });
   }
 
   return new Response("not found :((( ", { status: 404 });
