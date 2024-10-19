@@ -246,7 +246,7 @@ async function handleDefaultCase(
     return new Response(importMapReplace(text, new URL(request.url).origin), {
       headers: {
         ...resp.headers,
-        "Content-Type": "application/javascript; charset=UTF-8",
+        ...makeResponse(undefined, request.url.toString()).headers,
         "Cache-Control": "public, immutable, max-age=31536000",
       },
     });

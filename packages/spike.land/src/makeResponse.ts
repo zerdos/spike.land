@@ -1,8 +1,9 @@
-export function makeResponse(object: R2ObjectBody, key: string) {
+export function makeResponse(object: R2ObjectBody | undefined, key: string) {
   const headers = new Headers();
-  if (object.writeHttpMetadata) object.writeHttpMetadata(headers);
 
-  headers.set("etag", object.httpEtag);
+  if (object && object.writeHttpMetadata) object.writeHttpMetadata(headers);
+
+ if (object) headers.set("etag", object.httpEtag);
   headers.set("Cache-Control", "public, max-age=31536000");
   headers.set("Access-Control-Allow-Origin", "*");
   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -62,5 +63,6 @@ export function makeResponse(object: R2ObjectBody, key: string) {
                                                         ? "audio/aac"
                                                         : "text/html; charset=UTF-8"
   );
-  return new Response(object.body, { headers });
+  if (!object) new Response("", { headers });
+  return new Response(object!.body, { headers });
 }
