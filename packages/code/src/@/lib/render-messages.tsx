@@ -3,7 +3,7 @@ import { getPartsStreaming } from "@/lib/get-parts";
 import type { ParsingState } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import Markdown from "@/external/Markdown";
-import { CodeBlock } from "@/external/CodeBlock";
+import { CodeBlock } from "@/components/app/code-block-lazy";
 import { isDiffContent } from "@/lib/diff-utils";
 import { DiffViewer } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
