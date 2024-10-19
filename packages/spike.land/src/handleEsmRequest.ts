@@ -6,36 +6,55 @@ interface ResponseLike {
     arrayBuffer: () => Promise<ArrayBuffer>;
   }
   
-export  async function handleEsmRequest(path: string[], request: Request, env: Env, ctx: ExecutionContext) {
+export  async function handleEsmRequest(
+    path: string[],
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ) {
     const url = new URL(request.url);
   
     try {
       const response = await env.R2.get(url.pathname);
+      const key = url.pathname;
+  
       if (response) {
-        return await esmResponse({
-          text: () => response.text(), 
-          arrayBuffer: () => response.arrayBuffer()
-        }, url, makeHeaders(response, url.pathname));
+        const responseLike: ResponseLike = {
+          text: () => response.text(),
+          arrayBuffer: () => response.arrayBuffer(),
+        };
+        const headers = makeHeaders(response, key);
+        return await esmResponse(responseLike, url, headers);
       }
   
       const esmWorker = (await import("./esm.worker")).default;
       const resp = await esmWorker.fetch(request, env, ctx);
   
-      if (!resp.ok) return resp;
-  
-      const arrayBuffer = await resp.arrayBuffer();
-      if (resp.headers.get("Content-Type")?.includes("javascript")) {
-        ctx.waitUntil(env.R2.put(url.pathname, arrayBuffer));
+      if (!resp.ok) {
+        return resp;
       }
   
-      return await esmResponse({
-        text: () => Promise.resolve(new TextDecoder("utf-8").decode(arrayBuffer)),
-        arrayBuffer: () => Promise.resolve(arrayBuffer)
-      }, url, new Headers(resp.headers));
+      const arrayBuffer = await resp.arrayBuffer();
       
+      // Cache responses in R2 with correct metadata
+      ctx.waitUntil(env.R2.put(key, arrayBuffer, {
+        httpMetadata: Object.fromEntries(resp.headers.entries()),
+    
+      }));
+  
+      const responseLike: ResponseLike = {
+        text: () => Promise.resolve(new TextDecoder("utf-8").decode(arrayBuffer)),
+        arrayBuffer: () => Promise.resolve(arrayBuffer),
+      };
+  
+      const headers = makeHeaders(undefined, key);
+      return await esmResponse(responseLike, url, headers);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Internal Server Error";
-      return new Response(`Internal Server Error: ${message}`, { status: 500 });
+        if (error instanceof Error) {
+      console.error(`Error in handleEsmRequest: ${error.message}`);
+      return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
+        }
+        return new Response("Internal Server Error", { status: 500 });
     }
   }
   
@@ -99,8 +118,11 @@ export  async function handleEsmRequest(path: string[], request: Request, env: E
     headers.set("Access-Control-Allow-Origin", "*");
     headers.set("Cross-Origin-Embedder-Policy", "require-corp");
   
+    // Set the Content-Type after writeHttpMetadata to ensure it takes precedence
     const contentType = getContentType(key);
     headers.set('Content-Type', contentType);
+
+    console.log('Headers:', Array.from(headers.entries()));
   
     return headers;
   }
