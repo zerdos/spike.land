@@ -6,61 +6,36 @@ interface ResponseLike {
     arrayBuffer: () => Promise<ArrayBuffer>;
   }
   
-export  async function handleEsmRequest(
-    path: string[],
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ) {
+export  async function handleEsmRequest(path: string[], request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
   
     try {
-      // Attempt to retrieve the resource from R2 storage
       const response = await env.R2.get(url.pathname);
       if (response) {
-        const responseLike: ResponseLike = {
-          text: () => response.text(),
-          arrayBuffer: () => response.arrayBuffer(),
-        };
-        const headers = makeHeaders(response, url.pathname);
-        return await esmResponse(responseLike, url, headers);
+        return await esmResponse({
+          text: () => response.text(), 
+          arrayBuffer: () => response.arrayBuffer()
+        }, url, makeHeaders(response, url.pathname));
       }
   
-      // If not found in R2, fetch via esm.worker
       const esmWorker = (await import("./esm.worker")).default;
       const resp = await esmWorker.fetch(request, env, ctx);
   
-      // If the response is not OK, return it as is
-      if (!resp.ok) {
-        return resp;
-      }
+      if (!resp.ok) return resp;
   
-      // Read the response body once
       const arrayBuffer = await resp.arrayBuffer();
-  
-      // Cache JavaScript responses in R2
-      const contentType = resp.headers.get("Content-Type") || '';
-      if (contentType.includes("javascript")) {
+      if (resp.headers.get("Content-Type")?.includes("javascript")) {
         ctx.waitUntil(env.R2.put(url.pathname, arrayBuffer));
       }
   
-      // Create ResponseLike from the arrayBuffer
-      const responseLike: ResponseLike = {
+      return await esmResponse({
         text: () => Promise.resolve(new TextDecoder("utf-8").decode(arrayBuffer)),
-        arrayBuffer: () => Promise.resolve(arrayBuffer),
-      };
-  
-      const headers = new Headers(resp.headers);
-  
-      return await esmResponse(responseLike, url, headers);
+        arrayBuffer: () => Promise.resolve(arrayBuffer)
+      }, url, new Headers(resp.headers));
+      
     } catch (error) {
-      // Handle any unexpected errors
-      if (error instanceof Error) {
-        return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
-        }
-        else {
-        return new Response("Internal Server Error", { status: 500 });
-      }
+      const message = error instanceof Error ? error.message : "Internal Server Error";
+      return new Response(`Internal Server Error: ${message}`, { status: 500 });
     }
   }
   
