@@ -209,6 +209,8 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
       return new Response("Method not allowed", { status: 405 });
   }
 }
+
+
 async function handleDefaultCase(
   path: string[],
   request: Request,
@@ -220,15 +222,14 @@ async function handleDefaultCase(
     if (response) {
       const source = await response.text();
       if (!source.startsWith('/* esm.sh - error */')) {
-      const source = await response.text();
-      const resp = new Response(source, {
-        headers: {
-          ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
-          "Cache-Control": "public, immutable, max-age=31536000",
-        }
-      });
-      return resp;
-    }
+        const resp = new Response(source, {
+          headers: {
+            ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
+            "Cache-Control": "public, immutable, max-age=31536000",
+          }
+        });
+        return resp;
+      }
     }
 
     const esmWorker = (await import("./esm.worker")).default;
