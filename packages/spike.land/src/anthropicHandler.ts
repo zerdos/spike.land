@@ -3,7 +3,7 @@ import type { TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
 import type Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
-import type { Message, MessageContent } from "@spike-land/code";
+import type { Message, MessageContent } from "@spike-npm-land/code";
 import { handleCMSIndexRequest } from "./chat";
 import { KVLogger } from "./Logs";
 

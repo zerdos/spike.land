@@ -1,12 +1,12 @@
 import type Env from "./env";
 import type { ICodeSession ,
-  CodePatch} from "@spike-land/code";
+  CodePatch} from "@spike-npm-land/code";
 import {
   applyCodePatch,
   createPatch,
   makeHash,
   makeSession,
-} from "@spike-land/code";
+} from "@spike-npm-land/code";
 
 export interface CodeHistoryEntry {
   timestamp: number;

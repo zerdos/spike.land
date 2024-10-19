@@ -4,13 +4,13 @@ import type {
 } from "@cloudflare/workers-types";
 import type {
   CodePatch,
-  ICodeSession} from "@spike-land/code";
+  ICodeSession} from "@spike-npm-land/code";
 import {
   createPatch,
   makeHash,
   makeSession,
   md5,
-} from "@spike-land/code";
+} from "@spike-npm-land/code";
 
 import type Env from "./env";
 import { handleErrors } from "./handleErrors";

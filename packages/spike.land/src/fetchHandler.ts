@@ -1,4 +1,4 @@
-import { importMap, importMapReplace } from "@spike-land/code";
+import { importMap, importMapReplace } from "@spike-npm-land/code";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
 import { handleCORS, isUrlFile } from "./utils";

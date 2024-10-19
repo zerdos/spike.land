@@ -1,5 +1,5 @@
 {
-  "name": "@spike-land/esm-sh",
+  "name": "@spike-npm-land/esm-sh",
   "tagname": "esm-sh",
   "scripts": {
     "tag:version": "docker build . --tag $(yarn t:version)",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike-land/devcontainer-generator": "0.9.55"
+    "@spike-npm-land/devcontainer-generator": "0.9.55"
   },
   "version": "0.9.55",
   "description": "devcontainer vscode docker xfce remoteDesktop",

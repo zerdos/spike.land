@@ -1,4 +1,4 @@
-import { HTML } from "@spike-land/code";
+import { HTML } from "@spike-npm-land/code";
 import type Env from "./env";
 
 export async function handleApiRequest(

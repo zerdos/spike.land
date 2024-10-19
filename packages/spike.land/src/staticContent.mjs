@@ -1,4 +1,4 @@
-import { md5 } from "@spike-land/code";
+import { md5 } from "@spike-npm-land/code";
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
 export { ASSET_MANIFEST };

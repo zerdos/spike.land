@@ -1,4 +1,4 @@
-import { md5 } from "@spike-land/code";
+import { md5 } from "@spike-npm-land/code";
 import Replicate from "replicate";
 import type Env from "./env";
 

@@ -18,7 +18,7 @@ While the provided code doesn't directly show npm file management, it does use s
 
 1. `@cloudflare/workers-types` for TypeScript types related to Cloudflare Workers.
 2. `@cloudflare/kv-asset-handler` for handling static assets stored in KV.
-3. `@spike-land/code` for various utility functions and types.
+3. `@spike-npm-land/code` for various utility functions and types.
 4. `@clerk/backend` for authentication-related functionality.
 
 The project likely uses a build step to bundle these npm dependencies into the worker script.

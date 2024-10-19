@@ -2,7 +2,7 @@ import {
   build,
   transpile,
   wasmFile as wasmModule,
-} from "@spike-land/code/src/transpile";
+} from "@spike-npm-land/code/src/transpile";
 
 Object.assign(globalThis, {
   performance: {

@@ -1,5 +1,5 @@
 {
-  "name": "@spike-land/lunar-devcontainer",
+  "name": "@spike-npm-land/lunar-devcontainer",
   "tagname": "lunar-devcontainer",
   "scripts": {
     "tag:version": "node --no-warnings -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike-land/devcontainer-generator": "0.9.55"
+    "@spike-npm-land/devcontainer-generator": "0.9.55"
   },
   "version": "0.9.55",
   "description": "devcontainer vscode docker xfce remoteDesktop",

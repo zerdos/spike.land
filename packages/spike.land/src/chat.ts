@@ -1,4 +1,4 @@
-import { serverFetchUrl } from "@spike-land/code";
+import { serverFetchUrl } from "@spike-npm-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
@@ -7,7 +7,7 @@ import { handleReplicateRequest } from "./replicateHandler";
 
 import type Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { serveWithCache } from "@spike-land/code";
+import { serveWithCache } from "@spike-npm-land/code";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 import { makeResponse } from "./makeResponse";
 

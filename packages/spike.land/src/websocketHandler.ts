@@ -1,6 +1,6 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Delta} from "@spike-land/code";
-import { applyCodePatch, makeHash, stringifySession } from "@spike-land/code";
+import type { CodePatch, Delta} from "@spike-npm-land/code";
+import { applyCodePatch, makeHash, stringifySession } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;

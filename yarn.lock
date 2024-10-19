@@ -4126,17 +4126,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spike-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer":
+"@spike-npm-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer"
+  resolution: "@spike-npm-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/code-worker@workspace:packages/spike.land":
+"@spike-npm-land/code-worker@workspace:packages/spike.land":
   version: 0.0.0-use.local
-  resolution: "@spike-land/code-worker@workspace:packages/spike.land"
+  resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.29.2"
     "@clerk/backend": "npm:1.14.1"
@@ -4146,8 +4146,8 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20241011.0"
     "@remix-run/cloudflare": "npm:^2.13.1"
     "@remix-run/react": "npm:^2.13.1"
-    "@spike-land/code": "npm:0.9.55"
-    "@spike-land/transpile": "npm:0.9.55"
+    "@spike-npm-land/code": "npm:0.9.55"
+    "@spike-npm-land/transpile": "npm:0.9.55"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.6"
@@ -4171,9 +4171,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/code@npm:0.9.55, @spike-land/code@workspace:packages/code":
+"@spike-npm-land/code@npm:0.9.55, @spike-npm-land/code@workspace:packages/code":
   version: 0.0.0-use.local
-  resolution: "@spike-land/code@workspace:packages/code"
+  resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
     "@clerk/clerk-react": "npm:^5.12.0"
     "@clerk/nextjs": "npm:5.7.5"
@@ -4390,119 +4390,119 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/cypress@workspace:devcontainers/cypress":
+"@spike-npm-land/cypress@workspace:devcontainers/cypress":
   version: 0.0.0-use.local
-  resolution: "@spike-land/cypress@workspace:devcontainers/cypress"
+  resolution: "@spike-npm-land/cypress@workspace:devcontainers/cypress"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.55, @spike-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator":
+"@spike-npm-land/devcontainer-generator@npm:*, @spike-npm-land/devcontainer-generator@npm:0.9.55, @spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator":
   version: 0.0.0-use.local
-  resolution: "@spike-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator"
+  resolution: "@spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator"
   dependencies:
     "@types/node": "npm:22.7.6"
     esbuild-wasm: "npm:0.24.0"
   languageName: unknown
   linkType: soft
 
-"@spike-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc":
+"@spike-npm-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc":
   version: 0.0.0-use.local
-  resolution: "@spike-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc"
+  resolution: "@spike-npm-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/esm-sh@workspace:devcontainers/esm-sh":
+"@spike-npm-land/esm-sh@workspace:devcontainers/esm-sh":
   version: 0.0.0-use.local
-  resolution: "@spike-land/esm-sh@workspace:devcontainers/esm-sh"
+  resolution: "@spike-npm-land/esm-sh@workspace:devcontainers/esm-sh"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/gitpod-monorepo@workspace:devcontainers/gitpod-monorepo":
+"@spike-npm-land/gitpod-monorepo@workspace:devcontainers/gitpod-monorepo":
   version: 0.0.0-use.local
-  resolution: "@spike-land/gitpod-monorepo@workspace:devcontainers/gitpod-monorepo"
+  resolution: "@spike-npm-land/gitpod-monorepo@workspace:devcontainers/gitpod-monorepo"
   languageName: unknown
   linkType: soft
 
-"@spike-land/gitpod@workspace:devcontainers/gitpod":
+"@spike-npm-land/gitpod@workspace:devcontainers/gitpod":
   version: 0.0.0-use.local
-  resolution: "@spike-land/gitpod@workspace:devcontainers/gitpod"
+  resolution: "@spike-npm-land/gitpod@workspace:devcontainers/gitpod"
   languageName: unknown
   linkType: soft
 
-"@spike-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer":
+"@spike-npm-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer"
+  resolution: "@spike-npm-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop":
+"@spike-npm-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop":
   version: 0.0.0-use.local
-  resolution: "@spike-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop"
+  resolution: "@spike-npm-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop"
   languageName: unknown
   linkType: soft
 
-"@spike-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer":
+"@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer"
+  resolution: "@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 
-"@spike-land/lunar-xubuntu-desktop@workspace:devcontainers/lunar-xubuntu-desktop":
+"@spike-npm-land/lunar-xubuntu-desktop@workspace:devcontainers/lunar-xubuntu-desktop":
   version: 0.0.0-use.local
-  resolution: "@spike-land/lunar-xubuntu-desktop@workspace:devcontainers/lunar-xubuntu-desktop"
+  resolution: "@spike-npm-land/lunar-xubuntu-desktop@workspace:devcontainers/lunar-xubuntu-desktop"
   languageName: unknown
   linkType: soft
 
-"@spike-land/monorepo-modules@workspace:devcontainers/monorepo-modules":
+"@spike-npm-land/monorepo-modules@workspace:devcontainers/monorepo-modules":
   version: 0.0.0-use.local
-  resolution: "@spike-land/monorepo-modules@workspace:devcontainers/monorepo-modules"
+  resolution: "@spike-npm-land/monorepo-modules@workspace:devcontainers/monorepo-modules"
   languageName: unknown
   linkType: soft
 
-"@spike-land/node-chrome@workspace:devcontainers/node-chrome":
+"@spike-npm-land/node-chrome@workspace:devcontainers/node-chrome":
   version: 0.0.0-use.local
-  resolution: "@spike-land/node-chrome@workspace:devcontainers/node-chrome"
+  resolution: "@spike-npm-land/node-chrome@workspace:devcontainers/node-chrome"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:*"
+    "@spike-npm-land/devcontainer-generator": "npm:*"
   languageName: unknown
   linkType: soft
 
-"@spike-land/rolling-devcontainer@workspace:devcontainers/rolling-devcontainer":
+"@spike-npm-land/rolling-devcontainer@workspace:devcontainers/rolling-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike-land/rolling-devcontainer@workspace:devcontainers/rolling-devcontainer"
+  resolution: "@spike-npm-land/rolling-devcontainer@workspace:devcontainers/rolling-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:*"
+    "@spike-npm-land/devcontainer-generator": "npm:*"
   languageName: unknown
   linkType: soft
 
-"@spike-land/transpile@npm:0.9.55, @spike-land/transpile@workspace:packages/js.spike.land":
+"@spike-npm-land/transpile@npm:0.9.55, @spike-npm-land/transpile@workspace:packages/js.spike.land":
   version: 0.0.0-use.local
-  resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
+  resolution: "@spike-npm-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20241011.0"
-    "@spike-land/code": "npm:0.9.55"
+    "@spike-npm-land/code": "npm:0.9.55"
     esbuild-wasm: "npm:0.24.0"
     typescript: "npm:5.6.3"
     wrangler: "npm:3.81.0"
   languageName: unknown
   linkType: soft
 
-"@spike-land/trixie-devcontainer@workspace:devcontainers/trixie-devcontainer":
+"@spike-npm-land/trixie-devcontainer@workspace:devcontainers/trixie-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike-land/trixie-devcontainer@workspace:devcontainers/trixie-devcontainer"
+  resolution: "@spike-npm-land/trixie-devcontainer@workspace:devcontainers/trixie-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
   languageName: unknown
   linkType: soft
 

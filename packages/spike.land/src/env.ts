@@ -1,4 +1,4 @@
-import type * as ESBUILD from "@spike-land/transpile";
+import type * as ESBUILD from "@spike-npm-land/transpile";
 /// <reference types="@cloudflare/workers-types" />
 
 // import {DurableObjectNamespace, KVNamespace} from "@cloudflare/workers-types"

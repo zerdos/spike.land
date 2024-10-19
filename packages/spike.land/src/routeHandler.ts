@@ -4,9 +4,9 @@ import {
   makeSession,
   md5,
   stringifySession,
-} from "@spike-land/code";
+} from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
-import { HTML, importMap } from "@spike-land/code";
+import { HTML, importMap } from "@spike-npm-land/code";
 
 export interface AutoSaveEntry {
   timestamp: number;
