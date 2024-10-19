@@ -13,8 +13,8 @@ import type {
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/../lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
-import { useWindowSize } from "@uidotdev/usehooks";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import useWindowSize from "@/hooks/use-window-size";
 
 
 let firstRender = true; 
