@@ -6,7 +6,7 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { useLocalStorage } from "react-use";
-import { handleSendMessage } from "@/lib/shared";
+import { handleSendMessage } from "@/../lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";

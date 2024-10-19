@@ -1,9 +1,9 @@
+import { prettierCss } from "@/../lib/shared";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
-import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 
 import { initializeApp, setupServiceWorker } from "./hydrate";

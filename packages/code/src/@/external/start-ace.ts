@@ -1,7 +1,7 @@
 import { edit } from "ace-builds";
 import "ace-builds/src-min-noconflict/theme-monokai";
 import "ace-builds/src-min-noconflict/mode-typescript";
-import { prettierToThrow } from "@/lib/shared";
+import { prettierToThrow } from "@/../lib/shared";
 
 const mod = {
   value: "",

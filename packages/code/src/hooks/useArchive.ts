@@ -3,7 +3,7 @@ import { md5 } from "@/lib/md5";
 
 import { wait } from "@/lib/wait";
 
-import { build } from "@/lib/shared";
+import { build } from "@/../lib/shared";
 // import { useAuth } from "@clerk/clerk-react";
 
 // const auth = () => {

@@ -1,7 +1,7 @@
+import { transpile } from "@/../lib/shared";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
-import { transpile } from "@/lib/shared";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 
 import HTML from "./index.html?raw";

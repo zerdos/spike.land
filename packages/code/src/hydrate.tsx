@@ -37,7 +37,7 @@ Object.assign(globalThis, { setupServiceWorker });
 const createLangChainWorkflow = async (prompt: string) => {
   console.log("Creating LangChain workflow with prompt:", prompt);
   try {
-    const { createWorkflow } = await import("@/lib/shared");
+    const { createWorkflow } = await import("@/../lib/shared");
     const workflow = await createWorkflow(prompt);
     console.log("LangChain workflow created successfully");
     return workflow;

@@ -11,7 +11,7 @@ import type {
   RenderedApp,
 } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { transpile } from "@/lib/shared";
+import { transpile } from "@/../lib/shared";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { ThemeProvider } from "@/components/ui/theme-provider";

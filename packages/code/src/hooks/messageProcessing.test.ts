@@ -7,7 +7,7 @@ vi.mock("@src/config/aiConfig", () => ({
   claudeRecovery: vi.fn((code) => `Recovery: ${code}`),
 }));
 vi.mock("@/lib/context-manager");
-vi.mock("@/lib/shared");
+vi.mock("@/../lib/shared");
 
 describe("messageProcessing", () => {
   describe("createNewMessage", () => {

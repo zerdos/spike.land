@@ -1,11 +1,11 @@
 // CodeSession.ts
 
 // import { getCodeSpace } from "@/hooks/use-code-space";
+import { connect } from "@/../lib/shared";
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { connect } from "@/lib/shared";
-// import { build } from "@/lib/shared";
+// import { build } from "@/../lib/shared";
 import { Mutex } from "async-mutex";
 import { hash } from "immutable";
 import {
