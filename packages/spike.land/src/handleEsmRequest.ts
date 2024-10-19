@@ -16,8 +16,9 @@ export  async function handleEsmRequest(
     const url = new URL(request.url);
   
     try {
-      const response = await env.R2.get(url.pathname);
-      const key = url.pathname;
+        const key = url.pathname + url.search;
+
+        const response = await env.R2.get(key);
   
       if (response) {
         const responseLike: ResponseLike = {
@@ -48,7 +49,7 @@ export  async function handleEsmRequest(
         arrayBuffer: () => Promise.resolve(arrayBuffer),
       };
   
-      const headers = makeHeaders(undefined, key);
+      const headers = makeResponse(undefined, key).headers;
       return await esmResponse(responseLike, url, headers);
     } catch (error) {
         if (error instanceof Error) {
