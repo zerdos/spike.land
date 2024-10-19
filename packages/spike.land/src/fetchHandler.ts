@@ -222,11 +222,8 @@ async function handleDefaultCase(
     if (response) {
       const source = await response.text();
       if (!source.startsWith('/* esm.sh - error */')) {
-        const resp = new Response(source, {
-          headers: {
-            ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
-            "Cache-Control": "public, immutable, max-age=31536000",
-          }
+        const resp = new Response(importMapReplace(source, new URL(request.url).origin), {
+          headers: makeResponse(undefined, request.url.toString()).headers
         });
         return resp;
       }
@@ -244,11 +241,8 @@ async function handleDefaultCase(
     }
 
     return new Response(importMapReplace(text, new URL(request.url).origin), {
-      headers: {
-        ...resp.headers,
-        ...makeResponse(undefined, request.url.toString()).headers,
-        "Cache-Control": "public, immutable, max-age=31536000",
-      },
+      headers: makeResponse(undefined, request.url.toString()).headers
+    
     });
   }
 
