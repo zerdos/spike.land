@@ -3,20 +3,26 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  "service": "devcontainer",
-  "workspaceFolder": "/home/node/workspace",
+  "service": "devcontainer",  
+  "workspaceFolder": "/workspace",
   "customizations": {
+    "extensions": [
+      "streetsidesoftware.code-spell-checker",
+      "pflannery.vscode-versionlens",
+      "styled-components.vscode-styled-components",
+      "arcanis.vscode-zipfs"
+    ],
     "vscode": {
-      "settings": {},
-      "extensions": [
-        "streetsidesoftware.code-spell-checker",
-        "pflannery.vscode-versionlens",
-        "styled-components.vscode-styled-components",
-        "arcanis.vscode-zipfs"
-      ]
-    }
+      "settings": {
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 100,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": true,
+        "editor.formatOnType": true
+      }
   },
   "forwardPorts": [6080, 3333, 9222, 8080],
-  "postStartCommand": "cp /home/node/.oh-my-zsh/.zshrc /home/node/ && yarn install && yarn dev",
+  "postStartCommand": "yarn install",
   "remoteUser": "node"
 }
