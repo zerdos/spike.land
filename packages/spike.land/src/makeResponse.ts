@@ -63,6 +63,6 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
                                                         ? "audio/aac"
                                                         : "text/html; charset=UTF-8"
   );
-  if (!object) new Response("", { headers });
-  return new Response(object!.body, { headers });
+  if (!object) return new Response("", { headers });
+  return new Response(object && object.body || '', { headers });
 }
