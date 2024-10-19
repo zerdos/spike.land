@@ -1,0 +1,10 @@
+services:
+  esm-sh:
+    build: .
+    image: devimages/esm-sh:latest
+    ports:
+      - "8080:8080"
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    command: "tunnel --no-autoupdate run --token eyJhIjoiMWY5ODkyMTA1MTE5NjU0NWViZTc5YTQ1MGQzYzcxZWQiLCJ0IjoiODkwZDVkYTItY2I1MC00YmNhLWI5YzYtZjNmNGM2MzIxNzc3IiwicyI6Ik1ETmpOMlkxWlRRdFl6RTVOUzAwTm1ZM0xUbGxOalF0T1RBek56UXpaV1l3T0RVMSJ9"
+    restart: always
