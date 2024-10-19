@@ -1,26 +1,10 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.3/containers/docker-existing-docker-compose
-// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
 {
   "name": "Existing Docker Compose (Extend)",
-
-  // Update the 'dockerComposeFile' list if you have more compose files or use different names.
-  // The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-
-  // The 'service' property is the name of the `service for the container that VS Code should
-  // use. Update this value and .devcontainer/docker-compose.yml to the real service name.
   "service": "devcontainer",
-
-  // The optional 'workspaceFolder' property is the path VS Code should open by default when
-  // connected. This is typically a file mount in .devcontainer/docker-compose.yml
   "workspaceFolder": "/home/node/workspace",
-
-  // Set *default* container specific settings.json values on container create.
-
-  // Add the IDs of extensions you want installed when the container is created.
   "customizations": {
     "vscode": {
       "settings": {},
@@ -32,19 +16,7 @@
       ]
     }
   },
-  // Use 'forwardPorts' to make a l ist of ports inside the container available locally.
-  "forwardPorts": [6080, 3333],
-  "postStartCommand": "cp /home/node/.oh-my-zsh/.zshrc /home/node/ &&  yarn install",
-
-  // Uncomment the next line if you want start specific services in your Docker Compose config.
-  // "runServices": [],
-
-  // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
-  // "shutdownAction": "none",
-
-  // Uncomment the next line to run commands after the container is created - for example installing curl.
-  // "postCreateCommand": "apt-get update && apt-get install -y curl",
-
-  // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+  "forwardPorts": [6080, 3333, 9222, 8080],
+  "postStartCommand": "cp /home/node/.oh-my-zsh/.zshrc /home/node/ && yarn install && yarn dev",
   "remoteUser": "node"
 }
