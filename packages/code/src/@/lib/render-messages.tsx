@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useMemo, useRef } from "react";
-import { getPartsStreaming } from "./get-parts";
-import type { ParsingState } from "./interfaces";
-import { cn } from "./utils";
-import MarkdownWithReadAloud from "../external/Markdown";
-import { CodeBlock } from "../components/app/code-block-lazy";
-import { isDiffContent } from "./diff-utils";
-import { DiffViewer } from "../components/app/diff-editor";
-import { md5 } from "./md5";
-import { extractCodeModification } from "./chat-utils";
+import { getPartsStreaming } from "@/lib/get-parts";
+import type { ParsingState } from "@/lib/interfaces";
+import { cn } from "@/lib/utils";
+import MarkdownWithReadAloud from "@/external/Markdown";
+import { CodeBlock } from "@/components/app/code-block-lazy";
+import { isDiffContent } from "@/lib/diff-utils";
+import { DiffViewer } from "@/components/app/diff-editor";
+import { md5 } from "@/lib/md5";
+import { extractCodeModification } from "@/lib/chat-utils";
 
 interface CodeProps {
   value: string;
