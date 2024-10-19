@@ -4130,7 +4130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -4146,8 +4146,8 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20241011.0"
     "@remix-run/cloudflare": "npm:^2.13.1"
     "@remix-run/react": "npm:^2.13.1"
-    "@spike-npm-land/code": "npm:0.9.55"
-    "@spike-npm-land/transpile": "npm:0.9.55"
+    "@spike-npm-land/code": "npm:0.9.56"
+    "@spike-npm-land/transpile": "npm:0.9.56"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
     "@types/node": "npm:^22.7.6"
@@ -4171,7 +4171,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/code@npm:0.9.55, @spike-npm-land/code@workspace:packages/code":
+"@spike-npm-land/code@npm:0.9.56, @spike-npm-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
@@ -4394,11 +4394,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/cypress@workspace:devcontainers/cypress"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/devcontainer-generator@npm:*, @spike-npm-land/devcontainer-generator@npm:0.9.55, @spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator":
+"@spike-npm-land/devcontainer-generator@npm:*, @spike-npm-land/devcontainer-generator@npm:0.9.56, @spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator"
   dependencies:
@@ -4411,7 +4411,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -4419,7 +4419,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/esm-sh@workspace:devcontainers/esm-sh"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -4439,7 +4439,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -4453,7 +4453,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -4485,13 +4485,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/transpile@npm:0.9.55, @spike-npm-land/transpile@workspace:packages/js.spike.land":
+"@spike-npm-land/transpile@npm:0.9.56, @spike-npm-land/transpile@workspace:packages/js.spike.land":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20241011.0"
-    "@spike-npm-land/code": "npm:0.9.55"
+    "@spike-npm-land/code": "npm:0.9.56"
     esbuild-wasm: "npm:0.24.0"
     typescript: "npm:5.6.3"
     wrangler: "npm:3.81.0"
@@ -4502,7 +4502,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/trixie-devcontainer@workspace:devcontainers/trixie-devcontainer"
   dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.55"
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
   linkType: soft
 
@@ -5971,7 +5971,7 @@ __metadata:
   resolution: "acorn@npm:8.13.0"
   bin:
     acorn: bin/acorn
-  checksum: 10c0/f35dd53d68177c90699f4c37d0bb205b8abe036d955d0eb011ddb7f14a81e6fd0f18893731c457c1b5bd96754683f4c3d80d9a5585ddecaa53cdf84e0b3d68f7
+  checksum: 10c0/f35dd53d68177c90699f4c37d0bb205b8abe036d955d0eb011ddb7f14a81e6fd0f18893731c457c1b5bd96754683f4c3d80.9.5685ddecaa53cdf84e0b3d68f7
   languageName: node
   linkType: hard
 

@@ -1,6 +1,6 @@
 {
   "name": "@spike-npm-land/code",
-  "version": "0.9.55",
+  "version": "0.9.56",
   "type": "module",
   "description": "spike.land",
   "entry": "dist/modules.cjs",

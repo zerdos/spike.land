@@ -1,7 +1,7 @@
 {
   "name": "@spike-npm-land/transpile",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.9.55",
+  "version": "0.9.56",
   "type": "module",
   "main": "dist/index.js",
   "private": true,
@@ -19,7 +19,7 @@
     "wrangler": "3.81.0"
   },
   "dependencies": {
-    "@spike-npm-land/code": "0.9.55",
+    "@spike-npm-land/code": "0.9.56",
     "esbuild-wasm": "0.24.0"
   },
   "publishConfig": {

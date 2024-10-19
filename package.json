@@ -1,6 +1,6 @@
 {
   "name": "monorepo",
-  "version": "0.9.55",
+  "version": "0.9.56",
   "description": "our monorepo",
   "repository": "git@github.com:zerdos/spike.land.git",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
