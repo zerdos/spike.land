@@ -1,5 +1,6 @@
 import { importMapReplace } from "@spike-npm-land/code";
 import type Env from "./env";
+import { makeResponse } from "./makeResponse";
 
 interface ResponseLike {
     text: () => Promise<string>;
@@ -23,7 +24,7 @@ export  async function handleEsmRequest(
           text: () => response.text(),
           arrayBuffer: () => response.arrayBuffer(),
         };
-        const headers = makeHeaders(response, key);
+        const headers = makeResponse(response, key).headers;
         return await esmResponse(responseLike, url, headers);
       }
   
@@ -66,11 +67,6 @@ export  async function handleEsmRequest(
     const { pathname, origin } = url;
     const headers = new Headers(headersInit);
   
-    // Ensure Content-Type is set
-    if (!headers.has("Content-Type")) {
-      const defaultContentType = getContentType(pathname);
-      headers.set("Content-Type", defaultContentType);
-    }
   
     const contentType = headers.get("Content-Type") || '';
     const isText = contentType.includes("utf-8") || contentType.startsWith("text/");
@@ -106,58 +102,3 @@ export  async function handleEsmRequest(
     return new Response(respBody, { headers });
   }
   
-  function makeHeaders(object: R2ObjectBody | undefined, key: string): Headers {
-    const headers = new Headers();
-  
-    if (object && object.writeHttpMetadata) {
-      object.writeHttpMetadata(headers);
-      headers.set("etag", object.httpEtag);
-    }
-  
-    headers.set("Cache-Control", "public, max-age=31536000");
-    headers.set("Access-Control-Allow-Origin", "*");
-    headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-  
-    // Set the Content-Type after writeHttpMetadata to ensure it takes precedence
-    const contentType = getContentType(key);
-    headers.set('Content-Type', contentType);
-
-    console.log('Headers:', Array.from(headers.entries()));
-  
-    return headers;
-  }
-  
-  function getContentType(key: string): string {
-    const mimeTypes: { [extension: string]: string } = {
-      '.js': 'application/javascript; charset=UTF-8',
-      '.mjs': 'application/javascript; charset=UTF-8',
-      '.css': 'text/css; charset=UTF-8',
-      '.html': 'text/html; charset=UTF-8',
-      '.json': 'application/json; charset=UTF-8',
-      '.ttf': 'font/ttf',
-      '.woff': 'font/woff',
-      '.woff2': 'font/woff2',
-      '.eot': 'application/vnd.ms-fontobject',
-      '.otf': 'font/otf',
-      '.png': 'image/png',
-      '.pdf': 'application/pdf',
-      '.gif': 'image/gif',
-      '.webp': 'image/webp',
-      '.jpg': 'image/jpeg',
-      '.jpeg': 'image/jpeg',
-      '.svg': 'image/svg+xml',
-      '.mp4': 'video/mp4',
-      '.webm': 'video/webm',
-      '.mov': 'video/quicktime',
-      '.avi': 'video/x-msvideo',
-      '.wmv': 'video/x-ms-wmv',
-      '.mp3': 'audio/mpeg',
-      '.wav': 'audio/wav',
-      '.ogg': 'audio/ogg',
-      '.flac': 'audio/flac',
-      '.aac': 'audio/aac',
-    };
-  
-    const extension = key.slice(key.lastIndexOf('.')).toLowerCase();
-    return mimeTypes[extension] || 'application/octet-stream';
-  }
