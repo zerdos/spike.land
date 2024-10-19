@@ -39,11 +39,11 @@
     "aider": "git stash && git reset --hard HEAD && git pull  && git checkout -b aider-${RANDOM} && git stash pop && git add . && yarn && yarn lint && git commit -m \"aider init\" && git push -u origin $(git branch)"
   },
   "devDependencies": {
-    "@cloudflare/workerd-linux-arm64": "^1.20241011.1",
-    "@cloudflare/workers-types": "^4.20241011.0",
+    "@cloudflare/workerd-linux-arm64": "^1.20241018.0",
+    "@cloudflare/workers-types": "^4.20241018.0",
     "@emotion/react": "11.13.3",
     "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.12.0",
+    "@eslint/js": "^9.13.0",
     "@playwright/test": "1.48.1",
     "@types/eslint__js": "^8.42.3",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
@@ -51,7 +51,7 @@
     "@yarnpkg/sdks": "3.2.0",
     "concurrently": "^9.0.1",
     "dprint": "0.47.2",
-    "eslint": "9.12.0",
+    "eslint": "9.13.0",
     "eslint-plugin-react": "7.37.1",
     "playwright": "1.48.1",
     "react": "18.3.1",
