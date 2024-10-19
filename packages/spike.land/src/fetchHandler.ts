@@ -243,7 +243,7 @@ async function handleDefaultCase(
       ctx.waitUntil(env.R2.put(request.url.toString(), text));
     }
 
-    return new Response(text, {
+    return new Response(importMapReplace(text, new URL(request.url).origin), {
       headers: {
         ...resp.headers,
         "Content-Type": "application/javascript; charset=UTF-8",
