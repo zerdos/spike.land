@@ -219,6 +219,8 @@ async function handleDefaultCase(
     const response = await env.R2.get(request.url.toString());
     if (response) {
       const source = await response.text();
+      if (!source.startsWith('/* esm.sh - error */')) {
+      const source = await response.text();
       const resp = new Response(source, {
         headers: {
           ...makeResponse(importMapReplace(source, new URL(request.url).origin), request.url.toString()).headers,
@@ -226,6 +228,7 @@ async function handleDefaultCase(
         }
       });
       return resp;
+    }
     }
 
     const esmWorker = (await import("./esm.worker")).default;
