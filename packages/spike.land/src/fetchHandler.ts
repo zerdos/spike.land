@@ -1,8 +1,8 @@
-import { importMap, importMapReplace } from "@spike-npm-land/code";
+import { importMap } from "@spike-npm-land/code";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
-import { handleCORS, isUrlFile } from "./utils";
-import { makeResponse } from "./makeResponse";
+import { handleCORS  } from "./utils";
+import { handleEsmRequest } from "./handleEsmRequest";
 export async function handleFetchApi(
   path: string[],
   request: Request,
@@ -62,7 +62,7 @@ Sitemap: ${new URL(request.url).origin}/sitemap.xml
   const handler = handlers[path[0]];
   return handler
     ? handler()
-    : handleDefaultCase(path, request, env, ctx);
+    : handleEsmRequest(path, request, env, ctx);
 }
 
 function handlePing(): Response {
@@ -208,43 +208,4 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     default:
       return new Response("Method not allowed", { status: 405 });
   }
-}
-
-
-async function handleDefaultCase(
-  path: string[],
-  request: Request,
-  env: Env,
-  ctx: ExecutionContext,
-) {
-  if (!isUrlFile(path.join("/"))) {
-    const response = await env.R2.get(request.url.toString());
-    if (response) {
-      const source = await response.text();
-      if (!source.startsWith('/* esm.sh - error */')) {
-        const resp = new Response(importMapReplace(source, new URL(request.url).origin), {
-          headers: makeResponse(undefined, request.url.toString()).headers
-        });
-        return resp;
-      }
-    }
-
-    const esmWorker = (await import("./esm.worker")).default;
-    const resp = await esmWorker.fetch(request, env, ctx);
-
-    if (!resp.ok) return resp;
-
-    const text = await resp.text();
-
-    if (resp.headers.get("Content-Type")?.includes("javascript")) {
-      ctx.waitUntil(env.R2.put(request.url.toString(), text));
-    }
-
-    return new Response(importMapReplace(text, new URL(request.url).origin), {
-      headers: makeResponse(undefined, request.url.toString()).headers
-    
-    });
-  }
-
-  return new Response("not found :((( ", { status: 404 });
 }
