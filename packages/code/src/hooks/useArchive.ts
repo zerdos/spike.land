@@ -67,12 +67,12 @@ export const getSpeedy2 = async () => {
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     media-src 'self' blob: ;
-    script-src 'self' https://js.spike.land https://cdn.jsdelivr.net https://esm.sh https://static.cloudflareinsights.com data: https://clerk.spike.land blob: 'unsafe-eval' 'unsafe-inline';
-    worker-src 'self' https://storage.googleapis.com https://esm.sh blob:;
-    style-src 'self' https://esm.sh 'unsafe-inline' https://fonts.googleapis.com;
-    connect-src 'self' https://cdn.jsdelivr.net blob: https://esm.sh https://clerk.spike.land wss://*.peerjs.com;
-    font-src 'self' data: blob: https://esm.sh https://fonts.gstatic.com;
-    img-src 'self' https://esm.sh data: blob: https://img.clerk.com https://*.clerk.dev;
+    script-src 'self' https://js.spike.land https://cdn.jsdelivr.net https://esm-sh.spike.land https://static.cloudflareinsights.com data: https://clerk.spike.land blob: 'unsafe-eval' 'unsafe-inline';
+    worker-src 'self' https://storage.googleapis.com https://esm-sh.spike.land blob:;
+    style-src 'self' https://esm-sh.spike.land 'unsafe-inline' https://fonts.googleapis.com;
+    connect-src 'self' https://cdn.jsdelivr.net blob: https://esm-sh.spike.land https://clerk.spike.land wss://*.peerjs.com;
+    font-src 'self' data: blob: https://esm-sh.spike.land https://fonts.gstatic.com;
+    img-src 'self' https://esm-sh.spike.land data: blob: https://img.clerk.com https://*.clerk.dev;
 ">
 
     <!-- Inline style for initial theme -->
