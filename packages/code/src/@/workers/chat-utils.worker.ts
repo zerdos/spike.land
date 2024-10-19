@@ -116,14 +116,14 @@ class ChatHandler {
         claudeContent,
       );
 
-      if (Array.isArray(newUserMessage.content)) {
-        newUserMessage.content.push({ type: "text", text: prompt });
-      } else {
-        if (typeof newUserMessage.content === "string") {
-          newUserMessage.content = [{ type: "text", text: newUserMessage.content }];
-        }
-        newUserMessage.content = [{ type: "text", text: prompt }];
-      }
+      // if (Array.isArray(newUserMessage.content)) {
+      //   newUserMessage.content.push({ type: "text", text: prompt });
+      // } else {
+      //   if (typeof newUserMessage.content === "string") {
+      //     newUserMessage.content = [{ type: "text", text: newUserMessage.content }];
+      //   }
+      //   newUserMessage.content = [{ type: "text", text: prompt }];
+      // }
       this.setMessages(messagesPush(this.messages, newUserMessage));
       this.processMessage();
     } catch (e) {
