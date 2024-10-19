@@ -14,8 +14,7 @@ export const oo = {
 
 export const importMap = { imports: oo };
 
-const externalString = "bundle=true&external=" +
-  Object.keys(oo).filter((o) => !o.endsWith("/") && !o.includes("/")).join(",");
+const externalString = "bundle=true&external=react";
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
