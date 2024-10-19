@@ -28,7 +28,7 @@ binding = "AI" # i.e. available in your Worker on env.AI
 bucket = "../code/dist" # Add the directory with your static assets
 
 [vars]
-ESM_ORIGIN = "https://esm-sh.spike.land.spike.land/" # change to your self-hosting esm.sh server if needed
+ESM_ORIGIN = "https://esm-703776382783.europe-west2.run.app/" # change to your self-hosting esm.sh server if needed
 NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
 
 [[r2_buckets]]
