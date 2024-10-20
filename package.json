@@ -59,7 +59,7 @@
     "typescript-eslint": "^8.10.0",
     "wrangler": "^3.81.0"
   },
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.5.1",
   "dependencies": {
     "ai-digest": "^1.0.7",
     "module": "^1.2.5",
