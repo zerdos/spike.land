@@ -138,7 +138,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   rendered?.cleanup();
   rendered = null;
 
-  rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
+  rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl, prerender: true });
 
   document.getElementById("embed")?.remove();
   myEl.setAttribute("id", "embed");
