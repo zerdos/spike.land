@@ -32,6 +32,8 @@ const createJsBlob = (code: string): string =>
     origin,
   ).toString();
 
+export const importFromString = (code: string) =>  import(createJsBlob(code)).then((module) => module.default) as Promise<FlexibleComponentType>;
+
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
 };
@@ -63,43 +65,34 @@ async function renderApp(
     if (App) {
       AppToRender = App;
     } else if (transpiled || code) {
+
       if (transpiled?.indexOf("stdin_default") === -1 && code?.indexOf("as default") === -1) {
         emptyApp = true;
-        AppToRender = (await import(   /* @vite-ignore */ 
-          createJsBlob(
-            await transpile({
-              code: `export default ()=><div></div>`,
-              originToUse: origin,
-            }),
-          )
-        )).default;
-      } else {
-        AppToRender = (await import( /* @vite-ignore */ 
-          createJsBlob(
-            transpiled ||
-              await transpile({ code: code!, originToUse: origin }),
-          )
-        )).default;
+        AppToRender =  await importFromString("export default ()=><div>Empty App</div>")
+      }else { 
+     
+        const codeToUse = transpiled || transpiled || await(transpile({ code: code!, originToUse: origin }))
+        AppToRender = await importFromString(codeToUse);
       }
     } else if (codeSpace) {
+
       const indexJs = `${origin}/live/${codeSpace}/index.js`;
       AppToRender = (await import(/* @vite-ignore */  indexJs)).default;
-      if (!AppToRender) {
-        emptyApp = true;
-        AppToRender = (await import(   /* @vite-ignore */ 
-          createJsBlob(
-            await transpile({
-              code: `export default ()=><div></div>`,
-              originToUse: origin,
-            }),
-          )
-        )).default;
-      }
-    } else {
-      AppToRender = () => <div>Mock App for Testing</div>;
+    }   
+     else {
+      AppToRender =  await importFromString("export default ()=><div>Mock App for Testing</div>")
+       
     }
 
-    const root = createRoot(rootEl);
+
+    let root;
+    if (prerender) {
+    const shadowRoot = rootEl.attachShadow({ mode: "open" });
+     
+    root = createRoot(shadowRoot);
+    } else {
+      root = createRoot(rootEl);
+    }
 
     const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(/[0-9]/g, '');
     ///remove the numbers
@@ -109,7 +102,7 @@ async function renderApp(
     const cssCache = createCache({
       key: firstRender? 'x': cacheKey,
       speedy: prerender ? false : true,
-      container: rootEl.parentNode!,
+      container: prerender?rootEl:  rootEl.parentNode!,
     });
     firstRender = false;
 
