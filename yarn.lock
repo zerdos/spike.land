@@ -10641,11 +10641,11 @@ __metadata:
   linkType: hard
 
 "i18next@npm:^23.16.1":
-  version: 23.16.1
-  resolution: "i18next@npm:23.16.1"
+  version: 23.16.2
+  resolution: "i18next@npm:23.16.2"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/6bab6b956db1e563ed03319d073b566c66df089c7ad96fc695fa6fe3719654522ffae21c18b77058ebd9aa57dc9f42feb617a8c92903bdc78e1c2e0d9460b669
+  checksum: 10c0/75dab732f6c09f415da95119679de9c4b8a4248b51c2b148daa43e4768ee144c4c54eaa12502dbcf7da79acc68c32e137a6c1373c7dc20e2020ca9e70623a33b
   languageName: node
   linkType: hard
 
