@@ -9102,11 +9102,11 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-react-refresh@npm:^0.4.12":
-  version: 0.4.12
-  resolution: "eslint-plugin-react-refresh@npm:0.4.12"
+  version: 0.4.13
+  resolution: "eslint-plugin-react-refresh@npm:0.4.13"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/33dd82450f7c5fa884c5c84ffaf9d9a8b363bc155432807dc09904c7db6ba724888fac4562b058268259aa7c9270b622ef411488011b3469a2add275ed5c2273
+  checksum: 10c0/c15a2122c3f092d7a5388e480a033ae054a61b2d0f7da50c896e90ca4616c0cba0d6249c77545b94262c9c9af3b78817e2ace3ead210206ab91c672ac6de4497
   languageName: node
   linkType: hard
 
@@ -15240,7 +15240,7 @@ __metadata:
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 10c0/0446f024439cd2e50c6c8fa8ba77eaa8370b4180f401a96abf3d1ebc770ac51c1955e12764cde449fde3fff480a61f84388e3505ecdbab778f4bef5f8212c729
+  checksum: 10c0/43451e5bb89e38dc7b41291af85bcb3d24fead37bbce09bc28ced6acfc4c75c4290c170343ef6e31d01574a1a63f42626166b7a6d2f7122a417f13cd2cf2f7b8
   languageName: node
   linkType: hard
 
@@ -15253,7 +15253,7 @@ __metadata:
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 10c0/78ad6edb8309a2bfb720c2c1898f7907a37f858866ce11a5974643af1203a6a6e05b2fa9c53d8064a673a447b83d42569260c306d43628bff5bb101969708355
+  checksum: 10c0/2c81cfcd98ae9b27bf391d2b14d42825a3e0ec02e35fc5f8bd380ffb24341a2cf508a0292ac78cd8409c63dbcc111f0fa2a1da5443d19fa08c07597c2ac24494
   languageName: node
   linkType: hard
 
@@ -17128,7 +17128,7 @@ __metadata:
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/7c9d2e07c81226d60435939618c91ec2ff0b75fbfa106eec3430f0fcf93a584bc6c73176676f532d78c3594fe28a54b36eb40b3d75593071a7ec91301533ace7
+  checksum: 10c0/f0194f51c4bcc204f4da41fababb66a2f222d7d175899efaa0123bdce6228cfcc8f72e61d6ecb0a6e57f82cbcc0bcbbc1aa4a09f4c2f6b2af8b250c29f750685
   languageName: node
   linkType: hard
 
