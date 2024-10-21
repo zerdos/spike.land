@@ -70,7 +70,8 @@ Before providing your final response, analyze the code and the user's request in
 1. Key React concepts and components:
    [list of key concepts and components]
 
-2. User's request: [Users request]
+2. User's request: 
+   [A list with the users request]
 
 3. Tasks and solutions:
    [Detailed list about the tasks, what we need to apply, and their description]
