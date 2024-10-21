@@ -79,14 +79,12 @@ After your analysis, provide your response in the following format:
    Explanation: [Why this change was made]
 
 
-2. Improvement suggestion 1: [Brief description of the suggestion]
-   Explanation: [Why this improvement would be beneficial]
-   Prompt: [An optimal prompt for the user to copy if she wants to apply]
+2. Suggestions
+   1. [Brief description of the suggestion]
+   [Why this improvement would be beneficial]
 
-   Improvement suggestion 2: [Brief description of the suggestion]
-   Explanation: [Why this improvement would be beneficial]
-   Prompt: [An optimal prompt for the user to copy if she wants to apply]
-
+   2. [Brief description of the suggestion]
+   [Why this improvement would be beneficial]
 
 Focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications.
 
