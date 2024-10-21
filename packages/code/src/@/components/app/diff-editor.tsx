@@ -1,27 +1,36 @@
 // diff-editor.tsx
 import type { FC } from "react";
 import { diffLines as d } from "diff";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 interface DiffViewerProps {
   original: string;
   modified: string;
 }
 
-export const DiffViewer: FC<DiffViewerProps> = ({ original, modified }) => (
-  <pre className="font-mono text-xs whitespace-pre-wrap break-words bg-gray-700 p-4 rounded-md">
-    {d(original ?? "", modified ?? original).map((part, index) => (
-      <span
-        key={index}
-        className={`text-gray-200
-          ${part.added ? "bg-green-200 text-green-800" : ""}
-          ${part.removed ? "bg-red-200 text-red-800" : ""}
-        `}
-      >
-        {part.value}
-      </span>
-    ))}
-  </pre>
-);
+export const DiffViewer: FC<DiffViewerProps> = ({ original, modified }) => {
+  const { isDarkMode } = useDarkMode();
+
+  return (
+    <div className={`overflow-hidden rounded-md shadow-md transition-all duration-300 ${isDarkMode ? "bg-gradient-to-br from-gray-800 to-gray-900" : "bg-gradient-to-br from-gray-50 to-gray-100"}`}>
+      <pre className={`font-mono text-sm whitespace-pre-wrap break-words p-6 overflow-x-auto ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+        {d(original ?? "", modified ?? original).map((part, index) => (
+          <span
+            key={index}
+            className={`
+              transition-colors duration-200
+              ${part.added ? (isDarkMode ? "bg-emerald-900/50 text-emerald-200" : "bg-emerald-100/50 text-emerald-800") : ""}
+              ${part.removed ? (isDarkMode ? "bg-rose-900/50 text-rose-200" : "bg-rose-100/50 text-rose-800") : ""}
+              ${!part.added && !part.removed ? "hover:bg-gray-200/10" : ""}
+            `}
+          >
+            {part.value}
+          </span>
+        ))}
+      </pre>
+    </div>
+  );
+};
 const original = `
 <DiffContainer>
   {diff.map((part, index) => (
