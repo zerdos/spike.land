@@ -44,8 +44,12 @@ const cleanMessageText = (text: string, isUser: boolean): string => {
     // {{userPrompt}}
     // </user_prompt>
     //
+
     if (text.includes("<user_prompt>")) {
-      return text.split("<user_prompt>").pop()!.split("</user_prompt>")[0].trim();
+      const parts = text.split("<user_prompt>");
+      const userPrompt = parts[1];
+      const userPromptParts = userPrompt.split("</user_prompt>");
+      return userPromptParts[0].trim();
     }
 
     return text
