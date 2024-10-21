@@ -21,13 +21,23 @@ export default defineConfig({
   plugins: [react({
     jsxImportSource: "@emotion/react",
   })],
+ 
   build: {
+    
+    rollupOptions: {
+        
+        external: ["/start.mjs", "/swVersion.mjs"],
+      
+      
+    },
     outDir: "dist-vite",
   },
 
   appType: "spa",
+  
   assetsInclude: [
-    // "src/index.html",
+
+    "src/index.html",
     // "src/assets/app.css",
   ],
 
