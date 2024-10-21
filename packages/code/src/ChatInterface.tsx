@@ -5,7 +5,7 @@ import type { ICode } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { useScreenshot } from "./hooks/useScreenshot";
 import type { ImageData, Message } from "@/lib/interfaces";
-import { useLocalStorage } from "react-use";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { handleSendMessage } from "@/../lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
@@ -123,6 +123,9 @@ const ChatInterface: React.FC<{
       }
 
       if (e.chunk) {
+        if (!isStreaming) {
+          setIsStreaming(true);
+        }
         setMessages((previousMessages) => {
           const lastMessage = previousMessages[previousMessages.length - 1];
 

@@ -1,33 +1,19 @@
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
 }
 
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming, setIsSteaming] = useState(false);
+  const [isStreaming] = useLocalStorage<boolean>(
+    `streaming-${codeSpace}`,
+    false
+  );
 
-  useEffect(() => {
-    const BC = new BroadcastChannel("chat-" + codeSpace);
 
-    BC.onmessage = (e) => {
-      if (e.data.isStreaming !== false) setIsSteaming(false);
-      else setIsSteaming(true);
-    };
-
-    const timeout = setTimeout(() => {
-      setIsSteaming(false);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timeout);
-      BC.close();
-    };
-  }, [codeSpace]);
-
-  if (!isStreaming) return null;
+  if (!isStreaming) return <></>;
 
   return (
     <div
