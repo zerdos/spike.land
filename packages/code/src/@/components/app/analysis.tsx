@@ -2,10 +2,22 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon } from "lucide-react";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
-const parseAnalysis = (content) => {
+interface Section {
+  concepts?: string[];  
+  request?: string;
+  tasks?: string[];
+  proscons?: {
+    pros: string[];
+    cons: string[];
+  };
+  approach?: string;
+}
+
+const parseAnalysis = (content: string): Section => {
   console.log("Parsing content:", content);
-  const sections = {};
+  const sections: { [key: string]: any } = {};
   const lines = content
     .replace(/<\/?react_code_analysis>/g, "")
     .split("\n")
@@ -25,7 +37,7 @@ const parseAnalysis = (content) => {
   };
 
   lines.forEach((line) => {
-    const newSection = Object.keys(sectionMap).find((key) => line.startsWith(key));
+    const newSection = Object.keys(sectionMap).find((key): key is keyof typeof sectionMap => line.startsWith(key));
     if (newSection) {
       currentSection = sectionMap[newSection];
       if (!sections[currentSection]) {
@@ -60,22 +72,34 @@ const parseAnalysis = (content) => {
   return sections;
 };
 
-export const Analysis = ({ content }) => {
+interface AnalysisProps {
+  content: string;
+}
+
+export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   console.log("Analysis component rendered with content:", content);
   const sections = parseAnalysis(content);
+  const { isDarkMode } = useDarkMode();
 
-  const Section = ({ title, children, icon: Icon, listType }) => (
-    <div className="p-3 transition-all duration-300 hover:bg-white/50 font-poppins">
+  interface SectionProps {
+    title: string;
+    children: React.ReactNode;
+    icon: React.ElementType;
+    listType?: "pro" | "con" | "default";
+  }
+
+  const Section: React.FC<SectionProps> = ({ title, children, icon: Icon, listType }) => (
+    <div className={`p-3 transition-all duration-300 ${isDarkMode ? "hover:bg-gray-800/50" : "hover:bg-white/50"} font-poppins`}>
       <div className="flex items-center gap-2 mb-2">
         <div className="bg-gradient-to-br from-purple-400 to-indigo-500 p-1 rounded-md shadow-sm">
           <Icon className="h-3 w-3 text-white" />
         </div>
-        <h3 className="text-base font-semibold text-gray-800">{title}</h3>
+        <h3 className={`text-base font-semibold ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{title}</h3>
       </div>
-      <div className="text-gray-700 text-xs pl-5">
+      <div className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-5`}>
         {listType ? (
           <ul className="space-y-1">
-            {children.map((item, idx) => (
+            {Array.isArray(children) && children.map((item, idx) => (
               <li key={idx} className="flex items-start gap-1 py-0.5">
                 {listType === "pro" && <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />}
                 {listType === "con" && <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />}
@@ -93,7 +117,16 @@ export const Analysis = ({ content }) => {
 
   const renderSections = () => {
     console.log("Rendering sections:", sections);
-    const sectionConfig = {
+    interface SectionConfig {
+      [key: string]: {
+        title: string;
+        icon: React.ElementType;
+        listType?: "default";
+        render?: () => React.ReactNode;
+      };
+    }
+
+    const sectionConfig: SectionConfig = {
       concepts: { title: "Key React Concepts", icon: Code, listType: "default" },
       request: { title: "User's Request", icon: UserCircle },
       tasks: { title: "Tasks and Solutions", icon: List, listType: "default" },
@@ -103,26 +136,26 @@ export const Analysis = ({ content }) => {
         render: () => (
           <div className="space-y-2">
             {sections.proscons && sections.proscons.pros && sections.proscons.pros.length > 0 && (
-              <div className="bg-green-50 rounded-md p-2">
-                <h4 className="font-semibold text-green-700 text-sm mb-1">Pros</h4>
+              <div className={`${isDarkMode ? "bg-green-900" : "bg-green-50"} rounded-md p-2`}>
+                <h4 className={`font-semibold ${isDarkMode ? "text-green-300" : "text-green-700"} text-sm mb-1`}>Pros</h4>
                 <ul className="space-y-1">
                   {sections.proscons.pros.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1 py-0.5">
-                      <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="leading-tight font-normal font-roboto-mono text-xs">{item}</span>
+                      <CheckCircle2 className={`h-3 w-3 ${isDarkMode ? "text-green-400" : "text-green-500"} mt-0.5 flex-shrink-0`} />
+                      <span className={`leading-tight font-normal font-roboto-mono text-xs ${isDarkMode ? "text-green-200" : "text-green-800"}`}>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
             {sections.proscons && sections.proscons.cons && sections.proscons.cons.length > 0 && (
-              <div className="bg-red-50 rounded-md p-2">
-                <h4 className="font-semibold text-red-700 text-sm mb-1">Cons</h4>
+              <div className={`${isDarkMode ? "bg-red-900" : "bg-red-50"} rounded-md p-2`}>
+                <h4 className={`font-semibold ${isDarkMode ? "text-red-300" : "text-red-700"} text-sm mb-1`}>Cons</h4>
                 <ul className="space-y-1">
                   {sections.proscons.cons.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1 py-0.5">
-                      <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />
-                      <span className="leading-tight font-normal font-roboto-mono text-xs">{item}</span>
+                      <XCircle className={`h-3 w-3 ${isDarkMode ? "text-red-400" : "text-red-500"} mt-0.5 flex-shrink-0`} />
+                      <span className={`leading-tight font-normal font-roboto-mono text-xs ${isDarkMode ? "text-red-200" : "text-red-800"}`}>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -147,15 +180,15 @@ export const Analysis = ({ content }) => {
   };
 
   return (
-    <div className="max-w-full mx-auto p-2 bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100 font-poppins">
-      <Card className="border-none shadow-lg backdrop-blur-md bg-white/30">
+    <div className={`max-w-full mx-auto p-2 ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700" : "bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100"} font-poppins`}>
+      <Card className={`border-none shadow-lg backdrop-blur-md ${isDarkMode ? "bg-gray-800/30" : "bg-white/30"}`}>
         <CardHeader className="bg-gradient-to-r from-purple-400 to-indigo-500 py-2 rounded-t-lg">
           <CardTitle className="text-lg font-bold text-white flex items-center">
             <LightbulbIcon className="w-4 h-4 mr-1" />
             React Analysis
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-0 divide-y divide-gray-200/50">{renderSections()}</CardContent>
+        <CardContent className={`p-0 divide-y ${isDarkMode ? "divide-gray-700/50" : "divide-gray-200/50"}`}>{renderSections()}</CardContent>
       </Card>
     </div>
   );
@@ -192,7 +225,9 @@ const analysisContent = `
    Implement a history array using useState, modify existing functions to work with the array, add a new Redo function, and update the UI to include Undo and Redo buttons with appropriate disabling logic.
 `;
 
-export default function ReactAnalysis() {
+const ReactAnalysis: React.FC = () => {
   console.log("ReactAnalysis component rendered");
   return <Analysis content={analysisContent} />;
-}
+};
+
+export default ReactAnalysis;
