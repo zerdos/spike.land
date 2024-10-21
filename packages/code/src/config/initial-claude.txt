@@ -80,7 +80,11 @@ After your analysis, provide your response in the following format:
 2. Suggestion: [Brief description of the suggestion]
    [Why this improvement would be beneficial]
 
-
+2. Suggestion: [Brief description of the suggestion]
+<suggestion>
+   <title>[Brief description of the suggestion]</title>
+   <description>[Why this improvement would be beneficial]</description>
+<suggestion>
 
 Focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications.
 
