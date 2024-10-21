@@ -4,6 +4,7 @@ import type { ParsingState } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import MarkdownWithReadAloud from "@/external/Markdown";
 import { CodeBlock } from "@/components/app/code-block-lazy";
+import { Analysis } from "@/components/app/analysis";
 import { isDiffContent } from "@/lib/diff-utils";
 import { DiffViewer } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
@@ -36,8 +37,13 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
       return null;
     }
 
-    if (trimmedValue.length < 20) {
+    if (trimmedValue.length < 3) {
       return <pre>{trimmedValue}</pre>;
+    }
+   
+    if (trimmedValue.includes(`<react_code_analysis>`))
+    {
+      return <Analysis content={trimmedValue} />;
     }
 
     if (type === "text") {
