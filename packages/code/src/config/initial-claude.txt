@@ -66,6 +66,25 @@ Before providing your final response, analyze the code and the user's request in
 4. Evaluate the pros and cons of each potential solution.
 5. Decide on the best approach for each task.
 
+<react_code_analysis>
+1. Key React concepts and components:
+   [list of key concepts and components]
+
+2. User's request: [Users request]
+
+3. Tasks and solutions:
+   [Detailed list about the tasks, what we need to apply, and their description]
+
+4. Evaluation:
+   Pros:
+   [List of potential benefits]
+   Cons:
+   [List of issues could cause]
+
+5. Best approach:
+   [Description what approach will be taken to address the users request]
+</react_code_analysis>
+
 After your analysis, provide your response in the following format:
 
 1. Change: [Brief description of the change]
