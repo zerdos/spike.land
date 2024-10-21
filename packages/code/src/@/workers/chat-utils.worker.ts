@@ -6,7 +6,9 @@ import { Mutex } from "async-mutex";
 
 import { AIHandler } from "../../AIHandler";
 
+const SEARCH_ARROWS = "<<<<<<<";
 const SEARCH = "<<<<<<< SEARCH";
+const REPLACE_ARROWS = ">>>>>>>";
 const REPLACE = ">>>>>>> REPLACE";
 
 const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
@@ -442,6 +444,8 @@ ${this.mod.lastCode}
     code: string;
   }): Promise<{ result: string; len: number; }> {
     if (instructions.length === 0) return { result: code, len: 0 };
+    instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(SEARCH_ARROWS).join(SEARCH)
+      .split(REPLACE).join(REPLACE_ARROWS).split(REPLACE_ARROWS).join(REPLACE);
 
     const searchIndex = instructions.indexOf(SEARCH);
     const replaceIndex = instructions.indexOf(REPLACE);
