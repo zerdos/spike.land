@@ -180,7 +180,13 @@ ${this.mod.lastCode}
 \`\`\`
           `,
         };
-        this.setMessages(messagesPush(this.messages, userMessage));
+        this.messages = messagesPush(this.messages, userMessage);
+        this.messages = messagesPush(this.messages, {
+          id: Date.now().toString(),
+          role: "assistant",
+          content: "",
+        });
+        this.setMessages(this.messages);
         this.mod.lastError = "";
         this.mod.instructions = "";
       }
@@ -191,7 +197,8 @@ ${this.mod.lastCode}
           (chunk: string) => this.onUpdate(chunk),
         );
 
-        this.setMessages(messagesPush(this.messages, assistantMessage));
+        this.messages = messagesPush(this.messages, assistantMessage);
+        this.setMessages(this.messages);
 
         await this.updateCode();
 
