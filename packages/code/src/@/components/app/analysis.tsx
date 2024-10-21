@@ -37,8 +37,8 @@ const parseAnalysis = (content: string) => {
     else if (line.startsWith("Cons:")) currentSection = "cons";
     else if (currentSection === "concepts" && line.startsWith("-")) sections.concepts.push(line.replace(/^-\s*/, ""));
     else if (currentSection === "request" && !line.startsWith("2.")) sections.request = line;
-    else if (currentSection === "tasks" && line.match(/^[a-f]\./)) sections.tasks.push(line.replace(/^[a-f]\.\s*/, ""));
     else if (currentSection === "pros" && line.startsWith("-")) sections.pros.push(line.replace(/^-\s*/, ""));
+    else if (currentSection === "tasks" && line.match(/^[a-f]\./)) sections.tasks.push(line.replace(/^[a-f]\.\s*/, ""));
     else if (currentSection === "cons" && line.startsWith("-")) sections.cons.push(line.replace(/^-\s*/, ""));
     else if (currentSection === "approach" && !line.startsWith("5.")) sections.approach = line;
   });
@@ -56,7 +56,7 @@ interface AnalysisProps {
   content: string;
 }
 
-const Analysis: React.FC<AnalysisProps> = ({ content }) => {
+export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   const sections = parseAnalysis(content);
 
   interface SectionProps {

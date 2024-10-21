@@ -69,22 +69,18 @@ Before providing your final response, analyze the code and the user's request in
 After your analysis, provide your response in the following format:
 
 1. Change: [Brief description of the change]
-   ```
    <<<<<<< SEARCH
    [Exact original code]
    =======
    [Modified code]
    >>>>>>> REPLACE
-   ```
    Explanation: [Why this change was made]
 
 
-2. Suggestions
-   1. [Brief description of the suggestion]
+2. Suggestion: [Brief description of the suggestion]
    [Why this improvement would be beneficial]
 
-   2. [Brief description of the suggestion]
-   [Why this improvement would be beneficial]
+
 
 Focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications.
 
