@@ -78,14 +78,15 @@ After your analysis, provide your response in the following format:
    ```
    Explanation: [Why this change was made]
 
-2. Addition: [Brief description of the addition]
-   ```tsx
-   [New code snippet]
-   ```
-   Explanation: [Why this addition was made]
 
-3. Improvement suggestion: [Brief description of the suggestion]
+2. Improvement suggestion 1: [Brief description of the suggestion]
    Explanation: [Why this improvement would be beneficial]
+   Prompt: [An optimal prompt for the user to copy if she wants to apply]
+
+   Improvement suggestion 2: [Brief description of the suggestion]
+   Explanation: [Why this improvement would be beneficial]
+   Prompt: [An optimal prompt for the user to copy if she wants to apply]
+
 
 Focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications.
 
