@@ -38,7 +38,7 @@ const getLanguage = (lang?: string): string => {
 };
 
 const cleanMessageText = (text: string, isUser: boolean): string => {
-  if (isUser && text.includes("The user's first message follows:")) {
+  if (isUser) {
     // if there is user prompt, return the content of the user prompt
     // <user_prompt>
     // {{userPrompt}}
