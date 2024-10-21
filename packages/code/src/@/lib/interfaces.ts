@@ -82,7 +82,7 @@ export interface ICode {
   }: {
     formatted: string;
     transpiled: string;
-  }): boolean;
+  }): Promise<boolean>;
   sub: (fn: (sess: ICodeSession) => void) => void;
 }
 

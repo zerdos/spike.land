@@ -221,7 +221,7 @@ export class Code implements ICode {
   }: {
     formatted: string;
     transpiled: string;
-  }): boolean {
+  }): Promise<boolean> {
     if (
       this.session.code === formatted && this.session.transpiled === transpiled
     ) {
