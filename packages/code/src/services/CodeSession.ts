@@ -215,7 +215,7 @@ export class Code implements ICode {
     return this.session.code;
   }
 
-  setCodeAndTranspiled({
+  async setCodeAndTranspiled({
     formatted,
     transpiled,
   }: {
@@ -228,8 +228,12 @@ export class Code implements ICode {
       return true;
     }
 
+    const { html, css } = await runCode(transpiled) || { html: "", css: "" };
+
     this.session = makeSession({
       ...this.session,
+      html,
+      css,
       code: formatted,
       transpiled,
       i: this.session.i + 1,
