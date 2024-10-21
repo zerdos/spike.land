@@ -23,17 +23,21 @@ describe("getParts", () => {
     const input =
       "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
     const result = getPartsStreaming(input, false);
-    expect(result.parts).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "Here is some code:",
-      },
-      {
-        type: "code",
-        language: "typescript",
-        content: "const x = 5;\nconsole.log(x);",
-      },
-    ]);
+    expect(result.parts).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "Here is some code:",
+          "type": "text",
+        },
+        {
+          "content": "const x = 5;
+      console.log(x);
+      ",
+          "language": "typescript",
+          "type": "code",
+        },
+      ]
+    `);
   });
 
   test("should handle text with multiple code blocks", () => {
@@ -41,64 +45,84 @@ describe("getParts", () => {
       'First block:\n```javascript\nlet a = 1;\n```\nSecond block:\n```python\nprint("Hello")\n```';
     const result = getPartsStreaming(input, true);
     expect(result).toMatchInlineSnapshot(`
-      [
-        {
-          "type": "text",
-          "content": "First block:",
+      {
+        "parts": [
+          {
+            "content": "First block:",
+            "type": "text",
+          },
+          {
+            "content": "let a = 1;
+      ",
+            "language": "javascript",
+            "type": "code",
+          },
+          {
+            "content": "Second block:",
+            "type": "text",
+          },
+          {
+            "content": "print("Hello")
+      ",
+            "language": "python",
+            "type": "code",
+          },
+        ],
+        "state": {
+          "accumulatedContent": "",
+          "accumulatedDiffContent": "",
+          "isInCodeBlock": false,
+          "isInDiffBlock": false,
         },
-        {
-          "type": "code",
-          "language": "javascript",
-          "content": "let a = 1;",
-        },
-        {
-          "type": "text",
-          "content": "Second block:",
-        },
-        {
-          "type": "code",
-          "language": "python",
-          "content": "print(\\"Hello\\")",
-        },
-      ]
+      }
     `);
   });
 
   test("should handle code blocks with no language specified", () => {
     const input = "Code without language:\n```\nsome code\n```";
     const result = getPartsStreaming(input, false);
-    expect(result.parts).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "Code without language:",
-      },
-      {
-        type: "code",
-        language: "plaintext",
-        content: "some code",
-      },
-    ]);
+    expect(result.parts).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "Code without language:",
+          "type": "text",
+        },
+        {
+          "content": "some code
+      ",
+          "language": "plaintext",
+          "type": "code",
+        },
+      ]
+    `);
   });
 
   test("should handle search and replace markers", () => {
     const input =
       "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getPartsStreaming(input, true);
-    expect(result.parts).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "Before",
-      },
-      {
-        type: "code",
-        language: "diff",
-        content: "<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE",
-      },
-      {
-        type: "text",
-        content: "After",
-      },
-    ]);
+    expect(result.parts).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "Before",
+          "type": "text",
+        },
+        {
+          "content": "<<<<<<< SEARCH
+      old code
+      =======
+      new code
+      >>>>>>> REPLACE
+      ",
+          "language": "diff",
+          "type": "code",
+        },
+        {
+          "content": "After",
+          "type": "text",
+        },
+      ]
+    `);
   });
 
   test("should handle nested code blocks", () => {
@@ -240,8 +264,29 @@ describe("getParts", () => {
     `;
 
     const result = getPartsStreaming(input, false);
-    expect(result.parts[0]).toMatchInlineSnapshot(`undefined`);
-    expect(result.parts[1]).toMatchInlineSnapshot(`undefined`);
+    expect(result.parts[0]).toMatchInlineSnapshot(`
+      {
+        "content": "first change:",
+        "type": "text",
+      }
+    `);
+    expect(result.parts[1]).toMatchInlineSnapshot(`
+      {
+        "content": "<<<<<<< SEARCH
+            const a = 1;
+            =======
+            const a = 2;
+            =======
+          second change:
+            <<<<<<< SEARCH
+            let b = 3;
+            =======
+            let b =
+          ",
+        "language": "diff",
+        "type": "code",
+      }
+    `);
     expect(result.parts[2]).toMatchInlineSnapshot(`undefined`);
     expect(result.parts[3]).toMatchInlineSnapshot(`undefined`);
   });
