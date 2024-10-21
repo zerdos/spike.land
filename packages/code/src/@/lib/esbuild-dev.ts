@@ -33,7 +33,7 @@ async function main() {
     console.log("buildWorkers completed.");
 
     console.log("Starting buildMainScripts...");
-    // await buildMainScripts();
+    await buildMainScripts();
     console.log("buildMainScripts completed.");
 
     console.log("Starting buildWasm...");
