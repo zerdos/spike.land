@@ -39,7 +39,7 @@ const parseAnalysis = (content) => {
   return Object.fromEntries(Object.entries(sections).filter(([_, v]) => v.length > 0));
 };
 
-const Analysis = ({ content }) => {
+export const Analysis = ({ content }) => {
   const sections = parseAnalysis(content);
 
   const Section = ({ title, children, icon: Icon, listType }) => (
