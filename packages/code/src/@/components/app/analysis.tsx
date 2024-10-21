@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon } from "lucide-react";
 
 const parseAnalysis = (content) => {
+  console.log("Parsing content:", content);
   const sections = {};
   const lines = content
     .replace(/<\/?react_code_analysis>/g, "")
@@ -11,6 +12,7 @@ const parseAnalysis = (content) => {
     .map((line) => line.trim())
     .filter(Boolean);
   let currentSection = "";
+  let currentSubsection = "";
 
   const sectionMap = {
     "1. Key React concepts": "concepts",
@@ -26,20 +28,40 @@ const parseAnalysis = (content) => {
     const newSection = Object.keys(sectionMap).find((key) => line.startsWith(key));
     if (newSection) {
       currentSection = sectionMap[newSection];
-      if (!sections[currentSection]) sections[currentSection] = currentSection === "request" || currentSection === "approach" ? "" : [];
+      if (!sections[currentSection]) {
+        sections[currentSection] = currentSection === "proscons" ? { pros: [], cons: [] } : currentSection === "request" || currentSection === "approach" ? "" : [];
+      }
+      if (currentSection === "proscons" || currentSection === "pros" || currentSection === "cons") {
+        currentSubsection = currentSection === "proscons" ? "pros" : currentSection;
+      }
     } else if (currentSection) {
-      if (Array.isArray(sections[currentSection])) {
+      if (currentSection === "proscons" || currentSection === "pros" || currentSection === "cons") {
+        if (line.startsWith("-")) {
+          const item = line.replace(/^-\s*/, "");
+          if (currentSection === "proscons") {
+            sections.proscons[currentSubsection].push(item);
+          } else {
+            sections.proscons[currentSection].push(item);
+          }
+        }
+      } else if (Array.isArray(sections[currentSection])) {
         if (line.startsWith("-") || line.match(/^[a-f]\./)) sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
       } else if (currentSection === "request" || currentSection === "approach") {
-        sections[currentSection] = line;
+        sections[currentSection] += (sections[currentSection] ? " " : "") + line;
       }
     }
   });
 
-  return Object.fromEntries(Object.entries(sections).filter(([_, v]) => v.length > 0));
+  // Remove separate pros and cons sections
+  delete sections.pros;
+  delete sections.cons;
+
+  console.log("Parsed sections:", sections);
+  return sections;
 };
 
 export const Analysis = ({ content }) => {
+  console.log("Analysis component rendered with content:", content);
   const sections = parseAnalysis(content);
 
   const Section = ({ title, children, icon: Icon, listType }) => (
@@ -70,6 +92,7 @@ export const Analysis = ({ content }) => {
   );
 
   const renderSections = () => {
+    console.log("Rendering sections:", sections);
     const sectionConfig = {
       concepts: { title: "Key React Concepts", icon: Code, listType: "default" },
       request: { title: "User's Request", icon: UserCircle },
@@ -79,16 +102,30 @@ export const Analysis = ({ content }) => {
         icon: LightbulbIcon,
         render: () => (
           <div className="space-y-2">
-            {sections.pros && (
+            {sections.proscons && sections.proscons.pros && sections.proscons.pros.length > 0 && (
               <div className="bg-green-50 rounded-md p-2">
                 <h4 className="font-semibold text-green-700 text-sm mb-1">Pros</h4>
-                <Section listType="pro">{sections.pros}</Section>
+                <ul className="space-y-1">
+                  {sections.proscons.pros.map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-1 py-0.5">
+                      <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="leading-tight font-normal font-roboto-mono text-xs">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
-            {sections.cons && (
+            {sections.proscons && sections.proscons.cons && sections.proscons.cons.length > 0 && (
               <div className="bg-red-50 rounded-md p-2">
                 <h4 className="font-semibold text-red-700 text-sm mb-1">Cons</h4>
-                <Section listType="con">{sections.cons}</Section>
+                <ul className="space-y-1">
+                  {sections.proscons.cons.map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-1 py-0.5">
+                      <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />
+                      <span className="leading-tight font-normal font-roboto-mono text-xs">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
@@ -100,6 +137,7 @@ export const Analysis = ({ content }) => {
     return Object.entries(sections).map(([key, value]) => {
       const config = sectionConfig[key];
       if (!config) return null;
+      console.log(`Rendering section: ${key}`, value);
       return (
         <Section key={key} title={config.title} icon={config.icon} listType={config.listType}>
           {config.render ? config.render() : Array.isArray(value) ? value : <p className="font-medium leading-relaxed">{value}</p>}
@@ -123,10 +161,7 @@ export const Analysis = ({ content }) => {
   );
 };
 
-export default () => (
-  <Analysis
-    content={`
-
+const analysisContent = `
 1. Key React concepts and components:
    - Functional component: AceEditorComponent
    - Hooks: useState
@@ -147,7 +182,7 @@ export default () => (
 
 4. Pros and cons:
    Pros:
-   - Allows users to undo multiple steps, improving
+   - Allows users to undo multiple steps, improving user experience
    - Provides a more robust editing experience
    Cons:
    - Increases component complexity
@@ -155,7 +190,9 @@ export default () => (
 
 5. Best approach:
    Implement a history array using useState, modify existing functions to work with the array, add a new Redo function, and update the UI to include Undo and Redo buttons with appropriate disabling logic.
+`;
 
-`}
-  />
-);
+export default function ReactAnalysis() {
+  console.log("ReactAnalysis component rendered");
+  return <Analysis content={analysisContent} />;
+}
