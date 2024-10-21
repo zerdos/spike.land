@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { MessageInput } from "@/components/app/message-input";
 import { Bot } from "@/external/lucideReact";
@@ -50,6 +50,17 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
         isOpen ? "hidden" : "flex",
       ), [isOpen]);
+
+    const lastMessage = messages[messages.length - 1]; 
+
+    useEffect(() => {
+      if (lastMessage) {
+        const lastMessageElement = document.getElementById("after-last-message");
+        if (lastMessageElement) {
+          lastMessageElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }, [lastMessage && lastMessage.content]);
 
     return (
       <Drawer.Root direction="right" open={isOpen} modal={false}>
