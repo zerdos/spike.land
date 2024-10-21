@@ -5,7 +5,7 @@ import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon
 import { useDarkMode } from "@/hooks/use-dark-mode";
 
 interface Section {
-  concepts?: string[];  
+  concepts?: string[];
   request?: string;
   tasks?: string[];
   proscons?: {
@@ -99,14 +99,15 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
       <div className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-5`}>
         {listType ? (
           <ul className="space-y-1">
-            {Array.isArray(children) && children.map((item, idx) => (
-              <li key={idx} className="flex items-start gap-1 py-0.5">
-                {listType === "pro" && <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />}
-                {listType === "con" && <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />}
-                {listType === "default" && <GitCommit className="h-3 w-3 text-indigo-500 mt-0.5 flex-shrink-0" />}
-                <span className="leading-tight font-normal font-roboto-mono">{item}</span>
-              </li>
-            ))}
+            {Array.isArray(children) &&
+              children.map((item, idx) => (
+                <li key={idx} className="flex items-start gap-1 py-0.5">
+                  {listType === "pro" && <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />}
+                  {listType === "con" && <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />}
+                  {listType === "default" && <GitCommit className="h-3 w-3 text-indigo-500 mt-0.5 flex-shrink-0" />}
+                  <span className="leading-tight font-normal font-roboto-mono">{item}</span>
+                </li>
+              ))}
           </ul>
         ) : (
           <div className="prose prose-xs max-w-none font-normal">{children}</div>
@@ -180,7 +181,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   };
 
   return (
-    <div className={`max-w-full mx-auto p-2 ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700" : "bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100"} font-poppins`}>
+    <div className={`max-w-full mx-auto  ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700" : "bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100"} font-poppins`}>
       <Card className={`border-none shadow-lg backdrop-blur-md ${isDarkMode ? "bg-gray-800/30" : "bg-white/30"}`}>
         <CardHeader className="bg-gradient-to-r from-purple-400 to-indigo-500 py-2 rounded-t-lg">
           <CardTitle className="text-lg font-bold text-white flex items-center">
