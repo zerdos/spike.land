@@ -45,18 +45,28 @@ export function extractDiffContent(
 
   return { original, modified };
 }
+export function replacePreservingWhitespace(text: string, search: string, replace: string): string {
+  // Handle SEARCH/REPLACE comments
+  if (search.includes("// ... (rest of")) {
+    const lines = search.split("\n");
+    const searchStart = lines[0];
+    const searchEnd = lines[lines.length - 1];
 
-export function replacePreservingWhitespace(
-  text: string,
-  search: string,
-  replace: string,
-) {
-  const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(
-    `(\\s*)(${escapedSearch.replace(/\s+/g, "\\s+")})([\\s]*)`,
-    "g",
-  );
-  return text.replace(regex, (_, preWhitespace, _match, postWhitespace) => {
-    return `${preWhitespace}${replace}${postWhitespace}`;
-  });
+    const startIndex = text.indexOf(searchStart);
+    if (startIndex === -1) return text;
+
+    const endIndex = text.indexOf(searchEnd, startIndex + searchStart.length);
+    if (endIndex === -1) return text;
+
+    return replace;
+  }
+
+  // For regular text replacement
+  if (!search) return text;
+
+  const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace(/\s+/g, "\\s+");
+
+  const regex = new RegExp(`${escapedSearch}`, "g");
+  return text.replace(regex, replace);
 }

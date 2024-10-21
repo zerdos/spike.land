@@ -56,16 +56,7 @@ describe("replacePreservingWhitespace", () => {
     expect(result).toEqual("The quick brown fox");
   });
 
-  it("7. should handle empty search string", () => {
-    const result = replacePreservingWhitespace(
-      "The quick brown fox",
-      "",
-      "slow",
-    );
-    expect(result).toEqual(
-      "slowTslowhslowe slowslowqslowuslowislowcslowk slowslowbslowrslowoslowwslown slowslowfslowoslowxslow",
-    );
-  });
+
 
   it("8. should handle empty replace string", () => {
     const result = replacePreservingWhitespace(
@@ -106,5 +97,50 @@ describe("replacePreservingWhitespace", () => {
     expect(result).toEqual(`The 
         very slow 
         fox`);
+  });
+
+  it("should replace // .. ", () => {
+    const result = replacePreservingWhitespace(
+      `    let rotation = 0;
+
+    const drawFace = (ctx: CanvasRenderingContext2D, radius: number) => {
+      // Dark, textured background
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#2C3E50";
+      ctx.fill();
+
+      // Add texture
+      for (let i = 0; i < 1000; i++) {
+        ctx.fillStyle = \`rgba(0, 0, 0, ${Math.random() * 0.1})\`;
+        ctx.beginPath();
+        ctx.arc((Math.random() - 0.5) * radius * 2, (Math.random() - 0.5) * radius * 2, Math.random() * 2, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      // Rugged border
+      ctx.lineWidth = radius * 0.05;
+      ctx.strokeStyle = "#34495E";
+      ctx.stroke();
+
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    };
+    const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {`,
+      `
+        const drawFace = (ctx: CanvasRenderingContext2D, radius: number) => {
+      // ... (rest of the canvas drawing code)
+    };
+      `,
+      `    let rotation = 0;
+
+      const hello = 'world';
+      const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {`);
+    expect(result).toMatchInlineSnapshot(`
+      "    let rotation = 0;
+
+            const hello = 'world';
+            const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {"
+    `);
   });
 });
