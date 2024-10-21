@@ -1,6 +1,7 @@
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useEffect } from "react";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
@@ -11,6 +12,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
     `streaming-${codeSpace}`,
     false
   );
+
 
 
   if (!isStreaming) return <></>;

@@ -13,6 +13,8 @@ import { useDictation } from "@/hooks/use-dictation";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
+let isStreamingTimeout: NodeJS.Timeout | null = null; 
+
 const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
@@ -104,6 +106,14 @@ const ChatInterface: React.FC<{
     BC.onmessage = async (event) => {
       const e = event.data;
 
+      
+      if (isStreamingTimeout) {
+        clearTimeout(isStreamingTimeout);
+      }
+      isStreamingTimeout=      setTimeout(() => {
+        setIsStreaming(false);    
+      }, 1000);
+
       if (e.messages) {
         setMessages(e.messages);
       } else if (e.isStreaming !== undefined) {
@@ -146,6 +156,12 @@ const ChatInterface: React.FC<{
           }
         });
       }
+      // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
+      
+   
+      
+
+
     };
     return () => {
       BC.close();
