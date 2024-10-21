@@ -1,5 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon } from 'lucide-react';
+// empty-dkddd.tsx
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon } from "lucide-react";
 
 const parseAnalysis = (content: string) => {
   const sections: {
@@ -11,56 +13,38 @@ const parseAnalysis = (content: string) => {
     approach: string;
   } = {
     concepts: [],
-    request: '',
+    request: "",
     tasks: [],
     pros: [],
     cons: [],
-    approach: ''
+    approach: "",
   };
 
   const lines = content
-    .replace(/<\/?react_code_analysis>/g, '')
-    .split('\n')
-    .map(line => line.trim())
+    .replace(/<\/?react_code_analysis>/g, "")
+    .split("\n")
+    .map((line) => line.trim())
     .filter(Boolean);
+  let currentSection = "";
 
-  let currentSection = '';
-
-  lines.forEach(line => {
-    if (line.startsWith('1. Key React concepts')) {
-      currentSection = 'concepts';
-    } else if (line.startsWith('2. User\'s request')) {
-      currentSection = 'request';
-    } else if (line.startsWith('3. Tasks')) {
-      currentSection = 'tasks';
-    } else if (line.startsWith('4. Pros and cons')) {
-      currentSection = 'proscons';
-    } else if (line.startsWith('5. Best approach')) {
-      currentSection = 'approach';
-    } else if (line.startsWith('Pros:')) {
-      currentSection = 'pros';
-    } else if (line.startsWith('Cons:')) {
-      currentSection = 'cons';
-    } else if (currentSection === 'concepts' && line.startsWith('-')) {
-      sections.concepts.push(line.replace(/^-\s*/, ''));
-    } else if (currentSection === 'request' && !line.startsWith('2.')) {
-      sections.request = line;
-    } else if (currentSection === 'tasks' && line.match(/^[a-f]\./)) {
-      sections.tasks.push(line.replace(/^[a-f]\.\s*/, ''));
-    } else if (currentSection === 'pros' && line.startsWith('-')) {
-      sections.pros.push(line.replace(/^-\s*/, ''));
-    } else if (currentSection === 'cons' && line.startsWith('-')) {
-      sections.cons.push(line.replace(/^-\s*/, ''));
-    } else if (currentSection === 'approach' && !line.startsWith('5.')) {
-      sections.approach = line;
-    }
+  lines.forEach((line) => {
+    if (line.startsWith("1. Key React concepts")) currentSection = "concepts";
+    else if (line.startsWith("2. User's request")) currentSection = "request";
+    else if (line.startsWith("3. Tasks")) currentSection = "tasks";
+    else if (line.startsWith("4. Pros and cons")) currentSection = "proscons";
+    else if (line.startsWith("5. Best approach")) currentSection = "approach";
+    else if (line.startsWith("Pros:")) currentSection = "pros";
+    else if (line.startsWith("Cons:")) currentSection = "cons";
+    else if (currentSection === "concepts" && line.startsWith("-")) sections.concepts.push(line.replace(/^-\s*/, ""));
+    else if (currentSection === "request" && !line.startsWith("2.")) sections.request = line;
+    else if (currentSection === "tasks" && line.match(/^[a-f]\./)) sections.tasks.push(line.replace(/^[a-f]\.\s*/, ""));
+    else if (currentSection === "pros" && line.startsWith("-")) sections.pros.push(line.replace(/^-\s*/, ""));
+    else if (currentSection === "cons" && line.startsWith("-")) sections.cons.push(line.replace(/^-\s*/, ""));
+    else if (currentSection === "approach" && !line.startsWith("5.")) sections.approach = line;
   });
 
-  // Remove empty sections
-  (Object.keys(sections) as (keyof typeof sections)[]).forEach(key => {
-    if (Array.isArray(sections[key]) && sections[key].length === 0) {
-      delete sections[key];
-    } else if (!Array.isArray(sections[key]) && !sections[key]) {
+  (Object.keys(sections) as Array<keyof typeof sections>).forEach((key) => {
+    if ((Array.isArray(sections[key]) && sections[key].length === 0) || (!Array.isArray(sections[key]) && !sections[key])) {
       delete sections[key];
     }
   });
@@ -72,24 +56,30 @@ interface AnalysisProps {
   content: string;
 }
 
-export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
+const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   const sections = parseAnalysis(content);
 
-  const Section: React.FC<{ title: string; children: React.ReactNode; icon: React.ComponentType<{ className?: string }> }> = ({ title, children, icon: Icon }) => (
-    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="bg-blue-50 p-2 rounded-md">
-          <Icon className="h-5 w-5 text-blue-500" />
+  interface SectionProps {
+    title: string;
+    children: React.ReactNode;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  }
+
+  const Section: React.FC<SectionProps> = ({ title, children, icon: Icon }) => (
+    <div className="bg-white p-4 border-b last:border-b-0">
+      <div className="flex items-center gap-2 mb-2">
+        <div className="bg-blue-50 p-1.5 rounded">
+          <Icon className="h-4 w-4 text-blue-500" />
         </div>
-        <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+        <h3 className="text-base font-medium text-gray-900">{title}</h3>
       </div>
-      <div className="text-gray-600">{children}</div>
+      <div className="text-gray-600 text-sm pl-8">{children}</div>
     </div>
   );
 
   const ListItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <li className="flex items-start gap-2 py-1">
-      <GitCommit className="h-4 w-4 text-blue-500 mt-1 flex-shrink-0" />
+    <li className="flex items-start gap-2 py-0.5">
+      <GitCommit className="h-3 w-3 text-blue-500 mt-1 flex-shrink-0" />
       <span>{children}</span>
     </li>
   );
@@ -100,7 +90,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     if (sections.concepts?.length) {
       components.push(
         <Section key="concepts" title="Key React Concepts" icon={Code}>
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {sections.concepts.map((concept, idx) => (
               <ListItem key={idx}>{concept}</ListItem>
             ))}
@@ -112,7 +102,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     if (sections.request) {
       components.push(
         <Section key="request" title="User's Request" icon={UserCircle}>
-          <p className="text-lg font-medium text-gray-700">{sections.request}</p>
+          <p className="font-medium">{sections.request}</p>
         </Section>
       );
     }
@@ -120,7 +110,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     if (sections.tasks?.length) {
       components.push(
         <Section key="tasks" title="Tasks and Solutions" icon={List}>
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {sections.tasks.map((task, idx) => (
               <ListItem key={idx}>{task}</ListItem>
             ))}
@@ -134,12 +124,12 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
         <Section key="proscons" title="Pros and Cons" icon={LightbulbIcon}>
           <div className="grid gap-4 md:grid-cols-2">
             {sections.pros?.length > 0 && (
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-700 mb-2">Pros</h4>
-                <ul className="space-y-2">
+              <div>
+                <h4 className="font-medium mb-1">Pros</h4>
+                <ul className="space-y-1">
                   {sections.pros.map((pro, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
+                      <CheckCircle2 className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
                       <span>{pro}</span>
                     </li>
                   ))}
@@ -147,12 +137,12 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
               </div>
             )}
             {sections.cons?.length > 0 && (
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-700 mb-2">Cons</h4>
-                <ul className="space-y-2">
+              <div>
+                <h4 className="font-medium mb-1">Cons</h4>
+                <ul className="space-y-1">
                   {sections.cons.map((con, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <XCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
+                      <XCircle className="h-3 w-3 text-red-500 mt-1 flex-shrink-0" />
                       <span>{con}</span>
                     </li>
                   ))}
@@ -167,7 +157,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     if (sections.approach) {
       components.push(
         <Section key="approach" title="Best Approach" icon={LightbulbIcon}>
-          <p className="text-gray-700 leading-relaxed">{sections.approach}</p>
+          <p>{sections.approach}</p>
         </Section>
       );
     }
@@ -176,20 +166,16 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-3xl mx-auto p-4">
       <Card className="border-none shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-          <CardTitle className="text-2xl font-semibold text-gray-800">React Code Analysis</CardTitle>
+        <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b py-3">
+          <CardTitle className="text-xl font-semibold text-gray-800">React Code Analysis</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-6 p-6">
-          {renderSections()}
-        </CardContent>
+        <CardContent className="p-0">{renderSections()}</CardContent>
       </Card>
     </div>
   );
 };
-
-
 
 export default () => (
   <Analysis
