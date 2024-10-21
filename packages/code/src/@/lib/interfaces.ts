@@ -74,7 +74,7 @@ export interface ICode {
   screenShot: () => Promise<ImageData>;
   // currentCodeWithExtraModels: () => Promise<string>;
   // setModelsByCurrentCode: (code: string) => Promise<string>;
-  setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean>;
+  setCode(rawCode: string, skipRunning?: boolean, transpiled?: string): Promise<string | boolean>;
   getCode(): Promise<string>;
   setCodeAndTranspiled({
     formatted,

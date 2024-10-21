@@ -129,7 +129,7 @@ const ChatInterface: React.FC<{
       if (e.code) {
         console.log("Setting code", e.code);
         setMessages(messages);
-        await cSess.setCode(e.code);
+        await cSess.setCodeAndTranspiled({formatted: e.code, transpiled: e.transpiled});
       }
 
       if (e.instructions) {
