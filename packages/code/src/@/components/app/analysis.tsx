@@ -32,8 +32,6 @@ const parseAnalysis = (content: string): Section => {
     "3. Tasks": "tasks",
     "4. Pros and cons": "proscons",
     "5. Best approach": "approach",
-    "Pros:": "pros",
-    "Cons:": "cons",
   };
 
   lines.forEach((line) => {
@@ -43,7 +41,7 @@ const parseAnalysis = (content: string): Section => {
       if (!sections[currentSection]) {
         sections[currentSection] = currentSection === "proscons" ? { pros: [], cons: [] } : currentSection === "request" || currentSection === "approach" ? "" : [];
       }
-      if (currentSection === "proscons" || currentSection === "pros" || currentSection === "cons") {
+      if (currentSection === "proscons") {
         currentSubsection = currentSection === "proscons" ? "pros" : currentSection;
       }
     } else if (currentSection) {
@@ -55,6 +53,10 @@ const parseAnalysis = (content: string): Section => {
           } else {
             sections.proscons[currentSection].push(item);
           }
+        }
+        else {
+          if (line.includes("Cons")) currentSection = 'cons';
+          else currentSection='pros'
         }
       } else if (Array.isArray(sections[currentSection])) {
         if (line.startsWith("-") || line.match(/^[a-f]\./)) sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
