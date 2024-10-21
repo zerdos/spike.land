@@ -53,10 +53,9 @@ const parseAnalysis = (content: string): Section => {
           } else {
             sections.proscons[currentSection].push(item);
           }
-        }
-        else {
-          if (line.includes("Cons")) currentSection = 'cons';
-          else currentSection='pros'
+        } else {
+          if (line.includes("Cons")) currentSection = "cons";
+          else currentSection = "pros";
         }
       } else if (Array.isArray(sections[currentSection])) {
         if (line.startsWith("-") || line.match(/^[a-f]\./)) sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
@@ -91,28 +90,28 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   }
 
   const Section: React.FC<SectionProps> = ({ title, children, icon: Icon, listType }) => (
-    <div className={`p-3 transition-all duration-300 ${isDarkMode ? "hover:bg-gray-800/50" : "hover:bg-white/50"} font-poppins`}>
+    <div className={`p-2 transition-all duration-300 ${isDarkMode ? "hover:bg-gray-800/30" : "hover:bg-white/30"} font-inter`}>
       <div className="flex items-center gap-2 mb-2">
-        <div className="bg-gradient-to-br from-purple-400 to-indigo-500 p-1 rounded-md shadow-sm">
+        <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1 rounded-md shadow-sm">
           <Icon className="h-3 w-3 text-white" />
         </div>
-        <h3 className={`text-base font-semibold ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{title}</h3>
+        <h3 className={`text-base font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>{title}</h3>
       </div>
-      <div className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-5`}>
+      <div className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-4`}>
         {listType ? (
           <ul className="space-y-1">
             {Array.isArray(children) &&
               children.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-1 py-0.5">
+                <li key={idx} className="flex items-start gap-1">
                   {listType === "pro" && <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />}
                   {listType === "con" && <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />}
                   {listType === "default" && <GitCommit className="h-3 w-3 text-indigo-500 mt-0.5 flex-shrink-0" />}
-                  <span className="leading-tight font-normal font-roboto-mono">{item}</span>
+                  <span className="leading-tight font-normal">{item}</span>
                 </li>
               ))}
           </ul>
         ) : (
-          <div className="prose prose-xs max-w-none font-normal">{children}</div>
+          <div className="prose prose-xs max-w-none">{children}</div>
         )}
       </div>
     </div>
@@ -183,17 +182,15 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   };
 
   return (
-    <div className={`max-w-full mx-auto  ${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700" : "bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100"} font-poppins`}>
-      <Card className={`border-none shadow-lg backdrop-blur-md ${isDarkMode ? "bg-gray-800/30" : "bg-white/30"}`}>
-        <CardHeader className="bg-gradient-to-r from-purple-400 to-indigo-500 py-2 rounded-t-lg">
-          <CardTitle className="text-lg font-bold text-white flex items-center">
-            <LightbulbIcon className="w-4 h-4 mr-1" />
-            React Analysis
-          </CardTitle>
-        </CardHeader>
-        <CardContent className={`p-0 divide-y ${isDarkMode ? "divide-gray-700/50" : "divide-gray-200/50"}`}>{renderSections()}</CardContent>
-      </Card>
-    </div>
+    <Card className={`max-w-full mx-auto border-none shadow-lg ${isDarkMode ? "bg-gray-800/90" : "bg-white/90"}`}>
+      <CardHeader className="bg-gradient-to-r from-violet-700 to-indigo-800 py-2 rounded-t-lg">
+        <CardTitle className="text-lg font-semibold text-white flex items-center">
+          <LightbulbIcon className="w-4 h-4 mr-1" />
+          React Analysis
+        </CardTitle>
+      </CardHeader>
+      <CardContent className={`p-0 divide-y ${isDarkMode ? "divide-gray-700/30" : "divide-gray-200/30"}`}>{renderSections()}</CardContent>
+    </Card>
   );
 };
 
