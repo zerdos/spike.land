@@ -57,7 +57,7 @@ export async function buildMainScripts(): Promise<void> {
   const workerFiles = await createEntryPoints("workers");
 
   await build({
-    ...getCommonBuildOptions(environment),
+    ...getCommonBuildOptions("production"),
     entryPoints: workerFiles,
     format: "iife",
     outdir: "dist/@/workers",
@@ -69,10 +69,6 @@ export async function buildMainScripts(): Promise<void> {
     legalComments: "none",
     sourcemap: false,
     keepNames: false,
-    loader: {
-      ...getCommonBuildOptions("production").loader,
-      ".css": "text",
-    },
     mangleProps: /_$/,
     mangleCache: { "_": false },
     mangleQuoted: true,

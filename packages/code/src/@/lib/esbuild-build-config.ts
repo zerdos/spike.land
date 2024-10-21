@@ -54,6 +54,15 @@ export const buildOptions: BuildOptions = {
     ".ts",
     ".jsx",
     ".js",
+    ".png",
+    ".ico",
+    ".svg",
+    ".jpeg",
+    ".jpg",
+    ".webp",
+    ".gif",
+    ".txt",
+
     ".css",
     ".json",
     ".mjs",
@@ -64,6 +73,20 @@ export const buildOptions: BuildOptions = {
 
   loader: {
     ".ttf": "file",
+    ".svg": "file",
+
+    ".jpeg": "file",
+    ".jpg": "file",
+    ".webp": "file",
+    ".gif": "file",
+    ".txt": "text",
+    ".json": "json",
+    ".mjs": "js",
+    ".js": "js",
+    ".jsx": "jsx",
+    ".ts": "ts",
+    ".tsx": "tsx",
+
     ".css": "css",
     ".png": "file",
     ".ico": "file",
