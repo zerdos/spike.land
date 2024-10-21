@@ -122,7 +122,7 @@ const ChatInterface: React.FC<{
         await cSess.setCode(e.code);
       }
 
-      if (e.chunk) {
+      if (e.instructions) {
         if (!isStreaming) {
           setIsStreaming(true);
         }
@@ -135,13 +135,13 @@ const ChatInterface: React.FC<{
               {
                 id: Date.now().toString(),
                 role: "assistant",
-                content: e.chunk!,
+                content: e.instructions!,
               },
             ];
           } else {
             return [
               ...previousMessages.slice(0, -1),
-              { ...lastMessage, content: lastMessage.content + e.chunk! },
+              { ...lastMessage, content: e.instructions },
             ];
           }
         });

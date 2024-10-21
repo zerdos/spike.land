@@ -194,7 +194,7 @@ ${this.mod.lastCode}
         this.mod.actions = [];
 
         const assistantMessage = await this.sendAssistantMessage(
-          (chunk: string) => this.onUpdate(chunk),
+          this.onUpdate.bind(this),
         );
 
         this.messages = messagesPush(this.messages, assistantMessage);
@@ -315,8 +315,9 @@ ${this.mod.lastCode}
   }
 
   private onUpdate(chunk: string) {
-    this.BC.postMessage({ chunk });
     this.mod.instructions += chunk;
+    this.BC.postMessage({ instructions: this.mod.instructions });
+
     this.updateCode();
   }
 
