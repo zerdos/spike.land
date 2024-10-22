@@ -45,7 +45,7 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
     
       const change = trimmedValue.includes(`<change>`)?<h2>{trimmedValue.slice(trimmedValue.indexOf(`<change>`)+8)}</h2>:<></>;
      
-      return <><Analysis content={trimmedValue} />{change}</>
+      return <><Analysis content={trimmedValue.slice(0,trimmedValue.indexOf("<change>"))} />{change}</>
     }
 
     if (trimmedValue.includes(`</change>`))
