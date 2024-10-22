@@ -45,6 +45,15 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
     {
       return <Analysis content={trimmedValue} />;
     }
+   if (trimmedValue.includes(`<change>`))
+    {
+     return <h2>{trimmedValue}</h2>;
+    } 
+
+    if (trimmedValue.includes(`</change>`))
+      {
+       return <p>{trimmedValue}</p>;
+      } 
 
     if (type === "text") {
       return (
