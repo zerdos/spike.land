@@ -1,7 +1,7 @@
 import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 
 class SessMock implements ICode {
-  setCodeAndTranspiled(): boolean {
+  setCodeAndTranspiled(): Promise<boolean> {
     // Currently not using formatted and transpiled
     throw new Error("Method not implemented.");
   }
