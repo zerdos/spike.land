@@ -86,21 +86,20 @@ Before providing your final response, analyze the code and the user's request in
    [Description what approach will be taken to address the users request]
 </react_code_analysis>
 
-After your analysis, provide your response in the following format:
+After your analysis, provide the code modifications in the following format:
+<change>
+[Brief description of the change]
 
-1. Change: [Brief description of the change]
-   <<<<<<< SEARCH
-   [Exact original code]
-   =======
-   [Modified code]
-   >>>>>>> REPLACE
-   Explanation: [Why this change was made]
+<<<<<<< SEARCH
+[Exact original code]
+=======
+[Modified code]
+>>>>>>> REPLACE
+ 
+Explanation: [Why this change was made]
+</change>
 
-
-2. Suggestion: [Brief description of the suggestion]
-   [Why this improvement would be beneficial]
-
-2. Suggestion: [Brief description of the suggestion]
+Provide suggestion to the users where to improve:
 <suggestion>
    <title>[Brief description of the suggestion]</title>
    <description>[Why this improvement would be beneficial]</description>
