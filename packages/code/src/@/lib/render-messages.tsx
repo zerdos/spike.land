@@ -41,18 +41,16 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
       return <pre>{trimmedValue}</pre>;
     }
    
-    if (trimmedValue.includes(`<react_code_analysis>`))
-    {
-      return <Analysis content={trimmedValue} />;
+    if (trimmedValue.includes(`<react_code_analysis>`)){
+    
+      const change = trimmedValue.includes(`<change>`)?<h2>{trimmedValue.slice(trimmedValue.indexOf(`<change>`)+8)}</h2>:<></>;
+     
+      return <><Analysis content={trimmedValue} />{change}</>
     }
-   if (trimmedValue.includes(`<change>`))
-    {
-     return <h2>{trimmedValue}</h2>;
-    } 
 
     if (trimmedValue.includes(`</change>`))
       {
-       return <p>{trimmedValue}</p>;
+       return <p>{trimmedValue.slice(0,trimmedValue.indexOf('</change>'))}</p>;
       } 
 
     if (type === "text") {
