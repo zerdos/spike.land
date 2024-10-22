@@ -50,7 +50,7 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
 
     if (trimmedValue.includes(`</change>`))
       {
-        const suggestion = trimmedValue.includes(`<suggestion>`)?<h2>{trimmedValue.slice(trimmedValue.indexOf(`<suggestion>`)+12)}</h2>:<></>;
+        const suggestion = trimmedValue.includes(`<suggestion>`)?<p>{trimmedValue.slice(trimmedValue.indexOf(`<suggestion>`))}</p>:<></>;
        return <><p>{trimmedValue.slice(0,trimmedValue.indexOf('</change>'))}</p>
        {suggestion}</>
 ;
