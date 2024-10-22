@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 
 declare module "/Wrapper.mjs";
+declare module "*.html?raw" {
+  const content: string;  
+  export default content;
+}
 
 declare module "/live/code-main/js" {
   const returnFn: () => ReactNode;

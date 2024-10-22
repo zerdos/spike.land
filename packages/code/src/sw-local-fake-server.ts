@@ -3,7 +3,7 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-
+import type {} from "./def";
 import HTML from "./index.html";
 import type { ICodeSession } from "./modules";
 

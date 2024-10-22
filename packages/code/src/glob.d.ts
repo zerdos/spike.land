@@ -7,6 +7,14 @@ import type ear from "@emotion/react";
 import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 
+
+declare module '*.html?raw' {
+
+  const content: string;
+
+  export default content;
+
+}
 declare global {
   let sharedWorker: SharedWorker;
   let rRoot: ReturnType<typeof Cr>;
