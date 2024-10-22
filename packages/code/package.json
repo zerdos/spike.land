@@ -71,7 +71,7 @@
     "@langchain/core": "^0.3.13",
     "@langchain/langgraph": "^0.2.16",
     "@monaco-editor/react": "^4.6.0",
-    "@mui/material": "6.1.4",
+    "@mui/material": "6.1.5",
     "@okikio/sharedworker": "1.0.7",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
