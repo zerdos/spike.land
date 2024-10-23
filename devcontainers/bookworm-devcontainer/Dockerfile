@@ -1,10 +1,10 @@
-# syntax=docker/dockerfile:1.5.2
+# syntax=docker/dockerfile:1.10.0
 
 # Stage 1: Node builder for Cypress
 FROM node:alpine as node-builder
 
 # Add yarn
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.5.0.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.5.1.cjs /usr/local/bin/yarn
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
 # Uncomment the following lines if you need to install Cypress during the build
