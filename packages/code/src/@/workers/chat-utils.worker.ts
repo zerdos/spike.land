@@ -4,6 +4,7 @@ import type { HandleSendMessageProps, ImageData, Message, MessageContent } from 
 import { md5 } from "@/lib/md5";
 import { Mutex } from "async-mutex";
 
+import { wait } from "@/lib/wait";
 import { AIHandler } from "../../AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
@@ -305,6 +306,7 @@ ${this.mod.lastCode}
               console.warn("Reached maximum iterations, forcing finish");
               break;
             }
+            await wait(200);
           }
 
           console.log("Finished iteration", iterationCount);

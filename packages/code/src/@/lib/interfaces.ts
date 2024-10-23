@@ -157,12 +157,12 @@ interface ImageUrl {
 }
 
 // Content part interfaces
-type TextPart = {
+export type TextPart = {
   type: "text";
   text: string;
 };
 
-interface ImageUrlPart {
+export interface ImageUrlPart {
   type: "image_url";
   image_url: ImageUrl;
 }
