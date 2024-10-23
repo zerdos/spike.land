@@ -20,6 +20,7 @@ interface Mod {
   lastError: string;
   instructions: string;
   actions: Action[];
+  errors: string[];
 }
 
 interface Action {
@@ -61,6 +62,7 @@ class ChatHandler {
       controller: new AbortController(),
       lastCode: code,
       lastError: "",
+      errors: [],
       instructions: "",
       actions: [],
     };
@@ -174,7 +176,10 @@ class ChatHandler {
 error:
 \`\`\`error
 ${this.mod.lastError}
+${this.mod.errors.join("\n")}
 \`\`\`
+
+
 
 last code after applying your instructions: 
           
@@ -183,6 +188,7 @@ ${this.mod.lastCode}
 \`\`\`
           `,
         };
+        this.mod.errors = [];
         this.messages = messagesPush(this.messages, userMessage);
         this.messages = messagesPush(this.messages, {
           id: Date.now().toString(),
@@ -210,7 +216,9 @@ ${this.mod.lastCode}
           this.mod.lastCode = this.code;
         }
 
-        if (this.mod.lastCode !== this.code && !this.mod.lastError) {
+        if (
+          this.mod.lastCode !== this.code && !this.mod.lastError && this.mod.errors.length === 0
+        ) {
           return true;
         }
 
@@ -258,10 +266,13 @@ ${this.mod.lastCode}
 
           if (chunk.length === 0) break;
 
-          const { result, len } = await ChatHandler.updateSearchReplace({
+          const { result, len, error } = await ChatHandler.updateSearchReplace({
             instructions: chunk,
             code: this.mod.lastCode,
           });
+          if (error) {
+            this.mod.errors.push(error);
+          }
 
           this.updateModActions({
             result,
@@ -444,8 +455,8 @@ ${this.mod.lastCode}
   }: {
     instructions: string;
     code: string;
-  }): Promise<{ result: string; len: number; }> {
-    if (instructions.length === 0) return { result: code, len: 0 };
+  }): Promise<{ result: string; len: number; error: string; }> {
+    if (instructions.length === 0) return { result: code, len: 0, error: "" };
     instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(SEARCH_ARROWS).join(SEARCH)
       .split(REPLACE).join(REPLACE_ARROWS).split(REPLACE_ARROWS).join(REPLACE);
 
@@ -457,10 +468,15 @@ ${this.mod.lastCode}
       if (rAll !== code) {
         const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
         if (rAll !== rAllWithExtra) {
-          return { result: rAll, len: instructions.length };
+          return { result: rAll, len: instructions.length, error: "" };
         }
       }
-      return { result: code, len: 0 };
+
+      return {
+        result: code,
+        len: 0,
+        error: `couldn't apply the search/replace blocks :( \n ${instructions}`,
+      };
     }
 
     if (replaceIndex !== -1) {
@@ -471,11 +487,12 @@ ${this.mod.lastCode}
       return {
         result: up(trimmedInstructions, code),
         len: trimmedInstructions.length,
+        error: "",
       };
     }
 
     const rAll = up(instructions, code);
-    if (rAll === code) return { result: rAll, len: instructions.length };
+    if (rAll === code) return { result: rAll, len: instructions.length, error: "" };
 
     let jump = 1;
     while (
@@ -497,7 +514,7 @@ ${this.mod.lastCode}
       }
     }
 
-    return { result: up(instructions.slice(0, low), code), len: low };
+    return { result: up(instructions.slice(0, low), code), len: low, error: "" };
   }
 }
 
