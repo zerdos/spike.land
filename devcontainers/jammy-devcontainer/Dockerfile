@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.5.2
+# syntax=docker/dockerfile:1.10.0
 
 # Stage 1: Node builder for Cypress
 FROM node:alpine as node-builder
@@ -172,7 +172,7 @@ ENV PORT=6080
 RUN git clone https://github.com/novnc/noVNC.git --depth=1 \
     && cp -af ./noVNC/. /usr/share/novnc/ \
     && rm -rf ./noVNC \
-    && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+    && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html 
 
 # Modify Xvnc-session and Xtigervnc-session configuration
 RUN if [ -f /etc/X11/Xvnc-session ]; then \
