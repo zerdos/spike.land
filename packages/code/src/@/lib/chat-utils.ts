@@ -1,6 +1,6 @@
-import { replacePreservingWhitespace } from "@/lib/diff-utils";
-import type { Message } from "@/lib/interfaces";
 import { produce } from "immer";
+import { replacePreservingWhitespace } from "./diff-utils";
+import type { Message } from "./interfaces";
 
 export function messagesPush(
   messages: Message[],

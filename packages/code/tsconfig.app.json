@@ -2,33 +2,25 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/@/*"
-      ]
+      "@/*": ["./src/@/*"]
     },
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "DOM.AsyncIterable"],
     "module": "ESNext",
     "outDir": "dts",
-    "noEmit": false,
     "declaration": true,
     "declarationDir": "dts",
     "incremental": true,
-
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "jsxImportSource": "@emotion/react",
-    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
     "composite": true,
-
-    /* Linting */
+    "emitDeclarationOnly": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

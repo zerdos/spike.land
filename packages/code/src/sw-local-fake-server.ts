@@ -4,7 +4,7 @@ import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import type {} from "./def";
-import HTML from "./index.html";
+import HTML from "./index.html?raw";
 import type { ICodeSession } from "./modules";
 
 const cSessions: {
