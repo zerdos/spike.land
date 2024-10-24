@@ -1,10 +1,9 @@
 import type { Message } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AIHandler } from "../../../AIHandler";
-import { handleSendMessage } from "../chat-utils.worker";
+import { AIHandler } from "../AIHandler";
 
 // Mock AIHandler
-vi.mock("../../../AIHandler", () => ({
+vi.mock("../AIHandler", () => ({
   AIHandler: vi.fn().mockImplementation(() => ({
     prepareClaudeContent: vi.fn(),
     sendToAnthropic: vi.fn(),
@@ -23,7 +22,7 @@ class MockBroadcastChannel {
   }
 }
 
-global.BroadcastChannel = MockBroadcastChannel;
+global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
 
 describe("handleSendMessage", () => {
   beforeEach(() => {
@@ -153,3 +152,8 @@ describe("handleSendMessage", () => {
     );
   });
 });
+function handleSendMessage(
+  arg0: { messages: never[]; codeSpace: string; prompt: string; images: never[]; code: string; },
+) {
+  throw new Error("Function not implemented.");
+}
