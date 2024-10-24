@@ -97,7 +97,7 @@ class ChatHandler {
       const md5Messages = md5(JSON.stringify(_messages));
       if (md5Messages !== md5(JSON.stringify(this.messages))) {
         this.messages = _messages;
-        this.BC.postMessage({ messages: this.messages, debugInfo });
+        this.BC.postMessage({ messages: this.messages, debugInfo: [...debugInfo.logs] });
       }
     };
 
