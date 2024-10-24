@@ -44,9 +44,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:^0.30.0":
-  version: 0.30.0
-  resolution: "@anthropic-ai/sdk@npm:0.30.0"
+"@anthropic-ai/sdk@npm:^0.30.1":
+  version: 0.30.1
+  resolution: "@anthropic-ai/sdk@npm:0.30.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -55,7 +55,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10c0/a90db475ec1c28171af8faa5e3f651956ede49808520c40f2171b1c67b67c9520446bb1de4ed33a3f299b5baa954f1415c242f04d01c38beab3edb07de08cf22
+  checksum: 10c0/34649b2a23b824fa0764061c0218dfb40baa416c15c9997829ec9a25d0cdfc6e47b5d31737084f29a5706c8a9cbcebbe08b93014f42992a11d29723546c2298a
   languageName: node
   linkType: hard
 
@@ -331,53 +331,53 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.15.0":
-  version: 1.15.0
-  resolution: "@clerk/backend@npm:1.15.0"
+"@clerk/backend@npm:1.15.1":
+  version: 1.15.1
+  resolution: "@clerk/backend@npm:1.15.1"
   dependencies:
-    "@clerk/shared": "npm:2.10.0"
-    "@clerk/types": "npm:4.27.0"
+    "@clerk/shared": "npm:2.10.1"
+    "@clerk/types": "npm:4.28.0"
     cookie: "npm:0.7.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10c0/e61504a0f37c7f5e02de93215d81a0220ab9b3395032af6eb77526e65169ad0ad08e5c684417ce6ba5b3cfb2f73f07b5f4dd884dc1d914ff074e7c3bc1abb32c
+  checksum: 10c0/fd0d00a78f66ec1255deffe9b6d1b50485d896b69f8728efaad3b979899bd2bd3ba5df1fd377670a875c4b797d0c61826c7d3076bf8c466993d0363dbf46adca
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:5.13.0, @clerk/clerk-react@npm:^5.13.0":
-  version: 5.13.0
-  resolution: "@clerk/clerk-react@npm:5.13.0"
+"@clerk/clerk-react@npm:5.13.1, @clerk/clerk-react@npm:^5.13.1":
+  version: 5.13.1
+  resolution: "@clerk/clerk-react@npm:5.13.1"
   dependencies:
-    "@clerk/shared": "npm:2.10.0"
-    "@clerk/types": "npm:4.27.0"
+    "@clerk/shared": "npm:2.10.1"
+    "@clerk/types": "npm:4.28.0"
     tslib: "npm:2.4.1"
   peerDependencies:
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10c0/8316af2ed1c550ad8138aad6fd6879b8226b08d24b89d52e26c26428254b4fc92ee4de0bc96951058b4b7041405b6741531739f93a6d6380c04c1102713ee31e
+  checksum: 10c0/acf1d8bf2a6b94c2c99c25b4612e0a85d2d847f186b3d6db317dafc98a6d35090b322705e249f86adff0dcdd16fca05d53710d0512dea48cca37f715fcf62358
   languageName: node
   linkType: hard
 
-"@clerk/clerk-sdk-node@npm:5.0.53":
-  version: 5.0.53
-  resolution: "@clerk/clerk-sdk-node@npm:5.0.53"
+"@clerk/clerk-sdk-node@npm:5.0.54":
+  version: 5.0.54
+  resolution: "@clerk/clerk-sdk-node@npm:5.0.54"
   dependencies:
-    "@clerk/backend": "npm:1.15.0"
-    "@clerk/shared": "npm:2.10.0"
-    "@clerk/types": "npm:4.27.0"
+    "@clerk/backend": "npm:1.15.1"
+    "@clerk/shared": "npm:2.10.1"
+    "@clerk/types": "npm:4.28.0"
     tslib: "npm:2.4.1"
-  checksum: 10c0/61ff946f05ead8686811736e2a845ed0b26bab7d5f221659f26a9a9b527fbe4621a843d7848dc3f19533e0977c333604d5d782ca7393a5852375e847bb6df4cb
+  checksum: 10c0/07506b61a6a585dc769b09830229d04f649721d3e125a86c94e09a664164bf50d199a0a991e785ea4646658a711f5fa68b16629edeea783d85144489bb72b61a
   languageName: node
   linkType: hard
 
-"@clerk/nextjs@npm:6.0.0":
-  version: 6.0.0
-  resolution: "@clerk/nextjs@npm:6.0.0"
+"@clerk/nextjs@npm:6.0.1":
+  version: 6.0.1
+  resolution: "@clerk/nextjs@npm:6.0.1"
   dependencies:
-    "@clerk/backend": "npm:1.15.0"
-    "@clerk/clerk-react": "npm:5.13.0"
-    "@clerk/shared": "npm:2.10.0"
-    "@clerk/types": "npm:4.27.0"
+    "@clerk/backend": "npm:1.15.1"
+    "@clerk/clerk-react": "npm:5.13.1"
+    "@clerk/shared": "npm:2.10.1"
+    "@clerk/types": "npm:4.28.0"
     crypto-js: "npm:4.2.0"
     server-only: "npm:0.0.1"
     tslib: "npm:2.4.1"
@@ -385,15 +385,15 @@ __metadata:
     next: ^13.5.4 || ^14.0.3 || >=15.0.0-rc
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10c0/c8a9a6efff7d77ea2445bf5c4513bfecef86038ba999774084255522eaacffda5c938c63e149cb9aa6f3e7147568c2fb81d6794cc72c388a7560c86d7b7d93f5
+  checksum: 10c0/fcf9498d2bb906d4d73fcefacdad4c40bb7570b36c9cce61d6f9faf0f132103c12ab65dd0d98dc28ca9a69a651f39ff2bafc8b41c101a163092b18e860ad9bff
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:2.10.0":
-  version: 2.10.0
-  resolution: "@clerk/shared@npm:2.10.0"
+"@clerk/shared@npm:2.10.1":
+  version: 2.10.1
+  resolution: "@clerk/shared@npm:2.10.1"
   dependencies:
-    "@clerk/types": "npm:4.27.0"
+    "@clerk/types": "npm:4.28.0"
     glob-to-regexp: "npm:0.4.1"
     js-cookie: "npm:3.0.5"
     std-env: "npm:^3.7.0"
@@ -406,16 +406,16 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/853a88d3f7d866c2c5d14289ad57465d5ad99244877d2dd8a8db21d3891f951d06a2b2a42162659afc4df333278e554612ebed93ca15fcb5d6e5f6e80671c4fb
+  checksum: 10c0/e04579d4f7befe0716b42d114b5932958c52078e2d7b398f350182c856ddf9948cceaaecf477eeeaa606bf582e379d9d46817ee0ab1e384c2ec37c43131c26a1
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:4.27.0":
-  version: 4.27.0
-  resolution: "@clerk/types@npm:4.27.0"
+"@clerk/types@npm:4.28.0":
+  version: 4.28.0
+  resolution: "@clerk/types@npm:4.28.0"
   dependencies:
     csstype: "npm:3.1.1"
-  checksum: 10c0/772cbd8a8bc18fa47494bcf89bfa9dab9d0a2912b50591b0a5be16eb91e1e3121504bf69f92e728896f767455008460daf4e3ab1ead7bb0464fc0048639cd891
+  checksum: 10c0/fa9b61d0800bace7b11e492f755aef94b594cce33da6af6d27271d19948691549c1d0ae00ce8ca19ef7cd7d582857eec3f3438f972a0949359acffecb0ae08f1
   languageName: node
   linkType: hard
 
@@ -4145,9 +4145,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:^0.30.0"
-    "@clerk/backend": "npm:1.15.0"
-    "@clerk/clerk-sdk-node": "npm:5.0.53"
+    "@anthropic-ai/sdk": "npm:^0.30.1"
+    "@clerk/backend": "npm:1.15.1"
+    "@clerk/clerk-sdk-node": "npm:5.0.54"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:^0.5.21"
     "@cloudflare/workers-types": "npm:4.20241022.0"
@@ -4167,7 +4167,7 @@ __metadata:
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
     miniflare: "npm:^3.20241018.0"
-    openai: "npm:^4.68.2"
+    openai: "npm:^4.68.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -4182,8 +4182,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
-    "@clerk/clerk-react": "npm:^5.13.0"
-    "@clerk/nextjs": "npm:6.0.0"
+    "@clerk/clerk-react": "npm:^5.13.1"
+    "@clerk/nextjs": "npm:6.0.1"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:^11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -4347,7 +4347,7 @@ __metadata:
     react-markdown: "npm:^9.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.2"
-    react-resizable-panels: "npm:^2.1.4"
+    react-resizable-panels: "npm:^2.1.5"
     react-reverse-portal: "npm:^2.1.2"
     react-spring: "npm:^9.7.4"
     react-swipeable: "npm:^7.0.1"
@@ -13413,9 +13413,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:^4.68.2":
-  version: 4.68.2
-  resolution: "openai@npm:4.68.2"
+"openai@npm:^4.68.4":
+  version: 4.68.4
+  resolution: "openai@npm:4.68.4"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -13431,7 +13431,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/8b981e692efcebab87b60434f1dcb14f2d2079d502017dbcb7d8eeca4ca0e68647db9ab2252021c4abfc866ee039351c11bbbb4108b8801e7004e8107f594a8e
+  checksum: 10c0/4f81795d0847ad145815299fc4f6448f084f9db43ede651776ca636d4907ff9a07de9379b9feea5e54a2d96e95ee9bcc74c3284e13376bf80684be74e0041479
   languageName: node
   linkType: hard
 
@@ -14709,13 +14709,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^2.0.12, react-resizable-panels@npm:^2.1.4":
+"react-resizable-panels@npm:^2.0.12":
   version: 2.1.4
   resolution: "react-resizable-panels@npm:2.1.4"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/c1afef5baf9b401292fbe90297da0802142967a20ecc88cc93086f43acd46c1d0dccc124aa0e95688378850856d4cb55c9a054e12860e39a4f653256fbf3835f
+  languageName: node
+  linkType: hard
+
+"react-resizable-panels@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "react-resizable-panels@npm:2.1.5"
+  peerDependencies:
+    react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10c0/4a3a149928bd9111ab17a6e32895f81d56f90734fa9e74593cc60dde75d8938c653bb25638c7d683859ded343066f7d7615aea1fde7da4d298cc0f769f0af23c
   languageName: node
   linkType: hard
 
