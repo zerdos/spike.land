@@ -586,7 +586,7 @@ export async function handleSendMessage({
     chatHandler.BC.postMessage({ isStreaming: false, messages, debugInfo: [...debugInfo.logs] });
   }
 
-  return debugInfo;
+  return debugInfo.logs;
 }
 
 Object.assign(globalThis, { handleSendMessage });
