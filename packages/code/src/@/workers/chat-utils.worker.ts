@@ -168,7 +168,7 @@ class ChatHandler {
     this.mod.lastCode = this.code;
 
     while (retries < maxRetries) {
-      if (this.mod.lastError) {
+      if (this.mod.lastError || this.mod.errors.length > 0) {
         const userMessage: Message = {
           id: Date.now().toString(),
           role: "user",
@@ -302,7 +302,7 @@ ${this.mod.lastCode}
                   originToUse: string;
                 }) => Promise<string>;
               }).transpile({ code: formatted, originToUse: location.origin });
-
+              this.mod.lastError = "";
               this.BC.postMessage({ code: formatted, transpiled });
             } catch (error) {
               if (error instanceof Error) {
@@ -311,13 +311,14 @@ ${this.mod.lastCode}
                 this.mod.lastError = JSON.stringify(error);
               }
               console.error("Error in updateCode:", error);
+            } finally {
+              this.BC.postMessage({ code: this.mod.lastCode });
             }
 
             if (iterationCount >= maxIterations) {
               console.warn("Reached maximum iterations, forcing finish");
               break;
             }
-            await wait(200);
           }
 
           console.log("Finished iteration", iterationCount);
