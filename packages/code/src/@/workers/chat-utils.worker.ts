@@ -54,7 +54,7 @@ interface Action {
 class ChatHandler {
   private mod: Mod;
   private mutex = new Mutex();
-  private BC: BroadcastChannel;
+  public BC: BroadcastChannel;
   private lastCode: string;
   private messages: Message[];
   private codeSpace: string;
@@ -574,18 +574,16 @@ export async function handleSendMessage({
     promptLength: prompt?.length,
     imagesCount: images?.length,
   });
-  const BC = broadcastChannelsByCodeSpace[codeSpace];
+
+  const chatHandler = new ChatHandler({ messages, codeSpace, code });
 
   try {
-    const chatHandler = new ChatHandler({ messages, codeSpace, code });
     await chatHandler.handleMessage({ prompt, images });
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     debugInfo.addLog("Fatal error in handleSendMessage", { error: errorMsg });
   } finally {
-    BC.postMessage({ isStreaming: false, messages, debugInfo: [...debugInfo.logs] });
-    BC.close();
-    delete broadcastChannelsByCodeSpace[codeSpace];
+    chatHandler.BC.postMessage({ isStreaming: false, messages, debugInfo: [...debugInfo.logs] });
   }
 
   return debugInfo;
