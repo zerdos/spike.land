@@ -32,7 +32,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    handleSendMessage({
+    const result = handleSendMessage({
       messages,
       codeSpace: getCodeSpace(),
       prompt: input,
@@ -42,6 +42,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
+    return result
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,7 +195,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </Popover>
 
             <Button
-              onClick={() => handleSend()}
+              onClick={async() => console.log(await handleSend())}
               disabled={isStreaming ||
                 input.trim() === "" && !screenshotImage &&
                   uploadedImages.length === 0}

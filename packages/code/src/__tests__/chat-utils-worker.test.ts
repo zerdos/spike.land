@@ -10,7 +10,7 @@ class MockAIHandler extends AIHandler {
   sendToGpt4o = vi.fn();
 }
 
-vi.mock("../../../AIHandler", () => ({
+vi.mock("../AIHandler", () => ({
   AIHandler: vi.fn().mockImplementation(
     (setIsStreaming: (isStreaming: boolean) => void, codeSpace: string) => {
       return new MockAIHandler(setIsStreaming, codeSpace);
