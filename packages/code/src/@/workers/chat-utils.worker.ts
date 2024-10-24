@@ -312,7 +312,8 @@ ${this.mod.lastCode}
               }
               console.error("Error in updateCode:", error);
             } finally {
-              this.BC.postMessage({ code: this.mod.lastCode });
+              await wait(200);
+              /// this.BC.postMessage({ code: this.mod.lastCode });
             }
 
             if (iterationCount >= maxIterations) {
