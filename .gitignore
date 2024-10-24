@@ -126,7 +126,6 @@ packages/code/deno.lock
 .aider*
 files.md
 codebase.md
-*.d.ts
 *.m.ts
 .wrangler
 .pnp

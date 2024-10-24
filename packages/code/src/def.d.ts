@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 declare module "/Wrapper.mjs";
 declare module "*.html?raw" {
-  const content: string;  
+  const content: string;
   export default content;
 }
 
@@ -13,7 +13,7 @@ declare module "/live/code-main/js" {
 declare module "/*";
 
 declare let URL: {
-  new (url: string | URL, base?: string | URL): URL;
+  new(url: string | URL, base?: string | URL): URL;
   prototype: URL;
   canParse(url: string | URL, base?: string): boolean;
   createObjectURL(obj: Blob | MediaSource): string;
@@ -27,14 +27,20 @@ declare global {
   }
 }
 
-
-
 /////////////////////////////
 /// webcodecs APIs
 /////////////////////////////
 
 // type AlphaOption = "discard" | "keep";
-type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
+type AudioSampleFormat =
+  | "f32"
+  | "f32-planar"
+  | "s16"
+  | "s16-planar"
+  | "s32"
+  | "s32-planar"
+  | "u8"
+  | "u8-planar";
 
 interface AudioDataCopyToOptions {
   format?: AudioSampleFormat | undefined;
