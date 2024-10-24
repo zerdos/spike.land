@@ -6,6 +6,7 @@ import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 // import { build } from "@/../lib/shared";
+import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
 import { hash } from "immutable";
 import {
@@ -228,18 +229,23 @@ export class Code implements ICode {
       return true;
     }
 
-    const { html, css } = await runCode(transpiled) || { html: "", css: "" };
-
-    this.session = makeSession({
+    let session = makeSession({
       ...this.session,
-      html,
-      css,
       code: formatted,
       transpiled,
       i: this.session.i + 1,
     });
 
-    this.broadcastChannel.postMessage(this.session);
+    try {
+      const { html, css } = await runCode(transpiled) || { html: "", css: "" };
+      session = makeSession({ ...session, html, css });
+    } catch (error) {
+      console.error("Error running code:", error);
+    }
+
+    this.session = session;
+
+    this.broadcastChannel.postMessage({ ...session, sender: "Editor" } as BroadcastMessage);
     return true;
   }
   private isRunning = false;
@@ -255,7 +261,7 @@ export class Code implements ICode {
 
       // Wait for the current run to finish
       while (this.isRunning) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await wait(100);
       }
 
       // Check if this run is still the most recent request
