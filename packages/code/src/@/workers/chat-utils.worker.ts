@@ -523,10 +523,13 @@ ${this.mod.lastCode}
         0,
         replaceIndex + REPLACE.length,
       );
+      const result = up(trimmedInstructions, code);
       return {
-        result: up(trimmedInstructions, code),
+        result,
         len: trimmedInstructions.length,
-        error: "",
+        error: result === code
+          ? `couldn't apply the search/replace blocks :( \n ${trimmedInstructions}`
+          : "",
       };
     }
 
