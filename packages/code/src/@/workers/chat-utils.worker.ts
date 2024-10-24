@@ -25,7 +25,7 @@ const debugInfo: DebugInfo = {
     debugInfo.logs.push(logEntry);
   },
 };
-
+Object.assign(globalThis, { debugInfo });
 const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 
 interface Mod {
@@ -351,8 +351,8 @@ ${this.mod.lastCode}
             }
           }
 
-          console.log("Finished iteration", iterationCount);
-          console.log("current code", this.mod.lastCode);
+          // console.log("Finished iteration", iterationCount);
+          // console.log("current code", this.mod.lastCode);
         }
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error);
