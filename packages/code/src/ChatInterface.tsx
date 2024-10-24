@@ -119,6 +119,12 @@ const ChatInterface: React.FC<{
       } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
+      if (e.debugInfo) {
+        const debugInfo = e.debugInfo;
+        console.debug("debugInfo", { debugInfo });
+        Object.assign(globalThis, { debugInfo }); 
+        
+      }
 
       if (e.message) {
         setMessages((draft) => {
