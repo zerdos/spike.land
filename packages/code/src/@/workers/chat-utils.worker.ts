@@ -1,16 +1,30 @@
 import { messagesPush, replaceFirstCodeMod as up } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
-
 import { md5 } from "@/lib/md5";
-import { Mutex } from "async-mutex";
-
 import { wait } from "@/lib/wait";
+import { Mutex } from "async-mutex";
 import { AIHandler } from "../../AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE_ARROWS = ">>>>>>>";
 const REPLACE = ">>>>>>> REPLACE";
+
+interface DebugInfo {
+  logs: string[];
+  addLog: (message: string, data?: Record<string, unknown>) => void;
+}
+
+const debugInfo: DebugInfo = {
+  logs: [],
+  addLog: (message: string, data?: Record<string, unknown>) => {
+    const timestamp = new Date().toISOString();
+    const logEntry = data
+      ? `${timestamp}: ${message} - ${JSON.stringify(data)}`
+      : `${timestamp}: ${message}`;
+    debugInfo.logs.push(logEntry);
+  },
+};
 
 const broadcastChannelsByCodeSpace: Record<string, BroadcastChannel> = {};
 
@@ -58,6 +72,8 @@ class ChatHandler {
     codeSpace: string;
     code: string;
   }) {
+    debugInfo.addLog("Initializing ChatHandler", { codeSpace, messagesCount: messages.length });
+
     this.mod = {
       controller: new AbortController(),
       lastCode: code,
@@ -95,19 +111,19 @@ class ChatHandler {
     prompt: string;
     images: ImageData[];
   }) {
+    debugInfo.addLog("Starting handleMessage", {
+      promptLength: prompt.length,
+      imagesCount: images.length,
+    });
+
     this.BC.postMessage({ isStreaming: true });
     this.mod.instructions = "";
 
-    // this.BC.onmessage = (event) => {
-
-    //   if (event.data.chunk) {
-    //     this.mod.instructions += event.data.chunk;
-    //     this.updateCode();
-    //   }
-    // }
-
     try {
-      if (!prompt.trim()) return;
+      if (!prompt.trim()) {
+        debugInfo.addLog("Empty prompt received, returning");
+        return;
+      }
 
       const claudeContent = this.aiHandler.prepareClaudeContent(
         prompt,
@@ -121,17 +137,11 @@ class ChatHandler {
         claudeContent,
       );
 
-      // if (Array.isArray(newUserMessage.content)) {
-      //   newUserMessage.content.push({ type: "text", text: prompt });
-      // } else {
-      //   if (typeof newUserMessage.content === "string") {
-      //     newUserMessage.content = [{ type: "text", text: newUserMessage.content }];
-      //   }
-      //   newUserMessage.content = [{ type: "text", text: prompt }];
-      // }
       this.setMessages(messagesPush(this.messages, newUserMessage));
-      this.processMessage();
+      await this.processMessage();
     } catch (e) {
+      const error = e instanceof Error ? e.message : String(e);
+      debugInfo.addLog("Error in handleMessage", { error });
       console.error("Error in handleMessage:", e);
     } finally {
       this.BC.postMessage({ isStreaming: false });
@@ -166,9 +176,15 @@ class ChatHandler {
     let retries = 0;
 
     this.mod.lastCode = this.code;
+    debugInfo.addLog("Starting processMessage", { maxRetries });
 
     while (retries < maxRetries) {
       if (this.mod.lastError || this.mod.errors.length > 0) {
+        debugInfo.addLog("Processing error encountered", {
+          lastError: this.mod.lastError,
+          errors: this.mod.errors,
+        });
+
         const userMessage: Message = {
           id: Date.now().toString(),
           role: "user",
@@ -178,8 +194,6 @@ error:
 ${this.mod.lastError}
 ${this.mod.errors.join("\n")}
 \`\`\`
-
-
 
 last code after applying your instructions: 
           
@@ -212,18 +226,24 @@ ${this.mod.lastCode}
         await this.updateCode();
 
         if (typeof this.mod.lastCode !== "string") {
-          console.error("Invalid mod.lastCode type:", typeof this.mod.lastCode);
+          const error = `Invalid mod.lastCode type: ${typeof this.mod.lastCode}`;
+          debugInfo.addLog(error);
+          console.error(error);
           this.mod.lastCode = this.code;
         }
 
         if (
           this.mod.lastCode !== this.code && !this.mod.lastError && this.mod.errors.length === 0
         ) {
+          debugInfo.addLog("Message processed successfully");
           return true;
         }
 
         retries++;
+        debugInfo.addLog("Retrying message processing", { attempt: retries });
       } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        debugInfo.addLog(`Error processing message (attempt ${retries + 1})`, { error: errorMsg });
         console.error(
           `Error processing message (attempt ${retries + 1}):`,
           error,
@@ -232,6 +252,7 @@ ${this.mod.lastCode}
       }
     }
 
+    debugInfo.addLog("Failed to process message after max retries");
     console.log("Failed to process message after max retries");
     return false;
   }
@@ -243,6 +264,7 @@ ${this.mod.lastCode}
 
     return this.mutex.runExclusive(async () => {
       if (signal.aborted) {
+        debugInfo.addLog("Aborted onUpdate before starting");
         console.log("Aborted onUpdate before starting");
         return;
       }
@@ -253,6 +275,7 @@ ${this.mod.lastCode}
 
         while (iterationCount < maxIterations) {
           if (signal.aborted) {
+            debugInfo.addLog("Aborted onUpdate before updating");
             console.log("Aborted onUpdate before updating");
             return;
           }
@@ -270,7 +293,9 @@ ${this.mod.lastCode}
             instructions: chunk,
             code: this.mod.lastCode,
           });
+
           if (error) {
+            debugInfo.addLog("Error in updateSearchReplace", { error });
             this.mod.errors.push(error);
           }
 
@@ -302,9 +327,13 @@ ${this.mod.lastCode}
                   originToUse: string;
                 }) => Promise<string>;
               }).transpile({ code: formatted, originToUse: location.origin });
+
               this.mod.lastError = "";
               this.BC.postMessage({ code: formatted, transpiled });
+              debugInfo.addLog("Code successfully formatted and transpiled");
             } catch (error) {
+              const errorMsg = error instanceof Error ? error.message : String(error);
+              debugInfo.addLog("Error in code formatting/transpilation", { error: errorMsg });
               if (error instanceof Error) {
                 this.mod.lastError = error.message;
               } else {
@@ -313,10 +342,10 @@ ${this.mod.lastCode}
               console.error("Error in updateCode:", error);
             } finally {
               await wait(200);
-              /// this.BC.postMessage({ code: this.mod.lastCode });
             }
 
             if (iterationCount >= maxIterations) {
+              debugInfo.addLog("Reached maximum iterations, forcing finish", { iterationCount });
               console.warn("Reached maximum iterations, forcing finish");
               break;
             }
@@ -326,6 +355,8 @@ ${this.mod.lastCode}
           console.log("current code", this.mod.lastCode);
         }
       } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        debugInfo.addLog("Error in updateCode", { error: errorMsg });
         console.error("Error in updateCode:", error);
       }
     });
@@ -401,6 +432,7 @@ ${this.mod.lastCode}
     onUpdate: (code: string) => void,
   ): Promise<Message> {
     try {
+      debugInfo.addLog("Sending assistant message");
       let assistantMessage = await this.aiHandler.sendToAnthropic(
         this.messages,
         onUpdate,
@@ -419,7 +451,9 @@ ${this.mod.lastCode}
         typeof assistantMessage.content !== "string" &&
         !Array.isArray(assistantMessage.content)
       ) {
-        throw new Error("Invalid assistant message content type");
+        const error = "Invalid assistant message content type";
+        debugInfo.addLog(error);
+        throw new Error(error);
       }
 
       const contentToProcess = this.extractTextContent(
@@ -429,6 +463,7 @@ ${this.mod.lastCode}
       if (
         contentToProcess.includes("An error occurred while processing")
       ) {
+        debugInfo.addLog("Falling back to GPT-4");
         console.log("Falling back to GPT-4");
         assistantMessage = await this.aiHandler.sendToGpt4o(
           this.messages,
@@ -438,6 +473,8 @@ ${this.mod.lastCode}
 
       return assistantMessage;
     } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      debugInfo.addLog("Error in sendAssistantMessage", { error: errorMsg });
       console.error("Error in sendAssistantMessage:", error);
       throw error;
     }
@@ -521,7 +558,6 @@ ${this.mod.lastCode}
 }
 
 export const createNewMessage = ChatHandler.createNewMessage;
-
 export const updateSearchReplace = ChatHandler.updateSearchReplace;
 
 export async function handleSendMessage({
@@ -531,8 +567,23 @@ export async function handleSendMessage({
   images,
   code,
 }: HandleSendMessageProps) {
-  const chatHandler = new ChatHandler({ messages, codeSpace, code });
-  await chatHandler.handleMessage({ prompt, images });
+  debugInfo.logs = [];
+  debugInfo.addLog("Starting handleSendMessage", {
+    messagesCount: messages.length,
+    codeSpace,
+    promptLength: prompt?.length,
+    imagesCount: images?.length,
+  });
+
+  try {
+    const chatHandler = new ChatHandler({ messages, codeSpace, code });
+    await chatHandler.handleMessage({ prompt, images });
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    debugInfo.addLog("Fatal error in handleSendMessage", { error: errorMsg });
+  }
+
+  return debugInfo;
 }
 
 Object.assign(globalThis, { handleSendMessage });

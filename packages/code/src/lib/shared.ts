@@ -148,13 +148,16 @@ export const handleSendMessage = async (
 ): Promise<void> => {
   const worker = (await init()).getWorker("search-replace");
   try {
-    return await worker.rpc.rpc("handleSendMessage", {
+    const debugInfo = await worker.rpc.rpc("handleSendMessage", {
       messages,
       codeSpace,
       code,
       prompt,
       images,
     });
+    Object.assign(globalThis, { debugInfo });
+    console.debug("debugInfo", { debugInfo });
+    return debugInfo;
   } finally {
     (await init()).releaseWorker(worker);
   }
