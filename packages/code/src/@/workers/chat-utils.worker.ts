@@ -514,7 +514,7 @@ ${this.mod.lastCode}
       return {
         result: code,
         len: 0,
-        error: `couldn't apply the search/replace blocks :( \n ${instructions}`,
+        error: "",
       };
     }
 
@@ -523,13 +523,20 @@ ${this.mod.lastCode}
         0,
         replaceIndex + REPLACE.length,
       );
+
       const result = up(trimmedInstructions, code);
+      if (result === code) {
+        return {
+          result: code,
+          len: trimmedInstructions.length,
+          error: `couldn't apply the search/replace blocks :( \n ${instructions}`,
+        };
+      }
+
       return {
-        result,
+        result: up(trimmedInstructions, code),
         len: trimmedInstructions.length,
-        error: result === code
-          ? `couldn't apply the search/replace blocks :( \n ${trimmedInstructions}`
-          : "",
+        error: "",
       };
     }
 
