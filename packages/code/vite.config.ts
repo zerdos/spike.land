@@ -58,7 +58,7 @@ const externalAliases = externalRollup.reduce((acc: Record<string, string>, file
 , {});
 
 
-
+const rollupExternal = externalRollup.map((file) => file.file);
 
 // Create proxy configuration from import map
 const importMapProxy: Record<string, ProxyOptions> = {};
@@ -86,7 +86,7 @@ const config = defineConfig({
           preactCompat + "/client",
           preactCompat + "/jsx-runtime",
           
-         ...externalRollup.map((file) => file.file),
+         ...rollupExternal,
         ],
     },
     outDir: "dist-vite",
@@ -142,7 +142,9 @@ const config = defineConfig({
 });
 
 
-console.log("Vite config:", config);
+// console.log("Vite config:", config);
+console.log("Import map proxy:", JSON.stringify(importMapProxy, null, 2));
+console.log("Rollup external:", JSON.stringify(rollupExternal, null, 2));
 console.log("External aliases:", JSON.stringify(externalAliases, null, 2)); 
 
 export default config;  
