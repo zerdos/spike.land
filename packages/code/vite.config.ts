@@ -58,7 +58,7 @@ const externalAliases = externalRollup.reduce((acc: Record<string, string>, file
 , {});
 
 
-const rollupExternal = externalRollup.map((file) => file.file);
+const rollupExternal = Object.values(externalAliases);
 
 // Create proxy configuration from import map
 const importMapProxy: Record<string, ProxyOptions> = {};
