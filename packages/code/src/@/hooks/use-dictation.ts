@@ -1,5 +1,5 @@
+import RecordRTC from "@/external/record-rtc";
 import { useCallback, useEffect, useRef, useState } from "react";
-import RecordRTC from "recordrtc";
 
 interface UseDictationOptions {
   silenceThreshold?: number;

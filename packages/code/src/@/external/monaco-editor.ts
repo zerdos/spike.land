@@ -1,4 +1,4 @@
-// export { editor, languages, Uri } from "monaco-editor";
+export { editor, languages, Uri } from "monaco-editor";
 // const workerPool: Record<string, unknown> = {};
 
 // class TsWorker extends Worker {
@@ -45,27 +45,27 @@
 //   return workerPool[label] as Worker;
 // };
 
-// const baseUrl = "/";
+const baseUrl = "/";
 
-// const MonacoEnvironment = {
-//   baseUrl,
+const MonacoEnvironment = {
+  baseUrl,
 
-//   getWorkerUrl: (_moduleId: string, _label: string) => {
-//     if (_label === "typescript" || _label === "javascript") {
-//       return baseUrl + `@/workers/monaco/ts.worker.js`;
-//     }
-//     if (_label === "json") {
-//       return baseUrl + `@/workers/monaco/json.worker.js`;
-//     }
-//     if (_label === "css") {
-//       return baseUrl + `@/workers/monaco/css.worker.js`;
-//     }
-//     if (_label === "html") {
-//       return baseUrl + `@/workers/monaco/html.worker.js`;
-//     }
-//     return baseUrl + `@/workers/monaco/editor.worker.js`;
-//   },
-// };
+  getWorkerUrl: (_moduleId: string, _label: string) => {
+    if (_label === "typescript" || _label === "javascript") {
+      return baseUrl + `@/workers/monaco/ts.worker.js`;
+    }
+    if (_label === "json") {
+      return baseUrl + `@/workers/monaco/json.worker.js`;
+    }
+    if (_label === "css") {
+      return baseUrl + `@/workers/monaco/css.worker.js`;
+    }
+    if (_label === "html") {
+      return baseUrl + `@/workers/monaco/html.worker.js`;
+    }
+    return baseUrl + `@/workers/monaco/editor.worker.js`;
+  },
+};
 
-// Object.assign(window, { MonacoEnvironment });
-// Object.assign(globalThis, { MonacoEnvironment });
+Object.assign(window, { MonacoEnvironment });
+Object.assign(globalThis, { MonacoEnvironment });

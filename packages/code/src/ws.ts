@@ -31,7 +31,7 @@ const htmlDecode = (input: string): string => {
 // Main functions
 const handleScreenshot = async () => {
   try {
-    const html2canvas = (await import("html2canvas")).default;
+    const html2canvas = (await import("@/external/html2canvas")).default;
     const canvas = await html2canvas(document.body);
     const blob = await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob(

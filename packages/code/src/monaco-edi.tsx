@@ -1,6 +1,6 @@
 import { ata, prettierToThrow } from "@/lib/shared";
-import { editor, languages, Uri } from "monaco-editor";
-// import { version } from "monaco-editor/package.json";
+import { editor, languages, Uri } from "@/external/monaco-editor";
+import { version } from "monaco-editor/package.json";
 import { throttle } from "es-toolkit";
 
 const originToUse = location.origin;
@@ -200,16 +200,16 @@ async function startMonacoPristine({
 
   const link = document.createElement("link");
 
-  // const promiseIsResolved = new Promise<void>((resolve) => {
-  //   link.onload = () => resolve();
-  // });
+  const promiseIsResolved = new Promise<void>((resolve) => {
+    link.onload = () => resolve();
+  });
 
-  // link.rel = "stylesheet";
-  // link.href =
-    // `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
-  // // document.head.appendChild(link);
+  link.rel = "stylesheet";
+  link.href =
+    `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
+  document.head.appendChild(link);
 
-  // await promiseIsResolved;
+  await promiseIsResolved;
 
   const myEditor = editor.create(container, {
     model, // Assuming 'model' is defined elsewhere

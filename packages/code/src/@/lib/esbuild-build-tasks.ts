@@ -50,7 +50,7 @@ export async function buildWorkers(): Promise<void> {
     "vs/editor/editor.worker.js",
   ];
 
-  // await Promise.all(workerEntryPoints.map(buildWorkerEntryPoint));
+  await Promise.all(workerEntryPoints.map(buildWorkerEntryPoint));
 }
 
 export async function buildMainScripts(): Promise<void> {
@@ -278,7 +278,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/motion.ts",
       "src/emotion.ts",
       "src/reactMod.ts",
-      "src/lib/shared.ts",
       "src/reactDom.ts",
       "src/start.ts",
       "src/reactDomServer.ts",
