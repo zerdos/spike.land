@@ -397,12 +397,13 @@ sw.addEventListener("fetch", event => {
 
   const path = url.pathname.slice(1).split("/");
 
-  const [preroute, codeSpace, ..._] = path;
+  const [preRoute, codeSpace] = path;
 
-  const isEditorPath = request.method === "GET" && preroute === "live" &&
+  const isEditorPath = request.method === "GET" && preRoute === "live" &&
     url.pathname === `/live/${codeSpace}`;
 
   if (isEditorPath) {
+    console.log("Serving editor:", request.url);
     const editorRequest = new Request(
       new URL("/index.html", url.origin).toString(),
       request,
