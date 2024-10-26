@@ -1,1 +1,2 @@
-export { default } from "html2canvas";
+import htmlCanvas from "html2canvas";
+export default htmlCanvas;
