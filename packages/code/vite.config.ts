@@ -132,7 +132,7 @@ const config = defineConfig({
     alias: {
   ...externalAliases,
       "@": path.resolve(__dirname, "./src/@"),
-      ...importMap.imports
+      // ...importMap.imports
     },
   },
 });
