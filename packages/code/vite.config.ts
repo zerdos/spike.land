@@ -82,10 +82,7 @@ const config = defineConfig({
         external: [
           "/start.mjs",
           "/swVersion.mjs",
-          preactCompat,
-          preactCompat + "/client",
-          preactCompat + "/jsx-runtime",
-          
+          ...Object.values(importMap.imports),  
          ...rollupExternal,
         ],
     },
@@ -127,7 +124,7 @@ const config = defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/swVersion.mjs/, ""),
       },
-      ...importMapProxy,
+      // ...importMapProxy,
     },
   },
 
@@ -135,8 +132,7 @@ const config = defineConfig({
     alias: {
   ...externalAliases,
       "@": path.resolve(__dirname, "./src/@"),
-      "react": preactCompat,
-      "react-dom": preactCompat,
+      ...importMap.imports
     },
   },
 });
