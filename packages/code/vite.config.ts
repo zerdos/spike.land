@@ -82,7 +82,7 @@ const config = defineConfig({
         external: [
           "/start.mjs",
           "/swVersion.mjs",
-          ...Object.values(importMap.imports),  
+          ...Object.keys(importMap.imports),  
          ...rollupExternal,
         ],
     },
