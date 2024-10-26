@@ -1,6 +1,6 @@
 import path from "path";
 import { defineConfig, ProxyOptions, AppType } from 'vite';
-// import react from '@XX/vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react-swc';
 import { importMap } from "./src/@/lib/importmap-utils";
 import fs from "fs";
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
@@ -74,9 +74,9 @@ Object.entries(importMap.imports).forEach(([key, value]) => {
 const config = defineConfig((config)=>({ 
   ...config,
   plugins: [
-  //   react({
-  //   jsxImportSource: "@emotion/react",
-  // })
+    react({
+    jsxImportSource: "@emotion/react",
+  })
 ],
  
   build: {
