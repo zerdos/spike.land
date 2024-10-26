@@ -10,7 +10,7 @@ const externalFiles =  fs.readdirSync(path.resolve(__dirname, "./src/@/external"
 const externalRollup = externalFiles.map((file) => {
   return {
     type: "external",
-    file: "/@/external/" + file+".mjs",
+    file: "/@/external/" + file,
   };
 }).map((file) => {
   // replace .ts/tsx with .mjs
@@ -71,13 +71,14 @@ Object.entries(importMap.imports).forEach(([key, value]) => {
 });
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config = defineConfig({ 
   plugins: [react({
     jsxImportSource: "@emotion/react",
   })],
  
   build: {
     rollupOptions: {
+
         external: [
           "/start.mjs",
           "/swVersion.mjs",
@@ -140,7 +141,10 @@ export default defineConfig({
   },
 });
 
-// console.log("Vite config:", config);
 
+console.log("Vite config:", config);
+console.log("External aliases:", JSON.stringify(externalAliases, null, 2)); 
+
+export default config;  
 
 // defineConfig(config); 
