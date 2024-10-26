@@ -1,8 +1,6 @@
 FROM node:alpine
 
-# Accept UID and GID as build arguments with defaults
-ARG USER_UID=1000
-ARG USER_GID=1000
+
 
 USER root
 
@@ -13,17 +11,23 @@ RUN apk update && apk add --no-cache git zsh shadow perl
 RUN usermod -aG 1000 node && deluser node
 
 # Recreate 'node' group with host's GID
-RUN addgroup -g ${USER_GID} node
+
+# Accept UID and GID as build arguments with defaults
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG USER=${USER}
+
+RUN addgroup -g ${USER_GID} -S ${USER}
 
 # Recreate 'node' user with host's UID, add to 'node' group
-RUN adduser -u ${USER_UID} -G node -s /bin/sh -D node
+RUN adduser -u ${USER_UID} -G ${USER} -s /bin/sh -D ${USER}
 
-RUN mkdir -p /home/node/tmpfs
-VOLUME [ "/home/node/tmpfs" ]
+RUN mkdir -p /home/${USER}/tmpfs
+VOLUME [ "/home/${USER}/tmpfs" ]
 # Set ownership of the home directory
-RUN chown -R node:node /home/node
+RUN chown -R ${USER}:${USER} /home/${USER}
 
-USER node
+USER ${USER}
 
 # Set working directory
-WORKDIR /home/node/workspace
+WORKDIR /home/${USER}/workspace

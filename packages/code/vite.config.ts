@@ -71,7 +71,8 @@ Object.entries(importMap.imports).forEach(([key, value]) => {
 });
 
 // https://vitejs.dev/config/
-const config = defineConfig({ 
+const config = defineConfig((config)=>({ 
+  ...config,
   plugins: [
   //   react({
   //   jsxImportSource: "@emotion/react",
@@ -82,8 +83,8 @@ const config = defineConfig({
     rollupOptions: {
 
         external: [
-          "/start.mjs",
-          "/swVersion.mjs",
+          // "/start.mjs",
+          // "/swVersion.mjs",
           ...Object.keys(importMap.imports),  
          ...rollupExternal,
         ],
@@ -99,11 +100,11 @@ const config = defineConfig({
 
   server: {
    proxy: {
-      "/@": {
+     ...( config.mode==='build'? {"/@": {
         target: "https://testing.spike.land/@",
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/@/, ""),
-      },
+      }}:{}),
       '^/live/.*/': {
         target: "https://testing.spike.land/live",
         changeOrigin: true,
@@ -116,28 +117,28 @@ const config = defineConfig({
         target: "https://testing.spike.land/sw.js",
         changeOrigin: true,
       },
-      '/start.mjs': {
-        target: "https://testing.spike.land/start.mjs",
-        changeOrigin: true,
-        rewrite: (path: string) => path.replace(/^\/start.mjs/, ""),
-      },
-      '/swVersion.mjs': {
-        target: "https://testing.spike.land/swVersion.mjs",
-        changeOrigin: true,
-        rewrite: (path: string) => path.replace(/^\/swVersion.mjs/, ""),
-      },
+      // '/start.mjs': {
+      //   target: "https://testing.spike.land/start.mjs",
+      //   changeOrigin: true,
+      //   rewrite: (path: string) => path.replace(/^\/start.mjs/, ""),
+      // },
+        '/swVersion.mjs': {
+          target: "https://testing.spike.land/swVersion.mjs",
+          changeOrigin: true,
+          rewrite: (path: string) => path.replace(/^\/swVersion.mjs/, ""),
+        },
       // ...importMapProxy,
     },
   },
 
   resolve: {
     alias: {
-  ...externalAliases,
+    ...(config.command==='build'? externalAliases:{}),
       "@": path.resolve(__dirname, "./src/@"),
       // ...importMap.imports
     },
   },
-});
+}));
 
 
 console.log("Vite config:", JSON.stringify(config, null, 2));

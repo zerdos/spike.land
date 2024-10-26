@@ -71,6 +71,7 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",
+  "defaultShell.linux": "/usr/bin/zsh",
   "typescript.tsserver.logToFile": true,
   "typescript.tsserver.logFile": ".yarn/sdks/typescript/tsserver.log",
   "eslint.nodePath": ".yarn/sdks",

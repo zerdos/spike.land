@@ -10,7 +10,8 @@ import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-import { init as twUp } from "./tw-dev-setup";
+// import { init as twUp } from "./tw-dev-setup";
+const twUp = () => {};
 
 // Global variables and types
 const codeSpace = getCodeSpace();
