@@ -4126,12 +4126,12 @@ __metadata:
     "@spike-npm-land/transpile": "npm:0.9.56"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
-    "@types/node": "npm:^22.7.9"
+    "@types/node": "npm:^22.8.1"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.0"
     esm-worker: "npm:0.135.17"
-    hono: "npm:^4.6.6"
+    hono: "npm:^4.6.7"
     immutable: "npm:4.3.7"
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
@@ -4212,7 +4212,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
-    "@types/node": "npm:^22.7.9"
+    "@types/node": "npm:^22.8.1"
     "@types/object-hash": "npm:^3.0.6"
     "@types/offscreencanvas": "npm:^2019.7.3"
     "@types/path-browserify": "npm:^1.0.3"
@@ -4256,7 +4256,7 @@ __metadata:
     detective-typescript: "npm:13.0.0"
     diff: "npm:^7.0.0"
     embla-carousel-react: "npm:^8.3.0"
-    es-toolkit: "npm:^1.26.0"
+    es-toolkit: "npm:^1.26.1"
     esbuild: "npm:^0.24.0"
     esbuild-plugin-copy: "npm:^2.1.1"
     esbuild-style-plugin: "npm:^1.6.3"
@@ -4268,11 +4268,11 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:^6.0.0"
     file-type: "npm:19.6.0"
-    framer-motion: "npm:^11.11.9"
+    framer-motion: "npm:^11.11.10"
     globals: "npm:^15.11.0"
     happy-dom: "npm:^15.7.4"
     html2canvas: "npm:^1.4.1"
-    i18next: "npm:^23.16.3"
+    i18next: "npm:^23.16.4"
     immer: "npm:^10.1.1"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -5149,7 +5149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.8.1, @types/node@npm:^22.7.9":
+"@types/node@npm:22.8.1, @types/node@npm:^22.8.1":
   version: 22.8.1
   resolution: "@types/node@npm:22.8.1"
   dependencies:
@@ -8641,7 +8641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:^1.26.0":
+"es-toolkit@npm:^1.26.1":
   version: 1.26.1
   resolution: "es-toolkit@npm:1.26.1"
   dependenciesMeta:
@@ -9744,7 +9744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^11.11.9":
+"framer-motion@npm:^11.11.10":
   version: 11.11.10
   resolution: "framer-motion@npm:11.11.10"
   dependencies:
@@ -10502,10 +10502,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:^4.6.6":
-  version: 4.6.6
-  resolution: "hono@npm:4.6.6"
-  checksum: 10c0/9179a9d0cc42890e97e1ee7691b2914eebf70d36d546f477ae3749fc8c73fcfe237f2e0b026949519cd3768a03e870c0ca6e8e8f55c634d09fc8303a9d736343
+"hono@npm:^4.6.7":
+  version: 4.6.7
+  resolution: "hono@npm:4.6.7"
+  checksum: 10c0/3452fe76ef2a602d72ec81aa93e93555c3b4f3164b384411c8ac5e3bcfd769b05ffeb45d41968e5a3ddf071bfb6aa5308520c05ff1f90fcebf1d33ae1fca9f2b
   languageName: node
   linkType: hard
 
@@ -10628,7 +10628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.16.3":
+"i18next@npm:^23.16.4":
   version: 23.16.4
   resolution: "i18next@npm:23.16.4"
   dependencies:
@@ -15958,7 +15958,7 @@ __metadata:
     "@cloudflare/vitest-pool-workers": "npm:^0.5.22"
     "@cloudflare/workers-types": "npm:^4.20241022.0"
     "@types/esprima": "npm:^4.0.6"
-    "@types/node": "npm:^22.7.9"
+    "@types/node": "npm:^22.8.1"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.6.3"
     vitest: "npm:2.1.3"
