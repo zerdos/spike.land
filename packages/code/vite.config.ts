@@ -138,8 +138,8 @@ const config = defineConfig({
 });
 
 
-// console.log("Vite config:", config);
-console.log("Import map proxy:", JSON.stringify(importMapProxy, null, 2));
+console.log("Vite config:", JSON.stringify(config, null, 2));
+// console.log("Import map proxy:", JSON.stringify(importMapProxy, null, 2));
 console.log("Rollup external:", JSON.stringify(rollupExternal, null, 2));
 console.log("External aliases:", JSON.stringify(externalAliases, null, 2)); 
 
