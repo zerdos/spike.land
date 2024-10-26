@@ -1,4 +1,3 @@
-import { swVersion } from "@/lib/sw-version";
 async function testRegistration() {
   if ("serviceWorker" in navigator) {
     try {
@@ -24,7 +23,7 @@ async function testRegistration() {
 }
 
 // 2. Caching Behavior
-async function testCaching() {
+async function testCaching(swVersion: string) {
   const cacheName = "file-cache-" + swVersion;
   const cache = await caches.open(cacheName);
   const cachedResponses = await cache.matchAll();
@@ -130,9 +129,9 @@ export async function deleteAllServiceWorkers() {
   }
 }
 
-export async function runTests() {
+export async function runTests(swVersion: string) {
   await testRegistration();
-  await testCaching();
+  await testCaching(swVersion);
   await testUpdate();
   await testPerformance();
 }

@@ -25,7 +25,7 @@ The project likely uses a build step to bundle these npm dependencies into the w
 
 ## API Endpoints
 
-1. `/lib/sw-version.mjs` or `/swVersion.mjs`: Returns the current service worker version.
+1. `/swVersion.mjs`: Returns the current service worker version.
 2. `/swVersion.js`: Returns the service worker version and files information.
 3. `/sw-config.json`: Returns service worker configuration.
 4. `/transpile` (POST): Transpiles code using esbuild.

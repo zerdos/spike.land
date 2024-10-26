@@ -16,7 +16,6 @@ export default {
     const url = new URL(request.url);
 
     if (
-      url.pathname === "/@/lib/sw-version.mjs" ||
       url.pathname === "/swVersion.mjs" ||
       url.pathname === "/@/lib/swVersion.mjs"
     ) {

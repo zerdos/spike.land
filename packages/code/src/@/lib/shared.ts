@@ -33,18 +33,16 @@ class WorkerWrapper {
 class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
-  private swVersion: string;
 
-  constructor(minFreeWorkers: number = 0, swVersion: string) {
+  constructor(minFreeWorkers: number = 0) {
     this.minFreeWorkers = minFreeWorkers;
-    this.swVersion = swVersion;
   }
 
   private addWorker(tag: string) {
     const worker = new AlwaysSupportedSharedWorker(
       tag === "connect"
-        ? `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=connect`
-        : `/@/workers/ata-worker.worker.js?v=${this.swVersion}&workerId=${tag}-${this.workers.length}`,
+        ? `/@/workers/ata-worker.worker.js?workerId=connect`
+        : `/@/workers/ata-worker.worker.js?workerId=${tag}-${this.workers.length}`,
     );
 
     const port = worker.port;
@@ -84,10 +82,8 @@ class WorkerPool {
 let workerPool: WorkerPool;
 
 async function init() {
-  const { swVersion } = await import("@/lib/sw-version");
-
   workerPool = (globalThis as unknown as { workerPool: WorkerPool; }).workerPool ||
-    new WorkerPool(0, swVersion);
+    new WorkerPool(0);
   Object.assign(globalThis, { workerPool });
 
   return workerPool;
