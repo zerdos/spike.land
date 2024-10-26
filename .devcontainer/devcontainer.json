@@ -1,0 +1,28 @@
+{
+  "name": "Existing Docker Compose (Extend)",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "devcontainer",  
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "extensions": [
+      "streetsidesoftware.code-spell-checker",
+      "pflannery.vscode-versionlens",
+      "styled-components.vscode-styled-components",
+      "arcanis.vscode-zipfs"
+    ],
+    "vscode": {
+      "settings": {
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 100,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": true,
+        "editor.formatOnType": true
+      }
+  },
+  "forwardPorts": [6080, 3333, 9222, 8080],
+  "postStartCommand": "yarn install",
+  "remoteUser": "node"
+}

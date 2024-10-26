@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "pflannery.vscode-versionlens",
+    "styled-components.vscode-styled-components",
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint"
+  ],
+  "unwantedRecommendations": []
+}

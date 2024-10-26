@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/@/*"]
+    },
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "DOM.AsyncIterable"],
+    "module": "ESNext",
+    "outDir": "dts",
+    "declaration": true,
+    "declarationDir": "dts",
+    "incremental": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "jsxImportSource": "@emotion/react",
+    "jsx": "react-jsx",
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src", "src/**/*.d.ts", "src/vite-env.d.ts"],
+  "exclude": ["dts"]
+}

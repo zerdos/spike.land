@@ -1,0 +1,25 @@
+{
+  "name": "@spike-npm-land/devcontainer-generator",
+  "version": "0.9.56",
+  "type": "module",
+  "description": "generates custom devcontainer Dockerfiles",
+  "files": [
+    "lib/**/*",
+    "templates/*",
+    "versions.json"
+  ],
+  "exports": "./index.mjs",
+  "scripts": {
+    "build": "esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
+    "clean": "rm -rf lib"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "22.7.9",
+    "esbuild-wasm": "0.24.0"
+  },
+  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
+}

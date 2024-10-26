@@ -1,0 +1,29 @@
+{
+  "name": "@spike-npm-land/transpile",
+  "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
+  "version": "0.9.56",
+  "type": "module",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "clean": "rm -rf dist",
+    "deploy": "wrangler deploy ",
+    "prepublishOnly": "npx ywrangler deploy src/index.ts",
+    "predeploy": "yarn x:build"
+  },
+  "devDependencies": {
+    "@cloudflare/kv-asset-handler": "0.3.4",
+    "@cloudflare/workers-types": "4.20241022.0",
+    "typescript": "5.6.3",
+    "wrangler": "3.83.0"
+  },
+  "dependencies": {
+    "@spike-npm-land/code": "0.9.56",
+    "esbuild-wasm": "0.24.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "db8e23b83d2dd82efc101eca9d1b5ec76d122df4"
+}

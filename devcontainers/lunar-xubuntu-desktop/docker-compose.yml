@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  devcontainer:
+    image: devimages/jammy-xubuntu-desktop
+    build: .
+    tmpfs:
+      - /home/$USER/tmpfs:exec
+    shm_size: 4gb
+    privileged: true
+    volumes:
+      # - $HOME:/home/$USER/host:delegated
+      - /var/run/docker.sock:/var/run/docker.sock
+      - yarn:/yarn
+    ports:
+      - "6080:6080"
+      - "5901:5901"
+volumes:
+  yarn:

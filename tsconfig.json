@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "incremental": true,
+    "isolatedModules": true,
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "skipLibCheck": true,
+    "composite": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "types": ["@cloudflare/workers-types"]
+  },
+  "references": [
+    { "path": "./packages/code/tsconfig.json" },
+    { "path": "./packages/spike.land/tsconfig.json" }
+  ],
+  "exclude": ["dts", "node_modules", "dist", "functions"],
+  "include": ["eslint.config.cjs"]
+}

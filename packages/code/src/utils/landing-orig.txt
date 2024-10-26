@@ -1,0 +1,236 @@
+// landing.tsx
+import React, { useState, useEffect, createContext, useContext } from "react";
+import { ImageLoader } from "@/components/ui/image-loader";
+import { Card, CardContent } from "@/components/ui/card";
+import { Code, Zap, Bot, Share2, Package, Download } from "lucide-react";
+import { motion } from "framer-motion";
+import Prompt from "@/components/ui/start-with-prompt";
+
+//bubu
+// Creathey hellope
+const ThemeContext = createContext({
+  isDarkMode: false,
+  toggleTheme: () => {},
+});
+
+// Feature component
+const Feature = ({ icon: Icon, title, description, color, imagePrompt }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ scale: 1.03 }}
+      whileInView={{
+        y: [0, -10, 0],
+        transition: {
+          y: {
+            repeat: Infinity,
+            repeatType: "reverse",
+            duration: 2,
+            ease: "easeInOut",
+          },
+        },
+      }}>
+      <Card className='h-full hover:shadow-2xl transition-all duration-500 bg-white/30 dark:bg-gray-800/50 backdrop-blur-lg border border-white/30 rounded-xl overflow-hidden transform hover:scale-105'>
+        <CardContent className='p-4 flex flex-col items-center text-center group'>
+          <div className='mb-2 w-full h-24 overflow-hidden rounded-lg'>
+            <ImageLoader
+              prompt={imagePrompt}
+              className='w-full h-full object-cover transition-all duration-300 transform group-hover:scale-110'
+            />
+          </div>
+          <div className='icon-wrapper mb-2'>
+            <Icon
+              className={`w-8 h-8 ${color} group-hover:scale-110 transition-all duration-300 transform group-hover:rotate-12`}
+            />
+          </div>
+          <h3 className='text-lg sm:text-xl font-bold mb-2 text-white'>{title}</h3>
+          <p className='text-sm sm:text-base text-white/90'>{description}</p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
+
+const LandingPage = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("theme", newMode ? "dark" : "light");
+      return newMode;
+    });
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setIsDarkMode(true);
+    }
+  }, []);
+
+  const features = [
+    {
+      icon: Bot,
+      title: "Intelligent Virtual Assistants",
+      description:
+        "Revolutionize customer relationships with our AI-driven virtual assistants capable of handling complex queries and learning from every interaction.",
+      color: "text-blue-600",
+      imagePrompt:
+        "Egy futurisztikus holografikus MI-asszisztens kommunikál az ügyfelekkel",
+    },
+    {
+      icon: Zap,
+      title: "Advanced Predictive Analytics",
+      description:
+        "Harness the power of big data with our cutting-edge predictive models, enabling market trend forecasting and informed decision-making.",
+      color: "text-yellow-600",
+      imagePrompt:
+        "3D holografikus kijelző, amely összetett prediktív modelleket és adatáramlásokat mutat",
+    },
+    {
+      icon: Code,
+      title: "Custom AI Development",
+      description:
+        "Our team of AI experts creates tailored solutions to address your unique business challenges and drive innovation.",
+      color: "text-green-600",
+      imagePrompt:
+        "MI-fejlesztők együttműködése egy high-tech, futurisztikus irodatérben",
+    },
+    {
+      icon: Share2,
+      title: "Seamless AI Integration",
+      description:
+        "Effortlessly incorporate AI capabilities into your existing infrastructure with our advanced integration frameworks and APIs.",
+      color: "text-purple-600",
+      imagePrompt:
+        "A zökkenőmentes MI-integráció vizuális ábrázolása különböző üzleti rendszerekkel",
+    },
+    {
+      icon: Package,
+      title: "Cognitive Process Automation",
+      description:
+        "Transform your operations with our AI-driven automation solutions designed to handle complex tasks and improve efficiency across your organization.",
+      color: "text-orange-600",
+      imagePrompt:
+        "MI-vezérelt robotok és digitális rendszerek harmonikus együttműködése egy futurisztikus gyárban",
+    },
+    {
+      icon: Download,
+      title: "Adaptive AI Ecosystems",
+      description:
+        "Stay at the forefront of innovation with our self-improving AI models that continuously adapt to new data and changing business environments.",
+      color: "text-cyan-600",
+      imagePrompt:
+        "Egy dinamikus, fejlődő MI-ökoszisztéma ábrázolása összekapcsolt neurális hálózatokként",
+    },
+  ];
+
+  return (
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+      <div className='min-h-screen flex flex-col bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white relative'>
+        <div
+          className='absolute inset-0 opacity-10 bg-repeat'
+          style={{
+            backgroundImage:
+              "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+          }}></div>
+
+        <div className='absolute top-0 left-0 w-full h-full pointer-events-none'>
+          <svg
+            className='w-full h-full opacity-5'
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 100 100'>
+            <path
+              d='M30,10 L50,50 L70,10 M30,90 L50,50 L70,90'
+              fill='none'
+              stroke='white'
+              strokeWidth='0.5'
+            />
+            <circle
+              cx='50'
+              cy='50'
+              r='40'
+              fill='none'
+              stroke='white'
+              strokeWidth='0.5'
+            />
+          </svg>
+        </div>
+        <header className='py-4 bg-orange-600/10 backdrop-blur-lg text-white shadow-lg'>
+          <div className='container mx-auto text-center'>
+            <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold mb-2'>
+              Welcome to NeuralNex
+            </h1>
+            <marquee className='text-base sm:text-lg mb-4'>
+              Unleash the power of artificial intelligence with NeuralNex!
+            </marquee>
+            <p className='text-xl mb-4'>
+              Take your business to the next level with our cutting-edge AI solutions
+            </p>
+            <button
+              onClick={() => {
+                window.location.href = "/start";
+              }}
+              className='bg-white/20 hover:bg-white/30 backdrop-blur-lg text-white text-base font-bold py-2 px-6 rounded-full transition-all duration-300 border border-white/30'>
+              Explore AI Possibilities
+            </button>
+          </div>
+        </header>
+        <div className='h-1 bg-orange-600/20 backdrop-blur-lg'></div>
+        <main className='flex-grow bg-orange-600/10 backdrop-blur-lg py-24 relative overflow-hidden'>
+          <div className='container mx-auto px-4'>
+            <h2 className='text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-center text-white'>
+              Transformative AI Solutions for Every Industry
+            </h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8'>
+              {features.map((feature, index) => (
+                <Feature
+                  key={index}
+                  {...feature}
+                  imagePrompt={feature.imagePrompt}
+                />
+              ))}
+            </div>
+          </div>
+        </main>
+
+        <footer className='bg-orange-600/10 backdrop-blur-lg py-8 sm:py-12 text-white shadow-lg'>
+          <div className='container mx-auto px-4'>
+            <div className='flex flex-col sm:flex-row justify-between items-center'>
+              <div className='mb-6 sm:mb-0'>
+                <h3 className='text-xl sm:text-2xl font-bold mb-2'>NeuralNex</h3>
+                <p className='text-sm sm:text-base text-gray-400'>
+                  &copy; 2024 NeuralNex. All rights reserved.
+                </p>
+              </div>
+              <nav className='flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6'>
+                <a
+                  href='/solutions'
+                  className='hover:text-white transition-colors duration-300'>
+                  AI Solutions
+                </a>
+                <a
+                  href='/case-studies'
+                  className='hover:text-yellow-400 transition-colors duration-300'>
+                  Success Stories
+                </a>
+                <a
+                  href='/contact'
+                  className='hover:text-yellow-400 transition-colors duration-300'>
+                  Partnership
+                </a>
+              </nav>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+
+export default LandingPage;
+
+//1726708s

@@ -1,0 +1,3 @@
+## Devcontainer
+
+- Base image: ubuntu:{DISTRO}

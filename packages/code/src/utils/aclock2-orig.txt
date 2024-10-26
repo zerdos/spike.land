@@ -1,0 +1,187 @@
+// aclock-atBfQ3at.tsx
+import React, { useEffect, useRef } from "react";
+import type { FC } from "react";
+// Remove this line as we're
+
+export const SportyClock: FC<{}> = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const radius = canvas.height / 2;
+    ctx.translate(radius, radius);
+
+    let rotation = 0;
+
+    const drawFace = (ctx: CanvasRenderingContext2D, radius: number) => {
+      // Dark, textured background
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#2C3E50";
+      ctx.fill();
+
+      // Add texture
+      for (let i = 0; i < 1000; i++) {
+        ctx.fillStyle = `rgba(0, 0, 0, ${Math.random() * 0.1})`;
+        ctx.beginPath();
+        ctx.arc((Math.random() - 0.5) * radius * 2, (Math.random() - 0.5) * radius * 2, Math.random() * 2, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      // Rugged border
+      ctx.lineWidth = radius * 0.05;
+      ctx.strokeStyle = "#34495E";
+      ctx.stroke();
+
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    };
+    const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {
+      ctx.font = `bold ${radius * 0.13}px 'Arial', sans-serif`;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+
+      // Draw industrial hour markers
+      for (let i = 0; i < 12; i++) {
+        const ang = (i * Math.PI) / 6;
+        ctx.save();
+        ctx.rotate(ang);
+        ctx.fillStyle = "#95A5A6";
+        ctx.beginPath();
+        ctx.arc(radius * 0.95, 0, radius * 0.04, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Draw numbers
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      for (let num = 1; num <= 12; num++) {
+        const ang = (num * Math.PI) / 6;
+        ctx.rotate(ang);
+        ctx.translate(0, -radius * 0.75);
+        ctx.rotate(-ang);
+        ctx.fillText(num.toString(), 0, 0);
+        ctx.rotate(ang);
+        ctx.translate(0, radius * 0.75);
+        ctx.rotate(-ang);
+      }
+    };
+
+    const drawTime = (ctx: CanvasRenderingContext2D, radius: number) => {
+      const now = new Date();
+      const hour = now.getHours() % 12;
+      const minute = now.getMinutes();
+      const second = now.getSeconds();
+      const millisecond = now.getMilliseconds();
+
+      const hourAngle = (hour + minute / 60 + second / 3600) * (Math.PI / 6);
+      const minuteAngle = (minute + second / 60 + millisecond / 60000) * (Math.PI / 30);
+      const secondAngle = (second + millisecond / 1000) * (Math.PI / 30);
+
+      // Digital display
+      ctx.save();
+      ctx.font = `bold ${radius * 0.15}px 'Arial', sans-serif`;
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.fillText(`${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`, 0, radius * 0.5);
+      ctx.restore();
+      // Hour
+      ctx.save();
+      ctx.rotate(hourAngle);
+      ctx.lineWidth = 12;
+      ctx.strokeStyle = "#C0392B"; // Darker red for hour hand
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-radius * 0.05, -radius * 0.4);
+      ctx.lineTo(0, -radius * 0.5);
+      ctx.lineTo(radius * 0.05, -radius * 0.4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Add subtle glo
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+      ctx.restore();
+      // Minute
+      ctx.save();
+      ctx.rotate(minuteAngle);
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = "#566573"; // Darker gray for minute hand
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-radius * 0.04, -radius * 0.6);
+      ctx.lineTo(0, -radius * 0.7);
+      ctx.lineTo(radius * 0.04, -radius * 0.6);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Add subtle glow
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+      ctx.restore();
+      // Second
+      ctx.save();
+      ctx.rotate(secondAngle);
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#D35400"; // Darker orange for second hand
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-radius * 0.02, -radius * 0.75);
+      ctx.lineTo(0, -radius * 0.85);
+      ctx.lineTo(radius * 0.02, -radius * 0.75);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Add subtle glow
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = "rgba(255, 255, 255, 0.3)";
+      ctx.restore();
+      // Center dot
+      ctx.beginPath();
+      ctx.arc(0, 0, 8, 0, 2 * Math.PI);
+      ctx.fillStyle = "#ECF0F1"; // Light gray for center dot
+      ctx.fill();
+      ctx.strokeStyle = "#34495E";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    };
+
+    // Removed drawRotatingRainbow function
+
+    // Removed drawPrideFlag function
+
+    const drawClock = () => {
+      drawFace(ctx, radius);
+      drawNumbers(ctx, radius);
+      drawTime(ctx, radius);
+    };
+
+    let animationFrameId: number;
+
+    const animate = () => {
+      ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+      drawClock();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <div className="relative flex items-center justify-center min-h-screen bg-blue-600 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700/50 via-gray-900/30 to-black/20"></div>
+      <canvas ref={canvasRef} width="800" height="800" className="w-96 h-96 sm:w-[28rem] sm:h-[28rem] md:w-[32rem] md:h-[32rem] rounded-full shadow-2xl bg-black/20 backdrop-blur-md p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-3xl z-10 border-2 border-white/30" />
+    </div>
+  );
+};
+
+export default SportyClock;

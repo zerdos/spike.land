@@ -1,0 +1,80 @@
+Certainly! I'll add a nice pattern to the background of the SportyClock component. We'll use SVG patterns to create an interesting and dynamic background. Here are the changes:
+
+1. Add three layered background patterns:
+
+<<<<<<< SEARCH
+    <div className='relative flex items-center justify-center min-h-screen bg-gradient-to-br from-navy-900 to-navy-700 overflow-hidden'>
+=======
+    <div className='relative flex items-center justify-center min-h-screen bg-gradient-to-br from-navy-900 to-navy-700 overflow-hidden'>
+      <div
+        className='absolute inset-0 opacity-20 bg-repeat bg-[length:100px_100px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.3'%3E%3Ccircle cx='50' cy='50' r='40'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 120s linear infinite",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-15 bg-repeat bg-[length:80px_80px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.2'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0l28-28v2L54 40h-2zm4 0l24-24v2L58 40h-2zm4 0l20-20v2L62 40h-2zm4 0l16-16v2L66 40h-2zm4 0l12-12v2L70 40h-2zm4 0l8-8v2l-6 6h-2zm4 0l4-4v2l-2 2h-2z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "rotate 90s linear infinite reverse",
+        }}></div>
+      <div
+        className='absolute inset-0 opacity-10 bg-repeat bg-[length:60px_60px]'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+          animation: "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        }}></div>
+>>>>>>> REPLACE
+
+2. Add animation keyframes for the background patterns:
+
+<<<<<<< SEARCH
+export default SportyClock;
+=======
+export default SportyClock;
+
+const additionalKeyframes = `
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+`;
+
+const styleTag = document.createElement("style");
+styleTag.textContent = additionalKeyframes;
+document.head.appendChild(styleTag);
+>>>>>>> REPLACE
+
+3. Update the canvas className to add a nice border and hover effect:
+
+<<<<<<< SEARCH
+        className='w-72 h-72 sm:w-88 sm:h-88 md:w-104 md:h-104 rounded-full shadow-lg bg-white/10 backdrop-blur-sm p-4'
+=======
+        className='w-72 h-72 sm:w-88 sm:h-88 md:w-104 md:h-104 rounded-full shadow-lg bg-white/10 backdrop-blur-sm p-4 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl z-10 border-4 border-blue-200'
+>>>>>>> REPLACE
+
+Explanation of changes:
+1. We added three layered background patterns using SVG images. Each layer has a different opacity, size, and animation to create depth and interest.
+2. We added keyframes for the rotate and pulse animations used in the background patterns.
+3. We updated the canvas className to include a transition effect, hover scaling, improved shadow on hover, and a light blue border.
+
+These changes create a dynamic and visually appealing background for the SportyClock component. The layered patterns add depth and interest to the design, while the animations create a subtle, engaging effect.
+
+Suggestions for improvement:
+1. You could make the background patterns and colors customizable through props, allowing for easy theme changes.
+2. Consider adding a subtle glow effect to the clock face or hands to enhance the sporty look.
+3. You might want to add responsive adjustments for the background pattern sizes on smaller screens.
+
+Let me know if you'd like any further modifications or have any questions about these changes!

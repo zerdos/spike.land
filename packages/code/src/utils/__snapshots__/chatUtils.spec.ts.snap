@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`updateSearchReplace > should handle multiple modifications 1`] = `
+[
+  "<<<<<<< SEARCH
+      const a = 1;
+      =======
+      const a = 2;
+      >>>>>>> REPLACE",
+  "<<<<<<< SEARCH
+      let b = 3;
+      =======
+      let b = 4;
+      >>>>>>> REPLACE",
+]
+`;

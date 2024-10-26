@@ -1,0 +1,26 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID}
+        USER_GID: ${GID}
+    tmpfs:
+      - /home/node/tmpfs:size=8g,rw,exec,uid=${UID},gid=${GID}
+    shm_size: 8gb
+    # privileged: true  <-- Removed privileged flag.  Consider alternatives for security.
+    environment:
+      - USER=node
+      - HOME=/home/node
+    command: yarn dev #Start the development server
+    volumes:
+      - .:/home/node/workspace:rw
+      - ${HOME}/.config:/home/node/.config
+      - ${HOME}/.cache:/home/node/.cache
+      - ${HOME}/.oh-my-zsh:/home/node/.oh-my-zsh
+    ports:
+      - "3333:3333"
+      - "6080:6080" # Added port 6080
+      - "9222:9222" # Added port for Chrome DevTools
+      - "8080:8080" # Added a generic port for other tools

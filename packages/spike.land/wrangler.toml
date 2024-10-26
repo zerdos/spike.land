@@ -1,0 +1,93 @@
+name = "spike-land"
+# Add your account ID here
+account_id = "1f98921051196545ebe79a450d3c71ed"
+compatibility_date = "2024-09-02"
+
+main = "./src/cf-workers.ts"
+
+logpush = true
+
+services = [
+    {  binding = "ESBUILD", service="esbuild"   }
+]
+
+kv_namespaces = [
+    { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5", preview_id = "9db106837d4d437a962612dd04197581" }
+]
+
+[durable_objects]
+bindings = [
+    { name = "CODE", class_name = "Code" },
+    { name = "LIMITERS", class_name = "CodeRateLimiter" }
+]
+
+[ai]
+binding = "AI" # i.e. available in your Worker on env.AI
+
+[site]
+bucket = "../code/dist" # Add the directory with your static assets
+
+[vars]
+ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
+NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "npmprod"
+preview_bucket_name = "npmprod"
+
+[[r2_buckets]]
+binding = "X9"
+bucket_name = "code-chain"
+preview_bucket_name = "code-chain"
+
+[[migrations]]
+tag = "v2" # Should be unique for each entry
+new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Users"] # Array of new classes
+ 
+[env.testing]
+logpush = true
+name = "testing-spike-land"
+
+kv_namespaces = [
+    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3", preview_id = "e2b898af453c46e2ac584745ea92424d" }
+]
+
+[[env.testing.migrations]]
+tag = "v2" 
+new_classes= ["Users", "Code", "CodeRateLimiter"]
+
+[[env.testing.migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Users"] # Array of new classes
+
+[env.testing.durable_objects]
+bindings = [
+    { name = "CODE", class_name = "Code" },
+    { name = "LIMITERS", class_name = "CodeRateLimiter" }
+]
+
+[env.testing.vars]
+ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
+NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
+
+[[env.testing.r2_buckets]]
+binding = "R2"
+bucket_name = "esm"
+preview_bucket_name = "esm"
+
+[[env.testing.r2_buckets]]
+binding = "X9"
+bucket_name = "code-chain"
+preview_bucket_name = "code-chain"
+
+[env.testing.ai]
+binding = "AI" # i.e. available in your Worker on env.AI
+
+[[env.testing.services]]
+binding = "ESBUILD"
+service = "esbuild"

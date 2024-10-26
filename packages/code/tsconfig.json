@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dts"],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "outDir": "dts",
+    "paths": {
+      "@/*": ["./src/@/*"],
+    }
+  }
+}

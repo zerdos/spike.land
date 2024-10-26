@@ -1,0 +1,19 @@
+{
+  "name": "spike.land",
+  "short_name": "spike it, stream it, share it",
+  "description": "A platform for spiking, streaming, and sharing content",
+  "background_color": "#fff",
+  "theme_color": "#4285f4",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/start",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
