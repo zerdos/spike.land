@@ -3,7 +3,7 @@ import { defineConfig, ProxyOptions, AppType } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { importMap } from "./src/@/lib/importmap-utils";
 import fs from "fs";
-import preactPackageJson from "preact/package.json" assert { type: "json" };
+// import preactPackageJson from "preact/package.json" assert { type: "json" };
 
 const externalFiles =  fs.readdirSync(path.resolve(__dirname, "./src/@/external"));
 
@@ -22,7 +22,7 @@ const externalRollup = externalFiles.map((file) => {
 }
 );
 
-const preactCompat = `/preact@${preactPackageJson.version}/compat`;
+// const preactCompat = `/preact@${preactPackageJson.version}/compat`;
 
 //***
 
