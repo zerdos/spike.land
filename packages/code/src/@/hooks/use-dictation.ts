@@ -1,4 +1,4 @@
-import RecordRTC from "@/external/record-rtc";
+import type RecordRTC from "@/external/record-rtc";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseDictationOptions {
@@ -36,10 +36,12 @@ export function useDictation(
       });
       mediaStreamRef.current = stream;
 
-      const recorder = new RecordRTC(stream, {
+      const RecordRTCC = (await import("@/external/record-rtc")).default;
+
+      const recorder = new RecordRTCC(stream, {
         type: "audio",
         mimeType: "audio/wav",
-        recorderType: RecordRTC.StereoAudioRecorder,
+        recorderType: RecordRTCC.StereoAudioRecorder,
         numberOfAudioChannels: 1,
         desiredSampRate: 16000,
         bufferSize: 16384,

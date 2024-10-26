@@ -1,1 +1,2 @@
-export { default } from "recordrtc";
+import recordRTC from "recordrtc";
+export default recordRTC;
