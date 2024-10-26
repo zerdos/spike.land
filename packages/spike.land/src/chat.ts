@@ -27,7 +27,7 @@ export default {
       });
     }
 
-    const kvServer = serveWithCache(files, () => caches.open("file-cache-24"));
+    const kvServer = serveWithCache(files, () => caches.open(`file-cache-${ASSET_HASH}`));
 
     
     const path = url.pathname.slice(1).split("/");
