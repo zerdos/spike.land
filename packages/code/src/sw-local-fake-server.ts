@@ -4,7 +4,7 @@ import { routes } from "@/lib/routes";
 import { transpile } from "@/lib/shared";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import type {} from "./def";
-import HTML from "./index.html?raw";
+import HTML from "./index.html";
 
 import type { ICodeSession } from "./modules";
 

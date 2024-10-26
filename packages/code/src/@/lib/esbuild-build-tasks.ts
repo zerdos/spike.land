@@ -95,7 +95,7 @@ export const buildWasm = async (): Promise<void> => {
 
 export async function buildServiceWorker(): Promise<void> {
   await build({
-    ...getCommonBuildOptions(environment),
+    ...getCommonBuildOptions("production"),
     entryPoints: ["src/sw.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
@@ -110,7 +110,7 @@ export async function buildServiceWorker(): Promise<void> {
   });
 
   await build({
-    ...getCommonBuildOptions(environment),
+    ...getCommonBuildOptions("production"),
     entryPoints: ["src/sw-deps.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
