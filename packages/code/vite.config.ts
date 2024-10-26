@@ -10,7 +10,7 @@ const externalFiles =  fs.readdirSync(path.resolve(__dirname, "./src/@/external"
 const externalRollup = externalFiles.map((file) => {
   return {
     type: "external",
-    file: "/@/external/" + file,
+    file: "/@/external/" + file+".mjs",
   };
 }).map((file) => {
   // replace .ts/tsx with .mjs
