@@ -7,7 +7,7 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import { Bot, History } from "@/external/lucideReact";
-import {css} from "@emotion/react";
+import { css } from "@emotion/react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -67,59 +67,56 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       : false,
   );
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
-  const [iframeSrc, setIframeSrc] = useState(`/live/${codeSpace}/dehydrated`); 
+  const [iframeSrc, setIframeSrc] = useState(`/live/${codeSpace}/dehydrated`);
 
   useEffect(() => {
-  
-    
-    (async()=> {
-  //   //   if (location.origin.includes("localhost")) {
-  //   //   const fakeResponse = await fakeServer({url: `${location.origin}/live/${codeSpace}/iframe`} as Request);
-  //   //   const indexHtml = await fakeResponse.blob();
+    (async () => {
+      //   //   if (location.origin.includes("localhost")) {
+      //   //   const fakeResponse = await fakeServer({url: `${location.origin}/live/${codeSpace}/iframe`} as Request);
+      //   //   const indexHtml = await fakeResponse.blob();
 
-  //   //   console.log("indexHtml", indexHtml);
+      //   //   console.log("indexHtml", indexHtml);
 
-  //   //  const iframeUrl =   URL.createObjectURL(indexHtml);
+      //   //  const iframeUrl =   URL.createObjectURL(indexHtml);
 
-  const iframe = `/live/${codeSpace}/iframe`;
+      const iframe = `/live/${codeSpace}/iframe`;
 
-  setTimeout(()=>
-      setIframeSrc(iframe), 2000)
-      
-  
- 
+      setTimeout(() => setIframeSrc(iframe), 2000);
     })();
-    
-    
-
-  },[codeSpace]);
-  
-    
+  }, [codeSpace]);
 
   useEffect(() => {
     console.log("AppToRender state changed:", { isOpen, showAutoSaveHistory });
   }, [isOpen, showAutoSaveHistory]);
 
   return (
-    <div css={css`
+    <div
+      css={css`
       height: 100dvh;
       display: block;
       position: relative;
       overflow: hidden;
-    `}>
-
-      
+    `}
+    >
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
           <>
-{      iframeSrc.includes('dehydrated')?    <iframe title="Live preview" src={iframeSrc}>
-          </iframe>:null}
-          <iframe src={`/live/${codeSpace}/iframe`}
-           style={{
-            display: iframeSrc.includes('/iframe')?'block': "none"
-          }} title="Live Preview" ></iframe>
-            </>
+            {iframeSrc.includes("dehydrated")
+              ? (
+                <iframe title="Live preview" src={iframeSrc}>
+                </iframe>
+              )
+              : null}
+            <iframe
+              src={`/live/${codeSpace}/iframe`}
+              style={{
+                display: iframeSrc.includes("/iframe") ? "block" : "none",
+              }}
+              title="Live Preview"
+            >
+            </iframe>
+          </>
         </DraggableWindow>
 
         <RainbowWrapper>

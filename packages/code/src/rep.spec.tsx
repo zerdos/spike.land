@@ -56,8 +56,6 @@ describe("replacePreservingWhitespace", () => {
     expect(result).toEqual("The quick brown fox");
   });
 
-
-
   it("8. should handle empty replace string", () => {
     const result = replacePreservingWhitespace(
       "The quick brown fox",
@@ -135,7 +133,8 @@ describe("replacePreservingWhitespace", () => {
       `    let rotation = 0;
 
       const hello = 'world';
-      const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {`);
+      const drawNumbers = (ctx: CanvasRenderingContext2D, radius: number) => {`,
+    );
     expect(result).toMatchInlineSnapshot(`
       "    let rotation = 0;
 

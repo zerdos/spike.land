@@ -73,7 +73,7 @@ class CacheUtils {
       return await operation();
     } catch (error) {
       if (retries > 0) {
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
         return this.retry(operation, retries - 1, delay);
       }
       throw error;
@@ -81,11 +81,11 @@ class CacheUtils {
   }
 
   static setDifference<T>(setA: Set<T>, setB: Set<T>): Set<T> {
-    return new Set([...setA].filter(x => !setB.has(x)));
+    return new Set([...setA].filter((x) => !setB.has(x)));
   }
 
   static setIntersection<T>(setA: Set<T>, setB: Set<T>): Set<T> {
-    return new Set([...setA].filter(x => setB.has(x)));
+    return new Set([...setA].filter((x) => setB.has(x)));
   }
 
   static async cleanOldCaches(): Promise<void> {
@@ -94,8 +94,8 @@ class CacheUtils {
 
     await Promise.all(
       cacheNames
-        .filter(name => name !== sw.fileCacheName && name !== CDN_CACHE_NAME)
-        .map(async cacheName => {
+        .filter((name) => name !== sw.fileCacheName && name !== CDN_CACHE_NAME)
+        .map(async (cacheName) => {
           const cache = await caches.open(cacheName);
           const keys = await cache.keys();
 
@@ -103,7 +103,8 @@ class CacheUtils {
           if (keys.length > 0) {
             const response = await cache.match(keys[0]);
             if (response && response.headers.get("date")) {
-              const cacheDate = new Date(response.headers.get("date")!).getTime();
+              const cacheDate = new Date(response.headers.get("date")!)
+                .getTime();
               if (currentTime - cacheDate > MAX_CACHE_AGE) {
                 return caches.delete(cacheName);
               }
@@ -205,10 +206,13 @@ class ConfigManager {
 }
 
 // Cache management
-const filesByCacheKeys = Object.entries(sw.files).reduce((acc, [key, value]) => {
-  acc[value] = key;
-  return acc;
-}, {} as Record<string, string>);
+const filesByCacheKeys = Object.entries(sw.files).reduce(
+  (acc, [key, value]) => {
+    acc[value] = key;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
 
 const { isAsset, serve } = serveWithCache(
   sw.files,
@@ -225,11 +229,11 @@ async function getMissingFiles(
   for (const cacheName of cacheNames) {
     const oldCache = await caches.open(cacheName);
     const oldCacheKeys = await oldCache.keys();
-    const oldKeys = new Set(oldCacheKeys.map(request => request.url));
+    const oldKeys = new Set(oldCacheKeys.map((request) => request.url));
 
     const oldCacheHasItems = CacheUtils.setIntersection(oldKeys, missing);
 
-    await Promise.all([...oldCacheHasItems].map(async url => {
+    await Promise.all([...oldCacheHasItems].map(async (url) => {
       const request = new Request(url);
       const response = await oldCache.match(request);
       if (response) {
@@ -240,13 +244,13 @@ async function getMissingFiles(
 
   const updatedMyCacheKeys = await myCache.keys();
   const updatedMyKeys = new Set(
-    updatedMyCacheKeys.map(request => request.url),
+    updatedMyCacheKeys.map((request) => request.url),
   );
   return CacheUtils.setDifference(missing, updatedMyKeys);
 }
 
 // Event Handlers
-sw.addEventListener("install", event => {
+sw.addEventListener("install", (event) => {
   const queuedFetch = new QueuedFetch(4);
 
   event.waitUntil((async () => {
@@ -260,7 +264,7 @@ sw.addEventListener("install", event => {
 
         const myCache = await caches.open(sw.fileCacheName);
         const myCacheKeys = await myCache.keys();
-        const myKeys = new Set(myCacheKeys.map(request => request.url));
+        const myKeys = new Set(myCacheKeys.map((request) => request.url));
 
         if (!myCacheKeys.length) {
           await myCache.put(
@@ -272,17 +276,21 @@ sw.addEventListener("install", event => {
         }
 
         const cacheNames = (await caches.keys())
-          .filter(cacheName => cacheName !== sw.fileCacheName);
+          .filter((cacheName) => cacheName !== sw.fileCacheName);
 
         const allKeys = new Set(
           Object.keys(filesByCacheKeys)
-            .map(fileName => new URL("/" + fileName, location.origin).toString()),
+            .map((fileName) => new URL("/" + fileName, location.origin).toString()),
         );
 
         const missing = CacheUtils.setDifference(allKeys, myKeys);
-        const stillMissing = await getMissingFiles(missing, cacheNames, myCache);
+        const stillMissing = await getMissingFiles(
+          missing,
+          cacheNames,
+          myCache,
+        );
 
-        await Promise.allSettled([...stillMissing].map(async url => {
+        await Promise.allSettled([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);
           const cacheKey = pathname.slice(1);
           const request = new Request(
@@ -297,7 +305,9 @@ sw.addEventListener("install", event => {
             throw new Error(`Invalid hash for ${url}`);
           }
 
-          const cacheRequest = new Request(new URL(cacheKey, origin).toString());
+          const cacheRequest = new Request(
+            new URL(cacheKey, origin).toString(),
+          );
 
           try {
             const response = await CacheUtils.retry(() =>
@@ -329,11 +339,13 @@ sw.addEventListener("install", event => {
 
         // Final integrity check
         const finalCacheKeys = await myCache.keys();
-        const finalKeys = new Set(finalCacheKeys.map(request => request.url));
+        const finalKeys = new Set(finalCacheKeys.map((request) => request.url));
         const remainingMissing = CacheUtils.setDifference(allKeys, finalKeys);
 
         if (remainingMissing.size > 0) {
-          throw new Error(`Failed to fetch files: ${[...remainingMissing].join(", ")}`);
+          throw new Error(
+            `Failed to fetch files: ${[...remainingMissing].join(", ")}`,
+          );
         }
 
         await sw.skipWaiting();
@@ -346,7 +358,7 @@ sw.addEventListener("install", event => {
   })());
 });
 
-sw.addEventListener("activate", event => {
+sw.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
     try {
       console.log("Service Worker activating.");
@@ -355,15 +367,17 @@ sw.addEventListener("activate", event => {
       const myCache = await caches.open(sw.fileCacheName);
       const allKeys = new Set(
         Object.keys(filesByCacheKeys)
-          .map(fileName => new URL("/" + fileName, location.origin).toString()),
+          .map((fileName) => new URL("/" + fileName, location.origin).toString()),
       );
 
       const myCacheKeys = await myCache.keys();
-      const myKeys = new Set(myCacheKeys.map(request => request.url));
+      const myKeys = new Set(myCacheKeys.map((request) => request.url));
       const missing = CacheUtils.setDifference(allKeys, myKeys);
 
       if (missing.size > 0) {
-        throw new Error(`Cache integrity check failed. Missing files: ${[...missing].join(", ")}`);
+        throw new Error(
+          `Cache integrity check failed. Missing files: ${[...missing].join(", ")}`,
+        );
       }
 
       // Clean up old caches
@@ -380,7 +394,7 @@ sw.addEventListener("activate", event => {
   })());
 });
 
-sw.addEventListener("fetch", event => {
+sw.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
@@ -420,7 +434,7 @@ sw.addEventListener("fetch", event => {
           return CacheUtils.retry(() => fetch(newUrl));
         },
         event.waitUntil.bind(event),
-      ).catch(error => {
+      ).catch((error) => {
         console.error("Error serving asset:", error);
         return fetch(request);
       }),
@@ -444,7 +458,7 @@ sw.addEventListener("fetch", event => {
           return CacheUtils.retry(() => fetch(newUrl));
         },
         event.waitUntil.bind(event),
-      ).catch(error => {
+      ).catch((error) => {
         console.error("Error serving asset:", error);
         return fetch(request);
       }),
@@ -454,7 +468,7 @@ sw.addEventListener("fetch", event => {
 
   if (request.method === "GET" && url.pathname.includes("/live/")) {
     event.respondWith(
-      fakeServer(request).catch(error => {
+      fakeServer(request).catch((error) => {
         console.error("Error in fakeServer:", error);
         return fetch(request);
       }),
@@ -464,7 +478,7 @@ sw.addEventListener("fetch", event => {
 
   event.respondWith(
     CacheUtils.retry(() => fetch(request))
-      .catch(error => {
+      .catch((error) => {
         console.error("Network fetch failed:", error);
         return new Response("Network error", { status: 503 });
       }),

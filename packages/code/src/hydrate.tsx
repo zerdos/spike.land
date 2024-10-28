@@ -1,6 +1,6 @@
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
-  if (location.hostname === "localhost") {return;}
+  if (location.hostname === "localhost") return;
 
   // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
   const { Workbox } = await import("workbox-window");

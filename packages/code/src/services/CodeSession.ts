@@ -245,7 +245,9 @@ export class Code implements ICode {
 
     this.session = session;
 
-    this.broadcastChannel.postMessage({ ...session, sender: "Editor" } as BroadcastMessage);
+    this.broadcastChannel.postMessage(
+      { ...session, sender: "Editor" } as BroadcastMessage,
+    );
     return true;
   }
   private isRunning = false;

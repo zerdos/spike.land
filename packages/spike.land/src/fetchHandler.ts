@@ -1,7 +1,7 @@
 import { importMap } from "@spike-npm-land/code";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
-import { handleCORS  } from "./utils";
+import { handleCORS } from "./utils";
 import { handleEsmRequest } from "./handleEsmRequest";
 export async function handleFetchApi(
   path: string[],
@@ -9,8 +9,6 @@ export async function handleFetchApi(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
-
-
   if (request.method === "OPTIONS") {
     return handleCORS(request);
   }
@@ -60,9 +58,7 @@ Sitemap: ${new URL(request.url).origin}/sitemap.xml
   };
 
   const handler = handlers[path[0]];
-  return handler
-    ? handler()
-    : handleEsmRequest(path, request, env, ctx);
+  return handler ? handler() : handleEsmRequest(path, request, env, ctx);
 }
 
 function handlePing(): Response {
@@ -116,15 +112,11 @@ async function handleIpfsRequest(request: Request): Promise<Response> {
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
-  
   const [, codeSpace, ...remainingPath] = path;
-
-
 
   if (!codeSpace) {
     return new Response("Invalid codeSpace", { status: 400 });
   }
-
 
   if (remainingPath[0] === "public") {
     return handlePublicRequest(codeSpace, remainingPath.slice(1), request, env);
@@ -155,7 +147,7 @@ async function handlePublicRequest(
   const key = `live/${codeSpace}/${path.join("/")}`;
 
   switch (request.method) {
-    case "GET":{
+    case "GET": {
       const object = await env.R2.get(key);
       if (!object) {
         return new Response("File not found", { status: 404 });
@@ -192,7 +184,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     case "DELETE":
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
-    case "GET":{
+    case "GET": {
       const object = await env.R2.get(key);
       if (!object) {
         const paths = key.split("/").slice(-2).map((p) =>

@@ -1,9 +1,7 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { makeSession } from "@/lib/make-sess";
 
-const origin = location.origin.includes("localhost")
-  ? ""
-  : location.origin;
+const origin = location.origin.includes("localhost") ? "" : location.origin;
 
 export class CodeSessionBC {
   private broadcastChannel: BroadcastChannel;
@@ -66,9 +64,9 @@ export class CodeSessionBC {
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     return this.session = session || this.session ||
-      (await fetch(`${origin}/live/${this.codeSpace}/session.json`).then((response) =>
-        response.json()
-      )) as ICodeSession;
+      (await fetch(`${origin}/live/${this.codeSpace}/session.json`).then((
+        response,
+      ) => response.json())) as ICodeSession;
   }
 
   sub(callback: (session: ICodeSession) => void): void {

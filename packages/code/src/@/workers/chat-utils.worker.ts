@@ -72,7 +72,10 @@ class ChatHandler {
     codeSpace: string;
     code: string;
   }) {
-    debugInfo.addLog("Initializing ChatHandler", { codeSpace, messagesCount: messages.length });
+    debugInfo.addLog("Initializing ChatHandler", {
+      codeSpace,
+      messagesCount: messages.length,
+    });
 
     this.mod = {
       controller: new AbortController(),
@@ -97,7 +100,10 @@ class ChatHandler {
       const md5Messages = md5(JSON.stringify(_messages));
       if (md5Messages !== md5(JSON.stringify(this.messages))) {
         this.messages = _messages;
-        this.BC.postMessage({ messages: this.messages, debugInfo: [...debugInfo.logs] });
+        this.BC.postMessage({
+          messages: this.messages,
+          debugInfo: [...debugInfo.logs],
+        });
       }
     };
 
@@ -226,14 +232,16 @@ ${this.mod.lastCode}
         await this.updateCode();
 
         if (typeof this.mod.lastCode !== "string") {
-          const error = `Invalid mod.lastCode type: ${typeof this.mod.lastCode}`;
+          const error = `Invalid mod.lastCode type: ${typeof this.mod
+            .lastCode}`;
           debugInfo.addLog(error);
           console.error(error);
           this.mod.lastCode = this.code;
         }
 
         if (
-          this.mod.lastCode !== this.code && !this.mod.lastError && this.mod.errors.length === 0
+          this.mod.lastCode !== this.code && !this.mod.lastError &&
+          this.mod.errors.length === 0
         ) {
           debugInfo.addLog("Message processed successfully");
           return true;
@@ -243,7 +251,9 @@ ${this.mod.lastCode}
         debugInfo.addLog("Retrying message processing", { attempt: retries });
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error);
-        debugInfo.addLog(`Error processing message (attempt ${retries + 1})`, { error: errorMsg });
+        debugInfo.addLog(`Error processing message (attempt ${retries + 1})`, {
+          error: errorMsg,
+        });
         console.error(
           `Error processing message (attempt ${retries + 1}):`,
           error,
@@ -332,8 +342,12 @@ ${this.mod.lastCode}
               this.BC.postMessage({ code: formatted, transpiled });
               debugInfo.addLog("Code successfully formatted and transpiled");
             } catch (error) {
-              const errorMsg = error instanceof Error ? error.message : String(error);
-              debugInfo.addLog("Error in code formatting/transpilation", { error: errorMsg });
+              const errorMsg = error instanceof Error
+                ? error.message
+                : String(error);
+              debugInfo.addLog("Error in code formatting/transpilation", {
+                error: errorMsg,
+              });
               if (error instanceof Error) {
                 this.mod.lastError = error.message;
               } else {
@@ -345,7 +359,9 @@ ${this.mod.lastCode}
             }
 
             if (iterationCount >= maxIterations) {
-              debugInfo.addLog("Reached maximum iterations, forcing finish", { iterationCount });
+              debugInfo.addLog("Reached maximum iterations, forcing finish", {
+                iterationCount,
+              });
               console.warn("Reached maximum iterations, forcing finish");
               break;
             }
@@ -496,7 +512,9 @@ ${this.mod.lastCode}
     code: string;
   }): Promise<{ result: string; len: number; error: string; }> {
     if (instructions.length === 0) return { result: code, len: 0, error: "" };
-    instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(SEARCH_ARROWS).join(SEARCH)
+    instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(
+      SEARCH_ARROWS,
+    ).join(SEARCH)
       .split(REPLACE).join(REPLACE_ARROWS).split(REPLACE_ARROWS).join(REPLACE);
 
     const searchIndex = instructions.indexOf(SEARCH);
@@ -533,7 +551,11 @@ ${this.mod.lastCode}
         };
       }
 
-      debugInfo.addLog("Applied search/replace blocks", { code, result, instructions });
+      debugInfo.addLog("Applied search/replace blocks", {
+        code,
+        result,
+        instructions,
+      });
 
       return {
         result: up(trimmedInstructions, code),
@@ -543,7 +565,9 @@ ${this.mod.lastCode}
     }
 
     const rAll = up(instructions, code);
-    if (rAll === code) return { result: rAll, len: instructions.length, error: "" };
+    if (rAll === code) {
+      return { result: rAll, len: instructions.length, error: "" };
+    }
 
     let jump = 1;
     while (
@@ -571,7 +595,11 @@ ${this.mod.lastCode}
       result,
       instructions: trimmedInstructions,
     });
-    return { result: up(instructions.slice(0, low), code), len: low, error: "" };
+    return {
+      result: up(instructions.slice(0, low), code),
+      len: low,
+      error: "",
+    };
   }
 }
 
@@ -601,7 +629,11 @@ export async function handleSendMessage({
     const errorMsg = error instanceof Error ? error.message : String(error);
     debugInfo.addLog("Fatal error in handleSendMessage", { error: errorMsg });
   } finally {
-    chatHandler.BC.postMessage({ isStreaming: false, messages, debugInfo: [...debugInfo.logs] });
+    chatHandler.BC.postMessage({
+      isStreaming: false,
+      messages,
+      debugInfo: [...debugInfo.logs],
+    });
   }
 
   return debugInfo.logs;

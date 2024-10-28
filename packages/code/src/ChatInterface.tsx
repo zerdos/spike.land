@@ -13,7 +13,7 @@ import { useDictation } from "@/hooks/use-dictation";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
-let isStreamingTimeout: NodeJS.Timeout | null = null; 
+let isStreamingTimeout: NodeJS.Timeout | null = null;
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
@@ -25,12 +25,12 @@ const ChatInterface: React.FC<{
 
   const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(
     `chatMessages-${codeSpace}`,
-    []
+    [],
   );
   const [messages, setMessages] = useImmer<Message[]>([]);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
-    false
+    false,
   );
   const [input, setInput] = useDictation("");
 
@@ -84,15 +84,15 @@ const ChatInterface: React.FC<{
     const mess = messages!.map((msg) =>
       msg.id === messageId
         ? {
-            ...msg,
-            content: typeof msg.content === "string"
-              ? editInput
-              : Array.isArray(msg.content)
-              ? msg.content.map((item) =>
-                  item.type === "text" ? { ...item, text: editInput } : item
-                )
-              : editInput,
-          }
+          ...msg,
+          content: typeof msg.content === "string"
+            ? editInput
+            : Array.isArray(msg.content)
+            ? msg.content.map((item) =>
+              item.type === "text" ? { ...item, text: editInput } : item
+            )
+            : editInput,
+        }
         : msg
     );
 
@@ -106,12 +106,11 @@ const ChatInterface: React.FC<{
     BC.onmessage = async (event) => {
       const e = event.data;
 
-      
       if (isStreamingTimeout) {
         clearTimeout(isStreamingTimeout);
       }
-      isStreamingTimeout=      setTimeout(() => {
-        setIsStreaming(false);    
+      isStreamingTimeout = setTimeout(() => {
+        setIsStreaming(false);
       }, 1000);
 
       if (e.messages) {
@@ -122,8 +121,7 @@ const ChatInterface: React.FC<{
       if (e.debugInfo) {
         const debugInfo = e.debugInfo;
         console.debug("debugInfo", { debugInfo });
-        Object.assign(globalThis, { debugInfo }); 
-        
+        Object.assign(globalThis, { debugInfo });
       }
 
       if (e.message) {
@@ -135,7 +133,10 @@ const ChatInterface: React.FC<{
       if (e.code) {
         console.log("Setting code", e.code);
         setMessages(messages);
-        await cSess.setCodeAndTranspiled({formatted: e.code, transpiled: e.transpiled});
+        await cSess.setCodeAndTranspiled({
+          formatted: e.code,
+          transpiled: e.transpiled,
+        });
       }
 
       if (e.instructions) {
@@ -163,11 +164,6 @@ const ChatInterface: React.FC<{
         });
       }
       // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
-      
-   
-      
-
-
     };
     return () => {
       BC.close();
@@ -239,7 +235,7 @@ const ChatInterface: React.FC<{
 
   const memoizedScreenShot = useCallback(
     (): Promise<ImageData> => cSess.screenShot(),
-    [cSess]
+    [cSess],
   );
 
   if (!isOpen) return null;

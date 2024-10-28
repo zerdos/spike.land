@@ -3,7 +3,7 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
 
   if (object && object.writeHttpMetadata) object.writeHttpMetadata(headers);
 
- if (object) headers.set("etag", object.httpEtag);
+  if (object) headers.set("etag", object.httpEtag);
   headers.set("Cache-Control", "public, max-age=31536000");
   headers.set("Access-Control-Allow-Origin", "*");
   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -12,57 +12,57 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
     (key.endsWith("js") || key.endsWith("mjs"))
       ? "application/javascript; charset=UTF-8"
       : key.endsWith("css")
-        ? "text/css; charset=UTF-8"
-        : key.endsWith("html")
-          ? "text/html; charset=UTF-8"
-          : key.endsWith("json")
-            ? "application/json; charset=UTF-8"
-            : key.endsWith("ttf")
-              ? "font/ttf"
-              : key.endsWith("woff")
-                ? "font/woff"
-                : key.endsWith("woff2")
-                  ? "font/woff2"
-                  : key.endsWith("eot")
-                    ? "font/eot"
-                    : key.endsWith("otf")
-                      ? "font/otf"
-                      : key.endsWith("png")
-                        ? "image/png"
-                        : key.endsWith("pdf")
-                          ? "application/pdf"
-                          : key.endsWith("gif")
-                            ? "image/gif"
-                            : key.endsWith("webp")
-                              ? "image/webp"
-                              : key.endsWith("jpg")
-                                ? "image/jpeg"
-                                : key.endsWith("jpeg")
-                                  ? "image/jpeg"
-                                  : key.endsWith("svg")
-                                    ? "image/svg+xml"
-                                    : key.endsWith("mp4")
-                                      ? "video/mp4"
-                                      : key.endsWith("webm")
-                                        ? "video/webm"
-                                        : key.endsWith("mov")
-                                          ? "video/quicktime"
-                                          : key.endsWith("avi")
-                                            ? "video/x-msvideo"
-                                            : key.endsWith("wmv")
-                                              ? "video/x-ms-wmv"
-                                              : key.endsWith("mp3")
-                                                ? "audio/mpeg"
-                                                : key.endsWith("wav")
-                                                  ? "audio/wav"
-                                                  : key.endsWith("ogg")
-                                                    ? "audio/ogg"
-                                                    : key.endsWith("flac")
-                                                      ? "audio/flac"
-                                                      : key.endsWith("aac")
-                                                        ? "audio/aac"
-                                                        : "application/javascript; charset=UTF-8"
+      ? "text/css; charset=UTF-8"
+      : key.endsWith("html")
+      ? "text/html; charset=UTF-8"
+      : key.endsWith("json")
+      ? "application/json; charset=UTF-8"
+      : key.endsWith("ttf")
+      ? "font/ttf"
+      : key.endsWith("woff")
+      ? "font/woff"
+      : key.endsWith("woff2")
+      ? "font/woff2"
+      : key.endsWith("eot")
+      ? "font/eot"
+      : key.endsWith("otf")
+      ? "font/otf"
+      : key.endsWith("png")
+      ? "image/png"
+      : key.endsWith("pdf")
+      ? "application/pdf"
+      : key.endsWith("gif")
+      ? "image/gif"
+      : key.endsWith("webp")
+      ? "image/webp"
+      : key.endsWith("jpg")
+      ? "image/jpeg"
+      : key.endsWith("jpeg")
+      ? "image/jpeg"
+      : key.endsWith("svg")
+      ? "image/svg+xml"
+      : key.endsWith("mp4")
+      ? "video/mp4"
+      : key.endsWith("webm")
+      ? "video/webm"
+      : key.endsWith("mov")
+      ? "video/quicktime"
+      : key.endsWith("avi")
+      ? "video/x-msvideo"
+      : key.endsWith("wmv")
+      ? "video/x-ms-wmv"
+      : key.endsWith("mp3")
+      ? "audio/mpeg"
+      : key.endsWith("wav")
+      ? "audio/wav"
+      : key.endsWith("ogg")
+      ? "audio/ogg"
+      : key.endsWith("flac")
+      ? "audio/flac"
+      : key.endsWith("aac")
+      ? "audio/aac"
+      : "application/javascript; charset=UTF-8",
   );
   if (!object) return new Response("", { headers });
-  return new Response(object && object.body || '', { headers });
+  return new Response(object && object.body || "", { headers });
 }

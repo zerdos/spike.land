@@ -45,7 +45,11 @@ export function extractDiffContent(
 
   return { original, modified };
 }
-export function replacePreservingWhitespace(text: string, search: string, replace: string): string {
+export function replacePreservingWhitespace(
+  text: string,
+  search: string,
+  replace: string,
+): string {
   // Handle SEARCH/REPLACE comments
   if (search.includes("// ... (")) {
     const lines = search.split("\n");

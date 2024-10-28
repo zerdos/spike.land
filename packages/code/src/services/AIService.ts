@@ -104,21 +104,23 @@ export class AIService {
       let content = "";
       const decoder = new TextDecoder();
       const buffer = [];
-      await reader.read().then(function processText({ done, value }): Promise<void> {
-        if (done) {
-          return Promise.resolve();
-        }
+      await reader.read().then(
+        function processText({ done, value }): Promise<void> {
+          if (done) {
+            return Promise.resolve();
+          }
 
-        buffer.push(value);
-        const chunk = decoder.decode(value, { stream: true });
-        content += chunk;
-        onUpdate(chunk);
+          buffer.push(value);
+          const chunk = decoder.decode(value, { stream: true });
+          content += chunk;
+          onUpdate(chunk);
 
-        // Update the content in the UI
+          // Update the content in the UI
 
-        // Process the next chunk
-        return reader.read().then(processText);
-      });
+          // Process the next chunk
+          return reader.read().then(processText);
+        },
+      );
 
       return content;
 

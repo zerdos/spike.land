@@ -23,7 +23,7 @@
     "jsxImportSource": "@emotion/react",
     "outDir": "dts",
     "paths": {
-      "@/*": ["./src/@/*"],
+      "@/*": ["./src/@/*"]
     }
   }
 }

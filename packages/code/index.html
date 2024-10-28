@@ -1,38 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <link rel="stylesheet" href="./src/assets/app.css" />
+    <link rel="stylesheet" href="./src/index.css" />
 
-<head>
-  <base href="/" />
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + React + TS</title>
-  <link rel="stylesheet" href="./src/assets/app.css" />
-  <link rel="stylesheet" href="./src/index.css" />
-
-  <script type="importmap">
+    <script type="importmap">
       {
-        "imports":
-             {
-             "@/":"/@/",
-             "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-             "react/jsx-runtime":"/jsx.mjs",
-             "react-dom/server":"/reactDomServer.mjs",
-             "react-dom/client":"/reactDomClient.mjs",
-             "@emotion/react":"/emotion.mjs",
-             "react":"/reactMod.mjs",
-             "framer-motion":"/motion.mjs",
-             "react-dom":"/reactDom.mjs"
-            }
-          }
-
+        "imports": {
+          "@/": "/@/",
+          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+          "react/jsx-runtime": "/jsx.mjs",
+          "react-dom/server": "/reactDomServer.mjs",
+          "react-dom/client": "/reactDomClient.mjs",
+          "@emotion/react": "/emotion.mjs",
+          "react": "/reactMod.mjs",
+          "framer-motion": "/motion.mjs",
+          "react-dom": "/reactDom.mjs"
+        }
+      }
     </script>
+  </head>
 
-</head>
-
-<body>
-  <div id="embed"></div>
-  <script type="module" src="/src/start.ts"></script>
-</body>
-
+  <body>
+    <div id="embed"></div>
+    <script type="module" src="/src/start.ts"></script>
+  </body>
 </html>

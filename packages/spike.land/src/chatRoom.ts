@@ -2,19 +2,12 @@ import type {
   DurableObject,
   DurableObjectState,
 } from "@cloudflare/workers-types";
-import type {
-  CodePatch,
-  ICodeSession} from "@spike-npm-land/code";
-import {
-  createPatch,
-  makeHash,
-  makeSession,
-  md5,
-} from "@spike-npm-land/code";
+import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
+import { createPatch, makeHash, makeSession, md5 } from "@spike-npm-land/code";
 
 import type Env from "./env";
 import { handleErrors } from "./handleErrors";
-import type { AutoSaveEntry} from "./routeHandler";
+import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import { createCodeHistoryManager } from "./x-code";
@@ -236,7 +229,9 @@ export class Code implements DurableObject {
               },
             })).text();
 
-          await this.updateAndBroadcastSession(makeSession(...this.session, transpiled));
+          await this.updateAndBroadcastSession(
+            makeSession(...this.session, transpiled),
+          );
         } catch (error) {
           console.error("Error transpiling code:", error);
           // Handle the error as appropriate for your application
@@ -284,7 +279,7 @@ export class Code implements DurableObject {
     this.session = newSession;
     await this.state.storage.put("session", this.session);
     await this.xLog(this.session);
-    
+
     const patch = createPatch(oldSession, this.session);
     this.wsHandler.broadcast(patch);
   }
@@ -316,7 +311,10 @@ export class Code implements DurableObject {
   async restoreFromAutoSave(timestamp: number): Promise<boolean> {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
-      await this.updateAndBroadcastSession({...this.session, code: entry.code});
+      await this.updateAndBroadcastSession({
+        ...this.session,
+        code: entry.code,
+      });
       return true;
     }
     return false;

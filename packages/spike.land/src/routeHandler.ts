@@ -104,8 +104,8 @@ export class RouteHandler {
 
     try {
       switch (action) {
-        case "history":
-          { const subAction = path[2];
+        case "history": {
+          const subAction = path[2];
           if (subAction === "delete") {
             const itemToDelete = path[3];
             const uniqueHistory = await this.getUniqueHistory();
@@ -119,7 +119,8 @@ export class RouteHandler {
             });
           }
 
-          return this.getAutoSaveHistory(); }
+          return this.getAutoSaveHistory();
+        }
 
         case "restore": {
           const restoreTimestamp = Number(path[2]);
@@ -140,8 +141,8 @@ export class RouteHandler {
             });
           }
         }
-        default:
-          { await this.code.autoSave();
+        default: {
+          await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
           const respText = HTML.replace(
@@ -169,7 +170,8 @@ export class RouteHandler {
             "content_hash": md5(respText),
           });
 
-          return new Response(respText, { status: 200, headers }); }
+          return new Response(respText, { status: 200, headers });
+        }
       }
     } catch (error) {
       console.error("Error in handleAutoSaveRoute:", error);
@@ -234,8 +236,6 @@ export class RouteHandler {
     }
   }
 
- 
-
   private async handleWebsocketRoute(request: Request): Promise<Response> {
     if (request.headers.get("Upgrade") !== "websocket") {
       return new Response("Expected websocket", { status: 400 });
@@ -279,7 +279,10 @@ export class RouteHandler {
     });
   }
 
-  private async handleLazyRoute(_request: Request, url: URL): Promise<Response> {
+  private async handleLazyRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
 
     return new Response(
@@ -414,7 +417,10 @@ hQIDAQAB
     return new Response(respText, { status: 200, headers });
   }
 
-  private async handleRoomRoute(_request: Request, url: URL): Promise<Response> {
+  private async handleRoomRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     return new Response(JSON.stringify({ codeSpace }), {
       status: 200,
@@ -503,7 +509,10 @@ hQIDAQAB
     });
   }
 
-  private async handleWrapRoute(_request: Request, url: URL): Promise<Response> {
+  private async handleWrapRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
@@ -528,7 +537,7 @@ hQIDAQAB
 
   private async handleScreenShotRoute(
     _request: Request,
-    url: URL
+    url: URL,
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();

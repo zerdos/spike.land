@@ -19,7 +19,7 @@ export const Wrapper: React.FC<WrapperProps> = (
     if (containerRef.current === undefined) return;
     if (containerRef.current === null) return;
 
-  let rendered: RenderedApp | null;
+    let rendered: RenderedApp | null;
 
     (async () => {
       rendered = await renderApp({

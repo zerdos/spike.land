@@ -1,7 +1,15 @@
 // empty-dkddd.tsx
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code, CheckCircle2, XCircle, GitCommit, UserCircle, List, LightbulbIcon } from "lucide-react";
+import {
+  CheckCircle2,
+  Code,
+  GitCommit,
+  LightbulbIcon,
+  List,
+  UserCircle,
+  XCircle,
+} from "lucide-react";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 
 interface Section {
@@ -35,17 +43,28 @@ const parseAnalysis = (content: string): Section => {
   };
 
   lines.forEach((line) => {
-    const newSection = Object.keys(sectionMap).find((key): key is keyof typeof sectionMap => line.startsWith(key));
+    const newSection = Object.keys(sectionMap).find((
+      key,
+    ): key is keyof typeof sectionMap => line.startsWith(key));
     if (newSection) {
       currentSection = sectionMap[newSection];
       if (!sections[currentSection]) {
-        sections[currentSection] = currentSection === "proscons" ? { pros: [], cons: [] } : currentSection === "request" || currentSection === "approach" ? "" : [];
+        sections[currentSection] = currentSection === "proscons"
+          ? { pros: [], cons: [] }
+          : currentSection === "request" || currentSection === "approach"
+          ? ""
+          : [];
       }
       if (currentSection === "proscons") {
-        currentSubsection = currentSection === "proscons" ? "pros" : currentSection;
+        currentSubsection = currentSection === "proscons"
+          ? "pros"
+          : currentSection;
       }
     } else if (currentSection) {
-      if (currentSection === "proscons" || currentSection === "pros" || currentSection === "cons") {
+      if (
+        currentSection === "proscons" || currentSection === "pros" ||
+        currentSection === "cons"
+      ) {
         if (line.startsWith("-")) {
           const item = line.replace(/^-\s*/, "");
           if (currentSection === "proscons") {
@@ -58,9 +77,14 @@ const parseAnalysis = (content: string): Section => {
           else currentSection = "pros";
         }
       } else if (Array.isArray(sections[currentSection])) {
-        if (line.startsWith("-") || line.match(/^[a-f]\./)) sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
-      } else if (currentSection === "request" || currentSection === "approach") {
-        sections[currentSection] += (sections[currentSection] ? " " : "") + line;
+        if (line.startsWith("-") || line.match(/^[a-f]\./)) {
+          sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
+        }
+      } else if (
+        currentSection === "request" || currentSection === "approach"
+      ) {
+        sections[currentSection] += (sections[currentSection] ? " " : "") +
+          line;
       }
     }
   });
@@ -89,30 +113,52 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     listType?: "pro" | "con" | "default";
   }
 
-  const Section: React.FC<SectionProps> = ({ title, children, icon: Icon, listType }) => (
-    <div className={`p-2 transition-all duration-300 ${isDarkMode ? "hover:bg-gray-800/30" : "hover:bg-white/30"} font-inter`}>
+  const Section: React.FC<SectionProps> = (
+    { title, children, icon: Icon, listType },
+  ) => (
+    <div
+      className={`p-2 transition-all duration-300 ${
+        isDarkMode ? "hover:bg-gray-800/30" : "hover:bg-white/30"
+      } font-inter`}
+    >
       <div className="flex items-center gap-2 mb-2">
         <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1 rounded-md shadow-sm">
           <Icon className="h-3 w-3 text-white" />
         </div>
-        <h3 className={`text-base font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>{title}</h3>
+        <h3
+          className={`text-base font-semibold ${
+            isDarkMode ? "text-gray-100" : "text-gray-900"
+          }`}
+        >
+          {title}
+        </h3>
       </div>
-      <div className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-4`}>
-        {listType ? (
-          <ul className="space-y-1">
-            {Array.isArray(children) &&
-              children.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-1">
-                  {listType === "pro" && <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />}
-                  {listType === "con" && <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />}
-                  {listType === "default" && <GitCommit className="h-3 w-3 text-indigo-500 mt-0.5 flex-shrink-0" />}
-                  <span className="leading-tight font-normal">{item}</span>
-                </li>
-              ))}
-          </ul>
-        ) : (
-          <div className="prose prose-xs max-w-none">{children}</div>
-        )}
+      <div
+        className={`${
+          isDarkMode ? "text-gray-300" : "text-gray-700"
+        } text-xs pl-4`}
+      >
+        {listType
+          ? (
+            <ul className="space-y-1">
+              {Array.isArray(children) &&
+                children.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-1">
+                    {listType === "pro" && (
+                      <CheckCircle2 className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    )}
+                    {listType === "con" && (
+                      <XCircle className="h-3 w-3 text-red-500 mt-0.5 flex-shrink-0" />
+                    )}
+                    {listType === "default" && (
+                      <GitCommit className="h-3 w-3 text-indigo-500 mt-0.5 flex-shrink-0" />
+                    )}
+                    <span className="leading-tight font-normal">{item}</span>
+                  </li>
+                ))}
+            </ul>
+          )
+          : <div className="prose prose-xs max-w-none">{children}</div>}
       </div>
     </div>
   );
@@ -129,7 +175,11 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     }
 
     const sectionConfig: SectionConfig = {
-      concepts: { title: "Key React Concepts", icon: Code, listType: "default" },
+      concepts: {
+        title: "Key React Concepts",
+        icon: Code,
+        listType: "default",
+      },
       request: { title: "User's Request", icon: UserCircle },
       tasks: { title: "Tasks and Solutions", icon: List, listType: "default" },
       proscons: {
@@ -137,27 +187,69 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
         icon: LightbulbIcon,
         render: () => (
           <div className="space-y-2">
-            {sections.proscons && sections.proscons.pros && sections.proscons.pros.length > 0 && (
-              <div className={`${isDarkMode ? "bg-green-900" : "bg-green-50"} rounded-md p-2`}>
-                <h4 className={`font-semibold ${isDarkMode ? "text-green-300" : "text-green-700"} text-sm mb-1`}>Pros</h4>
+            {sections.proscons && sections.proscons.pros &&
+              sections.proscons.pros.length > 0 && (
+              <div
+                className={`${
+                  isDarkMode ? "bg-green-900" : "bg-green-50"
+                } rounded-md p-2`}
+              >
+                <h4
+                  className={`font-semibold ${
+                    isDarkMode ? "text-green-300" : "text-green-700"
+                  } text-sm mb-1`}
+                >
+                  Pros
+                </h4>
                 <ul className="space-y-1">
                   {sections.proscons.pros.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1 py-0.5">
-                      <CheckCircle2 className={`h-3 w-3 ${isDarkMode ? "text-green-400" : "text-green-500"} mt-0.5 flex-shrink-0`} />
-                      <span className={`leading-tight font-normal font-roboto-mono text-xs ${isDarkMode ? "text-green-200" : "text-green-800"}`}>{item}</span>
+                      <CheckCircle2
+                        className={`h-3 w-3 ${
+                          isDarkMode ? "text-green-400" : "text-green-500"
+                        } mt-0.5 flex-shrink-0`}
+                      />
+                      <span
+                        className={`leading-tight font-normal font-roboto-mono text-xs ${
+                          isDarkMode ? "text-green-200" : "text-green-800"
+                        }`}
+                      >
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
-            {sections.proscons && sections.proscons.cons && sections.proscons.cons.length > 0 && (
-              <div className={`${isDarkMode ? "bg-red-900" : "bg-red-50"} rounded-md p-2`}>
-                <h4 className={`font-semibold ${isDarkMode ? "text-red-300" : "text-red-700"} text-sm mb-1`}>Cons</h4>
+            {sections.proscons && sections.proscons.cons &&
+              sections.proscons.cons.length > 0 && (
+              <div
+                className={`${
+                  isDarkMode ? "bg-red-900" : "bg-red-50"
+                } rounded-md p-2`}
+              >
+                <h4
+                  className={`font-semibold ${
+                    isDarkMode ? "text-red-300" : "text-red-700"
+                  } text-sm mb-1`}
+                >
+                  Cons
+                </h4>
                 <ul className="space-y-1">
                   {sections.proscons.cons.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-1 py-0.5">
-                      <XCircle className={`h-3 w-3 ${isDarkMode ? "text-red-400" : "text-red-500"} mt-0.5 flex-shrink-0`} />
-                      <span className={`leading-tight font-normal font-roboto-mono text-xs ${isDarkMode ? "text-red-200" : "text-red-800"}`}>{item}</span>
+                      <XCircle
+                        className={`h-3 w-3 ${
+                          isDarkMode ? "text-red-400" : "text-red-500"
+                        } mt-0.5 flex-shrink-0`}
+                      />
+                      <span
+                        className={`leading-tight font-normal font-roboto-mono text-xs ${
+                          isDarkMode ? "text-red-200" : "text-red-800"
+                        }`}
+                      >
+                        {item}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -174,22 +266,41 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
       if (!config) return null;
       console.log(`Rendering section: ${key}`, value);
       return (
-        <Section key={key} title={config.title} icon={config.icon} listType={config.listType}>
-          {config.render ? config.render() : Array.isArray(value) ? value : <p className="font-medium leading-relaxed">{value}</p>}
+        <Section
+          key={key}
+          title={config.title}
+          icon={config.icon}
+          listType={config.listType}
+        >
+          {config.render
+            ? config.render()
+            : Array.isArray(value)
+            ? value
+            : <p className="font-medium leading-relaxed">{value}</p>}
         </Section>
       );
     });
   };
 
   return (
-    <Card className={`max-w-full mx-auto border-none shadow-lg ${isDarkMode ? "bg-gray-800/90" : "bg-white/90"}`}>
+    <Card
+      className={`max-w-full mx-auto border-none shadow-lg ${
+        isDarkMode ? "bg-gray-800/90" : "bg-white/90"
+      }`}
+    >
       <CardHeader className="bg-gradient-to-r from-violet-700 to-indigo-800 py-2 rounded-t-lg">
         <CardTitle className="text-lg font-semibold text-white flex items-center">
           <LightbulbIcon className="w-4 h-4 mr-1" />
           React Analysis
         </CardTitle>
       </CardHeader>
-      <CardContent className={`p-0 divide-y ${isDarkMode ? "divide-gray-700/30" : "divide-gray-200/30"}`}>{renderSections()}</CardContent>
+      <CardContent
+        className={`p-0 divide-y ${
+          isDarkMode ? "divide-gray-700/30" : "divide-gray-200/30"
+        }`}
+      >
+        {renderSections()}
+      </CardContent>
     </Card>
   );
 };

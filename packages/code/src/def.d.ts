@@ -68,7 +68,10 @@ interface AudioData {
   allocationSize(options: AudioDataCopyToOptions): number;
   clone(): AudioData;
   close(): void;
-  copyTo(destination: AllowSharedBufferSource, options: AudioDataCopyToOptions): void;
+  copyTo(
+    destination: AllowSharedBufferSource,
+    options: AudioDataCopyToOptions,
+  ): void;
 }
 
 declare const AudioData: {

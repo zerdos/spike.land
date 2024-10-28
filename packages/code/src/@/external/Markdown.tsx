@@ -6,7 +6,9 @@ interface MarkdownWithReadAloudProps {
   className?: string;
 }
 
-const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = ({ children, className }) => {
+const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = (
+  { children, className },
+) => {
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState("");
   const [isAudioReady, setIsAudioReady] = useState(false);
@@ -39,7 +41,7 @@ const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = ({ children,
       source.start(0);
 
       setAudioUrl(
-        URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" }))
+        URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" })),
       );
       setIsAudioReady(true);
     } catch (error) {

@@ -2,15 +2,16 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import { createContext, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
 
-
-type Theme = 'light' | 'dark';
+type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
 }
 
-const ThemeProviderContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeProviderContext = createContext<ThemeContextType | undefined>(
+  undefined,
+);
 
 export function ThemeProvider({
   children,
@@ -50,4 +51,3 @@ export const useTheme = () => {
   }
   return context;
 };
-

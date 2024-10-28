@@ -228,7 +228,7 @@ export async function isSupported(): Promise<{
 
       const messageChannel = new MessageChannel();
       const obj1 = { port1: clonedObj.port1 };
-      await new Promise<void>(resolve => {
+      await new Promise<void>((resolve) => {
         messageChannel.port1.postMessage(obj1, [
           obj1.port1,
         ]);
@@ -278,7 +278,7 @@ export async function isSupported(): Promise<{
       if (MessageChannelExists) {
         const messageChannel = new MessageChannel();
         const streams1 = clonedObj;
-        await new Promise<void>(resolve => {
+        await new Promise<void>((resolve) => {
           messageChannel.port1.postMessage(streams1, [
             streams1.readonly as unknown as Transferable,
             streams1.writeonly as unknown as Transferable,
@@ -294,7 +294,7 @@ export async function isSupported(): Promise<{
                 data.readonly as unknown as Transferable,
                 data.writeonly as unknown as Transferable,
                 data.tranformonly as unknown as Transferable,
-              ].filter(x => x !== undefined),
+              ].filter((x) => x !== undefined),
             );
           };
         });
@@ -314,7 +314,9 @@ export async function isSupported(): Promise<{
 /**
  * Check if an object is an object or a function (because functions also count as objects)
  */
-export function isObject(obj: unknown): obj is object | ((...args: unknown[]) => unknown) {
+export function isObject(
+  obj: unknown,
+): obj is object | ((...args: unknown[]) => unknown) {
   return (typeof obj === "object" && obj !== null) || typeof obj === "function";
 }
 
@@ -332,7 +334,9 @@ export function isTypedArray(obj: unknown): obj is TypeTypedArray | DataView {
  *
  * > Note: None of the stream API's are transferables in Safari 😥
  */
-export function isStream(obj: unknown): obj is ReadableStream | WritableStream | TransformStream {
+export function isStream(
+  obj: unknown,
+): obj is ReadableStream | WritableStream | TransformStream {
   return (
     (ReadableStreamExists && obj instanceof ReadableStream) ||
     (WritableStreamExists && obj instanceof WritableStream) ||
@@ -486,7 +490,11 @@ export function* getTransferable(
  * @param maxCount Maximum number of iterations
  * @returns Whether input object contains transferable objects
  */
-export function hasTransferables(obj: unknown, streams = false, maxCount = 10_000): boolean {
+export function hasTransferables(
+  obj: unknown,
+  streams = false,
+  maxCount = 10_000,
+): boolean {
   const queues = [[obj]];
 
   for (let i = 0; i < queues.length; i++) {

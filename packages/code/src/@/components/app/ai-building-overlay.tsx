@@ -9,10 +9,8 @@ interface AIBuildingOverlayProps {
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
   const [isStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
-    false
+    false,
   );
-
-
 
   if (!isStreaming) return <></>;
 

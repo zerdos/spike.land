@@ -27,16 +27,17 @@ export default {
       });
     }
 
-    const kvServer = serveWithCache(files, () => caches.open(`file-cache-${ASSET_HASH}`));
+    const kvServer = serveWithCache(
+      files,
+      () => caches.open(`file-cache-${ASSET_HASH}`),
+    );
 
-    
     const path = url.pathname.slice(1).split("/");
-  
-  const [preroute, codeSpace, ...remainingPath] = path;
 
+    const [preroute, codeSpace, ...remainingPath] = path;
 
-  const isEditorPath = (request.method === "GET" && preroute === 'live' && url.pathname === `/live/${codeSpace}`);
-
+    const isEditorPath = request.method === "GET" && preroute === "live" &&
+      url.pathname === `/live/${codeSpace}`;
 
     if (kvServer.isAsset(request) || isEditorPath) {
       const assetFetcher = (
@@ -337,7 +338,7 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
     case "DELETE":
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
-    case "GET":{
+    case "GET": {
       let object = await env.R2.get(url.origin + path);
       if (!object) {
         object = await env.R2.get(url.origin + path + ".html");
@@ -357,4 +358,3 @@ export async function handleCMSIndexRequest(request: Request, env: Env) {
       return new Response("Method not allowed", { status: 405 });
   }
 }
-

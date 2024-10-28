@@ -1,4 +1,4 @@
-import type { BrowserWorker} from "@cloudflare/puppeteer";
+import type { BrowserWorker } from "@cloudflare/puppeteer";
 import puppeteer, { Page } from "@cloudflare/puppeteer";
 
 interface Env {

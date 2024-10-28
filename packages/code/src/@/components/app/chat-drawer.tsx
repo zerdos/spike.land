@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { cn } from "@/lib/utils";
-import { Drawer } from 'vaul';
+import { Drawer } from "vaul";
 
 const MemoizedChatHeader = React.memo(ChatHeader);
 const MemoizedChatContainer = React.memo(ChatContainer);
@@ -40,7 +40,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
     codeSpace,
     screenShot,
   }) => {
-
     const handleButtonClick = useCallback(() => {
       onClose();
     }, [onClose]);
@@ -51,11 +50,13 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         isOpen ? "hidden" : "flex",
       ), [isOpen]);
 
-    const lastMessage = messages[messages.length - 1]; 
+    const lastMessage = messages[messages.length - 1];
 
     useEffect(() => {
       if (lastMessage) {
-        const lastMessageElement = document.getElementById("after-last-message");
+        const lastMessageElement = document.getElementById(
+          "after-last-message",
+        );
         if (lastMessageElement) {
           lastMessageElement.scrollIntoView({ behavior: "smooth" });
         }
@@ -74,13 +75,17 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-          <Drawer.Content 
+          <Drawer.Content
             className={cn(
               "fixed inset-y-0 right-0 z-10 outline-none flex",
               "w-full sm:w-[400px] md:w-[512px]",
-              isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
+              isDarkMode
+                ? "bg-gray-800 text-white"
+                : "bg-gray-100 text-gray-800",
             )}
-            style={{ '--initial-transform': 'translateX(100%)' } as React.CSSProperties}
+            style={{
+              "--initial-transform": "translateX(100%)",
+            } as React.CSSProperties}
           >
             <div className="flex flex-col h-full w-full">
               <MemoizedChatHeader

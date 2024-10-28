@@ -34,7 +34,10 @@ export const anthropicSystem = (
     userPrompt: string;
   },
 ) =>
-  initialClaude.replace("{{fileName}}", fileName).replace("{{fileContent}}", fileContent).replace(
+  initialClaude.replace("{{fileName}}", fileName).replace(
+    "{{fileContent}}",
+    fileContent,
+  ).replace(
     "{{userPrompt}}",
     userPrompt,
   );

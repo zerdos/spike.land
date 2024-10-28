@@ -1,6 +1,10 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Delta} from "@spike-npm-land/code";
-import { applyCodePatch, makeHash, stringifySession } from "@spike-npm-land/code";
+import type { CodePatch, Delta } from "@spike-npm-land/code";
+import {
+  applyCodePatch,
+  makeHash,
+  stringifySession,
+} from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
@@ -48,9 +52,7 @@ export class WebSocketHandler {
   private topics = new Map<string, Set<WebSocket>>();
   private wsSessions: WebsocketSession[] = [];
 
-  
   constructor(private code: Code) {}
-
 
   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
@@ -80,7 +82,7 @@ export class WebSocketHandler {
         session.pongReceived = false;
         try {
           webSocket.send(JSON.stringify({ type: "ping" }));
-        } catch{
+        } catch {
           webSocket.close();
         }
       }
@@ -249,7 +251,7 @@ export class WebSocketHandler {
         error: `old hashes not matching`,
         i: this.code.session.i,
         hash: oldHash,
-        strSess: stringifySession(this.code.session)
+        strSess: stringifySession(this.code.session),
       });
     }
 
@@ -314,7 +316,7 @@ export class WebSocketHandler {
     const initialSessionCount = this.wsSessions.length;
     this.wsSessions = this.wsSessions.filter((s) => !s.quit);
     const removedSessions = initialSessionCount - this.wsSessions.length;
-    
+
     if (removedSessions > 0) {
       console.log(`Removed ${removedSessions} disconnected sessions`);
     }

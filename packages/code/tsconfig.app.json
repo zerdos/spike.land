@@ -5,7 +5,7 @@
       "@/*": ["./src/@/*"],
       "react": ["preact/compat"],
       "react/*": ["preact/compat/*"],
-      "react-dom": ["preact/compat"],
+      "react-dom": ["preact/compat"]
     },
     "target": "ES2022",
     "useDefineForClassFields": true,

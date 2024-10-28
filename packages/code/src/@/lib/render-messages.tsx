@@ -40,22 +40,33 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
     if (trimmedValue.length < 3) {
       return <pre>{trimmedValue}</pre>;
     }
-   
-    if (trimmedValue.includes(`<react_code_analysis>`)){
-    
-      const change = trimmedValue.includes(`<change>`)?<h2>{trimmedValue.slice(trimmedValue.indexOf(`<change>`)+8)}</h2>:<></>;
-     
-      return <><Analysis content={trimmedValue.slice(0,trimmedValue.indexOf("<change>"))} />{change}</>
+
+    if (trimmedValue.includes(`<react_code_analysis>`)) {
+      const change = trimmedValue.includes(`<change>`)
+        ? <h2>{trimmedValue.slice(trimmedValue.indexOf(`<change>`) + 8)}</h2>
+        : <></>;
+
+      return (
+        <>
+          <Analysis
+            content={trimmedValue.slice(0, trimmedValue.indexOf("<change>"))}
+          />
+          {change}
+        </>
+      );
     }
 
-    if (trimmedValue.includes(`</change>`))
-      {
-        const suggestion = trimmedValue.includes(`<suggestion>`)?<p>{trimmedValue.slice(trimmedValue.indexOf(`<suggestion>`))}</p>:<></>;
-       return <><p>{trimmedValue.slice(0,trimmedValue.indexOf('</change>'))}</p>
-       {suggestion}</>
-;
-
-      } 
+    if (trimmedValue.includes(`</change>`)) {
+      const suggestion = trimmedValue.includes(`<suggestion>`)
+        ? <p>{trimmedValue.slice(trimmedValue.indexOf(`<suggestion>`))}</p>
+        : <></>;
+      return (
+        <>
+          <p>{trimmedValue.slice(0, trimmedValue.indexOf("</change>"))}</p>
+          {suggestion}
+        </>
+      );
+    }
 
     if (type === "text") {
       return (

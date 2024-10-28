@@ -16,8 +16,7 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import useWindowSize from "@/hooks/use-window-size";
 
-
-let firstRender = true; 
+let firstRender = true;
 const origin = location.origin;
 
 const createJsBlob = (code: string): string =>
@@ -32,7 +31,10 @@ const createJsBlob = (code: string): string =>
     origin,
   ).toString();
 
-export const importFromString = (code: string) =>  import(createJsBlob(code)).then((module) => module.default) as Promise<FlexibleComponentType>;
+export const importFromString = (code: string) =>
+  import(createJsBlob(code)).then((module) => module.default) as Promise<
+    FlexibleComponentType
+  >;
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -65,44 +67,46 @@ async function renderApp(
     if (App) {
       AppToRender = App;
     } else if (transpiled || code) {
-
-      if (transpiled?.indexOf("stdin_default") === -1 && code?.indexOf("as default") === -1) {
+      if (
+        transpiled?.indexOf("stdin_default") === -1 &&
+        code?.indexOf("as default") === -1
+      ) {
         emptyApp = true;
-        AppToRender =  await importFromString("export default ()=><div>Empty App</div>")
-      }else { 
-     
-        const codeToUse = transpiled || transpiled || await(transpile({ code: code!, originToUse: origin }))
+        AppToRender = await importFromString(
+          "export default ()=><div>Empty App</div>",
+        );
+      } else {
+        const codeToUse = transpiled || transpiled ||
+          await (transpile({ code: code!, originToUse: origin }));
         AppToRender = await importFromString(codeToUse);
       }
     } else if (codeSpace) {
-
       const indexJs = `${origin}/live/${codeSpace}/index.js`;
-      AppToRender = (await import(/* @vite-ignore */  indexJs)).default;
-    }   
-     else {
-      AppToRender =  await importFromString("export default ()=><div>Mock App for Testing</div>")
-       
+      AppToRender = (await import(/* @vite-ignore */ indexJs)).default;
+    } else {
+      AppToRender = await importFromString(
+        "export default ()=><div>Mock App for Testing</div>",
+      );
     }
-
 
     let root;
     if (prerender) {
-    const shadowRoot = rootEl.attachShadow({ mode: "open" });
-     
-    root = createRoot(shadowRoot);
+      const shadowRoot = rootEl.attachShadow({ mode: "open" });
+
+      root = createRoot(shadowRoot);
     } else {
       root = createRoot(rootEl);
     }
 
-    const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(/[0-9]/g, '');
+    const cacheKey = md5(transpiled || code || Math.random().toString())
+      .toLocaleLowerCase().replace(/[0-9]/g, "");
     ///remove the numbers
     // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
 
-
     const cssCache = createCache({
-      key: firstRender? 'x': cacheKey,
+      key: firstRender ? "x" : cacheKey,
       speedy: prerender ? false : true,
-      container: prerender?rootEl:  rootEl.parentNode!,
+      container: prerender ? rootEl : rootEl.parentNode!,
     });
     firstRender = false;
 
