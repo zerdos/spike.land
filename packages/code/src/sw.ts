@@ -425,6 +425,7 @@ sw.addEventListener("fetch", event => {
         return fetch(request);
       }),
     );
+    return;
 
     // return serve(
     //   editorRequest,
@@ -468,4 +469,5 @@ sw.addEventListener("fetch", event => {
         return new Response("Network error", { status: 503 });
       }),
   );
+  return;
 });
