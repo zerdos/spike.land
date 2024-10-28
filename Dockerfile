@@ -22,7 +22,7 @@ RUN addgroup -g ${USER_GID} -S ${USER}
 # Recreate 'node' user with host's UID, add to 'node' group
 RUN adduser -u ${USER_UID} -G ${USER} -s /bin/sh -D ${USER}
 
-RUN mkdir -p /home/${USER}/tmpfs
+RUN mkdir -p /home/${USER}/tmpfs /home/${USER}/workspace
 VOLUME [ "/home/${USER}/tmpfs" ]
 # Set ownership of the home directory
 RUN chown -R ${USER}:${USER} /home/${USER}
