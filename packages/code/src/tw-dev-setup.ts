@@ -2,7 +2,7 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 
 const IFRAME_PATH = "/iframe";
 const LIVE_PATH = "/live/";
-const CSS_PATH = "/app/tw-global.css";
+// const CSS_PATH = "/app/tw-global.css";
 const JS_PATH = "/assets/tw-chunk-4a7018.js";
 
 let initialized = false;
@@ -24,7 +24,7 @@ export const init = async (): Promise<true> => {
   try {
     removeAllStyleBlocks();
     await Promise.all([
-      loadCSS(`${origin}${CSS_PATH}`),
+      // loadCSS(`${origin}${CSS_PATH}`),
       loadScript(`${origin}${JS_PATH}`),
     ]);
     return true;
