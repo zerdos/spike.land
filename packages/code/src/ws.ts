@@ -10,8 +10,16 @@ import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-import { init as twUp } from "./tw-dev-setup";
-// const twUp = () => {};
+
+let initialized = false;
+const twUp = async () => {
+  if (initialized) return;
+
+  const { init } = await import("./tw-dev-setup");
+  await init();
+
+  initialized = true;
+};
 
 // Global variables and types
 const codeSpace = getCodeSpace();
