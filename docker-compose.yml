@@ -15,7 +15,7 @@ services:
     environment:
       - USER=${USER}
       - HOME=${HOME}
-    command: yarn dev #Start the development server
+    command: zsh -c " yarn & cd packages/code  && yarn dev" #Start the development server
     volumes:
       - .:${HOME}/workspace:rw
       - ${HOME}/.config:/${HOME}/.config

@@ -10,11 +10,13 @@
     "devcontainers/*"
   ],
   "scripts": {
+    "dev": "yarn && yarn c:dev",
     "codebase": "ai-digest -i $(pwd)/packages --show-output-files",
     "clean": "rm -rf packages/code/dist packages/code/dts ",
     "types": "yarn workspace @spike-npm-land/code types",
     "test": "yarn workspace @spike-npm-land/code vitest --run",
     "c:build": "yarn workspace @spike-npm-land/code build",
+    "c:dev": "yarn workspace @spike-npm-land/code dev",
     "c:deploy": "yarn workspace @spike-npm-land/code-worker deploy",
     "c:deploy:prod": "yarn workspace @spike-npm-land/code-worker prepublishOnly",
     "deploy:esbuild": "yarn workspace @spike-npm-land/transpile deploy",

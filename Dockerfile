@@ -5,7 +5,7 @@ FROM node:alpine
 USER root
 
 # Install necessary packages
-RUN apk update && apk add --no-cache git zsh shadow perl
+RUN apk update && apk add --no-cache git zsh shadow perl gcompat
 
 # Delete existing 'node' user and group
 RUN usermod -aG 1000 node && deluser node
