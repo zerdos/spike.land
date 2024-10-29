@@ -27,7 +27,7 @@
     "test": "yarn vitest --no-color --reporter verbose run",
     "test-slim": "yarn typecheck && yarn lint &&  yarn vitest --no-color --reporter verbose run",
     "prebuild": "yarn test || echo 'Test FAILED during prebuild process'",
-    "build": "yarn clean && yarn concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn types && yarn types:cp\" \"npx -y tsx src/@/lib/esbuild-dev.ts\" && cp -a -f dist-vite/. dist/ && mkdir -p ./dist/assets && cp ./dist/assets/index-*.css ./dist/app/tw-global.css && echo 'Build completed successfully!' || echo 'Build FAILED'",
+    "build": "yarn clean && yarn concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn types && yarn types:cp\" \"npx -y tsx src/@/lib/esbuild-dev.ts\" && cp -a -f dist-vite/. dist/ && mkdir -p ./dist/app && cp ./dist/assets/index-*.css ./dist/app/tw-global.css && echo 'Build completed successfully!' || echo 'Build FAILED'",
     "dev": "vite",
     "build-and-clean:vite": "yarn build:vite && rm -rf dist-vite",
     "build:vite": "vite build ",
