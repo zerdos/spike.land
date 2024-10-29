@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { md5 } from "@/lib/md5";
-import type { ICode } from "@/lib/interfaces";
-import type { ICodeSession } from "@/lib/interfaces";
-import { useAutoSave } from "../hooks/autoSave";
+import type { ICode, ICodeSession } from "@/lib/interfaces";
+import { useAutoSave } from "../hooks/useAutoSave";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
-import { useEditorState, useErrorHandling } from "../hooks/use-editor-state";
+import { useEditorState } from "../hooks/use-editor-state";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 
 interface EditorProps {
   codeSpace: string;
@@ -16,11 +16,9 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } =
     useEditorState();
-  const { error, handleError } = useErrorHandling();
+  const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
-
-
-  // const [currentCode, setCurrentCode] = useState("");
+  useAutoSave(codeSpace);
 
   const mod = useRef({
     i: 0,
@@ -29,12 +27,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     cssIds: "",
     md5Ids: [] as string[],
     controller: new AbortController(),
-  });
-
-  useAutoSave({
-    key: `editor_${codeSpace}`,
-    data: { code: cSess.session.code, i: cSess.session.i },
-    debounceMs: 60000,
+    initialLoad: React.useRef(true),
   });
 
   const handleContentChange = useCallback((newCode: string) => {
@@ -46,34 +39,26 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
-
       
-
-     
-      if (e.code) {
+      if (e.code && editorState.started && editorState.setValue) {
         console.log("Setting code", e.code);
-      editorState.setValue(e.code);
+        editorState.setValue(e.code);
       }
-
     };
     return () => {
       BC.close();
     };
-  }, []);
+  }, [editorState.started, editorState.setValue, codeSpace]);
 
   useEffect(() => {
-    if (error) {
-      handleError("typescript", error);
+    if (errorType) {
+      throttledTypeCheck(mod.current.initialLoad);
     }
 
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async (
         { data }: { data: ICodeSession },
       ) => {
-
-        // if (data.code === mod.current.code) return;
-        // if (data.code === currentCode) return;
-
         const md5Code = md5(data.code);
 
         if (mod.current.md5Ids.includes(md5Code)) return;
@@ -81,15 +66,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         mod.current.md5Ids.push(md5Code);
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
-        // mod.current.controller.abort();
-        // mod.current.controller = new AbortController();
-        // const { signal } = mod.current.controller;
-
-        // if (signal.aborted) return;
-        // mod.current.code = data.code;
-        // setCurrentCode(data.code);
         console.log("Set new code to editor", md5Code);
-        editorState.setValue(data.code);
+        if (editorState.setValue) {
+          editorState.setValue(data.code);
+        }
       };
 
       cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
@@ -101,7 +81,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const initializeEditor = async () => {
       mod.current.i = Number(cSess.session.i);
       mod.current.code = cSess.session.code;
-      //      setCurrentCode(cSess.session.code);
 
       if (!containerRef || !containerRef.current) return;
 
@@ -135,7 +114,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       <div className="flex-grow overflow-hidden">
         <EditorNode
           engine={engine as "monaco" | "ace"}
-          errorType={error}
+          errorType={errorType}
           containerRef={containerRef}
           codeSpace={codeSpace}
         />
@@ -143,34 +122,3 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     </div>
   );
 };
-
-// const EditorContext = ()=>{
-//   const [showContext, setShowContext] = useState(false);
-//   const codeSpace = getCodeSpace();
-// return <Card
-// className={cn(
-//   "transition-all duration-300 ease-in-out",
-//   showContext ? "w-64" : "w-12",
-// )}
-// >
-// <CardContent className="p-2">
-//   <Button
-//     variant="outline"
-//     size="icon"
-//     onClick={() => setShowContext(!showContext)}
-//     className="mb-4 w-full"
-//   >
-//     <Sidebar
-//       className={cn(
-//         "h-4 w-4 transition-all",
-//         showContext && "rotate-180",
-//       )}
-//     />
-//   </Button>
-//   {showContext && (
-//     <div className="overflow-y-auto h-[calc(100vh-64px)]">
-//       <ContextViewer codeSpace={codeSpace} />
-//     </div>
-//   )}
-// </CardContent>
-// </Card>}
