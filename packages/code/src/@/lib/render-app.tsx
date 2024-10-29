@@ -32,7 +32,7 @@ const createJsBlob = (code: string): string =>
   ).toString();
 
 export const importFromString = (code: string) =>
-  import(createJsBlob(code)).then((module) => module.default) as Promise<
+  import( /* @vite-ignore */  createJsBlob(code)).then((module) => module.default) as Promise<
     FlexibleComponentType
   >;
 
