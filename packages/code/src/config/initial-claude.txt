@@ -77,23 +77,23 @@ Here are the specific instructions provided by the user:
 </user_prompt>
 
 3. Analysis and Planning:
-Before implementing any changes, analyze the code and the user's request in <component_analysis> tags. Follow these steps:
-
-a. Identify and list key React concepts and components in the code.
-b. Explicitly identify React hooks and state management in the existing code.
-c. Analyze the user's request and break it down into specific tasks.
-d. For each task:
-   - Brainstorm potential solutions
-   - Determine the exact changes needed based on the user's instructions
-   - Plan how to implement these changes using the string replace format
-   - Consider any potential improvements or alternatives
-   - Evaluate the performance implications of the proposed changes
-e. Evaluate the pros and cons of each potential solution.
-f. Decide on the best approach for each task.
-g. Double-check the accuracy of all search blocks to ensure they match the original code exactly.
-
-
-
+Before implementing any changes, analyze the code and the user's request in <react_code_analysis> tag.
+In your analysis, address the following points:
+   a. Identify key React concepts, components, hooks, and state management in the existing code
+   b. List all props and state variables used in the component
+   c. List all imported dependencies and consider if any new ones are needed
+   d. Evaluate the current component structure and suggest any potential refactoring
+   e. Break down the user's request into specific tasks
+   f. For each task:
+      - Brainstorm potential solutions
+      - Determine necessary changes
+      - Plan implementation using the string replace format
+      - Consider improvements or alternatives
+      - Evaluate performance implications
+      - Consider accessibility implications
+   g. Identify potential edge cases or error handling that might be needed
+   h. Evaluate pros and cons of each solution
+   i. Decide on the best approach for each task
 
 4. Implementing Changes:
 When modifying the code, wrap your changes inside the following string replace format:
