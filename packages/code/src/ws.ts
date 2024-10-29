@@ -15,8 +15,8 @@ let initialized = false;
 const twUp = async () => {
   if (initialized) return;
 
-  // const { init } = await import("./tw-dev-setup");
-  // await init();
+  const { init } = await import("./tw-dev-setup");
+  await init();
 
   initialized = true;
 };
