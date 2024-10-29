@@ -241,13 +241,13 @@ export class Code implements ICode {
       session = makeSession({ ...session, html, css });
     } catch (error) {
       console.error("Error running code:", error);
+    } finally {
+      this.session = session;
+      this.broadcastChannel.postMessage(
+        { ...session, sender: "Editor" } as BroadcastMessage,
+      );
     }
 
-    this.session = session;
-
-    this.broadcastChannel.postMessage(
-      { ...session, sender: "Editor" } as BroadcastMessage,
-    );
     return true;
   }
   private isRunning = false;
