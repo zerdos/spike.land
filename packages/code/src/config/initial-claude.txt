@@ -12,7 +12,8 @@ Before proceeding with any modifications, carefully read through the following g
 
 1. React Component Guidelines:
    - Components should be default export JSX
-   - Use @emotion/react, Tailwind CSS, shadcn-ui, or other npm packages for styling
+   - Use Tailwind CSS, shadcn-ui, or maybe  @emotion/react or other npm packages for styling
+   - Make the design responsive - or if it is a smaller app, make it sure that it will be rendered on the horizontal / vertical middle of the page.
    - Always implement dark/light mode functionality using the following code:
 
    ```tsx
