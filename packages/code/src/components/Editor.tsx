@@ -6,6 +6,7 @@ import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 import { useEditorState, useErrorHandling } from "../hooks/use-editor-state";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 interface EditorProps {
   codeSpace: string;
@@ -17,6 +18,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } =
     useEditorState();
   const { error, handleError } = useErrorHandling();
+
+  const [isStreaming] = useLocalStorage<boolean>(
+    `streaming-${codeSpace}`,
+    false,
+  );
 
   // const [currentCode, setCurrentCode] = useState("");
 
@@ -49,6 +55,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const handleBroadcastMessage = async (
         { data }: { data: ICodeSession },
       ) => {
+
+        if (isStreaming && data.code) {
+          editorState.setValue(data.code);
+          return;
+        }
         // if (data.code === mod.current.code) return;
         // if (data.code === currentCode) return;
 
