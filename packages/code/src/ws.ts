@@ -84,10 +84,17 @@ const handleRender = async (
     }
 
     const html = htmlDecode(rootElement.innerHTML);
+    const emotionGlobalStyles = [
+      ...document.querySelectorAll<HTMLStyleElement>(`style[data-emotion='${cssCache.key}-global']`)
+        .values(),
+    ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
 
-    const emotionStyles = [...cssCache.sheet.tags].map((
-      tag: HTMLStyleElement,
-    ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat().join("\n")
+    const emotionStyles = [
+      ...emotionGlobalStyles,
+      ...[...cssCache.sheet.tags].map((
+        tag: HTMLStyleElement,
+      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+    ].join("\n")
       .split(cssCache.key).join("x");
 
     console.log("Emotion styles:", emotionStyles);
