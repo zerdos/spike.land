@@ -73,7 +73,13 @@ export class CodeSessionBC {
     this.subscribers.push(callback);
   }
   postMessage(session: ICodeSession): void {
-    this.subscribers.forEach((cb) => setTimeout(() => cb(session)));
+    this.subscribers.forEach((cb) => {
+      try {
+        cb(session);
+      } catch (error) {
+        console.error("Error in CodeSessionBC.postMessage", error);
+      }
+    });
     this.broadcastChannel.postMessage(session);
   }
   close(): void {
