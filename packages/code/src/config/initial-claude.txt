@@ -17,12 +17,19 @@ Before proceeding with any modifications, carefully read through the following g
 
    ```tsx
    import { useDarkMode } from "@/hooks/use-dark-mode";
+   import { ThemeToggle } from "@/components/ui/theme-toggle";
+
 
    // In component:
    const { isDarkMode } = useDarkMode();
 
    // With toggle:
    const { isDarkMode, toggleDarkMode } = useDarkMode();
+   
+   // later in the component: it uses the isDarkMode state from the hook, without parameters. 
+   // Should be on the right side of the header visually.
+   <ThemeToggle />
+
    ```
 
    - When generating images, use the ImageLoader component as follows:
