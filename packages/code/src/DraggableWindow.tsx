@@ -1,67 +1,92 @@
 import { MotionConfig } from "framer-motion";
-import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState, useCallback, useMemo } from "react";
 import { useWindowSize } from "react-use";
 import { DraggableWindowContent } from "./components/DraggableWindowContent";
 import { MotionContainer } from "./components/MotionContainer";
 import { useBgColor } from "./hooks/useBgColor";
 import { useDownload } from "./hooks/useDownload";
 
-type DraggableWindowProps = {
+interface Position {
+  bottom: number;
+  right: number;
+}
+
+interface DraggableWindowProps {
   children: JSX.Element;
   codeSpace: string;
   isChatOpen: boolean;
-};
+  initialDelay?: number;
+  initialScale?: number;
+}
 
-const breakPoints = [750, 1024, 1920];
-const sizes = [10, 25, 50, 75, 100];
-export const DraggableWindow: FC<DraggableWindowProps> = (
-  {
-    children,
-    codeSpace,
-    isChatOpen,
-  },
-) => {
-  const [scaleRange, setScaleRange] = useState(100);
-  const [delay, setDelay] = useState(2);
+const BREAK_POINTS = {
+  mobile: 750,
+  tablet: 1024,
+  desktop: 1920,
+} as const;
+
+const SCALE_SIZES = [10, 25, 50, 75, 100] as const;
+const MAX_SCALE_RANGE = 100;
+const INITIAL_POSITION: Position = { bottom: 0, right: 0 };
+const REVEALED_POSITION: Position = { bottom: 20, right: 20 };
+
+export const DraggableWindow: FC<DraggableWindowProps> = ({
+  children,
+  codeSpace,
+  isChatOpen,
+  initialDelay = 2,
+  initialScale = 100,
+}) => {
+  const [scaleRange, setScaleRange] = useState(initialScale);
+  const [delay, setDelay] = useState(initialDelay);
   const { width: innerWidth, height: innerHeight } = useWindowSize();
-
   const [width, setWidth] = useState(innerWidth);
   const { bgColor, setBgColor, rgba } = useBgColor();
-  const maxScaleRange = 100;
-  const startPositions = { bottom: 0, right: 0 };
-  const [{ bottom, right }, setPositions] = useState(startPositions);
-  const scale = scaleRange / 100;
+  const [positions, setPositions] = useState<Position>(INITIAL_POSITION);
   const handleDownload = useDownload(codeSpace);
 
+  const scale = useMemo(() => scaleRange / MAX_SCALE_RANGE, [scaleRange]);
+
+  const calculateRevealScale = useCallback(() => {
+    return Math.min(
+      50,
+      Math.floor(
+        100 * (1 / 2 - 152 / (window.devicePixelRatio * window.innerWidth))
+      )
+    );
+  }, []);
+
+  const determineInitialWidth = useCallback(() => {
+    return window.devicePixelRatio > 2 
+      ? BREAK_POINTS.mobile 
+      : BREAK_POINTS.tablet;
+  }, []);
+
+  const reveal = useCallback(() => {
+    setScaleRange(calculateRevealScale());
+    setWidth(determineInitialWidth());
+    setBgColor([66, 66, 66, 0.5]);
+    setPositions(REVEALED_POSITION);
+    setDelay(0);
+  }, [calculateRevealScale, determineInitialWidth, setBgColor]);
+
   useEffect(() => {
-    const reveal = () => {
-      setScaleRange(
-        Math.min(
-          50,
-          Math.floor(
-            100 * (1 / 2 - 152 / (devicePixelRatio * window.innerWidth)),
-          ),
-        ),
-      );
-      setWidth(devicePixelRatio > 2 ? breakPoints[0] : breakPoints[1]);
-      setBgColor([66, 66, 66, .5]);
-      setPositions({ bottom: 20, right: 20 });
-      setDelay(0);
-    };
     const timeoutId = setTimeout(reveal, 2000);
     return () => clearTimeout(timeoutId);
-  }, [setBgColor]);
+  }, [reveal]);
 
-  const duration = Number(sessionStorage?.getItem("duration")) || 1;
-  const type = sessionStorage?.getItem("type") || "spring";
+  const transition = useMemo(() => ({
+    delay,
+    type: sessionStorage?.getItem("type") || "spring",
+    duration: Number(sessionStorage?.getItem("duration")) || 1,
+  }), [delay]);
 
   return (
-    <MotionConfig transition={{ delay, type, duration }}>
+    <MotionConfig transition={transition}>
       <MotionContainer
-        bottom={bottom}
+        bottom={positions.bottom}
         isChatOpen={isChatOpen}
-        right={right}
+        right={positions.right}
         bgColor={bgColor}
         rgba={rgba}
       >
@@ -73,9 +98,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           codeSpace={codeSpace}
           handleDownload={handleDownload}
           scale={scale}
-          sizes={sizes}
-          maxScaleRange={maxScaleRange}
-          breakPoints={breakPoints}
+          sizes={[...SCALE_SIZES]}
+          maxScaleRange={MAX_SCALE_RANGE}
+          breakPoints={Object.values(BREAK_POINTS)}
           innerHeight={innerHeight}
           rgba={rgba}
           bgColor={bgColor}
