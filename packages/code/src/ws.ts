@@ -13,7 +13,7 @@ import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
 
 if (location.pathname.endsWith("/iframe")) {
-  await init();
+  init();
 }
 
 // Global variables and types
