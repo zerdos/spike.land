@@ -10,16 +10,11 @@ import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
+import { init } from "./tw-dev-setup";
 
-let initialized = false;
-const twUp = async () => {
-  if (initialized) return;
-
-  const { init } = await import("./tw-dev-setup");
+if (location.pathname.endsWith("/iframe")) {
   await init();
-
-  initialized = true;
-};
+}
 
 // Global variables and types
 const codeSpace = getCodeSpace();
@@ -136,8 +131,6 @@ const handleRender = async (
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
-  if (!renderedMd5) await twUp();
-
   const hashed = md5(transpiled);
   if (hashed === renderedMd5) {
     console.log("Skipping update as md5 is the same");
@@ -200,8 +193,6 @@ export const main = async () => {
         console.table({ i, code, transpiled });
       });
 
-      console.log("Rendering preview window...");
-      if (location.hostname !== "localhost") await twUp();
       await initializeApp();
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
@@ -227,7 +218,6 @@ setTimeout(async () => {
 }, 0);
 
 Object.assign(globalThis, {
-  twUp,
   handleRunMessage,
   handleScreenshot,
   updateRenderedApp,
