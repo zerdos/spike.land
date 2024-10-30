@@ -1,63 +1,69 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 
-const IFRAME_PATH = "/iframe";
-const LIVE_PATH = "/live/";
-// const CSS_PATH = "/app/tw-global.css";
-const JS_PATH = "/assets/tw-chunk-4a7018.js";
+interface ResourceLoader {
+  init(): Promise<boolean>;
+}
 
-let initialized = false;
-export const init = async (): Promise<true> => {
-  if (initialized) {
-    return true;
+class ResourceLoaderImpl implements ResourceLoader {
+  private static readonly IFRAME_PATH = "/iframe";
+  private static readonly LIVE_PATH = "/live/";
+  private static readonly JS_PATH = "/assets/tw-chunk-4a7018.js";
+
+  private static initialized = false;
+
+  async init(): Promise<boolean> {
+    if (ResourceLoaderImpl.initialized) {
+      return true;
+    }
+
+    const shouldLoad = this.shouldLoadResources();
+    if (!shouldLoad) {
+      ResourceLoaderImpl.initialized = true;
+      return true;
+    }
+
+    try {
+      await this.loadResources();
+      ResourceLoaderImpl.initialized = true;
+      return true;
+    } catch (error) {
+      console.error("Failed to load resources:", error);
+      // Throw error to allow proper error handling by calling code
+      throw new Error(
+        `Resource loading failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
   }
-  initialized = true;
-  const codeSpace = getCodeSpace();
-  const { pathname, origin } = window.location;
 
-  if (
-    !pathname.endsWith(IFRAME_PATH) &&
-    !pathname.endsWith(`${LIVE_PATH}${codeSpace}`)
-  ) {
-    return true;
+  private shouldLoadResources(): boolean {
+    const codeSpace = getCodeSpace();
+    const { pathname } = window.location;
+
+    return pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH) ||
+      pathname.endsWith(`${ResourceLoaderImpl.LIVE_PATH}${codeSpace}`);
   }
 
-  try {
-    removeAllStyleBlocks();
-    await Promise.all([
-      // loadCSS(`${origin}${CSS_PATH}`),
-      loadScript(`${origin}${JS_PATH}`),
-    ]);
-    return true;
-  } catch (error) {
-    console.error("Failed to load resources:", error);
-    return true;
-    // Optionally, you could throw the error here if you want calling code to handle it
+  private async loadResources(): Promise<void> {
+    this.removeAllStyleBlocks();
+    const { origin } = window.location;
+    await this.loadScript(`${origin}${ResourceLoaderImpl.JS_PATH}`);
   }
-};
 
-const loadCSS = (href: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = href;
-    link.onload = () => resolve();
-    link.onerror = reject;
-    document.head.appendChild(link);
-  });
-};
+  private loadScript(src: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Script load failed: ${src}`));
+      document.head.appendChild(script);
+    });
+  }
 
-const loadScript = (src: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => resolve();
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-};
+  private removeAllStyleBlocks(): void {
+    document.querySelectorAll("head > style").forEach(block => block.remove());
+  }
+}
 
-const removeAllStyleBlocks = (): void => {
-  const styleBlocks = document.querySelectorAll("head > style");
-  styleBlocks.forEach((block) => block.remove());
-};
+// Singleton instance
+export const resourceLoader = new ResourceLoaderImpl();
+export const init = () => resourceLoader.init();
