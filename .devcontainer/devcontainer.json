@@ -17,10 +17,11 @@
         "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 100,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "editor.formatOnPaste": true,
         "editor.formatOnType": true
       }
+    }
   },
   "forwardPorts": [6080, 3333, 9222, 8080],
   "postStartCommand": "yarn install",

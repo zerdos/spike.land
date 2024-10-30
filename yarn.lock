@@ -1731,9 +1731,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/anthropic@npm:^0.3.6":
-  version: 0.3.6
-  resolution: "@langchain/anthropic@npm:0.3.6"
+"@langchain/anthropic@npm:^0.3.7":
+  version: 0.3.7
+  resolution: "@langchain/anthropic@npm:0.3.7"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.27.3"
     fast-xml-parser: "npm:^4.4.1"
@@ -1741,13 +1741,13 @@ __metadata:
     zod-to-json-schema: "npm:^3.22.4"
   peerDependencies:
     "@langchain/core": ">=0.2.21 <0.4.0"
-  checksum: 10c0/afa57f79a542b4e8f8f6a90d3ac4417a0f6f842712ac24d05f86f845267d8757e782f9f4d0af7f1712cf7c978da46171db330d61f93e8922cdfa6e54cca6fb40
+  checksum: 10c0/ce0361fe7112bfec1e209236291f27ae25c9b2a0db76a388e0803128db0ea822b57e539b9a4a4e3e928d6da2d2ddb15b2f42f19bfd9beb1ce00fd726975f8fbb
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:^0.3.15":
-  version: 0.3.15
-  resolution: "@langchain/core@npm:0.3.15"
+"@langchain/core@npm:^0.3.16":
+  version: 0.3.16
+  resolution: "@langchain/core@npm:0.3.16"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -1760,7 +1760,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10c0/aa85257298a98778165fe0f026edf1ac3603f31f0c6b1f1933db3ebd8107efc598617ce89ea89657501ab60b2b60051b5e21ada81150351740e0861966b3e130
+  checksum: 10c0/a633ff294a3b6a80c22b94ebfba89a4a96e5b999099fcfef942371350c76745379d75968453bb669f27502a2fed2615957dfd3b4856fc4213bd184b2d71d2e2a
   languageName: node
   linkType: hard
 
@@ -4161,8 +4161,8 @@ __metadata:
     "@github/stable-socket": "npm:1.1.1"
     "@heroicons/react": "npm:^2.1.5"
     "@hookform/resolvers": "npm:^3.9.1"
-    "@langchain/anthropic": "npm:^0.3.6"
-    "@langchain/core": "npm:^0.3.15"
+    "@langchain/anthropic": "npm:^0.3.7"
+    "@langchain/core": "npm:^0.3.16"
     "@langchain/langgraph": "npm:^0.2.18"
     "@mui/material": "npm:6.1.5"
     "@okikio/sharedworker": "npm:1.0.7"
@@ -4207,7 +4207,7 @@ __metadata:
     "@testing-library/react-hooks": "npm:^8.0.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/autoprefixer": "npm:^10.2.4"
-    "@types/diff": "npm:^5.2.3"
+    "@types/diff": "npm:^6.0.0"
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/mime-db": "npm:^1.43.5"
     "@types/mime-types": "npm:^2.1.4"
@@ -4320,7 +4320,7 @@ __metadata:
     react-swipeable: "npm:^7.0.1"
     react-syntax-highlighter: "npm:^15.6.1"
     react-use: "npm:^17.5.1"
-    recharts: "npm:^2.13.0"
+    recharts: "npm:^2.13.1"
     recordrtc: "npm:^5.6.2"
     shadcdn: "npm:^0.0.7"
     sonner: "npm:^1.5.0"
@@ -4951,10 +4951,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/diff@npm:^5.2.3":
-  version: 5.2.3
-  resolution: "@types/diff@npm:5.2.3"
-  checksum: 10c0/dd2e99e272a7023f3e5c71099599553c7d6c9a6b9d67f202b593b8d59b0528361eba39a8674ab18eba76217b6bad8f1a09417a9a571daaf7c0f49d67d4f305e2
+"@types/diff@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@types/diff@npm:6.0.0"
+  checksum: 10c0/229325cd8039de546dc370d63d62eaf5774122a616eb09cd446d479181e58e941c2983303d23ebcb405109b1b2653ab3bbfcf63a24f827e976e98c8eb83dd34f
   languageName: node
   linkType: hard
 
@@ -15005,9 +15005,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^2.13.0":
-  version: 2.13.0
-  resolution: "recharts@npm:2.13.0"
+"recharts@npm:^2.13.1":
+  version: 2.13.1
+  resolution: "recharts@npm:2.13.1"
   dependencies:
     clsx: "npm:^2.0.0"
     eventemitter3: "npm:^4.0.1"
@@ -15020,7 +15020,7 @@ __metadata:
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/40fd9dbacdbb8f0828029f0daaca8a846eada7e017bfdae2790910b38a8ee0f3a9e235f84927d0554da0f0ed46f1f167e84b59f6dc5831113dac0a7763f7d057
+  checksum: 10c0/6bbab8e14397c4cbc73d1dcab48045c2a53650b53ac723713b6dad2367654647cf3a50e3de83678c34c76d5e8196341b9cf3e74a4344f842762e81d301b76a4e
   languageName: node
   linkType: hard
 
