@@ -250,12 +250,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.25.7, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.25.0, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.25.7
   resolution: "@babel/runtime@npm:7.25.7"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/86b7829d2fc9343714a9afe92757cf96c4dc799006ca61d73cda62f4b9e29bfa1ce36794955bc6cb4c188f5b10db832c949339895e1bbe81a69022d9d578ce29
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.26.0":
+  version: 7.26.0
+  resolution: "@babel/runtime@npm:7.26.0"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/12c01357e0345f89f4f7e8c0e81921f2a3e3e101f06e8eaa18a382b517376520cd2fa8c237726eb094dab25532855df28a7baaf1c26342b52782f6936b07c287
   languageName: node
   linkType: hard
 
@@ -451,9 +460,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:^0.5.22":
-  version: 0.5.22
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.5.22"
+"@cloudflare/vitest-pool-workers@npm:^0.5.23":
+  version: 0.5.23
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.5.23"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
@@ -461,13 +470,13 @@ __metadata:
     esbuild: "npm:0.17.19"
     miniflare: "npm:3.20241022.0"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.83.0"
+    wrangler: "npm:3.84.0"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 2.0.x - 2.1.x
     "@vitest/snapshot": 2.0.x - 2.1.x
     vitest: 2.0.x - 2.1.x
-  checksum: 10c0/c959e5ad180179ed1ba2ff44863f7c7f85e644d220319a6a0132fdf63401299b69e1030ae2c0fa0008c4ae4476e3f3247597c0058acb45eae4457c2655a5d71e
+  checksum: 10c0/87b11cf47f708f21336da4d91eb1e9fbfd633e4a77a0d0fdd202c1a79d5f8eb79b570495f38e92d401a42b6020bbfb33dd1e7f419c0213cec34dc177e4c5de8e
   languageName: node
   linkType: hard
 
@@ -1822,22 +1831,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@mui/core-downloads-tracker@npm:6.1.5"
-  checksum: 10c0/c8767b7a8046e669ea687108dd2c62352e48c61379657a1b88798c12ec47cc3f99eedf30758294a17a81f2dcef22aeb08f992aecdf6e0876f312d345ba1d5f3d
+"@mui/core-downloads-tracker@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "@mui/core-downloads-tracker@npm:6.1.6"
+  checksum: 10c0/538c561dc46e040ebc5ea884428dccc427fdddbd3747890d96ae52648eed5f7dec4dc8294927b58ff4b7481c0a813dcb16b9d7b9b08cc43871d2d55ebd1a8002
   languageName: node
   linkType: hard
 
-"@mui/material@npm:6.1.5":
-  version: 6.1.5
-  resolution: "@mui/material@npm:6.1.5"
+"@mui/material@npm:6.1.6":
+  version: 6.1.6
+  resolution: "@mui/material@npm:6.1.6"
   dependencies:
-    "@babel/runtime": "npm:^7.25.7"
-    "@mui/core-downloads-tracker": "npm:^6.1.5"
-    "@mui/system": "npm:^6.1.5"
-    "@mui/types": "npm:^7.2.18"
-    "@mui/utils": "npm:^6.1.5"
+    "@babel/runtime": "npm:^7.26.0"
+    "@mui/core-downloads-tracker": "npm:^6.1.6"
+    "@mui/system": "npm:^6.1.6"
+    "@mui/types": "npm:^7.2.19"
+    "@mui/utils": "npm:^6.1.6"
     "@popperjs/core": "npm:^2.11.8"
     "@types/react-transition-group": "npm:^4.4.11"
     clsx: "npm:^2.1.1"
@@ -1848,7 +1857,7 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
-    "@mui/material-pigment-css": ^6.1.5
+    "@mui/material-pigment-css": ^6.1.6
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -1861,16 +1870,16 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10c0/982a2446fd511a952627aa8567e302528ad3a2ad8b3125574a38facaef2a5a076a723c67076682f95b09f9fe4dbf3445213fe6655658d23419b49440ae11873e
+  checksum: 10c0/b54c0b01f33f63a700ec7b13d615dd3a109497ee48a1af0f750f780112a7034fbecfcecf29ad67aa62ec12047d465fbcb243052d8680ce681240096fef1f8d63
   languageName: node
   linkType: hard
 
-"@mui/private-theming@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@mui/private-theming@npm:6.1.5"
+"@mui/private-theming@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "@mui/private-theming@npm:6.1.6"
   dependencies:
-    "@babel/runtime": "npm:^7.25.7"
-    "@mui/utils": "npm:^6.1.5"
+    "@babel/runtime": "npm:^7.26.0"
+    "@mui/utils": "npm:^6.1.6"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -1878,15 +1887,15 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/3a5a470c78daa60fa3c9346a15617ab4d6ad3c544b564fe4b2fe6f3155cb4955b0c670395a9074e91956b1cb50bca96fc07d03cad92759147bebadcacd00f36c
+  checksum: 10c0/d9138bd3ae8b318b0f14e3d9a9aa414f31698ce3934b94f0a1e78d9c2c37fd3d2b24a6bd45ded321ffc41658e70fc055226b9c1b9767695a93c927adf54302a0
   languageName: node
   linkType: hard
 
-"@mui/styled-engine@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@mui/styled-engine@npm:6.1.5"
+"@mui/styled-engine@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "@mui/styled-engine@npm:6.1.6"
   dependencies:
-    "@babel/runtime": "npm:^7.25.7"
+    "@babel/runtime": "npm:^7.26.0"
     "@emotion/cache": "npm:^11.13.1"
     "@emotion/serialize": "npm:^1.3.2"
     "@emotion/sheet": "npm:^1.4.0"
@@ -1901,19 +1910,19 @@ __metadata:
       optional: true
     "@emotion/styled":
       optional: true
-  checksum: 10c0/7a4830a7f1736d399c06d414cd6762ff4a830e976946da4a58b77e864b6d6abb4385800e644367e57c670397bf1f12690e82ffe05f185c85c8dafd132a67ca2a
+  checksum: 10c0/2554248f83db98b404b299494c4f039fe5a1f1b9166fc95268958ea00aa3be04915ffbabe0ea418cb2d600e11b6d08f765ddd23240a63e6d06161d07eaac6aa8
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@mui/system@npm:6.1.5"
+"@mui/system@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "@mui/system@npm:6.1.6"
   dependencies:
-    "@babel/runtime": "npm:^7.25.7"
-    "@mui/private-theming": "npm:^6.1.5"
-    "@mui/styled-engine": "npm:^6.1.5"
-    "@mui/types": "npm:^7.2.18"
-    "@mui/utils": "npm:^6.1.5"
+    "@babel/runtime": "npm:^7.26.0"
+    "@mui/private-theming": "npm:^6.1.6"
+    "@mui/styled-engine": "npm:^6.1.6"
+    "@mui/types": "npm:^7.2.19"
+    "@mui/utils": "npm:^6.1.6"
     clsx: "npm:^2.1.1"
     csstype: "npm:^3.1.3"
     prop-types: "npm:^15.8.1"
@@ -1929,28 +1938,28 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10c0/7e8ce81b7e6a5810c0856427dbd7f89f62a23ab151e0199813e7cd7e9d47e4719004f6b576c5cad0121735cfb0c984ea022c494796202e2c0c054c6a60995c40
+  checksum: 10c0/125d38ad5b0d610cfedace8253e43b4be47b46ad2d96eeac019c6c37b4f09286512e2280924753f8bb0314c4d7cc5e8f03fc7f97cf9830c4f6d1869b721eb8c2
   languageName: node
   linkType: hard
 
-"@mui/types@npm:^7.2.18":
-  version: 7.2.18
-  resolution: "@mui/types@npm:7.2.18"
+"@mui/types@npm:^7.2.19":
+  version: 7.2.19
+  resolution: "@mui/types@npm:7.2.19"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/338404bdef7c7f9ebcd389ebbf429c44d2cc9c25c65d8669dc900a24b2c8718240482273bf6cd953578965e3838ad40a8e7376c71d3d9146be3afb88bff1b67a
+  checksum: 10c0/9c390d7eddc7e7c396852202fdca021aee275391bc7f48d0b6458748bf75eebb34c73109958692655ba5e72946cf47db2c0c7d2e1c26be568599ed65c931d080
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^6.1.5":
-  version: 6.1.5
-  resolution: "@mui/utils@npm:6.1.5"
+"@mui/utils@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "@mui/utils@npm:6.1.6"
   dependencies:
-    "@babel/runtime": "npm:^7.25.7"
-    "@mui/types": "npm:^7.2.18"
+    "@babel/runtime": "npm:^7.26.0"
+    "@mui/types": "npm:^7.2.19"
     "@types/prop-types": "npm:^15.7.13"
     clsx: "npm:^2.1.1"
     prop-types: "npm:^15.8.1"
@@ -1961,7 +1970,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/899191334f321aedf993e6a79cd63ac511e8ef23a84c1e156ca4a82c407e97f86f9f3d4250765f5c9e71d9af963bdc738e6d63fc62f9088fc5ad9c055fc3b111
+  checksum: 10c0/8752b3ca3fa1cee7f1a8477b6babcd80fef01724f7d8106c8665a252ec960ca38ef5f4fe21cfb60ee11176a9a8034400420d5b0719953ecc2c4f25980682614c
   languageName: node
   linkType: hard
 
@@ -4117,7 +4126,7 @@ __metadata:
     "@clerk/backend": "npm:1.15.1"
     "@clerk/clerk-sdk-node": "npm:5.0.54"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/vitest-pool-workers": "npm:^0.5.22"
+    "@cloudflare/vitest-pool-workers": "npm:^0.5.23"
     "@cloudflare/workers-types": "npm:4.20241022.0"
     "@remix-run/cloudflare": "npm:^2.13.1"
     "@remix-run/react": "npm:^2.13.1"
@@ -4135,14 +4144,14 @@ __metadata:
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
     miniflare: "npm:^3.20241022.0"
-    openai: "npm:^4.68.4"
+    openai: "npm:^4.69.0"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     replicate: "npm:^1.0.1"
     typescript: "npm:5.6.3"
     vitest: "npm:^2.1.4"
-    wrangler: "npm:3.83.0"
+    wrangler: "npm:3.84.0"
   languageName: unknown
   linkType: soft
 
@@ -4164,7 +4173,7 @@ __metadata:
     "@langchain/anthropic": "npm:^0.3.7"
     "@langchain/core": "npm:^0.3.16"
     "@langchain/langgraph": "npm:^0.2.18"
-    "@mui/material": "npm:6.1.5"
+    "@mui/material": "npm:6.1.6"
     "@okikio/sharedworker": "npm:1.0.7"
     "@radix-ui/react-accordion": "npm:^1.2.1"
     "@radix-ui/react-alert-dialog": "npm:^1.1.2"
@@ -4320,7 +4329,7 @@ __metadata:
     react-swipeable: "npm:^7.0.1"
     react-syntax-highlighter: "npm:^15.6.1"
     react-use: "npm:^17.5.1"
-    recharts: "npm:^2.13.1"
+    recharts: "npm:^2.13.2"
     recordrtc: "npm:^5.6.2"
     shadcdn: "npm:^0.0.7"
     sonner: "npm:^1.5.0"
@@ -4468,7 +4477,7 @@ __metadata:
     "@spike-npm-land/code": "npm:0.9.56"
     esbuild-wasm: "npm:0.24.0"
     typescript: "npm:5.6.3"
-    wrangler: "npm:3.83.0"
+    wrangler: "npm:3.84.0"
   languageName: unknown
   linkType: soft
 
@@ -12917,7 +12926,7 @@ __metadata:
     string_decoder: "npm:^1.3.0"
     typescript: "npm:5.6.3"
     typescript-eslint: "npm:^8.12.2"
-    wrangler: "npm:^3.83.0"
+    wrangler: "npm:^3.84.0"
   languageName: unknown
   linkType: soft
 
@@ -13417,9 +13426,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:^4.68.4":
-  version: 4.68.4
-  resolution: "openai@npm:4.68.4"
+"openai@npm:^4.69.0":
+  version: 4.69.0
+  resolution: "openai@npm:4.69.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -13435,7 +13444,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/4f81795d0847ad145815299fc4f6448f084f9db43ede651776ca636d4907ff9a07de9379b9feea5e54a2d96e95ee9bcc74c3284e13376bf80684be74e0041479
+  checksum: 10c0/2a2112ca7715e8e359db852fd80634c46b34ca92105f78d60923946cd72f0bff87be8218130c1fe116abdc6b14f683c5d54e2f7adea0c9e49d1c252d25123cb0
   languageName: node
   linkType: hard
 
@@ -15005,9 +15014,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^2.13.1":
-  version: 2.13.1
-  resolution: "recharts@npm:2.13.1"
+"recharts@npm:^2.13.2":
+  version: 2.13.2
+  resolution: "recharts@npm:2.13.2"
   dependencies:
     clsx: "npm:^2.0.0"
     eventemitter3: "npm:^4.0.1"
@@ -15020,7 +15029,7 @@ __metadata:
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/6bbab8e14397c4cbc73d1dcab48045c2a53650b53ac723713b6dad2367654647cf3a50e3de83678c34c76d5e8196341b9cf3e74a4344f842762e81d301b76a4e
+  checksum: 10c0/d200d3d5b4568fb0b4c453be4ea8069117a0df11a527e08d477ca94544b7ae26d19cea919417876c7a8ea8fd986fa35d1790f91b17b49356e4cdf8accad7a527
   languageName: node
   linkType: hard
 
@@ -15984,14 +15993,14 @@ __metadata:
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
     "@cloudflare/puppeteer": "npm:^0.0.14"
-    "@cloudflare/vitest-pool-workers": "npm:^0.5.22"
+    "@cloudflare/vitest-pool-workers": "npm:^0.5.23"
     "@cloudflare/workers-types": "npm:^4.20241022.0"
     "@types/esprima": "npm:^4.0.6"
     "@types/node": "npm:^22.8.4"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.6.3"
     vitest: "npm:2.1.4"
-    wrangler: "npm:^3.83.0"
+    wrangler: "npm:^3.84.0"
   languageName: unknown
   linkType: soft
 
@@ -17218,15 +17227,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unenv@npm:unenv-nightly@2.0.0-20241018-011344-e666fcf":
-  version: 2.0.0-20241018-011344-e666fcf
-  resolution: "unenv-nightly@npm:2.0.0-20241018-011344-e666fcf"
+"unenv@npm:unenv-nightly@2.0.0-20241024-111401-d4156ac":
+  version: 2.0.0-20241024-111401-d4156ac
+  resolution: "unenv-nightly@npm:2.0.0-20241024-111401-d4156ac"
   dependencies:
     defu: "npm:^6.1.4"
     ohash: "npm:^1.1.4"
     pathe: "npm:^1.1.2"
     ufo: "npm:^1.5.4"
-  checksum: 10c0/3f2173a8d341c43e444fe4cf1b19a8ce9e4e7985e41f41c932e9b9e5a7f053fb1724ef3f58bf297c6363a4b3c48a2b4a4286ba34f8eceb1be007c671b2cdb5f4
+  checksum: 10c0/22c0d93fd72629d94f3a2730790cda817d63813b9d349147c611cfcc0e489416b5dba926e1b8e517e6c7a992016edb6267446a9c26a79c3bb7e90ec899be98e3
   languageName: node
   linkType: hard
 
@@ -18139,9 +18148,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.83.0, wrangler@npm:^3.83.0":
-  version: 3.83.0
-  resolution: "wrangler@npm:3.83.0"
+"wrangler@npm:3.84.0, wrangler@npm:^3.84.0":
+  version: 3.84.0
+  resolution: "wrangler@npm:3.84.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-shared": "npm:0.7.0"
@@ -18160,7 +18169,7 @@ __metadata:
     resolve.exports: "npm:^2.0.2"
     selfsigned: "npm:^2.0.1"
     source-map: "npm:^0.6.1"
-    unenv: "npm:unenv-nightly@2.0.0-20241018-011344-e666fcf"
+    unenv: "npm:unenv-nightly@2.0.0-20241024-111401-d4156ac"
     workerd: "npm:1.20241022.0"
     xxhash-wasm: "npm:^1.0.1"
   peerDependencies:
@@ -18174,7 +18183,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10c0/48ad2595a90d13995602289214c1a7b38cc081765849aa234321769235e27a1e301345d14d12d91addc6bcd3ed504897685c44856e32d09ac9b8efdca087fa00
+  checksum: 10c0/e55c0dbd7522577e6666388f617af483af7618bc0f6cc9401a235bea1359370d528ec762a3ea9b2ac13a3bbe5f3da2e079394a2ed2610d20cb405b9a628f7b19
   languageName: node
   linkType: hard
 
