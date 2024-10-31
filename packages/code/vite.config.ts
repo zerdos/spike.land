@@ -80,6 +80,7 @@ const config = defineConfig((config) => ({
 
   build: {
     rollupOptions: {
+      minifyInternalExports: false,
       external: [
         // "/start.mjs",
         // "/swVersion.mjs",
