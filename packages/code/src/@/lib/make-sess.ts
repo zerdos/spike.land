@@ -1,6 +1,6 @@
+import { hash, Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
 import diff from "fast-diff";
-import { hash, Record } from "immutable";
 
 type Diff = [-1 | 0 | 1, string];
 export type Delta = Diff | [0 | -1, number];

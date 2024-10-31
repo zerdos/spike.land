@@ -6,9 +6,9 @@ import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 // import { build } from "@/../lib/shared";
+import { hash } from "@/external/immutable";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { hash } from "immutable";
 import {
   formatCode as formatCodeUtil,
   runCode,

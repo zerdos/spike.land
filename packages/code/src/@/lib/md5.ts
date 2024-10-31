@@ -1,4 +1,4 @@
-import { hash } from "immutable";
+import { hash } from "@/external/immutable";
 import { Md5 } from "ts-md5";
 
 export const md5 = (input: object | string): string => generateDeterministicKey(input);
