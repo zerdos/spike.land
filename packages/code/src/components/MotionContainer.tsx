@@ -1,40 +1,53 @@
-import { css } from "@emotion/react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export const MotionContainer = (
-  { children, bottom, right, bgColor, rgba, isChatOpen }: {
-    children: JSX.Element;
-    bottom: number;
-    right: number;
-    bgColor: number[];
-    isChatOpen: boolean;
-    rgba: (r: number, g: number, b: number, a: number) => string;
-  },
-) => {
+interface MotionContainerProps {
+  children: React.ReactNode;
+  bottom: number;
+  right: number;
+  bgColor: [number, number, number];
+  isChatOpen: boolean;
+  className?: string;
+}
+
+export const MotionContainer = ({
+  children,
+  bottom,
+  right,
+  bgColor,
+  isChatOpen,
+  className,
+}: MotionContainerProps) => {
+  const [r, g, b] = bgColor;
+  const backgroundColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
+
   return (
     <motion.div
       layout
-      initial={{ padding: 0, top: 0, right: 0, borderRadius: 0 }}
+      initial={{
+        padding: 0,
+        top: 0,
+        right: 0,
+        borderRadius: 0,
+      }}
       animate={{
         padding: 8,
         top: bottom,
-        right: isChatOpen ? window.innerWidth / 2 : 0 + right,
-        backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5),
+        right: isChatOpen ? window.innerWidth / 2 : right,
+        backgroundColor,
         borderRadius: 16,
       }}
-      style={{ backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5) }}
-      css={css`
-      z-index: 1002;
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      position: fixed;
-    `}
+      style={{ backgroundColor }}
+      className={cn(
+        "fixed z-[1002] backdrop-blur-md",
+        className
+      )}
       drag
       dragMomentum={false}
       dragConstraints={{
-        left: -innerWidth,
-        right: innerWidth - 20 - innerWidth / 6,
-        bottom: innerHeight,
+        left: -window.innerWidth,
+        right: window.innerWidth - 20 - window.innerWidth / 6,
+        bottom: window.innerHeight,
       }}
       dragElastic={0.5}
     >
