@@ -5,7 +5,7 @@ interface MotionContainerProps {
   children: React.ReactNode;
   bottom: number;
   right: number;
-  bgColor: [number, number, number];
+  bgColor: [number, number, number, number];
   isChatOpen: boolean;
   className?: string;
 }
@@ -18,8 +18,38 @@ export const MotionContainer = ({
   isChatOpen,
   className,
 }: MotionContainerProps) => {
-  const [r, g, b] = bgColor;
-  const backgroundColor = `rgba(${r}, ${g}, ${b}, 0.5)`;
+  const [r, g, b, a] = bgColor;
+  const backgroundColor = `rgba(${r}, ${g}, ${b}, ${a || 0.5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  }`;
 
   return (
     <motion.div

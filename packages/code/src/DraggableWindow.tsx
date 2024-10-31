@@ -82,13 +82,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
   }), [delay]);
 
   return (
-    <MotionConfig transition={transition}>
+    <MotionConfig transition={transition}>                                                                                                                                                                                                                                                                                                                                                                                                     
       <MotionContainer
         bottom={positions.bottom}
         isChatOpen={isChatOpen}
         right={positions.right}
         bgColor={bgColor}
-        rgba={rgba}
       >
         <DraggableWindowContent
           scaleRange={scaleRange}
