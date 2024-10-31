@@ -1,83 +1,42 @@
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
-interface MotionContainerProps {
-  children: React.ReactNode;
-  bottom: number;
-  right: number;
-  bgColor: [number, number, number, number];
-  isChatOpen: boolean;
-  className?: string;
-}
+const rgba = (r: number, g: number, b: number, a: number) =>
+  `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
 
-export const MotionContainer = ({
-  children,
-  bottom,
-  right,
-  bgColor,
-  isChatOpen,
-  className,
-}: MotionContainerProps) => {
-  const [r, g, b, a] = bgColor;
-  const backgroundColor = `rgba(${r}, ${g}, ${b}, ${a || 0.5
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-  }`;
-
+export const MotionContainer = (
+  { children, bottom, right, bgColor, isChatOpen }: {
+    children: JSX.Element;
+    bottom: number;
+    right: number;
+    bgColor: number[];
+    isChatOpen: boolean;
+  },
+) => {
   return (
     <motion.div
       layout
-      initial={{
-        padding: 0,
-        top: 0,
-        right: 0,
-        borderRadius: 0,
-      }}
+      initial={{ padding: 0, top: 0, right: 0, borderRadius: 0 }}
       animate={{
         padding: 8,
         top: bottom,
-        right: isChatOpen ? window.innerWidth / 2 : right,
-        backgroundColor,
+        right: isChatOpen ? window.innerWidth / 2 : 0 + right,
+        backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5),
         borderRadius: 16,
       }}
-      style={{ backgroundColor }}
-      className={cn(
-        "fixed z-[1002] backdrop-blur-md",
-        className
-      )}
+      style={{ backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5) }}
+      css={css`
+      z-index: 1002;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      position: fixed;
+    `}
       drag
       dragMomentum={false}
       dragConstraints={{
-        left: -window.innerWidth,
-        right: window.innerWidth - 20 - window.innerWidth / 6,
-        bottom: window.innerHeight,
+        left: -innerWidth,
+        right: innerWidth - 20 - innerWidth / 6,
+        bottom: innerHeight,
       }}
       dragElastic={0.5}
     >

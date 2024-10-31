@@ -38,6 +38,10 @@ interface DraggableWindowContentProps extends
   children: JSX.Element;
 }
 
+const rgba = (r: number, g: number, b: number, a: number) =>
+  `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
+
+
 export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
   // Scale related props
   scaleRange,
@@ -58,7 +62,6 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
   
   // Color related props
   bgColor,
-  rgba,
   
   // Content
   children
@@ -66,8 +69,7 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
   const commonStyleProps = {
     innerHeight,
     width,
-    bgColor,
-    rgba
+    bgColor
   };
 
   return (
@@ -87,10 +89,12 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
         <ContentWrapper
           {...commonStyleProps}
           scale={scale}
+          rgba={rgba}
           type="spring"
         >
           <ScaledContent
             {...commonStyleProps}
+            rgba={rgba}
             scale={scale}
           >
             {children}

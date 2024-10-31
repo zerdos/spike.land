@@ -3,7 +3,6 @@ import { FC, useEffect, useState, useCallback, useMemo } from "react";
 import { useWindowSize } from "react-use";
 import { DraggableWindowContent } from "./components/DraggableWindowContent";
 import { MotionContainer } from "./components/MotionContainer";
-import { useBgColor } from "./hooks/useBgColor";
 import { useDownload } from "./hooks/useDownload";
 
 interface Position {
@@ -41,12 +40,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
   const [delay, setDelay] = useState(initialDelay);
   const { width: innerWidth, height: innerHeight } = useWindowSize();
   const [width, setWidth] = useState(innerWidth);
-  const { bgColor, setBgColor, rgba } = useBgColor();
+  const [bgColor, setBgColor] = useState([66, 66, 66, 0.5]);
+  
   const [positions, setPositions] = useState<Position>(INITIAL_POSITION);
   const handleDownload = useDownload(codeSpace);
 
   const scale = useMemo(() => scaleRange / MAX_SCALE_RANGE, [scaleRange]);
 
+  const rgba = (r: number, g: number, b: number, a: number) =>
+    `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
+  
   const calculateRevealScale = useCallback(() => {
     return Math.min(
       50,
@@ -88,9 +91,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
         isChatOpen={isChatOpen}
         right={positions.right}
         bgColor={bgColor}
+    
       >
         <DraggableWindowContent
           scaleRange={scaleRange}
+          rgba={rgba}
           setScaleRange={setScaleRange}
           width={width}
           setWidth={setWidth}
@@ -101,7 +106,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
           maxScaleRange={MAX_SCALE_RANGE}
           breakPoints={Object.values(BREAK_POINTS)}
           innerHeight={innerHeight}
-          rgba={rgba}
           bgColor={bgColor}
         >
           {children}
