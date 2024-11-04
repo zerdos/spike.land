@@ -3845,8 +3845,8 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.0"
     esm-worker: "npm:0.135.17"
-    hono: "npm:^4.6.8"
-    immutable: "npm:4.3.7"
+    hono: "npm:^4.6.9"
+    immutable: "npm:5.0.0"
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
     miniflare: "npm:^3.20241022.0"
@@ -3961,7 +3961,7 @@ __metadata:
     buffer: "npm:6.0.3"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
-    cmdk: "npm:1.0.3"
+    cmdk: "npm:1.0.4"
     concurrently: "npm:^9.0.1"
     constants: "npm:0.0.2"
     crypto-browserify: "npm:^3.12.1"
@@ -3984,11 +3984,11 @@ __metadata:
     file-type: "npm:19.6.0"
     framer-motion: "npm:^11.11.11"
     globals: "npm:^15.11.0"
-    happy-dom: "npm:^15.8.0"
+    happy-dom: "npm:^15.8.3"
     html2canvas: "npm:^1.4.1"
     i18next: "npm:^23.16.4"
     immer: "npm:^10.1.1"
-    immutable: "npm:4.3.7"
+    immutable: "npm:5.0.0"
     input-otp: "npm:^1.4.0"
     jsdom: "npm:^25.0.1"
     localforage: "npm:^1.10.0"
@@ -3999,7 +3999,7 @@ __metadata:
     module: "npm:^1.2.5"
     monaco-editor: "npm:^0.52.0"
     next-i18next: "npm:^15.3.1"
-    next-themes: "npm:^0.3.0"
+    next-themes: "npm:^0.4.1"
     node-html-parser: "npm:^6.1.13"
     node-source-walk: "npm:7.0.0"
     object-hash: "npm:^3.0.0"
@@ -4039,7 +4039,7 @@ __metadata:
     recordrtc: "npm:^5.6.2"
     rollup-plugin-visualizer: "npm:^5.12.0"
     shadcdn: "npm:^0.0.7"
-    sonner: "npm:^1.6.1"
+    sonner: "npm:^1.7.0"
     stream: "npm:^0.0.3"
     stream-browserify: "npm:3.0.0"
     string_decoder: "npm:^1.3.0"
@@ -6936,9 +6936,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmdk@npm:1.0.3":
-  version: 1.0.3
-  resolution: "cmdk@npm:1.0.3"
+"cmdk@npm:1.0.4":
+  version: 1.0.4
+  resolution: "cmdk@npm:1.0.4"
   dependencies:
     "@radix-ui/react-dialog": "npm:^1.1.2"
     "@radix-ui/react-id": "npm:^1.1.0"
@@ -6947,7 +6947,7 @@ __metadata:
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
     react-dom: ^18 || ^19 || ^19.0.0-rc
-  checksum: 10c0/2593f289eba864fd8656b02ccc332c3ff23ea802b84f40fee52959a052bd9e4128a056ee5569b1cc28e09427bdce976cf0f5945589fc3860d2bba1962cc4d2e9
+  checksum: 10c0/8c37568c9b52cb44a7b8f1414d622100cea0368f564167f4a1bc5c97ba3ba2b392ab4871f691c60a9a414a7295fb702c2f941e6556d6861a48657bb4e82fd979
   languageName: node
   linkType: hard
 
@@ -9943,14 +9943,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:^15.8.0":
-  version: 15.8.0
-  resolution: "happy-dom@npm:15.8.0"
+"happy-dom@npm:^15.8.3":
+  version: 15.8.3
+  resolution: "happy-dom@npm:15.8.3"
   dependencies:
     entities: "npm:^4.5.0"
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10c0/0a1556e116cb60651e97797ac5a8e9f463173d9c94c4f813be21d2e0a83a571a8608f012c6f9c223263bbfc225443a219f44f742887471f06a747216a88794e9
+  checksum: 10c0/fd33c53d9a6e0e61710cf2646bd3bc4b800e3533620d988a794e13b99e78e34b37b0f693a9e0b8d242aeb0c421c4d606e51304e1fe0f3058b6487809fef4d72b
   languageName: node
   linkType: hard
 
@@ -10165,10 +10165,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:^4.6.8":
-  version: 4.6.8
-  resolution: "hono@npm:4.6.8"
-  checksum: 10c0/33503eef5ae0a2ebaba54a53093ea6e46d865dc1212adc73172510794222c206d3c02f0ccc2879ad76df9e493bf6d20f950888e1563ca0f1847ae6affa267f1e
+"hono@npm:^4.6.9":
+  version: 4.6.9
+  resolution: "hono@npm:4.6.9"
+  checksum: 10c0/492971f111ccec8745df449ef8e28d8bc2a4bf29bb9545c2697df2f3252c2a393e66969e6aa3f0fffdff4322461b59805482734bc12d9c9c3b3dcbe10b13d8a0
   languageName: node
   linkType: hard
 
@@ -10353,10 +10353,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutable@npm:4.3.7":
-  version: 4.3.7
-  resolution: "immutable@npm:4.3.7"
-  checksum: 10c0/9b099197081b22f6433003e34929da8ecddbbdc1474cdc8aa3b7669dee4adda349c06143de22def36016d1b6de5322b043eccd7a11db1dad2ca85dad4fff5435
+"immutable@npm:5.0.0":
+  version: 5.0.0
+  resolution: "immutable@npm:5.0.0"
+  checksum: 10c0/2c5d8729c2468b351bce0bf092880b9168ca065e8d9ce4eb84de219828b4d792e7794cc8b1d8a6f5ee43f96896ff1e9df780e1b55d506a503d5ebda74d736da5
   languageName: node
   linkType: hard
 
@@ -12746,6 +12746,16 @@ __metadata:
     react: ^16.8 || ^17 || ^18
     react-dom: ^16.8 || ^17 || ^18
   checksum: 10c0/72bd670ad6b9f547dc18cece340dfd1ac41e3e7b37eb321d4767db90bfa2c239f937011cd0efe35ca0081f1ea260051bc0868808ef39b0fbff2ddefd7146cec6
+  languageName: node
+  linkType: hard
+
+"next-themes@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "next-themes@npm:0.4.1"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+  checksum: 10c0/6ce1b11c3cc836755a130d8e668496cb8bb0e82a984fe7d8bbebd3a23668d8fa552a398898c22c76a341ffb9580d43f50bbe3bb7494f23f2e536fe670fb50f4e
   languageName: node
   linkType: hard
 
@@ -15533,13 +15543,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonner@npm:^1.6.1":
-  version: 1.6.1
-  resolution: "sonner@npm:1.6.1"
+"sonner@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "sonner@npm:1.7.0"
   peerDependencies:
     react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-  checksum: 10c0/11f175521d1a948a20e62596385db58ad4a44e2fbc984930d52d1ae400595013d64d0a15574620212672dfd550f20a031a164fe743a2220594cf4a488ce9a1ad
+  checksum: 10c0/02b16249b0c6e3a62c50dbcb643bb089aecd82c4f0ae988d00903e427d5485933d6cb59047fe5da338b548b6a3311643e511f63ed60a938458295015f7a3fdfd
   languageName: node
   linkType: hard
 
