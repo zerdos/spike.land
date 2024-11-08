@@ -37,7 +37,7 @@
     "esbuild-wasm": "0.24.0",
     "esm-worker": "0.135.17",
     "hono": "^4.6.9",
-    "immutable": "5.0.0",
+    "immutable": "5.0.2",
     "mime-db": "^1.53.0",
     "mime-types": "^2.1.35",
     "miniflare": "^3.20241022.0",
