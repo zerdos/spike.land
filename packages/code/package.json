@@ -148,7 +148,7 @@
     "input-otp": "^1.4.1",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.454.0",
+    "lucide-react": "^0.456.0",
     "mime-db": "^1.53.0",
     "mime-types": "^2.1.35",
     "module": "^1.2.5",
