@@ -49,8 +49,8 @@
     "@eslint/js": "^9.14.0",
     "@playwright/test": "1.48.2",
     "@types/eslint__js": "^8.42.3",
-    "@typescript-eslint/eslint-plugin": "^8.13.0",
-    "@typescript-eslint/parser": "8.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "8.14.0",
     "@yarnpkg/sdks": "3.2.0",
     "concurrently": "^9.1.0",
     "dprint": "0.47.5",
@@ -59,8 +59,8 @@
     "playwright": "1.48.2",
     "react": "18.3.1",
     "typescript": "5.6.3",
-    "typescript-eslint": "^8.13.0",
-    "wrangler": "^3.86.0"
+    "typescript-eslint": "^8.14.0",
+    "wrangler": "^3.86.1"
   },
   "packageManager": "yarn@4.5.1",
   "dependencies": {
