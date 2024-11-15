@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <base href="/" />
-
     <meta charset="utf-8" />
     <meta
       name="theme-color"
@@ -65,21 +64,36 @@
     <script type="importmap"></script>
 
     <script>
-      (function () {
-        const isDarkMode = localStorage.getItem("darkMode");
-
-        function setInitialTheme() {
-          if (
-            isDarkMode ||
-            window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches
-          ) {
-            document.documentElement.classList.add("dark");
-          } else {
-            document.documentElement.classList.add("light");
+      (function() {
+        function getInitialTheme() {
+          // First check if there's a saved preference
+          const savedTheme = localStorage.getItem('darkMode');
+          if (savedTheme !== null) {
+            return savedTheme === 'true';
           }
+          
+          // Otherwise use system preference
+          return window.matchMedia && 
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
         }
-        setInitialTheme();
+
+        // Apply theme immediately to prevent flash
+        const isDark = getInitialTheme();
+        document.documentElement.classList.add(isDark ? 'dark' : 'light');
+        
+        // Store the initial value if not already set
+        if (localStorage.getItem('darkMode') === null) {
+          localStorage.setItem('darkMode', isDark.toString());
+        }
+
+        // Handle system theme changes before React loads
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkModeMediaQuery.addListener(function(e) {
+          if (localStorage.getItem('darkMode') === null) {
+            document.documentElement.classList.remove('light', 'dark');
+            document.documentElement.classList.add(e.matches ? 'dark' : 'light');
+          }
+        });
       })();
     </script>
 
