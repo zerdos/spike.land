@@ -39,7 +39,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
-      
+
       if (e.code && editorState.started && editorState.setValue) {
         console.log("Setting code", e.code);
         editorState.setValue(e.code);

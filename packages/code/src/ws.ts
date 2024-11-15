@@ -80,7 +80,9 @@ const handleRender = async (
 
     const html = htmlDecode(rootElement.innerHTML);
     const emotionGlobalStyles = [
-      ...document.querySelectorAll<HTMLStyleElement>(`style[data-emotion='${cssCache.key}-global']`)
+      ...document.querySelectorAll<HTMLStyleElement>(
+        `style[data-emotion='${cssCache.key}-global']`,
+      )
         .values(),
     ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
 

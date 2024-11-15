@@ -60,7 +60,7 @@ class ResourceLoaderImpl implements ResourceLoader {
   }
 
   private removeAllStyleBlocks(): void {
-    document.querySelectorAll("head > style").forEach(block => block.remove());
+    document.querySelectorAll("head > style").forEach((block) => block.remove());
   }
 }
 

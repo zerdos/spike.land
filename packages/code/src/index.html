@@ -23,7 +23,11 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" as="style" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      as="style"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
       rel="stylesheet"
@@ -64,12 +68,11 @@
       (function () {
         const isDarkMode = localStorage.getItem("darkMode");
 
-
         function setInitialTheme() {
           if (
             isDarkMode ||
             window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+              window.matchMedia("(prefers-color-scheme: dark)").matches
           ) {
             document.documentElement.classList.add("dark");
           } else {

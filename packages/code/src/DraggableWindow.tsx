@@ -1,5 +1,5 @@
 import { MotionConfig } from "framer-motion";
-import { FC, useEffect, useState, useCallback, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useWindowSize } from "react-use";
 import { DraggableWindowContent } from "./components/DraggableWindowContent";
 import { MotionContainer } from "./components/MotionContainer";
@@ -41,7 +41,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
   const { width: innerWidth, height: innerHeight } = useWindowSize();
   const [width, setWidth] = useState(innerWidth);
   const [bgColor, setBgColor] = useState([66, 66, 66, 0.5]);
-  
+
   const [positions, setPositions] = useState<Position>(INITIAL_POSITION);
   const handleDownload = useDownload(codeSpace);
 
@@ -49,19 +49,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
 
   const rgba = (r: number, g: number, b: number, a: number) =>
     `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
-  
+
   const calculateRevealScale = useCallback(() => {
     return Math.min(
       50,
       Math.floor(
-        100 * (1 / 2 - 152 / (window.devicePixelRatio * window.innerWidth))
-      )
+        100 * (1 / 2 - 152 / (window.devicePixelRatio * window.innerWidth)),
+      ),
     );
   }, []);
 
   const determineInitialWidth = useCallback(() => {
-    return window.devicePixelRatio > 2 
-      ? BREAK_POINTS.mobile 
+    return window.devicePixelRatio > 2
+      ? BREAK_POINTS.mobile
       : BREAK_POINTS.tablet;
   }, []);
 
@@ -85,13 +85,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
   }), [delay]);
 
   return (
-    <MotionConfig transition={transition}>                                                                                                                                                                                                                                                                                                                                                                                                     
+    <MotionConfig transition={transition}>
       <MotionContainer
         bottom={positions.bottom}
         isChatOpen={isChatOpen}
         right={positions.right}
         bgColor={bgColor}
-    
       >
         <DraggableWindowContent
           scaleRange={scaleRange}

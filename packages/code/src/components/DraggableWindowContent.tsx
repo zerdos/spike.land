@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 import { ActionButtons } from "./ActionButtons";
 import { BreakpointButtons } from "./BreakpointButtons";
 import { ContentWrapper } from "./ContentWrapper";
@@ -30,17 +30,13 @@ interface ActionProps {
   handleDownload: () => void;
 }
 
-interface DraggableWindowContentProps extends 
-  ScaleProps, 
-  DimensionProps, 
-  ActionProps, 
-  ColorUtils {
+interface DraggableWindowContentProps
+  extends ScaleProps, DimensionProps, ActionProps, ColorUtils {
   children: JSX.Element;
 }
 
 const rgba = (r: number, g: number, b: number, a: number) =>
   `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
-
 
 export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
   // Scale related props
@@ -49,32 +45,32 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
   scale,
   sizes,
   maxScaleRange,
-  
+
   // Dimension related props
   width,
   setWidth,
   breakPoints,
   innerHeight,
-  
+
   // Action related props
   codeSpace,
   handleDownload,
-  
+
   // Color related props
   bgColor,
-  
+
   // Content
-  children
+  children,
 }) => {
   const commonStyleProps = {
     innerHeight,
     width,
-    bgColor
+    bgColor,
   };
 
   return (
-    <div 
-      className="overflow-hidden flex" 
+    <div
+      className="overflow-hidden flex"
       id="DraggableWindow"
       data-testid="draggable-window-content"
     >
@@ -85,7 +81,7 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
           sizes={sizes}
           maxScaleRange={maxScaleRange}
         />
-        
+
         <ContentWrapper
           {...commonStyleProps}
           scale={scale}
@@ -100,14 +96,14 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
             {children}
           </ScaledContent>
         </ContentWrapper>
-        
+
         <BreakpointButtons
           width={width}
           setWidth={setWidth}
           breakPoints={breakPoints}
         />
       </div>
-      
+
       <ActionButtons
         codeSpace={codeSpace}
         handleDownload={handleDownload}
@@ -118,9 +114,9 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
 
 // Type exports for consuming components
 export type {
-  ScaleProps,
-  DimensionProps,
   ActionProps,
   ColorUtils,
-  DraggableWindowContentProps
+  DimensionProps,
+  DraggableWindowContentProps,
+  ScaleProps,
 };

@@ -3,7 +3,7 @@ import { AppType, defineConfig, ProxyOptions } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { importMap } from "./src/@/lib/importmap-utils";
 import fs from "fs";
-import { visualizer } from 'rollup-plugin-visualizer'
+import { visualizer } from "rollup-plugin-visualizer";
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
 const externalFiles = fs.readdirSync(
@@ -75,8 +75,8 @@ const config = defineConfig((config) => ({
   ...config,
   plugins: [
     visualizer({
-      open: true,  // Automatically open the visualization
-      filename: 'dist/stats.html'
+      open: true, // Automatically open the visualization
+      filename: "dist/stats.html",
     }),
     react({
       jsxImportSource: "@emotion/react",
@@ -84,8 +84,7 @@ const config = defineConfig((config) => ({
   ],
 
   build: {
-
-   rollupOptions: {
+    rollupOptions: {
       external: [
         // "/start.mjs",
         // "/swVersion.mjs",
