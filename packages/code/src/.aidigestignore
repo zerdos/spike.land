@@ -45,3 +45,8 @@ LangCha*
 makeSess*
 startMonaco.ts
 isMobile.tsconfig
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+utils/*.txt

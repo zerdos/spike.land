@@ -12,6 +12,8 @@ tw.html
 tw-chunk-be5bad.js
 *.css
 *.d.ts
+*.test.ts
+*.test.tsx
 assets
 jest.config.js
 LICENSE.md
@@ -34,3 +36,4 @@ src/__test__/__snapshots__/importmapReplace.spec.ts.snap
 src/__test__/getDirectoryEntriesRecursive.spec.ts
 src/__test__/importmapReplace.spec.ts
 *.test.ts
+*.test.tsx
