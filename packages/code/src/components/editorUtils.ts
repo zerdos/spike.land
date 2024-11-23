@@ -197,7 +197,7 @@ export const runCode = async (
         transpiled: string,
       ) => Promise<{ html: string; css: string; js: string; }>;
     }).handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
-    await wait(350);
+    await wait(2350);
   }
 
   return (window.frames[0] as unknown as {
