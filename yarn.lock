@@ -3860,7 +3860,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.0"
     esm-worker: "npm:0.135.18"
-    hono: "npm:^4.6.11"
+    hono: "npm:^4.6.12"
     immutable: "npm:5.0.3"
     mime-db: "npm:^1.53.0"
     mime-types: "npm:^2.1.35"
@@ -3950,9 +3950,9 @@ __metadata:
     "@types/react-syntax-highlighter": "npm:^15.5.13"
     "@types/recordrtc": "npm:^5.6.14"
     "@types/serve-handler": "npm:^6.1.4"
-    "@types/text-encoding": "npm:^0.0.39"
+    "@types/text-encoding": "npm:^0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:^0.0.182"
+    "@types/web": "npm:^0.0.183"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.15.0"
     "@typescript/ata": "npm:^0.9.7"
@@ -4035,7 +4035,7 @@ __metadata:
     querystring: "npm:^0.2.1"
     re-resizable: "npm:^6.10.1"
     react: "npm:^18.3.1"
-    react-day-picker: "npm:9.3.2"
+    react-day-picker: "npm:9.4.0"
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.53.2"
     react-i18next: "npm:^15.1.1"
@@ -4059,7 +4059,7 @@ __metadata:
     stream-browserify: "npm:3.0.0"
     string_decoder: "npm:^1.3.0"
     swr: "npm:^2.2.5"
-    tailwind-merge: "npm:^2.5.4"
+    tailwind-merge: "npm:^2.5.5"
     tailwindcss: "npm:^3.4.15"
     tailwindcss-animate: "npm:^1.0.7"
     text-encoding: "npm:^0.7.0"
@@ -5031,10 +5031,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/text-encoding@npm:^0.0.39":
-  version: 0.0.39
-  resolution: "@types/text-encoding@npm:0.0.39"
-  checksum: 10c0/51bd2a4a9a66d3c5706814b97fd6ad1ad7d7244099f16e19d9d181db6668860668830bd4c5579d3cf9f3ddeab8c49075ef7af38112b61835e2e29202ce113e3b
+"@types/text-encoding@npm:^0.0.40":
+  version: 0.0.40
+  resolution: "@types/text-encoding@npm:0.0.40"
+  checksum: 10c0/ae0a8e6896ae847e0ccf297d623df2a1cdf4180e8f3a3542c56ea56194d49a6d3f18a60170f786a9ba33d2644e7d9caf089ec286fd762765ce4d426f3eac4892
   languageName: node
   linkType: hard
 
@@ -5080,10 +5080,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:^0.0.182":
-  version: 0.0.182
-  resolution: "@types/web@npm:0.0.182"
-  checksum: 10c0/54d82a7be7314de5bf7ff1df7f180e3a36a03df7095d9ef7c972a99ef784559ce553299db101ed5c59961390aed6d7253054634242efc63061d4b1128953020f
+"@types/web@npm:^0.0.183":
+  version: 0.0.183
+  resolution: "@types/web@npm:0.0.183"
+  checksum: 10c0/b040ef13c81b527b0d02fbb3860c863c19ee5fe881c202ae60e058b604fd79338c338d31494d28f0b7c208f6304ffe3dc6701dac8c282a43376ab38b9828ed22
   languageName: node
   linkType: hard
 
@@ -10205,10 +10205,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:^4.6.11":
-  version: 4.6.11
-  resolution: "hono@npm:4.6.11"
-  checksum: 10c0/f4a792692227c63806959e8e8fa67d1693272fed53b3e901cebd7238bc369cd18169aae5d2b2a67b48113babc6351a2186fe42a4094771fa403b386cd7df68ee
+"hono@npm:^4.6.12":
+  version: 4.6.12
+  resolution: "hono@npm:4.6.12"
+  checksum: 10c0/34dbaf9ac7ed45c1f1ab8c13535077eed70621b3bb5a07d8ee1a13d7a5f362a748b5f119399292f5496d2db1e19be46c0e49683fd21224c0a57aec897edc42fe
   languageName: node
   linkType: hard
 
@@ -14216,15 +14216,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.3.2":
-  version: 9.3.2
-  resolution: "react-day-picker@npm:9.3.2"
+"react-day-picker@npm:9.4.0":
+  version: 9.4.0
+  resolution: "react-day-picker@npm:9.4.0"
   dependencies:
     "@date-fns/tz": "npm:^1.2.0"
     date-fns: "npm:^4.1.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10c0/c6e048d5459e4a4602d34b5a4dc6fb87186d659a818df2a0245d6fd1e8cef0b99225951f57646cec5003c0e34eeb20ba3011290aff5939daba1f244d00d6d585
+  checksum: 10c0/1f454735438c2cb90ffe46d26947f9b8c5351d24b22d868ab196247c7effceb1af4092a9f81dba4b0e0cde79e59541c3760501d2bba0e7a015d354e954c2ac60
   languageName: node
   linkType: hard
 
@@ -16237,10 +16237,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.5.4":
-  version: 2.5.4
-  resolution: "tailwind-merge@npm:2.5.4"
-  checksum: 10c0/6c3d2a1d44344f373859f005e6366f0dbd7f66131d330a51dbe823dab08f71c388b2efcbb2b6a2170ca469581d27079c25cd40c234ca1356c4893ae99c2febb3
+"tailwind-merge@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "tailwind-merge@npm:2.5.5"
+  checksum: 10c0/32614dd2b4ddd4fab070d5ec569e6da00e2b34269b9ac2f2ff16733cef29a076c8e2210fbfc1904d7983a8fdb6b3e63d18ca117645f21b12ca7bcf8fe3507241
   languageName: node
   linkType: hard
 
