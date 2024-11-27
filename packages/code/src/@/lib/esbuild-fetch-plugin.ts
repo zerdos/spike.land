@@ -118,7 +118,7 @@ export const fetchPlugin = (origin: string) => ({
 async function processCSS(
   css: string,
   baseURL: string,
-  depth: number = 0,
+  depth = 0,
 ): Promise<string> {
   if (depth > 5) {
     console.warn("Maximum CSS processing depth reached");

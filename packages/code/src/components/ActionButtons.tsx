@@ -6,10 +6,10 @@ import { QRButton } from "../Qr.lazy";
 import { FaDownload } from "@/external/icons";
 import { FullscreenIcon } from "@/external/lucideReact";
 
-type ActionButtonsProps = {
+interface ActionButtonsProps {
   codeSpace: string;
   handleDownload: () => void;
-};
+}
 
 export const ActionButtons: FC<ActionButtonsProps> = ({
   codeSpace,

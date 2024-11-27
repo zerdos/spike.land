@@ -148,9 +148,7 @@ export type IframeMessage = {
   imageData: ImageData;
 };
 
-export interface LanguageMap {
-  [key: string]: string;
-}
+export type LanguageMap = Record<string, string>;
 
 // Basic types
 type Role = "user" | "system" | "assistant";
@@ -161,10 +159,10 @@ interface ImageUrl {
 }
 
 // Content part interfaces
-export type TextPart = {
+export interface TextPart {
   type: "text";
   text: string;
-};
+}
 
 export interface ImageUrlPart {
   type: "image_url";

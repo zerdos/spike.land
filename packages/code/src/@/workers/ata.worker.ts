@@ -36,7 +36,7 @@ export const myATA = async (code: string) => {
   const filed = await myPromise;
   console.log("ATA filed", { filed });
 
-  const monacoExtraLibs: { filePath: string; content: string; }[] = [];
+  const monacoExtraLibs: Array<{ filePath: string; content: string; }> = [];
 
   for (const [filePath, content] of filed.entries()) {
     monacoExtraLibs.push({
@@ -59,12 +59,14 @@ export async function ata({
 }: {
   code: string;
   originToUse: string;
-}): Promise<{
-  filePath: string;
-  content: string;
-}[]> {
+}): Promise<
+  Array<{
+    filePath: string;
+    content: string;
+  }>
+> {
   const queuedFetch = new QueuedFetch(4, 2000);
-  let thisATA: { content: string; filePath: string; }[] = [];
+  let thisATA: Array<{ content: string; filePath: string; }> = [];
 
   const impRes: Record<string, { url: string; content: string; ref: string; }> = {};
 

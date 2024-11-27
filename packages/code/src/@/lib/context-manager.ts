@@ -13,15 +13,15 @@ export interface ProjectContext {
 }
 
 class ContextManager {
-  private codeSpace: string = "";
-  private currentTask: string = "";
-  private techStack: string = "";
-  private completionCriteria: string = "";
-  private codeStructure: string = "";
-  private currentDraft: string = "";
-  private adaptiveInstructions: string = "";
-  private errorLog: string = "";
-  private progressTracker: string = "";
+  private codeSpace = "";
+  private currentTask = "";
+  private techStack = "";
+  private completionCriteria = "";
+  private codeStructure = "";
+  private currentDraft = "";
+  private adaptiveInstructions = "";
+  private errorLog = "";
+  private progressTracker = "";
 
   constructor(codeSpace: string) {
     this.codeSpace = codeSpace;

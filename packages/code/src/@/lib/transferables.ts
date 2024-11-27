@@ -392,13 +392,8 @@ export function getTransferables(
   const result = new Set<TypeTransferable>([]);
   const queues = [[obj]];
 
-  for (let i = 0; i < queues.length; i++) {
-    const queue = queues[i];
-    const len = queue.length;
-
-    for (let j = 0; j < len; j++) {
-      const item = queue[j];
-
+  for (const queue of queues) {
+    for (const item of queue) {
       if (isTypedArray(item)) {
         result.add(item.buffer);
       } else if (isTransferable(item) || streams && isStream(item)) {
@@ -439,13 +434,8 @@ export function* getTransferable(
   const seen = new Set<TypeTransferable>([]);
   const queues = [[obj]];
 
-  for (let i = 0; i < queues.length; i++) {
-    const queue = queues[i];
-    const len = queue.length;
-
-    for (let j = 0; j < len; j++) {
-      const item = queue[j];
-
+  for (const queue of queues) {
+    for (const item of queue) {
       if (isTypedArray(item)) {
         const { buffer } = item;
         if (seen.has(buffer)) continue;
@@ -497,13 +487,8 @@ export function hasTransferables(
 ): boolean {
   const queues = [[obj]];
 
-  for (let i = 0; i < queues.length; i++) {
-    const queue = queues[i];
-    const len = queue.length;
-
-    for (let j = 0; j < len; j++) {
-      const item = queue[j];
-
+  for (const queue of queues) {
+    for (const item of queue) {
       if (
         isTypedArray(item) ||
         isTransferable(item) ||

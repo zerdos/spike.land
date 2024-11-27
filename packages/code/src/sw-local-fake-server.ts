@@ -8,9 +8,7 @@ import HTML from "./index.html";
 
 import type { ICodeSession } from "./modules";
 
-const cSessions: {
-  [key: string]: CodeSessionBC;
-} = {};
+const cSessions: Record<string, CodeSessionBC> = {};
 
 export async function fakeServer(request: Request) {
   const { pathname } = new URL(request.url);

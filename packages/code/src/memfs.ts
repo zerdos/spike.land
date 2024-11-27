@@ -15,7 +15,7 @@ const handleFile = async (handle: FileSystemFileHandle, nestedPath: string) => {
 
 const handleDirectory = async (
   handle: FileSystemDirectoryHandle,
-  nestedPath: string = "",
+  nestedPath = "",
 ) => {
   return {
     name: handle.name,
@@ -29,11 +29,9 @@ const handleDirectory = async (
 export const getDirectoryEntriesRecursive = async (
   directoryHandle: FileSystemDirectoryHandle,
   relativePath = ".",
-): Promise<{
-  [key: string]: FileSystemEntry;
-}> => {
+): Promise<Record<string, FileSystemEntry>> => {
   const directoryIterator = directoryHandle.values();
-  const directoryEntryPromises: Promise<FileSystemEntry>[] = [];
+  const directoryEntryPromises: Array<Promise<FileSystemEntry>> = [];
   for await (const handle of directoryIterator) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
@@ -43,7 +41,7 @@ export const getDirectoryEntriesRecursive = async (
     }
   }
   const directoryEntries = await Promise.all(directoryEntryPromises);
-  const entries: { [key: string]: FileSystemEntry; } = {};
+  const entries: Record<string, FileSystemEntry> = {};
   directoryEntries.forEach((directoryEntry) => {
     entries[directoryEntry.name!] = directoryEntry;
   });
@@ -133,9 +131,7 @@ export const stat = async (
     name: string;
     kind: "directory";
     relativePath: string;
-    entries: {
-      [key: string]: FileSystemEntry;
-    };
+    entries: Record<string, FileSystemEntry>;
     handle: FileSystemDirectoryHandle;
   } | null
 > => {
@@ -159,9 +155,7 @@ export const stat = async (
 export const cwd = async (): Promise<string> => "/";
 export const readFileSync = (filePath: string): string => {
   // Define a type for the global object that includes the expected properties
-  interface GlobalWithFiles {
-    [key: string]: string;
-  }
+  type GlobalWithFiles = Record<string, string>;
 
   // Type assertion to let TypeScript know about the shape of the global object
   const globalFiles = globalThis as unknown as GlobalWithFiles;
@@ -189,9 +183,7 @@ const FS: {
       name: string;
       kind: "directory";
       relativePath: string;
-      entries: {
-        [key: string]: FileSystemEntry;
-      };
+      entries: Record<string, FileSystemEntry>;
       handle: FileSystemDirectoryHandle;
     } | null
   >;

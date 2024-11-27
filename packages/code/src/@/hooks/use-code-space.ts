@@ -1,6 +1,6 @@
 import { routes } from "@/lib/routes";
 
-export const getCodeSpace = (pathname: string = "") => {
+export const getCodeSpace = (pathname = "") => {
   const paths = (pathname || location.pathname).split("/").slice(1);
 
   const redirect = Object.hasOwn(routes, location.pathname)

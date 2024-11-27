@@ -34,7 +34,7 @@ export const myATA = async (code: string) => {
 
   const filed = await myPromise;
 
-  const monacoExtraLibs: { filePath: string; content: string; }[] = [];
+  const monacoExtraLibs: Array<{ filePath: string; content: string; }> = [];
 
   for (const [filePath, content] of filed.entries()) {
     monacoExtraLibs.push({

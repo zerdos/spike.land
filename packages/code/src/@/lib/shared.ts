@@ -8,10 +8,10 @@ import { RpcProvider } from "worker-rpc";
 type WorkerPort = MessagePort | Worker;
 
 class WorkerWrapper {
-  tag: string = "default";
+  tag = "default";
   rpc: RpcProvider;
   workerPort: WorkerPort;
-  busy: boolean = false;
+  busy = false;
 
   constructor(port: WorkerPort) {
     this.workerPort = port;
@@ -34,7 +34,7 @@ class WorkerPool {
   private workers: WorkerWrapper[] = [];
   private minFreeWorkers: number;
 
-  constructor(minFreeWorkers: number = 0) {
+  constructor(minFreeWorkers = 0) {
     this.minFreeWorkers = minFreeWorkers;
   }
 
@@ -53,7 +53,7 @@ class WorkerPool {
     return workerWrapper;
   }
 
-  getWorker(tag: string = "default") {
+  getWorker(tag = "default") {
     if (tag === "connect") {
       const connectWorker = this.workers.find((worker) => worker.tag === tag);
       if (connectWorker) {
@@ -110,7 +110,7 @@ export const ata = async ({
 }: {
   code: string;
   originToUse: string;
-}): Promise<{ content: string; filePath: string; }[]> => {
+}): Promise<Array<{ content: string; filePath: string; }>> => {
   const worker = (await init()).getWorker("ata");
   try {
     return await worker.rpc.rpc("ata", { code, originToUse });
@@ -130,7 +130,7 @@ export const prettierCss = async (code: string): Promise<string> => {
 
 export const tsx = async (
   code: string,
-): Promise<{ content: string; filePath: string; }[]> => {
+): Promise<Array<{ content: string; filePath: string; }>> => {
   const worker = (await init()).getWorker("tsx");
   try {
     return await worker.rpc.rpc("tsc", code);

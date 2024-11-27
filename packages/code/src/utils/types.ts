@@ -1,3 +1,1 @@
-export interface LanguageMap {
-  [key: string]: string;
-}
+export type LanguageMap = Record<string, string>;

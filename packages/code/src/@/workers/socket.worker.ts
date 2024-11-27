@@ -40,7 +40,7 @@ interface Connection {
   oldSession: ICodeSession;
 }
 
-type WsMessage = {
+interface WsMessage {
   i: number;
   changes: unknown;
   strSess: string;
@@ -53,7 +53,7 @@ type WsMessage = {
   transpiled: string;
   hashCode: string;
   hash: string;
-};
+}
 
 // Use a Map for better management of connections
 const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections ||

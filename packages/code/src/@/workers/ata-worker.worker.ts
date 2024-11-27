@@ -9,7 +9,7 @@ const lazyLoadScript = (scriptName: string): void => {
   importScripts(`/@/workers/${scriptName}.worker.js`);
 };
 
-type WorkerFunctions = {
+interface WorkerFunctions {
   ata: (params: { code: string; originToUse: string; }) => Promise<unknown>;
   prettierCss: (code: string) => Promise<string>;
   prettierJs: (
@@ -23,7 +23,7 @@ type WorkerFunctions = {
     { codeSpace, prompt, images, code }: HandleSendMessageProps,
   ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
-};
+}
 
 const self:
   & SharedWorkerGlobalScope
@@ -83,7 +83,7 @@ const handleRpcError = async (
 };
 
 const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
-  (Object.keys(workerFiles) as (keyof WorkerFunctions)[]).forEach((name) => {
+  (Object.keys(workerFiles) as Array<keyof WorkerFunctions>).forEach((name) => {
     rpcProvider.registerRpcHandler(
       name,
       (...args) => handleRpcError(name, args),

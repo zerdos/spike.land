@@ -71,12 +71,12 @@ export const makeSession = (p: ICodeSession) => {
   return rec(p).toJS();
 };
 
-export type CodePatch = {
+export interface CodePatch {
   oldHash: string;
   newHash: string;
   patch: Delta[];
   reversePatch: Delta[];
-};
+}
 
 export const createPatch = (
   oldSess: ICodeSession,

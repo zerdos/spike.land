@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { Phone, Tablet, Tv } from "../icons";
 import { cn } from "../lib/utils";
 
-type BreakpointButtonsProps = {
+interface BreakpointButtonsProps {
   width: number;
   setWidth: (value: number) => void;
   breakPoints: number[];
-};
+}
 
 export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
   width,

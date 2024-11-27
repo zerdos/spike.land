@@ -1,6 +1,6 @@
 import React from "react";
 
-type RESOLUTION = {
+interface RESOLUTION {
   "9:21": [640, 1536];
   "9:16": [768, 1344];
   "16:9": [896, 1584];
@@ -10,7 +10,7 @@ type RESOLUTION = {
   "2:3": [832, 1216];
   "3:2": [1216, 832];
   "1:1": [1024, 1024];
-};
+}
 
 interface ImageLoaderProps {
   cfg?: number;

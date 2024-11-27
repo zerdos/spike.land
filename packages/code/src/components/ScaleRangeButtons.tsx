@@ -2,12 +2,12 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type ScaleRangeButtonsProps = {
+interface ScaleRangeButtonsProps {
   scaleRange: number;
   setScaleRange: (value: number) => void;
   sizes: number[];
   maxScaleRange: number;
-};
+}
 
 export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
   scaleRange,

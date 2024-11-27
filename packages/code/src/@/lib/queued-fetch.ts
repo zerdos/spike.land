@@ -1,7 +1,7 @@
 import fetchBuilder from "fetch-retry";
 
 export class QueuedFetch {
-  private queue: (() => Promise<void>)[] = [];
+  private queue: Array<() => Promise<void>> = [];
   private ongoingRequests = 0;
   private maxConcurrent: number;
   private limitedNumberOfRequests = false;

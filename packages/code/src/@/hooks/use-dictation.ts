@@ -7,7 +7,7 @@ interface UseDictationOptions {
 }
 
 export function useDictation(
-  defaultValue: string = "",
+  defaultValue = "",
   options: UseDictationOptions = {},
 ) {
   const [message, setMessage] = useState(defaultValue);

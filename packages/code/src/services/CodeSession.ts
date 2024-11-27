@@ -56,7 +56,7 @@ interface BroadcastMessage extends ICodeSession {
 class CodeProcessor {
   async process(
     rawCode: string,
-    skipRunning: boolean = false,
+    skipRunning = false,
     counter: number,
     signal: AbortSignal,
   ): Promise<Partial<ICodeSession> | false> {
@@ -162,7 +162,7 @@ export class Code implements ICode {
 
   private codeProcessor = new CodeProcessor();
   private releaseWorker: () => void = () => {};
-  private models: Map<string, Code> = new Map();
+  private models = new Map<string, Code>();
   private setCodeController: AbortController | null = null;
 
   constructor(private codeSpace: string) {

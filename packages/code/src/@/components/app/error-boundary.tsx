@@ -1,11 +1,11 @@
 import React from "react";
 import { ContextManager } from "@/lib/context-manager";
 
-type ErrorBoundaryState = {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
   errorInfo: React.ErrorInfo | null;
-};
+}
 
 export class ErrorBoundary extends React.Component<
   { children: React.ReactNode; codeSpace?: string },

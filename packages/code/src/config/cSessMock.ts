@@ -5,10 +5,10 @@ class SessMock implements ICode {
     // Currently not using formatted and transpiled
     throw new Error("Method not implemented.");
   }
-  buffy: Promise<void>[] = [];
-  codeSpace: string = "mock-code-space";
+  buffy: Array<Promise<void>> = [];
+  codeSpace = "mock-code-space";
 
-  private subs: ((sess: ICodeSession) => void)[] = [];
+  private subs: Array<(sess: ICodeSession) => void> = [];
 
   session: ICodeSession = {
     code: "",

@@ -25,7 +25,7 @@ interface Section {
 
 const parseAnalysis = (content: string): Section => {
   console.log("Parsing content:", content);
-  const sections: { [key: string]: any } = {};
+  const sections: Record<string, unknown> = {};
   const lines = content
     .replace(/<\/?react_code_analysis>/g, "")
     .split("\n")
@@ -165,14 +165,12 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
 
   const renderSections = () => {
     console.log("Rendering sections:", sections);
-    interface SectionConfig {
-      [key: string]: {
+    type SectionConfig = Record<string, {
         title: string;
         icon: React.ElementType;
         listType?: "default";
         render?: () => React.ReactNode;
-      };
-    }
+      }>;
 
     const sectionConfig: SectionConfig = {
       concepts: {

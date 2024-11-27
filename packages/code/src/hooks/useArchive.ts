@@ -29,7 +29,7 @@ export const getSpeedy2 = async () => {
 
     origin: location.origin,
     format: "esm",
-  }) as unknown as { text: string; path: string; contents: ArrayBuffer; }[];
+  }) as unknown as Array<{ text: string; path: string; contents: ArrayBuffer; }>;
 
   // res.map(async (f) => {
   //   await fetch(f.path.slice(1), {
@@ -219,11 +219,11 @@ export const useSpeedy = async (codeSpace: string) => {
 
   // const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
-  const indexMjs = (await buildWithRetry()) as unknown as {
+  const indexMjs = (await buildWithRetry()) as unknown as Array<{
     contents: Uint8Array;
     path: string;
     text: string;
-  }[];
+  }>;
 
   console.log({ indexMjs });
 
@@ -237,7 +237,7 @@ export const useSpeedy = async (codeSpace: string) => {
   //   });}
 
   const getMimeType = (extension: string) => {
-    const mimeTypes: { [key: string]: string; } = {
+    const mimeTypes: Record<string, string> = {
       "woff": "font/woff",
       "woff2": "font/woff2",
       "ttf": "font/ttf",

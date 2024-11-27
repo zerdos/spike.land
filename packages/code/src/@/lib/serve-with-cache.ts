@@ -8,7 +8,7 @@ function getContentType(path: string) {
 }
 
 export const serveWithCache = (
-  files: { [key: string]: string; },
+  files: Record<string, string>,
   cacheToUse: () => Promise<Cache>,
 ) => {
   const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));

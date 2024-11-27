@@ -47,13 +47,13 @@ export function memoizeWithAbort<T extends AnyFunction>(
   fn: T,
   keyResolver?: (...args: Parameters<T>) => string,
 ): MemoizedFunctionWithAbort<T> {
-  type Callbacks = {
+  interface Callbacks {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolve: (value: any) => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reject: (reason?: any) => void;
     signal: AbortSignal;
-  };
+  }
 
   const cache = new Map<
     string,

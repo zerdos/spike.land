@@ -229,8 +229,7 @@ const posix = {
       return ".";
     }
     let joined: string | undefined;
-    for (let i = 0; i < paths.length; ++i) {
-      const arg = paths[i];
+    for (const arg of paths) {
       assertPath(arg);
       if (arg.length > 0) {
         if (joined === undefined) {

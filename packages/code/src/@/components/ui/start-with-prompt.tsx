@@ -18,10 +18,10 @@ export const StartWithPrompt: React.FC = () => {
     event: React.ClipboardEvent<HTMLTextAreaElement>,
   ) => {
     const items = event.clipboardData.items;
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type.indexOf("image") !== -1) {
+    for (const item of items) {
+      if (item.type.indexOf("image") !== -1) {
         event.preventDefault();
-        const file = items[i].getAsFile();
+        const file = item.getAsFile();
         if (file && images.length < 5) {
           try {
             const imageData = await processImage(file);
