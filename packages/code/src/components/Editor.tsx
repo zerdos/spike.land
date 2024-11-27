@@ -34,21 +34,23 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     mod.current.md5Ids.push(md5(newCode));
     cSess.setCode(newCode);
   }, [cSess]);
+  const started = editorState && editorState.started;
+  const setValue = editorState && editorState.setValue;
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
 
-      if (e.code && editorState.started && editorState.setValue) {
-        // console.log("Setting code", e.code);
-        editorState.setValue(e.code);
+      if (e.code && started && setValue) {
+        console.log("Setting code", e.code);
+        setValue(e.code);
       }
     };
     return () => {
       BC.close();
     };
-  }, [editorState, editorState.started, editorState.setValue, codeSpace]);
+  }, [started, setValue, codeSpace]);
 
   useEffect(() => {
     if (errorType) {
@@ -66,7 +68,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         mod.current.md5Ids.push(md5Code);
         mod.current.md5Ids = mod.current.md5Ids.slice(-10);
 
-        // console.log("Set new code to editor", md5Code);
+        console.log("Set new code to editor", md5Code);
         if (editorState.setValue) {
           editorState.setValue(data.code);
         }
@@ -97,7 +99,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           handleContentChange,
         ));
 
-      // console.log("Editor initialized", mod.current.i);
+      console.log("Editor initialized", mod.current.i);
       setEditorState({
         ...editorState,
         started: true,
@@ -107,7 +109,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
 
     initializeEditor();
-  });
+  }, []);
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
