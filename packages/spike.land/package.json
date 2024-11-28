@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/workers-types": "4.20241112.0",
+    "@cloudflare/workers-types": "4.20241127.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
@@ -31,7 +31,7 @@
     "@remix-run/cloudflare": "2.15.0",
     "@remix-run/react": "2.15.0",
     "@spike-npm-land/code": "0.9.56",
-    "@types/node": "22.10.0",
+    "@types/node": "22.10.1",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.24.0",

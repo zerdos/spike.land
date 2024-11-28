@@ -1,9 +1,8 @@
-// empty-dkddd.tsx
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CheckCircle2,
-  Code,
+  Code, 
   GitCommit,
   LightbulbIcon,
   List,
@@ -23,18 +22,24 @@ interface Section {
   approach?: string;
 }
 
+interface ProsCons {
+  pros: string[];
+  cons: string[];
+}
+
 const parseAnalysis = (content: string): Section => {
   console.log("Parsing content:", content);
-  const sections: Record<string, unknown> = {};
+  const sections: Section = {};
   const lines = content
     .replace(/<\/?react_code_analysis>/g, "")
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
-  let currentSection = "";
-  let currentSubsection = "";
 
-  const sectionMap = {
+  let currentSection: keyof Section | "" = "";
+  let currentSubsection: keyof ProsCons | "" = "";
+
+  const sectionMap: Record<string, keyof Section> = {
     "1. Key React concepts": "concepts",
     "2. User's request": "request",
     "3. Tasks": "tasks",
@@ -43,55 +48,53 @@ const parseAnalysis = (content: string): Section => {
   };
 
   lines.forEach((line) => {
-    const newSection = Object.keys(sectionMap).find((
-      key,
-    ): key is keyof typeof sectionMap => line.startsWith(key));
+    const newSection = Object.keys(sectionMap).find(
+      (key): key is keyof typeof sectionMap => line.startsWith(key)
+    );
     if (newSection) {
       currentSection = sectionMap[newSection];
       if (!sections[currentSection]) {
-        sections[currentSection] = currentSection === "proscons"
-          ? { pros: [], cons: [] }
-          : currentSection === "request" || currentSection === "approach"
-          ? ""
-          : [];
+        if (currentSection === "proscons") {
+          sections.proscons = { pros: [], cons: [] };
+        } else if (currentSection === "request") {
+          sections.request = "";
+        } else if (currentSection === "approach") {
+          sections.approach = "";
+        } else if (currentSection === "concepts") {
+          sections.concepts = [];
+        } else if (currentSection === "tasks") {
+          sections.tasks = [];
+        }
       }
       if (currentSection === "proscons") {
-        currentSubsection = currentSection === "proscons"
-          ? "pros"
-          : currentSection;
+        currentSubsection = "pros";
       }
     } else if (currentSection) {
-      if (
-        currentSection === "proscons" || currentSection === "pros" ||
-        currentSection === "cons"
-      ) {
+      if (currentSection === "proscons" && sections.proscons) {
         if (line.startsWith("-")) {
           const item = line.replace(/^-\s*/, "");
-          if (currentSection === "proscons") {
+          if (currentSubsection) {
             sections.proscons[currentSubsection].push(item);
-          } else {
-            sections.proscons[currentSection].push(item);
           }
         } else {
-          if (line.includes("Cons")) currentSection = "cons";
-          else currentSection = "pros";
+          if (line.includes("Cons")) currentSubsection = "cons";
+          else currentSubsection = "pros";
         }
-      } else if (Array.isArray(sections[currentSection])) {
+      } else if (currentSection === "concepts" && sections.concepts) {
+        if (line.startsWith("-")) {
+          sections.concepts.push(line.replace(/^-\s*/, ""));
+        }
+      } else if (currentSection === "tasks" && sections.tasks) {
         if (line.startsWith("-") || line.match(/^[a-f]\./)) {
-          sections[currentSection].push(line.replace(/^[-a-f]\.\s*/, ""));
+          sections.tasks.push(line.replace(/^[-a-f]\.\s*/, ""));
         }
-      } else if (
-        currentSection === "request" || currentSection === "approach"
-      ) {
-        sections[currentSection] += (sections[currentSection] ? " " : "") +
-          line;
+      } else if (currentSection === "request" && sections.request !== undefined) {
+        sections.request += (sections.request ? " " : "") + line;
+      } else if (currentSection === "approach" && sections.approach !== undefined) {
+        sections.approach += (sections.approach ? " " : "") + line;
       }
     }
   });
-
-  // Remove separate pros and cons sections
-  delete sections.pros;
-  delete sections.cons;
 
   console.log("Parsed sections:", sections);
   return sections;
@@ -114,7 +117,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   }
 
   const Section: React.FC<SectionProps> = (
-    { title, children, icon: Icon, listType },
+    { title, children, icon: Icon, listType }
   ) => (
     <div
       className={`p-2 transition-all duration-300 ${
@@ -165,12 +168,14 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
 
   const renderSections = () => {
     console.log("Rendering sections:", sections);
-    type SectionConfig = Record<string, {
+    type SectionConfig = {
+      [K in keyof Section]-?: {
         title: string;
         icon: React.ElementType;
         listType?: "default";
         render?: () => React.ReactNode;
-      }>;
+      }
+    };
 
     const sectionConfig: SectionConfig = {
       concepts: {
@@ -257,10 +262,10 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
         ),
       },
       approach: { title: "Best Approach", icon: LightbulbIcon },
-    };
+    } as const;
 
     return Object.entries(sections).map(([key, value]) => {
-      const config = sectionConfig[key];
+      const config = sectionConfig[key as keyof Section];
       if (!config) return null;
       console.log(`Rendering section: ${key}`, value);
       return (
@@ -308,11 +313,11 @@ const analysisContent = `
    - Functional component: AceEditorComponent
    - Hooks: useState
    - Event handlers: handleChange, clearEditor, undoClear
-   - Emotionin-JS styling
+   - Emotion-JS styling
    - AceEditor from react-ace library
 
 2. User's request:
- - Implement a multi-step undo history
+Implement a multi-step undo history
 
 3. Tasks and solutions:
    a. Replace single previousContent state with an array of history states

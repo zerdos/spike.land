@@ -216,41 +216,34 @@ Explanation: To make the clock movement smoother, you could add CSS transitions 
 />
 ```
 
-These changes implement the clock without canvas while maintaining most of the original visual style and functionality. The div-based structure allows for easier styling and potential future modifications.<code_analysis>
 1. Key React concepts and components:
-   - Functional component (SportyClock)
-   - Hooks: useEffect, useRef
-   - Canvas manipulation
-   - Date and time handling
-   - Responsive design with Tailwind CSS
+   - Functional component: AceEditorComponent
+   - Hooks: useState
+   - Event handlers: handleChange, clearEditor, undoClear
+   - Emotion-JS styling
+   - AceEditor from react-ace library
 
 2. User's request:
-   - Implement the clock without using canvas
+Implement a multi-step undo history
 
-3. Tasks and potential solutions:
-   a. Replace canvas-based clock with CSS and JavaScript:
-      - Use div elements for clock face, numbers, and hands
-      - Implement rotation of clock hands using CSS transforms
-      - Update time display using JavaScript setInterval
+3. Tasks and solutions:
+   a. Replace single previousContent state with an array of history states
+   b. Modify handleChange to add each change to the history
+   c. Update clearEditor to add the current state to history before clearing
+   d. Modify undoClear to handle multiple undo steps
+   e. Add a Redo functionality
+   f. Update UI to show Undo and Redo buttons
 
-   b. Maintain visual style and effects:
-      - Use CSS for styling (background, textures, shadows)
-      - Implement animations for smooth hand movement
-
-   c. Keep responsive design:
-      - Maintain Tailwind CSS classes for responsiveness
-
-4. Evaluation:
+4. Pros and cons:
    Pros:
-   - Easier to style and modify individual elements
-   - Better accessibility
-   - Potentially better performance for simple clocks
+   - Allows users to undo multiple steps, improving user experience
+   - Provides a more robust editing experience
    Cons:
-   - May lose some visual effects that were easier with canvas
-   - Slightly more complex DOM structure
+   - Increases component complexity
+   - May impact performance with large history arrays
 
 5. Best approach:
-   Implement a div-based clock structure with CSS styling and JavaScript for time updates. Use CSS transforms for hand rotations and maintain the overall visual style as much as possible.
+   Implement a history array using useState, modify existing functions to work with the array, add a new Redo function, and update the UI to include Undo and Redo buttons with appropriate disabling logic.
 </code_analysis>
 
 Based on the analysis, here's the implementation of the clock without canvas:
