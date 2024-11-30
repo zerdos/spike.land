@@ -62,7 +62,9 @@ export const makeSession = (p: ICodeSession) => {
   const rec = Record<ICodeSession>({
     i: p.i || 0,
     codeSpace: p.codeSpace || "",
-    code: p.code || "export default ()=> <>Nothing</>",
+    code: p.code || `export default () => <>
+  Nothing
+</>;`,
     html: p.html || "",
     css: (p.css || ""),
     transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
