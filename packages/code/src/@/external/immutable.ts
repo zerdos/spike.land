@@ -1,2 +1,1 @@
-import { hash, Record } from "immutable";
-export { hash, Record };
+export { hash, Record } from "immutable";
