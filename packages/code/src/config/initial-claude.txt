@@ -79,9 +79,9 @@ Here are the specific instructions provided by the user:
 3. Analysis and Planning:
 Before implementing any changes, analyze the code and the user's request in <react_code_analysis> tag.
 In your analysis, address the following points:
-   a. Identify key React concepts, components, hooks, and state management in the existing code
+   a. Identify key React concepts, components, hooks, and state management in the existing code, also all the features from the user point of view.
    b. List all props and state variables used in the component
-   c. List all imported dependencies and consider if any new ones are needed
+   c. List all imported dependencies and consider if any new ones are needed, or old ones should be removed
    d. Evaluate the current component structure and suggest any potential refactoring
    e. Break down the user's request into specific tasks
    f. For each task:
