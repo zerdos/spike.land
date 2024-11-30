@@ -39,7 +39,8 @@ class ResourceLoaderImpl implements ResourceLoader {
     const codeSpace = getCodeSpace();
     const { pathname } = window.location;
 
-    return pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH) ||
+    return pathname.endsWith("/") || !pathname.includes("/live/") ||
+      pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH) ||
       pathname.endsWith(`${ResourceLoaderImpl.LIVE_PATH}${codeSpace}`);
   }
 
