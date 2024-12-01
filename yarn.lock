@@ -3791,7 +3791,7 @@ __metadata:
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.184"
+    "@types/web": "npm:0.0.185"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.16.0"
     "@typescript/ata": "npm:0.9.7"
@@ -3824,7 +3824,7 @@ __metadata:
     detective-typescript: "npm:13.0.0"
     diff: "npm:7.0.0"
     embla-carousel-react: "npm:8.5.1"
-    es-toolkit: "npm:1.27.0"
+    es-toolkit: "npm:1.28.0"
     esbuild: "npm:0.24.0"
     esbuild-plugin-copy: "npm:2.1.1"
     esbuild-style-plugin: "npm:1.6.3"
@@ -3874,7 +3874,7 @@ __metadata:
     querystring: "npm:0.2.1"
     re-resizable: "npm:6.10.1"
     react: "npm:18.3.1"
-    react-day-picker: "npm:9.4.0"
+    react-day-picker: "npm:9.4.1"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:7.53.2"
     react-i18next: "npm:15.1.3"
@@ -4910,10 +4910,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.184":
-  version: 0.0.184
-  resolution: "@types/web@npm:0.0.184"
-  checksum: 10c0/1aa275c8cd94cf76117fce3279b421e60202695fef866f71e2b4abc1c3cb63de9990184101668cd6a648b1b504ee8c9d8c1448baf7a3531b542a49e5b924fd2a
+"@types/web@npm:0.0.185":
+  version: 0.0.185
+  resolution: "@types/web@npm:0.0.185"
+  checksum: 10c0/0eef25801d8e8f35254e0660a935781155d433ac99e90b75d00e03a1f6cc5afa735374407698e30b55e8a62a89707801e118338ef027b41b52fb2dbe654f363b
   languageName: node
   linkType: hard
 
@@ -8148,15 +8148,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:1.27.0":
-  version: 1.27.0
-  resolution: "es-toolkit@npm:1.27.0"
+"es-toolkit@npm:1.28.0":
+  version: 1.28.0
+  resolution: "es-toolkit@npm:1.28.0"
   dependenciesMeta:
     "@trivago/prettier-plugin-sort-imports@4.3.0":
       unplugged: true
     prettier-plugin-sort-re-exports@0.0.1:
       unplugged: true
-  checksum: 10c0/c2ac707635237252efd8cade7301cdf313926ad6fabf67fdcf04dca37dbd446247b6c2a350f3081515b1e6ce1c8044f7331ed306124483cfdf4e371ddc944b1f
+  checksum: 10c0/193a41b6fd6d4538e31b9d96eeda7b0ba98fa0a261dbbc73f75f60646cf832fc4a8f24510d8c1d083c3351ccd09abbcff69c3ee4d6ded631b7117a16fce1bff6
   languageName: node
   linkType: hard
 
@@ -13948,15 +13948,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.4.0":
-  version: 9.4.0
-  resolution: "react-day-picker@npm:9.4.0"
+"react-day-picker@npm:9.4.1":
+  version: 9.4.1
+  resolution: "react-day-picker@npm:9.4.1"
   dependencies:
     "@date-fns/tz": "npm:^1.2.0"
     date-fns: "npm:^4.1.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10c0/1f454735438c2cb90ffe46d26947f9b8c5351d24b22d868ab196247c7effceb1af4092a9f81dba4b0e0cde79e59541c3760501d2bba0e7a015d354e954c2ac60
+  checksum: 10c0/20aefcd25f4479dad3d5b87f5fdde8710d9c55ae75e93353672a1e1a9cd4eb5bb5a45de62f40a9ac3406383df5ae67d4bdb354b55fd19ddc6f2142b2eb454689
   languageName: node
   linkType: hard
 
