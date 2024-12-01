@@ -39,10 +39,6 @@ exports[`addSomeFixesIfNeeded > doesn't add extra css' if 'css={css\`' is presen
 export default () => <></>; // Empty default export"
 `;
 
-exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' is missing 1`] = `"export const myUtilityFN = () => {};"`;
-
-exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' is missing 2`] = `"export const myUtilityFN = () => {};"`;
-
 exports[`addSomeFixesIfNeeded > handles external state 1`] = `
 "
     
