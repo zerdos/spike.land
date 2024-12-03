@@ -21,6 +21,7 @@
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
+    "@typescript-eslint/parser": "^8.17.0",
     "@vitest/runner": "2.1.8",
     "@vitest/snapshot": "2.1.8",
     "typescript": "5.7.2",

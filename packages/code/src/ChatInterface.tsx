@@ -164,11 +164,21 @@ const ChatInterface: React.FC<{
         });
       }
       // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
+      setTimeout(() => {
+        setIsStreaming(false);
+      }
+      , 2000);
+
+      if (e.isStreaming === false) {
+        setIsStreaming(false);
+      }
+
+
     };
     return () => {
       BC.close();
     };
-  }, [codeSpace, messages, setMessages, cSess, setIsStreaming]);
+  }, [codeSpace, messages, setMessages, cSess, setIsStreaming, isStreaming]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();

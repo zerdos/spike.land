@@ -3850,6 +3850,7 @@ __metadata:
     "@types/mime-db": "npm:1.43.5"
     "@types/mime-types": "npm:2.1.4"
     "@types/node": "npm:22.10.1"
+    "@typescript-eslint/parser": "npm:^8.17.0"
     "@vitest/runner": "npm:2.1.8"
     "@vitest/snapshot": "npm:2.1.8"
     async-mutex: "npm:0.5.0"
@@ -3960,7 +3961,6 @@ __metadata:
     "@vitest/runner": "npm:2.1.8"
     "@vitest/snapshot": "npm:2.1.8"
     "@vitest/ui": "npm:2.1.8"
-    "@yarnpkg/sdks": "npm:3.2.0"
     ace-builds: "npm:1.36.5"
     ai-digest: "npm:1.0.7"
     assert: "npm:2.1.0"
@@ -5096,7 +5096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:8.17.0":
+"@typescript-eslint/parser@npm:8.17.0, @typescript-eslint/parser@npm:^8.17.0":
   version: 8.17.0
   resolution: "@typescript-eslint/parser@npm:8.17.0"
   dependencies:
@@ -5536,7 +5536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.2.0":
+"@yarnpkg/sdks@npm:^3.2.0":
   version: 3.2.0
   resolution: "@yarnpkg/sdks@npm:3.2.0"
   dependencies:
@@ -8800,7 +8800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.16.0":
+"eslint@npm:9.16.0, eslint@npm:^9.16.0":
   version: 9.16.0
   resolution: "eslint@npm:9.16.0"
   dependencies:
@@ -12535,8 +12535,12 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20241202.0"
     "@eslint/js": "npm:9.16.0"
+    "@typescript-eslint/parser": "npm:^8.17.0"
+    "@yarnpkg/sdks": "npm:^3.2.0"
     dprint: "npm:^0.47.6"
+    eslint: "npm:^9.16.0"
     eslint-plugin-react: "npm:7.37.2"
+    typescript: "npm:^5.7.2"
     typescript-eslint: "npm:8.17.0"
   languageName: unknown
   linkType: soft
@@ -16780,7 +16784,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.2":
+"typescript@npm:5.7.2, typescript@npm:^5.7.2":
   version: 5.7.2
   resolution: "typescript@npm:5.7.2"
   bin:
@@ -16790,7 +16794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>":
   version: 5.7.2
   resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
   bin:

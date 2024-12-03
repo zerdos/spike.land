@@ -42,7 +42,7 @@ export class ErrorBoundary extends React.Component<
             Oops! Something went wrong.
           </h1>
           <p>
-            We're sorry for the inconvenience. Please try refreshing the page or
+            We are sorry for the inconvenience. Please try refreshing the page or
             contact support if the problem persists.
           </p>
           {process.env.NODE_ENV !== "production" && (
