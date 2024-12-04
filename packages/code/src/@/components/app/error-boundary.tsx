@@ -42,8 +42,8 @@ export class ErrorBoundary extends React.Component<
             Oops! Something went wrong.
           </h1>
           <p>
-            We are sorry for the inconvenience. Please try refreshing the page or
-            contact support if the problem persists.
+            We are sorry for the inconvenience. Please try refreshing the page
+            or contact support if the problem persists.
           </p>
           {process.env.NODE_ENV !== "production" && (
             <details className="mt-4">

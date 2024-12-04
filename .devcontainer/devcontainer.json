@@ -3,7 +3,7 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  "service": "devcontainer",  
+  "service": "devcontainer",
   "workspaceFolder": "/workspace",
   "customizations": {
     "extensions": [

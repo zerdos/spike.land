@@ -30,14 +30,14 @@ module.exports = [
     },
     plugins: {
       "@typescript-eslint": tsEslint.plugin,
-      "react": reactPlugin
+      "react": reactPlugin,
     },
     rules: {
       ...tsEslint.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-      "react-hooks/exhaustive-deps": 'off', 
+      "react-hooks/exhaustive-deps": "off",
       "react/display-name": "off",
       "@typescript-eslint/consistent-type-imports": [
         "error",

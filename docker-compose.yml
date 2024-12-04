@@ -21,13 +21,12 @@ services:
       - ${HOME}/.config:/${HOME}/.config
       - ${HOME}/.vscode:${HOME}/.vscode
       - ${HOME}/.vscode-server:${HOME}/.vscode-server
-      
-      
+
       - ${HOME}/.cache:${HOME}/.cache
       - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
       - ${HOME}/workspace/.yarn/unplugged
       - ${HOME}/workspace/.yarn/__virtual__
-         
+
     ports:
       - "3333:3333"
       - "6080:6080" # Added port 6080

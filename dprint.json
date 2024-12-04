@@ -6,9 +6,9 @@
   "typescript": {
     "quoteStyle": "preferDouble",
     "semiColons": "always",
-   "binaryExpression.operatorPosition": "sameLine",
+    "binaryExpression.operatorPosition": "sameLine",
     "jsx.quoteStyle": "preferDouble",
-    
+
     "trailingCommas": "onlyMultiLine"
   },
   "json": {

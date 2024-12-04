@@ -8,90 +8,90 @@ import reactPlugin from "eslint-plugin-react";
 export default tsEslint.config(
   {
     ignores: [
-      "dist", 
-      "dts", 
+      "dist",
+      "dts",
       "node_modules",
       "**/*.d.ts",
       "**/*.config.js",
-      "**/*.config.ts"
-    ]
+      "**/*.config.ts",
+    ],
   },
   {
     files: ["src/**/*.{ts,tsx}"],
     extends: [
-      js.configs.recommended, 
+      js.configs.recommended,
       ...tsEslint.configs.recommended,
-      ...tsEslint.configs.stylistic
+      ...tsEslint.configs.stylistic,
     ],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
       globals: {
         ...globals.browser,
-        ...globals.es2022
+        ...globals.es2022,
       },
       parser: tsEslint.parser,
       parserOptions: {
-        tsconfigRootDir: '.',
+        tsconfigRootDir: ".",
         project: true,
         projectService: true,
         ecmaFeatures: {
-          jsx: true
-        }
-      }
+          jsx: true,
+        },
+      },
     },
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
       "@typescript-eslint": tsEslint.plugin,
-      "react": reactPlugin
+      "react": reactPlugin,
     },
     rules: {
       // Console statements - changed to 'error' to make it auto-fixable
-      // "no-console": ["error", { 
+      // "no-console": ["error", {
       //   allow: ["warn", "error"],
       // }],
 
       // React Refresh rules
       "react-refresh/only-export-components": [
-        "warn", 
-        { allowConstantExport: true }
+        "warn",
+        { allowConstantExport: true },
       ],
-      
+
       // Unused variables handling
       "@typescript-eslint/no-unused-vars": [
-        "warn", 
-        { 
-          argsIgnorePattern: "^_", 
+        "warn",
+        {
+          argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
           destructuredArrayIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_"
-        }
+          caughtErrorsIgnorePattern: "^_",
+        },
       ],
-      
+
       // Type definition rules
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
       "@typescript-eslint/no-empty-object-type": [
-        "error", 
-        { allowInterfaces: "always" }
+        "error",
+        { allowInterfaces: "always" },
       ],
-      
+
       // Array type handling
       "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
-      
+
       // Empty function handling
       "@typescript-eslint/no-empty-function": "off",
-      
+
       // Inferrable type annotations
       "@typescript-eslint/no-inferrable-types": "warn",
 
       // React hooks rules
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": [
-        "warn", 
+        "warn",
         {
-          additionalHooks: "(useAsync|useAsyncCallback)"
-        }
+          additionalHooks: "(useAsync|useAsyncCallback)",
+        },
       ],
 
       // Additional recommended rules
@@ -104,7 +104,7 @@ export default tsEslint.config(
       "react/jsx-key": "error",
       "react/no-unescaped-entities": "warn",
       "react/prop-types": "off",
-      "react/display-name": "off"
-    }
-  }
+      "react/display-name": "off",
+    },
+  },
 );

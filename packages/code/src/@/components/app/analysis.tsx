@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CheckCircle2,
-  Code, 
+  Code,
   GitCommit,
   LightbulbIcon,
   List,
@@ -49,7 +49,7 @@ const parseAnalysis = (content: string): Section => {
 
   lines.forEach((line) => {
     const newSection = Object.keys(sectionMap).find(
-      (key): key is keyof typeof sectionMap => line.startsWith(key)
+      (key): key is keyof typeof sectionMap => line.startsWith(key),
     );
     if (newSection) {
       currentSection = sectionMap[newSection];
@@ -88,9 +88,13 @@ const parseAnalysis = (content: string): Section => {
         if (line.startsWith("-") || line.match(/^[a-f]\./)) {
           sections.tasks.push(line.replace(/^[-a-f]\.\s*/, ""));
         }
-      } else if (currentSection === "request" && sections.request !== undefined) {
+      } else if (
+        currentSection === "request" && sections.request !== undefined
+      ) {
         sections.request += (sections.request ? " " : "") + line;
-      } else if (currentSection === "approach" && sections.approach !== undefined) {
+      } else if (
+        currentSection === "approach" && sections.approach !== undefined
+      ) {
         sections.approach += (sections.approach ? " " : "") + line;
       }
     }
@@ -117,7 +121,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   }
 
   const Section: React.FC<SectionProps> = (
-    { title, children, icon: Icon, listType }
+    { title, children, icon: Icon, listType },
   ) => (
     <div
       className={`p-2 transition-all duration-300 ${
@@ -174,7 +178,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
         icon: React.ElementType;
         listType?: "default";
         render?: () => React.ReactNode;
-      }
+      };
     };
 
     const sectionConfig: SectionConfig = {

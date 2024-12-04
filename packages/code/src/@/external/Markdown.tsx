@@ -34,7 +34,9 @@ const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = (
 
       const arrayBuffer = await response.arrayBuffer();
       const audioContext = new window.AudioContext();
-      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer as ArrayBuffer);
+      const audioBuffer = await audioContext.decodeAudioData(
+        arrayBuffer as ArrayBuffer,
+      );
       const source = audioContext.createBufferSource();
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
