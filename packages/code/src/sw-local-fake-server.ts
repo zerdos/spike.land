@@ -41,6 +41,8 @@ export async function fakeServer(request: Request) {
     request.url.includes("/worker") ||
     request.url.includes("/dehydrated") ||
     request.url.includes("/iframe") ||
+    request.url.endsWith("/") ||
+    !request.url.includes("/live") ||
     request.url.includes("/embed") ||
     request.url.includes("/public") ||
     request.url.endsWith(`/live/${codeSpace}/xxx`) ||
