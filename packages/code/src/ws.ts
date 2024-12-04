@@ -174,11 +174,11 @@ const handleDefaultPage = async () => {
 };
 
 export const main = async () => {
-  if (location.pathname.endsWith("/iframe")) {
-    await init();
-  }
+  const twCss = init();
+
   const cSessBr = new CodeSessionBC(codeSpace);
   const session = await cSessBr.init();
+  await twCss;
 
   try {
     if (
