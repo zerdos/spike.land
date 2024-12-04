@@ -12,10 +12,6 @@ import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
 
-if (location.pathname.endsWith("/iframe")) {
-  await init();
-}
-
 // Global variables and types
 const codeSpace = getCodeSpace();
 let rendered: RenderedApp | null = null;
@@ -178,6 +174,9 @@ const handleDefaultPage = async () => {
 };
 
 export const main = async () => {
+  if (location.pathname.endsWith("/iframe")) {
+    await init();
+  }
   const cSessBr = new CodeSessionBC(codeSpace);
   const session = await cSessBr.init();
 
