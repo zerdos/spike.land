@@ -2,6 +2,7 @@ import { getCommonBuildOptions } from "@/lib/esbuild-build-config";
 import { environment } from "@/lib/esbuild-make-env";
 import { build } from "@/lib/esbuild-operations";
 import { copy } from "esbuild-plugin-copy";
+import { tailwindPlugin } from "esbuild-plugin-tailwindcss";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
 import { importMapReplace } from "@/lib/importmap-utils";
@@ -272,6 +273,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     legalComments: "none",
     platform: "browser",
     plugins: [
+      tailwindPlugin(),
       ...buildOptions.plugins,
     ],
     entryPoints: [

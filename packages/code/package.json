@@ -134,6 +134,7 @@
     "embla-carousel-react": "8.5.1",
     "es-toolkit": "1.29.0",
     "esbuild-plugin-copy": "2.1.1",
+    "esbuild-plugin-tailwindcss": "^1.2.1",
     "esbuild-style-plugin": "1.6.3",
     "esbuild-wasm": "0.24.0",
     "events": "3.3.0",
