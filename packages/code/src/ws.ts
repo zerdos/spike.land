@@ -12,9 +12,9 @@ import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
 
-// if (location.pathname.endsWith("/iframe")) {
-init();
-// }
+if (location.pathname.endsWith("/iframe")) {
+  await init();
+}
 
 // Global variables and types
 const codeSpace = getCodeSpace();
