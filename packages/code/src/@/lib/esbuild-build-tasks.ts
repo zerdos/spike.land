@@ -97,7 +97,7 @@ export const buildWasm = async (): Promise<void> => {
 export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions("production"),
-    entryPoints: ["src/sw.ts"],
+    entryPoints: ["src/sw.ts", "src/assets/tw.js"],
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: false,
