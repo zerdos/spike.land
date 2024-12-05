@@ -47,11 +47,11 @@ const ChatInterface: React.FC<{
     if (storedMessages && storedMessages.length > 0) {
       setMessages(storedMessages);
     }
-  }, [storedMessages, setMessages]);
+  }, [storedMessages]);
 
   useEffect(() => {
     setStoredMessages(messages);
-  }, [messages, setStoredMessages]);
+  }, [messages]);
 
   useEffect(() => {
     if (isOpen) {
@@ -157,7 +157,7 @@ const ChatInterface: React.FC<{
     return () => {
       BC.close();
     };
-  }, [codeSpace, isStreaming, setIsStreaming, setMessages, cSess]);
+  }, [isStreaming,]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
