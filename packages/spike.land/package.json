@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.32.1",
-    "@clerk/backend": "1.19.0",
-    "@clerk/clerk-sdk-node": "5.0.71",
+    "@clerk/backend": "1.19.1",
+    "@clerk/clerk-sdk-node": "5.0.72",
     "@remix-run/cloudflare": "2.15.0",
     "@remix-run/react": "2.15.0",
     "@spike-npm-land/code": "0.9.56",
