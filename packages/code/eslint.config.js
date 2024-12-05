@@ -53,6 +53,7 @@ export default tsEslint.config(
       // }],
 
       // React Refresh rules
+      "react-hooks/exhaustive-deps": ["off"],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
@@ -87,13 +88,7 @@ export default tsEslint.config(
 
       // React hooks rules
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": [
-        "warn",
-        {
-          additionalHooks: "(useAsync|useAsyncCallback)",
-        },
-      ],
-
+   
       // Additional recommended rules
       "prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "warn",

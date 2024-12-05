@@ -1,6 +1,7 @@
 import { useState } from "react";
+import type {FC} from "react";
 
-export default () => {
+export const TextToSpeech: FC = () => {
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState("");
@@ -83,3 +84,7 @@ export default () => {
     </div>
   );
 };
+
+TextToSpeech.displayName='TextToSpeech';
+
+export default TextToSpeech;
