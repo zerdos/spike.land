@@ -196,7 +196,7 @@ const ChatInterface: React.FC<{
         }
       }
     }
-  }, [isOpen, codeSpace, setInput, cSess]);
+  }, [isOpen]);
 
   const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
