@@ -17,7 +17,7 @@ const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
-}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
+}> =({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = getCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -254,7 +254,7 @@ const ChatInterface: React.FC<{
       screenShot={memoizedScreenShot}
     />
   );
-});
+}
 
 ChatInterface.displayName = "ChatInterface";
 
