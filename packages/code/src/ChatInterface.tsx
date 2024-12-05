@@ -22,7 +22,7 @@ const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
-  const [messages, setMessages] = useImmer<Message[]>([]);
+  const [messages, setMessages] = useImmer<Message[]>(storedMessages);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
   const [input, setInput] = useDictation("");
 
@@ -42,12 +42,6 @@ const ChatInterface: React.FC<{
       inputRef.current.value = "";
     }
   }, [setInput, setMessages, setStoredMessages]);
-
-  useEffect(() => {
-    if (storedMessages && storedMessages.length > 0) {
-      setMessages(storedMessages);
-    }
-  }, [storedMessages]);
 
   useEffect(() => {
     setStoredMessages(messages);
