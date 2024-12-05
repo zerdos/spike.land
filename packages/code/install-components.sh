@@ -2,7 +2,7 @@
 
 # List of components
 components=(
-    "accordion"
+  "accordion"
   "alert"
   "alert-dialog"
   "aspect-ratio"
@@ -36,6 +36,7 @@ components=(
   "scroll-area"
   "select"
   "separator"
+  "sidebar"
   "sheet"
   "skeleton"
   "slider"

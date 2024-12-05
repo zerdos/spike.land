@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type {FC} from "react";
+import type { FC } from "react";
 
 export const TextToSpeech: FC = () => {
   const [text, setText] = useState("");
@@ -85,6 +85,6 @@ export const TextToSpeech: FC = () => {
   );
 };
 
-TextToSpeech.displayName='TextToSpeech';
+TextToSpeech.displayName = "TextToSpeech";
 
 export default TextToSpeech;

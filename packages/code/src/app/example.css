@@ -480,8 +480,8 @@ video {
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow:
     var(--tw-ring-offset-shadow, 0 0 #0000),
-     var(--tw-ring-shadow, 0 0 #0000),
-     var(--tw-shadow);
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 .transition-all {
   transition-property: all;
@@ -524,8 +524,8 @@ video {
   ) var(--tw-ring-color);
   box-shadow:
     var(--tw-ring-offset-shadow),
-     var(--tw-ring-shadow),
-     var(--tw-shadow, 0 0 #0000);
+    var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000);
 }
 .disabled\:pointer-events-none:disabled {
   pointer-events: none;
