@@ -13,24 +13,31 @@ import { useDictation } from "@/hooks/use-dictation";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
+let isStreamingTimeout: NodeJS.Timeout | null = null;
+
 const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
-}> =({ onClose, isOpen, cSess }): React.ReactElement | null => {
+}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const codeSpace = getCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(`chatMessages-${codeSpace}`, []);
-  const [messages, setMessages] = useImmer<Message[]>(storedMessages);
-  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(`streaming-${codeSpace}`, false);
+  const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(
+    `chatMessages-${codeSpace}`,
+    [],
+  );
+  const [messages, setMessages] = useImmer<Message[]>([]);
+  const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
+    `streaming-${codeSpace}`,
+    false,
+  );
   const [input, setInput] = useDictation("");
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
-  
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const streamingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetChat = useCallback((): void => {
     setMessages([]);
@@ -43,9 +50,19 @@ const ChatInterface: React.FC<{
     }
   }, [setInput, setMessages, setStoredMessages]);
 
+  // Load initial messages from localStorage
   useEffect(() => {
-    setStoredMessages(messages);
-  }, [messages]);
+    if (storedMessages && storedMessages.length > 0) {
+      setMessages(storedMessages);
+    }
+  }, []);
+
+  // Save messages to localStorage when they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      setStoredMessages(messages);
+    }
+  }, [messages, setStoredMessages]);
 
   useEffect(() => {
     if (isOpen) {
@@ -56,64 +73,66 @@ const ChatInterface: React.FC<{
         });
       });
     }
-  }, [isOpen, messages]);
+  }, [isOpen]);
 
   const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
     setEditInput("");
   }, []);
 
-  const handleSaveEdit = useCallback((messageId: string) => {
-    setMessages(draft => {
-      const index = draft.findIndex((m) => m.id === messageId);
-      if (index === -1) return;
+  const handleSaveEdit = (messageId: string) => {
+    const mess = messages!.map((msg) =>
+      msg.id === messageId
+        ? {
+          ...msg,
+          content: typeof msg.content === "string"
+            ? editInput
+            : Array.isArray(msg.content)
+            ? msg.content.map((item) =>
+              item.type === "text" ? { ...item, text: editInput } : item
+            )
+            : editInput,
+        }
+        : msg
+    );
 
-      const oldMsg = draft[index];
-      let newContent = "";
-
-      if (Array.isArray(oldMsg.content)) {
-        newContent = editInput;
-      } else {
-        newContent = editInput;
-      }
-
-      draft[index] = {
-        ...oldMsg,
-        content: newContent,
-      };
-    });
+    setMessages([...mess]);
     setEditingMessageId(null);
     setEditInput("");
-  }, [editInput, setMessages]);
+  };
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
 
-      if (streamingTimeoutRef.current) {
-        clearTimeout(streamingTimeoutRef.current);
+      if (isStreamingTimeout) {
+        clearTimeout(isStreamingTimeout);
       }
-
-      streamingTimeoutRef.current = setTimeout(() => {
+      isStreamingTimeout = setTimeout(() => {
         setIsStreaming(false);
       }, 1000);
 
       if (e.messages) {
         setMessages(e.messages);
-      }
-
-      if (typeof e.isStreaming !== "undefined") {
+      } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
+      }
+      if (e.debugInfo) {
+        const debugInfo = e.debugInfo;
+        console.debug("debugInfo", { debugInfo });
+        Object.assign(globalThis, { debugInfo });
       }
 
       if (e.message) {
-        setMessages(draft => {
-          messagesPush(draft, e.message as Message);
+        setMessages((draft) => {
+          return messagesPush(draft, e.message as Message);
         });
       }
 
       if (e.code) {
+        console.log("Setting code", e.code);
+        setMessages(messages);
         await cSess.setCodeAndTranspiled({
           formatted: e.code,
           transpiled: e.transpiled,
@@ -121,24 +140,30 @@ const ChatInterface: React.FC<{
       }
 
       if (e.instructions) {
-        if (!isStreaming) setIsStreaming(true);
-        setMessages(draft => {
-          const lastMessage = draft[draft.length - 1];
-          if (!lastMessage || lastMessage.role !== "assistant") {
-            draft.push({
-              id: Date.now().toString(),
-              role: "assistant",
-              content: e.instructions,
-            });
+        if (!isStreaming) {
+          setIsStreaming(true);
+        }
+        setMessages((previousMessages) => {
+          const lastMessage = previousMessages[previousMessages.length - 1];
+
+          if (lastMessage?.role !== "assistant") {
+            return [
+              ...previousMessages,
+              {
+                id: Date.now().toString(),
+                role: "assistant",
+                content: e.instructions!,
+              },
+            ];
           } else {
-            draft[draft.length - 1] = {
-              ...lastMessage,
-              content: e.instructions,
-            };
+            return [
+              ...previousMessages.slice(0, -1),
+              { ...lastMessage, content: e.instructions },
+            ];
           }
         });
       }
-
+      // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
       setTimeout(() => {
         setIsStreaming(false);
       }, 2000);
@@ -147,11 +172,10 @@ const ChatInterface: React.FC<{
         setIsStreaming(false);
       }
     };
-
     return () => {
       BC.close();
     };
-  }, [isStreaming,]);
+  }, [codeSpace, messages, setMessages, cSess, setIsStreaming, isStreaming]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -161,36 +185,37 @@ const ChatInterface: React.FC<{
     }
   }, [resetChat, setIsStreaming]);
 
-  const { isScreenshotLoading, screenshotImage, handleScreenshotClick, handleCancelScreenshot } = useScreenshot(codeSpace);
+  const {
+    isScreenshotLoading,
+    screenshotImage,
+    handleScreenshotClick,
+    handleCancelScreenshot,
+  } = useScreenshot(codeSpace);
 
   useEffect(() => {
-    if (!isOpen) return;
     if (codeSpace.includes("-")) {
-      const parts = codeSpace.split("-");
-      const maybeKey = parts[1] ? parts[1] : null;
-      if (maybeKey) {
-        const storedData = sessionStorage.getItem(maybeKey);
-        if (storedData) {
-          const { prompt, images } = JSON.parse(storedData) as {
-            prompt: string;
-            images: ImageData[];
-          };
-          sessionStorage.removeItem(maybeKey);
-          const initMessages = [
-            {
-              id: Date.now().toString(),
-              role: "user",
-              content: prompt,
-            } as Message,
-          ];
-          setInput("");
-          cSess.getCode().then((code) =>
-            handleSendMessage({ messages: initMessages, codeSpace, prompt, images, code })
-          );
-        }
+      const maybeKey = codeSpace.split("-")[1];
+      const storedData = sessionStorage.getItem(maybeKey);
+      if (storedData) {
+        const { prompt, images } = JSON.parse(storedData) as {
+          prompt: string;
+          images: ImageData[];
+        };
+        sessionStorage.removeItem(maybeKey);
+        const messages = [
+          {
+            id: Date.now().toString(),
+            role: "user",
+            content: prompt,
+          } as Message,
+        ];
+        setInput("");
+        cSess.getCode().then((code) =>
+          handleSendMessage({ messages, codeSpace, prompt, images, code })
+        );
       }
     }
-  }, [isOpen]);
+  }, [isOpen, codeSpace, setInput, cSess]);
 
   const memoizedSetInput = useCallback((value: string): void => {
     setInput(value);
@@ -198,15 +223,17 @@ const ChatInterface: React.FC<{
 
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     setEditingMessageId(messageId);
+
     const messageToEdit = messages.find((msg) => msg.id === messageId);
-    if (!messageToEdit) return;
-    if (Array.isArray(messageToEdit.content)) {
-      const textItem = messageToEdit.content.find((item) => item.type === "text");
-      if (!textItem) return;
-      setEditInput(textItem ? textItem.text : "");
-    } else {
-      setEditInput(typeof messageToEdit.content === "string" ? messageToEdit.content : "");
+    if (!messageToEdit) {
+      console.error("Invalid message for editing");
+      return;
     }
+    const contentToEdit = Array.isArray(messageToEdit.content)
+      ? messageToEdit.content.find((item) => item.type === "text")?.text || ""
+      : messageToEdit.content;
+
+    setEditInput(contentToEdit);
   }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {
@@ -248,7 +275,7 @@ const ChatInterface: React.FC<{
       screenShot={memoizedScreenShot}
     />
   );
-}
+});
 
 ChatInterface.displayName = "ChatInterface";
 
