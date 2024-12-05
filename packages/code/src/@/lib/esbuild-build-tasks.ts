@@ -97,17 +97,18 @@ export const buildWasm = async (): Promise<void> => {
 export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions("production"),
-    entryPoints: ["src/sw.ts", "src/assets/tw.js"],
-    format: "iife",
+    entryPoints: ["src/sw.ts"],
+    format: "esm",
     outExtension: { ".js": ".js" },
     minifySyntax: false,
     minifyIdentifiers: false,
+    bundle: true,
     treeShaking: true,
     external: [
       "worker_threads",
     ],
     minifyWhitespace: false,
-    target: "es2022",
+    target: "es2024",
   });
 
   await build({
