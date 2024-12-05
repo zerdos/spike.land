@@ -98,7 +98,7 @@ export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions("production"),
     entryPoints: ["src/sw.ts"],
-    format: "esm",
+    format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: false,
     minifyIdentifiers: false,
