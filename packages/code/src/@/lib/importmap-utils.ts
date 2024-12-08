@@ -14,7 +14,7 @@ export const oo = {
 
 export const importMap = { imports: oo };
 
-const externalString = "bundle=true&external=react";
+const externalString = "bundle=true&external=react,react-dom,framer-motion,@emotion/react";
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;

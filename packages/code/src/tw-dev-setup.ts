@@ -1,12 +1,9 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
-
 interface ResourceLoader {
   init(): Promise<boolean>;
 }
 
 class ResourceLoaderImpl implements ResourceLoader {
   private static readonly IFRAME_PATH = "/iframe";
-  private static readonly LIVE_PATH = "/live/";
   private static readonly JS_PATH = "/assets/tw-chunk-4a7018.js";
 
   private static initialized = false;
@@ -18,7 +15,6 @@ class ResourceLoaderImpl implements ResourceLoader {
 
     const shouldLoad = this.shouldLoadResources();
     if (!shouldLoad) {
-      ResourceLoaderImpl.initialized = true;
       return true;
     }
 
@@ -36,12 +32,9 @@ class ResourceLoaderImpl implements ResourceLoader {
   }
 
   private shouldLoadResources(): boolean {
-    const codeSpace = getCodeSpace();
-    const { pathname } = window.location;
+    const pathname = window.location.pathname;
 
-    return pathname.endsWith("/") || !pathname.includes("/live/") ||
-      pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH) ||
-      pathname.endsWith(`${ResourceLoaderImpl.LIVE_PATH}${codeSpace}`);
+    return pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH);
   }
 
   private async loadResources(): Promise<void> {

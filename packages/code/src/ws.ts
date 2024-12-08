@@ -174,11 +174,10 @@ const handleDefaultPage = async () => {
 };
 
 export const main = async () => {
-  const twCss = init();
+  await init();
 
   const cSessBr = new CodeSessionBC(codeSpace);
   const session = await cSessBr.init();
-  await twCss;
 
   try {
     if (

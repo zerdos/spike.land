@@ -20,8 +20,8 @@
     "c:deploy": "yarn workspace @spike-npm-land/code-worker deploy",
     "c:deploy:prod": "yarn workspace @spike-npm-land/code-worker prepublishOnly",
     "deploy:esbuild": "yarn workspace @spike-npm-land/transpile deploy",
-    "deploy:git": "yarn fmt && yarn c:build && yarn c:deploy",
-    "deploy": "yarn fmt && git add . && yarn c:build && yarn c:deploy && git commit -m deploy && git pull  && git push",
+    "deploy": "yarn fmt && yarn c:build && yarn c:deploy",
+    "deploy:git": "yarn fmt && git add . && yarn c:build && yarn c:deploy && git commit -m deploy && git pull  && git push",
     "fastdeploy": "cd packages/code yarn es:build && cd ../spike.land && yarn deploy ",
     "importMap": "yarn workspaces foreach run importMap",
     "yarn:publish": "yarn workspaces foreach run publish",
@@ -42,7 +42,7 @@
     "aider": "git stash && git reset --hard HEAD && git pull  && git checkout -b aider-${RANDOM} && git stash pop && git add . && yarn && yarn lint && git commit -m \"aider init\" && git push -u origin $(git branch)"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20241202.0",
+    "@cloudflare/workers-types": "4.20241205.0",
     "@eslint/js": "9.16.0",
     "@typescript-eslint/parser": "^8.17.0",
     "@yarnpkg/sdks": "^3.2.0",

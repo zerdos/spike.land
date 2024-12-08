@@ -12,7 +12,6 @@ export const {
   cloneElement,
   createContext,
   createElement,
-  createFactory,
   createRef,
   forwardRef,
   isValidElement,
@@ -34,6 +33,11 @@ export const {
   useState,
   useSyncExternalStore,
   useTransition,
+  cache,
+  use,
+  useActionState,
+  useOptimistic,
+  version,
 } = React;
 
 export default React;
