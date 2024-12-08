@@ -92,6 +92,21 @@
       href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png"
     />
     <title>Instant React Editor</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "/@/",
+          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+          "react/jsx-runtime": "/jsx.mjs",
+          "react-dom/server": "/reactDomServer.mjs",
+          "react-dom/client": "/reactDomClient.mjs",
+          "@emotion/react": "/emotion.mjs",
+          "react": "/reactMod.mjs",
+          "framer-motion": "/motion.mjs",
+          "react-dom": "/reactDom.mjs"
+        }
+      }
+    </script>
 
     <!-- Inline LINK for initial theme -->
   </head>

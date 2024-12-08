@@ -28,10 +28,9 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         width: showQR ? 200 : 56,
         marginLeft: showQR ? 8 : 0,
         marginRight: showQR ? -100 : 0,
-
         height: showQR ? 220 : 48,
       }}
-      onClick={() => {
+      onTap={() => {
         setQR(!showQR);
       }}
       css={css`

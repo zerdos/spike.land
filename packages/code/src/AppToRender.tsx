@@ -4,8 +4,9 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
+  useAuth,
   UserButton,
-} from "@clerk/clerk-react";
+} from "@/external/clerk";
 import { Bot, History } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 
@@ -15,7 +16,6 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
-import { useAuth } from "@clerk/clerk-react";
 // import { fakeServer } from "./sw-local-fake-server";
 
 import type { ICode } from "@/lib/interfaces";

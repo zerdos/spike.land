@@ -1,4 +1,4 @@
-import { ClerkProvider } from "@clerk/clerk-react";
+import { ClerkProvider } from "@/external/clerk";
 import { renderApp } from "@/lib/render-app";
 import type { ICode } from "@/lib/interfaces";
 import { AppToRender } from "./AppToRender";

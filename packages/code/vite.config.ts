@@ -83,7 +83,11 @@ const config = defineConfig((config) => ({
     }),
   ],
 
+  experimental: {
+     skipSsrTransform: true,
+  },
   build: {
+    
     rollupOptions: {
       external: [
         // "/start.mjs",
