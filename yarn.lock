@@ -4031,9 +4031,9 @@ __metadata:
     process: "npm:0.11.10"
     qrious: "npm:4.0.2"
     querystring: "npm:0.2.1"
-    re-resizable: "npm:6.10.1"
+    re-resizable: "npm:6.10.2"
     react: "npm:19.0.0"
-    react-day-picker: "npm:9.4.1"
+    react-day-picker: "npm:9.4.2"
     react-dom: "npm:19.0.0"
     react-hook-form: "npm:^7.54.0"
     react-i18next: "npm:15.1.3"
@@ -14129,25 +14129,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:6.10.1":
-  version: 6.10.1
-  resolution: "re-resizable@npm:6.10.1"
+"re-resizable@npm:6.10.2":
+  version: 6.10.2
+  resolution: "re-resizable@npm:6.10.2"
   peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/923cc46802b50d4198ea164e5be26aacf87050354769a41c3829dfa8fdafb07c418c6dfd0973597ea447122deb3b0fa14b29fc59a9e0a8553159b9bc89dac1b6
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/bff6758f484ce1af9f7b54b8f8f4f9b8268eb9a641f8931ca125c68e848eeb63be6f004b2cad5e1d1e0a90a37e3c6a4edff4b0fea93faa41ef9703bcaf315508
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.4.1":
-  version: 9.4.1
-  resolution: "react-day-picker@npm:9.4.1"
+"react-day-picker@npm:9.4.2":
+  version: 9.4.2
+  resolution: "react-day-picker@npm:9.4.2"
   dependencies:
     "@date-fns/tz": "npm:^1.2.0"
     date-fns: "npm:^4.1.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10c0/20aefcd25f4479dad3d5b87f5fdde8710d9c55ae75e93353672a1e1a9cd4eb5bb5a45de62f40a9ac3406383df5ae67d4bdb354b55fd19ddc6f2142b2eb454689
+  checksum: 10c0/afd04c4056536e1f26596f3fd9903bd1031bc47491374fb35d815be225a2ac3f4c2e9f34a8c824fa0fb1634f473d9227085a4ccb9fc344fff22bd3b997184073
   languageName: node
   linkType: hard
 
