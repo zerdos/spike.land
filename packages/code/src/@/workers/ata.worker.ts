@@ -21,8 +21,8 @@ const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string[]>
 export const myATA = async (code: string) => {
   const limitedFetch = new QueuedFetch(4, 1000, 0);
 
-  const vfsPromise = new Promise<Map<string, string>>((resolve) => {
-    const ata = setupTypeAcquisition({
+  const vfsPromise = new Promise<Map<string, string>>((resolve) =>
+    setupTypeAcquisition({
       projectName: "My ATA Project",
       logger: console,
       fetcher: limitedFetch.fetch.bind(limitedFetch) as typeof fetch,
@@ -39,15 +39,16 @@ export const myATA = async (code: string) => {
           resolve(vfs);
         },
       },
-    });
-    ata(code);
-  });
+    })(code)
+  );
 
   const fileMap = await vfsPromise;
   const monacoExtraLibs: ExtraLib[] = [];
   for (const [filePath, content] of fileMap.entries()) {
     // Strip off the leading 13 characters and remove "@types/"
-    const cleanFilePath = filePath.slice(13).split("@types/").join("");
+    const cleanFilePath = filePath.slice(13).split("@types/").join("").split("ts5.0/").join("")
+      .split("v18/").join("");
+    if (monacoExtraLibs.some((x) => x.filePath === cleanFilePath)) continue;
     monacoExtraLibs.push({ filePath: cleanFilePath, content });
   }
   return monacoExtraLibs;
@@ -250,29 +251,52 @@ async function resolveNonRelativeRef(
   queuedFetch: QueuedFetch,
 ): Promise<string | null> {
   if (originToUse.endsWith(".d.ts")) return null;
+
   try {
-    const response = await queuedFetch.fetch(`${originToUse}/*${ref}`, { redirect: "follow" });
-    if (!response.ok) throw new Error("Failed to queuedFetch");
-    const tsTypes = response.headers.get("X-typescript-types");
-    let newBase = tsTypes || (await extractUrlFromResponse(response, ref));
-    if (newBase) newBase = new URL(newBase).toString();
-    return newBase;
-  } catch {
-    let response: Response | undefined;
-    try {
-      response = await queuedFetch.fetch(`${originToUse}/${ref}`, { redirect: "follow" });
-    } catch {
-      console.error("Failed to fetch", { ref, originToUse });
+    // First attempt: Try with wildcard
+    const wildcardResponse = await queuedFetch.fetch(
+      `${originToUse}/*${ref}`,
+      { redirect: "follow" },
+    );
+
+    if (wildcardResponse.ok) {
+      const tsTypes = wildcardResponse.headers.get("X-typescript-types");
+      if (tsTypes) return new URL(tsTypes).toString();
+
+      const extractedUrl = await extractUrlFromResponse(wildcardResponse, ref);
+      return extractedUrl ? new URL(extractedUrl).toString() : null;
     }
-    if (!response || !response.ok) {
-      if (originToUse.endsWith(".d.ts")) return null;
-      response = await queuedFetch.fetch(`${originToUse}/${ref}.d.ts`, { redirect: "follow" });
+
+    // Second attempt: Try direct path
+    const directResponse = await queuedFetch.fetch(
+      `${originToUse}/${ref}`,
+      { redirect: "follow" },
+    );
+
+    if (!directResponse.ok) {
+      // Third attempt: Try with .d.ts extension
+      const dtsResponse = await queuedFetch.fetch(
+        `${originToUse}/${ref}.d.ts`,
+        { redirect: "follow" },
+      );
+
+      if (!dtsResponse.ok) return null;
+
+      const tsTypes = dtsResponse.headers.get("X-typescript-types");
+      const newBase = tsTypes || dtsResponse.url;
+
+      // Verify the URL is actually accessible
+      const isAccessible = await queuedFetch.fetch(newBase)
+        .then(res => res.ok)
+        .catch(() => false);
+
+      return isAccessible ? newBase : null;
     }
-    if (!response.ok) return null;
-    const tsTypes = response.headers.get("X-typescript-types");
-    const newBase = tsTypes || response.url;
-    const isDownloadable = await queuedFetch.fetch(newBase).then((res) => res.ok);
-    return isDownloadable ? newBase : null;
+
+    return directResponse.url;
+  } catch (error) {
+    console.error("Failed to resolve reference", { ref, originToUse, error });
+    return null;
   }
 }
 
