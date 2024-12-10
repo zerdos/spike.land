@@ -3,55 +3,55 @@ import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
 const self = globalThis;
 
+interface ImportResult {
+  url: string;
+  content: string;
+  ref: string;
+}
+
+interface ExtraLib {
+  filePath: string;
+  content: string;
+}
+
+const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string[]>; }).tsx as (
+  code: string,
+) => Promise<string[]>;
+
 export const myATA = async (code: string) => {
-  console.log("ATA code", { code });
   const limitedFetch = new QueuedFetch(4, 1000, 0);
-  const myPromise = new Promise<Map<string, string>>((resolve) => {
+
+  const vfsPromise = new Promise<Map<string, string>>((resolve) => {
     const ata = setupTypeAcquisition({
-      projectName: "My ATA Project,",
+      projectName: "My ATA Project",
       logger: console,
-      fetcher: limitedFetch.fetch.bind(limitedFetch) as unknown as typeof fetch,
+      fetcher: limitedFetch.fetch.bind(limitedFetch) as typeof fetch,
       typescript: ts,
       delegate: {
-        receivedFile: (code: string, path: string) => {
-          // Add code to your runtime at the path...
-          console.log("ATA received file", { code, path });
+        receivedFile: (_fileContent: string, filePath: string) => {
+          console.log("ATA received file", { filePath });
         },
-        started: () => {
-          console.log("ATA start");
-        },
-        progress: (downloaded: number, total: number) => {
-          console.log(`Got ${downloaded} out of ${total}`);
-        },
+        started: () => console.log("ATA start"),
+        progress: (downloaded: number, total: number) =>
+          console.log(`Got ${downloaded} out of ${total}`),
         finished: (vfs) => {
+          console.log("ATA done");
           resolve(vfs);
-          console.log("ATA done", vfs);
         },
       },
     });
-
     ata(code);
   });
 
-  const filed = await myPromise;
-  console.log("ATA filed", { filed });
-
-  const monacoExtraLibs: Array<{ filePath: string; content: string; }> = [];
-
-  for (const [filePath, content] of filed.entries()) {
-    monacoExtraLibs.push({
-      filePath: filePath.slice(13).split("@types/").join(""),
-      content,
-    });
+  const fileMap = await vfsPromise;
+  const monacoExtraLibs: ExtraLib[] = [];
+  for (const [filePath, content] of fileMap.entries()) {
+    // Strip off the leading 13 characters and remove "@types/"
+    const cleanFilePath = filePath.slice(13).split("@types/").join("");
+    monacoExtraLibs.push({ filePath: cleanFilePath, content });
   }
-  console.log("ATA monacoExtraLibs", { monacoExtraLibs });
   return monacoExtraLibs;
 };
-
-const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string>; })
-  .tsx as unknown as (
-    code: string,
-  ) => Promise<string[]>;
 
 export async function ata({
   code,
@@ -59,31 +59,22 @@ export async function ata({
 }: {
   code: string;
   originToUse: string;
-}): Promise<
-  Array<{
-    filePath: string;
-    content: string;
-  }>
-> {
+}): Promise<ExtraLib[]> {
   const queuedFetch = new QueuedFetch(4, 2000);
-  let thisATA: Array<{ content: string; filePath: string; }> = [];
+  const impRes: Record<string, ImportResult> = {};
+  let thisATA: ExtraLib[] = [];
 
-  const impRes: Record<string, { url: string; content: string; ref: string; }> = {};
+  const initialImports = (await tsx(code)).filter((x) => x.includes("@/"));
 
-  const res = (await tsx(code)).filter((x) => x.includes("@/"));
-  console.log("res", { res });
   try {
+    // Fetch initial imports
     await Promise.all(
-      res.map(async function(r: string) {
+      initialImports.map(async (r) => {
+        if (originToUse.endsWith(".d.ts")) return;
         try {
-          if (originToUse.endsWith(".d.ts")) return;
           const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
           const content = await resp.text();
-          impRes[r] = {
-            url: resp.url,
-            ref: "",
-            content,
-          };
+          impRes[r] = { url: resp.url, ref: "", content };
           await ataRecursive(content, new URL(resp.url).origin);
         } catch (error) {
           console.error("error", error);
@@ -91,359 +82,310 @@ export async function ata({
       }),
     );
 
-    const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
-    const vNumbers = /\/(v)[0-9]+\//gm;
-    const subst = "/";
+    cleanPathsAndReferences(impRes, originToUse);
 
-    // Process import results to clean up paths and references
-    Object.keys(impRes)
-      .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
-      .forEach((x) => {
-        Object.keys(impRes).forEach((t) => {
-          impRes[t] = {
-            ref: impRes[t].ref,
-            content: impRes[t].content
-              .split(impRes[x].url!)
-              .join(x)
-              // .split("/dist/")
-              // .join("/")
-              .split(`https://${originToUse}/${x}`)
-              .join(impRes[x].ref)
-              .replace(vNumbers, subst)
-              .split("/@types/")
-              .join("/")
-              .replaceAll(versionNumbers, ""),
-            url: impRes[t].url!
-              .replace(vNumbers, subst)
-              .split("/@types/")
-              .join("/")
-              .replaceAll(versionNumbers, ""),
-            // .split("/dist/")
-            // .join("/"),
-          };
-        });
-      });
+    // Add extra Emotion libs for css prop and JSX runtime
+    const extras = getEmotionExtras(originToUse);
 
-    // Replace origin in URLs
-    Object.keys(impRes).forEach((x) => {
-      impRes[x] = {
-        url: impRes[x].url!,
-        ref: impRes[x].ref,
-        content: impRes[x].content.split(originToUse).join(""),
-      };
-    });
-
-    const extras = [
-      {
-        filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
-        content: `import {} from 'react';
-import { Interpolation } from '@emotion/serialize';
-import { Theme } from '.';
-
-declare namespace React {
-  type ReactNode =
-    | ReactElement
-    | string
-    | number
-    | ReactFragment
-    | ReactPortal
-    | boolean
-    | null
-    | undefined;
-}
-
-declare module 'react' {
-  interface Attributes {
-    css?: Interpolation<Theme>;
-  }
-}`,
-      },
-      {
-        filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
-        content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-      },
-      {
-        filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
-        content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-      },
-    ];
     const extraLibs = [
-      ...(await Promise.all(
-        Object.keys(impRes)
-          .filter((x) => impRes[x].content.length && impRes[x].url)
-          .map(async (x) => ({
-            filePath: impRes[x].url!.replace("https://unpkg.com", originToUse)
-              .replace(originToUse, ""),
-            content: impRes[x].content
-              .split(`import mod from "/`)
-              .join(`import mod from "`)
-              .split(`export * from "/`)
-              .join(`export * from "`),
-          })),
-      )),
+      ...(await generateExtraLibs(impRes, originToUse)),
       ...extras,
     ];
 
-    thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) =>
-      extraLibs.find((p) => p.filePath === y)
-    )
-      .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
-        (c) => ({
-          content: c!.content,
-          filePath: c!.filePath.replace(originToUse, "").replace(
-            originToUse,
-            "",
-          ),
-        }),
-      );
+    // Remove duplicates, sort, and clean file paths
+    thisATA = [
+      ...new Set(extraLibs.map((x) => x.filePath)),
+    ]
+      .map((y) => extraLibs.find((p) => p.filePath === y))
+      .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""))
+      .map((c) => ({
+        filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+        content: c!.content,
+      }));
   } catch (error) {
     console.error("error", error);
   }
-  console.log("thisATA", { thisATA });
 
   const ataBIG = await myATA(code);
-  console.log("ataBIG", { ataBIG });
-
   return [...ataBIG, ...thisATA];
 
-  async function ataRecursive(code: string, baseUrl: string) {
-    let res = await tsx(code);
-
-    const refParts = code.split(`/// <reference path="`);
-    if (refParts.length > 1) {
-      const [, ...refs] = refParts;
-      res = [
-        ...res,
-        ...refs.map((r) => r.split(`"`)[0]).map((r) => {
-          if (r.startsWith(".") || r.startsWith("https://")) {
-            return r;
-          } else {
-            return new URL(r.slice(1), originToUse).toString();
-          }
-        }),
-      ];
-    }
-
-    res = [...new Set(res)];
+  async function ataRecursive(fileContent: string, baseUrl: string) {
+    // Extract references from code comments and run tsx on it
+    let references = await tsx(fileContent);
+    references = [
+      ...new Set([...references, ...extractReferencePaths(fileContent)]),
+    ];
 
     await Promise.all(
-      res.map(async (r: string) => {
-        if (!impRes[r]) {
+      references.map(async (r: string) => {
+        if (impRes[r]) return;
+        await tryToExtractUrlFromPackageJson(r);
+        if (impRes[r]) return;
+
+        let newBase: string | null | undefined = null;
+
+        if (r.startsWith(".")) {
+          newBase = new URL(`${baseUrl}/${r}`).toString();
+        } else if (r.startsWith("https://")) {
+          newBase = r;
+        } else {
+          newBase = await resolveNonRelativeRef(r, originToUse, queuedFetch);
+        }
+
+        if (!newBase) {
           await tryToExtractUrlFromPackageJson(r);
-          if (impRes[r]) return;
-
-          let newBase: string | null | undefined = null;
-
-          if (r.startsWith(".")) {
-            newBase = new URL(`${baseUrl}/${r}`).toString();
-          } else if (r.startsWith("https://")) {
-            newBase = r;
-          } else {
-            try {
-              if (originToUse.endsWith(".d.ts")) return;
-              const response = await queuedFetch.fetch(`${originToUse}/*${r}`, {
-                redirect: "follow",
-              });
-
-              if (!response.ok) throw new Error("Failed to queuedFetch");
-
-              const typescriptTypes = response.headers.get(
-                "X-typescript-types",
-              );
-
-              newBase = typescriptTypes ||
-                await extractUrlFromResponse(response, r);
-              if (newBase) newBase = new URL(newBase).toString();
-            } catch (error) {
-              let response;
-              try {
-                if (originToUse.endsWith(".d.ts")) return;
-                response = await queuedFetch.fetch(`${originToUse}/${r}`, {
-                  redirect: "follow",
-                });
-              } catch {
-                console.error("error queuedFetching", {
-                  error,
-                  r,
-                  originToUse,
-                });
-              }
-
-              if (!response || !response.ok) {
-                if (originToUse.endsWith(".d.ts")) return;
-                response = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`, {
-                  redirect: "follow",
-                });
-              }
-
-              const typescriptTypes = response.headers.get(
-                "X-typescript-types",
-              );
-
-              newBase = typescriptTypes || response.url;
-              const newBaseIsDownloadable = await queuedFetch.fetch(newBase)
-                .then((res) => res.ok);
-              if (!newBaseIsDownloadable) {
-                newBase = null;
-              }
-            }
-          }
-
-          if (newBase === null || newBase === undefined) {
-            await tryToExtractUrlFromPackageJson(r);
-          } else {
-            await handleNewBase(newBase, r, baseUrl);
-          }
+        } else {
+          await handleNewBase(newBase, r, baseUrl);
         }
       }),
     );
   }
 
-  async function extractUrlFromResponse(
-    response: Response,
-    ref: string,
-  ): Promise<string | null> {
-    const responseText = await response.text();
-
-    // importMapReplace(
-    //   await prettierJs(await response.text()),
-    //   originToUse,
-    // );
-    return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
-  }
-
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+    // Skip if already processed or if not applicable
     if (impRes[npmPackage]) return;
     if (npmPackage.includes("https://")) return;
-    if (npmPackage.includes(".")) {
-      const extension = npmPackage.split(".").pop();
+    if (hasFileExtension(npmPackage)) return;
+    if (originToUse.endsWith(".d.ts")) return;
 
-      const extensionList = [
-        "d.ts",
-        "mjs",
-        "ts",
-        "tsx",
-        "jsx",
-        "js",
-        "json",
-        "css",
-      ];
-      if (extensionList.includes(extension!)) return;
-    }
     try {
-      if (originToUse.endsWith(".d.ts")) return;
-      const response = await queuedFetch.fetch(
-        `${originToUse}/${npmPackage}/package.json`,
-        {
-          redirect: "follow",
-        },
-      );
-      if (!response.ok) {
-        throw new Error(`Failed to queuedFetch package.json for ${npmPackage}`);
-      }
-      const packageJson = await response.json() as {
-        typings?: string;
-        types?: string;
-      };
-      if (packageJson.typings || packageJson.types) {
-        let typingsPath = packageJson.typings || packageJson.types;
-        if (typingsPath === "index.d.mts") typingsPath = `index.d.ts`;
-        const url = new URL(`https://unpkg.com/${npmPackage}/${typingsPath}`);
-        const typingsResponse = await queuedFetch.fetch(url.toString(), {
-          redirect: "follow",
-        });
-        if (!typingsResponse.ok) {
-          throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
-        }
-        const content = (await typingsResponse.text()).split(
-          "https://unpkg.com/",
-        ).join();
-        if (content.startsWith("Cannot find")) return;
-
-        const typeUrl = typingsResponse.url.replace(
-          "https://unpkg.com",
-          originToUse,
-        );
-        if (content) {
-          impRes[
-            typingsPath === "index.d.ts"
-              ? npmPackage
-              : `${npmPackage}/${typingsPath}`
-          ] = {
-            content,
-            url: typeUrl,
-            ref: `${npmPackage}/${typingsPath}`,
-          };
-          if (typingsPath !== "index.d.ts") {
-            const newBase = new URL(typeUrl).pathname;
-            impRes[npmPackage] = {
-              url: `${originToUse}/${npmPackage}/index.d.ts`,
-              content: `
-                import mod from "${newBase}";
-                export * from "${newBase}";
-                export default mod;
-              `,
-              ref: npmPackage,
-            };
-          }
-
-          await ataRecursive(content, new URL(typeUrl + "/../").toString());
-        }
-      }
-    } catch (error) {
-      console.error("Error queuedFetching package.json or typings", {
-        error,
-        npmPackage,
-        originToUse,
+      const pkgResp = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
+        redirect: "follow",
       });
+      if (!pkgResp.ok) return;
+
+      const packageJson: { typings?: string; types?: string; } = await pkgResp.json();
+      const typingsPath = packageJson.typings || packageJson.types;
+
+      if (!typingsPath) return;
+
+      const resolvedTypingsPath = typingsPath === "index.d.mts" ? "index.d.ts" : typingsPath;
+      const typingsUrl = `https://unpkg.com/${npmPackage}/${resolvedTypingsPath}`;
+      const typingsResp = await queuedFetch.fetch(typingsUrl, { redirect: "follow" });
+      if (!typingsResp.ok) return;
+
+      const content = (await typingsResp.text()).split("https://unpkg.com/").join("");
+      if (!content || content.startsWith("Cannot find")) return;
+
+      const typeUrl = typingsResp.url.replace("https://unpkg.com", originToUse);
+      impRes[
+        resolvedTypingsPath === "index.d.ts"
+          ? npmPackage
+          : `${npmPackage}/${resolvedTypingsPath}`
+      ] = { content, url: typeUrl, ref: `${npmPackage}/${resolvedTypingsPath}` };
+
+      if (resolvedTypingsPath !== "index.d.ts") {
+        const newBasePath = new URL(typeUrl).pathname;
+        impRes[npmPackage] = {
+          url: `${originToUse}/${npmPackage}/index.d.ts`,
+          content: `
+            import mod from "${newBasePath}";
+            export * from "${newBasePath}";
+            export default mod;
+          `,
+          ref: npmPackage,
+        };
+      }
+
+      await ataRecursive(content, new URL(typeUrl + "/../").toString());
+    } catch (error) {
+      console.error("Error extracting package.json or typings", { error, npmPackage, originToUse });
     }
   }
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
-    if (!impRes[newBase]) {
-      impRes[newBase] = { ref, url: newBase, content: "" };
+    if (impRes[newBase]) return;
 
-      impRes[newBase].content = await queuedFetch.fetch(newBase, {
-        redirect: "follow",
-      })
-        .then(async (dtsRes) => {
-          impRes[newBase].url = dtsRes.url;
-          return await dtsRes.text();
-        });
+    impRes[newBase] = { ref, url: newBase, content: "" };
+    impRes[newBase].content = await queuedFetch
+      .fetch(newBase, { redirect: "follow" })
+      .then(async (dtsRes) => {
+        impRes[newBase].url = dtsRes.url;
+        return dtsRes.text();
+      });
 
-      const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
-          ref.includes(".mts")
-          ? ref
-          : `${ref}/index.d.ts`,
-        ref.startsWith(".") ? baseUrl : originToUse,
-      ).toString().replace(".js", ".d.ts").replace(".mjs", ".d.ts").replace(
-        ".mts",
-        ".d.ts",
-      );
+    const fileName = getFileNameForRef(ref, baseUrl, originToUse);
+    if (!impRes[fileName]) {
+      impRes[fileName] = {
+        url: fileName,
+        content: `
+          import mod from "${newBase}";
+          export * from "${newBase}";
+          export default mod;
+        `,
+        ref,
+      };
+      console.log(`virtual file: ${fileName}`, impRes[fileName]);
+    }
 
-      if (!impRes[fileName]) {
-        impRes[fileName] = {
-          url: fileName,
-          content: `
-            import mod from "${newBase}";
-            export * from "${newBase}";
-            export default mod;
-          `,
-          ref,
-        };
-        console.log(`virtual file: ${fileName}`, impRes[fileName]);
-      }
-
-      if (impRes[newBase].content.length > 0) {
-        try {
-          await ataRecursive(impRes[newBase].content, impRes[newBase].url);
-        } catch (error) {
-          console.error("ata error", error);
-        }
+    if (impRes[newBase].content.length > 0) {
+      try {
+        await ataRecursive(impRes[newBase].content, impRes[newBase].url);
+      } catch (error) {
+        console.error("ata error", error);
       }
     }
   }
+}
+
+/** Utility functions **/
+
+function hasFileExtension(fileName: string): boolean {
+  const extensionList = ["d.ts", "mjs", "ts", "tsx", "jsx", "js", "json", "css"];
+  const extension = fileName.split(".").pop();
+  return extensionList.includes(extension ?? "");
+}
+
+function extractReferencePaths(content: string): string[] {
+  const refParts = content.split(`/// <reference path="`);
+  if (refParts.length <= 1) return [];
+
+  const [, ...refs] = refParts;
+  return refs.map((r) => r.split(`"`)[0]);
+}
+
+async function resolveNonRelativeRef(
+  ref: string,
+  originToUse: string,
+  queuedFetch: QueuedFetch,
+): Promise<string | null> {
+  if (originToUse.endsWith(".d.ts")) return null;
+  try {
+    const response = await queuedFetch.fetch(`${originToUse}/*${ref}`, { redirect: "follow" });
+    if (!response.ok) throw new Error("Failed to queuedFetch");
+    const tsTypes = response.headers.get("X-typescript-types");
+    let newBase = tsTypes || (await extractUrlFromResponse(response, ref));
+    if (newBase) newBase = new URL(newBase).toString();
+    return newBase;
+  } catch {
+    let response: Response | undefined;
+    try {
+      response = await queuedFetch.fetch(`${originToUse}/${ref}`, { redirect: "follow" });
+    } catch {
+      console.error("Failed to fetch", { ref, originToUse });
+    }
+    if (!response || !response.ok) {
+      if (originToUse.endsWith(".d.ts")) return null;
+      response = await queuedFetch.fetch(`${originToUse}/${ref}.d.ts`, { redirect: "follow" });
+    }
+    if (!response.ok) return null;
+    const tsTypes = response.headers.get("X-typescript-types");
+    const newBase = tsTypes || response.url;
+    const isDownloadable = await queuedFetch.fetch(newBase).then((res) => res.ok);
+    return isDownloadable ? newBase : null;
+  }
+}
+
+async function extractUrlFromResponse(
+  response: Response,
+  ref: string,
+): Promise<string | null> {
+  const responseText = await response.text();
+  return (
+    responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null
+  );
+}
+
+function cleanPathsAndReferences(
+  impRes: Record<string, { url: string; content: string; ref: string; }>,
+  originToUse: string,
+) {
+  const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
+  const vNumbers = /\/(v)[0-9]+\//gm;
+  const subst = "/";
+
+  // Replace references and clean versions
+  Object.keys(impRes)
+    .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
+    .forEach((x) => {
+      Object.keys(impRes).forEach((t) => {
+        const data = impRes[t];
+        impRes[t] = {
+          ref: data.ref,
+          content: data.content
+            .split(impRes[x].url)
+            .join(x)
+            .split(`https://${originToUse}/${x}`)
+            .join(impRes[x].ref)
+            .replace(vNumbers, subst)
+            .split("/@types/")
+            .join("/")
+            .replaceAll(versionNumbers, ""),
+          url: data.url
+            .replace(vNumbers, subst)
+            .split("/@types/")
+            .join("/")
+            .replaceAll(versionNumbers, ""),
+        };
+      });
+    });
+
+  // Replace origin
+  Object.keys(impRes).forEach((x) => {
+    const data = impRes[x];
+    impRes[x] = {
+      url: data.url,
+      ref: data.ref,
+      content: data.content.split(originToUse).join(""),
+    };
+  });
+}
+
+function getEmotionExtras(originToUse: string): ExtraLib[] {
+  return [
+    {
+      filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
+      content: `
+  import type { Interpolation } from '@emotion/react';    
+  declare module 'react' {
+  interface Attributes {
+    css?: Interpolation<unknown>;
+  }
+}`,
+    },
+    {
+      filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
+      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    },
+    {
+      filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
+      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    },
+  ];
+}
+
+async function generateExtraLibs(
+  impRes: Record<string, ImportResult>,
+  originToUse: string,
+): Promise<ExtraLib[]> {
+  const entries = Object.keys(impRes)
+    .filter((x) => impRes[x].content.length && impRes[x].url);
+
+  return Promise.all(
+    entries.map(async (x) => {
+      const filePath = impRes[x].url
+        .replace("https://unpkg.com", originToUse)
+        .replace(originToUse, "");
+      const content = impRes[x].content
+        .split(`import mod from "/`).join(`import mod from "`)
+        .split(`export * from "/`).join(`export * from "`);
+      return { filePath, content };
+    }),
+  );
+}
+
+function getFileNameForRef(ref: string, baseUrl: string, originToUse: string): string {
+  const fileName = new URL(
+    ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") || ref.includes(".mts")
+      ? ref
+      : `${ref}/index.d.ts`,
+    ref.startsWith(".") ? baseUrl : originToUse,
+  )
+    .toString()
+    .replace(".js", ".d.ts")
+    .replace(".mjs", ".d.ts")
+    .replace(".mts", ".d.ts");
+  return fileName;
 }
 
 Object.assign(self, { ata });

@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/vitest-pool-workers": "0.5.34",
+    "@cloudflare/vitest-pool-workers": "0.5.35",
     "@cloudflare/workers-types": "4.20241205.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
@@ -26,7 +26,7 @@
     "@vitest/snapshot": "2.1.8",
     "typescript": "5.7.2",
     "vitest": "2.1.8",
-    "wrangler": "3.93.0"
+    "wrangler": "3.94.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.32.1",
