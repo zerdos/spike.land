@@ -4020,7 +4020,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.6.0"
-    framer-motion: "npm:11.13.5"
+    framer-motion: "npm:11.14.1"
     globals: "npm:15.13.0"
     happy-dom: "npm:15.11.7"
     html2canvas: "npm:1.4.1"
@@ -4049,8 +4049,8 @@ __metadata:
     postcss: "npm:8.4.49"
     postcss-import: "npm:16.1.0"
     postcss-js: "npm:4.0.1"
-    preact: "npm:10.25.1"
-    preact-render-to-string: "npm:6.5.11"
+    preact: "npm:10.25.2"
+    preact-render-to-string: "npm:6.5.12"
     prettier: "npm:3.4.2"
     prism-react-renderer: "npm:2.4.1"
     process: "npm:0.11.10"
@@ -4061,7 +4061,7 @@ __metadata:
     react-day-picker: "npm:9.4.3"
     react-dom: "npm:19.0.0"
     react-hook-form: "npm:^7.54.0"
-    react-i18next: "npm:15.1.4"
+    react-i18next: "npm:15.2.0"
     react-icons: "npm:5.4.0"
     react-live: "npm:4.1.8"
     react-markdown: "npm:9.0.1"
@@ -9403,12 +9403,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.13.5":
-  version: 11.13.5
-  resolution: "framer-motion@npm:11.13.5"
+"framer-motion@npm:11.14.1":
+  version: 11.14.1
+  resolution: "framer-motion@npm:11.14.1"
   dependencies:
-    motion-dom: "npm:^11.13.0"
-    motion-utils: "npm:^11.13.0"
+    motion-dom: "npm:^11.14.1"
+    motion-utils: "npm:^11.14.1"
     tslib: "npm:^2.4.0"
   peerDependencies:
     "@emotion/is-prop-valid": "*"
@@ -9421,7 +9421,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/b494a399a74074e6d5dc23d14145423862bdd458808d1525d5941f3f8a737b67a443abc8f513ff4ea4b3dda9aacf9e9a8bbe9a15bfed394d1d4060865a849726
+  checksum: 10c0/f5bb824a6655924a954caec1fb29fa58f28a837fea36904146cf4a2c081b55033d3aa7f8aa58d7ed040dbcda8dd3eb0a35ea37b1ec41deb2ddafc75dab10c9e4
   languageName: node
   linkType: hard
 
@@ -12501,17 +12501,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"motion-dom@npm:^11.13.0":
-  version: 11.13.0
-  resolution: "motion-dom@npm:11.13.0"
-  checksum: 10c0/5ba904289ca027a8070e001ca4f84a877539d6b08eaae04acaf117b5fc4bc37a9f4ca812208b41f4dc61a2db7af841140b30517d442c32d5243827b81bb11db7
+"motion-dom@npm:^11.14.1":
+  version: 11.14.1
+  resolution: "motion-dom@npm:11.14.1"
+  checksum: 10c0/261e314b259aadee7577648e7a2e2db9c9cc094887956232736d69311744fdaf2cbd9639b2cc7a1b33ab292c481864870e81170e4729f014a3dbe36e6e7b3f8c
   languageName: node
   linkType: hard
 
-"motion-utils@npm:^11.13.0":
-  version: 11.13.0
-  resolution: "motion-utils@npm:11.13.0"
-  checksum: 10c0/db65509cf7abc7819ec40aae4c50a29f5c07619ee0ff4df04ea3950e85ba5ec68d00cf0f2ef3072bd41787306335eab364de9d199c145631fafd9de39df1eef9
+"motion-utils@npm:^11.14.1":
+  version: 11.14.1
+  resolution: "motion-utils@npm:11.14.1"
+  checksum: 10c0/43d2dfe328f429386d135f6568e2af552c7b657227458760448b8a9db88b3108926b7816b4b0bf36f11096702c08f867830bfe3131c90e34f64874b53b3499cc
   languageName: node
   linkType: hard
 
@@ -13738,19 +13738,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact-render-to-string@npm:6.5.11":
-  version: 6.5.11
-  resolution: "preact-render-to-string@npm:6.5.11"
+"preact-render-to-string@npm:6.5.12":
+  version: 6.5.12
+  resolution: "preact-render-to-string@npm:6.5.12"
   peerDependencies:
     preact: ">=10"
-  checksum: 10c0/a68b704c1343756022fb41322154b45e39f6021b940cbc97e86c292627d017d019700339a17d67b42c308b14fc5323fc120c798f785d6a3e993c8f273610bfe2
+  checksum: 10c0/d3c8d35e3eadfe28a7920bb48783a6860b9b93e8c9db39ec76db8f17398531accac3f1f1484f7dba13be9f0cd791b8bed52b68b5469b8e0eada08e3f96d6b19c
   languageName: node
   linkType: hard
 
-"preact@npm:10.25.1":
-  version: 10.25.1
-  resolution: "preact@npm:10.25.1"
-  checksum: 10c0/bc9255b20931781ed4b26f9d294ba2ec433dc6df8248d802a82a32b3841eb64cd5a70948a814f3793eb9eae7f95a556ec5573b63c62221534533a26db6a71fcb
+"preact@npm:10.25.2":
+  version: 10.25.2
+  resolution: "preact@npm:10.25.2"
+  checksum: 10c0/03eb73164eb49a77c62cead2b9a951aa8bca39ccad58257f94353404b280465c60580c7bf32a3d44c8c24b24d7974c6db9807bafa69a6fc5dc9cdbd9a0e0df30
   languageName: node
   linkType: hard
 
@@ -14128,9 +14128,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:15.1.4":
-  version: 15.1.4
-  resolution: "react-i18next@npm:15.1.4"
+"react-i18next@npm:15.2.0":
+  version: 15.2.0
+  resolution: "react-i18next@npm:15.2.0"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
@@ -14142,7 +14142,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10c0/6c1b053fc530c3a750c8cb0a090a54cd3580cbe2103bea26579a2855a6c0a8be7e1cbffda732d4ec9c9aa8724569783dc340564855e1fe76f48c24683fe0b3d4
+  checksum: 10c0/e6dfd3f04a070777231ea50e750d74ed7a72c56e3f2da238e8666db65431c805482706bbc76bdb69e5196c4125ff4c955ea4166a1788997a679c3a5c03590654
   languageName: node
   linkType: hard
 
