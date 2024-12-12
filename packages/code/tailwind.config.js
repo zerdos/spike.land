@@ -1,5 +1,7 @@
 import animatePlugin from "tailwindcss-animate";
 import { fontFamily } from "tailwindcss/defaultTheme";
+
+
 const config = {
   darkMode: ["class"],
   content: ["src/@/**/*.{ts,tsx}"],
@@ -53,7 +55,7 @@ const config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			sans: ["var(--font-sans)", ...fontFamily.sans]
+  			sans: ["var(--font-sans)",  'Roboto Flex',...fontFamily.sans]
   		},
   		keyframes: {
   			'accordion-down': {
@@ -71,11 +73,42 @@ const config = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+        'fade-in-down': {
+          from: {
+            opacity: '0',
+            transform: 'translateY(-10px)'
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)'
+          },
+        },
+        'fade-in-up': {
+          from: {
+            opacity: '0',
+            transform: 'translateY(10px)'
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)'
+          },
+        },
+        'fade-in': {
+          from: {
+            opacity: '0'
+          },
+          to: {
+            opacity: '1'
+          },
+        }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in-down': 'fade-in-down 0.8s ease-out',
+        'fade-in-up': 'fade-in-up 0.8s ease-out',
+        'fade-in': 'fade-in 0.8s ease-out'
   		}
   	}
   },
