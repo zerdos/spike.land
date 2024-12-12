@@ -1,5 +1,10 @@
 import animatePlugin from "tailwindcss-animate";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import typographyPlugin from '@tailwindcss/typography';
+import lineClampPlugin from '@tailwindcss/line-clamp';
+import aspectRatioPlugin from '@tailwindcss/aspect-ratio';
+import containerQueriesPlugin from '@tailwindcss/container-queries';
+
 
 
 const config = {
@@ -55,7 +60,7 @@ const config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			sans: ["var(--font-sans)",  'Roboto Flex',...fontFamily.sans]
+  			sans: ["var(--font-sans)",  'Roboto Flex', ...fontFamily.sans]
   		},
   		keyframes: {
   			'accordion-down': {
@@ -112,6 +117,9 @@ const config = {
   		}
   	}
   },
-  plugins: [animatePlugin],
+  plugins: [animatePlugin, typographyPlugin({
+	target: 'legacy',
+  }), lineClampPlugin, aspectRatioPlugin, containerQueriesPlugin
+  ],
 };
 export default config;

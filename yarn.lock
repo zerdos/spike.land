@@ -3946,10 +3946,11 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:1.1.4"
     "@rollup/plugin-html": "npm:1.0.4"
     "@tabler/icons-react": "npm:3.24.0"
-    "@tailwindcss/aspect-ratio": "npm:0.4.2"
-    "@tailwindcss/container-queries": "npm:0.1.1"
-    "@tailwindcss/forms": "npm:0.5.9"
-    "@tailwindcss/typography": "npm:0.5.15"
+    "@tailwindcss/aspect-ratio": "npm:^0.4.2"
+    "@tailwindcss/container-queries": "npm:^0.1.1"
+    "@tailwindcss/forms": "npm:^0.5.9"
+    "@tailwindcss/line-clamp": "npm:^0.4.4"
+    "@tailwindcss/typography": "npm:^0.5.15"
     "@tanstack/react-virtual": "npm:3.11.1"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
@@ -4392,7 +4393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/aspect-ratio@npm:0.4.2":
+"@tailwindcss/aspect-ratio@npm:^0.4.2":
   version: 0.4.2
   resolution: "@tailwindcss/aspect-ratio@npm:0.4.2"
   peerDependencies:
@@ -4401,7 +4402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/container-queries@npm:0.1.1":
+"@tailwindcss/container-queries@npm:^0.1.1":
   version: 0.1.1
   resolution: "@tailwindcss/container-queries@npm:0.1.1"
   peerDependencies:
@@ -4410,7 +4411,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/forms@npm:0.5.9":
+"@tailwindcss/forms@npm:^0.5.9":
   version: 0.5.9
   resolution: "@tailwindcss/forms@npm:0.5.9"
   dependencies:
@@ -4421,7 +4422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:0.5.15":
+"@tailwindcss/line-clamp@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "@tailwindcss/line-clamp@npm:0.4.4"
+  peerDependencies:
+    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  checksum: 10c0/53e74e75bff066469501b784ab70af444fa460d556a3adf95cb14ccf1a56b1e63c106f0c4bb94463ba0310f2ce1f71350f9b18a556048655cfd2a0ad308ccfb8
+  languageName: node
+  linkType: hard
+
+"@tailwindcss/typography@npm:^0.5.15":
   version: 0.5.15
   resolution: "@tailwindcss/typography@npm:0.5.15"
   dependencies:
