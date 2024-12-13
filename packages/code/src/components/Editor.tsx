@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { md5 } from "@/lib/md5";
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { useAutoSave } from "../hooks/useAutoSave";
@@ -30,27 +30,26 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     initialLoad: React.useRef(true),
   });
 
-  const handleContentChange = useCallback((newCode: string) => {
-    mod.current.md5Ids.push(md5(newCode));
-    cSess.setCode(newCode);
-  }, [cSess]);
-  const started = editorState && editorState.started;
-  const setValue = editorState && editorState.setValue;
+  
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (event) => {
+    BC.onmessage = (event) => {
       const e = event.data;
+      if (e.code === undefined) return;
+      if (e.code === editorState.code) return;
 
-      if (e.code && started && setValue) {
+
+      
         console.log("Setting code", e.code);
-        setValue(e.code);
-      }
+        editorState.setValue(e.code);
+      
     };
+  
     return () => {
       BC.close();
-    };
-  }, [started, setValue, codeSpace]);
+    }
+  }, []);
 
   useEffect(() => {
     if (errorType) {
@@ -91,12 +90,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           containerRef.current,
           codeSpace,
           mod.current.code,
-          handleContentChange,
+          editorState.setValue,
         )
         : initializeAce(
           containerRef.current,
           mod.current.code,
-          handleContentChange,
+          editorState.setValue,
         ));
 
       console.log("Editor initialized", mod.current.i);
