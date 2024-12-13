@@ -220,7 +220,7 @@ export interface ChatDrawerProps {
   code: string;
   setInput: (input: string) => void;
   handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
-  inputRef: React.RefObject<HTMLTextAreaElement>;
+  inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;
   handleScreenshotClick: () => void;

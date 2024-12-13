@@ -50,7 +50,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     return () => {
       BC.close();
     };
-  }, [started, setValue, codeSpace]);
+}, [started, setValue, codeSpace]);
 
   useEffect(() => {
     if (errorType) {

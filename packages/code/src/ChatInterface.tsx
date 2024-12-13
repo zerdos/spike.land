@@ -37,7 +37,7 @@ const ChatInterface: React.FC<{
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
 
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const resetChat = useCallback((): void => {
     setMessages([]);
