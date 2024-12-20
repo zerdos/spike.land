@@ -16,11 +16,11 @@
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20241218.0",
     "typescript": "5.7.2",
-    "wrangler": "3.98.0"
+    "wrangler": "3.99.0"
   },
   "dependencies": {
     "@spike-npm-land/code": "0.9.56",
-    "esbuild-wasm": "0.24.0"
+    "esbuild-wasm": "0.24.1"
   },
   "publishConfig": {
     "access": "public"
