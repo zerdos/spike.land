@@ -22,7 +22,7 @@ Object.assign(globalThis, { wait, build });
 export const getSpeedy2 = async () => {
   const codeSpace = getCodeSpace();
 
-  console.log({ external });
+  // console.log({ external });
   const res = await build({
     codeSpace,
     splitting: true,
@@ -30,6 +30,10 @@ export const getSpeedy2 = async () => {
     origin: location.origin,
     format: "esm",
   }) as unknown as Array<{ text: string; path: string; contents: ArrayBuffer; }>;
+
+  console.log({ res });
+  console.log({ codeSpace });
+  console.log({ location });
 
   // res.map(async (f) => {
   //   await fetch(f.path.slice(1), {
