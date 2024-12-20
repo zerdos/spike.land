@@ -46,6 +46,7 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
   height: 100vh; /* Fallback for browsers that don't support dvh/svh */
   height: 100dvh; /* Use dynamic viewport height */
+  height: 100svh; /* Use static viewport height */
   font-family: "Roboto Flex", sans-serif;
 }
 

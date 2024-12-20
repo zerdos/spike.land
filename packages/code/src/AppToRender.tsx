@@ -93,6 +93,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
     <div
       css={css`
       height: 100dvh;
+      height: 100svh;
       display: block;
       position: relative;
       overflow: hidden;
