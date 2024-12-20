@@ -36,6 +36,7 @@ const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
     mangleQuoted: true,
     ignoreAnnotations: false,
     platform: "browser",
+    target: "es2015",
     format: "iife",
     outdir: "dist/@/workers/monaco",
     minify: true,

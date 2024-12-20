@@ -85,7 +85,11 @@ export function importMapReplace(
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => !line.startsWith("//"))
-    .join("\n");
+    .join("\n").split("esm.sh").join(origin);
+
+  // remove the /** comments
+
+  replacedCode = replacedCode.replace(/\/\*[\s\S]*?\*\//g, "");
 
   // Replace specific package paths based on the import map
   Object.entries(importMap.imports).forEach(([pkg, path]) => {
