@@ -1,3 +1,5 @@
+import { enhancedFetch } from "./enhancedFetch";
+
 import type {
   fakeServer as FakeServer,
   QueuedFetch as Qf,
@@ -478,10 +480,12 @@ sw.addEventListener("fetch", (event) => {
 
   event.respondWith(
     CacheUtils.retry(() => fetch(request))
-      .catch((error) => {
-        console.error("Network fetch failed:", error);
-        return new Response("Network error", { status: 503 });
-      }),
+      .catch(() =>
+        enhancedFetch(request).catch((error) => {
+          console.error("Error in enhancedFetch:", error);
+          return new Response("Network error", { status: 503 });
+        })
+      ),
   );
   return;
 });

@@ -17,9 +17,7 @@ export const enhancedFetch = async (
       ...options,
     });
     if (res.ok) {
-      const clone = res.clone();
-      const body = await res.blob();
-      return new Response(body, clone);
+      return res;
     }
     throw new Error(res.statusText);
   } catch (error) {
