@@ -1,9 +1,10 @@
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
+
 import tsConfigPath from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [react(), tsConfigPath()],
+  plugins: [react() as unknown as any, tsConfigPath()],
   test: {
     coverage: {
       provider: "v8",

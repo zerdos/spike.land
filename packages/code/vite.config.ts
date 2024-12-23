@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react-swc";
 import { importMap } from "./src/@/lib/importmap-utils";
 import fs from "fs";
 import { visualizer } from "rollup-plugin-visualizer";
+import tailwindcss from '@tailwindcss/vite';
+
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
 const externalFiles = fs.readdirSync(
@@ -78,6 +80,7 @@ const config = defineConfig((config) => ({
       open: true, // Automatically open the visualization
       filename: "dist/stats.html",
     }),
+    tailwindcss(),
     react({
       jsxImportSource: "@emotion/react",
     }),

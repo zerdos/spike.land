@@ -1,3 +1,4 @@
+@import "tailwindcss/index.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -168,11 +169,5 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
+ 
 }

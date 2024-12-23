@@ -1,10 +1,12 @@
 import type { Config } from "tailwindcss";
 
 import animatePlugin from "tailwindcss-animate";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import aspectRatio from "@tailwindcss/aspect-ratio"
+import defaultTheme from "tailwindcss/defaultTheme";
+const {fontFamily} = defaultTheme;
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["src/@/**/*.{ts,tsx}"],
   theme: {
     container: {
@@ -14,7 +16,7 @@ const config: Config = {
         "2xl": "1400px",
       },
     },
-    extend: {
+    extend: {...defaultTheme,
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -82,7 +84,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [animatePlugin],
+  plugins: [animatePlugin, aspectRatio],
 };
 
 export default config;
