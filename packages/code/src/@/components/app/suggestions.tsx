@@ -59,19 +59,19 @@ export const Suggestions: React.FC<SuggestionsProps> = ({ content, onAction }) =
             } p-2 sm:p-4 text-left h-auto flex flex-col items-start transition-all duration-200 hover:scale-[1.02]`}
             onClick={() => onAction?.(suggestion)}
           >
-            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-1.5 w-full">
-              <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1 sm:p-1.5 rounded-md shadow-sm">
+            <div className="flex items-start gap-1.5 sm:gap-2 mb-1 sm:mb-1.5 w-full">
+              <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-1 sm:p-1.5 rounded-md shadow-sm flex-shrink-0 mt-0.5">
                 <LightbulbIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
               </div>
               <span
                 className={`font-semibold text-sm sm:text-base ${
                   isDarkMode ? "text-gray-100" : "text-gray-900"
-                }`}
+                } whitespace-normal break-words leading-[1.4] sm:leading-relaxed flex-grow`}
               >
                 {suggestion.title}
               </span>
               <ArrowRight
-                className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ml-auto transform transition-transform duration-200 ${
+                className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transform transition-transform duration-200 flex-shrink-0 mt-0.5 ${
                   isDarkMode ? "text-gray-400" : "text-gray-500"
                 } group-hover:translate-x-1`}
               />
