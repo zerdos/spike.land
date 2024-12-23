@@ -9,6 +9,7 @@ import { isDiffContent } from "@/lib/diff-utils";
 import { DiffViewer } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
 import { extractCodeModification } from "@/lib/chat-utils";
+import { Suggestions } from "@/components/app/suggestions";
 
 interface CodeProps {
   value: string;
@@ -56,16 +57,19 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
       );
     }
 
-    if (trimmedValue.includes(`</change>`)) {
-      const suggestion = trimmedValue.includes(`<suggestion>`)
-        ? <p>{trimmedValue.slice(trimmedValue.indexOf(`<suggestion>`))}</p>
-        : <></>;
+    if (trimmedValue.includes(`<suggestion>`)) {
+      const suggestion = trimmedValue.indexOf(`<suggestion>`);
+      const lastIndexOfSuggestion = trimmedValue.lastIndexOf("</suggestion>");
+      const suggestionContent = trimmedValue.slice(suggestion, lastIndexOfSuggestion + 13);
+
+      
+
       return (
         <>
-          <p>{trimmedValue.slice(0, trimmedValue.indexOf("</change>"))}</p>
+          <Suggestions content={suggestionContent} onAction={(s)=>console.log(s)} />
           {suggestion}
         </>
-      );
+      );        
     }
 
     if (type === "text") {
