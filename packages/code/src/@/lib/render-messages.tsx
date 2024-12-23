@@ -31,21 +31,23 @@ const extractDiffContent = (
 };
 
 const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
-  const trimmedValue = useMemo(() => value.trim(), [value]);
+  const trimmedValue = value.trim();
 
   const renderContent = useCallback(() => {
-    if (trimmedValue.length === 0) {
+    let trimmed = trimmedValue;
+    if (trimmed.length === 0) {
       return null;
     }
 
-    if (trimmedValue.length < 3) {
+    if (trimmed.length < 3) {
       return <pre>{trimmedValue}</pre>;
     }
 
-    if (trimmedValue.includes(`<react_code_analysis>`)) {
-      const change = trimmedValue.includes(`<change>`)
-        ? <h2>{trimmedValue.slice(trimmedValue.indexOf(`<change>`) + 8)}</h2>
+    if (trimmed.includes(`<react_code_analysis>`)) {
+      const change = trimmed.includes(`<change>`)
+        ? <h2>{trimmed.slice(trimmed.lastIndexOf(`</react_code_analysis>`))}</h2>
         : <></>;
+        trimmed = trimmed.slice(0, trimmed.indexOf(`</react_code_analysis>`) + 22);  
 
       return (
         <>
@@ -57,17 +59,17 @@ const Code: React.FC<CodeProps> = memo(({ value, language, type }) => {
       );
     }
 
-    if (trimmedValue.includes(`<suggestion>`)) {
+    if (trimmed.includes(`<suggestion>`)) {
       const suggestion = trimmedValue.indexOf(`<suggestion>`);
-      const lastIndexOfSuggestion = trimmedValue.lastIndexOf("</suggestion>");
+      const lastIndexOfSuggestion = trimmedValue.lastIndexOf("</suggestion>") + 13;
       const suggestionContent = trimmedValue.slice(suggestion, lastIndexOfSuggestion + 13);
-
-      
-
+      trimmed = trimmedValue.slice(lastIndexOfSuggestion);
       return (
         <>
+          <br />
           <Suggestions content={suggestionContent} onAction={(s)=>console.log(s)} />
-          {suggestion}
+          <br />  
+          {trimmed}
         </>
       );        
     }
