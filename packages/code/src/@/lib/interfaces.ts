@@ -43,7 +43,7 @@ export interface MessageInputProps {
   setInput: (value: string) => void;
   handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   isStreaming: boolean;
-  inputRef: React.RefObject<HTMLTextAreaElement>;
+  inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
   code: string;
   screenshotImage: string | null;
@@ -244,4 +244,5 @@ export interface ChatContainerProps {
   handleEditMessage: (id: string) => void;
   isStreaming: boolean;
   isDarkMode: boolean;
+  onNewPrompt: (prompt: string) => void;
 }

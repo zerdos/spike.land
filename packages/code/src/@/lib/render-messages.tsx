@@ -14,6 +14,7 @@ interface CodeProps {
   value: string;
   language: string;
   type: string;
+  onNewPrompt: (prompt: string) => void;
 }
 
 /**
@@ -34,7 +35,7 @@ const extractDiffContent = (rawContent: string): { original: string; modified: s
  * Renders code, diff, suggestions, or analysis. 
  * Memoized for performance.
  */
-const Code = memo<CodeProps>(({ value, language, type }) => {
+const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
   const trimmedValue = value.trim();
 
   const renderContent = useCallback(() => {
@@ -71,7 +72,7 @@ const Code = memo<CodeProps>(({ value, language, type }) => {
 
       return (
         <>
-          <Suggestions content={suggestionContent} onAction={(s) => console.log(s)} />
+          <Suggestions content={suggestionContent} onAction={(s) => onNewPrompt(s.description)} />
           {remaining && <div>{remaining}</div>}
         </>
       );
@@ -103,13 +104,14 @@ Code.displayName = "Code";
 interface ChatMessageBlockProps {
   text: string;
   isUser: boolean;
+  onNewPrompt: (prompt: string) => void;
 }
 
 /**
  * Handles parsing the text into parts, then renders each part as <Code /> 
  * or other relevant blocks.
  */
-export const ChatMessageBlock = memo<ChatMessageBlockProps>(({ text, isUser }) => {
+export const ChatMessageBlock = memo<ChatMessageBlockProps>(({ text, isUser, onNewPrompt }) => {
   const parsingStateRef = useRef<ParsingState>({
     isInCodeBlock: false,
     accumulatedContent: "",
@@ -131,6 +133,7 @@ export const ChatMessageBlock = memo<ChatMessageBlockProps>(({ text, isUser }) =
             value={part.content}
             language={part.language || "plaintext"}
             type={part.type}
+            onNewPrompt={onNewPrompt}
           />
         </React.Fragment>
       ))}

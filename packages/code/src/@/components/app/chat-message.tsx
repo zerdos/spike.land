@@ -27,6 +27,7 @@ interface ChatMessageProps {
   isSelected: boolean;
   onDoubleClick: () => void;
   isEditing: boolean;
+  onNewPrompt: (prompt: string) => void;
   editInput: string;
   setEditInput: (value: string) => void;
   handleCancelEdit: () => void;
@@ -41,7 +42,8 @@ interface ChatMessageProps {
 const MessageContent = React.memo<{
   content: string | Array<{ type: string; text?: string; image_url?: { url: string } }>;
   isUser: boolean;
-}>(({ content, isUser }) => {
+  onNewPrompt: (prompt: string) => void;
+}>(({ content, isUser, onNewPrompt}) => {
   const parsedContent = useMemo(() => {
     return typeof content === "string" ? [{ type: "text", text: content }] : content;
   }, [content]);
@@ -53,7 +55,7 @@ const MessageContent = React.memo<{
           const hashedKey = `${index}--${md5(item.text)}`;
           return (
             <div key={hashedKey}>
-              <ChatMessageBlock text={item.text} isUser={isUser} />
+              <ChatMessageBlock text={item.text} isUser={isUser} onNewPrompt={onNewPrompt} />
             </div>
           );
         } else if (item.type === "image_url" && item.image_url) {
@@ -85,7 +87,7 @@ const SystemMessage = React.memo<{
       <AccordionItem value="item-1">
         <AccordionTrigger>System prompt</AccordionTrigger>
         <AccordionContent>
-          <MessageContent content={content} isUser={isUser} />
+          <MessageContent onNewPrompt={()=>{}} content={content} isUser={isUser} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -99,6 +101,7 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
     onDoubleClick,
     isEditing,
     editInput,
+    onNewPrompt,
     setEditInput,
     handleCancelEdit,
     handleSaveEdit,
@@ -118,7 +121,7 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
     if (isSystem) {
       return <SystemMessage content={message.content} isUser={isUser} />;
     }
-    return <MessageContent content={message.content} isUser={isUser} />;
+    return <MessageContent onNewPrompt={onNewPrompt} content={message.content} isUser={isUser} />;
   }, [message.content, isSystem, isUser]);
 
   /**

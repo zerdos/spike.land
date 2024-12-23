@@ -104,6 +104,13 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string }> =
                   handleSaveEdit={handleSaveEdit}
                   handleEditMessage={handleEditMessage}
                   isStreaming={isStreaming}
+                  onNewPrompt={(prompt: string)=>handleSendMessage({
+                    messages,
+                    codeSpace,
+                    prompt,
+                    images: [],
+                    code
+                  })}
                   isDarkMode={isDarkMode}
                   codeSpace={codeSpace}
                 />

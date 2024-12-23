@@ -56,6 +56,7 @@ export const ChatContainer: React.FC<
     setEditInput,
     handleCancelEdit,
     handleSaveEdit,
+    onNewPrompt,
     handleEditMessage,
     isStreaming,
     isDarkMode,
@@ -114,6 +115,7 @@ export const ChatContainer: React.FC<
         handleSaveEdit={memoizedHandleSaveEdit}
         isDarkMode={isDarkMode}
         codeSpace={codeSpace}
+        onNewPrompt={onNewPrompt}
       />
     ),
     [
