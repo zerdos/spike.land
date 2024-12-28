@@ -1,7 +1,7 @@
 // CodeSession.ts
 
 // import { getCodeSpace } from "@/hooks/use-code-space";
-import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { makeHash, makeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
@@ -233,13 +233,14 @@ export class Code implements ICode {
     let session = makeSession({
       ...this.session,
       code: formatted,
+      messages: this.session.messages || [],
       transpiled,
       i: this.session.i + 1,
     });
 
     try {
       const { html, css } = await runCode(transpiled) || { html: "", css: "" };
-      session = makeSession({ ...session, html, css });
+      session = makeSession({ ...session, html, css, messages: this.session.messages });
     } catch (error) {
       console.error("Error running code:", error);
     } finally {
@@ -253,6 +254,11 @@ export class Code implements ICode {
   }
   private isRunning = false;
   private pendingRun: string | null = null;
+
+  async setMessages(messages: Message[]): Promise<void> {
+    this.session = makeSession({ ...this.session, messages });
+    this.broadcastChannel.postMessage(this.session);
+  }
 
   async setCode(
     rawCode: string,

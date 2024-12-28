@@ -63,7 +63,7 @@ export const makeSession = (p: ICodeSession) => {
   const rec = Record<ICodeSession>({
     i: p.i || 0,
     codeSpace: p.codeSpace || "",
-    messages: p.messages,
+    messages: p.messages || [],
     code: p.code || `export default () => <>
   Nothing
 </>;`,
