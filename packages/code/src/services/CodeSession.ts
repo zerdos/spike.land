@@ -254,13 +254,11 @@ export class Code implements ICode {
   private pendingRun: string | null = null;
 
   async setMessages(messages: Message[]) {
-    const hashNow = this.hash();
+    const hashNow = hash(messages.map(hash).join(""));
+    const hashAfter = hash(this.session.messages.map(hash).join(""));
+    if (hashNow === hashAfter) return false;
 
-    this.session = sanitizeSession({ ...this.session, messages });
-    const handAfter = this.hash();
-
-    if (hashNow === handAfter) return false;
-    this.session = sanitizeSession({ ...this.session, i: this.session.i + 1 });
+    this.session = sanitizeSession({ ...this.session, messages, i: this.session.i + 1 });
     this.broadcastChannel.postMessage(this.session);
     return true;
   }

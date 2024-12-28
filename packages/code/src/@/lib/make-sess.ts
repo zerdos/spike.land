@@ -34,7 +34,7 @@ class SessionPatcher {
   }
 
   public static computeSessionHash(cx: ICodeSession): string {
-    return String(hash(sessionToJSON(sanitizeSession(cx))));
+    return String(hash(cx));
   }
 
   public static sanitizeSession(p: ICodeSession): ICodeSession {
