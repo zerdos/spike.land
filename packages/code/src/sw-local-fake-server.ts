@@ -19,7 +19,7 @@ export async function fakeServer(request: Request) {
   cSessions[codeSpace] = cSessions[codeSpace] ||
     new CodeSessionBC(
       codeSpace,
-      await fetch(`${location.origin}/live/${codeSpace}/session.json`).then((r) => r.json()),
+      await fetch(`${location.origin}/api/room/${codeSpace}/session.json`).then((r) => r.json()),
     );
 
   const session = await cSessions[codeSpace].init();
