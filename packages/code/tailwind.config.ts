@@ -15,8 +15,21 @@ const config: Config = {
       screens: {
         "2xl": "1400px",
       },
+        //       
     },
     extend: {...defaultTheme,
+      animation: {
+                'gradient-x-slow': 'gradient-x 30s ease infinite',
+                'gradient-x-normal': 'gradient-x 20s ease infinite',
+                'gradient-x-fast': 'gradient-x 10s ease infinite',
+              },
+              keyframes: {
+                'gradient-x': {
+                  '0%, 100%': { 'background-position': '0% 50%' },
+                  '50%': { 'background-position': '100% 50%' },
+                },
+              },
+            },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
