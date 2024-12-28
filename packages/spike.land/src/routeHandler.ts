@@ -3,10 +3,12 @@ import {
   importMapReplace,
   makeSession,
   md5,
+  HTML, importMap,
   stringifySession,
 } from "@spike-npm-land/code";
+import { WebSocket as IWebSocket } from "@cloudflare/workers-types";
+
 import type { Code } from "./chatRoom";
-import { HTML, importMap } from "@spike-npm-land/code";
 
 export interface AutoSaveEntry {
   timestamp: number;
@@ -242,7 +244,7 @@ export class RouteHandler {
     }
 
     const pair = new WebSocketPair();
-    await this.code.wsHandler.handleWebsocketSession(pair[1] as WebSocket);
+    await this.code.wsHandler.handleWebsocketSession(pair[1] as IWebSocket);
     return new Response(null, { status: 101, webSocket: pair[0] });
   }
 
