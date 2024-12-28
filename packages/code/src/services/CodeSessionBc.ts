@@ -17,18 +17,26 @@ export class CodeSessionBC {
     ) => {
       {
         if (data.i) {
+          if (!data.messages) {
+            if (this.session) {
+              data.messages = this.session.messages || [];
+            }
+          }
           if (!this.session) {
             this.session = sanitizeSession(data);
-
-            this.subscribers.forEach((cb) => cb(this.session!));
           }
 
-          if (this.session && data.i > this.session.i) {
-            // console.log("broadcastChannel.onmessage", data);
+          const prevI = this.session.i;
 
-            this.session = sanitizeSession(data);
+          // console.log("broadcastChannel.onmessage", data);
 
-            this.subscribers.forEach((cb) => cb(this.session!));
+          const newSession = this.session = sanitizeSession({
+            ...this.session,
+            ...data,
+          });
+
+          if (data.i > prevI) {
+            this.subscribers.forEach((cb) => cb(newSession));
           }
         }
       }
