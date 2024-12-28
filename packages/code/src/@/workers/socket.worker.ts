@@ -1,11 +1,11 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess";
 import {
-  applyCodePatch,
-  createPatch,
-  makeHash,
-  makeSession,
-  stringifySession,
+  applySessionPatch,
+  computeSessionHash,
+  generateSessionPatch,
+  sanitizeSession,
+  sessionToJSON,
 } from "@/lib/make-sess";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
@@ -85,8 +85,8 @@ async function setConnections(
     user,
     codeSpace,
     controller: new AbortController(),
-    oldSession: makeSession(sess),
-    lastHash: makeHash(sess),
+    oldSession: sanitizeSession(sess),
+    lastHash: computeSessionHash(sess),
     lastCounter: sess.i,
     broadcastChannel: new BroadcastChannel(
       `${location.origin}/live/${codeSpace}/`,
@@ -118,7 +118,7 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
     const response = await fetch(`/live/${codeSpace}/session.json`);
     const data = await response.json() as ICodeSession;
     console.log("Initial session fetched successfully");
-    return makeSession(data);
+    return sanitizeSession(data);
   } catch (error) {
     console.error(`Failed to fetch initial session for ${codeSpace}:`, error);
     throw error;
@@ -207,21 +207,21 @@ async function handleSocketMessage(
   }
 
   if (data.strSess) {
-    const sess = makeSession(
+    const sess = sanitizeSession(
       (typeof data.strSess === "string"
         ? JSON.parse(data.strSess)
         : data.strSess) as ICodeSession,
     );
     if (sess.i >= connection.oldSession.i) {
       connection.oldSession = sess;
-      connection.lastHash = makeHash(sess);
+      connection.lastHash = computeSessionHash(sess);
       connection.lastCounter = sess.i;
       connection.broadcastChannel.postMessage({
         ...sess,
         sender: "WORKER_HANDLE_CHANGES",
       });
     } else {
-      const patch = createPatch(sess, connection.oldSession);
+      const patch = generateSessionPatch(sess, connection.oldSession);
       connection.webSocket.send(
         JSON.stringify({
           ...patch,
@@ -250,15 +250,15 @@ async function handleSocketMessage(
   }
 
   if (data.hash && data.i > connection.lastCounter && data.strSess) {
-    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
-    if (data.hash !== makeHash(sess)) {
+    const sess = sanitizeSession(JSON.parse(data.strSess) as ICodeSession);
+    if (data.hash !== computeSessionHash(sess)) {
       console.log("Hash mismatch, skipping message");
       return;
     }
     connection.lastHash = data.hash;
     connection.lastCounter = data.i;
     connection.oldSession = sess;
-    // const patch = createPatch(sess, connection.oldSession);
+    // const patch = generateSessionPatch(sess, connection.oldSession);
     connection.broadcastChannel.postMessage({
       ...sess,
       sender: SENDER_WORKER_HANDLE_CHANGES,
@@ -266,12 +266,12 @@ async function handleSocketMessage(
     return;
   }
   if (data.hash && data.i < connection.lastCounter && data.strSess) {
-    const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
-    if (data.hash !== makeHash(sess)) {
+    const sess = sanitizeSession(JSON.parse(data.strSess) as ICodeSession);
+    if (data.hash !== computeSessionHash(sess)) {
       console.log("Hash mismatch, skipping message");
       return;
     }
-    const patch = createPatch(sess, connection.oldSession);
+    const patch = generateSessionPatch(sess, connection.oldSession);
     connection.webSocket.send(
       JSON.stringify({
         ...patch,
@@ -349,8 +349,8 @@ async function handleSessionString(
 ): Promise<void> {
   console.log("Handling session string:", data);
   const { oldSession, user } = connection;
-  const sess = makeSession(JSON.parse(data.strSess) as ICodeSession);
-  const patch = createPatch(sess, oldSession);
+  const sess = sanitizeSession(JSON.parse(data.strSess) as ICodeSession);
+  const patch = generateSessionPatch(sess, oldSession);
   console.log("Created patch:", patch);
   ws.send(JSON.stringify({ ...patch, name: user, i: oldSession.i }));
   console.log("Sent patch to WebSocket");
@@ -377,7 +377,7 @@ async function handleHandshake(
   ws.send(JSON.stringify({ name: connection.user }));
   console.log("Sent user name to WebSocket");
 
-  const oldSessionHash = makeHash(connection.oldSession);
+  const oldSessionHash = computeSessionHash(connection.oldSession);
   console.log("Old session hash:", oldSessionHash);
   console.log("Received hash code:", data.hashCode);
   if (oldSessionHash !== data.hashCode) {
@@ -418,8 +418,8 @@ async function handleHashUpdate(
   await mutex.runExclusive(async () => {
     console.log("Running hash update exclusively");
     try {
-      const oldSession = makeSession(connection.oldSession);
-      const oldHash = makeHash(oldSession);
+      const oldSession = sanitizeSession(connection.oldSession);
+      const oldHash = computeSessionHash(oldSession);
       console.log("Old hash:", oldHash);
       console.log("Received old hash:", data.oldHash);
 
@@ -480,8 +480,8 @@ async function handleHashMatch(
   signal: AbortSignal,
 ): Promise<void> {
   console.log("Handling hash match");
-  const newSession = applyCodePatch(oldSession, data);
-  const newHash = makeHash(newSession);
+  const newSession = applySessionPatch(oldSession, data);
+  const newHash = computeSessionHash(newSession);
   console.log("New hash:", newHash);
 
   if (signal.aborted) {
@@ -568,14 +568,14 @@ async function handleBroadcastMessage(
     console.log("Scheduling session update");
 
     console.log("Processing session changes");
-    const oldSession = makeSession(connection.oldSession);
-    const newSession = makeSession(data);
-    const newHash = makeHash(newSession);
-    const oldHash = makeHash(oldSession);
+    const oldSession = sanitizeSession(connection.oldSession);
+    const newSession = sanitizeSession(data);
+    const newHash = computeSessionHash(newSession);
+    const oldHash = computeSessionHash(oldSession);
 
     if (newHash !== oldHash) {
       console.log("Session hash changed, creating patch");
-      const patchMessage = createPatch(oldSession, newSession);
+      const patchMessage = generateSessionPatch(oldSession, newSession);
       if (patchMessage.oldHash === oldHash) {
         console.log("Patch created successfully, updating session");
         connection.oldSession = newSession;
@@ -625,7 +625,7 @@ async function handleBroadcastMessage(
             if (connection.lastCounter < bMod!.i) {
               console.log("Updating session");
 
-              const json = stringifySession(bMod);
+              const json = sessionToJSON(bMod);
               try {
                 await fetch(`/live/${codeSpace}/session.json`, {
                   method: "POST",

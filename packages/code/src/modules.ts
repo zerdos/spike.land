@@ -24,15 +24,15 @@ export { serverFetchUrl } from "@/lib/enhanced-fetch";
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess.ts";
 import {
-  applyCodePatch,
-  createPatch,
-  makeHash,
-  makeSession,
-  stringifySession,
+  applySessionPatch,
+  computeSessionHash,
+  generateSessionPatch,
+  sanitizeSession,
+  sessionToJSON,
 } from "@/lib/make-sess.ts";
 
 export { importMap };
 
-export { createPatch, makeHash, stringifySession };
+export { computeSessionHash, generateSessionPatch, sessionToJSON };
 export type { CodePatch, Delta, ICodeSession };
-export { applyCodePatch, makeSession };
+export { applySessionPatch, sanitizeSession };

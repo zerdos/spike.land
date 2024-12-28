@@ -1,79 +1,10 @@
 import { hash, Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
+import { c } from "@vitest/runner/dist/tasks-3ZnPj1LR.js";
 import diff from "fast-diff";
 
 type Diff = [-1 | 0 | 1, string];
 export type Delta = Diff | [0 | -1, number];
-
-export function createDelta(original: string, revision: string) {
-  const result = diff(original, revision);
-  const delta: Delta[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
-  return delta;
-}
-
-export function aPatch(original: string, delta: Delta[]) {
-  let result = "";
-  let index = 0;
-
-  for (const item of delta) {
-    const operation = item[0];
-    const value = item[1];
-
-    if (item[0] === -1 && typeof value === "number") {
-      // DELETE
-      index += value;
-    } else if (operation === 0 && typeof value === "number") {
-      // KEEP
-      result += original.slice(index, index += value);
-    } else {
-      // INSERT
-      result += value;
-    }
-  }
-
-  return result;
-}
-
-const aPC = (sess: ICodeSession, mess: CodePatch) =>
-  makeSession(
-    JSON.parse(aPatch(stringifySession(makeSession(sess)), mess.patch)),
-  );
-
-export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
-  const newSess = aPC(sess, mess);
-  if (makeHash(newSess) !== mess.newHash) {
-    throw new Error("Unable to calculate CodePatch");
-  }
-
-  return newSess;
-}
-
-export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
-
-export const makeSession = (p: ICodeSession) => {
-  p.messages = p.messages || [];
-  // remove everything before the first import
-  p.code = p.code.split("\n").filter((l) =>
-    !(l.startsWith("//") && l.includes(".tsx") ||
-      l.trim() === ("// " + p.codeSpace))
-  ).join("\n");
-
-  p.code = `// ${p.codeSpace}.tsx\n${p.code}`;
-
-  const rec = Record<ICodeSession>({
-    i: p.i || 0,
-    codeSpace: p.codeSpace || "",
-    messages: p.messages || [],
-    code: p.code || `export default () => <>
-  Nothing
-</>;`,
-    html: p.html || "",
-    css: (p.css || ""),
-    transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
-  });
-
-  return rec(p).toJS() as ICodeSession;
-};
 
 export interface CodePatch {
   oldHash: string;
@@ -82,38 +13,96 @@ export interface CodePatch {
   reversePatch: Delta[];
 }
 
-export const createPatch = (
-  oldSess: ICodeSession,
-  newSess: ICodeSession,
-): CodePatch => {
-  const oldRec = makeSession(oldSess);
-  const oldHash = makeHash(oldRec);
-  const newRec = makeSession(newSess);
-  const newHash = makeHash(newRec);
-
-  const oldString = stringifySession(oldRec);
-  const newString = stringifySession(newRec);
-
-  const patch = createDelta(oldString, newString);
-  const reversePatch = createDelta(newString, oldString);
-
-  const codePatch: CodePatch = {
-    oldHash,
-    newHash,
-    reversePatch,
-    patch,
-  };
-
-  const newSess2 = applyCodePatch(oldSess, codePatch);
-
-  if (makeHash(newSess2) !== codePatch.newHash) {
-    throw new Error("Unable to calculate CodePatch");
+export class SessionPatcher {
+  public static computeTextDelta(original: string, revised: string): Delta[] {
+    return diff(original, revised).map(([op, text]) => op === 1 ? [op, text] : [op, text.length]);
   }
 
-  return codePatch;
-};
+  public static applyTextDelta(original: string, delta: Delta[]): string {
+    let result = "";
+    let index = 0;
 
-export function stringifySession(s: ICodeSession): string {
-  const { i, codeSpace, code, html, css, transpiled, messages } = s;
-  return JSON.stringify({ i, codeSpace, messages, code, html, css, transpiled });
+    for (const [op, val] of delta) {
+      if (op === -1 && typeof val === "number") {
+        index += val; // DELETE
+      } else if (op === 0 && typeof val === "number") {
+        result += original.slice(index, index += val); // KEEP
+      } else {
+        result += val; // INSERT
+      }
+    }
+    return result;
+  }
+
+  public static computeSessionHash(cx: ICodeSession): string {
+    return String(hash(this.sessionToJSON(this.sanitizeSession(cx))));
+  }
+
+  public static sanitizeSession(p: ICodeSession): ICodeSession {
+    p.messages = p.messages || [];
+    p.code = p.code
+      .split("\n")
+      .filter((line) =>
+        !(line.startsWith("//") && line.includes(".tsx")) &&
+        line.trim() !== ("// " + p.codeSpace)
+      )
+      .join("\n");
+
+    p.code = `// ${p.codeSpace}.tsx\n${p.code}`;
+
+    return Record<ICodeSession>({
+      i: p.i || 0,
+      codeSpace: p.codeSpace || "",
+      messages: p.messages,
+      code: p.code || `export default () => <>\n  Nothing\n</>;`,
+      html: p.html || "",
+      css: p.css || "",
+      transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
+    })(p).toJS() as ICodeSession;
+  }
+
+  public static sessionToJSON(s: ICodeSession): string {
+    const { i, codeSpace, code, html, css, transpiled, messages } = s;
+    return JSON.stringify({ i, codeSpace, messages, code, html, css, transpiled });
+  }
+
+  public static applySessionPatch(sess: ICodeSession, codePatch: CodePatch): ICodeSession {
+    const patchedJson = this.applyTextDelta(
+      this.sessionToJSON(this.sanitizeSession(sess)),
+      codePatch.patch,
+    );
+    const newSess = this.sanitizeSession(JSON.parse(patchedJson));
+    if (this.computeSessionHash(newSess) !== codePatch.newHash) {
+      throw new Error("Unable to calculate CodePatch");
+    }
+    return newSess;
+  }
+
+  public static generateSessionPatch(oldSess: ICodeSession, newSess: ICodeSession): CodePatch {
+    const oldRec = this.sanitizeSession(oldSess);
+    const newRec = this.sanitizeSession(newSess);
+
+    const oldHash = this.computeSessionHash(oldRec);
+    const newHash = this.computeSessionHash(newRec);
+
+    const oldStr = this.sessionToJSON(oldRec);
+    const newStr = this.sessionToJSON(newRec);
+
+    const patch = this.computeTextDelta(oldStr, newStr);
+    const reversePatch = this.computeTextDelta(newStr, oldStr);
+
+    const codePatch: CodePatch = { oldHash, newHash, patch, reversePatch };
+    if (this.computeSessionHash(this.applySessionPatch(oldSess, codePatch)) !== newHash) {
+      throw new Error("Unable to calculate CodePatch");
+    }
+    return codePatch;
+  }
 }
+
+export const applyTextDelta = SessionPatcher.applyTextDelta;
+export const computeTextDelta = SessionPatcher.computeTextDelta;
+export const computeSessionHash = SessionPatcher.computeSessionHash;
+export const sanitizeSession = SessionPatcher.sanitizeSession;
+export const sessionToJSON = SessionPatcher.sessionToJSON;
+export const applySessionPatch = SessionPatcher.applySessionPatch;
+export const generateSessionPatch = SessionPatcher.generateSessionPatch;

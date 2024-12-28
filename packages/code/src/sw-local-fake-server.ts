@@ -7,7 +7,7 @@ import type {} from "./def";
 import HTML from "./index.html";
 
 import type { ICodeSession } from "@/lib/interfaces";
-import { stringifySession } from "@/lib/make-sess";
+import { sessionToJSON } from "@/lib/make-sess";
 
 const cSessions: Record<string, CodeSessionBC> = {};
 
@@ -152,7 +152,7 @@ function handleSessionJson(
 ) {
   console.log("Session request:", request.url);
 
-  return new Response(stringifySession(session), {
+  return new Response(sessionToJSON(session), {
     headers: {
       "Content-Type": "application/json",
       ...request.headers,

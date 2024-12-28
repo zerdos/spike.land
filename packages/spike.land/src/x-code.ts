@@ -1,10 +1,10 @@
 import type Env from "./env";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
 import {
-  applyCodePatch,
-  createPatch,
-  makeHash,
-  makeSession,
+  applySessionPatch,
+  generateSessionPatch,
+  computeSessionHash,
+  sanitizeSession,
 } from "@spike-npm-land/code";
 
 export interface CodeHistoryEntry {
@@ -51,7 +51,7 @@ export class CodeHistoryManager {
   }
 
   async logCodeSpace(sess: ICodeSession): Promise<void> {
-    const s = makeSession(sess);
+    const s = sanitizeSession(sess);
     const codeSpace = s.codeSpace;
     const currentTimestamp = Date.now();
 
@@ -59,7 +59,7 @@ export class CodeHistoryManager {
       (await this.getLatestSession(codeSpace));
     const isFirstTime = !oldSession;
 
-    if (!isFirstTime && makeHash(oldSession) === makeHash(s)) {
+    if (!isFirstTime && computeSessionHash(oldSession) === computeSessionHash(s)) {
       return; // No changes
     }
 
@@ -70,7 +70,7 @@ export class CodeHistoryManager {
 
       const historyEntry: CodeHistoryEntry = {
         timestamp: currentTimestamp,
-        hash: makeHash(s),
+        hash: computeSessionHash(s),
       };
 
       if (isFirstTime) {
@@ -78,7 +78,7 @@ export class CodeHistoryManager {
         await this.saveToStorage(codeSpace, s);
       } else {
         // Subsequent changes: store only the patch
-        historyEntry.patch = createPatch(oldSession, s);
+        historyEntry.patch = generateSessionPatch(oldSession, s);
         // Link to the previous entry
         const latestEntryId = await this.getLatestEntryId(codeSpace);
         historyEntry.previousEntryId = latestEntryId!;
@@ -173,7 +173,7 @@ export class CodeHistoryManager {
     for (let i = entries.length - 1; i >= 0; i--) {
       const entry = entries[i];
       if (entry.patch) {
-        targetSession = applyCodePatch(targetSession, {
+        targetSession = applySessionPatch(targetSession, {
           ...entry.patch,
           patch: entry.patch.reversePatch,
           reversePatch: entry.patch.patch,
@@ -209,7 +209,7 @@ export class CodeHistoryManager {
     // Apply patches sequentially
     for (const entry of entries) {
       if (entry.patch) {
-        session = applyCodePatch(session, entry.patch);
+        session = applySessionPatch(session, entry.patch);
       }
     }
 

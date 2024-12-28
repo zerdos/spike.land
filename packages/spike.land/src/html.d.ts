@@ -4,8 +4,8 @@ declare module "*.html" {
 }
 
 declare module "textdiff-create" {
-  const createDelta: (str1: string, str2: string) => object[];
-  export default createDelta;
+  const computeTextDelta: (str1: string, str2: string) => object[];
+  export default computeTextDelta;
 }
 
 declare module "textdiff-patch" {

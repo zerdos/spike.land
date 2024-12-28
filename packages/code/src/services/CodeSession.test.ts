@@ -8,8 +8,8 @@ vi.mock("/swVersion.mjs", () => ({
 
 // Mock dependencies
 vi.mock("../lib/make-sess", () => ({
-  makeHash: vi.fn().mockReturnValue("mockHash"),
-  makeSession: vi.fn().mockImplementation((session) => session),
+  computeSessionHash: vi.fn().mockReturnValue("mockHash"),
+  sanitizeSession: vi.fn().mockImplementation((session) => session),
 }));
 vi.mock("../lib/md5", () => ({
   md5: vi.fn().mockReturnValue("mockMd5"),

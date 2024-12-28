@@ -3,7 +3,7 @@ import type {
   DurableObjectState,
 } from "@cloudflare/workers-types";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
-import { createPatch, makeHash, makeSession, md5 } from "@spike-npm-land/code";
+import { generateSessionPatch, computeSessionHash, sanitizeSession, md5 } from "@spike-npm-land/code";
 
 import type Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -35,7 +35,7 @@ export class Code implements DurableObject {
     this.historyManager = createCodeHistoryManager(this.env);
     this.xLog = this.historyManager.logCodeSpace.bind(this.historyManager);
 
-    this.backupSession = makeSession({
+    this.backupSession = sanitizeSession({
       code: `export default () => (
         <div>
           <h1>404 - for now.</h1>
@@ -78,7 +78,7 @@ export class Code implements DurableObject {
         );
 
         if (storedSession && storedSession.i) {
-          this.session = makeSession({ ...storedSession, codeSpace });
+          this.session = sanitizeSession({ ...storedSession, codeSpace });
         } else {
           const codeSpaceParts = codeSpace!.split("-");
           if (codeSpaceParts.length > 2) {
@@ -87,7 +87,7 @@ export class Code implements DurableObject {
 
           if (codeSpaceParts[0] === "x") {
             // full empty state
-            this.session = makeSession({
+            this.session = sanitizeSession({
               codeSpace,
               code: `export default () => (<>Write your code here!</>);
               `,
@@ -103,7 +103,7 @@ export class Code implements DurableObject {
             const backupCode = await fetch(source).then((r) =>
               r.json()
             ) as ICodeSession;
-            this.backupSession = makeSession({ ...backupCode, codeSpace });
+            this.backupSession = sanitizeSession({ ...backupCode, codeSpace });
 
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
@@ -114,7 +114,7 @@ export class Code implements DurableObject {
             this.session.codeSpace = codeSpace;
           }
           this.state.storage.put("session", this.session);
-          const head = makeHash(this.session);
+          const head = computeSessionHash(this.session);
           this.state.storage.put("head", head);
         }
 
@@ -230,7 +230,7 @@ export class Code implements DurableObject {
             })).text();
 
           await this.updateAndBroadcastSession(
-            makeSession(...this.session, transpiled),
+            sanitizeSession(...this.session, transpiled),
           );
         } catch (error) {
           console.error("Error transpiling code:", error);
@@ -248,7 +248,7 @@ export class Code implements DurableObject {
       throw new Error("CodeSpace not set");
     }
 
-    const head = makeHash(this.session);
+    const head = computeSessionHash(this.session);
 
     this.xLog(this.session);
     this.state.storage.put(head, {
@@ -275,12 +275,12 @@ export class Code implements DurableObject {
   }
 
   async updateAndBroadcastSession(newSession: ICodeSession) {
-    const oldSession = makeSession(this.session);
+    const oldSession = sanitizeSession(this.session);
     this.session = newSession;
     await this.state.storage.put("session", this.session);
     await this.xLog(this.session);
 
-    const patch = createPatch(oldSession, this.session);
+    const patch = generateSessionPatch(oldSession, this.session);
     this.wsHandler.broadcast(patch);
   }
 

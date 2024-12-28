@@ -1,10 +1,10 @@
 import { createClerkClient } from "@clerk/backend";
 import {
   importMapReplace,
-  makeSession,
+  sanitizeSession,
   md5,
   HTML, importMap,
-  stringifySession,
+  sessionToJSON,
 } from "@spike-npm-land/code";
 import { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 
@@ -266,8 +266,8 @@ export class RouteHandler {
     url: URL,
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
-    const body = stringifySession(
-      makeSession({ ...this.code.session, codeSpace }),
+    const body = sessionToJSON(
+      sanitizeSession({ ...this.code.session, codeSpace }),
     );
     return new Response(body, {
       status: 200,

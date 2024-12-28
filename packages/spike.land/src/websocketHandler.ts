@@ -1,9 +1,9 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import type { CodePatch, Delta } from "@spike-npm-land/code";
 import {
-  applyCodePatch,
-  makeHash,
-  stringifySession,
+  applySessionPatch,
+  computeSessionHash,
+  sessionToJSON,
 } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
@@ -68,7 +68,7 @@ export class WebSocketHandler {
 
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(JSON.stringify({
-      hashCode: makeHash(this.code.session),
+      hashCode: computeSessionHash(this.code.session),
       i: this.code.session.i,
       users,
       type: "handshake",
@@ -147,13 +147,13 @@ export class WebSocketHandler {
         },
       );
       session.name = data.name;
-      const oldHash = makeHash(this.code.session);
+      const oldHash = computeSessionHash(this.code.session);
       if (data.hashCode !== oldHash) {
         return respondWith({
           error: `old hashes not matching`,
           i: this.code.session.i,
           hash: oldHash,
-          strSess: stringifySession(this.code.session),
+          strSess: sessionToJSON(this.code.session),
         });
       }
       // session.name = data.name;
@@ -240,7 +240,7 @@ export class WebSocketHandler {
     respondWith: (obj: unknown) => void,
     broadcast: (obj: unknown) => void,
   ) {
-    const oldHash = makeHash(this.code.session);
+    const oldHash = computeSessionHash(this.code.session);
 
     if (oldHash === data.newHash) {
       return;
@@ -251,12 +251,12 @@ export class WebSocketHandler {
         error: `old hashes not matching`,
         i: this.code.session.i,
         hash: oldHash,
-        strSess: stringifySession(this.code.session),
+        strSess: sessionToJSON(this.code.session),
       });
     }
 
     try {
-      const newState = applyCodePatch(this.code.session, {
+      const newState = applySessionPatch(this.code.session, {
         oldHash: data.oldHash,
         newHash: data.newHash!,
         patch: data.patch!,

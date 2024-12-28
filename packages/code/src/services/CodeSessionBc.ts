@@ -1,5 +1,5 @@
 import type { ICodeSession } from "@/lib/interfaces";
-import { makeSession } from "@/lib/make-sess";
+import { sanitizeSession } from "@/lib/make-sess";
 
 const origin = location.origin.includes("localhost") ? "" : location.origin;
 
@@ -18,7 +18,7 @@ export class CodeSessionBC {
       {
         if (data.i) {
           if (!this.session) {
-            this.session = makeSession(data);
+            this.session = sanitizeSession(data);
 
             this.subscribers.forEach((cb) => cb(this.session!));
           }
@@ -26,7 +26,7 @@ export class CodeSessionBC {
           if (this.session && data.i > this.session.i) {
             // console.log("broadcastChannel.onmessage", data);
 
-            this.session = makeSession(data);
+            this.session = sanitizeSession(data);
 
             this.subscribers.forEach((cb) => cb(this.session!));
           }

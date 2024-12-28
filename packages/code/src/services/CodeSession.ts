@@ -2,7 +2,7 @@
 
 // import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
-import { makeHash, makeSession } from "@/lib/make-sess";
+import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 // import { build } from "@/../lib/shared";
@@ -166,7 +166,7 @@ export class Code implements ICode {
   private setCodeController: AbortController | null = null;
 
   constructor(private codeSpace: string) {
-    this.session = makeSession({
+    this.session = sanitizeSession({
       i: 0,
       code: "",
       html: "",
@@ -207,10 +207,10 @@ export class Code implements ICode {
   }
 
   public hash = () => {
-    return makeHash(makeSession({ ...this.session }));
+    return computeSessionHash(sanitizeSession({ ...this.session }));
   };
 
-  makeHash = (session: ICodeSession) => makeHash(session);
+  computeSessionHash = (session: ICodeSession) => computeSessionHash(session);
 
   async getCode(): Promise<string> {
     if (mutex.isLocked()) await mutex.waitForUnlock();
@@ -230,7 +230,7 @@ export class Code implements ICode {
       return true;
     }
 
-    let session = makeSession({
+    let session = sanitizeSession({
       ...this.session,
       code: formatted,
       messages: this.session.messages || [],
@@ -240,7 +240,7 @@ export class Code implements ICode {
 
     try {
       const { html, css } = await runCode(transpiled) || { html: "", css: "" };
-      session = makeSession({ ...session, html, css, messages: this.session.messages });
+      session = sanitizeSession({ ...session, html, css, messages: this.session.messages });
     } catch (error) {
       console.error("Error running code:", error);
     } finally {
@@ -256,7 +256,7 @@ export class Code implements ICode {
   private pendingRun: string | null = null;
 
   async setMessages(messages: Message[]): Promise<void> {
-    this.session = makeSession({ ...this.session, messages });
+    this.session = sanitizeSession({ ...this.session, messages });
     this.broadcastChannel.postMessage(this.session);
   }
 
@@ -318,11 +318,11 @@ export class Code implements ICode {
     );
     if (!processedSession || signal.aborted) return this.session.code;
 
-    const session = makeSession({ ...this.session, ...processedSession });
+    const session = sanitizeSession({ ...this.session, ...processedSession });
 
     if (hash(session) === hash(this.session)) return this.session.code;
 
-    this.session = makeSession({ ...session, i: this.session.i + 1 });
+    this.session = sanitizeSession({ ...session, i: this.session.i + 1 });
 
     this.broadcastChannel.postMessage({
       ...this.session,
@@ -370,7 +370,7 @@ export class Code implements ICode {
       }
     }
 
-    this.session = makeSession({
+    this.session = sanitizeSession({
       ...this.session,
       transpiled: (await transpileCodeUtil(this.session.code)) +
         "\n\n\n\n\n" +
