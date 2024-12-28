@@ -12,7 +12,7 @@ export interface CodePatch {
   reversePatch: Delta[];
 }
 
-export class SessionPatcher {
+class SessionPatcher {
   public static computeTextDelta(original: string, revised: string): Delta[] {
     return diff(original, revised).map(([op, text]) => op === 1 ? [op, text] : [op, text.length]);
   }
@@ -34,7 +34,7 @@ export class SessionPatcher {
   }
 
   public static computeSessionHash(cx: ICodeSession): string {
-    return String(hash(this.sessionToJSON(this.sanitizeSession(cx))));
+    return String(hash(sessionToJSON(sanitizeSession(cx))));
   }
 
   public static sanitizeSession(p: ICodeSession): ICodeSession {
@@ -66,32 +66,32 @@ export class SessionPatcher {
   }
 
   public static applySessionPatch(sess: ICodeSession, codePatch: CodePatch): ICodeSession {
-    const patchedJson = this.applyTextDelta(
-      this.sessionToJSON(this.sanitizeSession(sess)),
+    const patchedJson = applyTextDelta(
+      sessionToJSON(sanitizeSession(sess)),
       codePatch.patch,
     );
-    const newSess = this.sanitizeSession(JSON.parse(patchedJson));
-    if (this.computeSessionHash(newSess) !== codePatch.newHash) {
+    const newSess = sanitizeSession(JSON.parse(patchedJson));
+    if (computeSessionHash(newSess) !== codePatch.newHash) {
       throw new Error("Unable to calculate CodePatch");
     }
     return newSess;
   }
 
   public static generateSessionPatch(oldSess: ICodeSession, newSess: ICodeSession): CodePatch {
-    const oldRec = this.sanitizeSession(oldSess);
-    const newRec = this.sanitizeSession(newSess);
+    const oldRec = sanitizeSession(oldSess);
+    const newRec = sanitizeSession(newSess);
 
-    const oldHash = this.computeSessionHash(oldRec);
-    const newHash = this.computeSessionHash(newRec);
+    const oldHash = computeSessionHash(oldRec);
+    const newHash = computeSessionHash(newRec);
 
-    const oldStr = this.sessionToJSON(oldRec);
-    const newStr = this.sessionToJSON(newRec);
+    const oldStr = sessionToJSON(oldRec);
+    const newStr = sessionToJSON(newRec);
 
-    const patch = this.computeTextDelta(oldStr, newStr);
-    const reversePatch = this.computeTextDelta(newStr, oldStr);
+    const patch = computeTextDelta(oldStr, newStr);
+    const reversePatch = computeTextDelta(newStr, oldStr);
 
     const codePatch: CodePatch = { oldHash, newHash, patch, reversePatch };
-    if (this.computeSessionHash(this.applySessionPatch(oldSess, codePatch)) !== newHash) {
+    if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== newHash) {
       throw new Error("Unable to calculate CodePatch");
     }
     return codePatch;

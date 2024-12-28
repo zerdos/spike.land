@@ -10,7 +10,6 @@ import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";
-import { cs } from "date-fns/locale";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
