@@ -51,6 +51,7 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
 export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
 
 export const makeSession = (p: ICodeSession) => {
+  p.messages = p.messages || [];
   // remove everything before the first import
   p.code = p.code.split("\n").filter((l) =>
     !(l.startsWith("//") && l.includes(".tsx") ||
@@ -62,6 +63,7 @@ export const makeSession = (p: ICodeSession) => {
   const rec = Record<ICodeSession>({
     i: p.i || 0,
     codeSpace: p.codeSpace || "",
+    messages: p.messages,
     code: p.code || `export default () => <>
   Nothing
 </>;`,
@@ -70,7 +72,7 @@ export const makeSession = (p: ICodeSession) => {
     transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
   });
 
-  return rec(p).toJS();
+  return rec(p).toJS() as ICodeSession;
 };
 
 export interface CodePatch {

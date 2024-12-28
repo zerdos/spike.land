@@ -65,6 +65,7 @@ export interface ICodeSession {
   i: number;
   html: string;
   css: string;
+  messages: Message[];
   transpiled: string;
 }
 

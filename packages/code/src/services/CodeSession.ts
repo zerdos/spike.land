@@ -171,6 +171,7 @@ export class Code implements ICode {
       code: "",
       html: "",
       css: "",
+      messages: [],
       codeSpace,
       transpiled: "",
     });
