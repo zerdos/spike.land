@@ -73,7 +73,7 @@ export class CodeSessionBC {
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     return this.session = session || this.session ||
-      (await fetch(`${origin}/live/${this.codeSpace}/session.json`).then((
+      (await fetch(`${origin}/api/room/${this.codeSpace}/session.json`).then((
         response,
       ) => response.json())) as ICodeSession;
   }
