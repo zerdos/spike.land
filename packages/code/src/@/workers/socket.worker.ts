@@ -504,26 +504,15 @@ async function handleHashMatch(
   }
 }
 
-interface BroadcastMessageData {
-  i: number;
-  changes?: boolean;
-  html: string;
-  css: string;
-  codeSpace: string;
-  code: string;
-  transpiled: string;
-  sender?: string;
+interface BroadcastMessageData extends ICodeSession {
+  changes: boolean;
+  sender: string;
 }
 
 // Use a Map to manage broadcast modifications and prevent memory leaks
 const broadcastMod = new Map<
   string,
-  {
-    i: number;
-    code: string;
-    html: string;
-    css: string;
-    transpiled: string;
+  BroadcastMessageData & {
     controller: AbortController;
     timeoutId: ReturnType<typeof setTimeout>;
   }
@@ -635,16 +624,8 @@ async function handleBroadcastMessage(
 
             if (connection.lastCounter < bMod!.i) {
               console.log("Updating session");
-              const { code, html, css, i, transpiled } = bMod!;
 
-              const json = stringifySession({
-                code,
-                html,
-                css,
-                codeSpace,
-                i,
-                transpiled,
-              });
+              const json = stringifySession(bMod);
               try {
                 await fetch(`/live/${codeSpace}/session.json`, {
                   method: "POST",

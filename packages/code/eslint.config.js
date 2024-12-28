@@ -24,11 +24,13 @@ export default tsEslint.config(
       ...tsEslint.configs.stylistic,
     ],
     languageOptions: {
-      ecmaVersion: 2022,
+      ecmaVersion: 2025,
       sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.es2022,
+        ...globals.node,
+        ...globals.es2025
       },
       parser: tsEslint.parser,
       parserOptions: {
