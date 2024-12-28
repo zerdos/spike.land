@@ -54,8 +54,7 @@ export default {
 
       if (isEditorPath) {
         const editorRequest = new Request(
-          new URL("/index.html", url.origin).toString(),
-          request,
+          new URL("/index.html", url.origin).toString()
         );
         return kvServer.serve(
           editorRequest,

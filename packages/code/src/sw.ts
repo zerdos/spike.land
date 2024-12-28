@@ -422,7 +422,6 @@ sw.addEventListener("fetch", (event) => {
     console.log("Serving editor:", request.url);
     const editorRequest = new Request(
       new URL("/index.html", url.origin).toString(),
-      request,
     );
 
     event.respondWith(
