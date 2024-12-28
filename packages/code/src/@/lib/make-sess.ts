@@ -114,6 +114,6 @@ export const createPatch = (
 };
 
 export function stringifySession(s: ICodeSession): string {
-  const { i, codeSpace, code, html, css, transpiled } = s;
-  return JSON.stringify({ i, codeSpace, code, html, css, transpiled });
+  const { i, codeSpace, code, html, css, transpiled, messages } = s;
+  return JSON.stringify({ i, codeSpace, messages, code, html, css, transpiled });
 }
