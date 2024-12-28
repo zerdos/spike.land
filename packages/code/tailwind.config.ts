@@ -9,28 +9,18 @@ const config: Config = {
   darkMode: "class",
   content: ["src/@/**/*.{ts,tsx}"],
   theme: {
+    ...defaultTheme,
     container: {
+      ...defaultTheme.container,
       center: true,
       padding: "2rem",
       screens: {
         "2xl": "1400px",
       },
-        //       
     },
     extend: {...defaultTheme,
-      animation: {
-                'gradient-x-slow': 'gradient-x 30s ease infinite',
-                'gradient-x-normal': 'gradient-x 20s ease infinite',
-                'gradient-x-fast': 'gradient-x 10s ease infinite',
-              },
-              keyframes: {
-                'gradient-x': {
-                  '0%, 100%': { 'background-position': '0% 50%' },
-                  '50%': { 'background-position': '100% 50%' },
-                },
-              },
-            }}},
       colors: {
+        ...defaultTheme.colors,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -66,14 +56,23 @@ const config: Config = {
         },
       },
       borderRadius: {
+        ...defaultTheme.borderRadius,
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        ...defaultTheme.fontFamily, 
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {
+        ...defaultTheme.keyframes,
+
+                  'gradient-x': {
+                    '0%, 100%': { 'background-position': '0% 50%' },
+                    '50%': { 'background-position': '100% 50%' },
+                  },
+
         "accordion-down": {
           from: {
             height: "0",
@@ -92,6 +91,11 @@ const config: Config = {
         },
       },
       animation: {
+        ...defaultTheme.animation,
+                  'gradient-x-slow': 'gradient-x 30s ease infinite',
+                  'gradient-x-normal': 'gradient-x 20s ease infinite',
+                  'gradient-x-fast': 'gradient-x 10s ease infinite',
+          
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
