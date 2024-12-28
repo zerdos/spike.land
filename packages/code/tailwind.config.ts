@@ -29,7 +29,7 @@ const config: Config = {
                   '50%': { 'background-position': '100% 50%' },
                 },
               },
-            },
+            }}},
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
