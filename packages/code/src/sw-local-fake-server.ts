@@ -18,7 +18,11 @@ export async function fakeServer(request: Request) {
 
   cSessions[codeSpace] = cSessions[codeSpace] ||
     new CodeSessionBC(codeSpace);
-  const session = await cSessions[codeSpace].init();
+  const session = await cSessions[codeSpace].init(
+    await fetch(`${location.origin}/live/${codeSpace}/session.json`).then((r) =>
+      r.json()
+    ) as ICodeSession,
+  );
 
   if (
     request.url.includes("/session.json")
