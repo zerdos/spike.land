@@ -25,7 +25,7 @@ const ChatInterface: React.FC<{
 
   const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(
     `chatMessages-${codeSpace}`,
-    [],
+    cSess.session.messages,
   );
   const [messages, setMessages] = useImmer<Message[]>([]);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
@@ -42,6 +42,7 @@ const ChatInterface: React.FC<{
   const resetChat = useCallback((): void => {
     setMessages([]);
     setStoredMessages([]);
+    cSess.setMessages([]);
     setInput("");
     setEditingMessageId(null);
     setEditInput("");

@@ -1,4 +1,4 @@
-import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 
 class SessMock implements ICode {
   setCodeAndTranspiled(): Promise<boolean> {
@@ -14,6 +14,7 @@ class SessMock implements ICode {
     code: "",
     codeSpace: "",
     html: "",
+    messages: [],
     i: 34,
     transpiled: "",
     css: "",
@@ -25,6 +26,11 @@ class SessMock implements ICode {
 
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
+  }
+
+  async setMessages(messages: Message[]) {
+    this.session.messages = messages;
+    return true;
   }
 
   broadCastSessChanged() {

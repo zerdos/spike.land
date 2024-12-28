@@ -49,6 +49,7 @@ export class CodeSessionBC {
       ...this.session,
       code: formatted,
       transpiled,
+      messages: this.session.messages,
       i: this.session.i + 1,
     };
     this.postMessage(this.session);

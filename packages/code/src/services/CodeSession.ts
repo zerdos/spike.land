@@ -206,9 +206,7 @@ export class Code implements ICode {
     return this.session;
   }
 
-  public hash = () => {
-    return computeSessionHash(sanitizeSession({ ...this.session }));
-  };
+  public hash = () => computeSessionHash(this.session);
 
   computeSessionHash = (session: ICodeSession) => computeSessionHash(session);
 
@@ -255,9 +253,16 @@ export class Code implements ICode {
   private isRunning = false;
   private pendingRun: string | null = null;
 
-  async setMessages(messages: Message[]): Promise<void> {
+  async setMessages(messages: Message[]) {
+    const hashNow = this.hash();
+
     this.session = sanitizeSession({ ...this.session, messages });
+    const handAfter = this.hash();
+
+    if (hashNow === handAfter) return false;
+    this.session = sanitizeSession({ ...this.session, i: this.session.i + 1 });
     this.broadcastChannel.postMessage(this.session);
+    return true;
   }
 
   async setCode(
