@@ -10,6 +10,7 @@ import { handleSendMessage } from "@/lib/shared";
 import { useImmer } from "use-immer";
 import { messagesPush } from "@/lib/chat-utils";
 import { useDictation } from "@/hooks/use-dictation";
+import { cs } from "date-fns/locale";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -54,6 +55,7 @@ const ChatInterface: React.FC<{
   // Load initial messages from localStorage
   useEffect(() => {
     if (storedMessages && storedMessages.length > 0) {
+      cSess.setMessages(storedMessages);
       setMessages(storedMessages);
     }
   }, []);
@@ -61,7 +63,9 @@ const ChatInterface: React.FC<{
   // Save messages to localStorage when they change
   useEffect(() => {
     if (messages.length > 0) {
+      cSess.setMessages(messages);
       setStoredMessages(messages);
+      
     }
   }, [messages, setStoredMessages]);
 
