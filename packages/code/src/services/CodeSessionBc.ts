@@ -8,7 +8,11 @@ export class CodeSessionBC {
   session: ICodeSession | null = null;
   subscribers: Array<(session: ICodeSession) => void> = [];
 
-  constructor(private codeSpace: string) {
+  constructor(private codeSpace: string, session?: ICodeSession) {
+    if (session) {
+      this.session = session;
+    }
+
     this.broadcastChannel = new BroadcastChannel(
       `${location.origin}/live/${this.codeSpace}/`,
     );
@@ -73,7 +77,7 @@ export class CodeSessionBC {
 
   async init(session?: ICodeSession): Promise<ICodeSession> {
     return this.session = session || this.session ||
-      (await fetch(`${origin}/api/room/${this.codeSpace}/session.json`).then((
+      (await fetch(`${origin}/live/${this.codeSpace}/session.json`).then((
         response,
       ) => response.json())) as ICodeSession;
   }

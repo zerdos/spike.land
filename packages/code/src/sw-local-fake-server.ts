@@ -17,12 +17,12 @@ export async function fakeServer(request: Request) {
   console.log("CodeSpace:", codeSpace);
 
   cSessions[codeSpace] = cSessions[codeSpace] ||
-    new CodeSessionBC(codeSpace);
-  const session = await cSessions[codeSpace].init(
-    await fetch(`${location.origin}/live/${codeSpace}/session.json`).then((r) =>
-      r.json()
-    ) as ICodeSession,
-  );
+    new CodeSessionBC(
+      codeSpace,
+      await fetch(`${location.origin}/live/${codeSpace}/session.json`).then((r) => r.json()),
+    );
+
+  const session = await cSessions[codeSpace].init();
 
   if (
     request.url.includes("/session.json")
