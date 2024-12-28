@@ -11,7 +11,7 @@ interface Position {
 }
 
 interface DraggableWindowProps {
-  children: JSX.Element;
+  children: React.ReactElement;
   codeSpace: string;
   isChatOpen: boolean;
   initialDelay?: number;

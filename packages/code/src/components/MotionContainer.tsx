@@ -6,7 +6,7 @@ const rgba = (r: number, g: number, b: number, a: number) =>
 
 export const MotionContainer = (
   { children, bottom, right, bgColor, isChatOpen }: {
-    children: JSX.Element;
+    children: React.ReactElement;
     bottom: number;
     right: number;
     bgColor: number[];

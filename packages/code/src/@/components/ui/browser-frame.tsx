@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
-import { animated, useSpring } from "react-spring";
+import type { CSSProperties } from "react";
 
 interface BrowserFrameProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -10,10 +10,11 @@ interface BrowserFrameProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const BrowserFrame = React.forwardRef<HTMLDivElement, BrowserFrameProps>(
   ({ children, name, description, isHovered, className, ...props }, ref) => {
-    const animation = useSpring({
+    const style: CSSProperties = {
       transform: isHovered ? "translateY(0%)" : "translateY(100%)",
       opacity: isHovered ? 1 : 0,
-    });
+      transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+    };
 
     return (
       <div
@@ -42,12 +43,12 @@ const BrowserFrame = React.forwardRef<HTMLDivElement, BrowserFrameProps>(
             {children}
           </div>
         </div>
-        <animated.div
-          style={animation}
+        <div
+          style={style}
           className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 text-white text-sm p-3 text-center rounded-b-lg"
         >
           {description}
-        </animated.div>
+        </div>
       </div>
     );
   },

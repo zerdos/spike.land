@@ -32,7 +32,7 @@ interface ActionProps {
 
 interface DraggableWindowContentProps
   extends ScaleProps, DimensionProps, ActionProps, ColorUtils {
-  children: JSX.Element;
+  children: React.ReactElement;
 }
 
 const rgba = (r: number, g: number, b: number, a: number) =>

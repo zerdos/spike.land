@@ -3555,7 +3555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-spring/web@npm:~9.7.5":
+"@react-spring/web@npm:^9.7.5, @react-spring/web@npm:~9.7.5":
   version: 9.7.5
   resolution: "@react-spring/web@npm:9.7.5"
   dependencies:
@@ -3928,6 +3928,7 @@ __metadata:
     "@radix-ui/react-toggle": "npm:1.1.1"
     "@radix-ui/react-toggle-group": "npm:1.1.1"
     "@radix-ui/react-tooltip": "npm:1.1.6"
+    "@react-spring/web": "npm:^9.7.5"
     "@rollup/plugin-html": "npm:1.1.0"
     "@tabler/icons-react": "npm:3.26.0"
     "@tailwindcss/aspect-ratio": "npm:0.4.2"

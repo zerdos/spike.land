@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const ContentWrapper = (
   { children, scale, innerHeight, width, bgColor, rgba, type }: {
-    children: JSX.Element;
+    children: React.ReactElement;
     scale: number;
     innerHeight: number;
     width: number;
