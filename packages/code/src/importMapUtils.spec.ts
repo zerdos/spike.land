@@ -10,7 +10,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchInlineSnapshot(`
       "
       /** importMapReplace */
-      import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react&exports=prop,prop2";"
+      import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=prop,prop2";"
     `);
   });
 
@@ -20,7 +20,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchInlineSnapshot(`
       "
       /** importMapReplace */
-      import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react&exports=__await,__rest";"
+      import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=__await,__rest";"
     `);
   });
 
@@ -30,7 +30,7 @@ describe("importMapReplace", () => {
     expect(result).toMatchInlineSnapshot(`
       "
       /** importMapReplace */
-      import { __await as aw, __rest  as restNow} from "http://localhost:3000/tslib?bundle=true&external=react&exports=__await,__rest";"
+      import { __await as aw, __rest  as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=__await,__rest";"
     `);
   });
 });
