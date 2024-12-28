@@ -233,7 +233,7 @@ export default {
       };
       const response = await env.AI.run("@cf/openai/whisper-tiny-en", inputs);
 
-      return new Response(response.text, {
+      return new Response(response.toString(), {
         headers: {
           "Content-Type": "text/plain",
         },

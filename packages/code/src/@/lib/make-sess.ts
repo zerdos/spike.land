@@ -1,6 +1,5 @@
 import { hash, Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
-import { c } from "@vitest/runner/dist/tasks-3ZnPj1LR.js";
 import diff from "fast-diff";
 
 type Diff = [-1 | 0 | 1, string];
