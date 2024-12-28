@@ -1,6 +1,8 @@
 import type {
   DurableObject,
   DurableObjectState,
+  Request as IRequest,
+  Response as IResponse,
 } from "@cloudflare/workers-types";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
 import { generateSessionPatch, computeSessionHash, sanitizeSession, md5 } from "@spike-npm-land/code";
@@ -51,7 +53,7 @@ export class Code implements DurableObject {
 
     this.session = this.backupSession;
     this.routeHandler = new RouteHandler(this);
-    this.wsHandler = new WebSocketHandler(this);
+    this.wsHandler = new WebSocketHandler(this.session);
   }
 
   private getCodeSpace(url: URL): string {
@@ -183,7 +185,7 @@ export class Code implements DurableObject {
     }
   }
 
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: IRequest): Promise<IResponse> {
     const url = new URL(request.url);
     if (this.session) {
       this.origin = url.origin;
@@ -204,10 +206,10 @@ export class Code implements DurableObject {
       }
     } catch (e) {
       console.error(e);
-      return new Response("Error processing request", { status: 400 });
+      return new Response("Error processing request", { status: 400 }) as unknown as IResponse;
     }
 
-    return handleErrors(request, async () => {
+    return handleErrors(request as unknown as Request, async () => {
       this.session.code = this.session.code.replace(
         /https:\/\/spike\.land\//g,
         `${url.origin}/`,

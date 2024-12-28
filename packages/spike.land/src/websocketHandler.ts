@@ -1,5 +1,5 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Delta } from "@spike-npm-land/code";
+import type { CodePatch, Delta, ICodeSession } from "@spike-npm-land/code";
 import {
   applySessionPatch,
   computeSessionHash,
@@ -52,7 +52,7 @@ export class WebSocketHandler {
   private topics = new Map<string, Set<WebSocket>>();
   private wsSessions: WebsocketSession[] = [];
 
-  constructor(private code: Code) {}
+  constructor(private session: ICodeSession) {}
 
   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
@@ -68,8 +68,8 @@ export class WebSocketHandler {
 
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(JSON.stringify({
-      hashCode: computeSessionHash(this.code.session),
-      i: this.code.session.i,
+      hashCode: computeSessionHash(this.session),
+      i: this.session.i,
       users,
       type: "handshake",
     }));
@@ -90,7 +90,7 @@ export class WebSocketHandler {
 
     webSocket.addEventListener(
       "message",
-      (msg: MessageEvent) => this.processWsMessage(msg, session),
+      msg => this.processWsMessage(msg as any, session),
     );
 
     const closeOrErrorHandler = () => {
@@ -147,13 +147,13 @@ export class WebSocketHandler {
         },
       );
       session.name = data.name;
-      const oldHash = computeSessionHash(this.code.session);
+      const oldHash = computeSessionHash(this.session);
       if (data.hashCode !== oldHash) {
         return respondWith({
           error: `old hashes not matching`,
-          i: this.code.session.i,
+          i: this.session.i,
           hash: oldHash,
-          strSess: sessionToJSON(this.code.session),
+          strSess: sessionToJSON(this.session),
         });
       }
       // session.name = data.name;
@@ -208,7 +208,7 @@ export class WebSocketHandler {
       session.name = data.name;
     }
 
-    if (data.i && this.code.session.i && this.code.session.i > data.i) {
+    if (data.i && this.session.i && this.session.i > data.i) {
       return respondWith({ error: "i is not up to date" });
     }
 
@@ -240,7 +240,7 @@ export class WebSocketHandler {
     respondWith: (obj: unknown) => void,
     broadcast: (obj: unknown) => void,
   ) {
-    const oldHash = computeSessionHash(this.code.session);
+    const oldHash = computeSessionHash(this.session);
 
     if (oldHash === data.newHash) {
       return;
@@ -249,24 +249,24 @@ export class WebSocketHandler {
     if (oldHash !== data.oldHash) {
       return respondWith({
         error: `old hashes not matching`,
-        i: this.code.session.i,
+        i: this.session.i,
         hash: oldHash,
-        strSess: sessionToJSON(this.code.session),
+        strSess: sessionToJSON(this.session),
       });
     }
 
     try {
-      const newState = applySessionPatch(this.code.session, {
+      const newState = applySessionPatch(this.session, {
         oldHash: data.oldHash,
         newHash: data.newHash!,
         patch: data.patch!,
         reversePatch: data.reversePatch,
       });
 
-      this.code.session = newState;
+      this.session = newState;
       respondWith({ hashCode: data.newHash });
       broadcast(data as CodePatch);
-      return this.code.setSession(newState);
+      return this.session.setSession(newState);
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
     }
@@ -288,10 +288,10 @@ export class WebSocketHandler {
   public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
     const message = typeof msg === "string"
       ? msg
-      : JSON.stringify({ ...msg, i: this.code.session.i });
+      : JSON.stringify({ ...msg, i: this.session.i });
 
     if (typeof msg !== "string") {
-      this.code.updateSessionStorage(msg);
+      this.session.updateSessionStorage(msg);
     }
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
