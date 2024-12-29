@@ -1,5 +1,6 @@
-import { hash, Record } from "@/external/immutable";
+import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import diff from "fast-diff";
 
 type Diff = [-1 | 0 | 1, string];
@@ -34,7 +35,7 @@ class SessionPatcher {
   }
 
   public static computeSessionHash(cx: ICodeSession): string {
-    return String(hash(cx));
+    return md5(JSON.stringify(cx));
   }
 
   public static sanitizeSession(p: ICodeSession): ICodeSession {
@@ -100,7 +101,7 @@ class SessionPatcher {
 
 export const applyTextDelta = SessionPatcher.applyTextDelta;
 export const computeTextDelta = SessionPatcher.computeTextDelta;
-export const computeSessionHash = SessionPatcher.computeSessionHash;
+export const computeSessionHash = (s: ICodeSession) => SessionPatcher.computeSessionHash(s);
 export const sanitizeSession = SessionPatcher.sanitizeSession;
 export const sessionToJSON = SessionPatcher.sessionToJSON;
 export const applySessionPatch = SessionPatcher.applySessionPatch;
