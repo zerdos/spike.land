@@ -58,11 +58,37 @@ export async function fakeServer(request: Request) {
     // html = await fetch(HTML).then((resp) => resp.text());
     // }
     return handleHtmlResponse(session, HTML);
+  } else if (
+    request.url.endsWith(`/live/${codeSpace}`)
+  ) {
+    return handleEditorResponse(codeSpace);
   } else {
     console.log("Default request:", request.url);
 
     return fetch(request);
   }
+}
+
+function handleEditorResponse(codeSpace: string) {
+  const respText = HTML.replace(
+    `<script type="importmap"></script>`,
+    `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+  ).replace(
+    '<div id="embed"></div>',
+    `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/iframe"></iframe></div>`,
+  );
+
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": "*",
+    "Cross-Origin-Embedder-Policy": "require-corp",
+    "Cross-Origin-Resource-Policy": "cross-origin",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cache-Control": "no-cache",
+    "Content-Encoding": "gzip",
+    "Content-Type": "text/html; charset=UTF-8",
+  });
+
+  return new Response(respText, { status: 200, headers });
 }
 
 function handleHtmlResponse(session: ICodeSession, HTML: string) {
