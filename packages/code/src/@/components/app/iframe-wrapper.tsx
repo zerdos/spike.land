@@ -1,51 +1,44 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 
-export const IframeWrapper: React.FC<
-  { codeSpace: string; fullScreen: boolean }
-> = ({
+export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }> = ({
   codeSpace,
   fullScreen = false,
 }) => {
-  const ref = useRef<HTMLIFrameElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [ratio, setRatio] = useState(16 / 9); // Default aspect ratio
+  const [ratio, setRatio] = useState(16 / 9); // default ratio
 
   const handleResize = useCallback(() => {
-    if (containerRef.current && ref.current) {
-      const containerWidth = containerRef.current.offsetWidth;
-      const containerHeight = containerRef.current.offsetHeight;
-      const scale = Math.min(
-        containerWidth / window.innerWidth,
-        containerHeight / window.innerHeight,
-      );
-      ref.current.style.transform = `scale(${scale})`;
-      ref.current.style.width = `${window.innerWidth}px`;
-      ref.current.style.height = `${window.innerHeight}px`;
-    }
+    if (!containerRef.current || !iframeRef.current) return;
+
+    const containerWidth = containerRef.current.offsetWidth;
+    const containerHeight = containerRef.current.offsetHeight;
+    const scale = Math.min(
+      containerWidth / window.innerWidth,
+      containerHeight / window.innerHeight
+    );
+
+    iframeRef.current.style.transform = `scale(${scale})`;
+    iframeRef.current.style.width = `${window.innerWidth}px`;
+    iframeRef.current.style.height = `${window.innerHeight}px`;
   }, []);
 
   useEffect(() => {
-    const updateRatio = () => {
+    const onResize = () => {
       setRatio(window.innerWidth / window.innerHeight);
+      handleResize();
     };
-    updateRatio();
-    window.addEventListener("resize", updateRatio);
-    return () => window.removeEventListener("resize", updateRatio);
-  }, []);
+    onResize();
 
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(handleResize);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-    handleResize(); // Initial resize
-    return () => resizeObserver.disconnect();
+    // Listen for window resizes
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [handleResize]);
 
-  const style: CSSProperties = {
+  // Conditionally apply full-screen or relative positioning
+  const style: React.CSSProperties = {
     position: fullScreen ? "fixed" : "relative",
     top: fullScreen ? 0 : "auto",
     left: fullScreen ? 0 : "auto",
@@ -55,18 +48,14 @@ export const IframeWrapper: React.FC<
   };
 
   return (
-    <div
-      ref={containerRef}
-      style={style}
-      className="overflow-hidden"
-    >
+    <div ref={containerRef} style={style} className="overflow-hidden">
       <AspectRatio ratio={fullScreen ? undefined : ratio}>
         <iframe
-          ref={ref}
+          ref={iframeRef}
           title="Live Preview"
           className={cn(
             "w-full h-full origin-top-left border-0",
-            fullScreen ? "fixed top-0 left-0" : "",
+            fullScreen && "fixed top-0 left-0"
           )}
           src={`/live/${codeSpace}/embed`}
         />
