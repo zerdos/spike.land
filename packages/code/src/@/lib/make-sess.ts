@@ -35,7 +35,19 @@ class SessionPatcher {
   }
 
   public static computeSessionHash(cx: ICodeSession): string {
-    return md5(JSON.stringify(cx));
+    const { i, codeSpace, messages, code, html, css, transpiled } = cx;
+    const hashObj = {
+      i,
+      codeSpace,
+      messages: md5(JSON.stringify([
+        ...messages.map((m) => md5(JSON.stringify(m))),
+      ])),
+      code: md5(code),
+      html: md5(html),
+      css: md5(css),
+      transpiled: md5(transpiled),
+    };
+    return md5(JSON.stringify(hashObj));
   }
 
   public static sanitizeSession(p: ICodeSession): ICodeSession {
