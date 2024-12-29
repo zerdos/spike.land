@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { md5 } from "@/lib/md5";
 import type { ICode, ICodeSession } from "@/lib/interfaces";
-import { useAutoSave } from "../hooks/useAutoSave";
+import { useAutoSave as autoSave } from "../hooks/useAutoSave";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 import { useEditorState } from "../hooks/use-editor-state";
@@ -18,7 +18,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
-  useAutoSave(codeSpace);
+
 
   const mod = useRef({
     i: 0,
@@ -44,6 +44,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
       if (e.code && started && setValue) {
         console.log("Setting code", e.code);
+        autoSave(codeSpace);
         setValue(e.code);
       }
     };

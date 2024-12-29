@@ -134,7 +134,7 @@ class CacheUtils {
     // If no cache or cache is old, fetch from network
     try {
       const response = await fetch(request);
-      if (response.ok) {
+      if (response.ok && response.status === 200) {
         // Clone the response before caching it
         await cache.put(request, response.clone());
         return response;
