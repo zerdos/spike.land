@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.5.40",
-    "@cloudflare/workers-types": "4.20241224.0",
+    "@cloudflare/workers-types": "4.20241230.0",
     "@types/esprima": "4.0.6",
-    "@types/node": "22.10.2",
+    "@types/node": "22.10.3",
     "@vitest/runner": "2.1.8",
     "@vitest/snapshot": "2.1.8",
     "esprima": "4.0.1",

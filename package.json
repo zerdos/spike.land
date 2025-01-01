@@ -42,15 +42,15 @@
     "aider": "git stash && git reset --hard HEAD && git pull  && git checkout -b aider-${RANDOM} && git stash pop && git add . && yarn && yarn lint && git commit -m \"aider init\" && git push -u origin $(git branch)"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20241224.0",
+    "@cloudflare/workers-types": "4.20241230.0",
     "@eslint/js": "9.17.0",
-    "@typescript-eslint/parser": "8.18.2",
+    "@typescript-eslint/parser": "8.19.0",
     "@yarnpkg/sdks": "3.2.0",
     "dprint": "0.48.0",
     "eslint": "9.17.0",
     "eslint-plugin-react": "7.37.3",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.18.2"
+    "typescript-eslint": "8.19.0"
   },
-  "packageManager": "yarn@4.5.3"
+  "packageManager": "yarn@4.6.0"
 }
