@@ -62,7 +62,6 @@ RUN apt-get update \
        dirmngr \
        procps \
        psmisc \
-       software-properties-common \
        sudo \
        tzdata \
        xz-utils \
