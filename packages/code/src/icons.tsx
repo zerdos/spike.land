@@ -9,7 +9,7 @@ import {
   MdTv,
 } from "@/external/icons";
 
-const Wrap: FC<{ children: JSX.Element }> = ({ children }) => (
+const Wrap: FC<{ children: React.ReactNode }> = ({ children }) => (
   <span
     css={css`
 font-size:20pt;

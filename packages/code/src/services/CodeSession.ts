@@ -190,7 +190,7 @@ export class Code implements ICode {
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
-    this.session = await this.broadcastChannel.init(session);
+    this.session = await this.broadcastChannel.init(session ?? undefined);
     // let swVersion = "unknown";
     // try {
     //   const swVersionModule = await import(/* @vite-ignore */ `${location.origin}/swVersion.mjs`);
