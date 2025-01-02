@@ -91,7 +91,7 @@ class SessionPatcher {
     codePatch: CodePatch,
   ): ICodeSession {
     const patchedJson = applyTextDelta(
-      sessionToJSON(sanitizeSession(sess)),
+      sessionToJSON(sess),
       codePatch.patch,
     );
     const newSess = sanitizeSession(JSON.parse(patchedJson));

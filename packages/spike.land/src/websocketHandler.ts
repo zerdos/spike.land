@@ -255,17 +255,13 @@ export class WebSocketHandler {
     }
 
     try {
-      const newState = applySessionPatch(this.session, {
-        oldHash: data.oldHash,
-        newHash: data.newHash!,
-        patch: data.patch!,
-        reversePatch: data.reversePatch,
-      });
+      const newState = applySessionPatch(this.session,  data);
 
-      this.session.setSession(newState);
+      this.session = newState;
+
       broadcast(data as CodePatch);
 
-      return  respondWith({ hashCode: data.newHash });
+      return respondWith({ hashCode: data.newHash });
      
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
