@@ -73,7 +73,8 @@
           if (storedDarkMode !== null) {
             return storedDarkMode === "true";
           } else {
-            return window.matchMedia("(prefers-color-scheme: dark)").matches;
+            return window.matchMedia("(prefers-color-scheme: dark)")
+              .matches;
           }
         }
 

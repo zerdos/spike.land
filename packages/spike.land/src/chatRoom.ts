@@ -5,7 +5,12 @@ import type {
   Response as IResponse,
 } from "@cloudflare/workers-types";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
-import { generateSessionPatch, computeSessionHash, sanitizeSession, md5 } from "@spike-npm-land/code";
+import {
+  computeSessionHash,
+  generateSessionPatch,
+  md5,
+  sanitizeSession,
+} from "@spike-npm-land/code";
 
 import type Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -206,7 +211,9 @@ export class Code implements DurableObject {
       }
     } catch (e) {
       console.error(e);
-      return new Response("Error processing request", { status: 400 }) as unknown as IResponse;
+      return new Response("Error processing request", {
+        status: 400,
+      }) as unknown as IResponse;
     }
 
     return handleErrors(request as unknown as Request, async () => {

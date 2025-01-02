@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 import { importMap } from "./src/@/lib/importmap-utils";
 import fs from "fs";
 import { visualizer } from "rollup-plugin-visualizer";
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
@@ -87,10 +87,9 @@ const config = defineConfig((config) => ({
   ],
 
   experimental: {
-     skipSsrTransform: true,
+    skipSsrTransform: true,
   },
   build: {
-    
     rollupOptions: {
       external: [
         // "/start.mjs",

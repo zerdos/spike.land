@@ -1,9 +1,9 @@
 import type { Config } from "tailwindcss";
 
 import animatePlugin from "tailwindcss-animate";
-import aspectRatio from "@tailwindcss/aspect-ratio"
+import aspectRatio from "@tailwindcss/aspect-ratio";
 import defaultTheme from "tailwindcss/defaultTheme";
-const {fontFamily} = defaultTheme;
+const { fontFamily } = defaultTheme;
 
 const config: Config = {
   darkMode: "class",
@@ -18,7 +18,8 @@ const config: Config = {
         "2xl": "1400px",
       },
     },
-    extend: {...defaultTheme,
+    extend: {
+      ...defaultTheme,
       colors: {
         ...defaultTheme.colors,
         border: "hsl(var(--border))",
@@ -62,16 +63,16 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        ...defaultTheme.fontFamily, 
+        ...defaultTheme.fontFamily,
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {
         ...defaultTheme.keyframes,
 
-                  'gradient-x': {
-                    '0%, 100%': { 'background-position': '0% 50%' },
-                    '50%': { 'background-position': '100% 50%' },
-                  },
+        "gradient-x": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
 
         "accordion-down": {
           from: {
@@ -92,10 +93,10 @@ const config: Config = {
       },
       animation: {
         ...defaultTheme.animation,
-                  'gradient-x-slow': 'gradient-x 30s ease infinite',
-                  'gradient-x-normal': 'gradient-x 20s ease infinite',
-                  'gradient-x-fast': 'gradient-x 10s ease infinite',
-          
+        "gradient-x-slow": "gradient-x 30s ease infinite",
+        "gradient-x-normal": "gradient-x 20s ease infinite",
+        "gradient-x-fast": "gradient-x 10s ease infinite",
+
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

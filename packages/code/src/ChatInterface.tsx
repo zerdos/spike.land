@@ -64,7 +64,6 @@ const ChatInterface: React.FC<{
     if (messages.length > 0) {
       cSess.setMessages(messages);
       setStoredMessages(messages);
-      
     }
   }, [messages, setStoredMessages]);
 

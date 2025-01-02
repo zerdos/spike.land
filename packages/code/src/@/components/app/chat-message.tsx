@@ -1,4 +1,4 @@
- import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -40,12 +40,16 @@ interface ChatMessageProps {
  * Helper to display text or images.
  */
 const MessageContent = React.memo<{
-  content: string | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+  content:
+    | string
+    | Array<{ type: string; text?: string; image_url?: { url: string } }>;
   isUser: boolean;
   onNewPrompt: (prompt: string) => void;
-}>(({ content, isUser, onNewPrompt}) => {
+}>(({ content, isUser, onNewPrompt }) => {
   const parsedContent = useMemo(() => {
-    return typeof content === "string" ? [{ type: "text", text: content }] : content;
+    return typeof content === "string"
+      ? [{ type: "text", text: content }]
+      : content;
   }, [content]);
 
   return (
@@ -55,7 +59,11 @@ const MessageContent = React.memo<{
           const hashedKey = `${index}--${md5(item.text)}`;
           return (
             <div key={hashedKey}>
-              <ChatMessageBlock text={item.text} isUser={isUser} onNewPrompt={onNewPrompt} />
+              <ChatMessageBlock
+                text={item.text}
+                isUser={isUser}
+                onNewPrompt={onNewPrompt}
+              />
             </div>
           );
         } else if (item.type === "image_url" && item.image_url) {
@@ -79,7 +87,9 @@ const MessageContent = React.memo<{
  * System message with Accordion to show the system prompt.
  */
 const SystemMessage = React.memo<{
-  content: string | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+  content:
+    | string
+    | Array<{ type: string; text?: string; image_url?: { url: string } }>;
   isUser: boolean;
 }>(({ content, isUser }) => {
   return (
@@ -87,7 +97,11 @@ const SystemMessage = React.memo<{
       <AccordionItem value="item-1">
         <AccordionTrigger>System prompt</AccordionTrigger>
         <AccordionContent>
-          <MessageContent onNewPrompt={()=>{}} content={content} isUser={isUser} />
+          <MessageContent
+            onNewPrompt={() => {}}
+            content={content}
+            isUser={isUser}
+          />
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -121,7 +135,13 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
     if (isSystem) {
       return <SystemMessage content={message.content} isUser={isUser} />;
     }
-    return <MessageContent onNewPrompt={onNewPrompt} content={message.content} isUser={isUser} />;
+    return (
+      <MessageContent
+        onNewPrompt={onNewPrompt}
+        content={message.content}
+        isUser={isUser}
+      />
+    );
   }, [message.content, isSystem, isUser]);
 
   /**
@@ -140,12 +160,10 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
     return cn(
       "max-w-[90%] p-3 rounded-lg",
       // If it's user
-      userDark
-        ? "bg-blue-600 text-white"
-        : userLight
+      userDark ? "bg-blue-600 text-white" : userLight
         ? "bg-blue-500 text-white"
-        : // Otherwise system
-        systemDark
+        // Otherwise system
+        : systemDark
         ? isSelected
           ? "bg-gray-700 ring-2 ring-blue-500"
           : "bg-gray-800 text-white"
@@ -162,7 +180,9 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const { files } = event.target;
       if (files?.length) {
-        const processed = await Promise.all(Array.from(files).map(processImage));
+        const processed = await Promise.all(
+          Array.from(files).map(processImage),
+        );
         setImages((prev) => [...prev, ...processed]);
       }
     },
@@ -196,7 +216,11 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
           className={textareaClassName}
         />
         <div className="flex justify-between items-center">
-          <Button size="sm" onClick={() => fileInputRef.current?.click()} className={buttonBgClass}>
+          <Button
+            size="sm"
+            onClick={() => fileInputRef.current?.click()}
+            className={buttonBgClass}
+          >
             <ImageIcon className="h-4 w-4 mr-2" />
             Add Image
           </Button>
@@ -245,11 +269,11 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
   return (
     <div className={outerDivClassName} onDoubleClick={onDoubleClick}>
       <div className={messageContainerClassName}>
-        {isEditing ? (
-          renderEditingContent()
-        ) : (
-          <div className="break-words">{contentRenderer}</div>
-        )}
+        {isEditing
+          ? (
+            renderEditingContent()
+          )
+          : <div className="break-words">{contentRenderer}</div>}
       </div>
     </div>
   );

@@ -2,7 +2,9 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }> = ({
+export const IframeWrapper: React.FC<
+  { codeSpace: string; fullScreen: boolean }
+> = ({
   codeSpace,
   fullScreen = false,
 }) => {
@@ -17,7 +19,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
     const containerHeight = containerRef.current.offsetHeight;
     const scale = Math.min(
       containerWidth / window.innerWidth,
-      containerHeight / window.innerHeight
+      containerHeight / window.innerHeight,
     );
 
     iframeRef.current.style.transform = `scale(${scale})`;
@@ -55,7 +57,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
           title="Live Preview"
           className={cn(
             "w-full h-full origin-top-left border-0",
-            fullScreen && "fixed top-0 left-0"
+            fullScreen && "fixed top-0 left-0",
           )}
           src={`/live/${codeSpace}/embed`}
         />

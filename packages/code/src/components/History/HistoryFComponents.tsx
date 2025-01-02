@@ -44,9 +44,9 @@ const HistoryItem: React.FC<HistoryItemProps> = (
             className={cn("max-w-3xl max-h-[80vh] overflow-y-auto")}
           >
             <DialogHeader>
-              <DialogTitle aria-describedby={
-                `source-code-${totalItems - index}`
-              }>
+              <DialogTitle
+                aria-describedby={`source-code-${totalItems - index}`}
+              >
                 Source Code - Version {totalItems - index}
               </DialogTitle>
             </DialogHeader>

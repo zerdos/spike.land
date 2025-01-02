@@ -20,9 +20,11 @@ interface CodeProps {
 /**
  * Pull the original and modified sections from the diff content if present.
  */
-const extractDiffContent = (rawContent: string): { original: string; modified: string } => {
+const extractDiffContent = (
+  rawContent: string,
+): { original: string; modified: string } => {
   const content = extractCodeModification(rawContent)[0] || rawContent;
-  const [ , originalPart = "", modifiedPart = "" ] = content.split(
+  const [, originalPart = "", modifiedPart = ""] = content.split(
     /<<<<<<< SEARCH|=======|>>>>>>> REPLACE/,
   );
   return {
@@ -32,7 +34,7 @@ const extractDiffContent = (rawContent: string): { original: string; modified: s
 };
 
 /**
- * Renders code, diff, suggestions, or analysis. 
+ * Renders code, diff, suggestions, or analysis.
  * Memoized for performance.
  */
 const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
@@ -48,12 +50,16 @@ const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
 
     // If analysis is embedded
     if (trimmedValue.includes("<react_code_analysis>")) {
-      const analysisCloseTagIndex = trimmedValue.indexOf("</react_code_analysis>") + 22;
-      const contentBeforeChange = trimmedValue.slice(0, trimmedValue.indexOf("<change>"));
+      const analysisCloseTagIndex =
+        trimmedValue.indexOf("</react_code_analysis>") + 22;
+      const contentBeforeChange = trimmedValue.slice(
+        0,
+        trimmedValue.indexOf("<change>"),
+      );
       const contentAfterAnalysis = trimmedValue.slice(analysisCloseTagIndex);
-      const changeElement = trimmedValue.includes("<change>") ? (
-        <h2>{contentAfterAnalysis}</h2>
-      ) : null;
+      const changeElement = trimmedValue.includes("<change>")
+        ? <h2>{contentAfterAnalysis}</h2>
+        : null;
 
       return (
         <>
@@ -67,12 +73,18 @@ const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
     if (trimmedValue.includes("<suggestion>")) {
       const suggestionStart = trimmedValue.indexOf("<suggestion>");
       const suggestionEnd = trimmedValue.lastIndexOf("</suggestion>") + 13;
-      const suggestionContent = trimmedValue.slice(suggestionStart, suggestionEnd);
+      const suggestionContent = trimmedValue.slice(
+        suggestionStart,
+        suggestionEnd,
+      );
       const remaining = trimmedValue.slice(suggestionEnd);
 
       return (
         <>
-          <Suggestions content={suggestionContent} onAction={(s) => onNewPrompt(s.description)} />
+          <Suggestions
+            content={suggestionContent}
+            onAction={(s) => onNewPrompt(s.description)}
+          />
           {remaining && <div>{remaining}</div>}
         </>
       );
@@ -108,38 +120,44 @@ interface ChatMessageBlockProps {
 }
 
 /**
- * Handles parsing the text into parts, then renders each part as <Code /> 
+ * Handles parsing the text into parts, then renders each part as <Code />
  * or other relevant blocks.
  */
-export const ChatMessageBlock = memo<ChatMessageBlockProps>(({ text, isUser, onNewPrompt }) => {
-  const parsingStateRef = useRef<ParsingState>({
-    isInCodeBlock: false,
-    accumulatedContent: "",
-    isInDiffBlock: false,
-    accumulatedDiffContent: "",
-  });
+export const ChatMessageBlock = memo<ChatMessageBlockProps>(
+  ({ text, isUser, onNewPrompt }) => {
+    const parsingStateRef = useRef<ParsingState>({
+      isInCodeBlock: false,
+      accumulatedContent: "",
+      isInDiffBlock: false,
+      accumulatedDiffContent: "",
+    });
 
-  const messageParts = useMemo(() => {
-    const { parts, state } = getPartsStreaming(text, isUser, parsingStateRef.current);
-    parsingStateRef.current = state;
-    return parts;
-  }, [text, isUser]);
+    const messageParts = useMemo(() => {
+      const { parts, state } = getPartsStreaming(
+        text,
+        isUser,
+        parsingStateRef.current,
+      );
+      parsingStateRef.current = state;
+      return parts;
+    }, [text, isUser]);
 
-  return (
-    <>
-      {messageParts.map((part, index) => (
-        <React.Fragment key={`${index}-${md5(part.content)}`}>
-          <Code
-            value={part.content}
-            language={part.language || "plaintext"}
-            type={part.type}
-            onNewPrompt={onNewPrompt}
-          />
-        </React.Fragment>
-      ))}
-    </>
-  );
-});
+    return (
+      <>
+        {messageParts.map((part, index) => (
+          <React.Fragment key={`${index}-${md5(part.content)}`}>
+            <Code
+              value={part.content}
+              language={part.language || "plaintext"}
+              type={part.type}
+              onNewPrompt={onNewPrompt}
+            />
+          </React.Fragment>
+        ))}
+      </>
+    );
+  },
+);
 ChatMessageBlock.displayName = "ChatMessageBlock";
 
 export default ChatMessageBlock;

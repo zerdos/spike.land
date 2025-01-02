@@ -3,8 +3,9 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.d.ts"
-, "src/assets/tw-js.js"  ],
+    "src/**/*.d.ts",
+    "src/assets/tw-js.js"
+  ],
   "exclude": ["node_modules", "dts"],
   "references": [
     { "path": "./tsconfig.app.json" },

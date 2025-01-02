@@ -75,10 +75,21 @@ class SessionPatcher {
 
   public static sessionToJSON(s: ICodeSession): string {
     const { i, codeSpace, code, html, css, transpiled, messages } = s;
-    return JSON.stringify({ i, codeSpace, messages, code, html, css, transpiled });
+    return JSON.stringify({
+      i,
+      codeSpace,
+      messages,
+      code,
+      html,
+      css,
+      transpiled,
+    });
   }
 
-  public static applySessionPatch(sess: ICodeSession, codePatch: CodePatch): ICodeSession {
+  public static applySessionPatch(
+    sess: ICodeSession,
+    codePatch: CodePatch,
+  ): ICodeSession {
     const patchedJson = applyTextDelta(
       sessionToJSON(sanitizeSession(sess)),
       codePatch.patch,
@@ -90,7 +101,10 @@ class SessionPatcher {
     return newSess;
   }
 
-  public static generateSessionPatch(oldSess: ICodeSession, newSess: ICodeSession): CodePatch {
+  public static generateSessionPatch(
+    oldSess: ICodeSession,
+    newSess: ICodeSession,
+  ): CodePatch {
     const oldRec = sanitizeSession(oldSess);
     const newRec = sanitizeSession(newSess);
 

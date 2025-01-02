@@ -2,8 +2,8 @@ import type Env from "./env";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
 import {
   applySessionPatch,
-  generateSessionPatch,
   computeSessionHash,
+  generateSessionPatch,
   sanitizeSession,
 } from "@spike-npm-land/code";
 
@@ -59,7 +59,9 @@ export class CodeHistoryManager {
       (await this.getLatestSession(codeSpace));
     const isFirstTime = !oldSession;
 
-    if (!isFirstTime && computeSessionHash(oldSession) === computeSessionHash(s)) {
+    if (
+      !isFirstTime && computeSessionHash(oldSession) === computeSessionHash(s)
+    ) {
       return; // No changes
     }
 

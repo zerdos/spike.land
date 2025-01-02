@@ -18,8 +18,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
-
-
   const mod = useRef({
     i: 0,
     code: "",
@@ -51,7 +49,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     return () => {
       BC.close();
     };
-}, [started, setValue, codeSpace]);
+  }, [started, setValue, codeSpace]);
 
   useEffect(() => {
     if (errorType) {

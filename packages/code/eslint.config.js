@@ -30,7 +30,7 @@ export default tsEslint.config(
         ...globals.browser,
         ...globals.es2022,
         ...globals.node,
-        ...globals.es2025
+        ...globals.es2025,
       },
       parser: tsEslint.parser,
       parserOptions: {
@@ -90,7 +90,7 @@ export default tsEslint.config(
 
       // React hooks rules
       "react-hooks/rules-of-hooks": "error",
-   
+
       // Additional recommended rules
       "prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "warn",

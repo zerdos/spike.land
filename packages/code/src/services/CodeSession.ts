@@ -238,7 +238,12 @@ export class Code implements ICode {
 
     try {
       const { html, css } = await runCode(transpiled) || { html: "", css: "" };
-      session = sanitizeSession({ ...session, html, css, messages: this.session.messages });
+      session = sanitizeSession({
+        ...session,
+        html,
+        css,
+        messages: this.session.messages,
+      });
     } catch (error) {
       console.error("Error running code:", error);
     } finally {
@@ -258,7 +263,11 @@ export class Code implements ICode {
     const hashAfter = hash(this.session.messages.map(hash).join(""));
     if (hashNow === hashAfter) return false;
 
-    this.session = sanitizeSession({ ...this.session, messages, i: this.session.i + 1 });
+    this.session = sanitizeSession({
+      ...this.session,
+      messages,
+      i: this.session.i + 1,
+    });
     this.broadcastChannel.postMessage(this.session);
     return true;
   }

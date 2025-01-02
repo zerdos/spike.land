@@ -14,9 +14,10 @@ interface ExtraLib {
   content: string;
 }
 
-const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string[]>; }).tsx as (
-  code: string,
-) => Promise<string[]>;
+const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string[]>; })
+  .tsx as (
+    code: string,
+  ) => Promise<string[]>;
 
 export const myATA = async (code: string) => {
   const limitedFetch = new QueuedFetch(4, 1000, 0);
@@ -46,7 +47,9 @@ export const myATA = async (code: string) => {
   const monacoExtraLibs: ExtraLib[] = [];
   for (const [filePath, content] of fileMap.entries()) {
     // Strip off the leading 13 characters and remove "@types/"
-    const cleanFilePath = filePath.slice(13).split("@types/").join("").split("ts5.0/").join("")
+    const cleanFilePath = filePath.slice(13).split("@types/").join("").split(
+      "ts5.0/",
+    ).join("")
       .split("v18/").join("");
     if (monacoExtraLibs.some((x) => x.filePath === cleanFilePath)) continue;
     monacoExtraLibs.push({ filePath: cleanFilePath, content });
@@ -150,22 +153,31 @@ export async function ata({
     if (originToUse.endsWith(".d.ts")) return;
 
     try {
-      const pkgResp = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
-        redirect: "follow",
-      });
+      const pkgResp = await queuedFetch.fetch(
+        `${originToUse}/${npmPackage}/package.json`,
+        {
+          redirect: "follow",
+        },
+      );
       if (!pkgResp.ok) return;
 
-      const packageJson: { typings?: string; types?: string; } = await pkgResp.json();
+      const packageJson: { typings?: string; types?: string; } = await pkgResp
+        .json();
       const typingsPath = packageJson.typings || packageJson.types;
 
       if (!typingsPath) return;
 
-      const resolvedTypingsPath = typingsPath === "index.d.mts" ? "index.d.ts" : typingsPath;
+      const resolvedTypingsPath = typingsPath === "index.d.mts"
+        ? "index.d.ts"
+        : typingsPath;
       const typingsUrl = `https://unpkg.com/${npmPackage}/${resolvedTypingsPath}`;
-      const typingsResp = await queuedFetch.fetch(typingsUrl, { redirect: "follow" });
+      const typingsResp = await queuedFetch.fetch(typingsUrl, {
+        redirect: "follow",
+      });
       if (!typingsResp.ok) return;
 
-      const content = (await typingsResp.text()).split("https://unpkg.com/").join("");
+      const content = (await typingsResp.text()).split("https://unpkg.com/")
+        .join("");
       if (!content || content.startsWith("Cannot find")) return;
 
       const typeUrl = typingsResp.url.replace("https://unpkg.com", originToUse);
@@ -173,7 +185,11 @@ export async function ata({
         resolvedTypingsPath === "index.d.ts"
           ? npmPackage
           : `${npmPackage}/${resolvedTypingsPath}`
-      ] = { content, url: typeUrl, ref: `${npmPackage}/${resolvedTypingsPath}` };
+      ] = {
+        content,
+        url: typeUrl,
+        ref: `${npmPackage}/${resolvedTypingsPath}`,
+      };
 
       if (resolvedTypingsPath !== "index.d.ts") {
         const newBasePath = new URL(typeUrl).pathname;
@@ -190,7 +206,11 @@ export async function ata({
 
       await ataRecursive(content, new URL(typeUrl + "/../").toString());
     } catch (error) {
-      console.error("Error extracting package.json or typings", { error, npmPackage, originToUse });
+      console.error("Error extracting package.json or typings", {
+        error,
+        npmPackage,
+        originToUse,
+      });
     }
   }
 
@@ -232,7 +252,16 @@ export async function ata({
 /** Utility functions **/
 
 function hasFileExtension(fileName: string): boolean {
-  const extensionList = ["d.ts", "mjs", "ts", "tsx", "jsx", "js", "json", "css"];
+  const extensionList = [
+    "d.ts",
+    "mjs",
+    "ts",
+    "tsx",
+    "jsx",
+    "js",
+    "json",
+    "css",
+  ];
   const extension = fileName.split(".").pop();
   return extensionList.includes(extension ?? "");
 }
@@ -287,7 +316,7 @@ async function resolveNonRelativeRef(
 
       // Verify the URL is actually accessible
       const isAccessible = await queuedFetch.fetch(newBase)
-        .then(res => res.ok)
+        .then((res) => res.ok)
         .catch(() => false);
 
       return isAccessible ? newBase : null;
@@ -398,9 +427,14 @@ async function generateExtraLibs(
   );
 }
 
-function getFileNameForRef(ref: string, baseUrl: string, originToUse: string): string {
+function getFileNameForRef(
+  ref: string,
+  baseUrl: string,
+  originToUse: string,
+): string {
   const fileName = new URL(
-    ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") || ref.includes(".mts")
+    ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
+      ref.includes(".mts")
       ? ref
       : `${ref}/index.d.ts`,
     ref.startsWith(".") ? baseUrl : originToUse,

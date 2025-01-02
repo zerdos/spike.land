@@ -90,7 +90,7 @@ export class WebSocketHandler {
 
     webSocket.addEventListener(
       "message",
-      msg => this.processWsMessage(msg as any, session),
+      (msg) => this.processWsMessage(msg as any, session),
     );
 
     const closeOrErrorHandler = () => {
