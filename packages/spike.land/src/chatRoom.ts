@@ -57,8 +57,6 @@ export class Code implements DurableObject {
     });
 
     this.session = this.backupSession;
-    this.routeHandler = new RouteHandler(this);
-    this.wsHandler = new WebSocketHandler(this.session);
   }
 
   private getCodeSpace(url: URL): string {
@@ -139,12 +137,18 @@ export class Code implements DurableObject {
       } finally {
         this.initialized = true;
 
+   
+
         this.session.codeSpace = this.session.codeSpace || codeSpace;
         if (this.session.i > 10000) this.session.i = 1;
+
+        this.routeHandler = new RouteHandler(this);
+        this.wsHandler = new WebSocketHandler(this.session);
       }
     });
 
     this.xLog(this.session);
+
   }
 
   private setupAutoSave() {

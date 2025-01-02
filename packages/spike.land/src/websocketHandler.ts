@@ -5,7 +5,6 @@ import {
   computeSessionHash,
   sessionToJSON,
 } from "@spike-npm-land/code";
-import type { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
 
@@ -263,10 +262,11 @@ export class WebSocketHandler {
         reversePatch: data.reversePatch,
       });
 
-      this.session = newState;
-      respondWith({ hashCode: data.newHash });
+      this.session.setSession(newState);
       broadcast(data as CodePatch);
-      return this.session.setSession(newState);
+
+      return  respondWith({ hashCode: data.newHash });
+     
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
     }
