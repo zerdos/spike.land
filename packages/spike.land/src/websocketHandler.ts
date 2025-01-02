@@ -22,17 +22,13 @@ interface IData {
   changes?: object[];
   codeSpace?: string;
   target?: string;
-  type?:
-    | "new-ice-candidate"
-    | "video-offer"
-    | "video-answer"
-    | "handshake"
-    | "fetch";
+  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "fetch";
   patch?: Delta[];
-  reversePatch: Delta[];
+  /** Make reversePatch optional **/
+  reversePatch?: Delta[];
   address?: string;
   hashCode?: string;
-  i: number;
+  i?: number;
   candidate?: string;
   answer?: string;
   offer?: string;
@@ -42,9 +38,9 @@ interface IData {
 
 interface YMessage {
   type: "subscribe" | "unsubscribe" | "publish" | "ping" | "pong";
-  topics: string[];
-  topic: string;
-  clients: number;
+  topics?: string[];
+  topic?: string;
+  clients?: number;
 }
 
 export class WebSocketHandler {
@@ -55,6 +51,7 @@ export class WebSocketHandler {
 
   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
+
     const session: WebsocketSession = {
       name: "",
       quit: false,
@@ -66,12 +63,14 @@ export class WebSocketHandler {
     this.wsSessions.push(session);
 
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(JSON.stringify({
-      hashCode: computeSessionHash(this.session),
-      i: this.session.i,
-      users,
-      type: "handshake",
-    }));
+    webSocket.send(
+      JSON.stringify({
+        hashCode: computeSessionHash(this.session),
+        i: this.session.i,
+        users,
+        type: "handshake",
+      })
+    );
 
     const pingInterval = setInterval(() => {
       if (!session.pongReceived) {
@@ -87,10 +86,7 @@ export class WebSocketHandler {
       }
     }, PING_TIMEOUT);
 
-    webSocket.addEventListener(
-      "message",
-      (msg) => this.processWsMessage(msg as any, session),
-    );
+    webSocket.addEventListener("message", (msg) => this.processWsMessage(msg, session));
 
     const closeOrErrorHandler = () => {
       session.quit = true;
@@ -103,10 +99,7 @@ export class WebSocketHandler {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
 
-    if (
-      conn.readyState !== wsReadyStateConnecting &&
-      conn.readyState !== wsReadyStateOpen
-    ) {
+    if (conn.readyState !== wsReadyStateConnecting && conn.readyState !== wsReadyStateOpen) {
       conn.close();
       return;
     }
@@ -124,50 +117,61 @@ export class WebSocketHandler {
       return;
     }
 
-    const respondWith = (obj: unknown) =>
-      session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: IData;
     try {
-      data = typeof msg.data === "string"
-        ? JSON.parse(msg.data)
-        : JSON.parse(new TextDecoder().decode(msg.data as ArrayBuffer));
+      const rawData = typeof msg.data === "string" ? msg.data : new TextDecoder().decode(msg.data as ArrayBuffer);
+      data = JSON.parse(rawData);
     } catch (exp) {
       return respondWith({ error: "JSON parse error", exp: exp || {} });
     }
 
     const message = data as unknown as YMessage;
 
-    if (!session.name && data.name) {
-      this.wsSessions.filter((sess) => sess.name === data.name).forEach(
-        (sess) => {
-          sess.webSocket.close();
-          sess.name = "";
-        },
-      );
-      session.name = data.name;
-      const oldHash = computeSessionHash(this.session);
-      if (data.hashCode !== oldHash) {
-        return respondWith({
-          error: `old hashes not matching`,
-          i: this.session.i,
-          hash: oldHash,
-          strSess: sessionToJSON(this.session),
-        });
+    // Consolidate name-check logic in one place
+    if (!session.name) {
+      if (!data.name) {
+        return respondWith({ msg: "no-name-no-party" });
       }
-      // session.name = data.name;
+      // Close any existing sessions using the same name
+      this.wsSessions.filter((sess) => sess.name === data.name).forEach((sess) => {
+        sess.webSocket.close();
+        sess.name = "";
+        sess.quit = true;
+      });
+      // Now set the new name
+      session.name = data.name;
+
+      // Validate the hash if provided
+      if (data.hashCode) {
+        const oldHash = computeSessionHash(this.session);
+        if (data.hashCode !== oldHash) {
+          return respondWith({
+            error: `old hashes not matching`,
+            i: this.session.i,
+            hash: oldHash,
+            strSess: sessionToJSON(this.session),
+          });
+        }
+      }
+
+      // Optional: broadcast a list of current users after this new user
       // this.broadcastUsers();
     }
 
+    // Process standard messages
     if (message && message.type) {
       switch (message.type) {
         case "unsubscribe":
-          (message.topics || []).forEach((topicName) => {
-            const subs = this.topics.get(topicName);
-            if (subs) {
-              subs.delete(session.webSocket);
-            }
-          });
+          if (message.topics) {
+            message.topics.forEach((topicName) => {
+              const subs = this.topics.get(topicName);
+              if (subs) {
+                subs.delete(session.webSocket);
+              }
+            });
+          }
           break;
         case "publish":
           if (message.topic) {
@@ -187,46 +191,32 @@ export class WebSocketHandler {
       }
     }
 
+    // If changes exist, broadcast them. This is up to your app logic:
     if (data.changes) {
-      return this.broadcast(msg.data as string);
+      // Instead of sending the raw `msg.data as string`,
+      // let's wrap changes in a JSON message:
+      const changesMsg = JSON.stringify({ type: "changes", changes: data.changes });
+      return this.broadcast(changesMsg);
     }
 
-    if (!session.name) {
-      if (!data.name) {
-        return respondWith({ msg: "no-name-no-party" });
-      }
-
-      this.wsSessions
-        .filter((x) => x.name === data.name)
-        .forEach((x) => {
-          x.blockedMessages.reverse().forEach((m) => session.webSocket.send(m));
-          x.quit = true;
-        });
-      this.wsSessions = this.wsSessions.filter((x) => !x.quit);
-
-      session.name = data.name;
-    }
-
+    // Check `i` field for synchronization
     if (data.i && this.session.i && this.session.i > data.i) {
       return respondWith({ error: "i is not up to date" });
     }
 
     try {
+      // Video / ICE candidate messages
       if (
-        data.target && data.type &&
-        ["new-ice-candidate", "video-offer", "video-answer"].includes(
-          data.type,
-        )
+        data.target &&
+        data.type &&
+        ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)
       ) {
         return this.user2user(data.target, { ...data, name: session.name });
       }
 
+      // Patching
       if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
-        return this.handlePatch(
-          data,
-          respondWith,
-          (obj) => this.broadcast(obj, session),
-        );
+        return this.handlePatch(data, respondWith, (obj) => this.broadcast(obj, session));
       }
     } catch (exp) {
       console.error(exp);
@@ -237,14 +227,14 @@ export class WebSocketHandler {
   private handlePatch(
     data: IData,
     respondWith: (obj: unknown) => void,
-    broadcast: (obj: unknown) => void,
+    broadcast: (obj: unknown) => void
   ) {
     const oldHash = computeSessionHash(this.session);
 
     if (oldHash === data.newHash) {
+      // Already up-to-date, no action needed
       return;
     }
-
     if (oldHash !== data.oldHash) {
       return respondWith({
         error: `old hashes not matching`,
@@ -255,14 +245,11 @@ export class WebSocketHandler {
     }
 
     try {
-      const newState = applySessionPatch(this.session,  data);
-
+      // If applySessionPatch expects a CodePatch, ensure `data` is the correct shape
+      const newState = applySessionPatch(this.session, data as CodePatch);
       this.session = newState;
-
       broadcast(data as CodePatch);
-
       return respondWith({ hashCode: data.newHash });
-     
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
     }
@@ -270,32 +257,30 @@ export class WebSocketHandler {
 
   private user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.wsSessions
-      .filter((session) => session.name === to)
-      .forEach((s) => {
-        try {
-          s.webSocket.send(message);
-        } catch (error) {
-          console.error("p2p error:", error);
-        }
-      });
+    this.wsSessions.filter((s) => s.name === to).forEach((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (error) {
+        console.error("p2p error:", error);
+      }
+    });
   }
 
   public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
-    const message = typeof msg === "string"
-      ? msg
-      : JSON.stringify({ ...msg, i: this.session.i });
+    const message =
+      typeof msg === "string" ? msg : JSON.stringify({ ...msg, i: this.session.i });
 
-    if (typeof msg !== "string") {
+    // If your ICodeSession has a method to store patches, call it here.
+    if (typeof msg !== "string" && this.session.updateSessionStorage) {
       this.session.updateSessionStorage(msg);
     }
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
-
     let successfulBroadcasts = 0;
+
     this.wsSessions.forEach((s) => {
       if (s === session) {
-        return;
+        return; // skip sending to the same session that triggered the broadcast
       }
       try {
         s.webSocket.send(message);
@@ -317,4 +302,17 @@ export class WebSocketHandler {
       console.log(`Removed ${removedSessions} disconnected sessions`);
     }
   }
+
+  // Optional: broadcast updated user list
+  // private broadcastUsers() {
+  //   const userList = this.wsSessions.filter((x) => x.name).map((x) => x.name);
+  //   this.wsSessions.forEach((s) => {
+  //     try {
+  //       s.webSocket.send(JSON.stringify({ type: "users", userList }));
+  //     } catch (error) {
+  //       s.quit = true;
+  //     }
+  //   });
+  //   this.wsSessions = this.wsSessions.filter((s) => !s.quit);
+  // }
 }
