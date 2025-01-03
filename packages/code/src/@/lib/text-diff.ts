@@ -11,7 +11,8 @@ export function createDiff(original: ICodeSession, revision: ICodeSession) {
   return Diff;
 }
 
-export function applyDiff(original: string, Diff: Diff[]) {
+export function applyDiff(sess: ICodeSession, Diff: Diff[]) {
+  const original = sessionToJSON(sess);
   let result = "";
   let index = 0;
 
