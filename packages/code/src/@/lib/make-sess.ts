@@ -30,39 +30,21 @@ class SessionPatcher {
     return md5(JSON.stringify(hashObj));
   }
 
-  public static sanitizeSession(p: ICodeSession): ICodeSession {
-    p.messages = p.messages || [];
-    p.code = p.code
-      .split("\n")
-      .filter((line) =>
-        !(line.startsWith("//") && line.includes(".tsx")) &&
-        line.trim() !== ("// " + p.codeSpace)
-      )
-      .join("\n");
-
-    p.code = `// ${p.codeSpace}.tsx\n${p.code}`;
-
-    return Record<ICodeSession>({
-      i: p.i || 0,
-      codeSpace: p.codeSpace || "",
-      messages: p.messages,
-      code: p.code || `export default () => <>\n  Nothing\n</>;`,
-      html: p.html || "",
-      css: p.css || "",
-      transpiled: typeof p.transpiled === "string" ? p.transpiled : "",
-    })(p).toJS() as ICodeSession;
+  public static sanitizeSession(p: unknown): ICodeSession {
+    const json = sessionToJSON(p as ICodeSession);
+    return JSON.parse(json);
   }
 
   public static sessionToJSON(s: ICodeSession): string {
     const { i, codeSpace, code, html, css, transpiled, messages } = s;
     return JSON.stringify({
-      i,
-      codeSpace,
-      messages,
-      code,
-      html,
-      css,
-      transpiled,
+      i: i || 0,
+      codeSpace: codeSpace || "",
+      messages: messages || [],
+      code: code || "",
+      html: html || "",
+      css: css || "",
+      transpiled: transpiled || "",
     });
   }
 

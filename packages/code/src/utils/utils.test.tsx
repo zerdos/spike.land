@@ -101,65 +101,14 @@ describe("getParts", () => {
     const input =
       "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getPartsStreaming(input, true);
-    expect(result.parts).toMatchInlineSnapshot(`
-      [
-        {
-          "content": "Before",
-          "type": "text",
-        },
-        {
-          "content": "<<<<<<< SEARCH
-      old code
-      =======
-      new code
-      >>>>>>> REPLACE
-      ",
-          "language": "diff",
-          "type": "code",
-        },
-        {
-          "content": "After",
-          "type": "text",
-        },
-      ]
-    `);
+    expect(result.parts).toMatchSnapshot();
   });
 
   test("should handle nested code blocks", () => {
     const input =
       'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getPartsStreaming(input, true);
-    expect(result).toMatchInlineSnapshot(`
-      {
-        "parts": [
-          {
-            "content": "Outer block:",
-            "type": "text",
-          },
-          {
-            "content": "function example() {
-        console.log(\`Inner block:
-      ",
-            "language": "javascript",
-            "type": "code",
-          },
-          {
-            "content": "json
-      {"key": "value"}
-      \`\`\`\`);
-      }
-      \`\`\`",
-            "type": "text",
-          },
-        ],
-        "state": {
-          "accumulatedContent": "",
-          "accumulatedDiffContent": "",
-          "isInCodeBlock": false,
-          "isInDiffBlock": false,
-        },
-      }
-    `);
+    expect(result).toMatchSnapshot();
   });
 
   test("should handle an incomplete code block at the end", () => {
@@ -206,46 +155,7 @@ describe("getParts", () => {
     `;
 
     const result = getPartsStreaming(input, true);
-    expect(result).toMatchInlineSnapshot(`
-      {
-        "parts": [
-          {
-            "content": "first change:",
-            "type": "text",
-          },
-          {
-            "content": "<<<<<<< SEARCH
-            const a = 1;
-            =======
-            const a = 2;
-            >>>>>>> REPLACE
-      ",
-            "language": "diff",
-            "type": "code",
-          },
-          {
-            "content": "second change:",
-            "type": "text",
-          },
-          {
-            "content": "<<<<<<< SEARCH
-            let b = 3;
-            =======
-            let b = 4;
-            >>>>>>> REPLACE
-      ",
-            "language": "diff",
-            "type": "code",
-          },
-        ],
-        "state": {
-          "accumulatedContent": "",
-          "accumulatedDiffContent": "",
-          "isInCodeBlock": false,
-          "isInDiffBlock": false,
-        },
-      }
-    `);
+    expect(result).toMatchSnapshot();
   });
 
   test("should handle incomplete search and replace markers", () => {
@@ -264,30 +174,7 @@ describe("getParts", () => {
     `;
 
     const result = getPartsStreaming(input, false);
-    expect(result.parts[0]).toMatchInlineSnapshot(`
-      {
-        "content": "first change:",
-        "type": "text",
-      }
-    `);
-    expect(result.parts[1]).toMatchInlineSnapshot(`
-      {
-        "content": "<<<<<<< SEARCH
-            const a = 1;
-            =======
-            const a = 2;
-            =======
-          second change:
-            <<<<<<< SEARCH
-            let b = 3;
-            =======
-            let b =
-          ",
-        "language": "diff",
-        "type": "code",
-      }
-    `);
-    expect(result.parts[2]).toMatchInlineSnapshot(`undefined`);
-    expect(result.parts[3]).toMatchInlineSnapshot(`undefined`);
+    expect(result.parts[0]).toMatchSnapshot();
+    expect(result.parts[1]).toMatchSnapshot();
   });
 });

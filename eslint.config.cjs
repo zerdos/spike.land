@@ -20,7 +20,10 @@ module.exports = [
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: [
+          "./packages/*/tsconfig.json",
+          "./tsconfig.json"
+        ],
         ecmaVersion: 2022,
         sourceType: "module",
         ecmaFeatures: {
