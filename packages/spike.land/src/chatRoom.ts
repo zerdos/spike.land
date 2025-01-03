@@ -39,6 +39,7 @@ export class Code implements DurableObject {
   private historyManager: CodeHistoryManager;
 
   constructor(private state: DurableObjectState, private env: Env) {
+    const durableObject = this;
     this.env = env;
     this.historyManager = createCodeHistoryManager(this.env);
     this.xLog = this.historyManager.logCodeSpace.bind(this.historyManager);
@@ -58,7 +59,7 @@ export class Code implements DurableObject {
     });
 
     this.session = this.backupSession;
-    this.wsHandler = new WebSocketHandler(this);
+    this.wsHandler = new WebSocketHandler(durableObject);
     this.routeHandler = new RouteHandler(this);
   }
 
@@ -182,7 +183,7 @@ export class Code implements DurableObject {
       });
 
       // Save the updated history
-      this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
+      // this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
       // Save the current version with timestamp
       this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
@@ -291,15 +292,18 @@ export class Code implements DurableObject {
     const oldHash = computeSessionHash(this.session);
     const newHash = computeSessionHash(newSession);
 
+
+
     if (oldHash === newHash) {
       return;
     }
-    
     const oldSession = sanitizeSession(this.session);
+
+    
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
-    await this.state.storage.put("session", sessionToJSON(newSession));
+    await this.state.storage.put("session", newSession);
     await this.xLog(this.session);
 
 
