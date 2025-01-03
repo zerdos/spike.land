@@ -1,19 +1,19 @@
 import diff from "fast-diff";
 
 type Diff = [-1 | 0 | 1, string];
-export type Delta = Diff | [0 | -1, number];
+export type Diff = Diff | [0 | -1, number];
 
 export function computeTextDelta(original: string, revision: string) {
   const result = diff(original, revision);
-  const delta: Delta[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
-  return delta;
+  const Diff: Diff[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
+  return Diff;
 }
 
-export function applyPatch(original: string, delta: Delta[]) {
+export function applyPatch(original: string, Diff: Diff[]) {
   let result = "";
   let index = 0;
 
-  for (const item of delta) {
+  for (const item of Diff) {
     const operation = item[0];
     const value = item[1];
 

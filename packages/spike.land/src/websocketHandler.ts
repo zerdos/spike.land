@@ -1,5 +1,5 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Delta } from "@spike-npm-land/code";
+import type { CodePatch, Diff } from "@spike-npm-land/code";
 import {
   applySessionPatch,
   computeSessionHash,
@@ -24,9 +24,9 @@ interface IData {
   codeSpace?: string;
   target?: string;
   type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "fetch";
-  patch?: Delta[];
+  patch?: Diff[];
   /** Make reversePatch optional **/
-  reversePatch?: Delta[];
+  reversePatch?: Diff[];
   address?: string;
   hashCode?: string;
   i?: number;

@@ -1,36 +1,49 @@
 import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import diff from "fast-diff";
+import { diffJson } from "diff";
 
-type Diff = [-1 | 0 | 1, string];
-export type Delta = Diff | [0 | -1, number];
+export interface Change {
+  count?: number | undefined;
+  value: string;
+  added: boolean; // for new content
+  removed: boolean; // for removed content
+}
+
+export type Diff = Change;
 
 export interface CodePatch {
   oldHash: string;
   newHash: string;
-  patch: Delta[];
-  reversePatch: Delta[];
+  patch: Diff[];
+  reversePatch: Diff[];
 }
 
 class SessionPatcher {
-  public static computeTextDelta(original: string, revised: string): Delta[] {
-    return diff(original, revised).map(([op, text]) => op === 1 ? [op, text] : [op, text.length]);
+  public static computeTextDelta(original: ICodeSession, revised: ICodeSession) {
+    // Diff the objects as JSON
+    return diffJson(original, revised);
   }
 
-  public static applyTextDelta(original: string, delta: Delta[]): string {
+  public static applyTextDelta(sess: ICodeSession, changes: Change[]): string {
+    const original = sessionToJSON(sess);
     let result = "";
-    let index = 0;
+    let currentPos = 0;
 
-    for (const [op, val] of delta) {
-      if (op === -1 && typeof val === "number") {
-        index += val; // DELETE
-      } else if (op === 0 && typeof val === "number") {
-        result += original.slice(index, index += val); // KEEP
+    for (const change of changes) {
+      if (change.removed) {
+        // Skip over the removed text in original
+        currentPos += change.value.length;
+      } else if (change.added) {
+        // Add new text
+        result += change.value;
       } else {
-        result += val; // INSERT
+        // For unchanged text, copy from original
+        result += original.slice(currentPos, currentPos + change.value.length);
+        currentPos += change.value.length;
       }
     }
+
     return result;
   }
 
@@ -91,7 +104,7 @@ class SessionPatcher {
     codePatch: CodePatch,
   ): ICodeSession {
     const patchedJson = applyTextDelta(
-      sessionToJSON(sess),
+      sess,
       codePatch.patch,
     );
     const newSess = sanitizeSession(JSON.parse(patchedJson));
@@ -105,17 +118,11 @@ class SessionPatcher {
     oldSess: ICodeSession,
     newSess: ICodeSession,
   ): CodePatch {
-    const oldRec = sanitizeSession(oldSess);
-    const newRec = sanitizeSession(newSess);
+    const oldHash = computeSessionHash(oldSess);
+    const newHash = computeSessionHash(newSess);
 
-    const oldHash = computeSessionHash(oldRec);
-    const newHash = computeSessionHash(newRec);
-
-    const oldStr = sessionToJSON(oldRec);
-    const newStr = sessionToJSON(newRec);
-
-    const patch = computeTextDelta(oldStr, newStr);
-    const reversePatch = computeTextDelta(newStr, oldStr);
+    const patch = computeTextDelta(oldSess, newSess);
+    const reversePatch = computeTextDelta(newSess, oldSess);
 
     const codePatch: CodePatch = { oldHash, newHash, patch, reversePatch };
     if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== newHash) {
