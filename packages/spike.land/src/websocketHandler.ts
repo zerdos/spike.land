@@ -238,6 +238,11 @@ export class WebSocketHandler {
         console.log("Applying patch...", data);
         newState = applySessionPatch(this.code.session, data);
         console.log("New state after patch:", newState);
+        await this.code.updateAndBroadcastSession(newState, session);
+        return respondWith({
+          newHash: computeSessionHash(newState),
+          i: newState.i,
+         });
       } catch (err) {
         console.error("Error applying patch:", err);
         return respondWith({ error: "patch-application-failed", exp: err || {} });
