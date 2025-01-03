@@ -9,8 +9,7 @@ import {
   computeSessionHash,
   generateSessionPatch,
   md5,
-  sanitizeSession,
-  sessionToJSON,
+  sanitizeSession
 } from "@spike-npm-land/code";
 
 import type Env from "./env";
@@ -18,7 +17,6 @@ import { handleErrors } from "./handleErrors";
 import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler, WebsocketSession } from "./websocketHandler";
-import { createCodeHistoryManager } from "./x-code";
 import type { CodeHistoryManager } from "./x-code";
 export { md5 };
 
@@ -36,13 +34,13 @@ export class Code implements DurableObject {
   private autoSaveHistory: AutoSaveEntry[] = [];
 
   private xLog: (sess: ICodeSession) => Promise<void>;
-  private historyManager: CodeHistoryManager;
+  // private historyManager: CodeHistoryManager;
 
   constructor(private state: DurableObjectState, private env: Env) {
     const durableObject = this;
     this.env = env;
-    this.historyManager = createCodeHistoryManager(this.env);
-    this.xLog = this.historyManager.logCodeSpace.bind(this.historyManager);
+    // this.historyManager = createCodeHistoryManager(this.env);
+    this.xLog = async (c: ICodeSession)=>console.log({...c});  //this.historyManager.logCodeSpace.bind(this.historyManager);
 
     this.backupSession = sanitizeSession({
       code: `export default () => (
@@ -153,12 +151,10 @@ export class Code implements DurableObject {
   }
 
   private setupAutoSave() {
-    setInterval(() => this.autoSave(), this.autoSaveInterval);
+    // setInterval(() => this.autoSave(), this.autoSaveInterval);
   }
 
-  public async getCodeHistory(): ReturnType<CodeHistoryManager["getHistory"]> {
-    return this.historyManager.getHistory(this.session.codeSpace);
-  }
+
 
   public async autoSave() {
     const currentTime = Date.now();
@@ -304,7 +300,7 @@ export class Code implements DurableObject {
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
     await this.state.storage.put("session", newSession);
-    await this.xLog(this.session);
+  
 
 
   }

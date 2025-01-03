@@ -86,7 +86,7 @@ export class RouteHandler {
     return routes[route] || null;
   }
   private async handleCodeHistory() {
-    const history = await this.code.getCodeHistory();
+    const history = [] as string[] ;
     return new Response(JSON.stringify(history), {
       status: 200,
       headers: {
