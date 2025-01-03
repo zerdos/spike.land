@@ -1,11 +1,10 @@
 import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
+import { applyDiff, createDiff, DiffEntry } from "@/lib/json-diff";
 import { md5 } from "@/lib/md5";
-import { convertChangesToDMP, diffChars } from "diff";
+export { createDiff } from "@/lib/json-diff";
 
-type Patch = [1 | 0 | -1, string];
-
-export type Diff = Patch[];
+export type Diff = DiffEntry[];
 
 export interface CodePatch {
   oldHash: string;
@@ -15,27 +14,6 @@ export interface CodePatch {
 }
 
 class SessionPatcher {
-  public static computeTextDelta(original: ICodeSession, revised: ICodeSession) {
-    // Diff the objects as JSON
-    return convertChangesToDMP(diffChars(sessionToJSON(original), sessionToJSON(revised))) as Diff;
-  }
-
-  public static applyTextDelta(sess: ICodeSession, changes: Diff): string {
-    const original = sessionToJSON(sess);
-    let result = original;
-    changes.forEach((change) => {
-      const [op, text] = change;
-      if (op === 1) {
-        result = result + text;
-      } else if (op === 0) {
-        result = result.slice(0, result.length - text.length);
-      } else if (op === -1) {
-        result = result.replace(text, "");
-      }
-    });
-    return result;
-  }
-
   public static computeSessionHash(cx: ICodeSession): string {
     const { i, codeSpace, messages, code, html, css, transpiled } = cx;
     const hashObj = {
@@ -95,11 +73,11 @@ class SessionPatcher {
     if (computeSessionHash(sess) !== codePatch.oldHash) {
       throw new Error("Old hash does not match");
     }
-    const patchedJson = applyTextDelta(
+    const newSess = applyDiff(
       sess,
       codePatch.patch,
     );
-    const newSess = sanitizeSession(JSON.parse(patchedJson));
+
     if (computeSessionHash(newSess) !== codePatch.newHash) {
       throw new Error("New hash does not match");
     }
@@ -113,8 +91,8 @@ class SessionPatcher {
     const oldHash = computeSessionHash(oldSess);
     const newHash = computeSessionHash(newSess);
 
-    const patch = computeTextDelta(oldSess, newSess);
-    const reversePatch = computeTextDelta(newSess, oldSess);
+    const patch = createDiff(oldSess, newSess);
+    const reversePatch = createDiff(newSess, oldSess);
 
     const codePatch: CodePatch = { oldHash, newHash, patch, reversePatch };
     if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== newHash) {
@@ -124,8 +102,6 @@ class SessionPatcher {
   }
 }
 
-export const applyTextDelta = SessionPatcher.applyTextDelta;
-export const computeTextDelta = SessionPatcher.computeTextDelta;
 export const computeSessionHash = (s: ICodeSession) => SessionPatcher.computeSessionHash(s);
 export const sanitizeSession = SessionPatcher.sanitizeSession;
 export const sessionToJSON = SessionPatcher.sessionToJSON;

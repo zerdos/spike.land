@@ -3993,6 +3993,7 @@ __metadata:
     date-fns: "npm:4.1.0"
     detective-typescript: "npm:13.0.0"
     diff: "npm:^7.0.0"
+    diff-match-patch-ts: "npm:^0.6.0"
     embla-carousel-react: "npm:8.5.1"
     es-toolkit: "npm:1.31.0"
     esbuild: "npm:0.24.2"
@@ -7952,6 +7953,13 @@ __metadata:
   version: 1.2.2
   resolution: "didyoumean@npm:1.2.2"
   checksum: 10c0/95d0b53d23b851aacff56dfadb7ecfedce49da4232233baecfeecb7710248c4aa03f0aa8995062f0acafaf925adf8536bd7044a2e68316fd7d411477599bc27b
+  languageName: node
+  linkType: hard
+
+"diff-match-patch-ts@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "diff-match-patch-ts@npm:0.6.0"
+  checksum: 10c0/7afbcbb29f1b9cb8d4c98209854d0e5064de10be3de0c7a2279181aff640aaeaa3bba21d0e1a9da9a1892d28978c2e6c6bb818f390478d48e42504b524f5a43c
   languageName: node
   linkType: hard
 
@@ -12759,6 +12767,7 @@ __metadata:
     "@eslint/js": "npm:9.17.0"
     "@typescript-eslint/parser": "npm:8.19.0"
     "@yarnpkg/sdks": "npm:3.2.0"
+    diff-match-patch-ts: "npm:^0.6.0"
     dprint: "npm:0.48.0"
     eslint: "npm:9.17.0"
     eslint-plugin-react: "npm:7.37.3"

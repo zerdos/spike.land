@@ -1,9 +1,9 @@
 import diff from "fast-diff";
 
-type Diff = [-1 | 0 | 1, string];
-export type Diff = Diff | [0 | -1, number];
+type Change = [-1 | 0 | 1, string];
+export type Diff = Change | [0 | -1, number];
 
-export function computeTextDelta(original: string, revision: string) {
+export function createDiff(original: string, revision: string) {
   const result = diff(original, revision);
   const Diff: Diff[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
   return Diff;

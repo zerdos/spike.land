@@ -136,6 +136,7 @@
     "date-fns": "4.1.0",
     "detective-typescript": "13.0.0",
     "diff": "^7.0.0",
+    "diff-match-patch-ts": "^0.6.0",
     "embla-carousel-react": "8.5.1",
     "es-toolkit": "1.31.0",
     "esbuild-plugin-copy": "2.1.1",
