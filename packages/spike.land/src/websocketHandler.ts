@@ -233,9 +233,15 @@ export class WebSocketHandler {
     }
 
     try {
-      const newState = applySessionPatch(this.code.session, data);
-      await this.code.updateAndBroadcastSession(newState, session);
-      respondWith({ hashCode: data.newHash });
+      let newState;
+      try {
+        console.log("Applying patch...", data);
+        newState = applySessionPatch(this.code.session, data);
+        console.log("New state after patch:", newState);
+      } catch (err) {
+        console.error("Error applying patch:", err);
+        return respondWith({ error: "patch-application-failed", exp: err || {} });
+      }
     } catch (err) {
       respondWith({ error: "Saving is really hard", exp: err || {} });
     }
