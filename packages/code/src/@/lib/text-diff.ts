@@ -1,10 +1,12 @@
+import { sessionToJSON } from "@/lib/make-sess";
 import diff from "fast-diff";
+import { ICodeSession } from "./interfaces";
 
 type Change = [-1 | 0 | 1, string];
 export type Diff = Change | [0 | -1, number];
 
-export function createDiff(original: string, revision: string) {
-  const result = diff(original, revision);
+export function createDiff(original: ICodeSession, revision: ICodeSession) {
+  const result = diff(sessionToJSON(original), sessionToJSON(revision));
   const Diff: Diff[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
   return Diff;
 }
