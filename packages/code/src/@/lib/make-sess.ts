@@ -59,7 +59,7 @@ class SessionPatcher {
       codePatch.patch,
     );
 
-    const parsedSession = JSON.parse(newSess) as ICodeSession;
+    const parsedSession = sanitizeSession(JSON.parse(newSess));
     if (computeSessionHash(parsedSession) !== codePatch.newHash) {
       throw new Error("New hash does not match");
     }
