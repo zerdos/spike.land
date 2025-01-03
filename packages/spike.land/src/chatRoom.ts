@@ -10,6 +10,7 @@ import {
   generateSessionPatch,
   md5,
   sanitizeSession,
+  sessionToJSON,
 } from "@spike-npm-land/code";
 
 import type Env from "./env";
@@ -298,7 +299,7 @@ export class Code implements DurableObject {
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
-    await this.state.storage.put("session", this.session);
+    await this.state.storage.put("session", sessionToJSON(newSession));
     await this.xLog(this.session);
 
 

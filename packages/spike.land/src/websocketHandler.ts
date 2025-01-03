@@ -233,10 +233,12 @@ export class WebSocketHandler {
     }
 
     try {
-      let newState;
+    
       try {
+       
+        
         console.log("Applying patch...", data);
-        newState = applySessionPatch(this.code.session, data);
+        const newState = applySessionPatch(this.code.session, data);
         console.log("New state after patch:", newState);
         await this.code.updateAndBroadcastSession(newState, session);
         return respondWith({
