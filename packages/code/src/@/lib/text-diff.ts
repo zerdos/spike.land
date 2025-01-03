@@ -9,7 +9,7 @@ export function createDiff(original: string, revision: string) {
   return Diff;
 }
 
-export function applyPatch(original: string, Diff: Diff[]) {
+export function applyDiff(original: string, Diff: Diff[]) {
   let result = "";
   let index = 0;
 

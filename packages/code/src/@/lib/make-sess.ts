@@ -1,10 +1,10 @@
 import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
-import { applyDiff, createDiff, DiffEntry } from "@/lib/json-diff";
 import { md5 } from "@/lib/md5";
-export { createDiff } from "@/lib/json-diff";
-
-export type Diff = DiffEntry[];
+import { applyDiff, createDiff } from "@/lib/text-diff";
+export { createDiff } from "@/lib/text-diff";
+import type { Diff } from "@/lib/text-diff";
+export type { Diff } from "@/lib/text-diff";
 
 export interface CodePatch {
   oldHash: string;
