@@ -23,13 +23,14 @@ export { serverFetchUrl } from "@/lib/enhanced-fetch";
 
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess.ts";
+
 import {
   applySessionPatch,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
   sessionToJSON,
-} from "@/lib/make-sess.ts";
+} from "@/lib/common-functions";
 
 export { importMap };
 
