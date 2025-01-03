@@ -1,4 +1,3 @@
-import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { applyDiff, createDiff } from "@/lib/text-diff";
@@ -9,8 +8,8 @@ export type { Diff } from "@/lib/text-diff";
 export interface CodePatch {
   oldHash: string;
   newHash: string;
-  patch: Diff;
-  reversePatch: Diff;
+  patch: Diff[];
+  reversePatch: Diff[];
 }
 
 class SessionPatcher {
@@ -60,10 +59,11 @@ class SessionPatcher {
       codePatch.patch,
     );
 
-    if (computeSessionHash(newSess) !== codePatch.newHash) {
+    const parsedSession = JSON.parse(newSess) as ICodeSession;
+    if (computeSessionHash(parsedSession) !== codePatch.newHash) {
       throw new Error("New hash does not match");
     }
-    return newSess;
+    return parsedSession;
   }
 
   public static generateSessionPatch(
@@ -74,7 +74,7 @@ class SessionPatcher {
     const newHash = computeSessionHash(newSess);
 
     if (oldHash === newHash) {
-      return { newHash: oldHash, oldHash, patch: [], reversePatch: [] };
+      return { oldHash, newHash, patch: [], reversePatch: [] };
     }
 
     const patch = createDiff(oldSess, newSess);
