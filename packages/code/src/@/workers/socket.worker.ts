@@ -115,7 +115,7 @@ async function setConnections(
 async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   console.log("Fetching initial session for codeSpace:", codeSpace);
   try {
-    const response = await fetch(`/live/${codeSpace}/session.json`);
+    const response = await fetch(`/api/room/${codeSpace}/session.json`);
     const data = await response.json() as ICodeSession;
     console.log("Initial session fetched successfully");
     return sanitizeSession(data);
@@ -206,30 +206,34 @@ async function handleSocketMessage(
     return;
   }
 
-  if (data.strSess) {
-    const sess = sanitizeSession(
-      (typeof data.strSess === "string"
-        ? JSON.parse(data.strSess)
-        : data.strSess) as ICodeSession,
-    );
-    if (sess.i >= connection.oldSession.i) {
-      connection.oldSession = sess;
-      connection.lastHash = computeSessionHash(sess);
-      connection.lastCounter = sess.i;
-      connection.broadcastChannel.postMessage({
-        ...sess,
-        sender: "WORKER_HANDLE_CHANGES",
-      });
-    } else {
-      const patch = generateSessionPatch(sess, connection.oldSession);
-      connection.webSocket.send(
-        JSON.stringify({
-          ...patch,
-          name: connection.user,
-          i: connection.oldSession.i,
-        }),
-      );
+  if (data.error && data.error === "old hashes not matching") {
+    const sess = await fetchInitialSession(codeSpace);
+    const lastHash = computeSessionHash(sess);
+    if (lastHash !== data.hash) {
+      throw new Error("Hash mismatch");
     }
+
+    if (data.i >= connection.oldSession.i) {
+      if (data.hash === lastHash) {
+        connection.oldSession = sess;
+        connection.lastHash = lastHash;
+        connection.lastCounter = sess.i;
+        connection.broadcastChannel.postMessage({
+          ...sess,
+          sender: "WORKER_HANDLE_CHANGES",
+        });
+      }
+    }
+
+    const patch = generateSessionPatch(sess, connection.oldSession);
+    connection.webSocket.send(
+      JSON.stringify({
+        ...patch,
+        name: connection.user,
+        i: connection.oldSession.i,
+      }),
+    );
+
     return;
   }
 

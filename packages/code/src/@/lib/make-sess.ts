@@ -91,6 +91,10 @@ class SessionPatcher {
     const oldHash = computeSessionHash(oldSess);
     const newHash = computeSessionHash(newSess);
 
+    if (oldHash === newHash) {
+      return { newHash: oldHash, oldHash, patch: [], reversePatch: [] };
+    }
+
     const patch = createDiff(oldSess, newSess);
     const reversePatch = createDiff(newSess, oldSess);
 
