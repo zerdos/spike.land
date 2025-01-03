@@ -1,10 +1,11 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Delta, ICodeSession } from "@spike-npm-land/code";
+import type { CodePatch, Delta } from "@spike-npm-land/code";
 import {
   applySessionPatch,
   computeSessionHash,
   sessionToJSON,
 } from "@spike-npm-land/code";
+import { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
 
@@ -47,7 +48,7 @@ export class WebSocketHandler {
   private topics = new Map<string, Set<WebSocket>>();
   private wsSessions: WebsocketSession[] = [];
 
-  constructor(private session: ICodeSession) {}
+  constructor(private code: Code) {}
 
   handleWebsocketSession(webSocket: WebSocket) {
     webSocket.accept();
@@ -65,8 +66,8 @@ export class WebSocketHandler {
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: computeSessionHash(this.session),
-        i: this.session.i,
+        hashCode: computeSessionHash(this.code.session),
+        i: this.code.session.i,
         users,
         type: "handshake",
       })
@@ -86,7 +87,7 @@ export class WebSocketHandler {
       }
     }, PING_TIMEOUT);
 
-    webSocket.addEventListener("message", (msg) => this.processWsMessage(msg, session));
+    webSocket.addEventListener("message", (msg) => this.processWsMessage(msg as any, session));
 
     const closeOrErrorHandler = () => {
       session.quit = true;
@@ -145,13 +146,13 @@ export class WebSocketHandler {
 
       // Validate the hash if provided
       if (data.hashCode) {
-        const oldHash = computeSessionHash(this.session);
+        const oldHash = computeSessionHash(this.code.session);
         if (data.hashCode !== oldHash) {
           return respondWith({
             error: `old hashes not matching`,
-            i: this.session.i,
+            i: this.code.session.i,
             hash: oldHash,
-            strSess: sessionToJSON(this.session),
+            strSess: sessionToJSON(this.code.session),
           });
         }
       }
@@ -199,11 +200,6 @@ export class WebSocketHandler {
       return this.broadcast(changesMsg);
     }
 
-    // Check `i` field for synchronization
-    if (data.i && this.session.i && this.session.i > data.i) {
-      return respondWith({ error: "i is not up to date" });
-    }
-
     try {
       // Video / ICE candidate messages
       if (
@@ -224,12 +220,12 @@ export class WebSocketHandler {
     }
   }
 
-  private handlePatch(
-    data: IData,
+  private async handlePatch(
+    data: CodePatch,
     respondWith: (obj: unknown) => void,
     broadcast: (obj: unknown) => void
   ) {
-    const oldHash = computeSessionHash(this.session);
+    const oldHash = computeSessionHash(this.code.session);
 
     if (oldHash === data.newHash) {
       // Already up-to-date, no action needed
@@ -238,17 +234,17 @@ export class WebSocketHandler {
     if (oldHash !== data.oldHash) {
       return respondWith({
         error: `old hashes not matching`,
-        i: this.session.i,
+        i: this.code.session.i,
         hash: oldHash,
-        strSess: sessionToJSON(this.session),
+        strSess: sessionToJSON(this.code.session),
       });
     }
 
     try {
       // If applySessionPatch expects a CodePatch, ensure `data` is the correct shape
-      const newState = applySessionPatch(this.session, data as CodePatch);
-      this.session = newState;
-      broadcast(data as CodePatch);
+      const newState = applySessionPatch(this.code.session, data as CodePatch);
+      await this.code.updateAndBroadcastSession(newState);
+
       return respondWith({ hashCode: data.newHash });
     } catch (err) {
       return respondWith({ error: "Saving is really hard", exp: err || {} });
@@ -268,11 +264,11 @@ export class WebSocketHandler {
 
   public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
     const message =
-      typeof msg === "string" ? msg : JSON.stringify({ ...msg, i: this.session.i });
+      typeof msg === "string" ? msg : JSON.stringify({ ...msg, i: this.code.session.i });
 
     // If your ICodeSession has a method to store patches, call it here.
-    if (typeof msg !== "string" && this.session.updateSessionStorage) {
-      this.session.updateSessionStorage(msg);
+    if (typeof msg !== "string" && this.code.session.updateSessionStorage) {
+      this.code.session.updateSessionStorage(msg);
     }
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);

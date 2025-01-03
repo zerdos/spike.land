@@ -57,6 +57,8 @@ export class Code implements DurableObject {
     });
 
     this.session = this.backupSession;
+    this.wsHandler = new WebSocketHandler(this);
+    this.routeHandler = new RouteHandler(this);
   }
 
   private getCodeSpace(url: URL): string {
@@ -70,7 +72,6 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     if (this.initialized) return;
     this.origin = url.origin;
-    const codeSpace = this.getCodeSpace(url);
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
@@ -112,15 +113,11 @@ export class Code implements DurableObject {
 
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
-            this.xLog(this.session);
           }
 
-          if (!this.session.codeSpace) {
-            this.session.codeSpace = codeSpace;
-          }
-          this.state.storage.put("session", this.session);
+         await this.state.storage.put("session", this.session);
           const head = computeSessionHash(this.session);
-          this.state.storage.put("head", head);
+         await this.state.storage.put("head", head);
         }
 
         // Initialize auto-save history
@@ -138,12 +135,14 @@ export class Code implements DurableObject {
         this.initialized = true;
 
    
+        if (this.session.i > 10000) {
+         await this.updateAndBroadcastSession({
+            ...this.session,
+            i: 1,
+          })
+        }
 
-        this.session.codeSpace = this.session.codeSpace || codeSpace;
-        if (this.session.i > 10000) this.session.i = 1;
-
-        this.routeHandler = new RouteHandler(this);
-        this.wsHandler = new WebSocketHandler(this.session);
+       
       }
     });
 
@@ -220,7 +219,7 @@ export class Code implements DurableObject {
       }) as unknown as IResponse;
     }
 
-    return handleErrors(request as unknown as Request, async () => {
+    return (handleErrors(request as unknown as Request, async () => {
       this.session.code = this.session.code.replace(
         /https:\/\/spike\.land\//g,
         `${url.origin}/`,
@@ -252,8 +251,8 @@ export class Code implements DurableObject {
       }
 
       const path = url.pathname.slice(1).split("/");
-      return this.routeHandler.handleRoute(request, url, path);
-    });
+      return this.routeHandler.handleRoute(request as unknown as Request, url, path);
+    }) as unknown as IResponse);
   }
 
   async updateSessionStorage(msg: CodePatch) {
@@ -288,13 +287,21 @@ export class Code implements DurableObject {
   }
 
   async updateAndBroadcastSession(newSession: ICodeSession) {
+    const oldHash = computeSessionHash(this.session);
+    const newHash = computeSessionHash(newSession);
+
+    if (oldHash === newHash) {
+      return;
+    }
+    
     const oldSession = sanitizeSession(this.session);
     this.session = newSession;
+    const patch = generateSessionPatch(oldSession, newSession);
+    this.wsHandler.broadcast(patch);
     await this.state.storage.put("session", this.session);
     await this.xLog(this.session);
 
-    const patch = generateSessionPatch(oldSession, this.session);
-    this.wsHandler.broadcast(patch);
+
   }
 
   setSession(session: ICodeSession) {
