@@ -15,12 +15,12 @@ export interface CodePatch {
 
 class SessionPatcher {
   public static computeSessionHash(cx: ICodeSession): string {
-    const { i, codeSpace, messages, code, html, css, transpiled } = cx;
+    const { i, codeSpace, code, html, css, transpiled } = cx;
     const hashObj = {
       i,
       codeSpace,
       messages: md5(JSON.stringify([
-        ...messages.map((m) => md5(JSON.stringify(m))),
+        ...(cx.messages || []).map((m) => md5(JSON.stringify(m))),
       ])),
       code: md5(code),
       html: md5(html),
