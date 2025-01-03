@@ -16,7 +16,7 @@ import type Env from "./env";
 import { handleErrors } from "./handleErrors";
 import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
-import { WebSocketHandler } from "./websocketHandler";
+import { WebSocketHandler, WebsocketSession } from "./websocketHandler";
 import { createCodeHistoryManager } from "./x-code";
 import type { CodeHistoryManager } from "./x-code";
 export { md5 };
@@ -286,7 +286,7 @@ export class Code implements DurableObject {
     this.autoSave();
   }
 
-  async updateAndBroadcastSession(newSession: ICodeSession) {
+  async updateAndBroadcastSession(newSession: ICodeSession,  wsSession?: WebsocketSession) {
     const oldHash = computeSessionHash(this.session);
     const newHash = computeSessionHash(newSession);
 
@@ -297,16 +297,13 @@ export class Code implements DurableObject {
     const oldSession = sanitizeSession(this.session);
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
-    this.wsHandler.broadcast(patch);
+    this.wsHandler.broadcast(patch, wsSession);
     await this.state.storage.put("session", this.session);
     await this.xLog(this.session);
 
 
   }
 
-  setSession(session: ICodeSession) {
-    this.updateAndBroadcastSession(session);
-  }
 
   getState() {
     return this.state;

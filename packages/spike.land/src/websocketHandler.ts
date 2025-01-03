@@ -212,7 +212,7 @@ export class WebSocketHandler {
 
       // Patching
       if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
-        return this.handlePatch(data, respondWith, (obj) => this.broadcast(obj, session));
+        return this.handlePatch(data, respondWith, session);
       }
     } catch (exp) {
       console.error(exp);
@@ -223,7 +223,7 @@ export class WebSocketHandler {
   private async handlePatch(
     data: CodePatch,
     respondWith: (obj: unknown) => void,
-    broadcast: (obj: unknown) => void
+    session: WebsocketSession
   ) {
     const oldHash = computeSessionHash(this.code.session);
 
@@ -243,7 +243,7 @@ export class WebSocketHandler {
     try {
       // If applySessionPatch expects a CodePatch, ensure `data` is the correct shape
       const newState = applySessionPatch(this.code.session, data as CodePatch);
-      await this.code.updateAndBroadcastSession(newState);
+      await this.code.updateAndBroadcastSession(newState, session);
 
       return respondWith({ hashCode: data.newHash });
     } catch (err) {
