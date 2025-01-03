@@ -1,49 +1,38 @@
 import { Record } from "@/external/immutable";
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { diffJson } from "diff";
+import { convertChangesToDMP, diffChars } from "diff";
 
-export interface Change {
-  count?: number | undefined;
-  value: string;
-  added: boolean; // for new content
-  removed: boolean; // for removed content
-}
+type Patch = [1 | 0 | -1, string];
 
-export type Diff = Change;
+export type Diff = Patch[];
 
 export interface CodePatch {
   oldHash: string;
   newHash: string;
-  patch: Diff[];
-  reversePatch: Diff[];
+  patch: Diff;
+  reversePatch: Diff;
 }
 
 class SessionPatcher {
   public static computeTextDelta(original: ICodeSession, revised: ICodeSession) {
     // Diff the objects as JSON
-    return diffJson(original, revised);
+    return convertChangesToDMP(diffChars(sessionToJSON(original), sessionToJSON(revised))) as Diff;
   }
 
-  public static applyTextDelta(sess: ICodeSession, changes: Change[]): string {
+  public static applyTextDelta(sess: ICodeSession, changes: Diff): string {
     const original = sessionToJSON(sess);
-    let result = "";
-    let currentPos = 0;
-
-    for (const change of changes) {
-      if (change.removed) {
-        // Skip over the removed text in original
-        currentPos += change.value.length;
-      } else if (change.added) {
-        // Add new text
-        result += change.value;
-      } else {
-        // For unchanged text, copy from original
-        result += original.slice(currentPos, currentPos + change.value.length);
-        currentPos += change.value.length;
+    let result = original;
+    changes.forEach((change) => {
+      const [op, text] = change;
+      if (op === 1) {
+        result = result + text;
+      } else if (op === 0) {
+        result = result.slice(0, result.length - text.length);
+      } else if (op === -1) {
+        result = result.replace(text, "");
       }
-    }
-
+    });
     return result;
   }
 
@@ -103,13 +92,16 @@ class SessionPatcher {
     sess: ICodeSession,
     codePatch: CodePatch,
   ): ICodeSession {
+    if (computeSessionHash(sess) !== codePatch.oldHash) {
+      throw new Error("Old hash does not match");
+    }
     const patchedJson = applyTextDelta(
       sess,
       codePatch.patch,
     );
     const newSess = sanitizeSession(JSON.parse(patchedJson));
     if (computeSessionHash(newSess) !== codePatch.newHash) {
-      throw new Error("Unable to calculate CodePatch");
+      throw new Error("New hash does not match");
     }
     return newSess;
   }
