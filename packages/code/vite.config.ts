@@ -1,10 +1,10 @@
-import path from "path";
-import { AppType, defineConfig, ProxyOptions } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { importMap } from "./src/@/lib/importmap-utils";
-import fs from "fs";
-import { visualizer } from "rollup-plugin-visualizer";
 import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react-swc";
+import fs from "fs";
+import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
+import { AppType, defineConfig, ProxyOptions } from "vite";
+import { importMap } from "./src/@/lib/importmap-utils";
 
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
@@ -28,7 +28,7 @@ const externalRollup = externalFiles.map((file) => {
 
 // const preactCompat = `/preact@${preactPackageJson.version}/compat`;
 
-//***
+// ***
 
 // {
 //   "@/external/monaco-editor": "/@/external/monaco-editor.mjs",
@@ -46,7 +46,7 @@ const externalRollup = externalFiles.map((file) => {
 
 const externalAliases = externalRollup.reduce(
   (acc: Record<string, string>, file) => {
-    //without extension and slash at the beginning
+    // without extension and slash at the beginning
 
     const fileParts = file.file.split(".");
     fileParts.pop();

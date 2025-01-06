@@ -1,4 +1,4 @@
-(function () {
+(function() {
   const e = typeof document !== "undefined";
   const noop = () => {};
   const t = e ? document.querySelector("script[type=esms-options]") : void 0;
@@ -45,19 +45,16 @@
         ? location.pathname.slice(0, location.pathname.lastIndexOf("/") + 1)
         : location.pathname
     }`;
-  const createBlob = (e, t = "text/javascript") =>
-    URL.createObjectURL(new Blob([e], { type: t }));
+  const createBlob = (e, t = "text/javascript") => URL.createObjectURL(new Blob([e], { type: t }));
   let { skip: $e } = r;
   if (Array.isArray($e)) {
     const e = $e.map((e) => new URL(e, ve).href);
-    $e = (t) =>
-      e.some((e) => e[e.length - 1] === "/" && t.startsWith(e) || t === e);
+    $e = (t) => e.some((e) => e[e.length - 1] === "/" && t.startsWith(e) || t === e);
   } else if (typeof $e === "string") {
     const e = new RegExp($e);
     $e = (t) => e.test(t);
   } else $e instanceof RegExp && ($e = (e) => $e.test(e));
-  const dispatchError = (e) =>
-    self.dispatchEvent(Object.assign(new Event("error"), { error: e }));
+  const dispatchError = (e) => self.dispatchEvent(Object.assign(new Event("error"), { error: e }));
   const throwError = (e) => {
     (self.reportError || dispatchError)(e), void oe(e);
   };
@@ -309,9 +306,7 @@
               : "false"
           }, ${
             ke
-              ? `b(\`import"\${b(new Uint8Array(${
-                JSON.stringify(Re)
-              }),'application/wasm')}"\`)`
+              ? `b(\`import"\${b(new Uint8Array(${JSON.stringify(Re)}),'application/wasm')}"\`)`
               : "false"
           }, ${
             ke && we
@@ -361,9 +356,7 @@
           ke && we &&
           Ae(
             createBlob(
-              `import source x from"${
-                createBlob(new Uint8Array(Re), "application/wasm")
-              }"`,
+              `import source x from"${createBlob(new Uint8Array(Re), "application/wasm")}"`,
             ),
           ).then(() => je = true, noop),
         ]);
@@ -371,12 +364,12 @@
   });
   let _e, Ne, He, qe = 2 << 19;
   const We = 1 === new Uint8Array(new Uint16Array([1]).buffer)[0]
-      ? function (e, t) {
+      ? function(e, t) {
         const r = e.length;
         let s = 0;
         for (; s < r;) t[s] = e.charCodeAt(s++);
       }
-      : function (e, t) {
+      : function(e, t) {
         const r = e.length;
         let s = 0;
         for (; s < r;) {
@@ -394,7 +387,7 @@
       for (; r > qe;) qe *= 2;
       Ne = new ArrayBuffer(qe),
         We(Fe, new Uint16Array(Ne, 16, 110)),
-        _e = function (e, t, r) {
+        _e = function(e, t, r) {
           "use asm";
           var s = new e.Int8Array(r),
             n = new e.Int16Array(r),
@@ -913,9 +906,7 @@
                                       be = n[a >> 1] | 0,
                                       V(be) | 0 | be << 16 >> 16 == 123)
                                     : 0)
-                                  ? (i[72] = a,
-                                    f = w(1) | 0,
-                                    f << 16 >> 16 != 123)
+                                  ? (i[72] = a, f = w(1) | 0, f << 16 >> 16 != 123)
                                   : 0
                               ) {
                                 pe = f;
@@ -928,8 +919,7 @@
                           r: do {
                             if (
                               (me | 0) == 22
-                                ? (ne = i[72] | 0,
-                                  (m(ne + 2 | 0, 74, 14) | 0) == 0)
+                                ? (ne = i[72] | 0, (m(ne + 2 | 0, 74, 14) | 0) == 0)
                                 : 0
                             ) {
                               r = ne + 16 | 0;
@@ -957,10 +947,7 @@
                           } while (0);
                           if (
                             (me | 0) == 31
-                              ? (ue = i[72] | 0,
-                                q(pe) | 0,
-                                de = i[72] | 0,
-                                de >>> 0 > ue >>> 0)
+                              ? (ue = i[72] | 0, q(pe) | 0, de = i[72] | 0, de >>> 0 > ue >>> 0)
                               : 0
                           ) {
                             O(e, oe, ue, de);
@@ -2288,10 +2275,7 @@
         He = _e.su(qe - (2 << 17));
     }
     const s = Je.length + 1;
-    _e.ses(He),
-      _e.sa(s - 1),
-      We(Je, new Uint16Array(Ne, He, s)),
-      _e.p() || (De = _e.e(), o());
+    _e.ses(He), _e.sa(s - 1), We(Je, new Uint16Array(Ne, He, s)), _e.p() || (De = _e.e(), o());
     const n = [], i = [];
     for (; _e.ri();) {
       const e = _e.is(),
@@ -2351,7 +2335,7 @@
       case 120:
         return String.fromCharCode(l(2));
       case 117:
-        return function () {
+        return function() {
           const e = Je.charCodeAt(De);
           let t;
           123 === e
@@ -2359,8 +2343,7 @@
             : t = l(4);
           return t <= 65535
             ? String.fromCharCode(t)
-            : (t -= 65536,
-              String.fromCharCode(55296 + (t >> 10), 56320 + (1023 & t)));
+            : (t -= 65536, String.fromCharCode(55296 + (t >> 10), 56320 + (1023 & t)));
         }();
       case 116:
         return "\t";
@@ -2668,9 +2651,7 @@
               `export function u$_(m){${
                 r.a[1].map(({ s: e, e: t }, s) => {
                   const n = r.S[e] === '"' || r.S[e] === "'";
-                  return `e$_${s}=m${n ? "[" : "."}${r.S.slice(e, t)}${
-                    n ? "]" : ""
-                  }`;
+                  return `e$_${s}=m${n ? "[" : "."}${r.S.slice(e, t)}${n ? "]" : ""}`;
                 }).join(",")
               }}${
                 r.a[1].length
@@ -2705,9 +2686,7 @@
     }
     !e.s || r.length !== 0 && r[r.length - 1].d !== -1 ||
       (i += `\n;import{u$_}from'${e.s}';try{u$_({${
-        s.filter((e) => e.ln).map(({ s: e, e: t, ln: r }) =>
-          `${n.slice(e, t)}:${r}`
-        ).join(",")
+        s.filter((e) => e.ln).map(({ s: e, e: t, ln: r }) => `${n.slice(e, t)}:${r}`).join(",")
       }})}catch(_){};\n`);
     function pushSourceURL(t, r) {
       const s = r + t.length;
@@ -2737,8 +2716,7 @@
   const it = /^(application)\/wasm(;|$)/;
   const at = /^(text|application)\/json(;|$)/;
   const ot = /^(text|application)\/css(;|$)/;
-  const ct =
-    /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
+  const ct = /url\(\s*(?:(["'])((?:\\.|[^\n\\"'])+)\1|((?:\\.|[^\s,"'()\\])+))\s*\)/g;
   let lt = [];
   let ft = 0;
   function pushFetchPool() {
@@ -2757,10 +2735,8 @@
     try {
       var n = await a(e, t);
     } catch (t) {
-      t.message =
-        `Unable to fetch ${e}${
-          fromParent(r)
-        } - see network log for details.\n` + t.message;
+      t.message = `Unable to fetch ${e}${fromParent(r)} - see network log for details.\n` +
+        t.message;
       throw t;
     } finally {
       popFetchPool();
@@ -2978,9 +2954,7 @@
           console.log(t);
           t instanceof SyntaxError &&
             (t = new Error(
-              `Unable to parse import map ${t.message} in: ${
-                e.src || e.innerHTML
-              }`,
+              `Unable to parse import map ${t.message} in: ${e.src || e.innerHTML}`,
             ));
           throwError(t);
         });
@@ -3016,4 +2990,4 @@
     }
   }
 })();
-//# sourceMappingURL=es-module-shims.js.map
+// # sourceMappingURL=es-module-shims.js.map

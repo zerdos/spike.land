@@ -1,8 +1,8 @@
 import { importMap } from "@spike-npm-land/code";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
-import { handleCORS } from "./utils";
 import { handleEsmRequest } from "./handleEsmRequest";
+import { handleCORS } from "./utils";
 export async function handleFetchApi(
   path: string[],
   request: Request,
@@ -76,7 +76,7 @@ function handleWebSocket(request: Request): Response {
     return new Response("expected websocket", { status: 400 });
   }
   const pair = new WebSocketPair();
-  (pair[1] as unknown as { accept: () => void }).accept();
+  (pair[1] as unknown as { accept: () => void; }).accept();
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
@@ -187,9 +187,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     case "GET": {
       const object = await env.R2.get(key);
       if (!object) {
-        const paths = key.split("/").slice(-2).map((p) =>
-          p.replace(/\.mjs$/, ".js")
-        );
+        const paths = key.split("/").slice(-2).map((p) => p.replace(/\.mjs$/, ".js"));
         return handleApiRequest(["room", ...paths], request, env);
       }
       const headers = new Headers();

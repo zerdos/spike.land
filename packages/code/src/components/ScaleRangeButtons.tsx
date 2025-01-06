@@ -1,6 +1,6 @@
+import { cn } from "@/lib/utils";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 interface ScaleRangeButtonsProps {
   scaleRange: number;

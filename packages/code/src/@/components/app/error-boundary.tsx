@@ -1,5 +1,5 @@
-import React from "react";
 import { ContextManager } from "@/lib/context-manager";
+import React from "react";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -8,10 +8,10 @@ interface ErrorBoundaryState {
 }
 
 export class ErrorBoundary extends React.Component<
-  { children: React.ReactNode; codeSpace?: string },
+  { children: React.ReactNode; codeSpace?: string; },
   ErrorBoundaryState
 > {
-  constructor(props: { children: React.ReactNode; codeSpace?: string }) {
+  constructor(props: { children: React.ReactNode; codeSpace?: string; }) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
@@ -42,8 +42,8 @@ export class ErrorBoundary extends React.Component<
             Oops! Something went wrong.
           </h1>
           <p>
-            We are sorry for the inconvenience. Please try refreshing the page
-            or contact support if the problem persists.
+            We are sorry for the inconvenience. Please try refreshing the page or contact support if
+            the problem persists.
           </p>
           {process.env.NODE_ENV !== "production" && (
             <details className="mt-4">

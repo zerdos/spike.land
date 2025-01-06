@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { cn } from "@/lib/utils";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;

@@ -1,5 +1,5 @@
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import {
   CheckCircle2,
   Code,
@@ -9,7 +9,7 @@ import {
   UserCircle,
   XCircle,
 } from "lucide-react";
-import { useDarkMode } from "@/hooks/use-dark-mode";
+import React from "react";
 
 interface Section {
   concepts?: string[];
@@ -133,17 +133,13 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
           <Icon className="h-3 w-3 text-white" />
         </div>
         <h3
-          className={`text-base font-semibold ${
-            isDarkMode ? "text-gray-100" : "text-gray-900"
-          }`}
+          className={`text-base font-semibold ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}
         >
           {title}
         </h3>
       </div>
       <div
-        className={`${
-          isDarkMode ? "text-gray-300" : "text-gray-700"
-        } text-xs pl-4`}
+        className={`${isDarkMode ? "text-gray-300" : "text-gray-700"} text-xs pl-4`}
       >
         {listType
           ? (
@@ -197,9 +193,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
             {sections.proscons && sections.proscons.pros &&
               sections.proscons.pros.length > 0 && (
               <div
-                className={`${
-                  isDarkMode ? "bg-green-900" : "bg-green-50"
-                } rounded-md p-2`}
+                className={`${isDarkMode ? "bg-green-900" : "bg-green-50"} rounded-md p-2`}
               >
                 <h4
                   className={`font-semibold ${
@@ -231,9 +225,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
             {sections.proscons && sections.proscons.cons &&
               sections.proscons.cons.length > 0 && (
               <div
-                className={`${
-                  isDarkMode ? "bg-red-900" : "bg-red-50"
-                } rounded-md p-2`}
+                className={`${isDarkMode ? "bg-red-900" : "bg-red-50"} rounded-md p-2`}
               >
                 <h4
                   className={`font-semibold ${
@@ -302,9 +294,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
         </CardTitle>
       </CardHeader>
       <CardContent
-        className={`p-0 divide-y ${
-          isDarkMode ? "divide-gray-700/30" : "divide-gray-200/30"
-        }`}
+        className={`p-0 divide-y ${isDarkMode ? "divide-gray-700/30" : "divide-gray-200/30"}`}
       >
         {renderSections()}
       </CardContent>

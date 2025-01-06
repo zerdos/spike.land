@@ -1,9 +1,9 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { useRef, useState } from "react";
 import type { EditorState } from "../components/editorUtils";
 import type { ErrorType } from "../components/ErrorMessages";
-import { useRef, useState } from "react";
-import { useContext } from "./useContext";
 import { isMobile } from "../isMobile";
+import { useContext } from "./useContext";
 
 export const useEditorState = () => {
   const containerRef = useRef<HTMLDivElement>(null);

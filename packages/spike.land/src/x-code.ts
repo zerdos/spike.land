@@ -1,4 +1,3 @@
-import type Env from "./env";
 import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
 import {
   applySessionPatch,
@@ -6,6 +5,7 @@ import {
   generateSessionPatch,
   sanitizeSession,
 } from "@spike-npm-land/code";
+import type Env from "./env";
 
 export interface CodeHistoryEntry {
   timestamp: number;
@@ -117,7 +117,7 @@ export class CodeHistoryManager {
     codeSpace: string,
     startEntryId: string | null = null,
     limit: number = 10,
-  ): Promise<{ entries: CodeHistoryEntry[]; nextEntryId: string | null }> {
+  ): Promise<{ entries: CodeHistoryEntry[]; nextEntryId: string | null; }> {
     let entryId = startEntryId || (await this.getLatestEntryId(codeSpace));
     const entries: CodeHistoryEntry[] = [];
 
@@ -223,7 +223,7 @@ export class CodeHistoryManager {
     codeSpace: string,
     startEntryId: string | null = null,
     limit: number = 10,
-  ): Promise<{ timestamps: number[]; nextEntryId: string | null }> {
+  ): Promise<{ timestamps: number[]; nextEntryId: string | null; }> {
     const { entries, nextEntryId } = await this.getHistory(
       codeSpace,
       startEntryId,

@@ -1,8 +1,8 @@
 import { Wrapper } from "@/components/app/wrapper";
+import type * as WapMod from "@/components/app/wrapper";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type * as WapMod from "@/components/app/wrapper";
 
 vi.mock("./shared", () => ({
   transpile: vi.fn().mockResolvedValue("mocked transpiled code"),
@@ -11,7 +11,7 @@ vi.mock("./shared", () => ({
 vi.mock("@external/responsive", () => ({
   ParentSize: (
     { children }: {
-      children: (props: { width: number; height: number }) => React.ReactNode;
+      children: (props: { width: number; height: number; }) => React.ReactNode;
     },
   ) => children({ width: 100, height: 100 }),
 }));

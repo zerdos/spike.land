@@ -1,10 +1,10 @@
+import { FaDownload } from "@/external/icons";
+import { FullscreenIcon } from "@/external/lucideReact";
 import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import type { FC } from "react";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
-import { FaDownload } from "@/external/icons";
-import { FullscreenIcon } from "@/external/lucideReact";
 
 interface ActionButtonsProps {
   codeSpace: string;

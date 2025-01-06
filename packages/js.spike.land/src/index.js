@@ -1,8 +1,4 @@
-import {
-  build,
-  transpile,
-  wasmFile as wasmModule,
-} from "@spike-npm-land/code/src/transpile";
+import { build, transpile, wasmFile as wasmModule } from "@spike-npm-land/code/src/transpile";
 Object.assign(globalThis, {
   performance: {
     now: () => Date.now(),

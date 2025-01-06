@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+import { ESLint } from "eslint";
 import fs from "fs";
 import path from "path";
-import { ESLint } from "eslint";
 
 const srcDir = path.resolve(process.cwd(), "src");
 

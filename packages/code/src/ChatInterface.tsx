@@ -1,15 +1,15 @@
-import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChatDrawer } from "@/components/app/chat-drawer";
-import type { ICode } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { useScreenshot } from "./hooks/useScreenshot";
-import type { ImageData, Message } from "@/lib/interfaces";
-import { useLocalStorage } from "@/hooks/use-local-storage";
-import { handleSendMessage } from "@/lib/shared";
-import { useImmer } from "use-immer";
-import { messagesPush } from "@/lib/chat-utils";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import { messagesPush } from "@/lib/chat-utils";
+import type { ICode } from "@/lib/interfaces";
+import type { ImageData, Message } from "@/lib/interfaces";
+import { handleSendMessage } from "@/lib/shared";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useImmer } from "use-immer";
+import { useScreenshot } from "./hooks/useScreenshot";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
 
@@ -91,9 +91,7 @@ const ChatInterface: React.FC<{
           content: typeof msg.content === "string"
             ? editInput
             : Array.isArray(msg.content)
-            ? msg.content.map((item) =>
-              item.type === "text" ? { ...item, text: editInput } : item
-            )
+            ? msg.content.map((item) => item.type === "text" ? { ...item, text: editInput } : item)
             : editInput,
         }
         : msg

@@ -1,7 +1,7 @@
-import { ata, prettierToThrow } from "@/lib/shared";
 import { editor, languages, Uri } from "@/external/monaco-editor";
-import { version } from "monaco-editor/package.json";
+import { ata, prettierToThrow } from "@/lib/shared";
 import { throttle } from "es-toolkit";
+import { version } from "monaco-editor/package.json";
 
 const originToUse = location.origin;
 
@@ -205,8 +205,7 @@ async function startMonacoPristine({
   });
 
   link.rel = "stylesheet";
-  link.href =
-    `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
+  link.href = `${location.origin}/monaco-editor@${version}/min/vs/editor/editor.main.css`;
   document.head.appendChild(link);
 
   await promiseIsResolved;
@@ -280,8 +279,7 @@ async function startMonacoPristine({
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
-    const typeScriptWorker =
-      await (await languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
 
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -312,11 +310,10 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics =
-        await (await (await languages.typescript.getTypeScriptWorker())(
-          uri,
-        ))
-          .getSuggestionDiagnostics(uri.toString());
+      const diagnostics = await (await (await languages.typescript.getTypeScriptWorker())(
+        uri,
+      ))
+        .getSuggestionDiagnostics(uri.toString());
       return diagnostics.map((d) => d.messageText.toString());
     },
     isEdit: false,

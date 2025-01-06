@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 export const IframeWrapper: React.FC<
-  { codeSpace: string; fullScreen: boolean }
+  { codeSpace: string; fullScreen: boolean; }
 > = ({
   codeSpace,
   fullScreen = false,

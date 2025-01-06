@@ -1,12 +1,12 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useDarkMode } from "@/hooks/use-dark-mode";
+import { useDictation } from "@/hooks/use-dictation";
+import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { processImage } from "@/lib/process-image";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleMinus } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import type { ImageData } from "@/lib/interfaces";
-import { processImage } from "@/lib/process-image";
-import { useDictation } from "@/hooks/use-dictation";
 
 export const StartWithPrompt: React.FC = () => {
   const [prompt, setPrompt] = useDictation("");
@@ -275,7 +275,7 @@ const EnlargedImageModal: React.FC<{
   </AnimatePresence>
 );
 
-const TemplateButton: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
+const TemplateButton: React.FC<{ isDarkMode: boolean; }> = ({ isDarkMode }) => (
   <button
     onClick={() => (location.href = "/start")}
     className={`mt-6 px-6 py-2 rounded-md font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 text-sm flex items-center ${

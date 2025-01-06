@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { RefreshCw, X } from "@/external/lucideReact";
 import type { ChatHeaderProps } from "@/lib/interfaces";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
+import React, { useMemo } from "react";
 
 export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
   ({ isDarkMode, handleResetChat, onClose }) => {

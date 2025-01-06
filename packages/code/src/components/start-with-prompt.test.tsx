@@ -1,8 +1,8 @@
+import { StartWithPrompt } from "@/components/ui/start-with-prompt";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { StartWithPrompt } from "@/components/ui/start-with-prompt";
 
 // Mock the useDarkMode hook
 vi.mock("@/hooks/use-dark-mode", () => ({
@@ -15,9 +15,7 @@ vi.mock("@/lib/md5", () => ({
 }));
 
 // Mock fetch function
-globalThis.fetch = vi.fn(() =>
-  Promise.resolve({ ok: true })
-) as unknown as typeof fetch;
+globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true })) as unknown as typeof fetch;
 
 // Mock URL.createObjectURL
 URL.createObjectURL = vi.fn(() => "mocked-url");

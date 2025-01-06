@@ -1,6 +1,6 @@
 export const handleEnhancedFetch = async (request: Request) => {
   try {
-    const optionsParam = await request.json() as RequestInit & { url: string };
+    const optionsParam = await request.json() as RequestInit & { url: string; };
 
     // Perform the fetch
     const res = await fetch(optionsParam.url, optionsParam);

@@ -1,14 +1,8 @@
-import type { FC } from "react";
-import { useEffect, useState } from "react";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  useAuth,
-  UserButton,
-} from "@/external/clerk";
+import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@/external/clerk";
 import { Bot, History } from "@/external/lucideReact";
 import { css } from "@emotion/react";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";

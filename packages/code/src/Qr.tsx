@@ -20,7 +20,7 @@ import { Fab } from "@mui/material";
 //   </Suspense>
 // );
 
-export const QRButton: FC<{ url: string }> = ({ url }) => {
+export const QRButton: FC<{ url: string; }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
     <m.div

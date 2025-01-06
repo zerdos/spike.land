@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vitest";
 import { getPartsStreaming } from "@/lib/get-parts";
+import { describe, expect, test } from "vitest";
 
 describe("getParts", () => {
   test("should handle empty input", () => {
@@ -20,8 +20,7 @@ describe("getParts", () => {
   });
 
   test("should handle text with a single code block", () => {
-    const input =
-      "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
+    const input = "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
     const result = getPartsStreaming(input, false);
     expect(result.parts).toMatchInlineSnapshot(`
       [
@@ -98,8 +97,7 @@ describe("getParts", () => {
   });
 
   test("should handle search and replace markers", () => {
-    const input =
-      "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
+    const input = "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getPartsStreaming(input, true);
     expect(result.parts).toMatchSnapshot();
   });

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
+import { describe, expect, it } from "vitest";
 
 describe("replacePreservingWhitespace", () => {
   it("1. should replace a word in the middle of a sentence", () => {

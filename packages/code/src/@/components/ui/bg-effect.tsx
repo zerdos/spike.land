@@ -1,8 +1,8 @@
+import { useDarkMode } from "@/hooks/use-dark-mode";
+import { cn } from "@/lib/utils";
+import { keyframes } from "@emotion/react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { keyframes } from "@emotion/react";
-import { cn } from "@/lib/utils";
-import { useDarkMode } from "@/hooks/use-dark-mode";
 
 const pulse = keyframes`
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -19,7 +19,7 @@ const moveToCorner = (point: string) => {
   return `translate(${x - 50}px, ${y - 50}px)`;
 };
 
-export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
+export const BackgroundEffect = ({ children }: { children: ReactNode; }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { isDarkMode } = useDarkMode();
 
@@ -48,9 +48,9 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
         style={{
           animation: `${pulse} 4s ease-in-out infinite`,
           filter: "blur(8px)",
-          transform: `translate(${
-            (mousePosition.x / window.innerWidth - 0.5) * 20
-          }px, ${(mousePosition.y / window.innerHeight - 0.5) * 20}px)`,
+          transform: `translate(${(mousePosition.x / window.innerWidth - 0.5) * 20}px, ${
+            (mousePosition.y / window.innerHeight - 0.5) * 20
+          }px)`,
           transition: "transform 0.1s ease-out",
         }}
       >
@@ -78,9 +78,7 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
                   offset="0%"
                   stopColor={isDarkMode ? "#ff00ff" : "#ff8080"}
                   style={{
-                    animation: `${pulse} ${
-                      3 + index
-                    }s ease-in-out infinite alternate`,
+                    animation: `${pulse} ${3 + index}s ease-in-out infinite alternate`,
                   }}
                 />
                 <stop
@@ -95,9 +93,7 @@ export const BackgroundEffect = ({ children }: { children: ReactNode }) => {
                   offset="75%"
                   stopColor={isDarkMode ? "#00ffff" : "#0080ff"}
                   style={{
-                    animation: `${pulse} ${
-                      4 + index
-                    }s ease-in-out infinite alternate-reverse`,
+                    animation: `${pulse} ${4 + index}s ease-in-out infinite alternate-reverse`,
                   }}
                 />
                 <stop

@@ -30,8 +30,7 @@ interface ActionProps {
   handleDownload: () => void;
 }
 
-interface DraggableWindowContentProps
-  extends ScaleProps, DimensionProps, ActionProps, ColorUtils {
+interface DraggableWindowContentProps extends ScaleProps, DimensionProps, ActionProps, ColorUtils {
   children: React.ReactElement;
 }
 
@@ -113,10 +112,4 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
 };
 
 // Type exports for consuming components
-export type {
-  ActionProps,
-  ColorUtils,
-  DimensionProps,
-  DraggableWindowContentProps,
-  ScaleProps,
-};
+export type { ActionProps, ColorUtils, DimensionProps, DraggableWindowContentProps, ScaleProps };

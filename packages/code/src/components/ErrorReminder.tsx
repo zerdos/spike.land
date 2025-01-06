@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, X } from "@/external/lucideReact";
-import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { AlertCircle, X } from "@/external/lucideReact";
 import { ContextManager } from "@/lib/context-manager";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
+import { useErrorEffect } from "../hooks/useErrorEffect";
 import { errorMessages } from "./ErrorMessages";
 import type { ErrorType } from "./ErrorMessages";
-import { useErrorEffect } from "../hooks/useErrorEffect";
 
 export const EditorNode: React.FC<{
   engine: "monaco" | "ace";

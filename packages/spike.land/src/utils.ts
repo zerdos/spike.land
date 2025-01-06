@@ -65,7 +65,7 @@ export async function readRequestBody(request: Request) {
     return request.text();
   } else if (contentType!.includes("multipart/form-data")) {
     const formData = await request.formData();
-    const body: { [key: string]: unknown } = {};
+    const body: { [key: string]: unknown; } = {};
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
     }
@@ -77,7 +77,7 @@ export async function readRequestBody(request: Request) {
     return request.text();
   } else if (contentType!.includes("form")) {
     const formData = await request.formData();
-    const body: { [key: string]: unknown } = {};
+    const body: { [key: string]: unknown; } = {};
     for (const entry of formData.entries()) {
       body[entry[0]] = entry[1];
     }

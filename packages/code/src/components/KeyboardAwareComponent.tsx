@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FC } from "react";
 
-const KeyboardAwareComponent: FC<{ children: React.ReactNode }> = (
+const KeyboardAwareComponent: FC<{ children: React.ReactNode; }> = (
   { children },
 ) => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);

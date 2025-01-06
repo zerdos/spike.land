@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { cSessMock } from "../config/cSessMock";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { cSessMock } from "../config/cSessMock";
 import { CodeHistoryCarousel } from "./AutoSaveHistory";
 
 // Mock the useVirtualizer hook
@@ -22,7 +22,7 @@ vi.mock("@src/hooks/getCodeSpace", () => ({
 }));
 
 describe.skip("CodeHistoryCarousel", () => {
-  (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
+  (globalThis as unknown as { monaco: typeof Monaco; }).monaco = {
     editor: {
       createDiffEditor: vi.fn().mockReturnValue({
         setModel: vi.fn(),

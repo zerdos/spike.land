@@ -1,8 +1,8 @@
 import type { ICode } from "@/lib/interfaces";
+import type { IHistoryItem } from "@/lib/interfaces";
 import React, { useCallback, useEffect, useState } from "react";
 import type { Version } from "../codeHistoryUtils";
 import { loadVersionHistory } from "../codeHistoryUtils";
-import type { IHistoryItem } from "@/lib/interfaces";
 import { FullScreenHistoryView } from "./History/HistoryFComponents";
 
 interface CodeHistoryCarouselProps {
@@ -28,9 +28,7 @@ export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
       const data: Version[] = await loadVersionHistory(codeSpace);
       setHistory(
         data
-          .filter((x) =>
-            !x.code.includes("History") && !x.code.includes("e/pp")
-          )
+          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
           .sort((a, b) => b.timestamp - a.timestamp)
           .map((version) => ({ ...version, timestamp: version.timestamp })),
       );

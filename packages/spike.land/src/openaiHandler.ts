@@ -1,8 +1,8 @@
 import OpenAI from "openai";
-import type Env from "./env";
-import { handleCORS, readRequestBody } from "./utils";
-import { KVLogger } from "./Logs";
 import type { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
+import type Env from "./env";
+import { KVLogger } from "./Logs";
+import { handleCORS, readRequestBody } from "./utils";
 
 interface MessageParam {
   role: "user" | "assistant";
@@ -30,8 +30,7 @@ export async function handleGPT4Request(
   };
 
   const openai = new OpenAI({
-    baseURL:
-      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
+    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
     // baseURL: "https://api.openai.com/v1",
     apiKey: env.OPENAI_API_KEY,
   });
@@ -137,9 +136,7 @@ export async function handleGPT4Request(
     messages: body.messages,
     // Spread the rest of the body properties, excluding 'model' and 'messages'
     ...Object.fromEntries(
-      Object.entries(body).filter(([key]) =>
-        !["model", "messages"].includes(key)
-      ),
+      Object.entries(body).filter(([key]) => !["model", "messages"].includes(key)),
     ),
   };
 

@@ -8,7 +8,6 @@
     "semiColons": "always",
     "binaryExpression.operatorPosition": "sameLine",
     "jsx.quoteStyle": "preferDouble",
-
     "trailingCommas": "onlyMultiLine"
   },
   "json": {
@@ -17,9 +16,12 @@
   "markdown": {},
   "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md}"],
   "excludes": [
+    "**/tw.js",
     "**/node_modules",
     "**/*-lock.json",
-    "**/dts"
+    "**/dts",
+    "**/dist",
+    "**/dist-vite"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.93.3.wasm",

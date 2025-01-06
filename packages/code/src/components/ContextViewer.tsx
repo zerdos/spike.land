@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import type { ProjectContext } from "@/lib/context-manager";
+import React, { useEffect, useState } from "react";
 import { useContext } from "../hooks/useContext";
 
 interface ContextViewerProps {

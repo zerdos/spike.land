@@ -1,14 +1,14 @@
-import React, { memo, useCallback, useMemo, useRef } from "react";
+import { Analysis } from "@/components/app/analysis";
+import { CodeBlock } from "@/components/app/code-block-lazy";
+import { DiffViewer } from "@/components/app/diff-editor";
+import { Suggestions } from "@/components/app/suggestions";
+import MarkdownWithReadAloud from "@/external/Markdown";
+import { extractCodeModification } from "@/lib/chat-utils";
+import { isDiffContent } from "@/lib/diff-utils";
 import { getPartsStreaming } from "@/lib/get-parts";
 import type { ParsingState } from "@/lib/interfaces";
-import MarkdownWithReadAloud from "@/external/Markdown";
-import { CodeBlock } from "@/components/app/code-block-lazy";
-import { Analysis } from "@/components/app/analysis";
-import { isDiffContent } from "@/lib/diff-utils";
-import { DiffViewer } from "@/components/app/diff-editor";
 import { md5 } from "@/lib/md5";
-import { extractCodeModification } from "@/lib/chat-utils";
-import { Suggestions } from "@/components/app/suggestions";
+import React, { memo, useCallback, useMemo, useRef } from "react";
 
 interface CodeProps {
   value: string;
@@ -22,7 +22,7 @@ interface CodeProps {
  */
 const extractDiffContent = (
   rawContent: string,
-): { original: string; modified: string } => {
+): { original: string; modified: string; } => {
   const content = extractCodeModification(rawContent)[0] || rawContent;
   const [, originalPart = "", modifiedPart = ""] = content.split(
     /<<<<<<< SEARCH|=======|>>>>>>> REPLACE/,
@@ -50,8 +50,7 @@ const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
 
     // If analysis is embedded
     if (trimmedValue.includes("<react_code_analysis>")) {
-      const analysisCloseTagIndex =
-        trimmedValue.indexOf("</react_code_analysis>") + 22;
+      const analysisCloseTagIndex = trimmedValue.indexOf("</react_code_analysis>") + 22;
       const contentBeforeChange = trimmedValue.slice(
         0,
         trimmedValue.indexOf("<change>"),

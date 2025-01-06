@@ -11,7 +11,7 @@ export async function handleApiRequest(
       {
         if (request.method === "POST") {
           const { url, options } = await request.json<
-            { url: "string"; options: RequestInit }
+            { url: "string"; options: RequestInit; }
           >();
 
           try {

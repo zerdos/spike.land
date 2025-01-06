@@ -1,4 +1,3 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Image as ImageIcon, X } from "@/external/lucideReact";
 import type { Message } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
+import { processImage } from "@/lib/process-image";
 import { ChatMessageBlock } from "@/lib/render-messages";
 import { cn } from "@/lib/utils";
-import { processImage } from "@/lib/process-image";
-import { md5 } from "@/lib/md5";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 
 interface ImageData {
   imageName: string;
@@ -42,7 +42,7 @@ interface ChatMessageProps {
 const MessageContent = React.memo<{
   content:
     | string
-    | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+    | Array<{ type: string; text?: string; image_url?: { url: string; }; }>;
   isUser: boolean;
   onNewPrompt: (prompt: string) => void;
 }>(({ content, isUser, onNewPrompt }) => {
@@ -89,7 +89,7 @@ const MessageContent = React.memo<{
 const SystemMessage = React.memo<{
   content:
     | string
-    | Array<{ type: string; text?: string; image_url?: { url: string } }>;
+    | Array<{ type: string; text?: string; image_url?: { url: string; }; }>;
   isUser: boolean;
 }>(({ content, isUser }) => {
   return (

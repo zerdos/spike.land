@@ -1,8 +1,8 @@
 // diff-editor.tsx
-import type { FC } from "react";
-import { diffLines as d } from "diff";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { cn } from "@/lib/utils";
+import { diffLines as d } from "diff";
+import type { FC } from "react";
 
 interface DiffViewerProps {
   original: string;
@@ -65,8 +65,6 @@ const modified = `
 </DiffContainer>
 `;
 
-const DiffEditor: FC = () => (
-  <DiffViewer original={original} modified={modified} />
-);
+const DiffEditor: FC = () => <DiffViewer original={original} modified={modified} />;
 
 export default DiffEditor;

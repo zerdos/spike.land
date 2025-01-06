@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import type { ChatContainerProps, Message } from "@/lib/interfaces";
 import { ChatMessage } from "@/components/app/chat-message";
-import { motion } from "framer-motion";
+import type { ChatContainerProps, Message } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 interface TypingIndicatorProps {
   isDarkMode: boolean;
 }
 
-const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean }> = React
+const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean; }> = React
   .memo(({ delay, isDarkMode }) => (
     <motion.div
       className={cn(
@@ -31,9 +31,7 @@ const TypingDots: React.FC<TypingIndicatorProps> = React.memo((
   { isDarkMode },
 ) => (
   <div className="flex space-x-1">
-    {[0, 1, 2].map((dot) => (
-      <AnimatedDot key={dot} delay={dot * 0.2} isDarkMode={isDarkMode} />
-    ))}
+    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} isDarkMode={isDarkMode} />)}
   </div>
 ));
 
@@ -47,7 +45,7 @@ const TypingIndicator: React.FC<TypingIndicatorProps> = React.memo((
 ));
 
 export const ChatContainer: React.FC<
-  ChatContainerProps & { codeSpace: string }
+  ChatContainerProps & { codeSpace: string; }
 > = React.memo((props) => {
   const {
     messages,

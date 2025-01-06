@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Wrapper } from "@/components/app/wrapper";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -11,8 +10,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 const format = (date: Date): string =>
@@ -66,7 +66,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
 
 // RestoreStatusAlert component
 const RestoreStatusAlert = (
-  { status }: { status: { type: string; message: string } },
+  { status }: { status: { type: string; message: string; }; },
 ) => (
   <Alert variant={status.type === "error" ? "destructive" : "default"}>
     <AlertTitle>

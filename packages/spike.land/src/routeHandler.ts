@@ -1,4 +1,5 @@
 import { createClerkClient } from "@clerk/backend";
+import { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 import {
   HTML,
   importMap,
@@ -7,7 +8,6 @@ import {
   sanitizeSession,
   sessionToJSON,
 } from "@spike-npm-land/code";
-import { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 
 import type { Code } from "./chatRoom";
 
@@ -86,7 +86,7 @@ export class RouteHandler {
     return routes[route] || null;
   }
   private async handleCodeHistory() {
-    const history = [] as string[] ;
+    const history = [] as string[];
     return new Response(JSON.stringify(history), {
       status: 200,
       headers: {
@@ -643,7 +643,7 @@ hQIDAQAB
   ): Promise<Response> {
     const hashCode = String(Number(path[1]));
     const patch = await this.code.getState().storage.get<
-      { patch: string; oldHash: number }
+      { patch: string; oldHash: number; }
     >(hashCode, {
       allowConcurrency: true,
     });

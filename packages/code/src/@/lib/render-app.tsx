@@ -5,16 +5,12 @@ import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import type {
-  FlexibleComponentType,
-  IRenderApp,
-  RenderedApp,
-} from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
-import { transpile } from "@/lib/shared";
-import { importMapReplace } from "@/lib/importmap-utils";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import useWindowSize from "@/hooks/use-window-size";
+import { importMapReplace } from "@/lib/importmap-utils";
+import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
+import { transpile } from "@/lib/shared";
 
 let firstRender = true;
 const origin = location.origin;
@@ -32,9 +28,7 @@ const createJsBlob = (code: string): string =>
   ).toString();
 
 export const importFromString = (code: string) =>
-  import(/* @vite-ignore */ createJsBlob(code)).then((module) =>
-    module.default
-  ) as Promise<
+  import(/* @vite-ignore */ createJsBlob(code)).then((module) => module.default) as Promise<
     FlexibleComponentType
   >;
 
@@ -52,8 +46,7 @@ declare global {
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, prerender = false }:
-    IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, prerender = false }: IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement ||
@@ -102,7 +95,7 @@ async function renderApp(
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");
-    ///remove the numbers
+    /// remove the numbers
     // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
 
     const cssCache = createCache({

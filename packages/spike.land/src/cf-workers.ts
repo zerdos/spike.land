@@ -1,7 +1,4 @@
-import type {
-  ExportedHandler,
-  Request as CFRequest,
-} from "@cloudflare/workers-types";
+import type { ExportedHandler, Request as CFRequest } from "@cloudflare/workers-types";
 import chat from "./chat";
 import { Code } from "./chatRoom";
 import type MyEnv from "./env";

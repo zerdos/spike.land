@@ -1,11 +1,11 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
-import type Env from "./env";
-import { handleCORS, readRequestBody } from "./utils";
 import type { Message, MessageContent } from "@spike-npm-land/code";
 import { handleCMSIndexRequest } from "./chat";
+import type Env from "./env";
 import { KVLogger } from "./Logs";
+import { handleCORS, readRequestBody } from "./utils";
 
 function base64Encode(buf: ArrayBuffer) {
   let string = "";
@@ -71,8 +71,7 @@ export async function handleAnthropicRequest(
   );
 
   const anthropic = new Anthropic({
-    baseURL:
-      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
+    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
     apiKey: env.ANTHROPIC_API_KEY,
   });
 

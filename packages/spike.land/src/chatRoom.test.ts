@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./chatRoom";
-import { RouteHandler } from "./routeHandler";
 import type Env from "./env";
+import { RouteHandler } from "./routeHandler";
 
 vi.mock("./routeHandler");
 

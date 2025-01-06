@@ -38,7 +38,7 @@ export class KVLogger {
 
   async getLogs(
     date: string,
-  ): Promise<Array<{ timestamp: string; level: string; message: string }>> {
+  ): Promise<Array<{ timestamp: string; level: string; message: string; }>> {
     const pattern = `${this.prefix}:${date}:*`;
     const kv = this.store;
 

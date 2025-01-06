@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Send, Upload, X } from "@/external/lucideReact";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
-import type { MessageInputProps } from "@/lib/interfaces";
-import React, { useRef, useState } from "react";
-import { cn } from "@/lib/utils";
-import { processImage } from "@/lib/process-image";
-import type { ImageData } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import type { MessageInputProps } from "@/lib/interfaces";
+import type { ImageData } from "@/lib/interfaces";
+import { processImage } from "@/lib/process-image";
+import { cn } from "@/lib/utils";
+import React, { useRef, useState } from "react";
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -122,8 +118,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   variant="secondary"
                   size="sm"
                   className="absolute top-1 right-1"
-                  onClick={() =>
-                    removeUploadedImage(index)}
+                  onClick={() => removeUploadedImage(index)}
                 >
                   <X className="h-3 w-3" />
                 </Button>

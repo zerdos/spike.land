@@ -1,10 +1,10 @@
-import animatePlugin from "tailwindcss-animate";
 import aspectRatio from "@tailwindcss/aspect-ratio";
+import animatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 const { fontFamily } = defaultTheme;
 
 const config = {
-  darkMode: "class",
+  darkMode: ["class", "class"],
   content: ["src/@/**/*.{ts,tsx}"],
   theme: {
     ...defaultTheme,
@@ -62,16 +62,37 @@ const config = {
       },
       fontFamily: {
         ...defaultTheme.fontFamily,
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: [
+          "var(--font-sans)",
+          ...fontFamily.sans,
+        ],
       },
       keyframes: {
         ...defaultTheme.keyframes,
-
         "gradient-x": {
-          "0%, 100%": { "background-position": "0% 50%" },
-          "50%": { "background-position": "100% 50%" },
+          "0%, 100%": {
+            "background-position": "0% 50%",
+          },
+          "50%": {
+            "background-position": "100% 50%",
+          },
         },
-
+        "accordion-down": {
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
+        },
         "accordion-down": {
           from: {
             height: "0",
@@ -94,7 +115,8 @@ const config = {
         "gradient-x-slow": "gradient-x 30s ease infinite",
         "gradient-x-normal": "gradient-x 20s ease infinite",
         "gradient-x-fast": "gradient-x 10s ease infinite",
-
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

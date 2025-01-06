@@ -2,10 +2,7 @@
 
 import type { WebSocket } from "@cloudflare/workers-types";
 import type { CodePatch, Diff } from "@spike-npm-land/code";
-import {
-  applySessionPatch,
-  computeSessionHash,
-} from "@spike-npm-land/code";
+import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
 import { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
@@ -70,7 +67,7 @@ export class WebSocketHandler {
         i: this.code.session.i,
         users,
         type: "handshake",
-      })
+      }),
     );
 
     const pingInterval = setInterval(() => {
@@ -96,7 +93,7 @@ export class WebSocketHandler {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  private send(conn: WebSocket, message: YMessage | { type: "pong" }) {
+  private send(conn: WebSocket, message: YMessage | { type: "pong"; }) {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
 
@@ -121,15 +118,13 @@ export class WebSocketHandler {
       return;
     }
 
-    const respondWith = (obj: unknown) =>
-      session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: IData;
     try {
-      const rawData =
-        typeof msg.data === "string"
-          ? msg.data
-          : new TextDecoder().decode(msg.data as ArrayBuffer);
+      const rawData = typeof msg.data === "string"
+        ? msg.data
+        : new TextDecoder().decode(msg.data as ArrayBuffer);
       data = JSON.parse(rawData);
     } catch (exp) {
       return respondWith({ error: "JSON parse error", exp: exp || {} });
@@ -218,7 +213,7 @@ export class WebSocketHandler {
   private async handlePatch(
     data: CodePatch,
     respondWith: (obj: unknown) => void,
-    session: WebsocketSession
+    session: WebsocketSession,
   ) {
     const oldHash = computeSessionHash(this.code.session);
     if (oldHash === data.newHash) {
@@ -233,10 +228,7 @@ export class WebSocketHandler {
     }
 
     try {
-    
       try {
-       
-        
         console.log("Applying patch...", data);
         const newState = applySessionPatch(this.code.session, data);
         console.log("New state after patch:", newState);
@@ -244,7 +236,7 @@ export class WebSocketHandler {
         return respondWith({
           newHash: computeSessionHash(newState),
           i: newState.i,
-         });
+        });
       } catch (err) {
         console.error("Error applying patch:", err);
         return respondWith({ error: "patch-application-failed", exp: err || {} });
@@ -268,8 +260,9 @@ export class WebSocketHandler {
   }
 
   public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
-    const message =
-      typeof msg === "string" ? msg : JSON.stringify({ ...msg, i: this.code.session.i });
+    const message = typeof msg === "string"
+      ? msg
+      : JSON.stringify({ ...msg, i: this.code.session.i });
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
     let successfulBroadcasts = 0;

@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { md5 } from "@/lib/md5";
 import type { ICode, ICodeSession } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useEditorState } from "../hooks/use-editor-state";
 import { useAutoSave as autoSave } from "../hooks/useAutoSave";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
-import { useEditorState } from "../hooks/use-editor-state";
-import { useErrorHandling } from "../hooks/useErrorHandling";
 
 interface EditorProps {
   codeSpace: string;
@@ -14,8 +14,7 @@ interface EditorProps {
 }
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
-  const { containerRef, engine, editorState, setEditorState } =
-    useEditorState();
+  const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
   const mod = useRef({
@@ -58,7 +57,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async (
-        { data }: { data: ICodeSession },
+        { data }: { data: ICodeSession; },
       ) => {
         const md5Code = md5(data.code);
 

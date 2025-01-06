@@ -9,7 +9,7 @@ export async function handleMainFetch(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
-  const { cf } = request as unknown as { cf?: { asOrganization?: string } };
+  const { cf } = request as unknown as { cf?: { asOrganization?: string; }; };
   if (cf?.asOrganization?.startsWith("YANDEX")) {
     return handleUnauthorizedRequest();
   }

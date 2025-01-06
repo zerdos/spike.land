@@ -9,7 +9,7 @@ import {
   computeSessionHash,
   generateSessionPatch,
   md5,
-  sanitizeSession
+  sanitizeSession,
 } from "@spike-npm-land/code";
 
 import type Env from "./env";
@@ -40,7 +40,7 @@ export class Code implements DurableObject {
     const durableObject = this;
     this.env = env;
     // this.historyManager = createCodeHistoryManager(this.env);
-    this.xLog = async (c: ICodeSession)=>console.log({...c});  //this.historyManager.logCodeSpace.bind(this.historyManager);
+    this.xLog = async (c: ICodeSession) => console.log({ ...c }); // this.historyManager.logCodeSpace.bind(this.historyManager);
 
     this.backupSession = sanitizeSession({
       code: `export default () => (
@@ -106,18 +106,16 @@ export class Code implements DurableObject {
               ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
               : `${this.origin}/live/code-main/session.json`;
 
-            const backupCode = await fetch(source).then((r) =>
-              r.json()
-            ) as ICodeSession;
+            const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
             this.backupSession = sanitizeSession({ ...backupCode, codeSpace });
 
             this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
           }
 
-         await this.state.storage.put("session", this.session);
+          await this.state.storage.put("session", this.session);
           const head = computeSessionHash(this.session);
-         await this.state.storage.put("head", head);
+          await this.state.storage.put("head", head);
         }
 
         // Initialize auto-save history
@@ -134,27 +132,21 @@ export class Code implements DurableObject {
       } finally {
         this.initialized = true;
 
-   
         if (this.session.i > 10000) {
-         await this.updateAndBroadcastSession({
+          await this.updateAndBroadcastSession({
             ...this.session,
             i: 1,
-          })
+          });
         }
-
-       
       }
     });
 
     this.xLog(this.session);
-
   }
 
   private setupAutoSave() {
     // setInterval(() => this.autoSave(), this.autoSaveInterval);
   }
-
-
 
   public async autoSave() {
     const currentTime = Date.now();
@@ -229,15 +221,14 @@ export class Code implements DurableObject {
 
       if (!this.session.transpiled) {
         try {
-          const transpiled =
-            (await fetch("https://esbuild.spikeland.workers.dev", {
-              method: "POST",
-              body: this.session.code,
-              headers: {
-                "TR_ORIGIN": this.origin,
-                // Include any additional headers required for authentication
-              },
-            })).text();
+          const transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
+            method: "POST",
+            body: this.session.code,
+            headers: {
+              "TR_ORIGIN": this.origin,
+              // Include any additional headers required for authentication
+            },
+          })).text();
 
           await this.updateAndBroadcastSession(
             sanitizeSession(...this.session, transpiled),
@@ -284,27 +275,20 @@ export class Code implements DurableObject {
     this.autoSave();
   }
 
-  async updateAndBroadcastSession(newSession: ICodeSession,  wsSession?: WebsocketSession) {
+  async updateAndBroadcastSession(newSession: ICodeSession, wsSession?: WebsocketSession) {
     const oldHash = computeSessionHash(this.session);
     const newHash = computeSessionHash(newSession);
-
-
 
     if (oldHash === newHash) {
       return;
     }
     const oldSession = sanitizeSession(this.session);
 
-    
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
     await this.state.storage.put("session", newSession);
-  
-
-
   }
-
 
   getState() {
     return this.state;

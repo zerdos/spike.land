@@ -1,9 +1,9 @@
 // suggestions.tsx
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, LightbulbIcon } from "lucide-react";
-import { useDarkMode } from "@/hooks/use-dark-mode";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { cn } from "@/lib/utils";
+import { ArrowRight, LightbulbIcon } from "lucide-react";
 
 interface Suggestion {
   title: string;
@@ -42,8 +42,7 @@ export const Suggestions: React.FC<SuggestionsProps> = (
   const cardClasses = "w-full mx-auto border-none shadow-lg overflow-hidden";
   const cardHeaderClasses =
     "bg-gradient-to-r from-violet-700 to-indigo-800 py-3 sm:py-4 rounded-t-lg";
-  const cardTitleClasses =
-    "text-base sm:text-lg font-semibold text-white flex items-center";
+  const cardTitleClasses = "text-base sm:text-lg font-semibold text-white flex items-center";
   const cardContentClasses =
     "p-3 sm:p-5 grid gap-3 sm:gap-4 max-h-[60vh] overflow-y-auto overscroll-contain";
   const buttonClasses =

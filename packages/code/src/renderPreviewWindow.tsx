@@ -1,10 +1,10 @@
 import { ClerkProvider } from "@/external/clerk";
-import { renderApp } from "@/lib/render-app";
 import type { ICode } from "@/lib/interfaces";
+import { renderApp } from "@/lib/render-app";
 import { AppToRender } from "./AppToRender";
 
 export const renderPreviewWindow = async (
-  { codeSpace, cSess }: { codeSpace: string; cSess: ICode },
+  { codeSpace, cSess }: { codeSpace: string; cSess: ICode; },
 ) => {
   const App = () => (
     <ClerkProvider

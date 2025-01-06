@@ -5,11 +5,11 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
 
-import type Env from "./env";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-npm-land/code";
-import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
+import type Env from "./env";
 import { makeResponse } from "./makeResponse";
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -76,9 +76,7 @@ export default {
 
     if (url.pathname === "/swVersion.js") {
       return new Response(
-        `self.swVersion = "${ASSET_HASH}"; self.files= ${
-          JSON.stringify(files)
-        };`,
+        `self.swVersion = "${ASSET_HASH}"; self.files= ${JSON.stringify(files)};`,
         {
           headers: {
             "Content-Type": "application/javascript",
@@ -105,15 +103,14 @@ export default {
     if (url.pathname === "/transpile" && request.method === "POST") {
       const body = await request.text();
 
-      const transpiled =
-        await (await fetch("https://esbuild.spikeland.workers.dev", {
-          method: "POST",
-          body: body,
-          headers: {
-            "TR_ORIGIN": url.origin,
-            // Include any additional headers required for authentication
-          },
-        })).text();
+      const transpiled = await (await fetch("https://esbuild.spikeland.workers.dev", {
+        method: "POST",
+        body: body,
+        headers: {
+          "TR_ORIGIN": url.origin,
+          // Include any additional headers required for authentication
+        },
+      })).text();
 
       return new Response(transpiled, {
         headers: {
@@ -216,7 +213,7 @@ export default {
     if (request.url.includes("whisper")) {
       const formData = await request.formData();
 
-      const body: { [key: string]: unknown; file: File } = {
+      const body: { [key: string]: unknown; file: File; } = {
         file: new File([], ""),
       };
       for (const entry of formData.entries()) {
