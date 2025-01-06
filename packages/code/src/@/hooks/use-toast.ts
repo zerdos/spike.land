@@ -8,19 +8,19 @@ import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
-interface ToasterToast extends ToastProps {
+type ToasterToast = ToastProps & {
   id: string;
-  title?: string;
+  title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
-}
+};
 
-interface ActionTypes {
-  ADD_TOAST: "ADD_TOAST";
-  UPDATE_TOAST: "UPDATE_TOAST";
-  DISMISS_TOAST: "DISMISS_TOAST";
-  REMOVE_TOAST: "REMOVE_TOAST";
-}
+const actionTypes = {
+  ADD_TOAST: "ADD_TOAST",
+  UPDATE_TOAST: "UPDATE_TOAST",
+  DISMISS_TOAST: "DISMISS_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST",
+} as const;
 
 let count = 0;
 
@@ -29,21 +29,23 @@ function genId() {
   return count.toString();
 }
 
+type ActionType = typeof actionTypes;
+
 type Action =
   | {
-    type: ActionTypes["ADD_TOAST"];
+    type: ActionType["ADD_TOAST"];
     toast: ToasterToast;
   }
   | {
-    type: ActionTypes["UPDATE_TOAST"];
+    type: ActionType["UPDATE_TOAST"];
     toast: Partial<ToasterToast>;
   }
   | {
-    type: ActionTypes["DISMISS_TOAST"];
+    type: ActionType["DISMISS_TOAST"];
     toastId?: ToasterToast["id"];
   }
   | {
-    type: ActionTypes["REMOVE_TOAST"];
+    type: ActionType["REMOVE_TOAST"];
     toastId?: ToasterToast["id"];
   };
 
@@ -151,7 +153,7 @@ function toast({ ...props }: Toast) {
       ...props,
       id,
       open: true,
-      onOpenChange: (open: boolean) => {
+      onOpenChange: (open) => {
         if (!open) dismiss();
       },
     },

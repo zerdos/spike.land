@@ -1,11 +1,9 @@
-import type { Config } from "tailwindcss";
-
 import animatePlugin from "tailwindcss-animate";
 import aspectRatio from "@tailwindcss/aspect-ratio";
 import defaultTheme from "tailwindcss/defaultTheme";
 const { fontFamily } = defaultTheme;
 
-const config: Config = {
+const config = {
   darkMode: "class",
   content: ["src/@/**/*.{ts,tsx}"],
   theme: {
