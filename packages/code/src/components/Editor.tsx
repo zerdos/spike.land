@@ -1,5 +1,8 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { prettierJs } from "@/lib/prettier";
+import { prettierToThrow } from "@/lib/shared";
+import { fi } from "date-fns/locale";
 import React, { useEffect, useRef } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -32,6 +35,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     mod.current.md5Ids.push(md5NewCode);
 
     mod.current.i++;
+    mod.current.code = newCode;
     cSess.setCode(newCode).then(() => {
       const md5NewCode = md5(md5(cSess.session.code));
       if (mod.current.md5Ids.includes(md5NewCode)) return;
@@ -43,10 +47,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   useEffect(() => {
     if (!editorState || !editorState.started || !editorState.setValue) return;
 
-    cSess.sub((sess: ICodeSession) => {
+    cSess.sub(async (sess: ICodeSession) => {
       if (sess.code === editorState.code) return;
 
-      if (mod.current.i === sess.i) return;
+      const formatted = await prettierToThrow({ code: mod.current.code, toThrow: false });
+      if (formatted && formatted === sess.code) return;
+
       editorState.setValue(sess.code);
     });
   }, [editorState.started, cSess]);
