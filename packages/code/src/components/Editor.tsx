@@ -1,8 +1,7 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
-import { useAutoSave as autoSave } from "../hooks/useAutoSave";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeAce, initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
@@ -18,37 +17,59 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
   const mod = useRef({
-    i: 0,
-    code: "",
-    html: "",
-    cssIds: "",
+    ...(cSess.session),
     md5Ids: [] as string[],
     controller: new AbortController(),
     initialLoad: React.useRef(true),
   });
 
-  const handleContentChange = useCallback((newCode: string) => {
-    mod.current.md5Ids.push(md5(newCode));
-    cSess.setCode(newCode);
-  }, [cSess]);
-  const started = editorState && editorState.started;
-  const setValue = editorState && editorState.setValue;
+  const handleContentChange = (newCode: string) => {
+    if (newCode === mod.current.code) return;
+
+    const md5NewCode = md5(newCode);
+
+    if (mod.current.md5Ids.includes(md5NewCode)) return;
+    mod.current.md5Ids.push(md5NewCode);
+
+    mod.current.i++;
+    cSess.setCode(newCode).then(() => {
+      const md5NewCode = md5(md5(cSess.session.code));
+      if (mod.current.md5Ids.includes(md5NewCode)) return;
+
+      mod.current.md5Ids.push(md5NewCode);
+    }).then(() => throttledTypeCheck(mod.current.initialLoad));
+  };
 
   useEffect(() => {
-    const BC = new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (event) => {
-      const e = event.data;
+    if (!editorState || !editorState.started || !editorState.setValue) return;
 
-      if (e.code && started && setValue) {
-        console.log("Setting code", e.code);
-        autoSave(codeSpace);
-        setValue(e.code);
-      }
-    };
-    return () => {
-      BC.close();
-    };
-  }, [started, setValue, codeSpace]);
+    cSess.sub((sess: ICodeSession) => {
+      if (sess.code === editorState.code) return;
+
+      if (mod.current.i === sess.i) return;
+      editorState.setValue(sess.code);
+    });
+  }, [editorState.started, cSess]);
+
+  // const BC = new BroadcastChannel(
+  //   `${location.origin}/live/${codeSpace}/`,
+  // );
+
+  // BC.onmessage = async (event) => {
+  //   const e = event.data;
+
+  //   if (e.code) {
+  //     if (mod.current.md5Ids.includes(md5(e.code))) return;
+  //     mod.current.md5Ids.push(md5(e.code));
+  //     mod.current.md5Ids = mod.current.md5Ids.slice(-10);
+
+  //     if (e.i === mod.current.i) return;
+  //     mod.current.i = e.i;
+
+  //     console.log("Setting code", e.code);
+  //     editorState.setValue(e.code);
+  //   }
+  // };
 
   useEffect(() => {
     if (errorType) {
@@ -82,7 +103,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       mod.current.i = Number(cSess.session.i);
       mod.current.code = cSess.session.code;
 
-      if (!containerRef || !containerRef.current) return;
+      if (!containerRef.current) return;
 
       const editorModule = await (engine === "monaco"
         ? initializeMonaco(

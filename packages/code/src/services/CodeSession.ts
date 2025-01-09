@@ -206,8 +206,6 @@ export class Code implements ICode {
     return this.session;
   }
 
-  public hash = () => computeSessionHash(this.session);
-
   computeSessionHash = (session: ICodeSession) => computeSessionHash(session);
 
   async getCode(): Promise<string> {
@@ -332,9 +330,10 @@ export class Code implements ICode {
 
     const session = sanitizeSession({ ...this.session, ...processedSession });
 
-    if (hash(session) === hash(this.session)) return this.session.code;
+    if (computeSessionHash(session) === computeSessionHash(this.session)) return this.session.code;
 
-    this.session = sanitizeSession({ ...session, i: this.session.i + 1 });
+    session.i++;
+    this.session = session;
 
     this.broadcastChannel.postMessage({
       ...this.session,
