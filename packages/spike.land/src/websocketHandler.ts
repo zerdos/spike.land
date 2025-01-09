@@ -1,6 +1,6 @@
 // packages/spike.land/src/websocketHandler.ts
 
-import type { WebSocket } from "@cloudflare/workers-types";
+import type { MessageEvent, WebSocket } from "@cloudflare/workers-types";
 import type { CodePatch, Diff } from "@spike-npm-land/code";
 import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
@@ -14,6 +14,7 @@ export interface WebsocketSession {
   subscribedTopics: Set<string>;
   pongReceived: boolean;
   blockedMessages: string[];
+  pingTimeoutId?: number;
 }
 
 interface IData {
@@ -21,7 +22,17 @@ interface IData {
   changes?: object[];
   codeSpace?: string;
   target?: string;
-  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "fetch";
+  type?:
+    | "new-ice-candidate"
+    | "video-offer"
+    | "video-answer"
+    | "handshake"
+    | "fetch"
+    | "ping"
+    | "pong"
+    | "subscribe"
+    | "unsubscribe"
+    | "publish";
   patch?: Diff[];
   reversePatch?: Diff[];
   address?: string;
@@ -47,7 +58,34 @@ export class WebSocketHandler {
 
   constructor(private code: Code) {}
 
-  handleWebsocketSession(webSocket: WebSocket) {
+  // Schedule periodic ping for a session
+  private schedulePing(session: WebsocketSession): void {
+    // Clear any existing ping timeout
+    if (session.pingTimeoutId) {
+      clearTimeout(session.pingTimeoutId);
+    }
+
+    // Schedule the next ping
+    session.pingTimeoutId = setTimeout(() => {
+      if (!session.pongReceived) {
+        // Session did not respond, close connection
+        session.webSocket.close();
+      } else {
+        // Mark that we haven't received the next pong yet
+        session.pongReceived = false;
+        try {
+          session.webSocket.send(JSON.stringify({ type: "ping" }));
+        } catch {
+          session.webSocket.close();
+        }
+
+        // Re-schedule for the next cycle
+        this.schedulePing(session);
+      }
+    }, PING_TIMEOUT) as unknown as number;
+  }
+
+  public handleWebsocketSession(webSocket: WebSocket): void {
     webSocket.accept();
 
     const session: WebsocketSession = {
@@ -60,6 +98,7 @@ export class WebSocketHandler {
     };
     this.wsSessions.push(session);
 
+    // Send initial handshake
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
@@ -70,32 +109,26 @@ export class WebSocketHandler {
       }),
     );
 
-    const pingInterval = setInterval(() => {
-      if (!session.pongReceived) {
-        webSocket.close();
-        clearInterval(pingInterval);
-      } else {
-        session.pongReceived = false;
-        try {
-          webSocket.send(JSON.stringify({ type: "ping" }));
-        } catch {
-          webSocket.close();
-        }
-      }
-    }, PING_TIMEOUT);
+    // Kick off the ping-pong monitoring
+    this.schedulePing(session);
 
+    // Listen for messages
     webSocket.addEventListener("message", (msg) => {
       this.processWsMessage(msg as MessageEvent, session);
     });
 
+    // Close and error handling
     const closeOrErrorHandler = () => {
       session.quit = true;
+      if (session.pingTimeoutId) {
+        clearTimeout(session.pingTimeoutId);
+      }
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  private send(conn: WebSocket, message: YMessage | { type: "pong"; }) {
+  private send(conn: WebSocket, message: YMessage | { type: "pong"; }): void {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
 
@@ -114,7 +147,7 @@ export class WebSocketHandler {
     }
   }
 
-  private processWsMessage(msg: MessageEvent, session: WebsocketSession) {
+  private processWsMessage(msg: MessageEvent, session: WebsocketSession): void {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
@@ -127,12 +160,13 @@ export class WebSocketHandler {
       const rawData = typeof msg.data === "string"
         ? msg.data
         : new TextDecoder().decode(msg.data as ArrayBuffer);
-      data = JSON.parse(rawData);
+      data = JSON.parse(rawData) as IData;
     } catch (exp) {
-      return respondWith({ error: "JSON parse error", exp: exp || {} });
+      respondWith({ error: "JSON parse error", exp: exp || {} });
+      return;
     }
 
-    const message = data as unknown as YMessage;
+    const message = data as YMessage;
 
     // Consolidate name-check logic in one place
     if (!session.name) {
@@ -184,6 +218,8 @@ export class WebSocketHandler {
           break;
         case "pong":
           session.pongReceived = true;
+          // Re-schedule ping after receiving pong
+          this.schedulePing(session);
           break;
         case "ping":
           this.send(session.webSocket, { type: "pong" });
@@ -193,7 +229,10 @@ export class WebSocketHandler {
 
     // If changes exist, broadcast them:
     if (data.changes) {
-      const changesMsg = JSON.stringify({ type: "changes", changes: data.changes });
+      const changesMsg = JSON.stringify({
+        type: "changes",
+        changes: data.changes,
+      });
       return this.broadcast(changesMsg);
     }
 
@@ -208,7 +247,8 @@ export class WebSocketHandler {
 
     // Patching
     if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
-      return this.handlePatch(data as CodePatch, respondWith, session);
+      this.handlePatch(data as CodePatch, respondWith, session);
+      return;
     }
   }
 
@@ -216,7 +256,7 @@ export class WebSocketHandler {
     data: CodePatch,
     respondWith: (obj: unknown) => void,
     session: WebsocketSession,
-  ) {
+  ): Promise<void> {
     const oldHash = computeSessionHash(this.code.session);
     if (oldHash === data.newHash) {
       return; // Already up-to-date
@@ -230,38 +270,33 @@ export class WebSocketHandler {
     }
 
     try {
-      try {
-        console.log("Applying patch...", data);
-        const newState = applySessionPatch(this.code.session, data);
-        console.log("New state after patch:", newState);
-        await this.code.updateAndBroadcastSession(newState, session);
-        return respondWith({
-          newHash: computeSessionHash(newState),
-          i: newState.i,
-        });
-      } catch (err) {
-        console.error("Error applying patch:", err);
-        return respondWith({ error: "patch-application-failed", exp: err || {} });
-      }
+      console.log("Applying patch...", data);
+      const newState = applySessionPatch(this.code.session, data);
+      console.log("New state after patch:", newState);
+      this.code.updateAndBroadcastSession(newState, session);
+      respondWith({
+        newHash: computeSessionHash(newState),
+        i: newState.i,
+      });
+      return;
     } catch (err) {
-      respondWith({ error: "Saving is really hard", exp: err || {} });
+      console.error("Error applying patch:", err);
+      respondWith({ error: "patch-application-failed", exp: err || {} });
     }
   }
 
-  private user2user(to: string, msg: unknown | string) {
+  private user2user(to: string, msg: unknown | string): void {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.wsSessions
-      .filter((s) => s.name === to)
-      .forEach((s) => {
-        try {
-          s.webSocket.send(message);
-        } catch (error) {
-          console.error("p2p error:", error);
-        }
-      });
+    this.wsSessions.filter((s) => s.name === to).forEach((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (error) {
+        console.error("p2p error:", error);
+      }
+    });
   }
 
-  public broadcast(msg: CodePatch | string, session?: WebsocketSession) {
+  public broadcast(msg: CodePatch | string, session?: WebsocketSession): void {
     const message = typeof msg === "string"
       ? msg
       : JSON.stringify({ ...msg, i: this.code.session.i });

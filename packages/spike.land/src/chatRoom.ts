@@ -16,8 +16,8 @@ import type Env from "./env";
 import { handleErrors } from "./handleErrors";
 import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
-import { WebSocketHandler, WebsocketSession } from "./websocketHandler";
-import type { CodeHistoryManager } from "./x-code";
+import { WebSocketHandler } from "./websocketHandler";
+import type { WebsocketSession } from "./websocketHandler";
 export { md5 };
 
 export class Code implements DurableObject {
@@ -37,7 +37,6 @@ export class Code implements DurableObject {
   // private historyManager: CodeHistoryManager;
 
   constructor(private state: DurableObjectState, private env: Env) {
-    const durableObject = this;
     this.env = env;
     // this.historyManager = createCodeHistoryManager(this.env);
     this.xLog = async (c: ICodeSession) => console.log({ ...c }); // this.historyManager.logCodeSpace.bind(this.historyManager);
@@ -57,7 +56,7 @@ export class Code implements DurableObject {
     });
 
     this.session = this.backupSession;
-    this.wsHandler = new WebSocketHandler(durableObject);
+    this.wsHandler = new WebSocketHandler(this);
     this.routeHandler = new RouteHandler(this);
   }
 
@@ -132,11 +131,8 @@ export class Code implements DurableObject {
       } finally {
         this.initialized = true;
 
-        if (this.session.i > 10000) {
-          await this.updateAndBroadcastSession({
-            ...this.session,
-            i: 1,
-          });
+        if (this.session) {
+          this.xLog(this.session);
         }
       }
     });
@@ -200,7 +196,7 @@ export class Code implements DurableObject {
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
         const newSession = await request.json();
-        await this.updateAndBroadcastSession(newSession);
+        this.updateAndBroadcastSession(newSession);
       }
     } catch (e) {
       console.error(e);
@@ -217,26 +213,6 @@ export class Code implements DurableObject {
 
       if (!this.origin) {
         this.origin = url.origin;
-      }
-
-      if (!this.session.transpiled) {
-        try {
-          const transpiled = (await fetch("https://esbuild.spikeland.workers.dev", {
-            method: "POST",
-            body: this.session.code,
-            headers: {
-              "TR_ORIGIN": this.origin,
-              // Include any additional headers required for authentication
-            },
-          })).text();
-
-          await this.updateAndBroadcastSession(
-            sanitizeSession(...this.session, transpiled),
-          );
-        } catch (error) {
-          console.error("Error transpiling code:", error);
-          // Handle the error as appropriate for your application
-        }
       }
 
       const path = url.pathname.slice(1).split("/");
@@ -275,7 +251,7 @@ export class Code implements DurableObject {
     this.autoSave();
   }
 
-  async updateAndBroadcastSession(newSession: ICodeSession, wsSession?: WebsocketSession) {
+  updateAndBroadcastSession(newSession: ICodeSession, wsSession?: WebsocketSession) {
     const oldHash = computeSessionHash(this.session);
     const newHash = computeSessionHash(newSession);
 
@@ -287,7 +263,7 @@ export class Code implements DurableObject {
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
-    await this.state.storage.put("session", newSession);
+    this.state.storage.put("session", this.session);
   }
 
   getState() {
@@ -313,7 +289,7 @@ export class Code implements DurableObject {
   async restoreFromAutoSave(timestamp: number): Promise<boolean> {
     const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
-      await this.updateAndBroadcastSession({
+      this.updateAndBroadcastSession({
         ...this.session,
         code: entry.code,
       });
