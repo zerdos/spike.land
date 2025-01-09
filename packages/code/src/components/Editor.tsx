@@ -18,7 +18,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
   // Convert to state to avoid ref mutations
-  // const [changeId, setChangeId] = useState(0);
+  const [changeId, setChangeId] = useState(0);
   const [recentChanges] = useState(() => new Set<string>());
 
   const handleContentChange = useCallback(async (newCode: string) => {
@@ -33,7 +33,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       recentChanges.delete(oldestChange);
     }
 
-    // setChangeId(id => id + 1);
+    setChangeId(id => id + 1);
     await cSess.setCode(newCode);
     throttledTypeCheck();
   }, [editorState.code, cSess]);
@@ -43,6 +43,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       if (sess.code === editorState.code) return;
+      if (sess.i <= changeId) return;
+      setChangeId(sess.i);
 
       const formatted = await prettierToThrow({
         code: sess.code,
@@ -71,6 +73,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         code: cSess.session.code,
         onChange: handleContentChange,
       });
+
+      setChangeId(cSess.session.i);
 
       setEditorState(prev => ({
         ...prev,
