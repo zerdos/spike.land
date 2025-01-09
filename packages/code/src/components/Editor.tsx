@@ -1,5 +1,4 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import React, { useCallback, useEffect, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
@@ -19,19 +18,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   // Convert to state to avoid ref mutations
   const [changeId, setChangeId] = useState(0);
-  const [recentChanges] = useState(() => new Set<string>());
 
   const handleContentChange = useCallback(async (newCode: string) => {
     if (newCode === editorState.code) return;
-
-    const changeHash = md5(newCode);
-    if (recentChanges.has(changeHash)) return;
-
-    recentChanges.add(changeHash);
-    if (recentChanges.size > 20) {
-      const oldestChange = recentChanges.values().next().value!;
-      recentChanges.delete(oldestChange);
-    }
 
     setChangeId(id => id + 1);
     await cSess.setCode(newCode);
