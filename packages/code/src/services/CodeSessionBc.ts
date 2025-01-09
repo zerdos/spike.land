@@ -82,8 +82,12 @@ export class CodeSessionBC {
       ) => response.json())) as ICodeSession;
   }
 
-  sub(callback: (session: ICodeSession) => void): void {
+  sub(callback: (session: ICodeSession) => void): () => void {
     this.subscribers.push(callback);
+    return () => {
+      this.subscribers = this.subscribers.filter((cb) => cb !== callback);
+      return;
+    };
   }
   postMessage(session: ICodeSession): void {
     this.subscribers.forEach((cb) => {

@@ -89,7 +89,7 @@ export interface ICode {
     formatted: string;
     transpiled: string;
   }): Promise<boolean>;
-  sub: (fn: (sess: ICodeSession) => void) => void;
+  sub: (fn: (sess: ICodeSession) => void) => () => void;
 }
 
 export interface IRenderApp {

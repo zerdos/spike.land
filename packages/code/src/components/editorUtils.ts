@@ -207,12 +207,17 @@ export const runCode = async (
   }).handleRunMessage(transpiled);
 };
 
-export async function initializeMonaco(
-  container: HTMLDivElement,
-  codeSpace: string,
-  code: string,
-  onChange: (newCode: string) => void,
-): Promise<{
+export async function initializeMonaco({
+  container,
+  codeSpace,
+  code,
+  onChange,
+}: {
+  container: HTMLDivElement;
+  codeSpace: string;
+  code: string;
+  onChange: (newCode: string) => void;
+}): Promise<{
   getValue: () => string;
   silent: boolean;
   getErrors: () => Promise<string[]>;
@@ -228,15 +233,22 @@ export async function initializeMonaco(
   });
 }
 
-export async function initializeAce(
-  container: HTMLDivElement,
-  code: string,
-  onChange: (newCode: string) => void,
-): Promise<{
+export async function initializeAce({
+  container,
+  codeSpace,
+  code,
+  onChange,
+}: {
+  container: HTMLDivElement;
+  codeSpace: string;
+  code: string;
+  onChange: (newCode: string) => void;
+}): Promise<{
   getValue: () => string;
   getErrors: () => Promise<string[]>;
   setValue: (code: string) => void;
 }> {
+  console.log("Initializing Ace...", { container, codeSpace, code, onChange });
   const { startAce } = await import("@/external/start-ace");
   return await startAce(code, onChange, container);
 }

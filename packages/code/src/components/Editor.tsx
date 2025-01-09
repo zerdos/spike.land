@@ -1,9 +1,7 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { prettierJs } from "@/lib/prettier";
 import { prettierToThrow } from "@/lib/shared";
-import { fi } from "date-fns/locale";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeAce, initializeMonaco } from "./editorUtils";
@@ -12,129 +10,78 @@ import { EditorNode } from "./ErrorReminder";
 interface EditorProps {
   codeSpace: string;
   cSess: ICode;
-  readOnly?: boolean;
+  readOnly?: boolean; // Unused prop
 }
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
-  const mod = useRef({
-    ...(cSess.session),
-    md5Ids: [] as string[],
-    controller: new AbortController(),
-    initialLoad: React.useRef(true),
-  });
+  // Convert to state to avoid ref mutations
+  // const [changeId, setChangeId] = useState(0);
+  const [recentChanges] = useState(() => new Set<string>());
 
-  const handleContentChange = (newCode: string) => {
-    if (newCode === mod.current.code) return;
+  const handleContentChange = useCallback(async (newCode: string) => {
+    if (newCode === editorState.code) return;
 
-    const md5NewCode = md5(newCode);
+    const changeHash = md5(newCode);
+    if (recentChanges.has(changeHash)) return;
 
-    if (mod.current.md5Ids.includes(md5NewCode)) return;
-    mod.current.md5Ids.push(md5NewCode);
+    recentChanges.add(changeHash);
+    if (recentChanges.size > 20) {
+      const oldestChange = recentChanges.values().next().value!;
+      recentChanges.delete(oldestChange);
+    }
 
-    mod.current.i++;
-    mod.current.code = newCode;
-    cSess.setCode(newCode).then(() => {
-      const md5NewCode = md5(md5(cSess.session.code));
-      if (mod.current.md5Ids.includes(md5NewCode)) return;
-
-      mod.current.md5Ids.push(md5NewCode);
-    }).then(() => throttledTypeCheck(mod.current.initialLoad));
-  };
+    // setChangeId(id => id + 1);
+    await cSess.setCode(newCode);
+    throttledTypeCheck();
+  }, [editorState.code, cSess]);
 
   useEffect(() => {
-    if (!editorState || !editorState.started || !editorState.setValue) return;
+    if (!editorState.started || !editorState.setValue) return;
 
-    cSess.sub(async (sess: ICodeSession) => {
+    const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       if (sess.code === editorState.code) return;
 
-      const formatted = await prettierToThrow({ code: mod.current.code, toThrow: false });
-      if (formatted && formatted === sess.code) return;
+      const formatted = await prettierToThrow({
+        code: sess.code,
+        toThrow: false,
+      });
 
+      if (formatted && formatted === sess.code) return;
       editorState.setValue(sess.code);
     });
+
+    return () => unsubscribe();
   }, [editorState.started, cSess]);
-
-  // const BC = new BroadcastChannel(
-  //   `${location.origin}/live/${codeSpace}/`,
-  // );
-
-  // BC.onmessage = async (event) => {
-  //   const e = event.data;
-
-  //   if (e.code) {
-  //     if (mod.current.md5Ids.includes(md5(e.code))) return;
-  //     mod.current.md5Ids.push(md5(e.code));
-  //     mod.current.md5Ids = mod.current.md5Ids.slice(-10);
-
-  //     if (e.i === mod.current.i) return;
-  //     mod.current.i = e.i;
-
-  //     console.log("Setting code", e.code);
-  //     editorState.setValue(e.code);
-  //   }
-  // };
 
   useEffect(() => {
     if (errorType) {
-      throttledTypeCheck(mod.current.initialLoad);
+      throttledTypeCheck();
     }
 
-    if (editorState.started && !editorState.sub) {
-      const handleBroadcastMessage = async (
-        { data }: { data: ICodeSession; },
-      ) => {
-        const md5Code = md5(data.code);
-
-        if (mod.current.md5Ids.includes(md5Code)) return;
-
-        mod.current.md5Ids.push(md5Code);
-        mod.current.md5Ids = mod.current.md5Ids.slice(-10);
-
-        console.log("Set new code to editor", md5Code);
-        if (editorState.setValue) {
-          editorState.setValue(data.code);
-        }
-      };
-
-      cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
-
-      setEditorState((e: typeof editorState) => ({ ...e, sub: true }));
-      return;
-    }
+    if (!containerRef.current || editorState.started) return;
 
     const initializeEditor = async () => {
-      mod.current.i = Number(cSess.session.i);
-      mod.current.code = cSess.session.code;
-
-      if (!containerRef.current) return;
-
-      const editorModule = await (engine === "monaco"
-        ? initializeMonaco(
-          containerRef.current,
-          codeSpace,
-          mod.current.code,
-          handleContentChange,
-        )
-        : initializeAce(
-          containerRef.current,
-          mod.current.code,
-          handleContentChange,
-        ));
-
-      console.log("Editor initialized", mod.current.i);
-      setEditorState({
-        ...editorState,
-        started: true,
-        code: mod.current.code,
-        setValue: (code: string) => editorModule.setValue(code),
+      const initFn = engine === "monaco" ? initializeMonaco : initializeAce;
+      const { setValue } = await initFn({
+        container: containerRef.current!,
+        codeSpace,
+        code: cSess.session.code,
+        onChange: handleContentChange,
       });
+
+      setEditorState(prev => ({
+        ...prev,
+        started: true,
+        code: cSess.session.code,
+        setValue,
+      }));
     };
 
     initializeEditor();
-  }, []);
+  }, [errorType, engine]);
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">

@@ -454,8 +454,8 @@ export class Code implements ICode {
   }
 
   /** Subscribe to session changes. */
-  sub(callback: (session: ICodeSession) => void): void {
-    this.broadcastChannel.sub(callback);
+  sub(callback: (session: ICodeSession) => void): () => void {
+    return this.broadcastChannel.sub(callback);
   }
 
   /** Cleans up resources. */

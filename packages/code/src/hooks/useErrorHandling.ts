@@ -6,7 +6,7 @@ export const useErrorHandling = (engine: string) => {
   >(null);
 
   const throttledTypeCheck = useCallback(
-    async (initialLoadRef: React.MutableRefObject<boolean>) => {
+    async () => {
       if (engine === "monaco") {
         const { editor, languages } = await import("@/external/monaco-editor");
         const model = editor.getModels()[0];
@@ -17,7 +17,7 @@ export const useErrorHandling = (engine: string) => {
           model.uri.toString(),
         );
 
-        if (diagnostics.length > 0 && !initialLoadRef.current) {
+        if (diagnostics.length > 0) {
           Object.assign(globalThis, { diagnostics });
           console.error("TypeScript error:", diagnostics);
           setErrorType("typescript");
@@ -25,7 +25,6 @@ export const useErrorHandling = (engine: string) => {
           setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
         }
       }
-      initialLoadRef.current = false;
     },
     [engine],
   );
