@@ -25,7 +25,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     setChangeId(id => id + 1);
     await cSess.setCode(newCode);
     throttledTypeCheck();
-  }, [editorState.code, cSess]);
+  }, [cSess]);
 
   useEffect(() => {
     if (!editorState.started || !editorState.setValue) return;
