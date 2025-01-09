@@ -68,6 +68,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@asamuzakjp/css-color@npm:^2.8.2":
+  version: 2.8.2
+  resolution: "@asamuzakjp/css-color@npm:2.8.2"
+  dependencies:
+    "@csstools/css-calc": "npm:^2.1.1"
+    "@csstools/css-color-parser": "npm:^3.0.7"
+    "@csstools/css-parser-algorithms": "npm:^3.0.4"
+    "@csstools/css-tokenizer": "npm:^3.0.3"
+    lru-cache: "npm:^11.0.2"
+  checksum: 10c0/352b91ca7741876e459cd3cb350a969e842da1e532577157d38365a6da89b7d6e6944249489366ee61b8a225ede1b521e7ab305b70ad4c688b01404061eecca8
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.25.9, @babel/code-frame@npm:^7.26.0, @babel/code-frame@npm:^7.26.2":
   version: 7.26.2
   resolution: "@babel/code-frame@npm:7.26.2"
@@ -492,10 +505,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20241230.0":
-  version: 4.20241230.0
-  resolution: "@cloudflare/workers-types@npm:4.20241230.0"
-  checksum: 10c0/170bbbdccc3e5ca65784a94d95eaf308524a46613e247cb65ed2ca523bba838988c8238de378b78c720c05124221eaff0ccebee022770a86fe919e6078d156ed
+"@cloudflare/workers-types@npm:4.20250109.0":
+  version: 4.20250109.0
+  resolution: "@cloudflare/workers-types@npm:4.20250109.0"
+  checksum: 10c0/945de6ea746893d689be063c9d603d9c5e0956e997337f29f0dedfd7355628b9603e08cf5d530fb868de5109ecee523db9ab8b21b743e3c31f462d62338cdf39
   languageName: node
   linkType: hard
 
@@ -505,6 +518,52 @@ __metadata:
   dependencies:
     "@jridgewell/trace-mapping": "npm:0.3.9"
   checksum: 10c0/05c5368c13b662ee4c122c7bfbe5dc0b613416672a829f3e78bc49a357a197e0218d6e74e7c66cfcd04e15a179acab080bd3c69658c9fbefd0e1ccd950a07fc6
+  languageName: node
+  linkType: hard
+
+"@csstools/color-helpers@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@csstools/color-helpers@npm:5.0.1"
+  checksum: 10c0/77fa3b7236eaa3f36dea24708ac0d5e53168903624ac5aed54615752a0730cd20773fda50e742ce868012eca8c000cc39688e05869e79f34714230ab6968d1e6
+  languageName: node
+  linkType: hard
+
+"@csstools/css-calc@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@csstools/css-calc@npm:2.1.1"
+  peerDependencies:
+    "@csstools/css-parser-algorithms": ^3.0.4
+    "@csstools/css-tokenizer": ^3.0.3
+  checksum: 10c0/857c8dac40eb6ba8810408dad141bbcad060b28bce69dfd3bcf095a060fcaa23d5c4dbf52be88fcb57e12ce32c666e855dc68de1d8020851f6b432e3f9b29950
+  languageName: node
+  linkType: hard
+
+"@csstools/css-color-parser@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "@csstools/css-color-parser@npm:3.0.7"
+  dependencies:
+    "@csstools/color-helpers": "npm:^5.0.1"
+    "@csstools/css-calc": "npm:^2.1.1"
+  peerDependencies:
+    "@csstools/css-parser-algorithms": ^3.0.4
+    "@csstools/css-tokenizer": ^3.0.3
+  checksum: 10c0/b81780e6c50f0b0605776bd39bbd6203780231a561601853a9835cc70788560e7a281d0fbfe47ebe8affcb07dd64b0b1dcd4b67552520cfbe0e5088df158f12c
+  languageName: node
+  linkType: hard
+
+"@csstools/css-parser-algorithms@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@csstools/css-parser-algorithms@npm:3.0.4"
+  peerDependencies:
+    "@csstools/css-tokenizer": ^3.0.3
+  checksum: 10c0/d411f07765e14eede17bccc6bd4f90ff303694df09aabfede3fd104b2dfacfd4fe3697cd25ddad14684c850328f3f9420ebfa9f78380892492974db24ae47dbd
+  languageName: node
+  linkType: hard
+
+"@csstools/css-tokenizer@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@csstools/css-tokenizer@npm:3.0.3"
+  checksum: 10c0/c31bf410e1244b942e71798e37c54639d040cb59e0121b21712b40015fced2b0fb1ffe588434c5f8923c9cd0017cfc1c1c8f3921abc94c96edf471aac2eba5e5
   languageName: node
   linkType: hard
 
@@ -3858,7 +3917,7 @@ __metadata:
     "@clerk/clerk-sdk-node": "npm:5.1.5"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:0.5.41"
-    "@cloudflare/workers-types": "npm:4.20241230.0"
+    "@cloudflare/workers-types": "npm:4.20250109.0"
     "@remix-run/cloudflare": "npm:2.15.2"
     "@remix-run/react": "npm:2.15.2"
     "@spike-npm-land/code": "npm:0.9.56"
@@ -3878,12 +3937,12 @@ __metadata:
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
     miniflare: "npm:3.20241230.0"
-    openai: "npm:4.77.3"
+    openai: "npm:4.77.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.3"
     p-queue: "npm:8.0.1"
     replicate: "npm:1.0.1"
-    typescript: "npm:5.7.2"
+    typescript: "npm:5.7.3"
     vitest: "npm:2.1.8"
     wrangler: "npm:3.100.0"
   languageName: unknown
@@ -3962,14 +4021,14 @@ __metadata:
     "@types/object-hash": "npm:3.0.6"
     "@types/offscreencanvas": "npm:2019.7.3"
     "@types/path-browserify": "npm:1.0.3"
-    "@types/react": "npm:19.0.3"
+    "@types/react": "npm:19.0.4"
     "@types/react-dom": "npm:19.0.2"
     "@types/react-syntax-highlighter": "npm:15.5.13"
     "@types/recordrtc": "npm:5.6.14"
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.189"
+    "@types/web": "npm:0.0.190"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.19.1"
     "@typescript/ata": "npm:0.9.7"
@@ -4019,13 +4078,13 @@ __metadata:
     file-type: "npm:19.6.0"
     framer-motion: "npm:11.16.1"
     globals: "npm:15.14.0"
-    happy-dom: "npm:16.5.2"
+    happy-dom: "npm:16.5.3"
     html2canvas: "npm:1.4.1"
     i18next: "npm:24.2.1"
     immer: "npm:10.1.1"
     immutable: "npm:5.0.3"
     input-otp: "npm:^1.4.2"
-    jsdom: "npm:25.0.1"
+    jsdom: "npm:26.0.0"
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
     lucide-react: "npm:^0.469.0"
@@ -4088,7 +4147,7 @@ __metadata:
     tslib: "npm:2.8.1"
     tsx: "npm:4.19.2"
     tty-browserify: "npm:0.0.1"
-    typescript: "npm:5.7.2"
+    typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.19.1"
     url: "npm:0.11.4"
     use-immer: "npm:0.11.0"
@@ -4215,10 +4274,10 @@ __metadata:
   resolution: "@spike-npm-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20241230.0"
+    "@cloudflare/workers-types": "npm:4.20250109.0"
     "@spike-npm-land/code": "npm:0.9.56"
     esbuild-wasm: "npm:0.24.2"
-    typescript: "npm:5.7.2"
+    typescript: "npm:5.7.3"
     wrangler: "npm:3.100.0"
   languageName: unknown
   linkType: soft
@@ -5115,12 +5174,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.0.3":
-  version: 19.0.3
-  resolution: "@types/react@npm:19.0.3"
+"@types/react@npm:19.0.4":
+  version: 19.0.4
+  resolution: "@types/react@npm:19.0.4"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10c0/90129c45f2f09154d9409964964d0ccbac7f04d5f7fcf73fc146d33887931fbfdfd1e2947514298f94f986cc264aff8ba3201e9a4ea207d3308f20a06d47c805
+  checksum: 10c0/96ecd1a73af57fd7b7facf5b36ec069b131c7608a98a0f1098183023bfb21c60a26a0dc09004fbe0ac70c436ef887bbec5690882cfb77c6e0c679f7e45987722
   languageName: node
   linkType: hard
 
@@ -5237,10 +5296,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.189":
-  version: 0.0.189
-  resolution: "@types/web@npm:0.0.189"
-  checksum: 10c0/21c6aff9de7f341ea02935b9b65a16a805c2a405a5106b87de049b6aa1714672a5638677727a8fdd0fbd9f9c5f683becee39930e35fe0e829d6dcc54cc061940
+"@types/web@npm:0.0.190":
+  version: 0.0.190
+  resolution: "@types/web@npm:0.0.190"
+  checksum: 10c0/2a58b97d5246ea2574918eb67a5447c6e6b2383cd8d78558bb55570a520735e1ea9369c71be61de8902db2db59d45ab635538fa867cfdfcc0f3d6d36453fee2f
   languageName: node
   linkType: hard
 
@@ -7512,12 +7571,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssstyle@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "cssstyle@npm:4.1.0"
+"cssstyle@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "cssstyle@npm:4.2.1"
   dependencies:
-    rrweb-cssom: "npm:^0.7.1"
-  checksum: 10c0/05c6597e5d3e0ec6b15221f2c0ce9a0443a46cc50a6089a3ba9ee1ac27f83ff86a445a8f95435137dadd859f091fc61b6d342abaf396d3c910471b5b33cfcbfa
+    "@asamuzakjp/css-color": "npm:^2.8.2"
+    rrweb-cssom: "npm:^0.8.0"
+  checksum: 10c0/02ba8c47c0caaab57acadacb3eb6c0f5f009000f55d61f6563670e07d389b26edefeed497e6c1847fcd2e6bbe0b6974c2d4291f97fa0c6ec6add13a7fa926d84
   languageName: node
   linkType: hard
 
@@ -9592,7 +9652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^4.0.0":
+"form-data@npm:^4.0.0, form-data@npm:^4.0.1":
   version: 4.0.1
   resolution: "form-data@npm:4.0.1"
   dependencies:
@@ -10125,13 +10185,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:16.5.2":
-  version: 16.5.2
-  resolution: "happy-dom@npm:16.5.2"
+"happy-dom@npm:16.5.3":
+  version: 16.5.3
+  resolution: "happy-dom@npm:16.5.3"
   dependencies:
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10c0/7907cf2cca8f7152e541d594e056bf1d04f0a163e0cb2a6b3a7f2b54ea4c5cf9f5354a1a2422b251c6276b3a854f7071d77e09b6df4bce2ded27b8b7759de66e
+  checksum: 10c0/d4922e1083a4912cdb1e88ade4b81e9092c0f6bce7b0c16122d9d8b841f27643248cf27c7acfbb1c079589d6c6a25b47e1b2b4fa4331d6d35d7d033ede207ab7
   languageName: node
   linkType: hard
 
@@ -11393,21 +11453,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:25.0.1":
-  version: 25.0.1
-  resolution: "jsdom@npm:25.0.1"
+"jsdom@npm:26.0.0":
+  version: 26.0.0
+  resolution: "jsdom@npm:26.0.0"
   dependencies:
-    cssstyle: "npm:^4.1.0"
+    cssstyle: "npm:^4.2.1"
     data-urls: "npm:^5.0.0"
     decimal.js: "npm:^10.4.3"
-    form-data: "npm:^4.0.0"
+    form-data: "npm:^4.0.1"
     html-encoding-sniffer: "npm:^4.0.0"
     http-proxy-agent: "npm:^7.0.2"
-    https-proxy-agent: "npm:^7.0.5"
+    https-proxy-agent: "npm:^7.0.6"
     is-potential-custom-element-name: "npm:^1.0.1"
-    nwsapi: "npm:^2.2.12"
-    parse5: "npm:^7.1.2"
-    rrweb-cssom: "npm:^0.7.1"
+    nwsapi: "npm:^2.2.16"
+    parse5: "npm:^7.2.1"
+    rrweb-cssom: "npm:^0.8.0"
     saxes: "npm:^6.0.0"
     symbol-tree: "npm:^3.2.4"
     tough-cookie: "npm:^5.0.0"
@@ -11415,15 +11475,15 @@ __metadata:
     webidl-conversions: "npm:^7.0.0"
     whatwg-encoding: "npm:^3.1.1"
     whatwg-mimetype: "npm:^4.0.0"
-    whatwg-url: "npm:^14.0.0"
+    whatwg-url: "npm:^14.1.0"
     ws: "npm:^8.18.0"
     xml-name-validator: "npm:^5.0.0"
   peerDependencies:
-    canvas: ^2.11.2
+    canvas: ^3.0.0
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: 10c0/6bda32a6dfe4e37a30568bf51136bdb3ba9c0b72aadd6356280404275a34c9e097c8c25b5eb3c742e602623741e172da977ff456684befd77c9042ed9bf8c2b4
+  checksum: 10c0/e48725ba4027edcfc9bca5799eaec72c6561ecffe3675a8ff87fe9c3541ca4ff9f82b4eff5b3d9c527302da0d859b2f60e9364347a5d42b77f5c76c436c569dc
   languageName: node
   linkType: hard
 
@@ -11929,7 +11989,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.0.0":
+"lru-cache@npm:^11.0.0, lru-cache@npm:^11.0.2":
   version: 11.0.2
   resolution: "lru-cache@npm:11.0.2"
   checksum: 10c0/c993b8e06ead0b24b969c1dbb5b301716aed66e320e9014a80012f5febe280b438f28ff50046b2c55ff404e889351ccb332ff91f8dd175a21f5eae80e3fb155f
@@ -12857,7 +12917,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20241230.0"
+    "@cloudflare/workers-types": "npm:4.20250109.0"
     "@eslint/js": "npm:9.17.0"
     "@typescript-eslint/parser": "npm:8.19.1"
     "@yarnpkg/sdks": "npm:3.2.0"
@@ -12865,7 +12925,7 @@ __metadata:
     dprint: "npm:0.48.0"
     eslint: "npm:9.17.0"
     eslint-plugin-react: "npm:7.37.3"
-    typescript: "npm:5.7.2"
+    typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.19.1"
   languageName: unknown
   linkType: soft
@@ -13238,7 +13298,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nwsapi@npm:^2.2.12":
+"nwsapi@npm:^2.2.16":
   version: 2.2.16
   resolution: "nwsapi@npm:2.2.16"
   checksum: 10c0/0aa0637f4d51043d0183d994e08336bae996b03b42984381bf09ebdf3ff4909c018eda6b2a8aba0a08f3ea8303db8a0dad0608b38dc0bff15fd87017286ae21a
@@ -13383,9 +13443,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.77.3":
-  version: 4.77.3
-  resolution: "openai@npm:4.77.3"
+"openai@npm:4.77.4":
+  version: 4.77.4
+  resolution: "openai@npm:4.77.4"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -13401,7 +13461,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/b90a4071cc1a8257339e3001377396226422519d168ae3c05b5abc662bbac2009c5ccd37f0112c431b0ce45d83e616305ee264846ddb2f2129f186faf9b5a8cc
+  checksum: 10c0/cd63a98ce77fb528d12745962b66b229d0ec5243c19d2796933df540b0732a3c323c205575fcfa096ecfa8e39d84e058f8942c45b5655df571bece1d7ffa7301
   languageName: node
   linkType: hard
 
@@ -13706,7 +13766,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:^7.1.2":
+"parse5@npm:^7.2.1":
   version: 7.2.1
   resolution: "parse5@npm:7.2.1"
   dependencies:
@@ -15449,10 +15509,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rrweb-cssom@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "rrweb-cssom@npm:0.7.1"
-  checksum: 10c0/127b8ca6c8aac45e2755abbae6138d4a813b1bedc2caabf79466ae83ab3cfc84b5bfab513b7033f0aa4561c7753edf787d0dd01163ceacdee2e8eb1b6bf7237e
+"rrweb-cssom@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "rrweb-cssom@npm:0.8.0"
+  checksum: 10c0/56f2bfd56733adb92c0b56e274c43f864b8dd48784d6fe946ef5ff8d438234015e59ad837fc2ad54714b6421384141c1add4eb569e72054e350d1f8a50b8ac7b
   languageName: node
   linkType: hard
 
@@ -16051,13 +16111,13 @@ __metadata:
   dependencies:
     "@cloudflare/puppeteer": "npm:0.0.14"
     "@cloudflare/vitest-pool-workers": "npm:0.5.41"
-    "@cloudflare/workers-types": "npm:4.20241230.0"
+    "@cloudflare/workers-types": "npm:4.20250109.0"
     "@types/esprima": "npm:4.0.6"
     "@types/node": "npm:22.10.5"
     "@vitest/runner": "npm:2.1.8"
     "@vitest/snapshot": "npm:2.1.8"
     esprima: "npm:4.0.1"
-    typescript: "npm:5.7.2"
+    typescript: "npm:5.7.3"
     vitest: "npm:2.1.8"
     wrangler: "npm:3.100.0"
   languageName: unknown
@@ -17229,23 +17289,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.7.2":
-  version: 5.7.2
-  resolution: "typescript@npm:5.7.2"
+"typescript@npm:5.7.3":
+  version: 5.7.3
+  resolution: "typescript@npm:5.7.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/a873118b5201b2ef332127ef5c63fb9d9c155e6fdbe211cbd9d8e65877283797cca76546bad742eea36ed7efbe3424a30376818f79c7318512064e8625d61622
+  checksum: 10c0/b7580d716cf1824736cc6e628ab4cd8b51877408ba2be0869d2866da35ef8366dd6ae9eb9d0851470a39be17cbd61df1126f9e211d8799d764ea7431d5435afa
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>":
-  version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
+"typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>":
+  version: 5.7.3
+  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
+  checksum: 10c0/6fd7e0ed3bf23a81246878c613423730c40e8bdbfec4c6e4d7bf1b847cbb39076e56ad5f50aa9d7ebd89877999abaee216002d3f2818885e41c907caaa192cc4
   languageName: node
   linkType: hard
 
@@ -17999,7 +18059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"whatwg-url@npm:^14.0.0":
+"whatwg-url@npm:^14.0.0, whatwg-url@npm:^14.1.0":
   version: 14.1.0
   resolution: "whatwg-url@npm:14.1.0"
   dependencies:
