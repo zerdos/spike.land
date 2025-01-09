@@ -3,7 +3,7 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import type { CodePatch, Diff } from "@spike-npm-land/code";
 import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
-import { Code } from "./chatRoom";
+import type { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
 
@@ -84,7 +84,9 @@ export class WebSocketHandler {
       }
     }, PING_TIMEOUT);
 
-    webSocket.addEventListener("message", (msg) => this.processWsMessage(msg as any, session));
+    webSocket.addEventListener("message", (msg) => {
+      this.processWsMessage(msg as MessageEvent, session);
+    });
 
     const closeOrErrorHandler = () => {
       session.quit = true;
