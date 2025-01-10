@@ -1,7 +1,5 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow } from "@/lib/shared";
-import { edit } from "ace-builds";
-import { set } from "immutable";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -66,11 +64,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     if (errorType) throttledTypeCheck();
 
     // Exit early if we already started or no container to render into
-    if (!containerRef.current || editorState.started) return;
+    if (containerRef.current === null || editorState.started) return;
 
     (async () => {
       const { setValue } = await initializeEditor({
-        container: containerRef.current,
+        container: containerRef.current!,
         codeSpace,
         code: cSess.session.code,
         onChange: handleContentChange,
