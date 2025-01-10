@@ -36,7 +36,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       setChangeId(sess.i);
 
       const formatted = await prettierToThrow({
-        code: sess.code,
+        code: editorState.code,
         toThrow: false,
       });
 
@@ -45,7 +45,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     });
 
     return () => unsubscribe();
-  }, [editorState.started, cSess]);
+  }, [editorState.started, editorState.code, cSess]);
 
   useEffect(() => {
     if (errorType) {
