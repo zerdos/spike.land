@@ -26,6 +26,9 @@ class SessMock implements ICode {
 
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
+    return () => {
+      this.subs = this.subs.filter((f) => f !== fn);
+    };
   }
 
   async setMessages(messages: Message[]) {
