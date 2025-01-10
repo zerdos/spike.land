@@ -1,5 +1,7 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow } from "@/lib/shared";
+import { edit } from "ace-builds";
+import { set } from "immutable";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -50,6 +52,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         toThrow: false,
       });
       if (formatted && formatted === sess.code) return;
+      setEditorState((prev) => ({ ...prev, code: sess.code }));
 
       editorState.setValue(sess.code);
     });
