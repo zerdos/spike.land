@@ -88,6 +88,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
         >
           <div className="flex flex-col h-full w-full">
             <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>
+            <Drawer.Description className="sr-only">
+              A chat interface for interacting with the AI assistant. Contains message history and
+              input field for new messages.
+            </Drawer.Description>
             <MemoizedChatHeader
               isDarkMode={isDarkMode}
               toggleDarkMode={toggleDarkMode}
