@@ -8,8 +8,6 @@ dist
 dts
 @
 styles
-tw.html
-tw-chunk-be5bad.js
 *.css
 *.d.ts
 assets
@@ -29,7 +27,6 @@ assets/manifest.webmanifest
 __snapshots__
 @/**/*
 assets/app.css
-assets/tw-chunk-be5bad.js
 *.spec.ts
 __tests__
 *.test.ts

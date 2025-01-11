@@ -111,7 +111,6 @@ export const getSpeedy2 = async () => {
  
 </body>
 </html>`;
-  // <script src="/assets/tw-chunk-be5bad.js" defer></script>
   await fetch(`/live-cms/${codeSpace}.html`, {
     method: "PUT",
     headers: {
@@ -147,7 +146,6 @@ export const useArchive = async (codeSpace: string) => {
 
   const gJunk = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
-  const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
   const html = `<!DOCTYPE html>
@@ -168,7 +166,6 @@ export const useArchive = async (codeSpace: string) => {
   <div id="embed">${htm}</div>
   <script>
   ${indexMjs}
-  ${twJS}
   </script>
 </body>
 </html>`;
@@ -291,7 +288,6 @@ export const useSpeedy = async (codeSpace: string) => {
 
   // await fetch(f.path.slice(1), {method: "PUT", body, headers: {"Content-Type": `font/${extension}`}});
 
-  const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
   const html = `<!DOCTYPE html>
@@ -311,9 +307,6 @@ export const useSpeedy = async (codeSpace: string) => {
   <script type="module">
   ${indexMjs[0].text.split("@import url(").join("//@import url(")}
   </script>
-  <script>
-    ${twJS}
-</script>
 </body>
 </html>`;
 

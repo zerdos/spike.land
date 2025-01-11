@@ -11,7 +11,6 @@ module.exports = [
     ignores: [
       "dist/**/*",
       "dts/**/*",
-      "tw-chunk**",
       "node_modules/**/*",
     ],
   },

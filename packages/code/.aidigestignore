@@ -8,8 +8,7 @@ dist
 dts
 src/@
 styles
-tw.html
-tw-chunk-be5bad.js
+
 *.css
 *.d.ts
 *.test.ts
@@ -30,7 +29,6 @@ src/assets/manifest.webmanifest
 __snapshots__
 src/@/**/*
 src/assets/app.css
-src/assets/tw-chunk-be5bad.js
 *.spec.ts
 src/__test__/__snapshots__/importmapReplace.spec.ts.snap
 src/__test__/getDirectoryEntriesRecursive.spec.ts
