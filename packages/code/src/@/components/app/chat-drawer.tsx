@@ -1,7 +1,6 @@
 import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { MessageInput } from "@/components/app/message-input";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot } from "@/external/lucideReact";
 import type { ChatDrawerProps } from "@/lib/interfaces";
@@ -64,13 +63,14 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
 
   return (
     <Drawer.Root direction="right" open={isOpen} modal={false}>
-      <Drawer.Trigger className="relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white">
-        <Button
-          onClick={handleButtonClick}
-          className={buttonClassName}
-        >
-          <Bot className="h-6 w-6" />
-        </Button>
+      <Drawer.Trigger
+        onClick={handleButtonClick}
+        className={cn(
+          buttonClassName,
+          "relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white",
+        )}
+      >
+        <Bot className="h-6 w-6" />
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
