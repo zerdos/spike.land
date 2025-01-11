@@ -99,7 +99,6 @@ export interface IRenderApp {
   codeSpace?: string;
   transpiled?: string;
   code?: string;
-  prerender?: boolean;
 }
 
 export interface RenderedApp {

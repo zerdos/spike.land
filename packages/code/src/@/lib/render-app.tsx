@@ -46,7 +46,7 @@ declare global {
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, prerender = false }: IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement ||
@@ -71,7 +71,7 @@ async function renderApp(
           "export default ()=><div>Empty App</div>",
         );
       } else {
-        const codeToUse = transpiled || transpiled ||
+        const codeToUse = transpiled = transpiled ||
           await (transpile({ code: code!, originToUse: origin }));
         AppToRender = await importFromString(codeToUse);
       }
@@ -84,14 +84,7 @@ async function renderApp(
       );
     }
 
-    let root;
-    if (prerender) {
-      const shadowRoot = rootEl.attachShadow({ mode: "open" });
-
-      root = createRoot(shadowRoot);
-    } else {
-      root = createRoot(rootEl);
-    }
+    const root = createRoot(rootEl);
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");
@@ -100,9 +93,10 @@ async function renderApp(
 
     const cssCache = createCache({
       key: firstRender ? "x" : cacheKey,
-      speedy: prerender ? false : true,
-      container: prerender ? rootEl : rootEl.parentNode!,
+      speedy: true,
+      container: rootEl.parentNode!,
     });
+
     firstRender = false;
 
     const AppWithScreenSize: React.FC = React.memo(
