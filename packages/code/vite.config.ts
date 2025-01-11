@@ -52,6 +52,7 @@ const externalAliases = externalRollup.reduce(
     fileParts.pop();
     file.file = fileParts.join(".");
     file.file = file.file.replace("/@/external/", "@/external/");
+
     acc[file.file] = "/" + file.file + ".mjs";
 
     //  acc[file.file] = file.file;
