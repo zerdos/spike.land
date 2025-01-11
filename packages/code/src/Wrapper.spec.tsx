@@ -4,9 +4,29 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./shared", () => ({
-  transpile: vi.fn().mockResolvedValue("mocked transpiled code"),
-}));
+vi.mock("@/lib/shared", () => {
+  const mockRpc = {
+    rpc: vi.fn().mockResolvedValue("mocked transpiled code"),
+    signal: vi.fn(),
+  };
+
+  const mockWorkerWrapper = {
+    rpc: mockRpc,
+    busy: false,
+    tag: "default",
+  };
+
+  const mockWorkerPool = {
+    getWorker: vi.fn().mockReturnValue(mockWorkerWrapper),
+    releaseWorker: vi.fn(),
+  };
+
+  return {
+    transpile: vi.fn().mockResolvedValue("mocked transpiled code"),
+    WorkerPool: vi.fn().mockImplementation(() => mockWorkerPool),
+    WorkerWrapper: vi.fn().mockImplementation(() => mockWorkerWrapper),
+  };
+});
 
 vi.mock("@external/responsive", () => ({
   ParentSize: (
@@ -17,7 +37,7 @@ vi.mock("@external/responsive", () => ({
 }));
 
 // Mock the useTranspile hook
-vi.mock("./Wrapper", async () => {
+vi.mock("@/components/app/wrapper", async () => {
   const actualModule = await vi.importActual<typeof WapMod>(
     "@/components/app/wrapper",
   );

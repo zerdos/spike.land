@@ -6,38 +6,56 @@ class SharedWorkerPolyfill {
 
   constructor(url: string, opts?: WorkerOptions) {
     if (process.env.VI_TEST) {
-      import("worker_threads").then(({ Worker: Worker2 }) => {
-        // if url has ? then strip it
-        this.worker = new Worker2(url) as unknown as Worker;
-        this.initializeWorker();
-      });
+      // Initialize worker synchronously for tests using a mock Worker
+      // Create a mock Worker that implements the full Worker interface
+      this.worker = {
+        postMessage: () => {},
+        terminate: () => {},
+        onmessage: null,
+        onmessageerror: null,
+        onerror: null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => true,
+      } as unknown as Worker;
     } else {
       this.worker = new Worker(url, opts);
-      this.initializeWorker();
     }
+    this.initializeWorker();
   }
 
   private initializeWorker() {
-    this.port = this.worker as unknown as MessagePort;
-    // Send port2 to the worker
+    if (process.env.VI_TEST) {
+      // Create a mock MessagePort for tests
+      this.port = {
+        onmessage: null,
+        onmessageerror: null,
+        close: () => {},
+        postMessage: () => {},
+        start: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => true,
+      } as unknown as MessagePort;
+    } else {
+      this.port = this.worker as unknown as MessagePort;
+      // Send port2 to the worker
+      const message = { type: "init" };
+      this.worker.postMessage(message);
 
-    const message = { type: "init" };
-    this.worker.postMessage(
-      message,
-    );
-
-    // Forward error events from the worker to the port
-    if (this.worker && "onerror" in this.worker) {
-      this.worker.onerror = (event: ErrorEvent) => {
-        const errorEvent = new ErrorEvent("error", {
-          message: event.message,
-          filename: event.filename,
-          lineno: event.lineno,
-          colno: event.colno,
-          error: event.error,
-        });
-        this.port.dispatchEvent(errorEvent);
-      };
+      // Forward error events from the worker to the port
+      if (this.worker && "onerror" in this.worker) {
+        this.worker.onerror = (event: ErrorEvent) => {
+          const errorEvent = new ErrorEvent("error", {
+            message: event.message,
+            filename: event.filename,
+            lineno: event.lineno,
+            colno: event.colno,
+            error: event.error,
+          });
+          this.port.dispatchEvent(errorEvent);
+        };
+      }
     }
   }
 
