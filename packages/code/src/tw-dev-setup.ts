@@ -45,10 +45,12 @@ class ResourceLoaderImpl implements ResourceLoader {
 
   private loadScript(src: string): Promise<void> {
     return new Promise((resolve, reject) => {
+      import(src);
+
       const script = document.createElement("script");
       script.src = src;
       script.onload = () => resolve();
-      script.onerror = () => reject(new Error(`Script load failed: ${src}`));
+      script.onerror = (error) => reject(error);
       document.head.appendChild(script);
     });
   }
