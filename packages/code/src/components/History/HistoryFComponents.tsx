@@ -2,13 +2,7 @@ import { Wrapper } from "@/components/app/wrapper";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
@@ -43,13 +37,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
           <DialogContent
             className={cn("max-w-3xl max-h-[80vh] overflow-y-auto")}
           >
-            <DialogHeader>
-              <DialogTitle
-                aria-describedby={`source-code-${totalItems - index}`}
-              >
-                Source Code - Version {totalItems - index}
-              </DialogTitle>
-            </DialogHeader>
+            <DialogTitle>Source Code - Version {totalItems - index}</DialogTitle>
             <pre className={cn("bg-gray-100 p-4 rounded-md overflow-x-auto")}>
               <code>{item.code}</code>
             </pre>
