@@ -87,6 +87,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
           } as React.CSSProperties}
         >
           <div className="flex flex-col h-full w-full">
+            <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>
             <MemoizedChatHeader
               isDarkMode={isDarkMode}
               toggleDarkMode={toggleDarkMode}
