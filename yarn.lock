@@ -5281,6 +5281,7 @@ __metadata:
     "@rollup/plugin-html": "npm:1.1.0"
     "@tabler/icons-react": "npm:3.28.1"
     "@tailwindcss/aspect-ratio": "npm:0.4.2"
+    "@tailwindcss/browser": "npm:^4.0.0-beta.9"
     "@tailwindcss/container-queries": "npm:0.1.1"
     "@tailwindcss/forms": "npm:0.5.10"
     "@tailwindcss/line-clamp": "npm:0.4.4"
@@ -5736,6 +5737,13 @@ __metadata:
   peerDependencies:
     tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
   checksum: 10c0/c821a8061f80200b20db26f9cf2a711ffb17814adf847a72d4d4632804d1cabf6671df8e99e06cedfb2ba97b968d7843cd435d1201519c86acdde702efca418b
+  languageName: node
+  linkType: hard
+
+"@tailwindcss/browser@npm:^4.0.0-beta.9":
+  version: 4.0.0-beta.9
+  resolution: "@tailwindcss/browser@npm:4.0.0-beta.9"
+  checksum: 10c0/437d85bea9b954914612424651a95479019449cbe6b1207999fd1a02fe9f072b08db6131b538efb0a8a4fb0805da5075c5bb83bbf7412e9b91f5fd79f9e7b5c3
   languageName: node
   linkType: hard
 

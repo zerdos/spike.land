@@ -48,8 +48,6 @@ export const getSpeedy2 = async () => {
   const globCss = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
-  const shims = await fetch(`/assets/tw-chunk-4a7018.js`).then((res) => res.text());
-
   const wrapperJs = res.find((x) => x.path.includes("wrapper.mjs"))?.text || "";
   const wrapperCss = res.find((x) => x.path.includes("wrapper.css"))?.text ||
     "";
@@ -109,7 +107,6 @@ export const getSpeedy2 = async () => {
 <body>
   <div id="embed">${htm}</div>
   <script type="module">${wrapperJs}</script>
-  <script>${shims}</script>
 
  
 </body>

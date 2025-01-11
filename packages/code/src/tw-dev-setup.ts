@@ -4,7 +4,6 @@ interface ResourceLoader {
 
 class ResourceLoaderImpl implements ResourceLoader {
   private static readonly IFRAME_PATH = "/iframe";
-  private static readonly JS_PATH = "/assets/tw-chunk-4a7018.js";
 
   private static initialized = false;
 
@@ -39,18 +38,7 @@ class ResourceLoaderImpl implements ResourceLoader {
 
   private async loadResources(): Promise<void> {
     this.removeAllStyleBlocks();
-    const { origin } = window.location;
-    await this.loadScript(`${origin}${ResourceLoaderImpl.JS_PATH}`);
-  }
-
-  private loadScript(src: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error(`Script load failed: ${src}`));
-      document.head.appendChild(script);
-    });
+    await import("@tailwindcss/browser");
   }
 
   private removeAllStyleBlocks(): void {
