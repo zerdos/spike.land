@@ -99,7 +99,7 @@ export const Suggestions: React.FC<SuggestionsProps> = (
                 descriptionClasses,
                 isDarkMode ? "text-gray-400" : "text-gray-600",
               )}
-              style={{ maxWidth: "100%", wordBreak: "break-word" }}
+              css={{ maxWidth: "100%", wordBreak: "break-word" }}
             >
               {suggestion.description}
             </p>
