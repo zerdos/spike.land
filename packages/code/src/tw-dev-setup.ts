@@ -38,7 +38,7 @@ class ResourceLoaderImpl implements ResourceLoader {
   }
 
   private async loadResources(): Promise<void> {
-    this.removeAllStyleBlocks();
+    // this.removeAllStyleBlocks();
     const { origin } = window.location;
     await this.loadScript(`${origin}${ResourceLoaderImpl.JS_PATH}`);
   }
@@ -49,13 +49,11 @@ class ResourceLoaderImpl implements ResourceLoader {
     });
   }
 
-  private removeAllStyleBlocks(): void {
-    document.querySelectorAll("head > style").forEach((block) => block.remove());
-  }
+  // private removeAllStyleBlocks(): void {
+  //   document.querySelectorAll("head > style").forEach((block) => block.remove());
+  // }
 }
 
 // Singleton instance
 export const resourceLoader = new ResourceLoaderImpl();
 export const init = () => resourceLoader.init();
-
-init();
