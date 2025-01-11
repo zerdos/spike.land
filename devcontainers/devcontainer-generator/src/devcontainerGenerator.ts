@@ -35,8 +35,8 @@ export class DevcontainerGenerator {
   private _dockerfile = "";
   private _readme = "";
 
-  private _dockerTemplates: { [key: string]: string } = {};
-  private _readmeTemplates: { [key: string]: string } = {};
+  private _dockerTemplates: { [key: string]: string; } = {};
+  private _readmeTemplates: { [key: string]: string; } = {};
 
   private _templateInputs = [
     "base",

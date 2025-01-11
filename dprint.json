@@ -14,11 +14,12 @@
     "indentWidth": 2
   },
   "markdown": {},
-  "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md}"],
+  "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md,json,html}"],
   "excludes": [
     "**/tw.js",
     "**/node_modules",
     "**/*-lock.json",
+    ".yarn",
     "**/dts",
     "**/dist",
     "**/dist-vite"
