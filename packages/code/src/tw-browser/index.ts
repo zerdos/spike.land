@@ -113,11 +113,11 @@ async function createCompiler() {
 }
 
 async function loadStylesheet(id: string, base: string) {
-  function load() {
+  async function load() {
     if (id === "tailwindcss") {
       return {
         base,
-        content: assets.css.index,
+        content: await (await (await fetch("/start.css")).text()),
       };
     } else if (
       id === "tailwindcss/preflight" ||
@@ -152,7 +152,7 @@ async function loadStylesheet(id: string, base: string) {
   }
 
   try {
-    const sheet = load();
+    const sheet = await load();
 
     I.hit(`Loaded stylesheet`, {
       id,

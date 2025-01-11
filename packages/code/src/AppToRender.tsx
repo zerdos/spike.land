@@ -105,7 +105,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
               : null}
             <iframe
               src={`/live/${codeSpace}/iframe`}
-              style={{
+              css={{
                 display: iframeSrc.includes("/iframe") ? "block" : "none",
               }}
               title="Live Preview"
