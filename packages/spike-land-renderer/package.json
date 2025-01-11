@@ -11,7 +11,7 @@
     "cf-typegen": "wrangler types"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.5.41",
+    "@cloudflare/vitest-pool-workers": "0.6.0",
     "@cloudflare/workers-types": "4.20250109.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.10.5",
@@ -20,7 +20,7 @@
     "esprima": "4.0.1",
     "typescript": "5.7.3",
     "vitest": "2.1.8",
-    "wrangler": "3.100.0"
+    "wrangler": "3.101.0"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "0.0.14"
