@@ -4,7 +4,7 @@ interface ResourceLoader {
 
 class ResourceLoaderImpl implements ResourceLoader {
   private static readonly IFRAME_PATH = "/iframe";
-  private static readonly JS_PATH = "/@/workers/tw-browser.js";
+  private static readonly JS_PATH = "/@/workers/tw.worker.js";
 
   private static initialized = false;
 
