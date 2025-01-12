@@ -57,3 +57,4 @@ class ResourceLoaderImpl implements ResourceLoader {
 // Singleton instance
 export const resourceLoader = new ResourceLoaderImpl();
 export const init = () => resourceLoader.init();
+init();
