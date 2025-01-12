@@ -65,14 +65,6 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
 
   useEffect(() => {
     (async () => {
-      //   //   if (location.origin.includes("localhost")) {
-      //   //   const fakeResponse = await fakeServer({url: `${location.origin}/live/${codeSpace}/iframe`} as Request);
-      //   //   const indexHtml = await fakeResponse.blob();
-
-      //   //   console.log("indexHtml", indexHtml);
-
-      //   //  const iframeUrl =   URL.createObjectURL(indexHtml);
-
       const iframe = `/live/${codeSpace}/iframe`;
 
       setTimeout(() => setIframeSrc(iframe), 2000);
@@ -96,22 +88,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
-          <>
-            {iframeSrc.includes("dehydrated")
-              ? (
-                <iframe title="Live preview" src={iframeSrc}>
-                </iframe>
-              )
-              : null}
-            <iframe
-              src={`/live/${codeSpace}/iframe`}
-              css={{
-                display: iframeSrc.includes("/iframe") ? "block" : "none",
-              }}
-              title="Live Preview"
-            >
-            </iframe>
-          </>
+          <iframe title="Live preview" src={iframeSrc} />
         </DraggableWindow>
 
         <RainbowWrapper>
