@@ -95,8 +95,8 @@ const handleRender = async (
     const tailWindClassesX = [
       ...document.querySelectorAll<HTMLStyleElement>("head > style"),
     ].map(
-      (z) => ([...(z.sheet?.cssRules || [])].map((x) => x.cssText)),
-    ).flat().join("\n");
+      (z) => z.innerHTML,
+    ).join("\n");
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
