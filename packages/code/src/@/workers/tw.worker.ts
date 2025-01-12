@@ -1,1 +1,1 @@
-import "../../tw-browser/index.ts";
+import "@tailwindcss/browser";
