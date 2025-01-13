@@ -5303,8 +5303,8 @@ __metadata:
     "@types/object-hash": "npm:3.0.6"
     "@types/offscreencanvas": "npm:2019.7.3"
     "@types/path-browserify": "npm:1.0.3"
-    "@types/react": "npm:19.0.4"
-    "@types/react-dom": "npm:19.0.2"
+    "@types/react": "npm:19.0.6"
+    "@types/react-dom": "npm:19.0.3"
     "@types/react-syntax-highlighter": "npm:15.5.13"
     "@types/recordrtc": "npm:5.6.14"
     "@types/serve-handler": "npm:6.1.4"
@@ -5388,7 +5388,7 @@ __metadata:
     postcss-import: "npm:16.1.0"
     postcss-js: "npm:4.0.1"
     preact: "npm:10.25.4"
-    preact-render-to-string: "npm:6.5.12"
+    preact-render-to-string: "npm:6.5.13"
     prettier: "npm:3.4.2"
     prism-react-renderer: "npm:2.4.1"
     process: "npm:0.11.10"
@@ -6427,12 +6427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:19.0.2":
-  version: 19.0.2
-  resolution: "@types/react-dom@npm:19.0.2"
+"@types/react-dom@npm:19.0.3":
+  version: 19.0.3
+  resolution: "@types/react-dom@npm:19.0.3"
   peerDependencies:
     "@types/react": ^19.0.0
-  checksum: 10c0/3d0c7b78dbe8df64ea769f30af990a5950173a8321c745fe11094d765423f7964c3519dca6e7cd36b4be6521c8efc690bdd3b79b327b229dd1e9d5a8bad677dd
+  checksum: 10c0/3867427b333cbe8cbba496d7cc20ec9676d32c25ae44f4d1263a4129d42e57cf4adf0039ad263432f1215b88075c27d326e7eb4ed646128235d01a76e661d48f
   languageName: node
   linkType: hard
 
@@ -6454,12 +6454,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:19.0.4":
+"@types/react@npm:*":
   version: 19.0.4
   resolution: "@types/react@npm:19.0.4"
   dependencies:
     csstype: "npm:^3.0.2"
   checksum: 10c0/96ecd1a73af57fd7b7facf5b36ec069b131c7608a98a0f1098183023bfb21c60a26a0dc09004fbe0ac70c436ef887bbec5690882cfb77c6e0c679f7e45987722
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:19.0.6":
+  version: 19.0.6
+  resolution: "@types/react@npm:19.0.6"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/4ddb0ad2a92940c0323996c2efbae9712e562e1d60d1015ba5088ca8e8db32f1804516a2971e6fa7a95bda9aa9c1896c86c32739213ef12527924c021b0145bf
   languageName: node
   linkType: hard
 
@@ -10294,9 +10303,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.37.3":
-  version: 7.37.3
-  resolution: "eslint-plugin-react@npm:7.37.3"
+"eslint-plugin-react@npm:7.37.4":
+  version: 7.37.4
+  resolution: "eslint-plugin-react@npm:7.37.4"
   dependencies:
     array-includes: "npm:^3.1.8"
     array.prototype.findlast: "npm:^1.2.5"
@@ -10318,7 +10327,7 @@ __metadata:
     string.prototype.repeat: "npm:^1.0.0"
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
-  checksum: 10c0/e8b267ab928c63e651e35ba936e84098f4189fbaebbf3607341e6affedcfe39f2afba85fb3ef83ec322b32829b22d7433230eb6af0f692d262473c6a19441ba5
+  checksum: 10c0/4acbbdb19669dfa9a162ed8847c3ad1918f6aea1ceb675ee320b5d903b4e463fdef25e15233295b6d0a726fef2ea8b015c527da769c7690932ddc52d5b82ba12
   languageName: node
   linkType: hard
 
@@ -14184,7 +14193,7 @@ __metadata:
     diff-match-patch-ts: "npm:^0.6.0"
     dprint: "npm:0.48.0"
     eslint: "npm:9.18.0"
-    eslint-plugin-react: "npm:7.37.3"
+    eslint-plugin-react: "npm:7.37.4"
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.19.1"
   languageName: unknown
@@ -15452,12 +15461,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact-render-to-string@npm:6.5.12":
-  version: 6.5.12
-  resolution: "preact-render-to-string@npm:6.5.12"
+"preact-render-to-string@npm:6.5.13":
+  version: 6.5.13
+  resolution: "preact-render-to-string@npm:6.5.13"
   peerDependencies:
     preact: ">=10"
-  checksum: 10c0/d3c8d35e3eadfe28a7920bb48783a6860b9b93e8c9db39ec76db8f17398531accac3f1f1484f7dba13be9f0cd791b8bed52b68b5469b8e0eada08e3f96d6b19c
+  checksum: 10c0/10c6c424af03066b832cb3f2c44372dd64180e9e2a6038cccb758e06337b13b3dd399bf26697afff07d7c5b253fd6bc194524d726ec36d930e36ea2defbb60f7
   languageName: node
   linkType: hard
 
