@@ -39,7 +39,7 @@ class SessionPatcher {
     return JSON.stringify({
       i: i || 0,
       codeSpace: codeSpace || "",
-      messages: messages || [],
+      messages: messages.filter(Boolean) || [],
       code: code || "",
       html: html || "",
       css: css || "",
