@@ -1,6 +1,7 @@
 // import { createRequire } from "module";
 // const require = createRequire(import.meta.url);
 // Object.assign(globalThis, { require });
+// import "./tw-dev-setup";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
