@@ -185,23 +185,24 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-let firstRun = true;
-const { handleRunMessage } = window.frames[0] as unknown as {
-  handleRunMessage: (
-    transpiled: string,
-  ) => Promise<{ html: string; css: string; js: string; }>;
-};
+// let firstRun = true;
 
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
-  if (firstRun) {
-    firstRun = false;
-    await handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
-    await wait(200);
-  }
+  const { handleRunMessage } = window.frames[0] as unknown as {
+    handleRunMessage: (
+      transpiled: string,
+    ) => Promise<{ html: string; css: string; js: string; }>;
+  };
 
-  return await handleRunMessage(transpiled);
+  // if (firstRun) {
+  //   firstRun = false;
+  //   await handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
+  //   await wait(200);
+  // }
+
+  return handleRunMessage(transpiled);
 };
 
 export async function initializeMonaco({
