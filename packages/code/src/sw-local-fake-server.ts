@@ -94,15 +94,14 @@ function handleEditorResponse(codeSpace: string) {
 }
 
 function handleHtmlResponse(session: ICodeSession, HTML: string) {
+  const { codeSpace } = session;
   const respText = HTML.replace(
     `<script type="importmap"></script>`,
     `<script type="importmap">${JSON.stringify(importMap)}</script>`,
   ).replace(
     `<!-- Inline LINK for initial theme -->`,
-    `<!-- inline session.css -->
-            <style>
-              ${session.css}
-            </style>`,
+    `<link rel="preload" href="/live/${codeSpace}/index.css" as="style" />
+     <link rel="stylesheet" href="/live/${codeSpace}/index.css" />`,
   ).replace(
     '<div id="embed"></div>',
     `<div id="embed">${session.html}</div>`,

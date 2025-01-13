@@ -371,7 +371,7 @@ hQIDAQAB
     ).replace(
       `<!-- Inline LINK for initial theme -->`,
       `<link rel="preload" href="/live/${codeSpace}/index.css" as="style" />
-    <link rel="stylesheet" href="/live/${codeSpace}/index.css" />`,
+       <link rel="stylesheet" href="/live/${codeSpace}/index.css" />`,
     ).replace(
       '<div id="embed"></div>',
       `<div id="embed">${html}</div>`,
