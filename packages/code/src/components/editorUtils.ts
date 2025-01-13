@@ -185,20 +185,20 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-let firstRun = true;
+// let firstRun = true;
 
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
-  if (firstRun) {
-    firstRun = false;
-    await (window.frames[0] as unknown as {
-      handleRunMessage: (
-        transpiled: string,
-      ) => Promise<{ html: string; css: string; js: string; }>;
-    }).handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
-    await wait(2350);
-  }
+  // if (firstRun) {
+  //   firstRun = false;
+  //   await (window.frames[0] as unknown as {
+  //     handleRunMessage: (
+  //       transpiled: string,
+  //     ) => Promise<{ html: string; css: string; js: string; }>;
+  //   }).handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
+  //   await wait(2350);
+  // }
 
   return (window.frames[0] as unknown as {
     handleRunMessage: (
