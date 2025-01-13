@@ -23,11 +23,7 @@ const ChatInterface: React.FC<{
   const codeSpace = getCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [storedMessages, setStoredMessages] = useLocalStorage<Message[]>(
-    `chatMessages-${codeSpace}`,
-    cSess.session.messages,
-  );
-  const [messages, setMessages] = useImmer<Message[]>([]);
+  const [messages, setMessages] = useImmer<Message[]>(cSess.session.messages);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
     false,
@@ -41,7 +37,6 @@ const ChatInterface: React.FC<{
 
   const resetChat = useCallback((): void => {
     setMessages([]);
-    setStoredMessages([]);
     cSess.setMessages([]);
     setInput("");
     setEditingMessageId(null);
@@ -49,23 +44,15 @@ const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setInput, setMessages, setStoredMessages]);
+  }, [setInput, setMessages]);
 
+  const lastMessage = cSess.session.messages.length
+    ? cSess.session.messages[cSess.session.messages.length - 1]
+    : "";
   // Load initial messages from localStorage
   useEffect(() => {
-    if (storedMessages && storedMessages.length > 0) {
-      cSess.setMessages(storedMessages);
-      setMessages(storedMessages);
-    }
-  }, []);
-
-  // Save messages to localStorage when they change
-  useEffect(() => {
-    if (messages.length > 0) {
-      cSess.setMessages(messages);
-      setStoredMessages(messages);
-    }
-  }, [messages, setStoredMessages]);
+    setMessages(prev => [...prev, lastMessage]);
+  }, [cSess.session.messages, lastMessage, lastMessage]);
 
   useEffect(() => {
     if (isOpen) {
