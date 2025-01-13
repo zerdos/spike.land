@@ -8,7 +8,7 @@ import type { ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/lib/shared";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useImmer } from "use-immer";
+
 import { useScreenshot } from "./hooks/useScreenshot";
 
 const MemoizedChatDrawer = React.memo(ChatDrawer);
@@ -23,11 +23,17 @@ const ChatInterface: React.FC<{
   const codeSpace = getCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [messages, setMessages] = useImmer<Message[]>(cSess.session.messages);
+  const [messages, setMessages] = useState<Message[]>(cSess.session.messages);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
     false,
   );
+
+  useEffect(() => {
+    const unSub = cSess.sub((sess) => setMessages(sess.messages));
+    return () => unSub();
+  }, [cSess]);
+
   const [input, setInput] = useDictation("");
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
@@ -45,14 +51,6 @@ const ChatInterface: React.FC<{
       inputRef.current.value = "";
     }
   }, [setInput, setMessages]);
-
-  const lastMessage = cSess.session.messages.length
-    ? cSess.session.messages[cSess.session.messages.length - 1]
-    : "";
-  // Load initial messages from localStorage
-  useEffect(() => {
-    setMessages(cSess.session.messages);
-  }, [cSess.session.messages, lastMessage, lastMessage]);
 
   useEffect(() => {
     if (isOpen) {
@@ -102,7 +100,7 @@ const ChatInterface: React.FC<{
       }, 1000);
 
       if (e.messages) {
-        setMessages(e.messages);
+        await cSess.setMessages(e.messages);
       } else if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
@@ -113,9 +111,7 @@ const ChatInterface: React.FC<{
       }
 
       if (e.message) {
-        setMessages((draft) => {
-          return messagesPush(draft, e.message as Message);
-        });
+        await cSess.setMessages(messagesPush(messages, e.message as Message));
       }
 
       if (e.code) {
@@ -131,25 +127,25 @@ const ChatInterface: React.FC<{
         if (!isStreaming) {
           setIsStreaming(true);
         }
-        setMessages((previousMessages) => {
-          const lastMessage = previousMessages[previousMessages.length - 1];
 
-          if (lastMessage?.role !== "assistant") {
-            return [
-              ...previousMessages,
-              {
-                id: Date.now().toString(),
-                role: "assistant",
-                content: e.instructions!,
-              },
-            ];
-          } else {
-            return [
-              ...previousMessages.slice(0, -1),
-              { ...lastMessage, content: e.instructions },
-            ];
-          }
-        });
+        const lastMessage = messages.pop();
+
+        if (lastMessage?.role !== "assistant") {
+          await cSess.setMessages([
+            ...messages,
+            lastMessage as Message,
+            {
+              id: Date.now().toString(),
+              role: "assistant",
+              content: e.instructions!,
+            },
+          ]);
+        } else {
+          await cSess.setMessages([
+            ...messages,
+            { ...lastMessage, content: e.instructions },
+          ]);
+        }
       }
       // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
       setTimeout(() => {
