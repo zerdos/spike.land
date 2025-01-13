@@ -95,7 +95,7 @@ const handleRender = async (
     const tailWindClasses = [
       ...document.querySelectorAll<HTMLStyleElement>("head > style"),
     ].map(
-      (z) => z.innerHTML,
+      (z) => z,
     ).join("\n");
 
     // remove comments
@@ -105,7 +105,7 @@ const handleRender = async (
     );
     const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
       `\\\\]`,
-    ).join(`\\]`).split("\\:").join(":");
+    ).join(`\\]`);
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
