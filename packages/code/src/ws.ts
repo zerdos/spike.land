@@ -95,7 +95,7 @@ const handleRender = async (
     const tailWindClasses = [
       ...document.querySelectorAll<HTMLStyleElement>("head > style"),
     ].map(
-      (z) => z,
+      (z) => z.innerHTML,
     ).join("\n");
 
     // remove comments
