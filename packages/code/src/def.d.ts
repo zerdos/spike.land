@@ -28,7 +28,7 @@ declare global {
 }
 
 /////////////////////////////
-/// webcodecs APIs
+/// WebCodecs APIs
 /////////////////////////////
 
 // type AlphaOption = "discard" | "keep";

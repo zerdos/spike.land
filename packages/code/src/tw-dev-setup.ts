@@ -4,7 +4,6 @@ interface ResourceLoader {
 
 class ResourceLoaderImpl implements ResourceLoader {
   private static readonly IFRAME_PATH = "/iframe";
-  private static readonly JS_PATH = "/@/workers/tw.worker.js";
 
   private static initialized = false;
 
@@ -39,14 +38,7 @@ class ResourceLoaderImpl implements ResourceLoader {
 
   private async loadResources(): Promise<void> {
     this.removeAllStyleBlocks();
-    const { origin } = window.location;
-    await this.loadScript(`${origin}${ResourceLoaderImpl.JS_PATH}`);
-  }
-
-  private loadScript(src: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      import(src).then(() => resolve()).catch((error) => reject(error));
-    });
+    await import("@tailwindcss/browser");
   }
 
   private removeAllStyleBlocks(): void {
