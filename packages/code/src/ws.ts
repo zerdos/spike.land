@@ -92,11 +92,20 @@ const handleRender = async (
 
     console.log("Emotion styles:", emotionStyles);
 
-    const tailWindClassesX = [
+    const tailWindClasses = [
       ...document.querySelectorAll<HTMLStyleElement>("head > style"),
     ].map(
       (z) => z.innerHTML,
     ).join("\n");
+
+    // remove comments
+    const tailWindClassesXWithoutComments = tailWindClasses.replace(
+      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+      "",
+    );
+    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
+      `\\\\]`,
+    ).join(`\\]`);
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
