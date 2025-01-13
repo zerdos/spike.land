@@ -67,7 +67,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
     (async () => {
       const iframe = `/live/${codeSpace}/iframe`;
 
-      setTimeout(() => setIframeSrc(iframe), 2000);
+      setTimeout(() => setIframeSrc(iframe), 5000);
     })();
   }, [codeSpace]);
 
