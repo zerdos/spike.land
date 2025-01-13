@@ -82,7 +82,7 @@ const ChatInterface: React.FC<{
         : msg
     );
 
-    setMessages([...mess]);
+    cSess.setMessages(mess);
     setEditingMessageId(null);
     setEditInput("");
   };
@@ -116,7 +116,6 @@ const ChatInterface: React.FC<{
 
       if (e.code) {
         console.log("Setting code", e.code);
-        setMessages(messages);
         await cSess.setCodeAndTranspiled({
           formatted: e.code,
           transpiled: e.transpiled,

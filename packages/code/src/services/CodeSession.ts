@@ -274,8 +274,8 @@ export class Code implements ICode {
    * then broadcasts the updated session.
    */
   async setMessages(messages: Message[]): Promise<boolean> {
-    const hashNow = hash(messages.map(hash).join(""));
-    const hashAfter = hash(this.session.messages.map(hash).join(""));
+    const hashNow = md5(JSON.stringify(this.session.messages));
+    const hashAfter = md5(JSON.stringify(messages));
     if (hashNow === hashAfter) return false;
 
     this.session = sanitizeSession({
