@@ -194,9 +194,7 @@ const ChatInterface: React.FC<{
           } as Message,
         ];
         setInput("");
-        cSess.getCode().then((code) =>
-          handleSendMessage({ messages, codeSpace, prompt, images, code })
-        );
+        handleSendMessage({ messages, codeSpace, prompt, images, code: cSess.session.code });
       }
     }
   }, [isOpen, codeSpace, setInput, cSess]);
