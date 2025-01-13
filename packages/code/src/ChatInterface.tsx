@@ -51,7 +51,7 @@ const ChatInterface: React.FC<{
     : "";
   // Load initial messages from localStorage
   useEffect(() => {
-    setMessages(prev => [...prev, lastMessage]);
+    setMessages(cSess.session.messages);
   }, [cSess.session.messages, lastMessage, lastMessage]);
 
   useEffect(() => {
