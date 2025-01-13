@@ -90,7 +90,7 @@ const ChatInterface: React.FC<{
   };
 
   useEffect(() => {
-    const BC = new BroadcastChannel(`${codeSpace}`);
+    const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
 
