@@ -142,6 +142,7 @@ export const tsx = async (
 export const handleSendMessage = async (
   { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
 ): Promise<void> => {
+  console.log("handleSendMessage", { messages, codeSpace, prompt, images, code });
   const worker = (await init()).getWorker("search-replace");
   try {
     const debugInfo = await worker.rpc.rpc("handleSendMessage", {
