@@ -105,7 +105,7 @@ const handleRender = async (
     );
     const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
       `\\\\]`,
-    ).join(`\\]`);
+    ).join(`\\]`).split("\\:").join(":");
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
