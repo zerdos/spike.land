@@ -1,7 +1,6 @@
 // CodeSession.ts
 
-// import { getCodeSpace } from "@/hooks/use-code-space";
-import { hash } from "@/external/immutable";
+// import { getCodeSpace } from "@/hooks/use
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
