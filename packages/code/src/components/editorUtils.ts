@@ -1,7 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { wait } from "@/lib/wait";
 
 export interface EditorState {
   started: boolean;

@@ -61,15 +61,6 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       : false,
   );
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
-  const [iframeSrc, setIframeSrc] = useState(`/live/${codeSpace}/dehydrated`);
-
-  useEffect(() => {
-    (async () => {
-      const iframe = `/live/${codeSpace}/iframe`;
-
-      setTimeout(() => setIframeSrc(iframe), 5000);
-    })();
-  }, [codeSpace]);
 
   useEffect(() => {
     console.log("AppToRender state changed:", { isOpen, showAutoSaveHistory });
@@ -88,7 +79,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
-          <iframe title="Live preview" src={iframeSrc} />
+          <iframe title="Live preview" src={`/live/${codeSpace}/iframe`} />
         </DraggableWindow>
 
         <RainbowWrapper>
