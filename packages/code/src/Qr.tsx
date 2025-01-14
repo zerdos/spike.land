@@ -33,10 +33,7 @@ export const QRButton: FC<{ url: string; }> = ({ url }) => {
       onTap={() => {
         setQR(!showQR);
       }}
-      css={css`
-          margin-top: 12px;
-          margin-bottom: 12px;
-              `}
+      className="mt-3 mb-3"
     >
       {showQR
         ? (
