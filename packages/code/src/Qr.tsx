@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
-import { motion as m } from "framer-motion";
-
 import type { FC } from "react";
+
+import { m } from "framer-motion";
+
 import { useState } from "react";
 
 import { QRious } from "@/external/react-qrious";
