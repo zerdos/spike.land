@@ -227,6 +227,7 @@ async function getMissingFiles(
   cacheNames: string[],
   myCache: Cache,
 ): Promise<Set<string>> {
+  console.log("Missing files:", [...missing].join(", "));
   // Copy missing items from old caches
   for (const cacheName of cacheNames) {
     const oldCache = await caches.open(cacheName);
@@ -291,6 +292,7 @@ sw.addEventListener("install", (event) => {
           cacheNames,
           myCache,
         );
+        console.log("Still missing files:", [...stillMissing].join(", "));
 
         await Promise.allSettled([...stillMissing].map(async (url) => {
           const { pathname, origin } = new URL(url);

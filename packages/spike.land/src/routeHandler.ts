@@ -1,5 +1,5 @@
 import { createClerkClient } from "@clerk/backend";
-import { WebSocket as IWebSocket } from "@cloudflare/workers-types";
+import type { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 import {
   HTML,
   importMap,
