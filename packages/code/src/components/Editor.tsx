@@ -12,8 +12,6 @@ interface EditorProps {
   cSess: ICode;
 }
 
-let newCode = "";
-
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
@@ -36,8 +34,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   // Listen for external code changes in cSess
   useEffect(() => {
-    if (!editorState.started || !editorState.setValue) return;
+    if (!editorState.started) return;
 
+    let newCode = "";
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       newCode = sess.code;
       // Prevent applying changes if there's no new code or an outdated index
@@ -48,9 +47,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         code: editorState.code,
         toThrow: false,
       });
+
       // Skip if the code is the same as the formatted code
-      if (newCode !== formatted) return;
-      if (newCode === editorState.code) return;
+      if (sess.code == formatted) return;
+      if (sess.code === editorState.code) return;
 
       await wait(1000);
       if (newCode !== sess.code) return;
@@ -59,7 +59,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     });
 
     return () => unsubscribe();
-  }, [editorState.started, editorState.code, editorState.setValue, cSess]);
+  }, [editorState.started]);
 
   // Initialize the editor once containerRef is available
   useEffect(() => {
