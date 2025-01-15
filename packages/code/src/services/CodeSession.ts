@@ -7,6 +7,7 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { th } from "date-fns/locale";
 import {
   formatCode as formatCodeUtil,
   runCode,
@@ -273,15 +274,29 @@ export class Code implements ICode {
    * then broadcasts the updated session.
    */
   async setMessages(messages: Message[]): Promise<boolean> {
-    const hashNow = md5(JSON.stringify(this.session.messages));
-    const hashAfter = md5(JSON.stringify(messages));
-    if (hashNow === hashAfter) return false;
+    const currentMessages = this.session.messages;
+
+    if (messages.length === currentMessages.length) {
+      // No changes if both are empty
+      if (!messages.length) return false;
+
+      // Compare last messages, then check hashes
+      if (
+        messages[messages.length - 1].content ===
+          currentMessages[currentMessages.length - 1].content
+      ) {
+        const before = md5(JSON.stringify(currentMessages));
+        const after = md5(JSON.stringify(messages));
+        if (before === after) return false;
+      }
+    }
 
     this.session = sanitizeSession({
       ...this.session,
       messages,
       i: this.session.i + 1,
     });
+
     this.broadcastChannel.postMessage(this.session);
     return true;
   }

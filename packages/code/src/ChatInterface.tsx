@@ -30,9 +30,11 @@ const ChatInterface: React.FC<{
   );
 
   useEffect(() => {
-    const unSub = cSess.sub((sess) => setMessages(sess.messages));
+    const unSub = cSess.sub((sess) =>
+      (JSON.stringify(sess.messages) !== JSON.stringify(messages)) && setMessages(sess.messages)
+    );
     return () => unSub();
-  }, [cSess]);
+  }, []);
 
   const [input, setInput] = useDictation("");
 
@@ -42,7 +44,6 @@ const ChatInterface: React.FC<{
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const resetChat = useCallback((): void => {
-    setMessages([]);
     cSess.setMessages([]);
     setInput("");
     setEditingMessageId(null);
@@ -50,7 +51,7 @@ const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setInput, setMessages]);
+  }, [setInput]);
 
   useEffect(() => {
     if (isOpen) {
@@ -69,18 +70,16 @@ const ChatInterface: React.FC<{
   }, []);
 
   const handleSaveEdit = (messageId: string) => {
-    const mess = messages!.map((msg) =>
-      msg.id === messageId
-        ? {
-          ...msg,
-          content: typeof msg.content === "string"
-            ? editInput
-            : Array.isArray(msg.content)
-            ? msg.content.map((item) => item.type === "text" ? { ...item, text: editInput } : item)
-            : editInput,
-        }
-        : msg
-    );
+    const messageToEdit = messages.find((msg) => msg.id === messageId);
+    if (!messageToEdit || messageToEdit.role === "assistant") {
+      console.error("Invalid message for editing");
+      return;
+    }
+    messageToEdit.content = editInput;
+
+    // remove the messages after the edited message
+    const index = messages.indexOf(messageToEdit);
+    const mess = messages.slice(0, index + 1);
 
     cSess.setMessages(mess);
     setEditingMessageId(null);
