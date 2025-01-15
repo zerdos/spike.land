@@ -103,7 +103,6 @@ export class WebSocketHandler {
     webSocket.send(
       JSON.stringify({
         hashCode: computeSessionHash(this.code.session),
-        i: this.code.session.i,
         users,
         type: "handshake",
       }),
@@ -187,7 +186,6 @@ export class WebSocketHandler {
         if (data.hashCode !== oldHash) {
           return respondWith({
             error: `old hashes not matching`,
-            i: this.code.session.i,
             hash: oldHash,
           });
         }
@@ -264,7 +262,6 @@ export class WebSocketHandler {
     if (oldHash !== data.oldHash) {
       return respondWith({
         error: `old hashes not matching`,
-        i: this.code.session.i,
         hash: oldHash,
       });
     }
@@ -276,7 +273,6 @@ export class WebSocketHandler {
       this.code.updateAndBroadcastSession(newState, session);
       respondWith({
         newHash: computeSessionHash(newState),
-        i: newState.i,
       });
       return;
     } catch (err) {

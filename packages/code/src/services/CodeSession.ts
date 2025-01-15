@@ -7,7 +7,6 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { th } from "date-fns/locale";
 import {
   formatCode as formatCodeUtil,
   runCode,
@@ -66,7 +65,6 @@ class CodeProcessor {
   async process(
     rawCode: string,
     skipRunning: boolean,
-    counter: number,
     signal: AbortSignal,
   ): Promise<Partial<ICodeSession> | false> {
     try {
@@ -98,7 +96,6 @@ class CodeProcessor {
         transpiled: transpiledCode,
         html,
         css,
-        i: counter,
       };
     } catch (error) {
       console.error("Error processing code:", error);
@@ -170,7 +167,6 @@ export class Code implements ICode {
 
   constructor(private codeSpace: string) {
     this.session = sanitizeSession({
-      i: 0,
       code: "",
       html: "",
       css: "",
@@ -245,7 +241,6 @@ export class Code implements ICode {
       code: formatted,
       messages: this.session.messages || [],
       transpiled,
-      i: this.session.i + 1,
     });
 
     // Attempt to run the code for updated HTML/CSS
@@ -294,7 +289,6 @@ export class Code implements ICode {
     this.session = sanitizeSession({
       ...this.session,
       messages,
-      i: this.session.i + 1,
     });
 
     this.broadcastChannel.postMessage(this.session);
@@ -354,12 +348,10 @@ export class Code implements ICode {
     this.setCodeController = new AbortController();
 
     const { signal } = this.setCodeController;
-    const counter = this.session.i;
 
     const processedSession = await this.codeProcessor.process(
       rawCode,
       skipRunning,
-      counter,
       signal,
     );
     if (!processedSession || signal.aborted) {
@@ -376,8 +368,6 @@ export class Code implements ICode {
       return this.session.code;
     }
 
-    // Bump index to indicate an update occurred
-    newSession.i++;
     this.session = newSession;
 
     this.broadcastChannel.postMessage({
@@ -429,12 +419,8 @@ export class Code implements ICode {
     }
 
     // Re-transpile current session's code to ensure everything is fresh
-    this.session = sanitizeSession({
-      ...this.session,
-      transpiled: (await transpileCodeUtil(this.session.code)) +
-        "\n\n\n\n\n" +
-        `const cacheBust4=${this.session.i};`,
-    });
+    await this.setCode(this.session.code, true);
+    this.session = sanitizeSession(this.session);
 
     this.broadcastChannel.postMessage(this.session);
 

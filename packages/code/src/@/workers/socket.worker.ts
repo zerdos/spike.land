@@ -33,7 +33,6 @@ const SOCKET_POLICY = {
 
 interface Connection {
   broadcastChannel: BroadcastChannel;
-  lastCounter: number;
   lastHash: string;
   codeSpace: string;
   webSocket: Socket;
@@ -43,7 +42,6 @@ interface Connection {
 }
 
 interface WsMessage {
-  i: number;
   changes: unknown;
   type: string;
   newHash: string;
@@ -92,7 +90,6 @@ export async function setConnections(
     controller: new AbortController(),
     oldSession: sanitizeSession(sess),
     lastHash: computeSessionHash(sess),
-    lastCounter: sess.i,
     broadcastChannel: new BroadcastChannel(
       `${location.origin}/live/${codeSpace}/`,
     ),
@@ -202,10 +199,9 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     if (lastHash !== data.hash) {
       throw new Error("Hash mismatch");
     }
-    if (data.i >= connection.oldSession.i && data.hash === lastHash) {
+    if (data.hash === lastHash) {
       connection.oldSession = sess;
       connection.lastHash = lastHash;
-      connection.lastCounter = sess.i;
       connection.broadcastChannel.postMessage({
         ...sess,
         sender: "WORKER_HANDLE_CHANGES",
@@ -213,7 +209,7 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     }
     const patch = generateSessionPatch(sess, connection.oldSession);
     connection.webSocket.send(
-      JSON.stringify({ ...patch, name: connection.user, i: connection.oldSession.i }),
+      JSON.stringify({ ...patch, name: connection.user }),
     );
     return;
   }
@@ -221,20 +217,18 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
   if (data.hashCode) {
     console.log("Received hash code:", data.hashCode);
     if (connection.lastHash === data.hashCode) {
-      connection.lastCounter = connection.oldSession.i;
       console.log("Skipping message due to hash match");
       return;
     }
   }
 
-  if (data.hash && data.i > connection.lastCounter && data.hash !== connection.lastHash) {
+  if (data.hash && data.hash !== connection.lastHash) {
     const sess = await fetchInitialSession(codeSpace);
     if (data.hash !== computeSessionHash(sess)) {
       console.log("Hash mismatch, skipping message");
       return;
     }
     connection.lastHash = data.hash;
-    connection.lastCounter = data.i;
     connection.oldSession = sess;
     connection.broadcastChannel.postMessage({
       ...sess,
@@ -243,7 +237,7 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     return;
   }
 
-  if (data.hash && data.i < connection.lastCounter && data.hash !== connection.lastHash) {
+  if (data.hash && data.hash !== connection.lastHash) {
     const sess = await fetchInitialSession(codeSpace);
     if (data.hash !== computeSessionHash(sess)) {
       console.log("Hash mismatch, skipping message");
@@ -251,14 +245,9 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     }
     const patch = generateSessionPatch(sess, connection.oldSession);
     connection.webSocket.send(
-      JSON.stringify({ ...patch, name: connection.user, i: connection.oldSession.i }),
+      JSON.stringify({ ...patch, name: connection.user }),
     );
     return;
-  }
-
-  if (typeof data.i === "number") {
-    connection.lastCounter = data.i;
-    console.log(`Updated lastCounter to: ${data.i}`);
   }
 
   if (data.changes) {
@@ -269,7 +258,6 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     await handleHandshake(ws, { hashCode: data.hashCode, type: data.type }, connection, codeSpace);
   } else if (data.newHash && data.oldHash) {
     if (connection.lastHash === data.newHash) {
-      connection.lastCounter = connection.oldSession.i;
       return;
     }
     await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
@@ -311,7 +299,7 @@ async function handleSessionString(
   const sess = await fetchInitialSession(connection.codeSpace);
   const patch = generateSessionPatch(sess, oldSession);
   console.log("Created patch:", patch);
-  ws.send(JSON.stringify({ ...patch, name: user, i: oldSession.i }));
+  ws.send(JSON.stringify({ ...patch, name: user }));
   console.log("Sent patch to WebSocket");
 }
 
@@ -480,7 +468,7 @@ async function handleBroadcastMessage(
     return;
   }
 
-  if (data.i > connection.oldSession.i && data.html && data.code) {
+  if (data.html && data.code) {
     const codeSpace = connection.codeSpace;
     let bMod = broadcastMod.get(codeSpace);
 
@@ -499,7 +487,6 @@ async function handleBroadcastMessage(
 
     bMod.controller.abort();
     bMod.controller = new AbortController();
-    const bModI = bMod.i;
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
 
@@ -516,60 +503,10 @@ async function handleBroadcastMessage(
         connection.webSocket.send(
           JSON.stringify({
             ...patchMessage,
-            i: newSession.i,
             name: connection.user,
           }),
         );
-
-        bMod.timeoutId = setTimeout(() => {
-          (async () => {
-            if (bModI > connection.lastCounter) {
-              console.log({ bModI, lastCounter: connection.lastCounter });
-            } else {
-              console.log("Skipping session update due to outdated counter");
-              if (bModI === connection.lastCounter) {
-                console.log("Nothing to update");
-                return;
-              }
-              const session = await fetchInitialSession(codeSpace);
-              connection.broadcastChannel.postMessage({
-                ...session,
-                sender: SENDER_WORKER_HANDLE_CHANGES,
-              });
-              connection.oldSession = session;
-              connection.lastCounter = session.i;
-              console.log("Session updated successfully");
-              return;
-            }
-
-            if (signal.aborted) {
-              console.log("Session update aborted");
-              return;
-            }
-
-            if (connection.lastCounter < bMod!.i) {
-              const json = sessionToJSON(bMod);
-              try {
-                await fetch(`/live/${codeSpace}/session.json`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: json,
-                });
-                console.log("Session updated successfully");
-              } catch (error) {
-                console.error("Failed to update session:", error);
-              }
-            } else {
-              console.log("Session update skipped due to outdated counter");
-            }
-
-            broadcastMod.delete(codeSpace);
-          })().catch((error) => {
-            console.error("Error in setTimeout callback:", error);
-          });
-        }, 5000);
+        return;
       } else {
         console.log("Patch creation failed due to hash mismatch");
       }

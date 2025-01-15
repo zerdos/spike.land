@@ -54,7 +54,7 @@ describe("Code", () => {
     global.fetch = vi.fn().mockImplementation((url) => {
       if (url.endsWith("session.json")) {
         return Promise.resolve({
-          json: () => Promise.resolve({ i: 1, code: "", html: "", css: "" }),
+          json: () => Promise.resolve({ code: "", html: "", css: "" }),
         });
       }
       if (url.includes("/live/extraModel/index.tsx")) {

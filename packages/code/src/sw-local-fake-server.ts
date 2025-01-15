@@ -150,7 +150,6 @@ async function handleIndexJs(
     await cSessions[codeSpace].postMessage({
       ...session,
       transpiled,
-      i: session.i + 1,
     });
   }
 

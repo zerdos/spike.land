@@ -19,31 +19,18 @@ export class CodeSessionBC {
     this.broadcastChannel.onmessage = (
       { data }: MessageEvent<ICodeSession>,
     ) => {
-      {
-        if (data.i) {
-          if (!data.messages) {
-            if (this.session) {
-              data.messages = this.session.messages || [];
-            }
-          }
-          if (!this.session) {
-            this.session = sanitizeSession(data);
-          }
-
-          const prevI = this.session.i;
-
-          // console.log("broadcastChannel.onmessage", data);
-
-          const newSession = this.session = sanitizeSession({
-            ...this.session,
-            ...data,
-          });
-
-          if (data.i > prevI) {
-            this.subscribers.forEach((cb) => cb(newSession));
-          }
-        }
+      if (!this.session) {
+        this.session = sanitizeSession(data);
       }
+
+      // console.log("broadcastChannel.onmessage", data);
+
+      const newSession = this.session = sanitizeSession({
+        ...this.session,
+        ...data,
+      });
+
+      this.subscribers.forEach((cb) => cb(newSession));
     };
   }
 
@@ -62,7 +49,6 @@ export class CodeSessionBC {
       code: formatted,
       transpiled,
       messages: this.session.messages,
-      i: this.session.i + 1,
     };
     this.postMessage(this.session);
     return true;

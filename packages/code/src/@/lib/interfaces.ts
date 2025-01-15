@@ -62,7 +62,6 @@ export interface ChatWindowProps {
 export interface ICodeSession {
   code: string;
   codeSpace: string;
-  i: number;
   html: string;
   css: string;
   messages: Message[];

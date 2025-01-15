@@ -199,8 +199,8 @@ export const main = async () => {
       Object.assign(globalThis, { cSess });
 
       cSessBr.sub((sess: ICodeSession) => {
-        const { i, code, transpiled } = sess;
-        console.table({ i, code, transpiled });
+        const { code, transpiled } = sess;
+        console.table({ code, transpiled });
       });
 
       await initializeApp();

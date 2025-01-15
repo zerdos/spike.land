@@ -15,7 +15,6 @@ class SessMock implements ICode {
     codeSpace: "",
     html: "",
     messages: [],
-    i: 34,
     transpiled: "",
     css: "",
   };
@@ -42,8 +41,6 @@ class SessMock implements ICode {
 
   async setCode(rawCode: string): Promise<string> {
     this.session.code = rawCode;
-    this.session.i++;
-
     this.broadCastSessChanged();
     return rawCode;
   }

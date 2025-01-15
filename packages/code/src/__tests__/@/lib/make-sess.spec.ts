@@ -10,7 +10,6 @@ import { describe, expect, test } from "vitest";
 
 describe("Session Management", () => {
   const sampleSession: ICodeSession = {
-    i: 1,
     codeSpace: "ts",
     code: "const x = 5;",
     html: "<div>test</div>",
@@ -21,7 +20,6 @@ describe("Session Management", () => {
 
   test("should sanitize session", () => {
     const input = {
-      i: 1,
       codeSpace: "ts",
       code: "const x = 5;",
       html: undefined,
@@ -37,7 +35,6 @@ describe("Session Management", () => {
         "codeSpace": "ts",
         "css": "",
         "html": "",
-        "i": 1,
         "messages": [],
         "transpiled": "",
       }
@@ -46,7 +43,6 @@ describe("Session Management", () => {
 
   test("should convert session to JSON with default values", () => {
     const input: ICodeSession = {
-      i: 0,
       codeSpace: "",
       code: "test",
       html: "",
@@ -59,7 +55,6 @@ describe("Session Management", () => {
     const parsed = JSON.parse(result);
 
     expect(parsed).toEqual({
-      i: 0,
       codeSpace: "",
       code: "test",
       html: "",

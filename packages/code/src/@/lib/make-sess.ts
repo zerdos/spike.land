@@ -14,9 +14,8 @@ export interface CodePatch {
 
 class SessionPatcher {
   public static computeSessionHash(cx: ICodeSession): string {
-    const { i, codeSpace, code, html, css, transpiled } = cx;
+    const { codeSpace, code, html, css, transpiled } = cx;
     const hashObj = {
-      i,
       codeSpace,
       messages: md5(JSON.stringify([
         ...(cx.messages || []).map((m) => md5(JSON.stringify(m))),
@@ -35,9 +34,8 @@ class SessionPatcher {
   }
 
   public static sessionToJSON(s: ICodeSession): string {
-    const { i, codeSpace, code, html, css, transpiled, messages } = s;
+    const { codeSpace, code, html, css, transpiled, messages } = s;
     return JSON.stringify({
-      i: i || 0,
       codeSpace: codeSpace || "",
       messages: (messages || []).filter(Boolean),
       code: code || "",

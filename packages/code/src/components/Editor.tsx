@@ -1,6 +1,6 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow } from "@/lib/shared";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeAce, initializeMonaco } from "./editorUtils";
@@ -15,8 +15,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
 
-  const [changeId, setChangeId] = useState(0);
-
   // Decide which init function we use based on the current engine
   const initializeEditor = useMemo(
     () => (engine === "monaco" ? initializeMonaco : initializeAce),
@@ -26,7 +24,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const handleContentChange = useCallback(
     async (newCode: string) => {
       if (newCode === editorState.code) return;
-      setChangeId((id) => id + 1);
 
       await cSess.setCode(newCode);
       throttledTypeCheck();
@@ -41,8 +38,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       // Prevent applying changes if there's no new code or an outdated index
       if (sess.code === editorState.code) return;
-      if (sess.i <= changeId) return;
-      setChangeId(sess.i);
 
       // Optional formatting check (skip if identical)
       const formatted = await prettierToThrow({
@@ -56,7 +51,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     });
 
     return () => unsubscribe();
-  }, [editorState.started, editorState.code, editorState.setValue, cSess, changeId]);
+  }, [editorState.started, editorState.code, editorState.setValue, cSess]);
 
   // Initialize the editor once containerRef is available
   useEffect(() => {
@@ -76,7 +71,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         // readOnly,
       });
 
-      setChangeId(cSess.session.i);
       setEditorState((prev) => ({
         ...prev,
         started: true,
