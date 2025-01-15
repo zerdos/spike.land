@@ -50,7 +50,6 @@ export class Code implements DurableObject {
           </h2>
         </div>
       );`,
-      i: 1,
       html: "<div></div>",
       css: "",
     });
@@ -82,7 +81,7 @@ export class Code implements DurableObject {
           "session",
         );
 
-        if (storedSession && storedSession.i) {
+        if (storedSession) {
           this.session = sanitizeSession({ ...storedSession, codeSpace });
         } else {
           const codeSpaceParts = codeSpace!.split("-");
@@ -96,7 +95,6 @@ export class Code implements DurableObject {
               codeSpace,
               code: `export default () => (<>Write your code here!</>);
               `,
-              i: 1,
               html: "<div>Write your code here!</div>",
               css: "",
             });

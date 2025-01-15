@@ -37,7 +37,6 @@ interface IData {
   reversePatch?: Diff[];
   address?: string;
   hashCode?: string;
-  i?: number;
   candidate?: string;
   answer?: string;
   offer?: string;
@@ -295,7 +294,7 @@ export class WebSocketHandler {
   public broadcast(msg: CodePatch | string, session?: WebsocketSession): void {
     const message = typeof msg === "string"
       ? msg
-      : JSON.stringify({ ...msg, i: this.code.session.i });
+      : JSON.stringify(msg);
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
     let successfulBroadcasts = 0;

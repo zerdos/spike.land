@@ -1,5 +1,6 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { prettierToThrow } from "@/lib/shared";
+import { wait } from "@/lib/wait";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -10,6 +11,8 @@ interface EditorProps {
   codeSpace: string;
   cSess: ICode;
 }
+
+let newCode = "";
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, engine, editorState, setEditorState } = useEditorState();
@@ -36,6 +39,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     if (!editorState.started || !editorState.setValue) return;
 
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
+      newCode = sess.code;
       // Prevent applying changes if there's no new code or an outdated index
       if (sess.code === editorState.code) return;
 
@@ -44,10 +48,14 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         code: editorState.code,
         toThrow: false,
       });
-      if (formatted && formatted === sess.code) return;
-      setEditorState((prev) => ({ ...prev, code: sess.code }));
+      // Skip if the code is the same as the formatted code
+      if (newCode !== formatted) return;
+      if (newCode === editorState.code) return;
 
-      editorState.setValue(sess.code);
+      await wait(1000);
+      if (newCode !== sess.code) return;
+      setEditorState((prev) => ({ ...prev, code: newCode }));
+      editorState.setValue(newCode);
     });
 
     return () => unsubscribe();
