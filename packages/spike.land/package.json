@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/vitest-pool-workers": "0.6.0",
+    "@cloudflare/vitest-pool-workers": "0.6.1",
     "@cloudflare/workers-types": "4.20250109.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
@@ -26,7 +26,7 @@
     "@vitest/snapshot": "2.1.8",
     "typescript": "5.7.3",
     "vitest": "2.1.8",
-    "wrangler": "3.101.0"
+    "wrangler": "3.102.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.33.1",
@@ -44,7 +44,7 @@
     "immutable": "5.0.3",
     "mime-db": "1.53.0",
     "mime-types": "2.1.35",
-    "miniflare": "3.20241230.1",
+    "miniflare": "3.20241230.2",
     "openai": "4.78.1",
     "openai-edge": "1.2.2",
     "p-map": "7.0.3",
