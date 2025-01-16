@@ -109,10 +109,6 @@ const ChatInterface: React.FC<{
         Object.assign(globalThis, { debugInfo });
       }
 
-      if (e.message) {
-        await cSess.setMessages(messagesPush(messages, e.message as Message));
-      }
-
       if (e.code) {
         console.log("Setting code", e.code);
         await cSess.setCodeAndTranspiled({

@@ -56,7 +56,7 @@ class ChatHandler {
   private mutex = new Mutex();
   public BC: BroadcastChannel;
   private lastCode: string;
-  private messages: Message[];
+  public messages: Message[];
   private codeSpace: string;
   private code: string;
   private aiHandler: AIHandler;
@@ -631,7 +631,7 @@ export async function handleSendMessage({
   } finally {
     chatHandler.BC.postMessage({
       isStreaming: false,
-      messages,
+      messages: chatHandler.messages,
       debugInfo: [...debugInfo.logs],
     });
   }
