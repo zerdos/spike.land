@@ -1,5 +1,5 @@
-import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@/external/clerk";
 import { Bot, History } from "@/external/lucideReact";
+import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
