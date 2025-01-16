@@ -130,10 +130,17 @@ class ChatHandler {
         debugInfo.addLog("Empty prompt received, returning");
         return;
       }
+      const messagesToSend = [...this.messages];
+
+      this.setMessages(messagesPush(this.messages, {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "",
+      }));
 
       const claudeContent = this.aiHandler.prepareClaudeContent(
         prompt,
-        this.messages,
+        messagesToSend,
         this.code,
         this.codeSpace,
       );
