@@ -16,21 +16,21 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/vitest-pool-workers": "0.6.2",
+    "@cloudflare/vitest-pool-workers": "0.6.3",
     "@cloudflare/workers-types": "4.20250109.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
     "@typescript-eslint/parser": "8.20.0",
-    "@vitest/runner": "3.0.0",
-    "@vitest/snapshot": "3.0.0",
+    "@vitest/runner": "3.0.1",
+    "@vitest/snapshot": "3.0.1",
     "typescript": "5.7.3",
-    "vitest": "3.0.0",
-    "wrangler": "3.103.0"
+    "vitest": "3.0.1",
+    "wrangler": "3.103.1"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.33.1",
-    "@clerk/backend": "1.23.0",
+    "@clerk/backend": "1.23.1",
     "@clerk/clerk-sdk-node": "5.1.6",
     "@remix-run/cloudflare": "2.15.2",
     "@remix-run/react": "2.15.2",

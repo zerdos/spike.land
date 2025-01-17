@@ -60,8 +60,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@clerk/clerk-react": "5.21.3",
-    "@clerk/nextjs": "6.9.11",
+    "@clerk/clerk-react": "5.22.0",
+    "@clerk/nextjs": "6.9.12",
     "@emotion/cache": "11.14.0",
     "@emotion/css-prettifier": "1.2.0",
     "@emotion/react": "11.14.0",
@@ -216,7 +216,7 @@
     "uuid": "11.0.5",
     "v8": "0.1.0",
     "vaul": "^1.1.2",
-    "vitest": "3.0.0",
+    "vitest": "3.0.1",
     "webrtc-adapter": "9.0.1",
     "window-async-local-storage": "1.1.0",
     "workbox-cacheable-response": "7.3.0",
@@ -255,11 +255,11 @@
     "@types/wicg-file-system-access": "2023.10.5",
     "@vitejs/plugin-react": "4.3.4",
     "@vitejs/plugin-react-swc": "3.7.2",
-    "@vitest/browser": "3.0.0",
-    "@vitest/coverage-v8": "3.0.0",
-    "@vitest/runner": "3.0.0",
-    "@vitest/snapshot": "3.0.0",
-    "@vitest/ui": "3.0.0",
+    "@vitest/browser": "3.0.1",
+    "@vitest/coverage-v8": "3.0.1",
+    "@vitest/runner": "3.0.1",
+    "@vitest/snapshot": "3.0.1",
+    "@vitest/ui": "3.0.1",
     "ai-digest": "1.0.7",
     "autoprefixer": "10.4.20",
     "concurrently": "9.1.2",
@@ -283,7 +283,7 @@
     "uvu": "0.5.6",
     "vite": "6.0.7",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.0.0",
+    "vitest": "3.0.1",
     "vm-browserify": "1.1.2"
   }
 }
