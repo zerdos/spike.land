@@ -101,16 +101,17 @@ const ChatInterface: React.FC<{
     BC.onmessage = async (event) => {
       const e = event.data;
 
+      // Clear any existing streaming timeout
       if (isStreamingTimeout) {
         clearTimeout(isStreamingTimeout);
+        isStreamingTimeout = null;
       }
-      isStreamingTimeout = setTimeout(() => {
-        setIsStreaming(false);
-      }, 1000);
 
       // Handle messages update
       if (e.messages) {
-        await cSess.setMessages(e.messages);
+        // Create deep copy of messages to prevent mutations
+        const newMessages = e.messages.map((msg: Message) => ({ ...msg }));
+        await cSess.setMessages(newMessages);
       }
 
       // Handle streaming state
@@ -164,19 +165,20 @@ const ChatInterface: React.FC<{
         }
       }
 
-      // Reset streaming state after timeout
-      const streamingTimeout = setTimeout(() => {
-        setIsStreaming(false);
-      }, 2000);
-
-      return () => {
-        clearTimeout(streamingTimeout);
-      };
+      // Set streaming timeout if we have instructions
+      if (e.instructions) {
+        setIsStreaming(true);
+        isStreamingTimeout = setTimeout(() => {
+          setIsStreaming(false);
+          isStreamingTimeout = null;
+        }, 2000);
+      }
     };
 
     return () => {
       if (isStreamingTimeout) {
         clearTimeout(isStreamingTimeout);
+        isStreamingTimeout = null;
       }
       BC.close();
     };
@@ -220,15 +222,14 @@ const ChatInterface: React.FC<{
 
         setInput("");
         // Update session with all messages and then send
-        cSess.setMessages(updatedMessages).then(() =>
-          handleSendMessage({
-            messages: updatedMessages,
-            codeSpace,
-            prompt,
-            images,
-            code: cSess.session.code,
-          })
-        );
+        cSess.setMessages(updatedMessages);
+        handleSendMessage({
+          messages: updatedMessages,
+          codeSpace,
+          prompt,
+          images,
+          code: cSess.session.code,
+        });
       }
     }
   }, [isOpen, codeSpace, setInput, cSess]);
