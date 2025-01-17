@@ -269,6 +269,7 @@ export class Code implements ICode {
    * then broadcasts the updated session.
    */
   async setMessages(messages: Message[]): Promise<boolean> {
+    console.log("setMessages", { messages });
     const currentMessages = this.session.messages;
 
     if (messages.length === currentMessages.length) {
