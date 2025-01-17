@@ -116,30 +116,30 @@ const ChatInterface: React.FC<{
         });
       }
 
-      if (e.instructions) {
-        if (!isStreaming) {
-          setIsStreaming(true);
-        }
+      // if (e.instructions) {
+      //   if (!isStreaming) {
+      //     setIsStreaming(true);
+      //   }
 
-        const lastMessage = messages.pop();
+      //   const lastMessage = messages.pop();
 
-        if (lastMessage?.role !== "assistant") {
-          await cSess.setMessages([
-            ...messages,
-            lastMessage as Message,
-            {
-              id: Date.now().toString(),
-              role: "assistant",
-              content: e.instructions!,
-            },
-          ]);
-        } else {
-          await cSess.setMessages([
-            ...messages,
-            { ...lastMessage, content: e.instructions },
-          ]);
-        }
-      }
+      //   if (lastMessage?.role !== "assistant") {
+      //     await cSess.setMessages([
+      //       ...messages,
+      //       lastMessage as Message,
+      //       {
+      //         id: Date.now().toString(),
+      //         role: "assistant",
+      //         content: e.instructions!,
+      //       },
+      //     ]);
+      //   } else {
+      //     await cSess.setMessages([
+      //       ...messages,
+      //       { ...lastMessage, content: e.instructions },
+      //     ]);
+      //   }
+      // }
       // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
       setTimeout(() => {
         setIsStreaming(false);
