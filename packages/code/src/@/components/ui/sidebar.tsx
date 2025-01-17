@@ -18,7 +18,7 @@ const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
-interface SidebarContext {
+type SidebarContext = {
   state: "expanded" | "collapsed";
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -26,7 +26,7 @@ interface SidebarContext {
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
-}
+};
 
 const SidebarContext = React.createContext<SidebarContext | null>(null);
 
@@ -126,11 +126,11 @@ const SidebarProvider = React.forwardRef<
       <SidebarContext.Provider value={contextValue}>
         <TooltipProvider delayDuration={0}>
           <div
-            css={{
+            style={{
               "--sidebar-width": SIDEBAR_WIDTH,
               "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
               ...style,
-            }}
+            } as React.CSSProperties}
             className={cn(
               "group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar",
               className,
@@ -249,7 +249,7 @@ const Sidebar = React.forwardRef<
 Sidebar.displayName = "Sidebar";
 
 const SidebarTrigger = React.forwardRef<
-  React.ComponentRef<typeof Button>,
+  React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar();
@@ -322,7 +322,7 @@ const SidebarInset = React.forwardRef<
 SidebarInset.displayName = "SidebarInset";
 
 const SidebarInput = React.forwardRef<
-  React.ComponentRef<typeof Input>,
+  React.ElementRef<typeof Input>,
   React.ComponentProps<typeof Input>
 >(({ className, ...props }, ref) => {
   return (
@@ -370,7 +370,7 @@ const SidebarFooter = React.forwardRef<
 SidebarFooter.displayName = "SidebarFooter";
 
 const SidebarSeparator = React.forwardRef<
-  React.ComponentRef<typeof Separator>,
+  React.ElementRef<typeof Separator>,
   React.ComponentProps<typeof Separator>
 >(({ className, ...props }, ref) => {
   return (
@@ -746,4 +746,5 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  useSidebar,
 };

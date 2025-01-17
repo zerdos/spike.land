@@ -3,7 +3,6 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { messagesPush } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/lib/shared";
