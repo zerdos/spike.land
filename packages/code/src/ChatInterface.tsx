@@ -130,7 +130,7 @@ const ChatInterface: React.FC<{
             {
               id: Date.now().toString(),
               role: "assistant",
-              content: e.instructions!,
+              content: e.instructions,
             },
           ]);
         } else {
@@ -189,7 +189,7 @@ const ChatInterface: React.FC<{
         setInput("");
         cSess.setMessages(messages).then(() =>
           handleSendMessage({
-            messages: cSess.session.messages,
+            messages,
             codeSpace,
             prompt,
             images,
