@@ -9,6 +9,7 @@ import {
 } from "@/lib/common-functions";
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess";
+import { wait } from "@/lib/wait";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
@@ -489,6 +490,10 @@ async function handleBroadcastMessage(
     bMod.controller = new AbortController();
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
+    await wait(1000);
+    if (signal.aborted) {
+      return;
+    }
 
     const oldSession = sanitizeSession(connection.oldSession);
     const newSession = sanitizeSession(data);
