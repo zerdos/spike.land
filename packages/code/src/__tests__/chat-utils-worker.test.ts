@@ -40,6 +40,7 @@ global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastCha
 describe("handleSendMessage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    Date.now = vi.fn(() => 1737133875901);
   });
 
   it("should log empty prompt scenario", async () => {
@@ -96,7 +97,11 @@ describe("handleSendMessage", () => {
     vi.mocked(AIHandler).mockImplementation(() => mockAIHandler);
 
     const logs = await handleSendMessage({
-      messages: [],
+      messages: [{ id: "123", role: "user", content: "first-content-text" }, {
+        id: "124",
+        role: "assistant",
+        content: "second-content-text",
+      }],
       codeSpace: "test",
       prompt: "test prompt",
       images: [],
@@ -109,6 +114,35 @@ describe("handleSendMessage", () => {
     expect(logs).toContainEqual(
       expect.stringMatching(/Initializing ChatHandler/),
     );
+    expect(logs[0]).toMatchInlineSnapshot(`
+      {
+        "content": "first-content-text",
+        "id": "123",
+        "role": "user",
+      }
+    `);
+    expect(logs[1]).toMatchInlineSnapshot(`
+      {
+        "content": "second-content-text",
+        "id": "124",
+        "role": "assistant",
+      }
+    `);
+    expect(logs[2]).toMatchInlineSnapshot(`
+  {
+    "content": "processed content",
+    "id": "1737133875901",
+    "role": "user",
+  }
+`);
+
+    expect(logs[3]).toMatchInlineSnapshot(`
+  {
+    "content": "response",
+    "id": "1737133875901",
+    "role": "assistant",
+  }
+`);
   });
 
   it("should log fallback to GPT-4 scenario", async () => {

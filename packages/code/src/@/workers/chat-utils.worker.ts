@@ -130,13 +130,12 @@ class ChatHandler {
         debugInfo.addLog("Empty prompt received, returning");
         return;
       }
-      const messagesToSend = [...this.messages];
 
-      this.setMessages(messagesPush(this.messages, {
+      const messagesToSend = messagesPush(this.messages, {
         id: Date.now().toString(),
-        role: "assistant",
-        content: "",
-      }));
+        role: "user",
+        content: prompt,
+      });
 
       const claudeContent = this.aiHandler.prepareClaudeContent(
         prompt,
@@ -614,7 +613,7 @@ export const createNewMessage = ChatHandler.createNewMessage;
 export const updateSearchReplace = ChatHandler.updateSearchReplace;
 
 export async function handleSendMessage({
-  messages = [],
+  messages,
   codeSpace,
   prompt,
   images,
@@ -643,7 +642,7 @@ export async function handleSendMessage({
     });
   }
 
-  return debugInfo.logs;
+  return [...messages, ...debugInfo.logs];
 }
 
 Object.assign(globalThis, { handleSendMessage });
