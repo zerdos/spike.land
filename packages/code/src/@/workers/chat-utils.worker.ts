@@ -97,14 +97,14 @@ class ChatHandler {
 
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
     this.setMessages = (_messages: Message[]) => {
-      const md5Messages = md5(JSON.stringify(_messages));
-      if (md5Messages !== md5(JSON.stringify(this.messages))) {
-        this.messages = _messages;
-        this.BC.postMessage({
-          messages: this.messages,
-          debugInfo: [...debugInfo.logs],
-        });
-      }
+      // Always create a new copy of messages to maintain immutability
+      const newMessages = [..._messages];
+      // Update the messages array and broadcast the change
+      this.messages = newMessages;
+      this.BC.postMessage({
+        messages: this.messages,
+        debugInfo: [...debugInfo.logs],
+      });
     };
 
     this.aiHandler = new AIHandler(this.setIsStreaming, codeSpace);
@@ -130,17 +130,14 @@ class ChatHandler {
         debugInfo.addLog("Empty prompt received, returning");
         return;
       }
-      const messagesToSend = [...this.messages];
 
-      this.setMessages(messagesPush(this.messages, {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: "",
-      }));
+      // Create a working copy of messages
+      let currentMessages = [...this.messages];
 
+      // First add the user message
       const claudeContent = this.aiHandler.prepareClaudeContent(
         prompt,
-        messagesToSend,
+        currentMessages,
         this.code,
         this.codeSpace,
       );
@@ -149,8 +146,17 @@ class ChatHandler {
         images,
         claudeContent,
       );
+      currentMessages = messagesPush(currentMessages, newUserMessage);
 
-      this.setMessages(messagesPush(this.messages, newUserMessage));
+      // Then add the empty assistant message
+      currentMessages = messagesPush(currentMessages, {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: "",
+      });
+
+      // Update messages state with both additions
+      this.setMessages(currentMessages);
       await this.processMessage();
     } catch (e) {
       const error = e instanceof Error ? e.message : String(e);
@@ -198,6 +204,9 @@ class ChatHandler {
           errors: this.mod.errors,
         });
 
+        // Create a working copy of messages
+        let currentMessages = [...this.messages];
+
         const userMessage: Message = {
           id: Date.now().toString(),
           role: "user",
@@ -215,14 +224,16 @@ ${this.mod.lastCode}
 \`\`\`
           `,
         };
-        this.mod.errors = [];
-        this.messages = messagesPush(this.messages, userMessage);
-        this.messages = messagesPush(this.messages, {
+
+        // Add error message and empty assistant response
+        currentMessages = messagesPush(currentMessages, userMessage);
+        currentMessages = messagesPush(currentMessages, {
           id: Date.now().toString(),
           role: "assistant",
           content: "",
         });
-        this.setMessages(this.messages);
+
+        this.setMessages(currentMessages);
         this.mod.lastError = "";
         this.mod.instructions = "";
       }
