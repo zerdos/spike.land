@@ -15,12 +15,12 @@ import { cn } from "@/lib/utils";
 
 const Form = FormProvider;
 
-type FormFieldContextValue<
+interface FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
+> {
   name: TName;
-};
+}
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
@@ -62,9 +62,9 @@ const useFormField = () => {
   };
 };
 
-type FormItemContextValue = {
+interface FormItemContextValue {
   id: string;
-};
+}
 
 const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
@@ -85,7 +85,7 @@ const FormItem = React.forwardRef<
 FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField();
@@ -102,7 +102,7 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
+  React.ComponentRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();

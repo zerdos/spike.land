@@ -56,12 +56,14 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeftIcon className={cn("h-4 w-4", className)} {...props} />
-        ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRightIcon className={cn("h-4 w-4", className)} {...props} />
-        ),
+        Button: ({ className, name, ...props }: { className?: string; name?: string; }) => {
+          const Icon = name?.includes("previous") ? ChevronLeftIcon : ChevronRightIcon;
+          return (
+            <button {...props} className={cn("h-7 w-7", className)}>
+              <Icon className="h-4 w-4" />
+            </button>
+          );
+        },
       }}
       {...props}
     />

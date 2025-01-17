@@ -5,7 +5,6 @@ import {
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
-  sessionToJSON,
 } from "@/lib/common-functions";
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess";
