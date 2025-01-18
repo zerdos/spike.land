@@ -131,13 +131,10 @@ class ChatHandler {
         return;
       }
 
-      // Create a working copy of messages
-      let currentMessages = [...this.messages];
-
       // First add the user message
       const claudeContent = this.aiHandler.prepareClaudeContent(
         prompt,
-        currentMessages,
+        this.messages,
         this.code,
         this.codeSpace,
       );
@@ -146,10 +143,11 @@ class ChatHandler {
         images,
         claudeContent,
       );
-      currentMessages = messagesPush(currentMessages, newUserMessage);
+
+      const newMessages = messagesPush(this.messages, newUserMessage);
 
       // Then add the empty assistant message
-      currentMessages = messagesPush(currentMessages, {
+      const currentMessages = messagesPush(newMessages, {
         id: Date.now().toString(),
         role: "assistant",
         content: "",
@@ -625,7 +623,7 @@ export const createNewMessage = ChatHandler.createNewMessage;
 export const updateSearchReplace = ChatHandler.updateSearchReplace;
 
 export async function handleSendMessage({
-  messages = [],
+  messages,
   codeSpace,
   prompt,
   images,
@@ -654,7 +652,7 @@ export async function handleSendMessage({
     });
   }
 
-  return debugInfo.logs;
+  return [...messages, ...debugInfo.logs];
 }
 
 Object.assign(globalThis, { handleSendMessage });

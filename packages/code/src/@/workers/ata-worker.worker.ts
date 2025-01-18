@@ -20,7 +20,7 @@ interface WorkerFunctions {
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
   handleSendMessage: (
-    { codeSpace, prompt, images, code }: HandleSendMessageProps,
+    { codeSpace, prompt, images, code, messages }: HandleSendMessageProps,
   ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 }
