@@ -14,13 +14,13 @@ export async function startAce(
   container: HTMLDivElement,
 ) {
   console.log("startAce", { code, cb, container, edit });
-  container.style.height = "100vh";
+  container.style.height = "100%";
 
   // it seems the module styles are overwritten by other elements
   // we need to attach it on a shadow container
 
   const shadowContainer = document.createElement("div");
-  shadowContainer.style.height = "100vh";
+  shadowContainer.style.height = "100%";
   container.attachShadow({ mode: "open" });
   container.shadowRoot?.appendChild(shadowContainer);
 
