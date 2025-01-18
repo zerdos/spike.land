@@ -1,6 +1,15 @@
+// xxxxxxxxx
+
+// If you're bundling CSS files via a build tool (e.g. Webpack or Vite),
+// you can import them as strings:
+import baseAceCss from "ace-builds/src-min-noconflict/ace.css";
+import monokaiThemeCss from "ace-builds/src-min-noconflict/theme-monokai.css";
+
 import { edit } from "ace-builds";
-import "ace-builds/src-min-noconflict/theme-monokai";
+// Pull in the TypeScript mode so Ace recognizes TS syntax
 import "ace-builds/src-min-noconflict/mode-typescript";
+
+// xxxxxxxxx
 import { prettierToThrow } from "@/lib/shared";
 
 const mod = {
@@ -9,38 +18,40 @@ const mod = {
 };
 
 export async function startAce(
-  code: string,
-  cb: (_code: string) => void,
-  container: HTMLDivElement,
+  code,
+  cb,
+  container,
 ) {
-  console.log("startAce", { code, cb, container, edit });
   container.style.height = "100vh";
 
-  // it seems the module styles are overwritten by other elements
-  // we need to attach it on a shadow container
+  // Create the Shadow Root
+  const shadowRoot = container.attachShadow({ mode: "open" });
 
+  // Inject required Ace CSS into the shadow root
+  const styleEl = document.createElement("style");
+  styleEl.textContent = `${baseAceCss}\n${monokaiThemeCss}`;
+  shadowRoot.appendChild(styleEl);
+
+  // Create an inner container that Ace will mount on
   const shadowContainer = document.createElement("div");
+  shadowContainer.style.width = "100%";
   shadowContainer.style.height = "100vh";
-  container.attachShadow({ mode: "open" });
-  container.shadowRoot?.appendChild(shadowContainer);
+  shadowRoot.appendChild(shadowContainer);
 
-  // Const {ace} = window;
+  // Initialize Ace
   const editor = edit(shadowContainer, {
-    autoScrollEditorIntoView: false,
-    useWorker: true,
-    tabSize: 2,
-    value: code,
     mode: "ace/mode/typescript",
-
+    theme: "ace/theme/monokai",
+    autoScrollEditorIntoView: false,
     copyWithEmptySelection: false,
+    tabSize: 2,
+    useWorker: true,
+    value: code,
   });
-  editor.setTheme("ace/theme/monokai");
 
-  // editor.session.se;
-
+  // Listen for changes
   editor.session.on("change", () => {
     if (mod.silent) return;
-
     const value = editor.session.getValue();
     if (mod.value !== value) {
       mod.value = value;
@@ -48,14 +59,15 @@ export async function startAce(
     }
   });
 
+  // Basic methods for external use
   return {
     getValue: () => mod.value,
-    getErrors: () => Promise.resolve([] as string[]),
-    setValue: (code: string) => {
-      if (mod.value !== code) {
+    getErrors: () => Promise.resolve([]),
+    setValue: newCode => {
+      if (mod.value !== newCode) {
         mod.silent = true;
-        mod.value = code;
-        editor.session.setValue(code);
+        mod.value = newCode;
+        editor.session.setValue(newCode);
         mod.silent = false;
       }
     },
