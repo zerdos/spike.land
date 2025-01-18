@@ -1,4 +1,4 @@
-import { edit } from "ace-builds";
+import Ace from "ace-builds/src-min-noconflict/ace.js";
 import "ace-builds/src-min-noconflict/theme-monokai";
 import "ace-builds/src-min-noconflict/mode-typescript";
 import { prettierToThrow } from "@/lib/shared";
@@ -25,9 +25,10 @@ export async function startAce(
   container.shadowRoot?.appendChild(shadowContainer);
 
   // Const {ace} = window;
-  const editor = edit(shadowContainer, {
+  const editor = Ace.edit(shadowContainer, {
     autoScrollEditorIntoView: false,
     useWorker: true,
+    shadowContainer: true,
     tabSize: 2,
     value: code,
     mode: "ace/mode/typescript",
