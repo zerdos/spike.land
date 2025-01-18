@@ -32,7 +32,7 @@ const htmlDecode = (input: string): string => {
 const handleScreenshot = async () => {
   try {
     const html2canvas = (await import("@/external/html2canvas")).default;
-    const canvas = await html2canvas(document.body);
+    const canvas = await html2canvas(document.body, { imageTimeout: 100 });
     const blob = await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob(
         (blob) =>

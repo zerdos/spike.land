@@ -3,6 +3,7 @@ import { DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -53,6 +54,16 @@ function Calendar({
         day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
         ...classNames,
+      }}
+      components={{
+        Button: ({ className, name, ...props }: { className?: string; name?: string; }) => {
+          const Icon = name?.includes("previous") ? ChevronLeftIcon : ChevronRightIcon;
+          return (
+            <button {...props} className={cn("h-7 w-7", className)}>
+              <Icon className="h-4 w-4" />
+            </button>
+          );
+        },
       }}
       {...props}
     />

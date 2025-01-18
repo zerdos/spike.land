@@ -3,7 +3,6 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { messagesPush } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/lib/shared";
@@ -30,11 +29,12 @@ const ChatInterface: React.FC<{
   );
 
   useEffect(() => {
-    const unSub = cSess.sub((sess) =>
-      (JSON.stringify(sess.messages) !== JSON.stringify(messages)) && setMessages(sess.messages)
-    );
+    const unSub = cSess.sub((sess) => {
+      // Always update messages to stay in sync with session
+      setMessages(sess.messages);
+    });
     return () => unSub();
-  }, []);
+  }, [cSess]); // Only depend on cSess changes
 
   const [input, setInput] = useDictation("");
 
@@ -69,46 +69,64 @@ const ChatInterface: React.FC<{
     setEditInput("");
   }, []);
 
-  const handleSaveEdit = (messageId: string) => {
-    const messageToEdit = messages.find((msg) => msg.id === messageId);
+  const handleSaveEdit = useCallback((messageId: string) => {
+    const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+    const messageToEdit = messages[messageIndex];
+
     if (!messageToEdit || messageToEdit.role === "assistant") {
       console.error("Invalid message for editing");
       return;
     }
-    messageToEdit.content = editInput;
 
-    // remove the messages after the edited message
-    const index = messages.indexOf(messageToEdit);
-    const mess = messages.slice(0, index + 1);
+    // Create new message with updated content
+    const updatedMessage = {
+      ...messageToEdit,
+      content: editInput,
+    };
 
-    cSess.setMessages(mess);
+    // Create new messages array with updated message and remove subsequent messages
+    const updatedMessages = [
+      ...messages.slice(0, messageIndex),
+      updatedMessage,
+    ];
+
+    // Update session with new messages
+    cSess.setMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
-  };
+  }, [messages, editInput, cSess]);
 
   useEffect(() => {
     const BC = new BroadcastChannel(`${codeSpace}-chat`);
     BC.onmessage = async (event) => {
       const e = event.data;
 
+      // Clear any existing streaming timeout
       if (isStreamingTimeout) {
         clearTimeout(isStreamingTimeout);
+        isStreamingTimeout = null;
       }
-      isStreamingTimeout = setTimeout(() => {
-        setIsStreaming(false);
-      }, 1000);
 
+      // Handle messages update
       if (e.messages) {
-        await cSess.setMessages(e.messages);
-      } else if (e.isStreaming !== undefined) {
+        // Create deep copy of messages to prevent mutations
+        const newMessages = e.messages.map((msg: Message) => ({ ...msg }));
+        await cSess.setMessages(newMessages);
+      }
+
+      // Handle streaming state
+      if (e.isStreaming !== undefined) {
         setIsStreaming(e.isStreaming);
       }
+
+      // Handle debug info
       if (e.debugInfo) {
         const debugInfo = e.debugInfo;
         console.debug("debugInfo", { debugInfo });
         Object.assign(globalThis, { debugInfo });
       }
 
+      // Handle code updates
       if (e.code) {
         console.log("Setting code", e.code);
         await cSess.setCodeAndTranspiled({
@@ -117,43 +135,54 @@ const ChatInterface: React.FC<{
         });
       }
 
+      // Handle instructions/streaming content
       if (e.instructions) {
         if (!isStreaming) {
           setIsStreaming(true);
         }
 
-        const lastMessage = messages.pop();
+        // Get current messages state immutably
+        const currentMessages = [...cSess.session.messages];
+        const lastMessage = currentMessages[currentMessages.length - 1];
 
-        if (lastMessage?.role !== "assistant") {
+        if (!lastMessage || lastMessage.role !== "assistant") {
+          // Add new assistant message
           await cSess.setMessages([
-            ...messages,
-            lastMessage as Message,
+            ...currentMessages,
             {
               id: Date.now().toString(),
               role: "assistant",
-              content: e.instructions!,
+              content: e.instructions,
             },
           ]);
         } else {
-          await cSess.setMessages([
-            ...messages,
-            { ...lastMessage, content: e.instructions },
-          ]);
+          // Update existing assistant message
+          const updatedMessages = [...currentMessages.slice(0, -1), {
+            ...lastMessage,
+            content: e.instructions,
+          }];
+          await cSess.setMessages(updatedMessages);
         }
       }
-      // set isStreaming to false when we didn't receive any message from the AI for 2 seconds
-      setTimeout(() => {
-        setIsStreaming(false);
-      }, 2000);
 
-      if (e.isStreaming === false) {
-        setIsStreaming(false);
+      // Set streaming timeout if we have instructions
+      if (e.instructions) {
+        setIsStreaming(true);
+        isStreamingTimeout = setTimeout(() => {
+          setIsStreaming(false);
+          isStreamingTimeout = null;
+        }, 2000);
       }
     };
+
     return () => {
+      if (isStreamingTimeout) {
+        clearTimeout(isStreamingTimeout);
+        isStreamingTimeout = null;
+      }
       BC.close();
     };
-  }, [codeSpace, messages, setMessages, cSess, setIsStreaming, isStreaming]);
+  }, [codeSpace, cSess, setIsStreaming, isStreaming]); // Removed messages from deps
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -180,15 +209,27 @@ const ChatInterface: React.FC<{
           images: ImageData[];
         };
         sessionStorage.removeItem(maybeKey);
-        const messages = [
-          {
-            id: Date.now().toString(),
-            role: "user",
-            content: prompt,
-          } as Message,
-        ];
+
+        // Get current messages and add new user message
+        const currentMessages = [...cSess.session.messages];
+        const newMessage = {
+          id: Date.now().toString(),
+          role: "user",
+          content: prompt,
+        } as Message;
+
+        const updatedMessages = [...currentMessages, newMessage];
+
         setInput("");
-        handleSendMessage({ messages, codeSpace, prompt, images, code: cSess.session.code });
+        // Update session with all messages and then send
+        cSess.setMessages(updatedMessages);
+        handleSendMessage({
+          messages: updatedMessages,
+          codeSpace,
+          prompt,
+          images,
+          code: cSess.session.code,
+        });
       }
     }
   }, [isOpen, codeSpace, setInput, cSess]);

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useDarkMode } from "@/hooks/use-dark-mode";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
 
 export const ThemeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -19,8 +19,8 @@ export const ThemeToggle = () => {
           transition={{ duration: 0.3 }}
         >
           {isDarkMode
-            ? <Sun className="h-5 w-5" />
-            : <Moon className="h-5 w-5" />}
+            ? <SunIcon className="h-5 w-5" />
+            : <MoonIcon className="h-5 w-5" />}
         </motion.div>
       </Button>
     </motion.div>

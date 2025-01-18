@@ -2545,7 +2545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-icons@npm:1.3.2":
+"@radix-ui/react-icons@npm:^1.3.2":
   version: 1.3.2
   resolution: "@radix-ui/react-icons@npm:1.3.2"
   peerDependencies:
@@ -3846,7 +3846,7 @@ __metadata:
     "@radix-ui/react-dialog": "npm:^1.1.4"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.4"
     "@radix-ui/react-hover-card": "npm:^1.1.4"
-    "@radix-ui/react-icons": "npm:1.3.2"
+    "@radix-ui/react-icons": "npm:^1.3.2"
     "@radix-ui/react-label": "npm:^2.1.1"
     "@radix-ui/react-menubar": "npm:^1.1.4"
     "@radix-ui/react-navigation-menu": "npm:^1.2.3"
@@ -3949,6 +3949,7 @@ __metadata:
     globals: "npm:15.14.0"
     happy-dom: "npm:16.6.0"
     html2canvas: "npm:1.4.1"
+    html2canvas-pro: "npm:^1.5.8"
     i18next: "npm:24.2.1"
     immer: "npm:10.1.1"
     immutable: "npm:5.0.3"
@@ -3956,7 +3957,7 @@ __metadata:
     jsdom: "npm:26.0.0"
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
-    lucide-react: "npm:^0.471.1"
+    lucide-react: "npm:^0.471.2"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
     module: "npm:1.2.5"
@@ -10198,6 +10199,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html2canvas-pro@npm:^1.5.8":
+  version: 1.5.8
+  resolution: "html2canvas-pro@npm:1.5.8"
+  dependencies:
+    css-line-break: "npm:^2.1.0"
+    text-segmentation: "npm:^1.0.3"
+  checksum: 10c0/aab3cfd1799ba2999e6e6cf668f91ad9ee83131e8f8512fdee966b07ef6ac57aae641b471399ce18e823630f7aba534653e6c495c39a4649de87fea6aa83301c
+  languageName: node
+  linkType: hard
+
 "html2canvas@npm:1.4.1":
   version: 1.4.1
   resolution: "html2canvas@npm:1.4.1"
@@ -11745,6 +11756,15 @@ __metadata:
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/d80499f1670b6c371a8c2d3f545dab6161bcb58101a1112811bbe88aa782ff1a467df298074101cf30d7bcad5d29fa8008ac48ce1bb646f1767b48dd603d300a
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.471.2":
+  version: 0.471.2
+  resolution: "lucide-react@npm:0.471.2"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/4dca36aaa5ebe4405ac0bed13974795d2db0495fdfb6c3c60aaeb59393d24e3295e2f061ba21766808e7b3e29fa948c87a4868fd514e25f9b415df76d963383f
   languageName: node
   linkType: hard
 
