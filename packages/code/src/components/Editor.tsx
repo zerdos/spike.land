@@ -2,7 +2,6 @@ import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import { cs } from "date-fns/locale";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
