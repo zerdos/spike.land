@@ -14,6 +14,7 @@ export async function startAce(
   container: HTMLDivElement,
 ) {
   console.log("startAce", { code, cb, container, edit });
+  container.style.height = "100vh";
   // Const {ace} = window;
   const editor = edit(container, {
     autoScrollEditorIntoView: false,
