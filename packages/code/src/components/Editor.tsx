@@ -2,7 +2,7 @@ import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeMonaco } from "./editorUtils";
@@ -16,11 +16,11 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
-  const mod = {
+  const [mod, _setMod] = useState({
     lastMd5s: [md5(cSess.session.code)],
     lastCode: cSess.session.code,
     controller: new AbortController(),
-  };
+  });
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
