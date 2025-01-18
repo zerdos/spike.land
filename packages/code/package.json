@@ -119,7 +119,6 @@
     "@typescript-eslint/typescript-estree": "8.20.0",
     "@typescript/ata": "0.9.7",
     "@uidotdev/usehooks": "2.4.1",
-    "ace-builds": "1.37.5",
     "assert": "2.1.0",
     "assert-browserify": "2.0.0",
     "async-hooks": "1.3.1",

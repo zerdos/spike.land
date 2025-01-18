@@ -4,7 +4,7 @@ import { wait } from "@/lib/wait";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
-import { initializeAce, initializeMonaco } from "./editorUtils";
+import { initializeMonaco } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {
@@ -13,14 +13,10 @@ interface EditorProps {
 }
 
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
-  const { containerRef, engine, editorState, setEditorState } = useEditorState();
-  const { errorType, throttledTypeCheck } = useErrorHandling(engine || "ace");
+  const { containerRef, editorState, setEditorState } = useEditorState();
+  const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
 
-  // Decide which init function we use based on the current engine
-  const initializeEditor = useMemo(
-    () => (engine === "monaco" ? initializeMonaco : initializeAce),
-    [engine],
-  );
+  const initializeEditor = useMemo(() => initializeMonaco, []);
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
@@ -102,7 +98,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">
       <div className="flex-grow overflow-hidden">
         <EditorNode
-          engine={engine as "monaco" | "ace"}
+          engine="monaco"
           errorType={errorType}
           containerRef={containerRef}
           codeSpace={codeSpace}

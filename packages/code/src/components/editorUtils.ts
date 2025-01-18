@@ -204,48 +204,22 @@ export const runCode = async (
   return handleRunMessage(transpiled);
 };
 
-export async function initializeMonaco({
-  container,
-  codeSpace,
-  code,
-  onChange,
-}: {
+export interface EditorInitOptions {
   container: HTMLDivElement;
   codeSpace: string;
   code: string;
   onChange: (newCode: string) => void;
-}): Promise<{
+}
+
+export interface EditorInstance {
   getValue: () => string;
   silent: boolean;
   getErrors: () => Promise<string[]>;
   isEdit: boolean;
   setValue: (_newCode: string) => void;
-}> {
-  const { startMonaco } = await import("../monaco-edi");
-  return await startMonaco({
-    container,
-    codeSpace,
-    code,
-    onChange,
-  });
 }
 
-export async function initializeAce({
-  container,
-  codeSpace,
-  code,
-  onChange,
-}: {
-  container: HTMLDivElement;
-  codeSpace: string;
-  code: string;
-  onChange: (newCode: string) => void;
-}): Promise<{
-  getValue: () => string;
-  getErrors: () => Promise<string[]>;
-  setValue: (code: string) => void;
-}> {
-  console.log("Initializing Ace...", { container, codeSpace, code, onChange });
-  const { startAce } = await import("@/external/start-ace");
-  return await startAce(code, onChange, container);
+export async function initializeMonaco(options: EditorInitOptions): Promise<EditorInstance> {
+  const { startMonaco } = await import("../monaco-edi");
+  return await startMonaco(options);
 }
