@@ -11,16 +11,16 @@
     "cf-typegen": "wrangler types"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.6.3",
+    "@cloudflare/vitest-pool-workers": "0.6.4",
     "@cloudflare/workers-types": "4.20250109.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.10.7",
-    "@vitest/runner": "3.0.1",
-    "@vitest/snapshot": "3.0.1",
+    "@vitest/runner": "3.0.2",
+    "@vitest/snapshot": "3.0.2",
     "esprima": "4.0.1",
     "typescript": "5.7.3",
-    "vitest": "3.0.1",
-    "wrangler": "3.103.1"
+    "vitest": "3.0.2",
+    "wrangler": "3.103.2"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "0.0.14"

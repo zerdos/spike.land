@@ -66,7 +66,7 @@ describe("Wrapper", () => {
 
   it("renders without crashing", async () => {
     await act(async () => {
-      render(<Wrapper code="test code" />, { container });
+      render(<Wrapper code="export default ()=><>Test</>" />, { container });
     });
 
     await waitFor(() => {
