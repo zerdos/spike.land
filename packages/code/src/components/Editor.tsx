@@ -1,6 +1,8 @@
 import type { ICode, ICodeSession } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { cs } from "date-fns/locale";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
@@ -15,12 +17,25 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
+  const mod = {
+    lastMd5s: [md5(cSess.session.code)],
+    lastCode: cSess.session.code,
+  };
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
       if (newCode === editorState.code) return;
+      const formatted = await prettierToThrow({
+        code: newCode,
+        toThrow: false,
+      });
+      if (formatted === cSess.session.code) return;
+      if (newCode === mod.lastCode) return;
+      mod.lastCode = newCode;
+      mod.lastMd5s.push(md5(newCode));
+      if (mod.lastMd5s.length > 10) mod.lastMd5s.shift();
 
       await cSess.setCode(newCode);
       throttledTypeCheck();
@@ -35,6 +50,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     let newCode = "";
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       newCode = sess.code;
+      if (mod.lastMd5s.includes(md5(newCode))) return;
+
       // Prevent applying changes if there's no new code or an outdated index
       if (sess.code === editorState.code) return;
 
