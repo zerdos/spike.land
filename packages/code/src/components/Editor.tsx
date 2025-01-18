@@ -37,6 +37,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           toThrow: false,
         });
         if (signal.aborted) return;
+        if (mod.lastCode !== cSess.session.code) {
+          await wait(200);
+          if (signal.aborted) return;
+        }
         if (formatted === cSess.session.code) return;
         if (newCode === mod.lastCode) return;
         mod.lastCode = newCode;
