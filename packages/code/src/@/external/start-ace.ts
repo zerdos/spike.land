@@ -13,6 +13,7 @@ export async function startAce(
   cb: (_code: string) => void,
   container: HTMLDivElement,
 ) {
+  console.log("startAce", { code, cb, container, edit });
   // Const {ace} = window;
   const editor = edit(container, {
     autoScrollEditorIntoView: false,
