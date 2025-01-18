@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.10.0
+# syntax=docker/dockerfile:1.12.0
 
 # Stage 1: Node builder for Cypress
 FROM node:alpine as node-builder

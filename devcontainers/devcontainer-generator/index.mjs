@@ -3,12 +3,12 @@ import { readFile } from "fs/promises";
 
 // versions.json
 var node = {
-  lts: "22.10.0",
-  current: "23.5.0"
+  lts: "22.13.0",
+  current: "23.6.0"
 };
 var deno = "2.1.6";
-var git = "2.47.1";
-var cypress = "13.17.0";
+var git = "2.48.1";
+var cypress = "14.0.0";
 var yarn = "1.22.19";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
