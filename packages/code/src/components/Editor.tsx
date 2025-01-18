@@ -19,18 +19,24 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const mod = {
     lastMd5s: [md5(cSess.session.code)],
     lastCode: cSess.session.code,
+    controller: new AbortController(),
   };
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
+      mod.controller.abort();
+      mod.controller = new AbortController();
+      const { signal } = mod.controller;
+
       if (newCode === editorState.code) return;
       try {
         const formatted = await prettierToThrow({
           code: newCode,
           toThrow: false,
         });
+        if (signal.aborted) return;
         if (formatted === cSess.session.code) return;
         if (newCode === mod.lastCode) return;
         mod.lastCode = newCode;
@@ -38,7 +44,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         mod.lastMd5s.push(md5(newCode));
         if (mod.lastMd5s.length > 10) mod.lastMd5s.shift();
 
-        await cSess.setCode(newCode);
+        const code = await cSess.setCode(newCode);
+        if (typeof code === "string") {
+          if (!mod.lastMd5s.includes(md5(code))) mod.lastMd5s.push(md5(code));
+        }
 
         await throttledTypeCheck();
       } catch (e) {
