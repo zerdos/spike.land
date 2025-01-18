@@ -9,8 +9,8 @@ services:
         USER: ${USER}
         HOME: ${HOME}
     tmpfs:
-      - ${HOME}/tmpfs:size=1g,rw,exec,uid=${UID},gid=${GID}
-    shm_size: 4gb
+      - ${HOME}/tmpfs:size=8g,rw,exec,uid=${UID},gid=${GID}
+    shm_size: 8gb
     privileged: true
     environment:
       - USER=${USER}

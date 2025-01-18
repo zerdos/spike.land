@@ -7,5 +7,5 @@
 - With google-chrome
 - With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
-- Deno: 2.1.4
+- Deno: 2.1.6
 - github: https://github.com/zerdos/spike.land
