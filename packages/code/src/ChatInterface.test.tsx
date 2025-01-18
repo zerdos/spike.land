@@ -1,7 +1,6 @@
 import * as useCodeSpace from "@/hooks/use-code-space";
 import type { ICode, Message } from "@/lib/interfaces";
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import React from "react";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatInterface } from "./ChatInterface";
 
@@ -22,7 +21,12 @@ class MockBroadcastChannel {
     MockBroadcastChannel.channels.set(name, channels);
   }
 
-  postMessage(message: any) {
+  postMessage(message: {
+    instructions?: string;
+    isStreaming?: boolean;
+    messages?: Message[];
+    editingMessageId?: string;
+  }) {
     const channels = MockBroadcastChannel.channels.get(this.name) || [];
     const event = new MessageEvent("message", { data: message });
     channels.forEach(channel => {
@@ -72,7 +76,10 @@ class MockBroadcastChannel {
 
 beforeAll(() => {
   // Setup global BroadcastChannel mock
-  global.BroadcastChannel = MockBroadcastChannel as any;
+  global.BroadcastChannel = MockBroadcastChannel as unknown as {
+    prototype: BroadcastChannel;
+    new(name: string): BroadcastChannel;
+  };
 });
 
 afterAll(() => {
@@ -104,7 +111,10 @@ vi.mock("@/hooks/useScreenshot", () => ({
 
 // Mock ChatDrawer component
 vi.mock("@/components/app/chat-drawer", () => ({
-  ChatDrawer: ({ handleResetChat, handleCancelEdit }: any) => (
+  ChatDrawer: ({ handleResetChat, handleCancelEdit }: {
+    handleResetChat: () => void;
+    handleCancelEdit: () => void;
+  }) => (
     <div role="dialog" aria-label="chat drawer">
       <button
         onClick={handleResetChat}
@@ -159,7 +169,12 @@ Object.defineProperty(window, "sessionStorage", {
 // Mock ICode interface
 const createMockSession = (initialMessages: Message[] = []) => {
   let messages = initialMessages.map(msg => ({ ...msg }));
-  const subscribers = new Set<(session: any) => void>();
+  const subscribers = new Set<
+    (session: {
+      messages: Message[];
+      code: string;
+    }) => void
+  >();
 
   return {
     session: {
@@ -196,7 +211,10 @@ describe("ChatInterface", () => {
     vi.clearAllMocks();
 
     // Setup global mocks
-    global.BroadcastChannel = MockBroadcastChannel as any;
+    global.BroadcastChannel = MockBroadcastChannel as unknown as {
+      prototype: BroadcastChannel;
+      new(name: string): BroadcastChannel;
+    };
 
     // Reset localStorage
     localStorageMock.clear();
@@ -605,7 +623,7 @@ describe("ChatInterface", () => {
         messages: [{
           id: "1",
           role: "user",
-          content: undefined,
+          content: "test content",
         }],
       });
     });

@@ -57,7 +57,7 @@ export default tsEslint.config(
       // React Refresh rules
       "react-hooks/exhaustive-deps": ["off"],
       "react-refresh/only-export-components": [
-        "warn",
+        "off",
         { allowConstantExport: true },
       ],
 
