@@ -20,10 +20,6 @@ export async function startAce(
     autoScrollEditorIntoView: false,
     useWorker: true,
     tabSize: 2,
-    behavioursEnabled: true,
-    useSoftTabs: true,
-
-    mergeUndoDeltas: true,
     value: code,
     mode: "ace/mode/typescript",
 
