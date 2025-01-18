@@ -33,7 +33,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       if (formatted === cSess.session.code) return;
       if (newCode === mod.lastCode) return;
       mod.lastCode = newCode;
-      mod.lastMd5s.push(md5(newCode));
+      mod.lastMd5s.push(md5(formatted));
       if (mod.lastMd5s.length > 10) mod.lastMd5s.shift();
 
       await cSess.setCode(newCode);
