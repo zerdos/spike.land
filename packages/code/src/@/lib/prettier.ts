@@ -23,7 +23,7 @@ const removeBlockComments = (code: string) => {
 /**
  * Processes and formats CSS-in-JS code, specifically dealing with the `css` template literal syntax.
  * @param code - The input code string to process.
- * @returns The processed and formatted code string.
+ * @returns The processed and formated code string.
  */
 export const addSomeFixesIfNeeded = (_code: string): string => {
   const code = removeBlockComments(_code);

@@ -175,13 +175,9 @@ export class Code implements ICode {
       transpiled: "",
     });
 
-    // If the session code starts with a marker, reset it
-    if (this.session.code.startsWith(`\n// ${codeSpace}.tsx\n`)) {
-      this.session.code = `\n// ${codeSpace}.tsx\n`;
-    }
-
     // Determine the user ID (anonymous hashing if needed)
     this.user = localStorage.getItem(`${this.codeSpace} user`) || md5(crypto.randomUUID());
+    localStorage.setItem(`${this.codeSpace} user`, this.user);
 
     // Setup broadcast channel to synchronize with other clients
     this.broadcastChannel = new CodeSessionBC(codeSpace);

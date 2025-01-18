@@ -320,9 +320,9 @@ async function resolveNonRelativeRef(
         .catch(() => false);
 
       return isAccessible ? newBase : null;
-    }
+    } // ${
 
-    return directResponse.url;
+    return directResponse.url; // ${
   } catch (error) {
     console.error("Failed to resolve reference", { ref, originToUse, error });
     return null;
