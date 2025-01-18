@@ -323,12 +323,13 @@ async function startMonacoPristine({
       // myEditor.getDomNode()?.blur();
       //      if (editorModel.isEdit) return;
       editorModel.silent = true;
-      let state = null;
+      const state = myEditor.saveViewState();
       try {
-        state = myEditor.saveViewState();
         model.setValue(_newCode);
 
         if (state) {
+          console.log("restoring state");
+          console.log(state);
           myEditor.restoreViewState(state);
         }
       } catch (error) {
