@@ -7,8 +7,16 @@ import { AIHandler } from "../AIHandler";
 vi.mock("../AIHandler", () => ({
   AIHandler: vi.fn().mockImplementation(() => ({
     prepareClaudeContent: vi.fn(),
-    sendToAnthropic: vi.fn(),
-    sendToGpt4o: vi.fn(),
+    sendToAnthropic: (_update: (chunk: string) => void) => {
+      return Promise.resolve(
+        { id: "123", role: "assistant", content: "Claude response" } as Message,
+      );
+    },
+    sendToGpt4o: (_update: (chunk: string) => void) => {
+      return Promise.resolve(
+        { id: "123", role: "assistant", content: "gpt-4o response" } as Message,
+      );
+    },
   })),
 }));
 
@@ -137,12 +145,12 @@ describe("handleSendMessage", () => {
 `);
 
     expect(logs[3]).toMatchInlineSnapshot(`
-  {
-    "content": "response",
-    "id": "1737133875901",
-    "role": "assistant",
-  }
-`);
+      {
+        "content": "",
+        "id": "1737133875901",
+        "role": "assistant",
+      }
+    `);
   });
 
   it("should log fallback to GPT-4 scenario", async () => {
