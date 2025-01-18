@@ -28,7 +28,7 @@ export default tsEslint.config(
       sourceType: "module",
       globals: {
         ...globals.browser,
-        ...globals.es2022,
+        ...globals.es2024,
         ...globals.node,
         ...globals.es2025,
       },

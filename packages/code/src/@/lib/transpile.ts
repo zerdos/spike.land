@@ -149,7 +149,7 @@ const getDefaultBuildOptions = ({
     ".css": "css" as const,
   },
   write: false,
-  target: "es2022",
+  target: "es2024",
   outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
   treeShaking: true,
   legalComments: "none",
