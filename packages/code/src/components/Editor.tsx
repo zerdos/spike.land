@@ -48,7 +48,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         mod.lastMd5s.push(md5(newCode));
         if (mod.lastMd5s.length > 10) mod.lastMd5s.shift();
 
-        const code = await cSess.setCode(newCode);
+        const code = await cSess.setCode(formatted);
         if (typeof code === "string") {
           if (!mod.lastMd5s.includes(md5(code))) mod.lastMd5s.push(md5(code));
         }
