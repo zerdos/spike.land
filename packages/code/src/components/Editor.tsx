@@ -47,8 +47,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         mod.lastCode = formatted;
         if (mod.lastMd5s.includes(md5(formatted))) return;
-        mod.lastMd5s.push(md5(formatted));
         if (mod.lastMd5s.length > 10) mod.lastMd5s.shift();
+        mod.lastMd5s.push(md5(formatted));
 
         const code = await cSess.setCode(formatted);
         if (typeof code === "string") {
@@ -71,6 +71,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       newCode = sess.code;
       if (mod.lastMd5s.includes(md5(newCode))) return;
+      mod.lastMd5s.push(md5(newCode));
 
       // Prevent applying changes if there's no new code or an outdated index
       if (sess.code === editorState.code) return;
