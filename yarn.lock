@@ -1635,9 +1635,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/anthropic@npm:0.3.11":
-  version: 0.3.11
-  resolution: "@langchain/anthropic@npm:0.3.11"
+"@langchain/anthropic@npm:0.3.12":
+  version: 0.3.12
+  resolution: "@langchain/anthropic@npm:0.3.12"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.32.1"
     fast-xml-parser: "npm:^4.4.1"
@@ -1645,7 +1645,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.22.4"
   peerDependencies:
     "@langchain/core": ">=0.2.21 <0.4.0"
-  checksum: 10c0/61b1d37b880e5cbb2de1caec0ad7259236c73e0ff456793cef607b6e8b0733de7b48b8569b139ce263488610209c31a7f4e8d07a2c0354f9261ef2acc41bea38
+  checksum: 10c0/5a104088caa655ffc8aa6740a620711d498ce072c104c9c4e4fd21519227c764cd7f9458527b314c5cbf4e681fd90682ecd72fa1dad743dc56ce881eba0b8d43
   languageName: node
   linkType: hard
 
@@ -3787,7 +3787,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.1"
     "@heroicons/react": "npm:2.2.0"
     "@hookform/resolvers": "npm:^3.10.0"
-    "@langchain/anthropic": "npm:0.3.11"
+    "@langchain/anthropic": "npm:0.3.12"
     "@langchain/core": "npm:0.3.31"
     "@langchain/langgraph": "npm:0.2.41"
     "@mui/material": "npm:6.4.0"
@@ -3865,7 +3865,6 @@ __metadata:
     "@vitest/runner": "npm:3.0.2"
     "@vitest/snapshot": "npm:3.0.2"
     "@vitest/ui": "npm:3.0.2"
-    ace-builds: "npm:1.37.5"
     ai-digest: "npm:1.0.7"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
@@ -3913,7 +3912,7 @@ __metadata:
     jsdom: "npm:26.0.0"
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
-    lucide-react: "npm:^0.471.2"
+    lucide-react: "npm:^0.473.0"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
     module: "npm:1.2.5"
@@ -5648,13 +5647,6 @@ __metadata:
   dependencies:
     event-target-shim: "npm:^5.0.0"
   checksum: 10c0/90ccc50f010250152509a344eb2e71977fbf8db0ab8f1061197e3275ddf6c61a41a6edfd7b9409c664513131dd96e962065415325ef23efa5db931b382d24ca5
-  languageName: node
-  linkType: hard
-
-"ace-builds@npm:1.37.5":
-  version: 1.37.5
-  resolution: "ace-builds@npm:1.37.5"
-  checksum: 10c0/6279b4e41088d7fca39f8c1764358ea0910af88c7a78027ba51fd9e8699bdc9b4108684638adf86d3b0eaa917eec8cefde1530f2c1a0f0a63119d88ae21ce4e5
   languageName: node
   linkType: hard
 
@@ -11697,12 +11689,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.471.1, lucide-react@npm:^0.471.2":
+"lucide-react@npm:^0.471.1":
   version: 0.471.2
   resolution: "lucide-react@npm:0.471.2"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/4dca36aaa5ebe4405ac0bed13974795d2db0495fdfb6c3c60aaeb59393d24e3295e2f061ba21766808e7b3e29fa948c87a4868fd514e25f9b415df76d963383f
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.473.0":
+  version: 0.473.0
+  resolution: "lucide-react@npm:0.473.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/0e6911eb2b5332165bdbca6f951a49e9f1162502a9641edea8bae29c0307d720b86bbbcc17fa909c3d0748fbcb8088eb33bb6f627a1cab1118a259b63ee7a38c
   languageName: node
   linkType: hard
 
