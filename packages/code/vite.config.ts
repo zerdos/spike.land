@@ -25,7 +25,8 @@ const getExternalFiles = (dir: string) =>
     return file;
   });
 
-const externalRollup = ["@/external"].map(getExternalFiles).flat();
+const externalRollup = ["@/external", "@/lib", "@/components/ui", "@/components/app", "@/hooks"]
+  .map(getExternalFiles).flat();
 // const preactCompat = `/preact@${preactPackageJson.version}/compat`;
 
 // ***
