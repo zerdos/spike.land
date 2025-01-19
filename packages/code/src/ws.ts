@@ -5,6 +5,7 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
+import { a } from "vitest/dist/chunks/suite.BJU7kdY9.js";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -68,9 +69,9 @@ const handleRender = async (
   const { cssCache, rootElement } = renderedNew;
 
   for (let attempts = 5; attempts > 0; attempts--) {
+    await wait(100 / attempts);
     if (!rootElement.innerHTML) {
-      await wait(50);
-      if (!rootElement?.innerHTML) continue;
+      continue;
     }
 
     const html = htmlDecode(rootElement.innerHTML);
