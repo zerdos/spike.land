@@ -101,6 +101,9 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName?.startsWith("@/")) {
+      if (packageName?.includes(".worker")) {
+        return p1 + `"${origin}/${packageName}.js"` + p3;
+      }
       return p1 + `"${origin}/${packageName}.mjs"` + p3;
     }
 
