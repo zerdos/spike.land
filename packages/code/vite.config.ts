@@ -8,24 +8,24 @@ import { importMap } from "./src/@/lib/importmap-utils";
 
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
-const externalFiles = fs.readdirSync(
-  path.resolve(__dirname, "./src/@/external"),
-);
+const getExternalFiles = (dir: string) =>
+  fs.readdirSync(
+    path.resolve(__dirname, `./src/${dir}`),
+  ).map((file) => {
+    return {
+      type: "external",
+      file: "/@/external/" + file,
+    };
+  }).map((file) => {
+    // replace .ts/tsx with .mjs
+    const fileParts = file.file.split(".");
+    fileParts.pop();
+    fileParts.push("mjs");
+    file.file = fileParts.join(".");
+    return file;
+  });
 
-const externalRollup = externalFiles.map((file) => {
-  return {
-    type: "external",
-    file: "/@/external/" + file,
-  };
-}).map((file) => {
-  // replace .ts/tsx with .mjs
-  const fileParts = file.file.split(".");
-  fileParts.pop();
-  fileParts.push("mjs");
-  file.file = fileParts.join(".");
-  return file;
-});
-
+const externalRollup = ["@/external"].map(getExternalFiles).flat();
 // const preactCompat = `/preact@${preactPackageJson.version}/compat`;
 
 // ***
@@ -51,7 +51,7 @@ const externalAliases = externalRollup.reduce(
     const fileParts = file.file.split(".");
     fileParts.pop();
     file.file = fileParts.join(".");
-    file.file = file.file.replace("/@/external/", "@/external/");
+    file.file = file.file.replace("/@/", "@/");
 
     acc[file.file] = "/" + file.file + ".mjs";
 
