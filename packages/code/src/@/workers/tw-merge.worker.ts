@@ -8,3 +8,4 @@ export function cn(...inputs: ClassValue[]) {
 export type ClassNameMerger = typeof cn;
 
 Object.assign(globalThis, { cn });
+export default twMerge;
