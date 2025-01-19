@@ -69,7 +69,7 @@ const handleRender = async (
   const { cssCache, rootElement } = renderedNew;
 
   for (let attempts = 5; attempts > 0; attempts--) {
-    await wait(100 / attempts);
+    await wait(100);
     if (!rootElement.innerHTML) {
       continue;
     }
