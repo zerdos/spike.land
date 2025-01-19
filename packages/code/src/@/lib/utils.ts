@@ -1,1 +1,1 @@
-export { cn } from "@/workers/tw-merge.worker.js";
+export { cn } from "@/workers/tw-merge.worker";
