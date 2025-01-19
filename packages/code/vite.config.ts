@@ -62,6 +62,8 @@ const externalAliases = externalRollup.reduce(
   {},
 );
 
+Object.assign(externalAliases, importMap.imports);
+
 const rollupExternal = Object.values(externalAliases);
 
 // Create proxy configuration from import map
