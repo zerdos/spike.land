@@ -14,7 +14,7 @@ const getExternalFiles = (dir: string) =>
   ).map((file) => {
     return {
       type: "external",
-      file: "/@/external/" + file,
+      file: `/${dir}/` + file,
     };
   }).map((file) => {
     // replace .ts/tsx with .mjs
