@@ -1,5 +1,5 @@
+import { ToggleButton, ToggleButtonGroup } from "@/external/mui-material";
 import { cn } from "@/lib/utils";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
 
 interface ScaleRangeButtonsProps {

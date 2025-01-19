@@ -1,4 +1,4 @@
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup } from "@/external/mui-material";
 import { motion } from "framer-motion";
 import { Phone, Tablet, Tv } from "../icons";
 import { cn } from "../lib/utils";

@@ -1,6 +1,6 @@
 import { FaDownload } from "@/external/icons";
 import { FullscreenIcon } from "@/external/lucideReact";
-import { Fab, Tooltip } from "@mui/material";
+import { Fab, Tooltip } from "@/external/mui-material";
 import { motion } from "framer-motion";
 import type { FC } from "react";
 import { Share } from "../icons";

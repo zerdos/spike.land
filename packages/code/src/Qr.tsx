@@ -7,7 +7,7 @@ import { useState } from "react";
 import { QRious } from "@/external/react-qrious";
 import { QrCodeIcon } from "./icons";
 
-import { Fab } from "@mui/material";
+import { Fab } from "@/external/mui-material";
 
 // const QRiousLazy = (props) =>lazy(async () => {
 // const {QRious} = await import("react-qrious");
