@@ -60,7 +60,7 @@ export async function buildMainScripts(): Promise<void> {
   await build({
     ...getCommonBuildOptions("production"),
     entryPoints: workerFiles,
-    format: "iife",
+    format: "esm",
     outdir: "dist/@/workers",
     bundle: true,
     minifyIdentifiers: true,
