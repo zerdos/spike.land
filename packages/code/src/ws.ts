@@ -119,13 +119,13 @@ const handleRender = async (
 
     // let cssStrings = [...criticalClasses]
 
-    let cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 
-    try {
-      cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
-    } catch (error) {
-      console.error("Error prettifying CSS:", error);
-    }
+    // try {
+    //   cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+    // } catch (error) {
+    //   console.error("Error prettifying CSS:", error);
+    // }
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
