@@ -64,7 +64,7 @@ const externalAliases = externalRollup.reduce(
 
 Object.assign(externalAliases, importMap.imports);
 
-const rollupExternal = Object.values(externalAliases);
+const rollupExternal = Object.values({ ...externalAliases });
 
 // Create proxy configuration from import map
 const importMapProxy: Record<string, ProxyOptions> = {};
@@ -150,7 +150,7 @@ const config = defineConfig((config) => ({
 
   resolve: {
     alias: {
-      ...(config.command === "build" ? externalAliases : {}),
+      ...externalAliases,
       "@": path.resolve(__dirname, "./src/@"),
       // ...importMap.imports
     },
