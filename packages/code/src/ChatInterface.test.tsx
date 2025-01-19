@@ -629,7 +629,11 @@ describe("ChatInterface", () => {
     });
 
     // Should not crash and should maintain valid state
-    expect(mockSession.session.messages).toEqual([]);
+    expect(mockSession.session.messages).toEqual([{
+      id: "1",
+      role: "user",
+      content: "test content",
+    }],);
   });
 
   it("cleans up broadcast channel on unmount", async () => {
