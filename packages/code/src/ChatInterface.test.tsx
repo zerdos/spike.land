@@ -633,7 +633,7 @@ describe("ChatInterface", () => {
       id: "1",
       role: "user",
       content: "test content",
-    }],);
+    }]);
   });
 
   it("cleans up broadcast channel on unmount", async () => {
