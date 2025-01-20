@@ -1649,23 +1649,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:0.3.31":
-  version: 0.3.31
-  resolution: "@langchain/core@npm:0.3.31"
+"@langchain/core@npm:0.3.32":
+  version: 0.3.32
+  resolution: "@langchain/core@npm:0.3.32"
   dependencies:
     "@cfworker/json-schema": "npm:^4.0.2"
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
     decamelize: "npm:1.2.0"
     js-tiktoken: "npm:^1.0.12"
-    langsmith: "npm:^0.2.8"
+    langsmith: "npm:>=0.2.8 <0.4.0"
     mustache: "npm:^4.2.0"
     p-queue: "npm:^6.6.2"
     p-retry: "npm:4"
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10c0/8c1361c63d5c55b170e027d31cd640ce1346ff2256c6b70682452d28584117718ff1c22ba50b44d6792e0f4934a1dca6adc96e9bfe0011732f6fb6c697770965
+  checksum: 10c0/30e8bc72d0d2500e96e2f2ee95319f2eb44a50758b36b889b11ee82a68e199b0770cd42a9b4c5a785db03da39e2f1b9f701655065ed728501fa007b19470b879
   languageName: node
   linkType: hard
 
@@ -3788,7 +3788,7 @@ __metadata:
     "@heroicons/react": "npm:2.2.0"
     "@hookform/resolvers": "npm:3.10.0"
     "@langchain/anthropic": "npm:0.3.12"
-    "@langchain/core": "npm:0.3.31"
+    "@langchain/core": "npm:0.3.32"
     "@langchain/langgraph": "npm:0.2.41"
     "@mui/material": "npm:6.4.0"
     "@okikio/sharedworker": "npm:1.1.0"
@@ -3853,7 +3853,7 @@ __metadata:
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.196"
+    "@types/web": "npm:0.0.197"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.20.0"
     "@typescript/ata": "npm:0.9.7"
@@ -3981,7 +3981,7 @@ __metadata:
     uvu: "npm:0.5.6"
     v8: "npm:0.1.0"
     vaul: "npm:1.1.2"
-    vite: "npm:6.0.7"
+    vite: "npm:6.0.8"
     vite-tsconfig-paths: "npm:5.1.4"
     vitest: "npm:3.0.2"
     vm-browserify: "npm:1.1.2"
@@ -5121,10 +5121,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.196":
-  version: 0.0.196
-  resolution: "@types/web@npm:0.0.196"
-  checksum: 10c0/c18295901482c3d54de82aec937aa7eb5b9f5f120d2c806dd2357bca1fd406fac7b682568acd4e9a60f33a293c4a57e649016a650ede79724346c4f4f5ee308b
+"@types/web@npm:0.0.197":
+  version: 0.0.197
+  resolution: "@types/web@npm:0.0.197"
+  checksum: 10c0/a41ec1640d84a04078af7f97a134d480a6b6e4f0f87b09e70068701f593357afded009534e769b0a3b77d4358edfbe9d72b395ec9135d0b30c0af11237955ffc
   languageName: node
   linkType: hard
 
@@ -7022,13 +7022,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "commander@npm:10.0.1"
-  checksum: 10c0/53f33d8927758a911094adadda4b2cbac111a5b377d8706700587650fd8f45b0bbe336de4b5c3fe47fd61f420a3d9bd452b6e0e6e5600a7e74d7bf0174f6efe3
-  languageName: node
-  linkType: hard
-
 "commander@npm:^12.1.0":
   version: 12.1.0
   resolution: "commander@npm:12.1.0"
@@ -7132,6 +7125,15 @@ __metadata:
   version: 3.4.0
   resolution: "consola@npm:3.4.0"
   checksum: 10c0/bc7f7ad46514375109a80f3ae8330097eb1e5d89232a24eb830f3ac383e22036a62c53d33561cd73d7cda4b3691fba85e3dcf35229ef7721b324aae291ceb40c
+  languageName: node
+  linkType: hard
+
+"console-table-printer@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "console-table-printer@npm:2.12.1"
+  dependencies:
+    simple-wcswidth: "npm:^1.0.1"
+  checksum: 10c0/8f28e9c0ae5df77f5d60da3da002ecd95ebe1812b0b9e0a6d2795c81b5121b39774f32506bccf68830a838ca4d8fbb2ab8824e729dba2c5e30cdeb9df4dd5f2b
   languageName: node
   linkType: hard
 
@@ -11267,12 +11269,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"langsmith@npm:^0.2.8":
-  version: 0.2.15
-  resolution: "langsmith@npm:0.2.15"
+"langsmith@npm:>=0.2.8 <0.4.0":
+  version: 0.3.0
+  resolution: "langsmith@npm:0.3.0"
   dependencies:
     "@types/uuid": "npm:^10.0.0"
-    commander: "npm:^10.0.1"
+    chalk: "npm:^4.1.2"
+    console-table-printer: "npm:^2.12.1"
     p-queue: "npm:^6.6.2"
     p-retry: "npm:4"
     semver: "npm:^7.6.3"
@@ -11282,7 +11285,7 @@ __metadata:
   peerDependenciesMeta:
     openai:
       optional: true
-  checksum: 10c0/38e87906bc7bbe17ca09095467f8077815e9fdbef16832627f673f27ee65292358cafab52fc08d64ce4d9bf806bf6ab81800cd99c18685408c354aeecc9cbef0
+  checksum: 10c0/57940e237593aaf75fcd742f914a2fd512ef7d2139d2fa199183a06ad4acc6c41f3a5fb5a955efe9657785b3ef94abe919543a1399ffb4085c4c8ddd50672cec
   languageName: node
   linkType: hard
 
@@ -15565,6 +15568,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-wcswidth@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "simple-wcswidth@npm:1.0.1"
+  checksum: 10c0/2befead4c97134424aa3fba593a81daa9934fd61b9e4c65374b57ac5eecc2f2be1984b017bbdbc919923e19b77f2fcbdb94434789b9643fa8c3fde3a2a6a4b6f
+  languageName: node
+  linkType: hard
+
 "sirv@npm:^3.0.0":
   version: 3.0.0
   resolution: "sirv@npm:3.0.0"
@@ -17488,7 +17498,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:6.0.7, vite@npm:^5.0.0 || ^6.0.0":
+"vite@npm:6.0.8":
+  version: 6.0.8
+  resolution: "vite@npm:6.0.8"
+  dependencies:
+    esbuild: "npm:^0.24.2"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.4.49"
+    rollup: "npm:^4.23.0"
+  peerDependencies:
+    "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
+    jiti: ">=1.21.0"
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    sass-embedded: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.16.0
+    tsx: ^4.8.1
+    yaml: ^2.4.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    jiti:
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+    tsx:
+      optional: true
+    yaml:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10c0/2313489cf29f07d35c87ef5f0c0e5cb382dbd9d2a9d8cd44c6c49f99bfba81ee41b7c5d3b6405303df1d57c83b7c30941fa205bfaa2a52f17dcc4138f5b539a6
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.0.0 || ^6.0.0":
   version: 6.0.7
   resolution: "vite@npm:6.0.7"
   dependencies:
