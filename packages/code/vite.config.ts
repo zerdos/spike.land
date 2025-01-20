@@ -25,7 +25,10 @@ const getExternalFiles = (dir: string) =>
     return file;
   });
 
-const externalRollup = ["@/external", "@/lib", "@/components/ui", "@/components/app", "@/hooks"]
+const externalRollup = [
+  //  "@/external",
+  // "@/lib", "@/components/ui", "@/components/app", "@/hooks"
+]
   .map(getExternalFiles).flat();
 // const preactCompat = `/preact@${preactPackageJson.version}/compat`;
 
@@ -98,8 +101,8 @@ const config = defineConfig((config) => ({
       external: [
         // "/start.mjs",
         // "/swVersion.mjs",
-        ...Object.keys(importMap.imports),
-        ...rollupExternal,
+        //   ...Object.keys(importMap.imports),
+        //     ...rollupExternal,
       ],
     },
     outDir: "dist-vite",
@@ -150,7 +153,7 @@ const config = defineConfig((config) => ({
 
   resolve: {
     alias: {
-      ...externalAliases,
+      //    ...externalAliases,
       "@": path.resolve(__dirname, "./src/@"),
       // ...importMap.imports
     },
