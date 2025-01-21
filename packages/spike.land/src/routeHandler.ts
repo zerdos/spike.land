@@ -62,7 +62,7 @@ export class RouteHandler {
 
       my: this.handleMyCode.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
-      "": this.handleEditorRoute.bind(this),
+      "": this.handleDefaultRoute.bind(this),
 
       undefined: this.handleDefaultRoute.bind(this),
       "null": this.handleDefaultRoute.bind(this),
