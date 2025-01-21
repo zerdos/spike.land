@@ -43,7 +43,7 @@ export class RouteHandler {
       ) => Promise<Response>;
     } = {
       websocket: this.handleWebsocketRoute.bind(this),
-      code: (req: Request) => fakeServer(req),
+      code: (req: Request, url) => fakeServer(new Request(url.toString())),
       "index.tsx": () => fakeServer(new Request(`/live/${codeSpace}/index.tsx`)),
       "session.json": () => fakeServer(new Request(`/live/${codeSpace}/session.json`)),
       lazy: this.handleLazyRoute.bind(this),
