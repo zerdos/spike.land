@@ -63,9 +63,9 @@ export async function buildMainScripts(): Promise<void> {
     format: "iife",
     outdir: "dist/@/workers",
     bundle: true,
-    minifyIdentifiers: true,
-    minifySyntax: true,
-    minifyWhitespace: true,
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
     treeShaking: true,
     legalComments: "none",
     sourcemap: false,
@@ -81,7 +81,7 @@ export async function buildMainScripts(): Promise<void> {
     external: [
       "worker_threads",
     ],
-    minify: true,
+    minify: false,
     ignoreAnnotations: false,
 
     outExtension: { ".js": ".js" },
