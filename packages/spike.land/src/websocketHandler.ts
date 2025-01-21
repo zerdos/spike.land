@@ -256,7 +256,7 @@ export class WebSocketHandler {
   ): Promise<void> {
     const oldHash = computeSessionHash(this.code.session);
     if (oldHash === data.newHash) {
-      return; // Already up-to-date
+      return respondWith({ msg: "no-changes" });
     }
     if (oldHash !== data.oldHash) {
       return respondWith({
@@ -268,12 +268,12 @@ export class WebSocketHandler {
     try {
       console.log("Applying patch...", data);
       const newState = applySessionPatch(this.code.session, data);
+      this.code.session = newState;
       console.log("New state after patch:", newState);
       this.code.updateAndBroadcastSession(newState, session);
-      respondWith({
+      return respondWith({
         newHash: computeSessionHash(newState),
       });
-      return;
     } catch (err) {
       console.error("Error applying patch:", err);
       respondWith({ error: "patch-application-failed", exp: err || {} });
@@ -300,8 +300,17 @@ export class WebSocketHandler {
     let successfulBroadcasts = 0;
 
     this.wsSessions.forEach((s) => {
-      if (s === session) return;
+      if (s === session) {
+        return session.webSocket.send(
+          JSON.stringify({ hashCode: computeSessionHash(this.code.session) }),
+        );
+      }
+      if (s.quit) return;
+
       try {
+        s.blockedMessages.forEach((m) => s.webSocket.send(m));
+        s.blockedMessages = [];
+
         s.webSocket.send(message);
         successfulBroadcasts++;
       } catch (error) {
