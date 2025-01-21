@@ -1,7 +1,6 @@
 import { createClerkClient } from "@clerk/backend";
 import type { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 import {
-  fakeServer,
   HTML,
   importMap,
   importMapReplace,
@@ -34,7 +33,6 @@ export class RouteHandler {
   private getRouteHandler(
     route: string,
   ): ((req: Request, url: URL, path: string[]) => Promise<Response>) | null {
-    const { codeSpace } = this.code.session;
     const routes: {
       [key: string]: (
         req: Request,
@@ -43,37 +41,39 @@ export class RouteHandler {
       ) => Promise<Response>;
     } = {
       websocket: this.handleWebsocketRoute.bind(this),
-      code: (req: Request, url) => fakeServer(new Request(url.toString())),
-      "index.tsx": () => fakeServer(new Request(`/live/${codeSpace}/index.tsx`)),
-      "session.json": () => fakeServer(new Request(`/live/${codeSpace}/session.json`)),
+      code: this.handleCodeRoute.bind(this),
+      "index.tsx": this.handleCodeRoute.bind(this),
+      "session.json": this.handleSessionRoute.bind(this),
       lazy: this.handleLazyRoute.bind(this),
       request: this.handleRequestRoute.bind(this),
       list: this.handleListRoute.bind(this),
       room: this.handleRoomRoute.bind(this),
       path: this.handlePathRoute.bind(this),
-      "index.js": () => fakeServer(new Request(`/live/${codeSpace}/index.js`)),
-      "index.css": () => fakeServer(new Request(`/live/${codeSpace}/index.css`)),
+      "index.mjs": this.handleJsRoute.bind(this),
+      "index.js": this.handleJsRoute.bind(this),
+      "index.css": this.handleCssRoute.bind(this),
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
       "wrapped": this.handleWrapHTMLRoute.bind(this),
-      js: () => fakeServer(new Request(`/live/${codeSpace}/index.js`)),
-      htm: () => fakeServer(new Request(`/live/${codeSpace}/index.html`)),
+      js: this.handleJsRoute.bind(this),
+      htm: this.handleHtmlRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
       screenshot: this.handleScreenShotRoute.bind(this),
 
       my: this.handleMyCode.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
-      "": () => fakeServer(new Request(`/live/${codeSpace}`)),
-      undefined: () => fakeServer(new Request(`/live/${codeSpace}`)),
-      "null": () => fakeServer(new Request(`/live/${codeSpace}`)),
-      hydrated: () => fakeServer(new Request(`/live/${codeSpace}/`)),
+      "": this.handleEditorRoute.bind(this),
+
+      undefined: this.handleEditorRoute.bind(this),
+      "null": this.handleEditorRoute.bind(this),
+      hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
 
-      dehydrated: (req: Request) => fakeServer(req),
-      iframe: () => fakeServer(new Request(`/live/${codeSpace}/iframe`)),
-      embed: () => fakeServer(new Request(`/live/${codeSpace}/`)),
+      dehydrated: this.handleDefaultRoute.bind(this),
+      iframe: this.handleDefaultRoute.bind(this),
+      embed: this.handleDefaultRoute.bind(this),
 
-      public: () => fakeServer(new Request(`/live/${codeSpace}/`)),
+      public: this.handleDefaultRoute.bind(this),
       // New routes for auto-save functionality
 
       "auto-save": this.handleAutoSaveRoute.bind(this),
@@ -250,8 +250,16 @@ export class RouteHandler {
   }
 
   private async handleCodeRoute(): Promise<Response> {
-    const { codeSpace } = this.code.session;
-    return fakeServer(new Request(`/live/${codeSpace}/index.tsx`));
+    return new Response(this.code.session.code, {
+      status: 200,
+      headers: new Headers({
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        content_hash: md5(this.code.session.code),
+        "Content-Type": "application/javascript; charset=UTF-8",
+      }),
+    });
   }
 
   private async handleSessionRoute(
