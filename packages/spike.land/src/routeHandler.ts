@@ -153,9 +153,8 @@ export class RouteHandler {
             `<script type="importmap">${JSON.stringify(importMap)}</script>`,
           ).replace(
             `<!-- Inline LINK for initial theme -->`,
-            `<!-- Inline LINK for initial theme -->
-                    <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
-                    <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+            `<link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+             <link rel="stylesheet" href="/live/${codeSpace}/index.css">
                     `,
           ).replace(
             '<div id="embed"></div>',
@@ -358,13 +357,9 @@ hQIDAQAB
 
     return new Response(JSON.stringify({ isSignedIn }), { status: 200 });
   }
-  private async handleDefaultRoute(
-    _request: Request,
-    url: URL,
-  ): Promise<Response> {
+  private async handleDefaultRoute(): Promise<Response> {
     // const url = new URL(r);
-    const codeSpace = url.searchParams.get("room");
-    const { html } = this.code.session;
+    const { html, codeSpace } = this.code.session;
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
@@ -479,12 +474,8 @@ hQIDAQAB
     return new Response("Not found", { status: 404 });
   }
 
-  private async handleWrapHTMLRoute(
-    _request: Request,
-    url: URL,
-  ): Promise<Response> {
-    const codeSpace = url.searchParams.get("room");
-    const { html } = this.code.session;
+  private async handleWrapHTMLRoute(): Promise<Response> {
+    const { html, codeSpace } = this.code.session;
 
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
@@ -495,7 +486,7 @@ hQIDAQAB
         `<!-- Inline LINK for initial theme -->
               <link rel="preload" href="/live/${codeSpace}/index.css" as="style">
               <link rel="stylesheet" href="/live/${codeSpace}/index.css">
-              `,
+        `,
       ).replace(
         '<div id="embed"></div>',
         `<div id="embed">${html}</div>`,
