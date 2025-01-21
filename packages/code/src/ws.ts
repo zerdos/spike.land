@@ -5,7 +5,6 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
-import { a } from "vitest/dist/chunks/suite.BJU7kdY9.js";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -13,7 +12,7 @@ import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
 
 // Global variables and types
-const codeSpace = getCodeSpace();
+const codeSpace = getCodeSpace(location.pathname);
 let rendered: RenderedApp | null = null;
 let renderedMd5 = "";
 

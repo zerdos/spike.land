@@ -21,7 +21,7 @@ if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
 }
 
-const codeSpace = getCodeSpace();
+const codeSpace = getCodeSpace(location.pathname);
 
 (async () => {
   if (

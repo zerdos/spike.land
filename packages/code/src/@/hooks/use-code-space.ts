@@ -1,10 +1,10 @@
 import { routes } from "@/lib/routes";
 
-export const getCodeSpace = (pathname = "") => {
-  const paths = (pathname || location.pathname).split("/").slice(1);
+export const getCodeSpace = (pathname: string) => {
+  const paths = pathname.split("/").slice(1);
 
-  const redirect = Object.hasOwn(routes, location.pathname)
-    ? routes[(pathname || location.pathname) as unknown as keyof typeof routes]
+  const redirect = Object.hasOwn(routes, pathname)
+    ? routes[pathname as unknown as keyof typeof routes]
     : null;
 
   return redirect || paths[1];

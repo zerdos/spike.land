@@ -56,7 +56,7 @@ export class RouteHandler {
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
       "wrapped": this.handleWrapHTMLRoute.bind(this),
-      js: this.handleJsRoute.bind(this),
+      js: () => fakeServer(new Request(`/live/${codeSpace}/index.js`)),
       htm: () => fakeServer(new Request(`/live/${codeSpace}/index.html`)),
       env: this.handleEnvRoute.bind(this),
       screenshot: this.handleScreenShotRoute.bind(this),

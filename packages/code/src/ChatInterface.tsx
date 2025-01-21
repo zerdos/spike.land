@@ -1,5 +1,4 @@
 import { ChatDrawer } from "@/components/app/chat-drawer";
-import { getCodeSpace } from "@/hooks/use-code-space";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
@@ -19,7 +18,7 @@ const ChatInterface: React.FC<{
   cSess: ICode;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const codeSpace = getCodeSpace();
+  const { codeSpace } = cSess.session;
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const [messages, setMessages] = useState<Message[]>(cSess.session.messages);

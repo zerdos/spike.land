@@ -91,7 +91,7 @@ export async function setConnections(
     oldSession: sanitizeSession(sess),
     lastHash: computeSessionHash(sess),
     broadcastChannel: new BroadcastChannel(
-      `${location.origin}/live/${codeSpace}/`,
+      `/live/${codeSpace}/`,
     ),
     webSocket: createWebSocket(codeSpace),
   };

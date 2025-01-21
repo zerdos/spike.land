@@ -30,7 +30,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const handleSend = () => {
     const result = handleSendMessage({
       messages,
-      codeSpace: getCodeSpace(),
+      codeSpace: getCodeSpace(location.pathname),
       prompt: input,
       images: uploadedImages,
       code: code,
