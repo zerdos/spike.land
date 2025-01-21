@@ -12,7 +12,7 @@ import { sessionToJSON } from "@/lib/make-sess";
 const cSessions: Record<string, CodeSessionBC> = {};
 
 export async function fakeServer(request: Request) {
-  const { pathname } = new URL(request.url);
+  const { pathname } = new URL(request.url.replace("api/room/", "live/"));
   const codeSpace = getCodeSpace(pathname);
   console.log("CodeSpace:", codeSpace);
 
