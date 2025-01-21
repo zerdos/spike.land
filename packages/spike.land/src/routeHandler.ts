@@ -43,7 +43,7 @@ export class RouteHandler {
       ) => Promise<Response>;
     } = {
       websocket: this.handleWebsocketRoute.bind(this),
-      code: () => fakeServer(new Request(`/live/${codeSpace}/index.tsx`)),
+      code: (req: Request) => fakeServer(req),
       "index.tsx": () => fakeServer(new Request(`/live/${codeSpace}/index.tsx`)),
       "session.json": () => fakeServer(new Request(`/live/${codeSpace}/session.json`)),
       lazy: this.handleLazyRoute.bind(this),
@@ -69,7 +69,7 @@ export class RouteHandler {
       hydrated: () => fakeServer(new Request(`/live/${codeSpace}/`)),
       worker: this.handleDefaultRoute.bind(this),
 
-      dehydrated: () => fakeServer(new Request(`/live/${codeSpace}/dehydrated`)),
+      dehydrated: (req: Request) => fakeServer(req),
       iframe: () => fakeServer(new Request(`/live/${codeSpace}/iframe`)),
       embed: () => fakeServer(new Request(`/live/${codeSpace}/`)),
 
