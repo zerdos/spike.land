@@ -59,7 +59,8 @@ const connections: Map<string, Connection> = (globalThis as unknown as typeof se
   new Map();
 const mutex = new Mutex();
 
-console.log("Socket worker initialized");
+console.log("[SocketWorker] Initializing socket worker...");
+console.log("[SocketWorker] Creating mutex and connections map");
 
 // Define constants for sender identifiers to avoid magic strings
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
@@ -76,14 +77,17 @@ export async function setConnections(
   signal: string,
   sess: ICodeSession,
 ): Promise<void> {
-  console.log("Setting up connections...");
-  console.log("Signal:", signal);
-  console.log("Session:", sess);
+  console.log("[SetConnections] Starting connection setup...");
+  console.log("[SetConnections] Signal details:", {
+    signal,
+    sessionHash: computeSessionHash(sess),
+  });
+  console.log("[SetConnections] Initial session state:", JSON.stringify(sess, null, 2));
 
   const [codeSpace, user] = signal.split(" ");
   if (connections.has(codeSpace)) return;
 
-  console.log("Creating new connection for codeSpace:", codeSpace);
+  console.log("[SetConnections] Creating new connection for codeSpace:", codeSpace, "user:", user);
   const connection: Connection = {
     user,
     codeSpace,
@@ -104,7 +108,12 @@ export async function setConnections(
   };
 
   connection.webSocket.open();
-  console.log("New connection created and stored");
+  console.log("[SetConnections] Connection successfully created and stored:", {
+    codeSpace,
+    user,
+    lastHash: connection.lastHash,
+    channelPath: `/live/${codeSpace}/`,
+  });
 }
 
 /**
@@ -113,14 +122,22 @@ export async function setConnections(
  * @returns A promise that resolves to the code session.
  */
 async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
-  console.log("Fetching initial session for codeSpace:", codeSpace);
+  console.log("[FetchInitialSession] Starting fetch for codeSpace:", codeSpace);
   try {
     const response = await fetch(`/api/room/${codeSpace}/session.json`);
     const data = (await response.json()) as ICodeSession;
-    console.log("Initial session fetched successfully");
+    console.log("[FetchInitialSession] Session fetched successfully:", {
+      codeSpace,
+      sessionHash: computeSessionHash(data),
+      dataSize: JSON.stringify(data).length,
+    });
     return sanitizeSession(data);
   } catch (error) {
-    console.error(`Failed to fetch initial session for ${codeSpace}:`, error);
+    console.error(`[FetchInitialSession] Failed to fetch session for ${codeSpace}:`, {
+      error,
+      errorMessage: error instanceof Error ? error.message : "Unknown error",
+      timestamp: new Date().toISOString(),
+    });
     throw error;
   }
 }
@@ -134,11 +151,20 @@ function createWebSocket(codeSpace: string) {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
-  console.log("Creating WebSocket connection to:", url);
+  console.log("[CreateWebSocket] Initializing connection:", {
+    url,
+    protocol: location.protocol,
+    host,
+    codeSpace,
+    socketPolicy: SOCKET_POLICY,
+  });
 
   const delegate = {
     socketDidOpen() {
-      console.log("Socket opened");
+      console.log("[WebSocket] Connection established successfully", {
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
       const connection = connections.get(codeSpace)!;
       connection.webSocket.send(
         JSON.stringify({
@@ -149,16 +175,30 @@ function createWebSocket(codeSpace: string) {
       );
     },
     socketDidClose(_socket: Socket, code?: number, reason?: string) {
-      console.log("Socket closed", code, reason);
+      console.log("[WebSocket] Connection closed", {
+        code,
+        reason,
+        codeSpace,
+        timestamp: new Date().toISOString(),
+        willRetry: code !== 1008,
+      });
       // Socket closed and will retry the connection.
     },
     socketDidFinish() {
-      console.log("Socket finished");
+      console.log("[WebSocket] Connection finished permanently", {
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
       // Socket closed for good and will not retry.
     },
     socketDidReceiveMessage(socket: Socket, message: string) {
       connections.set(codeSpace, { ...connections.get(codeSpace)!, webSocket: socket });
-      console.log("Socket message:", message);
+      console.log("[WebSocket] Received message:", {
+        messageType: typeof message === "string" ? "string" : "object",
+        messageSize: message.length,
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
       const data: WsMessage = typeof message === "string" ? JSON.parse(message) : message;
       handleSocketMessage(data, codeSpace).catch((error) => {
         console.error("Error handling socket message:", error);
@@ -182,14 +222,26 @@ function createWebSocket(codeSpace: string) {
 async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<void> {
   const connection = connections.get(codeSpace);
   if (!connection) {
-    console.error("Connection not found for codeSpace:", codeSpace);
+    console.error("[HandleSocketMessage] Connection not found", {
+      codeSpace,
+      availableConnections: Array.from(connections.keys()),
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
   const ws = connection.webSocket;
-  console.log(`Handling socket message for codeSpace: ${codeSpace}`);
+  console.log(`[HandleSocketMessage] Processing message for ${codeSpace}:`, {
+    messageType: data.type,
+    hasChanges: !!data.changes,
+    hasHash: !!data.hash,
+    timestamp: new Date().toISOString(),
+  });
 
   if (data.type === "ping") {
-    console.log("Received ping message");
+    console.log("[HandleSocketMessage] Received ping message", {
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
 
@@ -215,9 +267,19 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
   }
 
   if (data.hashCode) {
-    console.log("Received hash code:", data.hashCode);
+    console.log("[HandleSocketMessage] Received hash code", {
+      hashCode: data.hashCode,
+      currentHash: connection.lastHash,
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     if (connection.lastHash === data.hashCode) {
-      console.log("Skipping message due to hash match");
+      console.log("[HandleSocketMessage] Skipping message - hash match detected", {
+        hashCode: data.hashCode,
+        currentHash: connection.lastHash,
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
       return;
     }
   }
@@ -225,7 +287,12 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
   if (data.hash && data.hash !== connection.lastHash) {
     const sess = await fetchInitialSession(codeSpace);
     if (data.hash !== computeSessionHash(sess)) {
-      console.log("Hash mismatch, skipping message");
+      console.log("[HandleSocketMessage] Hash mismatch detected", {
+        expectedHash: data.hash,
+        computedHash: computeSessionHash(sess),
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
       return;
     }
     connection.lastHash = data.hash;
@@ -262,7 +329,12 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     }
     await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
   } else {
-    console.log("Unhandled message type:", data);
+    console.log("[HandleSocketMessage] Unhandled message type", {
+      messageType: data.type,
+      dataKeys: Object.keys(data),
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
 
@@ -275,12 +347,19 @@ async function handleChanges(
   data: { changes: unknown; },
   connection: Connection,
 ): Promise<void> {
-  console.log("Handling changes:", data);
+  console.log("[HandleChanges] Processing changes", {
+    changeType: typeof data.changes,
+    changeSize: JSON.stringify(data.changes).length,
+    timestamp: new Date().toISOString(),
+  });
   connection.broadcastChannel.postMessage({
     ...data,
     sender: SENDER_WORKER_HANDLE_CHANGES,
   });
-  console.log("Changes broadcasted to channel");
+  console.log("[HandleChanges] Changes successfully broadcasted", {
+    sender: SENDER_WORKER_HANDLE_CHANGES,
+    timestamp: new Date().toISOString(),
+  });
 }
 
 /**
@@ -294,13 +373,25 @@ async function handleSessionString(
   ws: Socket,
   connection: Connection,
 ): Promise<void> {
-  console.log("Handling session string:", data);
+  console.log("[HandleSessionString] Processing session string", {
+    hash: data.hash,
+    user: connection.user,
+    codeSpace: connection.codeSpace,
+    timestamp: new Date().toISOString(),
+  });
   const { oldSession, user } = connection;
   const sess = await fetchInitialSession(connection.codeSpace);
   const patch = generateSessionPatch(sess, oldSession);
-  console.log("Created patch:", patch);
+  console.log("[HandleSessionString] Generated session patch", {
+    patchSize: JSON.stringify(patch).length,
+    user: connection.user,
+    timestamp: new Date().toISOString(),
+  });
   ws.send(JSON.stringify({ ...patch, name: user }));
-  console.log("Sent patch to WebSocket");
+  console.log("[HandleSessionString] Patch sent successfully", {
+    user: connection.user,
+    timestamp: new Date().toISOString(),
+  });
 }
 
 /**
@@ -316,24 +407,51 @@ async function handleHandshake(
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
-  console.log("Handling handshake...");
+  console.log("[HandleHandshake] Processing handshake", {
+    user: connection.user,
+    codeSpace,
+    timestamp: new Date().toISOString(),
+  });
   ws.send(JSON.stringify({ name: connection.user }));
-  console.log("Sent user name to WebSocket");
+  console.log("[HandleHandshake] User name sent", {
+    user: connection.user,
+    codeSpace,
+    timestamp: new Date().toISOString(),
+  });
 
   const oldSessionHash = computeSessionHash(connection.oldSession);
-  console.log("Old session hash:", oldSessionHash);
-  console.log("Received hash code:", data.hashCode);
+  console.log("[HandleHandshake] Hash comparison", {
+    oldSessionHash,
+    receivedHashCode: data.hashCode,
+    match: oldSessionHash === data.hashCode,
+    codeSpace,
+    timestamp: new Date().toISOString(),
+  });
 
   if (oldSessionHash !== data.hashCode) {
-    console.log("Hash mismatch, fetching new session");
+    console.log("[HandleHandshake] Hash mismatch detected, fetching new session", {
+      oldHash: oldSessionHash,
+      receivedHash: data.hashCode,
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     connection.oldSession = await fetchInitialSession(codeSpace);
     connection.broadcastChannel.postMessage({
       ...connection.oldSession,
       sender: SENDER_WORKER_HANDSHAKE,
     });
-    console.log("New session broadcasted");
+    console.log("[HandleHandshake] New session broadcasted successfully", {
+      newHash: computeSessionHash(connection.oldSession),
+      sender: SENDER_WORKER_HANDSHAKE,
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
   } else {
-    console.log("Hash match, no action needed");
+    console.log("[HandleHandshake] Hash match verified, no sync needed", {
+      hash: oldSessionHash,
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
 
@@ -348,13 +466,21 @@ async function handleHashUpdate(
   connection: Connection,
   codeSpace: string,
 ): Promise<void> {
-  console.log("Handling hash update:", data);
+  console.log("[HandleHashUpdate] Processing hash update", {
+    oldHash: data.oldHash,
+    newHash: data.newHash,
+    codeSpace,
+    timestamp: new Date().toISOString(),
+  });
   connection.controller.abort();
   connection.controller = new AbortController();
   const { signal } = connection.controller;
 
   if (signal.aborted) {
-    console.log("Update aborted");
+    console.log("[HandleHashUpdate] Update aborted by controller", {
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
 
@@ -369,7 +495,12 @@ async function handleHashUpdate(
         await handleHashMatch(data, connection, oldSession, signal);
       }
     } catch (error) {
-      console.error("Error during hash update handling:", error);
+      console.error("[HandleHashUpdate] Error during processing", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : undefined,
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
     }
   });
 }
@@ -386,14 +517,23 @@ async function handleHashMismatch(
   signal: AbortSignal,
 ): Promise<void> {
   if (signal.aborted) {
-    console.log("Hash mismatch handling aborted");
+    console.log("[HandleHashMismatch] Processing aborted by controller", {
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
-  console.log("Fetching new session due to hash mismatch");
+  console.log("[HandleHashMismatch] Fetching new session", {
+    codeSpace,
+    timestamp: new Date().toISOString(),
+  });
   connection.oldSession = await fetchInitialSession(codeSpace);
 
   if (signal.aborted) {
-    console.log("Hash mismatch handling aborted after fetching session");
+    console.log("[HandleHashMismatch] Processing aborted after session fetch", {
+      codeSpace,
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
 
@@ -416,12 +556,18 @@ async function handleHashMatch(
   oldSession: ICodeSession,
   signal: AbortSignal,
 ): Promise<void> {
-  console.log("Handling hash match");
+  console.log("[HandleHashMatch] Processing matching hash", {
+    oldHash: computeSessionHash(oldSession),
+    newHash: data.newHash,
+    timestamp: new Date().toISOString(),
+  });
   const newSession = applySessionPatch(oldSession, data);
   const newHash = computeSessionHash(newSession);
 
   if (signal.aborted) {
-    console.log("Hash match handling aborted");
+    console.log("[HandleHashMatch] Processing aborted by controller", {
+      timestamp: new Date().toISOString(),
+    });
     return;
   }
 
@@ -432,7 +578,11 @@ async function handleHashMatch(
       ...newSession,
       sender: SENDER_WORKER_HASH_MATCH,
     });
-    console.log("Broadcasted new session");
+    console.log("[HandleHashMatch] New session broadcasted successfully", {
+      newHash,
+      sender: SENDER_WORKER_HASH_MATCH,
+      timestamp: new Date().toISOString(),
+    });
   } else {
     throw new Error("New hash does not match received hash");
   }
@@ -461,15 +611,23 @@ async function handleBroadcastMessage(
   data: BroadcastMessageData,
   connection: Connection,
 ): Promise<void> {
-  console.log("Handling broadcast message:", data);
+  console.log("[HandleBroadcastMessage] Processing broadcast", {
+    hasChanges: !!data.changes,
+    sender: data.sender,
+    codeSpace: data.codeSpace,
+    timestamp: new Date().toISOString(),
+  });
 
   if (data.changes) {
     connection.webSocket.send(JSON.stringify({ ...data, name: connection.user }));
     return;
   }
 
-  if (data.html && data.code) {
-    const codeSpace = connection.codeSpace;
+  if (
+    data.html && data.code && data.css && data.transpiled && data.codeSpace &&
+    data.sender === "Editor"
+  ) {
+    const codeSpace = data.codeSpace;
     let bMod = broadcastMod.get(codeSpace);
 
     if (!bMod) {
@@ -512,13 +670,28 @@ async function handleBroadcastMessage(
         );
         return;
       } else {
-        console.log("Patch creation failed due to hash mismatch");
+        console.log("[HandleBroadcastMessage] Patch creation failed", {
+          expectedOldHash: patchMessage.oldHash,
+          actualOldHash: oldHash,
+          timestamp: new Date().toISOString(),
+        });
       }
     } else {
-      console.log("Session unchanged, no patch needed");
+      console.log("[HandleBroadcastMessage] No changes detected", {
+        hash: newHash,
+        timestamp: new Date().toISOString(),
+      });
     }
   } else {
-    console.log("Broadcast message ignored due to conditions not met");
+    console.log("[HandleBroadcastMessage] Message ignored - conditions not met", {
+      hasHtml: !!data.html,
+      hasCode: !!data.code,
+      hasCss: !!data.css,
+      hasTranspiled: !!data.transpiled,
+      hasCodeSpace: !!data.codeSpace,
+      sender: data.sender,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
 
@@ -532,11 +705,17 @@ self.addEventListener("connect", (event: MessageEvent) => {
     const connection = connections.get(evt.data.codeSpace);
     if (connection) {
       handleBroadcastMessage(evt.data, connection).catch((error) => {
-        console.error("Error handling broadcast message:", error);
+        console.error("[BroadcastMessageHandler] Error processing message", {
+          error: error instanceof Error ? error.message : "Unknown error",
+          stack: error instanceof Error ? error.stack : undefined,
+          timestamp: new Date().toISOString(),
+        });
       });
     }
   });
   port.start();
 });
 
-console.log("Socket worker setup complete");
+console.log("[SocketWorker] Setup complete", {
+  timestamp: new Date().toISOString(),
+});
