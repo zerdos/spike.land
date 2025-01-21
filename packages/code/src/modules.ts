@@ -23,6 +23,7 @@ export { serverFetchUrl } from "@/lib/enhanced-fetch";
 
 import type { ICodeSession } from "@/lib/interfaces";
 import type { CodePatch } from "@/lib/make-sess.ts";
+export { fakeServer } from "./sw-local-fake-server";
 
 import {
   applySessionPatch,

@@ -19,7 +19,7 @@ export async function fakeServer(request: Request) {
   cSessions[codeSpace] = cSessions[codeSpace] ||
     new CodeSessionBC(
       codeSpace,
-      await fetch(`${location.origin}/api/room/${codeSpace}/session.json`).then(
+      await fetch(`/api/room/${codeSpace}/session.json`).then(
         (r) => r.json(),
       ),
     );
@@ -144,7 +144,7 @@ async function handleIndexJs(
   if (typeof session.transpiled !== "string" || session.transpiled === "") {
     const transpiled = await transpile({
       code: session.code,
-      originToUse: location.origin,
+      originToUse: "",
     }) as unknown as string;
     session.transpiled = transpiled;
     await cSessions[codeSpace].postMessage({
@@ -154,7 +154,7 @@ async function handleIndexJs(
   }
 
   return new Response(
-    importMapReplace(session.transpiled, location.origin),
+    importMapReplace(session.transpiled, ""),
     {
       headers: {
         "Content-Type": "application/javascript; charset=UTF-8",
