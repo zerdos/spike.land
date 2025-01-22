@@ -3,8 +3,8 @@ import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces"
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
-import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -59,14 +59,16 @@ const handleRender = async (
 ): Promise<{ css: string; html: string; } | false> => {
   // confirm
   if (renderedNew === null) {
-    console.error("Not rendered yet");
-    throw new Error("Not rendered yet");
+    return {
+      css: "",
+      html: "",
+    };
   }
 
   const { cssCache, rootElement } = renderedNew;
 
   for (let attempts = 5; attempts > 0; attempts--) {
-    await wait(300);
+    await wait(100);
     if (!rootElement.innerHTML) {
       continue;
     }
@@ -96,13 +98,13 @@ const handleRender = async (
     ).join("\n");
 
     // remove comments
-    // const tailWindClassesXWithoutComments = tailWindClasses.replace(
-    //   /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
-    //   "",
-    // );
-    // const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
-    //   `\\\\]`,
-    // ).join(`\\]`);
+    const tailWindClassesXWithoutComments = tailWindClasses.replace(
+      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+      "",
+    );
+    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
+      `\\\\]`,
+    ).join(`\\]`);
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
@@ -116,13 +118,12 @@ const handleRender = async (
 
     // let cssStrings = [...criticalClasses]
 
-    let cssStrings = [emotionStyles, tailWindClasses].join("\n");
+    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 
-    try {
-      cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
-    } catch (error) {
-      console.error("Error prettifying CSS:", error);
-    }
+    // try {
+    //   cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+    // } catch (error) {
+    //   console.error("Error prettifying CSS:", error);
     // }
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
