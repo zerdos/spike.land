@@ -3,9 +3,8 @@ import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces"
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
+import { prettierCss } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-
-import { L } from "vitest/dist/chunks/reporters.Y8BYiXBN.js";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -117,12 +116,13 @@ const handleRender = async (
 
     // let cssStrings = [...criticalClasses]
 
-    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+    let cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 
-    // try {
-    //   cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
-    // } catch (error) {
-    //   console.error("Error prettifying CSS:", error);
+    try {
+      cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+    } catch (error) {
+      console.error("Error prettifying CSS:", error);
+    }
     // }
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
