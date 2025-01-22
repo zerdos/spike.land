@@ -5,12 +5,12 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
+import { L } from "vitest/dist/chunks/reporters.Y8BYiXBN.js";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
-import { L } from "vitest/dist/chunks/reporters.Y8BYiXBN.js";
 
 // Global variables and types
 const codeSpace = getCodeSpace(location.pathname);
@@ -60,8 +60,8 @@ const handleRender = async (
 ): Promise<{ css: string; html: string; } | false> => {
   // confirm
   if (renderedNew === null) {
-    console.error('Not rendered yet');
-    throw new Error("Not rendered yet"); 
+    console.error("Not rendered yet");
+    throw new Error("Not rendered yet");
   }
 
   const { cssCache, rootElement } = renderedNew;
