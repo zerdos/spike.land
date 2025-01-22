@@ -1,36 +1,47 @@
 import { sessionToJSON } from "@/lib/make-sess";
-import diff from "fast-diff";
+import diff from "microdiff";
+import type { Difference } from "microdiff";
 import { ICodeSession } from "./interfaces";
 
-type Change = [-1 | 0 | 1, string];
-export type Diff = Change | [0 | -1, number];
-
 export function createDiff(original: ICodeSession, revision: ICodeSession) {
-  const result = diff(sessionToJSON(original), sessionToJSON(revision));
-  const Diff: Diff[] = result.map((r) => r[0] === 1 ? r : [r[0], r[1].length]);
-  return Diff;
+  return diff(original, revision, { cyclesFix: false });
 }
 
-export function applyDiff(sess: ICodeSession, Diff: Diff[]) {
-  const original = sessionToJSON(sess);
-  let result = "";
-  let index = 0;
+export function applyDiff(sess: ICodeSession, diff: Difference[]) {
+  const original = { ...sess };
 
-  for (const item of Diff) {
-    const operation = item[0];
-    const value = item[1];
+  const set = (
+    obj: Record<string | number, unknown>,
+    path: Array<string | number>,
+    value: unknown,
+  ) => {
+    let ref = obj;
+    for (let i = 0; i < path.length - 1; i++) {
+      ref = ref[path[i]] as Record<string | number, unknown>;
+    }
+    ref[path[path.length - 1]] = value;
+  };
+  const unset = (obj: Record<string | number, unknown>, path: Array<string | number>) => {
+    let ref = obj;
+    for (let i = 0; i < path.length - 1; i++) {
+      ref = ref[path[i]] as Record<string | number, unknown>;
+    }
+    delete ref[path[path.length - 1]];
+  };
 
-    if (item[0] === -1 && typeof value === "number") {
-      // DELETE
-      index += value;
-    } else if (operation === 0 && typeof value === "number") {
-      // KEEP
-      result += original.slice(index, index += value);
-    } else {
-      // INSERT
-      result += value;
+  for (const item of diff) {
+    switch (item.type) {
+      case "CREATE":
+        set(original, item.path, item.value);
+        break;
+      case "REMOVE":
+        unset(original, item.path);
+        break;
+      case "CHANGE":
+        set(original, item.path, item.value);
+        break;
     }
   }
 
-  return result;
+  return sessionToJSON(original);
 }

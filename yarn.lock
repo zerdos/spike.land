@@ -3957,6 +3957,7 @@ __metadata:
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
     lucide-react: "npm:0.473.0"
+    microdiff: "npm:^1.5.0"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
     module: "npm:1.2.5"
@@ -12027,6 +12028,13 @@ __metadata:
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 10c0/254a8a4605b58f450308fc474c82ac9a094848081bf4c06778200207820e5193726dc563a0d2c16468810516a5c97d9d3ea0ca6585d23c58ccfff2403e8dbbeb
+  languageName: node
+  linkType: hard
+
+"microdiff@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "microdiff@npm:1.5.0"
+  checksum: 10c0/5f55ca049451d63abf79fd1692808e1052180fbedfc91d9fcab9f02df0dd902aa6a4e30199fd345d1f91982842b12d85ffa86785e38d7dbfb6d59280074f9129
   languageName: node
   linkType: hard
 
