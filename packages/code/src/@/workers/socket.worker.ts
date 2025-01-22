@@ -645,8 +645,13 @@ async function handleBroadcastMessage(
     bMod.controller = new AbortController();
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
-    await wait(1000);
+    await wait(100);
     if (signal.aborted) {
+      console.log("[HandleBroadcastMessage] Processing aborted by controller", {
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
+
       return;
     }
 
