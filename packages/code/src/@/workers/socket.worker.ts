@@ -644,17 +644,17 @@ async function handleBroadcastMessage(
     bMod.controller = new AbortController();
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
-    await wait(100);
+    await wait(50);
     if (signal.aborted) {
-      console.log("[HandleBroadcastMessage] Processing aborted by controller", {
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
+      // console.log("[HandleBroadcastMessage] Processing aborted by controller", {
+      //   codeSpace,
+      //   timestamp: new Date().toISOString(),
+      // });
 
       return;
     }
 
-    const oldSession = sanitizeSession(connection.oldSession);
+    const oldSession = connection.oldSession;
     const newSession = sanitizeSession(data);
     const hashCode = computeSessionHash(newSession);
     const oldHash = computeSessionHash(oldSession);
