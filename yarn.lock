@@ -3805,7 +3805,7 @@ __metadata:
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
     miniflare: "npm:3.20241230.2"
-    openai: "npm:4.79.4"
+    openai: "npm:4.80.0"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.3"
     p-queue: "npm:8.1.0"
@@ -13168,9 +13168,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.79.4":
-  version: 4.79.4
-  resolution: "openai@npm:4.79.4"
+"openai@npm:4.80.0":
+  version: 4.80.0
+  resolution: "openai@npm:4.80.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -13189,7 +13189,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/fbe67acefc47a73edea59ae655ae4b216c68bd7d28134bc9ac29c884b05c95e547a9f793277467894f9415e9532b3d6ad57c85df36befb2c9690758e6e57718c
+  checksum: 10c0/d7a08c9b5c01f342464323f74f7732613f683f4d01b1800f42c39819859a91f4efd2abd8e6d346830a2172500ca44611c42acb455c5b9bec641a7671c950017b
   languageName: node
   linkType: hard
 
