@@ -44,7 +44,6 @@ interface Connection {
 interface WsMessage {
   changes: unknown;
   type: string;
-  newHash: string;
   oldHash: string;
   error?: string;
   codeSpace: string;
@@ -321,8 +320,8 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
     await handleSessionString({ hash: data.hash }, ws, connection);
   } else if (data.type === "handShake") {
     await handleHandshake(ws, { hashCode: data.hashCode, type: data.type }, connection, codeSpace);
-  } else if (data.newHash && data.oldHash) {
-    if (connection.hashCode === data.newHash) {
+  } else if (data.hashCode && data.oldHash) {
+    if (connection.hashCode === data.hashCode) {
       return;
     }
     await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
@@ -439,7 +438,7 @@ async function handleHandshake(
       sender: SENDER_WORKER_HANDSHAKE,
     });
     console.log("[HandleHandshake] New session broadcasted successfully", {
-      newHash: computeSessionHash(connection.oldSession),
+      hashCode: computeSessionHash(connection.oldSession),
       sender: SENDER_WORKER_HANDSHAKE,
       codeSpace,
       timestamp: new Date().toISOString(),
@@ -466,7 +465,7 @@ async function handleHashUpdate(
 ): Promise<void> {
   console.log("[HandleHashUpdate] Processing hash update", {
     oldHash: data.oldHash,
-    newHash: data.newHash,
+    hashCode: data.hashCode,
     codeSpace,
     timestamp: new Date().toISOString(),
   });
@@ -556,11 +555,11 @@ async function handleHashMatch(
 ): Promise<void> {
   console.log("[HandleHashMatch] Processing matching hash", {
     oldHash: computeSessionHash(oldSession),
-    newHash: data.newHash,
+    hashCode: data.hashCode,
     timestamp: new Date().toISOString(),
   });
   const newSession = applySessionPatch(oldSession, data);
-  const newHash = computeSessionHash(newSession);
+  const hashCode = computeSessionHash(newSession);
 
   if (signal.aborted) {
     console.log("[HandleHashMatch] Processing aborted by controller", {
@@ -569,15 +568,15 @@ async function handleHashMatch(
     return;
   }
 
-  if (data.newHash === newHash) {
+  if (data.hashCode === hashCode) {
     connection.oldSession = newSession;
-    connection.hashCode = newHash;
+    connection.hashCode = hashCode;
     connection.broadcastChannel.postMessage({
       ...newSession,
       sender: SENDER_WORKER_HASH_MATCH,
     });
     console.log("[HandleHashMatch] New session broadcasted successfully", {
-      newHash,
+      hashCode,
       sender: SENDER_WORKER_HASH_MATCH,
       timestamp: new Date().toISOString(),
     });
@@ -657,14 +656,14 @@ async function handleBroadcastMessage(
 
     const oldSession = sanitizeSession(connection.oldSession);
     const newSession = sanitizeSession(data);
-    const newHash = computeSessionHash(newSession);
+    const hashCode = computeSessionHash(newSession);
     const oldHash = computeSessionHash(oldSession);
 
-    if (newHash !== oldHash) {
+    if (hashCode !== oldHash) {
       const patchMessage = generateSessionPatch(oldSession, newSession);
       if (patchMessage.oldHash === oldHash) {
         connection.oldSession = newSession;
-        connection.hashCode = newHash;
+        connection.hashCode = hashCode;
         connection.webSocket.send(
           JSON.stringify({
             ...patchMessage,
@@ -681,7 +680,7 @@ async function handleBroadcastMessage(
       }
     } else {
       console.log("[HandleBroadcastMessage] No changes detected", {
-        hash: newHash,
+        hash: hashCode,
         timestamp: new Date().toISOString(),
       });
     }

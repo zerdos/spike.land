@@ -239,7 +239,7 @@ export class Code implements DurableObject {
     this.state.storage.put(msg.oldHash, {
       oldHash: oldData?.oldHash || "",
       reversePatch: oldData?.reversePatch || [],
-      newHash: msg.newHash,
+      hashCode: msg.hashCode,
       patch: msg.patch,
     });
 
@@ -251,9 +251,9 @@ export class Code implements DurableObject {
 
   updateAndBroadcastSession(newSession: ICodeSession, wsSession?: WebsocketSession) {
     const oldHash = computeSessionHash(this.session);
-    const newHash = computeSessionHash(newSession);
+    const hashCode = computeSessionHash(newSession);
 
-    if (oldHash === newHash) {
+    if (oldHash === hashCode) {
       return;
     }
     const oldSession = sanitizeSession(this.session);

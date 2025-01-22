@@ -7,7 +7,7 @@ export type { Diff } from "@/lib/text-diff";
 
 export interface CodePatch {
   oldHash: string;
-  newHash: string;
+  hashCode: string;
   patch: Diff[];
   reversePatch: Diff[];
 }
@@ -52,13 +52,12 @@ class SessionPatcher {
     if (computeSessionHash(sess) !== codePatch.oldHash) {
       throw new Error("Old hash does not match");
     }
-    const newSess = applyDiff(
+
+    const parsedSession = applyDiff(
       sess,
       codePatch.patch,
     );
-
-    const parsedSession = sanitizeSession(JSON.parse(newSess));
-    if (computeSessionHash(parsedSession) !== codePatch.newHash) {
+    if (computeSessionHash(parsedSession) !== codePatch.hashCode) {
       throw new Error("New hash does not match");
     }
     return parsedSession;
@@ -69,17 +68,17 @@ class SessionPatcher {
     newSess: ICodeSession,
   ): CodePatch {
     const oldHash = computeSessionHash(oldSess);
-    const newHash = computeSessionHash(newSess);
+    const hashCode = computeSessionHash(newSess);
 
-    if (oldHash === newHash) {
-      return { oldHash, newHash, patch: [], reversePatch: [] };
+    if (oldHash === hashCode) {
+      return { oldHash, hashCode, patch: [], reversePatch: [] };
     }
 
     const patch = createDiff(oldSess, newSess);
     const reversePatch = createDiff(newSess, oldSess);
 
-    const codePatch: CodePatch = { oldHash, newHash, patch, reversePatch };
-    if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== newHash) {
+    const codePatch: CodePatch = { oldHash, hashCode, patch, reversePatch };
+    if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== hashCode) {
       throw new Error("Unable to calculate CodePatch");
     }
     return codePatch;

@@ -40,7 +40,7 @@ interface IData {
   candidate?: string;
   answer?: string;
   offer?: string;
-  newHash?: string;
+  hashCode?: string;
   oldHash?: string;
 }
 
@@ -243,7 +243,7 @@ export class WebSocketHandler {
     }
 
     // Patching
-    if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
+    if (data.patch && data.oldHash && data.hashCode && data.reversePatch) {
       this.handlePatch(data as CodePatch, respondWith, session);
       return;
     }
@@ -255,7 +255,7 @@ export class WebSocketHandler {
     session: WebsocketSession,
   ): Promise<void> {
     const oldHash = computeSessionHash(this.code.session);
-    if (oldHash === data.newHash) {
+    if (oldHash === data.hashCode) {
       return respondWith({ msg: "no-changes" });
     }
     if (oldHash !== data.oldHash) {
@@ -272,7 +272,7 @@ export class WebSocketHandler {
       console.log("New state after patch:", newState);
       this.code.updateAndBroadcastSession(newState, session);
       return respondWith({
-        newHash: computeSessionHash(newState),
+        hashCode: computeSessionHash(newState),
       });
     } catch (err) {
       console.error("Error applying patch:", err);

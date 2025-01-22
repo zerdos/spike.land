@@ -1,14 +1,15 @@
-import { sessionToJSON } from "@/lib/make-sess";
 import diff from "microdiff";
 import type { Difference } from "microdiff";
 import { ICodeSession } from "./interfaces";
+
+export type Diff = Difference;
 
 export function createDiff(original: ICodeSession, revision: ICodeSession) {
   return diff(original, revision, { cyclesFix: false });
 }
 
 export function applyDiff(sess: ICodeSession, diff: Difference[]) {
-  const original = { ...sess };
+  const original = { ...sess, messages: [...sess.messages] };
 
   const set = (
     obj: Record<string | number, unknown>,
@@ -43,5 +44,5 @@ export function applyDiff(sess: ICodeSession, diff: Difference[]) {
     }
   }
 
-  return sessionToJSON(original);
+  return original;
 }

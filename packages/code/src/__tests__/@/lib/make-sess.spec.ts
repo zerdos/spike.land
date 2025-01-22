@@ -83,18 +83,18 @@ describe("Session Management", () => {
     const patch = generateSessionPatch(oldSession, newSession);
 
     expect(patch.oldHash).toBe(computeSessionHash(oldSession));
-    expect(patch.newHash).toBe(computeSessionHash(newSession));
+    expect(patch.hashCode).toBe(computeSessionHash(newSession));
 
     const patchedSession = applySessionPatch(oldSession, patch);
     expect(patchedSession).toEqual(newSession);
-    expect(computeSessionHash(patchedSession)).toBe(patch.newHash);
+    expect(computeSessionHash(patchedSession)).toBe(patch.hashCode);
   });
 
   test("should handle identical sessions in generateSessionPatch", () => {
     const session = { ...sampleSession };
     const patch = generateSessionPatch(session, { ...session });
 
-    expect(patch.oldHash).toBe(patch.newHash);
+    expect(patch.oldHash).toBe(patch.hashCode);
     expect(patch.patch).toEqual([]);
     expect(patch.reversePatch).toEqual([]);
   });
@@ -112,14 +112,14 @@ describe("Session Management", () => {
     const patchedSession = applySessionPatch(sampleSession, patch);
     expect(patchedSession).toEqual(session);
     const oldHash = computeSessionHash(sampleSession);
-    const newHash = computeSessionHash(session);
+    const hashCode = computeSessionHash(session);
 
     expect(patch.oldHash).toBe(oldHash);
-    expect(patch.newHash).toBe(newHash);
+    expect(patch.hashCode).toBe(hashCode);
 
     const reversedSession = applySessionPatch(session, {
-      oldHash: newHash,
-      newHash: oldHash,
+      oldHash: hashCode,
+      hashCode: oldHash,
       patch: patch.reversePatch,
       reversePatch: patch.patch,
     });
