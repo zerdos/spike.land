@@ -21,7 +21,7 @@ export const useEditorState = () => {
 
 export const useErrorHandling = () => {
   const [error, setError] = useState<ErrorType>(null);
-  const contextManager = useContext(getCodeSpace());
+  const contextManager = useContext(getCodeSpace(location.pathname));
 
   const handleError = (errorType: ErrorType, errorMessage: string) => {
     setError(errorType);

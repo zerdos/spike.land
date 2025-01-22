@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getCodeSpace } from "@/hooks/use-code-space";
 import type { HistoryItemProps, ICode, IHistoryItem } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -96,7 +95,7 @@ const FullScreenHistoryView: React.FC<{
               onDelete={async (timestamp) => {
                 try {
                   await fetch(
-                    `/live/${getCodeSpace()}/auto-save/history/delete/${timestamp}`,
+                    `/live/${cSess.session.codeSpace}/auto-save/history/delete/${timestamp}`,
                   );
                   onDelete(timestamp);
                 } catch (error) {

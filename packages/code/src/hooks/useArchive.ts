@@ -20,7 +20,7 @@ import { build } from "@/lib/shared";
 Object.assign(globalThis, { wait, build });
 
 export const getSpeedy2 = async () => {
-  const codeSpace = getCodeSpace();
+  const codeSpace = getCodeSpace(location.pathname);
 
   // console.log({ external });
   const res = await build({
