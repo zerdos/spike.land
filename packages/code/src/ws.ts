@@ -96,13 +96,13 @@ const handleRender = async (
     ).join("\n");
 
     // remove comments
-    const tailWindClassesXWithoutComments = tailWindClasses.replace(
-      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
-      "",
-    );
-    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
-      `\\\\]`,
-    ).join(`\\]`);
+    // const tailWindClassesXWithoutComments = tailWindClasses.replace(
+    //   /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+    //   "",
+    // );
+    // const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
+    //   `\\\\]`,
+    // ).join(`\\]`);
 
     // const htmlClasses = new Set(
     //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
@@ -116,7 +116,7 @@ const handleRender = async (
 
     // let cssStrings = [...criticalClasses]
 
-    let cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+    let cssStrings = [emotionStyles, tailWindClasses].join("\n");
 
     try {
       cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
