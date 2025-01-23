@@ -4,7 +4,6 @@
 // import "./tw-dev-setup";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
-import type { renderApp as renderAppType } from "@/workers/render-app.worker";
 
 import "./index.css";
 
