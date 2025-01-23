@@ -6,7 +6,6 @@ import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
 import Beasties from "beasties";
-import { be, tr } from "date-fns/locale";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
