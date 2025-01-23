@@ -7,30 +7,31 @@ import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import useWindowSize from "@/hooks/use-window-size";
-import { importMapReplace } from "@/lib/importmap-utils";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { transpile } from "@/lib/shared";
 
 let firstRender = true;
 const origin = location.origin;
 
-const createJsBlob = (code: string): string =>
-  new URL(
-    URL.createObjectURL(
-      new Blob([
-        importMapReplace(code.split("importMapReplace").join(""), origin).split(
-          `"/@/`,
-        ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`),
-      ], { type: "application/javascript" }),
-    ),
-    origin,
-  ).toString();
+export const importFromString = async (code: string) => {
+  const { importMapReplace } = await import("@/lib/importmap-utils");
 
-export const importFromString = (code: string) =>
-  import(/* @vite-ignore */ createJsBlob(code)).then((module) => module.default) as Promise<
+  const createJsBlob = (code: string): string =>
+    new URL(
+      URL.createObjectURL(
+        new Blob([
+          importMapReplace(code.split("importMapReplace").join(""), origin).split(
+            `"/@/`,
+          ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`),
+        ], { type: "application/javascript" }),
+      ),
+      origin,
+    ).toString();
+
+  return import(/* @vite-ignore */ createJsBlob(code)).then((module) => module.default) as Promise<
     FlexibleComponentType
   >;
+};
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -71,8 +72,15 @@ async function renderApp(
           "export default ()=><div>Empty App</div>",
         );
       } else {
-        const codeToUse = transpiled = transpiled ||
-          await (transpile({ code: code!, originToUse: origin }));
+        let codeToUse = transpiled;
+
+        if (!codeToUse) {
+          const { transpile } = await import("@/lib/shared");
+          const transpiled = await transpile({ code: code!, originToUse: origin });
+
+          codeToUse = transpiled;
+        }
+
         AppToRender = await importFromString(codeToUse);
       }
     } else if (codeSpace) {
