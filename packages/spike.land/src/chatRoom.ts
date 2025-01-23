@@ -208,11 +208,6 @@ export class Code implements DurableObject {
     }
 
     return (handleErrors(request as unknown as Request, async () => {
-      this.session.code = this.session.code.replace(
-        /https:\/\/spike\.land\//g,
-        `${url.origin}/`,
-      );
-
       if (!this.origin) {
         this.origin = url.origin;
       }

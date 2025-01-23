@@ -1,8 +1,4 @@
-import type {
-  ExportedHandler,
-  Request as CFRequest,
-  Response as CFResponse,
-} from "@cloudflare/workers-types";
+import type { ExportedHandler, Response as CFResponse } from "@cloudflare/workers-types";
 import type MyEnv from "./env";
 import { createCFResponse } from "./types/cloudflare";
 
