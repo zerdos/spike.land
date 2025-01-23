@@ -5,6 +5,8 @@ import { processImage } from "@/lib/process-image";
 import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
+import Beasties from "beasties";
+import { be, tr } from "date-fns/locale";
 import { initializeApp, setupServiceWorker } from "./hydrate";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
@@ -128,9 +130,17 @@ const handleRender = async (
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
+    const beasties = await new Beasties({
+      additionalStylesheets: [cssStrings],
+
+      external: false,
+    }).process(html.split(cssCache.key).join("x"));
+
     return {
-      css: cssStrings,
-      html: html.split(cssCache.key).join("x"),
+      css: `/*
+  Empty CSS
+*/`,
+      html: beasties,
     };
   }
   return false;

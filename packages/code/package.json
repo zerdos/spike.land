@@ -126,6 +126,7 @@
     "autoprefixer": "10.4.20",
     "ava": "6.2.0",
     "avl": "1.5.3",
+    "beasties": "^0.2.0",
     "browser-http": "4.0.2",
     "buffer": "6.0.3",
     "class-variance-authority": "0.7.1",
