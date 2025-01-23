@@ -140,7 +140,6 @@ const handleRender = async (
       const htmlToProcess = `<style>${cssStrings}</style>${html}`;
 
       const beasties = new Beasties({
-        additionalStylesheets: [cssStrings],
         external: false,
       });
 
