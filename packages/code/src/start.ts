@@ -4,7 +4,6 @@
 // import "./tw-dev-setup";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { renderApp } from "@/lib/render-app";
 
 import "./index.css";
 
@@ -30,6 +29,8 @@ const codeSpace = getCodeSpace(location.pathname);
   ) {
     const rootElement = (document.getElementById("root") ||
       document.getElementById("embed")) as HTMLDivElement;
+
+    const { renderApp } = await import("@/lib/render-app");
 
     const rendered = await renderApp({ codeSpace, rootElement });
     Object.assign(window, { rendered });
