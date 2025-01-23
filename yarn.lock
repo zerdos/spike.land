@@ -3981,6 +3981,7 @@ __metadata:
     prettier: "npm:3.4.2"
     prism-react-renderer: "npm:2.4.1"
     process: "npm:0.11.10"
+    purgecss: "npm:^7.0.2"
     qrious: "npm:4.0.2"
     querystring: "npm:0.2.1"
     re-resizable: "npm:6.10.3"
@@ -14211,6 +14212,20 @@ __metadata:
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 10c0/14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
+  languageName: node
+  linkType: hard
+
+"purgecss@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "purgecss@npm:7.0.2"
+  dependencies:
+    commander: "npm:^12.1.0"
+    glob: "npm:^11.0.0"
+    postcss: "npm:^8.4.47"
+    postcss-selector-parser: "npm:^6.1.2"
+  bin:
+    purgecss: bin/purgecss.js
+  checksum: 10c0/d6e1df75bc98a14180db67e1de9fa61637680d75e06e8ec5ac492c07e6208f85add16da904d9f9d0e94d17fe052d5f4c152e3874c9c955baa7775782ac31ee38
   languageName: node
   linkType: hard
 

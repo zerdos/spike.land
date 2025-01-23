@@ -179,6 +179,7 @@
     "prettier": "3.4.2",
     "prism-react-renderer": "2.4.1",
     "process": "0.11.10",
+    "purgecss": "^7.0.2",
     "qrious": "4.0.2",
     "querystring": "0.2.1",
     "re-resizable": "6.10.3",

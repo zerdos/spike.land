@@ -148,11 +148,27 @@ const handleRender = async (
       const parts = beastiesProcessed.split("</style>");
       const css = parts[0].replace("<style>", "");
 
-      console.log("Beasties:", {
+      // import { PurgeCSS } from "purgecss";
+      const { PurgeCSS } = await import("purgecss");
+
+      const purged = await new PurgeCSS().purge({
+        content: [
+          {
+            raw: parts[1],
+            extension: "html",
+          },
+        ],
+        css: [
+          {
+            raw: css,
+          },
+        ],
+      });
+
+      console.log("Purged:", {
+        purged,
+        html: parts[1],
         css,
-        html,
-        htmlToProcess,
-        beastiesProcessed,
       });
 
       return {
