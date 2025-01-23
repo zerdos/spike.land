@@ -110,7 +110,7 @@ const config = defineConfig((config) => ({
         // "/start.mjs",
         // "/swVersion.mjs",
         //   ...Object.keys(importMap.imports),
-        //     ...rollupExternal,
+        ...rollupExternal,
       ],
     },
     outDir: "dist-vite",
