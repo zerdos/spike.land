@@ -70,7 +70,7 @@ const handleRender = async (
       continue;
     }
 
-    const html = htmlDecode(rootElement.innerHTML);
+    const html = htmlDecode(rootElement.innerHTML).split(cssCache.key).join("x");
     const emotionGlobalStyles = [
       ...document.querySelectorAll<HTMLStyleElement>(
         `style[data-emotion='${cssCache.key}-global']`,
@@ -125,27 +125,38 @@ const handleRender = async (
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
-    const Beasties = (await import("./beasties")).default;
+    try {
+      const Beasties = (await import("./beasties")).default;
 
-    const htmlToProcess = `<style>${cssStrings}</style>${html.split(cssCache.key).join("x")}`;
+      const htmlToProcess = `<style>${cssStrings}</style>${html}`;
 
-    const beasties = await new Beasties({
-      additionalStylesheets: [cssStrings],
-      external: false,
-    }).process(htmlToProcess);
+      const beasties = new Beasties({
+        additionalStylesheets: [cssStrings],
+        external: false,
+      });
 
-    console.log("Beasties:", {
-      css: cssStrings,
-      html,
-      htmlToProcess,
-      beasties,
-    });
+      const beastiesProcessed = await beasties.process(htmlToProcess);
 
-    return {
-      css: `/*
+      console.log("Beasties:", {
+        css: cssStrings,
+        html,
+        htmlToProcess,
+        beastiesProcessed,
+      });
+
+      return {
+        css: `/*
   Empty CSS
 */`,
-      html: beasties,
+        html: beastiesProcessed,
+      };
+    } catch (error) {
+      console.error("Error processing CSS:", error);
+    }
+
+    return {
+      css: cssStrings,
+      html,
     };
   }
   return false;
