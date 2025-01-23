@@ -11,8 +11,8 @@ import type Env from "./env";
 import { makeResponse } from "./makeResponse";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+const main: ExportedHandler<Env> = {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (
@@ -322,6 +322,8 @@ export default {
     return handleMainFetch(request, env, ctx);
   },
 };
+
+export default main;
 
 export async function handleCMSIndexRequest(request: Request, env: Env) {
   const key = request.url;

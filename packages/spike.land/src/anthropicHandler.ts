@@ -1,5 +1,4 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
 import type { Message, MessageContent } from "@spike-npm-land/code";
 import { handleCMSIndexRequest } from "./chat";
@@ -112,7 +111,7 @@ export async function handleAnthropicRequest(
           part.type === "content_block_start" ||
           part.type === "content_block_delta"
         ) {
-          const text = "delta" in part ? (part.delta as TextDelta).text : "";
+          const text = "delta" in part ? (part.delta as { text: string; }).text : "";
           writer.write(textEncoder.encode(text || ""));
           answer += text;
         }

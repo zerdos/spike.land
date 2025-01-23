@@ -1,6 +1,7 @@
 import { md5 } from "@spike-npm-land/code";
 import Replicate from "replicate";
 import type Env from "./env";
+import { getCacheDefault } from "./utils/cache";
 
 interface InputDefaults {
   cfg: number;
@@ -111,7 +112,7 @@ export async function handleReplicateRequest(
     const md5Prompt = md5("replicate salt " + JSON.stringify(input));
 
     const cacheKey = new Request(request.url, request);
-    let resp = await caches.default.match(cacheKey);
+    let resp = await getCacheDefault().match(cacheKey);
     if (resp) return resp;
 
     const saved = await env.R2.get(md5Prompt);
@@ -143,7 +144,7 @@ export async function handleReplicateRequest(
       ctx,
     )!;
 
-    ctx.waitUntil(caches.default.put(cacheKey, resp.clone()));
+    ctx.waitUntil(getCacheDefault().put(cacheKey, resp.clone()));
     return resp;
   } catch (e: unknown) {
     console.error("Error in handleReplicateRequest:", e);
