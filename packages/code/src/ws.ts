@@ -2,13 +2,8 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
-import { renderApp } from "@/lib/render-app";
 import { wait } from "@/lib/wait";
 
-import Beasties from "beasties";
-import { be, tr } from "date-fns/locale";
-import { initializeApp, setupServiceWorker } from "./hydrate";
-import { renderPreviewWindow } from "./renderPreviewWindow";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
@@ -130,6 +125,7 @@ const handleRender = async (
 
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
+    const Beasties = (await import("beasties")).default;
     const beasties = await new Beasties({
       additionalStylesheets: [cssStrings],
 
@@ -162,6 +158,9 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
 
   rendered?.cleanup();
   rendered = null;
+  // import { renderApp } from "@/lib/render-app";
+
+  const { renderApp } = await import("@/lib/render-app");
 
   rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
 
@@ -211,7 +210,12 @@ export const main = async () => {
         console.table({ code, transpiled });
       });
 
+      const { initializeApp } = await import("./hydrate");
+
       await initializeApp();
+      // import { renderPreviewWindow } from "./renderPreviewWindow";
+      const { renderPreviewWindow } = await import("./renderPreviewWindow");
+
       await renderPreviewWindow({ codeSpace, cSess });
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       const handleDehydratedPage = ({ html, css }: ICodeSession) =>
@@ -231,7 +235,8 @@ export const main = async () => {
 // Initialize service worker
 setTimeout(async () => {
   if (window.parent !== window) return;
-
+  // import { setupServiceWorker } from "./hydrate";
+  const { setupServiceWorker } = await import("./hydrate");
   await setupServiceWorker();
 }, 0);
 
