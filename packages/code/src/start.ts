@@ -28,7 +28,10 @@ const codeSpace = getCodeSpace(location.pathname);
     location.pathname.endsWith("dehydrated") === false
   ) {
     const renderAppUrl = `/@/workers/render-app.worker.js`;
-    const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
+    await import(/* @vite-ignore */ renderAppUrl);
+    const { renderApp } = (globalThis as unknown as {
+      renderApp: typeof import("@/workers/render-app.worker");
+    }).renderApp;
 
     const rendered = await renderApp({ codeSpace });
     Object.assign(window, { rendered });
