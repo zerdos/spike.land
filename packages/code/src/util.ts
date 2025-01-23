@@ -1,4 +1,4 @@
-import path from "./browserify/path";
+import path from "path";
 
 import pc from "picocolors";
 

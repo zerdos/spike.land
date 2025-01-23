@@ -3,7 +3,7 @@ import type { Node } from "domhandler";
 import type { HTMLDocument } from "./dom";
 import type { Logger, Options } from "./types";
 
-import path from "./browserify/path";
+import path from "path";
 
 import {
   applyMarkedSelectors,
