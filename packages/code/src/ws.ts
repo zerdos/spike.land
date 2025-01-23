@@ -149,27 +149,27 @@ const handleRender = async (
       const css = parts[0].replace("<style>", "");
 
       // import { PurgeCSS } from "purgecss";
-      const { PurgeCSS } = await import("purgecss");
+      // const { PurgeCSS } = await import("purgecss");
 
-      const purged = await new PurgeCSS().purge({
-        content: [
-          {
-            raw: parts[1],
-            extension: "html",
-          },
-        ],
-        css: [
-          {
-            raw: css,
-          },
-        ],
-      });
+      // const purged = await new PurgeCSS().purge({
+      //   content: [
+      //     {
+      //       raw: parts[1],
+      //       extension: "html",
+      //     },
+      //   ],
+      //   css: [
+      //     {
+      //       raw: css,
+      //     },
+      //   ],
+      // });
 
-      console.log("Purged:", {
-        purged,
-        html: parts[1],
-        css,
-      });
+      // console.log("Purged:", {
+      //   // purged,
+      //   html: parts[1],
+      //   css,
+      // });
 
       return {
         css,
