@@ -20,12 +20,17 @@ const getExternalFiles = (dir: string) =>
     // replace .ts/tsx with .mjs
     const fileParts = file.file.split(".");
     fileParts.pop();
-    fileParts.push("mjs");
+    if (fileParts.includes("worker")) {
+      fileParts.push("js");
+    } else {
+      fileParts.push("mjs");
+    }
     file.file = fileParts.join(".");
     return file;
   });
 
 const externalRollup = [
+  "@/workers",
   //  "@/external",
   // "@/lib", "@/components/ui", "@/components/app", "@/hooks"
 ]
