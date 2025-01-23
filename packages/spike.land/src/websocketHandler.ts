@@ -40,7 +40,6 @@ interface IData {
   candidate?: string;
   answer?: string;
   offer?: string;
-  hashCode?: string;
   oldHash?: string;
 }
 
@@ -101,7 +100,7 @@ export class WebSocketHandler {
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: computeSessionHash(this.code.session),
+        hashCode: computeSessionHash(this.code.getSession()),
         users,
         type: "handshake",
       }),
@@ -181,7 +180,7 @@ export class WebSocketHandler {
       session.name = data.name;
 
       if (data.hashCode) {
-        const oldHash = computeSessionHash(this.code.session);
+        const oldHash = computeSessionHash(this.code.getSession());
         if (data.hashCode !== oldHash) {
           return respondWith({
             error: `old hashes not matching`,
@@ -254,7 +253,7 @@ export class WebSocketHandler {
     respondWith: (obj: unknown) => void,
     session: WebsocketSession,
   ): Promise<void> {
-    const oldHash = computeSessionHash(this.code.session);
+    const oldHash = computeSessionHash(this.code.getSession());
     if (oldHash === data.hashCode) {
       return respondWith({ msg: "no-changes" });
     }
@@ -267,8 +266,7 @@ export class WebSocketHandler {
 
     try {
       console.log("Applying patch...", data);
-      const newState = applySessionPatch(this.code.session, data);
-      this.code.session = newState;
+      const newState = applySessionPatch(this.code.getSession(), data);
       console.log("New state after patch:", newState);
       this.code.updateAndBroadcastSession(newState, session);
       return respondWith({
@@ -302,7 +300,7 @@ export class WebSocketHandler {
     this.wsSessions.forEach((s) => {
       if (s === session) {
         return session.webSocket.send(
-          JSON.stringify({ hashCode: computeSessionHash(this.code.session) }),
+          JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
         );
       }
       if (s.quit) return;

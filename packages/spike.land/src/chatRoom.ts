@@ -27,7 +27,7 @@ export class Code implements DurableObject {
   private origin = "";
   private initialized = false;
 
-  session: ICodeSession;
+  private session: ICodeSession;
   private backupSession: ICodeSession;
   private autoSaveInterval: number = 60000; // 1 minute in milliseconds
   private lastAutoSave: number = 0;
@@ -35,6 +35,10 @@ export class Code implements DurableObject {
 
   private xLog: (sess: ICodeSession) => Promise<void>;
   // private historyManager: CodeHistoryManager;
+  public getSession() {
+    const session = this.session;
+    return Object.freeze(session);
+  }
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.env = env;
