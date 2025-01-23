@@ -29,9 +29,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:0.35.0":
-  version: 0.35.0
-  resolution: "@anthropic-ai/sdk@npm:0.35.0"
+"@anthropic-ai/sdk@npm:0.36.2":
+  version: 0.36.2
+  resolution: "@anthropic-ai/sdk@npm:0.36.2"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -40,7 +40,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10c0/4c7c2452374d684d6573edf00d4f052b847766b22323d204b25eccd7fbe007827704cceb3a2df50dc9c02b5e494b5089138328990e5f7c53143640f72e4fd9ec
+  checksum: 10c0/794cb8be4d850a26f29912f5e108045716ed54ce1d1905da2813357ee6a8fd11823449b6b2ff7041d87f5dc891fe6c97680abf4c76fd150c031bab7712156780
   languageName: node
   linkType: hard
 
@@ -549,10 +549,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20250121.0":
-  version: 4.20250121.0
-  resolution: "@cloudflare/workers-types@npm:4.20250121.0"
-  checksum: 10c0/83fcc7fe5b591adf8e358abe667de047d97553b43286fcfc0589c3b1cb9f1fa4a92a44c7ef3094b58709b2ccdf759e26de698a64985b8c7e01766dd091f210aa
+"@cloudflare/workers-types@npm:1.20250124.0":
+  version: 1.20250124.0
+  resolution: "@cloudflare/workers-types@npm:1.20250124.0"
+  checksum: 10c0/0cbb0d5d8babed645fdeae6f9cbe6ee8ea1aa9cf781396e07150f476e8c927cce2d93dc21ce09dae4ffe7e1d6c369a94ab1ceec0f03e3c2e94ac0f6abe3a7e10
   languageName: node
   linkType: hard
 
@@ -3780,19 +3780,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:0.35.0"
+    "@anthropic-ai/sdk": "npm:0.36.2"
     "@clerk/backend": "npm:1.23.6"
     "@clerk/clerk-sdk-node": "npm:5.1.6"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:0.6.6"
-    "@cloudflare/workers-types": "npm:4.20250121.0"
+    "@cloudflare/workers-types": "npm:1.20250124.0"
     "@remix-run/cloudflare": "npm:2.15.2"
     "@remix-run/react": "npm:2.15.2"
     "@spike-npm-land/code": "npm:0.9.56"
     "@spike-npm-land/transpile": "npm:0.9.56"
     "@types/mime-db": "npm:1.43.5"
     "@types/mime-types": "npm:2.1.4"
-    "@types/node": "npm:22.10.9"
+    "@types/node": "npm:22.10.10"
     "@typescript-eslint/parser": "npm:8.21.0"
     "@vitest/runner": "npm:3.0.4"
     "@vitest/snapshot": "npm:3.0.4"
@@ -3886,7 +3886,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/mime-db": "npm:1.43.5"
     "@types/mime-types": "npm:2.1.4"
-    "@types/node": "npm:22.10.9"
+    "@types/node": "npm:22.10.10"
     "@types/object-hash": "npm:3.0.6"
     "@types/offscreencanvas": "npm:2019.7.3"
     "@types/path-browserify": "npm:1.0.3"
@@ -3957,7 +3957,7 @@ __metadata:
     jsdom: "npm:26.0.0"
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
-    lucide-react: "npm:0.473.0"
+    lucide-react: "npm:0.474.0"
     microdiff: "npm:^1.5.0"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
@@ -4058,7 +4058,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.10.9"
+    "@types/node": "npm:22.10.10"
     esbuild-wasm: "npm:0.24.2"
   languageName: unknown
   linkType: soft
@@ -4146,7 +4146,7 @@ __metadata:
   resolution: "@spike-npm-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20250121.0"
+    "@cloudflare/workers-types": "npm:1.20250124.0"
     "@spike-npm-land/code": "npm:0.9.56"
     esbuild-wasm: "npm:0.24.2"
     typescript: "npm:5.7.3"
@@ -4959,12 +4959,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.10.9":
+"@types/node@npm:*":
   version: 22.10.9
   resolution: "@types/node@npm:22.10.9"
   dependencies:
     undici-types: "npm:~6.20.0"
   checksum: 10c0/ed2d7b2cf20ce520e04711eab48e9cd7d6a835d2859fbdc5d9a8c5e00a97c1f872a409f789783c473062b29beaf1cddf4b1c7ad03ae3fe433b072b7cf9fff741
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.10.10":
+  version: 22.10.10
+  resolution: "@types/node@npm:22.10.10"
+  dependencies:
+    undici-types: "npm:~6.20.0"
+  checksum: 10c0/3425772d4513cd5dbdd87c00acda088113c03a97445f84f6a89744c60a66990b56c9d3a7213d09d57b6b944ae8ff45f985565e0c1846726112588e33a22dd12b
   languageName: node
   linkType: hard
 
@@ -11784,12 +11793,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:0.473.0":
-  version: 0.473.0
-  resolution: "lucide-react@npm:0.473.0"
+"lucide-react@npm:0.474.0":
+  version: 0.474.0
+  resolution: "lucide-react@npm:0.474.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/0e6911eb2b5332165bdbca6f951a49e9f1162502a9641edea8bae29c0307d720b86bbbcc17fa909c3d0748fbcb8088eb33bb6f627a1cab1118a259b63ee7a38c
+  checksum: 10c0/60c88c251b2ed4d1074d24a7041122dc280c48cf68a1a25b23e35a296f49955e0edc22744f278929bc7e48dcd4248bed27d6a8227d5a42fc49fceb134194b310
   languageName: node
   linkType: hard
 
@@ -12696,7 +12705,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20250121.0"
+    "@cloudflare/workers-types": "npm:1.20250124.0"
     "@eslint/js": "npm:9.18.0"
     "@typescript-eslint/parser": "npm:8.21.0"
     "@yarnpkg/sdks": "npm:3.2.0"
@@ -15905,9 +15914,9 @@ __metadata:
   dependencies:
     "@cloudflare/puppeteer": "npm:0.0.14"
     "@cloudflare/vitest-pool-workers": "npm:0.6.6"
-    "@cloudflare/workers-types": "npm:4.20250121.0"
+    "@cloudflare/workers-types": "npm:1.20250124.0"
     "@types/esprima": "npm:4.0.6"
-    "@types/node": "npm:22.10.9"
+    "@types/node": "npm:22.10.10"
     "@vitest/runner": "npm:3.0.4"
     "@vitest/snapshot": "npm:3.0.4"
     esprima: "npm:4.0.1"

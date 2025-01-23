@@ -42,7 +42,7 @@
     "aider": "git stash && git reset --hard HEAD && git pull  && git checkout -b aider-${RANDOM} && git stash pop && git add . && yarn && yarn lint && git commit -m \"aider init\" && git push -u origin $(git branch)"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20250121.0",
+    "@cloudflare/workers-types": "1.20250124.0",
     "@eslint/js": "9.18.0",
     "@typescript-eslint/parser": "8.21.0",
     "@yarnpkg/sdks": "3.2.0",
