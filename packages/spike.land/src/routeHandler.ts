@@ -76,167 +76,167 @@ export class RouteHandler {
       public: this.handleDefaultRoute.bind(this),
       // New routes for auto-save functionality
 
-      "auto-save": this.handleAutoSaveRoute.bind(this),
+      // "auto-save": this.handleAutoSaveRoute.bind(this),
 
-      "history": this.handleCodeHistory.bind(this),
+      // "history": this.handleCodeHistory.bind(this),
       // New route for serving saved versions
       live: this.handleLiveRoute.bind(this),
     };
 
     return routes[route] || null;
   }
-  private async handleCodeHistory() {
-    const history = [] as string[];
-    return new Response(JSON.stringify(history), {
-      status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    });
-  }
+  // private async handleCodeHistory() {
+  //   const history = [] as string[];
+  //   return new Response(JSON.stringify(history), {
+  //     status: 200,
+  //     headers: {
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Cross-Origin-Embedder-Policy": "require-corp",
+  //       "Cache-Control": "no-cache",
+  //       "Content-Type": "application/json; charset=UTF-8",
+  //     },
+  //   });
+  // }
 
-  private async handleAutoSaveRoute(
-    _request: Request,
-    url: URL,
-    path: string[],
-  ): Promise<Response> {
-    const action = path[1];
+  // private async handleAutoSaveRoute(
+  //   _request: Request,
+  //   url: URL,
+  //   path: string[],
+  // ): Promise<Response> {
+  //   const action = path[1];
 
-    try {
-      switch (action) {
-        case "history": {
-          const subAction = path[2];
-          if (subAction === "delete") {
-            const itemToDelete = path[3];
-            const uniqueHistory = await this.getUniqueHistory();
-            const snapshotToSave = uniqueHistory.filter(
-              (s) => s.timestamp !== Number(itemToDelete),
-            );
+  //   try {
+  //     switch (action) {
+  //       case "history": {
+  //         const subAction = path[2];
+  //         if (subAction === "delete") {
+  //           const itemToDelete = path[3];
+  //           const uniqueHistory = await this.getUniqueHistory();
+  //           const snapshotToSave = uniqueHistory.filter(
+  //             (s) => s.timestamp !== Number(itemToDelete),
+  //           );
 
-            this.code.setAutoSaveHistory(snapshotToSave);
-            return new Response("Auto-save history item deleted", {
-              status: 200,
-            });
-          }
+  //           this.code.setAutoSaveHistory(snapshotToSave);
+  //           return new Response("Auto-save history item deleted", {
+  //             status: 200,
+  //           });
+  //         }
 
-          return this.getAutoSaveHistory();
-        }
+  //         return this.getAutoSaveHistory();
+  //       }
 
-        case "restore": {
-          const restoreTimestamp = Number(path[2]);
+  //       case "restore": {
+  //         const restoreTimestamp = Number(path[2]);
 
-          if (Number.isNaN(restoreTimestamp) || !restoreTimestamp) {
-            return new Response("Failed to restore code: Invalid timestamp", {
-              status: 400,
-            });
-          }
+  //         if (Number.isNaN(restoreTimestamp) || !restoreTimestamp) {
+  //           return new Response("Failed to restore code: Invalid timestamp", {
+  //             status: 400,
+  //           });
+  //         }
 
-          const success = await this.code.restoreFromAutoSave(restoreTimestamp);
+  //         const success = await this.code.restoreFromAutoSave(restoreTimestamp);
 
-          if (success) {
-            return new Response("Code restored successfully", { status: 200 });
-          } else {
-            return new Response("Failed to restore code. Snapshot not found.", {
-              status: 404,
-            });
-          }
-        }
-        default: {
-          await this.code.autoSave();
-          const codeSpace = url.searchParams.get("room");
-          const { html } = this.code.getSession();
-          const respText = HTML.replace(
-            `<script type="importmap"></script>`,
-            `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-          ).replace(
-            `<!-- Inline LINK for initial theme -->`,
-            `<link rel="preload" href="/live/${codeSpace}/index.css" as="style">
-             <link rel="stylesheet" href="/live/${codeSpace}/index.css">
-                    `,
-          ).replace(
-            '<div id="embed"></div>',
-            `<div id="embed">${html}</div>`,
-          );
+  //         if (success) {
+  //           return new Response("Code restored successfully", { status: 200 });
+  //         } else {
+  //           return new Response("Failed to restore code. Snapshot not found.", {
+  //             status: 404,
+  //           });
+  //         }
+  //       }
+  //       default: {
+  //         await this.code.autoSave();
+  //         const codeSpace = url.searchParams.get("room");
+  //         const { html } = this.code.getSession();
+  //         const respText = HTML.replace(
+  //           `<script type="importmap"></script>`,
+  //           `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+  //         ).replace(
+  //           `<!-- Inline LINK for initial theme -->`,
+  //           `<link rel="preload" href="/live/${codeSpace}/index.css" as="style">
+  //            <link rel="stylesheet" href="/live/${codeSpace}/index.css">
+  //                   `,
+  //         ).replace(
+  //           '<div id="embed"></div>',
+  //           `<div id="embed">${html}</div>`,
+  //         );
 
-          const headers = new Headers({
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cross-Origin-Resource-Policy": "cross-origin",
-            "Cross-Origin-Opener-Policy": "same-origin",
-            "Cache-Control": "no-cache",
-            "Content-Encoding": "gzip",
-            "Content-Type": "text/html; charset=UTF-8",
-            "content_hash": md5(respText),
-          });
+  //         const headers = new Headers({
+  //           "Access-Control-Allow-Origin": "*",
+  //           "Cross-Origin-Embedder-Policy": "require-corp",
+  //           "Cross-Origin-Resource-Policy": "cross-origin",
+  //           "Cross-Origin-Opener-Policy": "same-origin",
+  //           "Cache-Control": "no-cache",
+  //           "Content-Encoding": "gzip",
+  //           "Content-Type": "text/html; charset=UTF-8",
+  //           "content_hash": md5(respText),
+  //         });
 
-          return new Response(respText, { status: 200, headers });
-        }
-      }
-    } catch (error) {
-      console.error("Error in handleAutoSaveRoute:", error);
-      return new Response("Internal server error", { status: 500 });
-    }
-  }
+  //         return new Response(respText, { status: 200, headers });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in handleAutoSaveRoute:", error);
+  //     return new Response("Internal server error", { status: 500 });
+  //   }
+  // }
 
-  private async getUniqueHistory(): Promise<AutoSaveEntry[]> {
-    const history = await this.code.getAutoSaveHistory();
+  // private async getUniqueHistory(): Promise<AutoSaveEntry[]> {
+  //   const history = await this.code.getAutoSaveHistory();
 
-    const now = Date.now();
-    const lastHour = now - 1000 * 60 * 60;
-    const last2days = now - 1000 * 60 * 60 * 24 * 2;
+  //   const now = Date.now();
+  //   const lastHour = now - 1000 * 60 * 60;
+  //   const last2days = now - 1000 * 60 * 60 * 24 * 2;
 
-    const uniqueMap = new Map<number, AutoSaveEntry>();
+  //   const uniqueMap = new Map<number, AutoSaveEntry>();
 
-    for (const entry of history) {
-      let timestamp = entry.timestamp;
+  //   for (const entry of history) {
+  //     let timestamp = entry.timestamp;
 
-      if (timestamp <= lastHour) {
-        if (timestamp > last2days) {
-          timestamp = Math.floor(timestamp / 300) * 300;
-        } else {
-          timestamp = Math.floor(timestamp / 3000) * 3000;
-        }
-      }
+  //     if (timestamp <= lastHour) {
+  //       if (timestamp > last2days) {
+  //         timestamp = Math.floor(timestamp / 300) * 300;
+  //       } else {
+  //         timestamp = Math.floor(timestamp / 3000) * 3000;
+  //       }
+  //     }
 
-      // If this timestamp doesn't exist in the map, or if this entry is more recent,
-      // update the map
-      if (
-        !uniqueMap.has(timestamp) ||
-        entry.timestamp > uniqueMap.get(timestamp)!.timestamp
-      ) {
-        uniqueMap.set(timestamp, { ...entry, timestamp });
-      }
-    }
+  //     // If this timestamp doesn't exist in the map, or if this entry is more recent,
+  //     // update the map
+  //     if (
+  //       !uniqueMap.has(timestamp) ||
+  //       entry.timestamp > uniqueMap.get(timestamp)!.timestamp
+  //     ) {
+  //       uniqueMap.set(timestamp, { ...entry, timestamp });
+  //     }
+  //   }
 
-    const uniqueHistory = Array.from(uniqueMap.values());
+  //   const uniqueHistory = Array.from(uniqueMap.values());
 
-    // Sort the history in descending order (most recent first)
-    uniqueHistory.sort((a, b) => b.timestamp - a.timestamp);
+  //   // Sort the history in descending order (most recent first)
+  //   uniqueHistory.sort((a, b) => b.timestamp - a.timestamp);
 
-    this.code.setAutoSaveHistory(uniqueHistory);
-    return uniqueHistory;
-  }
-  private async getAutoSaveHistory(): Promise<Response> {
-    try {
-      const uniqueHistory = await this.getUniqueHistory();
+  //   // this.code.setAutoSaveHistory(uniqueHistory);
+  //   return uniqueHistory;
+  // }
+  // private async getAutoSaveHistory(): Promise<Response> {
+  //   try {
+  //     const uniqueHistory = await this.getUniqueHistory();
 
-      return new Response(JSON.stringify(uniqueHistory), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    } catch (error) {
-      console.error("Error in getAutoSaveHistory:", error);
-      return new Response("Failed to retrieve auto-save history", {
-        status: 500,
-      });
-    }
-  }
+  //     return new Response(JSON.stringify(uniqueHistory), {
+  //       status: 200,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error("Error in getAutoSaveHistory:", error);
+  //     return new Response("Failed to retrieve auto-save history", {
+  //       status: 500,
+  //     });
+  //   }
+  // }
 
   private async handleWebsocketRoute(request: Request): Promise<Response> {
     if (request.headers.get("Upgrade") !== "websocket") {
