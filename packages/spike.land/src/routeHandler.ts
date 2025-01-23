@@ -147,7 +147,7 @@ export class RouteHandler {
         default: {
           await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
-          const { html } = this.code.session;
+          const { html } = this.code.getSession();
           const respText = HTML.replace(
             `<script type="importmap"></script>`,
             `<script type="importmap">${JSON.stringify(importMap)}</script>`,
@@ -249,13 +249,13 @@ export class RouteHandler {
   }
 
   private async handleCodeRoute(): Promise<Response> {
-    return new Response(this.code.session.code, {
+    return new Response(this.code.getSession().code, {
       status: 200,
       headers: new Headers({
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
-        content_hash: md5(this.code.session.code),
+        content_hash: md5(this.code.getSession().code),
         "Content-Type": "application/javascript; charset=UTF-8",
       }),
     });
@@ -267,7 +267,7 @@ export class RouteHandler {
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const body = sessionToJSON(
-      sanitizeSession({ ...this.code.session, codeSpace }),
+      sanitizeSession({ ...this.code.getSession(), codeSpace }),
     );
     return new Response(body, {
       status: 200,
@@ -359,7 +359,7 @@ hQIDAQAB
   }
   private async handleDefaultRoute(): Promise<Response> {
     // const url = new URL(r);
-    const { html, codeSpace } = this.code.session;
+    const { html, codeSpace } = this.code.getSession();
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
       `<script type="importmap">${JSON.stringify(importMap)}</script>`,
@@ -475,7 +475,7 @@ hQIDAQAB
   }
 
   private async handleWrapHTMLRoute(): Promise<Response> {
-    const { html, codeSpace } = this.code.session;
+    const { html, codeSpace } = this.code.getSession();
 
     const respText = HTML.replace(
       `<script type="importmap"></script>`,
@@ -572,7 +572,7 @@ hQIDAQAB
   }
 
   private async handleHtmlRoute(): Promise<Response> {
-    const html = this.code.session.html;
+    const html = this.code.getSession().html;
 
     return new Response(html, {
       headers: {
@@ -587,7 +587,7 @@ hQIDAQAB
 
   private async handleJsRoute(): Promise<Response> {
     const replaced = importMapReplace(
-      this.code.session.transpiled,
+      this.code.getSession().transpiled,
       this.code.getOrigin(),
     );
 
@@ -604,12 +604,12 @@ hQIDAQAB
   }
 
   private async handleCssRoute(): Promise<Response> {
-    return new Response(this.code.session.css, {
+    return new Response(this.code.getSession().css, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
-        content_hash: md5(this.code.session.css),
+        content_hash: md5(this.code.getSession().css),
         "Content-Type": "text/css; charset=UTF-8",
       },
     });
