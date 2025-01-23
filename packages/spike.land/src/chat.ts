@@ -11,8 +11,8 @@ import type Env from "./env";
 import { makeResponse } from "./makeResponse";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-const main: ExportedHandler<Env> = {
-  async fetch(request, env, ctx) {
+const main = {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
 
     if (
@@ -34,9 +34,9 @@ const main: ExportedHandler<Env> = {
 
     const path = url.pathname.slice(1).split("/");
 
-    const [preroute, codeSpace, ...remainingPath] = path;
+    const [preRoute, codeSpace] = path;
 
-    const isEditorPath = request.method === "GET" && preroute === "live" &&
+    const isEditorPath = request.method === "GET" && preRoute === "live" &&
       url.pathname === `/live/${codeSpace}`;
 
     if (kvServer.isAsset(request) || isEditorPath) {
@@ -89,7 +89,7 @@ const main: ExportedHandler<Env> = {
       return new Response(
         JSON.stringify({
           killSwitch: false,
-          version: "v15",
+          version: "v16",
           swVersion: ASSET_HASH,
           valid: Date.now() + 1000 * 60 * 60,
         }),

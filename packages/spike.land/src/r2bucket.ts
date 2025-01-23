@@ -35,7 +35,7 @@ const handleDelete = async (key: string, env: MyEnv): Promise<CFResponse> => {
 };
 
 const R2BucketHandler: ExportedHandler<MyEnv> = {
-  async fetch(request: CFRequest, env: MyEnv): Promise<CFResponse> {
+  async fetch(request: Request, env: MyEnv): Promise<CFResponse> {
     try {
       const url = new URL(request.url);
       const key = url.pathname.slice(1);

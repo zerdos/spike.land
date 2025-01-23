@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext"],
     "types": ["@cloudflare/workers-types", "@types/node"],
     "emitDeclarationOnly": true
   },

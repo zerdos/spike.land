@@ -3,12 +3,11 @@ import { Code } from "./chatRoom";
 import type MyEnv from "./env";
 import R2BucketHandler from "./r2bucket";
 import { CodeRateLimiter } from "./rateLimiter";
-import type { CFWorkerRequest } from "./types/cloudflare";
-import { createCFResponse, createHandler, ensureCFRequest } from "./types/cloudflare";
+import { createCFResponse, createHandler } from "./types/cloudflare";
 import { Users } from "./users";
 
 async function handleRequest(
-  request: CFWorkerRequest,
+  request: Request,
   env: MyEnv,
   ctx: ExecutionContext,
 ) {
@@ -16,7 +15,11 @@ async function handleRequest(
 
   if (url.pathname.startsWith("/r2/")) {
     const r2Url = new URL(url.pathname.slice(3), url.origin);
-    return R2BucketHandler.fetch(ensureCFRequest(new Request(r2Url)), env, ctx);
+    return R2BucketHandler.fetch!(
+      new Request(r2Url),
+      env,
+      ctx,
+    );
   }
 
   if (!chat.fetch) {

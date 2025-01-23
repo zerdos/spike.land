@@ -5,7 +5,7 @@ import type {
   Response as CFResponse,
 } from "@cloudflare/workers-types";
 import type MyEnv from "./env";
-import { createCFResponse, toWebReadableStream } from "./types/cloudflare";
+import { createCFResponse } from "./types/cloudflare";
 
 const handlePut = async (
   key: string,
@@ -15,7 +15,7 @@ const handlePut = async (
   if (!body) {
     return createCFResponse("Missing request body", { status: 400 });
   }
-  await env.X9.put(key, toWebReadableStream(body));
+  await env.X9.put(key, body);
   return createCFResponse(`Put ${key} successfully!`, { status: 200 });
 };
 
