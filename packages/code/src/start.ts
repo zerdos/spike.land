@@ -4,6 +4,7 @@
 // import "./tw-dev-setup";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
+import type { renderApp as renderAppType } from "@/workers/render-app.worker";
 
 import "./index.css";
 
@@ -29,9 +30,9 @@ const codeSpace = getCodeSpace(location.pathname);
   ) {
     const renderAppUrl = `/@/workers/render-app.worker.js`;
     await import(/* @vite-ignore */ renderAppUrl);
-    const { renderApp } = (globalThis as unknown as {
-      renderApp: typeof import("@/workers/render-app.worker");
-    }).renderApp;
+    const { renderApp } = globalThis as unknown as {
+      renderApp: typeof renderAppType;
+    };
 
     const rendered = await renderApp({ codeSpace });
     Object.assign(window, { rendered });
