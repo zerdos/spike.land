@@ -166,7 +166,7 @@ const posix = {
         path = paths[i];
       } else {
         if (cwd === "") {
-          cwd = process.cwd();
+          cwd = "/";
         }
         path = cwd;
       }
@@ -183,7 +183,6 @@ const posix = {
     }
 
     // At this point the path should be resolved to a full absolute path, but
-    // handle relative paths to be safe (might happen when process.cwd() fails)
 
     // Normalize the path
     resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
