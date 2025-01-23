@@ -30,7 +30,8 @@ const codeSpace = getCodeSpace(location.pathname);
     const rootElement = (document.getElementById("root") ||
       document.getElementById("embed")) as HTMLDivElement;
 
-    const { renderApp } = await import("@/workers/render-app.worker");
+    const renderAppUrl = `/@/workers/render-app.worker.js`;
+    const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
 
     const rendered = await renderApp({ codeSpace, rootElement });
     Object.assign(window, { rendered });
