@@ -141,6 +141,7 @@ const handleRender = async (
 
       const beasties = new Beasties({
         external: false,
+        inlineThreshold: 0,
       });
 
       const beastiesProcessed = await beasties.process(htmlToProcess);
