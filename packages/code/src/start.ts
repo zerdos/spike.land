@@ -28,7 +28,7 @@ const codeSpace = getCodeSpace(location.pathname);
     location.pathname !== `/live-cms/${codeSpace}` &&
     location.pathname.endsWith("dehydrated") === false
   ) {
-    const renderAppUrl = `/@/workers/render-app.worker.js`;
+    const renderAppUrl = `/@/lib/render-app.mjs`;
     await import(/* @vite-ignore */ renderAppUrl);
     const { renderApp } = globalThis as unknown as {
       renderApp: typeof renderAppType;
