@@ -42,8 +42,10 @@ const codeSpace = getCodeSpace(location.pathname);
 })();
 
 if (
-  location.pathname.startsWith("/live") ||
-  location.pathname.startsWith("/live-cms")
+  (location.pathname.startsWith("/live") ||
+    location.pathname.startsWith("/live-cms")) &&
+  location.pathname.endsWith("dehydrated") === false &&
+  location.pathname.endsWith("/") === false
 ) {
   import("./ws").then(({ main }) => main());
 }
