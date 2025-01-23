@@ -126,27 +126,27 @@ const handleRender = async (
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
     try {
-      Object.assign(globalThis, {
-        process: {
-          cwd: () => "/",
-          emitWarning: () => {},
-          env: { NODE_ENV: "development" },
-          platform: "browser",
-        },
-      });
+      // Object.assign(globalThis, {
+      //   process: {
+      //     cwd: () => "/",
+      //     emitWarning: () => {},
+      //     env: { NODE_ENV: "development" },
+      //     platform: "browser",
+      //   },
+      // });
 
-      const Beasties = (await import("./beasties")).default;
+      // const Beasties = (await import("./beasties")).default;
 
-      const htmlToProcess = `<style>${cssStrings}</style>${html}`;
+      // const htmlToProcess = `<style>${cssStrings}</style>${html}`;
 
-      const beasties = new Beasties({
-        external: false,
-        inlineThreshold: 0,
-      });
+      // const beasties = new Beasties({
+      //   external: false,
+      //   inlineThreshold: 0,
+      // });
 
-      const beastiesProcessed = await beasties.process(htmlToProcess);
-      const parts = beastiesProcessed.split("</style>");
-      const css = parts[0].replace("<style>", "");
+      // const beastiesProcessed = await beasties.process(htmlToProcess);
+      // const parts = beastiesProcessed.split("</style>");
+      // const css = parts[0].replace("<style>", "");
 
       // import { PurgeCSS } from "purgecss";
       // const { PurgeCSS } = await import("purgecss");
@@ -172,8 +172,8 @@ const handleRender = async (
       // });
 
       return {
-        css,
-        html: parts[1],
+        css: cssStrings,
+        html,
       };
     } catch (error) {
       console.error("Error processing CSS:", error);
