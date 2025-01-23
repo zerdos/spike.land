@@ -126,10 +126,20 @@ const handleRender = async (
     // const cssStyled = cssStrings.split(cssCache.key).join("x");
     // console.log("CSS styled:", cssStyled);
     const Beasties = (await import("./beasties")).default;
+
+    const htmlToProcess = `<style>${cssStrings}</style>${html.split(cssCache.key).join("x")}`;
+
     const beasties = await new Beasties({
       additionalStylesheets: [cssStrings],
       external: false,
-    }).process(html.split(cssCache.key).join("x"));
+    }).process(htmlToProcess);
+
+    console.log("Beasties:", {
+      css: cssStrings,
+      html,
+      htmlToProcess,
+      beasties,
+    });
 
     return {
       css: `/*
