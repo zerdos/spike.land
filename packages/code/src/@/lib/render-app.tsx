@@ -22,7 +22,9 @@ export const importFromString = async (code: string) => {
         new Blob([
           importMapReplace(code.split("importMapReplace").join(""), origin).split(
             `"/@/`,
-          ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`),
+          ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(`from "/`).join(
+            `from "${origin}/`,
+          ),
         ], { type: "application/javascript" }),
       ),
       origin,
