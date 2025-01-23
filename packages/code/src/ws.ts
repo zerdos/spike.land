@@ -128,6 +128,7 @@ const handleRender = async (
     const Beasties = (await import("./beasties")).default;
     const beasties = await new Beasties({
       additionalStylesheets: [cssStrings],
+      external: false,
     }).process(html.split(cssCache.key).join("x"));
 
     return {
