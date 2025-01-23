@@ -15,7 +15,7 @@ export const buildOptions: BuildOptions = {
   alias: {
     buffer: "buffer/",
 
-    path: "path-browserify",
+    path: "src/browserify/path.ts",
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
     "string_decoder": "string_decoder/",
