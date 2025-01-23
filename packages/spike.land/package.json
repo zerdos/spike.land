@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/vitest-pool-workers": "0.6.5",
+    "@cloudflare/vitest-pool-workers": "0.6.6",
     "@cloudflare/workers-types": "4.20250121.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
@@ -26,7 +26,7 @@
     "@vitest/snapshot": "3.0.3",
     "typescript": "5.7.3",
     "vitest": "3.0.3",
-    "wrangler": "3.104.0"
+    "wrangler": "3.105.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.35.0",
@@ -35,7 +35,7 @@
     "@remix-run/cloudflare": "2.15.2",
     "@remix-run/react": "2.15.2",
     "@spike-npm-land/code": "0.9.56",
-    "@types/node": "22.10.7",
+    "@types/node": "22.10.9",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.24.2",
