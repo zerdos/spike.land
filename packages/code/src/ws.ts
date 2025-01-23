@@ -144,19 +144,19 @@ const handleRender = async (
       });
 
       const beastiesProcessed = await beasties.process(htmlToProcess);
+      const parts = beastiesProcessed.split("</style>");
+      const css = parts[0].replace("<style>", "");
 
       console.log("Beasties:", {
-        css: cssStrings,
+        css,
         html,
         htmlToProcess,
         beastiesProcessed,
       });
 
       return {
-        css: `/*
-  Empty CSS
-*/`,
-        html: beastiesProcessed,
+        css,
+        html: parts[1],
       };
     } catch (error) {
       console.error("Error processing CSS:", error);
