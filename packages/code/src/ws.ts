@@ -2,7 +2,6 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
-import { wait } from "@/lib/wait";
 
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
@@ -64,127 +63,119 @@ const handleRender = async (
 
   const { cssCache, rootElement } = renderedNew;
 
-  for (let attempts = 5; attempts > 0; attempts--) {
-    await wait(300);
-    if (!rootElement.innerHTML) {
-      continue;
-    }
+  const html = htmlDecode(rootElement.innerHTML).split(cssCache.key).join("x");
+  const emotionGlobalStyles = [
+    ...document.querySelectorAll<HTMLStyleElement>(
+      `style[data-emotion='${cssCache.key}-global']`,
+    )
+      .values(),
+  ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
 
-    const html = htmlDecode(rootElement.innerHTML).split(cssCache.key).join("x");
-    const emotionGlobalStyles = [
-      ...document.querySelectorAll<HTMLStyleElement>(
-        `style[data-emotion='${cssCache.key}-global']`,
-      )
-        .values(),
-    ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
+  const emotionStyles = [
+    ...emotionGlobalStyles,
+    ...[...cssCache.sheet.tags].map((
+      tag: HTMLStyleElement,
+    ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+  ].join("\n")
+    .split(cssCache.key).join("x");
 
-    const emotionStyles = [
-      ...emotionGlobalStyles,
-      ...[...cssCache.sheet.tags].map((
-        tag: HTMLStyleElement,
-      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
-    ].join("\n")
-      .split(cssCache.key).join("x");
+  console.log("Emotion styles:", emotionStyles);
 
-    console.log("Emotion styles:", emotionStyles);
+  const tailWindClasses = [
+    ...document.querySelectorAll<HTMLStyleElement>("head > style"),
+  ].map(
+    (z) => z.innerHTML,
+  ).join("\n");
 
-    const tailWindClasses = [
-      ...document.querySelectorAll<HTMLStyleElement>("head > style"),
-    ].map(
-      (z) => z.innerHTML,
-    ).join("\n");
+  // remove comments
+  const tailWindClassesXWithoutComments = tailWindClasses.replace(
+    /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+    "",
+  );
+  const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
+    `\\\\]`,
+  ).join(`\\]`);
 
-    // remove comments
-    const tailWindClassesXWithoutComments = tailWindClasses.replace(
-      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
-      "",
-    );
-    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
-      `\\\\]`,
-    ).join(`\\]`);
+  // const htmlClasses = new Set(
+  //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
+  // );
 
-    // const htmlClasses = new Set(
-    //   getClassNamesFromHTML(html).join(" ").split(" ").filter((x) => x),
-    // );
+  // console.log("HTML classes:", htmlClasses);
 
-    // console.log("HTML classes:", htmlClasses);
+  // const criticalClasses = new Set(
+  //   emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
+  // );
 
-    // const criticalClasses = new Set(
-    //   emotionStyles.filter((line) => line.startsWith("@") || htmlClasses.has(line.slice(1, line.indexOf("{")).trim())),
-    // );
+  // let cssStrings = [...criticalClasses]
 
-    // let cssStrings = [...criticalClasses]
+  const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 
-    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+  // try {
+  //   cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+  // } catch (error) {
+  //   console.error("Error prettifying CSS:", error);
+  // }
 
-    // try {
-    //   cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
-    // } catch (error) {
-    //   console.error("Error prettifying CSS:", error);
-    // }
+  // const cssStyled = cssStrings.split(cssCache.key).join("x");
+  // console.log("CSS styled:", cssStyled);
+  try {
+    // Object.assign(globalThis, {
+    //   process: {
+    //     cwd: () => "/",
+    //     emitWarning: () => {},
+    //     env: { NODE_ENV: "development" },
+    //     platform: "browser",
+    //   },
+    // });
 
-    // const cssStyled = cssStrings.split(cssCache.key).join("x");
-    // console.log("CSS styled:", cssStyled);
-    try {
-      // Object.assign(globalThis, {
-      //   process: {
-      //     cwd: () => "/",
-      //     emitWarning: () => {},
-      //     env: { NODE_ENV: "development" },
-      //     platform: "browser",
-      //   },
-      // });
+    // const Beasties = (await import("./beasties")).default;
 
-      // const Beasties = (await import("./beasties")).default;
+    // const htmlToProcess = `<style>${cssStrings}</style>${html}`;
 
-      // const htmlToProcess = `<style>${cssStrings}</style>${html}`;
+    // const beasties = new Beasties({
+    //   external: false,
+    //   inlineThreshold: 0,
+    // });
 
-      // const beasties = new Beasties({
-      //   external: false,
-      //   inlineThreshold: 0,
-      // });
+    // const beastiesProcessed = await beasties.process(htmlToProcess);
+    // const parts = beastiesProcessed.split("</style>");
+    // const css = parts[0].replace("<style>", "");
 
-      // const beastiesProcessed = await beasties.process(htmlToProcess);
-      // const parts = beastiesProcessed.split("</style>");
-      // const css = parts[0].replace("<style>", "");
+    // import { PurgeCSS } from "purgecss";
+    // const { PurgeCSS } = await import("purgecss");
 
-      // import { PurgeCSS } from "purgecss";
-      // const { PurgeCSS } = await import("purgecss");
+    // const purged = await new PurgeCSS().purge({
+    //   content: [
+    //     {
+    //       raw: parts[1],
+    //       extension: "html",
+    //     },
+    //   ],
+    //   css: [
+    //     {
+    //       raw: css,
+    //     },
+    //   ],
+    // });
 
-      // const purged = await new PurgeCSS().purge({
-      //   content: [
-      //     {
-      //       raw: parts[1],
-      //       extension: "html",
-      //     },
-      //   ],
-      //   css: [
-      //     {
-      //       raw: css,
-      //     },
-      //   ],
-      // });
-
-      // console.log("Purged:", {
-      //   // purged,
-      //   html: parts[1],
-      //   css,
-      // });
-
-      return {
-        css: cssStrings,
-        html,
-      };
-    } catch (error) {
-      console.error("Error processing CSS:", error);
-    }
+    // console.log("Purged:", {
+    //   // purged,
+    //   html: parts[1],
+    //   css,
+    // });
 
     return {
       css: cssStrings,
       html,
     };
+  } catch (error) {
+    console.error("Error processing CSS:", error);
   }
-  return false;
+
+  return {
+    css: cssStrings,
+    html,
+  };
 };
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
