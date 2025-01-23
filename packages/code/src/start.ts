@@ -5,7 +5,6 @@
 
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { renderApp } from "@/lib/render-app";
-import { main } from "./ws";
 
 import "./index.css";
 
@@ -45,5 +44,5 @@ if (
   location.pathname.startsWith("/live") ||
   location.pathname.startsWith("/live-cms")
 ) {
-  main();
+  import("./ws").then(({ main }) => main());
 }
