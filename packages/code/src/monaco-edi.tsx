@@ -214,8 +214,8 @@ const monacoContribution = async (code: string): Promise<string> => {
     diagnosticCodesToIgnore: [2691],
   });
 
-  await fetchAndCreateExtraModels(code, originToUse);
-  await refreshAta(code);
+  fetchAndCreateExtraModels(code, originToUse);
+  refreshAta(code);
 
   return code;
 };
