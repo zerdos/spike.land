@@ -247,8 +247,13 @@ async function startMonacoPristine({
 }: EditorConfig): Promise<EditorModel> {
   const replacedCode = await monacoContribution(code);
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
-  const model = editor.getModel(uri) ||
-    editor.createModel(replacedCode, "typescript", uri);
+  let model = editor.getModel(uri);
+
+  if (model) {
+    model.setValue(replacedCode);
+  } else {
+    model = editor.createModel(replacedCode, "typescript", uri);
+  }
 
   languages.registerDocumentFormattingEditProvider("typescript", {
     provideDocumentFormattingEdits: async (model) => {
@@ -281,7 +286,10 @@ async function startMonacoPristine({
 
   await promiseIsResolved;
 
-  const myEditor = editor.create(container, editorOptions);
+  const myEditor = editor.create(container, {
+    ...editorOptions,
+    model: model, // Explicitly set the model when creating the editor
+  });
 
   let abortController = new AbortController();
   const ttt = { checking: 0 };
