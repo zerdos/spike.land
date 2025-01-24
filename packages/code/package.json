@@ -60,8 +60,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@clerk/clerk-react": "5.22.5",
-    "@clerk/nextjs": "6.10.1",
+    "@clerk/clerk-react": "5.22.6",
+    "@clerk/nextjs": "6.10.2",
     "@emotion/cache": "11.14.0",
     "@emotion/css-prettifier": "1.2.0",
     "@emotion/react": "11.14.0",
@@ -235,7 +235,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.13.5",
     "@eslint/js": "9.18.0",
-    "@rollup/plugin-html": "1.1.0",
+    "@rollup/plugin-html": "2.0.0",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.2.0",
@@ -254,7 +254,7 @@
     "@types/serve-handler": "6.1.4",
     "@types/text-encoding": "0.0.40",
     "@types/uuid": "10.0.0",
-    "@types/web": "0.0.197",
+    "@types/web": "0.0.198",
     "@types/wicg-file-system-access": "2023.10.5",
     "@vitejs/plugin-react": "4.3.4",
     "@vitejs/plugin-react-swc": "3.7.2",
