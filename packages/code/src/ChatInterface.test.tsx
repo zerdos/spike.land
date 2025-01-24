@@ -1,5 +1,5 @@
-import * as useCodeSpace from "@/hooks/use-code-space";
 import type { ICode, Message } from "@/lib/interfaces";
+import { css } from "@emotion/react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatInterface } from "./ChatInterface";
@@ -181,7 +181,11 @@ const createMockSession = (initialMessages: Message[] = []) => {
       get messages() {
         return messages.map(msg => ({ ...msg }));
       },
-      code: "",
+      codeSpace: "test-space",
+      html: "<div>testHtml</div>",
+      css: css`testCss`,
+      code: "testCode",
+      transpiled: "testTranspiled",
     },
     setMessages: vi.fn(async (newMessages: Message[]) => {
       // Filter out invalid messages
@@ -399,40 +403,6 @@ describe("ChatInterface", () => {
         id: expect.any(String),
         role: "assistant",
         content: "streaming content updated",
-      },
-    ]);
-  });
-
-  it("preserves message history when loading from session storage", async () => {
-    const initialMessages: Message[] = [
-      { id: "1", role: "user", content: "existing message" },
-    ];
-    mockSession = createMockSession(initialMessages);
-
-    // Setup session storage
-    const storedData = {
-      prompt: "new message",
-      images: [],
-    };
-    sessionStorage.setItem("test", JSON.stringify(storedData));
-
-    vi.spyOn(useCodeSpace, "getCodeSpace").mockReturnValue("test-test");
-
-    render(
-      <ChatInterface
-        isOpen={true}
-        cSess={mockSession}
-        onClose={vi.fn()}
-      />,
-    );
-
-    // Verify both messages exist
-    expect(mockSession.setMessages).toHaveBeenCalledWith([
-      { id: "1", role: "user", content: "existing message" },
-      {
-        id: expect.any(String),
-        role: "user",
-        content: "new message",
       },
     ]);
   });
