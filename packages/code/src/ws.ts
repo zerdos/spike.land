@@ -3,7 +3,9 @@ import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces"
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 
+import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { m } from "framer-motion";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
@@ -204,8 +206,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
 
     rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
 
-    document.getElementById("embed")?.remove();
-    myEl.setAttribute("id", "embed");
+    document.getElementById("embed")?.replaceWith(myEl);
   });
   return rendered;
 };
