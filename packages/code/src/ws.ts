@@ -3,6 +3,7 @@ import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces"
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 
+import { Mutex } from "async-mutex";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
@@ -178,6 +179,8 @@ const handleRender = async (
   };
 };
 
+const mutex = new Mutex();
+
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   const hashed = md5(transpiled);
   if (hashed === renderedMd5) {
@@ -188,20 +191,22 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   renderedMd5 = hashed;
   console.log("Updating rendered app...");
 
-  const myEl = document.createElement("div");
-  myEl.setAttribute("id", "root");
-  document.body.appendChild(myEl);
+  await mutex.runExclusive(async () => {
+    const myEl = document.createElement("div");
+    myEl.setAttribute("id", "root");
+    document.body.appendChild(myEl);
 
-  rendered?.cleanup();
-  rendered = null;
-  // import { renderApp } from "@/lib/render-app";
+    rendered?.cleanup();
+    rendered = null;
+    // import { renderApp } from "@/lib/render-app";
 
-  const { renderApp } = await import("@/lib/render-app");
+    const { renderApp } = await import("@/lib/render-app");
 
-  rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
+    rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
 
-  document.getElementById("embed")?.remove();
-  myEl.setAttribute("id", "embed");
+    document.getElementById("embed")?.remove();
+    myEl.setAttribute("id", "embed");
+  });
   return rendered;
 };
 
