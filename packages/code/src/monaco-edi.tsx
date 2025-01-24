@@ -1,5 +1,6 @@
 import { editor, languages, Uri } from "@/external/monaco-editor";
 import { ata, prettierToThrow } from "@/lib/shared";
+import { tr } from "date-fns/locale";
 import { throttle } from "es-toolkit";
 import { version } from "monaco-editor/package.json";
 
@@ -377,9 +378,12 @@ async function startMonacoPristine({
   });
 
   const throttledTsCheck = throttle(() => tsCheck(), 10000);
+  const throttledOnChange = throttle(() => onChange(model.getValue()), 1000, {
+    edges: ["leading", "trailing"],
+  });
 
   model.onDidChangeContent(() => {
-    onChange(model.getValue());
+    throttledOnChange();
     throttledTsCheck();
   });
 
