@@ -72,7 +72,8 @@ export interface ICode {
   session: ICodeSession;
   init: () => Promise<ICodeSession>;
   screenShot: () => Promise<ImageData>;
-  setMessages: (messages: Message[]) => Promise<boolean>;
+  setMessageChunk: (chunk: string) => void;
+  setMessages: (messages: Message[]) => boolean;
   // currentCodeWithExtraModels: () => Promise<string>;
   // setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(

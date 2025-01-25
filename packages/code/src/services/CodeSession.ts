@@ -7,6 +7,7 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { throttle } from "es-toolkit";
 import {
   formatCode as formatCodeUtil,
   runCode,
@@ -260,11 +261,32 @@ export class Code implements ICode {
     return true;
   }
 
-  /**
+  broadcastSession() {
+    this.broadcastChannel.postMessage(this.session);
+  }
+
+  throttleBroadcastSession = throttle(this.broadcastSession, 500, {
+    edges: ["leading", "trailing"],
+  });
+
+  setMessageChunk: (chunk: string) => void = (
+    chunk: string,
+  ) => {
+    if (this.session.messages.length === 0) {
+      this.setMessages([{ id: Date.now().toString(), role: "assistant", content: chunk }]);
+      this.broadcastSession();
+    } else {
+      const lastMessage = this.session.messages[this.session.messages.length - 1];
+      lastMessage.content += chunk;
+      lastMessage.id = Number(lastMessage.id) + 1 + "";
+      this.throttleBroadcastSession();
+    }
+  };
+  /*
    * Replaces session messages if the content has changed,
    * then broadcasts the updated session.
    */
-  async setMessages(messages: Message[]): Promise<boolean> {
+  setMessages(messages: Message[]): boolean {
     console.log("setMessages", { messages });
     const currentMessages = this.session.messages;
 
