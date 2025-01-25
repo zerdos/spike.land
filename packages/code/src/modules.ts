@@ -16,7 +16,6 @@ export { serveWithCache } from "@/lib/serve-with-cache.ts";
 export { md5 } from "@/lib/md5.ts";
 export { routes } from "@/lib/routes.ts";
 
-import type { Diff } from "@/lib/text-diff";
 export { importMapReplace };
 
 export { serverFetchUrl } from "@/lib/enhanced-fetch";
@@ -36,5 +35,5 @@ import {
 export { importMap };
 
 export { computeSessionHash, generateSessionPatch, sessionToJSON };
-export type { CodePatch, Diff, ICodeSession };
+export type { CodePatch, ICodeSession };
 export { applySessionPatch, sanitizeSession };

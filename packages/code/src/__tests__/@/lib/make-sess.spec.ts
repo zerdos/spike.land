@@ -95,8 +95,8 @@ describe("Session Management", () => {
     const patch = generateSessionPatch(session, { ...session });
 
     expect(patch.oldHash).toBe(patch.hashCode);
-    expect(patch.patch).toEqual([]);
-    expect(patch.reversePatch).toEqual([]);
+    expect(patch.patch).toBeUndefined();
+    expect(patch.reversePatch).toBeUndefined(); 
   });
 
   test("should handle create a diff ", () => {

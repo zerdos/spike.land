@@ -17,6 +17,7 @@
     "asyncgenerator",
     "autodiscovery",
     "autofetch",
+    "autohide",
     "autorefresh",
     "Autosize",
     "backoff",

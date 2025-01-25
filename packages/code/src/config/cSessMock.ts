@@ -30,7 +30,18 @@ class SessMock implements ICode {
     };
   }
 
-  async setMessages(messages: Message[]) {
+  addMessageChunk(chunk: string) {
+    const message: Message = {
+      id: "mock-id",
+      role: "user",
+      content: chunk,
+    };
+    this.session.messages.push(message);
+    this.broadCastSessChanged();
+  }
+
+  
+  setMessages(messages: Message[]) {
     this.session.messages = messages;
     return true;
   }

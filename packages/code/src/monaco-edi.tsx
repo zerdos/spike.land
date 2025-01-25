@@ -1,6 +1,5 @@
 import { editor, languages, Uri } from "@/external/monaco-editor";
 import { ata, prettierToThrow } from "@/lib/shared";
-import { tr } from "date-fns/locale";
 import { throttle } from "es-toolkit";
 import { version } from "monaco-editor/package.json";
 

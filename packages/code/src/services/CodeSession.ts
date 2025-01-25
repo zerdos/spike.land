@@ -281,7 +281,6 @@ export class Code implements ICode {
     } else {
       const lastMessage = this.session.messages[this.session.messages.length - 1];
       lastMessage.content += chunk;
-      lastMessage.id = Number(lastMessage.id) + 1 + "";
       this.throttleBroadcastSession();
     }
   };

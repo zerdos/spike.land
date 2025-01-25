@@ -21,12 +21,10 @@ export interface Logger {
 
 const defaultLogger = {
   trace(msg) {
-    // eslint-disable-next-line no-console
     console.trace(msg);
   },
 
   debug(msg) {
-    // eslint-disable-next-line no-console
     console.debug(msg);
   },
 
@@ -39,7 +37,6 @@ const defaultLogger = {
   },
 
   info(msg) {
-    // eslint-disable-next-line no-console
     console.info(pc.bold(pc.blue(msg)));
   },
 

@@ -3,9 +3,7 @@ import type { ICodeSession, IframeMessage, RenderedApp } from "@/lib/interfaces"
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 
-import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { m } from "framer-motion";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
