@@ -77,15 +77,15 @@ describe("Session Management", () => {
   });
 
   test("should generate and apply session patch", () => {
-    const oldSession = { ...sampleSession };
-    const newSession = { ...sampleSession, code: "const x = 10;" };
+    const oldSession = sanitizeSession({ ...sampleSession });
+    const newSession = sanitizeSession({ ...sampleSession, code: "const x = 10;" });
 
     const patch = generateSessionPatch(oldSession, newSession);
 
     expect(patch.oldHash).toBe(computeSessionHash(oldSession));
     expect(patch.hashCode).toBe(computeSessionHash(newSession));
 
-    const patchedSession = applySessionPatch(oldSession, patch);
+    const patchedSession = applySessionPatch(newSession, patch);
     expect(patchedSession).toEqual(newSession);
     expect(computeSessionHash(patchedSession)).toBe(patch.hashCode);
   });

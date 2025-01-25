@@ -12,11 +12,11 @@ export interface CodePatch {
 
 class SessionPatcher {
   public static computeSessionHash(cx: ICodeSession): string {
-    const { codeSpace, code, html, css, transpiled } = cx;
+    const { codeSpace, code, html, css, transpiled, messages } = cx;
     const hashObj = {
       codeSpace,
       messages: md5(JSON.stringify([
-        ...(cx.messages || []).map((m) => md5(JSON.stringify(m))),
+        ...(messages || []).map((m) => md5(JSON.stringify(m))),
       ])),
       code: md5(code),
       html: md5(html),
@@ -27,35 +27,43 @@ class SessionPatcher {
   }
 
   public static sanitizeSession(p: unknown): ICodeSession {
-    const json = sessionToJSON(p as ICodeSession);
-    return JSON.parse(json);
+    const session = p as ICodeSession;
+    return {
+      codeSpace: session.codeSpace || "",
+      messages: (session.messages || []).filter(Boolean),
+      code: session.code || "",
+      html: session.html || "",
+      css: session.css || "",
+      transpiled: session.transpiled || "",
+    };
   }
 
   public static sessionToJSON(s: ICodeSession): string {
-    const { codeSpace, code, html, css, transpiled, messages } = s;
-    return JSON.stringify({
-      codeSpace: codeSpace || "",
-      messages: (messages || []).filter(Boolean),
-      code: code || "",
-      html: html || "",
-      css: css || "",
-      transpiled: transpiled || "",
-    });
+    return JSON.stringify(SessionPatcher.sanitizeSession(s));
   }
 
   public static applySessionPatch(
     sess: ICodeSession,
     codePatch: CodePatch,
   ): ICodeSession {
-    if (computeSessionHash(sess) !== codePatch.oldHash) {
-      throw new Error("Old hash does not match");
+    const sanitizedSession = SessionPatcher.sanitizeSession(sess);
+    const currentHash = computeSessionHash(sanitizedSession);
+
+    if (currentHash !== codePatch.oldHash) {
+      throw new Error(`Old hash does not match: ${currentHash} !== ${codePatch.oldHash}`);
+    }
+
+    if (!codePatch.patch) {
+      return sanitizedSession;
     }
 
     const parsedSession = applyDiff(
-      sess,
-      codePatch.patch!,
+      sanitizedSession,
+      codePatch.patch,
     );
-    if (computeSessionHash(parsedSession) !== codePatch.hashCode) {
+
+    const newHash = computeSessionHash(parsedSession);
+    if (newHash !== codePatch.hashCode) {
       throw new Error("New hash does not match");
     }
     return parsedSession;
@@ -65,8 +73,11 @@ class SessionPatcher {
     oldSess: ICodeSession,
     newSess: ICodeSession,
   ): CodePatch {
-    const oldHash = computeSessionHash(oldSess);
-    const hashCode = computeSessionHash(newSess);
+    const sanitizedOldSess = SessionPatcher.sanitizeSession(oldSess);
+    const sanitizedNewSess = SessionPatcher.sanitizeSession(newSess);
+
+    const oldHash = computeSessionHash(sanitizedOldSess);
+    const hashCode = computeSessionHash(sanitizedNewSess);
 
     if (oldHash === hashCode) {
       return {
@@ -75,13 +86,8 @@ class SessionPatcher {
       };
     }
 
-    const patch = createDiff(oldSess, newSess);
-
-    const codePatch: CodePatch = { oldHash, hashCode, patch };
-    if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== hashCode) {
-      throw new Error("Unable to calculate CodePatch");
-    }
-    return codePatch;
+    const patch = createDiff(sanitizedOldSess, sanitizedNewSess);
+    return { oldHash, hashCode, patch };
   }
 }
 
