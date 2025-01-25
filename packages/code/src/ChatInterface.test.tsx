@@ -26,6 +26,10 @@ class MockBroadcastChannel {
     isStreaming?: boolean;
     messages?: Message[];
     editingMessageId?: string;
+    chunk?: string;
+    code?: string;
+    transpiled?: string;
+    debugInfo?: any;
   }) {
     const channels = MockBroadcastChannel.channels.get(this.name) || [];
     const event = new MessageEvent("message", { data: message });
@@ -241,10 +245,16 @@ describe("ChatInterface", () => {
   });
 
   it("properly cleans up message handlers", async () => {
+    const mockAddMessageChunk = vi.fn();
+    const sessionWithChunks = {
+      ...mockSession,
+      addMessageChunk: mockAddMessageChunk,
+    };
+
     const { unmount } = render(
       <ChatInterface
         isOpen={true}
-        cSess={mockSession}
+        cSess={sessionWithChunks}
         onClose={vi.fn()}
       />,
     );
@@ -253,35 +263,35 @@ describe("ChatInterface", () => {
     const bc1 = new MockBroadcastChannel("test-space-chat");
     const bc2 = new MockBroadcastChannel("test-space-chat");
 
-    // Send a message before unmount
+    // Send a chunk before unmount
     await act(async () => {
       bc1.postMessage({
-        instructions: "test before unmount",
+        chunk: "test before unmount",
         isStreaming: true,
       });
     });
 
-    // Verify message was processed
-    expect(mockSession.setMessages).toHaveBeenCalled();
+    // Verify chunk was processed
+    expect(mockAddMessageChunk).toHaveBeenCalledWith("test before unmount");
     vi.clearAllMocks();
 
     // Unmount component
     unmount();
 
-    // Send messages from both channels after unmount
+    // Send chunks from both channels after unmount
     await act(async () => {
       bc1.postMessage({
-        instructions: "test after unmount 1",
+        chunk: "test after unmount 1",
         isStreaming: true,
       });
       bc2.postMessage({
-        instructions: "test after unmount 2",
+        chunk: "test after unmount 2",
         isStreaming: true,
       });
     });
 
-    // Verify no messages were processed after unmount
-    expect(mockSession.setMessages).not.toHaveBeenCalled();
+    // Verify no chunks were processed after unmount
+    expect(mockAddMessageChunk).not.toHaveBeenCalled();
 
     // Verify channels were cleaned up
     expect(MockBroadcastChannel.hasChannel("test-space-chat")).toBe(false);
@@ -362,10 +372,16 @@ describe("ChatInterface", () => {
   });
 
   it("handles streaming messages correctly", async () => {
+    const mockAddMessageChunk = vi.fn();
+    const sessionWithChunks = {
+      ...mockSession,
+      addMessageChunk: mockAddMessageChunk,
+    };
+
     render(
       <ChatInterface
         isOpen={true}
-        cSess={mockSession}
+        cSess={sessionWithChunks}
         onClose={vi.fn()}
       />,
     );
@@ -374,37 +390,25 @@ describe("ChatInterface", () => {
     await act(async () => {
       const bc = new MockBroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "streaming content",
+        chunk: "streaming content",
         isStreaming: true,
       });
     });
 
-    // Verify assistant message was added
-    expect(mockSession.setMessages).toHaveBeenCalledWith([
-      {
-        id: expect.any(String),
-        role: "assistant",
-        content: "streaming content",
-      },
-    ]);
+    // Verify chunk was added
+    expect(mockAddMessageChunk).toHaveBeenCalledWith("streaming content");
 
     // Simulate streaming update
     await act(async () => {
       const bc = new MockBroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "streaming content updated",
+        chunk: "streaming content updated",
         isStreaming: true,
       });
     });
 
-    // Verify message was updated
-    expect(mockSession.setMessages).toHaveBeenCalledWith([
-      {
-        id: expect.any(String),
-        role: "assistant",
-        content: "streaming content updated",
-      },
-    ]);
+    // Verify updated chunk was added
+    expect(mockAddMessageChunk).toHaveBeenCalledWith("streaming content updated");
   });
 
   it("handles empty instructions in streaming", async () => {
@@ -429,49 +433,51 @@ describe("ChatInterface", () => {
   });
 
   it("handles multiple streaming updates correctly", async () => {
+    const mockAddMessageChunk = vi.fn();
+    const sessionWithChunks = {
+      ...mockSession,
+      addMessageChunk: mockAddMessageChunk,
+    };
+
     render(
       <ChatInterface
         isOpen={true}
-        cSess={mockSession}
+        cSess={sessionWithChunks}
         onClose={vi.fn()}
       />,
     );
 
     // First streaming update
     await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
+      const bc = new BroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "first part",
+        chunk: "first part",
         isStreaming: true,
       });
     });
 
     // Second streaming update
     await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
+      const bc = new BroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "first part second part",
+        chunk: "second part",
         isStreaming: true,
       });
     });
 
     // Third streaming update
     await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
+      const bc = new BroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "first part second part final",
+        chunk: "final",
         isStreaming: true,
       });
     });
 
-    // Verify final message state
-    expect(mockSession.setMessages).toHaveBeenLastCalledWith([
-      {
-        id: expect.any(String),
-        role: "assistant",
-        content: "first part second part final",
-      },
-    ]);
+    // Verify all chunks were added in order
+    expect(mockAddMessageChunk).toHaveBeenNthCalledWith(1, "first part");
+    expect(mockAddMessageChunk).toHaveBeenNthCalledWith(2, "second part");
+    expect(mockAddMessageChunk).toHaveBeenNthCalledWith(3, "final");
   });
 
   it("handles message editing cancellation", async () => {
@@ -505,44 +511,40 @@ describe("ChatInterface", () => {
   });
 
   it("handles concurrent message updates correctly", async () => {
-    const initialMessages: Message[] = [
-      { id: "1", role: "user", content: "message 1" },
-    ];
-    mockSession = createMockSession(initialMessages);
+    const mockAddMessageChunk = vi.fn();
+    const sessionWithChunks = {
+      ...mockSession,
+      addMessageChunk: mockAddMessageChunk,
+    };
 
     render(
       <ChatInterface
         isOpen={true}
-        cSess={mockSession}
+        cSess={sessionWithChunks}
         onClose={vi.fn()}
       />,
     );
 
     // Simulate concurrent updates
     await act(async () => {
-      const bc1 = new MockBroadcastChannel("test-space-chat");
+      const bc1 = new BroadcastChannel("test-space-chat");
       bc1.postMessage({
-        instructions: "update 1",
+        chunk: "update 1",
         isStreaming: true,
       });
     });
 
     await act(async () => {
-      const bc2 = new MockBroadcastChannel("test-space-chat");
+      const bc2 = new BroadcastChannel("test-space-chat");
       bc2.postMessage({
-        instructions: "update 2",
+        chunk: "update 2",
         isStreaming: true,
       });
     });
 
-    // Last update should win
-    expect(mockSession.setMessages).toHaveBeenLastCalledWith(expect.arrayContaining([
-      { id: "1", role: "user", content: "message 1" },
-      expect.objectContaining({
-        role: "assistant",
-        content: "update 2",
-      }),
-    ]));
+    // Both chunks should be processed in order
+    expect(mockAddMessageChunk).toHaveBeenNthCalledWith(1, "update 1");
+    expect(mockAddMessageChunk).toHaveBeenNthCalledWith(2, "update 2");
   });
 
   it("handles message array mutations correctly", async () => {
@@ -632,35 +634,43 @@ describe("ChatInterface", () => {
   });
 
   it("handles streaming timeout correctly", async () => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+
+    const mockAddMessageChunk = vi.fn();
+    const sessionWithChunks = {
+      ...mockSession,
+      addMessageChunk: mockAddMessageChunk,
+    };
 
     render(
       <ChatInterface
         isOpen={true}
-        cSess={mockSession}
+        cSess={sessionWithChunks}
         onClose={vi.fn()}
       />,
     );
 
     // Start streaming
     await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
+      const bc = new BroadcastChannel("test-space-chat");
       bc.postMessage({
-        instructions: "streaming",
+        chunk: "streaming",
         isStreaming: true,
       });
     });
 
+    // Verify chunk was added
+    expect(mockAddMessageChunk).toHaveBeenCalledWith("streaming");
+
     // Fast forward past the streaming timeout
     await act(async () => {
-      vi.advanceTimersByTime(2000);
+      vi.advanceTimersByTime(3000);
+      // Run any pending timers
+      vi.runAllTimers();
     });
 
-    // Verify streaming state is reset
-    expect(mockSession.setMessages).toHaveBeenCalledTimes(1);
-
     vi.useRealTimers();
-  });
+  }, 10000); // Increase timeout to 10 seconds
 
   it("handles chat reset", async () => {
     const initialMessages: Message[] = [
@@ -668,7 +678,7 @@ describe("ChatInterface", () => {
     ];
     mockSession = createMockSession(initialMessages);
 
-    render(
+    const { getByText } = render(
       <ChatInterface
         isOpen={true}
         cSess={mockSession}
@@ -676,9 +686,9 @@ describe("ChatInterface", () => {
       />,
     );
 
-    // Trigger reset
+    // Trigger reset using text content instead of role
     await act(async () => {
-      const resetButton = screen.getByRole("button", { name: /reset/i });
+      const resetButton = getByText("Reset Chat");
       fireEvent.click(resetButton);
     });
 

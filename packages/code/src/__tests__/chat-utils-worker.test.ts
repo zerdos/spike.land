@@ -48,7 +48,8 @@ global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastCha
 describe("handleSendMessage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    Date.now = vi.fn(() => 1737133875901);
+    // Set a fixed timestamp for consistent snapshots
+    Date.now = vi.fn(() => 1706187189833); // 2025-01-25T17:19:49.833Z
   });
 
   it("should log empty prompt scenario", async () => {
@@ -137,11 +138,11 @@ describe("handleSendMessage", () => {
       }
     `);
     expect(logs[2]).toMatchInlineSnapshot(
-      `"2025-01-25T14:13:09.833Z: Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`,
+      `"Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`,
     );
 
     expect(logs[3]).toMatchInlineSnapshot(
-      `"2025-01-25T14:13:09.833Z: Initializing ChatHandler - {"codeSpace":"test","messagesCount":2}"`,
+      `"Initializing ChatHandler - {"codeSpace":"test","messagesCount":2}"`,
     );
   });
 

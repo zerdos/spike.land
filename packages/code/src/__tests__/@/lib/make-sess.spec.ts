@@ -85,7 +85,7 @@ describe("Session Management", () => {
     expect(patch.oldHash).toBe(computeSessionHash(oldSession));
     expect(patch.hashCode).toBe(computeSessionHash(newSession));
 
-    const patchedSession = applySessionPatch(newSession, patch);
+    const patchedSession = applySessionPatch(oldSession, patch);
     expect(patchedSession).toEqual(newSession);
     expect(computeSessionHash(patchedSession)).toBe(patch.hashCode);
   });

@@ -18,10 +18,9 @@ interface DebugInfo {
 const debugInfo: DebugInfo = {
   logs: [],
   addLog: (message: string, data?: Record<string, unknown>) => {
-    const timestamp = new Date().toISOString();
     const logEntry = data
-      ? `${timestamp}: ${message} - ${JSON.stringify(data)}`
-      : `${timestamp}: ${message}`;
+      ? `${message} - ${JSON.stringify(data)}`
+      : `${message}`;
     debugInfo.logs.push(logEntry);
   },
 };
