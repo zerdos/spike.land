@@ -96,9 +96,9 @@ class ChatHandler {
     this.lastCode = code;
 
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
-    this.setMessages = (_messages: Message[]) => {
+    this.setMessages = (newMessages: Message[]) => {
       // Always create a new copy of messages to maintain immutability
-      const newMessages = [..._messages];
+      if (JSON.stringify(newMessages) === JSON.stringify(this.messages)) return;
       // Update the messages array and broadcast the change
       this.messages = newMessages;
       this.BC.postMessage({
@@ -144,11 +144,17 @@ class ChatHandler {
         claudeContent,
       );
 
-      const newMessages = messagesPush(this.messages, newUserMessage);
+      const now = Date.now();
+
+      const newMessages = messagesPush(this.messages, {
+        id: now.toString(),
+        role: "user",
+        content: newUserMessage.content,
+      });
 
       // Then add the empty assistant message
       const currentMessages = messagesPush(newMessages, {
-        id: Date.now().toString(),
+        id: (now + 1).toString(),
         role: "assistant",
         content: "",
       });
@@ -242,8 +248,8 @@ ${this.mod.lastCode}
           this.onUpdate.bind(this),
         );
 
-        this.messages = messagesPush(this.messages, assistantMessage);
-        this.setMessages(this.messages);
+        const newMessages = messagesPush(this.messages, assistantMessage);
+        this.setMessages(newMessages);
 
         await this.updateCode();
 

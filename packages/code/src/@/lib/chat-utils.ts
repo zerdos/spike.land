@@ -2,9 +2,10 @@ import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { Message } from "@/lib/interfaces";
 
 export function messagesPush(
-  messages: Message[],
+  _messages: Message[],
   newMessage: Message,
 ): Message[] {
+  const messages = [..._messages];
   console.log("Pushing new message", { role: newMessage.role });
 
   if (!messages.length) {
@@ -14,7 +15,7 @@ export function messagesPush(
   const lastMessage = messages[messages.length - 1];
   const newId = typeof lastMessage.id === "number"
     ? String(lastMessage.id + 1)
-    : String(Date.now());
+    : String(Number(lastMessage.id) + 1);
   if (lastMessage.role === newMessage.role) {
     messages[messages.length - 1] = { ...newMessage, id: newId };
   } else {
