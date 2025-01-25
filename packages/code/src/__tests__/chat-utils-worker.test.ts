@@ -136,9 +136,13 @@ describe("handleSendMessage", () => {
         "role": "assistant",
       }
     `);
-    expect(logs[2]).toMatchInlineSnapshot(`"2025-01-25T14:13:09.833Z: Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`);
+    expect(logs[2]).toMatchInlineSnapshot(
+      `"2025-01-25T14:13:09.833Z: Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`,
+    );
 
-    expect(logs[3]).toMatchInlineSnapshot(`"2025-01-25T14:13:09.833Z: Initializing ChatHandler - {"codeSpace":"test","messagesCount":2}"`);
+    expect(logs[3]).toMatchInlineSnapshot(
+      `"2025-01-25T14:13:09.833Z: Initializing ChatHandler - {"codeSpace":"test","messagesCount":2}"`,
+    );
   });
 
   it("should log fallback to GPT-4 scenario", async () => {

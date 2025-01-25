@@ -1,6 +1,6 @@
-import { applyPatch, compare, Operation } from "fast-json-patch";
 import { ICodeSession } from "@/lib/interfaces";
 import { computeSessionHash } from "@/lib/make-sess";
+import { applyPatch, compare, Operation } from "fast-json-patch";
 
 interface ICodeSessionDiff {
   patch: Operation[];
@@ -14,7 +14,6 @@ export function createDiff(
 ): ICodeSessionDiff {
   // Generate a minimal patch set
   const patch = compare(original, revision);
-
 
   return { oldHash: computeSessionHash(original), hashCode: computeSessionHash(revision), patch };
 }

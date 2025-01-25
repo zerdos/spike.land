@@ -96,7 +96,7 @@ describe("Session Management", () => {
 
     expect(patch.oldHash).toBe(patch.hashCode);
     expect(patch.patch).toBeUndefined();
-    expect(patch.reversePatch).toBeUndefined(); 
+    expect(patch.reversePatch).toBeUndefined();
   });
 
   test("should handle create a diff ", () => {
