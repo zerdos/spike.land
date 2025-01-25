@@ -1,6 +1,6 @@
 import type { ICode, Message } from "@/lib/interfaces";
 import { css } from "@emotion/react";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatInterface } from "./ChatInterface";
 
@@ -29,7 +29,7 @@ class MockBroadcastChannel {
     chunk?: string;
     code?: string;
     transpiled?: string;
-    debugInfo?: any;
+    debugInfo?: unknown;
   }) {
     const channels = MockBroadcastChannel.channels.get(this.name) || [];
     const event = new MessageEvent("message", { data: message });
