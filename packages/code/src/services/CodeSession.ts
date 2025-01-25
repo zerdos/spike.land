@@ -269,7 +269,7 @@ export class Code implements ICode {
     edges: ["leading", "trailing"],
   });
 
-  setMessageChunk: (chunk: string) => void = (
+  addMessageChunk: (chunk: string) => void = (
     chunk: string,
   ) => {
     if (this.session.messages.length === 0) {

@@ -135,42 +135,23 @@ const ChatInterface: React.FC<{
       }
 
       // Handle instructions/streaming content
-      if (e.instructions) {
+      if (e.chunk) {
+        cSess.addMessageChunk(e.chunk);
         if (!isStreaming) {
           setIsStreaming(true);
         }
-
-        // Get current messages state immutably
-        const currentMessages = [...cSess.session.messages];
-        const lastMessage = currentMessages[currentMessages.length - 1];
-
-        if (!lastMessage || lastMessage.role !== "assistant") {
-          // Add new assistant message
-          await cSess.setMessages([
-            ...currentMessages,
-            {
-              id: Date.now().toString(),
-              role: "assistant",
-              content: e.instructions,
-            },
-          ]);
-        } else {
-          // Update existing assistant message
-          const updatedMessages = [...currentMessages.slice(0, -1), {
-            ...lastMessage,
-            content: e.instructions,
-          }];
-          await cSess.setMessages(updatedMessages);
+        if (isStreamingTimeout) {
+          clearTimeout(isStreamingTimeout);
+          isStreamingTimeout = null;
         }
+        isStreamingTimeout = setTimeout(() => {
+          setIsStreaming(false);
+        }, 1000);
       }
 
       // Set streaming timeout if we have instructions
       if (e.instructions) {
         setIsStreaming(true);
-        isStreamingTimeout = setTimeout(() => {
-          setIsStreaming(false);
-          isStreamingTimeout = null;
-        }, 2000);
       }
     };
 

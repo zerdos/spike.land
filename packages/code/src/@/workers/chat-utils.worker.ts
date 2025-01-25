@@ -1,4 +1,4 @@
-import { messagesPush, replaceFirstCodeMod as up } from "@/lib/chat-utils";
+import { messagesPush, replaceFirstCodeMod } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
@@ -401,8 +401,9 @@ ${this.mod.lastCode}
   }
 
   private onUpdate(chunk: string) {
+    this.BC.postMessage({ chunk });
+
     this.mod.instructions += chunk;
-    this.BC.postMessage({ instructions: this.mod.instructions });
 
     this.updateCode();
   }
@@ -543,9 +544,9 @@ ${this.mod.lastCode}
     const replaceIndex = instructions.indexOf(REPLACE);
 
     if (searchIndex !== -1 && replaceIndex === -1) {
-      const rAll = up(instructions, code);
+      const rAll = replaceFirstCodeMod(instructions, code);
       if (rAll !== code) {
-        const rAllWithExtra = up(instructions + "\nfoo doo baf   ", code);
+        const rAllWithExtra = replaceFirstCodeMod(instructions + "\nfoo doo baf   ", code);
         if (rAll !== rAllWithExtra) {
           return { result: rAll, len: instructions.length, error: "" };
         }
@@ -564,7 +565,7 @@ ${this.mod.lastCode}
         replaceIndex + REPLACE.length,
       );
 
-      const result = up(trimmedInstructions, code);
+      const result = replaceFirstCodeMod(trimmedInstructions, code);
       if (result === code) {
         return {
           result: code,
@@ -580,13 +581,13 @@ ${this.mod.lastCode}
       });
 
       return {
-        result: up(trimmedInstructions, code),
+        result: replaceFirstCodeMod(trimmedInstructions, code),
         len: trimmedInstructions.length,
         error: "",
       };
     }
 
-    const rAll = up(instructions, code);
+    const rAll = replaceFirstCodeMod(instructions, code);
     if (rAll === code) {
       return { result: rAll, len: instructions.length, error: "" };
     }
@@ -594,7 +595,7 @@ ${this.mod.lastCode}
     let jump = 1;
     while (
       jump < instructions.length &&
-      up(instructions.slice(0, jump), code) === code
+      replaceFirstCodeMod(instructions.slice(0, jump), code) === code
     ) {
       jump *= 2;
     }
@@ -604,21 +605,21 @@ ${this.mod.lastCode}
 
     while (low < high) {
       const mid = Math.floor((low + high) / 2);
-      if (code === up(instructions.slice(0, mid), code)) {
+      if (code === replaceFirstCodeMod(instructions.slice(0, mid), code)) {
         low = mid + 1;
       } else {
         high = mid;
       }
     }
     const trimmedInstructions = instructions.slice(0, low);
-    const result = up(instructions.slice(0, low), code);
+    const result = replaceFirstCodeMod(instructions.slice(0, low), code);
     debugInfo.addLog("Applied search/replace blocks", {
       code,
       result,
       instructions: trimmedInstructions,
     });
     return {
-      result: up(instructions.slice(0, low), code),
+      result: replaceFirstCodeMod(instructions.slice(0, low), code),
       len: low,
       error: "",
     };
