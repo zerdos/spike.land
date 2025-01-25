@@ -1,9 +1,11 @@
 import { applyPatch, compare, Operation } from "fast-json-patch";
-import { ICodeSession } from "./interfaces";
+import { ICodeSession } from "@/lib/interfaces";
+import { computeSessionHash } from "@/lib/make-sess";
 
 interface ICodeSessionDiff {
   patch: Operation[];
-  originalString: string; // optional validation
+  oldHash: string;
+  hashCode: string;
 }
 
 export function createDiff(
@@ -13,20 +15,18 @@ export function createDiff(
   // Generate a minimal patch set
   const patch = compare(original, revision);
 
-  // Keep a stringified version for validation
-  const originalString = JSON.stringify(original);
 
-  return { patch, originalString };
+  return { oldHash: computeSessionHash(original), hashCode: computeSessionHash(revision), patch };
 }
 
 export function applyDiff(
   sess: ICodeSession,
   diff: ICodeSessionDiff,
 ): ICodeSession {
-  const { patch, originalString } = diff;
+  const { patch, oldHash } = diff;
 
   // Optional check to ensure 'sess' matches the original
-  if (JSON.stringify(sess) !== originalString) {
+  if (computeSessionHash(sess) !== oldHash) {
     throw new Error("Original does not match session");
   }
 
