@@ -30,6 +30,7 @@ const ChatInterface: React.FC<{
   useEffect(() => {
     const unSub = cSess.sub((sess) => {
       // Always update messages to stay in sync with session
+      if (JSON.stringify(sess.messages) === JSON.stringify(messages)) return;
       setMessages(sess.messages);
     });
     return () => unSub();
@@ -190,21 +191,8 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-        // Get current messages and add new user message
-        const currentMessages = [...cSess.session.messages];
-        const newMessage = {
-          id: Date.now().toString(),
-          role: "user",
-          content: prompt,
-        } as Message;
-
-        const updatedMessages = [...currentMessages, newMessage];
-
-        setInput("");
-        // Update session with all messages and then send
-        cSess.setMessages(updatedMessages);
         handleSendMessage({
-          messages: updatedMessages,
+          messages: [],
           codeSpace,
           prompt,
           images,

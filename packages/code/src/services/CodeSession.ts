@@ -7,7 +7,9 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { th } from "date-fns/locale";
 import { throttle } from "es-toolkit";
+import { send } from "vite";
 import {
   formatCode as formatCodeUtil,
   runCode,
@@ -262,7 +264,10 @@ export class Code implements ICode {
   }
 
   broadcastSession = () => {
-    this.broadcastChannel.postMessage(this.session);
+    this.broadcastChannel.postMessage({
+      ...this.session,
+      sender: "Editor",
+    } as BroadcastMessage);
   };
 
   throttleBroadcastSession = throttle(this.broadcastSession, 500, {
@@ -310,7 +315,7 @@ export class Code implements ICode {
       messages,
     });
 
-    this.broadcastChannel.postMessage(this.session);
+    this.throttleBroadcastSession();
     return true;
   }
 
@@ -389,10 +394,7 @@ export class Code implements ICode {
 
     this.session = newSession;
 
-    this.broadcastChannel.postMessage({
-      ...this.session,
-      sender: "Editor",
-    } as BroadcastMessage);
+    this.throttleBroadcastSession();
 
     return this.session.code;
   }
