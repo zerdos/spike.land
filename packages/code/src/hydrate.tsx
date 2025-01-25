@@ -73,9 +73,11 @@ export const initializeApp = async () => {
     console.error("Error initializing app:", error);
   }
 };
-navigator.serviceWorker.addEventListener("message", (event) => {
-  console.log("Service worker message received:", event.data);
-  if (event.data === "reload") {
-    location.reload();
-  }
-});
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.addEventListener("message", (event) => {
+    console.log("Service worker message received:", event.data);
+    if (event.data === "reload") {
+      location.reload();
+    }
+  });
+}
