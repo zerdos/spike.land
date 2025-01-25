@@ -268,7 +268,7 @@ export class Code implements ICode {
     } as BroadcastMessage);
   };
 
-  throttleBroadcastSession = throttle(this.broadcastSession, 500, {
+  throttleBroadcastSession = throttle(() => this.broadcastSession(), 100, {
     edges: ["leading", "trailing"],
   });
 
@@ -278,8 +278,17 @@ export class Code implements ICode {
     if (this.session.messages.length === 0) {
       this.setMessages([{ id: Date.now().toString(), role: "assistant", content: chunk }]);
       this.broadcastSession();
+      return;
     } else {
       const lastMessage = this.session.messages[this.session.messages.length - 1];
+      if (lastMessage.role !== "assistant") {
+        this.setMessages([
+          ...this.session.messages,
+          { id: Date.now().toString(), role: "assistant", content: chunk },
+        ]);
+        this.broadcastSession();
+        return;
+      }
       lastMessage.content += chunk;
       this.throttleBroadcastSession();
     }
