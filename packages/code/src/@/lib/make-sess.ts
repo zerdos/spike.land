@@ -1,15 +1,14 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { applyDiff, createDiff } from "@/lib/text-diff";
-export { createDiff } from "@/lib/text-diff";
-import type { Diff } from "@/lib/text-diff";
-export type { Diff } from "@/lib/text-diff";
+
+export { createDiff };
 
 export interface CodePatch {
   oldHash: string;
   hashCode: string;
-  patch: Diff[];
-  reversePatch: Diff[];
+  patch?: ReturnType<typeof createDiff>;
+  reversePatch?: ReturnType<typeof createDiff>;
 }
 
 class SessionPatcher {
@@ -55,7 +54,7 @@ class SessionPatcher {
 
     const parsedSession = applyDiff(
       sess,
-      codePatch.patch,
+      codePatch.patch!,
     );
     if (computeSessionHash(parsedSession) !== codePatch.hashCode) {
       throw new Error("New hash does not match");
@@ -71,7 +70,10 @@ class SessionPatcher {
     const hashCode = computeSessionHash(newSess);
 
     if (oldHash === hashCode) {
-      return { oldHash, hashCode, patch: [], reversePatch: [] };
+      return {
+        oldHash,
+        hashCode,
+      };
     }
 
     const patch = createDiff(oldSess, newSess);
