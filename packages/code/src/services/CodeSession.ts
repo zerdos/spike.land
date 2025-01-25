@@ -261,9 +261,9 @@ export class Code implements ICode {
     return true;
   }
 
-  broadcastSession() {
+  broadcastSession = () => {
     this.broadcastChannel.postMessage(this.session);
-  }
+  };
 
   throttleBroadcastSession = throttle(this.broadcastSession, 500, {
     edges: ["leading", "trailing"],
