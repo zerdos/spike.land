@@ -170,6 +170,7 @@ export class WebSocketHandler {
         return respondWith({ msg: "no-name-no-party" });
       }
       this.wsSessions
+        .filter(sess => sess !== session)
         .filter((sess) => sess.name === data.name)
         .forEach((sess) => {
           sess.webSocket.close();
