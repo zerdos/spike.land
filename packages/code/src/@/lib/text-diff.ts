@@ -1,47 +1,19 @@
 import { ICodeSession } from "@/lib/interfaces";
-import { computeSessionHash } from "@/lib/make-sess";
 import { applyPatch, compare, Operation } from "fast-json-patch";
 
-export interface ICodeSessionDiff {
-  patch: Operation[];
-  oldHash: string;
-  hashCode: string;
-}
+export interface ICodeSessionDiff extends Array<Operation> {}
 
 export function createDiff(
   original: ICodeSession,
   revision: ICodeSession,
 ): ICodeSessionDiff {
-  // Generate a minimal patch set
-  const oldHash = computeSessionHash(original);
-  const hashCode = computeSessionHash(revision);
-
-  if (oldHash === hashCode) {
-    return { oldHash, hashCode, patch: [] };
-  }
-
-  const patch = compare(original, revision);
-
-  return { oldHash: computeSessionHash(original), hashCode: computeSessionHash(revision), patch };
+  return compare(original, revision);
 }
 
 export function applyDiff(
   sess: ICodeSession,
-  diff: ICodeSessionDiff,
+  patch: ICodeSessionDiff,
 ): ICodeSession {
-  const { patch, oldHash, hashCode } = diff;
-
-  // Optional check to ensure 'sess' matches the original
-  if (computeSessionHash(sess) !== oldHash) {
-    throw new Error("Original does not match session");
-  }
-
   // Apply the patch operations
-  const { newDocument } = applyPatch(sess, patch);
-  const newHash = computeSessionHash(newDocument as ICodeSession);
-  if (newHash !== hashCode) {
-    throw new Error("New hash does not match");
-  }
-
-  return newDocument as ICodeSession;
+  return applyPatch(sess, patch).newDocument;
 }
