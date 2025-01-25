@@ -2,7 +2,7 @@ import { ICodeSession } from "@/lib/interfaces";
 import { computeSessionHash } from "@/lib/make-sess";
 import { applyPatch, compare, Operation } from "fast-json-patch";
 
-interface ICodeSessionDiff {
+export interface ICodeSessionDiff {
   patch: Operation[];
   oldHash: string;
   hashCode: string;
@@ -13,6 +13,13 @@ export function createDiff(
   revision: ICodeSession,
 ): ICodeSessionDiff {
   // Generate a minimal patch set
+  const oldHash = computeSessionHash(original);
+  const hashCode = computeSessionHash(revision);
+
+  if (oldHash === hashCode) {
+    return { oldHash, hashCode, patch: [] };
+  }
+
   const patch = compare(original, revision);
 
   return { oldHash: computeSessionHash(original), hashCode: computeSessionHash(revision), patch };
@@ -22,7 +29,7 @@ export function applyDiff(
   sess: ICodeSession,
   diff: ICodeSessionDiff,
 ): ICodeSession {
-  const { patch, oldHash } = diff;
+  const { patch, oldHash, hashCode } = diff;
 
   // Optional check to ensure 'sess' matches the original
   if (computeSessionHash(sess) !== oldHash) {
@@ -31,5 +38,10 @@ export function applyDiff(
 
   // Apply the patch operations
   const { newDocument } = applyPatch(sess, patch);
+  const newHash = computeSessionHash(newDocument as ICodeSession);
+  if (newHash !== hashCode) {
+    throw new Error("New hash does not match");
+  }
+
   return newDocument as ICodeSession;
 }

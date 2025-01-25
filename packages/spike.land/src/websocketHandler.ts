@@ -1,7 +1,7 @@
 // packages/spike.land/src/websocketHandler.ts
 
 import type { MessageEvent, WebSocket } from "@cloudflare/workers-types";
-import type { CodePatch, Diff } from "@spike-npm-land/code";
+import type { CodePatch } from "@spike-npm-land/code";
 import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
@@ -33,8 +33,7 @@ interface IData {
     | "subscribe"
     | "unsubscribe"
     | "publish";
-  patch?: Diff[];
-  reversePatch?: Diff[];
+  patch?: unknown[];
   address?: string;
   hashCode?: string;
   candidate?: string;
@@ -242,7 +241,7 @@ export class WebSocketHandler {
     }
 
     // Patching
-    if (data.patch && data.oldHash && data.hashCode && data.reversePatch) {
+    if (data.patch && data.oldHash && data.hashCode) {
       this.handlePatch(data as CodePatch, respondWith, session);
       return;
     }

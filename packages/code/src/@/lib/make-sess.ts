@@ -8,7 +8,6 @@ export interface CodePatch {
   oldHash: string;
   hashCode: string;
   patch?: ReturnType<typeof createDiff>;
-  reversePatch?: ReturnType<typeof createDiff>;
 }
 
 class SessionPatcher {
@@ -77,9 +76,8 @@ class SessionPatcher {
     }
 
     const patch = createDiff(oldSess, newSess);
-    const reversePatch = createDiff(newSess, oldSess);
 
-    const codePatch: CodePatch = { oldHash, hashCode, patch, reversePatch };
+    const codePatch: CodePatch = { oldHash, hashCode, patch };
     if (computeSessionHash(applySessionPatch(oldSess, codePatch)) !== hashCode) {
       throw new Error("Unable to calculate CodePatch");
     }

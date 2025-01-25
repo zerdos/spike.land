@@ -96,7 +96,6 @@ describe("Session Management", () => {
 
     expect(patch.oldHash).toBe(patch.hashCode);
     expect(patch.patch).toBeUndefined();
-    expect(patch.reversePatch).toBeUndefined();
   });
 
   test("should handle create a diff ", () => {
@@ -116,16 +115,5 @@ describe("Session Management", () => {
 
     expect(patch.oldHash).toBe(oldHash);
     expect(patch.hashCode).toBe(hashCode);
-
-    const reversedSession = applySessionPatch(session, {
-      oldHash: hashCode,
-      hashCode: oldHash,
-      patch: patch.reversePatch,
-      reversePatch: patch.patch,
-    });
-    expect(reversedSession).toEqual(sampleSession);
-
-    const reversedHash = computeSessionHash(reversedSession);
-    expect(reversedHash).toBe(oldHash);
   });
 });
