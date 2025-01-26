@@ -188,7 +188,9 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
 
     return rendered;
   } else if (transpiled.includes(`cn("`)) {
-    transpiled = transpiled.split(`cn("`).join(`cn (" `);
+    const cnArr = transpiled.split(`cn("`);
+    cnArr[0] = cnArr[1].split(" ").join("  ");
+    transpiled = cnArr.join(`cn ("`);
   }
 
   renderedMd5 = hashed;
