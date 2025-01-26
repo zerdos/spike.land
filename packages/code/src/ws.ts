@@ -183,11 +183,14 @@ const mutex = new Mutex();
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
   const hashed = md5(transpiled);
-  if (hashed === renderedMd5) {
+  if (hashed === renderedMd5 && !transpiled.includes(`cn("`)) {
     console.log("Skipping update as md5 is the same");
 
     return rendered;
+  } else if (transpiled.includes(`cn("`)) {
+    transpiled = transpiled.split(`cn("`).join(`cn (" `);
   }
+
   renderedMd5 = hashed;
   console.log("Updating rendered app...");
 
