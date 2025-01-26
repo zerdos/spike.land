@@ -118,7 +118,7 @@ class ChatHandler {
   }: {
     prompt: string;
     images: ImageData[];
-  }) {
+  }): Promise<void> {
     debugInfo.addLog("Starting handleMessage", {
       promptLength: prompt.length,
       imagesCount: images.length,
@@ -201,20 +201,23 @@ class ChatHandler {
     this.mod.lastCode = this.code;
     debugInfo.addLog("Starting processMessage", { maxRetries });
 
-    while (retries < maxRetries) {
-      if (this.mod.lastError || this.mod.errors.length > 0) {
-        debugInfo.addLog("Processing error encountered", {
-          lastError: this.mod.lastError,
-          errors: this.mod.errors,
-        });
+    // Set initial streaming state
+    this.BC.postMessage({ isStreaming: true });
 
-        // Create a working copy of messages
-        let currentMessages = [...this.messages];
+    try {
+      while (retries < maxRetries) {
+        // Handle any existing errors
+        if (this.mod.lastError || this.mod.errors.length > 0) {
+          debugInfo.addLog("Processing error encountered", {
+            lastError: this.mod.lastError,
+            errors: this.mod.errors,
+          });
 
-        const userMessage: Message = {
-          id: Date.now().toString(),
-          role: "user",
-          content: `I'm sorry, I might have made a mistake. Can you please try again?
+          // Create error message
+          const errorMessage: Message = {
+            id: Date.now().toString(),
+            role: "user",
+            content: `I'm sorry, I might have made a mistake. Can you please try again?
 error:
 \`\`\`error
 ${this.mod.lastError}
@@ -227,21 +230,19 @@ last code after applying your instructions:
 ${this.mod.lastCode}
 \`\`\`
           `,
-        };
+          };
 
-        // Add error message and empty assistant response
-        currentMessages = messagesPush(currentMessages, userMessage);
-        currentMessages = messagesPush(currentMessages, {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: "",
-        });
+          // Update messages atomically
+          const currentMessages = [...this.messages];
+          const updatedMessages = messagesPush(currentMessages, errorMessage);
+          this.setMessages(updatedMessages);
 
-        this.setMessages(currentMessages);
-        this.mod.lastError = "";
-        this.mod.instructions = "";
-      }
-      try {
+          // Clear error state
+          this.mod.lastError = "";
+          this.mod.errors = [];
+          this.mod.instructions = "";
+        }
+
         this.mod.actions = [];
 
         const assistantMessage = await this.sendAssistantMessage(
@@ -254,8 +255,7 @@ ${this.mod.lastCode}
         await this.updateCode();
 
         if (typeof this.mod.lastCode !== "string") {
-          const error = `Invalid mod.lastCode type: ${typeof this.mod
-            .lastCode}`;
+          const error = `Invalid mod.lastCode type: ${typeof this.mod.lastCode}`;
           debugInfo.addLog(error);
           console.error(error);
           this.mod.lastCode = this.code;
@@ -271,22 +271,17 @@ ${this.mod.lastCode}
 
         retries++;
         debugInfo.addLog("Retrying message processing", { attempt: retries });
-      } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : String(error);
-        debugInfo.addLog(`Error processing message (attempt ${retries + 1})`, {
-          error: errorMsg,
-        });
-        console.error(
-          `Error processing message (attempt ${retries + 1}):`,
-          error,
-        );
-        retries++;
       }
-    }
 
-    debugInfo.addLog("Failed to process message after max retries");
-    console.log("Failed to process message after max retries");
-    return false;
+      debugInfo.addLog("Failed to process message after max retries");
+      console.log("Failed to process message after max retries");
+      return false;
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      debugInfo.addLog("Error in processMessage", { error: errorMsg });
+      console.error("Error in processMessage:", error);
+      return false;
+    }
   }
 
   private async updateCode() {

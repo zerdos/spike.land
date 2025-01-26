@@ -5,22 +5,32 @@ export function messagesPush(
   _messages: Message[],
   newMessage: Message,
 ): Message[] {
+  // Create a deep copy of messages array
   const messages = JSON.parse(JSON.stringify(_messages)) as Message[];
-  console.log("Pushing new message", { role: newMessage.role });
 
+  // Generate a new unique ID
+  const newId = newMessage.id || Date.now().toString();
+
+  // If it's the first message, simply add it
   if (!messages.length) {
-    messages.push({ ...newMessage, id: "1" });
-    return messages;
+    return [{ ...newMessage, id: newId }];
   }
+
   const lastMessage = messages[messages.length - 1];
-  const newId = typeof lastMessage.id === "number"
-    ? String(lastMessage.id + 1)
-    : String(Number(lastMessage.id) + 1);
-  if (lastMessage.role === newMessage.role) {
-    messages[messages.length - 1] = { ...newMessage, id: newId };
+
+  // If the last message has the same role and is streaming content
+  if (lastMessage.role === newMessage.role && newMessage.role === "assistant") {
+    // Update the existing message's content
+    messages[messages.length - 1] = {
+      ...lastMessage,
+      content: newMessage.content,
+    };
   } else {
+    // Add as a new message
+
     messages.push({ ...newMessage, id: newId });
   }
+
   return messages;
 }
 

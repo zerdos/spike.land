@@ -29,12 +29,18 @@ const ChatInterface: React.FC<{
 
   useEffect(() => {
     const unSub = cSess.sub((sess) => {
-      // Always update messages to stay in sync with session
-      if (JSON.stringify(sess.messages) === JSON.stringify(messages)) return;
-      setMessages(sess.messages);
+      // Deep compare messages to prevent unnecessary updates
+      const currentMessagesStr = JSON.stringify(messages);
+      const newMessagesStr = JSON.stringify(sess.messages);
+
+      if (currentMessagesStr === newMessagesStr) return;
+
+      // Create new message array to ensure proper state update
+      const newMessages = sess.messages.map(msg => ({ ...msg }));
+      setMessages(newMessages);
     });
     return () => unSub();
-  }, [cSess]); // Only depend on cSess changes
+  }, [cSess, messages]); // Include messages in dependencies
 
   const [input, setInput] = useDictation("");
 

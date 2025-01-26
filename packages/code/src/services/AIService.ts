@@ -210,6 +210,9 @@ ${
         })
       }`;
     } else {
+      if (content.startsWith("I'm sorry, I might have made a mistake.")) {
+        return content;
+      }
       return `
 Current project context:
 ${contextString}
