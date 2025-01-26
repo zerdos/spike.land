@@ -402,6 +402,7 @@ ${this.mod.lastCode}
 
   private onUpdate(chunk: string) {
     this.BC.postMessage({ chunk });
+    this.messages[this.messages.length - 1].content += chunk;
     this.mod.instructions += chunk;
 
     this.updateCode();
