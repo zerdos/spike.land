@@ -4,6 +4,7 @@ import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 
 import { Mutex } from "async-mutex";
+import { m } from "framer-motion";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";
@@ -182,7 +183,7 @@ const handleRender = async (
 const mutex = new Mutex();
 
 const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
-  const hashed = md5(transpiled);
+  let hashed = md5(transpiled);
   if (hashed === renderedMd5 && !transpiled.includes(`cn("`)) {
     console.log("Skipping update as md5 is the same");
 
@@ -191,6 +192,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
     const cnArr = transpiled.split(`cn("`);
     cnArr[1] = cnArr[1].split(" ").join("  ");
     transpiled = cnArr.join(`cn ("`);
+    hashed = md5(transpiled);
   }
 
   renderedMd5 = hashed;
@@ -198,7 +200,7 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
 
   await mutex.runExclusive(async () => {
     const myEl = document.createElement("div");
-    myEl.setAttribute("id", "root");
+
     document.body.appendChild(myEl);
 
     rendered?.cleanup();
@@ -210,6 +212,8 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
     rendered = await renderApp({ transpiled, codeSpace, rootElement: myEl });
 
     document.getElementById("embed")?.replaceWith(myEl);
+    document.getElementById("embed")?.remove();
+    myEl.id = "embed";
   });
   return rendered;
 };
