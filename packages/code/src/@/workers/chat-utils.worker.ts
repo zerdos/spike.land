@@ -106,7 +106,6 @@ class ChatHandler {
       this.messages = [...newMessages]; // Ensure immutability
       this.BC.postMessage({
         messages: this.messages,
-        debugInfo: [...debugInfo.logs],
       });
     };
 
@@ -403,7 +402,6 @@ ${this.mod.lastCode}
 
   private onUpdate(chunk: string) {
     this.BC.postMessage({ chunk });
-
     this.mod.instructions += chunk;
 
     this.updateCode();

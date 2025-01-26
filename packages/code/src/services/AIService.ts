@@ -103,14 +103,12 @@ export class AIService {
 
       let content = "";
       const decoder = new TextDecoder();
-      const buffer = [];
       await reader.read().then(
         function processText({ done, value }): Promise<void> {
           if (done) {
             return Promise.resolve();
           }
 
-          buffer.push(value);
           const chunk = decoder.decode(value, { stream: true });
           content += chunk;
           onUpdate(chunk);
