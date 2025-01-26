@@ -98,7 +98,6 @@ class ChatHandler {
     this.setIsStreaming = (isStreaming: boolean) => this.BC.postMessage({ isStreaming });
     this.setMessages = (newMessages: Message[]) => {
       // Always create a new copy of messages to maintain immutability
-      if (JSON.stringify(newMessages) === JSON.stringify(this.messages)) return;
       // Update the messages array and broadcast the change
       this.messages = [...newMessages]; // Ensure immutability
       this.BC.postMessage({
@@ -122,7 +121,7 @@ class ChatHandler {
       imagesCount: images.length,
     });
 
-    this.BC.postMessage({ isStreaming: true });
+    // this.BC.postMessage({ isStreaming: true });
     this.mod.instructions = "";
 
     try {
