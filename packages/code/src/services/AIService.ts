@@ -191,33 +191,20 @@ export class AIService {
     codeNow: string,
     codeSpace: string,
   ): string {
-    const context = this.contextManager.getFullContext();
-    const contextString = JSON.stringify(context, null, 2);
-
     if (
       messages.length === 0 ||
       codeNow !== messages[messages.length - 1]?.content
     ) {
-      return `
-Current project context:
-${contextString}
-
-${
-        anthropicSystem({
-          fileName: codeSpace,
-          fileContent: codeNow,
-          userPrompt: content,
-        })
-      }`;
+      return anthropicSystem({
+        fileName: codeSpace,
+        fileContent: codeNow,
+        userPrompt: content,
+      });
     } else {
       if (content.startsWith("I'm sorry, I might have made a mistake.")) {
         return content;
       }
-      return `
-Current project context:
-${contextString}
-
-${reminder({ userPrompt: content })}`;
+      return reminder({ userPrompt: content });
     }
   }
 }
