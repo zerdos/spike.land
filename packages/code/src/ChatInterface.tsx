@@ -139,13 +139,14 @@ const ChatInterface: React.FC<{
       if (e.chunk) {
         setMessages((prevMessages) => {
           const lastMessage = prevMessages[prevMessages.length - 1];
-          if (lastMessage.role === "assistant") {
+          if (lastMessage && lastMessage.role === "assistant") {
             lastMessage.content += e.chunk;
             return prevMessages;
           }
+          const newId = lastMessage ? (1 + Number(lastMessage.id)).toString() : "1";
           return [
             ...prevMessages,
-            { role: "assistant", content: e.chunk, id: 1 + Number(lastMessage.id) + "" } as Message,
+            { role: "assistant", content: e.chunk, id: newId } as Message,
           ];
         });
         cSess.addMessageChunk(e.chunk);

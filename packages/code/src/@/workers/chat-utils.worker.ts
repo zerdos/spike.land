@@ -12,17 +12,21 @@ const REPLACE_ARROWS = ">>>>>>>";
 const REPLACE = ">>>>>>> REPLACE";
 
 interface DebugInfo {
-  logs: string[];
-  addLog: (message: string, data?: Record<string, unknown>) => void;
+  logs: Array<string | Message>;
+  addLog: (message: string | Message, data?: Record<string, unknown>) => void;
 }
 
 const debugInfo: DebugInfo = {
   logs: [],
-  addLog: (message: string, data?: Record<string, unknown>) => {
-    const logEntry = data
-      ? `${message} - ${JSON.stringify(data)}`
-      : `${message}`;
-    debugInfo.logs.push(logEntry);
+  addLog: (message: string | Message, data?: Record<string, unknown>) => {
+    if (typeof message === 'string') {
+      const logEntry = data
+        ? `${message} - ${JSON.stringify(data)}`
+        : message;
+      debugInfo.logs.push(logEntry);
+    } else {
+      debugInfo.logs.push(message);
+    }
   },
 };
 Object.assign(globalThis, { debugInfo });
@@ -643,6 +647,7 @@ export async function handleSendMessage({
     promptLength: prompt?.length,
     imagesCount: images?.length,
   });
+  messages.forEach(msg => debugInfo.logs.push(msg));
 
   const chatHandler = new ChatHandler({ messages, codeSpace, code });
 
@@ -660,7 +665,7 @@ export async function handleSendMessage({
   }
 
   // Fix: Return the updated messages from chatHandler instead of the original messages
-  return [...chatHandler.messages, ...debugInfo.logs];
+  return debugInfo.logs;
 }
 Object.assign(globalThis, { handleSendMessage });
 console.log("chat-utils.worker.ts initialization complete");
