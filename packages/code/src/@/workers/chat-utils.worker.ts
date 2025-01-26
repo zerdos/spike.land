@@ -660,8 +660,8 @@ export async function handleSendMessage({
     });
   }
 
-  return [...messages, ...debugInfo.logs];
+  // Fix: Return the updated messages from chatHandler instead of the original messages
+  return [...chatHandler.messages, ...debugInfo.logs];
 }
-
 Object.assign(globalThis, { handleSendMessage });
 console.log("chat-utils.worker.ts initialization complete");
