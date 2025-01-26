@@ -89,12 +89,12 @@ ARG USER="gitpod"
 ENV USER=${USER}
 
 
-RUN addgroup --gid ${USER_GID} ${USER} \
+RUN (addgroup --gid ${USER_GID} ${USER} \
     && adduser --uid ${USER_UID} --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
     && adduser ${USER} sudo \
     && chown ${USER}:${USER} -R /home/${USER} \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && echo "Set disable_coredump false" >> /etc/sudo.conf
+    && echo "Set disable_coredump false" >> /etc/sudo.conf) || echo "Failed to add user"
 
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \

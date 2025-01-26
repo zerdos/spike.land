@@ -89,12 +89,12 @@ ARG USER="gitpod"
 ENV USER=${USER}
 
 
-RUN addgroup --gid ${USER_GID} ${USER} \
+RUN (addgroup --gid ${USER_GID} ${USER} \
     && adduser --uid ${USER_UID} --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
     && adduser ${USER} sudo \
     && chown ${USER}:${USER} -R /home/${USER} \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && echo "Set disable_coredump false" >> /etc/sudo.conf
+    && echo "Set disable_coredump false" >> /etc/sudo.conf) || echo "Failed to add user"
 
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \
@@ -120,8 +120,8 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 
 
 
-# COPY --link --from=node-builder  /root/.cache/Cypress /home/${USER}/.cache/Cypress
-# RUN chown -R ${USER}:${USER} /home/${USER}/.cache
+# COPY --link --from=node-builder  /root/.cache/Cypress ${HOME}/.cache/Cypress
+# RUN chown -R ${USER}:${USER} ${HOME}/.cache
 ### noVNC.Dockerfile
 
 # Set environment variable for the port
@@ -208,16 +208,16 @@ RUN  (curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add 
 USER 0
 
 # Change ownership of the user's home directory
-RUN chown ${USER}:${USER} -R /home/${USER}
+RUN chown ${USER}:${USER} -R ${HOME}
 
 # Switch back to the specified user
 USER ${USER}
 
 # Set the working directory
-WORKDIR /home/${USER}
+WORKDIR ${HOME}
 
 # Install Oh My Zsh with specified plugins and theme
-RUN rm -rf /home/${USER}/.oh-my-zsh \
+RUN rm -rf ${HOME}/.oh-my-zsh \
     && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.0/zsh-in-docker.sh)" -- \
        -t robbyrussell \
        -p git \

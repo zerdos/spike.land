@@ -12,12 +12,12 @@ services:
     shm_size: 8gb
     platform: linux/arm64
     tmpfs:
-      - /home/${USER}/tmpfs:exec,size=8g,uid=${UID},gid=${GID}
+      - ${HOME}/tmpfs:exec,size=8g,uid=${UID},gid=${GID}
     environment:
       - USER=${USER}
     volumes:
-      - ${HOME}/.cache:/home/${USER}/.cache
-      - ${HOME}/.oh-my-zsh:/home/${USER}/.oh-my-zsh
+      - ${HOME}/.cache:${HOME}/.cache
+      - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
     ports:
       - 6080:6080
       - 5901:5901
