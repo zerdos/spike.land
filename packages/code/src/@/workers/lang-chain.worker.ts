@@ -42,7 +42,7 @@ const createWorkflow = async (prompt: string) => {
   const toolNode = new ToolNode(tools);
 
   const model = new ChatAnthropic({
-    model: "claude-3-5-sonnet-20240620",
+    model: "claude-3-5-sonnet-20241022",
     anthropicApiKey: "MY_API_KEY",
     streaming: false,
     anthropicApiUrl: location.origin + "/api/anthropic",
