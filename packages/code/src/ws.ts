@@ -4,7 +4,6 @@ import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 
 import { Mutex } from "async-mutex";
-import { m } from "framer-motion";
 import { Code } from "./services/CodeSession";
 import { CodeSessionBC } from "./services/CodeSessionBc";
 import { init } from "./tw-dev-setup";

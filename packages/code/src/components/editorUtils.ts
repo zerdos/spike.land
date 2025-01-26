@@ -185,8 +185,6 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-let firstRun = true;
-
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
