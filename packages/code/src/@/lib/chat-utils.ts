@@ -5,11 +5,11 @@ export function messagesPush(
   _messages: Message[],
   newMessage: Message,
 ): Message[] {
-  const messages = [..._messages];
+  const messages = JSON.parse(JSON.stringify(_messages)) as Message[];
   console.log("Pushing new message", { role: newMessage.role });
 
   if (!messages.length) {
-    messages.push({ ...newMessage });
+    messages.push({ ...newMessage, id: "1" });
     return messages;
   }
   const lastMessage = messages[messages.length - 1];
