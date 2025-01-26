@@ -157,9 +157,9 @@ class ChatHandler {
         role: "assistant",
         content: "",
       });
-
-      // Update messages state with both additions
       this.setMessages(currentMessages);
+      // Update messages state with both additions
+
       await this.processMessage();
     } catch (e) {
       const error = e instanceof Error ? e.message : String(e);
@@ -471,8 +471,11 @@ ${this.mod.lastCode}
   ): Promise<Message> {
     try {
       debugInfo.addLog("Sending assistant message");
+      const lastMessage = this.messages[this.messages.length - 1];
+      const oldMessages = this.messages.slice(0, -1);
+
       let assistantMessage = await this.aiHandler.sendToAnthropic(
-        this.messages,
+        lastMessage.role === "assistant" ? oldMessages : this.messages,
         onUpdate,
       );
 
