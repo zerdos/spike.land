@@ -260,11 +260,10 @@ const ChatInterface: React.FC<{
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
       handleResetChat={handleResetChat}
-      messages={messages}
       isStreaming={!!isStreaming}
       input={input}
       setInput={memoizedSetInput}
-      code={cSess.session.code}
+      cSess={cSess}
       handleSendMessage={handleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
@@ -277,7 +276,6 @@ const ChatInterface: React.FC<{
       handleEditMessage={memoizedHandleEditMessage}
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
-      codeSpace={codeSpace}
       screenShot={memoizedScreenShot}
     />
   );

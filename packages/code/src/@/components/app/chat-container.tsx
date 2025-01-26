@@ -45,7 +45,7 @@ const TypingIndicator: React.FC<TypingIndicatorProps> = React.memo((
 ));
 
 export const ChatContainer: React.FC<
-  ChatContainerProps & { codeSpace: string; }
+  ChatContainerProps
 > = React.memo((props) => {
   const {
     messages,
@@ -58,7 +58,6 @@ export const ChatContainer: React.FC<
     handleEditMessage,
     isStreaming,
     isDarkMode,
-    codeSpace,
   } = props;
 
   const [typingIndicatorMustShow, setTypingIndicatorMustShow] = useState(
@@ -112,7 +111,6 @@ export const ChatContainer: React.FC<
         handleCancelEdit={memoizedHandleCancelEdit}
         handleSaveEdit={memoizedHandleSaveEdit}
         isDarkMode={isDarkMode}
-        codeSpace={codeSpace}
         onNewPrompt={onNewPrompt}
       />
     ),
@@ -124,7 +122,6 @@ export const ChatContainer: React.FC<
       memoizedHandleCancelEdit,
       memoizedHandleSaveEdit,
       isDarkMode,
-      codeSpace,
     ],
   );
 

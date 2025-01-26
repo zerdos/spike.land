@@ -208,10 +208,9 @@ export interface ChatDrawerProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
   handleResetChat: () => void;
-  messages: Message[];
   isStreaming: boolean;
   input: string;
-  code: string;
+  cSess: ICode;
   setInput: (input: string) => void;
   handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;

@@ -12,15 +12,14 @@ const MemoizedChatHeader = React.memo(ChatHeader);
 const MemoizedChatContainer = React.memo(ChatContainer);
 const MemoizedMessageInput = React.memo(MessageInput);
 
-export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = React.memo(({
+export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   isOpen,
   onClose,
   isDarkMode,
   toggleDarkMode,
   handleResetChat,
-  messages,
   isStreaming,
-  code,
+  cSess,
   input,
   setInput,
   handleSendMessage,
@@ -35,7 +34,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
   handleEditMessage,
   handleCancelEdit,
   handleSaveEdit,
-  codeSpace,
   screenShot,
 }) => {
   const handleButtonClick = useCallback(() => {
@@ -48,7 +46,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
       isOpen ? "hidden" : "flex",
     ), [isOpen]);
 
-  const lastMessage = messages[messages.length - 1];
+  const lastMessage = cSess.session.messages[cSess.session.messages.length - 1];
 
   useEffect(() => {
     if (lastMessage) {
@@ -100,7 +98,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
             />
             <ScrollArea className="flex-grow">
               <MemoizedChatContainer
-                messages={messages}
+                messages={cSess.session.messages}
                 editingMessageId={editingMessageId}
                 editInput={editInput}
                 setEditInput={setEditInput}
@@ -110,21 +108,18 @@ export const ChatDrawer: React.FC<ChatDrawerProps & { codeSpace: string; }> = Re
                 isStreaming={isStreaming}
                 onNewPrompt={(prompt: string) =>
                   handleSendMessage({
-                    messages,
-                    codeSpace,
+                    ...cSess.session,
                     prompt,
                     images: [],
-                    code,
                   })}
                 isDarkMode={isDarkMode}
-                codeSpace={codeSpace}
               />
               <div id="after-last-message" />
             </ScrollArea>
             <MemoizedMessageInput
               input={input}
-              code={code}
-              messages={messages}
+              code={cSess.session.code}
+              messages={cSess.session.messages}
               setInput={setInput}
               screenShot={screenShot}
               handleSendMessage={handleSendMessage}

@@ -33,7 +33,6 @@ interface ChatMessageProps {
   handleCancelEdit: () => void;
   handleSaveEdit: (id: string) => void;
   isDarkMode: boolean;
-  codeSpace: string; // Unused in this snippet, but presumably used elsewhere
 }
 
 /**
