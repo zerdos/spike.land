@@ -137,18 +137,30 @@ const ChatInterface: React.FC<{
 
       // Handle instructions/streaming content
       if (e.chunk) {
+        setMessages((prevMessages) => {
+          const lastMessage = prevMessages[prevMessages.length - 1];
+          if (lastMessage.role === "assistant") {
+            lastMessage.content += e.chunk;
+            return prevMessages;
+          }
+          return [
+            ...prevMessages,
+            { role: "assistant", content: e.chunk, id: 1 + Number(lastMessage.id) + "" } as Message,
+          ];
+        });
         cSess.addMessageChunk(e.chunk);
-        if (!isStreaming) {
-          setIsStreaming(true);
-        }
-        if (isStreamingTimeout) {
-          clearTimeout(isStreamingTimeout);
-          isStreamingTimeout = null;
-        }
-        isStreamingTimeout = setTimeout(() => {
-          setIsStreaming(false);
-        }, 1000);
       }
+
+      if (!isStreaming) {
+        setIsStreaming(true);
+      }
+      if (isStreamingTimeout) {
+        clearTimeout(isStreamingTimeout);
+        isStreamingTimeout = null;
+      }
+      isStreamingTimeout = setTimeout(() => {
+        setIsStreaming(false);
+      }, 1000);
 
       // Set streaming timeout if we have instructions
       if (e.instructions) {
