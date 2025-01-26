@@ -7,7 +7,6 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { throttle } from "es-toolkit";
 import {
   formatCode as formatCodeUtil,
   runCode,
@@ -268,10 +267,6 @@ export class Code implements ICode {
     } as BroadcastMessage);
   };
 
-  throttleBroadcastSession = throttle(() => this.broadcastSession(), 100, {
-    edges: ["leading", "trailing"],
-  });
-
   addMessageChunk: (chunk: string) => void = (
     chunk: string,
   ) => {
@@ -290,7 +285,7 @@ export class Code implements ICode {
         return;
       }
       lastMessage.content += chunk;
-      this.throttleBroadcastSession();
+      this.broadcastSession();
     }
   };
   /*
@@ -321,7 +316,7 @@ export class Code implements ICode {
       messages,
     });
 
-    this.throttleBroadcastSession();
+    this.broadcastSession();
     return true;
   }
 
@@ -400,7 +395,7 @@ export class Code implements ICode {
 
     this.session = newSession;
 
-    this.throttleBroadcastSession();
+    this.broadcastSession();
 
     return this.session.code;
   }
