@@ -188,9 +188,12 @@ const updateRenderedApp = async ({ transpiled }: { transpiled: string; }) => {
     console.log("Skipping update as md5 is the same");
 
     return rendered;
-  } else if (transpiled.includes(`cn("`)) {
+  } else if (transpiled.includes(`cn( "`)) {
     const cnArr = transpiled.split(`cn("`);
-    cnArr[1] = cnArr[1].split(" ").join("  ");
+    for (let i = 1; i < cnArr.length; i++) {
+      cnArr[i] = cnArr[i].split(" ").join("  ");
+    }
+
     transpiled = cnArr.join(`cn ("`);
     hashed = md5(transpiled);
   }
