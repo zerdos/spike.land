@@ -1,6 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
+import { wait } from "@/lib/wait";
 
 export interface EditorState {
   started: boolean;
@@ -184,7 +185,7 @@ export const screenShot = (): Promise<ImageData> => {
   });
 };
 
-// let firstRun = true;
+let firstRun = true;
 
 export const runCode = async (
   transpiled: string,
@@ -195,11 +196,8 @@ export const runCode = async (
     ) => Promise<{ html: string; css: string; js: string; }>;
   };
 
-  // if (firstRun) {
-  //   firstRun = false;
-  //   await handleRunMessage(transpiled + '\n console.log("Pre-rendered")');
-  //   await wait(200);
-  // }
+  await handleRunMessage(transpiled);
+  await wait(100);
 
   return handleRunMessage(transpiled);
 };
