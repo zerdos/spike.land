@@ -28,6 +28,11 @@ const ChatInterface: React.FC<{
   );
 
   useEffect(() => {
+    if (isStreaming) {
+      isStreamingTimeout = setTimeout(() => {
+        setIsStreaming(false);
+      }, 1000);
+    }
     const unSub = cSess.sub((sess) => {
       // Deep compare messages to prevent unnecessary updates
       const currentMessagesStr = JSON.stringify(messages);
@@ -40,7 +45,7 @@ const ChatInterface: React.FC<{
       setMessages(newMessages);
     });
     return () => unSub();
-  }, [cSess, messages]); // Include messages in dependencies
+  }, []);
 
   const [input, setInput] = useDictation("");
 
@@ -143,6 +148,7 @@ const ChatInterface: React.FC<{
 
       // Handle instructions/streaming content
       if (e.chunk) {
+        cSess.addMessageChunk(e.chunk);
         setMessages((prevMessages) => {
           const lastMessage = prevMessages[prevMessages.length - 1];
           if (lastMessage && lastMessage.role === "assistant") {
@@ -155,7 +161,6 @@ const ChatInterface: React.FC<{
             { role: "assistant", content: e.chunk, id: newId } as Message,
           ];
         });
-        cSess.addMessageChunk(e.chunk);
       }
 
       if (!isStreaming) {
