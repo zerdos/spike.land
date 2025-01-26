@@ -123,7 +123,9 @@ describe("handleSendMessage", () => {
     expect(logs).toContainEqual(
       expect.stringMatching(/Initializing ChatHandler/),
     );
-    expect(logs[0]).toMatchInlineSnapshot(`"Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`);
+    expect(logs[0]).toMatchInlineSnapshot(
+      `"Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`,
+    );
     expect(logs[1]).toMatchInlineSnapshot(`
       {
         "content": "first-content-text",

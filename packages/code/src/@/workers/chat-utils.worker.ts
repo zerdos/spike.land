@@ -19,7 +19,7 @@ interface DebugInfo {
 const debugInfo: DebugInfo = {
   logs: [],
   addLog: (message: string | Message, data?: Record<string, unknown>) => {
-    if (typeof message === 'string') {
+    if (typeof message === "string") {
       const logEntry = data
         ? `${message} - ${JSON.stringify(data)}`
         : message;
