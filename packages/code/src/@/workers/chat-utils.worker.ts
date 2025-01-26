@@ -3,6 +3,7 @@ import type { HandleSendMessageProps, ImageData, Message, MessageContent } from 
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
+import { v4 as uuidv4 } from "uuid"; // Import UUID library for unique IDs
 import { AIHandler } from "../../AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
@@ -99,7 +100,7 @@ class ChatHandler {
       // Always create a new copy of messages to maintain immutability
       if (JSON.stringify(newMessages) === JSON.stringify(this.messages)) return;
       // Update the messages array and broadcast the change
-      this.messages = newMessages;
+      this.messages = [...newMessages]; // Ensure immutability
       this.BC.postMessage({
         messages: this.messages,
         debugInfo: [...debugInfo.logs],
@@ -143,23 +144,21 @@ class ChatHandler {
         claudeContent,
       );
 
-      const now = Date.now();
-
       const newMessages = messagesPush(this.messages, {
-        id: now.toString(),
+        id: uuidv4(), // Use UUID for unique ID
         role: "user",
         content: newUserMessage.content,
       });
 
       // Then add the empty assistant message
       const currentMessages = messagesPush(newMessages, {
-        id: (now + 1).toString(),
+        id: uuidv4(), // Use UUID for unique ID
         role: "assistant",
         content: "",
       });
-      this.setMessages(currentMessages);
-      // Update messages state with both additions
 
+      // Update messages state with both additions
+      this.setMessages(currentMessages);
       await this.processMessage();
     } catch (e) {
       const error = e instanceof Error ? e.message : String(e);
@@ -187,7 +186,7 @@ class ChatHandler {
     }
 
     return {
-      id: Date.now().toString(),
+      id: uuidv4(), // Use UUID for unique ID
       role: "user",
       content: imagesContent.length > 0 ? imagesContent : claudeContent,
     };
