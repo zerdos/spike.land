@@ -82,13 +82,6 @@ export interface ICode {
     transpiled?: string,
   ): Promise<string | boolean>;
   getCode(): Promise<string>;
-  setCodeAndTranspiled({
-    formatted,
-    transpiled,
-  }: {
-    formatted: string;
-    transpiled: string;
-  }): Promise<boolean>;
   sub: (fn: (sess: ICodeSession) => void) => () => void;
 }
 

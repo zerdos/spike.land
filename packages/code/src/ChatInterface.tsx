@@ -140,10 +140,7 @@ const ChatInterface: React.FC<{
       // Handle code updates
       if (e.code) {
         console.log("Setting code", e.code);
-        await cSess.setCodeAndTranspiled({
-          formatted: e.code,
-          transpiled: e.transpiled,
-        });
+        cSess.setCode(e.code);
       }
 
       // Handle instructions/streaming content

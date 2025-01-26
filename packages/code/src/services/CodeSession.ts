@@ -214,52 +214,6 @@ export class Code implements ICode {
     return this.session.code;
   }
 
-  /**
-   * Low-level method to update code+transpiled in session and broadcast changes.
-   */
-  async setCodeAndTranspiled({
-    formatted,
-    transpiled,
-  }: {
-    formatted: string;
-    transpiled: string;
-  }): Promise<boolean> {
-    // If nothing changed, skip
-    if (
-      this.session.code === formatted &&
-      this.session.transpiled === transpiled
-    ) {
-      return true;
-    }
-
-    let session = sanitizeSession({
-      ...this.session,
-      code: formatted,
-      messages: this.session.messages || [],
-      transpiled,
-    });
-
-    // Attempt to run the code for updated HTML/CSS
-    try {
-      const { html, css } = (await runCode(transpiled)) || { html: "", css: "" };
-      session = sanitizeSession({
-        ...session,
-        html,
-        css,
-      });
-    } catch (error) {
-      console.error("Error running code:", error);
-    } finally {
-      this.session = session;
-      this.broadcastChannel.postMessage({
-        ...session,
-        sender: "Editor",
-      } as BroadcastMessage);
-    }
-
-    return true;
-  }
-
   broadcastSession = () => {
     this.broadcastChannel.postMessage({
       ...this.session,

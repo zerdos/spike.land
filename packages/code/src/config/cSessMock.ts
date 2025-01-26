@@ -1,11 +1,6 @@
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 
 class SessMock implements ICode {
-  setCodeAndTranspiled(): Promise<boolean> {
-    // Currently not using formatted and transpiled
-    throw new Error("Method not implemented.");
-  }
-  buffy: Array<Promise<void>> = [];
   codeSpace = "mock-code-space";
 
   private subs: Array<(sess: ICodeSession) => void> = [];

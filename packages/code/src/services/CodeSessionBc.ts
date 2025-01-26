@@ -32,26 +32,6 @@ export class CodeSessionBC {
     };
   }
 
-  async setCodeAndTranspiled({
-    formatted,
-    transpiled,
-  }: {
-    formatted: string;
-    transpiled: string;
-  }): Promise<boolean> {
-    if (!this.session) {
-      this.session = await this.init();
-    }
-    this.session = {
-      ...this.session,
-      code: formatted,
-      transpiled,
-      messages: this.session.messages,
-    };
-    this.postMessage(this.session);
-    return true;
-  }
-
   async getCode() {
     if (!this.session) {
       this.session = await this.init();

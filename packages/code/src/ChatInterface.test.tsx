@@ -202,7 +202,6 @@ const createMockSession = (initialMessages: Message[] = []) => {
       subscribers.forEach(sub => sub({ messages: messages.map(msg => ({ ...msg })), code: "" }));
       return true;
     }),
-    setCodeAndTranspiled: vi.fn(),
     screenShot: vi.fn(),
     sub: vi.fn((callback) => {
       subscribers.add(callback);
