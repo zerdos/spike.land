@@ -1,5 +1,5 @@
 import type { editor as Editor, languages as Languages, Uri as MonacoUri } from "monaco-editor";
-import "@/workers/monaco-editor";
+import "/@/workers/monaco-editor.js";
 
 export const {
   editor,
