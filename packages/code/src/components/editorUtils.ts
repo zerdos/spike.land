@@ -193,9 +193,6 @@ export const runCode = async (
     webSocketManager: IWebSocketManager;
   };
 
-  await webSocketManager.handleRunMessage(transpiled);
-  await wait(100);
-
   return await webSocketManager.handleRunMessage(transpiled) || { html: "", css: "" };
 };
 

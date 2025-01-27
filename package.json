@@ -44,13 +44,13 @@
   "devDependencies": {
     "@cloudflare/workers-types": "4.20250124.3",
     "@eslint/js": "9.19.0",
-    "@typescript-eslint/parser": "8.21.0",
+    "@typescript-eslint/parser": "8.22.0",
     "@yarnpkg/sdks": "3.2.0",
     "dprint": "0.48.0",
     "eslint": "9.19.0",
     "eslint-plugin-react": "7.37.4",
     "typescript": "5.7.3",
-    "typescript-eslint": "8.21.0"
+    "typescript-eslint": "8.22.0"
   },
   "packageManager": "yarn@4.6.0",
   "dependencies": {

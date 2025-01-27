@@ -21,7 +21,7 @@
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
-    "@typescript-eslint/parser": "8.21.0",
+    "@typescript-eslint/parser": "8.22.0",
     "@vitest/runner": "3.0.4",
     "@vitest/snapshot": "3.0.4",
     "typescript": "5.7.3",
@@ -29,8 +29,8 @@
     "wrangler": "3.105.1"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.36.2",
-    "@clerk/backend": "1.23.7",
+    "@anthropic-ai/sdk": "0.36.3",
+    "@clerk/backend": "1.23.8",
     "@clerk/clerk-sdk-node": "5.1.6",
     "@remix-run/cloudflare": "2.15.2",
     "@remix-run/react": "2.15.2",
