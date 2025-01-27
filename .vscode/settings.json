@@ -80,7 +80,9 @@
   "livePreview.defaultPreviewPath": "/packages/code/src/index.html",
   "editor.tabCompletion": "on",
   "diffEditor.codeLens": true,
-  "css.customData": [".vscode/tailwind.json"],
+  "css.customData": [
+    ".vscode/tailwind.json"
+  ],
   "MutableAI.upsell": false,
   "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }
