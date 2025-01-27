@@ -2,6 +2,7 @@ import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { IWebSocketManager } from "src/services/websocket/types";
 
 export interface EditorState {
   started: boolean;
@@ -188,16 +189,14 @@ export const screenShot = (): Promise<ImageData> => {
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
-  const { handleRunMessage } = window.frames[0] as unknown as {
-    handleRunMessage: (
-      transpiled: string,
-    ) => Promise<{ html: string; css: string; js: string; }>;
+  const { webSocketManager } = window.frames[0] as unknown as {
+    webSocketManager: IWebSocketManager;
   };
 
-  await handleRunMessage(transpiled);
+  await webSocketManager.handleRunMessage(transpiled);
   await wait(100);
 
-  return handleRunMessage(transpiled);
+  return await webSocketManager.handleRunMessage(transpiled) || { html: "", css: "" };
 };
 
 export interface EditorInitOptions {

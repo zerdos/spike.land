@@ -45,6 +45,15 @@ export class WebSocketManager implements IWebSocketManager {
     }
   }
 
+  public handleRunMessage(transpiled: string): Promise<
+    {
+      html: string;
+      css: string;
+    } | false
+  > {
+    return this.messageHandler.handleRunMessage(transpiled);
+  }
+
   private async handleLivePage(cSessBr: CodeSessionBC, session: any): Promise<void> {
     const cSess = new Code(this.codeSpace);
     await cSess.init(session);

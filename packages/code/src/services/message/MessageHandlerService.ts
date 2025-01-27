@@ -37,9 +37,14 @@ export class MessageHandlerService implements IMessageHandlerService {
     }
   }
 
-  private async handleRunMessage(transpiled: string): Promise<void> {
+  public async handleRunMessage(transpiled: string): Promise<
+    {
+      css: string;
+      html: string;
+    } | false
+  > {
     const rendered = await this.renderService.updateRenderedApp({ transpiled });
-    await this.renderService.handleRender(rendered);
+    return await this.renderService.handleRender(rendered);
   }
 
   public cleanup(): void {

@@ -2,6 +2,12 @@ import type { RenderedApp } from "@/lib/interfaces";
 
 export interface IWebSocketManager {
   init(): Promise<void>;
+  handleRunMessage(transpiled: string): Promise<
+    {
+      css: string;
+      html: string;
+    } | false
+  >;
   cleanup(): void;
 }
 
