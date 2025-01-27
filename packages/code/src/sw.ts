@@ -1,3 +1,5 @@
+importScripts("/swVersion.js");
+
 import { enhancedFetch } from "./enhancedFetch";
 
 import type {
@@ -35,7 +37,6 @@ const CDN_DOMAIN = "data.jsdelivr.com";
 sw.fileCacheName = `sw-file-cache-${sw.swVersion}-${CACHE_VERSION}`;
 
 // Load required scripts
-importScripts("/swVersion.js");
 
 const swDepsInFiles = sw.files["sw-deps.js"].split(".");
 swDepsInFiles.pop(); // js
