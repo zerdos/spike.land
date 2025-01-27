@@ -3756,7 +3756,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.2"
     esm-worker: "npm:0.135.18"
-    hono: "npm:4.6.18"
+    hono: "npm:4.6.19"
     immutable: "npm:5.0.3"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
@@ -3853,7 +3853,7 @@ __metadata:
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.198"
+    "@types/web": "npm:0.0.199"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.21.0"
     "@typescript/ata": "npm:0.9.7"
@@ -3904,7 +3904,7 @@ __metadata:
     file-type: "npm:20.0.0"
     framer-motion: "npm:12.0.5"
     globals: "npm:15.14.0"
-    happy-dom: "npm:16.7.2"
+    happy-dom: "npm:16.7.3"
     html2canvas: "npm:1.4.1"
     html2canvas-pro: "npm:1.5.8"
     i18next: "npm:24.2.2"
@@ -5125,10 +5125,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.198":
-  version: 0.0.198
-  resolution: "@types/web@npm:0.0.198"
-  checksum: 10c0/cd451e6d5f6bb6f91b280b3d82d4c8b1b1ba2acd639db883c2ed3ba827810799f8182079ed4aa2e59e17382f08df3c93d7783ba37003217de68bbad618254fc1
+"@types/web@npm:0.0.199":
+  version: 0.0.199
+  resolution: "@types/web@npm:0.0.199"
+  checksum: 10c0/c40fb4b02d76b1970f422ed48344b7096c7f635ba89afe3e87c69735df67f4bc1fca758c9ecfca0252b8cdd958422b6b99e879cb4f19b5f583354b0b81606164
   languageName: node
   linkType: hard
 
@@ -9912,13 +9912,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:16.7.2":
-  version: 16.7.2
-  resolution: "happy-dom@npm:16.7.2"
+"happy-dom@npm:16.7.3":
+  version: 16.7.3
+  resolution: "happy-dom@npm:16.7.3"
   dependencies:
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10c0/2b85181bb4af5501762941fc6064d96082e74b4f93664c518e22e781430f8f5c7c44f1c34faea7da0577757c91b95b2beff5fa9d94d1abed3086a4412f438f21
+  checksum: 10c0/94497b686a545a3995646d85198456d7b1e0a9ef0785124e0c0bdd7b5feeb9b61b366cdcc22f880effbb0a5924405eadca56ac8d43f2d81450803d48d2fecf61
   languageName: node
   linkType: hard
 
@@ -10128,10 +10128,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.6.18":
-  version: 4.6.18
-  resolution: "hono@npm:4.6.18"
-  checksum: 10c0/a46494b3e4a9c04ff51acb8240308ae5bdee34a90e4ca1f2fa6340539c22f6bd8c87ef4f3ea9dbf55765fa9056eb680a0e7feaf088d8d341589ebb7e2dcba190
+"hono@npm:4.6.19":
+  version: 4.6.19
+  resolution: "hono@npm:4.6.19"
+  checksum: 10c0/7b4aaa9df87308d47b36af946ea100141fe3c5bfa26ab3a0ca38e572f6e40860e1622f17281f55867fb51678fc655b0dff3c5c7d6567bfda6b387ce4d3c8cec0
   languageName: node
   linkType: hard
 
