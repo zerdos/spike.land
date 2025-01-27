@@ -12,14 +12,14 @@ export class FileCacheManager {
         acc[value] = key;
         return acc;
       },
-      {} as Record<string, string>
+      {} as Record<string, string>,
     );
   }
 
   getAllFileUrls(): Set<string> {
     return new Set(
       Object.keys(this.filesByCacheKeys)
-        .map((fileName) => new URL("/" + fileName, location.origin).toString())
+        .map((fileName) => new URL("/" + fileName, location.origin).toString()),
     );
   }
 
@@ -31,13 +31,13 @@ export class FileCacheManager {
 
   async fetchAndCacheFile(
     url: string,
-    queuedFetch: { fetch: (request: Request, init?: RequestInit) => Promise<Response> },
-    myCache: Cache
+    queuedFetch: { fetch: (request: Request, init?: RequestInit) => Promise<Response>; },
+    myCache: Cache,
   ): Promise<void> {
     const { pathname, origin } = new URL(url);
     const cacheKey = pathname.slice(1);
     const request = new Request(
-      new URL(this.filesByCacheKeys[cacheKey], origin).toString()
+      new URL(this.filesByCacheKeys[cacheKey], origin).toString(),
     );
 
     const parts = cacheKey.split(".");
@@ -61,7 +61,7 @@ export class FileCacheManager {
         throw new Error(
           `Hash mismatch for ${url}. Expected: ${hash}, Received: ${
             response.headers.get("x-hash")
-          }`
+          }`,
         );
       }
 
@@ -85,7 +85,7 @@ export class FileCacheManager {
         "/files.json",
         new Response(JSON.stringify(this.sw.files), {
           headers: { "Content-Type": "application/json" },
-        })
+        }),
       );
     }
   }
@@ -99,7 +99,7 @@ export class FileCacheManager {
 
     if (missing.size > 0) {
       throw new Error(
-        `Cache integrity check failed. Missing files: ${[...missing].join(", ")}`
+        `Cache integrity check failed. Missing files: ${[...missing].join(", ")}`,
       );
     }
   }

@@ -1,6 +1,6 @@
-import { CACHE_VERSION } from "./@/utils/cache-utils";
-import { CustomServiceWorkerGlobalScope } from "./@/types/service-worker";
 import { ServiceWorkerHandlers } from "./@/handlers/sw-handlers";
+import { CustomServiceWorkerGlobalScope } from "./@/types/service-worker";
+import { CACHE_VERSION } from "./@/utils/cache-utils";
 
 // Import service worker script version
 importScripts("/swVersion.js");
@@ -21,7 +21,7 @@ const transpileWorkerHash = transpileWorker.pop(); // hash
 
 importScripts(
   "/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash,
-  "/sw-deps.js" + "?hash=" + hash
+  "/sw-deps.js" + "?hash=" + hash,
 );
 
 // Initialize handlers

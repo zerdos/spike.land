@@ -1,4 +1,4 @@
-export type QueuedFetch = new (concurrency: number) => {
+export type QueuedFetch = new(concurrency: number) => {
   fetch: (request: Request, init?: RequestInit) => Promise<Response>;
 };
 
@@ -6,13 +6,13 @@ export type FakeServer = (request: Request) => Promise<Response>;
 
 export type ServeWithCache = (
   files: Record<string, string>,
-  cacheOpener: () => Promise<Cache>
+  cacheOpener: () => Promise<Cache>,
 ) => {
   isAsset: (request: Request) => boolean;
   serve: (
     request: Request,
     fetcher: (request: Request) => Promise<Response>,
-    waitUntil: (promise: Promise<any>) => void
+    waitUntil: (promise: Promise<any>) => void,
   ) => Promise<Response>;
 };
 

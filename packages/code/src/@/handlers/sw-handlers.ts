@@ -1,8 +1,8 @@
+import { enhancedFetch } from "../../enhancedFetch";
 import { CustomServiceWorkerGlobalScope } from "../types/service-worker";
 import { CacheUtils, CDN_DOMAIN } from "../utils/cache-utils";
 import { ConfigManager } from "../utils/config-manager";
 import { FileCacheManager } from "../utils/file-cache";
-import { enhancedFetch } from "../../enhancedFetch";
 
 export class ServiceWorkerHandlers {
   private readonly sw: CustomServiceWorkerGlobalScope;
@@ -39,13 +39,15 @@ export class ServiceWorkerHandlers {
         const stillMissing = await CacheUtils.getMissingFiles(
           missing,
           cacheNames,
-          myCache
+          myCache,
         );
         console.log("Still missing files:", [...stillMissing].join(", "));
 
-        await Promise.allSettled([...stillMissing].map(async (url) =>
-          this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
-        ));
+        await Promise.allSettled(
+          [...stillMissing].map(async (url) =>
+            this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
+          ),
+        );
 
         await this.fileCacheManager.validateCacheIntegrity();
         await this.sw.skipWaiting();
@@ -90,19 +92,19 @@ export class ServiceWorkerHandlers {
     const path = url.pathname.slice(1).split("/");
     const [preRoute, codeSpace] = path;
 
-    const isEditorPath = request.method === "GET" && 
+    const isEditorPath = request.method === "GET" &&
       preRoute === "live" &&
       url.pathname === `/live/${codeSpace}`;
 
     const { isAsset, serve } = serveWithCache(
       this.sw.files,
-      async () => await caches.open(this.sw.fileCacheName)
+      async () => await caches.open(this.sw.fileCacheName),
     );
 
     if (isEditorPath) {
       console.log("Serving editor:", request.url);
       const editorRequest = new Request(
-        new URL("/index.html", url.origin).toString()
+        new URL("/index.html", url.origin).toString(),
       );
 
       event.respondWith(this.handleServeRequest(editorRequest, serve, event));
@@ -117,7 +119,7 @@ export class ServiceWorkerHandlers {
         fakeServer(request).catch((error) => {
           console.error("Error in fakeServer:", error);
           return fetch(request);
-        })
+        }),
       );
       return;
     }
@@ -129,7 +131,7 @@ export class ServiceWorkerHandlers {
             console.error("Error in enhancedFetch:", error);
             return new Response("Network error", { status: 503 });
           })
-        )
+        ),
     );
   }
 
@@ -138,9 +140,9 @@ export class ServiceWorkerHandlers {
     serve: (
       request: Request,
       fetcher: (request: Request) => Promise<Response>,
-      waitUntil: (promise: Promise<any>) => void
+      waitUntil: (promise: Promise<any>) => void,
     ) => Promise<Response>,
-    event: FetchEvent
+    event: FetchEvent,
   ): Promise<Response> {
     return serve(
       request,
@@ -151,7 +153,7 @@ export class ServiceWorkerHandlers {
         const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
         return CacheUtils.retry(() => fetch(newUrl));
       },
-      event.waitUntil.bind(event)
+      event.waitUntil.bind(event),
     ).catch((error) => {
       console.error("Error serving asset:", error);
       return fetch(request);
