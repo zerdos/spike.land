@@ -1,42 +1,55 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { Message } from "@/lib/interfaces";
 
-export function messagesPush(
-  _messages: Message[],
-  newMessage: Message,
-): Message[] {
-  // Create a deep copy of messages array
-  const messages = JSON.parse(JSON.stringify(_messages)) as Message[];
-
-  // Generate a new unique ID
-  const newId = newMessage.id || Date.now().toString();
-
-  // If it's the first message, simply add it
-  if (!messages.length) {
-    return [{ ...newMessage, id: newId }];
-  }
-
-  const lastMessage = messages[messages.length - 1];
-
-  // If the last message has the same role and is streaming content
-  if (lastMessage.role === newMessage.role && newMessage.role === "assistant") {
-    // Update the existing message's content
-    messages[messages.length - 1] = {
-      ...lastMessage,
-      content: newMessage.content,
-    };
-  } else {
-    // Add as a new message
-
-    messages.push({ ...newMessage, id: newId });
-  }
-
-  return messages;
+interface CodeModification {
+  search: string;
+  replace: string;
 }
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
-const SEARCH_REPLACE_MARKERS = ["<<<<<<< SEARCH", "=======", ">>>>>>> REPLACE"];
+const SEARCH_REPLACE_MARKERS = {
+  SEARCH_START: "<<<<<<< SEARCH",
+  SEPARATOR: "=======",
+  REPLACE_END: ">>>>>>> REPLACE",
+} as const;
 
+/**
+ * Adds or updates a message in the messages array
+ * @param messages - The current array of messages
+ * @param newMessage - The message to add or update
+ * @returns A new array of messages with the new message added or updated
+ */
+export function messagesPush(
+  messages: Message[],
+  newMessage: Message,
+): Message[] {
+  if (!newMessage.role) {
+    throw new Error("Message must have a role");
+  }
+
+  const messagesCopy = JSON.parse(JSON.stringify(messages)) as Message[];
+  const newId = newMessage.id || Date.now().toString();
+
+  if (!messagesCopy.length) {
+    return [{ ...newMessage, id: newId }];
+  }
+
+  const lastMessage = messagesCopy[messagesCopy.length - 1];
+
+  if (lastMessage.role === newMessage.role && newMessage.role === "assistant") {
+    messagesCopy[messagesCopy.length - 1] = {
+      ...lastMessage,
+      content: newMessage.content,
+    };
+    return messagesCopy;
+  }
+
+  return [...messagesCopy, { ...newMessage, id: newId }];
+}
+
+/**
+ * Formats code as a section with a title
+ */
 export const formatCodeAsSection = (
   codeSpace: string,
   code: string,
@@ -48,120 +61,170 @@ ${code}
 \`\`\`
 `;
 
-export const extractCodeModification = (response: string): string[] => {
-  const match = response.match(CODE_MODIFICATION_REGEX) || [];
-
-  const codeBlockMatches = response.match(/```[\s\S]*?```/g);
-  if (!codeBlockMatches) return match;
-
-  const myBlocks = codeBlockMatches.filter((block) =>
-    SEARCH_REPLACE_MARKERS.some((marker) => block.includes(marker))
-  )
-    .map((myBlock) => {
-      const block = myBlock.trim().split("<<<<<<< SEARCH").join("=======")
-        .split(">>>>>>> REPLACE").join("=======")
-        .split("\n");
-      block.shift();
-      block.pop();
-
-      const parts = block.map((x) => x.trim()).filter((x) => x).join("\n")
-        .split("=======").filter((part) => part.trim().length > 0);
-
-      if (parts.length < 2) return ``;
-      if (parts.length === 2) {
-        return `<<<<<<< SEARCH
-${parts[0]}
-======= 
-${parts[1]}
->>>>>>> REPLACE`;
-      }
-      if (parts.length > 2) {
-        return `<<<<<<< SEARCH
-${parts[0].trim()}
+/**
+ * Formats a code modification into the standard format
+ */
+function formatCodeModification(mod: CodeModification): string {
+  return `<<<<<<< SEARCH
+${mod.search}
 =======
-${parts[1].trim()}
+${mod.replace}
 >>>>>>> REPLACE`;
-      }
-      return ``;
-    }).map((block) => block.trim()).filter((block) => block.length > 0);
+}
 
-  return [...match, ...myBlocks];
+/**
+ * Parses a code block to extract search and replace parts
+ */
+function parseCodeBlock(block: string): string | null {
+  const cleanBlock = block.trim();
+  const lines = cleanBlock.split("\n");
+
+  // Remove code fence markers if present
+  if (lines[0].includes("```")) {
+    lines.shift();
+  }
+  if (lines[lines.length - 1].includes("```")) {
+    lines.pop();
+  }
+
+  // Handle standard SEARCH/REPLACE format
+  if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
+    const content = lines.join("\n")
+      .replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "")
+      .split(SEARCH_REPLACE_MARKERS.SEPARATOR);
+
+    if (content.length === 2) {
+      return formatCodeModification({
+        search: content[0].trim(),
+        replace: content[1].trim(),
+      });
+    }
+    return null;
+  }
+
+  // Handle alternative format with multiple separators
+  const content = lines.join("\n").split(SEARCH_REPLACE_MARKERS.SEPARATOR);
+  if (content.length >= 2) {
+    return formatCodeModification({
+      search: content[0].trim(),
+      replace: content[1].trim(),
+    });
+  }
+
+  return null;
+}
+
+/**
+ * Extracts code modifications from a response string
+ */
+export const extractCodeModification = (response: string): string[] => {
+  const modifications: string[] = [];
+
+  // Extract modifications from regular format
+  const regexMatches = response.match(CODE_MODIFICATION_REGEX) || [];
+  modifications.push(...regexMatches);
+
+  // Extract modifications from code blocks
+  const codeBlockMatches = response.match(/```[\s\S]*?```/g) || [];
+  codeBlockMatches.forEach(block => {
+    const modification = parseCodeBlock(block);
+    if (modification) {
+      modifications.push(modification);
+    }
+  });
+
+  return modifications;
 };
 
+/**
+ * Parses a code modification string into search and replace parts
+ */
+function parseModification(mod: string): CodeModification | null {
+  const parts = mod
+    .replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "")
+    .split(SEARCH_REPLACE_MARKERS.SEPARATOR);
+
+  if (parts.length === 2) {
+    return {
+      search: parts[0].trim(),
+      replace: parts[1].trim(),
+    };
+  }
+  return null;
+}
+
+/**
+ * Loads messages from localStorage for a given code space
+ */
 export const loadMessages = (codeSpace: string): Message[] => {
+  if (!codeSpace) {
+    throw new Error("Code space must be provided");
+  }
+
   const key = `chatMessages-${codeSpace}`;
-  const rawMessages = JSON.parse(
-    localStorage.getItem(key) || "[]",
-  ) as Message[];
+  let rawMessages: Message[] = [];
 
-  const validMessages = rawMessages.filter((m) => !!m.role);
+  try {
+    rawMessages = JSON.parse(localStorage.getItem(key) || "[]");
+  } catch (error) {
+    console.error("Error loading messages:", error);
+    return [];
+  }
 
-  const uniqueRoleMessages = validMessages.reduce((acc, current, index) => {
+  const validMessages = rawMessages.filter(m => !!m.role);
+
+  return validMessages.reduce((acc, current, index) => {
     if (index === 0 || current.role !== validMessages[index - 1].role) {
       acc.push(current);
     }
     return acc;
   }, [] as Message[]);
-
-  return uniqueRoleMessages;
 };
 
+/**
+ * Applies code modifications to the current code
+ */
+function applyCodeModifications(
+  code: string,
+  modifications: string[],
+  applyAll = true,
+): string {
+  try {
+    let result = code;
+    const modsToApply = applyAll ? modifications : modifications.slice(0, 1);
+
+    modsToApply.forEach(mod => {
+      const parsed = parseModification(mod);
+      if (parsed) {
+        result = replacePreservingWhitespace(result, parsed.search, parsed.replace);
+      }
+    });
+
+    return result;
+  } catch (error) {
+    console.error("Error applying code modifications:", error);
+    return code;
+  }
+}
+
+/**
+ * Updates code by applying all search/replace modifications
+ */
 export const updateSearchReplace = (
   instructions: string,
   codeNow: string,
 ): string => {
-  try {
-    let replacedCode = codeNow;
-
-    extractCodeModification(instructions).forEach((mod: string) => {
-      const [search, replace] = mod.replace(
-        /<<<<<<< SEARCH|>>>>>>> REPLACE/g,
-        "",
-      ).split("=======");
-
-      if (search && replace) {
-        replacedCode = replacePreservingWhitespace(
-          replacedCode,
-          search.trim(),
-          replace.trim(),
-        );
-      }
-    });
-
-    return replacedCode;
-  } catch (error) {
-    console.error("Error in updateSearchReplace:", error);
-    return codeNow;
-  }
+  const modifications = extractCodeModification(instructions);
+  return applyCodeModifications(codeNow, modifications, true);
 };
 
+/**
+ * Updates code by applying only the first search/replace modification
+ */
 export const replaceFirstCodeMod = (
   instructions: string,
   codeNow: string,
 ): string => {
-  try {
-    let replacedCode = codeNow;
-
-    const mods = extractCodeModification(instructions);
-
-    if (mods.length > 0) {
-      const [search, replace] = mods[0].replace(
-        /<<<<<<< SEARCH|>>>>>>> REPLACE/g,
-        "",
-      ).split("=======");
-
-      if (search && replace) {
-        replacedCode = replacePreservingWhitespace(
-          replacedCode,
-          search.trim(),
-          replace.trim(),
-        );
-      }
-    }
-
-    return replacedCode;
-  } catch (error) {
-    console.error("Error in updateSearchReplace:", error);
-    return codeNow;
-  }
+  const modifications = extractCodeModification(instructions);
+  return applyCodeModifications(codeNow, modifications, false);
 };

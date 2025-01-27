@@ -51,7 +51,7 @@ export function replacePreservingWhitespace(
   replace: string,
 ): string {
   // Handle SEARCH/REPLACE comments
-  if (search.includes("// ... (")) {
+  if (search.includes("// ...")) {
     const lines = search.split("\n");
     const searchStart = lines[0];
     const searchEnd = lines[lines.length - 1];
