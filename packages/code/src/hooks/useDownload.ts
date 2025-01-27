@@ -1,4 +1,4 @@
-import { getSpeedy2 } from "./useArchive";
+import { getSpeedy2 } from "@/lib/use-archive";
 
 const download = async (
   codeSpace: string,

@@ -38,7 +38,7 @@ class ResourceLoaderImpl implements ResourceLoader {
 
   private async loadResources(): Promise<void> {
     this.removeAllStyleBlocks();
-    await import("@tailwindcss/browser");
+    await import("@/workers/tw.worker");
   }
 
   private removeAllStyleBlocks(): void {

@@ -1,8 +1,40 @@
+import type { ICode } from "@/lib/interfaces";
+
+export const renderPreviewWindow = async (
+  { codeSpace, cSess, AppToRender }: {
+    codeSpace: string;
+    cSess: ICode;
+    AppToRender: React.FC<{ codeSpace: string; cSess: ICode; }>;
+  },
+) => {
+  //   import { renderApp } from "@/lib/render-app";
+  // import { ClerkProvider } from "@clerk/clerk-react";
+  // import { AppToRender } from "./AppToRender";
+
+  const renderAppPromise = import("@/lib/render-app");
+  const ClerkProviderPromise = import("@clerk/clerk-react");
+
+  const [
+    { renderApp },
+    { ClerkProvider },
+  ] = await Promise.all([renderAppPromise, ClerkProviderPromise]);
+
+  const App = () => (
+    <ClerkProvider
+      publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+      afterSignOutUrl="/"
+    >
+      <AppToRender codeSpace={codeSpace} cSess={cSess} />
+    </ClerkProvider>
+  );
+
+  return renderApp({ App });
+};
+
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
   if (location.hostname === "localhost") return;
 
-  // if (!navigator.serviceWorker || navigator.serviceWorker.controller===null || (navigator.serviceWorker.controller?.state  === "redundant")) {
   const { Workbox } = await import("workbox-window");
   console.log("Workbox imported");
 
@@ -34,19 +66,6 @@ export const setupServiceWorker = async () => {
 
 Object.assign(globalThis, { setupServiceWorker });
 
-// const createLangChainWorkflow = async (prompt: string) => {
-//   console.log("Creating LangChain workflow with prompt:", prompt);
-//   try {
-//     const { createWorkflow } = await import("@/lib/shared");
-//     const workflow = await createWorkflow(prompt);
-//     console.log("LangChain workflow created successfully");
-//     return workflow;
-//   } catch (error) {
-//     console.error("Error creating LangChain workflow:", error);
-//     throw error;
-//   }
-// };
-
 export const initializeApp = async () => {
   console.log("Initializing app...");
 
@@ -55,8 +74,8 @@ export const initializeApp = async () => {
       { enhancedFetch },
       { useArchive, useSpeedy },
     ] = await Promise.all([
-      import("./enhancedFetch"),
-      import("./hooks/useArchive"),
+      import("@/lib/enhanced-fetch"),
+      import("@/lib/use-archive"),
     ]);
     console.log("Modules imported successfully");
 
