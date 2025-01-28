@@ -3887,6 +3887,7 @@ __metadata:
     csstype: "npm:3.1.3"
     date-fns: "npm:4.1.0"
     detective-typescript: "npm:13.0.0"
+    diff: "npm:7.0.0"
     embla-carousel-react: "npm:8.5.2"
     esbuild: "npm:0.24.2"
     esbuild-plugin-copy: "npm:2.1.1"
@@ -7964,6 +7965,13 @@ __metadata:
   version: 0.6.0
   resolution: "diff-match-patch-ts@npm:0.6.0"
   checksum: 10c0/7afbcbb29f1b9cb8d4c98209854d0e5064de10be3de0c7a2279181aff640aaeaa3bba21d0e1a9da9a1892d28978c2e6c6bb818f390478d48e42504b524f5a43c
+  languageName: node
+  linkType: hard
+
+"diff@npm:7.0.0":
+  version: 7.0.0
+  resolution: "diff@npm:7.0.0"
+  checksum: 10c0/251fd15f85ffdf814cfc35a728d526b8d2ad3de338dcbd011ac6e57c461417090766b28995f8ff733135b5fbc3699c392db1d5e27711ac4e00244768cd1d577b
   languageName: node
   linkType: hard
 
