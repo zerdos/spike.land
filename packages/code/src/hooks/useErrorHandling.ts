@@ -8,7 +8,7 @@ export const useErrorHandling = (engine: string) => {
   const throttledTypeCheck = useCallback(
     async () => {
       if (engine === "monaco") {
-        const { editor, languages } = await import("@/external/monaco-editor");
+        const { editor, languages } = await import("monaco-editor");
         const model = editor.getModels()[0];
         const worker = await languages.typescript
           .getTypeScriptWorker();
