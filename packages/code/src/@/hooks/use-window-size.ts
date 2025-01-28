@@ -1,4 +1,4 @@
-import { throttle } from "@/utils/throttle";
+import { throttle } from "@/lib/throttle";
 import { useCallback, useEffect, useState } from "react";
 
 function useWindowSize(delay = 250) {

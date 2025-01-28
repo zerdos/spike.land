@@ -1,4 +1,4 @@
-import { debounce, type DebouncedFunction, type DebounceOptions } from "@/utils/debounce";
+import { debounce, type DebouncedFunction, type DebounceOptions } from "@/lib/debounce";
 
 interface ThrottleOptions extends Omit<DebounceOptions, "edges"> {
   edges?: Array<"leading" | "trailing">;
