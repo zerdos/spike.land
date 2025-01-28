@@ -48,6 +48,9 @@ declare global {
   new WeakMap<HTMLElement, RenderedApp>();
 
 // Main render function
+const mod = {
+  myRoot: {} as ReturnType<typeof createRoot>,
+};
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
 ): Promise<RenderedApp | null> {
@@ -95,7 +98,8 @@ async function renderApp(
       );
     }
 
-    const myRoot = root || createRoot(rootEl);
+    const myRoot = root || mod.myRoot || createRoot(rootEl);
+    mod.myRoot = myRoot;
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");
