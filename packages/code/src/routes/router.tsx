@@ -83,14 +83,22 @@ const App: React.FC = () => {
 
   return cSess
     ? (
-      <ClerkProvider
-        publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-        afterSignOutUrl="/"
-      >
-        <AppToRender codeSpace={codeSpace} cSess={cSess} />
-      </ClerkProvider>
+      <>
+        <h1>cSessed</h1>
+        <ClerkProvider
+          publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+          afterSignOutUrl="/"
+        >
+          <AppToRender codeSpace={codeSpace} cSess={cSess} />
+        </ClerkProvider>
+      </>
     )
-    : <Wrapper codeSpace={codeSpace} />;
+    : (
+      <>
+        <h1>Not cSessed</h1>
+        <Wrapper codeSpace={codeSpace} />
+      </>
+    );
 };
 
 // Live page route with code space parameter
