@@ -101,7 +101,7 @@ export class CacheUtils {
     cacheNames: string[],
     myCache: Cache,
   ): Promise<Set<string>> {
-    console.log("Missing files:", [...missing].join(", "));
+    // console.log("Missing files:", [...missing].join(", "));
     // Copy missing items from old caches
     for (const cacheName of cacheNames) {
       const oldCache = await caches.open(cacheName);
