@@ -33,7 +33,7 @@ router.load().then(async () => {
         const isLiveCMSRoute = pathname.startsWith("/live-cms/");
         const isDehydrated = pathname.endsWith("dehydrated");
 
-        if ((isLiveRoute || isLiveCMSRoute) && !isDehydrated) {
+        if ((isLiveRoute || isLiveCMSRoute) && !isDehydrated && !pathname.endsWith("/")) {
           const rendered = await renderApp({ codeSpace });
           Object.assign(window, { rendered });
         }

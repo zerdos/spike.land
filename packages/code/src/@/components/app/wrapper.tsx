@@ -40,7 +40,7 @@ export const Wrapper: React.FC<WrapperProps> = (
   return (
     <div
       ref={containerRef}
-      css={{ transform: `scale(${scale})`, transformOrigin: "0 0" }}
+      css={scale?{ transform: `scale(${scale})`, transformOrigin: "0 0" }:{}}
       data-testid="wrapper-container"
       className={cn("w-full h-full")}
     />
