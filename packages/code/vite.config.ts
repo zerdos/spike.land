@@ -105,7 +105,7 @@ const config = defineConfig((config) => ({
       external: [
         // "/start.mjs",
         // "/swVersion.mjs",
-        //   ...Object.keys(importMap.imports),
+        // ...Object.values(importMap.imports),
         ...rollupExternal,
       ],
     },
@@ -159,7 +159,7 @@ const config = defineConfig((config) => ({
     alias: {
       ...externalAliases,
       "@": path.resolve(__dirname, "./src/@"),
-      // ...importMap.imports
+      ...importMap.imports,
     },
   },
 }));

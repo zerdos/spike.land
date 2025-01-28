@@ -1,5 +1,4 @@
-import * as React from "react";
-import { createRoot } from "react-dom/client";
+import { renderApp } from "@/lib/render-app";
 import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
@@ -12,19 +11,18 @@ if (location.pathname.endsWith(".tsx")) {
 // Initialize router
 router.load().then(() => {
   // Get root element
-  const rootElement = document.getElementById("embed");
-  if (!rootElement) {
-    throw new Error("Root element not found");
-  }
-
-  // Create React root and render app
-  const root = createRoot(rootElement);
-  root.render(React.createElement(App));
+  renderApp({
+    App,
+  });
 
   // Setup router subscriptions for code space handling
-  router.subscribe("onResolved", ({ toLocation }) => {
+  router.subscribe("onResolved", ({ toLocation }: {
+    toLocation: { pathname: string; };
+  }) => {
     // Get codeSpace from route params if available
-    const matches = router.state.matches;
+    const matches: Array<{
+      params: { codeSpace: string; };
+    }> = router.state.matches;
     const codeSpaceMatch = matches.find(match => "codeSpace" in match.params);
     const codeSpace = codeSpaceMatch?.params.codeSpace;
 
@@ -38,7 +36,7 @@ router.load().then(() => {
         if ((isLiveRoute || isLiveCMSRoute) && !isDehydrated) {
           const renderAppUrl = `/@/lib/render-app.mjs`;
           const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
-          const rendered = await renderApp({ codeSpace, root });
+          const rendered = await renderApp({ codeSpace });
           Object.assign(window, { rendered });
         }
       })();
