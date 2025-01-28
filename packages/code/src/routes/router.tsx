@@ -53,7 +53,7 @@ const App: React.FC = () => {
     if (codeSpace) {
       (async () => {
         const cSess = new Code(codeSpace);
-        const session = await fetch(`/liv e/${codeSpace}/session.json`).then((res) =>
+        const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
           res.json<ICodeSession>()
         );
         await cSess.init(session);
