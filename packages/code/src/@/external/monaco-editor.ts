@@ -8,5 +8,5 @@ export const {
 } = globalThis as unknown as {
   editor: typeof Editor;
   languages: typeof Languages;
-  Uri: MonacoUri;
+  Uri: typeof MonacoUri;
 };

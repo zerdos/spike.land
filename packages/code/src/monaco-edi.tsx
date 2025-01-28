@@ -1,6 +1,7 @@
+import { editor, languages, Uri } from "@/external/monaco-editor";
 import { ata, prettierToThrow } from "@/lib/shared";
 import { throttle } from "es-toolkit";
-import { editor, languages, Uri } from "monaco-editor";
+import type { editor as Editor } from "monaco-editor";
 import { version } from "monaco-editor/package.json";
 
 // Types and interfaces for better type safety
@@ -39,7 +40,7 @@ const originToUse = (() => {
 })();
 
 // Memoized model cache
-const modelCache: Record<string, editor.ITextModel> = {};
+const modelCache: Record<string, Editor.ITextModel> = {};
 
 const refreshAta = async (code: string): Promise<void> => {
   try {
@@ -116,7 +117,7 @@ async function fetchAndCreateExtraModels(
 }
 
 // Editor configuration object
-const editorOptions: editor.IStandaloneEditorConstructionOptions = {
+const editorOptions: Editor.IStandaloneEditorConstructionOptions = {
   scrollbar: {
     vertical: "auto",
     horizontal: "auto",
