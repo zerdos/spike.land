@@ -98,8 +98,7 @@ async function renderApp(
       );
     }
 
-    const myRoot = root || mod.myRoot || createRoot(rootEl);
-    mod.myRoot = myRoot;
+    const myRoot = root || renderedApps.get(rootEl)?.rRoot || createRoot(rootEl);
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");
