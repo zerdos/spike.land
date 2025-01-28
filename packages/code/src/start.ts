@@ -1,49 +1,56 @@
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-// Object.assign(globalThis, { require });
-// import "./tw-dev-setup";
-
-import { getCodeSpace } from "@/hooks/use-code-space";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App";
+import { router } from "./routes/router";
 import "./index.css";
 
-// if ("serviceWorker" in navigator) {
-//   navigator.serviceWorker.getRegistrations().then((registrations) => {
-//     for (const registration of registrations) {
-//       registration.unregister();
-//     }
-//   });
-// }
-
+// Handle .tsx extension removal
 if (location.pathname.endsWith(".tsx")) {
   location.href = location.href.replace(".tsx", "");
 }
 
-const codeSpace = getCodeSpace(location.pathname);
-
-(async () => {
-  if (
-    location.pathname !== `/live/${codeSpace}` &&
-    location.pathname !== `/live-cms/${codeSpace}` &&
-    location.pathname.endsWith("dehydrated") === false
-  ) {
-    const renderAppUrl = `/@/lib/render-app.mjs`;
-
-    const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
-
-    const rendered = await renderApp({ codeSpace });
-    Object.assign(window, { rendered });
+// Initialize router
+router.load().then(() => {
+  // Get root element
+  const rootElement = document.getElementById("embed");
+  if (!rootElement) {
+    throw new Error("Root element not found");
   }
-  // if (location.pathname.startsWith("/my-cms")) {
-  //   window.renderedApp.cleanup();
-  //   main();
-  // }
-})();
 
-if (
-  (location.pathname.startsWith("/live") ||
-    location.pathname.startsWith("/live-cms")) &&
-  location.pathname.endsWith("dehydrated") === false &&
-  location.pathname.endsWith("/") === false
-) {
-  import("./ws").then(({ main }) => main());
-}
+  // Create React root and render app
+  const root = createRoot(rootElement);
+  root.render(React.createElement(App));
+
+  // Setup router subscriptions for code space handling
+  router.subscribe("onResolved", ({ toLocation }) => {
+    // Get codeSpace from route params if available
+    const matches = router.state.matches;
+    const codeSpaceMatch = matches.find(match => "codeSpace" in match.params);
+    const codeSpace = codeSpaceMatch?.params.codeSpace;
+
+    if (codeSpace) {
+      (async () => {
+        const pathname = toLocation.pathname;
+        const isLiveRoute = pathname.startsWith("/live/");
+        const isLiveCMSRoute = pathname.startsWith("/live-cms/");
+        const isDehydrated = pathname.endsWith("dehydrated");
+
+        if ((isLiveRoute || isLiveCMSRoute) && !isDehydrated) {
+          const renderAppUrl = `/@/lib/render-app.mjs`;
+          const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
+          const rendered = await renderApp({ codeSpace, root });
+          Object.assign(window, { rendered });
+        }
+      })();
+
+      if (
+        (toLocation.pathname.startsWith("/live") ||
+          toLocation.pathname.startsWith("/live-cms")) &&
+        !toLocation.pathname.endsWith("dehydrated") &&
+        !toLocation.pathname.endsWith("/")
+      ) {
+        import("./ws").then(({ main }) => main());
+      }
+    }
+  });
+}).catch(console.error);

@@ -49,7 +49,7 @@ declare global {
 
 // Main render function
 async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
 ): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement ||
@@ -95,7 +95,7 @@ async function renderApp(
       );
     }
 
-    const root = createRoot(rootEl);
+    const myRoot = root || createRoot(rootEl);
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");
@@ -118,7 +118,7 @@ async function renderApp(
       },
     );
 
-    root.render(
+    myRoot.render(
       <ThemeProvider>
         <React.Fragment>
           <CacheProvider value={cssCache}>
@@ -137,11 +137,11 @@ async function renderApp(
 
     (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, {
       rootElement: rootEl,
-      rRoot: root,
+      rRoot: myRoot,
       App: AppToRender,
       cssCache,
       cleanup: () => {
-        root.unmount();
+        myRoot.unmount();
         if (cssCache.sheet) {
           cssCache.sheet.flush();
         }
