@@ -34,8 +34,6 @@ router.load().then(() => {
         const isDehydrated = pathname.endsWith("dehydrated");
 
         if ((isLiveRoute || isLiveCMSRoute) && !isDehydrated) {
-          const renderAppUrl = `/@/lib/render-app.mjs`;
-          const { renderApp } = await import(/* @vite-ignore */ renderAppUrl);
           const rendered = await renderApp({ codeSpace });
           Object.assign(window, { rendered });
         }

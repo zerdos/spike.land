@@ -1,6 +1,5 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { init } from "@/lib/tw-dev-setup";
-import { Code } from "../CodeSession";
 import { CodeSessionBC } from "../CodeSessionBc";
 import { MessageHandlerService } from "../message/MessageHandlerService";
 import { ServiceWorkerManager } from "../worker/ServiceWorkerManager";
@@ -22,13 +21,13 @@ export class WebSocketManager implements IWebSocketManager {
       await init();
 
       const cSessBr = new CodeSessionBC(this.codeSpace);
-      const session = await cSessBr.init();
+      // const session = await cSessBr.init();
 
       if (
         location.pathname === `/live/${this.codeSpace}` ||
         location.pathname === `/live-cms/${this.codeSpace}`
       ) {
-        await this.handleLivePage(cSessBr, session);
+        // await this.handleLivePage(cSessBr, session);
       } else if (location.pathname === `/live/${this.codeSpace}/dehydrated`) {
         await this.handleDehydratedPage(cSessBr);
       } else {
@@ -54,23 +53,23 @@ export class WebSocketManager implements IWebSocketManager {
     return this.messageHandler.handleRunMessage(transpiled);
   }
 
-  private async handleLivePage(cSessBr: CodeSessionBC, session: any): Promise<void> {
-    const cSess = new Code(this.codeSpace);
-    await cSess.init(session);
-    Object.assign(globalThis, { cSess });
+  // private async handleLivePage(cSessBr: CodeSessionBC, session: ICodeSession): Promise<void> {
+  //   const cSess = new Code(this.codeSpace);
+  //   await cSess.init(session);
+  //   Object.assign(globalThis, { cSess });
 
-    cSessBr.sub((sess) => {
-      const { code, transpiled } = sess;
-      console.table({ code, transpiled });
-    });
+  //   cSessBr.sub((sess) => {
+  //     const { code, transpiled } = sess;
+  //     console.table({ code, transpiled });
+  //   });
 
-    const { initializeApp } = await import("@/lib/hydrate");
-    await initializeApp();
+  //   // const { initializeApp } = await import("@/lib/hydrate");
+  //   // await initializeApp();
 
-    const { renderPreviewWindow } = await import("@/lib/hydrate");
-    const { AppToRender } = await import("../../AppToRender");
-    await renderPreviewWindow({ codeSpace: this.codeSpace, cSess, AppToRender });
-  }
+  //   // const { renderPreviewWindow } = await import("@/lib/hydrate");
+  //   // const { AppToRender } = await import("../../AppToRender");
+  //   // await renderPreviewWindow({ codeSpace: this.codeSpace, cSess, AppToRender });
+  // }
 
   private async handleDehydratedPage(cSessBr: CodeSessionBC): Promise<void> {
     const handleDehydratedPage = ({ html, css }: { html: string; css: string; }) =>

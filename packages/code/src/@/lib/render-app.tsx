@@ -47,10 +47,6 @@ declare global {
   (globalThis as GlobalWithRenderedApps).renderedApps ||
   new WeakMap<HTMLElement, RenderedApp>();
 
-// Main render function
-const mod = {
-  myRoot: {} as ReturnType<typeof createRoot>,
-};
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
 ): Promise<RenderedApp | null> {
