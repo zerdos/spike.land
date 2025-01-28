@@ -51,11 +51,17 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     if (codeSpace) {
-      const cSess = new Code(codeSpace);
-      fetch(`/live/${codeSpace}/session.json`).then((res) => res.json<ICodeSession>()).then((
-        session,
-      ) => cSess.init(session)).then(() => setState(cSess));
-      import("@/lib/hydrate").then(({ initializeApp }) => initializeApp());
+      (async () => {
+        const cSess = new Code(codeSpace);
+        const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
+          res.json<ICodeSession>()
+        );
+        await cSess.init(session);
+
+        const { initializeApp } = await import("@/lib/hydrate");
+        await initializeApp();
+        setState(cSess);
+      })();
     }
   }, []);
 
