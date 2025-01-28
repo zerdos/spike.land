@@ -140,7 +140,7 @@ export class ServiceWorkerHandlers {
     serve: (
       request: Request,
       fetcher: (request: Request) => Promise<Response>,
-      waitUntil: (promise: Promise<any>) => void,
+      waitUntil: (promise: Promise<unknown>) => void,
     ) => Promise<Response>,
     event: FetchEvent,
   ): Promise<Response> {

@@ -84,7 +84,6 @@ const App: React.FC = () => {
   return cSess
     ? (
       <>
-        <h1>cSessed</h1>
         <ClerkProvider
           publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
           afterSignOutUrl="/"
@@ -95,7 +94,6 @@ const App: React.FC = () => {
     )
     : (
       <>
-        <h1>Not cSessed</h1>
         <Wrapper codeSpace={codeSpace} />
       </>
     );
