@@ -46,10 +46,7 @@ export class AIHandler {
     codeSpace: string,
   ): string {
     return this.aiService.prepareClaudeContent(
-      content,
-      messages,
-      currentCode,
-      codeSpace,
+      { content, messages, codeNow: currentCode, codeSpace },
     );
   }
 }
