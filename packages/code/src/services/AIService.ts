@@ -14,6 +14,38 @@ export interface AIServiceConfig {
 
 type AIEndpoint = "gpt4o" | "anthropic" | "openAI";
 
+export interface ClaudeContentParams {
+  content: string;
+  messages: Message[];
+  codeNow: string;
+  codeSpace: string;
+}
+
+const SYSTEM_CONSTANTS = {
+  GPT4_MODEL: "gpt-4o",
+  MAX_MESSAGES: 5,
+  ERROR_MESSAGES: {
+    MISTAKE_PREFIX: "I'm sorry, I might have made a mistake.",
+  },
+} as const;
+
+interface FormattedMessage {
+  role: Message["role"];
+  content: MessageContent;
+}
+
+interface APIResponse {
+  content: string;
+  cleanup?: () => void;
+}
+
+class APIError extends Error {
+  constructor(message: string, public status?: number) {
+    super(message);
+    this.name = "APIError";
+  }
+}
+
 export class AIService {
   private config: AIServiceConfig;
   private contextManager: ContextManager;
@@ -33,58 +65,80 @@ export class AIService {
     return endpointMap[type];
   }
 
-  private formatMessageContent(content: MessageContent) {
-    if (typeof content === "string") {
+  private formatMessageContent(content: MessageContent): MessageContent {
+    if (typeof content === "string" || !Array.isArray(content)) {
       return content;
-    } else if (Array.isArray(content)) {
-      return content.map((item) => {
-        if (item.type === "image") {
-          return {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: item.source.media_type,
-              data: item.source.data,
-            },
-          };
-        } else {
-          return item;
-        }
-      });
     }
-    return content;
+
+    return content.map((item) => {
+      if (item.type !== "image") {
+        return item;
+      }
+
+      return {
+        type: "image",
+        source: {
+          type: "base64",
+          media_type: item.source.media_type,
+          data: item.source.data,
+        },
+      };
+    });
+  }
+
+  private formatMessages(messages: Message[]): FormattedMessage[] {
+    return messages
+      .slice(-SYSTEM_CONSTANTS.MAX_MESSAGES)
+      .map(({ role, content }) => ({
+        role,
+        content: this.formatMessageContent(content),
+      }));
   }
 
   private async makeAPICall(
     endpoint: string,
     messages: Message[],
-    model = ``,
+    model = "",
   ): Promise<Response> {
-    try {
-      const formattedMessages = messages.slice(-5).map(({ role, content }) => ({
-        role,
-        content: this.formatMessageContent(content),
-      }));
+    const formattedMessages = this.formatMessages(messages);
 
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          stream: true,
-          messages: formattedMessages,
-          ...(model ? { model } : {}),
-        }),
-      });
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        stream: true,
+        messages: formattedMessages,
+        ...(model ? { model } : {}),
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      throw new APIError(`HTTP error! status: ${response.status}`, response.status);
+    }
+
+    return response;
+  }
+
+  private async processStream(
+    reader: ReadableStreamDefaultReader<Uint8Array>,
+    onUpdate: (chunk: string) => void,
+  ): Promise<string> {
+    const decoder = new TextDecoder();
+    let content = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        break;
       }
 
-      return response;
-    } catch (error) {
-      console.error("Error making API call:", error);
-      throw error;
+      const chunk = decoder.decode(value, { stream: true });
+      content += chunk;
+      onUpdate(chunk);
     }
+
+    return content;
   }
 
   private async handleStreamingResponse(
@@ -92,45 +146,64 @@ export class AIService {
     messages: Message[],
     onUpdate: (chunk: string) => void,
     model?: string,
-  ): Promise<string> {
+  ): Promise<APIResponse> {
+    this.config.setIsStreaming(true);
+
     try {
-      this.config.setIsStreaming(true);
       const response = await this.makeAPICall(endpoint, messages, model);
       const reader = response.body?.getReader();
+
       if (!reader) {
-        throw new Error("Response body is not readable!");
+        throw new APIError("Response body is not readable!");
       }
 
-      let content = "";
-      const decoder = new TextDecoder();
-      await reader.read().then(
-        function processText({ done, value }): Promise<void> {
-          if (done) {
-            return Promise.resolve();
-          }
+      const content = await this.processStream(reader, onUpdate);
 
-          const chunk = decoder.decode(value, { stream: true });
-          content += chunk;
-          onUpdate(chunk);
-
-          // Update the content in the UI
-
-          // Process the next chunk
-          return reader.read().then(processText);
-        },
-      );
-
-      return content;
-
-      // const throttleUpdate = (onUpdate, this.config.updateThrottleMs);
-
-      // return content;
+      return {
+        content,
+        cleanup: () => this.config.setIsStreaming(false),
+      };
     } catch (error) {
-      console.error("Error handling streaming response:", error);
-      throw error;
-    } finally {
       this.config.setIsStreaming(false);
+      throw error instanceof APIError ? error : new APIError(String(error));
     }
+  }
+
+  private updateContextFromResponse(content: string): void {
+    this.contextManager.updateContext(
+      "currentTask",
+      extractCurrentTask(content),
+    );
+    this.contextManager.updateContext(
+      "codeStructure",
+      extractCodeStructure(content),
+    );
+  }
+
+  private createResponseMessage(content: string): Message {
+    return {
+      id: Date.now().toString(),
+      role: "assistant",
+      content,
+    };
+  }
+
+  private async processAIResponse(
+    type: AIEndpoint,
+    messages: Message[],
+    onUpdate: (chunk: string) => void,
+  ): Promise<string> {
+    const endpoint = this.getEndpoint(type);
+    const model = type === "gpt4o" ? SYSTEM_CONSTANTS.GPT4_MODEL : "";
+
+    const { content, cleanup } = await this.handleStreamingResponse(
+      endpoint,
+      messages,
+      onUpdate,
+      model,
+    );
+
+    return content;
   }
 
   async sendToAI(
@@ -139,33 +212,9 @@ export class AIService {
     onUpdate: (chunk: string) => void,
   ): Promise<Message> {
     try {
-      const endpoint = this.getEndpoint(type);
-
-      const result = await this.handleStreamingResponse(
-        endpoint,
-        messages,
-        onUpdate,
-        type === "gpt4o" ? `gpt-4o` : "",
-      );
-
-      // Update context based on AI response
-      this.contextManager.updateContext(
-        "currentTask",
-        extractCurrentTask(result),
-      );
-      this.contextManager.updateContext(
-        "codeStructure",
-        extractCodeStructure(result),
-      );
-
-      return {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: result,
-      } as Message;
-    } catch (error) {
-      console.error("Error sending to AI:", error);
-      throw error;
+      const content = await this.processAIResponse(type, messages, onUpdate);
+      this.updateContextFromResponse(content);
+      return this.createResponseMessage(content);
     } finally {
       this.config.setIsStreaming(false);
     }
@@ -185,26 +234,20 @@ export class AIService {
     return this.sendToAI("anthropic", messages, onUpdate);
   }
 
-  prepareClaudeContent(
-    content: string,
-    messages: Message[],
-    codeNow: string,
-    codeSpace: string,
-  ): string {
-    if (
-      messages.length === 0 ||
-      codeNow !== messages[messages.length - 1]?.content
-    ) {
-      return anthropicSystem({
+  prepareClaudeContent(params: ClaudeContentParams): string {
+    const { content = "", messages = [], codeNow = "", codeSpace = "" } = params;
+
+    if (content && content.startsWith(SYSTEM_CONSTANTS.ERROR_MESSAGES.MISTAKE_PREFIX)) {
+      return content;
+    }
+
+    const isFirstMessage = messages.length === 0;
+    return !isFirstMessage
+      ? reminder({ userPrompt: content })
+      : anthropicSystem({
         fileName: codeSpace,
         fileContent: codeNow,
         userPrompt: content,
       });
-    } else {
-      if (content.startsWith("I'm sorry, I might have made a mistake.")) {
-        return content;
-      }
-      return reminder({ userPrompt: content });
-    }
   }
 }

@@ -165,10 +165,7 @@ describe("AIService", () => {
       const codeSpace = "file.ts";
 
       const result = aiService.prepareClaudeContent(
-        content,
-        messages,
-        codeNow,
-        codeSpace,
+        { content, messages, codeNow, codeSpace },
       );
 
       expect(result).toContain("Mocked reminder content");
