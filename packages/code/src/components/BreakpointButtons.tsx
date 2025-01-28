@@ -1,7 +1,7 @@
 import { ToggleButton, ToggleButtonGroup } from "@/external/mui-material";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Phone, Tablet, Tv } from "../icons";
-import { cn } from "../lib/utils";
+import { Phone, Tablet, Tv } from "./icons";
 
 interface BreakpointButtonsProps {
   width: number;

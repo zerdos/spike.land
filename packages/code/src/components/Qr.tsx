@@ -9,17 +9,6 @@ import { QrCodeIcon } from "./icons";
 
 import { Fab } from "@/external/mui-material";
 
-// const QRiousLazy = (props) =>lazy(async () => {
-// const {QRious} = await import("react-qrious");
-// return {default: (()=>QRious(props))}
-// })
-
-// const QRious: FC<{ value: Record<string, unknown> }> = ({ value }) => (
-//   <Suspense fallback={<p>..</p>}>
-//     {QRiousLazy(value)}
-//   </Suspense>
-// );
-
 export const QRButton: FC<{ url: string; }> = ({ url }) => {
   const [showQR, setQR] = useState(false);
   return (
