@@ -1,3 +1,5 @@
+import { Wrapper } from "@/components/app/wrapper";
+import { routes } from "@/lib/routes";
 import {
   createRootRoute,
   createRoute,
@@ -26,15 +28,21 @@ export const rootRoute = createRootRoute({
   component: RootLayout,
 });
 
-// Landing page route
-export const landingRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/",
-  component: () => <div>Landing Page</div>,
+const dynamicRoutes = [];
+
+Object.keys(routes).forEach((path) => {
+  // Landing page route
+  const landingRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path,
+    component: () => <Wrapper codeSpace={routes[path as keyof typeof routes]} />,
+  });
+
+  dynamicRoutes.push(landingRoute);
 });
 
 // Live page route with code space parameter
-export const liveRoute = createRoute({
+const liveRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/live/$codeSpace",
   parseParams: (params): RouteParams => ({
@@ -48,9 +56,10 @@ export const liveRoute = createRoute({
   }),
   component: () => <div>Live Page</div>,
 });
+dynamicRoutes.push(liveRoute);
 
 // Live CMS route
-export const liveCmsRoute = createRoute({
+const liveCmsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/live-cms/$codeSpace",
   parseParams: (params): RouteParams => ({
@@ -64,13 +73,10 @@ export const liveCmsRoute = createRoute({
   }),
   component: () => <div>Live CMS Page</div>,
 });
+dynamicRoutes.push(liveCmsRoute);
 
 // Register routes
-const routeTree = rootRoute.addChildren([
-  landingRoute,
-  liveRoute,
-  liveCmsRoute,
-]);
+const routeTree = rootRoute.addChildren([...dynamicRoutes]);
 
 // Create and configure the router instance
 export const router = createRouter({
