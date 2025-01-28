@@ -58,9 +58,10 @@ const App: React.FC = () => {
         );
         await cSess.init(session);
 
+        setState(cSess);
+
         const { initializeApp } = await import("@/lib/hydrate");
         await initializeApp();
-        setState(cSess);
       })();
     }
   }, []);
@@ -75,9 +76,6 @@ const App: React.FC = () => {
         cSessBr.init(cSess.session);
 
         unSub = cSessBr.sub((sess) => setState({ ...cSess, session: sess }));
-
-        const { initializeApp } = await import("@/lib/hydrate");
-        await initializeApp();
       })();
     }
     return () => unSub();
