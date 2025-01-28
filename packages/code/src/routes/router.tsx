@@ -10,7 +10,7 @@ import {
   type RegisteredRouter,
   RouterProvider,
 } from "@tanstack/react-router";
-import * as React from "react";
+import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
 import { getCodeSpace } from "../hooks/use-code-space";
 import { Code } from "../services/CodeSession";
@@ -46,14 +46,14 @@ Object.keys(routes).forEach((path) => {
 });
 
 const App: React.FC = () => {
-  const [cSess, setState] = React.useState<ICode | null>(null);
+  const [cSess, setState] = useState<ICode | null>(null);
   const codeSpace = getCodeSpace(location.pathname);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (codeSpace) {
       (async () => {
         const cSess = new Code(codeSpace);
-        const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
+        const session = await fetch(`/liv e/${codeSpace}/session.json`).then((res) =>
           res.json<ICodeSession>()
         );
         await cSess.init(session);
@@ -66,7 +66,7 @@ const App: React.FC = () => {
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let unSub: () => void = () => {};
 
     if (cSess) {
@@ -116,7 +116,7 @@ const routeTree = rootRoute.addChildren([...dynamicRoutes]);
 export const router = createRouter({
   routeTree,
   defaultPreload: "intent",
-  context: React.createContext<
+  context: createContext<
     {
       params: RouteParams;
       search: SearchParams;

@@ -9,9 +9,9 @@ if (location.pathname.endsWith(".tsx")) {
 }
 
 // Initialize router
-router.load().then(() => {
+router.load().then(async () => {
   // Get root element
-  renderApp({
+  await renderApp({
     App,
   });
 

@@ -154,6 +154,7 @@ async function renderApp(
     )!;
 
     console.log("Rendered app:", renderedApp);
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     return renderedApp;
   } catch (error) {
