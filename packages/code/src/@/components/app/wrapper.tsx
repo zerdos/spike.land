@@ -1,5 +1,5 @@
+import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType } from "@/lib/interfaces";
-import { AppWithScreenSize } from "@/lib/render-app";
 import React, { useState } from "react";
 
 interface WrapperProps {
@@ -9,6 +9,7 @@ interface WrapperProps {
 export const Wrapper: React.FC<WrapperProps> = (
   { codeSpace },
 ) => {
+  const { width, height } = useWindowSize();
   const [App, setApp] = useState<FlexibleComponentType | null>(null);
 
   React.useEffect(() => {
@@ -17,8 +18,9 @@ export const Wrapper: React.FC<WrapperProps> = (
       setApp(App);
     })();
   }, []);
+
   if (!App) {
     return <iframe src={`/live/${codeSpace}/dehydrated`} className="w-full h-full" />;
   }
-  return <AppWithScreenSize AppToRender={App} />;
+  return <App width={width} height={height} />;
 };
