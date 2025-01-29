@@ -21,11 +21,11 @@
 
     "// Build": "",
     "build": "yarn clean && yarn build:all",
-    "build:all": "concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn build:types\" \"yarn build:workers\"",
+    "build:all": "concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn build:types\" \"yarn build:workers\" && yarn post-build",
     "build:vite": "vite build",
     "build:workers": "tsx src/@/lib/esbuild-dev.ts",
     "build:types": "tsc --build && yarn types:cp",
-    "postbuild": "cp -a -f dist-vite/. dist/ && mkdir -p ./dist/app && cp ./dist/assets/index-*.css ./dist/app/tw-global.css",
+    "post-build": "cp -a -f dist-vite/. dist/ && mkdir -p ./dist/app && cp ./dist/assets/index-*.css ./dist/app/tw-global.css",
 
     "// Types": "",
     "types:check": "tsc --noEmit",

@@ -115,7 +115,6 @@ const config = defineConfig((config) => ({
   appType: "spa" as AppType,
 
   assetsInclude: [
-    "src/index.html",
   ],
 
   server: {
