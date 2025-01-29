@@ -33,27 +33,11 @@ export class CacheUtils {
 
   static async cleanOldCaches(currentCacheName: string): Promise<void> {
     const cacheNames = await caches.keys();
-    const currentTime = Date.now();
 
     await Promise.all(
       cacheNames
         .filter((name) => name !== currentCacheName && name !== CDN_CACHE_NAME)
-        .map(async (cacheName) => {
-          const cache = await caches.open(cacheName);
-          const keys = await cache.keys();
-
-          // Check if cache is older than MAX_CACHE_AGE
-          if (keys.length > 0) {
-            const response = await cache.match(keys[0]);
-            if (response && response.headers.get("date")) {
-              const cacheDate = new Date(response.headers.get("date")!)
-                .getTime();
-              if (currentTime - cacheDate > MAX_CACHE_AGE) {
-                return caches.delete(cacheName);
-              }
-            }
-          }
-        }),
+        .map(caches.delete),
     );
   }
 

@@ -51,6 +51,9 @@ export class ServiceWorkerHandlers {
 
         await this.fileCacheManager.validateCacheIntegrity();
         await this.sw.skipWaiting();
+
+        await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
+
         console.log("Service Worker installed successfully.");
       }
     } catch (error) {
