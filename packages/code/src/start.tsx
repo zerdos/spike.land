@@ -11,7 +11,7 @@ if (location.pathname.endsWith(".tsx")) {
 
 // Initialize router
 router.load().then(async () => {
-  const codeSpace = getCodeSpace(toLocation.pathname);
+  const codeSpace = getCodeSpace(location.pathname);
   // Get root element
   await renderApp({
     App,
