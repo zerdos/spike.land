@@ -1,7 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { wait } from "@/lib/wait";
 import { IWebSocketManager } from "src/services/websocket/types";
 
 export interface EditorState {

@@ -2,6 +2,7 @@ import { renderApp } from "@/external/render-app";
 import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
+import { getCodeSpace } from "@/hooks/use-code-space";
 
 // Handle .tsx extension removal
 if (location.pathname.endsWith(".tsx")) {
@@ -24,7 +25,8 @@ router.load().then(async () => {
       params: { codeSpace: string; };
     }> = router.state.matches;
     const codeSpaceMatch = matches.find(match => "codeSpace" in match.params);
-    const codeSpace = codeSpaceMatch?.params.codeSpace;
+    const codeSpace = getCodeSpace(toLocation.pathname) ||
+      (codeSpaceMatch && codeSpaceMatch.params.codeSpace);
 
     if (codeSpace) {
       (async () => {
