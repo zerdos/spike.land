@@ -3,6 +3,7 @@ import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { RouterError } from "@/lib/errors";
 
 // TypeScript interfaces
 interface RouterLocation {
@@ -74,7 +75,12 @@ router.load().then(async () => {
     await renderApp({ App });
 
     if (location.pathname === `/live/${codeSpace}/iframe`) {
-      await initializeWebSocket();
+      try {
+        await initializeWebSocket();
+      } catch (error) {
+        console.error("WebSocket initialization failed:", error);
+        throw new RouterError("WebSocket initialization failed", `/live/${codeSpace}/iframe`);
+      }
     }
 
     // Setup router subscriptions

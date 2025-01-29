@@ -69,10 +69,49 @@ const CodeEditor: React.FC<EditorProps> = ({ value, onChange }) => {
 };
 ```
 
-### 2. Real-time Collaboration
-- WebSocket connections for real-time updates
-- SharedWorker for cross-tab communication
-- Operational Transform for conflict resolution
+### 2. Real-time Communication Architecture
+
+#### WebSocket Layer
+```mermaid
+sequenceDiagram
+    participant Frontend
+    participant WebSocketManager
+    participant CodeSessionBC
+    participant SharedWorker
+    participant Backend
+    
+    Frontend->>WebSocketManager: connect()
+    WebSocketManager->>CodeSessionBC: registerSession()
+    CodeSessionBC->>SharedWorker: initializeRpc()
+    SharedWorker->>Backend: establishWS()
+    Backend-->>SharedWorker: heartbeat
+    SharedWorker-->>CodeSessionBC: statusUpdate
+    CodeSessionBC-->>Frontend: sessionSync
+```
+
+#### BroadcastChannel Integration (CodeSessionBc)
+```typescript
+// Cross-tab synchronization example
+const bc = new BroadcastChannel(`/live/${codeSpace}/`);
+bc.onmessage = ({ data }) => {
+  this.session = sanitizeSession(data);
+  subscribers.forEach(cb => cb(this.session));
+};
+```
+
+#### Worker Pool Architecture (shared.ts)
+| Worker Type    | Responsibilities               | RPC Methods                          |
+|----------------|---------------------------------|--------------------------------------|
+| `esbuild`      | Code transpilation             | transpile(), build()                |
+| `connect`      | WS connection management       | connect(), heartbeat()              |
+| `prettier`     | Code formatting                | prettierJs(), prettierCss()         |
+| `ata`          | Type acquisition               | ata()                               |
+| `workflow`     | Pipeline execution             | createWorkflow()                    |
+
+#### Conflict Resolution
+- Mutex-locked operations for critical sections
+- Version-aware session synchronization
+- Automatic session sanitization
 
 ### 3. Service Worker
 - Offline functionality
