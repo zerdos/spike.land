@@ -29,10 +29,40 @@ cd spike.land
 yarn install
 ```
 
-3. Start the development server:
+3. Start the development environment:
 ```bash
+# Start everything (frontend + workers)
 yarn dev
+
+# Or start components individually:
+yarn dev:fe      # Frontend only
+yarn dev:workers # Workers only
 ```
+
+## Build and Development Scripts
+
+The project uses a comprehensive build system with the following main commands:
+
+### Development
+- `yarn dev` - Start all development servers (frontend + workers)
+- `yarn dev:fe` - Start frontend development server only
+- `yarn dev:workers` - Start Cloudflare Workers in development mode
+
+### Building
+- `yarn build:all` - Build all packages
+- `yarn build:fe` - Build frontend only
+- `yarn build:workers` - Build workers only
+
+### Deployment
+- `yarn deploy:dev` - Deploy to development environment
+- `yarn deploy:prod` - Deploy to production environment
+
+### Testing & Utilities
+- `yarn test` - Run all tests
+- `yarn test:e2e` - Run end-to-end tests
+- `yarn lint` - Run linting
+- `yarn fmt` - Format code
+- `yarn types:check` - Type check all packages
 
 ## Monorepo Structure ![Last Updated](https://img.shields.io/github/last-commit/zerdos/spike.land.svg)
 
@@ -41,9 +71,20 @@ This project is organized as a monorepo with the following structure:
 ```
 /packages
 ├── code/                 # Frontend React application
-├── spike.land/          # Cloudflare Workers backend
-├── js.spike.land/       # JavaScript utilities
+│   ├── dev scripts:     # - yarn dev (Vite + TypeScript + Workers)
+│   └── build scripts:   # - yarn build (Production build with type checking)
+│
+├── spike.land/          # Main Cloudflare Worker backend
+│   ├── dev scripts:     # - yarn dev (Local) or yarn dev:remote (Remote)
+│   └── deploy scripts:  # - yarn deploy:dev/prod (Environment-specific)
+│
+├── js.spike.land/       # Transpiler Worker
+│   ├── dev scripts:     # - yarn dev (Local development)
+│   └── deploy scripts:  # - yarn deploy:dev/prod (Environment-specific)
+│
 └── spike-land-renderer/ # Page rendering engine
+    ├── dev scripts:     # - yarn dev (Local development)
+    └── deploy scripts:  # - yarn deploy (Production deployment)
 ```
 
 ## Development Environment

@@ -42,19 +42,42 @@ yarn install
 
 ### Available Scripts
 
-- `yarn dev` - Start development server
-- `yarn build` - Build production bundle
+#### Development
+- `yarn dev` - Start all development processes concurrently (Vite, TypeScript, Workers)
+- `yarn dev:vite` - Start Vite development server only
+- `yarn dev:workers` - Start worker development processes
+
+#### Building
+- `yarn build` - Clean and run full build process
+- `yarn build:all` - Build all components concurrently
+- `yarn build:vite` - Build Vite application
+- `yarn build:workers` - Build worker files
+- `yarn build:types` - Build TypeScript declarations
+
+#### Types
+- `yarn types:check` - Type check without emitting files
+- `yarn types:build` - Build TypeScript declarations
+- `yarn types:watch` - Watch mode for TypeScript compilation
+
+#### Testing
 - `yarn test` - Run test suite
+- `yarn test:full` - Run full test suite with type checking and linting
+
+#### Utils
+- `yarn clean` - Clean all build artifacts
 - `yarn lint` - Run ESLint
-- `yarn types` - Run TypeScript type checking
-- `yarn preview` - Preview production build locally
 - `yarn fmt` - Format code using dprint
-- `yarn clean` - Clean build artifacts
+- `yarn preview` - Preview production build locally
 
 ### Development Server
 
 ```bash
+# Start all development processes
 yarn dev
+
+# Or start individual components:
+yarn dev:vite    # Just the Vite dev server
+yarn dev:workers # Just the worker processes
 ```
 
 Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
@@ -62,10 +85,19 @@ Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 ### Building
 
 ```bash
+# Full production build
 yarn build
+
+# Or individual build steps:
+yarn build:vite    # Build Vite application
+yarn build:workers # Build worker files
+yarn build:types   # Build TypeScript declarations
 ```
 
-The build artifacts will be stored in the `dist/` directory.
+Build artifacts will be stored in:
+- `dist/` - Main application build
+- `dist-vite/` - Vite build output
+- `dts/` - TypeScript declarations
 
 ## Architecture
 
