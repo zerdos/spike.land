@@ -145,10 +145,10 @@ describe("AIService", () => {
       const codeSpace = "file.ts";
 
       const result = aiService.prepareClaudeContent(
-        content,
+        {content,
         messages,
         codeNow,
-        codeSpace,
+        codeSpace,}
       );
 
       expect(result).toContain("Mocked anthropic system content");
@@ -178,10 +178,10 @@ describe("AIService", () => {
       const codeSpace = "file.ts";
 
       const result = aiService.prepareClaudeContent(
-        content,
+       { content,
         messages,
         codeNow,
-        codeSpace,
+        codeSpace,}
       );
 
       expect(result).toContain("Mocked anthropic system content");
@@ -198,10 +198,10 @@ describe("AIService", () => {
       const codeSpace = "file.ts";
 
       const result = aiService.prepareClaudeContent(
-        content,
+       { content,
         messages,
         codeNow,
-        codeSpace,
+        codeSpace}
       );
 
       expect(result).toContain("Mocked anthropic system content");

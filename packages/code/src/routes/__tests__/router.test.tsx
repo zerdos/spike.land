@@ -32,31 +32,29 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace, page: "iframe" },
+        params: { codeSpace, page: "test-page" },
         replace: true,
       });
     });
 
     render(<RouterProvider router={router} />);
     expect(await screen.findByText("Live Page")).toBeInTheDocument();
-    expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
+    expect(router.state.location.pathname).toBe(`/live/${codeSpace}/test-page`);
   });
 
   it("should render live cms page with code space parameter", async () => {
     const codeSpace = "test-space";
-    const page = "iframe";  
     await act(async () => {
-      
       await router.navigate({
-        to: "/live-cms/$codeSpace/$page",
-        params: { codeSpace, page },  
+        to: "/live/$codeSpace/$page",
+        params: { codeSpace, page: "test-page" },
         replace: true,
       });
     });
 
     render(<RouterProvider router={router} />);
     expect(await screen.findByText("Live CMS Page")).toBeInTheDocument();
-    expect(router.state.location.pathname).toBe(`/live-cms/${codeSpace}`);
+    expect(router.state.location.pathname).toBe(`/live/${codeSpace}/test-page`);
   });
 
   it("should handle navigation with parameters", async () => {
@@ -64,12 +62,12 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace: testCodeSpace, page: "iframe" },
+        params: { codeSpace: testCodeSpace, page: "test-page" },
         replace: true,
       });
     });
 
-    expect(router.state.location.pathname).toBe(`/live/${testCodeSpace}`);
+    expect(router.state.location.pathname).toBe(`/live/${testCodeSpace}/test-page`);
     expect(
       router.state.matches.some(match =>
         match.params && "codeSpace" in match.params && match.params.codeSpace === testCodeSpace
@@ -82,7 +80,7 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace: "test-space" },
+        params: { codeSpace: "test-space", page: "test-page" },
         replace: true,
       });
     });
@@ -105,14 +103,14 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace: testCodeSpace },
+        params: { codeSpace: testCodeSpace, page: "test-page" },
         replace: true,
       });
     });
 
     render(<RouterProvider router={router} />);
 
-    const { getCodeSpace } = await import("../../hooks/use-code-space");
+    const { getCodeSpace } = await import("@/hooks/use-code-space");
     expect(getCodeSpace).toHaveBeenCalledWith(`/live/${testCodeSpace}`);
     expect(await screen.findByText("Live Page")).toBeInTheDocument();
   });

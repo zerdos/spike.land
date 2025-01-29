@@ -196,7 +196,7 @@ export class AIService {
     const endpoint = this.getEndpoint(type);
     const model = type === "gpt4o" ? SYSTEM_CONSTANTS.GPT4_MODEL : "";
 
-    const { content, cleanup } = await this.handleStreamingResponse(
+    const { content } = await this.handleStreamingResponse(
       endpoint,
       messages,
       onUpdate,
