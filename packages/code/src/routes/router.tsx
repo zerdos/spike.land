@@ -18,6 +18,7 @@ import { CodeSessionBC } from "../services/CodeSessionBc";
 // Define route types
 interface RouteParams {
   codeSpace: string;
+  page: string;
 }
 
 type SearchParams = Record<string, string>;
@@ -50,7 +51,7 @@ const App: React.FC = () => {
   const codeSpace = getCodeSpace(location.pathname);
 
   useEffect(() => {
-    if (codeSpace && !location.pathname.endsWith("/")) {
+    if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
         const cSess = new Code(codeSpace);
         const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
@@ -102,15 +103,18 @@ const App: React.FC = () => {
 // Live page route with code space parameter
 const liveRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/live/$codeSpace",
+  path: "/live/$codeSpace/$page",
   parseParams: (params): RouteParams => ({
     codeSpace: params.codeSpace || "",
+    page: params.page || "",
   }),
   stringifyParams: (params: RouteParams) => ({
     codeSpace: params.codeSpace,
+    page: params.page,
   }),
   loader: async ({ params: { codeSpace } }) => ({
     codeSpace: getCodeSpace(`/live/${codeSpace}`),
+    page: "",
   }),
   component: () => <App />,
 });
