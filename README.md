@@ -10,6 +10,21 @@ Easily edit and preview your React pages in real-time using this TypeScript-base
 
 This project provides a real-time collaborative React page editor built with TypeScript and powered by Cloudflare Workers. It enables developers to edit and preview React components in real-time, with built-in collaboration features.
 
+## Documentation
+
+📚 **[View the Documentation Cheatsheet](docs/CHEATSHEET.md)**
+
+### Quick Start
+- [Getting Started Guide](docs/development/getting-started.md)
+- [Build Process Documentation](docs/development/build-process.md)
+
+### Architecture
+- [System Overview](docs/architecture/overview.md)
+- [Frontend Architecture](docs/architecture/frontend.md)
+- [Workers Architecture](docs/architecture/workers.md)
+- [Data Flow](docs/architecture/data-flow.md)
+- [State Management](docs/architecture/state-management.md)
+
 ## Prerequisites
 
 - Node.js (LTS version)
@@ -39,7 +54,7 @@ yarn dev:fe      # Frontend only
 yarn dev:workers # Workers only
 ```
 
-## Build and Development Scripts
+## Scripts Overview
 
 The project uses a comprehensive build system with the following main commands:
 
