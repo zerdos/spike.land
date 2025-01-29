@@ -126,7 +126,7 @@ const prettierConfig: Options = {
   bracketSameLine: false,
   jsxSingleQuote: false,
   htmlWhitespaceSensitivity: "strict",
-  printWidth: 1000, // Increased to reduce wrapping
+  printWidth: 80,
   proseWrap: "preserve",
   quoteProps: "as-needed",
   requirePragma: false,

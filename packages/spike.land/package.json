@@ -7,12 +7,15 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "clean": "rm -rf dist",
-    "deploy": "yarn deploy:dev",
+    "dev:remote": "wrangler dev --remote",
+    "build": "yarn clean",
+    "build:worker": "echo 'No build required - using direct deployment'",
     "deploy:dev": "wrangler deploy --env=testing --minify ./src/cf-workers.ts",
-    "prepublishOnly": "wrangler deploy --minify ./src/cf-workers.ts",
-    "predeploy": "yarn x:build",
-    "x:build": "echo ok"
+    "deploy:prod": "wrangler deploy --minify ./src/cf-workers.ts",
+    "clean": "rimraf dist",
+    "types:check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
@@ -24,6 +27,7 @@
     "@typescript-eslint/parser": "8.22.0",
     "@vitest/runner": "3.0.4",
     "@vitest/snapshot": "3.0.4",
+    "rimraf": "5.0.5",
     "typescript": "5.7.3",
     "vitest": "3.0.4",
     "wrangler": "3.106.0"

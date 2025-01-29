@@ -10,37 +10,28 @@
     "devcontainers/*"
   ],
   "scripts": {
-    "dev": "yarn install && yarn c:dev",
-    "codebase": "ai-digest -i $(pwd)/packages --show-output-files",
-    "clean": "rm -rf packages/code/dist packages/code/dts",
-    "types": "yarn workspace @spike-npm-land/code types",
-    "test": "yarn workspace @spike-npm-land/code vitest --run",
-    "c:build": "yarn workspace @spike-npm-land/code build",
-    "c:dev": "yarn workspace @spike-npm-land/code dev",
-    "c:deploy": "yarn workspace @spike-npm-land/code-worker deploy",
-    "c:deploy:prod": "yarn workspace @spike-npm-land/code-worker prepublishOnly",
-    "deploy:esbuild": "yarn workspace @spike-npm-land/transpile deploy",
-    
-    "build": "yarn workspaces foreach -A -p run build",
-    "build:prod": "NODE_ENV=production yarn clean && yarn build",
-    
-    "deploy": "yarn fmt && yarn c:build && yarn c:deploy",
-    "deploy:prod": "NODE_ENV=production yarn c:build && yarn c:deploy:prod",
-    "deploy:full": "yarn fmt && git add . && yarn c:build && yarn c:deploy && yarn deploy:prod && yarn deploy:esbuild && git commit -m 'deploy' && git pull && git push",
-    
-    "lint": "eslint --config eslint.config.cjs .",
+    "dev": "yarn workspaces foreach -p run dev",
+    "dev:fe": "yarn workspace @spike-npm-land/code dev",
+    "dev:workers": "yarn workspaces foreach -p --include '@spike-npm-land/{code-worker,transpile}' run dev",
+    "build": "yarn clean && yarn build:all",
+    "build:all": "yarn workspaces foreach -p run build",
+    "build:fe": "yarn workspace @spike-npm-land/code build",
+    "build:workers": "yarn workspaces foreach -p --include '@spike-npm-land/{code-worker,transpile}' run build",
+    "deploy:dev": "yarn build:fe && yarn workspaces foreach -p run deploy:dev",
+    "deploy:prod": "NODE_ENV=production yarn build:fe && yarn workspaces foreach -p run deploy:prod",
+    "deploy:full": "yarn fmt && git add . && yarn build:all && yarn deploy:dev && yarn deploy:prod && git commit -m 'deploy' && git pull && git push",
+    "types:check": "yarn workspaces foreach -p run types:check",
+    "types:build": "yarn workspaces foreach -p run types:build",
+    "test": "yarn workspaces foreach -p run test",
+    "test:e2e": "playwright test tests/*.spec.ts",
+    "clean": "yarn workspaces foreach -p run clean",
+    "lint": "yarn eslint && yarn fmt",
+    "eslint": "eslint --config eslint.config.cjs .",
     "fmt": "yarn dprint fmt \"packages/**/*\"",
-    
-    "docker:build": "yarn workspaces foreach run docker:build",
-    "docker:push": "yarn workspaces foreach run docker:push",
-    
-    "p:test": "playwright test tests/*.spec.ts",
-    "ai-commit": "ai-commit",
-    
-    "ci": "yarn install && yarn lint && yarn build && yarn test",
-    "release": "yarn clean && yarn build:prod && yarn deploy:full",
-    
-    "aider": "git stash && git reset --hard HEAD && git pull && git checkout -b aider-${RANDOM} && git stash pop && git add . && yarn && yarn lint && git commit -m \"aider init\" && git push -u origin $(git branch)"
+    "ci": "yarn install && yarn lint && yarn build:all && yarn test",
+    "release": "yarn clean && yarn build:all && yarn deploy:full",
+    "docker:build": "yarn workspaces foreach -p run docker:build",
+    "docker:push": "yarn workspaces foreach -p run docker:push"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20250129.0",

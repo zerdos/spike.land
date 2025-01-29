@@ -90,13 +90,21 @@ export async function deleteAllServiceWorkers() {
       const currentCache = "file-cache-" + swVersion;
       const isCurrentFilesInCache = fileCaches.includes(currentCache);
       if (isCurrentFilesInCache) {
-        const deleteCachePromises = fileCaches.filter((cacheName) => cacheName !== currentCache)
-          .map((cacheName) => caches.delete(cacheName));
+
+        try{
+
+        const deleteCachePromises = fileCaches.filter((cacheName) => cacheName !== currentCache).map(
+          (cacheName) => caches.delete(cacheName)
+        )
 
         // Wait for all cache delete operations to complete
-        await Promise.all(deleteCachePromises);
+        await Promise.allSettled(deleteCachePromises);
 
         console.log("All caches have been cleared.");
+        } catch (error) {
+
+          console.error("Error during cache cleanup:", error);
+        }
       }
 
       // Get all service worker registrations

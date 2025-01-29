@@ -32,13 +32,19 @@ export class CacheUtils {
   }
 
   static async cleanOldCaches(currentCacheName: string): Promise<void> {
+    try {
     const cacheNames = await caches.keys();
 
     await Promise.all(
       cacheNames
         .filter((name) => name !== currentCacheName && name !== CDN_CACHE_NAME)
-        .map(caches.delete),
+        .map((name) => caches.delete(name)),
     );
+  } catch (error) {
+    console.error("Error during cache cleanup:", error);
+
+  }
+
   }
 
   static async handleCDNRequest(request: Request): Promise<Response> {

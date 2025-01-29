@@ -32,7 +32,7 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace },
+        params: { codeSpace, page: "iframe" },
         replace: true,
       });
     });
@@ -44,10 +44,12 @@ describe("Router Configuration", () => {
 
   it("should render live cms page with code space parameter", async () => {
     const codeSpace = "test-space";
+    const page = "iframe";  
     await act(async () => {
+      
       await router.navigate({
-        to: "/live-cms/$codeSpace",
-        params: { codeSpace },
+        to: "/live-cms/$codeSpace/$page",
+        params: { codeSpace, page },  
         replace: true,
       });
     });
@@ -62,7 +64,7 @@ describe("Router Configuration", () => {
     await act(async () => {
       await router.navigate({
         to: "/live/$codeSpace",
-        params: { codeSpace: testCodeSpace },
+        params: { codeSpace: testCodeSpace, page: "iframe" },
         replace: true,
       });
     });

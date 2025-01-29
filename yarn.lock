@@ -3765,6 +3765,7 @@ __metadata:
     p-map: "npm:7.0.3"
     p-queue: "npm:8.1.0"
     replicate: "npm:1.0.1"
+    rimraf: "npm:5.0.5"
     typescript: "npm:5.7.3"
     vitest: "npm:3.0.4"
     wrangler: "npm:3.106.0"
@@ -3958,6 +3959,7 @@ __metadata:
     react-use: "npm:17.6.0"
     recharts: "npm:2.15.1"
     recordrtc: "npm:5.6.2"
+    rimraf: "npm:5.0.5"
     rollup-plugin-visualizer: "npm:5.14.0"
     shadcdn: "npm:0.0.8"
     sonner: "npm:1.7.3"
@@ -4104,6 +4106,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20250129.0"
     "@spike-npm-land/code": "npm:0.9.56"
     esbuild-wasm: "npm:0.24.2"
+    rimraf: "npm:5.0.5"
     typescript: "npm:5.7.3"
     wrangler: "npm:3.106.0"
   languageName: unknown
@@ -15156,6 +15159,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rimraf@npm:5.0.5":
+  version: 5.0.5
+  resolution: "rimraf@npm:5.0.5"
+  dependencies:
+    glob: "npm:^10.3.7"
+  bin:
+    rimraf: dist/esm/bin.mjs
+  checksum: 10c0/d50dbe724f33835decd88395b25ed35995077c60a50ae78ded06e0185418914e555817aad1b4243edbff2254548c2f6ad6f70cc850040bebb4da9e8cc016f586
+  languageName: node
+  linkType: hard
+
 "rimraf@npm:^5.0.5":
   version: 5.0.10
   resolution: "rimraf@npm:5.0.10"
@@ -15916,6 +15930,7 @@ __metadata:
     "@vitest/runner": "npm:3.0.4"
     "@vitest/snapshot": "npm:3.0.4"
     esprima: "npm:4.0.1"
+    rimraf: "npm:5.0.5"
     typescript: "npm:5.7.3"
     vitest: "npm:3.0.4"
     wrangler: "npm:3.106.0"
