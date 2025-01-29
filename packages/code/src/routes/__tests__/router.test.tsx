@@ -61,7 +61,7 @@ describe("Router Configuration", () => {
     const testCodeSpace = "test-code-space";
     await act(async () => {
       await router.navigate({
-        to: "/live/$codeSpace",
+        to: "/live/$codeSpace/$page",
         params: { codeSpace: testCodeSpace, page: "test-page" },
         replace: true,
       });
@@ -111,7 +111,7 @@ describe("Router Configuration", () => {
     render(<RouterProvider router={router} />);
 
     const { getCodeSpace } = await import("@/hooks/use-code-space");
-    expect(getCodeSpace).toHaveBeenCalledWith(`/live/${testCodeSpace}`);
+    expect(getCodeSpace).toHaveBeenCalledWith(`/live/${testCodeSpace}/test-page`);
     expect(await screen.findByText("Live Page")).toBeInTheDocument();
   });
 });
