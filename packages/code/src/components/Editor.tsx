@@ -65,7 +65,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   // Listen for external code changes in cSess
   useEffect(() => {
-    if (!editorState.started) return;
+    if (!editorState.started || !cSess || !cSess.sub) return;
 
     let newCode = "";
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {

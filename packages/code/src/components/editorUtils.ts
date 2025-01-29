@@ -189,7 +189,7 @@ export const screenShot = (): Promise<ImageData> => {
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
-  const { webSocketManager } = window.frames[0] as unknown as {
+  const { webSocketManager } = globalThis as unknown as {
     webSocketManager: IWebSocketManager;
   };
 
