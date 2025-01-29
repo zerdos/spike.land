@@ -13,7 +13,7 @@ export const Wrapper: React.FC<WrapperProps> = (
 
   React.useEffect(() => {
     (async () => {
-      const App = (await import(`@/live/${codeSpace}/index.js`)).default;
+      const App = (await import(/* @vite-ignore */ `/live/${codeSpace}/index.js`)).default;
       setApp(App);
     })();
   }, []);
