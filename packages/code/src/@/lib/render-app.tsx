@@ -13,6 +13,12 @@ import { md5 } from "@/lib/md5";
 let firstRender = true;
 const origin = location.origin;
 
+export function AppWithScreenSize({ AppToRender }: { AppToRender: FlexibleComponentType; }) {
+  const { width, height } = useWindowSize();
+
+  return <AppToRender width={width!} height={height!} />;
+}
+
 export const importFromString = async (code: string) => {
   const { importMapReplace } = await import("@/lib/importmap-utils");
 
@@ -109,14 +115,6 @@ async function renderApp(
 
     firstRender = false;
 
-    const AppWithScreenSize: React.FC = React.memo(
-      function AppWithScreenSize() {
-        const { width, height } = useWindowSize();
-
-        return <AppToRender width={width!} height={height!} />;
-      },
-    );
-
     myRoot.render(
       <ThemeProvider>
         <React.Fragment>
@@ -125,7 +123,7 @@ async function renderApp(
               ? <AppToRender />
               : (
                 <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
-                  <AppWithScreenSize />
+                  <AppWithScreenSize AppToRender={AppToRender} />
                 </ErrorBoundary>
               )}
           </CacheProvider>{" "}
