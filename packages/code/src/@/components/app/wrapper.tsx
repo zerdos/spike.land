@@ -1,26 +1,48 @@
-import useWindowSize from "@/hooks/use-window-size";
-import type { FlexibleComponentType } from "@/lib/interfaces";
-import React, { useState } from "react";
+import type { RenderedApp } from "@/lib/interfaces";
+import { renderApp } from "@/lib/render-app";
+import { cn } from "@/lib/utils";
+import React, { useEffect, useRef } from "react";
 
 interface WrapperProps {
-  codeSpace: string;
+  codeSpace?: string;
+  code?: string;
+  transpiled?: string;
+  scale?: number;
 }
 
 export const Wrapper: React.FC<WrapperProps> = (
-  { codeSpace },
+  { codeSpace, transpiled, code, scale },
 ) => {
-  const { width, height } = useWindowSize();
-  const [App, setApp] = useState<FlexibleComponentType | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (containerRef.current === undefined) return;
+    if (containerRef.current === null) return;
+
+    let rendered: RenderedApp | null;
+
     (async () => {
-      const App = (await import(/* @vite-ignore */ `/live/${codeSpace}/index.js`)).default;
-      setApp(App);
-    })();
+      rendered = await renderApp({
+        rootElement: containerRef.current!,
+        codeSpace,
+        transpiled,
+        code,
+      });
+    })().catch(console.error);
+
+    return () => {
+      if (rendered !== null && rendered !== undefined) {
+        rendered.cleanup();
+      }
+    };
   }, []);
 
-  if (!App) {
-    return <iframe src={`/live/${codeSpace}/dehydrated`} className="w-full h-full" />;
-  }
-  return <App width={width} height={height} />;
+  return (
+    <div
+      ref={containerRef}
+      css={scale ? { transform: `scale(${scale})`, transformOrigin: "0 0" } : {}}
+      data-testid="wrapper-container"
+      className={cn("w-full h-full")}
+    />
+  );
 };
