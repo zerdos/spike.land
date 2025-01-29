@@ -11,23 +11,22 @@ if (location.pathname.endsWith(".tsx")) {
 
 // Initialize router
 router.load().then(async () => {
+  const codeSpace = getCodeSpace(toLocation.pathname);
   // Get root element
   await renderApp({
     App,
   });
 
+  if (
+    location.pathname === `/live/${codeSpace}/iframe`
+  ) {
+    import("./ws").then(({ main }) => main());
+  }
+
   // Setup router subscriptions for code space handling
   router.subscribe("onResolved", ({ toLocation }: {
     toLocation: { pathname: string; };
   }) => {
-    // Get codeSpace from route params if available
-    const matches: Array<{
-      params: { codeSpace: string; };
-    }> = router.state.matches;
-    const codeSpaceMatch = matches.find(match => "codeSpace" in match.params);
-    const codeSpace = getCodeSpace(toLocation.pathname) ||
-      (codeSpaceMatch && codeSpaceMatch.params.codeSpace);
-
     if (codeSpace) {
       (async () => {
         const pathname = toLocation.pathname;
@@ -40,15 +39,6 @@ router.load().then(async () => {
           Object.assign(window, { rendered });
         }
       })();
-
-      if (
-        (toLocation.pathname.startsWith("/live") ||
-          toLocation.pathname.startsWith("/live-cms")) &&
-        !toLocation.pathname.endsWith("dehydrated") &&
-        !toLocation.pathname.endsWith("/")
-      ) {
-        import("./ws").then(({ main }) => main());
-      }
     }
   });
 }).catch(console.error);
