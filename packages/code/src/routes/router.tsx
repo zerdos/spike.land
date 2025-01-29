@@ -120,6 +120,24 @@ const liveRoute = createRoute({
 });
 dynamicRoutes.push(liveRoute);
 
+// Live page route with code space parameter
+const EditorRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/live/$codeSpace",
+  parseParams: (params): RouteParams => ({
+    codeSpace: params.codeSpace || "",
+    page: "",
+  }),
+  stringifyParams: (params: RouteParams) => ({
+    codeSpace: params.codeSpace,
+  }),
+  loader: async ({ params: { codeSpace } }) => ({
+    codeSpace: getCodeSpace(`/live/${codeSpace}`),
+    page: "",
+  }),
+  component: () => <App />,
+});
+dynamicRoutes.push(EditorRoute);
 const routeTree = rootRoute.addChildren([...dynamicRoutes]);
 
 // Create and configure the router instance
