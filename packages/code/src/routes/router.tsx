@@ -50,7 +50,7 @@ const App: React.FC = () => {
   const codeSpace = getCodeSpace(location.pathname);
 
   useEffect(() => {
-    if (codeSpace) {
+    if (codeSpace && !location.pathname.endsWith("/")) {
       (async () => {
         const cSess = new Code(codeSpace);
         const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
