@@ -53,12 +53,14 @@ worker script.
 ## API Reference
 
 ### Service Worker Endpoints
+
 - `GET /swVersion.mjs` - Current service worker version
 - `GET /swVersion.js` - Service worker version and files info
 - `GET /sw-config.json` - Service worker configuration
 - `GET /ASSET_MANIFEST` - Asset manifest
 
 ### AI Integration Endpoints
+
 - `POST /transpile` - Code transpilation using esbuild
 - `POST /anthropic` - Anthropic AI requests
 - `GET /ai-logs` - Recent AI logs
@@ -68,16 +70,19 @@ worker script.
 - `POST /replicate` - Replicate AI requests
 
 ### Authentication & WebRTC
+
 - `GET /api/logged_in` - JWT token verification
 - `GET /api/my-turn` - WebRTC TURN credentials
 
 ### CMS Operations
+
 - `/my-cms/` - Personal CMS operations (GET, PUT, DELETE)
 - `/live-cms/` - Live CMS operations (GET, PUT, DELETE)
 
 ## Environment Variables
 
 Required environment variables:
+
 ```bash
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
@@ -89,21 +94,25 @@ For local development, create a `.dev.vars` file with these variables.
 ## Development
 
 1. Install dependencies:
+
 ```bash
 yarn install
 ```
 
 2. Start local development:
+
 ```bash
 yarn dev
 ```
 
 3. Test your changes:
+
 ```bash
 yarn test
 ```
 
 4. Deploy to Cloudflare Workers:
+
 ```bash
 yarn deploy
 ```

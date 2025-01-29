@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/vitest-pool-workers": "0.6.8",
-    "@cloudflare/workers-types": "4.20250124.3",
+    "@cloudflare/workers-types": "4.20250129.0",
     "@spike-npm-land/transpile": "0.9.56",
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
