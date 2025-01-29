@@ -12,4 +12,4 @@ export const main = async () => {
 };
 
 // Export for global access
-Object.assign(globalThis, { webSocketManager });
+Object.assign(window, { webSocketManager });
