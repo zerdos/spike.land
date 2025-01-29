@@ -1,4 +1,5 @@
 import { Wrapper } from "@/components/app/wrapper";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import { ICode, ICodeSession } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import { ClerkProvider } from "@clerk/clerk-react";
@@ -12,7 +13,6 @@ import {
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
-import { getCodeSpace } from "../hooks/use-code-space";
 import { Code } from "../services/CodeSession";
 import { CodeSessionBC } from "../services/CodeSessionBc";
 // Define route types
