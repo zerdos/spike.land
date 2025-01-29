@@ -22,7 +22,6 @@
     "clean": "rm -rf .tsBuildInfo dist dts && mkdir -p dist dts dist-vite",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "tw:x": "yarn tailwindcss -i src/app/globals.css -c tailwind.config.ts --postcss -m -o dist/app/tw-global.css",
     "sw": "echo ok",
     "test": "yarn vitest --no-color --reporter verbose run",
     "test-slim": "yarn typecheck && yarn lint &&  yarn vitest --no-color --reporter verbose run",

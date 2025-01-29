@@ -1,22 +1,40 @@
 # Cloudflare Edge Chat Demo
 
-This project is a Cloudflare Workers-based application that provides various API
-endpoints for different functionalities, including a real-time collaborative
-code editor.
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](../../LICENSE.md)
 
-## Static File Handling
+A Cloudflare Workers-based backend that powers spike.land's real-time collaborative code editor with various API endpoints and services.
 
-The application uses a sophisticated system for serving static files:
+## Table of Contents
 
-1. Static files are managed using Cloudflare's KV (Key-Value) storage.
-2. The `getAssetFromKV` function from `@cloudflare/kv-asset-handler` is used to
-   fetch assets from KV storage.
-3. A custom `serveWithCache` function is implemented to serve files with
-   caching.
-4. The application uses an `ASSET_MANIFEST` and `ASSET_HASH` for versioning and
-   managing static assets.
-5. Different file types are served with appropriate Content-Type headers,
-   ensuring correct interpretation by browsers.
+- [Overview](#overview)
+- [Features](#features)
+- [Architecture](#architecture)
+- [API Reference](#api-reference)
+- [Development](#development)
+- [Environment Variables](#environment-variables)
+- [Troubleshooting](#troubleshooting)
+
+## Overview
+
+## Features
+
+- Real-time collaboration using Durable Objects
+- Static file serving with KV storage
+- Authentication with Clerk
+- AI integrations (OpenAI, Anthropic, Whisper)
+- WebRTC TURN server
+- CMS functionality
+- Asset versioning and caching
+
+## Architecture
+
+### Static File Handling
+
+- Cloudflare KV storage for static files
+- `getAssetFromKV` for efficient asset retrieval
+- Custom `serveWithCache` implementation
+- Asset versioning with `ASSET_MANIFEST` and `ASSET_HASH`
+- Content-Type header management
 
 ## NPM File Management
 
@@ -32,65 +50,90 @@ several npm packages:
 The project likely uses a build step to bundle these npm dependencies into the
 worker script.
 
-## API Endpoints
+## API Reference
 
-1. `/swVersion.mjs`: Returns the current service worker version.
-2. `/swVersion.js`: Returns the service worker version and files information.
-3. `/sw-config.json`: Returns service worker configuration.
-4. `/transpile` (POST): Transpiles code using esbuild.
-5. `/ASSET_MANIFEST`: Returns the asset manifest.
-6. `serverFetchUrl`: Handles enhanced fetch requests.
-7. `/anthropic`: Handles Anthropic AI requests.
-8. `/ai-logs`: Returns recent AI logs.
-9. `/api/logged_in/`: Verifies JWT tokens for authentication.
-10. `/openai`: Handles OpenAI GPT-4 requests.
-11. `/whisper`: Handles audio transcription using Whisper model.
-12. `/summarize`: Summarizes text using the BART model.
-13. `/remix`: Placeholder for remix functionality (currently commented out).
-14. `/replicate`: Handles Replicate AI requests.
-15. `/my-cms/`: Handles CMS operations (GET, PUT, DELETE).
-16. `/live-cms/`: Handles CMS operations (GET, PUT, DELETE).
-17. `/api/my-turn`: Generates TURN credentials for WebRTC.
+### Service Worker Endpoints
+- `GET /swVersion.mjs` - Current service worker version
+- `GET /swVersion.js` - Service worker version and files info
+- `GET /sw-config.json` - Service worker configuration
+- `GET /ASSET_MANIFEST` - Asset manifest
 
-### CMS Endpoints (for both `/my-cms/` and `/live-cms/`)
+### AI Integration Endpoints
+- `POST /transpile` - Code transpilation using esbuild
+- `POST /anthropic` - Anthropic AI requests
+- `GET /ai-logs` - Recent AI logs
+- `POST /openai` - OpenAI GPT-4 requests
+- `POST /whisper` - Audio transcription
+- `POST /summarize` - Text summarization
+- `POST /replicate` - Replicate AI requests
 
-- GET: Retrieves CMS content.
-- PUT: Updates CMS content.
-- DELETE: Removes CMS content.
+### Authentication & WebRTC
+- `GET /api/logged_in` - JWT token verification
+- `GET /api/my-turn` - WebRTC TURN credentials
 
-### Asset Handling
+### CMS Operations
+- `/my-cms/` - Personal CMS operations (GET, PUT, DELETE)
+- `/live-cms/` - Live CMS operations (GET, PUT, DELETE)
 
-The application also includes a mechanism for serving static assets with
-appropriate content types and caching headers.
+## Environment Variables
 
-## File Structure
+Required environment variables:
+```bash
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+CLERK_SECRET_KEY=your_clerk_secret
+```
 
-The main application logic is contained in the following files:
-
-- `packages/spike.land/src/cf-workers.ts`: Main entry point for the Cloudflare
-  Worker.
-- `packages/spike.land/src/chat.ts`: Handles most of the API routes and their
-  logic.
-- `packages/spike.land/src/chatRoom.ts`: Implements the core chatroom
-  functionality.
-
-## Usage
-
-To use this application, deploy it to Cloudflare Workers and configure the
-necessary environment variables and bindings. Ensure that Durable Objects are
-enabled for your worker to support the chatroom functionality.
+For local development, create a `.dev.vars` file with these variables.
 
 ## Development
 
-To develop or modify this application:
+1. Install dependencies:
+```bash
+yarn install
+```
 
-1. Clone the repository
-2. Install dependencies using npm or yarn
-3. Make changes to the relevant files in `packages/spike.land/src/`
-4. Use the build process (not shown in the provided code) to bundle the
-   application and its dependencies
-5. Test your changes locally using Wrangler
-6. Deploy to Cloudflare Workers
+2. Start local development:
+```bash
+yarn dev
+```
+
+3. Test your changes:
+```bash
+yarn test
+```
+
+4. Deploy to Cloudflare Workers:
+```bash
+yarn deploy
+```
+
+### Prerequisites
+
+- Cloudflare Workers account
+- Wrangler CLI installed
+- Durable Objects enabled
+- KV namespace created
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **Durable Objects not working:**
+   - Verify Durable Objects are enabled in your account
+   - Check wrangler.toml configuration
+
+2. **KV access issues:**
+   - Ensure KV namespace is properly bound
+   - Verify KV access permissions
+
+3. **Authentication errors:**
+   - Check Clerk configuration
+   - Verify JWT token format
+
+4. **Deployment failures:**
+   - Run `wrangler whoami` to verify authentication
+   - Check for syntax errors with `yarn lint`
 
 For more detailed information on each endpoint and its functionality, please
 refer to the source code in `packages/spike.land/src/chat.ts`,

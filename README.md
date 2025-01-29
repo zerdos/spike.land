@@ -1,45 +1,80 @@
 # Real-Time React Page Editor in TypeScript
 
-Easily edit and preview your React pages in real-time using this
-TypeScript-based page editor.
+Easily edit and preview your React pages in real-time using this TypeScript-based page editor.
 
 ![Real-Time React Page Editor Screenshot](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
 
 [Live Demo](https://spike.land)
 
-## Monorepo Structure ![Last Updated](https://img.shields.io/github/last-commit/zerdos/spike.land.svg)
+## Overview
 
-This project is organized as a monorepo. The main components are:
+This project provides a real-time collaborative React page editor built with TypeScript and powered by Cloudflare Workers. It enables developers to edit and preview React components in real-time, with built-in collaboration features.
 
-```js
-if (code) return "it is in the monorepo";
+## Prerequisites
 
-// spike.land-frontend:              /packages/code
-// spike.land cloudflare worker:     /packages/spike.land
-// docker-images:                    /packages/groovy-devcontainer
-//                                   /packages/focal-devcontainer
-//                                   /packages/rolling-devcontainer
-//
+- Node.js (LTS version)
+- Yarn
+- Git
+
+## Quick Start
+
+1. Clone the repository:
+```bash
+git clone https://github.com/zerdos/spike.land.git
+cd spike.land
 ```
 
-### Navigating the Monorepo
+2. Install dependencies:
+```bash
+yarn install
+```
 
-If you're interested in a specific component, check out the `packages` folder.
+3. Start the development server:
+```bash
+yarn dev
+```
+
+## Monorepo Structure ![Last Updated](https://img.shields.io/github/last-commit/zerdos/spike.land.svg)
+
+This project is organized as a monorepo with the following structure:
+
+```
+/packages
+├── code/                 # Frontend React application
+├── spike.land/          # Cloudflare Workers backend
+├── js.spike.land/       # JavaScript utilities
+└── spike-land-renderer/ # Page rendering engine
+```
+
+## Development Environment
+
+The project includes several development container configurations in the `/devcontainers` directory for consistent development environments:
+- bookworm-devcontainer
+- jammy-devcontainer
+- lunar-devcontainer
+- trixie-devcontainer
+- node-chrome
+
+### Using Gitpod
 
 You can explore the entire repository using Gitpod:
 
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zerdos/spike.land)
 
+After opening in Gitpod, you can access a full Ubuntu + Xfce environment:
 ```bash
-# If you opened the repo in Gitpod,
-#  - you're in luck! 
-#  - Try the latest Ubuntu + Xfce with this command:
-
-startx;
-
-# After it opens, you can access the remote server on port :6080 in your browser.
+startx  # Launches Xfce desktop environment
+# Access the remote desktop on port :6080 in your browser
 ```
 
-For more information on JavaScript package managers, check out this article:
+## Contributing
 
-https://blog.logrocket.com/javascript-package-managers-compared/
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on submitting pull requests.
+
+## License
+
+This project is licensed under the terms of the license found in [LICENSE.md](LICENSE.md).
+
+## Security
+
+For security concerns, please see our [Security Policy](SECURITY.md).
