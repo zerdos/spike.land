@@ -1,4 +1,4 @@
-import { renderApp } from "@/lib/render-app";
+import { renderApp } from "@/external/render-app";
 import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";

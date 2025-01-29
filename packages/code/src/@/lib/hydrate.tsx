@@ -11,7 +11,7 @@ export const renderPreviewWindow = async (
   // import { ClerkProvider } from "@clerk/clerk-react";
   // import { AppToRender } from "./AppToRender";
 
-  const renderAppPromise = import("@/lib/render-app");
+  const renderAppPromise = import("@/external/render-app");
   const ClerkProviderPromise = import("@clerk/clerk-react");
 
   const [

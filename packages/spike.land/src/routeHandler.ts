@@ -511,7 +511,7 @@ hQIDAQAB
     const origin: string = this.code.getOrigin();
 
     const code = `import App from "${origin}/live/${codeSpace}/index.js";
-    import { renderApp } from "${origin}/@/lib/render-app.mjs";
+    import { renderApp } from "${origin}/@/external/render-app.mjs";
     
     window.renderedApp = renderApp({ App, rootElement: document.getElementById("embed") });
 

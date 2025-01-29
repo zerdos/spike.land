@@ -38,7 +38,7 @@ export class RenderService implements IRenderService {
 
       this.cleanup();
 
-      const { renderApp } = await import("@/lib/render-app");
+      const { renderApp } = await import("@/external/render-app");
       this.rendered = await renderApp({
         transpiled,
         codeSpace: this.codeSpace,
