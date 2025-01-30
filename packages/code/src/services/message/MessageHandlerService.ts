@@ -1,11 +1,16 @@
-import { Message } from '@/lib/interfaces';
-import { CodeProcessor } from '../code/CodeProcessor';
-import { IMessageHandlerService, RunMessageResult } from '../websocket/types';
-import {  MessageType, MessageResponse, MessageHandlerConfig } from './types';
+import { Message, MessageType, MessageResponse, MessageHandlerConfig, TextPart, MessageContent } from './types';
 
-export class MessageHandlerService implements IMessageHandlerService {
+/**
+ * Service for handling and processing different types of messages
+ * with support for text, command, and status messages.
+ */
+export class MessageHandlerService {
   private config: MessageHandlerConfig;
 
+  /**
+   * Creates a new MessageHandlerService instance
+   * @param config Optional configuration for the service
+   */
   constructor(config: MessageHandlerConfig = {}) {
     this.config = {
       logErrors: true,
@@ -15,15 +20,11 @@ export class MessageHandlerService implements IMessageHandlerService {
     };
   }
 
-  public   cleanup(): void {
-    this.config = {
-      logErrors: true,
-      maxRetries: 3,
-      timeout: 5000,
-    };
-    // Cleanup resources
-  }
-
+  /**
+   * Validates if an unknown object is a valid Message
+   * @param message The object to validate
+   * @returns Type guard indicating if the object is a valid Message
+   */
   public validateMessage(message: unknown): message is Message {
     if (!message || typeof message !== 'object') {
       return false;
@@ -31,23 +32,56 @@ export class MessageHandlerService implements IMessageHandlerService {
 
     const msg = message as Message;
     return (
+      'id' in msg &&
       'type' in msg &&
-      Object.values(MessageType).includes((msg as unknown as {type: MessageType}).type)
+      'role' in msg &&
+      Object.values(MessageType).includes(msg.type as MessageType)
     );
   }
 
-  public async handleRunMessage(transpiled: string): Promise<RunMessageResult | false> {
-    // Process run message
-    const codeProcessor = new CodeProcessor();
-    const executed= await codeProcessor.process(transpiled, false, new AbortController().signal);
-    if (!executed) {
-      return false;
-    }
-    return executed;
+  /**
+   * Type guard to check if content is a TextPart
+   * @param content The content to check
+   * @returns True if content is a TextPart
+   */
+  private isTextPart(content: MessageContent): content is TextPart {
+    return (
+      typeof content === 'object' &&
+      content !== null &&
+      'type' in content &&
+      content.type === 'text' &&
+      'text' in content &&
+      typeof (content as TextPart).text === 'string'
+    );
   }
 
-  public async handleMessage(event: Message): Promise<MessageResponse> {
-    const message = event as Message;
+  /**
+   * Extracts text content from different MessageContent types
+   * @param content The message content to process
+   * @returns The extracted text string
+   * @throws Error if no valid text content is found
+   */
+  private getTextFromContent(content: MessageContent): string {
+    if (typeof content === 'string') {
+      return content;
+    } else if (Array.isArray(content)) {
+      const textPart = content.find(part => part.type === 'text') as TextPart | undefined;
+      if (!textPart) {
+        throw new Error('No text content found in message parts');
+      }
+      return textPart.text;
+    } else if (this.isTextPart(content)) {
+      return content.text;
+    }
+    throw new Error('Invalid message content type');
+  }
+
+  /**
+   * Main method for handling messages
+   * @param message The message to process
+   * @returns A promise resolving to a MessageResponse
+   */
+  public async handleMessage(message: Message): Promise<MessageResponse> {
     try {
       if (!this.validateMessage(message)) {
         throw new Error('Invalid message format');
@@ -57,9 +91,7 @@ export class MessageHandlerService implements IMessageHandlerService {
         throw new Error('Missing message content');
       }
 
-      if (!Object.values(MessageType).includes((message as unknown as {
-        type: MessageType;
-      }).type)) {
+      if (!Object.values(MessageType).includes(message.type as MessageType)) {
         console.error('Unhandled message type:', message.type);
         return {
           success: false,
@@ -84,31 +116,28 @@ export class MessageHandlerService implements IMessageHandlerService {
     }
   }
 
+  /**
+   * Processes a message based on its type
+   * @param message The message to process
+   * @returns A promise resolving to the processed result
+   * @throws Error if message processing fails
+   */
   private async processMessage(message: Message): Promise<unknown> {
-    switch (message.type) {
-      case MessageType.TEXT:
-        return this.handleTextMessage(message);
-      case MessageType.COMMAND:
-        return this.handleCommandMessage(message);
-      case MessageType.STATUS:
-        return this.handleStatusMessage(message);
-      default:
-        throw new Error(`Unsupported message type: ${message.type}`);
+    try {
+      const text = this.getTextFromContent(message.content);
+
+      switch (message.type) {
+        case MessageType.TEXT:
+          return { text };
+        case MessageType.COMMAND:
+          return { command: text, executed: true };
+        case MessageType.STATUS:
+          return { status: text, timestamp: new Date().toISOString() };
+        default:
+          throw new Error(`Unsupported message type: ${message.type}`);
+      }
+    } catch (error) {
+      throw new Error('Invalid message content type');
     }
-  }
-
-  private async handleTextMessage(message: Message): Promise<unknown> {
-    // Process text message
-    return { text: message.content };
-  }
-
-  private async handleCommandMessage(message: Message): Promise<unknown> {
-    // Process command message
-    return { command: message.content, executed: true };
-  }
-
-  private async handleStatusMessage(message: Message): Promise<unknown> {
-    // Process status message
-    return { status: message.content, timestamp: new Date().toISOString() };
   }
 }
