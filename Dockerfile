@@ -41,8 +41,9 @@ WORKDIR ${USER_HOME}/workspace
 # RUN yarn global add <your-global-packages>
 
 # Cache bust only when package files change
-COPY --chown=${USERNAME}:${USERNAME} package*.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 600000
+COPY --chown=${USERNAME}:${USERNAME} .yarn  .yarn/
+COPY --chown=${USERNAME}:${USERNAME} package*.json yarn.lock .yarnrc.yml  ./
+RUN yarn
 
 # Set default command
 CMD ["zsh"]
