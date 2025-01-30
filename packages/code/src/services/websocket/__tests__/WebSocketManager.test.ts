@@ -5,7 +5,6 @@ import { MessageHandlerService } from "../../message/MessageHandlerService";
 import { ServiceWorkerManager } from "../../worker/ServiceWorkerManager";
 import { WebSocketManager } from "../WebSocketManager";
 import type { ICodeSession } from "@/lib/interfaces";
-import { tr } from "date-fns/locale";
 
 // Mock window.scrollTo for JSDOM
 window.scrollTo = vi.fn();
@@ -42,19 +41,19 @@ vi.mock("@/lib/hydrate", () => ({
 
 vi.mock("@/lib/errors", () => ({
   DOMError: class extends Error {
-    constructor(message: string, elementId?: string) {
+    constructor(message: string) {
       super(message);
       this.name = "DOMError";
     }
   },
   WebSocketError: class extends Error {
-    constructor(message: string, originalError?: Error) {
+    constructor(message: string) {
       super(message);
       this.name = "WebSocketError";
     }
   },
   MessageHandlingError: class extends Error {
-    constructor(message: string, data?: unknown) {
+    constructor(message: string) {
       super(message);
       this.name = "MessageHandlingError";
     }

@@ -39,6 +39,9 @@ export class WebSocketManager implements IWebSocketManager {
     this.codeSpace = getCodeSpace(location.pathname);
     this.messageHandler = new MessageHandlerService(this.codeSpace);
     this.serviceWorker = new ServiceWorkerManager();
+    setTimeout(() => {
+      this.serviceWorker.setup().catch(console.error);
+    }, 0);
   }
 
   /**
@@ -70,9 +73,7 @@ export class WebSocketManager implements IWebSocketManager {
       }
 
       // Initialize service worker
-      setTimeout(() => {
-        this.serviceWorker.setup().catch(console.error);
-      }, 0);
+     
     } catch (error) {
       const errorMessage = getErrorMessage(error);
       throw new WebSocketError(

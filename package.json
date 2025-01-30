@@ -17,7 +17,7 @@
     "build:all": "yarn workspaces foreach -p run build",
     "build:fe": "yarn workspace @spike-npm-land/code build",
     "build:workers": "yarn workspaces foreach -p --include '@spike-npm-land/{code-worker,transpile}' run build",
-    "deploy:dev": "yarn build:fe && yarn workspaces foreach -p run deploy:dev",
+    "deploy:dev": "yarn build:fe && yarn workspaces foreach --all -p run deploy:dev",
     "deploy:prod": "NODE_ENV=production yarn build:fe && yarn workspaces foreach -p run deploy:prod",
     "deploy:full": "yarn fmt && git add . && yarn build:all && yarn deploy:dev && yarn deploy:prod && git commit -m 'deploy' && git pull && git push",
     "types:check": "yarn workspaces foreach -p run types:check",
