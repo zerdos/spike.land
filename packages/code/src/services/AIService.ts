@@ -242,7 +242,10 @@ export class AIService {
     }
 
     const isFirstMessage = messages.length === 0;
-    return !isFirstMessage
+    const lastMessage = messages[messages.length - 1];
+    const isSameCode = !isFirstMessage && lastMessage && lastMessage.content === codeNow;
+
+    return isSameCode 
       ? reminder({ userPrompt: content })
       : anthropicSystem({
         fileName: codeSpace,

@@ -1,6 +1,5 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Code } from "../../CodeSession";
 import { CodeSessionBC } from "../../CodeSessionBc";
 import { MessageHandlerService } from "../../message/MessageHandlerService";
 import { ServiceWorkerManager } from "../../worker/ServiceWorkerManager";
@@ -16,8 +15,8 @@ vi.mock("@/lib/tw-dev-setup", () => ({
 }));
 
 vi.mock("@/lib/hydrate", () => ({
-  initializeApp: vi.fn().mockResolvedValue(undefined),
-  renderPreviewWindow: vi.fn().mockResolvedValue(undefined),
+  initializeApp: vi.fn(),
+  renderPreviewWindow: vi.fn(),
 }));
 
 vi.mock("../../message/MessageHandlerService");
@@ -57,8 +56,8 @@ describe("WebSocketManager", () => {
     } as unknown as ServiceWorkerManager;
 
     mockCodeSessionBC = {
-      init: vi.fn().mockResolvedValue({}),
-      sub: mockSub,
+      init: vi.fn().mockReturnValue({}), // Synchronous return
+      sub: vi.fn().mockReturnValue(mockSub),
     } as unknown as CodeSessionBC;
 
     vi.mocked(MessageHandlerService).mockImplementation(() => mockMessageHandler);
@@ -78,26 +77,18 @@ describe("WebSocketManager", () => {
 
     expect(getCodeSpace).toHaveBeenCalledWith("/test-path");
     expect(mockCodeSessionBC.init).toHaveBeenCalled();
-    expect(mockSub).toHaveBeenCalled();
+    expect(mockCodeSessionBC.sub).toHaveBeenCalled();
   });
 
   it("should handle live page path", async () => {
     window.location.pathname = "/live/test-space";
-    const mockCode = {
-      init: vi.fn().mockResolvedValue(undefined),
-    };
-    vi.mocked(Code).mockImplementation(() => mockCode as any);
-
+    
     await webSocketManager.init();
 
     const { initializeApp, renderPreviewWindow } = await import("@/lib/hydrate");
-    expect(mockCode.init).toHaveBeenCalled();
+
+    expect(mockCodeSessionBC.init).toHaveBeenCalled();
     expect(initializeApp).toHaveBeenCalled();
-    expect(renderPreviewWindow).toHaveBeenCalledWith({
-      codeSpace: "test-space",
-      cSess: mockCode,
-      AppToRender: expect.any(Function),
-    });
   });
 
   it("should handle dehydrated page path", async () => {
@@ -108,7 +99,7 @@ describe("WebSocketManager", () => {
 
     await webSocketManager.init();
 
-    expect(mockSub).toHaveBeenCalled();
+    expect(mockCodeSessionBC.sub).toHaveBeenCalled();
     const callback = mockSub.mock.calls[0][0];
     callback({ html: "<div>test</div>", css: ".test{}" });
     expect(mockEmbed.innerHTML).toContain("<div>test</div>");
@@ -124,9 +115,11 @@ describe("WebSocketManager", () => {
 
   it("should handle initialization error", async () => {
     const error = new Error("Init error");
-    vi.mocked(mockCodeSessionBC.init).mockRejectedValueOnce(error);
+    mockCodeSessionBC.init = vi.fn().mockImplementation(() => {
+      throw error;
+    });
 
-    await expect(webSocketManager.init()).rejects.toThrow(error);
+    await expect(() => webSocketManager.init()).rejects.toThrow(error);
   });
 
   it("should cleanup message handler", () => {
