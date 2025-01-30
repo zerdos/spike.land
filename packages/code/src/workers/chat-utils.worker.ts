@@ -1,4 +1,4 @@
-import { Message, MessageContent } from '@/lib/interfaces';
+import { Message } from '@/lib/interfaces';
 import { AIHandler } from '../services/ai/AIHandler';
 
 export class ChatHandler {
@@ -8,7 +8,7 @@ export class ChatHandler {
 
   async handleMessage(message: Message) {
     try {
-      if (!message.content) {
+      if (!message || !message.content) {
         throw new Error('Invalid message format');
       }
       await this.processMessage(message);
@@ -16,7 +16,7 @@ export class ChatHandler {
       console.error('Error in handleMessage:', error);
       self.postMessage({
         type: 'error',
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   }
@@ -26,30 +26,19 @@ export class ChatHandler {
       if (!AIHandler.validateContent(message.content)) {
         throw new Error('Invalid assistant message content type');
       }
-      if (typeof message.content !== 'string') {
-        throw new Error('Invalid message content');
-      }
 
-      const response = await AIHandler.process(message.content);
-      await this.sendAssistantMessage(response.text);
-    } catch (error) {
-      console.error('Error in processMessage:', error);
-      throw error;
-    }
-  }
-
-  async sendAssistantMessage(content: MessageContent) {
-    try {
-      if (!content) {
+      const content = message.content as { text: string; type: string };
+      if (!content.text || !content.type || content.type !== 'text') {
         throw new Error('Invalid assistant message content type');
       }
 
+      const response = await AIHandler.process(content.text);
       self.postMessage({
         type: 'response',
-        content,
+        content: response
       });
     } catch (error) {
-      console.error('Error in sendAssistantMessage:', error);
+      console.error('Error in processMessage:', error);
       throw error;
     }
   }

@@ -34,8 +34,7 @@ export class MessageHandlerService {
     return (
       'id' in msg &&
       'type' in msg &&
-      'role' in msg &&
-      Object.values(MessageType).includes(msg.type as MessageType)
+      'role' in msg
     );
   }
 
@@ -95,11 +94,18 @@ export class MessageHandlerService {
         console.error('Unhandled message type:', message.type);
         return {
           success: false,
-          error: 'Unhandled message type',
+          error: 'Unhandled message type'
         };
       }
 
       const result = await this.processMessage(message);
+      if (typeof result === 'object' && result !== null && 'error' in result) {
+        return {
+          success: false,
+          error: String(result.error)
+        };
+      }
+
       return {
         success: true,
         data: result,
@@ -122,7 +128,7 @@ export class MessageHandlerService {
    * @returns A promise resolving to the processed result
    * @throws Error if message processing fails
    */
-  private async processMessage(message: Message): Promise<unknown> {
+  private async processMessage(message: Message): Promise<Record<string, unknown>> {
     try {
       const text = this.getTextFromContent(message.content);
 
@@ -134,9 +140,9 @@ export class MessageHandlerService {
         case MessageType.STATUS:
           return { status: text, timestamp: new Date().toISOString() };
         default:
-          throw new Error(`Unsupported message type: ${message.type}`);
+          throw new Error('Unhandled message type');
       }
-    } catch (error) {
+    } catch  {
       throw new Error('Invalid message content type');
     }
   }

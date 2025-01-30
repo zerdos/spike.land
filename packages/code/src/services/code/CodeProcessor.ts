@@ -73,7 +73,7 @@ export class CodeProcessor implements ICodeProcessor {
     }
   }
 
-  private async runCode(code: string): Promise<{ html: string; css: string; }> {
+   async runCode(code: string): Promise<{ html: string; css: string; }> {
     try {
       const result = await runCode(code);
       if (!result) {

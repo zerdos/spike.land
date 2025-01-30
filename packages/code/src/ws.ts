@@ -1,9 +1,9 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-import { MessageHandlerService } from "./services/message/MessageHandlerService";
 import type { WebSocketDependencies } from "./services/websocket/types";
 import { WebSocketManager } from "./services/websocket/WebSocketManager";
 import { ServiceWorkerManager } from "./services/worker/ServiceWorkerManager";
+import { CodeProcessor } from "./services/code/CodeProcessor";
 
 
 
@@ -11,10 +11,24 @@ import { ServiceWorkerManager } from "./services/worker/ServiceWorkerManager";
 export const main = async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
+    // const cSess = new Code(codeSpace);
+    // await cSess.init();
+    const codeProcessor = new CodeProcessor();
     
     const websocketDependencies: WebSocketDependencies = {
       codeSessionBC: new CodeSessionBC(codeSpace),
-      messageHandler: new MessageHandlerService(),
+     messageHandler: {
+
+          handleRunMessage: codeProcessor.runCode,
+          handleMessage: (event) => {
+            console.log("Message received:", event);
+            return Promise.resolve({ success: true });
+          },
+          cleanup: () => {
+            console.log("Cleaning up message handler");
+          },
+          
+      },
       serviceWorker: new ServiceWorkerManager(),
     };
 
