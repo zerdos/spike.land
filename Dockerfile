@@ -13,6 +13,9 @@ RUN apk update && apk add --no-cache \
     shadow \
     perl \
     gcompat \
+    bash \
+    curl \
+    build-base \
     && rm -rf /var/cache/apk/*
 
 # Set up user and permissions in a single layer

@@ -42,11 +42,6 @@
   "forwardPorts": [6080, 3333, 9222, 8080],
   "postStartCommand": "yarn install",
   "remoteUser": "node",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    },
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
-  }
+  "updateRemoteUserUID": true,
+  "overrideCommand": false
 }
