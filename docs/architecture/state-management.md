@@ -4,9 +4,46 @@
 
 The system employs a multi-layered state management approach across different components:
 - Frontend state management using React hooks and context
-- Worker state management through Durable Objects
+- Route state management using TanStack Router
 - Distributed state coordination across multiple clients
+- Worker state management through Durable Objects
 - Persistent state storage in KV and R2
+
+## Route State Management
+
+### Route Types and Parameters
+```typescript
+// Core route parameter types
+interface RouteParams {
+  codeSpace: string;
+}
+
+interface RouteWithPageParams {
+  codeSpace: string;
+  page: string;
+}
+
+// Router state type
+interface RouterState {
+  resolvedLocation: {
+    pathname: string;
+    params: RouteParams | RouteWithPageParams;
+  };
+}
+```
+
+### Route Context Integration
+```typescript
+// Router context configuration
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+  context: createContext<{
+    params: RouteParams | RouteWithPageParams;
+    search: SearchParams;
+  } | null>(null),
+});
+```
 
 ## Frontend State Management
 
@@ -26,48 +63,59 @@ function Editor({ initialCode }: EditorProps) {
 }
 ```
 
-### Application State
+### Route-Aware State Management
 ```typescript
-// Example global state context
-interface AppState {
-  user: User | null;
-  theme: 'light' | 'dark';
-  collaboration: CollaborationState;
-}
+// App state integrated with routing
+const App: React.FC = () => {
+  const [cSess, setState] = useState<ICode | null>(null);
+  const codeSpace = getCodeSpace(location.pathname);
 
-const AppStateContext = createContext<AppState>(initialState);
+  useEffect(() => {
+    if (codeSpace && location.pathname === `/live/${codeSpace}`) {
+      initializeSession();
+    }
+  }, [codeSpace]);
 
-// State provider
-export function AppStateProvider({ children }: PropsWithChildren) {
-  const [state, dispatch] = useReducer(appReducer, initialState);
-  
-  return (
-    <AppStateContext.Provider value={state}>
-      {children}
-    </AppStateContext.Provider>
-  );
-}
+  // State updates based on route
+  useEffect(() => {
+    let unSub: () => void = () => {};
+
+    if (cSess) {
+      (async () => {
+        const cSessBr = new CodeSessionBC(codeSpace);
+        await cSessBr.init(cSess.session);
+        unSub = cSessBr.sub((sess) => setState({ ...cSess, session: sess }));
+      })();
+    }
+    return () => unSub();
+  }, [cSess]);
+};
 ```
 
-### State Updates
+### Session State Management
 ```typescript
-// Example state reducer
-function appReducer(state: AppState, action: Action): AppState {
-  switch (action.type) {
-    case 'UPDATE_CODE':
-      return {
-        ...state,
-        collaboration: {
-          ...state.collaboration,
-          currentCode: action.payload
-        }
-      };
-    case 'SET_USER':
-      return {
-        ...state,
-        user: action.payload
-      };
-    // ...
+class CodeSessionBC {
+  private broadcastChannel: BroadcastChannel;
+  session: ICodeSession | null = null;
+  subscribers: Array<(session: ICodeSession) => void> = [];
+
+  constructor(private codeSpace: string, session?: ICodeSession) {
+    this.broadcastChannel = new BroadcastChannel(
+      `/live/${this.codeSpace}/`,
+    );
+    this.broadcastChannel.onmessage = this.handleMessage.bind(this);
+  }
+
+  async init(session?: ICodeSession): Promise<ICodeSession> {
+    return this.session = session || this.session ||
+      (await this.fetchSession());
+  }
+
+  sub(callback: (session: ICodeSession) => void): () => void {
+    this.subscribers.push(callback);
+    return () => {
+      this.subscribers = this.subscribers.filter((cb) => cb !== callback);
+    };
   }
 }
 ```
@@ -80,7 +128,6 @@ function appReducer(state: AppState, action: Action): AppState {
 export class CollaborationRoom implements DurableObject {
   private state: DurableObjectState;
   private sessions: Map<string, WebSocket>;
-  private document: string;
   
   constructor(state: DurableObjectState) {
     this.state = state;
@@ -88,97 +135,72 @@ export class CollaborationRoom implements DurableObject {
     
     // Load persistent state
     this.state.blockConcurrencyWhile(async () => {
-      this.document = await this.state.storage.get('document') || '';
+      await this.loadState();
     });
   }
   
   // Handle state updates
   async updateDocument(newContent: string) {
     await this.state.storage.put('document', newContent);
-    this.document = newContent;
     this.broadcastUpdate();
   }
 }
 ```
 
-### Transient Worker State
+## Route-Aware State Updates
+
+### Navigation State Updates
 ```typescript
-// Example worker memory state
-class WorkerStateManager {
-  private cache = new Map<string, CacheEntry>();
-  private metrics: MetricsCollector;
-  
-  constructor() {
-    this.metrics = new MetricsCollector();
-    setInterval(() => this.cleanupCache(), 60000);
-  }
-  
-  async get(key: string) {
-    const cached = this.cache.get(key);
-    if (cached && !this.isExpired(cached)) {
-      return cached.value;
-    }
-    return null;
-  }
+// Example route transition handling
+interface RouteTransition {
+  from: string;
+  to: string;
+  params: RouteParams | RouteWithPageParams;
 }
+
+const handleRouteTransition = async (transition: RouteTransition) => {
+  // Handle state cleanup from previous route
+  await cleanupPreviousState(transition.from);
+  
+  // Initialize state for new route
+  await initializeNewState(transition.to, transition.params);
+};
 ```
 
-## Distributed State Coordination
-
-### Real-time Synchronization
-```mermaid
-sequenceDiagram
-    participant Client1
-    participant DO as Durable Object
-    participant Client2
-    participant Storage
-
-    Client1->>DO: Update State
-    DO->>Storage: Persist Change
-    DO-->>Client1: Confirm Update
-    DO-->>Client2: Broadcast Change
-    Client2->>Client2: Apply Update
-```
-
-### State Conflict Resolution
+### State Persistence Per Route
 ```typescript
-// Example operational transform
-interface Operation {
-  type: 'insert' | 'delete';
-  position: number;
-  content?: string;
-  sourceClient: string;
-  timestamp: number;
-}
+// Example route-specific state persistence
+const persistRouteState = async (
+  pathname: string,
+  state: RouteParams | RouteWithPageParams
+) => {
+  const key = `route:${pathname}`;
+  await this.state.storage.put(key, state);
+};
 
-class StateResolver {
-  transform(op1: Operation, op2: Operation): Operation {
-    if (op1.timestamp < op2.timestamp) {
-      return this.adjustOperation(op1, op2);
-    }
-    return op1;
-  }
-  
-  private adjustOperation(op: Operation, against: Operation): Operation {
-    // Implement operational transform logic
-    return op;
-  }
-}
+const loadRouteState = async (pathname: string) => {
+  const key = `route:${pathname}`;
+  return await this.state.storage.get(key);
+};
 ```
 
-## Persistent State Storage
+## State Conflict Resolution
 
-### Storage Hierarchy
-```mermaid
-graph TD
-    A[Memory Cache] --> B[Durable Object Storage]
-    B --> C[KV Storage]
-    C --> D[R2 Storage]
-    
-    E[Temporary State] --> A
-    F[Session State] --> B
-    G[Persistent State] --> C
-    H[Large State/Backups] --> D
+### Route Parameter Resolution
+```typescript
+// Example route parameter conflict resolution
+function resolveRouteParams(
+  params: RouteParams | RouteWithPageParams
+): ResolvedParams {
+  return {
+    codeSpace: sanitizeCodeSpace(params.codeSpace),
+    page: 'page' in params ? sanitizePage(params.page) : undefined,
+  };
+}
+
+function sanitizeCodeSpace(codeSpace: string): string {
+  return codeSpace.replace(/[^a-zA-Z0-9-]/g, '-');
+}
 ```
 
 ### State Migration
@@ -198,102 +220,6 @@ class StateMigration {
     }
     
     await this.saveState(currentState);
-  }
-}
-```
-
-## State Persistence Strategy
-
-### Write Patterns
-```typescript
-// Example write strategies
-class StateWriter {
-  // Immediate write
-  async writeImmediate(key: string, value: any) {
-    await this.storage.put(key, value);
-  }
-  
-  // Batched write
-  private batchedWrites = new Map();
-  private batchTimeout: NodeJS.Timeout | null = null;
-  
-  async writeBatched(key: string, value: any) {
-    this.batchedWrites.set(key, value);
-    
-    if (!this.batchTimeout) {
-      this.batchTimeout = setTimeout(
-        () => this.flushBatch(),
-        1000
-      );
-    }
-  }
-}
-```
-
-### Read Patterns
-```typescript
-// Example read strategies
-class StateReader {
-  // Cached read
-  private cache = new Map();
-  
-  async readCached(key: string) {
-    if (this.cache.has(key)) {
-      return this.cache.get(key);
-    }
-    
-    const value = await this.storage.get(key);
-    this.cache.set(key, value);
-    return value;
-  }
-  
-  // Streaming read for large state
-  async *readStream(key: string) {
-    const stream = await this.storage.getStream(key);
-    for await (const chunk of stream) {
-      yield chunk;
-    }
-  }
-}
-```
-
-## State Monitoring
-
-### Metrics Collection
-```typescript
-// Example state metrics
-class StateMetrics {
-  private readonly metrics = new Map<string, number>();
-  
-  recordAccess(key: string) {
-    const current = this.metrics.get(key) || 0;
-    this.metrics.set(key, current + 1);
-  }
-  
-  getHotKeys(): string[] {
-    return Array.from(this.metrics.entries())
-      .sort((a, b) => b[1] - a[1])
-      .map(([key]) => key)
-      .slice(0, 10);
-  }
-}
-```
-
-### State Health Checks
-```typescript
-// Example health monitoring
-class StateHealth {
-  async checkHealth(): Promise<HealthStatus> {
-    const checks = await Promise.all([
-      this.checkStorage(),
-      this.checkConsistency(),
-      this.checkReplication()
-    ]);
-    
-    return {
-      healthy: checks.every(c => c.healthy),
-      details: checks
-    };
   }
 }
 ```
@@ -320,23 +246,24 @@ class StateBackup {
 }
 ```
 
-### Consistency Checks
+### Route Error Recovery
 ```typescript
-// Example consistency verification
-class ConsistencyChecker {
-  async verifyState() {
-    const refs = await this.collectStateRefs();
-    const missing = await this.findMissingRefs(refs);
-    
-    if (missing.length > 0) {
-      await this.repairState(missing);
-    }
+// Example route error handling with state recovery
+const handleRouteError = async (error: Error) => {
+  console.error('Route Error:', error);
+  
+  // Attempt state recovery
+  try {
+    await recoverRouteState();
+  } catch (recoveryError) {
+    // Fall back to clean state
+    await resetRouteState();
   }
-}
+};
 ```
 
 ## Related Documentation
-- [Data Flow](./data-flow.md)
 - [Frontend Architecture](./frontend.md)
+- [Data Flow](./data-flow.md)
 - [Workers Architecture](./workers.md)
 - [Error Handling](../development/error-handling.md)

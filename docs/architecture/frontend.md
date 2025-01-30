@@ -2,7 +2,7 @@
 
 ## Overview
 
-The frontend application (`packages/code`) is a modern React application built with TypeScript, leveraging Vite for development and building. It provides a real-time collaborative code editing experience with Monaco Editor integration.
+The frontend application (`packages/code`) is a modern React application built with TypeScript, leveraging Vite for development and building. It provides a real-time collaborative code editing experience with Monaco Editor integration and robust routing capabilities.
 
 ## Technology Stack
 
@@ -12,7 +12,7 @@ graph TD
     React --> Monaco[Monaco Editor]
     React --> TailwindCSS[TailwindCSS]
     React --> RadixUI[Radix UI]
-    React --> WebRTC[WebRTC]
+    React --> TanStack[TanStack Router]
     React --> SW[Service Worker]
     React --> SharedWorker[Shared Worker]
 ```
@@ -24,7 +24,7 @@ graph TD
 - Monaco Editor
 - TailwindCSS
 - Radix UI Components
-- WebRTC
+- TanStack Router
 - Service Workers
 - Shared Workers
 
@@ -40,10 +40,99 @@ packages/code/
 │   │   └── styles/     # Global styles
 │   ├── workers/        # Service and Shared workers
 │   ├── routes/         # Application routing
+│   │   ├── router.tsx  # Main router configuration
+│   │   └── __tests__/ # Route tests
+│   ├── services/      # Core services
+│   │   ├── CodeSession/  # Code session management
+│   │   └── websocket/   # WebSocket communication
 │   ├── i18n/          # Internationalization
 │   └── App.tsx        # Root component
 ├── public/            # Static assets
 └── tests/            # Test files
+```
+
+## Routing Architecture
+
+### Route Configuration
+
+The application uses TanStack Router for type-safe routing with three main route types:
+
+```typescript
+// Root landing page
+const rootRoute = createRootRoute({
+  component: RootLayout,
+});
+
+// Editor route with code space
+const EditorRoute = createRoute({
+  path: "/live/$codeSpace",
+  parseParams: (params): RouteParams => ({
+    codeSpace: params.codeSpace || "",
+  }),
+});
+
+// Live page route with code space and page
+const liveRoute = createRoute({
+  path: "/live/$codeSpace/$page",
+  parseParams: (params): RouteWithPageParams => ({
+    codeSpace: params.codeSpace || "",
+    page: params.page || "",
+  }),
+});
+```
+
+### Route Parameter Types
+
+```typescript
+// Route parameters for different routes
+interface RouteParams {
+  codeSpace: string;
+}
+
+interface RouteWithPageParams {
+  codeSpace: string;
+  page: string;
+}
+
+type SearchParams = Record<string, string>;
+```
+
+### Route Components
+
+The router integrates with core components:
+
+```typescript
+// App component handles route-specific logic
+const App: React.FC = () => {
+  const [cSess, setState] = useState<ICode | null>(null);
+  const codeSpace = getCodeSpace(location.pathname);
+
+  // ... session and initialization logic
+
+  return cSess ? (
+    <ClerkProvider>
+      <AppToRender codeSpace={codeSpace} cSess={cSess} />
+    </ClerkProvider>
+  ) : (
+    <Wrapper codeSpace={codeSpace} />
+  );
+};
+```
+
+### State Integration
+
+Routes interact with application state through CodeSessionBC:
+
+```typescript
+// Example state management in routes
+useEffect(() => {
+  if (codeSpace && location.pathname === `/live/${codeSpace}`) {
+    const cSess = new Code(codeSpace);
+    const session = await fetch(`/live/${codeSpace}/session.json`)
+      .then(res => res.json<ICodeSession>());
+    await cSess.init(session);
+  }
+}, []);
 ```
 
 ## Key Components
@@ -82,6 +171,7 @@ sequenceDiagram
     
     Frontend->>WebSocketManager: connect()
     WebSocketManager->>CodeSessionBC: registerSession()
+    CodeSessionBC-->>Frontend: Initialize with pathname
     CodeSessionBC->>SharedWorker: initializeRpc()
     SharedWorker->>Backend: establishWS()
     Backend-->>SharedWorker: heartbeat
@@ -89,41 +179,21 @@ sequenceDiagram
     CodeSessionBC-->>Frontend: sessionSync
 ```
 
-#### BroadcastChannel Integration (CodeSessionBc)
+#### Session Management
 ```typescript
-// Cross-tab synchronization example
-const bc = new BroadcastChannel(`/live/${codeSpace}/`);
-bc.onmessage = ({ data }) => {
-  this.session = sanitizeSession(data);
-  subscribers.forEach(cb => cb(this.session));
-};
+class CodeSessionBC {
+  private broadcastChannel: BroadcastChannel;
+  session: ICodeSession | null = null;
+  subscribers: Array<(session: ICodeSession) => void> = [];
+
+  constructor(private codeSpace: string, session?: ICodeSession) {
+    this.broadcastChannel = new BroadcastChannel(`/live/${this.codeSpace}/`);
+    this.broadcastChannel.onmessage = this.handleMessage.bind(this);
+  }
+
+  // ... additional methods
+}
 ```
-
-#### Worker Pool Architecture (shared.ts)
-| Worker Type    | Responsibilities               | RPC Methods                          |
-|----------------|---------------------------------|--------------------------------------|
-| `esbuild`      | Code transpilation             | transpile(), build()                |
-| `connect`      | WS connection management       | connect(), heartbeat()              |
-| `prettier`     | Code formatting                | prettierJs(), prettierCss()         |
-| `ata`          | Type acquisition               | ata()                               |
-| `workflow`     | Pipeline execution             | createWorkflow()                    |
-
-#### Conflict Resolution
-- Mutex-locked operations for critical sections
-- Version-aware session synchronization
-- Automatic session sanitization
-
-### 3. Service Worker
-- Offline functionality
-- Asset caching
-- Push notifications
-- Background sync
-
-### 4. State Management
-- React Context for global state
-- Local state with useState and useReducer
-- SWR for remote data fetching
-- Immer for immutable state updates
 
 ## Development Flow
 
@@ -151,134 +221,48 @@ yarn types:check
 yarn test
 ```
 
-## Performance Optimization
-
-### Code Splitting
-- Route-based code splitting
-- Dynamic imports for large components
-- Worker delegation for heavy computations
-
-### Caching Strategy
-```typescript
-// Example service worker cache configuration
-const CACHE_STRATEGY = {
-  static: 'cache-first',
-  api: 'network-first',
-  editor: 'stale-while-revalidate'
-};
-```
-
-### Bundle Optimization
-- Tree shaking with Vite
-- Lazy loading of components
-- Module federation for shared dependencies
-
 ## Testing Strategy
 
-### Unit Testing
+### Route Testing
 ```typescript
-// Example component test
-import { render, fireEvent } from '@testing-library/react';
+// Example route test
+describe("Router Configuration", () => {
+  it("should handle editor route with code space parameter", async () => {
+    await router.navigate({
+      to: "/live/$codeSpace",
+      params: { codeSpace: "test-space" }
+    });
 
-test('Editor handles input correctly', () => {
-  const { getByTestId } = render(<CodeEditor />);
-  const editor = getByTestId('code-editor');
-  fireEvent.change(editor, { target: { value: 'test' } });
-  expect(editor.value).toBe('test');
+    expect(router.state.location.pathname)
+      .toBe("/live/test-space");
+  });
 });
 ```
 
 ### Integration Testing
 - Component interaction testing
-- Worker communication testing
+- Route parameter validation
+- State synchronization testing
 - Real-time collaboration testing
 
-## Internationalization
+## Error Handling
 
-### i18next Integration
 ```typescript
-// Example i18n setup
-import i18n from 'i18next';
-
-i18n.init({
-  lng: 'en',
-  fallbackLng: 'en',
-  resources: {
-    en: { translation: {} },
-    es: { translation: {} }
-  }
-});
-```
-
-## Debugging Tools
-
-### Development Tools
-- React DevTools
-- Performance profiling
-- Network monitoring
-- Memory leak detection
-
-### Error Handling
-```typescript
-// Example error boundary
-class ErrorBoundary extends React.Component {
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('Error:', error);
-    console.info('Component stack:', info.componentStack);
-  }
+// Example route error handler
+interface RouteError {
+  code: string;
+  message: string;
+  details?: unknown;
 }
+
+const handleRouteError = (error: RouteError) => {
+  console.error('Route Error:', error);
+  // Implement error handling logic
+};
 ```
-
-## Worker Communication
-
-### Service Worker
-```typescript
-// Example service worker registration
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js', {
-    scope: '/'
-  });
-}
-```
-
-### Shared Worker
-```typescript
-// Example shared worker usage
-const worker = new SharedWorker('/worker.js', {
-  name: 'collaboration-worker'
-});
-
-worker.port.postMessage({ type: 'CONNECT' });
-```
-
-## Best Practices
-
-### Component Organization
-- Smart/Dumb component pattern
-- Hooks for logic reuse
-- Composition over inheritance
-- Consistent file naming
-
-### State Management
-- Single source of truth
-- Immutable state updates
-- Controlled component patterns
-- Context segregation
-
-### Performance
-- Memoization with useMemo/useCallback
-- Virtual scrolling for large lists
-- Image optimization
-- Code splitting
-
-### Security
-- Input sanitization
-- XSS prevention
-- CSRF protection
-- Secure storage handling
 
 ## Related Documentation
-- [Build Process](../development/build-process.md)
-- [Testing Strategy](../development/testing.md)
 - [State Management](./state-management.md)
 - [Data Flow](./data-flow.md)
+- [Build Process](../development/build-process.md)
+- [Error Handling](../development/error-handling.md)
