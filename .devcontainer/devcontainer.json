@@ -1,29 +1,52 @@
 {
-  "name": "Existing Docker Compose (Extend)",
+  "name": "Spike.land Development Environment",
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
   "service": "devcontainer",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/home/node/workspace",
   "customizations": {
-    "extensions": [
-      "streetsidesoftware.code-spell-checker",
-      "pflannery.vscode-versionlens",
-      "styled-components.vscode-styled-components",
-      "arcanis.vscode-zipfs"
-    ],
     "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "pflannery.vscode-versionlens",
+        "styled-components.vscode-styled-components",
+        "arcanis.vscode-zipfs",
+        "eamodio.gitlens",
+        "github.copilot",
+        "ms-azuretools.vscode-docker",
+        "christian-kohler.npm-intellisense",
+        "formulahendry.auto-rename-tag"
+      ],
       "settings": {
         "files.autoSave": "afterDelay",
         "files.autoSaveDelay": 100,
         "editor.formatOnSave": true,
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnPaste": true,
-        "editor.formatOnType": true
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        },
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "javascript.updateImportsOnFileMove.enabled": "always",
+        "files.watcherExclude": {
+          "**/node_modules/**": true,
+          "**/dist/**": true
+        }
       }
     }
   },
   "forwardPorts": [6080, 3333, 9222, 8080],
   "postStartCommand": "yarn install",
-  "remoteUser": "node"
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  }
 }
