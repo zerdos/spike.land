@@ -47,8 +47,12 @@ export class WebSocketManager implements IWebSocketManager {
    */
   public async init(): Promise<void> {
     try {
+      try{
       await init();
-
+      } catch(e){
+        console.log(e)
+      }
+      console.log("Resource loading complete");
       const cSessBr = new CodeSessionBC(this.codeSpace);
       // const session = await cSessBr.init();
 

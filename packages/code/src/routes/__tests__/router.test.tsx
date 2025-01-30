@@ -1,9 +1,14 @@
 import { act, render, screen, cleanup } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi, Mock } from "vitest";
 import { router, RouterProvider } from "../router";
 
-// Mock window.scrollTo
+// Mock window.scrollTo and fetch
 window.scrollTo = vi.fn();
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ /* mock session data */ }),
+  })
+) as Mock;
 
 // Mock all required dependencies
 vi.mock("@/components/app/wrapper", () => ({
@@ -24,6 +29,9 @@ vi.mock("@/lib/routes", () => ({
 vi.mock("@/lib/hydrate", () => ({
   initializeApp: vi.fn(),
 }));
+
+// Set base URL for tests
+window.location.href = 'http://localhost:3000';
 
 // Mock getCodeSpace to return just the code space part
 vi.mock("@/hooks/use-code-space", () => ({

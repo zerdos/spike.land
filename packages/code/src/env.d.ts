@@ -1,13 +1,10 @@
-// import type * as monaco from "monaco-editor";
+/// <reference types="vite/client" />
 
-/// <reference types="@cloudflare/workers-types" />
+interface ImportMetaEnv {
+  readonly DEV: boolean
+  // Add other env variables as needed
+}
 
-// declare module "monaco-editor/esm/vs/editor/editor.main.js" {
-//   export const editor: monaco.editor;
-// }
-
-export interface CodeEnv extends EventInit {
-  CODE: DurableObjectNamespace;
-  __STATIC_CONTENT: KVNamespace;
-  LIMITERS: DurableObjectNamespace;
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }

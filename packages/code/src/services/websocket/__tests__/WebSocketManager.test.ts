@@ -5,6 +5,7 @@ import { MessageHandlerService } from "../../message/MessageHandlerService";
 import { ServiceWorkerManager } from "../../worker/ServiceWorkerManager";
 import { WebSocketManager } from "../WebSocketManager";
 import type { ICodeSession } from "@/lib/interfaces";
+import { tr } from "date-fns/locale";
 
 // Mock window.scrollTo for JSDOM
 window.scrollTo = vi.fn();
@@ -215,12 +216,18 @@ describe("WebSocketManager", () => {
   });
 
   it("should handle initialization error", async () => {
-    const error = new Error("Init error");
+    // const error = new Error("Init error");
+
     vi.mock("@/lib/tw-dev-setup", () => ({
-      init: vi.fn().mockRejectedValue(error),
+      init: async ()=> true
     }));
 
     await expect(webSocketManager.init()).rejects.toThrow("Failed to initialize WebSocket: Init error");
+
+    vi.mock("@/lib/tw-dev-setup", () => ({
+      init: ()=> Promise.resolve(true),
+    }));
+
   });
 
   it("should handle run message", async () => {

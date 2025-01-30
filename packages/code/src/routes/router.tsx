@@ -59,9 +59,10 @@ const App: React.FC = () => {
     if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
         const cSess = new Code(codeSpace);
-        const session = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
-          res.json<ICodeSession>()
-        );
+        const baseUrl = import.meta.env.DEV ? '' : 'https://testing.spike.land';
+        const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`).then((res) =>
+          res.json()
+        ) as ICodeSession;
         await cSess.init(session);
 
         setState(cSess);
