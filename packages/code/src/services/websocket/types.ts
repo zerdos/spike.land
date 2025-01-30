@@ -65,7 +65,7 @@ export interface IMessageHandlerService {
  */
 export interface IServiceWorkerManager {
   /** Setup service worker */
-  setup(): Promise<void>;
+  setup(): Promise<ServiceWorker | undefined>;
 }
 
 /**

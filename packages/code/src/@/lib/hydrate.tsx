@@ -41,26 +41,31 @@ export const setupServiceWorker = async () => {
   const wb = new Workbox("/sw.js");
   const sw = await wb.register();
 
+
   console.log("Workbox instance created");
 
   console.log("Active service worker:", sw);
 
   if (!sw) {
     console.log("Service worker not found, registering");
-    return;
+    return wb.active;
   }
 
   if (sw.active?.state === "redundant") {
     console.log("Service worker is redundant, updating");
-    return wb.update();
+    await wb.update();
+    return wb.active;
   }
 
   if (sw.active?.state === "activated") {
     console.log("Service worker is already activated");
-    return;
+
+    return sw;
   }
+  
 
   console.log("Service worker setup completed");
+ return sw;
 };
 // };
 

@@ -1,15 +1,16 @@
 import type { IServiceWorkerManager } from "../websocket/types";
 
 export class ServiceWorkerManager implements IServiceWorkerManager {
-  public async setup(): Promise<void> {
-    if (window.parent === window) {
+  public async setup() {
+ //   if (window.parent === window) {
       try {
         const { setupServiceWorker } = await import("@/lib/hydrate");
-        await setupServiceWorker();
+        return await setupServiceWorker() as ServiceWorker;
+
       } catch (error) {
         console.error("Error setting up service worker:", error);
-        throw error;
+        return navigator.serviceWorker.controller!
       }
-    }
+ //   }
   }
 }
