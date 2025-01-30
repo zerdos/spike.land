@@ -25,11 +25,11 @@ vi.mock("@/lib/hydrate", () => ({
   initializeApp: vi.fn(),
 }));
 
-// Mock getCodeSpace to return the full path for code space
+// Mock getCodeSpace to return just the code space part
 vi.mock("@/hooks/use-code-space", () => ({
   getCodeSpace: vi.fn((path: string) => {
     const matches = path.match(/\/live\/([^/]+)(?:\/([^/]+))?/);
-    return matches ? path : "";
+    return matches ? matches[1] : ""; // Return just the code space
   }),
 }));
 
@@ -56,24 +56,26 @@ describe("Router Configuration", () => {
     expect(await screen.findByText("Landing Page")).toBeInTheDocument();
   });
 
-  it("should render live page with code space parameter", async () => {
+  it("should handle editor route with code space parameter", async () => {
     const codeSpace = "test-space";
-    const page = "test-page";
 
     await act(async () => {
       await router.navigate({
-        to: "/live/$codeSpace/$page",
-        params: { codeSpace, page },
+        to: "/live/$codeSpace",
+        params: { codeSpace },
         replace: true,
       });
     });
 
     render(<RouterProvider router={router} />);
     expect(await screen.findByText("Live Page")).toBeInTheDocument();
-    expect(router.state.location.pathname).toBe(`/live/${codeSpace}/${page}`);
+    expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
+    
+    const { getCodeSpace } = await import("@/hooks/use-code-space");
+    expect(getCodeSpace).toHaveBeenCalledWith(`/live/${codeSpace}`);
   });
 
-  it("should handle code space navigation with parameters", async () => {
+  it("should handle live page route with code space and page parameters", async () => {
     const codeSpace = "test-space";
     const page = "test-page";
 
@@ -95,19 +97,29 @@ describe("Router Configuration", () => {
 
   it("should handle multiple route navigations", async () => {
     const codeSpace = "test-space";
-    const page = "test-page";
     
-    // Navigate to live page
+    // Navigate to editor route
     await act(async () => {
       await router.navigate({
-        to: "/live/$codeSpace/$page",
-        params: { codeSpace, page },
+        to: "/live/$codeSpace",
+        params: { codeSpace },
         replace: true,
       });
     });
 
     render(<RouterProvider router={router} />);
     expect(await screen.findByText("Live Page")).toBeInTheDocument();
+    expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
+
+    // Navigate to live page route
+    const page = "test-page";
+    await act(async () => {
+      await router.navigate({
+        to: "/live/$codeSpace/$page",
+        params: { codeSpace, page },
+      });
+    });
+
     expect(router.state.location.pathname).toBe(`/live/${codeSpace}/${page}`);
 
     // Then navigate back to root
@@ -121,25 +133,21 @@ describe("Router Configuration", () => {
     expect(router.state.location.pathname).toBe("/");
   });
 
-  it("should use getCodeSpace to process route parameters", async () => {
-    const testCodeSpace = "test-code-space";
-    const page = "test-page";
+  it("should initialize app for editor route", async () => {
+    const codeSpace = "test-space";
     
     await act(async () => {
       await router.navigate({
-        to: "/live/$codeSpace/$page",
-        params: { codeSpace: testCodeSpace, page },
+        to: "/live/$codeSpace",
+        params: { codeSpace },
         replace: true,
       });
-
-      const { container } = render(<RouterProvider router={router} />);
-      
-      // Wait for async render to complete
-      await new Promise(resolve => setTimeout(resolve, 0));
-
-      const { getCodeSpace } = await import("@/hooks/use-code-space");
-      expect(getCodeSpace).toHaveBeenCalledWith(`/live/${testCodeSpace}/${page}`);
-      expect(container.textContent).toContain("Live Page");
     });
+
+    render(<RouterProvider router={router} />);
+    expect(await screen.findByText("Live Page")).toBeInTheDocument();
+    
+    const { initializeApp } = await import("@/lib/hydrate");
+    expect(initializeApp).toHaveBeenCalled();
   });
 });

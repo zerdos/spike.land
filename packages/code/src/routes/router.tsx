@@ -15,10 +15,15 @@ import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
 import { Code } from "../services/CodeSession";
 import { CodeSessionBC } from "../services/CodeSessionBc";
+
 // Define route types
-interface RouteParams {
+interface RouteWithPageParams {
   codeSpace: string;
   page: string;
+}
+
+interface RouteParams {
+  codeSpace: string;
 }
 
 type SearchParams = Record<string, string>;
@@ -82,33 +87,31 @@ const App: React.FC = () => {
     return () => unSub();
   }, [cSess]);
 
-  return cSess
-    ? (
-      <>
-        <ClerkProvider
-          publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-          afterSignOutUrl="/"
-        >
-          <AppToRender codeSpace={codeSpace} cSess={cSess} />
-        </ClerkProvider>
-      </>
-    )
-    : (
-      <>
-        <Wrapper codeSpace={codeSpace} />
-      </>
-    );
+  return cSess ? (
+    <>
+      <ClerkProvider
+        publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+        afterSignOutUrl="/"
+      >
+        <AppToRender codeSpace={codeSpace} cSess={cSess} />
+      </ClerkProvider>
+    </>
+  ) : (
+    <>
+      <Wrapper codeSpace={codeSpace} />
+    </>
+  );
 };
 
-// Live page route with code space parameter
+// Live page route with code space and page parameters
 const liveRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/live/$codeSpace/$page",
-  parseParams: (params): RouteParams => ({
+  parseParams: (params): RouteWithPageParams => ({
     codeSpace: params.codeSpace || "",
     page: params.page || "",
   }),
-  stringifyParams: (params: RouteParams) => ({
+  stringifyParams: (params: RouteWithPageParams) => ({
     codeSpace: params.codeSpace,
     page: params.page,
   }),
@@ -120,43 +123,40 @@ const liveRoute = createRoute({
 });
 dynamicRoutes.push(liveRoute);
 
-// Live page route with code space parameter
+// Editor route with just code space parameter
 const EditorRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/live/$codeSpace",
   parseParams: (params): RouteParams => ({
     codeSpace: params.codeSpace || "",
-    page: "",
   }),
   stringifyParams: (params: RouteParams) => ({
     codeSpace: params.codeSpace,
   }),
   loader: async ({ params: { codeSpace } }) => ({
     codeSpace: getCodeSpace(`/live/${codeSpace}`),
-    page: "",
   }),
   component: () => <App />,
 });
 dynamicRoutes.push(EditorRoute);
+
 const routeTree = rootRoute.addChildren([...dynamicRoutes]);
 
 // Create and configure the router instance
 export const router = createRouter({
   routeTree,
   defaultPreload: "intent",
-  context: createContext<
-    {
-      params: RouteParams;
-      search: SearchParams;
-    } | null
-  >(null),
+  context: createContext<{
+    params: RouteParams | RouteWithPageParams;
+    search: SearchParams;
+  } | null>(null),
 });
 
 // Export types
 export interface RouterState {
   resolvedLocation: {
     pathname: string;
-    params: RouteParams;
+    params: RouteParams | RouteWithPageParams;
   };
 }
 
