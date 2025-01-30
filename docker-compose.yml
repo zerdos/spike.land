@@ -17,7 +17,6 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-    command: zsh -c "yarn && cd packages/code && yarn dev"
     volumes:
       - .:/home/node/workspace:cached
       - node_modules:/home/node/workspace/node_modules
