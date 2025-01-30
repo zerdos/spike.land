@@ -12,7 +12,7 @@ services:
     shm_size: 8gb
     platform: linux/arm64
     tmpfs:
-      - ${HOME}/tmpfs:exec,size=8g,uid=${UID},gid=${GID}
+      - /tmpfs:exec,size=8g,uid=${UID:-1000},gid=${GID:-1000}
     environment:
       - USER=${USER}
     volumes:
