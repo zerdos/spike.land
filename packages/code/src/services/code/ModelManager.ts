@@ -1,4 +1,3 @@
-
 import { Code } from "../CodeSession";
 import type { IExtraModelsResult, IModelManager } from "../interfaces/IModelManager";
 

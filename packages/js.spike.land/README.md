@@ -27,18 +27,22 @@ A Cloudflare Worker that provides transpilation services using esbuild for spike
 ### Available Scripts
 
 #### Development
+
 - `yarn dev` - Start local development server
 - `yarn dev:remote` - Start development server with remote connections
 
 #### Building
+
 - `yarn build` - Clean and prepare for deployment
 - `yarn build:worker` - Build worker-specific code
 
 #### Deployment
+
 - `yarn deploy:dev` - Deploy to development environment
 - `yarn deploy:prod` - Deploy to production environment
 
 #### Testing & Utils
+
 - `yarn test` - Run test suite
 - `yarn test:watch` - Run tests in watch mode
 - `yarn types:check` - Type check without emitting files
@@ -47,11 +51,13 @@ A Cloudflare Worker that provides transpilation services using esbuild for spike
 ### Local Development
 
 1. Install dependencies:
+
 ```bash
 yarn install
 ```
 
 2. Start local development:
+
 ```bash
 # For local development
 yarn dev
@@ -61,6 +67,7 @@ yarn dev:remote
 ```
 
 3. Deploy:
+
 ```bash
 # Deploy to development
 yarn deploy:dev

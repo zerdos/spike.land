@@ -43,11 +43,13 @@ yarn install
 ### Available Scripts
 
 #### Development
+
 - `yarn dev` - Start all development processes concurrently (Vite, TypeScript, Workers)
 - `yarn dev:vite` - Start Vite development server only
 - `yarn dev:workers` - Start worker development processes
 
 #### Building
+
 - `yarn build` - Clean and run full build process
 - `yarn build:all` - Build all components concurrently
 - `yarn build:vite` - Build Vite application
@@ -55,15 +57,18 @@ yarn install
 - `yarn build:types` - Build TypeScript declarations
 
 #### Types
+
 - `yarn types:check` - Type check without emitting files
 - `yarn types:build` - Build TypeScript declarations
 - `yarn types:watch` - Watch mode for TypeScript compilation
 
 #### Testing
+
 - `yarn test` - Run test suite
 - `yarn test:full` - Run full test suite with type checking and linting
 
 #### Utils
+
 - `yarn clean` - Clean all build artifacts
 - `yarn lint` - Run ESLint
 - `yarn fmt` - Format code using dprint
@@ -95,6 +100,7 @@ yarn build:types   # Build TypeScript declarations
 ```
 
 Build artifacts will be stored in:
+
 - `dist/` - Main application build
 - `dist-vite/` - Vite build output
 - `dts/` - TypeScript declarations

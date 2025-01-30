@@ -1,6 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { DOMError, getErrorMessage, MessageHandlingError, WebSocketError } from "@/lib/errors";
 import { init } from "@/lib/tw-dev-setup";
-import { DOMError, MessageHandlingError, WebSocketError, getErrorMessage } from "@/lib/errors";
 import { CodeSessionBC } from "../CodeSessionBc";
 import { MessageHandlerService } from "../message/MessageHandlerService";
 import { ServiceWorkerManager } from "../worker/ServiceWorkerManager";
@@ -53,7 +53,7 @@ export class WebSocketManager implements IWebSocketManager {
       // const session = await cSessBr.init();
 
       const currentPath = location.pathname;
-      
+
       if (
         currentPath === ROUTES.LIVE(this.codeSpace) ||
         currentPath === ROUTES.LIVE_CMS(this.codeSpace)
@@ -71,7 +71,10 @@ export class WebSocketManager implements IWebSocketManager {
       }, 0);
     } catch (error) {
       const errorMessage = getErrorMessage(error);
-      throw new WebSocketError(`Failed to initialize WebSocket: ${errorMessage}`, error instanceof Error ? error : undefined);
+      throw new WebSocketError(
+        `Failed to initialize WebSocket: ${errorMessage}`,
+        error instanceof Error ? error : undefined,
+      );
     }
   }
 
@@ -113,7 +116,7 @@ export class WebSocketManager implements IWebSocketManager {
         if (!embedElement) {
           throw new DOMError("Embed element not found", "embed");
         }
-        
+
         embedElement.innerHTML = `
           <style type="text/css">${css}</style>
           <div>${html}</div>
@@ -121,7 +124,7 @@ export class WebSocketManager implements IWebSocketManager {
       } catch (error) {
         const errorMessage = getErrorMessage(error);
         console.error("Error handling dehydrated page:", errorMessage);
-        
+
         if (error instanceof DOMError) {
           throw error;
         }
@@ -148,7 +151,7 @@ export class WebSocketManager implements IWebSocketManager {
       } catch (error) {
         const errorMessage = getErrorMessage(error);
         console.error("Error in message handler:", errorMessage);
-        
+
         if (error instanceof MessageHandlingError) {
           throw error;
         }
