@@ -28,24 +28,29 @@ A Cloudflare Worker that provides server-side rendering capabilities for spike.l
 ### Available Scripts
 
 #### Development
+
 - `yarn dev` - Start local development server
 - `yarn dev:remote` - Start development server with remote connections
 
 #### Deployment
+
 - `yarn deploy` - Deploy to production environment
 
 #### Testing
+
 - `yarn test` - Run test suite
 - `yarn cf-typegen` - Generate TypeScript types for Cloudflare Workers
 
 ### Local Development
 
 1. Install dependencies:
+
 ```bash
 yarn install
 ```
 
 2. Start local development:
+
 ```bash
 # For local development
 yarn dev
@@ -55,6 +60,7 @@ yarn dev:remote
 ```
 
 3. Deploy:
+
 ```bash
 yarn deploy
 ```
@@ -72,6 +78,7 @@ workers_dev = true
 ## API Endpoints
 
 The renderer exposes endpoints for:
+
 - Server-side rendering of React components
 - Screenshot generation
 - PDF generation

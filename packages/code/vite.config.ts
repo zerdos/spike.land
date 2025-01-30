@@ -114,8 +114,7 @@ const config = defineConfig((config) => ({
 
   appType: "spa" as AppType,
 
-  assetsInclude: [
-  ],
+  assetsInclude: [],
 
   server: {
     proxy: {

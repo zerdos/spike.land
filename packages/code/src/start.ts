@@ -18,9 +18,9 @@ interface RouterResolvedEvent {
 const isLiveRoute = (pathname: string): boolean => pathname.startsWith("/live/");
 const isLiveCMSRoute = (pathname: string): boolean => pathname.startsWith("/live-cms/");
 const isDehydratedRoute = (pathname: string): boolean => pathname.endsWith("dehydrated");
-const shouldRenderApp = (pathname: string): boolean => 
-  (isLiveRoute(pathname) || isLiveCMSRoute(pathname)) && 
-  !isDehydratedRoute(pathname) && 
+const shouldRenderApp = (pathname: string): boolean =>
+  (isLiveRoute(pathname) || isLiveCMSRoute(pathname)) &&
+  !isDehydratedRoute(pathname) &&
   !pathname.endsWith("/");
 
 // Error handling
@@ -46,14 +46,14 @@ const initializeWebSocket = async (): Promise<void> => {
  * Handle route resolution and app rendering
  */
 const handleRouteResolution = async (
-  codeSpace: string | null, 
-  { toLocation }: RouterResolvedEvent
+  codeSpace: string | null,
+  { toLocation }: RouterResolvedEvent,
 ): Promise<void> => {
   if (!codeSpace) return;
 
   try {
     const { pathname } = toLocation;
-    
+
     if (shouldRenderApp(pathname)) {
       const rendered = await renderApp({ codeSpace });
       Object.assign(window, { rendered });
@@ -84,8 +84,9 @@ router.load().then(async () => {
     }
 
     // Setup router subscriptions
-    router.subscribe("onResolved", 
-      (event: RouterResolvedEvent) => handleRouteResolution(codeSpace, event)
+    router.subscribe(
+      "onResolved",
+      (event: RouterResolvedEvent) => handleRouteResolution(codeSpace, event),
     );
   } catch (error) {
     handleError(error);

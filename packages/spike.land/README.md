@@ -103,28 +103,34 @@ For local development, create a `.dev.vars` file with these variables.
 ### Available Scripts
 
 #### Development
+
 - `yarn dev` - Start local development server
 - `yarn dev:remote` - Start development server with remote connections
 
 #### Building
+
 - `yarn build` - Clean and prepare for deployment
 - `yarn build:worker` - Build worker-specific code
 
 #### Deployment
+
 - `yarn deploy:dev` - Deploy to development environment (testing)
 - `yarn deploy:prod` - Deploy to production environment
 
 #### Testing
+
 - `yarn test` - Run test suite
 - `yarn test:watch` - Run tests in watch mode
 
 #### Types & Utils
+
 - `yarn types:check` - Type check without emitting files
 - `yarn clean` - Clean build artifacts
 
 ### Local Development
 
 1. Set up environment variables in `.dev.vars`:
+
 ```bash
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
@@ -132,6 +138,7 @@ CLERK_SECRET_KEY=your_clerk_secret
 ```
 
 2. Start local development server:
+
 ```bash
 # For local development
 yarn dev
@@ -141,6 +148,7 @@ yarn dev:remote
 ```
 
 3. Test your changes:
+
 ```bash
 # Run tests once
 yarn test
@@ -150,6 +158,7 @@ yarn test:watch
 ```
 
 4. Deploy:
+
 ```bash
 # Deploy to development environment
 yarn deploy:dev

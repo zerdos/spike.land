@@ -26,7 +26,7 @@ export class WebSocketError extends AppError {
  */
 export class DOMError extends AppError {
   constructor(message: string, public readonly elementId?: string) {
-    super(`${message}${elementId ? ` (Element: ${elementId})` : ''}`);
+    super(`${message}${elementId ? ` (Element: ${elementId})` : ""}`);
   }
 }
 
@@ -35,7 +35,7 @@ export class DOMError extends AppError {
  */
 export class RouterError extends AppError {
   constructor(message: string, public readonly path?: string) {
-    super(`${message}${path ? ` (Path: ${path})` : ''}`);
+    super(`${message}${path ? ` (Path: ${path})` : ""}`);
   }
 }
 
