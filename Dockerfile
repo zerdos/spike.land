@@ -16,37 +16,38 @@ RUN apk update && apk add --no-cache \
     bash \
     curl \
     build-base \
+    netcat-openbsd \
     && rm -rf /var/cache/apk/*
 
 # Set up user and permissions in a single layer
 RUN if getent passwd node; then deluser node; fi && \
     if getent group node; then delgroup node; fi && \
     addgroup -g ${USER_GID} -S ${USERNAME} && \
-    adduser -u ${USER_UID} -S -s /bin/zsh -G ${USERNAME} ${USERNAME} && \
-    mkdir -p ${USER_HOME}/tmpfs ${USER_HOME}/workspace && \
-    chown -R ${USERNAME}:${USERNAME} ${USER_HOME}
+    adduser -u ${USER_UID} -S -s /bin/bash -G ${USERNAME} ${USERNAME} && \
+    mkdir -p ${USER_HOME}/tmpfs ${USER_HOME}/workspace ${USER_HOME}/.yarn  && \
+    chown -R ${USERNAME} ${USER_HOME} && \
+    corepack enable
 
 # Set environment variables
 ENV HOME=${USER_HOME} \
     PATH=${USER_HOME}/.local/bin:${PATH} \
-    SHELL=/bin/zsh
+    SHELL=/bin/bash
 
 # Create volume for temporary storage
-VOLUME ["${USER_HOME}/tmpfs"]
+
+# Copy entrypoint script
+COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Switch to non-root user
 USER ${USERNAME}
 
+VOLUME ["${USER_HOME}/tmpfs"]
+VOLUME ["${USER_HOME}/workspace"]
+VOLUME ["${USER_HOME}/.yarn"]
+
 # Set working directory
 WORKDIR ${USER_HOME}/workspace
 
-# Install global yarn packages if needed
-# RUN yarn global add <your-global-packages>
-
-# Cache bust only when package files change
-COPY --chown=${USERNAME}:${USERNAME} .yarn  .yarn/
-COPY --chown=${USERNAME}:${USERNAME} package*.json yarn.lock .yarnrc.yml  ./
-RUN yarn
-
-# Set default command
-CMD ["zsh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["bash"]
