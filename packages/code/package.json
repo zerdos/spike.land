@@ -118,7 +118,7 @@
     "@tailwindcss/vite": "4.0.1",
     "@tanstack/react-router": "^1.98.3",
     "@tanstack/react-virtual": "3.11.3",
-    "@tanstack/router": "0.0.1-beta.53",
+    "@tanstack/router": "0.0.1-beta.174",
     "@types/autoprefixer": "10.2.4",
     "@types/diff": "7.0.0",
     "@types/isomorphic-fetch": "0.0.39",
