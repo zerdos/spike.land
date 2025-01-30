@@ -5,21 +5,17 @@ import { WebSocketManager } from "./services/websocket/WebSocketManager";
 import { ServiceWorkerManager } from "./services/worker/ServiceWorkerManager";
 import { CodeProcessor } from "./services/code/CodeProcessor";
 
-
-
-
 export const main = async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
     // const cSess = new Code(codeSpace);
     // await cSess.init();
-    const codeProcessor = new CodeProcessor();
     
     const websocketDependencies: WebSocketDependencies = {
       codeSessionBC: new CodeSessionBC(codeSpace),
      messageHandler: {
 
-          handleRunMessage: codeProcessor.runCode,
+          handleRunMessage: CodeProcessor.runCode,
           handleMessage: (event) => {
             console.log("Message received:", event);
             return Promise.resolve({ success: true });
@@ -41,6 +37,9 @@ export const main = async () => {
     
     );
     await webSocketManager.init();
+   
+    Object.assign(window, { webSocketManager });
+
   } catch (error) {
     console.error("Error in main function:", error);
     throw error;

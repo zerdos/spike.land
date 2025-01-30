@@ -1,4 +1,4 @@
-import type { ICodeSession } from "@/lib/interfaces";
+import { RunMessageResult } from "../websocket/types";
 
 export interface ICodeProcessor {
   /**
@@ -12,5 +12,8 @@ export interface ICodeProcessor {
     rawCode: string,
     skipRunning: boolean,
     signal: AbortSignal,
-  ): Promise<Partial<ICodeSession> | false>;
+  ): Promise<RunMessageResult | false>;
+
+  
+  runCode(code: string): Promise<RunMessageResult>;
 }

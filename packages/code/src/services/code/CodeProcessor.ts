@@ -3,10 +3,9 @@ import {
   runCode,
   transpileCode as transpileCodeUtil,
 } from "../../components/editorUtils";
-import type { ICodeProcessor } from "../interfaces/ICodeProcessor";
 import { RunMessageResult } from "../websocket/types";
 
-export class CodeProcessor implements ICodeProcessor {
+export class CodeProcessor {
   /**
    * Formats and transpiles the code (optionally runs it),
    * then returns updated session info or false on failure.
@@ -28,7 +27,7 @@ export class CodeProcessor implements ICodeProcessor {
 
       if (!skipRunning) {
         try {
-          const res = await this.runCode(transpiledCode);
+          const res = await CodeProcessor.runCode(transpiledCode);
           if (signal.aborted) return false;
 
           html = res.html || "<div></div>";
@@ -73,7 +72,7 @@ export class CodeProcessor implements ICodeProcessor {
     }
   }
 
-   async runCode(code: string): Promise<{ html: string; css: string; }> {
+  static async runCode(code: string): Promise<RunMessageResult> {
     try {
       const result = await runCode(code);
       if (!result) {
