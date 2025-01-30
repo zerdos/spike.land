@@ -1,20 +1,20 @@
+version: '3.8'
+
 services:
   devcontainer:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        USER_UID: ${UID}
-        USER_GID: ${GID}
-        USER: ${USER}
-        HOME: ${HOME}
+        USER_UID: "${UID:-1000}"
+        USER_GID: "${GID:-1000}"
+        USERNAME: "node"
+        USER_HOME: "/home/node"
     tmpfs:
-      - ${HOME}/tmpfs:size=8g,rw,exec,uid=${UID},gid=${GID}
+      - /home/node/tmpfs:size=8g,rw,exec
     shm_size: 8gb
     # privileged: true  <-- Removed privileged flag.  Consider alternatives for security.
     environment:
-      - USER=${USER}
-      - HOME=${HOME}
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
     command: zsh -c "yarn && cd packages/code && yarn dev"
@@ -22,11 +22,11 @@ services:
       - .:/home/node/workspace:cached
       - node_modules:/home/node/workspace/node_modules
       - yarn_cache:/home/node/.yarn/cache
-      - ${HOME}/.config:/home/node/.config:cached
-      - ${HOME}/.vscode:/home/node/.vscode:cached
-      - ${HOME}/.vscode-server:/home/node/.vscode-server:cached
-      - ${HOME}/.cache:/home/node/.cache:cached
-      - ${HOME}/.oh-my-zsh:/home/node/.oh-my-zsh:cached
+      - ${HOME:-/home/node}/.config:/home/node/.config:cached
+      - ${HOME:-/home/node}/.vscode:/home/node/.vscode:cached
+      - ${HOME:-/home/node}/.vscode-server:/home/node/.vscode-server:cached
+      - ${HOME:-/home/node}/.cache:/home/node/.cache:cached
+      - ${HOME:-/home/node}/.oh-my-zsh:/home/node/.oh-my-zsh:cached
     ports:
       - "3333:3333"
       - "6080:6080"
