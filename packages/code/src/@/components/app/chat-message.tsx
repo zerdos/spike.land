@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Image as ImageIcon, X } from "@/external/lucideReact";
-import type { Message } from "@/lib/interfaces";
+import type { Message, MessageContent, MessagePart } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { ChatMessageBlock } from "@/lib/render-messages";
@@ -39,9 +39,7 @@ interface ChatMessageProps {
  * Helper to display text or images.
  */
 const MessageContent = React.memo<{
-  content:
-    | string
-    | Array<{ type: string; text?: string; image_url?: { url: string; }; }>;
+  content: MessageContent;
   isUser: boolean;
   onNewPrompt: (prompt: string) => void;
 }>(({ content, isUser, onNewPrompt }) => {
@@ -49,7 +47,7 @@ const MessageContent = React.memo<{
     return typeof content === "string"
       ? [{ type: "text", text: content }]
       : content;
-  }, [content]);
+  }, [content]) as MessagePart[];
 
   return (
     <>
@@ -86,9 +84,7 @@ const MessageContent = React.memo<{
  * System message with Accordion to show the system prompt.
  */
 const SystemMessage = React.memo<{
-  content:
-    | string
-    | Array<{ type: string; text?: string; image_url?: { url: string; }; }>;
+  content: MessageContent;
   isUser: boolean;
 }>(({ content, isUser }) => {
   return (

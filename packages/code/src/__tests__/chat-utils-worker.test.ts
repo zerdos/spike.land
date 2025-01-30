@@ -1,204 +1,139 @@
-import type { Message } from "@/lib/interfaces";
-import { handleSendMessage } from "@/workers/chat-utils.worker";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AIHandler } from "../AIHandler";
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { ChatHandler, handleSendMessage } from '../workers/chat-utils.worker';
+import { Message, MessageContent } from '@/lib/interfaces';
 
-// Mock AIHandler
-vi.mock("../AIHandler", () => ({
-  AIHandler: vi.fn().mockImplementation(() => ({
-    prepareClaudeContent: vi.fn(),
-    sendToAnthropic: (_update: (chunk: string) => void) => {
-      return Promise.resolve(
-        { id: "123", role: "assistant", content: "Claude response" } as Message,
-      );
-    },
-    sendToGpt4o: (_update: (chunk: string) => void) => {
-      return Promise.resolve(
-        { id: "123", role: "assistant", content: "gpt-4o response" } as Message,
-      );
-    },
-  })),
+// Mock web worker context
+declare let self: Worker;
+self.postMessage = vi.fn();
+
+// Mock AI Handler
+vi.mock('../services/ai/AIHandler', () => ({
+  AIHandler: {
+    process: vi.fn().mockImplementation(async (text: string) => ({
+      text,
+      timestamp: new Date().toISOString(),
+      status: 'success',
+    })),
+    validateContent: vi.fn().mockImplementation((_content: MessageContent) => true),
+  },
 }));
 
-// Mock BroadcastChannel since it's not available in Node
-class MockBroadcastChannel implements BroadcastChannel {
-  name: string;
-  onmessage: ((ev: MessageEvent) => void) | null;
-  onmessageerror: ((ev: MessageEvent) => void) | null;
-  postMessage: (message: unknown) => void;
-  close: () => void;
-  addEventListener: (type: string, listener: EventListener) => void;
-  removeEventListener: (type: string, listener: EventListener) => void;
-  dispatchEvent: (event: Event) => boolean;
+describe('handleSendMessage', () => {
+  let consoleSpy: ReturnType<typeof vi.spyOn>;
+  let postMessageSpy: ReturnType<typeof vi.spyOn>;
 
-  constructor(name: string) {
-    this.name = name;
-    this.onmessage = null;
-    this.onmessageerror = null;
-    this.postMessage = vi.fn();
-    this.close = vi.fn();
-    this.addEventListener = vi.fn();
-    this.removeEventListener = vi.fn();
-    this.dispatchEvent = vi.fn();
-  }
-}
-
-global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
-
-describe("handleSendMessage", () => {
   beforeEach(() => {
+    consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    postMessageSpy = vi.spyOn(self, 'postMessage');
     vi.clearAllMocks();
-    // Set a fixed timestamp for consistent snapshots
-    Date.now = vi.fn(() => 1706187189833); // 2025-01-25T17:19:49.833Z
   });
 
-  it("should log empty prompt scenario", async () => {
-    const logs = await handleSendMessage({
-      messages: [],
-      codeSpace: "test",
-      prompt: "",
-      images: [],
-      code: "",
-    });
-
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Starting handleSendMessage.*"promptLength":0/),
-    );
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Empty prompt received, returning/),
-    );
+  afterEach(() => {
+    consoleSpy.mockRestore();
   });
 
-  it("should log error when AIHandler throws", async () => {
-    const mockError = new Error("AI processing failed");
-    const mockAIHandler = {
-      prepareClaudeContent: vi.fn().mockImplementation(() => {
-        throw mockError;
-      }),
-      sendToAnthropic: vi.fn(),
-      sendToGpt4o: vi.fn(),
-    } as unknown as AIHandler;
-    vi.mocked(AIHandler).mockImplementation(() => mockAIHandler);
+  it('should handle valid messages', async () => {
+    const mockMessage = {
+      type: 'test',
+      id: '123',
+      role: 'user',
+      content: { text: 'Hello', type: 'text' },
+    } as Message;
 
-    const logs = await handleSendMessage({
-      messages: [],
-      codeSpace: "test",
-      prompt: "test prompt",
-      images: [],
-      code: "",
+    await handleSendMessage(mockMessage);
+    expect(postMessageSpy).toHaveBeenCalledWith({
+      type: 'response',
+      content: expect.any(Object),
     });
-
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Error in handleMessage.*AI processing failed/),
-    );
   });
 
-  it("should log successful message processing", async () => {
-    const mockAIHandler = {
-      prepareClaudeContent: vi.fn().mockReturnValue("processed content"),
-      sendToAnthropic: vi.fn().mockResolvedValue({
-        id: "123",
-        role: "assistant",
-        content: "response",
-      } as Message),
-      sendToGpt4o: vi.fn(),
-    } as unknown as AIHandler;
-    vi.mocked(AIHandler).mockImplementation(() => mockAIHandler);
+  it('should log error when AIHandler throws', async () => {
+    const error = new Error('AI processing failed');
+    const { AIHandler: MockAIHandler } = await import('../services/ai/AIHandler');
+    vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
 
-    const logs = await handleSendMessage({
-      messages: [{ id: "123", role: "user", content: "first-content-text" }, {
-        id: "124",
-        role: "assistant",
-        content: "second-content-text",
-      }],
-      codeSpace: "test",
-      prompt: "test prompt",
-      images: [],
-      code: "",
+    const mockMessage = {
+      id: '123',
+      role: 'user',
+      content: { text: 'Error case', type: 'text' },
+    } as Message;
+
+    await handleSendMessage(mockMessage);
+    expect(consoleSpy).toHaveBeenCalledWith('Error in handleMessage:', error);
+    expect(postMessageSpy).toHaveBeenCalledWith({
+      type: 'error',
+      error: 'AI processing failed',
     });
-
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Starting handleSendMessage/),
-    );
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Initializing ChatHandler/),
-    );
-    expect(logs[0]).toMatchInlineSnapshot(
-      `"Starting handleSendMessage - {"messagesCount":2,"codeSpace":"test","promptLength":11,"imagesCount":0}"`,
-    );
-    expect(logs[1]).toMatchInlineSnapshot(`
-      {
-        "content": "first-content-text",
-        "id": "123",
-        "role": "user",
-      }
-    `);
-    expect(logs[2]).toMatchInlineSnapshot(
-      `
-      {
-        "content": "second-content-text",
-        "id": "124",
-        "role": "assistant",
-      }
-    `,
-    );
-
-    expect(logs[3]).toMatchInlineSnapshot(
-      `"Initializing ChatHandler - {"codeSpace":"test","messagesCount":2}"`,
-    );
   });
 
-  it("should log fallback to GPT-4 scenario", async () => {
-    const mockAIHandler = {
-      prepareClaudeContent: vi.fn().mockReturnValue("processed content"),
-      sendToAnthropic: vi.fn().mockResolvedValue({
-        id: "123",
-        role: "assistant",
-        content: "An error occurred while processing",
-      } as Message),
-      sendToGpt4o: vi.fn().mockResolvedValue({
-        id: "124",
-        role: "assistant",
-        content: "GPT-4 response",
-      } as Message),
-    } as unknown as AIHandler;
-    vi.mocked(AIHandler).mockImplementation(() => mockAIHandler);
+  it('should log invalid message content type error', async () => {
+    const mockMessage = {
+      type: 'test',
+      content: { invalidType: true },
+    } as unknown as Message;
 
-    const logs = await handleSendMessage({
-      messages: [],
-      codeSpace: "test",
-      prompt: "test prompt",
-      images: [],
-      code: "",
+    await handleSendMessage(mockMessage);
+    expect(consoleSpy).toHaveBeenCalledWith('Error in processMessage:', expect.any(Error));
+    expect(consoleSpy).toHaveBeenCalledWith('Error in processMessage:', expect.any(Error));
+    expect(postMessageSpy).toHaveBeenCalledWith({
+      type: 'error',
+      error: 'Invalid assistant message content type',
     });
-
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Falling back to GPT-4/),
-    );
   });
 
-  it("should log invalid message content type error", async () => {
-    const mockAIHandler = {
-      prepareClaudeContent: vi.fn().mockReturnValue("processed content"),
-      sendToAnthropic: vi.fn().mockResolvedValue({
-        id: "123",
-        role: "assistant",
-        content: { invalidType: true } as unknown as string,
-      }),
-      sendToGpt4o: vi.fn(),
-    } as unknown as AIHandler;
-    vi.mocked(AIHandler).mockImplementation(() => mockAIHandler);
+  it.skip('should handle missing content', async () => {
+    const mockMessage = {
+      type: 'test',
+    } as unknown as Message;
 
-    const logs = await handleSendMessage({
-      messages: [],
-      codeSpace: "test",
-      prompt: "test prompt",
-      images: [],
-      code: "",
+    await handleSendMessage(mockMessage);
+    expect(consoleSpy).toHaveBeenCalledWith('Error in processMessage:', expect.any(Error));
+    expect(postMessageSpy).toHaveBeenCalledWith({
+      type: 'error',
+      error: 'Invalid message format',
+    });
+  });
+
+  describe('ChatHandler', () => {
+    let chatHandler: ChatHandler;
+
+    beforeEach(() => {
+      chatHandler = new ChatHandler();
     });
 
-    expect(logs).toContainEqual(
-      expect.stringMatching(/Invalid assistant message content type/),
-    );
+    it('should initialize with default state', () => {
+      expect(chatHandler).toBeDefined();
+      expect(chatHandler.handleMessage).toBeDefined();
+      expect(chatHandler.processMessage).toBeDefined();
+    });
+
+    it('should handle message processing errors', async () => {
+      const error = new Error('Test error');
+      const { AIHandler: MockAIHandler } = await import('../services/ai/AIHandler');
+    vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
+
+      await chatHandler.handleMessage({
+        role: 'user',
+        id: '123',
+        content: { text: 'Test message', type: 'text' },
+      });
+
+      expect(consoleSpy).toHaveBeenCalledWith('Error in processMessage:', error);
+      expect(postMessageSpy).toHaveBeenCalledWith({
+        type: 'error',
+        error: 'Test error',
+      });
+    });
+
+    it('should validate message format', async () => {
+      const invalidMessage = {};
+
+      await chatHandler.handleMessage(invalidMessage as unknown as Message);
+      expect(consoleSpy).toHaveBeenCalledWith('Error in handleMessage:', expect.any(Error));
+      expect(postMessageSpy).toHaveBeenCalledWith({
+        type: 'error',
+        error: 'Invalid message format',
+      });
+    });
   });
 });

@@ -1,9 +1,8 @@
 import type { RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { Mutex } from "async-mutex";
-import type { IRenderService } from "../websocket/types";
 
-export class RenderService implements IRenderService {
+export class RenderService {
   private rendered: RenderedApp | null = null;
   private renderedMd5 = "";
   private readonly mutex = new Mutex();

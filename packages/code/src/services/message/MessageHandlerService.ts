@@ -1,53 +1,114 @@
-import type { IframeMessage } from "@/lib/interfaces";
-import { RenderService } from "../render/RenderService";
-import { ScreenshotService } from "../screenshot/ScreenshotService";
-import type { IMessageHandlerService } from "../websocket/types";
+import { Message } from '@/lib/interfaces';
+import { CodeProcessor } from '../code/CodeProcessor';
+import { IMessageHandlerService, RunMessageResult } from '../websocket/types';
+import {  MessageType, MessageResponse, MessageHandlerConfig } from './types';
 
 export class MessageHandlerService implements IMessageHandlerService {
-  private readonly screenshotService: ScreenshotService;
-  private readonly renderService: RenderService;
+  private config: MessageHandlerConfig;
 
-  constructor(codeSpace: string) {
-    this.screenshotService = new ScreenshotService(codeSpace);
-    this.renderService = new RenderService(codeSpace);
+  constructor(config: MessageHandlerConfig = {}) {
+    this.config = {
+      logErrors: true,
+      maxRetries: 3,
+      timeout: 5000,
+      ...config,
+    };
   }
 
-  public async handleMessage(event: MessageEvent): Promise<void> {
-    try {
-      const data = event.data as IframeMessage;
-      const { type } = data;
-      if (!type) return;
+  public   cleanup(): void {
+    this.config = {
+      logErrors: true,
+      maxRetries: 3,
+      timeout: 5000,
+    };
+    // Cleanup resources
+  }
 
-      switch (type) {
-        case "screenShot":
-          await this.screenshotService.takeScreenshot();
-          break;
-        case "run":
-          await this.handleRunMessage(data.transpiled);
-          break;
-        case "render":
-          // Handle render message if needed
-          break;
-        default:
-          console.warn(`Unhandled message type: ${type}`);
+  public validateMessage(message: unknown): message is Message {
+    if (!message || typeof message !== 'object') {
+      return false;
+    }
+
+    const msg = message as Message;
+    return (
+      'type' in msg &&
+      Object.values(MessageType).includes((msg as unknown as {type: MessageType}).type)
+    );
+  }
+
+  public async handleRunMessage(transpiled: string): Promise<RunMessageResult | false> {
+    // Process run message
+    const codeProcessor = new CodeProcessor();
+    const executed= await codeProcessor.process(transpiled, false, new AbortController().signal);
+    if (!executed) {
+      return false;
+    }
+    return executed;
+  }
+
+  public async handleMessage(event: Message): Promise<MessageResponse> {
+    const message = event as Message;
+    try {
+      if (!this.validateMessage(message)) {
+        throw new Error('Invalid message format');
       }
+
+      if (!message.content) {
+        throw new Error('Missing message content');
+      }
+
+      if (!Object.values(MessageType).includes((message as unknown as {
+        type: MessageType;
+      }).type)) {
+        console.error('Unhandled message type:', message.type);
+        return {
+          success: false,
+          error: 'Unhandled message type',
+        };
+      }
+
+      const result = await this.processMessage(message);
+      return {
+        success: true,
+        data: result,
+      };
     } catch (error) {
-      console.error("Error processing message:", error);
-      throw error;
+      if (this.config.logErrors) {
+        console.error('Error processing message:', error);
+      }
+
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      };
     }
   }
 
-  public async handleRunMessage(transpiled: string): Promise<
-    {
-      css: string;
-      html: string;
-    } | false
-  > {
-    const rendered = await this.renderService.updateRenderedApp({ transpiled });
-    return await this.renderService.handleRender(rendered);
+  private async processMessage(message: Message): Promise<unknown> {
+    switch (message.type) {
+      case MessageType.TEXT:
+        return this.handleTextMessage(message);
+      case MessageType.COMMAND:
+        return this.handleCommandMessage(message);
+      case MessageType.STATUS:
+        return this.handleStatusMessage(message);
+      default:
+        throw new Error(`Unsupported message type: ${message.type}`);
+    }
   }
 
-  public cleanup(): void {
-    this.renderService.cleanup();
+  private async handleTextMessage(message: Message): Promise<unknown> {
+    // Process text message
+    return { text: message.content };
+  }
+
+  private async handleCommandMessage(message: Message): Promise<unknown> {
+    // Process command message
+    return { command: message.content, executed: true };
+  }
+
+  private async handleStatusMessage(message: Message): Promise<unknown> {
+    // Process status message
+    return { status: message.content, timestamp: new Date().toISOString() };
   }
 }

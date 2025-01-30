@@ -1,30 +1,23 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { DOMError, getErrorMessage, MessageHandlingError, WebSocketError } from "@/lib/errors";
 import { init } from "@/lib/tw-dev-setup";
-import { CodeSessionBC } from "../CodeSessionBc";
-import { MessageHandlerService } from "../message/MessageHandlerService";
-import { ServiceWorkerManager } from "../worker/ServiceWorkerManager";
-import type { IWebSocketManager } from "./types";
+import { ROUTES } from "../../config/routes";
+import {
+  IWebSocketManager,
+  WebSocketConfig,
+  WebSocketDependencies,
+  MessageData,
+  RunMessageResult,
+  WebSocketSubscription,
+} from "./types";
+import { WebSocketState, WebSocketEventType } from "./enums";
+import { Message } from "@/lib/interfaces";
 
-// Route constants
-const ROUTES = {
-  LIVE: (codeSpace: string) => `/live/${codeSpace}`,
-  LIVE_CMS: (codeSpace: string) => `/live-cms/${codeSpace}`,
-  DEHYDRATED: (codeSpace: string) => `/live/${codeSpace}/dehydrated`,
-} as const;
-
-// Message interfaces
-interface MessageData {
-  html: string;
-  css: string;
-  code?: string;
-  transpiled?: string;
-}
-
-interface RunMessageResult {
-  html: string;
-  css: string;
-}
+const DEFAULT_CONFIG: Required<WebSocketConfig> = {
+  maxRetries: 3,
+  retryDelay: 1000,
+  connectionTimeout: 5000,
+};
 
 /**
  * WebSocket manager for handling real-time code synchronization
@@ -32,52 +25,42 @@ interface RunMessageResult {
  */
 export class WebSocketManager implements IWebSocketManager {
   private readonly codeSpace: string;
-  private readonly messageHandler: MessageHandlerService;
-  private readonly serviceWorker: ServiceWorkerManager;
+  private readonly dependencies: WebSocketDependencies;
+  private readonly config: Required<WebSocketConfig>;
+  private state = WebSocketState.DISCONNECTED;
+  private retryCount = 0;
+  private readonly subscriptions = new Set<WebSocketSubscription>();
 
-  constructor() {
+  constructor(
+    dependencies: WebSocketDependencies,
+    config: WebSocketConfig = {}
+  ) {
     this.codeSpace = getCodeSpace(location.pathname);
-    this.messageHandler = new MessageHandlerService(this.codeSpace);
-    this.serviceWorker = new ServiceWorkerManager();
+    this.dependencies = dependencies;
+    this.config = { ...DEFAULT_CONFIG, ...config };
+
+    // Initialize service worker with delay
     setTimeout(() => {
-      this.serviceWorker.setup().catch(console.error);
+      this.dependencies.serviceWorker.setup().catch(this.handleError);
     }, 0);
   }
 
   /**
    * Initializes the WebSocket connection and sets up message handlers
-   * @throws {Error} If initialization fails
+   * @throws {WebSocketError} If initialization fails
    */
   public async init(): Promise<void> {
     try {
-      try{
-      await init();
-      } catch(e){
-        console.log(e)
-      }
-      console.log("Resource loading complete");
-      const cSessBr = new CodeSessionBC(this.codeSpace);
-      // const session = await cSessBr.init();
-
-      const currentPath = location.pathname;
-
-      if (
-        currentPath === ROUTES.LIVE(this.codeSpace) ||
-        currentPath === ROUTES.LIVE_CMS(this.codeSpace)
-      ) {
-        // await this.handleLivePage(cSessBr, session);
-      } else if (currentPath === ROUTES.DEHYDRATED(this.codeSpace)) {
-        await this.handleDehydratedPage(cSessBr);
-      } else {
-        await this.handleDefaultPage(cSessBr);
-      }
-
-      // Initialize service worker
-     
+      await this.initializeResources();
+      await this.setupRouteHandlers();
     } catch (error) {
-      const errorMessage = getErrorMessage(error);
+      this.handleError(error);
+      console.error("WebSocket initialization error:", {
+        error: getErrorMessage(error),
+        state: this.state,
+      });
       throw new WebSocketError(
-        `Failed to initialize WebSocket: ${errorMessage}`,
+        `Failed to initialize WebSocket: ${getErrorMessage(error)}`,
         error instanceof Error ? error : undefined,
       );
     }
@@ -88,34 +71,88 @@ export class WebSocketManager implements IWebSocketManager {
    * @param transpiled - Transpiled code to run
    * @returns Promise resolving to rendered HTML/CSS or false if failed
    */
-  public handleRunMessage(transpiled: string): Promise<RunMessageResult | false> {
-    return this.messageHandler.handleRunMessage(transpiled);
+  public async handleRunMessage(transpiled: string): Promise<RunMessageResult | false> {
+    return this.dependencies.messageHandler.handleRunMessage(transpiled);
   }
 
-  // private async handleLivePage(cSessBr: CodeSessionBC, session: ICodeSession): Promise<void> {
-  //   const cSess = new Code(this.codeSpace);
-  //   await cSess.init(session);
-  //   Object.assign(globalThis, { cSess });
-
-  //   cSessBr.sub((sess) => {
-  //     const { code, transpiled } = sess;
-  //     console.table({ code, transpiled });
-  //   });
-
-  //   // const { initializeApp } = await import("@/lib/hydrate");
-  //   // await initializeApp();
-
-  //   // const { renderPreviewWindow } = await import("@/lib/hydrate");
-  //   // const { AppToRender } = await import("../../AppToRender");
-  //   // await renderPreviewWindow({ codeSpace: this.codeSpace, cSess, AppToRender });
-  // }
+  /**
+   * Cleans up resources and event listeners
+   */
+  public cleanup(): void {
+    try {
+      this.dependencies.messageHandler.cleanup();
+      window.onmessage = null;
+      this.unsubscribeAll();
+    } catch (error) {
+      this.handleError(error);
+      throw new WebSocketError(`Cleanup failed: ${getErrorMessage(error)}`);
+    }
+  }
 
   /**
-   * Handles dehydrated page rendering
-   * @param codeSessionBC - Code session broadcast channel
+   * Initialize required resources
+   * @private
    */
-  private async handleDehydratedPage(codeSessionBC: CodeSessionBC): Promise<void> {
-    const handleDehydratedContent = ({ html, css }: MessageData): void => {
+  private async initializeResources(): Promise<void> {
+    try {
+      await init();
+    } catch (error) {
+      console.error("Resource initialization error:", error);
+      // Continue execution as this is non-critical
+    }
+    console.log("Resource loading complete");
+  }
+
+  /**
+   * Set up route-specific handlers
+   * @private
+   */
+  private async setupRouteHandlers(): Promise<void> {
+    const currentPath = location.pathname;
+
+    if (currentPath === ROUTES.LIVE(this.codeSpace)) {
+      await this.handleLivePage();
+    } else if (currentPath === ROUTES.LIVE_CMS(this.codeSpace)) {
+      await this.handleLivePage();
+    } else if (currentPath === ROUTES.DEHYDRATED(this.codeSpace)) {
+      await this.handleDehydratedPage();
+    } else {
+      await this.handleDefaultPage();
+    }
+  }
+
+  /**
+   * Handle live page setup and initialization
+   * @private
+   */
+  private async handleLivePage(): Promise<void> {
+    try {
+      await this.dependencies.codeSessionBC.init();
+      
+      // Subscribe to code session updates
+      this.dependencies.codeSessionBC.sub((data: MessageData) => {
+        console.log('Code session update:', data);
+        // Additional live page specific handling can be added here
+      });
+
+      this.state = WebSocketState.CONNECTED;
+    } catch (error) {
+      this.handleError(error);
+      throw new WebSocketError(
+        `Failed to initialize live page: ${getErrorMessage(error)}`,
+        error instanceof Error ? error : undefined
+      );
+    }
+  }
+
+  /**
+   * Handle dehydrated page rendering
+   * @private
+   */
+  private async handleDehydratedPage(): Promise<void> {
+    const handleDehydratedContent = (event: MessageEvent | Event): void => {
+      if (!(event instanceof MessageEvent)) return;
+      const { html, css } = event.data as MessageData;
       try {
         const embedElement = document.getElementById("embed");
         if (!embedElement) {
@@ -127,67 +164,92 @@ export class WebSocketManager implements IWebSocketManager {
           <div>${html}</div>
         `;
       } catch (error) {
-        const errorMessage = getErrorMessage(error);
-        console.error("Error handling dehydrated page:", errorMessage);
-
+        this.handleError(error);
         if (error instanceof DOMError) {
           throw error;
         }
-        throw new WebSocketError(`Failed to handle dehydrated content: ${errorMessage}`);
+        throw new WebSocketError(`Failed to handle dehydrated content: ${getErrorMessage(error)}`);
       }
     };
 
-    codeSessionBC.sub(handleDehydratedContent);
+    this.subscribe(WebSocketEventType.MESSAGE, handleDehydratedContent);
   }
 
   /**
-   * Handles default page message routing
-   * @param codeSessionBC - Code session broadcast channel
+   * Handle default page message routing
+   * @private
    */
-  private async handleDefaultPage(codeSessionBC: CodeSessionBC): Promise<void> {
-    const messageHandler = (data: MessageData): void => {
+  private async handleDefaultPage(): Promise<void> {
+    const messageHandler = (event: unknown): void => {
+
+      const data = (event as MessageEvent).data;
       try {
-        this.messageHandler.handleMessage(new MessageEvent("message", { data }))
+        this.dependencies.messageHandler.handleMessage(data)
           .catch(error => {
-            const errorMessage = getErrorMessage(error);
-            console.error("Error handling message:", errorMessage);
+            this.handleError(error);
             throw new MessageHandlingError("Failed to handle message", data);
           });
       } catch (error) {
-        const errorMessage = getErrorMessage(error);
-        console.error("Error in message handler:", errorMessage);
-
+        this.handleError(error);
         if (error instanceof MessageHandlingError) {
           throw error;
         }
-        throw new WebSocketError(`Message handler failed: ${errorMessage}`);
+        throw new WebSocketError(`Message handler failed: ${getErrorMessage(error)}`);
       }
     };
 
-    codeSessionBC.sub(messageHandler);
+    this.subscribe(WebSocketEventType.MESSAGE, messageHandler);
 
     // Set up window message handler
-    window.onmessage = (event: MessageEvent): void => {
-      this.messageHandler.handleMessage(event)
+    window.onmessage = (event: unknown): void => {
+      this.dependencies.messageHandler.handleMessage(event as Message)
         .catch(error => {
-          const errorMessage = getErrorMessage(error);
-          console.error("Error handling window message:", errorMessage);
-          throw new MessageHandlingError("Failed to handle window message", event.data);
+          this.handleError(error);
+          throw new MessageHandlingError("Failed to handle window message", { event });
         });
     };
   }
 
   /**
-   * Cleans up resources and event listeners
+   * Subscribe to WebSocket events
+   * @private
    */
-  public cleanup(): void {
-    try {
-      this.messageHandler.cleanup();
-      window.onmessage = null;
-    } catch (error) {
-      const errorMessage = getErrorMessage(error);
-      console.error("Error during cleanup:", errorMessage);
-      throw new WebSocketError(`Cleanup failed: ${errorMessage}`);
+  private subscribe(type: WebSocketEventType, handler: (event: MessageEvent | Event) => void): () => void {
+    const subscription: WebSocketSubscription = {
+      type,
+      handler,
+      unsubscribe: () => this.subscriptions.delete(subscription)
+    };
+    this.subscriptions.add(subscription);
+    return subscription.unsubscribe;
+  }
+
+  /**
+   * Unsubscribe all event handlers
+   * @private
+   */
+  private unsubscribeAll(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.clear();
+  }
+
+  /**
+   * Handle errors with proper logging and state management
+   * @private
+   */
+  private readonly handleError = (error: unknown): void => {
+    const errorMessage = getErrorMessage(error);
+    console.error("WebSocket error:", errorMessage);
+    this.state = WebSocketState.ERROR;
+
+    // Implement retry logic for recoverable errors
+    if (this.retryCount < this.config.maxRetries) {
+      this.retryCount++;
+      this.state = WebSocketState.RECONNECTING;
+      setTimeout(() => {
+        console.log(`Retrying connection (${this.retryCount}/${this.config.maxRetries})...`);
+        this.init().catch(console.error);
+      }, this.config.retryDelay);
     }
   }
 }

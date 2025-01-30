@@ -1,8 +1,7 @@
 import type { IframeMessage, ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
-import { IScreenshotService } from "../websocket/types";
 
-export class ScreenshotService implements IScreenshotService {
+export class ScreenshotService {
   private readonly codeSpace: string;
 
   constructor(codeSpace: string) {

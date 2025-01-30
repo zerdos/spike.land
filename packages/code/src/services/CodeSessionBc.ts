@@ -1,7 +1,8 @@
-import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
+import { ICodeSession } from "src/modules";
+import { ICodeSessionBC } from "./websocket/types";
 
-export class CodeSessionBC {
+export class CodeSessionBC implements ICodeSessionBC {
   private broadcastChannel: BroadcastChannel;
   session: ICodeSession | null = null;
   subscribers: Array<(session: ICodeSession) => void> = [];

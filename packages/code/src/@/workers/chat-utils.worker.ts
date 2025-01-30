@@ -511,8 +511,8 @@ ${this.mod.lastCode}
       return assistantMessage;
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
-      debugInfo.addLog("Error in sendAssistantMessage", { error: errorMsg });
-      console.error("Error in sendAssistantMessage:", error);
+      debugInfo.addLog("Error in handleMessage", { error: errorMsg });
+      console.error("Error in handleMessage:", error);
       throw error;
     }
   }

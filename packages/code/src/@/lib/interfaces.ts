@@ -173,12 +173,13 @@ interface ImagePart {
 }
 
 export type MessagePart = TextPart | ImageUrlPart | ImagePart;
-export type MessageContent = string | MessagePart[];
+export type MessageContent = string | MessagePart[] | TextPart
 
 // Main message interface
 export interface Message {
   id: string;
   role: Role;
+  type?: string;
   content: MessageContent;
 }
 

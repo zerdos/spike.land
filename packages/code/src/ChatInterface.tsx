@@ -239,7 +239,13 @@ const ChatInterface: React.FC<{
       ? messageToEdit.content.find((item) => item.type === "text")?.text || ""
       : messageToEdit.content;
 
-    setEditInput(contentToEdit);
+    if (contentToEdit === undefined) {
+      console.error("Invalid message content for editing");
+      return;
+    }
+    if (typeof contentToEdit !== "string") {
+      setEditInput(contentToEdit.text);
+    } else     setEditInput(contentToEdit);
   }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {

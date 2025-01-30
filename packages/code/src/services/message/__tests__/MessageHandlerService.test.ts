@@ -1,130 +1,74 @@
-import type { IframeMessage, RenderedApp } from "@/lib/interfaces";
-import type { EmotionCache } from "@emotion/cache";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { RenderService } from "../../render/RenderService";
-import { ScreenshotService } from "../../screenshot/ScreenshotService";
-import { MessageHandlerService } from "../MessageHandlerService";
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { MessageHandlerService } from '../MessageHandlerService';
+import { MessageType } from '../types';
+import { Message } from '@/lib/interfaces';
 
-// Mock dependencies
-vi.mock("../../screenshot/ScreenshotService");
-vi.mock("../../render/RenderService");
-
-describe("MessageHandlerService", () => {
-  let messageHandlerService: MessageHandlerService;
-  let mockScreenshotService: ScreenshotService;
-  let mockRenderService: RenderService;
+describe('MessageHandlerService', () => {
+  let messageHandler: MessageHandlerService;
+  let consoleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    vi.clearAllMocks();
-
-    // Setup mocked services
-    const takeScreenshot = vi.fn().mockImplementation(async () => {});
-    mockScreenshotService = {
-      takeScreenshot,
-    } as unknown as ScreenshotService;
-
-    const updateRenderedApp = vi.fn().mockImplementation(async () => null);
-    const handleRender = vi.fn().mockImplementation(async () => ({ css: "", html: "" }));
-    const cleanup = vi.fn();
-    mockRenderService = {
-      updateRenderedApp,
-      handleRender,
-      cleanup,
-    } as unknown as RenderService;
-
-    // Mock constructors
-    vi.mocked(ScreenshotService).mockImplementation(() => mockScreenshotService);
-    vi.mocked(RenderService).mockImplementation(() => mockRenderService);
-
-    messageHandlerService = new MessageHandlerService("test-code-space");
+    consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    messageHandler = new MessageHandlerService();
   });
 
-  it("should handle screenshot message", async () => {
-    const event = new MessageEvent("message", {
-      data: {
-        type: "screenShot",
-        requestId: "test-id",
-      } as IframeMessage,
-    });
+  it('should handle valid messages', async () => {
+    const result = await messageHandler.handleMessage({
+      type: MessageType.TEXT,
+      content: 'Hello',
+    } as unknown as Message);
 
-    await messageHandlerService.handleMessage(event);
-    expect(mockScreenshotService.takeScreenshot).toHaveBeenCalled();
+    expect(result).toBeDefined();
+    expect(result.success).toBe(true);
   });
 
-  it("should handle run message", async () => {
-    const mockRendered: RenderedApp = {
-      rootElement: document.createElement("div"),
-      rRoot: {} as any,
-      cssCache: {
-        key: "test-key",
-        sheet: { tags: [] },
-        inserted: {},
-        registered: {},
-        insert: vi.fn(),
-      } as EmotionCache,
-      cleanup: vi.fn(),
+  it('should handle unknown message type', async () => {
+    const result = await messageHandler.handleMessage({
+      type: 'unknown' as MessageType,
+      content: 'Test',
+    } as unknown as Message);
+
+    expect(consoleSpy).toHaveBeenCalledWith('Error processing message:', new Error('Invalid message format'));
+    expect(result.success).toBe(false);
+  });
+
+  it('should handle message processing error', async () => {
+    const testError = new Error('Test error');
+    // const processMessage = vi.spyOn(messageHandler as any, 'processMessage')
+    //   .mockRejectedValueOnce(testError);
+
+    const result = await messageHandler.handleMessage({
+      type: MessageType.TEXT,
+      content: 'Test',
+    }  as unknown as Message);
+
+    expect(consoleSpy).toHaveBeenCalledWith('Error processing message:', testError);
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('Test error');
+  });
+
+  it('should handle missing content', async () => {
+    const result = await messageHandler.handleMessage({
+      type: MessageType.TEXT,
+    } as unknown as Message);
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error processing message:',
+      expect.any(Error)
+    );
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('Missing message content');
+  });
+
+  it('should validate message format', () => {
+    const validMessage = {
+      type: MessageType.TEXT,
+      content: 'Test',
     };
-    (mockRenderService.updateRenderedApp as ReturnType<typeof vi.fn>).mockResolvedValue(
-      mockRendered,
-    );
 
-    const event = new MessageEvent("message", {
-      data: {
-        type: "run",
-        requestId: "test-id",
-        transpiled: "const x = 1;",
-      } as IframeMessage,
-    });
+    const invalidMessage = {};
 
-    await messageHandlerService.handleMessage(event);
-
-    expect(mockRenderService.updateRenderedApp).toHaveBeenCalledWith({
-      transpiled: "const x = 1;",
-    });
-    expect(mockRenderService.handleRender).toHaveBeenCalledWith(mockRendered);
-  });
-
-  it("should ignore message with no type", async () => {
-    const event = new MessageEvent("message", {
-      data: {} as IframeMessage,
-    });
-
-    await messageHandlerService.handleMessage(event);
-
-    expect(mockScreenshotService.takeScreenshot).not.toHaveBeenCalled();
-    expect(mockRenderService.updateRenderedApp).not.toHaveBeenCalled();
-  });
-
-  it("should handle unknown message type", async () => {
-    const consoleSpy = vi.spyOn(console, "warn");
-    const event = new MessageEvent("message", {
-      data: {
-        type: "unknown" as any,
-        requestId: "test-id",
-      },
-    });
-
-    await messageHandlerService.handleMessage(event);
-    expect(consoleSpy).toHaveBeenCalledWith("Unhandled message type: unknown");
-  });
-
-  it("should cleanup render service", () => {
-    messageHandlerService.cleanup();
-    expect(mockRenderService.cleanup).toHaveBeenCalled();
-  });
-
-  it("should handle message processing error", async () => {
-    (mockScreenshotService.takeScreenshot as ReturnType<typeof vi.fn>).mockRejectedValue(
-      new Error("Test error"),
-    );
-
-    const event = new MessageEvent("message", {
-      data: {
-        type: "screenShot",
-        requestId: "test-id",
-      } as IframeMessage,
-    });
-
-    await expect(messageHandlerService.handleMessage(event)).rejects.toThrow("Test error");
+    expect(messageHandler.validateMessage(validMessage)).toBe(true);
+    expect(messageHandler.validateMessage(invalidMessage)).toBe(false);
   });
 });

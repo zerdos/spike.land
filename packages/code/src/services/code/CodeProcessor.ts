@@ -1,10 +1,10 @@
-import type { ICodeSession } from "@/lib/interfaces";
 import {
   formatCode as formatCodeUtil,
   runCode,
   transpileCode as transpileCodeUtil,
 } from "../../components/editorUtils";
 import type { ICodeProcessor } from "../interfaces/ICodeProcessor";
+import { RunMessageResult } from "../websocket/types";
 
 export class CodeProcessor implements ICodeProcessor {
   /**
@@ -15,7 +15,7 @@ export class CodeProcessor implements ICodeProcessor {
     rawCode: string,
     skipRunning: boolean,
     signal: AbortSignal,
-  ): Promise<Partial<ICodeSession> | false> {
+  ): Promise<RunMessageResult | false> {
     try {
       const formattedCode = await this.formatCode(rawCode);
       if (signal.aborted) return false;
@@ -41,8 +41,6 @@ export class CodeProcessor implements ICodeProcessor {
       if (signal.aborted) return false;
 
       return {
-        code: formattedCode,
-        transpiled: transpiledCode,
         html,
         css,
       };
