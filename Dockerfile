@@ -17,6 +17,7 @@ RUN apk update && apk add --no-cache \
     curl \
     build-base \
     netcat-openbsd \
+    libc++ \
     && rm -rf /var/cache/apk/*
 
 # Set up user and permissions in a single layer
