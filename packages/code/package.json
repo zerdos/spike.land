@@ -18,7 +18,6 @@
     "dev": "concurrently \"yarn dev:vite\" \"yarn types:watch\" \"yarn dev:workers\"",
     "dev:vite": "vite",
     "dev:workers": "tsx src/@/lib/esbuild-dev.ts --watch",
-
     "// Build": "",
     "build": "yarn clean && yarn build:all",
     "build:all": "concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn build:types\" \"yarn build:workers\" && yarn post-build",
@@ -26,17 +25,14 @@
     "build:workers": "tsx src/@/lib/esbuild-dev.ts",
     "build:types": "tsc --build && yarn types:cp",
     "post-build": "cp -a -f dist-vite/. dist/ && mkdir -p ./dist/app && cp ./dist/assets/index-*.css ./dist/app/tw-global.css",
-
     "// Types": "",
     "types:check": "tsc --noEmit",
     "types:build": "tsc --build",
     "types:watch": "tsc --watch",
     "types:cp": "cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && cp -r dts/src/@ dist/.",
-
     "// Testing": "",
     "test": "vitest --no-color --reporter verbose run",
     "test:full": "yarn types:check && yarn lint && yarn test",
-    
     "// Utils": "",
     "clean": "rm -rf .tsBuildInfo dist dts dist-vite && mkdir -p dist dts dist-vite",
     "lint": "eslint .",
