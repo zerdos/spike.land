@@ -188,9 +188,9 @@ export const screenShot = (): Promise<ImageData> => {
 export const runCode = async (
   transpiled: string,
 ): Promise<{ html: string; css: string; }> => {
-  const { webSocketManager } = window.frames[0] as unknown as {
-    webSocketManager: IWebSocketManager;
-  };
+  const webSocketManager = (window.frames[0] as unknown as {
+    webSocketManager: IWebSocketManager
+  }).webSocketManager;
 
   return await webSocketManager.handleRunMessage(transpiled) || { html: "", css: "" };
 };
