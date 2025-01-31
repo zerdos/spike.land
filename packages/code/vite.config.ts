@@ -2,9 +2,10 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import fs from "fs";
 import path from "path";
-import { visualizer } from "rollup-plugin-visualizer";
+// import { visualizer } from "rollup-plugin-visualizer";
 import { AppType, defineConfig, ProxyOptions } from "vite";
 import { importMap } from "./src/@/lib/importmap-utils";
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 // import preactPackageJson from "preact/package.json" assert { type: "json" };
 
@@ -87,14 +88,16 @@ Object.entries(importMap.imports).forEach(([key, value]) => {
 const config = defineConfig((config) => ({
   ...config,
   plugins: [
-    visualizer({
-      open: true, // Automatically open the visualization
-      filename: "dist/stats.html",
-    }),
+    TanStackRouterVite(),
+    // visualizer({
+    //   open: true, // Automatically open the visualization
+    //   filename: "dist/stats.html",
+    // }),
     tailwindcss(),
     react({
       jsxImportSource: "@emotion/react",
     }),
+
   ],
 
   experimental: {

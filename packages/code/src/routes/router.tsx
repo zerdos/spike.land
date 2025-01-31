@@ -179,9 +179,3 @@ export const RouterComponent: React.FC<RouterComponentProps> = ({ router }) => {
 export const AppRouter: React.FC = () => {
   return <RouterComponent router={router} />;
 };
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: AppRouter;
-  }
-}
