@@ -187,9 +187,9 @@ export const screenShot = (): Promise<ImageData> => {
 
 export const runCode = async (
   transpiled: string,
-): Promise<RunMessageResult | false> => (window.frames[0] as unknown as {
+): Promise<RunMessageResult | false> => (()=> (window.frames[0] as unknown as {
   webSocketManager: IWebSocketManager
-}).webSocketManager.handleRunMessage(transpiled);
+}).webSocketManager.handleRunMessage(transpiled))();
 
 export interface EditorInitOptions {
   container: HTMLDivElement;

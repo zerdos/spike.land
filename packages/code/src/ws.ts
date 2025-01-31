@@ -8,14 +8,14 @@ import { CodeProcessor } from "./services/code/CodeProcessor";
 export const main = async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
+    const codeProcessor = new CodeProcessor(codeSpace);
     // const cSess = new Code(codeSpace);
     // await cSess.init();
     
     const websocketDependencies: WebSocketDependencies = {
       codeSessionBC: new CodeSessionBC(codeSpace),
-     messageHandler: {
-
-          handleRunMessage: CodeProcessor.runCode,
+      messageHandler: {
+          handleRunMessage: (transpiled: string )=>codeProcessor.runCode(transpiled),
           handleMessage: (event) => {
             console.log("Message received:", event);
             return Promise.resolve({ success: true });

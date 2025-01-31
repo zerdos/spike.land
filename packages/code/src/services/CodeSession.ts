@@ -26,7 +26,7 @@ export class Code implements ICode {
 
   constructor(private codeSpace: string) {
     this.sessionManager = new SessionManager(codeSpace);
-    this.codeProcessor = new CodeProcessor();
+    this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
   }
 

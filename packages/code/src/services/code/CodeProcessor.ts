@@ -1,11 +1,20 @@
 import {
   formatCode as formatCodeUtil,
-  runCode,
   transpileCode as transpileCodeUtil,
 } from "../../components/editorUtils";
-import { RunMessageResult } from "../websocket/types";
+import { IWebSocketManager, RunMessageResult } from "../websocket/types";
+import { RenderService } from "../render/RenderService";
 
 export class CodeProcessor {
+
+  private static renderService: RenderService;
+
+  constructor(codeSpace: string) {
+    if (!CodeProcessor.renderService) {
+      CodeProcessor.renderService = new RenderService(codeSpace);
+    }
+  }
+
   /**
    * Formats and transpiles the code (optionally runs it),
    * then returns updated session info or false on failure.
@@ -27,7 +36,7 @@ export class CodeProcessor {
 
       if (!skipRunning) {
         try {
-          const res = await CodeProcessor.runCode(transpiledCode);
+          const res = await this.runCode(transpiledCode);
           if (signal.aborted) return false;
 
           html = res.html || "<div></div>";
@@ -72,15 +81,29 @@ export class CodeProcessor {
     }
   }
 
-  static async runCode(code: string): Promise<RunMessageResult> {
+   async runCode(transpiled: string): Promise<RunMessageResult> {
     try {
-      const result = await runCode(code);
+      if (window.frames.length === 0) {
+      const renderedApp = await CodeProcessor.renderService.updateRenderedApp({ transpiled });
+
+      const result = await CodeProcessor.renderService.handleRender(renderedApp);
       if (!result) {
         throw new Error("Running code produced no output");
       }
-      return result;
+    } 
+    const res =  await (window.frames[0] as unknown as {
+      webSocketManager: IWebSocketManager
+    }).webSocketManager.handleRunMessage(transpiled) 
+    
+    if (! res) {
+      throw new Error("No output from running code");
+    }
+
+    return res;
+
+    
     } catch (error) {
-      console.error("Error running code:", { code });
+      console.error("Error running code:", { transpiled });
       throw new Error(`Error running code: ${error}`);
     }
   }
