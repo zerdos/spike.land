@@ -1,174 +1,131 @@
+import path from "path";
+import fs from "fs";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
-import fs from "fs";
-import path from "path";
-// import { visualizer } from "rollup-plugin-visualizer";
-import { AppType, defineConfig, ProxyOptions } from "vite";
+import { defineConfig, ProxyOptions, AppType } from "vite";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import { importMap } from "./src/@/lib/importmap-utils";
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
-// import preactPackageJson from "preact/package.json" assert { type: "json" };
-
-const getExternalFiles = (dir: string) =>
-  fs.readdirSync(
-    path.resolve(__dirname, `./src/${dir}`),
-  ).map((file) => {
-    return {
-      type: "external",
-      file: `/${dir}/` + file,
-    };
-  }).map((file) => {
-    // replace .ts/tsx with .mjs
-    const fileParts = file.file.split(".");
-    fileParts.pop();
-    if (fileParts.includes("worker")) {
-      fileParts.push("js");
-    } else {
-      fileParts.push("mjs");
-    }
-    file.file = fileParts.join(".");
-    return file;
+/* ========================================================
+   Utility: Get external files with proper extension
+   ======================================================== */
+const getExternalFiles = (dir: string) => {
+  const directoryPath = path.resolve(__dirname, `./src/${dir}`);
+  return fs.readdirSync(directoryPath).map((filename) => {
+    // Use path.parse for clearer filename handling
+    const { name } = path.parse(filename);
+    // If the filename includes "worker", use .js; otherwise, .mjs
+    const extension = filename.includes("worker") ? "js" : "mjs";
+    return { type: "external", file: `/${dir}/${name}.${extension}` };
   });
+};
 
-const externalRollup = [
-  "@/workers",
-  "@/external",
-]
-  .map(getExternalFiles).flat();
-// const preactCompat = `/preact@${preactPackageJson.version}/compat`;
+/* ========================================================
+   Build external file list and alias mappings
+   ======================================================== */
+const externalDirs = ["@/workers", "@/external"];
+const externalFiles = externalDirs.map(getExternalFiles).flat();
 
-// ***
+const createExternalAliases = (
+  files: Array<{ file: string }>
+): Record<string, string> =>
+  files.reduce<Record<string, string>>((aliases, { file }) => {
+    // Remove the extension from the file path
+    const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/"); 
+    aliases[aliasKey] = `/${aliasKey}.mjs`;
+    return aliases;
+  }, {});
 
-// {
-//   "@/external/monaco-editor": "/@/external/monaco-editor.mjs",
-// "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
-// "@/external/Markdown": "/@/external/Markdown.mjs",
-// "@/external/icons": "/@/external/icons.mjs",
-// "@/external/lucideReact": "/@/external/lucideReact.mjs",
-// "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
-// "@/external/reactSyntaxHighlighterPrism": "/@/external/reactSyntaxHighlighterPrism.mjs",
-// "@/external/start-ace": "/@/external/start-ace.mjs",
-// "@/external/use-local-storage": "/@/external/use-local-storage.mjs",
-// "@/external/worker-mock": "/@/external/worker-mock.mjs",
-// "@/external/record-rtc": "/@/external/record-rtc.mjs"
-// }
+const externalAliases = createExternalAliases(externalFiles);
 
-const externalAliases = externalRollup.reduce(
-  (acc: Record<string, string>, file) => {
-    // without extension and slash at the beginning
-
-    const fileParts = file.file.split(".");
-    fileParts.pop();
-    file.file = fileParts.join(".");
-    file.file = file.file.replace("/@/", "@/");
-
-    acc[file.file] = "/" + file.file + ".mjs";
-
-    //  acc[file.file] = file.file;
-    return acc;
-  },
-  {},
-);
-
+// Merge importMap aliases into our externalAliases
 Object.assign(externalAliases, importMap.imports);
 
-const rollupExternal = Object.values({ ...externalAliases });
+// Rollup external files (values of our alias mapping)
+const rollupExternal = Object.values(externalAliases);
 
-// Create proxy configuration from import map
-const importMapProxy: Record<string, ProxyOptions> = {};
-Object.entries(importMap.imports).forEach(([key, value]) => {
-  importMapProxy[key] = {
-    target: "https://testing.spike.land" + value,
-    changeOrigin: true,
-    rewrite: (path: string) => path.replace(key, ""),
+/* ========================================================
+   (Optional) Utility: Create proxy config from importMap
+   ======================================================== */
+// const createImportMapProxy = (imports: Record<string, string>): Record<string, ProxyOptions> => {
+//   const proxy: Record<string, ProxyOptions> = {};
+//   for (const [key, value] of Object.entries(imports)) {
+//     proxy[key] = {
+//       target: `https://testing.spike.land${value}`,
+//       changeOrigin: true,
+//       rewrite: (url: string) => url.replace(key, ""),
+//     };
+//   }
+//   return proxy;
+// };
+// const importMapProxy = createImportMapProxy(importMap.imports);
+
+/* ========================================================
+   Vite Configuration
+   ======================================================== */
+export default defineConfig(({ mode }) => {
+  const isBuild = mode === "build";
+
+  // Server proxy configuration
+  const proxyConfig: Record<string, ProxyOptions> = {
+    "^/live/.*/": {
+      target: "https://testing.spike.land/live",
+      changeOrigin: true,
+      rewrite: (url: string) => {
+        console.log("Proxying path:", url);
+        return url.replace(/^\/live/, "");
+      },
+    },
+    "/sw.js": {
+      target: "https://testing.spike.land/sw.js",
+      changeOrigin: true,
+    },
+    "/swVersion.mjs": {
+      target: "https://testing.spike.land/swVersion.mjs",
+      changeOrigin: true,
+      rewrite: (url: string) => url.replace(/^\/swVersion.mjs/, ""),
+    },
+  };
+
+  // Include additional proxy only when building, if needed
+  if (isBuild) {
+    proxyConfig["/@"] = {
+      target: "https://testing.spike.land/@",
+      changeOrigin: true,
+      rewrite: (url: string) => url.replace(/^\/@/, ""),
+    };
+  }
+
+  return {
+    plugins: [
+      TanStackRouterVite(),
+      // Uncomment the visualizer if you need bundle analysis:
+      // visualizer({
+      //   open: true,
+      //   filename: "dist/stats.html",
+      // }),
+      tailwindcss(),
+      react({ jsxImportSource: "@emotion/react" }),
+    ],
+    experimental: {
+      skipSsrTransform: true,
+    },
+    build: {
+      rollupOptions: {
+        external: rollupExternal,
+      },
+      outDir: "dist-vite",
+    },
+    appType: "spa" as AppType,
+    assetsInclude: [],
+    server: {
+      proxy: proxyConfig,
+    },
+    resolve: {
+      alias: {
+        ...externalAliases,
+        "@": path.resolve(__dirname, "./src/@"),
+      },
+    },
   };
 });
-
-// https://vitejs.dev/config/
-const config = defineConfig((config) => ({
-  ...config,
-  plugins: [
-    TanStackRouterVite(),
-    // visualizer({
-    //   open: true, // Automatically open the visualization
-    //   filename: "dist/stats.html",
-    // }),
-    tailwindcss(),
-    react({
-      jsxImportSource: "@emotion/react",
-    }),
-
-  ],
-
-  experimental: {
-    skipSsrTransform: true,
-  },
-  build: {
-    rollupOptions: {
-      external: [
-        // "/start.mjs",
-        // "/swVersion.mjs",
-        // ...Object.values(importMap.imports),
-        ...rollupExternal,
-      ],
-    },
-    outDir: "dist-vite",
-  },
-
-  appType: "spa" as AppType,
-
-  assetsInclude: [],
-
-  server: {
-    proxy: {
-      ...(config.mode === "build"
-        ? {
-          "/@": {
-            target: "https://testing.spike.land/@",
-            changeOrigin: true,
-            rewrite: (path: string) => path.replace(/^\/@/, ""),
-          },
-        }
-        : {}),
-      "^/live/.*/": {
-        target: "https://testing.spike.land/live",
-        changeOrigin: true,
-        rewrite: (path: string) => {
-          console.log("Proxying path:", path);
-          return path.replace(/^\/live/, "");
-        },
-      },
-      "/sw.js": {
-        target: "https://testing.spike.land/sw.js",
-        changeOrigin: true,
-      },
-      // '/start.mjs': {
-      //   target: "https://testing.spike.land/start.mjs",
-      //   changeOrigin: true,
-      //   rewrite: (path: string) => path.replace(/^\/start.mjs/, ""),
-      // },
-      "/swVersion.mjs": {
-        target: "https://testing.spike.land/swVersion.mjs",
-        changeOrigin: true,
-        rewrite: (path: string) => path.replace(/^\/swVersion.mjs/, ""),
-      },
-      // ...importMapProxy,
-    },
-  },
-
-  resolve: {
-    alias: {
-      ...externalAliases,
-      "@": path.resolve(__dirname, "./src/@"),
-    },
-  },
-}));
-
-console.log("Vite config:", JSON.stringify(config, null, 2));
-// console.log("Import map proxy:", JSON.stringify(importMapProxy, null, 2));
-console.log("Rollup external:", JSON.stringify(rollupExternal, null, 2));
-console.log("External aliases:", JSON.stringify(externalAliases, null, 2));
-
-export default config;
-
-// defineConfig(config);

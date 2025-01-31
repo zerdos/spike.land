@@ -1,7 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { IWebSocketManager } from "src/services/websocket/types";
+import { IWebSocketManager, RunMessageResult } from "src/services/websocket/types";
 
 export interface EditorState {
   started: boolean;
@@ -187,22 +187,9 @@ export const screenShot = (): Promise<ImageData> => {
 
 export const runCode = async (
   transpiled: string,
-): Promise<{ html: string; css: string; }> => {
-  let webSocketManager = (window.frames[0] as unknown as {
-    webSocketManager: IWebSocketManager
-  }).webSocketManager;
-  if (!webSocketManager) {
-    if ((window as unknown as {
-      webSocketManager: IWebSocketManager
-    }).webSocketManager) {
-      webSocketManager = (window as unknown as {
-        webSocketManager: IWebSocketManager
-      }).webSocketManager;
-    }
-  }
-
-  return await webSocketManager.handleRunMessage(transpiled) || { html: "", css: "" };
-};
+): Promise<RunMessageResult | false> => (window.frames[0] as unknown as {
+  webSocketManager: IWebSocketManager
+}).webSocketManager.handleRunMessage(transpiled);
 
 export interface EditorInitOptions {
   container: HTMLDivElement;
