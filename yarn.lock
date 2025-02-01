@@ -3911,7 +3911,7 @@ __metadata:
     detective-typescript: "npm:13.0.0"
     diff: "npm:7.0.0"
     embla-carousel-react: "npm:8.5.2"
-    esbuild: "npm:0.24.2"
+    esbuild: "npm:^0.24.2"
     esbuild-plugin-copy: "npm:2.1.1"
     esbuild-plugin-tailwindcss: "npm:1.2.1"
     esbuild-style-plugin: "npm:1.6.3"
@@ -8663,7 +8663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.24.2, esbuild@npm:^0.24.2":
+"esbuild@npm:^0.24.2":
   version: 0.24.2
   resolution: "esbuild@npm:0.24.2"
   dependencies:

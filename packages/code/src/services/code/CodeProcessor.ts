@@ -1,6 +1,6 @@
 import {
-  formatCode as formatCodeUtil,
-  transpileCode as transpileCodeUtil,
+  formatCode ,
+  transpileCode,
 } from "../../components/editorUtils";
 import {  IWebSocketManager, RunMessageResult } from "../websocket/types";
 import { RenderService } from "../render/RenderService";
@@ -27,6 +27,7 @@ export class CodeProcessor {
     getSession: () => ICodeSession
   ): Promise<ICodeSession | false> {
 
+ if (signal.aborted) return false;
     try {
 
 
@@ -86,7 +87,7 @@ export class CodeProcessor {
 
   private async formatCode(code: string): Promise<string> {
     try {
-      return await formatCodeUtil(code);
+      return await formatCode(code);
     } catch (error) {
       console.error("Error formatting code:", { code });
       throw new Error(`Error formatting code: ${error}`);
@@ -95,7 +96,7 @@ export class CodeProcessor {
 
   private async transpileCode(code: string): Promise<string> {
     try {
-      const transpiled = await transpileCodeUtil(code);
+      const transpiled = await transpileCode(code);
       if (!transpiled) {
         console.log("Error Transpiled code:", { code });
         throw new Error("Transpilation resulted in empty output");

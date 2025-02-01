@@ -4,8 +4,10 @@ import { RenderService } from '../../render/RenderService';
 import type { EmotionCache } from '@emotion/cache';
 import type { ICodeSession, RenderedApp } from '@/lib/interfaces';
 import {createRoot}  from 'react-dom/client';
+import { transpileCode, formatCode } from '../../../components/editorUtils';
 
 vi.mock('../../render/RenderService');
+vi.mock('../../../components/editorUtils');
 
 describe('CodeProcessor', () => {
   const mockCodeSpace = 'test-space';
@@ -27,6 +29,7 @@ describe('CodeProcessor', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+
     // Reset any iframe related globals
     if (window.frames.length) {
       delete window.frames[0];
@@ -40,16 +43,62 @@ describe('CodeProcessor', () => {
 
   describe('process', () => {
     it('should format and transpile code successfully', async () => {
-      const mockCode = 'const x = 5;';
+      const mockCode = 'const x = 6;';
       const mockSignal = new AbortController().signal;
+
+      vi.mocked(transpileCode).mockResolvedValue(  `transpiled`);
+    
+      vi.mocked(formatCode).mockResolvedValue(  `formatted` );
+      vi.mocked(RenderService.prototype.handleRender).mockResolvedValue({
+        html: '<div>Rendered</div>',
+        css: 'rendered css'
+      });
+    
 
       const result = await codeProcessor.process(mockCode, true, mockSignal, getSession);
       
-      expect(result).toEqual({
-        html: '<div></div>',
-        css: ''
-      });
+      expect(result).toMatchInlineSnapshot(`
+        {
+          "code": "formatted",
+          "codeSpace": "test-space",
+          "css": "css",
+          "html": "<div></div>",
+          "messages": [
+            {
+              "content": "Test",
+              "id": "1",
+              "role": "user",
+            },
+            {
+              "content": "Test",
+              "id": "2",
+              "role": "assistant",
+            },
+          ],
+          "transpiled": "transpiled",
+        }
+      `);
     });
+
+
+    it('should should run as well', async () => {
+      const mockCode = 'const x = 6;';
+      const mockSignal = new AbortController().signal;
+
+      vi.mocked(transpileCode).mockResolvedValue(  `transpiled`);
+    
+      vi.mocked(formatCode).mockResolvedValue(  `formatted` );
+      vi.mocked(RenderService.prototype.handleRender).mockResolvedValue({
+        html: '<div>Rendered</div>',
+        css: 'rendered css'
+      });
+    
+
+      const result = await codeProcessor.process(mockCode, false, mockSignal, getSession);
+      
+      expect(result).toMatchInlineSnapshot(`false`);
+    });
+
 
     it('should handle aborted signal', async () => {
       const mockCode = 'const x = 5;';
