@@ -1,102 +1,45 @@
 # Frontend Architecture
 
-The frontend consists of two main parts: the editor interface in the main window and the code execution environment in an iframe.
+The frontend is divided into two main parts:
+- **Editor Interface (Main Window):** Provides the user interface for coding and editing.
+- **Code Execution Environment (Iframe):** Executes the user’s code in an isolated context.
 
 ## Components
 
 ### Main Window (Editor)
-
-- **Editor Interface**: Monaco-based code editor that handles user input
-- **Code Processing**: Initial code formatting and preparation
-- **Message Handling**: Manages communication with the iframe
+- **Editor Interface:** Utilizes Monaco Editor for a rich coding experience.
+- **Code Processing:** Performs initial formatting and transpilation before sending code for execution.
+- **Message Handling:** Uses postMessage to communicate with the iframe and ensures that only messages from the designated iframe are acted upon, preventing unintended re-rendering in the main window.
 
 ### Iframe (Execution Environment)
-
-- **Code Execution**: Safe environment for running user code
-- **Render Service**: Handles DOM updates and styling
-- **WebSocket Manager**: Manages real-time updates and state sync
+- **Code Execution:** Safely executes user code in isolation.
+- **Render Service:** Updates the UI based on executed code, completely isolated from the main window.
+- **WebSocket Interaction:** May manage live updates and state synchronization specific to the execution context.
 
 ## Communication Flow
 
-### Code Execution Flow
+1. The user modifies code in the editor.
+2. The code is formatted and transpiled.
+3. The processed code is sent via postMessage to the iframe.
+4. The iframe processes and executes the code, then sends the result back.
+5. The main window updates its UI based solely on verified messages from the iframe.
 
-```
-Editor (Main Window)                 Iframe
-     |                                |
-     |--- [postMessage] Code -------->|
-     |                                |
-     |                    Process Code|
-     |                    Execute Code|
-     |                                |
-     |<-- [postMessage] Results -----|
-     |                                |
-     |Update UI                       |
-```
+## Test Environment Considerations
 
-1. User modifies code in the editor
-2. Code is sent to iframe via postMessage
-3. Iframe processes and executes the code
-4. Results are sent back to main window
-5. UI updates with new output
+- **Polyfills:** A polyfill for `window.scrollTo` is setup in the test environment (see start.ts) to prevent errors.
+- **Stubbed Code Processing:** In tests, the `CodeProcessor` is stubbed to immediately return "processed_test" to avoid timeouts.
+- **Service Worker Configuration:** The `ServiceWorkerManager` is configured to skip setup when simulating an iframe (using a global flag) or when running outside the main window.
+- **Mocking Strategy:** Key functions like `formatCode` and `transpileCode` are stubbed/mocked in tests to ensure prompt and predictable behavior.
 
-### State Management
+## Testing Strategy
 
-- Editor state is maintained in the main window
-- Execution state is isolated in the iframe
-- State synchronization happens through postMessage
+- **Unit Tests:** Verify the functionality of individual components such as the Editor Interface, Code Processing, and Message Handling.
+- **Integration Tests:** Ensure the correct flow of messages between the main window and the iframe using postMessage.
+- **Error and Edge Case Handling:** Dedicated tests validate timeout behavior, error handling, and proper isolation between contexts.
+- **Mocking:** Tools like jest are used to simulate and stub browser APIs and asynchronous operations used in code processing and service worker registration.
 
-## Error Handling
+## Security and Best Practices
 
-- Code execution errors are captured in the iframe
-- Errors are reported back to the editor
-- Timeouts prevent infinite loops or hanging execution
-- Network errors trigger automatic reconnection
-
-## Security Features
-
-- Code execution is isolated in the iframe
-- Content Security Policy (CSP) restrictions
-- Input validation at multiple levels
-- Origin verification for messages
-
-## Performance Optimizations
-
-- Code execution is debounced
-- Message batching for frequent updates
-- Resource caching where appropriate
-- Lazy loading of heavy components
-
-## Development Guidelines
-
-### Adding New Features
-
-1. Determine which window (main or iframe) should own the functionality
-2. Implement proper message handling if cross-window communication is needed
-3. Add appropriate error handling
-4. Write tests for both success and failure scenarios
-
-### Testing
-
-1. Unit tests for individual components
-2. Integration tests for window communication
-3. End-to-end tests for complete workflows
-4. Performance testing for resource-intensive operations
-
-## File Structure
-
-```
-packages/code/src/
-├── components/           # UI components
-│   ├── editor/          # Editor-related components
-│   └── preview/         # Preview components
-├── services/            # Core services
-│   ├── code/           # Code processing
-│   ├── websocket/      # WebSocket handling
-│   └── render/         # Rendering service
-└── utils/              # Shared utilities
-```
-
-For implementation details, refer to:
-- `packages/code/src/components/editorUtils.ts`
-- `packages/code/src/services/code/CodeProcessor.ts`
-- `packages/code/src/services/websocket/WebSocketManager.ts`
+- **Isolation:** Code execution is confined to the iframe, ensuring a secure separation from the main window.
+- **Validation:** Incoming messages are validated to accept only those from the trusted iframe source.
+- **CSP Compliance:** Content Security Policy and origin checks are implemented to safeguard against unauthorized interactions.
