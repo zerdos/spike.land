@@ -345,13 +345,13 @@ __metadata:
   linkType: hard
 
 "@cfworker/json-schema@npm:^4.0.2":
-  version: 4.1.0
-  resolution: "@cfworker/json-schema@npm:4.1.0"
-  checksum: 10c0/a7917d197ad9d5deb48a4d800ab41b3de5fe856745c164c5a4ed914263a0a11b08cf1b11040eb325e756e8f9418b07511109df856281dd10bf288f743d4fb3e6
+  version: 4.1.1
+  resolution: "@cfworker/json-schema@npm:4.1.1"
+  checksum: 10c0/b5253486d346b7de6feec9c73954f612b11019dacb9023d710a5666df2f5fc145dd88b6b913c88726c6d97e2e258a515fa2cab177f58b18da6bac3738cbc4739
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.23.10, @clerk/backend@npm:^1.23.10":
+"@clerk/backend@npm:1.23.10, @clerk/backend@npm:^1.21.6, @clerk/backend@npm:^1.23.10":
   version: 1.23.10
   resolution: "@clerk/backend@npm:1.23.10"
   dependencies:
@@ -361,19 +361,6 @@ __metadata:
     snakecase-keys: "npm:8.0.1"
     tslib: "npm:2.4.1"
   checksum: 10c0/8c4fb867be91bf7947df274535b948759f2844ee0cb367bed803e7c33041c55e9f81abc20a95ff9928a0c8730fb1a7d12b5ab441f1521c74674c390c7553c1f2
-  languageName: node
-  linkType: hard
-
-"@clerk/backend@npm:^1.21.6":
-  version: 1.23.9
-  resolution: "@clerk/backend@npm:1.23.9"
-  dependencies:
-    "@clerk/shared": "npm:^2.20.16"
-    "@clerk/types": "npm:^4.44.2"
-    cookie: "npm:1.0.2"
-    snakecase-keys: "npm:8.0.1"
-    tslib: "npm:2.4.1"
-  checksum: 10c0/715c58adfe3be7fb6d9b623b4ee8a14ce34290d401618dce0fa5bdb10ecfe88fc5189468865a4a9c481980fd95e60bb66a73414253e331a2ae5b5f302b44825b
   languageName: node
   linkType: hard
 
@@ -422,29 +409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:^2.20.16, @clerk/shared@npm:^2.20.6":
-  version: 2.20.16
-  resolution: "@clerk/shared@npm:2.20.16"
-  dependencies:
-    "@clerk/types": "npm:^4.44.2"
-    dequal: "npm:2.0.3"
-    glob-to-regexp: "npm:0.4.1"
-    js-cookie: "npm:3.0.5"
-    std-env: "npm:^3.7.0"
-    swr: "npm:^2.2.0"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
-    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: 10c0/1528909fe9a70b54b18babdf6b489aa6fc3a391762ff47bb93fdbb6c6c23eb3161feb5661f49e4c9302858f817e924e9ef1604fd229749a6f12ab4b4473708ed
-  languageName: node
-  linkType: hard
-
-"@clerk/shared@npm:^2.20.17":
+"@clerk/shared@npm:^2.20.17, @clerk/shared@npm:^2.20.6":
   version: 2.20.17
   resolution: "@clerk/shared@npm:2.20.17"
   dependencies:
@@ -466,16 +431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:^4.40.2, @clerk/types@npm:^4.44.2":
-  version: 4.44.2
-  resolution: "@clerk/types@npm:4.44.2"
-  dependencies:
-    csstype: "npm:3.1.1"
-  checksum: 10c0/7046f228a2db5ed87164bf138cc6ccb29f18450339fdc3548bb1cc3a752dbc141d21cf8b9767572178dcde85ff7c7b1e7da6ec0dfa4d914cdb73aa82f11a93c7
-  languageName: node
-  linkType: hard
-
-"@clerk/types@npm:^4.44.3":
+"@clerk/types@npm:^4.40.2, @clerk/types@npm:^4.44.3":
   version: 4.44.3
   resolution: "@clerk/types@npm:4.44.3"
   dependencies:
@@ -1396,13 +1352,13 @@ __metadata:
   linkType: hard
 
 "@eslint/config-array@npm:^0.19.0":
-  version: 0.19.1
-  resolution: "@eslint/config-array@npm:0.19.1"
+  version: 0.19.2
+  resolution: "@eslint/config-array@npm:0.19.2"
   dependencies:
-    "@eslint/object-schema": "npm:^2.1.5"
+    "@eslint/object-schema": "npm:^2.1.6"
     debug: "npm:^4.3.1"
     minimatch: "npm:^3.1.2"
-  checksum: 10c0/43b01f596ddad404473beae5cf95c013d29301c72778d0f5bf8a6699939c8a9a5663dbd723b53c5f476b88b0c694f76ea145d1aa9652230d140fe1161e4a4b49
+  checksum: 10c0/dd68da9abb32d336233ac4fe0db1e15a0a8d794b6e69abb9e57545d746a97f6f542496ff9db0d7e27fab1438546250d810d90b1904ac67677215b8d8e7573f3d
   languageName: node
   linkType: hard
 
@@ -1439,10 +1395,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/object-schema@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "@eslint/object-schema@npm:2.1.5"
-  checksum: 10c0/5320691ed41ecd09a55aff40ce8e56596b4eb81f3d4d6fe530c50fdd6552d88102d1c1a29d970ae798ce30849752a708772de38ded07a6f25b3da32ebea081d8
+"@eslint/object-schema@npm:^2.1.6":
+  version: 2.1.6
+  resolution: "@eslint/object-schema@npm:2.1.6"
+  checksum: 10c0/b8cdb7edea5bc5f6a96173f8d768d3554a628327af536da2fc6967a93b040f2557114d98dbcdbf389d5a7b290985ad6a9ce5babc547f36fc1fde42e674d11a56
   languageName: node
   linkType: hard
 
@@ -5108,16 +5064,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 22.12.0
-  resolution: "@types/node@npm:22.12.0"
-  dependencies:
-    undici-types: "npm:~6.20.0"
-  checksum: 10c0/be220706732d95db2ed1c441c1e64cab90bf9a47519ce6f4c79cc5a9ec9d5c517131a149a9ac30afac1a30103e67e3a00d453ba7c1b0141608a3a7ba6397c303
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:22.13.0":
+"@types/node@npm:*, @types/node@npm:22.13.0":
   version: 22.13.0
   resolution: "@types/node@npm:22.13.0"
   dependencies:
@@ -15936,23 +15883,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonner@npm:1.7.4":
+"sonner@npm:1.7.4, sonner@npm:^1.4.32":
   version: 1.7.4
   resolution: "sonner@npm:1.7.4"
   peerDependencies:
     react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
   checksum: 10c0/2856a43c1afaacec5ca74c7f6bb8eb439edf1fdadb045bd201590f809e6e9b711eabcf7d1e8f3448cf414e1333d97e3e16372a989011a3190f20952947b1f60a
-  languageName: node
-  linkType: hard
-
-"sonner@npm:^1.4.32":
-  version: 1.7.3
-  resolution: "sonner@npm:1.7.3"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-  checksum: 10c0/040bc840c41e68aa18085c28bfa0b11380da28cca871d7902f9c5d5a3cb544b59ae033b84becc59ea284151b53d2f2b29d9d96a8d03f921a1c84c571f1a0f814
   languageName: node
   linkType: hard
 
@@ -16901,21 +16838,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tldts-core@npm:^6.1.75":
-  version: 6.1.75
-  resolution: "tldts-core@npm:6.1.75"
-  checksum: 10c0/6a35db3a509bc003f86fe31f28334a3a1a56614f7ea3a3c93c91d771632d40a547d0313eb3882daea214e5441fa8b5902cc4ac96be6f7419a448310b8267a4cb
+"tldts-core@npm:^6.1.76":
+  version: 6.1.76
+  resolution: "tldts-core@npm:6.1.76"
+  checksum: 10c0/597a17715198f77cb8da98049d1cbb2684083c09c18e4957121009dea6aaa862dc1a2829f5d81a5306e49cd7b8f5316b5de82db64841acc9b570d7ada6e97f3e
   languageName: node
   linkType: hard
 
 "tldts@npm:^6.1.32":
-  version: 6.1.75
-  resolution: "tldts@npm:6.1.75"
+  version: 6.1.76
+  resolution: "tldts@npm:6.1.76"
   dependencies:
-    tldts-core: "npm:^6.1.75"
+    tldts-core: "npm:^6.1.76"
   bin:
     tldts: bin/cli.js
-  checksum: 10c0/cf25f05be4642cb0de070a0385e2dd24fea1b5ea4c10c679e763c095919fc2a41d6f445284d40e288802654ad919cb956687d2312a0352add23c4b7f5cb6abf9
+  checksum: 10c0/86173db1b152c4b8468777ec3b78b1e811a4ac5eb3ac34d077f7d72b11e6f14637b540e21464a522403bf034d5dcb6a2d5ea21d69a3d0cd1e9ae05a0e77624ad
   languageName: node
   linkType: hard
 

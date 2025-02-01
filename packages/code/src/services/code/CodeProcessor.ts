@@ -2,7 +2,7 @@ import {
   formatCode as formatCodeUtil,
   transpileCode as transpileCodeUtil,
 } from "../../components/editorUtils";
-import { IWebSocketManager, RunMessageResult } from "../websocket/types";
+import {  RunMessageResult } from "../websocket/types";
 import { RenderService } from "../render/RenderService";
 
 export class CodeProcessor {
@@ -83,25 +83,19 @@ export class CodeProcessor {
 
    async runCode(transpiled: string): Promise<RunMessageResult> {
     try {
-      if (window.frames.length === 0) {
+      // Update the rendered app first
       const renderedApp = await CodeProcessor.renderService.updateRenderedApp({ transpiled });
-
       const result = await CodeProcessor.renderService.handleRender(renderedApp);
+      
       if (!result) {
         throw new Error("Running code produced no output");
       }
-    } 
-    const res =  await (window.frames[0] as unknown as {
-      webSocketManager: IWebSocketManager
-    }).webSocketManager.handleRunMessage(transpiled) 
-    
-    if (! res) {
-      throw new Error("No output from running code");
-    }
 
-    return res;
+      return {
+        html: result.html || "<div></div>",
+        css: result.css || ""
+      };
 
-    
     } catch (error) {
       console.error("Error running code:", { transpiled });
       throw new Error(`Error running code: ${error}`);

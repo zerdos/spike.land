@@ -1,7 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { IWebSocketManager, RunMessageResult } from "src/services/websocket/types";
+import { RunMessageResult } from "src/services/websocket/types";
 
 export interface EditorState {
   started: boolean;
@@ -176,7 +176,13 @@ export const screenShot = (): Promise<ImageData> => {
       }
     };
 
-    window.addEventListener("message", messageHandler);
+    const iframe = document.querySelector("iframe");
+    // Only listen for messages from our iframe
+    window.addEventListener("message", (event) => {
+      if (iframe && event.source === iframe.contentWindow) {
+         messageHandler(event);
+      }
+    });
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       type: "screenShot",
@@ -187,9 +193,36 @@ export const screenShot = (): Promise<ImageData> => {
 
 export const runCode = async (
   transpiled: string,
-): Promise<RunMessageResult | false> => (()=> (window.frames[0] as unknown as {
-  webSocketManager: IWebSocketManager
-}).webSocketManager.handleRunMessage(transpiled))();
+): Promise<RunMessageResult | false> => {
+  return new Promise((resolve) => {
+    const iframe = document.querySelector('iframe');
+    if (!iframe || !iframe.contentWindow) {
+      console.error('No iframe found for code execution');
+      return resolve(false);
+    }
+
+    const messageHandler = (event: MessageEvent) => {
+      if (iframe && event.source === iframe.contentWindow && event.data.type === 'code-execution-result') {
+        window.removeEventListener('message', messageHandler);
+        resolve(event.data.result);
+      }
+    };
+
+    window.addEventListener('message', messageHandler);
+
+    iframe.contentWindow.postMessage({
+      type: 'execute-code',
+      code: transpiled
+    }, '*');
+
+    // Add timeout to prevent hanging
+    setTimeout(() => {
+      window.removeEventListener('message', messageHandler);
+      console.error('Code execution timed out');
+      resolve(false);
+    }, 5000);
+  });
+};
 
 export interface EditorInitOptions {
   container: HTMLDivElement;

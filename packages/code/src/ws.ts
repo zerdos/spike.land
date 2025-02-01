@@ -15,15 +15,26 @@ export const main = async () => {
     const websocketDependencies: WebSocketDependencies = {
       codeSessionBC: new CodeSessionBC(codeSpace),
       messageHandler: {
-          handleRunMessage: (transpiled: string )=>codeProcessor.runCode(transpiled),
+          handleRunMessage: async (transpiled: string) => {
+            try {
+              if (window.self !== window.parent) {
+                return await codeProcessor.process(transpiled, false, new AbortController().signal);
+              } else {
+                console.warn("Not in iframe: skipping code processing to prevent main window re-render.");
+                return false;
+              }
+            } catch (error) {
+              console.error("Error handling run message:", error);
+              return false;
+            }
+          },
           handleMessage: (event) => {
             console.log("Message received:", event);
             return Promise.resolve({ success: true });
           },
           cleanup: () => {
             console.log("Cleaning up message handler");
-          },
-          
+          }
       },
       serviceWorker: new ServiceWorkerManager(),
     };
@@ -46,5 +57,13 @@ export const main = async () => {
   }
 };
 
-// Export for global access
+ // Export for global access
 
+ export const testHandleRunMessage = async (transpiled: string, codeProcessor: CodeProcessor) => {
+   if (window.self !== window.parent) {
+     return await codeProcessor.process(transpiled, false, new AbortController().signal);
+   } else {
+     console.warn("Not in iframe: skipping code processing to prevent main window re-render.");
+     return false;
+   }
+ };
