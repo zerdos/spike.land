@@ -1,32 +1,39 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
 import { CodeSessionBC } from "./services/CodeSessionBc";
-import type { WebSocketDependencies } from "./services/websocket/types";
+import type { IWebSocketManager, WebSocketDependencies } from "./services/websocket/types";
 import { WebSocketManager } from "./services/websocket/WebSocketManager";
 import { ServiceWorkerManager } from "./services/worker/ServiceWorkerManager";
-import { CodeProcessor } from "./services/code/CodeProcessor";
+import { RenderService } from "./services/render/RenderService";
 
-export const main = async () => {
+export const main = async (codeSpace: string) => {
   try {
-    const codeSpace = getCodeSpace(location.pathname);
-    const codeProcessor = new CodeProcessor(codeSpace);
+
+    const renderService = new RenderService(codeSpace);
     // const cSess = new Code(codeSpace);
     // await cSess.init();
+    const codeSessionBC = new CodeSessionBC(codeSpace);
+
+
     
     const websocketDependencies: WebSocketDependencies = {
-      codeSessionBC: new CodeSessionBC(codeSpace),
+      codeSessionBC,
       messageHandler: {
           handleRunMessage: async (transpiled: string) => {
             try {
               if (window.self !== window.parent) {
-                return await codeProcessor.process(transpiled, false, new AbortController().signal);
+                return await renderService.handleRender( await renderService.updateRenderedApp({transpiled}));
               } else {
                 console.warn("Not in iframe: skipping code processing to prevent main window re-render.");
-                return false;
+                const {css, html} = codeSessionBC.session || await codeSessionBC.init();
+                return Promise.resolve({
+                  css,
+                  html
+                });
               }
             } catch (error) {
               console.error("Error handling run message:", error);
               return false;
             }
+          
           },
           handleMessage: (event) => {
             console.log("Message received:", event);
@@ -36,6 +43,7 @@ export const main = async () => {
             console.log("Cleaning up message handler");
           }
       },
+      
       serviceWorker: new ServiceWorkerManager(),
     };
 
@@ -51,6 +59,8 @@ export const main = async () => {
    
     Object.assign(window, { webSocketManager });
 
+    return webSocketManager;
+
   } catch (error) {
     console.error("Error in main function:", error);
     throw error;
@@ -59,9 +69,9 @@ export const main = async () => {
 
  // Export for global access
 
- export const testHandleRunMessage = async (transpiled: string, codeProcessor: CodeProcessor) => {
+ export const testHandleRunMessage = async (transpiled: string, webSocketManager: IWebSocketManager) => {
    if (window.self !== window.parent) {
-     return await codeProcessor.process(transpiled, false, new AbortController().signal);
+     return await webSocketManager.handleRunMessage(transpiled);
    } else {
      console.warn("Not in iframe: skipping code processing to prevent main window re-render.");
      return false;

@@ -2,7 +2,8 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { CodeProcessor } from '../CodeProcessor';
 import { RenderService } from '../../render/RenderService';
 import type { EmotionCache } from '@emotion/cache';
-import type { RenderedApp } from '@/lib/interfaces';
+import type { ICodeSession, RenderedApp } from '@/lib/interfaces';
+import {createRoot}  from 'react-dom/client';
 
 vi.mock('../../render/RenderService');
 
@@ -10,11 +11,25 @@ describe('CodeProcessor', () => {
   const mockCodeSpace = 'test-space';
   let codeProcessor: CodeProcessor;
 
+  const sessionMock: ICodeSession = {
+    code: 'const x = 5;',
+    transpiled: 'const x = 5;',
+    html: '<div></div>',
+    codeSpace: mockCodeSpace,
+    css: 'css',
+    messages: [
+      { id: '1', role: 'user', content: 'Test' },
+      { id: '2', role: 'assistant', content: 'Test' }
+    ],
+  }
+
+  const getSession = () => sessionMock; 
+
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset any iframe related globals
     if (window.frames.length) {
-      delete (window as any).frames[0];
+      delete window.frames[0];
     }
     codeProcessor = new CodeProcessor(mockCodeSpace);
   });
@@ -28,7 +43,7 @@ describe('CodeProcessor', () => {
       const mockCode = 'const x = 5;';
       const mockSignal = new AbortController().signal;
 
-      const result = await codeProcessor.process(mockCode, true, mockSignal);
+      const result = await codeProcessor.process(mockCode, true, mockSignal, getSession);
       
       expect(result).toEqual({
         html: '<div></div>',
@@ -43,7 +58,7 @@ describe('CodeProcessor', () => {
       
       controller.abort();
       
-      const result = await codeProcessor.process(mockCode, false, mockSignal);
+      const result = await codeProcessor.process(mockCode, false, mockSignal,getSession);
       expect(result).toBe(false);
     });
 
@@ -53,7 +68,7 @@ describe('CodeProcessor', () => {
       
       vi.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
       
-      const result = await codeProcessor.process(mockCode, false, mockSignal);
+      const result = await codeProcessor.process(mockCode, false, mockSignal, getSession);
       expect(result).toBe(false);
     });
   });
@@ -76,9 +91,11 @@ describe('CodeProcessor', () => {
         sheet: { tags: [] }
       } as EmotionCache;
 
+      const rootElement = document.createElement('div');
+
       const mockRenderedApp: RenderedApp = {
         rootElement: document.createElement('div'),
-        rRoot: {} as any,
+        rRoot: createRoot(rootElement),
         cssCache: mockEmotionCache,
         cleanup: vi.fn()
       };
@@ -110,9 +127,10 @@ describe('CodeProcessor', () => {
         sheet: { tags: [] }
       } as EmotionCache;
 
+      const rootElement = document.createElement('div');
       const mockRenderedApp: RenderedApp = {
-        rootElement: document.createElement('div'),
-        rRoot: {} as any,
+        rootElement,
+        rRoot: createRoot(rootElement),
         cssCache: mockEmotionCache,
         cleanup: vi.fn()
       };

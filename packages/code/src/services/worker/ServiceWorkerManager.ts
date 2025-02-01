@@ -1,16 +1,22 @@
-import type { IServiceWorkerManager } from "../websocket/types";
+import { setupServiceWorker } from "@/lib/hydrate";
+import { IServiceWorkerManager } from "../websocket/types";
+
+interface IExtendedWindow extends Window {
+  __IS_IFRAME__: boolean;
+}
 
 export class ServiceWorkerManager implements IServiceWorkerManager {
-  public async setup() {
- //   if (window.parent === window) {
-      try {
-        const { setupServiceWorker } = await import("@/lib/hydrate");
-        return await setupServiceWorker() as ServiceWorker;
-
-      } catch (error) {
-        console.error("Error setting up service worker:", error);
-        return navigator.serviceWorker.controller!
-      }
- //   }
+  async setup(): Promise<ServiceWorker | undefined> {
+    // Do not setup service worker when running in an iframe.
+        // Additionally, allow tests to simulate iframe mode via window.__IS_IFRAME__
+    if ((window as unknown as IExtendedWindow).__IS_IFRAME__ === true || window.self !== window.parent) {
+      return;
+    }
+    try {
+      await setupServiceWorker();
+    } catch (setupError) {
+      console.error("Error setting up service worker:", {setupError});
+      throw setupError;
+    }
   }
 }

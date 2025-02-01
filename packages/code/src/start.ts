@@ -33,10 +33,10 @@ const handleError = (error: unknown): void => {
 /**
  * Initialize the WebSocket connection for live code spaces
  */
-const initializeWebSocket = async (): Promise<void> => {
+const initializeWebSocket = async (codeSpace: string): Promise<void> => {
   try {
     const { main } = await import("./ws");
-    await main();
+    await main(codeSpace);
   } catch (error) {
     handleError(error);
   }
@@ -76,7 +76,7 @@ router.load().then(async () => {
 
     if (location.pathname === `/live/${codeSpace}/iframe`) {
       try {
-        await initializeWebSocket();
+        await initializeWebSocket(codeSpace);
       } catch (error) {
         console.error("WebSocket initialization failed:", error);
         throw new RouterError("WebSocket initialization failed", `/live/${codeSpace}/iframe`);

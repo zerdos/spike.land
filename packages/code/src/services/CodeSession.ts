@@ -8,6 +8,7 @@ import { CodeProcessor } from "./code/CodeProcessor";
 import { ModelManager } from "./code/ModelManager";
 import { SessionManager } from "./code/SessionManager";
 
+
 // Mutex for thread-safe code access
 const mutex = new Mutex();
 
@@ -91,25 +92,29 @@ export class Code implements ICode {
     rawCode: string,
     skipRunning: boolean,
   ): Promise<string> {
+
+
     if (rawCode === this.session.code) {
       return this.session.code;
     }
 
+
     if (this.setCodeController) {
       this.setCodeController.abort();
     }
-    this.setCodeController = new AbortController();
 
-    const processedSession = await this.codeProcessor.process(
-      rawCode,
-      skipRunning,
-      this.setCodeController.signal,
-    );
-    if (!processedSession || this.setCodeController.signal.aborted) {
+  
+
+    this.setCodeController = new AbortController();
+    const signal = this.setCodeController.signal;
+
+    const result = await this.codeProcessor.process(rawCode, skipRunning, signal, ()=>this.session);
+
+    if (!result) {
       return this.session.code;
     }
 
-    this.sessionManager.updateSession(processedSession);
+    this.sessionManager.updateSession(result);
     return this.session.code;
   }
 

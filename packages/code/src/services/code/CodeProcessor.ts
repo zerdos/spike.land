@@ -2,8 +2,9 @@ import {
   formatCode as formatCodeUtil,
   transpileCode as transpileCodeUtil,
 } from "../../components/editorUtils";
-import {  RunMessageResult } from "../websocket/types";
+import {  IWebSocketManager, RunMessageResult } from "../websocket/types";
 import { RenderService } from "../render/RenderService";
+import {  ICodeSession } from "@/lib/interfaces";
 
 export class CodeProcessor {
 
@@ -23,35 +24,60 @@ export class CodeProcessor {
     rawCode: string,
     skipRunning: boolean,
     signal: AbortSignal,
-  ): Promise<RunMessageResult | false> {
+    getSession: () => ICodeSession
+  ): Promise<ICodeSession | false> {
+
     try {
-      const formattedCode = await this.formatCode(rawCode);
-      if (signal.aborted) return false;
 
-      const transpiledCode = await this.transpileCode(formattedCode);
-      if (signal.aborted) return false;
 
-      let html = "<div></div>";
-      let css = "";
+    const code =  await this.formatCode(rawCode);
+    if (signal.aborted) return false;
 
-      if (!skipRunning) {
-        try {
-          const res = await this.runCode(transpiledCode);
-          if (signal.aborted) return false;
+    if (code === getSession().code) {
+      return getSession();
+    }
 
-          html = res.html || "<div></div>";
-          css = res.css || "";
-        } catch (error) {
-          console.error("Error running code:", error);
-        }
+
+    const transpiled = await this.transpileCode(code);
+    if (signal.aborted) return false;
+    if (getSession().transpiled === transpiled) {
+      return getSession();
+    }
+
+
+
+    const processedSession = {
+      html: getSession().html,
+      css: getSession().css
+    };
+
+    if (!skipRunning) {
+      const runResult = await (window.frames[0] as unknown as {
+        webSocketManager: IWebSocketManager;
+      }).webSocketManager.handleRunMessage(transpiled);
+      if (!runResult) {
+        return false;
       }
+      if (runResult.html && runResult.html !== processedSession.html) {
+        processedSession.html = runResult.html;
+      }
+      if (runResult.css && runResult.css !== processedSession.css) {
+        processedSession.css = runResult.css;
+      }
+    }
 
-      if (signal.aborted) return false;
+    if (signal.aborted) {
+      return false;
+    }
 
-      return {
-        html,
-        css,
-      };
+    return {
+      ...getSession(),
+      ...processedSession,
+      code,
+      transpiled
+    }
+
+
     } catch (error) {
       console.error("Error processing code:", error);
       return false;

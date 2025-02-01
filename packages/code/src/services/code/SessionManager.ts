@@ -94,10 +94,14 @@ export class SessionManager implements ISessionManager {
   }
 
   updateSession(sessionData: Partial<ICodeSession>): void {
-    this.session = sanitizeSession({
+    const newSession = sanitizeSession({
       ...this.session,
       ...sessionData,
     });
+    if (md5(JSON.stringify(newSession)) === md5(JSON.stringify(this.session))) {
+      return;
+    }
+    this.session = newSession;
     this.broadcastSession();
   }
 
