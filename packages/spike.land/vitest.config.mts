@@ -4,7 +4,10 @@ export default defineWorkersConfig({
   test: {
     poolOptions: {
       workers: {
-        wrangler: { configPath: "./wrangler.toml" },
+        miniflare: {
+          configPath: 'wrangler.toml',
+          compatibilityDate: '2024-10-31',
+        },
       },
     },
   },

@@ -14,7 +14,8 @@
     "deploy:prod": "wrangler deploy --minify ./src/cf-workers.ts",
     "clean": "rimraf dist",
     "types:check": "tsc --noEmit",
-    "test": "vitest run",
+    "test:unit": "vitest --no-color --reporter dot 2> ./error.txt run || touch ./error.txt && cat ./error.txt | grep -v .yarn | grep -v node_modules && rm ./error.txt",
+    "test": "yarn types:check && yarn test:unit",
     "test:watch": "vitest"
   },
   "devDependencies": {
@@ -29,7 +30,7 @@
     "@vitest/snapshot": "3.0.4",
     "rimraf": "6.0.1",
     "typescript": "5.7.3",
-    "vitest": "3.0.4",
+    "vitest": "2.1.8",
     "wrangler": "3.107.2"
   },
   "dependencies": {

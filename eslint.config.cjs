@@ -1,6 +1,6 @@
 // eslint.config.cjs
 
-const eslint = require("@eslint/js");
+const eslint = require("eslint");
 const tsEslint = require("typescript-eslint");
 const reactPlugin = require("eslint-plugin-react");
 
