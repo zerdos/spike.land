@@ -25,6 +25,7 @@ export class Code implements DurableObject {
   wsHandler: WebSocketHandler;
 
   private origin = "";
+  private logs: ICodeSession[] = [];
   private initialized = false;
 
   private session: ICodeSession;
@@ -42,8 +43,13 @@ export class Code implements DurableObject {
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.env = env;
+
     // this.historyManager = createCodeHistoryManager(this.env);
-    this.xLog = async (c: ICodeSession) => console.log({ ...c }); // this.historyManager.logCodeSpace.bind(this.historyManager);
+    this.xLog = async (c: ICodeSession) =>  {
+      
+      this.logs.push(c);
+     
+    } // this.historyManager.logCodeSpace.bind(this.historyManager);
 
     this.backupSession = sanitizeSession({
       code: `export default () => (

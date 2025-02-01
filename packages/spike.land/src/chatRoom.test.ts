@@ -7,11 +7,15 @@ vi.mock("./routeHandler");
 
 describe("Hono app routes", () => {
   const state = {
-    storage: {},
+    storage: {
+      get: vi.fn(),
+      put: vi.fn(),
+    },
     id: "test",
     metadata: {
       room: "test",
     },
+    blockConcurrencyWhile: vi.fn((callback) => callback()),
   } as any;
 
   const env = {} as Env;
@@ -24,6 +28,7 @@ describe("Hono app routes", () => {
     handleSessionRoute: ReturnType<typeof vi.fn>;
     handleAutoSaveRoute: ReturnType<typeof vi.fn>;
     handleLiveRoute: ReturnType<typeof vi.fn>;
+    handleRoute: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(() => {
@@ -34,6 +39,24 @@ describe("Hono app routes", () => {
       handleSessionRoute: vi.fn(),
       handleAutoSaveRoute: vi.fn(),
       handleLiveRoute: vi.fn(),
+      handleRoute: vi.fn(async (request: Request, url: URL, path: string[]) => {
+        switch (path[0]) {
+          case "users":
+            return mockRouteHandler.handleUsersRoute(request, url, path);
+          case "websocket":
+            return mockRouteHandler.handleWebsocketRoute(request, url, path);
+          case "code":
+            return mockRouteHandler.handleCodeRoute(request, url, path);
+          case "session":
+            return mockRouteHandler.handleSessionRoute(request, url, path);
+          case "auto-save":
+            return mockRouteHandler.handleAutoSaveRoute(request, url, path);
+          case "live":
+            return mockRouteHandler.handleLiveRoute(request, url, path);
+          default:
+            return new Response("Not found", { status: 404 });
+        }
+      })
     };
 
     vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as any);
