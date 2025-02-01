@@ -1,11 +1,27 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { vi, type Mock } from 'vitest';
+import { describe, it, expect, beforeEach, vi, type Mock } from 'vitest';
 import { handleFetchApi } from './fetchHandler';
 import type Env from './env';
 import { importMap } from "@spike-npm-land/code";
 import { handleApiRequest } from './apiHandler';
 import { handleEsmRequest } from './handleEsmRequest';
 import { handleCORS } from './utils';
+
+vi.stubGlobal('WebSocketPair', class {
+  0: any;
+  1: any;
+  constructor() {
+    const mockWebSocket = {
+      accept: vi.fn(),
+      send: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+      close: vi.fn()
+    };
+    this[0] = mockWebSocket;
+    this[1] = { ...mockWebSocket };
+  }
+});
 
 describe('FetchHandler', () => {
   let mockEnv: Partial<Env>;

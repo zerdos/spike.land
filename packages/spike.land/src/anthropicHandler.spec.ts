@@ -8,13 +8,35 @@ import { handleCORS, readRequestBody } from './utils';
 import { handleCMSIndexRequest } from './chat';
 
 // Mock dependencies
-vi.mock('@anthropic-ai/sdk', () => ({
-  default: vi.fn().mockImplementation(() => ({
+vi.mock('@anthropic-ai/sdk', () => {
+  const mockAnthropic = vi.fn(() => ({
     messages: {
-      create: vi.fn()
+      create: vi.fn().mockImplementation((options) => {
+        if (options.stream) {
+          return {
+            [Symbol.asyncIterator]: () => ({
+              next: vi.fn()
+                .mockResolvedValueOnce({ 
+                  value: { type: 'content_block_start', delta: { text: 'Hello ' } },
+                  done: false
+                })
+                .mockResolvedValueOnce({ 
+                  value: { type: 'content_block_delta', delta: { text: 'world' } },
+                  done: false
+                })
+                .mockResolvedValueOnce({ done: true })
+            })
+          };
+        }
+        return Promise.resolve({ content: [{ text: 'Test response' }] });
+      })
     }
-  }))
-}));
+  }));
+  mockAnthropic.prototype.messages = {
+    create: vi.fn()
+  };
+  return { default: mockAnthropic };
+});
 
 vi.mock('./Logs', () => ({
   KVLogger: vi.fn().mockImplementation(() => ({

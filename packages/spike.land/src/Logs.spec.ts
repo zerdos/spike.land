@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import type { Mock } from 'vitest';
 import { KVLogger } from './Logs';
 
@@ -17,6 +17,10 @@ describe('KVLogger', () => {
   beforeEach(() => {
     // Reset mocks
     vi.resetAllMocks();
+    
+    // Set up fake timers
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2023-01-01T12:00:00Z'));
 
     // Mock KVNamespace
     mockKVNamespace = {
@@ -41,49 +45,50 @@ describe('KVLogger', () => {
     mockKVNamespace.list.mockResolvedValue({ keys: [] });
   });
 
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   describe('log method', () => {
-    it('should increment counter and save log entry', async () => {
+    it('should save log entry with timestamp', async () => {
       // Mock date to have consistent timestamp
-      const mockDate = new Date('2023-01-01T12:00:00Z');
-      vi.spyOn(global, 'Date').mockImplementation(() => mockDate as any);
+      const mockDate = {
+        toISOString: () => '2023-01-01T12:00:00.000Z'
+      };
+      vi.spyOn(global, 'Date').mockImplementation(() => mockDate as Date);
 
       await logger.log('Test message');
 
-      // Verify counter increment
-      expect(mockKVNamespace.get).toHaveBeenCalledWith('test-prefix:counter');
-      expect(mockKVNamespace.put).toHaveBeenCalledWith('test-prefix:counter', '1');
-
-      // Verify log entry saved
+      // Verify log entry saved with timestamp in key
       expect(mockKVNamespace.put).toHaveBeenCalledWith(
-        'test-prefix:1', 
+        'test-prefix:2023-01-01:12:00:00', 
         JSON.stringify({ level: 'info', message: 'Test message' })
       );
 
-      // Verify console log
-      expect(mockConsoleLog).toHaveBeenCalledWith('Log entry saved: test-prefix:1');
+      expect(mockConsoleLog).toHaveBeenCalledWith('Log entry saved: test-prefix:2023-01-01:12:00:00');
     });
 
     it('should handle different log levels', async () => {
+      const mockDate = {
+        toISOString: () => '2023-01-01T12:00:00.000Z'
+      };
+      vi.spyOn(global, 'Date').mockImplementation(() => mockDate as Date);
+
       await logger.log('Warning message', 'warn');
 
       expect(mockKVNamespace.put).toHaveBeenCalledWith(
-        expect.any(String), 
+        'test-prefix:2023-01-01:12:00:00',
         JSON.stringify({ level: 'warn', message: 'Warning message' })
       );
     });
 
-    it('should handle initial counter setup', async () => {
-      // Simulate first log with no existing counter
-      mockKVNamespace.get.mockResolvedValueOnce(null);
-
-      await logger.log('First log message');
-
-      // Verify initial counter is set to 0 before incrementing
-      expect(mockKVNamespace.put).toHaveBeenCalledWith('test-prefix:counter', '0');
-      expect(mockKVNamespace.put).toHaveBeenCalledWith('test-prefix:counter', '1');
-    });
 
     it('should handle log saving errors', async () => {
+      const mockDate = {
+        toISOString: () => '2023-01-01T12:00:00.000Z'
+      };
+      vi.spyOn(global, 'Date').mockImplementation(() => mockDate as Date);
+
       // Simulate put method throwing an error
       mockKVNamespace.put.mockRejectedValueOnce(new Error('Storage error'));
 

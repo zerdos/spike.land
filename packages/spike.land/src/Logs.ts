@@ -13,19 +13,9 @@ export class KVLogger {
   ): Promise<void> {
     const timestamp = new Date();
     const kv = this.store;
-    let counter = await kv.get(`${this.prefix}:counter`);
-    if (counter === null) {
-      await kv.put(`${this.prefix}:counter`, "0");
-      counter = "0";
-    }
-    counter = (parseInt(counter as string) + 1).toString();
-
-    await kv.put(`${this.prefix}:counter`, counter);
-
     const dateString = timestamp.toISOString().split("T")[0]; // YYYY-MM-DD
     const timeString = timestamp.toISOString().split("T")[1].split(".")[0]; // HH:MM:SS
-
-    const key = `${this.prefix}:${counter}`;
+    const key = `${this.prefix}:${dateString}:${timeString}`;
     const value = JSON.stringify({ level, message });
 
     try {

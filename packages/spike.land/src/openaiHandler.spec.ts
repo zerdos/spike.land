@@ -7,11 +7,13 @@ import { KVLogger } from './Logs';
 import { handleCORS, readRequestBody } from './utils';
 
 // Mock dependencies
-vi.mock('openai', () => ({
-  default: vi.fn().mockImplementation(() => ({
+vi.mock('openai', () => {
+  const mockOpenAI = vi.fn(() => ({
     audio: {
       speech: {
-        create: vi.fn()
+        create: vi.fn().mockReturnValue({
+          arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10))
+        })
       },
       transcriptions: {
         create: vi.fn()
@@ -22,8 +24,16 @@ vi.mock('openai', () => ({
         create: vi.fn()
       }
     }
-  }))
-}));
+  }));
+  mockOpenAI.prototype.audio = {
+    speech: { create: vi.fn() },
+    transcriptions: { create: vi.fn() }
+  };
+  mockOpenAI.prototype.chat = {
+    completions: { create: vi.fn() }
+  };
+  return { default: mockOpenAI };
+});
 
 vi.mock('./Logs', () => ({
   KVLogger: vi.fn().mockImplementation(() => ({
