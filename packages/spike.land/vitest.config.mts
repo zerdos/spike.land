@@ -1,14 +1,24 @@
-import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
+import { defineConfig } from 'vitest/config';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-export default defineWorkersConfig({
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@spike-npm-land/code': path.resolve(__dirname, '../code/dist/modules.mjs'),
+    },
+  },
   test: {
-    poolOptions: {
-      workers: {
-        miniflare: {
-          configPath: 'wrangler.toml',
-          compatibilityDate: '2024-10-31',
-        },
-      },
+    include: ['**/*.{test,spec}.{ts,js}'],
+    globals: true,
+    environment: 'node',
+    setupFiles: ['./test-setup.ts'],
+    reporters: ['dot'],
+    coverage: {
+      enabled: false,
     },
   },
 });

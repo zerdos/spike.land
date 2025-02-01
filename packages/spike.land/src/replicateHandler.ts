@@ -27,19 +27,38 @@ const INPUT_DEFAULTS: InputDefaults = {
 
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
-export function parseInputFromUrl(url: string): InputDefaults {
-  const urlParams = new URLSearchParams(
-    atob(new URL(url).pathname.split("/").pop()!.split(".")[0]),
-  );
-  return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
-    const value = urlParams.get(key);
-    if (value !== null) {
-      Object.assign(acc, {
-        [key]: typeof defaultValue === "number" ? Number(value) : value,
-      });
+  export function parseInputFromUrl(urlString: string): InputDefaults {
+
+  const url = new URL(urlString); 
+
+  const urlParams =  url.searchParams;
+const params: Partial<InputDefaults> =   ([...urlParams.entries()].map(([key, value]) => {
+    if (key in INPUT_DEFAULTS) {
+      return [key, value];
     }
-    return acc;
-  }, { ...INPUT_DEFAULTS });
+  }).filter(Boolean) as Array<string[]>).reduce((acc, current) => {
+    const [key, value] = current;
+    const defaultValue = INPUT_DEFAULTS[key as keyof InputDefaults];
+
+    if (value === "" || value == defaultValue) {
+      return acc;
+    }
+
+   
+    return { ...acc, [key]: typeof defaultValue === "number" ? Number(value) : value, };
+  }, {});
+
+  return params as InputDefaults;
+
+  // return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
+  //   const value = urlParams.get(key);
+  //   if (value !== null) {
+  //     Object.assign(acc, {
+  //       [key]: value
+  //     });
+  //   }
+  //   return acc;
+  // }, { ...INPUT_DEFAULTS });
 }
 
 /**
