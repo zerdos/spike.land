@@ -6,7 +6,7 @@ import type Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleCORS, readRequestBody } from "./utils";
 
-function base64Encode(buf: ArrayBuffer) {
+export function base64Encode(buf: ArrayBuffer) {
   let string = "";
   (new Uint8Array(buf)).forEach(
     (byte) => {

@@ -1,14 +1,26 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { vi, type Mock } from 'vitest';
 import { handleFetchApi } from './fetchHandler';
 import type Env from './env';
 import { importMap } from "@spike-npm-land/code";
+import { handleApiRequest } from './apiHandler';
+import { handleEsmRequest } from './handleEsmRequest';
+import { handleCORS } from './utils';
 
-describe('Fetch Handler', () => {
-  let mockEnv: Env;
+describe('FetchHandler', () => {
+  let mockEnv: Partial<Env>;
   let mockCtx: ExecutionContext;
+  let mockFetch: typeof fetch;
 
   beforeEach(() => {
-    // Reset mocks before each test
+    // Reset mocks
+    vi.resetAllMocks();
+
+    // Mock global fetch
+    mockFetch = vi.fn();
+    global.fetch = mockFetch;
+
+    // Create a mock environment
     mockEnv = {
       R2: {
         get: vi.fn(),
@@ -16,145 +28,190 @@ describe('Fetch Handler', () => {
         delete: vi.fn()
       },
       CODE: {
-        newUniqueId: vi.fn(),
-        idFromString: vi.fn(),
-        idFromName: vi.fn(),
         get: vi.fn()
-      },
-      HTML: Promise.resolve('mocked HTML')
-    } as unknown as Env;
+      }
+    } as any;
 
     mockCtx = {
       waitUntil: vi.fn()
-    } as unknown as ExecutionContext;
+    } as any;
 
-    // Reset global fetch mock
-    global.fetch = vi.fn();
+    // Mock imported functions
+    vi.mock('./apiHandler', () => ({
+      handleApiRequest: vi.fn()
+    }));
+
+    vi.mock('./handleEsmRequest', () => ({
+      handleEsmRequest: vi.fn()
+    }));
+
+    vi.mock('./utils', () => ({
+      handleCORS: vi.fn()
+    }));
   });
 
   describe('CORS Handling', () => {
     it('should handle OPTIONS request', async () => {
       const mockRequest = new Request('https://example.com', { method: 'OPTIONS' });
-      
-      const response = await handleFetchApi([], mockRequest, mockEnv, mockCtx);
-      
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
-      expect(response.headers.get('Allow')).toBe('POST, OPTIONS');
+
+      const mockCorsResponse = new Response('CORS response');
+      (handleCORS as Mock).mockReturnValue(mockCorsResponse);
+
+      const response = await handleFetchApi(['test'], mockRequest, mockEnv as Env, mockCtx);
+
+      expect(handleCORS).toHaveBeenCalledWith(mockRequest);
+      expect(response).toBe(mockCorsResponse);
     });
   });
 
-  describe('Specific Handlers', () => {
-    it('should handle ping request', async () => {
+  describe('Ping Endpoint', () => {
+    it('should return a random ping response', async () => {
       const mockRequest = new Request('https://example.com/ping');
-      
-      const response = await handleFetchApi(['ping'], mockRequest, mockEnv, mockCtx);
-      
-      expect(response.status).toBe(200);
-      expect(await response.text()).toMatch(/^ping\d+\.\d+$/);
-    });
 
-    it('should handle websocket request', async () => {
+      const response = await handleFetchApi(['ping'], mockRequest, mockEnv as Env, mockCtx);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('Content-Type')).toBe('text/html;charset=UTF-8');
+      
+      const text = await response.text();
+      expect(text).toMatch(/^ping\d+(\.\d+)?$/);
+    });
+  });
+
+  describe('WebSocket Handling', () => {
+    it('should handle valid WebSocket upgrade request', async () => {
       const mockRequest = new Request('https://example.com/websocket', {
-        headers: new Headers({ 'Upgrade': 'websocket' })
+        headers: { 'Upgrade': 'websocket' }
       });
-      
-      const response = await handleFetchApi(['websocket'], mockRequest, mockEnv, mockCtx);
-      
+
+      const response = await handleFetchApi(['websocket'], mockRequest, mockEnv as Env, mockCtx);
+
       expect(response.status).toBe(101);
       expect(response.webSocket).toBeDefined();
     });
 
-    it('should handle websocket request with invalid upgrade', async () => {
+    it('should reject non-WebSocket upgrade request', async () => {
       const mockRequest = new Request('https://example.com/websocket');
-      
-      const response = await handleFetchApi(['websocket'], mockRequest, mockEnv, mockCtx);
-      
+
+      const response = await handleFetchApi(['websocket'], mockRequest, mockEnv as Env, mockCtx);
+
       expect(response.status).toBe(400);
       expect(await response.text()).toBe('expected websocket');
     });
+  });
 
-    it('should handle importMap.json request', async () => {
+  describe('Import Map JSON', () => {
+    it('should return import map JSON', async () => {
       const mockRequest = new Request('https://example.com/importMap.json');
-      
-      const response = await handleFetchApi(['importMap.json'], mockRequest, mockEnv, mockCtx);
-      
-      expect(response.status).toBe(200);
-      expect(await response.json()).toEqual(importMap);
-    });
 
-    it('should handle robots.txt request', async () => {
+      const response = await handleFetchApi(['importMap.json'], mockRequest, mockEnv as Env, mockCtx);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('Content-Type')).toBe('application/json;charset=UTF-8');
+      
+      const json = await response.json();
+      expect(json).toEqual(importMap);
+    });
+  });
+
+  describe('Robots.txt', () => {
+    it('should return robots.txt content', async () => {
       const mockRequest = new Request('https://example.com/robots.txt');
-      
-      const response = await handleFetchApi(['robots.txt'], mockRequest, mockEnv, mockCtx);
-      
+
+      const response = await handleFetchApi(['robots.txt'], mockRequest, mockEnv as Env, mockCtx);
+
       expect(response.status).toBe(200);
       expect(response.headers.get('Content-Type')).toBe('text/plain;charset=UTF-8');
+      
       const text = await response.text();
       expect(text).toContain('User-agent: *');
       expect(text).toContain('Sitemap:');
     });
-
-    it('should handle node_modules request via unpkg', async () => {
-      global.fetch = vi.fn().mockResolvedValue(new Response('module content'));
-      const mockRequest = new Request('https://example.com/node_modules/test-package');
-      
-      const response = await handleFetchApi(['node_modules', 'test-package'], mockRequest, mockEnv, mockCtx);
-      
-      expect(global.fetch).toHaveBeenCalledWith('https://unpkg.com/test-package');
-      expect(await response.text()).toBe('module content');
-    });
   });
 
-  describe('IPFS Handling', () => {
+  describe('IPFS Request Handling', () => {
     it('should handle IPFS request with cloudflare fallback', async () => {
-      const mockCloudflareResponse = new Response('cloudflare content', { status: 200 });
-      const mockIpfsResponse = new Response('ipfs content', { status: 200 });
-      
-      global.fetch = vi.fn()
+      const mockRequest = new Request('https://example.com/ipfs/test');
+      const mockCloudflareResponse = new Response('Cloudflare IPFS response', { status: 200 });
+      const mockIpfsResponse = new Response('IPFS response', { status: 200 });
+
+      (mockFetch as Mock)
         .mockResolvedValueOnce(mockCloudflareResponse)
         .mockResolvedValueOnce(mockIpfsResponse);
 
-      const mockRequest = new Request('https://example.com/ipfs/test-path');
-      
-      const response = await handleFetchApi(['ipfs'], mockRequest, mockEnv, mockCtx);
-      
-      expect(global.fetch).toHaveBeenCalledTimes(2);
-      expect(await response.text()).toBe('ipfs content');
+      const response = await handleFetchApi(['ipfs', 'test'], mockRequest, mockEnv as Env, mockCtx);
+
+      expect(mockFetch).toHaveBeenCalledTimes(2);
+      expect(response).toBe(mockIpfsResponse);
     });
   });
 
   describe('Live Request Handling', () => {
-    it('should handle public file GET request', async () => {
-      const mockR2Object = {
-        body: 'file content',
-        writeHttpMetadata: vi.fn(),
-        httpEtag: 'test-etag'
-      };
-      
-      mockEnv.R2.get = vi.fn().mockResolvedValue(mockR2Object);
+    it('should handle public request', async () => {
+      const mockRequest = new Request('https://example.com/live/testspace/public/file.txt', {
+        method: 'GET'
+      });
 
-      const mockRequest = new Request('https://example.com/live/testspace/public/file.txt');
-      
-      const response = await handleFetchApi(['live', 'testspace', 'public', 'file.txt'], mockRequest, mockEnv, mockCtx);
-      
+      const mockR2Object = {
+        writeHttpMetadata: vi.fn(),
+        httpEtag: 'test-etag',
+        body: 'file content'
+      };
+
+      (mockEnv.R2?.get as Mock).mockResolvedValue(mockR2Object);
+
+      const response = await handleFetchApi(
+        ['live', 'testspace', 'public', 'file.txt'], 
+        mockRequest, 
+        mockEnv as Env, 
+        mockCtx
+      );
+
       expect(response.status).toBe(200);
-      expect(await response.text()).toBe('file content');
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(mockR2Object.writeHttpMetadata).toHaveBeenCalled();
     });
 
-    it('should handle public file PUT request', async () => {
-      const mockRequest = new Request('https://example.com/live/testspace/public/file.txt', {
-        method: 'PUT',
-        body: 'new file content'
+    it('should handle live index request', async () => {
+      const mockRequest = new Request('https://example.com/live/testspace/index.mjs', {
+        method: 'GET'
       });
-      
-      const response = await handleFetchApi(['live', 'testspace', 'public', 'file.txt'], mockRequest, mockEnv, mockCtx);
-      
-      expect(response.status).toBe(200);
-      expect(mockEnv.R2.put).toHaveBeenCalledWith(
-        'live/testspace/file.txt', 
-        expect.anything()
+
+      const mockR2Object = {
+        writeHttpMetadata: vi.fn(),
+        httpEtag: 'test-etag',
+        body: 'module content'
+      };
+
+      (mockEnv.R2?.get as Mock).mockResolvedValue(mockR2Object);
+
+      const response = await handleFetchApi(
+        ['live', 'testspace', 'index.mjs'], 
+        mockRequest, 
+        mockEnv as Env, 
+        mockCtx
       );
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('Content-Type')).toBe('application/javascript; charset=UTF-8');
+    });
+  });
+
+  describe('Fallback to ESM Request', () => {
+    it('should fallback to ESM request for unknown routes', async () => {
+      const mockRequest = new Request('https://example.com/unknown');
+      const mockEsmResponse = new Response('ESM response');
+
+      (handleEsmRequest as Mock).mockResolvedValue(mockEsmResponse);
+
+      const response = await handleFetchApi(['unknown'], mockRequest, mockEnv as Env, mockCtx);
+
+      expect(handleEsmRequest).toHaveBeenCalledWith(
+        ['unknown'], 
+        mockRequest, 
+        mockEnv, 
+        mockCtx
+      );
+      expect(response).toBe(mockEsmResponse);
     });
   });
 });

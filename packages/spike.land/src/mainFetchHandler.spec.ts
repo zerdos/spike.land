@@ -1,146 +1,172 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { vi, type Mock } from 'vitest';
 import { handleMainFetch } from './mainFetchHandler';
 import type Env from './env';
 import { routes } from "@spike-npm-land/code";
+import { handleFetchApi } from './fetchHandler';
+import { handleErrors } from './handleErrors';
+import { handleUnauthorizedRequest } from './utils';
 
-// Mock dependencies
-vi.mock("@spike-npm-land/code", () => ({
-  routes: {
-    '/test-route': 'test-redirect'
-  }
-}));
-
-vi.mock('./fetchHandler', () => ({
-  handleFetchApi: vi.fn()
-}));
-
-vi.mock('./handleErrors', () => ({
-  handleErrors: vi.fn((request, handler) => handler())
-}));
-
-vi.mock('./utils', () => ({
-  handleUnauthorizedRequest: vi.fn(() => new Response('Unauthorized', { status: 401 }))
-}));
-
-describe('Main Fetch Handler', () => {
-  let mockEnv: Env;
+describe('MainFetchHandler', () => {
+  let mockEnv: Partial<Env>;
   let mockCtx: ExecutionContext;
+  let mockRequest: Request;
 
   beforeEach(() => {
-    // Reset mocks before each test
+    // Reset mocks
+    vi.resetAllMocks();
+
+    // Create a mock environment
     mockEnv = {
-      R2: {
-        get: vi.fn(),
-        put: vi.fn(),
-        delete: vi.fn()
-      },
-      CODE: {
-        newUniqueId: vi.fn(),
-        idFromString: vi.fn(),
-        idFromName: vi.fn(),
-        get: vi.fn()
-      },
-      HTML: Promise.resolve('mocked HTML')
-    } as unknown as Env;
+      // Add any necessary mock environment properties
+    } as any;
 
     mockCtx = {
       waitUntil: vi.fn()
-    } as unknown as ExecutionContext;
+    } as any;
 
-    // Reset mocked dependencies
-    vi.resetAllMocks();
+    // Mock imported functions
+    vi.mock('./fetchHandler', () => ({
+      handleFetchApi: vi.fn()
+    }));
+
+    vi.mock('./handleErrors', () => ({
+      handleErrors: vi.fn()
+    }));
+
+    vi.mock('./utils', () => ({
+      handleUnauthorizedRequest: vi.fn()
+    }));
   });
 
-  describe('Yandex Organization Handling', () => {
+  describe('Yandex Organization Blocking', () => {
     it('should block requests from Yandex organization', async () => {
-      const mockRequest = new Request('https://example.com', {
-        cf: { asOrganization: 'YANDEX-SOMETHING' }
-      } as unknown as RequestInit);
+      const mockYandexRequest = new Request('https://example.com', {
+        cf: { asOrganization: 'YANDEX-CLOUD' }
+      } as any);
 
-      const response = await handleMainFetch(mockRequest, mockEnv, mockCtx);
-      
-      expect(response.status).toBe(401);
-      expect(await response.text()).toBe('Unauthorized');
+      const mockUnauthorizedResponse = new Response('Unauthorized', { status: 403 });
+      (handleUnauthorizedRequest as Mock).mockReturnValue(mockUnauthorizedResponse);
+
+      const response = await handleMainFetch(mockYandexRequest, mockEnv as Env, mockCtx);
+
+      expect(handleUnauthorizedRequest).toHaveBeenCalled();
+      expect(response).toBe(mockUnauthorizedResponse);
     });
 
     it('should allow requests from non-Yandex organizations', async () => {
       const mockRequest = new Request('https://example.com', {
-        cf: { asOrganization: 'GOOGLE' }
-      } as unknown as RequestInit);
+        cf: { asOrganization: 'GOOGLE-CLOUD' }
+      } as any);
 
-      // Mock handleFetchApi to return a response
-      const { handleFetchApi } = await import('./fetchHandler');
-      (handleFetchApi as ReturnType<typeof vi.fn>).mockResolvedValue(
-        new Response('Allowed', { status: 200 })
-      );
+      const mockFetchApiResponse = new Response('Fetch API response');
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
+      (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv, mockCtx);
-      
-      expect(response.status).toBe(200);
-      expect(await response.text()).toBe('Allowed');
+      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+
+      expect(handleErrors).toHaveBeenCalled();
+      expect(handleFetchApi).toHaveBeenCalled();
+      expect(response).toBe(mockFetchApiResponse);
     });
   });
 
-  describe('Route Handling', () => {
-    it('should handle predefined routes', async () => {
-      const mockRequest = new Request('https://example.com/test-route');
+  describe('Route Redirection', () => {
+    it('should redirect known routes to live embed', async () => {
+      const testRoute = '/test-route';
+      const redirectTarget = 'redirect-target';
+      routes[testRoute as keyof typeof routes] = redirectTarget;
 
-      // Mock handleFetchApi to return a response
-      const { handleFetchApi } = await import('./fetchHandler');
-      (handleFetchApi as ReturnType<typeof vi.fn>).mockResolvedValue(
-        new Response('Redirected', { status: 200 })
-      );
+      const mockRequest = new Request(`https://example.com${testRoute}`);
 
-      const response = await handleMainFetch(mockRequest, mockEnv, mockCtx);
-      
+      const mockFetchApiResponse = new Response('Redirected response');
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
+      (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
+
+      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+
       expect(handleFetchApi).toHaveBeenCalledWith(
-        ['live', 'test-redirect', 'embed'], 
-        expect.anything(), 
+        ['live', redirectTarget, 'embed'], 
+        mockRequest, 
         mockEnv, 
         mockCtx
       );
-      expect(await response.text()).toBe('Redirected');
+      expect(response).toBe(mockFetchApiResponse);
+
+      // Clean up the route after test
+      delete routes[testRoute as keyof typeof routes];
+    });
+  });
+
+  describe('Path-based Routing', () => {
+    it('should route requests based on URL path', async () => {
+      const testPath = '/some/test/path';
+      const mockRequest = new Request(`https://example.com${testPath}`);
+
+      const mockFetchApiResponse = new Response('Path-based response');
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
+      (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
+
+      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+
+      expect(handleFetchApi).toHaveBeenCalledWith(
+        ['some', 'test', 'path'], 
+        mockRequest, 
+        mockEnv, 
+        mockCtx
+      );
+      expect(response).toBe(mockFetchApiResponse);
     });
 
-    it('should handle non-predefined routes', async () => {
-      const mockRequest = new Request('https://example.com/custom/path');
+    it('should handle root path requests', async () => {
+      const mockRequest = new Request('https://example.com/');
 
-      // Mock handleFetchApi to return a response
-      const { handleFetchApi } = await import('./fetchHandler');
-      (handleFetchApi as ReturnType<typeof vi.fn>).mockResolvedValue(
-        new Response('Custom Path', { status: 200 })
-      );
+      const mockFetchApiResponse = new Response('Root path response');
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
+      (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv, mockCtx);
-      
+      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+
       expect(handleFetchApi).toHaveBeenCalledWith(
-        ['custom', 'path'], 
-        expect.anything(), 
+        [''], 
+        mockRequest, 
         mockEnv, 
         mockCtx
       );
-      expect(await response.text()).toBe('Custom Path');
+      expect(response).toBe(mockFetchApiResponse);
     });
   });
 
   describe('Error Handling', () => {
-    it('should wrap fetch handling with error handler', async () => {
+    it('should wrap request handling in error handler', async () => {
       const mockRequest = new Request('https://example.com/test');
 
-      // Mock handleErrors to pass through the handler
-      const { handleErrors } = await import('./handleErrors');
-      const mockErrorHandler = vi.fn().mockResolvedValue(
-        new Response('Handled', { status: 200 })
-      );
+      const mockFetchApiResponse = new Response('Handled response');
+      const mockErrorHandlerWrapper = vi.fn().mockResolvedValue(mockFetchApiResponse);
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
 
-      (handleErrors as ReturnType<typeof vi.fn>).mockImplementation(
-        async (request, handler) => handler()
-      );
+      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
 
-      const response = await handleMainFetch(mockRequest, mockEnv, mockCtx);
-      
-      expect(handleErrors).toHaveBeenCalled();
-      expect(await response.text()).toBe('Handled');
+      expect(handleErrors).toHaveBeenCalledWith(
+        mockRequest, 
+        expect.any(Function)
+      );
+      expect(response).toBe(mockFetchApiResponse);
+    });
+
+    it('should log request URL', async () => {
+      const testUrl = 'https://example.com/logging-test';
+      const mockRequest = new Request(testUrl);
+
+      const mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const mockFetchApiResponse = new Response('Logged response');
+      (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
+      (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
+
+      await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+
+      expect(mockConsoleLog).toHaveBeenCalledWith(`handling request: ${testUrl}`);
+      mockConsoleLog.mockRestore();
     });
   });
 });

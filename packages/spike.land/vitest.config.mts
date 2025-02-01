@@ -16,7 +16,7 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: ['./test-setup.ts'],
-    reporters: ['tap'],
+    reporters: ['dot'],
     coverage: {
       enabled: false,
     },
