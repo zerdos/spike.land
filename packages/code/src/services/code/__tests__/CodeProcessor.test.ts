@@ -137,8 +137,11 @@ describe('CodeProcessor', () => {
         inserted: {},
         registered: {},
         insert: vi.fn(),
-        sheet: { tags: [] }
-      } as EmotionCache;
+        sheet: { tags: [],
+          isSpeedy: true,
+          key: 'test-key',
+         }
+      }as unknown as EmotionCache;
 
       const rootElement = document.createElement('div');
 
@@ -174,7 +177,7 @@ describe('CodeProcessor', () => {
         registered: {},
         insert: vi.fn(),
         sheet: { tags: [] }
-      } as EmotionCache;
+      } as unknown as EmotionCache;
 
       const rootElement = document.createElement('div');
       const mockRenderedApp: RenderedApp = {

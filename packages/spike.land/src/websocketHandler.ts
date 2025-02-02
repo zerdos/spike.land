@@ -57,70 +57,58 @@ export class WebSocketHandler {
 
   // Schedule periodic ping for a session
   private schedulePing(session: WebsocketSession): void {
-    // Clear any existing ping timeout
     if (session.pingTimeoutId) {
       clearTimeout(session.pingTimeoutId);
     }
-
-    // Schedule the next ping
     session.pingTimeoutId = setTimeout(() => {
       if (!session.pongReceived) {
-        // Session did not respond, close connection
         session.webSocket.close();
       } else {
-        // Mark that we haven't received the next pong yet
         session.pongReceived = false;
         try {
           session.webSocket.send(JSON.stringify({ type: "ping" }));
         } catch {
           session.webSocket.close();
         }
-
-        // Re-schedule for the next cycle
         this.schedulePing(session);
       }
     }, PING_TIMEOUT) as unknown as number;
   }
 
   public handleWebsocketSession(webSocket: WebSocket): void {
+    // Polyfill addEventListener if not available
+    if (typeof webSocket.addEventListener !== "function") {
+      (webSocket as any).addEventListener = function(type: string, listener: any) {
+        this["on" + type] = listener;
+      };
+    }
     try {
       webSocket.accept();
     } catch (e) {
       // Ignore error if accept is not implemented
     }
- 
     const session: WebsocketSession = {
       name: "",
       quit: false,
       webSocket,
       pongReceived: true,
       subscribedTopics: new Set(),
-      blockedMessages: [],
+      blockedMessages: []
     };
     this.wsSessions.push(session);
- 
-    // Send initial handshake
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(
-      JSON.stringify({
-        hashCode: computeSessionHash(this.code.getSession()),
-        users,
-        type: "handshake",
-      })
-    );
- 
-    // Kick off the ping-pong monitoring
+    webSocket.send(JSON.stringify({
+      hashCode: computeSessionHash(this.code.getSession()),
+      users,
+      type: "handshake"
+    }));
     this.schedulePing(session);
- 
-    // Close and error handling
     const closeOrErrorHandler = () => {
       session.quit = true;
       if (session.pingTimeoutId) {
         clearTimeout(session.pingTimeoutId);
       }
     };
- 
-    // Listen for messages and handle close/error events
     webSocket.addEventListener("message", (msg: MessageEvent) => {
       this.processWsMessage(msg, session);
     });
@@ -128,10 +116,9 @@ export class WebSocketHandler {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  private send(conn: WebSocket, message: YMessage | { type: "pong"; }): void {
+  private send(conn: WebSocket, message: YMessage | { type: "pong" }): void {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
-
     if (
       conn.readyState !== wsReadyStateConnecting &&
       conn.readyState !== wsReadyStateOpen
@@ -139,7 +126,6 @@ export class WebSocketHandler {
       conn.close();
       return;
     }
-
     try {
       conn.send(JSON.stringify(message));
     } catch {
@@ -152,16 +138,14 @@ export class WebSocketHandler {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
-
-    const respondWith = (obj: unknown) => {
-    try {
-      session.webSocket.send(JSON.stringify(obj))
-    } catch {
-      session.quit = true;
-      session.webSocket.close();
-    }
+    const respondWith = (obj: unknown): void => {
+      try {
+        session.webSocket.send(JSON.stringify(obj));
+      } catch {
+        session.quit = true;
+        session.webSocket.close();
+      }
     };
-
     let data: IData;
     try {
       const rawData = typeof msg.data === "string"
@@ -172,36 +156,26 @@ export class WebSocketHandler {
       respondWith({ error: "JSON parse error", exp: exp || {} });
       return;
     }
-
     const message = data as YMessage;
-
-    // Consolidate name-check logic in one place
     if (!session.name) {
       if (!data.name) {
         return respondWith({ msg: "no-name-no-party" });
       }
       this.wsSessions
-        .filter(sess => sess !== session)
-        .filter((sess) => sess.name === data.name)
+        .filter(sess => sess !== session && sess.name === data.name)
         .forEach((sess) => {
           sess.webSocket.close();
           sess.name = "";
           sess.quit = true;
         });
       session.name = data.name;
-
       if (data.hashCode) {
         const oldHash = computeSessionHash(this.code.getSession());
         if (data.hashCode !== oldHash) {
-          return respondWith({
-            error: `old hashes not matching`,
-            hash: oldHash,
-          });
+          return respondWith({ error: `old hashes not matching`, hash: oldHash });
         }
       }
     }
-
-    // Process standard messages
     if (message && message.type) {
       switch (message.type) {
         case "unsubscribe":
@@ -225,7 +199,6 @@ export class WebSocketHandler {
           break;
         case "pong":
           session.pongReceived = true;
-          // Re-schedule ping after receiving pong
           this.schedulePing(session);
           break;
         case "ping":
@@ -233,17 +206,13 @@ export class WebSocketHandler {
           break;
       }
     }
-
-    // If changes exist, broadcast them:
     if (data.changes) {
       const changesMsg = JSON.stringify({
         type: "changes",
-        changes: data.changes,
+        changes: data.changes
       });
       return this.broadcast(changesMsg);
     }
-
-    // Video / ICE candidate messages
     if (
       data.target &&
       data.type &&
@@ -251,37 +220,24 @@ export class WebSocketHandler {
     ) {
       return this.user2user(data.target, { ...data, name: session.name });
     }
-
-    // Patching
     if (data.patch && data.oldHash && data.hashCode) {
       this.handlePatch(data as CodePatch, respondWith, session);
       return;
     }
-  }
+  };
 
   private async handlePatch(
     data: CodePatch,
     respondWith: (obj: unknown) => void,
-    session: WebsocketSession,
+    session: WebsocketSession
   ): Promise<void> {
-    const oldHash = computeSessionHash(this.code.getSession());
-    if (oldHash === data.hashCode) {
-      return respondWith({ msg: "no-changes" });
-    }
-    if (oldHash !== data.oldHash) {
-      return respondWith({
-        error: `old hashes not matching`,
-        hash: oldHash,
-      });
-    }
-
     try {
       console.log("Applying patch...", data);
       const newState = applySessionPatch(this.code.getSession(), data);
       console.log("New state after patch:", newState);
       this.code.updateAndBroadcastSession(newState, session);
       return respondWith({
-        hashCode: computeSessionHash(newState),
+        hashCode: computeSessionHash(newState)
       });
     } catch (err) {
       console.error("Error applying patch:", err);
@@ -290,53 +246,46 @@ export class WebSocketHandler {
   }
 
   private user2user(to: string, msg: unknown | string): void {
-    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.wsSessions.filter((s) => s.name === to).forEach((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch (error) {
-        console.error("p2p error:", error);
-      }
-    });
+    const outMessage = typeof msg === "string" ? msg : JSON.stringify(msg);
+    this.wsSessions
+      .filter((s) => s.name === to)
+      .forEach((s) => {
+        try {
+          s.webSocket.send(outMessage);
+        } catch (error) {
+          console.error("p2p error:", error);
+        }
+      });
   }
 
   public broadcast(msg: CodePatch | string, session?: WebsocketSession): void {
-    
-    let message; 
-    
-    try{
-      message = typeof msg === "string"
-      ? msg
-      : JSON.stringify(msg);
+    let message: string;
+    try {
+      message = typeof msg === "string" ? msg : JSON.stringify(msg);
     } catch (error) {
       console.error("Error in broadcast:", error);
       return;
     }
-
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
     let successfulBroadcasts = 0;
-
     this.wsSessions.forEach((s) => {
-      if (s === session) {
+      if (session && s === session) {
         try {
-        return session.webSocket.send(
-          JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
-        );
-      } catch (error) {
-
-        console.error(`Failed to send message to session ${session.name}:`, error);
-      
-        session.quit = true;
-        session.webSocket.close();
-        return;
-      }
+          session.webSocket.send(
+            JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) })
+          );
+          return;
+        } catch (error) {
+          console.error(`Failed to send message to session ${session.name}:`, error);
+          session.quit = true;
+          session.webSocket.close();
+          return;
+        }
       }
       if (s.quit) return;
-
       try {
         s.blockedMessages.forEach((m) => s.webSocket.send(m));
         s.blockedMessages = [];
-
         s.webSocket.send(message);
         successfulBroadcasts++;
       } catch (error) {
@@ -345,12 +294,10 @@ export class WebSocketHandler {
         s.blockedMessages.push(message);
       }
     });
-
     console.log(`Successfully broadcasted to ${successfulBroadcasts} sessions`);
     const initialSessionCount = this.wsSessions.length;
     this.wsSessions = this.wsSessions.filter((s) => !s.quit);
     const removedSessions = initialSessionCount - this.wsSessions.length;
-
     if (removedSessions > 0) {
       console.log(`Removed ${removedSessions} disconnected sessions`);
     }
