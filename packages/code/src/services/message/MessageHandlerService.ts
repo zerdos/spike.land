@@ -1,4 +1,11 @@
-import { Message, MessageType, MessageResponse, MessageHandlerConfig, TextPart, MessageContent } from './types';
+import {
+  Message,
+  MessageContent,
+  MessageHandlerConfig,
+  MessageResponse,
+  MessageType,
+  TextPart,
+} from "./types";
 
 /**
  * Service for handling and processing different types of messages
@@ -26,15 +33,15 @@ export class MessageHandlerService {
    * @returns Type guard indicating if the object is a valid Message
    */
   public validateMessage(message: unknown): message is Message {
-    if (!message || typeof message !== 'object') {
+    if (!message || typeof message !== "object") {
       return false;
     }
 
     const msg = message as Message;
     return (
-      'id' in msg &&
-      'type' in msg &&
-      'role' in msg
+      "id" in msg &&
+      "type" in msg &&
+      "role" in msg
     );
   }
 
@@ -45,12 +52,12 @@ export class MessageHandlerService {
    */
   private isTextPart(content: MessageContent): content is TextPart {
     return (
-      typeof content === 'object' &&
+      typeof content === "object" &&
       content !== null &&
-      'type' in content &&
-      content.type === 'text' &&
-      'text' in content &&
-      typeof (content as TextPart).text === 'string'
+      "type" in content &&
+      content.type === "text" &&
+      "text" in content &&
+      typeof (content as TextPart).text === "string"
     );
   }
 
@@ -61,18 +68,18 @@ export class MessageHandlerService {
    * @throws Error if no valid text content is found
    */
   private getTextFromContent(content: MessageContent): string {
-    if (typeof content === 'string') {
+    if (typeof content === "string") {
       return content;
     } else if (Array.isArray(content)) {
-      const textPart = content.find(part => part.type === 'text') as TextPart | undefined;
+      const textPart = content.find(part => part.type === "text") as TextPart | undefined;
       if (!textPart) {
-        throw new Error('No text content found in message parts');
+        throw new Error("No text content found in message parts");
       }
       return textPart.text;
     } else if (this.isTextPart(content)) {
       return content.text;
     }
-    throw new Error('Invalid message content type');
+    throw new Error("Invalid message content type");
   }
 
   /**
@@ -83,26 +90,26 @@ export class MessageHandlerService {
   public async handleMessage(message: Message): Promise<MessageResponse> {
     try {
       if (!this.validateMessage(message)) {
-        throw new Error('Invalid message format');
+        throw new Error("Invalid message format");
       }
 
       if (!message.content) {
-        throw new Error('Missing message content');
+        throw new Error("Missing message content");
       }
 
       if (!Object.values(MessageType).includes(message.type as MessageType)) {
-        console.error('Unhandled message type:', message.type);
+        console.error("Unhandled message type:", message.type);
         return {
           success: false,
-          error: 'Unhandled message type'
+          error: "Unhandled message type",
         };
       }
 
       const result = await this.processMessage(message);
-      if (typeof result === 'object' && result !== null && 'error' in result) {
+      if (typeof result === "object" && result !== null && "error" in result) {
         return {
           success: false,
-          error: String(result.error)
+          error: String(result.error),
         };
       }
 
@@ -112,12 +119,12 @@ export class MessageHandlerService {
       };
     } catch (error) {
       if (this.config.logErrors) {
-        console.error('Error processing message:', error);
+        console.error("Error processing message:", error);
       }
 
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       };
     }
   }
@@ -140,10 +147,10 @@ export class MessageHandlerService {
         case MessageType.STATUS:
           return { status: text, timestamp: new Date().toISOString() };
         default:
-          throw new Error('Unhandled message type');
+          throw new Error("Unhandled message type");
       }
-    } catch  {
-      throw new Error('Invalid message content type');
+    } catch {
+      throw new Error("Invalid message content type");
     }
   }
 }

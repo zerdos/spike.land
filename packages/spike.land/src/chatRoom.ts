@@ -45,11 +45,9 @@ export class Code implements DurableObject {
     this.env = env;
 
     // this.historyManager = createCodeHistoryManager(this.env);
-    this.xLog = async (c: ICodeSession) =>  {
-      
+    this.xLog = async (c: ICodeSession) => {
       this.logs.push(c);
-     
-    } // this.historyManager.logCodeSpace.bind(this.historyManager);
+    }; // this.historyManager.logCodeSpace.bind(this.historyManager);
 
     this.backupSession = sanitizeSession({
       code: `export default () => (

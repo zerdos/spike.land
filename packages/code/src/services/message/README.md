@@ -15,17 +15,17 @@ A robust and type-safe service for handling different types of messages in the s
 ### Basic Usage
 
 ```typescript
-import { MessageHandlerService } from './MessageHandlerService';
-import { MessageType } from './types';
+import { MessageHandlerService } from "./MessageHandlerService";
+import { MessageType } from "./types";
 
 const messageHandler = new MessageHandlerService();
 
 // Handle a simple text message
 const textMessage = {
-  id: '1',
+  id: "1",
   type: MessageType.TEXT,
-  content: 'Hello, World!',
-  role: 'user',
+  content: "Hello, World!",
+  role: "user",
 };
 
 const result = await messageHandler.handleMessage(textMessage);
@@ -33,10 +33,10 @@ const result = await messageHandler.handleMessage(textMessage);
 
 // Handle a command message
 const commandMessage = {
-  id: '2',
+  id: "2",
   type: MessageType.COMMAND,
-  content: { type: 'text', text: 'execute-task' },
-  role: 'system',
+  content: { type: "text", text: "execute-task" },
+  role: "system",
 };
 
 const cmdResult = await messageHandler.handleMessage(commandMessage);
@@ -60,16 +60,16 @@ const messageHandler = new MessageHandlerService({
 ```typescript
 // Message with mixed content types
 const complexMessage = {
-  id: '3',
+  id: "3",
   type: MessageType.TEXT,
   content: [
-    { type: 'text', text: 'Check out this image:' },
+    { type: "text", text: "Check out this image:" },
     {
-      type: 'image_url',
-      image_url: { url: 'https://example.com/image.jpg' }
-    }
+      type: "image_url",
+      image_url: { url: "https://example.com/image.jpg" },
+    },
   ],
-  role: 'assistant',
+  role: "assistant",
 };
 
 const result = await messageHandler.handleMessage(complexMessage);
@@ -91,10 +91,10 @@ const result = await messageHandler.handleMessage(invalidMessage as any);
 
 // Message with invalid content
 const invalidContent = {
-  id: '4',
+  id: "4",
   type: MessageType.TEXT,
   content: { invalid: true },
-  role: 'user',
+  role: "user",
 };
 
 const errorResult = await messageHandler.handleMessage(invalidContent as any);
@@ -126,9 +126,9 @@ Response structure:
 
 ```typescript
 interface MessageResponse {
-  success: boolean;      // Operation success status
-  data?: unknown;        // Response data (if successful)
-  error?: string;        // Error message (if failed)
+  success: boolean; // Operation success status
+  data?: unknown; // Response data (if successful)
+  error?: string; // Error message (if failed)
 }
 ```
 
@@ -138,9 +138,9 @@ Configuration options:
 
 ```typescript
 interface MessageHandlerConfig {
-  logErrors?: boolean;   // Whether to log errors (default: true)
-  maxRetries?: number;   // Max retry attempts (default: 3)
-  timeout?: number;      // Operation timeout in ms (default: 5000)
+  logErrors?: boolean; // Whether to log errors (default: true)
+  maxRetries?: number; // Max retry attempts (default: 3)
+  timeout?: number; // Operation timeout in ms (default: 5000)
 }
 ```
 
@@ -155,6 +155,7 @@ The service handles various error cases:
 - Processing errors
 
 All errors are:
+
 1. Logged (if `logErrors` is enabled)
 2. Returned in a structured format
 3. Type-safe with proper error messages

@@ -16,5 +16,4 @@ it("parses input from URL", () => {
       "prompt_strength": 0.9,
     }
   `);
-
 });

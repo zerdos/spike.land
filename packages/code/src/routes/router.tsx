@@ -59,7 +59,7 @@ const App: React.FC = () => {
     if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
         const cSess = new Code(codeSpace);
-        const baseUrl = import.meta.env.DEV ? '' : 'https://testing.spike.land';
+        const baseUrl = import.meta.env.DEV ? "" : "https://testing.spike.land";
         const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`).then((res) =>
           res.json()
         ) as ICodeSession;
@@ -88,20 +88,22 @@ const App: React.FC = () => {
     return () => unSub();
   }, [cSess]);
 
-  return cSess ? (
-    <>
-      <ClerkProvider
-        publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-        afterSignOutUrl="/"
-      >
-        <AppToRender codeSpace={codeSpace} cSess={cSess} />
-      </ClerkProvider>
-    </>
-  ) : (
-    <>
-      <Wrapper codeSpace={codeSpace} />
-    </>
-  );
+  return cSess
+    ? (
+      <>
+        <ClerkProvider
+          publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+          afterSignOutUrl="/"
+        >
+          <AppToRender codeSpace={codeSpace} cSess={cSess} />
+        </ClerkProvider>
+      </>
+    )
+    : (
+      <>
+        <Wrapper codeSpace={codeSpace} />
+      </>
+    );
 };
 
 // Live page route with code space and page parameters
@@ -147,10 +149,12 @@ const routeTree = rootRoute.addChildren([...dynamicRoutes]);
 export const router = createRouter({
   routeTree,
   defaultPreload: "intent",
-  context: createContext<{
-    params: RouteParams | RouteWithPageParams;
-    search: SearchParams;
-  } | null>(null),
+  context: createContext<
+    {
+      params: RouteParams | RouteWithPageParams;
+      search: SearchParams;
+    } | null
+  >(null),
 });
 
 // Export types

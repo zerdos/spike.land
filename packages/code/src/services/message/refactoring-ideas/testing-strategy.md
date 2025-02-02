@@ -3,6 +3,7 @@
 ## Testing Philosophy
 
 Our testing approach follows the Testing Pyramid principle with:
+
 1. Many unit tests
 2. Some integration tests
 3. Few end-to-end tests
@@ -12,51 +13,53 @@ Our testing approach follows the Testing Pyramid principle with:
 ### 1. Unit Tests
 
 #### Message Validation Tests
+
 ```typescript
-describe('MessageValidator', () => {
-  it('should validate correct message structure', () => {
+describe("MessageValidator", () => {
+  it("should validate correct message structure", () => {
     const validator = new MessageValidator();
     const message: Message = {
-      id: '1',
+      id: "1",
       type: MessageType.TEXT,
-      content: { type: 'text', text: 'Test' },
-      role: 'user',
+      content: { type: "text", text: "Test" },
+      role: "user",
     };
-    
+
     expect(validator.validate(message)).toBe(true);
   });
 
-  it('should reject invalid message structure', () => {
+  it("should reject invalid message structure", () => {
     const validator = new MessageValidator();
     const invalidMessage = {
       type: MessageType.TEXT,
     };
-    
+
     expect(validator.validate(invalidMessage)).toBe(false);
   });
 });
 ```
 
 #### Content Processing Tests
+
 ```typescript
-describe('ContentProcessor', () => {
-  it('should process text content', async () => {
+describe("ContentProcessor", () => {
+  it("should process text content", async () => {
     const processor = new ContentProcessor();
-    const content = { type: 'text', text: 'Hello' };
-    
+    const content = { type: "text", text: "Hello" };
+
     const result = await processor.process(content);
-    expect(result).toEqual({ text: 'Hello' });
+    expect(result).toEqual({ text: "Hello" });
   });
 
-  it('should handle complex content types', async () => {
+  it("should handle complex content types", async () => {
     const processor = new ContentProcessor();
     const content = [
-      { type: 'text', text: 'Hello' },
-      { type: 'image', url: 'test.jpg' }
+      { type: "text", text: "Hello" },
+      { type: "image", url: "test.jpg" },
     ];
-    
+
     const result = await processor.process(content);
-    expect(result.text).toBe('Hello');
+    expect(result.text).toBe("Hello");
   });
 });
 ```
@@ -64,8 +67,9 @@ describe('ContentProcessor', () => {
 ### 2. Integration Tests
 
 #### Message Flow Tests
+
 ```typescript
-describe('MessageHandlerService Integration', () => {
+describe("MessageHandlerService Integration", () => {
   let service: MessageHandlerService;
   let validator: MessageValidator;
   let processor: ContentProcessor;
@@ -76,45 +80,46 @@ describe('MessageHandlerService Integration', () => {
     service = new MessageHandlerService(validator, processor);
   });
 
-  it('should handle complete message flow', async () => {
+  it("should handle complete message flow", async () => {
     const message: Message = {
-      id: '1',
+      id: "1",
       type: MessageType.TEXT,
-      content: { type: 'text', text: 'Test' },
-      role: 'user',
+      content: { type: "text", text: "Test" },
+      role: "user",
     };
 
     const result = await service.handleMessage(message);
     expect(result.success).toBe(true);
-    expect(result.data).toEqual({ text: 'Test' });
+    expect(result.data).toEqual({ text: "Test" });
   });
 });
 ```
 
 #### Error Handling Tests
+
 ```typescript
-describe('Error Handling', () => {
-  it('should handle validation errors gracefully', async () => {
+describe("Error Handling", () => {
+  it("should handle validation errors gracefully", async () => {
     const service = new MessageHandlerService();
     const invalidMessage = {} as Message;
 
     const result = await service.handleMessage(invalidMessage);
     expect(result.success).toBe(false);
-    expect(result.error).toBe('Invalid message format');
+    expect(result.error).toBe("Invalid message format");
   });
 
-  it('should handle processing errors gracefully', async () => {
+  it("should handle processing errors gracefully", async () => {
     const service = new MessageHandlerService();
     const message: Message = {
-      id: '1',
+      id: "1",
       type: MessageType.TEXT,
       content: null,
-      role: 'user',
+      role: "user",
     };
 
     const result = await service.handleMessage(message);
     expect(result.success).toBe(false);
-    expect(result.error).toBe('Invalid content');
+    expect(result.error).toBe("Invalid content");
   });
 });
 ```
@@ -122,29 +127,30 @@ describe('Error Handling', () => {
 ### 3. Performance Tests
 
 #### Load Testing
+
 ```typescript
-describe('Performance', () => {
-  it('should handle high message volume', async () => {
+describe("Performance", () => {
+  it("should handle high message volume", async () => {
     const service = new MessageHandlerService();
     const messages = generateTestMessages(1000);
-    
+
     const start = performance.now();
     await Promise.all(messages.map(msg => service.handleMessage(msg)));
     const duration = performance.now() - start;
-    
+
     expect(duration).toBeLessThan(5000); // 5 seconds max
   });
 
-  it('should maintain performance under load', async () => {
+  it("should maintain performance under load", async () => {
     const service = new MessageHandlerService();
     const results = [];
-    
+
     for (let i = 0; i < 100; i++) {
       const start = performance.now();
       await service.handleMessage(generateMessage());
       results.push(performance.now() - start);
     }
-    
+
     const avgTime = results.reduce((a, b) => a + b) / results.length;
     expect(avgTime).toBeLessThan(50); // 50ms average
   });
@@ -154,15 +160,15 @@ describe('Performance', () => {
 ### 4. Memory Tests
 
 ```typescript
-describe('Memory Management', () => {
-  it('should not leak memory during processing', async () => {
+describe("Memory Management", () => {
+  it("should not leak memory during processing", async () => {
     const service = new MessageHandlerService();
     const initialMemory = process.memoryUsage().heapUsed;
-    
+
     for (let i = 0; i < 1000; i++) {
       await service.handleMessage(generateLargeMessage());
     }
-    
+
     const finalMemory = process.memoryUsage().heapUsed;
     const diff = finalMemory - initialMemory;
     expect(diff).toBeLessThan(5 * 1024 * 1024); // 5MB max increase
@@ -180,8 +186,8 @@ function generateMessage(type: MessageType = MessageType.TEXT): Message {
   return {
     id: uuid(),
     type,
-    content: { type: 'text', text: 'Test message' },
-    role: 'user',
+    content: { type: "text", text: "Test message" },
+    role: "user",
   };
 }
 
@@ -210,8 +216,8 @@ class MessageBuilder {
     return {
       id: this.message.id ?? uuid(),
       type: this.message.type ?? MessageType.TEXT,
-      content: this.message.content ?? { type: 'text', text: 'Test' },
-      role: this.message.role ?? 'user',
+      content: this.message.content ?? { type: "text", text: "Test" },
+      role: this.message.role ?? "user",
     };
   }
 }

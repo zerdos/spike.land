@@ -1,5 +1,5 @@
-import { vi, type MockInstance } from 'vitest';
-import type { WebSocket } from '@cloudflare/workers-types';
+import type { WebSocket } from "@cloudflare/workers-types";
+import { type MockInstance, vi } from "vitest";
 globalThis.Date = Date;
 
 // Enhanced WebSocket mock implementation
@@ -14,26 +14,26 @@ interface MockWebSocket {
 }
 
 // Improved WebSocketPair mock
-  if (!('WebSocketPair' in globalThis)) {
-    (globalThis as any).WebSocketPair = function() {
-      const wsStub: MockWebSocket = { 
-        send: vi.fn(),
-        close: vi.fn(),
-        accept: vi.fn(),
-        addEventListener: vi.fn((type: string, listener: EventListener) => {
-          if (type === 'message') {
-            wsStub.onmessage = listener as any;
-          } else if (type === 'close') {
-            wsStub.onclose = listener as any;
-          }
-        }),
+if (!("WebSocketPair" in globalThis)) {
+  (globalThis as any).WebSocketPair = function() {
+    const wsStub: MockWebSocket = {
+      send: vi.fn(),
+      close: vi.fn(),
+      accept: vi.fn(),
+      addEventListener: vi.fn((type: string, listener: EventListener) => {
+        if (type === "message") {
+          wsStub.onmessage = listener as any;
+        } else if (type === "close") {
+          wsStub.onclose = listener as any;
+        }
+      }),
       readyState: 1,
       onmessage: null as ((event: MessageEvent) => void) | null,
       onclose: null as ((event: CloseEvent) => void) | null,
-      };
-      return [wsStub, wsStub];
     };
-  }
+    return [wsStub, wsStub];
+  };
+}
 
 global.Response = class extends Response {
   constructor(body?: BodyInit | null, init?: ResponseInit) {
@@ -46,7 +46,7 @@ global.Response = class extends Response {
 };
 
 // Mock Durable Object state
-vi.mock('@cloudflare/workers-types', () => {
+vi.mock("@cloudflare/workers-types", () => {
   const mockStorage = {
     get: vi.fn().mockResolvedValue(null),
     put: vi.fn().mockResolvedValue(undefined),
@@ -69,7 +69,7 @@ vi.mock('@cloudflare/workers-types', () => {
 // Global fetch mock
 global.fetch = vi.fn().mockResolvedValue({
   json: vi.fn().mockResolvedValue({}),
-  text: vi.fn().mockResolvedValue(''),
+  text: vi.fn().mockResolvedValue(""),
 });
 
 // Simplified URL mock with manual parsing
@@ -88,8 +88,8 @@ global.URL = class {
   hash: string;
 
   constructor(url: string | URL, base?: string | URL) {
-    const urlString = typeof url === 'string' ? url : url.toString();
-    const baseString = base ? (typeof base === 'string' ? base : base.toString()) : undefined;
+    const urlString = typeof url === "string" ? url : url.toString();
+    const baseString = base ? (typeof base === "string" ? base : base.toString()) : undefined;
 
     const fullUrl = baseString ? `${baseString}${urlString}` : urlString;
     const parsedUrl = this.parseUrl(fullUrl);
@@ -97,8 +97,8 @@ global.URL = class {
     this.href = fullUrl;
     this.origin = parsedUrl.origin;
     this.protocol = parsedUrl.protocol;
-    this.username = '';
-    this.password = '';
+    this.username = "";
+    this.password = "";
     this.host = parsedUrl.host;
     this.hostname = parsedUrl.hostname;
     this.port = parsedUrl.port;
@@ -119,15 +119,15 @@ global.URL = class {
     hash: string;
   } {
     const protocolMatch = url.match(/^([a-z]+):\/\//i);
-    const protocol = protocolMatch ? protocolMatch[1].toLowerCase() + ':' : 'https:';
-    
-    const withoutProtocol = url.replace(/^[a-z]+:\/\//i, '');
-    const [hostPath, hash = ''] = withoutProtocol.split('#');
-    const [hostSearch, search = ''] = hostPath.split('?');
-    const [host, ...pathParts] = hostSearch.split('/');
-    
-    const [hostname, port = ''] = host.split(':');
-    const pathname = '/' + pathParts.join('/');
+    const protocol = protocolMatch ? protocolMatch[1].toLowerCase() + ":" : "https:";
+
+    const withoutProtocol = url.replace(/^[a-z]+:\/\//i, "");
+    const [hostPath, hash = ""] = withoutProtocol.split("#");
+    const [hostSearch, search = ""] = hostPath.split("?");
+    const [host, ...pathParts] = hostSearch.split("/");
+
+    const [hostname, port = ""] = host.split(":");
+    const pathname = "/" + pathParts.join("/");
 
     return {
       origin: `${protocol}//${host}`,
@@ -136,8 +136,8 @@ global.URL = class {
       hostname,
       port,
       pathname,
-      search: search ? `?${search}` : '',
-      hash: hash ? `#${hash}` : '',
+      search: search ? `?${search}` : "",
+      hash: hash ? `#${hash}` : "",
     };
   }
 
@@ -179,60 +179,60 @@ global.URL = class {
 global.Date = Date;
 global.OpenAI = class {
   async audioTTS(params: any) {
-    if (params.model === 'tts-1') {
+    if (params.model === "tts-1") {
       return {
         status: 200,
-        headers: { get: () => 'application/json' },
-        json: async () => ({ id: 'test-id', content: [{ text: "Test response" }] }),
+        headers: { get: () => "application/json" },
+        json: async () => ({ id: "test-id", content: [{ text: "Test response" }] }),
       };
-    } else if (params.model === 'tts-1-hd') {
+    } else if (params.model === "tts-1-hd") {
       return {
         status: 200,
-        headers: { get: () => 'application/json' },
-        json: async () => ({ id: 'test-id-hd', content: [{ text: "Test response HD" }] }),
+        headers: { get: () => "application/json" },
+        json: async () => ({ id: "test-id-hd", content: [{ text: "Test response HD" }] }),
       };
     }
-    return { status: 500, headers: { get: () => 'application/json' }, json: async () => ({ error: "TTS error" }) };
+    return {
+      status: 500,
+      headers: { get: () => "application/json" },
+      json: async () => ({ error: "TTS error" }),
+    };
   }
   chat = {
     completions: {
       create: async (params: any) => {
         if (params.stream) {
           const streamResponse = {
-            [Symbol.asyncIterator]: async function* () {
+            [Symbol.asyncIterator]: async function*() {
               yield {
                 choices: [
-                  { delta: { content: "Test streaming response" } }
-                ]
-              }
+                  { delta: { content: "Test streaming response" } },
+                ],
+              };
+            },
+            asyncIterator: () => streamResponse[Symbol.asyncIterator](),
+          };
 
-            
-
-                
-          },
-          asyncIterator:  () =>streamResponse[Symbol.asyncIterator]()
-        };
-      
           return streamResponse;
         } else {
           return {
-            choices: [{ message: { content: "Test chat response" } }]
+            choices: [{ message: { content: "Test chat response" } }],
           };
         }
-      }
-    }
-  }
+      },
+    },
+  };
   async whisperTranscription(params: any) {
     if (params.error) {
       return {
         status: 500,
-        headers: { get: () => 'application/json' },
+        headers: { get: () => "application/json" },
         json: async () => ({ error: "Transcription error" }),
       };
     }
     return {
       status: 200,
-      headers: { get: () => 'application/json' },
+      headers: { get: () => "application/json" },
       json: async () => ({ transcription: "Test transcription" }),
     };
   }
@@ -241,11 +241,11 @@ global.R2 = {
   put: vi.fn().mockImplementation((key: string, blob: any) => {
     const size = blob && blob.size !== undefined ? blob.size : 0;
     if (size === 0) {
-      return { status: 400, text: async () => 'Bad Request' };
+      return { status: 400, text: async () => "Bad Request" };
     }
-    return { status: 200, text: async () => 'Object stored' };
+    return { status: 200, text: async () => "Object stored" };
   }),
-  get: vi.fn().mockResolvedValue({ status: 200, text: async () => 'Stored object' }),
+  get: vi.fn().mockResolvedValue({ status: 200, text: async () => "Stored object" }),
 };
 global.CodeRateLimiter = class {
   async handleRequest() {

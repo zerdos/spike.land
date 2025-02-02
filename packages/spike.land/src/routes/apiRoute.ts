@@ -1,4 +1,4 @@
-import type { Context } from 'hono';
+import type { Context } from "hono";
 
 interface ApiResponse {
   success: boolean;
@@ -19,11 +19,11 @@ export const handleApiRequest = async (ctx: Context): Promise<Response> => {
     const params = ctx.req.query();
 
     // Validate request path
-    if (!apiPath.startsWith('/api/')) {
+    if (!apiPath.startsWith("/api/")) {
       const response: ApiResponse = {
         success: false,
-        message: 'Invalid API path',
-        error: 'INVALID_API_PATH'
+        message: "Invalid API path",
+        error: "INVALID_API_PATH",
       };
       return ctx.json(response, 400);
     }
@@ -31,25 +31,25 @@ export const handleApiRequest = async (ctx: Context): Promise<Response> => {
     // In a real implementation, this would handle API-specific logic
     const response: ApiResponse = {
       success: true,
-      message: 'API request processed',
+      message: "API request processed",
       data: {
         path: apiPath,
         method,
         timestamp: Date.now(),
-        params: Object.keys(params).length > 0 ? params : undefined
-      }
+        params: Object.keys(params).length > 0 ? params : undefined,
+      },
     };
-    
+
     return ctx.json(response, 200);
   } catch (error) {
-    console.error('API error:', error);
-    
+    console.error("API error:", error);
+
     const response: ApiResponse = {
       success: false,
-      message: 'API request failed',
-      error: error instanceof Error ? error.message : 'UNKNOWN_ERROR'
+      message: "API request failed",
+      error: error instanceof Error ? error.message : "UNKNOWN_ERROR",
     };
-    
+
     return ctx.json(response, 500);
   }
 };

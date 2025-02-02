@@ -56,7 +56,7 @@ describe("Hono app routes", () => {
           default:
             return new Response("Not found", { status: 404 });
         }
-      })
+      }),
     };
 
     vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as any);

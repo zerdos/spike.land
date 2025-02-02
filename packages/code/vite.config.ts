@@ -1,9 +1,9 @@
-import path from "path";
-import fs from "fs";
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
-import { defineConfig, ProxyOptions, AppType } from "vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import react from "@vitejs/plugin-react-swc";
+import fs from "fs";
+import path from "path";
+import { AppType, defineConfig, ProxyOptions } from "vite";
 import { importMap } from "./src/@/lib/importmap-utils";
 
 /* ========================================================
@@ -27,11 +27,11 @@ const externalDirs = ["@/workers", "@/external"];
 const externalFiles = externalDirs.map(getExternalFiles).flat();
 
 const createExternalAliases = (
-  files: Array<{ file: string }>
+  files: Array<{ file: string; }>,
 ): Record<string, string> =>
   files.reduce<Record<string, string>>((aliases, { file }) => {
     // Remove the extension from the file path
-    const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/"); 
+    const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/");
     aliases[aliasKey] = `/${aliasKey}.mjs`;
     return aliases;
   }, {});

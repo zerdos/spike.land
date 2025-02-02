@@ -245,7 +245,7 @@ const ChatInterface: React.FC<{
     }
     if (typeof contentToEdit !== "string") {
       setEditInput(contentToEdit.text);
-    } else     setEditInput(contentToEdit);
+    } else setEditInput(contentToEdit);
   }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {

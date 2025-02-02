@@ -19,10 +19,10 @@ export class AIHandler {
       return {
         text,
         timestamp: new Date().toISOString(),
-        status: 'success',
+        status: "success",
       };
     } catch (error) {
-      console.error('AI processing error:', error);
+      console.error("AI processing error:", error);
       throw error;
     }
   }
@@ -33,7 +33,7 @@ export class AIHandler {
    * @returns boolean
    */
   static validateContent(content: unknown): boolean {
-    return typeof content === 'object' && content !== null && 'text' in content;
+    return typeof content === "object" && content !== null && "text" in content;
   }
 
   /**
@@ -44,9 +44,9 @@ export class AIHandler {
   static formatErrorResponse(error: Error): AIResponse {
     return {
       text: error.message,
-      error: 'AI processing error',
+      error: "AI processing error",
       timestamp: new Date().toISOString(),
-      status: 'error',
+      status: "error",
     };
   }
 }

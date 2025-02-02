@@ -1,4 +1,4 @@
-import type { Context } from 'hono';
+import type { Context } from "hono";
 
 interface EditorResponse {
   success: boolean;
@@ -14,17 +14,17 @@ export const handleEditorRequest = async (ctx: Context): Promise<Response> => {
   try {
     // In a real implementation, this would handle editor-specific logic
     // such as creating/loading editor sessions, saving content, etc.
-    const sessionId = ctx.req.query('sessionId');
+    const sessionId = ctx.req.query("sessionId");
 
     if (sessionId) {
       // Load existing session
       const response: EditorResponse = {
         success: true,
-        message: 'Editor session loaded',
+        message: "Editor session loaded",
         data: {
           sessionId,
-          timestamp: Date.now()
-        }
+          timestamp: Date.now(),
+        },
       };
       return ctx.json(response, 200);
     }
@@ -33,23 +33,23 @@ export const handleEditorRequest = async (ctx: Context): Promise<Response> => {
     const newSessionId = `session_${Date.now()}`;
     const response: EditorResponse = {
       success: true,
-      message: 'New editor session created',
+      message: "New editor session created",
       data: {
         sessionId: newSessionId,
-        timestamp: Date.now()
-      }
+        timestamp: Date.now(),
+      },
     };
-    
+
     return ctx.json(response, 201);
   } catch (error) {
-    console.error('Editor error:', error);
-    
+    console.error("Editor error:", error);
+
     const response: EditorResponse = {
       success: false,
-      message: 'Editor operation failed',
-      error: error instanceof Error ? error.message : 'UNKNOWN_ERROR'
+      message: "Editor operation failed",
+      error: error instanceof Error ? error.message : "UNKNOWN_ERROR",
     };
-    
+
     return ctx.json(response, 500);
   }
 };

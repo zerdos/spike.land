@@ -3,22 +3,22 @@
  */
 export enum MessageType {
   /** Regular text message */
-  TEXT = 'text',
+  TEXT = "text",
   /** Command message for system operations */
-  COMMAND = 'command',
+  COMMAND = "command",
   /** Status update message */
-  STATUS = 'status',
+  STATUS = "status",
   /** Error message */
-  ERROR = 'error',
+  ERROR = "error",
 }
 
 /**
  * Role of the message sender
  */
-export type MessageRole = 'user' | 'system' | 'assistant';
+export type MessageRole = "user" | "system" | "assistant";
 
 // Re-export essential message types from lib interfaces
-export type { Message, MessageContent, TextPart, ImageUrlPart } from '@/lib/interfaces';
+export type { ImageUrlPart, Message, MessageContent, TextPart } from "@/lib/interfaces";
 
 /**
  * Response structure for message handling operations

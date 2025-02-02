@@ -93,14 +93,14 @@ export class WebSocketHandler {
       webSocket,
       pongReceived: true,
       subscribedTopics: new Set(),
-      blockedMessages: []
+      blockedMessages: [],
     };
     this.wsSessions.push(session);
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(JSON.stringify({
       hashCode: computeSessionHash(this.code.getSession()),
       users,
-      type: "handshake"
+      type: "handshake",
     }));
     this.schedulePing(session);
     const closeOrErrorHandler = () => {
@@ -116,7 +116,7 @@ export class WebSocketHandler {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  private send(conn: WebSocket, message: YMessage | { type: "pong" }): void {
+  private send(conn: WebSocket, message: YMessage | { type: "pong"; }): void {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
     if (
@@ -209,7 +209,7 @@ export class WebSocketHandler {
     if (data.changes) {
       const changesMsg = JSON.stringify({
         type: "changes",
-        changes: data.changes
+        changes: data.changes,
       });
       return this.broadcast(changesMsg);
     }
@@ -229,7 +229,7 @@ export class WebSocketHandler {
   private async handlePatch(
     data: CodePatch,
     respondWith: (obj: unknown) => void,
-    session: WebsocketSession
+    session: WebsocketSession,
   ): Promise<void> {
     try {
       console.log("Applying patch...", data);
@@ -237,7 +237,7 @@ export class WebSocketHandler {
       console.log("New state after patch:", newState);
       this.code.updateAndBroadcastSession(newState, session);
       return respondWith({
-        hashCode: computeSessionHash(newState)
+        hashCode: computeSessionHash(newState),
       });
     } catch (err) {
       console.error("Error applying patch:", err);
@@ -272,7 +272,7 @@ export class WebSocketHandler {
       if (session && s === session) {
         try {
           session.webSocket.send(
-            JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) })
+            JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
           );
           return;
         } catch (error) {

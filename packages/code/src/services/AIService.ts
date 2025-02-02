@@ -245,7 +245,7 @@ export class AIService {
     const lastMessage = messages[messages.length - 1];
     const isSameCode = !isFirstMessage && lastMessage && lastMessage.content === codeNow;
 
-    return isSameCode 
+    return isSameCode
       ? reminder({ userPrompt: content })
       : anthropicSystem({
         fileName: codeSpace,

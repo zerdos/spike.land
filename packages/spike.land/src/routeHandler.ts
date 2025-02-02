@@ -245,10 +245,10 @@ export class RouteHandler {
 
     const pair = new WebSocketPair();
     await this.code.wsHandler.handleWebsocketSession(pair[1] as IWebSocket);
-    return new Response(null, { 
+    return new Response(null, {
       status: 101,
       statusText: "Switching Protocols",
-      webSocket: pair[0] 
+      webSocket: pair[0],
     });
   }
 

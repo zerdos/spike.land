@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext"],
+    "lib": ["ESNext"]
   },
   "exclude": ["node_modules", "dist", "src/dist"],
   "include": [

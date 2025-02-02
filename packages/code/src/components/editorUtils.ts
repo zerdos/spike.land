@@ -180,7 +180,7 @@ export const screenShot = (): Promise<ImageData> => {
     // Only listen for messages from our iframe
     window.addEventListener("message", (event) => {
       if (iframe && event.source === iframe.contentWindow) {
-         messageHandler(event);
+        messageHandler(event);
       }
     });
 
@@ -195,30 +195,33 @@ export const runCode = async (
   transpiled: string,
 ): Promise<RunMessageResult | false> => {
   return new Promise((resolve) => {
-    const iframe = document.querySelector('iframe');
+    const iframe = document.querySelector("iframe");
     if (!iframe || !iframe.contentWindow) {
-      console.error('No iframe found for code execution');
+      console.error("No iframe found for code execution");
       return resolve(false);
     }
 
     const messageHandler = (event: MessageEvent) => {
-      if (iframe && event.source === iframe.contentWindow && event.data.type === 'code-execution-result') {
-        window.removeEventListener('message', messageHandler);
+      if (
+        iframe && event.source === iframe.contentWindow &&
+        event.data.type === "code-execution-result"
+      ) {
+        window.removeEventListener("message", messageHandler);
         resolve(event.data.result);
       }
     };
 
-    window.addEventListener('message', messageHandler);
+    window.addEventListener("message", messageHandler);
 
     iframe.contentWindow.postMessage({
-      type: 'execute-code',
-      code: transpiled
-    }, '*');
+      type: "execute-code",
+      code: transpiled,
+    }, "*");
 
     // Add timeout to prevent hanging
     setTimeout(() => {
-      window.removeEventListener('message', messageHandler);
-      console.error('Code execution timed out');
+      window.removeEventListener("message", messageHandler);
+      console.error("Code execution timed out");
       resolve(false);
     }, 5000);
   });

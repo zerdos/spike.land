@@ -1,6 +1,6 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 function getWebSocketPair(): [any, any] {
-  if (typeof WebSocketPair !== 'undefined') {
+  if (typeof WebSocketPair !== "undefined") {
     return (new WebSocketPair() as unknown) as [any, any];
   }
   const dummySocket = {

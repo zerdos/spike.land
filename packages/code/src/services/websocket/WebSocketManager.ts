@@ -1,17 +1,17 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { DOMError, getErrorMessage, MessageHandlingError, WebSocketError } from "@/lib/errors";
+import { Message } from "@/lib/interfaces";
 import { init } from "@/lib/tw-dev-setup";
 import { ROUTES } from "../../config/routes";
+import { WebSocketEventType, WebSocketState } from "./enums";
 import {
   IWebSocketManager,
-  WebSocketConfig,
-  WebSocketDependencies,
   MessageData,
   RunMessageResult,
+  WebSocketConfig,
+  WebSocketDependencies,
   WebSocketSubscription,
 } from "./types";
-import { WebSocketState, WebSocketEventType } from "./enums";
-import { Message } from "@/lib/interfaces";
 
 const DEFAULT_CONFIG: Required<WebSocketConfig> = {
   maxRetries: 3,
@@ -33,7 +33,7 @@ export class WebSocketManager implements IWebSocketManager {
 
   constructor(
     dependencies: WebSocketDependencies,
-    config: WebSocketConfig = {}
+    config: WebSocketConfig = {},
   ) {
     this.codeSpace = getCodeSpace(location.pathname);
     this.dependencies = dependencies;
@@ -128,10 +128,10 @@ export class WebSocketManager implements IWebSocketManager {
   private async handleLivePage(): Promise<void> {
     try {
       await this.dependencies.codeSessionBC.init();
-      
+
       // Subscribe to code session updates
       this.dependencies.codeSessionBC.sub((data: MessageData) => {
-        console.log('Code session update:', data);
+        console.log("Code session update:", data);
         // Additional live page specific handling can be added here
       });
 
@@ -140,7 +140,7 @@ export class WebSocketManager implements IWebSocketManager {
       this.handleError(error);
       throw new WebSocketError(
         `Failed to initialize live page: ${getErrorMessage(error)}`,
-        error instanceof Error ? error : undefined
+        error instanceof Error ? error : undefined,
       );
     }
   }
@@ -181,7 +181,6 @@ export class WebSocketManager implements IWebSocketManager {
    */
   private async handleDefaultPage(): Promise<void> {
     const messageHandler = (event: unknown): void => {
-
       const data = (event as MessageEvent).data;
       try {
         this.dependencies.messageHandler.handleMessage(data)
@@ -214,11 +213,14 @@ export class WebSocketManager implements IWebSocketManager {
    * Subscribe to WebSocket events
    * @private
    */
-  private subscribe(type: WebSocketEventType, handler: (event: MessageEvent | Event) => void): () => void {
+  private subscribe(
+    type: WebSocketEventType,
+    handler: (event: MessageEvent | Event) => void,
+  ): () => void {
     const subscription: WebSocketSubscription = {
       type,
       handler,
-      unsubscribe: () => this.subscriptions.delete(subscription)
+      unsubscribe: () => this.subscriptions.delete(subscription),
     };
     this.subscriptions.add(subscription);
     return subscription.unsubscribe;
@@ -251,5 +253,5 @@ export class WebSocketManager implements IWebSocketManager {
         this.init().catch(console.error);
       }, this.config.retryDelay);
     }
-  }
+  };
 }

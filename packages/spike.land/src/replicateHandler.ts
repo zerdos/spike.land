@@ -27,12 +27,11 @@ const INPUT_DEFAULTS: InputDefaults = {
 
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
-  export function parseInputFromUrl(urlString: string): InputDefaults {
+export function parseInputFromUrl(urlString: string): InputDefaults {
+  const url = new URL(urlString);
 
-  const url = new URL(urlString); 
-
-  const urlParams =  url.searchParams;
-const params: Partial<InputDefaults> =   ([...urlParams.entries()].map(([key, value]) => {
+  const urlParams = url.searchParams;
+  const params: Partial<InputDefaults> = ([...urlParams.entries()].map(([key, value]) => {
     if (key in INPUT_DEFAULTS) {
       return [key, value];
     }
@@ -44,8 +43,7 @@ const params: Partial<InputDefaults> =   ([...urlParams.entries()].map(([key, va
       return acc;
     }
 
-   
-    return { ...acc, [key]: typeof defaultValue === "number" ? Number(value) : value, };
+    return { ...acc, [key]: typeof defaultValue === "number" ? Number(value) : value };
   }, {});
 
   return params as InputDefaults;

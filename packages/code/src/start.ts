@@ -36,11 +36,10 @@ const handleError = (error: unknown): void => {
 const initializeWebSocket = async (codeSpace: string): Promise<void> => {
   try {
     const { main } = await import("./ws");
- 
+
     if (process.env.NODE_ENV !== "test") {
       await main(codeSpace);
     }
-    
   } catch (error) {
     handleError(error);
   }

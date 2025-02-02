@@ -1,13 +1,9 @@
-import {
-  formatCode ,
-  transpileCode,
-} from "../../components/editorUtils";
-import {  IWebSocketManager, RunMessageResult } from "../websocket/types";
+import { ICodeSession } from "@/lib/interfaces";
+import { formatCode, transpileCode } from "../../components/editorUtils";
 import { RenderService } from "../render/RenderService";
-import {  ICodeSession } from "@/lib/interfaces";
+import { IWebSocketManager, RunMessageResult } from "../websocket/types";
 
 export class CodeProcessor {
-
   private static renderService: RenderService;
 
   constructor(codeSpace: string) {
@@ -24,61 +20,53 @@ export class CodeProcessor {
     rawCode: string,
     skipRunning: boolean,
     signal: AbortSignal,
-    getSession: () => ICodeSession
+    getSession: () => ICodeSession,
   ): Promise<ICodeSession | false> {
-
- if (signal.aborted) return false;
+    if (signal.aborted) return false;
     try {
+      const code = await this.formatCode(rawCode);
+      if (signal.aborted) return false;
 
+      if (code === getSession().code) {
+        return getSession();
+      }
 
-    const code =  await this.formatCode(rawCode);
-    if (signal.aborted) return false;
+      const transpiled = await this.transpileCode(code);
+      if (signal.aborted) return false;
+      if (getSession().transpiled === transpiled) {
+        return getSession();
+      }
 
-    if (code === getSession().code) {
-      return getSession();
-    }
+      const processedSession = {
+        html: getSession().html,
+        css: getSession().css,
+      };
 
+      if (!skipRunning) {
+        const runResult = await (window.frames[0] as unknown as {
+          webSocketManager: IWebSocketManager;
+        }).webSocketManager.handleRunMessage(transpiled);
+        if (!runResult) {
+          return false;
+        }
+        if (runResult.html && runResult.html !== processedSession.html) {
+          processedSession.html = runResult.html;
+        }
+        if (runResult.css && runResult.css !== processedSession.css) {
+          processedSession.css = runResult.css;
+        }
+      }
 
-    const transpiled = await this.transpileCode(code);
-    if (signal.aborted) return false;
-    if (getSession().transpiled === transpiled) {
-      return getSession();
-    }
-
-
-
-    const processedSession = {
-      html: getSession().html,
-      css: getSession().css
-    };
-
-    if (!skipRunning) {
-      const runResult = await (window.frames[0] as unknown as {
-        webSocketManager: IWebSocketManager;
-      }).webSocketManager.handleRunMessage(transpiled);
-      if (!runResult) {
+      if (signal.aborted) {
         return false;
       }
-      if (runResult.html && runResult.html !== processedSession.html) {
-        processedSession.html = runResult.html;
-      }
-      if (runResult.css && runResult.css !== processedSession.css) {
-        processedSession.css = runResult.css;
-      }
-    }
 
-    if (signal.aborted) {
-      return false;
-    }
-
-    return {
-      ...getSession(),
-      ...processedSession,
-      code,
-      transpiled
-    }
-
-
+      return {
+        ...getSession(),
+        ...processedSession,
+        code,
+        transpiled,
+      };
     } catch (error) {
       console.error("Error processing code:", error);
       return false;
@@ -108,21 +96,20 @@ export class CodeProcessor {
     }
   }
 
-   async runCode(transpiled: string): Promise<RunMessageResult> {
+  async runCode(transpiled: string): Promise<RunMessageResult> {
     try {
       // Update the rendered app first
       const renderedApp = await CodeProcessor.renderService.updateRenderedApp({ transpiled });
       const result = await CodeProcessor.renderService.handleRender(renderedApp);
-      
+
       if (!result) {
         throw new Error("Running code produced no output");
       }
 
       return {
         html: result.html || "<div></div>",
-        css: result.css || ""
+        css: result.css || "",
       };
-
     } catch (error) {
       console.error("Error running code:", { transpiled });
       throw new Error(`Error running code: ${error}`);

@@ -12,13 +12,14 @@ The central service class that orchestrates message processing:
 
 ```typescript
 class MessageHandlerService {
-  handleMessage(message: Message): Promise<MessageResponse>
-  validateMessage(message: unknown): boolean
+  handleMessage(message: Message): Promise<MessageResponse>;
+  validateMessage(message: unknown): boolean;
   // ... other methods
 }
 ```
 
 Key responsibilities:
+
 - Message validation
 - Content type handling
 - Error management
@@ -30,14 +31,17 @@ A comprehensive type system ensures type safety throughout the service:
 
 ```typescript
 enum MessageType {
-  TEXT, COMMAND, STATUS, ERROR
+  TEXT,
+  COMMAND,
+  STATUS,
+  ERROR,
 }
 
 interface Message {
-  id: string
-  type: MessageType
-  content: MessageContent
-  role: MessageRole
+  id: string;
+  type: MessageType;
+  content: MessageContent;
+  role: MessageRole;
 }
 ```
 
@@ -75,6 +79,7 @@ private async processMessage(message: Message): Promise<unknown> {
 ### 3. Strategy Pattern
 
 Different message types are handled by specific strategies:
+
 - Text message handling
 - Command message handling
 - Status message handling
@@ -89,9 +94,9 @@ Different message types are handled by specific strategies:
 2. **Error Response Structure**
    ```typescript
    interface MessageResponse {
-     success: boolean
-     error?: string
-     data?: unknown
+     success: boolean;
+     error?: string;
+     data?: unknown;
    }
    ```
 
@@ -101,9 +106,9 @@ Flexible configuration through dependency injection:
 
 ```typescript
 interface MessageHandlerConfig {
-  logErrors?: boolean
-  maxRetries?: number
-  timeout?: number
+  logErrors?: boolean;
+  maxRetries?: number;
+  timeout?: number;
 }
 ```
 
@@ -118,6 +123,7 @@ interface MessageHandlerConfig {
 ## Extension Points
 
 The service can be extended through:
+
 1. New message types
 2. Additional content handlers
 3. Custom validation rules

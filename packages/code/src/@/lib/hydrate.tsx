@@ -41,7 +41,6 @@ export const setupServiceWorker = async () => {
   const wb = new Workbox("/sw.js");
   const sw = await wb.register();
 
-
   console.log("Workbox instance created");
 
   console.log("Active service worker:", sw);
@@ -62,10 +61,9 @@ export const setupServiceWorker = async () => {
 
     return sw;
   }
-  
 
   console.log("Service worker setup completed");
- return sw;
+  return sw;
 };
 // };
 

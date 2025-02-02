@@ -1,8 +1,8 @@
-import { vi } from 'vitest';
-import '@testing-library/jest-dom';
+import { vi } from "vitest";
+import "@testing-library/jest-dom";
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
     matches: false,
@@ -18,36 +18,35 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock Worker
 class MockWorker implements Worker {
-  
   onmessage: ((event: MessageEvent) => void) | null = null;
   onmessageerror: ((event: MessageEvent) => void) | null = null;
   onerror: ((error: ErrorEvent) => void) | null = null;
 
   constructor(private _stringUrl: string | URL, private options?: WorkerOptions) {
-    console.log('MockWorker created:', this._stringUrl, this.options);
-  
+    console.log("MockWorker created:", this._stringUrl, this.options);
+
     // Constructor implementation
   }
 
   addEventListener(type: string, listener: EventListener): void {
-    if (type === 'message') {
+    if (type === "message") {
       this.onmessage = listener as (event: MessageEvent) => void;
-    } else if (type === 'error') {
+    } else if (type === "error") {
       this.onerror = listener as (error: ErrorEvent) => void;
     }
   }
 
   removeEventListener(type: string): void {
-    if (type === 'message') {
+    if (type === "message") {
       this.onmessage = null;
-    } else if (type === 'error') {
+    } else if (type === "error") {
       this.onerror = null;
     }
   }
 
   postMessage(data: unknown): void {
     if (this.onmessage) {
-      const messageEvent = new MessageEvent('message', { data });
+      const messageEvent = new MessageEvent("message", { data });
       this.onmessage(messageEvent);
     }
   }
@@ -82,19 +81,19 @@ class MockSharedWorker implements SharedWorker {
 
   constructor(stringUrl: string | URL, options?: string | WorkerOptions) {
     this.url = stringUrl as string;
-    this.options = options || '';
-    console.log('MockSharedWorker created:', this.url, this.options);
+    this.options = options || "";
+    console.log("MockSharedWorker created:", this.url, this.options);
     // Constructor implementation
   }
 
   addEventListener(type: string, listener: EventListener): void {
-    if (type === 'error') {
+    if (type === "error") {
       this.onerror = listener as (error: ErrorEvent) => void;
     }
   }
 
   removeEventListener(type: string, _listener: EventListener): void {
-    if (type === 'error') {
+    if (type === "error") {
       this.onerror = null;
     }
   }
@@ -118,16 +117,16 @@ window.SharedWorker = MockSharedWorker;
 
 // Mock Location API
 const mockLocation = {
-  href: 'http://localhost:3000',
-  pathname: '/',
-  search: '',
-  hash: '',
+  href: "http://localhost:3000",
+  pathname: "/",
+  search: "",
+  hash: "",
   assign: vi.fn(),
   replace: vi.fn(),
   reload: vi.fn(),
 };
 
-Object.defineProperty(window, 'location', {
+Object.defineProperty(window, "location", {
   value: mockLocation,
   writable: true,
 });
@@ -170,11 +169,11 @@ window.ResizeObserver = MockResizeObserver;
 global.fetch = vi.fn();
 
 // Add Vitest beforeEach hook
-import { beforeEach } from 'vitest';
+import { beforeEach } from "vitest";
 
 beforeEach(() => {
   vi.clearAllMocks();
-  mockLocation.pathname = '/';
-  mockLocation.search = '';
-  mockLocation.hash = '';
+  mockLocation.pathname = "/";
+  mockLocation.search = "";
+  mockLocation.hash = "";
 });

@@ -4,7 +4,7 @@
  * @returns A Promise that resolves to a Response
  */
 export async function serveWithCache(url: string): Promise<Response> {
-  const cache = await caches.open('asset-cache');
+  const cache = await caches.open("asset-cache");
 
   try {
     // Try to get from cache first
@@ -21,17 +21,17 @@ export async function serveWithCache(url: string): Promise<Response> {
       try {
         await cache.put(url, responseToCache);
       } catch (error) {
-        console.error('Cache put error:', error);
+        console.error("Cache put error:", error);
         throw error;
       }
 
       return fetchedResponse;
     } catch (error) {
-      console.error('Asset fetch error:', error);
+      console.error("Asset fetch error:", error);
       throw error;
     }
   } catch (error) {
-    console.error('Cache match error:', error);
+    console.error("Cache match error:", error);
     throw error;
   }
 }

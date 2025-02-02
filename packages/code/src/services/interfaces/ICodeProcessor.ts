@@ -14,6 +14,5 @@ export interface ICodeProcessor {
     signal: AbortSignal,
   ): Promise<RunMessageResult | false>;
 
-  
   runCode(code: string): Promise<RunMessageResult>;
 }

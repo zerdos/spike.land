@@ -3,12 +3,14 @@
 ## Current Architecture Assessment
 
 The Message Handler Service currently implements a solid foundation with:
+
 - Type-safe message handling
 - Basic error management
 - Configurable behavior
 - Unit test coverage
 
 However, there are several areas where the architecture can evolve to better handle:
+
 - Scalability
 - Extensibility
 - Maintainability
@@ -19,6 +21,7 @@ However, there are several areas where the architecture can evolve to better han
 ### 1. Event-Driven Architecture
 
 #### Current
+
 ```typescript
 class MessageHandlerService {
   async handleMessage(message: Message): Promise<MessageResponse> {
@@ -28,6 +31,7 @@ class MessageHandlerService {
 ```
 
 #### Proposed
+
 ```typescript
 interface MessageEvent {
   type: string;
@@ -47,7 +51,7 @@ class MessageEventBus {
   async publish(event: MessageEvent): Promise<void> {
     const handlers = this.handlers.get(event.type) ?? [];
     await Promise.all(
-      handlers.map(handler => handler.handle(event))
+      handlers.map(handler => handler.handle(event)),
     );
   }
 }
@@ -58,14 +62,15 @@ class MessageHandlerService {
   }
 
   private setupEventHandlers(): void {
-    this.eventBus.subscribe('message.received', this.handleMessage);
-    this.eventBus.subscribe('message.processed', this.handleProcessed);
-    this.eventBus.subscribe('message.failed', this.handleError);
+    this.eventBus.subscribe("message.received", this.handleMessage);
+    this.eventBus.subscribe("message.processed", this.handleProcessed);
+    this.eventBus.subscribe("message.failed", this.handleError);
   }
 }
 ```
 
 Benefits:
+
 - Loose coupling
 - Better scalability
 - Easier to extend
@@ -74,10 +79,11 @@ Benefits:
 ### 2. Domain-Driven Design
 
 #### Message Aggregates
+
 ```typescript
 class MessageAggregate {
   private readonly events: DomainEvent[] = [];
-  
+
   constructor(private readonly message: Message) {}
 
   process(): void {
@@ -88,7 +94,7 @@ class MessageAggregate {
   validate(): void {
     if (!this.isValid()) {
       this.events.push(new MessageValidationFailedEvent(this.message));
-      throw new ValidationError('Invalid message');
+      throw new ValidationError("Invalid message");
     }
   }
 
@@ -99,6 +105,7 @@ class MessageAggregate {
 ```
 
 #### Value Objects
+
 ```typescript
 class MessageId {
   constructor(private readonly value: string) {
@@ -115,7 +122,7 @@ class MessageId {
 class MessageContent {
   constructor(
     private readonly type: string,
-    private readonly value: unknown
+    private readonly value: unknown,
   ) {
     this.validate();
   }
@@ -125,6 +132,7 @@ class MessageContent {
 ### 3. Microservices Architecture
 
 #### Service Decomposition
+
 ```typescript
 interface MessageProcessor {
   process(message: Message): Promise<ProcessingResult>;
@@ -150,6 +158,7 @@ class PersistenceService implements MessageProcessor {
 ```
 
 #### Service Registry
+
 ```typescript
 class ServiceRegistry {
   private services = new Map<string, MessageProcessor>();
@@ -161,7 +170,7 @@ class ServiceRegistry {
   async process(message: Message): Promise<ProcessingResult[]> {
     return Promise.all(
       Array.from(this.services.values())
-        .map(service => service.process(message))
+        .map(service => service.process(message)),
     );
   }
 }
@@ -170,9 +179,10 @@ class ServiceRegistry {
 ### 4. CQRS Pattern Implementation
 
 #### Commands
+
 ```typescript
 interface MessageCommand {
-  type: 'ProcessMessage' | 'ValidateMessage' | 'StoreMessage';
+  type: "ProcessMessage" | "ValidateMessage" | "StoreMessage";
   payload: Message;
 }
 
@@ -190,9 +200,10 @@ class CommandBus {
 ```
 
 #### Queries
+
 ```typescript
 interface MessageQuery {
-  type: 'GetMessageById' | 'GetMessagesByType';
+  type: "GetMessageById" | "GetMessagesByType";
   parameters: Record<string, unknown>;
 }
 
@@ -212,6 +223,7 @@ class QueryBus {
 ### 5. Reactive Architecture
 
 #### Observable Messages
+
 ```typescript
 class MessageStream {
   private subject = new Subject<Message>();
@@ -225,7 +237,7 @@ class MessageStream {
       .pipe(
         filter(msg => this.isValid(msg)),
         map(msg => this.transform(msg)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       )
       .subscribe(observer);
   }
@@ -233,6 +245,7 @@ class MessageStream {
 ```
 
 #### Reactive Processing
+
 ```typescript
 class ReactiveMessageProcessor {
   process(message$: Observable<Message>): Observable<ProcessingResult> {
@@ -241,7 +254,7 @@ class ReactiveMessageProcessor {
       mergeMap(msg => this.processContent(msg)),
       mergeMap(msg => this.store(msg)),
       retry(3),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 }
@@ -250,21 +263,25 @@ class ReactiveMessageProcessor {
 ## Implementation Roadmap
 
 ### Phase 1: Foundation
+
 1. Implement Event Bus
 2. Add Domain Events
 3. Setup Service Registry
 
 ### Phase 2: Service Decomposition
+
 1. Split into Microservices
 2. Implement Service Communication
 3. Add Service Discovery
 
 ### Phase 3: Advanced Patterns
+
 1. Implement CQRS
 2. Add Event Sourcing
 3. Setup Reactive Streams
 
 ### Phase 4: Integration
+
 1. Add External Service Integration
 2. Implement Message Transformation
 3. Setup Monitoring

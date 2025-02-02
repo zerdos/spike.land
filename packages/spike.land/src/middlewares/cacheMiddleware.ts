@@ -1,6 +1,9 @@
-import type { MiddlewareHandler, Context } from 'hono';
+import type { Context, MiddlewareHandler } from "hono";
 
-export const cacheMiddleware: MiddlewareHandler = async (ctx: Context, next: () => Promise<void>) => {
+export const cacheMiddleware: MiddlewareHandler = async (
+  ctx: Context,
+  next: () => Promise<void>,
+) => {
   await next();
-  ctx.res.headers.set('Cache-Control', 'public, max-age=3600');
+  ctx.res.headers.set("Cache-Control", "public, max-age=3600");
 };

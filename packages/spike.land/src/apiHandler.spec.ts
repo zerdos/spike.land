@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { vi, type Mock } from 'vitest';
-import { handleApiRequest } from './apiHandler';
-import type Env from './env';
 import { HTML } from "@spike-npm-land/code";
+import { beforeEach, describe, expect, it } from "vitest";
+import { type Mock, vi } from "vitest";
+import { handleApiRequest } from "./apiHandler";
+import type Env from "./env";
 
-describe('ApiHandler', () => {
+describe("ApiHandler", () => {
   let mockEnv: Partial<Env>;
   let mockFetch: typeof fetch;
 
@@ -19,178 +19,178 @@ describe('ApiHandler', () => {
     // Create a mock environment
     mockEnv = {
       CODE: {
-        newUniqueId: vi.fn().mockReturnValue({ toString: () => 'mock-unique-id' }),
-        idFromString: vi.fn().mockReturnValue('mock-id-from-string'),
-        idFromName: vi.fn().mockReturnValue('mock-id-from-name'),
+        newUniqueId: vi.fn().mockReturnValue({ toString: () => "mock-unique-id" }),
+        idFromString: vi.fn().mockReturnValue("mock-id-from-string"),
+        idFromName: vi.fn().mockReturnValue("mock-id-from-name"),
         get: vi.fn().mockReturnValue({
-          fetch: vi.fn().mockResolvedValue(new Response('Room fetch result'))
-        })
-      } as any
+          fetch: vi.fn().mockResolvedValue(new Response("Room fetch result")),
+        }),
+      } as any,
     };
   });
 
-  describe('Server-side Fetch', () => {
-    it('should handle successful server-side fetch', async () => {
-      const mockRequest = new Request('https://example.com/server-fetch', {
-        method: 'POST',
+  describe("Server-side Fetch", () => {
+    it("should handle successful server-side fetch", async () => {
+      const mockRequest = new Request("https://example.com/server-fetch", {
+        method: "POST",
         body: JSON.stringify({
-          url: 'https://api.example.com/data',
-          options: { method: 'GET' }
-        })
+          url: "https://api.example.com/data",
+          options: { method: "GET" },
+        }),
       });
 
-      const mockFetchResponse = new Response('Fetch result', { status: 200 });
+      const mockFetchResponse = new Response("Fetch result", { status: 200 });
       (mockFetch as Mock).mockResolvedValue(mockFetchResponse);
 
       const response = await handleApiRequest(
-        ['server-fetch'], 
-        mockRequest, 
-        mockEnv as Env
+        ["server-fetch"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(mockFetch).toHaveBeenCalledWith(
-        'https://api.example.com/data', 
-        { method: 'GET' }
+        "https://api.example.com/data",
+        { method: "GET" },
       );
       expect(response.status).toBe(200);
-      expect(await response.text()).toBe('Fetch result');
+      expect(await response.text()).toBe("Fetch result");
     });
 
-    it('should handle server-side fetch error', async () => {
-      const mockRequest = new Request('https://example.com/server-fetch', {
-        method: 'POST',
+    it("should handle server-side fetch error", async () => {
+      const mockRequest = new Request("https://example.com/server-fetch", {
+        method: "POST",
         body: JSON.stringify({
-          url: 'https://api.example.com/data',
-          options: { method: 'GET' }
-        })
+          url: "https://api.example.com/data",
+          options: { method: "GET" },
+        }),
       });
 
-      (mockFetch as Mock).mockRejectedValue(new Error('Fetch failed'));
+      (mockFetch as Mock).mockRejectedValue(new Error("Fetch failed"));
 
       const response = await handleApiRequest(
-        ['server-fetch'], 
-        mockRequest, 
-        mockEnv as Env
+        ["server-fetch"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(500);
-      expect(await response.text()).toBe('Server-side fetch failed');
+      expect(await response.text()).toBe("Server-side fetch failed");
     });
   });
 
-  describe('Room/Generate ID Generation', () => {
-    it('should generate a new unique ID for room', async () => {
-      const mockRequest = new Request('https://example.com/generate', {
-        method: 'POST'
+  describe("Room/Generate ID Generation", () => {
+    it("should generate a new unique ID for room", async () => {
+      const mockRequest = new Request("https://example.com/generate", {
+        method: "POST",
       });
 
       const response = await handleApiRequest(
-        ['generate'], 
-        mockRequest, 
-        mockEnv as Env
+        ["generate"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(200);
-      expect(await response.text()).toBe('mock-unique-id');
+      expect(await response.text()).toBe("mock-unique-id");
       expect(mockEnv.CODE?.newUniqueId).toHaveBeenCalled();
     });
 
-    it('should return method not allowed for non-POST room request', async () => {
-      const mockRequest = new Request('https://example.com/generate', {
-        method: 'GET'
+    it("should return method not allowed for non-POST room request", async () => {
+      const mockRequest = new Request("https://example.com/generate", {
+        method: "GET",
       });
 
       const response = await handleApiRequest(
-        ['generate'], 
-        mockRequest, 
-        mockEnv as Env
+        ["generate"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(405);
-      expect(await response.text()).toBe('Method not allowed');
+      expect(await response.text()).toBe("Method not allowed");
     });
   });
 
-  describe('Room Object Routing', () => {
-    it('should route to room object with hex ID', async () => {
-      const mockRequest = new Request('https://example.com/room/a'.repeat(16), {
-        method: 'GET'
+  describe("Room Object Routing", () => {
+    it("should route to room object with hex ID", async () => {
+      const mockRequest = new Request("https://example.com/room/a".repeat(16), {
+        method: "GET",
       });
 
       const response = await handleApiRequest(
-        ['room', 'a'.repeat(16)], 
-        mockRequest, 
-        mockEnv as Env
+        ["room", "a".repeat(16)],
+        mockRequest,
+        mockEnv as Env,
       );
 
-      expect(mockEnv.CODE?.idFromString).toHaveBeenCalledWith('a'.repeat(16));
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe('mock-id-from-string');
-      expect(await response.text()).toBe('Room fetch result');
+      expect(mockEnv.CODE?.idFromString).toHaveBeenCalledWith("a".repeat(16));
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe("mock-id-from-string");
+      expect(await response.text()).toBe("Room fetch result");
     });
 
-    it('should route to room object with name ID', async () => {
-      const mockRequest = new Request('https://example.com/room/testroom', {
-        method: 'GET'
+    it("should route to room object with name ID", async () => {
+      const mockRequest = new Request("https://example.com/room/testroom", {
+        method: "GET",
       });
 
       const response = await handleApiRequest(
-        ['room', 'testroom'], 
-        mockRequest, 
-        mockEnv as Env
+        ["room", "testroom"],
+        mockRequest,
+        mockEnv as Env,
       );
 
-      expect(mockEnv.CODE?.idFromName).toHaveBeenCalledWith('testroom');
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe('mock-id-from-name');
-      expect(await response.text()).toBe('Room fetch result');
+      expect(mockEnv.CODE?.idFromName).toHaveBeenCalledWith("testroom");
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe("mock-id-from-name");
+      expect(await response.text()).toBe("Room fetch result");
     });
 
-    it('should return error for too long room name', async () => {
-      const mockRequest = new Request('https://example.com/room/toolongname', {
-        method: 'GET'
+    it("should return error for too long room name", async () => {
+      const mockRequest = new Request("https://example.com/room/toolongname", {
+        method: "GET",
       });
 
       const response = await handleApiRequest(
-        ['room', 'a'.repeat(33)], 
-        mockRequest, 
-        mockEnv as Env
+        ["room", "a".repeat(33)],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(404);
-      expect(await response.text()).toBe('Name too long');
+      expect(await response.text()).toBe("Name too long");
     });
   });
 
-  describe('Default Response', () => {
-    it('should return default HTML response for unhandled routes', async () => {
-      const mockRequest = new Request('https://example.com/unknown');
-      
+  describe("Default Response", () => {
+    it("should return default HTML response for unhandled routes", async () => {
+      const mockRequest = new Request("https://example.com/unknown");
+
       // Mock HTML import
-      vi.mock('@spike-npm-land/code', () => ({
-        HTML: Promise.resolve('Mocked HTML Content')
+      vi.mock("@spike-npm-land/code", () => ({
+        HTML: Promise.resolve("Mocked HTML Content"),
       }));
 
       const response = await handleApiRequest(
-        ['unknown'], 
-        mockRequest, 
-        mockEnv as Env
+        ["unknown"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get('Content-Type')).toBe('text/html; charset=UTF-8');
-      expect(await response.text()).toBe('Mocked HTML Content');
+      expect(response.headers.get("Content-Type")).toBe("text/html; charset=UTF-8");
+      expect(await response.text()).toBe("Mocked HTML Content");
     });
 
-    it('should return not found for completely unknown routes', async () => {
-      const mockRequest = new Request('https://example.com/totally-unknown');
+    it("should return not found for completely unknown routes", async () => {
+      const mockRequest = new Request("https://example.com/totally-unknown");
 
       const response = await handleApiRequest(
-        ['totally-unknown'], 
-        mockRequest, 
-        mockEnv as Env
+        ["totally-unknown"],
+        mockRequest,
+        mockEnv as Env,
       );
 
       expect(response.status).toBe(404);
-      expect(await response.text()).toBe('Not found');
+      expect(await response.text()).toBe("Not found");
     });
   });
 });

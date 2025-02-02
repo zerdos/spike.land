@@ -1,4 +1,4 @@
-  import type { Context } from "hono";
+import type { Context } from "hono";
 
 export const errorMiddleware = async (c: Context, next: () => Promise<Response>) => {
   try {

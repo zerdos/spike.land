@@ -14,10 +14,10 @@
    ```typescript
    // Interfaces
    interface IMessageHandler {}
-   
+
    // Types
    type MessageContent = string | TextPart;
-   
+
    // Enums
    enum MessageType {}
    ```
@@ -115,7 +115,7 @@
      await messageHandler.process(message);
    } catch (error) {
      // Log and handle appropriately
-     logger.error('Message processing failed:', error);
+     logger.error("Message processing failed:", error);
      throw new MessageProcessingError(error);
    }
    ```
@@ -134,9 +134,9 @@
    // Use type guards
    function isValidMessage(message: unknown): message is Message {
      return (
-       typeof message === 'object' &&
+       typeof message === "object" &&
        message !== null &&
-       'type' in message
+       "type" in message
      );
    }
    ```

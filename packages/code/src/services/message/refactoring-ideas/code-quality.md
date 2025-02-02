@@ -19,12 +19,12 @@ type BaseMessageContent = {
 };
 
 type TextMessageContent = BaseMessageContent & {
-  type: 'text';
+  type: "text";
   text: string;
 };
 
 type CommandMessageContent = BaseMessageContent & {
-  type: 'command';
+  type: "command";
   command: string;
   args?: Record<string, unknown>;
 };
@@ -33,6 +33,7 @@ type MessageContent = TextMessageContent | CommandMessageContent;
 ```
 
 Benefits:
+
 - More specific type definitions
 - Better IDE support
 - Compile-time type checking
@@ -42,28 +43,29 @@ Benefits:
 
 ```typescript
 // Current
-throw new Error('Invalid message format');
+throw new Error("Invalid message format");
 
 // Proposed
 class MessageError extends Error {
   constructor(
     message: string,
     public readonly code: MessageErrorCode,
-    public readonly details?: unknown
+    public readonly details?: unknown,
   ) {
     super(message);
-    this.name = 'MessageError';
+    this.name = "MessageError";
   }
 }
 
 enum MessageErrorCode {
-  INVALID_FORMAT = 'INVALID_FORMAT',
-  CONTENT_TYPE_MISMATCH = 'CONTENT_TYPE_MISMATCH',
-  PROCESSING_FAILED = 'PROCESSING_FAILED',
+  INVALID_FORMAT = "INVALID_FORMAT",
+  CONTENT_TYPE_MISMATCH = "CONTENT_TYPE_MISMATCH",
+  PROCESSING_FAILED = "PROCESSING_FAILED",
 }
 ```
 
 Benefits:
+
 - Error categorization
 - Detailed error information
 - Better error handling in consuming code
@@ -91,12 +93,13 @@ class MessageHandlerService {
   constructor(
     private readonly config: MessageHandlerConfig,
     private readonly logger: ILogger,
-    private readonly validator: IMessageValidator
+    private readonly validator: IMessageValidator,
   ) {}
 }
 ```
 
 Benefits:
+
 - Better testability
 - Loose coupling
 - Easier mocking
@@ -131,6 +134,7 @@ class MessageProcessingPipeline {
 ```
 
 Benefits:
+
 - Modular processing
 - Easy to add new processors
 - Better separation of concerns
@@ -163,6 +167,7 @@ interface ValidationRule {
 ```
 
 Benefits:
+
 - Extensible validation rules
 - Type-specific validation
 - Better validation error reporting
@@ -193,6 +198,7 @@ class MessageContentCache {
 ```
 
 Benefits:
+
 - Caching of processed content
 - Better memory management
 - Improved performance for repeated access

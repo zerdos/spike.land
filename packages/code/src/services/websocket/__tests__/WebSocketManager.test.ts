@@ -1,13 +1,13 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { WebSocketManager } from "../WebSocketManager";
 import type {
+  ICodeSessionBC,
   IMessageHandlerService,
   IServiceWorkerManager,
-  ICodeSessionBC,
   MessageData,
-  WebSocketDependencies
+  WebSocketDependencies,
 } from "../types";
+import { WebSocketManager } from "../WebSocketManager";
 
 // Mock window functions and console
 window.scrollTo = vi.fn();
@@ -22,7 +22,7 @@ const DEFAULT_CONFIG = {
 
 // Mock console before tests
 beforeAll(() => {
-  consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 });
 
 // Restore console after tests
@@ -85,9 +85,9 @@ describe("WebSocketManager", () => {
     // Setup mocks with proper implementation
     mockMessageHandler = {
       handleMessage: vi.fn().mockImplementation(async (message) => {
-        if (message.type === 'message') {
+        if (message.type === "message") {
           // Process the message
-          const response = { type: 'response', data: message.data };
+          const response = { type: "response", data: message.data };
           return Promise.resolve(response);
         }
         return Promise.resolve(undefined);
@@ -104,7 +104,9 @@ describe("WebSocketManager", () => {
       init: vi.fn().mockResolvedValue(undefined),
       sub: vi.fn().mockImplementation((callback) => {
         storedCallback = callback;
-        return () => { storedCallback = null; };
+        return () => {
+          storedCallback = null;
+        };
       }),
     };
 
@@ -152,10 +154,10 @@ describe("WebSocketManager", () => {
     it("should handle initialization error", async () => {
       const error = new Error("Init error");
       mockServiceWorker.setup = vi.fn().mockRejectedValueOnce(error);
-      
+
       await webSocketManager.init();
       await vi.runAllTimersAsync();
-      
+
       expect(mockServiceWorker.setup).toHaveBeenCalled();
       expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Init error");
     });
@@ -164,9 +166,9 @@ describe("WebSocketManager", () => {
   describe("route handling and url path detection", () => {
     beforeEach(() => {
       // Clean up any DOM elements from previous tests
-      document.body.innerHTML = '';
-      document.head.innerHTML = '';
-      
+      document.body.innerHTML = "";
+      document.head.innerHTML = "";
+
       // Reset mocks
       vi.clearAllMocks();
     });
@@ -174,7 +176,7 @@ describe("WebSocketManager", () => {
     it("should handle live page route", async () => {
       // Set path before initializing
       window.location.pathname = "/live/test-space";
-      
+
       // Initialize and wait for callbacks
       await webSocketManager.init();
       await vi.runAllTimersAsync();
@@ -206,22 +208,22 @@ describe("WebSocketManager", () => {
 
       // expect(mockCodeSessionBC.init).toHaveBeenCalled();
       expect(mockCodeSessionBC.sub).toHaveBeenCalled();
-      
+
       if (storedCallback) {
         storedCallback({ html: "<div>test</div>", css: ".test{}" });
         await vi.runAllTimersAsync();
       }
 
       // Add mock element to document body
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.textContent = ".test{}";
       document.head.appendChild(style);
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       div.innerHTML = "<div>test</div>";
       mockEmbed.appendChild(div);
 
       expect(mockEmbed.innerHTML).toContain("<div>test</div>");
-      const styles = document.head.querySelector('style');
+      const styles = document.head.querySelector("style");
       expect(styles?.textContent).toContain(".test{}");
     });
 
@@ -245,7 +247,7 @@ describe("WebSocketManager", () => {
       // Verify message handling
       expect(mockMessageHandler.handleMessage).toHaveBeenCalledWith({
         type: "message",
-        data: mockData
+        data: mockData,
       });
     });
   });
@@ -253,14 +255,14 @@ describe("WebSocketManager", () => {
   describe("message handling", () => {
     it("should handle run message", async () => {
       const result = await webSocketManager.handleRunMessage("const x = 1;");
-      
+
       expect(mockMessageHandler.handleRunMessage).toHaveBeenCalledWith("const x = 1;");
       expect(result).toEqual({ html: "<div>test</div>", css: ".test{}" });
     });
 
     it("should handle run message failure", async () => {
       mockMessageHandler.handleRunMessage = vi.fn().mockResolvedValueOnce(false);
-      
+
       const result = await webSocketManager.handleRunMessage("invalid code");
       expect(result).toBe(false);
     });
@@ -285,9 +287,9 @@ describe("WebSocketManager", () => {
 
     it("should cleanup resources", () => {
       window.onmessage = vi.fn();
-      
+
       webSocketManager.cleanup();
-      
+
       expect(mockMessageHandler.cleanup).toHaveBeenCalled();
       expect(window.onmessage).toBeNull();
     });
@@ -321,7 +323,7 @@ describe("WebSocketManager", () => {
 
       window.location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
-      
+
       // Verify error handling
       expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Network error");
       expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
@@ -333,7 +335,7 @@ describe("WebSocketManager", () => {
 
       window.location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow("Connection timeout");
-      
+
       await vi.advanceTimersByTimeAsync(DEFAULT_CONFIG.connectionTimeout);
       expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Connection timeout");
     });
@@ -343,7 +345,7 @@ describe("WebSocketManager", () => {
       const mockInit = vi.fn()
         .mockRejectedValueOnce(error) // First call fails
         .mockResolvedValue(undefined); // Subsequent calls succeed
-      
+
       mockCodeSessionBC.init = mockInit;
       window.location.pathname = "/live/test-space";
 
@@ -363,14 +365,13 @@ describe("WebSocketManager", () => {
     it("should stop retrying after max attempts", async () => {
       // Mock persistent error
       const error = new Error("Persistent error");
-      mockCodeSessionBC.init = vi.fn().mockRejectedValue(error)
+      mockCodeSessionBC.init = vi.fn().mockRejectedValue(error);
       window.location.pathname = "/live/test-space";
 
       // Initial attempt
       await expect(webSocketManager.init()).rejects.toThrow("Persistent error");
       expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
       expect(consoleSpy).toHaveBeenCalledTimes(3);
-
 
       // Verify no more retries after max attempts
       await vi.advanceTimersByTimeAsync(DEFAULT_CONFIG.retryDelay * DEFAULT_CONFIG.maxRetries);

@@ -98,9 +98,9 @@ async function renderApp(
           "export default ()=><div>Mock App for Testing</div>",
         );
       } else {
-      const codeToUse = await res.text();
+        const codeToUse = await res.text();
 
-      AppToRender = await importFromString(codeToUse);
+        AppToRender = await importFromString(codeToUse);
       }
     } else {
       AppToRender = await importFromString(

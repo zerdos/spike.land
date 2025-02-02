@@ -173,7 +173,7 @@ interface ImagePart {
 }
 
 export type MessagePart = TextPart | ImageUrlPart | ImagePart;
-export type MessageContent = string | MessagePart[] | TextPart
+export type MessageContent = string | MessagePart[] | TextPart;
 
 // Main message interface
 export interface Message {
