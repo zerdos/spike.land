@@ -78,8 +78,9 @@ export class WebSocketHandler {
   public handleWebsocketSession(webSocket: WebSocket): void {
     // Polyfill addEventListener if not available
     if (typeof webSocket.addEventListener !== "function") {
-      (webSocket as any).addEventListener = function(type: string, listener: any) {
-        this["on" + type] = listener;
+      webSocket.addEventListener = function(type, listener) {
+        const handlerName = "on" + type;
+        Object.defineProperty(webSocket, handlerName, ()=>listener);  
       };
     }
     try {
