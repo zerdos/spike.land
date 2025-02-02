@@ -85,7 +85,7 @@ export class WebSocketHandler {
     }
     try {
       webSocket.accept();
-    } catch (e) {
+    } catch {
       // Ignore error if accept is not implemented
     }
     const session: WebsocketSession = {
