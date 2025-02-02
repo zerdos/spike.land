@@ -4,8 +4,7 @@ import { type Mock, vi } from "vitest";
 import { base64Encode, handleAnthropicRequest } from "./anthropicHandler";
 import { handleCMSIndexRequest } from "./chat";
 import type Env from "./env";
-import { KVLogger } from "./Logs";
-import { handleCORS, readRequestBody } from "./utils";
+import { readRequestBody } from "./utils";
 
 // Mock dependencies
 vi.mock("@anthropic-ai/sdk", () => {
@@ -67,8 +66,8 @@ describe("AnthropicHandler", () => {
     };
 
     mockCtx = {
-      waitUntil: vi.fn(),
-    } as any;
+      waitUntil: vi.fn() as any,
+    } as ExecutionContext;
   });
 
   describe("base64Encode", () => {

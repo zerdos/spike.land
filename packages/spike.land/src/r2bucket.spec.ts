@@ -7,7 +7,7 @@ import type {
   Iso3166Alpha2Code,
   R2Bucket,
   R2Object,
-  Request as CloudflareRequest,
+  Request,
   DurableObjectNamespace,
   KVNamespace,
   Ai,
@@ -15,8 +15,6 @@ import type {
   AiModelsSearchParams,
   AiModelsSearchObject,
   Socket,
-  SocketAddress,
-  SocketOptions,
 } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
@@ -107,15 +105,15 @@ describe("R2BucketHandler", () => {
   const createMockRequest = (
     method: string,
     url = "https://example.com/test-key",
-  ): CloudflareRequest => {
+  ) => {
     // Create a custom Headers object that mimics CloudflareHeaders
     const mockHeaders: CloudflareHeaders = Object.assign(new Headers(), {
       getAll: vi.fn().mockReturnValue([]),
     });
 
     // Create a mock Cloudflare request with all required properties
-    const mockCfProperties: IncomingRequestCfProperties = {
-      asn: "0",
+    const mockCfProperties: IncomingRequestCfProperties<unknown> = {
+      asn: "0" as any,
       asOrganization: "Test Org",
       colo: "Test Colo",
       edgeRequestKeepAliveStatus: 0,
@@ -132,16 +130,29 @@ describe("R2BucketHandler", () => {
       country: "US" as Iso3166Alpha2Code,
       latitude: "0",
       longitude: "0",
+      hostMetadata: "",
       postalCode: "",
+      clientTrustScore: 0,
       metroCode: "",
-      timezone: "",
+      httpProtocol: "HTTP/1.1",
+      tlsCipher: "",
+      botManagement: { 
+        score: 0,
+        ja3Hash: "",
+        verifiedBot: false,
+        corporateProxy: false,
+        staticResource: false,
+        detectionIds: [] 
+      }
     };
-
-    return new Request(url, {
+  
+    const mockRequest = {
       method,
+      url,
       headers: mockHeaders,
       cf: mockCfProperties,
-    }) as CloudflareRequest;
+    } as Request<unknown, IncomingRequestCfProperties<unknown>>;
+    return mockRequest;
   };
 
   describe("PUT Request Handling", () => {
@@ -150,7 +161,13 @@ describe("R2BucketHandler", () => {
       const mockRequest = createMockRequest("PUT");
       Object.defineProperty(mockRequest, "body", { value: mockBlob });
 
-      const response = await R2BucketHandler.fetch!(mockRequest, mockEnv, {} as ExecutionContext);
+      const response = await R2BucketHandler.fetch!(
+        mockRequest,
+        mockEnv,
+        {} as ExecutionContext,
+      )
+      
+      //!(mockRequest as        , mockEnv, {} as ExecutionContext);
 
       expect(mockEnv.R2.put).toHaveBeenCalledWith("test-key", mockBlob);
       expect(response.status).toBe(200);

@@ -2,9 +2,8 @@ import OpenAI from "openai";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
 import type Env from "./env";
-import { KVLogger } from "./Logs";
 import { handleGPT4Request } from "./openaiHandler";
-import { handleCORS, readRequestBody } from "./utils";
+import { readRequestBody } from "./utils";
 
 // Mock dependencies
 vi.mock("openai", () => {
@@ -60,8 +59,8 @@ describe("OpenAIHandler", () => {
     };
 
     mockCtx = {
-      waitUntil: vi.fn(),
-    } as any;
+      waitUntil: vi.fn() as any,
+    } as ExecutionContext;
   });
 
   describe("Text-to-Speech (TTS) Request", () => {
