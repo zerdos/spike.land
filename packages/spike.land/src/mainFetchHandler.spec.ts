@@ -1,6 +1,7 @@
 import { routes } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
+import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 import type Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";
@@ -10,7 +11,6 @@ import { handleUnauthorizedRequest } from "./utils";
 describe("MainFetchHandler", () => {
   let mockEnv: Partial<Env>;
   let mockCtx: ExecutionContext;
-  let mockRequest: Request;
 
   beforeEach(() => {
     // Reset mocks
@@ -18,12 +18,14 @@ describe("MainFetchHandler", () => {
 
     // Create a mock environment
     mockEnv = {
-      // Add any necessary mock environment properties
-    } as any;
+      CODE: {} as DurableObjectNamespace,
+    };
 
     mockCtx = {
       waitUntil: vi.fn(),
-    } as any;
+      passThroughOnException: () => {},
+      props: {},
+    } as ExecutionContext;
 
     // Mock imported functions
     vi.mock("./fetchHandler", () => ({
@@ -42,8 +44,15 @@ describe("MainFetchHandler", () => {
   describe("Yandex Organization Blocking", () => {
     it("should block requests from Yandex organization", async () => {
       const mockYandexRequest = new Request("https://example.com", {
-        cf: { asOrganization: "YANDEX-CLOUD" },
-      } as any);
+        headers: { 
+          'cf-ray': 'test-ray', 
+          'cf-connecting-ip': '1.2.3.4' 
+        }
+      });
+      Object.defineProperty(mockYandexRequest, 'cf', {
+        value: { asOrganization: "YANDEX-CLOUD" },
+        writable: true
+      });
 
       const mockUnauthorizedResponse = new Response("Unauthorized", { status: 403 });
       (handleUnauthorizedRequest as Mock).mockReturnValue(mockUnauthorizedResponse);
@@ -56,8 +65,15 @@ describe("MainFetchHandler", () => {
 
     it("should allow requests from non-Yandex organizations", async () => {
       const mockRequest = new Request("https://example.com", {
-        cf: { asOrganization: "GOOGLE-CLOUD" },
-      } as any);
+        headers: { 
+          'cf-ray': 'test-ray', 
+          'cf-connecting-ip': '1.2.3.4' 
+        }
+      });
+      Object.defineProperty(mockRequest, 'cf', {
+        value: { asOrganization: "GOOGLE-CLOUD" },
+        writable: true
+      });
 
       const mockFetchApiResponse = new Response("Fetch API response");
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
@@ -142,7 +158,6 @@ describe("MainFetchHandler", () => {
       const mockRequest = new Request("https://example.com/test");
 
       const mockFetchApiResponse = new Response("Handled response");
-      const mockErrorHandlerWrapper = vi.fn().mockResolvedValue(mockFetchApiResponse);
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
 
       const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);

@@ -23,8 +23,10 @@
     "types": ["@cloudflare/workers-types", "@types/node"],
     "emitDeclarationOnly": true
   },
-  "exclude": ["**/*.spec.ts", "**/node_modules/*", "**/.yarn", "**/dist"],
+  "exclude": ["**/node_modules/*", "**/.yarn", "**/dist"],
   "include": [
-    "src"
+    "src",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
   ]
 }

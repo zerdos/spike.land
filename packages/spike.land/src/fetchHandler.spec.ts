@@ -1,6 +1,6 @@
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
-import { handleApiRequest } from "./apiHandler";
+import type { DurableObjectNamespace, R2Bucket, WebSocket as CloudflareWebSocket } from "@cloudflare/workers-types";
 import type Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleEsmRequest } from "./handleEsmRequest";
@@ -9,16 +9,26 @@ import { handleCORS } from "./utils";
 vi.stubGlobal(
   "WebSocketPair",
   class {
-    0: any;
-    1: any;
+    0: CloudflareWebSocket;
+    1: CloudflareWebSocket;
     constructor() {
-      const mockWebSocket = {
-        accept: vi.fn(),
-        send: vi.fn(),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-        close: vi.fn(),
+      const mockWebSocket: CloudflareWebSocket & { 
+        addEventListener: (type: string, listener: EventListener) => void;
+        removeEventListener: (type: string, listener: EventListener) => void;
+        dispatchEvent: (event: Event) => boolean;
+      } = {
+        accept: () => {},
+        send: () => {},
+        close: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => true,
+        readyState: 0,
+        url: '',
+        extensions: null,
+        protocol: null,
+        serializeAttachment: () => {},
+        deserializeAttachment: () => {},
       };
       this[0] = mockWebSocket;
       this[1] = { ...mockWebSocket };
@@ -45,21 +55,19 @@ describe("FetchHandler", () => {
         get: vi.fn(),
         put: vi.fn(),
         delete: vi.fn(),
-      },
+      } as unknown as R2Bucket,
       CODE: {
         get: vi.fn(),
-      },
-    } as any;
+      } as unknown as DurableObjectNamespace,
+    };
 
     mockCtx = {
       waitUntil: vi.fn(),
-    } as any;
+      passThroughOnException: () => {},
+      props: {},
+    } as ExecutionContext;
 
     // Mock imported functions
-    vi.mock("./apiHandler", () => ({
-      handleApiRequest: vi.fn(),
-    }));
-
     vi.mock("./handleEsmRequest", () => ({
       handleEsmRequest: vi.fn(),
     }));

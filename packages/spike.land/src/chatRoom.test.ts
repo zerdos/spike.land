@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./chatRoom";
 import type Env from "./env";
 import { RouteHandler } from "./routeHandler";
+import type { DurableObjectState } from "@cloudflare/workers-types";
 
 vi.mock("./routeHandler");
 
@@ -10,15 +11,18 @@ describe("Hono app routes", () => {
     storage: {
       get: vi.fn(),
       put: vi.fn(),
+      delete: vi.fn(),
+      list: vi.fn(),
     },
-    id: "test",
+    id: { toString: () => "test" },
     metadata: {
       room: "test",
     },
     blockConcurrencyWhile: vi.fn((callback) => callback()),
-  } as any;
+    waitUntil: vi.fn(),
+  } as unknown as DurableObjectState;
 
-  const env = {} as Env;
+  const env: Partial<Env> = {};
 
   let app: Code;
   let mockRouteHandler: {
@@ -59,10 +63,9 @@ describe("Hono app routes", () => {
       }),
     };
 
-    vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as any);
+    vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as unknown as RouteHandler);
 
-    app = new Code(state, env);
-    // @ts-ignore: Mocking the fetch method for testing
+    app = new Code(state, env as Env);
     app.fetch = vi.fn(app.fetch.bind(app));
   });
 

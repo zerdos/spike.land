@@ -1,8 +1,8 @@
-import { HTML } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
+import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 
 describe("ApiHandler", () => {
   let mockEnv: Partial<Env>;
@@ -25,7 +25,7 @@ describe("ApiHandler", () => {
         get: vi.fn().mockReturnValue({
           fetch: vi.fn().mockResolvedValue(new Response("Room fetch result")),
         }),
-      } as any,
+      } as unknown as DurableObjectNamespace,
     };
   });
 

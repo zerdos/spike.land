@@ -1,21 +1,33 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-function getWebSocketPair(): [any, any] {
+
+function getWebSocketPair(): [WebSocket, WebSocket] {
   if (typeof WebSocketPair !== "undefined") {
-    return (new WebSocketPair() as unknown) as [any, any];
+    return new WebSocketPair() as [WebSocket, WebSocket];
   }
   const dummySocket = {
     accept: () => {},
     send: () => {},
     close: () => {},
-  };
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => true,
+    readyState: 0,
+    url: '',
+    serializeAttachment: () => {},
+    deserializeAttachment: () => {},
+    onopen: null,
+    onmessage: null,
+    onclose: null,
+    onerror: null,
+  } as unknown as WebSocket;
   return [dummySocket, dummySocket];
 }
 
 export function handleErrors(
   request: Request,
   cb: () => Promise<Response>,
-) {
-  return cb().catch((err) => {
+): Promise<Response> {
+  return cb().catch((err: unknown) => {
     if (request.headers.get("Upgrade") === "websocket") {
       let stack: string | undefined = "We have no idea what happened";
 
@@ -25,7 +37,7 @@ export function handleErrors(
       }
 
       const pair = getWebSocketPair();
-      (pair[1] as unknown as WebSocket).accept();
+      pair[1].accept();
       pair[1].send(JSON.stringify({ error: stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
       return new Response(null, { status: 101, webSocket: pair[0] });
@@ -41,40 +53,3 @@ export function handleErrors(
     }
   });
 }
-
-// export async function handleErrors(
-//   request: Request<unknown>,
-//   func: () => Promise<Response>,
-// ) {
-//   try {
-//     return await func();
-//   } catch (err) {
-//     if (request.headers.get("Upgrade") === "websocket") {
-//       // Annoyingly, if we return an HTTP error in response to a WebSocket request, Chrome devtools
-//       // won't show us the response body! So... let's send a WebSocket response with an error
-//       // frame instead.
-
-//       let stack = null;
-
-//       if (err instanceof Error) {
-//         stack = err.stack;
-//         console.log({ error: err.stack, message: err.message });
-//       }
-
-//       const pair = new WebSocketPair();
-//       pair[1].accept();
-//       pair[1].send(JSON.stringify({ error: stack }));
-//       pair[1].close(1011, "Uncaught exception during session setup");
-//       return new Response(null, { status: 101, webSocket: pair[0] });
-//     } else {
-//       let stack = "We have no idea what happened";
-
-//       if (err instanceof Error) {
-//         stack = err.stack || stack;
-//         console.log({ error: err.stack, message: err.message });
-//       }
-
-//       return new Response(stack, { status: 500 });
-//     }
-//   }
-// }

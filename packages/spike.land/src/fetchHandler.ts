@@ -83,23 +83,22 @@ function handleWebSocket(request: Request): Response {
     return new Response("expected websocket", { status: 400 });
   }
   const pair = new WebSocketPair();
-  (pair[1] as unknown as { accept: () => void; }).accept();
+  (pair[1] as WebSocket & { accept: () => void }).accept();
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
-  // Return status 101 for switching protocols.
-  // Cast the ResponseInit to any to bypass range restrictions.
+  // Return status 101 for switching protocols
   return new Response(null, {
-    status: 101 as any,
+    status: 101,
     statusText: "Switching Protocols",
     webSocket: pair[0],
-  } as any);
+  } as ResponseInit & { webSocket?: WebSocket });
 }
 
-const handleUnpkg = (path: string[]) =>
+const handleUnpkg = (path: string[]): Promise<Response> =>
   fetch(
     new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
-  ) as unknown as Response;
+  );
 
 function handleImportMapJson(): Response {
   return new Response(JSON.stringify(importMap), {
@@ -116,12 +115,12 @@ async function handleIpfsRequest(request: Request): Promise<Response> {
   const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
   const resp = await fetch(new1.toString());
   if (!resp.ok) {
-    return resp as unknown as Response;
+    return resp;
   }
 
   const new2 = new URL(u.pathname, "https://ipfs.io");
   const resp2 = await fetch(new2.toString());
-  return resp2 as unknown as Response;
+  return resp2;
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
@@ -143,7 +142,7 @@ async function handleLiveRequest(path: string[], request: Request, env: Env) {
     ["room", codeSpace, ...remainingPath],
     request,
     env,
-  ).catch((e) =>
+  ).catch((e: Error) =>
     new Response("Error: " + e?.message, {
       status: 500,
       statusText: e?.message,

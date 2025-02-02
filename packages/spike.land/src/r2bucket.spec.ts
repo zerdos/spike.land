@@ -8,6 +8,15 @@ import type {
   R2Bucket,
   R2Object,
   Request as CloudflareRequest,
+  DurableObjectNamespace,
+  KVNamespace,
+  Ai,
+  AiModels,
+  AiModelsSearchParams,
+  AiModelsSearchObject,
+  Socket,
+  SocketAddress,
+  SocketOptions,
 } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
@@ -44,20 +53,60 @@ describe("R2BucketHandler", () => {
       REPLICATE_API_TOKEN: "mock-token",
       CLERK_SECRET_KEY: "mock-secret",
       CF_REAL_TURN_TOKEN: "mock-turn-token",
-      AI: {} as any,
-      KV: {} as any,
-      __STATIC_CONTENT: {} as any,
-      CODE: {} as any,
-      ESBUILD: {} as any,
-      LIMITERS: {} as any,
-      X9: {} as any,
+      AI: {
+        aiGatewayLogId: "mock-log-id",
+        gateway: vi.fn(),
+        run: vi.fn(),
+        models: (async (params?: AiModelsSearchParams) => [] as AiModelsSearchObject[]) as unknown as (params?: AiModelsSearchParams) => Promise<AiModelsSearchObject[]>,
+      } as Ai<AiModels>,
+      KV: {
+        get: vi.fn(),
+        put: vi.fn(),
+        delete: vi.fn(),
+        list: vi.fn(),
+        getWithMetadata: vi.fn(),
+      } as KVNamespace,
+      __STATIC_CONTENT: {
+        get: vi.fn(),
+        put: vi.fn(),
+        delete: vi.fn(),
+        list: vi.fn(),
+        getWithMetadata: vi.fn(),
+      } as KVNamespace,
+      CODE: {
+        newUniqueId: vi.fn(),
+        idFromName: vi.fn(),
+        idFromString: vi.fn(),
+        get: vi.fn(),
+        jurisdiction: vi.fn(),
+      } as DurableObjectNamespace,
+      ESBUILD: {
+        fetch: vi.fn().mockResolvedValue(new Response()),
+        connect: vi.fn().mockReturnValue({} as Socket),
+      },
+      LIMITERS: {
+        newUniqueId: vi.fn(),
+        idFromName: vi.fn(),
+        idFromString: vi.fn(),
+        get: vi.fn(),
+        jurisdiction: vi.fn(),
+      } as DurableObjectNamespace,
+      X9: {
+        put: vi.fn().mockResolvedValue(undefined),
+        get: vi.fn().mockResolvedValue(null),
+        delete: vi.fn().mockResolvedValue(undefined),
+        head: vi.fn().mockResolvedValue(null),
+        createMultipartUpload: vi.fn().mockResolvedValue(null),
+        resumeMultipartUpload: vi.fn().mockResolvedValue(null),
+        list: vi.fn().mockResolvedValue({ objects: [], truncated: false }),
+      } as R2Bucket,
       // Add any other properties from the Env type
     } as MyEnv;
   });
 
   const createMockRequest = (
     method: string,
-    url: string = "https://example.com/test-key",
+    url = "https://example.com/test-key",
   ): CloudflareRequest => {
     // Create a custom Headers object that mimics CloudflareHeaders
     const mockHeaders: CloudflareHeaders = Object.assign(new Headers(), {
@@ -75,7 +124,7 @@ describe("R2BucketHandler", () => {
         null as unknown as IncomingRequestCfPropertiesExportedAuthenticatorMetadata,
       tlsVersion: "",
       requestPriority: "",
-      clientTcpRtt: "0",
+      clientTcpRtt: 0,
       clientAcceptEncoding: "",
       region: "",
       city: "",
@@ -128,12 +177,30 @@ describe("R2BucketHandler", () => {
           headers.set("X-Test-Header", "test-value");
         },
         httpEtag: "test-etag",
-        body: mockBody,
+        size: 12,
+        key: "test-key",
+        version: "v1",
+        uploaded: new Date(),
+        etag: "test-etag",
+        storageClass: "STANDARD",
+        checksums: {
+          md5: new ArrayBuffer(16),
+          sha1: new ArrayBuffer(20),
+          sha256: new ArrayBuffer(32),
+          toJSON: () => ({
+            md5: "test-md5",
+            sha1: "test-sha1", 
+            sha256: "test-sha256",
+          }),
+        },
       };
 
       const mockRequest = createMockRequest("GET");
 
-      (mockEnv.R2.get as Mock).mockResolvedValue(mockR2Object);
+      (mockEnv.R2.get as Mock).mockResolvedValue({
+        ...mockR2Object,
+        body: mockBody,
+      });
 
       const response = await R2BucketHandler.fetch!(mockRequest, mockEnv, {} as ExecutionContext);
 

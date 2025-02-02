@@ -1,5 +1,5 @@
 import { HTML } from "@spike-npm-land/code";
-import type Env from "./env";
+import Env from "./env";
 
 export async function handleApiRequest(
   path: string[],
@@ -12,7 +12,7 @@ export async function handleApiRequest(
         const { url, options } = await request.json<{ url: string; options: RequestInit; }>();
         try {
           return await fetch(url, options) as unknown as Response;
-        } catch (error) {
+        } catch (_error) {
           return new Response("Server-side fetch failed", { status: 500 });
         }
       } else {

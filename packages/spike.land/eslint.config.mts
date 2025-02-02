@@ -49,19 +49,8 @@ export default tsEslint.config(
       "react": reactPlugin,
     },
     rules: {
-      // Console statements - changed to 'error' to make it auto-fixable
-      // "no-console": ["error", {
-      //   allow: ["warn", "error"],
-      // }],
-
-      // React Refresh rules
-      "react-hooks/exhaustive-deps": ["off"],
-      "react-refresh/only-export-components": [
-        "off",
-        { allowConstantExport: true },
-      ],
-
-      // Unused variables handling
+      // Addressing specific linting issues
+      "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -71,33 +60,32 @@ export default tsEslint.config(
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-expect-error": "allow-with-description",
+          "ts-ignore": "allow-with-description",
+        },
+      ],
+      "@typescript-eslint/no-inferrable-types": "warn",
+      "@typescript-eslint/consistent-indexed-object-style": ["error", "record"],
+      "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
 
-      // Type definition rules
+      // Existing rules from previous configuration
+      "react-hooks/exhaustive-deps": ["off"],
+      "react-refresh/only-export-components": [
+        "off",
+        { allowConstantExport: true },
+      ],
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
       "@typescript-eslint/no-empty-object-type": [
         "error",
         { allowInterfaces: "always" },
       ],
-
-      // Array type handling
-      "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
-
-      // Empty function handling
       "@typescript-eslint/no-empty-function": "off",
-
-      // Inferrable type annotations
-      "@typescript-eslint/no-inferrable-types": "warn",
-
-      // React hooks rules
       "react-hooks/rules-of-hooks": "error",
-
-      // Additional recommended rules
       "prefer-const": "error",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/consistent-indexed-object-style": ["error", "record"],
       "@typescript-eslint/prefer-for-of": "error",
-
-      // React-specific rules
       "react/jsx-key": "error",
       "react/no-unescaped-entities": "warn",
       "react/prop-types": "off",

@@ -1,15 +1,41 @@
-import type { R2ObjectBody } from "@cloudflare/workers-types";
+import type { R2ObjectBody, R2Checksums } from "@cloudflare/workers-types";
 import { describe, expect, it, vi } from "vitest";
 import { makeResponse } from "./makeResponse";
 
 describe("makeResponse", () => {
-  const createMockR2Object = (metadata?: Record<string, string>, body?: string): any => {
+  const createMockR2Object = (metadata?: Record<string, string>, body?: string): R2ObjectBody => {
     const mockBody = new ReadableStream({
       start(controller) {
         if (body) controller.enqueue(new TextEncoder().encode(body));
         controller.close();
       },
     });
+
+    const mockChecksums: R2Checksums = {
+      md5: (() => {
+        const buffer = new ArrayBuffer(16);
+        const view = new Uint8Array(buffer);
+        view.set(new TextEncoder().encode("test-md5").slice(0, 16));
+        return buffer;
+      })(),
+      sha1: (() => {
+        const buffer = new ArrayBuffer(20);
+        const view = new Uint8Array(buffer);
+        view.set(new TextEncoder().encode("test-sha1").slice(0, 20));
+        return buffer;
+      })(),
+      sha256: (() => {
+        const buffer = new ArrayBuffer(32);
+        const view = new Uint8Array(buffer);
+        view.set(new TextEncoder().encode("test-sha256").slice(0, 32));
+        return buffer;
+      })(),
+      toJSON: () => ({
+        md5: "test-md5",
+        sha1: "test-sha1",
+        sha256: "test-sha256",
+      }),
+    };
 
     return {
       writeHttpMetadata: (headers: Headers) => {
@@ -21,7 +47,6 @@ describe("makeResponse", () => {
       },
       httpEtag: "test-etag",
       body: mockBody,
-      // Add required methods to satisfy R2ObjectBody type
       bodyUsed: false,
       arrayBuffer: vi.fn(),
       text: vi.fn().mockResolvedValue(body || ""),
@@ -34,7 +59,21 @@ describe("makeResponse", () => {
         closed: Promise.resolve(),
         releaseLock: vi.fn(),
       }),
-    };
+      // Additional properties to satisfy R2ObjectBody type
+      key: "test-key",
+      version: "test-version",
+      size: 1024,
+      etag: "test-etag",
+      uploaded: new Date(),
+      httpEtagMatch: false,
+      checksums: mockChecksums,
+      storageClass: "STANDARD",
+      customMetadata: {},
+      range: {
+        offset: 0,
+        length: 1024,
+      },
+    } as R2ObjectBody;
   };
 
   describe("Content-Type Detection", () => {

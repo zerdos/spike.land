@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import { KVLogger } from "./Logs";
+import type { KVNamespace } from "@cloudflare/workers-types";
 
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
@@ -34,7 +35,7 @@ describe("KVLogger", () => {
     mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Create logger instance
-    logger = new KVLogger("test-prefix", mockKVNamespace as any);
+    logger = new KVLogger("test-prefix", mockKVNamespace as unknown as KVNamespace);
 
     // Set up default mock behaviors
     mockKVNamespace.get.mockImplementation((key: string) => {
