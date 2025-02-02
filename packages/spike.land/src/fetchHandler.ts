@@ -12,6 +12,10 @@ export async function handleFetchApi(
   if (request.method === "OPTIONS") {
     return handleCORS(request);
   }
+  if (path.length === 0 || path[0] === "") {
+    const html = "<html><body>Default HTML response</body></html>";
+    return new Response(html, { status: 200, headers: { "Content-Type": "text/html;charset=UTF-8" } });
+  }
 
   const handlers: Record<string, () => Promise<Response>> = {
     ping: async () => handlePing(),
@@ -80,11 +84,13 @@ function handleWebSocket(request: Request): Response {
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
+  // Return status 101 for switching protocols.
+  // Cast the ResponseInit to any to bypass range restrictions.
   return new Response(null, { 
-    status: 101, 
+    status: 101 as any, 
     statusText: "Switching Protocols",
     webSocket: pair[0] 
-  });
+  } as any);
 }
 
 const handleUnpkg = (path: string[]) =>

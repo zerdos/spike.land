@@ -1,4 +1,15 @@
 import type { WebSocket } from "@cloudflare/workers-types";
+function getWebSocketPair(): [any, any] {
+  if (typeof WebSocketPair !== 'undefined') {
+    return (new WebSocketPair() as unknown) as [any, any];
+  }
+  const dummySocket = {
+    accept: () => {},
+    send: () => {},
+    close: () => {},
+  };
+  return [dummySocket, dummySocket];
+}
 
 export function handleErrors(
   request: Request,
@@ -6,14 +17,14 @@ export function handleErrors(
 ) {
   return cb().catch((err) => {
     if (request.headers.get("Upgrade") === "websocket") {
-      let stack: string | undefined = "";
+      let stack: string | undefined = "We have no idea what happened";
 
       if (err instanceof Error) {
         stack = err.stack;
         console.log({ error: err.stack, message: err.message });
       }
 
-      const pair = new WebSocketPair();
+      const pair = getWebSocketPair();
       (pair[1] as unknown as WebSocket).accept();
       pair[1].send(JSON.stringify({ error: stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
