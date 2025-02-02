@@ -1,4 +1,49 @@
-import { vi } from 'vitest';
+import { vi, type MockInstance } from 'vitest';
+import type { WebSocket } from '@cloudflare/workers-types';
+globalThis.Date = Date;
+
+// Enhanced WebSocket mock implementation
+interface MockWebSocket {
+  accept: MockInstance;
+  send: MockInstance;
+  close: MockInstance;
+  addEventListener: MockInstance;
+  readyState: number;
+  onmessage: ((event: MessageEvent) => void) | null;
+  onclose: ((event: CloseEvent) => void) | null;
+}
+
+// Improved WebSocketPair mock
+  if (!('WebSocketPair' in globalThis)) {
+    (globalThis as any).WebSocketPair = function() {
+      const wsStub: MockWebSocket = { 
+        send: vi.fn(),
+        close: vi.fn(),
+        accept: vi.fn(),
+        addEventListener: vi.fn((type: string, listener: EventListener) => {
+          if (type === 'message') {
+            wsStub.onmessage = listener as any;
+          } else if (type === 'close') {
+            wsStub.onclose = listener as any;
+          }
+        }),
+      readyState: 1,
+      onmessage: null as ((event: MessageEvent) => void) | null,
+      onclose: null as ((event: CloseEvent) => void) | null,
+      };
+      return [wsStub, wsStub];
+    };
+  }
+
+global.Response = class extends Response {
+  constructor(body?: BodyInit | null, init?: ResponseInit) {
+    // Allow 101 and statuses between 200 and 599
+    if (init?.status && init.status !== 101 && (init.status < 200 || init.status > 599)) {
+      init.status = 500;
+    }
+    super(body, init);
+  }
+};
 
 // Mock Durable Object state
 vi.mock('@cloudflare/workers-types', () => {
@@ -46,10 +91,7 @@ global.URL = class {
     const urlString = typeof url === 'string' ? url : url.toString();
     const baseString = base ? (typeof base === 'string' ? base : base.toString()) : undefined;
 
-    // Manual URL parsing
     const fullUrl = baseString ? `${baseString}${urlString}` : urlString;
-    
-    // Manually parse the URL
     const parsedUrl = this.parseUrl(fullUrl);
 
     this.href = fullUrl;
@@ -107,7 +149,6 @@ global.URL = class {
     return this.href;
   }
 
-  // Static methods to match the full URL type
   static canParse = (url: string | URL, base?: string | URL) => {
     try {
       new URL(url, base);
@@ -132,4 +173,82 @@ global.URL = class {
   static revokeObjectURL = (url: string) => {
     URL.revokeObjectURL(url);
   };
+};
+
+/* Additional Global Mocks for tests */
+global.Date = Date;
+global.OpenAI = class {
+  async audioTTS(params: any) {
+    if (params.model === 'tts-1') {
+      return {
+        status: 200,
+        headers: { get: () => 'application/json' },
+        json: async () => ({ id: 'test-id', content: [{ text: "Test response" }] }),
+      };
+    } else if (params.model === 'tts-1-hd') {
+      return {
+        status: 200,
+        headers: { get: () => 'application/json' },
+        json: async () => ({ id: 'test-id-hd', content: [{ text: "Test response HD" }] }),
+      };
+    }
+    return { status: 500, headers: { get: () => 'application/json' }, json: async () => ({ error: "TTS error" }) };
+  }
+  chat = {
+    completions: {
+      create: async (params: any) => {
+        if (params.stream) {
+          const streamResponse = {
+            [Symbol.asyncIterator]: async function* () {
+              yield {
+                choices: [
+                  { delta: { content: "Test streaming response" } }
+                ]
+              }
+
+            
+
+                
+          },
+          asyncIterator:  () =>streamResponse[Symbol.asyncIterator]()
+        };
+      
+          return streamResponse;
+        } else {
+          return {
+            choices: [{ message: { content: "Test chat response" } }]
+          };
+        }
+      }
+    }
+  }
+  async whisperTranscription(params: any) {
+    if (params.error) {
+      return {
+        status: 500,
+        headers: { get: () => 'application/json' },
+        json: async () => ({ error: "Transcription error" }),
+      };
+    }
+    return {
+      status: 200,
+      headers: { get: () => 'application/json' },
+      json: async () => ({ transcription: "Test transcription" }),
+    };
+  }
+};
+global.R2 = {
+  put: vi.fn().mockImplementation((key: string, blob: any) => {
+    const size = blob && blob.size !== undefined ? blob.size : 0;
+    if (size === 0) {
+      return { status: 400, text: async () => 'Bad Request' };
+    }
+    return { status: 200, text: async () => 'Object stored' };
+  }),
+  get: vi.fn().mockResolvedValue({ status: 200, text: async () => 'Stored object' }),
+};
+global.CodeRateLimiter = class {
+  async handleRequest() {
+    return 0;
+  }
 };

@@ -2,13 +2,19 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { WebSocketHandler } from './websocketHandler';
 import type { Code } from './chatRoom';
 import type { WebSocket, MessageEvent } from "@cloudflare/workers-types";
-import { computeSessionHash, applySessionPatch } from "@spike-npm-land/code";
+import { computeSessionHash, applySessionPatch, ICodeSession } from "@spike-npm-land/code";
 
 describe('WebSocketHandler', () => {
   let websocketHandler: WebSocketHandler;
   let mockCode: Partial<Code>;
   let mockWebSocket: Partial<WebSocket>;
-  let mockSession: any;
+  let mockSession: ICodeSession = {
+    code: 'mock code',
+    html: 'mock html',
+    css: 'mock css',
+    transpiled: 'mock transpiled',
+    codeSpace: 'codeSpace',
+  };
 
   beforeEach(() => {
     // Mock the Code object
@@ -74,7 +80,7 @@ describe('WebSocketHandler', () => {
       const messageEvent = {
         data: JSON.stringify({ 
           name: 'testUser', 
-          hashCode: computeSessionHash(mockCode.getSession()) 
+          hashCode: computeSessionHash(mockCode.getSession!()) 
         })
       } as MessageEvent;
 
@@ -123,7 +129,7 @@ describe('WebSocketHandler', () => {
       const mockPatch = {
         data: JSON.stringify({
           patch: ['test patch'],
-          oldHash: computeSessionHash(mockCode.getSession()),
+          oldHash: computeSessionHash(mockCode.getSession!()),
           hashCode: 'different-hash'
         })
       } as MessageEvent;
@@ -198,7 +204,7 @@ describe('WebSocketHandler', () => {
       const mockWebSocket1 = { 
         send: vi.fn().mockImplementation(() => { throw new Error('Send failed'); }), 
         readyState: 1,
-        close: vi.fn()
+        close: vi.fn() 
       };
 
       websocketHandler.handleWebsocketSession(mockWebSocket1 as unknown as WebSocket);
@@ -206,7 +212,10 @@ describe('WebSocketHandler', () => {
       vi.spyOn(console, 'error').mockImplementation(() => {});
 
       const broadcastMessage = 'test broadcast';
-      websocketHandler.broadcast(broadcastMessage);
+      websocketHandler.broadcast({
+        ...mockSession,
+        sender: "Editor"
+      });
 
       // Verify error handling
       expect(mockWebSocket1.close).toHaveBeenCalled();

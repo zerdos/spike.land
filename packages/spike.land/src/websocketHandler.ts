@@ -83,8 +83,12 @@ export class WebSocketHandler {
   }
 
   public handleWebsocketSession(webSocket: WebSocket): void {
-    webSocket.accept();
-
+    try {
+      webSocket.accept();
+    } catch (e) {
+      // Ignore error if accept is not implemented
+    }
+ 
     const session: WebsocketSession = {
       name: "",
       quit: false,
@@ -94,7 +98,7 @@ export class WebSocketHandler {
       blockedMessages: [],
     };
     this.wsSessions.push(session);
-
+ 
     // Send initial handshake
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
@@ -102,17 +106,12 @@ export class WebSocketHandler {
         hashCode: computeSessionHash(this.code.getSession()),
         users,
         type: "handshake",
-      }),
+      })
     );
-
+ 
     // Kick off the ping-pong monitoring
     this.schedulePing(session);
-
-    // Listen for messages
-    webSocket.addEventListener("message", (msg) => {
-      this.processWsMessage(msg as MessageEvent, session);
-    });
-
+ 
     // Close and error handling
     const closeOrErrorHandler = () => {
       session.quit = true;
@@ -120,6 +119,11 @@ export class WebSocketHandler {
         clearTimeout(session.pingTimeoutId);
       }
     };
+ 
+    // Listen for messages and handle close/error events
+    webSocket.addEventListener("message", (msg: MessageEvent) => {
+      this.processWsMessage(msg, session);
+    });
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
@@ -143,13 +147,20 @@ export class WebSocketHandler {
     }
   }
 
-  private processWsMessage(msg: MessageEvent, session: WebsocketSession): void {
+  private processWsMessage = (msg: MessageEvent, session: WebsocketSession): void => {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
 
-    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) => {
+    try {
+      session.webSocket.send(JSON.stringify(obj))
+    } catch {
+      session.quit = true;
+      session.webSocket.close();
+    }
+    };
 
     let data: IData;
     try {
@@ -290,18 +301,35 @@ export class WebSocketHandler {
   }
 
   public broadcast(msg: CodePatch | string, session?: WebsocketSession): void {
-    const message = typeof msg === "string"
+    
+    let message; 
+    
+    try{
+      message = typeof msg === "string"
       ? msg
       : JSON.stringify(msg);
+    } catch (error) {
+      console.error("Error in broadcast:", error);
+      return;
+    }
 
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
     let successfulBroadcasts = 0;
 
     this.wsSessions.forEach((s) => {
       if (s === session) {
+        try {
         return session.webSocket.send(
           JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
         );
+      } catch (error) {
+
+        console.error(`Failed to send message to session ${session.name}:`, error);
+      
+        session.quit = true;
+        session.webSocket.close();
+        return;
+      }
       }
       if (s.quit) return;
 

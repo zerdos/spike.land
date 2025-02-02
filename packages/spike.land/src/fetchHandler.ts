@@ -80,7 +80,11 @@ function handleWebSocket(request: Request): Response {
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
-  return new Response(null, { status: 101, webSocket: pair[0] });
+  return new Response(null, { 
+    status: 101, 
+    statusText: "Switching Protocols",
+    webSocket: pair[0] 
+  });
 }
 
 const handleUnpkg = (path: string[]) =>
