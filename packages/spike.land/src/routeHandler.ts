@@ -33,13 +33,11 @@ export class RouteHandler {
   private getRouteHandler(
     route: string,
   ): ((req: Request, url: URL, path: string[]) => Promise<Response>) | null {
-    const routes: {
-      [key: string]: (
+    const routes: Record<string, (
         req: Request,
         url: URL,
         path: string[],
-      ) => Promise<Response>;
-    } = {
+      ) => Promise<Response>> = {
       websocket: this.handleWebsocketRoute.bind(this),
       code: this.handleCodeRoute.bind(this),
       "index.tsx": this.handleCodeRoute.bind(this),

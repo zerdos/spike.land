@@ -10,12 +10,13 @@
     "dev:remote": "wrangler dev --remote",
     "// build": "yarn clean",
     "build:worker": "echo 'No build required - using direct deployment'",
-    "deploy:dev": "wrangler deploy --env=testing --minify ./src/cf-workers.ts",
+    "deploy:dev": "wrangler deploy --env=testing -- minify ./src/cf-workers.ts",
     "deploy:prod": "wrangler deploy --minify ./src/cf-workers.ts",
     "clean": "rimraf dist",
+    "lint": "eslint .",
     "types:check": "tsc --noEmit",
     "test:unit": "vitest run",
-    "test": "yarn types:check && yarn test:unit",
+    "test": "yarn types:check && yarn lint && yarn test:unit",
     "test:watch": "vitest"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.24.2",
+    "eslint": "^9.19.0",
     "esm-worker": "0.135.18",
     "hono": "4.6.20",
     "immutable": "5.0.3",

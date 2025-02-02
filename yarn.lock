@@ -3776,6 +3776,7 @@ __metadata:
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.2"
+    eslint: "npm:^9.19.0"
     esm-worker: "npm:0.135.18"
     hono: "npm:4.6.20"
     immutable: "npm:5.0.3"
@@ -8961,7 +8962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.19.0":
+"eslint@npm:9.19.0, eslint@npm:^9.19.0":
   version: 9.19.0
   resolution: "eslint@npm:9.19.0"
   dependencies:

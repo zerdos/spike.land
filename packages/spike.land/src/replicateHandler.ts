@@ -35,7 +35,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
     if (key in INPUT_DEFAULTS) {
       return [key, value];
     }
-  }).filter(Boolean) as Array<string[]>).reduce((acc, current) => {
+  }).filter(Boolean) as string[][]).reduce((acc, current) => {
     const [key, value] = current;
     const defaultValue = INPUT_DEFAULTS[key as keyof InputDefaults];
 

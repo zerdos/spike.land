@@ -116,7 +116,7 @@ export class CodeHistoryManager {
   async getHistory(
     codeSpace: string,
     startEntryId: string | null = null,
-    limit: number = 10,
+    limit = 10,
   ): Promise<{ entries: CodeHistoryEntry[]; nextEntryId: string | null; }> {
     let entryId = startEntryId || (await this.getLatestEntryId(codeSpace));
     const entries: CodeHistoryEntry[] = [];
@@ -222,7 +222,7 @@ export class CodeHistoryManager {
   async loadMoreTimestamps(
     codeSpace: string,
     startEntryId: string | null = null,
-    limit: number = 10,
+    limit = 10,
   ): Promise<{ timestamps: number[]; nextEntryId: string | null; }> {
     const { entries, nextEntryId } = await this.getHistory(
       codeSpace,
