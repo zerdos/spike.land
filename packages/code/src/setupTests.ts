@@ -164,6 +164,7 @@ class MockResizeObserver {
 }
 
 window.ResizeObserver = MockResizeObserver;
+window.scrollTo = vi.fn();
 
 // Mock fetch
 global.fetch = vi.fn();
