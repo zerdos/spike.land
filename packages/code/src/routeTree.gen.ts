@@ -10,85 +10,85 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as testsRouterTestImport } from "./routes/__tests__/router.test";
-import { Route as RouterImport } from "./routes/router";
+import { Route as rootRoute } from './routes/__root'
+import { Route as RouterImport } from './routes/router'
+import { Route as testsRouterTestImport } from './routes/__tests__/router.test'
 
 // Create/Update Routes
 
 const RouterRoute = RouterImport.update({
-  id: "/router",
-  path: "/router",
+  id: '/router',
+  path: '/router',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const testsRouterTestRoute = testsRouterTestImport.update({
-  id: "/__tests__/router/test",
-  path: "/router/test",
+  id: '/__tests__/router/test',
+  path: '/router/test',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/router": {
-      id: "/router";
-      path: "/router";
-      fullPath: "/router";
-      preLoaderRoute: typeof RouterImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/__tests__/router/test": {
-      id: "/__tests__/router/test";
-      path: "/router/test";
-      fullPath: "/router/test";
-      preLoaderRoute: typeof testsRouterTestImport;
-      parentRoute: typeof rootRoute;
-    };
+    '/router': {
+      id: '/router'
+      path: '/router'
+      fullPath: '/router'
+      preLoaderRoute: typeof RouterImport
+      parentRoute: typeof rootRoute
+    }
+    '/__tests__/router/test': {
+      id: '/__tests__/router/test'
+      path: '/router/test'
+      fullPath: '/router/test'
+      preLoaderRoute: typeof testsRouterTestImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  "/router": typeof RouterRoute;
-  "/router/test": typeof testsRouterTestRoute;
+  '/router': typeof RouterRoute
+  '/router/test': typeof testsRouterTestRoute
 }
 
 export interface FileRoutesByTo {
-  "/router": typeof RouterRoute;
-  "/router/test": typeof testsRouterTestRoute;
+  '/router': typeof RouterRoute
+  '/router/test': typeof testsRouterTestRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/router": typeof RouterRoute;
-  "/__tests__/router/test": typeof testsRouterTestRoute;
+  __root__: typeof rootRoute
+  '/router': typeof RouterRoute
+  '/__tests__/router/test': typeof testsRouterTestRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/router" | "/router/test";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/router" | "/router/test";
-  id: "__root__" | "/router" | "/__tests__/router/test";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/router' | '/router/test'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/router' | '/router/test'
+  id: '__root__' | '/router' | '/__tests__/router/test'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  RouterRoute: typeof RouterRoute;
-  testsRouterTestRoute: typeof testsRouterTestRoute;
+  RouterRoute: typeof RouterRoute
+  testsRouterTestRoute: typeof testsRouterTestRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   RouterRoute: RouterRoute,
   testsRouterTestRoute: testsRouterTestRoute,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
