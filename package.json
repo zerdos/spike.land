@@ -10,7 +10,7 @@
     "devcontainers/*"
   ],
   "scripts": {
-    "dev": "yarn workspaces foreach --all -p run dev",
+    "dev": "yarn workspace @spike-npm-land/code dev",
     "dev:fe": "yarn workspace @spike-npm-land/code dev",
     "dev:workers": "yarn workspaces foreach -p --include '@spike-npm-land/{code-worker,transpile}' run dev",
     "build": "yarn clean && yarn build:all",

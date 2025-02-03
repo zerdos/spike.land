@@ -8,7 +8,7 @@ import { importMap } from "./src/@/lib/importmap-utils";
 
 /* ========================================================
    Utility: Get external files with proper extension
-   ======================================================== */
+   */
 const getExternalFiles = (dir: string) => {
   const directoryPath = path.resolve(__dirname, `./src/${dir}`);
   return fs.readdirSync(directoryPath).map((filename) => {
@@ -33,6 +33,9 @@ const createExternalAliases = (
     // Remove the extension from the file path
     const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/");
     aliases[aliasKey] = `/${aliasKey}.mjs`;
+    if (file.includes("worker")) {
+      aliases[aliasKey] = `/${aliasKey}.js`;
+    }
     return aliases;
   }, {});
 
@@ -42,7 +45,9 @@ const externalAliases = createExternalAliases(externalFiles);
 Object.assign(externalAliases, importMap.imports);
 
 // Rollup external files (values of our alias mapping)
-const rollupExternal = Object.values(externalAliases);
+const rollupExternal = [
+  ...Object.values(externalAliases),
+];
 
 /* ========================================================
    (Optional) Utility: Create proxy config from importMap
