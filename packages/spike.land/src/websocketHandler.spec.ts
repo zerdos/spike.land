@@ -134,8 +134,9 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle patch messages", async () => {
-      // Override the imported applySessionPatch function directly.
-      (applySessionPatch as any) = vi.fn().mockReturnValue({
+      // Import the entire module as a namespace and spy on applySessionPatch.
+      const codeModule = await import("@spike-npm-land/code");
+      vi.spyOn(codeModule, "applySessionPatch").mockReturnValue({
         code: "patched code",
         html: "patched html",
         css: "patched css",
