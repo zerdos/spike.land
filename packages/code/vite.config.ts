@@ -27,27 +27,21 @@ const externalDirs = ["@/workers", "@/external"];
 const externalFiles = externalDirs.map(getExternalFiles).flat();
 
 const createExternalAliases = (
-  files: Array<{ file: string; }>,
+  files: Array<{ file: string; }>, 
+  isBuild = true
 ): Record<string, string> =>
   files.reduce<Record<string, string>>((aliases, { file }) => {
     // Remove the extension from the file path
     const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/");
-    aliases[aliasKey] = `/${aliasKey}.mjs`;
-    if (file.includes("worker")) {
-      aliases[aliasKey] = `/${aliasKey}.js`;
+    if (isBuild) {
+        aliases[aliasKey] = `/${aliasKey}.mjs`;
+        if (file.includes("worker")) {
+          aliases[aliasKey] = `/${aliasKey}.js`;
+        }
     }
     return aliases;
   }, {});
 
-const externalAliases = createExternalAliases(externalFiles);
-
-// Merge importMap aliases into our externalAliases
-Object.assign(externalAliases, importMap.imports);
-
-// Rollup external files (values of our alias mapping)
-const rollupExternal = [
-  ...Object.values(externalAliases),
-];
 
 /* ========================================================
    (Optional) Utility: Create proxy config from importMap
@@ -71,6 +65,17 @@ const rollupExternal = [
 export default defineConfig(({ mode }) => {
   const isBuild = mode === "build";
 
+  const externalAliases = createExternalAliases(externalFiles, isBuild);
+
+  // Merge importMap aliases into our externalAliases
+  if (isBuild)  Object.assign(externalAliases, importMap.imports);
+
+  // Rollup external files (values of our alias mapping)
+  const rollupExternal = isBuild? [
+        ...Object.values(externalAliases),
+  ]: [];
+
+
   // Server proxy configuration
   const proxyConfig: Record<string, ProxyOptions> = {
     "^/live/.*/": {
@@ -93,7 +98,7 @@ export default defineConfig(({ mode }) => {
   };
 
   // Include additional proxy only when building, if needed
-  if (isBuild) {
+  if (!isBuild) {
     proxyConfig["/@"] = {
       target: "https://testing.spike.land/@",
       changeOrigin: true,
