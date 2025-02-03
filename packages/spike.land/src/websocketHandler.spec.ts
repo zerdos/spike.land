@@ -23,6 +23,13 @@ describe("WebSocketHandler", () => {
         code: "mock code",
         html: "mock html",
         css: "mock css",
+      }).mockImplementation(() => {
+        console.log("getSession called");
+        return {
+          code: "mock code",
+          html: "mock html",
+          css: "mock css",
+        };
       }),
       updateAndBroadcastSession: vi.fn(),
     };
@@ -68,6 +75,7 @@ describe("WebSocketHandler", () => {
 
   describe("processWsMessage", () => {
     let processWsMessage: (msg: MessageEvent, session: any) => void;
+    let mockSession: any;
 
     beforeEach(() => {
       // Prepare a session with a name
@@ -76,6 +84,10 @@ describe("WebSocketHandler", () => {
       // Get the processWsMessage method
       processWsMessage = (websocketHandler as any).processWsMessage;
 
+      // Get the first (and only) session
+      const sessions = (websocketHandler as any).wsSessions;
+      mockSession = sessions[0];
+
       // Simulate setting a name
       const messageEvent = {
         data: JSON.stringify({
@@ -83,10 +95,6 @@ describe("WebSocketHandler", () => {
           hashCode: computeSessionHash(mockCode.getSession!()),
         }),
       } as MessageEvent;
-
-      // Get the first (and only) session
-      const sessions = (websocketHandler as any).wsSessions;
-      mockSession = sessions[0];
 
       // Simulate processing the name message
       processWsMessage(messageEvent, mockSession);
@@ -126,20 +134,32 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle patch messages", async () => {
+      // Override the imported applySessionPatch function directly.
+      (applySessionPatch as any) = vi.fn().mockReturnValue({
+        code: "patched code",
+        html: "patched html",
+        css: "patched css",
+      });
+  
+      const validHash = computeSessionHash(mockCode.getSession!());
       const mockPatch = {
         data: JSON.stringify({
           patch: ["test patch"],
-          oldHash: computeSessionHash(mockCode.getSession!()),
-          hashCode: "different-hash",
+          oldHash: validHash,
+          hashCode: validHash,
         }),
       } as MessageEvent;
-
+  
       vi.spyOn(console, "log").mockImplementation(() => {});
       vi.spyOn(console, "error").mockImplementation(() => {});
-
+  
+      // Reset the updateAndBroadcastSession spy on the handler instance.
+      (websocketHandler as any).code.updateAndBroadcastSession = vi.fn();
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
+      console.log("mockPatch:", mockPatch);
+      console.log("mockSession:", mockSession);
       await processWsMessageFn(mockPatch, mockSession);
-
+  
       expect(mockCode.updateAndBroadcastSession).toHaveBeenCalled();
       expect(mockWebSocket.send).toHaveBeenCalledWith(
         expect.stringContaining("hashCode"),

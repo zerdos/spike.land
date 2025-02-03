@@ -98,11 +98,16 @@ export class WebSocketHandler {
     };
     this.wsSessions.push(session);
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(JSON.stringify({
-      hashCode: computeSessionHash(this.code.getSession()),
-      users,
-      type: "handshake",
-    }));
+    try {
+      webSocket.send(JSON.stringify({
+        hashCode: computeSessionHash(this.code.getSession()),
+        users,
+        type: "handshake",
+      }));
+    } catch (error) {
+      session.quit = true;
+      webSocket.close();
+    }
     this.schedulePing(session);
     const closeOrErrorHandler = () => {
       session.quit = true;
@@ -234,9 +239,17 @@ export class WebSocketHandler {
   ): Promise<void> {
     try {
       console.log("Applying patch...", data);
-      const newState = applySessionPatch(this.code.getSession(), data);
+      let newState;
+      try {
+        newState = applySessionPatch(this.code.getSession(), data);
+      } catch (err) {
+        console.error("Error in applySessionPatch:", err);
+        throw err;
+      }
       console.log("New state after patch:", newState);
+      console.log("About to call updateAndBroadcastSession");
       this.code.updateAndBroadcastSession(newState, session);
+      console.log("updateAndBroadcastSession called");
       return respondWith({
         hashCode: computeSessionHash(newState),
       });
@@ -269,32 +282,37 @@ export class WebSocketHandler {
     }
     console.log(`Broadcasting message to ${this.wsSessions.length} sessions`);
     let successfulBroadcasts = 0;
-    this.wsSessions.forEach((s) => {
-      if (session && s === session) {
-        try {
-          session.webSocket.send(
-            JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
-          );
-          return;
-        } catch (error) {
-          console.error(`Failed to send message to session ${session.name}:`, error);
-          session.quit = true;
-          session.webSocket.close();
-          return;
+    try {
+      this.wsSessions.forEach((s) => {
+        if (session && s === session) {
+          try {
+            session.webSocket.send(
+              JSON.stringify({ hashCode: computeSessionHash(this.code.getSession()) }),
+            );
+            return;
+          } catch (error) {
+            console.error(`Failed to send message to session ${session.name}:`, error);
+            session.quit = true;
+            session.webSocket.close();
+            return;
+          }
         }
-      }
-      if (s.quit) return;
-      try {
-        s.blockedMessages.forEach((m) => s.webSocket.send(m));
-        s.blockedMessages = [];
-        s.webSocket.send(message);
-        successfulBroadcasts++;
+        if (s.quit) return;
+        try {
+          s.blockedMessages.forEach((m) => s.webSocket.send(m));
+          s.blockedMessages = [];
+          s.webSocket.send(message);
+          successfulBroadcasts++;
+        } catch (error) {
+          console.error(`Failed to send message to session ${s.name}:`, error);
+          s.quit = true;
+          s.blockedMessages.push(message);
+          throw error;
+        }
+      });
       } catch (error) {
-        console.error(`Failed to send message to session ${s.name}:`, error);
-        s.quit = true;
-        s.blockedMessages.push(message);
+        console.error("Error during broadcast:", error);
       }
-    });
     console.log(`Successfully broadcasted to ${successfulBroadcasts} sessions`);
     const initialSessionCount = this.wsSessions.length;
     this.wsSessions = this.wsSessions.filter((s) => !s.quit);
