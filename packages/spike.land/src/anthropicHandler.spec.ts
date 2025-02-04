@@ -88,7 +88,7 @@ describe("AnthropicHandler", () => {
         body: JSON.stringify({
           messages: [{ content: "Test message" }],
           stream: false,
-          model: "claude-3-5-sonnet-20241022"
+          model: "claude-3-5-sonnet-20241022",
         }),
       });
 
@@ -97,14 +97,14 @@ describe("AnthropicHandler", () => {
         model: "claude-3-5-sonnet-20241022",
         role: "assistant",
         content: [{ type: "text", text: "Test response" }],
-        usage: { input_tokens: 10, output_tokens: 20 }
+        usage: { input_tokens: 10, output_tokens: 20 },
       };
 
       // Mock dependencies
       (readRequestBody as Mock).mockResolvedValue({
         messages: [{ content: "Test message" }],
         stream: false,
-        model: "claude-3-5-sonnet-20241022"
+        model: "claude-3-5-sonnet-20241022",
       });
 
       (Anthropic.prototype.messages.create as Mock).mockResolvedValue(mockAnthropicResponse);
@@ -120,7 +120,7 @@ describe("AnthropicHandler", () => {
         model: "claude-3-5-sonnet-20241022",
         role: "assistant",
         content: [{ type: "text", text: "Test response" }],
-        usage: { input_tokens: 10, output_tokens: 20 }
+        usage: { input_tokens: 10, output_tokens: 20 },
       });
     });
 

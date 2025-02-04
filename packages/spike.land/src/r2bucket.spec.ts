@@ -289,7 +289,7 @@ describe("R2BucketHandler", () => {
 
       expect(mockConsoleError).toHaveBeenCalledWith(
         "R2 get error:",
-        error
+        error,
       );
       expect(response.status).toBe(500);
       expect(await response.text()).toBe("Failed to retrieve object");

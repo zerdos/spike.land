@@ -11,12 +11,12 @@ vi.mock("openai", () => {
   OpenAIMock.prototype.audio = {
     speech: {
       create: vi.fn().mockResolvedValue({
-        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10))
-      })
+        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
+      }),
     },
     transcriptions: {
-      create: vi.fn().mockResolvedValue("Transcribed text")
-    }
+      create: vi.fn().mockResolvedValue("Transcribed text"),
+    },
   };
   OpenAIMock.prototype.chat = {
     completions: {
@@ -25,16 +25,16 @@ vi.mock("openai", () => {
           next: vi.fn()
             .mockResolvedValueOnce({
               value: { choices: [{ delta: { content: "Hello " } }] },
-              done: false
+              done: false,
             })
             .mockResolvedValueOnce({
               value: { choices: [{ delta: { content: "world" } }] },
-              done: false
+              done: false,
             })
-            .mockResolvedValueOnce({ done: true })
-        })
-      })
-    }
+            .mockResolvedValueOnce({ done: true }),
+        }),
+      }),
+    },
   };
   return { default: OpenAIMock };
 });
@@ -101,7 +101,7 @@ describe("OpenAIHandler", () => {
         voice: "alloy",
         input: "Hello, world!",
         response_format: "mp3",
-        speed: 1
+        speed: 1,
       });
     });
 
@@ -141,7 +141,7 @@ describe("OpenAIHandler", () => {
         voice: "nova",
         input: "Custom voice test",
         response_format: "mp3",
-        speed: 1.5
+        speed: 1.5,
       });
     });
 
@@ -207,7 +207,7 @@ describe("OpenAIHandler", () => {
         model: "whisper-1",
         file: mockFile,
         response_format: "text",
-        prompt: "Optional context"
+        prompt: "Optional context",
       });
     });
 
@@ -250,7 +250,7 @@ describe("OpenAIHandler", () => {
       });
 
       (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(
-        new Error("Transcription error")
+        new Error("Transcription error"),
       );
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);

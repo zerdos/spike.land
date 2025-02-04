@@ -2,7 +2,7 @@ export function setupResponseMock() {
   global.Response = class extends Response {
     webSocket?: any;
 
-    constructor(body?: BodyInit | null, init?: ResponseInit & { webSocket?: any }) {
+    constructor(body?: BodyInit | null, init?: ResponseInit & { webSocket?: any; }) {
       // Handle WebSocket upgrade status code
       if (init?.status === 101) {
         // Allow WebSocket upgrade without validation
