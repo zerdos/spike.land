@@ -88,18 +88,23 @@ describe("AnthropicHandler", () => {
         body: JSON.stringify({
           messages: [{ content: "Test message" }],
           stream: false,
+          model: "claude-3-5-sonnet-20241022"
         }),
       });
 
       const mockAnthropicResponse = {
-        id: "test-id",
-        content: [{ text: "Test response" }],
+        id: "msg_01",
+        model: "claude-3-5-sonnet-20241022",
+        role: "assistant",
+        content: [{ type: "text", text: "Test response" }],
+        usage: { input_tokens: 10, output_tokens: 20 }
       };
 
       // Mock dependencies
       (readRequestBody as Mock).mockResolvedValue({
         messages: [{ content: "Test message" }],
         stream: false,
+        model: "claude-3-5-sonnet-20241022"
       });
 
       (Anthropic.prototype.messages.create as Mock).mockResolvedValue(mockAnthropicResponse);
@@ -110,7 +115,13 @@ describe("AnthropicHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("application/json");
 
       const responseBody = await response.json();
-      expect(responseBody).toEqual(mockAnthropicResponse);
+      expect(responseBody).toEqual({
+        id: "msg_01",
+        model: "claude-3-5-sonnet-20241022",
+        role: "assistant",
+        content: [{ type: "text", text: "Test response" }],
+        usage: { input_tokens: 10, output_tokens: 20 }
+      });
     });
 
     it("should handle streaming request", async () => {

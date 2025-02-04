@@ -5,33 +5,38 @@ import type Env from "./env";
 import { handleGPT4Request } from "./openaiHandler";
 import { readRequestBody } from "./utils";
 
-// Mock dependencies
+// Mock OpenAI class
 vi.mock("openai", () => {
-  const mockOpenAI = vi.fn(() => ({
-    audio: {
-      speech: {
-        create: vi.fn().mockReturnValue({
-          arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
-        }),
-      },
-      transcriptions: {
-        create: vi.fn(),
-      },
+  const OpenAIMock = vi.fn();
+  OpenAIMock.prototype.audio = {
+    speech: {
+      create: vi.fn().mockResolvedValue({
+        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10))
+      })
     },
-    chat: {
-      completions: {
-        create: vi.fn(),
-      },
-    },
-  }));
-  mockOpenAI.prototype.audio = {
-    speech: { create: vi.fn() },
-    transcriptions: { create: vi.fn() },
+    transcriptions: {
+      create: vi.fn().mockResolvedValue("Transcribed text")
+    }
   };
-  mockOpenAI.prototype.chat = {
-    completions: { create: vi.fn() },
+  OpenAIMock.prototype.chat = {
+    completions: {
+      create: vi.fn().mockResolvedValue({
+        [Symbol.asyncIterator]: () => ({
+          next: vi.fn()
+            .mockResolvedValueOnce({
+              value: { choices: [{ delta: { content: "Hello " } }] },
+              done: false
+            })
+            .mockResolvedValueOnce({
+              value: { choices: [{ delta: { content: "world" } }] },
+              done: false
+            })
+            .mockResolvedValueOnce({ done: true })
+        })
+      })
+    }
   };
-  return { default: mockOpenAI };
+  return { default: OpenAIMock };
 });
 
 vi.mock("./Logs", () => ({
@@ -96,7 +101,7 @@ describe("OpenAIHandler", () => {
         voice: "alloy",
         input: "Hello, world!",
         response_format: "mp3",
-        speed: 1,
+        speed: 1
       });
     });
 
@@ -136,7 +141,7 @@ describe("OpenAIHandler", () => {
         voice: "nova",
         input: "Custom voice test",
         response_format: "mp3",
-        speed: 1.5,
+        speed: 1.5
       });
     });
 
@@ -155,7 +160,7 @@ describe("OpenAIHandler", () => {
         input: "Error test",
       });
 
-      (OpenAI.prototype.audio.speech.create as Mock).mockRejectedValue(new Error("TTS error"));
+      (OpenAI.prototype.audio.speech.create as Mock).mockRejectedValueOnce(new Error("TTS error"));
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -202,7 +207,7 @@ describe("OpenAIHandler", () => {
         model: "whisper-1",
         file: mockFile,
         response_format: "text",
-        prompt: "Optional context",
+        prompt: "Optional context"
       });
     });
 
@@ -244,8 +249,8 @@ describe("OpenAIHandler", () => {
         file: mockFile,
       });
 
-      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValue(
-        new Error("Transcription error"),
+      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(
+        new Error("Transcription error")
       );
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);

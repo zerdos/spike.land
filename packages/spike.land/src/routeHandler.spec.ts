@@ -1,7 +1,7 @@
 import { importMap, md5 } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
-import { RouteHandler } from "./routeHandler";
+import { RouteHandler } from "./routeHandler"
 import { WebSocketHandler } from "./websocketHandler";
 
 describe("RouteHandler", () => {
@@ -86,6 +86,7 @@ describe("RouteHandler", () => {
 
     describe("handleWebsocketRoute", () => {
       it("should handle websocket upgrade", async () => {
+       
         const request = new Request("https://example.com/websocket", {
           headers: new Headers({ "Upgrade": "websocket" }),
         });
@@ -95,6 +96,8 @@ describe("RouteHandler", () => {
 
         expect(response.status).toBe(101);
         expect(response.webSocket).toBeDefined();
+        expect(response.webSocket).toHaveProperty('send');
+        expect(response.webSocket).toHaveProperty('close');
         expect(mockCode.wsHandler?.handleWebsocketSession).toHaveBeenCalled();
       });
 

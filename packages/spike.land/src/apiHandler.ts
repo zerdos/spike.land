@@ -52,7 +52,7 @@ export async function handleApiRequest(
       newUrl.searchParams.append("room", name);
       return roomObject.fetch(new Request(newUrl.toString(), request));
     }
-    default: {
+    case "": {
       const respText = await HTML;
       const headers = new Headers({
         "Access-Control-Allow-Origin": "*",
@@ -64,6 +64,9 @@ export async function handleApiRequest(
         "Content-Type": "text/html; charset=UTF-8",
       });
       return new Response(respText, { status: 200, headers });
+    }
+    default: {
+      return new Response("Not found", { status: 404 });
     }
   }
 }

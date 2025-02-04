@@ -161,8 +161,8 @@ describe("ApiHandler", () => {
   });
 
   describe("Default Response", () => {
-    it("should return default HTML response for unhandled routes", async () => {
-      const mockRequest = new Request("https://example.com/unknown");
+    it("should return default HTML response for root route", async () => {
+      const mockRequest = new Request("https://example.com");
 
       // Mock HTML import
       vi.mock("@spike-npm-land/code", () => ({
@@ -170,7 +170,7 @@ describe("ApiHandler", () => {
       }));
 
       const response = await handleApiRequest(
-        ["unknown"],
+        [""],
         mockRequest,
         mockEnv as Env,
       );

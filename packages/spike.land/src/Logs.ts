@@ -37,9 +37,10 @@ export class KVLogger {
       const logEntries = await Promise.all(
         keys.map(async (key) => {
           const value = await kv.get(key.name);
-          const [, , time] = key.name.split(":");
+          const [, , hours, minutes, seconds] = key.name.split(/[:.]/);
+          const timeString = `${hours}:${minutes}:${seconds}`;
           const { level, message } = JSON.parse(value as string);
-          return { timestamp: `${date}T${time}`, level, message };
+          return { timestamp: `${date}T${timeString}`, level, message };
         }),
       );
 

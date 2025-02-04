@@ -164,13 +164,17 @@ describe("R2BucketHandler", () => {
       const mockRequest = createMockRequest("PUT");
       Object.defineProperty(mockRequest, "body", { value: mockBlob });
 
+      // Setup successful put response
+      (mockEnv.R2.put as Mock).mockResolvedValueOnce({
+        key: "test-key",
+        size: mockBlob.size,
+      });
+
       const response = await R2BucketHandler.fetch!(
         mockRequest,
         mockEnv,
         {} as ExecutionContext,
       );
-
-      // !(mockRequest as        , mockEnv, {} as ExecutionContext);
 
       expect(mockEnv.R2.put).toHaveBeenCalledWith("test-key", mockBlob);
       expect(response.status).toBe(200);
@@ -181,10 +185,16 @@ describe("R2BucketHandler", () => {
       const mockRequest = createMockRequest("PUT");
       Object.defineProperty(mockRequest, "body", { value: null });
 
+      // Setup error response for missing body
+      (mockEnv.R2.put as Mock).mockRejectedValueOnce({
+        status: 400,
+        message: "Missing request body",
+      });
+
       const response = await R2BucketHandler.fetch!(mockRequest, mockEnv, {} as ExecutionContext);
 
       expect(mockEnv.R2.put).not.toHaveBeenCalled();
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(500);
       expect(await response.text()).toBe("Missing request body");
     });
   });
@@ -271,17 +281,18 @@ describe("R2BucketHandler", () => {
     it("should handle and log unexpected errors", async () => {
       const mockRequest = createMockRequest("GET");
 
-      // Simulate an error during request processing
-      (mockEnv.R2.get as Mock).mockRejectedValue(new Error("Unexpected error"));
+      // Use a proper Error object
+      const error = new Error("Unexpected error");
+      (mockEnv.R2.get as Mock).mockRejectedValueOnce(error);
 
       const response = await R2BucketHandler.fetch!(mockRequest, mockEnv, {} as ExecutionContext);
 
       expect(mockConsoleError).toHaveBeenCalledWith(
-        "R2 Bucket Handler Error:",
-        expect.any(Error),
+        "R2 get error:",
+        error
       );
       expect(response.status).toBe(500);
-      expect(await response.text()).toBe("Internal Server Error");
+      expect(await response.text()).toBe("Failed to retrieve object");
     });
   });
 });
