@@ -55,6 +55,30 @@ export class WebSocketHandler {
 
   constructor(private code: Code) {}
 
+
+  public getWsSessions(): WebsocketSession[] {
+    return this.wsSessions;
+  }
+
+  public setWsSessions(sessions: WebsocketSession[]): void {
+    this.wsSessions = sessions;
+  }
+
+  public pushToWsSession(otherSession: WebsocketSession): void {
+    this.wsSessions.push(otherSession);
+  }
+
+  public getTopics(): Map<string, Set<WebSocket>> {
+    return {
+      ...this.topics,
+    };
+  }
+
+  public setTopics(topics: Map<string, Set<WebSocket>>): void {
+    Object.assign(this.topics, topics); 
+  }
+
+
   // Schedule periodic ping for a session
   private schedulePing(session: WebsocketSession): void {
     if (session.pingTimeoutId) {
@@ -139,7 +163,7 @@ export class WebSocketHandler {
     }
   }
 
-  private processWsMessage = (msg: MessageEvent, session: WebsocketSession): void => {
+  public processWsMessage = (msg: MessageEvent, session: WebsocketSession): void => {
     if (session.quit) {
       session.webSocket.close(1011, "WebSocket broken.");
       return;
@@ -248,7 +272,7 @@ export class WebSocketHandler {
       }
       console.log("New state after patch:", newState);
       console.log("About to call updateAndBroadcastSession");
-      this.code.updateAndBroadcastSession(newState, session);
+      await this.code.updateAndBroadcastSession(newState, session);
       console.log("updateAndBroadcastSession called");
       return respondWith({
         hashCode: computeSessionHash(newState),
@@ -298,17 +322,16 @@ export class WebSocketHandler {
           }
         }
         if (s.quit) return;
-        try {
-          s.blockedMessages.forEach((m) => s.webSocket.send(m));
-          s.blockedMessages = [];
-          s.webSocket.send(message);
-          successfulBroadcasts++;
-        } catch (error) {
-          console.error(`Failed to send message to session ${s.name}:`, error);
-          s.quit = true;
-          s.blockedMessages.push(message);
-          throw error;
-        }
+            try {
+              s.blockedMessages.forEach((m) => s.webSocket.send(m));
+              s.blockedMessages = [];
+              s.webSocket.send(message);
+              successfulBroadcasts++;
+            } catch (error) {
+              console.error(`Failed to send message to session ${s.name}:`, error);
+              s.quit = true;
+              s.blockedMessages.push(message);
+            }
       });
       } catch (error) {
         console.error("Error during broadcast:", error);

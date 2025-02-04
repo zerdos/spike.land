@@ -3,12 +3,13 @@ import { applySessionPatch, computeSessionHash, ICodeSession } from "@spike-npm-
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { WebSocketHandler } from "./websocketHandler";
+import { W } from "vitest/dist/chunks/worker.CIpff8Eg.js";
 
 describe("WebSocketHandler", () => {
   let websocketHandler: WebSocketHandler;
   let mockCode: Partial<Code>;
   let mockWebSocket: Partial<WebSocket>;
-  let mockSession: ICodeSession = {
+  const mockSession: ICodeSession = {
     code: "mock code",
     html: "mock html",
     css: "mock css",
@@ -82,10 +83,10 @@ describe("WebSocketHandler", () => {
       websocketHandler.handleWebsocketSession(mockWebSocket as WebSocket);
 
       // Get the processWsMessage method
-      processWsMessage = (websocketHandler as any).processWsMessage;
+      processWsMessage = websocketHandler.processWsMessage;
 
       // Get the first (and only) session
-      const sessions = (websocketHandler as any).wsSessions;
+      const sessions = websocketHandler.getWsSessions();
       mockSession = sessions[0];
 
       // Simulate setting a name
@@ -124,7 +125,7 @@ describe("WebSocketHandler", () => {
       const topicsMock = new Map();
       const mockTopicSet = new Set([mockWebSocket as WebSocket]);
       topicsMock.set("test-topic", mockTopicSet);
-      (websocketHandler as any).topics = topicsMock;
+      websocketHandler.setTopics(topicsMock);
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       processWsMessageFn(publishMessage, mockSession);
@@ -155,7 +156,8 @@ describe("WebSocketHandler", () => {
       vi.spyOn(console, "error").mockImplementation(() => {});
   
       // Reset the updateAndBroadcastSession spy on the handler instance.
-      (websocketHandler as any).code.updateAndBroadcastSession = vi.fn();
+    
+      mockCode.updateAndBroadcastSession = vi.fn();
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       console.log("mockPatch:", mockPatch);
       console.log("mockSession:", mockSession);
@@ -178,15 +180,17 @@ describe("WebSocketHandler", () => {
 
       // Create another session to simulate target user
       const otherWebSocket = {
+        ...mockWebSocket,
         send: vi.fn(),
         readyState: 1,
         close: vi.fn(),
-      };
-      const otherSession = {
+      } as unknown as WebSocket;
+ 
+      websocketHandler.pushToWsSession({
+        ...mockSession,
         name: "otherUser",
-        webSocket: otherWebSocket,
-      };
-      (websocketHandler as any).wsSessions.push(otherSession);
+        webSocket: otherWebSocket
+      })
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       processWsMessageFn(p2pMessage, mockSession);
