@@ -1,19 +1,19 @@
 import type {
+  Ai,
+  AiModels,
+  AiModelsSearchObject,
+  AiModelsSearchParams,
   ContinentCode,
+  DurableObjectNamespace,
   Headers as CloudflareHeaders,
   IncomingRequestCfProperties,
   IncomingRequestCfPropertiesExportedAuthenticatorMetadata,
   IncomingRequestCfPropertiesTLSClientAuth,
   Iso3166Alpha2Code,
+  KVNamespace,
   R2Bucket,
   R2Object,
   Request,
-  DurableObjectNamespace,
-  KVNamespace,
-  Ai,
-  AiModels,
-  AiModelsSearchParams,
-  AiModelsSearchObject,
   Socket,
 } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -55,7 +55,10 @@ describe("R2BucketHandler", () => {
         aiGatewayLogId: "mock-log-id",
         gateway: vi.fn(),
         run: vi.fn(),
-        models: (async (params?: AiModelsSearchParams) => [] as AiModelsSearchObject[]) as unknown as (params?: AiModelsSearchParams) => Promise<AiModelsSearchObject[]>,
+        models: (async (_params?: AiModelsSearchParams) =>
+          [] as AiModelsSearchObject[]) as unknown as (
+            _params?: AiModelsSearchParams,
+          ) => Promise<AiModelsSearchObject[]>,
       } as Ai<AiModels>,
       KV: {
         get: vi.fn(),
@@ -113,7 +116,7 @@ describe("R2BucketHandler", () => {
 
     // Create a mock Cloudflare request with all required properties
     const mockCfProperties: IncomingRequestCfProperties<unknown> = {
-      asn: "0" as any,
+      asn: 0,
       asOrganization: "Test Org",
       colo: "Test Colo",
       edgeRequestKeepAliveStatus: 0,
@@ -136,16 +139,16 @@ describe("R2BucketHandler", () => {
       metroCode: "",
       httpProtocol: "HTTP/1.1",
       tlsCipher: "",
-      botManagement: { 
+      botManagement: {
         score: 0,
         ja3Hash: "",
         verifiedBot: false,
         corporateProxy: false,
         staticResource: false,
-        detectionIds: [] 
-      }
+        detectionIds: [],
+      },
     };
-  
+
     const mockRequest = {
       method,
       url,
@@ -165,9 +168,9 @@ describe("R2BucketHandler", () => {
         mockRequest,
         mockEnv,
         {} as ExecutionContext,
-      )
-      
-      //!(mockRequest as        , mockEnv, {} as ExecutionContext);
+      );
+
+      // !(mockRequest as        , mockEnv, {} as ExecutionContext);
 
       expect(mockEnv.R2.put).toHaveBeenCalledWith("test-key", mockBlob);
       expect(response.status).toBe(200);
@@ -206,7 +209,7 @@ describe("R2BucketHandler", () => {
           sha256: new ArrayBuffer(32),
           toJSON: () => ({
             md5: "test-md5",
-            sha1: "test-sha1", 
+            sha1: "test-sha1",
             sha256: "test-sha256",
           }),
         },

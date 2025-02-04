@@ -1,6 +1,10 @@
+import type {
+  DurableObjectNamespace,
+  R2Bucket,
+  WebSocket as CloudflareWebSocket,
+} from "@cloudflare/workers-types";
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
-import type { DurableObjectNamespace, R2Bucket, WebSocket as CloudflareWebSocket } from "@cloudflare/workers-types";
 import type Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleEsmRequest } from "./handleEsmRequest";
@@ -12,7 +16,7 @@ vi.stubGlobal(
     0: CloudflareWebSocket;
     1: CloudflareWebSocket;
     constructor() {
-      const mockWebSocket: CloudflareWebSocket & { 
+      const mockWebSocket: CloudflareWebSocket & {
         addEventListener: (type: string, listener: EventListener) => void;
         removeEventListener: (type: string, listener: EventListener) => void;
         dispatchEvent: (event: Event) => boolean;
@@ -24,7 +28,7 @@ vi.stubGlobal(
         removeEventListener: () => {},
         dispatchEvent: () => true,
         readyState: 0,
-        url: '',
+        url: "",
         extensions: null,
         protocol: null,
         serializeAttachment: () => {},

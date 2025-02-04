@@ -1,4 +1,4 @@
-import type { R2ObjectBody, R2Checksums } from "@cloudflare/workers-types";
+import type { R2Checksums, R2ObjectBody } from "@cloudflare/workers-types";
 import { describe, expect, it, vi } from "vitest";
 import { makeResponse } from "./makeResponse";
 

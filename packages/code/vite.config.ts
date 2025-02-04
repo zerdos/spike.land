@@ -27,21 +27,20 @@ const externalDirs = ["@/workers", "@/external"];
 const externalFiles = externalDirs.map(getExternalFiles).flat();
 
 const createExternalAliases = (
-  files: Array<{ file: string; }>, 
-  isBuild = true
+  files: Array<{ file: string; }>,
+  isBuild = true,
 ): Record<string, string> =>
   files.reduce<Record<string, string>>((aliases, { file }) => {
     // Remove the extension from the file path
     const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/");
     if (isBuild) {
-        aliases[aliasKey] = `/${aliasKey}.mjs`;
-        if (file.includes("worker")) {
-          aliases[aliasKey] = `/${aliasKey}.js`;
-        }
+      aliases[aliasKey] = `/${aliasKey}.mjs`;
+      if (file.includes("worker")) {
+        aliases[aliasKey] = `/${aliasKey}.js`;
+      }
     }
     return aliases;
   }, {});
-
 
 /* ========================================================
    (Optional) Utility: Create proxy config from importMap
@@ -68,13 +67,14 @@ export default defineConfig(({ mode }) => {
   const externalAliases = createExternalAliases(externalFiles, isBuild);
 
   // Merge importMap aliases into our externalAliases
-  if (isBuild)  Object.assign(externalAliases, importMap.imports);
+  if (isBuild) Object.assign(externalAliases, importMap.imports);
 
   // Rollup external files (values of our alias mapping)
-  const rollupExternal = isBuild? [
-        ...Object.values(externalAliases),
-  ]: [];
-
+  const rollupExternal = isBuild
+    ? [
+      ...Object.values(externalAliases),
+    ]
+    : [];
 
   // Server proxy configuration
   const proxyConfig: Record<string, ProxyOptions> = {

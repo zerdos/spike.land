@@ -12,7 +12,7 @@ function getWebSocketPair(): [WebSocket, WebSocket] {
     removeEventListener: () => {},
     dispatchEvent: () => true,
     readyState: 0,
-    url: '',
+    url: "",
     serializeAttachment: () => {},
     deserializeAttachment: () => {},
     onopen: null,

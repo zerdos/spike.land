@@ -1,7 +1,7 @@
+import type { KVNamespace } from "@cloudflare/workers-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import { KVLogger } from "./Logs";
-import type { KVNamespace } from "@cloudflare/workers-types";
 
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 

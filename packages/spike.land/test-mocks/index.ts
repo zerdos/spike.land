@@ -1,18 +1,18 @@
-import { setupWebSocketPairMock } from "./websocket-mock";
-import { setupUrlMock } from "./url-mock";
+import { vi } from "vitest";
+import { setupCodeRateLimiter } from "./code-rate-limiter";
 import { setupOpenAIMock } from "./openai-mock";
 import { setupR2Mock } from "./r2-mock";
 import { setupResponseMock } from "./response-mock";
-import { setupCodeRateLimiter } from "./code-rate-limiter";
-import { vi } from "vitest";
+import { setupUrlMock } from "./url-mock";
+import { setupWebSocketPairMock } from "./websocket-mock";
 
-export { 
-  setupWebSocketPairMock, 
-  setupUrlMock, 
-  setupOpenAIMock, 
-  setupR2Mock, 
-  setupResponseMock, 
-  setupCodeRateLimiter 
+export {
+  setupCodeRateLimiter,
+  setupOpenAIMock,
+  setupR2Mock,
+  setupResponseMock,
+  setupUrlMock,
+  setupWebSocketPairMock,
 };
 
 export function setupAllMocks() {
@@ -38,9 +38,9 @@ export function setupAllMocks() {
     debug: vi.fn(),
   };
 
-  Object.defineProperty(globalThis, 'Date', {
+  Object.defineProperty(globalThis, "Date", {
     value: Date,
     writable: true,
-    configurable: true
+    configurable: true,
   });
 }

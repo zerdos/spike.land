@@ -1,8 +1,8 @@
+import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
 import { handleApiRequest } from "./apiHandler";
 import type Env from "./env";
-import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 
 describe("ApiHandler", () => {
   let mockEnv: Partial<Env>;

@@ -1,11 +1,11 @@
 import { vi } from "vitest";
-import { 
-  setupWebSocketPairMock, 
-  setupUrlMock, 
-  setupOpenAIMock, 
-  setupR2Mock, 
-  setupResponseMock, 
-  setupCodeRateLimiter 
+import {
+  setupCodeRateLimiter,
+  setupOpenAIMock,
+  setupR2Mock,
+  setupResponseMock,
+  setupUrlMock,
+  setupWebSocketPairMock,
 } from "./test-mocks";
 
 // Set up all global mocks for testing
@@ -33,8 +33,8 @@ global.console = {
 };
 
 // Ensure Date is properly defined in the global scope
-Object.defineProperty(globalThis, 'Date', {
+Object.defineProperty(globalThis, "Date", {
   value: Date,
   writable: true,
-  configurable: true
+  configurable: true,
 });

@@ -55,7 +55,6 @@ export class WebSocketHandler {
 
   constructor(private code: Code) {}
 
-
   public getWsSessions(): WebsocketSession[] {
     return this.wsSessions;
   }
@@ -75,9 +74,8 @@ export class WebSocketHandler {
   }
 
   public setTopics(topics: Map<string, Set<WebSocket>>): void {
-    Object.assign(this.topics, topics); 
+    Object.assign(this.topics, topics);
   }
-
 
   // Schedule periodic ping for a session
   private schedulePing(session: WebsocketSession): void {
@@ -104,7 +102,7 @@ export class WebSocketHandler {
     if (typeof webSocket.addEventListener !== "function") {
       webSocket.addEventListener = function(type, listener) {
         const handlerName = "on" + type;
-        Object.defineProperty(webSocket, handlerName, ()=>listener);  
+        Object.defineProperty(webSocket, handlerName, () => listener);
       };
     }
     try {
@@ -129,6 +127,7 @@ export class WebSocketHandler {
         type: "handshake",
       }));
     } catch (error) {
+      console.error("Error in handshake:", error);
       session.quit = true;
       webSocket.close();
     }
@@ -322,20 +321,20 @@ export class WebSocketHandler {
           }
         }
         if (s.quit) return;
-            try {
-              s.blockedMessages.forEach((m) => s.webSocket.send(m));
-              s.blockedMessages = [];
-              s.webSocket.send(message);
-              successfulBroadcasts++;
-            } catch (error) {
-              console.error(`Failed to send message to session ${s.name}:`, error);
-              s.quit = true;
-              s.blockedMessages.push(message);
-            }
+        try {
+          s.blockedMessages.forEach((m) => s.webSocket.send(m));
+          s.blockedMessages = [];
+          s.webSocket.send(message);
+          successfulBroadcasts++;
+        } catch (error) {
+          console.error(`Failed to send message to session ${s.name}:`, error);
+          s.quit = true;
+          s.blockedMessages.push(message);
+        }
       });
-      } catch (error) {
-        console.error("Error during broadcast:", error);
-      }
+    } catch (error) {
+      console.error("Error during broadcast:", error);
+    }
     console.log(`Successfully broadcasted to ${successfulBroadcasts} sessions`);
     const initialSessionCount = this.wsSessions.length;
     this.wsSessions = this.wsSessions.filter((s) => !s.quit);

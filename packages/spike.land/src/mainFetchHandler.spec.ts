@@ -1,7 +1,7 @@
+import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 import { routes } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
-import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 import type Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";
@@ -44,14 +44,14 @@ describe("MainFetchHandler", () => {
   describe("Yandex Organization Blocking", () => {
     it("should block requests from Yandex organization", async () => {
       const mockYandexRequest = new Request("https://example.com", {
-        headers: { 
-          'cf-ray': 'test-ray', 
-          'cf-connecting-ip': '1.2.3.4' 
-        }
+        headers: {
+          "cf-ray": "test-ray",
+          "cf-connecting-ip": "1.2.3.4",
+        },
       });
-      Object.defineProperty(mockYandexRequest, 'cf', {
+      Object.defineProperty(mockYandexRequest, "cf", {
         value: { asOrganization: "YANDEX-CLOUD" },
-        writable: true
+        writable: true,
       });
 
       const mockUnauthorizedResponse = new Response("Unauthorized", { status: 403 });
@@ -65,14 +65,14 @@ describe("MainFetchHandler", () => {
 
     it("should allow requests from non-Yandex organizations", async () => {
       const mockRequest = new Request("https://example.com", {
-        headers: { 
-          'cf-ray': 'test-ray', 
-          'cf-connecting-ip': '1.2.3.4' 
-        }
+        headers: {
+          "cf-ray": "test-ray",
+          "cf-connecting-ip": "1.2.3.4",
+        },
       });
-      Object.defineProperty(mockRequest, 'cf', {
+      Object.defineProperty(mockRequest, "cf", {
         value: { asOrganization: "GOOGLE-CLOUD" },
-        writable: true
+        writable: true,
       });
 
       const mockFetchApiResponse = new Response("Fetch API response");

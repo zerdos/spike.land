@@ -20,7 +20,9 @@ export const handleRemixRequest = (
   env: Env,
   ctx: ExecutionContext,
 ) => {
-  return;
+  console.log("handleRemixRequest", request, env, ctx);
+
+  return new Response("Not implemented", { status: 501 });
 };
 export type RequestHandler = (event: FetchEvent) => Promise<Response>;
 
@@ -127,17 +129,12 @@ export function createEventHandler({
   return (event: FetchEvent) => {
     try {
       event.respondWith(handleEvent(event));
-    } catch (e: any) {
-      if (process.env.NODE_ENV === "development") {
-        event.respondWith(
-          new Response(e.message || e.toString(), {
-            status: 500,
-          }),
-        );
-        return;
+    } catch (e) {
+      if (e instanceof Error) {
+        event.respondWith(new Response(e.message, { status: 500 }));
+      } else {
+        event.respondWith(new Response("Internal Error", { status: 500 }));
       }
-
-      event.respondWith(new Response("Internal Error", { status: 500 }));
     }
   };
 }

@@ -83,16 +83,19 @@ function handleWebSocket(request: Request): Response {
     return new Response("expected websocket", { status: 400 });
   }
   const pair = new WebSocketPair();
-  (pair[1] as WebSocket & { accept: () => void }).accept();
+  (pair[1] as WebSocket & { accept: () => void; }).accept();
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
   // Return status 101 for switching protocols
-  return new Response(null, {
-    status: 101,
-    statusText: "Switching Protocols",
-    webSocket: pair[0],
-  } as ResponseInit & { webSocket?: WebSocket });
+  return new Response(
+    null,
+    {
+      status: 101,
+      statusText: "Switching Protocols",
+      webSocket: pair[0],
+    } as ResponseInit & { webSocket?: WebSocket; },
+  );
 }
 
 const handleUnpkg = (path: string[]): Promise<Response> =>

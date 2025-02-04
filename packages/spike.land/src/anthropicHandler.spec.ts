@@ -62,12 +62,12 @@ describe("AnthropicHandler", () => {
 
     mockEnv = {
       ANTHROPIC_API_KEY: "test-api-key",
-      KV: {} as any,
-    };
+      KV: {},
+    } as Env;
 
     mockCtx = {
-      waitUntil: vi.fn() as any,
-    } as ExecutionContext;
+      waitUntil: vi.fn(),
+    } as unknown as ExecutionContext;
   });
 
   describe("base64Encode", () => {

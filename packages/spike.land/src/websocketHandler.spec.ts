@@ -1,9 +1,8 @@
 import type { MessageEvent, WebSocket } from "@cloudflare/workers-types";
-import { applySessionPatch, computeSessionHash, ICodeSession } from "@spike-npm-land/code";
+import { computeSessionHash, ICodeSession } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { WebSocketHandler } from "./websocketHandler";
-import { W } from "vitest/dist/chunks/worker.CIpff8Eg.js";
 
 describe("WebSocketHandler", () => {
   let websocketHandler: WebSocketHandler;
@@ -75,8 +74,8 @@ describe("WebSocketHandler", () => {
   });
 
   describe("processWsMessage", () => {
-    let processWsMessage: (msg: MessageEvent, session: any) => void;
-    let mockSession: any;
+    let processWsMessage: (msg: MessageEvent, session: ICodeSession) => void;
+    let mockSession: ICodeSession;
 
     beforeEach(() => {
       // Prepare a session with a name
@@ -142,7 +141,7 @@ describe("WebSocketHandler", () => {
         html: "patched html",
         css: "patched css",
       });
-  
+
       const validHash = computeSessionHash(mockCode.getSession!());
       const mockPatch = {
         data: JSON.stringify({
@@ -151,18 +150,18 @@ describe("WebSocketHandler", () => {
           hashCode: validHash,
         }),
       } as MessageEvent;
-  
+
       vi.spyOn(console, "log").mockImplementation(() => {});
       vi.spyOn(console, "error").mockImplementation(() => {});
-  
+
       // Reset the updateAndBroadcastSession spy on the handler instance.
-    
+
       mockCode.updateAndBroadcastSession = vi.fn();
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       console.log("mockPatch:", mockPatch);
       console.log("mockSession:", mockSession);
       await processWsMessageFn(mockPatch, mockSession);
-  
+
       expect(mockCode.updateAndBroadcastSession).toHaveBeenCalled();
       expect(mockWebSocket.send).toHaveBeenCalledWith(
         expect.stringContaining("hashCode"),
@@ -185,12 +184,12 @@ describe("WebSocketHandler", () => {
         readyState: 1,
         close: vi.fn(),
       } as unknown as WebSocket;
- 
+
       websocketHandler.pushToWsSession({
         ...mockSession,
         name: "otherUser",
-        webSocket: otherWebSocket
-      })
+        webSocket: otherWebSocket,
+      });
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       processWsMessageFn(p2pMessage, mockSession);
@@ -238,7 +237,6 @@ describe("WebSocketHandler", () => {
 
       vi.spyOn(console, "error").mockImplementation(() => {});
 
-      const broadcastMessage = "test broadcast";
       websocketHandler.broadcast({
         ...mockSession,
         sender: "Editor",

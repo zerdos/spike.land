@@ -6,7 +6,7 @@ export function setupResponseMock() {
         // Allow WebSocket upgrade without validation
         init.status = undefined;
         super(body, init);
-        Object.defineProperty(this, 'status', { value: 101 });
+        Object.defineProperty(this, "status", { value: 101 });
         return;
       }
 

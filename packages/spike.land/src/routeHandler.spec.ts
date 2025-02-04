@@ -1,7 +1,8 @@
-import { HTML, importMap, md5 } from "@spike-npm-land/code";
+import { importMap, md5 } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { RouteHandler } from "./routeHandler";
+import { WebSocketHandler } from "./websocketHandler";
 
 describe("RouteHandler", () => {
   let routeHandler: RouteHandler;
@@ -27,7 +28,7 @@ describe("RouteHandler", () => {
       getOrigin: vi.fn().mockReturnValue("https://example.com"),
       wsHandler: {
         handleWebsocketSession: vi.fn().mockResolvedValue(undefined),
-      } as any,
+      } as unknown as WebSocketHandler,
     };
 
     // Create RouteHandler with mock Code

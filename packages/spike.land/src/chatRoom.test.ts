@@ -1,8 +1,8 @@
+import type { DurableObjectState } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./chatRoom";
 import type Env from "./env";
 import { RouteHandler } from "./routeHandler";
-import type { DurableObjectState } from "@cloudflare/workers-types";
 
 vi.mock("./routeHandler");
 

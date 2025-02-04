@@ -7,7 +7,6 @@ export class CodeRateLimiter {
   private static readonly GRACE_PERIOD = 5; // Grace period in seconds
   private static readonly MAX_REQUESTS = 5; // Maximum requests allowed during grace period
 
-
   // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
   // Either way, the result is the number of seconds to wait before allowing the IP to perform its
   // next action.
@@ -55,6 +54,7 @@ export class CodeRateLimiter {
 
     // Calculate cooldown time
     const cooldown = Math.max(0, Math.ceil(this.GRACE_PERIOD - timeDiff));
-    return new Response(cooldown.toString());
+    request.headers.set("Retry-After", cooldown.toString());
+    return new Response(cooldown.toString(), { status: 429, headers: request.headers });
   }
 }
