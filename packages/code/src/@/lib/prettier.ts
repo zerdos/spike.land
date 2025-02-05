@@ -1,83 +1,50 @@
-import emotion from "@emotion/css-prettifier";
-// import emotionPlugin from "@emotion/css-prettifier";
 import type { Options } from "prettier";
-import pluginEstree from "prettier/plugins/estree";
-import postCss from "prettier/plugins/postcss";
-import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
+import pluginEstree from "prettier/plugins/estree";
+import pluginTypescript from "prettier/plugins/typescript";
+import postCss from "prettier/plugins/postcss";
+import emotionPrettifier from "@emotion/css-prettifier";
+
+/* ============================================================================
+   Utility Functions
+   ========================================================================== */
+
 /**
- * Creates a string of spaces of the specified length.
- * @param length - The number of spaces to create.
+ * Generates a string of spaces for a given length.
+ * @param length - The number of spaces.
  * @returns A string of spaces.
  */
 const createSpaceString = (length: number): string => " ".repeat(length);
 
-const removeBlockComments = (code: string) => {
-  // Use a regular expression to match block comments
+/**
+ * Removes block comments matching the pattern {/** ...
+ * @param code - The code to process.
+ * @returns The code without the block comments.
+ */
+const removeBlockComments = (code: string): string => {
   const blockCommentRegex = /\{\/\*\*([\s\S]*?)\*\/\}/g;
-
-  // Replace all occurrences of block comments with an empty string
   return code.replace(blockCommentRegex, "");
 };
 
-/**
- * Processes and formats CSS-in-JS code, specifically dealing with the `css` template literal syntax.
- * @param code - The input code string to process.
- * @returns The processed and formated code string.
- */
-export const addSomeFixesIfNeeded = (_code: string): string => {
-  const code = removeBlockComments(_code);
-  try {
-    const rest = code.split("css`");
-    let start = rest.shift() ?? "";
-
-    if (rest.length) {
-      if (!code.includes("@emotion/react") && !code.includes(" css ")) {
-        const [first, ...rest] = start.split("\n");
-        // insert the import to the 2nd line
-        if (first.startsWith("//")) {
-          start = [first, 'import { css } from "@emotion/react";', ...rest]
-            .join("\n");
-        } else {
-          start = ['import { css } from "@emotion/react";', first, ...rest]
-            .join("\n");
-        }
-      }
-    }
-
-    let prevIndent = (start.split("\n").pop()?.length ?? 0) + 2;
-
-    const processedParts = rest.map((part) => {
-      const [cssContent, afterCss, ...remainingParts] = part.split("`");
-      const indent = createSpaceString(prevIndent);
-      prevIndent = (afterCss.split("\n").pop()?.length ?? 0) + 2;
-
-      const formattedCssContent = formatCssContent(cssContent, indent);
-      return `${formattedCssContent}\n${indent}\`${[afterCss, ...remainingParts].join("`")}`;
-    });
-
-    let result = [start, ...processedParts].join("css`\n");
-    result = addDefaultExportIfNeeded(result);
-
-    return result;
-  } catch (error) {
-    console.error("addSomeFixesIfNeeded error", { error, code });
-    return code;
-  }
-};
+/* ============================================================================
+   CSS-in-JS Processing Functions
+   ========================================================================== */
 
 /**
- * Formats the CSS content within the template literal, preserving interpolations.
- * @param cssContent - The CSS content to format.
- * @param indent - The indentation string to use.
- * @returns The formatted CSS content with preserved interpolations.
+ * Formats CSS content within a template literal.
+ * It replaces interpolations with placeholders, formats the CSS,
+ * then restores the interpolations.
+ *
+ * @param cssContent - The raw CSS content.
+ * @param indent - The indentation string.
+ * @returns The formatted CSS content with interpolations restored.
  */
 const formatCssContent = (cssContent: string, indent: string): string => {
-  // Replace interpolations with placeholders
   const placeholderPrefix = "__INTERPOLATION_PLACEHOLDER_";
   const interpolations: string[] = [];
   let placeholderIndex = 0;
 
+  // Replace interpolations with unique placeholders.
   const contentWithPlaceholders = cssContent.replace(/\${(.*?)}/g, (match) => {
     const placeholder = `${placeholderPrefix}${placeholderIndex}`;
     interpolations.push(match);
@@ -85,32 +52,32 @@ const formatCssContent = (cssContent: string, indent: string): string => {
     return placeholder;
   });
 
-  // Format the CSS content
-  const formattedContent = emotion(contentWithPlaceholders)
+  // Format the CSS content using the emotion prettifier.
+  const formattedContent = emotionPrettifier(contentWithPlaceholders)
     .split("\n")
-    .map((line: string) => line.trim() ? `${indent}  ${line}` : line)
+    .map((line) => (line.trim() ? `${indent}  ${line}` : line))
     .join("\n");
 
-  // Restore interpolations
-  const finalContent = formattedContent.replace(
+  // Restore the interpolations.
+  return formattedContent.replace(
     new RegExp(`${placeholderPrefix}\\d+`, "g"),
     (match) => {
-      const index = parseInt(match.split("_").pop() || "0", 10);
+      const index = parseInt(match.replace(placeholderPrefix, ""), 10);
       return interpolations[index];
-    },
+    }
   );
-
-  return finalContent;
 };
 
 /**
- * Adds a default export if it's missing and there's no named export.
- * @param code - The code to check and potentially modify.
- * @returns The code with a default export added if necessary.
+ * Adds a default export if none is found in the code.
+ *
+ * @param code - The code to check.
+ * @returns The code with a default export appended if necessary.
  */
 const addDefaultExportIfNeeded = (code: string): string => {
   if (
-    !code.includes("export default") && !code.includes("export const") &&
+    !code.includes("export default") &&
+    !code.includes("export const") &&
     !code.includes("const App")
   ) {
     return `${code}\n\nexport default () => <></>; // Empty default export`;
@@ -118,6 +85,55 @@ const addDefaultExportIfNeeded = (code: string): string => {
   return code;
 };
 
+/**
+ * Processes and formats CSS-in-JS code that uses the css template literal.
+ * It also inserts an Emotion import if not present.
+ *
+ * @param rawCode - The original code string.
+ * @returns The processed and formatted code.
+ */
+export const addSomeFixesIfNeeded = (rawCode: string): string => {
+  const code = removeBlockComments(rawCode);
+  try {
+    const parts = code.split("css`");
+    let header = parts.shift() || "";
+
+    // Insert Emotion's css import if it's missing.
+    if (parts.length && !code.includes("@emotion/react") && !code.includes(" css ")) {
+      const [firstLine, ...restLines] = header.split("\n");
+      header = firstLine.startsWith("//")
+        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines].join("\n")
+        : ['import { css } from "@emotion/react";', firstLine, ...restLines].join("\n");
+    }
+
+    let currentIndent = (header.split("\n").pop()?.length || 0) + 2;
+
+    // Process each css template literal part.
+    const processedSections = parts.map((section) => {
+      const [cssContent, afterCss, ...remainingParts] = section.split("`");
+      const indent = createSpaceString(currentIndent);
+      currentIndent = (afterCss.split("\n").pop()?.length || 0) + 2;
+
+      const formattedCss = formatCssContent(cssContent, indent);
+      return `${formattedCss}\n${indent}\`${[afterCss, ...remainingParts].join("`")}`;
+    });
+
+    let result = [header, ...processedSections].join("css`\n");
+    result = addDefaultExportIfNeeded(result);
+    return result;
+  } catch (error) {
+    console.error("addSomeFixesIfNeeded error", { error, code });
+    return code;
+  }
+};
+
+/* ============================================================================
+   Prettier Formatting Functions & Configuration
+   ========================================================================== */
+
+/**
+ * Prettier configuration for JavaScript/TypeScript.
+ */
 const prettierConfig: Options = {
   arrowParens: "always",
   bracketSpacing: true,
@@ -135,26 +151,40 @@ const prettierConfig: Options = {
   tabWidth: 2,
   trailingComma: "es5",
   useTabs: false,
-  parser: "typescript", // Prettier will infer the parser based on file extension
+  parser: "typescript",
   singleAttributePerLine: false,
-  plugins: [pluginEstree, pluginTypescript // emotionPlugin
-  ],
+  plugins: [pluginEstree, pluginTypescript]
 };
 
-export const prettierJs = async (
-  { code, toThrow }: { code: string; toThrow: boolean; },
-) => {
+/**
+ * Formats JavaScript/TypeScript code using Prettier.
+ *
+ * @param params.code - The code to format.
+ * @param params.toThrow - If true, errors are thrown.
+ * @returns The formatted code.
+ */
+export const prettierJs = async ({
+  code,
+  toThrow,
+}: {
+  code: string;
+  toThrow: boolean;
+}): Promise<string> => {
   try {
     return await format(code, prettierConfig);
   } catch (error) {
-    if (toThrow) {
-      throw error;
-    }
+    if (toThrow) throw error;
     return code;
   }
 };
 
-export const prettierCss = async (inputCSS: string) =>
+/**
+ * Formats CSS code using Prettier with a CSS parser.
+ *
+ * @param inputCSS - The CSS code to format.
+ * @returns The formatted CSS.
+ */
+export const prettierCss = async (inputCSS: string): Promise<string> =>
   format(inputCSS, {
     parser: "css",
     printWidth: 80,

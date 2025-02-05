@@ -3,18 +3,9 @@
   "indentWidth": 2,
   "useTabs": false,
   "newLineKind": "lf",
-  "typescript": {
-    "quoteStyle": "preferDouble",
-    "semiColons": "always",
-    "binaryExpression.operatorPosition": "sameLine",
-    "jsx.quoteStyle": "preferDouble",
-    "trailingCommas": "onlyMultiLine"
-  },
-  "json": {
-    "indentWidth": 2
-  },
-  "markdown": {},
-  "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md,json,html}"],
+  "includes": [
+    "**/*.{ts,tsx,js,jsx,cjs,mjs,json,md,html}"
+  ],
   "excludes": [
     "**/tw.js",
     "**/node_modules",
@@ -29,5 +20,18 @@
     "https://plugins.dprint.dev/json-0.19.4.wasm",
     "https://plugins.dprint.dev/dockerfile-0.3.2.wasm",
     "https://plugins.dprint.dev/markdown-0.17.8.wasm"
-  ]
+  ],
+  "typescript": {
+    "quoteStyle": "preferDouble",
+    "semiColons": "always",
+    "binaryExpression.operatorPosition": "sameLine",
+    "jsx.quoteStyle": "preferDouble",
+    "trailingCommas": "onlyMultiLine"
+  },
+  "json": {
+    "indentWidth": 2
+  },
+  "markdown": {
+    "lineWidth": 100
+  }
 }

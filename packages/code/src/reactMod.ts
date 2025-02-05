@@ -1,4 +1,7 @@
 import React from "react";
+import { useSyncExternalStore } from 'react';
+
+export { useSyncExternalStore };
 
 export const {
   Children,
@@ -31,7 +34,6 @@ export const {
   useReducer,
   useRef,
   useState,
-  useSyncExternalStore,
   useTransition,
   cache,
   use,
