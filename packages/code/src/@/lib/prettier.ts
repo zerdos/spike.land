@@ -1,9 +1,9 @@
-import type { Options } from "prettier";
-import { format } from "prettier/standalone";
-import pluginEstree from "prettier/plugins/estree";
-import pluginTypescript from "prettier/plugins/typescript";
-import postCss from "prettier/plugins/postcss";
 import emotionPrettifier from "@emotion/css-prettifier";
+import type { Options } from "prettier";
+import pluginEstree from "prettier/plugins/estree";
+import postCss from "prettier/plugins/postcss";
+import pluginTypescript from "prettier/plugins/typescript";
+import { format } from "prettier/standalone";
 
 /* ============================================================================
    Utility Functions
@@ -64,7 +64,7 @@ const formatCssContent = (cssContent: string, indent: string): string => {
     (match) => {
       const index = parseInt(match.replace(placeholderPrefix, ""), 10);
       return interpolations[index];
-    }
+    },
   );
 };
 
@@ -153,7 +153,7 @@ const prettierConfig: Options = {
   useTabs: false,
   parser: "typescript",
   singleAttributePerLine: false,
-  plugins: [pluginEstree, pluginTypescript]
+  plugins: [pluginEstree, pluginTypescript],
 };
 
 /**

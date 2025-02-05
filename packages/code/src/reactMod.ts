@@ -1,5 +1,5 @@
 import React from "react";
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore } from "react";
 
 export { useSyncExternalStore };
 
