@@ -15,6 +15,7 @@ import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
 import { Code } from "../services/CodeSession";
 import { CodeSessionBC } from "../services/CodeSessionBc";
+import {init} from "@/lib/tw-dev-setup";
 
 // Define route types
 interface RouteWithPageParams {
@@ -58,6 +59,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
+        await init();
         const cSess = new Code(codeSpace);
         const baseUrl = import.meta.env.DEV ? "" : "https://testing.spike.land";
         const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`).then((res) =>

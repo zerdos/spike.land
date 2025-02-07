@@ -23,7 +23,7 @@ const getExternalFiles = (dir: string) => {
 /* ========================================================
    Build external file list and alias mappings
    ======================================================== */
-const externalDirs = ["@/workers", "@/external", "@/components/ui", "@/hooks", "@/components/app"];
+const externalDirs = ["@/workers", "@/external"];
 const externalFiles = externalDirs.map(getExternalFiles).flat();
 
 const createExternalAliases = (
