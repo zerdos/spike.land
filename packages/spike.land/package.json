@@ -3,7 +3,7 @@
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.9.56",
   "type": "module",
-  "mpdule": "dist/index.js",
+  "module": "dist/index.js",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "types:check": "tsc --noEmit",
     "test:unit": "vitest run",
-    "test": "yarn types:check && yarn lint && yarn test:unit",
+    "test:api": "yarn types:check && yarn lint && yarn test:unit",
     "test:watch": "vitest"
   },
   "devDependencies": {
