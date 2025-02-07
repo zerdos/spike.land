@@ -23,7 +23,7 @@ const getExternalFiles = (dir: string) => {
 /* ========================================================
    Build external file list and alias mappings
    ======================================================== */
-const externalDirs = ["@/workers", "@/external"];
+const externalDirs = ["@/workers", "@/external", "@/components/ui", "@/hooks", "@/components/app"];
 const externalFiles = externalDirs.map(getExternalFiles).flat();
 
 const createExternalAliases = (
@@ -61,8 +61,9 @@ const createExternalAliases = (
 /* ========================================================
    Vite Configuration
    ======================================================== */
-export default defineConfig(({ mode }) => {
-  const isBuild = mode === "build";
+export default defineConfig((config) => {
+  const isBuild = config.command === "build";
+  console.log("Building:", {config, isBuild});
 
   const externalAliases = createExternalAliases(externalFiles, isBuild);
 

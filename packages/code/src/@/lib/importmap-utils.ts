@@ -26,7 +26,7 @@ export function importMapReplace(code: string, origin: string): string {
   // Define regex patterns for different types of imports
   const topLevelImportPattern =
     /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-  const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
+  const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1;?/g;
 
   const topLevelExportPattern =
     /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
@@ -47,16 +47,22 @@ export function importMapReplace(code: string, origin: string): string {
     const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
 
     if (typeof p2 !== "string") {
+      const hasSemicolon = match.trim().endsWith(";");
       const pkg = match.split('"')[1];
       if (!pkg) return match;
-      if (pkg?.startsWith("http")) return match;
-      if (pkg?.startsWith("/")) return match;
-      if (pkg?.startsWith("./")) return match;
-      if (pkg?.startsWith(",")) return match;
-
-      return `import "${origin}/${match.split('"')[1]}?${externalString}";`;
+    
+      // Check for worker files
+      if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && pkg.includes(".worker")) {
+        return `import "${origin}/${pkg}.js"` + (hasSemicolon ? ";" : "");
+      }
+      if (pkg.startsWith("http")) return match;
+      if (pkg.startsWith("/")) return match;
+      if (pkg.startsWith("./")) return match;
+      if (pkg.startsWith(",")) return match;
+    
+      return `import "${origin}/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
     }
-
+    
     if (p2?.startsWith("`") && p2.endsWith("`")) {
       // This is a template literal, we should keep it as is
       return match;
@@ -64,6 +70,7 @@ export function importMapReplace(code: string, origin: string): string {
 
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
+  
     if (packageName?.startsWith("data:text")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
@@ -79,6 +86,13 @@ export function importMapReplace(code: string, origin: string): string {
 
     if (packageName?.startsWith("/")) {
       return p1 + `"${packageName}"` + p3;
+    }
+
+    if (packageName?.startsWith("@/") || packageName?.startsWith("/@/")) {
+      if (packageName?.includes(".worker")) {
+        return p1 + `"${origin}/${packageName}.js"` + p3;
+      }
+      return p1 + `"${origin}/${packageName}.mjs"` + p3;
     }
 
     if (packageName?.startsWith(".") || packageName?.startsWith("http")) {
@@ -100,12 +114,7 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
 
-    if (packageName?.startsWith("@/")) {
-      if (packageName?.includes(".worker")) {
-        return p1 + `"${origin}/${packageName}.js"` + p3;
-      }
-      return p1 + `"${origin}/${packageName}.mjs"` + p3;
-    }
+  
 
     if (packageName.includes(".")) {
       const extension = packageName.split(".").pop()!;
@@ -148,10 +157,13 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(dynamicImportTemplatePattern, replacer)
     .replace(topLevelNoFromPattern, replacer);
 
-  replaced = replaced.split("\n").map((line) => {
-    line.trim();
-    return line;
-  }).filter((line) => !line?.startsWith("//")).join("\n");
+
+  replaced = replaced
+  .split("\n")
+  .map((line) => line.trim())
+  .filter((line) => !line.startsWith("//"))
+  .join("\n");
+
   // Replace specific package paths based on the import map (oo)
   // Object.keys(oo).forEach((pkg) => {
   //   replaced = replaced.split(`/${pkg}?${externalString}`).join(
@@ -165,9 +177,8 @@ export function importMapReplace(code: string, origin: string): string {
   //   );
   // });
 
-  return `
-/** importMapReplace */
-` + replaced;
+  return `/** importMapReplace */
+${replaced}`;
 }
 
 export default importMap;
