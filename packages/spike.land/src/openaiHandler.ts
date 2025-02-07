@@ -126,9 +126,10 @@ export async function handleGPT4Request(
     }
   }
 
-  const { readable, writable } = new TransformStream();
-  const writer = writable.getWriter();
-  const textEncoder = new TextEncoder();
+  try {
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+    const textEncoder = new TextEncoder();
 
   const conf = {
     stream: true,
@@ -140,40 +141,55 @@ export async function handleGPT4Request(
     ),
   };
 
-  let answer = "";
-  ctx.waitUntil((async () => {
-    try {
-      const stream = await openai.chat.completions.create(
-        conf as ChatCompletionCreateParamsStreaming,
-      );
+    let answer = "";
+    ctx.waitUntil((async () => {
+      try {
+        const stream = await openai.chat.completions.create(
+          conf as ChatCompletionCreateParamsStreaming,
+        );
 
-      for await (const part of stream) {
-        if (part.choices && part.choices[0] && part.choices[0].delta) {
-          const text = part.choices[0].delta.content || "";
-          writer.write(textEncoder.encode(text));
-          answer += text;
+        if (!stream[Symbol.asyncIterator]) {
+          throw new Error("Stream is not iterable");
         }
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      writer.write(
-        textEncoder.encode("An error occurred while processing your request."),
-      );
-    } finally {
-      await writer.close();
-      await logger.log(JSON.stringify({
-        conf,
-        answer,
-      }));
-    }
-  })());
 
-  return new Response(readable, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+        for await (const part of stream) {
+          if (part.choices && part.choices[0] && part.choices[0].delta) {
+            const text = part.choices[0].delta.content || "";
+            await writer.write(textEncoder.encode(text));
+            answer += text;
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        await writer.write(
+          textEncoder.encode("An error occurred while processing your request."),
+        );
+      } finally {
+        await writer.close();
+        await logger.log(JSON.stringify({
+          conf,
+          answer,
+        }));
+      }
+    })());
+
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  } catch (error) {
+    console.error("Error in chat completion:", error);
+    return new Response(JSON.stringify({ error: "Chat completion failed" }), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  }
+
 }

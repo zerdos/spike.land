@@ -2,48 +2,54 @@ import { handleErrors } from "./handleErrors";
 
 export class CodeRateLimiter {
   private nextAllowedTime = 0;
-  private static requestCount = 0;
-  private static lastRequestTime = Date.now();
-  private static readonly GRACE_PERIOD = 5; // Grace period in seconds
-  private static readonly MAX_REQUESTS = 5; // Maximum requests allowed during grace period
+  private requestCount = 0;
+  private lastRequestTime = Date.now();
+  private readonly MAX_REQUESTS = 5; // Allow 5 requests in grace period
+  private readonly GRACE_LIMIT = 4; // Allow 4 requests in grace period
+  private readonly GRACE_PERIOD = 20; // 20 seconds grace period
+  private readonly RATE_LIMIT = 0.5; // 0.5 seconds cooldown after grace period
 
-  // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
-  // Either way, the result is the number of seconds to wait before allowing the IP to perform its
-  // next action.
   async fetch(request: Request) {
     return await handleErrors(request, async () => {
       const now = Date.now() / 1000;
+      let cooldown = 0;
 
-      this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
-
-      if (request.method == "POST") {
-        // POST request means the user performed an action.
-        // We allow one action per 5 seconds.
-        this.nextAllowedTime += 1;
+      // Reset counts if grace period has expired
+      if (now > this.nextAllowedTime + this.GRACE_PERIOD) {
+        this.requestCount = 0;
+        this.nextAllowedTime = now;
       }
 
-      // Return the number of seconds that the client needs to wait.
-      //
-      // We provide a "grace" period of 20 seconds, meaning that the client can make 4-5 requests
-      // in a quick burst before they start being limited.
-      const cooldown = Math.max(0, this.nextAllowedTime - now - 1);
-      return new Response(`${cooldown}`);
+      if (request.method === "POST") {
+        this.requestCount++;
+
+        // Apply rate limiting after grace limit is exceeded
+        if (this.requestCount > this.GRACE_LIMIT) {
+          cooldown = this.RATE_LIMIT;
+          this.nextAllowedTime = now + cooldown;
+        }
+      }
+
+      // Return current cooldown if we're in rate limiting period
+      if (now < this.nextAllowedTime) {
+        cooldown = this.RATE_LIMIT;
+      }
+
+      return new Response(String(cooldown));
     });
   }
 
-  public static reset() {
+  public reset() {
     this.requestCount = 0;
-    this.lastRequestTime = Date.now();
   }
 
-  public static async handleRequest(request: Request): Promise<Response> {
+  public async handleRequest(request: Request): Promise<Response> {
     const currentTime = Date.now();
     const timeDiff = (currentTime - this.lastRequestTime) / 1000; // Convert to seconds
 
     // Reset counter if enough time has passed
     if (timeDiff >= this.GRACE_PERIOD) {
       this.requestCount = 0;
-      this.lastRequestTime = currentTime;
     }
 
     // If within grace period and under max requests, allow with no cooldown

@@ -3,6 +3,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import { KVLogger } from "./Logs";
 
+class MockDate extends Date {
+  constructor() {
+    super("2023-01-01T12:00:00Z");
+  }
+
+  toISOString() {
+    return "2023-01-01T12:00:00.000Z";
+  }
+}
+
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
 describe("KVLogger", () => {
@@ -19,6 +29,17 @@ describe("KVLogger", () => {
     // Reset mocks
     vi.resetAllMocks();
 
+    // Mock global Date
+    const originalDate = global.Date;
+    const mockDate = vi.fn(() => new MockDate());
+    mockDate.prototype = MockDate.prototype;
+    global.Date = mockDate as unknown as DateConstructor;
+
+    // Restore after test
+    afterEach(() => {
+      global.Date = originalDate;
+    });
+
     // Mock KVNamespace
     mockKVNamespace = {
       get: vi.fn(),
@@ -27,8 +48,8 @@ describe("KVLogger", () => {
     };
 
     // Mock console methods
-    mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
-    mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => { });
+    mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => { });
 
     // Create logger instance
     logger = new KVLogger("test-prefix", mockKVNamespace as unknown as KVNamespace);
