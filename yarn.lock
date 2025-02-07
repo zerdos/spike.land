@@ -10252,12 +10252,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.7.0":
+"hono@npm:4.7.0, hono@npm:^4.6.20":
   version: 4.7.0
   resolution: "hono@npm:4.7.0"
   checksum: 10c0/22f0d421cdf155793b4b0c4f94d0c5b409b879643b4cb42bcb0d8c00288f7682008c07a6995b9cd27566a2daa29e907f0f75ac80290f3eaaaec84cc91ac76360
   languageName: node
   linkType: hard
+
+"honox@workspace:packages/honox":
+  version: 0.0.0-use.local
+  resolution: "honox@workspace:packages/honox"
+  dependencies:
+    "@cloudflare/workers-types": "npm:^4.20250204.0"
+    hono: "npm:^4.6.20"
+    wrangler: "npm:^3.107.3"
+  languageName: unknown
+  linkType: soft
 
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
@@ -18146,7 +18156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.107.3":
+"wrangler@npm:3.107.3, wrangler@npm:^3.107.3":
   version: 3.107.3
   resolution: "wrangler@npm:3.107.3"
   dependencies:
