@@ -1356,6 +1356,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/core@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@eslint/core@npm:0.11.0"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.15"
+  checksum: 10c0/1e0671d035c908175f445864a7864cf6c6a8b67a5dfba8c47b2ac91e2d3ed36e8c1f2fd81d98a73264f8677055559699d4adb0f97d86588e616fc0dc9a4b86c9
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^3.2.0":
   version: 3.2.0
   resolution: "@eslint/eslintrc@npm:3.2.0"
@@ -1373,10 +1382,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.19.0, @eslint/js@npm:^9.19.0":
-  version: 9.19.0
-  resolution: "@eslint/js@npm:9.19.0"
-  checksum: 10c0/45dc544c8803984f80a438b47a8e578fae4f6e15bc8478a703827aaf05e21380b42a43560374ce4dad0d5cb6349e17430fc9ce1686fed2efe5d1ff117939ff90
+"@eslint/js@npm:9.20.0, @eslint/js@npm:^9.20.0":
+  version: 9.20.0
+  resolution: "@eslint/js@npm:9.20.0"
+  checksum: 10c0/10e7b5b9e628b5192e8fc6b0ecd27cf48322947e83e999ff60f9f9e44ac8d499138bcb9383cbfa6e51e780d53b4e76ccc2d1753b108b7173b8404fd484d37328
   languageName: node
   linkType: hard
 
@@ -1666,9 +1675,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:0.3.38":
-  version: 0.3.38
-  resolution: "@langchain/core@npm:0.3.38"
+"@langchain/core@npm:0.3.39":
+  version: 0.3.39
+  resolution: "@langchain/core@npm:0.3.39"
   dependencies:
     "@cfworker/json-schema": "npm:^4.0.2"
     ansi-styles: "npm:^5.0.0"
@@ -1682,7 +1691,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10c0/3b2f042f6550cb818a33b0649110c9ef7f645b0bc23507d2d5a63b98dd4dcd28692d4a6ead70a936e4d46dd39224cc74e4bfb0389b124a183f29bbdf0b069ab0
+  checksum: 10c0/b999930e68645d465424a6621035ea4bd9a7a90f22177987447a8ebb360ff0f4d58fe9d41d17b512d9ce05c65fa44b5bc13932e85e1d8f1955266073c3d8c1f7
   languageName: node
   linkType: hard
 
@@ -3759,7 +3768,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:0.6.12"
     "@cloudflare/workers-types": "npm:4.20250204.0"
-    "@eslint/js": "npm:^9.19.0"
+    "@eslint/js": "npm:^9.20.0"
     "@remix-run/cloudflare": "npm:2.15.3"
     "@remix-run/react": "npm:2.15.3"
     "@spike-npm-land/code": "npm:0.9.56"
@@ -3773,7 +3782,7 @@ __metadata:
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.24.2"
-    eslint: "npm:^9.19.0"
+    eslint: "npm:^9.20.0"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.18"
     esm-worker: "npm:0.135.18"
@@ -3808,12 +3817,12 @@ __metadata:
     "@emotion/css-prettifier": "npm:1.2.0"
     "@emotion/react": "npm:11.14.0"
     "@emotion/styled": "npm:11.14.0"
-    "@eslint/js": "npm:9.19.0"
+    "@eslint/js": "npm:9.20.0"
     "@github/stable-socket": "npm:1.1.1"
     "@heroicons/react": "npm:2.2.0"
     "@hookform/resolvers": "npm:3.10.0"
     "@langchain/anthropic": "npm:0.3.13"
-    "@langchain/core": "npm:0.3.38"
+    "@langchain/core": "npm:0.3.39"
     "@langchain/langgraph": "npm:0.2.45"
     "@mui/material": "npm:6.4.3"
     "@okikio/sharedworker": "npm:1.1.0"
@@ -3858,7 +3867,7 @@ __metadata:
     "@tailwindcss/vite": "npm:4.0.4"
     "@tanstack/react-router": "npm:1.99.13"
     "@tanstack/react-virtual": "npm:3.13.0"
-    "@tanstack/router-plugin": "npm:1.99.13"
+    "@tanstack/router-plugin": "npm:1.99.14"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
@@ -3919,7 +3928,7 @@ __metadata:
     esbuild-plugin-tailwindcss: "npm:1.2.1"
     esbuild-style-plugin: "npm:1.6.3"
     esbuild-wasm: "npm:0.24.2"
-    eslint: "npm:9.19.0"
+    eslint: "npm:9.20.0"
     eslint-plugin-react-hooks: "npm:5.1.0"
     eslint-plugin-react-refresh: "npm:0.4.18"
     events: "npm:3.3.0"
@@ -4579,9 +4588,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.99.13":
-  version: 1.99.13
-  resolution: "@tanstack/router-generator@npm:1.99.13"
+"@tanstack/router-generator@npm:^1.99.14":
+  version: 1.99.14
+  resolution: "@tanstack/router-generator@npm:1.99.14"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     prettier: "npm:^3.4.2"
@@ -4592,13 +4601,13 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/react-router":
       optional: true
-  checksum: 10c0/62a387e70111c16ee6293798bd8cb4272fa7c9bb840597214f146c908f5a704bbbbc2e9fbaec0c6431070515210d7a8d51d329693599c9295b28aadc4229b168
+  checksum: 10c0/b3e41e94b4aa40d640054486cfd3251f37d3e87041811c30c5ae7a607286f3adde4dd8e4b380cc830c904d58e51fe558e9213dd45984587cdedfaa253044d010
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.99.13":
-  version: 1.99.13
-  resolution: "@tanstack/router-plugin@npm:1.99.13"
+"@tanstack/router-plugin@npm:1.99.14":
+  version: 1.99.14
+  resolution: "@tanstack/router-plugin@npm:1.99.14"
   dependencies:
     "@babel/core": "npm:^7.26.7"
     "@babel/plugin-syntax-jsx": "npm:^7.25.9"
@@ -4606,7 +4615,7 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.26.7"
     "@babel/types": "npm:^7.26.7"
-    "@tanstack/router-generator": "npm:^1.99.13"
+    "@tanstack/router-generator": "npm:^1.99.14"
     "@tanstack/router-utils": "npm:^1.99.5"
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     "@types/babel__core": "npm:^7.20.5"
@@ -4630,7 +4639,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/5319c4aa61e9215576a7b31c511df9ef63e3e00e85777ffe7ad7a01a31bd2be785d361583c2b39347dc38df066aea4963e0cd4982088ecb4f8580d5de39db476
+  checksum: 10c0/97159d348194220c9c415097afd5355177a9d137610aeea1dd7ac05091ff0b182e2e146c6c08bc30ac0a8a89bab6bdc3aec9c4574b94c446bbd49ccd97269492
   languageName: node
   linkType: hard
 
@@ -8941,16 +8950,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.19.0, eslint@npm:^9.19.0":
-  version: 9.19.0
-  resolution: "eslint@npm:9.19.0"
+"eslint@npm:9.20.0, eslint@npm:^9.20.0":
+  version: 9.20.0
+  resolution: "eslint@npm:9.20.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.12.1"
     "@eslint/config-array": "npm:^0.19.0"
-    "@eslint/core": "npm:^0.10.0"
+    "@eslint/core": "npm:^0.11.0"
     "@eslint/eslintrc": "npm:^3.2.0"
-    "@eslint/js": "npm:9.19.0"
+    "@eslint/js": "npm:9.20.0"
     "@eslint/plugin-kit": "npm:^0.2.5"
     "@humanfs/node": "npm:^0.16.6"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
@@ -8986,7 +8995,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10c0/3b0dfaeff6a831de086884a3e2432f18468fe37c69f35e1a0a9a2833d9994a65b6dd2a524aaee28f361c849035ad9d15e3841029b67d261d0abd62c7de6d51f5
+  checksum: 10c0/5eb2d9b5ed85a0b022871d19719417d110afb07a4abfedd856ad03d9a821def5f6bc31d7c407ca27f56e5e66e39375300fd2b877017245eb99c44060d6c983bd
   languageName: node
   linkType: hard
 
@@ -10252,7 +10261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.7.0, hono@npm:^4.6.20":
+"hono@npm:4.7.0, hono@npm:^4.7.0":
   version: 4.7.0
   resolution: "hono@npm:4.7.0"
   checksum: 10c0/22f0d421cdf155793b4b0c4f94d0c5b409b879643b4cb42bcb0d8c00288f7682008c07a6995b9cd27566a2daa29e907f0f75ac80290f3eaaaec84cc91ac76360
@@ -10264,7 +10273,7 @@ __metadata:
   resolution: "honox@workspace:packages/honox"
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20250204.0"
-    hono: "npm:^4.6.20"
+    hono: "npm:^4.7.0"
     wrangler: "npm:^3.107.3"
   languageName: unknown
   linkType: soft
@@ -12788,7 +12797,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.2.0"
     diff-match-patch-ts: "npm:0.6.0"
     dprint: "npm:0.49.0"
-    eslint: "npm:9.19.0"
+    eslint: "npm:9.20.0"
     eslint-plugin-react: "npm:7.37.4"
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.23.0"
