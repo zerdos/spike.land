@@ -3858,7 +3858,7 @@ __metadata:
     "@tailwindcss/vite": "npm:4.0.4"
     "@tanstack/react-router": "npm:1.99.9"
     "@tanstack/react-virtual": "npm:3.12.1"
-    "@tanstack/router-plugin": "npm:1.99.10"
+    "@tanstack/router-plugin": "npm:1.99.11"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
@@ -3926,7 +3926,7 @@ __metadata:
     fast-json-patch: "npm:^3.1.1"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:20.1.0"
-    framer-motion: "npm:12.4.0"
+    framer-motion: "npm:12.4.1"
     globals: "npm:15.14.0"
     happy-dom: "npm:17.0.0"
     html2canvas: "npm:1.4.1"
@@ -4596,9 +4596,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.99.10":
-  version: 1.99.10
-  resolution: "@tanstack/router-plugin@npm:1.99.10"
+"@tanstack/router-plugin@npm:1.99.11":
+  version: 1.99.11
+  resolution: "@tanstack/router-plugin@npm:1.99.11"
   dependencies:
     "@babel/core": "npm:^7.26.7"
     "@babel/plugin-syntax-jsx": "npm:^7.25.9"
@@ -4630,7 +4630,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/1071c1aa0f6f50d804dba606d728d7e6e53fbe225068690434855f38a93fbbd5e7410c0687e955ce5f543be952ed2266abb08d995d71b5990f1b512a803ccdd8
+  checksum: 10c0/1cce3ce5a0ed82854230d9f777b7ef11b5bdb92396e09bb255feb142bf47e4d277dd34bf1007c00a9eddaf51a05ba3d7f60d0c58d422bde3067fc9d3a99988ba
   languageName: node
   linkType: hard
 
@@ -9548,9 +9548,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:12.4.0":
-  version: 12.4.0
-  resolution: "framer-motion@npm:12.4.0"
+"framer-motion@npm:12.4.1":
+  version: 12.4.1
+  resolution: "framer-motion@npm:12.4.1"
   dependencies:
     motion-dom: "npm:^12.0.0"
     motion-utils: "npm:^12.0.0"
@@ -9566,7 +9566,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10c0/ad19269b9d152a0f422e6414a3a74d6df32a3af90c7a0ac83cad158b9274800ccdff8d210cef11ff2fd2c1e805c9b5025033943ad609517c27e4630df2eb5368
+  checksum: 10c0/8d1f521f836d475330b1f9b9073d366f4aa7fcf15b7e697309847fdeeedc65928eff844aa6887ecc908451521934dec73726d8bf6c3895c4e58a88997df9f448
   languageName: node
   linkType: hard
 
