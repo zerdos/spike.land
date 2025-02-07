@@ -14,7 +14,7 @@ export const buildOptions: BuildOptions = {
   outExtension: { ".js": ".mjs" },
   alias: {
     buffer: "buffer/",
-
+    "node:path": "path-browserify/",
     path: "path-browserify",
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
@@ -41,6 +41,7 @@ export const buildOptions: BuildOptions = {
     assert: "assert",
     "graceful-fs": "./src/memfs",
     fs: "./src/memfs",
+    "node:fs": "./src/memfs", 
   },
   external: [
     "/swVersion.js",
