@@ -48,7 +48,7 @@
     "@types/node": "22.13.1",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.24.2",
+    "esbuild-wasm": "0.25.0",
     "eslint": "^9.20.0",
     "esm-worker": "0.135.18",
     "hono": "4.7.0",

@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@spike-npm-land/code": "0.9.56",
-    "esbuild-wasm": "0.24.2"
+    "esbuild-wasm": "0.25.0"
   },
   "publishConfig": {
     "access": "public"
