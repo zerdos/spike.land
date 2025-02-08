@@ -3,14 +3,14 @@ interface DebounceOptions {
   edges?: Array<"leading" | "trailing">;
 }
 
-interface DebouncedFunction<T extends (...args: any[]) => any> {
+interface DebouncedFunction<T extends (...args: unknown[]) => unknown>  {
   (...args: Parameters<T>): void;
   schedule: () => void;
   cancel: () => void;
   flush: () => void;
 }
 
-function debounce<T extends (...args: any[]) => any>(
+function debounce<T extends (...args[]) => any>(
   func: T,
   debounceMs: number | undefined,
   { signal, edges }: DebounceOptions = {},
