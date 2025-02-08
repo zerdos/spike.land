@@ -10,7 +10,7 @@ function throttle<T extends (...args: any[]) => any>(
   { signal, edges = ["leading", "trailing"] }: ThrottleOptions = {},
 ): DebouncedFunction<T> {
   let pendingAt: number | null = null;
-  const debounced = debounce(func, throttleMs, { signal, edges });
+  const debounced = debounce(func, throttleMs || 0, { signal, edges });
 
   function throttled(this: unknown, ...args: Parameters<T>): void {
     if (pendingAt == null) {

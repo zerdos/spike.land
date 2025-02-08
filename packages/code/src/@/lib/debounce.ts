@@ -10,11 +10,11 @@ interface DebouncedFunction<T extends (...args: unknown[]) => unknown>  {
   flush: () => void;
 }
 
-function debounce<T extends (...args[]) => any>(
+export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
-  debounceMs: number | undefined,
-  { signal, edges }: DebounceOptions = {},
-): DebouncedFunction<T> {
+  debounceMs: number,
+  { signal, edges }: DebounceOptions = {}
+): DebouncedFunction<T> =>{
   let pendingArgs: Parameters<T> | null = null;
   const leading = edges?.includes("leading") ?? false;
   const trailing = edges?.includes("trailing") ?? true;
@@ -84,4 +84,4 @@ function debounce<T extends (...args[]) => any>(
   return debounced as DebouncedFunction<T>;
 }
 
-export { debounce, type DebouncedFunction, type DebounceOptions };
+export { type DebouncedFunction, type DebounceOptions };
