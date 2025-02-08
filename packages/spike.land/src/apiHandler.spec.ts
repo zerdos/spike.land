@@ -161,8 +161,13 @@ describe("ApiHandler", () => {
   });
 
   describe("Default Response", () => {
+<<<<<<< HEAD
     it("should return default HTML response for root route", async () => {
       const mockRequest = new Request("https://example.com");
+=======
+    it("should return default HTML response for any unhandled route", async () => {
+      const mockRequest = new Request("https://example.com/unknown");
+>>>>>>> c80645f58 (save)
 
       // Mock HTML import
       vi.mock("@spike-npm-land/code", () => ({
@@ -178,19 +183,6 @@ describe("ApiHandler", () => {
       expect(response.status).toBe(200);
       expect(response.headers.get("Content-Type")).toBe("text/html; charset=UTF-8");
       expect(await response.text()).toBe("Mocked HTML Content");
-    });
-
-    it("should return not found for completely unknown routes", async () => {
-      const mockRequest = new Request("https://example.com/totally-unknown");
-
-      const response = await handleApiRequest(
-        ["totally-unknown"],
-        mockRequest,
-        mockEnv as Env,
-      );
-
-      expect(response.status).toBe(404);
-      expect(await response.text()).toBe("Not found");
     });
   });
 });

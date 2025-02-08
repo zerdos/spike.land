@@ -136,6 +136,7 @@ describe("MainFetchHandler", () => {
 
     it("should handle root path requests", async () => {
       const mockRequest = new Request("https://example.com/");
+      routes["/"] = "landing"; // Add root path to routes
 
       const mockFetchApiResponse = new Response("Root path response");
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
@@ -144,12 +145,14 @@ describe("MainFetchHandler", () => {
       const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
 
       expect(handleFetchApi).toHaveBeenCalledWith(
-        [""],
+        ["live", "landing", "embed"],
         mockRequest,
         mockEnv,
         mockCtx,
       );
       expect(response).toBe(mockFetchApiResponse);
+
+      delete routes["/"]; // Clean up
     });
   });
 
