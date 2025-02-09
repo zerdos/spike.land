@@ -43,7 +43,7 @@ export class ScreenshotService {
 
   private postScreenshotMessage(imageData: ImageData): void {
     const message: IframeMessage = {
-      type: "screenShot",
+      type: "screenshot",
       requestId: crypto.randomUUID(),
       imageData,
     };

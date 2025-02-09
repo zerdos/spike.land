@@ -34,7 +34,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   handleEditMessage,
   handleCancelEdit,
   handleSaveEdit,
-  screenShot,
+  screenshot,
 }) => {
   const handleButtonClick = useCallback(() => {
     onClose();
@@ -121,7 +121,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
               code={cSess.session.code}
               messages={cSess.session.messages}
               setInput={setInput}
-              screenShot={screenShot}
+              screenshot={screenshot}
               handleSendMessage={handleSendMessage}
               isStreaming={isStreaming}
               inputRef={inputRef}

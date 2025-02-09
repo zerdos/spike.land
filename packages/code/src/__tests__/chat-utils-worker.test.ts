@@ -1,4 +1,4 @@
-import { Message, MessageContent } from "@/lib/interfaces";
+import { Message, MessageType } from "@/lib/interfaces";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatHandler, handleSendMessage } from "../workers/chat-utils.worker";
 
@@ -14,7 +14,7 @@ vi.mock("../services/ai/AIHandler", () => ({
       timestamp: new Date().toISOString(),
       status: "success",
     })),
-    validateContent: vi.fn().mockImplementation((_content: MessageContent) => true),
+    validateContent: vi.fn().mockImplementation((_content: string | { type: "text", text: string }[]) => true),
   },
 }));
 
@@ -33,12 +33,12 @@ describe("handleSendMessage", () => {
   });
 
   it("should handle valid messages", async () => {
-    const mockMessage = {
-      type: "test",
+    const mockMessage: Message = {
+      type: MessageType.TEXT,
       id: "123",
       role: "user",
-      content: { text: "Hello", type: "text" },
-    } as Message;
+      content: [{ type: "text", text: "Hello" }],
+    };
 
     await handleSendMessage(mockMessage);
     expect(postMessageSpy).toHaveBeenCalledWith({
@@ -52,11 +52,12 @@ describe("handleSendMessage", () => {
     const { AIHandler: MockAIHandler } = await import("../services/ai/AIHandler");
     vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
 
-    const mockMessage = {
+    const mockMessage: Message = {
       id: "123",
       role: "user",
-      content: { text: "Error case", type: "text" },
-    } as Message;
+      type: MessageType.TEXT,
+      content: [{ type: "text", text: "Error case" }],
+    };
 
     await handleSendMessage(mockMessage);
     expect(consoleSpy).toHaveBeenCalledWith("Error in handleMessage:", error);
@@ -67,10 +68,12 @@ describe("handleSendMessage", () => {
   });
 
   it("should log invalid message content type error", async () => {
-    const mockMessage = {
-      type: "test",
-      content: { invalidType: true },
-    } as unknown as Message;
+    const mockMessage: Message = {
+      id: "test-id",
+      role: "user",
+      type: MessageType.TEXT,
+      content: [{ type: "text", text: "Invalid content" }],
+    };
 
     await handleSendMessage(mockMessage);
     expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", expect.any(Error));
@@ -83,7 +86,7 @@ describe("handleSendMessage", () => {
 
   it.skip("should handle missing content", async () => {
     const mockMessage = {
-      type: "test",
+      type: MessageType.TEXT,
     } as unknown as Message;
 
     await handleSendMessage(mockMessage);
@@ -115,7 +118,8 @@ describe("handleSendMessage", () => {
       await chatHandler.handleMessage({
         role: "user",
         id: "123",
-        content: { text: "Test message", type: "text" },
+        type: MessageType.TEXT,
+        content: [{ type: "text", text: "Test message" }],
       });
 
       expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", error);

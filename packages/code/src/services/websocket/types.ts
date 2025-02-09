@@ -90,8 +90,7 @@ export interface IWebSocketManager {
   cleanup(): void;
 }
 
-import { ICodeSession, Message } from "@/lib/interfaces";
-import { MessageResponse } from "../message/types";
+import { ICodeSession, Message, MessageResponse } from "@/lib/interfaces";
 import { WebSocketEventType } from "./enums";
 
 /**

@@ -1,4 +1,4 @@
-import { ImageUrlPart, Message, MessagePart, TextPart, MessageContent, MessageType } from "@/lib/interfaces";
+import { ImageUrlPart, Message, MessagePart, MessageType } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MessageHandlerService } from "../MessageHandlerService";
 
@@ -30,7 +30,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "2",
         type: MessageType.TEXT,
-        content: { type: "text", text: "Text part message" } as TextPart,
+        content: [{ type: "text", text: "Text part message" }],
         role: "user",
       };
 
@@ -45,10 +45,10 @@ describe("MessageHandlerService", () => {
         id: "3",
         type: MessageType.TEXT,
         content: [
-          { type: "text", text: "Array text message" } as TextPart,
+          { type: "text", text: "Array text message" },
           {
             type: "image_url",
-            image_url: { url: "https://example.com/image.jpg" },
+            imageUrl: { url: "https://example.com/image.jpg" },
           } as ImageUrlPart,
         ],
         role: "user",
@@ -66,7 +66,7 @@ describe("MessageHandlerService", () => {
         type: MessageType.TEXT,
         content: [{
           type: "image_url",
-          image_url: { url: "https://example.com/image.jpg" },
+          imageUrl: { url: "https://example.com/image.jpg" },
         }] as MessagePart[],
         role: "user",
       };
@@ -81,7 +81,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "5",
         type: MessageType.TEXT,
-        content: { invalid: true } as unknown as MessageContent,
+        content: { invalid: true } as unknown as string | MessagePart[],
         role: "user",
       };
 
@@ -97,7 +97,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "6",
         type: MessageType.TEXT,
-        content: { type: "text", text: "Hello" } as TextPart,
+        content: [{ type: "text", text: "Hello" }],
         role: "user",
       };
 
@@ -111,7 +111,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "7",
         type: MessageType.COMMAND,
-        content: { type: "text", text: "test-command" } as TextPart,
+        content: [{ type: "text", text: "test-command" }],
         role: "system",
       };
 
@@ -128,7 +128,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "8",
         type: MessageType.STATUS,
-        content: { type: "text", text: "active" } as TextPart,
+        content: [{ type: "text", text: "active" }],
         role: "system",
       };
 
@@ -145,7 +145,7 @@ describe("MessageHandlerService", () => {
       const result = await messageHandler.handleMessage({
         id: "9",
         type: "unknown" as MessageType,
-        content: { type: "text", text: "Test" } as TextPart,
+        content: [{ type: "text", text: "Test" }],
         role: "user",
       });
 
@@ -162,7 +162,7 @@ describe("MessageHandlerService", () => {
       const result = await messageHandler.handleMessage({
         id: "10",
         type: MessageType.TEXT,
-        content: { type: "text", text: "Test" } as TextPart,
+        content: [{ type: "text", text: "Test" }],
         role: "user",
       });
 
@@ -176,14 +176,14 @@ describe("MessageHandlerService", () => {
     it("should validate required message fields", () => {
       const missingIdMessage = {
         type: MessageType.TEXT,
-        content: { type: "text", text: "Test" } as TextPart,
+        content: [{ type: "text", text: "Test" }],
         role: "user",
       };
 
       const missingRoleMessage = {
         id: "11",
         type: MessageType.TEXT,
-        content: { type: "text", text: "Test" } as TextPart,
+        content: [{ type: "text", text: "Test" }],
       };
 
       expect(messageHandler.validateMessage(missingIdMessage)).toBe(false);

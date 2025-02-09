@@ -50,7 +50,7 @@ class SessMock implements ICode {
     return rawCode;
   }
 
-  async screenShot(): Promise<ImageData> {
+  async screenshot(): Promise<ImageData> {
     return {
       imageName: "mock-screenshot.png",
       url: "https://example.com/mock-screenshot.png",
@@ -61,17 +61,6 @@ class SessMock implements ICode {
     };
   }
 
-  async currentCodeWithExtraModels(): Promise<string> {
-    // Mock implementation
-    return this.session.code;
-  }
-
-  async setModelsByCurrentCode(code: string): Promise<string> {
-    // Mock implementation
-    this.session.code = code;
-    this.broadCastSessChanged();
-    return code;
-  }
   async getCode(): Promise<string> {
     return this.session.code;
   }

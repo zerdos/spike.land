@@ -49,7 +49,7 @@ export interface MessageInputProps {
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
-  screenShot: () => Promise<ImageData>;
+  screenshot: () => Promise<ImageData>;
 }
 
 export interface ChatWindowProps {
@@ -71,7 +71,7 @@ export interface ICodeSession {
 export interface ICode {
   session: ICodeSession;
   init: () => Promise<ICodeSession>;
-  screenShot: () => Promise<ImageData>;
+  screenshot: () => Promise<ImageData>;
   addMessageChunk: (chunk: string) => void;
   setMessages: (messages: Message[]) => boolean;
   // currentCodeWithExtraModels: () => Promise<string>;
@@ -137,7 +137,7 @@ export type IframeMessage = {
   requestId: string;
   error: string;
 } | {
-  type: "screenShot";
+  type: "screenshot";
   requestId: string;
   imageData: ImageData;
 };
@@ -160,14 +160,14 @@ export interface TextPart {
 
 export interface ImageUrlPart {
   type: "image_url";
-  image_url: ImageUrl;
+  imageUrl: ImageUrl;
 }
 
 interface ImagePart {
   type: "image";
   source: {
     type: string;
-    media_type: string;
+    mediaType: string;
     data: string;
   };
 }
@@ -212,21 +212,15 @@ export interface MessageHandlerConfig {
 
 
 export type MessagePart = TextPart | ImageUrlPart | ImagePart;
-export type MessageContent = string | MessagePart[] | TextPart;
+export type MessageContent = string | MessagePart[];
 
 // Main message interface
 export interface Message {
   id: string;
   role: Role;
-  type?: string;
+  type?: MessageType;
   content: MessageContent;
 }
-
-// Utility type for cases where you might have a simple string content
-export type SimpleMessage = Omit<Message, "content"> & { content: string; };
-
-// Union type to allow both complex and simple message formats
-export type AnyMessage = Message | SimpleMessage;
 
 export interface IHistoryItem {
   timestamp: number;
@@ -264,7 +258,7 @@ export interface ChatDrawerProps {
   handleEditMessage: (messageId: string) => void;
   handleCancelEdit: () => void;
   handleSaveEdit: (messageId: string) => void;
-  screenShot: () => Promise<ImageData>;
+  screenshot: () => Promise<ImageData>;
 }
 
 export interface ChatContainerProps {

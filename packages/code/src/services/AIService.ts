@@ -79,7 +79,7 @@ export class AIService {
         type: "image",
         source: {
           type: "base64",
-          media_type: item.source.media_type,
+          mediaType: item.source.mediaType,
           data: item.source.data,
         },
       };
