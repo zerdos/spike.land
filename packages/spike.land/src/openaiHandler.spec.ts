@@ -88,10 +88,6 @@ describe("OpenAIHandler", () => {
         input: "Hello, world!",
       });
 
-      const mockSpeechResponse = {
-        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
-      };
-
       OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))
       });
@@ -129,10 +125,6 @@ describe("OpenAIHandler", () => {
         voice: "nova",
         speed: 1.5,
       });
-
-      const mockSpeechResponse = {
-        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
-      };
 
       OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))

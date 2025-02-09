@@ -4,7 +4,7 @@ interface ThrottleOptions extends Omit<DebounceOptions, "edges"> {
   edges?: Array<"leading" | "trailing">;
 }
 
-function throttle<T extends (...args: any[]) => any>(
+function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   throttleMs: number | undefined,
   { signal, edges = ["leading", "trailing"] }: ThrottleOptions = {},

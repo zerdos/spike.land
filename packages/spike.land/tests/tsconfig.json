@@ -2,9 +2,17 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": [
-      "@cloudflare/vitest-pool-workers"
-    ]
+      "@cloudflare/vitest-pool-workers",
+      "vitest/globals"
+    ],
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "webworker"],
+    "moduleResolution": "bundler",
+    "strict": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "include": ["./**/*.ts", "../src/env.d.ts"],
+  "include": ["./**/*.ts"],
   "exclude": []
 }

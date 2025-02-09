@@ -1,11 +1,14 @@
-import {
+import type {
   Message,
   MessageContent,
   MessageHandlerConfig,
   MessageResponse,
-  MessageType,
   TextPart,
-} from "./types";
+} from "@/lib/interfaces";
+
+import {
+  MessageType
+} from "@/lib/interfaces";
 
 /**
  * Service for handling and processing different types of messages

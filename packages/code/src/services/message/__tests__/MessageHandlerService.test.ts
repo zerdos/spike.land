@@ -1,7 +1,6 @@
-import { ImageUrlPart, Message, MessagePart, TextPart } from "@/lib/interfaces";
+import { ImageUrlPart, Message, MessagePart, TextPart, MessageContent, MessageType } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MessageHandlerService } from "../MessageHandlerService";
-import { MessageType } from "../types";
 
 describe("MessageHandlerService", () => {
   let messageHandler: MessageHandlerService;
@@ -82,7 +81,7 @@ describe("MessageHandlerService", () => {
       const message: Message = {
         id: "5",
         type: MessageType.TEXT,
-        content: { invalid: true } as any,
+        content: { invalid: true } as unknown as MessageContent,
         role: "user",
       };
 
@@ -157,7 +156,8 @@ describe("MessageHandlerService", () => {
 
     it("should handle message processing error", async () => {
       const testError = new Error("Test error");
-      vi.spyOn(messageHandler as any, "processMessage").mockRejectedValueOnce(testError);
+      // Using type assertion to access private method for testing
+      vi.spyOn(messageHandler as unknown as { processMessage: (message: Message) => Promise<Record<string, unknown>> }, "processMessage").mockRejectedValueOnce(testError);
 
       const result = await messageHandler.handleMessage({
         id: "10",
