@@ -16,7 +16,7 @@ export const useRestoreVersion = (codeSpace: string) => {
       const response = await fetch(
         `/live/${codeSpace}/auto-save/restore/${timestamp}`,
       );
-      if (!response.ok) throw new Error("Failed to restore version");
+      if (!response || !response.ok) throw new Error("Failed to restore version");
       setRestoreStatus({
         type: "success",
         message: "Version restored successfully!",

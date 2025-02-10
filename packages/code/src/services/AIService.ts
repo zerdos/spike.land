@@ -112,7 +112,7 @@ export class AIService {
       }),
     });
 
-    if (!response.ok) {
+    if (!response || !response.ok) {
       throw new APIError(`HTTP error! status: ${response.status}`, response.status);
     }
 

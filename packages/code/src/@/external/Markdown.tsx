@@ -28,7 +28,7 @@ const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = (
         }),
       });
 
-      if (!response.ok) {
+      if (!response || !response.ok) {
         throw new Error("Speech generation failed");
       }
 

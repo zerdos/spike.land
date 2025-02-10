@@ -7,7 +7,7 @@ describe("MessageHandlerService", () => {
   let consoleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => { });
     messageHandler = new MessageHandlerService();
   });
 
@@ -48,7 +48,7 @@ describe("MessageHandlerService", () => {
           { type: "text", text: "Array text message" },
           {
             type: "image_url",
-            imageUrl: { url: "https://example.com/image.jpg" },
+            image_url: { url: "https://example.com/image.jpg" },
           } as ImageUrlPart,
         ],
         role: "user",
@@ -66,7 +66,7 @@ describe("MessageHandlerService", () => {
         type: MessageType.TEXT,
         content: [{
           type: "image_url",
-          imageUrl: { url: "https://example.com/image.jpg" },
+          image_url: { url: "https://example.com/image.jpg" },
         }] as MessagePart[],
         role: "user",
       };

@@ -51,7 +51,7 @@ export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
         const response = await fetch(
           `/live/${codeSpace}/auto-save/restore/${item.timestamp}`,
         );
-        if (!response.ok) throw new Error("Failed to restore version");
+        if (!response || !response.ok) throw new Error("Failed to restore version");
 
         onRestore(item);
       } catch (err) {

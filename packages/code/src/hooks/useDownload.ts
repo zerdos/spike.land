@@ -17,7 +17,7 @@ const download = async (
     console.log(`Fetching content from: ${url}`);
     const response = await fetch(url);
 
-    if (!response.ok) {
+    if (!response || !response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 

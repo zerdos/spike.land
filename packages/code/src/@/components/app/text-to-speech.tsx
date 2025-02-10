@@ -22,7 +22,7 @@ export const TextToSpeech: FC = () => {
         }),
       });
 
-      if (!response.ok) {
+      if (!response || !response.ok) {
         throw new Error("Speech generation failed");
       }
 

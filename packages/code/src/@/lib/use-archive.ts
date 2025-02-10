@@ -260,7 +260,7 @@ export const useSpeedy = async (codeSpace: string) => {
           headers: { "Content-Type": mimeType },
         });
 
-        if (!response.ok) {
+        if (!response || !response.ok) {
           console.error(
             `Failed to upload font: ${f.path}, Status: ${response.status}`,
           );
