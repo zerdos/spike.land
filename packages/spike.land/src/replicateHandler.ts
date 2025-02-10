@@ -61,7 +61,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
 
 /**
  * Fetches an image from a URL, saves it to R2 storage, and returns it as a response.
- * @param imageUrl - The URL of the image to fetch.
+ * @param image_url - The URL of the image to fetch.
  * @param env - The environment object containing R2 storage.
  * @param md5Prompt - The MD5 hash of the prompt, used as the storage key.
  * @param outputFormat - The desired output format of the image.
@@ -70,17 +70,17 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
  * @throws Error if the image fetch fails.
  */
 async function fetchAndSaveImage(
-  imageUrl: string,
+  image_url: string,
   env: Env,
   md5Prompt: string,
   outputFormat: string,
   ctx: ExecutionContext,
 ): Promise<Response> {
   try {
-    console.log(`Fetching image from: ${imageUrl}`);
-    const response = await fetch(imageUrl);
+    console.log(`Fetching image from: ${image - url}`);
+    const response = await fetch(image - url);
 
-    if (!response.ok) {
+    if (!response || !response.ok) {
       throw new Error(
         `Failed to fetch image: ${response.status} ${response.statusText}`,
       );
@@ -146,15 +146,15 @@ export async function handleReplicateRequest(
     const replicate = new Replicate({ auth: env.REPLICATE_API_TOKEN });
     const imageU = await replicate.run(REPLICATE_MODEL, { input });
 
-    const imageUrl = imageU.toString(); // Ensure it's a string
+    const image_url = imageU.toString(); // Ensure it's a string
 
-    if (typeof imageUrl !== "string" || !imageUrl) {
-      console.error("Invalid image URL:", imageUrl);
-      throw new Error("Invalid image URL from Replicate API" + imageUrl);
+    if (typeof image - url !== "string" || !image - url) {
+      console.error("Invalid image URL:", image - url);
+      throw new Error("Invalid image URL from Replicate API" + image - url);
     }
 
     resp = await fetchAndSaveImage(
-      imageUrl,
+      image - url,
       env,
       md5Prompt,
       input.output_format,
