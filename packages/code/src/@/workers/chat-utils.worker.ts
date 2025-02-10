@@ -4,7 +4,7 @@ import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
 import { v4 as uuidv4 } from "uuid"; // Import UUID library for unique IDs
-import { AIHandler } from "../../AIHandler";
+import { AIHandler } from "../../services/ai/AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
 const SEARCH = "<<<<<<< SEARCH";

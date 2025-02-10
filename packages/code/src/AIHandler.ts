@@ -1,5 +1,4 @@
 import type { Message } from "@/lib/interfaces";
-
 import { AIService } from "./services/AIService";
 
 export class AIHandler {
@@ -7,8 +6,8 @@ export class AIHandler {
   private codeSpace: string;
 
   constructor(
-    setIsStreaming: (isStreaming: boolean) => void,
-    codeSpace: string,
+    setIsStreaming: (isStreaming: boolean) => void = () => {},
+    codeSpace: string = "default",
     aiService?: AIService,
   ) {
     this.codeSpace = codeSpace;
@@ -19,7 +18,7 @@ export class AIHandler {
         gpt4oEndpoint: "/api/openai",
         updateThrottleMs: 1300,
         retryWithClaudeEnabled: true,
-        setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
+        setIsStreaming: setIsStreaming,
       },
       this.codeSpace,
     );
@@ -45,8 +44,11 @@ export class AIHandler {
     currentCode: string,
     codeSpace: string,
   ): string {
-    return this.aiService.prepareClaudeContent(
-      { content, messages, codeNow: currentCode, codeSpace },
-    );
+    return this.aiService.prepareClaudeContent({
+      content,
+      messages,
+      codeNow: currentCode,
+      codeSpace
+    });
   }
 }

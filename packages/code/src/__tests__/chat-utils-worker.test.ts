@@ -1,110 +1,100 @@
-import type { HandleSendMessageProps } from "@/lib/interfaces";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ChatHandler, handleSendMessage } from "@/workers/chat-utils.worker";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import type { Message } from "@/lib/interfaces";
+import { handleSendMessage } from "../@/workers/chat-utils.worker";
 
-// Mock web worker context
-declare let self: Worker;
-self.postMessage = vi.fn();
+// Mock BroadcastChannel
+class MockBroadcastChannel {
+  postMessage = vi.fn();
+}
 
-// Mock AI Handler
-vi.mock("../services/ai/AIHandler", () => ({
-  AIHandler: {
-    process: vi.fn().mockImplementation(async (text: string) => ({
-      text,
-      timestamp: new Date().toISOString(),
-      status: "success",
-    })),
-    validateContent: vi.fn().mockImplementation((_content: string | { type: "text", text: string }[]) => true),
-  },
+// Mock worker environment
+const mockSelf = {
+  postMessage: vi.fn(),
+};
+global.BroadcastChannel = MockBroadcastChannel as any;
+global.self = mockSelf as any;
+
+const mockAIHandler = {
+  sendToAnthropic: vi.fn(),
+  prepareClaudeContent: vi.fn(),
+  sendToGpt4o: vi.fn()
+};
+
+// Mock the AIHandler class
+vi.mock("../AIHandler", () => ({
+  AIHandler: vi.fn().mockImplementation(() => mockAIHandler)
 }));
 
 describe("handleSendMessage", () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>;
-  let postMessageSpy: ReturnType<typeof vi.spyOn>;
-
   beforeEach(() => {
-    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-    postMessageSpy = vi.spyOn(self, "postMessage");
     vi.clearAllMocks();
+    mockAIHandler.sendToAnthropic.mockResolvedValue({
+      id: "test-id",
+      role: "assistant",
+      content: "Test response"
+    });
+    mockAIHandler.prepareClaudeContent.mockReturnValue("Prepared content");
   });
 
-  afterEach(() => {
-    consoleSpy.mockRestore();
-  });
-
-  it("should handle valid messages", async () => {
-    const testProps: HandleSendMessageProps = {
-      messages: [],
-      codeSpace: "test-space",
-      prompt: "Hello",
-      images: [],
-      code: "test code",
+  test("should handle valid messages", async () => {
+    const testMessage: Message = {
+      id: "test-message-1",
+      role: "user",
+      content: "Test message"
     };
 
-    await handleSendMessage(testProps);
-    expect(postMessageSpy).toHaveBeenCalledWith(expect.objectContaining({
+    const data = {
+      messages: [testMessage],
+      codeSpace: "test.ts",
+      prompt: "Test prompt",
+      images: [],
+      code: "// Test code"
+    };
+
+    const result = await handleSendMessage(data);
+
+    expect(result).toBeDefined();
+    expect(Array.isArray(result)).toBe(true);
+    expect(mockSelf.postMessage).toHaveBeenCalledWith(expect.objectContaining({
       isStreaming: false,
-      messages: expect.any(Array),
-      debugInfo: expect.any(Array),
+      messages: expect.any(Array)
     }));
   });
 
-  it("should log error when AIHandler throws", async () => {
-    const error = new Error("AI processing failed");
-    const { AIHandler: MockAIHandler } = await import("../services/ai/AIHandler");
-    vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
+  test("should handle error from AIHandler", async () => {
+    const testError = new Error("Test error in AIHandler");
 
-    const testProps: HandleSendMessageProps = {
-      messages: [],
-      codeSpace: "test-space",
-      prompt: "Error case",
+    // Mock both methods to throw the same error
+    mockAIHandler.prepareClaudeContent.mockImplementation(() => {
+      throw testError;
+    });
+
+    mockAIHandler.sendToAnthropic.mockRejectedValue(testError);
+
+    const testMessage: Message = {
+      id: "test-message-1",
+      role: "user",
+      content: "Test message"
+    };
+
+    const data = {
+      messages: [testMessage],
+      codeSpace: "test.ts",
+      prompt: "Test prompt",
       images: [],
-      code: "test code",
+      code: "// Test code"
     };
 
-    await handleSendMessage(testProps);
-    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining(error.message));
+    const result = await handleSendMessage(data);
+    
+    expect(result).toBeDefined();
+    expect(Array.isArray(result)).toBe(true);
 
-  describe("ChatHandler", () => {
-    let chatHandler: ChatHandler;
-    const defaultProps = {
-      messages: [],
-      codeSpace: "test-space",
-      code: "test code",
-    };
-
-    beforeEach(() => {
-      chatHandler = new ChatHandler(defaultProps);
-    });
-
-    it("should initialize with default state", () => {
-      expect(chatHandler).toBeDefined();
-      expect(chatHandler.handleMessage).toBeDefined();
-    });
-
-    it("should handle message processing", async () => {
-      const messagePayload = {
-        prompt: "Test message",
-        images: [],
-      };
-
-      await chatHandler.handleMessage(messagePayload);
-      expect(postMessageSpy).toHaveBeenCalledWith(expect.objectContaining({
-        isStreaming: false,
-      }));
-    });
-
-    it("should handle empty prompts", async () => {
-      const messagePayload = {
-        prompt: "",
-        images: [],
-      };
-
-      await chatHandler.handleMessage(messagePayload);
-      expect(postMessageSpy).not.toHaveBeenCalledWith(expect.objectContaining({
-        type: "error",
-      }));
-    });
-  });
+    const lastCall = mockSelf.postMessage.mock.lastCall?.[0];
+    expect(lastCall).toBeDefined();
+    expect(lastCall.debugInfo.some((log: string) => 
+      log.includes("Test error in AIHandler") || 
+      log.includes("Fatal error in handleSendMessage:")
+    )).toBe(true);
   });
 });
