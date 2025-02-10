@@ -63,8 +63,7 @@ describe("handleSendMessage", () => {
     };
 
     await handleSendMessage(testProps);
-    expect(consoleSpy).toHaveBeenCalledWith("Fatal error in handleSendMessage:", expect.any(Object));
-  });
+    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining(error.message));
 
   describe("ChatHandler", () => {
     let chatHandler: ChatHandler;
@@ -106,5 +105,6 @@ describe("handleSendMessage", () => {
         type: "error",
       }));
     });
+  });
   });
 });

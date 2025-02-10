@@ -113,7 +113,8 @@ export class AIService {
     });
 
     if (!response || !response.ok) {
-      throw new APIError(`HTTP error! status: ${response.status}`, response.status);
+      const responseStatus = !response.status ? "unknown" : response.status;
+      throw new APIError(`HTTP error! status: ${responseStatus}`, response? response.status: undefined);
     }
 
     return response;

@@ -77,8 +77,8 @@ async function fetchAndSaveImage(
   ctx: ExecutionContext,
 ): Promise<Response> {
   try {
-    console.log(`Fetching image from: ${image - url}`);
-    const response = await fetch(image - url);
+    console.log(`Fetching image from: ${image_url}`);
+    const response = await fetch(image_url);
 
     if (!response || !response.ok) {
       throw new Error(
@@ -148,13 +148,13 @@ export async function handleReplicateRequest(
 
     const image_url = imageU.toString(); // Ensure it's a string
 
-    if (typeof image - url !== "string" || !image - url) {
-      console.error("Invalid image URL:", image - url);
-      throw new Error("Invalid image URL from Replicate API" + image - url);
+    if (typeof image_url !== "string" || !image_url) {
+      console.error("Invalid image URL:", image_url);
+      throw new Error("Invalid image URL from Replicate API" + image_url);
     }
 
     resp = await fetchAndSaveImage(
-      image - url,
+      image_url,
       env,
       md5Prompt,
       input.output_format,
