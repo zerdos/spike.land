@@ -3,14 +3,10 @@ import { AIService } from "./services/AIService";
 
 export class AIHandler {
   private aiService: AIService;
-  private codeSpace: string;
-
   constructor(
-    setIsStreaming: (isStreaming: boolean) => void = () => {},
-    codeSpace: string = "default",
+    setIsStreaming: (isStreaming: boolean) => void = () => {},  
     aiService?: AIService,
   ) {
-    this.codeSpace = codeSpace;
     this.aiService = aiService || new AIService(
       {
         anthropicEndpoint: "/api/anthropic",
@@ -19,8 +15,7 @@ export class AIHandler {
         updateThrottleMs: 1300,
         retryWithClaudeEnabled: true,
         setIsStreaming: setIsStreaming,
-      },
-      this.codeSpace,
+      }
     );
   }
 

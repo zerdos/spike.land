@@ -93,7 +93,7 @@ async function renderApp(
     } else if (codeSpace) {
       const indexJs = `${origin}/live/${codeSpace}/index.js`;
       const res = await fetch(indexJs);
-      if (!res.ok) {
+      if (!res || !res.ok) {
         AppToRender = await importFromString(
           "export default ()=><div>Mock App for Testing</div>",
         );

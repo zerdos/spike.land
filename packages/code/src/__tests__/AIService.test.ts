@@ -21,7 +21,6 @@ vi.mock("../contextManager", () => ({
 
 describe("AIService", () => {
   let aiService: AIService;
-  const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -34,8 +33,7 @@ describe("AIService", () => {
         openAIEndpoint: "https://api.openai.com",
         gpt4oEndpoint: "https://api.gpt4o.com",
         setIsStreaming: vi.fn(),
-      },
-      testCodeSpace,
+      }
     );
   });
 

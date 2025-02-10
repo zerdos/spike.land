@@ -12,11 +12,9 @@ export interface AIServiceConfig {
 
 export class AIService {
   private _config: AIServiceConfig;
-  private _codeSpace: string;
-
-  constructor(config: AIServiceConfig, codeSpace: string) {
-    this._config = config;
-    this._codeSpace = codeSpace;
+ 
+  constructor(config: AIServiceConfig) {
+    this._config = config
   }
 
   public async sendToAI(

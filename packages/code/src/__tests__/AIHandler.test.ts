@@ -20,10 +20,9 @@ describe.skip("AIHandler", () => {
         updateThrottleMs: 1000,
         setIsStreaming: vi.fn(),
       },
-      testCodeSpace,
     );
     vi.mocked(mockAIService);
-    aiHandler = new AIHandler(vi.fn(), testCodeSpace);
+    aiHandler = new AIHandler(vi.fn());
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {

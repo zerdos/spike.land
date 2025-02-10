@@ -102,10 +102,8 @@ describe("handleSendMessage", () => {
         },
         "Initializing ChatHandler - {"codeSpace":"test.ts","messagesCount":1}",
         "Starting handleMessage - {"promptLength":11,"imagesCount":0}",
-        "Starting processMessage - {"maxRetries":3}",
-        "Sending assistant message",
-        "Error in handleMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
-        "Error in processMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
+        "Test error in AIHandler",
+        "Fatal error in handleSendMessage: this.aiService.prepareClaudeContent is not a function",
       ]
     `);
 

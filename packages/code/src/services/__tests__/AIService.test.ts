@@ -37,7 +37,7 @@ describe("AIService", () => {
       setIsStreaming: vi.fn(),
     };
 
-    service = new AIService(mockConfig, "test-space");
+    service = new AIService(mockConfig);
 
     global.fetch = vi.fn();
     vi.useFakeTimers();
