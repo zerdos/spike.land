@@ -165,10 +165,10 @@ export const transpileCode = memoize(async (code: string): Promise<string> => {
   }
 }, (code: string) => md5(code));
 
-export const screenShot = (): Promise<ImageData> => {
+export const screenshot = (): Promise<ImageData> => {
   return new Promise<ImageData>((resolve) => {
     const messageHandler = (ev: MessageEvent): void => {
-      if (ev.data.type === "screenShot") {
+      if (ev.data.type === "screenshot") {
         const imageData = ev.data.imageData as ImageData;
         window.removeEventListener("message", messageHandler);
 
@@ -185,7 +185,7 @@ export const screenShot = (): Promise<ImageData> => {
     });
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
-      type: "screenShot",
+      type: "screenshot",
       sender: "Runner / Editor",
     }, "*");
   });

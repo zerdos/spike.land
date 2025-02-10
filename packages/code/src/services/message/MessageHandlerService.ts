@@ -3,7 +3,6 @@ import type {
   MessageContent,
   MessageHandlerConfig,
   MessageResponse,
-  TextPart,
 } from "@/lib/interfaces";
 
 import {

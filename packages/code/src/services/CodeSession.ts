@@ -3,7 +3,7 @@ import { computeSessionHash } from "@/lib/make-sess";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { screenShot } from "../components/editorUtils";
+import { screenshot } from "../components/editorUtils";
 import { CodeProcessor } from "./code/CodeProcessor";
 import { ModelManager } from "./code/ModelManager";
 import { SessionManager } from "./code/SessionManager";
@@ -137,8 +137,8 @@ export class Code implements ICode {
     ]);
   }
 
-  screenShot(): Promise<ImageData> {
-    return screenShot();
+  screenshot(): Promise<ImageData> {
+    return screenshot();
   }
 
   async run(): Promise<void> {
