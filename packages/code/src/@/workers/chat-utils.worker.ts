@@ -175,22 +175,19 @@ class ChatHandler {
     images: ImageData[],
     claudeContent: string,
   ): Promise<Message> {
-    const imagesContent: MessageContent = images.map((image) => ({
-      type: "image_url",
-      image_url: { url: image.url },
+    const imagesContent = images.map((image) => ({
+      type: "image_url" as const,
+      imageUrl: { url: image.url }
     }));
 
-    if (imagesContent.length > 0) {
-      imagesContent.push({
-        type: "text",
-        text: claudeContent.trim() || "",
-      });
-    }
+    const content: MessageContent = imagesContent.length > 0 
+      ? [...imagesContent, { type: "text" as const, text: claudeContent.trim() || "" }]
+      : claudeContent;
 
     return {
       id: uuidv4(), // Use UUID for unique ID
       role: "user",
-      content: imagesContent.length > 0 ? imagesContent : claudeContent,
+      content,
     };
   }
 

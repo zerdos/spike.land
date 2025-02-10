@@ -236,24 +236,22 @@ const ChatInterface: React.FC<{
       return;
     }
     const contentToEdit = Array.isArray(messageToEdit.content)
-      ? messageToEdit.content.find((item) => item.type === "text")?.text || ""
+      ? messageToEdit.content.find((item): item is { type: "text", text: string } => item.type === "text")?.text || ""
       : messageToEdit.content;
 
     if (contentToEdit === undefined) {
       console.error("Invalid message content for editing");
       return;
     }
-    if (typeof contentToEdit !== "string") {
-      setEditInput(contentToEdit.text);
-    } else setEditInput(contentToEdit);
+    setEditInput(typeof contentToEdit === "string" ? contentToEdit : contentToEdit);
   }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
   }, []);
 
-  const memoizedScreenShot = useCallback(
-    (): Promise<ImageData> => cSess.screenShot(),
+  const memoizedScreenshot = useCallback(
+    (): Promise<ImageData> => cSess.screenshot(),
     [cSess],
   );
 
@@ -282,7 +280,7 @@ const ChatInterface: React.FC<{
       handleEditMessage={memoizedHandleEditMessage}
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
-      screenShot={memoizedScreenShot}
+      screenshot={memoizedScreenshot}
     />
   );
 });

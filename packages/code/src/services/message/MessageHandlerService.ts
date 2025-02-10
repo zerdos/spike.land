@@ -53,14 +53,14 @@ export class MessageHandlerService {
    * @param content The content to check
    * @returns True if content is a TextPart
    */
-  private isTextPart(content: MessageContent): content is TextPart {
+  private isTextPart(part: unknown): part is { type: "text", text: string } {
     return (
-      typeof content === "object" &&
-      content !== null &&
-      "type" in content &&
-      content.type === "text" &&
-      "text" in content &&
-      typeof (content as TextPart).text === "string"
+      typeof part === "object" &&
+      part !== null &&
+      "type" in part &&
+      part.type === "text" &&
+      "text" in part &&
+      typeof (part as { text: unknown }).text === "string"
     );
   }
 
@@ -73,16 +73,17 @@ export class MessageHandlerService {
   private getTextFromContent(content: MessageContent): string {
     if (typeof content === "string") {
       return content;
-    } else if (Array.isArray(content)) {
-      const textPart = content.find(part => part.type === "text") as TextPart | undefined;
-      if (!textPart) {
-        throw new Error("No text content found in message parts");
-      }
-      return textPart.text;
-    } else if (this.isTextPart(content)) {
-      return content.text;
+    } 
+    
+    if (!Array.isArray(content)) {
+      throw new Error("Invalid message content type");
     }
-    throw new Error("Invalid message content type");
+
+    const textPart = content.find(this.isTextPart);
+    if (!textPart) {
+      throw new Error("No text content found in message parts");
+    }
+    return textPart.text;
   }
 
   /**

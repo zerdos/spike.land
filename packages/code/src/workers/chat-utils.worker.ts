@@ -23,16 +23,17 @@ export class ChatHandler {
 
   async processMessage(message: Message) {
     try {
-      if (!AIHandler.validateContent(message.content)) {
+      const text = typeof message.content === "string" 
+        ? message.content
+        : message.content.find((part): part is { type: "text", text: string } => 
+            part.type === "text" && typeof part.text === "string"
+          )?.text;
+
+      if (!text) {
         throw new Error("Invalid assistant message content type");
       }
 
-      const content = message.content as { text: string; type: string; };
-      if (!content.text || !content.type || content.type !== "text") {
-        throw new Error("Invalid assistant message content type");
-      }
-
-      const response = await AIHandler.process(content.text);
+      const response = await AIHandler.process(text);
       self.postMessage({
         type: "response",
         content: response,

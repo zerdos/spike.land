@@ -18,13 +18,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   isStreaming,
   inputRef,
   code,
-  screenShot,
+  screenshot,
   screenshotImage,
   handleCancelScreenshot,
   isDarkMode,
 }) => {
   const [uploadedImages, setUploadedImages] = useState<ImageData[]>([]);
-  const [isScreenshotLoading, setScreenShotIsLoading] = useState(false);
+  const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
@@ -57,9 +57,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   };
 
   const makeScreenshot = async () => {
-    const imageData = await screenShot();
+    const imageData = await screenshot();
     setUploadedImages((prev) => [...prev, imageData]);
-    setScreenShotIsLoading(false);
+    setIsScreenshotLoading(false);
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
