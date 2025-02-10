@@ -4,7 +4,7 @@ import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
 import { v4 as uuidv4 } from "uuid";
-import { AIHandler } from "../../services/ai/AIHandler";
+import { AIHandler } from "../../AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
 const SEARCH = "<<<<<<< SEARCH";
@@ -175,6 +175,7 @@ export class ChatHandler {
     }
   }
 
+  
   private onUpdate(chunk: string): void {
     const updateObj = { chunk };
     this.BC.postMessage(updateObj);

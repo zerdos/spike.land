@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { Message } from "@/lib/interfaces";
-import { handleSendMessage } from "../@/workers/chat-utils.worker";
+import { handleSendMessage } from "@/workers/chat-utils.worker";
+
 
 // Mock BroadcastChannel
 class MockBroadcastChannel {
@@ -20,8 +21,7 @@ const mockAIHandler = {
   sendToGpt4o: vi.fn()
 };
 
-// Mock the AIHandler class
-vi.mock("../AIHandler", () => ({
+vi.mock("../../services/ai/AIHandler", () => ({
   AIHandler: vi.fn().mockImplementation(() => mockAIHandler)
 }));
 
@@ -86,18 +86,29 @@ describe("handleSendMessage", () => {
     };
 
     const result = await handleSendMessage(data);
-    
+
     expect(result).toBeDefined();
     expect(Array.isArray(result)).toBe(true);
 
     const lastCall = mockSelf.postMessage.mock.lastCall?.[0];
     expect(lastCall).toBeDefined();
-    expect(lastCall.debugInfo.filter((log: string | Message) => {
-      if (typeof log === 'string') {
-        return log.includes("Test error in AIHandler") || 
-               log.includes("Fatal error in handleSendMessage:");
-      }
-      return false;
-    }).length > 0).toBe(true);
+    expect(lastCall.debugInfo).toMatchInlineSnapshot(`
+      [
+        "Starting handleSendMessage - {"messagesCount":1,"codeSpace":"test.ts","promptLength":11,"imagesCount":0}",
+        {
+          "content": "Test message",
+          "id": "test-message-1",
+          "role": "user",
+        },
+        "Initializing ChatHandler - {"codeSpace":"test.ts","messagesCount":1}",
+        "Starting handleMessage - {"promptLength":11,"imagesCount":0}",
+        "Starting processMessage - {"maxRetries":3}",
+        "Sending assistant message",
+        "Error in handleMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
+        "Error in processMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
+      ]
+    `);
+
   });
 });
+
