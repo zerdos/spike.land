@@ -6,7 +6,6 @@ export async function handleApiRequest(
   request: Request,
   env: Env,
 ): Promise<Response> {
-
   switch (path[0]) {
     case "server-fetch": {
       if (request.method === "POST") {

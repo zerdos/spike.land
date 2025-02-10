@@ -7,7 +7,7 @@ describe("MessageHandlerService", () => {
   let consoleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => { });
+    consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     messageHandler = new MessageHandlerService();
   });
 
@@ -157,7 +157,12 @@ describe("MessageHandlerService", () => {
     it("should handle message processing error", async () => {
       const testError = new Error("Test error");
       // Using type assertion to access private method for testing
-      vi.spyOn(messageHandler as unknown as { processMessage: (message: Message) => Promise<Record<string, unknown>> }, "processMessage").mockRejectedValueOnce(testError);
+      vi.spyOn(
+        messageHandler as unknown as {
+          processMessage: (message: Message) => Promise<Record<string, unknown>>;
+        },
+        "processMessage",
+      ).mockRejectedValueOnce(testError);
 
       const result = await messageHandler.handleMessage({
         id: "10",

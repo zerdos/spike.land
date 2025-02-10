@@ -20,7 +20,6 @@ export const enhancedFetch = async (
       throw new Error(res.statusText);
     }
     return res;
-
   } catch (error) {
     // console.error("Error in enhancedFetch", error);
 

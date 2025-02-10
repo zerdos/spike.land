@@ -5,9 +5,7 @@ import type {
   MessageResponse,
 } from "@/lib/interfaces";
 
-import {
-  MessageType
-} from "@/lib/interfaces";
+import { MessageType } from "@/lib/interfaces";
 
 /**
  * Service for handling and processing different types of messages
@@ -52,14 +50,14 @@ export class MessageHandlerService {
    * @param content The content to check
    * @returns True if content is a TextPart
    */
-  private isTextPart(part: unknown): part is { type: "text", text: string } {
+  private isTextPart(part: unknown): part is { type: "text"; text: string; } {
     return (
       typeof part === "object" &&
       part !== null &&
       "type" in part &&
       part.type === "text" &&
       "text" in part &&
-      typeof (part as { text: unknown }).text === "string"
+      typeof (part as { text: unknown; }).text === "string"
     );
   }
 
@@ -72,8 +70,8 @@ export class MessageHandlerService {
   private getTextFromContent(content: MessageContent): string {
     if (typeof content === "string") {
       return content;
-    } 
-    
+    }
+
     if (!Array.isArray(content)) {
       throw new Error("Invalid message content type");
     }

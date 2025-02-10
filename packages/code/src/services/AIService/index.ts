@@ -12,27 +12,27 @@ export interface AIServiceConfig {
 
 export class AIService {
   private _config: AIServiceConfig;
- 
+
   constructor(config: AIServiceConfig) {
-    this._config = config
+    this._config = config;
   }
 
   public async sendToAI(
     endpoint: "anthropic" | "gpt4o",
     messages: Message[],
-    onUpdate: (code: string) => void
+    onUpdate: (code: string) => void,
   ): Promise<Message> {
     this._config.setIsStreaming(true);
 
     try {
-      const baseUrl = endpoint === "anthropic" 
-        ? this._config.anthropicEndpoint 
+      const baseUrl = endpoint === "anthropic"
+        ? this._config.anthropicEndpoint
         : this._config.gpt4oEndpoint;
 
       const response = await fetch(baseUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages }),
       });
 
       if (!response.ok) {
@@ -40,13 +40,13 @@ export class AIService {
       }
 
       const reader = response.body?.getReader();
-      if (!reader) throw new Error('No response body');
+      if (!reader) throw new Error("No response body");
 
-      let content = '';
+      let content = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const chunk = new TextDecoder().decode(value);
         content += chunk;
         onUpdate(content);
@@ -55,13 +55,13 @@ export class AIService {
       return {
         id: Math.random().toString(36).substring(7),
         role: "assistant",
-        content
+        content,
       };
     } catch (error) {
       if (error instanceof Error) {
         throw error;
       }
-      throw new Error('Unknown error occurred');
+      throw new Error("Unknown error occurred");
     } finally {
       this._config.setIsStreaming(false);
     }
@@ -69,20 +69,20 @@ export class AIService {
 
   public async sendToAnthropic(
     messages: Message[],
-    onUpdate: (code: string) => void
+    onUpdate: (code: string) => void,
   ): Promise<Message> {
     return this.sendToAI("anthropic", messages, onUpdate);
   }
 
   public async sendToGpt4o(
     messages: Message[],
-    onUpdate: (code: string) => void
+    onUpdate: (code: string) => void,
   ): Promise<Message> {
     return this.sendToAI("gpt4o", messages, onUpdate);
   }
 
   public prepareClaudeContent(
-    params: { content: string; messages: Message[]; codeNow: string; codeSpace: string }
+    params: { content: string; messages: Message[]; codeNow: string; codeSpace: string; },
   ): string {
     const { content, messages, codeNow, codeSpace } = params;
 
@@ -92,21 +92,21 @@ export class AIService {
     }
 
     const lastMessage = messages[messages.length - 1];
-    
+
     // If codeNow is different from the last message or there are no messages,
     // use anthropic system content
     if (!lastMessage || lastMessage.content !== codeNow) {
       const result = anthropicSystem({
         fileName: codeSpace,
         fileContent: codeNow,
-        userPrompt: content
+        userPrompt: content,
       });
       return result;
     }
-    
+
     // If code hasn't changed, return reminder content
     return reminder({
-      userPrompt: content
+      userPrompt: content,
     });
   }
 }

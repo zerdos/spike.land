@@ -63,7 +63,7 @@ const createExternalAliases = (
    ======================================================== */
 export default defineConfig((config) => {
   const isBuild = config.command === "build";
-  console.log("Building:", {config, isBuild});
+  console.log("Building:", { config, isBuild });
 
   const externalAliases = createExternalAliases(externalFiles, isBuild);
 

@@ -236,7 +236,9 @@ const ChatInterface: React.FC<{
       return;
     }
     const contentToEdit = Array.isArray(messageToEdit.content)
-      ? messageToEdit.content.find((item): item is { type: "text", text: string } => item.type === "text")?.text || ""
+      ? messageToEdit.content.find((item): item is { type: "text"; text: string; } =>
+        item.type === "text"
+      )?.text || ""
       : messageToEdit.content;
 
     if (contentToEdit === undefined) {

@@ -50,7 +50,7 @@ export function importMapReplace(code: string, origin: string): string {
       const hasSemicolon = match.trim().endsWith(";");
       const pkg = match.split('"')[1];
       if (!pkg) return match;
-    
+
       // Check for worker files
       if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && pkg.includes(".worker")) {
         return `import "${origin}/${pkg}.js"` + (hasSemicolon ? ";" : "");
@@ -59,10 +59,10 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith("/")) return match;
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
-    
+
       return `import "${origin}/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
     }
-    
+
     if (p2?.startsWith("`") && p2.endsWith("`")) {
       // This is a template literal, we should keep it as is
       return match;
@@ -70,7 +70,6 @@ export function importMapReplace(code: string, origin: string): string {
 
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
-  
     if (packageName?.startsWith("data:text")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
@@ -114,8 +113,6 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
 
-  
-
     if (packageName.includes(".")) {
       const extension = packageName.split(".").pop()!;
       if (["js", "mjs", "ts", "tsx"].includes(extension)) {
@@ -157,12 +154,11 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(dynamicImportTemplatePattern, replacer)
     .replace(topLevelNoFromPattern, replacer);
 
-
   replaced = replaced
-  .split("\n")
-  .map((line) => line.trim())
-  .filter((line) => !line.startsWith("//"))
-  .join("\n");
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => !line.startsWith("//"))
+    .join("\n");
 
   // Replace specific package paths based on the import map (oo)
   // Object.keys(oo).forEach((pkg) => {

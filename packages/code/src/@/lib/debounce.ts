@@ -3,7 +3,7 @@ interface DebounceOptions {
   edges?: Array<"leading" | "trailing">;
 }
 
-interface DebouncedFunction<T extends (...args: unknown[]) => unknown>  {
+interface DebouncedFunction<T extends (...args: unknown[]) => unknown> {
   (...args: Parameters<T>): void;
   schedule: () => void;
   cancel: () => void;
@@ -13,8 +13,8 @@ interface DebouncedFunction<T extends (...args: unknown[]) => unknown>  {
 export const debounce = <T extends (...args: unknown[]) => unknown>(
   func: T,
   debounceMs: number,
-  { signal, edges }: DebounceOptions = {}
-): DebouncedFunction<T> =>{
+  { signal, edges }: DebounceOptions = {},
+): DebouncedFunction<T> => {
   let pendingArgs: Parameters<T> | null = null;
   const leading = edges?.includes("leading") ?? false;
   const trailing = edges?.includes("trailing") ?? true;
@@ -82,6 +82,6 @@ export const debounce = <T extends (...args: unknown[]) => unknown>(
   signal?.addEventListener("abort", cancel, { once: true });
 
   return debounced as DebouncedFunction<T>;
-}
+};
 
 export { type DebouncedFunction, type DebounceOptions };

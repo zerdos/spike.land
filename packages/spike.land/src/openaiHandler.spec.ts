@@ -89,7 +89,7 @@ describe("OpenAIHandler", () => {
       });
 
       OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
-        arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))
+        arrayBuffer: () => Promise.resolve(new ArrayBuffer(10)),
       });
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
@@ -127,7 +127,7 @@ describe("OpenAIHandler", () => {
       });
 
       OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
-        arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))
+        arrayBuffer: () => Promise.resolve(new ArrayBuffer(10)),
       });
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
@@ -279,16 +279,16 @@ describe("OpenAIHandler", () => {
         messages: [{ role: "user", content: "Hello" }],
       });
 
-      const mockStream = async function* () {
+      const mockStream = async function*() {
         yield {
           choices: [{
-            delta: { content: "Hello " }
-          }]
+            delta: { content: "Hello " },
+          }],
         };
         yield {
           choices: [{
-            delta: { content: "world" }
-          }]
+            delta: { content: "world" },
+          }],
         };
       };
 

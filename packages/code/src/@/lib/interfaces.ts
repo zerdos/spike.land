@@ -209,8 +209,6 @@ export interface MessageHandlerConfig {
   timeout?: number;
 }
 
-
-
 export type MessagePart = TextPart | ImageUrlPart | ImagePart;
 export type MessageContent = string | MessagePart[];
 

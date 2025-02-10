@@ -2,6 +2,7 @@ import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { ICode, ICodeSession } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
+import { init } from "@/lib/tw-dev-setup";
 import { ClerkProvider } from "@clerk/clerk-react";
 import {
   createRootRoute,
@@ -15,7 +16,6 @@ import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
 import { Code } from "../services/CodeSession";
 import { CodeSessionBC } from "../services/CodeSessionBc";
-import {init} from "@/lib/tw-dev-setup";
 
 // Define route types
 interface RouteWithPageParams {

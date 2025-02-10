@@ -15,7 +15,7 @@ vi.mock("../lib/md5", () => ({
   md5: vi.fn().mockReturnValue("mockMd5"),
 }));
 vi.mock("../lib/shared", () => ({
-  connect: vi.fn().mockResolvedValue(() => { }),
+  connect: vi.fn().mockResolvedValue(() => {}),
 }));
 vi.mock("../components/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),

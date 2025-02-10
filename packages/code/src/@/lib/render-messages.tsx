@@ -144,14 +144,13 @@ export const ChatMessageBlock = memo<ChatMessageBlockProps>(
     return (
       <>
         {messageParts.map((part, index) => (
-          <React.Fragment key={`${index}-${md5(part.content)}`}>
-            <Code
-              value={part.content}
-              language={part.language || "plaintext"}
-              type={part.type}
-              onNewPrompt={onNewPrompt}
-            />
-          </React.Fragment>
+          <Code
+            key={`${index}-${md5(part.content)}`}
+            value={part.content}
+            language={part.language || "plaintext"}
+            type={part.type}
+            onNewPrompt={onNewPrompt}
+          />
         ))}
       </>
     );

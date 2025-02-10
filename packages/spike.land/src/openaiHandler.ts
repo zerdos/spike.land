@@ -131,15 +131,15 @@ export async function handleGPT4Request(
     const writer = writable.getWriter();
     const textEncoder = new TextEncoder();
 
-  const conf = {
-    stream: true,
-    model: body.model || "gpt-4o-mini", // Use the model from body, or fallback to 'gpt-4o-mini'
-    messages: body.messages,
-    // Spread the rest of the body properties, excluding 'model' and 'messages'
-    ...Object.fromEntries(
-      Object.entries(body).filter(([key]) => !["model", "messages"].includes(key)),
-    ),
-  };
+    const conf = {
+      stream: true,
+      model: body.model || "gpt-4o-mini", // Use the model from body, or fallback to 'gpt-4o-mini'
+      messages: body.messages,
+      // Spread the rest of the body properties, excluding 'model' and 'messages'
+      ...Object.fromEntries(
+        Object.entries(body).filter(([key]) => !["model", "messages"].includes(key)),
+      ),
+    };
 
     let answer = "";
     ctx.waitUntil((async () => {
@@ -191,5 +191,4 @@ export async function handleGPT4Request(
       },
     });
   }
-
 }

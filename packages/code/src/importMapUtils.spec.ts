@@ -13,7 +13,6 @@ describe("importMapReplace", () => {
     `);
   });
 
-
   it("should transpile the worker files to js in the end", async () => {
     const code = `import * as Monaco from "@/workers/monaco-editor.worker";`;
     const result = importMapReplace(code, "");
@@ -31,7 +30,6 @@ describe("importMapReplace", () => {
       import "/@/workers/monaco-editor.worker.js";"
     `);
   });
-
 
   it("should handle specific exports", async () => {
     const code = `import { __await, __rest } from "tslib";`;

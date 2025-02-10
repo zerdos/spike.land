@@ -1,7 +1,6 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/workers/chat-utils.worker";
-
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 // Mock BroadcastChannel
 class MockBroadcastChannel {
@@ -18,11 +17,11 @@ global.self = mockSelf as any;
 const mockAIHandler = {
   sendToAnthropic: vi.fn(),
   prepareClaudeContent: vi.fn(),
-  sendToGpt4o: vi.fn()
+  sendToGpt4o: vi.fn(),
 };
 
 vi.mock("../../services/ai/AIHandler", () => ({
-  AIHandler: vi.fn().mockImplementation(() => mockAIHandler)
+  AIHandler: vi.fn().mockImplementation(() => mockAIHandler),
 }));
 
 describe("handleSendMessage", () => {
@@ -31,7 +30,7 @@ describe("handleSendMessage", () => {
     mockAIHandler.sendToAnthropic.mockResolvedValue({
       id: "test-id",
       role: "assistant",
-      content: "Test response"
+      content: "Test response",
     });
     mockAIHandler.prepareClaudeContent.mockReturnValue("Prepared content");
   });
@@ -40,7 +39,7 @@ describe("handleSendMessage", () => {
     const testMessage: Message = {
       id: "test-message-1",
       role: "user",
-      content: "Test message"
+      content: "Test message",
     };
 
     const data = {
@@ -48,7 +47,7 @@ describe("handleSendMessage", () => {
       codeSpace: "test.ts",
       prompt: "Test prompt",
       images: [],
-      code: "// Test code"
+      code: "// Test code",
     };
 
     const result = await handleSendMessage(data);
@@ -57,7 +56,7 @@ describe("handleSendMessage", () => {
     expect(Array.isArray(result)).toBe(true);
     expect(mockSelf.postMessage).toHaveBeenCalledWith(expect.objectContaining({
       isStreaming: false,
-      messages: expect.any(Array)
+      messages: expect.any(Array),
     }));
   });
 
@@ -74,7 +73,7 @@ describe("handleSendMessage", () => {
     const testMessage: Message = {
       id: "test-message-1",
       role: "user",
-      content: "Test message"
+      content: "Test message",
     };
 
     const data = {
@@ -82,7 +81,7 @@ describe("handleSendMessage", () => {
       codeSpace: "test.ts",
       prompt: "Test prompt",
       images: [],
-      code: "// Test code"
+      code: "// Test code",
     };
 
     const result = await handleSendMessage(data);
@@ -106,7 +105,5 @@ describe("handleSendMessage", () => {
         "Fatal error in handleSendMessage: this.aiService.prepareClaudeContent is not a function",
       ]
     `);
-
   });
 });
-

@@ -101,20 +101,20 @@ export class ChatHandler {
 
     this.setIsStreaming = (isStreaming: boolean) => {
       this.BC.postMessage({ isStreaming });
-      self.postMessage({ isStreaming });
+      // .self.postMessage({ isStreaming });
     };
     this.setMessages = (newMessages: Message[]) => {
       this.messages = [...newMessages];
       const messageUpdate = { messages: this.messages };
       this.BC.postMessage(messageUpdate);
-      self.postMessage(messageUpdate);
+      // .self.postMessage(messageUpdate);
     };
 
     this.aiHandler = new AIHandler(this.setIsStreaming);
   }
 
   // In the handleMessage method of ChatHandler class:
-  async handleMessage({ prompt, images }: { prompt: string; images: ImageData[] }): Promise<void> {
+  async handleMessage({ prompt, images }: { prompt: string; images: ImageData[]; }): Promise<void> {
     debugInfo.addLog("Starting handleMessage", {
       promptLength: prompt.length,
       imagesCount: images.length,
@@ -157,13 +157,19 @@ export class ChatHandler {
         await this.processMessage();
       } catch (error) {
         debugInfo.addLog("Test error in AIHandler");
-        debugInfo.addLog("Fatal error in handleSendMessage: " + (error instanceof Error ? error.message : String(error)));
+        debugInfo.addLog(
+          "Fatal error in handleSendMessage: " +
+            (error instanceof Error ? error.message : String(error)),
+        );
         // Add return to exit the function and prevent further execution
         return;
       }
     } catch (error) {
       debugInfo.addLog("Test error in AIHandler");
-      debugInfo.addLog("Fatal error in handleSendMessage: " + (error instanceof Error ? error.message : String(error)));
+      debugInfo.addLog(
+        "Fatal error in handleSendMessage: " +
+          (error instanceof Error ? error.message : String(error)),
+      );
     } finally {
       const finalState = {
         isStreaming: false,
@@ -171,15 +177,14 @@ export class ChatHandler {
         debugInfo: [...debugInfo.logs],
       };
       this.BC.postMessage(finalState);
-      self.postMessage(finalState);
+      // .self.postMessage(finalState);
     }
   }
 
-  
   private onUpdate(chunk: string): void {
     const updateObj = { chunk };
     this.BC.postMessage(updateObj);
-    self.postMessage(updateObj);
+    // .self.postMessage(updateObj);
     this.messages[this.messages.length - 1].content += chunk;
     this.mod.instructions += chunk;
 
@@ -202,7 +207,7 @@ export class ChatHandler {
   ): Promise<Message> {
     const imagesContent = images.map((image) => ({
       type: "image_url" as const,
-      image_url: { url: image.url }
+      image_url: { url: image.url },
     }));
 
     const content: MessageContent = imagesContent.length > 0
@@ -224,7 +229,7 @@ export class ChatHandler {
     debugInfo.addLog("Starting processMessage", { maxRetries });
 
     this.BC.postMessage({ isStreaming: true });
-    self.postMessage({ isStreaming: true });
+    // .self.postMessage({ isStreaming: true });
 
     try {
       while (retries < maxRetries) {
@@ -408,17 +413,21 @@ ${this.mod.lastCode}
 
             try {
               const formatted = await (globalThis as unknown as {
-                prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean; }) => Promise<string>;
+                prettierJs: (
+                  { code, toThrow }: { code: string; toThrow: boolean; },
+                ) => Promise<string>;
               }).prettierJs({ code: this.mod.lastCode, toThrow: true });
 
               const transpiled = await (globalThis as unknown as {
-                transpile: ({ code, originToUse }: { code: string; originToUse: string; }) => Promise<string>;
+                transpile: (
+                  { code, originToUse }: { code: string; originToUse: string; },
+                ) => Promise<string>;
               }).transpile({ code: formatted, originToUse: location.origin });
 
               this.mod.lastError = "";
               const update = { code: formatted, transpiled };
               this.BC.postMessage(update);
-              self.postMessage(update);
+              // .self.postMessage(update);
               debugInfo.addLog("Code successfully formatted and transpiled");
             } catch (error) {
               const errorMsg = error instanceof Error ? error.message : String(error);
@@ -557,7 +566,9 @@ ${this.mod.lastCode}
     }
 
     let jump = 1;
-    while (jump < instructions.length && replaceFirstCodeMod(instructions.slice(0, jump), code) === code) {
+    while (
+      jump < instructions.length && replaceFirstCodeMod(instructions.slice(0, jump), code) === code
+    ) {
       jump *= 2;
     }
 
@@ -574,7 +585,11 @@ ${this.mod.lastCode}
     }
     const trimmedInstructions = instructions.slice(0, low);
     const result = replaceFirstCodeMod(instructions.slice(0, low), code);
-    debugInfo.addLog("Applied search/replace blocks", { code, result, instructions: trimmedInstructions });
+    debugInfo.addLog("Applied search/replace blocks", {
+      code,
+      result,
+      instructions: trimmedInstructions,
+    });
     return {
       result: replaceFirstCodeMod(instructions.slice(0, low), code),
       len: low,
@@ -617,7 +632,7 @@ export async function handleSendMessage({
       debugInfo: [...debugInfo.logs],
     };
     chatHandler.BC.postMessage(finalState);
-    self.postMessage(finalState);
+    // .self.postMessage(finalState);
   }
 
   return debugInfo.logs;

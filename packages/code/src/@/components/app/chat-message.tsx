@@ -93,7 +93,7 @@ const SystemMessage = React.memo<{
         <AccordionTrigger>System prompt</AccordionTrigger>
         <AccordionContent>
           <MessageContent
-            onNewPrompt={() => { }}
+            onNewPrompt={() => {}}
             content={content}
             isUser={isUser}
           />
@@ -159,12 +159,12 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
         ? "bg-blue-500 text-white"
         // Otherwise system
         : systemDark
-          ? isSelected
-            ? "bg-gray-700 ring-2 ring-blue-500"
-            : "bg-gray-800 text-white"
-          : isSelected
-            ? "bg-gray-200 ring-2 ring-blue-500"
-            : "bg-gray-100",
+        ? isSelected
+          ? "bg-gray-700 ring-2 ring-blue-500"
+          : "bg-gray-800 text-white"
+        : isSelected
+        ? "bg-gray-200 ring-2 ring-blue-500"
+        : "bg-gray-100",
     );
   }, [isUser, isDarkMode, isSelected]);
 

@@ -48,8 +48,8 @@ describe("KVLogger", () => {
     };
 
     // Mock console methods
-    mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => { });
-    mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => { });
+    mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
+    mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Create logger instance
     logger = new KVLogger("test-prefix", mockKVNamespace as unknown as KVNamespace);

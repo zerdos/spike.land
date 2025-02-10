@@ -41,7 +41,7 @@ export const buildOptions: BuildOptions = {
     assert: "assert",
     "graceful-fs": "./src/memfs",
     fs: "./src/memfs",
-    "node:fs": "./src/memfs", 
+    "node:fs": "./src/memfs",
   },
   external: [
     "/swVersion.js",

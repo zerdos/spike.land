@@ -33,7 +33,7 @@ describe("AIService", () => {
         openAIEndpoint: "https://api.openai.com",
         gpt4oEndpoint: "https://api.gpt4o.com",
         setIsStreaming: vi.fn(),
-      }
+      },
     );
   });
 

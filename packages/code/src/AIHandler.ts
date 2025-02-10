@@ -4,7 +4,7 @@ import { AIService } from "./services/AIService";
 export class AIHandler {
   private aiService: AIService;
   constructor(
-    setIsStreaming: (isStreaming: boolean) => void = () => {},  
+    setIsStreaming: (isStreaming: boolean) => void = () => {},
     aiService?: AIService,
   ) {
     this.aiService = aiService || new AIService(
@@ -15,7 +15,7 @@ export class AIHandler {
         updateThrottleMs: 1300,
         retryWithClaudeEnabled: true,
         setIsStreaming: setIsStreaming,
-      }
+      },
     );
   }
 
@@ -43,7 +43,7 @@ export class AIHandler {
       content,
       messages,
       codeNow: currentCode,
-      codeSpace
+      codeSpace,
     });
   }
 }
