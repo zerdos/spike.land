@@ -5,12 +5,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot } from "@/external/lucideReact";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Drawer } from "vaul";
+import type { ICodeSession } from "@/lib/interfaces";
 
-const MemoizedChatHeader = React.memo(ChatHeader);
-const MemoizedChatContainer = React.memo(ChatContainer);
-const MemoizedMessageInput = React.memo(MessageInput);
 
 export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   isOpen,
@@ -28,6 +26,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   screenshotImage,
   handleScreenshotClick,
   handleCancelScreenshot,
+  setEditingMessageId,
   editingMessageId,
   editInput,
   setEditInput,
@@ -46,7 +45,15 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
       isOpen ? "hidden" : "flex",
     ), [isOpen]);
 
-  const lastMessage = cSess.getSession().messages.slice(-1)[0] || null;
+  const [session, setSession] = useState<ICodeSession | null>(null);
+
+  useEffect(() => {
+    cSess.getSession().then(initialSession => {
+      setSession(initialSession);
+    });
+  }, [cSess]);
+
+  const lastMessage = session?.messages?.slice(-1)[0] || null;
 
   useEffect(() => {
     if (lastMessage) {
@@ -57,7 +64,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
         lastMessageElement.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [lastMessage && lastMessage.content]);
+  }, [lastMessage?.content]);
+
+  if (!session) return null;
 
   return (
     <Drawer.Root direction="right" open={isOpen} modal={false}>
@@ -90,15 +99,15 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
               A chat interface for interacting with the AI assistant. Contains message history and
               input field for new messages.
             </Drawer.Description>
-            <MemoizedChatHeader
+            <ChatHeader
               isDarkMode={isDarkMode}
               toggleDarkMode={toggleDarkMode}
               handleResetChat={handleResetChat}
               onClose={onClose}
             />
             <ScrollArea className="flex-grow">
-              <MemoizedChatContainer
-                messages={cSess.getSession().messages}
+              <ChatContainer
+                messages={session.messages}
                 editingMessageId={editingMessageId}
                 editInput={editInput}
                 setEditInput={setEditInput}
@@ -106,20 +115,21 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 handleSaveEdit={handleSaveEdit}
                 handleEditMessage={handleEditMessage}
                 isStreaming={isStreaming}
-                onNewPrompt={(prompt: string) =>
+                setEditingMessageId={setEditingMessageId}
+                onNewPrompt={async (prompt: string) => {
                   handleSendMessage({
-                    ...cSess.getSession(),
+                    ...session,
                     prompt,
                     images: [],
-                  })}
+                  })
+                }}
                 isDarkMode={isDarkMode}
               />
               <div id="after-last-message" />
             </ScrollArea>
-            <MemoizedMessageInput
+            <MessageInput
               input={input}
-              code={cSess.getSession().code}
-              messages={cSess.getSession().messages}
+              cSess={cSess}
               setInput={setInput}
               screenshot={screenshot}
               handleSendMessage={handleSendMessage}

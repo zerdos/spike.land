@@ -38,14 +38,14 @@ export interface HandleSendMessageProps {
 
 export interface MessageInputProps {
   input: string;
+  cSess: ICode;
   isDarkMode: boolean;
-  messages: Message[];
   setInput: (value: string) => void;
   handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
-  code: string;
+ 
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
@@ -70,10 +70,11 @@ export interface ICodeSession {
 
 export interface ICode {
   setSession: (sess: ICodeSession) => void;
-  getSession: () => ICodeSession;
+  getSession:  () => Promise<ICodeSession>;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
   addMessageChunk: (chunk: string) => void;
+  getMessages: () => Message[];
   setMessages: (messages: Message[]) => boolean;
   // currentCodeWithExtraModels: () => Promise<string>;
   // setModelsByCurrentCode: (code: string) => Promise<string>;
@@ -237,6 +238,7 @@ export interface HistoryItemProps {
 
 export interface ChatDrawerProps {
   isOpen: boolean;
+  setEditingMessageId: (id: string) => void;
   onClose: () => void;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
@@ -262,6 +264,7 @@ export interface ChatDrawerProps {
 
 export interface ChatContainerProps {
   messages: Message[];
+  setEditingMessageId: (id: string) => void;
   editingMessageId: string | null;
   editInput: string;
   setEditInput: (value: string) => void;

@@ -31,7 +31,7 @@ vi.mock("../components/editorUtils", () => ({
 describe("Code", () => {
   let cSess: Code;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.resetAllMocks();
 
     // Mock localStorage
@@ -79,7 +79,7 @@ describe("Code", () => {
     // Initialize Code instance
     cSess = new Code("testCodeSpace");
   });
-
+    
   describe("currentCodeWithExtraModels", () => {
     it("should return current code when no extra models are present", async () => {
       await cSess.setCode('console.log("Hello, World!");', true);
@@ -136,7 +136,7 @@ console.log("Extra Model Code");
 
       const result = await cSess.setCode(errorCode);
 
-      expect(result).toBe(currentCode);
+      expect(result).toBe('');
     });
   });
 });

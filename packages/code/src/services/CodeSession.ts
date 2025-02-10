@@ -35,6 +35,14 @@ export class Code implements ICode {
   private sessionManager: SessionManager;
 
   constructor(private codeSpace: string) {
+    this.session = {
+      code: "",
+      codeSpace: codeSpace,
+      html: "",
+      css: "",
+      messages: [],
+      transpiled: "",
+    };
     this.sessionManager = new SessionManager(codeSpace);
     this.session.codeSpace = codeSpace;
     this.codeProcessor = new CodeProcessor(codeSpace);
@@ -45,7 +53,7 @@ export class Code implements ICode {
     });
   }
 
-  getSession(): ICodeSession {
+  async getSession(): Promise<ICodeSession> {
     return this.sessionManager.getSession();
   }
 
@@ -71,6 +79,10 @@ export class Code implements ICode {
     return computeSessionHash(session);
   }
 
+  getMessages(): Message[] {
+    return [...this.session.messages];
+  }
+
   async getCode(): Promise<string> {
     if (mutex.isLocked()) {
       await mutex.waitForUnlock();
@@ -86,7 +98,7 @@ export class Code implements ICode {
     return this.sessionManager.setMessages(messages);
   }
 
-  async setCode(rawCode: string, skipRunning?: boolean): Promise<string | boolean> {
+  async setCode(rawCode: string, skipRunning: boolean = false): Promise<string | boolean> {
     if (this.isRunning) {
       this.pendingRun = rawCode;
       while (this.isRunning) {
@@ -102,7 +114,7 @@ export class Code implements ICode {
     this.pendingRun = null;
 
     try {
-      return await this.updateCodeInternal(rawCode, !!skipRunning);
+      return await this.updateCodeInternal(rawCode, skipRunning);
     } catch (error) {
       console.error("Error setting code:", error);
       return false;
@@ -117,6 +129,14 @@ export class Code implements ICode {
   ): Promise<string> {
     if (rawCode === this.session.code) {
       return this.session.code;
+    }
+
+    if (skipRunning) {
+      this.setSession({
+        ...this.session,
+        code: rawCode,
+      });
+      return rawCode;
     }
 
     if (this.setCodeController) {

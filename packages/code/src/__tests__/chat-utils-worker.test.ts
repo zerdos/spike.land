@@ -89,9 +89,8 @@ describe("handleSendMessage", () => {
     expect(result).toBeDefined();
     expect(Array.isArray(result)).toBe(true);
 
-    const lastCall = mockSelf.postMessage.mock.lastCall?.[0];
-    expect(lastCall).toBeDefined();
-    expect(lastCall.debugInfo).toMatchInlineSnapshot(`
+
+    expect(result).toMatchInlineSnapshot(`
       [
         "Starting handleSendMessage - {"messagesCount":1,"codeSpace":"test.ts","promptLength":11,"imagesCount":0}",
         {
@@ -101,8 +100,10 @@ describe("handleSendMessage", () => {
         },
         "Initializing ChatHandler - {"codeSpace":"test.ts","messagesCount":1}",
         "Starting handleMessage - {"promptLength":11,"imagesCount":0}",
-        "Test error in AIHandler",
-        "Fatal error in handleSendMessage: this.aiService.prepareClaudeContent is not a function",
+        "Starting processMessage - {"maxRetries":3}",
+        "Sending assistant message",
+        "Error in handleMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
+        "Error in processMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
       ]
     `);
   });

@@ -49,6 +49,7 @@ export const ChatContainer: React.FC<
 > = React.memo((props) => {
   const {
     messages,
+    setEditingMessageId,
     editingMessageId,
     editInput,
     setEditInput,
@@ -104,7 +105,7 @@ export const ChatContainer: React.FC<
         key={message.id}
         message={message}
         isSelected={editingMessageId === message.id}
-        onDoubleClick={() => memoizedHandleEditMessage(message.id)}
+        onDoubleClick={() => setEditingMessageId(message.id)}
         isEditing={editingMessageId === message.id}
         editInput={editInput}
         setEditInput={memoizedSetEditInput}

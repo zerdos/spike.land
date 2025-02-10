@@ -139,6 +139,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
 
       <ChatInterface
         cSess={cSess}
+        codeSpace={codeSpace}
         isOpen={isOpen}
         onClose={() => {
           console.log("Closing Chat");

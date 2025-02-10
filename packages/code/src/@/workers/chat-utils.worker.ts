@@ -101,19 +101,16 @@ export class ChatHandler {
 
     this.setIsStreaming = (isStreaming: boolean) => {
       this.BC.postMessage({ isStreaming });
-      // .self.postMessage({ isStreaming });
     };
     this.setMessages = (newMessages: Message[]) => {
       this.messages = [...newMessages];
       const messageUpdate = { messages: this.messages };
       this.BC.postMessage(messageUpdate);
-      // .self.postMessage(messageUpdate);
     };
 
     this.aiHandler = new AIHandler(this.setIsStreaming);
   }
 
-  // In the handleMessage method of ChatHandler class:
   async handleMessage({ prompt, images }: { prompt: string; images: ImageData[]; }): Promise<void> {
     debugInfo.addLog("Starting handleMessage", {
       promptLength: prompt.length,
@@ -161,7 +158,6 @@ export class ChatHandler {
           "Fatal error in handleSendMessage: " +
             (error instanceof Error ? error.message : String(error)),
         );
-        // Add return to exit the function and prevent further execution
         return;
       }
     } catch (error) {
@@ -177,14 +173,12 @@ export class ChatHandler {
         debugInfo: [...debugInfo.logs],
       };
       this.BC.postMessage(finalState);
-      // .self.postMessage(finalState);
     }
   }
 
   private onUpdate(chunk: string): void {
     const updateObj = { chunk };
     this.BC.postMessage(updateObj);
-    // .self.postMessage(updateObj);
     this.messages[this.messages.length - 1].content += chunk;
     this.mod.instructions += chunk;
 
@@ -229,7 +223,6 @@ export class ChatHandler {
     debugInfo.addLog("Starting processMessage", { maxRetries });
 
     this.BC.postMessage({ isStreaming: true });
-    // .self.postMessage({ isStreaming: true });
 
     try {
       while (retries < maxRetries) {
@@ -427,7 +420,6 @@ ${this.mod.lastCode}
               this.mod.lastError = "";
               const update = { code: formatted, transpiled };
               this.BC.postMessage(update);
-              // .self.postMessage(update);
               debugInfo.addLog("Code successfully formatted and transpiled");
             } catch (error) {
               const errorMsg = error instanceof Error ? error.message : String(error);
@@ -632,7 +624,6 @@ export async function handleSendMessage({
       debugInfo: [...debugInfo.logs],
     };
     chatHandler.BC.postMessage(finalState);
-    // .self.postMessage(finalState);
   }
 
   return debugInfo.logs;

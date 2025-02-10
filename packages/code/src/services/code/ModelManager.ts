@@ -42,26 +42,28 @@ export class ModelManager implements IModelManager {
         this.models.set(codeSpace, codeInstance);
       }
 
-      if (codeInstance.getSession().code !== codeContent) {
+      const session = await codeInstance.getSession();
+      if (session.code !== codeContent) {
         const updatedCode = await codeInstance.setCode(
           codeContent + "\n\n\n",
           codeSpace !== this.currentCodeSpace,
         );
 
-        if (updatedCode !== codeContent + "\n\n\n") {
-          errors.push(`Failed to update code for ${codeSpace}`);
-        }
+      if (!updatedCode) {
+        errors.push(`Failed to update code for ${codeSpace}`);
       }
     }
-
-    // Re-transpile current model's code to ensure everything is fresh
-    const currentModel = this.models.get(this.currentCodeSpace);
-    if (currentModel) {
-      await currentModel.setCode(currentModel.getSession().code, true);
-    }
-
-    return errors.join("\n");
   }
+
+  // Re-transpile current model's code to ensure everything is fresh
+  const currentModel = this.models.get(this.currentCodeSpace);
+  if (currentModel) {
+    const currentSession = await currentModel.getSession();
+    await currentModel.setCode(currentSession.code, true);
+  }
+
+  return errors.join("\n");
+}
 
   async getCurrentCodeWithExtraModels(): Promise<string> {
     const currentModel = this.models.get(this.currentCodeSpace);
@@ -69,8 +71,9 @@ export class ModelManager implements IModelManager {
       throw new Error("Current model not found");
     }
 
+    const currentSession = await currentModel.getSession();
     const extraModels = await this.fetchAndCreateExtraModels(
-      currentModel.getSession().code,
+      currentSession.code,
       location.origin,
     );
 
@@ -80,7 +83,7 @@ export class ModelManager implements IModelManager {
 
     const currentCodeSection = this.formatCodeAsSection(
       this.currentCodeSpace,
-      currentModel.getSession().code,
+      currentSession.code,
     );
 
     return [currentCodeSection, ...extraCodeSections].join("\n");
@@ -119,7 +122,7 @@ export class ModelManager implements IModelManager {
   }
 
   private formatCodeAsSection(codeSpace: string, code: string): string {
-    return `# ${codeSpace}.tsx\n\n\`\`\`tsx\n${code}\n\`\`\`\n`;
+    return `# ${codeSpace}.tsx\n\n\`\`\`tsx\n${code.trim()}\n\`\`\`\n`;
   }
 
   async release(): Promise<void> {

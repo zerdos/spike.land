@@ -16,16 +16,51 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
-  const [mod, _setMod] = useState({
-    lastMd5s: [md5(cSess.getSession().code)],
-    lastCode: cSess.getSession().code,
+  const [session, setSession] = useState<ICodeSession | null>(null);
+  const [mod, _setMod] = useState<{
+    lastMd5s: string[];
+    lastCode: string;
+    controller: AbortController;
+  }>({
+    lastMd5s: [],
+    lastCode: "",
     controller: new AbortController(),
   });
+
+  // Initialize session
+  useEffect(() => {
+    cSess.getSession().then(initialSession => {
+      setSession(initialSession);
+      _setMod(prev => ({
+        ...prev,
+        lastMd5s: [md5(initialSession.code)],
+        lastCode: initialSession.code,
+      }));
+    });
+  }, [cSess]);
+
+  useEffect(() => {
+    if (!session) return;
+    
+    (async () => {
+      const lastCode = await cSess.getCode();
+      if (mod.lastCode === lastCode) return;
+      if (mod.lastMd5s.includes(md5(lastCode))) return;
+
+      _setMod((prev) => ({
+        ...prev,
+        lastCode,
+        lastMd5s: [...prev.lastMd5s, md5(lastCode)],
+      }));
+    })();
+  }, [session]);
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
+      if (!session) return;
+
       mod.controller.abort();
       mod.controller = new AbortController();
       const { signal } = mod.controller;
@@ -37,11 +72,13 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           toThrow: false,
         });
         if (signal.aborted) return;
-        if (mod.lastCode !== cSess.getSession().code) {
+
+        const currentSession = await cSess.getSession();
+        if (mod.lastCode !== currentSession.code) {
           await wait(200);
           if (signal.aborted) return;
         }
-        if (formatted === cSess.getSession().code) return;
+        if (formatted === currentSession.code) return;
         if (newCode === mod.lastCode) return;
         if (formatted === mod.lastCode) return;
 
@@ -60,12 +97,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         console.error(e);
       }
     },
-    [cSess, editorState.code, throttledTypeCheck],
+    [cSess, editorState.code, throttledTypeCheck, session],
   );
 
   // Listen for external code changes in cSess
   useEffect(() => {
-    if (!editorState.started || !cSess || !cSess.sub) return;
+    if (!editorState.started || !cSess || !cSess.sub || !session) return;
 
     let newCode = "";
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
@@ -93,10 +130,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     });
 
     return () => unsubscribe();
-  }, [editorState.started]);
+  }, [editorState.started, session]);
 
   // Initialize the editor once containerRef is available
   useEffect(() => {
+    if (!session) return;
+
     // Validate if we need to run type checks again
     if (errorType) throttledTypeCheck();
 
@@ -107,16 +146,14 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const { setValue } = await initializeEditor({
         container: containerRef.current!,
         codeSpace,
-        code: cSess.getSession().code,
+        code: session.code,
         onChange: handleContentChange,
-        // Add readOnly if you want to handle it:
-        // readOnly,
       });
 
       setEditorState((prev) => ({
         ...prev,
         started: true,
-        code: cSess.getSession().code,
+        code: session.code,
         setValue,
       }));
     })();
@@ -128,9 +165,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     setEditorState,
     initializeEditor,
     codeSpace,
-    cSess,
+    session,
     handleContentChange,
   ]);
+
+  if (!session) return null;
 
   return (
     <div className="flex h-screen w-full max-w-[800px] overflow-hidden">

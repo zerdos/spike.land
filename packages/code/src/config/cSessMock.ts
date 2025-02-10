@@ -5,7 +5,7 @@ class SessMock implements ICode {
 
   private subs: Array<(sess: ICodeSession) => void> = [];
 
-  session: ICodeSession = {
+  private session: ICodeSession = {
     code: "",
     codeSpace: "",
     html: "",
@@ -14,18 +14,16 @@ class SessMock implements ICode {
     css: "",
   };
 
+  getSession = async (): Promise<ICodeSession> => this.session;
+  
+  setSession = async (sess: ICodeSession): Promise<void> => {
+    this.session = sess;
+    this.broadCastSessChanged();
+  };
+
   init: () => Promise<ICodeSession> = async () => {
     return this.session;
   };
-
-  getSession(): ICodeSession {
-    return this.session;
-  }
-  
-  setSession(sess: ICodeSession): ICodeSession {
-    this.session = sess;
-    return sess;
-  }
 
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
@@ -73,6 +71,8 @@ class SessMock implements ICode {
   async getCode(): Promise<string> {
     return this.session.code;
   }
+
+  getMessages = () => this.session.messages;
 }
 
 export const cSessMock = new SessMock();

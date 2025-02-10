@@ -13,11 +13,10 @@ import React, { useRef, useState } from "react";
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
   setInput,
-  messages,
+  cSess,
   handleSendMessage,
   isStreaming,
   inputRef,
-  code,
   screenshot,
   screenshotImage,
   handleCancelScreenshot,
@@ -27,13 +26,15 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
+    const session = await cSess.getSession();
+    const { code, messages } = session;
     const result = handleSendMessage({
       messages,
       codeSpace: getCodeSpace(location.pathname),
       prompt: input,
       images: uploadedImages,
-      code: code,
+      code,
     });
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending

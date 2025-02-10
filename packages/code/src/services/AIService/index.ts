@@ -35,7 +35,7 @@ export class AIService {
         body: JSON.stringify({ messages }),
       });
 
-      if (!response.ok) {
+      if (!response || !response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 

@@ -2,26 +2,34 @@ import { ChatDrawer } from "@/components/app/chat-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import type { ICode } from "@/lib/interfaces";
+import type { ICode, ICodeSession } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/lib/shared";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { useScreenshot } from "./hooks/useScreenshot";
 
-const MemoizedChatDrawer = React.memo(ChatDrawer);
 
 let isStreamingTimeout: NodeJS.Timeout | null = null;
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
+  codeSpace: string;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const { codeSpace } = cSess.getSession();
+  const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const [messages, setMessages] = useState<Message[]>([]);
 
-  const [messages, setMessages] = useState<Message[]>(cSess.getSession().messages);
+  useEffect(() => {
+    cSess.getSession().then(initialSession => {
+      setSession(initialSession);
+      setMessages(initialSession.messages);
+    });
+  }, [cSess]);
+
+  const codeSpace = session?.codeSpace ?? "";
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
     false,
@@ -212,20 +220,19 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-        handleSendMessage({
-          messages: [],
-          codeSpace,
-          prompt,
-          images,
-          code: cSess.getSession().code,
+        cSess.getSession().then(currentSession => {
+          handleSendMessage({
+            messages: [],
+            codeSpace,
+            prompt,
+            images,
+            code: currentSession.code,
+          });
         });
       }
     }
   }, [isOpen, codeSpace, setInput, cSess]);
 
-  const memoizedSetInput = useCallback((value: string): void => {
-    setInput(value);
-  }, [setInput]);
 
   const memoizedHandleEditMessage = useCallback((messageId: string): void => {
     setEditingMessageId(messageId);
@@ -260,15 +267,16 @@ const ChatInterface: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <MemoizedChatDrawer
+    <ChatDrawer
       isOpen={isOpen}
+      setEditingMessageId={setEditingMessageId}
       onClose={onClose}
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
       handleResetChat={handleResetChat}
       isStreaming={!!isStreaming}
       input={input}
-      setInput={memoizedSetInput}
+      setInput={setInput}
       cSess={cSess}
       handleSendMessage={handleSendMessage}
       inputRef={inputRef}
