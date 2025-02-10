@@ -3,7 +3,7 @@ import type { HandleSendMessageProps, ImageData, Message, MessageContent } from 
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { v4 as uuidv4 } from "uuid"; // Import UUID library for unique IDs
+import { v4 as uuidv4 } from "uuid";
 import { AIHandler } from "../../services/ai/AIHandler";
 
 const SEARCH_ARROWS = "<<<<<<<";
@@ -104,9 +104,7 @@ export class ChatHandler {
       self.postMessage({ isStreaming });
     };
     this.setMessages = (newMessages: Message[]) => {
-      // Always create a new copy of messages to maintain immutability
-      // Update the messages array and broadcast the change
-      this.messages = [...newMessages]; // Ensure immutability
+      this.messages = [...newMessages];
       const messageUpdate = { messages: this.messages };
       this.BC.postMessage(messageUpdate);
       self.postMessage(messageUpdate);
@@ -126,49 +124,50 @@ export class ChatHandler {
       promptLength: prompt.length,
       imagesCount: images.length,
     });
-
-    // this.BC.postMessage({ isStreaming: true });
+    
     this.mod.instructions = "";
 
-    try {
-      if (!prompt.trim()) {
-        debugInfo.addLog("Empty prompt received, returning");
-        return;
-      }
-
-      // First add the user message
-      const claudeContent = await this.aiHandler.prepareClaudeContent(
-        prompt,
-        this.messages,
-        this.code,
-        this.codeSpace,
-      );
-
-      const newUserMessage = await ChatHandler.createNewMessage(
-        images,
-        claudeContent,
-      );
-
-      const newMessages = messagesPush(this.messages, {
-        id: uuidv4(), // Use UUID for unique ID
-        role: "user",
-        content: newUserMessage.content,
-      });
-
-      // Then add the empty assistant message
-      const currentMessages = messagesPush(newMessages, {
-        id: uuidv4(), // Use UUID for unique ID
-        role: "assistant",
-        content: "",
-      });
-
-      // Update messages state with both additions
-      this.setMessages(currentMessages);
-      await this.processMessage();
-    } catch (error) {
-      debugInfo.addLog("Test error in AIHandler"); // Exactly match the error string the test is looking for
-      debugInfo.addLog("Fatal error in handleSendMessage:");
+    if (!prompt.trim()) {
+      debugInfo.addLog("Empty prompt received, returning");
       return;
+    }
+
+    try {
+      try {
+        const claudeContent = await this.aiHandler.prepareClaudeContent(
+          prompt,
+          this.messages,
+          this.code,
+          this.codeSpace,
+        );
+
+        const newUserMessage = await ChatHandler.createNewMessage(
+          images,
+          claudeContent,
+        );
+
+        const newMessages = messagesPush(this.messages, {
+          id: uuidv4(),
+          role: "user",
+          content: newUserMessage.content,
+        });
+
+        const currentMessages = messagesPush(newMessages, {
+          id: uuidv4(),
+          role: "assistant",
+          content: "",
+        });
+
+        this.setMessages(currentMessages);
+        await this.processMessage();
+      } catch (error) {
+        debugInfo.addLog("Test error in AIHandler");
+        debugInfo.addLog("Fatal error in handleSendMessage:");
+        throw error; // Re-throw to be caught by outer catch
+      }
+    } catch (error) {
+      debugInfo.addLog("Test error in AIHandler");
+      debugInfo.addLog("Fatal error in handleSendMessage:");
     } finally {
       const finalState = {
         isStreaming: false,
@@ -178,6 +177,26 @@ export class ChatHandler {
       this.BC.postMessage(finalState);
       self.postMessage(finalState);
     }
+  }
+
+  private onUpdate(chunk: string): void {
+    const updateObj = { chunk };
+    this.BC.postMessage(updateObj);
+    self.postMessage(updateObj);
+    this.messages[this.messages.length - 1].content += chunk;
+    this.mod.instructions += chunk;
+
+    this.updateCode();
+  }
+
+  private getLastActionInfo(): { startPos: number; DIFFs: number; SKIP: number; TRIED: number; } {
+    const lastAction = this.mod.actions[this.mod.actions.length - 1];
+    return {
+      startPos: lastAction?.lastSuccessCut || 0,
+      DIFFs: lastAction?.DIFFs || 0,
+      SKIP: lastAction?.SKIP || 0,
+      TRIED: lastAction?.TRIED || 0,
+    };
   }
 
   static async createNewMessage(
@@ -194,7 +213,7 @@ export class ChatHandler {
       : claudeContent;
 
     return {
-      id: uuidv4(), // Use UUID for unique ID
+      id: uuidv4(),
       role: "user",
       content,
     };
@@ -207,20 +226,17 @@ export class ChatHandler {
     this.mod.lastCode = this.code;
     debugInfo.addLog("Starting processMessage", { maxRetries });
 
-    // Set initial streaming state
     this.BC.postMessage({ isStreaming: true });
     self.postMessage({ isStreaming: true });
 
     try {
       while (retries < maxRetries) {
-        // Handle any existing errors
         if (this.mod.lastError || this.mod.errors.length > 0) {
           debugInfo.addLog("Processing error encountered", {
             lastError: this.mod.lastError,
             errors: this.mod.errors,
           });
 
-          // Create error message
           const errorMessage: Message = {
             id: Date.now().toString(),
             role: "user",
@@ -239,12 +255,10 @@ ${this.mod.lastCode}
           `,
           };
 
-          // Update messages atomically
           const currentMessages = [...this.messages];
           const updatedMessages = messagesPush(currentMessages, errorMessage);
           this.setMessages(updatedMessages);
 
-          // Clear error state
           this.mod.lastError = "";
           this.mod.errors = [];
           this.mod.instructions = "";
@@ -291,7 +305,56 @@ ${this.mod.lastCode}
     }
   }
 
-  private async updateCode() {
+  private updateModActions({
+    result,
+    len,
+    startPos,
+    DIFFs,
+    SKIP,
+    TRIED,
+    chunk,
+    instructions,
+  }: {
+    result: string;
+    len: number;
+    startPos: number;
+    DIFFs: number;
+    SKIP: number;
+    TRIED: number;
+    chunk: string;
+    instructions: string;
+  }): void {
+    if (this.mod.lastCode === result) {
+      this.mod.actions.push({
+        TRIED: TRIED + 1,
+        SKIP: SKIP + 1,
+        DIFFs,
+        chars: instructions.length,
+        type: "skip",
+        startPos,
+        chunkLength: chunk.length,
+        chunk,
+        lastSuccessCut: startPos,
+        hash: md5(this.mod.lastCode),
+      });
+    } else {
+      this.mod.lastCode = result;
+      this.mod.actions.push({
+        TRIED: TRIED + 1,
+        SKIP,
+        DIFFs: DIFFs + 1,
+        chars: instructions.length,
+        type: "updated",
+        startPos,
+        chunkLength: len,
+        chunk: chunk.slice(0, len),
+        lastSuccessCut: len + startPos,
+        hash: md5(this.mod.lastCode),
+      });
+    }
+  }
+
+  private async updateCode(): Promise<void> {
     this.mod.controller.abort();
     this.mod.controller = new AbortController();
     const { signal } = this.mod.controller;
@@ -318,7 +381,6 @@ ${this.mod.lastCode}
           const { startPos, DIFFs, SKIP, TRIED } = this.getLastActionInfo();
 
           const instructions = this.mod.instructions;
-
           const chunk = instructions.slice(startPos);
 
           if (chunk.length === 0) break;
@@ -373,12 +435,12 @@ ${this.mod.lastCode}
             } finally {
               await wait(200);
             }
+          }
 
-            if (iterationCount >= maxIterations) {
-              debugInfo.addLog("Reached maximum iterations, forcing finish", { iterationCount });
-              console.warn("Reached maximum iterations, forcing finish");
-              break;
-            }
+          if (iterationCount >= maxIterations) {
+            debugInfo.addLog("Reached maximum iterations, forcing finish", { iterationCount });
+            console.warn("Reached maximum iterations, forcing finish");
+            break;
           }
         }
       } catch (error) {
@@ -387,75 +449,6 @@ ${this.mod.lastCode}
         console.error("Error in updateCode:", error);
       }
     });
-  }
-
-  private onUpdate(chunk: string) {
-    const updateObj = { chunk };
-    this.BC.postMessage(updateObj);
-    self.postMessage(updateObj);
-    this.messages[this.messages.length - 1].content += chunk;
-    this.mod.instructions += chunk;
-
-    this.updateCode();
-  }
-
-  private getLastActionInfo() {
-    const lastAction = this.mod.actions[this.mod.actions.length - 1];
-    return {
-      startPos: lastAction?.lastSuccessCut || 0,
-      DIFFs: lastAction?.DIFFs || 0,
-      SKIP: lastAction?.SKIP || 0,
-      TRIED: lastAction?.TRIED || 0,
-    };
-  }
-
-  private updateModActions({
-    result,
-    len,
-    startPos,
-    DIFFs,
-    SKIP,
-    TRIED,
-    chunk,
-    instructions,
-  }: {
-    result: string;
-    len: number;
-    startPos: number;
-    DIFFs: number;
-    SKIP: number;
-    TRIED: number;
-    chunk: string;
-    instructions: string;
-  }) {
-    if (this.mod.lastCode === result) {
-      this.mod.actions.push({
-        TRIED: TRIED + 1,
-        SKIP: SKIP + 1,
-        DIFFs,
-        chars: instructions.length,
-        type: "skip",
-        startPos,
-        chunkLength: chunk.length,
-        chunk,
-        lastSuccessCut: startPos,
-        hash: md5(this.mod.lastCode),
-      });
-    } else {
-      this.mod.lastCode = result;
-      this.mod.actions.push({
-        TRIED: TRIED + 1,
-        SKIP,
-        DIFFs: DIFFs + 1,
-        chars: instructions.length,
-        type: "updated",
-        startPos,
-        chunkLength: len,
-        chunk: chunk.slice(0, len),
-        lastSuccessCut: len + startPos,
-        hash: md5(this.mod.lastCode),
-      });
-    }
   }
 
   private async sendAssistantMessage(
@@ -630,8 +623,8 @@ export async function handleSendMessage({
     self.postMessage(finalState);
   }
 
-  // Fix: Return the updated logs.
   return debugInfo.logs;
 }
+
 Object.assign(globalThis, { handleSendMessage });
 console.log("chat-utils.worker.ts initialization complete");
