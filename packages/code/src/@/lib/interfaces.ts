@@ -69,7 +69,8 @@ export interface ICodeSession {
 }
 
 export interface ICode {
-  session: ICodeSession;
+  setSession: (sess: ICodeSession) => void;
+  getSession: () => ICodeSession;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
   addMessageChunk: (chunk: string) => void;

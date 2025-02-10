@@ -82,10 +82,10 @@ const App: React.FC = () => {
       (async () => {
         Object.assign(globalThis, { cSess });
         const cSessBr = new CodeSessionBC(codeSpace);
-        cSessBr.init(cSess.session);
+        cSessBr.init(cSess.getSession());
 
         unSub = cSessBr.sub((sess) => {
-          cSess.session = sess;
+          cSess.setSession(sess);
           setState(cSess);
         });
       })();

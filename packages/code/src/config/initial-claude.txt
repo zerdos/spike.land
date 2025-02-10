@@ -96,7 +96,7 @@ Here are the specific instructions provided by the user:
 
    Ensure that the SEARCH block contains the exact code to be replaced. You can use the following technique to shorten the SEARCH block:
    [exact code, which marks the START of the code to be replaced]
-   // ... (rest of the code is unchanged)
+   // ...
    [exact code, which marks the END of the code to be replaced]
 
 4. Output Format:

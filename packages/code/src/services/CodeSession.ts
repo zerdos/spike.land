@@ -23,16 +23,32 @@ export class Code implements ICode {
   private setCodeController: AbortController | null = null;
   private isRunning = false;
   private pendingRun: string | null = null;
+  private session: ICodeSession = {
+    code: "",
+    codeSpace: "",
+    html: "",
+    css: "",
+    messages: [],
+    transpiled: "",
+  };
 
   constructor(private codeSpace: string) {
     this.sessionManager = new SessionManager(codeSpace);
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
+    this.setSession({
+      ...this.session,
+      codeSpace,
+    })
   }
 
-  get session(): ICodeSession {
-    return this.sessionManager.getSession();
+  getSession(): ICodeSession {
+    return this.session;
   }
+
+  setSession(session: ICodeSession): void {
+    this.sessionManager.updateSession(session);
+  } 
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     const initializedSession = await this.sessionManager.init(session ?? undefined);
@@ -40,6 +56,7 @@ export class Code implements ICode {
       signal: `${this.codeSpace} ${initializedSession.codeSpace}`,
       sess: initializedSession,
     });
+    this.setSession(initializedSession);
     return initializedSession;
   }
 

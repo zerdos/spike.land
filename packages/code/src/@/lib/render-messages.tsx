@@ -8,7 +8,7 @@ import { isDiffContent } from "@/lib/diff-utils";
 import { getPartsStreaming } from "@/lib/get-parts";
 import type { ParsingState } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import React, { memo, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo, useRef } from "react";
 
 interface CodeProps {
   value: string;
