@@ -110,7 +110,7 @@ export class ChatHandler {
       self.postMessage(messageUpdate);
     };
 
-    this.aiHandler = new AIHandler(this.setIsStreaming, codeSpace);
+    this.aiHandler = new AIHandler(this.setIsStreaming);
   }
 
   // In the handleMessage method of ChatHandler class:
