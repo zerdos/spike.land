@@ -15,7 +15,7 @@ vi.mock("../lib/md5", () => ({
   md5: vi.fn().mockReturnValue("mockMd5"),
 }));
 vi.mock("../lib/shared", () => ({
-  connect: vi.fn().mockResolvedValue(() => {}),
+  connect: vi.fn().mockResolvedValue(() => { }),
 }));
 vi.mock("../components/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
@@ -23,7 +23,7 @@ vi.mock("../components/editorUtils", () => ({
   runCode: vi.fn().mockImplementation(() =>
     Promise.resolve({ html: "<div></div>", css: "body {}" })
   ),
-  screenShot: vi.fn().mockResolvedValue({
+  screenshot: vi.fn().mockResolvedValue({
     dataUrl: "data:image/png;base64,...",
   }),
 }));

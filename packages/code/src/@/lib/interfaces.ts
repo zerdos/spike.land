@@ -159,7 +159,7 @@ export interface TextPart {
 }
 
 export interface ImageUrlPart {
-  type: "image_url";
+  type: "imageUrl";
   imageUrl: ImageUrl;
 }
 

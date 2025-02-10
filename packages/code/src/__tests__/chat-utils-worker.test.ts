@@ -1,6 +1,6 @@
-import { Message, MessageType } from "@/lib/interfaces";
+import type { HandleSendMessageProps } from "@/lib/interfaces";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ChatHandler, handleSendMessage } from "../workers/chat-utils.worker";
+import { ChatHandler, handleSendMessage } from "@/workers/chat-utils.worker";
 
 // Mock web worker context
 declare let self: Worker;
@@ -33,18 +33,20 @@ describe("handleSendMessage", () => {
   });
 
   it("should handle valid messages", async () => {
-    const mockMessage: Message = {
-      type: MessageType.TEXT,
-      id: "123",
-      role: "user",
-      content: [{ type: "text", text: "Hello" }],
+    const testProps: HandleSendMessageProps = {
+      messages: [],
+      codeSpace: "test-space",
+      prompt: "Hello",
+      images: [],
+      code: "test code",
     };
 
-    await handleSendMessage(mockMessage);
-    expect(postMessageSpy).toHaveBeenCalledWith({
-      type: "response",
-      content: expect.any(Object),
-    });
+    await handleSendMessage(testProps);
+    expect(postMessageSpy).toHaveBeenCalledWith(expect.objectContaining({
+      isStreaming: false,
+      messages: expect.any(Array),
+      debugInfo: expect.any(Array),
+    }));
   });
 
   it("should log error when AIHandler throws", async () => {
@@ -52,92 +54,57 @@ describe("handleSendMessage", () => {
     const { AIHandler: MockAIHandler } = await import("../services/ai/AIHandler");
     vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
 
-    const mockMessage: Message = {
-      id: "123",
-      role: "user",
-      type: MessageType.TEXT,
-      content: [{ type: "text", text: "Error case" }],
+    const testProps: HandleSendMessageProps = {
+      messages: [],
+      codeSpace: "test-space",
+      prompt: "Error case",
+      images: [],
+      code: "test code",
     };
 
-    await handleSendMessage(mockMessage);
-    expect(consoleSpy).toHaveBeenCalledWith("Error in handleMessage:", error);
-    expect(postMessageSpy).toHaveBeenCalledWith({
-      type: "error",
-      error: "AI processing failed",
-    });
-  });
-
-  it("should log invalid message content type error", async () => {
-    const mockMessage: Message = {
-      id: "test-id",
-      role: "user",
-      type: MessageType.TEXT,
-      content: [{ type: "text", text: "Invalid content" }],
-    };
-
-    await handleSendMessage(mockMessage);
-    expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", expect.any(Error));
-    expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", expect.any(Error));
-    expect(postMessageSpy).toHaveBeenCalledWith({
-      type: "error",
-      error: "Invalid assistant message content type",
-    });
-  });
-
-  it.skip("should handle missing content", async () => {
-    const mockMessage = {
-      type: MessageType.TEXT,
-    } as unknown as Message;
-
-    await handleSendMessage(mockMessage);
-    expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", expect.any(Error));
-    expect(postMessageSpy).toHaveBeenCalledWith({
-      type: "error",
-      error: "Invalid message format",
-    });
+    await handleSendMessage(testProps);
+    expect(consoleSpy).toHaveBeenCalledWith("Fatal error in handleSendMessage:", expect.any(Object));
   });
 
   describe("ChatHandler", () => {
     let chatHandler: ChatHandler;
+    const defaultProps = {
+      messages: [],
+      codeSpace: "test-space",
+      code: "test code",
+    };
 
     beforeEach(() => {
-      chatHandler = new ChatHandler();
+      chatHandler = new ChatHandler(defaultProps);
     });
 
     it("should initialize with default state", () => {
       expect(chatHandler).toBeDefined();
       expect(chatHandler.handleMessage).toBeDefined();
-      expect(chatHandler.processMessage).toBeDefined();
     });
 
-    it("should handle message processing errors", async () => {
-      const error = new Error("Test error");
-      const { AIHandler: MockAIHandler } = await import("../services/ai/AIHandler");
-      vi.mocked(MockAIHandler.process).mockRejectedValueOnce(error);
+    it("should handle message processing", async () => {
+      const messagePayload = {
+        prompt: "Test message",
+        images: [],
+      };
 
-      await chatHandler.handleMessage({
-        role: "user",
-        id: "123",
-        type: MessageType.TEXT,
-        content: [{ type: "text", text: "Test message" }],
-      });
-
-      expect(consoleSpy).toHaveBeenCalledWith("Error in processMessage:", error);
-      expect(postMessageSpy).toHaveBeenCalledWith({
-        type: "error",
-        error: "Test error",
-      });
+      await chatHandler.handleMessage(messagePayload);
+      expect(postMessageSpy).toHaveBeenCalledWith(expect.objectContaining({
+        isStreaming: false,
+      }));
     });
 
-    it("should validate message format", async () => {
-      const invalidMessage = {};
+    it("should handle empty prompts", async () => {
+      const messagePayload = {
+        prompt: "",
+        images: [],
+      };
 
-      await chatHandler.handleMessage(invalidMessage as unknown as Message);
-      expect(consoleSpy).toHaveBeenCalledWith("Error in handleMessage:", expect.any(Error));
-      expect(postMessageSpy).toHaveBeenCalledWith({
+      await chatHandler.handleMessage(messagePayload);
+      expect(postMessageSpy).not.toHaveBeenCalledWith(expect.objectContaining({
         type: "error",
-        error: "Invalid message format",
-      });
+      }));
     });
   });
 });

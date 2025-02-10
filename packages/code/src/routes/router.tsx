@@ -84,7 +84,10 @@ const App: React.FC = () => {
         const cSessBr = new CodeSessionBC(codeSpace);
         cSessBr.init(cSess.session);
 
-        unSub = cSessBr.sub((sess) => setState({ ...cSess, session: sess }));
+        unSub = cSessBr.sub((sess) => {
+          cSess.session = sess;
+          setState(cSess);
+        });
       })();
     }
     return () => unSub();

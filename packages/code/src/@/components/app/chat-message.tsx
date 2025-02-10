@@ -63,7 +63,7 @@ const MessageContent = React.memo<{
               />
             </div>
           );
-        } else if (item.type === "image_url" && item.imageUrl) {
+        } else if (item.type === "imageUrl" && item.imageUrl) {
           const { url } = item.imageUrl;
           return (
             <img

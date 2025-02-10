@@ -39,7 +39,7 @@ describe("ScreenshotService", () => {
 
     expect(postMessageSpy).toHaveBeenCalledWith(
       {
-        type: "screenShot",
+        type: "screenshot",
         requestId: mockUUID,
         imageData: {
           imageName: "test-screenshot.png",

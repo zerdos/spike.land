@@ -55,7 +55,7 @@ interface Action {
   hash: string;
 }
 
-class ChatHandler {
+export class ChatHandler {
   private mod: Mod;
   private mutex = new Mutex();
   public BC: BroadcastChannel;
@@ -176,7 +176,7 @@ class ChatHandler {
     claudeContent: string,
   ): Promise<Message> {
     const imagesContent = images.map((image) => ({
-      type: "image_url" as const,
+      type: "imageUrl" as const,
       imageUrl: { url: image.url }
     }));
 
