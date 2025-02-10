@@ -4041,9 +4041,9 @@ __metadata:
     "@tailwindcss/postcss": "npm:4.0.5"
     "@tailwindcss/typography": "npm:0.5.16"
     "@tailwindcss/vite": "npm:4.0.5"
-    "@tanstack/react-router": "npm:1.101.0"
+    "@tanstack/react-router": "npm:1.102.1"
     "@tanstack/react-virtual": "npm:3.13.0"
-    "@tanstack/router-plugin": "npm:1.101.0"
+    "@tanstack/router-plugin": "npm:1.102.1"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
@@ -4101,7 +4101,7 @@ __metadata:
     embla-carousel-react: "npm:8.5.2"
     esbuild: "npm:^0.25.0"
     esbuild-plugin-copy: "npm:2.1.1"
-    esbuild-plugin-tailwindcss: "npm:1.2.1"
+    esbuild-plugin-tailwindcss: "npm:2.0.1"
     esbuild-style-plugin: "npm:1.6.3"
     esbuild-wasm: "npm:0.25.0"
     eslint: "npm:9.20.0"
@@ -4144,7 +4144,7 @@ __metadata:
     postcss-js: "npm:4.0.1"
     preact: "npm:10.25.4"
     preact-render-to-string: "npm:6.5.13"
-    prettier: "npm:3.4.2"
+    prettier: "npm:3.5.0"
     prism-react-renderer: "npm:2.4.1"
     process: "npm:0.11.10"
     purgecss: "npm:^7.0.2"
@@ -4663,7 +4663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/postcss@npm:4.0.5":
+"@tailwindcss/postcss@npm:4.0.5, @tailwindcss/postcss@npm:^4.0.5":
   version: 4.0.5
   resolution: "@tailwindcss/postcss@npm:4.0.5"
   dependencies:
@@ -4712,20 +4712,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.101.0":
-  version: 1.101.0
-  resolution: "@tanstack/react-router@npm:1.101.0"
+"@tanstack/react-router@npm:1.102.1":
+  version: 1.102.1
+  resolution: "@tanstack/react-router@npm:1.102.1"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:^1.99.13"
+    "@tanstack/router-core": "npm:^1.102.0"
     jsesc: "npm:^3.1.0"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/1deab3f6f2c1930e61b58d6c5765d2338310a2f6d2fdab5d0a0fba32f49fa34c70bb4d593359e3708bda59ae4b69ab2e9071916390b5dbb772a9e5933cae29ca
+  checksum: 10c0/4e288b5a0a4d598b0ad084c9383a43fe4f9f8439d99ca0b3ca66c29f43d2452898088530bef8e2f8836e80578b20fdcbbb0d0b2c568bed489e15773f5976deba
   languageName: node
   linkType: hard
 
@@ -4754,36 +4754,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-core@npm:^1.99.13":
-  version: 1.99.13
-  resolution: "@tanstack/router-core@npm:1.99.13"
+"@tanstack/router-core@npm:^1.102.0":
+  version: 1.102.0
+  resolution: "@tanstack/router-core@npm:1.102.0"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/store": "npm:^0.7.0"
-  checksum: 10c0/3b7c92cd0bdfe58daa405f496839782660db4e68efdcfbee60a432d257a9f1cb5a6659c294515bb92050f289a789fd42477ce3aadc602f343c33ebf580c8abcf
+  checksum: 10c0/d4c799f0f0fa4ffe40caccd84597f2982318244ff7fc9ee9dd0f100e3adf8cb809b0cf1ef34ee9d83201734c01e45a259069f1c36296a51feb7d7947b296ea08
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.101.0":
-  version: 1.101.0
-  resolution: "@tanstack/router-generator@npm:1.101.0"
+"@tanstack/router-generator@npm:^1.102.1":
+  version: 1.102.1
+  resolution: "@tanstack/router-generator@npm:1.102.1"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     prettier: "npm:^3.4.2"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.24.1"
   peerDependencies:
-    "@tanstack/react-router": ^1.101.0
+    "@tanstack/react-router": ^1.102.1
   peerDependenciesMeta:
     "@tanstack/react-router":
       optional: true
-  checksum: 10c0/f4da120ea7bcb6d2eb8bd0087e40e6dce8eeea0f54481a6779de637f3efb694d057a0cb351a2931bfd2811ea994208e95df400eb3a4639a6154620b8609d1c73
+  checksum: 10c0/cc2e9ace4ff1572a8e3120ac7179916f99747db8af941a965f34b3bfcea2ecc21ba3df57a25650762987a031b95cd4ec73aa734ac35eb8dd8c3592f80234ca13
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.101.0":
-  version: 1.101.0
-  resolution: "@tanstack/router-plugin@npm:1.101.0"
+"@tanstack/router-plugin@npm:1.102.1":
+  version: 1.102.1
+  resolution: "@tanstack/router-plugin@npm:1.102.1"
   dependencies:
     "@babel/core": "npm:^7.26.7"
     "@babel/plugin-syntax-jsx": "npm:^7.25.9"
@@ -4791,7 +4791,7 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.26.7"
     "@babel/types": "npm:^7.26.7"
-    "@tanstack/router-generator": "npm:^1.101.0"
+    "@tanstack/router-generator": "npm:^1.102.1"
     "@tanstack/router-utils": "npm:^1.99.5"
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     "@types/babel__core": "npm:^7.20.5"
@@ -4803,7 +4803,7 @@ __metadata:
     zod: "npm:^3.24.1"
   peerDependencies:
     "@rsbuild/core": ">=1.0.2"
-    "@tanstack/react-router": ^1.101.0
+    "@tanstack/react-router": ^1.102.1
     vite: ">=5.0.0 || >=6.0.0"
     webpack: ">=5.92.0"
   peerDependenciesMeta:
@@ -4815,7 +4815,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/9b850ead006ccd879fd2a6d92dd2f60e19ec6a269ae655a27294a94dc9edc3cf8d64dd0ad07f50a022a3678451211c24d7e81b696edcc1164b08fe474d2eff4a
+  checksum: 10c0/2d5eef42d5fda30017121b5a895dc696ab91202467bbba5bb8e97823baa10f22922aa4af46d774686e8bc35178bb267ca03242a62c0a80c6eacd0f4a5ba1f568
   languageName: node
   linkType: hard
 
@@ -6145,13 +6145,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arg@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "arg@npm:5.0.2"
-  checksum: 10c0/ccaf86f4e05d342af6666c569f844bec426595c567d32a8289715087825c2ca7edd8a3d204e4d2fb2aa4602e09a57d0c13ea8c9eea75aac3dbb4af5514e6800e
-  languageName: node
-  linkType: hard
-
 "argparse@npm:^1.0.7":
   version: 1.0.10
   resolution: "argparse@npm:1.0.10"
@@ -6450,7 +6443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:*, autoprefixer@npm:10.4.20, autoprefixer@npm:^10.4.13":
+"autoprefixer@npm:*, autoprefixer@npm:10.4.20, autoprefixer@npm:^10.4.20":
   version: 10.4.20
   resolution: "autoprefixer@npm:10.4.20"
   dependencies:
@@ -8200,13 +8193,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"didyoumean@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "didyoumean@npm:1.2.2"
-  checksum: 10c0/95d0b53d23b851aacff56dfadb7ecfedce49da4232233baecfeecb7710248c4aa03f0aa8995062f0acafaf925adf8536bd7044a2e68316fd7d411477599bc27b
-  languageName: node
-  linkType: hard
-
 "diff-match-patch-ts@npm:0.6.0":
   version: 0.6.0
   resolution: "diff-match-patch-ts@npm:0.6.0"
@@ -8245,13 +8231,6 @@ __metadata:
   dependencies:
     path-type: "npm:^4.0.0"
   checksum: 10c0/dcac00920a4d503e38bb64001acb19df4efc14536ada475725e12f52c16777afdee4db827f55f13a908ee7efc0cb282e2e3dbaeeb98c0993dd93d1802d3bf00c
-  languageName: node
-  linkType: hard
-
-"dlv@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "dlv@npm:1.1.3"
-  checksum: 10c0/03eb4e769f19a027fd5b43b59e8a05e3fd2100ac239ebb0bf9a745de35d449e2f25cfaf3aa3934664551d72856f4ae8b7822016ce5c42c2d27c18ae79429ec42
   languageName: node
   linkType: hard
 
@@ -8722,15 +8701,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugin-tailwindcss@npm:1.2.1":
-  version: 1.2.1
-  resolution: "esbuild-plugin-tailwindcss@npm:1.2.1"
+"esbuild-plugin-tailwindcss@npm:2.0.1":
+  version: 2.0.1
+  resolution: "esbuild-plugin-tailwindcss@npm:2.0.1"
   dependencies:
-    autoprefixer: "npm:^10.4.13"
-    postcss: "npm:^8.4.21"
-    postcss-modules: "npm:^6.0.0"
-    tailwindcss: "npm:^3.2.4"
-  checksum: 10c0/053b826d8f47ca24190bf595dfacf748ff6dec8a421ec92e790531a917cf9f0ef74298b855f6cfc6de37e2119b20c19bfcde504af77c0743abc9d6d8aa8ef4eb
+    "@tailwindcss/postcss": "npm:^4.0.5"
+    autoprefixer: "npm:^10.4.20"
+    postcss: "npm:^8.5.1"
+    postcss-modules: "npm:^6.0.1"
+  checksum: 10c0/74a7ea474c87f4b99cd31873bc56ca269d48990bd9084d473c71d81503b2cebd365062316e8647c3d293425377b315578268d19769c4c3b461bc05e7b5417b6c
   languageName: node
   linkType: hard
 
@@ -11513,15 +11492,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^1.21.6":
-  version: 1.21.7
-  resolution: "jiti@npm:1.21.7"
-  bin:
-    jiti: bin/jiti.js
-  checksum: 10c0/77b61989c758ff32407cdae8ddc77f85e18e1a13fc4977110dbd2e05fc761842f5f71bce684d9a01316e1c4263971315a111385759951080bbfe17cbb5de8f7a
-  languageName: node
-  linkType: hard
-
 "jiti@npm:^2.4.2":
   version: 2.4.2
   resolution: "jiti@npm:2.4.2"
@@ -11908,13 +11878,6 @@ __metadata:
     lightningcss-win32-x64-msvc:
       optional: true
   checksum: 10c0/c2f421f8fdbdf7e5fe271f12d18ffaf332a11c88094b2bcfb90c56d6a442281c609e23ad56b8974002d61f117e171c967e1fe74ffa458bed810e6c7526cd8c93
-  languageName: node
-  linkType: hard
-
-"lilconfig@npm:^3.0.0, lilconfig@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "lilconfig@npm:3.1.3"
-  checksum: 10c0/f5604e7240c5c275743561442fbc5abf2a84ad94da0f5adc71d25e31fa8483048de3dcedcb7a44112a942fed305fd75841cdf6c9681c7f640c63f1049e9a5dcc
   languageName: node
   linkType: hard
 
@@ -13463,7 +13426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-hash@npm:3.0.0, object-hash@npm:^3.0.0":
+"object-hash@npm:3.0.0":
   version: 3.0.0
   resolution: "object-hash@npm:3.0.0"
   checksum: 10c0/a06844537107b960c1c8b96cd2ac8592a265186bfa0f6ccafe0d34eabdb526f6fa81da1f37c43df7ed13b12a4ae3457a16071603bcd39d8beddb5f08c37b0f47
@@ -14183,20 +14146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:^15.1.0":
-  version: 15.1.0
-  resolution: "postcss-import@npm:15.1.0"
-  dependencies:
-    postcss-value-parser: "npm:^4.0.0"
-    read-cache: "npm:^1.0.0"
-    resolve: "npm:^1.1.7"
-  peerDependencies:
-    postcss: ^8.0.0
-  checksum: 10c0/518aee5c83ea6940e890b0be675a2588db68b2582319f48c3b4e06535a50ea6ee45f7e63e4309f8754473245c47a0372632378d1d73d901310f295a92f26f17b
-  languageName: node
-  linkType: hard
-
-"postcss-js@npm:4.0.1, postcss-js@npm:^4.0.1":
+"postcss-js@npm:4.0.1":
   version: 4.0.1
   resolution: "postcss-js@npm:4.0.1"
   dependencies:
@@ -14204,24 +14154,6 @@ __metadata:
   peerDependencies:
     postcss: ^8.4.21
   checksum: 10c0/af35d55cb873b0797d3b42529514f5318f447b134541844285c9ac31a17497297eb72296902967911bb737a75163441695737300ce2794e3bd8c70c13a3b106e
-  languageName: node
-  linkType: hard
-
-"postcss-load-config@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "postcss-load-config@npm:4.0.2"
-  dependencies:
-    lilconfig: "npm:^3.0.0"
-    yaml: "npm:^2.3.4"
-  peerDependencies:
-    postcss: ">=8.0.9"
-    ts-node: ">=9.0.0"
-  peerDependenciesMeta:
-    postcss:
-      optional: true
-    ts-node:
-      optional: true
-  checksum: 10c0/3d7939acb3570b0e4b4740e483d6e555a3e2de815219cb8a3c8fc03f575a6bde667443aa93369c0be390af845cb84471bf623e24af833260de3a105b78d42519
   languageName: node
   linkType: hard
 
@@ -14276,7 +14208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-modules@npm:^6.0.0":
+"postcss-modules@npm:^6.0.0, postcss-modules@npm:^6.0.1":
   version: 6.0.1
   resolution: "postcss-modules@npm:6.0.1"
   dependencies:
@@ -14294,17 +14226,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-nested@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "postcss-nested@npm:6.2.0"
-  dependencies:
-    postcss-selector-parser: "npm:^6.1.1"
-  peerDependencies:
-    postcss: ^8.2.14
-  checksum: 10c0/7f9c3f2d764191a39364cbdcec350f26a312431a569c9ef17408021424726b0d67995ff5288405e3724bb7152a4c92f73c027e580ec91e798800ed3c52e2bc6e
-  languageName: node
-  linkType: hard
-
 "postcss-selector-parser@npm:6.0.10":
   version: 6.0.10
   resolution: "postcss-selector-parser@npm:6.0.10"
@@ -14315,7 +14236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.1.1, postcss-selector-parser@npm:^6.1.2":
+"postcss-selector-parser@npm:^6.1.2":
   version: 6.1.2
   resolution: "postcss-selector-parser@npm:6.1.2"
   dependencies:
@@ -14342,7 +14263,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.1, postcss@npm:^8.4.21, postcss@npm:^8.4.31, postcss@npm:^8.4.41, postcss@npm:^8.4.47, postcss@npm:^8.4.49, postcss@npm:^8.5.1":
+"postcss@npm:8.5.1, postcss@npm:^8.4.31, postcss@npm:^8.4.41, postcss@npm:^8.4.47, postcss@npm:^8.4.49, postcss@npm:^8.5.1":
   version: 8.5.1
   resolution: "postcss@npm:8.5.1"
   dependencies:
@@ -14383,7 +14304,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.4.2, prettier@npm:^3.4.2":
+"prettier@npm:3.5.0":
+  version: 3.5.0
+  resolution: "prettier@npm:3.5.0"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/6c355d74c377f5622953229d92477e8b9779162e848db90fd7e06c431deb73585d31fafc4516cf5868917825b97b9ec7c87c8d8b8e03ccd9fc9c0b7699d1a650
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.4.2":
   version: 3.4.2
   resolution: "prettier@npm:3.4.2"
   bin:
@@ -15444,7 +15374,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.19.0, resolve@npm:^1.22.8":
+"resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.19.0":
   version: 1.22.10
   resolution: "resolve@npm:1.22.10"
   dependencies:
@@ -15470,7 +15400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.8#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>":
   version: 1.22.10
   resolution: "resolve@patch:resolve@npm%3A1.22.10#optional!builtin<compat/resolve>::version=1.22.10&hash=c3c19d"
   dependencies:
@@ -16821,39 +16751,6 @@ __metadata:
   version: 4.0.5
   resolution: "tailwindcss@npm:4.0.5"
   checksum: 10c0/f7cd995e83e07d1ada1b1de57474bcd7cfc09f3e8014cbaec644a794330f6cb244bd819cce9612a5714fe57ecfa7cb7a5386bb1988473e4fb5f550ae619663ff
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:^3.2.4":
-  version: 3.4.17
-  resolution: "tailwindcss@npm:3.4.17"
-  dependencies:
-    "@alloc/quick-lru": "npm:^5.2.0"
-    arg: "npm:^5.0.2"
-    chokidar: "npm:^3.6.0"
-    didyoumean: "npm:^1.2.2"
-    dlv: "npm:^1.1.3"
-    fast-glob: "npm:^3.3.2"
-    glob-parent: "npm:^6.0.2"
-    is-glob: "npm:^4.0.3"
-    jiti: "npm:^1.21.6"
-    lilconfig: "npm:^3.1.3"
-    micromatch: "npm:^4.0.8"
-    normalize-path: "npm:^3.0.0"
-    object-hash: "npm:^3.0.0"
-    picocolors: "npm:^1.1.1"
-    postcss: "npm:^8.4.47"
-    postcss-import: "npm:^15.1.0"
-    postcss-js: "npm:^4.0.1"
-    postcss-load-config: "npm:^4.0.2"
-    postcss-nested: "npm:^6.2.0"
-    postcss-selector-parser: "npm:^6.1.2"
-    resolve: "npm:^1.22.8"
-    sucrase: "npm:^3.35.0"
-  bin:
-    tailwind: lib/cli.js
-    tailwindcss: lib/cli.js
-  checksum: 10c0/cc42c6e7fdf88a5507a0d7fea37f1b4122bec158977f8c017b2ae6828741f9e6f8cb90282c6bf2bd5951fd1220a53e0a50ca58f5c1c00eb7f5d9f8b80dc4523c
   languageName: node
   linkType: hard
 
@@ -18620,15 +18517,6 @@ __metadata:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: 10c0/5c28b9eb7adc46544f28d9a8d20c5b3cb1215a886609a2fd41f51628d8aaa5878ccd628b755dbcd29f6bb4921bd04ffbc6dcc370689bb96e594e2f9813d2605f
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.3.4":
-  version: 2.7.0
-  resolution: "yaml@npm:2.7.0"
-  bin:
-    yaml: bin.mjs
-  checksum: 10c0/886a7d2abbd70704b79f1d2d05fe9fb0aa63aefb86e1cb9991837dced65193d300f5554747a872b4b10ae9a12bc5d5327e4d04205f70336e863e35e89d8f4ea9
   languageName: node
   linkType: hard
 
