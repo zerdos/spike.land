@@ -92,12 +92,12 @@ describe("handleSendMessage", () => {
 
     const lastCall = mockSelf.postMessage.mock.lastCall?.[0];
     expect(lastCall).toBeDefined();
-    expect(lastCall.debugInfo.some((log: string | Message) => {
+    expect(lastCall.debugInfo.filter((log: string | Message) => {
       if (typeof log === 'string') {
         return log.includes("Test error in AIHandler") || 
                log.includes("Fatal error in handleSendMessage:");
       }
       return false;
-    })).toBe(true);
+    }).length > 0).toBe(true);
   });
 });

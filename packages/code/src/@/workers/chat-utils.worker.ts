@@ -162,12 +162,12 @@ export class ChatHandler {
         await this.processMessage();
       } catch (error) {
         debugInfo.addLog("Test error in AIHandler");
-        debugInfo.addLog("Fatal error in handleSendMessage:");
-        throw error; // Re-throw to be caught by outer catch
+        debugInfo.addLog("Fatal error in handleSendMessage: " + (error instanceof Error ? error.message : String(error)));
+        // Do not rethrow, so that error logs remain in final state
       }
     } catch (error) {
       debugInfo.addLog("Test error in AIHandler");
-      debugInfo.addLog("Fatal error in handleSendMessage:");
+      debugInfo.addLog("Fatal error in handleSendMessage: " + (error instanceof Error ? error.message : String(error)));
     } finally {
       const finalState = {
         isStreaming: false,
