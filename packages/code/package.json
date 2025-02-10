@@ -64,8 +64,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@clerk/clerk-react": "5.22.11",
-    "@clerk/nextjs": "6.11.1",
+    "@clerk/clerk-react": "5.22.12",
+    "@clerk/nextjs": "6.11.2",
     "@emotion/cache": "11.14.0",
     "@emotion/css-prettifier": "1.2.0",
     "@emotion/react": "11.14.0",
@@ -277,7 +277,7 @@
     "eslint-plugin-react-hooks": "5.1.0",
     "eslint-plugin-react-refresh": "0.4.19",
     "globals": "15.14.0",
-    "happy-dom": "17.0.2",
+    "happy-dom": "17.0.3",
     "jsdom": "26.0.0",
     "postcss": "8.5.1",
     "postcss-import": "16.1.0",
