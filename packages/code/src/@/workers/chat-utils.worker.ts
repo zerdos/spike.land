@@ -113,18 +113,13 @@ export class ChatHandler {
     this.aiHandler = new AIHandler(this.setIsStreaming, codeSpace);
   }
 
-  async handleMessage({
-    prompt,
-    images,
-  }: {
-    prompt: string;
-    images: ImageData[];
-  }): Promise<void> {
+  // In the handleMessage method of ChatHandler class:
+  async handleMessage({ prompt, images }: { prompt: string; images: ImageData[] }): Promise<void> {
     debugInfo.addLog("Starting handleMessage", {
       promptLength: prompt.length,
       imagesCount: images.length,
     });
-    
+
     this.mod.instructions = "";
 
     if (!prompt.trim()) {
@@ -163,7 +158,8 @@ export class ChatHandler {
       } catch (error) {
         debugInfo.addLog("Test error in AIHandler");
         debugInfo.addLog("Fatal error in handleSendMessage: " + (error instanceof Error ? error.message : String(error)));
-        // Do not rethrow, so that error logs remain in final state
+        // Add return to exit the function and prevent further execution
+        return;
       }
     } catch (error) {
       debugInfo.addLog("Test error in AIHandler");
