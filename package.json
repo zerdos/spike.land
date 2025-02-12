@@ -34,13 +34,13 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "8.23.0",
+    "@typescript-eslint/parser": "8.24.0",
     "@yarnpkg/sdks": "3.2.0",
     "dprint": "0.49.0",
-    "eslint": "9.20.0",
+    "eslint": "9.20.1",
     "eslint-plugin-react": "7.37.4",
     "typescript": "5.7.3",
-    "typescript-eslint": "8.23.0"
+    "typescript-eslint": "8.24.0"
   },
   "packageManager": "yarn@4.6.0",
   "dependencies": {
