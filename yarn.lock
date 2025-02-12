@@ -4446,7 +4446,6 @@ __metadata:
     workbox-sw: "npm:7.3.0"
     workbox-window: "npm:7.3.0"
     worker-rpc: "npm:0.2.0"
-    zod: "npm:3.24.2"
   languageName: unknown
   linkType: soft
 
@@ -19194,13 +19193,6 @@ __metadata:
   version: 3.22.3
   resolution: "zod@npm:3.22.3"
   checksum: 10c0/cb4b24aed7dec98552eb9042e88cbd645455bf2830e5704174d2da96f554dabad4630e3b4f6623e1b6562b9eaa43535a37b7f2011f29b8d8e9eabe1ddf3b656b
-  languageName: node
-  linkType: hard
-
-"zod@npm:3.24.2":
-  version: 3.24.2
-  resolution: "zod@npm:3.24.2"
-  checksum: 10c0/c638c7220150847f13ad90635b3e7d0321b36cce36f3fc6050ed960689594c949c326dfe2c6fa87c14b126ee5d370ccdebd6efb304f41ef5557a4aaca2824565
   languageName: node
   linkType: hard
 

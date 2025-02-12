@@ -19,11 +19,15 @@ const createWorkflow = async (prompt: string) => {
     },
   };
 
+  type WeatherInput = {
+    query: string;
+  };
+
   const weatherTool = tool(
-    async ({ query }) => {
+    async (input: WeatherInput) => {
       if (
-        query.toLowerCase().includes("sf") ||
-        query.toLowerCase().includes("san francisco")
+        input.query.toLowerCase().includes("sf") ||
+        input.query.toLowerCase().includes("san francisco")
       ) {
         return "It's 60 degrees and foggy.";
       }
@@ -33,9 +37,9 @@ const createWorkflow = async (prompt: string) => {
       name: "weather",
       description: "Get the current weather for a location.",
       schema: z.object({
-        query: z.string().describe("The location to check weather for."),
+        query: z.string().describe("The location to check weather for"),
       }),
-    },
+    }
   );
 
   const tools = [weatherTool];

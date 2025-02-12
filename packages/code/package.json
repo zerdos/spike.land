@@ -233,8 +233,7 @@
     "workbox-strategies": "7.3.0",
     "workbox-sw": "7.3.0",
     "workbox-window": "7.3.0",
-    "worker-rpc": "0.2.0",
-    "zod": "3.24.2"
+    "worker-rpc": "0.2.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",
