@@ -18,6 +18,15 @@ class SessMock implements ICode {
     return this.session;
   };
 
+  getSession(): ICodeSession {
+    return this.session;
+  }
+  
+  setSession(sess: ICodeSession): ICodeSession {
+    this.session = sess;
+    return sess;
+  }
+
   sub(fn: (sess: ICodeSession) => void) {
     this.subs.push(fn);
     return () => {

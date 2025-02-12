@@ -46,7 +46,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
       isOpen ? "hidden" : "flex",
     ), [isOpen]);
 
-  const lastMessage = cSess.session.messages[cSess.session.messages.length - 1];
+  const lastMessage = cSess.getSession().messages.slice(-1)[0] || null;
 
   useEffect(() => {
     if (lastMessage) {
@@ -98,7 +98,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
             />
             <ScrollArea className="flex-grow">
               <MemoizedChatContainer
-                messages={cSess.session.messages}
+                messages={cSess.getSession().messages}
                 editingMessageId={editingMessageId}
                 editInput={editInput}
                 setEditInput={setEditInput}
@@ -108,7 +108,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 isStreaming={isStreaming}
                 onNewPrompt={(prompt: string) =>
                   handleSendMessage({
-                    ...cSess.session,
+                    ...cSess.getSession(),
                     prompt,
                     images: [],
                   })}
@@ -118,8 +118,8 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
             </ScrollArea>
             <MemoizedMessageInput
               input={input}
-              code={cSess.session.code}
-              messages={cSess.session.messages}
+              code={cSess.getSession().code}
+              messages={cSess.getSession().messages}
               setInput={setInput}
               screenshot={screenshot}
               handleSendMessage={handleSendMessage}

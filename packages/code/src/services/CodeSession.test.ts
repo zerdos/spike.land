@@ -29,7 +29,7 @@ vi.mock("../components/editorUtils", () => ({
 }));
 
 describe("Code", () => {
-  let code: Code;
+  let cSess: Code;
 
   beforeEach(() => {
     vi.resetAllMocks();
@@ -77,13 +77,13 @@ describe("Code", () => {
     });
 
     // Initialize Code instance
-    code = new Code("testCodeSpace");
+    cSess = new Code("testCodeSpace");
   });
 
   describe("currentCodeWithExtraModels", () => {
     it("should return current code when no extra models are present", async () => {
-      code.session.code = 'console.log("Hello, World!");';
-      const result = await code.currentCodeWithExtraModels();
+      await cSess.setCode('console.log("Hello, World!");', true);
+      const result = await cSess.currentCodeWithExtraModels();
 
       const expected = `# testCodeSpace.tsx
 
@@ -96,9 +96,9 @@ console.log("Hello, World!");
     });
 
     it("should return current code with extra models", async () => {
-      code.session.code = 'import extra from "./extraModel";\nconsole.log("Hello, World!");';
+      cSess.setCode('import extra from "./extraModel";\nconsole.log("Hello, World!");', true);
 
-      const result = await code.currentCodeWithExtraModels();
+      const result = await cSess.currentCodeWithExtraModels();
 
       const expected = `# testCodeSpace.tsx
 
@@ -121,21 +121,20 @@ console.log("Extra Model Code");
   describe("setCode", () => {
     it("should not update session if code is the same", async () => {
       const sameCode = "export default ()=> <>Nothing</>";
-      code.session.code = sameCode;
 
-      const result = await code.setCode(sameCode);
+      const result = await cSess.setCode(sameCode);
 
       expect(result).toBe(sameCode);
-      expect(code.session.code).toBe(sameCode);
+      expect(await cSess.getCode()).toBe(sameCode);
     });
 
     it("should return current code if processing fails", async () => {
       const errorCode = "error code";
       const currentCode = "current code";
-      code.session.code = currentCode;
-      vi.spyOn(code["codeProcessor"], "process").mockResolvedValue(false);
+      cSess.setCode(currentCode);
+      vi.spyOn(cSess["codeProcessor"], "process").mockResolvedValue(false);
 
-      const result = await code.setCode(errorCode);
+      const result = await cSess.setCode(errorCode);
 
       expect(result).toBe(currentCode);
     });

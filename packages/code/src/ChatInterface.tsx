@@ -18,10 +18,10 @@ const ChatInterface: React.FC<{
   cSess: ICode;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const { codeSpace } = cSess.session;
+  const { codeSpace } = cSess.getSession();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  const [messages, setMessages] = useState<Message[]>(cSess.session.messages);
+  const [messages, setMessages] = useState<Message[]>(cSess.getSession().messages);
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
     false,
@@ -217,7 +217,7 @@ const ChatInterface: React.FC<{
           codeSpace,
           prompt,
           images,
-          code: cSess.session.code,
+          code: cSess.getSession().code,
         });
       }
     }

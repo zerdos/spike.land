@@ -572,7 +572,7 @@ describe("ChatInterface", () => {
     });
 
     // Component should use its own copy, not the mutated array
-    expect(mockSession.session.messages).toEqual([
+    expect(mockSession.getSession().messages).toEqual([
       { id: "1", role: "user", content: "original" },
       { id: "2", role: "assistant", content: "mutation" },
     ]);
@@ -600,7 +600,7 @@ describe("ChatInterface", () => {
     });
 
     // Should not crash and should maintain valid state
-    expect(mockSession.session.messages).toEqual([{
+    expect(mockSession.getSession().messages).toEqual([{
       id: "1",
       role: "user",
       content: "test content",

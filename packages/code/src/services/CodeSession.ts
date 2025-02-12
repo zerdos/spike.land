@@ -39,7 +39,7 @@ export class Code implements ICode {
     this.setSession({
       ...this.session,
       codeSpace,
-    })
+    });
   }
 
   getSession(): ICodeSession {
@@ -48,7 +48,7 @@ export class Code implements ICode {
 
   setSession(session: ICodeSession): void {
     this.sessionManager.updateSession(session);
-  } 
+  }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
     const initializedSession = await this.sessionManager.init(session ?? undefined);

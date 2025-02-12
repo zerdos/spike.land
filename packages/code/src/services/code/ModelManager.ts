@@ -42,7 +42,7 @@ export class ModelManager implements IModelManager {
         this.models.set(codeSpace, codeInstance);
       }
 
-      if (codeInstance.session.code !== codeContent) {
+      if (codeInstance.getSession().code !== codeContent) {
         const updatedCode = await codeInstance.setCode(
           codeContent + "\n\n\n",
           codeSpace !== this.currentCodeSpace,
@@ -57,7 +57,7 @@ export class ModelManager implements IModelManager {
     // Re-transpile current model's code to ensure everything is fresh
     const currentModel = this.models.get(this.currentCodeSpace);
     if (currentModel) {
-      await currentModel.setCode(currentModel.session.code, true);
+      await currentModel.setCode(currentModel.getSession().code, true);
     }
 
     return errors.join("\n");
@@ -70,7 +70,7 @@ export class ModelManager implements IModelManager {
     }
 
     const extraModels = await this.fetchAndCreateExtraModels(
-      currentModel.session.code,
+      currentModel.getSession().code,
       location.origin,
     );
 
@@ -80,7 +80,7 @@ export class ModelManager implements IModelManager {
 
     const currentCodeSection = this.formatCodeAsSection(
       this.currentCodeSpace,
-      currentModel.session.code,
+      currentModel.getSession().code,
     );
 
     return [currentCodeSection, ...extraCodeSections].join("\n");

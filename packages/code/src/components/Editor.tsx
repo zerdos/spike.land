@@ -17,8 +17,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
   const [mod, _setMod] = useState({
-    lastMd5s: [md5(cSess.session.code)],
-    lastCode: cSess.session.code,
+    lastMd5s: [md5(cSess.getSession().code)],
+    lastCode: cSess.getSession().code,
     controller: new AbortController(),
   });
 
@@ -37,11 +37,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           toThrow: false,
         });
         if (signal.aborted) return;
-        if (mod.lastCode !== cSess.session.code) {
+        if (mod.lastCode !== cSess.getSession().code) {
           await wait(200);
           if (signal.aborted) return;
         }
-        if (formatted === cSess.session.code) return;
+        if (formatted === cSess.getSession().code) return;
         if (newCode === mod.lastCode) return;
         if (formatted === mod.lastCode) return;
 
@@ -107,7 +107,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const { setValue } = await initializeEditor({
         container: containerRef.current!,
         codeSpace,
-        code: cSess.session.code,
+        code: cSess.getSession().code,
         onChange: handleContentChange,
         // Add readOnly if you want to handle it:
         // readOnly,
@@ -116,7 +116,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       setEditorState((prev) => ({
         ...prev,
         started: true,
-        code: cSess.session.code,
+        code: cSess.getSession().code,
         setValue,
       }));
     })();

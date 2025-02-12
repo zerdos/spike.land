@@ -23,7 +23,12 @@ export class AIHandler {
     messages: Message[],
     onUpdate: (code: string) => void,
   ): Promise<Message> {
-    return this.aiService.sendToAnthropic(messages, onUpdate);
+    // delete id-s from messages - they are not needed for Claude§
+    const messagesToSend = messages.map((message) => {
+      const { id, ...rest } = message;
+      return rest;
+    }) as unknown as Message[];
+    return this.aiService.sendToAnthropic(messagesToSend, onUpdate);
   }
 
   async sendToGpt4o(
