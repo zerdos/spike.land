@@ -16,7 +16,6 @@ interface EditorProps {
 export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
-<<<<<<< HEAD
   const [session, setSession] = useState<ICodeSession | null>(null);
   const [mod, _setMod] = useState<{
     lastMd5s: string[];
@@ -24,17 +23,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     controller: AbortController;
   }>({
     lastMd5s: [],
-=======
-  const [mod, setMod] = useState({
-    lastMd5s: [] as string[],
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
     lastCode: "",
     controller: new AbortController(),
   });
 
   // Initialize session
   useEffect(() => {
-<<<<<<< HEAD
     cSess.getSession().then(initialSession => {
       setSession(initialSession);
       _setMod(prev => ({
@@ -48,18 +42,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   useEffect(() => {
     if (!session) return;
     
-=======
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
     (async () => {
       const lastCode = await cSess.getCode();
       if (mod.lastCode === lastCode) return;
       if (mod.lastMd5s.includes(md5(lastCode))) return;
 
-<<<<<<< HEAD
       _setMod((prev) => ({
-=======
-      setMod((prev) => ({
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
         ...prev,
         lastCode,
         lastMd5s: [...prev.lastMd5s, md5(lastCode)],

@@ -16,12 +16,8 @@ const ChatInterface: React.FC<{
   cSess: ICode;
   codeSpace: string;
   onClose: () => void;
-<<<<<<< HEAD
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
   const [session, setSession] = useState<ICodeSession | null>(null);
-=======
-}> = ({ onClose, isOpen, cSess, codeSpace }) => {
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -223,22 +219,13 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-<<<<<<< HEAD
         cSess.getSession().then(currentSession => {
           handleSendMessage({
-=======
-        (async () => {
-          await handleSendMessage({
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
             messages: [],
             codeSpace,
             prompt,
             images,
-<<<<<<< HEAD
             code: currentSession.code,
-=======
-            code: await cSess.getCode(),
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
           });
         });
       }
@@ -304,11 +291,7 @@ const ChatInterface: React.FC<{
       screenshot={memoizedScreenshot}
     />
   );
-<<<<<<< HEAD
 });
-=======
-};
->>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
 
 ChatInterface.displayName = "ChatInterface";
 
