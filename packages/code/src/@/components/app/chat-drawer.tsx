@@ -9,7 +9,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Drawer } from "vaul";
 import type { ICodeSession } from "@/lib/interfaces";
 
-
 export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   isOpen,
   onClose,
@@ -121,7 +120,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                     ...session,
                     prompt,
                     images: [],
-                  })
+                  });
                 }}
                 isDarkMode={isDarkMode}
               />

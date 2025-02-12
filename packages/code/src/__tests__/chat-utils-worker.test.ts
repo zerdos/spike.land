@@ -89,7 +89,6 @@ describe("handleSendMessage", () => {
     expect(result).toBeDefined();
     expect(Array.isArray(result)).toBe(true);
 
-
     expect(result).toMatchInlineSnapshot(`
       [
         "Starting handleSendMessage - {"messagesCount":1,"codeSpace":"test.ts","promptLength":11,"imagesCount":0}",
@@ -102,8 +101,8 @@ describe("handleSendMessage", () => {
         "Starting handleMessage - {"promptLength":11,"imagesCount":0}",
         "Starting processMessage - {"maxRetries":3}",
         "Sending assistant message",
-        "Error in handleMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
-        "Error in processMessage - {"error":"Cannot read properties of undefined (reading 'ok')"}",
+        "Error in handleMessage - {"error":"Cannot read properties of undefined (reading 'status')"}",
+        "Error in processMessage - {"error":"Cannot read properties of undefined (reading 'status')"}",
       ]
     `);
   });

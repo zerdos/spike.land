@@ -248,6 +248,29 @@ describe("ChatInterface", () => {
     });
   });
 
+  it("handles empty instructions in streaming", async () => {
+    await act(async () => {
+      render(
+        <ChatInterface
+          isOpen={true}
+          codeSpace="test-space"
+          cSess={mockSession}
+          onClose={vi.fn()}
+        />
+      );
+    });
+
+    await act(async () => {
+      const bc = new MockBroadcastChannel("test-space-chat");
+      bc.postMessage({
+        instructions: "",
+        isStreaming: true,
+      });
+    });
+
+    expect(mockSession.setMessages).not.toHaveBeenCalled();
+  });
+
   it("handles chat reset", async () => {
     const initialMessages: Message[] = [
       { id: "1", role: "user", content: "test message" },

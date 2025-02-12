@@ -83,7 +83,11 @@ export class ModelManager implements IModelManager {
 
     const currentCodeSection = this.formatCodeAsSection(
       this.currentCodeSpace,
+<<<<<<< HEAD
       currentSession.code,
+=======
+      await currentModel.getCode(),
+>>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
     );
 
     return [currentCodeSection, ...extraCodeSections].join("\n");

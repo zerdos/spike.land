@@ -10,8 +10,13 @@
     "dev:remote": "wrangler dev --remote",
     "// build": "yarn clean",
     "build:worker": "echo 'No build required - using direct deployment'",
+<<<<<<< HEAD
     "deploy:dev": "wrangler deploy --env=testing",
     "deploy:prod": "wrangler deploy",
+=======
+    "w:deploy:dev": "wrangler deploy --env=testing -- minify ./src/cf-workers.ts",
+    "w:deploy:prod": "wrangler deploy --minify ./src/cf-workers.ts",
+>>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
     "clean": "rimraf dist",
     "lint": "eslint .",
     "types:check": "tsc --noEmit",

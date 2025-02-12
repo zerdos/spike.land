@@ -45,7 +45,7 @@ export interface MessageInputProps {
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
- 
+
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
@@ -70,7 +70,7 @@ export interface ICodeSession {
 
 export interface ICode {
   setSession: (sess: ICodeSession) => void;
-  getSession:  () => Promise<ICodeSession>;
+  getSession: () => Promise<ICodeSession>;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
   addMessageChunk: (chunk: string) => void;

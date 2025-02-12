@@ -94,7 +94,11 @@ const FullScreenHistoryView: React.FC<{
               totalItems={history.length}
               onDelete={async (timestamp) => {
                 try {
+<<<<<<< HEAD
                   const session = await cSess.getSession();
+=======
+                  const { codeSpace } = await cSess.getSession();
+>>>>>>> c0fe85e2a (refactor: clean up code formatting and improve consistency across components)
                   await fetch(
                     `/live/${session.codeSpace}/auto-save/history/delete/${timestamp}`,
                   );
