@@ -16,7 +16,8 @@ const mutex = new Mutex();
  * and model relationships.
  */
 export class Code implements ICode {
-  private sessionManager: SessionManager;
+  // private sessionManager: SessionManager
+  // private codeSpace = getCodeSpace(location.pathname);
   private modelManager: ModelManager;
   private codeProcessor: CodeProcessor;
   private releaseWorker: () => void = () => {};
@@ -31,9 +32,11 @@ export class Code implements ICode {
     messages: [],
     transpiled: "",
   };
+  private sessionManager: SessionManager;
 
   constructor(private codeSpace: string) {
     this.sessionManager = new SessionManager(codeSpace);
+    this.session.codeSpace = codeSpace;
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
     this.setSession({
@@ -43,20 +46,24 @@ export class Code implements ICode {
   }
 
   getSession(): ICodeSession {
-    return this.session;
+    return this.sessionManager.getSession();
   }
 
   setSession(session: ICodeSession): void {
+    this.session = session;
     this.sessionManager.updateSession(session);
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
-    const initializedSession = await this.sessionManager.init(session ?? undefined);
+
+    const initializedSession: ICodeSession =  await this.sessionManager.init( session ?? await fetch(`/api/room/${this.codeSpace}/session.json`).then((res) =>res.json()));
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${initializedSession.codeSpace}`,
       sess: initializedSession,
     });
+
     this.setSession(initializedSession);
+
     return initializedSession;
   }
 
