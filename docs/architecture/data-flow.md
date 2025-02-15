@@ -1,6 +1,6 @@
 # Data Flow Architecture
 
-## Overview
+## Overview 
 
 This document describes how data flows through the spike.land system, including real-time collaboration, asset serving, and AI interactions.
 
@@ -21,7 +21,8 @@ sequenceDiagram
 
     %% Code Editing Flow
     Client->>Frontend: Edit code
-    Frontend->>TranspilerWorker: Request transpilation
+    Frontend->>Frontend: Format code (Prettier)
+    Frontend->>TranspilerWorker: Request transpilation (esbuild)
     TranspilerWorker-->>Frontend: Return transpiled code
     Frontend->>MainWorker: Save changes
     MainWorker->>DurableObjects: Update state
@@ -39,7 +40,8 @@ sequenceDiagram
     
     %% AI Integration
     Client->>MainWorker: AI request
-    MainWorker->>AI: Process request
+    MainWorker->>AIHandler: Prepare content
+    MainWorker->>AIService: Process request
     AI-->>MainWorker: Return result
     MainWorker-->>Client: Send response
 ```
@@ -193,7 +195,7 @@ async function fetchWithCache(key: string) {
 
 ## AI Integration Flow
 
-### Request Processing
+### Request Processing 
 ```mermaid
 sequenceDiagram
     participant Client
@@ -267,7 +269,7 @@ class ErrorHandler {
 // Example monitoring setup
 interface MetricPoint {
   timestamp: number;
-  type: string;
+  type: string; 
   value: number;
   metadata: Record<string, string>;
 }

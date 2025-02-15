@@ -64,11 +64,23 @@ async function serveAsset(key: string) {
 ```
 
 #### AI Service Integration
+- Uses `AIHandler` to manage interactions with different AI services (OpenAI, Anthropic).
+- Configures the AI services with API endpoints, throttling, and retry logic.
+- Prepares content for AI requests using `prepareClaudeContent`.
 ```typescript
 // Example AI service routing
 async function handleAI(request: Request) {
   const service = request.url.includes('/openai') ? openAI : anthropic;
   return service.process(request);
+}
+
+// Example AIHandler setup
+class AIHandler {
+  constructor(private aiService: AIService) {}
+
+  async process(messages: Message[], onUpdate: (code: string) => void) {
+    return this.aiService.sendToAI(messages, onUpdate);
+  }
 }
 ```
 
@@ -153,6 +165,11 @@ async function getCachedRender(url: string) {
   return render;
 }
 ```
+
+### Service Worker
+- Implements caching strategies for static assets.
+- Handles offline functionality.
+- Manages background updates.
 
 ## Inter-Worker Communication
 
