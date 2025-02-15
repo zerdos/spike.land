@@ -30,21 +30,21 @@ export const getDirectoryEntriesRecursive = async (
   directoryHandle: FileSystemDirectoryHandle,
   relativePath = ".",
 ): Promise<Record<string, FileSystemEntry>> => {
-  const directoryIterator = directoryHandle.values();
-  const directoryEntryPromises: Array<Promise<FileSystemEntry>> = [];
-  for await (const handle of directoryIterator) {
+  const entries: Record<string, FileSystemEntry> = {};
+  
+  for await (const [_, handle] of directoryHandle.entries()) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
-      directoryEntryPromises.push(handleFile(handle, nestedPath));
+      const fileHandle = handle as FileSystemFileHandle;
+      const entry = await handleFile(fileHandle, nestedPath);
+      entries[entry.name!] = entry;
     } else if (handle.kind === "directory") {
-      directoryEntryPromises.push(handleDirectory(handle, nestedPath));
+      const dirHandle = handle as FileSystemDirectoryHandle;
+      const entry = await handleDirectory(dirHandle, nestedPath);
+      entries[entry.name!] = entry;
     }
   }
-  const directoryEntries = await Promise.all(directoryEntryPromises);
-  const entries: Record<string, FileSystemEntry> = {};
-  directoryEntries.forEach((directoryEntry) => {
-    entries[directoryEntry.name!] = directoryEntry;
-  });
+  
   return entries;
 };
 
@@ -163,6 +163,7 @@ export const readFileSync = (filePath: string): string => {
   // Check if the filePath exists in the global object and return its content
   return Object.hasOwn(globalFiles, filePath) ? globalFiles[filePath] : "";
 };
+
 const FS: {
   readFileSync: (filePath: string) => string;
   readFile: (filePath: string) => Promise<string>;

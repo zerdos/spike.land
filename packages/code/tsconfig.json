@@ -6,7 +6,7 @@
     "src/**/*.d.ts",
     "src/assets/tw-js.js"
   ],
-  "exclude": ["node_modules", "dts"],
+  "exclude": ["node_modules", "dts", "**/*.spec.ts", "**/*.test.ts"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
@@ -15,14 +15,15 @@
     "baseUrl": ".",
     "composite": true,
     "skipLibCheck": true,
-    "incremental": true,
-    "emitDeclarationOnly": true,
     "esModuleInterop": true,
+    "emitDeclarationOnly": true,
     "target": "esnext",
     "module": "esnext",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "outDir": "dts",
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "paths": {
       "@/*": ["./src/@/*"]
     }

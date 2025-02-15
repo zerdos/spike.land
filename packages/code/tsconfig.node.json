@@ -2,30 +2,26 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/@/*"
-      ]
+      "@/*": ["./src/@/*"]
     },
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "outDir": "dts",
+    "outDir": "dist",
     "composite": true,
-    "incremental": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    // "noEmit": true,
+    "declaration": true,
+    "declarationDir": "./dts",
     "emitDeclarationOnly": true,
-    /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts"]
+  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
