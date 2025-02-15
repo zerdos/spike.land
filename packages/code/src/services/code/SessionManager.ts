@@ -56,7 +56,6 @@ export class SessionManager implements ISessionManager {
     }
 
     lastMessage.content += chunk;
-
     this.broadcastSession(oldSession);
   }
 
@@ -109,33 +108,64 @@ export class SessionManager implements ISessionManager {
     this.broadcastSession(oldSession);
   }
 
+  /**
+   * Computes the difference between two sessions, returning only changed fields
+   */
+  private computeSessionDiff(oldSession: ICodeSession, newSession: ICodeSession): Partial<ICodeSession> {
+    const diff: Partial<ICodeSession> = {
+      codeSpace: newSession.codeSpace
+    };
+
+    // Compare simple fields
+    if (oldSession.code !== newSession.code) {
+      diff.code = newSession.code;
+    }
+    if (oldSession.html !== newSession.html) {
+      diff.html = newSession.html;
+    }
+    if (oldSession.css !== newSession.css) {
+      diff.css = newSession.css;
+    }
+    if (oldSession.transpiled !== newSession.transpiled) {
+      diff.transpiled = newSession.transpiled;
+    }
+
+    // Compare messages with optimized diffing
+    if (JSON.stringify(oldSession.messages) !== JSON.stringify(newSession.messages)) {
+      if (newSession.messages.length === 0) {
+        diff.messages = [];
+      } else if (oldSession.messages.length === newSession.messages.length) {
+        // If same length, only send the modified message (usually the last one)
+        const lastIndex = newSession.messages.length - 1;
+        if (JSON.stringify(oldSession.messages[lastIndex]) !== JSON.stringify(newSession.messages[lastIndex])) {
+          diff.messages = [newSession.messages[lastIndex]];
+        }
+      } else {
+        // If message count changed, only send the new messages
+        diff.messages = newSession.messages.slice(oldSession.messages.length);
+      }
+    }
+
+    return diff;
+  }
+
   private broadcastSession(oldSession: ICodeSession): void {
+    const diff = this.computeSessionDiff(oldSession, this.session);
+    
+    // Only broadcast if there are actual changes beyond just codeSpace
+    if (Object.keys(diff).length > 1) {
+      const broadcastData: BroadcastMessage = {
+        code: this.session.code,
+        html: this.session.html,
+        css: this.session.css,
+        messages: diff.messages || this.session.messages,
+        codeSpace: this.session.codeSpace,
+        transpiled: this.session.transpiled,
+        sender: "Editor"
+      };
 
-    const changes: Partial<ICodeSession> = {};
-
-    if (oldSession.code !== this.session.code) {
-      changes.code = this.session.code;
+      this.broadcastChannel.postMessage(broadcastData);
     }
-    if (oldSession.html !== this.session.html) {
-      changes.html = this.session.html;
-    }
-    if (oldSession.css !== this.session.css) {
-      changes.css = this.session.css;
-    }
-    if (oldSession.transpiled !== this.session.transpiled){
-      changes.transpiled = this.session.transpiled;
-    }
-
-
-    if (JSON.stringify(oldSession.messages) !== JSON.stringify(this.session.messages)) {
-      changes.messages = this.session.messages;
-    }
-
-
-    this.broadcastChannel.postMessage({
-      ...changes,
-      sender: "Editor",
-    } as BroadcastMessage);
   }
 
   async release(): Promise<void> {
