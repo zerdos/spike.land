@@ -1,6 +1,7 @@
 import { sanitizeSession } from "@/lib/make-sess";
 import { ICodeSession } from "src/modules";
 import { ICodeSessionBC } from "./websocket/types";
+import { getBroadcastChannel } from "@/lib/broadcast-channel";
 
 export class CodeSessionBC implements ICodeSessionBC {
   private broadcastChannel: BroadcastChannel;
@@ -12,9 +13,8 @@ export class CodeSessionBC implements ICodeSessionBC {
       this.session = session;
     }
 
-    this.broadcastChannel = new BroadcastChannel(
-      `/live/${this.codeSpace}/`,
-    );
+    this.broadcastChannel = getBroadcastChannel(this.codeSpace);
+    
     this.broadcastChannel.onmessage = (
       { data }: MessageEvent<ICodeSession>,
     ) => {

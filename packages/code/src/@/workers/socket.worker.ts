@@ -1,5 +1,6 @@
 // packages/code/src/@/workers/socket.worker.ts
 
+import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import {
   applySessionPatch,
   computeSessionHash,
@@ -12,6 +13,7 @@ import { wait } from "@/lib/wait";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
+import { get } from "http";
 
 // Define the properties of `self` with proper types
 declare let self: SharedWorkerGlobalScope & {
@@ -96,7 +98,7 @@ export async function setConnections(signal: string, sess: ICodeSession): Promis
     controller: new AbortController(),
     oldSession: sess,
     hashCode: computeSessionHash(sess),
-    broadcastChannel: new BroadcastChannel(`/live/${codeSpace}/`),
+    broadcastChannel: getBroadcastChannel(codeSpace),
     webSocket: createWebSocket(codeSpace),
   };
 

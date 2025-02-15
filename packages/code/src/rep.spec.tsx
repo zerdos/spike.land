@@ -1,5 +1,5 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi, afterAll } from "vitest";
 
 describe("replacePreservingWhitespace", () => {
 
