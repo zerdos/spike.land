@@ -53,13 +53,29 @@ interface WsMessage {
   hash: string;
 }
 
+interface BroadcastMessageData extends ICodeSession {
+  changes: boolean;
+  sender: string;
+}
+
 // Use a Map for better management of connections
 const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections ||
   new Map();
 const mutex = new Mutex();
 
+// Use a Map to manage broadcast modifications and prevent memory leaks
+// Store last message timestamp per codeSpace
+const lastMessageTime = new Map<string, number>();
+
+const broadcastMod = new Map<
+  string,
+  BroadcastMessageData & {
+    controller: AbortController;
+    timeoutId: ReturnType<typeof setTimeout>;
+  }
+>();
+
 console.log("[SocketWorker] Initializing socket worker...");
-console.log("[SocketWorker] Creating mutex and connections map");
 
 // Define constants for sender identifiers to avoid magic strings
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
@@ -69,101 +85,39 @@ const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 
 /**
  * Sets up the connection for a given code space and user.
- * @param signal - A string containing the code space and user.
- * @param sess - The initial code session.
  */
-export async function setConnections(
-  signal: string,
-  sess: ICodeSession,
-): Promise<void> {
-  console.log("[SetConnections] Starting connection setup...");
-  console.log("[SetConnections] Signal details:", {
-    signal,
-    sessionHash: computeSessionHash(sess),
-  });
-  console.log("[SetConnections] Initial session state:", JSON.stringify(sess, null, 2));
-
+export async function setConnections(signal: string, sess: ICodeSession): Promise<void> {
   const [codeSpace, user] = signal.split(" ");
   if (connections.has(codeSpace)) return;
 
-  console.log("[SetConnections] Creating new connection for codeSpace:", codeSpace, "user:", user);
   const connection: Connection = {
     user,
     codeSpace,
     controller: new AbortController(),
     oldSession: sess,
     hashCode: computeSessionHash(sess),
-    broadcastChannel: new BroadcastChannel(
-      `/live/${codeSpace}/`,
-    ),
+    broadcastChannel: new BroadcastChannel(`/live/${codeSpace}/`),
     webSocket: createWebSocket(codeSpace),
   };
 
   connections.set(codeSpace, connection);
   connection.broadcastChannel.onmessage = (event) => {
-    handleBroadcastMessage(event.data, connection).catch((error) => {
-      console.error("Error handling broadcast message:", error);
-    });
+    handleBroadcastMessage(event.data, connection).catch(console.error);
   };
 
   connection.webSocket.open();
-  console.log("[SetConnections] Connection successfully created and stored:", {
-    codeSpace,
-    user,
-    hashCode: connection.hashCode,
-    channelPath: `/live/${codeSpace}/`,
-  });
-}
-
-/**
- * Fetches the initial session data for a given code space.
- * @param codeSpace - The code space identifier.
- * @returns A promise that resolves to the code session.
- */
-async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
-  console.log("[FetchInitialSession] Starting fetch for codeSpace:", codeSpace);
-  try {
-    const response = await fetch(`/api/room/${codeSpace}/session.json`);
-    const data = (await response.json()) as ICodeSession;
-    console.log("[FetchInitialSession] Session fetched successfully:", {
-      codeSpace,
-      sessionHash: computeSessionHash(data),
-      dataSize: JSON.stringify(data).length,
-    });
-    return sanitizeSession(data);
-  } catch (error) {
-    console.error(`[FetchInitialSession] Failed to fetch session for ${codeSpace}:`, {
-      error,
-      errorMessage: error instanceof Error ? error.message : "Unknown error",
-      timestamp: new Date().toISOString(),
-    });
-    throw error;
-  }
 }
 
 /**
  * Creates a WebSocket connection for the given code space.
- * @param codeSpace - The code space identifier.
- * @returns The initialized WebSocket.
  */
-function createWebSocket(codeSpace: string) {
+function createWebSocket(codeSpace: string): Socket {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
   const host = location.host === "localhost" ? "testing.spike.land" : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
-  console.log("[CreateWebSocket] Initializing connection:", {
-    url,
-    protocol: location.protocol,
-    host,
-    codeSpace,
-    socketPolicy: SOCKET_POLICY,
-  });
 
   const delegate = {
     socketDidOpen() {
-      console.log("[WebSocket] Connection established successfully", {
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
       const connection = connections.get(codeSpace)!;
       connection.webSocket.send(
         JSON.stringify({
@@ -173,35 +127,16 @@ function createWebSocket(codeSpace: string) {
         }),
       );
     },
-    socketDidClose(_socket: Socket, code?: number, reason?: string) {
-      console.log("[WebSocket] Connection closed", {
-        code,
-        reason,
-        codeSpace,
-        timestamp: new Date().toISOString(),
-        willRetry: code !== 1008,
-      });
+    socketDidClose(_socket: Socket, code?: number) {
       // Socket closed and will retry the connection.
     },
     socketDidFinish() {
-      console.log("[WebSocket] Connection finished permanently", {
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
       // Socket closed for good and will not retry.
     },
     socketDidReceiveMessage(socket: Socket, message: string) {
       connections.set(codeSpace, { ...connections.get(codeSpace)!, webSocket: socket });
-      console.log("[WebSocket] Received message:", {
-        messageType: typeof message === "string" ? "string" : "object",
-        messageSize: message.length,
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
       const data: WsMessage = typeof message === "string" ? JSON.parse(message) : message;
-      handleSocketMessage(data, codeSpace).catch((error) => {
-        console.error("Error handling socket message:", error);
-      });
+      handleSocketMessage(data, codeSpace).catch(console.error);
     },
     socketShouldRetry(_socket: Socket, code: number): boolean {
       return code !== 1008;
@@ -214,416 +149,48 @@ function createWebSocket(codeSpace: string) {
 }
 
 /**
- * Handles incoming socket messages and dispatches them based on their type.
- * @param data - The received message
- * @param codeSpace - The code space identifier
+ * Fetches the initial session data for a code space.
  */
-async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<void> {
-  const connection = connections.get(codeSpace);
-  if (!connection) {
-    console.error("[HandleSocketMessage] Connection not found", {
-      codeSpace,
-      availableConnections: Array.from(connections.keys()),
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-  const ws = connection.webSocket;
-  console.log(`[HandleSocketMessage] Processing message for ${codeSpace}:`, {
-    messageType: data.type,
-    hasChanges: !!data.changes,
-    hasHash: !!data.hash,
-    timestamp: new Date().toISOString(),
-  });
-
-  if (data.type === "ping") {
-    console.log("[HandleSocketMessage] Received ping message", {
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-
-  if (data.error && data.error === "old hashes not matching") {
-    const sess = await fetchInitialSession(codeSpace);
-    const hashCode = computeSessionHash(sess);
-    if (hashCode !== data.hash) {
-      throw new Error("Hash mismatch");
-    }
-    if (data.hash === hashCode) {
-      connection.oldSession = sess;
-      connection.hashCode = hashCode;
-      connection.broadcastChannel.postMessage({
-        ...sess,
-        sender: "WORKER_HANDLE_CHANGES",
-      });
-    }
-    const patch = generateSessionPatch(sess, connection.oldSession);
-    connection.webSocket.send(
-      JSON.stringify({ ...patch, name: connection.user }),
-    );
-    return;
-  }
-
-  if (data.hashCode) {
-    console.log("[HandleSocketMessage] Received hash code", {
-      hashCode: data.hashCode,
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    if (connection.hashCode === data.hashCode) {
-      console.log("[HandleSocketMessage] Skipping message - hash match detected", {
-        hashCode: data.hashCode,
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
-      return;
-    }
-  }
-
-  if (data.hash && data.hash !== connection.hashCode) {
-    const sess = await fetchInitialSession(codeSpace);
-    if (data.hash !== computeSessionHash(sess)) {
-      console.log("[HandleSocketMessage] Hash mismatch detected", {
-        expectedHash: data.hash,
-        computedHash: computeSessionHash(sess),
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
-      return;
-    }
-    connection.hashCode = data.hash;
-    connection.oldSession = sess;
-    connection.broadcastChannel.postMessage({
-      ...sess,
-      sender: SENDER_WORKER_HANDLE_CHANGES,
-    });
-    return;
-  }
-
-  if (data.hash && data.hash !== connection.hashCode) {
-    const sess = await fetchInitialSession(codeSpace);
-    if (data.hash !== computeSessionHash(sess)) {
-      console.log("Hash mismatch, skipping message");
-      return;
-    }
-    const patch = generateSessionPatch(sess, connection.oldSession);
-    connection.webSocket.send(
-      JSON.stringify({ ...patch, name: connection.user }),
-    );
-    return;
-  }
-
-  if (data.changes) {
-    await handleChanges({ changes: data.changes }, connection);
-  } else if (data.hash) {
-    await handleSessionString({ hash: data.hash }, ws, connection);
-  } else if (data.type === "handShake") {
-    await handleHandshake(ws, { hashCode: data.hashCode, type: data.type }, connection, codeSpace);
-  } else if (data.hashCode && data.oldHash) {
-    if (connection.hashCode === data.hashCode) {
-      return;
-    }
-    await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
-  } else {
-    console.log("[HandleSocketMessage] Unhandled message type", {
-      messageType: data.type,
-      dataKeys: Object.keys(data),
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-  }
+async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
+  const response = await fetch(`/api/room/${codeSpace}/session.json`);
+  const data = await response.json() as ICodeSession;
+  return sanitizeSession(data);
 }
-
-/**
- * Handles 'changes' messages received from the socket.
- * @param data - The received data
- * @param connection - The connection context
- */
-async function handleChanges(
-  data: { changes: unknown; },
-  connection: Connection,
-): Promise<void> {
-  console.log("[HandleChanges] Processing changes", {
-    changeType: typeof data.changes,
-    changeSize: JSON.stringify(data.changes).length,
-    timestamp: new Date().toISOString(),
-  });
-  connection.broadcastChannel.postMessage({
-    ...data,
-    sender: SENDER_WORKER_HANDLE_CHANGES,
-  });
-  console.log("[HandleChanges] Changes successfully broadcasted", {
-    sender: SENDER_WORKER_HANDLE_CHANGES,
-    timestamp: new Date().toISOString(),
-  });
-}
-
-/**
- * Handles a session string message.
- * @param data - The received data
- * @param ws - The WebSocket instance
- * @param connection - The connection context
- */
-async function handleSessionString(
-  data: { hash: string; },
-  ws: Socket,
-  connection: Connection,
-): Promise<void> {
-  console.log("[HandleSessionString] Processing session string", {
-    hash: data.hash,
-    user: connection.user,
-    codeSpace: connection.codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-  const { oldSession, user } = connection;
-  const sess = await fetchInitialSession(connection.codeSpace);
-  const patch = generateSessionPatch(sess, oldSession);
-  console.log("[HandleSessionString] Generated session patch", {
-    patchSize: JSON.stringify(patch).length,
-    user: connection.user,
-    timestamp: new Date().toISOString(),
-  });
-  ws.send(JSON.stringify({ ...patch, name: user }));
-  console.log("[HandleSessionString] Patch sent successfully", {
-    user: connection.user,
-    timestamp: new Date().toISOString(),
-  });
-}
-
-/**
- * Handles handshake messages and synchronizes sessions.
- * @param ws - The WebSocket instance
- * @param data - The received data
- * @param connection - The connection context
- * @param codeSpace - The code space identifier
- */
-async function handleHandshake(
-  ws: Socket,
-  data: { hashCode: string; type: string; },
-  connection: Connection,
-  codeSpace: string,
-): Promise<void> {
-  console.log("[HandleHandshake] Processing handshake", {
-    user: connection.user,
-    codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-  ws.send(JSON.stringify({ name: connection.user }));
-  console.log("[HandleHandshake] User name sent", {
-    user: connection.user,
-    codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-
-  const oldSessionHash = computeSessionHash(connection.oldSession);
-  console.log("[HandleHandshake] Hash comparison", {
-    oldSessionHash,
-    receivedHashCode: data.hashCode,
-    match: oldSessionHash === data.hashCode,
-    codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-
-  if (oldSessionHash !== data.hashCode) {
-    console.log("[HandleHandshake] Hash mismatch detected, fetching new session", {
-      oldHash: oldSessionHash,
-      receivedHash: data.hashCode,
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    connection.oldSession = await fetchInitialSession(codeSpace);
-    connection.broadcastChannel.postMessage({
-      ...connection.oldSession,
-      sender: SENDER_WORKER_HANDSHAKE,
-    });
-    console.log("[HandleHandshake] New session broadcasted successfully", {
-      hashCode: computeSessionHash(connection.oldSession),
-      sender: SENDER_WORKER_HANDSHAKE,
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-  } else {
-    console.log("[HandleHandshake] Hash match verified, no sync needed", {
-      hash: oldSessionHash,
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-  }
-}
-
-/**
- * Handles hash updates to synchronize code sessions.
- * @param data - The received data containing hash updates
- * @param connection - The connection context
- * @param codeSpace - The code space identifier
- */
-async function handleHashUpdate(
-  data: CodePatch,
-  connection: Connection,
-  codeSpace: string,
-): Promise<void> {
-  console.log("[HandleHashUpdate] Processing hash update", {
-    oldHash: data.oldHash,
-    hashCode: data.hashCode,
-    codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-  connection.controller.abort();
-  connection.controller = new AbortController();
-  const { signal } = connection.controller;
-
-  if (signal.aborted) {
-    console.log("[HandleHashUpdate] Update aborted by controller", {
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-
-  await mutex.runExclusive(async () => {
-    try {
-      const oldSession = sanitizeSession(connection.oldSession);
-      const oldHash = computeSessionHash(oldSession);
-
-      if (oldHash !== String(data.oldHash)) {
-        await handleHashMismatch(connection, codeSpace, signal);
-      } else {
-        await handleHashMatch(data, connection, oldSession, signal);
-      }
-    } catch (error) {
-      console.error("[HandleHashUpdate] Error during processing", {
-        error: error instanceof Error ? error.message : "Unknown error",
-        stack: error instanceof Error ? error.stack : undefined,
-        codeSpace,
-        timestamp: new Date().toISOString(),
-      });
-    }
-  });
-}
-
-/**
- * Handles cases where the hash of the old session does not match.
- * @param connection - The connection context
- * @param codeSpace - The code space identifier
- * @param signal - The AbortSignal to handle cancellation
- */
-async function handleHashMismatch(
-  connection: Connection,
-  codeSpace: string,
-  signal: AbortSignal,
-): Promise<void> {
-  if (signal.aborted) {
-    console.log("[HandleHashMismatch] Processing aborted by controller", {
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-  console.log("[HandleHashMismatch] Fetching new session", {
-    codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-  connection.oldSession = await fetchInitialSession(codeSpace);
-
-  if (signal.aborted) {
-    console.log("[HandleHashMismatch] Processing aborted after session fetch", {
-      codeSpace,
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-
-  connection.broadcastChannel.postMessage({
-    ...connection.oldSession,
-    sender: SENDER_WORKER_HASH_MISMATCH,
-  });
-}
-
-/**
- * Handles cases where the hash of the old session matches.
- * @param data - The received data
- * @param connection - The connection context
- * @param oldSession - The old code session
- * @param signal - The AbortSignal to handle cancellation
- */
-async function handleHashMatch(
-  data: CodePatch,
-  connection: Connection,
-  oldSession: ICodeSession,
-  signal: AbortSignal,
-): Promise<void> {
-  console.log("[HandleHashMatch] Processing matching hash", {
-    oldHash: computeSessionHash(oldSession),
-    hashCode: data.hashCode,
-    timestamp: new Date().toISOString(),
-  });
-  const newSession = applySessionPatch(oldSession, data);
-  const hashCode = computeSessionHash(newSession);
-
-  if (signal.aborted) {
-    console.log("[HandleHashMatch] Processing aborted by controller", {
-      timestamp: new Date().toISOString(),
-    });
-    return;
-  }
-
-  if (data.hashCode === hashCode) {
-    connection.oldSession = newSession;
-    connection.hashCode = hashCode;
-    connection.broadcastChannel.postMessage({
-      ...newSession,
-      sender: SENDER_WORKER_HASH_MATCH,
-    });
-    console.log("[HandleHashMatch] New session broadcasted successfully", {
-      hashCode,
-      sender: SENDER_WORKER_HASH_MATCH,
-      timestamp: new Date().toISOString(),
-    });
-  } else {
-    throw new Error("New hash does not match received hash");
-  }
-}
-
-interface BroadcastMessageData extends ICodeSession {
-  changes: boolean;
-  sender: string;
-}
-
-// Use a Map to manage broadcast modifications and prevent memory leaks
-const broadcastMod = new Map<
-  string,
-  BroadcastMessageData & {
-    controller: AbortController;
-    timeoutId: ReturnType<typeof setTimeout>;
-  }
->();
 
 /**
  * Handles messages received from the broadcast channel.
- * @param data - The received data
- * @param connection - The connection context
  */
 async function handleBroadcastMessage(
   data: BroadcastMessageData,
   connection: Connection,
 ): Promise<void> {
-  console.log("[HandleBroadcastMessage] Processing broadcast", {
-    hasChanges: !!data.changes,
-    sender: data.sender,
-    codeSpace: data.codeSpace,
-    timestamp: new Date().toISOString(),
-  });
-
   if (data.changes) {
+    console.debug("[HandleBroadcastMessage] Direct change message forwarded");
     connection.webSocket.send(JSON.stringify({ ...data, name: connection.user }));
     return;
   }
 
-  if ( data.sender === "Editor"
-  ) {
+  // Early return if the message doesn't have meaningful changes
+  if (data.sender === "Editor" && !data.code && !data.transpiled && !data.css && !data.html) {
+    console.debug("[HandleBroadcastMessage] Skipping message - no meaningful changes");
+    return;
+  }
 
+  const now = Date.now();
+  const lastTime = lastMessageTime.get(data.codeSpace) || now;
+  const timeSinceLastMessage = now - lastTime;
+  lastMessageTime.set(data.codeSpace, now);
 
+  console.debug("[HandleBroadcastMessage] Processing editor message", {
+    hasCode: !!data.code,
+    hasTranspiled: !!data.transpiled,
+    hasCss: !!data.css,
+    hasHtml: !!data.html,
+    timeSinceLastMessage,
+    timeStamp: now
+  });
+
+  if (data.sender === "Editor") {
     const codeSpace = data.codeSpace;
     let bMod = broadcastMod.get(codeSpace);
 
@@ -644,82 +211,151 @@ async function handleBroadcastMessage(
     bMod.controller = new AbortController();
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
-    await wait(50);
+    await wait(1000); // Increase debounce time to 1 second
+    
     if (signal.aborted) {
-      // console.log("[HandleBroadcastMessage] Processing aborted by controller", {
-      //   codeSpace,
-      //   timestamp: new Date().toISOString(),
-      // });
-
       return;
     }
 
+    // Only process if there are actual changes to sync
+    if (data.code || data.transpiled || data.css || data.html) {
+      const syncStartTime = performance.now();
+      const oldSession = sanitizeSession(connection.oldSession);
+      const newSession = sanitizeSession({...oldSession, ...data});
+      const hashCode = computeSessionHash(newSession);
+      const oldHash = computeSessionHash(oldSession);
+      const hashTime = performance.now() - syncStartTime;
 
-    const oldSession = sanitizeSession(connection.oldSession);
-    const newSession = sanitizeSession({...oldSession, ...data});
-
-    const hashCode = computeSessionHash(newSession);
-    const oldHash = computeSessionHash(oldSession);
-
-    if (hashCode !== oldHash) {
-      const patchMessage = generateSessionPatch(oldSession, newSession);
-      if (patchMessage.oldHash === oldHash) {
-        connection.oldSession = newSession;
-        connection.hashCode = hashCode;
-        connection.webSocket.send(
-          JSON.stringify({
-            ...patchMessage,
-            name: connection.user,
-          }),
-        );
-        return;
-      } else {
-        console.log("[HandleBroadcastMessage] Patch creation failed", {
-          expectedOldHash: patchMessage.oldHash,
-          actualOldHash: oldHash,
-          timestamp: new Date().toISOString(),
-        });
+      if (hashCode !== oldHash) {
+        const patchStartTime = performance.now();
+        const patchMessage = generateSessionPatch(oldSession, newSession);
+        if (patchMessage.oldHash === oldHash) {
+          connection.oldSession = newSession;
+          connection.hashCode = hashCode;
+          connection.webSocket.send(
+            JSON.stringify({
+              ...patchMessage,
+              name: connection.user,
+            }),
+          );
+          const totalTime = performance.now() - syncStartTime;
+          console.debug("[HandleBroadcastMessage] Sync metrics", {
+            hashingTime: hashTime,
+            patchingTime: performance.now() - patchStartTime,
+            totalProcessingTime: totalTime,
+            messageSize: JSON.stringify(patchMessage).length,
+          });
+        }
       }
-    } else {
-      console.log("[HandleBroadcastMessage] No changes detected", {
-        hash: hashCode,
-        timestamp: new Date().toISOString(),
-      });
     }
-  } else {
-    console.log("[HandleBroadcastMessage] Message ignored - conditions not met", {
-      hasHtml: !!data.html,
-      hasCode: !!data.code,
-      hasCss: !!data.css,
-      hasTranspiled: !!data.transpiled,
-      hasCodeSpace: !!data.codeSpace,
-      sender: data.sender,
-      timestamp: new Date().toISOString(),
-    });
   }
 }
 
-// Expose the setConnections function to the global scope
-Object.assign(globalThis, { setConnections, connections });
+/**
+ * Handles incoming socket messages.
+ */
+async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<void> {
+  const connection = connections.get(codeSpace);
+  if (!connection) return;
 
-// Add event listener for broadcast channel messages
+  const ws = connection.webSocket;
+
+  if (data.type === "ping") return;
+
+  if (data.error === "old hashes not matching") {
+    const sess = await fetchInitialSession(codeSpace);
+    const hashCode = computeSessionHash(sess);
+    if (hashCode === data.hash) {
+      connection.oldSession = sess;
+      connection.hashCode = hashCode;
+      connection.broadcastChannel.postMessage({
+        ...sess,
+        sender: SENDER_WORKER_HANDLE_CHANGES,
+      });
+    }
+    const patch = generateSessionPatch(sess, connection.oldSession);
+    ws.send(JSON.stringify({ ...patch, name: connection.user }));
+    return;
+  }
+
+  if (data.hash && data.hash !== connection.hashCode) {
+    const sess = await fetchInitialSession(codeSpace);
+    if (data.hash === computeSessionHash(sess)) {
+      connection.hashCode = data.hash;
+      connection.oldSession = sess;
+      connection.broadcastChannel.postMessage({
+        ...sess,
+        sender: SENDER_WORKER_HANDLE_CHANGES,
+      });
+    }
+    return;
+  }
+
+  if (data.hashCode && data.oldHash) {
+    if (connection.hashCode !== data.hashCode) {
+      await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
+    }
+    return;
+  }
+}
+
+/**
+ * Handles hash updates to synchronize sessions.
+ */
+async function handleHashUpdate(
+  data: CodePatch,
+  connection: Connection,
+  codeSpace: string,
+): Promise<void> {
+  connection.controller.abort();
+  connection.controller = new AbortController();
+  const { signal } = connection.controller;
+
+  if (signal.aborted) return;
+
+  await mutex.runExclusive(async () => {
+    const oldSession = sanitizeSession(connection.oldSession);
+    const oldHash = computeSessionHash(oldSession);
+
+    if (oldHash !== String(data.oldHash)) {
+      if (!signal.aborted) {
+        connection.oldSession = await fetchInitialSession(codeSpace);
+        connection.broadcastChannel.postMessage({
+          ...connection.oldSession,
+          sender: SENDER_WORKER_HASH_MISMATCH,
+        });
+      }
+    } else {
+      const newSession = applySessionPatch(oldSession, data);
+      const hashCode = computeSessionHash(newSession);
+
+      if (!signal.aborted && data.hashCode === hashCode) {
+        connection.oldSession = newSession;
+        connection.hashCode = hashCode;
+        connection.broadcastChannel.postMessage({
+          ...newSession,
+          sender: SENDER_WORKER_HASH_MATCH,
+        });
+      }
+    }
+  });
+}
+
+// Event listener setup for WebSocket connections
 self.addEventListener("connect", (event: MessageEvent) => {
   const port = event.ports[0];
   port.addEventListener("message", (evt: MessageEvent) => {
     const connection = connections.get(evt.data.codeSpace);
     if (connection) {
       handleBroadcastMessage(evt.data, connection).catch((error) => {
-        console.error("[BroadcastMessageHandler] Error processing message", {
-          error: error instanceof Error ? error.message : "Unknown error",
-          stack: error instanceof Error ? error.stack : undefined,
-          timestamp: new Date().toISOString(),
-        });
+        console.error("[BroadcastMessageHandler] Error:", error);
       });
     }
   });
   port.start();
 });
 
-console.log("[SocketWorker] Setup complete", {
-  timestamp: new Date().toISOString(),
-});
+// Expose the necessary functions to the global scope
+Object.assign(globalThis, { connections, setConnections });
+
+console.log("[SocketWorker] Setup complete");
