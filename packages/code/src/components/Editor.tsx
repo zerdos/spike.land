@@ -2,7 +2,7 @@ import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { initializeMonaco } from "./editorUtils";
@@ -17,120 +17,154 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
   const [session, setSession] = useState<ICodeSession | null>(null);
-  const [mod, _setMod] = useState<{
-    lastMd5s: string[];
-    lastCode: string;
-    controller: AbortController;
-  }>({
-    lastMd5s: [],
-    lastCode: "",
-    controller: new AbortController(),
-  });
+  const [lastHash, setLastHash] = useState<string>("");
+  const controller = useRef(new AbortController());
 
-  // Initialize session
+  // Initialize session with optimized state tracking
   useEffect(() => {
     cSess.getSession().then(initialSession => {
       setSession(initialSession);
-      _setMod(prev => ({
-        ...prev,
-        lastMd5s: [md5(initialSession.code)],
-        lastCode: initialSession.code,
-      }));
+      setLastHash(md5(initialSession.code));
     });
   }, [cSess]);
 
-  useEffect(() => {
-    if (!session) return;
-    
-    (async () => {
-      const lastCode = await cSess.getCode();
-      if (mod.lastCode === lastCode) return;
-      if (mod.lastMd5s.includes(md5(lastCode))) return;
-
-      _setMod((prev) => ({
-        ...prev,
-        lastCode,
-        lastMd5s: [...prev.lastMd5s, md5(lastCode)],
-      }));
-    })();
-  }, [session]);
-
   const initializeEditor = useMemo(() => initializeMonaco, []);
+
+  // Track performance metrics
+  const metrics = useRef({
+    lastChangeTime: 0,
+    changeCount: 0,
+    skippedCount: 0,
+    lastLogTime: 0,
+  });
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
-      if (!session) return;
+      if (!session || newCode === editorState.code) {
+        metrics.current.skippedCount++;
+        return;
+      }
 
-      mod.controller.abort();
-      mod.controller = new AbortController();
-      const { signal } = mod.controller;
+      const now = performance.now();
+      const timeSinceLastChange = now - metrics.current.lastChangeTime;
+      metrics.current.lastChangeTime = now;
+      metrics.current.changeCount++;
 
-      if (newCode === editorState.code) return;
+      // Log metrics every 5 seconds
+      if (now - metrics.current.lastLogTime > 5000) {
+        console.debug("[Editor] Performance metrics:", {
+          changeCount: metrics.current.changeCount,
+          skippedCount: metrics.current.skippedCount,
+          averageTimeBetweenChanges: timeSinceLastChange,
+          timestamp: new Date().toISOString(),
+        });
+        metrics.current.lastLogTime = now;
+        metrics.current.changeCount = 0;
+        metrics.current.skippedCount = 0;
+      }
+
+      controller.current.abort();
+      controller.current = new AbortController();
+      const { signal } = controller.current;
+
       try {
+        const newHash = md5(newCode);
+        if (newHash === lastHash) {
+          metrics.current.skippedCount++;
+          return;
+        }
+
         const formatted = await prettierToThrow({
           code: newCode,
           toThrow: false,
         });
+        
         if (signal.aborted) return;
 
-        const currentSession = await cSess.getSession();
-        if (mod.lastCode !== currentSession.code) {
-          await wait(200);
-          if (signal.aborted) return;
-        }
-        if (formatted === currentSession.code) return;
-        if (newCode === mod.lastCode) return;
-        if (formatted === mod.lastCode) return;
-
-        mod.lastCode = formatted;
-        if (mod.lastMd5s.includes(md5(formatted))) return;
-        if (mod.lastMd5s.length > 0) mod.lastMd5s.shift();
-        mod.lastMd5s.push(md5(formatted));
-
-        const code = await cSess.setCode(formatted);
-        if (typeof code === "string") {
-          if (!mod.lastMd5s.includes(md5(code))) mod.lastMd5s.push(md5(code));
-        }
-
+        const startSync = performance.now();
+        setLastHash(md5(formatted));
+        await cSess.setCode(formatted);
         await throttledTypeCheck();
+
+        const syncTime = performance.now() - startSync;
+        lifetimeMetrics.current.longestSyncTime = Math.max(
+          lifetimeMetrics.current.longestSyncTime,
+          syncTime
+        );
+        
+        console.debug("[Editor] Sync completed:", {
+          syncTime,
+          codeLength: formatted.length,
+          timestamp: new Date().toISOString(),
+        });
       } catch (e) {
-        console.error(e);
+        console.error("Content change error:", e);
       }
     },
-    [cSess, editorState.code, throttledTypeCheck, session],
+    [cSess, editorState.code, throttledTypeCheck, session, lastHash],
   );
 
-  // Listen for external code changes in cSess
+  // Track external change metrics
+  const externalMetrics = useRef({
+    lastUpdateTime: 0,
+    updateCount: 0,
+    skippedCount: 0,
+    lastLogTime: 0,
+  });
+
+  // Optimized external code change listener
   useEffect(() => {
     if (!editorState.started || !cSess || !cSess.sub || !session) return;
 
-    let newCode = "";
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
-      newCode = sess.code;
-      if (mod.lastMd5s.includes(md5(newCode))) return;
-      mod.lastMd5s.push(md5(newCode));
+      const now = performance.now();
+      const newHash = md5(sess.code);
+      
+      if (newHash === lastHash || sess.code === editorState.code) {
+        externalMetrics.current.skippedCount++;
+        return;
+      }
 
-      // Prevent applying changes if there's no new code or an outdated index
-      if (sess.code === editorState.code) return;
+      const timeSinceLastUpdate = now - externalMetrics.current.lastUpdateTime;
+      externalMetrics.current.lastUpdateTime = now;
+      externalMetrics.current.updateCount++;
 
-      // Optional formatting check (skip if identical)
-      const formatted = await prettierToThrow({
-        code: editorState.code,
-        toThrow: false,
+      // Log external change metrics every 5 seconds
+      if (now - externalMetrics.current.lastLogTime > 5000) {
+        console.debug("[Editor] External update metrics:", {
+          updateCount: externalMetrics.current.updateCount,
+          skippedCount: externalMetrics.current.skippedCount,
+          averageTimeBetweenUpdates: timeSinceLastUpdate,
+          timestamp: new Date().toISOString(),
+        });
+        externalMetrics.current.lastLogTime = now;
+        externalMetrics.current.updateCount = 0;
+        externalMetrics.current.skippedCount = 0;
+      }
+
+      // Debounce external changes
+      const startSync = performance.now();
+      await wait(500);
+      
+      setLastHash(newHash);
+      setEditorState((prev) => ({ ...prev, code: sess.code }));
+      editorState.setValue(sess.code);
+
+      const syncTime = performance.now() - startSync;
+      lifetimeMetrics.current.longestSyncTime = Math.max(
+        lifetimeMetrics.current.longestSyncTime,
+        syncTime
+      );
+
+      console.debug("[Editor] External sync completed:", {
+        syncTime,
+        codeLength: sess.code.length,
+        timestamp: new Date().toISOString(),
       });
-
-      // Skip if the code is the same as the formatted code
-      if (sess.code == formatted) return;
-      if (sess.code === editorState.code) return;
-
-      await wait(1000);
-      if (newCode !== sess.code) return;
-      setEditorState((prev) => ({ ...prev, code: newCode }));
-      editorState.setValue(newCode);
     });
 
     return () => unsubscribe();
-  }, [editorState.started, session]);
+  }, [editorState.started, session, lastHash]);
 
   // Initialize the editor once containerRef is available
   useEffect(() => {
@@ -168,6 +202,70 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     session,
     handleContentChange,
   ]);
+
+  // Track aggregate metrics across component lifetime
+  const lifetimeMetrics = useRef({
+    startTime: performance.now(),
+    totalLocalChanges: 0,
+    totalExternalChanges: 0,
+    totalSkippedChanges: 0,
+    longestSyncTime: 0,
+  });
+
+  // Monitor component cleanup and log final statistics
+  useEffect(() => {
+    return () => {
+      const duration = (performance.now() - lifetimeMetrics.current.startTime) / 1000;
+      console.info("[Editor] Component lifetime metrics:", {
+        durationSeconds: duration.toFixed(2),
+        avgLocalChangesPerMinute: (lifetimeMetrics.current.totalLocalChanges / (duration / 60)).toFixed(2),
+        avgExternalChangesPerMinute: (lifetimeMetrics.current.totalExternalChanges / (duration / 60)).toFixed(2),
+        totalSkippedChanges: lifetimeMetrics.current.totalSkippedChanges,
+        longestSyncTimeMs: lifetimeMetrics.current.longestSyncTime.toFixed(2),
+        codeSpace,
+      });
+    };
+  }, [codeSpace]);
+
+  // Consolidated cleanup and metrics tracking
+  useEffect(() => {
+    // Set up metrics update interval
+    const metricsInterval = setInterval(() => {
+      // Update local metrics
+      lifetimeMetrics.current.totalLocalChanges += metrics.current.changeCount;
+      lifetimeMetrics.current.totalSkippedChanges += metrics.current.skippedCount;
+
+      // Update external metrics
+      lifetimeMetrics.current.totalExternalChanges += externalMetrics.current.updateCount;
+      lifetimeMetrics.current.totalSkippedChanges += externalMetrics.current.skippedCount;
+
+      // Reset current counters after capturing their values
+      metrics.current.changeCount = 0;
+      metrics.current.skippedCount = 0;
+      externalMetrics.current.updateCount = 0;
+      externalMetrics.current.skippedCount = 0;
+    }, 5000);
+
+    return () => {
+      // Clear interval
+      clearInterval(metricsInterval);
+
+      // Abort any pending operations
+      controller.current.abort();
+
+      // Final metrics capture
+      metrics.current.changeCount = 0;
+      metrics.current.skippedCount = 0;
+      externalMetrics.current.updateCount = 0;
+      externalMetrics.current.skippedCount = 0;
+
+      // Log cleanup
+      console.debug("[Editor] Component cleanup completed", {
+        codeSpace,
+        timestamp: new Date().toISOString(),
+      });
+    };
+  }, [codeSpace]);
 
   if (!session) return null;
 
