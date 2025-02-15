@@ -45,7 +45,6 @@ export const getSpeedy2 = async () => {
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
 
-  const globCss = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
   const wrapperJs = res.find((x) => x.path.includes("wrapper.mjs"))?.text || "";
@@ -99,7 +98,6 @@ export const getSpeedy2 = async () => {
   <title>CodeSpace archive for ${codeSpace}</title>
   <style type="text/css"> 
     ${appCss}
-    ${globCss}
     ${wrapperCss}
     ${css}
   </style>
@@ -144,7 +142,6 @@ export const useArchive = async (codeSpace: string) => {
 
   const indexMjs = await buildWithRetry();
 
-  const gJunk = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
@@ -158,7 +155,7 @@ export const useArchive = async (codeSpace: string) => {
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
   <style type="text/css">
-    ${gJunk}
+  
     ${css}
   </style>
 </head>

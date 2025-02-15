@@ -42,14 +42,13 @@ const ChatInterface: React.FC<{
     }
     const unSub = cSess.sub((sess) => {
       // Deep compare messages to prevent unnecessary updates
-      const currentMessagesStr = JSON.stringify(messages);
-      const newMessagesStr = JSON.stringify(sess.messages);
+      if (sess.messages){
+        if (JSON.stringify(messages) === JSON.stringify(sess.messages)) {
+          return;
+        }
+        setMessages(sess.messages);
+      }
 
-      if (currentMessagesStr === newMessagesStr) return;
-
-      // Create new message array to ensure proper state update
-      const newMessages = sess.messages.map(msg => ({ ...msg }));
-      setMessages(newMessages);
     });
     return () => unSub();
   }, []);
@@ -127,9 +126,7 @@ const ChatInterface: React.FC<{
 
       // Handle messages update
       if (e.messages) {
-        // Create deep copy of messages to prevent mutations
-        const newMessages = e.messages.map((msg: Message) => ({ ...msg }));
-        await cSess.setMessages(newMessages);
+        await cSess.setMessages(e.messages);
       }
 
       // Handle streaming state

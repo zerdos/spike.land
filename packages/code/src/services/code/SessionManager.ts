@@ -40,6 +40,7 @@ export class SessionManager implements ISessionManager {
   }
 
   addMessageChunk(chunk: string): void {
+    const oldSession = sanitizeSession(this.session);
     if (this.session.messages.length === 0) {
       this.setMessages([{ id: Date.now().toString(), role: "assistant", content: chunk }]);
       return;
@@ -55,10 +56,12 @@ export class SessionManager implements ISessionManager {
     }
 
     lastMessage.content += chunk;
-    this.broadcastSession();
+
+    this.broadcastSession(oldSession);
   }
 
   setMessages(messages: Message[]): boolean {
+    const oldSession = sanitizeSession(this.session);
     const currentMessages = this.session.messages;
 
     if (messages.length === currentMessages.length) {
@@ -81,7 +84,7 @@ export class SessionManager implements ISessionManager {
       messages,
     });
 
-    this.broadcastSession();
+    this.broadcastSession(oldSession);
     return true;
   }
 
@@ -94,6 +97,7 @@ export class SessionManager implements ISessionManager {
   }
 
   updateSession(sessionData: Partial<ICodeSession>): void {
+    const oldSession = sanitizeSession(this.session);
     const newSession = sanitizeSession({
       ...this.session,
       ...sessionData,
@@ -102,12 +106,34 @@ export class SessionManager implements ISessionManager {
       return;
     }
     this.session = newSession;
-    this.broadcastSession();
+    this.broadcastSession(oldSession);
   }
 
-  private broadcastSession(): void {
+  private broadcastSession(oldSession: ICodeSession): void {
+
+    const changes: Partial<ICodeSession> = {};
+
+    if (oldSession.code !== this.session.code) {
+      changes.code = this.session.code;
+    }
+    if (oldSession.html !== this.session.html) {
+      changes.html = this.session.html;
+    }
+    if (oldSession.css !== this.session.css) {
+      changes.css = this.session.css;
+    }
+    if (oldSession.transpiled !== this.session.transpiled){
+      changes.transpiled = this.session.transpiled;
+    }
+
+
+    if (JSON.stringify(oldSession.messages) !== JSON.stringify(this.session.messages)) {
+      changes.messages = this.session.messages;
+    }
+
+
     this.broadcastChannel.postMessage({
-      ...this.session,
+      ...changes,
       sender: "Editor",
     } as BroadcastMessage);
   }

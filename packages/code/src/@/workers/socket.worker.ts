@@ -620,10 +620,10 @@ async function handleBroadcastMessage(
     return;
   }
 
-  if (
-    data.html && data.code && data.css && data.transpiled && data.codeSpace &&
-    data.sender === "Editor"
+  if ( data.sender === "Editor"
   ) {
+
+
     const codeSpace = data.codeSpace;
     let bMod = broadcastMod.get(codeSpace);
 
@@ -654,8 +654,10 @@ async function handleBroadcastMessage(
       return;
     }
 
-    const oldSession = connection.oldSession;
-    const newSession = sanitizeSession(data);
+
+    const oldSession = sanitizeSession(connection.oldSession);
+    const newSession = sanitizeSession({...oldSession, ...data});
+
     const hashCode = computeSessionHash(newSession);
     const oldHash = computeSessionHash(oldSession);
 

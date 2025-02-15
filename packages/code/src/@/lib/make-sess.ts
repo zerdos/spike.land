@@ -28,9 +28,10 @@ class SessionPatcher {
 
   public static sanitizeSession(p: unknown): ICodeSession {
     const session = p as ICodeSession;
+    const messages = JSON.parse(JSON.stringify(session.messages || []));
     return {
       codeSpace: session.codeSpace || "",
-      messages: (session.messages || []).filter(Boolean),
+      messages,
       code: session.code || "",
       html: session.html || "",
       css: session.css || "",
