@@ -9,7 +9,10 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "skipLibCheck": true,
     "composite": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./packages/code/src/@/*"],
+    },
     "esModuleInterop": true,
     "types": ["@cloudflare/workers-types"]
   },

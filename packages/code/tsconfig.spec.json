@@ -1,3 +1,8 @@
 {
-  "extends": "./tsconfig.json"
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.spec.ts", "src/**/*.spec.tsx", "src/**/*.test.ts", "src/**/*.test.tsx", "src/__tests__/**/*.test.ts", "src/__tests__/**/*.test.tsx"],
+  "exclude": ["node_modules", "dts"],
+  "compilerOptions": {
+    "types": ["vitest/globals"]
+  }
 }
