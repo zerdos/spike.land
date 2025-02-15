@@ -29,7 +29,7 @@ export class RenderService {
     }
 
     this.renderedMd5 = hashed;
-    console.log("Updating rendered app...");
+    // console.log("Updating rendered app...");
 
     await this.mutex.runExclusive(async () => {
       const myEl = document.createElement("div");

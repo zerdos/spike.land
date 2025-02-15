@@ -26,6 +26,24 @@ describe("ScreenshotService", () => {
   let postMessageSpy: ReturnType<typeof vi.spyOn>;
   const mockUUID = "test-uuid";
 
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
+
+  // Mock console before tests
+beforeAll(() => {
+  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+});
+
+// Restore console after tests
+afterAll(() => {
+  consoleErrorSpy.mockRestore();
+  consoleLogSpy.mockRestore();
+});
+
+
   beforeEach(() => {
     screenshotService = new ScreenshotService("test-code-space");
     postMessageSpy = vi.spyOn(window.parent, "postMessage");

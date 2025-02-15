@@ -10,6 +10,44 @@ import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 
+const createObjectURL: (blob: Blob )=>Promise<string> = async(blob)=> { return URL?.createObjectURL?.(blob) || (async (blob: Blob) => {
+// it means that the URL.createObjectURL is not available
+// so we are in node environment
+// we can create a tmp file and return the path
+
+ const fs = await import("fs");
+  const path = await import("path");
+
+  const fsPromises = fs.promises;
+  
+  const tmpPath = path.join(process.cwd(), "tmp");  
+  try {
+    await fsPromises.access(tmpPath);
+  } catch {
+    await fsPromises.mkdir(tmpPath);
+  }
+  const filePath = path.join(tmpPath, Math.random().toString());
+  if (blob.text) {
+  await fsPromises.writeFile(filePath,await blob.text());
+  } else  if (blob.arrayBuffer) {
+    await fsPromises.writeFile(filePath, Buffer.from(await blob.arrayBuffer()));
+  } else {
+    throw new Error("No method to read the blob");
+  }
+
+  return filePath;
+
+})(blob);
+}
+ 
+  // const fs = require("fs"
+
+  //   const blobUrl = `blob:${Math.random().toString()}`;
+//   (window as any)[blobUrl] = blob;
+//   return blobUrl;
+// });
+
+
 let firstRender = true;
 const origin = location.origin;
 
@@ -22,21 +60,17 @@ export function AppWithScreenSize({ AppToRender }: { AppToRender: FlexibleCompon
 export const importFromString = async (code: string) => {
   const { importMapReplace } = await import("@/lib/importmap-utils");
 
-  const createJsBlob = (code: string): string =>
-    new URL(
-      URL.createObjectURL(
-        new Blob([
-          importMapReplace(code.split("importMapReplace").join(""), origin).split(
-            `"/@/`,
-          ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(`from "/`).join(
-            `from "${origin}/`,
-          ),
-        ], { type: "application/javascript" }),
+  const createJsBlob =async (code: string): Promise<string> => await createObjectURL(
+    new Blob([
+      importMapReplace(code.split("importMapReplace").join(""), origin).split(
+        `"/@/`,
+      ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(`from "/`).join(
+        `from "${origin}/`,
       ),
-      origin,
-    ).toString();
+    ], { type: "application/javascript" }),
+  );
 
-  return import(/* @vite-ignore */ createJsBlob(code)).then((module) => module.default) as Promise<
+  return import(/* @vite-ignore */  await createJsBlob(code)).then((module) => module.default) as Promise<
     FlexibleComponentType
   >;
 };

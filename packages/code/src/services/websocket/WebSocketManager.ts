@@ -96,11 +96,11 @@ export class WebSocketManager implements IWebSocketManager {
   private async initializeResources(): Promise<void> {
     try {
       await init();
+      // console.log("Resource loading complete");
     } catch (error) {
       console.error("Resource initialization error:", error);
       // Continue execution as this is non-critical
     }
-    console.log("Resource loading complete");
   }
 
   /**

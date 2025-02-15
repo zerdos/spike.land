@@ -1,42 +1,55 @@
 import type { Message } from '@/lib/interfaces';
 import { handleSendMessage } from '@/workers/chat-utils.worker';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { AIService } from '../services/AIService';
 
 // Mock BroadcastChannel
+const mockBCPostMessage = vi.fn();
 class MockBroadcastChannel {
-  postMessage = vi.fn();
+    postMessage = mockBCPostMessage;
 }
 
 // Mock worker environment
 const mockSelf = {
-  postMessage: vi.fn(),
+    postMessage: vi.fn(),
 };
 global.BroadcastChannel = MockBroadcastChannel as any;
 global.self = mockSelf as any;
 
-const mockAIService = {
-  sendToAnthropic: vi.fn(),
-  prepareClaudeContent: vi.fn(),
-  sendToGpt4o: vi.fn(),
-};
-
-vi.mock('../../services/AIService', () => ({
-  AIService: vi.fn().mockImplementation(() => mockAIService),
-}));
-
 describe('handleSendMessage', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-    mockAIService.sendToAnthropic.mockResolvedValue({
-      status: 200, // Mock a successful response
-      id: 'test-id',
-      role: 'assistant',
-      content: 'Test response',
+
+
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
+
+  // Mock console before tests
+beforeAll(() => {
+  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+});
+
+// Restore console after tests
+afterAll(() => {
+  consoleErrorSpy.mockRestore();
+  consoleLogSpy.mockRestore();
+});
+
+
+    beforeEach(() => {
+        vi.clearAllMocks();
     });
-    mockAIService.prepareClaudeContent.mockReturnValue('Prepared content');
-  });
 
   test('should handle valid messages', async () => {
+        // Mock the entire AIService class within beforeEach for valid messages
+        vi.spyOn(AIService.prototype, 'prepareClaudeContent').mockReturnValue('Prepared content');
+        vi.spyOn(AIService.prototype, 'sendToAI').mockResolvedValue({
+            id: 'test-id',
+            role: 'assistant',
+            content: 'Test response',
+        });
+
     const testMessage: Message = {
       id: 'test-message-1',
       role: 'user',
@@ -55,19 +68,20 @@ describe('handleSendMessage', () => {
 
     expect(result).toBeDefined();
     expect(Array.isArray(result)).toBe(true);
-    expect(mockSelf.postMessage).toHaveBeenCalledWith(
+    expect(mockBCPostMessage).toHaveBeenCalledWith(
       expect.objectContaining({
         isStreaming: false,
         messages: expect.any(Array),
-      })
+      }),
     );
   });
 
   test('should handle error from AIService', async () => {
     const testError = new Error('Test error in AIService');
 
-    // Mock sendToAnthropic to reject with an error
-    mockAIService.sendToAnthropic.mockRejectedValue(testError);
+    // Mock sendToAI to reject with an error for this specific test
+      vi.spyOn(AIService.prototype, 'prepareClaudeContent').mockReturnValue('Prepared content');
+      vi.spyOn(AIService.prototype, 'sendToAI').mockRejectedValue(testError);
 
     const testMessage: Message = {
       id: 'test-message-1',

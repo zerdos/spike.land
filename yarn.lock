@@ -4377,6 +4377,7 @@ __metadata:
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.24.0"
     url: "npm:0.11.4"
+    url-polyfill: "npm:^1.1.13"
     use-immer: "npm:0.11.0"
     util: "npm:0.12.5"
     uuid: "npm:11.0.5"
@@ -17875,6 +17876,13 @@ __metadata:
     querystringify: "npm:^2.1.1"
     requires-port: "npm:^1.0.0"
   checksum: 10c0/bd5aa9389f896974beb851c112f63b466505a04b4807cea2e5a3b7092f6fbb75316f0491ea84e44f66fed55f1b440df5195d7e3a8203f64fcefa19d182f5be87
+  languageName: node
+  linkType: hard
+
+"url-polyfill@npm:^1.1.13":
+  version: 1.1.13
+  resolution: "url-polyfill@npm:1.1.13"
+  checksum: 10c0/c44dcbf9c910ef554b839b65a0abfc76f7de5e91bf13f3e08014014602a2c3f5bb4247be7c2f31b98a404cbbecbec5c040b92e13b288475d2eb0fde57163e33b
   languageName: node
   linkType: hard
 

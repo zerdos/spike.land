@@ -11,6 +11,26 @@ vi.mock('../../render/RenderService');
 vi.mock('../../../components/editorUtils');
 
 describe('CodeProcessor', () => {
+
+
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
+
+  // Mock console before tests
+beforeAll(() => {
+  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+});
+
+// Restore console after tests
+afterAll(() => {
+  consoleErrorSpy.mockRestore();
+  consoleLogSpy.mockRestore();
+});
+
+
   const mockCodeSpace = 'test-space';
   let codeProcessor: CodeProcessor;
 
@@ -153,6 +173,9 @@ describe('CodeProcessor', () => {
       const mockSignal = new AbortController().signal;
 
       vi.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
+      
+      // Mock formatCode to throw an error
+      vi.mocked(formatCode).mockRejectedValue(new Error('Format error'));
 
       const result = await codeProcessor.process(
         mockCode,

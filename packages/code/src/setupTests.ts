@@ -1,5 +1,6 @@
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
+import "url-polyfill";
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
@@ -82,7 +83,7 @@ class MockSharedWorker implements SharedWorker {
   constructor(stringUrl: string | URL, options?: string | WorkerOptions) {
     this.url = stringUrl as string;
     this.options = options || "";
-    console.log("MockSharedWorker created:", this.url, this.options);
+    // console.log("MockSharedWorker created:", this.url, this.options);
     // Constructor implementation
   }
 

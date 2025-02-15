@@ -1,7 +1,27 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
 describe("replacePreservingWhitespace", () => {
+
+
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
+
+  // Mock console before tests
+beforeAll(() => {
+  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+});
+
+// Restore console after tests
+afterAll(() => {
+  consoleErrorSpy.mockRestore();
+  consoleLogSpy.mockRestore();
+});
+
+
   it("1. should replace a word in the middle of a sentence", () => {
     const result = replacePreservingWhitespace(
       "The quick brown fox",

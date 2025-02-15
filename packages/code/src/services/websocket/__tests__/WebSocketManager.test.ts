@@ -11,7 +11,8 @@ import { WebSocketManager } from "../WebSocketManager";
 
 // Mock window functions and console
 window.scrollTo = vi.fn();
-let consoleSpy: ReturnType<typeof vi.spyOn>;
+let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+let consoleLogSpy: ReturnType<typeof vi.spyOn>;
 
 // Global constants
 const DEFAULT_CONFIG = {
@@ -22,12 +23,15 @@ const DEFAULT_CONFIG = {
 
 // Mock console before tests
 beforeAll(() => {
-  consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
 });
 
 // Restore console after tests
 afterAll(() => {
-  consoleSpy.mockRestore();
+  consoleErrorSpy.mockRestore();
+  consoleLogSpy.mockRestore();
 });
 
 // Mock dependencies
@@ -159,7 +163,7 @@ describe("WebSocketManager", () => {
       await vi.runAllTimersAsync();
 
       expect(mockServiceWorker.setup).toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Init error");
+      expect(consoleErrorSpy).toHaveBeenCalledWith("WebSocket error:", "Init error");
     });
   });
 
@@ -325,7 +329,7 @@ describe("WebSocketManager", () => {
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
 
       // Verify error handling
-      expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Network error");
+      expect(consoleErrorSpy).toHaveBeenCalledWith("WebSocket error:", "Network error");
       expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
     });
 
@@ -337,7 +341,7 @@ describe("WebSocketManager", () => {
       await expect(webSocketManager.init()).rejects.toThrow("Connection timeout");
 
       await vi.advanceTimersByTimeAsync(DEFAULT_CONFIG.connectionTimeout);
-      expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Connection timeout");
+      expect(consoleErrorSpy).toHaveBeenCalledWith("WebSocket error:", "Connection timeout");
     });
 
     it("should implement retry logic for recoverable errors", async () => {
@@ -352,14 +356,14 @@ describe("WebSocketManager", () => {
       // Initialize and expect initial failure
       await expect(webSocketManager.init()).rejects.toThrow("Recoverable error");
       expect(mockInit).toHaveBeenCalledTimes(1); // Initial attempt
-      expect(consoleSpy).toHaveBeenCalledWith("WebSocket error:", "Recoverable error");
+      expect(consoleErrorSpy).toHaveBeenCalledWith("WebSocket error:", "Recoverable error");
 
       // Run single retry delay
       await vi.advanceTimersByTimeAsync(DEFAULT_CONFIG.retryDelay);
       expect(mockInit).toHaveBeenCalledTimes(3); // Initial + 1 retry
 
       // Verify final state
-      expect(consoleSpy).toHaveBeenCalledTimes(3); // Error logged once
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(3); // Error logged once
     });
 
     it("should stop retrying after max attempts", async () => {
@@ -371,12 +375,12 @@ describe("WebSocketManager", () => {
       // Initial attempt
       await expect(webSocketManager.init()).rejects.toThrow("Persistent error");
       expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
-      expect(consoleSpy).toHaveBeenCalledTimes(3);
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(3);
 
       // Verify no more retries after max attempts
       await vi.advanceTimersByTimeAsync(DEFAULT_CONFIG.retryDelay * DEFAULT_CONFIG.maxRetries);
       expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(DEFAULT_CONFIG.maxRetries + 1);
-      expect(consoleSpy).toHaveBeenCalledTimes(DEFAULT_CONFIG.maxRetries * 5);
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(DEFAULT_CONFIG.maxRetries * 5);
     });
   });
 });

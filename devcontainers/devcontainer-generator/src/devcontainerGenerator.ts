@@ -236,18 +236,24 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{amd_dotnet_sha512}",
-            softwareVersions.sha
-              .dotnet_sha512[
-                softwareVersions
-                  .dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
-              ],
+            typeof softwareVersions.sha.dotnet_sha512[
+              softwareVersions.dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
+            ] === 'string'
+              ? (softwareVersions.sha.dotnet_sha512[
+                  softwareVersions.dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
+                ] as string)
+              : (softwareVersions.sha.dotnet_sha512[
+                  softwareVersions.dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
+                ] as { amd: string }).amd
           );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet5],
+            typeof softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet5 as keyof typeof softwareVersions.sha.dotnet_sha512] === 'string'
+              ? (softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet5 as keyof typeof softwareVersions.sha.dotnet_sha512] as string)
+              : (softwareVersions.sha.dotnet_sha512[softwareVersions.dotnet5 as keyof typeof softwareVersions.sha.dotnet_sha512] as { amd: string }).amd,
           );
       }
     }
@@ -369,7 +375,7 @@ export class DevcontainerGenerator {
       `../devcontainer-generator/templates/${filename}.${extension}`,
     )
       .catch((e) => {
-        console.error({ e });
-        return "";
+      
+        return e.message;
       });
 }
