@@ -1,7 +1,6 @@
 import type { Message } from '@/lib/interfaces';
 import { handleSendMessage } from '@/workers/chat-utils.worker';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { AIService } from '../services/AIService';
 
 // Mock BroadcastChannel
 class MockBroadcastChannel {
