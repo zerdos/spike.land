@@ -1,45 +1,33 @@
-import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
+import { defineConfig } from 'vitest/config';
 
-export default defineWorkersConfig({
+export default defineConfig({
   test: {
-    poolOptions: {
-      workers: {
-        wrangler: { configPath: "./wrangler.toml" },
-      }
+    environment: 'miniflare',
+    globals: true,
+    environmentOptions: {
+      bindings: {
+        CODE: { class: 'Code' },
+        LIMITERS: { class: 'CodeRateLimiter' },
+        KV: {},
+        R2: {},
+        X9: {},
+        AI: {},
+        ESBUILD: {}
+      },
+      modules: true,
+      wranglerConfigPath: './wrangler.toml',
+      scriptPath: './src/cf-workers.ts'
     },
-    alias: {
-      "@spike-npm-land/code": "./dist/modules.mjs",
-    },
-    include: ["**/*.{test,spec}.{ts,js}"],
-    setupFiles: ["./test-setup.ts"],
-    reporters: ["dot"],
-    coverage: {
-      enabled: false,
-    },
+    include: ["tests/**/*.{test,spec}.{ts,js}", "src/**/*.{test,spec}.{ts,js}"],
+    setupFiles: ["test-setup.ts"],
+    reporters: ["dot"]
   },
+  resolve: {
+    alias: {
+      '@cloudflare/workers-types': 'node_modules/@cloudflare/workers-types/index.d.ts'
+    }
+  },
+  esbuild: {
+    target: 'esnext',
+  }
 });
-
-
-// import { fileURLToPath } from 'url';
-// import path from 'path';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// export default defineWorkersConfig({
-//   resolve: {
-//     alias: {
-//       '@spike-npm-land/code': path.resolve(__dirname, '../code/dist/modules.mjs'),
-//     },
-//   },
-//   test: {
-//     include: ['**/*.{test,spec}.{ts,js}'],
-//     globals: true,
-//     environment: 'node',
-//     setupFiles: ['./test-setup.ts'],
-//     reporters: ['dot'],
-//     coverage: {
-//       enabled: false,
-//     },
-//   },
-// });

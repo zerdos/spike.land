@@ -10,6 +10,8 @@ import { serveWithCache } from "@spike-npm-land/code";
 import type Env from "./env";
 import { makeResponse } from "./makeResponse";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { Headers, Request } from "@cloudflare/workers-types"
+
 
 const main = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {

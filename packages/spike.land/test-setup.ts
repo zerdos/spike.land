@@ -1,30 +1,34 @@
 import { vi } from "vitest";
-import {
-  setupCodeRateLimiter,
-  setupOpenAIMock,
-  setupR2Mock,
-  setupResponseMock,
-  setupUrlMock,
-  setupWebSocketPairMock,
-} from "./test-mocks";
+import { Request, 
+  Response,
+  
+ } from "@cloudflare/workers-types";
 
-// Set up all global mocks for testing
-setupWebSocketPairMock();
-setupUrlMock();
-setupOpenAIMock();
-setupR2Mock();
-setupResponseMock();
-setupCodeRateLimiter();
+// import {
+//   setupCodeRateLimiter,
+//   setupOpenAIMock,
+//   setupR2Mock,
+//   setupUrlMock,
+//   setupWebSocketPairMock,
+// } from "./test-mocks";
 
-// Global fetch mock
-global.fetch = vi.fn().mockResolvedValue({
-  json: vi.fn().mockResolvedValue({}),
-  text: vi.fn().mockResolvedValue(""),
-});
+// // Set up all global mocks for testing
+// setupWebSocketPairMock();
+// setupUrlMock();
+// setupOpenAIMock();
+// setupR2Mock();
+
+// setupCodeRateLimiter();
+
+// // Global fetch mock
+// global.fetch = vi.fn().mockResolvedValue({
+//   json: vi.fn().mockResolvedValue({}),
+//   text: vi.fn().mockResolvedValue(""),
+// });
 
 // Mock console methods
-global.console = {
-  ...global.console,
+console = {
+  ...console,
   log: vi.fn(),
   error: vi.fn(),
   warn: vi.fn(),
@@ -32,9 +36,9 @@ global.console = {
   debug: vi.fn(),
 };
 
-// Ensure Date is properly defined in the global scope
-Object.defineProperty(globalThis, "Date", {
-  value: Date,
-  writable: true,
-  configurable: true,
-});
+// // Ensure Date is properly defined in the global scope
+// Object.defineProperty(globalThis, "Date", {
+//   value: Date,
+//   writable: true,
+//   configurable: true,
+// });

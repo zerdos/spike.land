@@ -5,7 +5,7 @@ import type {
   Response as CFResponse,
 } from "@cloudflare/workers-types";
 import type MyEnv from "./env";
-import { createCFResponse } from "./types/cloudflare";
+import { createResponse } from "./types/cloudflare";
 
 const handlePut = async (
   key: string,
@@ -13,26 +13,26 @@ const handlePut = async (
   env: MyEnv,
 ): Promise<CFResponse> => {
   if (!body) {
-    return createCFResponse("Missing request body", { status: 400 });
+    return createResponse("Missing request body", { status: 400 });
   }
   await env.X9.put(key, body);
-  return createCFResponse(`Put ${key} successfully!`, { status: 200 });
+  return createResponse(`Put ${key} successfully!`, { status: 200 });
 };
 
 const handleGet = async (key: string, env: MyEnv): Promise<CFResponse> => {
   const object = await env.X9.get(key);
   if (!object) {
-    return createCFResponse("Object Not Found", { status: 404 });
+    return createResponse("Object Not Found", { status: 404 });
   }
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set("etag", object.httpEtag);
-  return createCFResponse(object.body, { headers });
+  return createResponse(object.body, { headers });
 };
 
 const handleDelete = async (key: string, env: MyEnv): Promise<CFResponse> => {
   await env.X9.delete(key);
-  return createCFResponse("Deleted!", { status: 200 });
+  return createResponse("Deleted!", { status: 200 });
 };
 
 const R2BucketHandler: ExportedHandler<MyEnv> = {
@@ -49,14 +49,14 @@ const R2BucketHandler: ExportedHandler<MyEnv> = {
         case "DELETE":
           return handleDelete(key, env);
         default:
-          return createCFResponse("Method Not Allowed", {
+          return createResponse("Method Not Allowed", {
             status: 405,
             headers: { Allow: "PUT, GET, DELETE" },
           });
       }
     } catch (error) {
       console.error("R2 Bucket Handler Error:", error);
-      return createCFResponse("Internal Server Error", { status: 500 });
+      return createResponse("Internal Server Error", { status: 500 });
     }
   },
 };

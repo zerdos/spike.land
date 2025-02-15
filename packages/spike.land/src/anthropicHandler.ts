@@ -34,13 +34,17 @@ export async function handleAnthropicRequest(
   const body = await readRequestBody(request) as RequestBody;
 
   const messages = await Promise.all(
-    body.messages.map(async (message: Message) => {
+    body.messages.filter(msg => msg.role === "user" || msg.role === "assistant").map(async (message: Message) => {
       const content: MessageContent = message.content;
       if (typeof content === "string") {
         return message;
       }
+     if (typeof content === "string") {
+        return message;
+      }
 
-      const processedContent = await Promise.all(
+      const processedContent =  await Promise.all(
+      
         message.content.map(async (content: MessageContent) => {
           if (content.type !== "image_url") {
             return content;
@@ -77,7 +81,7 @@ export async function handleAnthropicRequest(
   const conf = {
     model: "claude-3-5-sonnet-20241022",
     max_tokens: 2 * 4096,
-    temperature: 0.1,
+    temperature: 0.0,
     stream: true,
     ...body,
   };

@@ -1,48 +1,41 @@
-import type {
+import {
   ExecutionContext,
   ExportedHandler,
-  Headers as CFHeaders,
   IncomingRequestCfProperties,
-  Request as CFRequest,
-  Response as CFResponse,
+  ResponseInit,
+  BodyInit,
+  Response
 } from "@cloudflare/workers-types";
 
-// Type for a request with CF properties
-export type CFWorkerRequest = Request & {
+// Type for a request with  properties
+export type WorkerRequest = Request & {
   cf: IncomingRequestCfProperties;
 };
 
-export type { CFRequest, CFResponse };
 
-export function createCFResponse(
-  body?: BodyInit | null,
+export function createResponse(
+  body: BodyInit,
   init?: ResponseInit,
-): CFResponse {
+): Response {
   const response = new Response(body, init);
-  (response.headers as unknown as CFHeaders).getAll = function(name: string) {
+  response.headers.getAll = function(name: string) {
     const values = this.get(name);
     return values ? [values] : [];
   };
-  return response as unknown as CFResponse;
+  return response as unknown as Response;
 }
 
-export function ensureCFResponse(response: Response | null | undefined): CFResponse {
-  if (!response) return createCFResponse("Not Found", { status: 404 });
-  return response as unknown as CFResponse;
+export function ensureResponse(response: Response | null | undefined): Response {
+  if (!response) return createResponse("Not Found", { status: 404 });
+  return response as unknown as Response;
 }
 
-export function ensureCFRequest(request: Request): CFWorkerRequest {
-  return request as unknown as CFWorkerRequest;
-}
+
 
 export function createHandler<Env>(
-  handler: (request: CFWorkerRequest, env: Env, ctx: ExecutionContext) => Promise<Response | null>,
+  handler:ExportedHandler<Env>["fetch"]
 ): ExportedHandler<Env> {
   return {
-    async fetch(request, env, ctx) {
-      const cfRequest = ensureCFRequest(request);
-      const response = await handler(cfRequest, env, ctx);
-      return ensureCFResponse(response);
-    },
-  };
+    fetch: handler
+};
 }

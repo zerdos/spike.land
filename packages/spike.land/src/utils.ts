@@ -1,3 +1,5 @@
+import { Request } from "@cloudflare/workers-types";
+
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);

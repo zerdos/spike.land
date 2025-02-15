@@ -1,33 +1,19 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "strict": true,
-    "declaration": true,
-    "jsx": "react-jsx",
-    "importHelpers": true,
-    "downlevelIteration": true,
-    "forceConsistentCasingInFileNames": true,
-    "preserveConstEnums": true,
-    "moduleResolution": "bundler",
-    "sourceMap": true,
-    "outDir": "dist",
-    "composite": true,
-    "rootDir": ".",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "ESNext",
+    "target": "ES2022",
     "module": "ESNext",
-    "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types", "@types/node"],
-    "emitDeclarationOnly": true
+    "lib": ["ES2022", "WebWorker"],
+    "moduleResolution": "bundler",
+    "types": ["@cloudflare/workers-types", "vitest/globals"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
   },
-  "exclude": ["**/node_modules/*", "**/.yarn", "**/dist"],
-  "include": [
-    "src",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "tests/index.spec.ts"
-  ]
+  "include": ["src/**/*", "tests/**/*", "*.ts"]
 }
