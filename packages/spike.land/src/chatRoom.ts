@@ -6,7 +6,7 @@ import {
   sanitizeSession,
 } from "@spike-npm-land/code";
 
-import type Env from "./env";
+
 import { handleErrors } from "./handleErrors";
 // import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
