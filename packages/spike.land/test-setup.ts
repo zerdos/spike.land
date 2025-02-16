@@ -1,37 +1,27 @@
 import { vi } from "vitest";
+import { setupAllMocks } from "./test-mocks/index.js";
 
-// import {
-//   setupCodeRateLimiter,
-//   setupOpenAIMock,
-//   setupR2Mock,
-//   setupUrlMock,
-//   setupWebSocketPairMock,
-// } from "./test-mocks";
+// Mock WebSocket for tests
+vi.stubGlobal(
+  "WebSocketPair",
+  class {
+    0: WebSocket;
+    1: WebSocket;
+    constructor() {
+      const mockWebSocket: WebSocket = new WebSocket("wss://example.com");
+      this[0] = mockWebSocket;
+      this[1] = { 
+        ...mockWebSocket,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      };
+    }
+  },
+);
 
-// // Set up all global mocks for testing
-// setupWebSocketPairMock();
-// setupUrlMock();
-// setupOpenAIMock();
-// setupR2Mock();
+// Mock global fetch
+global.fetch = vi.fn();
 
-// setupCodeRateLimiter();
-
-// // Global fetch mock
-// global.fetch = vi.fn().mockResolvedValue({
-//   json: vi.fn().mockResolvedValue({}),
-//   text: vi.fn().mockResolvedValue(""),
-// });
-
-// Mock console methods
-vi.spyOn(console, 'log').mockImplementation(() => {});
-vi.spyOn(console, 'error').mockImplementation(() => {});
-vi.spyOn(console, 'warn').mockImplementation(() => {});
-vi.spyOn(console, 'info').mockImplementation(() => {});
-vi.spyOn(console, 'debug').mockImplementation(() => {});
-
-// // Ensure Date is properly defined in the global scope
-// Object.defineProperty(globalThis, "Date", {
-//   value: Date,
-//   writable: true,
-//   configurable: true,
-// });
+// Set up all required mocks for testing
+setupAllMocks();

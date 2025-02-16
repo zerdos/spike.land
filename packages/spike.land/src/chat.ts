@@ -1,14 +1,14 @@
 import { serverFetchUrl } from "@spike-npm-land/code";
-import { handleAnthropicRequest } from "./anthropicHandler";
-import { KVLogger } from "./Logs";
-import { handleMainFetch } from "./mainFetchHandler";
-import { handleGPT4Request } from "./openaiHandler";
-import { handleReplicateRequest } from "./replicateHandler";
+import { handleAnthropicRequest } from "./anthropicHandler.js";
+import { KVLogger } from "./Logs.js";
+import { handleMainFetch } from "./mainFetchHandler.js";
+import { handleGPT4Request } from "./openaiHandler.js";
+import { handleReplicateRequest } from "./replicateHandler.js";
 
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { serveWithCache } from "@spike-npm-land/code";
-import type Env from "./env";
-import { makeResponse } from "./makeResponse";
+import type Env from "./env.js";
+import { makeResponse } from "./makeResponse.js";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 

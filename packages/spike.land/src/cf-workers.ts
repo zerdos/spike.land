@@ -1,11 +1,11 @@
-import chat from "./chat";
-import { Code } from "./chatRoom";
-import type Env from "./env";
-import R2BucketHandler from "./r2bucket";
+import chat from "./chat.js";
+import { Code } from "./chatRoom.js";
+import type Env from "./env.js";
+import R2BucketHandler from "./r2bucket.js";
 
-import { CodeRateLimiter } from "./rateLimiter";
-import { createResponse, createHandler } from "./types/cloudflare";
-import { Users } from "./users";
+import { CodeRateLimiter } from "./rateLimiter.js";
+import { createResponse, createHandler } from "./types/cloudflare.js";
+import { Users } from "./users.js";
 
 async function handleRequest(
   request: Request<unknown, CfProperties<unknown>>,

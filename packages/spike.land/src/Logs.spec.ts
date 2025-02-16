@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { KVLogger } from "./Logs";
+import { KVLogger } from "./Logs.js";
 
 class MockDate extends Date {
   constructor() {

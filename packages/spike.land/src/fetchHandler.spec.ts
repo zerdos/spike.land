@@ -1,9 +1,11 @@
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
-import type Env from "./env";
-import { handleFetchApi } from "./fetchHandler";
-import { handleEsmRequest } from "./handleEsmRequest";
-import { handleCORS } from "./utils";
+import type Env from "./env.js";
+import type { default as EnvInterface } from "./env.js"; // Added explicit re-import
+import { handleFetchApi } from "./fetchHandler.js";
+import { handleEsmRequest } from "./handleEsmRequest.js";
+import { handleCORS } from "./utils.js";
+import { createMockEnv } from "./test-utils.js";
 
 vi.stubGlobal(
   "WebSocketPair",
@@ -24,17 +26,8 @@ vi.stubGlobal(
 );
 
 describe("FetchHandler", () => {
-  let mockEnv = {
-        R2: {
-          get: vi.fn(),
-          put: vi.fn(),
-          delete: vi.fn(),
-        } as unknown as R2Bucket,
-        CODE: {
-          get: vi.fn(),
-        },
-      } as unknown as Env;
-    let mockCtx: ExecutionContext;
+  let mockEnv: Env;
+  let mockCtx: ExecutionContext;
   let mockFetch: typeof fetch;
 
   beforeEach(() => {
@@ -46,16 +39,7 @@ describe("FetchHandler", () => {
     global.fetch = mockFetch;
 
     // Create a mock environment
-    mockEnv = {
-      R2: {
-        get: vi.fn(),
-        put: vi.fn(),
-        delete: vi.fn(),
-      } as unknown as R2Bucket,
-      CODE: {
-        get: vi.fn(),
-      } as unknown as DurableObjectNamespace,
-    } as unknown as Env;
+    mockEnv = createMockEnv();
 
     mockCtx = {
       waitUntil: vi.fn(),

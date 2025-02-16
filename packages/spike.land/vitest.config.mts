@@ -2,22 +2,8 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    environment: 'miniflare',
+    environment: 'node',
     globals: true,
-    environmentOptions: {
-      bindings: {
-        CODE: { class: 'Code' },
-        LIMITERS: { class: 'CodeRateLimiter' },
-        KV: {},
-        R2: {},
-        X9: {},
-        AI: {},
-        ESBUILD: {}
-      },
-      modules: true,
-      wranglerConfigPath: './wrangler.toml',
-      scriptPath: './src/cf-workers.ts'
-    },
     include: ["tests/**/*.{test,spec}.{ts,js}", "src/**/*.{test,spec}.{ts,js}"],
     setupFiles: ["test-setup.ts"],
     reporters: ["dot"]
