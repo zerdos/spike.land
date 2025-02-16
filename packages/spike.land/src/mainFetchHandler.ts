@@ -21,10 +21,12 @@ export async function handleMainFetch(
 
     const redirect = routes[url.pathname as keyof typeof routes];
     if (redirect) {
-      return handleFetchApi(["live", redirect, "embed"], request, env, ctx);
+      const response = await handleFetchApi(["live", redirect, "embed"], request, env, ctx);
+      return response || new Response("Not Found", { status: 404 });
     }
 
     const path = url.pathname.slice(1).split("/");
-    return handleFetchApi(path, request, env, ctx);
+    const response = await handleFetchApi(path, request, env, ctx);
+    return response || new Response("Not Found", { status: 404 });
   });
 }

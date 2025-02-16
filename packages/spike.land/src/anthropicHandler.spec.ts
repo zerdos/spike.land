@@ -203,15 +203,34 @@ describe("AnthropicHandler", () => {
 
       (handleCMSIndexRequest as Mock).mockResolvedValue(mockImageResponse);
 
-      (Anthropic.prototype.messages.create as Mock).mockResolvedValue({});
+      (Anthropic.prototype.messages.create as Mock).mockResolvedValue({
+        id: "msg_01",
+        model: "claude-3-5-sonnet-20241022",
+        role: "assistant",
+        content: [{ type: "text", text: "Test response with image" }],
+        usage: { input_tokens: 10, output_tokens: 20 },
+      });
 
-      await handleAnthropicRequest(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleAnthropicRequest(mockRequest, mockEnv as Env, mockCtx);
 
       // Verify that handleCMSIndexRequest was called with the image URL
       expect(handleCMSIndexRequest).toHaveBeenCalledWith(
         expect.objectContaining({ url: mockImageUrl }),
         mockEnv,
       );
+
+      // Verify the response
+      expect(response.status).toBe(200);
+      expect(response.headers.get("Content-Type")).toBe("application/json");
+
+      const responseBody = await response.json();
+      expect(responseBody).toEqual({
+        id: "msg_01",
+        model: "claude-3-5-sonnet-20241022",
+        role: "assistant",
+        content: [{ type: "text", text: "Test response with image" }],
+        usage: { input_tokens: 10, output_tokens: 20 },
+      });
     });
   });
 });

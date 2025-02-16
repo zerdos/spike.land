@@ -1,9 +1,11 @@
 export function makeResponse(object: R2ObjectBody | undefined, key: string) {
   const headers = new Headers();
 
-  if (object && object.writeHttpMetadata) object.writeHttpMetadata(headers);
+  if (object && object.writeHttpMetadata) {
+    object.writeHttpMetadata(headers);
+    headers.set("etag", object.httpEtag);
+  }
 
-  if (object) headers.set("etag", object.httpEtag);
   headers.set("Cache-Control", "public, max-age=31536000");
   headers.set("Access-Control-Allow-Origin", "*");
   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -35,9 +37,7 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
       ? "image/gif"
       : key.endsWith("webp")
       ? "image/webp"
-      : key.endsWith("jpg")
-      ? "image/jpeg"
-      : key.endsWith("jpeg")
+      : key.endsWith("jpg") || key.endsWith("jpeg")
       ? "image/jpeg"
       : key.endsWith("svg")
       ? "image/svg+xml"
@@ -61,8 +61,8 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
       ? "audio/flac"
       : key.endsWith("aac")
       ? "audio/aac"
-      : "application/javascript; charset=UTF-8",
+      : "application/javascript; charset=UTF-8"
   );
-  if (!object) return new Response("", { headers });
-  return new Response(object && object.body || "", { headers });
+
+  return new Response(object?.body || null, { headers });
 }

@@ -10,7 +10,7 @@ const handlePut = async (
     return createResponse("Missing request body", { status: 400 });
   }
   try {
-    await env.R2.put(key, await body.arrayBuffer());
+    await env.R2.put(key, body);
     return createResponse(`Put ${key} successfully!`, { status: 200 });
   } catch (error) {
     console.error("R2 put error:", error);
@@ -28,24 +28,10 @@ const handleGet = async (key: string, env: MyEnv): Promise<Response> => {
     object.writeHttpMetadata(headers);
     headers.set('etag', object.httpEtag);
     
-    // Convert ReadableStream to ArrayBuffer if possible
-    let body = "";
-    if (object.body) {  
-      const reader = object.body.getReader();
-      let resultAsString = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        resultAsString += new TextDecoder().decode(value);
-      }
-      body = resultAsString;
-    }
-
-    const headersObj: Record<string, string> = {};
-    headers.forEach((value, key) => {
-      headersObj[key] = value;
+    return new Response(object.body, { 
+      headers,
+      status: 200 
     });
-    return createResponse(body, { headers: headersObj });
   } catch (error) {
     console.error("R2 get error:", error);
     return createResponse("Failed to retrieve object", { status: 500 });
@@ -70,7 +56,10 @@ const R2BucketHandler = {
 
       switch (request.method) {
         case "PUT": {
-          const body = await request.blob();
+          const body = request.body ? await request.blob() : null;
+          if (!body) {
+            return createResponse("Missing request body", { status: 400 });
+          }
           return handlePut(key, body, env);
         }
         case "GET":

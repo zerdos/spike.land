@@ -9,6 +9,9 @@ export default defineWorkersConfig({
           configPath: "./wrangler.toml"
         }
       }
+    },
+    deps: {
+      interopDefault: true
     }
   }
 });

@@ -18,6 +18,7 @@ export class CodeRateLimiter {
       if (now > this.nextAllowedTime + this.GRACE_PERIOD) {
         this.requestCount = 0;
         this.nextAllowedTime = now;
+        return new Response("0");
       }
 
       if (request.method === "POST") {
@@ -27,15 +28,11 @@ export class CodeRateLimiter {
         if (this.requestCount > this.GRACE_LIMIT) {
           cooldown = this.RATE_LIMIT;
           this.nextAllowedTime = now + cooldown;
+          return new Response(String(cooldown));
         }
       }
 
-      // Return current cooldown if we're in rate limiting period
-      if (now < this.nextAllowedTime) {
-        cooldown = this.RATE_LIMIT;
-      }
-
-      return new Response(String(cooldown));
+      return new Response("0");
     });
   }
 

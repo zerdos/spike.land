@@ -1,4 +1,3 @@
-
 import { routes } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
@@ -167,7 +166,7 @@ describe("MainFetchHandler", () => {
         mockRequest,
         expect.any(Function),
       );
-      expect(response).toBe(mockFetchApiResponse);
+      expect(response).toStrictEqual(mockFetchApiResponse);
     });
 
     it("should log request URL", async () => {

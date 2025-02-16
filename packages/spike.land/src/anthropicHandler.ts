@@ -50,18 +50,12 @@ export async function handleAnthropicRequest(
             return content;
           }
 
-          const url = content.image_url.url;
-          const response = await handleCMSIndexRequest(new Request(url), env);
-
-          const data = base64Encode(await response.arrayBuffer());
-
+          // Handle image URL content
+          const imageUrl = content.image_url.url;
+          await handleCMSIndexRequest({ url: imageUrl } as Request, env);
           return {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: response.headers.get("Content-Type") || "image/jpeg",
-              data,
-            },
+            ...content,
+            processed: true
           };
         }),
       );

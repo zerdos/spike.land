@@ -87,15 +87,19 @@ function handleWebSocket(request: Request): Response {
   pair[1].addEventListener("open", () => {
     pair[1].send("hello");
   });
-  // Return status 101 for switching protocols
-  return new Response(
-    null,
-    {
-      status: 101,
-      statusText: "Switching Protocols",
-      webSocket: pair[0],
-    } as ResponseInit & { webSocket?: WebSocket; },
-  );
+  
+  const headers = new Headers({
+    "Upgrade": "websocket",
+    "Connection": "Upgrade"
+  });
+  
+  const response = new Response(null, { 
+    status: 101,
+    statusText: "Switching Protocols",
+    headers
+  });
+  Object.assign(response, { webSocket: pair[0] });
+  return response;
 }
 
 const handleUnpkg = (path: string[]): Promise<Response> =>
