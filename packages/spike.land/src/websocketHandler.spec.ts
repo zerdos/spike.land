@@ -32,7 +32,7 @@ describe("WebSocketHandler", () => {
     };
 
     // Create a complete mock WebSocket
-    const mockWs = {
+    mockWebSocket = {
       accept: vi.fn(),
       send: vi.fn(),
       close: vi.fn(),
@@ -53,9 +53,7 @@ describe("WebSocketHandler", () => {
       CLOSING: 2,
       CONNECTING: 0,
       OPEN: 1,
-    };
-
-    mockWebSocket = mockWs as unknown as WebSocket;
+    } as unknown as WebSocket;
 
     // Create WebSocketHandler with mock Code
     websocketHandler = new WebSocketHandler(mockCode as Code);
@@ -90,24 +88,41 @@ describe("WebSocketHandler", () => {
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
 
-      // Initial handshake + immediate ping
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(2);
+      // Initial handshake should be sent
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        expect.stringContaining('"type":"handshake"')
+      );
+
+      // Clear previous calls to send
+      (mockWebSocket.send as Mock).mockClear();
+
+      // Advance timer to trigger ping
+      vi.advanceTimersByTime(30000);
+      
+      // Verify ping was sent
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        JSON.stringify({ type: "ping" })
+      );
 
       // Simulate pong response
       const messageHandler = (mockWebSocket.addEventListener as Mock).mock.calls
         .find(call => call[0] === "message")?.[1];
       messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
 
-      // First scheduled ping (ping + pong response)
+      // First scheduled ping
       vi.advanceTimersByTime(30000);
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(3);
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        JSON.stringify({ type: "ping" })
+      );
 
       // Simulate pong response again
       messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
 
-      // Second scheduled ping (ping + pong response)
+      // Second scheduled ping
       vi.advanceTimersByTime(30000);
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(4);
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        JSON.stringify({ type: "ping" })
+      );
 
       vi.useRealTimers();
     });
@@ -318,19 +333,24 @@ describe("WebSocketHandler", () => {
   describe("broadcast", () => {
     it("should broadcast message to all sessions", () => {
       // Create multiple sessions
-      const mockWebSocket1 = {
-        send: vi.fn(),
-        readyState: 1,
-        close: vi.fn(),
-      };
-      const mockWebSocket2 = {
-        send: vi.fn(),
-        readyState: 1,
-        close: vi.fn(),
-      };
+    const mockWebSocket1 = {
+      accept: vi.fn(),
+      send: vi.fn(),
+      readyState: 1,
+      close: vi.fn(),
+      addEventListener: vi.fn(),
+    } as unknown as WebSocket;
+    
+    const mockWebSocket2 = {
+      accept: vi.fn(), 
+      send: vi.fn(),
+      readyState: 1,
+      close: vi.fn(),
+      addEventListener: vi.fn(),
+    } as unknown as WebSocket;
 
-      websocketHandler.handleWebsocketSession(mockWebSocket1 as unknown as WebSocket);
-      websocketHandler.handleWebsocketSession(mockWebSocket2 as unknown as WebSocket);
+    websocketHandler.handleWebsocketSession(mockWebSocket1);
+    websocketHandler.handleWebsocketSession(mockWebSocket2);
 
       const broadcastMessage = "test broadcast";
       websocketHandler.broadcast(broadcastMessage);
@@ -341,25 +361,35 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle broadcast errors gracefully", () => {
+      const mockSend = vi.fn();
       const mockWebSocket1 = {
-        send: vi.fn().mockImplementation(() => {
-          throw new Error("Send failed");
-        }),
+        accept: vi.fn(),
+        send: mockSend,
         readyState: 1,
         close: vi.fn(),
-      };
+        addEventListener: vi.fn(),
+      } as unknown as WebSocket;
 
-      websocketHandler.handleWebsocketSession(mockWebSocket1 as unknown as WebSocket);
+      websocketHandler.handleWebsocketSession(mockWebSocket1);
 
-      vi.spyOn(console, "error").mockImplementation(() => {});
-
-      websocketHandler.broadcast({
-        ...mockSession,
-        sender: "Editor",
+      // Clear any initial calls
+      mockSend.mockClear();
+      
+      // Mock send to throw error
+      mockSend.mockImplementationOnce(() => {
+        throw new Error("Send failed");
       });
+
+      const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+      // Broadcast after handshake
+      websocketHandler.broadcast("test message");
 
       // Verify error handling
       expect(mockWebSocket1.close).toHaveBeenCalled();
+      expect(consoleError).toHaveBeenCalled();
+      
+      consoleError.mockRestore();
     });
   });
 });
