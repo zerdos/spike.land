@@ -1,4 +1,3 @@
-import type { DurableObjectState } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./chatRoom";
 import type Env from "./env";
@@ -7,22 +6,132 @@ import { RouteHandler } from "./routeHandler";
 vi.mock("./routeHandler");
 
 describe("Hono app routes", () => {
+  // const state = {
   const state = {
     storage: {
       get: vi.fn(),
       put: vi.fn(),
       delete: vi.fn(),
       list: vi.fn(),
+      deleteAll: vi.fn(),
+      transaction: vi.fn(),
+      getAlarm: vi.fn(),
+      setAlarm: vi.fn(),
+      deleteAlarm: vi.fn(),
+      listAlarms: vi.fn(),
+      sync: vi.fn(),
+      sql: {
+        exec: vi.fn(),
+        batch: vi.fn(),
+        run: vi.fn(),
+        get: vi.fn(),
+        all: vi.fn(),
+        raw: vi.fn(),
+        values: vi.fn(),
+        first: vi.fn(),
+        dump: vi.fn(),
+        databaseSize: vi.fn(),
+        prepare: vi.fn(),
+      } as any, // Mocking sql as any for now
+      transactionSync: vi.fn(),
+      getCurrentBookmark: vi.fn(),
+      resetBookmark: vi.fn(),
+      updateBookmark: vi.fn(),
+      deleteBookmark: vi.fn(),
+      getBookmarkForTime: vi.fn(),
+      onNextSessionRestoreBookmark: vi.fn(),
     },
-    id: { toString: () => "test" },
+    id: {
+      toString: () => "test",
+      equals: vi.fn(),
+    },
     metadata: {
       room: "test",
     },
     blockConcurrencyWhile: vi.fn((callback) => callback()),
     waitUntil: vi.fn(),
-  } as unknown as DurableObjectState;
+    acceptWebSocket: vi.fn(),
+    getWebSockets: vi.fn(),
+    setWebSocketAutoResponse: vi.fn(),
+    getWebSocketAutoResponse: vi.fn(),
+    getWebSocketAutoResponseTimestamp: vi.fn(),
+    setHibernatableWebSocketEventTimeout: vi.fn(),
+    getHibernatableWebSocketEventTimeout: vi.fn(),
+    getTags: vi.fn(),
+    abort: vi.fn(),
+    container: {
+      fetch: vi.fn(() => Promise.resolve(new Response())),
+      getTcpPort: vi.fn(() => ({
+        fetch: vi.fn(() => Promise.resolve(new Response()))
+      }))
+    } as any
+  } as DurableObjectState;
 
-  const env: Partial<Env> = {};
+  const env: Env = {
+    OPENAI_API_KEY: "",
+    AI: {
+      run: vi.fn(),
+      models: {
+        list: vi.fn(),
+        get: vi.fn(),
+      },
+      gateway: {
+        logId: vi.fn(),
+      }
+    } as any,
+    KV: {
+      get: vi.fn(),
+      put: vi.fn(),
+      list: vi.fn(),
+      getWithMetadata: vi.fn(),
+      delete: vi.fn(),
+    } as any,
+    __STATIC_CONTENT: { get: vi.fn() } as any, // casting to any to avoid type issues for now
+    REPLICATE_API_TOKEN: "",
+    ANTHROPIC_API_KEY: "",
+    CLERK_SECRET_KEY: "",
+    CF_REAL_TURN_TOKEN: "",
+    ESBUILD: {
+      fetch: function (input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+        throw new Error("Function not implemented.");
+      },
+      connect: function (address: SocketAddress | string, options?: SocketOptions): Socket {
+        throw new Error("Function not implemented.");
+      }
+    },
+    CODE: {
+      newUniqueId: vi.fn(),
+      idFromName: vi.fn(),
+      idFromString: vi.fn(),
+      get: vi.fn(),
+      jurisdiction: "test",
+    } as any,
+    LIMITERS: {
+      newUniqueId: vi.fn(),
+      idFromName: vi.fn(),
+      idFromString: vi.fn(),
+      get: vi.fn(),
+      jurisdiction: "test",
+    } as any,
+    R2: {
+      head: vi.fn(),
+      get: vi.fn(),
+      put: vi.fn(),
+      delete: vi.fn(),
+      list: vi.fn(),
+      createMultipartUpload: vi.fn(),
+      copy: vi.fn(),
+    } as any,
+    X9: {
+      head: vi.fn(),
+      get: vi.fn(),
+      put: vi.fn(),
+      delete: vi.fn(),
+      list: vi.fn(),
+      createMultipartUpload: vi.fn(),
+      copy: vi.fn(),
+    } as any,
+  };
 
   let app: Code;
   let mockRouteHandler: {
@@ -65,7 +174,7 @@ describe("Hono app routes", () => {
 
     vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as unknown as RouteHandler);
 
-    app = new Code(state, env as Env);
+    app = new Code(state as unknown as DurableObjectState, env);
     app.fetch = vi.fn(app.fetch.bind(app));
   });
 

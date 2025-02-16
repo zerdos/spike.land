@@ -1,9 +1,3 @@
-import type {
-  DurableObject,
-  DurableObjectState,
-  Request as IRequest,
-  Response as IResponse,
-} from "@cloudflare/workers-types";
 import type { ICodeSession } from "@spike-npm-land/code";
 import {
   computeSessionHash,
@@ -185,7 +179,7 @@ export class Code implements DurableObject {
   //   }
   // }
 
-  async fetch(request: IRequest): Promise<IResponse> {
+  async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
     if (this.session) {
       this.origin = url.origin;
@@ -208,17 +202,17 @@ export class Code implements DurableObject {
       console.error(e);
       return new Response("Error processing request", {
         status: 400,
-      }) as unknown as IResponse;
+      });
     }
 
-    return (handleErrors(request as unknown as Request, async () => {
+    return (handleErrors(request, async () => {
       if (!this.origin) {
         this.origin = url.origin;
       }
 
       const path = url.pathname.slice(1).split("/");
-      return this.routeHandler.handleRoute(request as unknown as Request, url, path);
-    }) as unknown as IResponse);
+      return this.routeHandler.handleRoute(request, url, path);
+    }));
   }
 
   // async updateSessionStorage(msg: CodePatch) {

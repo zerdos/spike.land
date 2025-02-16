@@ -1,6 +1,6 @@
-import  { KVNamespace } from "@cloudflare/workers-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { KVLogger } from "./Logs";
+import { R } from "@vitest/runner/dist/tasks-3ZnPj1LR.js";
 
 class MockDate extends Date {
   constructor() {
@@ -14,12 +14,17 @@ class MockDate extends Date {
 
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
+// Create a minimal mock that matches the actual usage in tests
+const createMockKVNamespace = () => ({
+  get: vi.fn().mockResolvedValue(null),
+  put: vi.fn().mockResolvedValue(undefined),
+  list: vi.fn().mockResolvedValue({ keys: [] }),
+  delete: vi.fn().mockResolvedValue(undefined),
+  getWithMetadata: vi.fn().mockResolvedValue({ value: null, metadata: null })
+});
+
 describe("KVLogger", () => {
-  let mockKVNamespace = {
-    get: vi.mock,
-    put: vi.mock,
-    list: vi.mock
-  } as unknown as KVNamespace;
+  let mockKVNamespace: ReturnType<typeof createMockKVNamespace>;
   let mockConsoleLog: SpyInstance;
   let mockConsoleError: SpyInstance;
   let logger: KVLogger;
@@ -39,27 +44,21 @@ describe("KVLogger", () => {
       global.Date = originalDate;
     });
 
-    // Mock KVNamespace
-    mockKVNamespace = {
-      get: vi.fn(),
-      put: vi.fn(),
-      list: vi.fn(),
-    } as unknown as KVNamespace;
+    // Create mock with direct type assertion
+    mockKVNamespace = createMockKVNamespace();
 
     // Mock console methods
     mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
     mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Create logger instance
-    logger = new KVLogger("test-prefix", mockKVNamespace as unknown  as KVNamespace);
+    logger = new KVLogger("test-prefix", mockKVNamespace as unknown as KVNamespace);
 
     // Set up default mock behaviors
-    mockKVNamespace.get.mockImplementation((key: string) => {
-      if (key === "test-prefix:counter") return "0";
-      return null;
-    });
     mockKVNamespace.put.mockResolvedValue(undefined);
     mockKVNamespace.list.mockResolvedValue({ keys: [] });
+    mockKVNamespace.get.mockResolvedValue(null);
+    
   });
 
   afterEach(() => {

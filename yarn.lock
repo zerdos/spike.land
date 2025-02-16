@@ -14578,6 +14578,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
+    "@cloudflare/workers-types": "npm:^4.20250214.0"
     "@previewjs/analyzer-api": "npm:^0.1.8"
     "@previewjs/api": "npm:^16.1.0"
     "@previewjs/cli": "npm:^1.30.1"

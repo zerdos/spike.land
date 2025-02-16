@@ -46,6 +46,7 @@
   },
   "packageManager": "yarn@4.6.0",
   "dependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
     "@previewjs/analyzer-api": "^0.1.8",
     "@previewjs/api": "^16.1.0",
     "@previewjs/cli": "^1.30.1",
