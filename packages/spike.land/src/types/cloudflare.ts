@@ -61,15 +61,17 @@ export function createResponse(
   body: string | ArrayBuffer | ArrayBufferView | Blob | null,
   init?: CloudflareResponseInit
 ): Response {
-  const response = new Response(body, {
+  const headers = new Headers();
+  if (init?.headers) {
+    Object.entries(init.headers).forEach(([key, value]) => {
+      headers.set(key, value);
+    });
+  }
+  return new Response(body, {
     status: init?.status,
     statusText: init?.statusText,
-    headers: init?.headers
+    headers
   });
-  return Object.assign(Object.create(Object.getPrototypeOf(response)), {
-    ...response,
-    webSocket: null
-  }) as Response;
 }
 
 export function createHandler<Env = unknown>(

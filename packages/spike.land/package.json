@@ -15,7 +15,7 @@
     "clean": "rimraf dist",
     "lint": "eslint .",
     "types:check": "tsc --noEmit",
-    "test:unit": "cross-env NODE_OPTIONS=\"--no-warnings --experimental-vm-modules\" yarn vitest run tests/minimal.test.ts",
+    "test:unit": "vitest run",
     "test:api": "yarn types:check && yarn lint && yarn test:unit",
     "test:watch": "vitest"
   },
@@ -28,7 +28,7 @@
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
     "@typescript-eslint/parser": "8.24.0",
-    "@vitest/runner": "2.1.9",
+    "@vitest/runner": "3.0.5",
     "@vitest/snapshot": "3.0.5",
     "cross-env": "^7.0.3",
     "eslint-plugin-react-hooks": "^5.1.0",
@@ -36,7 +36,7 @@
     "globals": "^15.15.0",
     "rimraf": "6.0.1",
     "typescript": "5.7.3",
-    "vitest": "2.1.9",
+    "vitest": "3.0.5",
     "wrangler": "3.109.1"
   },
   "dependencies": {

@@ -10,17 +10,19 @@ import { createMockEnv } from "./test-utils.js";
 vi.stubGlobal(
   "WebSocketPair",
   class {
-    0: WebSocket;
-    1: WebSocket;
+    0: any;
+    1: any;
     constructor() {
-      const mockWebSocket: WebSocket = new WebSocket("wss://example.com");
-      this[0] = mockWebSocket;
-      this[1] = { 
-        ...mockWebSocket,
+      const mockWebSocket = {
+        accept: vi.fn(),
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
         dispatchEvent: vi.fn(),
+        send: vi.fn(),
+        close: vi.fn()
       };
+      this[0] = { ...mockWebSocket };
+      this[1] = { ...mockWebSocket };
     }
   },
 );

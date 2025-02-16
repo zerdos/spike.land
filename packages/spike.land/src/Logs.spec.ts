@@ -1,16 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { KVLogger } from "./Logs.js";
 
-class MockDate extends Date {
-  constructor() {
-    super("2023-01-01T12:00:00Z");
-  }
-
-  toISOString() {
-    return "2023-01-01T12:00:00.000Z";
-  }
-}
-
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
 // Create a minimal mock that matches the actual usage in tests
@@ -33,16 +23,8 @@ describe("KVLogger", () => {
     // Reset mocks
     vi.resetAllMocks();
 
-    // Mock global Date
-    const originalDate = global.Date;
-    const mockDate = vi.fn(() => new MockDate());
-    mockDate.prototype = MockDate.prototype;
-    global.Date = mockDate as unknown as DateConstructor;
-
-    // Restore after test
-    afterEach(() => {
-      global.Date = originalDate;
-    });
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2023-01-01T12:00:00Z"));
 
     // Create mock with direct type assertion
     mockKVNamespace = createMockKVNamespace();
@@ -67,14 +49,7 @@ describe("KVLogger", () => {
 
   describe("log method", () => {
     it("should save log entry with timestamp", async () => {
-      // Use vi.setSystemTime for consistent date
-      vi.useFakeTimers();
-      vi.setSystemTime(new Date("2023-01-01T12:00:00Z"));
-
       await logger.log("Test message");
-
-      // Restore real timers after test
-      vi.useRealTimers();
 
       // Verify log entry saved with timestamp in key
       expect(mockKVNamespace.put).toHaveBeenCalledWith(
@@ -88,14 +63,7 @@ describe("KVLogger", () => {
     });
 
     it("should handle different log levels", async () => {
-      // Use vi.setSystemTime for consistent date
-      vi.useFakeTimers();
-      vi.setSystemTime(new Date("2023-01-01T12:00:00Z"));
-
       await logger.log("Warning message", "warn");
-
-      // Restore real timers after test
-      vi.useRealTimers();
 
       expect(mockKVNamespace.put).toHaveBeenCalledWith(
         "test-prefix:2023-01-01:12:00:00",
@@ -104,10 +72,6 @@ describe("KVLogger", () => {
     });
 
     it("should handle log saving errors", async () => {
-      // Use vi.setSystemTime for consistent date
-      vi.useFakeTimers();
-      vi.setSystemTime(new Date("2023-01-01T12:00:00Z"));
-
       // Simulate put method throwing an error
       mockKVNamespace.put.mockRejectedValueOnce(new Error("Storage error"));
 
