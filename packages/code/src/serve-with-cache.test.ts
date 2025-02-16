@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { serveWithCache } from "./serve-with-cache";
 
 describe("serveWithCache", () => {
-  const mockUrl = "https://example.com/test.js";
+  const mockUrl = "https://example.com/test";
   let mockCache: Cache;
   let mockFetch: ReturnType<typeof vi.fn>;
 

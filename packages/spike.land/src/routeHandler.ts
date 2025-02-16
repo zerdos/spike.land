@@ -1,5 +1,4 @@
 import { createClerkClient } from "@clerk/backend";
-import type { WebSocket as IWebSocket } from "@cloudflare/workers-types";
 import {
   HTML,
   importMap,
@@ -245,7 +244,7 @@ export class RouteHandler {
     }
 
     const pair = new WebSocketPair();
-    await this.code.wsHandler.handleWebsocketSession(pair[1] as IWebSocket);
+    await this.code.wsHandler.handleWebsocketSession(pair[1]);
     return new Response(null, {
       status: 101,
       statusText: "Switching Protocols",
@@ -486,7 +485,7 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
-    const code = `import App from "${origin}/live/${codeSpace}/index.js";
+    const code = `import App from "${origin}/live/${codeSpace}/index";
     import { renderApp } from "${origin}/@/external/render-app.mjs";
     
     window.renderedApp = renderApp({ App, rootElement: document.getElementById("embed") });
@@ -523,7 +522,7 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
-    const code = `import App from "${origin}/live/${codeSpace}/index.js";
+    const code = `import App from "${origin}/live/${codeSpace}/index";
     import { jsx } from "@emotion/react/jsx-runtime";
      import { renderToString } from "react-dom/server";
     

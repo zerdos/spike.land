@@ -1,4 +1,4 @@
-import type { MessageEvent, WebSocket } from "@cloudflare/workers-types";
+
 import { computeSessionHash, ICodeSession } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";

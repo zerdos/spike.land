@@ -1,4 +1,3 @@
-import {  ExecutionContext, Response } from "@cloudflare/workers-types";
 import type MyEnv from "./env";
 import { createResponse } from "./types/cloudflare";
 
@@ -31,15 +30,15 @@ const handleGet = async (key: string, env: MyEnv): Promise<Response> => {
     
     // Convert ReadableStream to ArrayBuffer if possible
     let body = "";
-    if (object.body) {
+    if (object.body) {  
       const reader = object.body.getReader();
-      const chunks = [];
+      let resultAsString = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        chunks.push(value);
+        resultAsString += new TextDecoder().decode(value);
       }
-      body = new TextDecoder().decode(new Uint8Array(chunks.flat()));
+      body = resultAsString;
     }
 
     const headersObj: Record<string, string> = {};

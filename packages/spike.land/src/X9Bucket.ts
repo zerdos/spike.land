@@ -1,17 +1,11 @@
-import type {
-  ExportedHandler,
-  ReadableStream as CFReadableStream,
-  Request as CFRequest,
-  Response as CFResponse,
-} from "@cloudflare/workers-types";
 import type MyEnv from "./env";
 import { createResponse } from "./types/cloudflare";
 
 const handlePut = async (
   key: string,
-  body: CFReadableStream | null,
+  body: ReadableStream | null,
   env: MyEnv,
-): Promise<CFResponse> => {
+): Promise<Response> => {
   if (!body) {
     return createResponse("Missing request body", { status: 400 });
   }
@@ -19,7 +13,7 @@ const handlePut = async (
   return createResponse(`Put ${key} successfully!`, { status: 200 });
 };
 
-const handleGet = async (key: string, env: MyEnv): Promise<CFResponse> => {
+const handleGet = async (key: string, env: MyEnv): Promise<Response> => {
   const object = await env.X9.get(key);
   if (!object) {
     return createResponse("Object Not Found", { status: 404 });
@@ -27,16 +21,21 @@ const handleGet = async (key: string, env: MyEnv): Promise<CFResponse> => {
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set("etag", object.httpEtag);
-  return createResponse(object.body, { headers });
+  const arrayBuffer = await new Response(object.body).arrayBuffer();
+  const plainHeaders: Record<string, string> = {};
+  headers.forEach((value, key) => {
+    plainHeaders[key] = value;
+  });
+  return createResponse(arrayBuffer, { headers: plainHeaders });
 };
 
-const handleDelete = async (key: string, env: MyEnv): Promise<CFResponse> => {
+const handleDelete = async (key: string, env: MyEnv): Promise<Response> => {
   await env.X9.delete(key);
   return createResponse("Deleted!", { status: 200 });
 };
 
 const R2BucketHandler: ExportedHandler<MyEnv> = {
-  async fetch(request: CFRequest, env: MyEnv): Promise<CFResponse> {
+  async fetch(request: Request, env: MyEnv): Promise<Response> {
     try {
       const url = new URL(request.url);
       const key = url.pathname.slice(1);

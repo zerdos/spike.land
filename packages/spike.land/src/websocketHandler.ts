@@ -1,6 +1,5 @@
 // packages/spike.land/src/websocketHandler.ts
 
-import type { MessageEvent, WebSocket } from "@cloudflare/workers-types";
 import type { CodePatch } from "@spike-npm-land/code";
 import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";

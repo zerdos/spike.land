@@ -1,8 +1,4 @@
 import { vi } from "vitest";
-import { Request, 
-  Response,
-  
- } from "@cloudflare/workers-types";
 
 // import {
 //   setupCodeRateLimiter,

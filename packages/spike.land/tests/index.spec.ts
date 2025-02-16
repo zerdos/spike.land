@@ -1,5 +1,6 @@
+/// <reference types="@cloudflare/workers-types" />
+
 import { describe, expect, it } from "vitest";
-import type { ExecutionContext, DurableObjectNamespace, KVNamespace, R2Bucket, Fetcher } from "@cloudflare/workers-types";
 
 // Define minimal environment type for testing
 interface MockEnv {

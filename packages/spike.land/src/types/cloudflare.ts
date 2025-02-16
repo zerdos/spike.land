@@ -1,30 +1,5 @@
-import type {
-  ExportedHandler,
-  Request as CFRequest,
-  Headers as CFHeaders,
-  Response as CFResponse,
-  ReadableStream as CFReadableStream,
-  KVNamespace as CFKVNamespace,
-  DurableObjectNamespace as CFDurableObjectNamespace,
-  R2Bucket as CFR2Bucket,
-  R2ObjectBody as CFR2ObjectBody,
-  DurableObjectStub as CFDurableObjectStub,
-  
-} from "@cloudflare/workers-types";
 
-// Export base types
-export type { CFRequest as Request };
-export type { CFResponse as Response };
-export type { CFHeaders as Headers };
-export type { CFReadableStream as ReadableStream };
-export type { CFKVNamespace as KVNamespace };
-export type { CFDurableObjectNamespace as DurableObjectNamespace };
-export type { CFDurableObjectStub as DurableObjectStub };
-export type { CFR2Bucket as R2Bucket };
-export type { CFR2ObjectBody as R2ObjectBody };
-
-// Test utility types that extend Cloudflare types with mock capabilities
-export interface MockableHeaders extends CFHeaders {
+export interface MockableHeaders extends Headers {
   mockImplementation?: (impl: Function) => void;
   mockResolvedValue?: (value: any) => void;
   mockRejectedValue?: (error: Error) => void;
@@ -32,7 +7,7 @@ export interface MockableHeaders extends CFHeaders {
   mockRejectedValueOnce?: (error: Error) => void;
 }
 
-export interface MockableRequest extends CFRequest {
+export interface MockableRequest extends Request {
   headers: MockableHeaders;
   mockImplementation?: (impl: Function) => void;
   mockResolvedValue?: (value: any) => void;
@@ -41,7 +16,7 @@ export interface MockableRequest extends CFRequest {
   mockRejectedValueOnce?: (error: Error) => void;
 }
 
-export interface MockableResponse extends CFResponse {
+export interface MockableResponse extends Response {
   headers: MockableHeaders;
   mockImplementation?: (impl: Function) => void;
   mockResolvedValue?: (value: any) => void;
@@ -69,7 +44,7 @@ type KVGet = {
   (key: string, type: "stream"): Promise<ReadableStream | null>;
 };
 
-export interface MockableKVNamespace<T extends string = string> extends Omit<CFKVNamespace<T>, 'get' | 'put' | 'list'> {
+export interface MockableKVNamespace<T extends string = string> extends Omit<KVNamespace<T>, 'get' | 'put' | 'list'> {
   get: MockableFn<KVGet>;
   put: MockableFn<(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream) => Promise<void>>;
   list: MockableFn<<Metadata = unknown>(options?: KVNamespaceListOptions) => Promise<KVNamespaceListResult<Metadata, string>>>;
@@ -85,7 +60,7 @@ export interface CloudflareResponseInit {
 export function createResponse(
   body: string | ArrayBuffer | ArrayBufferView | Blob | null,
   init?: CloudflareResponseInit
-): CFResponse {
+): Response {
   const response = new Response(body, {
     status: init?.status,
     statusText: init?.statusText,
@@ -94,7 +69,7 @@ export function createResponse(
   return Object.assign(Object.create(Object.getPrototypeOf(response)), {
     ...response,
     webSocket: null
-  }) as CFResponse;
+  }) as Response;
 }
 
 export function createHandler<Env = unknown>(

@@ -1,4 +1,3 @@
-import type { DurableObjectNamespace } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it } from "vitest";
 import { type Mock, vi } from "vitest";
 import { handleApiRequest } from "./apiHandler";

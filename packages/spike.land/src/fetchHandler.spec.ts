@@ -1,8 +1,3 @@
-import type {
-  DurableObjectNamespace,
-  R2Bucket,
-  WebSocket,
-} from "@cloudflare/workers-types";
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type Env from "./env";
@@ -16,24 +11,7 @@ vi.stubGlobal(
     0: WebSocket;
     1: WebSocket;
     constructor() {
-      const mockWebSocket: WebSocket & {
-        addEventListener: (type: string, listener: EventListener) => void;
-        removeEventListener: (type: string, listener: EventListener) => void;
-        dispatchEvent: (event: Event) => boolean;
-      } = {
-        accept: () => {},
-        send: () => {},
-        close: () => {},
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        dispatchEvent: () => true,
-        readyState: 0,
-        url: "",
-        extensions: null,
-        protocol: null,
-        serializeAttachment: () => {},
-        deserializeAttachment: () => {},
-      };
+      const mockWebSocket: WebSocket = new WebSocket("wss://example.com");
       this[0] = mockWebSocket;
       this[1] = { ...mockWebSocket };
     }

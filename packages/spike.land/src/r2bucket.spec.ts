@@ -1,19 +1,3 @@
-import type {
-  Ai,
-  AiModels,
-  AiModelsSearchObject,
-  AiModelsSearchParams,
-  ContinentCode,
-  DurableObjectNamespace,
-  IncomingRequestCfProperties,
-  IncomingRequestCfPropertiesExportedAuthenticatorMetadata,
-  IncomingRequestCfPropertiesTLSClientAuth,
-  Iso3166Alpha2Code,
-  KVNamespace,
-  R2Bucket,
-  R2Object,
-  Socket,
-} from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import type MyEnv from "./env";

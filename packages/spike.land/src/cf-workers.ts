@@ -2,7 +2,7 @@ import chat from "./chat";
 import { Code } from "./chatRoom";
 import type Env from "./env";
 import R2BucketHandler from "./r2bucket";
-import { Headers, Request, Response } from "@cloudflare/workers-types"
+
 import { CodeRateLimiter } from "./rateLimiter";
 import { createResponse, createHandler } from "./types/cloudflare";
 import { Users } from "./users";
@@ -27,7 +27,7 @@ async function handleRequest(
       headers: new Headers(request.headers),
       body: request.body,
     });
-    return R2BucketHandler.fetch(r2Request, env);
+    return R2BucketHandler.fetch(r2Request, env, ctx);
   }
 
   if (!chat.fetch) {

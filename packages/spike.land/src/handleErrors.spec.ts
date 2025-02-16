@@ -1,4 +1,3 @@
-import type { WebSocket } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import { handleErrors } from "./handleErrors";

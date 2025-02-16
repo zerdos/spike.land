@@ -1,6 +1,5 @@
 /// <reference types="@cloudflare/workers-types" />
 
-// import {DurableObjectNamespace, KVNamespace} from "@cloudflare/workers-types"
 export default interface Env {
   ESM_ORIGIN?: string;
   ESM_TOKEN?: string;
