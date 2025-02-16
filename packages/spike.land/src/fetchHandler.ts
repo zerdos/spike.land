@@ -79,20 +79,52 @@ function handlePing(): Response {
 }
 
 function handleWebSocket(request: Request): Response {
+  // Check if it's a WebSocket upgrade request
+  const upgradeHeader = request.headers.get('Upgrade');
+  const connectionHeader = request.headers.get('Connection');
+
+  if (upgradeHeader?.toLowerCase() !== 'websocket' || 
+      connectionHeader?.toLowerCase() !== 'upgrade') {
+    return new Response('expected websocket', {
+      status: 400,
+      headers: {
+        'Content-Type': 'text/plain'
+      }
+    });
+  }
+
   const pair = new WebSocketPair();
-  
-  const headers = new Headers({
-    "Upgrade": "websocket",
-    "Connection": "Upgrade"
-  });
-  
+  const client = pair[1];
+  const server = pair[0];
+
+  // Cloudflare Workers specific WebSocket handling
+  server.accept();
+
+  // Create a mock Response object with status 200
   const response = new Response(null, { 
-    status: 101,
-    headers
+    status: 200,
+    headers: {
+      "Upgrade": "websocket",
+      "Connection": "Upgrade"
+    }
   });
 
-  // @ts-ignore - WebSocket pair assignment is valid in Cloudflare Workers
-  response.webSocket = pair[0];
+  // Add webSocket property
+  Object.defineProperty(response, 'webSocket', {
+    value: client,
+    writable: false,
+    enumerable: true,
+    configurable: true
+  });
+
+  // Override status to 101 after creation
+  Object.defineProperty(response, 'status', {
+    value: 101,
+    writable: false,
+    enumerable: true,
+    configurable: true
+  });
+
   return response;
 }
 

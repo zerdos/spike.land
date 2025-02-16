@@ -249,9 +249,7 @@ describe("OpenAIHandler", () => {
         file: mockFile,
       });
 
-      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(
-        new Error("Transcription error"),
-      );
+      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(new Error("Transcription error"));
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -259,7 +257,7 @@ describe("OpenAIHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("application/json");
 
       const errorBody = await response.json();
-      expect(errorBody).toHaveProperty("error", "Whisper processing failed");
+      expect(errorBody).toEqual({ error: "Whisper processing failed" });
     });
   });
 

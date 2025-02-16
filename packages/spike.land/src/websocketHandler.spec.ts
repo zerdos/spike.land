@@ -89,18 +89,25 @@ describe("WebSocketHandler", () => {
       };
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
-      mockWebSocket.onopen?.(new Event('open'));
 
-      // Initial handshake
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(1);
-
-      // First ping
-      vi.advanceTimersByTime(30000);
+      // Initial handshake + immediate ping
       expect(mockWebSocket.send).toHaveBeenCalledTimes(2);
 
-      // Second ping
+      // Simulate pong response
+      const messageHandler = (mockWebSocket.addEventListener as Mock).mock.calls
+        .find(call => call[0] === "message")?.[1];
+      messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
+
+      // First scheduled ping (ping + pong response)
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledTimes(3);
+
+      // Simulate pong response again
+      messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
+
+      // Second scheduled ping (ping + pong response)
+      vi.advanceTimersByTime(30000);
+      expect(mockWebSocket.send).toHaveBeenCalledTimes(4);
 
       vi.useRealTimers();
     });

@@ -90,7 +90,10 @@ describe("FetchHandler", () => {
   describe("WebSocket Handling", () => {
     it("should handle valid WebSocket upgrade request", async () => {
       const mockRequest = new Request("https://example.com/websocket", {
-        headers: { "Upgrade": "websocket" },
+        headers: { 
+          "Upgrade": "websocket",
+          "Connection": "upgrade"
+        },
       });
 
       const response = await handleFetchApi(["websocket"], mockRequest, mockEnv as Env, mockCtx);

@@ -50,6 +50,11 @@ export async function handleGPT4Request(
         speed: body.speed || 1,
       });
 
+      // Ensure speechResponse has arrayBuffer method
+      if (typeof speechResponse.arrayBuffer !== 'function') {
+        throw new Error('Invalid speech response');
+      }
+
       // Convert the ReadableStream to ArrayBuffer
       const arrayBuffer = await speechResponse.arrayBuffer();
 
@@ -111,10 +116,7 @@ export async function handleGPT4Request(
     } catch (error) {
       console.error("Error in Whisper:", error);
       return new Response(
-        JSON.stringify({
-          body,
-          error: "Whisper processing failed",
-        }),
+        JSON.stringify({ error: "Whisper processing failed" }),
         {
           status: 500,
           headers: {
@@ -183,7 +185,18 @@ export async function handleGPT4Request(
     });
   } catch (error) {
     console.error("Error in chat completion:", error);
-    return new Response(JSON.stringify({ error: "Chat completion failed" }), {
+    const errorDetails = error instanceof Error ? {
+      message: error.message,
+      stack: error.stack
+    } : {
+      message: "Unknown error occurred",
+      stack: null
+    };
+
+    return new Response(JSON.stringify({ 
+      error: "Chat completion failed",
+      details: errorDetails 
+    }), {
       status: 500,
       headers: {
         "Content-Type": "application/json",
