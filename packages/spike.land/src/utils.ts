@@ -67,15 +67,10 @@ export async function readRequestBody(request: Request) {
   } else if (contentType!.includes("multipart/form-data")) {
     const formData = await request.formData();
     const body: Record<string, unknown> = {};
-
-
-    if (body["record.wav"]) {
-      body.file = await formData.get("record.wav");
-    }
+    formData.forEach((value, key) => {
+      body[key] = value;
+    });
     return body;
-
-
-
   } else if (contentType!.includes("text/html")) {
     return request.text();
   } else if (contentType!.includes("form")) {

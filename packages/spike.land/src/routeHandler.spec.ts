@@ -1,4 +1,5 @@
-import { importMap, md5 } from "@spike-npm-land/code";
+import { importMap } from "@spike-npm-land/code";
+const md5Promise = import("@spike-npm-land/code").then(m => m.md5);
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { RouteHandler } from "./routeHandler";
@@ -68,6 +69,7 @@ describe("RouteHandler", () => {
         expect(response.status).toBe(200);
         expect(await response.text()).toBe("mock code");
         expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
+        const md5 = await md5Promise;
         expect(response.headers.get("content_hash")).toBe(md5("mock code"));
       });
     });

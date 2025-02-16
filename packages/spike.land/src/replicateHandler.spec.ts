@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { parseInputFromUrl } from "../src/replicateHandler";
+// const replicatePromise = import('replicate'); // Dynamic import for replicate - not needed here
 
 it("parses input from URL", () => {
   const url =
