@@ -13,7 +13,12 @@ vi.stubGlobal(
     constructor() {
       const mockWebSocket: WebSocket = new WebSocket("wss://example.com");
       this[0] = mockWebSocket;
-      this[1] = { ...mockWebSocket };
+      this[1] = { 
+        ...mockWebSocket,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      };
     }
   },
 );

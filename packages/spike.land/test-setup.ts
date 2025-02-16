@@ -23,14 +23,11 @@ import { vi } from "vitest";
 // });
 
 // Mock console methods
-console = {
-  ...console,
-  log: vi.fn(),
-  error: vi.fn(),
-  warn: vi.fn(),
-  info: vi.fn(),
-  debug: vi.fn(),
-};
+vi.spyOn(console, 'log').mockImplementation(() => {});
+vi.spyOn(console, 'error').mockImplementation(() => {});
+vi.spyOn(console, 'warn').mockImplementation(() => {});
+vi.spyOn(console, 'info').mockImplementation(() => {});
+vi.spyOn(console, 'debug').mockImplementation(() => {});
 
 // // Ensure Date is properly defined in the global scope
 // Object.defineProperty(globalThis, "Date", {

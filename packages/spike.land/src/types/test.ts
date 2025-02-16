@@ -34,17 +34,11 @@ export interface TestHeaders extends CFHeaders {
 // Mock Request for tests
 export interface TestRequest extends Omit<CFRequest, 'headers'> {
   headers: TestHeaders;
-  cache: RequestCache;
-  credentials: RequestCredentials;
-  destination: RequestDestination;
-  mode: RequestMode;
-  redirect: RequestRedirect;
 }
 
 // Mock Response for tests
 export interface TestResponse extends Omit<CFResponse, 'headers'> {
   headers: TestHeaders;
-  type: ResponseType;
 }
 
 // Mock KVNamespace for tests
@@ -111,18 +105,4 @@ export interface R2Object {
   httpMetadata?: R2HTTPMetadata;
   customMetadata?: Record<string, string>;
   range?: R2Range;
-}
-
-export interface R2HTTPMetadata {
-  contentType?: string;
-  contentLanguage?: string;
-  contentDisposition?: string;
-  contentEncoding?: string;
-  cacheControl?: string;
-  cacheExpiry?: Date;
-}
-
-export interface R2Range {
-  offset: number;
-  length: number;
 }

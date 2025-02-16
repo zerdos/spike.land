@@ -217,9 +217,9 @@ const main = {
       const body: { [key: string]: unknown; file: File; } = {
         file: new File([], ""),
       };
-      for (const entry of formData.entries()) {
-        body[entry[0]] = entry[1];
-      }
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
       if (body["record.wav"]) {
         body.file = await formData.get("record.wav") as unknown as File;
       }

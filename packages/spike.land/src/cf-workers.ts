@@ -17,14 +17,14 @@ async function handleRequest(
   if (url.pathname.startsWith("/r2/")) {
     const r2Url = new URL(url.pathname.slice(3), url.origin);
     const headers = new Headers();
-    for (const [key, value] of request.headers.entries()) {
+    request.headers.forEach((value, key) => {
       headers.append(key, value);
-    }
-    
+    });
+
     headers.set("host", r2Url.host);
     const r2Request = new Request(r2Url.toString(), {
       method: request.method,
-      headers: new Headers(request.headers),
+      headers: headers, // Use the modified headers
       body: request.body,
     });
     return R2BucketHandler.fetch(r2Request, env, ctx);

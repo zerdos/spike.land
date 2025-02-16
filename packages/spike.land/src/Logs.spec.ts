@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { KVLogger } from "./Logs";
-import { R } from "@vitest/runner/dist/tasks-3ZnPj1LR";
 
 class MockDate extends Date {
   constructor() {
@@ -22,6 +21,7 @@ const createMockKVNamespace = () => ({
   delete: vi.fn().mockResolvedValue(undefined),
   getWithMetadata: vi.fn().mockResolvedValue({ value: null, metadata: null })
 });
+
 
 describe("KVLogger", () => {
   let mockKVNamespace: ReturnType<typeof createMockKVNamespace>;
