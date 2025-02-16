@@ -4638,7 +4638,7 @@ __metadata:
     postcss: "npm:8.5.2"
     postcss-import: "npm:16.1.0"
     postcss-js: "npm:4.0.1"
-    preact: "npm:10.25.4"
+    preact: "npm:10.26.0"
     preact-render-to-string: "npm:6.5.13"
     prettier: "npm:3.5.1"
     prism-react-renderer: "npm:2.4.1"
@@ -13966,10 +13966,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.25.4":
-  version: 10.25.4
-  resolution: "preact@npm:10.25.4"
-  checksum: 10c0/33a009d614d2b47df1c867935fe057c1dfd2bae1aaab41d6e981434b761f75b88e82eac7847ae486b4dbcffc74af814b8dc59ccef17b10625e3effefa2e1ef67
+"preact@npm:10.26.0":
+  version: 10.26.0
+  resolution: "preact@npm:10.26.0"
+  checksum: 10c0/cf0ea614cb6e3f490ee425bd89b06127e5c006fc809edefbf42b65bbb6e47797acdca8bc1e6b661a9cd9ee474bbe7fc9e6bdac729b5358a15781b9741acc6d54
   languageName: node
   linkType: hard
 

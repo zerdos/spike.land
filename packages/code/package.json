@@ -179,7 +179,7 @@
     "path-browserify": "1.0.1",
     "perf_hooks": "0.0.1",
     "postcss-js": "4.0.1",
-    "preact": "10.25.4",
+    "preact": "10.26.0",
     "preact-render-to-string": "6.5.13",
     "prettier": "3.5.1",
     "prism-react-renderer": "2.4.1",
