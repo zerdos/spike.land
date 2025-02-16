@@ -12,13 +12,11 @@ export class CodeRateLimiter {
   async fetch(request: Request) {
     return await handleErrors(request, async () => {
       const now = Date.now() / 1000;
-      let cooldown = 0;
 
       // Reset counts if grace period has expired
       if (now > this.nextAllowedTime + this.GRACE_PERIOD) {
         this.requestCount = 0;
         this.nextAllowedTime = now;
-        return new Response("0");
       }
 
       if (request.method === "POST") {
@@ -26,7 +24,7 @@ export class CodeRateLimiter {
 
         // Apply rate limiting after grace limit is exceeded
         if (this.requestCount > this.GRACE_LIMIT) {
-          cooldown = this.RATE_LIMIT;
+          const cooldown = this.RATE_LIMIT;
           this.nextAllowedTime = now + cooldown;
           return new Response(String(cooldown));
         }

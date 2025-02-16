@@ -206,12 +206,27 @@ export class WebSocketHandler {
     }
     if (message && message.type) {
       switch (message.type) {
+        case "subscribe":
+          if (message.topics) {
+            message.topics.forEach((topicName) => {
+              if (!this.topics.has(topicName)) {
+                this.topics.set(topicName, new Set());
+              }
+              const subs = this.topics.get(topicName);
+              if (subs) {
+                subs.add(session.webSocket);
+                session.subscribedTopics.add(topicName);
+              }
+            });
+          }
+          break;
         case "unsubscribe":
           if (message.topics) {
             message.topics.forEach((topicName) => {
               const subs = this.topics.get(topicName);
               if (subs) {
                 subs.delete(session.webSocket);
+                session.subscribedTopics.delete(topicName);
               }
             });
           }

@@ -141,10 +141,10 @@ describe("R2BucketHandler", () => {
 
   describe("PUT Request Handling", () => {
     it("should successfully put object to R2 bucket", async () => {
-      const mockBlob = new Blob(["test content"]);
-      const mockRequest = createMockRequest("PUT");
-      Object.defineProperty(mockRequest, "blob", {
-        value: () => Promise.resolve(mockBlob),
+      const mockBlob = new Blob(["test data"]);
+      const mockRequest = new Request("https://example.com/test-key", {
+        method: "PUT",
+        body: mockBlob
       });
 
       // Setup successful put response

@@ -79,14 +79,7 @@ function handlePing(): Response {
 }
 
 function handleWebSocket(request: Request): Response {
-  if (request.headers.get("Upgrade") !== "websocket") {
-    return new Response("expected websocket", { status: 400 });
-  }
   const pair = new WebSocketPair();
-  (pair[1] as WebSocket & { accept: () => void; }).accept();
-  pair[1].addEventListener("open", () => {
-    pair[1].send("hello");
-  });
   
   const headers = new Headers({
     "Upgrade": "websocket",
@@ -94,10 +87,12 @@ function handleWebSocket(request: Request): Response {
   });
   
   const response = new Response(null, { 
-    status: 200,
+    status: 101,
     headers
   });
-  Object.assign(response, { webSocket: pair[0] });
+
+  // @ts-ignore - WebSocket pair assignment is valid in Cloudflare Workers
+  response.webSocket = pair[0];
   return response;
 }
 

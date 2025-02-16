@@ -79,7 +79,17 @@ describe("WebSocketHandler", () => {
     it("should schedule periodic ping", () => {
       vi.useFakeTimers();
 
+      const mockSession = {
+        webSocket: mockWebSocket,
+        name: "test",
+        quit: false,
+        subscribedTopics: new Set(),
+        pongReceived: true,
+        blockedMessages: []
+      };
+
       websocketHandler.handleWebsocketSession(mockWebSocket);
+      mockWebSocket.onopen?.(new Event('open'));
 
       // Initial handshake
       expect(mockWebSocket.send).toHaveBeenCalledTimes(1);
