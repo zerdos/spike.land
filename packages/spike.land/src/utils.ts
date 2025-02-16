@@ -1,4 +1,3 @@
-import { Request } from "@cloudflare/workers-types";
 
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
@@ -68,21 +67,25 @@ export async function readRequestBody(request: Request) {
   } else if (contentType!.includes("multipart/form-data")) {
     const formData = await request.formData();
     const body: Record<string, unknown> = {};
-    for (const entry of formData.entries()) {
-      body[entry[0]] = entry[1];
-    }
+
+
     if (body["record.wav"]) {
       body.file = await formData.get("record.wav");
     }
     return body;
+
+
+
   } else if (contentType!.includes("text/html")) {
     return request.text();
   } else if (contentType!.includes("form")) {
-    const formData = await request.formData();
+    const formData: FormData =  await request.formData();
     const body: Record<string, unknown> = {};
-    for (const entry of formData.entries()) {
-      body[entry[0]] = entry[1];
-    }
+    formData.forEach((value, key) => {
+      body[key] = value;
+    });
+
+   
     return body;
   } else {
     return "a file";

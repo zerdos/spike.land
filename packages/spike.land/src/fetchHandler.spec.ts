@@ -1,7 +1,7 @@
 import type {
   DurableObjectNamespace,
   R2Bucket,
-  WebSocket as CloudflareWebSocket,
+  WebSocket,
 } from "@cloudflare/workers-types";
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
@@ -13,10 +13,10 @@ import { handleCORS } from "./utils";
 vi.stubGlobal(
   "WebSocketPair",
   class {
-    0: CloudflareWebSocket;
-    1: CloudflareWebSocket;
+    0: WebSocket;
+    1: WebSocket;
     constructor() {
-      const mockWebSocket: CloudflareWebSocket & {
+      const mockWebSocket: WebSocket & {
         addEventListener: (type: string, listener: EventListener) => void;
         removeEventListener: (type: string, listener: EventListener) => void;
         dispatchEvent: (event: Event) => boolean;
@@ -41,8 +41,17 @@ vi.stubGlobal(
 );
 
 describe("FetchHandler", () => {
-  let mockEnv: Partial<Env>;
-  let mockCtx: ExecutionContext;
+  let mockEnv = {
+        R2: {
+          get: vi.fn(),
+          put: vi.fn(),
+          delete: vi.fn(),
+        } as unknown as R2Bucket,
+        CODE: {
+          get: vi.fn(),
+        },
+      } as unknown as Env;
+    let mockCtx: ExecutionContext;
   let mockFetch: typeof fetch;
 
   beforeEach(() => {
@@ -63,7 +72,7 @@ describe("FetchHandler", () => {
       CODE: {
         get: vi.fn(),
       } as unknown as DurableObjectNamespace,
-    };
+    } as unknown as Env;
 
     mockCtx = {
       waitUntil: vi.fn(),
@@ -88,7 +97,7 @@ describe("FetchHandler", () => {
       const mockCorsResponse = new Response("CORS response");
       (handleCORS as Mock).mockReturnValue(mockCorsResponse);
 
-      const response = await handleFetchApi(["test"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(["test"], mockRequest, mockEnv, mockCtx);
 
       expect(handleCORS).toHaveBeenCalledWith(mockRequest);
       expect(response).toBe(mockCorsResponse);

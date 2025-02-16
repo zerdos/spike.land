@@ -9,7 +9,8 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleUnauthorizedRequest } from "./utils";
 
 describe("MainFetchHandler", () => {
-  let mockEnv: Partial<Env>;
+  let mockEnv = {
+  } as Env;
   let mockCtx: ExecutionContext;
 
   beforeEach(() => {
@@ -17,9 +18,6 @@ describe("MainFetchHandler", () => {
     vi.resetAllMocks();
 
     // Create a mock environment
-    mockEnv = {
-      CODE: {} as DurableObjectNamespace,
-    };
 
     mockCtx = {
       waitUntil: vi.fn(),
@@ -57,7 +55,7 @@ describe("MainFetchHandler", () => {
       const mockUnauthorizedResponse = new Response("Unauthorized", { status: 403 });
       (handleUnauthorizedRequest as Mock).mockReturnValue(mockUnauthorizedResponse);
 
-      const response = await handleMainFetch(mockYandexRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(mockYandexRequest, mockEnv , mockCtx);
 
       expect(handleUnauthorizedRequest).toHaveBeenCalled();
       expect(response).toBe(mockUnauthorizedResponse);

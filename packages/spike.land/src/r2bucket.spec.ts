@@ -5,7 +5,6 @@ import type {
   AiModelsSearchParams,
   ContinentCode,
   DurableObjectNamespace,
-  Headers as CloudflareHeaders,
   IncomingRequestCfProperties,
   IncomingRequestCfPropertiesExportedAuthenticatorMetadata,
   IncomingRequestCfPropertiesTLSClientAuth,
@@ -13,7 +12,6 @@ import type {
   KVNamespace,
   R2Bucket,
   R2Object,
-  Request,
   Socket,
 } from "@cloudflare/workers-types";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -53,13 +51,12 @@ describe("R2BucketHandler", () => {
       CF_REAL_TURN_TOKEN: "mock-turn-token",
       AI: {
         aiGatewayLogId: "mock-log-id",
-        gateway: vi.fn(),
-        run: vi.fn(),
-        models: (async (_params?: AiModelsSearchParams) =>
-          [] as AiModelsSearchObject[]) as unknown as (
-            _params?: AiModelsSearchParams,
-          ) => Promise<AiModelsSearchObject[]>,
-      } as Ai<AiModels>,
+        gateway: vi.fn().mockReturnValue({
+          run: vi.fn(() => Promise.resolve(Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" })) as unknown as Response)
+        }),
+        run: vi.fn(() => Promise.resolve(Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" })) as unknown as Response),
+        models: vi.fn(async (_params?: AiModelsSearchParams) => [] as AiModelsSearchObject[]),
+      } as unknown as Ai<AiModels>,
       KV: {
         get: vi.fn(),
         put: vi.fn(),
@@ -102,15 +99,15 @@ describe("R2BucketHandler", () => {
         list: vi.fn().mockResolvedValue({ objects: [], truncated: false }),
       } as R2Bucket,
       // Add any other properties from the Env type
-    } as MyEnv;
+    } as unknown as MyEnv;
   });
 
   const createMockRequest = (
     method: string,
     url = "https://example.com/test-key",
   ) => {
-    // Create a custom Headers object that mimics CloudflareHeaders
-    const mockHeaders: CloudflareHeaders = Object.assign(new Headers(), {
+    // Create a custom Headers object that mimics Headers
+    const mockHeaders: Headers = Object.assign(new Headers(), {
       getAll: vi.fn().mockReturnValue([]),
     });
 
@@ -203,7 +200,7 @@ describe("R2BucketHandler", () => {
     it("should successfully retrieve object from R2 bucket", async () => {
       const mockBody = new Blob(["test content"]);
       const mockR2Object: R2Object = {
-        writeHttpMetadata: (headers: CloudflareHeaders) => {
+        writeHttpMetadata: (headers: any) => {
           headers.set("X-Test-Header", "test-value");
         },
         httpEtag: "test-etag",

@@ -1,4 +1,4 @@
-import type { WebSocket } from "@cloudflare/workers-types";
+import {  WebSocketPair } from "@cloudflare/workers-types";
 
 function getWebSocketPair(): [WebSocket, WebSocket] {
   if (typeof WebSocketPair !== "undefined") {

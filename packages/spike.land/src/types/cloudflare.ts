@@ -1,41 +1,186 @@
-import {
-  ExecutionContext,
+import type {
   ExportedHandler,
-  IncomingRequestCfProperties,
-  ResponseInit,
-  BodyInit,
-  Response
+  Request as CFRequest,
+  Headers as CFHeaders,
+  Response as CFResponse,
+  ReadableStream as CFReadableStream,
+  KVNamespace as CFKVNamespace,
+  DurableObjectNamespace as CFDurableObjectNamespace,
+  R2Bucket as CFR2Bucket,
+  R2ObjectBody as CFR2ObjectBody,
+  DurableObjectStub as CFDurableObjectStub,
+  
 } from "@cloudflare/workers-types";
 
-// Type for a request with  properties
-export type WorkerRequest = Request & {
-  cf: IncomingRequestCfProperties;
+// Export base types
+export type { CFRequest as Request };
+export type { CFResponse as Response };
+export type { CFHeaders as Headers };
+export type { CFReadableStream as ReadableStream };
+export type { CFKVNamespace as KVNamespace };
+export type { CFDurableObjectNamespace as DurableObjectNamespace };
+export type { CFDurableObjectStub as DurableObjectStub };
+export type { CFR2Bucket as R2Bucket };
+export type { CFR2ObjectBody as R2ObjectBody };
+
+// Test utility types that extend Cloudflare types with mock capabilities
+export interface MockableHeaders extends CFHeaders {
+  mockImplementation?: (impl: Function) => void;
+  mockResolvedValue?: (value: any) => void;
+  mockRejectedValue?: (error: Error) => void;
+  mockResolvedValueOnce?: (value: any) => void;
+  mockRejectedValueOnce?: (error: Error) => void;
+}
+
+export interface MockableRequest extends CFRequest {
+  headers: MockableHeaders;
+  mockImplementation?: (impl: Function) => void;
+  mockResolvedValue?: (value: any) => void;
+  mockRejectedValue?: (error: Error) => void;
+  mockResolvedValueOnce?: (value: any) => void;
+  mockRejectedValueOnce?: (error: Error) => void;
+}
+
+export interface MockableResponse extends CFResponse {
+  headers: MockableHeaders;
+  mockImplementation?: (impl: Function) => void;
+  mockResolvedValue?: (value: any) => void;
+  mockRejectedValue?: (error: Error) => void;
+  mockResolvedValueOnce?: (value: any) => void;
+  mockRejectedValueOnce?: (error: Error) => void;
+}
+
+// Mockable method type
+interface MockableFn<T extends (...args: any[]) => any> extends Function {
+  (...args: Parameters<T>): ReturnType<T>;
+  mockImplementation?: (impl: Function) => void;
+  mockResolvedValue?: (value: any) => void;
+  mockRejectedValue?: (error: Error) => void;
+  mockResolvedValueOnce?: (value: any) => void;
+  mockRejectedValueOnce?: (error: Error) => void;
+}
+
+// KVNamespace get method overloads
+type KVGet = {
+  (key: string, options?: Partial<KVNamespaceGetOptions<undefined>>): Promise<string | null>;
+  (key: string, type: "text"): Promise<string | null>;
+  <ExpectedValue = unknown>(key: string, type: "json"): Promise<ExpectedValue | null>;
+  (key: string, type: "arrayBuffer"): Promise<ArrayBuffer | null>;
+  (key: string, type: "stream"): Promise<ReadableStream | null>;
 };
 
+export interface MockableKVNamespace<T extends string = string> extends Omit<CFKVNamespace<T>, 'get' | 'put' | 'list'> {
+  get: MockableFn<KVGet>;
+  put: MockableFn<(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream) => Promise<void>>;
+  list: MockableFn<<Metadata = unknown>(options?: KVNamespaceListOptions) => Promise<KVNamespaceListResult<Metadata, string>>>;
+}
+
+// Response creation utilities
+export interface CloudflareResponseInit {
+  status?: number;
+  statusText?: string;
+  headers?: Record<string, string>;
+}
 
 export function createResponse(
-  body: BodyInit,
-  init?: ResponseInit,
-): Response {
-  const response = new Response(body, init);
-  response.headers.getAll = function(name: string) {
-    const values = this.get(name);
-    return values ? [values] : [];
-  };
-  return response as unknown as Response;
+  body: string | ArrayBuffer | ArrayBufferView | Blob | null,
+  init?: CloudflareResponseInit
+): CFResponse {
+  const response = new Response(body, {
+    status: init?.status,
+    statusText: init?.statusText,
+    headers: init?.headers
+  });
+  return Object.assign(Object.create(Object.getPrototypeOf(response)), {
+    ...response,
+    webSocket: null
+  }) as CFResponse;
 }
 
-export function ensureResponse(response: Response | null | undefined): Response {
-  if (!response) return createResponse("Not Found", { status: 404 });
-  return response as unknown as Response;
-}
-
-
-
-export function createHandler<Env>(
-  handler:ExportedHandler<Env>["fetch"]
+export function createHandler<Env = unknown>(
+  handler: ExportedHandler<Env>["fetch"]
 ): ExportedHandler<Env> {
-  return {
-    fetch: handler
-};
+  return { fetch: handler };
+}
+
+// Additional type utilities
+export interface KVNamespaceGetOptions<Type> {
+  type: Type;
+  cacheTtl?: number;
+}
+
+export interface KVNamespaceListOptions {
+  limit?: number;
+  prefix?: string;
+  cursor?: string;
+}
+
+export interface KVNamespaceListResult<Metadata, Key> {
+  keys: { name: Key; metadata?: Metadata }[];
+  list_complete: boolean;
+  cursor?: string;
+}
+
+export interface R2PutOptions {
+  onlyIf?: R2Conditional;
+  customMetadata?: Record<string, string>;
+  httpMetadata?: R2HTTPMetadata;
+  md5?: string;
+}
+
+export interface R2Conditional {
+  etagMatches?: string;
+  etagDoesNotMatch?: string;
+  uploadedBefore?: Date;
+  uploadedAfter?: Date;
+}
+
+export interface R2HTTPMetadata {
+  contentType?: string;
+  contentLanguage?: string;
+  contentDisposition?: string;
+  contentEncoding?: string;
+  cacheControl?: string;
+  cacheExpiry?: Date;
+}
+
+export interface R2Object {
+  key: string;
+  version: string;
+  size: number;
+  etag: string;
+  httpEtag: string;
+  uploaded: Date;
+  httpMetadata?: R2HTTPMetadata;
+  customMetadata?: Record<string, string>;
+  range?: R2Range;
+}
+
+export interface R2Range {
+  offset: number;
+  length: number;
+}
+
+export interface DurableObjectId {
+  toString(): string;
+  equals(other: DurableObjectId): boolean;
+  name?: string;
+}
+
+export interface SocketAddress {
+  hostname: string;
+  port: number;
+}
+
+export interface SocketOptions {
+  allowHalfOpen?: boolean;
+  secureTransport?: string;
+}
+
+export interface Socket {
+  closed: Promise<void>;
+  close(): void;
+  write(data: string | ArrayBuffer | ArrayBufferView): void;
+  readable: ReadableStream;
+  writable: WritableStream;
 }
