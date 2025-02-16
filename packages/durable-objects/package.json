@@ -1,27 +1,17 @@
 {
-	"name": "@cloudflare/vitest-pool-workers-examples",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"check:type": "node tsc-all.mjs",
-		"list": "vitest --config vitest.workers.config.ts list",
-		"test": "vitest --config vitest.config.ts --reporter basic run",
-		"test:ci": "run-script-os",
-		"test:ci:default": "vitest run --config vitest.config.ts --reporter basic",
-		"test:ci:win32": "vitest run --config vitest.config.ts --reporter basic --exclude test/sqlite-in-do.test.ts"
-	},
-	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.6.16",
-		"@cloudflare/workers-types": "^4.20250214.0",
-		"@microlabs/otel-cf-workers": "1.0.0-rc.49",
-		"@types/node": "22.13.4",
-		"discord-api-types": "0.37.119",
-		"jose": "^5.9.6",
-		"miniflare": "3.20250204.1",
-		"run-script-os": "^1.1.6",
-		"toucan-js": "4.1.0",
-		"typescript": "4.9.5",
-		"vitest": "2.1.9",
-		"wrangler": "3.109.1"
-	}
+  "name": "@spike-land/durable-objects",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.6.16",
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@types/node": "22.13.4",
+    "miniflare": "3.20250204.1",
+    "typescript": "4.9.5",
+    "vitest": "2.0.1",
+    "wrangler": "3.109.1"
+  }
 }

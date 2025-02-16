@@ -20,7 +20,10 @@
     { "path": "./packages/code/tsconfig.json" },
 
     { "path": "./packages/code/tsconfig.spec.json" },
-    { "path": "./packages/spike.land/tsconfig.json" }
+    { "path": "./packages/spike.land/tsconfig.json" },
+    { "path": "./packages/durable-objects/tsconfig.json" },
+    
+
   ],
   "exclude": ["dts", "node_modules", "dist", "functions"],
   "include": ["eslint.config.cjs"]
