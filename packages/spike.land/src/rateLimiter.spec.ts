@@ -58,38 +58,49 @@ describe("CodeRateLimiter", () => {
     });
 
     it("should provide grace period for multiple quick requests", async () => {
-      const postRequest = new Request("https://example.com", { method: "POST" });
+      const rateLimiter = new CodeRateLimiter();
+      const postRequest = new Request("http://example.com", { method: "POST" });
 
-      // Make multiple quick POST requests within grace period
+      // Make 5 quick requests
       const responses = await Promise.all([
         rateLimiter.fetch(postRequest),
         rateLimiter.fetch(postRequest),
         rateLimiter.fetch(postRequest),
         rateLimiter.fetch(postRequest),
-        rateLimiter.fetch(postRequest), // 5th request should trigger cooldown
+        rateLimiter.fetch(postRequest),
       ]);
 
-      // First 4 requests should have 0 cooldown, 5th should have 0.5
+      // First 4 requests should be allowed with no cooldown
       expect(await responses[0].text()).toBe("0");
       expect(await responses[1].text()).toBe("0");
       expect(await responses[2].text()).toBe("0");
       expect(await responses[3].text()).toBe("0");
-      expect(await responses[4].text()).toBe("0.5"); // 5th request should trigger 0.5s cooldown
+      // 5th request should trigger cooldown
+      expect(await responses[4].text()).toBe("0.5");
     });
 
     it("should enforce rate limit after grace period", async () => {
-      const postRequest = new Request("https://example.com", { method: "POST" });
+      vi.useFakeTimers();
+      const rateLimiter = new CodeRateLimiter();
+      const postRequest = new Request("http://example.com", { method: "POST" });
 
-      // Exhaust grace period (5 requests)
-      for (let i = 0; i < 5; i++) {
-        await rateLimiter.fetch(postRequest);
-      }
+      // Make 5 quick requests to trigger cooldown
+      await Promise.all([
+        rateLimiter.fetch(postRequest),
+        rateLimiter.fetch(postRequest),
+        rateLimiter.fetch(postRequest),
+        rateLimiter.fetch(postRequest),
+        rateLimiter.fetch(postRequest),
+      ]);
 
-      // Simulate time passing beyond grace period + cooldown
-      vi.spyOn(Date, "now").mockReturnValue(mockDateNow + 5000); // 5 seconds
+      // Wait for grace period to expire (20 seconds) plus cooldown (0.5 seconds)
+      vi.advanceTimersByTime(21000);
 
+      // Next request should have no cooldown
       const response = await rateLimiter.fetch(postRequest);
-      expect(await response.text()).toBe("0"); // Cooldown should reset after grace period + cooldown
+      expect(await response.text()).toBe("0");
+      
+      vi.useRealTimers();
     });
   });
 

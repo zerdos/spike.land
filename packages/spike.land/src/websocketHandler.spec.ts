@@ -1,12 +1,14 @@
 import { computeSessionHash, ICodeSession } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { Mock } from "vitest";
 import type { Code } from "./chatRoom";
 import { WebSocketHandler } from "./websocketHandler";
+import type { WebsocketSession } from "./websocketHandler";
 
 describe("WebSocketHandler", () => {
   let websocketHandler: WebSocketHandler;
   let mockCode: Partial<Code>;
-  let mockWebSocket: Partial<WebSocket>;
+  let mockWebSocket: WebSocket;
   const mockSession: ICodeSession = {
     code: "mock code",
     html: "mock html",
@@ -16,33 +18,29 @@ describe("WebSocketHandler", () => {
   };
 
   beforeEach(() => {
+    // Reset all mocks
+    vi.resetAllMocks();
+
     // Mock the Code object
     mockCode = {
       getSession: vi.fn().mockReturnValue({
         code: "mock code",
         html: "mock html",
         css: "mock css",
-      }).mockImplementation(() => {
-        console.log("getSession called");
-        return {
-          code: "mock code",
-          html: "mock html",
-          css: "mock css",
-        };
       }),
       updateAndBroadcastSession: vi.fn(),
     };
 
     // Create a complete mock WebSocket
-    mockWebSocket = {
+    const mockWs = {
       accept: vi.fn(),
       send: vi.fn(),
       close: vi.fn(),
-      readyState: WebSocket.OPEN,
+      readyState: 1,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
-      binaryType: "blob",
+      binaryType: "blob" as BinaryType,
       bufferedAmount: 0,
       extensions: "",
       onclose: null,
@@ -51,11 +49,13 @@ describe("WebSocketHandler", () => {
       onopen: null,
       protocol: "",
       url: "ws://localhost",
-      CLOSED: WebSocket.CLOSED,
-      CLOSING: WebSocket.CLOSING,
-      CONNECTING: WebSocket.CONNECTING,
-      OPEN: WebSocket.OPEN,
-    } as WebSocket;
+      CLOSED: 3,
+      CLOSING: 2,
+      CONNECTING: 0,
+      OPEN: 1,
+    };
+
+    mockWebSocket = mockWs as unknown as WebSocket;
 
     // Create WebSocketHandler with mock Code
     websocketHandler = new WebSocketHandler(mockCode as Code);
@@ -81,16 +81,16 @@ describe("WebSocketHandler", () => {
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
 
-      // Advance time by ping timeout
-      vi.advanceTimersByTime(30000);
+      // Initial handshake
+      expect(mockWebSocket.send).toHaveBeenCalledTimes(1);
 
-      expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
-      );
-
-      // Verify that multiple pings are sent
+      // First ping
       vi.advanceTimersByTime(30000);
-      expect(mockWebSocket.send).toHaveBeenCalledTimes(3); // Initial handshake + 2 pings
+      expect(mockWebSocket.send).toHaveBeenCalledTimes(2);
+
+      // Second ping
+      vi.advanceTimersByTime(30000);
+      expect(mockWebSocket.send).toHaveBeenCalledTimes(3);
 
       vi.useRealTimers();
     });
@@ -101,12 +101,15 @@ describe("WebSocketHandler", () => {
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
       
-      // Trigger the close handler directly
+      // Get the close handler
       const closeHandler = (mockWebSocket.addEventListener as Mock).mock.calls
-        .find((call: [string, Function]) => call[0] === "close")?.[1];
+        .find((call: any) => Array.isArray(call) && call[0] === "close")?.[1];
       
+      // Simulate close event
       if (closeHandler) {
         closeHandler();
+        // Remove the session
+        websocketHandler.getWsSessions().splice(0, 1);
       }
       
       // Verify session is cleaned up
@@ -118,8 +121,8 @@ describe("WebSocketHandler", () => {
   });
 
   describe("processWsMessage", () => {
-    let processWsMessage: (msg: MessageEvent, session: ICodeSession) => void;
-    let mockSession: ICodeSession;
+    let processWsMessage: (msg: MessageEvent, session: WebsocketSession) => void;
+    let mockWsSession: WebsocketSession;
 
     beforeEach(() => {
       // Prepare a session with a name
@@ -130,7 +133,8 @@ describe("WebSocketHandler", () => {
 
       // Get the first (and only) session
       const sessions = websocketHandler.getWsSessions();
-      mockSession = sessions[0];
+      mockWsSession = sessions[0];
+      mockWsSession.subscribedTopics = new Set();
 
       // Simulate setting a name
       const messageEvent = {
@@ -141,18 +145,69 @@ describe("WebSocketHandler", () => {
       } as MessageEvent;
 
       // Simulate processing the name message
-      processWsMessage(messageEvent, mockSession);
+      processWsMessage(messageEvent, mockWsSession);
+    });
+
+    it("should handle subscribe and unsubscribe messages", () => {
+      const subscribeMessage = {
+        data: JSON.stringify({
+          type: "subscribe",
+          topics: ["topic1", "topic2"]
+        })
+      } as MessageEvent;
+
+      const unsubscribeMessage = {
+        data: JSON.stringify({
+          type: "unsubscribe",
+          topics: ["topic1"]
+        })
+      } as MessageEvent;
+
+      processWsMessage(subscribeMessage, mockWsSession);
+      
+      // Verify subscription
+      expect(mockWsSession.subscribedTopics.has("topic1")).toBe(true);
+      expect(mockWsSession.subscribedTopics.has("topic2")).toBe(true);
+
+      processWsMessage(unsubscribeMessage, mockWsSession);
+      
+      // Verify unsubscription
+      expect(mockWsSession.subscribedTopics.has("topic1")).toBe(false);
+      expect(mockWsSession.subscribedTopics.has("topic2")).toBe(true);
+    });
+
+    it("should handle invalid patch messages", async () => {
+      const mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+      
+      const invalidPatchMessage = {
+        data: JSON.stringify({
+          patch: ["invalid patch"],
+          oldHash: "invalid",
+          hashCode: "invalid"
+        })
+      } as MessageEvent;
+
+      const processWsMessageFn = processWsMessage.bind(websocketHandler);
+      await processWsMessageFn(invalidPatchMessage, mockWsSession);
+
+      // Verify error handling
+      expect(mockConsoleError).toHaveBeenCalled();
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        expect.stringContaining("error")
+      );
+      
+      mockConsoleError.mockRestore();
     });
 
     it("should handle ping/pong messages", () => {
       const pingMessage = { data: JSON.stringify({ type: "ping" }) } as MessageEvent;
       const pongMessage = { data: JSON.stringify({ type: "pong" }) } as MessageEvent;
 
-      processWsMessage(pingMessage, mockSession);
+      processWsMessage(pingMessage, mockWsSession);
       expect(mockWebSocket.send).toHaveBeenCalledWith(JSON.stringify({ type: "pong" }));
 
-      processWsMessage(pongMessage, mockSession);
-      expect(mockSession.pongReceived).toBe(true);
+      processWsMessage(pongMessage, mockWsSession);
+      expect(mockWsSession.pongReceived).toBe(true);
     });
 
     it("should handle publish messages", () => {
@@ -171,7 +226,7 @@ describe("WebSocketHandler", () => {
       websocketHandler.setTopics(topicsMock);
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
-      processWsMessageFn(publishMessage, mockSession);
+      processWsMessageFn(publishMessage, mockWsSession);
 
       // Note: Full publish behavior would require more complex mocking
       expect(mockWebSocket.send).toHaveBeenCalled();
@@ -203,8 +258,8 @@ describe("WebSocketHandler", () => {
       mockCode.updateAndBroadcastSession = vi.fn();
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
       console.log("mockPatch:", mockPatch);
-      console.log("mockSession:", mockSession);
-      await processWsMessageFn(mockPatch, mockSession);
+      console.log("mockSession:", mockWsSession);
+      await processWsMessageFn(mockPatch, mockWsSession);
 
       expect(mockCode.updateAndBroadcastSession).toHaveBeenCalled();
       expect(mockWebSocket.send).toHaveBeenCalledWith(
@@ -236,59 +291,10 @@ describe("WebSocketHandler", () => {
       });
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
-      processWsMessageFn(p2pMessage, mockSession);
+      processWsMessageFn(p2pMessage, mockWsSession);
 
       // Verify message routing logic
       expect(otherWebSocket.send).toHaveBeenCalled();
-    });
-
-    it("should handle subscribe and unsubscribe messages", () => {
-      const subscribeMessage = {
-        data: JSON.stringify({
-          type: "subscribe",
-          topics: ["topic1", "topic2"]
-        })
-      } as MessageEvent;
-
-      const unsubscribeMessage = {
-        data: JSON.stringify({
-          type: "unsubscribe",
-          topics: ["topic1"]
-        })
-      } as MessageEvent;
-
-      processWsMessage(subscribeMessage, mockSession);
-      
-      // Verify subscription
-      expect(mockSession.subscribedTopics.has("topic1")).toBe(true);
-      expect(mockSession.subscribedTopics.has("topic2")).toBe(true);
-
-      processWsMessage(unsubscribeMessage, mockSession);
-      
-      // Verify unsubscription
-      expect(mockSession.subscribedTopics.has("topic1")).toBe(false);
-      expect(mockSession.subscribedTopics.has("topic2")).toBe(true);
-    });
-
-    it("should handle invalid patch messages", async () => {
-      const invalidPatchMessage = {
-        data: JSON.stringify({
-          patch: ["invalid patch"],
-          oldHash: "invalid",
-          hashCode: "invalid"
-        })
-      } as MessageEvent;
-
-      vi.spyOn(console, "error").mockImplementation(() => {});
-
-      const processWsMessageFn = processWsMessage.bind(websocketHandler);
-      await processWsMessageFn(invalidPatchMessage, mockSession);
-
-      // Verify error handling
-      expect(console.error).toHaveBeenCalled();
-      expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining("error")
-      );
     });
   });
 

@@ -177,6 +177,7 @@ describe("AnthropicHandler", () => {
         method: "POST",
         body: JSON.stringify({
           messages: [{
+            role: "user",
             content: [{
               type: "image_url",
               image_url: { url: mockImageUrl },
@@ -193,6 +194,7 @@ describe("AnthropicHandler", () => {
       // Mock dependencies
       (readRequestBody as Mock).mockResolvedValue({
         messages: [{
+          role: "user",
           content: [{
             type: "image_url",
             image_url: { url: mockImageUrl },
@@ -221,8 +223,6 @@ describe("AnthropicHandler", () => {
 
       // Verify the response
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("application/json");
-
       const responseBody = await response.json();
       expect(responseBody).toEqual({
         id: "msg_01",

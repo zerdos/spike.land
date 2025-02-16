@@ -94,8 +94,7 @@ function handleWebSocket(request: Request): Response {
   });
   
   const response = new Response(null, { 
-    status: 101,
-    statusText: "Switching Protocols",
+    status: 200,
     headers
   });
   Object.assign(response, { webSocket: pair[0] });

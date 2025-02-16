@@ -143,7 +143,9 @@ describe("R2BucketHandler", () => {
     it("should successfully put object to R2 bucket", async () => {
       const mockBlob = new Blob(["test content"]);
       const mockRequest = createMockRequest("PUT");
-      Object.defineProperty(mockRequest, "body", { value: mockBlob });
+      Object.defineProperty(mockRequest, "blob", {
+        value: () => Promise.resolve(mockBlob),
+      });
 
       // Setup successful put response
       (mockEnv.R2.put as Mock).mockResolvedValueOnce({
@@ -164,18 +166,14 @@ describe("R2BucketHandler", () => {
 
     it("should return 400 for missing request body", async () => {
       const mockRequest = createMockRequest("PUT");
-      Object.defineProperty(mockRequest, "body", { value: null });
-
-      // Setup error response for missing body
-      (mockEnv.R2.put as Mock).mockRejectedValueOnce({
-        status: 400,
-        message: "Missing request body",
+      Object.defineProperty(mockRequest, "blob", {
+        value: () => Promise.resolve(null),
       });
 
       const response = await R2BucketHandler.fetch!(mockRequest, mockEnv, {} as ExecutionContext);
 
       expect(mockEnv.R2.put).not.toHaveBeenCalled();
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(400);
       expect(await response.text()).toBe("Missing request body");
     });
   });
