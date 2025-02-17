@@ -24,8 +24,8 @@ import ErrorBoundary from "@/components/app/error-boundary";
     const tmpPath = path.join(process.cwd(), "tmp");
     try {
       await fsPromises.access(tmpPath);
-    } catch (e: any) {
-      if (e.code === 'ENOENT') {
+    } catch (e: unknown) {
+      if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
         await fsPromises.mkdir(tmpPath);
       } else {
         throw e;

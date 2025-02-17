@@ -1,5 +1,10 @@
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
 import { ChatInterface } from "./ChatInterface";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { waitFor, fireEvent } from "@testing-library/dom";
+import { render } from "@testing-library/react";
+import { act } from "react";
+import { beforeAll, afterAll, vi, describe, beforeEach, afterEach, it, expect } from "vitest";
 
 // Mock BroadcastChannel with proper event handling
 class MockBroadcastChannel {
@@ -106,8 +111,15 @@ vi.mock("@/hooks/useScreenshot", () => ({
 }));
 
 // Mock ChatDrawer component
+interface ChatDrawerProps {
+  handleResetChat: () => void;
+  handleCancelEdit: () => void;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
 vi.mock("@/components/app/chat-drawer", () => {
-  const MockChatDrawer = vi.fn(({ handleResetChat, handleCancelEdit, isDarkMode, toggleDarkMode }: any) => (
+  const MockChatDrawer = vi.fn(({ handleResetChat, handleCancelEdit, isDarkMode, toggleDarkMode }: ChatDrawerProps) => (
     <div role="dialog" aria-label="chat drawer">
       <span data-testid="darkMode">{isDarkMode ? 'dark' : 'light'}</span>
       <button role="button" onClick={handleResetChat}>Reset Chat</button>
@@ -173,12 +185,6 @@ const createMockSession = (initialMessages: Message[] = []) => {
   return mockInstance;
 };
 
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import { waitFor, fireEvent, getByText } from "@testing-library/dom";
-import { render } from "@testing-library/react";
-import { act } from "react";
-import { beforeAll, afterAll, vi, describe, beforeEach, afterEach, it, expect } from "vitest";
-
 describe("ChatInterface", () => {
   let mockSession: ICode;
 
@@ -207,16 +213,15 @@ describe("ChatInterface", () => {
   };
 
   it("handles new messages from broadcast channel", async () => {
-    let getByText;
     await act(async () => {
-      ({ getByText } = renderWithContext(
+      renderWithContext(
         <ChatInterface
           isOpen={true}
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
         />
-      ));
+      );
     });
 
     const newMessages: Message[] = [
@@ -241,16 +246,15 @@ describe("ChatInterface", () => {
       addMessageChunk,
     };
 
-    let getByText;
     await act(async () => {
-      ({ getByText } = renderWithContext(
+      renderWithContext(
         <ChatInterface
           isOpen={true}
           codeSpace="test-space"
           cSess={sessionWithChunks}
           onClose={vi.fn()}
         />
-      ));
+      );
     });
 
     await act(async () => {
@@ -267,16 +271,15 @@ describe("ChatInterface", () => {
   });
 
   it("handles empty instructions in streaming", async () => {
-    let getByText;
     await act(async () => {
-      ({ getByText } = renderWithContext(
+      renderWithContext(
         <ChatInterface
           isOpen={true}
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
         />
-      ));
+      );
     });
 
     await act(async () => {
@@ -296,17 +299,14 @@ describe("ChatInterface", () => {
     ];
     mockSession = createMockSession(initialMessages);
 
-    let getByRole;
-    await act(async () => {
-      ({ getByRole } = renderWithContext(
-        <ChatInterface
-          isOpen={true}
-          codeSpace="test-space"
-          cSess={mockSession}
-          onClose={vi.fn()}
-        />
-      ));
-    });
+    const { getByRole } = renderWithContext(
+      <ChatInterface
+        isOpen={true}
+        codeSpace="test-space"
+        cSess={mockSession}
+        onClose={vi.fn()}
+      />
+    );
 
     await act(async () => {
       fireEvent.click(getByRole("button", { name: "Reset Chat" }));

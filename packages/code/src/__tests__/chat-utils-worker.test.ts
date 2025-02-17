@@ -10,11 +10,16 @@ class MockBroadcastChannel {
 }
 
 // Mock worker environment
+interface MockWorkerScope {
+  postMessage: typeof vi.fn;
+}
+
 const mockSelf = {
   postMessage: vi.fn(),
-};
-global.BroadcastChannel = MockBroadcastChannel as any;
-global.self = mockSelf as any;
+} as MockWorkerScope;
+
+global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
+(global as unknown as { self: MockWorkerScope }).self = mockSelf;
 
 describe("handleSendMessage", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;

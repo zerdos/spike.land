@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { formatCode, transpileCode } from "../components/editorUtils";
 import { Code } from "./CodeSession";
 
 // Mock swVersion
@@ -38,7 +37,7 @@ describe("Code", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    delete (window.frames as any)[0];
+    delete (window as unknown as { frames: Record<number, unknown> }).frames[0];
   });
 
   beforeEach(async () => {
@@ -47,8 +46,8 @@ describe("Code", () => {
     // Mock localStorage
     Object.defineProperty(window, "localStorage", {
       value: {
-        getItem: vi.fn(),
-        setItem: vi.fn(),
+        getItem: vi.fn<(key: string) => string | null>(),
+        setItem: vi.fn<(key: string, value: string) => void>(),
       },
       writable: true,
     });
@@ -96,9 +95,19 @@ describe("Code", () => {
       cleanup: vi.fn(),
     };
 
+    interface MockWindow {
+      frames: Record<number, {
+        webSocketManager: {
+          handleRunMessage: () => Promise<{ html: string; css: string }>;
+          init: () => void;
+          cleanup: () => void;
+        };
+      }>;
+    }
+
     // Mock window.frames[0]
-    (window.frames as any)[0] = {
-      webSocketManager: mockWebSocketManager,
+    (window as unknown as MockWindow).frames[0] = {
+      webSocketManager: mockWebSocketManager
     };
 
     // Initialize Code instance
@@ -198,7 +207,7 @@ console.log("Extra Model Code");
       const sameCode = "export default ()=> <>Nothing</>";
 
       // Mock initial session state
-      vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (code) => ({
+      vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (_code) => ({
         code: sameCode,
         codeSpace: "testCodeSpace",
         html: "<div>Test</div>",

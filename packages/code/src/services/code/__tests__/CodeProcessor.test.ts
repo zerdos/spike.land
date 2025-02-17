@@ -43,6 +43,13 @@ describe("CodeProcessor", () => {
 
   const getSession = () => sessionMock;
 
+  // Test interface definition
+  interface WindowWithWebSocket {
+    frames: Record<number, {
+        webSocketManager: IWebSocketManager;
+      }>;
+  }
+
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -57,7 +64,7 @@ describe("CodeProcessor", () => {
     };
 
     // Mock window.frames[0]
-    (window.frames as any)[0] = {
+    (window as unknown as WindowWithWebSocket).frames[0] = {
       webSocketManager: mockWebSocketManager,
     };
 
@@ -67,7 +74,7 @@ describe("CodeProcessor", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    delete (window.frames as any)[0];
+    delete (window as unknown as WindowWithWebSocket).frames[0];
   });
 
   describe("process", () => {

@@ -13,7 +13,6 @@ import { wait } from "@/lib/wait";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
-import { get } from "http";
 
 // Define the properties of `self` with proper types
 declare let self: SharedWorkerGlobalScope & {
@@ -81,7 +80,7 @@ console.log("[SocketWorker] Initializing socket worker...");
 
 // Define constants for sender identifiers to avoid magic strings
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
-const SENDER_WORKER_HANDSHAKE = "WORKER_HANDSHAKE";
+const _SENDER_WORKER_HANDSHAKE = "WORKER_HANDSHAKE"; // Prefixed with _ since it's only used for type definition
 const SENDER_WORKER_HASH_MISMATCH = "WORKER_HASH_MISMATCH";
 const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 
@@ -129,7 +128,7 @@ function createWebSocket(codeSpace: string): Socket {
         }),
       );
     },
-    socketDidClose(_socket: Socket, code?: number) {
+    socketDidClose() {
       // Socket closed and will retry the connection.
     },
     socketDidFinish() {

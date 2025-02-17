@@ -1,8 +1,28 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "./memfs";
 
+interface MockFileSystemFile {
+  kind: 'file';
+  name: string;
+  getFile: () => Promise<{
+    size: number;
+    type: string;
+    lastModified: number;
+    text: () => Promise<string>;
+  }>;
+}
+
+interface MockFileSystemDirectory {
+  kind: 'directory';
+  name: string;
+  getDirectoryHandle: () => Promise<unknown>;
+  entries: () => AsyncGenerator<[string, MockFileSystemEntry]>;
+}
+
+type MockFileSystemEntry = MockFileSystemFile | MockFileSystemDirectory;
+
 // Mock the navigator.storage API
-const mockFileSystem: Record<string, any> = {
+const mockFileSystem: Record<string, MockFileSystemEntry> = {
   "test.txt": {
     kind: "file",
     name: "test.txt",
