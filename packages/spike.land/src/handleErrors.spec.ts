@@ -1,10 +1,40 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
-import { handleErrors } from "./handleErrors";
+import { handleErrors, getWebSocketPair } from "./handleErrors";
 
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
 describe("handleErrors", () => {
+  class MockWebSocketPair {
+    0: WebSocket;
+    1: WebSocket;
+
+    constructor() {
+      const mockWebSocket = {
+        accept: vi.fn(),
+        send: vi.fn(),
+        close: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+        readyState: 0,
+        url: "",
+        serializeAttachment: () => {},
+        deserializeAttachment: () => {},
+        onopen: null,
+        onmessage: null,
+        onclose: null,
+        onerror: null,
+      } as unknown as WebSocket;
+
+      this[0] = mockWebSocket;
+      this[1] = mockWebSocket;
+    }
+  }
+
+  vi.spyOn(require("./handleErrors"), "getWebSocketPair").mockImplementation(() => {
+    return new MockWebSocketPair() as any;
+  });
   let mockConsoleLog: SpyInstance;
   let mockCb: Mock;
 

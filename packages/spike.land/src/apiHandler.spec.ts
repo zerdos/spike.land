@@ -165,7 +165,47 @@ describe("ApiHandler", () => {
 
       // Mock HTML import
       vi.mock("@spike-npm-land/code", () => ({
-        HTML: Promise.resolve("Mocked HTML Content"),
+        HTML: Promise.resolve(`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spike.land</title>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "/@/",
+          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+          "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+          "react/jsx-runtime": "/jsx.mjs",
+          "react-dom/server": "/reactDomServer.mjs",
+          "react-dom/client": "/reactDomClient.mjs",
+          "@emotion/react": "/emotion.mjs",
+          "react": "/reactMod.mjs",
+          "framer-motion": "/motion.mjs",
+          "react-dom": "/reactDom.mjs"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="embed"></div>
+    <script type="module" src="./src/start.ts"></script>
+  </body>
+</html>`),
       }));
 
       const response = await handleApiRequest(
@@ -176,7 +216,47 @@ describe("ApiHandler", () => {
 
       expect(response.status).toBe(200);
       expect(response.headers.get("Content-Type")).toBe("text/html; charset=UTF-8");
-      expect(await response.text()).toBe("Mocked HTML Content");
+      expect(await response.text()).toBe(`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spike.land</title>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "/@/",
+          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+          "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+          "react/jsx-runtime": "/jsx.mjs",
+          "react-dom/server": "/reactDomServer.mjs",
+          "react-dom/client": "/reactDomClient.mjs",
+          "@emotion/react": "/emotion.mjs",
+          "react": "/reactMod.mjs",
+          "framer-motion": "/motion.mjs",
+          "react-dom": "/reactDom.mjs"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="embed"></div>
+    <script type="module" src="./src/start.ts"></script>
+  </body>
+</html>`);
     });
   });
 });

@@ -3,9 +3,18 @@ import { Code } from "./chatRoom";
 import type Env from "./env";
 import { RouteHandler } from "./routeHandler";
 
-vi.mock("./routeHandler");
+vi.mock("./routeHandler", async () => {
+  const mod = await import("./routeHandler");
+  return mod;
+});
 
 describe("Hono app routes", () => {
+  vi.mock("snakecase-keys", async () => {
+    const snakecaseKeys = await import("snakecase-keys");
+    return {
+      default: snakecaseKeys.default,
+    };
+  });
   // const state = {
   const state = {
     storage: {
