@@ -13548,6 +13548,7 @@ __metadata:
     eslint-plugin-react: "npm:7.37.4"
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.24.0"
+    vitest: "npm:^3.0.5"
   languageName: unknown
   linkType: soft
 
