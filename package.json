@@ -22,7 +22,7 @@
     "deploy:full": "yarn fmt && git add . && yarn build:all && yarn w:deploy:dev && yarn w:deploy:prod && git commit -m 'deploy' && git pull && git push",
     "types:check": "yarn workspaces foreach --all -p run types:check",
     "types:build": "yarn workspaces foreach --all -p run types:build",
-    "test": "yarn workspaces foreach --all -p run test",
+    "test": "vik",
     "test:e2e": "playwright test tests/*.spec.ts",
     "clean": "yarn workspaces foreach --all -p run clean",
     "lint": "yarn eslint && yarn fmt",

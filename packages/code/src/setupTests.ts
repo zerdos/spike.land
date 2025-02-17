@@ -1,6 +1,10 @@
-import { vi } from "vitest";
+/// <reference types="vitest/client"/> 
+
+import * as V  from "vitest";
 import "@testing-library/jest-dom";
 import "url-polyfill";
+
+Object.assign(globalThis, V);
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
