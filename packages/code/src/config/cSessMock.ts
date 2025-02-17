@@ -15,7 +15,7 @@ class SessMock implements ICode {
   };
 
   getSession = async (): Promise<ICodeSession> => this.session;
-  
+
   setSession = async (sess: ICodeSession): Promise<void> => {
     this.session = sess;
     this.broadCastSessChanged();

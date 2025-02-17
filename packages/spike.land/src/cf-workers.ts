@@ -4,7 +4,7 @@ import type Env from "./env.js";
 import R2BucketHandler from "./r2bucket.js";
 
 import { CodeRateLimiter } from "./rateLimiter.js";
-import { createResponse, createHandler } from "./types/cloudflare.js";
+import { createHandler, createResponse } from "./types/cloudflare.js";
 import { Users } from "./users.js";
 
 async function handleRequest(

@@ -39,7 +39,7 @@ export class WebSocketHandler {
       quit: false,
       subscribedTopics: new Set(),
       pongReceived: true,
-      blockedMessages: []
+      blockedMessages: [],
     };
 
     this.wsSessions.push(session);
@@ -47,7 +47,7 @@ export class WebSocketHandler {
     // Send initial handshake
     webSocket.send(JSON.stringify({
       type: "handshake",
-      session: this.code.getSession()
+      session: this.code.getSession(),
     }));
 
     // Setup ping interval
@@ -115,7 +115,7 @@ export class WebSocketHandler {
         const message = JSON.stringify({
           type: "message",
           topic: data.topic,
-          data: data.data
+          data: data.data,
         });
         for (const subscriber of subscribers) {
           subscriber.send(message);
@@ -133,7 +133,7 @@ export class WebSocketHandler {
           console.error("Hash mismatch");
           session.webSocket.send(JSON.stringify({
             type: "error",
-            message: "Session hash mismatch"
+            message: "Session hash mismatch",
           }));
           return;
         }
@@ -143,13 +143,13 @@ export class WebSocketHandler {
 
         session.webSocket.send(JSON.stringify({
           type: "ack",
-          hashCode: computeSessionHash(patchedSession)
+          hashCode: computeSessionHash(patchedSession),
         }));
       } catch (error) {
         console.error("Error applying patch:", error);
         session.webSocket.send(JSON.stringify({
           type: "error",
-          message: "Failed to apply patch"
+          message: "Failed to apply patch",
         }));
       }
       return;
@@ -171,7 +171,7 @@ export class WebSocketHandler {
   getActiveUsers(codeSpace: string): string[] {
     return this.wsSessions
       .filter(session => session.subscribedTopics.has(codeSpace))
-      .map(session => session.name || 'anonymous')
+      .map(session => session.name || "anonymous")
       .filter(Boolean);
   }
 
@@ -179,7 +179,7 @@ export class WebSocketHandler {
     for (const session of this.wsSessions) {
       if (session.webSocket.readyState === 1 && session !== excludeSession) {
         try {
-          session.webSocket.send(typeof message === 'string' ? message : JSON.stringify(message));
+          session.webSocket.send(typeof message === "string" ? message : JSON.stringify(message));
         } catch (error) {
           console.error("Error broadcasting to session:", error);
           session.webSocket.close();

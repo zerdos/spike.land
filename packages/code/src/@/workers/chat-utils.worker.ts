@@ -273,7 +273,7 @@ ${this.mod.lastCode}
         if (typeof this.mod.lastCode !== "string") {
           const error = `Invalid mod.lastCode type: ${typeof this.mod.lastCode}`;
           debugInfo.addLog(error);
-   //       console.error(error);
+          //       console.error(error);
           this.mod.lastCode = this.code;
         }
 
@@ -295,7 +295,7 @@ ${this.mod.lastCode}
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       debugInfo.addLog("Error in processMessage", { error: errorMsg });
-//      console.error("Error in processMessage:", error);
+      //      console.error("Error in processMessage:", error);
       return false;
     }
   }

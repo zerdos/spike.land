@@ -34,37 +34,38 @@ export async function handleAnthropicRequest(
   const body = await readRequestBody(request) as RequestBody;
 
   const messages = await Promise.all(
-    body.messages.filter(msg => msg.role === "user" || msg.role === "assistant").map(async (message: Message) => {
-      const content: MessageContent = message.content;
-      if (typeof content === "string") {
-        return message;
-      }
-     if (typeof content === "string") {
-        return message;
-      }
+    body.messages.filter(msg => msg.role === "user" || msg.role === "assistant").map(
+      async (message: Message) => {
+        const content: MessageContent = message.content;
+        if (typeof content === "string") {
+          return message;
+        }
+        if (typeof content === "string") {
+          return message;
+        }
 
-      const processedContent =  await Promise.all(
-      
-        message.content.map(async (content: MessageContent) => {
-          if (content.type !== "image_url") {
-            return content;
-          }
+        const processedContent = await Promise.all(
+          message.content.map(async (content: MessageContent) => {
+            if (content.type !== "image_url") {
+              return content;
+            }
 
-          // Handle image URL content
-          const imageUrl = content.image_url.url;
-          await handleCMSIndexRequest({ url: imageUrl } as Request, env);
-          return {
-            ...content,
-            processed: true
-          };
-        }),
-      );
+            // Handle image URL content
+            const imageUrl = content.image_url.url;
+            await handleCMSIndexRequest({ url: imageUrl } as Request, env);
+            return {
+              ...content,
+              processed: true,
+            };
+          }),
+        );
 
-      return {
-        ...message,
-        content: processedContent,
-      };
-    }),
+        return {
+          ...message,
+          content: processedContent,
+        };
+      },
+    ),
   );
 
   const anthropic = new Anthropic({

@@ -6,7 +6,6 @@ import {
   sanitizeSession,
 } from "@spike-npm-land/code";
 
-
 import { handleErrors } from "./handleErrors";
 // import type { AutoSaveEntry } from "./routeHandler";
 import { RouteHandler } from "./routeHandler";
@@ -76,7 +75,7 @@ export class Code implements DurableObject {
 
     // Initialize with backup session first to ensure we always have a valid state
     this.session = this.backupSession;
-    
+
     await this.state.blockConcurrencyWhile(async () => {
       try {
         if (this.initialized) return;

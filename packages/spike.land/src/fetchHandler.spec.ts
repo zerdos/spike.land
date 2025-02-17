@@ -4,8 +4,8 @@ import type Env from "./env.js";
 import type { default as EnvInterface } from "./env.js"; // Added explicit re-import
 import { handleFetchApi } from "./fetchHandler.js";
 import { handleEsmRequest } from "./handleEsmRequest.js";
-import { handleCORS } from "./utils.js";
 import { createMockEnv } from "./test-utils.js";
+import { handleCORS } from "./utils.js";
 
 vi.stubGlobal(
   "WebSocketPair",
@@ -19,7 +19,7 @@ vi.stubGlobal(
         removeEventListener: vi.fn(),
         dispatchEvent: vi.fn(),
         send: vi.fn(),
-        close: vi.fn()
+        close: vi.fn(),
       };
       this[0] = { ...mockWebSocket };
       this[1] = { ...mockWebSocket };
@@ -90,9 +90,9 @@ describe("FetchHandler", () => {
   describe("WebSocket Handling", () => {
     it("should handle valid WebSocket upgrade request", async () => {
       const mockRequest = new Request("https://example.com/websocket", {
-        headers: { 
+        headers: {
           "Upgrade": "websocket",
-          "Connection": "upgrade"
+          "Connection": "upgrade",
         },
       });
 

@@ -9,9 +9,8 @@ const createMockKVNamespace = () => ({
   put: vi.fn().mockResolvedValue(undefined),
   list: vi.fn().mockResolvedValue({ keys: [] }),
   delete: vi.fn().mockResolvedValue(undefined),
-  getWithMetadata: vi.fn().mockResolvedValue({ value: null, metadata: null })
+  getWithMetadata: vi.fn().mockResolvedValue({ value: null, metadata: null }),
 });
-
 
 describe("KVLogger", () => {
   let mockKVNamespace: ReturnType<typeof createMockKVNamespace>;
@@ -40,7 +39,6 @@ describe("KVLogger", () => {
     mockKVNamespace.put.mockResolvedValue(undefined);
     mockKVNamespace.list.mockResolvedValue({ keys: [] });
     mockKVNamespace.get.mockResolvedValue(null);
-    
   });
 
   afterEach(() => {

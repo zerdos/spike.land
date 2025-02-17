@@ -1,4 +1,4 @@
 interface Env {
-	COUNTER: DurableObjectNamespace;
-	SQL: DurableObjectNamespace;
+  COUNTER: DurableObjectNamespace;
+  SQL: DurableObjectNamespace;
 }

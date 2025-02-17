@@ -51,8 +51,8 @@ export async function handleGPT4Request(
       });
 
       // Ensure speechResponse has arrayBuffer method
-      if (typeof speechResponse.arrayBuffer !== 'function') {
-        throw new Error('Invalid speech response');
+      if (typeof speechResponse.arrayBuffer !== "function") {
+        throw new Error("Invalid speech response");
       }
 
       // Convert the ReadableStream to ArrayBuffer
@@ -185,23 +185,28 @@ export async function handleGPT4Request(
     });
   } catch (error) {
     console.error("Error in chat completion:", error);
-    const errorDetails = error instanceof Error ? {
-      message: error.message,
-      stack: error.stack
-    } : {
-      message: "Unknown error occurred",
-      stack: null
-    };
+    const errorDetails = error instanceof Error
+      ? {
+        message: error.message,
+        stack: error.stack,
+      }
+      : {
+        message: "Unknown error occurred",
+        stack: null,
+      };
 
-    return new Response(JSON.stringify({ 
-      error: "Chat completion failed",
-      details: errorDetails 
-    }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+    return new Response(
+      JSON.stringify({
+        error: "Chat completion failed",
+        details: errorDetails,
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       },
-    });
+    );
   }
 }

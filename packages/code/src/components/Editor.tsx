@@ -78,7 +78,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           code: newCode,
           toThrow: false,
         });
-        
+
         if (signal.aborted) return;
 
         const startSync = performance.now();
@@ -89,9 +89,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         const syncTime = performance.now() - startSync;
         lifetimeMetrics.current.longestSyncTime = Math.max(
           lifetimeMetrics.current.longestSyncTime,
-          syncTime
+          syncTime,
         );
-        
+
         console.debug("[Editor] Sync completed:", {
           syncTime,
           codeLength: formatted.length,
@@ -119,7 +119,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
       const now = performance.now();
       const newHash = md5(sess.code);
-      
+
       if (newHash === lastHash || sess.code === editorState.code) {
         externalMetrics.current.skippedCount++;
         return;
@@ -145,7 +145,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       // Debounce external changes
       const startSync = performance.now();
       await wait(500);
-      
+
       setLastHash(newHash);
       setEditorState((prev) => ({ ...prev, code: sess.code }));
       editorState.setValue(sess.code);
@@ -153,7 +153,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const syncTime = performance.now() - startSync;
       lifetimeMetrics.current.longestSyncTime = Math.max(
         lifetimeMetrics.current.longestSyncTime,
-        syncTime
+        syncTime,
       );
 
       console.debug("[Editor] External sync completed:", {
@@ -218,8 +218,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const duration = (performance.now() - lifetimeMetrics.current.startTime) / 1000;
       console.info("[Editor] Component lifetime metrics:", {
         durationSeconds: duration.toFixed(2),
-        avgLocalChangesPerMinute: (lifetimeMetrics.current.totalLocalChanges / (duration / 60)).toFixed(2),
-        avgExternalChangesPerMinute: (lifetimeMetrics.current.totalExternalChanges / (duration / 60)).toFixed(2),
+        avgLocalChangesPerMinute: (lifetimeMetrics.current.totalLocalChanges / (duration / 60))
+          .toFixed(2),
+        avgExternalChangesPerMinute:
+          (lifetimeMetrics.current.totalExternalChanges / (duration / 60)).toFixed(2),
         totalSkippedChanges: lifetimeMetrics.current.totalSkippedChanges,
         longestSyncTimeMs: lifetimeMetrics.current.longestSyncTime.toFixed(2),
         codeSpace,

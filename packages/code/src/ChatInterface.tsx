@@ -42,13 +42,12 @@ const ChatInterface: React.FC<{
     }
     const unSub = cSess.sub((sess) => {
       // Deep compare messages to prevent unnecessary updates
-      if (sess.messages){
+      if (sess.messages) {
         if (JSON.stringify(messages) === JSON.stringify(sess.messages)) {
           return;
         }
         setMessages(sess.messages);
       }
-
     });
     return () => unSub();
   }, []);

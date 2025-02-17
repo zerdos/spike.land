@@ -1,4 +1,3 @@
-
 export interface MockableHeaders extends Headers {
   mockImplementation?: (impl: Function) => void;
   mockResolvedValue?: (value: any) => void;
@@ -44,10 +43,18 @@ type KVGet = {
   (key: string, type: "stream"): Promise<ReadableStream | null>;
 };
 
-export interface MockableKVNamespace<T extends string = string> extends Omit<KVNamespace<T>, 'get' | 'put' | 'list'> {
+export interface MockableKVNamespace<T extends string = string>
+  extends Omit<KVNamespace<T>, "get" | "put" | "list">
+{
   get: MockableFn<KVGet>;
-  put: MockableFn<(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream) => Promise<void>>;
-  list: MockableFn<<Metadata = unknown>(options?: KVNamespaceListOptions) => Promise<KVNamespaceListResult<Metadata, string>>>;
+  put: MockableFn<
+    (key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream) => Promise<void>
+  >;
+  list: MockableFn<
+    <Metadata = unknown>(
+      options?: KVNamespaceListOptions,
+    ) => Promise<KVNamespaceListResult<Metadata, string>>
+  >;
 }
 
 // Response creation utilities
@@ -59,7 +66,7 @@ export interface CloudflareResponseInit {
 
 export function createResponse(
   body: string | ArrayBuffer | ArrayBufferView | Blob | null,
-  init?: CloudflareResponseInit
+  init?: CloudflareResponseInit,
 ): Response {
   const headers = new Headers();
   if (init?.headers) {
@@ -70,12 +77,12 @@ export function createResponse(
   return new Response(body, {
     status: init?.status,
     statusText: init?.statusText,
-    headers
+    headers,
   });
 }
 
 export function createHandler<Env = unknown>(
-  handler: ExportedHandler<Env>["fetch"]
+  handler: ExportedHandler<Env>["fetch"],
 ): ExportedHandler<Env> {
   return { fetch: handler };
 }
@@ -93,7 +100,7 @@ export interface KVNamespaceListOptions {
 }
 
 export interface KVNamespaceListResult<Metadata, Key> {
-  keys: { name: Key; metadata?: Metadata }[];
+  keys: { name: Key; metadata?: Metadata; }[];
   list_complete: boolean;
   cursor?: string;
 }

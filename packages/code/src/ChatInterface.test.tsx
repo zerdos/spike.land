@@ -33,7 +33,7 @@ class MockBroadcastChannel {
   }) {
     const channels = MockBroadcastChannel.channels.get(this.name) || [];
     const event = new MessageEvent("message", { data: message });
-    
+
     channels.forEach(channel => {
       if (channel !== this) {
         if (channel.onmessage) {
@@ -128,12 +128,12 @@ vi.mock("@/components/app/chat-drawer", () => ({
 const createMockSession = (initialMessages: Message[] = []) => {
   let messages = initialMessages.map(msg => ({ ...msg }));
   const subscribers = new Set<(session: ICodeSession) => void>();
-  
+
   const session: ICodeSession = {
     messages: messages.map(msg => ({ ...msg })),
     codeSpace: "test-space",
     html: "<div>testHtml</div>",
-    css: '.testCss { /* mock css */ }',
+    css: ".testCss { /* mock css */ }",
     code: "testCode",
     transpiled: "testTranspiled",
   };
@@ -144,25 +144,25 @@ const createMockSession = (initialMessages: Message[] = []) => {
       messages = newMessages.map(msg => ({ ...msg }));
       const updatedSession = {
         ...session,
-        messages: messages.map(msg => ({ ...msg }))
+        messages: messages.map(msg => ({ ...msg })),
       };
       subscribers.forEach(sub => sub(updatedSession));
       return true;
     }),
     addMessageChunk: vi.fn().mockImplementation((chunk: string) => {
       const lastMessage = messages[messages.length - 1];
-      if (lastMessage && lastMessage.role === 'assistant') {
+      if (lastMessage && lastMessage.role === "assistant") {
         lastMessage.content += chunk;
       } else {
         messages.push({
           id: String(messages.length + 1),
-          role: 'assistant',
-          content: chunk
+          role: "assistant",
+          content: chunk,
         });
       }
       const updatedSession = {
         ...session,
-        messages: messages.map(msg => ({ ...msg }))
+        messages: messages.map(msg => ({ ...msg })),
       };
       subscribers.forEach(sub => sub(updatedSession));
     }),
@@ -172,7 +172,7 @@ const createMockSession = (initialMessages: Message[] = []) => {
     }),
     screenshot: vi.fn(),
   } as unknown as ICode;
-  
+
   return mockInstance;
 };
 
@@ -198,7 +198,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -231,7 +231,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={sessionWithChunks}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -256,7 +256,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -283,7 +283,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     await act(async () => {

@@ -1,4 +1,3 @@
-
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
@@ -74,13 +73,12 @@ export async function readRequestBody(request: Request) {
   } else if (contentType!.includes("text/html")) {
     return request.text();
   } else if (contentType!.includes("form")) {
-    const formData: FormData =  await request.formData();
+    const formData: FormData = await request.formData();
     const body: Record<string, unknown> = {};
     formData.forEach((value, key) => {
       body[key] = value;
     });
 
-   
     return body;
   } else {
     return "a file";

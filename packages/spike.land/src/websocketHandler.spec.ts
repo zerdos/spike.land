@@ -83,14 +83,14 @@ describe("WebSocketHandler", () => {
         quit: false,
         subscribedTopics: new Set(),
         pongReceived: true,
-        blockedMessages: []
+        blockedMessages: [],
       };
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
 
       // Initial handshake should be sent
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining('"type":"handshake"')
+        expect.stringContaining('"type":"handshake"'),
       );
 
       // Clear previous calls to send
@@ -98,10 +98,10 @@ describe("WebSocketHandler", () => {
 
       // Advance timer to trigger ping
       vi.advanceTimersByTime(30000);
-      
+
       // Verify ping was sent
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" })
+        JSON.stringify({ type: "ping" }),
       );
 
       // Simulate pong response
@@ -112,7 +112,7 @@ describe("WebSocketHandler", () => {
       // First scheduled ping
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" })
+        JSON.stringify({ type: "ping" }),
       );
 
       // Simulate pong response again
@@ -121,7 +121,7 @@ describe("WebSocketHandler", () => {
       // Second scheduled ping
       vi.advanceTimersByTime(30000);
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" })
+        JSON.stringify({ type: "ping" }),
       );
 
       vi.useRealTimers();
@@ -129,25 +129,25 @@ describe("WebSocketHandler", () => {
 
     it("should cleanup ping timeout on close", () => {
       vi.useFakeTimers();
-      
+
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
-      
+
       // Get the close handler
       const closeHandler = (mockWebSocket.addEventListener as Mock).mock.calls
         .find((call: any) => Array.isArray(call) && call[0] === "close")?.[1];
-      
+
       // Simulate close event
       if (closeHandler) {
         closeHandler();
         // Remove the session
         websocketHandler.getWsSessions().splice(0, 1);
       }
-      
+
       // Verify session is cleaned up
       expect(session.quit).toBe(true);
       expect(websocketHandler.getWsSessions().length).toBe(0);
-      
+
       vi.useRealTimers();
     });
   });
@@ -184,25 +184,25 @@ describe("WebSocketHandler", () => {
       const subscribeMessage = {
         data: JSON.stringify({
           type: "subscribe",
-          topics: ["topic1", "topic2"]
-        })
+          topics: ["topic1", "topic2"],
+        }),
       } as MessageEvent;
 
       const unsubscribeMessage = {
         data: JSON.stringify({
           type: "unsubscribe",
-          topics: ["topic1"]
-        })
+          topics: ["topic1"],
+        }),
       } as MessageEvent;
 
       processWsMessage(subscribeMessage, mockWsSession);
-      
+
       // Verify subscription
       expect(mockWsSession.subscribedTopics.has("topic1")).toBe(true);
       expect(mockWsSession.subscribedTopics.has("topic2")).toBe(true);
 
       processWsMessage(unsubscribeMessage, mockWsSession);
-      
+
       // Verify unsubscription
       expect(mockWsSession.subscribedTopics.has("topic1")).toBe(false);
       expect(mockWsSession.subscribedTopics.has("topic2")).toBe(true);
@@ -210,13 +210,13 @@ describe("WebSocketHandler", () => {
 
     it("should handle invalid patch messages", async () => {
       const mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
-      
+
       const invalidPatchMessage = {
         data: JSON.stringify({
           patch: ["invalid patch"],
           oldHash: "invalid",
-          hashCode: "invalid"
-        })
+          hashCode: "invalid",
+        }),
       } as MessageEvent;
 
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
@@ -225,9 +225,9 @@ describe("WebSocketHandler", () => {
       // Verify error handling
       expect(mockConsoleError).toHaveBeenCalled();
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining("error")
+        expect.stringContaining("error"),
       );
-      
+
       mockConsoleError.mockRestore();
     });
 
@@ -333,24 +333,24 @@ describe("WebSocketHandler", () => {
   describe("broadcast", () => {
     it("should broadcast message to all sessions", () => {
       // Create multiple sessions
-    const mockWebSocket1 = {
-      accept: vi.fn(),
-      send: vi.fn(),
-      readyState: 1,
-      close: vi.fn(),
-      addEventListener: vi.fn(),
-    } as unknown as WebSocket;
-    
-    const mockWebSocket2 = {
-      accept: vi.fn(), 
-      send: vi.fn(),
-      readyState: 1,
-      close: vi.fn(),
-      addEventListener: vi.fn(),
-    } as unknown as WebSocket;
+      const mockWebSocket1 = {
+        accept: vi.fn(),
+        send: vi.fn(),
+        readyState: 1,
+        close: vi.fn(),
+        addEventListener: vi.fn(),
+      } as unknown as WebSocket;
 
-    websocketHandler.handleWebsocketSession(mockWebSocket1);
-    websocketHandler.handleWebsocketSession(mockWebSocket2);
+      const mockWebSocket2 = {
+        accept: vi.fn(),
+        send: vi.fn(),
+        readyState: 1,
+        close: vi.fn(),
+        addEventListener: vi.fn(),
+      } as unknown as WebSocket;
+
+      websocketHandler.handleWebsocketSession(mockWebSocket1);
+      websocketHandler.handleWebsocketSession(mockWebSocket2);
 
       const broadcastMessage = "test broadcast";
       websocketHandler.broadcast(broadcastMessage);
@@ -374,7 +374,7 @@ describe("WebSocketHandler", () => {
 
       // Clear any initial calls
       mockSend.mockClear();
-      
+
       // Mock send to throw error
       mockSend.mockImplementationOnce(() => {
         throw new Error("Send failed");
@@ -388,7 +388,7 @@ describe("WebSocketHandler", () => {
       // Verify error handling
       expect(mockWebSocket1.close).toHaveBeenCalled();
       expect(consoleError).toHaveBeenCalled();
-      
+
       consoleError.mockRestore();
     });
   });

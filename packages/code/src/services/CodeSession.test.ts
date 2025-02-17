@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Code } from "./CodeSession";
 import { formatCode, transpileCode } from "../components/editorUtils";
+import { Code } from "./CodeSession";
 
 // Mock swVersion
 vi.mock("/swVersion.mjs", () => ({
@@ -89,8 +89,8 @@ describe("Code", () => {
     // Mock WebSocketManager
     const mockWebSocketManager = {
       handleRunMessage: vi.fn().mockResolvedValue({
-        html: '<div>Mocked HTML</div>',
-        css: '/* Mocked CSS */',
+        html: "<div>Mocked HTML</div>",
+        css: "/* Mocked CSS */",
       }),
       init: vi.fn(),
       cleanup: vi.fn(),
@@ -103,7 +103,7 @@ describe("Code", () => {
 
     // Initialize Code instance
     cSess = new Code("testCodeSpace");
-    
+
     // Mock sessionManager methods
     const mockSession = {
       code: "",
@@ -113,7 +113,7 @@ describe("Code", () => {
       messages: [],
       transpiled: "",
     };
-    
+
     vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => mockSession);
     vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
       Object.assign(mockSession, session);
@@ -126,10 +126,11 @@ describe("Code", () => {
     });
 
     // Mock modelManager methods
-    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(async () => {
-      const code = mockSession.code;
-      if (code.includes('./extraModel')) {
-        return `# testCodeSpace.tsx
+    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(
+      async () => {
+        const code = mockSession.code;
+        if (code.includes("./extraModel")) {
+          return `# testCodeSpace.tsx
 
 \`\`\`tsx
 ${code}
@@ -141,15 +142,16 @@ ${code}
 console.log("Extra Model Code");
 \`\`\`
 `;
-      }
-      return `# testCodeSpace.tsx
+        }
+        return `# testCodeSpace.tsx
 
 \`\`\`tsx
 ${code}
 \`\`\`
 `;
-    });
-    
+      },
+    );
+
     await cSess.init(); // Wait for initialization to complete
   });
 
@@ -194,7 +196,7 @@ console.log("Extra Model Code");
   describe("setCode", () => {
     it("should not update session if code is the same", async () => {
       const sameCode = "export default ()=> <>Nothing</>";
-      
+
       // Mock initial session state
       vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (code) => ({
         code: sameCode,
@@ -204,7 +206,7 @@ console.log("Extra Model Code");
         messages: [],
         transpiled: sameCode,
       }));
-      
+
       // First set the initial code
       await cSess.setCode(sameCode);
 
@@ -218,7 +220,7 @@ console.log("Extra Model Code");
     it("should return current code if processing fails", async () => {
       const currentCode = "current code";
       const errorCode = "error code";
-      
+
       // Mock initial successful process
       vi.spyOn(cSess["codeProcessor"], "process")
         .mockImplementationOnce(async () => ({
@@ -231,7 +233,7 @@ console.log("Extra Model Code");
         }))
         // Then mock failure
         .mockImplementationOnce(async () => false);
-      
+
       // Set initial code
       await cSess.setCode(currentCode);
 

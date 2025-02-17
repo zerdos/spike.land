@@ -6,15 +6,15 @@ export default defineWorkersConfig({
     poolOptions: {
       workers: {
         wrangler: {
-          configPath: "./wrangler.toml"
-        }
-      }
-    }
+          configPath: "./wrangler.toml",
+        },
+      },
+    },
   },
   resolve: {
     alias: {
-      replicate: path.resolve(__dirname, '__mocks__/replicate.js'),
-      'snakecase-keys': path.resolve(__dirname, 'snakecase-keys.bundle.js'),
+      replicate: path.resolve(__dirname, "__mocks__/replicate.js"),
+      "snakecase-keys": path.resolve(__dirname, "snakecase-keys.bundle.js"),
     },
   },
 });

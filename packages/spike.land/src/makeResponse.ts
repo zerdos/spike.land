@@ -61,7 +61,7 @@ export function makeResponse(object: R2ObjectBody | undefined, key: string) {
       ? "audio/flac"
       : key.endsWith("aac")
       ? "audio/aac"
-      : "application/javascript; charset=UTF-8"
+      : "application/javascript; charset=UTF-8",
   );
 
   return new Response(object?.body || null, { headers });

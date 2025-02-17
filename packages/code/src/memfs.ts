@@ -31,7 +31,7 @@ export const getDirectoryEntriesRecursive = async (
   relativePath = ".",
 ): Promise<Record<string, FileSystemEntry>> => {
   const entries: Record<string, FileSystemEntry> = {};
-  
+
   for await (const [_, handle] of directoryHandle.entries()) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
@@ -44,7 +44,7 @@ export const getDirectoryEntriesRecursive = async (
       entries[entry.name!] = entry;
     }
   }
-  
+
   return entries;
 };
 

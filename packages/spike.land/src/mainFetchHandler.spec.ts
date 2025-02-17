@@ -8,8 +8,7 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleUnauthorizedRequest } from "./utils";
 
 describe("MainFetchHandler", () => {
-  let mockEnv = {
-  } as Env;
+  let mockEnv = {} as Env;
   let mockCtx: ExecutionContext;
 
   beforeEach(() => {
@@ -54,7 +53,7 @@ describe("MainFetchHandler", () => {
       const mockUnauthorizedResponse = new Response("Unauthorized", { status: 403 });
       (handleUnauthorizedRequest as Mock).mockReturnValue(mockUnauthorizedResponse);
 
-      const response = await handleMainFetch(mockYandexRequest, mockEnv , mockCtx);
+      const response = await handleMainFetch(mockYandexRequest, mockEnv, mockCtx);
 
       expect(handleUnauthorizedRequest).toHaveBeenCalled();
       expect(response).toBe(mockUnauthorizedResponse);

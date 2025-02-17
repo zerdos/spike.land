@@ -62,9 +62,9 @@ describe("Hono app routes", () => {
     container: {
       fetch: vi.fn(() => Promise.resolve(new Response())),
       getTcpPort: vi.fn(() => ({
-        fetch: vi.fn(() => Promise.resolve(new Response()))
-      }))
-    } as any
+        fetch: vi.fn(() => Promise.resolve(new Response())),
+      })),
+    } as any,
   } as DurableObjectState;
 
   const env: Env = {
@@ -77,7 +77,7 @@ describe("Hono app routes", () => {
       },
       gateway: {
         logId: vi.fn(),
-      }
+      },
     } as any,
     KV: {
       get: vi.fn(),
@@ -92,12 +92,12 @@ describe("Hono app routes", () => {
     CLERK_SECRET_KEY: "",
     CF_REAL_TURN_TOKEN: "",
     ESBUILD: {
-      fetch: function (input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+      fetch: function(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
         throw new Error("Function not implemented.");
       },
-      connect: function (address: SocketAddress | string, options?: SocketOptions): Socket {
+      connect: function(address: SocketAddress | string, options?: SocketOptions): Socket {
         throw new Error("Function not implemented.");
-      }
+      },
     },
     CODE: {
       newUniqueId: vi.fn(),

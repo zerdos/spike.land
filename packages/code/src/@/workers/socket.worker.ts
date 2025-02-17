@@ -189,7 +189,7 @@ async function handleBroadcastMessage(
     hasCss: !!data.css,
     hasHtml: !!data.html,
     timeSinceLastMessage,
-    timeStamp: now
+    timeStamp: now,
   });
 
   if (data.sender === "Editor") {
@@ -214,7 +214,7 @@ async function handleBroadcastMessage(
     const { signal } = bMod.controller;
     clearTimeout(bMod.timeoutId);
     await wait(1000); // Increase debounce time to 1 second
-    
+
     if (signal.aborted) {
       return;
     }
@@ -223,7 +223,7 @@ async function handleBroadcastMessage(
     if (data.code || data.transpiled || data.css || data.html) {
       const syncStartTime = performance.now();
       const oldSession = sanitizeSession(connection.oldSession);
-      const newSession = sanitizeSession({...oldSession, ...data});
+      const newSession = sanitizeSession({ ...oldSession, ...data });
       const hashCode = computeSessionHash(newSession);
       const oldHash = computeSessionHash(oldSession);
       const hashTime = performance.now() - syncStartTime;

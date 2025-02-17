@@ -1,48 +1,43 @@
-import type { ICodeSession, RenderedApp } from '../../../@/lib/interfaces';
-import type { EmotionCache } from '@emotion/cache';
-import { createRoot } from 'react-dom/client';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { formatCode, transpileCode } from '../../../components/editorUtils';
-import { RenderService } from '../../render/RenderService';
-import type { IWebSocketManager } from '../../websocket/types';
-import { CodeProcessor } from '../CodeProcessor';
+import type { EmotionCache } from "@emotion/cache";
+import { createRoot } from "react-dom/client";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { ICodeSession, RenderedApp } from "../../../@/lib/interfaces";
+import { formatCode, transpileCode } from "../../../components/editorUtils";
+import { RenderService } from "../../render/RenderService";
+import type { IWebSocketManager } from "../../websocket/types";
+import { CodeProcessor } from "../CodeProcessor";
 
-vi.mock('../../render/RenderService');
-vi.mock('../../../components/editorUtils');
+vi.mock("../../render/RenderService");
+vi.mock("../../../components/editorUtils");
 
-describe('CodeProcessor', () => {
-
-
+describe("CodeProcessor", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-let consoleLogSpy: ReturnType<typeof vi.spyOn>;
-
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
 
   // Mock console before tests
-beforeAll(() => {
-  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  beforeAll(() => {
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  });
 
-});
+  // Restore console after tests
+  afterAll(() => {
+    consoleErrorSpy.mockRestore();
+    consoleLogSpy.mockRestore();
+  });
 
-// Restore console after tests
-afterAll(() => {
-  consoleErrorSpy.mockRestore();
-  consoleLogSpy.mockRestore();
-});
-
-
-  const mockCodeSpace = 'test-space';
+  const mockCodeSpace = "test-space";
   let codeProcessor: CodeProcessor;
 
   const sessionMock: ICodeSession = {
-    code: 'const x = 5;',
-    transpiled: 'const x = 5;',
-    html: '<div></div>',
+    code: "const x = 5;",
+    transpiled: "const x = 5;",
+    html: "<div></div>",
     codeSpace: mockCodeSpace,
-    css: 'css',
+    css: "css",
     messages: [
-      { id: '1', role: 'user', content: 'Test' },
-      { id: '2', role: 'assistant', content: 'Test' },
+      { id: "1", role: "user", content: "Test" },
+      { id: "2", role: "assistant", content: "Test" },
     ],
   };
 
@@ -54,8 +49,8 @@ afterAll(() => {
     // Mock WebSocketManager
     const mockWebSocketManager: IWebSocketManager = {
       handleRunMessage: vi.fn().mockResolvedValue({
-        html: '<div>Mocked HTML</div>',
-        css: '/* Mocked CSS */',
+        html: "<div>Mocked HTML</div>",
+        css: "/* Mocked CSS */",
       }),
       init: vi.fn(),
       cleanup: vi.fn(),
@@ -75,9 +70,9 @@ afterAll(() => {
     delete (window.frames as any)[0];
   });
 
-  describe('process', () => {
-    it('should format and transpile code successfully', async () => {
-      const mockCode = 'const x = 6;';
+  describe("process", () => {
+    it("should format and transpile code successfully", async () => {
+      const mockCode = "const x = 6;";
       const mockSignal = new AbortController().signal;
 
       vi.mocked(transpileCode).mockResolvedValue(`transpiled`);
@@ -88,7 +83,7 @@ afterAll(() => {
         mockCode,
         true,
         mockSignal,
-        getSession
+        getSession,
       );
 
       expect(result).toMatchInlineSnapshot(`
@@ -114,8 +109,8 @@ afterAll(() => {
       `);
     });
 
-    it('should should run as well', async () => {
-      const mockCode = 'const x = 6;';
+    it("should should run as well", async () => {
+      const mockCode = "const x = 6;";
       const mockSignal = new AbortController().signal;
 
       vi.mocked(transpileCode).mockResolvedValue(`transpiled`);
@@ -126,7 +121,7 @@ afterAll(() => {
         mockCode,
         false,
         mockSignal,
-        getSession
+        getSession,
       );
 
       expect(result).toMatchInlineSnapshot(`
@@ -152,8 +147,8 @@ afterAll(() => {
       `);
     });
 
-    it('should handle aborted signal', async () => {
-      const mockCode = 'const x = 5;';
+    it("should handle aborted signal", async () => {
+      const mockCode = "const x = 5;";
       const controller = new AbortController();
       const mockSignal = controller.signal;
 
@@ -163,59 +158,59 @@ afterAll(() => {
         mockCode,
         false,
         mockSignal,
-        getSession
+        getSession,
       );
       expect(result).toBe(false);
     });
 
-    it('should return false on error', async () => {
-      const mockCode = 'invalid code {';
+    it("should return false on error", async () => {
+      const mockCode = "invalid code {";
       const mockSignal = new AbortController().signal;
 
-      vi.spyOn(console, 'error').mockImplementation(() => {}); // Silence console errors
-      
+      vi.spyOn(console, "error").mockImplementation(() => {}); // Silence console errors
+
       // Mock formatCode to throw an error
-      vi.mocked(formatCode).mockRejectedValue(new Error('Format error'));
+      vi.mocked(formatCode).mockRejectedValue(new Error("Format error"));
 
       const result = await codeProcessor.process(
         mockCode,
         false,
         mockSignal,
-        getSession
+        getSession,
       );
       expect(result).toBe(false);
     });
   });
 
-  describe('runCode', () => {
-    it('should execute code in iframe context', async () => {
-      const mockTranspiled = 'const x = 5;';
+  describe("runCode", () => {
+    it("should execute code in iframe context", async () => {
+      const mockTranspiled = "const x = 5;";
       const mockResult = {
-        html: '<div>Test</div>',
-        css: '.test { color: red; }',
+        html: "<div>Test</div>",
+        css: ".test { color: red; }",
       };
 
       // Mock RenderService methods
       const mockEmotionCache = {
-        key: 'test-key',
+        key: "test-key",
         nonce: undefined,
         inserted: {},
         registered: {},
         insert: vi.fn(),
-        sheet: { tags: [], isSpeedy: true, key: 'test-key' },
+        sheet: { tags: [], isSpeedy: true, key: "test-key" },
       } as unknown as EmotionCache;
 
-      const rootElement = document.createElement('div');
+      const rootElement = document.createElement("div");
 
       const mockRenderedApp: RenderedApp = {
-        rootElement: document.createElement('div'),
+        rootElement: document.createElement("div"),
         rRoot: createRoot(rootElement),
         cssCache: mockEmotionCache,
         cleanup: vi.fn(),
       };
 
       vi.mocked(RenderService.prototype.updateRenderedApp).mockResolvedValue(
-        mockRenderedApp
+        mockRenderedApp,
       );
       vi.mocked(RenderService.prototype.handleRender).mockResolvedValue({
         html: mockResult.html,
@@ -231,11 +226,11 @@ afterAll(() => {
       expect(RenderService.prototype.handleRender).toHaveBeenCalled();
     });
 
-    it('should throw error if rendering fails', async () => {
-      const mockTranspiled = 'const x = 5;';
+    it("should throw error if rendering fails", async () => {
+      const mockTranspiled = "const x = 5;";
 
       const mockEmotionCache = {
-        key: 'test-key',
+        key: "test-key",
         nonce: undefined,
         inserted: {},
         registered: {},
@@ -243,7 +238,7 @@ afterAll(() => {
         sheet: { tags: [] },
       } as unknown as EmotionCache;
 
-      const rootElement = document.createElement('div');
+      const rootElement = document.createElement("div");
       const mockRenderedApp: RenderedApp = {
         rootElement,
         rRoot: createRoot(rootElement),
@@ -252,12 +247,12 @@ afterAll(() => {
       };
 
       vi.mocked(RenderService.prototype.updateRenderedApp).mockResolvedValue(
-        mockRenderedApp
+        mockRenderedApp,
       );
       vi.mocked(RenderService.prototype.handleRender).mockResolvedValue(false);
 
       await expect(codeProcessor.runCode(mockTranspiled)).rejects.toThrow(
-        'Running code produced no output'
+        "Running code produced no output",
       );
     });
   });

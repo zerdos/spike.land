@@ -80,16 +80,18 @@ function handlePing(): Response {
 
 function handleWebSocket(request: Request): Response {
   // Check if it's a WebSocket upgrade request
-  const upgradeHeader = request.headers.get('Upgrade');
-  const connectionHeader = request.headers.get('Connection');
+  const upgradeHeader = request.headers.get("Upgrade");
+  const connectionHeader = request.headers.get("Connection");
 
-  if (upgradeHeader?.toLowerCase() !== 'websocket' || 
-      connectionHeader?.toLowerCase() !== 'upgrade') {
-    return new Response('expected websocket', {
+  if (
+    upgradeHeader?.toLowerCase() !== "websocket" ||
+    connectionHeader?.toLowerCase() !== "upgrade"
+  ) {
+    return new Response("expected websocket", {
       status: 400,
       headers: {
-        'Content-Type': 'text/plain'
-      }
+        "Content-Type": "text/plain",
+      },
     });
   }
 
@@ -101,28 +103,28 @@ function handleWebSocket(request: Request): Response {
   server.accept();
 
   // Create a mock Response object with status 200
-  const response = new Response(null, { 
+  const response = new Response(null, {
     status: 200,
     headers: {
       "Upgrade": "websocket",
-      "Connection": "Upgrade"
-    }
+      "Connection": "Upgrade",
+    },
   });
 
   // Add webSocket property
-  Object.defineProperty(response, 'webSocket', {
+  Object.defineProperty(response, "webSocket", {
     value: client,
     writable: false,
     enumerable: true,
-    configurable: true
+    configurable: true,
   });
 
   // Override status to 101 after creation
-  Object.defineProperty(response, 'status', {
+  Object.defineProperty(response, "status", {
     value: 101,
     writable: false,
     enumerable: true,
-    configurable: true
+    configurable: true,
   });
 
   return response;

@@ -11,7 +11,6 @@ import type Env from "./env.js";
 import { makeResponse } from "./makeResponse.js";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-
 const main = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);

@@ -243,14 +243,14 @@ export class RouteHandler {
   private async handleUsersRoute(_request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const activeUsers = this.code.wsHandler.getActiveUsers(codeSpace || "");
-    
+
     return new Response(JSON.stringify({ users: activeUsers }), {
       status: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-        "Cache-Control": "no-cache"
-      }
+        "Cache-Control": "no-cache",
+      },
     });
   }
 

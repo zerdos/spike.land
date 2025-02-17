@@ -99,7 +99,7 @@ describe("CodeRateLimiter", () => {
       // Next request should have no cooldown
       const response = await rateLimiter.fetch(postRequest);
       expect(await response.text()).toBe("0");
-      
+
       vi.useRealTimers();
     });
   });

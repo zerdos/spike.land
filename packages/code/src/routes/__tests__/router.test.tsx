@@ -64,7 +64,7 @@ describe("Router Configuration", () => {
   });
 
   it.skip("should handle live page route with parameters", async () => {
-    await router.navigate({ 
+    await router.navigate({
       to: "/live/$codeSpace",
       params: { codeSpace },
       search: { page },

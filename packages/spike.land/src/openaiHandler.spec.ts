@@ -249,7 +249,9 @@ describe("OpenAIHandler", () => {
         file: mockFile,
       });
 
-      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(new Error("Transcription error"));
+      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(
+        new Error("Transcription error"),
+      );
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 

@@ -1,4 +1,4 @@
 {
-"extends": "../tsconfig.workerd.json",
-"include": ["./**/*.ts"]
+  "extends": "../tsconfig.workerd.json",
+  "include": ["./**/*.ts"]
 }

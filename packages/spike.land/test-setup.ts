@@ -3,14 +3,14 @@ import { setupAllMocks } from "./test-mocks";
 
 // Mock WebSocket for tests
 class MockWebSocket {
-    constructor(url: string) {
-        console.log('Mock WebSocket created with URL:', url); // For debugging
-    }
-    addEventListener = vi.fn();
-    removeEventListener = vi.fn();
-    dispatchEvent = vi.fn();
-    send = vi.fn();
-    close = vi.fn();
+  constructor(url: string) {
+    console.log("Mock WebSocket created with URL:", url); // For debugging
+  }
+  addEventListener = vi.fn();
+  removeEventListener = vi.fn();
+  dispatchEvent = vi.fn();
+  send = vi.fn();
+  close = vi.fn();
 }
 
 // vi.stubGlobal('WebSocket', MockWebSocket); // commented out

@@ -19,9 +19,9 @@ const createWorkflow = async (prompt: string) => {
     },
   };
 
-  type WeatherInput = {
+  interface WeatherInput {
     query: string;
-  };
+  }
 
   const weatherTool = tool(
     async (input: WeatherInput) => {
@@ -39,7 +39,7 @@ const createWorkflow = async (prompt: string) => {
       schema: z.object({
         query: z.string().describe("The location to check weather for"),
       }),
-    }
+    },
   );
 
   const tools = [weatherTool];

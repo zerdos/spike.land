@@ -25,7 +25,6 @@ const DEFAULT_CONFIG = {
 beforeAll(() => {
   consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
   consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-
 });
 
 // Restore console after tests

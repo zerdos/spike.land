@@ -1,18 +1,18 @@
-import type { Mock } from 'vitest';
 import type {
-  Request as CFRequest,
-  Headers as CFHeaders,
-  Response as CFResponse,
-  KVNamespace as CFKVNamespace,
+  CfProperties,
   DurableObjectNamespace as CFDurableObjectNamespace,
+  Headers as CFHeaders,
+  KVNamespace as CFKVNamespace,
+  KVNamespaceGetOptions,
+  KVNamespaceListOptions,
+  KVNamespaceListResult,
   R2Bucket as CFR2Bucket,
   R2ObjectBody as CFR2ObjectBody,
-  CfProperties,
-  KVNamespaceListResult,
-  KVNamespaceListOptions,
-  KVNamespaceGetOptions,
-  R2PutOptions
+  R2PutOptions,
+  Request as CFRequest,
+  Response as CFResponse,
 } from "@cloudflare/workers-types";
+import type { Mock } from "vitest";
 
 // Mock function type
 type MockFn<T extends (...args: any[]) => any> = T & Mock<ReturnType<T>>;
@@ -32,17 +32,17 @@ export interface TestHeaders extends CFHeaders {
 }
 
 // Mock Request for tests
-export interface TestRequest extends Omit<CFRequest, 'headers'> {
+export interface TestRequest extends Omit<CFRequest, "headers"> {
   headers: TestHeaders;
 }
 
 // Mock Response for tests
-export interface TestResponse extends Omit<CFResponse, 'headers'> {
+export interface TestResponse extends Omit<CFResponse, "headers"> {
   headers: TestHeaders;
 }
 
 // Mock KVNamespace for tests
-export interface TestKVNamespace extends Omit<CFKVNamespace<string>, 'get' | 'put' | 'list'> {
+export interface TestKVNamespace extends Omit<CFKVNamespace<string>, "get" | "put" | "list"> {
   get: MockFn<{
     (key: string, options?: Partial<KVNamespaceGetOptions<undefined>>): Promise<string | null>;
     (key: string, type: "text"): Promise<string | null>;
@@ -50,18 +50,34 @@ export interface TestKVNamespace extends Omit<CFKVNamespace<string>, 'get' | 'pu
     (key: string, type: "arrayBuffer"): Promise<ArrayBuffer | null>;
     (key: string, type: "stream"): Promise<ReadableStream | null>;
   }>;
-  put: MockFn<(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream, options?: R2PutOptions) => Promise<void>>;
-  list: MockFn<<Metadata = unknown>(options?: KVNamespaceListOptions) => Promise<KVNamespaceListResult<Metadata, string>>>;
+  put: MockFn<
+    (
+      key: string,
+      value: string | ArrayBuffer | ArrayBufferView | ReadableStream,
+      options?: R2PutOptions,
+    ) => Promise<void>
+  >;
+  list: MockFn<
+    <Metadata = unknown>(
+      options?: KVNamespaceListOptions,
+    ) => Promise<KVNamespaceListResult<Metadata, string>>
+  >;
 }
 
 // Mock R2Bucket for tests
-export interface TestR2Bucket extends Omit<CFR2Bucket, 'get' | 'put'> {
+export interface TestR2Bucket extends Omit<CFR2Bucket, "get" | "put"> {
   get: MockFn<(key: string) => Promise<R2ObjectBody | null>>;
-  put: MockFn<(key: string, value: string | ArrayBuffer | ArrayBufferView | ReadableStream | Blob | null, options?: R2PutOptions) => Promise<R2Object>>;
+  put: MockFn<
+    (
+      key: string,
+      value: string | ArrayBuffer | ArrayBufferView | ReadableStream | Blob | null,
+      options?: R2PutOptions,
+    ) => Promise<R2Object>
+  >;
 }
 
 // Mock DurableObjectNamespace for tests
-export interface TestDurableObjectNamespace extends Omit<CFDurableObjectNamespace, 'get'> {
+export interface TestDurableObjectNamespace extends Omit<CFDurableObjectNamespace, "get"> {
   get: MockFn<(id: DurableObjectId) => DurableObjectStub>;
 }
 

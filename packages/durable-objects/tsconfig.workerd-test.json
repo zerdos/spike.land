@@ -1,9 +1,9 @@
 {
-	"extends": "./tsconfig.node.json",
-	"compilerOptions": {
-		"types": [
-			"@cloudflare/workers-types/experimental",
-			"@cloudflare/vitest-pool-workers" // For `cloudflare:test` types
-		]
-	}
+  "extends": "./tsconfig.node.json",
+  "compilerOptions": {
+    "types": [
+      "@cloudflare/workers-types/experimental",
+      "@cloudflare/vitest-pool-workers" // For `cloudflare:test` types
+    ]
+  }
 }

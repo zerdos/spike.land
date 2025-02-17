@@ -20,25 +20,20 @@ const originalSession = sanitizeSession({
 });
 
 describe("text-diff", () => {
-
-
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-let consoleLogSpy: ReturnType<typeof vi.spyOn>;
-
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
 
   // Mock console before tests
-beforeAll(() => {
-  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  beforeAll(() => {
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  });
 
-});
-
-// Restore console after tests
-afterAll(() => {
-  consoleErrorSpy.mockRestore();
-  consoleLogSpy.mockRestore();
-});
-
+  // Restore console after tests
+  afterAll(() => {
+    consoleErrorSpy.mockRestore();
+    consoleLogSpy.mockRestore();
+  });
 
   describe("createDiff", () => {
     it("should create a diff for code changes", () => {

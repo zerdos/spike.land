@@ -49,21 +49,21 @@ export class ModelManager implements IModelManager {
           codeSpace !== this.currentCodeSpace,
         );
 
-      if (!updatedCode) {
-        errors.push(`Failed to update code for ${codeSpace}`);
+        if (!updatedCode) {
+          errors.push(`Failed to update code for ${codeSpace}`);
+        }
       }
     }
-  }
 
-  // Re-transpile current model's code to ensure everything is fresh
-  const currentModel = this.models.get(this.currentCodeSpace);
-  if (currentModel) {
-    const currentSession = await currentModel.getSession();
-    await currentModel.setCode(currentSession.code, true);
-  }
+    // Re-transpile current model's code to ensure everything is fresh
+    const currentModel = this.models.get(this.currentCodeSpace);
+    if (currentModel) {
+      const currentSession = await currentModel.getSession();
+      await currentModel.setCode(currentSession.code, true);
+    }
 
-  return errors.join("\n");
-}
+    return errors.join("\n");
+  }
 
   async getCurrentCodeWithExtraModels(): Promise<string> {
     const currentModel = this.models.get(this.currentCodeSpace);

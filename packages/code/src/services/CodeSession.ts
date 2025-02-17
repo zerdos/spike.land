@@ -63,8 +63,9 @@ export class Code implements ICode {
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
-
-    const initializedSession: ICodeSession =  await this.sessionManager.init( session ?? await fetch(`/api/room/${this.codeSpace}/session.json`).then((res) =>res.json()));
+    const initializedSession: ICodeSession = await this.sessionManager.init(
+      session ?? await fetch(`/api/room/${this.codeSpace}/session.json`).then((res) => res.json()),
+    );
     this.releaseWorker = await connect({
       signal: `${this.codeSpace} ${initializedSession.codeSpace}`,
       sess: initializedSession,
@@ -98,7 +99,7 @@ export class Code implements ICode {
     return this.sessionManager.setMessages(messages);
   }
 
-  async setCode(rawCode: string, skipRunning: boolean = false): Promise<string | boolean> {
+  async setCode(rawCode: string, skipRunning = false): Promise<string | boolean> {
     if (this.isRunning) {
       this.pendingRun = rawCode;
       while (this.isRunning) {

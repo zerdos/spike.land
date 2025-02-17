@@ -36,9 +36,17 @@ describe("R2BucketHandler", () => {
       AI: {
         aiGatewayLogId: "mock-log-id",
         gateway: vi.fn().mockReturnValue({
-          run: vi.fn(() => Promise.resolve(Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" })) as unknown as Response)
+          run: vi.fn(() =>
+            Promise.resolve(
+              Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" }),
+            ) as unknown as Response
+          ),
         }),
-        run: vi.fn(() => Promise.resolve(Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" })) as unknown as Response),
+        run: vi.fn(() =>
+          Promise.resolve(
+            Object.assign(new globalThis.Response("dummy", { status: 200 }), { type: "default" }),
+          ) as unknown as Response
+        ),
         models: vi.fn(async (_params?: AiModelsSearchParams) => [] as AiModelsSearchObject[]),
       } as unknown as Ai<AiModels>,
       KV: {
@@ -144,7 +152,7 @@ describe("R2BucketHandler", () => {
       const mockBlob = new Blob(["test data"]);
       const mockRequest = new Request("https://example.com/test-key", {
         method: "PUT",
-        body: mockBlob
+        body: mockBlob,
       });
 
       // Setup successful put response

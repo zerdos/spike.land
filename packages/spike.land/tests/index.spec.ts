@@ -26,7 +26,7 @@ const createExecutionContext = (): ExecutionContext => ({
   props: {
     testProp1: "test1",
     testProp2: "test2",
-  }
+  },
 });
 
 // Helper to create a request with CF properties
@@ -61,8 +61,12 @@ class MockDurableObjectId {
   constructor(id: string) {
     this.id = id;
   }
-  toString() { return this.id; }
-  equals(other: MockDurableObjectId) { return this.id === other.id; }
+  toString() {
+    return this.id;
+  }
+  equals(other: MockDurableObjectId) {
+    return this.id === other.id;
+  }
 }
 
 // Mock Response with webSocket property

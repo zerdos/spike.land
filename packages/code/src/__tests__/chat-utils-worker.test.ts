@@ -1,67 +1,62 @@
-import type { Message } from '@/lib/interfaces';
-import { handleSendMessage } from '@/workers/chat-utils.worker';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { AIService } from '../services/AIService';
+import type { Message } from "@/lib/interfaces";
+import { handleSendMessage } from "@/workers/chat-utils.worker";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import { AIService } from "../services/AIService";
 
 // Mock BroadcastChannel
 const mockBCPostMessage = vi.fn();
 class MockBroadcastChannel {
-    postMessage = mockBCPostMessage;
+  postMessage = mockBCPostMessage;
 }
 
 // Mock worker environment
 const mockSelf = {
-    postMessage: vi.fn(),
+  postMessage: vi.fn(),
 };
 global.BroadcastChannel = MockBroadcastChannel as any;
 global.self = mockSelf as any;
 
-describe('handleSendMessage', () => {
-
-
+describe("handleSendMessage", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
-let consoleLogSpy: ReturnType<typeof vi.spyOn>;
-
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
 
   // Mock console before tests
-beforeAll(() => {
-  consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-  consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  beforeAll(() => {
+    consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+  });
 
-});
+  // Restore console after tests
+  afterAll(() => {
+    consoleErrorSpy.mockRestore();
+    consoleLogSpy.mockRestore();
+  });
 
-// Restore console after tests
-afterAll(() => {
-  consoleErrorSpy.mockRestore();
-  consoleLogSpy.mockRestore();
-});
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-
-    beforeEach(() => {
-        vi.clearAllMocks();
+  test("should handle valid messages", async () => {
+    // Mock the entire AIService class within beforeEach for valid messages
+    vi.spyOn(AIService.prototype, "prepareClaudeContent").mockReturnValue("Prepared content");
+    vi.spyOn(AIService.prototype, "sendToAI").mockResolvedValue({
+      id: "test-id",
+      role: "assistant",
+      content: "Test response",
     });
 
-  test('should handle valid messages', async () => {
-        // Mock the entire AIService class within beforeEach for valid messages
-        vi.spyOn(AIService.prototype, 'prepareClaudeContent').mockReturnValue('Prepared content');
-        vi.spyOn(AIService.prototype, 'sendToAI').mockResolvedValue({
-            id: 'test-id',
-            role: 'assistant',
-            content: 'Test response',
-        });
-
     const testMessage: Message = {
-      id: 'test-message-1',
-      role: 'user',
-      content: 'Test message',
+      id: "test-message-1",
+      role: "user",
+      content: "Test message",
     };
 
     const data = {
       messages: [testMessage],
-      codeSpace: 'test.ts',
-      prompt: 'Test prompt',
+      codeSpace: "test.ts",
+      prompt: "Test prompt",
       images: [],
-      code: '// Test code',
+      code: "// Test code",
     };
 
     const result = await handleSendMessage(data);
@@ -76,25 +71,25 @@ afterAll(() => {
     );
   });
 
-  test('should handle error from AIService', async () => {
-    const testError = new Error('Test error in AIService');
+  test("should handle error from AIService", async () => {
+    const testError = new Error("Test error in AIService");
 
     // Mock sendToAI to reject with an error for this specific test
-      vi.spyOn(AIService.prototype, 'prepareClaudeContent').mockReturnValue('Prepared content');
-      vi.spyOn(AIService.prototype, 'sendToAI').mockRejectedValue(testError);
+    vi.spyOn(AIService.prototype, "prepareClaudeContent").mockReturnValue("Prepared content");
+    vi.spyOn(AIService.prototype, "sendToAI").mockRejectedValue(testError);
 
     const testMessage: Message = {
-      id: 'test-message-1',
-      role: 'user',
-      content: 'Test message',
+      id: "test-message-1",
+      role: "user",
+      content: "Test message",
     };
 
     const data = {
       messages: [testMessage],
-      codeSpace: 'test.ts',
-      prompt: 'Test prompt',
+      codeSpace: "test.ts",
+      prompt: "Test prompt",
       images: [],
-      code: '// Test code',
+      code: "// Test code",
     };
 
     const result = await handleSendMessage(data);

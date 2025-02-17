@@ -26,11 +26,11 @@ const handleGet = async (key: string, env: MyEnv): Promise<Response> => {
     }
     const headers = new Headers();
     object.writeHttpMetadata(headers);
-    headers.set('etag', object.httpEtag);
-    
-    return new Response(object.body, { 
+    headers.set("etag", object.httpEtag);
+
+    return new Response(object.body, {
       headers,
-      status: 200 
+      status: 200,
     });
   } catch (error) {
     console.error("R2 get error:", error);
@@ -76,7 +76,7 @@ const R2BucketHandler = {
       console.error("R2 Bucket Handler Error:", error);
       return createResponse("Internal Server Error", { status: 500 });
     }
-  }
+  },
 };
 
 export default R2BucketHandler;

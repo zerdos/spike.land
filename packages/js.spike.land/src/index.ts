@@ -6,7 +6,8 @@ Object.assign(globalThis, {
   },
 });
 
-const initAndTransform = (code: string, origin: string) => transpile({ code, originToUse: origin, wasmModule });
+const initAndTransform = (code: string, origin: string) =>
+  transpile({ code, originToUse: origin, wasmModule });
 
 const handleGetRequest = async (codeSpace: string, origin: string) => {
   try {

@@ -4,10 +4,10 @@ import { MessageInput } from "@/components/app/message-input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot } from "@/external/lucideReact";
 import type { ChatDrawerProps } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Drawer } from "vaul";
-import type { ICodeSession } from "@/lib/interfaces";
 
 export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   isOpen,

@@ -111,9 +111,12 @@ export class SessionManager implements ISessionManager {
   /**
    * Computes the difference between two sessions, returning only changed fields
    */
-  private computeSessionDiff(oldSession: ICodeSession, newSession: ICodeSession): Partial<ICodeSession> {
+  private computeSessionDiff(
+    oldSession: ICodeSession,
+    newSession: ICodeSession,
+  ): Partial<ICodeSession> {
     const diff: Partial<ICodeSession> = {
-      codeSpace: newSession.codeSpace
+      codeSpace: newSession.codeSpace,
     };
 
     // Compare simple fields
@@ -137,7 +140,10 @@ export class SessionManager implements ISessionManager {
       } else if (oldSession.messages.length === newSession.messages.length) {
         // If same length, only send the modified message (usually the last one)
         const lastIndex = newSession.messages.length - 1;
-        if (JSON.stringify(oldSession.messages[lastIndex]) !== JSON.stringify(newSession.messages[lastIndex])) {
+        if (
+          JSON.stringify(oldSession.messages[lastIndex]) !==
+            JSON.stringify(newSession.messages[lastIndex])
+        ) {
           diff.messages = [newSession.messages[lastIndex]];
         }
       } else {
@@ -151,7 +157,7 @@ export class SessionManager implements ISessionManager {
 
   private broadcastSession(oldSession: ICodeSession): void {
     const diff = this.computeSessionDiff(oldSession, this.session);
-    
+
     // Only broadcast if there are actual changes beyond just codeSpace
     if (Object.keys(diff).length > 1) {
       const broadcastData: BroadcastMessage = {
@@ -161,7 +167,7 @@ export class SessionManager implements ISessionManager {
         messages: diff.messages || this.session.messages,
         codeSpace: this.session.codeSpace,
         transpiled: this.session.transpiled,
-        sender: "Editor"
+        sender: "Editor",
       };
 
       this.broadcastChannel.postMessage(broadcastData);
