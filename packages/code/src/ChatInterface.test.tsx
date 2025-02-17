@@ -111,20 +111,17 @@ vi.mock("@/hooks/useScreenshot", () => ({
 }));
 
 // Mock ChatDrawer component
-interface ChatDrawerProps {
-  handleResetChat: () => void;
-  handleCancelEdit: () => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
+import type { ChatDrawerProps } from "@/lib/interfaces";
 
 vi.mock("@/components/app/chat-drawer", () => {
-  const MockChatDrawer = vi.fn(({ handleResetChat, handleCancelEdit, isDarkMode, toggleDarkMode }: ChatDrawerProps) => (
+  const MockChatDrawer = vi.fn((props: ChatDrawerProps) => (
     <div role="dialog" aria-label="chat drawer">
-      <span data-testid="darkMode">{isDarkMode ? 'dark' : 'light'}</span>
-      <button role="button" onClick={handleResetChat}>Reset Chat</button>
-      <button onClick={handleCancelEdit}>Cancel</button>
-      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
+      <span data-testid="darkMode">{props.isDarkMode ? 'dark' : 'light'}</span>
+      <div>
+        <button role="button" aria-label="Reset Chat" onClick={props.handleResetChat}>
+          Reset Chat
+        </button>
+      </div>
     </div>
   ));
   console.log("MockChatDrawer", MockChatDrawer)

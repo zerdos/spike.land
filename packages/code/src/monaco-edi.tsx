@@ -382,28 +382,19 @@ async function startMonacoPristine({
   const throttledOnChange = throttle(
     () => {
       const value = model.getValue();
-      // Only trigger onChange if the value has actually changed
-      if (value !== editorModel.getValue()) {
-        onChange(value);
-      }
+      onChange(value);
     },
-    2000,
-    { // Increase to 2 seconds
-      edges: ["trailing"], // Only trigger on trailing edge to reduce updates
+    300, // Reduce throttle time to 300ms for better responsiveness
+    {
+      edges: ["leading", "trailing"], // Trigger on both edges for faster initial response
     },
   );
 
-  // Add debouncing for content changes
-  let changeTimeout: NodeJS.Timeout;
   model.onDidChangeContent(() => {
-    // Clear any pending change timeout
-    clearTimeout(changeTimeout);
-
-    // Set new timeout for changes
-    changeTimeout = setTimeout(() => {
+    if (!editorModel.silent) {
       throttledOnChange();
       throttledTsCheck();
-    }, 500); // Add 500ms debounce
+    }
   });
 
   return editorModel;

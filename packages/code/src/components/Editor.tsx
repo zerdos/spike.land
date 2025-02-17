@@ -40,40 +40,18 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   const handleContentChange = useCallback(
     async (newCode: string) => {
-      if (!session || newCode === editorState.code) {
-        metrics.current.skippedCount++;
-        return;
-      }
+      if (!session) return;
 
       const now = performance.now();
-      const timeSinceLastChange = now - metrics.current.lastChangeTime;
       metrics.current.lastChangeTime = now;
       metrics.current.changeCount++;
 
-      // Log metrics every 5 seconds
-      if (now - metrics.current.lastLogTime > 5000) {
-        console.debug("[Editor] Performance metrics:", {
-          changeCount: metrics.current.changeCount,
-          skippedCount: metrics.current.skippedCount,
-          averageTimeBetweenChanges: timeSinceLastChange,
-          timestamp: new Date().toISOString(),
-        });
-        metrics.current.lastLogTime = now;
-        metrics.current.changeCount = 0;
-        metrics.current.skippedCount = 0;
-      }
-
+      // Abort previous operation if any
       controller.current.abort();
       controller.current = new AbortController();
       const { signal } = controller.current;
 
       try {
-        const newHash = md5(newCode);
-        if (newHash === lastHash) {
-          metrics.current.skippedCount++;
-          return;
-        }
-
         const formatted = await prettierToThrow({
           code: newCode,
           toThrow: false,
@@ -81,27 +59,40 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         if (signal.aborted) return;
 
+        const newHash = md5(formatted);
         const startSync = performance.now();
-        setLastHash(md5(formatted));
-        await cSess.setCode(formatted);
-        await throttledTypeCheck();
+        
+        // Only update if content has actually changed
+        if (newHash !== lastHash) {
+          setLastHash(newHash);
+          setEditorState(prev => ({ ...prev, code: formatted }));
+          await cSess.setCode(formatted);
+          await throttledTypeCheck();
+        }
 
+        // Update metrics
         const syncTime = performance.now() - startSync;
         lifetimeMetrics.current.longestSyncTime = Math.max(
           lifetimeMetrics.current.longestSyncTime,
           syncTime,
         );
 
-        console.debug("[Editor] Sync completed:", {
-          syncTime,
-          codeLength: formatted.length,
-          timestamp: new Date().toISOString(),
-        });
+        if (now - metrics.current.lastLogTime > 5000) {
+          console.debug("[Editor] Performance metrics:", {
+            changeCount: metrics.current.changeCount,
+            skippedCount: metrics.current.skippedCount,
+            syncTime,
+            timestamp: new Date().toISOString(),
+          });
+          metrics.current.lastLogTime = now;
+          metrics.current.changeCount = 0;
+          metrics.current.skippedCount = 0;
+        }
       } catch (e) {
         console.error("Content change error:", e);
       }
     },
-    [cSess, editorState.code, throttledTypeCheck, session, lastHash],
+    [cSess, session, lastHash, setEditorState, throttledTypeCheck],
   );
 
   // Track external change metrics
@@ -142,58 +133,79 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         externalMetrics.current.skippedCount = 0;
       }
 
-      // Debounce external changes
-      const startSync = performance.now();
-      await wait(500);
-
+      // Update state immediately to prevent lag
       setLastHash(newHash);
-      setEditorState((prev) => ({ ...prev, code: sess.code }));
-      editorState.setValue(sess.code);
+      const newState = { ...editorState, code: sess.code };
+      setEditorState(newState);
 
-      const syncTime = performance.now() - startSync;
-      lifetimeMetrics.current.longestSyncTime = Math.max(
-        lifetimeMetrics.current.longestSyncTime,
-        syncTime,
-      );
+      // Then update editor value
+      if (newState.setValue) {
+        try {
+          newState.setValue(sess.code);
+          const syncTime = performance.now() - now;
+          lifetimeMetrics.current.longestSyncTime = Math.max(
+            lifetimeMetrics.current.longestSyncTime,
+            syncTime,
+          );
 
-      console.debug("[Editor] External sync completed:", {
-        syncTime,
-        codeLength: sess.code.length,
-        timestamp: new Date().toISOString(),
-      });
+          console.debug("[Editor] External sync completed:", {
+            syncTime,
+            codeLength: sess.code.length,
+            timestamp: new Date().toISOString(),
+          });
+        } catch (error) {
+          console.error("[Editor] Error updating editor value:", error);
+        }
+      }
     });
 
-    return () => unsubscribe();
-  }, [editorState.started, session, lastHash]);
+    return () => {
+      try {
+        unsubscribe();
+      } catch (error) {
+        console.error("[Editor] Error unsubscribing:", error);
+      }
+    };
+  }, [editorState, cSess, session, lastHash, setEditorState]);
 
   // Initialize the editor once containerRef is available
   useEffect(() => {
-    if (!session) return;
+    const initEditor = async () => {
+      if (!session || !containerRef.current || editorState.started) return;
 
-    // Validate if we need to run type checks again
-    if (errorType) throttledTypeCheck();
+      try {
+        console.debug("[Editor] Initializing editor", {
+          codeSpace,
+          containerRef: !!containerRef.current,
+        });
 
-    // Exit early if we already started or no container to render into
-    if (containerRef.current === null || editorState.started) return;
+        const { setValue } = await initializeEditor({
+          container: containerRef.current,
+          codeSpace,
+          code: session.code,
+          onChange: handleContentChange,
+        });
 
-    (async () => {
-      const { setValue } = await initializeEditor({
-        container: containerRef.current!,
-        codeSpace,
-        code: session.code,
-        onChange: handleContentChange,
-      });
+        setEditorState((prev) => ({
+          ...prev,
+          started: true,
+          code: session.code,
+          setValue,
+        }));
 
-      setEditorState((prev) => ({
-        ...prev,
-        started: true,
-        code: session.code,
-        setValue,
-      }));
-    })();
+        // Run initial type check after editor is ready
+        if (errorType) {
+          await throttledTypeCheck();
+        }
+
+        console.debug("[Editor] Editor initialized successfully");
+      } catch (error) {
+        console.error("[Editor] Initialization error:", error);
+      }
+    };
+
+    initEditor();
   }, [
-    errorType,
-    throttledTypeCheck,
     containerRef,
     editorState.started,
     setEditorState,
@@ -201,6 +213,8 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     codeSpace,
     session,
     handleContentChange,
+    errorType,
+    throttledTypeCheck,
   ]);
 
   // Track aggregate metrics across component lifetime
