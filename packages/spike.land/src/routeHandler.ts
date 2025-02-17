@@ -9,6 +9,7 @@ import {
 } from "@spike-npm-land/code";
 
 import type { Code } from "./chatRoom";
+import type Env from "./env";
 
 export interface AutoSaveEntry {
   timestamp: number;
@@ -40,6 +41,7 @@ export class RouteHandler {
         path: string[],
       ) => Promise<Response>
     > = {
+      users: this.handleUsersRoute.bind(this),
       websocket: this.handleWebsocketRoute.bind(this),
       code: this.handleCodeRoute.bind(this),
       "index.tsx": this.handleCodeRoute.bind(this),
@@ -237,6 +239,20 @@ export class RouteHandler {
   //     });
   //   }
   // }
+
+  private async handleUsersRoute(_request: Request, url: URL): Promise<Response> {
+    const codeSpace = url.searchParams.get("room");
+    const activeUsers = this.code.wsHandler.getActiveUsers(codeSpace || "");
+    
+    return new Response(JSON.stringify({ users: activeUsers }), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache"
+      }
+    });
+  }
 
   private async handleWebsocketRoute(request: Request): Promise<Response> {
     if (request.headers.get("Upgrade") !== "websocket") {

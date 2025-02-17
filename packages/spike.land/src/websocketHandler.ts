@@ -168,9 +168,16 @@ export class WebSocketHandler {
     }
   };
 
-  broadcast(message: any) {
+  getActiveUsers(codeSpace: string): string[] {
+    return this.wsSessions
+      .filter(session => session.subscribedTopics.has(codeSpace))
+      .map(session => session.name || 'anonymous')
+      .filter(Boolean);
+  }
+
+  broadcast(message: any, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
-      if (session.webSocket.readyState === 1) {
+      if (session.webSocket.readyState === 1 && session !== excludeSession) {
         try {
           session.webSocket.send(typeof message === 'string' ? message : JSON.stringify(message));
         } catch (error) {

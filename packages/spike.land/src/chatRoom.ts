@@ -54,6 +54,7 @@ export class Code implements DurableObject {
       );`,
       html: "<div></div>",
       css: "",
+      codeSpace: "default",
     });
 
     this.session = this.backupSession;
@@ -73,6 +74,9 @@ export class Code implements DurableObject {
     if (this.initialized) return;
     this.origin = url.origin;
 
+    // Initialize with backup session first to ensure we always have a valid state
+    this.session = this.backupSession;
+    
     await this.state.blockConcurrencyWhile(async () => {
       try {
         if (this.initialized) return;
@@ -105,8 +109,23 @@ export class Code implements DurableObject {
               ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
               : `${this.origin}/live/code-main/session.json`;
 
-            const backupCode = await fetch(source).then((r) => r.json()) as ICodeSession;
-            this.backupSession = sanitizeSession({ ...backupCode, codeSpace });
+            try {
+              const response = await fetch(source);
+              if (!response.ok) {
+                throw new Error(`Failed to fetch session: ${response.status}`);
+              }
+              const backupCode = await response.json() as ICodeSession;
+              this.backupSession = sanitizeSession({ ...backupCode, codeSpace });
+            } catch (error) {
+              console.error("Error fetching backup code:", error);
+              // Use default backup session if fetch fails
+              this.backupSession = sanitizeSession({
+                codeSpace,
+                code: `export default () => (<>Write your code here!</>);`,
+                html: "<div>Write your code here!</div>",
+                css: "",
+              });
+            }
 
             // this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
@@ -180,39 +199,32 @@ export class Code implements DurableObject {
   // }
 
   async fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url);
-    if (this.session) {
+    return handleErrors(request, async () => {
+      const url = new URL(request.url);
+      const path = url.pathname.slice(1).split("/");
       this.origin = url.origin;
-    }
 
-    if (!this.initialized) {
-      await this.initializeSession(url).then(() => {
-        // this.setupAutoSave();
-      });
-    }
-
-    try {
-      this.xLog(this.session);
+      // Only initialize session for routes that need it
+      if (!this.initialized && path[0] !== "websocket" && path[0] !== "users") {
+        try {
+          await this.initializeSession(url);
+        } catch (error) {
+          console.error("Session initialization error:", error);
+          // Continue with backup session
+        }
+      }
 
       if (request.method === "POST" && request.url.endsWith("/session")) {
-        const newSession = await request.json();
-        this.updateAndBroadcastSession(newSession);
-      }
-    } catch (e) {
-      console.error(e);
-      return new Response("Error processing request", {
-        status: 400,
-      });
-    }
-
-    return (handleErrors(request, async () => {
-      if (!this.origin) {
-        this.origin = url.origin;
+        try {
+          const newSession = await request.json();
+          this.updateAndBroadcastSession(newSession);
+        } catch (error) {
+          return new Response("Invalid session data", { status: 400 });
+        }
       }
 
-      const path = url.pathname.slice(1).split("/");
       return this.routeHandler.handleRoute(request, url, path);
-    }));
+    });
   }
 
   // async updateSessionStorage(msg: CodePatch) {
