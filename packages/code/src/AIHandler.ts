@@ -25,7 +25,7 @@ export class AIHandler {
   ): Promise<Message> {
     // delete id-s from messages - they are not needed for Claude§
     const messagesToSend = messages.map((message) => {
-      const { id, ...rest } = message;
+      const { id: _id, ...rest } = message;
       return rest;
     }) as unknown as Message[];
     return this.aiService.sendToAnthropic(messagesToSend, onUpdate);
