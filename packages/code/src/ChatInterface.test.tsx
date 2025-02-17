@@ -110,12 +110,12 @@ vi.mock("@/components/app/chat-drawer", () => {
   const MockChatDrawer = vi.fn(({ handleResetChat, handleCancelEdit, isDarkMode, toggleDarkMode }: any) => (
     <div role="dialog" aria-label="chat drawer">
       <span data-testid="darkMode">{isDarkMode ? 'dark' : 'light'}</span>
-      <button onClick={handleResetChat}>Reset Chat</button>
+      <button role="button" onClick={handleResetChat}>Reset Chat</button>
       <button onClick={handleCancelEdit}>Cancel</button>
       <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
     </div>
   ));
-  console.log("MockChatDrawer", MockChatDrawer);
+  console.log("MockChatDrawer", MockChatDrawer)
   return {
     ChatDrawer: MockChatDrawer,
   };
