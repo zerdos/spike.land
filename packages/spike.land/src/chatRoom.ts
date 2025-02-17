@@ -34,7 +34,10 @@ export class Code implements DurableObject {
     return Object.freeze(session);
   }
 
-  constructor(private state: DurableObjectState, private env: Env) {
+  constructor(
+    private state: DurableObjectState,
+    private env: import("./env").default
+  ) {
     this.env = env;
 
     // this.historyManager = createCodeHistoryManager(this.env);

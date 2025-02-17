@@ -6,7 +6,17 @@
     "src/**/*.d.ts",
     "src/assets/tw-js.js"
   ],
-  "exclude": ["node_modules", "dts", "**/*.spec.ts", "**/*.test.ts"],
+  "exclude": [
+    "node_modules",
+    "dts",
+    "dist",
+    "**/__tests__/**",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "src/routes/__tests__/*",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as RouterImport } from './routes/router'
 import { Route as testsRouterTestImport } from './routes/__tests__/router.test'
+import { Route as testsRouterTestDImport } from './routes/__tests__/router.test.d'
 
 // Create/Update Routes
 
@@ -26,6 +27,12 @@ const testsRouterTestRoute = testsRouterTestImport.update({
   id: '/__tests__/router/test',
   path: '/router/test',
   getParentRoute: () => rootRoute,
+} as any)
+
+const testsRouterTestDRoute = testsRouterTestDImport.update({
+  id: '/d',
+  path: '/d',
+  getParentRoute: () => testsRouterTestRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -46,44 +53,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof testsRouterTestImport
       parentRoute: typeof rootRoute
     }
+    '/__tests__/router/test/d': {
+      id: '/__tests__/router/test/d'
+      path: '/d'
+      fullPath: '/router/test/d'
+      preLoaderRoute: typeof testsRouterTestDImport
+      parentRoute: typeof testsRouterTestImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface testsRouterTestRouteChildren {
+  testsRouterTestDRoute: typeof testsRouterTestDRoute
+}
+
+const testsRouterTestRouteChildren: testsRouterTestRouteChildren = {
+  testsRouterTestDRoute: testsRouterTestDRoute,
+}
+
+const testsRouterTestRouteWithChildren = testsRouterTestRoute._addFileChildren(
+  testsRouterTestRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/router': typeof RouterRoute
-  '/router/test': typeof testsRouterTestRoute
+  '/router/test': typeof testsRouterTestRouteWithChildren
+  '/router/test/d': typeof testsRouterTestDRoute
 }
 
 export interface FileRoutesByTo {
   '/router': typeof RouterRoute
-  '/router/test': typeof testsRouterTestRoute
+  '/router/test': typeof testsRouterTestRouteWithChildren
+  '/router/test/d': typeof testsRouterTestDRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/router': typeof RouterRoute
-  '/__tests__/router/test': typeof testsRouterTestRoute
+  '/__tests__/router/test': typeof testsRouterTestRouteWithChildren
+  '/__tests__/router/test/d': typeof testsRouterTestDRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/router' | '/router/test'
+  fullPaths: '/router' | '/router/test' | '/router/test/d'
   fileRoutesByTo: FileRoutesByTo
-  to: '/router' | '/router/test'
-  id: '__root__' | '/router' | '/__tests__/router/test'
+  to: '/router' | '/router/test' | '/router/test/d'
+  id:
+    | '__root__'
+    | '/router'
+    | '/__tests__/router/test'
+    | '/__tests__/router/test/d'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   RouterRoute: typeof RouterRoute
-  testsRouterTestRoute: typeof testsRouterTestRoute
+  testsRouterTestRoute: typeof testsRouterTestRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   RouterRoute: RouterRoute,
-  testsRouterTestRoute: testsRouterTestRoute,
+  testsRouterTestRoute: testsRouterTestRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -104,7 +137,14 @@ export const routeTree = rootRoute
       "filePath": "router.tsx"
     },
     "/__tests__/router/test": {
-      "filePath": "__tests__/router.test.tsx"
+      "filePath": "__tests__/router.test.tsx",
+      "children": [
+        "/__tests__/router/test/d"
+      ]
+    },
+    "/__tests__/router/test/d": {
+      "filePath": "__tests__/router.test.d.ts",
+      "parent": "/__tests__/router/test"
     }
   }
 }

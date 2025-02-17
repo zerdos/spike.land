@@ -355,7 +355,7 @@ export class RouteHandler {
   }
 
   private async handleMyCode(request: Request): Promise<Response> {
-    const secretKey = this.code.getEnv()["CLERK_SECRET_KEY"];
+    const { CLERK_SECRET_KEY: secretKey } = this.code.getEnv();
     const publishableKey = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
 
     const clerkClient = createClerkClient({

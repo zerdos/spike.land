@@ -1,10 +1,7 @@
-/// <reference types="vitest/client"/> 
 
-import * as V  from "vitest";
 import "@testing-library/jest-dom";
 import "url-polyfill";
 
-Object.assign(globalThis, V);
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
@@ -175,7 +172,7 @@ window.scrollTo = vi.fn();
 global.fetch = vi.fn();
 
 // Add Vitest beforeEach hook
-import { beforeEach } from "vitest";
+import { beforeEach, vi } from "vitest";
 
 beforeEach(() => {
   vi.clearAllMocks();
