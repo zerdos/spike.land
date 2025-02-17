@@ -16,10 +16,10 @@ The Message Handler Service has several dependencies that need to be managed eff
 ```json
 {
   "dependencies": {
-    "@types/node": "^18.0.0",
-    "typescript": "^4.9.0",
-    "rxjs": "^7.8.0",
-    "uuid": "^9.0.0"
+    "@types/node": "18.0.0",
+    "typescript": "4.9.0",
+    "rxjs": "7.8.0",
+    "uuid": "9.0.0"
   }
 }
 ```
@@ -29,12 +29,12 @@ The Message Handler Service has several dependencies that need to be managed eff
 ```json
 {
   "devDependencies": {
-    "jest": "^29.0.0",
-    "ts-jest": "^29.0.0",
-    "@types/jest": "^29.0.0",
-    "eslint": "^8.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0"
+    "jest": "29.0.0",
+    "ts-jest": "29.0.0",
+    "@types/jest": "29.0.0",
+    "eslint": "8.0.0",
+    "@typescript-eslint/parser": "5.0.0",
+    "@typescript-eslint/eslint-plugin": "5.0.0"
   }
 }
 ```
@@ -63,10 +63,10 @@ The Message Handler Service has several dependencies that need to be managed eff
     "typescript": "4.9.5",
 
     // Minor version updates for stable dependencies
-    "rxjs": "^7.8.0",
+    "rxjs": "7.8.0",
 
     // Patch updates for utility libraries
-    "uuid": "~9.0.0"
+    "uuid": "9.0.0"
   }
 }
 ```
@@ -164,10 +164,10 @@ class MessageService {
        "critical-dep": "1.2.3",
 
        // Minor version updates
-       "stable-dep": "^1.2.3",
+       "stable-dep": "1.2.3",
 
        // Patch updates only
-       "sensitive-dep": "~1.2.3"
+       "sensitive-dep": "1.2.3"
      }
    }
    ```

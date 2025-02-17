@@ -5,12 +5,13 @@ export default defineWorkersConfig({
   test: {
     poolOptions: {
       workers: {
-        wrangler: {
+         wrangler: {
           configPath: "./wrangler.toml",
         },
       },
     },
   },
+
   resolve: {
     alias: {
       replicate: path.resolve(__dirname, "__mocks__/replicate.js"),
