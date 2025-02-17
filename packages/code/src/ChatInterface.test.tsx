@@ -94,15 +94,11 @@ vi.mock("@/hooks/use-code-space", () => ({
   getCodeSpace: vi.fn(() => "test-space"),
 }));
 
-vi.mock("@/hooks/use-dark-mode", () => ({
-  useDarkMode: vi.fn(() => ({ isDarkMode: false, toggleDarkMode: vi.fn() })),
-}));
-
 vi.mock("@/hooks/use-dictation", () => ({
   useDictation: () => ["", vi.fn()],
 }));
 
-vi.mock("@/hooks/useScreenshot", () => ({
+vi.mock("./hooks/useScreenshot", () => ({
   useScreenshot: vi.fn(() => ({
     isScreenshotLoading: false,
     screenshotImage: null,
@@ -113,15 +109,14 @@ vi.mock("@/hooks/useScreenshot", () => ({
 
 // Mock ChatDrawer component
 vi.mock("@/components/app/chat-drawer", () => ({
-  ChatDrawer: ({ handleResetChat, handleCancelEdit }: {
-    handleResetChat: () => void;
-    handleCancelEdit: () => void;
-  }) => (
+  ChatDrawer: vi.fn(({ handleResetChat, handleCancelEdit, isDarkMode, toggleDarkMode }: any) => (
     <div role="dialog" aria-label="chat drawer">
+      <span data-testid="darkMode">{isDarkMode ? 'dark' : 'light'}</span>
       <button onClick={handleResetChat}>Reset Chat</button>
       <button onClick={handleCancelEdit}>Cancel</button>
+      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
     </div>
-  ),
+  )),
 }));
 
 // Mock ICode interface
@@ -183,6 +178,10 @@ describe("ChatInterface", () => {
     vi.clearAllMocks();
     global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
     mockSession = createMockSession();
+    vi.spyOn(require("@/hooks/use-dark-mode"), 'useDarkMode').mockReturnValue({
+      isDarkMode: false,
+      toggleDarkMode: vi.fn()
+    });
   });
 
   afterEach(() => {
