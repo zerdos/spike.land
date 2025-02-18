@@ -12,6 +12,7 @@
   ],
   "exclude": ["node_modules", "dts"],
   "compilerOptions": {
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "noEmit": true
   }
 }

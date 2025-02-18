@@ -33,7 +33,7 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.6.16",
+    "@cloudflare/vitest-pool-workers": "^0.7.0",
     "@cloudflare/workers-types": "4.20250214.0",
     "@types/node": "^22.13.4",
     "@types/react": "19.0.10",
@@ -45,7 +45,7 @@
     "eslint-plugin-react": "7.37.4",
     "typescript": "5.7.3",
     "typescript-eslint": "8.24.1",
-    "vitest": "^3.0.5"
+    "vitest": "^3.0.6"
   },
   "resolutions": {
     "vitest": "2.0.1",
