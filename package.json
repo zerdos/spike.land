@@ -13,7 +13,6 @@
     "dev": "yarn workspace @spike-npm-land/code dev",
     "dev:fe": "yarn workspace @spike-npm-land/code dev",
     "dev:workers": "yarn workspaces foreach --all -p --include '@spike-npm-land/{code-worker,transpile}' run dev",
-    "build": "yarn clean && yarn build:all",
     "build:all": "yarn workspaces foreach --all -p run build",
     "build:fe": "cd packages/code && yarn build",
     "build:workers": "yarn workspaces foreach --all -p --include '@spike-npm-land/{code-worker,transpile}' run build",
