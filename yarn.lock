@@ -4509,7 +4509,7 @@ __metadata:
     "@types/node": "npm:22.13.4"
     miniflare: "npm:3.20250204.1"
     typescript: "npm:5.7.3"
-    vitest: "npm:2.1.9"
+    vitest: "npm:3.0.5"
     wrangler: "npm:3.109.1"
   languageName: unknown
   linkType: soft
