@@ -1,10 +1,47 @@
+import { vi, beforeAll, afterAll, describe, beforeEach, afterEach, it, expect } from "vitest";
+import type { ChatDrawerProps } from "@/lib/interfaces";
+
+// Mock dependencies first
+vi.mock("@/hooks/use-code-space", () => ({
+  getCodeSpace: vi.fn(() => "test-space"),
+}));
+
+vi.mock("@/hooks/use-dictation", () => ({
+  useDictation: () => ["", vi.fn()],
+}));
+
+vi.mock("@/hooks/useScreenshot", () => ({
+  useScreenshot: vi.fn(() => ({
+    isScreenshotLoading: false,
+    screenshotImage: null,
+    handleScreenshotClick: vi.fn(),
+    handleCancelScreenshot: vi.fn(),
+  })),
+}));
+
+vi.mock("@/components/app/chat-drawer", () => ({
+  ChatDrawer: (props: ChatDrawerProps) => (
+    <div role="dialog" aria-label="chat drawer" data-testid="chat-drawer">
+      <span data-testid="darkMode">{props.isDarkMode ? 'dark' : 'light'}</span>
+      <button 
+        role="button" 
+        aria-label="Reset Chat" 
+        onClick={props.handleResetChat}
+        data-testid="reset-chat-button"
+      >
+        Reset Chat
+      </button>
+    </div>
+  ),
+}));
+
+// Other imports after mocks
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
 import { ChatInterface } from "./ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { waitFor, fireEvent } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import { act } from "react";
-import { beforeAll, afterAll, vi, describe, beforeEach, afterEach, it, expect } from "vitest";
 
 // Mock BroadcastChannel with proper event handling
 class MockBroadcastChannel {
@@ -90,44 +127,6 @@ beforeAll(() => {
 
 afterAll(() => {
   MockBroadcastChannel.clearAll();
-});
-
-// Mock dependencies
-vi.mock("@/hooks/use-code-space", () => ({
-  getCodeSpace: vi.fn(() => "test-space"),
-}));
-
-vi.mock("@/hooks/use-dictation", () => ({
-  useDictation: () => ["", vi.fn()],
-}));
-
-vi.mock("@/hooks/useScreenshot", () => ({
-  useScreenshot: vi.fn(() => ({
-    isScreenshotLoading: false,
-    screenshotImage: null,
-    handleScreenshotClick: vi.fn(),
-    handleCancelScreenshot: vi.fn(),
-  })),
-}));
-
-// Mock ChatDrawer component
-import type { ChatDrawerProps } from "@/lib/interfaces";
-
-vi.mock("@/components/app/chat-drawer", () => {
-  const MockChatDrawer = vi.fn((props: ChatDrawerProps) => (
-    <div role="dialog" aria-label="chat drawer">
-      <span data-testid="darkMode">{props.isDarkMode ? 'dark' : 'light'}</span>
-      <div>
-        <button role="button" aria-label="Reset Chat" onClick={props.handleResetChat}>
-          Reset Chat
-        </button>
-      </div>
-    </div>
-  ));
-  console.log("MockChatDrawer", MockChatDrawer)
-  return {
-    ChatDrawer: MockChatDrawer,
-  };
 });
 
 // Mock ICode interface
@@ -296,7 +295,7 @@ describe("ChatInterface", () => {
     ];
     mockSession = createMockSession(initialMessages);
 
-    const { getByRole } = renderWithContext(
+    const { getByTestId } = renderWithContext(
       <ChatInterface
         isOpen={true}
         codeSpace="test-space"
@@ -306,7 +305,9 @@ describe("ChatInterface", () => {
     );
 
     await act(async () => {
-      fireEvent.click(getByRole("button", { name: "Reset Chat" }));
+      const resetButton = getByTestId("reset-chat-button");
+      expect(resetButton).toBeInTheDocument();
+      fireEvent.click(resetButton);
     });
 
     expect(mockSession.setMessages).toHaveBeenCalledWith([]);
