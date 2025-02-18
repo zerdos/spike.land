@@ -47,7 +47,7 @@ export class WebSocketHandler {
     // Send initial handshake
     webSocket.send(JSON.stringify({
       type: "handshake",
-      session: this.code.getSession(),
+      hash: computeSessionHash(this.code.getSession()),
     }));
 
     // Setup ping interval
@@ -138,7 +138,7 @@ export class WebSocketHandler {
           return;
         }
 
-        const patchedSession = applySessionPatch(currentSession, data.patch);
+        const patchedSession = applySessionPatch(currentSession, data);
         await this.code.updateAndBroadcastSession(patchedSession);
 
         session.webSocket.send(JSON.stringify({
@@ -147,9 +147,10 @@ export class WebSocketHandler {
         }));
       } catch (error) {
         console.error("Error applying patch:", error);
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
         session.webSocket.send(JSON.stringify({
           type: "error",
-          message: "Failed to apply patch",
+          message: "Failed to apply patch " + errorMessage, 
         }));
       }
       return;
