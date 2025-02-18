@@ -5,7 +5,8 @@
       "@/*": ["./src/@/*"]
     },
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "skipLibCheck": true,
     "outDir": "dist",
@@ -22,6 +23,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts"],
+  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts",],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

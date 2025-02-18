@@ -16,7 +16,6 @@ import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 
 const Header: FC = () => {
-  console.log("Rendering Header component");
   return (
     <header className="h-11 flex items-center justify-between px-3">
       <SignedOut>
@@ -36,13 +35,7 @@ interface AppToRenderProps {
 }
 
 export const Hello = () => {
-  const { isSignedIn, sessionId, userId } = useAuth();
-
-  console.log("Hello component - Auth state:", {
-    isSignedIn,
-    sessionId,
-    userId,
-  });
+  const { isSignedIn, userId } = useAuth();
 
   if (!isSignedIn) {
     return <div>Not signed in</div>;
@@ -52,29 +45,30 @@ export const Hello = () => {
 };
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
-  console.log("Rendering AppToRender with codeSpace:", codeSpace);
   const maybeKey = codeSpace.split("-")[1];
 
   const [isOpen, setIsOpen] = useState(
-    maybeKey && sessionStorage && sessionStorage.getItem(maybeKey)
-      ? true
-      : false,
+    maybeKey && sessionStorage.getItem(maybeKey) ? true : false
   );
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
-  useEffect(() => {
-    console.log("AppToRender state changed:", { isOpen, showAutoSaveHistory });
-  }, [isOpen, showAutoSaveHistory]);
+  const handleToggleAutoSaveHistory = () => {
+    setShowAutoSaveHistory(!showAutoSaveHistory);
+  };
+
+  const handleToggleChat = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div
       css={css`
-      height: 100dvh;
-      height: 100svh;
-      display: block;
-      position: relative;
-      overflow: hidden;
-    `}
+        height: 100dvh;
+        height: 100svh;
+        display: block;
+        position: relative;
+        overflow: hidden;
+      `}
     >
       <Header />
       <div className="flex-1 relative overflow-hidden">
@@ -89,14 +83,8 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                 <CodeHistoryCarousel
-                  onClose={() => {
-                    console.log("Closing AutoSaveHistory");
-                    setShowAutoSaveHistory(false);
-                  }}
-                  onRestore={() => {
-                    console.log("Restoring from AutoSaveHistory");
-                    setShowAutoSaveHistory(false);
-                  }}
+                  onClose={handleToggleAutoSaveHistory}
+                  onRestore={handleToggleAutoSaveHistory}
                   codeSpace={codeSpace}
                   cSess={cSess}
                 />
@@ -106,13 +94,10 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
 
           <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-[1001]">
             <Button
-              onClick={() => {
-                console.log("Opening AutoSaveHistory");
-                setShowAutoSaveHistory(true);
-              }}
+              onClick={handleToggleAutoSaveHistory}
               className={cn(
                 "rounded-full w-12 h-12 p-0",
-                "hover:bg-primary transition-colors",
+                "hover:bg-primary transition-colors"
               )}
               title="Show Version History"
             >
@@ -120,13 +105,10 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
             </Button>
             {!isOpen && (
               <Button
-                onClick={() => {
-                  console.log("Opening Chat");
-                  setIsOpen(true);
-                }}
+                onClick={handleToggleChat}
                 className={cn(
                   "rounded-full w-12 h-12 p-0",
-                  "hover:bg-primary transition-colors",
+                  "hover:bg-primary transition-colors"
                 )}
                 title="Open Chat"
               >
@@ -141,10 +123,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         cSess={cSess}
         codeSpace={codeSpace}
         isOpen={isOpen}
-        onClose={() => {
-          console.log("Closing Chat");
-          setIsOpen(false);
-        }}
+        onClose={handleToggleChat}
       />
     </div>
   );

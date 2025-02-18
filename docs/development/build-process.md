@@ -39,6 +39,9 @@ yarn clean          # Clean all build artifacts
 # Type checking
 yarn types:check    # Check all packages
 yarn types:build    # Build type declarations
+
+# Linting
+yarn lint           # Lint all packages
 ```
 
 ### Package-Specific Builds
@@ -244,10 +247,13 @@ yarn types:build
 ### Testing
 ```bash
 # Run all tests
-yarn test
+vik
 
 # Test specific package
 yarn workspace @spike-npm-land/code test
+
+# Linting
+yarn lint
 ```
 
 ### Bundle Analysis

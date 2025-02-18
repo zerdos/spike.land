@@ -31,7 +31,7 @@ graph TD
 - Manages real-time collaboration through Durable Objects
 - Integrates with various AI services (OpenAI, Anthropic)
 - Serves static assets through KV storage
-- Manages WebRTC TURN server functionality
+- No longer manages WebRTC TURN server functionality
 
 ### 3. Transpiler Worker (`packages/js.spike.land`)
 - Dedicated to code transpilation

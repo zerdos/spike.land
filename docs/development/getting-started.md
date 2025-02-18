@@ -135,7 +135,7 @@ yarn deploy:prod
 ## Development Tools
 
 ### Required Tools
-- Node.js (LTS version)
+- Node.js (v22.x)
 - Yarn
 - Git
 - Wrangler CLI (`npm install -g wrangler`)

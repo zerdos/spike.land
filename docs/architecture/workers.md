@@ -30,7 +30,7 @@ Serves as the primary backend for the application, handling:
 - Real-time collaboration
 - Asset serving
 - AI service integration
-- WebRTC coordination
+- No longer manages WebRTC coordination
 
 ### Components
 

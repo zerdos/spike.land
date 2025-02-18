@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "composite": true,
     "declaration": true,
     "declarationDir": "./dts",

@@ -35,9 +35,6 @@ The frontend is divided into two main parts:
 -   Provides a visually appealing wrapper around the editor.
 -   Uses CSS gradients and animations to create a dynamic background.
 
-### ContextViewer
-
--   Displays the current context of the application
 
 ## Communication Flow
 

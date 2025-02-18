@@ -53,18 +53,20 @@ sequenceDiagram
 // Example WebSocket setup
 class CollaborationManager {
   private ws: WebSocket;
-  
+
   connect(roomId: string) {
     this.ws = new WebSocket(`wss://spike.land/room/${roomId}`);
     this.ws.onmessage = this.handleMessage.bind(this);
   }
-  
+
   handleMessage(event: MessageEvent) {
     const update = JSON.parse(event.data);
     this.applyUpdate(update);
   }
 }
 ```
+
+The Main Worker manages WebSocket connections for real-time collaboration.
 
 ### State Synchronization
 ```typescript

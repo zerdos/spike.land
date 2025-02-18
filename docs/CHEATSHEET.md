@@ -139,7 +139,8 @@ yarn test:e2e       # E2E tests
 - `package.json` - Root package configuration
 - `tsconfig.json` - TypeScript configuration
 - `vite.config.ts` - Vite build configuration
-- `wrangler.toml` - Worker configuration
+- `eslint.config.mts` - ESLint configuration
+- `wrangler.toml` - Worker configuration (located in the root directory, packages/js.spike.land, packages/spike-land-renderer, and packages/durable-objects)
 
 ##### Key Directories
 - `packages/code/src/@/` - Core frontend utilities
