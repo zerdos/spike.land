@@ -1,40 +1,51 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
-import { handleErrors, getWebSocketPair } from "./handleErrors";
+import { handleErrors } from "./handleErrors";
+import type { WebSocketPair } from "@cloudflare/workers-types";
 
 type SpyInstance = ReturnType<typeof vi.spyOn>;
 
-describe("handleErrors", () => {
-  class MockWebSocketPair {
-    0: WebSocket;
-    1: WebSocket;
+// Mock WebSocketPair to match Cloudflare Workers interface
+class MockWebSocket implements Partial<WebSocket> {
+  accept = vi.fn();
+  send = vi.fn();
+  close = vi.fn();
+  addEventListener = vi.fn();
+  removeEventListener = vi.fn();
+  dispatchEvent = vi.fn(() => true);
+  readyState = 0;
+  url = "";
+  serializeAttachment = vi.fn();
+  deserializeAttachment = vi.fn();
+  onopen: ((this: WebSocket, ev: Event) => any) | null = null;
+  onmessage: ((this: WebSocket, ev: MessageEvent) => any) | null = null;
+  onclose: ((this: WebSocket, ev: CloseEvent) => any) | null = null;
+  onerror: ((this: WebSocket, ev: Event) => any) | null = null;
+  readonly CLOSED: 3 = 3;
+  readonly CLOSING: 2 = 2;
+  readonly CONNECTING: 0 = 0;
+  readonly OPEN: 1 = 1;
+  binaryType: BinaryType = 'blob';
+  bufferedAmount = 0;
+  extensions = '';
+  protocol = '';
+}
 
-    constructor() {
-      const mockWebSocket = {
-        accept: vi.fn(),
-        send: vi.fn(),
-        close: vi.fn(),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
-        readyState: 0,
-        url: "",
-        serializeAttachment: () => {},
-        deserializeAttachment: () => {},
-        onopen: null,
-        onmessage: null,
-        onclose: null,
-        onerror: null,
-      } as unknown as WebSocket;
+// Define WebSocketPair for Cloudflare Workers
+class MockWebSocketPair {
+  0: WebSocket;
+  1: WebSocket;
 
-      this[0] = mockWebSocket;
-      this[1] = mockWebSocket;
-    }
+  constructor() {
+    this[0] = new MockWebSocket() as unknown as WebSocket;
+    this[1] = new MockWebSocket() as unknown as WebSocket;
   }
+}
 
-  vi.spyOn(require("./handleErrors"), "getWebSocketPair").mockImplementation(() => {
-    return new MockWebSocketPair() as any;
-  });
+// Setup global WebSocketPair
+(globalThis as any).WebSocketPair = MockWebSocketPair;
+
+describe("handleErrors", () => {
   let mockConsoleLog: SpyInstance;
   let mockCb: Mock;
 
@@ -99,7 +110,13 @@ describe("handleErrors", () => {
       const response = await handleErrors(mockRequest, mockCb);
 
       expect(response.status).toBe(101);
-      expect(response.webSocket).toBeDefined();
+      expect(response.webSocket).toBeTruthy();
+
+      // Verify WebSocket behavior
+      const pair = new MockWebSocketPair();
+      expect(pair[1].accept).toHaveBeenCalled();
+      expect(pair[1].send).toHaveBeenCalledWith(JSON.stringify({ error: testError.stack }));
+      expect(pair[1].close).toHaveBeenCalledWith(1011, "Uncaught exception during session setup");
 
       // Verify console logging
       expect(mockConsoleLog).toHaveBeenCalledWith({
@@ -118,7 +135,7 @@ describe("handleErrors", () => {
       const response = await handleErrors(mockRequest, mockCb);
 
       expect(response.status).toBe(101);
-      expect(response.webSocket).toBeDefined();
+      expect(response.webSocket).toBeTruthy();
     });
 
     it("should create WebSocket pair with error message", async () => {
@@ -130,12 +147,8 @@ describe("handleErrors", () => {
 
       const response = await handleErrors(mockRequest, mockCb);
 
-      // Verify WebSocket behavior
-      const webSocket = response.webSocket as unknown as WebSocket;
-      expect(webSocket).toBeDefined();
-
-      // Note: Actual WebSocket send and close behavior would require more complex mocking
       expect(response.status).toBe(101);
+      expect(response.webSocket).toBeTruthy();
     });
   });
 
