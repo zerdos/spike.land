@@ -1,4 +1,4 @@
-import type { Environment } from "@/lib/esbuild-build-tasks";
+import type { Environment } from "./esbuild-build-tasks.ts";
 
 export type { Environment };
 export const environment = process.env.NODE_ENV as Environment;

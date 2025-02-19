@@ -1,10 +1,10 @@
-import { getCommonBuildOptions } from "@/lib/esbuild-build-config";
-import { environment } from "@/lib/esbuild-make-env";
-import { build } from "@/lib/esbuild-operations";
+import { getCommonBuildOptions } from "./esbuild-build-config.ts";
+import { environment } from "./esbuild-make-env.ts";
+import { build } from "./esbuild-operations.ts";
 import { copy } from "esbuild-plugin-copy";
 import { readdir, readFile, stat, writeFile } from "fs/promises";
 export type Environment = "development" | "production";
-import { importMapReplace } from "@/lib/importmap-utils";
+import { importMapReplace } from "./importmap-utils.ts";
 import path from "path";
 // import path from "path";
 

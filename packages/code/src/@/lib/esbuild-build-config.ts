@@ -1,9 +1,9 @@
 import type { BuildOptions } from "esbuild";
 
-import type { Environment } from "@/lib/esbuild-make-env";
-import { makeEnv } from "@/lib/esbuild-make-env";
+import type { Environment } from "./esbuild-make-env";
+import { makeEnv } from "./esbuild-make-env.ts";
 
-import { fetchPlugin } from "@/lib/esbuild-fetch-plugin";
+import { fetchPlugin } from "./esbuild-fetch-plugin.ts";
 
 export const buildOptions: BuildOptions = {
   target: "es2024",

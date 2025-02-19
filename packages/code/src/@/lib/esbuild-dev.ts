@@ -4,9 +4,9 @@ import {
   buildServiceWorker,
   buildWasm,
   buildWorkers,
-} from "@/lib/esbuild-build-tasks";
+} from "./esbuild-build-tasks.ts";
 
-import { stop } from "@/lib/esbuild-operations";
+import { stop } from "./esbuild-operations.ts";
 
 const getWasmFile = async () => {
   const { promises } = await import("node:fs");

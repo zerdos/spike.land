@@ -1,4 +1,4 @@
-import { importMap } from "@/lib/importmap-utils";
+import { importMap } from "./importmap-utils.ts";
 import type { Plugin } from "esbuild-wasm";
 
 const urlCache = new Map<string, string>();

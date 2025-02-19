@@ -4384,7 +4384,7 @@ __metadata:
     file-type: "npm:20.1.0"
     framer-motion: "npm:12.4.4"
     globals: "npm:15.15.0"
-    happy-dom: "npm:17.1.0"
+    happy-dom: "npm:17.1.1"
     html2canvas: "npm:1.4.1"
     html2canvas-pro: "npm:1.5.8"
     i18next: "npm:24.2.2"
@@ -4427,7 +4427,7 @@ __metadata:
     react-dom: "npm:19.0.0"
     react-hook-form: "npm:7.54.2"
     react-i18next: "npm:15.4.1"
-    react-icons: "npm:5.4.0"
+    react-icons: "npm:5.5.0"
     react-live: "npm:4.1.8"
     react-markdown: "npm:9.0.3"
     react-qrious: "npm:2.5.6"
@@ -4455,7 +4455,6 @@ __metadata:
     transferables: "npm:^1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.8.1"
-    tsx: "npm:4.19.2"
     tty-browserify: "npm:0.0.1"
     typescript: "npm:5.7.3"
     typescript-eslint: "npm:8.24.1"
@@ -10549,13 +10548,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:17.1.0":
-  version: 17.1.0
-  resolution: "happy-dom@npm:17.1.0"
+"happy-dom@npm:17.1.1":
+  version: 17.1.1
+  resolution: "happy-dom@npm:17.1.1"
   dependencies:
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10c0/36e8798d152c15a113e47474d14fd5e9d064a8baaf8ba7e7c802c85ecadc216681e9decce911eb9156cbf26524f14a39c0c3f8a04b02d0edf698c27da0a7653f
+  checksum: 10c0/32a41b1d26bb6d21af6cb9eb8a1c34bdc692827fb2e6ad2b6e4b38a93b18ece520ad92554ccd22de8ff4085aa590550c9fe4cf29b6e3ebc2461f6651f749b6a5
   languageName: node
   linkType: hard
 
@@ -14917,12 +14916,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:5.4.0":
-  version: 5.4.0
-  resolution: "react-icons@npm:5.4.0"
+"react-icons@npm:5.5.0":
+  version: 5.5.0
+  resolution: "react-icons@npm:5.5.0"
   peerDependencies:
     react: "*"
-  checksum: 10c0/698b0c4616870152d86de2585fb709bf3eeb9292d971d689965dade5f0ee71cdc92d2125b728ab220cc39a4c6d6bad1ed526b9b934ab39a7b6001bc23b73ee16
+  checksum: 10c0/a24309bfc993c19cbcbfc928157e53a137851822779977b9588f6dd41ffc4d11ebc98b447f4039b0d309a858f0a42980f6bfb4477fb19f9f2d1bc2e190fcf79c
   languageName: node
   linkType: hard
 
@@ -17448,7 +17447,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:4.19.2, tsx@npm:^4.19.2":
+"tsx@npm:^4.19.2":
   version: 4.19.2
   resolution: "tsx@npm:4.19.2"
   dependencies:
