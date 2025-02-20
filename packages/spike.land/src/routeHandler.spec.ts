@@ -5,12 +5,10 @@ import type { Code } from "./chatRoom";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 
-vi.mock("snakecase-keys", async () => {
-  const snakecaseKeys = await import("snakecase-keys");
-  return {
-    default: snakecaseKeys.default,
-  };
-});
+vi.mock("snakecase-keys", () => ({
+  __esModule: true,
+  default: (obj: any) => obj
+}));
 
 describe("RouteHandler", () => {
   let routeHandler: RouteHandler;

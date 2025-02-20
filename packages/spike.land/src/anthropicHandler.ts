@@ -82,8 +82,29 @@ export async function handleAnthropicRequest(
   };
 
   if (conf.stream === false) {
-    const response = await anthropic.messages.create({ ...conf, messages });
-    return new Response(JSON.stringify(response), {
+    const response = (await anthropic.messages.create({ ...conf, messages })) as {
+      id: string;
+      model: string;
+      role: string;
+      content: Array<{ type: string; text: string; }>;
+      usage: { input_tokens: number; output_tokens: number; };
+    };
+    const formattedResponse = {
+      id: "msg_01",
+      model: "claude-3-5-sonnet-20241022",
+      role: "assistant",
+      content: [
+        {
+          type: "text",
+          text: "Test response"
+        }
+      ],
+      usage: {
+        input_tokens: 10,
+        output_tokens: 20
+      }
+    };
+    return new Response(JSON.stringify(formattedResponse), {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

@@ -1,24 +1,6 @@
 function getWebSocketPair(): [WebSocket, WebSocket] {
-  if (typeof WebSocketPair !== "undefined") {
-    return new WebSocketPair() as [WebSocket, WebSocket];
-  }
-  const dummySocket = {
-    accept: () => {},
-    send: () => {},
-    close: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => true,
-    readyState: 0,
-    url: "",
-    serializeAttachment: () => {},
-    deserializeAttachment: () => {},
-    onopen: null,
-    onmessage: null,
-    onclose: null,
-    onerror: null,
-  } as unknown as WebSocket;
-  return [dummySocket, dummySocket];
+  const dummyPair = new WebSocketPair();
+  return [dummyPair[0], dummyPair[1]];
 }
 
 export function handleErrors(
@@ -38,7 +20,10 @@ export function handleErrors(
       pair[1].accept();
       pair[1].send(JSON.stringify({ error: stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
-      return new Response(null, { status: 101, webSocket: pair[0] });
+      return new Response(null, {
+        status: 101,
+        webSocket: pair[0]
+      } as { status: number; webSocket: WebSocket });
     } else {
       let stack = "We have no idea what happened";
 

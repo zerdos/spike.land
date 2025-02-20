@@ -7,40 +7,25 @@ import { readRequestBody } from "./utils";
 
 // Mock OpenAI class
 vi.mock("openai", () => {
-  const mockOpenAI = vi.fn(() => ({
-    audio: {
-      speech: {
-        create: vi.fn().mockImplementation(async () => ({
-          arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
-        })),
+  return {
+    default: vi.fn().mockImplementation(() => ({
+      audio: {
+        speech: {
+          create: vi.fn().mockResolvedValue({
+            arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))
+          })
+        },
+        transcriptions: {
+          create: vi.fn().mockResolvedValue("Transcribed text goes here")
+        }
       },
-      transcriptions: {
-        create: vi.fn(),
-      },
-    },
-    chat: {
-      completions: {
-        create: vi.fn(),
-      },
-    },
-  }));
-
-  mockOpenAI.prototype.audio = {
-    speech: {
-      create: vi.fn().mockImplementation(async () => ({
-        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
-      })),
-    },
-    transcriptions: {
-      create: vi.fn(),
-    },
+      chat: {
+        completions: {
+          create: vi.fn()
+        }
+      }
+    }))
   };
-  mockOpenAI.prototype.chat = {
-    completions: {
-      create: vi.fn(),
-    },
-  };
-  return { default: mockOpenAI };
 });
 
 vi.mock("./Logs", () => ({
@@ -200,7 +185,7 @@ describe("OpenAIHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("application/json");
 
       const transcriptionBody = await response.json();
-      expect(transcriptionBody).toEqual(mockTranscription);
+      expect(transcriptionBody).toEqual({ text: mockTranscription });
 
       // Verify OpenAI method was called with correct parameters
       expect(OpenAI.prototype.audio.transcriptions.create).toHaveBeenCalledWith({

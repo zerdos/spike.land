@@ -42,13 +42,15 @@ export async function handleGPT4Request(
         ? body.voice as "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer"
         : "alloy";
 
-      const speechResponse = await openai.audio.speech.create({
+      const params = {
         model: body.model,
         voice,
         input: body.input || "Hello, how are you?",
-        response_format: "mp3",
+        response_format: "mp3" as const,
         speed: body.speed || 1,
-      });
+      };
+
+      const speechResponse = await openai.audio.speech.create(params);
 
       // Ensure speechResponse has arrayBuffer method
       if (typeof speechResponse.arrayBuffer !== "function") {
@@ -67,65 +69,61 @@ export async function handleGPT4Request(
       });
     } catch (error) {
       console.error("Error in TTS:", error);
-      return new Response(JSON.stringify({ error: "TTS processing failed" }), {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    }
-  }
-
-  if (body.model === "whisper-1") {
-    if (!body.file) {
       return new Response(
-        JSON.stringify({ error: "No audio file provided" }),
-        {
-          status: 400,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        },
-      );
-    }
-
-    try {
-      // const newBody = new FormData();
-      // newBody.append("file", body.file);
-      // newBody.append("model", body.model);
-      // newBody.append("language", "en-GB");
-
-      const transcription = await openai.audio.transcriptions.create(
-        {
-          model: "whisper-1",
-          file: body.file,
-
-          response_format: "text",
-          ...(body.prompt ? { prompt: body.prompt! } : {}),
-        },
-      );
-
-      return new Response(JSON.stringify(transcription), {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    } catch (error) {
-      console.error("Error in Whisper:", error);
-      return new Response(
-        JSON.stringify({ error: "Whisper processing failed" }),
+        JSON.stringify({ error: "TTS processing failed" }),
         {
           status: 500,
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        },
+        }
       );
     }
+  }
+
+  try {
+    // Handle whisper transcription requests
+    if (body.model === "whisper-1") {
+      if (!body.file) {
+        return new Response(
+          JSON.stringify({ error: "No audio file provided" }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        );
+      }
+
+      const transcription = await openai.audio.transcriptions.create({
+        model: "whisper-1",
+        file: body.file,
+        response_format: "text",
+        ...(body.prompt ? { prompt: body.prompt! } : {}),
+      });
+
+      return new Response(JSON.stringify({ text: transcription }), {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    }
+  } catch (error) {
+    console.error("Error in whisper transcription:", error);
+    return new Response(
+      JSON.stringify({ error: "Whisper processing failed" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   }
 
   try {
@@ -133,22 +131,16 @@ export async function handleGPT4Request(
     const writer = writable.getWriter();
     const textEncoder = new TextEncoder();
 
-    const conf = {
+    const conf: ChatCompletionCreateParamsStreaming = {
       stream: true,
       model: body.model || "gpt-4o-mini", // Use the model from body, or fallback to 'gpt-4o-mini'
       messages: body.messages,
-      // Spread the rest of the body properties, excluding 'model' and 'messages'
-      ...Object.fromEntries(
-        Object.entries(body).filter(([key]) => !["model", "messages"].includes(key)),
-      ),
     };
 
     let answer = "";
     ctx.waitUntil((async () => {
       try {
-        const stream = await openai.chat.completions.create(
-          conf as ChatCompletionCreateParamsStreaming,
-        );
+        const stream = await openai.chat.completions.create(conf);
 
         if (!stream[Symbol.asyncIterator]) {
           throw new Error("Stream is not iterable");
