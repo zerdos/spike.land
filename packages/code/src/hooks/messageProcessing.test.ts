@@ -2,8 +2,8 @@ import type { ImageData } from "@/lib/interfaces";
 import { createNewMessage } from "@/workers/chat-utils.worker";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("@src/AIHandler");
-vi.mock("@src/config/aiConfig", () => ({
+vi.mock("@/lib/ai-handler");
+vi.mock("@/lib/ai-config", () => ({
   claudeRecovery: vi.fn((code) => `Recovery: ${code}`),
 }));
 vi.mock("@/lib/context-manager");

@@ -1,6 +1,6 @@
 import type { Message } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AIService } from "../services/AIService";
+import { AIService } from "@/lib/ai-service";
 
 vi.mock("../shared", () => ({
   prettierToThrow: vi.fn().mockResolvedValue("const x = 5;"),
@@ -8,7 +8,7 @@ vi.mock("../shared", () => ({
 vi.mock("../services/runner", () => ({
   runner: vi.fn().mockResolvedValue(true),
 }));
-vi.mock("../config/aiConfig", () => ({
+vi.mock("@/lib/ai-config", () => ({
   anthropicSystem: vi.fn(() => "Mocked anthropic system content"),
   reminder: vi.fn(() => "Mocked reminder content"),
 }));

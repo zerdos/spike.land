@@ -1,6 +1,6 @@
 // Mock declarations must be before imports
 vi.mock("@/lib/context-manager");
-vi.mock("../../config/aiConfig", () => ({
+vi.mock("@/lib/ai-config", () => ({
   anthropicSystem: vi.fn(({ userPrompt, fileContent, fileName }) =>
     `[System] ${userPrompt} - ${fileContent} - ${fileName}`
   ),
@@ -8,8 +8,8 @@ vi.mock("../../config/aiConfig", () => ({
 }));
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { anthropicSystem, reminder } from "../../config/aiConfig";
-import { AIService } from "../AIService";
+import { anthropicSystem, reminder } from "@/lib/ai-config";
+import { AIService } from "@/lib/ai-service";
 
 // Type for message roles
 type Role = "user" | "assistant" | "system";

@@ -1,9 +1,9 @@
 import type { Message } from "@/lib/interfaces";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { AIHandler } from "../AIHandler";
-import { AIService } from "../services/AIService";
+import { AIHandler } from "@/lib/ai-handler";
+import { AIService } from "@/lib/ai-service";
 
-vi.mock("../services/AIService");
+vi.mock("@/lib/ai-service");
 
 describe.skip("AIHandler", () => {
   let aiHandler: AIHandler;
