@@ -1,7 +1,5 @@
-
 import "@testing-library/jest-dom";
 import "url-polyfill";
-
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {

@@ -1,5 +1,5 @@
-import { vi, beforeAll, afterAll, describe, beforeEach, afterEach, it, expect } from "vitest";
 import type { ChatDrawerProps } from "@/lib/interfaces";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies first
 vi.mock("@/hooks/use-code-space", () => ({
@@ -22,10 +22,10 @@ vi.mock("@/hooks/useScreenshot", () => ({
 vi.mock("@/components/app/chat-drawer", () => ({
   ChatDrawer: (props: ChatDrawerProps) => (
     <div role="dialog" aria-label="chat drawer" data-testid="chat-drawer">
-      <span data-testid="darkMode">{props.isDarkMode ? 'dark' : 'light'}</span>
-      <button 
-        role="button" 
-        aria-label="Reset Chat" 
+      <span data-testid="darkMode">{props.isDarkMode ? "dark" : "light"}</span>
+      <button
+        role="button"
+        aria-label="Reset Chat"
         onClick={props.handleResetChat}
         data-testid="reset-chat-button"
       >
@@ -36,12 +36,12 @@ vi.mock("@/components/app/chat-drawer", () => ({
 }));
 
 // Other imports after mocks
-import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
-import { ChatInterface } from "./ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { waitFor, fireEvent } from "@testing-library/dom";
+import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
+import { fireEvent, waitFor } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import { act } from "react";
+import { ChatInterface } from "./ChatInterface";
 
 // Mock BroadcastChannel with proper event handling
 class MockBroadcastChannel {
@@ -204,7 +204,7 @@ describe("ChatInterface", () => {
     return render(
       <ThemeProvider>
         {ui}
-      </ThemeProvider>
+      </ThemeProvider>,
     );
   };
 
@@ -216,7 +216,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -249,7 +249,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={sessionWithChunks}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -274,7 +274,7 @@ describe("ChatInterface", () => {
           codeSpace="test-space"
           cSess={mockSession}
           onClose={vi.fn()}
-        />
+        />,
       );
     });
 
@@ -301,7 +301,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     await act(async () => {

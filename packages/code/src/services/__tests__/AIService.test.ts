@@ -7,9 +7,9 @@ vi.mock("@/lib/ai-config", () => ({
   reminder: vi.fn(({ userPrompt }) => `[Reminder] ${userPrompt}`),
 }));
 
-import { beforeEach, describe, expect, it, vi } from "vitest";
 import { anthropicSystem, reminder } from "@/lib/ai-config";
 import { AIService } from "@/lib/ai-service";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Type for message roles
 type Role = "user" | "assistant" | "system";

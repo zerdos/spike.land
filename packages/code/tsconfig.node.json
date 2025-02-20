@@ -23,6 +23,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts",],
+  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

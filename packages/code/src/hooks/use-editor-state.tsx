@@ -18,11 +18,11 @@ export const useEditorState = () => {
 
   // Wrap setState to ensure updates are processed correctly
   const setEditorState = (
-    updater: EditorState | ((prev: EditorState) => EditorState)
+    updater: EditorState | ((prev: EditorState) => EditorState),
   ) => {
     setEditorStateInternal((prev) => {
       const next = typeof updater === "function" ? updater(prev) : updater;
-      
+
       // Ensure setValue is preserved if not explicitly changed
       if (!next.setValue && prev.setValue) {
         next.setValue = prev.setValue;

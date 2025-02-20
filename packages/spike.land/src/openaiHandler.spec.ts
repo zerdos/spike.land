@@ -91,7 +91,7 @@ describe("OpenAIHandler", () => {
         input: "Hello, world!",
         voice: "alloy", // Default voice
         response_format: "mp3", // Default response format
-        speed: 1, //default
+        speed: 1, // default
       });
     });
 
@@ -129,7 +129,7 @@ describe("OpenAIHandler", () => {
         model: "tts-1-hd",
         input: "Custom voice test",
         voice: "nova",
-        response_format: "mp3", //default
+        response_format: "mp3", // default
         speed: 1.5,
       });
     });
@@ -200,7 +200,7 @@ describe("OpenAIHandler", () => {
         model: "whisper-1",
         file: mockFile,
         prompt: "Optional context",
-        response_format: "json", //default
+        response_format: "json", // default
       });
     });
 

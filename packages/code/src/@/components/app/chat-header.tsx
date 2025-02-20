@@ -21,9 +21,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
         <span>AI spike pilot</span>
         <div className="flex items-center space-x-2">
           <ThemeToggle />
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={handleResetChat}
             aria-label="Reset Chat"
           >

@@ -150,7 +150,7 @@ export class WebSocketHandler {
         const errorMessage = error instanceof Error ? error.message : "Unknown error";
         session.webSocket.send(JSON.stringify({
           type: "error",
-          message: "Failed to apply patch " + errorMessage, 
+          message: "Failed to apply patch " + errorMessage,
         }));
       }
       return;

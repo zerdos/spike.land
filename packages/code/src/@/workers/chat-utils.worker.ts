@@ -1,10 +1,10 @@
+import { AIHandler } from "@/lib/ai-handler";
 import { messagesPush, replaceFirstCodeMod } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
 import { v4 as uuidv4 } from "uuid";
-import { AIHandler } from "@/lib/ai-handler";
 
 const SEARCH_ARROWS = "<<<<<<<";
 const SEARCH = "<<<<<<< SEARCH";

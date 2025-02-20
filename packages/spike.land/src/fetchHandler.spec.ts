@@ -101,7 +101,6 @@ describe("FetchHandler", () => {
       expect(response.status).toBe(101);
       expect(response.webSocket).toBeDefined();
     });
-
   });
 
   describe("Import Map JSON", () => {

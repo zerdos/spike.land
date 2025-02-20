@@ -1,5 +1,5 @@
-import type { Message } from "@/lib/interfaces";
 import { anthropicSystem, reminder } from "@/lib/ai-config";
+import type { Message } from "@/lib/interfaces";
 
 export interface AIServiceConfig {
   anthropicEndpoint: string;
@@ -110,4 +110,3 @@ export class AIService {
     });
   }
 }
-    

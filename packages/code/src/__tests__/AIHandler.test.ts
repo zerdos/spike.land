@@ -1,7 +1,7 @@
-import type { Message } from "@/lib/interfaces";
-import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "@/lib/ai-handler";
 import { AIService } from "@/lib/ai-service";
+import type { Message } from "@/lib/interfaces";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 vi.mock("@/lib/ai-service");
 

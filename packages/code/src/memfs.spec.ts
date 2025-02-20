@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "./memfs";
 
 interface MockFileSystemFile {
-  kind: 'file';
+  kind: "file";
   name: string;
   getFile: () => Promise<{
     size: number;
@@ -13,7 +13,7 @@ interface MockFileSystemFile {
 }
 
 interface MockFileSystemDirectory {
-  kind: 'directory';
+  kind: "directory";
   name: string;
   getDirectoryHandle: () => Promise<unknown>;
   entries: () => AsyncGenerator<[string, MockFileSystemEntry]>;

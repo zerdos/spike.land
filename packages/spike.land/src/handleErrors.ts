@@ -22,8 +22,8 @@ export function handleErrors(
       pair[1].close(1011, "Uncaught exception during session setup");
       return new Response(null, {
         status: 101,
-        webSocket: pair[0]
-      } as { status: number; webSocket: WebSocket });
+        webSocket: pair[0],
+      } as { status: number; webSocket: WebSocket; });
     } else {
       let stack = "We have no idea what happened";
 

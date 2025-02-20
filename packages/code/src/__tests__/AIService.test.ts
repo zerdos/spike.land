@@ -1,6 +1,6 @@
+import { AIService } from "@/lib/ai-service";
 import type { Message } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AIService } from "@/lib/ai-service";
 
 vi.mock("../shared", () => ({
   prettierToThrow: vi.fn().mockResolvedValue("const x = 5;"),

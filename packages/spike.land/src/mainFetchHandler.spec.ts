@@ -148,8 +148,8 @@ describe("MainFetchHandler", () => {
       );
       expect(response).toBe(mockFetchApiResponse);
 
-      const routesCopy = {...routes};
-      delete (routesCopy as {[key: string]: string})["/"];
+      const routesCopy = { ...routes };
+      delete (routesCopy as { [key: string]: string; })["/"];
       Object.assign(routes, routesCopy);
     });
   });

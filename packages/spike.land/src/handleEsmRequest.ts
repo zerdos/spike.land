@@ -41,7 +41,7 @@ export async function handleEsmRequest(
     // Cache responses in R2 with correct metadata
     const headerEntries: [string, string][] = [];
     resp.headers.forEach((value, key) => headerEntries.push([key, value]));
-    
+
     ctx.waitUntil(env.R2.put(key, arrayBuffer, {
       httpMetadata: Object.fromEntries(headerEntries),
     }));

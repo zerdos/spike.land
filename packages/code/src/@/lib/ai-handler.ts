@@ -1,5 +1,5 @@
-import type { Message } from "@/lib/interfaces";
 import { AIService } from "@/lib/ai-service";
+import type { Message } from "@/lib/interfaces";
 
 export class AIHandler {
   private aiService: AIService;

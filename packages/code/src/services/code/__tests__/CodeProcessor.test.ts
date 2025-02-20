@@ -46,8 +46,8 @@ describe("CodeProcessor", () => {
   // Test interface definition
   interface WindowWithWebSocket {
     frames: Record<number, {
-        webSocketManager: IWebSocketManager;
-      }>;
+      webSocketManager: IWebSocketManager;
+    }>;
   }
 
   beforeEach(() => {

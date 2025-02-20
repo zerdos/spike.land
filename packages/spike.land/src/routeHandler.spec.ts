@@ -103,7 +103,6 @@ describe("RouteHandler", () => {
         expect(response.webSocket).toHaveProperty("close");
         expect(mockCode.wsHandler?.handleWebsocketSession).toHaveBeenCalled();
       });
-
     });
 
     describe("handleDefaultRoute", () => {

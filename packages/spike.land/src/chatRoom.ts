@@ -36,7 +36,7 @@ export class Code implements DurableObject {
 
   constructor(
     private state: DurableObjectState,
-    private env: import("./env").default
+    private env: import("./env").default,
   ) {
     this.env = env;
 

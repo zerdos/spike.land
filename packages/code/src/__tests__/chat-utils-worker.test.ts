@@ -19,7 +19,7 @@ const mockSelf = {
 } as MockWorkerScope;
 
 global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
-(global as unknown as { self: MockWorkerScope }).self = mockSelf;
+(global as unknown as { self: MockWorkerScope; }).self = mockSelf;
 
 describe("handleSendMessage", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;

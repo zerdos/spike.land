@@ -48,7 +48,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   const maybeKey = codeSpace.split("-")[1];
 
   const [isOpen, setIsOpen] = useState(
-    maybeKey && sessionStorage.getItem(maybeKey) ? true : false
+    maybeKey && sessionStorage.getItem(maybeKey) ? true : false,
   );
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
@@ -97,7 +97,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
               onClick={handleToggleAutoSaveHistory}
               className={cn(
                 "rounded-full w-12 h-12 p-0",
-                "hover:bg-primary transition-colors"
+                "hover:bg-primary transition-colors",
               )}
               title="Show Version History"
             >
@@ -108,7 +108,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
                 onClick={handleToggleChat}
                 className={cn(
                   "rounded-full w-12 h-12 p-0",
-                  "hover:bg-primary transition-colors"
+                  "hover:bg-primary transition-colors",
                 )}
                 title="Open Chat"
               >

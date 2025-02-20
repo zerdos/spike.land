@@ -1,5 +1,5 @@
 // Mock implementation of replicate
-const { vi } = require('vitest');
+const { vi } = require("vitest");
 
 const replicate = {
   run: vi.fn().mockResolvedValue({

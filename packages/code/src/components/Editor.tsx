@@ -61,7 +61,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         const newHash = md5(formatted);
         const startSync = performance.now();
-        
+
         // Only update if content has actually changed
         if (newHash !== lastHash) {
           setLastHash(newHash);

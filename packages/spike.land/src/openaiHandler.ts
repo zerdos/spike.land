@@ -77,7 +77,7 @@ export async function handleGPT4Request(
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-        }
+        },
       );
     }
   }
@@ -94,7 +94,7 @@ export async function handleGPT4Request(
               "Content-Type": "application/json",
               "Access-Control-Allow-Origin": "*",
             },
-          }
+          },
         );
       }
 
@@ -122,7 +122,7 @@ export async function handleGPT4Request(
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-      }
+      },
     );
   }
 

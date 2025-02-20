@@ -37,7 +37,7 @@ describe("Code", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    delete (window as unknown as { frames: Record<number, unknown> }).frames[0];
+    delete (window as unknown as { frames: Record<number, unknown>; }).frames[0];
   });
 
   beforeEach(async () => {
@@ -98,7 +98,7 @@ describe("Code", () => {
     interface MockWindow {
       frames: Record<number, {
         webSocketManager: {
-          handleRunMessage: () => Promise<{ html: string; css: string }>;
+          handleRunMessage: () => Promise<{ html: string; css: string; }>;
           init: () => void;
           cleanup: () => void;
         };
@@ -107,7 +107,7 @@ describe("Code", () => {
 
     // Mock window.frames[0]
     (window as unknown as MockWindow).frames[0] = {
-      webSocketManager: mockWebSocketManager
+      webSocketManager: mockWebSocketManager,
     };
 
     // Initialize Code instance

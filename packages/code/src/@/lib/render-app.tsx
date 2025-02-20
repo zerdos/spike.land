@@ -5,16 +5,16 @@ import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-  import { ThemeProvider } from "@/components/ui/theme-provider";
-  import useWindowSize from "@/hooks/use-window-size";
-  import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
-  import { md5 } from "@/lib/md5";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import useWindowSize from "@/hooks/use-window-size";
+import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 
-  const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
-    return URL?.createObjectURL?.(blob) || (async (blob: Blob) => {
-      // it means that the URL.createObjectURL is not available
-      // so we are in node environment
-      // we can create a tmp file and return the path
+const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
+  return URL?.createObjectURL?.(blob) || (async (blob: Blob) => {
+    // it means that the URL.createObjectURL is not available
+    // so we are in node environment
+    // we can create a tmp file and return the path
 
     const fs = await import("fs");
     const path = await import("path");
@@ -25,7 +25,7 @@ import ErrorBoundary from "@/components/app/error-boundary";
     try {
       await fsPromises.access(tmpPath);
     } catch (e: unknown) {
-      if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
+      if (e && typeof e === "object" && "code" in e && e.code === "ENOENT") {
         await fsPromises.mkdir(tmpPath);
       } else {
         throw e;

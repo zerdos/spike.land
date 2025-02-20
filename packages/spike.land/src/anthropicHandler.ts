@@ -96,13 +96,13 @@ export async function handleAnthropicRequest(
       content: [
         {
           type: "text",
-          text: "Test response"
-        }
+          text: "Test response",
+        },
       ],
       usage: {
         input_tokens: 10,
-        output_tokens: 20
-      }
+        output_tokens: 20,
+      },
     };
     return new Response(JSON.stringify(formattedResponse), {
       headers: {
