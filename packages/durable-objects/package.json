@@ -6,7 +6,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.7.0",
+    "@cloudflare/vitest-pool-workers": "0.7.1",
     "@cloudflare/workers-types": "4.20250214.0",
     "@types/node": "22.13.4",
     "miniflare": "3.20250214.0",

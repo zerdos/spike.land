@@ -16,7 +16,7 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.7.0",
+    "@cloudflare/vitest-pool-workers": "0.7.1",
     "@cloudflare/workers-types": "4.20250214.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.13.4",
