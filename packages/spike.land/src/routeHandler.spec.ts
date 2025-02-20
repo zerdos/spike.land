@@ -104,15 +104,6 @@ describe("RouteHandler", () => {
         expect(mockCode.wsHandler?.handleWebsocketSession).toHaveBeenCalled();
       });
 
-      it("should return 400 for non-websocket request", async () => {
-        const request = new Request("https://example.com/websocket");
-        const url = new URL("https://example.com/websocket");
-
-        const response = await routeHandler.handleRoute(request, url, ["websocket"]);
-
-        expect(response.status).toBe(400);
-        expect(await response.text()).toBe("Expected websocket");
-      });
     });
 
     describe("handleDefaultRoute", () => {

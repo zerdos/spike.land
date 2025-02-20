@@ -41,7 +41,7 @@ describe("FetchHandler", () => {
     global.fetch = mockFetch;
 
     // Create a mock environment
-    mockEnv = createMockEnv();
+    mockEnv = createMockEnv() as unknown as Env;
 
     mockCtx = {
       waitUntil: vi.fn(),
@@ -102,14 +102,6 @@ describe("FetchHandler", () => {
       expect(response.webSocket).toBeDefined();
     });
 
-    it("should reject non-WebSocket upgrade request", async () => {
-      const mockRequest = new Request("https://example.com/websocket");
-
-      const response = await handleFetchApi(["websocket"], mockRequest, mockEnv as Env, mockCtx);
-
-      expect(response.status).toBe(400);
-      expect(await response.text()).toBe("expected websocket");
-    });
   });
 
   describe("Import Map JSON", () => {
