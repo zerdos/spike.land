@@ -9,12 +9,8 @@ vi.mock("./routeHandler", async () => {
 });
 
 describe("Hono app routes", () => {
-  vi.mock("snakecase-keys", async () => {
-    const snakecaseKeys = await import("snakecase-keys");
-    return {
-      default: snakecaseKeys.default,
-    };
-  });
+  vi.mock("snakecase-keys", () => ({}));
+
   // const state = {
   const state = {
     storage: {

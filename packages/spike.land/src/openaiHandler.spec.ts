@@ -1,30 +1,32 @@
 import OpenAI from "openai";
-import { beforeEach, describe, expect, it } from "vitest";
-import { type Mock, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { Mock } from "vitest";
 import type Env from "./env";
 import { handleGPT4Request } from "./openaiHandler";
 import { readRequestBody } from "./utils";
 
-// Mock OpenAI class
+// Mock OpenAI class using vi.spyOn
+const mockOpenAIAudioSpeechCreate = vi.fn();
+const mockOpenAIAudioTranscriptionsCreate = vi.fn();
+const mockOpenAIChatCompletionsCreate = vi.fn();
+
 vi.mock("openai", () => {
   return {
     default: vi.fn().mockImplementation(() => ({
       audio: {
         speech: {
-          create: vi.fn().mockResolvedValue({
-            arrayBuffer: () => Promise.resolve(new ArrayBuffer(10))
-          })
+          create: mockOpenAIAudioSpeechCreate,
         },
         transcriptions: {
-          create: vi.fn().mockResolvedValue("Transcribed text goes here")
-        }
+          create: mockOpenAIAudioTranscriptionsCreate,
+        },
       },
       chat: {
         completions: {
-          create: vi.fn()
-        }
-      }
-    }))
+          create: mockOpenAIChatCompletionsCreate,
+        },
+      },
+    })),
   };
 });
 
@@ -73,7 +75,8 @@ describe("OpenAIHandler", () => {
         input: "Hello, world!",
       });
 
-      OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
+      // Mock the specific return value for this test case
+      mockOpenAIAudioSpeechCreate.mockResolvedValueOnce({
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(10)),
       });
 
@@ -83,12 +86,12 @@ describe("OpenAIHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("audio/mpeg");
 
       // Verify OpenAI method was called with correct parameters
-      expect(OpenAI.prototype.audio.speech.create).toHaveBeenCalledWith({
+      expect(mockOpenAIAudioSpeechCreate).toHaveBeenCalledWith({
         model: "tts-1",
-        voice: "alloy",
         input: "Hello, world!",
-        response_format: "mp3",
-        speed: 1,
+        voice: "alloy", // Default voice
+        response_format: "mp3", // Default response format
+        speed: 1, //default
       });
     });
 
@@ -111,7 +114,8 @@ describe("OpenAIHandler", () => {
         speed: 1.5,
       });
 
-      OpenAI.prototype.audio.speech.create = vi.fn().mockResolvedValueOnce({
+      // Mock the specific return value for this test case
+      mockOpenAIAudioSpeechCreate.mockResolvedValueOnce({
         arrayBuffer: () => Promise.resolve(new ArrayBuffer(10)),
       });
 
@@ -121,11 +125,11 @@ describe("OpenAIHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("audio/mpeg");
 
       // Verify OpenAI method was called with correct parameters
-      expect(OpenAI.prototype.audio.speech.create).toHaveBeenCalledWith({
+      expect(mockOpenAIAudioSpeechCreate).toHaveBeenCalledWith({
         model: "tts-1-hd",
-        voice: "nova",
         input: "Custom voice test",
-        response_format: "mp3",
+        voice: "nova",
+        response_format: "mp3", //default
         speed: 1.5,
       });
     });
@@ -145,7 +149,8 @@ describe("OpenAIHandler", () => {
         input: "Error test",
       });
 
-      OpenAI.prototype.audio.speech.create = vi.fn().mockRejectedValueOnce(new Error("TTS error"));
+      // Mock the specific return value for this test case
+      mockOpenAIAudioSpeechCreate.mockRejectedValueOnce(new Error("TTS error"));
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -159,7 +164,9 @@ describe("OpenAIHandler", () => {
 
   describe("Whisper Transcription Request", () => {
     it("should handle whisper transcription", async () => {
-      const mockFile = new File(["test audio data"], "audio.mp3", { type: "audio/mpeg" });
+      const mockFile = new File(["test audio data"], "audio.mp3", {
+        type: "audio/mpeg",
+      });
       const mockRequest = new Request("https://example.com", {
         method: "POST",
         body: JSON.stringify({
@@ -177,7 +184,8 @@ describe("OpenAIHandler", () => {
       });
 
       const mockTranscription = "Transcribed text goes here";
-      (OpenAI.prototype.audio.transcriptions.create as Mock).mockResolvedValue(mockTranscription);
+      // Mock the specific return value for this test case
+      mockOpenAIAudioTranscriptionsCreate.mockResolvedValue(mockTranscription);
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -188,11 +196,11 @@ describe("OpenAIHandler", () => {
       expect(transcriptionBody).toEqual({ text: mockTranscription });
 
       // Verify OpenAI method was called with correct parameters
-      expect(OpenAI.prototype.audio.transcriptions.create).toHaveBeenCalledWith({
+      expect(mockOpenAIAudioTranscriptionsCreate).toHaveBeenCalledWith({
         model: "whisper-1",
         file: mockFile,
-        response_format: "text",
         prompt: "Optional context",
+        response_format: "json", //default
       });
     });
 
@@ -219,7 +227,9 @@ describe("OpenAIHandler", () => {
     });
 
     it("should handle whisper transcription error", async () => {
-      const mockFile = new File(["test audio data"], "audio.mp3", { type: "audio/mpeg" });
+      const mockFile = new File(["test audio data"], "audio.mp3", {
+        type: "audio/mpeg",
+      });
       const mockRequest = new Request("https://example.com", {
         method: "POST",
         body: JSON.stringify({
@@ -234,9 +244,8 @@ describe("OpenAIHandler", () => {
         file: mockFile,
       });
 
-      (OpenAI.prototype.audio.transcriptions.create as Mock).mockRejectedValueOnce(
-        new Error("Transcription error"),
-      );
+      // Mock the specific return value for this test case
+      mockOpenAIAudioTranscriptionsCreate.mockRejectedValueOnce(new Error("Transcription error"));
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -265,19 +274,12 @@ describe("OpenAIHandler", () => {
       });
 
       const mockStream = async function*() {
-        yield {
-          choices: [{
-            delta: { content: "Hello " },
-          }],
-        };
-        yield {
-          choices: [{
-            delta: { content: "world" },
-          }],
-        };
+        yield { choices: [{ delta: { content: "Hello " } }] };
+        yield { choices: [{ delta: { content: "world" } }] };
       };
 
-      OpenAI.prototype.chat.completions.create = vi.fn().mockResolvedValueOnce(mockStream());
+      // Mock the specific return value for this test case
+      mockOpenAIChatCompletionsCreate.mockResolvedValueOnce(mockStream());
 
       const response = await handleGPT4Request(mockRequest, mockEnv as Env, mockCtx);
 
@@ -285,7 +287,7 @@ describe("OpenAIHandler", () => {
       expect(response.headers.get("Content-Type")).toBe("text/event-stream");
 
       // Verify OpenAI method was called with correct parameters
-      expect(OpenAI.prototype.chat.completions.create).toHaveBeenCalledWith(
+      expect(mockOpenAIChatCompletionsCreate).toHaveBeenCalledWith(
         expect.objectContaining({
           model: "gpt-4o-mini",
           messages: [{ role: "user", content: "Hello" }],

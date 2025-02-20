@@ -228,7 +228,7 @@ describe("AnthropicHandler", () => {
         id: "msg_01",
         model: "claude-3-5-sonnet-20241022",
         role: "assistant",
-        content: [{ type: "text", text: "Test response with image" }],
+        content: [{ type: "text", text: "Test response" }],
         usage: { input_tokens: 10, output_tokens: 20 },
       });
     });

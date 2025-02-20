@@ -5,6 +5,6 @@ export default defineWorkspace([
   "./packages/code/vitest.config.ts",
   "./packages/hello-ai/vitest.config.mts",
   "./packages/spike-land-renderer/vitest.config.mts",
-  "./packages/spike.land/vitest.config.mts",
+  // "./packages/spike.land/vitest.config.mts", // Removed incorrect entry
   "./packages/spike.land/vitest.config.ts"
 ])
