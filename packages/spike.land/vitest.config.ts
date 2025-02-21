@@ -15,7 +15,7 @@ export default defineWorkersConfig({
   resolve: {
     alias: {
       replicate: path.resolve(__dirname, "__mocks__/replicate.js"),
-      "snakecase-keys": path.resolve(__dirname, "snakecase-keys.bundle.js"),
+      "snakecase-keys": path.resolve(__dirname, "__mocks__/snakecase-keys.js"),
     },
   },
 });

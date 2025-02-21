@@ -1,4 +1,3 @@
-// Mock snakecase-keys module
-module.exports = {
-  default: {},
-};
+export default function snakecaseKeys(obj) {
+  return obj;
+}

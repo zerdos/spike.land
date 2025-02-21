@@ -35,7 +35,7 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.7.1",
     "@cloudflare/workers-types": "4.20250214.0",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@types/react": "19.0.10",
     "@types/ws": "^8.5.14",
     "@typescript-eslint/parser": "8.24.1",
@@ -50,6 +50,6 @@
   "packageManager": "yarn@4.6.0",
   "dependencies": {
     "replicate": "^1.0.1",
-    "ws": "^8.18.0"
+    "ws": "^8.18.1"
   }
 }

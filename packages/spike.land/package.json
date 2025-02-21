@@ -17,8 +17,7 @@
     "types:check": "tsc --noEmit",
     "test:unit": "vitest run",
     "test:api": "yarn types:check && yarn lint && yarn test:unit",
-    "test:watch": "vitest",
-    "build:snakecase-keys": "rollup --bundleConfigAsCjs -c rollup.config.mjs"
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
@@ -52,7 +51,7 @@
     "@remix-run/cloudflare": "2.15.3",
     "@remix-run/react": "2.15.3",
     "@spike-npm-land/code": "0.9.56",
-    "@types/node": "22.13.4",
+    "@types/node": "22.13.5",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.25.0",
