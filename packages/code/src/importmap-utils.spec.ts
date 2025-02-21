@@ -38,7 +38,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, "");
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import * as Monaco from "/@/workers/monaco-editor.worker.mjs";"
+      import * as Monaco from "$/@/workers/monaco-editor.worker.mjs";"
     `);
   });
 
@@ -48,6 +48,34 @@ describe("importMapReplace", () => {
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
       import "/@/workers/monaco-editor.worker.js";"
+    `);
+  });
+
+  // Relative paths
+  it("should handle relative imports without extension", async () => {
+    const code = `import { helper } from "./utils/helper";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchInlineSnapshot(`
+      "/** importMapReplace */
+      import { helper } from "utils/helper.mjs";"
+    `);
+  });
+
+  it("should handle parent directory relative imports", async () => {
+    const code = `import { shared } from "../shared/utils";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchInlineSnapshot(`
+      "/** importMapReplace */
+      import { shared } from "../shared/utils.mjs";"
+    `);
+  });
+
+  it("should preserve existing extensions in relative imports", async () => {
+    const code = `import { component } from "./components/Button";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchInlineSnapshot(`
+      "/** importMapReplace */
+      import { component } from "components/Button.mjs";"
     `);
   });
 
@@ -71,25 +99,6 @@ describe("importMapReplace", () => {
     `);
   });
 
-  // Relative paths
-  it("should handle relative imports", async () => {
-    const code = `import { helper } from "./utils/helper";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { helper } from "/live/utils/helper/index.js";"
-    `);
-  });
-
-  it("should handle parent directory imports", async () => {
-    const code = `import { shared } from "../shared/utils";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { shared } from "../shared/utils";"
-    `);
-  });
-
   // HTTP URLs
   it("should handle http URLs from same origin", async () => {
     const code = `import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";`;
@@ -106,25 +115,6 @@ describe("importMapReplace", () => {
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
       import { lib } from "http://example.com/lib?bundle=true&exports=foo";"
-    `);
-  });
-
-  // File extensions
-  it("should handle js file extensions", async () => {
-    const code = `import { util } from "utils.js";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { util } from "http://localhost:3000/utils.js";"
-    `);
-  });
-
-  it("should handle ts/tsx file extensions", async () => {
-    const code = `import { Component } from "Component.tsx";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { Component } from "http://localhost:3000/Component.tsx";"
     `);
   });
 

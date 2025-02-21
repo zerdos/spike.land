@@ -58,10 +58,16 @@ export function importMapReplace(code: string, origin: string): string {
       }
       if (pkg.startsWith("http")) return match;
       if (pkg.startsWith("/")) return match;
-      if (pkg.startsWith("./")) return match;
+      if (pkg.startsWith("./") || pkg.startsWith("../")) {
+        const hasExtension = pkg.split("/").pop()?.includes(".");
+        if (!hasExtension) {
+          return `import "${pkg}.mjs"` + (hasSemicolon ? ";" : "");
+        }
+        return match;
+      }
       if (pkg.startsWith(",")) return match;
 
-      return `import "${origin}/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
+      return `import "/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
     }
 
     if (p2?.startsWith("`") && p2.endsWith("`")) {
@@ -81,22 +87,30 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (packageName?.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"/live/${packageName.slice(2)}/index.js"` + p3;
+      return p1 + `"${packageName.slice(2)}.mjs"` + p3;
     }
 
     if (packageName?.startsWith("/")) {
       return p1 + `"${packageName}"` + p3;
     }
 
-    if (packageName?.startsWith("@/") || packageName?.startsWith("/@/")) {
+    if (packageName?.startsWith("@/")) {
       // if (packageName?.includes(".worker")) {
       //   return p1 + `"${origin}/${packageName}.js"` + p3;
       // }
-      return p1 + `"${origin}/${packageName}.mjs"` + p3;
+      return p1 + `"$/${packageName}.mjs"` + p3;
     }
 
-    if (packageName?.startsWith(".") || packageName?.startsWith("http")) {
-      if (packageName?.startsWith("http") && !packageName?.startsWith(origin)) {
+    // Handle relative paths
+    if (packageName?.startsWith(".")) {
+      if (!packageName.includes(".")) {
+        return p1 + `"${packageName}.mjs"` + p3;
+      }
+      return p1 + `"${packageName}.mjs"` + p3;
+    }
+
+    if (packageName?.startsWith("http")) {
+      if (!packageName?.startsWith(origin)) {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split(
           "?bundle=true&exports=",
@@ -160,19 +174,6 @@ export function importMapReplace(code: string, origin: string): string {
     .map((line) => line.trim())
     .filter((line) => !line.startsWith("//"))
     .join("\n");
-
-  // Replace specific package paths based on the import map (oo)
-  // Object.keys(oo).forEach((pkg) => {
-  //   replaced = replaced.split(`/${pkg}?${externalString}`).join(
-  //     origin + oo[pkg as keyof typeof oo],
-  //   );
-  // });
-
-  // Object.keys(oo).forEach((pkg) => {
-  //   replaced = replaced.split(`"${pkg}"`).join(
-  //     "\"" + pkg + "\"",
-  //   );
-  // });
 
   return `/** importMapReplace */
 ${replaced}`;
