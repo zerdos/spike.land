@@ -35,13 +35,13 @@ interface MockableFn<T extends (...args: any[]) => any> extends Function {
 }
 
 // KVNamespace get method overloads
-type KVGet = {
+interface KVGet {
   (key: string, options?: Partial<KVNamespaceGetOptions<undefined>>): Promise<string | null>;
   (key: string, type: "text"): Promise<string | null>;
   <ExpectedValue = unknown>(key: string, type: "json"): Promise<ExpectedValue | null>;
   (key: string, type: "arrayBuffer"): Promise<ArrayBuffer | null>;
   (key: string, type: "stream"): Promise<ReadableStream | null>;
-};
+}
 
 export interface MockableKVNamespace<T extends string = string>
   extends Omit<KVNamespace<T>, "get" | "put" | "list">
@@ -100,7 +100,7 @@ export interface KVNamespaceListOptions {
 }
 
 export interface KVNamespaceListResult<Metadata, Key> {
-  keys: { name: Key; metadata?: Metadata; }[];
+  keys: Array<{ name: Key; metadata?: Metadata; }>;
   list_complete: boolean;
   cursor?: string;
 }

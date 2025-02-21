@@ -109,7 +109,9 @@ export async function buildMainScripts(): Promise<void> {
     mangleQuoted: true,
     platform: "browser",
     external: [
-      "worker_threads", "react", "react-dom",
+      "worker_threads",
+      "react",
+      "react-dom",
     ],
     minify: false,
     ignoreAnnotations: false,

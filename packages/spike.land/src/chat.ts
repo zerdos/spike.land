@@ -155,7 +155,7 @@ const main = {
 
     if (request.url.includes("anthropic")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
-      return handleAnthropicRequest(request, env, ctx);
+      return handleAnthropicRequest(request, env);
     }
     if (request.url.includes("ai-logs")) {
       function createArray(n: number) {
@@ -208,7 +208,7 @@ const main = {
     }
     if (request.url.includes("openai")) {
       ctx.waitUntil(logger.log(`Request for ${request.url}`));
-      return handleGPT4Request(request, env, ctx);
+      return handleGPT4Request(request, env);
     }
     if (request.url.includes("whisper")) {
       const formData = await request.formData();

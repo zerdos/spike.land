@@ -1,7 +1,7 @@
+import { AIService } from "@/lib/ai-service";
 import type { Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/workers/chat-utils.worker";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { AIService } from "@/lib/ai-service";
 
 // Mock BroadcastChannel
 const mockBCPostMessage = vi.fn();

@@ -1,10 +1,8 @@
-
 import type Env from "./env";
-  
-  
+
 export async function handleAnthropicRequest(
   originalRequest: Request,
-  env: Env
+  env: Env,
 ) {
   // Handle CORS preflight
   if (originalRequest.method === "OPTIONS") {
@@ -19,17 +17,16 @@ export async function handleAnthropicRequest(
 
   try {
     // Parse the original URL properly
-    const baseURL = "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic"
+    const baseURL =
+      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic";
 
-  
-  
     const originalUrl = new URL(originalRequest.url);
     const pathAfterAnthropicAi = originalUrl.pathname.split("/anthropic").pop() || "";
     const url = new URL(pathAfterAnthropicAi, baseURL);
 
     // Clone request to ensure body stream can be consumed
     const clonedRequest = originalRequest.clone();
-    
+
     // Set up headers with proper authorization format
     const headers = new Headers(clonedRequest.headers);
     headers.set("Authorization", `Bearer ${env.ANTHROPIC_API_KEY}`);
@@ -50,30 +47,26 @@ export async function handleAnthropicRequest(
     // Clone the response to add CORS headers
     const responseHeaders = new Headers(response.headers);
     responseHeaders.set("Access-Control-Allow-Origin", "*");
-    
+
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers: responseHeaders,
     });
-
   } catch (error) {
     console.error("Error in handleAnthropicRequest:", error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: "Failed to process request",
-        details: error instanceof Error ? error.message : "Unknown error"
+        details: error instanceof Error ? error.message : "Unknown error",
       }),
-      { 
+      {
         status: 500,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-        }
-      }
+        },
+      },
     );
   }
 }
-
-
-

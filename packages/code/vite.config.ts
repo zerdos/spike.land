@@ -15,7 +15,7 @@ const getExternalFiles = (dir: string) => {
     // Use path.parse for clearer filename handling
     const { name } = path.parse(filename);
     // If the filename includes "worker", use .js; otherwise, .mjs
-    const extension = 'mjs' //filename.includes("worker") ? "js" : "mjs";
+    const extension = "mjs"; // filename.includes("worker") ? "js" : "mjs";
     return { type: "external", file: `/${dir}/${name}.${extension}` };
   });
 };

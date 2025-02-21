@@ -8,7 +8,7 @@ import { handleMainFetch } from "./mainFetchHandler";
 import { handleUnauthorizedRequest } from "./utils";
 
 describe("MainFetchHandler", () => {
-  let mockEnv = {} as Env;
+  const mockEnv = {} as Env;
   let mockCtx: ExecutionContext;
 
   beforeEach(() => {
@@ -149,7 +149,7 @@ describe("MainFetchHandler", () => {
       expect(response).toBe(mockFetchApiResponse);
 
       const routesCopy = { ...routes };
-      delete (routesCopy as { [key: string]: string; })["/"];
+      delete (routesCopy as Record<string, string>)["/"];
       Object.assign(routes, routesCopy);
     });
   });
