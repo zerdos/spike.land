@@ -4097,7 +4097,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
-    "@anthropic-ai/sdk": "npm:^0.36.3"
+    "@anthropic-ai/sdk": "npm:0.36.3"
     "@clerk/clerk-react": "npm:5.23.0"
     "@clerk/nextjs": "npm:6.12.0"
     "@cloudflare/workers-types": "npm:4.20250214.0"
@@ -4244,6 +4244,7 @@ __metadata:
     node-source-walk: "npm:7.0.1"
     object-hash: "npm:3.0.0"
     object-inspect: "npm:1.13.4"
+    openai: "npm:5.0.0-alpha.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.3"
     path-browserify: "npm:1.0.1"
@@ -13718,6 +13719,20 @@ __metadata:
   bin:
     openai: bin/cli
   checksum: 10c0/da3dfb7a8107ad38c3404d5dc0a2eaa51d2423e811c02648fdd1d104a3d83756e950cae8d053ea0d9b1086cac50fa5a0d778d87a6fef294a4343a2814af97b9b
+  languageName: node
+  linkType: hard
+
+"openai@npm:5.0.0-alpha.0":
+  version: 5.0.0-alpha.0
+  resolution: "openai@npm:5.0.0-alpha.0"
+  peerDependencies:
+    zod: ^3.23.8
+  peerDependenciesMeta:
+    zod:
+      optional: true
+  bin:
+    openai: bin/cli
+  checksum: 10c0/34630e4cfcc18d383c257eb24a0c3756d796b20a6e30d2b32e9329181850976f1b47acbc711fbb3496a6d2d89d807226bf9a191985f30f099a59a19d50644017
   languageName: node
   linkType: hard
 

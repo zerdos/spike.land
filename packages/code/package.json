@@ -175,6 +175,7 @@
     "node-source-walk": "7.0.1",
     "object-hash": "3.0.0",
     "object-inspect": "1.13.4",
+    "openai": "5.0.0-alpha.0",
     "os-browserify": "0.3.0",
     "p-map": "7.0.3",
     "path-browserify": "1.0.1",

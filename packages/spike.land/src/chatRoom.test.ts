@@ -5,7 +5,7 @@ import { RouteHandler } from "./routeHandler";
 import type { MockContainer, MockKV, MockR2Bucket, MockSql, MockStaticContent } from "./types/test";
 
 vi.mock("./routeHandler", () => ({
-  RouteHandler: vi.fn()
+  RouteHandler: vi.fn(),
 }));
 
 describe("Hono app routes", () => {
@@ -183,7 +183,9 @@ describe("Hono app routes", () => {
       }),
     };
 
-    (RouteHandler as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => mockRouteHandler as unknown as RouteHandler);
+    (RouteHandler as unknown as ReturnType<typeof vi.fn>).mockImplementation(() =>
+      mockRouteHandler as unknown as RouteHandler
+    );
 
     app = new Code(state, env);
     app.fetch = vi.fn(app.fetch.bind(app));

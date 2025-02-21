@@ -1,4 +1,4 @@
-import type { Mock } from 'vitest';
+import type { Mock } from "vitest";
 
 // Type for mocking SQL functionality
 export interface MockSql {

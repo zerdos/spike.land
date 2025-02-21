@@ -32,7 +32,7 @@ type MockableFn<T> = T & {
   mockRejectedValue?: (error: Error) => void;
   mockResolvedValueOnce?: <R>(value: R) => void;
   mockRejectedValueOnce?: (error: Error) => void;
-}
+};
 
 // KVNamespace get method overloads
 interface KVGet {
