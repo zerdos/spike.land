@@ -146,8 +146,8 @@ export class Code implements DurableObject {
         //     }
         //   },
         // );
-      } catch (error) {
-        console.error("Error initializing session:", error);
+      } catch (_error) {
+        console.error("Error initializing session:", _error);
         this.session = this.backupSession;
       } finally {
         this.initialized = true;
@@ -210,8 +210,8 @@ export class Code implements DurableObject {
       if (!this.initialized && path[0] !== "websocket" && path[0] !== "users") {
         try {
           await this.initializeSession(url);
-        } catch (error) {
-          console.error("Session initialization error:", error);
+        } catch (_error) {
+          console.error("Session initialization error:", _error);
           // Continue with backup session
         }
       }
@@ -220,7 +220,7 @@ export class Code implements DurableObject {
         try {
           const newSession = await request.json();
           this.updateAndBroadcastSession(newSession);
-        } catch (error) {
+        } catch (_error) {
           return new Response("Invalid session data", { status: 400 });
         }
       }

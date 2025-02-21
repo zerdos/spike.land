@@ -2,16 +2,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Code } from "./chatRoom";
 import type Env from "./env";
 import { RouteHandler } from "./routeHandler";
+import type { MockContainer, MockKV, MockR2Bucket, MockSql, MockStaticContent } from "./types/test";
 
-vi.mock("./routeHandler", async () => {
-  const mod = await import("./routeHandler");
-  return mod;
-});
+vi.mock("./routeHandler", () => ({
+  RouteHandler: vi.fn()
+}));
 
 describe("Hono app routes", () => {
   vi.mock("snakecase-keys", () => ({}));
 
-  // const state = {
   const state = {
     storage: {
       get: vi.fn(),
@@ -35,9 +34,9 @@ describe("Hono app routes", () => {
         values: vi.fn(),
         first: vi.fn(),
         dump: vi.fn(),
-        databaseSize: vi.fn(),
+        databaseSize: () => 0,
         prepare: vi.fn(),
-      } as any, // Mocking sql as any for now
+      } satisfies MockSql,
       transactionSync: vi.fn(),
       getCurrentBookmark: vi.fn(),
       resetBookmark: vi.fn(),
@@ -69,8 +68,8 @@ describe("Hono app routes", () => {
       getTcpPort: vi.fn(() => ({
         fetch: vi.fn(() => Promise.resolve(new Response())),
       })),
-    } as any,
-  } as DurableObjectState;
+    } satisfies MockContainer,
+  } as unknown as DurableObjectState;
 
   const env: Env = {
     OPENAI_API_KEY: "",
@@ -83,24 +82,31 @@ describe("Hono app routes", () => {
       gateway: {
         logId: vi.fn(),
       },
-    } as any,
+      aiGatewayLogId: "test-log-id",
+    } as unknown as Env["AI"],
     KV: {
       get: vi.fn(),
       put: vi.fn(),
       list: vi.fn(),
       getWithMetadata: vi.fn(),
       delete: vi.fn(),
-    } as any,
-    __STATIC_CONTENT: { get: vi.fn() } as any, // casting to any to avoid type issues for now
+    } satisfies MockKV,
+    __STATIC_CONTENT: {
+      get: vi.fn(),
+      list: vi.fn(),
+      put: vi.fn(),
+      getWithMetadata: vi.fn(),
+      delete: vi.fn(),
+    } satisfies MockStaticContent,
     REPLICATE_API_TOKEN: "",
     ANTHROPIC_API_KEY: "",
     CLERK_SECRET_KEY: "",
     CF_REAL_TURN_TOKEN: "",
     ESBUILD: {
-      fetch: function(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+      fetch: function(_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> {
         throw new Error("Function not implemented.");
       },
-      connect: function(address: SocketAddress | string, options?: SocketOptions): Socket {
+      connect: function(_address: SocketAddress | string, _options?: SocketOptions): Socket {
         throw new Error("Function not implemented.");
       },
     },
@@ -109,15 +115,15 @@ describe("Hono app routes", () => {
       idFromName: vi.fn(),
       idFromString: vi.fn(),
       get: vi.fn(),
-      jurisdiction: "test",
-    } as any,
+      jurisdiction: vi.fn(),
+    } as unknown as DurableObjectNamespace,
     LIMITERS: {
       newUniqueId: vi.fn(),
       idFromName: vi.fn(),
       idFromString: vi.fn(),
       get: vi.fn(),
-      jurisdiction: "test",
-    } as any,
+      jurisdiction: vi.fn(),
+    } as unknown as DurableObjectNamespace,
     R2: {
       head: vi.fn(),
       get: vi.fn(),
@@ -125,8 +131,8 @@ describe("Hono app routes", () => {
       delete: vi.fn(),
       list: vi.fn(),
       createMultipartUpload: vi.fn(),
-      copy: vi.fn(),
-    } as any,
+      resumeMultipartUpload: vi.fn(),
+    } satisfies MockR2Bucket,
     X9: {
       head: vi.fn(),
       get: vi.fn(),
@@ -134,8 +140,8 @@ describe("Hono app routes", () => {
       delete: vi.fn(),
       list: vi.fn(),
       createMultipartUpload: vi.fn(),
-      copy: vi.fn(),
-    } as any,
+      resumeMultipartUpload: vi.fn(),
+    } satisfies MockR2Bucket,
   };
 
   let app: Code;
@@ -177,9 +183,9 @@ describe("Hono app routes", () => {
       }),
     };
 
-    vi.mocked(RouteHandler).mockImplementation(() => mockRouteHandler as unknown as RouteHandler);
+    (RouteHandler as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => mockRouteHandler as unknown as RouteHandler);
 
-    app = new Code(state as unknown as DurableObjectState, env);
+    app = new Code(state, env);
     app.fetch = vi.fn(app.fetch.bind(app));
   });
 

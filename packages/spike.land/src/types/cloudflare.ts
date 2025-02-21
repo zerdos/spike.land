@@ -1,36 +1,36 @@
 export interface MockableHeaders extends Headers {
-  mockImplementation?: (impl: Function) => void;
-  mockResolvedValue?: (value: any) => void;
+  mockImplementation?: <T>(impl: () => T) => void;
+  mockResolvedValue?: <T>(value: T) => void;
   mockRejectedValue?: (error: Error) => void;
-  mockResolvedValueOnce?: (value: any) => void;
+  mockResolvedValueOnce?: <T>(value: T) => void;
   mockRejectedValueOnce?: (error: Error) => void;
 }
 
 export interface MockableRequest extends Request {
   headers: MockableHeaders;
-  mockImplementation?: (impl: Function) => void;
-  mockResolvedValue?: (value: any) => void;
+  mockImplementation?: <T>(impl: () => T) => void;
+  mockResolvedValue?: <T>(value: T) => void;
   mockRejectedValue?: (error: Error) => void;
-  mockResolvedValueOnce?: (value: any) => void;
+  mockResolvedValueOnce?: <T>(value: T) => void;
   mockRejectedValueOnce?: (error: Error) => void;
 }
 
 export interface MockableResponse extends Response {
   headers: MockableHeaders;
-  mockImplementation?: (impl: Function) => void;
-  mockResolvedValue?: (value: any) => void;
+  mockImplementation?: <T>(impl: () => T) => void;
+  mockResolvedValue?: <T>(value: T) => void;
   mockRejectedValue?: (error: Error) => void;
-  mockResolvedValueOnce?: (value: any) => void;
+  mockResolvedValueOnce?: <T>(value: T) => void;
   mockRejectedValueOnce?: (error: Error) => void;
 }
 
 // Mockable method type
-interface MockableFn<T extends (...args: any[]) => any> extends Function {
-  (...args: Parameters<T>): ReturnType<T>;
-  mockImplementation?: (impl: Function) => void;
-  mockResolvedValue?: (value: any) => void;
+// Mockable method type that preserves the original function signature
+type MockableFn<T> = T & {
+  mockImplementation?: (impl: T) => void;
+  mockResolvedValue?: <R>(value: R) => void;
   mockRejectedValue?: (error: Error) => void;
-  mockResolvedValueOnce?: (value: any) => void;
+  mockResolvedValueOnce?: <R>(value: R) => void;
   mockRejectedValueOnce?: (error: Error) => void;
 }
 

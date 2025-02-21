@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "types:check": "tsc --noEmit",
     "test:unit": "vitest run",
-    "test:api": "yarn types:check && yarn lint --fix && yarn test:unit",
+    "test:api": "yarn types:check && yarn lint && yarn test:unit",
     "test:watch": "vitest"
   },
   "devDependencies": {
