@@ -1,4 +1,4 @@
-import { editor, languages, Uri } from "monaco-editor";
+export { editor, languages, Uri } from "monaco-editor";
 
 const baseUrl = "/";
 
@@ -22,5 +22,4 @@ const MonacoEnvironment = {
   },
 };
 
-Object.assign(window, { MonacoEnvironment });
-Object.assign(globalThis, { MonacoEnvironment, editor, languages, Uri });
+Object.assign(globalThis, { MonacoEnvironment });

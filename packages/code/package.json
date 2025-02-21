@@ -30,7 +30,7 @@
     "types:check": "tsc --noEmit",
     "types:build": "tsc --build",
     "types:watch": "tsc --watch",
-    "types:cp": "cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && cp -r dts/src/@ dist/.",
+    "types:cp": "cp -r dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && cp -r dts/src/@ dist/.",
     "// Testing": "",
     "test": "vitest --no-color --reporter dot 2> ./error.txt run || touch ./error.txt && cat ./error.txt | grep -v .yarn | grep -v node_modules && rm ./error.txt",
     "test:full": "yarn types:check && yarn lint && yarn test",

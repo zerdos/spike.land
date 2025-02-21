@@ -9,7 +9,7 @@ export const oo = {
   "react-dom/client": "/reactDomClient.mjs",
   "@emotion/react": "/emotion.mjs",
   "react": "/reactMod.mjs",
-  "framer-motion": "/motion.mjs",
+  "framer-motion": "/@/workers/framer-motion.mjs",
   "react-dom": "/reactDom.mjs",
 };
 
@@ -89,9 +89,9 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName?.startsWith("@/") || packageName?.startsWith("/@/")) {
-      if (packageName?.includes(".worker")) {
-        return p1 + `"${origin}/${packageName}.js"` + p3;
-      }
+      // if (packageName?.includes(".worker")) {
+      //   return p1 + `"${origin}/${packageName}.js"` + p3;
+      // }
       return p1 + `"${origin}/${packageName}.mjs"` + p3;
     }
 

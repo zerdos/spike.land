@@ -18,7 +18,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, "");
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import * as Monaco from "/@/workers/monaco-editor.worker.js";"
+      import * as Monaco from "/@/workers/monaco-editor.worker.mjs";"
     `);
   });
 

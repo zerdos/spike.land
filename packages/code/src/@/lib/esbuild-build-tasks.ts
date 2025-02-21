@@ -86,6 +86,36 @@ export async function buildMainScripts(): Promise<void> {
 
     outExtension: { ".js": ".js" },
   });
+
+  await build({
+    ...getCommonBuildOptions("production"),
+    entryPoints: workerFiles,
+    format: "esm",
+    outdir: "dist/@/workers",
+    bundle: true,
+    minifyIdentifiers: false,
+    minifySyntax: false,
+    minifyWhitespace: false,
+    treeShaking: true,
+    legalComments: "none",
+    sourcemap: false,
+    loader: {
+      ...getCommonBuildOptions("production").loader,
+      ".css": "text",
+    },
+    keepNames: false,
+    mangleProps: /_$/,
+    mangleCache: { "_": false },
+    mangleQuoted: true,
+    platform: "browser",
+    external: [
+      "worker_threads", "react", "react-dom",
+    ],
+    minify: false,
+    ignoreAnnotations: false,
+
+    outExtension: { ".js": ".mjs" },
+  });
 }
 
 export const buildWasm = async (): Promise<void> => {
@@ -281,7 +311,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       ...buildOptions.plugins,
     ],
     entryPoints: [
-      "src/motion.ts",
       "src/emotion.ts",
       "src/reactMod.ts",
       "src/reactDom.ts",

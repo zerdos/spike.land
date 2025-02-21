@@ -41,15 +41,15 @@ export class ServiceWorkerHandlers {
           cacheNames,
           myCache,
         );
-        console.log("Still missing files:", [...stillMissing].join(", "));
+        // console.log("Still missing files:", [...stillMissing].join(", "));
 
-        await Promise.allSettled(
-          [...stillMissing].map(async (url) =>
-            this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
-          ),
-        );
+        // await Promise.allSettled(
+        //   [...stillMissing].map(async (url) =>
+        //     this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
+        //   ),
+        // );
 
-        await this.fileCacheManager.validateCacheIntegrity();
+        // await this.fileCacheManager.validateCacheIntegrity();
         await this.sw.skipWaiting();
 
         await CacheUtils.cleanOldCaches(this.sw.fileCacheName);

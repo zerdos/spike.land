@@ -15,7 +15,7 @@ const getExternalFiles = (dir: string) => {
     // Use path.parse for clearer filename handling
     const { name } = path.parse(filename);
     // If the filename includes "worker", use .js; otherwise, .mjs
-    const extension = filename.includes("worker") ? "js" : "mjs";
+    const extension = 'mjs' //filename.includes("worker") ? "js" : "mjs";
     return { type: "external", file: `/${dir}/${name}.${extension}` };
   });
 };
@@ -35,9 +35,9 @@ const createExternalAliases = (
     const aliasKey = file.replace(/\.[^.]+$/, "").replace(/^\/@\//, "@/");
     if (isBuild) {
       aliases[aliasKey] = `/${aliasKey}.mjs`;
-      if (file.includes("worker")) {
-        aliases[aliasKey] = `/${aliasKey}.js`;
-      }
+      // if (file.includes("worker")) {
+      //   aliases[aliasKey] = `/${aliasKey}.js`;
+      // }
     }
     return aliases;
   }, {});
