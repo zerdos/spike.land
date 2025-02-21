@@ -49,7 +49,7 @@ const handleDelete = async (key: string, env: MyEnv): Promise<Response> => {
 };
 
 const R2BucketHandler = {
-  async fetch(request: Request, env: MyEnv, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, env: MyEnv, _ctx: ExecutionContext): Promise<Response> {
     try {
       const url = new URL(request.url);
       const key = url.pathname.slice(1);

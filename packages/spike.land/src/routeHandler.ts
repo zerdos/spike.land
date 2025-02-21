@@ -9,7 +9,7 @@ import {
 } from "@spike-npm-land/code";
 
 import type { Code } from "./chatRoom";
-import type Env from "./env";
+import type _Env from "./env";
 
 export interface AutoSaveEntry {
   timestamp: number;

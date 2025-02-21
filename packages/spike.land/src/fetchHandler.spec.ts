@@ -1,17 +1,25 @@
 import { importMap } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type Env from "./env.js";
-import type { default as EnvInterface } from "./env.js"; // Added explicit re-import
 import { handleFetchApi } from "./fetchHandler.js";
 import { handleEsmRequest } from "./handleEsmRequest.js";
 import { createMockEnv } from "./test-utils.js";
 import { handleCORS } from "./utils.js";
 
+interface MockWebSocket extends WebSocket {
+  accept: Mock;
+  addEventListener: Mock;
+  removeEventListener: Mock;
+  dispatchEvent: Mock;
+  send: Mock;
+  close: Mock;
+}
+
 vi.stubGlobal(
   "WebSocketPair",
   class {
-    0: any;
-    1: any;
+    0: MockWebSocket;
+    1: MockWebSocket;
     constructor() {
       const mockWebSocket = {
         accept: vi.fn(),
@@ -20,7 +28,17 @@ vi.stubGlobal(
         dispatchEvent: vi.fn(),
         send: vi.fn(),
         close: vi.fn(),
-      };
+        binaryType: "blob",
+        bufferedAmount: 0,
+        extensions: "",
+        onclose: null,
+        onerror: null,
+        onmessage: null,
+        onopen: null,
+        protocol: "",
+        readyState: WebSocket.CONNECTING,
+        url: "ws://test",
+      } as MockWebSocket;
       this[0] = { ...mockWebSocket };
       this[1] = { ...mockWebSocket };
     }

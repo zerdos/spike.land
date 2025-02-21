@@ -9,7 +9,7 @@ describe("WebSocketHandler", () => {
   let websocketHandler: WebSocketHandler;
   let mockCode: Partial<Code>;
   let mockWebSocket: WebSocket;
-  const mockSession: ICodeSession = {
+  const _mockSession: ICodeSession = {
     code: "mock code",
     html: "mock html",
     css: "mock css",
@@ -77,7 +77,7 @@ describe("WebSocketHandler", () => {
     it("should schedule periodic ping", () => {
       vi.useFakeTimers();
 
-      const mockSession = {
+      const _mockSession = {
         webSocket: mockWebSocket,
         name: "test",
         quit: false,
@@ -317,7 +317,7 @@ describe("WebSocketHandler", () => {
       } as unknown as WebSocket;
 
       websocketHandler.pushToWsSession({
-        ...mockSession,
+        ..._mockSession,
         name: "otherUser",
         webSocket: otherWebSocket,
       });

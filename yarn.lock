@@ -4097,6 +4097,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
+    "@anthropic-ai/sdk": "npm:^0.36.3"
     "@clerk/clerk-react": "npm:5.23.0"
     "@clerk/nextjs": "npm:6.12.0"
     "@cloudflare/workers-types": "npm:4.20250214.0"
