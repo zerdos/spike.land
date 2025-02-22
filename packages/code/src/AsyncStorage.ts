@@ -36,7 +36,7 @@ export {
 };
 
 export class AsyncLocalStorage {
-  private currentStore: Record<string, unknown> | null = null;
+  private currentStore: Record<string, unknown> = {};
 
   constructor() {
     console.log("AsyncStorage constructor");

@@ -15,6 +15,11 @@ import { DraggableWindow } from "./DraggableWindow";
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 
+Object.assign(globalThis, { setupAndRun: async () => {
+const {setupAndRun} = await import("./chat-utils-langchain-example");
+setupAndRun().catch(console.error);
+} });
+
 const Header: FC = () => {
   return (
     <header className="h-11 flex items-center justify-between px-3">
