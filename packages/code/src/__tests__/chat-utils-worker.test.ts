@@ -44,11 +44,7 @@ describe("handleSendMessage", () => {
   test("should handle valid messages", async () => {
     // Mock the entire AIService class within beforeEach for valid messages
     vi.spyOn(AIService.prototype, "prepareClaudeContent").mockReturnValue("Prepared content");
-    vi.spyOn(AIService.prototype, "sendToAI").mockResolvedValue({
-      id: "test-id",
-      role: "assistant",
-      content: "Test response",
-    });
+
 
     const testMessage: Message = {
       id: "test-message-1",
@@ -81,7 +77,6 @@ describe("handleSendMessage", () => {
 
     // Mock sendToAI to reject with an error for this specific test
     vi.spyOn(AIService.prototype, "prepareClaudeContent").mockReturnValue("Prepared content");
-    vi.spyOn(AIService.prototype, "sendToAI").mockRejectedValue(testError);
 
     const testMessage: Message = {
       id: "test-message-1",
