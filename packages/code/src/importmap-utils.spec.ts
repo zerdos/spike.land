@@ -10,7 +10,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=prop,prop2";"
+      import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";"
     `);
   });
 
@@ -19,7 +19,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=__await,__rest";"
+      import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
     `);
   });
 
@@ -28,7 +28,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react&exports=__await,__rest";"
+      import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
     `);
   });
 
@@ -38,7 +38,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, "");
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      import * as Monaco from "$/@/workers/monaco-editor.worker.mjs";"
+      import * as Monaco from "/@/workers/monaco-editor.worker.mjs";"
     `);
   });
 
@@ -124,7 +124,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      const mod = await import("http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react");"
+      const mod = await import("http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");"
     `);
   });
 
@@ -143,7 +143,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchInlineSnapshot(`
       "/** importMapReplace */
-      export { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react";"
+      export { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";"
     `);
   });
 

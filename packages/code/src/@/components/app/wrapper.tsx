@@ -1,4 +1,4 @@
-import { renderApp } from "@/external/render-app";
+import { renderApp } from "@/lib/render-app";
 import type { RenderedApp } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";

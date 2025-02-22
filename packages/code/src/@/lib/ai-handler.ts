@@ -5,13 +5,14 @@ export class AIHandler {
   private aiService: AIService;
   constructor(
     setIsStreaming: (isStreaming: boolean) => void = () => {},
-    aiService?: AIService,
+
   ) {
-    this.aiService = aiService || new AIService(
+    const origin = location.origin;
+    this.aiService = new AIService(
       {
-        anthropicEndpoint: "/api/anthropic",
-        openAIEndpoint: "/api/openai",
-        gpt4oEndpoint: "/api/openai",
+        anthropicEndpoint:  origin + "/api/anthropic",
+        openAIEndpoint: origin + "/api/openai",
+        gpt4oEndpoint: origin+ "/api/openai",
         updateThrottleMs: 1300,
         retryWithClaudeEnabled: true,
         setIsStreaming: setIsStreaming,

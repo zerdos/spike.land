@@ -22,14 +22,20 @@ export async function handleAnthropicRequest(
 
     const originalUrl = new URL(originalRequest.url);
     const pathAfterAnthropicAi = originalUrl.pathname.split("/anthropic").pop() || "";
-    const url = new URL(pathAfterAnthropicAi, baseURL);
+    const url =new URL( baseURL+pathAfterAnthropicAi);
 
     // Clone request to ensure body stream can be consumed
     const clonedRequest = originalRequest.clone();
 
     // Set up headers with proper authorization format
     const headers = new Headers(clonedRequest.headers);
-    headers.set("Authorization", `Bearer ${env.ANTHROPIC_API_KEY}`);
+    // remove DUMMY_API_KEY
+    headers.delete("Authorization");
+    headers.delete("X-Api-Key");
+
+    headers.set("X-Api-Key",
+      env.ANTHROPIC_API_KEY
+    );
 
     // Create new request with all components
     const request = new Request(url.toString(), {
@@ -41,7 +47,7 @@ export async function handleAnthropicRequest(
     // Make the fetch request and handle errors
     const response = await fetch(request);
     if (!response.ok) {
-      throw new Error(`ANTHROPIC API responded with status: ${response.status}`);
+      throw new Error(`ANTHROPIC API responded with status: ${request.url} ${response.status} `);
     }
 
     // Clone the response to add CORS headers

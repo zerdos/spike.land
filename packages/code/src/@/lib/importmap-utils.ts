@@ -4,6 +4,7 @@ export const oo = {
   "/@/": "/@/",
   "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
   "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+  "@emotion/styled": "/emotionStyled.mjs", 
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/server": "/reactDomServer.mjs",
   "react-dom/client": "/reactDomClient.mjs",
@@ -15,7 +16,7 @@ export const oo = {
 
 export const importMap = { imports: oo };
 
-const externalString = "bundle=true&external=react,react-dom,framer-motion,@emotion/react";
+const externalString = "bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";
 
 export function importMapReplace(code: string, origin: string): string {
   // return code;
@@ -98,7 +99,7 @@ export function importMapReplace(code: string, origin: string): string {
       // if (packageName?.includes(".worker")) {
       //   return p1 + `"${origin}/${packageName}.js"` + p3;
       // }
-      return p1 + `"$/${packageName}.mjs"` + p3;
+      return p1 + `"/${packageName}.mjs"` + p3;
     }
 
     // Handle relative paths
