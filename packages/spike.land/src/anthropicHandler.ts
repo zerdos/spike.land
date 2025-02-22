@@ -22,7 +22,7 @@ export async function handleAnthropicRequest(
 
     const originalUrl = new URL(originalRequest.url);
     const pathAfterAnthropicAi = originalUrl.pathname.split("/anthropic").pop() || "";
-    const url =new URL( baseURL+pathAfterAnthropicAi);
+    const url = new URL(baseURL + pathAfterAnthropicAi);
 
     // Clone request to ensure body stream can be consumed
     const clonedRequest = originalRequest.clone();
@@ -33,9 +33,7 @@ export async function handleAnthropicRequest(
     headers.delete("Authorization");
     headers.delete("X-Api-Key");
 
-    headers.set("X-Api-Key",
-      env.ANTHROPIC_API_KEY
-    );
+    headers.set("X-Api-Key", env.ANTHROPIC_API_KEY);
 
     // Create new request with all components
     const request = new Request(url.toString(), {

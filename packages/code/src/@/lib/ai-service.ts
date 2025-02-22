@@ -28,7 +28,7 @@ export class AIService {
     try {
       const client = new Anthropic({
         dangerouslyAllowBrowser: true,
-        apiKey: 'DUMMY_API_KEY',
+        apiKey: "DUMMY_API_KEY",
         baseURL: this._config.anthropicEndpoint,
       });
 
@@ -54,7 +54,6 @@ export class AIService {
             content += chunkContent;
             onUpdate(chunkContent);
           }
-       
         }
       }
 
@@ -82,7 +81,7 @@ export class AIService {
     try {
       const client = new OpenAI({
         baseURL: this._config.gpt4oEndpoint,
-        apiKey: 'DUMMY_API_KEY',
+        apiKey: "DUMMY_API_KEY",
       });
 
       const stream = await client.chat.completions.create({
@@ -133,12 +132,12 @@ export class AIService {
     // If codeNow is different from the last message or there are no messages,
     // use anthropic system content
     // if (!lastMessage || lastMessage.content !== codeNow) {
-      const result = anthropicSystem({
-        fileName: codeSpace+".tsx",
-        fileContent: codeNow,
-        userPrompt: content,
-      });
-      return result;
+    const result = anthropicSystem({
+      fileName: codeSpace + ".tsx",
+      fileContent: codeNow,
+      userPrompt: content,
+    });
+    return result;
     // }
 
     // If code hasn't changed, return reminder content

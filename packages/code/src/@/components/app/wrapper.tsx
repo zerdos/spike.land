@@ -1,5 +1,5 @@
-import { renderApp } from "@/lib/render-app";
 import type { RenderedApp } from "@/lib/interfaces";
+import { renderApp } from "@/lib/render-app";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 

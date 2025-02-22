@@ -21,21 +21,18 @@ export async function handleGPT4Request(
       "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai";
     const originalUrl = new URL(originalRequest.url);
     const pathAfterOpenai = originalUrl.pathname.split("/openai").pop() || "";
-    const url = new URL(baseURL+pathAfterOpenai);
- 
+    const url = new URL(baseURL + pathAfterOpenai);
 
     // Clone request to ensure body stream can be consumed
     const clonedRequest = originalRequest.clone();
 
     // Set up headers with proper authorization format
     const headers = new Headers(clonedRequest.headers);
-        // remove DUMMY_API_KEY
+    // remove DUMMY_API_KEY
     headers.delete("Authorization");
     headers.delete("X-Api-Key");
-    
-    headers.set("X-Api-Key",
-      env.OPENAI_API_KEY
-    );
+
+    headers.set("X-Api-Key", env.OPENAI_API_KEY);
     // Create new request with all components
     const request = new Request(url.toString(), {
       method: clonedRequest.method,
