@@ -1,3 +1,4 @@
+import { replaceFirstCodeMod } from "@/lib/chat-utils";
 import { ChatAnthropic } from "@langchain/anthropic";
 import type { BaseMessage } from "@langchain/core/messages";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
@@ -6,9 +7,8 @@ import type { StateGraphArgs } from "@langchain/langgraph";
 import { StateGraph } from "@langchain/langgraph";
 import { MemorySaver } from "@langchain/langgraph";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
-import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
-import { replaceFirstCodeMod } from "@/lib/chat-utils";
+import { z } from "zod";
 
 // Types
 interface AgentState {
@@ -29,7 +29,9 @@ const REPLACE = ">>>>>>> REPLACE";
 
 // Tools
 const codeModificationTool = tool(
-  async ({ code, instructions }: { code: string; instructions: string }): Promise<CodeModification> => {
+  async (
+    { code, instructions }: { code: string; instructions: string; },
+  ): Promise<CodeModification> => {
     try {
       if (instructions.length === 0) {
         return { code, error: "" };
@@ -43,7 +45,7 @@ const codeModificationTool = tool(
       }
 
       const result = replaceFirstCodeMod(instructions, code);
-      
+
       if (result === code) {
         return {
           code,
@@ -66,18 +68,20 @@ const codeModificationTool = tool(
       code: z.string().describe("The source code to modify"),
       instructions: z.string().describe("The search/replace instructions"),
     }),
-  }
+  },
 );
 
 const codeFormattingTool = tool(
-  async ({ code }: { code: string }): Promise<{ code: string; error: string }> => {
+  async ({ code }: { code: string; }): Promise<{ code: string; error: string; }> => {
     try {
       const formatted = await (globalThis as unknown as {
-        prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean }) => Promise<string>;
+        prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean; }) => Promise<string>;
       }).prettierJs({ code, toThrow: true });
 
       const transpiled = await (globalThis as unknown as {
-        transpile: ({ code, originToUse }: { code: string; originToUse: string }) => Promise<string>;
+        transpile: (
+          { code, originToUse }: { code: string; originToUse: string; },
+        ) => Promise<string>;
       }).transpile({ code: formatted, originToUse: location.origin });
 
       return { code: formatted, error: "" };
@@ -94,11 +98,11 @@ const codeFormattingTool = tool(
     schema: z.object({
       code: z.string().describe("The code to format"),
     }),
-  }
+  },
 );
 
 const broadcastTool = tool(
-  async (input: { channel: string; data?: any }): Promise<void> => {
+  async (input: { channel: string; data?: any; }): Promise<void> => {
     const bc = new BroadcastChannel(input.channel);
     if (input.data !== undefined) {
       bc.postMessage(input.data);
@@ -111,7 +115,7 @@ const broadcastTool = tool(
       channel: z.string().describe("The channel to broadcast on"),
       data: z.any().optional().describe("The data to broadcast"),
     }),
-  }
+  },
 );
 
 // Workflow setup
@@ -156,11 +160,13 @@ const createWorkflow = async (initialState: Partial<AgentState>) => {
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
     const response = await model.invoke(state.messages);
     return {
-      messages: [new AIMessage({
-        content: response.content,
-        tool_calls: response.tool_calls,
-        additional_kwargs: response.additional_kwargs,
-      })],
+      messages: [
+        new AIMessage({
+          content: response.content,
+          tool_calls: response.tool_calls,
+          additional_kwargs: response.additional_kwargs,
+        }),
+      ],
       isStreaming: true,
     };
   };

@@ -38,7 +38,7 @@ const createWeatherTool = () => {
       schema: z.object({
         query: z.string().describe("The location to check weather for"),
       }),
-    }
+    },
   );
 };
 
@@ -87,7 +87,7 @@ const processWithModel = (model: ReturnType<typeof createLanguageModel>) => {
 const setupWorkflowGraph = (
   graphState: StateGraphArgs<AgentState>["channels"],
   toolNode: ToolNode,
-  modelProcessor: ReturnType<typeof processWithModel>
+  modelProcessor: ReturnType<typeof processWithModel>,
 ) => {
   return new StateGraph<AgentState>({ channels: graphState })
     .addNode("agent", modelProcessor)
@@ -124,7 +124,7 @@ const createWorkflow = async (prompt: string) => {
   // Execute the workflow with the given prompt
   const finalState = await app.invoke(
     { messages: [new HumanMessage(prompt)] },
-    { configurable: { thread_id: "42" } }
+    { configurable: { thread_id: "42" } },
   );
 
   // Extract and return the final response

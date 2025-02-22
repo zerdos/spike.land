@@ -51,25 +51,25 @@ export { example };
 // Example of handling messages with broadcast channel
 const setupMessageHandler = () => {
   const channel = new BroadcastChannel("code-updates");
-  
+
   channel.onmessage = (event) => {
     const { code, isStreaming, messages, debugLogs } = event.data;
-    
+
     // Handle code updates
     if (code) {
       console.log("Code updated:", code);
     }
-    
+
     // Handle streaming status
     if (typeof isStreaming === "boolean") {
       console.log("Streaming status:", isStreaming);
     }
-    
+
     // Handle message updates
     if (messages) {
       console.log("New messages:", messages);
     }
-    
+
     // Handle debug logs
     if (debugLogs) {
       console.log("Debug logs:", debugLogs);
@@ -82,7 +82,7 @@ const setupMessageHandler = () => {
 // Example setup and usage
 export const setupAndRun = async () => {
   const channel = setupMessageHandler();
-  
+
   try {
     await example();
   } finally {
