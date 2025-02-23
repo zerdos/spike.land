@@ -68,7 +68,6 @@ export function importMapReplace(code: string, origin: string): string {
         return match;
       }
       if (pkg.startsWith(",")) return match;
-
       return `import "/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
     }
 
@@ -88,8 +87,11 @@ export function importMapReplace(code: string, origin: string): string {
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName?.startsWith("./") && !packageName.slice(1).includes(".")) {
-      return p1 + `"${packageName.slice(2)}.mjs"` + p3;
+    if (packageName?.startsWith("./")) {
+      if (!packageName.slice(2).includes(".")) {
+        return p1 + `"${packageName}.mjs"` + p3;
+      }
+      return p1 + `"${packageName}.mjs"` + p3;
     }
 
     if (packageName?.startsWith("/")) {
@@ -104,8 +106,8 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     // Handle relative paths
-    if (packageName?.startsWith(".")) {
-      if (!packageName.includes(".")) {
+    if (packageName?.startsWith("..")) {
+      if (!packageName.slice(2).includes(".")) {
         return p1 + `"${packageName}.mjs"` + p3;
       }
       return p1 + `"${packageName}.mjs"` + p3;

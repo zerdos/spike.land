@@ -124,7 +124,7 @@ exports[`importMapReplace > should handle dynamic imports with relative paths 1`
 {
   "code": "const mod = await import('./relative/path/module');",
   "result": "/** importMapReplace */
-const mod = await import("relative/path/module.mjs");",
+const mod = await import("./relative/path/module.mjs");",
 }
 `;
 
@@ -269,7 +269,7 @@ exports[`importMapReplace > should handle relative imports without extension 1`]
 {
   "code": "import { helper } from "./utils/helper";",
   "result": "/** importMapReplace */
-import { helper } from "utils/helper.mjs";",
+import { helper } from "./utils/helper.mjs";",
 }
 `;
 
@@ -293,7 +293,7 @@ exports[`importMapReplace > should handle should preserve existing extensions in
 {
   "code": "import { component } from "./components/Button";",
   "result": "/** importMapReplace */
-import { component } from "components/Button.mjs";",
+import { component } from "./components/Button.mjs";",
 }
 `;
 
