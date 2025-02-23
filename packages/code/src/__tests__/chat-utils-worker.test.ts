@@ -45,7 +45,6 @@ describe("handleSendMessage", () => {
     // Mock the entire AIService class within beforeEach for valid messages
     vi.spyOn(AIService.prototype, "prepareClaudeContent").mockReturnValue("Prepared content");
 
-
     const testMessage: Message = {
       id: "test-message-1",
       role: "user",

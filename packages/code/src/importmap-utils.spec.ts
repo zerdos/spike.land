@@ -4,6 +4,23 @@ import { describe, expect, it } from "vitest";
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
+  const scenarios = {
+    "should handle basic named imports": `import { prop, prop2 } from "foo";`,
+    "should handle specific exports": `import { __await, __rest } from "tslib";`,
+    "should handle specific named imports with aliases":
+      `import { __await as aw, __rest as restNow} from "tslib";`,
+    "should transpile worker files to js with wildcard import":
+      `import * as Monaco from "@/workers/monaco-editor.worker";`,
+    "should transpile worker files to js with bare import":
+      `import "@/workers/monaco-editor.worker";`,
+  };
+
+  for (const [description, code] of Object.entries(scenarios)) {
+    it(description, async () => {
+      const result = importMapReplace(code, origin);
+      expect(result).toMatchSnapshot();
+    });
+  }
   // Basic imports
   it("should handle basic named imports", async () => {
     const code = `import { prop, prop2 } from "foo";`;

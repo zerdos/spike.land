@@ -4,7 +4,7 @@ import { createWorkflow } from "@/workers/chat-utils-langchain.worker";
 const example = async () => {
   // In a real system, this would be read from the active editor
   const currentFileContent = await getCurrentFileContent();
-  
+
   // Initialize the workflow with the current file content
   const workflow = await createWorkflow({
     code: currentFileContent,
@@ -29,8 +29,8 @@ function add(a: number) {
 function add(a: number, b: number) {
   return a + b;
 }
->>>>>>> REPLACE`
-    ]
+>>>>>>> REPLACE`,
+    ],
   });
 
   // Example: User sends a natural language request
@@ -50,7 +50,7 @@ function add(a: number, b: number) {
     // The modified code after applying the changes
     modifiedCode: result.code,
     // Debug logs showing the AI's thought process
-    debugLogs: result.debugLogs
+    debugLogs: result.debugLogs,
   });
 };
 
