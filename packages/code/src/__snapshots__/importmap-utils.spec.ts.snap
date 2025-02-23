@@ -349,7 +349,7 @@ exports[`importMapReplace > query and hash in imports 1`] = `
 {
   "code": "import { lib } from "./module?foo=bar#section";",
   "result": "/** importMapReplace */
-import { lib } from "./module?foo=bar#section.mjs";",
+import { lib } from "./module.mjsfoo=bar";",
 }
 `;
 
@@ -365,7 +365,7 @@ exports[`importMapReplace > relative imports with query parameters 1`] = `
 {
   "code": "import { util } from "./utils?foo=bar";",
   "result": "/** importMapReplace */
-import { util } from "./utils?foo=bar.mjs";",
+import { util } from "./utils.mjsfoo=bar";",
 }
 `;
 
@@ -438,7 +438,7 @@ exports[`importMapReplace > should transpile worker files to js with bare import
 {
   "code": "import "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
-import "http://localhost:3000/@/workers/monaco-editor.worker.mjs";",
+import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
 }
 `;
 

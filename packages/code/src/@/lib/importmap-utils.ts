@@ -34,6 +34,21 @@ export function importMapReplace(code: string, origin: string): string {
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
   const dynamicImportTemplatePattern = /(import\()(`[^`]+`)(\))/g;
 
+  const addExtension = (path: string, ext: string): string => {
+    const [basePath, queryAndHash = ''] = path.split(/[?#]/, 2);
+    return `${basePath}${ext}${queryAndHash ? `${queryAndHash.startsWith('#') ? '?' : ''}${queryAndHash}` : ''}`;
+  };
+
+  const isWorkerImport = (path: string): boolean => {
+    return path.includes(".worker");
+  };
+
+  const isBareWorkerImport = (match: string): boolean => {
+    // Check if it's just "import 'worker'" without any assignments or imports
+    const bareImportRegex = /^import\s+(['"`])[^'"`]+\1/;
+    return bareImportRegex.test(match.trim());
+  };
+
   // Define a replacer function to modify the import paths
   const replacer = (match: string, p1: string, p2: string, p3char: string) => {
     let isModule = false;
@@ -54,19 +69,21 @@ export function importMapReplace(code: string, origin: string): string {
       if (!pkg) return match;
 
       // Check for worker files
-      if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && pkg.includes(".worker")) {
-        return `import "${origin}/${pkg}.mjs"` + (hasSemicolon ? ";" : "");
+      if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && isWorkerImport(pkg)) {
+        const ext = isBareWorkerImport(match) ? ".js" : ".mjs";
+        return `import "${origin}/${pkg}${ext}"` + (hasSemicolon ? ";" : "");
       }
       if (pkg.startsWith("http")) return match;
       if (pkg.startsWith("/")) return match;
       if (pkg.startsWith("./") || pkg.startsWith("../")) {
-        const hasExtension = pkg.split("/").pop()?.includes(".");
+        const [basePath] = pkg.split(/[?#]/);
+        const hasExtension = basePath.split("/").pop()?.includes(".");
         if (!hasExtension) {
           // Handle directory imports
           if (pkg.endsWith("/")) {
             return `import "${pkg}index.mjs"` + (hasSemicolon ? ";" : "");
           }
-          return `import "${pkg}.mjs"` + (hasSemicolon ? ";" : "");
+          return `import "${addExtension(pkg, '.mjs')}"` + (hasSemicolon ? ";" : "");
         }
         return match;
       }
@@ -88,35 +105,33 @@ export function importMapReplace(code: string, origin: string): string {
 
     // Handle directory imports and existing extensions
     if (packageName?.startsWith("./") || packageName?.startsWith("../")) {
-      const parts = packageName.split("/");
+      const [basePath, queryAndHash = ''] = packageName.split(/[?#]/, 2);
+      const parts = basePath.split("/");
       const lastPart = parts[parts.length - 1];
       
       // Directory import (ends with /)
-      if (packageName.endsWith("/")) {
-        return p1 + `"${packageName}index.mjs"` + p3;
+      if (basePath.endsWith("/")) {
+        return p1 + `"${basePath}index.mjs${queryAndHash ? `${queryAndHash.startsWith('#') ? '?' : ''}${queryAndHash}` : ''}"` + p3;
       }
       
-      // Has existing JS extension
-      if (lastPart && /\.(js|mjs|cjs)$/.test(lastPart)) {
+      // Has existing extension
+      if (lastPart && /\.(js|mjs|cjs|css|json|svg|wasm|txt)$/.test(lastPart)) {
         return match;
       }
       
       // No extension
-      if (!lastPart || !lastPart.includes(".")) {
-        return p1 + `"${packageName}.mjs"` + p3;
-      }
-      
-      return match;
+      return p1 + `"${addExtension(packageName, '.mjs')}"` + p3;
     }
 
     if (packageName?.startsWith("/")) {
       return p1 + `"${packageName}"` + p3;
     }
 
-    if (packageName?.startsWith("@/")) {
-      if (packageName?.includes(".worker")) {
-        return p1 + `"${origin}/${packageName}.mjs"` + p3;
-      }
+    // Handle worker files
+    if (packageName?.startsWith("@/") && isWorkerImport(packageName)) {
+      const ext = isBareWorkerImport(match) ? ".js" : ".mjs";
+      return p1 + `"${origin}/${packageName}${ext}"` + p3;
+    } else if (packageName?.startsWith("@/")) {
       return p1 + `"/${packageName}.mjs"` + p3;
     }
 
