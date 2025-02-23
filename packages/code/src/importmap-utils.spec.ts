@@ -20,7 +20,6 @@ describe("importMapReplace", () => {
       "react-dom": "/reactDom.mjs",
     },
   };
-  
 
   const scenarios = {
     // Basic imports
@@ -109,7 +108,8 @@ describe("importMapReplace", () => {
         bar,
         baz
       } from "module";`,
-      "imports with unusual whitespace": `import    {    foo   ,   bar   }    from     "module"   ;`,
+      "imports with unusual whitespace":
+        `import    {    foo   ,   bar   }    from     "module"   ;`,
       "imports with unicode characters": `import { π, λ, γ } from "math-symbols";`,
       "import with empty specifiers": `import {} from "empty-module";`,
       "inline comments in import": `import /* inline comment */ { foo } from "module";`,
@@ -159,13 +159,13 @@ describe("importMapReplace", () => {
         // Another comment
         export { bar } from "module2";
         // Final comment
-      `
+      `,
     },
     // App specific imports
-    'App specific imports': {
-      'should handle @/lib imports': `import { cn } from "@/lib/utils";`,
-      'should handle react-extra libs': `import { extras } from "react-extras";`
-    }
+    "App specific imports": {
+      "should handle @/lib imports": `import { cn } from "@/lib/utils";`,
+      "should handle react-extra libs": `import { extras } from "react-extras";`,
+    },
   };
 
   // Test with default importMap
@@ -175,15 +175,15 @@ describe("importMapReplace", () => {
         const result = importMapReplace(code, origin, importMap);
         expect({ result, code }).toMatchSnapshot();
       });
-  }
+    }
   }
 
   // Test with custom importMap
   it("should respect custom importMap", () => {
     const customImportMap = {
       imports: {
-        "custom-module": "https://example.com/custom-module"
-      }
+        "custom-module": "https://example.com/custom-module",
+      },
     };
     const code = `import { feature } from "custom-module";`;
     const result = importMapReplace(code, origin, customImportMap);

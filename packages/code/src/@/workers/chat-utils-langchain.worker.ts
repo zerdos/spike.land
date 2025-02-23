@@ -18,7 +18,7 @@ declare global {
       path: string;
     };
   }
-  var currentFile: Window['currentFile'];
+  var currentFile: Window["currentFile"];
 }
 
 // Types
@@ -45,7 +45,7 @@ const codeModificationTool = tool(
     { instructions }: { instructions: string; },
   ): Promise<CodeModification> => {
     let currentCode = globalThis.currentFile?.content || "";
-    
+
     try {
       if (instructions.length === 0) {
         return { code: currentCode, error: "" };
@@ -74,8 +74,9 @@ const codeModificationTool = tool(
       if (result === currentCode) {
         return {
           code: currentCode,
-          error: `Failed to apply modifications after ${retryCount} attempts. Full file content:\n${currentCode}`,
-          retryCount
+          error:
+            `Failed to apply modifications after ${retryCount} attempts. Full file content:\n${currentCode}`,
+          retryCount,
         };
       }
 
@@ -89,7 +90,8 @@ const codeModificationTool = tool(
   },
   {
     name: "code_modification",
-    description: `Modifies code by applying search/replace patterns. This tool uses the current file's content as the base and supports multiple modification attempts.
+    description:
+      `Modifies code by applying search/replace patterns. This tool uses the current file's content as the base and supports multiple modification attempts.
 
 Required format for instructions parameter:
 1. Each modification block must start with '<<<<<<< SEARCH'
@@ -116,7 +118,9 @@ Important notes:
 - Returns retryCount to track attempts
 - On complete failure, returns full file content for debugging`,
     schema: z.object({
-      instructions: z.string().describe("One or more search/replace blocks following the required format"),
+      instructions: z.string().describe(
+        "One or more search/replace blocks following the required format",
+      ),
     }),
   },
 );
