@@ -1,4 +1,3 @@
-import { importMapReplace } from "@spike-npm-land/code";
 import type Env from "./env";
 import { makeResponse } from "./makeResponse";
 
@@ -69,7 +68,7 @@ async function esmResponse(
   url: URL,
   headersInit?: HeadersInit,
 ) {
-  const { pathname, origin } = url;
+  const { pathname } = url;
   const headers = new Headers(headersInit);
 
   const contentType = headers.get("Content-Type") || "";
@@ -84,7 +83,7 @@ async function esmResponse(
     if (isJavascript) {
       // Read as text and apply import map replacement
       const textContent = await text();
-      respBody = importMapReplace(textContent, origin);
+      respBody = textContent;
     } else if (isText) {
       // Read as text
       respBody = await text();
