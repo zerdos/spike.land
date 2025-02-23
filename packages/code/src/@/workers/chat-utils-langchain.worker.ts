@@ -1,4 +1,5 @@
 import { replaceFirstCodeMod } from "@/lib/chat-utils";
+import { ICode } from "@/lib/interfaces";
 import { ChatAnthropic } from "@langchain/anthropic";
 import type { BaseMessage } from "@langchain/core/messages";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
@@ -50,8 +51,12 @@ const codeModificationTool = tool(
     { instructions }: { instructions: string; },
     config?: Record<string, any>
   ): Promise<CodeModification> => {
+      const cSess = (globalThis as unknown as {
+        cSess: ICode
+      }).cSess;
+    
     // Try to get content from either globalThis.currentFile or the state
-    let currentCode = globalThis.currentFile?.content || (config?.state as AgentState)?.code || "";
+    let currentCode = await cSess.getCode();
     
     // If no current file content, return early with helpful error
     if (!currentCode) {

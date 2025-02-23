@@ -84,6 +84,7 @@ export interface ICode {
     transpiled?: string,
   ): Promise<string | boolean>;
   getCode(): Promise<string>;
+  getCodeSpace(): string;
   sub: (fn: (sess: ICodeSession) => void) => () => void;
 }
 

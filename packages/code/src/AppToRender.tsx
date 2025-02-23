@@ -16,9 +16,9 @@ import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 
 Object.assign(globalThis, {
-  setupAndRun: async () => {
+  setupAndRun: async (prompt: string) => {
     const { setupAndRun } = await import("./chat-utils-langchain-example");
-    setupAndRun().catch(console.error);
+    setupAndRun(prompt).catch(console.error);
   },
 });
 

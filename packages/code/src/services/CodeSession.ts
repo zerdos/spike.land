@@ -80,6 +80,10 @@ export class Code implements ICode {
     return computeSessionHash(session);
   }
 
+  getCodeSpace(): string {
+    return this.codeSpace;
+  }
+
   getMessages(): Message[] {
     return [...this.session.messages];
   }

@@ -1,45 +1,26 @@
 import { createWorkflow } from "@/workers/chat-utils-langchain.worker";
 import { HumanMessage } from "@langchain/core/messages";
 
-import { ICodeSession } from "@/lib/interfaces";
+import { ICode } from "@/lib/interfaces";
+
+import initialClaudeSrc from "./config/initial-claude.txt";
 
 // Example usage of the chat workflow that demonstrates AI code modifications
-const example = async (userRequest: string) => {
+const example = async (userRequest: string, cSess: ICode) => {
   // In a real system, this would be read from the active editor
-  const currentFileContent = (globalThis as unknown as {
-    cSess: {
-      session: ICodeSession
-    };
-  }).cSess.session.code
+  const currentFileContent = await cSess.getCode();
+
+  const fileName = cSess.getCodeSpace()+".tsx";
 
   // Initialize the workflow with code context and instructions
+  const initialClaude = await fetch(initialClaudeSrc).then((res) => res.text());
   const workflow = await createWorkflow({
     code: currentFileContent,
     debugLogs: [
       "Starting workflow with current file content"
     ],
     messages: [
-      new HumanMessage(
-        `SYSTEM: You are a code modification assistant. IMMEDIATELY modify the code based on user requests using search/replace blocks. NO conversation or clarification - just output the modifications.
-
-CURRENT CODE:
-${currentFileContent}
-
-REQUIRED FORMAT:
-<<<<<<< SEARCH
-[exact lines from current code]
-=======
-[replacement lines with requested changes]
->>>>>>> REPLACE
-
-EXAMPLE - If asked to rename a method:
-<<<<<<< SEARCH
-  addUser(name: string) {
-=======
-  createUser(name: string) {
->>>>>>> REPLACE
-
-IMPORTANT: Make sure your SEARCH block matches the code EXACTLY. Do not ask questions - just output the modifications.`
+      new HumanMessage(initialClaude.replace("{{userPrompt}}", userRequest).replace("{{fileContent}}", currentFileContent).replace("{{fileName}}", fileName)
       )
     ]
   });
@@ -64,43 +45,16 @@ IMPORTANT: Make sure your SEARCH block matches the code EXACTLY. Do not ask ques
   
 };
 
-// Simulating reading from active editor with sample code
-async function getCurrentFileContent(): Promise<string> {
-  // Note: In a real implementation, this would get content from the active editor
-  // For this example, we use a class-based implementation that will be modified to:
-  // 1. Add password field to user type
-  // 2. Add bcrypt import for password hashing
-  // 3. Make addUser async to handle password hashing
-  return `class UserManager {
-  private users: { id: number; name: string; }[] = [];
-  private nextId = 1;
-
-  addUser(name: string) {
-    const user = { id: this.nextId++, name };
-    this.users.push(user);
-    return user;
-  }
-
-  getUser(id: number) {
-    return this.users.find(user => user.id === id);
-  }
-}`;
-}
-
-// To use in browser/worker context
-Object.assign(globalThis, { example });
-
-// For Node.js/testing context
-export { example };
 
 // Example of handling messages with broadcast channel
-const setupMessageHandler = () => {
+const setupMessageHandler = (cSess: ICode) => {
   const channel = new BroadcastChannel("code-updates");
 
   channel.onmessage = (event) => {
     const { code, isStreaming, messages, debugLogs } = event.data;
 
     if (code) {
+      cSess.setCode(code);
       // The code after applying the AI's search/replace blocks
       console.log("Modified code:", code);
     }
@@ -110,6 +64,7 @@ const setupMessageHandler = () => {
     }
 
     if (messages) {
+      cSess.setMessages(messages);
       // The AI's response with search/replace blocks
       console.log("AI generated modifications:", messages);
     }
@@ -125,10 +80,16 @@ const setupMessageHandler = () => {
 
 // Example setup and usage
 export const setupAndRun = async (prompt: string) => {
-  const channel = setupMessageHandler();
+
+  const cSess = (globalThis as unknown as {
+    cSess: ICode
+  }).cSess;
+
+  const channel = setupMessageHandler(cSess);
+
 
   try {
-    await example(prompt);
+    await example(prompt, cSess);
   } finally {
     channel.close();
   }
