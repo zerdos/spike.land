@@ -48,14 +48,16 @@ const SEPARATOR = "=======";
 const codeModificationTool = tool(
   async (
     { instructions }: { instructions: string; },
+    config?: Record<string, any>
   ): Promise<CodeModification> => {
-    let currentCode = globalThis.currentFile?.content || "";
+    // Try to get content from either globalThis.currentFile or the state
+    let currentCode = globalThis.currentFile?.content || (config?.state as AgentState)?.code || "";
     
     // If no current file content, return early with helpful error
     if (!currentCode) {
       return {
         code: "",
-        error: "No current file content available. Make sure you have loaded the correct file first.",
+        error: "No current file content available. Make sure code is provided in the workflow state or current file.",
         currentFileContent: "",
       };
     }
@@ -318,7 +320,8 @@ const createWorkflow = async (initialState: Partial<AgentState>) => {
 
   return {
     invoke: async (prompt: string) => {
-      const state = {
+      // Initialize state with code that tools can access
+      const state: AgentState = {
         messages: [new HumanMessage(prompt)],
         code: initialState.code || "",
         lastError: "",
@@ -327,10 +330,16 @@ const createWorkflow = async (initialState: Partial<AgentState>) => {
         ...initialState,
       };
 
+      // Make code available to tools
+      globalThis.currentFile = {
+        content: state.code,
+        path: "current-file"
+      };
+
       const finalState = await app.invoke(state, {
         configurable: { thread_id: uuidv4() },
       });
-
+      
       return finalState;
     },
   };
