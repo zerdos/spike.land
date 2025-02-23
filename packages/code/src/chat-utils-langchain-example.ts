@@ -33,31 +33,46 @@ function add(a: number, b: number) {
     ],
   });
 
-  // Example: User sends a natural language request
-  const userRequest = "Add a password field to users and hash it before storing";
+    // Example: User sends a natural language request - showing proper structure matching
+  const userRequest1 = "Add a password field to users and hash it before storing";
+  
+  // Example showing structure mismatch (this will fail with helpful error)
+  const userRequest2 = "Update the User type with password field";
 
-  // The AI system would:
+  // Run examples:
+  
+  console.log("Example 1: Modifying existing class structure");
+
+  // The AI system will:
   // 1. Read the current code from currentFileContent
-  // 2. Analyze the requirement
+  // 2. Analyze the requirement and current code structure
   // 3. Generate response in the correct search/replace format
-  const result = await workflow.invoke(userRequest);
+  const result1 = await workflow.invoke(userRequest1);
 
-  console.log({
-    // Original request
-    userRequest,
-    // AI's response will include search/replace blocks
-    aiResponse: result.messages,
-    // The modified code after applying the changes
-    modifiedCode: result.code,
-    // Debug logs showing the AI's thought process
-    debugLogs: result.debugLogs,
+  console.log("Result of proper structure matching:", {
+    userRequest: userRequest1,
+    aiResponse: result1.messages,
+    modifiedCode: result1.code,
+    debugLogs: result1.debugLogs,
+  });
+
+  console.log("\nExample 2: Demonstrating structure mismatch handling");
+  
+  const result2 = await workflow.invoke(userRequest2);
+
+  console.log("Result showing structure mismatch error:", {
+    userRequest: userRequest2,
+    aiResponse: result2.messages,
+    // The code remains unchanged when modification fails
+    modifiedCode: result2.code,
+    debugLogs: result2.debugLogs,
   });
 };
 
-// Simulating reading from active editor
+// Simulating reading from active editor with sample code
 async function getCurrentFileContent(): Promise<string> {
-  // In a real implementation, this would get the content from the active editor
-  // For this example, we'll use a sample class
+  // Note: In a real implementation, this would get content from the active editor
+  // For this example, we use a class-based implementation to demonstrate structure handling
   return `class UserManager {
   private users: { id: number; name: string; }[] = [];
   private nextId = 1;
