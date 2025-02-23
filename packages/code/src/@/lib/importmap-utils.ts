@@ -1,16 +1,33 @@
 // src/importMapUtils.ts
 
-import { ImportMap, importMap as defaultImportMap } from "@/lib/import-map";
+export type ImportMap = {
+  imports: Record<string, string>;
+};
 
-export const importMap: ImportMap = defaultImportMap;
+export const importMap: ImportMap = {
+  imports: {
+    "/@/": "/@/",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom/server": "/reactDomServer.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "react": "/reactMod.mjs",
+    "framer-motion": "/@/workers/framer-motion.mjs",
+    "react-dom": "/reactDom.mjs",
+  },
+};
+
 
 // Main export function
 export function importMapReplace(
   code: string,
   origin: string,
-  impMap: ImportMap = defaultImportMap,
+  impMap: ImportMap = importMap,
 ): string {
-  if (code.includes('/** importMapReplace */')) {
+  if (code.includes('/** importMapReplace */') || code.includes('/* esm.sh')) {
     return code;
   }
 
@@ -65,14 +82,14 @@ export function importMapReplace(
       return path;
     }
 
-    // Check prefix matches
-    const sortedKeys = Object.keys(impMap.imports).sort((a, b) => b.length - a.length);
-    for (const key of sortedKeys) {
-      if (basePath.startsWith(key)) {
-        const remaining = basePath.slice(key.length);
-        return impMap.imports[key] + remaining + existingQuery + hash;
-      }
-    }
+    // // Check prefix matches
+    // const sortedKeys = Object.keys(impMap.imports).sort((a, b) => b.length - a.length);
+    // for (const key of sortedKeys) {
+    //   if (basePath.startsWith(key)) {
+    //     const remaining = basePath.slice(key.length);
+    //     return impMap.imports[key] + remaining + existingQuery + hash;
+    //   }
+    // }
 
     const hasExtension = basePath.endsWith('.js') || basePath.endsWith('.mjs') || basePath.endsWith('.ts') || basePath.endsWith('.tsx') || basePath.endsWith('.jsx') || basePath.endsWith('.json') || basePath.endsWith('.wasm') 
           || basePath.endsWith('.txt') || basePath.endsWith('.svg') || basePath.endsWith('.md') || basePath.endsWith('.html') || basePath.endsWith('.css') || basePath.endsWith('.scss') || basePath.endsWith('.sass') || basePath.endsWith('.less') || basePath.endsWith('.styl') || basePath.endsWith('.graphql') || basePath.endsWith('.gql') || basePath.endsWith('.yml') || basePath.endsWith('.toml') || basePath.endsWith('.xml') || basePath.endsWith('.csv') || basePath.endsWith('.tsv') || basePath.endsWith('.ini') || basePath.endsWith('.properties') || basePath.endsWith('.env') || basePath.endsWith('.env.local') || basePath.endsWith('.env.development') || basePath.endsWith('.env.test') || basePath.endsWith('.env.production') || basePath.endsWith('.env.staging') || basePath.endsWith('.env.local');
@@ -83,6 +100,16 @@ export function importMapReplace(
       // Always append the correct extension for worker files, removing any existing extension
       const baseWithoutExt = hasExtension ? basePath.substring(0, basePath.lastIndexOf('.')) : basePath;
       const extension = hasFromClause ? '.mjs' : '.js';
+      const resultPath = baseWithoutExt + extension;
+      return !resultPath.startsWith('.') && !resultPath.startsWith('/') 
+        ? `${origin}/${resultPath}` 
+        : resultPath;
+    }
+    const isComponent = basePath.includes("@/components/") || basePath.includes("@/lib") || basePath.includes("@/external")  || basePath.includes("@/hooks") ;
+
+    if (isComponent) {
+      const baseWithoutExt = hasExtension ? basePath.substring(0, basePath.lastIndexOf('.')) : basePath;
+      const extension = ".mjs";
       const resultPath = baseWithoutExt + extension;
       return !resultPath.startsWith('.') && !resultPath.startsWith('/') 
         ? `${origin}/${resultPath}` 

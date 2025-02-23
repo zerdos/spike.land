@@ -1,5 +1,21 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`importMapReplace > App specific imports: should hande react-extra libs 1`] = `
+{
+  "code": "import { extras } from "react-extras";",
+  "result": "/** importMapReplace */
+import { extras } from "http://localhost:3000/react-extras?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=extras";",
+}
+`;
+
+exports[`importMapReplace > App specific imports: should handle @/lib imports 1`] = `
+{
+  "code": "import { cn } from "@/lib/utils";",
+  "result": "/** importMapReplace */
+import { cn } from "http://localhost:3000/@/lib/utils.mjs";",
+}
+`;
+
 exports[`importMapReplace > Basic imports: basic named imports 1`] = `
 {
   "code": "import { prop, prop2 } from "foo";",

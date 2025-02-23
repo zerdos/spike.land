@@ -160,6 +160,11 @@ describe("importMapReplace", () => {
         export { bar } from "module2";
         // Final comment
       `
+    },
+    // App specific imports
+    'App specific imports': {
+      'should handle @/lib imports': `import { cn } from "@/lib/utils";`,
+      'should handle react-extra libs': `import { extras } from "react-extras";`
     }
   };
 
