@@ -1,78 +1,76 @@
 import { createWorkflow } from "@/workers/chat-utils-langchain.worker";
+import { HumanMessage } from "@langchain/core/messages";
+
+import { ICodeSession } from "@/lib/interfaces";
 
 // Example usage of the chat workflow that demonstrates AI code modifications
-const example = async () => {
+const example = async (userRequest: string) => {
   // In a real system, this would be read from the active editor
-  const currentFileContent = await getCurrentFileContent();
+  const currentFileContent = (globalThis as unknown as {
+    cSess: {
+      session: ICodeSession
+    };
+  }).cSess.session.code
 
-  // Initialize the workflow with the current file content
+  // Initialize the workflow with code context and instructions
   const workflow = await createWorkflow({
     code: currentFileContent,
     debugLogs: [
-      "Starting workflow with current file content",
-      // Instructions for the AI system on how to format modifications
-      `FORMAT INSTRUCTIONS:
-When modifying code, format your response using search/replace blocks:
+      "Starting workflow with current file content"
+    ],
+    messages: [
+      new HumanMessage(
+        `SYSTEM: You are a code modification assistant. IMMEDIATELY modify the code based on user requests using search/replace blocks. NO conversation or clarification - just output the modifications.
 
+CURRENT CODE:
+${currentFileContent}
+
+REQUIRED FORMAT:
 <<<<<<< SEARCH
-[exact lines to find]
+[exact lines from current code]
 =======
-[new lines to replace with]
+[replacement lines with requested changes]
 >>>>>>> REPLACE
 
-Example:
+EXAMPLE - If asked to rename a method:
 <<<<<<< SEARCH
-function add(a: number) {
-  return a;
-}
+  addUser(name: string) {
 =======
-function add(a: number, b: number) {
-  return a + b;
-}
->>>>>>> REPLACE`,
-    ],
+  createUser(name: string) {
+>>>>>>> REPLACE
+
+IMPORTANT: Make sure your SEARCH block matches the code EXACTLY. Do not ask questions - just output the modifications.`
+      )
+    ]
   });
 
-    // Example: User sends a natural language request - showing proper structure matching
-  const userRequest1 = "Add a password field to users and hash it before storing";
-  
-  // Example showing structure mismatch (this will fail with helpful error)
-  const userRequest2 = "Update the User type with password field";
-
+  // Example: User sends a natural language request
   // Run examples:
   
-  console.log("Example 1: Modifying existing class structure");
 
   // The AI system will:
   // 1. Read the current code from currentFileContent
   // 2. Analyze the requirement and current code structure
   // 3. Generate response in the correct search/replace format
-  const result1 = await workflow.invoke(userRequest1);
+  const result1 = await workflow.invoke(userRequest);
 
   console.log("Result of proper structure matching:", {
-    userRequest: userRequest1,
+    userRequest: userRequest,
     aiResponse: result1.messages,
     modifiedCode: result1.code,
     debugLogs: result1.debugLogs,
   });
 
-  console.log("\nExample 2: Demonstrating structure mismatch handling");
   
-  const result2 = await workflow.invoke(userRequest2);
-
-  console.log("Result showing structure mismatch error:", {
-    userRequest: userRequest2,
-    aiResponse: result2.messages,
-    // The code remains unchanged when modification fails
-    modifiedCode: result2.code,
-    debugLogs: result2.debugLogs,
-  });
 };
 
 // Simulating reading from active editor with sample code
 async function getCurrentFileContent(): Promise<string> {
   // Note: In a real implementation, this would get content from the active editor
-  // For this example, we use a class-based implementation to demonstrate structure handling
+  // For this example, we use a class-based implementation that will be modified to:
+  // 1. Add password field to user type
+  // 2. Add bcrypt import for password hashing
+  // 3. Make addUser async to handle password hashing
   return `class UserManager {
   private users: { id: number; name: string; }[] = [];
   private nextId = 1;
@@ -126,11 +124,11 @@ const setupMessageHandler = () => {
 };
 
 // Example setup and usage
-export const setupAndRun = async () => {
+export const setupAndRun = async (prompt: string) => {
   const channel = setupMessageHandler();
 
   try {
-    await example();
+    await example(prompt);
   } finally {
     channel.close();
   }
