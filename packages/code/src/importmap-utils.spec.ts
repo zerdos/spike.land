@@ -5,14 +5,111 @@ describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
   const scenarios = {
+    // Basic imports
     "should handle basic named imports": `import { prop, prop2 } from "foo";`,
     "should handle specific exports": `import { __await, __rest } from "tslib";`,
     "should handle specific named imports with aliases":
       `import { __await as aw, __rest as restNow} from "tslib";`,
+    "should handle default import": 
+      `import React from "react";`,
+    "should handle default and named imports together":
+      `import React, { useState, useEffect } from "react";`,
+    "should handle multiple named imports with complex names":
+      `import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "utils";`,
+    
+    // Worker and special imports
     "should transpile worker files to js with wildcard import":
       `import * as Monaco from "@/workers/monaco-editor.worker";`,
     "should transpile worker files to js with bare import":
       `import "@/workers/monaco-editor.worker";`,
+    "should handle service worker registration":
+      `import { register } from "@/workers/service-worker";`,
+    "should handle web worker imports":
+      `import Worker from "@/workers/computation.worker";`,
+      
+    // Path handling
+    "should handle relative imports without extension": 
+      `import { helper } from "./utils/helper";`,
+    "should handle parent directory relative imports":
+      `import { shared } from "../shared/utils";`,
+    "should preserve existing extensions in relative imports":
+      `import { component } from "./components/Button";`,
+    "should handle deep nested paths":
+      `import { util } from "../../../../very/deep/nested/path";`,
+    "should handle current directory marker":
+      `import { tool } from "./././current/path";`,
+    
+    // URL types
+    "should handle data URLs":
+      `import { foo } from "data:text/javascript,export const foo = 'bar'";`,
+    "should handle live URLs":
+      `import { Component } from "/live/components/Button";`,
+    "should handle http URLs from same origin":
+      `import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";`,
+    "should handle http URLs from different origin":
+      `import { lib } from "http://example.com/lib?bundle=true&exports=foo";`,
+    "should handle https URLs":
+      `import { secure } from "https://example.com/secure-module";`,
+    "should handle URLs with complex query parameters":
+      `import { module } from "https://example.com/module?version=1.2.3&format=esm&debug=true";`,
+    
+    // Dynamic imports
+    "should handle dynamic imports":
+      `const mod = await import("module");`,
+    "should handle dynamic imports with template literals":
+      `const mod = await import(\`./modules/\${name}\`);`,
+    "should handle dynamic imports with complex expressions":
+      `const mod = await import(process.env.NODE_ENV === 'production' ? 'prod' : 'dev');`,
+    "should handle dynamic imports with relative paths":
+      `const mod = await import('./relative/path/module');`,
+    
+    // Export variations
+    "should handle import with export":
+      `export { foo } from "bar";`,
+    "should handle export with rename":
+      `export { foo as default } from "module";`,
+    "should handle multiple exports":
+      `export { foo, bar as default, baz as customName } from "module";`,
+    "should handle export with destructuring":
+      `export const { foo, bar } = await import("module");`,
+    
+    // Special cases and edge cases
+    "should prevent double processing":
+      `/** importMapReplace */
+    import { foo } from "bar";`,
+    "should handle imports with comments":
+      `// This is a comment
+    import { foo } from "bar"; // End of line comment`,
+    "should handle multi-line imports":
+      `import {
+      foo,
+      bar,
+      baz
+    } from "module";`,
+    "should handle imports with unusual whitespace":
+      `import    {    foo   ,   bar   }    from     "module"   ;`,
+    "should handle imports with unicode characters":
+      `import { π, λ, γ } from "math-symbols";`,
+    "should handle import with empty specifiers":
+      `import {} from "empty-module";`,
+    
+    // Module types
+    "should handle CSS modules":
+      `import styles from "./styles.module.css";`,
+    "should handle JSON modules":
+      `import data from "./data.json";`,
+    "should handle WASM modules":
+      `import * as wasm from "./module.wasm";`,
+    "should handle TypeScript path aliases":
+      `import { component } from "@components/Button";`,
+    
+    // URL parameters and fragments
+    "should handle URLs with hash fragments":
+      `import { section } from "module#section";`,
+    "should handle URLs with version tags":
+      `import { lib } from "https://esm.sh/lodash@4.17.21";`,
+    "should handle scoped packages":
+      `import { component } from "@scope/package/component";`,
   };
 
   for (const [description, code] of Object.entries(scenarios)) {
@@ -21,153 +118,5 @@ describe("importMapReplace", () => {
       expect({result, code}).toMatchSnapshot();
     });
   }
-  // Basic imports
-  it("should handle basic named imports", async () => {
-    const code = `import { prop, prop2 } from "foo";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";"
-    `);
-  });
 
-  it("should handle specific exports", async () => {
-    const code = `import { __await, __rest } from "tslib";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
-    `);
-  });
-
-  it("should handle specific named imports with aliases", async () => {
-    const code = `import { __await as aw, __rest as restNow} from "tslib";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
-    `);
-  });
-
-  // Worker files
-  it("should transpile worker files to js with wildcard import", async () => {
-    const code = `import * as Monaco from "@/workers/monaco-editor.worker";`;
-    const result = importMapReplace(code, "");
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import * as Monaco from "/@/workers/monaco-editor.worker.mjs";"
-    `);
-  });
-
-  it("should transpile worker files to js with bare import", async () => {
-    const code = `import "@/workers/monaco-editor.worker";`;
-    const result = importMapReplace(code, "");
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import "/@/workers/monaco-editor.worker.js";"
-    `);
-  });
-
-  // Relative paths
-  it("should handle relative imports without extension", async () => {
-    const code = `import { helper } from "./utils/helper";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { helper } from "utils/helper.mjs";"
-    `);
-  });
-
-  it("should handle parent directory relative imports", async () => {
-    const code = `import { shared } from "../shared/utils";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { shared } from "../shared/utils.mjs";"
-    `);
-  });
-
-  it("should preserve existing extensions in relative imports", async () => {
-    const code = `import { component } from "./components/Button";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { component } from "components/Button.mjs";"
-    `);
-  });
-
-  // Data URLs
-  it("should handle data URLs", async () => {
-    const code = `import { foo } from "data:text/javascript,export const foo = 'bar'";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { foo } from "data:text/javascript,export const foo = /index.js"bar'";"
-    `);
-  });
-
-  // Live URLs
-  it("should handle live URLs", async () => {
-    const code = `import { Component } from "/live/components/Button";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { Component } from "/live/components/Button/index.js";"
-    `);
-  });
-
-  // HTTP URLs
-  it("should handle http URLs from same origin", async () => {
-    const code = `import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";"
-    `);
-  });
-
-  it("should handle http URLs from different origin", async () => {
-    const code = `import { lib } from "http://example.com/lib?bundle=true&exports=foo";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      import { lib } from "http://example.com/lib?bundle=true&exports=foo";"
-    `);
-  });
-
-  // Dynamic imports
-  it("should handle dynamic imports", async () => {
-    const code = `const mod = await import("module");`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      const mod = await import("http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");"
-    `);
-  });
-
-  it("should handle dynamic imports with template literals", async () => {
-    const code = "const mod = await import(`./modules/${name}`);";
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      const mod = await import(\`./modules/\${name}\`);"
-    `);
-  });
-
-  // Special cases
-  it("should handle import with export", async () => {
-    const code = `export { foo } from "bar";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toMatchInlineSnapshot(`
-      "/** importMapReplace */
-      export { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";"
-    `);
-  });
-
-  it("should prevent double processing", async () => {
-    const code = `/** importMapReplace */
-    import { foo } from "bar";`;
-    const result = importMapReplace(code, origin);
-    expect(result).toBe(code);
-  });
 });
