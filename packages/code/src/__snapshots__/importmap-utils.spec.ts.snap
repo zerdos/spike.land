@@ -289,6 +289,39 @@ import { register } from "/@/workers/service-worker.mjs";",
 }
 `;
 
+exports[`importMapReplace > should handle should preserve existing extensions in relative imports 1`] = `
+{
+  "code": "import { component } from "./components/Button";",
+  "result": "/** importMapReplace */
+import { component } from "components/Button.mjs";",
+}
+`;
+
+exports[`importMapReplace > should handle should prevent double processing 1`] = `
+{
+  "code": "/** importMapReplace */
+    import { foo } from "bar";",
+  "result": "/** importMapReplace */
+    import { foo } from "bar";",
+}
+`;
+
+exports[`importMapReplace > should handle should transpile worker files to js with bare import 1`] = `
+{
+  "code": "import "@/workers/monaco-editor.worker";",
+  "result": "/** importMapReplace */
+import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
+}
+`;
+
+exports[`importMapReplace > should handle should transpile worker files to js with wildcard import 1`] = `
+{
+  "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
+  "result": "/** importMapReplace */
+import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
+}
+`;
+
 exports[`importMapReplace > should handle specific exports 1`] = `
 {
   "code": "import { __await, __rest } from "tslib";",
@@ -310,38 +343,5 @@ exports[`importMapReplace > should handle web worker imports 1`] = `
   "code": "import Worker from "@/workers/computation.worker";",
   "result": "/** importMapReplace */
 import Worker from "/@/workers/computation.worker.mjs";",
-}
-`;
-
-exports[`importMapReplace > should preserve existing extensions in relative imports 1`] = `
-{
-  "code": "import { component } from "./components/Button";",
-  "result": "/** importMapReplace */
-import { component } from "components/Button.mjs";",
-}
-`;
-
-exports[`importMapReplace > should prevent double processing 1`] = `
-{
-  "code": "/** importMapReplace */
-    import { foo } from "bar";",
-  "result": "/** importMapReplace */
-    import { foo } from "bar";",
-}
-`;
-
-exports[`importMapReplace > should transpile worker files to js with bare import 1`] = `
-{
-  "code": "import "@/workers/monaco-editor.worker";",
-  "result": "/** importMapReplace */
-import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
-}
-`;
-
-exports[`importMapReplace > should transpile worker files to js with wildcard import 1`] = `
-{
-  "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
-  "result": "/** importMapReplace */
-import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
 }
 `;
