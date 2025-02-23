@@ -183,20 +183,55 @@ Critical rules:
    - Later blocks operate on the result of earlier blocks
    - If any block fails, the tool reports which one
 
-Example with proper context:
-<<<<<<< SEARCH
-import { User } from './types';
+Examples for different code styles:
 
-export function createUser(name: string) {
-  return new User(name);
+1. Adding a field to a class:
+<<<<<<< SEARCH
+class UserManager {
+  private users: { id: number; name: string; }[] = [];
 }
 =======
-import { User } from './types';
-import { hashPassword } from './utils';
+class UserManager {
+  private users: { id: number; name: string; password: string; }[] = [];
+}
+>>>>>>> REPLACE
 
-export async function createUser(name: string, password: string) {
-  const hashedPassword = await hashPassword(password);
-  return new User(name, hashedPassword);
+2. Modifying a class method:
+<<<<<<< SEARCH
+  addUser(name: string) {
+    const user = { id: this.nextId++, name };
+    this.users.push(user);
+    return user;
+  }
+=======
+  async addUser(name: string, password: string) {
+    const hashedPassword = await hash(password, 10);
+    const user = { id: this.nextId++, name, password: hashedPassword };
+    this.users.push(user);
+    return user;
+  }
+>>>>>>> REPLACE
+
+3. Adding imports:
+<<<<<<< SEARCH
+class UserManager {
+=======
+import { hash } from 'bcrypt';
+
+class UserManager {
+>>>>>>> REPLACE
+
+4. Updating interfaces/types:
+<<<<<<< SEARCH
+interface User {
+  id: string;
+  name: string;
+}
+=======
+interface User {
+  id: string;
+  name: string;
+  password: string;
 }
 >>>>>>> REPLACE`,
     schema: z.object({
