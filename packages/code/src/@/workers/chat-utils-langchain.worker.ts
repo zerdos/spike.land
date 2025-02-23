@@ -10,6 +10,17 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
+// Global type declarations
+declare global {
+  interface Window {
+    currentFile?: {
+      content: string;
+      path: string;
+    };
+  }
+  var currentFile: Window['currentFile'];
+}
+
 // Types
 interface AgentState {
   messages: BaseMessage[];
@@ -22,6 +33,7 @@ interface AgentState {
 interface CodeModification {
   code: string;
   error: string;
+  retryCount?: number;
 }
 
 const SEARCH = "<<<<<<< SEARCH";
@@ -30,43 +42,81 @@ const REPLACE = ">>>>>>> REPLACE";
 // Tools
 const codeModificationTool = tool(
   async (
-    { code, instructions }: { code: string; instructions: string; },
+    { instructions }: { instructions: string; },
   ): Promise<CodeModification> => {
+    let currentCode = globalThis.currentFile?.content || "";
+    
     try {
       if (instructions.length === 0) {
-        return { code, error: "" };
+        return { code: currentCode, error: "" };
       }
 
       const searchIndex = instructions.indexOf(SEARCH);
       const replaceIndex = instructions.indexOf(REPLACE);
 
       if (searchIndex === -1 || replaceIndex === -1) {
-        return { code, error: "Invalid search/replace format" };
+        return { code: currentCode, error: "Invalid search/replace format" };
       }
 
-      const result = replaceFirstCodeMod(instructions, code);
+      let retryCount = 0;
+      let result = currentCode;
+      const maxRetries = 3;
 
-      if (result === code) {
+      do {
+        const newResult = replaceFirstCodeMod(instructions, result);
+        if (newResult !== result) {
+          result = newResult;
+          break;
+        }
+        retryCount++;
+      } while (retryCount < maxRetries);
+
+      if (result === currentCode) {
         return {
-          code,
-          error: "Could not apply search/replace modifications",
+          code: currentCode,
+          error: `Failed to apply modifications after ${retryCount} attempts. Full file content:\n${currentCode}`,
+          retryCount
         };
       }
 
-      return { code: result, error: "" };
+      return { code: result, error: "", retryCount };
     } catch (error) {
       return {
-        code,
+        code: currentCode,
         error: error instanceof Error ? error.message : "Unknown error in code modification",
       };
     }
   },
   {
     name: "code_modification",
-    description: "Modifies code using search/replace patterns",
+    description: `Modifies code by applying search/replace patterns. This tool uses the current file's content as the base and supports multiple modification attempts.
+
+Required format for instructions parameter:
+1. Each modification block must start with '<<<<<<< SEARCH'
+2. Follow with the exact content to find (matching whitespace/indentation)
+3. Add '=======' separator line
+4. Add the new content to replace with
+5. End with '>>>>>>> REPLACE'
+
+Example usage:
+<<<<<<< SEARCH
+function add(a, b) {
+  return a + b;
+}
+=======
+function add(a: number, b: number): number {
+  return a + b;
+}
+>>>>>>> REPLACE
+
+Important notes:
+- SEARCH content must match exactly (character-for-character)
+- Multiple blocks can be provided for multiple changes
+- The tool will retry up to 3 times if a modification fails
+- Returns retryCount to track attempts
+- On complete failure, returns full file content for debugging`,
     schema: z.object({
-      code: z.string().describe("The source code to modify"),
-      instructions: z.string().describe("The search/replace instructions"),
+      instructions: z.string().describe("One or more search/replace blocks following the required format"),
     }),
   },
 );
