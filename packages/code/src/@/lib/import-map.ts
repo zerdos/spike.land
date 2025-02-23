@@ -1,11 +1,9 @@
 export type ImportMap = {
-    imports: Record<string, string>;
-    };
+  imports: Record<string, string>;
+};
 
-
-
-export const importMap:ImportMap = {
-    imports: {
+export const importMap: ImportMap = {
+  imports: {
     "/@/": "/@/",
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
@@ -17,6 +15,5 @@ export const importMap:ImportMap = {
     "react": "/reactMod.mjs",
     "framer-motion": "/@/workers/framer-motion.mjs",
     "react-dom": "/reactDom.mjs",
-  }};
-  
-  
+  },
+};
