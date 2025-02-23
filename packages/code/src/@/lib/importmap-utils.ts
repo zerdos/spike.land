@@ -15,7 +15,7 @@ export function importMapReplace(
   }
 
   const getExportsString = (match: string) => {
-    const namedImports = match.match(/\{([^}]*)\}/)?.[1];
+    const namedImports = match.match(/\{([^}]*)\}/s)?.[1]; // Add 's' flag for multiline matching
     return namedImports
       ?.split(',')
       .map(s => s.trim().split(' as ')[0])
@@ -149,8 +149,8 @@ export function importMapReplace(
       const fullPath = getMappedPath(path, '', false);
       return `${pre}${q1}${fullPath}${q2}`;
     })
-    .replace(/^(\s*import\s+.*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
-    .replace(/^(\s*export\s+.*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
+    .replace(/^(\s*import\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
+    .replace(/^(\s*export\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
     .replace(/(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g, replaceDynamicImport);
 
   return `/** importMapReplace */\n${code}`;
