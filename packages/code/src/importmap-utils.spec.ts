@@ -18,7 +18,7 @@ describe("importMapReplace", () => {
   for (const [description, code] of Object.entries(scenarios)) {
     it(description, async () => {
       const result = importMapReplace(code, origin);
-      expect(result).toMatchSnapshot();
+      expect({result, code}).toMatchSnapshot();
     });
   }
   // Basic imports

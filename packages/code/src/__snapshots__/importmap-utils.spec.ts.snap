@@ -1,26 +1,41 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`importMapReplace > should handle basic named imports 1`] = `
-"/** importMapReplace */
-import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";"
+{
+  "code": "import { prop, prop2 } from "foo";",
+  "result": "/** importMapReplace */
+import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";",
+}
 `;
 
 exports[`importMapReplace > should handle specific exports 1`] = `
-"/** importMapReplace */
-import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
+{
+  "code": "import { __await, __rest } from "tslib";",
+  "result": "/** importMapReplace */
+import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
+}
 `;
 
 exports[`importMapReplace > should handle specific named imports with aliases 1`] = `
-"/** importMapReplace */
-import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";"
+{
+  "code": "import { __await as aw, __rest as restNow} from "tslib";",
+  "result": "/** importMapReplace */
+import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
+}
 `;
 
 exports[`importMapReplace > should transpile worker files to js with bare import 1`] = `
-"/** importMapReplace */
-import "http://localhost:3000/@/workers/monaco-editor.worker.js";"
+{
+  "code": "import "@/workers/monaco-editor.worker";",
+  "result": "/** importMapReplace */
+import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
+}
 `;
 
 exports[`importMapReplace > should transpile worker files to js with wildcard import 1`] = `
-"/** importMapReplace */
-import * as Monaco from "/@/workers/monaco-editor.worker.mjs";"
+{
+  "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
+  "result": "/** importMapReplace */
+import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
+}
 `;
