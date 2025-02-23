@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`importMapReplace > should handle CSS modules 1`] = `
+exports[`importMapReplace > CSS modules 1`] = `
 {
   "code": "import styles from "./styles.module.css";",
   "result": "/** importMapReplace */
@@ -8,7 +8,7 @@ import styles from "./styles.module.css.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle JSON modules 1`] = `
+exports[`importMapReplace > JSON modules 1`] = `
 {
   "code": "import data from "./data.json";",
   "result": "/** importMapReplace */
@@ -16,7 +16,15 @@ import data from "./data.json.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle TypeScript path aliases 1`] = `
+exports[`importMapReplace > SVG modules 1`] = `
+{
+  "code": "import logo from "./logo.svg";",
+  "result": "/** importMapReplace */
+import logo from "./logo.svg.mjs";",
+}
+`;
+
+exports[`importMapReplace > TypeScript path aliases 1`] = `
 {
   "code": "import { component } from "@components/Button";",
   "result": "/** importMapReplace */
@@ -24,7 +32,7 @@ import { component } from "http://localhost:3000/@components/Button?bundle=true&
 }
 `;
 
-exports[`importMapReplace > should handle URLs with complex query parameters 1`] = `
+exports[`importMapReplace > URLs with complex query parameters 1`] = `
 {
   "code": "import { module } from "https://example.com/module?version=1.2.3&format=esm&debug=true";",
   "result": "/** importMapReplace */
@@ -32,7 +40,7 @@ import { module } from "https://example.com/module?version=1.2.3&format=esm&debu
 }
 `;
 
-exports[`importMapReplace > should handle URLs with hash fragments 1`] = `
+exports[`importMapReplace > URLs with hash fragments 1`] = `
 {
   "code": "import { section } from "module#section";",
   "result": "/** importMapReplace */
@@ -40,7 +48,7 @@ import { section } from "http://localhost:3000/module#section?bundle=true&extern
 }
 `;
 
-exports[`importMapReplace > should handle URLs with version tags 1`] = `
+exports[`importMapReplace > URLs with version tags 1`] = `
 {
   "code": "import { lib } from "https://esm.sh/lodash@4.17.21";",
   "result": "/** importMapReplace */
@@ -48,7 +56,15 @@ import { lib } from "https://esm.sh/lodash@4.17.21";",
 }
 `;
 
-exports[`importMapReplace > should handle WASM modules 1`] = `
+exports[`importMapReplace > Vue package default import 1`] = `
+{
+  "code": "import Vue from "vue";",
+  "result": "/** importMapReplace */
+import Vue from "http://localhost:3000/vue?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > WASM modules 1`] = `
 {
   "code": "import * as wasm from "./module.wasm";",
   "result": "/** importMapReplace */
@@ -56,7 +72,7 @@ import * as wasm from "./module.wasm.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle basic named imports 1`] = `
+exports[`importMapReplace > basic named imports 1`] = `
 {
   "code": "import { prop, prop2 } from "foo";",
   "result": "/** importMapReplace */
@@ -64,7 +80,7 @@ import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=reac
 }
 `;
 
-exports[`importMapReplace > should handle current directory marker 1`] = `
+exports[`importMapReplace > current directory marker 1`] = `
 {
   "code": "import { tool } from "./././current/path";",
   "result": "/** importMapReplace */
@@ -72,7 +88,7 @@ import { tool } from "./././current/path.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle data URLs 1`] = `
+exports[`importMapReplace > data URLs 1`] = `
 {
   "code": "import { foo } from "data:text/javascript,export const foo = 'bar'";",
   "result": "/** importMapReplace */
@@ -80,7 +96,7 @@ import { foo } from "data:text/javascript,export const foo = /index.js"bar'";",
 }
 `;
 
-exports[`importMapReplace > should handle deep nested paths 1`] = `
+exports[`importMapReplace > deep nested paths 1`] = `
 {
   "code": "import { util } from "../../../../very/deep/nested/path";",
   "result": "/** importMapReplace */
@@ -88,7 +104,7 @@ import { util } from "../../../../very/deep/nested/path.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle default and named imports together 1`] = `
+exports[`importMapReplace > default and named imports together 1`] = `
 {
   "code": "import React, { useState, useEffect } from "react";",
   "result": "/** importMapReplace */
@@ -96,7 +112,7 @@ import React, { useState, useEffect } from "react";",
 }
 `;
 
-exports[`importMapReplace > should handle default import 1`] = `
+exports[`importMapReplace > default import 1`] = `
 {
   "code": "import React from "react";",
   "result": "/** importMapReplace */
@@ -104,7 +120,15 @@ import React from "react";",
 }
 `;
 
-exports[`importMapReplace > should handle dynamic imports 1`] = `
+exports[`importMapReplace > directory imports 1`] = `
+{
+  "code": "import "./components/";",
+  "result": "/** importMapReplace */
+import "./components/.mjs";",
+}
+`;
+
+exports[`importMapReplace > dynamic imports 1`] = `
 {
   "code": "const mod = await import("module");",
   "result": "/** importMapReplace */
@@ -112,7 +136,7 @@ const mod = await import("http://localhost:3000/module?bundle=true&external=reac
 }
 `;
 
-exports[`importMapReplace > should handle dynamic imports with complex expressions 1`] = `
+exports[`importMapReplace > dynamic imports with complex expressions 1`] = `
 {
   "code": "const mod = await import(process.env.NODE_ENV === 'production' ? 'prod' : 'dev');",
   "result": "/** importMapReplace */
@@ -120,7 +144,7 @@ const mod = await import(process.env.NODE_ENV === 'production' ? 'prod' : 'dev')
 }
 `;
 
-exports[`importMapReplace > should handle dynamic imports with relative paths 1`] = `
+exports[`importMapReplace > dynamic imports with relative paths 1`] = `
 {
   "code": "const mod = await import('./relative/path/module');",
   "result": "/** importMapReplace */
@@ -128,7 +152,15 @@ const mod = await import("./relative/path/module.mjs");",
 }
 `;
 
-exports[`importMapReplace > should handle dynamic imports with template literals 1`] = `
+exports[`importMapReplace > dynamic imports with string concatenation 1`] = `
+{
+  "code": "const mod = await import('./modules/' + name + '/index');",
+  "result": "/** importMapReplace */
+const mod = await import('./modules/' + name + '/index');",
+}
+`;
+
+exports[`importMapReplace > dynamic imports with template literals 1`] = `
 {
   "code": "const mod = await import(\`./modules/\${name}\`);",
   "result": "/** importMapReplace */
@@ -136,7 +168,31 @@ const mod = await import(\`./modules/\${name}\`);",
 }
 `;
 
-exports[`importMapReplace > should handle export with destructuring 1`] = `
+exports[`importMapReplace > existing .js extensions 1`] = `
+{
+  "code": "import { func } from "./lib.js";",
+  "result": "/** importMapReplace */
+import { func } from "./lib.js.mjs";",
+}
+`;
+
+exports[`importMapReplace > export all from a module 1`] = `
+{
+  "code": "export * from "module";",
+  "result": "/** importMapReplace */
+export * from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > export all from relative module 1`] = `
+{
+  "code": "export * from "./utils/helpers";",
+  "result": "/** importMapReplace */
+export * from "./utils/helpers.mjs";",
+}
+`;
+
+exports[`importMapReplace > export with destructuring 1`] = `
 {
   "code": "export const { foo, bar } = await import("module");",
   "result": "/** importMapReplace */
@@ -144,7 +200,7 @@ export const { foo, bar } = await import("http://localhost:3000/module?bundle=tr
 }
 `;
 
-exports[`importMapReplace > should handle export with rename 1`] = `
+exports[`importMapReplace > export with rename 1`] = `
 {
   "code": "export { foo as default } from "module";",
   "result": "/** importMapReplace */
@@ -152,7 +208,7 @@ export { foo as default } from "http://localhost:3000/module?bundle=true&externa
 }
 `;
 
-exports[`importMapReplace > should handle http URLs from different origin 1`] = `
+exports[`importMapReplace > http URLs from different origin 1`] = `
 {
   "code": "import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
   "result": "/** importMapReplace */
@@ -160,7 +216,7 @@ import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
 }
 `;
 
-exports[`importMapReplace > should handle http URLs from same origin 1`] = `
+exports[`importMapReplace > http URLs from same origin 1`] = `
 {
   "code": "import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";",
   "result": "/** importMapReplace */
@@ -168,7 +224,7 @@ import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";",
 }
 `;
 
-exports[`importMapReplace > should handle https URLs 1`] = `
+exports[`importMapReplace > https URLs 1`] = `
 {
   "code": "import { secure } from "https://example.com/secure-module";",
   "result": "/** importMapReplace */
@@ -176,7 +232,7 @@ import { secure } from "https://example.com/secure-module";",
 }
 `;
 
-exports[`importMapReplace > should handle import with empty specifiers 1`] = `
+exports[`importMapReplace > import with empty specifiers 1`] = `
 {
   "code": "import {} from "empty-module";",
   "result": "/** importMapReplace */
@@ -184,7 +240,7 @@ import {} from "http://localhost:3000/empty-module?bundle=true&external=react,re
 }
 `;
 
-exports[`importMapReplace > should handle import with export 1`] = `
+exports[`importMapReplace > import with export 1`] = `
 {
   "code": "export { foo } from "bar";",
   "result": "/** importMapReplace */
@@ -192,7 +248,7 @@ export { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-
 }
 `;
 
-exports[`importMapReplace > should handle imports with comments 1`] = `
+exports[`importMapReplace > imports with comments 1`] = `
 {
   "code": "// This is a comment
     import { foo } from "bar"; // End of line comment",
@@ -201,7 +257,7 @@ import { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-
 }
 `;
 
-exports[`importMapReplace > should handle imports with unicode characters 1`] = `
+exports[`importMapReplace > imports with unicode characters 1`] = `
 {
   "code": "import { π, λ, γ } from "math-symbols";",
   "result": "/** importMapReplace */
@@ -209,7 +265,7 @@ import { π, λ, γ } from "math-symbols";",
 }
 `;
 
-exports[`importMapReplace > should handle imports with unusual whitespace 1`] = `
+exports[`importMapReplace > imports with unusual whitespace 1`] = `
 {
   "code": "import    {    foo   ,   bar   }    from     "module"   ;",
   "result": "/** importMapReplace */
@@ -217,7 +273,15 @@ import    {    foo   ,   bar   }    from     "http://localhost:3000/module?bundl
 }
 `;
 
-exports[`importMapReplace > should handle live URLs 1`] = `
+exports[`importMapReplace > inline comments in import 1`] = `
+{
+  "code": "import /* inline comment */ { foo } from "module";",
+  "result": "/** importMapReplace */
+import /* inline comment */ { foo } from "module";",
+}
+`;
+
+exports[`importMapReplace > live URLs 1`] = `
 {
   "code": "import { Component } from "/live/components/Button";",
   "result": "/** importMapReplace */
@@ -225,7 +289,15 @@ import { Component } from "/live/components/Button/index.js";",
 }
 `;
 
-exports[`importMapReplace > should handle multi-line imports 1`] = `
+exports[`importMapReplace > mixed default and namespace imports 1`] = `
+{
+  "code": "import Default, * as All from "my-module";",
+  "result": "/** importMapReplace */
+import Default, * as All from "http://localhost:3000/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > multi-line imports 1`] = `
 {
   "code": "import {
       foo,
@@ -241,7 +313,7 @@ baz
 }
 `;
 
-exports[`importMapReplace > should handle multiple exports 1`] = `
+exports[`importMapReplace > multiple exports 1`] = `
 {
   "code": "export { foo, bar as default, baz as customName } from "module";",
   "result": "/** importMapReplace */
@@ -249,7 +321,7 @@ export { foo, bar as default, baz as customName } from "http://localhost:3000/mo
 }
 `;
 
-exports[`importMapReplace > should handle multiple named imports with complex names 1`] = `
+exports[`importMapReplace > multiple named imports with complex names 1`] = `
 {
   "code": "import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "utils";",
   "result": "/** importMapReplace */
@@ -257,7 +329,15 @@ import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "http://localho
 }
 `;
 
-exports[`importMapReplace > should handle parent directory relative imports 1`] = `
+exports[`importMapReplace > namespace imports 1`] = `
+{
+  "code": "import * as utils from "utils";",
+  "result": "/** importMapReplace */
+import * as utils from "http://localhost:3000/utils?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > parent directory relative imports 1`] = `
 {
   "code": "import { shared } from "../shared/utils";",
   "result": "/** importMapReplace */
@@ -265,7 +345,39 @@ import { shared } from "../shared/utils.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle relative imports without extension 1`] = `
+exports[`importMapReplace > query and hash in imports 1`] = `
+{
+  "code": "import { lib } from "./module?foo=bar#section";",
+  "result": "/** importMapReplace */
+import { lib } from "./module?foo=bar#section.mjs";",
+}
+`;
+
+exports[`importMapReplace > re-export default 1`] = `
+{
+  "code": "export { default } from "module";",
+  "result": "/** importMapReplace */
+export { default } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > relative imports with query parameters 1`] = `
+{
+  "code": "import { util } from "./utils?foo=bar";",
+  "result": "/** importMapReplace */
+import { util } from "./utils?foo=bar.mjs";",
+}
+`;
+
+exports[`importMapReplace > relative imports with trailing slash 1`] = `
+{
+  "code": "import module from "./folder/";",
+  "result": "/** importMapReplace */
+import module from "./folder/.mjs";",
+}
+`;
+
+exports[`importMapReplace > relative imports without extension 1`] = `
 {
   "code": "import { helper } from "./utils/helper";",
   "result": "/** importMapReplace */
@@ -273,7 +385,7 @@ import { helper } from "./utils/helper.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle scoped packages 1`] = `
+exports[`importMapReplace > scoped packages 1`] = `
 {
   "code": "import { component } from "@scope/package/component";",
   "result": "/** importMapReplace */
@@ -281,7 +393,7 @@ import { component } from "http://localhost:3000/@scope/package/component?bundle
 }
 `;
 
-exports[`importMapReplace > should handle service worker registration 1`] = `
+exports[`importMapReplace > service worker registration 1`] = `
 {
   "code": "import { register } from "@/workers/service-worker";",
   "result": "/** importMapReplace */
@@ -289,7 +401,15 @@ import { register } from "/@/workers/service-worker.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle should preserve existing extensions in relative imports 1`] = `
+exports[`importMapReplace > should not transform when bundling flag is false 1`] = `
+{
+  "code": "import { comp } from "http://localhost:3000/special?bundle=false";",
+  "result": "/** importMapReplace */
+import { comp } from "http://localhost:3000/special?bundle=false";",
+}
+`;
+
+exports[`importMapReplace > should preserve existing extensions in relative imports 1`] = `
 {
   "code": "import { component } from "./components/Button";",
   "result": "/** importMapReplace */
@@ -297,7 +417,15 @@ import { component } from "./components/Button.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle should prevent double processing 1`] = `
+exports[`importMapReplace > should prevent double .mjs extension 1`] = `
+{
+  "code": "import "./file.mjs";",
+  "result": "/** importMapReplace */
+import "./file.mjs";",
+}
+`;
+
+exports[`importMapReplace > should prevent double processing 1`] = `
 {
   "code": "/** importMapReplace */
     import { foo } from "bar";",
@@ -306,7 +434,7 @@ exports[`importMapReplace > should handle should prevent double processing 1`] =
 }
 `;
 
-exports[`importMapReplace > should handle should transpile worker files to js with bare import 1`] = `
+exports[`importMapReplace > should transpile worker files to js with bare import 1`] = `
 {
   "code": "import "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
@@ -314,7 +442,7 @@ import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
 }
 `;
 
-exports[`importMapReplace > should handle should transpile worker files to js with wildcard import 1`] = `
+exports[`importMapReplace > should transpile worker files to js with wildcard import 1`] = `
 {
   "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
@@ -322,7 +450,23 @@ import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
 }
 `;
 
-exports[`importMapReplace > should handle specific exports 1`] = `
+exports[`importMapReplace > side-effect only imports 1`] = `
+{
+  "code": "import "polyfill";",
+  "result": "/** importMapReplace */
+import "/polyfill?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > single quotes in imports 1`] = `
+{
+  "code": "import module from 'my-module';",
+  "result": "/** importMapReplace */
+import module from "http://localhost:3000/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+}
+`;
+
+exports[`importMapReplace > specific exports 1`] = `
 {
   "code": "import { __await, __rest } from "tslib";",
   "result": "/** importMapReplace */
@@ -330,7 +474,7 @@ import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&externa
 }
 `;
 
-exports[`importMapReplace > should handle specific named imports with aliases 1`] = `
+exports[`importMapReplace > specific named imports with aliases 1`] = `
 {
   "code": "import { __await as aw, __rest as restNow} from "tslib";",
   "result": "/** importMapReplace */
@@ -338,7 +482,23 @@ import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bun
 }
 `;
 
-exports[`importMapReplace > should handle web worker imports 1`] = `
+exports[`importMapReplace > text file imports 1`] = `
+{
+  "code": "import text from "./file.txt";",
+  "result": "/** importMapReplace */
+import text from "./file.txt.mjs";",
+}
+`;
+
+exports[`importMapReplace > tilde aliases 1`] = `
+{
+  "code": "import { button } from "~components/Button";",
+  "result": "/** importMapReplace */
+import { button } from "http://localhost:3000/~components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=button";",
+}
+`;
+
+exports[`importMapReplace > web worker imports 1`] = `
 {
   "code": "import Worker from "@/workers/computation.worker";",
   "result": "/** importMapReplace */

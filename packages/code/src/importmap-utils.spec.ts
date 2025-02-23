@@ -110,10 +110,54 @@ describe("importMapReplace", () => {
       `import { lib } from "https://esm.sh/lodash@4.17.21";`,
     "scoped packages":
       `import { component } from "@scope/package/component";`,
+    
+    // Additional scenarios
+    "single quotes in imports":
+      `import module from 'my-module';`,
+    "SVG modules":
+      `import logo from "./logo.svg";`,
+    "relative imports with query parameters":
+      `import { util } from "./utils?foo=bar";`,
+    "dynamic imports with string concatenation":
+      `const mod = await import('./modules/' + name + '/index');`,
+    "inline comments in import":
+      `import /* inline comment */ { foo } from "module";`,
+    "export all from a module":
+      `export * from "module";`,
+    "relative imports with trailing slash":
+      `import module from "./folder/";`,
+    "text file imports":
+      `import text from "./file.txt";`,
+    "query and hash in imports":
+      `import { lib } from "./module?foo=bar#section";`,
+    "Vue package default import":
+      `import Vue from "vue";`,
+    "re-export default":
+      `export { default } from "module";`,
+    "export all from relative module":
+      `export * from "./utils/helpers";`,
+    "should not transform when bundling flag is false":
+      `import { comp } from "http://localhost:3000/special?bundle=false";`,
+    
+    // More edge cases
+    "namespace imports":
+      `import * as utils from "utils";`,
+    "side-effect only imports":
+      `import "polyfill";`,
+    "mixed default and namespace imports":
+      `import Default, * as All from "my-module";`,
+    "existing .js extensions":
+      `import { func } from "./lib.js";`,
+    "directory imports":
+      `import "./components/";`,
+    "tilde aliases":
+      `import { button } from "~components/Button";`,
+    "should prevent double .mjs extension":
+      `import "./file.mjs";`,
   };
 
   for (const [description, code] of Object.entries(scenarios)) {
-    it("should handle " +description, async () => {
+    it("" +description, async () => {
       const result = importMapReplace(code, origin);
       expect({result, code}).toMatchSnapshot();
     });
