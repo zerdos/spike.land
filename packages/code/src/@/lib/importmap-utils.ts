@@ -1,20 +1,9 @@
 // src/importMapUtils.ts
 
-export const oo = {
-  "/@/": "/@/",
-  "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-  "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
-  "@emotion/styled": "/emotionStyled.mjs",
-  "react/jsx-runtime": "/jsx.mjs",
-  "react-dom/server": "/reactDomServer.mjs",
-  "react-dom/client": "/reactDomClient.mjs",
-  "@emotion/react": "/emotion.mjs",
-  "react": "/reactMod.mjs",
-  "framer-motion": "/@/workers/framer-motion.mjs",
-  "react-dom": "/reactDom.mjs",
-};
+import { importMap as defaultImportMap, ImportMap } from "@/lib/import-map";
 
-export const importMap = { imports: oo };
+export const importMap: ImportMap = defaultImportMap
+
 
 const externalString =
   "bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";
@@ -157,7 +146,7 @@ function transformCleverExport(
 
 // Main function
 
-export function importMapReplace(code: string, origin: string): string {
+export function importMapReplace(code: string, origin: string, impMap: ImportMap = defaultImportMap): string {
   // Avoid double processing
   if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
@@ -175,7 +164,7 @@ export function importMapReplace(code: string, origin: string): string {
   // The replacer closes over origin
   function replacer(match: string, p1: string, p2: string, p3char: string): string {
     // Do not touch already-mapped modules
-    for (const pkg of Object.keys(oo)) {
+    for (const pkg of Object.keys(impMap.imports)) {
       if (match.includes(`"${pkg}"`)) {
         return match;
       }
