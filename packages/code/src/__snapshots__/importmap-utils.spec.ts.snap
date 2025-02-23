@@ -4,7 +4,7 @@ exports[`importMapReplace > CSS modules 1`] = `
 {
   "code": "import styles from "./styles.module.css";",
   "result": "/** importMapReplace */
-import styles from "./styles.module.css.mjs";",
+import styles from "./styles.module.css";",
 }
 `;
 
@@ -12,7 +12,7 @@ exports[`importMapReplace > JSON modules 1`] = `
 {
   "code": "import data from "./data.json";",
   "result": "/** importMapReplace */
-import data from "./data.json.mjs";",
+import data from "./data.json";",
 }
 `;
 
@@ -20,7 +20,7 @@ exports[`importMapReplace > SVG modules 1`] = `
 {
   "code": "import logo from "./logo.svg";",
   "result": "/** importMapReplace */
-import logo from "./logo.svg.mjs";",
+import logo from "./logo.svg";",
 }
 `;
 
@@ -68,7 +68,7 @@ exports[`importMapReplace > WASM modules 1`] = `
 {
   "code": "import * as wasm from "./module.wasm";",
   "result": "/** importMapReplace */
-import * as wasm from "./module.wasm.mjs";",
+import * as wasm from "./module.wasm";",
 }
 `;
 
@@ -92,7 +92,7 @@ exports[`importMapReplace > data URLs 1`] = `
 {
   "code": "import { foo } from "data:text/javascript,export const foo = 'bar'";",
   "result": "/** importMapReplace */
-import { foo } from "data:text/javascript,export const foo = /index.js"bar'";",
+import { foo } from "data:text/javascript,export const foo = 'bar'";",
 }
 `;
 
@@ -124,7 +124,7 @@ exports[`importMapReplace > directory imports 1`] = `
 {
   "code": "import "./components/";",
   "result": "/** importMapReplace */
-import "./components/.mjs";",
+import "./components/index.mjs";",
 }
 `;
 
@@ -172,7 +172,7 @@ exports[`importMapReplace > existing .js extensions 1`] = `
 {
   "code": "import { func } from "./lib.js";",
   "result": "/** importMapReplace */
-import { func } from "./lib.js.mjs";",
+import { func } from "./lib.js";",
 }
 `;
 
@@ -285,7 +285,7 @@ exports[`importMapReplace > live URLs 1`] = `
 {
   "code": "import { Component } from "/live/components/Button";",
   "result": "/** importMapReplace */
-import { Component } from "/live/components/Button/index.js";",
+import { Component } from "/live/components/Button";",
 }
 `;
 
@@ -373,7 +373,7 @@ exports[`importMapReplace > relative imports with trailing slash 1`] = `
 {
   "code": "import module from "./folder/";",
   "result": "/** importMapReplace */
-import module from "./folder/.mjs";",
+import module from "./folder/index.mjs";",
 }
 `;
 
@@ -438,7 +438,7 @@ exports[`importMapReplace > should transpile worker files to js with bare import
 {
   "code": "import "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
-import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
+import "http://localhost:3000/@/workers/monaco-editor.worker.mjs";",
 }
 `;
 
@@ -446,7 +446,7 @@ exports[`importMapReplace > should transpile worker files to js with wildcard im
 {
   "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
-import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
+import * as Monaco from "http://localhost:3000/@/workers/monaco-editor.worker.mjs";",
 }
 `;
 
@@ -486,7 +486,7 @@ exports[`importMapReplace > text file imports 1`] = `
 {
   "code": "import text from "./file.txt";",
   "result": "/** importMapReplace */
-import text from "./file.txt.mjs";",
+import text from "./file.txt";",
 }
 `;
 
@@ -502,6 +502,6 @@ exports[`importMapReplace > web worker imports 1`] = `
 {
   "code": "import Worker from "@/workers/computation.worker";",
   "result": "/** importMapReplace */
-import Worker from "/@/workers/computation.worker.mjs";",
+import Worker from "http://localhost:3000/@/workers/computation.worker.mjs";",
 }
 `;
