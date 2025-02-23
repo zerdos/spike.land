@@ -19,13 +19,151 @@ export const importMap = { imports: oo };
 const externalString =
   "bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";
 
+// Helpers
+
+function addExtension(path: string, ext: string): string {
+  const [basePath, queryAndHash = ''] = path.split(/[?#]/, 2);
+  return `${basePath}${ext}${queryAndHash ? (queryAndHash.startsWith('#') ? '?' : '') + queryAndHash : ''}`;
+}
+
+function isWorkerImport(path: string): boolean {
+  return path.includes(".worker");
+}
+
+function isBareWorkerImport(importLine: string): boolean {
+  const bareImportRegex = /^import\s+(['"`])[^'"`]+\1/;
+  return bareImportRegex.test(importLine.trim());
+}
+
+function formatQueryAndHash(q: string): string {
+  return q ? (q.startsWith('#') ? '?' + q : q) : "";
+}
+
+function transformRelativeImport(
+  specifier: string,
+  prefix: string,
+  suffix: string,
+  _origin: string
+): string | null {
+  const [basePath, queryAndHash = ''] = specifier.split(/[?#]/, 2);
+  if (basePath.endsWith("/")) {
+    return prefix + `"${basePath}index.mjs${formatQueryAndHash(queryAndHash)}"` + suffix;
+  }
+  const lastPart = basePath.split("/").pop() || "";
+  if (/\.(js|mjs|cjs|css|json|svg|wasm|txt)$/.test(lastPart)) {
+    return null;
+  }
+  return prefix + `"${addExtension(specifier, '.mjs')}"` + suffix;
+}
+
+function transformHttpImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string,
+  originalMatch: string
+): string {
+  if (!packageName.startsWith(origin)) {
+    try {
+      const url = new URL(packageName);
+      const hash = url.hash;
+      url.hash = '';
+      const path = url.pathname.slice(1);
+      const [pkgName, exportsParam] = path.split(`?bundle=true&exports=`);
+      if (exportsParam) {
+        const newUrl = new URL(`${origin}/${pkgName}`, origin);
+        newUrl.searchParams.append('bundle', 'true');
+        newUrl.searchParams.append('external', externalString);
+        newUrl.searchParams.append('exports', exportsParam);
+        if (hash) newUrl.hash = hash;
+        return prefix + `"${newUrl.toString()}"` + suffix;
+      }
+      return originalMatch;
+    } catch {
+      return originalMatch;
+    }
+  }
+  return originalMatch;
+}
+
+function transformWorkerImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string,
+  match: string
+): string {
+  const ext = isBareWorkerImport(match) ? ".js" : ".mjs";
+  return prefix + `"${origin}/${packageName}${ext}"` + suffix;
+}
+
+function transformAtImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  _origin: string
+): string {
+  return prefix + `"/${packageName}.mjs"` + suffix;
+}
+
+function transformGenericImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string,
+  importedItems?: string[]
+): string {
+  if (importedItems) {
+    return prefix + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + suffix;
+  }
+  return prefix + `"${origin}/${packageName}?${externalString}"` + suffix;
+}
+
+function transformExtensionImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string
+): string {
+  return prefix + `"${origin}/${packageName}"` + suffix;
+}
+
+function transformExportsImport(
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string
+): string {
+  const [pkgName, exportsPart] = packageName.split(`?${externalString}&exports=`);
+  return prefix + `"${origin}/${pkgName}?${externalString}&exports=${exportsPart}"` + suffix;
+}
+
+function transformCleverExport(
+  fullMatch: string,
+  packageName: string,
+  prefix: string,
+  suffix: string,
+  origin: string
+): string | null {
+  const importMatch = fullMatch.match(/import\s*{\s*([^}]+)\s*}/);
+  if (importMatch) {
+    const importedItems = importMatch[1]
+      .split(",")
+      .map((item) => item.trim().split(/\s+as\s+/)[0]);
+    return prefix + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + suffix;
+  }
+  return null;
+}
+
+// Main function
+
 export function importMapReplace(code: string, origin: string): string {
-  // Return early if the code already contains "importMapReplace" to avoid double processing
+  // Avoid double processing
   if (code.slice(0, 30).includes("importMapReplace")) {
     return code;
   }
 
-  // Define regex patterns for different types of imports
+  // Regex patterns
   const topLevelImportPattern =
     /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const topLevelNoFromPattern = /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1;?/g;
@@ -34,44 +172,23 @@ export function importMapReplace(code: string, origin: string): string {
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
   const dynamicImportTemplatePattern = /(import\()(`[^`]+`)(\))/g;
 
-  const addExtension = (path: string, ext: string): string => {
-    const [basePath, queryAndHash = ''] = path.split(/[?#]/, 2);
-    return `${basePath}${ext}${queryAndHash ? `${queryAndHash.startsWith('#') ? '?' : ''}${queryAndHash}` : ''}`;
-  };
-
-  const isWorkerImport = (path: string): boolean => {
-    return path.includes(".worker");
-  };
-
-  const isBareWorkerImport = (match: string): boolean => {
-    // Check if it's just "import 'worker'" without any assignments or imports
-    const bareImportRegex = /^import\s+(['"`])[^'"`]+\1/;
-    return bareImportRegex.test(match.trim());
-  };
-
-  // Define a replacer function to modify the import paths
-  const replacer = (match: string, p1: string, p2: string, p3char: string) => {
-    let isModule = false;
-    Object.keys(oo).forEach((pkg) => {
+  // The replacer closes over origin
+  function replacer(match: string, p1: string, p2: string, p3char: string): string {
+    // Do not touch already-mapped modules
+    for (const pkg of Object.keys(oo)) {
       if (match.includes(`"${pkg}"`)) {
-        isModule = true;
+        return match;
       }
-    });
-    if (isModule) {
-      return match;
     }
+    const suffix = String(p3char).replace(/[0-9]/g, "");
 
-    const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
-
+    // Handle bare imports (without a second capture group)
     if (typeof p2 !== "string") {
       const hasSemicolon = match.trim().endsWith(";");
       const pkg = match.split('"')[1];
       if (!pkg) return match;
-
-      // Check for worker files
       if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && isWorkerImport(pkg)) {
-        const ext = isBareWorkerImport(match) ? ".js" : ".mjs";
-        return `import "${origin}/${pkg}${ext}"` + (hasSemicolon ? ";" : "");
+        return `import "${origin}/${pkg}${isBareWorkerImport(match) ? ".js" : ".mjs"}"` + (hasSemicolon ? ";" : "");
       }
       if (pkg.startsWith("http")) return match;
       if (pkg.startsWith("/")) return match;
@@ -79,7 +196,6 @@ export function importMapReplace(code: string, origin: string): string {
         const [basePath] = pkg.split(/[?#]/);
         const hasExtension = basePath.split("/").pop()?.includes(".");
         if (!hasExtension) {
-          // Handle directory imports
           if (pkg.endsWith("/")) {
             return `import "${pkg}index.mjs"` + (hasSemicolon ? ";" : "");
           }
@@ -91,117 +207,65 @@ export function importMapReplace(code: string, origin: string): string {
       return `import "/${pkg}?${externalString}"` + (hasSemicolon ? ";" : "");
     }
 
-    if (p2?.startsWith("`") && p2.endsWith("`")) {
-      // This is a template literal, we should keep it as is
+    // For standard imports with a quoted specifier
+    if (p2.startsWith("`") && p2.endsWith("`")) {
       return match;
     }
+    const packageName = p2.slice(1, -1);
 
-    const packageName = p2.slice(1, -1); // Remove quotes from package name
+    if (packageName.startsWith("data:")) return match;
 
-    // Preserve data URLs
-    if (packageName?.startsWith("data:")) {
-      return match;
+    if (packageName.startsWith("./") || packageName.startsWith("../")) {
+      const transformed = transformRelativeImport(packageName, p1, suffix, origin);
+      return transformed !== null ? transformed : match;
     }
 
-    // Handle directory imports and existing extensions
-    if (packageName?.startsWith("./") || packageName?.startsWith("../")) {
-      const [basePath, queryAndHash = ''] = packageName.split(/[?#]/, 2);
-      const parts = basePath.split("/");
-      const lastPart = parts[parts.length - 1];
-      
-      // Directory import (ends with /)
-      if (basePath.endsWith("/")) {
-        return p1 + `"${basePath}index.mjs${queryAndHash ? `${queryAndHash.startsWith('#') ? '?' : ''}${queryAndHash}` : ''}"` + p3;
+    if (packageName.startsWith("/")) {
+      return p1 + `"${packageName}"` + suffix;
+    }
+
+    if (packageName.startsWith("@/")) {
+      if (isWorkerImport(packageName)) {
+        return transformWorkerImport(packageName, p1, suffix, origin, match);
       }
-      
-      // Has existing extension
-      if (lastPart && /\.(js|mjs|cjs|css|json|svg|wasm|txt)$/.test(lastPart)) {
-        return match;
-      }
-      
-      // No extension
-      return p1 + `"${addExtension(packageName, '.mjs')}"` + p3;
+      return transformAtImport(packageName, p1, suffix, origin);
     }
 
-    if (packageName?.startsWith("/")) {
-      return p1 + `"${packageName}"` + p3;
+    if (packageName.startsWith("http")) {
+      return transformHttpImport(packageName, p1, suffix, origin, match);
     }
 
-    // Handle worker files
-    if (packageName?.startsWith("@/") && isWorkerImport(packageName)) {
-      const ext = isBareWorkerImport(match) ? ".js" : ".mjs";
-      return p1 + `"${origin}/${packageName}${ext}"` + p3;
-    } else if (packageName?.startsWith("@/")) {
-      return p1 + `"/${packageName}.mjs"` + p3;
+    if (packageName.startsWith("/live") && !packageName.includes("index.js")) {
+      return p1 + `"${packageName}/index.js"` + suffix;
     }
 
-    // Handle URLs with proper fragment handling
-    if (packageName?.startsWith("http")) {
-      if (!packageName?.startsWith(origin)) {
-        try {
-          const url = new URL(packageName);
-          const hash = url.hash;
-          url.hash = ''; // Clear hash temporarily
-          
-          const [pkgName, exports] = url.pathname.slice(1).split(
-            "?bundle=true&exports=",
-          );
-          
-          if (exports) {
-            // Properly order query params and hash
-            const newUrl = new URL(`${origin}/${pkgName}`, origin);
-            newUrl.searchParams.append('bundle', 'true');
-            newUrl.searchParams.append('external', 'react,react-dom,framer-motion,@emotion/react,@emotion/styled');
-            newUrl.searchParams.append('exports', exports);
-            if (hash) {
-              newUrl.hash = hash;
-            }
-            return p1 + `"${newUrl.toString()}"` + p3;
-          }
-          return match; // Keep external URLs as they are
-        } catch {
-          return match; // Invalid URL
-        }
-      }
-      return match;
+    if (
+      packageName.includes(".") &&
+      ((() => {
+        const parts = packageName.split(".");
+        const ext = parts[parts.length - 1];
+        return ["js", "mjs", "ts", "tsx"].includes(ext);
+      })())
+    ) {
+      return transformExtensionImport(packageName, p1, suffix, origin);
     }
 
-    if (packageName?.startsWith("/live") && !packageName.includes("index.js")) {
-      return p1 + `"${packageName}/index.js"` + p3;
-    }
-
-    if (packageName.includes(".")) {
-      const extension = packageName.split(".").pop()!;
-      if (["js", "mjs", "ts", "tsx"].includes(extension)) {
-        return p1 + `"${origin}/${packageName}"` + p3;
-      }
-    }
-
-    // Handle specific exports
     if (packageName.includes(`?${externalString}&exports=`)) {
-      const [pkgName, exports] = packageName.split(`?${externalString}&exports=`);
-      return p1 + `"${origin}/${pkgName}?${externalString}&exports=${exports}"` + p3;
+      return transformExportsImport(packageName, p1, suffix, origin);
     }
 
-    // Handle clever top-level exports
-    const importMatch = match.match(/import\s*{\s*([^}]+)\s*}/);
-    if (importMatch) {
-      const importedItems = importMatch[1].split(",").map((item) => {
-        const [originalName] = item.trim().split(/\s+as\s+/);
-        return originalName.trim();
-      });
-      return p1 + `"${origin}/${packageName}?${externalString}&exports=${importedItems.join(",")}"` + p3;
-    }
+    const clever = transformCleverExport(match, packageName, p1, suffix, origin);
+    if (clever) return clever;
 
-    return p1 + `"${origin}/${packageName}?${externalString}"` + p3;
-  };
+    return transformGenericImport(packageName, p1, suffix, origin);
+  }
 
-  // Convert code to string if it's not already a string
-  const str = typeof code === "string"
-    ? code
-    : new TextDecoder().decode(new Uint8Array(code));
+  // Convert input to string if needed
+  const str =
+    typeof code === "string"
+      ? code
+      : new TextDecoder().decode(new Uint8Array(code));
 
-  // Replace import paths using the replacer function
   let replaced = str
     .replace(topLevelImportPattern, replacer)
     .replace(topLevelExportPattern, replacer)
@@ -215,8 +279,7 @@ export function importMapReplace(code: string, origin: string): string {
     .filter((line) => !line.startsWith("//"))
     .join("\n");
 
-  return `/** importMapReplace */
-${replaced}`;
+  return `/** importMapReplace */\n${replaced}`;
 }
 
 export default importMap;
