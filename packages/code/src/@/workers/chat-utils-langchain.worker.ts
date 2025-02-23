@@ -18,7 +18,7 @@ declare global {
       path: string;
     };
   }
-  var currentFile: Window["currentFile"];
+  var currentFile: Window['currentFile'];
 }
 
 // Types
@@ -34,10 +34,15 @@ interface CodeModification {
   code: string;
   error: string;
   retryCount?: number;
+  currentFileContent?: string;
+  searchContent?: string;
+  blockNumber?: number;
+  totalBlocks?: number;
 }
 
 const SEARCH = "<<<<<<< SEARCH";
 const REPLACE = ">>>>>>> REPLACE";
+const SEPARATOR = "=======";
 
 // Tools
 const codeModificationTool = tool(
@@ -45,38 +50,89 @@ const codeModificationTool = tool(
     { instructions }: { instructions: string; },
   ): Promise<CodeModification> => {
     let currentCode = globalThis.currentFile?.content || "";
+    
+    // If no current file content, return early with helpful error
+    if (!currentCode) {
+      return {
+        code: "",
+        error: "No current file content available. Make sure you have loaded the correct file first.",
+        currentFileContent: "",
+      };
+    }
 
     try {
       if (instructions.length === 0) {
-        return { code: currentCode, error: "" };
+        return {
+          code: currentCode,
+          error: "Instructions required - provide search/replace blocks",
+          currentFileContent: currentCode
+        };
       }
 
       const searchIndex = instructions.indexOf(SEARCH);
       const replaceIndex = instructions.indexOf(REPLACE);
+      const separatorIndex = instructions.indexOf(SEPARATOR);
 
-      if (searchIndex === -1 || replaceIndex === -1) {
-        return { code: currentCode, error: "Invalid search/replace format" };
+      if (searchIndex === -1 || replaceIndex === -1 || separatorIndex === -1) {
+        return {
+          code: currentCode,
+          error: "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
+          currentFileContent: currentCode
+        };
       }
 
       let retryCount = 0;
       let result = currentCode;
       const maxRetries = 3;
 
+      // Extract all search/replace blocks for error reporting
+      const blocks = instructions.split(SEARCH).slice(1);
+      const searchBlocks = blocks.map(block => {
+        const [search] = block.split(SEPARATOR);
+        return search.trim();
+      });
+
+      // For error reporting, track which block we're trying
+      let currentBlockIndex = 0;
+      const totalBlocks = searchBlocks.length;
+
       do {
         const newResult = replaceFirstCodeMod(instructions, result);
         if (newResult !== result) {
           result = newResult;
-          break;
+          currentBlockIndex++;
+          retryCount = 0;
+          
+          // If we've processed all blocks successfully, we're done
+          if (currentBlockIndex >= totalBlocks) {
+            break;
+          }
+          continue;
         }
         retryCount++;
+
+        if (retryCount === 1) {
+          return {
+            code: currentCode,
+            error: `Block ${currentBlockIndex + 1}/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
+            retryCount,
+            currentFileContent: currentCode,
+            searchContent: searchBlocks[currentBlockIndex],
+            blockNumber: currentBlockIndex + 1,
+            totalBlocks
+          };
+        }
       } while (retryCount < maxRetries);
 
       if (result === currentCode) {
         return {
           code: currentCode,
-          error:
-            `Failed to apply modifications after ${retryCount} attempts. Full file content:\n${currentCode}`,
+          error: `Failed to apply block ${currentBlockIndex + 1}/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
           retryCount,
+          currentFileContent: currentCode,
+          searchContent: searchBlocks[currentBlockIndex],
+          blockNumber: currentBlockIndex + 1,
+          totalBlocks
         };
       }
 
@@ -85,42 +141,64 @@ const codeModificationTool = tool(
       return {
         code: currentCode,
         error: error instanceof Error ? error.message : "Unknown error in code modification",
+        currentFileContent: currentCode
       };
     }
   },
   {
     name: "code_modification",
-    description:
-      `Modifies code by applying search/replace patterns. This tool uses the current file's content as the base and supports multiple modification attempts.
+    description: `Modifies code by applying search/replace patterns. Uses current file content as base for modifications. Supports multiple search/replace blocks for coordinated changes.
 
-Required format for instructions parameter:
-1. Each modification block must start with '<<<<<<< SEARCH'
-2. Follow with the exact content to find (matching whitespace/indentation)
-3. Add '=======' separator line
-4. Add the new content to replace with
-5. End with '>>>>>>> REPLACE'
-
-Example usage:
+Required format for instructions parameter (can include multiple blocks):
 <<<<<<< SEARCH
-function add(a, b) {
-  return a + b;
-}
+[exact content to find]
 =======
-function add(a: number, b: number): number {
-  return a + b;
-}
+[new content to replace with]
 >>>>>>> REPLACE
 
-Important notes:
-- SEARCH content must match exactly (character-for-character)
-- Multiple blocks can be provided for multiple changes
-- The tool will retry up to 3 times if a modification fails
-- Returns retryCount to track attempts
-- On complete failure, returns full file content for debugging`,
+Critical rules:
+1. SEARCH content must match EXACTLY (character-for-character):
+   - Match all whitespace, indentation, and line endings
+   - Include all relevant context (imports, full function definitions, etc.)
+   - Don't truncate or modify the content you're searching for
+
+2. Common mistakes to avoid:
+   - Missing imports or context needed for the changes
+   - Not including enough surrounding code for unique matches
+   - Incorrect indentation or line endings
+   - Partial line matches (always include complete lines)
+
+3. When modification fails:
+   - Tool indicates which block failed (e.g. "Block 2/3 failed")
+   - Returns current file content and failing block content
+   - Compare your SEARCH block carefully with the file content
+   - Add necessary imports or context
+   - Ensure formatting matches exactly
+
+4. Multiple block handling:
+   - Blocks are processed in order they appear
+   - Each block must match and apply successfully
+   - Later blocks operate on the result of earlier blocks
+   - If any block fails, the tool reports which one
+
+Example with proper context:
+<<<<<<< SEARCH
+import { User } from './types';
+
+export function createUser(name: string) {
+  return new User(name);
+}
+=======
+import { User } from './types';
+import { hashPassword } from './utils';
+
+export async function createUser(name: string, password: string) {
+  const hashedPassword = await hashPassword(password);
+  return new User(name, hashedPassword);
+}
+>>>>>>> REPLACE`,
     schema: z.object({
-      instructions: z.string().describe(
-        "One or more search/replace blocks following the required format",
-      ),
+      instructions: z.string().describe("Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly."),
     }),
   },
 );
