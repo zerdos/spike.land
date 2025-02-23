@@ -4,306 +4,156 @@ import { ImportMap, importMap as defaultImportMap } from "@/lib/import-map";
 
 export const importMap: ImportMap = defaultImportMap;
 
-// Constants
-const EXTERNAL_DEPENDENCIES = [
-  "react",
-  "react-dom",
-  "framer-motion",
-  "@emotion/react",
-  "@emotion/styled",
-];
-
-const EXTERNAL_QUERY = `bundle=true&external=${EXTERNAL_DEPENDENCIES.join(",")}`;
-
-const FILE_EXTENSIONS = {
-  KNOWN: /\.(js|mjs|cjs|css|json|svg|wasm|txt)$/,
-  WORKER: ".worker",
-  MODULE: ".mjs",
-  WORKER_BARE: ".js",
-};
-
-interface ImportMatch {
-  prefix: string;
-  packageName: string;
-  suffix: string;
-  fullMatch: string;
-}
-
-// Path manipulation utilities
-const PathUtils = {
-  splitPathFromQuery(path: string): [string, string] {
-    return path.split(/[?#]/, 2) as [string, string];
-  },
-
-  formatQueryFragment(query: string): string {
-    return query ? (query.startsWith("#") ? "?" + query : query) : "";
-  },
-
-  addExtension(path: string, ext: string): string {
-    const [basePath, queryAndHash = ""] = PathUtils.splitPathFromQuery(path);
-    return `${basePath}${ext}${PathUtils.formatQueryFragment(queryAndHash)}`;
-  },
-
-  isDirectory(path: string): boolean {
-    return path.endsWith("/");
-  },
-};
-
-// Import pattern detection
-const ImportDetector = {
-  isWorkerImport(path: string): boolean {
-    return path.includes(FILE_EXTENSIONS.WORKER);
-  },
-
-  isBareWorkerImport(importLine: string): boolean {
-    const bareImportRegex = /^import\s+(['"`])[^'"`]+\1/;
-    return bareImportRegex.test(importLine.trim());
-  },
-
-  extractImportedItems(fullMatch: string): string[] | null {
-    const importMatch = fullMatch.match(/import\s*{\s*([^}]+)\s*}/);
-    if (!importMatch) return null;
-
-    return importMatch[1]
-      .split(",")
-      .map(item => item.trim().split(/\s+as\s+/)[0]);
-  },
-
-  isAlreadyProcessed(code: string): boolean {
-    return code.slice(0, 30).includes("importMapReplace");
-  },
-};
-
-// Transform functions for different import types
-const ImportTransformer = {
-  relative(specifier: string, prefix: string, suffix: string): string | null {
-    const [basePath, queryAndHash = ""] = PathUtils.splitPathFromQuery(specifier);
-
-    if (PathUtils.isDirectory(basePath)) {
-      return prefix +
-        `"${basePath}index${FILE_EXTENSIONS.MODULE}${
-          PathUtils.formatQueryFragment(queryAndHash)
-        }"` + suffix;
-    }
-
-    const lastPart = basePath.split("/").pop() || "";
-    if (FILE_EXTENSIONS.KNOWN.test(lastPart)) {
-      return null;
-    }
-
-    return prefix + `"${PathUtils.addExtension(specifier, FILE_EXTENSIONS.MODULE)}"` + suffix;
-  },
-
-  worker(
-    packageName: string,
-    prefix: string,
-    suffix: string,
-    origin: string,
-    match: string,
-  ): string {
-    const ext = ImportDetector.isBareWorkerImport(match)
-      ? FILE_EXTENSIONS.WORKER_BARE
-      : FILE_EXTENSIONS.MODULE;
-    return prefix + `"${origin}/${packageName}${ext}"` + suffix;
-  },
-
-  http(
-    packageName: string,
-    prefix: string,
-    suffix: string,
-    origin: string,
-    originalMatch: string,
-  ): string {
-    if (!packageName.startsWith(origin)) {
-      try {
-        const url = new URL(packageName);
-        const hash = url.hash;
-        url.hash = "";
-        const path = url.pathname.slice(1);
-        const [pkgName, exportsParam] = path.split(`?bundle=true&exports=`);
-
-        if (exportsParam) {
-          const newUrl = new URL(`${origin}/${pkgName}`, origin);
-          newUrl.searchParams.append("bundle", "true");
-          newUrl.searchParams.append("external", EXTERNAL_DEPENDENCIES.join(","));
-          newUrl.searchParams.append("exports", exportsParam);
-          if (hash) newUrl.hash = hash;
-          return prefix + `"${newUrl.toString()}"` + suffix;
-        }
-      } catch {
-        // If URL parsing fails, return original
-      }
-    }
-    return originalMatch;
-  },
-
-  atPrefix(packageName: string, prefix: string, suffix: string): string {
-    return prefix + `"/${packageName}${FILE_EXTENSIONS.MODULE}"` + suffix;
-  },
-
-  generic(
-    packageName: string,
-    prefix: string,
-    suffix: string,
-    origin: string,
-    importedItems?: string[],
-  ): string {
-    const query = importedItems
-      ? `${EXTERNAL_QUERY}&exports=${importedItems.join(",")}`
-      : EXTERNAL_QUERY;
-    return prefix + `"${origin}/${packageName}?${query}"` + suffix;
-  },
-};
-
-// Main import processing function
-function processImport(
-  match: string,
-  p1: string,
-  p2: string,
-  p3char: string,
-  origin: string,
-  impMap: ImportMap,
-): string {
-  // Handle imports that are already mapped
-  for (const pkg of Object.keys(impMap.imports)) {
-    if (match.includes(`"${pkg}"`)) {
-      return match;
-    }
-  }
-
-  // Handle bare imports without a quoted specifier
-  if (typeof p2 !== "string") {
-    return processBareImport(match, origin);
-  }
-
-  const suffix = String(p3char).replace(/[0-9]/g, "");
-  if (p2.startsWith("`") && p2.endsWith("`")) {
-    return match;
-  }
-
-  const packageName = p2.slice(1, -1);
-  const importMatch: ImportMatch = { prefix: p1, packageName, suffix, fullMatch: match };
-
-  return processPackageImport(importMatch, origin);
-}
-
-function processBareImport(match: string, origin: string): string {
-  const hasSemicolon = match.trim().endsWith(";");
-  const pkg = match.split('"')[1];
-  if (!pkg) return match;
-
-  if ((pkg.startsWith("@/") || pkg.startsWith("/@/")) && ImportDetector.isWorkerImport(pkg)) {
-    return `import "${origin}/${pkg}${
-      ImportDetector.isBareWorkerImport(match)
-        ? FILE_EXTENSIONS.WORKER_BARE
-        : FILE_EXTENSIONS.MODULE
-    }"` + (hasSemicolon ? ";" : "");
-  }
-
-  if (pkg.startsWith("http") || pkg.startsWith("/") || pkg.startsWith(",")) {
-    return match;
-  }
-
-  if (pkg.startsWith("./") || pkg.startsWith("../")) {
-    return processRelativeBareImport(pkg, hasSemicolon);
-  }
-
-  return `import "/${pkg}?${EXTERNAL_QUERY}"` + (hasSemicolon ? ";" : "");
-}
-
-function processRelativeBareImport(pkg: string, hasSemicolon: boolean): string {
-  const [basePath] = PathUtils.splitPathFromQuery(pkg);
-  const hasExtension = basePath.split("/").pop()?.includes(".");
-
-  if (!hasExtension) {
-    if (PathUtils.isDirectory(pkg)) {
-      return `import "${pkg}index${FILE_EXTENSIONS.MODULE}"` + (hasSemicolon ? ";" : "");
-    }
-    return `import "${PathUtils.addExtension(pkg, FILE_EXTENSIONS.MODULE)}"` +
-      (hasSemicolon ? ";" : "");
-  }
-
-  return `import "${pkg}"` + (hasSemicolon ? ";" : "");
-}
-
-function processPackageImport(importMatch: ImportMatch, origin: string): string {
-  const { prefix, packageName, suffix, fullMatch } = importMatch;
-
-  if (packageName.startsWith("data:")) {
-    return fullMatch;
-  }
-
-  if (packageName.startsWith("./") || packageName.startsWith("../")) {
-    const transformed = ImportTransformer.relative(packageName, prefix, suffix);
-    return transformed !== null ? transformed : fullMatch;
-  }
-
-  if (packageName.startsWith("/")) {
-    return prefix + `"${packageName}"` + suffix;
-  }
-
-  if (packageName.startsWith("@/")) {
-    return ImportDetector.isWorkerImport(packageName)
-      ? ImportTransformer.worker(packageName, prefix, suffix, origin, fullMatch)
-      : ImportTransformer.atPrefix(packageName, prefix, suffix);
-  }
-
-  if (packageName.startsWith("http")) {
-    return ImportTransformer.http(packageName, prefix, suffix, origin, fullMatch);
-  }
-
-  if (packageName.startsWith("/live") && !packageName.includes("index.js")) {
-    return prefix + `"${packageName}/index.js"` + suffix;
-  }
-
-  const importedItems = ImportDetector.extractImportedItems(fullMatch) || undefined;
-  return ImportTransformer.generic(packageName, prefix, suffix, origin, importedItems);
-}
-
 // Main export function
 export function importMapReplace(
   code: string,
   origin: string,
   impMap: ImportMap = defaultImportMap,
 ): string {
-  if (ImportDetector.isAlreadyProcessed(code)) {
+  if (code.includes('/** importMapReplace */')) {
     return code;
   }
 
-  const patterns = {
-    topLevelImport:
-      /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g,
-    topLevelNoFrom: /(?<![."@\w-])import\s*(['"`])(?:(?!\1).)*\1;?/g,
-    topLevelExport:
-      /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g,
-    dynamicImport: /(import\()(['"`][^'`"]+['"`])(\))/g,
-    dynamicImportTemplate: /(import\()(`[^`]+`)(\))/g,
+  const getExportsString = (match: string) => {
+    const namedImports = match.match(/\{([^}]*)\}/)?.[1];
+    return namedImports
+      ?.split(',')
+      .map(s => s.trim().split(' as ')[0])
+      .filter(Boolean)
+      .join(',') || '';
   };
 
-  const str = typeof code === "string" ? code : new TextDecoder().decode(new Uint8Array(code));
+  const shouldTransformPath = (path: string) => {
+    return (
+      !path.includes('?bundle=false') &&
+      !path.startsWith('data:') &&
+      !path.startsWith('http://') &&
+      !path.startsWith('https://') &&
+      !path.startsWith('/live/') &&
+      !/^https?:\/\//.test(path)
+    );
+  };
 
-  const replaced = [
-    [patterns.topLevelImport, str],
-    [patterns.topLevelExport],
-    [patterns.dynamicImport],
-    [patterns.dynamicImportTemplate],
-    [patterns.topLevelNoFrom],
-  ].reduce(
-    (acc, [pattern]) =>
-      acc.replace(
-        pattern as RegExp,
-        (match, p1, p2, p3) => processImport(match, p1, p2, p3, origin, impMap),
-      ),
-    str,
-  );
+  const processQueryAndHash = (path: string) => {
+    const [pathPart, hash] = path.split('#');
+    const [basePath, query] = pathPart.split('?');
+    return {
+      basePath: basePath || '',
+      query: query ? `?${query}` : '',
+      hash: hash ? `#${hash}` : ''
+    };
+  };
 
-  const cleanedCode = replaced
-    .split("\n")
-    .map(line => line.trim())
-    .filter(line => !line.startsWith("//"))
-    .join("\n");
+  const combineUrl = (base: string, path: string): string => {
+    if (/^https?:\/\//.test(path) || path.startsWith('/live/')) {
+      return path;
+    }
+    if (path.startsWith('/') && Object.values(impMap.imports).some(value => path === value)) {
+      return path;
+    }
+    const cleanedPath = path.startsWith('/') ? path.slice(1) : path;
+    return !path.startsWith('.') ? `${base}/${cleanedPath}` : path;
+  };
 
-  return `/** importMapReplace */\n${cleanedCode}`;
+  const getMappedPath = (path: string, exportsParam: string = '', hasFromClause: boolean = false): string => {
+    if (path.includes('${') || path.includes('+')) return path;
+
+    const { basePath, query: existingQuery, hash } = processQueryAndHash(path);
+    
+    // Check exact match
+    if (impMap.imports[basePath]) {
+      return path;
+    }
+
+    // Check prefix matches
+    const sortedKeys = Object.keys(impMap.imports).sort((a, b) => b.length - a.length);
+    for (const key of sortedKeys) {
+      if (basePath.startsWith(key)) {
+        const remaining = basePath.slice(key.length);
+        return impMap.imports[key] + remaining + existingQuery + hash;
+      }
+    }
+
+    const hasExtension = basePath.endsWith('.js') || basePath.endsWith('.mjs') || basePath.endsWith('.ts') || basePath.endsWith('.tsx') || basePath.endsWith('.jsx') || basePath.endsWith('.json') || basePath.endsWith('.wasm') 
+          || basePath.endsWith('.txt') || basePath.endsWith('.svg') || basePath.endsWith('.md') || basePath.endsWith('.html') || basePath.endsWith('.css') || basePath.endsWith('.scss') || basePath.endsWith('.sass') || basePath.endsWith('.less') || basePath.endsWith('.styl') || basePath.endsWith('.graphql') || basePath.endsWith('.gql') || basePath.endsWith('.yml') || basePath.endsWith('.toml') || basePath.endsWith('.xml') || basePath.endsWith('.csv') || basePath.endsWith('.tsv') || basePath.endsWith('.ini') || basePath.endsWith('.properties') || basePath.endsWith('.env') || basePath.endsWith('.env.local') || basePath.endsWith('.env.development') || basePath.endsWith('.env.test') || basePath.endsWith('.env.production') || basePath.endsWith('.env.staging') || basePath.endsWith('.env.local');
+    const isWorkerFile = basePath.includes('workers/') || basePath.includes('.worker');
+
+    // Handle worker files
+    if (isWorkerFile) {
+      // Always append the correct extension for worker files, removing any existing extension
+      const baseWithoutExt = hasExtension ? basePath.substring(0, basePath.lastIndexOf('.')) : basePath;
+      const extension = hasFromClause ? '.mjs' : '.js';
+      const resultPath = baseWithoutExt + extension;
+      return !resultPath.startsWith('.') && !resultPath.startsWith('/') 
+        ? `${origin}/${resultPath}` 
+        : resultPath;
+    }
+
+    // Handle directory imports and paths without extension
+    if (!hasExtension && (basePath.startsWith('.') || basePath.startsWith('/'))) {
+      const extension = basePath.endsWith('/') ? 'index.mjs' : '.mjs';
+      return `${basePath}${extension}${existingQuery}${hash}`;
+    }
+
+    if (path.startsWith('/live/') || /^https?:\/\//.test(path)) {
+      return path;
+    }
+
+    // Handle non-relative paths
+    if (!basePath.startsWith('.') && !basePath.startsWith('/')) {
+      const fullPath = combineUrl(origin, basePath);
+      const params = ['bundle=true', 'external=react,react-dom,framer-motion,@emotion/react,@emotion/styled'];
+      if (exportsParam) params.push(`exports=${exportsParam}`);
+      return `${fullPath}?${params.join('&')}${existingQuery}${hash}`;
+    }
+
+    return basePath + existingQuery + hash;
+  };
+
+  const replaceImport = (match: string) => {
+    const indent = match.match(/^\s*/)?.[0] || '';
+    if (match.includes('/** importMapReplace */')) return match;
+
+    const pathMatch = match.match(/['"]([^'"]+)['"]/);
+    if (!pathMatch) return match;
+
+    const importPath = pathMatch[1];
+    if (!shouldTransformPath(importPath)) {
+      return match;
+    }
+
+    const exportsParam = getExportsString(match);
+    const mappedPath = getMappedPath(importPath, exportsParam, true);
+    const transformed = match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
+    return transformed;
+  };
+
+  const replaceDynamicImport = (match: string) => {
+    const indent = match.match(/^\s*/)?.[0] || '';
+    const pathMatch = match.match(/['"]([^'"]+)['"]/);
+    if (!pathMatch) return match;
+
+    const importPath = pathMatch[1];
+    if (!shouldTransformPath(importPath)) {
+      return match;
+    }
+
+    const mappedPath = getMappedPath(importPath, '', true);
+    const transformed = match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
+    return transformed;
+  };
+
+  code = code.replace(/\r\n/g, '\n')
+    .replace(/^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm, (match, pre, q1, path, q2) => {
+      if (!shouldTransformPath(path)) return match;
+      const fullPath = getMappedPath(path, '', false);
+      return `${pre}${q1}${fullPath}${q2}`;
+    })
+    .replace(/^(\s*import\s+.*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
+    .replace(/^(\s*export\s+.*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
+    .replace(/(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g, replaceDynamicImport);
+
+  return `/** importMapReplace */\n${code}`;
 }
 
 export default importMap;
