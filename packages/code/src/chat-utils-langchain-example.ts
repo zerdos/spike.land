@@ -18,7 +18,6 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
     lastError: "",
     isStreaming: false,
     debugLogs: [
-      "Starting workflow with current file content",
     ],
     messages: session.messages as unknown as BaseMessage[],
   });

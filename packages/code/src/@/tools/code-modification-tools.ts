@@ -1,7 +1,7 @@
 import { replaceFirstCodeMod } from "@/lib/chat-utils";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { unknown, z } from "zod";
 
 export const SEARCH = "<<<<<<< SEARCH";
 export const REPLACE = ">>>>>>> REPLACE";
@@ -10,18 +10,13 @@ export const SEPARATOR = "=======";
 // Tools
 export const codeModificationTool = tool(
   async (
-    { instructions, currentCode }: { instructions: string; currentCode: string; },
+    { instructions }: { instructions: string; },
   ): Promise<CodeModification> => {
     // If no current file content, return early with helpful error
-    if (!currentCode) {
-      return {
-        code: "",
-        error:
-          "No current file content available. Make sure code is provided in the workflow state or current file.",
-        currentFileContent: "",
-      };
-    }
-
+    
+    const currentCode = await (globalThis as unknown as {
+      cSess: { getCode: () => Promise<string>; };
+    }).cSess.getCode();
     try {
       if (instructions.length === 0) {
         return {
@@ -102,6 +97,27 @@ export const codeModificationTool = tool(
           totalBlocks,
         };
       }
+
+      const res = await (globalThis as unknown as {
+        cSess: { setCode: (code: string) => Promise<string | boolean>; };
+      }).cSess.setCode(result);
+
+      if (res === false) {
+        return {
+          code: currentCode,
+          error: "Failed to set code in the code session",
+          retryCount,
+          currentFileContent: currentCode,
+        };
+      }
+      if (typeof res === "string") {
+        return {
+          code: res,
+          error: "",
+          retryCount,
+        };
+      }
+
 
       return { code: result, error: "", retryCount };
     } catch (error) {
