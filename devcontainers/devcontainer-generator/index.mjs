@@ -3,12 +3,12 @@ import { readFile } from "fs/promises";
 
 // versions.json
 var node = {
-  lts: "22.13.0",
-  current: "23.6.0"
+  lts: "22.14.0",
+  current: "23.8.0"
 };
-var deno = "2.1.6";
+var deno = "2.2.1";
 var git = "2.48.1";
-var cypress = "14.0.0";
+var cypress = "14.0.3";
 var yarn = "1.22.19";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
@@ -182,12 +182,12 @@ var DevcontainerGenerator = class {
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace(
           "{amd_dotnet_sha512}",
-          sha.dotnet_sha512[dotnet3]
+          typeof sha.dotnet_sha512[dotnet3] === "string" ? sha.dotnet_sha512[dotnet3] : sha.dotnet_sha512[dotnet3].amd
         );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"].replace("{DOTNET_SDK_VERSION}", dotnet5).replace(
           "{dotnet_sha512}",
-          sha.dotnet_sha512[dotnet5]
+          typeof sha.dotnet_sha512[dotnet5] === "string" ? sha.dotnet_sha512[dotnet5] : sha.dotnet_sha512[dotnet5].amd
         );
       }
     }
@@ -283,8 +283,7 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
   loadTemplate = async (filename, extension) => await readFile(
     `../devcontainer-generator/templates/${filename}.${extension}`
   ).catch((e) => {
-    console.error({ e });
-    return "";
+    return e.message;
   });
 };
 export {

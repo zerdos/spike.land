@@ -4154,9 +4154,9 @@ __metadata:
     "@tailwindcss/postcss": "npm:4.0.8"
     "@tailwindcss/typography": "npm:0.5.16"
     "@tailwindcss/vite": "npm:4.0.8"
-    "@tanstack/react-router": "npm:1.109.2"
+    "@tanstack/react-router": "npm:1.111.3"
     "@tanstack/react-virtual": "npm:3.13.0"
-    "@tanstack/router-plugin": "npm:1.109.2"
+    "@tanstack/router-plugin": "npm:1.111.3"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
@@ -4822,20 +4822,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.109.2":
-  version: 1.109.2
-  resolution: "@tanstack/react-router@npm:1.109.2"
+"@tanstack/react-router@npm:1.111.3":
+  version: 1.111.3
+  resolution: "@tanstack/react-router@npm:1.111.3"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:^1.108.0"
+    "@tanstack/router-core": "npm:^1.111.3"
     jsesc: "npm:^3.1.0"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/e73aae9b0b7a5c8202e3ccce3f825963cc1ec502e8f51fb4999ef4bdc5023dca700c74f61fcf8e9f641348de4fcd994bbb562c788962f7c78d464d42a3e9b809
+  checksum: 10c0/c58dd86816ed22efbf9277a169d9a20e47421c4cf9def332561606356835414ed528da655acff396682bb1247119bb6cbc0355b67fe3ebdfca5d542aeeed2f9a
   languageName: node
   linkType: hard
 
@@ -4864,36 +4864,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-core@npm:^1.108.0":
-  version: 1.108.0
-  resolution: "@tanstack/router-core@npm:1.108.0"
+"@tanstack/router-core@npm:^1.111.3":
+  version: 1.111.3
+  resolution: "@tanstack/router-core@npm:1.111.3"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/store": "npm:^0.7.0"
-  checksum: 10c0/be9faf47d275f221d1ae07d5da33c46109f42560cf086861dc9e886c8ec0299ccc450439a6fd5e2c852801dabef901223789a4628e5656b48e59820a502c4419
+  checksum: 10c0/3f076416034319169490871d9c8e77cd1d4a61157b5078bed42c59d525bc89cc2699788ed935aa223b72830e37abbaa0be6e173522fd3ee3ac33f0098bbeb689
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.109.2":
-  version: 1.109.2
-  resolution: "@tanstack/router-generator@npm:1.109.2"
+"@tanstack/router-generator@npm:^1.111.3":
+  version: 1.111.3
+  resolution: "@tanstack/router-generator@npm:1.111.3"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     prettier: "npm:^3.5.0"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.24.1"
   peerDependencies:
-    "@tanstack/react-router": ^1.109.2
+    "@tanstack/react-router": ^1.111.3
   peerDependenciesMeta:
     "@tanstack/react-router":
       optional: true
-  checksum: 10c0/ce4629809fa652925378444097f1d234b5ec887632eadca1ddd8c26e59a08932511a1e42382a130373616c88a8c1579c70e75563e592b74181d088575eba2e77
+  checksum: 10c0/6f72e8dc7c36390651d267fb193d95af03eda78adc91934972cc90249676a6a9b31b2fde5a64801cd94d5f76f41c8e3a7c86653dc3f629a5f38fffb27909ccdf
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.109.2":
-  version: 1.109.2
-  resolution: "@tanstack/router-plugin@npm:1.109.2"
+"@tanstack/router-plugin@npm:1.111.3":
+  version: 1.111.3
+  resolution: "@tanstack/router-plugin@npm:1.111.3"
   dependencies:
     "@babel/core": "npm:^7.26.8"
     "@babel/plugin-syntax-jsx": "npm:^7.25.9"
@@ -4901,7 +4901,7 @@ __metadata:
     "@babel/template": "npm:^7.26.8"
     "@babel/traverse": "npm:^7.26.8"
     "@babel/types": "npm:^7.26.8"
-    "@tanstack/router-generator": "npm:^1.109.2"
+    "@tanstack/router-generator": "npm:^1.111.3"
     "@tanstack/router-utils": "npm:^1.102.2"
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     "@types/babel__core": "npm:^7.20.5"
@@ -4913,7 +4913,7 @@ __metadata:
     zod: "npm:^3.24.1"
   peerDependencies:
     "@rsbuild/core": ">=1.0.2"
-    "@tanstack/react-router": ^1.109.2
+    "@tanstack/react-router": ^1.111.3
     vite: ">=5.0.0 || >=6.0.0"
     vite-plugin-solid: ^2.11.2
     webpack: ">=5.92.0"
@@ -4928,7 +4928,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/28ce851f09579f0bcc6a179c60e7f66d83c7a54058a3cd76fec7564e714c648cbd4df96c603434cbd90a78e33ecda8afa80d65f2926bca33845bac01358bdc45
+  checksum: 10c0/eb8c78c188ae748a365dd4a077df1a2687cd0ea8f577061cbce0cc7782691b89efce1e120c792331f58c254c4b521eff8a6cd1241180e21c50b97f150c6ea40d
   languageName: node
   linkType: hard
 
