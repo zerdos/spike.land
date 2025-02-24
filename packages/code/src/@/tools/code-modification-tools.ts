@@ -22,7 +22,7 @@ export const codeModificationTool = tool(
         return {
           code: currentCode,
           error: "Instructions required - provide search/replace blocks",
-          currentFileContent: currentCode,
+          // currentFileContent: currentCode,
         };
       }
 
@@ -35,7 +35,7 @@ export const codeModificationTool = tool(
           code: currentCode,
           error:
             "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
-          currentFileContent: currentCode,
+          // currentFileContent: currentCode,
         };
       }
 
@@ -76,10 +76,10 @@ export const codeModificationTool = tool(
               currentBlockIndex + 1
             }/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
             retryCount,
-            currentFileContent: currentCode,
-            searchContent: searchBlocks[currentBlockIndex],
-            blockNumber: currentBlockIndex + 1,
-            totalBlocks,
+            // currentFileContent: currentCode,
+            // searchContent: searchBlocks[currentBlockIndex],
+            // blockNumber: currentBlockIndex + 1,
+            // totalBlocks,
           };
         }
       } while (retryCount < maxRetries);
@@ -91,10 +91,10 @@ export const codeModificationTool = tool(
             currentBlockIndex + 1
           }/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
           retryCount,
-          currentFileContent: currentCode,
-          searchContent: searchBlocks[currentBlockIndex],
-          blockNumber: currentBlockIndex + 1,
-          totalBlocks,
+          // currentFileContent: currentCode,
+          // searchContent: searchBlocks[currentBlockIndex],
+          // blockNumber: currentBlockIndex + 1,
+          // totalBlocks,
         };
       }
 
@@ -107,7 +107,7 @@ export const codeModificationTool = tool(
           code: currentCode,
           error: "Failed to set code in the code session",
           retryCount,
-          currentFileContent: currentCode,
+          // currentFileContent: currentCode,
         };
       }
       if (typeof res === "string") {
@@ -116,15 +116,15 @@ export const codeModificationTool = tool(
           error: "",
           retryCount,
         };
-      }
+      } 
 
 
-      return { code: result, error: "", retryCount };
+      return result;
     } catch (error) {
       return {
         code: currentCode,
         error: error instanceof Error ? error.message : "Unknown error in code modification",
-        currentFileContent: currentCode,
+        // currentFileContent: currentCode,
       };
     }
   },
@@ -219,55 +219,7 @@ interface User {
     schema: z.object({
       instructions: z.string().describe(
         "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",
-      ),
-      currentCode: z.string().describe("The current code content to modify"),
-    }),
-  },
-);
-
-export const codeFormattingTool = tool(
-  async ({ code }: { code: string; }): Promise<{ code: string; error: string; }> => {
-    try {
-      const formatted = await (globalThis as unknown as {
-        prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean; }) => Promise<string>;
-      }).prettierJs({ code, toThrow: true });
-
-      const transpiled = await (globalThis as unknown as {
-        transpile: (
-          { code, originToUse }: { code: string; originToUse: string; },
-        ) => Promise<string>;
-      }).transpile({ code: formatted, originToUse: location.origin });
-
-      return { code: formatted, error: "" };
-    } catch (error) {
-      return {
-        code,
-        error: error instanceof Error ? error.message : "Unknown error in formatting",
-      };
-    }
-  },
-  {
-    name: "code_formatting",
-    description: "Formats and transpiles code",
-    schema: z.object({
-      code: z.string().describe("The code to format"),
-    }),
-  },
-);
-
-export const broadcastTool = tool(
-  async (input: { channel: string; data?: any; }): Promise<void> => {
-    const bc = new BroadcastChannel(input.channel);
-    if (input.data !== undefined) {
-      bc.postMessage(input.data);
-    }
-  },
-  {
-    name: "broadcast",
-    description: "Broadcasts messages through BroadcastChannel",
-    schema: z.object({
-      channel: z.string().describe("The channel to broadcast on"),
-      data: z.any().optional().describe("The data to broadcast"),
+      )
     }),
   },
 );
