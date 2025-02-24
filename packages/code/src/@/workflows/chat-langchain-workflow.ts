@@ -16,15 +16,74 @@ import anthropicSystem from "../../config/initial-claude.txt";
 
 // Workflow setup
 export const createWorkflow = async (initialState: AgentState) => {
+  // Define state graph channels with enhanced code reducer
   const graphState: StateGraphArgs<AgentState>["channels"] = {
     messages: {
       reducer: (prev: BaseMessage[], next: BaseMessage[]) => prev.concat(next),
     },
     code: {
-      reducer: (_prev: string, next: string) => next,
+      reducer: (prev: string, next: any) => {
+        console.log('Code reducer received:', { prev, next });
+        
+        // Parse tool result if it's a string
+        if (typeof next === 'string') {
+          try {
+            const parsed = JSON.parse(next);
+            if (parsed && typeof parsed === 'object' && 'code' in parsed) {
+              return parsed.code;
+            }
+          } catch {
+            // If it's not JSON but a direct string, use it
+            return next;
+          }
+        }
+        
+        // Handle direct tool result object
+        if (next && typeof next === 'object') {
+          // Handle tool result
+          if ('returnValues' in next && next.returnValues?.code) {
+            return next.returnValues.code;
+          }
+          // Handle direct code property
+          if ('code' in next) {
+            return next.code;
+          }
+        }
+        
+        return prev;
+      },
     },
     lastError: {
-      reducer: (_prev: string, next: string) => next,
+      reducer: (prev: string, next: any) => {
+        console.log('Error reducer received:', { prev, next });
+        
+        // Parse tool result if it's a string
+        if (typeof next === 'string') {
+          try {
+            const parsed = JSON.parse(next);
+            if (parsed && typeof parsed === 'object' && 'error' in parsed) {
+              return parsed.error || prev;
+            }
+          } catch {
+            // If not JSON, use string directly
+            return next || prev;
+          }
+        }
+        
+        // Handle direct tool result object
+        if (next && typeof next === 'object') {
+          // Handle tool error
+          if ('error' in next && typeof next.error === 'string') {
+            return next.error;
+          }
+          // Handle returnValues error
+          if ('returnValues' in next && next.returnValues?.error) {
+            return next.returnValues.error;
+          }
+        }
+        
+        return prev;
+      },
     },
     isStreaming: {
       reducer: (_prev: boolean, next: boolean) => next,
@@ -37,12 +96,18 @@ export const createWorkflow = async (initialState: AgentState) => {
   const tools = [codeModificationTool, codeFormattingTool, broadcastTool];
   const toolNode = new ToolNode(tools);
 
+  // Clean up code helper
+  const cleanCode = (code: string): string => {
+    return code
+      .replace(/'\s*\(see below for file content\)\s*/g, '')  // Remove markers
+      .replace(/\\\"/g, '"')  // Fix escaped quotes
+      .replace(/\\n/g, '\n')  // Fix newlines
+      .trim();
+  };
+
+  // Create initial system message with cleaned code
   const systemMessage = new SystemMessage(
-    anthropicSystem + "\n" + `
-  <code>
-  ${initialState.code}
-  </code>
-    `,
+    anthropicSystem + "\n\nHere's the code to modify:\n```tsx\n" + cleanCode(initialState.code) + "\n```"
   );
 
   const model = new ChatAnthropic({
@@ -62,8 +127,15 @@ export const createWorkflow = async (initialState: AgentState) => {
   };
 
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
+    // Clean the code for processing
+    if (state.code) {
+      state.code = cleanCode(state.code);
+    }
+
     const response = await model.invoke(state.messages);
-    return {
+    
+    // Create new state with response message
+    const newState: Partial<AgentState> = {
       ...state,
       messages: [
         new AIMessage({
@@ -72,8 +144,24 @@ export const createWorkflow = async (initialState: AgentState) => {
           additional_kwargs: response.additional_kwargs,
         }),
       ],
-      isStreaming: true,
+      isStreaming: true
     };
+
+    // Clean the code in state for tools to use
+    newState.code = state.code ? cleanCode(state.code) : state.code;
+
+    // Check if the last message had tool calls that failed
+    const lastMessage = state.messages[state.messages.length - 1];
+    if ('additional_kwargs' in lastMessage && 
+        'tool_error' in lastMessage.additional_kwargs) {
+      // Extract error from tool result
+      const toolError = lastMessage.additional_kwargs.tool_error;
+      if (typeof toolError === 'string') {
+        newState.lastError = toolError;
+      }
+    }
+
+    return newState;
   };
 
   const workflow = new StateGraph<AgentState>({ channels: graphState })
@@ -103,9 +191,23 @@ export const createWorkflow = async (initialState: AgentState) => {
         configurable: { thread_id: uuidv4() },
       });
 
-      if (initialState.code === finalState.code) console.log("Original code didn't change");
-      else {
-        console.log("Original code CHANGED", {
+      if (initialState.code === finalState.code) {
+        // Check if there were any tool calls that failed
+        const hasToolCalls = finalState.messages.some((msg: { tool_calls: string | unknown[]; } ) => 
+          'tool_calls' in msg && msg.tool_calls?.length > 0
+        );
+        
+        if (hasToolCalls) {
+          console.log("Code modifications were attempted but failed - code remains unchanged");
+          // Log the last error if any
+          if (finalState.lastError) {
+            console.log("Last error:", finalState.lastError);
+          }
+        } else {
+          console.log("No code modifications were attempted");
+        }
+      } else {
+        console.log("Code was successfully modified", {
           initialCode: initialState.code,
           finalCode: finalState.code,
         });
