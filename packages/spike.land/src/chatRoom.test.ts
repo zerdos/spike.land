@@ -103,10 +103,16 @@ describe("Hono app routes", () => {
     CLERK_SECRET_KEY: "",
     CF_REAL_TURN_TOKEN: "",
     ESBUILD: {
-      fetch: function(_input: RequestInfo | URL, _init?: RequestInit): Promise<Response> {
+      fetch: function(
+        _input: RequestInfo | URL,
+        _init?: RequestInit,
+      ): Promise<Response> {
         throw new Error("Function not implemented.");
       },
-      connect: function(_address: SocketAddress | string, _options?: SocketOptions): Socket {
+      connect: function(
+        _address: SocketAddress | string,
+        _options?: SocketOptions,
+      ): Socket {
         throw new Error("Function not implemented.");
       },
     },
@@ -183,8 +189,8 @@ describe("Hono app routes", () => {
       }),
     };
 
-    (RouteHandler as unknown as ReturnType<typeof vi.fn>).mockImplementation(() =>
-      mockRouteHandler as unknown as RouteHandler
+    (RouteHandler as unknown as ReturnType<typeof vi.fn>).mockImplementation(
+      () => mockRouteHandler as unknown as RouteHandler,
     );
 
     app = new Code(state, env);

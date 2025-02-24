@@ -1,24 +1,23 @@
-import {
-  codeModificationTool,
-} from "@/tools/code-modification-tools";
+import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
 import type { StateGraphArgs } from "@langchain/langgraph/web";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
-import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-5-sonnet-20241022";
 
-
-
 // Centralized error handling
 class WorkflowError extends Error {
-  constructor(message: string, public readonly context?: Record<string, unknown>) {
+  constructor(
+    message: string,
+    public readonly context?: Record<string, unknown>,
+  ) {
     super(message);
     this.name = "WorkflowError";
   }
@@ -30,17 +29,19 @@ export const createWorkflow = (initialState: AgentState) => {
     reducer: (prev: string, next: unknown) => {
       try {
         if (typeof next === "string") {
-
           return next;
         }
 
         if (typeof next === "object" && next !== null && "code" in next) {
-          return (next as { code?: any }).code ?? prev;
+          return (next as { code?: any; }).code ?? prev;
         }
 
         return prev;
       } catch (error) {
-        throw new WorkflowError("Code reduction failed", { error, input: next });
+        throw new WorkflowError("Code reduction failed", {
+          error,
+          input: next,
+        });
       }
     },
   });
@@ -53,13 +54,16 @@ export const createWorkflow = (initialState: AgentState) => {
         }
 
         if (typeof next === "object" && next !== null && "error" in next) {
-          const err = (next as { error?: unknown }).error;
+          const err = (next as { error?: unknown; }).error;
           return typeof err === "string" ? err : String(err);
         }
 
         return prev;
       } catch (error) {
-        throw new WorkflowError("Error reduction failed", { error, input: next });
+        throw new WorkflowError("Error reduction failed", {
+          error,
+          input: next,
+        });
       }
     },
   });
@@ -81,15 +85,14 @@ export const createWorkflow = (initialState: AgentState) => {
   const tools = [codeModificationTool];
   const toolNode = new ToolNode(tools);
 
-
-  const createSystemMessage = (code: string): SystemMessage => new SystemMessage(
-    anthropicSystem + `
+  const createSystemMessage = (code: string): SystemMessage =>
+    new SystemMessage(
+      anthropicSystem + `
 <code>
 ${code}
 </code>
-    `
-  );
-
+    `,
+    );
 
   const model = new ChatAnthropic({
     model: MODEL_NAME,
@@ -108,11 +111,13 @@ ${code}
       : "end";
   };
 
-  const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
+  const processMessage = async (
+    state: AgentState,
+  ): Promise<Partial<AgentState>> => {
     try {
       const cleanedState = {
         ...state,
-        code: state.code
+        code: state.code,
       };
 
       const response = await model.invoke(cleanedState.messages);
@@ -184,5 +189,7 @@ function handleWorkflowError(error: unknown): never {
   }
 
   console.error("Unexpected Error:", error);
-  throw new WorkflowError("Unexpected workflow error", { originalError: error });
+  throw new WorkflowError("Unexpected workflow error", {
+    originalError: error,
+  });
 }

@@ -64,7 +64,8 @@ export class RenderService {
 
     const { cssCache, rootElement } = renderedNew;
 
-    const html = this.htmlDecode(rootElement.innerHTML).split(cssCache.key).join("x");
+    const html = this.htmlDecode(rootElement.innerHTML).split(cssCache.key)
+      .join("x");
     const emotionGlobalStyles = [
       ...document.querySelectorAll<HTMLStyleElement>(
         `style[data-emotion='${cssCache.key}-global']`,
@@ -92,9 +93,10 @@ export class RenderService {
       /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
       "",
     );
-    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`).join(`\\[`).split(
-      `\\\\]`,
-    ).join(`\\]`);
+    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`)
+      .join(`\\[`).split(
+        `\\\\]`,
+      ).join(`\\]`);
 
     const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 

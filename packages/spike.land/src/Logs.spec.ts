@@ -33,7 +33,10 @@ describe("KVLogger", () => {
     mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Create logger instance
-    logger = new KVLogger("test-prefix", mockKVNamespace as unknown as KVNamespace);
+    logger = new KVLogger(
+      "test-prefix",
+      mockKVNamespace as unknown as KVNamespace,
+    );
 
     // Set up default mock behaviors
     mockKVNamespace.put.mockResolvedValue(undefined);
@@ -94,8 +97,12 @@ describe("KVLogger", () => {
       });
 
       mockKVNamespace.get
-        .mockResolvedValueOnce(JSON.stringify({ level: "info", message: "Log 2" }))
-        .mockResolvedValueOnce(JSON.stringify({ level: "warn", message: "Log 1" }));
+        .mockResolvedValueOnce(
+          JSON.stringify({ level: "info", message: "Log 2" }),
+        )
+        .mockResolvedValueOnce(
+          JSON.stringify({ level: "warn", message: "Log 1" }),
+        );
 
       const logs = await logger.getLogs("2023-01-01");
 

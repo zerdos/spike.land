@@ -79,12 +79,19 @@ describe("FetchHandler", () => {
 
   describe("CORS Handling", () => {
     it("should handle OPTIONS request", async () => {
-      const mockRequest = new Request("https://example.com", { method: "OPTIONS" });
+      const mockRequest = new Request("https://example.com", {
+        method: "OPTIONS",
+      });
 
       const mockCorsResponse = new Response("CORS response");
       (handleCORS as Mock).mockReturnValue(mockCorsResponse);
 
-      const response = await handleFetchApi(["test"], mockRequest, mockEnv, mockCtx);
+      const response = await handleFetchApi(
+        ["test"],
+        mockRequest,
+        mockEnv,
+        mockCtx,
+      );
 
       expect(handleCORS).toHaveBeenCalledWith(mockRequest);
       expect(response).toBe(mockCorsResponse);
@@ -95,10 +102,17 @@ describe("FetchHandler", () => {
     it("should return a random ping response", async () => {
       const mockRequest = new Request("https://example.com/ping");
 
-      const response = await handleFetchApi(["ping"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(
+        ["ping"],
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("text/html;charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "text/html;charset=UTF-8",
+      );
 
       const text = await response.text();
       expect(text).toMatch(/^ping\d+(\.\d+)?$/);
@@ -114,7 +128,12 @@ describe("FetchHandler", () => {
         },
       });
 
-      const response = await handleFetchApi(["websocket"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(
+        ["websocket"],
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(response.status).toBe(101);
       expect(response.webSocket).toBeDefined();
@@ -133,7 +152,9 @@ describe("FetchHandler", () => {
       );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("application/json;charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "application/json;charset=UTF-8",
+      );
 
       const json = await response.json();
       expect(json).toEqual(importMap);
@@ -144,10 +165,17 @@ describe("FetchHandler", () => {
     it("should return robots.txt content", async () => {
       const mockRequest = new Request("https://example.com/robots.txt");
 
-      const response = await handleFetchApi(["robots.txt"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(
+        ["robots.txt"],
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("text/plain;charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "text/plain;charset=UTF-8",
+      );
 
       const text = await response.text();
       expect(text).toContain("User-agent: *");
@@ -158,14 +186,21 @@ describe("FetchHandler", () => {
   describe("IPFS Request Handling", () => {
     it("should handle IPFS request with cloudflare fallback", async () => {
       const mockRequest = new Request("https://example.com/ipfs/test");
-      const mockCloudflareResponse = new Response("Cloudflare IPFS response", { status: 200 });
+      const mockCloudflareResponse = new Response("Cloudflare IPFS response", {
+        status: 200,
+      });
       const mockIpfsResponse = new Response("IPFS response", { status: 200 });
 
       (mockFetch as Mock)
         .mockResolvedValueOnce(mockCloudflareResponse)
         .mockResolvedValueOnce(mockIpfsResponse);
 
-      const response = await handleFetchApi(["ipfs", "test"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(
+        ["ipfs", "test"],
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(mockFetch).toHaveBeenCalledTimes(2);
       expect(response).toBe(mockIpfsResponse);
@@ -174,9 +209,12 @@ describe("FetchHandler", () => {
 
   describe("Live Request Handling", () => {
     it("should handle public request", async () => {
-      const mockRequest = new Request("https://example.com/live/testspace/public/file.txt", {
-        method: "GET",
-      });
+      const mockRequest = new Request(
+        "https://example.com/live/testspace/public/file.txt",
+        {
+          method: "GET",
+        },
+      );
 
       const mockR2Object = {
         writeHttpMetadata: vi.fn(),
@@ -198,9 +236,12 @@ describe("FetchHandler", () => {
     });
 
     it("should handle live index request", async () => {
-      const mockRequest = new Request("https://example.com/live/testspace/index.mjs", {
-        method: "GET",
-      });
+      const mockRequest = new Request(
+        "https://example.com/live/testspace/index.mjs",
+        {
+          method: "GET",
+        },
+      );
 
       const mockR2Object = {
         writeHttpMetadata: vi.fn(),
@@ -218,7 +259,9 @@ describe("FetchHandler", () => {
       );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("application/javascript; charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "application/javascript; charset=UTF-8",
+      );
     });
   });
 
@@ -229,7 +272,12 @@ describe("FetchHandler", () => {
 
       (handleEsmRequest as Mock).mockResolvedValue(mockEsmResponse);
 
-      const response = await handleFetchApi(["unknown"], mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleFetchApi(
+        ["unknown"],
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleEsmRequest).toHaveBeenCalledWith(
         ["unknown"],

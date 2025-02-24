@@ -4,7 +4,7 @@ import "url-polyfill";
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -22,7 +22,10 @@ class MockWorker implements Worker {
   onmessageerror: ((event: MessageEvent) => void) | null = null;
   onerror: ((error: ErrorEvent) => void) | null = null;
 
-  constructor(private _stringUrl: string | URL, private options?: WorkerOptions) {
+  constructor(
+    private _stringUrl: string | URL,
+    private options?: WorkerOptions,
+  ) {
     console.log("MockWorker created:", this._stringUrl, this.options);
 
     // Constructor implementation

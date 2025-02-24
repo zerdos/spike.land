@@ -38,7 +38,10 @@ export function generateSessionPatch(
  * @param patch The patch to apply
  * @returns The updated session
  */
-export function applySessionPatch(oldSession: ICodeSession, patch: CodePatch): ICodeSession {
+export function applySessionPatch(
+  oldSession: ICodeSession,
+  patch: CodePatch,
+): ICodeSession {
   return originalApplySessionPatch(oldSession, patch);
 }
 

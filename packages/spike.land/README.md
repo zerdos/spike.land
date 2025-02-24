@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](../../LICENSE.md)
 
-A Cloudflare Workers-based backend that powers spike.land's real-time collaborative code editor with various API endpoints and services.
+A Cloudflare Workers-based backend that powers spike.land's real-time
+collaborative code editor with various API endpoints and services.
 
 ## Table of Contents
 

@@ -70,7 +70,8 @@ describe("ScreenshotService", () => {
 
   it("should handle canvas blob creation failure", async () => {
     // Mock html2canvas to simulate blob creation failure
-    const html2canvas = (await import("@/external/html2canvas")).default as Mock;
+    const html2canvas = (await import("@/external/html2canvas"))
+      .default as Mock;
     html2canvas.mockResolvedValueOnce({
       toBlob: (callback: (blob: Blob | null) => void) => {
         callback(null);
@@ -83,7 +84,9 @@ describe("ScreenshotService", () => {
   });
 
   it("should handle image processing failure", async () => {
-    const { processImage } = await import("@/lib/process-image") as { processImage: Mock; };
+    const { processImage } = await import("@/lib/process-image") as {
+      processImage: Mock;
+    };
     processImage.mockRejectedValueOnce(new Error("Processing failed"));
 
     await expect(screenshotService.takeScreenshot()).rejects.toThrow();

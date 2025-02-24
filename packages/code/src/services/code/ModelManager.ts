@@ -31,7 +31,9 @@ export class ModelManager implements IModelManager {
       if (!codeSpaceMatch) continue;
       const codeSpace = codeSpaceMatch[1];
 
-      const codeContentMatch = lines.join("\n").match(/```tsx\s*([\s\S]*?)\s*```/m);
+      const codeContentMatch = lines.join("\n").match(
+        /```tsx\s*([\s\S]*?)\s*```/m,
+      );
       if (!codeContentMatch) continue;
       const codeContent = codeContentMatch[1];
 
@@ -109,7 +111,8 @@ export class ModelManager implements IModelManager {
       if (!codeSpace || extraModels[codeSpace]) {
         continue;
       }
-      const extraModelUrl = new URL(`/live/${codeSpace}/index.tsx`, origin).toString();
+      const extraModelUrl = new URL(`/live/${codeSpace}/index.tsx`, origin)
+        .toString();
       const response = await fetch(extraModelUrl);
       const fetchedCode = await response.text();
 

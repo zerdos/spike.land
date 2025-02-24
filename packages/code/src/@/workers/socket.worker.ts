@@ -87,7 +87,10 @@ const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 /**
  * Sets up the connection for a given code space and user.
  */
-export async function setConnections(signal: string, sess: ICodeSession): Promise<void> {
+export async function setConnections(
+  signal: string,
+  sess: ICodeSession,
+): Promise<void> {
   const [codeSpace, user] = signal.split(" ");
   if (connections.has(codeSpace)) return;
 
@@ -114,7 +117,9 @@ export async function setConnections(signal: string, sess: ICodeSession): Promis
  */
 function createWebSocket(codeSpace: string): Socket {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
-  const host = location.host === "localhost" ? "testing.spike.land" : location.host;
+  const host = location.host === "localhost"
+    ? "testing.spike.land"
+    : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
 
   const delegate = {
@@ -135,8 +140,13 @@ function createWebSocket(codeSpace: string): Socket {
       // Socket closed for good and will not retry.
     },
     socketDidReceiveMessage(socket: Socket, message: string) {
-      connections.set(codeSpace, { ...connections.get(codeSpace)!, webSocket: socket });
-      const data: WsMessage = typeof message === "string" ? JSON.parse(message) : message;
+      connections.set(codeSpace, {
+        ...connections.get(codeSpace)!,
+        webSocket: socket,
+      });
+      const data: WsMessage = typeof message === "string"
+        ? JSON.parse(message)
+        : message;
       handleSocketMessage(data, codeSpace).catch(console.error);
     },
     socketShouldRetry(_socket: Socket, code: number): boolean {
@@ -167,13 +177,20 @@ async function handleBroadcastMessage(
 ): Promise<void> {
   if (data.changes) {
     console.debug("[HandleBroadcastMessage] Direct change message forwarded");
-    connection.webSocket.send(JSON.stringify({ ...data, name: connection.user }));
+    connection.webSocket.send(
+      JSON.stringify({ ...data, name: connection.user }),
+    );
     return;
   }
 
   // Early return if the message doesn't have meaningful changes
-  if (data.sender === "Editor" && !data.code && !data.transpiled && !data.css && !data.html) {
-    console.debug("[HandleBroadcastMessage] Skipping message - no meaningful changes");
+  if (
+    data.sender === "Editor" && !data.code && !data.transpiled && !data.css &&
+    !data.html
+  ) {
+    console.debug(
+      "[HandleBroadcastMessage] Skipping message - no meaningful changes",
+    );
     return;
   }
 
@@ -255,7 +272,10 @@ async function handleBroadcastMessage(
 /**
  * Handles incoming socket messages.
  */
-async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<void> {
+async function handleSocketMessage(
+  data: WsMessage,
+  codeSpace: string,
+): Promise<void> {
   const connection = connections.get(codeSpace);
   if (!connection) return;
 
@@ -294,7 +314,11 @@ async function handleSocketMessage(data: WsMessage, codeSpace: string): Promise<
 
   if (data.hashCode && data.oldHash) {
     if (connection.hashCode !== data.hashCode) {
-      await handleHashUpdate(data as unknown as CodePatch, connection, codeSpace);
+      await handleHashUpdate(
+        data as unknown as CodePatch,
+        connection,
+        codeSpace,
+      );
     }
     return;
   }

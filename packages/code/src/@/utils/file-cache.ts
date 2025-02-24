@@ -31,7 +31,9 @@ export class FileCacheManager {
 
   async fetchAndCacheFile(
     url: string,
-    queuedFetch: { fetch: (request: Request, init?: RequestInit) => Promise<Response>; },
+    queuedFetch: {
+      fetch: (request: Request, init?: RequestInit) => Promise<Response>;
+    },
     myCache: Cache,
   ): Promise<void> {
     const { pathname, origin } = new URL(url);

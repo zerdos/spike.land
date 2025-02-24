@@ -9,7 +9,10 @@ export interface DiffEntry {
   oldValue?: unknown;
 }
 
-export function createDiff(oldState: ICodeSession, newState: ICodeSession): DiffEntry[] {
+export function createDiff(
+  oldState: ICodeSession,
+  newState: ICodeSession,
+): DiffEntry[] {
   const diffs: DiffEntry[] = [];
   computeDiff([], oldState, newState, diffs);
   return diffs;
@@ -76,7 +79,10 @@ function computeDiff(
 
   // Handle objects
   const allKeys = [
-    ...new Set([...Object.keys(oldValue), ...Object.keys(newValue as unknown as object)]),
+    ...new Set([
+      ...Object.keys(oldValue),
+      ...Object.keys(newValue as unknown as object),
+    ]),
   ];
 
   for (const key of allKeys) {

@@ -99,11 +99,16 @@ export const addSomeFixesIfNeeded = (rawCode: string): string => {
     let header = parts.shift() || "";
 
     // Insert Emotion's css import if it's missing.
-    if (parts.length && !code.includes("@emotion/react") && !code.includes(" css ")) {
+    if (
+      parts.length && !code.includes("@emotion/react") &&
+      !code.includes(" css ")
+    ) {
       const [firstLine, ...restLines] = header.split("\n");
       header = firstLine.startsWith("//")
-        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines].join("\n")
-        : ['import { css } from "@emotion/react";', firstLine, ...restLines].join("\n");
+        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines]
+          .join("\n")
+        : ['import { css } from "@emotion/react";', firstLine, ...restLines]
+          .join("\n");
     }
 
     let currentIndent = (header.split("\n").pop()?.length || 0) + 2;

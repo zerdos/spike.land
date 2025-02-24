@@ -6,7 +6,11 @@ import { ICode } from "@/lib/interfaces";
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 
 // Example usage of the chat workflow that demonstrates AI code modifications
-const example = async (userRequest: string, cSess: ICode, channel: BroadcastChannel) => {
+const example = async (
+  userRequest: string,
+  cSess: ICode,
+  channel: BroadcastChannel,
+) => {
   // In a real system, this would be read from the active editor
 
   const fileName = cSess.getCodeSpace() + ".tsx";
@@ -17,8 +21,7 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
     code: session.code,
     lastError: "",
     isStreaming: false,
-    debugLogs: [
-    ],
+    debugLogs: [],
     messages: session.messages as unknown as BaseMessage[],
   });
 

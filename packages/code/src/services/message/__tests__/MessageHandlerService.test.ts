@@ -149,7 +149,10 @@ describe("MessageHandlerService", () => {
         role: "user",
       });
 
-      expect(consoleSpy).toHaveBeenCalledWith("Unhandled message type:", "unknown");
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Unhandled message type:",
+        "unknown",
+      );
       expect(result.success).toBe(false);
       expect(result.error).toBe("Unhandled message type");
     });
@@ -159,7 +162,9 @@ describe("MessageHandlerService", () => {
       // Using type assertion to access private method for testing
       vi.spyOn(
         messageHandler as unknown as {
-          processMessage: (message: Message) => Promise<Record<string, unknown>>;
+          processMessage: (
+            message: Message,
+          ) => Promise<Record<string, unknown>>;
         },
         "processMessage",
       ).mockRejectedValueOnce(testError);
@@ -171,7 +176,10 @@ describe("MessageHandlerService", () => {
         role: "user",
       });
 
-      expect(consoleSpy).toHaveBeenCalledWith("Error processing message:", testError);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error processing message:",
+        testError,
+      );
       expect(result.success).toBe(false);
       expect(result.error).toBe("Test error");
     });

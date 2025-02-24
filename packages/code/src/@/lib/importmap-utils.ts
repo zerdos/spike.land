@@ -34,7 +34,7 @@ export function importMapReplace(
     const namedImports = match.match(/\{([^}]*)\}/s)?.[1]; // Add 's' flag for multiline matching
     return namedImports
       ?.split(",")
-      .map(s => s.trim().split(" as ")[0])
+      .map((s) => s.trim().split(" as ")[0])
       .filter(Boolean)
       .join(",") || "";
   };
@@ -64,7 +64,10 @@ export function importMapReplace(
     if (/^https?:\/\//.test(path) || path.startsWith("/live/")) {
       return path;
     }
-    if (path.startsWith("/") && Object.values(impMap.imports).some(value => path === value)) {
+    if (
+      path.startsWith("/") &&
+      Object.values(impMap.imports).some((value) => path === value)
+    ) {
       return path;
     }
     const cleanedPath = path.startsWith("/") ? path.slice(1) : path;
@@ -94,20 +97,30 @@ export function importMapReplace(
     //   }
     // }
 
-    const hasExtension = basePath.endsWith(".js") || basePath.endsWith(".mjs") ||
-      basePath.endsWith(".ts") || basePath.endsWith(".tsx") || basePath.endsWith(".jsx") ||
+    const hasExtension = basePath.endsWith(".js") ||
+      basePath.endsWith(".mjs") ||
+      basePath.endsWith(".ts") || basePath.endsWith(".tsx") ||
+      basePath.endsWith(".jsx") ||
       basePath.endsWith(".json") || basePath.endsWith(".wasm") ||
-      basePath.endsWith(".txt") || basePath.endsWith(".svg") || basePath.endsWith(".md") ||
-      basePath.endsWith(".html") || basePath.endsWith(".css") || basePath.endsWith(".scss") ||
-      basePath.endsWith(".sass") || basePath.endsWith(".less") || basePath.endsWith(".styl") ||
-      basePath.endsWith(".graphql") || basePath.endsWith(".gql") || basePath.endsWith(".yml") ||
-      basePath.endsWith(".toml") || basePath.endsWith(".xml") || basePath.endsWith(".csv") ||
-      basePath.endsWith(".tsv") || basePath.endsWith(".ini") || basePath.endsWith(".properties") ||
+      basePath.endsWith(".txt") || basePath.endsWith(".svg") ||
+      basePath.endsWith(".md") ||
+      basePath.endsWith(".html") || basePath.endsWith(".css") ||
+      basePath.endsWith(".scss") ||
+      basePath.endsWith(".sass") || basePath.endsWith(".less") ||
+      basePath.endsWith(".styl") ||
+      basePath.endsWith(".graphql") || basePath.endsWith(".gql") ||
+      basePath.endsWith(".yml") ||
+      basePath.endsWith(".toml") || basePath.endsWith(".xml") ||
+      basePath.endsWith(".csv") ||
+      basePath.endsWith(".tsv") || basePath.endsWith(".ini") ||
+      basePath.endsWith(".properties") ||
       basePath.endsWith(".env") || basePath.endsWith(".env.local") ||
       basePath.endsWith(".env.development") || basePath.endsWith(".env.test") ||
-      basePath.endsWith(".env.production") || basePath.endsWith(".env.staging") ||
+      basePath.endsWith(".env.production") ||
+      basePath.endsWith(".env.staging") ||
       basePath.endsWith(".env.local");
-    const isWorkerFile = basePath.includes("workers/") || basePath.includes(".worker");
+    const isWorkerFile = basePath.includes("workers/") ||
+      basePath.includes(".worker");
 
     // Handle worker files
     if (isWorkerFile) {
@@ -121,7 +134,8 @@ export function importMapReplace(
         ? `${origin}/${resultPath}`
         : resultPath;
     }
-    const isComponent = basePath.includes("@/components/") || basePath.includes("@/lib") ||
+    const isComponent = basePath.includes("@/components/") ||
+      basePath.includes("@/lib") ||
       basePath.includes("@/external") || basePath.includes("@/hooks");
 
     if (isComponent) {
@@ -136,7 +150,9 @@ export function importMapReplace(
     }
 
     // Handle directory imports and paths without extension
-    if (!hasExtension && (basePath.startsWith(".") || basePath.startsWith("/"))) {
+    if (
+      !hasExtension && (basePath.startsWith(".") || basePath.startsWith("/"))
+    ) {
       const extension = basePath.endsWith("/") ? "index.mjs" : ".mjs";
       return `${basePath}${extension}${existingQuery}${hash}`;
     }
@@ -193,14 +209,26 @@ export function importMapReplace(
   };
 
   code = code.replace(/\r\n/g, "\n")
-    .replace(/^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm, (match, pre, q1, path, q2) => {
-      if (!shouldTransformPath(path)) return match;
-      const fullPath = getMappedPath(path, "", false);
-      return `${pre}${q1}${fullPath}${q2}`;
-    })
-    .replace(/^(\s*import\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
-    .replace(/^(\s*export\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm, replaceImport)
-    .replace(/(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g, replaceDynamicImport);
+    .replace(
+      /^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm,
+      (match, pre, q1, path, q2) => {
+        if (!shouldTransformPath(path)) return match;
+        const fullPath = getMappedPath(path, "", false);
+        return `${pre}${q1}${fullPath}${q2}`;
+      },
+    )
+    .replace(
+      /^(\s*import\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
+      replaceImport,
+    )
+    .replace(
+      /^(\s*export\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
+      replaceImport,
+    )
+    .replace(
+      /(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g,
+      replaceDynamicImport,
+    );
 
   return `/** importMapReplace */\n${code}`;
 }

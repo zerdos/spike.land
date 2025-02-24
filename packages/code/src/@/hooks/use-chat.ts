@@ -25,7 +25,7 @@ export const useChat = () => {
   const handleIncomingMessages = (event: MessageEvent) => {
     if (event.data?.type === "chat-message") {
       const { sender, text } = event.data;
-      setChatHistory(prev => [...prev, { sender, text }]);
+      setChatHistory((prev) => [...prev, { sender, text }]);
     }
   };
 

@@ -2,7 +2,9 @@
 
 ## Current State Analysis
 
-The Message Handler Service currently implements a solid foundation with type safety and error handling. However, there are several areas where we can improve code quality further.
+The Message Handler Service currently implements a solid foundation with type
+safety and error handling. However, there are several areas where we can improve
+code quality further.
 
 ## Proposed Improvements
 

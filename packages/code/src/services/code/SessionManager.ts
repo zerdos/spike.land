@@ -24,7 +24,8 @@ export class SessionManager implements ISessionManager {
     });
 
     // Determine the user ID (anonymous hashing if needed)
-    this.user = localStorage.getItem(`${codeSpace} user`) || md5(crypto.randomUUID());
+    this.user = localStorage.getItem(`${codeSpace} user`) ||
+      md5(crypto.randomUUID());
     localStorage.setItem(`${codeSpace} user`, this.user);
 
     // Setup broadcast channel to synchronize with other clients
@@ -42,7 +43,11 @@ export class SessionManager implements ISessionManager {
   addMessageChunk(chunk: string): void {
     const oldSession = sanitizeSession(this.session);
     if (this.session.messages.length === 0) {
-      this.setMessages([{ id: Date.now().toString(), role: "assistant", content: chunk }]);
+      this.setMessages([{
+        id: Date.now().toString(),
+        role: "assistant",
+        content: chunk,
+      }]);
       return;
     }
 
@@ -134,7 +139,10 @@ export class SessionManager implements ISessionManager {
     }
 
     // Compare messages with optimized diffing
-    if (JSON.stringify(oldSession.messages) !== JSON.stringify(newSession.messages)) {
+    if (
+      JSON.stringify(oldSession.messages) !==
+        JSON.stringify(newSession.messages)
+    ) {
       if (newSession.messages.length === 0) {
         diff.messages = [];
       } else if (oldSession.messages.length === newSession.messages.length) {

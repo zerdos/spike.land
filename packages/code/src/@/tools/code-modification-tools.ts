@@ -13,7 +13,7 @@ export const codeModificationTool = tool(
     { instructions }: { instructions: string; },
   ): Promise<CodeModification> => {
     // If no current file content, return early with helpful error
-    
+
     const currentCode = await (globalThis as unknown as {
       cSess: { getCode: () => Promise<string>; };
     }).cSess.getCode();
@@ -45,7 +45,7 @@ export const codeModificationTool = tool(
 
       // Extract all search/replace blocks for error reporting
       const blocks = instructions.split(SEARCH).slice(1);
-      const searchBlocks = blocks.map(block => {
+      const searchBlocks = blocks.map((block) => {
         const [search] = block.split(SEPARATOR);
         return search.trim();
       });
@@ -116,14 +116,15 @@ export const codeModificationTool = tool(
           error: "",
           retryCount,
         };
-      } 
-
+      }
 
       return result;
     } catch (error) {
       return {
         code: currentCode,
-        error: error instanceof Error ? error.message : "Unknown error in code modification",
+        error: error instanceof Error
+          ? error.message
+          : "Unknown error in code modification",
         // currentFileContent: currentCode,
       };
     }
@@ -219,7 +220,7 @@ interface User {
     schema: z.object({
       instructions: z.string().describe(
         "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",
-      )
+      ),
     }),
   },
 );

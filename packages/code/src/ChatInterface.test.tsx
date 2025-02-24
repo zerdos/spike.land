@@ -74,13 +74,13 @@ class MockBroadcastChannel {
     const channels = MockBroadcastChannel.channels.get(this.name) || [];
     const event = new MessageEvent("message", { data: message });
 
-    channels.forEach(channel => {
+    channels.forEach((channel) => {
       if (channel !== this) {
         if (channel.onmessage) {
           channel.onmessage(event);
         }
-        channel.messageHandlers.forEach(handler => handler(event));
-        channel.listeners.get("message")?.forEach(listener => listener(event));
+        channel.messageHandlers.forEach((handler) => handler(event));
+        channel.listeners.get("message")?.forEach((listener) => listener(event));
       }
     });
   }
@@ -97,7 +97,7 @@ class MockBroadcastChannel {
 
   removeEventListener(type: string, listener: (event: MessageEvent) => void) {
     this.listeners.get(type)?.delete(listener);
-    this.messageHandlers = this.messageHandlers.filter(h => h !== listener);
+    this.messageHandlers = this.messageHandlers.filter((h) => h !== listener);
   }
 
   close() {
@@ -131,11 +131,11 @@ afterAll(() => {
 
 // Mock ICode interface
 const createMockSession = (initialMessages: Message[] = []) => {
-  let messages = initialMessages.map(msg => ({ ...msg }));
+  let messages = initialMessages.map((msg) => ({ ...msg }));
   const subscribers = new Set<(session: ICodeSession) => void>();
 
   const session: ICodeSession = {
-    messages: messages.map(msg => ({ ...msg })),
+    messages: messages.map((msg) => ({ ...msg })),
     codeSpace: "test-space",
     html: "<div>testHtml</div>",
     css: ".testCss { /* mock css */ }",
@@ -144,14 +144,17 @@ const createMockSession = (initialMessages: Message[] = []) => {
   };
 
   const mockInstance = {
-    getSession: vi.fn().mockImplementation(async () => ({ ...session, messages: [...messages] })),
+    getSession: vi.fn().mockImplementation(async () => ({
+      ...session,
+      messages: [...messages],
+    })),
     setMessages: vi.fn().mockImplementation(async (newMessages: Message[]) => {
-      messages = newMessages.map(msg => ({ ...msg }));
+      messages = newMessages.map((msg) => ({ ...msg }));
       const updatedSession = {
         ...session,
-        messages: messages.map(msg => ({ ...msg })),
+        messages: messages.map((msg) => ({ ...msg })),
       };
-      subscribers.forEach(sub => sub(updatedSession));
+      subscribers.forEach((sub) => sub(updatedSession));
       return true;
     }),
     addMessageChunk: vi.fn().mockImplementation((chunk: string) => {
@@ -167,9 +170,9 @@ const createMockSession = (initialMessages: Message[] = []) => {
       }
       const updatedSession = {
         ...session,
-        messages: messages.map(msg => ({ ...msg })),
+        messages: messages.map((msg) => ({ ...msg })),
       };
-      subscribers.forEach(sub => sub(updatedSession));
+      subscribers.forEach((sub) => sub(updatedSession));
     }),
     sub: vi.fn().mockImplementation((callback) => {
       subscribers.add(callback);

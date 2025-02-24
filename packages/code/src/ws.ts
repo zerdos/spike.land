@@ -24,7 +24,8 @@ export const main = async (codeSpace: string) => {
               console.warn(
                 "Not in iframe: skipping code processing to prevent main window re-render.",
               );
-              const { css, html } = codeSessionBC.session || await codeSessionBC.init();
+              const { css, html } = codeSessionBC.session ||
+                await codeSessionBC.init();
               return Promise.resolve({
                 css,
                 html,
@@ -72,7 +73,9 @@ export const testHandleRunMessage = async (
   if (window.self !== window.parent) {
     return await webSocketManager.handleRunMessage(transpiled);
   } else {
-    console.warn("Not in iframe: skipping code processing to prevent main window re-render.");
+    console.warn(
+      "Not in iframe: skipping code processing to prevent main window re-render.",
+    );
     return false;
   }
 };

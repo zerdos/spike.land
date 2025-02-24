@@ -126,7 +126,7 @@ export const extractCodeModification = (response: string): string[] => {
 
   // Extract modifications from code blocks
   const codeBlockMatches = response.match(/```[\s\S]*?```/g) || [];
-  codeBlockMatches.forEach(block => {
+  codeBlockMatches.forEach((block) => {
     const modification = parseCodeBlock(block);
     if (modification) {
       modifications.push(modification);
@@ -171,7 +171,7 @@ export const loadMessages = (codeSpace: string): Message[] => {
     return [];
   }
 
-  const validMessages = rawMessages.filter(m => !!m.role);
+  const validMessages = rawMessages.filter((m) => !!m.role);
 
   return validMessages.reduce((acc, current, index) => {
     if (index === 0 || current.role !== validMessages[index - 1].role) {
@@ -193,10 +193,14 @@ function applyCodeModifications(
     let result = code;
     const modsToApply = applyAll ? modifications : modifications.slice(0, 1);
 
-    modsToApply.forEach(mod => {
+    modsToApply.forEach((mod) => {
       const parsed = parseModification(mod);
       if (parsed) {
-        result = replacePreservingWhitespace(result, parsed.search, parsed.replace);
+        result = replacePreservingWhitespace(
+          result,
+          parsed.search,
+          parsed.replace,
+        );
       }
     });
 

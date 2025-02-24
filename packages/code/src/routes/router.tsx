@@ -62,9 +62,8 @@ const App: React.FC = () => {
         await init();
         const cSess = new Code(codeSpace);
         const baseUrl = import.meta.env.DEV ? "" : "https://testing.spike.land";
-        const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`).then((res) =>
-          res.json()
-        ) as ICodeSession;
+        const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`)
+          .then((res) => res.json()) as ICodeSession;
         await cSess.init(session);
 
         setState(cSess);

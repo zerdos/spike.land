@@ -124,22 +124,27 @@ describe("Code", () => {
     };
 
     vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => mockSession);
-    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
-      Object.assign(mockSession, session);
-    });
-    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(async (session) => {
-      if (session) {
+    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation(
+      (session) => {
         Object.assign(mockSession, session);
-      }
-      return mockSession;
-    });
+      },
+    );
+    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(
+      async (session) => {
+        if (session) {
+          Object.assign(mockSession, session);
+        }
+        return mockSession;
+      },
+    );
 
     // Mock modelManager methods
-    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(
-      async () => {
-        const code = mockSession.code;
-        if (code.includes("./extraModel")) {
-          return `# testCodeSpace.tsx
+    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
+      .mockImplementation(
+        async () => {
+          const code = mockSession.code;
+          if (code.includes("./extraModel")) {
+            return `# testCodeSpace.tsx
 
 \`\`\`tsx
 ${code}
@@ -151,15 +156,15 @@ ${code}
 console.log("Extra Model Code");
 \`\`\`
 `;
-        }
-        return `# testCodeSpace.tsx
+          }
+          return `# testCodeSpace.tsx
 
 \`\`\`tsx
 ${code}
 \`\`\`
 `;
-      },
-    );
+        },
+      );
 
     await cSess.init(); // Wait for initialization to complete
   });
@@ -180,7 +185,10 @@ console.log("Hello, World!");
     });
 
     it("should return current code with extra models", async () => {
-      await cSess.setCode('import extra from "./extraModel";\nconsole.log("Hello, World!");', true);
+      await cSess.setCode(
+        'import extra from "./extraModel";\nconsole.log("Hello, World!");',
+        true,
+      );
 
       const result = await cSess.currentCodeWithExtraModels();
 
@@ -207,7 +215,9 @@ console.log("Extra Model Code");
       const sameCode = "export default ()=> <>Nothing</>";
 
       // Mock initial session state
-      vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (_code) => ({
+      vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (
+        _code,
+      ) => ({
         code: sameCode,
         codeSpace: "testCodeSpace",
         html: "<div>Test</div>",

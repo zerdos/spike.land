@@ -242,7 +242,9 @@ export interface EditorInstance {
   setValue: (_newCode: string) => void;
 }
 
-export async function initializeMonaco(options: EditorInitOptions): Promise<EditorInstance> {
+export async function initializeMonaco(
+  options: EditorInitOptions,
+): Promise<EditorInstance> {
   const { startMonaco } = await import("../monaco-edi");
   return await startMonaco(options);
 }

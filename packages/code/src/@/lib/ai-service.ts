@@ -118,7 +118,12 @@ export class AIService {
   }
 
   public prepareClaudeContent(
-    params: { content: string; messages: Message[]; codeNow: string; codeSpace: string; },
+    params: {
+      content: string;
+      messages: Message[];
+      codeNow: string;
+      codeSpace: string;
+    },
   ): string {
     const { content, messages, codeNow, codeSpace } = params;
 

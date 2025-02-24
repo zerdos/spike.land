@@ -1,5 +1,5 @@
 import { importMap } from "@spike-npm-land/code";
-const md5Promise = import("@spike-npm-land/code").then(m => m.md5);
+const md5Promise = import("@spike-npm-land/code").then((m) => m.md5);
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { RouteHandler } from "./routeHandler";
@@ -43,7 +43,9 @@ describe("RouteHandler", () => {
       const request = new Request("https://example.com/unknown");
       const url = new URL("https://example.com/unknown");
 
-      const response = await routeHandler.handleRoute(request, url, ["unknown"]);
+      const response = await routeHandler.handleRoute(request, url, [
+        "unknown",
+      ]);
 
       expect(response.status).toBe(404);
       expect(await response.text()).toBe("Not found");
@@ -78,13 +80,19 @@ describe("RouteHandler", () => {
 
     describe("handleSessionRoute", () => {
       it("should return session JSON", async () => {
-        const request = new Request("https://example.com/session.json?room=test-space");
+        const request = new Request(
+          "https://example.com/session.json?room=test-space",
+        );
         const url = new URL("https://example.com/session.json?room=test-space");
 
-        const response = await routeHandler.handleRoute(request, url, ["session.json"]);
+        const response = await routeHandler.handleRoute(request, url, [
+          "session.json",
+        ]);
 
         expect(response.status).toBe(200);
-        expect(response.headers.get("Content-Type")).toBe("application/json; charset=UTF-8");
+        expect(response.headers.get("Content-Type")).toBe(
+          "application/json; charset=UTF-8",
+        );
       });
     });
 
@@ -95,7 +103,9 @@ describe("RouteHandler", () => {
         });
         const url = new URL("https://example.com/websocket");
 
-        const response = await routeHandler.handleRoute(request, url, ["websocket"]);
+        const response = await routeHandler.handleRoute(request, url, [
+          "websocket",
+        ]);
 
         expect(response.status).toBe(101);
         expect(response.webSocket).toBeDefined();
@@ -135,10 +145,14 @@ describe("RouteHandler", () => {
         const request = new Request("https://example.com/index.js");
         const url = new URL("https://example.com/index.js");
 
-        const response = await routeHandler.handleRoute(request, url, ["index.js"]);
+        const response = await routeHandler.handleRoute(request, url, [
+          "index.js",
+        ]);
 
         expect(response.status).toBe(200);
-        expect(response.headers.get("Content-Type")).toBe("application/javascript; charset=UTF-8");
+        expect(response.headers.get("Content-Type")).toBe(
+          "application/javascript; charset=UTF-8",
+        );
       });
     });
 
@@ -147,11 +161,15 @@ describe("RouteHandler", () => {
         const request = new Request("https://example.com/index.css");
         const url = new URL("https://example.com/index.css");
 
-        const response = await routeHandler.handleRoute(request, url, ["index.css"]);
+        const response = await routeHandler.handleRoute(request, url, [
+          "index.css",
+        ]);
 
         expect(response.status).toBe(200);
         expect(await response.text()).toBe("mock css");
-        expect(response.headers.get("Content-Type")).toBe("text/css; charset=UTF-8");
+        expect(response.headers.get("Content-Type")).toBe(
+          "text/css; charset=UTF-8",
+        );
       });
     });
   });

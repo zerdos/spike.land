@@ -53,7 +53,9 @@ describe("Utils Functions", () => {
 
       expect(response.status).toBe(200);
       expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
-      expect(response.headers.get("Access-Control-Allow-Methods")).toBe("POST, OPTIONS");
+      expect(response.headers.get("Access-Control-Allow-Methods")).toBe(
+        "POST, OPTIONS",
+      );
     });
 
     it("should handle non-CORS request", () => {
@@ -87,8 +89,12 @@ describe("Utils Functions", () => {
       const response = handleRedirectResponse(mockUrl, start);
 
       expect(response.status).toBe(307);
-      expect(response.headers.get("Location")).toBe("https://example.com/live/test-start");
-      expect(response.headers.get("Content-Type")).toBe("text/html;charset=UTF-8");
+      expect(response.headers.get("Location")).toBe(
+        "https://example.com/live/test-start",
+      );
+      expect(response.headers.get("Content-Type")).toBe(
+        "text/html;charset=UTF-8",
+      );
     });
   });
 

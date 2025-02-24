@@ -18,7 +18,9 @@ describe("ApiHandler", () => {
     // Create a mock environment
     mockEnv = {
       CODE: {
-        newUniqueId: vi.fn().mockReturnValue({ toString: () => "mock-unique-id" }),
+        newUniqueId: vi.fn().mockReturnValue({
+          toString: () => "mock-unique-id",
+        }),
         idFromString: vi.fn().mockReturnValue("mock-id-from-string"),
         idFromName: vi.fn().mockReturnValue("mock-id-from-name"),
         get: vi.fn().mockReturnValue({
@@ -123,7 +125,9 @@ describe("ApiHandler", () => {
       );
 
       expect(mockEnv.CODE?.idFromString).toHaveBeenCalledWith("a".repeat(16));
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe("mock-id-from-string");
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe(
+        "mock-id-from-string",
+      );
       expect(await response.text()).toBe("Room fetch result");
     });
 
@@ -139,7 +143,9 @@ describe("ApiHandler", () => {
       );
 
       expect(mockEnv.CODE?.idFromName).toHaveBeenCalledWith("testroom");
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe("mock-id-from-name");
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe(
+        "mock-id-from-name",
+      );
       expect(await response.text()).toBe("Room fetch result");
     });
 
@@ -215,7 +221,9 @@ describe("ApiHandler", () => {
       );
 
       expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe("text/html; charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "text/html; charset=UTF-8",
+      );
       expect(await response.text()).toBe(`<!DOCTYPE html>
 <html lang="en">
   <head>

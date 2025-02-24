@@ -135,7 +135,7 @@ describe("Performance", () => {
     const messages = generateTestMessages(1000);
 
     const start = performance.now();
-    await Promise.all(messages.map(msg => service.handleMessage(msg)));
+    await Promise.all(messages.map((msg) => service.handleMessage(msg)));
     const duration = performance.now() - start;
 
     expect(duration).toBeLessThan(5000); // 5 seconds max
@@ -259,10 +259,10 @@ class MessageBuilder {
    steps:
      - name: Unit Tests
        run: npm run test:unit
-     
+
      - name: Integration Tests
        run: npm run test:integration
-     
+
      - name: Performance Tests
        run: npm run test:performance
    ```

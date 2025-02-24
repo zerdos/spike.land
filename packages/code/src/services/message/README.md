@@ -1,6 +1,7 @@
 # Message Handler Service
 
-A robust and type-safe service for handling different types of messages in the system.
+A robust and type-safe service for handling different types of messages in the
+system.
 
 ## Features
 

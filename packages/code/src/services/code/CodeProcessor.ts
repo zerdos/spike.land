@@ -99,8 +99,12 @@ export class CodeProcessor {
   async runCode(transpiled: string): Promise<RunMessageResult> {
     try {
       // Update the rendered app first
-      const renderedApp = await CodeProcessor.renderService.updateRenderedApp({ transpiled });
-      const result = await CodeProcessor.renderService.handleRender(renderedApp);
+      const renderedApp = await CodeProcessor.renderService.updateRenderedApp({
+        transpiled,
+      });
+      const result = await CodeProcessor.renderService.handleRender(
+        renderedApp,
+      );
 
       if (!result) {
         throw new Error("Running code produced no output");

@@ -9,7 +9,9 @@ export async function handleApiRequest(
   switch (path[0]) {
     case "server-fetch": {
       if (request.method === "POST") {
-        const { url, options } = await request.json<{ url: string; options: RequestInit; }>();
+        const { url, options } = await request.json<
+          { url: string; options: RequestInit; }
+        >();
         try {
           return await fetch(url, options) as unknown as Response;
         } catch (_error) {

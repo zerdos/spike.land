@@ -2,7 +2,8 @@
 
 ## Current Performance Analysis
 
-The Message Handler Service currently provides good baseline performance but can be optimized in several areas:
+The Message Handler Service currently provides good baseline performance but can
+be optimized in several areas:
 
 1. Message Processing
 2. Memory Usage
@@ -105,7 +106,7 @@ class BatchMessageHandler {
     this.batch = [];
 
     await Promise.all(
-      currentBatch.map(msg => this.processMessage(msg)),
+      currentBatch.map((msg) => this.processMessage(msg)),
     );
   }
 }

@@ -71,7 +71,9 @@ export class WebSocketManager implements IWebSocketManager {
    * @param transpiled - Transpiled code to run
    * @returns Promise resolving to rendered HTML/CSS or false if failed
    */
-  public async handleRunMessage(transpiled: string): Promise<RunMessageResult | false> {
+  public async handleRunMessage(
+    transpiled: string,
+  ): Promise<RunMessageResult | false> {
     return this.dependencies.messageHandler.handleRunMessage(transpiled);
   }
 
@@ -168,7 +170,9 @@ export class WebSocketManager implements IWebSocketManager {
         if (error instanceof DOMError) {
           throw error;
         }
-        throw new WebSocketError(`Failed to handle dehydrated content: ${getErrorMessage(error)}`);
+        throw new WebSocketError(
+          `Failed to handle dehydrated content: ${getErrorMessage(error)}`,
+        );
       }
     };
 
@@ -184,7 +188,7 @@ export class WebSocketManager implements IWebSocketManager {
       const data = (event as MessageEvent).data;
       try {
         this.dependencies.messageHandler.handleMessage(data)
-          .catch(error => {
+          .catch((error) => {
             this.handleError(error);
             throw new MessageHandlingError("Failed to handle message", data);
           });
@@ -193,7 +197,9 @@ export class WebSocketManager implements IWebSocketManager {
         if (error instanceof MessageHandlingError) {
           throw error;
         }
-        throw new WebSocketError(`Message handler failed: ${getErrorMessage(error)}`);
+        throw new WebSocketError(
+          `Message handler failed: ${getErrorMessage(error)}`,
+        );
       }
     };
 
@@ -202,9 +208,11 @@ export class WebSocketManager implements IWebSocketManager {
     // Set up window message handler
     window.onmessage = (event: unknown): void => {
       this.dependencies.messageHandler.handleMessage(event as Message)
-        .catch(error => {
+        .catch((error) => {
           this.handleError(error);
-          throw new MessageHandlingError("Failed to handle window message", { event });
+          throw new MessageHandlingError("Failed to handle window message", {
+            event,
+          });
         });
     };
   }
@@ -231,7 +239,7 @@ export class WebSocketManager implements IWebSocketManager {
    * @private
    */
   private unsubscribeAll(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     this.subscriptions.clear();
   }
 
@@ -249,7 +257,9 @@ export class WebSocketManager implements IWebSocketManager {
       this.retryCount++;
       this.state = WebSocketState.RECONNECTING;
       setTimeout(() => {
-        console.log(`Retrying connection (${this.retryCount}/${this.config.maxRetries})...`);
+        console.log(
+          `Retrying connection (${this.retryCount}/${this.config.maxRetries})...`,
+        );
         this.init().catch(console.error);
       }, this.config.retryDelay);
     }

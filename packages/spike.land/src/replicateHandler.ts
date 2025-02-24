@@ -43,7 +43,10 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
       return acc;
     }
 
-    return { ...acc, [key]: typeof defaultValue === "number" ? Number(value) : value };
+    return {
+      ...acc,
+      [key]: typeof defaultValue === "number" ? Number(value) : value,
+    };
   }, {});
 
   return params as InputDefaults;

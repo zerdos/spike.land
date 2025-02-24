@@ -9,7 +9,8 @@ The Message Handler Service currently implements a solid foundation with:
 - Configurable behavior
 - Unit test coverage
 
-However, there are several areas where the architecture can evolve to better handle:
+However, there are several areas where the architecture can evolve to better
+handle:
 
 - Scalability
 - Extensibility
@@ -51,7 +52,7 @@ class MessageEventBus {
   async publish(event: MessageEvent): Promise<void> {
     const handlers = this.handlers.get(event.type) ?? [];
     await Promise.all(
-      handlers.map(handler => handler.handle(event)),
+      handlers.map((handler) => handler.handle(event)),
     );
   }
 }
@@ -170,7 +171,7 @@ class ServiceRegistry {
   async process(message: Message): Promise<ProcessingResult[]> {
     return Promise.all(
       Array.from(this.services.values())
-        .map(service => service.process(message)),
+        .map((service) => service.process(message)),
     );
   }
 }
@@ -235,8 +236,8 @@ class MessageStream {
   subscribe(observer: Observer<Message>): Subscription {
     return this.subject
       .pipe(
-        filter(msg => this.isValid(msg)),
-        map(msg => this.transform(msg)),
+        filter((msg) => this.isValid(msg)),
+        map((msg) => this.transform(msg)),
         catchError(this.handleError),
       )
       .subscribe(observer);
@@ -250,9 +251,9 @@ class MessageStream {
 class ReactiveMessageProcessor {
   process(message$: Observable<Message>): Observable<ProcessingResult> {
     return message$.pipe(
-      mergeMap(msg => this.validate(msg)),
-      mergeMap(msg => this.processContent(msg)),
-      mergeMap(msg => this.store(msg)),
+      mergeMap((msg) => this.validate(msg)),
+      mergeMap((msg) => this.processContent(msg)),
+      mergeMap((msg) => this.store(msg)),
       retry(3),
       catchError(this.handleError),
     );

@@ -45,7 +45,9 @@ export async function handleAnthropicRequest(
     // Make the fetch request and handle errors
     const response = await fetch(request);
     if (!response.ok) {
-      throw new Error(`ANTHROPIC API responded with status: ${request.url} ${response.status} `);
+      throw new Error(
+        `ANTHROPIC API responded with status: ${request.url} ${response.status} `,
+      );
     }
 
     // Clone the response to add CORS headers

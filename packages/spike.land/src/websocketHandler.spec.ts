@@ -106,7 +106,7 @@ describe("WebSocketHandler", () => {
 
       // Simulate pong response
       const messageHandler = (mockWebSocket.addEventListener as Mock).mock.calls
-        .find(call => call[0] === "message")?.[1];
+        .find((call) => call[0] === "message")?.[1];
       messageHandler?.({ data: JSON.stringify({ type: "pong" }) });
 
       // First scheduled ping
@@ -153,7 +153,10 @@ describe("WebSocketHandler", () => {
   });
 
   describe("processWsMessage", () => {
-    let processWsMessage: (msg: MessageEvent, session: WebsocketSession) => void;
+    let processWsMessage: (
+      msg: MessageEvent,
+      session: WebsocketSession,
+    ) => void;
     let mockWsSession: WebsocketSession;
 
     beforeEach(() => {
@@ -209,7 +212,9 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle invalid patch messages", async () => {
-      const mockConsoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+      const mockConsoleError = vi.spyOn(console, "error").mockImplementation(
+        () => {},
+      );
 
       const invalidPatchMessage = {
         data: JSON.stringify({
@@ -232,11 +237,17 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle ping/pong messages", () => {
-      const pingMessage = { data: JSON.stringify({ type: "ping" }) } as MessageEvent;
-      const pongMessage = { data: JSON.stringify({ type: "pong" }) } as MessageEvent;
+      const pingMessage = {
+        data: JSON.stringify({ type: "ping" }),
+      } as MessageEvent;
+      const pongMessage = {
+        data: JSON.stringify({ type: "pong" }),
+      } as MessageEvent;
 
       processWsMessage(pingMessage, mockWsSession);
-      expect(mockWebSocket.send).toHaveBeenCalledWith(JSON.stringify({ type: "pong" }));
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        JSON.stringify({ type: "pong" }),
+      );
 
       processWsMessage(pongMessage, mockWsSession);
       expect(mockWsSession.pongReceived).toBe(true);
@@ -380,7 +391,9 @@ describe("WebSocketHandler", () => {
         throw new Error("Send failed");
       });
 
-      const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+      const consoleError = vi.spyOn(console, "error").mockImplementation(
+        () => {},
+      );
 
       // Broadcast after handshake
       websocketHandler.broadcast("test message");

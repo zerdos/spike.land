@@ -50,10 +50,18 @@ describe("MainFetchHandler", () => {
         writable: true,
       });
 
-      const mockUnauthorizedResponse = new Response("Unauthorized", { status: 403 });
-      (handleUnauthorizedRequest as Mock).mockReturnValue(mockUnauthorizedResponse);
+      const mockUnauthorizedResponse = new Response("Unauthorized", {
+        status: 403,
+      });
+      (handleUnauthorizedRequest as Mock).mockReturnValue(
+        mockUnauthorizedResponse,
+      );
 
-      const response = await handleMainFetch(mockYandexRequest, mockEnv, mockCtx);
+      const response = await handleMainFetch(
+        mockYandexRequest,
+        mockEnv,
+        mockCtx,
+      );
 
       expect(handleUnauthorizedRequest).toHaveBeenCalled();
       expect(response).toBe(mockUnauthorizedResponse);
@@ -75,7 +83,11 @@ describe("MainFetchHandler", () => {
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
       (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleErrors).toHaveBeenCalled();
       expect(handleFetchApi).toHaveBeenCalled();
@@ -95,7 +107,11 @@ describe("MainFetchHandler", () => {
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
       (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleFetchApi).toHaveBeenCalledWith(
         ["live", redirectTarget, "embed"],
@@ -119,7 +135,11 @@ describe("MainFetchHandler", () => {
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
       (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleFetchApi).toHaveBeenCalledWith(
         ["some", "test", "path"],
@@ -138,7 +158,11 @@ describe("MainFetchHandler", () => {
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
       (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
-      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleFetchApi).toHaveBeenCalledWith(
         ["live", "landing", "embed"],
@@ -161,7 +185,11 @@ describe("MainFetchHandler", () => {
       const mockFetchApiResponse = new Response("Handled response");
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
 
-      const response = await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
+      const response = await handleMainFetch(
+        mockRequest,
+        mockEnv as Env,
+        mockCtx,
+      );
 
       expect(handleErrors).toHaveBeenCalledWith(
         mockRequest,
@@ -174,14 +202,18 @@ describe("MainFetchHandler", () => {
       const testUrl = "https://example.com/logging-test";
       const mockRequest = new Request(testUrl);
 
-      const mockConsoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
+      const mockConsoleLog = vi.spyOn(console, "log").mockImplementation(
+        () => {},
+      );
       const mockFetchApiResponse = new Response("Logged response");
       (handleErrors as Mock).mockImplementation(async (_, handler) => await handler());
       (handleFetchApi as Mock).mockResolvedValue(mockFetchApiResponse);
 
       await handleMainFetch(mockRequest, mockEnv as Env, mockCtx);
 
-      expect(mockConsoleLog).toHaveBeenCalledWith(`handling request: ${testUrl}`);
+      expect(mockConsoleLog).toHaveBeenCalledWith(
+        `handling request: ${testUrl}`,
+      );
       mockConsoleLog.mockRestore();
     });
   });

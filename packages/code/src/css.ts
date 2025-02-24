@@ -41,7 +41,10 @@ interface SerializeStylesheetOptions {
  * @private
  * @param ast A Stylesheet to serialize, such as one returned from `parseStylesheet()`
  */
-export function serializeStylesheet(ast: AnyNode, options: SerializeStylesheetOptions) {
+export function serializeStylesheet(
+  ast: AnyNode,
+  options: SerializeStylesheetOptions,
+) {
   const cssParts: string[] = [];
 
   stringify(ast, (result, node, type) => {
@@ -192,8 +195,9 @@ function hasNestedRules(rule: ChildNode): rule is Rule {
   return (
     "nodes" in rule &&
     !!rule.nodes?.length &&
-    (!("name" in rule) || (rule.name !== "keyframes" && rule.name !== "-webkit-keyframes")) &&
-    rule.nodes.some(n => n.type === "rule" || n.type === "atrule")
+    (!("name" in rule) ||
+      (rule.name !== "keyframes" && rule.name !== "-webkit-keyframes")) &&
+    rule.nodes.some((n) => n.type === "rule" || n.type === "atrule")
   );
 }
 

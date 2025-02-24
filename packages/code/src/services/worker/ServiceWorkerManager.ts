@@ -10,7 +10,8 @@ export class ServiceWorkerManager implements IServiceWorkerManager {
     // Do not setup service worker when running in an iframe.
     // Additionally, allow tests to simulate iframe mode via window.__IS_IFRAME__
     if (
-      (window as unknown as IExtendedWindow).__IS_IFRAME__ === true || window.self !== window.parent
+      (window as unknown as IExtendedWindow).__IS_IFRAME__ === true ||
+      window.self !== window.parent
     ) {
       return;
     }

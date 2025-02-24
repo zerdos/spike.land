@@ -35,7 +35,10 @@ const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
     if (blob.text) {
       await fsPromises.writeFile(filePath, await blob.text());
     } else if (blob.arrayBuffer) {
-      await fsPromises.writeFile(filePath, Buffer.from(await blob.arrayBuffer()));
+      await fsPromises.writeFile(
+        filePath,
+        Buffer.from(await blob.arrayBuffer()),
+      );
     } else {
       throw new Error("No method to read the blob");
     }
@@ -54,7 +57,9 @@ const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
 let firstRender = true;
 const origin = location.origin;
 
-export function AppWithScreenSize({ AppToRender }: { AppToRender: FlexibleComponentType; }) {
+export function AppWithScreenSize(
+  { AppToRender }: { AppToRender: FlexibleComponentType; },
+) {
   const { width, height } = useWindowSize();
 
   return <AppToRender width={width!} height={height!} />;
@@ -68,7 +73,9 @@ export const importFromString = async (code: string) => {
       new Blob([
         importMapReplace(code.split("importMapReplace").join(""), origin).split(
           `"/@/`,
-        ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(`from "/`).join(
+        ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(
+          `from "/`,
+        ).join(
           `from "${origin}/`,
         ),
       ], { type: "application/javascript" }),
@@ -123,7 +130,10 @@ async function renderApp(
 
         if (!codeToUse) {
           const { transpile } = await import("@/lib/shared");
-          const transpiled = await transpile({ code: code!, originToUse: origin });
+          const transpiled = await transpile({
+            code: code!,
+            originToUse: origin,
+          });
 
           codeToUse = transpiled;
         }
@@ -148,7 +158,8 @@ async function renderApp(
       );
     }
 
-    const myRoot = root || renderedApps.get(rootEl)?.rRoot || createRoot(rootEl);
+    const myRoot = root || renderedApps.get(rootEl)?.rRoot ||
+      createRoot(rootEl);
 
     const cacheKey = md5(transpiled || code || Math.random().toString())
       .toLocaleLowerCase().replace(/[0-9]/g, "");

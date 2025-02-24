@@ -147,7 +147,9 @@ export class WebSocketHandler {
         }));
       } catch (error) {
         console.error("Error applying patch:", error);
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        const errorMessage = error instanceof Error
+          ? error.message
+          : "Unknown error";
         session.webSocket.send(JSON.stringify({
           type: "error",
           message: "Failed to apply patch " + errorMessage,
@@ -157,7 +159,7 @@ export class WebSocketHandler {
     }
 
     if (data.target) {
-      const targetSession = this.wsSessions.find(s => s.name === data.target);
+      const targetSession = this.wsSessions.find((s) => s.name === data.target);
       if (targetSession && targetSession.webSocket.readyState === 1) {
         targetSession.webSocket.send(msg.data);
       }
@@ -171,8 +173,8 @@ export class WebSocketHandler {
 
   getActiveUsers(codeSpace: string): string[] {
     return this.wsSessions
-      .filter(session => session.subscribedTopics.has(codeSpace))
-      .map(session => session.name || "anonymous")
+      .filter((session) => session.subscribedTopics.has(codeSpace))
+      .map((session) => session.name || "anonymous")
       .filter(Boolean);
   }
 
@@ -180,7 +182,9 @@ export class WebSocketHandler {
     for (const session of this.wsSessions) {
       if (session.webSocket.readyState === 1 && session !== excludeSession) {
         try {
-          session.webSocket.send(typeof message === "string" ? message : JSON.stringify(message));
+          session.webSocket.send(
+            typeof message === "string" ? message : JSON.stringify(message),
+          );
         } catch (error) {
           console.error("Error broadcasting to session:", error);
           session.webSocket.close();

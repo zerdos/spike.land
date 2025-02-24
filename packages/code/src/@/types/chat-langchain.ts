@@ -8,8 +8,8 @@ export interface AgentState {
   debugLogs: string[];
 }
 
-export type CodeModification  =  string |{
+export type CodeModification = string | {
   code: string;
   error: string;
   retryCount?: number;
-}
+};

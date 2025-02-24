@@ -20,9 +20,7 @@ const debugInfo: DebugInfo = {
   logs: [],
   addLog: (message: string | Message, data?: Record<string, unknown>) => {
     if (typeof message === "string") {
-      const logEntry = data
-        ? `${message} - ${JSON.stringify(data)}`
-        : message;
+      const logEntry = data ? `${message} - ${JSON.stringify(data)}` : message;
       debugInfo.logs.push(logEntry);
     } else {
       debugInfo.logs.push(message);
@@ -111,7 +109,9 @@ export class ChatHandler {
     this.aiHandler = new AIHandler(this.setIsStreaming);
   }
 
-  async handleMessage({ prompt, images }: { prompt: string; images: ImageData[]; }): Promise<void> {
+  async handleMessage(
+    { prompt, images }: { prompt: string; images: ImageData[]; },
+  ): Promise<void> {
     debugInfo.addLog("Starting handleMessage", {
       promptLength: prompt.length,
       imagesCount: images.length,
@@ -185,7 +185,12 @@ export class ChatHandler {
     this.updateCode();
   }
 
-  private getLastActionInfo(): { startPos: number; DIFFs: number; SKIP: number; TRIED: number; } {
+  private getLastActionInfo(): {
+    startPos: number;
+    DIFFs: number;
+    SKIP: number;
+    TRIED: number;
+  } {
     const lastAction = this.mod.actions[this.mod.actions.length - 1];
     return {
       startPos: lastAction?.lastSuccessCut || 0,
@@ -205,7 +210,10 @@ export class ChatHandler {
     }));
 
     const content: MessageContent = imagesContent.length > 0
-      ? [...imagesContent, { type: "text" as const, text: claudeContent.trim() || "" }]
+      ? [...imagesContent, {
+        type: "text" as const,
+        text: claudeContent.trim() || "",
+      }]
       : claudeContent;
 
     return {
@@ -271,7 +279,8 @@ ${this.mod.lastCode}
         await this.updateCode();
 
         if (typeof this.mod.lastCode !== "string") {
-          const error = `Invalid mod.lastCode type: ${typeof this.mod.lastCode}`;
+          const error = `Invalid mod.lastCode type: ${typeof this.mod
+            .lastCode}`;
           debugInfo.addLog(error);
           //       console.error(error);
           this.mod.lastCode = this.code;
@@ -422,8 +431,12 @@ ${this.mod.lastCode}
               this.BC.postMessage(update);
               debugInfo.addLog("Code successfully formatted and transpiled");
             } catch (error) {
-              const errorMsg = error instanceof Error ? error.message : String(error);
-              debugInfo.addLog("Error in code formatting/transpilation", { error: errorMsg });
+              const errorMsg = error instanceof Error
+                ? error.message
+                : String(error);
+              debugInfo.addLog("Error in code formatting/transpilation", {
+                error: errorMsg,
+              });
               if (error instanceof Error) {
                 this.mod.lastError = error.message;
               } else {
@@ -436,7 +449,9 @@ ${this.mod.lastCode}
           }
 
           if (iterationCount >= maxIterations) {
-            debugInfo.addLog("Reached maximum iterations, forcing finish", { iterationCount });
+            debugInfo.addLog("Reached maximum iterations, forcing finish", {
+              iterationCount,
+            });
             console.warn("Reached maximum iterations, forcing finish");
             break;
           }
@@ -480,12 +495,17 @@ ${this.mod.lastCode}
         throw new Error(error);
       }
 
-      const contentToProcess = this.extractTextContent(assistantMessage.content);
+      const contentToProcess = this.extractTextContent(
+        assistantMessage.content,
+      );
 
       if (contentToProcess.includes("An error occurred while processing")) {
         debugInfo.addLog("Falling back to GPT-4");
         console.log("Falling back to GPT-4");
-        assistantMessage = await this.aiHandler.sendToGpt4o(this.messages, onUpdate);
+        assistantMessage = await this.aiHandler.sendToGpt4o(
+          this.messages,
+          onUpdate,
+        );
       }
 
       return assistantMessage;
@@ -513,7 +533,9 @@ ${this.mod.lastCode}
     code: string;
   }): Promise<{ result: string; len: number; error: string; }> {
     if (instructions.length === 0) return { result: code, len: 0, error: "" };
-    instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(SEARCH_ARROWS).join(SEARCH)
+    instructions = instructions.split(SEARCH).join(SEARCH_ARROWS).split(
+      SEARCH_ARROWS,
+    ).join(SEARCH)
       .split(REPLACE).join(REPLACE_ARROWS).split(REPLACE_ARROWS).join(REPLACE);
 
     const searchIndex = instructions.indexOf(SEARCH);
@@ -522,7 +544,10 @@ ${this.mod.lastCode}
     if (searchIndex !== -1 && replaceIndex === -1) {
       const rAll = replaceFirstCodeMod(instructions, code);
       if (rAll !== code) {
-        const rAllWithExtra = replaceFirstCodeMod(instructions + "\nfoo doo baf   ", code);
+        const rAllWithExtra = replaceFirstCodeMod(
+          instructions + "\nfoo doo baf   ",
+          code,
+        );
         if (rAll !== rAllWithExtra) {
           return { result: rAll, len: instructions.length, error: "" };
         }
@@ -535,7 +560,10 @@ ${this.mod.lastCode}
     }
 
     if (replaceIndex !== -1) {
-      const trimmedInstructions = instructions.slice(0, replaceIndex + REPLACE.length);
+      const trimmedInstructions = instructions.slice(
+        0,
+        replaceIndex + REPLACE.length,
+      );
       const result = replaceFirstCodeMod(trimmedInstructions, code);
       if (result === code) {
         return {
@@ -544,7 +572,11 @@ ${this.mod.lastCode}
           error: `couldn't apply the search/replace blocks :( \n ${instructions}`,
         };
       }
-      debugInfo.addLog("Applied search/replace blocks", { code, result, instructions });
+      debugInfo.addLog("Applied search/replace blocks", {
+        code,
+        result,
+        instructions,
+      });
       return {
         result: replaceFirstCodeMod(trimmedInstructions, code),
         len: trimmedInstructions.length,
@@ -559,7 +591,8 @@ ${this.mod.lastCode}
 
     let jump = 1;
     while (
-      jump < instructions.length && replaceFirstCodeMod(instructions.slice(0, jump), code) === code
+      jump < instructions.length &&
+      replaceFirstCodeMod(instructions.slice(0, jump), code) === code
     ) {
       jump *= 2;
     }
@@ -607,7 +640,7 @@ export async function handleSendMessage({
     promptLength: prompt?.length,
     imagesCount: images?.length,
   });
-  messages.forEach(msg => debugInfo.logs.push(msg));
+  messages.forEach((msg) => debugInfo.logs.push(msg));
 
   const chatHandler = new ChatHandler({ messages, codeSpace, code });
 

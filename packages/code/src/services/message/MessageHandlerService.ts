@@ -136,7 +136,9 @@ export class MessageHandlerService {
    * @returns A promise resolving to the processed result
    * @throws Error if message processing fails
    */
-  private async processMessage(message: Message): Promise<Record<string, unknown>> {
+  private async processMessage(
+    message: Message,
+  ): Promise<Record<string, unknown>> {
     try {
       const text = this.getTextFromContent(message.content);
 

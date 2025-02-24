@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Message Handler Service is designed using a modular, event-driven architecture that emphasizes type safety, extensibility, and maintainability.
+The Message Handler Service is designed using a modular, event-driven
+architecture that emphasizes type safety, extensibility, and maintainability.
 
 ## Core Components
 
@@ -64,7 +65,8 @@ private isTextPart(content: MessageContent): content is TextPart {
 
 ### 2. Factory Pattern
 
-Message processing is handled through a factory-like pattern in the processMessage method:
+Message processing is handled through a factory-like pattern in the
+processMessage method:
 
 ```typescript
 private async processMessage(message: Message): Promise<unknown> {

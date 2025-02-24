@@ -117,7 +117,10 @@ export class Code implements DurableObject {
                 throw new Error(`Failed to fetch session: ${response.status}`);
               }
               const backupCode = await response.json() as ICodeSession;
-              this.backupSession = sanitizeSession({ ...backupCode, codeSpace });
+              this.backupSession = sanitizeSession({
+                ...backupCode,
+                codeSpace,
+              });
             } catch (error) {
               console.error("Error fetching backup code:", error);
               // Use default backup session if fetch fails
@@ -260,7 +263,10 @@ export class Code implements DurableObject {
   //   // this.autoSave();
   // }
 
-  updateAndBroadcastSession(newSession: ICodeSession, wsSession?: WebsocketSession) {
+  updateAndBroadcastSession(
+    newSession: ICodeSession,
+    wsSession?: WebsocketSession,
+  ) {
     const oldSession = this.getSession();
     const oldHash = computeSessionHash(oldSession);
     const hashCode = computeSessionHash(newSession);

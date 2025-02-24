@@ -2,7 +2,8 @@
 
 ## Current State
 
-The Message Handler Service has several dependencies that need to be managed effectively:
+The Message Handler Service has several dependencies that need to be managed
+effectively:
 
 - Runtime dependencies
 - Development dependencies
@@ -324,12 +325,12 @@ dependency-checks:
 ```yaml
 dependency-updates:
   schedule:
-    - cron: '0 0 * * 0'  # Weekly
+    - cron: "0 0 * * 0" # Weekly
   steps:
     - uses: actions/create-pull-request@v2
       with:
-        title: 'chore: update dependencies'
-        branch: 'deps/weekly-updates'
+        title: "chore: update dependencies"
+        branch: "deps/weekly-updates"
 ```
 
 ## Documentation Requirements

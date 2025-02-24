@@ -2,7 +2,10 @@ import { describe, expect, it, vi } from "vitest";
 import { makeResponse } from "./makeResponse";
 
 describe("makeResponse", () => {
-  const createMockR2Object = (metadata?: Record<string, string>, body?: string): R2ObjectBody => {
+  const createMockR2Object = (
+    metadata?: Record<string, string>,
+    body?: string,
+  ): R2ObjectBody => {
     const mockBody = new ReadableStream({
       start(controller) {
         if (body) controller.enqueue(new TextEncoder().encode(body));
@@ -121,9 +124,13 @@ describe("makeResponse", () => {
     it("should set standard headers", () => {
       const response = makeResponse(undefined, "test.js");
 
-      expect(response.headers.get("Cache-Control")).toBe("public, max-age=31536000");
+      expect(response.headers.get("Cache-Control")).toBe(
+        "public, max-age=31536000",
+      );
       expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
-      expect(response.headers.get("Cross-Origin-Embedder-Policy")).toBe("require-corp");
+      expect(response.headers.get("Cross-Origin-Embedder-Policy")).toBe(
+        "require-corp",
+      );
     });
 
     it("should include R2 object metadata when available", () => {
@@ -166,7 +173,9 @@ describe("makeResponse", () => {
     it("should use default JavaScript MIME type for unknown extensions", () => {
       const response = makeResponse(undefined, "test.unknown");
 
-      expect(response.headers.get("Content-Type")).toBe("application/javascript; charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "application/javascript; charset=UTF-8",
+      );
     });
   });
 });

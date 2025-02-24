@@ -240,7 +240,10 @@ export class RouteHandler {
   //   }
   // }
 
-  private async handleUsersRoute(_request: Request, url: URL): Promise<Response> {
+  private async handleUsersRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const activeUsers = this.code.wsHandler.getActiveUsers(codeSpace || "");
 

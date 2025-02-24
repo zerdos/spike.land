@@ -84,7 +84,9 @@ describe("getDirectoryEntriesRecursive", () => {
 
 describe("getDirectoryHandleAndFileName", () => {
   it("should return directory handle and file name", async () => {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName("/test/test.txt");
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      "/test/test.txt",
+    );
     expect(fileName).toEqual("test.txt");
     expect(dirHandle).toBeTruthy();
   });

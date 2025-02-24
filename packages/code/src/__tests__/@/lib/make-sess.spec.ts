@@ -78,7 +78,10 @@ describe("Session Management", () => {
 
   test("should generate and apply session patch", () => {
     const oldSession = sanitizeSession({ ...sampleSession });
-    const newSession = sanitizeSession({ ...sampleSession, code: "const x = 10;" });
+    const newSession = sanitizeSession({
+      ...sampleSession,
+      code: "const x = 10;",
+    });
 
     const patch = generateSessionPatch(oldSession, newSession);
 

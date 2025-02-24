@@ -51,7 +51,9 @@ class SessionPatcher {
     const currentHash = computeSessionHash(sanitizedSession);
 
     if (currentHash !== codePatch.oldHash) {
-      throw new Error(`Old hash does not match: ${currentHash} !== ${codePatch.oldHash}`);
+      throw new Error(
+        `Old hash does not match: ${currentHash} !== ${codePatch.oldHash}`,
+      );
     }
 
     if (!codePatch.patch) {

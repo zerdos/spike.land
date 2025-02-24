@@ -8,10 +8,14 @@ import {
 // Mock chat-utils
 vi.mock("@/lib/chat-utils", () => ({
   replaceFirstCodeMod: vi.fn((instructions: string, code: string) => {
-    if (instructions.includes("const x = 5;") && code.includes("const x = 5;")) {
+    if (
+      instructions.includes("const x = 5;") && code.includes("const x = 5;")
+    ) {
       return code.replace("const x = 5;", "const x = 15;");
     }
-    if (instructions.includes("const y = 10;") && code.includes("const y = 10;")) {
+    if (
+      instructions.includes("const y = 10;") && code.includes("const y = 10;")
+    ) {
       return code.replace("const y = 10;", "const y = 20;");
     }
     return code;
@@ -54,7 +58,9 @@ const x = 10;
 
     it("should handle multiple search/replace blocks", async () => {
       // Mock code content
-      (globalThis as any).cSess.getCode.mockResolvedValue("const x = 5;\nconst y = 10;");
+      (globalThis as any).cSess.getCode.mockResolvedValue(
+        "const x = 5;\nconst y = 10;",
+      );
 
       // Get mock function directly from our mock
       const { replaceFirstCodeMod } = await import("@/lib/chat-utils");
@@ -95,8 +101,12 @@ const changed = true;
   describe("codeFormattingTool", () => {
     beforeEach(() => {
       // Mock global formatting functions
-      (globalThis as any).prettierJs = vi.fn().mockResolvedValue("formatted code");
-      (globalThis as any).transpile = vi.fn().mockResolvedValue("transpiled code");
+      (globalThis as any).prettierJs = vi.fn().mockResolvedValue(
+        "formatted code",
+      );
+      (globalThis as any).transpile = vi.fn().mockResolvedValue(
+        "transpiled code",
+      );
       (globalThis as any).location = { origin: "http://localhost:3000" };
     });
 
@@ -108,7 +118,9 @@ const changed = true;
     });
 
     it("should handle formatting errors", async () => {
-      (globalThis as any).prettierJs.mockRejectedValue(new Error("Format error"));
+      (globalThis as any).prettierJs.mockRejectedValue(
+        new Error("Format error"),
+      );
       const result = await codeFormattingTool.invoke({ code: "const x=5" });
       expect(result.error).toBe("Format error");
       expect(result.code).toBe("const x=5");

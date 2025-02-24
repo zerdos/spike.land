@@ -56,6 +56,9 @@ export class CodeRateLimiter {
     // Calculate cooldown time
     const cooldown = Math.max(0, Math.ceil(this.GRACE_PERIOD - timeDiff));
     request.headers.set("Retry-After", cooldown.toString());
-    return new Response(cooldown.toString(), { status: 429, headers: request.headers });
+    return new Response(cooldown.toString(), {
+      status: 429,
+      headers: request.headers,
+    });
   }
 }

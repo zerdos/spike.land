@@ -82,7 +82,10 @@ router.load().then(async () => {
         await initializeWebSocket(codeSpace);
       } catch (error) {
         console.error("WebSocket initialization failed:", error);
-        throw new RouterError("WebSocket initialization failed", `/live/${codeSpace}/iframe`);
+        throw new RouterError(
+          "WebSocket initialization failed",
+          `/live/${codeSpace}/iframe`,
+        );
       }
     }
 

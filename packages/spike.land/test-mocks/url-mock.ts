@@ -15,7 +15,9 @@ export function setupUrlMock() {
 
     constructor(url: string | URL, base?: string | URL) {
       const urlString = typeof url === "string" ? url : url.toString();
-      const baseString = base ? (typeof base === "string" ? base : base.toString()) : undefined;
+      const baseString = base
+        ? (typeof base === "string" ? base : base.toString())
+        : undefined;
 
       const fullUrl = baseString ? `${baseString}${urlString}` : urlString;
       const parsedUrl = this.parseUrl(fullUrl);
@@ -45,7 +47,9 @@ export function setupUrlMock() {
       hash: string;
     } {
       const protocolMatch = url.match(/^([a-z]+):\/\//i);
-      const protocol = protocolMatch ? protocolMatch[1].toLowerCase() + ":" : "https:";
+      const protocol = protocolMatch
+        ? protocolMatch[1].toLowerCase() + ":"
+        : "https:";
 
       const withoutProtocol = url.replace(/^[a-z]+:\/\//i, "");
       const [hostPath, hash = ""] = withoutProtocol.split("#");

@@ -22,7 +22,7 @@ const ChatInterface: React.FC<{
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    cSess.getSession().then(initialSession => {
+    cSess.getSession().then((initialSession) => {
       setSession(initialSession);
       setMessages(initialSession.messages);
     });
@@ -155,7 +155,9 @@ const ChatInterface: React.FC<{
             lastMessage.content += e.chunk;
             return prevMessages;
           }
-          const newId = lastMessage ? (1 + Number(lastMessage.id)).toString() : "1";
+          const newId = lastMessage
+            ? (1 + Number(lastMessage.id)).toString()
+            : "1";
           return [
             ...prevMessages,
             { role: "assistant", content: e.chunk, id: newId } as Message,
@@ -215,7 +217,7 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-        cSess.getSession().then(currentSession => {
+        cSess.getSession().then((currentSession) => {
           handleSendMessage({
             messages: [],
             codeSpace,
@@ -237,16 +239,19 @@ const ChatInterface: React.FC<{
       return;
     }
     const contentToEdit = Array.isArray(messageToEdit.content)
-      ? messageToEdit.content.find((item): item is { type: "text"; text: string; } =>
-        item.type === "text"
-      )?.text || ""
+      ? messageToEdit.content.find((
+        item,
+      ): item is { type: "text"; text: string; } => item.type === "text")
+        ?.text || ""
       : messageToEdit.content;
 
     if (contentToEdit === undefined) {
       console.error("Invalid message content for editing");
       return;
     }
-    setEditInput(typeof contentToEdit === "string" ? contentToEdit : contentToEdit);
+    setEditInput(
+      typeof contentToEdit === "string" ? contentToEdit : contentToEdit,
+    );
   }, [messages]);
 
   const memoizedSetEditInput = useCallback((value: string): void => {

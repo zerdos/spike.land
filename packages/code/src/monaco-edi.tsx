@@ -93,12 +93,13 @@ async function fetchAndCreateExtraModels(
     new RegExp(` from "/live/[a-zA-Z0-9\\-_]+`, "gm"),
   ];
 
-  const matches = patterns.flatMap(pattern => [...code.matchAll(pattern)]);
+  const matches = patterns.flatMap((pattern) => [...code.matchAll(pattern)]);
 
   try {
     await Promise.all(matches.map(async (match) => {
       const codeSpace = match[0].split("/").pop();
-      const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse).toString();
+      const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
+        .toString();
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
 
       if (!modelCache[mUri.toString()]) {
@@ -107,7 +108,11 @@ async function fetchAndCreateExtraModels(
           throw new Error(`Failed to fetch model: ${res.statusText}`);
         }
         const content = await res.text();
-        modelCache[mUri.toString()] = editor.createModel(content, "typescript", mUri);
+        modelCache[mUri.toString()] = editor.createModel(
+          content,
+          "typescript",
+          mUri,
+        );
       }
     }));
   } catch (error) {
@@ -311,7 +316,7 @@ async function startMonacoPristine({
 
       syntacticDiagnostics.forEach((d) => console.error("Syntactic diagnostic:", d));
 
-      const needNewAta = semanticDiagnostics.some(d =>
+      const needNewAta = semanticDiagnostics.some((d) =>
         d.messageText.toString().includes("Cannot find module")
       );
 
@@ -334,7 +339,9 @@ async function startMonacoPristine({
       try {
         const worker = await languages.typescript.getTypeScriptWorker();
         const typeScriptWorker = await worker(uri);
-        const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(uri.toString());
+        const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(
+          uri.toString(),
+        );
         return diagnostics.map((d) => d.messageText.toString());
       } catch (error) {
         console.error("Error getting diagnostics:", error);

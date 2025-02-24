@@ -22,7 +22,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   // Initialize session with optimized state tracking
   useEffect(() => {
-    cSess.getSession().then(initialSession => {
+    cSess.getSession().then((initialSession) => {
       setSession(initialSession);
       setLastHash(md5(initialSession.code));
     });
@@ -65,7 +65,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         // Only update if content has actually changed
         if (newHash !== lastHash) {
           setLastHash(newHash);
-          setEditorState(prev => ({ ...prev, code: formatted }));
+          setEditorState((prev) => ({ ...prev, code: formatted }));
           await cSess.setCode(formatted);
           await throttledTypeCheck();
         }
@@ -229,13 +229,15 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   // Monitor component cleanup and log final statistics
   useEffect(() => {
     return () => {
-      const duration = (performance.now() - lifetimeMetrics.current.startTime) / 1000;
+      const duration = (performance.now() - lifetimeMetrics.current.startTime) /
+        1000;
       console.info("[Editor] Component lifetime metrics:", {
         durationSeconds: duration.toFixed(2),
         avgLocalChangesPerMinute: (lifetimeMetrics.current.totalLocalChanges / (duration / 60))
           .toFixed(2),
         avgExternalChangesPerMinute:
-          (lifetimeMetrics.current.totalExternalChanges / (duration / 60)).toFixed(2),
+          (lifetimeMetrics.current.totalExternalChanges / (duration / 60))
+            .toFixed(2),
         totalSkippedChanges: lifetimeMetrics.current.totalSkippedChanges,
         longestSyncTimeMs: lifetimeMetrics.current.longestSyncTime.toFixed(2),
         codeSpace,
