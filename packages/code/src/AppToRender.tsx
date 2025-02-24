@@ -15,12 +15,7 @@ import { DraggableWindow } from "./DraggableWindow";
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 
-Object.assign(globalThis, {
-  setupAndRun: async (prompt: string) => {
-    const { setupAndRun } = await import("./chat-utils-langchain-example");
-    setupAndRun(prompt).catch(console.error);
-  },
-});
+
 
 const Header: FC = () => {
   return (
@@ -52,6 +47,16 @@ export const Hello = () => {
 };
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
+
+  useEffect(() => {
+    Object.assign(globalThis, {
+      setupAndRun: async (prompt: string) => {
+        const { setupAndRun } = await import("./chat-utils-langchain-example");
+        setupAndRun(prompt, cSess).catch(console.error);
+      },
+    });
+  }, []);
+
   const maybeKey = codeSpace.split("-")[1];
 
   const [isOpen, setIsOpen] = useState(

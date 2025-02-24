@@ -106,6 +106,8 @@ export const codeModificationTool = tool(
         };
       }
 
+      cSess.setCode(result, false);
+
       return { code: result, error: "", retryCount };
     } catch (error) {
       return {
