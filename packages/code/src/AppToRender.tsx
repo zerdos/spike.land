@@ -15,8 +15,6 @@ import { DraggableWindow } from "./DraggableWindow";
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 
-
-
 const Header: FC = () => {
   return (
     <header className="h-11 flex items-center justify-between px-3">
@@ -47,7 +45,6 @@ export const Hello = () => {
 };
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
-
   useEffect(() => {
     Object.assign(globalThis, {
       setupAndRun: async (prompt: string) => {

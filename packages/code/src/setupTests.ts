@@ -178,4 +178,3 @@ beforeEach(() => {
   mockLocation.search = "";
   mockLocation.hash = "";
 });
-

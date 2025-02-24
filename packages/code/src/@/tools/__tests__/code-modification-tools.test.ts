@@ -1,5 +1,9 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { codeModificationTool, codeFormattingTool, broadcastTool } from "../code-modification-tools";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  broadcastTool,
+  codeFormattingTool,
+  codeModificationTool,
+} from "../code-modification-tools";
 
 // Mock chat-utils
 vi.mock("@/lib/chat-utils", () => ({
@@ -11,7 +15,7 @@ vi.mock("@/lib/chat-utils", () => ({
       return code.replace("const y = 10;", "const y = 20;");
     }
     return code;
-  })
+  }),
 }));
 
 describe("code-modification-tools", () => {
@@ -19,7 +23,7 @@ describe("code-modification-tools", () => {
     beforeEach(() => {
       // Mock the global cSess object
       (globalThis as any).cSess = {
-        getCode: vi.fn().mockResolvedValue("const x = 5;")
+        getCode: vi.fn().mockResolvedValue("const x = 5;"),
       };
     });
 
@@ -30,8 +34,8 @@ describe("code-modification-tools", () => {
     });
 
     it("should handle invalid format", async () => {
-      const result = await codeModificationTool.invoke({ 
-        instructions: "invalid format" 
+      const result = await codeModificationTool.invoke({
+        instructions: "invalid format",
       });
       expect(result.error).toContain("Invalid format");
     });
@@ -42,7 +46,7 @@ const x = 5;
 =======
 const x = 10;
 >>>>>>> REPLACE`;
-      
+
       const result = await codeModificationTool.invoke({ instructions });
       expect(result.error).toBe("");
       expect(result.code).toBe("const x = 15;");
@@ -51,7 +55,7 @@ const x = 10;
     it("should handle multiple search/replace blocks", async () => {
       // Mock code content
       (globalThis as any).cSess.getCode.mockResolvedValue("const x = 5;\nconst y = 10;");
-      
+
       // Get mock function directly from our mock
       const { replaceFirstCodeMod } = await import("@/lib/chat-utils");
 
@@ -66,7 +70,7 @@ const x = 15;
 const y = 10;
 =======
 const y = 20;
->>>>>>> REPLACE`
+>>>>>>> REPLACE`,
       });
 
       expect(replaceFirstCodeMod).toHaveBeenCalledTimes(2);
@@ -80,7 +84,7 @@ const nonexistent = true;
 =======
 const changed = true;
 >>>>>>> REPLACE`;
-      
+
       const result = await codeModificationTool.invoke({ instructions });
       expect(result.error).toContain("Block 1/1 not found");
       expect(result.blockNumber).toBe(1);
@@ -113,7 +117,7 @@ const changed = true;
 
   describe("broadcastTool", () => {
     let mockPostMessage: ReturnType<typeof vi.fn>;
-    
+
     beforeEach(() => {
       mockPostMessage = vi.fn();
       const MockBroadcastChannel = function(this: any, channel: string) {
@@ -121,17 +125,17 @@ const changed = true;
         this.postMessage = mockPostMessage;
       } as any;
       MockBroadcastChannel.prototype.constructor = MockBroadcastChannel;
-      
+
       (global as any).BroadcastChannel = MockBroadcastChannel;
     });
 
     it("should create broadcast channel and handle messages", async () => {
       // Test with data
-      await broadcastTool.invoke({ 
+      await broadcastTool.invoke({
         channel: "test-channel",
-        data: { message: "test" }
+        data: { message: "test" },
       });
-      
+
       expect(mockPostMessage).toHaveBeenCalledWith({ message: "test" });
 
       // Test without data

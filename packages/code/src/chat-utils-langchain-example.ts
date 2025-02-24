@@ -5,14 +5,11 @@ import { ICode } from "@/lib/interfaces";
 
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 
-
-
 // Example usage of the chat workflow that demonstrates AI code modifications
 const example = async (userRequest: string, cSess: ICode, channel: BroadcastChannel) => {
   // In a real system, this would be read from the active editor
 
-  const fileName = cSess.getCodeSpace()+".tsx";
-
+  const fileName = cSess.getCodeSpace() + ".tsx";
 
   const session = await cSess.getSession();
 
@@ -21,14 +18,13 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
     lastError: "",
     isStreaming: false,
     debugLogs: [
-      "Starting workflow with current file content"
+      "Starting workflow with current file content",
     ],
-    messages: session.messages as unknown as BaseMessage[]
+    messages: session.messages as unknown as BaseMessage[],
   });
 
   // Example: User sends a natural language request
   // Run examples:
-  
 
   // The AI system will:
   // 1. Read the current code from currentFileContent
@@ -38,7 +34,7 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
 
   console.log("Result of proper structure matching:", {
     userRequest: userRequest,
-    result
+    result,
   });
 };
 
@@ -50,7 +46,7 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
 //     }
 //     return code;
 //   };
-  
+
 //   console.log("Result of proper structure matching:", {
 //     userRequest: userRequest,
 //     aiResponse: result1.messages,
@@ -66,11 +62,10 @@ const example = async (userRequest: string, cSess: ICode, channel: BroadcastChan
 //   });
 // };
 
-
 // Example setup and usage
 export const setupAndRun = async (prompt: string, cSess: ICode) => {
- const channel = getBroadcastChannel(await cSess.getCodeSpace());
- 
+  const channel = getBroadcastChannel(await cSess.getCodeSpace());
+
   try {
     await example(prompt, cSess, channel);
   } finally {

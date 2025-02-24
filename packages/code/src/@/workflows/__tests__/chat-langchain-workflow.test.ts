@@ -1,25 +1,19 @@
-import { describe, it, vi, beforeEach } from "vitest";
+import { beforeEach, describe, it, vi } from "vitest";
 // import { createWorkflow } from "../chat-langchain-workflow";
 // import { AIMessage } from "@langchain/core/messages";
 
-
 describe("chat-langchain-workflow", () => {
+  // let mockInstance = {
+  //   invoke: vi.fn(),
+  //   bindTools: vi.fn().mockReturnThis()
+  // };
+  // Mock ChatAnthropic
+  // vi.mock("@langchain/anthropic", () => ({
 
+  //   ChatAnthropic: vi.fn().mockImplementation(() => mockInstance)
+  // }));
 
-
-// let mockInstance = {
-//   invoke: vi.fn(),
-//   bindTools: vi.fn().mockReturnThis()
-// };
-// Mock ChatAnthropic
-// vi.mock("@langchain/anthropic", () => ({
-
-
-//   ChatAnthropic: vi.fn().mockImplementation(() => mockInstance)
-// }));
-
-
-  beforeEach(async() => {
+  beforeEach(async () => {
     // Clear all mocks
     vi.clearAllMocks();
 
@@ -28,9 +22,9 @@ describe("chat-langchain-workflow", () => {
     //   invoke: vi.fn(),
     //   bindTools: vi.fn().mockReturnThis()
     // };
-    
+
     // Mock the ChatAnthropic constructor to return our instance
-    
+
     // Store reference to mock instance
     // mockChatAnthropic = mockInstance;
   });
@@ -38,7 +32,7 @@ describe("chat-langchain-workflow", () => {
   it("should initialize workflow with correct state", async () => {
     const initialState = {
       code: "initial code",
-      debugLogs: ["initial log"]
+      debugLogs: ["initial log"],
     };
 
     expect(1).toBe(1);

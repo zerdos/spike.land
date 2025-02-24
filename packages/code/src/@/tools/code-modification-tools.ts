@@ -1,8 +1,7 @@
 import { replaceFirstCodeMod } from "@/lib/chat-utils";
-import { ICode } from "@/lib/interfaces";
+import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import type { CodeModification } from "@/types/chat-langchain";
 
 export const SEARCH = "<<<<<<< SEARCH";
 export const REPLACE = ">>>>>>> REPLACE";
@@ -11,21 +10,14 @@ export const SEPARATOR = "=======";
 // Tools
 export const codeModificationTool = tool(
   async (
-    { instructions }: { instructions: string; },
-    config?: Record<string, any>
+    { instructions, currentCode }: { instructions: string; currentCode: string; },
   ): Promise<CodeModification> => {
-      const cSess = (globalThis as unknown as {
-        cSess: ICode
-      }).cSess;
-    
-    // Try to get content from either globalThis.currentFile or the state
-    let currentCode = await cSess.getCode();
-    
     // If no current file content, return early with helpful error
     if (!currentCode) {
       return {
         code: "",
-        error: "No current file content available. Make sure code is provided in the workflow state or current file.",
+        error:
+          "No current file content available. Make sure code is provided in the workflow state or current file.",
         currentFileContent: "",
       };
     }
@@ -35,7 +27,7 @@ export const codeModificationTool = tool(
         return {
           code: currentCode,
           error: "Instructions required - provide search/replace blocks",
-          currentFileContent: currentCode
+          currentFileContent: currentCode,
         };
       }
 
@@ -46,8 +38,9 @@ export const codeModificationTool = tool(
       if (searchIndex === -1 || replaceIndex === -1 || separatorIndex === -1) {
         return {
           code: currentCode,
-          error: "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
-          currentFileContent: currentCode
+          error:
+            "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
+          currentFileContent: currentCode,
         };
       }
 
@@ -72,7 +65,7 @@ export const codeModificationTool = tool(
           result = newResult;
           currentBlockIndex++;
           retryCount = 0;
-          
+
           // If we've processed all blocks successfully, we're done
           if (currentBlockIndex >= totalBlocks) {
             break;
@@ -84,12 +77,14 @@ export const codeModificationTool = tool(
         if (retryCount === 1) {
           return {
             code: currentCode,
-            error: `Block ${currentBlockIndex + 1}/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
+            error: `Block ${
+              currentBlockIndex + 1
+            }/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
             retryCount,
             currentFileContent: currentCode,
             searchContent: searchBlocks[currentBlockIndex],
             blockNumber: currentBlockIndex + 1,
-            totalBlocks
+            totalBlocks,
           };
         }
       } while (retryCount < maxRetries);
@@ -97,29 +92,30 @@ export const codeModificationTool = tool(
       if (result === currentCode) {
         return {
           code: currentCode,
-          error: `Failed to apply block ${currentBlockIndex + 1}/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
+          error: `Failed to apply block ${
+            currentBlockIndex + 1
+          }/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
           retryCount,
           currentFileContent: currentCode,
           searchContent: searchBlocks[currentBlockIndex],
           blockNumber: currentBlockIndex + 1,
-          totalBlocks
+          totalBlocks,
         };
       }
-
-      cSess.setCode(result, false);
 
       return { code: result, error: "", retryCount };
     } catch (error) {
       return {
         code: currentCode,
         error: error instanceof Error ? error.message : "Unknown error in code modification",
-        currentFileContent: currentCode
+        currentFileContent: currentCode,
       };
     }
   },
   {
     name: "code_modification",
-    description: `Modifies code by applying search/replace patterns. Uses current file content as base for modifications. Supports multiple search/replace blocks for coordinated changes.
+    description:
+      `Modifies code by applying search/replace patterns. Uses current file content as base for modifications. Supports multiple search/replace blocks for coordinated changes.
 
 Required format for instructions parameter (can include multiple blocks):
 <<<<<<< SEARCH
@@ -205,7 +201,10 @@ interface User {
 }
 >>>>>>> REPLACE`,
     schema: z.object({
-      instructions: z.string().describe("Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly."),
+      instructions: z.string().describe(
+        "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",
+      ),
+      currentCode: z.string().describe("The current code content to modify"),
     }),
   },
 );
