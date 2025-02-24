@@ -127,31 +127,10 @@ a. Code Analysis:
    [plan how to implement the best approach]
 </react_code_analysis>
 
-b. Code Modifications:
-<change>
-[Brief description of the change]
-<<<<<<< SEARCH
-[Exact original code]
-=======
-[Modified code]
->>>>>>> REPLACE
-Explanation: [Why this change was made]
-</change>
-
-c. Suggestions:
+b. Suggestions:
 <suggestion>
    <title>[Brief description of the suggestion]</title>
    <description>[Why this improvement would be beneficial]</description>
 </suggestion>
 
 Remember to focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications unless specifically requested by the user.
-
-<file_content>
-{{fileContent}}
-</file_content>
-
-<file_name>
-{{fileName}}
-</file_name>
-
-Now, please proceed with your analysis, planning, and implementation of the requested changes.

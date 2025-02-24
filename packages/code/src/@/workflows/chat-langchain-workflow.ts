@@ -1,5 +1,5 @@
 import { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
+import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import type { StateGraphArgs } from "@langchain/langgraph";
 import { StateGraph } from "@langchain/langgraph";
 import { MemorySaver } from "@langchain/langgraph";
@@ -7,10 +7,14 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { v4 as uuidv4 } from "uuid";
 import { AgentState } from "@/types/chat-langchain";
 import { codeModificationTool, codeFormattingTool, broadcastTool } from "@/tools/code-modification-tools";
+import { BaseLanguageModelParams } from "@langchain/core/language_models/base";
+import anthropicSystem from "../../config/initial-claude.txt";
 
 // Workflow setup
-export const createWorkflow = async (initialState: Partial<AgentState>) => {
+export const createWorkflow = async (initialState: AgentState) => {
+
   const graphState: StateGraphArgs<AgentState>["channels"] = {
+
     messages: {
       reducer: (prev: BaseMessage[], next: BaseMessage[]) => prev.concat(next),
     },
@@ -31,6 +35,8 @@ export const createWorkflow = async (initialState: Partial<AgentState>) => {
   const tools = [codeModificationTool, codeFormattingTool, broadcastTool];
   const toolNode = new ToolNode(tools);
 
+  const systemMessage = new SystemMessage(anthropicSystem);
+  
   const model = new ChatAnthropic({
     model: "claude-3-5-sonnet-20241022",
     anthropicApiKey: "DUMMY_API_KEY",
@@ -50,6 +56,7 @@ export const createWorkflow = async (initialState: Partial<AgentState>) => {
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
     const response = await model.invoke(state.messages);
     return {
+      ...state,
       messages: [
         new AIMessage({
           content: response.content,
@@ -78,23 +85,17 @@ export const createWorkflow = async (initialState: Partial<AgentState>) => {
     invoke: async (prompt: string) => {
       // Initialize state with code that tools can access
       const state: AgentState = {
-        messages: [new HumanMessage(prompt)],
-        code: initialState.code || "",
-        lastError: "",
-        isStreaming: false,
-        debugLogs: [],
         ...initialState,
+        messages: [systemMessage, new HumanMessage(prompt)],
       };
 
-      // Make code available to tools
-      globalThis.currentFile = {
-        content: state.code,
-        path: "current-file"
-      };
+      console.log("Initial state", state);
 
       const finalState = await app.invoke(state, {
         configurable: { thread_id: uuidv4() },
       });
+
+      console.log("Final state", finalState);
       
       return finalState;
     },
