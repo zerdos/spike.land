@@ -229,18 +229,16 @@ export function importMapReplace(
 
           // Check if path should be transformed
           if (shouldTransformPath(path)) {
-            // Determine quote style from the original source
-            if (start && end && start.offset !== undefined && end.offset !== undefined) {
-              const sourceText = code.substring(start.offset - 1, end.offset + 1);
-              const originalQuote = sourceText.charAt(0);
+            // Extract source text using exact offsets
+            const sourceText = code.substring(start.offset, end.offset);
+            const originalQuote = sourceText.charAt(0);
 
-              changes.push({
-                line: start.line - 1,
-                column: start.column - 1,
-                length: end.column - start.column + 2, // +2 for the quotes
-                replacement: `${originalQuote}${mappedPath}${originalQuote}`
-              });
-            }
+            changes.push({
+              line: start.line - 1, // Convert to 0-based line index
+              column: start.column, // Use raw column value
+              length: end.column - start.column, // Length of the string including quotes
+              replacement: `${originalQuote}${mappedPath}${originalQuote}`
+            });
           }
         }
 
@@ -251,14 +249,14 @@ export function importMapReplace(
           const mappedPath = getMappedPath(path, exportsParam, true, impMap.imports);
           
           const { start, end } = node.source;
-          // Determine quote style from the original source
-          const sourceText = code.substring(start.offset - 1, end.offset + 1);
+          // Extract source text using exact offsets
+          const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
           
           changes.push({
-            line: start.line - 1,
-            column: start.column - 1,
-            length: end.column - start.column + 2, // +2 for the quotes
+            line: start.line - 1, // Convert to 0-based line index
+            column: start.column, // Use raw column value
+            length: end.column - start.column, // Length of the string including quotes
             replacement: `${originalQuote}${mappedPath}${originalQuote}`
           });
         }
@@ -269,14 +267,14 @@ export function importMapReplace(
           const mappedPath = getMappedPath(path, '', true, impMap.imports);
           
           const { start, end } = node.source;
-          // Determine quote style from the original source
-          const sourceText = code.substring(start.offset - 1, end.offset + 1);
+          // Extract source text using exact offsets
+          const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
           
           changes.push({
-            line: start.line - 1,
-            column: start.column - 1,
-            length: end.column - start.column + 2, // +2 for the quotes
+            line: start.line - 1, // Convert to 0-based line index
+            column: start.column, // Use raw column value
+            length: end.column - start.column, // Length of the string including quotes
             replacement: `${originalQuote}${mappedPath}${originalQuote}`
           });
         }
@@ -291,14 +289,14 @@ export function importMapReplace(
           const mappedPath = getMappedPath(path, '', true, impMap.imports);
           
           const { start, end } = node.arguments[0];
-          // Determine quote style from the original source
+          // Extract source text using exact offsets
           const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
           
           changes.push({
-            line: start.line - 1,
-            column: start.column,
-            length: end.column - start.column,
+            line: start.line - 1, // Convert to 0-based line index
+            column: start.column, // Use raw column value
+            length: end.column - start.column, // Length of the string including quotes
             replacement: `${originalQuote}${mappedPath}${originalQuote}`
           });
         }
