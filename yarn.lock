@@ -4213,6 +4213,7 @@ __metadata:
     esbuild-plugin-tailwindcss: "npm:2.0.1"
     esbuild-style-plugin: "npm:1.6.3"
     esbuild-wasm: "npm:0.25.0"
+    escodegen: "npm:^2.1.0"
     eslint: "npm:9.21.0"
     eslint-plugin-react-hooks: "npm:5.1.0"
     eslint-plugin-react-refresh: "npm:0.4.19"
