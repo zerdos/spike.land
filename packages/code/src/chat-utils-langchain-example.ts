@@ -40,30 +40,6 @@ const example = async (
   });
 };
 
-//   // Apply the AI-generated patches to the original code
-//   const applyPatches = (original: string, patches: Array<{ search: string, replace: string }>) => {
-//     let code = original;
-//     for (const patch of patches) {
-//       code = code.replace(patch.search, patch.replace);
-//     }
-//     return code;
-//   };
-
-//   console.log("Result of proper structure matching:", {
-//     userRequest: userRequest,
-//     aiResponse: result1.messages,
-//     modifiedCode: result1.code,
-//     debugLogs: result1.debugLogs,
-//   });
-
-//   // Send the properly modified code through the channel
-//   channel.postMessage({
-//     code: result1.code,
-//     messages: result1.messages,
-//     debugLogs: result1.debugLogs
-//   });
-// };
-
 // Example setup and usage
 export const setupAndRun = async (prompt: string, cSess: ICode) => {
   const channel = getBroadcastChannel(await cSess.getCodeSpace());
