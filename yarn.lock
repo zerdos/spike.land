@@ -4047,6 +4047,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike-npm-land/bookworm-xpra@workspace:devcontainers/bookworm-xpra":
+  version: 0.0.0-use.local
+  resolution: "@spike-npm-land/bookworm-xpra@workspace:devcontainers/bookworm-xpra"
+  dependencies:
+    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
+  languageName: unknown
+  linkType: soft
+
 "@spike-npm-land/code-worker@workspace:packages/spike.land":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"

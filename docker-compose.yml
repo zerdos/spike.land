@@ -1,18 +1,25 @@
 services:
-  devcontainer:
-    build:
+  devcontainer-dev: &devcontainer-base
+    build: &build-dev
       context: .
       dockerfile: Dockerfile
       args:
         USER_UID: "${UID:-1000}"
         USER_GID: "${GID:-1000}"
-        USERNAME: "node"
-        USER_HOME: "/home/node"
+        USERNAME: "${USERNAME}"
+        USER_HOME: "${USER_HOME}"
+      x-bake:
+        tags:
+          - "${DOCKER_REGISTRY}/devcontainer:${IMAGE_TAG}"
+        cache-from:
+          - type=registry,ref=${DOCKER_REGISTRY}/devcontainer:cache
+        cache-to:
+          - type=registry,ref=${DOCKER_REGISTRY}/devcontainer:cache,mode=max
+
     tmpfs:
       - /home/node/tmpfs:size=8g,rw,exec
       - /home/.yarn:size=8g,rw,exec
     shm_size: 8gb
-    # privileged: true  <-- Removed privileged flag.  Consider alternatives for security.
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
@@ -44,6 +51,22 @@ services:
           memory: 8G
         reservations:
           memory: 2G
+
+  devcontainer-prod:
+    <<: *devcontainer-base
+    build:
+      <<: *build-dev
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+        tags:
+          - "${DOCKER_REGISTRY}/devcontainer:${IMAGE_TAG}"
+          - "${DOCKER_REGISTRY}/devcontainer:latest"
+        cache-from:
+          - type=registry,ref=${DOCKER_REGISTRY}/devcontainer:cache
+        cache-to:
+          - type=registry,ref=${DOCKER_REGISTRY}/devcontainer:cache,mode=max
 
 volumes:
   yarn_cache:
