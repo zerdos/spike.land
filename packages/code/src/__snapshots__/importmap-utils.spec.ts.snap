@@ -1,18 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`importMapReplace > App specific imports: should hande react-extra libs 1`] = `
-{
-  "code": "import { extras } from "react-extras";",
-  "result": "/** importMapReplace */
-import { extras } from "http://localhost:3000/react-extras?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=extras";",
-}
-`;
-
 exports[`importMapReplace > App specific imports: should handle @/lib imports 1`] = `
 {
   "code": "import { cn } from "@/lib/utils";",
   "result": "/** importMapReplace */
-import { cn } from "http://localhost:3000/@/lib/utils.mjs";",
+import { cn } from "/@/lib/utils.mjs";",
 }
 `;
 
@@ -20,7 +12,7 @@ exports[`importMapReplace > App specific imports: should handle react-extra libs
 {
   "code": "import { extras } from "react-extras";",
   "result": "/** importMapReplace */
-import { extras } from "http://localhost:3000/react-extras?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=extras";",
+import { extras } from "/react-extras?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=extras";",
 }
 `;
 
@@ -28,7 +20,7 @@ exports[`importMapReplace > Basic imports: basic named imports 1`] = `
 {
   "code": "import { prop, prop2 } from "foo";",
   "result": "/** importMapReplace */
-import { prop, prop2 } from "http://localhost:3000/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";",
+import { prop, prop2 } from "/foo?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=prop,prop2";",
 }
 `;
 
@@ -52,7 +44,7 @@ exports[`importMapReplace > Basic imports: multiple named imports with complex n
 {
   "code": "import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "utils";",
   "result": "/** importMapReplace */
-import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "http://localhost:3000/utils?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=camelCase,snake_case,PascalCase,CONSTANT_CASE";",
+import { camelCase, snake_case, PascalCase, CONSTANT_CASE } from "/utils?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=camelCase,snake_case,PascalCase,CONSTANT_CASE";",
 }
 `;
 
@@ -60,7 +52,7 @@ exports[`importMapReplace > Basic imports: specific exports 1`] = `
 {
   "code": "import { __await, __rest } from "tslib";",
   "result": "/** importMapReplace */
-import { __await, __rest } from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
+import { __await, __rest } from "/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
 }
 `;
 
@@ -68,7 +60,7 @@ exports[`importMapReplace > Basic imports: specific named imports with aliases 1
 {
   "code": "import { __await as aw, __rest as restNow} from "tslib";",
   "result": "/** importMapReplace */
-import { __await as aw, __rest as restNow} from "http://localhost:3000/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
+import { __await as aw, __rest as restNow} from "/tslib?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=__await,__rest";",
 }
 `;
 
@@ -76,7 +68,7 @@ exports[`importMapReplace > Dynamic imports: dynamic imports 1`] = `
 {
   "code": "const mod = await import("module");",
   "result": "/** importMapReplace */
-const mod = await import("http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");",
+const mod = await import("/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");",
 }
 `;
 
@@ -124,9 +116,9 @@ exports[`importMapReplace > Edge cases: code with line comments 1`] = `
   "result": "/** importMapReplace */
 
         // This is a comment
-        import { foo } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo"; // End line comment
+        import { foo } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo"; // End line comment
         // Another comment
-        export { bar } from "http://localhost:3000/module2?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=bar";
+        export { bar } from "/module2?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=bar";
         // Final comment
       ",
 }
@@ -150,10 +142,10 @@ exports[`importMapReplace > Edge cases: multiple import patterns in same file 1`
       ",
   "result": "/** importMapReplace */
 
-        import { foo } from "http://localhost:3000/module1?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";
-        export { bar } from "http://localhost:3000/module2?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=bar";
-        const mod = await import("http://localhost:3000/module3?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");
-        import "http://localhost:3000/module4?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";
+        import { foo } from "/module1?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";
+        export { bar } from "/module2?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=bar";
+        const mod = await import("/module3?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");
+        import "/module4?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";
       ",
 }
 `;
@@ -170,7 +162,7 @@ exports[`importMapReplace > Export variations: export all from a module 1`] = `
 {
   "code": "export * from "module";",
   "result": "/** importMapReplace */
-export * from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+export * from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -186,7 +178,7 @@ exports[`importMapReplace > Export variations: export with destructuring 1`] = `
 {
   "code": "export const { foo, bar } = await import("module");",
   "result": "/** importMapReplace */
-export const { foo, bar } = await import("http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");",
+export const { foo, bar } = await import("/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled");",
 }
 `;
 
@@ -194,7 +186,7 @@ exports[`importMapReplace > Export variations: export with rename 1`] = `
 {
   "code": "export { foo as default } from "module";",
   "result": "/** importMapReplace */
-export { foo as default } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
+export { foo as default } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
 }
 `;
 
@@ -202,7 +194,7 @@ exports[`importMapReplace > Export variations: import with export 1`] = `
 {
   "code": "export { foo } from "bar";",
   "result": "/** importMapReplace */
-export { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
+export { foo } from "/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
 }
 `;
 
@@ -210,7 +202,7 @@ exports[`importMapReplace > Export variations: multiple exports 1`] = `
 {
   "code": "export { foo, bar as default, baz as customName } from "module";",
   "result": "/** importMapReplace */
-export { foo, bar as default, baz as customName } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar,baz";",
+export { foo, bar as default, baz as customName } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar,baz";",
 }
 `;
 
@@ -218,7 +210,7 @@ exports[`importMapReplace > Export variations: re-export default 1`] = `
 {
   "code": "export { default } from "module";",
   "result": "/** importMapReplace */
-export { default } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=default";",
+export { default } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=default";",
 }
 `;
 
@@ -226,7 +218,7 @@ exports[`importMapReplace > Import variations: mixed default and namespace impor
 {
   "code": "import Default, * as All from "my-module";",
   "result": "/** importMapReplace */
-import Default, * as All from "http://localhost:3000/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import Default, * as All from "/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -234,7 +226,7 @@ exports[`importMapReplace > Import variations: namespace imports 1`] = `
 {
   "code": "import * as utils from "utils";",
   "result": "/** importMapReplace */
-import * as utils from "http://localhost:3000/utils?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import * as utils from "/utils?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -242,7 +234,7 @@ exports[`importMapReplace > Import variations: side-effect only imports 1`] = `
 {
   "code": "import "polyfill";",
   "result": "/** importMapReplace */
-import "http://localhost:3000/polyfill?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import "/polyfill?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -290,7 +282,7 @@ exports[`importMapReplace > Package imports: TypeScript path aliases 1`] = `
 {
   "code": "import { component } from "@components/Button";",
   "result": "/** importMapReplace */
-import { component } from "http://localhost:3000/@components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=component";",
+import { component } from "/@components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=component";",
 }
 `;
 
@@ -298,7 +290,7 @@ exports[`importMapReplace > Package imports: Vue package default import 1`] = `
 {
   "code": "import Vue from "vue";",
   "result": "/** importMapReplace */
-import Vue from "http://localhost:3000/vue?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import Vue from "/vue?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -314,7 +306,7 @@ exports[`importMapReplace > Package imports: scoped packages 1`] = `
 {
   "code": "import { component } from "@scope/package/component";",
   "result": "/** importMapReplace */
-import { component } from "http://localhost:3000/@scope/package/component?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=component";",
+import { component } from "/@scope/package/component?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=component";",
 }
 `;
 
@@ -322,7 +314,7 @@ exports[`importMapReplace > Package imports: tilde aliases 1`] = `
 {
   "code": "import { button } from "~components/Button";",
   "result": "/** importMapReplace */
-import { button } from "http://localhost:3000/~components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=button";",
+import { button } from "/~components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=button";",
 }
 `;
 
@@ -402,7 +394,7 @@ exports[`importMapReplace > Special syntax: import with $-prefixed variables 1`]
 {
   "code": "import { $state, $effect } from "framework";",
   "result": "/** importMapReplace */
-import { $state, $effect } from "http://localhost:3000/framework?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=$state,$effect";",
+import { $state, $effect } from "/framework?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=$state,$effect";",
 }
 `;
 
@@ -410,7 +402,7 @@ exports[`importMapReplace > Special syntax: import with empty specifiers 1`] = `
 {
   "code": "import {} from "empty-module";",
   "result": "/** importMapReplace */
-import {} from "http://localhost:3000/empty-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import {} from "/empty-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -420,7 +412,7 @@ exports[`importMapReplace > Special syntax: imports with comments 1`] = `
       import { foo } from "bar"; // End of line comment",
   "result": "/** importMapReplace */
 // This is a comment
-      import { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo"; // End of line comment",
+      import { foo } from "/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo"; // End of line comment",
 }
 `;
 
@@ -428,7 +420,7 @@ exports[`importMapReplace > Special syntax: imports with unicode characters 1`] 
 {
   "code": "import { π, λ, γ } from "math-symbols";",
   "result": "/** importMapReplace */
-import { π, λ, γ } from "http://localhost:3000/math-symbols?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=π,λ,γ";",
+import { π, λ, γ } from "/math-symbols?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=π,λ,γ";",
 }
 `;
 
@@ -436,7 +428,7 @@ exports[`importMapReplace > Special syntax: imports with unusual whitespace 1`] 
 {
   "code": "import    {    foo   ,   bar   }    from     "module"   ;",
   "result": "/** importMapReplace */
-import    {    foo   ,   bar   }    from     "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar"   ;",
+import    {    foo   ,   bar   }    from     "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar"   ;",
 }
 `;
 
@@ -444,7 +436,7 @@ exports[`importMapReplace > Special syntax: inline comments in import 1`] = `
 {
   "code": "import /* inline comment */ { foo } from "module";",
   "result": "/** importMapReplace */
-import /* inline comment */ { foo } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
+import /* inline comment */ { foo } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";",
 }
 `;
 
@@ -460,7 +452,7 @@ import {
         foo,
         bar,
         baz
-      } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar,baz";",
+      } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo,bar,baz";",
 }
 `;
 
@@ -477,7 +469,7 @@ exports[`importMapReplace > Special syntax: single quotes in imports 1`] = `
 {
   "code": "import module from 'my-module';",
   "result": "/** importMapReplace */
-import module from "http://localhost:3000/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
+import module from "/my-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled";",
 }
 `;
 
@@ -493,7 +485,7 @@ exports[`importMapReplace > URL imports: URLs with hash fragments 1`] = `
 {
   "code": "import { section } from "module#section";",
   "result": "/** importMapReplace */
-import { section } from "http://localhost:3000/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=section#section";",
+import { section } from "/module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=section#section";",
 }
 `;
 
@@ -565,7 +557,7 @@ exports[`importMapReplace > Worker imports: service worker registration 1`] = `
 {
   "code": "import { register } from "@/workers/service-worker";",
   "result": "/** importMapReplace */
-import { register } from "http://localhost:3000/@/workers/service-worker.mjs";",
+import { register } from "/@/workers/service-worker.mjs";",
 }
 `;
 
@@ -573,7 +565,7 @@ exports[`importMapReplace > Worker imports: should transpile worker files to js 
 {
   "code": "import "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
-import "http://localhost:3000/@/workers/monaco-editor.worker.js";",
+import "/@/workers/monaco-editor.worker.js";",
 }
 `;
 
@@ -581,7 +573,7 @@ exports[`importMapReplace > Worker imports: should transpile worker files to js 
 {
   "code": "import * as Monaco from "@/workers/monaco-editor.worker";",
   "result": "/** importMapReplace */
-import * as Monaco from "http://localhost:3000/@/workers/monaco-editor.worker.mjs";",
+import * as Monaco from "/@/workers/monaco-editor.worker.mjs";",
 }
 `;
 
@@ -589,19 +581,19 @@ exports[`importMapReplace > Worker imports: web worker imports 1`] = `
 {
   "code": "import Worker from "@/workers/computation.worker";",
   "result": "/** importMapReplace */
-import Worker from "http://localhost:3000/@/workers/computation.worker.mjs";",
+import Worker from "/@/workers/computation.worker.mjs";",
 }
 `;
 
 exports[`importMapReplace > should handle binary data input 1`] = `
 "/** importMapReplace */
-import { foo } from "http://localhost:3000/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";"
+import { foo } from "/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";"
 `;
 
 exports[`importMapReplace > should respect custom importMap 1`] = `
 {
   "code": "import { feature } from "custom-module";",
   "result": "/** importMapReplace */
-import { feature } from "custom-module";",
+import { feature } from "/custom-module?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=feature";",
 }
 `;

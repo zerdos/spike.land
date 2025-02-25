@@ -3,7 +3,7 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import { describe, expect, it } from "vitest";
 
 describe("importMapReplace", () => {
-  const origin = "http://localhost:3000";
+  const origin = "";
 
   const importMap: ImportMap = {
     imports: {
