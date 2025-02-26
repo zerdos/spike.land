@@ -12,7 +12,7 @@ export const SEPARATOR = "=======";
 // Tools
 export const codeModificationTool = tool(
   async (
-    { instructions, documentHash }: { instructions: string; documentHash?: string; },
+    { instructions, documentHash }: { instructions: string; documentHash: string; },
   ): Promise<CodeModification> => {
     // If no current file content, return early with helpful error
     const currentCode = await (globalThis as unknown as {
@@ -20,7 +20,7 @@ export const codeModificationTool = tool(
     }).cSess.getCode();
 
     // Verify document hash if provided
-    if (documentHash) {
+    if (documentHash && typeof documentHash === "string") {
       const currentHash = md5(currentCode);
       if (documentHash !== currentHash) {
         return {
@@ -254,8 +254,8 @@ interface User {
       instructions: z.string().describe(
         "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",
       ),
-      documentHash: z.string().optional().describe(
-        "Optional MD5 hash of the document being modified. If provided, the tool will verify that the document hasn't been modified since the hash was generated.",
+      documentHash: z.string().describe(
+        "MD5 hash of the document being modified. The tool will verify that the document hasn't been modified since the hash was generated.",
       ),
     }),
   },
