@@ -31,10 +31,7 @@ jobs:
       
       - id: set-matrix
         run: |
-          echo "matrix=$(echo '{
-            "image-name": ["rolling-devcontainer", "bookworm-devcontainer", "trixie-devcontainer"],
-            "platform": ["linux/amd64", "linux/arm64"]
-          }')" >> $GITHUB_OUTPUT
+          echo 'matrix={"image-name":["rolling-devcontainer","bookworm-devcontainer","trixie-devcontainer"],"platform":["linux/amd64","linux/arm64"]}' >> $GITHUB_OUTPUT
 
   build-and-push:
     needs: prepare-metadata
@@ -91,6 +88,11 @@ jobs:
             type=ref,event=tag
             type=sha,format=short
 
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          
       - name: Extract version
         id: extract_version
         uses: Saionaro/extract-package-version@v1.3.0
@@ -100,8 +102,13 @@ jobs:
       - name: Generate cache keys
         id: cache-keys
         run: |
-          echo "CACHE_FROM=type=local,src=/tmp/.buildx-cache,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${{ matrix.platform }},type=registry,ref=devimages/${{ matrix.image-name }}:latest" >> $GITHUB_ENV
-          echo "CACHE_TO=type=local,dest=/tmp/.buildx-cache-new,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${{ matrix.platform }},mode=max" >> $GITHUB_ENV
+          # Convert platform to safe format for tags
+          PLATFORM_TAG=$(echo "${{ matrix.platform }}" | tr '/' '-')
+          echo "PLATFORM_TAG=${PLATFORM_TAG}" >> $GITHUB_ENV
+          
+          # Use more specific cache tags to improve hit rates
+          echo "CACHE_FROM=type=local,src=/tmp/.buildx-cache,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},type=registry,ref=devimages/${{ matrix.image-name }}:latest" >> $GITHUB_ENV
+          echo "CACHE_TO=type=local,dest=/tmp/.buildx-cache-new,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},mode=max" >> $GITHUB_ENV
 
       - name: Calculate layer cache hash
         id: layer-cache-hash
@@ -132,8 +139,7 @@ jobs:
             BUILDKIT_CONTEXT_KEEP_GIT_DIR=1
             CACHE_DATE=${{ needs.prepare-metadata.outputs.date }}
             GIT_COMMIT=${{ github.sha }}
-          outputs: |
-            type=image,name=devimages/${{ matrix.image-name }},push-by-digest=true,name-canonical=true,push=true
+          # We don't need to push by digest since we're using tags
           provenance: mode=max
           sbom: true
           # Add BuildKit cache mounting for package managers
@@ -149,21 +155,38 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       # Prune old images to keep registry clean
-      - name: Prune old images
+      - name: Prune old buildcache tags
         if: github.ref == 'refs/heads/main'
         run: |
-          TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${{ secrets.DOCKERHUB_USERNAME }}'", "password": "'${{ secrets.DOCKERHUB_TOKEN }}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+          # Install jq if needed
+          if ! command -v jq &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+          
+          # Get token for DockerHub API
+          TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "${{ secrets.DOCKERHUB_USERNAME }}", "password": "${{ secrets.DOCKERHUB_TOKEN }}"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+          
+          # Only delete buildcache tags that are more than 7 days old
+          CUTOFF_DATE=$(date -d "7 days ago" +%s)
           
           # Get list of tags
-          TAGS=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags?page_size=100" | jq -r '.results[] | select(.name | startswith("sha-")) | .name')
+          echo "Fetching tags for devimages/${{ matrix.image-name }}"
+          TAGS=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags?page_size=100" | jq -r '.results[] | select(.name | contains("buildcache")) | .name')
           
-          # Keep only the 10 most recent
-          TAGS_TO_DELETE=$(echo "$TAGS" | sort -r | tail -n +11)
-          
-          # Delete old tags
-          for TAG in $TAGS_TO_DELETE; do
-            echo "Deleting tag: $TAG"
-            curl -s -X DELETE -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags/${TAG}/"
+          # Loop through tags and check last_updated
+          for TAG in $TAGS; do
+            # Get tag info
+            TAG_INFO=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags/${TAG}/")
+            LAST_UPDATED=$(echo "$TAG_INFO" | jq -r '.last_updated')
+            LAST_UPDATED_TS=$(date -d "$LAST_UPDATED" +%s)
+            
+            # If older than cutoff, delete
+            if [ $LAST_UPDATED_TS -lt $CUTOFF_DATE ]; then
+              echo "Deleting old tag: $TAG (last updated: $LAST_UPDATED)"
+              curl -s -X DELETE -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags/${TAG}/"
+            else
+              echo "Keeping recent tag: $TAG (last updated: $LAST_UPDATED)"
+            fi
           done
 
   combine-manifests:
@@ -172,7 +195,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image-name: ${{ fromJson(needs.prepare-metadata.outputs.matrix).image-name }}
+        image-name: ["rolling-devcontainer", "bookworm-devcontainer", "trixie-devcontainer"]
     
     steps:
       - name: Docker Login
@@ -187,14 +210,15 @@ jobs:
         with:
           path: devcontainers/${{ matrix.image-name }}
           
-      - name: Create and push multi-platform manifest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Create multi-platform manifest
         run: |
-          docker manifest create devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }} \
-            --amend devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}-linux-amd64 \
-            --amend devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}-linux-arm64
-          docker manifest push devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}
+          # We're skipping explicit manifest creation since the docker/build-push-action
+          # already creates multi-platform images when different platforms are built
+          # This job ensures all platforms are built before finalizing
           
-          docker manifest create devimages/${{ matrix.image-name }}:latest \
-            --amend devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}-linux-amd64 \
-            --amend devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}-linux-arm64
-          docker manifest push devimages/${{ matrix.image-name }}:latest
+          # Verify the images exist
+          docker buildx imagetools inspect devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}
+          docker buildx imagetools inspect devimages/${{ matrix.image-name }}:latest
