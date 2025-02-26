@@ -1,4 +1,4 @@
-import { codeModificationTool } from "@/tools/code-modification-tools";
+import { astCodeModificationTool } from "@/tools/ast-code-modification";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
@@ -86,7 +86,7 @@ export const createWorkflow = (initialState: AgentState) => {
     },
   };
 
-  const tools = [codeModificationTool];
+  const tools = [astCodeModificationTool];
   const toolNode = new ToolNode(tools);
 
   // Create a system message with code and its hash for integrity verification

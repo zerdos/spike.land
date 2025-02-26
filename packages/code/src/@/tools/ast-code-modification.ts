@@ -3,11 +3,11 @@ import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import * as parser from "@babel/parser";
+import {parse, ParseResult, ParserPlugin} from "@babel/parser";
 import traverse from "@babel/traverse";
 import generate from "@babel/generator";
 import * as t from "@babel/types";
-import { format } from "prettier";
+import { format } from "@/lib/shared";
 
 /**
  * Represents a code modification operation
@@ -43,7 +43,7 @@ function createErrorResponse(
 function parseCode(code: string, filePath: string) {
   try {
     // Determine parser plugins based on file extension
-    const plugins: parser.ParserPlugin[] = [];
+    const plugins: ParserPlugin[] = [];
     
     if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
       plugins.push('typescript');
@@ -60,7 +60,7 @@ function parseCode(code: string, filePath: string) {
     // Add common plugins
     plugins.push('classProperties', 'decorators-legacy');
     
-    return parser.parse(code, {
+    return parse(code, {
       sourceType: 'module',
       plugins,
     });
@@ -72,7 +72,7 @@ function parseCode(code: string, filePath: string) {
 /**
  * Finds a node in the AST based on the target path
  */
-function findNode(ast: parser.ParseResult<t.File>, targetPath: string) {
+function findNode(ast: ParseResult<t.File>, targetPath: string) {
   let foundNode: t.Node | null = null;
   
   // Parse the target path (e.g., "class:UserManager.method:addUser")
@@ -115,7 +115,7 @@ function findNode(ast: parser.ParseResult<t.File>, targetPath: string) {
  * Applies a modification operation to the AST
  */
 function applyModification(
-  ast: parser.ParseResult<t.File>, 
+  ast: ParseResult<t.File>, 
   operation: ModificationOperation,
   filePath: string
 ) {
@@ -167,19 +167,7 @@ function applyModification(
 async function formatCode(code: string, filePath: string): Promise<string> {
   try {
     // Determine parser based on file extension
-    let parser = 'babel';
-    if (filePath.endsWith('.ts')) parser = 'typescript';
-    if (filePath.endsWith('.tsx')) parser = 'typescript';
-    if (filePath.endsWith('.jsx')) parser = 'babel';
-    
-    return format(code, {
-      parser,
-      semi: true,
-      singleQuote: true,
-      trailingComma: 'es5',
-      printWidth: 100,
-      tabWidth: 2,
-    });
+   return await format(code);
   } catch (error) {
     // If formatting fails, return the unformatted code
     console.error('Formatting failed:', error);

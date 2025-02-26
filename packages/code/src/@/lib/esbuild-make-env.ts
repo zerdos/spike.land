@@ -10,6 +10,7 @@ export const makeEnv = (
   "process.env.NODE_DEBUG": string;
   "process.platform": string;
   "process.browser": string;
+  "process.env.BABEL_TYPES_8_BREAKING": string;
   "process.env.DEBUG": string;
   "process.versions.node": string;
   "process.versions.pnp": string;
@@ -33,6 +34,7 @@ export const makeEnv = (
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.platform": JSON.stringify("browser"),
   "process.browser": JSON.stringify(true),
+  "process.env.BABEL_TYPES_8_BREAKING": JSON.stringify(false),
   "process.env.DEBUG": JSON.stringify(false),
   "process.versions.node": JSON.stringify("v20.3.1"),
   "process.versions.pnp": JSON.stringify(false),
@@ -53,6 +55,7 @@ export const makeEnv = (
   nodeVersion: JSON.stringify("v20.3.1"),
   env: JSON.stringify({
     NODE_ENV: environment || "development",
+    BABEL_TYPES_8_BREAKING:  JSON.stringify(false),
     version: "v20.3.0",
     browser: JSON.stringify(true),
     isWebworker: JSON.stringify(true),
