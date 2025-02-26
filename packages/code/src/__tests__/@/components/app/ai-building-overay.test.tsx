@@ -1,10 +1,10 @@
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from "@/external/use-local-storage";
 import { render } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock the entire module
-vi.mock("@/hooks/use-local-storage", () => ({
+vi.mock("@/external/use-local-storage", () => ({
   useLocalStorage: vi.fn(),
 }));
 

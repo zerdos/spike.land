@@ -1,7 +1,7 @@
 import { ChatDrawer } from "@/components/app/chat-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from "@/external/use-local-storage";
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/lib/shared";

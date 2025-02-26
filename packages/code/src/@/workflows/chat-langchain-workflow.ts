@@ -95,11 +95,13 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     documentHash: {
       reducer: (_prev: string | undefined, next: string) => next,
     },
+    filePath: {
+      reducer: (_prev: string | undefined, next: string | undefined) => next,
+    },
   };
 
   const tools = [codeModificationTool];
   const toolNode = new ToolNode(tools);
-
 
   // Verify code integrity using document hash
   const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
@@ -108,10 +110,83 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       console.error(`Hash mismatch! Expected ${expectedHash} got ${actualHash}`);
       throw new WorkflowError("Code integrity violation", {
         expectedHash,
-        actualHash
+        actualHash,
+        codeLength: code.length,
       });
     }
     return actualHash === expectedHash;
+  };
+
+  /**
+   * Extract documentHash and other metadata from tool response
+   * @param response The AI message response
+   * @param currentState The current state
+   * @returns Object containing extracted metadata
+   */
+  const extractToolResponseMetadata = (
+    response: AIMessage, 
+    currentState: AgentState
+  ): { 
+    documentHash?: string; 
+    modifiedCodeHash?: string;
+    compilationError?: string;
+  } => {
+    const metadata = {
+      documentHash: currentState.documentHash,
+      modifiedCodeHash: undefined as string | undefined,
+      compilationError: undefined as string | undefined,
+    };
+    
+    // Check if there are tool responses in the additional_kwargs
+    if (response.additional_kwargs && 
+        'tool_responses' in response.additional_kwargs && 
+        Array.isArray(response.additional_kwargs.tool_responses)) {
+      
+      // Look for documentHash in tool responses
+      const toolResponses = response.additional_kwargs.tool_responses;
+      for (const toolResponse of toolResponses) {
+        if (typeof toolResponse === 'object' && 
+            toolResponse !== null && 
+            'name' in toolResponse && 
+            toolResponse.name === "code_modification" && 
+            'content' in toolResponse) {
+          
+          let content: Record<string, unknown> = {};
+          
+          // Parse content if it's a string
+          if (typeof toolResponse.content === 'string') {
+            try {
+              content = JSON.parse(toolResponse.content);
+            } catch (e) {
+              console.warn("Failed to parse tool response content", e);
+              continue;
+            }
+          } else if (typeof toolResponse.content === 'object' && toolResponse.content !== null) {
+            content = toolResponse.content as Record<string, unknown>;
+          } else {
+            continue;
+          }
+          
+          // Extract metadata from content
+          if ("documentHash" in content && typeof content.documentHash === 'string') {
+            metadata.documentHash = content.documentHash;
+          }
+          
+          if ("modifiedCodeHash" in content && typeof content.modifiedCodeHash === 'string') {
+            metadata.modifiedCodeHash = content.modifiedCodeHash;
+          }
+          
+          if ("error" in content && typeof content.error === 'string' && 
+              content.error.includes("failed to compile")) {
+            metadata.compilationError = content.error;
+          }
+          
+          break;
+        }
+      }
+    }
+    
+    return metadata;
   };
 
   const model = new ChatAnthropic({
@@ -142,6 +217,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           throw new WorkflowError("Code integrity check failed before processing", {
             expectedHash: state.documentHash,
             actualHash: md5(state.code),
+            codeLength: state.code.length,
           });
         }
       }
@@ -156,54 +232,64 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       const response = await model.invoke(cleanedState.messages);
 
-      // Extract documentHash from tool response if present
-      let documentHash = state.documentHash;
-      
-      // Check if there are tool responses in the additional_kwargs
-      if (response.additional_kwargs && 
-          'tool_responses' in response.additional_kwargs && 
-          Array.isArray(response.additional_kwargs.tool_responses)) {
-        
-        // Look for documentHash in tool responses
-        const toolResponses = response.additional_kwargs.tool_responses;
-        for (const toolResponse of toolResponses) {
-          if (typeof toolResponse === 'object' && 
-              toolResponse !== null && 
-              'name' in toolResponse && 
-              toolResponse.name === "code_modification" && 
-              'content' in toolResponse && 
-              typeof toolResponse.content === "object" && 
-              toolResponse.content !== null && 
-              "documentHash" in toolResponse.content) {
-            
-            documentHash = String(toolResponse.content.documentHash);
-            break;
-          }
-        }
-      }
+      // Extract metadata from tool response
+      const { documentHash, modifiedCodeHash, compilationError } = 
+        extractToolResponseMetadata(response, state);
 
       // If code was modified during processing, update the documentHash
       const updatedState = {
         ...cleanedState,
         messages: [response],
         isStreaming: true,
-        documentHash
+        documentHash,
       };
+
+      // If compilation error occurred, add it to lastError
+      if (compilationError) {
+        updatedState.lastError = compilationError;
+        console.warn("Compilation error detected:", compilationError);
+        
+        // Add debug log about available document hashes
+        updatedState.debugLogs = [
+          ...(updatedState.debugLogs || []),
+          `Compilation error occurred. Original hash: ${state.documentHash}, Modified code hash: ${modifiedCodeHash}`,
+          "You can continue from either hash or fix the compilation error."
+        ];
+      }
 
       // If no documentHash was found in the tool response but code changed,
       // calculate a new hash
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
         updatedState.documentHash = md5(updatedState.code);
+        console.log("Generated new document hash for modified code:", updatedState.documentHash);
       }
 
       // Add sequential change validation
       if (state.code === updatedState.code && state.code !== initialState.code) {
-        throw new WorkflowError("Code modification failed to apply changes");
+        throw new WorkflowError("Code modification failed to apply changes", {
+          initialCodeLength: initialState.code.length,
+          currentCodeLength: state.code.length,
+        });
       }
 
       return updatedState;
     } catch (error) {
-      throw new WorkflowError("Message processing failed", { error, state });
+      // Add more context to the error
+      const errorContext = {
+        error,
+        state: {
+          codeLength: state.code?.length,
+          documentHash: state.documentHash,
+          hasMessages: state.messages?.length > 0,
+        }
+      };
+      
+      throw new WorkflowError(
+        error instanceof Error 
+          ? `Message processing failed: ${error.message}` 
+          : "Message processing failed with unknown error",
+        errorContext
+      );
     }
   };
 
@@ -227,9 +313,12 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
         
+        // Add information about document hash versioning to the prompt
+        const enhancedPrompt = `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash.`;
+        
         const initialStateWithMessages = {
           ...initialState,
-          messages: [systemMessage, new HumanMessage(prompt, {
+          messages: [systemMessage, new HumanMessage(enhancedPrompt, {
             code: initialState.code,
             documentHash: initialDocumentHash,
           })],
@@ -249,12 +338,17 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
             throw new WorkflowError("Code integrity verification failed", {
               initialHash: initialDocumentHash,
               finalHash: finalDocumentHash,
+              initialCodeLength: initialState.code.length,
+              finalCodeLength: finalState.code.length,
             });
           }
           
           // Update documentHash in final state
           finalState.documentHash = finalDocumentHash;
-          console.log("Code integrity verified with updated hash", { documentHash: finalDocumentHash });
+          console.log("Code integrity verified with updated hash", { 
+            documentHash: finalDocumentHash,
+            previousHash: initialDocumentHash,
+          });
         }
 
         logCodeChanges(initialState.code, finalState.code);
@@ -272,13 +366,24 @@ function logCodeChanges(initialCode: string, finalCode: string) {
   if (initialCode !== finalCode) {
     const initialHash = md5(initialCode);
     const finalHash = md5(finalCode);
+    const changes = calculateCodeChanges(initialCode, finalCode);
     
     console.log("Code modified successfully", {
-      changes: calculateCodeChanges(initialCode, finalCode),
+      changes,
       initialHash,
       finalHash,
       hashChanged: initialHash !== finalHash,
     });
+    
+    // Log more detailed information about significant changes
+    if (Math.abs(changes.sizeChange) > 100 || 
+        Math.abs(changes.lineCount.modified - changes.lineCount.original) > 10) {
+      console.log("Significant code changes detected:", {
+        sizeChangePct: ((changes.sizeChange / initialCode.length) * 100).toFixed(2) + "%",
+        lineChangePct: (((changes.lineCount.modified - changes.lineCount.original) / 
+                         changes.lineCount.original) * 100).toFixed(2) + "%",
+      });
+    }
   }
 }
 
@@ -305,6 +410,14 @@ function calculateCodeChanges(original: string, modified: string): {
 function handleWorkflowError(error: unknown): never {
   if (error instanceof WorkflowError) {
     console.error("Workflow Error:", error.message, error.context);
+    
+    // Add more helpful context for specific error types
+    if (error.message.includes("Code integrity")) {
+      console.error("Code integrity errors may indicate version conflicts. Check document hashes.");
+    } else if (error.message.includes("failed to compile")) {
+      console.error("Compilation errors can be fixed with a new modification or by rolling back.");
+    }
+    
     throw error;
   }
 
