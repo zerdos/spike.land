@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 
 // Constants for better maintainability
-const MODEL_NAME = "claude-3-5-sonnet-20241022";
+const MODEL_NAME = "claude-3-7-sonnet-20250219";
 
 // Centralized error handling
 class WorkflowError extends Error {

@@ -47,7 +47,7 @@ const createWeatherTool = () => {
  */
 const createLanguageModel = (tools: ReturnType<typeof createWeatherTool>[]) => {
   return new ChatAnthropic({
-    model: "claude-3-5-sonnet-20241022",
+    model: "claude-3-7-sonnet-20250219",
     anthropicApiKey: "MY_API_KEY",
     streaming: false,
     anthropicApiUrl: location.origin + "/api/anthropic",
