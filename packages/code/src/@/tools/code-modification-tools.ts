@@ -1,4 +1,5 @@
 import { replaceFirstCodeMod } from "@/lib/chat-utils";
+import { ICode } from "@/lib/interfaces";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { unknown, z } from "zod";
@@ -98,8 +99,29 @@ export const codeModificationTool = tool(
         };
       }
 
+      const cSess =  (globalThis as unknown as {
+        cSess: ICode;
+      }).cSess;
+
+      // add this diff to last message
+
+      cSess.setMessages((() => {
+        const lastMessage = cSess.getMessages().pop();
+        
+        if (lastMessage) {
+          lastMessage.content +=  instructions;
+      
+        const oldMessages= [...cSess.getMessages()];
+        oldMessages.pop();
+        return [...oldMessages, lastMessage];
+        }
+        return cSess.getMessages();
+
+      })());
+  
+
       const res = await (globalThis as unknown as {
-        cSess: { setCode: (code: string) => Promise<string | boolean>; };
+        cSess: ICode;
       }).cSess.setCode(result);
 
       if (res === false) {
