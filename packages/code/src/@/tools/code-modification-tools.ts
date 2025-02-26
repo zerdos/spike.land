@@ -180,23 +180,23 @@ export const codeModificationTool = tool(
       }).cSess;
 
       // Add the diff to the last message for context
-      cSess.setMessages((() => {
-        const messages = cSess.getMessages();
-        const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
+      // cSess.setMessages((() => {
+      //   const messages = cSess.getMessages();
+      //   const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
 
-        if (lastMessage) {
-          // Create a new message with the updated content
-          const updatedMessage = { ...lastMessage, content: lastMessage.content + instructions };
+      //   if (lastMessage) {
+      //     // Create a new message with the updated content
+      //     const updatedMessage = { ...lastMessage, content: lastMessage.content + instructions };
           
-          // Return all messages except the last one, plus the updated message
-          return [...messages.slice(0, -1), updatedMessage];
-        }
+      //     // Return all messages except the last one, plus the updated message
+      //     return [...messages.slice(0, -1), updatedMessage];
+      //   }
         
-        return messages;
-      })());
+      //   return messages;
+      // })());
 
       // Set the modified code in the session
-      const res = await cSess.setCode(modifiedCode);
+      const res = await cSess.setCode(modifiedCode, true);
       
       if (res === false) {
         return createErrorResponse(

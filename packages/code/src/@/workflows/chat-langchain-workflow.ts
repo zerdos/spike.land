@@ -29,16 +29,24 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const getCodeReducer = () => ({
     reducer: (prev: string, next: unknown) => {
       try {
-        if (typeof next === "string") {
-          return next;
+        if (typeof next === "string") return next;
+        
+        if (typeof next === "object" && next !== null) {
+          // Handle tool response format
+          if ('content' in next && typeof next.content === 'string') {
+            try {
+              const content = JSON.parse(next.content);
+              if (content?.code) return content.code;
+            } catch (e) {
+              // If parsing fails, continue with other checks
+            }
+          }
+          if ('code' in next) return (next as { code: string }).code;
         }
-
-        if (typeof next === "object" && next !== null && "code" in next) {
-          return (next as { code?: any; }).code ?? prev;
-        }
-
+        
         return prev;
       } catch (error) {
+        console.error("Code reduction error:", error);
         throw new WorkflowError("Code reduction failed", {
           error,
           input: next,
@@ -112,6 +120,13 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Verify code integrity using document hash
   const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
     const actualHash = md5(code);
+    if (actualHash !== expectedHash) {
+      console.error(`Hash mismatch! Expected ${expectedHash} got ${actualHash}`);
+      throw new WorkflowError("Code integrity violation", {
+        expectedHash,
+        actualHash
+      });
+    }
     return actualHash === expectedHash;
   };
 
@@ -195,6 +210,11 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       // calculate a new hash
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
         updatedState.documentHash = md5(updatedState.code);
+      }
+
+      // Add sequential change validation
+      if (state.code === updatedState.code && state.code !== initialState.code) {
+        throw new WorkflowError("Code modification failed to apply changes");
       }
 
       return updatedState;

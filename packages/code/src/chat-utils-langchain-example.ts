@@ -20,7 +20,7 @@ class AstWorkflowError extends Error {
  * with improved error handling and code integrity verification
  */
 const example = async (
-  userRequest: string,
+  prompt: string,
   cSess: ICode,
   channel: BroadcastChannel,
 ) => {
@@ -48,16 +48,17 @@ const example = async (
       documentHash: initialDocumentHash,
     });
 
-    // Create system message with code and document hash
-    // Insert the code into the system prompt within <code></code> tags
+    // The workflow will create the system message with code and document hash
+    // and add the human message with the user's request
+    const result = await workflow.invoke(prompt)
     
-    
-
-    // Create human message with the user's request
-    const humanMessage = new HumanMessage(userRequest);
-
-   
-    const result = await workflow.invoke(userRequest);
+    // Verify the workflow executed successfully
+    if (!result) {
+      throw new AstWorkflowError("Workflow execution failed", {
+        prompt,
+        initialDocumentHash,
+      });
+    }
 
     // Verify final code integrity
     if (result.code !== initialCode) {
@@ -79,7 +80,7 @@ const example = async (
 
     // Log the result
     console.log("Workflow result:", {
-      userRequest,
+      prompt,
       codeChanged: initialCode !== result.code,
       result,
     });
