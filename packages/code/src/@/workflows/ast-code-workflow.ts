@@ -1,4 +1,4 @@
-import { codeModificationTool } from "@/tools/code-modification-tools";
+import { astCodeModificationTool } from "@/tools/ast-code-modification";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
@@ -25,7 +25,7 @@ class WorkflowError extends Error {
 }
 
 // Workflow setup with improved type safety
-export const createWorkflow = (initialState: AgentState) => {
+export const createAstWorkflow = (initialState: AgentState) => {
   const getCodeReducer = () => ({
     reducer: (prev: string, next: unknown) => {
       try {
@@ -84,20 +84,24 @@ export const createWorkflow = (initialState: AgentState) => {
     documentHash: {
       reducer: (_prev: string | undefined, next: string) => next,
     },
+    filePath: {
+      reducer: (_prev: string | undefined, next: string) => next,
+    },
   };
 
-  const tools = [codeModificationTool];
+  const tools = [astCodeModificationTool];
   const toolNode = new ToolNode(tools);
 
   // Create a system message with code and its hash for integrity verification
-  const createSystemMessage = (code: string): SystemMessage => {
+  const createSystemMessage = (code: string, filePath: string): SystemMessage => {
     const documentHash = md5(code);
     return new SystemMessage(
       anthropicSystem, 
       { 
         artifact: { 
           code: code, 
-          documentHash: documentHash 
+          documentHash: documentHash,
+          filePath: filePath
         }
       }
     );
@@ -146,9 +150,7 @@ export const createWorkflow = (initialState: AgentState) => {
         code: state.code,
       };
 
-      // Ensure documentHash is passed to the model for code modification tools
-      // This is handled by the code modification tool itself, which already checks for documentHash
-
+      // Ensure the model has access to the current file path
       const response = await model.invoke(cleanedState.messages);
 
       // Extract documentHash from tool response if present
@@ -165,7 +167,7 @@ export const createWorkflow = (initialState: AgentState) => {
           if (typeof toolResponse === 'object' && 
               toolResponse !== null && 
               'name' in toolResponse && 
-              toolResponse.name === "code_modification" && 
+              toolResponse.name === "ast_code_modification" && 
               'content' in toolResponse && 
               typeof toolResponse.content === "object" && 
               toolResponse.content !== null && 
@@ -211,16 +213,17 @@ export const createWorkflow = (initialState: AgentState) => {
   const app = workflow.compile({ checkpointer: new MemorySaver() });
 
   return {
-    invoke: async (prompt: string) => {
+    invoke: async (prompt: string, filePath: string) => {
       try {
         // Create system message with initial code and hash
-        const systemMessage = createSystemMessage(initialState.code);
+        const systemMessage = createSystemMessage(initialState.code, filePath);
         const initialDocumentHash = md5(initialState.code);
         
         const initialStateWithMessages = {
           ...initialState,
           messages: [systemMessage, new HumanMessage(prompt)],
-          documentHash: initialDocumentHash, // Store hash in state for tracking
+          documentHash: initialDocumentHash,
+          filePath: filePath
         };
 
         const finalState = await app.invoke(initialStateWithMessages, {
@@ -272,6 +275,7 @@ function logCodeChanges(initialCode: string, finalCode: string) {
 function calculateCodeChanges(original: string, modified: string): { 
   sizeChange: number;
   lineCount: { original: number; modified: number; };
+  semanticChanges: string[];
 } {
   // Calculate size difference
   const sizeChange = modified.length - original.length;
@@ -280,12 +284,17 @@ function calculateCodeChanges(original: string, modified: string): {
   const originalLines = original.split('\n').length;
   const modifiedLines = modified.split('\n').length;
   
+  // In a real implementation, we would use the AST to identify semantic changes
+  // This is a placeholder for demonstration purposes
+  const semanticChanges = ["AST-based semantic change detection would go here"];
+  
   return {
     sizeChange,
     lineCount: {
       original: originalLines,
       modified: modifiedLines
-    }
+    },
+    semanticChanges
   };
 }
 

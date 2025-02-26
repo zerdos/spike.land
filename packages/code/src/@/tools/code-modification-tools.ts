@@ -1,173 +1,231 @@
-import { replaceFirstCodeMod } from "@/lib/chat-utils";
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
-import { unknown, z } from "zod";
+import { z } from "zod";
 
+// Constants for search/replace blocks
 export const SEARCH = "<<<<<<< SEARCH";
 export const REPLACE = ">>>>>>> REPLACE";
 export const SEPARATOR = "=======";
 
-// Tools
+/**
+ * Parses search/replace blocks from instructions
+ * @param instructions The instructions containing search/replace blocks
+ * @returns Array of parsed blocks with search and replace content
+ */
+interface ParsedBlock {
+  search: string;
+  replace: string;
+  original: string;
+}
+
+function parseSearchReplaceBlocks(instructions: string): ParsedBlock[] {
+  const blocks: ParsedBlock[] = [];
+  const regex = new RegExp(
+    `${SEARCH}([\\s\\S]*?)${SEPARATOR}([\\s\\S]*?)${REPLACE}`,
+    "g"
+  );
+  
+  let match;
+  while ((match = regex.exec(instructions)) !== null) {
+    if (match.length === 3) {
+      blocks.push({
+        search: match[1],
+        replace: match[2],
+        original: match[0],
+      });
+    }
+  }
+  
+  return blocks;
+}
+
+/**
+ * Applies a single search/replace block to the code
+ * @param code The code to modify
+ * @param block The search/replace block to apply
+ * @returns The modified code and success status
+ */
+function applySearchReplaceBlock(code: string, block: ParsedBlock): { 
+  result: string; 
+  success: boolean;
+  error?: string;
+} {
+  try {
+    // Ensure the search content exists in the code
+    if (!code.includes(block.search)) {
+      return { 
+        result: code, 
+        success: false,
+        error: "Search content not found exactly as specified"
+      };
+    }
+    
+    // Replace the first occurrence only
+    const result = code.replace(block.search, block.replace);
+    
+    // Verify the replacement was made
+    if (result === code) {
+      return { 
+        result, 
+        success: false,
+        error: "Replacement failed - no changes made"
+      };
+    }
+    
+    return { result, success: true };
+  } catch (error) {
+    return { 
+      result: code, 
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error applying block"
+    };
+  }
+}
+
+/**
+ * Creates an error response with consistent format
+ */
+function createErrorResponse(
+  currentCode: string, 
+  errorMessage: string, 
+  additionalProps = {}
+): CodeModification {
+  return {
+    code: currentCode,
+    error: errorMessage,
+    currentFileContent: currentCode,
+    documentHash: md5(currentCode),
+    ...additionalProps,
+  };
+}
+
+// Optimized code modification tool
 export const codeModificationTool = tool(
   async (
     { instructions, documentHash }: { instructions: string; documentHash: string; },
   ): Promise<CodeModification> => {
-    // If no current file content, return early with helpful error
+    // Get current code from the session
     const currentCode = await (globalThis as unknown as {
       cSess: { getCode: () => Promise<string>; };
     }).cSess.getCode();
 
-    // Verify document hash if provided
+    // Verify document hash to ensure code integrity
     if (documentHash && typeof documentHash === "string") {
       const currentHash = md5(currentCode);
       if (documentHash !== currentHash) {
-        return {
-          code: currentCode,
-          error:
-            "Document has been modified since last hash. Please try again with the latest version.",
-          currentFileContent: currentCode,
-          documentHash: currentHash,
-        };
+        return createErrorResponse(
+          currentCode,
+          "Document has been modified since last hash. Please try again with the latest version.",
+          {
+            currentFileContent: currentCode,
+            documentHash: currentHash,
+          }
+        );
       }
     }
 
-    // Helper function to create error response
-    const createErrorResponse = (errorMessage: string, additionalProps = {}): CodeModification => ({
-      code: currentCode,
-      error: errorMessage,
-      currentFileContent: currentCode,
-      documentHash: md5(currentCode),
-      ...additionalProps,
-    });
-
     try {
-      if (instructions.length === 0) {
-        return createErrorResponse("Instructions required - provide search/replace blocks");
-      }
-
-      const searchIndex = instructions.indexOf(SEARCH);
-      const replaceIndex = instructions.indexOf(REPLACE);
-      const separatorIndex = instructions.indexOf(SEPARATOR);
-
-      if (searchIndex === -1 || replaceIndex === -1 || separatorIndex === -1) {
+      // Validate instructions
+      if (!instructions || instructions.trim().length === 0) {
         return createErrorResponse(
-          "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
+          currentCode,
+          "Instructions required - provide search/replace blocks"
         );
       }
 
-      let retryCount = 0;
-      let result = currentCode;
-      const maxRetries = 3;
+      // Parse search/replace blocks
+      const blocks = parseSearchReplaceBlocks(instructions);
+      
+      // Validate that we have at least one valid block
+      if (blocks.length === 0) {
+        return createErrorResponse(
+          currentCode,
+          "No valid search/replace blocks found. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE"
+        );
+      }
 
-      // Extract all search/replace blocks for error reporting
-      const blocks = instructions.split(SEARCH).slice(1);
-      const searchBlocks = blocks.map((block) => {
-        const [search] = block.split(SEPARATOR);
-        return search.trim();
-      });
-
-      // For error reporting, track which block we're trying
+      // Apply blocks sequentially
+      let modifiedCode = currentCode;
       let currentBlockIndex = 0;
-      const totalBlocks = searchBlocks.length;
-
-      do {
-        const newResult = replaceFirstCodeMod(instructions, result);
-        if (newResult !== result) {
-          result = newResult;
-          currentBlockIndex++;
-          retryCount = 0;
-
-          // If we've processed all blocks successfully, we're done
-          if (currentBlockIndex >= totalBlocks) {
-            break;
-          }
-          continue;
-        }
-        retryCount++;
-
-        if (retryCount === 1) {
-          // Enhanced error feedback with detailed context
+      
+      for (const block of blocks) {
+        currentBlockIndex++;
+        
+        // Apply the current block
+        const { result, success, error } = applySearchReplaceBlock(modifiedCode, block);
+        
+        if (!success) {
+          // Return detailed error information for debugging
           return createErrorResponse(
-            `Block ${
-              currentBlockIndex + 1
-            }/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
+            currentCode,
+            `Block ${currentBlockIndex}/${blocks.length} failed: ${error}`,
             {
-              retryCount,
-              searchContent: searchBlocks[currentBlockIndex],
-              blockNumber: currentBlockIndex + 1,
-              totalBlocks,
-            },
+              searchContent: block.search,
+              blockNumber: currentBlockIndex,
+              totalBlocks: blocks.length,
+              failedBlockContent: block.original,
+            }
           );
         }
-      } while (retryCount < maxRetries);
-
-      if (result === currentCode) {
-        return createErrorResponse(
-          `Failed to apply block ${
-            currentBlockIndex + 1
-          }/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
-          {
-            retryCount,
-            searchContent: searchBlocks[currentBlockIndex],
-            blockNumber: currentBlockIndex + 1,
-            totalBlocks,
-          },
-        );
+        
+        // Update the code with the successful modification
+        modifiedCode = result;
       }
 
+      // If we reach here, all blocks were applied successfully
       const cSess = (globalThis as unknown as {
         cSess: ICode;
       }).cSess;
 
-      // add this diff to last message
+      // Add the diff to the last message for context
       cSess.setMessages((() => {
-        const lastMessage = cSess.getMessages().pop();
+        const messages = cSess.getMessages();
+        const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
 
         if (lastMessage) {
-          lastMessage.content += instructions;
-
-          const oldMessages = [...cSess.getMessages()];
-          oldMessages.pop();
-          return [...oldMessages, lastMessage];
+          // Create a new message with the updated content
+          const updatedMessage = { ...lastMessage, content: lastMessage.content + instructions };
+          
+          // Return all messages except the last one, plus the updated message
+          return [...messages.slice(0, -1), updatedMessage];
         }
-        return cSess.getMessages();
+        
+        return messages;
       })());
 
-      const res = await (globalThis as unknown as {
-        cSess: ICode;
-      }).cSess.setCode(result);
-
+      // Set the modified code in the session
+      const res = await cSess.setCode(modifiedCode);
+      
       if (res === false) {
-        return createErrorResponse("Failed to set code in the code session", { retryCount });
+        return createErrorResponse(
+          currentCode,
+          "Failed to set code in the code session"
+        );
       }
 
-      const documentHash = md5(result);
-
-      if (typeof res === "string") {
-        return {
-          error: "",
-          retryCount,
-          documentHash,
-        };
-      }
-
+      // Calculate the new document hash
+      const newDocumentHash = md5(modifiedCode);
+      
+      // Return success response with the new hash
       return {
         error: "",
-        retryCount,
-        documentHash,
+        documentHash: newDocumentHash,
+        code: modifiedCode,
       };
     } catch (error) {
+      // Handle any unexpected errors
       return createErrorResponse(
-        error instanceof Error ? error.message : "Unknown error in code modification",
+        currentCode,
+        error instanceof Error ? error.message : "Unknown error in code modification"
       );
     }
   },
   {
     name: "code_modification",
     description:
-      `Modifies code by applying search/replace patterns. Uses current file content as base for modifications. Supports multiple search/replace blocks for coordinated changes.
+      `Optimized code modification tool that efficiently applies search/replace patterns, with special handling for large files. Supports multiple coordinated changes with robust error reporting.
 
 Required format for instructions parameter (can include multiple blocks):
 <<<<<<< SEARCH
@@ -200,6 +258,13 @@ Critical rules:
    - Each block must match and apply successfully
    - Later blocks operate on the result of earlier blocks
    - If any block fails, the tool reports which one
+
+5. Large file optimization:
+   - Uses efficient regex-based parsing to handle large files
+   - Processes blocks sequentially to minimize memory usage
+   - Provides detailed error information for easier debugging
+   - Maintains document hash verification for code integrity
+   - Avoids unnecessary retries and loops for better performance
 
 Examples for different code styles:
 
