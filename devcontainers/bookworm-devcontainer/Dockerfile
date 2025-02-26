@@ -30,6 +30,10 @@ USER 0
 # Update and install base packages
 RUN apt-get update \
     && apt-get dist-upgrade -y \
+    && (apt-get install --no-install-recommends -Y    libayatana-appindicator3-1 \
+    || apt-get install --no-install-recommends -Y libappindicator3-1) \
+    || echo "Failed to install libappindicator3-1" \
+    ) \
     && apt-get install --no-install-recommends -y \
        apt-transport-https \
        apt-utils \
@@ -49,7 +53,6 @@ RUN apt-get update \
        xvfb \
        fonts-liberation \
        libcurl4 \
-       libappindicator3-1 \
        xdg-utils \
        wget \
        gpg-agent \
@@ -245,7 +248,7 @@ ENV SHELL=/usr/bin/zsh
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.1.6 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.1 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
