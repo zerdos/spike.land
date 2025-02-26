@@ -9,8 +9,8 @@ export interface AgentState {
 }
 
 export type CodeModification = string | {
-  code: string;
-  error: string;
+  code?: string;
+  error?: string;
   retryCount?: number;
   currentFileContent?: string;
   searchContent?: string;

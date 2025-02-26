@@ -8,6 +8,7 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
+import { md5} from "@/lib/md5";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
@@ -89,6 +90,7 @@ export const createWorkflow = (initialState: AgentState) => {
     new SystemMessage(
       anthropicSystem + `
 <code>
+<documentHash>${md5(code)}</documentHash> 
 ${code}
 </code>
     `,

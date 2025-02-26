@@ -147,7 +147,6 @@ export const codeModificationTool = tool(
 
       if (typeof res === "string") {
         return {
-          code: res,
           error: "",
           retryCount,
           documentHash,
@@ -155,7 +154,6 @@ export const codeModificationTool = tool(
       }
 
       return {
-        code: result,
         error: "",
         retryCount,
         documentHash,
