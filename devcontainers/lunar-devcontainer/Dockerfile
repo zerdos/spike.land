@@ -13,7 +13,7 @@ RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 #     && yarn run cypress install --force
 
 # Stage 2: Base image setup
-FROM ubuntu:lunar as devimage
+FROM ubuntu:lunar AS devimage
 
 # Base metadata
 LABEL maintainer="zoltan.erdos@me.com"
