@@ -48,6 +48,11 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   useEffect(() => {
     Object.assign(globalThis, {
       setupAndRun: async (prompt: string) => {
+        const process = {
+          env: {
+            NODE_ENV: "development",
+          },
+        }
         const { setupAndRun } = await import("./chat-utils-langchain-example");
         setupAndRun(prompt, cSess).catch(console.error);
       },
