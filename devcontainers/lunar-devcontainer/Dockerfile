@@ -30,10 +30,9 @@ USER 0
 # Update and install base packages
 RUN apt-get update \
     && apt-get dist-upgrade -y \
-    && (apt-get install --no-install-recommends -Y    libayatana-appindicator3-1 \
-    || apt-get install --no-install-recommends -Y libappindicator3-1) \
-    || echo "Failed to install libappindicator3-1" \
-    ) \
+    && (apt-get install --no-install-recommends -y libayatana-appindicator3-1 \
+        || apt-get install --no-install-recommends -y libappindicator3-1 \
+        || echo "Failed to install libappindicator3-1") \
     && apt-get install --no-install-recommends -y \
        apt-transport-https \
        apt-utils \
