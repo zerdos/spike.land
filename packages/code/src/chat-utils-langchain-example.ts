@@ -1,17 +1,17 @@
-import { createWorkflow } from "@/workers/chat-utils-langchain.worker";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+
+import { HumanMessage } from "@langchain/core/messages";
 import { ICode } from "@/lib/interfaces";
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { md5 } from "@/lib/md5";
 
-// Custom error class for better error handling
-class ExampleError extends Error {
+// // Custom error class for better error handling
+class AstWorkflowError extends Error {
   constructor(
     message: string,
     public readonly context?: Record<string, unknown>,
   ) {
     super(message);
-    this.name = "ExampleError";
+    this.name = "AstWorkflowError";
   }
 }
 
@@ -26,6 +26,7 @@ const example = async (
 ) => {
   try {
     // Get the code session
+    const { createWorkflowWithStringReplace } = await import("@/workers/chat-utils-langchain.worker");
     const session = await cSess.getSession();
     const codeSpace = cSess.getCodeSpace();
     
@@ -37,7 +38,7 @@ const example = async (
 
    
     // Create the workflow with initial state
-    const workflow = await createWorkflow({
+    const workflow = await createWorkflowWithStringReplace({
       code: initialCode,
       codeSpace: codeSpace,
       lastError: "",
@@ -64,7 +65,7 @@ const example = async (
       const actualHash = md5(result.code);
       
       if (finalDocumentHash !== actualHash) {
-        throw new ExampleError("Code integrity verification failed", {
+        throw new AstWorkflowError("Code integrity verification failed", {
           expectedHash: finalDocumentHash,
           actualHash,
         });
@@ -92,7 +93,7 @@ const example = async (
     return result;
   } catch (error) {
     // Enhanced error handling
-    if (error instanceof ExampleError) {
+    if (error instanceof AstWorkflowError) {
       console.error(`Example Error: ${error.message}`, error.context);
     } else {
       console.error("Unexpected error in example:", error);
@@ -113,7 +114,7 @@ const example = async (
  */
 export const setupAndRun = async (prompt: string, cSess: ICode) => {
   if (!prompt || typeof prompt !== "string") {
-    throw new ExampleError("Invalid prompt", { prompt });
+    throw new AstWorkflowError("Invalid prompt", { prompt });
   }
 
   const codeSpace = await cSess.getCodeSpace();

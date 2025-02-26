@@ -1,4 +1,4 @@
-import { astCodeModificationTool } from "@/tools/ast-code-modification";
+import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
@@ -25,7 +25,7 @@ class WorkflowError extends Error {
 }
 
 // Workflow setup with improved type safety
-export const createWorkflow = (initialState: AgentState) => {
+export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const getCodeReducer = () => ({
     reducer: (prev: string, next: unknown) => {
       try {
@@ -89,7 +89,7 @@ export const createWorkflow = (initialState: AgentState) => {
     },
   };
 
-  const tools = [astCodeModificationTool];
+  const tools = [codeModificationTool];
   const toolNode = new ToolNode(tools);
 
   // Create a system message with code and its hash for integrity verification
