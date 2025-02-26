@@ -18,13 +18,19 @@ export const codeModificationTool = tool(
     const currentCode = await (globalThis as unknown as {
       cSess: { getCode: () => Promise<string>; };
     }).cSess.getCode();
+    
+    // Helper function to create error response
+    const createErrorResponse = (errorMessage: string, additionalProps = {}): CodeModification => ({
+      code: currentCode,
+      error: errorMessage,
+      currentFileContent: currentCode,
+      ...additionalProps
+    });
+    
     try {
+
       if (instructions.length === 0) {
-        return {
-          code: currentCode,
-          error: "Instructions required - provide search/replace blocks",
-          // currentFileContent: currentCode,
-        };
+        return createErrorResponse("Instructions required - provide search/replace blocks");
       }
 
       const searchIndex = instructions.indexOf(SEARCH);
@@ -32,12 +38,9 @@ export const codeModificationTool = tool(
       const separatorIndex = instructions.indexOf(SEPARATOR);
 
       if (searchIndex === -1 || replaceIndex === -1 || separatorIndex === -1) {
-        return {
-          code: currentCode,
-          error:
-            "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
-          // currentFileContent: currentCode,
-        };
+        return createErrorResponse(
+          "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE"
+        );
       }
 
       let retryCount = 0;
@@ -71,67 +74,57 @@ export const codeModificationTool = tool(
         retryCount++;
 
         if (retryCount === 1) {
-          return {
-            code: currentCode,
-            error: `Block ${
-              currentBlockIndex + 1
-            }/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
-            retryCount,
-            // currentFileContent: currentCode,
-            // searchContent: searchBlocks[currentBlockIndex],
-            // blockNumber: currentBlockIndex + 1,
-            // totalBlocks,
-          };
+          // Enhanced error feedback with detailed context
+          return createErrorResponse(
+            `Block ${currentBlockIndex + 1}/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
+            {
+              retryCount,
+              searchContent: searchBlocks[currentBlockIndex],
+              blockNumber: currentBlockIndex + 1,
+              totalBlocks,
+            }
+          );
         }
       } while (retryCount < maxRetries);
 
       if (result === currentCode) {
-        return {
-          code: currentCode,
-          error: `Failed to apply block ${
-            currentBlockIndex + 1
-          }/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
-          retryCount,
-          // currentFileContent: currentCode,
-          // searchContent: searchBlocks[currentBlockIndex],
-          // blockNumber: currentBlockIndex + 1,
-          // totalBlocks,
-        };
+        return createErrorResponse(
+          `Failed to apply block ${currentBlockIndex + 1}/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
+          {
+            retryCount,
+            searchContent: searchBlocks[currentBlockIndex],
+            blockNumber: currentBlockIndex + 1,
+            totalBlocks,
+          }
+        );
       }
 
-      const cSess =  (globalThis as unknown as {
+      const cSess = (globalThis as unknown as {
         cSess: ICode;
       }).cSess;
 
       // add this diff to last message
-
       cSess.setMessages((() => {
         const lastMessage = cSess.getMessages().pop();
         
         if (lastMessage) {
-          lastMessage.content +=  instructions;
+          lastMessage.content += instructions;
       
-        const oldMessages= [...cSess.getMessages()];
-        oldMessages.pop();
-        return [...oldMessages, lastMessage];
+          const oldMessages = [...cSess.getMessages()];
+          oldMessages.pop();
+          return [...oldMessages, lastMessage];
         }
         return cSess.getMessages();
-
       })());
   
-
       const res = await (globalThis as unknown as {
         cSess: ICode;
       }).cSess.setCode(result);
 
       if (res === false) {
-        return {
-          code: currentCode,
-          error: "Failed to set code in the code session",
-          retryCount,
-          // currentFileContent: currentCode,
-        };
+        return createErrorResponse("Failed to set code in the code session", { retryCount });
       }
+      
       if (typeof res === "string") {
         return {
           code: res,
@@ -142,13 +135,9 @@ export const codeModificationTool = tool(
 
       return result;
     } catch (error) {
-      return {
-        code: currentCode,
-        error: error instanceof Error
-          ? error.message
-          : "Unknown error in code modification",
-        // currentFileContent: currentCode,
-      };
+      return createErrorResponse(
+        error instanceof Error ? error.message : "Unknown error in code modification"
+      );
     }
   },
   {
