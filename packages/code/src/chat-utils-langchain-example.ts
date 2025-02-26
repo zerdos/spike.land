@@ -1,9 +1,8 @@
-import { createWorkflow } from "@/workflows/chat-langchain-workflow";
-import { BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { createWorkflow } from "@/workers/chat-utils-langchain.worker";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ICode } from "@/lib/interfaces";
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { md5 } from "@/lib/md5";
-import anthropicSystem from "./config/initial-claude.txt";
 
 // Custom error class for better error handling
 class ExampleError extends Error {
@@ -36,9 +35,11 @@ const example = async (
     
     console.log("Starting workflow with code hash:", initialDocumentHash);
 
+   
     // Create the workflow with initial state
     const workflow = await createWorkflow({
       code: initialCode,
+      codeSpace: codeSpace,
       lastError: "",
       isStreaming: false,
       debugLogs: [],
@@ -48,36 +49,13 @@ const example = async (
 
     // Create system message with code and document hash
     // Insert the code into the system prompt within <code></code> tags
-    const systemPrompt = anthropicSystem.replace("The code you will be working with:", 
-      `The code you will be working with:\n\n<code>\n${initialCode}\n</code>`);
     
-    const systemMessage = new SystemMessage(
-      systemPrompt.replace("{{userPrompt}}", userRequest),
-      {
-        artifact: {
-          code: initialCode,
-          documentHash: initialDocumentHash
-        }
-      }
-    );
+    
 
     // Create human message with the user's request
     const humanMessage = new HumanMessage(userRequest);
 
-    // The AI system will:
-    // 1. Read the current code and verify its integrity using the document hash
-    // 2. Analyze the requirement and current code structure
-    // 3. Generate response with code modifications
-    // 4. Verify the integrity of the modified code
-    const initialStateWithMessages = {
-      code: initialCode,
-      lastError: "",
-      isStreaming: false,
-      debugLogs: [],
-      messages: [systemMessage, humanMessage],
-      documentHash: initialDocumentHash,
-    };
-
+   
     const result = await workflow.invoke(userRequest);
 
     // Verify final code integrity

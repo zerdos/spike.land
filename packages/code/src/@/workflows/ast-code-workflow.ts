@@ -73,6 +73,9 @@ export const createAstWorkflow = (initialState: AgentState) => {
     messages: {
       reducer: (prev: BaseMessage[], next: BaseMessage[]) => [...prev, ...next],
     },
+    codeSpace: {
+      reducer: (_prev: string, next: string) => next,
+    },
     code: getCodeReducer(),
     lastError: getErrorReducer(),
     isStreaming: {
@@ -93,19 +96,22 @@ export const createAstWorkflow = (initialState: AgentState) => {
   const toolNode = new ToolNode(tools);
 
   // Create a system message with code and its hash for integrity verification
-  const createSystemMessage = (code: string, filePath: string): SystemMessage => {
+  const createSystemMessage = (code: string, codeSpace: string): SystemMessage => {
     const documentHash = md5(code);
     return new SystemMessage(
-      anthropicSystem, 
+      anthropicSystem+ `
+      <filePath>/live/${codeSpace}.tsx</filePath>
+      <code>${code}</code>
+      <documentHash>${documentHash}</documentHash>`,
       { 
-        artifact: { 
           code: code, 
-          documentHash: documentHash,
-          filePath: filePath
-        }
+          filePath: `/live/${codeSpace}.tsx`,
+          documentHash: documentHash 
+      
       }
     );
   };
+
 
   // Verify code integrity using document hash
   const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {

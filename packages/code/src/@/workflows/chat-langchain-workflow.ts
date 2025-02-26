@@ -73,6 +73,9 @@ export const createWorkflow = (initialState: AgentState) => {
     messages: {
       reducer: (prev: BaseMessage[], next: BaseMessage[]) => [...prev, ...next],
     },
+    codeSpace: {
+      reducer: (_prev: string, next: string) => next,
+    },
     code: getCodeReducer(),
     lastError: getErrorReducer(),
     isStreaming: {
@@ -90,15 +93,18 @@ export const createWorkflow = (initialState: AgentState) => {
   const toolNode = new ToolNode(tools);
 
   // Create a system message with code and its hash for integrity verification
-  const createSystemMessage = (code: string): SystemMessage => {
+  const createSystemMessage = (code: string, codeSpace: string): SystemMessage => {
     const documentHash = md5(code);
     return new SystemMessage(
-      anthropicSystem, 
+      anthropicSystem+ `
+      <filePath>/live/${codeSpace}.tsx</filePath>
+      <code>${code}</code>
+      <documentHash>${documentHash}</documentHash>`,
       { 
-        artifact: { 
           code: code, 
+          filePath: `/live/${codeSpace}.tsx`,
           documentHash: documentHash 
-        }
+      
       }
     );
   };
@@ -214,7 +220,7 @@ export const createWorkflow = (initialState: AgentState) => {
     invoke: async (prompt: string) => {
       try {
         // Create system message with initial code and hash
-        const systemMessage = createSystemMessage(initialState.code);
+        const systemMessage = createSystemMessage(initialState.code, initialState.codeSpace);
         const initialDocumentHash = md5(initialState.code);
         
         const initialStateWithMessages = {

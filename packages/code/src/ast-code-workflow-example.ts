@@ -3,10 +3,10 @@ import { BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messag
 import { ICode } from "@/lib/interfaces";
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { md5 } from "@/lib/md5";
-import anthropicSystem from "./config/initial-claude.txt";
+
 
 // Custom error class for better error handling
-class ExampleError extends Error {
+class ExampleError extends Error  {
   constructor(
     message: string,
     public readonly context?: Record<string, unknown>,
@@ -40,6 +40,7 @@ const example = async (
     // Create the workflow with initial state
     const workflow = await createAstWorkflow({
       code: initialCode,
+      codeSpace: codeSpace,
       lastError: "",
       isStreaming: false,
       debugLogs: [],
@@ -50,19 +51,8 @@ const example = async (
 
     // Create system message with code and document hash
     // Insert the code into the system prompt within <code></code> tags
-    const systemPrompt = anthropicSystem.replace("The code you will be working with:", 
-      `The code you will be working with:\n\n<code>\n${initialCode}\n</code>`);
+  
     
-    const systemMessage = new SystemMessage(
-      systemPrompt.replace("{{userPrompt}}", userRequest),
-      {
-        artifact: {
-          code: initialCode,
-          documentHash: initialDocumentHash,
-          filePath: filePath
-        }
-      }
-    );
 
     // Create human message with the user's request
     const humanMessage = new HumanMessage(userRequest);
@@ -77,7 +67,7 @@ const example = async (
       lastError: "",
       isStreaming: false,
       debugLogs: [],
-      messages: [systemMessage, humanMessage],
+      messages: [],
       documentHash: initialDocumentHash,
       filePath: filePath,
     };
