@@ -12,13 +12,25 @@ export const SEPARATOR = "=======";
 // Tools
 export const codeModificationTool = tool(
   async (
-    { instructions }: { instructions: string; },
+    { instructions, documentHash }: { instructions: string; documentHash?: string; },
   ): Promise<CodeModification> => {
     // If no current file content, return early with helpful error
-
     const currentCode = await (globalThis as unknown as {
       cSess: { getCode: () => Promise<string>; };
     }).cSess.getCode();
+
+    // Verify document hash if provided
+    if (documentHash) {
+      const currentHash = md5(currentCode);
+      if (documentHash !== currentHash) {
+        return {
+          code: currentCode,
+          error: "Document has been modified since last hash. Please try again with the latest version.",
+          currentFileContent: currentCode,
+          documentHash: currentHash
+        };
+      }
+    }
     
     // Helper function to create error response
     const createErrorResponse = (errorMessage: string, additionalProps = {}): CodeModification => ({
@@ -241,6 +253,9 @@ interface User {
     schema: z.object({
       instructions: z.string().describe(
         "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",
+      ),
+      documentHash: z.string().optional().describe(
+        "Optional MD5 hash of the document being modified. If provided, the tool will verify that the document hasn't been modified since the hash was generated.",
       ),
     }),
   },
