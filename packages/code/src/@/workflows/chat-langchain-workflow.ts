@@ -9,6 +9,8 @@ import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 import { md5} from "@/lib/md5";
+import { doc } from "prettier";
+import { ar } from "date-fns/locale";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
@@ -88,12 +90,8 @@ export const createWorkflow = (initialState: AgentState) => {
 
   const createSystemMessage = (code: string): SystemMessage =>
     new SystemMessage(
-      anthropicSystem + `
-<code>
-<documentHash>${md5(code)}</documentHash> 
-${code}
-</code>
-    `,
+      anthropicSystem, { artifact: { code: code, documentHash: md5(code) }
+      }
     );
 
   const model = new ChatAnthropic({
