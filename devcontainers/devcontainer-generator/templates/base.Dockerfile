@@ -28,20 +28,36 @@ ENV QT_X11_NO_MITSHM=1 \
 USER 0
 
 # Update system and install base packages in stages
-RUN for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+RUN n=0; \
+    max_tries=3; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get dist-upgrade -y \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && (apt-get install --no-install-recommends -y libayatana-appindicator3-1 \
         || apt-get install --no-install-recommends -y libappindicator3-1 \
         || echo "Failed to install libappindicator3-1") \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get install --no-install-recommends -y \
        apt-transport-https \
@@ -54,8 +70,13 @@ RUN for i in {1..3}; do \
        dirmngr \
        sudo \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get install --no-install-recommends -y \
        libgtk2.0-0 \
@@ -73,8 +94,13 @@ RUN for i in {1..3}; do \
        libcurl4 \
        xdg-utils \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get install --no-install-recommends -y \
        htop \
@@ -88,8 +114,13 @@ RUN for i in {1..3}; do \
        tzdata \
        xz-utils \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 15; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get install --install-recommends -y \
        autocutsel \
@@ -102,8 +133,13 @@ RUN for i in {1..3}; do \
        novnc \
        g++ \
     && rm -rf /var/lib/apt/lists/* \
-    && for i in {1..3}; do \
-      (apt-get update && break) || sleep 1; \
+    && n=0; \
+    until [ $n -ge $max_tries ]; do \
+      apt-get update && break; \
+      n=$((n+1)); \
+      if [ $n -lt $max_tries ]; then \
+        sleep 15; \
+      fi \
     done \
     && apt-get install --install-recommends -y \
        tigervnc-standalone-server \
