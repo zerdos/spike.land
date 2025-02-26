@@ -24,8 +24,7 @@ jobs:
         image-name: [
           rolling-devcontainer,
           bookworm-devcontainer,
-          trixie-devcontainer,
-          jammy-xubuntu-desktop,
+          trixie-devcontainer
         ]
         platform: [linux/amd64, linux/arm64]
 

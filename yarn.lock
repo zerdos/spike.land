@@ -4392,12 +4392,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop":
-  version: 0.0.0-use.local
-  resolution: "@spike-npm-land/jammy-xubuntu-desktop@workspace:devcontainers/jammy-xubuntu-desktop"
-  languageName: unknown
-  linkType: soft
-
 "@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer"
