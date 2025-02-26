@@ -285,18 +285,18 @@ RUN apt-get update && apt-get install -y ca-certificates curl \
 # Switch to root user to perform the chown operation
 USER 0
 
-# Change ownership of the user's home directory
-RUN chown ${USER}:${USER} -R ${HOME}
+# Change ownership of the user's home directory and set working directory
+RUN chown ${USER}:${USER} -R /home/${USER} || echo "Failed to chown home directory"
 
 # Switch back to the specified user
 USER ${USER}
 
 # Set the working directory
-WORKDIR ${HOME}
+WORKDIR /home/${USER}
 
 # Install Oh My Zsh with specified plugins and theme
-RUN rm -rf ${HOME}/.oh-my-zsh \
-    && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.0/zsh-in-docker.sh)" -- \
+RUN rm -rf /home/${USER}/.oh-my-zsh \
+    && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)" -- \
        -t robbyrussell \
        -p git \
        -p gitfast \
@@ -313,17 +313,16 @@ ENV SHELL=/usr/bin/zsh
 
 USER ${USER}
 RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.1 \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.zshrc) || echo no-deno
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> /home/${USER}/.zshrc \
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> /home/${USER}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> /home/${USER}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> /home/${USER}/.zshrc) || echo no-deno
 
 USER 0
 RUN (ln /home/${USER}/.deno/bin/deno /usr/bin) || echo no-deno
 
 USER ${USER}
 
-  
 ### suffix.Dockerfie
 
 
