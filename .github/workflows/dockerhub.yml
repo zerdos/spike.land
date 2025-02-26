@@ -60,5 +60,10 @@ jobs:
           push: true
           platforms: ${{ matrix.platform }}
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest
-          cache-from: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
+          cache-from: |
+            type=registry,ref=devimages/${{ matrix.image-name }}:buildcache
+            type=registry,ref=devimages/${{ matrix.image-name }}:latest
           cache-to: type=registry,ref=devimages/${{ matrix.image-name }}:buildcache,mode=max
+          pull: true
+          no-cache-filters: |
+            */dist-upgrade
