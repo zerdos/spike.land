@@ -117,6 +117,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
     model: MODEL_NAME,
     anthropicApiKey: "DUMMY_API_KEY",
     streaming: false,
+  
     anthropicApiUrl: `${location.origin}/api/anthropic`,
     temperature: 0,
     maxTokens: 4096,

@@ -56,6 +56,15 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         const { setupAndRun } = await import("./chat-utils-langchain-example");
         setupAndRun(prompt, cSess).catch(console.error);
       },
+      setupAndRunAst: async (prompt: string) => {
+        const process = {
+          env: {
+            NODE_ENV: "development",
+          },
+        }
+        const { setupAndRunAst } = await import("./ast-code-workflow-example");
+        setupAndRunAst(prompt, cSess).catch(console.error);
+      },
     });
   }, []);
 
