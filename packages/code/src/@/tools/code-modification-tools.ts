@@ -20,7 +20,16 @@ interface ParsedBlock {
   original: string;
 }
 
+/**
+ * Parses search/replace blocks from instructions with improved handling
+ * for edge cases and better performance for large inputs
+ */
 function parseSearchReplaceBlocks(instructions: string): ParsedBlock[] {
+  // Early return for empty instructions
+  if (!instructions || instructions.trim().length === 0) {
+    return [];
+  }
+
   const blocks: ParsedBlock[] = [];
   const regex = new RegExp(
     `${SEARCH}([\\s\\S]*?)${SEPARATOR}([\\s\\S]*?)${REPLACE}`,
@@ -30,8 +39,14 @@ function parseSearchReplaceBlocks(instructions: string): ParsedBlock[] {
   let match;
   while ((match = regex.exec(instructions)) !== null) {
     if (match.length === 3) {
+      // Validate that search content is not empty
+      const search = match[1];
+      if (search.trim().length === 0) {
+        continue; // Skip empty search blocks
+      }
+      
       blocks.push({
-        search: match[1],
+        search,
         replace: match[2],
         original: match[0],
       });
@@ -53,12 +68,30 @@ function applySearchReplaceBlock(code: string, block: ParsedBlock): {
   error?: string;
 } {
   try {
-    // Ensure the search content exists in the code
+    // Validate inputs
+    if (!code) {
+      return {
+        result: code,
+        success: false,
+        error: "Code is empty or undefined"
+      };
+    }
+    
+    if (!block.search || block.search.trim().length === 0) {
+      return {
+        result: code,
+        success: false,
+        error: "Search content cannot be empty"
+      };
+    }
+    
+    // More efficient check for existence before replacement
     if (!code.includes(block.search)) {
+      // Provide more helpful error message with context
       return { 
         result: code, 
         success: false,
-        error: "Search content not found exactly as specified"
+        error: "Search content not found exactly as specified. Check whitespace, indentation, and line endings."
       };
     }
     
@@ -66,11 +99,11 @@ function applySearchReplaceBlock(code: string, block: ParsedBlock): {
     const result = code.replace(block.search, block.replace);
     
     // Verify the replacement was made
-    if (result === code) {
+    if (result === code && block.search !== block.replace) {
       return { 
         result, 
         success: false,
-        error: "Replacement failed - no changes made"
+        error: "Replacement failed - no changes made despite search content being found"
       };
     }
     
@@ -90,7 +123,7 @@ function applySearchReplaceBlock(code: string, block: ParsedBlock): {
 function createErrorResponse(
   currentCode: string, 
   errorMessage: string, 
-  additionalProps = {}
+  additionalProps: Record<string, unknown> = {}
 ): CodeModification {
   return {
     code: currentCode,
@@ -117,7 +150,7 @@ export const codeModificationTool = tool(
       if (documentHash !== currentHash) {
         return createErrorResponse(
           currentCode,
-          "Document has been modified since last hash. Please try again with the latest version.",
+          "Document has been modified since last hash. Please try again with the latest version or use a different documentHash to continue from a previous version.",
           {
             currentFileContent: currentCode,
             documentHash: currentHash,
@@ -142,7 +175,7 @@ export const codeModificationTool = tool(
       if (blocks.length === 0) {
         return createErrorResponse(
           currentCode,
-          "No valid search/replace blocks found. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE"
+          "No valid search/replace blocks found. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE with non-empty search content"
         );
       }
 
@@ -166,6 +199,7 @@ export const codeModificationTool = tool(
               blockNumber: currentBlockIndex,
               totalBlocks: blocks.length,
               failedBlockContent: block.original,
+              currentFileContent: modifiedCode, // Return the current state after previous blocks
             }
           );
         }
@@ -186,12 +220,23 @@ export const codeModificationTool = tool(
         res = await cSess.setCode(modifiedCode);
       } catch (e) {
         error = e instanceof Error ? e.message : "Unknown error setting code";
+        
+        // If compilation fails, inform the AI agent
+        return createErrorResponse(
+          currentCode,
+          `Code modification applied but failed to compile: ${error}. You can fix with another modification or roll back to a previous documentHash.`,
+          {
+            code: modifiedCode, // Include the modified code even though it failed
+            documentHash: md5(currentCode), // Keep the original hash
+            modifiedCodeHash: md5(modifiedCode), // Include hash of modified code for reference
+          }
+        );
       }
       
       if (res === false) {
         return createErrorResponse(
           currentCode,
-          "Failed to set code in the code session"
+          "Failed to set code in the code session. You can try again with a different modification or roll back to a previous documentHash."
         );
       }
 
