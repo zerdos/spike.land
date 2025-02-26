@@ -1,5 +1,6 @@
 import { replaceFirstCodeMod } from "@/lib/chat-utils";
 import { ICode } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { unknown, z } from "zod";
@@ -24,6 +25,7 @@ export const codeModificationTool = tool(
       code: currentCode,
       error: errorMessage,
       currentFileContent: currentCode,
+      documentHash: md5(currentCode),
       ...additionalProps
     });
     
@@ -125,15 +127,23 @@ export const codeModificationTool = tool(
         return createErrorResponse("Failed to set code in the code session", { retryCount });
       }
       
+      const documentHash = md5(result);
+      
       if (typeof res === "string") {
         return {
           code: res,
           error: "",
           retryCount,
+          documentHash,
         };
       }
 
-      return result;
+      return {
+        code: result,
+        error: "",
+        retryCount,
+        documentHash,
+      };
     } catch (error) {
       return createErrorResponse(
         error instanceof Error ? error.message : "Unknown error in code modification"

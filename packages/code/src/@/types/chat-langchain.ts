@@ -16,4 +16,5 @@ export type CodeModification = string | {
   searchContent?: string;
   blockNumber?: number;
   totalBlocks?: number;
+  documentHash?: string;
 };
