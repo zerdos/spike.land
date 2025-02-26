@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/vitest-pool-workers": "0.7.2",
+    "@cloudflare/vitest-pool-workers": "0.7.3",
     "@cloudflare/workers-types": "4.20250224.0",
     "@eslint/js": "9.21.0",
     "@rollup/plugin-commonjs": "28.0.2",
@@ -42,7 +42,7 @@
     "typescript": "5.7.3",
     "vitest": "3.0.7",
     "vitest-environment-miniflare": "2.14.4",
-    "wrangler": "3.109.3"
+    "wrangler": "3.110.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.37.0",
@@ -62,7 +62,7 @@
     "jiti": "2.4.2",
     "mime-db": "1.53.0",
     "mime-types": "2.1.35",
-    "miniflare": "3.20250214.0",
+    "miniflare": "3.20250214.1",
     "openai": "4.85.4",
     "openai-edge": "1.2.2",
     "p-map": "7.0.3",

@@ -33,7 +33,7 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.7.2",
+    "@cloudflare/vitest-pool-workers": "^0.7.3",
     "@cloudflare/workers-types": "4.20250224.0",
     "@types/node": "^22.13.5",
     "@types/react": "19.0.10",
