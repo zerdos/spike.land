@@ -1,24 +1,28 @@
-
-import { HumanMessage } from "@langchain/core/messages";
 import { ICode } from "@/lib/interfaces";
-import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { md5 } from "@/lib/md5";
 
 // // Custom error class for better error handling
-class AstWorkflowError extends Error {
+class CodeModWorkflowError extends Error {
   constructor(
     message: string,
     public readonly context?: Record<string, unknown>,
   ) {
     super(message);
-    this.name = "AstWorkflowError";
+    this.name = "CodeModWorkflowError";
   }
 }
 
-/**
- * Example usage of the chat workflow that demonstrates AI code modifications
- * with improved error handling and code integrity verification
- */
+export const setupAndRun = async (prompt: string, cSess: ICode) => {
+  if (!prompt || typeof prompt !== "string") {
+    throw new CodeModWorkflowError("Invalid prompt", { prompt });
+  }
+
+  const codeSpace = await cSess.getCodeSpace();
+  const channel = new BroadcastChannel(`codeSpace-${codeSpace}-workflow`);
+  
+  console.log(`Setting up workflow for code space: ${codeSpace}`);
+
+  
 const example = async (
   prompt: string,
   cSess: ICode,
@@ -54,7 +58,7 @@ const example = async (
     
     // Verify the workflow executed successfully
     if (!result) {
-      throw new AstWorkflowError("Workflow execution failed", {
+      throw new CodeModWorkflowError("Workflow execution failed", {
         prompt,
         initialDocumentHash,
       });
@@ -66,7 +70,7 @@ const example = async (
       const actualHash = md5(result.code);
       
       if (finalDocumentHash !== actualHash) {
-        throw new AstWorkflowError("Code integrity verification failed", {
+        throw new CodeModWorkflowError("Code integrity verification failed", {
           expectedHash: finalDocumentHash,
           actualHash,
         });
@@ -94,7 +98,7 @@ const example = async (
     return result;
   } catch (error) {
     // Enhanced error handling
-    if (error instanceof AstWorkflowError) {
+    if (error instanceof CodeModWorkflowError) {
       console.error(`Example Error: ${error.message}`, error.context);
     } else {
       console.error("Unexpected error in example:", error);
@@ -110,20 +114,8 @@ const example = async (
   }
 };
 
-/**
- * Sets up and runs the example workflow with proper resource management
- */
-export const setupAndRun = async (prompt: string, cSess: ICode) => {
-  if (!prompt || typeof prompt !== "string") {
-    throw new AstWorkflowError("Invalid prompt", { prompt });
-  }
-
-  const codeSpace = await cSess.getCodeSpace();
-  const channel = getBroadcastChannel(codeSpace);
-  
-  console.log(`Setting up workflow for code space: ${codeSpace}`);
-
   try {
+
     return await example(prompt, cSess, channel);
   } catch (error) {
     console.error("Setup and run failed:", error);

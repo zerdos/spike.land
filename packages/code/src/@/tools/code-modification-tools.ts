@@ -179,24 +179,14 @@ export const codeModificationTool = tool(
         cSess: ICode;
       }).cSess;
 
-      // Add the diff to the last message for context
-      // cSess.setMessages((() => {
-      //   const messages = cSess.getMessages();
-      //   const lastMessage = messages.length > 0 ? messages[messages.length - 1] : null;
-
-      //   if (lastMessage) {
-      //     // Create a new message with the updated content
-      //     const updatedMessage = { ...lastMessage, content: lastMessage.content + instructions };
-          
-      //     // Return all messages except the last one, plus the updated message
-      //     return [...messages.slice(0, -1), updatedMessage];
-      //   }
-        
-      //   return messages;
-      // })());
-
       // Set the modified code in the session
-      const res = await cSess.setCode(modifiedCode, true);
+      let error = "";
+      let res: string | boolean = false;
+      try {
+        res = await cSess.setCode(modifiedCode);
+      } catch (e) {
+        error = e instanceof Error ? e.message : "Unknown error setting code";
+      }
       
       if (res === false) {
         return createErrorResponse(
@@ -210,7 +200,7 @@ export const codeModificationTool = tool(
       
       // Return success response with the new hash
       return {
-        error: "",
+        error,
         documentHash: newDocumentHash,
         code: modifiedCode,
       };

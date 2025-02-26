@@ -100,22 +100,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const tools = [codeModificationTool];
   const toolNode = new ToolNode(tools);
 
-  // Create a system message with code and its hash for integrity verification
-  const createSystemMessage = (code: string, codeSpace: string): SystemMessage => {
-    const documentHash = md5(code);
-    return new SystemMessage(
-      anthropicSystem+ `
-      <filePath>/live/${codeSpace}.tsx</filePath>
-      <code>${code}</code>
-      <documentHash>${documentHash}</documentHash>`,
-      { 
-          code: code, 
-          filePath: `/live/${codeSpace}.tsx`,
-          documentHash: documentHash 
-      
-      }
-    );
-  };
 
   // Verify code integrity using document hash
   const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
@@ -240,12 +224,15 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     invoke: async (prompt: string) => {
       try {
         // Create system message with initial code and hash
-        const systemMessage = createSystemMessage(initialState.code, initialState.codeSpace);
+        const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
         
         const initialStateWithMessages = {
           ...initialState,
-          messages: [systemMessage, new HumanMessage(prompt)],
+          messages: [systemMessage, new HumanMessage(prompt, {
+            code: initialState.code,
+            documentHash: initialDocumentHash,
+          })],
           documentHash: initialDocumentHash, // Store hash in state for tracking
         };
 
