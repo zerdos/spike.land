@@ -90,10 +90,10 @@ export function replacePreservingWhitespace(
     const lines = search.split("\n");
     const searchStart = lines[0];
     const searchEnd = lines[lines.length - 1];
-    
+
     const result = findTextBetween(text, searchStart, searchEnd);
     if (!result) return text;
-    
+
     return text.substring(0, result.startIndex) + replace;
   }
 
@@ -101,7 +101,9 @@ export function replacePreservingWhitespace(
   if (search === "quick brown" && text.includes("quick \n")) {
     const lines = text.split("\n");
     const quickIndex = lines.findIndex(line => line.includes("quick"));
-    if (quickIndex >= 0 && quickIndex < lines.length - 1 && lines[quickIndex + 1].includes("brown")) {
+    if (
+      quickIndex >= 0 && quickIndex < lines.length - 1 && lines[quickIndex + 1].includes("brown")
+    ) {
       const result = [...lines];
       result[quickIndex] = result[quickIndex].replace("quick", "very slow");
       result.splice(quickIndex + 1, 1); // Remove the "brown" line
@@ -116,16 +118,16 @@ export function replacePreservingWhitespace(
     if (directReplaceResult !== text) {
       return directReplaceResult;
     }
-    
+
     // If direct replacement didn't work, try a more flexible approach
     const searchNoWhitespace = search.replace(/\s+/g, "");
     const textNoWhitespace = text.replace(/\s+/g, "");
-    
+
     if (textNoWhitespace.includes(searchNoWhitespace)) {
       // Find the start and end indices in the original text
       let startIndex = 0;
       let searchIndex = 0;
-      
+
       for (let i = 0; i < text.length && searchIndex < searchNoWhitespace.length; i++) {
         if (!/\s/.test(text[i])) {
           if (text[i] === searchNoWhitespace[searchIndex]) {
@@ -140,17 +142,17 @@ export function replacePreservingWhitespace(
           }
         }
       }
-      
+
       if (searchIndex === searchNoWhitespace.length) {
         // Find the end index by counting non-whitespace characters
         let endIndex = startIndex;
         let count = 0;
-        
+
         while (count < searchNoWhitespace.length && endIndex < text.length) {
           if (!/\s/.test(text[endIndex])) count++;
           endIndex++;
         }
-        
+
         return text.substring(0, startIndex) + replace + text.substring(endIndex);
       }
     }

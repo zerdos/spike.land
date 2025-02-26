@@ -1,7 +1,7 @@
 // src/importmap-utils.ts
-import * as acorn from 'acorn';
-import acornJsx from 'acorn-jsx';
-import * as acornWalk from 'acorn-walk';
+import * as acorn from "acorn";
+import acornJsx from "acorn-jsx";
+import * as acornWalk from "acorn-walk";
 
 export type ImportMap = {
   imports: Record<string, string>;
@@ -9,24 +9,54 @@ export type ImportMap = {
 
 // Configuration
 const FILE_EXTENSIONS = new Set([
-  '.js', '.mjs', '.ts', '.tsx', '.jsx', 
-  '.json', '.wasm', '.txt', '.svg', '.md', 
-  '.html', '.css', '.scss', '.sass', '.less', 
-  '.styl', '.graphql', '.gql', '.yml', '.toml', 
-  '.xml', '.csv', '.tsv', '.ini', '.properties', 
-  '.env', '.env.local', '.env.development', 
-  '.env.test', '.env.production', '.env.staging'
+  ".js",
+  ".mjs",
+  ".ts",
+  ".tsx",
+  ".jsx",
+  ".json",
+  ".wasm",
+  ".txt",
+  ".svg",
+  ".md",
+  ".html",
+  ".css",
+  ".scss",
+  ".sass",
+  ".less",
+  ".styl",
+  ".graphql",
+  ".gql",
+  ".yml",
+  ".toml",
+  ".xml",
+  ".csv",
+  ".tsv",
+  ".ini",
+  ".properties",
+  ".env",
+  ".env.local",
+  ".env.development",
+  ".env.test",
+  ".env.production",
+  ".env.staging",
 ]);
 
-const WORKER_PATTERNS = ['/workers/', '.worker'];
+const WORKER_PATTERNS = ["/workers/", ".worker"];
 const COMPONENT_PATTERNS = [
-  '@/components/', '/live/', '@/lib', 
-  '@/external', '@/hooks'
+  "@/components/",
+  "/live/",
+  "@/lib",
+  "@/external",
+  "@/hooks",
 ];
 
 const EXTERNAL_DEPENDENCIES = [
-  'react', 'react-dom', 'framer-motion', 
-  '@emotion/react', '@emotion/styled'
+  "react",
+  "react-dom",
+  "framer-motion",
+  "@emotion/react",
+  "@emotion/styled",
 ];
 
 export const importMap: ImportMap = {
@@ -47,7 +77,7 @@ export const importMap: ImportMap = {
 
 // Path Utilities
 function hasKnownExtension(path: string): boolean {
-  const lastDotIndex = path.lastIndexOf('.');
+  const lastDotIndex = path.lastIndexOf(".");
   return lastDotIndex !== -1 && FILE_EXTENSIONS.has(path.slice(lastDotIndex));
 }
 
@@ -64,43 +94,43 @@ function processQueryAndHash(path: string): {
   query: string;
   hash: string;
 } {
-  const [pathPart, hash] = path.split('#');
-  const [basePath, query] = pathPart.split('?');
-  
+  const [pathPart, hash] = path.split("#");
+  const [basePath, query] = pathPart.split("?");
+
   return {
-    basePath: basePath || '',
-    query: query ? `?${query}` : '',
-    hash: hash ? `#${hash}` : '',
+    basePath: basePath || "",
+    query: query ? `?${query}` : "",
+    hash: hash ? `#${hash}` : "",
   };
 }
 
 function shouldTransformPath(path: string): boolean {
   return (
-    !path.includes('?bundle=false') &&
-    !path.startsWith('data:') &&
-    !path.startsWith('http://') &&
-    !path.startsWith('https://') &&
-    !path.startsWith('/live/') &&
+    !path.includes("?bundle=false") &&
+    !path.startsWith("data:") &&
+    !path.startsWith("http://") &&
+    !path.startsWith("https://") &&
+    !path.startsWith("/live/") &&
     !/^https?:\/\//.test(path)
   );
 }
 
 function getExportsFromSpecifiers(specifiers: any[]): string {
   return specifiers
-    .filter(spec => spec.type === 'ImportSpecifier')
+    .filter(spec => spec.type === "ImportSpecifier")
     .map(spec => spec.imported?.name || spec.local.name)
     .filter(Boolean)
-    .join(',');
+    .join(",");
 }
 
 function getMappedPath(
-  path: string, 
-  exportsParam: string = '', 
+  path: string,
+  exportsParam: string = "",
   hasFromClause: boolean = false,
-  importMapImports: ImportMap["imports"] = importMap["imports"]
+  importMapImports: ImportMap["imports"] = importMap["imports"],
 ): string {
   // Early returns for complex or special paths
-  if (path.includes('${') || path.includes('+')) return path;
+  if (path.includes("${") || path.includes("+")) return path;
 
   const { basePath, query: existingQuery, hash } = processQueryAndHash(path);
 
@@ -110,12 +140,12 @@ function getMappedPath(
   // Handle worker files
   if (isWorkerFile(basePath)) {
     const baseWithoutExt = hasKnownExtension(basePath)
-      ? basePath.substring(0, basePath.lastIndexOf('.'))
+      ? basePath.substring(0, basePath.lastIndexOf("."))
       : basePath;
-    const extension = hasFromClause ? '.mjs' : '.js';
+    const extension = hasFromClause ? ".mjs" : ".js";
     const resultPath = baseWithoutExt + extension;
-    
-    return !resultPath.startsWith('.') && !resultPath.startsWith('/')
+
+    return !resultPath.startsWith(".") && !resultPath.startsWith("/")
       ? `/${resultPath}`
       : resultPath;
   }
@@ -123,42 +153,44 @@ function getMappedPath(
   // Handle component and special files
   if (isComponentFile(basePath)) {
     const baseWithoutExt = hasKnownExtension(basePath)
-      ? basePath.substring(0, basePath.lastIndexOf('.'))
+      ? basePath.substring(0, basePath.lastIndexOf("."))
       : basePath;
-    const extension = '.mjs';
+    const extension = ".mjs";
     const resultPath = baseWithoutExt + extension;
-    
-    return !resultPath.startsWith('.') && !resultPath.startsWith('/')
+
+    return !resultPath.startsWith(".") && !resultPath.startsWith("/")
       ? `/${resultPath}`
       : resultPath;
   }
 
   // Handle directory imports and paths without extension
-  if (!hasKnownExtension(basePath) && 
-      (basePath.startsWith('.') || basePath.startsWith('/'))) {
-    const extension = basePath.endsWith('/') ? 'index.mjs' : '.mjs';
+  if (
+    !hasKnownExtension(basePath) &&
+    (basePath.startsWith(".") || basePath.startsWith("/"))
+  ) {
+    const extension = basePath.endsWith("/") ? "index.mjs" : ".mjs";
     return `${basePath}${extension}${existingQuery}${hash}`;
   }
 
   // Preserve live and absolute URLs
-  if (basePath.startsWith('/live/') || /^https?:\/\//.test(basePath)) {
+  if (basePath.startsWith("/live/") || /^https?:\/\//.test(basePath)) {
     return basePath + existingQuery + hash;
   }
 
   // Handle non-relative paths (only if not already mapped)
-  if (!basePath.startsWith('.') && !basePath.startsWith('/') && !importMapImports[basePath]) {
+  if (!basePath.startsWith(".") && !basePath.startsWith("/") && !importMapImports[basePath]) {
     const params = [
-      'bundle=true',
-      `external=${EXTERNAL_DEPENDENCIES.join(',')}`,
+      "bundle=true",
+      `external=${EXTERNAL_DEPENDENCIES.join(",")}`,
     ];
-    
+
     if (exportsParam) params.push(`exports=${exportsParam}`);
-    
-    const queryString = params.join('&');
-    const finalQuery = existingQuery 
-      ? `${existingQuery}&${queryString}` 
+
+    const queryString = params.join("&");
+    const finalQuery = existingQuery
+      ? `${existingQuery}&${queryString}`
       : `?${queryString}`;
-    
+
     return `/${basePath}${finalQuery}${hash}`;
   }
 
@@ -166,15 +198,15 @@ function getMappedPath(
 }
 
 export function importMapReplace(
-  code: string, 
-  origin: string = '', 
-  impMap: ImportMap = importMap
+  code: string,
+  origin: string = "",
+  impMap: ImportMap = importMap,
 ): string {
   // Handle binary data - convert to string if needed
-  if (typeof code !== 'string') {
+  if (typeof code !== "string") {
     try {
       code = (code as unknown as {
-        toString(): string
+        toString(): string;
       }).toString();
     } catch (e) {
       return code;
@@ -182,10 +214,10 @@ export function importMapReplace(
   }
 
   // Normalize line endings
-  code = code.replace(/\r\n/g, '\n');
+  code = code.replace(/\r\n/g, "\n");
 
   // Prevent double processing
-  if (code.includes('/** importMapReplace */') || code.includes('/* esm.sh')) {
+  if (code.includes("/** importMapReplace */") || code.includes("/* esm.sh")) {
     return code;
   }
 
@@ -197,22 +229,23 @@ export function importMapReplace(
     try {
       // Parse the code using acorn with JSX plugin
       ast = parser.parse(code, {
-        sourceType: 'module',
-        ecmaVersion: 'latest',
+        sourceType: "module",
+        ecmaVersion: "latest",
         allowAwaitOutsideFunction: true,
         allowImportExportEverywhere: true,
         locations: true,
         ranges: true,
       });
     } catch (error) {
-      console.error('AST parsing failed, falling back to original code:', error);
+      console.error("AST parsing failed, falling back to original code:", error);
       return code;
     }
 
     // Create working variables
-    const codeLines = code.split('\n');
-    const changes: Array<{line: number, column: number, length: number, replacement: string}> = [];
-    
+    const codeLines = code.split("\n");
+    const changes: Array<{ line: number; column: number; length: number; replacement: string; }> =
+      [];
+
     // Always set to true to be compatible with the original implementation
     let hasChanges = true;
 
@@ -220,11 +253,13 @@ export function importMapReplace(
     acornWalk.full(ast, (node: any) => {
       try {
         // Handle import declarations
-        if (node.type === 'ImportDeclaration' && node.source && typeof node.source.value === 'string') {
+        if (
+          node.type === "ImportDeclaration" && node.source && typeof node.source.value === "string"
+        ) {
           const path = node.source.value;
           const exportsParam = getExportsFromSpecifiers(node.specifiers);
           const mappedPath = getMappedPath(path, exportsParam, true, impMap.imports);
-          
+
           const { start, end } = node.source;
 
           // Check if path should be transformed
@@ -237,71 +272,79 @@ export function importMapReplace(
               line: start.line - 1, // Convert to 0-based line index
               column: start.column, // Use raw column value
               length: end.column - start.column, // Length of the string including quotes
-              replacement: `${originalQuote}${mappedPath}${originalQuote}`
+              replacement: `${originalQuote}${mappedPath}${originalQuote}`,
             });
           }
         }
 
         // Handle export from declarations
-        if (node.type === 'ExportNamedDeclaration' && node.source && typeof node.source.value === 'string') {
+        if (
+          node.type === "ExportNamedDeclaration" && node.source &&
+          typeof node.source.value === "string"
+        ) {
           const path = node.source.value;
           const exportsParam = getExportsFromSpecifiers(node.specifiers);
           const mappedPath = getMappedPath(path, exportsParam, true, impMap.imports);
-          
+
           const { start, end } = node.source;
           // Extract source text using exact offsets
           const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
-          
+
           changes.push({
             line: start.line - 1, // Convert to 0-based line index
             column: start.column, // Use raw column value
             length: end.column - start.column, // Length of the string including quotes
-            replacement: `${originalQuote}${mappedPath}${originalQuote}`
+            replacement: `${originalQuote}${mappedPath}${originalQuote}`,
           });
         }
-        
+
         // Handle export all declarations
-        if (node.type === 'ExportAllDeclaration' && node.source && typeof node.source.value === 'string') {
+        if (
+          node.type === "ExportAllDeclaration" && node.source &&
+          typeof node.source.value === "string"
+        ) {
           const path = node.source.value;
-          const mappedPath = getMappedPath(path, '', true, impMap.imports);
-          
+          const mappedPath = getMappedPath(path, "", true, impMap.imports);
+
           const { start, end } = node.source;
           // Extract source text using exact offsets
           const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
-          
+
           changes.push({
             line: start.line - 1, // Convert to 0-based line index
             column: start.column, // Use raw column value
             length: end.column - start.column, // Length of the string including quotes
-            replacement: `${originalQuote}${mappedPath}${originalQuote}`
+            replacement: `${originalQuote}${mappedPath}${originalQuote}`,
           });
         }
-        
+
         // Handle dynamic imports
-        if (node.type === 'CallExpression' && 
-            node.callee.type === 'Import' && 
-            node.arguments.length > 0 && 
-            node.arguments[0].type === 'Literal' &&
-            typeof node.arguments[0].value === 'string') {
+        if (
+          node.type === "CallExpression" &&
+          node.callee.type === "Import" &&
+          node.arguments.length > 0 &&
+          node.arguments[0].type === "Literal" &&
+          typeof node.arguments[0].value === "string"
+        ) {
           const path = node.arguments[0].value;
-          const mappedPath = getMappedPath(path, '', true, impMap.imports);
-          
+          const mappedPath = getMappedPath(path, "", true, impMap.imports);
+
           const { start, end } = node.arguments[0];
           // Extract source text using exact offsets
           const sourceText = code.substring(start.offset, end.offset);
           const originalQuote = sourceText.charAt(0);
-          
+
           changes.push({
             line: start.line - 1, // Convert to 0-based line index
             column: start.column, // Use raw column value
             length: end.column - start.column, // Length of the string including quotes
-            replacement: `${originalQuote}${mappedPath}${originalQuote}`
+            replacement: `${originalQuote}${mappedPath}${originalQuote}`,
           });
         }
       } catch (err) {
-        console.error('Error processing node:', err);
+        console.error("Error processing node:", err);
       }
     });
 
@@ -316,9 +359,8 @@ export function importMapReplace(
       if (change.line >= 0 && change.line < codeLines.length) {
         const line = codeLines[change.line];
         if (change.column >= 0 && change.column + change.length <= line.length) {
-          codeLines[change.line] = 
-            line.substring(0, change.column) + 
-            change.replacement + 
+          codeLines[change.line] = line.substring(0, change.column) +
+            change.replacement +
             line.substring(change.column + change.length);
         }
       }
@@ -326,9 +368,9 @@ export function importMapReplace(
 
     // Based on the tests, the original implementation always adds the header
     // whether or not changes were made
-    return `/** importMapReplace */\n${codeLines.join('\n')}`;
+    return `/** importMapReplace */\n${codeLines.join("\n")}`;
   } catch (error) {
-    console.error('AST transformation failed, falling back to original code:', error);
+    console.error("AST transformation failed, falling back to original code:", error);
     return code;
   }
 }

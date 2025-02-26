@@ -25,24 +25,24 @@ export const codeModificationTool = tool(
       if (documentHash !== currentHash) {
         return {
           code: currentCode,
-          error: "Document has been modified since last hash. Please try again with the latest version.",
+          error:
+            "Document has been modified since last hash. Please try again with the latest version.",
           currentFileContent: currentCode,
-          documentHash: currentHash
+          documentHash: currentHash,
         };
       }
     }
-    
+
     // Helper function to create error response
     const createErrorResponse = (errorMessage: string, additionalProps = {}): CodeModification => ({
       code: currentCode,
       error: errorMessage,
       currentFileContent: currentCode,
       documentHash: md5(currentCode),
-      ...additionalProps
+      ...additionalProps,
     });
-    
-    try {
 
+    try {
       if (instructions.length === 0) {
         return createErrorResponse("Instructions required - provide search/replace blocks");
       }
@@ -53,7 +53,7 @@ export const codeModificationTool = tool(
 
       if (searchIndex === -1 || replaceIndex === -1 || separatorIndex === -1) {
         return createErrorResponse(
-          "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE"
+          "Invalid format. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE",
         );
       }
 
@@ -90,26 +90,30 @@ export const codeModificationTool = tool(
         if (retryCount === 1) {
           // Enhanced error feedback with detailed context
           return createErrorResponse(
-            `Block ${currentBlockIndex + 1}/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
+            `Block ${
+              currentBlockIndex + 1
+            }/${totalBlocks} not found exactly as specified. Compare your SEARCH block with current file content:`,
             {
               retryCount,
               searchContent: searchBlocks[currentBlockIndex],
               blockNumber: currentBlockIndex + 1,
               totalBlocks,
-            }
+            },
           );
         }
       } while (retryCount < maxRetries);
 
       if (result === currentCode) {
         return createErrorResponse(
-          `Failed to apply block ${currentBlockIndex + 1}/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
+          `Failed to apply block ${
+            currentBlockIndex + 1
+          }/${totalBlocks} after ${retryCount} attempts. Verify the search content matches exactly:`,
           {
             retryCount,
             searchContent: searchBlocks[currentBlockIndex],
             blockNumber: currentBlockIndex + 1,
             totalBlocks,
-          }
+          },
         );
       }
 
@@ -120,17 +124,17 @@ export const codeModificationTool = tool(
       // add this diff to last message
       cSess.setMessages((() => {
         const lastMessage = cSess.getMessages().pop();
-        
+
         if (lastMessage) {
           lastMessage.content += instructions;
-      
+
           const oldMessages = [...cSess.getMessages()];
           oldMessages.pop();
           return [...oldMessages, lastMessage];
         }
         return cSess.getMessages();
       })());
-  
+
       const res = await (globalThis as unknown as {
         cSess: ICode;
       }).cSess.setCode(result);
@@ -138,9 +142,9 @@ export const codeModificationTool = tool(
       if (res === false) {
         return createErrorResponse("Failed to set code in the code session", { retryCount });
       }
-      
+
       const documentHash = md5(result);
-      
+
       if (typeof res === "string") {
         return {
           code: res,
@@ -158,7 +162,7 @@ export const codeModificationTool = tool(
       };
     } catch (error) {
       return createErrorResponse(
-        error instanceof Error ? error.message : "Unknown error in code modification"
+        error instanceof Error ? error.message : "Unknown error in code modification",
       );
     }
   },
