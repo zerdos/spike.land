@@ -46,7 +46,8 @@ export const setupAndRun = async (
 
       console.log("Starting workflow with code hash:", initialDocumentHash);
 
-      // Create the workflow with initial state
+      // Create the workflow with initial state and pass returnModifiedCode in the initial state
+      // This will be available in the workflow's state and can be used by the code modification tool
       const workflow = await createWorkflowWithStringReplace({
         code: initialCode,
         codeSpace: codeSpace,
@@ -59,11 +60,12 @@ export const setupAndRun = async (
         ],
         messages: [], // We'll create the messages properly before invoking
         documentHash: initialDocumentHash,
+        // Add returnModifiedCode to the initial state so it can be accessed by the workflow
+        returnModifiedCode: options.returnModifiedCode,
       });
 
       // The workflow will create the system message with code and document hash
       // and add the human message with the user's request
-      // Invoke workflow with the prompt
       const result = await workflow.invoke(prompt);
 
       // Verify the workflow executed successfully
@@ -71,7 +73,7 @@ export const setupAndRun = async (
         throw new CodeModWorkflowError("Workflow execution failed", {
           prompt,
           initialDocumentHash,
-          returnModifiedCode: false,
+          returnModifiedCode: options.returnModifiedCode,
         });
       }
 
