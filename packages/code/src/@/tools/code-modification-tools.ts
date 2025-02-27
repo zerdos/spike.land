@@ -1,4 +1,6 @@
+import { updateSearchReplace } from "@/lib/chat-utils";
 import { ICode } from "@/lib/interfaces";
+
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
@@ -144,6 +146,10 @@ export const codeModificationTool = tool(
       returnModifiedCode?: boolean;
     },
   ): Promise<CodeModification> => {
+    const cSess = (globalThis as unknown as {
+      cSess: ICode;
+    }).cSess;
+
     // Get current code from the session
     const currentCode = await (globalThis as unknown as {
       cSess: { getCode: () => Promise<string>; };
@@ -173,51 +179,59 @@ export const codeModificationTool = tool(
         );
       }
 
+
       // Parse search/replace blocks
-      const blocks = parseSearchReplaceBlocks(instructions);
+      // const blocks = parseSearchReplaceBlocks(instructions);
 
       // Validate that we have at least one valid block
-      if (blocks.length === 0) {
+      if (instructions.length === 0) {
         return createErrorResponse(
           currentCode,
           "No valid search/replace blocks found. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE with non-empty search content",
         );
       }
 
-      // Apply blocks sequentially
-      let modifiedCode = currentCode;
-      let currentBlockIndex = 0;
+      const modifiedCode = updateSearchReplace(instructions, currentCode)
 
-      for (const block of blocks) {
-        currentBlockIndex++;
 
-        // Apply the current block
-        const { result, success, error } = applySearchReplaceBlock(modifiedCode, block);
-
-        if (!success) {
-          // Return detailed error information for debugging
-          return createErrorResponse(
-            currentCode,
-            `Block ${currentBlockIndex}/${blocks.length} failed: ${error}`,
-            {
-              searchContent: block.search,
-              blockNumber: currentBlockIndex,
-              totalBlocks: blocks.length,
-              failedBlockContent: block.original,
-              currentFileContent: modifiedCode, // Return the current state after previous blocks
-            },
-          );
-        }
-
-        // Update the code with the successful modification
-        modifiedCode = result;
+      if (modifiedCode === currentCode) {
+        return createErrorResponse(
+          currentCode,
+          "No changes made to the code. Check the search content and ensure it matches exactly.",
+        );
       }
 
-      // If we reach here, all blocks were applied successfully
-      const cSess = (globalThis as unknown as {
-        cSess: ICode;
-      }).cSess;
+      // Apply blocks sequentially
+      // let modifiedCode = currentCode;
+      // let currentBlockIndex = 0;
 
+      // for (const block of blocks) {
+      //   currentBlockIndex++;
+
+      //   // Apply the current block
+      //   const { result, success, error } = applySearchReplaceBlock(modifiedCode, block);
+
+      //   if (!success) {
+      //     // Return detailed error information for debugging
+      //     return createErrorResponse(
+      //       currentCode,
+      //       `Block ${currentBlockIndex}/${blocks.length} failed: ${error}`,
+      //       {
+      //         searchContent: block.search,
+      //         blockNumber: currentBlockIndex,
+      //         totalBlocks: blocks.length,
+      //         failedBlockContent: block.original,
+      //         currentFileContent: modifiedCode, // Return the current state after previous blocks
+      //       },
+      //     );
+      //   }
+
+      //   // Update the code with the successful modification
+      //   modifiedCode = result;
+      // }
+
+      // If we reach here, all blocks were applied successfully
+ 
       // Set the modified code in the session
       let error = "";
       let res: string | boolean = false;
@@ -269,95 +283,12 @@ export const codeModificationTool = tool(
       `Optimized code modification tool that efficiently applies search/replace patterns, with special handling for large files. Supports multiple coordinated changes with robust error reporting.
 
 Required format for instructions parameter (can include multiple blocks):
-<<<<<<< SEARCH
-[exact content to find]
+<<<<<<< SEARC
+[content to find, whitespaces and indentations can be ignored]
 =======
 [new content to replace with]
 >>>>>>> REPLACE
-
-Critical rules:
-1. SEARCH content must match EXACTLY (character-for-character):
-   - Match all whitespace, indentation, and line endings
-   - Include all relevant context (imports, full function definitions, etc.)
-   - Don't truncate or modify the content you're searching for
-
-2. Common mistakes to avoid:
-   - Missing imports or context needed for the changes
-   - Not including enough surrounding code for unique matches
-   - Incorrect indentation or line endings
-   - Partial line matches (always include complete lines)
-
-3. When modification fails:
-   - Tool indicates which block failed (e.g. "Block 2/3 failed")
-   - Returns current file content and failing block content
-   - Compare your SEARCH block carefully with the file content
-   - Add necessary imports or context
-   - Ensure formatting matches exactly
-
-4. Multiple block handling:
-   - Blocks are processed in order they appear
-   - Each block must match and apply successfully
-   - Later blocks operate on the result of earlier blocks
-   - If any block fails, the tool reports which one
-
-5. Large file optimization:
-   - Uses efficient regex-based parsing to handle large files
-   - Processes blocks sequentially to minimize memory usage
-   - Provides detailed error information for easier debugging
-   - Maintains document hash verification for code integrity
-   - Avoids unnecessary retries and loops for better performance
-
-Examples for different code styles:
-
-1. Adding a field to a class:
-<<<<<<< SEARCH
-class UserManager {
-  private users: { id: number; name: string; }[] = [];
-}
-=======
-class UserManager {
-  private users: { id: number; name: string; password: string; }[] = [];
-}
->>>>>>> REPLACE
-
-2. Modifying a class method:
-<<<<<<< SEARCH
-  addUser(name: string) {
-    const user = { id: this.nextId++, name };
-    this.users.push(user);
-    return user;
-  }
-=======
-  async addUser(name: string, password: string) {
-    const hashedPassword = await hash(password, 10);
-    const user = { id: this.nextId++, name, password: hashedPassword };
-    this.users.push(user);
-    return user;
-  }
->>>>>>> REPLACE
-
-3. Adding imports:
-<<<<<<< SEARCH
-class UserManager {
-=======
-import { hash } from 'bcrypt';
-
-class UserManager {
->>>>>>> REPLACE
-
-4. Updating interfaces/types:
-<<<<<<< SEARCH
-interface User {
-  id: string;
-  name: string;
-}
-=======
-interface User {
-  id: string;
-  name: string;
-  password: string;
-}
->>>>>>> REPLACE`,
+`,
     schema: z.object({
       instructions: z.string().describe(
         "Search/replace blocks following the required format. Each block must contain <<<<<<< SEARCH, =======, and >>>>>>> REPLACE. SEARCH content must match the file exactly.",

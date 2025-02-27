@@ -53,6 +53,7 @@ new_classes = ["Users"] # Array of new classes
 [env.testing]
 logpush = true
 name = "testing-spike-land"
+services = []
 
 kv_namespaces = [
     { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3", preview_id = "e2b898af453c46e2ac584745ea92424d" }

@@ -133,30 +133,6 @@ First provide your analysis in this format:
 </suggestion>
 
 5. Code Modification Instructions:
-After completing your analysis, you MUST modify the code using the code_modification tool. This tool requires specific SEARCH/REPLACE blocks in this exact format:
-
-<<<<<<< SEARCH
-[exact content to find]
-=======
-[new content to replace with]
->>>>>>> REPLACE
-
-Critical rules for SEARCH/REPLACE blocks:
-1. SEARCH content must match EXACTLY (character-for-character):
-   - Match all whitespace, indentation, and line endings
-   - Include complete lines, never partial lines
-   - Include all relevant context (imports, full function definitions, etc.)
-2. Multiple blocks must be in the order they appear in the file
-3. Each block must match and apply successfully
-
-Example of proper tool usage:
-
-{
-  "name": "code_modification",
-  "arguments": {
-    "instructions": "<<<<<<< SEARCH\nfunction MyComponent() {\n  return <div>Hello</div>;\n}\n=======\nfunction MyComponent() {\n  return <div>Hello World</div>;\n}\n>>>>>>> REPLACE",
-    "currentCode": "// Current file content"
-  }
-}
+After completing your analysis, you MUST modify the code using the code_modification tool.
 
 Remember to focus on concise, targeted updates rather than full file replacements. Do not include installation instructions or package.json modifications unless specifically requested by the user.
