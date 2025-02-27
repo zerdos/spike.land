@@ -66,7 +66,7 @@ export class ServiceWorkerHandlers {
     try {
       console.log("Service Worker activating.");
 
-      await this.fileCacheManager.validateCacheIntegrity();
+      // await this.fileCacheManager.validateCacheIntegrity();
       await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
       await this.sw.clients.claim();
 
@@ -153,8 +153,8 @@ export class ServiceWorkerHandlers {
         const url = new URL(req.url);
         const file = url.pathname.slice(1);
         const cacheFile = this.sw.files[file];
-        const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
-        return CacheUtils.retry(() => fetch(newUrl));
+        // const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
+        return CacheUtils.retry(() => fetch(file));
       },
       event.waitUntil.bind(event),
     ).catch((error) => {

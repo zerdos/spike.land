@@ -227,7 +227,7 @@ export const codeModificationTool = tool(
       `Optimized code modification tool that efficiently applies search/replace patterns, with special handling for large files. Supports multiple coordinated changes with robust error reporting.
 
 Required format for instructions parameter (can include multiple blocks):
-<<<<<<< SEARC
+<<<<<<< SEARCH
 [content to find, whitespaces and indentations can be ignored]
 =======
 [new content to replace with]

@@ -48,7 +48,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
   useEffect(() => {
     Object.assign(globalThis, {
       setupAndRun: async (prompt: string) => {
-        const process = {
+        var process = {
           env: {
             NODE_ENV: "development",
           },
@@ -57,7 +57,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         setupAndRun(prompt, cSess).catch(console.error);
       },
       setupAndRunAst: async (prompt: string) => {
-        const process = {
+        var process = {
           env: {
             NODE_ENV: "development",
           },
