@@ -451,7 +451,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.24.3, @clerk/backend@npm:^1.24.3":
+"@clerk/backend@npm:1.24.3, @clerk/backend@npm:^1.21.6, @clerk/backend@npm:^1.24.3":
   version: 1.24.3
   resolution: "@clerk/backend@npm:1.24.3"
   dependencies:
@@ -461,19 +461,6 @@ __metadata:
     snakecase-keys: "npm:8.0.1"
     tslib: "npm:2.4.1"
   checksum: 10c0/846809140cb83b6d3ea69bbacd70808ece07c5ef4059cc9531b21218a7eb08f0d264fed14eeae7f80317320431b27a124e58b82f841e87a8a6babb77b68e56c7
-  languageName: node
-  linkType: hard
-
-"@clerk/backend@npm:^1.21.6":
-  version: 1.24.2
-  resolution: "@clerk/backend@npm:1.24.2"
-  dependencies:
-    "@clerk/shared": "npm:^2.22.0"
-    "@clerk/types": "npm:^4.46.1"
-    cookie: "npm:1.0.2"
-    snakecase-keys: "npm:8.0.1"
-    tslib: "npm:2.4.1"
-  checksum: 10c0/d6c06ea54e09e4dd7822ca9fc0b572c55ea7c83872fd2f9b114a01df7139a0c66bf2048df9fea6f10441e97fac1e08c3915967df1cd5347e3a935ec7f8368ddf
   languageName: node
   linkType: hard
 
@@ -522,7 +509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:^2.20.6, @clerk/shared@npm:^2.22.0":
+"@clerk/shared@npm:^2.20.6":
   version: 2.22.0
   resolution: "@clerk/shared@npm:2.22.0"
   dependencies:
@@ -566,16 +553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:^4.40.2, @clerk/types@npm:^4.46.1":
-  version: 4.46.1
-  resolution: "@clerk/types@npm:4.46.1"
-  dependencies:
-    csstype: "npm:3.1.3"
-  checksum: 10c0/0d66841a38fef2a0dc1ff77897520e4ae8559ef6b39a6d5ecb7d8326d78ee4a1f928958856b7468bfc684e509f3f43be5dbf2901c6161ba36397e4131b626658
-  languageName: node
-  linkType: hard
-
-"@clerk/types@npm:^4.47.0":
+"@clerk/types@npm:^4.40.2, @clerk/types@npm:^4.46.1, @clerk/types@npm:^4.47.0":
   version: 4.47.0
   resolution: "@clerk/types@npm:4.47.0"
   dependencies:
@@ -9106,9 +9084,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.105
-  resolution: "electron-to-chromium@npm:1.5.105"
-  checksum: 10c0/c5956af18fb8888938509810f754621c2c0e71e9aef305e76abb7cadef6440d9a2404eae942fea256c473e031d67d71857341786d381fbb69a734c8afba549c2
+  version: 1.5.106
+  resolution: "electron-to-chromium@npm:1.5.106"
+  checksum: 10c0/15dfec6c93115944f7473ad90eb2e511bee3cdaa6f98b58bbbd7a6b6acfd287655180e9962c15d14543879d7755d0f24d6ec1dc3bf5e5dd8813796a77c6fb52d
   languageName: node
   linkType: hard
 
@@ -14127,8 +14105,8 @@ __metadata:
   linkType: hard
 
 "minipass-fetch@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "minipass-fetch@npm:4.0.0"
+  version: 4.0.1
+  resolution: "minipass-fetch@npm:4.0.1"
   dependencies:
     encoding: "npm:^0.1.13"
     minipass: "npm:^7.0.3"
@@ -14137,7 +14115,7 @@ __metadata:
   dependenciesMeta:
     encoding:
       optional: true
-  checksum: 10c0/7fa30ce7c373fb6f94c086b374fff1589fd7e78451855d2d06c2e2d9df936d131e73e952163063016592ed3081444bd8d1ea608533313b0149156ce23311da4b
+  checksum: 10c0/a3147b2efe8e078c9bf9d024a0059339c5a09c5b1dded6900a219c218cc8b1b78510b62dae556b507304af226b18c3f1aeb1d48660283602d5b6586c399eed5c
   languageName: node
   linkType: hard
 
@@ -18002,9 +17980,9 @@ __metadata:
   linkType: hard
 
 "strnum@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "strnum@npm:1.1.1"
-  checksum: 10c0/c016034f9896ea99c4a22a8a8142d1ec72dba8d514ddec399f96998d5d2ab9f9e5b6c75c761d9730c3244b794022b1a63ec293f0da41ab0a994e3584020ba1ad
+  version: 1.1.2
+  resolution: "strnum@npm:1.1.2"
+  checksum: 10c0/a0fce2498fa3c64ce64a40dada41beb91cabe3caefa910e467dc0518ef2ebd7e4d10f8c2202a6104f1410254cae245066c0e94e2521fb4061a5cb41831952392
   languageName: node
   linkType: hard
 
@@ -18992,8 +18970,8 @@ __metadata:
   linkType: hard
 
 "update-browserslist-db@npm:^1.1.1":
-  version: 1.1.2
-  resolution: "update-browserslist-db@npm:1.1.2"
+  version: 1.1.3
+  resolution: "update-browserslist-db@npm:1.1.3"
   dependencies:
     escalade: "npm:^3.2.0"
     picocolors: "npm:^1.1.1"
@@ -19001,7 +18979,7 @@ __metadata:
     browserslist: ">= 4.21.0"
   bin:
     update-browserslist-db: cli.js
-  checksum: 10c0/9cb353998d6d7d6ba1e46b8fa3db888822dd972212da4eda609d185eb5c3557a93fd59780ceb757afd4d84240518df08542736969e6a5d6d6ce2d58e9363aac6
+  checksum: 10c0/682e8ecbf9de474a626f6462aa85927936cdd256fe584c6df2508b0df9f7362c44c957e9970df55dfe44d3623807d26316ea2c7d26b80bb76a16c56c37233c32
   languageName: node
   linkType: hard
 
