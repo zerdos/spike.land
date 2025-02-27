@@ -36,16 +36,16 @@ The system supports four types of operations:
 // Example of using the AST-based code modification tool
 const operations = [
   {
-    type: 'update',
-    target: 'class:UserManager.method:addUser',
-    code: 'async addUser(name: string, password: string) { /* new implementation */ }'
+    type: "update",
+    target: "class:UserManager.method:addUser",
+    code: "async addUser(name: string, password: string) { /* new implementation */ }",
   },
   {
-    type: 'add',
-    target: 'program',
-    position: 'before',
-    code: 'import { hash } from "bcrypt";'
-  }
+    type: "add",
+    target: "program",
+    position: "before",
+    code: 'import { hash } from "bcrypt";',
+  },
 ];
 
 // The tool handles the rest - parsing, modifying, and generating code

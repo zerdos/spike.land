@@ -107,7 +107,7 @@ export const prettierToThrow = async ({
 export const format = async (code: string): Promise<string> => {
   const formatted = await prettierToThrow({ code, toThrow: false });
   return formatted;
-}
+};
 
 export const ata = async ({
   code,

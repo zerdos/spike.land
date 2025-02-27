@@ -15,11 +15,15 @@ describe("Hello World worker", () => {
     const response = await worker.fetch(request, env as Env);
     // Wait for all `Promise`s passed to `ctx.waitUntil()` to settle before running test assertions
     await waitOnExecutionContext(ctx);
-    expect(await response.text()).toMatchInlineSnapshot(`"Please add an ?url=https://example.com/ parameter"`);
+    expect(await response.text()).toMatchInlineSnapshot(
+      `"Please add an ?url=https://example.com/ parameter"`,
+    );
   });
 
   it("responds with Hello World! (integration style)", async () => {
     const response = await SELF.fetch("https://example.com");
-    expect(await response.text()).toMatchInlineSnapshot(`"Please add an ?url=https://example.com/ parameter"`);
+    expect(await response.text()).toMatchInlineSnapshot(
+      `"Please add an ?url=https://example.com/ parameter"`,
+    );
   });
 });

@@ -73,6 +73,8 @@ describe("importMapReplace", () => {
       "URLs with version tags": `import { lib } from "https://esm.sh/lodash@4.17.21";`,
       "query and hash in imports": `import { lib } from "./module?foo=bar#section";`,
       "relative imports with query parameters": `import { util } from "./utils?foo=bar";`,
+      "external lib":
+        `import { MoonIcon, SunIcon, PlusIcon, TrashIcon, PencilIcon } from "lucide-react";`,
     },
 
     // Dynamic imports

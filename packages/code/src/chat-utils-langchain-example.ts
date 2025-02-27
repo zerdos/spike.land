@@ -12,111 +12,122 @@ class CodeModWorkflowError extends Error {
   }
 }
 
-export const setupAndRun = async (prompt: string, cSess: ICode) => {
+export const setupAndRun = async (
+  prompt: string,
+  cSess: ICode,
+  options = { returnModifiedCode: false },
+) => {
   if (!prompt || typeof prompt !== "string") {
     throw new CodeModWorkflowError("Invalid prompt", { prompt });
   }
 
   const codeSpace = await cSess.getCodeSpace();
   const channel = new BroadcastChannel(`codeSpace-${codeSpace}-workflow`);
-  
+
   console.log(`Setting up workflow for code space: ${codeSpace}`);
 
-  
-const example = async (
-  prompt: string,
-  cSess: ICode,
-  channel: BroadcastChannel,
-) => {
-  try {
-    // Get the code session
-    const { createWorkflowWithStringReplace } = await import("@/workers/chat-utils-langchain.worker");
-    const session = await cSess.getSession();
-    const codeSpace = cSess.getCodeSpace();
-    
-    // Generate document hash for code integrity verification
-    const initialCode = session.code;
-    const initialDocumentHash = md5(initialCode);
-    
-    console.log("Starting workflow with code hash:", initialDocumentHash);
+  const example = async (
+    prompt: string,
+    cSess: ICode,
+    channel: BroadcastChannel,
+    options = { returnModifiedCode: false },
+  ) => {
+    try {
+      // Get the code session
+      const { createWorkflowWithStringReplace } = await import(
+        "@/workers/chat-utils-langchain.worker"
+      );
+      const session = await cSess.getSession();
+      const codeSpace = cSess.getCodeSpace();
 
-   
-    // Create the workflow with initial state
-    const workflow = await createWorkflowWithStringReplace({
-      code: initialCode,
-      codeSpace: codeSpace,
-      lastError: "",
-      isStreaming: false,
-      debugLogs: [],
-      messages: [], // We'll create the messages properly before invoking
-      documentHash: initialDocumentHash,
-    });
+      // Generate document hash for code integrity verification
+      const initialCode = session.code;
+      const initialDocumentHash = md5(initialCode);
 
-    // The workflow will create the system message with code and document hash
-    // and add the human message with the user's request
-    const result = await workflow.invoke(prompt)
-    
-    // Verify the workflow executed successfully
-    if (!result) {
-      throw new CodeModWorkflowError("Workflow execution failed", {
-        prompt,
-        initialDocumentHash,
+      console.log("Starting workflow with code hash:", initialDocumentHash);
+
+      // Create the workflow with initial state
+      const workflow = await createWorkflowWithStringReplace({
+        code: initialCode,
+        codeSpace: codeSpace,
+        lastError: "",
+        isStreaming: false,
+        debugLogs: [
+          `Token optimization: ${options.returnModifiedCode ? "OFF" : "ON"} (${
+            options.returnModifiedCode ? "returning" : "not returning"
+          } full code by default)`,
+        ],
+        messages: [], // We'll create the messages properly before invoking
+        documentHash: initialDocumentHash,
       });
-    }
 
-    // Verify final code integrity
-    if (result.code !== initialCode) {
-      const finalDocumentHash = result.documentHash || md5(result.code);
-      const actualHash = md5(result.code);
-      
-      if (finalDocumentHash !== actualHash) {
-        throw new CodeModWorkflowError("Code integrity verification failed", {
-          expectedHash: finalDocumentHash,
-          actualHash,
+      // The workflow will create the system message with code and document hash
+      // and add the human message with the user's request
+      // Invoke workflow with the prompt
+      const result = await workflow.invoke(prompt);
+
+      // Verify the workflow executed successfully
+      if (!result) {
+        throw new CodeModWorkflowError("Workflow execution failed", {
+          prompt,
+          initialDocumentHash,
+          returnModifiedCode: false,
         });
       }
-      
-      console.log("Code modification successful with integrity verified", {
-        initialHash: initialDocumentHash,
-        finalHash: finalDocumentHash,
+
+      // Verify final code integrity
+      if (result.code !== initialCode) {
+        const finalDocumentHash = result.documentHash || md5(result.code);
+        const actualHash = md5(result.code);
+
+        if (finalDocumentHash !== actualHash) {
+          throw new CodeModWorkflowError("Code integrity verification failed", {
+            expectedHash: finalDocumentHash,
+            actualHash,
+          });
+        }
+
+        console.log("Code modification successful with integrity verified", {
+          initialHash: initialDocumentHash,
+          finalHash: finalDocumentHash,
+        });
+      }
+
+      // Log the result
+      console.log("Workflow result:", {
+        prompt,
+        codeChanged: initialCode !== result.code,
+        result,
       });
+
+      // Broadcast the result to the channel if needed
+      channel.postMessage({
+        type: "workflow-result",
+        result,
+      });
+
+      return result;
+    } catch (error) {
+      // Enhanced error handling
+      if (error instanceof CodeModWorkflowError) {
+        console.error(`Example Error: ${error.message}`, error.context);
+      } else {
+        console.error("Unexpected error in example:", error);
+      }
+
+      // Broadcast error to the channel
+      channel.postMessage({
+        type: "workflow-error",
+        error: error instanceof Error ? error.message : String(error),
+      });
+
+      throw error;
     }
-
-    // Log the result
-    console.log("Workflow result:", {
-      prompt,
-      codeChanged: initialCode !== result.code,
-      result,
-    });
-
-    // Broadcast the result to the channel if needed
-    channel.postMessage({
-      type: "workflow-result",
-      result,
-    });
-
-    return result;
-  } catch (error) {
-    // Enhanced error handling
-    if (error instanceof CodeModWorkflowError) {
-      console.error(`Example Error: ${error.message}`, error.context);
-    } else {
-      console.error("Unexpected error in example:", error);
-    }
-    
-    // Broadcast error to the channel
-    channel.postMessage({
-      type: "workflow-error",
-      error: error instanceof Error ? error.message : String(error),
-    });
-    
-    throw error;
-  }
-};
+  };
 
   try {
-
-    return await example(prompt, cSess, channel);
+    // Pass the returnModifiedCode option to the example function
+    return await example(prompt, cSess, channel, options);
   } catch (error) {
     console.error("Setup and run failed:", error);
     throw error;
@@ -129,3 +140,5 @@ const example = async (
 
 // Example usage:
 // setupAndRun("Add error handling to this function", codeSession).catch(console.error);
+// With options:
+// setupAndRun("Add error handling to this function", codeSession, { returnModifiedCode: true }).catch(console.error);

@@ -1,3 +1,4 @@
+import { md5 } from "@/lib/md5";
 import { astCodeModificationTool } from "@/tools/ast-code-modification";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
@@ -8,7 +9,6 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
-import { md5 } from "@/lib/md5";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
@@ -99,19 +99,17 @@ export const createAstWorkflow = (initialState: AgentState) => {
   const createSystemMessage = (code: string, codeSpace: string): SystemMessage => {
     const documentHash = md5(code);
     return new SystemMessage(
-      anthropicSystem+ `
+      anthropicSystem + `
       <filePath>/live/${codeSpace}.tsx</filePath>
       <code>${code}</code>
       <documentHash>${documentHash}</documentHash>`,
-      { 
-          code: code, 
-          filePath: `/live/${codeSpace}.tsx`,
-          documentHash: documentHash 
-      
-      }
+      {
+        code: code,
+        filePath: `/live/${codeSpace}.tsx`,
+        documentHash: documentHash,
+      },
     );
   };
-
 
   // Verify code integrity using document hash
   const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
@@ -123,7 +121,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
     model: MODEL_NAME,
     anthropicApiKey: "DUMMY_API_KEY",
     streaming: false,
-  
+
     anthropicApiUrl: `${location.origin}/api/anthropic`,
     temperature: 0,
     maxTokens: 4096,
@@ -162,24 +160,26 @@ export const createAstWorkflow = (initialState: AgentState) => {
 
       // Extract documentHash from tool response if present
       let documentHash = state.documentHash;
-      
+
       // Check if there are tool responses in the additional_kwargs
-      if (response.additional_kwargs && 
-          'tool_responses' in response.additional_kwargs && 
-          Array.isArray(response.additional_kwargs.tool_responses)) {
-        
+      if (
+        response.additional_kwargs &&
+        "tool_responses" in response.additional_kwargs &&
+        Array.isArray(response.additional_kwargs.tool_responses)
+      ) {
         // Look for documentHash in tool responses
         const toolResponses = response.additional_kwargs.tool_responses;
         for (const toolResponse of toolResponses) {
-          if (typeof toolResponse === 'object' && 
-              toolResponse !== null && 
-              'name' in toolResponse && 
-              toolResponse.name === "ast_code_modification" && 
-              'content' in toolResponse && 
-              typeof toolResponse.content === "object" && 
-              toolResponse.content !== null && 
-              "documentHash" in toolResponse.content) {
-            
+          if (
+            typeof toolResponse === "object" &&
+            toolResponse !== null &&
+            "name" in toolResponse &&
+            toolResponse.name === "ast_code_modification" &&
+            "content" in toolResponse &&
+            typeof toolResponse.content === "object" &&
+            toolResponse.content !== null &&
+            "documentHash" in toolResponse.content
+          ) {
             documentHash = String(toolResponse.content.documentHash);
             break;
           }
@@ -191,7 +191,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
         ...cleanedState,
         messages: [response],
         isStreaming: true,
-        documentHash
+        documentHash,
       };
 
       // If no documentHash was found in the tool response but code changed,
@@ -225,12 +225,12 @@ export const createAstWorkflow = (initialState: AgentState) => {
         // Create system message with initial code and hash
         const systemMessage = createSystemMessage(initialState.code, filePath);
         const initialDocumentHash = md5(initialState.code);
-        
+
         const initialStateWithMessages = {
           ...initialState,
           messages: [systemMessage, new HumanMessage(prompt)],
           documentHash: initialDocumentHash,
-          filePath: filePath
+          filePath: filePath,
         };
 
         const finalState = await app.invoke(initialStateWithMessages, {
@@ -241,17 +241,19 @@ export const createAstWorkflow = (initialState: AgentState) => {
         if (finalState.code !== initialState.code) {
           const finalDocumentHash = md5(finalState.code);
           const isIntegrityValid = verifyCodeIntegrity(finalState.code, finalDocumentHash);
-          
+
           if (!isIntegrityValid) {
             throw new WorkflowError("Code integrity verification failed", {
               initialHash: initialDocumentHash,
               finalHash: finalDocumentHash,
             });
           }
-          
+
           // Update documentHash in final state
           finalState.documentHash = finalDocumentHash;
-          console.log("Code integrity verified with updated hash", { documentHash: finalDocumentHash });
+          console.log("Code integrity verified with updated hash", {
+            documentHash: finalDocumentHash,
+          });
         }
 
         logCodeChanges(initialState.code, finalState.code);
@@ -259,7 +261,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
       } catch (error) {
         handleWorkflowError(error);
         throw error;
-      } 
+      }
     },
   };
 };
@@ -269,7 +271,7 @@ function logCodeChanges(initialCode: string, finalCode: string) {
   if (initialCode !== finalCode) {
     const initialHash = md5(initialCode);
     const finalHash = md5(finalCode);
-    
+
     console.log("Code modified successfully", {
       changes: calculateCodeChanges(initialCode, finalCode),
       initialHash,
@@ -279,29 +281,29 @@ function logCodeChanges(initialCode: string, finalCode: string) {
   }
 }
 
-function calculateCodeChanges(original: string, modified: string): { 
+function calculateCodeChanges(original: string, modified: string): {
   sizeChange: number;
   lineCount: { original: number; modified: number; };
   semanticChanges: string[];
 } {
   // Calculate size difference
   const sizeChange = modified.length - original.length;
-  
+
   // Calculate line count difference
-  const originalLines = original.split('\n').length;
-  const modifiedLines = modified.split('\n').length;
-  
+  const originalLines = original.split("\n").length;
+  const modifiedLines = modified.split("\n").length;
+
   // In a real implementation, we would use the AST to identify semantic changes
   // This is a placeholder for demonstration purposes
   const semanticChanges = ["AST-based semantic change detection would go here"];
-  
+
   return {
     sizeChange,
     lineCount: {
       original: originalLines,
-      modified: modifiedLines
+      modified: modifiedLines,
     },
-    semanticChanges
+    semanticChanges,
   };
 }
 

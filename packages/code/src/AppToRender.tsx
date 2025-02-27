@@ -52,7 +52,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
           env: {
             NODE_ENV: "development",
           },
-        }
+        };
         const { setupAndRun } = await import("./chat-utils-langchain-example");
         setupAndRun(prompt, cSess).catch(console.error);
       },
@@ -61,7 +61,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
           env: {
             NODE_ENV: "development",
           },
-        }
+        };
         const { setupAndRunAst } = await import("./ast-code-workflow-example");
         setupAndRunAst(prompt, cSess).catch(console.error);
       },

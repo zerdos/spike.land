@@ -1,12 +1,11 @@
+import { getBroadcastChannel } from "@/lib/broadcast-channel";
+import { ICode } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import { createAstWorkflow } from "@/workers/ast-langchain-workflow.worker";
 import { BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { ICode } from "@/lib/interfaces";
-import { getBroadcastChannel } from "@/lib/broadcast-channel";
-import { md5 } from "@/lib/md5";
-
 
 // Custom error class for better error handling
-class ExampleError extends Error  {
+class ExampleError extends Error {
   constructor(
     message: string,
     public readonly context?: Record<string, unknown>,
@@ -29,12 +28,12 @@ const example = async (
     // Get the code session
     const session = await cSess.getSession();
     const codeSpace = cSess.getCodeSpace();
-    
+
     // Generate document hash for code integrity verification
     const initialCode = session.code;
     const initialDocumentHash = md5(initialCode);
     const filePath = `/live/${codeSpace}.tsx`;
-    
+
     console.log("Starting AST workflow with code hash:", initialDocumentHash);
 
     // Create the workflow with initial state
@@ -51,8 +50,6 @@ const example = async (
 
     // Create system message with code and document hash
     // Insert the code into the system prompt within <code></code> tags
-  
-    
 
     // Create human message with the user's request
     const humanMessage = new HumanMessage(userRequest);
@@ -79,14 +76,14 @@ const example = async (
     if (result.code !== initialCode) {
       const finalDocumentHash = result.documentHash || md5(result.code);
       const actualHash = md5(result.code);
-      
+
       if (finalDocumentHash !== actualHash) {
         throw new ExampleError("Code integrity verification failed", {
           expectedHash: finalDocumentHash,
           actualHash,
         });
       }
-      
+
       console.log("AST code modification successful with integrity verified", {
         initialHash: initialDocumentHash,
         finalHash: finalDocumentHash,
@@ -114,13 +111,13 @@ const example = async (
     } else {
       console.error("Unexpected error in AST example:", error);
     }
-    
+
     // Broadcast error to the channel
     channel.postMessage({
       type: "ast-workflow-error",
       error: error instanceof Error ? error.message : String(error),
     });
-    
+
     throw error;
   }
 };
@@ -135,7 +132,7 @@ export const setupAndRunAst = async (prompt: string, cSess: ICode) => {
 
   const codeSpace = await cSess.getCodeSpace();
   const channel = getBroadcastChannel(codeSpace);
-  
+
   console.log(`Setting up AST workflow for code space: ${codeSpace}`);
 
   try {

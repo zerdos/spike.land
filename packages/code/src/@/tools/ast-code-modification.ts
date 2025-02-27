@@ -1,22 +1,22 @@
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { format } from "@/lib/shared";
 import type { CodeModification } from "@/types/chat-langchain";
+import generate from "@babel/generator";
+import { parse, ParseResult, ParserPlugin } from "@babel/parser";
+import traverse from "@babel/traverse";
+import * as t from "@babel/types";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import {parse, ParseResult, ParserPlugin} from "@babel/parser";
-import traverse from "@babel/traverse";
-import generate from "@babel/generator";
-import * as t from "@babel/types";
-import { format } from "@/lib/shared";
 
 /**
  * Represents a code modification operation
  */
 interface ModificationOperation {
-  type: 'add' | 'update' | 'delete' | 'move';
-  target: string;  // Path to the target node (e.g., "class:UserManager.method:addUser")
-  code?: string;   // New code for add/update operations
-  position?: 'before' | 'after' | 'replace' | 'inside'; // Position for add operations
+  type: "add" | "update" | "delete" | "move";
+  target: string; // Path to the target node (e.g., "class:UserManager.method:addUser")
+  code?: string; // New code for add/update operations
+  position?: "before" | "after" | "replace" | "inside"; // Position for add operations
   newTarget?: string; // Target location for move operations
 }
 
@@ -24,9 +24,9 @@ interface ModificationOperation {
  * Creates an error response with consistent format
  */
 function createErrorResponse(
-  currentCode: string, 
-  errorMessage: string, 
-  additionalProps = {}
+  currentCode: string,
+  errorMessage: string,
+  additionalProps = {},
 ): CodeModification {
   return {
     code: currentCode,
@@ -44,28 +44,30 @@ function parseCode(code: string, filePath: string) {
   try {
     // Determine parser plugins based on file extension
     const plugins: ParserPlugin[] = [];
-    
-    if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
-      plugins.push('typescript');
-      if (filePath.endsWith('.tsx')) {
-        plugins.push('jsx');
+
+    if (filePath.endsWith(".ts") || filePath.endsWith(".tsx")) {
+      plugins.push("typescript");
+      if (filePath.endsWith(".tsx")) {
+        plugins.push("jsx");
       }
-    } else if (filePath.endsWith('.js') || filePath.endsWith('.jsx')) {
-      plugins.push('flow');
-      if (filePath.endsWith('.jsx')) {
-        plugins.push('jsx');
+    } else if (filePath.endsWith(".js") || filePath.endsWith(".jsx")) {
+      plugins.push("flow");
+      if (filePath.endsWith(".jsx")) {
+        plugins.push("jsx");
       }
     }
-    
+
     // Add common plugins
-    plugins.push('classProperties', 'decorators-legacy');
-    
+    plugins.push("classProperties", "decorators-legacy");
+
     return parse(code, {
-      sourceType: 'module',
+      sourceType: "module",
       plugins,
     });
   } catch (error) {
-    throw new Error(`Failed to parse code: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to parse code: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }
 
@@ -74,40 +76,40 @@ function parseCode(code: string, filePath: string) {
  */
 function findNode(ast: ParseResult<t.File>, targetPath: string) {
   let foundNode: t.Node | null = null;
-  
+
   // Parse the target path (e.g., "class:UserManager.method:addUser")
-  const parts = targetPath.split('.');
-  
+  const parts = targetPath.split(".");
+
   traverse(ast, {
     enter(path) {
       // Implementation would match the path parts to find the target node
       // This is a simplified example - a real implementation would be more robust
-      
-      if (t.isClassDeclaration(path.node) && parts[0].startsWith('class:')) {
-        const className = parts[0].split(':')[1];
+
+      if (t.isClassDeclaration(path.node) && parts[0].startsWith("class:")) {
+        const className = parts[0].split(":")[1];
         if (path.node.id && path.node.id.name === className) {
           if (parts.length === 1) {
             foundNode = path.node;
             path.stop();
-          } else if (parts[1].startsWith('method:')) {
-            const methodName = parts[1].split(':')[1];
+          } else if (parts[1].startsWith("method:")) {
+            const methodName = parts[1].split(":")[1];
             path.traverse({
               ClassMethod(methodPath) {
                 if (
-                  t.isIdentifier(methodPath.node.key) && 
+                  t.isIdentifier(methodPath.node.key) &&
                   methodPath.node.key.name === methodName
                 ) {
                   foundNode = methodPath.node;
                   methodPath.stop();
                 }
-              }
+              },
             });
           }
         }
       }
-    }
+    },
   });
-  
+
   return foundNode;
 }
 
@@ -115,49 +117,51 @@ function findNode(ast: ParseResult<t.File>, targetPath: string) {
  * Applies a modification operation to the AST
  */
 function applyModification(
-  ast: ParseResult<t.File>, 
+  ast: ParseResult<t.File>,
   operation: ModificationOperation,
-  filePath: string
+  filePath: string,
 ) {
   try {
     // Find the target node
     const targetNode = findNode(ast, operation.target);
-    if (!targetNode && operation.type !== 'add') {
+    if (!targetNode && operation.type !== "add") {
       throw new Error(`Target not found: ${operation.target}`);
     }
-    
+
     // Apply the operation based on its type
     switch (operation.type) {
-      case 'update':
+      case "update":
         if (!targetNode) break;
         // Parse the new code and replace the target node
-        const newNode = parseCode(operation.code || '', filePath).program.body[0];
+        const newNode = parseCode(operation.code || "", filePath).program.body[0];
         // In a real implementation, we would replace the target node with the new node
         break;
-        
-      case 'delete':
+
+      case "delete":
         if (!targetNode) break;
         // Remove the target node
         // In a real implementation, we would remove the node from its parent
         break;
-        
-      case 'add':
+
+      case "add":
         // Parse the new code
-        const nodeToAdd = parseCode(operation.code || '', filePath).program.body[0];
+        const nodeToAdd = parseCode(operation.code || "", filePath).program.body[0];
         // Add the new node at the specified position
         // In a real implementation, we would add the node to the appropriate location
         break;
-        
-      case 'move':
+
+      case "move":
         if (!targetNode || !operation.newTarget) break;
         // Move the target node to the new target location
         // In a real implementation, we would move the node to the new location
         break;
     }
-    
+
     return ast;
   } catch (error) {
-    throw new Error(`Failed to apply modification: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to apply modification: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }
 
@@ -167,10 +171,10 @@ function applyModification(
 async function formatCode(code: string, filePath: string): Promise<string> {
   try {
     // Determine parser based on file extension
-   return await format(code);
+    return await format(code);
   } catch (error) {
     // If formatting fails, return the unformatted code
-    console.error('Formatting failed:', error);
+    console.error("Formatting failed:", error);
     return code;
   }
 }
@@ -178,12 +182,12 @@ async function formatCode(code: string, filePath: string): Promise<string> {
 // AST-based code modification tool
 export const astCodeModificationTool = tool(
   async (
-    { 
-      operations, 
+    {
+      operations,
       documentHash,
-      filePath 
-    }: { 
-      operations: ModificationOperation[]; 
+      filePath,
+    }: {
+      operations: ModificationOperation[];
       documentHash: string;
       filePath: string;
     },
@@ -203,7 +207,7 @@ export const astCodeModificationTool = tool(
           {
             currentFileContent: currentCode,
             documentHash: currentHash,
-          }
+          },
         );
       }
     }
@@ -213,7 +217,7 @@ export const astCodeModificationTool = tool(
       if (!operations || !Array.isArray(operations) || operations.length === 0) {
         return createErrorResponse(
           currentCode,
-          "No valid operations provided. Please specify at least one operation."
+          "No valid operations provided. Please specify at least one operation.",
         );
       }
 
@@ -224,7 +228,7 @@ export const astCodeModificationTool = tool(
       } catch (error) {
         return createErrorResponse(
           currentCode,
-          `Failed to parse code: ${error instanceof Error ? error.message : String(error)}`
+          `Failed to parse code: ${error instanceof Error ? error.message : String(error)}`,
         );
       }
 
@@ -237,14 +241,14 @@ export const astCodeModificationTool = tool(
           return createErrorResponse(
             currentCode,
             `Operation ${i + 1} failed: ${error instanceof Error ? error.message : String(error)}`,
-            { failedOperation: operation }
+            { failedOperation: operation },
           );
         }
       }
 
       // Generate code from the modified AST
       let modifiedCode = generate(ast).code;
-      
+
       // Format the code
       modifiedCode = await formatCode(modifiedCode, filePath);
 
@@ -255,17 +259,17 @@ export const astCodeModificationTool = tool(
 
       // Set the modified code in the session
       const res = await cSess.setCode(modifiedCode);
-      
+
       if (res === false) {
         return createErrorResponse(
           currentCode,
-          "Failed to set code in the code session"
+          "Failed to set code in the code session",
         );
       }
 
       // Calculate the new document hash
       const newDocumentHash = md5(modifiedCode);
-      
+
       // Return success response with the new hash
       return {
         error: "",
@@ -276,7 +280,7 @@ export const astCodeModificationTool = tool(
       // Handle any unexpected errors
       return createErrorResponse(
         currentCode,
-        error instanceof Error ? error.message : "Unknown error in code modification"
+        error instanceof Error ? error.message : "Unknown error in code modification",
       );
     }
   },
@@ -338,17 +342,17 @@ Examples:
 }`,
     schema: z.object({
       operations: z.array(z.object({
-        type: z.enum(['add', 'update', 'delete', 'move']),
+        type: z.enum(["add", "update", "delete", "move"]),
         target: z.string(),
         code: z.string().optional(),
-        position: z.enum(['before', 'after', 'replace', 'inside']).optional(),
+        position: z.enum(["before", "after", "replace", "inside"]).optional(),
         newTarget: z.string().optional(),
       })).describe("List of operations to perform on the code"),
       documentHash: z.string().describe(
-        "MD5 hash of the document being modified. The tool will verify that the document hasn't been modified since the hash was generated."
+        "MD5 hash of the document being modified. The tool will verify that the document hasn't been modified since the hash was generated.",
       ),
       filePath: z.string().describe(
-        "Path to the file being modified, used to determine the appropriate parser plugins."
+        "Path to the file being modified, used to determine the appropriate parser plugins.",
       ),
     }),
   },

@@ -55,7 +55,7 @@ export const makeEnv = (
   nodeVersion: JSON.stringify("v20.3.1"),
   env: JSON.stringify({
     NODE_ENV: environment || "development",
-    BABEL_TYPES_8_BREAKING:  JSON.stringify(false),
+    BABEL_TYPES_8_BREAKING: JSON.stringify(false),
     version: "v20.3.0",
     browser: JSON.stringify(true),
     isWebworker: JSON.stringify(true),

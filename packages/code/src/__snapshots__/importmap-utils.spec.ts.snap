@@ -505,6 +505,14 @@ import { foo } from "data:text/javascript,export const foo = 'bar'";",
 }
 `;
 
+exports[`importMapReplace > URL imports: external lib 1`] = `
+{
+  "code": "import { MoonIcon, SunIcon, PlusIcon, TrashIcon, PencilIcon } from "lucide-react";",
+  "result": "/** importMapReplace */
+import { MoonIcon, SunIcon, PlusIcon, TrashIcon, PencilIcon } from "/lucide-react?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=MoonIcon,SunIcon,PlusIcon,TrashIcon,PencilIcon";",
+}
+`;
+
 exports[`importMapReplace > URL imports: http URLs from different origin 1`] = `
 {
   "code": "import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
