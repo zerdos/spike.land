@@ -3,6 +3,7 @@ import type { BaseMessage } from "@langchain/core/messages";
 export interface AgentState {
   messages: BaseMessage[];
   code: string;
+  origin: string;
   codeSpace: string;
   lastError: string;
   isStreaming: boolean;

@@ -5,13 +5,7 @@ import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages
 import { ChatAnthropic } from "@langchain/anthropic";
 import { md5 } from "@/lib/md5";
 
-// Mock external dependencies
-// Mock window.location for API URL construction
-const originalLocation = global.location;
-delete (global as any).location;
-(global as any).location = {
-  origin: 'http://localhost:3000',
-};
+
 
 vi.mock("@langchain/anthropic", () => ({
   ChatAnthropic: vi.fn(() => ({
@@ -20,9 +14,6 @@ vi.mock("@langchain/anthropic", () => ({
   })),
 }));
 
-afterAll(() => {
-  (global as any).location = originalLocation;
-});
 
 vi.mock("uuid", () => ({
   v4: vi.fn(() => "mock-uuid"),
@@ -32,6 +23,7 @@ describe("chat-langchain-workflow", () => {
   const mockSystemMessage = { content: "System message" };
   const mockInitialState: AgentState = {
     messages: [],
+    origin: "http://localhost",
     code: "function test() {}",
     codeSpace: "",
     lastError: "",

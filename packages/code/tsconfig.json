@@ -36,6 +36,7 @@
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "lib": ["dom", "esnext", "esnext.asynciterable", "webworker"],
     "paths": {
       "@/*": ["./src/@/*"]
     }

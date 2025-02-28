@@ -38,6 +38,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     codeSpace: {
       reducer: (_prev: string, next: string) => next,
     },
+    origin: {
+      reducer: (_prev: string, next: string) => next,
+    },
     code: {
       reducer: (prev: string, next: unknown) => {
         try {
@@ -105,7 +108,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     model: MODEL_NAME,
     anthropicApiKey: ANTHROPIC_API_CONFIG.apiKey,
     streaming: ANTHROPIC_API_CONFIG.streaming,
-    anthropicApiUrl: ANTHROPIC_API_CONFIG.getApiUrl(location.origin),
+    anthropicApiUrl: ANTHROPIC_API_CONFIG.getApiUrl(initialState.origin),
     temperature: ANTHROPIC_API_CONFIG.temperature,
     maxTokens: ANTHROPIC_API_CONFIG.maxTokens,
   }).bindTools(tools);

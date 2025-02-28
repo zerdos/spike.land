@@ -51,6 +51,7 @@ export const setupAndRun = async (
       const workflow = await createWorkflowWithStringReplace({
         code: initialCode,
         codeSpace: codeSpace,
+        origin: location.origin,
         lastError: "",
         isStreaming: false,
         debugLogs: [

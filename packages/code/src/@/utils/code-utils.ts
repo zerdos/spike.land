@@ -53,27 +53,28 @@ export const compressCode = (code: string): string => {
   if (code.length < COMPRESSION_THRESHOLD) return code;
 
   let compressed = "";
-  let currentChar = "";
-  let count = 0;
+  let currentChar = code[0];
+  let count = 1;
 
-  for (let i = 0; i <= code.length; i++) {
-    // Include the end of string case
-    const char = i < code.length ? code[i] : "";
-
-    if (char === currentChar) {
+  for (let i = 1; i < code.length; i++) {
+    if (code[i] === currentChar) {
       count++;
     } else {
-      if (count > 0) {
-        // Only use compression for runs of 4 or more
-        if (count >= 4) {
-          compressed += `${count}×${currentChar}`;
-        } else {
-          compressed += currentChar.repeat(count);
-        }
+      if (count >= 2) {
+        compressed += `${count}×${currentChar}`;
+      } else {
+        compressed += currentChar;
       }
-      currentChar = char;
+      currentChar = code[i];
       count = 1;
     }
+  }
+
+  // Handle the last group
+  if (count >= 2) {
+    compressed += `${count}×${currentChar}`;
+  } else if (count === 1) {
+    compressed += currentChar;
   }
 
   // Only use compression if it actually saves space
