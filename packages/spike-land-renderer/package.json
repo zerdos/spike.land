@@ -21,7 +21,7 @@
     "@cloudflare/vitest-pool-workers": "0.7.4",
     "@cloudflare/workers-types": "4.20250224.0",
     "@types/esprima": "4.0.6",
-    "@types/node": "22.13.5",
+    "@types/node": "22.13.6",
     "@vitest/runner": "3.0.7",
     "@vitest/snapshot": "3.0.7",
     "esprima": "4.0.1",

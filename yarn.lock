@@ -29,9 +29,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@anthropic-ai/sdk@npm:0.38.0"
+"@anthropic-ai/sdk@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@anthropic-ai/sdk@npm:0.39.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -40,7 +40,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10c0/accd003cbe314d32d4d36f5fd7fd743c32e2a896c9ea57190966eda20b8c46e00f542bf03ec3603d1274a7ac18e902bed4158ff5980e4e248a6d5c75e3fd891a
+  checksum: 10c0/f3832ccf8af33fedd4dcb459804ccbebc84fa20b93ef39df1855060d6567444aa7ae83ea8dae09ca1f719f60ddf800b168f36f10dccaa3cab5e231e8adeb3a71
   languageName: node
   linkType: hard
 
@@ -2091,9 +2091,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/langgraph@npm:0.2.50":
-  version: 0.2.50
-  resolution: "@langchain/langgraph@npm:0.2.50"
+"@langchain/langgraph@npm:0.2.51":
+  version: 0.2.51
+  resolution: "@langchain/langgraph@npm:0.2.51"
   dependencies:
     "@langchain/langgraph-checkpoint": "npm:~0.0.15"
     "@langchain/langgraph-sdk": "npm:~0.0.32"
@@ -2101,7 +2101,7 @@ __metadata:
     zod: "npm:^3.23.8"
   peerDependencies:
     "@langchain/core": ">=0.2.36 <0.3.0 || >=0.3.40 < 0.4.0"
-  checksum: 10c0/c8dd8e8a1c7411aa0eef7d8075a8c83a1726a07616400525920f8c5d0da768ccb4244b13f108a3b0b4346d92c9c51387cc00412612e0fb694bd114608743318f
+  checksum: 10c0/d4e5cb86231f439dbd699dd0a0940bd2d911ba0c4769f70388b973d48068d21ae4737ed79f61a35d59a6ac4fc602f8f4fea2c770e2f8759fabbc3f9c035a9b58
   languageName: node
   linkType: hard
 
@@ -4333,7 +4333,7 @@ __metadata:
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:0.7.4"
     "@cloudflare/workers-types": "npm:4.20250224.0"
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     miniflare: "npm:3.20250214.1"
     typescript: "npm:5.8.2"
     vitest: "npm:3.0.7"
@@ -4361,7 +4361,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:0.38.0"
+    "@anthropic-ai/sdk": "npm:0.39.0"
     "@clerk/backend": "npm:1.24.3"
     "@clerk/clerk-sdk-node": "npm:5.1.6"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
@@ -4376,7 +4376,7 @@ __metadata:
     "@spike-npm-land/transpile": "npm:0.9.56"
     "@types/mime-db": "npm:1.43.5"
     "@types/mime-types": "npm:2.1.4"
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     "@typescript-eslint/parser": "npm:8.25.0"
     "@vitest/runner": "npm:3.0.7"
     "@vitest/snapshot": "npm:3.0.7"
@@ -4414,7 +4414,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
   dependencies:
-    "@anthropic-ai/sdk": "npm:0.38.0"
+    "@anthropic-ai/sdk": "npm:0.39.0"
     "@babel/core": "npm:7.26.9"
     "@babel/generator": "npm:7.26.9"
     "@babel/parser": "npm:7.26.9"
@@ -4434,7 +4434,7 @@ __metadata:
     "@hookform/resolvers": "npm:4.1.2"
     "@langchain/anthropic": "npm:0.3.14"
     "@langchain/core": "npm:0.3.41"
-    "@langchain/langgraph": "npm:0.2.50"
+    "@langchain/langgraph": "npm:0.2.51"
     "@mui/material": "npm:6.4.6"
     "@okikio/sharedworker": "npm:1.1.0"
     "@radix-ui/react-accordion": "npm:1.2.3"
@@ -4493,7 +4493,7 @@ __metadata:
     "@types/jest": "npm:29.5.14"
     "@types/mime-db": "npm:1.43.5"
     "@types/mime-types": "npm:2.1.4"
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     "@types/object-hash": "npm:3.0.6"
     "@types/offscreencanvas": "npm:2019.7.3"
     "@types/path-browserify": "npm:1.0.3"
@@ -4581,7 +4581,7 @@ __metadata:
     postcss: "npm:8.5.3"
     postcss-import: "npm:16.1.0"
     postcss-js: "npm:4.0.1"
-    preact: "npm:10.26.3"
+    preact: "npm:10.26.4"
     preact-render-to-string: "npm:6.5.13"
     prettier: "npm:3.5.2"
     prism-react-renderer: "npm:2.4.1"
@@ -4665,7 +4665,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/devcontainer-generator@workspace:devcontainers/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     esbuild-wasm: "npm:0.25.0"
   languageName: unknown
   linkType: soft
@@ -4742,7 +4742,7 @@ __metadata:
     "@cloudflare/vitest-pool-workers": "npm:0.7.4"
     "@cloudflare/workers-types": "npm:4.20250224.0"
     "@types/esprima": "npm:4.0.6"
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     "@vitest/runner": "npm:3.0.7"
     "@vitest/snapshot": "npm:3.0.7"
     esprima: "npm:4.0.1"
@@ -5781,12 +5781,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.13.5":
+"@types/node@npm:*":
   version: 22.13.5
   resolution: "@types/node@npm:22.13.5"
   dependencies:
     undici-types: "npm:~6.20.0"
   checksum: 10c0/a2e7ed7bb0690e439004779baedeb05159c5cc41ef6d81c7a6ebea5303fde4033669e1c0e41ff7453b45fd2fea8dbd55fddfcd052950c7fcae3167c970bca725
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.13.6":
+  version: 22.13.6
+  resolution: "@types/node@npm:22.13.6"
+  dependencies:
+    undici-types: "npm:~6.20.0"
+  checksum: 10c0/4058f663c08a3fef0200bd1a728c0ff881c0b35594e2151312500633acf02d7074e3f34d4bd096f2fe60ccdb1203d93bd8c97e7c1809f20b4b24cdc25e5c5117
   languageName: node
   linkType: hard
 
@@ -14289,7 +14298,7 @@ __metadata:
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:0.7.4"
     "@cloudflare/workers-types": "npm:4.20250224.0"
-    "@types/node": "npm:22.13.5"
+    "@types/node": "npm:22.13.6"
     "@types/react": "npm:19.0.10"
     "@types/ws": "npm:8.5.14"
     "@typescript-eslint/parser": "npm:8.25.0"
@@ -15578,10 +15587,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.26.3":
-  version: 10.26.3
-  resolution: "preact@npm:10.26.3"
-  checksum: 10c0/7eacc2be045343e64797c766d93489bf2f820e6b91bb3a280c7c854f74d282d1817016df3e462384f0d230949312983f1287f4fb63a4c507616faa9a954f1221
+"preact@npm:10.26.4":
+  version: 10.26.4
+  resolution: "preact@npm:10.26.4"
+  checksum: 10c0/8abf64ec6f9773f0c4fb3746b7caa3d83e2de4d464928e7f64fc779c96ef9e135d23c1ade8d0923c9191f6d203d9f22bb92d8a50dc0f4f310073dfaa51a56922
   languageName: node
   linkType: hard
 
