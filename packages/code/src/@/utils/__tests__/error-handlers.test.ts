@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
-  WorkflowError,
-  handleWorkflowError,
   createCodeIntegrityError,
   createCompilationError,
+  handleWorkflowError,
+  WorkflowError,
 } from "../error-handlers";
 
 describe("error-handlers", () => {
@@ -38,36 +38,36 @@ describe("error-handlers", () => {
 
     it("should handle WorkflowError with context", () => {
       const error = new WorkflowError("Test error", { key: "value" });
-      
+
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
         "Workflow Error:",
         "Test error",
-        { key: "value" }
+        { key: "value" },
       );
     });
 
     it("should handle code integrity error", () => {
       const error = new WorkflowError("Code integrity validation failed");
-      
+
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
-        expect.stringContaining("Code integrity")
+        expect.stringContaining("Code integrity"),
       );
     });
 
     it("should handle compilation error", () => {
       const error = new WorkflowError("failed to compile");
-      
+
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
-        expect.stringContaining("Compilation errors")
+        expect.stringContaining("Compilation errors"),
       );
     });
 
     it("should handle unknown errors", () => {
       const error = new Error("Unknown error");
-      
+
       expect(() => handleWorkflowError(error)).toThrow(WorkflowError);
       expect(console.error).toHaveBeenCalledWith("Unexpected Error:", error);
     });
@@ -84,7 +84,7 @@ describe("error-handlers", () => {
         message,
         expectedHash,
         actualHash,
-        codeLength
+        codeLength,
       );
 
       expect(error).toBeInstanceOf(WorkflowError);
@@ -106,7 +106,7 @@ describe("error-handlers", () => {
       const error = createCompilationError(
         errorMessage,
         documentHash,
-        modifiedCodeHash
+        modifiedCodeHash,
       );
 
       expect(error).toBeInstanceOf(WorkflowError);

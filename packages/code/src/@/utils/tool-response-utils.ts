@@ -1,7 +1,7 @@
-import { AIMessage } from "@langchain/core/messages";
+import { md5 } from "@/lib/md5";
 import { AgentState } from "@/types/chat-langchain";
 import { ToolResponseMetadata } from "@/types/workflow";
-import { md5 } from "@/lib/md5";
+import { AIMessage } from "@langchain/core/messages";
 import { estimateTokenSavings } from "./code-utils";
 
 /**
@@ -81,7 +81,10 @@ export const extractToolResponseMetadata = (
 /**
  * Update tool calls with returnModifiedCode parameter based on code analysis
  */
-export const updateToolCallsWithCodeFlag = (toolCalls: Array<any>, returnModifiedCode: boolean): Array<any> => {
+export const updateToolCallsWithCodeFlag = (
+  toolCalls: Array<any>,
+  returnModifiedCode: boolean,
+): Array<any> => {
   return toolCalls.map(toolCall => {
     if (toolCall.name === "code_modification" && toolCall.args) {
       try {
@@ -129,7 +132,9 @@ export const handleMissingCodeResponse = async (
 
       // Log token savings
       const tokenSavings = estimateTokenSavings(latestCode);
-      console.log(`Token optimization: Saved approximately ${tokenSavings} tokens by not returning code`);
+      console.log(
+        `Token optimization: Saved approximately ${tokenSavings} tokens by not returning code`,
+      );
 
       return latestCode;
     }

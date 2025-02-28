@@ -1,12 +1,12 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { md5 } from "@/lib/md5";
+import { AgentState } from "@/types/chat-langchain";
 import { AIMessage } from "@langchain/core/messages";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   extractToolResponseMetadata,
-  updateToolCallsWithCodeFlag,
   handleMissingCodeResponse,
+  updateToolCallsWithCodeFlag,
 } from "../tool-response-utils";
-import { AgentState } from "@/types/chat-langchain";
-import { md5 } from "@/lib/md5";
 
 describe("tool-response-utils", () => {
   describe("extractToolResponseMetadata", () => {
@@ -177,7 +177,7 @@ describe("tool-response-utils", () => {
 
       expect(result).toBe(mockCode);
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining("Retrieved latest code")
+        expect.stringContaining("Retrieved latest code"),
       );
     });
 
@@ -203,7 +203,7 @@ describe("tool-response-utils", () => {
         {
           expectedHash: mockHash,
           actualHash: md5("different code"),
-        }
+        },
       );
     });
 
@@ -219,15 +219,15 @@ describe("tool-response-utils", () => {
       };
 
       (globalThis as any).cSess.getCode.mockRejectedValue(
-        new Error("Session error")
+        new Error("Session error"),
       );
 
       const result = await handleMissingCodeResponse(mockHash, state);
 
       expect(result).toBeUndefined();
       expect(console.error).toHaveBeenCalledWith(
-        "Failed to retrieve code", 
-        new Error("Session error")
+        "Failed to retrieve code",
+        new Error("Session error"),
       );
     });
 

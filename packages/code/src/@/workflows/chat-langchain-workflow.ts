@@ -1,6 +1,23 @@
+import {
+  ANTHROPIC_API_CONFIG,
+  DEFAULT_RETURN_MODIFIED_CODE,
+  MODEL_NAME,
+} from "@/config/workflow-config";
 import { md5 } from "@/lib/md5";
 import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
+import { WorkflowChannels, WorkflowContinueResult } from "@/types/workflow";
+import { logCodeChanges, shouldReturnFullCode, verifyCodeIntegrity } from "@/utils/code-utils";
+import {
+  createCodeIntegrityError,
+  handleWorkflowError,
+  WorkflowError,
+} from "@/utils/error-handlers";
+import {
+  extractToolResponseMetadata,
+  handleMissingCodeResponse,
+  updateToolCallsWithCodeFlag,
+} from "@/utils/tool-response-utils";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -8,23 +25,6 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
-import {
-  ANTHROPIC_API_CONFIG,
-  DEFAULT_RETURN_MODIFIED_CODE,
-  MODEL_NAME,
-} from "@/config/workflow-config";
-import {
-  verifyCodeIntegrity,
-  shouldReturnFullCode,
-  logCodeChanges,
-} from "@/utils/code-utils";
-import { WorkflowError, createCodeIntegrityError, handleWorkflowError } from "@/utils/error-handlers";
-import {
-  extractToolResponseMetadata,
-  updateToolCallsWithCodeFlag,
-  handleMissingCodeResponse,
-} from "@/utils/tool-response-utils";
-import { WorkflowChannels, WorkflowContinueResult } from "@/types/workflow";
 
 /**
  * Creates a workflow for processing code modifications using LangChain and Anthropic's Claude
@@ -124,17 +124,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         // Always verify integrity and throw if there's a mismatch
         if (state.documentHash !== currentHash) {
           throw createCodeIntegrityError(
-            "Code integrity", 
+            "Code integrity",
             state.documentHash,
             currentHash,
-            state.code.length
+            state.code.length,
           );
         }
       }
 
       // Performance optimization for large code blocks
       if (state.code && state.code.length > 1000) {
-        console.log(`Performance optimization: Processing large code block (${state.code.length} chars)`);
+        console.log(
+          `Performance optimization: Processing large code block (${state.code.length} chars)`,
+        );
       }
 
       const cleanedState = { ...state, code: state.code };
@@ -174,7 +176,10 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // Update tool calls with returnModifiedCode parameter
       if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
-        lastMessage.tool_calls = updateToolCallsWithCodeFlag(lastMessage.tool_calls, returnModifiedCode);
+        lastMessage.tool_calls = updateToolCallsWithCodeFlag(
+          lastMessage.tool_calls,
+          returnModifiedCode,
+        );
       }
 
       // Process the message with the model
@@ -209,7 +214,10 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       // Generate new hash if code changed but no hash was provided
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
         updatedState.documentHash = md5(updatedState.code);
-        console.log("Performance optimization: Generated new document hash for modified code:", updatedState.documentHash);
+        console.log(
+          "Performance optimization: Generated new document hash for modified code:",
+          updatedState.documentHash,
+        );
       }
 
       // Validate sequential changes
@@ -224,7 +232,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       return updatedState;
     } catch (error) {
-     
       const errorContext = {
         error,
         state: {
@@ -234,7 +241,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         },
       };
 
-      console.error("Error processing message:", {errorContext});
+      console.error("Error processing message:", { errorContext });
 
       handleWorkflowError(error);
       throw error;
@@ -278,7 +285,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
               {
                 code: initialState.code,
                 documentHash: initialState.documentHash,
-              }
+              },
             ),
           ],
           debugLogs: [
@@ -314,13 +321,15 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
         if (finalState.code !== initialState.code) {
           logCodeChanges(initialState.code, finalState.code);
-          
+
           // Log performance optimization details
           const codeLength = finalState.code.length;
           if (codeLength > 1000) {
             console.log("Performance optimization: Processing large code block");
           }
-          console.log(`Performance optimization: Code changes detected (${initialState.code.length} -> ${codeLength} chars)`);
+          console.log(
+            `Performance optimization: Code changes detected (${initialState.code.length} -> ${codeLength} chars)`,
+          );
         }
         return finalState;
       } catch (error) {

@@ -35,7 +35,12 @@ export function handleWorkflowError(error: unknown): never {
 /**
  * Creates a workflow error with code integrity context
  */
-export function createCodeIntegrityError(message: string, expectedHash: string, actualHash: string, codeLength: number): WorkflowError {
+export function createCodeIntegrityError(
+  message: string,
+  expectedHash: string,
+  actualHash: string,
+  codeLength: number,
+): WorkflowError {
   return new WorkflowError(`${message}`, {
     expectedHash,
     actualHash,
@@ -46,7 +51,11 @@ export function createCodeIntegrityError(message: string, expectedHash: string, 
 /**
  * Creates a workflow error with compilation context
  */
-export function createCompilationError(error: string, documentHash?: string, modifiedCodeHash?: string): WorkflowError {
+export function createCompilationError(
+  error: string,
+  documentHash?: string,
+  modifiedCodeHash?: string,
+): WorkflowError {
   return new WorkflowError("Compilation failed", {
     error,
     originalHash: documentHash,

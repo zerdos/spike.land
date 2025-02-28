@@ -1,6 +1,6 @@
 import { BaseMessage } from "@langchain/core/messages";
-import { AgentState } from "./chat-langchain";
 import type { StateGraphArgs } from "@langchain/langgraph/web";
+import { AgentState } from "./chat-langchain";
 
 export interface CodeChangeMetrics {
   sizeChange: number;

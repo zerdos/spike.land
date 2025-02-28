@@ -1,14 +1,14 @@
-import { md5 } from "@/lib/md5";
-import { SEARCH, SEPARATOR, REPLACE } from "@/tools/code-modification-tools";
-import { CodeChangeMetrics, SearchReplaceBlock } from "@/types/workflow";
 import {
   COMPLEX_CHANGE_THRESHOLD,
   COMPRESSION_THRESHOLD,
   SIGNIFICANT_CHANGE_RATIO,
   SMALL_FILE_THRESHOLD,
 } from "@/config/workflow-config";
-import { update } from "immutable";
 import { updateSearchReplace } from "@/lib/chat-utils";
+import { md5 } from "@/lib/md5";
+import { REPLACE, SEARCH, SEPARATOR } from "@/tools/code-modification-tools";
+import { CodeChangeMetrics, SearchReplaceBlock } from "@/types/workflow";
+import { update } from "immutable";
 
 /**
  * Verify code integrity using document hash
@@ -21,7 +21,6 @@ export const verifyCodeIntegrity = (code: string, expectedHash: string): boolean
   }
   return true;
 };
-
 
 /**
  * Determines if a code modification should return the full code

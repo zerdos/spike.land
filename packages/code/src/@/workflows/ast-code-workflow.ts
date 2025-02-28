@@ -1,6 +1,7 @@
 import { md5 } from "@/lib/md5";
 import { astCodeModificationTool } from "@/tools/ast-code-modification";
 import { AgentState } from "@/types/chat-langchain";
+import { WorkflowError } from "@/utils/error-handlers";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -9,11 +10,9 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
-import { WorkflowError } from "@/utils/error-handlers";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
-
 
 // Workflow setup with improved type safety
 export const createAstWorkflow = (initialState: AgentState) => {

@@ -1,14 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { md5 } from "@/lib/md5";
+import { describe, expect, it } from "vitest";
 import {
-  verifyCodeIntegrity,
-  shouldReturnFullCode,
+  calculateCodeChanges,
   compressCode,
   decompressCode,
-  calculateCodeChanges,
-  logCodeChanges,
   estimateTokenSavings,
+  logCodeChanges,
+  shouldReturnFullCode,
+  verifyCodeIntegrity,
 } from "../code-utils";
-import { md5 } from "@/lib/md5";
 
 describe("code-utils", () => {
   describe("verifyCodeIntegrity", () => {
@@ -24,7 +24,6 @@ describe("code-utils", () => {
       expect(verifyCodeIntegrity(code, hash)).toBe(false);
     });
   });
-
 
   describe("shouldReturnFullCode", () => {
     const smallCode = "small".repeat(100); // 500 chars
@@ -56,7 +55,6 @@ const x = 2;
       expect(shouldReturnFullCode(simpleInstructions, largeCode)).toBe(false);
     });
   });
-
 
   describe("calculateCodeChanges", () => {
     it("should calculate size and line changes", () => {

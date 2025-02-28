@@ -1,11 +1,9 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
-import { AgentState } from "@/types/chat-langchain";
-import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { ChatAnthropic } from "@langchain/anthropic";
 import { md5 } from "@/lib/md5";
-
-
+import { AgentState } from "@/types/chat-langchain";
+import { ChatAnthropic } from "@langchain/anthropic";
+import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
 
 vi.mock("@langchain/anthropic", () => ({
   ChatAnthropic: vi.fn(() => ({
@@ -13,7 +11,6 @@ vi.mock("@langchain/anthropic", () => ({
     bindTools: vi.fn().mockReturnThis(),
   })),
 }));
-
 
 vi.mock("uuid", () => ({
   v4: vi.fn(() => "mock-uuid"),
@@ -56,7 +53,7 @@ describe("chat-langchain-workflow", () => {
         expect.objectContaining({
           streaming: false,
           temperature: 0,
-        })
+        }),
       );
     });
   });
@@ -83,7 +80,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(mockToolResponse),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any
+          }) as any,
       );
     });
 
@@ -131,12 +128,14 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(errorResponse),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any
+          }) as any,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
-      
-      await expect(workflow.invoke("Introduce error")).rejects.toThrow("failed to compile: syntax error");
+
+      await expect(workflow.invoke("Introduce error")).rejects.toThrow(
+        "failed to compile: syntax error",
+      );
       expect(console.error).toHaveBeenCalled();
     });
 
@@ -152,7 +151,7 @@ describe("chat-langchain-workflow", () => {
       await workflow.invoke("Optimize tokens");
 
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining("Performance optimization")
+        expect.stringContaining("Performance optimization"),
       );
     });
 
@@ -181,7 +180,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(responseWithoutCode),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any
+          }) as any,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
@@ -201,11 +200,11 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockRejectedValue(new Error("Test error")),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any
+          }) as any,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
-      
+
       await expect(workflow.invoke("Generate error")).rejects.toThrow();
       expect(console.error).toHaveBeenCalled();
     });
@@ -224,11 +223,11 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(new AIMessage({ content: "Test response" })),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any
+          }) as any,
       );
 
       const workflow = createWorkflowWithStringReplace(corruptedState);
-      
+
       await expect(workflow.invoke("Check integrity")).rejects.toThrow("Code integrity");
     });
   });

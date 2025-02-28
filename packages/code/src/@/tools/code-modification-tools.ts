@@ -22,7 +22,6 @@ interface ParsedBlock {
   original: string;
 }
 
-
 /**
  * Applies a single search/replace block to the code
  * @param code The code to modify
@@ -144,9 +143,7 @@ export const codeModificationTool = tool(
         );
       }
 
-
-      const modifiedCode = updateSearchReplace(instructions, currentCode)
-
+      const modifiedCode = updateSearchReplace(instructions, currentCode);
 
       if (modifiedCode === currentCode) {
         return createErrorResponse(
@@ -185,7 +182,7 @@ export const codeModificationTool = tool(
       // }
 
       // If we reach here, all blocks were applied successfully
- 
+
       // Set the modified code in the session
       let error = "";
       let res: string | boolean = false;
