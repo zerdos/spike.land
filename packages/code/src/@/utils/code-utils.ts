@@ -1,0 +1,161 @@
+import { md5 } from "@/lib/md5";
+import { SEARCH, SEPARATOR, REPLACE } from "@/tools/code-modification-tools";
+import { CodeChangeMetrics, SearchReplaceBlock } from "@/types/workflow";
+import {
+  COMPLEX_CHANGE_THRESHOLD,
+  COMPRESSION_THRESHOLD,
+  SIGNIFICANT_CHANGE_RATIO,
+  SMALL_FILE_THRESHOLD,
+} from "@/config/workflow-config";
+import { update } from "immutable";
+import { updateSearchReplace } from "@/lib/chat-utils";
+
+/**
+ * Verify code integrity using document hash
+ */
+export const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
+  const actualHash = md5(code);
+  if (actualHash !== expectedHash) {
+    console.error(`Hash mismatch! Expected ${expectedHash} got ${actualHash}`);
+    return false;
+  }
+  return true;
+};
+
+
+/**
+ * Determines if a code modification should return the full code
+ * based on the size and complexity of the changes
+ */
+export const shouldReturnFullCode = (
+  instructions: string,
+  currentCode: string,
+): boolean => {
+  // Always return full code for small files
+  if (currentCode.length < SMALL_FILE_THRESHOLD) return true;
+
+  const blocks = updateSearchReplace(instructions, currentCode);
+  if (blocks.length === 0) return true;
+
+  let totalChangeSize = 0;
+  let complexChanges = instructions.length > COMPLEX_CHANGE_THRESHOLD;
+
+  const changeRatio = totalChangeSize / currentCode.length;
+  if (changeRatio > SIGNIFICANT_CHANGE_RATIO) return true;
+
+  return complexChanges;
+};
+
+/**
+ * Compresses a string using a simple run-length encoding algorithm
+ */
+export const compressCode = (code: string): string => {
+  if (code.length < COMPRESSION_THRESHOLD) return code;
+
+  let compressed = "";
+  let currentChar = "";
+  let count = 0;
+
+  for (let i = 0; i <= code.length; i++) {
+    // Include the end of string case
+    const char = i < code.length ? code[i] : "";
+
+    if (char === currentChar) {
+      count++;
+    } else {
+      if (count > 0) {
+        // Only use compression for runs of 4 or more
+        if (count >= 4) {
+          compressed += `${count}×${currentChar}`;
+        } else {
+          compressed += currentChar.repeat(count);
+        }
+      }
+      currentChar = char;
+      count = 1;
+    }
+  }
+
+  // Only use compression if it actually saves space
+  return compressed.length < code.length ? compressed : code;
+};
+
+/**
+ * Decompresses a string that was compressed with compressCode
+ */
+export const decompressCode = (compressed: string): string => {
+  if (!compressed.includes("×")) return compressed;
+
+  return compressed.replace(/(\d+)×(.)/g, (_, count, char) => {
+    return char.repeat(parseInt(count, 10));
+  });
+};
+
+/**
+ * Calculate changes between original and modified code
+ */
+export const calculateCodeChanges = (original: string, modified: string): CodeChangeMetrics => {
+  const sizeChange = modified.length - original.length;
+  const originalLines = original.split("\n");
+  const modifiedLines = modified.split("\n");
+
+  let changedLines = 0;
+  const minLength = Math.min(originalLines.length, modifiedLines.length);
+
+  for (let i = 0; i < minLength; i++) {
+    if (originalLines[i] !== modifiedLines[i]) {
+      changedLines++;
+    }
+  }
+
+  changedLines += Math.abs(originalLines.length - modifiedLines.length);
+  const tokenSavings = Math.floor(modified.length / 4);
+
+  return {
+    sizeChange,
+    lineCount: {
+      original: originalLines.length,
+      modified: modifiedLines.length,
+    },
+    changedLines,
+    tokenSavings,
+  };
+};
+
+/**
+ * Log code changes with detailed metrics
+ */
+export const logCodeChanges = (initialCode: string, finalCode: string): void => {
+  if (initialCode === finalCode) return;
+
+  const initialHash = md5(initialCode);
+  const finalHash = md5(finalCode);
+  const changes = calculateCodeChanges(initialCode, finalCode);
+
+  console.log("Code modified successfully", {
+    changes,
+    initialHash,
+    finalHash,
+    hashChanged: initialHash !== finalHash,
+  });
+
+  if (
+    Math.abs(changes.sizeChange) > 100 ||
+    Math.abs(changes.lineCount.modified - changes.lineCount.original) > 10
+  ) {
+    console.log("Significant code changes detected:", {
+      sizeChangePct: ((changes.sizeChange / initialCode.length) * 100).toFixed(2) + "%",
+      lineChangePct: (((changes.lineCount.modified - changes.lineCount.original) /
+        changes.lineCount.original) * 100).toFixed(2) + "%",
+    });
+  }
+};
+
+/**
+ * Estimate token savings for a given code string
+ */
+export const estimateTokenSavings = (code: string): number => {
+  if (!code) return 0;
+  // Rough estimate: 1 token ≈ 4 characters
+  return Math.floor(code.length / 4);
+};

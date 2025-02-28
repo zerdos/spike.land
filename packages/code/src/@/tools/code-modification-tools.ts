@@ -22,41 +22,6 @@ interface ParsedBlock {
   original: string;
 }
 
-/**
- * Parses search/replace blocks from instructions with improved handling
- * for edge cases and better performance for large inputs
- */
-function parseSearchReplaceBlocks(instructions: string): ParsedBlock[] {
-  // Early return for empty instructions
-  if (!instructions || instructions.trim().length === 0) {
-    return [];
-  }
-
-  const blocks: ParsedBlock[] = [];
-  const regex = new RegExp(
-    `${SEARCH}([\\s\\S]*?)${SEPARATOR}([\\s\\S]*?)${REPLACE}`,
-    "g",
-  );
-
-  let match;
-  while ((match = regex.exec(instructions)) !== null) {
-    if (match.length === 3) {
-      // Validate that search content is not empty
-      const search = match[1];
-      if (search.trim().length === 0) {
-        continue; // Skip empty search blocks
-      }
-
-      blocks.push({
-        search,
-        replace: match[2],
-        original: match[0],
-      });
-    }
-  }
-
-  return blocks;
-}
 
 /**
  * Applies a single search/replace block to the code
@@ -179,17 +144,6 @@ export const codeModificationTool = tool(
         );
       }
 
-
-      // Parse search/replace blocks
-      // const blocks = parseSearchReplaceBlocks(instructions);
-
-      // Validate that we have at least one valid block
-      if (instructions.length === 0) {
-        return createErrorResponse(
-          currentCode,
-          "No valid search/replace blocks found. Each block must include <<<<<<< SEARCH, =======, and >>>>>>> REPLACE with non-empty search content",
-        );
-      }
 
       const modifiedCode = updateSearchReplace(instructions, currentCode)
 

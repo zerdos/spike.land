@@ -1,163 +1,235 @@
-import { beforeEach, describe, it, vi } from "vitest";
-// import { createWorkflow } from "../chat-langchain-workflow";
-// import { AIMessage } from "@langchain/core/messages";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
+import { AgentState } from "@/types/chat-langchain";
+import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { ChatAnthropic } from "@langchain/anthropic";
+import { md5 } from "@/lib/md5";
+
+// Mock external dependencies
+// Mock window.location for API URL construction
+const originalLocation = global.location;
+delete (global as any).location;
+(global as any).location = {
+  origin: 'http://localhost:3000',
+};
+
+vi.mock("@langchain/anthropic", () => ({
+  ChatAnthropic: vi.fn(() => ({
+    invoke: vi.fn(),
+    bindTools: vi.fn().mockReturnThis(),
+  })),
+}));
+
+afterAll(() => {
+  (global as any).location = originalLocation;
+});
+
+vi.mock("uuid", () => ({
+  v4: vi.fn(() => "mock-uuid"),
+}));
 
 describe("chat-langchain-workflow", () => {
-  // let mockInstance = {
-  //   invoke: vi.fn(),
-  //   bindTools: vi.fn().mockReturnThis()
-  // };
-  // Mock ChatAnthropic
-  // vi.mock("@langchain/anthropic", () => ({
+  const mockSystemMessage = { content: "System message" };
+  const mockInitialState: AgentState = {
+    messages: [],
+    code: "function test() {}",
+    codeSpace: "",
+    lastError: "",
+    isStreaming: false,
+    debugLogs: [],
+    documentHash: md5("function test() {}"),
+  };
 
-  //   ChatAnthropic: vi.fn().mockImplementation(() => mockInstance)
-  // }));
-
-  beforeEach(async () => {
-    // Clear all mocks
-    vi.clearAllMocks();
-
-    // // Create fresh mock instance
-    // mockInstance = {
-    //   invoke: vi.fn(),
-    //   bindTools: vi.fn().mockReturnThis()
-    // };
-
-    // Mock the ChatAnthropic constructor to return our instance
-
-    // Store reference to mock instance
-    // mockChatAnthropic = mockInstance;
+  beforeEach(() => {
+    vi.mocked(ChatAnthropic).mockClear();
+    vi.spyOn(console, "log").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
-  it("should initialize workflow with correct state", async () => {
-    const initialState = {
-      code: "initial code",
-      debugLogs: ["initial log"],
-    };
-
-    expect(1).toBe(1);
-
-    // const workflow = await createWorkflow(initialState);
-    // expect(workflow).toHaveProperty("invoke");
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
-  // it("should handle basic message flow", async () => {
-  //   const workflow = await createWorkflow({});
+  describe("workflow creation", () => {
+    it("should create workflow with initial state", () => {
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
+      expect(workflow).toHaveProperty("invoke");
+      expect(typeof workflow.invoke).toBe("function");
+    });
 
-  //   // Mock AI response without tool calls
-  //   if (mockChatAnthropic) {
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "Hello, I can help with that",
-  //       tool_calls: undefined,
-  //       additional_kwargs: {}
-  //     });
-  //   }
+    it("should initialize ChatAnthropic with correct configuration", () => {
+      createWorkflowWithStringReplace(mockInitialState);
+      expect(ChatAnthropic).toHaveBeenCalledWith(
+        expect.objectContaining({
+          streaming: false,
+          temperature: 0,
+        })
+      );
+    });
+  });
 
-  //   const result = await workflow.invoke("Hello");
+  describe("workflow invocation", () => {
+    const mockToolResponse = new AIMessage({
+      content: "Modified code",
+      additional_kwargs: {
+        tool_responses: [
+          {
+            name: "code_modification",
+            content: JSON.stringify({
+              documentHash: "new-hash",
+              code: "function modified() {}",
+            }),
+          },
+        ],
+      },
+    });
 
-  //   expect(result.messages).toHaveLength(2); // Human message + AI response
-  //   expect(result.messages[1]).toBeInstanceOf(AIMessage);
-  //   expect(result.messages[1].content).toBe("Hello, I can help with that");
-  // });
+    beforeEach(() => {
+      vi.mocked(ChatAnthropic).mockImplementation(
+        () =>
+          ({
+            invoke: vi.fn().mockResolvedValue(mockToolResponse),
+            bindTools: vi.fn().mockReturnThis(),
+          }) as any
+      );
+    });
 
-  // it("should handle tool execution flow", async () => {
-  //   const workflow = await createWorkflow({});
+    it("should process messages and return updated state", async () => {
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
+      const result = await workflow.invoke("Modify the code");
 
-  //   if (mockChatAnthropic) {
-  //     // Mock AI response with tool call
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "Let me format that code for you",
-  //       tool_calls: [{
-  //         id: "1",
-  //         type: "function",
-  //         function: {
-  //           name: "code_formatting",
-  //           arguments: JSON.stringify({ code: "const x=5" })
-  //         }
-  //       }],
-  //       additional_kwargs: {}
-  //     });
+      expect(result).toBeDefined();
+      expect(result.messages).toContainEqual(mockToolResponse);
+      expect(result.documentHash).toBeDefined();
+    });
 
-  //     // Mock follow-up response after tool execution
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "Here's your formatted code",
-  //       tool_calls: undefined,
-  //       additional_kwargs: {}
-  //     });
-  //   }
+    it("should handle code integrity verification", async () => {
+      const initialState = {
+        ...mockInitialState,
+        code: "function original() {}",
+        documentHash: md5("function original() {}"),
+      };
 
-  //   const result = await workflow.invoke("Format this: const x=5");
+      const workflow = createWorkflowWithStringReplace(initialState);
+      const result = await workflow.invoke("Verify code integrity");
 
-  //   expect(result.messages.length).toBeGreaterThan(2); // Should include tool execution messages
-  //   expect(mockChatAnthropic?.invoke).toHaveBeenCalledTimes(2);
-  // });
+      expect(result.documentHash).toBeDefined();
+      expect(console.error).not.toHaveBeenCalled();
+    });
 
-  // it("should handle errors in the workflow", async () => {
-  //   const workflow = await createWorkflow({});
+    it("should handle compilation errors", async () => {
+      const errorResponse = new AIMessage({
+        content: "Error in modification",
+        additional_kwargs: {
+          tool_responses: [
+            {
+              name: "code_modification",
+              content: JSON.stringify({
+                documentHash: "error-hash",
+                error: "failed to compile: syntax error",
+              }),
+            },
+          ],
+        },
+      });
 
-  //   if (mockChatAnthropic) {
-  //     // Simulate an error in the model
-  //     mockChatAnthropic.invoke.mockRejectedValueOnce(new Error("API Error"));
-  //   }
+      vi.mocked(ChatAnthropic).mockImplementation(
+        () =>
+          ({
+            invoke: vi.fn().mockResolvedValue(errorResponse),
+            bindTools: vi.fn().mockReturnThis(),
+          }) as any
+      );
 
-  //   const error = await workflow.invoke("Hello")
-  //     .catch(e => e);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
+      const result = await workflow.invoke("Introduce error");
 
-  //   expect(error).toBeInstanceOf(Error);
-  //   expect(error.message).toBe("API Error");
-  // });
+      expect(result.lastError).toBeDefined();
+      expect(result.debugLogs).toContainEqual(
+        expect.stringContaining("Compilation error occurred")
+      );
+    });
 
-  // it("should preserve state between messages", async () => {
-  //   const initialState = {
-  //     debugLogs: ["initial log"]
-  //   };
+    it("should optimize token usage based on code size", async () => {
+      const largeCode = "large".repeat(1000); // 4000 chars
+      const initialState = {
+        ...mockInitialState,
+        code: largeCode,
+      };
 
-  //   const workflow = await createWorkflow(initialState);
+      const workflow = createWorkflowWithStringReplace(initialState);
+      await workflow.invoke("Optimize tokens");
 
-  //   if (mockChatAnthropic) {
-  //     // First message
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "First response",
-  //       tool_calls: undefined,
-  //       additional_kwargs: {}
-  //     });
-  //   }
+      expect(console.log).toHaveBeenCalledWith(
+        expect.stringContaining("Performance optimization")
+      );
+    });
 
-  //   const result1 = await workflow.invoke("First message");
-  //   expect(result1.debugLogs).toContain("initial log");
+    it("should handle missing code in tool response", async () => {
+      // Mock cSess for code retrieval
+      (globalThis as any).cSess = {
+        getCode: vi.fn().mockResolvedValue("retrieved code"),
+      };
 
-  //   if (mockChatAnthropic) {
-  //     // Second message should preserve debugLogs
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "Second response",
-  //       tool_calls: undefined,
-  //       additional_kwargs: {}
-  //     });
-  //   }
+      const responseWithoutCode = new AIMessage({
+        content: "No code returned",
+        additional_kwargs: {
+          tool_responses: [
+            {
+              name: "code_modification",
+              content: JSON.stringify({
+                documentHash: "new-hash",
+              }),
+            },
+          ],
+        },
+      });
 
-  //   const result2 = await workflow.invoke("Second message");
-  //   expect(result2.debugLogs).toContain("initial log");
-  // });
+      vi.mocked(ChatAnthropic).mockImplementation(
+        () =>
+          ({
+            invoke: vi.fn().mockResolvedValue(responseWithoutCode),
+            bindTools: vi.fn().mockReturnThis(),
+          }) as any
+      );
 
-  // it("should make code available to tools", async () => {
-  //   const initialState = {
-  //     code: "const test = true;"
-  //   };
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
+      const result = await workflow.invoke("Get code from session");
 
-  //   const workflow = await createWorkflow(initialState);
+      expect(result).toBeDefined();
+      expect(result.documentHash).toBe("new-hash");
 
-  //   if (mockChatAnthropic) {
-  //     mockChatAnthropic.invoke.mockResolvedValueOnce({
-  //       content: "Response",
-  //       tool_calls: undefined,
-  //       additional_kwargs: {}
-  //     });
-  //   }
+      delete (globalThis as any).cSess;
+    });
+  });
 
-  //   await workflow.invoke("Hello");
+  describe("error handling", () => {
+    it("should handle workflow errors gracefully", async () => {
+      vi.mocked(ChatAnthropic).mockImplementation(
+        () =>
+          ({
+            invoke: vi.fn().mockRejectedValue(new Error("Test error")),
+            bindTools: vi.fn().mockReturnThis(),
+          }) as any
+      );
 
-  //   expect(globalThis.currentFile).toBeDefined();
-  //   expect(globalThis.currentFile?.content).toBe("const test = true;");
-  //   expect(globalThis.currentFile?.path).toBe("current-file");
-  // });
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
+      
+      await expect(workflow.invoke("Generate error")).rejects.toThrow();
+      expect(console.error).toHaveBeenCalled();
+    });
+
+    it("should handle code integrity violations", async () => {
+      const corruptedState = {
+        ...mockInitialState,
+        code: "corrupted code",
+        documentHash: md5("original code"),
+      };
+
+      const workflow = createWorkflowWithStringReplace(corruptedState);
+      
+      await expect(workflow.invoke("Check integrity")).rejects.toThrow("Code integrity");
+    });
+  });
 });
