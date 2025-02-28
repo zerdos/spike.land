@@ -2,7 +2,7 @@ import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { createAstWorkflow } from "@/workers/ast-langchain-workflow.worker";
-import { BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage } from "@langchain/core/messages";
 
 // Custom error class for better error handling
 class ExampleError extends Error {
@@ -40,6 +40,7 @@ const example = async (
     const workflow = await createAstWorkflow({
       code: initialCode,
       codeSpace: codeSpace,
+      origin: location.origin,
       lastError: "",
       isStreaming: false,
       debugLogs: [],

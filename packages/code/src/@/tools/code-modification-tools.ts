@@ -6,6 +6,23 @@ import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 
+const BLOCK_REGEX = /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g;
+
+function parseBlocks(instructions: string): ParsedBlock[] {
+  const blocks: ParsedBlock[] = [];
+  let match;
+  
+  while ((match = BLOCK_REGEX.exec(instructions)) !== null) {
+    blocks.push({
+      search: match[1].trimEnd(),    // Preserve leading whitespace
+      replace: match[2],
+      original: match[0]
+    });
+  }
+  
+  return blocks;
+}
+
 // Constants for search/replace blocks
 export const SEARCH = "<<<<<<< SEARCH";
 export const REPLACE = ">>>>>>> REPLACE";
@@ -22,68 +39,49 @@ interface ParsedBlock {
   original: string;
 }
 
-/**
- * Applies a single search/replace block to the code
- * @param code The code to modify
- * @param block The search/replace block to apply
- * @returns The modified code and success status
- */
-function applySearchReplaceBlock(code: string, block: ParsedBlock): {
-  result: string;
-  success: boolean;
-  error?: string;
-} {
-  try {
-    // Validate inputs
-    if (!code) {
-      return {
-        result: code,
-        success: false,
-        error: "Code is empty or undefined",
-      };
+
+function applyReplacements(code: string, blocks: ParsedBlock[]): string {
+  const lines = code.split('\n');
+  let output: string[] = [];
+  let currentLine = 0;
+
+  for (const block of blocks) {
+    const searchLines = block.search.split('\n');
+    const searchLength = searchLines.length;
+    let matchIndex = -1;
+
+    // Find the block in the current code
+    while (currentLine < lines.length) {
+      if (lines[currentLine] === searchLines[0]) {
+        let match = true;
+        for (let i = 1; i < searchLength; i++) {
+          if (lines[currentLine + i] !== searchLines[i]) {
+            match = false;
+            break;
+          }
+        }
+
+        if (match) {
+          matchIndex = currentLine;
+          break;
+        }
+      }
+      currentLine++;
     }
 
-    if (!block.search || block.search.trim().length === 0) {
-      return {
-        result: code,
-        success: false,
-        error: "Search content cannot be empty",
-      };
+    if (matchIndex === -1) {
+      throw new Error(`Search block not found at position ${currentLine}`);
     }
 
-    // More efficient check for existence before replacement
-    if (!code.includes(block.search)) {
-      // Provide more helpful error message with context
-      return {
-        result: code,
-        success: false,
-        error:
-          "Search content not found exactly as specified. Check whitespace, indentation, and line endings.",
-      };
-    }
-
-    // Replace the first occurrence only
-    const result = code.replace(block.search, block.replace);
-
-    // Verify the replacement was made
-    if (result === code && block.search !== block.replace) {
-      return {
-        result,
-        success: false,
-        error: "Replacement failed - no changes made despite search content being found",
-      };
-    }
-
-    return { result, success: true };
-  } catch (error) {
-    return {
-      result: code,
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error applying block",
-    };
+    // Replace the found block
+    output = output.concat(lines.slice(0, matchIndex));
+    output.push(...block.replace.split('\n'));
+    currentLine = matchIndex + searchLength;
   }
-}
 
+  // Add remaining lines after last replacement
+  return output.concat(lines.slice(currentLine)).join('\n');
+}
 /**
  * Creates an error response with consistent format
  */
@@ -133,8 +131,33 @@ export const codeModificationTool = tool(
         );
       }
     }
+    
 
     try {
+      const blocks = parseBlocks(instructions);
+      if (blocks.length === 0) {
+        return createErrorResponse(currentCode, "No valid blocks found");
+      }
+
+      const modifiedCodeA = applyReplacements(currentCode, blocks);
+      const modifiedCodeB = updateSearchReplace(instructions, currentCode);
+
+      const modifiedCode = modifiedCodeA === modifiedCodeB ? modifiedCodeA : modifiedCodeB;
+
+      if (modifiedCodeA !== modifiedCodeB) {
+        console.warn("Code modification A+B results differ between methods",{
+          originalCode: currentCode,
+          instructions,
+          blocks,
+          modifiedCodeA,
+          modifiedCodeB
+        });
+      }
+
+      
+      if (modifiedCode === currentCode) {
+        return createErrorResponse(currentCode, "No changes detected");
+      }
       // Validate instructions
       if (!instructions || instructions.trim().length === 0) {
         return createErrorResponse(
@@ -143,7 +166,7 @@ export const codeModificationTool = tool(
         );
       }
 
-      const modifiedCode = updateSearchReplace(instructions, currentCode);
+
 
       if (modifiedCode === currentCode) {
         return createErrorResponse(
@@ -248,7 +271,7 @@ Required format for instructions parameter (can include multiple blocks):
         "MD5 hash of the document being modified. The tool will verify that the document hasn't been modified since the hash was generated.",
       ),
       returnModifiedCode: z.boolean().optional().describe(
-        "Whether to return the full modified code in the response. Set to false to save tokens when the full code isn't needed. Defaults to true for backward compatibility.",
+        "default: false. Set to true to return the modified code in the response. If false, only the documentHash will be returned to save tokens.",
       ),
     }),
   },
