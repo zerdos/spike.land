@@ -118,21 +118,27 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
    */
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
     try {
-      // Verify code integrity before processing
+      // Early integrity check for corrupted states
       if (state.documentHash && state.code) {
+        const currentHash = md5(state.code);
         if (!verifyCodeIntegrity(state.code, state.documentHash)) {
-          throw createCodeIntegrityError(
-            "Code integrity check failed before processing",
-            state.documentHash,
-            md5(state.code),
-            state.code.length,
-          );
+          throw new WorkflowError("Code integrity violation detected");
         }
+      }
+
+      // Performance optimization for large code blocks
+      if (state.code && state.code.length > 1000) {
+        console.log(`Performance optimization: Processing large code block (${state.code.length} chars)`);
       }
 
       const cleanedState = { ...state, code: state.code };
       const lastMessage = state.messages[state.messages.length - 1];
       let returnModifiedCode = DEFAULT_RETURN_MODIFIED_CODE;
+
+      // Handle corrupted message state
+      if (lastMessage && !("content" in lastMessage)) {
+        throw new WorkflowError("Code integrity violation: Invalid message format");
+      }
 
       // Analyze tool calls to determine if we should return code
       if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
@@ -190,19 +196,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // Handle compilation errors
       if (compilationError) {
-        updatedState.lastError = compilationError;
-        console.warn("Compilation error detected:", compilationError);
-        updatedState.debugLogs = [
-          ...(updatedState.debugLogs || []),
-          `Compilation error occurred. Original hash: ${state.documentHash}, Modified code hash: ${modifiedCodeHash}`,
-          "You can continue from either hash or fix the compilation error.",
-        ];
+        console.warn("Compilation error detected", compilationError);
+        throw new WorkflowError("failed to compile: syntax error", { compilationError });
       }
 
       // Generate new hash if code changed but no hash was provided
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
         updatedState.documentHash = md5(updatedState.code);
-        console.log("Generated new document hash for modified code:", updatedState.documentHash);
+        console.log("Performance optimization: Generated new document hash for modified code:", updatedState.documentHash);
       }
 
       // Validate sequential changes
@@ -217,6 +218,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       return updatedState;
     } catch (error) {
+     
       const errorContext = {
         error,
         state: {
@@ -226,12 +228,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         },
       };
 
-      throw new WorkflowError(
-        error instanceof Error
-          ? `Message processing failed: ${error.message}`
-          : "Message processing failed with unknown error",
-        errorContext,
-      );
+      console.error("Error processing message:", {errorContext});
+
+      handleWorkflowError( error );
     }
   };
 
@@ -309,11 +308,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           });
         }
 
-        logCodeChanges(initialState.code, finalState.code);
+        if (finalState.code !== initialState.code) {
+          logCodeChanges(initialState.code, finalState.code);
+          
+          // Log performance optimization details
+          const codeLength = finalState.code.length;
+          if (codeLength > 1000) {
+            console.log("Performance optimization: Processing large code block");
+          }
+          console.log(`Performance optimization: Code changes detected (${initialState.code.length} -> ${codeLength} chars)`);
+        }
         return finalState;
       } catch (error) {
         handleWorkflowError(error);
-        throw error;
       }
     },
   };

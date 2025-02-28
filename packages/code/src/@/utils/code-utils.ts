@@ -45,53 +45,6 @@ export const shouldReturnFullCode = (
 
   return complexChanges;
 };
-
-/**
- * Compresses a string using a simple run-length encoding algorithm
- */
-export const compressCode = (code: string): string => {
-  if (code.length < COMPRESSION_THRESHOLD) return code;
-
-  let compressed = "";
-  let currentChar = code[0];
-  let count = 1;
-
-  for (let i = 1; i < code.length; i++) {
-    if (code[i] === currentChar) {
-      count++;
-    } else {
-      if (count >= 2) {
-        compressed += `${count}×${currentChar}`;
-      } else {
-        compressed += currentChar;
-      }
-      currentChar = code[i];
-      count = 1;
-    }
-  }
-
-  // Handle the last group
-  if (count >= 2) {
-    compressed += `${count}×${currentChar}`;
-  } else if (count === 1) {
-    compressed += currentChar;
-  }
-
-  // Only use compression if it actually saves space
-  return compressed.length < code.length ? compressed : code;
-};
-
-/**
- * Decompresses a string that was compressed with compressCode
- */
-export const decompressCode = (compressed: string): string => {
-  if (!compressed.includes("×")) return compressed;
-
-  return compressed.replace(/(\d+)×(.)/g, (_, count, char) => {
-    return char.repeat(parseInt(count, 10));
-  });
-};
-
 /**
  * Calculate changes between original and modified code
  */

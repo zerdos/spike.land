@@ -9,20 +9,11 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
+import { WorkflowError } from "@/utils/error-handlers";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
 
-// Centralized error handling
-class WorkflowError extends Error {
-  constructor(
-    message: string,
-    public readonly context?: Record<string, unknown>,
-  ) {
-    super(message);
-    this.name = "WorkflowError";
-  }
-}
 
 // Workflow setup with improved type safety
 export const createAstWorkflow = (initialState: AgentState) => {
@@ -74,6 +65,9 @@ export const createAstWorkflow = (initialState: AgentState) => {
       reducer: (prev: BaseMessage[], next: BaseMessage[]) => [...prev, ...next],
     },
     codeSpace: {
+      reducer: (_prev: string, next: string) => next,
+    },
+    origin: {
       reducer: (_prev: string, next: string) => next,
     },
     code: getCodeReducer(),

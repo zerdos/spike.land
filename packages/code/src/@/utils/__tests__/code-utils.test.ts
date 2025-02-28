@@ -57,24 +57,6 @@ const x = 2;
     });
   });
 
-  describe("compression", () => {
-    it("should compress repeated characters", () => {
-      const uncompressed = "aaaaabbbcc";
-      const compressed = compressCode(uncompressed);
-      expect(compressed).toBe("5×a3×bc2×c");
-      expect(decompressCode(compressed)).toBe(uncompressed);
-    });
-
-    it("should not compress if result would be longer", () => {
-      const code = "abcdef";
-      expect(compressCode(code)).toBe(code);
-    });
-
-    it("should handle empty strings", () => {
-      expect(compressCode("")).toBe("");
-      expect(decompressCode("")).toBe("");
-    });
-  });
 
   describe("calculateCodeChanges", () => {
     it("should calculate size and line changes", () => {

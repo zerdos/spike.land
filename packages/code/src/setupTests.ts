@@ -1,5 +1,4 @@
 import "@testing-library/jest-dom";
-import "url-polyfill";
 
 // Mock window.matchMedia
 // Object.defineProperty(window, "matchMedia", {
@@ -129,10 +128,10 @@ const mockLocation = {
   reload: vi.fn(),
 };
 
-Object.defineProperty(window, "location", {
-  value: mockLocation,
-  writable: true,
-});
+// Object.defineProperty(window, "location", {
+//   value: mockLocation,
+//   writable: true,
+// });
 
 // Define type for Navigation API
 interface NavigationAPI {
