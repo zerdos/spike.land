@@ -17,7 +17,7 @@ fi
 
 if [ "$exit_code" -ne 0 ]; then
     # Filter out lines containing '.yarn' or 'node_modules' and show at most 200 lines.
-    grep -v '.yarn' "$stderr_file" | grep -v 'node_modules'  | head -n 50
+    grep -v '.yarn' "$stderr_file" | grep -v 'node_modules'  | head -n 500
 else
     # On success, output the buffered stdout.
     cat "$stdout_file"

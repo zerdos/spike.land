@@ -121,8 +121,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       // Early integrity check for corrupted states
       if (state.documentHash && state.code) {
         const currentHash = md5(state.code);
-        if (!verifyCodeIntegrity(state.code, state.documentHash)) {
-          throw new WorkflowError("Code integrity violation detected");
+        // Always verify integrity and throw if there's a mismatch
+        if (state.documentHash !== currentHash) {
+          throw createCodeIntegrityError(
+            "Code integrity", 
+            state.documentHash,
+            currentHash,
+            state.code.length
+          );
         }
       }
 
@@ -230,7 +236,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       console.error("Error processing message:", {errorContext});
 
-      handleWorkflowError( error );
+      handleWorkflowError(error);
+      throw error;
     }
   };
 
@@ -261,22 +268,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   return {
     invoke: async (prompt: string) => {
       try {
-        const systemMessage = new SystemMessage(anthropicSystem);
-        const initialDocumentHash = md5(initialState.code);
-
-        const enhancedPrompt =
-          `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash. For efficiency, the system may not always return the full code in responses to save tokens.`;
-
+        // Initialize messages with the current state
         const initialStateWithMessages = {
           ...initialState,
           messages: [
-            systemMessage,
-            new HumanMessage(enhancedPrompt, {
-              code: initialState.code,
-              documentHash: initialDocumentHash,
-            }),
+            new SystemMessage(anthropicSystem),
+            new HumanMessage(
+              `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash. For efficiency, the system may not always return the full code in responses to save tokens.`,
+              {
+                code: initialState.code,
+                documentHash: initialState.documentHash,
+              }
+            ),
           ],
-          documentHash: initialDocumentHash,
           debugLogs: [
             ...(initialState.debugLogs || []),
             `Performance optimization: Token-saving mode enabled (${
@@ -294,8 +298,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           const finalDocumentHash = md5(finalState.code);
           if (!verifyCodeIntegrity(finalState.code, finalDocumentHash)) {
             throw createCodeIntegrityError(
-              "Code integrity verification failed",
-              initialDocumentHash,
+              "Code integrity",
+              initialState.documentHash,
               finalDocumentHash,
               finalState.code.length,
             );
@@ -304,7 +308,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           finalState.documentHash = finalDocumentHash;
           console.log("Code integrity verified with updated hash", {
             documentHash: finalDocumentHash,
-            previousHash: initialDocumentHash,
+            previousHash: initialState.documentHash,
           });
         }
 
@@ -320,7 +324,13 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         }
         return finalState;
       } catch (error) {
+        // If it's already a code integrity error, preserve it
+        if (error instanceof WorkflowError && error.message.includes("Code integrity")) {
+          throw error;
+        }
+        // For other errors, handle and re-throw
         handleWorkflowError(error);
+        throw error;
       }
     },
   };

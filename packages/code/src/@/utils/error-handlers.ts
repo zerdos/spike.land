@@ -16,29 +16,27 @@ export class WorkflowError extends Error {
  */
 export function handleWorkflowError(error: unknown): never {
   if (error instanceof WorkflowError) {
-    console.error("Workflow Error:", error.message, error.context);
-
-    // Add more helpful context for specific error types
     if (error.message.includes("Code integrity")) {
-      console.error("Code integrity errors may indicate version conflicts. Check document hashes.");
-    } else if (error.message.includes("failed to compile")) {
-      console.error("Compilation errors can be fixed with a new modification or by rolling back.");
+      console.error("Code integrity validation failed");
+      throw error;
     }
-
+    if (error.message.includes("failed to compile")) {
+      console.error("Compilation errors can be fixed with a new modification or by rolling back.");
+      throw error;
+    }
+    console.error("Workflow Error:", error.message, error.context);
     throw error;
   }
 
   console.error("Unexpected Error:", error);
-  throw new WorkflowError("Unexpected workflow error", {
-    originalError: error,
-  });
+  throw new WorkflowError("Unexpected workflow error", { originalError: error });
 }
 
 /**
  * Creates a workflow error with code integrity context
  */
 export function createCodeIntegrityError(message: string, expectedHash: string, actualHash: string, codeLength: number): WorkflowError {
-  return new WorkflowError(`Code integrity error: ${message}`, {
+  return new WorkflowError(`${message}`, {
     expectedHash,
     actualHash,
     codeLength,

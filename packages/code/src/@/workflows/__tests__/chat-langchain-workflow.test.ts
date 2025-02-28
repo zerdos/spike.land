@@ -135,12 +135,9 @@ describe("chat-langchain-workflow", () => {
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
-      const result = await workflow.invoke("Introduce error");
-
-      expect(result.lastError).toBeDefined();
-      expect(result.debugLogs).toContainEqual(
-        expect.stringContaining("Compilation error occurred")
-      );
+      
+      await expect(workflow.invoke("Introduce error")).rejects.toThrow("failed to compile: syntax error");
+      expect(console.error).toHaveBeenCalled();
     });
 
     it("should optimize token usage based on code size", async () => {
@@ -148,6 +145,7 @@ describe("chat-langchain-workflow", () => {
       const initialState = {
         ...mockInitialState,
         code: largeCode,
+        documentHash: md5(largeCode),
       };
 
       const workflow = createWorkflowWithStringReplace(initialState);
@@ -217,7 +215,17 @@ describe("chat-langchain-workflow", () => {
         ...mockInitialState,
         code: "corrupted code",
         documentHash: md5("original code"),
+        messages: [new SystemMessage("Test")],
       };
+
+      // Mock ChatAnthropic to return a simple response
+      vi.mocked(ChatAnthropic).mockImplementation(
+        () =>
+          ({
+            invoke: vi.fn().mockResolvedValue(new AIMessage({ content: "Test response" })),
+            bindTools: vi.fn().mockReturnThis(),
+          }) as any
+      );
 
       const workflow = createWorkflowWithStringReplace(corruptedState);
       
