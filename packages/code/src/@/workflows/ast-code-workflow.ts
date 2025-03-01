@@ -74,9 +74,6 @@ export const createAstWorkflow = (initialState: AgentState) => {
     isStreaming: {
       reducer: (_prev: boolean, next: boolean) => next,
     },
-    debugLogs: {
-      reducer: (prev: string[], next: string[]) => [...prev, ...next],
-    },
     documentHash: {
       reducer: (_prev: string | undefined, next: string) => next,
     },

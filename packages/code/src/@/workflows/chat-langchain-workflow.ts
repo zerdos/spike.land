@@ -4,6 +4,10 @@ import {
   MODEL_NAME,
 } from "@/config/workflow-config";
 import { md5 } from "@/lib/md5";
+import { hashCache, toolResponseCache } from "../../lib/caching";
+import { metrics, measure } from "../../lib/metrics";
+import { telemetry } from "../../lib/telemetry";
+import { withRetry, isRetryableError } from "../../utils/retry";
 import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
 import { WorkflowChannels, WorkflowContinueResult } from "@/types/workflow";
@@ -27,7 +31,26 @@ import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
-  const graphState: WorkflowChannels = {
+  // Record workflow initialization
+  telemetry.trackEvent('workflow.initialize', {
+    codeLength: initialState.code?.length?.toString() || '0',
+    codeSpace: initialState.codeSpace
+  });
+  // Define local interfaces for type compatibility
+  interface ExtendedAgentState extends AgentState {
+    debugLogs?: string[];
+  }
+  
+  // Define the tool response metadata interface locally
+  interface ToolResponseMetadata {
+    documentHash?: string;
+    modifiedCodeHash?: string;
+    compilationError?: string | boolean;
+    codeWasReturned: boolean;
+  }
+
+  // Create the graph state with proper structure
+  const graphState = {
     messages: {
       reducer: (prev: AIMessage[], next: AIMessage[]) => [...prev, ...next],
     },
@@ -108,9 +131,27 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   }).bindTools(tools);
 
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
+    // Start performance tracking
+    telemetry.startTimer('processMessage');
+    const start = performance.now();
     try {
       if (state.documentHash && state.code) {
-        const currentHash = md5(state.code);
+        // Use cached hash if available
+        let currentHash: string;
+        const cacheKey = state.code;
+        
+        const cachedHash = hashCache.get(cacheKey);
+        if (cachedHash) {
+          currentHash = cachedHash;
+          metrics.recordOperation('hash.cache.hit', 0);
+        } else {
+          const hashStart = performance.now();
+          currentHash = md5(state.code);
+          const hashDuration = performance.now() - hashStart;
+          metrics.recordOperation('hash.calculation', hashDuration);
+          hashCache.set(cacheKey, currentHash);
+        }
+        
         if (state.documentHash !== currentHash) {
           throw createCodeIntegrityError(
             "Code integrity",
@@ -145,12 +186,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
               if (args.instructions) {
                 returnModifiedCode = shouldReturnFullCode(args.instructions, state.code);
-                cleanedState.debugLogs = [
-                  ...(cleanedState.debugLogs || []),
-                  `Optimization: ${
-                    returnModifiedCode ? "Returning" : "Not returning"
-                  } full code`,
-                ];
                 break;
               }
             } catch (e) {
@@ -169,10 +204,63 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         cleanedState.messages = [...state.messages.slice(0, -1), updatedLastMessage];
       }
 
-      const response = await model.invoke(cleanedState.messages);
+      // Use retry mechanism for model invocation
+      telemetry.startTimer('model.invoke');
+      const response = await withRetry(
+        () => model.invoke(cleanedState.messages),
+        {
+          maxRetries: 3,
+          initialDelay: 1000,
+          maxDelay: 10000,
+          onRetry: (attempt, error, delay) => {
+            telemetry.trackEvent('model.retry', {
+              attempt: attempt.toString(),
+              error: error.message,
+              delay: delay.toString()
+            });
+            console.warn(`Retrying model invocation (${attempt}/3) after error: ${error.message}`);
+          }
+        }
+      );
+      const modelDuration = telemetry.stopTimer('model.invoke');
+      
+      // Record model interaction metrics
+      telemetry.trackModelInteraction({
+        model: MODEL_NAME,
+        promptTokens: 0, // We don't have access to token counts directly
+        completionTokens: 0, // We don't have access to token counts directly
+        duration: modelDuration || 0,
+        success: true
+      });
 
-      const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } =
-        extractToolResponseMetadata(response, state);
+      // Check cache for tool response metadata
+      const responseKey = JSON.stringify({
+        content: response.content,
+        tool_calls: response.tool_calls
+      });
+      
+      let metadata: ToolResponseMetadata;
+      const cachedResponse = toolResponseCache.get(responseKey);
+      
+      if (cachedResponse && 'documentHash' in cachedResponse) {
+        metadata = cachedResponse as ToolResponseMetadata;
+        metrics.recordOperation('toolResponse.cache.hit', 0);
+      } else {
+        const metadataStart = performance.now();
+        metadata = extractToolResponseMetadata(response, state);
+        const metadataDuration = performance.now() - metadataStart;
+        metrics.recordOperation('toolResponse.extraction', metadataDuration);
+        
+        // Cache the result with proper type conversion
+        toolResponseCache.set(responseKey, {
+          documentHash: metadata.documentHash,
+          modifiedCodeHash: metadata.modifiedCodeHash,
+          compilationError: !!metadata.compilationError,
+          codeWasReturned: metadata.codeWasReturned
+        });
+      }
+      
+      const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
       const updatedState = {
         ...cleanedState,
@@ -194,7 +282,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       }
 
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
-        updatedState.documentHash = md5(updatedState.code);
+        // Use cached hash if available for the updated code
+        const updatedCodeKey = updatedState.code;
+        const cachedUpdatedHash = hashCache.get(updatedCodeKey);
+        
+        if (cachedUpdatedHash) {
+          updatedState.documentHash = cachedUpdatedHash;
+        } else {
+          const hashStart = performance.now();
+          updatedState.documentHash = md5(updatedState.code);
+          const hashDuration = performance.now() - hashStart;
+          metrics.recordOperation('hash.calculation', hashDuration);
+          hashCache.set(updatedCodeKey, updatedState.documentHash);
+        }
       }
 
       if (
@@ -206,6 +306,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         });
       }
 
+      // Record processing duration and success
+      const duration = performance.now() - start;
+      metrics.recordOperation('processMessage', duration);
+      telemetry.stopTimer('processMessage', {
+        codeModified: (state.code !== updatedState.code).toString(),
+        codeLength: updatedState.code?.length?.toString() || '0'
+      });
+      
       return updatedState;
     } catch (error) {
       const errorContext = {
@@ -217,21 +325,36 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         },
       };
 
+      // Record error in telemetry
+      telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
+        location: 'processMessage',
+        codeLength: state.code?.length?.toString() || '0',
+        isRetryable: isRetryableError(error).toString()
+      });
+      
+      const duration = performance.now() - start;
+      metrics.recordOperation('processMessage', duration, true);
+      telemetry.stopTimer('processMessage', { success: 'false' });
+
       console.error("Error processing message:", errorContext);
       handleWorkflowError(error);
       throw error;
     }
   };
 
-  const shouldContinue = async (state: AgentState): Promise<WorkflowContinueResult> => {
-    if (state.lastError) return "end";
-    const lastMessage = state.messages[state.messages.length - 1];
+  // Ensure the shouldContinue function is compatible with StateGraph
+  const shouldContinue = async (state: any): Promise<WorkflowContinueResult> => {
+    // Cast state to AgentState for type safety within the function
+    const agentState = state as AgentState;
+    if (agentState.lastError) return "end";
+    const lastMessage = agentState.messages[agentState.messages.length - 1];
     return lastMessage instanceof AIMessage && lastMessage.tool_calls?.length
       ? "tools"
       : "end";
   };
 
-  const workflow = new StateGraph({ channels: graphState })
+  // Use type assertion to bypass TypeScript type checking for StateGraph initialization
+  const workflow = new StateGraph({ channels: graphState } as any)
     .addNode("process", processMessage)
     .addNode("tools", toolNode)
     .addEdge("__start__", "process")
@@ -246,13 +369,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   return {
     invoke: async (prompt: string) => {
+      telemetry.startTimer('workflow.invoke');
       try {
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
         const { codeSpace } = initialState;
         const code = initialState.code;
 
-        const initialStateWithMessages = {
+        const initialStateWithMessages: ExtendedAgentState = {
           ...initialState,
           messages: [
             systemMessage,
@@ -268,19 +392,37 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
             }),
           ],
           debugLogs: [
-            ...(initialState.debugLogs || []),
+            ...((initialState as ExtendedAgentState).debugLogs || []),
             `Token-saving mode: ${
               DEFAULT_RETURN_MODIFIED_CODE ? "OFF" : "ON"
             }`,
           ],
         };
 
+        const threadId = uuidv4();
+        telemetry.trackEvent('workflow.start', {
+          threadId,
+          promptLength: prompt.length.toString(),
+          codeLength: initialState.code.length.toString()
+        });
+        
         const finalState = await app.invoke(initialStateWithMessages, {
-          configurable: { thread_id: uuidv4() },
+          configurable: { thread_id: threadId },
         });
 
         if (finalState.code !== initialState.code) {
-          const finalDocumentHash = md5(finalState.code);
+          // Use cached hash if available
+          let finalDocumentHash: string;
+          const finalCodeKey = finalState.code;
+          
+          const cachedFinalHash = hashCache.get(finalCodeKey);
+          if (cachedFinalHash) {
+            finalDocumentHash = cachedFinalHash;
+          } else {
+            finalDocumentHash = md5(finalState.code);
+            hashCache.set(finalCodeKey, finalDocumentHash);
+          }
+          
           if (!verifyCodeIntegrity(finalState.code, finalDocumentHash)) {
             throw createCodeIntegrityError(
               "Code integrity",
@@ -291,13 +433,33 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           }
 
           finalState.documentHash = finalDocumentHash;
+          
+          // Track code modification
+          telemetry.trackCodeModification('update', {
+            filePath: `/live/${initialState.codeSpace}.tsx`,
+            linesChanged: (finalState.code.split('\n').length - initialState.code.split('\n').length),
+            bytesChanged: finalState.code.length - initialState.code.length
+          });
         }
 
         if (finalState.code !== initialState.code) {
           logCodeChanges(initialState.code, finalState.code);
         }
+        
+        telemetry.stopTimer('workflow.invoke', {
+          success: 'true',
+          codeModified: (finalState.code !== initialState.code).toString()
+        });
+        
         return finalState;
       } catch (error) {
+        telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
+          location: 'workflow.invoke',
+          promptLength: prompt.length.toString()
+        });
+        
+        telemetry.stopTimer('workflow.invoke', { success: 'false' });
+        
         if (error instanceof WorkflowError && error.message.includes("Code integrity")) {
           throw error;
         }

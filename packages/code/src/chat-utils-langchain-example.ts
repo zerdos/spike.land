@@ -54,11 +54,6 @@ export const setupAndRun = async (
         origin: location.origin,
         lastError: "",
         isStreaming: false,
-        debugLogs: [
-          `Token optimization: ${options.returnModifiedCode ? "OFF" : "ON"} (${
-            options.returnModifiedCode ? "returning" : "not returning"
-          } full code by default)`,
-        ],
         messages: [], // We'll create the messages properly before invoking
         documentHash: initialDocumentHash,
         // Add returnModifiedCode to the initial state so it can be accessed by the workflow

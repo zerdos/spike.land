@@ -43,7 +43,6 @@ const example = async (
       origin: location.origin,
       lastError: "",
       isStreaming: false,
-      debugLogs: [],
       messages: [], // We'll create the messages properly before invoking
       documentHash: initialDocumentHash,
       filePath: filePath,
