@@ -19,7 +19,7 @@ const worker = {
 };
 
 // Mock ExecutionContext for testing
-const createExecutionContext = (): ExecutionContext => ({
+const createExecutionContext = () => ({
   waitUntil: (promise: Promise<unknown>) => promise,
   passThroughOnException: () => {},
   // Required by CF types
@@ -27,33 +27,8 @@ const createExecutionContext = (): ExecutionContext => ({
     testProp1: "test1",
     testProp2: "test2",
   },
-});
+}) as unknown as ExecutionContext;
 
-// Helper to create a request with CF properties
-const createTestRequest = (url: string): Request => {
-  const request = new Request(url);
-  Object.defineProperty(request, "cf", {
-    value: {
-      asn: 1234,
-      asOrganization: "Test Org",
-      colo: "TEST",
-      edgeRequestKeepAliveStatus: 1,
-      tlsCipher: "test-cipher",
-      country: "XX",
-      httpProtocol: "HTTP/1.1",
-      requestPriority: "",
-      timezone: "UTC",
-      city: "Test City",
-      continent: "XX",
-      latitude: "0",
-      longitude: "0",
-      postalCode: "12345",
-      region: "Test Region",
-      regionCode: "TR",
-    },
-  });
-  return request;
-};
 
 // Mock DurableObjectId
 class MockDurableObjectId {
@@ -76,7 +51,7 @@ class MockResponse extends Response {
 
 describe("Hello World worker", () => {
   it("responds with Hello World! (unit style)", async () => {
-    const request = createTestRequest("http://example.com");
+    const request = new Request("http://example.com");
     const ctx = createExecutionContext();
     const mockEnv: MockEnv = {
       CODE: {
@@ -97,7 +72,7 @@ describe("Hello World worker", () => {
 
   it("responds with Hello World! (integration style)", async () => {
     const mockFetch = async (url: string) => {
-      const request = createTestRequest(url);
+      const request = new Request(url);
       const ctx = createExecutionContext();
       const mockEnv: MockEnv = {
         CODE: {

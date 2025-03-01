@@ -73,7 +73,7 @@ describe("R2BucketHandler", () => {
         idFromString: vi.fn(),
         get: vi.fn(),
         jurisdiction: vi.fn(),
-      } as DurableObjectNamespace,
+      } as unknown as DurableObjectNamespace,
       ESBUILD: {
         fetch: vi.fn().mockResolvedValue(new Response()),
         connect: vi.fn().mockReturnValue({} as Socket),
@@ -84,7 +84,7 @@ describe("R2BucketHandler", () => {
         idFromString: vi.fn(),
         get: vi.fn(),
         jurisdiction: vi.fn(),
-      } as DurableObjectNamespace,
+      } as unknown as DurableObjectNamespace,
       X9: {
         put: vi.fn().mockResolvedValue(undefined),
         get: vi.fn().mockResolvedValue(null),

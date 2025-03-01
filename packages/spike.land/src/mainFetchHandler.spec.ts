@@ -19,9 +19,9 @@ describe("MainFetchHandler", () => {
 
     mockCtx = {
       waitUntil: vi.fn(),
-      passThroughOnException: () => {},
+      passThroughOnException: () => { },
       props: {},
-    } as ExecutionContext;
+    } as unknown as ExecutionContext;
 
     // Mock imported functions
     vi.mock("./fetchHandler", () => ({

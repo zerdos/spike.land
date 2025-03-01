@@ -169,6 +169,7 @@
     "input-otp": "1.4.2",
     "localforage": "1.10.0",
     "lodash": "4.17.21",
+    "lru-cache": "^11.0.2",
     "lucide-react": "0.477.0",
     "microdiff": "1.5.0",
     "mime-db": "1.53.0",

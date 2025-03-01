@@ -65,7 +65,7 @@ describe("FetchHandler", () => {
       waitUntil: vi.fn(),
       passThroughOnException: () => {},
       props: {},
-    } as ExecutionContext;
+    } as unknown as ExecutionContext;
 
     // Mock imported functions
     vi.mock("./handleEsmRequest", () => ({
