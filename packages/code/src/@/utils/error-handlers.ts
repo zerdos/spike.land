@@ -14,7 +14,7 @@ export class WorkflowError extends Error {
 /**
  * Handle workflow errors with detailed logging and context
  */
-export function handleWorkflowError(error: unknown): never {
+export function handleWorkflowError(error: unknown): WorkflowError {
   if (error instanceof WorkflowError) {
     if (error.message.includes("Code integrity")) {
       console.error("Code integrity validation failed");

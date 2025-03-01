@@ -279,10 +279,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
 
-        // Add information about document hash versioning and token optimization to the prompt
-        const enhancedPrompt =
-          `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash. For efficiency, the system may not always return the full code in responses to save tokens.`;
-
         const { codeSpace } = initialState;
         const code = initialState.code;
         const documentHash = initialDocumentHash;
