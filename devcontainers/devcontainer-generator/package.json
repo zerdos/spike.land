@@ -11,7 +11,8 @@
   "exports": "./index.mjs",
   "scripts": {
     "build": "esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
-    "clean": "rm -rf lib"
+    "clean": "rm -rf lib",
+    "example:optimized-node": "ts-node examples/optimized-node.ts"
   },
   "publishConfig": {
     "access": "public"
@@ -19,7 +20,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "22.13.8",
-    "esbuild-wasm": "0.25.0"
+    "esbuild-wasm": "0.25.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
 }

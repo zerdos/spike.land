@@ -1,5 +1,159 @@
 import { readFile } from "fs/promises";
+import * as path from "path";
 import * as softwareVersions from "../versions.json";
+
+// Define template categories for better organization
+export enum TemplateCategory {
+  BASE = "base",
+  RUNTIME = "runtime",
+  TOOL = "tool",
+  DESKTOP = "desktop",
+  UTILITY = "utility"
+}
+
+// Template metadata for better organization and validation
+interface TemplateDefinition {
+  id: string;
+  category: TemplateCategory;
+  dependencies?: string[];  // Templates that must be included before this one
+  conflicts?: string[];     // Templates that conflict with this one
+  requiredVars?: string[];  // Variables that must be provided
+  order?: number;           // Order in which templates should be applied
+}
+
+// Template registry for easy discovery and management
+const templateRegistry: Record<string, TemplateDefinition> = {
+  "base": {
+    id: "base",
+    category: TemplateCategory.BASE,
+    order: 0
+  },
+  "node": {
+    id: "node",
+    category: TemplateCategory.RUNTIME,
+    requiredVars: ["NODE_VERSION", "YARN_VERSION"],
+    order: 10
+  },
+  "node-optimized": {
+    id: "node-optimized",
+    category: TemplateCategory.RUNTIME,
+    requiredVars: ["NODE_VERSION", "YARN_VERSION"],
+    conflicts: ["node"],
+    order: 10
+  },
+  "git": {
+    id: "git",
+    category: TemplateCategory.TOOL,
+    requiredVars: ["GIT_VERSION"],
+    order: 5
+  },
+  "gitUbuntu": {
+    id: "gitUbuntu",
+    category: TemplateCategory.TOOL,
+    conflicts: ["git"],
+    order: 5
+  },
+  "xpra": {
+    id: "xpra",
+    category: TemplateCategory.DESKTOP,
+    requiredVars: ["XPRADISTRO"],
+    order: 20
+  },
+  "noVNC": {
+    id: "noVNC",
+    category: TemplateCategory.DESKTOP,
+    conflicts: ["xpra"],
+    order: 20
+  },
+  "chrome": {
+    id: "google-chrome",
+    category: TemplateCategory.TOOL,
+    order: 15
+  },
+  "chromium": {
+    id: "chromium",
+    category: TemplateCategory.TOOL,
+    conflicts: ["chrome"],
+    order: 15
+  },
+  "xfce": {
+    id: "xfce",
+    category: TemplateCategory.DESKTOP,
+    order: 25
+  },
+  "docker": {
+    id: "docker",
+    category: TemplateCategory.TOOL,
+    requiredVars: ["DISTRO"],
+    order: 30
+  },
+  "kubernetes": {
+    id: "kubernetes",
+    category: TemplateCategory.TOOL,
+    dependencies: ["docker"],
+    requiredVars: ["DISTRO"],
+    order: 35
+  },
+  "dotnet3": {
+    id: "dotnet3",
+    category: TemplateCategory.RUNTIME,
+    conflicts: ["dotnet5", "dotnet6"],
+    requiredVars: ["DOTNET_SDK_VERSION", "dotnet_sha512"],
+    order: 12
+  },
+  "dotnet5": {
+    id: "dotnet5",
+    category: TemplateCategory.RUNTIME,
+    conflicts: ["dotnet3", "dotnet6"],
+    requiredVars: ["DOTNET_SDK_VERSION", "dotnet_sha512"],
+    order: 12
+  },
+  "dotnet6": {
+    id: "dotnet6",
+    category: TemplateCategory.RUNTIME,
+    conflicts: ["dotnet3", "dotnet5"],
+    requiredVars: ["DOTNET_SDK_VERSION", "arm_dotnet_sha512", "amd_dotnet_sha512"],
+    order: 12
+  },
+  "deno": {
+    id: "deno",
+    category: TemplateCategory.RUNTIME,
+    requiredVars: ["DENO_VERSION"],
+    order: 11
+  },
+  "vscode": {
+    id: "vscode",
+    category: TemplateCategory.TOOL,
+    order: 40
+  },
+  "zsh": {
+    id: "zsh",
+    category: TemplateCategory.UTILITY,
+    order: 45
+  },
+  "android": {
+    id: "android",
+    category: TemplateCategory.TOOL,
+    order: 35
+  },
+  "cypress": {
+    id: "cypress",
+    category: TemplateCategory.TOOL,
+    requiredVars: ["CYPRESS_VERSION"],
+    order: 15
+  },
+  "debianBackports": {
+    id: "debianBackports",
+    category: TemplateCategory.BASE,
+    requiredVars: ["DISTRO"],
+    order: 1
+  },
+  "suffix": {
+    id: "suffix",
+    category: TemplateCategory.UTILITY,
+    order: 100 // Always last
+  }
+};
 
 type Base =
   | "stretch"
@@ -23,39 +177,18 @@ type NodeVersion = "lts" | "current";
 type RemoteDesktopType = "xpra" | "noVNC";
 type DotnetVersion = "3" | "5" | "6";
 
-interface TemplateSet {
-  dockerTemplates: Record<string, string>;
-  readmeTemplates: Record<string, string>;
-}
-
 /**
- * Gets the distribution type based on the base image
- */
-const getDistro = (base: Base): string => {
-  if (base === "gitpod/workspace-full") {
-    return "gitpod/workspace-full";
-  }
-  
-  const debianDistros = ["stretch", "buster", "bullseye", "bookworm", "trixie"];
-  return debianDistros.includes(base as string) ? "debian" : "ubuntu";
-};
-
-/**
- * DevcontainerGenerator generates Dockerfiles and README files for development containers
- * with various tools and technologies.
+ * Enhanced DevcontainerGenerator with improved template management and validation
  */
 export class DevcontainerGenerator {
   private _dockerfile = "";
   private _readme = "";
   private _dockerTemplates: Record<string, string> = {};
   private _readmeTemplates: Record<string, string> = {};
+  private _variables: Record<string, string> = {};
+  private _enabledTemplates: Set<string> = new Set();
   
   // Configuration options
-  private _nodeVersion: NodeVersion | null = null;
-  private _gitVersion = "";
-  private _cypressVersion = "";
-  private _dotnet: DotnetVersion | null = null;
-  private _debianBackports = false;
   private _features: Record<string, boolean> = {
     xfce: false,
     docker: false,
@@ -70,76 +203,88 @@ export class DevcontainerGenerator {
     chrome: false
   };
 
-  // Template input components
-  private _templateInputs = [
-    "base",
-    "android",
-    "git",
-    "debianBackports",
-    "google-chrome",
-    "chromium",
-    "gitUbuntu",
-    "node",
-    "cypress",
-    "dotnet6",
-    "docker",
-    "kubernetes",
-    "dotnet3",
-    "xfce",
-    "noVNC",
-    "xpra",
-    "deno",
-    "zsh",
-    "vscode",
-    "suffix"
-  ];
-
   /**
    * Creates a new DevcontainerGenerator
    * @param base The base distribution to use for the container
+   * @param templateDir Directory containing template files
    */
-  constructor(private base: Base) {}
+  constructor(
+    private base: Base,
+    private templateDir: string = "../devcontainer-generator/templates"
+  ) {
+    // Always add base template
+    this._enabledTemplates.add("base");
+    this._enabledTemplates.add("suffix");
+    
+    // Set base distribution as a variable
+    const distro = this.getDistro(base);
+    this._variables["DISTRO"] = `${distro}:${base}`;
+    this._variables["BASE"] = base;
+  }
 
   /**
-   * Initialize the generator by loading all template files
+   * Gets the distribution type based on the base image
    */
-  private async init(): Promise<TemplateSet> {
-    try {
-      const bufferDockerfiles = await Promise.all(
-        this._templateInputs.map(
-          async (fileName) => await this.loadTemplate(fileName, "Dockerfile"),
-        ),
-      );
-      
-      const bufferReadmeFiles = await Promise.all(
-        this._templateInputs.map(
-          async (fileName) => await this.loadTemplate(fileName, "README"),
-        ),
-      );
+  private getDistro(base: Base): string {
+    if (base === "gitpod/workspace-full") {
+      return "gitpod/workspace-full";
+    }
+    
+    const debianDistros = ["stretch", "buster", "bullseye", "bookworm", "trixie"];
+    return debianDistros.includes(base as string) ? "debian" : "ubuntu";
+  }
 
-      this._templateInputs.forEach(
-        (input, index) => (this._dockerTemplates[input] = String(bufferDockerfiles[index])),
-      );
-      
-      this._templateInputs.forEach(
-        (input, index) => (this._readmeTemplates[input] = String(bufferReadmeFiles[index])),
-      );
-
-      return {
-        dockerTemplates: this._dockerTemplates,
-        readmeTemplates: this._readmeTemplates,
-      };
-    } catch (error) {
-      console.error("Failed to initialize templates:", error);
-      throw new Error("Template initialization failed");
+  /**
+   * Initialize the generator by loading template files
+   */
+  public async init(): Promise<void> {
+    // Get all template files
+    const templateIds = Object.keys(templateRegistry);
+    
+    // Load Dockerfile templates
+    for (const id of templateIds) {
+      try {
+        const content = await this.loadTemplate(id, "Dockerfile");
+        this._dockerTemplates[id] = content;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.warn(`Warning: Could not load Dockerfile template for ${id}:`, errorMessage);
+        this._dockerTemplates[id] = "";
+      }
+    }
+    
+    // Load README templates
+    for (const id of templateIds) {
+      try {
+        const content = await this.loadTemplate(id, "README");
+        this._readmeTemplates[id] = content;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.warn(`Warning: Could not load README template for ${id}:`, errorMessage);
+        this._readmeTemplates[id] = "";
+      }
     }
   }
 
   /**
    * Set the Node.js version to include
+   * @param nodeType The Node.js version to use (lts or current)
+   * @param optimized Whether to use the optimized multi-stage build template
    */
-  public setNodeVersion(nodeVersion: NodeVersion): this {
-    this._nodeVersion = nodeVersion;
+  public setNodeVersion(nodeType: NodeVersion, optimized = false): this {
+    const nodeVersion = softwareVersions.node[nodeType];
+    const yarnVersion = softwareVersions.yarn;
+    
+    this._variables["NODE_VERSION"] = nodeVersion;
+    this._variables["YARN_VERSION"] = yarnVersion;
+    
+    // Use either the standard or optimized Node.js template
+    if (optimized) {
+      this._enabledTemplates.add("node-optimized");
+    } else {
+      this._enabledTemplates.add("node");
+    }
+    
     return this;
   }
 
@@ -148,6 +293,7 @@ export class DevcontainerGenerator {
    */
   public setVscode(): this {
     this._features.vscode = true;
+    this._enabledTemplates.add("vscode");
     return this;
   }
 
@@ -155,10 +301,11 @@ export class DevcontainerGenerator {
    * Update Git to the latest version or use Ubuntu's package
    */
   public updateGit(forceFromSource = false): this {
-    if (getDistro(this.base) === "ubuntu" && !forceFromSource) {
-      this._gitVersion = "ubuntu";
+    if (this.getDistro(this.base) === "ubuntu" && !forceFromSource) {
+      this._enabledTemplates.add("gitUbuntu");
     } else {
-      this._gitVersion = softwareVersions.git;
+      this._variables["GIT_VERSION"] = softwareVersions.git;
+      this._enabledTemplates.add("git");
     }
     return this;
   }
@@ -167,7 +314,7 @@ export class DevcontainerGenerator {
    * Enable Debian backports repository
    */
   public setDebianBackports(): this {
-    this._debianBackports = true;
+    this._enabledTemplates.add("debianBackports");
     return this;
   }
 
@@ -176,6 +323,7 @@ export class DevcontainerGenerator {
    */
   public setXfce(): this {
     this._features.xfce = true;
+    this._enabledTemplates.add("xfce");
     return this;
   }
 
@@ -184,6 +332,8 @@ export class DevcontainerGenerator {
    */
   public setDeno(): this {
     this._features.deno = true;
+    this._variables["DENO_VERSION"] = softwareVersions.deno;
+    this._enabledTemplates.add("deno");
     return this;
   }
 
@@ -192,6 +342,8 @@ export class DevcontainerGenerator {
    */
   public setK8s(): this {
     this._features.k8s = true;
+    this._enabledTemplates.add("kubernetes");
+    this._enabledTemplates.add("docker"); // K8s requires Docker
     return this;
   }
 
@@ -200,6 +352,7 @@ export class DevcontainerGenerator {
    */
   public setChrome(): this {
     this._features.chrome = true;
+    this._enabledTemplates.add("chrome");
     return this;
   }
 
@@ -208,6 +361,7 @@ export class DevcontainerGenerator {
    */
   public setChromium(): this {
     this._features.chromium = true;
+    this._enabledTemplates.add("chromium");
     return this;
   }
 
@@ -216,6 +370,7 @@ export class DevcontainerGenerator {
    */
   public setAndroid(): this {
     this._features.android = true;
+    this._enabledTemplates.add("android");
     return this;
   }
 
@@ -225,13 +380,11 @@ export class DevcontainerGenerator {
   public setRemoteDesktop(type: RemoteDesktopType = "xpra"): this {
     if (type === "xpra") {
       this._features.xpra = true;
+      this._enabledTemplates.add("xpra");
+      this._variables["XPRADISTRO"] = this.base;
     } else {
       this._features.noVNC = true;
-    }
-
-    // Validate remote desktop settings
-    if (this._features.noVNC && this._features.xpra) {
-      console.warn("Warning: Both noVNC and Xpra are enabled. This may cause conflicts.");
+      this._enabledTemplates.add("noVNC");
     }
     
     return this;
@@ -242,6 +395,7 @@ export class DevcontainerGenerator {
    */
   public setZsh(): this {
     this._features.zsh = true;
+    this._enabledTemplates.add("zsh");
     return this;
   }
 
@@ -250,6 +404,7 @@ export class DevcontainerGenerator {
    */
   public setDocker(): this {
     this._features.docker = true;
+    this._enabledTemplates.add("docker");
     return this;
   }
 
@@ -257,7 +412,35 @@ export class DevcontainerGenerator {
    * Enable .NET SDK
    */
   public setDotnet(version: DotnetVersion = "6"): this {
-    this._dotnet = version;
+    // Set appropriate template and variables based on version
+    if (version === "6") {
+      const dotnetVersion = softwareVersions.dotnet6;
+      const shaValues = (softwareVersions.sha.dotnet_sha512 as any)["6.0.400"];
+      
+      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
+      this._variables["arm_dotnet_sha512"] = shaValues.arm;
+      this._variables["amd_dotnet_sha512"] = shaValues.amd;
+      this._enabledTemplates.add("dotnet6");
+    } 
+    else if (version === "3") {
+      const dotnetVersion = softwareVersions.dotnet3;
+      const shaRecord = (softwareVersions.sha.dotnet_sha512 as any)[dotnetVersion];
+      const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
+      
+      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
+      this._variables["dotnet_sha512"] = shaValue;
+      this._enabledTemplates.add("dotnet3");
+    } 
+    else {
+      const dotnetVersion = softwareVersions.dotnet5;
+      const shaRecord = (softwareVersions.sha.dotnet_sha512 as any)[dotnetVersion];
+      const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
+      
+      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
+      this._variables["dotnet_sha512"] = shaValue;
+      this._enabledTemplates.add("dotnet5");
+    }
+    
     return this;
   }
 
@@ -265,227 +448,138 @@ export class DevcontainerGenerator {
    * Enable Cypress for end-to-end testing
    */
   public setCypress(): this {
-    this._cypressVersion = softwareVersions.cypress;
+    this._variables["CYPRESS_VERSION"] = softwareVersions.cypress;
+    this._enabledTemplates.add("cypress");
     return this;
+  }
+
+  /**
+   * Validate template configuration
+   * - Check for conflicts between templates
+   * - Ensure required dependencies are present
+   * - Verify all required variables are set
+   */
+  private validateConfiguration(): string[] {
+    const errors: string[] = [];
+    
+    // Get all enabled templates
+    const enabledTemplates = Array.from(this._enabledTemplates);
+    
+    // Check for conflicts
+    for (const templateId of enabledTemplates) {
+      const template = templateRegistry[templateId];
+      if (!template) {
+        errors.push(`Unknown template: ${templateId}`);
+        continue;
+      }
+      
+      if (template.conflicts) {
+        for (const conflictId of template.conflicts) {
+          if (this._enabledTemplates.has(conflictId)) {
+            errors.push(`Template conflict: ${templateId} conflicts with ${conflictId}`);
+          }
+        }
+      }
+    }
+    
+    // Check for dependencies
+    for (const templateId of enabledTemplates) {
+      const template = templateRegistry[templateId];
+      if (!template) continue;
+      
+      if (template.dependencies) {
+        for (const depId of template.dependencies) {
+          if (!this._enabledTemplates.has(depId)) {
+            errors.push(`Missing dependency: ${templateId} requires ${depId}`);
+          }
+        }
+      }
+    }
+    
+    // Check for required variables
+    for (const templateId of enabledTemplates) {
+      const template = templateRegistry[templateId];
+      if (!template) continue;
+      
+      if (template.requiredVars) {
+        for (const varName of template.requiredVars) {
+          if (!this._variables[varName]) {
+            errors.push(`Missing variable: ${templateId} requires ${varName}`);
+          }
+        }
+      }
+    }
+    
+    return errors;
+  }
+
+  /**
+   * Process a template by replacing variables
+   */
+  private processTemplate(template: string, variables: Record<string, string>): string {
+    let result = template;
+    for (const [key, value] of Object.entries(variables)) {
+      const regex = new RegExp(`{${key}}`, 'g');
+      result = result.replace(regex, value);
+    }
+    return result;
   }
 
   /**
    * Generate Dockerfile and README based on the selected options
    */
-  public async generate(): Promise<{ Dockerfile: string; README: string }> {
-    try {
-      const { dockerTemplates, readmeTemplates } = await this.init();
-
-      // Start with base image
-      this._dockerfile += dockerTemplates["base"].replace(
-        "{DISTRO}",
-        getDistro(this.base) + ":" + this.base,
-      );
-      this._readme += readmeTemplates["base"].replace("{DISTRO}", this.base);
-
-      // Add Debian backports if enabled
-      if (this._debianBackports) {
-        this._dockerfile += dockerTemplates["debianBackports"]
-          .replace(/{DISTRO}/g, this.base);
-      }
-
-      // Add Git setup
-      if (this._gitVersion) {
-        if (this._gitVersion === "ubuntu") {
-          this._dockerfile += dockerTemplates["gitUbuntu"];
-        } else {
-          this._dockerfile += dockerTemplates["git"].replace(
-            "{GIT_VERSION}",
-            this._gitVersion,
-          );
-        }
-      }
-
-      // Add Node.js
-      if (this._nodeVersion) {
-        const nodeVersion = softwareVersions.node[this._nodeVersion];
-        const yarnVersion = softwareVersions.yarn;
-        
-        this._dockerfile += dockerTemplates["node"]
-          .replace("{NODE_VERSION}", nodeVersion)
-          .replace("{YARN_VERSION}", yarnVersion);
-
-        this._readme += readmeTemplates["node"]
-          .replace("{NODE_VERSION}", nodeVersion)
-          .replace("{YARN_VERSION}", yarnVersion);
-      }
-
-      // Add .NET SDK
-      if (this._dotnet) {
-        this.addDotnetSdk(dockerTemplates);
-      }
-
-      // Add Cypress
-      if (this._cypressVersion) {
-        this._dockerfile += dockerTemplates["cypress"].replace(
-          "{CYPRESS_VERSION}",
-          this._cypressVersion,
-        );
-        this._readme += readmeTemplates["cypress"].replace(
-          "{CYPRESS_VERSION}",
-          this._cypressVersion,
-        );
-      }
-
-      // Configure Remote Desktop
-      this.configureRemoteDesktop(dockerTemplates, readmeTemplates);
-
-      // Add Chrome/Chromium
-      if (this._features.chrome) {
-        this._dockerfile += dockerTemplates["google-chrome"].replace(
-          "{CHROMIUM}",
-          getDistro(this.base) === "debian" ? "chromium" : "firefox",
-        );
-        this._readme += readmeTemplates["google-chrome"];
-      }
-
-      if (this._features.chromium) {
-        this._dockerfile += dockerTemplates["chromium"].replace(
-          "{CHROMIUM}",
-          getDistro(this.base) === "debian" ? "chromium" : "firefox",
-        );
-        this._readme += readmeTemplates["chromium"];
-      }
-
-      // Add Android tools
-      if (this._features.android) {
-        this._dockerfile += dockerTemplates["android"];
-        this._readme += readmeTemplates["android"];
-      }
-
-      // Add VS Code (if not already added)
-      if (this._features.vscode && !this._features.xpra) {
-        this._dockerfile += dockerTemplates["vscode"];
-        this._readme += readmeTemplates["vscode"];
-      }
-
-      // Add Docker and Kubernetes
-      if (this._features.docker || this._features.k8s) {
-        this._dockerfile += dockerTemplates["docker"].replace(
-          "{DISTRO}",
-          getDistro(this.base),
-        );
-        this._readme += readmeTemplates["docker"];
-
-        if (this._features.k8s) {
-          this._dockerfile += dockerTemplates["kubernetes"].replace(
-            "{DISTRO}",
-            getDistro(this.base),
-          );
-          this._readme += readmeTemplates["kubernetes"];
-        }
-      }
-
-      // Add Zsh
-      if (this._features.zsh) {
-        this._dockerfile += dockerTemplates["zsh"];
-        this._readme += readmeTemplates["zsh"];
-      }
-
-      // Add Deno
-      if (this._features.deno) {
-        this._dockerfile += dockerTemplates["deno"].replace("{DENO_VERSION}", softwareVersions.deno);
-        this._readme += readmeTemplates["deno"].replace("{DENO_VERSION}", softwareVersions.deno);
-      }
-
-      // Add suffix
-      this._dockerfile += dockerTemplates["suffix"];
-      this._readme += readmeTemplates["suffix"];
-
-      // Clean up duplicate FROM statements
-      this._dockerfile = this._dockerfile.replace(/FROM devimage\n/g, "");
-
-      return {
-        Dockerfile: this._dockerfile,
-        README: this._readme,
-      };
-    } catch (error) {
-      console.error("Error generating Dockerfile:", error);
-      throw new Error("Failed to generate Dockerfile");
+  public async generate(): Promise<{ Dockerfile: string; README: string; warnings: string[] }> {
+    // Initialize templates if not already loaded
+    if (Object.keys(this._dockerTemplates).length === 0) {
+      await this.init();
     }
-  }
-
-  /**
-   * Helper method to add .NET SDK configuration
-   */
-  private addDotnetSdk(dockerTemplates: Record<string, string>): void {
-    const dotnetShaRecords = softwareVersions.sha.dotnet_sha512 as Record<string, string | { amd: string, arm: string }>;
     
-    if (this._dotnet === "6") {
-      const dotnetVersion = softwareVersions.dotnet6;
-      const shaValues = dotnetShaRecords["6.0.400"] as { amd: string, arm: string };
-      
-      this._dockerfile += dockerTemplates["dotnet6"]
-        .replace("{DOTNET_SDK_VERSION}", dotnetVersion)
-        .replace("{arm_dotnet_sha512}", shaValues.arm)
-        .replace("{amd_dotnet_sha512}", shaValues.amd);
-    } 
-    else if (this._dotnet === "3") {
-      const dotnetVersion = softwareVersions.dotnet3 as "3.1.417";
-      const shaRecord = dotnetShaRecords[dotnetVersion];
-      const shaValue = typeof shaRecord === 'string' ? shaRecord : (shaRecord as { amd: string }).amd;
-      
-      this._dockerfile += dockerTemplates["dotnet3"]
-        .replace("{DOTNET_SDK_VERSION}", dotnetVersion)
-        .replace("{amd_dotnet_sha512}", shaValue);
-    } 
-    else {
-      const dotnetVersion = softwareVersions.dotnet5 as "5.0.406";
-      const shaRecord = dotnetShaRecords[dotnetVersion];
-      const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
-      
-      this._dockerfile += dockerTemplates["dotnet5"]
-        .replace("{DOTNET_SDK_VERSION}", dotnetVersion)
-        .replace("{dotnet_sha512}", shaValue);
+    // Validate configuration
+    const errors = this.validateConfiguration();
+    if (errors.length > 0) {
+      throw new Error(`Configuration errors:\n${errors.join('\n')}`);
     }
-  }
-
-  /**
-   * Helper method to configure remote desktop options
-   */
-  private configureRemoteDesktop(
-    dockerTemplates: Record<string, string>, 
-    readmeTemplates: Record<string, string>
-  ): void {
-    if (this._features.xpra) {
-      this._dockerfile += dockerTemplates["xpra"].replace(
-        /{XPRADISTRO}/g,
-        this.base,
-      );
-      this._readme += readmeTemplates["xpra"];
-
-      // Configure XFCE with Xpra if enabled
-      let xpraStart = "xpra start --start=xterm";
-      if (this._features.xfce) {
-        this._dockerfile += dockerTemplates["xfce"];
-        this._readme += readmeTemplates["xfce"];
-        xpraStart = "xpra start-desktop --start=xfce4-session";
+    
+    const warnings: string[] = [];
+    
+    // Sort templates by order for correct application
+    const sortedTemplates = Array.from(this._enabledTemplates)
+      .map(id => templateRegistry[id])
+      .filter(template => template) // Remove any unknown templates
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+    
+    // Generate Dockerfile content
+    for (const template of sortedTemplates) {
+      const templateContent = this._dockerTemplates[template.id];
+      if (!templateContent) {
+        warnings.push(`Missing Dockerfile template: ${template.id}`);
+        continue;
       }
-
-      // Add Xpra startup command
-      this._dockerfile += `\nRUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding=x264" > /usr/bin/startx\n`;
-
-      // Add VS Code if enabled with Xpra
-      if (this._features.vscode) {
-        this._dockerfile += dockerTemplates["vscode"];
-        this._readme += readmeTemplates["vscode"];
-      }
-    } 
-    else if (this._features.noVNC) {
-      this._dockerfile += dockerTemplates["noVNC"];
-      this._readme += readmeTemplates["noVNC"];
-
-      // Configure XFCE with noVNC if enabled
-      if (this._features.xfce) {
-        this._dockerfile += dockerTemplates["xfce"];
-        this._readme += readmeTemplates["xfce"];
-      }
+      
+      const processedContent = this.processTemplate(templateContent, this._variables);
+      this._dockerfile += processedContent;
     }
+    
+    // Generate README content
+    for (const template of sortedTemplates) {
+      const templateContent = this._readmeTemplates[template.id];
+      if (!templateContent) {
+        warnings.push(`Missing README template: ${template.id}`);
+        continue;
+      }
+      
+      const processedContent = this.processTemplate(templateContent, this._variables);
+      this._readme += processedContent;
+    }
+    
+    // Clean up duplicate FROM statements
+    this._dockerfile = this._dockerfile.replace(/FROM devimage\n/g, "");
+    
+    return {
+      Dockerfile: this._dockerfile,
+      README: this._readme,
+      warnings
+    };
   }
 
   /**
@@ -495,15 +589,7 @@ export class DevcontainerGenerator {
     filename: string,
     extension: "Dockerfile" | "README",
   ): Promise<string> {
-    try {
-      return await readFile(
-        `../devcontainer-generator/templates/${filename}.${extension}`,
-        'utf8'
-      );
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-      console.warn(`Warning: Could not load template ${filename}.${extension}:`, errorMessage);
-      return "";
-    }
+    const filePath = path.join(this.templateDir, `${filename}.${extension}`);
+    return await readFile(filePath, 'utf8');
   }
 }

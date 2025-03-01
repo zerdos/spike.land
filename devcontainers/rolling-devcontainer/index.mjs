@@ -3,14 +3,12 @@ import { promises } from "fs";
 const { writeFile } = promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("rolling");
-
+  const devGenerator = new DevcontainerGenerator("rolling")
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
   devGenerator.setDocker();
   devGenerator.setZsh();
   devGenerator.setRemoteDesktop("noVNC");
-  devGenerator.setChrome();
   // devGenerator.setDotnet("6");
   devGenerator.setDeno();
   devGenerator.setVscode();

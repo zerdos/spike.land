@@ -1,0 +1,26 @@
+## Node.js (Optimized Multi-Stage Build)
+
+This container includes Node.js {NODE_VERSION} with Yarn {YARN_VERSION} installed using an optimized multi-stage build approach.
+
+### Features
+
+- Reduced image size through multi-stage builds
+- Separation of build-time and runtime dependencies
+- Improved caching for faster rebuilds
+- Non-root user for better security
+
+### Usage
+
+The Node.js environment is configured with:
+- Node.js {NODE_VERSION}
+- Yarn {YARN_VERSION}
+- Common build tools for native modules
+
+### Benefits of the Optimized Build
+
+This optimized Node.js setup provides several advantages over the standard approach:
+
+1. **Smaller image size**: Only necessary runtime dependencies are included in the final image
+2. **Better security**: Reduced attack surface by excluding build tools from the runtime image
+3. **Improved caching**: Better layer organization for more efficient Docker caching
+4. **Faster builds**: Dependencies are cached separately from application code
