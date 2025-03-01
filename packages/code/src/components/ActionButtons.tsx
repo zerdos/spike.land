@@ -1,5 +1,5 @@
 import { FaDownload } from "@/external/icons";
-import { FullscreenIcon } from "@/external/lucideReact";
+import { FullscreenIcon } from "@/external/lucide-react";
 import { Fab, Tooltip } from "@/external/mui-material";
 import { motion } from "framer-motion";
 import type { FC } from "react";

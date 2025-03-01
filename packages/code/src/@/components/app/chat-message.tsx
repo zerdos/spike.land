@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Image as ImageIcon, X } from "@/external/lucideReact";
+import { Check, Image as ImageIcon, X } from "@/external/lucide-react";
 import type { Message, MessageContent, MessagePart } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";

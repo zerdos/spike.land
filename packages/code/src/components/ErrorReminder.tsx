@@ -2,7 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { AlertCircle, X } from "@/external/lucideReact";
+import { AlertCircle, X } from "@/external/lucide-react";
 import { ContextManager } from "@/lib/context-manager";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";

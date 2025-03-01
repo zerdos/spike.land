@@ -2,7 +2,7 @@ import ChatContainer from "@/components/app/chat-container";
 import { ChatHeader } from "@/components/app/chat-header";
 import { MessageInput } from "@/components/app/message-input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot } from "@/external/lucideReact";
+import { Bot } from "@/external/lucide-react";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import type { ICodeSession } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";

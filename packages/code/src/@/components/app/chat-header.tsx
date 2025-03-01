@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { RefreshCw, X } from "@/external/lucideReact";
+import { RefreshCw, X } from "@/external/lucide-react";
 import type { ChatHeaderProps } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useMemo } from "react";

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import { Camera, Send, Upload, X } from "@/external/lucideReact";
+import { Camera, Send, Upload, X } from "@/external/lucide-react";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type { MessageInputProps } from "@/lib/interfaces";

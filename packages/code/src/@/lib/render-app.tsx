@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { importMapReplace } from "./importmap-utils";
 import { getCodeSpace } from "@/hooks/use-code-space";
 
 const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
@@ -48,13 +49,6 @@ const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
   })(blob);
 };
 
-// const fs = require("fs"
-
-//   const blobUrl = `blob:${Math.random().toString()}`;
-//   (window as any)[blobUrl] = blob;
-//   return blobUrl;
-// });
-
 let firstRender = true;
 const origin = location.origin;
 
@@ -67,25 +61,41 @@ export function AppWithScreenSize(
 }
 
 export const importFromString = async (code: string) => {
-  const { importMapReplace } = await import("@/lib/importmap-utils");
+  const codeSpace = getCodeSpace(location.pathname);
+  
+  // Try the file-based approach first
+  try {
+    const filePath = `/live-cms/${codeSpace}-${md5(code)}.mjs`;
+    await fetch(filePath, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "text/javascript",
+      },
+      body: importMapReplace(code),
+    });
+    console.log("File written to", filePath);
+    return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
+  } catch (error) {
+    console.warn("File-based import failed, falling back to blob URL", error);
+    
+    // Fall back to blob URL approach
+    const createJsBlob = async (code: string): Promise<string> =>
+      await createObjectURL(
+        new Blob([
+          importMapReplace(code.split("importMapReplace").join(""), origin).split(
+            `from "/`,
+          ).join(
+            `from "${origin}/`,
+          ),
+        ], { type: "application/javascript" }),
+      );
 
-  const createJsBlob = async (code: string): Promise<string> =>
-    await createObjectURL(
-      new Blob([
-        importMapReplace(code.split("importMapReplace").join(""), origin).split(
-          `from "/`,
-        ).join(
-          `from "${origin}/`,
-        ),
-      ], { type: "application/javascript" }),
-    );
-
-  return import(/* @vite-ignore */ await createJsBlob(code)).then((module) =>
-    module.default
-  ) as Promise<
-    FlexibleComponentType
-  >;
+    return import(/* @vite-ignore */ await createJsBlob(code)).then((module) =>
+      module.default
+    ) as Promise<FlexibleComponentType>;
+  }
 };
+
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;

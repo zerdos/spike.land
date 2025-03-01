@@ -1,4 +1,4 @@
-import { Bot, History } from "@/external/lucideReact";
+import { Bot, History } from "@/external/lucide-react";
 import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import type { FC } from "react";
