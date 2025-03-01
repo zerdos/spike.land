@@ -123,7 +123,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       if (state.code && state.code.length > 1000) {
         console.log(
-          `Processing large code block (${state.code.length} chars)`,
+          `Performance optimization: Processing large code block (${state.code.length} chars)`,
         );
       }
 
@@ -190,7 +190,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       if (compilationError) {
         console.warn("Compilation error detected", compilationError);
-        throw new WorkflowError("Compilation error", { compilationError });
+        throw new WorkflowError("failed to compile: syntax error");
       }
 
       if (state.code !== updatedState.code && updatedState.code && !documentHash) {
