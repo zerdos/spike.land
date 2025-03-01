@@ -132,16 +132,19 @@ USER ${USER}
 # COPY --link --from=node-builder  /root/.cache/Cypress ${HOME}/.cache/Cypress
 # RUN chown -R ${USER}:${USER} ${HOME}/.cache
 ### noVNC.Dockerfile
+USER 0
 
 # Set environment variable for the port
 ENV PORT=6080
 
-# Clone the noVNC repository and set up the necessary files
+# Download and set up noVNC
 RUN mkdir -p /tmp/novnc-build && \
     cd /tmp/novnc-build && \
-    git clone https://github.com/novnc/noVNC.git --depth=1 && \
-    mkdir -p /usr/share/novnc/ && \
-    cp -af ./noVNC/. /usr/share/novnc/ && \
+    wget -q https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz && \
+    tar -xzf v1.4.0.tar.gz && \
+    rm -rf /usr/share/novnc && \
+    mkdir -p /usr/share/novnc && \
+    cp -a noVNC-1.4.0/. /usr/share/novnc/ && \
     cd / && \
     rm -rf /tmp/novnc-build && \
     cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html
@@ -167,8 +170,10 @@ RUN echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gi
     && websockify --web=/usr/share/novnc/ --wrap-mode=ignore ${PORT} localhost:5901 || echo ok)" \
     >> /usr/bin/startx
 
+USER ${USER}
 ### xfce.Dockerfile
 
+USER 0
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         xfce4 \
@@ -186,7 +191,7 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-
+USER ${USER}
 ### vscode.Dockerfile
 
 RUN  (mkdir -p /etc/apt/keyrings && \

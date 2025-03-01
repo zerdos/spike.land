@@ -2,6 +2,7 @@ FROM devimage
 
 ### xfce.Dockerfile
 
+USER 0
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         xfce4 \
@@ -19,3 +20,4 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
+USER ${USER}

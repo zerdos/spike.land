@@ -144,6 +144,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* 
 ### xfce.Dockerfile
 
+USER 0
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         xfce4 \
@@ -161,6 +162,9 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
+USER ${USER}
+### docker.Dockerfile
+USER 0
 
 RUN apt-get update && apt-get install -y ca-certificates curl \
     && install -m 0755 -d /etc/apt/keyrings \
@@ -173,6 +177,8 @@ RUN apt-get update && apt-get install -y ca-certificates curl \
     && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
     && usermod -aG docker ${USER} \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+    USER ${USER}
 ### vscode.Dockerfile
 
 RUN  (mkdir -p /etc/apt/keyrings && \
