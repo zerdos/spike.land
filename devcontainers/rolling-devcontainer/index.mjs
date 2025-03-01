@@ -7,10 +7,13 @@ const run = async () => {
 
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
-  devGenerator.setDeno();
+  devGenerator.setDocker();
   devGenerator.setZsh();
-  devGenerator.setChrome();
   devGenerator.setRemoteDesktop("noVNC");
+  devGenerator.setChrome();
+  // devGenerator.setDotnet("6");
+  devGenerator.setDeno();
+  devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();
 

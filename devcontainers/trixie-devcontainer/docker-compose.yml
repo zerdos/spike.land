@@ -1,23 +1,39 @@
+version: "3.9"
+
 services:
   devcontainer:
     build:
       context: .
       dockerfile: Dockerfile
-
       args:
-        USER_UID: ${UID}
-        USER_GID: ${GID}
-        USER: ${USER}
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+        USER: ${USER:-gitpod}
+        YARN_VERSION: "4.6.0"
     privileged: true
     shm_size: 8gb
-    platform: linux/arm64
+    platform: ${PLATFORM:-linux/amd64}  # Default to amd64, but allow overriding
     tmpfs:
       - /tmpfs:exec,size=8g,uid=${UID:-1000},gid=${GID:-1000}
     environment:
-      - USER=${USER}
+      - USER=${USER:-gitpod}
+      - DISPLAY=:1
+      - LANG=en_US.UTF-8
     volumes:
-      - ${HOME}/.cache:${HOME}/.cache
-      - ${HOME}/.oh-my-zsh:${HOME}/.oh-my-zsh
+      - ${HOME:-/home}/.cache:${HOME:-/home}/.cache
+      - ${HOME:-/home}/.oh-my-zsh:${HOME:-/home}/.oh-my-zsh
+      - ${HOME:-/home}/.ssh:${HOME:-/home}/.ssh:ro
+      - ${HOME:-/home}/.gitconfig:${HOME:-/home}/.gitconfig:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 6080:6080
-      - 5901:5901
+      - "6080:6080"  # noVNC
+      - "5901:5901"  # VNC
+      - "3000:3000"  # Common dev server port
+      - "8000:8000"  # Another common dev server port
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:6080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

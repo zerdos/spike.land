@@ -1,35 +1,39 @@
-version: "3.8"
+version: "3.9"
+
 services:
-  # ipfs:
-  #   image: ipfs/go-ipfs:latest
-  #   # ports:
-  #   #   - 4000:4000
-  #   #   - 4001:4001
-  #   #   - 5001:5001
-  #   #   - 8080:8080
-  #   #   - 8081:8081
-  #   volumes:
-  #     - ipfs:/ipfs
-  #     - ipns:/ipns
   devcontainer:
-    build: .
-    # build:
-    #   context: .
-    #   args:
-    #     USER: $USER
-    tmpfs:
-      - /home/$USER/tmpfs:exec
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+        USER: ${USER:-gitpod}
+        YARN_VERSION: "4.6.0"
     privileged: true
+    shm_size: 8gb
+    platform: ${PLATFORM:-linux/amd64}  # Default to amd64, but allow overriding
+    tmpfs:
+      - /tmpfs:exec,size=8g,uid=${UID:-1000},gid=${GID:-1000}
+    environment:
+      - USER=${USER:-gitpod}
+      - DISPLAY=:1
+      - LANG=en_US.UTF-8
     volumes:
-      # - $HOME:/home/$USER/host:delegated
+      - ${HOME:-/home}/.cache:${HOME:-/home}/.cache
+      - ${HOME:-/home}/.oh-my-zsh:${HOME:-/home}/.oh-my-zsh
+      - ${HOME:-/home}/.ssh:${HOME:-/home}/.ssh:ro
+      - ${HOME:-/home}/.gitconfig:${HOME:-/home}/.gitconfig:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ipfs:/ipfs
-      - ipns:/ipns
-      - yarn:/yarn
     ports:
-      - "6080:6080"
-      - "5901:5901"
-volumes:
-  yarn:
-  ipfs:
-  ipns:
+      - "6080:6080"  # noVNC
+      - "5901:5901"  # VNC
+      - "3000:3000"  # Common dev server port
+      - "8000:8000"  # Another common dev server port
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:6080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

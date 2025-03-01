@@ -257,6 +257,29 @@ ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
 
+### vscode.Dockerfile
+
+RUN  (mkdir -p /etc/apt/keyrings && \
+curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg && \
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | \
+tee /etc/apt/sources.list.d/vscode.list) && \
+apt-get update && \
+apt-get install -y code libxtst6 openssh-server && \
+apt-get autoremove -y && \
+apt-get clean -y && \
+rm -rf /var/lib/apt/lists/* || echo "this arch is not supported"
+#   && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
+RUN apt-get update && apt-get install -y ca-certificates curl \
+    && install -m 0755 -d /etc/apt/keyrings \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc \
+    && chmod a+r /etc/apt/keyrings/docker.asc \
+    && echo \
+       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+       $(. /etc/os-release && echo "bookworm") stable" >> /etc/apt/sources.list.d/docker.list \
+    && apt-get update \
+    && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
+    && usermod -aG docker ${USER} \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 ### zsh.Dockerfile
 
 # Switch to root user to perform the chown operation
