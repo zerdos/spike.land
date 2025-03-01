@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { getCodeSpace } from "@/hooks/use-code-space";
 
 const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
   return URL?.createObjectURL?.(blob) || (async (blob: Blob) => {
@@ -72,8 +73,6 @@ export const importFromString = async (code: string) => {
     await createObjectURL(
       new Blob([
         importMapReplace(code.split("importMapReplace").join(""), origin).split(
-          `"/@/`,
-        ).join(`"${origin}/@/`).split(`"/live/`).join(`"${origin}/live/`).split(
           `from "/`,
         ).join(
           `from "${origin}/`,

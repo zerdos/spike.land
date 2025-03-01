@@ -175,36 +175,6 @@ export const codeModificationTool = tool(
         );
       }
 
-      // Apply blocks sequentially
-      // let modifiedCode = currentCode;
-      // let currentBlockIndex = 0;
-
-      // for (const block of blocks) {
-      //   currentBlockIndex++;
-
-      //   // Apply the current block
-      //   const { result, success, error } = applySearchReplaceBlock(modifiedCode, block);
-
-      //   if (!success) {
-      //     // Return detailed error information for debugging
-      //     return createErrorResponse(
-      //       currentCode,
-      //       `Block ${currentBlockIndex}/${blocks.length} failed: ${error}`,
-      //       {
-      //         searchContent: block.search,
-      //         blockNumber: currentBlockIndex,
-      //         totalBlocks: blocks.length,
-      //         failedBlockContent: block.original,
-      //         currentFileContent: modifiedCode, // Return the current state after previous blocks
-      //       },
-      //     );
-      //   }
-
-      //   // Update the code with the successful modification
-      //   modifiedCode = result;
-      // }
-
-      // If we reach here, all blocks were applied successfully
 
       // Set the modified code in the session
       let error = "";

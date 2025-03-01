@@ -275,14 +275,21 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   return {
     invoke: async (prompt: string) => {
       try {
+        const { code, codeSpace } = initialState;
+        const documentHash = md5(code); 
         // Initialize messages with the current state
         const initialStateWithMessages = {
           ...initialState,
           messages: [
             new SystemMessage(anthropicSystem),
             new HumanMessage(
-              `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash. For efficiency, the system may not always return the full code in responses to save tokens.`,
-              {
+              `${prompt}
+              
+      <filePath>/live/${codeSpace}.tsx</filePath>
+      <code>${code}</code>
+      <documentHash>${documentHash}</documentHash>
+              
+              `, {
                 code: initialState.code,
                 documentHash: initialState.documentHash,
               },
