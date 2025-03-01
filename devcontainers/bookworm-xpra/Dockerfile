@@ -21,20 +21,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
 USER 0
 
 # Update system and install base packages in a single layer
-RUN apt_retry() { \
-      n=0; \
-      max_tries=3; \
-      until [ $n -ge $max_tries ]; do \
-        "$@" && break; \
-        n=$((n+1)); \
-        if [ $n -lt $max_tries ]; then \
-          sleep 15; \
-        fi; \
-      done; \
-    } && \
-    apt_retry apt-get update && \
+RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get update) && \
     apt-get dist-upgrade -y && \
-    apt_retry apt-get update && \
+    apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get update) && \
     # Install all packages in a single run to reduce layers
     apt-get install --no-install-recommends -y \
         apt-transport-https \
@@ -81,7 +70,7 @@ RUN apt_retry() { \
         xvfb \
         xz-utils \
         zsh \
-    || (apt_retry apt-get update && \
+    || (apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get update) && \
         apt-get install --no-install-recommends -y \
             libappindicator3-1 \
             # Continue with remaining packages if libayatana-appindicator3-1 failed

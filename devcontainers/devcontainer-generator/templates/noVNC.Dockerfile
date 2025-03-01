@@ -6,10 +6,14 @@ FROM devimage
 ENV PORT=6080
 
 # Clone the noVNC repository and set up the necessary files
-RUN git clone https://github.com/novnc/noVNC.git --depth=1 \
-    && cp -af ./noVNC/. /usr/share/novnc/ \
-    && rm -rf ./noVNC \
-    && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html 
+RUN mkdir -p /tmp/novnc-build && \
+    cd /tmp/novnc-build && \
+    git clone https://github.com/novnc/noVNC.git --depth=1 && \
+    mkdir -p /usr/share/novnc/ && \
+    cp -af ./noVNC/. /usr/share/novnc/ && \
+    cd / && \
+    rm -rf /tmp/novnc-build && \
+    cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 
 # Modify Xvnc-session and Xtigervnc-session configuration
 RUN if [ -f /etc/X11/Xvnc-session ]; then \
