@@ -152,7 +152,11 @@ jobs:
       - name: Move cache
         run: |
           rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          if [ -d "/tmp/.buildx-cache-new" ]; then
+            mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          else
+            mkdir -p /tmp/.buildx-cache
+          fi
 
       # Prune old images to keep registry clean
       - name: Prune old buildcache tags
