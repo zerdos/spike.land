@@ -10,6 +10,7 @@ import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
+<<<<<<< HEAD
 import { getCodeSpace } from "@/hooks/use-code-space";
 
 const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
@@ -49,6 +50,11 @@ const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
   })(blob);
 };
 
+=======
+import { get } from "http";
+import { getCodeSpace } from "@/hooks/use-code-space";
+
+>>>>>>> e093f872e (bb)
 let firstRender = true;
 const origin = location.origin;
 
@@ -62,6 +68,7 @@ export function AppWithScreenSize(
 
 export const importFromString = async (code: string) => {
   const codeSpace = getCodeSpace(location.pathname);
+<<<<<<< HEAD
   
   // Try the file-based approach first
   try {
@@ -94,6 +101,18 @@ export const importFromString = async (code: string) => {
       module.default
     ) as Promise<FlexibleComponentType>;
   }
+=======
+  const filePath = `/live-cms/${codeSpace}-${md5(code)}.mjs`;
+  await fetch(filePath, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "text/javascript",
+    },
+    body: importMapReplace(code),
+  });
+  console.log("File written to", filePath);
+  return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
+>>>>>>> e093f872e (bb)
 };
 
 
