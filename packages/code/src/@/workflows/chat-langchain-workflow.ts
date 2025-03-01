@@ -283,33 +283,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         const enhancedPrompt =
           `${prompt}\n\nNote: Previous versions of code are mapped by document hashes. If compilation fails, you can fix with a new modification or roll back to a previous hash. For efficiency, the system may not always return the full code in responses to save tokens.`;
 
-<<<<<<< HEAD
         const { codeSpace } = initialState;
         const code = initialState.code;
         const documentHash = initialDocumentHash;
         
-=======
-          const codeSpace = initialState.codeSpace;
-          const code = initialState.code;
-          const documentHash = initialDocumentHash;
->>>>>>> e093f872e (bb)
         const initialStateWithMessages = {
           ...initialState,
           messages: [
             systemMessage,
-<<<<<<< HEAD
-            new HumanMessage(
-              `${enhancedPrompt}
-              
-      <filePath>/live/${codeSpace}.tsx</filePath>
-      <code>${code}</code>
-      <documentHash>${documentHash}</documentHash>
-              `, {
-                code: initialState.code,
-                documentHash: initialDocumentHash,
-              },
-            ),
-=======
             new HumanMessage(prompt +`
               <filePath>/live/${codeSpace}.tsx</filePath>
               <code>${code}</code>
@@ -317,7 +298,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
               code: initialState.code,
               documentHash: initialDocumentHash,
             }),
->>>>>>> e093f872e (bb)
           ],
           debugLogs: [
             ...(initialState.debugLogs || []),
