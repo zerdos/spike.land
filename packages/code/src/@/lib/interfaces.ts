@@ -242,6 +242,7 @@ export interface ChatDrawerProps {
   setEditingMessageId: (id: string) => void;
   onClose: () => void;
   isDarkMode: boolean;
+  messages: Message[];
   toggleDarkMode: () => void;
   handleResetChat: () => void;
   isStreaming: boolean;

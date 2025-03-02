@@ -17,14 +17,12 @@ const ChatInterface: React.FC<{
   codeSpace: string;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement => {
+  const [messages, setMessages] = useState<Message[]>(cSess.getMessages());
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  // useEffect(() => {
-  //   cSess.getSession().then((initialSession) => {
-  //     setSession(initialSession);
-  //   });
-  // }, [cSess]);
+
+  useEffect(() => cSess.sub(session => setMessages(session.messages)), []);
 
   const codeSpace = cSess.getCodeSpace();
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
@@ -49,6 +47,7 @@ const ChatInterface: React.FC<{
 
   const resetChat = useCallback((): void => {
     cSess.setMessages([]);
+    setMessages([]);
     setInput("");
     setEditingMessageId(null);
     setEditInput("");
@@ -134,7 +133,7 @@ const ChatInterface: React.FC<{
 
         cSess.getSession().then((currentSession) => {
           handleSendMessage({
-            messages: [],
+            messages: currentSession.messages,
             codeSpace,
             prompt,
             images,
@@ -161,6 +160,7 @@ const ChatInterface: React.FC<{
       isOpen={isOpen}
       setEditingMessageId={setEditingMessageId}
       onClose={onClose}
+      messages={messages}
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
       handleResetChat={handleResetChat}

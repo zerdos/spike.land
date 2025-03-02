@@ -23,6 +23,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   inputRef,
   isScreenshotLoading,
   screenshotImage,
+  messages,
   handleScreenshotClick,
   handleCancelScreenshot,
   setEditingMessageId,
@@ -44,15 +45,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
       isOpen ? "hidden" : "flex",
     ), [isOpen]);
 
-  const [session, setSession] = useState<ICodeSession | null>(null);
-
-  useEffect(() => {
-    cSess.getSession().then((initialSession) => {
-      setSession(initialSession);
-    });
-  }, [cSess]);
-
-  const lastMessage = session?.messages?.slice(-1)[0] || null;
+  const lastMessage = messages.slice(-1)[0] || null;
 
   useEffect(() => {
     if (lastMessage) {
@@ -64,8 +57,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
       }
     }
   }, [lastMessage?.content]);
-
-  if (!session) return null;
 
   return (
     <Drawer.Root direction="right" open={isOpen} modal={false}>
@@ -104,7 +95,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
             />
             <ScrollArea className="flex-grow">
               <ChatContainer
-                messages={session.messages}
+                messages={messages}
                 editingMessageId={editingMessageId}
                 editInput={editInput}
                 setEditInput={setEditInput}
@@ -115,7 +106,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 setEditingMessageId={setEditingMessageId}
                 onNewPrompt={async (prompt: string) => {
                   handleSendMessage({
-                    ...session,
+                    messages,
+                    codeSpace: cSess.getCodeSpace(),
+                    code:await cSess.getCode(),
                     prompt,
                     images: [],
                   }, cSess);

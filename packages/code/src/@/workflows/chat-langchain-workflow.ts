@@ -42,10 +42,20 @@ async function createNewMessage(
     images: ImageData[],
     claudeContent: string,
   ): Promise<Message> {
-    const imagesContent = images.map((image) => ({
-      type: "image_url" as const,
-      image_url: { url: image.url },
-    }));
+    // Filter out any images without URLs and create image content array
+    const imagesContent = images
+      .map((image) => {
+        const imageUrl = image.url || image.src;
+        if (!imageUrl) {
+          console.warn('Image missing URL:', image);
+          return null;
+        }
+        return {
+          type: "image_url" as const,
+          image_url: { url: imageUrl }
+        };
+      })
+      .filter((content): content is { type: "image_url"; image_url: { url: string } } => content !== null);
 
     const content = imagesContent.length > 0
       ? [...imagesContent, {
@@ -90,6 +100,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
   // Define local interfaces for type compatibility
   interface ExtendedAgentState extends AgentState {
     debugLogs?: string[];
+    images?: ImageData[];
+    hasImages?: boolean;
   }
 
   // Define the tool response metadata interface locally
@@ -313,6 +325,21 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
       const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
+      const updatedState = {
+        ...cleanedState,
+        messages: [response],
+        isStreaming: true,
+        documentHash,
+      };
+
+      // Check for images in the message
+      const currentHumanMessage = state.messages[state.messages.length - 1];
+      if (currentHumanMessage instanceof HumanMessage && currentHumanMessage.additional_kwargs?.images) {
+        const images = currentHumanMessage.additional_kwargs.images as ImageData[];
+        (updatedState as ExtendedAgentState).images = images;
+        (updatedState as ExtendedAgentState).hasImages = images.length > 0;
+      }
+
       // Save the AI response message to cSess
       if (response) {
         const currentMessages = cSess.getMessages();
@@ -323,13 +350,6 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         };
         await cSess.setMessages(messagesPush(cSess.getMessages(), aiMessageForChat));
       }
-
-      const updatedState = {
-        ...cleanedState,
-        messages: [response],
-        isStreaming: true,
-        documentHash,
-      };
 
       if (!codeWasReturned && documentHash && documentHash !== state.documentHash) {
         const latestCode = await handleMissingCodeResponse(documentHash, state);
@@ -481,6 +501,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           threadId,
           promptLength: prompt.length.toString(),
           codeLength: initialState.code.length.toString(),
+          hasImages: images.length > 0 ? "true" : "false",
         });
 
         const finalState = await app.invoke(initialStateWithMessages, {

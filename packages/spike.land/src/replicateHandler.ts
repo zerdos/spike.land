@@ -28,28 +28,47 @@ const INPUT_DEFAULTS: InputDefaults = {
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
 export function parseInputFromUrl(urlString: string): InputDefaults {
-  const url = new URL(urlString);
-
-  const urlParams = url.searchParams;
-  const params: Partial<InputDefaults> = ([...urlParams.entries()].map(([key, value]) => {
-    if (key in INPUT_DEFAULTS) {
-      return [key, value];
-    }
-  }).filter(Boolean) as string[][]).reduce((acc, current) => {
-    const [key, value] = current;
-    const defaultValue = INPUT_DEFAULTS[key as keyof InputDefaults];
-
-    if (value === "" || value == defaultValue) {
-      return acc;
+  try {
+    const url = new URL(urlString);
+    const match = url.pathname.match(/^\/replicate\/([^.]+)\.(?:webp|png|jpeg)$/);
+    
+    if (!match) {
+      return INPUT_DEFAULTS;
     }
 
-    return {
-      ...acc,
-      [key]: typeof defaultValue === "number" ? Number(value) : value,
-    };
-  }, {});
+    const base64Params = match[1];
+    const decodedParams = atob(base64Params);
+    const urlSearchParams = new URLSearchParams(decodedParams);
+    
+    let params: Partial<InputDefaults> = {};
+    
+    urlSearchParams.forEach((value, key) => {
+      if (key in INPUT_DEFAULTS) {
+        const typedKey = key as keyof InputDefaults;
+        const defaultValue = INPUT_DEFAULTS[typedKey];
+        
+        if (value !== "" && value !== String(defaultValue)) {
+          if (typeof defaultValue === "number") {
+            const numValue = Number(value);
+            if (!isNaN(numValue)) {
+              Object.assign(params, { [typedKey]: numValue });
+            }
+          } else if (typedKey === "output_format") {
+            if (value === "webp" || value === "png" || value === "jpeg") {
+              Object.assign(params, { [typedKey]: value });
+            }
+          } else {
+            Object.assign(params, { [typedKey]: value });
+          }
+        }
+      }
+    });
 
-  return params as InputDefaults;
+    return { ...INPUT_DEFAULTS, ...params };
+  } catch (e) {
+    console.error('Error parsing URL params:', e);
+    return INPUT_DEFAULTS;
+  }
 
   // return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
   //   const value = urlParams.get(key);
