@@ -79,7 +79,7 @@ describe("chat-langchain-workflow", () => {
 
     const mockSession  = {
       getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages: vi.fn().mockReturnValue([]),
+      getMessages: () => [],
       setMessages: vi.fn(),
       setCode: vi.fn(), // Mock setCode to avoid side effects
     }  as unknown as ICode;;
@@ -219,7 +219,8 @@ describe("chat-langchain-workflow", () => {
 
     const mockSession  = {
       getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages: vi.fn().mockReturnValue([]),
+      getMessages:()=>
+      [],
       setMessages: vi.fn(),
       setCode: vi.fn(), // Mock setCode to avoid side effects
     }  as unknown as ICode;
