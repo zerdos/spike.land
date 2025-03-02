@@ -38,9 +38,10 @@ export const codeModificationTool = tool(
       if (documentHash !== currentHash) {
         return createErrorResponse(
           currentCode,
-          "Document modified since last hash. Refresh and try again.",
-          currentCode,
-          documentHash
+          "Document hash mismatch. Code has been modified outside this session.",
+          "documentHash",
+          { currentHash },
+          
         );
       }
 
@@ -49,6 +50,7 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           "Invalid instructions format. Expected array of {search, replace} objects.",
+          "",
         );
       }
 
@@ -89,6 +91,7 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           `No changes detected. Search patterns not found: ${sampleSearches}...`,
+          "searchNotFound",
         );
       }
 
@@ -102,9 +105,10 @@ export const codeModificationTool = tool(
     } catch (error) {
      
       return createErrorResponse(
-        currentCode: currentCode,
+        currentCode,
         error instanceof Error ? error.message : "Code modification failed",
-        { stack: error instanceof Error ? error.stack : undefined },
+        "",
+        { stack: error instanceof Error ? error.stack : undefined }
       );
     }
   },
