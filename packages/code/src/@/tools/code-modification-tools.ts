@@ -168,6 +168,7 @@ export const codeModificationTool = tool(
           }),
         )
         .min(1)
+        .max(4)
         .describe("Array of regex search/replace instructions"),
       documentHash: z
         .string()
