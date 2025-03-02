@@ -1,5 +1,4 @@
 import { renderApp } from "@/lib/render-app";
-import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
@@ -75,11 +74,13 @@ if (location.pathname.endsWith(".tsx")) {
 router.load().then(async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
-    await renderApp({ App });
 
-    if (location.pathname === `/live/${codeSpace}/iframe`) {
+    await initializeWebSocket(codeSpace);
+
+    if (location.pathname === `/live/${codeSpace}`) {
       try {
         await initializeWebSocket(codeSpace);
+        await import("./App").then(({ App }) => renderApp({ App }));
       } catch (error) {
         console.error("WebSocket initialization failed:", error);
         throw new RouterError(
@@ -87,6 +88,9 @@ router.load().then(async () => {
           `/live/${codeSpace}/iframe`,
         );
       }
+    }
+    else if (location.pathname === `/live/${codeSpace}/iframe` || location.pathname === `/live/${codeSpace}/`) {
+      await renderApp({ codeSpace });
     }
 
     // Setup router subscriptions

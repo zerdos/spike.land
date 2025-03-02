@@ -4,7 +4,7 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
-import { handleSendMessage } from "@/lib/shared";
+import { handleSendMessage } from "@/workflows/chat-langchain-workflow";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { useScreenshot } from "./hooks/useScreenshot";

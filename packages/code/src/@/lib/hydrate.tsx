@@ -33,37 +33,48 @@ export const renderPreviewWindow = async (
 
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
-  if (location.hostname === "localhost") return;
-
-  const { Workbox } = await import("workbox-window");
-  console.log("Workbox imported");
-
-  const wb = new Workbox("/sw.js");
-  const sw = await wb.register();
-
-  console.log("Workbox instance created");
-
-  console.log("Active service worker:", sw);
-
-  if (!sw) {
-    console.log("Service worker not found, registering");
-    return wb.active;
+  if (!("serviceWorker" in navigator)) {
+    console.log("Service worker not supported");
+    return;
   }
-
-  if (sw.active?.state === "redundant") {
-    console.log("Service worker is redundant, updating");
-    await wb.update();
-    return wb.active;
+  //delete all service workers
+  const registrations = await navigator.serviceWorker.getRegistrations();
+  for (const registration of registrations) {
+    await registration.unregister();
   }
+  console.log("All service workers unregistered");
+  return;
+  // if (location.hostname === "localhost") return;
 
-  if (sw.active?.state === "activated") {
-    console.log("Service worker is already activated");
+  // const { Workbox } = await import("workbox-window");
+  // console.log("Workbox imported");
 
-    return sw;
-  }
+  // const wb = new Workbox("/sw.js");
+  // const sw = await wb.register();
 
-  console.log("Service worker setup completed");
-  return sw;
+  // console.log("Workbox instance created");
+
+  // console.log("Active service worker:", sw);
+
+  // if (!sw) {
+  //   console.log("Service worker not found, registering");
+  //   return wb.active;
+  // }
+
+  // if (sw.active?.state === "redundant") {
+  //   console.log("Service worker is redundant, updating");
+  //   await wb.update();
+  //   return wb.active;
+  // }
+
+  // if (sw.active?.state === "activated") {
+  //   console.log("Service worker is already activated");
+
+  //   return sw;
+  // }
+
+  // console.log("Service worker setup completed");
+  // return sw;
 };
 // };
 

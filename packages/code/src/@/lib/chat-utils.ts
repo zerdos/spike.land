@@ -7,7 +7,7 @@ interface CodeModification {
 }
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
-const SEARCH_REPLACE_MARKERS = {
+export const SEARCH_REPLACE_MARKERS = {
   SEARCH_START: "<<<<<<< SEARCH",
   SEPARATOR: "=======",
   REPLACE_END: ">>>>>>> REPLACE",

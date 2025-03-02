@@ -10,7 +10,7 @@ import { telemetry } from "../../lib/telemetry";
 import { withRetry, isRetryableError } from "../../utils/retry";
 import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
-import { WorkflowChannels, WorkflowContinueResult } from "@/types/workflow";
+import {  WorkflowContinueResult } from "@/types/workflow";
 import { logCodeChanges, shouldReturnFullCode, verifyCodeIntegrity } from "@/utils/code-utils";
 import {
   createCodeIntegrityError,
@@ -29,6 +29,39 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
+import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
+
+const mod:{
+  [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
+} = {};
+
+export const handleSendMessage = async (
+  { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
+): Promise<void> => {
+
+  const workflow = mod[codeSpace] || await createWorkflowWithStringReplace({
+    code: code,
+    codeSpace: codeSpace,
+    origin: location.origin,
+    lastError: "",
+    isStreaming: false,
+    messages: [],
+    documentHash: md5(code),
+  });
+
+  mod[codeSpace] = workflow;
+  
+
+  const finalState = await workflow.invoke(prompt);
+
+
+  console.log('Final workflow state:', finalState);
+    
+
+
+ 
+  };
+
 
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Record workflow initialization
@@ -262,6 +295,18 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       
       const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
+      // Save the AI response message to cSess
+      const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+      if (cSess && response) {
+        const currentMessages = cSess.getMessages();
+        const aiMessageForChat = {
+          id: Date.now().toString(),
+          role: 'assistant' as const,
+          content: typeof response.content === 'string' ? response.content : '',
+        };
+        cSess.setMessages([...currentMessages, aiMessageForChat]);
+      }
+      
       const updatedState = {
         ...cleanedState,
         messages: [response],
@@ -376,20 +421,35 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         const { codeSpace } = initialState;
         const code = initialState.code;
 
+        // Create the user message
+        const userMessage = new HumanMessage({
+          content: prompt + `
+            <filePath>/live/${codeSpace}.tsx</filePath>
+            <code>${code}</code>
+            <documentHash>${initialDocumentHash}</documentHash>`,
+          additional_kwargs: {
+            code: initialState.code,
+            documentHash: initialDocumentHash,
+          },
+        });
+        
+        // Save the user message to cSess
+        const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+        if (cSess) {
+          const currentMessages = cSess.getMessages();
+          const userMessageForChat = {
+            id: Date.now().toString(),
+            role: 'user' as const,
+            content: prompt,
+          };
+          cSess.setMessages([...currentMessages, userMessageForChat]);
+        }
+        
         const initialStateWithMessages: ExtendedAgentState = {
           ...initialState,
           messages: [
             systemMessage,
-            new HumanMessage({
-              content: prompt + `
-                <filePath>/live/${codeSpace}.tsx</filePath>
-                <code>${code}</code>
-                <documentHash>${initialDocumentHash}</documentHash>`,
-              additional_kwargs: {
-                code: initialState.code,
-                documentHash: initialDocumentHash,
-              },
-            }),
+            userMessage,
           ],
           debugLogs: [
             ...((initialState as ExtendedAgentState).debugLogs || []),

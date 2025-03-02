@@ -12,43 +12,6 @@ import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
 import { getCodeSpace } from "@/hooks/use-code-space";
 
-const createObjectURL: (blob: Blob) => Promise<string> = async (blob) => {
-  return URL?.createObjectURL?.(blob) || (async (blob: Blob) => {
-    // it means that the URL.createObjectURL is not available
-    // so we are in node environment
-    // we can create a tmp file and return the path
-
-    const fs = await import("fs");
-    const path = await import("path");
-
-    const fsPromises = fs.promises;
-
-    const tmpPath = path.join(process.cwd(), "tmp");
-    try {
-      await fsPromises.access(tmpPath);
-    } catch (e: unknown) {
-      if (e && typeof e === "object" && "code" in e && e.code === "ENOENT") {
-        await fsPromises.mkdir(tmpPath);
-      } else {
-        throw e;
-      }
-    }
-    const filePath = path.join(tmpPath, Math.random().toString());
-    if (blob.text) {
-      await fsPromises.writeFile(filePath, await blob.text());
-    } else if (blob.arrayBuffer) {
-      await fsPromises.writeFile(
-        filePath,
-        Buffer.from(await blob.arrayBuffer()),
-      );
-    } else {
-      throw new Error("No method to read the blob");
-    }
-
-    return filePath;
-  })(blob);
-};
-
 let firstRender = true;
 const origin = location.origin;
 
@@ -230,3 +193,7 @@ async function renderApp(
 }
 
 export { renderApp };
+  function createObjectURL(blob: Blob): string {
+    return URL.createObjectURL(blob);
+  }
+
