@@ -479,21 +479,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:5.24.0":
-  version: 5.24.0
-  resolution: "@clerk/clerk-react@npm:5.24.0"
-  dependencies:
-    "@clerk/shared": "npm:^3.0.0"
-    "@clerk/types": "npm:^4.47.0"
-    tslib: "npm:2.4.1"
-  peerDependencies:
-    react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
-    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
-  checksum: 10c0/6a9940b5be49e0cbc321984e0a66d4cf5dcc47591c1b167a27b2947d99cc0ac3a08f935c8bcff7616d6df8b6809a4882f21c32cdaa27c7272c7c1c92b4c0f9ce
-  languageName: node
-  linkType: hard
-
-"@clerk/clerk-react@npm:^5.24.0":
+"@clerk/clerk-react@npm:5.24.1, @clerk/clerk-react@npm:^5.24.1":
   version: 5.24.1
   resolution: "@clerk/clerk-react@npm:5.24.1"
   dependencies:
@@ -519,12 +505,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/nextjs@npm:6.12.1":
-  version: 6.12.1
-  resolution: "@clerk/nextjs@npm:6.12.1"
+"@clerk/nextjs@npm:6.12.2":
+  version: 6.12.2
+  resolution: "@clerk/nextjs@npm:6.12.2"
   dependencies:
     "@clerk/backend": "npm:^1.24.3"
-    "@clerk/clerk-react": "npm:^5.24.0"
+    "@clerk/clerk-react": "npm:^5.24.1"
     "@clerk/shared": "npm:^3.0.0"
     "@clerk/types": "npm:^4.47.0"
     crypto-js: "npm:4.2.0"
@@ -534,7 +520,7 @@ __metadata:
     next: ^13.5.4 || ^14.0.3 || ^15.0.0
     react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
     react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
-  checksum: 10c0/95d88c10b7873f6ec803d5ece840a24c4098fc012d214f061ac7d340a4a5331e585b6f31503d3598779cfcfcbf048ff38ee8b137ee4d39d65ebe18bf9bd6b79f
+  checksum: 10c0/fc98d860f49128fa01ad0de368d54134a63829a02062f015900afd57f70ac263f56c3d55d5ea8daf437a021a2acf40d1e23add01824bf6b0defd46bf8e044626
   languageName: node
   linkType: hard
 
@@ -4434,8 +4420,8 @@ __metadata:
     "@babel/parser": "npm:7.26.9"
     "@babel/traverse": "npm:7.26.9"
     "@babel/types": "npm:7.26.9"
-    "@clerk/clerk-react": "npm:5.24.0"
-    "@clerk/nextjs": "npm:6.12.1"
+    "@clerk/clerk-react": "npm:5.24.1"
+    "@clerk/nextjs": "npm:6.12.2"
     "@cloudflare/workers-types": "npm:4.20250224.0"
     "@emotion/babel-plugin": "npm:11.13.5"
     "@emotion/cache": "npm:11.14.0"
@@ -4519,7 +4505,7 @@ __metadata:
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.207"
+    "@types/web": "npm:0.0.208"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.25.0"
     "@typescript/ata": "npm:0.9.7"
@@ -4683,7 +4669,7 @@ __metadata:
     "@types/node": "npm:22.13.8"
     esbuild-wasm: "npm:0.25.0"
     ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.4.2"
+    typescript: "npm:^5.8.2"
   languageName: unknown
   linkType: soft
 
@@ -6044,10 +6030,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.207":
-  version: 0.0.207
-  resolution: "@types/web@npm:0.0.207"
-  checksum: 10c0/ff4298f71052a5979a1f426c5f8c29734644a276e4e1cf2377688bc4af784257d564aa5d55150c75e69d335922a72ae86a0c54e3a5a89607bcde1ce525d87962
+"@types/web@npm:0.0.208":
+  version: 0.0.208
+  resolution: "@types/web@npm:0.0.208"
+  checksum: 10c0/6f634e7d1b68387a4c231d20f183105ac1d5d38219d841dd9e7252ba3513c768073c996978eda1a055fc8094d078e14660313c5ea36d56d227f0671f97d682de
   languageName: node
   linkType: hard
 
@@ -18872,7 +18858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.8.2, typescript@npm:^5.4.2":
+"typescript@npm:5.8.2, typescript@npm:^5.8.2":
   version: 5.8.2
   resolution: "typescript@npm:5.8.2"
   bin:
@@ -18882,7 +18868,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.4.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
   version: 5.8.2
   resolution: "typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"
   bin:
