@@ -195,29 +195,6 @@
           "  - Implements error handling for 'CodeModWorkflowError' and unexpected errors.",
           "Demonstrates a workflow using string replacement for code modification, suitable for simpler code changes compared to AST-based approaches."
         ]
-      },
-      {
-        "name": "src/ChatInterface.tsx",
-        "type": "component",
-        "description": "React functional component 'ChatInterface' for the main chat interface of the application. Manages chat sessions, messages, user input, and integrates features like dark mode, dictation, and screenshot capabilities.",
-        "exports": {
-          "ChatInterface": "React functional component (memoized, default export)"
-        },
-        "important_aspects": [
-          "Memoized React functional component 'ChatInterface'.",
-          "Uses 'ChatDrawer' component for UI structure.",
-          "Manages chat session state using 'useState' and 'useEffect' to fetch and update session data and messages.",
-          "Integrates 'useDarkMode' hook for dark mode toggle.",
-          "Integrates 'useDictation' hook for voice input.",
-          "Integrates 'useScreenshot' hook for screenshot functionality.",
-          "Uses 'useLocalStorage' to persist 'isStreaming' state.",
-          "Handles message streaming state with timeouts and BroadcastChannel communication.",
-          "Implements message editing functionality, including 'handleCancelEdit' and 'handleSaveEdit'.",
-          "Includes 'resetChat' callback to clear messages and input.",
-          "Listens to BroadcastChannel ('${codeSpace}-chat') for real-time updates on messages, streaming status, debug info, and code changes.",
-          "Handles scrolling to the latest message on chat open.",
-          "Manages user input via 'useDictation' and manual input, sending messages using 'handleSendMessage'."
-        ]
       }
     ]
   }

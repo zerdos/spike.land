@@ -1,0 +1,5 @@
+
+src/@/components/ui/*
+src/@/lib/esbuild*
+tsconfig.app.tsbuildinfo
+
