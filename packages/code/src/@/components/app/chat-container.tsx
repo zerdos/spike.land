@@ -65,26 +65,6 @@ export const ChatContainer: React.FC<
     isStreaming,
   );
 
-  const memoizedHandleEditMessage = useCallback(
-    (id: string) => handleEditMessage(id),
-    [handleEditMessage],
-  );
-
-  const memoizedSetEditInput = useCallback(
-    (value: string) => setEditInput(value),
-    [setEditInput],
-  );
-
-  const memoizedHandleCancelEdit = useCallback(
-    () => handleCancelEdit(),
-    [handleCancelEdit],
-  );
-
-  const memoizedHandleSaveEdit = useCallback(
-    (id: string) => handleSaveEdit(id),
-    [handleSaveEdit],
-  );
-
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     if (isStreaming) {
@@ -108,9 +88,9 @@ export const ChatContainer: React.FC<
         onDoubleClick={() => setEditingMessageId(message.id)}
         isEditing={editingMessageId === message.id}
         editInput={editInput}
-        setEditInput={memoizedSetEditInput}
-        handleCancelEdit={memoizedHandleCancelEdit}
-        handleSaveEdit={memoizedHandleSaveEdit}
+        setEditInput={setEditInput}
+        handleCancelEdit={handleCancelEdit}
+        handleSaveEdit={handleSaveEdit}
         isDarkMode={isDarkMode}
         onNewPrompt={onNewPrompt}
       />
@@ -118,10 +98,6 @@ export const ChatContainer: React.FC<
     [
       editingMessageId,
       editInput,
-      memoizedHandleEditMessage,
-      memoizedSetEditInput,
-      memoizedHandleCancelEdit,
-      memoizedHandleSaveEdit,
       isDarkMode,
     ],
   );

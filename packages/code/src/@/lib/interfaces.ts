@@ -41,7 +41,7 @@ export interface MessageInputProps {
   cSess: ICode;
   isDarkMode: boolean;
   setInput: (value: string) => void;
-  
+
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;

@@ -4,12 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Send, Upload, X } from "@/external/lucide-react";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
-import {handleSendMessage} from "@/workflows/chat-langchain-workflow";
 import type { MessageInputProps } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
 import { cn } from "@/lib/utils";
+import { handleSendMessage } from "@/workflows/chat-langchain-workflow";
 import React, { useRef, useState } from "react";
+import { json } from "stream/consumers";
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -29,6 +30,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const handleSend = async () => {
     const session = await cSess.getSession();
     const { code, messages } = session;
+
+    localStorage.setItem("streaming-" + getCodeSpace(location.pathname), "true");
+
     const result = handleSendMessage({
       messages,
       codeSpace: getCodeSpace(location.pathname),
@@ -36,6 +40,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       images: uploadedImages,
       code,
     }, cSess);
+
+    localStorage.setItem("streaming-" + getCodeSpace(location.pathname), JSON.stringify(false));
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending

@@ -3,6 +3,7 @@ import {
   DEFAULT_RETURN_MODIFIED_CODE,
   MODEL_NAME,
 } from "@/config/workflow-config";
+import { messagesPush } from "@/lib/chat-utils";
 import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { codeModificationTool } from "@/tools/code-modification-tools";
@@ -24,21 +25,21 @@ import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
+import { Message } from "postcss";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 import { hashCache, toolResponseCache } from "../../lib/caching";
-import {  metrics } from "../../lib/metrics";
+import { metrics } from "../../lib/metrics";
 import { telemetry } from "../../lib/telemetry";
 import { isRetryableError, withRetry } from "../../utils/retry";
-import { messagesPush } from "@/lib/chat-utils";
-import { Message } from "postcss";
 
 const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
 } = {};
 
 export const handleSendMessage = async (
-  {messages, codeSpace, prompt, images, code }: HandleSendMessageProps, cSess: ICode
+  { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
+  cSess: ICode,
 ): Promise<void> => {
   const workflow = mod[codeSpace] || await createWorkflowWithStringReplace({
     code: code,
@@ -47,8 +48,9 @@ export const handleSendMessage = async (
     lastError: "",
     isStreaming: false,
     messages: [],
-    documentHash: md5(code)} ,cSess);
-``
+    documentHash: md5(code),
+  }, cSess);
+  ``;
   mod[codeSpace] = workflow;
 
   const finalState = await workflow.invoke(prompt);
@@ -296,7 +298,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           role: "assistant" as const,
           content: typeof response.content === "string" ? response.content : "",
         };
-         await   cSess.setMessages(messagesPush(cSess.getMessages(), aiMessageForChat));
+        await cSess.setMessages(messagesPush(cSess.getMessages(), aiMessageForChat));
       }
 
       const updatedState = {
@@ -408,7 +410,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     invoke: async (prompt: string) => {
       telemetry.startTimer("workflow.invoke");
       try {
-        const messages  = cSess.getMessages();
+        const messages = cSess.getMessages();
 
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
@@ -424,17 +426,17 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           additional_kwargs: {
             code: initialState.code,
             documentHash: initialDocumentHash,
-          }
+          },
         });
 
         // Save the user message to cSess
- 
+
         if (cSess) {
-        await cSess.setMessages(messagesPush(cSess.getMessages(), {
-          id: Date.now().toString(),
-          role: "user",
-          content: prompt,
-        }));
+          await cSess.setMessages(messagesPush(cSess.getMessages(), {
+            id: Date.now().toString(),
+            role: "user",
+            content: prompt,
+          }));
         }
 
         const initialStateWithMessages: ExtendedAgentState = {
@@ -442,7 +444,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           messages: [
             systemMessage,
             userMessage,
-          ]
+          ],
         };
 
         const threadId = uuidv4();
@@ -483,7 +485,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           // Track code modification
           telemetry.trackCodeModification("update", {
             filePath: `/live/${initialState.codeSpace}.tsx`,
-            linesChanged: Number(finalState.code.split("\n").length) - Number(initialState.code.split("\n").length),
+            linesChanged: Number(finalState.code.split("\n").length) -
+              Number(initialState.code.split("\n").length),
             bytesChanged: finalState.code.length - initialState.code.length,
           });
         }

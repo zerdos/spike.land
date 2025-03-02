@@ -1,3 +1,4 @@
+import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
@@ -5,7 +6,6 @@ import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages
 import { get } from "http";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
-import { ICode } from "@/lib/interfaces";
 
 vi.mock("@langchain/anthropic", () => ({
   ChatAnthropic: vi.fn(() => ({
@@ -19,7 +19,7 @@ vi.mock("uuid", () => ({
 }));
 
 describe("chat-langchain-workflow", () => {
-  const mockSession  = {
+  const mockSession = {
     getCode: vi.fn().mockResolvedValue("retrieved code"),
     getMessages: vi.fn().mockReturnValue([]),
     setMessages: vi.fn(),
@@ -49,14 +49,12 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("workflow creation", () => {
-    const mockSession  = {
+    const mockSession = {
       getCode: vi.fn().mockResolvedValue("retrieved code"),
       getMessages: vi.fn().mockReturnValue([]),
       setMessages: vi.fn(),
       setCode: vi.fn(), // Mock setCode to avoid side effects
     } as unknown as ICode;
-
-
 
     it("should create workflow with initial state", () => {
       const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
@@ -65,7 +63,7 @@ describe("chat-langchain-workflow", () => {
     });
 
     it("should initialize ChatAnthropic with correct configuration", () => {
-      createWorkflowWithStringReplace(mockInitialState, mockSession, );
+      createWorkflowWithStringReplace(mockInitialState, mockSession);
       expect(ChatAnthropic).toHaveBeenCalledWith(
         expect.objectContaining({
           streaming: false,
@@ -76,14 +74,13 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("workflow invocation", () => {
-
-    const mockSession  = {
+    const mockSession = {
       getCode: vi.fn().mockResolvedValue("retrieved code"),
       getMessages: () => [],
       setMessages: vi.fn(),
       setCode: vi.fn(), // Mock setCode to avoid side effects
-    }  as unknown as ICode;;
-    
+    } as unknown as ICode;
+
     const mockToolResponse = new AIMessage({
       content: "Modified code",
       additional_kwargs: {
@@ -216,14 +213,12 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("error handling", () => {
-
-    const mockSession  = {
+    const mockSession = {
       getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages:()=>
-      [],
+      getMessages: () => [],
       setMessages: vi.fn(),
       setCode: vi.fn(), // Mock setCode to avoid side effects
-    }  as unknown as ICode;
+    } as unknown as ICode;
 
     it("should handle workflow errors gracefully", async () => {
       vi.mocked(ChatAnthropic).mockImplementation(

@@ -16,19 +16,17 @@ const ChatInterface: React.FC<{
   cSess: ICode;
   codeSpace: string;
   onClose: () => void;
-}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement | null => {
-  const [session, setSession] = useState<ICodeSession | null>(null);
+}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement => {
+  // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const [messages, setMessages] = useState<Message[]>([]);
 
-  useEffect(() => {
-    cSess.getSession().then((initialSession) => {
-      setSession(initialSession);
-      setMessages(initialSession.messages);
-    });
-  }, [cSess]);
+  // useEffect(() => {
+  //   cSess.getSession().then((initialSession) => {
+  //     setSession(initialSession);
+  //   });
+  // }, [cSess]);
 
-  const codeSpace = session?.codeSpace ?? "";
+  const codeSpace = cSess.getCodeSpace();
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${codeSpace}`,
     false,
@@ -38,19 +36,9 @@ const ChatInterface: React.FC<{
     if (isStreaming) {
       isStreamingTimeout = setTimeout(() => {
         setIsStreaming(false);
-      }, 1000);
+      }, 5000);
     }
-    const unSub = cSess.sub((sess) => {
-      // Deep compare messages to prevent unnecessary updates
-      if (sess.messages) {
-        if (JSON.stringify(messages) === JSON.stringify(sess.messages)) {
-          return;
-        }
-        setMessages(sess.messages);
-      }
-    });
-    return () => unSub();
-  }, []);
+  }, [isStreaming]);
 
   const [input, setInput] = useDictation("");
 
@@ -86,7 +74,13 @@ const ChatInterface: React.FC<{
   }, []);
 
   const handleSaveEdit = useCallback((messageId: string) => {
+    const messages = cSess.getMessages();
     const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+    if (messageIndex === -1) {
+      console.error("Invalid message for editing");
+      return;
+    }
+
     const messageToEdit = messages[messageIndex];
 
     if (!messageToEdit || messageToEdit.role === "assistant") {
@@ -110,86 +104,7 @@ const ChatInterface: React.FC<{
     cSess.setMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
-  }, [messages, editInput, cSess]);
-
-  useEffect(() => {
-    const BC = new BroadcastChannel(`${codeSpace}-chat`);
-    BC.onmessage = async (event) => {
-      const e = event.data;
-
-      // Clear any existing streaming timeout
-      if (isStreamingTimeout) {
-        clearTimeout(isStreamingTimeout);
-        isStreamingTimeout = null;
-      }
-
-      // Handle messages update
-      if (e.messages) {
-        await cSess.setMessages(e.messages);
-      }
-
-      // Handle streaming state
-      if (e.isStreaming !== undefined) {
-        setIsStreaming(e.isStreaming);
-      }
-
-      // Handle debug info
-      if (e.debugInfo) {
-        const debugInfo = e.debugInfo;
-        console.debug("debugInfo", { debugInfo });
-        Object.assign(globalThis, { debugInfo });
-      }
-
-      // Handle code updates
-      if (e.code) {
-        console.log("Setting code", e.code);
-        cSess.setCode(e.code);
-      }
-
-      // Handle instructions/streaming content
-      if (e.chunk) {
-        cSess.addMessageChunk(e.chunk);
-        setMessages((prevMessages) => {
-          const lastMessage = prevMessages[prevMessages.length - 1];
-          if (lastMessage && lastMessage.role === "assistant") {
-            lastMessage.content += e.chunk;
-            return prevMessages;
-          }
-          const newId = lastMessage
-            ? (1 + Number(lastMessage.id)).toString()
-            : "1";
-          return [
-            ...prevMessages,
-            { role: "assistant", content: e.chunk, id: newId } as Message,
-          ];
-        });
-      }
-
-      if (!isStreaming) {
-        setIsStreaming(true);
-      }
-      if (isStreamingTimeout) {
-        clearTimeout(isStreamingTimeout);
-        isStreamingTimeout = null;
-      }
-      isStreamingTimeout = setTimeout(() => {
-        setIsStreaming(false);
-      }, 1000);
-
-      // Set streaming timeout if we have instructions
-      if (e.instructions) {
-        setIsStreaming(true);
-      }
-    };
-
-    return () => {
-      if (isStreamingTimeout) {
-        clearTimeout(isStreamingTimeout);
-        isStreamingTimeout = null;
-      }
-      BC.close();
-    };
-  }, [codeSpace, cSess, setIsStreaming, isStreaming]); // Removed messages from deps
+  }, [editInput, cSess]);
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -230,30 +145,6 @@ const ChatInterface: React.FC<{
     }
   }, [isOpen, codeSpace, setInput, cSess]);
 
-  const memoizedHandleEditMessage = useCallback((messageId: string): void => {
-    setEditingMessageId(messageId);
-
-    const messageToEdit = messages.find((msg) => msg.id === messageId);
-    if (!messageToEdit) {
-      console.error("Invalid message for editing");
-      return;
-    }
-    const contentToEdit = Array.isArray(messageToEdit.content)
-      ? messageToEdit.content.find((
-        item,
-      ): item is { type: "text"; text: string; } => item.type === "text")
-        ?.text || ""
-      : messageToEdit.content;
-
-    if (contentToEdit === undefined) {
-      console.error("Invalid message content for editing");
-      return;
-    }
-    setEditInput(
-      typeof contentToEdit === "string" ? contentToEdit : contentToEdit,
-    );
-  }, [messages]);
-
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
   }, []);
@@ -263,7 +154,7 @@ const ChatInterface: React.FC<{
     [cSess],
   );
 
-  if (!isOpen) return null;
+  if (!isOpen) return <></>;
 
   return (
     <ChatDrawer
@@ -285,7 +176,7 @@ const ChatInterface: React.FC<{
       editingMessageId={editingMessageId}
       editInput={editInput}
       setEditInput={memoizedSetEditInput}
-      handleEditMessage={memoizedHandleEditMessage}
+      handleEditMessage={(_messageId: string) => {}}
       handleCancelEdit={handleCancelEdit}
       handleSaveEdit={handleSaveEdit}
       screenshot={memoizedScreenshot}

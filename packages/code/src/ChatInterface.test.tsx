@@ -143,11 +143,15 @@ const createMockSession = (initialMessages: Message[] = []) => {
     transpiled: "testTranspiled",
   };
 
-  const mockInstance = {
+  const mockInstance: ICode = {
+    getCodeSpace: vi.fn().mockReturnValue(session.codeSpace),
     getSession: vi.fn().mockImplementation(async () => ({
       ...session,
       messages: [...messages],
     })),
+    setSession: vi.fn(),
+    init: vi.fn(),
+    getMessages: vi.fn().mockReturnValue(messages),
     setMessages: vi.fn().mockImplementation(async (newMessages: Message[]) => {
       messages = newMessages.map((msg) => ({ ...msg }));
       const updatedSession = {
@@ -157,6 +161,8 @@ const createMockSession = (initialMessages: Message[] = []) => {
       subscribers.forEach((sub) => sub(updatedSession));
       return true;
     }),
+    setCode: vi.fn(),
+    getCode: vi.fn(),
     addMessageChunk: vi.fn().mockImplementation((chunk: string) => {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage && lastMessage.role === "assistant") {
@@ -179,7 +185,7 @@ const createMockSession = (initialMessages: Message[] = []) => {
       return () => subscribers.delete(callback);
     }),
     screenshot: vi.fn(),
-  } as unknown as ICode;
+  };
 
   return mockInstance;
 };
@@ -210,87 +216,6 @@ describe("ChatInterface", () => {
       </ThemeProvider>,
     );
   };
-
-  it("handles new messages from broadcast channel", async () => {
-    await act(async () => {
-      renderWithContext(
-        <ChatInterface
-          isOpen={true}
-          codeSpace="test-space"
-          cSess={mockSession}
-          onClose={vi.fn()}
-        />,
-      );
-    });
-
-    const newMessages: Message[] = [
-      { id: "1", role: "user", content: "test message" },
-      { id: "2", role: "assistant", content: "response" },
-    ];
-
-    await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
-      bc.postMessage({ messages: newMessages });
-    });
-
-    await waitFor(() => {
-      expect(mockSession.setMessages).toHaveBeenCalledWith(newMessages);
-    });
-  });
-
-  it("handles streaming messages correctly", async () => {
-    const addMessageChunk = vi.fn();
-    const sessionWithChunks = {
-      ...mockSession,
-      addMessageChunk,
-    };
-
-    await act(async () => {
-      renderWithContext(
-        <ChatInterface
-          isOpen={true}
-          codeSpace="test-space"
-          cSess={sessionWithChunks}
-          onClose={vi.fn()}
-        />,
-      );
-    });
-
-    await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
-      bc.postMessage({
-        chunk: "streaming content",
-        isStreaming: true,
-      });
-    });
-
-    await waitFor(() => {
-      expect(addMessageChunk).toHaveBeenCalledWith("streaming content");
-    });
-  });
-
-  it("handles empty instructions in streaming", async () => {
-    await act(async () => {
-      renderWithContext(
-        <ChatInterface
-          isOpen={true}
-          codeSpace="test-space"
-          cSess={mockSession}
-          onClose={vi.fn()}
-        />,
-      );
-    });
-
-    await act(async () => {
-      const bc = new MockBroadcastChannel("test-space-chat");
-      bc.postMessage({
-        instructions: "",
-        isStreaming: true,
-      });
-    });
-
-    expect(mockSession.setMessages).not.toHaveBeenCalled();
-  });
 
   it("handles chat reset", async () => {
     const initialMessages: Message[] = [
