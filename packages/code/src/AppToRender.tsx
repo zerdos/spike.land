@@ -45,7 +45,6 @@ export const Hello = () => {
 };
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
-
   useEffect(() => {
     Object.assign(globalThis, {
       setupAndRun: async (prompt: string) => {

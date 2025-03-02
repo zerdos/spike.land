@@ -135,6 +135,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
       // Update state immediately to prevent lag
       setLastHash(newHash);
+      if (sess.code === editorState.code) return;
       const newState = { ...editorState, code: sess.code };
       setEditorState(newState);
 

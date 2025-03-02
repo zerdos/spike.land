@@ -31,7 +31,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
   try {
     const url = new URL(urlString);
     const match = url.pathname.match(/^\/replicate\/([^.]+)\.(?:webp|png|jpeg)$/);
-    
+
     if (!match) {
       return INPUT_DEFAULTS;
     }
@@ -39,14 +39,14 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
     const base64Params = match[1];
     const decodedParams = atob(base64Params);
     const urlSearchParams = new URLSearchParams(decodedParams);
-    
+
     let params: Partial<InputDefaults> = {};
-    
+
     urlSearchParams.forEach((value, key) => {
       if (key in INPUT_DEFAULTS) {
         const typedKey = key as keyof InputDefaults;
         const defaultValue = INPUT_DEFAULTS[typedKey];
-        
+
         if (value !== "" && value !== String(defaultValue)) {
           if (typeof defaultValue === "number") {
             const numValue = Number(value);
@@ -66,7 +66,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
 
     return { ...INPUT_DEFAULTS, ...params };
   } catch (e) {
-    console.error('Error parsing URL params:', e);
+    console.error("Error parsing URL params:", e);
     return INPUT_DEFAULTS;
   }
 

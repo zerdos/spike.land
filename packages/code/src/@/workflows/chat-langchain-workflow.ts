@@ -5,6 +5,7 @@ import {
 } from "@/config/workflow-config";
 import { messagesPush } from "@/lib/chat-utils";
 import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
+import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
@@ -25,7 +26,6 @@ import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
-import type { Message, ImageData } from "@/lib/interfaces";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 import { hashCache, toolResponseCache } from "../../lib/caching";
@@ -37,39 +37,40 @@ const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
 } = {};
 
-
 async function createNewMessage(
-    images: ImageData[],
-    claudeContent: string,
-  ): Promise<Message> {
-    // Filter out any images without URLs and create image content array
-    const imagesContent = images
-      .map((image) => {
-        const imageUrl = image.url || image.src;
-        if (!imageUrl) {
-          console.warn('Image missing URL:', image);
-          return null;
-        }
-        return {
-          type: "image_url" as const,
-          image_url: { url: imageUrl }
-        };
-      })
-      .filter((content): content is { type: "image_url"; image_url: { url: string } } => content !== null);
+  images: ImageData[],
+  claudeContent: string,
+): Promise<Message> {
+  // Filter out any images without URLs and create image content array
+  const imagesContent = images
+    .map((image) => {
+      const imageUrl = image.url || image.src;
+      if (!imageUrl) {
+        console.warn("Image missing URL:", image);
+        return null;
+      }
+      return {
+        type: "image_url" as const,
+        image_url: { url: imageUrl },
+      };
+    })
+    .filter((content): content is { type: "image_url"; image_url: { url: string; }; } =>
+      content !== null
+    );
 
-    const content = imagesContent.length > 0
-      ? [...imagesContent, {
-        type: "text" as const,
-        text: claudeContent.trim() || "",
-      }]
-      : claudeContent;
+  const content = imagesContent.length > 0
+    ? [...imagesContent, {
+      type: "text" as const,
+      text: claudeContent.trim() || "",
+    }]
+    : claudeContent;
 
-    return {
-      id: Date.now().toString(),
-      role: "user" as const,
-      content
-    }
-  }
+  return {
+    id: Date.now().toString(),
+    role: "user" as const,
+    content,
+  };
+}
 export const handleSendMessage = async (
   { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
   cSess: ICode,
@@ -83,7 +84,7 @@ export const handleSendMessage = async (
     messages: [],
     documentHash: md5(code),
   }, cSess);
-  
+
   mod[codeSpace] = workflow;
 
   const finalState = await workflow.invoke(prompt);
@@ -334,7 +335,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
       // Check for images in the message
       const currentHumanMessage = state.messages[state.messages.length - 1];
-      if (currentHumanMessage instanceof HumanMessage && currentHumanMessage.additional_kwargs?.images) {
+      if (
+        currentHumanMessage instanceof HumanMessage && currentHumanMessage.additional_kwargs?.images
+      ) {
         const images = currentHumanMessage.additional_kwargs.images as ImageData[];
         (updatedState as ExtendedAgentState).images = images;
         (updatedState as ExtendedAgentState).hasImages = images.length > 0;
@@ -450,12 +453,12 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
   const app = workflow.compile({ checkpointer: new MemorySaver() });
 
   return {
-    invoke: async (prompt: string, images: ImageData[]= [] ) => {
+    invoke: async (prompt: string, images: ImageData[] = []) => {
       telemetry.startTimer("workflow.invoke");
       try {
         const messages = cSess.getMessages();
         const userMessageToSave = await createNewMessage(images, prompt);
-  
+
         await cSess.setMessages(messagesPush(messages, userMessageToSave));
 
         const systemMessage = new SystemMessage(anthropicSystem);
@@ -466,17 +469,16 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         // Create the user message
         const userMessage = new HumanMessage(
           {
-          content: prompt + `
+            content: prompt + `
           <filePath>/live/${codeSpace}.tsx</filePath>
           <code>${code}</code>
           <documentHash>${initialDocumentHash}</documentHash>`,
-          additional_kwargs: {
-            code: initialState.code,
-            documentHash: initialDocumentHash,
+            additional_kwargs: {
+              code: initialState.code,
+              documentHash: initialDocumentHash,
+            },
           },
-        }
-
-      );
+        );
 
         // Save the user message to cSess
 

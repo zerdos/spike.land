@@ -354,6 +354,8 @@ async function startMonacoPristine({
       const state = myEditor.saveViewState();
 
       try {
+        const oldCode = model.getValue();
+        if (oldCode === newCode) return;
         model.setValue(newCode);
         if (state) {
           console.log("Restoring editor state");

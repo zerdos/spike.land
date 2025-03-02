@@ -21,7 +21,6 @@ const ChatInterface: React.FC<{
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-
   useEffect(() => cSess.sub(session => setMessages(session.messages)), []);
 
   const codeSpace = cSess.getCodeSpace();

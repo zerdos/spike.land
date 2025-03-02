@@ -108,7 +108,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                   handleSendMessage({
                     messages,
                     codeSpace: cSess.getCodeSpace(),
-                    code:await cSess.getCode(),
+                    code: await cSess.getCode(),
                     prompt,
                     images: [],
                   }, cSess);

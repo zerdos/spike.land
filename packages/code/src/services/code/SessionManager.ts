@@ -9,20 +9,11 @@ interface BroadcastMessage extends ICodeSession {
 }
 
 export class SessionManager implements ISessionManager {
-  private session: ICodeSession;
+  private session: ICodeSession | null = null;
   private user: string;
   private broadcastChannel: CodeSessionBC;
 
   constructor(codeSpace: string) {
-    this.session = sanitizeSession({
-      code: "",
-      html: "",
-      css: "",
-      messages: [],
-      codeSpace,
-      transpiled: "",
-    });
-
     // Determine the user ID (anonymous hashing if needed)
     this.user = localStorage.getItem(`${codeSpace} user`) ||
       md5(crypto.randomUUID());
@@ -41,6 +32,8 @@ export class SessionManager implements ISessionManager {
   }
 
   addMessageChunk(chunk: string): void {
+    if (!this.session) return;
+
     const oldSession = sanitizeSession(this.session);
     if (this.session.messages.length === 0) {
       this.setMessages([{
@@ -65,6 +58,7 @@ export class SessionManager implements ISessionManager {
   }
 
   setMessages(messages: Message[]): boolean {
+    if (!this.session) return false;
     const oldSession = sanitizeSession(this.session);
     const currentMessages = this.session.messages;
 
@@ -97,10 +91,14 @@ export class SessionManager implements ISessionManager {
   }
 
   getSession(): ICodeSession {
+    if (!this.session) {
+      throw new Error("Session not initialized");
+    }
     return this.session;
   }
 
   updateSession(sessionData: Partial<ICodeSession>): void {
+    if (!this.session) return;
     const oldSession = sanitizeSession(this.session);
     const newSession = sanitizeSession({
       ...this.session,
@@ -164,6 +162,9 @@ export class SessionManager implements ISessionManager {
   }
 
   private broadcastSession(oldSession: ICodeSession): void {
+    if (!this
+      .session) return;
+
     const diff = this.computeSessionDiff(oldSession, this.session);
 
     // Only broadcast if there are actual changes beyond just codeSpace

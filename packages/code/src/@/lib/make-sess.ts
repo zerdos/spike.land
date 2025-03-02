@@ -15,9 +15,7 @@ class SessionPatcher {
     const { codeSpace, code, html, css, transpiled, messages } = cx;
     const hashObj = {
       codeSpace,
-      messages: md5(JSON.stringify([
-        ...(messages || []).map((m) => md5(JSON.stringify(m))),
-      ])),
+      messages: md5(messages.map((m) => md5(JSON.stringify(m))).join("")),
       code: md5(code),
       html: md5(html),
       css: md5(css),
@@ -26,17 +24,24 @@ class SessionPatcher {
     return md5(JSON.stringify(hashObj));
   }
 
-  public static sanitizeSession(p: unknown): ICodeSession {
+  public static sanitizeSession(p: ICodeSession): ICodeSession {
     const session = p as ICodeSession;
-    const messages = JSON.parse(JSON.stringify(session.messages || []));
+    SessionPatcher.validateSession(session);
+
     return {
       codeSpace: session.codeSpace || "",
-      messages,
       code: session.code || "",
       html: session.html || "",
       css: session.css || "",
       transpiled: session.transpiled || "",
+      ...(session.messages && { messages: JSON.parse(JSON.stringify(session.messages)) }),
     };
+  }
+
+  public static validateSession(cx: ICodeSession): void {
+    if (!cx.codeSpace || !cx.code || cx.messages === undefined) {
+      throw new Error("Invalid session object - missing required fields" + JSON.stringify(cx));
+    }
   }
 
   public static sessionToJSON(s: ICodeSession): string {

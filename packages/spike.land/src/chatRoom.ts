@@ -54,6 +54,7 @@ export class Code implements DurableObject {
           </h2>
         </div>
       );`,
+      messages: [],
       html: "<div></div>",
       css: "",
       codeSpace: "default",
@@ -101,6 +102,7 @@ export class Code implements DurableObject {
             // full empty state
             this.session = sanitizeSession({
               codeSpace,
+              messages: [],
               code: `export default () => (<>Write your code here!</>);
               `,
               html: "<div>Write your code here!</div>",
