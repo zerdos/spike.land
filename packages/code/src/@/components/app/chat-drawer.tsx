@@ -6,7 +6,7 @@ import { Bot } from "@/external/lucide-react";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import type { ICodeSession } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { handleSendMessage } from "@/workflows/chat-langchain-workflow";
+import { handleSendMessage } from "@/workers/chat-utils-langchain.worker";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Drawer } from "vaul";
 

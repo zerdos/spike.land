@@ -21,11 +21,11 @@ import {
   updateToolCallsWithCodeFlag,
 } from "@/utils/tool-response-utils";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
-import { Message } from "postcss";
+import type { Message, ImageData } from "@/lib/interfaces";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 import { hashCache, toolResponseCache } from "../../lib/caching";
@@ -37,6 +37,29 @@ const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
 } = {};
 
+
+async function createNewMessage(
+    images: ImageData[],
+    claudeContent: string,
+  ): Promise<Message> {
+    const imagesContent = images.map((image) => ({
+      type: "image_url" as const,
+      image_url: { url: image.url },
+    }));
+
+    const content = imagesContent.length > 0
+      ? [...imagesContent, {
+        type: "text" as const,
+        text: claudeContent.trim() || "",
+      }]
+      : claudeContent;
+
+    return {
+      id: Date.now().toString(),
+      role: "user" as const,
+      content
+    }
+  }
 export const handleSendMessage = async (
   { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
   cSess: ICode,
@@ -50,7 +73,7 @@ export const handleSendMessage = async (
     messages: [],
     documentHash: md5(code),
   }, cSess);
-  ``;
+  
   mod[codeSpace] = workflow;
 
   const finalState = await workflow.invoke(prompt);
@@ -407,10 +430,13 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
   const app = workflow.compile({ checkpointer: new MemorySaver() });
 
   return {
-    invoke: async (prompt: string) => {
+    invoke: async (prompt: string, images: ImageData[]= [] ) => {
       telemetry.startTimer("workflow.invoke");
       try {
         const messages = cSess.getMessages();
+        const userMessageToSave = await createNewMessage(images, prompt);
+  
+        await cSess.setMessages(messagesPush(messages, userMessageToSave));
 
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
@@ -418,7 +444,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         const code = initialState.code;
 
         // Create the user message
-        const userMessage = new HumanMessage({
+        const userMessage = new HumanMessage(
+          {
           content: prompt + `
           <filePath>/live/${codeSpace}.tsx</filePath>
           <code>${code}</code>
@@ -427,7 +454,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
             code: initialState.code,
             documentHash: initialDocumentHash,
           },
-        });
+        }
+
+      );
 
         // Save the user message to cSess
 

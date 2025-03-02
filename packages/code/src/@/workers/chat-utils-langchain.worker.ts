@@ -1,3 +1,3 @@
-import { createWorkflowWithStringReplace } from "@/workflows/chat-langchain-workflow";
+import { createWorkflowWithStringReplace, handleSendMessage } from "@/workflows/chat-langchain-workflow";
 
-export { createWorkflowWithStringReplace };
+export { createWorkflowWithStringReplace , handleSendMessage};

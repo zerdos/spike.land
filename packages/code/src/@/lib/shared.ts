@@ -144,32 +144,6 @@ export const tsx = async (
   }
 };
 
-export const handleSendMessage = async (
-  { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
-): Promise<void> => {
-  console.log("handleSendMessage", {
-    messages,
-    codeSpace,
-    prompt,
-    images,
-    code,
-  });
-  const worker = (await init()).getWorker("search-replace");
-  try {
-    const debugInfo = await worker.rpc.rpc("handleSendMessage", {
-      messages,
-      codeSpace,
-      code,
-      prompt,
-      images,
-    });
-    Object.assign(globalThis, { debugInfo });
-    console.debug("debugInfo", { debugInfo });
-    return debugInfo;
-  } finally {
-    (await init()).releaseWorker(worker);
-  }
-};
 
 export const createWorkflow = async (q: string): Promise<string> => {
   const worker = (await init()).getWorker("workflow");

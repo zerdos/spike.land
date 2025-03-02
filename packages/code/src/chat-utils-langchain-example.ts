@@ -58,7 +58,7 @@ export const setupAndRun = async (
         documentHash: initialDocumentHash,
         // Add returnModifiedCode to the initial state so it can be accessed by the workflow
         returnModifiedCode: options.returnModifiedCode,
-      });
+      }, cSess);
 
       // The workflow will create the system message with code and document hash
       // and add the human message with the user's request
