@@ -6,6 +6,7 @@ import { Bot } from "@/external/lucide-react";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import type { ICodeSession } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
+import { handleSendMessage } from "@/workflows/chat-langchain-workflow";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Drawer } from "vaul";
 
@@ -19,7 +20,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   cSess,
   input,
   setInput,
-  handleSendMessage,
   inputRef,
   isScreenshotLoading,
   screenshotImage,
@@ -118,7 +118,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                     ...session,
                     prompt,
                     images: [],
-                  });
+                  }, cSess);
                 }}
                 isDarkMode={isDarkMode}
               />
@@ -129,7 +129,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
               cSess={cSess}
               setInput={setInput}
               screenshot={screenshot}
-              handleSendMessage={handleSendMessage}
               isStreaming={isStreaming}
               inputRef={inputRef}
               isScreenshotLoading={isScreenshotLoading}

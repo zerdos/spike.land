@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Send, Upload, X } from "@/external/lucide-react";
 
 import { getCodeSpace } from "@/hooks/use-code-space";
+import {handleSendMessage} from "@/workflows/chat-langchain-workflow";
 import type { MessageInputProps } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
@@ -14,7 +15,6 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   input,
   setInput,
   cSess,
-  handleSendMessage,
   isStreaming,
   inputRef,
   screenshot,
@@ -35,7 +35,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       prompt: input,
       images: uploadedImages,
       code,
-    });
+    }, cSess);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending

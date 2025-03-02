@@ -27,16 +27,18 @@ import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
 import { hashCache, toolResponseCache } from "../../lib/caching";
-import { measure, metrics } from "../../lib/metrics";
+import {  metrics } from "../../lib/metrics";
 import { telemetry } from "../../lib/telemetry";
 import { isRetryableError, withRetry } from "../../utils/retry";
+import { messagesPush } from "@/lib/chat-utils";
+import { Message } from "postcss";
 
 const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
 } = {};
 
 export const handleSendMessage = async (
-  { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
+  {messages, codeSpace, prompt, images, code }: HandleSendMessageProps, cSess: ICode
 ): Promise<void> => {
   const workflow = mod[codeSpace] || await createWorkflowWithStringReplace({
     code: code,
@@ -45,9 +47,8 @@ export const handleSendMessage = async (
     lastError: "",
     isStreaming: false,
     messages: [],
-    documentHash: md5(code),
-  });
-
+    documentHash: md5(code)} ,cSess);
+``
   mod[codeSpace] = workflow;
 
   const finalState = await workflow.invoke(prompt);
@@ -55,7 +56,7 @@ export const handleSendMessage = async (
   console.log("Final workflow state:", finalState);
 };
 
-export const createWorkflowWithStringReplace = (initialState: AgentState) => {
+export const createWorkflowWithStringReplace = (initialState: AgentState, cSess: ICode) => {
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
@@ -288,15 +289,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
       // Save the AI response message to cSess
-      const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
-      if (cSess && response) {
+      if (response) {
         const currentMessages = cSess.getMessages();
         const aiMessageForChat = {
           id: Date.now().toString(),
           role: "assistant" as const,
           content: typeof response.content === "string" ? response.content : "",
         };
-        cSess.setMessages([...currentMessages, aiMessageForChat]);
+         await   cSess.setMessages(messagesPush(cSess.getMessages(), aiMessageForChat));
       }
 
       const updatedState = {
@@ -408,6 +408,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     invoke: async (prompt: string) => {
       telemetry.startTimer("workflow.invoke");
       try {
+        const messages  = cSess.getMessages();
+
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
         const { codeSpace } = initialState;
@@ -416,25 +418,23 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         // Create the user message
         const userMessage = new HumanMessage({
           content: prompt + `
-            <filePath>/live/${codeSpace}.tsx</filePath>
-            <code>${code}</code>
-            <documentHash>${initialDocumentHash}</documentHash>`,
+          <filePath>/live/${codeSpace}.tsx</filePath>
+          <code>${code}</code>
+          <documentHash>${initialDocumentHash}</documentHash>`,
           additional_kwargs: {
             code: initialState.code,
             documentHash: initialDocumentHash,
-          },
+          }
         });
 
         // Save the user message to cSess
-        const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
+ 
         if (cSess) {
-          const currentMessages = cSess.getMessages();
-          const userMessageForChat = {
-            id: Date.now().toString(),
-            role: "user" as const,
-            content: prompt,
-          };
-          cSess.setMessages([...currentMessages, userMessageForChat]);
+        await cSess.setMessages(messagesPush(cSess.getMessages(), {
+          id: Date.now().toString(),
+          role: "user",
+          content: prompt,
+        }));
         }
 
         const initialStateWithMessages: ExtendedAgentState = {
@@ -442,11 +442,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           messages: [
             systemMessage,
             userMessage,
-          ],
-          debugLogs: [
-            ...((initialState as ExtendedAgentState).debugLogs || []),
-            `Token-saving mode: ${DEFAULT_RETURN_MODIFIED_CODE ? "OFF" : "ON"}`,
-          ],
+          ]
         };
 
         const threadId = uuidv4();
@@ -487,8 +483,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           // Track code modification
           telemetry.trackCodeModification("update", {
             filePath: `/live/${initialState.codeSpace}.tsx`,
-            linesChanged:
-              (finalState.code.split("\n").length - initialState.code.split("\n").length),
+            linesChanged: Number(finalState.code.split("\n").length) - Number(initialState.code.split("\n").length),
             bytesChanged: finalState.code.length - initialState.code.length,
           });
         }

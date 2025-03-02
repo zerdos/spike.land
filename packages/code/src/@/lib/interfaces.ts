@@ -41,7 +41,7 @@ export interface MessageInputProps {
   cSess: ICode;
   isDarkMode: boolean;
   setInput: (value: string) => void;
-  handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
+  
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
@@ -248,7 +248,6 @@ export interface ChatDrawerProps {
   input: string;
   cSess: ICode;
   setInput: (input: string) => void;
-  handleSendMessage: (props: HandleSendMessageProps) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;

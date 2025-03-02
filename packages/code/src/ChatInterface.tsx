@@ -224,7 +224,7 @@ const ChatInterface: React.FC<{
             prompt,
             images,
             code: currentSession.code,
-          });
+          }, cSess);
         });
       }
     }
@@ -277,7 +277,6 @@ const ChatInterface: React.FC<{
       input={input}
       setInput={setInput}
       cSess={cSess}
-      handleSendMessage={handleSendMessage}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}
