@@ -39,7 +39,8 @@ export function messagesPush(
   if (lastMessage.role === newMessage.role && newMessage.role === "assistant") {
     messagesCopy[messagesCopy.length - 1] = {
       ...lastMessage,
-      content: newMessage.content,
+      id: newMessage.id,
+      content: lastMessage.content as string + newMessage.content as string,
     };
     return messagesCopy;
   }
