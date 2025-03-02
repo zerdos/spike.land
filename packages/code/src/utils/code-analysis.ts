@@ -1,10 +1,10 @@
-import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
-import * as t from '@babel/types';
-import { codeAnalysisCache } from '../lib/caching';
+import { parse } from "@babel/parser";
+import traverse from "@babel/traverse";
+import * as t from "@babel/types";
+import { codeAnalysisCache } from "../lib/caching";
 
 // Helper type for semantic diff to handle nullable component names
-type ComponentMetadata = Omit<CodeAnalysis, 'componentName'> & {
+type ComponentMetadata = Omit<CodeAnalysis, "componentName"> & {
   componentName: string;
 };
 
@@ -18,7 +18,7 @@ export interface CodeAnalysis {
     setters: string[];
   };
   styling: {
-    type: 'css' | 'tailwind' | 'styled-components' | 'emotion' | 'inline' | 'unknown';
+    type: "css" | "tailwind" | "styled-components" | "emotion" | "inline" | "unknown";
     classes: string[];
   };
   functions: {
@@ -42,7 +42,7 @@ function createEmptyAnalysis(): CodeAnalysis {
       setters: [],
     },
     styling: {
-      type: 'unknown',
+      type: "unknown",
       classes: [],
     },
     functions: [],
@@ -63,8 +63,8 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
   try {
     const ast = parse(code, {
-      sourceType: 'module',
-      plugins: ['jsx', 'typescript'],
+      sourceType: "module",
+      plugins: ["jsx", "typescript"],
     });
 
     // Visitor for AST traversal
@@ -75,12 +75,12 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
         // Detect styling approach
         const importPath = path.node.source.value;
-        if (importPath.includes('tailwind')) {
-          analysis.styling.type = 'tailwind';
-        } else if (importPath.includes('styled-components')) {
-          analysis.styling.type = 'styled-components';
-        } else if (importPath.includes('@emotion')) {
-          analysis.styling.type = 'emotion';
+        if (importPath.includes("tailwind")) {
+          analysis.styling.type = "tailwind";
+        } else if (importPath.includes("styled-components")) {
+          analysis.styling.type = "styled-components";
+        } else if (importPath.includes("@emotion")) {
+          analysis.styling.type = "emotion";
         }
       },
 
@@ -106,12 +106,12 @@ export function analyzeReactCode(code: string): CodeAnalysis {
                     analysis.props.push(prop.key.name);
                     return prop.key.name;
                   }
-                  return '';
+                  return "";
                 })
                 .filter(Boolean)
-                .join(', ');
+                .join(", ");
             }
-            return '';
+            return "";
           });
 
           analysis.functions.push({
@@ -124,14 +124,14 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
       // Find hooks usage
       CallExpression(path) {
-        if (t.isIdentifier(path.node.callee) && path.node.callee.name.startsWith('use')) {
+        if (t.isIdentifier(path.node.callee) && path.node.callee.name.startsWith("use")) {
           const hookName = path.node.callee.name;
           if (!analysis.hooks.includes(hookName)) {
             analysis.hooks.push(hookName);
           }
 
           // Extract state variables from useState
-          if (hookName === 'useState' && t.isArrayPattern(path.parent)) {
+          if (hookName === "useState" && t.isArrayPattern(path.parent)) {
             const [stateVar, setterVar] = path.parent.elements;
             if (t.isIdentifier(stateVar) && t.isIdentifier(setterVar)) {
               analysis.state.variables.push(stateVar.name);
@@ -144,18 +144,18 @@ export function analyzeReactCode(code: string): CodeAnalysis {
       // Find JSX class names for styling analysis
       JSXAttribute(path) {
         if (t.isJSXIdentifier(path.node.name)) {
-          if (path.node.name.name === 'className' && t.isStringLiteral(path.node.value)) {
-            const classes = path.node.value.value.split(' ');
+          if (path.node.name.name === "className" && t.isStringLiteral(path.node.value)) {
+            const classes = path.node.value.value.split(" ");
             analysis.styling.classes.push(...classes);
 
             // Detect Tailwind usage
             if (classes.some(cls => /^(bg-|text-|p-|m-|flex|grid|w-|h-)/.test(cls))) {
-              analysis.styling.type = 'tailwind';
+              analysis.styling.type = "tailwind";
             }
-          } else if (path.node.name.name === 'css') {
-            analysis.styling.type = 'emotion';
-          } else if (path.node.name.name === 'style') {
-            analysis.styling.type = 'inline';
+          } else if (path.node.name.name === "css") {
+            analysis.styling.type = "emotion";
+          } else if (path.node.name.name === "style") {
+            analysis.styling.type = "inline";
           }
         }
       },
@@ -166,7 +166,7 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
     return analysis;
   } catch (error) {
-    console.error('Failed to analyze React code:', error);
+    console.error("Failed to analyze React code:", error);
     return analysis;
   }
 }
@@ -180,22 +180,26 @@ export function generateSemanticDiff(originalCode: string, modifiedCode: string)
   const modified = analyzeReactCode(modifiedCode);
 
   if (!original.componentName || !modified.componentName) {
-    throw new Error('Unable to analyze component name');
+    throw new Error("Unable to analyze component name");
   }
 
   // Cast to type without null since we've verified component names
-  const originalMeta = original.componentName ? {
-    ...original,
-    componentName: original.componentName
-  } : null;
+  const originalMeta = original.componentName
+    ? {
+      ...original,
+      componentName: original.componentName,
+    }
+    : null;
 
-  const modifiedMeta = modified.componentName ? {
-    ...modified,
-    componentName: modified.componentName
-  } : null;
+  const modifiedMeta = modified.componentName
+    ? {
+      ...modified,
+      componentName: modified.componentName,
+    }
+    : null;
 
   if (!originalMeta || !modifiedMeta) {
-    throw new Error('Unable to analyze component name');
+    throw new Error("Unable to analyze component name");
   }
 
   return {
@@ -221,7 +225,7 @@ export function generateSemanticDiff(originalCode: string, modifiedCode: string)
 /**
  * Check if code changes maintain semantic integrity
  */
-export function verifySemanticIntegrity(originalCode: string, modifiedCode: string): { 
+export function verifySemanticIntegrity(originalCode: string, modifiedCode: string): {
   valid: boolean;
   reason?: string;
 } {
@@ -232,12 +236,14 @@ export function verifySemanticIntegrity(originalCode: string, modifiedCode: stri
     if (diff.componentRenamed) {
       return {
         valid: false,
-        reason: `Component name changed from ${analyzeReactCode(originalCode).componentName || 'unknown'} to ${analyzeReactCode(modifiedCode).componentName || 'unknown'}`,
+        reason: `Component name changed from ${
+          analyzeReactCode(originalCode).componentName || "unknown"
+        } to ${analyzeReactCode(modifiedCode).componentName || "unknown"}`,
       };
     }
 
-    const criticalImportsRemoved = diff.removedImports.filter(imp => 
-      imp.startsWith('.') || // Internal project imports
+    const criticalImportsRemoved = diff.removedImports.filter(imp =>
+      imp.startsWith(".") || // Internal project imports
       imp.includes("'") || // Aliased internal imports
       /^react(-dom)?$/.test(imp) // React core imports
     );
@@ -245,7 +251,7 @@ export function verifySemanticIntegrity(originalCode: string, modifiedCode: stri
     if (criticalImportsRemoved.length > 0) {
       return {
         valid: false,
-        reason: `Critical imports removed: ${criticalImportsRemoved.join(', ')}`,
+        reason: `Critical imports removed: ${criticalImportsRemoved.join(", ")}`,
       };
     }
 
@@ -253,30 +259,30 @@ export function verifySemanticIntegrity(originalCode: string, modifiedCode: stri
     const breakingChanges = [];
 
     if (diff.removedProps.length > 0) {
-      breakingChanges.push(`Props removed: ${diff.removedProps.join(', ')}`);
+      breakingChanges.push(`Props removed: ${diff.removedProps.join(", ")}`);
     }
 
     if (diff.removedHooks.length > 0) {
-      breakingChanges.push(`Hooks removed: ${diff.removedHooks.join(', ')}`);
+      breakingChanges.push(`Hooks removed: ${diff.removedHooks.join(", ")}`);
     }
 
     if (diff.stateChanges.removed.length > 0) {
-      breakingChanges.push(`State variables removed: ${diff.stateChanges.removed.join(', ')}`);
+      breakingChanges.push(`State variables removed: ${diff.stateChanges.removed.join(", ")}`);
     }
 
     if (breakingChanges.length > 0) {
       return {
         valid: false,
-        reason: `Potentially breaking changes detected:\n${breakingChanges.join('\n')}`,
+        reason: `Potentially breaking changes detected:\n${breakingChanges.join("\n")}`,
       };
     }
 
     return { valid: true };
   } catch (error) {
-    console.error('Error in semantic integrity check:', error);
-    return { 
+    console.error("Error in semantic integrity check:", error);
+    return {
       valid: false,
-      reason: 'Failed to analyze code integrity',
+      reason: "Failed to analyze code integrity",
     };
   }
 }

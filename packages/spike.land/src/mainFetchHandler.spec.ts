@@ -19,7 +19,7 @@ describe("MainFetchHandler", () => {
 
     mockCtx = {
       waitUntil: vi.fn(),
-      passThroughOnException: () => { },
+      passThroughOnException: () => {},
       props: {},
     } as unknown as ExecutionContext;
 

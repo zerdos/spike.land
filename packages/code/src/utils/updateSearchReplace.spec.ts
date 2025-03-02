@@ -1,10 +1,10 @@
-import { updateSearchReplace, SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
+import { SEARCH_REPLACE_MARKERS, updateSearchReplace } from "@/lib/chat-utils";
 const { SEARCH_START, SEPARATOR, REPLACE_END } = SEARCH_REPLACE_MARKERS;
 
 describe("updateSearchReplace", () => {
-    it("should correctly translate French to Hungarian with proper whitespace handling", () => {
-        // Original TSX code with French text - note the missing commas in className array
-        const originalCode = `<div
+  it("should correctly translate French to Hungarian with proper whitespace handling", () => {
+    // Original TSX code with French text - note the missing commas in className array
+    const originalCode = `<div
     lang="fr"
     className={cn(
         "flex flex-col items-center justify-center p-4"
@@ -29,8 +29,8 @@ describe("updateSearchReplace", () => {
         </p>
 </div>`;
 
-        // Search and replace instructions - exact match for the actual code
-        const instructions = `
+    // Search and replace instructions - exact match for the actual code
+    const instructions = `
 ${SEARCH_START}
     lang="fr"
 ${SEPARATOR}
@@ -61,8 +61,8 @@ ${REPLACE_END}
 
 `;
 
-        // Expected result after translation - note the missing commas in className array
-        const expectedResult = `<div
+    // Expected result after translation - note the missing commas in className array
+    const expectedResult = `<div
     lang="hu"
     className={cn(
         "flex flex-col items-center justify-center p-4"
@@ -86,16 +86,16 @@ ${REPLACE_END}
         </p>
 </div>`;
 
-        // Apply the search/replace patterns
-        const result = updateSearchReplace(instructions, originalCode);
-        
-        // Verify the result matches the expected output
-        expect(result).toBe(expectedResult);
-    });
+    // Apply the search/replace patterns
+    const result = updateSearchReplace(instructions, originalCode);
 
-    it("should handle whitespace, line breaks, and exact string matching correctly", () => {
-        // Original TSX code with French text - note the missing commas in className array
-        const originalCode = `<div
+    // Verify the result matches the expected output
+    expect(result).toBe(expectedResult);
+  });
+
+  it("should handle whitespace, line breaks, and exact string matching correctly", () => {
+    // Original TSX code with French text - note the missing commas in className array
+    const originalCode = `<div
     lang="fr"
     className={cn(
         "flex flex-col items-center justify-center p-4"
@@ -120,8 +120,8 @@ ${REPLACE_END}
         </p>
 </div>`;
 
-        // Incorrect search/replace patterns (demonstrating the issues)
-        const incorrectInstructions = `
+    // Incorrect search/replace patterns (demonstrating the issues)
+    const incorrectInstructions = `
 ${SEARCH_START}
       lang="fr"
 ${SEPARATOR}
@@ -151,8 +151,8 @@ ${SEPARATOR}
 ${REPLACE_END}
 `;
 
-        // Correct search/replace patterns (fixing the issues)
-        const correctInstructions = `
+    // Correct search/replace patterns (fixing the issues)
+    const correctInstructions = `
 ${SEARCH_START}
     lang="fr"
 ${SEPARATOR}
@@ -181,8 +181,8 @@ ${SEPARATOR}
 ${REPLACE_END}
 `;
 
-        // Expected result after translation - note the missing commas in className array
-        const expectedResult = `<div
+    // Expected result after translation - note the missing commas in className array
+    const expectedResult = `<div
     lang="hu"
     className={cn(
         "flex flex-col items-center justify-center p-4"
@@ -206,17 +206,16 @@ ${REPLACE_END}
         </p>
 </div>`;
 
-        // Apply the incorrect search/replace patterns
-        const incorrectResult = updateSearchReplace(incorrectInstructions, originalCode);
-        
-        // Verify the incorrect patterns don't work as expected
-        expect(incorrectResult).not.toBe(expectedResult);
-        
-        // Apply the correct search/replace patterns
-        const correctResult = updateSearchReplace(correctInstructions, originalCode);
-        
-        // Verify the correct patterns work as expected
-        expect(correctResult).toBe(expectedResult);
-    });
+    // Apply the incorrect search/replace patterns
+    const incorrectResult = updateSearchReplace(incorrectInstructions, originalCode);
 
+    // Verify the incorrect patterns don't work as expected
+    expect(incorrectResult).not.toBe(expectedResult);
+
+    // Apply the correct search/replace patterns
+    const correctResult = updateSearchReplace(correctInstructions, originalCode);
+
+    // Verify the correct patterns work as expected
+    expect(correctResult).toBe(expectedResult);
+  });
 });

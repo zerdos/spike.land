@@ -2,6 +2,7 @@ import { md5 } from "@/lib/md5";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { get } from "http";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
 
@@ -25,7 +26,6 @@ describe("chat-langchain-workflow", () => {
     codeSpace: "",
     lastError: "",
     isStreaming: false,
-    debugLogs: [],
     documentHash: md5("function test() {}"),
   };
 
@@ -159,6 +159,9 @@ describe("chat-langchain-workflow", () => {
       // Mock cSess for code retrieval
       (globalThis as any).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
+        getMessages: vi.fn().mockReturnValue([]),
+        setMessages: vi.fn(),
+        setCode: vi.fn(), // Mock setCode to avoid side effects
       };
 
       const responseWithoutCode = new AIMessage({

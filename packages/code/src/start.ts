@@ -88,8 +88,10 @@ router.load().then(async () => {
           `/live/${codeSpace}/iframe`,
         );
       }
-    }
-    else if (location.pathname === `/live/${codeSpace}/iframe` || location.pathname === `/live/${codeSpace}/`) {
+    } else if (
+      location.pathname === `/live/${codeSpace}/iframe` ||
+      location.pathname === `/live/${codeSpace}/`
+    ) {
       await renderApp({ codeSpace });
     }
 

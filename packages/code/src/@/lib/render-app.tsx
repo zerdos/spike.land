@@ -6,11 +6,11 @@ import { createRoot } from "react-dom/client";
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { getCodeSpace } from "@/hooks/use-code-space";
 import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
-import { getCodeSpace } from "@/hooks/use-code-space";
 
 let firstRender = true;
 const origin = location.origin;
@@ -25,7 +25,7 @@ export function AppWithScreenSize(
 
 export const importFromString = async (code: string) => {
   const codeSpace = getCodeSpace(location.pathname);
-  
+
   // Try the file-based approach first
   try {
     const filePath = `/live-cms/${codeSpace}-${md5(code)}.mjs`;
@@ -40,7 +40,7 @@ export const importFromString = async (code: string) => {
     return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
   } catch (error) {
     console.warn("File-based import failed, falling back to blob URL", error);
-    
+
     // Fall back to blob URL approach
     const createJsBlob = async (code: string): Promise<string> =>
       await createObjectURL(
@@ -58,7 +58,6 @@ export const importFromString = async (code: string) => {
     ) as Promise<FlexibleComponentType>;
   }
 };
-
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -193,7 +192,6 @@ async function renderApp(
 }
 
 export { renderApp };
-  function createObjectURL(blob: Blob): string {
-    return URL.createObjectURL(blob);
-  }
-
+function createObjectURL(blob: Blob): string {
+  return URL.createObjectURL(blob);
+}

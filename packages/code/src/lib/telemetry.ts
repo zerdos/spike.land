@@ -28,7 +28,7 @@ export class Telemetry {
       enabled: true,
       debug: false,
       flushInterval: 60000, // 1 minute
-      ...options
+      ...options,
     };
 
     if (this.options.flushInterval) {
@@ -44,9 +44,9 @@ export class Telemetry {
   }
 
   public trackEvent(
-    name: string, 
+    name: string,
     properties?: Record<string, string | number | boolean>,
-    measurements?: Record<string, number>
+    measurements?: Record<string, number>,
   ): void {
     if (!this.options.enabled) return;
 
@@ -54,13 +54,13 @@ export class Telemetry {
       name,
       properties,
       measurements,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
     this.events.push(event);
-    
+
     if (this.options.debug) {
-      console.debug('[Telemetry]', event);
+      console.debug("[Telemetry]", event);
     }
   }
 
@@ -70,17 +70,17 @@ export class Telemetry {
 
   public stopTimer(
     name: string,
-    properties?: Record<string, string | number | boolean>
+    properties?: Record<string, string | number | boolean>,
   ): number | undefined {
     const start = this.timers.get(name);
     if (start) {
       const duration = performance.now() - start;
       this.timers.delete(name);
-      
+
       this.trackEvent(
         `${name}.duration`,
         { ...properties, durationMs: duration.toFixed(2) },
-        { duration }
+        { duration },
       );
 
       return duration;
@@ -94,9 +94,9 @@ export class Telemetry {
     // In a real implementation, you would send these events to your telemetry service
     // For now, we'll just log them in debug mode and return them
     if (this.options.debug) {
-      console.debug('[Telemetry] Flushing events:', this.events);
+      console.debug("[Telemetry] Flushing events:", this.events);
     }
-    
+
     const events = [...this.events];
     this.events = [];
     return events;
@@ -107,16 +107,16 @@ export class Telemetry {
    */
   public trackError(
     error: Error,
-    properties?: Record<string, string | number | boolean>
+    properties?: Record<string, string | number | boolean>,
   ): void {
     const errorProperties: Record<string, string | number | boolean> = {
       ...properties,
       errorName: error.name,
       errorMessage: error.message,
-      stackTrace: error.stack || 'No stack trace available'
+      stackTrace: error.stack || "No stack trace available",
     };
 
-    this.trackEvent('error', errorProperties);
+    this.trackEvent("error", errorProperties);
   }
 
   /**
@@ -125,12 +125,12 @@ export class Telemetry {
   public trackProgress(
     stage: string,
     percent: number,
-    details?: Record<string, string | number | boolean>
+    details?: Record<string, string | number | boolean>,
   ): void {
-    this.trackEvent('workflow.progress', {
+    this.trackEvent("workflow.progress", {
       ...details,
       stage,
-      percent: percent.toFixed(2)
+      percent: percent.toFixed(2),
     });
   }
 
@@ -138,16 +138,16 @@ export class Telemetry {
    * Track code modifications
    */
   public trackCodeModification(
-    type: 'create' | 'update' | 'delete',
+    type: "create" | "update" | "delete",
     details: {
       filePath: string;
       linesChanged?: number;
       bytesChanged?: number;
-    }
+    },
   ): void {
-    this.trackEvent('code.modification', {
+    this.trackEvent("code.modification", {
       type,
-      ...details
+      ...details,
     });
   }
 
@@ -162,11 +162,11 @@ export class Telemetry {
       duration: number;
       success: boolean;
       error?: string;
-    }
+    },
   ): void {
-    this.trackEvent('model.interaction', {
+    this.trackEvent("model.interaction", {
       ...details,
-      totalTokens: details.promptTokens + details.completionTokens
+      totalTokens: details.promptTokens + details.completionTokens,
     });
   }
 
@@ -174,14 +174,14 @@ export class Telemetry {
    * Track cache operations
    */
   public trackCacheOperation(
-    operation: 'hit' | 'miss' | 'set',
+    operation: "hit" | "miss" | "set",
     cacheType: string,
-    details?: Record<string, string | number | boolean>
+    details?: Record<string, string | number | boolean>,
   ): void {
-    this.trackEvent('cache.operation', {
+    this.trackEvent("cache.operation", {
       operation,
       cacheType,
-      ...details
+      ...details,
     });
   }
 }

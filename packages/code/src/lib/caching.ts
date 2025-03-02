@@ -1,11 +1,11 @@
 import { LRUCache } from "lru-cache";
-import { CodeAnalysis } from '../utils/code-analysis';
-import { 
-  hashCacheMetrics, 
-  toolResponseCacheMetrics, 
-  codeAnalysisCacheMetrics, 
-  metrics 
-} from './metrics';
+import { CodeAnalysis } from "../utils/code-analysis";
+import {
+  codeAnalysisCacheMetrics,
+  hashCacheMetrics,
+  metrics,
+  toolResponseCacheMetrics,
+} from "./metrics";
 
 type CacheValue = string | CodeAnalysis | {
   documentHash?: string;
@@ -40,10 +40,10 @@ export class CacheStore<T extends CacheValue> {
       ttl: options.ttl || 1000 * 60 * 30, // 30 minutes default TTL
     });
 
-    this.name = options.name || 'default';
+    this.name = options.name || "default";
     this.metrics = options.metrics || {
       recordHit: () => {},
-      recordMiss: () => {}
+      recordMiss: () => {},
     };
   }
 
@@ -54,10 +54,10 @@ export class CacheStore<T extends CacheValue> {
 
     if (value !== undefined) {
       this.metrics.recordHit();
-      metrics.recordOperation('cache.get.hit', duration);
+      metrics.recordOperation("cache.get.hit", duration);
     } else {
       this.metrics.recordMiss();
-      metrics.recordOperation('cache.get.miss', duration);
+      metrics.recordOperation("cache.get.miss", duration);
     }
 
     return value;
@@ -66,7 +66,7 @@ export class CacheStore<T extends CacheValue> {
   set(key: string, value: T): void {
     const start = performance.now();
     this.cache.set(key, value);
-    metrics.recordOperation('cache.set', performance.now() - start);
+    metrics.recordOperation("cache.set", performance.now() - start);
   }
 
   has(key: string): boolean {
@@ -90,13 +90,13 @@ export class CacheStore<T extends CacheValue> {
 
 // Create singleton instances for different types of caches with metrics
 export const hashCache = new CacheStore<string>({
-  name: 'hash',
-  metrics: hashCacheMetrics
+  name: "hash",
+  metrics: hashCacheMetrics,
 });
 
 export const codeAnalysisCache = new CacheStore<CodeAnalysis>({
-  name: 'codeAnalysis',
-  metrics: codeAnalysisCacheMetrics
+  name: "codeAnalysis",
+  metrics: codeAnalysisCacheMetrics,
 });
 
 interface ToolResponse {
@@ -107,21 +107,26 @@ interface ToolResponse {
 }
 
 export const toolResponseCache = new CacheStore<ToolResponse>({
-  name: 'toolResponse',
-  metrics: toolResponseCacheMetrics
+  name: "toolResponse",
+  metrics: toolResponseCacheMetrics,
 });
 
 // Export cache operation tracking
 export function logCacheStats(): void {
-  console.log('\n=== Cache Performance Stats ===\n');
-  console.log('Hash Cache:', hashCacheMetrics.getStats());
-  console.log('Code Analysis Cache:', codeAnalysisCacheMetrics.getStats());
-  console.log('Tool Response Cache:', toolResponseCacheMetrics.getStats());
-  console.log('\nTotal Operations:', metrics.getMetrics('cache.set')?.count || 0);
-  console.log('Average Set Duration:', metrics.getMetrics('cache.set')?.avgTime.toFixed(2), 'ms');
-  console.log('Cache Hit Rate:', (
-    (metrics.getMetrics('cache.get.hit')?.count || 0) /
-    ((metrics.getMetrics('cache.get.hit')?.count || 0) + 
-     (metrics.getMetrics('cache.get.miss')?.count || 0)) * 100
-  ).toFixed(1), '%');
+  console.log("\n=== Cache Performance Stats ===\n");
+  console.log("Hash Cache:", hashCacheMetrics.getStats());
+  console.log("Code Analysis Cache:", codeAnalysisCacheMetrics.getStats());
+  console.log("Tool Response Cache:", toolResponseCacheMetrics.getStats());
+  console.log("\nTotal Operations:", metrics.getMetrics("cache.set")?.count || 0);
+  console.log("Average Set Duration:", metrics.getMetrics("cache.set")?.avgTime.toFixed(2), "ms");
+  console.log(
+    "Cache Hit Rate:",
+    (
+      (metrics.getMetrics("cache.get.hit")?.count || 0) /
+      ((metrics.getMetrics("cache.get.hit")?.count || 0) +
+        (metrics.getMetrics("cache.get.miss")?.count || 0)) *
+      100
+    ).toFixed(1),
+    "%",
+  );
 }

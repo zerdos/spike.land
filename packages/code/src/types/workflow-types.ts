@@ -14,7 +14,10 @@ export interface AgentState {
 export type WorkflowContinueResult = "process" | "tools" | "end";
 
 export type CompiledWorkflow = {
-  invoke: (state: AgentState, config: { configurable: { thread_id: string } }) => Promise<AgentState>;
+  invoke: (
+    state: AgentState,
+    config: { configurable: { thread_id: string; }; },
+  ) => Promise<AgentState>;
 };
 
 export interface WorkflowHandler {
@@ -23,12 +26,14 @@ export interface WorkflowHandler {
 }
 
 export interface WorkflowChannels {
-  messages: { reducer: (prev: AIMessage[], next: AIMessage[]) => AIMessage[] };
-  codeSpace: { reducer: (prev: string, next: string) => string };
-  origin: { reducer: (prev: string, next: string) => string };
-  code: { reducer: (prev: string, next: unknown) => string };
-  lastError: { reducer: (prev: string, next: unknown) => string };
-  isStreaming: { reducer: (prev: boolean, next: boolean) => boolean };
-  documentHash: { reducer: (prev: string | undefined, next: string) => string };
-  filePath: { reducer: (prev: string | undefined, next: string | undefined) => string | undefined };
+  messages: { reducer: (prev: AIMessage[], next: AIMessage[]) => AIMessage[]; };
+  codeSpace: { reducer: (prev: string, next: string) => string; };
+  origin: { reducer: (prev: string, next: string) => string; };
+  code: { reducer: (prev: string, next: unknown) => string; };
+  lastError: { reducer: (prev: string, next: unknown) => string; };
+  isStreaming: { reducer: (prev: boolean, next: boolean) => boolean; };
+  documentHash: { reducer: (prev: string | undefined, next: string) => string; };
+  filePath: {
+    reducer: (prev: string | undefined, next: string | undefined) => string | undefined;
+  };
 }

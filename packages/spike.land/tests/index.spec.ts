@@ -19,16 +19,16 @@ const worker = {
 };
 
 // Mock ExecutionContext for testing
-const createExecutionContext = () => ({
-  waitUntil: (promise: Promise<unknown>) => promise,
-  passThroughOnException: () => {},
-  // Required by CF types
-  props: {
-    testProp1: "test1",
-    testProp2: "test2",
-  },
-}) as unknown as ExecutionContext;
-
+const createExecutionContext = () =>
+  ({
+    waitUntil: (promise: Promise<unknown>) => promise,
+    passThroughOnException: () => {},
+    // Required by CF types
+    props: {
+      testProp1: "test1",
+      testProp2: "test2",
+    },
+  }) as unknown as ExecutionContext;
 
 // Mock DurableObjectId
 class MockDurableObjectId {

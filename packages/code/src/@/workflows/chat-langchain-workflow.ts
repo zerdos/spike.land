@@ -3,14 +3,11 @@ import {
   DEFAULT_RETURN_MODIFIED_CODE,
   MODEL_NAME,
 } from "@/config/workflow-config";
+import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { hashCache, toolResponseCache } from "../../lib/caching";
-import { metrics, measure } from "../../lib/metrics";
-import { telemetry } from "../../lib/telemetry";
-import { withRetry, isRetryableError } from "../../utils/retry";
 import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
-import {  WorkflowContinueResult } from "@/types/workflow";
+import { WorkflowContinueResult } from "@/types/workflow";
 import { logCodeChanges, shouldReturnFullCode, verifyCodeIntegrity } from "@/utils/code-utils";
 import {
   createCodeIntegrityError,
@@ -29,16 +26,18 @@ import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
 import anthropicSystem from "../../config/initial-claude.txt";
-import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
+import { hashCache, toolResponseCache } from "../../lib/caching";
+import { measure, metrics } from "../../lib/metrics";
+import { telemetry } from "../../lib/telemetry";
+import { isRetryableError, withRetry } from "../../utils/retry";
 
-const mod:{
+const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
 } = {};
 
 export const handleSendMessage = async (
   { messages, codeSpace, prompt, images, code }: HandleSendMessageProps,
 ): Promise<void> => {
-
   const workflow = mod[codeSpace] || await createWorkflowWithStringReplace({
     code: code,
     codeSpace: codeSpace,
@@ -50,30 +49,23 @@ export const handleSendMessage = async (
   });
 
   mod[codeSpace] = workflow;
-  
 
   const finalState = await workflow.invoke(prompt);
 
-
-  console.log('Final workflow state:', finalState);
-    
-
-
- 
-  };
-
+  console.log("Final workflow state:", finalState);
+};
 
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Record workflow initialization
-  telemetry.trackEvent('workflow.initialize', {
-    codeLength: initialState.code?.length?.toString() || '0',
-    codeSpace: initialState.codeSpace
+  telemetry.trackEvent("workflow.initialize", {
+    codeLength: initialState.code?.length?.toString() || "0",
+    codeSpace: initialState.codeSpace,
   });
   // Define local interfaces for type compatibility
   interface ExtendedAgentState extends AgentState {
     debugLogs?: string[];
   }
-  
+
   // Define the tool response metadata interface locally
   interface ToolResponseMetadata {
     documentHash?: string;
@@ -131,7 +123,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       reducer: (prev: string, next: unknown) => {
         if (typeof next === "string") return next;
         if (typeof next === "object" && next !== null && "error" in next) {
-          const err = (next as { error?: unknown }).error;
+          const err = (next as { error?: unknown; }).error;
           return typeof err === "string" ? err : String(err);
         }
         return prev;
@@ -165,26 +157,26 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   const processMessage = async (state: AgentState): Promise<Partial<AgentState>> => {
     // Start performance tracking
-    telemetry.startTimer('processMessage');
+    telemetry.startTimer("processMessage");
     const start = performance.now();
     try {
       if (state.documentHash && state.code) {
         // Use cached hash if available
         let currentHash: string;
         const cacheKey = state.code;
-        
+
         const cachedHash = hashCache.get(cacheKey);
         if (cachedHash) {
           currentHash = cachedHash;
-          metrics.recordOperation('hash.cache.hit', 0);
+          metrics.recordOperation("hash.cache.hit", 0);
         } else {
           const hashStart = performance.now();
           currentHash = md5(state.code);
           const hashDuration = performance.now() - hashStart;
-          metrics.recordOperation('hash.calculation', hashDuration);
+          metrics.recordOperation("hash.calculation", hashDuration);
           hashCache.set(cacheKey, currentHash);
         }
-        
+
         if (state.documentHash !== currentHash) {
           throw createCodeIntegrityError(
             "Code integrity",
@@ -238,7 +230,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       }
 
       // Use retry mechanism for model invocation
-      telemetry.startTimer('model.invoke');
+      telemetry.startTimer("model.invoke");
       const response = await withRetry(
         () => model.invoke(cleanedState.messages),
         {
@@ -246,67 +238,67 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           initialDelay: 1000,
           maxDelay: 10000,
           onRetry: (attempt, error, delay) => {
-            telemetry.trackEvent('model.retry', {
+            telemetry.trackEvent("model.retry", {
               attempt: attempt.toString(),
               error: error.message,
-              delay: delay.toString()
+              delay: delay.toString(),
             });
             console.warn(`Retrying model invocation (${attempt}/3) after error: ${error.message}`);
-          }
-        }
+          },
+        },
       );
-      const modelDuration = telemetry.stopTimer('model.invoke');
-      
+      const modelDuration = telemetry.stopTimer("model.invoke");
+
       // Record model interaction metrics
       telemetry.trackModelInteraction({
         model: MODEL_NAME,
         promptTokens: 0, // We don't have access to token counts directly
         completionTokens: 0, // We don't have access to token counts directly
         duration: modelDuration || 0,
-        success: true
+        success: true,
       });
 
       // Check cache for tool response metadata
       const responseKey = JSON.stringify({
         content: response.content,
-        tool_calls: response.tool_calls
+        tool_calls: response.tool_calls,
       });
-      
+
       let metadata: ToolResponseMetadata;
       const cachedResponse = toolResponseCache.get(responseKey);
-      
-      if (cachedResponse && 'documentHash' in cachedResponse) {
+
+      if (cachedResponse && "documentHash" in cachedResponse) {
         metadata = cachedResponse as ToolResponseMetadata;
-        metrics.recordOperation('toolResponse.cache.hit', 0);
+        metrics.recordOperation("toolResponse.cache.hit", 0);
       } else {
         const metadataStart = performance.now();
         metadata = extractToolResponseMetadata(response, state);
         const metadataDuration = performance.now() - metadataStart;
-        metrics.recordOperation('toolResponse.extraction', metadataDuration);
-        
+        metrics.recordOperation("toolResponse.extraction", metadataDuration);
+
         // Cache the result with proper type conversion
         toolResponseCache.set(responseKey, {
           documentHash: metadata.documentHash,
           modifiedCodeHash: metadata.modifiedCodeHash,
           compilationError: !!metadata.compilationError,
-          codeWasReturned: metadata.codeWasReturned
+          codeWasReturned: metadata.codeWasReturned,
         });
       }
-      
+
       const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
       // Save the AI response message to cSess
-      const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+      const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
       if (cSess && response) {
         const currentMessages = cSess.getMessages();
         const aiMessageForChat = {
           id: Date.now().toString(),
-          role: 'assistant' as const,
-          content: typeof response.content === 'string' ? response.content : '',
+          role: "assistant" as const,
+          content: typeof response.content === "string" ? response.content : "",
         };
         cSess.setMessages([...currentMessages, aiMessageForChat]);
       }
-      
+
       const updatedState = {
         ...cleanedState,
         messages: [response],
@@ -330,14 +322,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         // Use cached hash if available for the updated code
         const updatedCodeKey = updatedState.code;
         const cachedUpdatedHash = hashCache.get(updatedCodeKey);
-        
+
         if (cachedUpdatedHash) {
           updatedState.documentHash = cachedUpdatedHash;
         } else {
           const hashStart = performance.now();
           updatedState.documentHash = md5(updatedState.code);
           const hashDuration = performance.now() - hashStart;
-          metrics.recordOperation('hash.calculation', hashDuration);
+          metrics.recordOperation("hash.calculation", hashDuration);
           hashCache.set(updatedCodeKey, updatedState.documentHash);
         }
       }
@@ -353,12 +345,12 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // Record processing duration and success
       const duration = performance.now() - start;
-      metrics.recordOperation('processMessage', duration);
-      telemetry.stopTimer('processMessage', {
+      metrics.recordOperation("processMessage", duration);
+      telemetry.stopTimer("processMessage", {
         codeModified: (state.code !== updatedState.code).toString(),
-        codeLength: updatedState.code?.length?.toString() || '0'
+        codeLength: updatedState.code?.length?.toString() || "0",
       });
-      
+
       return updatedState;
     } catch (error) {
       const errorContext = {
@@ -372,14 +364,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // Record error in telemetry
       telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
-        location: 'processMessage',
-        codeLength: state.code?.length?.toString() || '0',
-        isRetryable: isRetryableError(error).toString()
+        location: "processMessage",
+        codeLength: state.code?.length?.toString() || "0",
+        isRetryable: isRetryableError(error).toString(),
       });
-      
+
       const duration = performance.now() - start;
-      metrics.recordOperation('processMessage', duration, true);
-      telemetry.stopTimer('processMessage', { success: 'false' });
+      metrics.recordOperation("processMessage", duration, true);
+      telemetry.stopTimer("processMessage", { success: "false" });
 
       console.error("Error processing message:", errorContext);
       handleWorkflowError(error);
@@ -414,7 +406,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   return {
     invoke: async (prompt: string) => {
-      telemetry.startTimer('workflow.invoke');
+      telemetry.startTimer("workflow.invoke");
       try {
         const systemMessage = new SystemMessage(anthropicSystem);
         const initialDocumentHash = md5(initialState.code);
@@ -432,19 +424,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
             documentHash: initialDocumentHash,
           },
         });
-        
+
         // Save the user message to cSess
-        const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+        const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
         if (cSess) {
           const currentMessages = cSess.getMessages();
           const userMessageForChat = {
             id: Date.now().toString(),
-            role: 'user' as const,
+            role: "user" as const,
             content: prompt,
           };
           cSess.setMessages([...currentMessages, userMessageForChat]);
         }
-        
+
         const initialStateWithMessages: ExtendedAgentState = {
           ...initialState,
           messages: [
@@ -453,19 +445,17 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           ],
           debugLogs: [
             ...((initialState as ExtendedAgentState).debugLogs || []),
-            `Token-saving mode: ${
-              DEFAULT_RETURN_MODIFIED_CODE ? "OFF" : "ON"
-            }`,
+            `Token-saving mode: ${DEFAULT_RETURN_MODIFIED_CODE ? "OFF" : "ON"}`,
           ],
         };
 
         const threadId = uuidv4();
-        telemetry.trackEvent('workflow.start', {
+        telemetry.trackEvent("workflow.start", {
           threadId,
           promptLength: prompt.length.toString(),
-          codeLength: initialState.code.length.toString()
+          codeLength: initialState.code.length.toString(),
         });
-        
+
         const finalState = await app.invoke(initialStateWithMessages, {
           configurable: { thread_id: threadId },
         });
@@ -474,7 +464,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           // Use cached hash if available
           let finalDocumentHash: string;
           const finalCodeKey = finalState.code;
-          
+
           const cachedFinalHash = hashCache.get(finalCodeKey);
           if (cachedFinalHash) {
             finalDocumentHash = cachedFinalHash;
@@ -482,7 +472,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
             finalDocumentHash = md5(finalState.code);
             hashCache.set(finalCodeKey, finalDocumentHash);
           }
-          
+
           if (!verifyCodeIntegrity(finalState.code, finalDocumentHash)) {
             throw createCodeIntegrityError(
               "Code integrity",
@@ -493,33 +483,34 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           }
 
           finalState.documentHash = finalDocumentHash;
-          
+
           // Track code modification
-          telemetry.trackCodeModification('update', {
+          telemetry.trackCodeModification("update", {
             filePath: `/live/${initialState.codeSpace}.tsx`,
-            linesChanged: (finalState.code.split('\n').length - initialState.code.split('\n').length),
-            bytesChanged: finalState.code.length - initialState.code.length
+            linesChanged:
+              (finalState.code.split("\n").length - initialState.code.split("\n").length),
+            bytesChanged: finalState.code.length - initialState.code.length,
           });
         }
 
         if (finalState.code !== initialState.code) {
           logCodeChanges(initialState.code, finalState.code);
         }
-        
-        telemetry.stopTimer('workflow.invoke', {
-          success: 'true',
-          codeModified: (finalState.code !== initialState.code).toString()
+
+        telemetry.stopTimer("workflow.invoke", {
+          success: "true",
+          codeModified: (finalState.code !== initialState.code).toString(),
         });
-        
+
         return finalState;
       } catch (error) {
         telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
-          location: 'workflow.invoke',
-          promptLength: prompt.length.toString()
+          location: "workflow.invoke",
+          promptLength: prompt.length.toString(),
         });
-        
-        telemetry.stopTimer('workflow.invoke', { success: 'false' });
-        
+
+        telemetry.stopTimer("workflow.invoke", { success: "false" });
+
         if (error instanceof WorkflowError && error.message.includes("Code integrity")) {
           throw error;
         }

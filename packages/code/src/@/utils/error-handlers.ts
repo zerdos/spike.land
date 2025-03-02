@@ -29,6 +29,12 @@ export function handleWorkflowError(error: unknown): WorkflowError {
   }
 
   console.error("Unexpected Error:", error);
+  if (error instanceof Error) {
+    throw new WorkflowError(`Unexpected error: ${error.message}`, {
+      context: error.stack,
+      originalError: error,
+    });
+  }
   throw new WorkflowError("Unexpected workflow error", { originalError: error });
 }
 

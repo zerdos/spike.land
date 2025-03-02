@@ -8,17 +8,15 @@ vi.mock("./routeHandler", () => ({
   RouteHandler: vi.fn(),
 }));
 
-
 describe("Hono app routes", () => {
-  it ("1 should be 1", () => {
+  it("1 should be 1", () => {
     expect(1).toBe(1);
   });
 });
 
+// // Mock the RouteHandler class
 
-  // // Mock the RouteHandler class
-
-  // vi.mock("snakecase-keys", () => ({}));
+// vi.mock("snakecase-keys", () => ({}));
 
 //   const state = {
 //     storage: {

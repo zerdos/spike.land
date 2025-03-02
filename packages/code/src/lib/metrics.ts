@@ -27,9 +27,9 @@ export class WorkflowMetrics {
    * Record a workflow operation
    */
   public recordOperation(
-    name: string, 
-    durationMs: number, 
-    isError: boolean = false
+    name: string,
+    durationMs: number,
+    isError: boolean = false,
   ): void {
     if (!this.data[name]) {
       this.data[name] = {
@@ -76,7 +76,7 @@ export class WorkflowMetrics {
       summary[name] = {
         operationCount: stats.count,
         avgDurationMs: Math.round(stats.avgTime),
-        successRate: `${((stats.count - stats.errors) / stats.count * 100).toFixed(1)}%`
+        successRate: `${((stats.count - stats.errors) / stats.count * 100).toFixed(1)}%`,
       };
     }
 
@@ -87,7 +87,7 @@ export class WorkflowMetrics {
    * Get performance report
    */
   public getPerformanceReport(): string {
-    let report = '=== Workflow Performance Report ===\n\n';
+    let report = "=== Workflow Performance Report ===\n\n";
 
     for (const [name, metrics] of Object.entries(this.getSummary())) {
       report += `${name}:\n`;
@@ -114,7 +114,11 @@ export const metrics = WorkflowMetrics.getInstance();
  * Performance measurement method decorator factory
  */
 export function measure(operationName: string) {
-  return function measureDecorator(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+  return function measureDecorator(
+    _target: any,
+    _propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
     const originalMethod = descriptor.value;
 
     // Preserve the original method type
@@ -141,9 +145,9 @@ export function measure(operationName: string) {
     };
 
     // Preserve method properties
-    Object.defineProperty(descriptor.value, 'name', {
+    Object.defineProperty(descriptor.value, "name", {
       value: `${operationName}::${originalMethod.name}`,
-      configurable: true
+      configurable: true,
     });
 
     return descriptor;
@@ -177,7 +181,7 @@ export class CacheMetrics {
       hits: this.hits,
       misses: this.misses,
       total,
-      hitRate: `${(hitRate * 100).toFixed(1)}%`
+      hitRate: `${(hitRate * 100).toFixed(1)}%`,
     };
   }
 

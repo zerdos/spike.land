@@ -37,7 +37,7 @@ export const setupServiceWorker = async () => {
     console.log("Service worker not supported");
     return;
   }
-  //delete all service workers
+  // delete all service workers
   const registrations = await navigator.serviceWorker.getRegistrations();
   for (const registration of registrations) {
     await registration.unregister();

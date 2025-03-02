@@ -1,15 +1,15 @@
 import { AIHandler } from "@/lib/ai-handler";
-import { messagesPush, replaceFirstCodeMod } from "@/lib/chat-utils";
+import { messagesPush, replaceFirstCodeMod, SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
 import type { HandleSendMessageProps, ImageData, Message, MessageContent } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
 import { v4 as uuidv4 } from "uuid";
 
-const SEARCH_ARROWS = "<<<<<<<";
-const SEARCH = "<<<<<<< SEARCH";
-const REPLACE_ARROWS = ">>>>>>>";
-const REPLACE = ">>>>>>> REPLACE";
+const SEARCH_ARROWS = SEARCH_REPLACE_MARKERS.SEARCH_START.split(" ")[0];
+const SEARCH = SEARCH_REPLACE_MARKERS.SEARCH_START;
+const REPLACE_ARROWS = SEARCH_REPLACE_MARKERS.REPLACE_END.split(" ")[0];
+const REPLACE = SEARCH_REPLACE_MARKERS.REPLACE_END;
 
 interface DebugInfo {
   logs: Array<string | Message>;

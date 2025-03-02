@@ -24,7 +24,7 @@ export interface RetryOptions {
  */
 export async function withRetry<T>(
   fn: () => Promise<T>,
-  options: RetryOptions = {}
+  options: RetryOptions = {},
 ): Promise<T> {
   const {
     maxRetries = 3,
@@ -33,8 +33,8 @@ export async function withRetry<T>(
     retryableErrors = RETRYABLE_ERRORS,
     onRetry = (attempt, error, delay) =>
       console.warn(
-        `Retry ${attempt}/${maxRetries} after error: ${error.message}. Next attempt in ${delay}ms`
-      )
+        `Retry ${attempt}/${maxRetries} after error: ${error.message}. Next attempt in ${delay}ms`,
+      ),
   } = options;
 
   let attempt = 0;
@@ -45,16 +45,18 @@ export async function withRetry<T>(
       return await fn();
     } catch (error) {
       attempt++;
-      
-      if (!(error instanceof Error) ||
-          attempt >= maxRetries ||
-          !retryableErrors.some(e => error.message.includes(e))) {
+
+      if (
+        !(error instanceof Error) ||
+        attempt >= maxRetries ||
+        !retryableErrors.some(e => error.message.includes(e))
+      ) {
         throw error;
       }
 
       onRetry(attempt, error, delay);
       await new Promise(resolve => setTimeout(resolve, delay));
-      
+
       // Exponential backoff with max delay cap
       delay = Math.min(delay * 2, maxDelay);
     }
