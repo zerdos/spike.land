@@ -31,7 +31,6 @@ function createErrorResponse(
   return {
     code: currentCode,
     error: errorMessage,
-    currentFileContent: currentCode,
     hash: md5(currentCode),
     ...additionalProps,
   };

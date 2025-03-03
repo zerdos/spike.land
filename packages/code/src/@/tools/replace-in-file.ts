@@ -3,7 +3,7 @@ import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { symbol, z } from "zod";
 
 // Logger function for consistent logging format
 function log(message: string, level: 'info' | 'warn' | 'error' = 'info', data?: Record<string, unknown>): void {
@@ -24,7 +24,6 @@ function createErrorResponse(
     code: currentCode,
     hash: md5(currentCode),  
     error: errorMessage,
-    currentFileContent: currentCode,
     ...additionalProps,
   };
 }
@@ -121,6 +120,7 @@ export const replaceInFileTool = tool(
           "Failed to update the file with the modified code.",
         );
       }
+      modifiedCode = success as string;
       
       const newHash = md5(modifiedCode);
       log('File successfully updated', 'info', { 
@@ -130,8 +130,8 @@ export const replaceInFileTool = tool(
       
       // Return success response
       return {
-        hash: newHash,
         code: modifiedCode,
+        hash: newHash,
         error: "",
       };
     } catch (error) {
