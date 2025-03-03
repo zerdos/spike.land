@@ -1,35 +1,35 @@
-import type { ICode } from "@/lib/interfaces";
+// import type { ICode } from "@/lib/interfaces";
 
-export const renderPreviewWindow = async (
-  { codeSpace, cSess, AppToRender }: {
-    codeSpace: string;
-    cSess: ICode;
-    AppToRender: React.FC<{ codeSpace: string; cSess: ICode; }>;
-  },
-) => {
-  //   import { renderApp } from "@/lib/render-app";
-  // import { ClerkProvider } from "@clerk/clerk-react";
-  // import { AppToRender } from "./AppToRender";
+// export const renderPreviewWindow = async (
+//   { codeSpace, cSess, AppToRender }: {
+//     codeSpace: string;
+//     cSess: ICode;
+//     AppToRender: React.FC<{ codeSpace: string; cSess: ICode; }>;
+//   },
+// ) => {
+//   //   import { renderApp } from "@/lib/render-app";
+//   // import { ClerkProvider } from "@clerk/clerk-react";
+//   // import { AppToRender } from "./AppToRender";
 
-  const renderAppPromise = import("@/external/render-app");
-  const ClerkProviderPromise = import("@clerk/clerk-react");
+//   const renderAppPromise = import("@/external/render-app");
+//   const ClerkProviderPromise = import("@clerk/clerk-react");
 
-  const [
-    { renderApp },
-    { ClerkProvider },
-  ] = await Promise.all([renderAppPromise, ClerkProviderPromise]);
+//   const [
+//     { renderApp },
+//     { ClerkProvider },
+//   ] = await Promise.all([renderAppPromise, ClerkProviderPromise]);
 
-  const App = () => (
-    <ClerkProvider
-      publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-      afterSignOutUrl="/"
-    >
-      <AppToRender codeSpace={codeSpace} cSess={cSess} />
-    </ClerkProvider>
-  );
+//   const App = () => (
+//     <ClerkProvider
+//       publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+//       afterSignOutUrl="/"
+//     >
+//       <AppToRender codeSpace={codeSpace} cSess={cSess} />
+//     </ClerkProvider>
+//   );
 
-  return renderApp({ App });
-};
+//   return renderApp({ App });
+// };
 
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");

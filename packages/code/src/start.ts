@@ -78,7 +78,7 @@ router.load().then(async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
 
-    if (location.pathname === `/live/${codeSpace}`) {
+    if (location.pathname === `/live/${codeSpace}/iframe`) {
       try {
         await initializeWebSocket(codeSpace);
       } catch (error) {
