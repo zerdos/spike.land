@@ -2,8 +2,7 @@ import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { get } from "http";
+import { AIMessage, SystemMessage } from "@langchain/core/messages";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
 
@@ -178,7 +177,13 @@ describe("chat-langchain-workflow", () => {
     });
 
     it("should handle missing code in tool response", async () => {
-      // Mock cSess for code retrieval
+      // Create a mock session with getCode that returns "retrieved code"
+      const mockSessionWithCode = {
+        getCode: vi.fn().mockResolvedValue("retrieved code"),
+        getMessages: () => [],
+        setMessages: vi.fn(),
+        setCode: vi.fn(),
+      } as unknown as ICode;
 
       const responseWithoutCode = new AIMessage({
         content: "No code returned",
@@ -187,7 +192,7 @@ describe("chat-langchain-workflow", () => {
             {
               name: "code_modification",
               content: JSON.stringify({
-                hash: "new-hash",
+                hash: md5("retrieved code"), // Use the hash of the code that will be retrieved
               }),
             },
           ],
@@ -202,13 +207,13 @@ describe("chat-langchain-workflow", () => {
           }) as any,
       );
 
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSessionWithCode);
       const result = await workflow.invoke("Get code from session");
 
       expect(result).toBeDefined();
-      expect(result.hash).toBe("new-hash");
-
-      delete (globalThis as any).cSess;
+      expect(result.hash).toBe(md5("retrieved code"));
+      expect(console.error).not.toHaveBeenCalled();
+      expect(mockSessionWithCode.getCode).toHaveBeenCalled();
     });
   });
 

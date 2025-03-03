@@ -110,20 +110,31 @@ export const updateToolCallsWithCodeFlag = (
 
 /**
  * Process the response when code was not returned in the tool response
+ * @param hash The hash of the code to retrieve
+ * @param state The current agent state
+ * @param codeSession Optional code session to use for retrieving code
+ * @returns The retrieved code or undefined
  */
 export const handleMissingCodeResponse = async (
   hash: string,
   state: AgentState,
+  codeSession?: { getCode: () => Promise<string> }
 ): Promise<string | undefined> => {
   if (!hash || hash === state.hash) {
     return undefined;
   }
 
   try {
-    // Get the latest code from the session
-    const latestCode = await (globalThis as unknown as {
-      cSess: { getCode: () => Promise<string>; };
-    }).cSess.getCode();
+    let latestCode: string;
+    
+    // If a code session is provided, use it to get the code
+    if (codeSession && typeof codeSession.getCode === 'function') {
+      latestCode = await codeSession.getCode();
+    } else {
+      // No code session available, use the current state code as a fallback
+      console.log("No code session available, using current state code");
+      return state.code;
+    }
 
     // Verify the hash matches
     const latestHash = md5(latestCode);
@@ -144,7 +155,8 @@ export const handleMissingCodeResponse = async (
       actualHash: latestHash,
     });
   } catch (error) {
-    console.error("Failed to retrieve code", error);
+    // Log error but don't throw - just return undefined
+    console.warn("Failed to retrieve code", error);
   }
 
   return undefined;

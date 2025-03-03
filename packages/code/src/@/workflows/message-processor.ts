@@ -1,0 +1,225 @@
+import { MODEL_NAME, ANTHROPIC_API_CONFIG } from "@/config/workflow-config";
+import type { AgentState } from "@/types/chat-langchain";
+import { createCodeIntegrityError, WorkflowError } from "@/utils/error-handlers";
+import { extractToolResponseMetadata, handleMissingCodeResponse, updateToolCallsWithCodeFlag } from "@/utils/tool-response-utils";
+import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { metrics } from "../../lib/metrics";
+import { telemetry } from "../../lib/telemetry";
+import { toolResponseCache } from "../../lib/caching";
+import { isRetryableError, withRetry } from "../../utils/retry";
+import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
+import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types";
+import type { ChatAnthropic } from "@langchain/anthropic";
+import type { ICode, ImageData } from "@/lib/interfaces";
+
+/**
+ * Processes a message in the workflow
+ */
+export async function processMessage(
+  state: AgentState,
+  model: ChatAnthropic,
+  cSess: ICode,
+  initialState: AgentState,
+): Promise<Partial<AgentState>> {
+  // Start performance tracking
+  telemetry.startTimer("processMessage");
+  const start = performance.now();
+  try {
+    if (state.hash && state.code) {
+      // Calculate hash with caching
+      const currentHash = getHashWithCache(state.code);
+      
+      if (state.hash !== currentHash) {
+        throw createCodeIntegrityError(
+          "Code integrity",
+          state.hash,
+          currentHash,
+          state.code.length,
+        );
+      }
+    }
+
+    if (state.code && state.code.length > 1000) {
+      console.log(
+        `Performance optimization: Processing large code block (${state.code.length} chars)`,
+      );
+    }
+
+    const cleanedState = { ...state, code: state.code };
+    const lastMessage = state.messages[state.messages.length - 1];
+    let returnModifiedCode = false;
+
+    if (lastMessage && !("content" in lastMessage)) {
+      throw new WorkflowError("Invalid message format");
+    }
+
+    if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
+      returnModifiedCode = determineReturnModifiedCode(lastMessage.tool_calls, state.code);
+    }
+
+    if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
+      const updatedToolCalls = updateToolCallsWithCodeFlag(
+        lastMessage.tool_calls,
+        returnModifiedCode,
+      );
+      const updatedLastMessage = { ...lastMessage, tool_calls: updatedToolCalls } as AIMessage;
+      cleanedState.messages = [...state.messages.slice(0, -1), updatedLastMessage];
+    }
+
+    // Use retry mechanism for model invocation
+    telemetry.startTimer("model.invoke");
+    const response = await withRetry(
+      () => model.invoke(cleanedState.messages),
+      {
+        maxRetries: 3,
+        initialDelay: 1000,
+        maxDelay: 10000,
+        onRetry: (attempt, error, delay) => {
+          telemetry.trackEvent("model.retry", {
+            attempt: attempt.toString(),
+            error: error.message,
+            delay: delay.toString(),
+          });
+          console.warn(`Retrying model invocation (${attempt}/3) after error: ${error.message}`);
+        },
+      },
+    );
+    const modelDuration = telemetry.stopTimer("model.invoke");
+
+    // Record model interaction metrics
+    telemetry.trackModelInteraction({
+      model: MODEL_NAME,
+      promptTokens: 0, // We don't have access to token counts directly
+      completionTokens: 0, // We don't have access to token counts directly
+      duration: modelDuration || 0,
+      success: true,
+    });
+
+    // Check cache for tool response metadata
+    const responseKey = JSON.stringify({
+      content: response.content,
+      tool_calls: response.tool_calls,
+    });
+
+    let metadata: ToolResponseMetadata;
+    const cachedResponse = toolResponseCache.get(responseKey);
+
+    if (cachedResponse && "hash" in cachedResponse) {
+      metadata = cachedResponse as ToolResponseMetadata;
+      metrics.recordOperation("toolResponse.cache.hit", 0);
+    } else {
+      const metadataStart = performance.now();
+      metadata = extractToolResponseMetadata(response, state);
+      const metadataDuration = performance.now() - metadataStart;
+      metrics.recordOperation("toolResponse.extraction", metadataDuration);
+
+      // Cache the result with proper type conversion
+      toolResponseCache.set(responseKey, {
+        hash: metadata.hash,
+        modifiedCodeHash: metadata.modifiedCodeHash,
+        compilationError: !!metadata.compilationError,
+        codeWasReturned: metadata.codeWasReturned,
+      });
+    }
+
+    const { hash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
+
+    const updatedState = {
+      ...cleanedState,
+      messages: [response],
+      isStreaming: true,
+      hash,
+    };
+
+    // Check for images in the message
+    const currentHumanMessage = state.messages[state.messages.length - 1];
+    if (
+      currentHumanMessage instanceof HumanMessage && 
+      currentHumanMessage.additional_kwargs?.images
+    ) {
+      const images = currentHumanMessage.additional_kwargs.images as ImageData[];
+      (updatedState as ExtendedAgentState).images = images;
+      (updatedState as ExtendedAgentState).hasImages = images.length > 0;
+    }
+
+    // Save the AI response message to cSess
+    if (response) {
+      const aiMessageForChat = {
+        id: Date.now().toString(),
+        role: "assistant" as const,
+        content: typeof response.content === "string" ? response.content : "",
+      };
+      await cSess.setMessages([...cSess.getMessages(), aiMessageForChat]);
+    }
+
+    // Handle case where code is not returned in the tool response
+    // This happens with our optimized replaceInFileTool that doesn't return full code
+    if ((!codeWasReturned || (hash && hash !== state.hash))) {
+      // Ensure hash is a string before passing to handleMissingCodeResponse
+      const hashToUse = hash || '';
+      // Pass cSess to handleMissingCodeResponse
+      const latestCode = await handleMissingCodeResponse(hashToUse, state, cSess);
+      if (latestCode) {
+        updatedState.code = latestCode;
+        // Update hash if needed
+        if (!hash && latestCode) {
+          updatedState.hash = getHashWithCache(latestCode);
+        }
+      }
+    }
+
+    if (compilationError) {
+      console.warn("Compilation error detected", compilationError);
+      throw new WorkflowError("failed to compile: syntax error");
+    }
+
+    if (state.code !== updatedState.code && updatedState.code && !hash) {
+      // Calculate hash with caching for updated code
+      updatedState.hash = getHashWithCache(updatedState.code);
+    }
+
+    if (
+      updatedState.code && 
+      state.code === updatedState.code && 
+      state.code !== initialState.code
+    ) {
+      throw new WorkflowError("Code modification failed", {
+        initialCodeLength: state.code.length,
+        currentCodeLength: state.code.length,
+      });
+    }
+
+    // Record processing duration and success
+    const duration = performance.now() - start;
+    metrics.recordOperation("processMessage", duration);
+    telemetry.stopTimer("processMessage", {
+      codeModified: (state.code !== updatedState.code).toString(),
+      codeLength: updatedState.code?.length?.toString() || "0",
+    });
+
+    return updatedState;
+  } catch (error) {
+    const errorContext = {
+      error,
+      state: {
+        codeLength: state.code?.length,
+        hash: state.hash,
+        hasMessages: state.messages?.length > 0,
+      },
+    };
+
+    // Record error in telemetry
+    telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
+      location: "processMessage",
+      codeLength: state.code?.length?.toString() || "0",
+      isRetryable: isRetryableError(error).toString(),
+    });
+
+    const duration = performance.now() - start;
+    metrics.recordOperation("processMessage", duration, true);
+    telemetry.stopTimer("processMessage", { success: "false" });
+
+    console.error("Error processing message:", errorContext);
+    throw error;
+  }
+}

@@ -40,7 +40,12 @@ function validateDiff(diff: string): boolean {
   return regex.test(diff);
 }
 
-export const replaceInFileTool = tool(
+/**
+ * Creates a replace-in-file tool with a provided code session
+ * @param codeSession The code session to use for file operations
+ * @returns A tool for replacing content in files
+ */
+export const createReplaceInFileTool = (codeSession: ICode) => tool(
   async (
     {
       path,
@@ -67,16 +72,15 @@ export const replaceInFileTool = tool(
       return createErrorResponse('', 'Invalid diff format. Must contain valid SEARCH/REPLACE blocks', { diffLength: diff?.length });
     }
     
-    // Get the code session
-    const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
-    if (!cSess) {
-      return createErrorResponse('', 'Code session not available', { global: !!globalThis });
+    // Use the provided code session
+    if (!codeSession) {
+      return createErrorResponse('', 'Code session not provided', {});
     }
     
     try {
       // Get current code from the file
       log('Retrieving current file content');
-      const currentCode = await cSess.getCode();
+      const currentCode = await codeSession.getCode();
       
       if (!currentCode) {
         return createErrorResponse('', 'Failed to retrieve file content or file is empty');
@@ -112,7 +116,7 @@ export const replaceInFileTool = tool(
       log('Changes detected, updating file');
       
       // Set the modified code
-      const success = await cSess.setCode(modifiedCode);
+      const success = await codeSession.setCode(modifiedCode);
       
       if (!success) {
         return createErrorResponse(
@@ -128,11 +132,16 @@ export const replaceInFileTool = tool(
         newHash: newHash.substring(0, 8) 
       });
       
-      // Return success response
+      // Return success response with minimal information to save tokens
+      // Include a summary of changes in the error field (which is displayed to the user)
+      const bytesChanged = modifiedCode.length - currentCode.length;
+      const linesChanged = modifiedCode.split('\n').length - currentCode.split('\n').length;
+      
       return {
-        code: modifiedCode,
+        // Don't return the full code to save tokens
+        code: '', // Empty string instead of full code
         hash: newHash,
-        error: "",
+        error: `Changes applied successfully: ${bytesChanged > 0 ? '+' : ''}${bytesChanged} bytes, ${linesChanged > 0 ? '+' : ''}${linesChanged} lines`,
       };
     } catch (error) {
       log('Unexpected error occurred', 'error', { 
@@ -142,7 +151,7 @@ export const replaceInFileTool = tool(
       
       let currentCode = '';
       try {
-        currentCode = await cSess.getCode();
+        currentCode = await codeSession.getCode();
       } catch (getCodeError) {
         log('Failed to retrieve code after error', 'error', { 
           error: getCodeError instanceof Error ? getCodeError.message : 'Unknown error' 

@@ -33,7 +33,7 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "previous-hash",
       };
 
@@ -69,7 +69,7 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "previous-hash",
       };
 
@@ -90,7 +90,7 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "previous-hash",
       };
 
@@ -146,10 +146,11 @@ describe("tool-response-utils", () => {
   describe("handleMissingCodeResponse", () => {
     const mockCode = "function test() {}";
     const mockHash = md5(mockCode);
+    let mockCodeSession: { getCode: () => Promise<string> };
 
     beforeEach(() => {
-      // Mock the global cSess object
-      (globalThis as any).cSess = {
+      // Create a mock code session
+      mockCodeSession = {
         getCode: vi.fn().mockResolvedValue(mockCode),
       };
       vi.spyOn(console, "log").mockImplementation(() => {});
@@ -158,7 +159,6 @@ describe("tool-response-utils", () => {
     });
 
     afterEach(() => {
-      delete (globalThis as any).cSess;
       vi.restoreAllMocks();
     });
 
@@ -169,16 +169,17 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "old-hash",
       };
 
-      const result = await handleMissingCodeResponse(mockHash, state);
+      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
 
       expect(result).toBe(mockCode);
       expect(console.log).toHaveBeenCalledWith(
         expect.stringContaining("Retrieved latest code"),
       );
+      expect(mockCodeSession.getCode).toHaveBeenCalled();
     });
 
     it("should handle hash mismatch", async () => {
@@ -188,14 +189,14 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "old-hash",
       };
 
       const wrongCode = "different code";
-      (globalThis as any).cSess.getCode.mockResolvedValue(wrongCode);
+      mockCodeSession.getCode = vi.fn().mockResolvedValue(wrongCode);
 
-      const result = await handleMissingCodeResponse(mockHash, state);
+      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
 
       expect(result).toBeUndefined();
       expect(console.warn).toHaveBeenCalledWith(
@@ -214,20 +215,20 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: "old-hash",
       };
 
-      (globalThis as any).cSess.getCode.mockRejectedValue(
+      mockCodeSession.getCode = vi.fn().mockRejectedValue(
         new Error("Session error"),
       );
 
-      const result = await handleMissingCodeResponse(mockHash, state);
+      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
 
       expect(result).toBeUndefined();
-      expect(console.error).toHaveBeenCalledWith(
+      expect(console.warn).toHaveBeenCalledWith(
         "Failed to retrieve code",
-        new Error("Session error"),
+        expect.any(Error),
       );
     });
 
@@ -238,14 +239,14 @@ describe("tool-response-utils", () => {
         codeSpace: "",
         lastError: "",
         isStreaming: false,
-        debugLogs: [],
+        origin: "",
         hash: mockHash,
       };
 
-      const result = await handleMissingCodeResponse(mockHash, state);
+      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
 
       expect(result).toBeUndefined();
-      expect((globalThis as any).cSess.getCode).not.toHaveBeenCalled();
+      expect(mockCodeSession.getCode).not.toHaveBeenCalled();
     });
   });
 });
