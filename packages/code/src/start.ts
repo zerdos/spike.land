@@ -1,3 +1,4 @@
+import {App}  from "./App";
 import { renderApp } from "@/lib/render-app";
 import { router } from "./routes/router";
 import "./index.css";
@@ -36,9 +37,9 @@ const initializeWebSocket = async (codeSpace: string): Promise<void> => {
   try {
     const { main } = await import("./ws");
 
-    if (process.env.NODE_ENV !== "test") {
+    // if (process.env.NODE_ENV !== "test") {
       await main(codeSpace);
-    }
+    // }
   } catch (error) {
     handleError(error);
   }
@@ -57,6 +58,7 @@ const handleRouteResolution = async (
     const { pathname } = toLocation;
 
     if (shouldRenderApp(pathname)) {
+      window.alert("shouldRenderApp");
       const rendered = await renderApp({ codeSpace });
       Object.assign(window, { rendered });
     }
@@ -75,25 +77,34 @@ router.load().then(async () => {
   try {
     const codeSpace = getCodeSpace(location.pathname);
 
-    await initializeWebSocket(codeSpace);
-
     if (location.pathname === `/live/${codeSpace}`) {
-      try {
-        await initializeWebSocket(codeSpace);
-        await import("./App").then(({ App }) => renderApp({ App }));
-      } catch (error) {
-        console.error("WebSocket initialization failed:", error);
-        throw new RouterError(
-          "WebSocket initialization failed",
-          `/live/${codeSpace}/iframe`,
-        );
+          try {
+            await initializeWebSocket(codeSpace);
+        } catch (error) {
+          console.error("WebSocket initialization failed:", error);
+          throw new RouterError(
+            "WebSocket initialization failed",
+            `/live/${codeSpace}/iframe`,
+          );
+        }
       }
-    } else if (
-      location.pathname === `/live/${codeSpace}/iframe` ||
-      location.pathname === `/live/${codeSpace}/`
-    ) {
-      await renderApp({ codeSpace });
-    }
+          
+
+    await renderApp({App});
+
+  //    catch (error) {
+  //       console.error("WebSocket initialization failed:", error);
+  //       throw new RouterError(
+  //         "WebSocket initialization failed",
+  //         `/live/${codeSpace}/iframe`,
+  //       );
+  //     }
+  //   } else if (
+  //     location.pathname === `/live/${codeSpace}/iframe` ||
+  //     location.pathname === `/live/${codeSpace}/`
+  //   ) {
+  //     await renderApp({ codeSpace });
+  //   }
 
     // Setup router subscriptions
     router.subscribe(
