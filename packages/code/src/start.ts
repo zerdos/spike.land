@@ -57,7 +57,7 @@ const handleRouteResolution = async (
   try {
     const { pathname } = toLocation;
     const newCodeSpace = getCodeSpace(pathname);
-//
+    //
     if (shouldRenderApp(pathname)) {
       window.alert("shouldRenderApp: " + newCodeSpace);
       // const rendered = await renderApp({ codeSpace });

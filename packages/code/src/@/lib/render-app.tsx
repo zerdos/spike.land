@@ -12,11 +12,9 @@ import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/inter
 import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
 
-
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
 };
-
 
 const renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps =
   (globalThis as GlobalWithRenderedApps).renderedApps ||
@@ -85,8 +83,6 @@ export const importFromString = async (code: string) => {
     }
   }
 };
-
-
 
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
@@ -176,57 +172,50 @@ async function renderApp(
       AppToRender = () => <div>Error: Component could not be loaded</div>;
     }
     let renderedApp = renderedApps.get(rootEl);
-    
+
     if (!renderedApp) {
+      myRoot.render(
+        <ThemeProvider>
+          <React.Fragment>
+            <CacheProvider value={cssCache}>
+              {emptyApp
+                ? <AppToRender />
+                : (
+                  <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
+                    <AppWithScreenSize AppToRender={AppToRender} />
+                  </ErrorBoundary>
+                )}
+            </CacheProvider>{" "}
+            {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+          </React.Fragment>
+        </ThemeProvider>,
+      );
 
-    myRoot.render(
-      <ThemeProvider>
-        <React.Fragment>
-          <CacheProvider value={cssCache}>
-            {emptyApp
-              ? <AppToRender />
-              : (
-                <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
-                  <AppWithScreenSize AppToRender={AppToRender} />
-                </ErrorBoundary>
-              )}
-          </CacheProvider>{" "}
-          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-        </React.Fragment>
-      </ThemeProvider>,
-    );
-    
+      renderedApps.set(rootEl, {
+        rootElement: rootEl,
+        rRoot: myRoot,
+        App: AppToRender,
+        cssCache,
+        cleanup: () => {
+          myRoot.unmount();
+          if (cssCache.sheet) {
+            cssCache.sheet.flush();
+          }
+          rootEl.remove();
+          renderedApps.delete(rootEl);
+        },
+      });
 
-
-
-    renderedApps.set(rootEl, {
-      rootElement: rootEl,
-      rRoot: myRoot,
-      App: AppToRender,
-      cssCache,
-      cleanup: () => {
-        myRoot.unmount();
-        if (cssCache.sheet) {
-          cssCache.sheet.flush();
-        }
-        rootEl.remove();
-        renderedApps.delete(rootEl);
-      }
-    });
-  
-
-    renderedApp = renderedApps.get(
-      rootEl,
-    );
-
+      renderedApp = renderedApps.get(
+        rootEl,
+      );
     }
-  
+
     if (!renderedApp) {
       console.error("Rendered app is undefined");
       return null;
     }
 
-   
     console.log("Rendered app:", renderedApp);
 
     return renderedApp;
