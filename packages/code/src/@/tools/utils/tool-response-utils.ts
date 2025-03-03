@@ -118,7 +118,7 @@ export const updateToolCallsWithCodeFlag = (
 export const handleMissingCodeResponse = async (
   hash: string,
   state: AgentState,
-  codeSession?: { getCode: () => Promise<string> }
+  codeSession?: { getCode: () => Promise<string>; },
 ): Promise<string | undefined> => {
   if (!hash || hash === state.hash) {
     return undefined;
@@ -126,9 +126,9 @@ export const handleMissingCodeResponse = async (
 
   try {
     let latestCode: string;
-    
+
     // If a code session is provided, use it to get the code
-    if (codeSession && typeof codeSession.getCode === 'function') {
+    if (codeSession && typeof codeSession.getCode === "function") {
       latestCode = await codeSession.getCode();
     } else {
       // No code session available, use the current state code as a fallback

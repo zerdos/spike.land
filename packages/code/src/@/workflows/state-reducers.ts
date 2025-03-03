@@ -21,7 +21,7 @@ export function createGraphStateReducers(): GraphStateReducers {
         try {
           // Direct string return
           if (typeof next === "string") return next;
-          
+
           // Handle object types
           if (typeof next === "object" && next !== null) {
             // Try to extract code from content field (JSON string)
@@ -29,16 +29,16 @@ export function createGraphStateReducers(): GraphStateReducers {
               const extractedCode = tryExtractCodeFromJson(next.content);
               if (extractedCode) return extractedCode;
             }
-            
+
             // Direct code field
             if ("code" in next && typeof next.code === "string") {
               return next.code;
             }
-            
+
             // If only hash is present, keep previous code
             if (!("code" in next) && "hash" in next) return prev;
           }
-          
+
           // Default: keep previous code
           return prev;
         } catch (error) {
@@ -52,7 +52,7 @@ export function createGraphStateReducers(): GraphStateReducers {
         try {
           // Direct string errors
           if (typeof next === "string") return next;
-          
+
           // Object with error property
           if (typeof next === "object" && next !== null) {
             if ("error" in next) {
@@ -62,11 +62,11 @@ export function createGraphStateReducers(): GraphStateReducers {
               if (err instanceof Error) return err.message;
               return String(err);
             }
-            
+
             // Try to extract message from Error objects
             if (next instanceof Error) return next.message;
           }
-          
+
           // Default: keep previous error or convert to string
           return prev;
         } catch (e) {

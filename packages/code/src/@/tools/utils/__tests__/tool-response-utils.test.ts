@@ -146,7 +146,7 @@ describe("tool-response-utils", () => {
   describe("handleMissingCodeResponse", () => {
     const mockCode = "function test() {}";
     const mockHash = md5(mockCode);
-    let mockCodeSession: { getCode: () => Promise<string> };
+    let mockCodeSession: { getCode: () => Promise<string>; };
 
     beforeEach(() => {
       // Create a mock code session

@@ -1,7 +1,8 @@
+import { initialClaude } from "@/lib/initial-claude";
 import { md5 } from "@/lib/md5";
 import { astCodeModificationTool } from "@/tools/ast-code-modification";
-import { AgentState } from "@/types/chat-langchain";
 import { WorkflowError } from "@/tools/utils/error-handlers";
+import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -9,7 +10,6 @@ import type { StateGraphArgs } from "@langchain/langgraph/web";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import {initialClaude} from "@/lib/initial-claude";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";

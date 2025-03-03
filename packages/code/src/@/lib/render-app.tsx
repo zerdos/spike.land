@@ -12,6 +12,16 @@ import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/inter
 import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
 
+
+type GlobalWithRenderedApps = typeof globalThis & {
+  renderedApps: WeakMap<HTMLElement, RenderedApp>;
+};
+
+
+const renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps =
+  (globalThis as GlobalWithRenderedApps).renderedApps ||
+  new WeakMap<HTMLElement, RenderedApp>();
+
 let firstRender = true;
 const origin = location.origin;
 
@@ -28,11 +38,31 @@ export function AppWithScreenSize(
   return <AppToRender width={width} height={height} />;
 }
 
+const createJsBlob = (code: string): string => {
+  const processedCode = importMapReplace(
+    code.replace("importMapReplace", ""),
+    origin,
+  ).replace(/from "\/(?!\/)/g, `from "${origin}/`);
+
+  return URL.createObjectURL(
+    new Blob([processedCode], { type: "application/javascript" }),
+  );
+};
+
 export const importFromString = async (code: string) => {
   const codeSpace = getCodeSpace(location.pathname);
+  let blobUrl: string | null = null;
 
-  // Try the file-based approach first
   try {
+    blobUrl = createJsBlob(code);
+
+    const module = await import(/* @vite-ignore */ blobUrl);
+    if (!module.default) {
+      console.error("Module does not have a default export:", module);
+      return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
+    }
+    return module.default as FlexibleComponentType;
+  } catch (error) {
     const filePath = `/live-cms/${codeSpace}-${md5(code)}.mjs`;
     await fetch(filePath, {
       method: "PUT",
@@ -41,68 +71,22 @@ export const importFromString = async (code: string) => {
       },
       body: importMapReplace(code),
     });
-    console.log("File written to", filePath);
-    
-    try {
-      const module = await import(filePath);
-      if (!module.default) {
-        console.error("Module does not have a default export:", module);
-        return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
-      }
-      return module.default as FlexibleComponentType;
-    } catch (importError) {
-      console.error("Failed to import module:", importError);
-      return (() => <div>Error: Failed to import component</div>) as FlexibleComponentType;
+
+    const module = await import(filePath);
+    if (!module.default) {
+      console.error("Module does not have a default export:", module);
+      return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
     }
-  } catch (error) {
-    console.warn("File-based import failed, falling back to blob URL", error);
-
-    // Fall back to blob URL approach
-    const createJsBlob = (code: string): string => {
-      const processedCode = importMapReplace(
-        code.replace("importMapReplace", ""), 
-        origin
-      ).replace(/from "\/(?!\/)/g, `from "${origin}/`);
-      
-      return URL.createObjectURL(
-        new Blob([processedCode], { type: "application/javascript" })
-      );
-    };
-
-    let blobUrl = "";
-    try {
-      blobUrl = createJsBlob(code);
-      const module = await import(/* @vite-ignore */ blobUrl);
-      
-      if (!module.default) {
-        console.error("Blob module does not have a default export:", module);
-        return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
-      }
-      
-      return module.default as FlexibleComponentType;
-    } catch (blobError) {
-      console.error("Blob URL import failed:", blobError);
-      return (() => <div>Error: Failed to import component</div>) as FlexibleComponentType;
-    } finally {
-      // Clean up the blob URL to prevent memory leaks
-      if (blobUrl) {
-        URL.revokeObjectURL(blobUrl);
-      }
+    return module.default as FlexibleComponentType;
+  } finally {
+    // Clean up the blob URL to prevent memory leaks
+    if (blobUrl) {
+      URL.revokeObjectURL(blobUrl);
     }
   }
 };
 
-type GlobalWithRenderedApps = typeof globalThis & {
-  renderedApps: WeakMap<HTMLElement, RenderedApp>;
-};
 
-declare global {
-  let renderedApps: WeakMap<HTMLElement, RenderedApp>;
-}
-
-(globalThis as GlobalWithRenderedApps).renderedApps =
-  (globalThis as GlobalWithRenderedApps).renderedApps ||
-  new WeakMap<HTMLElement, RenderedApp>();
 
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
@@ -177,7 +161,7 @@ async function renderApp(
     if (!parentNode) {
       console.warn("Parent node is null, using document.body as container");
     }
-    
+
     const cssCache = createCache({
       key: firstRender ? "x" : cacheKey,
       speedy: true,
@@ -191,6 +175,9 @@ async function renderApp(
       console.error("AppToRender is undefined, using fallback component");
       AppToRender = () => <div>Error: Component could not be loaded</div>;
     }
+    let renderedApp = renderedApps.get(rootEl);
+    
+    if (!renderedApp) {
 
     myRoot.render(
       <ThemeProvider>
@@ -208,8 +195,11 @@ async function renderApp(
         </React.Fragment>
       </ThemeProvider>,
     );
+    
 
-    (globalThis as GlobalWithRenderedApps).renderedApps.set(rootEl, {
+
+
+    renderedApps.set(rootEl, {
       rootElement: rootEl,
       rRoot: myRoot,
       App: AppToRender,
@@ -220,21 +210,24 @@ async function renderApp(
           cssCache.sheet.flush();
         }
         rootEl.remove();
-        (globalThis as GlobalWithRenderedApps).renderedApps.delete(rootEl);
-      },
+        renderedApps.delete(rootEl);
+      }
     });
+  
 
-    const renderedApp = (globalThis as GlobalWithRenderedApps).renderedApps.get(
+    renderedApp = renderedApps.get(
       rootEl,
     );
 
+    }
+  
     if (!renderedApp) {
-      console.error("Failed to retrieve rendered app from WeakMap");
+      console.error("Rendered app is undefined");
       return null;
     }
 
+   
     console.log("Rendered app:", renderedApp);
-    await new Promise((resolve) => setTimeout(resolve, 100));
 
     return renderedApp;
   } catch (error) {

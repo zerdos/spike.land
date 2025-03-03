@@ -1,5 +1,5 @@
-import {App}  from "./App";
 import { renderApp } from "@/lib/render-app";
+import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
@@ -38,7 +38,7 @@ const initializeWebSocket = async (codeSpace: string): Promise<void> => {
     const { main } = await import("./ws");
 
     // if (process.env.NODE_ENV !== "test") {
-      await main(codeSpace);
+    await main(codeSpace);
     // }
   } catch (error) {
     handleError(error);
@@ -56,11 +56,12 @@ const handleRouteResolution = async (
 
   try {
     const { pathname } = toLocation;
-
+    const newCodeSpace = getCodeSpace(pathname);
+//
     if (shouldRenderApp(pathname)) {
-      window.alert("shouldRenderApp");
-      const rendered = await renderApp({ codeSpace });
-      Object.assign(window, { rendered });
+      window.alert("shouldRenderApp: " + newCodeSpace);
+      // const rendered = await renderApp({ codeSpace });
+      // Object.assign(window, { rendered });
     }
   } catch (error) {
     handleError(error);
@@ -78,39 +79,38 @@ router.load().then(async () => {
     const codeSpace = getCodeSpace(location.pathname);
 
     if (location.pathname === `/live/${codeSpace}`) {
-          try {
-            await initializeWebSocket(codeSpace);
-        } catch (error) {
-          console.error("WebSocket initialization failed:", error);
-          throw new RouterError(
-            "WebSocket initialization failed",
-            `/live/${codeSpace}/iframe`,
-          );
-        }
+      try {
+        await initializeWebSocket(codeSpace);
+      } catch (error) {
+        console.error("WebSocket initialization failed:", error);
+        throw new RouterError(
+          "WebSocket initialization failed",
+          `/live/${codeSpace}/iframe`,
+        );
       }
-          
+    }
 
-    await renderApp({App});
+    await renderApp({ App });
 
-  //    catch (error) {
-  //       console.error("WebSocket initialization failed:", error);
-  //       throw new RouterError(
-  //         "WebSocket initialization failed",
-  //         `/live/${codeSpace}/iframe`,
-  //       );
-  //     }
-  //   } else if (
-  //     location.pathname === `/live/${codeSpace}/iframe` ||
-  //     location.pathname === `/live/${codeSpace}/`
-  //   ) {
-  //     await renderApp({ codeSpace });
-  //   }
+    //    catch (error) {
+    //       console.error("WebSocket initialization failed:", error);
+    //       throw new RouterError(
+    //         "WebSocket initialization failed",
+    //         `/live/${codeSpace}/iframe`,
+    //       );
+    //     }
+    //   } else if (
+    //     location.pathname === `/live/${codeSpace}/iframe` ||
+    //     location.pathname === `/live/${codeSpace}/`
+    //   ) {
+    //     await renderApp({ codeSpace });
+    //   }
 
     // Setup router subscriptions
-    router.subscribe(
-      "onResolved",
-      (event: RouterResolvedEvent) => handleRouteResolution(codeSpace, event),
-    );
+    // router.subscribe(
+    //   "onResolved",
+    //   (event: RouterResolvedEvent) => handleRouteResolution(codeSpace, event),
+    // );
   } catch (error) {
     handleError(error);
   }

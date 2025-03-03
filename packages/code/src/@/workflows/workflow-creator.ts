@@ -1,14 +1,18 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
 import { messagesPush } from "@/lib/chat-utils";
-import type { ICode, ImageData } from "@/lib/interfaces";
 import { initialClaude } from "@/lib/initial-claude";
+import type { ICode, ImageData } from "@/lib/interfaces";
+import { createReplaceInFileTool } from "@/tools/replace-in-file";
+import { logCodeChanges, verifyCodeIntegrity } from "@/tools/utils/code-utils";
+import {
+  createCodeIntegrityError,
+  handleWorkflowError,
+  WorkflowError,
+} from "@/tools/utils/error-handlers";
 import type { AgentState } from "@/types/chat-langchain";
 import type { WorkflowContinueResult } from "@/types/workflow";
-import { logCodeChanges, verifyCodeIntegrity } from "@/tools/utils/code-utils";
-import { createCodeIntegrityError, handleWorkflowError, WorkflowError } from "@/tools/utils/error-handlers";
-import { createReplaceInFileTool } from "@/tools/replace-in-file";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { SystemMessage, HumanMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
@@ -27,8 +31,8 @@ const workflowCache: Record<string, WorkflowInvokeResult> = {};
  * Creates a workflow with string replace capability
  */
 export function createWorkflowWithStringReplace(
-  initialState: AgentState, 
-  cSess: ICode
+  initialState: AgentState,
+  cSess: ICode,
 ): WorkflowInvokeResult {
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
@@ -51,7 +55,7 @@ export function createWorkflowWithStringReplace(
     temperature: ANTHROPIC_API_CONFIG.temperature,
     maxTokens: ANTHROPIC_API_CONFIG.maxTokens,
   });
-  
+
   const modelWithTools = baseModel.bindTools(tools);
 
   // Create the graph state reducers
@@ -66,9 +70,9 @@ export function createWorkflowWithStringReplace(
   const shouldContinue = async (state: AgentState): Promise<WorkflowContinueResult> => {
     if (state.lastError) return "end";
     const lastMessage = state.messages[state.messages.length - 1];
-    return lastMessage instanceof HumanMessage || 
-           (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls) && 
-            lastMessage.tool_calls.length > 0)
+    return lastMessage instanceof HumanMessage ||
+        (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls) &&
+          lastMessage.tool_calls.length > 0)
       ? "tools"
       : "end";
   };

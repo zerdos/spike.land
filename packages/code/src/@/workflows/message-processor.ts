@@ -1,16 +1,20 @@
-import { MODEL_NAME, ANTHROPIC_API_CONFIG } from "@/config/workflow-config";
-import type { AgentState } from "@/types/chat-langchain";
+import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import { createCodeIntegrityError, WorkflowError } from "@/tools/utils/error-handlers";
-import { extractToolResponseMetadata, handleMissingCodeResponse, updateToolCallsWithCodeFlag } from "@/tools/utils/tool-response-utils";
+import {
+  extractToolResponseMetadata,
+  handleMissingCodeResponse,
+  updateToolCallsWithCodeFlag,
+} from "@/tools/utils/tool-response-utils";
+import type { AgentState } from "@/types/chat-langchain";
+import type { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { toolResponseCache } from "../../lib/caching";
 import { metrics } from "../../lib/metrics";
 import { telemetry } from "../../lib/telemetry";
-import { toolResponseCache } from "../../lib/caching";
 import { isRetryableError, withRetry } from "../../utils/retry";
 import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
 import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types";
-import type { ChatAnthropic } from "@langchain/anthropic";
-import type { ICode, ImageData } from "@/lib/interfaces";
 
 /**
  * Processes a message in the workflow
@@ -28,7 +32,7 @@ export async function processMessage(
     if (state.hash && state.code) {
       // Calculate hash with caching
       const currentHash = getHashWithCache(state.code);
-      
+
       if (state.hash !== currentHash) {
         throw createCodeIntegrityError(
           "Code integrity",
@@ -134,7 +138,7 @@ export async function processMessage(
     // Check for images in the message
     const currentHumanMessage = state.messages[state.messages.length - 1];
     if (
-      currentHumanMessage instanceof HumanMessage && 
+      currentHumanMessage instanceof HumanMessage &&
       currentHumanMessage.additional_kwargs?.images
     ) {
       const images = currentHumanMessage.additional_kwargs.images as ImageData[];
@@ -156,7 +160,7 @@ export async function processMessage(
     // This happens with our optimized replaceInFileTool that doesn't return full code
     if ((!codeWasReturned || (hash && hash !== state.hash))) {
       // Ensure hash is a string before passing to handleMissingCodeResponse
-      const hashToUse = hash || '';
+      const hashToUse = hash || "";
       // Pass cSess to handleMissingCodeResponse
       const latestCode = await handleMissingCodeResponse(hashToUse, state, cSess);
       if (latestCode) {
@@ -179,8 +183,8 @@ export async function processMessage(
     }
 
     if (
-      updatedState.code && 
-      state.code === updatedState.code && 
+      updatedState.code &&
+      state.code === updatedState.code &&
       state.code !== initialState.code
     ) {
       throw new WorkflowError("Code modification failed", {

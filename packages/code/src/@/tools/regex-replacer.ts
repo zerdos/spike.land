@@ -28,11 +28,11 @@ export const codeModificationTool = tool(
     hash,
     returnModifiedCode = false,
   }: {
-    instructions: Array<{ search: string; replace: string }>;
+    instructions: Array<{ search: string; replace: string; }>;
     hash: string;
     returnModifiedCode?: boolean;
   }): Promise<CodeModification> => {
-    const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+    const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
     const currentCode = await cSess.getCode();
     const currentHash = md5(currentCode);
 
@@ -127,18 +127,17 @@ export const codeModificationTool = tool(
         }),
       );
 
-    await cSess.setCode(modifiedCode) ;
+      await cSess.setCode(modifiedCode);
 
-     const veryNewCode = await cSess.getCode();
+      const veryNewCode = await cSess.getCode();
 
-     if (veryNewCode === currentCode) {
+      if (veryNewCode === currentCode) {
         return createErrorResponse(
           currentCode,
           "No changes detected. Code remains unchanged.",
           "noChanges",
         );
       }
-
 
       return {
         hash: md5(veryNewCode),
