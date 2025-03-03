@@ -18,9 +18,9 @@ const origin = location.origin;
 export function AppWithScreenSize(
   { AppToRender }: { AppToRender: FlexibleComponentType; },
 ) {
-  const { width, height } = useWindowSize();
+  const { width = 0, height = 0 } = useWindowSize();
 
-  return <AppToRender width={width!} height={height!} />;
+  return <AppToRender width={width} height={height} />;
 }
 
 export const importFromString = async (code: string) => {
@@ -42,20 +42,31 @@ export const importFromString = async (code: string) => {
     console.warn("File-based import failed, falling back to blob URL", error);
 
     // Fall back to blob URL approach
-    const createJsBlob = async (code: string): Promise<string> =>
-      await createObjectURL(
-        new Blob([
-          importMapReplace(code.split("importMapReplace").join(""), origin).split(
-            `from "/`,
-          ).join(
-            `from "${origin}/`,
-          ),
-        ], { type: "application/javascript" }),
+    const createJsBlob = (code: string): string => {
+      const processedCode = importMapReplace(
+        code.replace("importMapReplace", ""), 
+        origin
+      ).replace(/from "\/(?!\/)/g, `from "${origin}/`);
+      
+      return URL.createObjectURL(
+        new Blob([processedCode], { type: "application/javascript" })
       );
+    };
 
-    return import(/* @vite-ignore */ await createJsBlob(code)).then((module) =>
-      module.default
-    ) as Promise<FlexibleComponentType>;
+    let blobUrl = "";
+    try {
+      blobUrl = createJsBlob(code);
+      const module = await import(/* @vite-ignore */ blobUrl);
+      return module.default as FlexibleComponentType;
+    } catch (blobError) {
+      console.error("Blob URL import failed:", blobError);
+      throw blobError;
+    } finally {
+      // Clean up the blob URL to prevent memory leaks
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    }
   }
 };
 
@@ -99,14 +110,17 @@ async function renderApp(
       } else {
         let codeToUse = transpiled;
 
-        if (!codeToUse) {
+        if (!codeToUse && code) {
           const { transpile } = await import("@/lib/shared");
           const transpiled = await transpile({
-            code: code!,
+            code,
             originToUse: origin,
           });
 
           codeToUse = transpiled;
+        } else if (!codeToUse) {
+          console.error("No code to transpile");
+          codeToUse = "export default ()=><div>Error: No code to transpile</div>";
         }
 
         AppToRender = await importFromString(codeToUse);
@@ -137,10 +151,15 @@ async function renderApp(
     /// remove the numbers
     // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
 
+    const parentNode = rootEl.parentNode;
+    if (!parentNode) {
+      console.warn("Parent node is null, using document.body as container");
+    }
+    
     const cssCache = createCache({
       key: firstRender ? "x" : cacheKey,
       speedy: true,
-      container: rootEl.parentNode!,
+      container: parentNode || document.body,
     });
 
     firstRender = false;
@@ -179,7 +198,12 @@ async function renderApp(
 
     const renderedApp = (globalThis as GlobalWithRenderedApps).renderedApps.get(
       rootEl,
-    )!;
+    );
+
+    if (!renderedApp) {
+      console.error("Failed to retrieve rendered app from WeakMap");
+      return null;
+    }
 
     console.log("Rendered app:", renderedApp);
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -192,6 +216,3 @@ async function renderApp(
 }
 
 export { renderApp };
-function createObjectURL(blob: Blob): string {
-  return URL.createObjectURL(blob);
-}
