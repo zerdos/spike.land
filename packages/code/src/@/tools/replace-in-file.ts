@@ -5,6 +5,12 @@ import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 
+// Logger function for consistent logging format
+function log(message: string, level: 'info' | 'warn' | 'error' = 'info', data?: Record<string, unknown>): void {
+  const timestamp = new Date().toISOString();
+  console[level](`[replace-in-file][${timestamp}] ${message}`, data || '');
+}
+
 /**
  * Creates an error response with consistent format
  */
@@ -13,6 +19,7 @@ function createErrorResponse(
   errorMessage: string,
   additionalProps: Record<string, unknown> = {},
 ): CodeModification {
+  log(errorMessage, 'error', additionalProps);
   return {
     code: currentCode,
     hash: md5(currentCode),  
@@ -23,21 +30,15 @@ function createErrorResponse(
 }
 
 /**
- * Parses the diff string to extract SEARCH/REPLACE blocks
+ * Validates the diff string format
  */
-function parseDiff(diff: string): { search: string; replace: string }[] {
-  const blocks: { search: string; replace: string }[] = [];
-  const regex = /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g;
-  
-  let match;
-  while ((match = regex.exec(diff)) !== null) {
-    blocks.push({
-      search: match[1],
-      replace: match[2],
-    });
+function validateDiff(diff: string): boolean {
+  if (!diff || typeof diff !== 'string') {
+    return false;
   }
   
-  return blocks;
+  const regex = /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g;
+  return regex.test(diff);
 }
 
 export const replaceInFileTool = tool(
@@ -52,15 +53,40 @@ export const replaceInFileTool = tool(
       diff: string;
     },
   ): Promise<CodeModification> => {
+    log(`Starting replace operation for file: ${path}`, 'info', { hash: hash.substring(0, 8) });
+    
+    // Input validation
+    if (!path || typeof path !== 'string') {
+      return createErrorResponse('', 'Invalid file path provided', { path });
+    }
+    
+    if (!hash || typeof hash !== 'string') {
+      return createErrorResponse('', 'Invalid hash provided', { hash });
+    }
+    
+    if (!validateDiff(diff)) {
+      return createErrorResponse('', 'Invalid diff format. Must contain valid SEARCH/REPLACE blocks', { diffLength: diff?.length });
+    }
+    
     // Get the code session
     const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
+    if (!cSess) {
+      return createErrorResponse('', 'Code session not available', { global: !!globalThis });
+    }
     
     try {
       // Get current code from the file
+      log('Retrieving current file content');
       const currentCode = await cSess.getCode();
+      
+      if (!currentCode) {
+        return createErrorResponse('', 'Failed to retrieve file content or file is empty');
+      }
       
       // Verify document hash to ensure code integrity
       const currentHash = md5(currentCode);
+      log('Verifying file hash integrity');
+      
       if (hash !== currentHash) {
         return createErrorResponse(
           currentCode,
@@ -72,38 +98,9 @@ export const replaceInFileTool = tool(
         );
       }
       
-      // Parse the diff to extract SEARCH/REPLACE blocks
-      // const blocks = parseDiff(diff);
-      
-      // if (blocks.length === 0) {
-      //   return createErrorResponse(
-      //     currentCode,
-      //     "No valid SEARCH/REPLACE blocks found in the diff. Please check the format.",
-      //   );
-      // }
-      
-      // Apply each SEARCH/REPLACE block sequentially
+      // Apply the search/replace operations
+      log('Applying search/replace operations');
       let modifiedCode = updateSearchReplace(diff, currentCode);
-      // const failedBlocks: number[] = [];
-      
-      // // for (let i = 0; i < blocks.length; i++) {
-      //   const { search, replace } = blocks[i];
-        
-      //   // Skip empty search patterns
-      //   if (!search.trim()) {
-      //     failedBlocks.push(i);
-      //     continue;
-      //   }
-        
-      //   // Apply the replacement
-      //   const beforeReplace = modifiedCode;
-      //   modifiedCode = modifiedCode.replace(search, replace);
-        
-      //   // Check if replacement was successful
-      //   if (modifiedCode === beforeReplace && search.trim() !== "") {
-      //     failedBlocks.push(i);
-      //   }
-      // }
       
       // If no changes were made, return an error
       if (modifiedCode === currentCode) {
@@ -112,6 +109,8 @@ export const replaceInFileTool = tool(
           `No changes were made to the file. Please check the SEARCH/REPLACE blocks.`,
         );
       }
+      
+      log('Changes detected, updating file');
       
       // Set the modified code
       const success = await cSess.setCode(modifiedCode);
@@ -123,19 +122,39 @@ export const replaceInFileTool = tool(
         );
       }
       
+      const newHash = md5(modifiedCode);
+      log('File successfully updated', 'info', { 
+        oldHash: currentHash.substring(0, 8), 
+        newHash: newHash.substring(0, 8) 
+      });
+      
       // Return success response
       return {
-        hash: md5(modifiedCode),
+        hash: newHash,
         code: modifiedCode,
         error: "",
       };
     } catch (error) {
-      const currentCode = await cSess.getCode();
+      log('Unexpected error occurred', 'error', { 
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined 
+      });
+      
+      let currentCode = '';
+      try {
+        currentCode = await cSess.getCode();
+      } catch (getCodeError) {
+        log('Failed to retrieve code after error', 'error', { 
+          error: getCodeError instanceof Error ? getCodeError.message : 'Unknown error' 
+        });
+      }
+      
       // Handle any unexpected errors
       return createErrorResponse(
-
-         currentCode,
-        error instanceof Error ? error.message : "Unknown error in file replacement",
+        currentCode,
+        error instanceof Error 
+          ? `Error in file replacement: ${error.message}` 
+          : "Unknown error in file replacement",
         { stack: error instanceof Error ? error.stack : undefined },
       );
     }
