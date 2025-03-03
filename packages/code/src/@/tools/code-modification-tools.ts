@@ -81,6 +81,7 @@ export const codeModificationTool = tool(
 
       // Set code and handle errors
       await cSess.setCode(modifiedCode);
+      await cSess.addMessageChunk(instructions);
 
       return {
         hash: md5(modifiedCode),
