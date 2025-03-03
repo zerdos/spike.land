@@ -4,6 +4,7 @@ import { ICode, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
+import { tr } from "date-fns/locale";
 import { z } from "zod";
 
 function createErrorResponse(
@@ -126,11 +127,22 @@ export const codeModificationTool = tool(
         }),
       );
 
-      await cSess.setCode(modifiedCode);
+    await cSess.setCode(modifiedCode) ;
+
+     const veryNewCode = await cSess.getCode();
+
+     if (veryNewCode === currentCode) {
+        return createErrorResponse(
+          currentCode,
+          "No changes detected. Code remains unchanged.",
+          "noChanges",
+        );
+      }
+
 
       return {
-        documentHash: md5(modifiedCode),
-        code: returnModifiedCode ? modifiedCode : undefined,
+        documentHash: md5(veryNewCode),
+        code: returnModifiedCode ? veryNewCode : undefined,
       };
     } catch (error) {
       return createErrorResponse(
