@@ -40,7 +40,7 @@ export function messagesPush(
     messagesCopy[messagesCopy.length - 1] = {
       ...lastMessage,
       id: newMessage.id,
-      content: lastMessage.content as string + newMessage.content as string,
+      content: (newMessage.content as string).startsWith(lastMessage.content as string) ? newMessage.content as string : lastMessage.content as string + newMessage.content as string,
     };
     return messagesCopy;
   }

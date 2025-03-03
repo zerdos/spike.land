@@ -24,21 +24,20 @@ class SessionPatcher {
     return md5(JSON.stringify(hashObj));
   }
 
-  public static sanitizeSession(p: ICodeSession): ICodeSession {
-    const session = p as ICodeSession;
-    SessionPatcher.validateSession(session);
+  public static sanitizeSession(p: Partial<ICodeSession>): ICodeSession {
+    SessionPatcher.validateSession(p);
 
     return {
-      codeSpace: session.codeSpace || "",
-      code: session.code || "",
-      html: session.html || "",
-      css: session.css || "",
-      transpiled: session.transpiled || "",
-      ...(session.messages && { messages: JSON.parse(JSON.stringify(session.messages)) }),
+      codeSpace: p.codeSpace || "",
+      code: p.code || "",
+      html: p.html || "",
+      css: p.css || "",
+      transpiled: p.transpiled || "",
+      messages: p.messages ? JSON.parse(JSON.stringify(p.messages)) : [],
     };
   }
 
-  public static validateSession(cx: ICodeSession): void {
+  public static validateSession(cx: Partial<ICodeSession>): void {
     if (!cx.codeSpace || !cx.code || cx.messages === undefined) {
       throw new Error("Invalid session object - missing required fields" + JSON.stringify(cx));
     }

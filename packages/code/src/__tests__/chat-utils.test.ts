@@ -45,14 +45,32 @@ describe("messagesPush", () => {
     ];
     const newMessage: Message = {
       role: "assistant",
-      content: "updated",
+      content: "Updated",
       id: "5",
     };
 
     const result = messagesPush(messages, newMessage);
 
     expect(result).toHaveLength(2);
-    expect(result[1].content).toBe("updated");
+    expect(result[1].content).toBe("secondUpdated");
+    expect(result[1].id).toBe("5");
+  });
+
+  it("should not merge if the first is prefix of the second", () => {
+    const messages: Message[] = [
+      { role: "user", content: "first", id: "1" },
+      { role: "assistant", content: "second", id: "2" },
+    ];
+    const newMessage: Message = {
+      role: "assistant",
+      content: "second item",
+      id: "5",
+    };
+
+    const result = messagesPush(messages, newMessage);
+
+    expect(result).toHaveLength(2);
+    expect(result[1].content).toBe("second item");
     expect(result[1].id).toBe("5");
   });
 

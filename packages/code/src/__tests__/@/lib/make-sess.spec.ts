@@ -27,7 +27,7 @@ describe("Session Management", () => {
       css: "",
       transpiled: "",
       messages: [],
-    };
+    } as Partial<ICodeSession>;
     const result = sanitizeSession(input);
     expect(result).toMatchInlineSnapshot(`
       {
@@ -43,7 +43,7 @@ describe("Session Management", () => {
 
   test("should convert session to JSON with default values", () => {
     const input: ICodeSession = {
-      codeSpace: "",
+      codeSpace: "test",
       code: "test",
       html: "",
       css: "",
@@ -55,7 +55,7 @@ describe("Session Management", () => {
     const parsed = JSON.parse(result);
 
     expect(parsed).toEqual({
-      codeSpace: "",
+      codeSpace: "test",
       code: "test",
       html: "",
       css: "",
