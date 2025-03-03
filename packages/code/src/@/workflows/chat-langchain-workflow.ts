@@ -21,7 +21,7 @@ import {
   updateToolCallsWithCodeFlag,
 } from "@/utils/tool-response-utils";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
@@ -82,7 +82,7 @@ export const handleSendMessage = async (
     lastError: "",
     isStreaming: false,
     messages: [],
-    hash: md5(code),
+    hash: getHashWithCache(code),
   }, cSess);
 
   mod[codeSpace] = workflow;
@@ -90,6 +90,80 @@ export const handleSendMessage = async (
   const finalState = await workflow.invoke(prompt);
 
   console.log("Final workflow state:", finalState);
+};
+
+/**
+ * Attempts to extract code from a JSON string
+ * @param jsonString The JSON string to parse
+ * @returns The extracted code string or null if not found/invalid
+ */
+const tryExtractCodeFromJson = (jsonString: string): string | null => {
+  try {
+    const content = JSON.parse(jsonString);
+    // Check if content has code property with string value
+    if (content?.code && typeof content.code === "string") {
+      return content.code;
+    }
+    // If no code but has hash, return null to keep previous code
+    if (!content?.code && content?.hash) {
+      return null;
+    }
+  } catch (e) {
+    // Silently fail on JSON parse errors
+  }
+  return null;
+};
+
+/**
+ * Determines whether to return modified code based on tool calls
+ * @param toolCalls The tool calls to analyze
+ * @param code The current code
+ * @returns Whether to return modified code
+ */
+const determineReturnModifiedCode = (
+  toolCalls: Array<{ name: string; args?: unknown }>,
+  code: string
+): boolean => {
+  for (const toolCall of toolCalls) {
+    if (toolCall.name === "code_modification" && toolCall.args) {
+      try {
+        const args = typeof toolCall.args === "string"
+          ? JSON.parse(toolCall.args)
+          : toolCall.args;
+
+        if (args.instructions) {
+          return shouldReturnFullCode(args.instructions, code);
+        }
+      } catch (e) {
+        console.warn("Failed to parse tool call args", e);
+      }
+    }
+  }
+  return DEFAULT_RETURN_MODIFIED_CODE;
+};
+
+/**
+ * Gets a hash for the given code, using cache when available
+ * @param code The code to hash
+ * @param operationName Optional name for metrics recording
+ * @returns The calculated or cached hash
+ */
+const getHashWithCache = (code: string, operationName = "hash.calculation"): string => {
+  const cacheKey = code;
+  const cachedHash = hashCache.get(cacheKey);
+  
+  if (cachedHash) {
+    metrics.recordOperation("hash.cache.hit", 0);
+    return cachedHash;
+  }
+  
+  const hashStart = performance.now();
+  const hash = md5(code);
+  const hashDuration = performance.now() - hashStart;
+  metrics.recordOperation(operationName, hashDuration);
+  hashCache.set(cacheKey, hash);
+  
+  return hash;
 };
 
 export const createWorkflowWithStringReplace = (initialState: AgentState, cSess: ICode) => {
@@ -127,30 +201,27 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     code: {
       reducer: (prev: string, next: unknown) => {
         try {
+          // Direct string return
           if (typeof next === "string") return next;
-
+          
+          // Handle object types
           if (typeof next === "object" && next !== null) {
+            // Try to extract code from content field (JSON string)
             if ("content" in next && typeof next.content === "string") {
-              try {
-                const content = JSON.parse(next.content);
-                if (content?.code && typeof content.code === "string") {
-                  return content.code;
-                }
-                if (!content?.code && content?.hash) return prev;
-              } catch (e) {
-                // Continue if parsing fails
-              }
+              const extractedCode = tryExtractCodeFromJson(next.content);
+              if (extractedCode) return extractedCode;
             }
-
+            
+            // Direct code field
             if ("code" in next && typeof next.code === "string") {
               return next.code;
             }
-
-            if (!("code" in next)) {
-              if ("hash" in next) return prev;
-            }
+            
+            // If only hash is present, keep previous code
+            if (!("code" in next) && "hash" in next) return prev;
           }
-
+          
+          // Default: keep previous code
           return prev;
         } catch (error) {
           console.error("Code reduction error:", error);
@@ -160,12 +231,30 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     },
     lastError: {
       reducer: (prev: string, next: unknown) => {
-        if (typeof next === "string") return next;
-        if (typeof next === "object" && next !== null && "error" in next) {
-          const err = (next as { error?: unknown; }).error;
-          return typeof err === "string" ? err : String(err);
+        try {
+          // Direct string errors
+          if (typeof next === "string") return next;
+          
+          // Object with error property
+          if (typeof next === "object" && next !== null) {
+            if ("error" in next) {
+              const err = next.error;
+              // Handle different error types
+              if (typeof err === "string") return err;
+              if (err instanceof Error) return err.message;
+              return String(err);
+            }
+            
+            // Try to extract message from Error objects
+            if (next instanceof Error) return next.message;
+          }
+          
+          // Default: keep previous error or convert to string
+          return prev;
+        } catch (e) {
+          console.error("Error in lastError reducer:", e);
+          return prev;
         }
-        return prev;
       },
     },
     isStreaming: {
@@ -187,6 +276,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
   const model = new ChatAnthropic({
     model: MODEL_NAME,
+    cache: true,
     anthropicApiKey: ANTHROPIC_API_CONFIG.apiKey,
     streaming: ANTHROPIC_API_CONFIG.streaming,
     anthropicApiUrl: ANTHROPIC_API_CONFIG.getApiUrl(initialState.origin),
@@ -200,22 +290,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     const start = performance.now();
     try {
       if (state.hash && state.code) {
-        // Use cached hash if available
-        let currentHash: string;
-        const cacheKey = state.code;
-
-        const cachedHash = hashCache.get(cacheKey);
-        if (cachedHash) {
-          currentHash = cachedHash;
-          metrics.recordOperation("hash.cache.hit", 0);
-        } else {
-          const hashStart = performance.now();
-          currentHash = md5(state.code);
-          const hashDuration = performance.now() - hashStart;
-          metrics.recordOperation("hash.calculation", hashDuration);
-          hashCache.set(cacheKey, currentHash);
-        }
-
+        // Calculate hash with caching
+        const currentHash = getHashWithCache(state.code);
+        
         if (state.hash !== currentHash) {
           throw createCodeIntegrityError(
             "Code integrity",
@@ -241,22 +318,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
       }
 
       if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
-        for (const toolCall of lastMessage.tool_calls) {
-          if (toolCall.name === "code_modification" && toolCall.args) {
-            try {
-              const args = typeof toolCall.args === "string"
-                ? JSON.parse(toolCall.args)
-                : toolCall.args;
-
-              if (args.instructions) {
-                returnModifiedCode = shouldReturnFullCode(args.instructions, state.code);
-                break;
-              }
-            } catch (e) {
-              console.warn("Failed to parse tool call args", e);
-            }
-          }
-        }
+        returnModifiedCode = determineReturnModifiedCode(lastMessage.tool_calls, state.code);
       }
 
       if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
@@ -367,19 +429,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
       }
 
       if (state.code !== updatedState.code && updatedState.code && !hash) {
-        // Use cached hash if available for the updated code
-        const updatedCodeKey = updatedState.code;
-        const cachedUpdatedHash = hashCache.get(updatedCodeKey);
-
-        if (cachedUpdatedHash) {
-          updatedState.hash = cachedUpdatedHash;
-        } else {
-          const hashStart = performance.now();
-          updatedState.hash = md5(updatedState.code);
-          const hashDuration = performance.now() - hashStart;
-          metrics.recordOperation("hash.calculation", hashDuration);
-          hashCache.set(updatedCodeKey, updatedState.hash);
-        }
+        // Calculate hash with caching for updated code
+        updatedState.hash = getHashWithCache(updatedState.code);
       }
 
       if (
@@ -428,17 +479,15 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
   };
 
   // Ensure the shouldContinue function is compatible with StateGraph
-  const shouldContinue = async (state: any): Promise<WorkflowContinueResult> => {
-    // Cast state to AgentState for type safety within the function
-    const agentState = state as AgentState;
-    if (agentState.lastError) return "end";
-    const lastMessage = agentState.messages[agentState.messages.length - 1];
+  const shouldContinue = async (state: AgentState): Promise<WorkflowContinueResult> => {
+    if (state.lastError) return "end";
+    const lastMessage = state.messages[state.messages.length - 1];
     return lastMessage instanceof AIMessage && lastMessage.tool_calls?.length
       ? "tools"
       : "end";
   };
 
-  // Use type assertion to bypass TypeScript type checking for StateGraph initialization
+  // Use type assertion for StateGraph initialization as it expects a specific structure
   const workflow = new StateGraph({ channels: graphState } as any)
     .addNode("process", processMessage)
     .addNode("tools", toolNode)
@@ -462,7 +511,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         await cSess.setMessages(messagesPush(messages, userMessageToSave));
 
         const systemMessage = new SystemMessage(initialClaude);
-        const hash = md5(initialState.code);
+        const hash = getHashWithCache(initialState.code);
         const { codeSpace } = initialState;
         const code = initialState.code;
 
@@ -513,17 +562,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         });
 
         if (finalState.code !== initialState.code) {
-          // Use cached hash if available
-          let finalhash: string;
-          const finalCodeKey = finalState.code;
-
-          const cachedFinalHash = hashCache.get(finalCodeKey);
-          if (cachedFinalHash) {
-            finalhash = cachedFinalHash;
-          } else {
-            finalhash = md5(finalState.code);
-            hashCache.set(finalCodeKey, finalhash);
-          }
+          // Calculate hash with caching for final code
+          const finalhash = getHashWithCache(finalState.code);
 
           if (!verifyCodeIntegrity(finalState.code, finalhash)) {
             throw createCodeIntegrityError(
