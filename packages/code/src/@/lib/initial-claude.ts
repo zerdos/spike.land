@@ -1,3 +1,5 @@
+
+import {SEARCH_REPLACE_MARKERS} from '@/lib/chat-utils';
 export const initialClaude = `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions. The code to modify is already provided in the <code></code> tags below. You do not need to ask for the code - it is already available and you should analyze and modify it directly.
 
 The code you will be working with:
@@ -136,13 +138,13 @@ Parameters:
 - path: (required) The path of the file to modify (e.g. /live/code.tsx'))
 - hash: (required) The hash of the file to modify (e.g. ab3c44d1)
 - diff: (required) One or more SEARCH/REPLACE blocks following this exact format:
-  \`\`\`
-  <<<<<<< SEARCH
+
+${SEARCH_REPLACE_MARKERS.SEARCH_START}
   [exact content to find]
-  =======
+${SEARCH_REPLACE_MARKERS.SEPARATOR}
   [new content to replace with]
-  >>>>>>> REPLACE
-  \`\`\`
+${SEARCH_REPLACE_MARKERS.REPLACE_END}
+
   Critical rules:
   1. SEARCH content must match the associated file section to find EXACTLY:
      * Match character-for-character including whitespace, indentation, line endings

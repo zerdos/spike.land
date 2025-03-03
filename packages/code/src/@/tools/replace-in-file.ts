@@ -15,9 +15,9 @@ function createErrorResponse(
 ): CodeModification {
   return {
     code: currentCode,
+    hash: md5(currentCode),  
     error: errorMessage,
     currentFileContent: currentCode,
-    hash: md5(currentCode),
     ...additionalProps,
   };
 }
@@ -73,43 +73,43 @@ export const replaceInFileTool = tool(
       }
       
       // Parse the diff to extract SEARCH/REPLACE blocks
-      const blocks = parseDiff(diff);
+      // const blocks = parseDiff(diff);
       
-      if (blocks.length === 0) {
-        return createErrorResponse(
-          currentCode,
-          "No valid SEARCH/REPLACE blocks found in the diff. Please check the format.",
-        );
-      }
+      // if (blocks.length === 0) {
+      //   return createErrorResponse(
+      //     currentCode,
+      //     "No valid SEARCH/REPLACE blocks found in the diff. Please check the format.",
+      //   );
+      // }
       
       // Apply each SEARCH/REPLACE block sequentially
-      let modifiedCode = currentCode;
-      const failedBlocks: number[] = [];
+      let modifiedCode = updateSearchReplace(diff, currentCode);
+      // const failedBlocks: number[] = [];
       
-      for (let i = 0; i < blocks.length; i++) {
-        const { search, replace } = blocks[i];
+      // // for (let i = 0; i < blocks.length; i++) {
+      //   const { search, replace } = blocks[i];
         
-        // Skip empty search patterns
-        if (!search.trim()) {
-          failedBlocks.push(i);
-          continue;
-        }
+      //   // Skip empty search patterns
+      //   if (!search.trim()) {
+      //     failedBlocks.push(i);
+      //     continue;
+      //   }
         
-        // Apply the replacement
-        const beforeReplace = modifiedCode;
-        modifiedCode = modifiedCode.replace(search, replace);
+      //   // Apply the replacement
+      //   const beforeReplace = modifiedCode;
+      //   modifiedCode = modifiedCode.replace(search, replace);
         
-        // Check if replacement was successful
-        if (modifiedCode === beforeReplace && search.trim() !== "") {
-          failedBlocks.push(i);
-        }
-      }
+      //   // Check if replacement was successful
+      //   if (modifiedCode === beforeReplace && search.trim() !== "") {
+      //     failedBlocks.push(i);
+      //   }
+      // }
       
       // If no changes were made, return an error
       if (modifiedCode === currentCode) {
         return createErrorResponse(
           currentCode,
-          `No changes were made. ${failedBlocks.length > 0 ? `Failed blocks: ${failedBlocks.map(i => i + 1).join(", ")}` : "Search patterns not found in the file."}`,
+          `No changes were made to the file. Please check the SEARCH/REPLACE blocks.`,
         );
       }
       
@@ -130,9 +130,11 @@ export const replaceInFileTool = tool(
         error: "",
       };
     } catch (error) {
+      const currentCode = await cSess.getCode();
       // Handle any unexpected errors
       return createErrorResponse(
-        await cSess.getCode(),
+
+         currentCode,
         error instanceof Error ? error.message : "Unknown error in file replacement",
         { stack: error instanceof Error ? error.stack : undefined },
       );
