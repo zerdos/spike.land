@@ -79,15 +79,15 @@ export const calculateCodeChanges = (original: string, modified: string): CodeCh
 export const logCodeChanges = (initialCode: string, finalCode: string): void => {
   if (initialCode === finalCode) return;
 
-  const initialHash = md5(initialCode);
+  const hash = md5(initialCode);
   const finalHash = md5(finalCode);
   const changes = calculateCodeChanges(initialCode, finalCode);
 
   console.log("Code modified successfully", {
     changes,
-    initialHash,
+    hash,
     finalHash,
-    hashChanged: initialHash !== finalHash,
+    hashChanged: hash !== finalHash,
   });
 
   if (

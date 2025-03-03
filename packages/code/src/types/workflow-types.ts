@@ -6,7 +6,7 @@ export interface AgentState {
   origin: string;
   codeSpace: string;
   lastError?: string;
-  documentHash?: string;
+  hash?: string;
   filePath?: string;
   isStreaming?: boolean;
 }
@@ -32,7 +32,7 @@ export interface WorkflowChannels {
   code: { reducer: (prev: string, next: unknown) => string; };
   lastError: { reducer: (prev: string, next: unknown) => string; };
   isStreaming: { reducer: (prev: boolean, next: boolean) => boolean; };
-  documentHash: { reducer: (prev: string | undefined, next: string) => string; };
+  hash: { reducer: (prev: string | undefined, next: string) => string; };
   filePath: {
     reducer: (prev: string | undefined, next: string | undefined) => string | undefined;
   };

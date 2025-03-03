@@ -34,7 +34,7 @@ describe("chat-langchain-workflow", () => {
     codeSpace: "",
     lastError: "",
     isStreaming: false,
-    documentHash: md5("function test() {}"),
+    hash: md5("function test() {}"),
   };
 
   beforeEach(() => {
@@ -88,7 +88,7 @@ describe("chat-langchain-workflow", () => {
           {
             name: "code_modification",
             content: JSON.stringify({
-              documentHash: "new-hash",
+              hash: "new-hash",
               code: "function modified() {}",
             }),
           },
@@ -112,20 +112,20 @@ describe("chat-langchain-workflow", () => {
 
       expect(result).toBeDefined();
       expect(result.messages).toContainEqual(mockToolResponse);
-      expect(result.documentHash).toBeDefined();
+      expect(result.hash).toBeDefined();
     });
 
     it("should handle code integrity verification", async () => {
       const initialState = {
         ...mockInitialState,
         code: "function original() {}",
-        documentHash: md5("function original() {}"),
+        hash: md5("function original() {}"),
       };
 
       const workflow = createWorkflowWithStringReplace(initialState, mockSession);
       const result = await workflow.invoke("Verify code integrity");
 
-      expect(result.documentHash).toBeDefined();
+      expect(result.hash).toBeDefined();
       expect(console.error).not.toHaveBeenCalled();
     });
 
@@ -137,7 +137,7 @@ describe("chat-langchain-workflow", () => {
             {
               name: "code_modification",
               content: JSON.stringify({
-                documentHash: "error-hash",
+                hash: "error-hash",
                 error: "failed to compile: syntax error",
               }),
             },
@@ -166,7 +166,7 @@ describe("chat-langchain-workflow", () => {
       const initialState = {
         ...mockInitialState,
         code: largeCode,
-        documentHash: md5(largeCode),
+        hash: md5(largeCode),
       };
 
       const workflow = createWorkflowWithStringReplace(initialState, mockSession);
@@ -187,7 +187,7 @@ describe("chat-langchain-workflow", () => {
             {
               name: "code_modification",
               content: JSON.stringify({
-                documentHash: "new-hash",
+                hash: "new-hash",
               }),
             },
           ],
@@ -206,7 +206,7 @@ describe("chat-langchain-workflow", () => {
       const result = await workflow.invoke("Get code from session");
 
       expect(result).toBeDefined();
-      expect(result.documentHash).toBe("new-hash");
+      expect(result.hash).toBe("new-hash");
 
       delete (globalThis as any).cSess;
     });
@@ -239,7 +239,7 @@ describe("chat-langchain-workflow", () => {
       const corruptedState = {
         ...mockInitialState,
         code: "corrupted code",
-        documentHash: md5("original code"),
+        hash: md5("original code"),
         messages: [new SystemMessage("Test")],
       };
 

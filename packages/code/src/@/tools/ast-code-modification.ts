@@ -32,7 +32,7 @@ function createErrorResponse(
     code: currentCode,
     error: errorMessage,
     currentFileContent: currentCode,
-    documentHash: md5(currentCode),
+    hash: md5(currentCode),
     ...additionalProps,
   };
 }
@@ -184,11 +184,11 @@ export const astCodeModificationTool = tool(
   async (
     {
       operations,
-      documentHash,
+      hash,
       filePath,
     }: {
       operations: ModificationOperation[];
-      documentHash: string;
+      hash: string;
       filePath: string;
     },
   ): Promise<CodeModification> => {
@@ -198,15 +198,15 @@ export const astCodeModificationTool = tool(
     }).cSess.getCode();
 
     // Verify document hash to ensure code integrity
-    if (documentHash && typeof documentHash === "string") {
+    if (hash && typeof hash === "string") {
       const currentHash = md5(currentCode);
-      if (documentHash !== currentHash) {
+      if (hash !== currentHash) {
         return createErrorResponse(
           currentCode,
           "Document has been modified since last hash. Please try again with the latest version.",
           {
             currentFileContent: currentCode,
-            documentHash: currentHash,
+            hash: currentHash,
           },
         );
       }
@@ -268,12 +268,12 @@ export const astCodeModificationTool = tool(
       }
 
       // Calculate the new document hash
-      const newDocumentHash = md5(modifiedCode);
+      const newhash = md5(modifiedCode);
 
       // Return success response with the new hash
       return {
         error: "",
-        documentHash: newDocumentHash,
+        hash: newhash,
         code: modifiedCode,
       };
     } catch (error) {
@@ -348,7 +348,7 @@ Examples:
         position: z.enum(["before", "after", "replace", "inside"]).optional(),
         newTarget: z.string().optional(),
       })).describe("List of operations to perform on the code"),
-      documentHash: z.string().describe(
+      hash: z.string().describe(
         "MD5 hash of the document being modified. The tool will verify that the document hasn't been modified since the hash was generated.",
       ),
       filePath: z.string().describe(

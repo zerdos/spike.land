@@ -7,7 +7,6 @@ import { messagesPush } from "@/lib/chat-utils";
 import { HandleSendMessageProps, ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { codeModificationTool } from "@/tools/code-modification-tools";
 import { AgentState } from "@/types/chat-langchain";
 import { WorkflowContinueResult } from "@/types/workflow";
 import { logCodeChanges, shouldReturnFullCode, verifyCodeIntegrity } from "@/utils/code-utils";
@@ -27,11 +26,12 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import anthropicSystem from "../../config/initial-claude.txt";
 import { hashCache, toolResponseCache } from "../../lib/caching";
 import { metrics } from "../../lib/metrics";
 import { telemetry } from "../../lib/telemetry";
 import { isRetryableError, withRetry } from "../../utils/retry";
+import { initialClaude } from "@/lib/initial-claude";
+import { replaceInFileTool } from "@/tools/replace-in-file";
 
 const mod: {
   [codeSpace: string]: ReturnType<typeof createWorkflowWithStringReplace>;
@@ -82,7 +82,7 @@ export const handleSendMessage = async (
     lastError: "",
     isStreaming: false,
     messages: [],
-    documentHash: md5(code),
+    hash: md5(code),
   }, cSess);
 
   mod[codeSpace] = workflow;
@@ -107,7 +107,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
   // Define the tool response metadata interface locally
   interface ToolResponseMetadata {
-    documentHash?: string;
+    hash?: string;
     modifiedCodeHash?: string;
     compilationError?: string | boolean;
     codeWasReturned: boolean;
@@ -136,7 +136,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
                 if (content?.code && typeof content.code === "string") {
                   return content.code;
                 }
-                if (!content?.code && content?.documentHash) return prev;
+                if (!content?.code && content?.hash) return prev;
               } catch (e) {
                 // Continue if parsing fails
               }
@@ -147,7 +147,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
             }
 
             if (!("code" in next)) {
-              if ("documentHash" in next) return prev;
+              if ("hash" in next) return prev;
             }
           }
 
@@ -174,7 +174,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     debugLogs: {
       reducer: (prev: string[], next: string[]) => [...prev, ...next],
     },
-    documentHash: {
+    hash: {
       reducer: (_prev: string | undefined, next: string) => next,
     },
     filePath: {
@@ -182,7 +182,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     },
   };
 
-  const tools = [codeModificationTool];
+  const tools = [replaceInFileTool];
   const toolNode = new ToolNode(tools);
 
   const model = new ChatAnthropic({
@@ -199,7 +199,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
     telemetry.startTimer("processMessage");
     const start = performance.now();
     try {
-      if (state.documentHash && state.code) {
+      if (state.hash && state.code) {
         // Use cached hash if available
         let currentHash: string;
         const cacheKey = state.code;
@@ -216,10 +216,10 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
           hashCache.set(cacheKey, currentHash);
         }
 
-        if (state.documentHash !== currentHash) {
+        if (state.hash !== currentHash) {
           throw createCodeIntegrityError(
             "Code integrity",
-            state.documentHash,
+            state.hash,
             currentHash,
             state.code.length,
           );
@@ -306,7 +306,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
       let metadata: ToolResponseMetadata;
       const cachedResponse = toolResponseCache.get(responseKey);
 
-      if (cachedResponse && "documentHash" in cachedResponse) {
+      if (cachedResponse && "hash" in cachedResponse) {
         metadata = cachedResponse as ToolResponseMetadata;
         metrics.recordOperation("toolResponse.cache.hit", 0);
       } else {
@@ -317,20 +317,20 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
         // Cache the result with proper type conversion
         toolResponseCache.set(responseKey, {
-          documentHash: metadata.documentHash,
+          hash: metadata.hash,
           modifiedCodeHash: metadata.modifiedCodeHash,
           compilationError: !!metadata.compilationError,
           codeWasReturned: metadata.codeWasReturned,
         });
       }
 
-      const { documentHash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
+      const { hash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
 
       const updatedState = {
         ...cleanedState,
         messages: [response],
         isStreaming: true,
-        documentHash,
+        hash,
       };
 
       // Check for images in the message
@@ -354,8 +354,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         await cSess.setMessages(messagesPush(cSess.getMessages(), aiMessageForChat));
       }
 
-      if (!codeWasReturned && documentHash && documentHash !== state.documentHash) {
-        const latestCode = await handleMissingCodeResponse(documentHash, state);
+      if (!codeWasReturned && hash && hash !== state.hash) {
+        const latestCode = await handleMissingCodeResponse(hash, state);
         if (latestCode) {
           updatedState.code = latestCode;
         }
@@ -366,19 +366,19 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         throw new WorkflowError("failed to compile: syntax error");
       }
 
-      if (state.code !== updatedState.code && updatedState.code && !documentHash) {
+      if (state.code !== updatedState.code && updatedState.code && !hash) {
         // Use cached hash if available for the updated code
         const updatedCodeKey = updatedState.code;
         const cachedUpdatedHash = hashCache.get(updatedCodeKey);
 
         if (cachedUpdatedHash) {
-          updatedState.documentHash = cachedUpdatedHash;
+          updatedState.hash = cachedUpdatedHash;
         } else {
           const hashStart = performance.now();
-          updatedState.documentHash = md5(updatedState.code);
+          updatedState.hash = md5(updatedState.code);
           const hashDuration = performance.now() - hashStart;
           metrics.recordOperation("hash.calculation", hashDuration);
-          hashCache.set(updatedCodeKey, updatedState.documentHash);
+          hashCache.set(updatedCodeKey, updatedState.hash);
         }
       }
 
@@ -405,7 +405,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         error,
         state: {
           codeLength: state.code?.length,
-          documentHash: state.documentHash,
+          hash: state.hash,
           hasMessages: state.messages?.length > 0,
         },
       };
@@ -461,8 +461,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
         await cSess.setMessages(messagesPush(messages, userMessageToSave));
 
-        const systemMessage = new SystemMessage(anthropicSystem);
-        const initialDocumentHash = md5(initialState.code);
+        const systemMessage = new SystemMessage(initialClaude);
+        const hash = md5(initialState.code);
         const { codeSpace } = initialState;
         const code = initialState.code;
 
@@ -470,12 +470,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
         const userMessage = new HumanMessage(
           {
             content: prompt + `
-          <filePath>/live/${codeSpace}.tsx</filePath>
-          <code>${code}</code>
-          <documentHash>${initialDocumentHash}</documentHash>`,
+<path>/live/${codeSpace}.tsx</path>
+<code>${code}</code>
+<hash>${hash}</hash>
+`,
             additional_kwargs: {
+              path: `/live/${codeSpace}.tsx`,
               code: initialState.code,
-              documentHash: initialDocumentHash,
+              hash: hash,
             },
           },
         );
@@ -512,27 +514,27 @@ export const createWorkflowWithStringReplace = (initialState: AgentState, cSess:
 
         if (finalState.code !== initialState.code) {
           // Use cached hash if available
-          let finalDocumentHash: string;
+          let finalhash: string;
           const finalCodeKey = finalState.code;
 
           const cachedFinalHash = hashCache.get(finalCodeKey);
           if (cachedFinalHash) {
-            finalDocumentHash = cachedFinalHash;
+            finalhash = cachedFinalHash;
           } else {
-            finalDocumentHash = md5(finalState.code);
-            hashCache.set(finalCodeKey, finalDocumentHash);
+            finalhash = md5(finalState.code);
+            hashCache.set(finalCodeKey, finalhash);
           }
 
-          if (!verifyCodeIntegrity(finalState.code, finalDocumentHash)) {
+          if (!verifyCodeIntegrity(finalState.code, finalhash)) {
             throw createCodeIntegrityError(
               "Code integrity",
-              initialState.documentHash,
-              finalDocumentHash,
+              initialState.hash,
+              finalhash,
               finalState.code.length,
             );
           }
 
-          finalState.documentHash = finalDocumentHash;
+          finalState.hash = finalhash;
 
           // Track code modification
           telemetry.trackCodeModification("update", {

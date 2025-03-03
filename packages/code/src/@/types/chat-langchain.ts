@@ -8,7 +8,7 @@ export interface AgentState {
   lastError: string;
   isStreaming: boolean;
   returnModifiedCode?: boolean;
-  documentHash: string; // Hash of the code for integrity verification
+  hash: string; // Hash of the code for integrity verification
   filePath?: string; // Path to the file being modified, used for AST parsing
 }
 
@@ -20,5 +20,5 @@ export type CodeModification = string | {
   searchContent?: string;
   blockNumber?: number;
   totalBlocks?: number;
-  documentHash: string;
+  hash: string;
 };

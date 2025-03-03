@@ -17,7 +17,7 @@ function createErrorResponse(
     code: currentCode,
     error: errorMessage,
     currentFileContent: currentCode,
-    documentHash: md5(currentCode),
+    hash: md5(currentCode),
     ...additionalProps,
   };
 }
@@ -25,11 +25,11 @@ function createErrorResponse(
 export const codeModificationTool = tool(
   async ({
     instructions,
-    documentHash,
+    hash,
     returnModifiedCode = false,
   }: {
     instructions: Array<{ search: string; replace: string }>;
-    documentHash: string;
+    hash: string;
     returnModifiedCode?: boolean;
   }): Promise<CodeModification> => {
     const cSess = (globalThis as unknown as { cSess: ICode }).cSess;
@@ -37,11 +37,11 @@ export const codeModificationTool = tool(
     const currentHash = md5(currentCode);
 
     try {
-      if (documentHash !== currentHash) {
+      if (hash !== currentHash) {
         return createErrorResponse(
           currentCode,
           "Document hash mismatch. Code has been modified outside this session.",
-          "documentHash",
+          "hash",
           { currentHash },
         );
       }
@@ -141,7 +141,7 @@ export const codeModificationTool = tool(
 
 
       return {
-        documentHash: md5(veryNewCode),
+        hash: md5(veryNewCode),
         code: returnModifiedCode ? veryNewCode : undefined,
       };
     } catch (error) {
@@ -158,11 +158,11 @@ export const codeModificationTool = tool(
     description: [
       "Performs code modifications using REGEX SEARCH/REPLACE patterns.",
       "REQUIRES: Array of {search (regex), replace} instructions,",
-      "documentHash for version control, and optional returnModifiedCode flag.",
+      "hash for version control, and optional returnModifiedCode flag.",
       "Regex format: /pattern/flags (e.g. '/\\bfoo\\b/gi' for whole-word foo, case-insensitive)",
       "Example input: {",
       "  instructions: [{search: '/foo/g', replace: 'bar'}],",
-      "  documentHash: 'ef873ade',",
+      "  hash: 'ef873ade',",
       "  returnModifiedCode: false",
       "}",
     ].join("\n"),
@@ -182,7 +182,7 @@ export const codeModificationTool = tool(
         .min(1)
         .max(4)
         .describe("Array of regex search/replace instructions"),
-      documentHash: z
+      hash: z
         .string()
         .length(8)
         .describe("Hash of current document for version validation"),

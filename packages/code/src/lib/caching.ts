@@ -8,7 +8,7 @@ import {
 } from "./metrics";
 
 type CacheValue = string | CodeAnalysis | {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;
@@ -100,7 +100,7 @@ export const codeAnalysisCache = new CacheStore<CodeAnalysis>({
 });
 
 interface ToolResponse {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;

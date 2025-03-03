@@ -5,7 +5,7 @@ import { AIMessage } from "@langchain/core/messages";
 import { estimateTokenSavings } from "./code-utils";
 
 /**
- * Extract documentHash and other metadata from tool response
+ * Extract hash and other metadata from tool response
  * Enhanced to handle cases where code might not be returned to save tokens
  */
 export const extractToolResponseMetadata = (
@@ -13,7 +13,7 @@ export const extractToolResponseMetadata = (
   currentState: AgentState,
 ): ToolResponseMetadata => {
   const metadata: ToolResponseMetadata = {
-    documentHash: currentState.documentHash,
+    hash: currentState.hash,
     modifiedCodeHash: undefined,
     compilationError: undefined,
     codeWasReturned: false,
@@ -25,7 +25,7 @@ export const extractToolResponseMetadata = (
     "tool_responses" in response.additional_kwargs &&
     Array.isArray(response.additional_kwargs.tool_responses)
   ) {
-    // Look for documentHash in tool responses
+    // Look for hash in tool responses
     const toolResponses = response.additional_kwargs.tool_responses;
     for (const toolResponse of toolResponses) {
       if (
@@ -52,8 +52,8 @@ export const extractToolResponseMetadata = (
         }
 
         // Extract metadata from content
-        if ("documentHash" in content && typeof content.documentHash === "string") {
-          metadata.documentHash = content.documentHash;
+        if ("hash" in content && typeof content.hash === "string") {
+          metadata.hash = content.hash;
         }
 
         if ("modifiedCodeHash" in content && typeof content.modifiedCodeHash === "string") {
@@ -112,10 +112,10 @@ export const updateToolCallsWithCodeFlag = (
  * Process the response when code was not returned in the tool response
  */
 export const handleMissingCodeResponse = async (
-  documentHash: string,
+  hash: string,
   state: AgentState,
 ): Promise<string | undefined> => {
-  if (!documentHash || documentHash === state.documentHash) {
+  if (!hash || hash === state.hash) {
     return undefined;
   }
 
@@ -127,8 +127,8 @@ export const handleMissingCodeResponse = async (
 
     // Verify the hash matches
     const latestHash = md5(latestCode);
-    if (latestHash === documentHash) {
-      console.log("Retrieved latest code from session using documentHash");
+    if (latestHash === hash) {
+      console.log("Retrieved latest code from session using hash");
 
       // Log token savings
       const tokenSavings = estimateTokenSavings(latestCode);
@@ -140,7 +140,7 @@ export const handleMissingCodeResponse = async (
     }
 
     console.warn("Hash mismatch", {
-      expectedHash: documentHash,
+      expectedHash: hash,
       actualHash: latestHash,
     });
   } catch (error) {

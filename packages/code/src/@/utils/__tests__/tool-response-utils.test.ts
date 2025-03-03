@@ -18,7 +18,7 @@ describe("tool-response-utils", () => {
             {
               name: "code_modification",
               content: JSON.stringify({
-                documentHash: "abc123",
+                hash: "abc123",
                 modifiedCodeHash: "def456",
                 code: "function test() {}",
               }),
@@ -34,13 +34,13 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "previous-hash",
+        hash: "previous-hash",
       };
 
       const metadata = extractToolResponseMetadata(response, currentState);
 
       expect(metadata).toEqual({
-        documentHash: "abc123",
+        hash: "abc123",
         modifiedCodeHash: "def456",
         compilationError: undefined,
         codeWasReturned: true,
@@ -55,7 +55,7 @@ describe("tool-response-utils", () => {
             {
               name: "code_modification",
               content: JSON.stringify({
-                documentHash: "abc123",
+                hash: "abc123",
                 error: "failed to compile: syntax error",
               }),
             },
@@ -70,7 +70,7 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "previous-hash",
+        hash: "previous-hash",
       };
 
       const metadata = extractToolResponseMetadata(response, currentState);
@@ -91,13 +91,13 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "previous-hash",
+        hash: "previous-hash",
       };
 
       const metadata = extractToolResponseMetadata(response, currentState);
 
       expect(metadata).toEqual({
-        documentHash: "previous-hash",
+        hash: "previous-hash",
         modifiedCodeHash: undefined,
         compilationError: undefined,
         codeWasReturned: false,
@@ -170,7 +170,7 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "old-hash",
+        hash: "old-hash",
       };
 
       const result = await handleMissingCodeResponse(mockHash, state);
@@ -189,7 +189,7 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "old-hash",
+        hash: "old-hash",
       };
 
       const wrongCode = "different code";
@@ -215,7 +215,7 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: "old-hash",
+        hash: "old-hash",
       };
 
       (globalThis as any).cSess.getCode.mockRejectedValue(
@@ -239,7 +239,7 @@ describe("tool-response-utils", () => {
         lastError: "",
         isStreaming: false,
         debugLogs: [],
-        documentHash: mockHash,
+        hash: mockHash,
       };
 
       const result = await handleMissingCodeResponse(mockHash, state);

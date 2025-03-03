@@ -612,10 +612,10 @@ const example = async (
 
     // Generate document hash for code integrity verification
     const initialCode = session.code;
-    const initialDocumentHash = md5(initialCode);
+    const hash = md5(initialCode);
     const filePath = `/live/${codeSpace}.tsx`;
 
-    console.log("Starting AST workflow with code hash:", initialDocumentHash);
+    console.log("Starting AST workflow with code hash:", hash);
 
     // Create the workflow with initial state
     const workflow = await createAstWorkflow({
@@ -625,7 +625,7 @@ const example = async (
       lastError: "",
       isStreaming: false,
       messages: [], // We'll create the messages properly before invoking
-      documentHash: initialDocumentHash,
+      hash: hash,
       filePath: filePath,
     });
 
@@ -646,7 +646,7 @@ const example = async (
       isStreaming: false,
       debugLogs: [],
       messages: [],
-      documentHash: initialDocumentHash,
+      hash: hash,
       filePath: filePath,
     };
 
@@ -655,19 +655,19 @@ const example = async (
 
     // Verify final code integrity
     if (result.code !== initialCode) {
-      const finalDocumentHash = result.documentHash || md5(result.code);
+      const finalhash = result.hash || md5(result.code);
       const actualHash = md5(result.code);
 
-      if (finalDocumentHash !== actualHash) {
+      if (finalhash !== actualHash) {
         throw new ExampleError("Code integrity verification failed", {
-          expectedHash: finalDocumentHash,
+          expectedHash: finalhash,
           actualHash,
         });
       }
 
       console.log("AST code modification successful with integrity verified", {
-        initialHash: initialDocumentHash,
-        finalHash: finalDocumentHash,
+        hash: hash,
+        finalHash: finalhash,
       });
     }
 
@@ -868,9 +868,9 @@ export const setupAndRun = async (
 
       // Generate document hash for code integrity verification
       const initialCode = session.code;
-      const initialDocumentHash = md5(initialCode);
+      const hash = md5(initialCode);
 
-      console.log("Starting workflow with code hash:", initialDocumentHash);
+      console.log("Starting workflow with code hash:", hash);
 
       // Create the workflow with initial state and pass returnModifiedCode in the initial state
       // This will be available in the workflow's state and can be used by the code modification tool
@@ -881,7 +881,7 @@ export const setupAndRun = async (
         lastError: "",
         isStreaming: false,
         messages: [], // We'll create the messages properly before invoking
-        documentHash: initialDocumentHash,
+        hash: hash,
         // Add returnModifiedCode to the initial state so it can be accessed by the workflow
         returnModifiedCode: options.returnModifiedCode,
       });
@@ -894,26 +894,26 @@ export const setupAndRun = async (
       if (!result) {
         throw new CodeModWorkflowError("Workflow execution failed", {
           prompt,
-          initialDocumentHash,
+          hash,
           returnModifiedCode: options.returnModifiedCode,
         });
       }
 
       // Verify final code integrity
       if (result.code !== initialCode) {
-        const finalDocumentHash = result.documentHash || md5(result.code);
+        const finalhash = result.hash || md5(result.code);
         const actualHash = md5(result.code);
 
-        if (finalDocumentHash !== actualHash) {
+        if (finalhash !== actualHash) {
           throw new CodeModWorkflowError("Code integrity verification failed", {
-            expectedHash: finalDocumentHash,
+            expectedHash: finalhash,
             actualHash,
           });
         }
 
         console.log("Code modification successful with integrity verified", {
-          initialHash: initialDocumentHash,
-          finalHash: finalDocumentHash,
+          hash: hash,
+          finalHash: finalhash,
         });
       }
 
@@ -4356,7 +4356,7 @@ import {
 } from './metrics';
 
 type CacheValue = string | CodeAnalysis | {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;
@@ -4448,7 +4448,7 @@ export const codeAnalysisCache = new CacheStore<CodeAnalysis>({
 });
 
 interface ToolResponse {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;
@@ -8368,7 +8368,7 @@ export const createInitialState = (): NodeState => ({
   code: undefined,
   lastError: undefined,
   isStreaming: false,
-  documentHash: undefined,
+  hash: undefined,
   filePath: undefined
 });
 
@@ -8385,7 +8385,7 @@ export interface AgentState {
   origin: string;
   codeSpace: string;
   lastError?: string;
-  documentHash?: string;
+  hash?: string;
   filePath?: string;
   isStreaming?: boolean;
 }
@@ -8408,7 +8408,7 @@ export interface WorkflowChannels {
   code: { reducer: (prev: string, next: unknown) => string };
   lastError: { reducer: (prev: string, next: unknown) => string };
   isStreaming: { reducer: (prev: boolean, next: boolean) => boolean };
-  documentHash: { reducer: (prev: string | undefined, next: string) => string };
+  hash: { reducer: (prev: string | undefined, next: string) => string };
   filePath: { reducer: (prev: string | undefined, next: string | undefined) => string | undefined };
 }
 

@@ -13,7 +13,7 @@ export interface CodeChangeMetrics {
 }
 
 export interface ToolResponseMetadata {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError?: string;
   codeWasReturned: boolean;

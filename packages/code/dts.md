@@ -1649,14 +1649,14 @@ export declare const astCodeModificationTool: import("@langchain/core/tools").Dy
         >,
         "many"
       >;
-      documentHash: z.ZodString;
+      hash: z.ZodString;
       filePath: z.ZodString;
     },
     "strip",
     z.ZodTypeAny,
     {
       filePath: string;
-      documentHash: string;
+      hash: string;
       operations: {
         target: string;
         type: "move" | "add" | "update" | "delete";
@@ -1667,7 +1667,7 @@ export declare const astCodeModificationTool: import("@langchain/core/tools").Dy
     },
     {
       filePath: string;
-      documentHash: string;
+      hash: string;
       operations: {
         target: string;
         type: "move" | "add" | "update" | "delete";
@@ -1688,19 +1688,19 @@ export declare const codeModificationTool: import("@langchain/core/tools").Dynam
   z.ZodObject<
     {
       instructions: z.ZodString;
-      documentHash: z.ZodString;
+      hash: z.ZodString;
       returnModifiedCode: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
     },
     "strip",
     z.ZodTypeAny,
     {
       instructions: string;
-      documentHash: string;
+      hash: string;
       returnModifiedCode: boolean;
     },
     {
       instructions: string;
-      documentHash: string;
+      hash: string;
       returnModifiedCode?: boolean | undefined;
     }
   >
@@ -1719,7 +1719,7 @@ export interface AgentState {
   lastError: string;
   isStreaming: boolean;
   returnModifiedCode?: boolean;
-  documentHash: string;
+  hash: string;
   filePath?: string;
 }
 export type CodeModification = string | {
@@ -1730,7 +1730,7 @@ export type CodeModification = string | {
   searchContent?: string;
   blockNumber?: number;
   totalBlocks?: number;
-  documentHash: string;
+  hash: string;
 };
 ```
 
@@ -1788,7 +1788,7 @@ export interface CodeChangeMetrics {
   tokenSavings: number;
 }
 export interface ToolResponseMetadata {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError?: string;
   codeWasReturned: boolean;
@@ -1869,7 +1869,7 @@ export declare function createCodeIntegrityError(
 ): WorkflowError;
 export declare function createCompilationError(
   error: string,
-  documentHash?: string,
+  hash?: string,
   modifiedCodeHash?: string,
 ): WorkflowError;
 ```
@@ -1907,7 +1907,7 @@ export declare const updateToolCallsWithCodeFlag: (
   returnModifiedCode: boolean,
 ) => Array<any>;
 export declare const handleMissingCodeResponse: (
-  documentHash: string,
+  hash: string,
   state: AgentState,
 ) => Promise<string | undefined>;
 ```
@@ -2878,7 +2878,7 @@ export default JSX;
 ```ts
 import { CodeAnalysis } from "../utils/code-analysis";
 type CacheValue = string | CodeAnalysis | {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;
@@ -2907,7 +2907,7 @@ export declare class CacheStore<T extends CacheValue> {
 export declare const hashCache: CacheStore<string>;
 export declare const codeAnalysisCache: CacheStore<CodeAnalysis>;
 interface ToolResponse {
-  documentHash?: string;
+  hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
   codeWasReturned: boolean;
@@ -3914,7 +3914,7 @@ export interface AgentState {
   origin: string;
   codeSpace: string;
   lastError?: string;
-  documentHash?: string;
+  hash?: string;
   filePath?: string;
   isStreaming?: boolean;
 }
@@ -3949,7 +3949,7 @@ export interface WorkflowChannels {
   isStreaming: {
     reducer: (prev: boolean, next: boolean) => boolean;
   };
-  documentHash: {
+  hash: {
     reducer: (prev: string | undefined, next: string) => string;
   };
   filePath: {

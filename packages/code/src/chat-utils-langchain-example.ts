@@ -42,9 +42,9 @@ export const setupAndRun = async (
 
       // Generate document hash for code integrity verification
       const initialCode = session.code;
-      const initialDocumentHash = md5(initialCode);
+      const hash = md5(initialCode);
 
-      console.log("Starting workflow with code hash:", initialDocumentHash);
+      console.log("Starting workflow with code hash:", hash);
 
       // Create the workflow with initial state and pass returnModifiedCode in the initial state
       // This will be available in the workflow's state and can be used by the code modification tool
@@ -55,7 +55,7 @@ export const setupAndRun = async (
         lastError: "",
         isStreaming: false,
         messages: [], // We'll create the messages properly before invoking
-        documentHash: initialDocumentHash,
+        hash: hash,
         // Add returnModifiedCode to the initial state so it can be accessed by the workflow
         returnModifiedCode: options.returnModifiedCode,
       }, cSess);
@@ -68,26 +68,26 @@ export const setupAndRun = async (
       if (!result) {
         throw new CodeModWorkflowError("Workflow execution failed", {
           prompt,
-          initialDocumentHash,
+          hash,
           returnModifiedCode: options.returnModifiedCode,
         });
       }
 
       // Verify final code integrity
       if (result.code !== initialCode) {
-        const finalDocumentHash = result.documentHash || md5(result.code);
+        const finalhash = result.hash || md5(result.code);
         const actualHash = md5(result.code);
 
-        if (finalDocumentHash !== actualHash) {
+        if (finalhash !== actualHash) {
           throw new CodeModWorkflowError("Code integrity verification failed", {
-            expectedHash: finalDocumentHash,
+            expectedHash: finalhash,
             actualHash,
           });
         }
 
         console.log("Code modification successful with integrity verified", {
-          initialHash: initialDocumentHash,
-          finalHash: finalDocumentHash,
+          hash: hash,
+          finalHash: finalhash,
         });
       }
 

@@ -9,7 +9,7 @@ import type { StateGraphArgs } from "@langchain/langgraph/web";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import anthropicSystem from "../../config/initial-claude.txt";
+import {initialClaude} from "@/lib/initial-claude";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";
@@ -74,7 +74,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
     isStreaming: {
       reducer: (_prev: boolean, next: boolean) => next,
     },
-    documentHash: {
+    hash: {
       reducer: (_prev: string | undefined, next: string) => next,
     },
     filePath: {
@@ -87,16 +87,16 @@ export const createAstWorkflow = (initialState: AgentState) => {
 
   // Create a system message with code and its hash for integrity verification
   const createSystemMessage = (code: string, codeSpace: string): SystemMessage => {
-    const documentHash = md5(code);
+    const hash = md5(code);
     return new SystemMessage(
-      anthropicSystem + `
+      initialClaude + `
       <filePath>/live/${codeSpace}.tsx</filePath>
       <code>${code}</code>
-      <documentHash>${documentHash}</documentHash>`,
+      <hash>${hash}</hash>`,
       {
         code: code,
         filePath: `/live/${codeSpace}.tsx`,
-        documentHash: documentHash,
+        hash: hash,
       },
     );
   };
@@ -129,12 +129,12 @@ export const createAstWorkflow = (initialState: AgentState) => {
     state: AgentState,
   ): Promise<Partial<AgentState>> => {
     try {
-      // Verify code integrity before processing if documentHash exists
-      if (state.documentHash && state.code) {
-        const isIntegrityValid = verifyCodeIntegrity(state.code, state.documentHash);
+      // Verify code integrity before processing if hash exists
+      if (state.hash && state.code) {
+        const isIntegrityValid = verifyCodeIntegrity(state.code, state.hash);
         if (!isIntegrityValid) {
           throw new WorkflowError("Code integrity check failed before processing", {
-            expectedHash: state.documentHash,
+            expectedHash: state.hash,
             actualHash: md5(state.code),
           });
         }
@@ -148,8 +148,8 @@ export const createAstWorkflow = (initialState: AgentState) => {
       // Ensure the model has access to the current file path
       const response = await model.invoke(cleanedState.messages);
 
-      // Extract documentHash from tool response if present
-      let documentHash = state.documentHash;
+      // Extract hash from tool response if present
+      let hash = state.hash;
 
       // Check if there are tool responses in the additional_kwargs
       if (
@@ -157,7 +157,7 @@ export const createAstWorkflow = (initialState: AgentState) => {
         "tool_responses" in response.additional_kwargs &&
         Array.isArray(response.additional_kwargs.tool_responses)
       ) {
-        // Look for documentHash in tool responses
+        // Look for hash in tool responses
         const toolResponses = response.additional_kwargs.tool_responses;
         for (const toolResponse of toolResponses) {
           if (
@@ -168,26 +168,26 @@ export const createAstWorkflow = (initialState: AgentState) => {
             "content" in toolResponse &&
             typeof toolResponse.content === "object" &&
             toolResponse.content !== null &&
-            "documentHash" in toolResponse.content
+            "hash" in toolResponse.content
           ) {
-            documentHash = String(toolResponse.content.documentHash);
+            hash = String(toolResponse.content.hash);
             break;
           }
         }
       }
 
-      // If code was modified during processing, update the documentHash
+      // If code was modified during processing, update the hash
       const updatedState = {
         ...cleanedState,
         messages: [response],
         isStreaming: true,
-        documentHash,
+        hash,
       };
 
-      // If no documentHash was found in the tool response but code changed,
+      // If no hash was found in the tool response but code changed,
       // calculate a new hash
-      if (state.code !== updatedState.code && updatedState.code && !documentHash) {
-        updatedState.documentHash = md5(updatedState.code);
+      if (state.code !== updatedState.code && updatedState.code && !hash) {
+        updatedState.hash = md5(updatedState.code);
       }
 
       return updatedState;
@@ -214,12 +214,12 @@ export const createAstWorkflow = (initialState: AgentState) => {
       try {
         // Create system message with initial code and hash
         const systemMessage = createSystemMessage(initialState.code, filePath);
-        const initialDocumentHash = md5(initialState.code);
+        const hash = md5(initialState.code);
 
         const initialStateWithMessages = {
           ...initialState,
           messages: [systemMessage, new HumanMessage(prompt)],
-          documentHash: initialDocumentHash,
+          hash: hash,
           filePath: filePath,
         };
 
@@ -229,20 +229,20 @@ export const createAstWorkflow = (initialState: AgentState) => {
 
         // Verify code integrity after workflow execution
         if (finalState.code !== initialState.code) {
-          const finalDocumentHash = md5(finalState.code);
-          const isIntegrityValid = verifyCodeIntegrity(finalState.code, finalDocumentHash);
+          const finalhash = md5(finalState.code);
+          const isIntegrityValid = verifyCodeIntegrity(finalState.code, finalhash);
 
           if (!isIntegrityValid) {
             throw new WorkflowError("Code integrity verification failed", {
-              initialHash: initialDocumentHash,
-              finalHash: finalDocumentHash,
+              hash: hash,
+              finalHash: finalhash,
             });
           }
 
-          // Update documentHash in final state
-          finalState.documentHash = finalDocumentHash;
+          // Update hash in final state
+          finalState.hash = finalhash;
           console.log("Code integrity verified with updated hash", {
-            documentHash: finalDocumentHash,
+            hash: finalhash,
           });
         }
 
@@ -259,14 +259,14 @@ export const createAstWorkflow = (initialState: AgentState) => {
 // Helper functions
 function logCodeChanges(initialCode: string, finalCode: string) {
   if (initialCode !== finalCode) {
-    const initialHash = md5(initialCode);
+    const hash = md5(initialCode);
     const finalHash = md5(finalCode);
 
     console.log("Code modified successfully", {
       changes: calculateCodeChanges(initialCode, finalCode),
-      initialHash,
+      hash,
       finalHash,
-      hashChanged: initialHash !== finalHash,
+      hashChanged: hash !== finalHash,
     });
   }
 }

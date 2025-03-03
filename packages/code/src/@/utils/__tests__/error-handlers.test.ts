@@ -100,12 +100,12 @@ describe("error-handlers", () => {
   describe("createCompilationError", () => {
     it("should create error with compilation context", () => {
       const errorMessage = "Syntax error";
-      const documentHash = "abc123";
+      const hash = "abc123";
       const modifiedCodeHash = "def456";
 
       const error = createCompilationError(
         errorMessage,
-        documentHash,
+        hash,
         modifiedCodeHash,
       );
 
@@ -113,7 +113,7 @@ describe("error-handlers", () => {
       expect(error.message).toBe("Compilation failed");
       expect(error.context).toEqual({
         error: errorMessage,
-        originalHash: documentHash,
+        originalHash: hash,
         modifiedHash: modifiedCodeHash,
       });
     });

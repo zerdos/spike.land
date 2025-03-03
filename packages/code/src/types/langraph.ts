@@ -123,6 +123,6 @@ export const createInitialState = (): NodeState => ({
   code: undefined,
   lastError: undefined,
   isStreaming: false,
-  documentHash: undefined,
+  hash: undefined,
   filePath: undefined,
 });

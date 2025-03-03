@@ -31,10 +31,10 @@ const example = async (
 
     // Generate document hash for code integrity verification
     const initialCode = session.code;
-    const initialDocumentHash = md5(initialCode);
+    const hash = md5(initialCode);
     const filePath = `/live/${codeSpace}.tsx`;
 
-    console.log("Starting AST workflow with code hash:", initialDocumentHash);
+    console.log("Starting AST workflow with code hash:", hash);
 
     // Create the workflow with initial state
     const workflow = await createAstWorkflow({
@@ -44,7 +44,7 @@ const example = async (
       lastError: "",
       isStreaming: false,
       messages: [], // We'll create the messages properly before invoking
-      documentHash: initialDocumentHash,
+      hash: hash,
       filePath: filePath,
     });
 
@@ -65,7 +65,7 @@ const example = async (
       isStreaming: false,
       debugLogs: [],
       messages: [],
-      documentHash: initialDocumentHash,
+      hash: hash,
       filePath: filePath,
     };
 
@@ -74,19 +74,19 @@ const example = async (
 
     // Verify final code integrity
     if (result.code !== initialCode) {
-      const finalDocumentHash = result.documentHash || md5(result.code);
+      const finalhash = result.hash || md5(result.code);
       const actualHash = md5(result.code);
 
-      if (finalDocumentHash !== actualHash) {
+      if (finalhash !== actualHash) {
         throw new ExampleError("Code integrity verification failed", {
-          expectedHash: finalDocumentHash,
+          expectedHash: finalhash,
           actualHash,
         });
       }
 
       console.log("AST code modification successful with integrity verified", {
-        initialHash: initialDocumentHash,
-        finalHash: finalDocumentHash,
+        hash: hash,
+        finalHash: finalhash,
       });
     }
 

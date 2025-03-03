@@ -17,7 +17,7 @@ function createErrorResponse(
     code: currentCode,
     error: errorMessage,
     currentFileContent: currentCode,
-    documentHash: md5(currentCode),
+    hash: md5(currentCode),
     ...additionalProps,
   };
 }
@@ -25,9 +25,9 @@ function createErrorResponse(
 // Improved code modification tool
 export const codeModificationTool = tool(
   async (
-    { instructions, documentHash, returnModifiedCode = false }: { // Fixed default value
+    { instructions, hash, returnModifiedCode = false }: { // Fixed default value
       instructions: string;
-      documentHash: string;
+      hash: string;
       returnModifiedCode?: boolean;
     },
   ): Promise<CodeModification> => {
@@ -37,11 +37,11 @@ export const codeModificationTool = tool(
     const currentHash = md5(currentCode);
 
     // Enhanced hash validation
-    if (documentHash && documentHash !== currentHash) {
+    if (hash && hash !== currentHash) {
       return createErrorResponse(
         currentCode,
         "Document modified since last hash. Refresh and try again.",
-        { documentHash: currentHash },
+        { hash: currentHash },
       );
     }
 
@@ -83,7 +83,7 @@ export const codeModificationTool = tool(
       await cSess.setCode(modifiedCode);
 
       return {
-        documentHash: md5(modifiedCode),
+        hash: md5(modifiedCode),
         code: returnModifiedCode ? modifiedCode : undefined,
       };
     } catch (error) {
@@ -110,7 +110,7 @@ export const codeModificationTool = tool(
 
       `,
       ),
-      documentHash: z.string().describe(
+      hash: z.string().describe(
         "MD5 hash of current document for version validation",
       ),
       returnModifiedCode: z.boolean().optional().default(false).describe(

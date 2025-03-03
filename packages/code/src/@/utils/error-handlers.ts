@@ -59,12 +59,12 @@ export function createCodeIntegrityError(
  */
 export function createCompilationError(
   error: string,
-  documentHash?: string,
+  hash?: string,
   modifiedCodeHash?: string,
 ): WorkflowError {
   return new WorkflowError("Compilation failed", {
     error,
-    originalHash: documentHash,
+    originalHash: hash,
     modifiedHash: modifiedCodeHash,
   });
 }
