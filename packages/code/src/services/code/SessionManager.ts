@@ -162,8 +162,10 @@ export class SessionManager implements ISessionManager {
   }
 
   private broadcastSession(oldSession: ICodeSession): void {
-    if (!this
-      .session) return;
+    if (
+      !this
+        .session
+    ) return;
 
     const diff = this.computeSessionDiff(oldSession, this.session);
 

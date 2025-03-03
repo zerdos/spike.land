@@ -4478,7 +4478,7 @@ __metadata:
     "@tailwindcss/vite": "npm:4.0.9"
     "@tanstack/react-router": "npm:1.112.0"
     "@tanstack/react-virtual": "npm:3.13.2"
-    "@tanstack/router-plugin": "npm:1.112.0"
+    "@tanstack/router-plugin": "npm:1.112.3"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.2.0"
@@ -4584,7 +4584,7 @@ __metadata:
     postcss-js: "npm:4.0.1"
     preact: "npm:10.26.4"
     preact-render-to-string: "npm:6.5.13"
-    prettier: "npm:3.5.2"
+    prettier: "npm:3.5.3"
     prism-react-renderer: "npm:2.4.1"
     process: "npm:0.11.10"
     purgecss: "npm:7.0.2"
@@ -5227,9 +5227,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.112.0":
-  version: 1.112.0
-  resolution: "@tanstack/router-generator@npm:1.112.0"
+"@tanstack/router-generator@npm:^1.112.3":
+  version: 1.112.3
+  resolution: "@tanstack/router-generator@npm:1.112.3"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     prettier: "npm:^3.5.0"
@@ -5240,13 +5240,13 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/react-router":
       optional: true
-  checksum: 10c0/5e9e4ccdb30dab8836818ae28d068659fd56a5225684887a88a27ba0faea20195b21c8f6c74b3887d3a12a56b923b6dc4d1279c208c5a9bf3f992421c139735a
+  checksum: 10c0/61f02878d0184c18227bbfa2df5d1d31c51328192ea1ddd70db37a4aea9ef31e5a724a0f3b6a6140bc227c260a0802c99f3980a1014205bfad273d451366108c
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:1.112.0":
-  version: 1.112.0
-  resolution: "@tanstack/router-plugin@npm:1.112.0"
+"@tanstack/router-plugin@npm:1.112.3":
+  version: 1.112.3
+  resolution: "@tanstack/router-plugin@npm:1.112.3"
   dependencies:
     "@babel/core": "npm:^7.26.8"
     "@babel/plugin-syntax-jsx": "npm:^7.25.9"
@@ -5255,7 +5255,7 @@ __metadata:
     "@babel/traverse": "npm:^7.26.8"
     "@babel/types": "npm:^7.26.8"
     "@tanstack/router-core": "npm:^1.112.0"
-    "@tanstack/router-generator": "npm:^1.112.0"
+    "@tanstack/router-generator": "npm:^1.112.3"
     "@tanstack/router-utils": "npm:^1.102.2"
     "@tanstack/virtual-file-routes": "npm:^1.99.0"
     "@types/babel__core": "npm:^7.20.5"
@@ -5282,7 +5282,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/be3f8365ce7c6805d6a20268eee4cbf47abd7a35b3300c777f8360eb2d00f712fce6b554fb6c4a241d7b52eabed890d331117bd0224b49fa110237030dbfdad0
+  checksum: 10c0/ab3c05d6c7a5f051504d47a93bf8f1b77253677b591c4f0c552a4ef8cc1c05f70aea3bd01426cc4df3ca32623b8b1caa653add50a6c2f19f90875f46589db667
   languageName: node
   linkType: hard
 
@@ -15651,12 +15651,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:*, prettier@npm:3.5.2, prettier@npm:^3.5.0":
+"prettier@npm:*, prettier@npm:^3.5.0":
   version: 3.5.2
   resolution: "prettier@npm:3.5.2"
   bin:
     prettier: bin/prettier.cjs
   checksum: 10c0/d7b597ed33f39c32ace675896ad187f06a3e48dc8a1e80051b5c5f0dae3586d53981704b8fda5ac3b080e6c2e0e197d239131b953702674f044351621ca5e1ac
+  languageName: node
+  linkType: hard
+
+"prettier@npm:3.5.3":
+  version: 3.5.3
+  resolution: "prettier@npm:3.5.3"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/3880cb90b9dc0635819ab52ff571518c35bd7f15a6e80a2054c05dbc8a3aa6e74f135519e91197de63705bcb38388ded7e7230e2178432a1468005406238b877
   languageName: node
   linkType: hard
 
