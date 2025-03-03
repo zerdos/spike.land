@@ -1,7 +1,7 @@
 import { md5 } from "@/lib/md5";
 import { astCodeModificationTool } from "@/tools/ast-code-modification";
 import { AgentState } from "@/types/chat-langchain";
-import { WorkflowError } from "@/utils/error-handlers";
+import { WorkflowError } from "@/tools/utils/error-handlers";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";

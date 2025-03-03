@@ -1,6 +1,6 @@
 import { DEFAULT_RETURN_MODIFIED_CODE } from "@/config/workflow-config";
 import { md5 } from "@/lib/md5";
-import { shouldReturnFullCode } from "@/utils/code-utils";
+import { shouldReturnFullCode } from "@/tools/utils/code-utils";
 import { metrics } from "../../lib/metrics";
 import { hashCache } from "../../lib/caching";
 

@@ -125,6 +125,7 @@ export const createReplaceInFileTool = (codeSession: ICode) => tool(
         );
       }
       modifiedCode = success as string;
+      await codeSession.addMessageChunk(diff);
       
       const newHash = md5(modifiedCode);
       log('File successfully updated', 'info', { 

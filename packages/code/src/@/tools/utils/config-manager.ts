@@ -1,4 +1,4 @@
-import { Config } from "../types/service-worker";
+import { Config } from "../../types/service-worker";
 import { CacheUtils } from "./cache-utils";
 
 export class ConfigManager {

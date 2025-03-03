@@ -1,6 +1,6 @@
 import { ServiceWorkerHandlers } from "./@/handlers/sw-handlers";
 import { CustomServiceWorkerGlobalScope } from "./@/types/service-worker";
-import { CACHE_VERSION } from "./@/utils/cache-utils";
+import { CACHE_VERSION } from "./@/tools/utils/cache-utils";
 
 // Import service worker script version
 importScripts("/swVersion.js");

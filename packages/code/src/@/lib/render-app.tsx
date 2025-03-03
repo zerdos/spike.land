@@ -20,6 +20,11 @@ export function AppWithScreenSize(
 ) {
   const { width = 0, height = 0 } = useWindowSize();
 
+  if (!AppToRender) {
+    console.error("AppToRender is undefined in AppWithScreenSize");
+    return <div>Error: Component could not be loaded</div>;
+  }
+
   return <AppToRender width={width} height={height} />;
 }
 
@@ -37,7 +42,18 @@ export const importFromString = async (code: string) => {
       body: importMapReplace(code),
     });
     console.log("File written to", filePath);
-    return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
+    
+    try {
+      const module = await import(filePath);
+      if (!module.default) {
+        console.error("Module does not have a default export:", module);
+        return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
+      }
+      return module.default as FlexibleComponentType;
+    } catch (importError) {
+      console.error("Failed to import module:", importError);
+      return (() => <div>Error: Failed to import component</div>) as FlexibleComponentType;
+    }
   } catch (error) {
     console.warn("File-based import failed, falling back to blob URL", error);
 
@@ -57,10 +73,16 @@ export const importFromString = async (code: string) => {
     try {
       blobUrl = createJsBlob(code);
       const module = await import(/* @vite-ignore */ blobUrl);
+      
+      if (!module.default) {
+        console.error("Blob module does not have a default export:", module);
+        return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
+      }
+      
       return module.default as FlexibleComponentType;
     } catch (blobError) {
       console.error("Blob URL import failed:", blobError);
-      throw blobError;
+      return (() => <div>Error: Failed to import component</div>) as FlexibleComponentType;
     } finally {
       // Clean up the blob URL to prevent memory leaks
       if (blobUrl) {
@@ -93,7 +115,7 @@ async function renderApp(
       document.body.appendChild(rootEl);
     }
 
-    let AppToRender: FlexibleComponentType;
+    let AppToRender: FlexibleComponentType | undefined;
     let emptyApp = false;
 
     if (App) {
@@ -163,6 +185,12 @@ async function renderApp(
     });
 
     firstRender = false;
+
+    // Ensure AppToRender is defined before rendering
+    if (!AppToRender) {
+      console.error("AppToRender is undefined, using fallback component");
+      AppToRender = () => <div>Error: Component could not be loaded</div>;
+    }
 
     myRoot.render(
       <ThemeProvider>
