@@ -3,6 +3,7 @@ import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
+import { tr } from "date-fns/locale";
 import { z } from "zod";
 
 // Logger function for consistent logging format
@@ -55,184 +56,185 @@ function validateDiff(diff: string): boolean {
  * @param codeSession The code session to use for file operations
  * @returns A tool for replacing content in files
  */
-export const createReplaceInFileTool = () =>
-  tool(
-    async (
-      {
-        path,
-        hash,
-        diff,
-      }: {
-        path: string;
-        hash: string;
-        diff: string;
-      },
-    ): Promise<CodeModification> => {
-      const { cSess } = globalThis as unknown as { cSess: ICode; };
-      const codeSession = cSess;
+export const replaceInFileTool = tool(
+  async (
+    {
+      path,
+      hash,
+      diff,
+    }: {
+      path: string;
+      hash: string;
+      diff: string;
+    },
+  ): Promise<CodeModification> => {
+    console.log("🔄 replaceInFileTool", { path, hash, diff });
 
-      log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
+    const { cSess } = globalThis as unknown as { cSess: ICode; };
+    const codeSession = cSess;
 
-      // Input validation
-      if (!path || typeof path !== "string") {
-        return createErrorResponse("", "Invalid file path provided", { path });
+    log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
+
+    // Input validation
+    if (!path || typeof path !== "string") {
+      return createErrorResponse("", "Invalid file path provided", { path });
+    }
+
+    if (!hash || typeof hash !== "string") {
+      return createErrorResponse("", "Invalid hash provided", { hash });
+    }
+
+    if (!validateDiff(diff)) {
+      return createErrorResponse(
+        "",
+        "Invalid diff format. Must contain valid SEARCH/REPLACE blocks",
+        { diffLength: diff?.length },
+      );
+    }
+
+    // Use the provided code session
+    if (!codeSession) {
+      return createErrorResponse("", "Code session not provided", {});
+    }
+
+    try {
+      // Get current code from the file
+      log("Retrieving current file content");
+      const currentCode = await codeSession.getCode();
+
+      if (!currentCode) {
+        return createErrorResponse("", "Failed to retrieve file content or file is empty");
       }
 
-      if (!hash || typeof hash !== "string") {
-        return createErrorResponse("", "Invalid hash provided", { hash });
-      }
+      // Verify document hash to ensure code integrity
+      const currentHash = md5(currentCode);
+      log("Verifying file hash integrity");
 
-      if (!validateDiff(diff)) {
-        return createErrorResponse(
-          "",
-          "Invalid diff format. Must contain valid SEARCH/REPLACE blocks",
-          { diffLength: diff?.length },
-        );
-      }
-
-      // Use the provided code session
-      if (!codeSession) {
-        return createErrorResponse("", "Code session not provided", {});
-      }
-
-      try {
-        // Get current code from the file
-        log("Retrieving current file content");
-        const currentCode = await codeSession.getCode();
-
-        if (!currentCode) {
-          return createErrorResponse("", "Failed to retrieve file content or file is empty");
-        }
-
-        // Verify document hash to ensure code integrity
-        const currentHash = md5(currentCode);
-        log("Verifying file hash integrity");
-
-        if (hash !== currentHash) {
-          return createErrorResponse(
-            currentCode,
-            "Document has been modified since last hash. Please try again with the latest version.",
-            {
-              currentHash,
-              providedHash: hash,
-            },
-          );
-        }
-
-        // Apply the search/replace operations
-        log("Applying search/replace operations");
-        let modifiedCode = updateSearchReplace(diff, currentCode);
-
-        // If no changes were made, return an error
-        if (modifiedCode === currentCode) {
-          return createErrorResponse(
-            currentCode,
-            `No changes were made to the file. Please check the SEARCH/REPLACE blocks.`,
-          );
-        }
-
-        log("Changes detected, updating file");
-
-        // Set the modified code
-        console.log("Modified code:", modifiedCode);
-
-        const success = await cSess.setCode(modifiedCode);
-
-        console.log("Success:", success);
-
-        if (!success) {
-          return createErrorResponse(
-            currentCode,
-            "Failed to update the file with the modified code.",
-          );
-        }
-        modifiedCode = success as string;
-
-        // Add a longer delay before adding the message chunk to ensure code changes are fully processed
-        console.log(
-          "⏳ Waiting for code changes to be fully processed before adding message chunk...",
-        );
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // Log before adding message chunk
-        console.log(
-          "🔍 Before addMessageChunk - Code state:",
-          modifiedCode.substring(0, 100) + "...",
-        );
-
-        try {
-          // Store the current hash before adding message chunk
-          const beforeMessageChunkHash = md5(await cSess.getCode());
-          console.log("📊 Hash before addMessageChunk:", beforeMessageChunkHash);
-
-          // Add the message chunk
-          await cSess.addMessageChunk(diff);
-          console.log("✅ Successfully added message chunk");
-
-          // Verify the code hasn't changed after adding message chunk
-          const afterMessageChunkHash = md5(await cSess.getCode());
-          console.log("📊 Hash after addMessageChunk:", afterMessageChunkHash);
-
-          if (beforeMessageChunkHash !== afterMessageChunkHash) {
-            console.warn(
-              "⚠️ Code hash changed after addMessageChunk! This indicates a potential issue.",
-            );
-          } else {
-            console.log("✅ Code hash remained the same after addMessageChunk - good!");
-          }
-        } catch (chunkError) {
-          console.error("❌ Error adding message chunk:", chunkError);
-          // Continue execution even if adding message chunk fails
-        }
-
-        const newHash = md5(modifiedCode);
-        log("File successfully updated", "info", {
-          oldHash: currentHash.substring(0, 8),
-          newHash: newHash.substring(0, 8),
-        });
-
-        // Return success response with minimal information to save tokens
-        // Include a summary of changes in the error field (which is displayed to the user)
-        const bytesChanged = modifiedCode.length - currentCode.length;
-        const linesChanged = modifiedCode.split("\n").length - currentCode.split("\n").length;
-
-        return {
-          // Don't return the full code to save tokens
-          code: "", // Empty string instead of full code
-          hash: newHash,
-          error: `Changes applied successfully: ${
-            bytesChanged > 0 ? "+" : ""
-          }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`,
-        };
-      } catch (error) {
-        log("Unexpected error occurred", "error", {
-          error: error instanceof Error ? error.message : "Unknown error",
-          stack: error instanceof Error ? error.stack : undefined,
-        });
-
-        let currentCode = "";
-        try {
-          currentCode = await codeSession.getCode();
-        } catch (getCodeError) {
-          log("Failed to retrieve code after error", "error", {
-            error: getCodeError instanceof Error ? getCodeError.message : "Unknown error",
-          });
-        }
-
-        // Handle any unexpected errors
+      if (hash !== currentHash) {
         return createErrorResponse(
           currentCode,
-          error instanceof Error
-            ? `Error in file replacement: ${error.message}`
-            : "Unknown error in file replacement",
-          { stack: error instanceof Error ? error.stack : undefined },
+          "Document has been modified since last hash. Please try again with the latest version.",
+          {
+            currentHash,
+            providedHash: hash,
+          },
         );
       }
-    },
-    {
-      name: "replace_in_file",
-      description:
-        `Replace sections of content in an existing file using SEARCH/REPLACE blocks that define exact changes to specific parts of the file.
+
+      // Apply the search/replace operations
+      log("Applying search/replace operations");
+      let modifiedCode = updateSearchReplace(diff, currentCode);
+
+      // If no changes were made, return an error
+      if (modifiedCode === currentCode) {
+        return createErrorResponse(
+          currentCode,
+          `No changes were made to the file. Please check the SEARCH/REPLACE blocks.`,
+        );
+      }
+
+      log("Changes detected, updating file");
+
+      // Set the modified code
+      console.log("Modified code:", modifiedCode);
+
+      const success = await cSess.setCode(modifiedCode, true);
+
+      console.log("Success:", success);
+
+      if (!success) {
+        return createErrorResponse(
+          currentCode,
+          "Failed to update the file with the modified code.",
+        );
+      }
+      modifiedCode = success as string;
+
+      // Add a longer delay before adding the message chunk to ensure code changes are fully processed
+      console.log(
+        "⏳ Waiting for code changes to be fully processed before adding message chunk...",
+      );
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Log before adding message chunk
+      console.log(
+        "🔍 Before addMessageChunk - Code state:",
+        modifiedCode.substring(0, 100) + "...",
+      );
+
+      try {
+        // Store the current hash before adding message chunk
+        const beforeMessageChunkHash = md5(await cSess.getCode());
+        console.log("📊 Hash before addMessageChunk:", beforeMessageChunkHash);
+
+        // Add the message chunk
+        await cSess.addMessageChunk(diff);
+        console.log("✅ Successfully added message chunk");
+
+        // Verify the code hasn't changed after adding message chunk
+        const afterMessageChunkHash = md5(await cSess.getCode());
+        console.log("📊 Hash after addMessageChunk:", afterMessageChunkHash);
+
+        if (beforeMessageChunkHash !== afterMessageChunkHash) {
+          console.warn(
+            "⚠️ Code hash changed after addMessageChunk! This indicates a potential issue.",
+          );
+        } else {
+          console.log("✅ Code hash remained the same after addMessageChunk - good!");
+        }
+      } catch (chunkError) {
+        console.error("❌ Error adding message chunk:", chunkError);
+        // Continue execution even if adding message chunk fails
+      }
+
+      const newHash = md5(modifiedCode);
+      log("File successfully updated", "info", {
+        oldHash: currentHash.substring(0, 8),
+        newHash: newHash.substring(0, 8),
+      });
+
+      // Return success response with minimal information to save tokens
+      // Include a summary of changes in the error field (which is displayed to the user)
+      const bytesChanged = modifiedCode.length - currentCode.length;
+      const linesChanged = modifiedCode.split("\n").length - currentCode.split("\n").length;
+
+      return {
+        // Don't return the full code to save tokens
+        code: "", // Empty string instead of full code
+        hash: newHash,
+        error: `Changes applied successfully: ${
+          bytesChanged > 0 ? "+" : ""
+        }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`,
+      };
+    } catch (error) {
+      log("Unexpected error occurred", "error", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : undefined,
+      });
+
+      let currentCode = "";
+      try {
+        currentCode = await codeSession.getCode();
+      } catch (getCodeError) {
+        log("Failed to retrieve code after error", "error", {
+          error: getCodeError instanceof Error ? getCodeError.message : "Unknown error",
+        });
+      }
+
+      // Handle any unexpected errors
+      return createErrorResponse(
+        currentCode,
+        error instanceof Error
+          ? `Error in file replacement: ${error.message}`
+          : "Unknown error in file replacement",
+        { stack: error instanceof Error ? error.stack : undefined },
+      );
+    }
+  },
+  {
+    name: "replace_in_file",
+    description:
+      `Replace sections of content in an existing file using SEARCH/REPLACE blocks that define exact changes to specific parts of the file.
     
 This tool is designed for making targeted changes to specific parts of a file using a diff-like format with SEARCH/REPLACE blocks.
 
@@ -252,15 +254,15 @@ Critical rules:
 4. Special operations:
    * To move code: Use two SEARCH/REPLACE blocks (one to delete from original + one to insert at new location)
    * To delete code: Use empty REPLACE section`,
-      schema: z.object({
-        path: z.string().describe("The path of the file to modify"),
-        hash: z.string().describe("The hash of the file to modify for version control"),
-        diff: z.string().describe(`One or more SEARCH/REPLACE blocks following this exact format:
+    schema: z.object({
+      path: z.string().describe("The path of the file to modify"),
+      hash: z.string().describe("The hash of the file to modify for version control"),
+      diff: z.string().describe(`One or more SEARCH/REPLACE blocks following this exact format:
 <<<<<<< SEARCH
 [exact content to find]
 =======
 [new content to replace with]
 >>>>>>> REPLACE`),
-      }),
-    },
-  );
+    }),
+  },
+);

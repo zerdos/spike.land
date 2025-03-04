@@ -1,8 +1,7 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
-import { messagesPush } from "@/lib/chat-utils";
 import { initialClaude } from "@/lib/initial-claude";
 import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
-import { createReplaceInFileTool } from "@/tools/replace-in-file";
+import { replaceInFileTool } from "@/tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "@/tools/utils/code-utils";
 import {
   createCodeIntegrityError,
@@ -41,7 +40,7 @@ export function createWorkflowWithStringReplace(
   });
 
   // Create the replace-in-file tool with the provided code session
-  const replaceInFileTool = createReplaceInFileTool();
+
   const tools = [replaceInFileTool];
   const toolNode = new ToolNode(tools);
 
@@ -95,7 +94,6 @@ export function createWorkflowWithStringReplace(
     invoke: async (prompt: string, images: ImageData[] = []): Promise<AgentState> => {
       telemetry.startTimer("workflow.invoke");
       try {
-        const messages = cSess.getMessages();
         const userMessageToSave = await createNewMessage(images, prompt);
 
         // Use messagesPush to create the updated messages array, then add the message
@@ -121,15 +119,6 @@ export function createWorkflowWithStringReplace(
             },
           },
         );
-
-        // Save the user message to cSess
-        if (cSess) {
-          await cSess.addMessage({
-            id: Date.now().toString(),
-            role: "user",
-            content: prompt,
-          });
-        }
 
         const initialStateWithMessages: ExtendedAgentState = {
           ...initialState,
@@ -175,7 +164,13 @@ export function createWorkflowWithStringReplace(
           });
         }
 
-        if (finalState.code !== initialState.code) {
+        const newCode = await cSess.getCode();
+        const newCodeWithDate = newCode + `
+// generated: ${new Date().toISOString()}\n`;
+
+        if (newCode !== initialState.code) {
+          await cSess.setCode(newCodeWithDate);
+          finalState.code = newCodeWithDate;
           logCodeChanges(initialState.code, finalState.code);
         }
 
@@ -208,7 +203,7 @@ export function createWorkflowWithStringReplace(
  */
 export async function handleSendMessage(
   { prompt, images }: HandleSendMessageProps,
-): Promise<void> {
+): Promise<AgentState> {
   const { cSess } = globalThis as unknown as { cSess: ICode; };
   const codeSpace = cSess.getCodeSpace();
   const code = await cSess.getCode();
@@ -230,4 +225,5 @@ export async function handleSendMessage(
   const finalState = await workflow.invoke(prompt, images || []);
 
   console.log("Final workflow state:", finalState);
+  return finalState;
 }

@@ -32,10 +32,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
     localStorage.setItem("streaming-" + getCodeSpace(location.pathname), "true");
 
-    const result = handleSendMessage({
+    const result = await handleSendMessage({
       prompt: input,
       images: uploadedImages,
     });
+    await cSess.setCode(result.code);
 
     localStorage.setItem("streaming-" + getCodeSpace(location.pathname), JSON.stringify(false));
     setInput(""); // Clear input after sending
