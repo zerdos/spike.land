@@ -357,15 +357,14 @@ async function startMonacoPristine({
     lastValueHashToBeSet: "",
     setValue: async (newCode: string) => {
       const lastHash = md5(newCode);
-      editorModel.lastValueHashToBeSet =lastHash;
+      editorModel.lastValueHashToBeSet = lastHash;
       if (recentlyChanged.has(lastHash)) {
         console.log("Skipping editor update due to recent change");
         await wait(1000);
         if (editorModel.lastValueHashToBeSet !== lastHash) return;
       }
-        editorModel.setValue(newCode);
-      
-    
+      editorModel.setValue(newCode);
+
       editorModel.silent = true;
       const state = myEditor.saveViewState();
 
@@ -403,11 +402,10 @@ async function startMonacoPristine({
   });
   const recentlyChanged = new Set<string>();
 
-
   const throttledTsCheck = throttle(() => tsCheck(), 10000);
   // Increase throttle time and add debounce for editor changes
   const throttledOnChange = throttle(
-    async() => {
+    async () => {
       const code = model.getValue();
       const formattedText = await prettierToThrow({
         code,
@@ -419,8 +417,7 @@ async function startMonacoPristine({
       onChange(formattedText);
       setTimeout(() => {
         recentlyChanged.delete(hashOfCode);
-      }
-      , 1000);
+      }, 1000);
     },
     300, // Reduce throttle time to 300ms for better responsiveness
     {

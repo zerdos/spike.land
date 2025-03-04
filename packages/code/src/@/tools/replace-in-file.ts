@@ -62,9 +62,9 @@ export const createReplaceInFileTool = () =>
         diff: string;
       },
     ): Promise<CodeModification> => {
-      const {cSess} = globalThis as unknown as {cSess: ICode};
+      const { cSess } = globalThis as unknown as { cSess: ICode; };
       const codeSession = cSess;
-      
+
       log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
 
       // Input validation

@@ -34,8 +34,7 @@ export function createWorkflowWithStringReplace(
   initialState: AgentState,
   _Sess: ICode,
 ): WorkflowInvokeResult {
-
-  const cSess=  _Sess || globalThis as unknown as {cSess: ICode};
+  const cSess = _Sess || globalThis as unknown as { cSess: ICode; };
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
