@@ -8,7 +8,7 @@ import type { MessageInputProps } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
 import { cn } from "@/lib/utils";
-import { handleSendMessage } from "@/workers/chat-utils-langchain.worker";
+import { handleSendMessage } from "@/workers/handle-chat-message";
 import React, { useRef, useState } from "react";
 
 export const MessageInput: React.FC<MessageInputProps> = ({

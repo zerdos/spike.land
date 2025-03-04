@@ -1,6 +1,6 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
-import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import { getReplaceInFileTool } from "../tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "../tools/utils/code-utils";
 
@@ -25,7 +25,7 @@ import { createGraphStateReducers } from "./state-reducers";
 import type { ExtendedAgentState, WorkflowInvokeResult } from "./workflow-types";
 
 // Module cache for workflows
-const workflowCache: Record<string, WorkflowInvokeResult> = {};
+export const workflowCache: Record<string, WorkflowInvokeResult> = {};
 
 /**
  * Creates a workflow with string replace capability
@@ -219,31 +219,4 @@ export function createWorkflowWithStringReplace(
   };
 }
 
-/**
- * Handles sending a message to the workflow
- */
-export async function handleSendMessage(
-  { prompt, images, cSess }: HandleSendMessageProps,
-): Promise<AgentState> {
-  const codeSpace = cSess.getCodeSpace();
-  const code = await cSess.getCode();
-  // Get or create workflow for this code space
-  const workflow = workflowCache[codeSpace] || await createWorkflowWithStringReplace({
-    code: code,
-    codeSpace: codeSpace,
-    origin: location.origin,
-    lastError: "",
-    isStreaming: false,
-    messages: [],
-    hash: getHashWithCache(code),
-  }, cSess);
 
-  // Cache the workflow for future use
-  workflowCache[codeSpace] = workflow;
-
-  // Invoke the workflow with the prompt
-  const finalState = await workflow.invoke(prompt, images || []);
-
-  console.log("Final workflow state:", finalState);
-  return finalState;
-}
