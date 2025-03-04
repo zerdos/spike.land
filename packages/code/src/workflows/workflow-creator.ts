@@ -1,13 +1,9 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
 import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
-import { replaceInFileTool } from "@/tools/replace-in-file";
-import { logCodeChanges, verifyCodeIntegrity } from "@/tools/utils/code-utils";
-import {
-  createCodeIntegrityError,
-  handleWorkflowError,
-  WorkflowError,
-} from "@/tools/utils/error-handlers";
+import { replaceInFileTool } from "../tools/replace-in-file";
+import { logCodeChanges, verifyCodeIntegrity } from "../tools/utils/code-utils";
+
 import type { AgentState } from "@/types/chat-langchain";
 import type { WorkflowContinueResult } from "@/types/workflow";
 import { ChatAnthropic } from "@langchain/anthropic";
@@ -16,12 +12,13 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import { telemetry } from "../../lib/telemetry";
+import { telemetry } from "../lib/telemetry";
 import { getHashWithCache } from "./code-processing";
 import { createNewMessage } from "./message-handlers";
 import { processMessage } from "./message-processor";
 import { createGraphStateReducers } from "./state-reducers";
 import type { ExtendedAgentState, WorkflowInvokeResult } from "./workflow-types";
+import { createCodeIntegrityError, WorkflowError, handleWorkflowError } from "../tools/utils/error-handlers";
 
 // Module cache for workflows
 const workflowCache: Record<string, WorkflowInvokeResult> = {};

@@ -1,6 +1,6 @@
 import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { sanitizeSession } from "@/lib/make-sess";
-import { ICodeSession } from "src/modules";
+import { ICodeSession } from "@/lib/interfaces";
 import { ICodeSessionBC } from "./types";
 
 export class CodeSessionBC implements ICodeSessionBC {

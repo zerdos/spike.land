@@ -1,7 +1,7 @@
 import { enhancedFetch } from "../../enhancedFetch";
-import { CacheUtils, CDN_DOMAIN } from "../tools/utils/cache-utils";
-import { ConfigManager } from "../tools/utils/config-manager";
-import { FileCacheManager } from "../tools/utils/file-cache";
+import { CacheUtils, CDN_DOMAIN } from "../../tools/utils/cache-utils";
+import { ConfigManager } from "../../tools/utils/config-manager";
+import { FileCacheManager } from "../../tools/utils/file-cache";
 import { CustomServiceWorkerGlobalScope } from "../types/service-worker";
 
 export class ServiceWorkerHandlers {

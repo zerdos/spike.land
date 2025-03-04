@@ -1,7 +1,7 @@
 import { initialClaude } from "@/lib/initial-claude";
 import { md5 } from "@/lib/md5";
-import { astCodeModificationTool } from "@/tools/ast-code-modification";
-import { WorkflowError } from "@/tools/utils/error-handlers";
+import { astCodeModificationTool } from "../tools/ast-code-modification";
+import { WorkflowError } from "../tools/utils/error-handlers";
 import { AgentState } from "@/types/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";

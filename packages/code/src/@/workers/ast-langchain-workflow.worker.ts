@@ -7,7 +7,7 @@ Object.assign(globalThis, {
   },
 });
 
-import { createAstWorkflow } from "@/workflows/ast-code-workflow";
+import { createAstWorkflow } from "../../workflows/ast-code-workflow";
 
 export { createAstWorkflow };
 // Export the workflow for global access
