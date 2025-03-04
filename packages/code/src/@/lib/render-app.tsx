@@ -11,6 +11,7 @@ import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { importMapReplace } from "./importmap-utils";
+import { transpile } from "@/lib/shared";
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -113,7 +114,6 @@ async function renderApp(
         let codeToUse = transpiled;
 
         if (!codeToUse && code) {
-          const { transpile } = await import("@/lib/shared");
           const transpiled = await transpile({
             code,
             originToUse: origin,

@@ -129,7 +129,9 @@ export const createReplaceInFileTool = () =>
 
         // Set the modified code
         console.log("Modified code:", modifiedCode);
+        
         const success = await cSess.setCode(modifiedCode);
+
         console.log("Success:", success);
 
         if (!success) {
@@ -139,6 +141,7 @@ export const createReplaceInFileTool = () =>
           );
         }
         modifiedCode = success as string;
+        
         await cSess.addMessageChunk(diff);
 
         const newHash = md5(modifiedCode);

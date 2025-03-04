@@ -92,14 +92,6 @@ const ChatInterface: React.FC<{
       content: editInput,
     };
 
-    // First remove all messages
-    cSess.removeMessages();
-    
-    // Then add each message up to the edited one
-    for (let i = 0; i < messageIndex; i++) {
-      cSess.addMessage(messages[i]);
-    }
-    
     // Finally add the updated message
     cSess.addMessage(updatedMessage);
     
