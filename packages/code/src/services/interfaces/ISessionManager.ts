@@ -1,30 +1,17 @@
-import type { ICodeSession, Message } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 
+/**
+ * Interface for session management operations
+ * 
+ * Note: Message-related operations (addMessageChunk, addMessage, removeMessages) have been moved
+ * to the Code class for better coordination with code updates.
+ */
 export interface ISessionManager {
   /**
    * Initialize the session
    * @param initialSession Optional initial session data
    */
   init(initialSession?: ICodeSession): Promise<ICodeSession>;
-
-  /**
-   * Add a message chunk to the current session
-   * @param chunk Message content to add
-   */
-  addMessageChunk(chunk: string): void;
-
-  /**
-   * Add a new message to the session
-   * @param newMessage Message to add
-   * @returns true if message was added, false if no changes
-   */
-  addMessage(newMessage: Message): boolean;
-
-  /**
-   * Remove all messages from the session
-   * @returns true if messages were removed, false if no changes
-   */
-  removeMessages(): boolean;
 
   /**
    * Subscribe to session changes

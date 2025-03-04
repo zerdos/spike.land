@@ -12,7 +12,13 @@ function log(
   data?: Record<string, unknown>,
 ): void {
   const timestamp = new Date().toISOString();
-  console[level](`[replace-in-file][${timestamp}] ${message}`, data || "");
+  const logMessage = `[replace-in-file][${timestamp}] ${message}`;
+  
+  // Use a more distinctive prefix for easier spotting in console
+  console[level](`🔄 ${logMessage}`, data || "");
+  
+  // Also log to console.debug which might be filtered differently
+  console.debug(`DEBUG: ${logMessage}`, data || "");
 }
 
 /**
@@ -142,7 +148,35 @@ export const createReplaceInFileTool = () =>
         }
         modifiedCode = success as string;
         
-        await cSess.addMessageChunk(diff);
+        // Add a longer delay before adding the message chunk to ensure code changes are fully processed
+        console.log("⏳ Waiting for code changes to be fully processed before adding message chunk...");
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Log before adding message chunk
+        console.log("🔍 Before addMessageChunk - Code state:", modifiedCode.substring(0, 100) + "...");
+        
+        try {
+          // Store the current hash before adding message chunk
+          const beforeMessageChunkHash = md5(await cSess.getCode());
+          console.log("📊 Hash before addMessageChunk:", beforeMessageChunkHash);
+          
+          // Add the message chunk
+          await cSess.addMessageChunk(diff);
+          console.log("✅ Successfully added message chunk");
+          
+          // Verify the code hasn't changed after adding message chunk
+          const afterMessageChunkHash = md5(await cSess.getCode());
+          console.log("📊 Hash after addMessageChunk:", afterMessageChunkHash);
+          
+          if (beforeMessageChunkHash !== afterMessageChunkHash) {
+            console.warn("⚠️ Code hash changed after addMessageChunk! This indicates a potential issue.");
+          } else {
+            console.log("✅ Code hash remained the same after addMessageChunk - good!");
+          }
+        } catch (chunkError) {
+          console.error("❌ Error adding message chunk:", chunkError);
+          // Continue execution even if adding message chunk fails
+        }
 
         const newHash = md5(modifiedCode);
         log("File successfully updated", "info", {

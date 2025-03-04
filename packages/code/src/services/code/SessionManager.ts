@@ -1,13 +1,18 @@
-import type { ICodeSession, Message } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { CodeSessionBC } from "../CodeSessionBc";
 import type { ISessionManager } from "../interfaces/ISessionManager";
-import { messagesPush } from "@/lib/chat-utils";
-interface BroadcastMessage extends ICodeSession {
-  sender: string;
-}
 
+/**
+ * SessionManager is responsible for managing the session state and synchronizing it across clients.
+ * 
+ * Its primary responsibilities are:
+ * 1. Initializing the session
+ * 2. Providing access to the current session state
+ * 3. Broadcasting session updates to other clients via BroadcastChannel
+ * 4. Computing diffs between session states to optimize network traffic
+ */
 export class SessionManager implements ISessionManager {
   private session: ICodeSession | null = null;
   private user: string;
@@ -29,79 +34,6 @@ export class SessionManager implements ISessionManager {
   async init(initialSession?: ICodeSession): Promise<ICodeSession> {
     this.session = await this.broadcastChannel.init(initialSession);
     return this.session;
-  }
-
-  addMessageChunk(chunk: string): void {
-    if (!this.session) return;
-
-    const oldSession = sanitizeSession(this.session);
-    if (this.session.messages.length === 0) {
-      this.addMessage({
-        id: Date.now().toString(),
-        role: "assistant",
-        content: chunk,
-      });
-      return;
-    }
-
-    const lastMessage = this.session.messages[this.session.messages.length - 1];
-    if (lastMessage.role !== "assistant") {
-      this.addMessage({
-        id: Date.now().toString(),
-        role: "assistant",
-        content: chunk,
-      });
-      return;
-    }
-
-    lastMessage.content += chunk;
-    const newSession = sanitizeSession({...this.session, messages: [
-      ...this.session.messages.slice(0, this.session.messages.length - 1),
-      lastMessage,
-    ]}); 
-
-    this.session = newSession;  
-    this.broadcastSession(oldSession);
-  }
-
-  addMessage(newMessage: Message): boolean {
-    if (!this.session) return false;
-    
-    const oldSession = sanitizeSession(this.session);
-    const currentMessages = this.session.messages;
-    
-    // Use messagesPush to add the new message following the rules
-    const updatedMessages = messagesPush(currentMessages, newMessage);
-    
-    // Check if messages actually changed
-    if (md5(JSON.stringify(updatedMessages)) === md5(JSON.stringify(currentMessages))) {
-      return false;
-    }
-    
-    this.session = sanitizeSession({
-      ...this.session,
-      messages: updatedMessages,
-    });
-    
-    this.broadcastSession(oldSession);
-    return true;
-  }
-  
-  removeMessages(): boolean {
-    if (!this.session) return false;
-    
-    // If there are no messages, nothing to remove
-    if (this.session.messages.length === 0) return false;
-    
-    const oldSession = sanitizeSession(this.session);
-    
-    this.session = sanitizeSession({
-      ...this.session,
-      messages: [],
-    });
-    
-    this.broadcastSession(oldSession);
-    return true;
   }
 
   subscribe(callback: (session: ICodeSession) => void): () => void {
@@ -180,16 +112,13 @@ export class SessionManager implements ISessionManager {
   }
 
   private broadcastSession(oldSession: ICodeSession): void {
-    if (
-      !this
-        .session
-    ) return;
+    if (!this.session) return;
 
     const diff = this.computeSessionDiff(oldSession, this.session);
 
     // Only broadcast if there are actual changes beyond just codeSpace
     if (Object.keys(diff).length > 1) {
-      const broadcastData: BroadcastMessage = {
+      const broadcastData = {
         code: this.session.code,
         html: this.session.html,
         css: this.session.css,

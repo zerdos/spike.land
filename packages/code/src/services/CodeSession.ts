@@ -1,5 +1,5 @@
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
-import { computeSessionHash } from "@/lib/make-sess";
+import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
@@ -7,6 +7,8 @@ import { screenshot } from "../components/editorUtils";
 import { CodeProcessor } from "./code/CodeProcessor";
 import { ModelManager } from "./code/ModelManager";
 import { SessionManager } from "./code/SessionManager";
+import { messagesPush } from "@/lib/chat-utils";
+import { md5 } from "@/lib/md5";
 
 // Mutex for thread-safe code access
 const mutex = new Mutex();
@@ -96,16 +98,119 @@ export class Code implements ICode {
     return this.session.code;
   }
 
+  /**
+   * Adds a message chunk to the last assistant message or creates a new one
+   */
   addMessageChunk(chunk: string): void {
-    this.sessionManager.addMessageChunk(chunk);
+    console.log("🔄 CodeSession.addMessageChunk called with chunk length:", chunk.length);
+    
+    // Create a copy of the current session for tracking changes
+    const oldSession = sanitizeSession(this.session);
+    
+    // If there are no messages, create a new assistant message
+    if (this.session.messages.length === 0) {
+      this.addMessage({
+        id: Date.now().toString(),
+        role: "assistant",
+        content: chunk,
+      });
+      return;
+    }
+
+    // Get the last message
+    const lastMessage = this.session.messages[this.session.messages.length - 1];
+    
+    // If the last message is not from the assistant, create a new assistant message
+    if (lastMessage.role !== "assistant") {
+      this.addMessage({
+        id: Date.now().toString(),
+        role: "assistant",
+        content: chunk,
+      });
+      return;
+    }
+
+    // Append the chunk to the last assistant message
+    lastMessage.content += chunk;
+    
+    // Create a new session with the updated messages
+    const newSession = sanitizeSession({
+      ...this.session, 
+      messages: [
+        ...this.session.messages.slice(0, this.session.messages.length - 1),
+        lastMessage,
+      ]
+    });
+
+    // Update the session
+    this.session = newSession;
+    
+    // Broadcast the changes
+    this.sessionManager.updateSession(newSession);
+    
+    console.log("✅ CodeSession.addMessageChunk completed successfully");
   }
 
+  /**
+   * Adds a new message to the session
+   */
   addMessage(newMessage: Message): boolean {
-    return this.sessionManager.addMessage(newMessage);
+    console.log("🔄 CodeSession.addMessage called with message:", newMessage.role);
+    
+    // Create a copy of the current messages
+    const currentMessages = [...this.session.messages];
+    
+    // Use messagesPush to add the new message following the rules
+    const updatedMessages = messagesPush(currentMessages, newMessage);
+    
+    // Check if messages actually changed
+    if (md5(JSON.stringify(updatedMessages)) === md5(JSON.stringify(currentMessages))) {
+      console.log("⚠️ No changes to messages, skipping update");
+      return false;
+    }
+    
+    // Create a new session with the updated messages
+    const newSession = sanitizeSession({
+      ...this.session,
+      messages: updatedMessages,
+    });
+    
+    // Update the session
+    this.session = newSession;
+    
+    // Broadcast the changes
+    this.sessionManager.updateSession(newSession);
+    
+    console.log("✅ CodeSession.addMessage completed successfully");
+    return true;
   }
-
+  
+  /**
+   * Removes all messages from the session
+   */
   removeMessages(): boolean {
-    return this.sessionManager.removeMessages();
+    console.log("🔄 CodeSession.removeMessages called");
+    
+    // If there are no messages, nothing to remove
+    if (this.session.messages.length === 0) {
+      console.log("⚠️ No messages to remove");
+      return false;
+    }
+    
+    // Create a new session with empty messages
+    const newSession = sanitizeSession({
+      ...this.session,
+      messages: [],
+    });
+    
+    // Update the session
+    this.session = newSession;
+    
+    // Broadcast the changes
+    this.sessionManager.updateSession(newSession);
+    
+    console.log("✅ CodeSession.removeMessages completed successfully");
+    return true;
   }
 
   async setCode(
@@ -140,11 +245,15 @@ export class Code implements ICode {
     rawCode: string,
     skipRunning: boolean,
   ): Promise<string> {
+    console.log("🔄 CodeSession.updateCodeInternal called");
+    
     if (rawCode === this.session.code) {
+      console.log("⚠️ Code unchanged, returning current code");
       return this.session.code;
     }
 
     if (skipRunning) {
+      console.log("🔄 Skipping running, just updating session");
       this.setSession({
         ...this.session,
         code: rawCode,
@@ -153,12 +262,14 @@ export class Code implements ICode {
     }
 
     if (this.setCodeController) {
+      console.log("🔄 Aborting previous setCode operation");
       this.setCodeController.abort();
     }
 
     this.setCodeController = new AbortController();
     const signal = this.setCodeController.signal;
 
+    console.log("🔄 Processing code with CodeProcessor");
     const result = await this.codeProcessor.process(
       rawCode,
       skipRunning,
@@ -167,10 +278,21 @@ export class Code implements ICode {
     );
 
     if (!result) {
+      console.log("⚠️ CodeProcessor returned no result, returning current code");
       return this.session.code;
     }
 
+    console.log("✅ Updating session with processed code");
+    // Update our local session first
+    this.session = sanitizeSession(result);
+    
+    // Then broadcast the changes
     this.sessionManager.updateSession(result);
+    
+    // Wait a small amount of time to ensure the session update is processed
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
+    console.log("✅ Code update completed successfully");
     return this.session.code;
   }
 
