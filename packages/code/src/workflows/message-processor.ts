@@ -1,4 +1,4 @@
-import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
+import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import type { AgentState } from "@/types/chat-langchain";
 import type { ChatAnthropic } from "@langchain/anthropic";

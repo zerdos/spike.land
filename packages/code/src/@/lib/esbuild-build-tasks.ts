@@ -212,7 +212,7 @@ const libEntryPoints = await createEntryPoints("lib");
 const externalEntryPoints = await createEntryPoints("external");
 const appEntryPoints = await createEntryPoints("components/app");
 const hooksEntryPoints = await createEntryPoints("hooks");
-const configEntryPoints = await createEntryPoints("config");
+// const configEntryPoints = await createEntryPoints("config");
 const servicesEntryPoints = await createEntryPoints("services");
 // const workflows = await createEntryPoints("workflows");
 // const tools   = await createEntryPoints("tools");
@@ -223,7 +223,7 @@ const standaloneEntryPoints = [
   ...externalEntryPoints,
   ...appEntryPoints,
   ...hooksEntryPoints,
-  ...configEntryPoints,
+  // ...configEntryPoints,
   ...servicesEntryPoints,
   // ...workflows,
   // ...tools,
@@ -238,7 +238,7 @@ const extraAliases = {
   ...await createAliases("services"),
   // ...await createAliases("workflows"),
   // ...await createAliases("tools"),
-  ...await createAliases("config"),
+  // ...await createAliases("config"),
 };
 
 export async function buildMainBundle(wasmFile: string): Promise<void> {

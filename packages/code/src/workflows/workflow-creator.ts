@@ -1,4 +1,4 @@
-import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
+import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
 import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
 import { replaceInFileTool } from "../tools/replace-in-file";
