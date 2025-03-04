@@ -15,7 +15,7 @@ class SessionPatcher {
     const { codeSpace, code, html, css, transpiled, messages } = cx;
     const hashObj = {
       codeSpace,
-      messages: md5(messages.map((m) => md5(JSON.stringify(m))).join("")),
+      messages: md5((messages || []).map((m) => md5(JSON.stringify(m))).join("")),
       code: md5(code),
       html: md5(html),
       css: md5(css),

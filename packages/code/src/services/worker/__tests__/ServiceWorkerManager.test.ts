@@ -1,5 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ServiceWorkerManager } from "../ServiceWorkerManager";
+import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 
 // Mock hydrate module
 vi.mock("@/lib/hydrate", () => ({
