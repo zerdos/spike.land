@@ -2,8 +2,8 @@ import { md5 } from "@/lib/md5";
 
 import { AIMessage } from "@langchain/core/messages";
 import { estimateTokenSavings } from "./code-utils";
-import { AgentState } from "../../workflows/chat-langchain";
-import { ToolResponseMetadata } from "../../workflows/workflow";
+import { AgentState } from "../../chat-langchain";
+import { ToolResponseMetadata } from "../../workflow";
 
 /**
  * Extract hash and other metadata from tool response

@@ -2,7 +2,7 @@ import { updateSearchReplace } from "@/lib/chat-utils";
 import { SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
 import { ICode, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import type { CodeModification } from "../workflows/chat-langchain";
+import type { CodeModification } from "../chat-langchain";
 import { tool } from "@langchain/core/tools";
 
 import { z } from "zod";

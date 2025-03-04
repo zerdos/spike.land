@@ -27,8 +27,11 @@ export async function handleSendMessage(
   workflowCache[codeSpace] = workflow;
 
   // Invoke the workflow with the prompt
+  // The workflow will automatically use the replace_in_file tool when needed
+  // through the ToolNode and model.bindTools setup in createWorkflowWithStringReplace
   const finalState = await workflow.invoke(prompt, images || []);
 
   console.log("Final workflow state:", finalState);
+  
   return finalState;
 }

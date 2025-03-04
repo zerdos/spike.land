@@ -8,8 +8,8 @@ import type { StateGraphArgs } from "@langchain/langgraph/web";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import { astCodeModificationTool } from "../tools/ast-code-modification";
-import { WorkflowError } from "../tools/utils/error-handlers";
+import { astCodeModificationTool } from "./tools/ast-code-modification";
+import { WorkflowError } from "./tools/utils/error-handlers";
 
 // Constants for better maintainability
 const MODEL_NAME = "claude-3-7-sonnet-20250219";

@@ -1,8 +1,8 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
 import type { ICode, ImageData } from "@/lib/interfaces";
-import { getReplaceInFileTool } from "../tools/replace-in-file";
-import { logCodeChanges, verifyCodeIntegrity } from "../tools/utils/code-utils";
+import { getReplaceInFileTool } from "./tools/replace-in-file";
+import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
 import type { AgentState } from "../workflows/chat-langchain";
 import type { WorkflowContinueResult } from "./workflow";
@@ -17,7 +17,7 @@ import {
   createCodeIntegrityError,
   handleWorkflowError,
   WorkflowError,
-} from "../tools/utils/error-handlers";
+} from "./tools/utils/error-handlers";
 import { getHashWithCache } from "./code-processing";
 import { createNewMessage } from "./message-handlers";
 import { processMessage } from "./message-processor";

@@ -2,11 +2,11 @@ import {
   COMPLEX_CHANGE_THRESHOLD,
   SIGNIFICANT_CHANGE_RATIO,
   SMALL_FILE_THRESHOLD,
-} from "../../config/workflow-config";
+} from "../../../config/workflow-config";
 import { updateSearchReplace } from "@/lib/chat-utils";
 import { md5 } from "@/lib/md5";
 
-import { CodeChangeMetrics } from "../../workflows/workflow";
+import { CodeChangeMetrics } from "../../workflow";
 
 /**
  * Verify code integrity using document hash

@@ -1,7 +1,7 @@
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { format } from "@/lib/shared";
-import type { CodeModification } from "../workflows/chat-langchain";
+import type { CodeModification } from "../chat-langchain";
 import generate from "@babel/generator";
 import { parse, ParseResult, ParserPlugin } from "@babel/parser";
 import traverse from "@babel/traverse";
