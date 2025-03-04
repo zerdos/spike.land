@@ -124,7 +124,7 @@ const liveRoute = createRoute({
     page: params.page,
   }),
   loader: async ({ params: { codeSpace } }) => ({
-    codeSpace: getCodeSpace(`/live/${codeSpace}`),
+    codeSpace,
     page: "",
   }),
   component: () => <App />,
@@ -142,7 +142,7 @@ const EditorRoute = createRoute({
     codeSpace: params.codeSpace,
   }),
   loader: async ({ params: { codeSpace } }) => ({
-    codeSpace: getCodeSpace(`/live/${codeSpace}`),
+    codeSpace
   }),
   component: () => <App />,
 });

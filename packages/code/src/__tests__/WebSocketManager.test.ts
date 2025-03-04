@@ -82,7 +82,7 @@ describe("WebSocketManager", () => {
     window.location = {
       ...originalLocation,
       pathname: "/test-path",
-    } as unknown as Location;
+    } as unknown as Location & string;
 
     // Setup mock dependencies
     // Setup mocks with proper implementation
@@ -130,7 +130,7 @@ describe("WebSocketManager", () => {
   });
 
   afterEach(() => {
-    window.location = originalLocation;
+    window.location = originalLocation as unknown as Location & string;
     vi.useRealTimers();
     window.onmessage = null;
     storedCallback = null;
