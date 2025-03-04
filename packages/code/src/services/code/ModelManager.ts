@@ -1,5 +1,6 @@
-import { Code } from "../CodeSession";
+import { Code } from "@/workers/code.session.worker";
 import type { IExtraModelsResult, IModelManager } from "../interfaces/IModelManager";
+import { Message } from "@/lib/interfaces";
 
 export class ModelManager implements IModelManager {
   private models = new Map<string, Code>();
@@ -39,7 +40,19 @@ export class ModelManager implements IModelManager {
 
       let codeInstance = this.models.get(codeSpace);
       if (!codeInstance) {
-        codeInstance = new Code(codeSpace);
+    
+        
+    
+        codeInstance = new Code({
+          codeSpace,
+          code: codeContent,
+          html: "",
+          css: "",
+          messages: [] as Message[],
+          transpiled: "",
+        }
+    
+        );
         await codeInstance.init();
         this.models.set(codeSpace, codeInstance);
       }

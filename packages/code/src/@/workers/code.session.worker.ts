@@ -1,3 +1,4 @@
+import { getCodeSpace } from "@/hooks/use-code-space";
 import { messagesPush } from "@/lib/chat-utils";
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
@@ -5,10 +6,11 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { screenshot } from "../components/editorUtils";
-import { CodeProcessor } from "./code/CodeProcessor";
-import { ModelManager } from "./code/ModelManager";
-import { SessionManager } from "./code/SessionManager";
+import { cs } from "date-fns/locale";
+import { screenshot } from "src/components/editorUtils";
+import { CodeProcessor } from "src/services/code/CodeProcessor";
+import { ModelManager } from "src/services/code/ModelManager";
+import { SessionManager } from "src/services/code/SessionManager";
 
 // Mutex for thread-safe code access
 const mutex = new Mutex();
@@ -25,28 +27,18 @@ export class Code implements ICode {
   private releaseWorker: () => void = () => {};
   private setCodeController: AbortController | null = null;
   private isRunning = false;
+  private codeSpace: string;
   private pendingRun: string | null = null;
-  private session: ICodeSession = {
-    code: "",
-    codeSpace: "",
-    html: "",
-    css: "",
-    messages: [],
-    transpiled: "",
-  };
+
   private sessionManager: SessionManager;
 
-  constructor(private codeSpace: string) {
-    this.session = {
-      code: "",
-      codeSpace: codeSpace,
-      html: "",
-      css: "",
-      messages: [],
-      transpiled: "",
-    };
+  constructor(private session: ICodeSession,) {
+    this.session= sanitizeSession(session);
+    const codeSpace = session.codeSpace
+
+    this.codeSpace = session.codeSpace 
     this.sessionManager = new SessionManager(codeSpace);
-    this.session.codeSpace = codeSpace;
+  
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
     this.setSession({
@@ -328,3 +320,18 @@ export class Code implements ICode {
     await this.init();
   }
 }
+
+let cSess: ICode | null = null;
+
+export const exposeCsess = async(): Promise<ICode> => {
+  if (cSess) return cSess;
+
+  const codeSpace = getCodeSpace(location.pathname);
+
+  const session = await fetch(`/api/room/${codeSpace}/session.json`).then((res) => res.json()) as ICodeSession;
+  cSess = new Code(session);
+  Object.assign(globalThis, { cSess });
+
+  return cSess;
+}
+  

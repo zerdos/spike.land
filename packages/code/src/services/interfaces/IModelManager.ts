@@ -1,4 +1,4 @@
-import type { Code } from "../CodeSession";
+import type { Code } from "@/workers/code.session.worker";
 
 export interface IModelManager {
   /**

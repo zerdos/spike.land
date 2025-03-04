@@ -164,14 +164,33 @@ export function createWorkflowWithStringReplace(
           });
         }
 
+        // Get the current code from the session
         const newCode = await cSess.getCode();
-        const newCodeWithDate = newCode + `
+        
+        // Check if the code has been modified during workflow execution
+        if (finalState.code !== initialState.code) {
+          console.log("Code changes detected in finalState, applying changes...");
+          
+          // Add timestamp to the modified code
+          const newCodeWithDate = finalState.code + `
 // generated: ${new Date().toISOString()}\n`;
-
-        if (newCode !== initialState.code) {
+          
+          // Update the code in the session
           await cSess.setCode(newCodeWithDate);
           finalState.code = newCodeWithDate;
           logCodeChanges(initialState.code, finalState.code);
+        } else if (newCode !== initialState.code) {
+          // Fallback: If finalState.code wasn't updated but session code was
+          console.log("Code changes detected in session but not in finalState, applying session changes...");
+          
+          const newCodeWithDate = newCode + `
+// generated: ${new Date().toISOString()}\n`;
+          
+          await cSess.setCode(newCodeWithDate);
+          finalState.code = newCodeWithDate;
+          logCodeChanges(initialState.code, finalState.code);
+        } else {
+          console.log("No code changes detected");
         }
 
         telemetry.stopTimer("workflow.invoke", {

@@ -14,9 +14,9 @@ import {
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
-import { Code } from "../services/CodeSession";
+import { exposeCsess } from "@/workers/code.session.worker";
 import { CodeSessionBC } from "../services/CodeSessionBc";
-
+// init()
 // Define route types
 interface RouteWithPageParams {
   codeSpace: string;
@@ -65,12 +65,8 @@ const App: React.FC = () => {
     if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
         await init();
-        const cSess = new Code(codeSpace);
-        const baseUrl = import.meta.env.DEV ? "" : "https://testing.spike.land";
-        const session = await fetch(`${baseUrl}/live/${codeSpace}/session.json`)
-          .then((res) => res.json()) as ICodeSession;
-        await cSess.init(session);
-
+     
+        const cSess = await exposeCsess();
         setState(cSess);
 
         const { initializeApp } = await import("@/lib/hydrate");
