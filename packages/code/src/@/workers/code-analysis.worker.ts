@@ -1,7 +1,7 @@
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
 import * as t from "@babel/types";
-import { codeAnalysisCache } from "@/lib/caching";
+import { codeAnalysisCache } from "@/workers/caching";
 
 // Helper type for semantic diff to handle nullable component names
 type ComponentMetadata = Omit<CodeAnalysis, "componentName"> & {
