@@ -138,7 +138,7 @@ export const replaceInFileTool = tool(
       // Set the modified code
       console.log("Modified code:", modifiedCode);
 
-      const success = await cSess.setCode(modifiedCode, true);
+      const success = await cSess.setCode(modifiedCode);
 
       console.log("Success:", success);
 

@@ -38,6 +38,7 @@ export class Code implements ICode {
 
     this.codeSpace = session.codeSpace 
     this.sessionManager = new SessionManager(codeSpace);
+    this.sessionManager.init(session);
   
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
