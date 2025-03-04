@@ -348,7 +348,7 @@ async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
  * @returns Promise resolving to a Code instance
  */
 export async function getCodeSession(
-  codeSpaceId = getCodeSpace(window.location.pathname)
+  codeSpaceId = getCodeSpace(location.pathname)
 ): Promise<ICode> {
   // Return cached session if it exists
   if (codeSessionCache[codeSpaceId]) {

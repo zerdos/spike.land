@@ -31,7 +31,7 @@ export const useChat = () => {
 
   const sendMessage = (payload: MessagePayload) => {
     if (payload?.to) {
-      window.postMessage(payload, window.location.origin);
+      window.postMessage(payload, location.origin);
     }
   };
 

@@ -72,7 +72,7 @@ describe("WebSocketManager", () => {
     vi.useFakeTimers();
 
     // Save original location
-    originalLocation = window.location;
+    originalLocation = location;
     
     // Use Object.defineProperty to avoid type issues
     const newLocation = { ...originalLocation };
@@ -190,7 +190,7 @@ describe("WebSocketManager", () => {
 
     it("should handle live page route", async () => {
       // Set path before initializing
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -210,7 +210,7 @@ describe("WebSocketManager", () => {
     });
 
     it("should handle live-cms route", async () => {
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live-cms/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -224,7 +224,7 @@ describe("WebSocketManager", () => {
     });
 
     it.skip("should handle dehydrated page route", async () => {
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space/dehydrated";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -354,7 +354,7 @@ describe("WebSocketManager", () => {
         .mockRejectedValueOnce(networkError)
         .mockResolvedValue({} as any);
 
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -375,7 +375,7 @@ describe("WebSocketManager", () => {
       const timeoutError = new Error("Connection timeout");
       mockSessionSynchronizer.init = vi.fn().mockRejectedValueOnce(timeoutError);
 
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -401,7 +401,7 @@ describe("WebSocketManager", () => {
 
       mockSessionSynchronizer.init = mockInit;
       
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,
@@ -431,7 +431,7 @@ describe("WebSocketManager", () => {
       const error = new Error("Persistent error");
       mockSessionSynchronizer.init = vi.fn().mockRejectedValue(error);
       
-      const newLocation = { ...window.location };
+      const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
       Object.defineProperty(window, 'location', {
         value: newLocation,

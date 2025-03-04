@@ -75,7 +75,7 @@ export const processImage = (file: File): Promise<ImageData> => {
         const base64Data = await blobToBase64(blob);
         const md5Body = md5(base64Data);
         const imageName = file.name;
-        const url = window.location.origin + `/my-cms/${md5Body}/${imageName}`;
+        const url = location.origin + `/my-cms/${md5Body}/${imageName}`;
         await fetch(url, { method: "PUT", body: arrayBuffer });
 
         resolve({

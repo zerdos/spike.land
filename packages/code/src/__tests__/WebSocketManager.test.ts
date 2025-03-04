@@ -78,8 +78,8 @@ describe("WebSocketManager", () => {
     vi.useFakeTimers();
 
     // Save original location
-    originalLocation = window.location;
-    window.location = {
+    originalLocation = location;
+    location = {
       ...originalLocation,
       pathname: "/test-path",
     } as unknown as Location & string;
@@ -130,7 +130,7 @@ describe("WebSocketManager", () => {
   });
 
   afterEach(() => {
-    window.location = originalLocation as unknown as Location & string;
+    location = originalLocation as unknown as Location & string;
     vi.useRealTimers();
     window.onmessage = null;
     storedCallback = null;
@@ -188,7 +188,7 @@ describe("WebSocketManager", () => {
 
     it("should handle live page route", async () => {
       // Set path before initializing
-      window.location.pathname = "/live/test-space";
+      location.pathname = "/live/test-space";
 
       // Initialize and wait for callbacks
       await webSocketManager.init();
@@ -203,7 +203,7 @@ describe("WebSocketManager", () => {
     });
 
     it("should handle live-cms route", async () => {
-      window.location.pathname = "/live-cms/test-space";
+      location.pathname = "/live-cms/test-space";
       await webSocketManager.init();
 
       expect(mockSessionSynchronizer.init).toHaveBeenCalled();
@@ -211,7 +211,7 @@ describe("WebSocketManager", () => {
     });
 
     it.skip("should handle dehydrated page route", async () => {
-      window.location.pathname = "/live/test-space/dehydrated";
+      location.pathname = "/live/test-space/dehydrated";
       const mockEmbed = document.createElement("div");
       mockEmbed.id = "embed";
       document.body.appendChild(mockEmbed);
@@ -335,7 +335,7 @@ describe("WebSocketManager", () => {
         .mockRejectedValueOnce(networkError)
         .mockResolvedValue({} as any);
 
-      window.location.pathname = "/live/test-space";
+      location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
 
       // Verify error handling
@@ -350,7 +350,7 @@ describe("WebSocketManager", () => {
       const timeoutError = new Error("Connection timeout");
       mockSessionSynchronizer.init = vi.fn().mockRejectedValueOnce(timeoutError);
 
-      window.location.pathname = "/live/test-space";
+      location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow(
         "Connection timeout",
       );
@@ -369,7 +369,7 @@ describe("WebSocketManager", () => {
         .mockResolvedValue({} as any); // Subsequent calls succeed
 
       mockSessionSynchronizer.init = mockInit;
-      window.location.pathname = "/live/test-space";
+      location.pathname = "/live/test-space";
 
       // Initialize and expect initial failure
       await expect(webSocketManager.init()).rejects.toThrow(
@@ -393,7 +393,7 @@ describe("WebSocketManager", () => {
       // Mock persistent error
       const error = new Error("Persistent error");
       mockSessionSynchronizer.init = vi.fn().mockRejectedValue(error);
-      window.location.pathname = "/live/test-space";
+      location.pathname = "/live/test-space";
 
       // Initial attempt
       await expect(webSocketManager.init()).rejects.toThrow("Persistent error");

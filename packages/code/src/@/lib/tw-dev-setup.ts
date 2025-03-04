@@ -31,7 +31,7 @@ class ResourceLoaderImpl implements ResourceLoader {
   }
 
   private shouldLoadResources(): boolean {
-    const pathname = window.location.pathname;
+    const pathname = location.pathname;
 
     return pathname.endsWith(ResourceLoaderImpl.IFRAME_PATH);
   }

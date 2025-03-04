@@ -177,7 +177,7 @@ export const useArchive = async (codeSpace: string) => {
     body: html,
   });
 
-  location.href = `${window.location.origin}/my-cms/${md}/${codeSpace}.html`;
+  location.href = `${location.origin}/my-cms/${md}/${codeSpace}.html`;
 };
 
 export const useSpeedy = async (codeSpace: string) => {
@@ -317,5 +317,5 @@ export const useSpeedy = async (codeSpace: string) => {
     body: html,
   });
 
-  console.log(`${window.location.origin}/my-cms/${md}/${codeSpace}.html`);
+  console.log(`${location.origin}/my-cms/${md}/${codeSpace}.html`);
 };
