@@ -128,7 +128,7 @@ export const createReplaceInFileTool = () =>
         log("Changes detected, updating file");
 
         // Set the modified code
-        const success = await codeSession.setCode(modifiedCode);
+        const success = await cSess.setCode(modifiedCode);
 
         if (!success) {
           return createErrorResponse(
@@ -137,7 +137,7 @@ export const createReplaceInFileTool = () =>
           );
         }
         modifiedCode = success as string;
-        await codeSession.addMessageChunk(diff);
+        await cSess.addMessageChunk(diff);
 
         const newHash = md5(modifiedCode);
         log("File successfully updated", "info", {

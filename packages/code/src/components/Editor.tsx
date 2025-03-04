@@ -38,6 +38,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     lastLogTime: 0,
   });
 
+  const isProcessingChange = useRef(false);
+  const pendingChange = useRef<string | null>(null);
+
   const handleContentChange = useCallback(
     async (newCode: string) => {
       if (!session) return;
@@ -46,51 +49,77 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       metrics.current.lastChangeTime = now;
       metrics.current.changeCount++;
 
-      // Abort previous operation if any
-      controller.current.abort();
-      controller.current = new AbortController();
-      const { signal } = controller.current;
-
-      try {
-        const formatted = await prettierToThrow({
-          code: newCode,
-          toThrow: false,
-        });
-
-        if (signal.aborted) return;
-
-        const newHash = md5(formatted);
-        const startSync = performance.now();
-
-        // Only update if content has actually changed
-        if (newHash !== lastHash) {
-          setLastHash(newHash);
-          setEditorState((prev) => ({ ...prev, code: formatted }));
-          await cSess.setCode(formatted);
-          await throttledTypeCheck();
-        }
-
-        // Update metrics
-        const syncTime = performance.now() - startSync;
-        lifetimeMetrics.current.longestSyncTime = Math.max(
-          lifetimeMetrics.current.longestSyncTime,
-          syncTime,
-        );
-
-        if (now - metrics.current.lastLogTime > 5000) {
-          console.debug("[Editor] Performance metrics:", {
-            changeCount: metrics.current.changeCount,
-            skippedCount: metrics.current.skippedCount,
-            syncTime,
-            timestamp: new Date().toISOString(),
-          });
-          metrics.current.lastLogTime = now;
-          metrics.current.changeCount = 0;
-          metrics.current.skippedCount = 0;
-        }
-      } catch (e) {
-        console.error("Content change error:", e);
+      // If already processing a change, queue this one
+      if (isProcessingChange.current) {
+        pendingChange.current = newCode;
+        return;
       }
+
+      const processChange = async (code: string) => {
+        isProcessingChange.current = true;
+
+        try {
+          // Abort previous operation if any
+          controller.current.abort();
+          controller.current = new AbortController();
+          const { signal } = controller.current;
+
+          const formatted = await prettierToThrow({
+            code,
+            toThrow: false,
+          });
+
+          if (signal.aborted) return;
+
+          const newHash = md5(formatted);
+          const startSync = performance.now();
+
+          // Prevent unnecessary updates
+          if (newHash !== lastHash) {
+            setLastHash(newHash);
+            
+            // Debounce state updates
+            await wait(0);
+            if (signal.aborted) return;
+            
+            setEditorState((prev) => ({ ...prev, code: formatted }));
+            await cSess.setCode(formatted);
+            await throttledTypeCheck();
+          }
+
+          // Update metrics
+          const syncTime = performance.now() - startSync;
+          lifetimeMetrics.current.longestSyncTime = Math.max(
+            lifetimeMetrics.current.longestSyncTime,
+            syncTime,
+          );
+
+          if (now - metrics.current.lastLogTime > 5000) {
+            console.debug("[Editor] Performance metrics:", {
+              changeCount: metrics.current.changeCount,
+              skippedCount: metrics.current.skippedCount,
+              syncTime,
+              timestamp: new Date().toISOString(),
+            });
+            metrics.current.lastLogTime = now;
+            metrics.current.changeCount = 0;
+            metrics.current.skippedCount = 0;
+          }
+        } catch (e) {
+          console.error("Content change error:", e);
+        } finally {
+          isProcessingChange.current = false;
+          
+          // Process any pending change
+          if (pendingChange.current !== null) {
+            const nextChange = pendingChange.current;
+            pendingChange.current = null;
+            await processChange(nextChange);
+          }
+        }
+      };
+
+      await processChange(newCode);
     },
     [cSess, session, lastHash, setEditorState, throttledTypeCheck],
   );
@@ -103,6 +132,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     lastLogTime: 0,
   });
 
+  // Create refs at the component level, not inside hooks
+  const externalUpdateState = useRef({
+    isUpdating: false,
+    pendingUpdate: null as string | null
+  });
+
   // Optimized external code change listener
   useEffect(() => {
     if (!editorState.started || !cSess || !cSess.sub || !session) return;
@@ -111,16 +146,17 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       const now = performance.now();
       const newHash = md5(sess.code);
 
+      // Skip if content hasn't changed
       if (newHash === lastHash || sess.code === editorState.code) {
         externalMetrics.current.skippedCount++;
         return;
       }
 
+      // Metrics tracking
       const timeSinceLastUpdate = now - externalMetrics.current.lastUpdateTime;
       externalMetrics.current.lastUpdateTime = now;
       externalMetrics.current.updateCount++;
 
-      // Log external change metrics every 5 seconds
       if (now - externalMetrics.current.lastLogTime > 5000) {
         console.debug("[Editor] External update metrics:", {
           updateCount: externalMetrics.current.updateCount,
@@ -133,31 +169,55 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         externalMetrics.current.skippedCount = 0;
       }
 
-      // Update state immediately to prevent lag
-      setLastHash(newHash);
-      if (sess.code === editorState.code) return;
-      const newState = { ...editorState, code: sess.code };
-      setEditorState(newState);
+      // Prevent recursive updates
+      if (externalUpdateState.current.isUpdating) {
+        externalUpdateState.current.pendingUpdate = sess.code;
+        return;
+      }
 
-      // Then update editor value
-      if (newState.setValue) {
+      const updateEditor = async (code: string) => {
+        externalUpdateState.current.isUpdating = true;
         try {
-          newState.setValue(sess.code);
-          const syncTime = performance.now() - now;
-          lifetimeMetrics.current.longestSyncTime = Math.max(
-            lifetimeMetrics.current.longestSyncTime,
-            syncTime,
-          );
+          setLastHash(newHash);
+          
+          // Only update state if code actually changed
+          if (code !== editorState.code && editorState.setValue) {
+            const newState = { ...editorState, code };
+            setEditorState(newState);
+            
+            // Debounce setValue to prevent rapid updates
+            await wait(0);
+            if (!externalUpdateState.current.isUpdating) return; // Check if still relevant
+            
+            editorState.setValue(code);
+            
+            const syncTime = performance.now() - now;
+            lifetimeMetrics.current.longestSyncTime = Math.max(
+              lifetimeMetrics.current.longestSyncTime,
+              syncTime,
+            );
 
-          console.debug("[Editor] External sync completed:", {
-            syncTime,
-            codeLength: sess.code.length,
-            timestamp: new Date().toISOString(),
-          });
+            console.debug("[Editor] External sync completed:", {
+              syncTime,
+              codeLength: code.length,
+              timestamp: new Date().toISOString(),
+            });
+          }
         } catch (error) {
           console.error("[Editor] Error updating editor value:", error);
+        } finally {
+          externalUpdateState.current.isUpdating = false;
+          
+          // Handle any pending updates
+          if (externalUpdateState.current.pendingUpdate) {
+            const nextUpdate = externalUpdateState.current.pendingUpdate;
+            externalUpdateState.current.pendingUpdate = null;
+            await updateEditor(nextUpdate);
+          }
         }
-      }
+      };
+
+      await updateEditor(sess.code);
     });
 
     return () => {

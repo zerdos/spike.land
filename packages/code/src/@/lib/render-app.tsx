@@ -56,7 +56,7 @@ export const importFromString = async (code: string) => {
 
     const module = await import(/* @vite-ignore */ blobUrl);
     if (!module.default) {
-      console.error("Module does not have a default export:", module);
+      console.error("Module does not have a default export:", {code, module});
       return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
     }
     return module.default as FlexibleComponentType;
@@ -72,7 +72,7 @@ export const importFromString = async (code: string) => {
 
     const module = await import(filePath);
     if (!module.default) {
-      console.error("Module does not have a default export:", module);
+      console.error("Module does not have a default export:", {code, module, filePath});
       return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
     }
     return module.default as FlexibleComponentType;
