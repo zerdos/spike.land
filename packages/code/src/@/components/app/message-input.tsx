@@ -35,6 +35,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     const result = await handleSendMessage({
       prompt: input,
       images: uploadedImages,
+      cSess,
     });
     await cSess.setCode(result.code);
 

@@ -52,10 +52,10 @@ function validateDiff(diff: string): boolean {
 
 /**
  * Creates a replace-in-file tool with a provided code session
- * @param codeSession The code session to use for file operations
+ * @param cSess The code session to use for file operations
  * @returns A tool for replacing content in files
  */
-export const replaceInFileTool = tool(
+export const getReplaceInFileTool =  (cSess: ICode)=> tool(
   async (
     {
       path,
@@ -69,8 +69,6 @@ export const replaceInFileTool = tool(
   ): Promise<CodeModification> => {
     console.log("🔄 replaceInFileTool", { path, hash, diff });
 
-    const { cSess } = globalThis as unknown as { cSess: ICode; };
-    const codeSession = cSess;
 
     log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
 
@@ -92,14 +90,14 @@ export const replaceInFileTool = tool(
     }
 
     // Use the provided code session
-    if (!codeSession) {
+    if (!cSess) {
       return createErrorResponse("", "Code session not provided", {});
     }
 
     try {
       // Get current code from the file
       log("Retrieving current file content");
-      const currentCode = await codeSession.getCode();
+      const currentCode = await cSess.getCode();
 
       if (!currentCode) {
         return createErrorResponse("", "Failed to retrieve file content or file is empty");
@@ -245,7 +243,7 @@ export const replaceInFileTool = tool(
 
       let currentCode = "";
       try {
-        currentCode = await codeSession.getCode();
+        currentCode = await cSess.getCode();
       } catch (getCodeError) {
         log("Failed to retrieve code after error", "error", {
           error: getCodeError instanceof Error ? getCodeError.message : "Unknown error",

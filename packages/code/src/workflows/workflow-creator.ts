@@ -1,7 +1,7 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
 import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
-import { replaceInFileTool } from "../tools/replace-in-file";
+import { getReplaceInFileTool } from "../tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "../tools/utils/code-utils";
 
 import type { AgentState } from "../workflows/chat-langchain";
@@ -31,9 +31,8 @@ const workflowCache: Record<string, WorkflowInvokeResult> = {};
  * Creates a workflow with string replace capability
  */
 export function createWorkflowWithStringReplace(
-  initialState: AgentState,
+  initialState: AgentState, cSess: ICode,
 ): WorkflowInvokeResult {
-  const { cSess } = globalThis as unknown as { cSess: ICode; };
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
@@ -42,7 +41,7 @@ export function createWorkflowWithStringReplace(
 
   // Create the replace-in-file tool with the provided code session
 
-  const tools = [replaceInFileTool];
+  const tools = [getReplaceInFileTool(cSess)];
   const toolNode = new ToolNode(tools);
 
   // Create the model with bound tools
@@ -224,9 +223,8 @@ export function createWorkflowWithStringReplace(
  * Handles sending a message to the workflow
  */
 export async function handleSendMessage(
-  { prompt, images }: HandleSendMessageProps,
+  { prompt, images, cSess }: HandleSendMessageProps,
 ): Promise<AgentState> {
-  const { cSess } = globalThis as unknown as { cSess: ICode; };
   const codeSpace = cSess.getCodeSpace();
   const code = await cSess.getCode();
   // Get or create workflow for this code space
@@ -238,7 +236,7 @@ export async function handleSendMessage(
     isStreaming: false,
     messages: [],
     hash: getHashWithCache(code),
-  });
+  }, cSess);
 
   // Cache the workflow for future use
   workflowCache[codeSpace] = workflow;

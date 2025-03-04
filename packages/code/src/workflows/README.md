@@ -24,21 +24,6 @@ The implementation has been refactored into smaller, more focused modules:
 - **message-processor.ts**: Core message processing logic
 - **workflow-creator.ts**: Factory for creating workflow instances
 
-## Usage
-
-The main entry point is the `handleSendMessage` function exported from the `index.ts` file:
-
-```typescript
-import { handleSendMessage } from "@/workflows";
-
-await handleSendMessage({
-  messages: [],
-  codeSpace: "my-code-space",
-  prompt: "Fix the bug in this code",
-  code: "// code to modify",
-}, codeSession);
-```
-
 ## Refactoring Benefits
 
 The refactoring of the original monolithic file into smaller, focused modules provides several benefits:

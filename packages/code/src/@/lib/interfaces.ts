@@ -31,6 +31,7 @@ export interface ChatHeaderProps {
 export interface HandleSendMessageProps {
   prompt: string;
   images: ImageData[];
+  cSess: ICode;
 }
 
 export interface MessageInputProps {
