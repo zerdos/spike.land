@@ -1,7 +1,7 @@
 import type { EmotionCache } from "@emotion/cache";
 import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ICodeSession, RenderedApp } from "../../../@/lib/interfaces";
+import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 import { formatCode, transpileCode } from "../../../components/editorUtils";
 import { RenderService } from "../../render/RenderService";
 import type { IWebSocketManager } from "../../websocket/types";

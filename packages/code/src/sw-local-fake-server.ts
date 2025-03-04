@@ -2,14 +2,14 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import importMap, { importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { transpile } from "@/lib/shared";
-import { CodeSessionBC } from "@/services/CodeSessionBc";
+import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type {} from "./def";
 import HTML from "./index.html";
 
 import type { ICodeSession } from "@/lib/interfaces";
 import { sessionToJSON } from "@/lib/make-sess";
 
-const cSessions: Record<string, CodeSessionBC> = {};
+const cSessions: Record<string, SessionSynchronizer> = {};
 
 export async function fakeServer(request: Request) {
   const { pathname } = new URL(request.url.replace("api/room/", "live/"));
@@ -17,7 +17,7 @@ export async function fakeServer(request: Request) {
   console.log("CodeSpace:", codeSpace);
 
   cSessions[codeSpace] = cSessions[codeSpace] ||
-    new CodeSessionBC(
+    new SessionSynchronizer(
       codeSpace,
       await fetch(`/api/room/${codeSpace}/session.json`).then(
         (r) => r.json(),
@@ -147,7 +147,7 @@ async function handleIndexJs(
       originToUse: "",
     }) as unknown as string;
     session.transpiled = transpiled;
-    await cSessions[codeSpace].postMessage({
+    await cSessions[codeSpace].broadcastSession({
       ...session,
       transpiled,
     });

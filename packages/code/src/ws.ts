@@ -1,18 +1,18 @@
-import { CodeSessionBC } from "@/services/CodeSessionBc";
+import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import { RenderService } from "@/services/RenderService";
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
 
 export const main = async (codeSpace: string) => {
-  try {
+  try { 
     const renderService = new RenderService(codeSpace);
     // const cSess = new Code(codeSpace);
     // await cSess.init();
-    const codeSessionBC = new CodeSessionBC(codeSpace);
+    const sessionSynchronizer = new SessionSynchronizer(codeSpace);
 
     const websocketDependencies: WebSocketDependencies = {
-      codeSessionBC,
+      sessionSynchronizer,
       messageHandler: {
         handleRunMessage: async (transpiled: string) => {
           try {
@@ -24,8 +24,9 @@ export const main = async (codeSpace: string) => {
               console.warn(
                 "Not in iframe: skipping code processing to prevent main window re-render.",
               );
-              const { css, html } = codeSessionBC.session ||
-                await codeSessionBC.init();
+              const session = sessionSynchronizer.getSession() ||
+                await sessionSynchronizer.init();
+              const { css, html } = session;
               return Promise.resolve({
                 css,
                 html,

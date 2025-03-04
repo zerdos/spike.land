@@ -1,6 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type {
-  ICodeSessionBC,
+  ISessionSynchronizer,
   IMessageHandlerService,
   IServiceWorkerManager,
   MessageData,
@@ -68,7 +68,7 @@ describe("WebSocketManager", () => {
   let webSocketManager: WebSocketManager;
   let mockMessageHandler: IMessageHandlerService;
   let mockServiceWorker: IServiceWorkerManager;
-  let mockCodeSessionBC: ICodeSessionBC;
+  let mockSessionSynchronizer: ISessionSynchronizer;
   let mockDependencies: WebSocketDependencies;
   let originalLocation: Location;
   let storedCallback: ((data: MessageData) => void) | null = null;
@@ -82,7 +82,7 @@ describe("WebSocketManager", () => {
     window.location = {
       ...originalLocation,
       pathname: "/test-path",
-    } as Location;
+    } as unknown as Location;
 
     // Setup mock dependencies
     // Setup mocks with proper implementation
@@ -106,20 +106,24 @@ describe("WebSocketManager", () => {
       setup: vi.fn().mockResolvedValue(undefined),
     };
 
-    mockCodeSessionBC = {
-      init: vi.fn().mockResolvedValue(undefined),
-      sub: vi.fn().mockImplementation((callback) => {
+    mockSessionSynchronizer = {
+      init: vi.fn().mockResolvedValue({} as any),
+      subscribe: vi.fn().mockImplementation((callback) => {
         storedCallback = callback;
         return () => {
           storedCallback = null;
         };
       }),
+      getCode: vi.fn().mockResolvedValue(""),
+      getSession: vi.fn().mockReturnValue(null),
+      broadcastSession: vi.fn(),
+      close: vi.fn(),
     };
 
     mockDependencies = {
       messageHandler: mockMessageHandler,
       serviceWorker: mockServiceWorker,
-      codeSessionBC: mockCodeSessionBC,
+      sessionSynchronizer: mockSessionSynchronizer,
     };
 
     webSocketManager = new WebSocketManager(mockDependencies);
@@ -191,8 +195,8 @@ describe("WebSocketManager", () => {
       await vi.runAllTimersAsync();
 
       // Verify initialization
-      expect(mockCodeSessionBC.init).toHaveBeenCalled();
-      expect(mockCodeSessionBC.sub).toHaveBeenCalled();
+      expect(mockSessionSynchronizer.init).toHaveBeenCalled();
+      expect(mockSessionSynchronizer.subscribe).toHaveBeenCalled();
 
       // Test callback registration
       expect(storedCallback).not.toBeNull();
@@ -202,8 +206,8 @@ describe("WebSocketManager", () => {
       window.location.pathname = "/live-cms/test-space";
       await webSocketManager.init();
 
-      expect(mockCodeSessionBC.init).toHaveBeenCalled();
-      expect(mockCodeSessionBC.sub).toHaveBeenCalled();
+      expect(mockSessionSynchronizer.init).toHaveBeenCalled();
+      expect(mockSessionSynchronizer.subscribe).toHaveBeenCalled();
     });
 
     it.skip("should handle dehydrated page route", async () => {
@@ -215,8 +219,8 @@ describe("WebSocketManager", () => {
       await webSocketManager.init();
       await vi.runAllTimersAsync();
 
-      // expect(mockCodeSessionBC.init).toHaveBeenCalled();
-      expect(mockCodeSessionBC.sub).toHaveBeenCalled();
+      // expect(mockSessionSynchronizer.init).toHaveBeenCalled();
+      expect(mockSessionSynchronizer.subscribe).toHaveBeenCalled();
 
       if (storedCallback) {
         storedCallback({ html: "<div>test</div>", css: ".test{}" });
@@ -327,9 +331,9 @@ describe("WebSocketManager", () => {
       networkError.name = "NetworkError";
 
       // Setup mock with specific behavior
-      mockCodeSessionBC.init = vi.fn()
+      mockSessionSynchronizer.init = vi.fn()
         .mockRejectedValueOnce(networkError)
-        .mockResolvedValue(undefined);
+        .mockResolvedValue({} as any);
 
       window.location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
@@ -339,12 +343,12 @@ describe("WebSocketManager", () => {
         "WebSocket error:",
         "Network error",
       );
-      expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
+      expect(mockSessionSynchronizer.init).toHaveBeenCalledTimes(1);
     });
 
     it("should handle timeout errors", async () => {
       const timeoutError = new Error("Connection timeout");
-      mockCodeSessionBC.init = vi.fn().mockRejectedValueOnce(timeoutError);
+      mockSessionSynchronizer.init = vi.fn().mockRejectedValueOnce(timeoutError);
 
       window.location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow(
@@ -362,9 +366,9 @@ describe("WebSocketManager", () => {
       const error = new Error("Recoverable error");
       const mockInit = vi.fn()
         .mockRejectedValueOnce(error) // First call fails
-        .mockResolvedValue(undefined); // Subsequent calls succeed
+        .mockResolvedValue({} as any); // Subsequent calls succeed
 
-      mockCodeSessionBC.init = mockInit;
+      mockSessionSynchronizer.init = mockInit;
       window.location.pathname = "/live/test-space";
 
       // Initialize and expect initial failure
@@ -388,19 +392,19 @@ describe("WebSocketManager", () => {
     it("should stop retrying after max attempts", async () => {
       // Mock persistent error
       const error = new Error("Persistent error");
-      mockCodeSessionBC.init = vi.fn().mockRejectedValue(error);
+      mockSessionSynchronizer.init = vi.fn().mockRejectedValue(error);
       window.location.pathname = "/live/test-space";
 
       // Initial attempt
       await expect(webSocketManager.init()).rejects.toThrow("Persistent error");
-      expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(1);
+      expect(mockSessionSynchronizer.init).toHaveBeenCalledTimes(1);
       expect(consoleErrorSpy).toHaveBeenCalledTimes(3);
 
       // Verify no more retries after max attempts
       await vi.advanceTimersByTimeAsync(
         DEFAULT_CONFIG.retryDelay * DEFAULT_CONFIG.maxRetries,
       );
-      expect(mockCodeSessionBC.init).toHaveBeenCalledTimes(
+      expect(mockSessionSynchronizer.init).toHaveBeenCalledTimes(
         DEFAULT_CONFIG.maxRetries + 1,
       );
       expect(consoleErrorSpy).toHaveBeenCalledTimes(

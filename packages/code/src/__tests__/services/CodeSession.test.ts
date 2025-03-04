@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Code } from "../../@/lib/code-session";
+import { Code } from "@/lib/code-session";
+import type { ICodeSession, Message } from "@/lib/interfaces";
 
 // Mock swVersion
 vi.mock("/swVersion.mjs", () => ({
@@ -7,20 +8,20 @@ vi.mock("/swVersion.mjs", () => ({
 }));
 
 // Mock dependencies
-vi.mock("../../@/lib/make-sess", () => ({
+vi.mock("@/lib/make-sess", () => ({
   computeSessionHash: vi.fn().mockReturnValue("mockHash"),
   sanitizeSession: vi.fn().mockImplementation((session) => session),
 }));
 
-vi.mock("../../@/lib/md5", () => ({
+vi.mock("@/lib/md5", () => ({
   md5: vi.fn().mockReturnValue("mockMd5"),
 }));
 
-vi.mock("../../@/lib/shared", () => ({
+vi.mock("@/lib/shared", () => ({
   connect: vi.fn().mockResolvedValue(() => {}),
 }));
 
-vi.mock("../../@/services/editorUtils", () => ({
+vi.mock("@/services/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   runCode: vi.fn().mockImplementation(() =>
@@ -110,68 +111,329 @@ describe("Code", () => {
       webSocketManager: mockWebSocketManager,
     };
 
-    // Initialize Code instance with a mock session
-    cSess = new Code({
+    // Create base session for testing
+    const baseSession: ICodeSession = {
       code: "",
       codeSpace: "testCodeSpace",
-      html: "",
-      css: "",
-      messages: [],
-      transpiled: "",
-    });
-
-    // Mock sessionManager methods
-    const mockSession = {
-      code: "",
-      codeSpace: "testCodeSpace",
-      html: "",
-      css: "",
-      messages: [],
+      html: "<div>Initial</div>",
+      css: "/* Initial */",
+      messages: [] as Message[],
       transpiled: "",
     };
 
-    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => mockSession);
-    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation(
-      (session) => {
-        Object.assign(mockSession, session);
+    // Initialize Code instance
+    cSess = new Code(baseSession);
+
+    // Mock sessionManager methods with state tracking
+    let mockSession = { ...baseSession };
+    
+    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => ({ ...mockSession }));
+    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
+      mockSession = { ...mockSession, ...session };
+    });
+    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(async (session) => {
+      if (session) {
+        mockSession = { ...mockSession, ...session };
+      }
+      return { ...mockSession };
+    });
+
+    // Mock modelManager methods with mockSession access
+    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(async () => {
+      const code = mockSession.code || "";
+      if (code.includes("./extraModel")) {
+        return `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``;
+      }
+      return `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``;
+    });
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { Code } from "@/lib/code-session";
+import type { ICodeSession, Message } from "@/lib/interfaces";
+
+// Mock swVersion
+vi.mock("/swVersion.mjs", () => ({
+  swVersion: "mocked-version",
+}));
+
+// Mock dependencies
+vi.mock("@/lib/make-sess", () => ({
+  computeSessionHash: vi.fn().mockReturnValue("mockHash"),
+  sanitizeSession: vi.fn().mockImplementation((session) => session),
+}));
+
+vi.mock("@/lib/md5", () => ({
+  md5: vi.fn().mockReturnValue("mockMd5"),
+}));
+
+vi.mock("@/lib/shared", () => ({
+  connect: vi.fn().mockResolvedValue(() => {}),
+}));
+
+vi.mock("@/services/editorUtils", () => ({
+  formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
+  transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
+  runCode: vi.fn().mockImplementation(() =>
+    Promise.resolve({ html: "<div></div>", css: "body {}" })
+  ),
+  screenshot: vi.fn().mockResolvedValue({
+    dataUrl: "data:image/png;base64,...",
+  }),
+}));
+
+describe("Code", () => {
+  let cSess: Code;
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    // Reset iframe mock
+    delete (window as unknown as { frames: Record<number, unknown>; }).frames[0];
+  });
+
+  beforeEach(async () => {
+    vi.resetAllMocks();
+
+    // Mock localStorage
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: vi.fn<(key: string) => string | null>(),
+        setItem: vi.fn<(key: string, value: string) => void>(),
       },
-    );
-    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(
-      async (session) => {
-        if (session) {
-          Object.assign(mockSession, session);
-        }
-        return mockSession;
+      writable: true,
+    });
+
+    // Mock BroadcastChannel
+    global.BroadcastChannel = vi.fn().mockImplementation(() => ({
+      postMessage: vi.fn(),
+      close: vi.fn(),
+      onmessage: null,
+    }));
+
+    // Mock fetch
+    global.fetch = vi.fn().mockImplementation((url) => {
+      if (url.endsWith("session.json")) {
+        return Promise.resolve({
+          json: () => Promise.resolve({ code: "", html: "", css: "" }),
+        });
+      }
+      if (url.includes("/live/extraModel/index.tsx")) {
+        return Promise.resolve({
+          text: () => Promise.resolve('console.log("Extra Model Code");'),
+        });
+      }
+      return Promise.resolve({
+        text: () => Promise.resolve(""),
+      });
+    });
+
+    // Mock location
+    Object.defineProperty(window, "location", {
+      value: {
+        origin: "http://localhost:3000",
+        pathname: "/live/testCodeSpace",
       },
-    );
+      writable: true,
+    });
 
-    // Mock modelManager methods
-    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
-      .mockImplementation(
-        async () => {
-          const code = mockSession.code;
-          if (code.includes("./extraModel")) {
-            return `# testCodeSpace.tsx
+    // Mock WebSocketManager
+    const mockWebSocketManager = {
+      handleRunMessage: vi.fn().mockResolvedValue({
+        html: "<div>Mocked HTML</div>",
+        css: "/* Mocked CSS */",
+      }),
+      init: vi.fn(),
+      cleanup: vi.fn(),
+    };
 
-\`\`\`tsx
-${code}
-\`\`\`
+    interface MockWindow {
+      frames: Record<number, {
+        webSocketManager: {
+          handleRunMessage: () => Promise<{ html: string; css: string; }>;
+          init: () => void;
+          cleanup: () => void;
+        };
+      }>;
+    }
 
-# extraModel.tsx
+    // Mock window.frames[0]
+    (window as unknown as MockWindow).frames[0] = {
+      webSocketManager: mockWebSocketManager,
+    };
 
-\`\`\`tsx
-console.log("Extra Model Code");
-\`\`\`
-`;
-          }
-          return `# testCodeSpace.tsx
+    // Create base session for testing
+    const baseSession: ICodeSession = {
+      code: "",
+      codeSpace: "testCodeSpace",
+      html: "<div>Initial</div>",
+      css: "/* Initial */",
+      messages: [] as Message[],
+      transpiled: "",
+    };
 
-\`\`\`tsx
-${code}
-\`\`\`
-`;
-        },
-      );
+    // Initialize Code instance
+    cSess = new Code(baseSession);
+
+    // Mock sessionManager methods with state tracking
+    let mockSession = { ...baseSession };
+    
+    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => ({ ...mockSession }));
+    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
+      mockSession = { ...mockSession, ...session };
+    });
+    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(async (session) => {
+      if (session) {
+        mockSession = { ...mockSession, ...session };
+      }
+      return { ...mockSession };
+    });
+
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { Code } from "@/lib/code-session";
+import type { ICodeSession, Message } from "@/lib/interfaces";
+
+// Mock swVersion
+vi.mock("/swVersion.mjs", () => ({
+  swVersion: "mocked-version",
+}));
+
+// Mock dependencies
+vi.mock("@/lib/make-sess", () => ({
+  computeSessionHash: vi.fn().mockReturnValue("mockHash"),
+  sanitizeSession: vi.fn().mockImplementation((session) => session),
+}));
+
+vi.mock("@/lib/md5", () => ({
+  md5: vi.fn().mockReturnValue("mockMd5"),
+}));
+
+vi.mock("@/lib/shared", () => ({
+  connect: vi.fn().mockResolvedValue(() => {}),
+}));
+
+vi.mock("@/services/editorUtils", () => ({
+  formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
+  transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
+  runCode: vi.fn().mockImplementation(() =>
+    Promise.resolve({ html: "<div></div>", css: "body {}" })
+  ),
+  screenshot: vi.fn().mockResolvedValue({
+    dataUrl: "data:image/png;base64,...",
+  }),
+}));
+
+describe("Code", () => {
+  let cSess: Code;
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    // Reset iframe mock
+    delete (window as unknown as { frames: Record<number, unknown>; }).frames[0];
+  });
+
+  beforeEach(async () => {
+    vi.resetAllMocks();
+
+    // Mock localStorage
+    Object.defineProperty(window, "localStorage", {
+      value: {
+        getItem: vi.fn<(key: string) => string | null>(),
+        setItem: vi.fn<(key: string, value: string) => void>(),
+      },
+      writable: true,
+    });
+
+    // Mock BroadcastChannel
+    global.BroadcastChannel = vi.fn().mockImplementation(() => ({
+      postMessage: vi.fn(),
+      close: vi.fn(),
+      onmessage: null,
+    }));
+
+    // Mock fetch
+    global.fetch = vi.fn().mockImplementation((url) => {
+      if (url.endsWith("session.json")) {
+        return Promise.resolve({
+          json: () => Promise.resolve({ code: "", html: "", css: "" }),
+        });
+      }
+      if (url.includes("/live/extraModel/index.tsx")) {
+        return Promise.resolve({
+          text: () => Promise.resolve('console.log("Extra Model Code");'),
+        });
+      }
+      return Promise.resolve({
+        text: () => Promise.resolve(""),
+      });
+    });
+
+    // Mock location
+    Object.defineProperty(window, "location", {
+      value: {
+        origin: "http://localhost:3000",
+        pathname: "/live/testCodeSpace",
+      },
+      writable: true,
+    });
+
+    // Mock WebSocketManager
+    const mockWebSocketManager = {
+      handleRunMessage: vi.fn().mockResolvedValue({
+        html: "<div>Mocked HTML</div>",
+        css: "/* Mocked CSS */",
+      }),
+      init: vi.fn(),
+      cleanup: vi.fn(),
+    };
+
+    interface MockWindow {
+      frames: Record<number, {
+        webSocketManager: {
+          handleRunMessage: () => Promise<{ html: string; css: string; }>;
+          init: () => void;
+          cleanup: () => void;
+        };
+      }>;
+    }
+
+    // Mock window.frames[0]
+    (window as unknown as MockWindow).frames[0] = {
+      webSocketManager: mockWebSocketManager,
+    };
+
+    // Create base session for testing
+    const baseSession: ICodeSession = {
+      code: "",
+      codeSpace: "testCodeSpace",
+      html: "<div>Initial</div>",
+      css: "/* Initial */",
+      messages: [] as Message[],
+      transpiled: "",
+    };
+
+    // Initialize Code instance
+    cSess = new Code(baseSession);
+
+    // Mock sessionManager methods with state tracking
+    let mockSession = { ...baseSession };
+    
+    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => ({ ...mockSession }));
+    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
+      mockSession = { ...mockSession, ...session };
+    });
+    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(async (session) => {
+      if (session) {
+        mockSession = { ...mockSession, ...session };
+      }
+      return { ...mockSession };
+    });
+
+    // Mock modelManager methods with mockSession access
+    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(async () => {
+      const code = mockSession.code || "";
+      if (code.includes("./extraModel")) {
+        return `# testCodeSpace.tsx\n\n\`\`\`tsx\n${code}\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``;
+      }
+      return `# testCodeSpace.tsx\n\n\`\`\`tsx\n${code}\n\`\`\``;
+    });
 
     await cSess.init(); // Wait for initialization to complete
   });
@@ -221,22 +483,21 @@ console.log("Extra Model Code");
     it("should not update session if code is the same", async () => {
       const sameCode = "export default ()=> <>Nothing</>";
 
-      // Mock initial session state
-      vi.spyOn(cSess["codeProcessor"], "process").mockImplementation(async (
-        _code,
-      ) => ({
+      // Initialize with the code we want to test
+      const initialSession: ICodeSession = {
         code: sameCode,
         codeSpace: "testCodeSpace",
         html: "<div>Test</div>",
         css: "body {}",
-        messages: [],
-        transpiled: sameCode,
-      }));
+        messages: [] as Message[],
+        transpiled: sameCode
+      };
+      cSess.setSession(initialSession);
 
-      // First set the initial code
-      await cSess.setCode(sameCode);
+      // Mock process to return same code
+      vi.spyOn(cSess["codeProcessor"], "process").mockResolvedValue(initialSession);
 
-      // Try to set the same code again
+      // Try to set the same code
       const result = await cSess.setCode(sameCode);
 
       expect(result).toBe(sameCode);
@@ -247,26 +508,31 @@ console.log("Extra Model Code");
       const currentCode = "current code";
       const errorCode = "error code";
 
-      // Mock initial successful process
-      vi.spyOn(cSess["codeProcessor"], "process")
-        .mockImplementationOnce(async () => ({
-          code: currentCode,
-          codeSpace: "testCodeSpace",
-          html: "<div>Test</div>",
-          css: "body {}",
-          messages: [],
-          transpiled: currentCode,
-        }))
-        // Then mock failure
-        .mockImplementationOnce(async () => false);
+      const initialSession: ICodeSession = {
+        code: currentCode,
+        codeSpace: "testCodeSpace",
+        html: "<div>Test</div>",
+        css: "body {}",
+        messages: [] as Message[],
+        transpiled: currentCode
+      };
 
-      // Set initial code
-      await cSess.setCode(currentCode);
+      // Set up spy before setting initial session
+      const processSpy = vi.spyOn(cSess["codeProcessor"], "process");
+      processSpy
+        .mockResolvedValueOnce({...initialSession})  // First call returns session
+        .mockResolvedValueOnce(false);               // Second call returns false
+      
+      // Set initial session
+      cSess.setSession(initialSession);
 
-      // Attempt to set error code
-      const result = await cSess.setCode(errorCode);
-
-      // Should return current code on failure
+      // First call - should succeed
+      const firstResult = await cSess.setCode(currentCode, false);
+      expect(firstResult).toBe(currentCode);
+      
+      // Second call - should fail and return current code
+      const result = await cSess.setCode(errorCode, false);
+      expect(processSpy).toHaveBeenCalledTimes(2);
       expect(result).toBe(currentCode);
     });
   });

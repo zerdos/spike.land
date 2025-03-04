@@ -44,8 +44,8 @@ export interface WebSocketDependencies {
   messageHandler: IMessageHandlerService;
   /** Service worker manager */
   serviceWorker: IServiceWorkerManager;
-  /** Code session broadcast channel */
-  codeSessionBC: ICodeSessionBC;
+  /** Session synchronizer for cross-tab communication */
+  sessionSynchronizer: ISessionSynchronizer;
 }
 
 /**
@@ -69,13 +69,21 @@ export interface IServiceWorkerManager {
 }
 
 /**
- * Interface for code session broadcast channel
+ * Interface for cross-tab session synchronization
  */
-export interface ICodeSessionBC {
-  /** Initialize broadcast channel */
-  init(): Promise<ICodeSession>;
-  /** Subscribe to broadcast channel */
-  sub(callback: (data: MessageData) => void): () => void;
+export interface ISessionSynchronizer {
+  /** Initialize session */
+  init(initialSession?: ICodeSession): Promise<ICodeSession>;
+  /** Subscribe to session updates */
+  subscribe(callback: (session: ICodeSession) => void): () => void;
+  /** Get current code */
+  getCode(): Promise<string>;
+  /** Get current session */
+  getSession(): ICodeSession | null;
+  /** Post session update to other tabs */
+  broadcastSession(session: ICodeSession): void;
+  /** Close and cleanup resources */
+  close(): void;
 }
 
 /**

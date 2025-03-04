@@ -1,10 +1,10 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { exposeCsess } from "@/lib/code-session";
-import { ICode, ICodeSession } from "@/lib/interfaces";
+import { getCodeSession } from "@/lib/code-session";
+import { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import { init } from "@/lib/tw-dev-setup";
-import { CodeSessionBC } from "@/services/CodeSessionBc";
+import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import { ClerkProvider } from "@clerk/clerk-react";
 import {
   createRootRoute,
@@ -66,7 +66,7 @@ const App: React.FC = () => {
       (async () => {
         await init();
 
-        const cSess = await exposeCsess();
+        const cSess = await getCodeSession();
         setState(cSess);
 
         const { initializeApp } = await import("@/lib/hydrate");
@@ -81,10 +81,10 @@ const App: React.FC = () => {
     if (cSess) {
       (async () => {
         Object.assign(globalThis, { cSess });
-        const cSessBr = new CodeSessionBC(codeSpace);
-        cSessBr.init(await cSess.getSession());
+        const sessionSync = new SessionSynchronizer(codeSpace);
+        sessionSync.init(await cSess.getSession());
 
-        unSub = cSessBr.sub((sess) => {
+        unSub = sessionSync.subscribe((sess) => {
           cSess.setSession(sess);
           setState(cSess);
         });

@@ -1,7 +1,7 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { CodeSessionBC } from "./CodeSessionBc";
+import { SessionSynchronizer } from "./SessionSynchronizer";
 import type { ISessionManager } from "./ISessionManager";
 
 /**
@@ -16,7 +16,7 @@ import type { ISessionManager } from "./ISessionManager";
 export class SessionManager implements ISessionManager {
   private session: ICodeSession | null = null;
   private user: string;
-  private broadcastChannel: CodeSessionBC;
+  private sessionSynchronizer: SessionSynchronizer;
 
   constructor(codeSpace: string) {
     // Determine the user ID (anonymous hashing if needed)
@@ -24,20 +24,20 @@ export class SessionManager implements ISessionManager {
       md5(crypto.randomUUID());
     localStorage.setItem(`${codeSpace} user`, this.user);
 
-    // Setup broadcast channel to synchronize with other clients
-    this.broadcastChannel = new CodeSessionBC(codeSpace);
-    this.broadcastChannel.sub((session) => {
+    // Setup session synchronizer to communicate with other tabs/windows
+    this.sessionSynchronizer = new SessionSynchronizer(codeSpace);
+    this.sessionSynchronizer.subscribe((session) => {
       this.session = session;
     });
   }
 
   async init(initialSession?: ICodeSession): Promise<ICodeSession> {
-    this.session = await this.broadcastChannel.init(initialSession);
+    this.session = await this.sessionSynchronizer.init(initialSession);
     return this.session;
   }
 
   subscribe(callback: (session: ICodeSession) => void): () => void {
-    return this.broadcastChannel.sub(callback);
+    return this.sessionSynchronizer.subscribe(callback);
   }
 
   getSession(): ICodeSession {
@@ -128,11 +128,11 @@ export class SessionManager implements ISessionManager {
         sender: "Editor",
       };
 
-      this.broadcastChannel.postMessage(broadcastData);
+      this.sessionSynchronizer.broadcastSession(broadcastData);
     }
   }
 
   async release(): Promise<void> {
-    this.broadcastChannel.close();
+    this.sessionSynchronizer.close();
   }
 }

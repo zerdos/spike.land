@@ -129,10 +129,10 @@ export class WebSocketManager implements IWebSocketManager {
    */
   private async handleLivePage(): Promise<void> {
     try {
-      await this.dependencies.codeSessionBC.init();
+      await this.dependencies.sessionSynchronizer.init();
 
       // Subscribe to code session updates
-      this.dependencies.codeSessionBC.sub((data: MessageData) => {
+      this.dependencies.sessionSynchronizer.subscribe((data: MessageData) => {
         console.log("Code session update:", data);
         // Additional live page specific handling can be added here
       });
