@@ -33,7 +33,7 @@ export const extractToolResponseMetadata = (
         typeof toolResponse === "object" &&
         toolResponse !== null &&
         "name" in toolResponse &&
-        toolResponse.name === "code_modification" &&
+        (toolResponse.name === "code_modification" || toolResponse.name === "replace_in_file") &&
         "content" in toolResponse
       ) {
         let content: Record<string, unknown> = {};
@@ -87,11 +87,19 @@ export const updateToolCallsWithCodeFlag = (
   returnModifiedCode: boolean,
 ): Array<any> => {
   return toolCalls.map(toolCall => {
-    if (toolCall.name === "code_modification" && toolCall.args) {
+    // Handle both code_modification and replace_in_file tools
+    if ((toolCall.name === "code_modification" || toolCall.name === "replace_in_file") && toolCall.args) {
       try {
         const args = typeof toolCall.args === "string"
           ? JSON.parse(toolCall.args)
           : toolCall.args;
+
+        // Log the tool call for debugging
+        console.log(`Updating tool call for ${toolCall.name}:`, {
+          toolName: toolCall.name,
+          originalArgs: JSON.stringify(args).substring(0, 100) + '...',
+          returnModifiedCode
+        });
 
         return {
           ...toolCall,
@@ -101,7 +109,7 @@ export const updateToolCallsWithCodeFlag = (
           },
         };
       } catch (e) {
-        console.warn("Failed to update tool call args", e);
+        console.warn(`Failed to update tool call args for ${toolCall.name}:`, e);
         return toolCall;
       }
     }

@@ -72,6 +72,16 @@ export async function processMessage(
 
     // Use retry mechanism for model invocation
     telemetry.startTimer("model.invoke");
+    
+    // Log the messages being sent to the model for debugging
+    console.log("Invoking model with messages:", 
+      JSON.stringify(cleanedState.messages.map(m => ({
+        type: m.constructor.name,
+        content: typeof m.content === 'string' ? m.content.substring(0, 100) + '...' : '(non-string content)',
+        has_tool_calls: 'tool_calls' in m && Array.isArray(m.tool_calls) && m.tool_calls.length > 0
+      })))
+    );
+    
     const response = await withRetry(
       () => model.invoke(cleanedState.messages),
       {
@@ -87,6 +97,11 @@ export async function processMessage(
           console.warn(`Retrying model invocation (${attempt}/3) after error: ${error.message}`);
         },
       },
+    );
+    
+    // Log if the response contains tool calls
+    console.log("Model response has tool calls:", 
+      'tool_calls' in response && Array.isArray(response.tool_calls) && response.tool_calls.length > 0
     );
     const modelDuration = telemetry.stopTimer("model.invoke");
 

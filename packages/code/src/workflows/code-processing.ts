@@ -32,20 +32,35 @@ export const determineReturnModifiedCode = (
   code: string,
 ): boolean => {
   for (const toolCall of toolCalls) {
-    if (toolCall.name === "code_modification" && toolCall.args) {
+    // Handle both code_modification and replace_in_file tools
+    if ((toolCall.name === "code_modification" || toolCall.name === "replace_in_file") && toolCall.args) {
       try {
         const args = typeof toolCall.args === "string"
           ? JSON.parse(toolCall.args)
           : toolCall.args;
 
-        if (args.instructions) {
+        // Log the tool call for debugging
+        console.log(`Determining returnModifiedCode for ${toolCall.name}:`, {
+          toolName: toolCall.name,
+          argsKeys: Object.keys(args || {})
+        });
+
+        // For code_modification tool
+        if (toolCall.name === "code_modification" && args.instructions) {
           return shouldReturnFullCode(args.instructions, code);
         }
+        
+        // For replace_in_file tool
+        if (toolCall.name === "replace_in_file" && args.diff) {
+          return shouldReturnFullCode(args.diff, code);
+        }
       } catch (e) {
-        console.warn("Failed to parse tool call args", e);
+        console.warn(`Failed to parse tool call args for ${toolCall.name}:`, e);
       }
     }
   }
+  
+  console.log("Using default return modified code setting:", DEFAULT_RETURN_MODIFIED_CODE);
   return DEFAULT_RETURN_MODIFIED_CODE;
 };
 

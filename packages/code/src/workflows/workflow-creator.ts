@@ -55,6 +55,7 @@ export function createWorkflowWithStringReplace(
     maxTokens: ANTHROPIC_API_CONFIG.maxTokens,
   });
 
+  // Bind tools to the model
   const modelWithTools = baseModel.bindTools(tools);
 
   // Create the graph state reducers
@@ -67,13 +68,37 @@ export function createWorkflowWithStringReplace(
 
   // Ensure the shouldContinue function is compatible with StateGraph
   const shouldContinue = async (state: AgentState): Promise<WorkflowContinueResult> => {
-    if (state.lastError) return "end";
+    if (state.lastError) {
+      console.log("shouldContinue: Ending due to error:", state.lastError);
+      return "end";
+    }
+    
     const lastMessage = state.messages[state.messages.length - 1];
-    return lastMessage instanceof HumanMessage ||
+    
+    // Debug logging to verify if tool calls are being generated
+    console.log("shouldContinue: Last message type:", lastMessage?.constructor?.name);
+    if (lastMessage && "tool_calls" in lastMessage) {
+      const toolCalls = lastMessage.tool_calls || [];
+      if (Array.isArray(toolCalls) && toolCalls.length > 0) {
+        console.log("shouldContinue: Tool calls detected:", 
+          JSON.stringify(toolCalls.map((tc: any) => ({ 
+            name: tc.name, 
+            args: typeof tc.args === 'string' ? '(string)' : Object.keys(tc.args || {})
+          })))
+        );
+      } else {
+        console.log("shouldContinue: No tool calls in message");
+      }
+    }
+    
+    const result = lastMessage instanceof HumanMessage ||
         (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls) &&
           lastMessage.tool_calls.length > 0)
       ? "tools"
       : "end";
+      
+    console.log("shouldContinue: Returning", result);
+    return result;
   };
 
   // Use type assertion for StateGraph initialization as it expects a specific structure
@@ -218,5 +243,3 @@ export function createWorkflowWithStringReplace(
     },
   };
 }
-
-

@@ -4,6 +4,8 @@ export const initialClaude =
 
 The code you will be working with:
 
+IMPORTANT: When modifying code, you MUST use the replace_in_file tool with SEARCH/REPLACE blocks to make changes. Do not suggest changes without using this tool.
+
 Before proceeding with any modifications, carefully read through the following guidelines and instructions:
 
 # React Component Guidelines:
