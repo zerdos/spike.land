@@ -62,12 +62,12 @@ export const codeModificationTool = tool(
       else if (lastMessage && lastMessage.role === "assistant") {
         // First remove all messages
         cSess.removeMessages();
-        
+
         // Then add each message up to the last one
         for (let i = 0; i < messages.length - 1; i++) {
           cSess.addMessage(messages[i]);
         }
-        
+
         // Finally add the updated message
         cSess.addMessage({
           ...lastMessage,

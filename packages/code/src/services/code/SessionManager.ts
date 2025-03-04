@@ -6,7 +6,7 @@ import type { ISessionManager } from "../interfaces/ISessionManager";
 
 /**
  * SessionManager is responsible for managing the session state and synchronizing it across clients.
- * 
+ *
  * Its primary responsibilities are:
  * 1. Initializing the session
  * 2. Providing access to the current session state

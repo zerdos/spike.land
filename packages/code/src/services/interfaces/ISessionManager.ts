@@ -2,7 +2,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 
 /**
  * Interface for session management operations
- * 
+ *
  * Note: Message-related operations (addMessageChunk, addMessage, removeMessages) have been moved
  * to the Code class for better coordination with code updates.
  */

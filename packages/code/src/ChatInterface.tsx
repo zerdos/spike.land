@@ -94,7 +94,7 @@ const ChatInterface: React.FC<{
 
     // Finally add the updated message
     cSess.addMessage(updatedMessage);
-    
+
     setEditingMessageId(null);
     setEditInput("");
   }, [editInput, cSess]);

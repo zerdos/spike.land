@@ -10,8 +10,8 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import useWindowSize from "@/hooks/use-window-size";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { importMapReplace } from "./importmap-utils";
 import { transpile } from "@/lib/shared";
+import { importMapReplace } from "./importmap-utils";
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;

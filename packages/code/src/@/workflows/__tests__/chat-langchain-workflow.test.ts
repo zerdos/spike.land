@@ -102,7 +102,7 @@ describe("chat-langchain-workflow", () => {
         removeMessages: vi.fn(),
         setCode: vi.fn(), // Mock setCode to avoid side effects
       };
-      
+
       vi.mocked(ChatAnthropic).mockImplementation(
         () =>
           ({
