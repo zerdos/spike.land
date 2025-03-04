@@ -1,8 +1,12 @@
+import { md5 } from "@/lib/md5";
 import { ata, prettierToThrow } from "@/lib/shared";
 import { throttle } from "@/lib/throttle";
+import { wait } from "@/lib/wait";
 import { editor, languages, Uri } from "@/workers/monaco-editor.worker";
+import { LastValue } from "@langchain/langgraph/web";
 import type { editor as Editor } from "monaco-editor";
 import { version } from "monaco-editor/package.json";
+import { format } from "path";
 
 // Types and interfaces for better type safety
 interface ExtraLib {
@@ -19,6 +23,7 @@ interface EditorConfig {
 
 interface EditorModel {
   getValue: () => string;
+  lastValueHashToBeSet: string;
   silent: boolean;
   getErrors: () => Promise<string[]>;
   isEdit: boolean;
@@ -349,7 +354,18 @@ async function startMonacoPristine({
       }
     },
     isEdit: false,
-    setValue: (newCode: string) => {
+    lastValueHashToBeSet: "",
+    setValue: async (newCode: string) => {
+      const lastHash = md5(newCode);
+      editorModel.lastValueHashToBeSet =lastHash;
+      if (recentlyChanged.has(lastHash)) {
+        console.log("Skipping editor update due to recent change");
+        await wait(1000);
+        if (editorModel.lastValueHashToBeSet !== lastHash) return;
+      }
+        editorModel.setValue(newCode);
+      
+    
       editorModel.silent = true;
       const state = myEditor.saveViewState();
 
@@ -385,13 +401,26 @@ async function startMonacoPristine({
   myEditor.onDidBlurEditorText(() => {
     editorModel.isEdit = false;
   });
+  const recentlyChanged = new Set<string>();
+
 
   const throttledTsCheck = throttle(() => tsCheck(), 10000);
   // Increase throttle time and add debounce for editor changes
   const throttledOnChange = throttle(
-    () => {
-      const value = model.getValue();
-      onChange(value);
+    async() => {
+      const code = model.getValue();
+      const formattedText = await prettierToThrow({
+        code,
+        toThrow: false,
+      });
+      const hashOfCode = md5(formattedText);
+      recentlyChanged.add(hashOfCode);
+
+      onChange(formattedText);
+      setTimeout(() => {
+        recentlyChanged.delete(hashOfCode);
+      }
+      , 1000);
     },
     300, // Reduce throttle time to 300ms for better responsiveness
     {

@@ -3,7 +3,7 @@ import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
-import { symbol, z } from "zod";
+import { z } from "zod";
 
 // Logger function for consistent logging format
 function log(
@@ -49,7 +49,7 @@ function validateDiff(diff: string): boolean {
  * @param codeSession The code session to use for file operations
  * @returns A tool for replacing content in files
  */
-export const createReplaceInFileTool = (codeSession: ICode) =>
+export const createReplaceInFileTool = () =>
   tool(
     async (
       {
@@ -62,6 +62,9 @@ export const createReplaceInFileTool = (codeSession: ICode) =>
         diff: string;
       },
     ): Promise<CodeModification> => {
+      const {cSess} = globalThis as unknown as {cSess: ICode};
+      const codeSession = cSess;
+      
       log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
 
       // Input validation

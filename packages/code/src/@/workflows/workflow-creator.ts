@@ -32,8 +32,10 @@ const workflowCache: Record<string, WorkflowInvokeResult> = {};
  */
 export function createWorkflowWithStringReplace(
   initialState: AgentState,
-  cSess: ICode,
+  _Sess: ICode,
 ): WorkflowInvokeResult {
+
+  const cSess=  _Sess || globalThis as unknown as {cSess: ICode};
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
@@ -41,7 +43,7 @@ export function createWorkflowWithStringReplace(
   });
 
   // Create the replace-in-file tool with the provided code session
-  const replaceInFileTool = createReplaceInFileTool(cSess);
+  const replaceInFileTool = createReplaceInFileTool();
   const tools = [replaceInFileTool];
   const toolNode = new ToolNode(tools);
 
