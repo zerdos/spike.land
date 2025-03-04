@@ -1,5 +1,4 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
   ICodeSessionBC,
   IMessageHandlerService,
@@ -8,6 +7,7 @@ import type {
   WebSocketDependencies,
 } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock window functions and console
 window.scrollTo = vi.fn();

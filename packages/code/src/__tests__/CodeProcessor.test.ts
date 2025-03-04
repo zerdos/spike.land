@@ -1,10 +1,10 @@
-import type { EmotionCache } from "@emotion/cache";
-import { createRoot } from "react-dom/client";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
 import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
 import type { IWebSocketManager } from "@/services/types";
+import type { EmotionCache } from "@emotion/cache";
+import { createRoot } from "react-dom/client";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CodeProcessor } from "../CodeProcessor";
 
 vi.mock("@/services/RenderService");

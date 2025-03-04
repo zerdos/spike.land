@@ -117,7 +117,7 @@ describe("Code", () => {
       html: "",
       css: "",
       messages: [],
-      transpiled: ""
+      transpiled: "",
     });
 
     // Mock sessionManager methods

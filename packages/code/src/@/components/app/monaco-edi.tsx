@@ -2,7 +2,7 @@ import { md5 } from "@/lib/md5";
 import { ata, prettierToThrow } from "@/lib/shared";
 import { throttle } from "@/lib/throttle";
 import { wait } from "@/lib/wait";
-import { editor, languages, Uri, version} from "@/workers/monaco-editor.worker";
+import { editor, languages, Uri, version } from "@/workers/monaco-editor.worker";
 import type { editor as Editor } from "monaco-editor";
 
 // Types and interfaces for better type safety

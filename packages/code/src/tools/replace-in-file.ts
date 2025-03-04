@@ -128,24 +128,27 @@ export const replaceInFileTool = tool(
       if (modifiedCode === currentCode) {
         console.warn("replaceInFileTool - No changes were made to the file");
         console.debug("replaceInFileTool - Diff:", diff);
-        
+
         // Try to extract the search part for additional debugging
         const searchMatch = diff.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======/);
         if (searchMatch && searchMatch[1]) {
           const searchPart = searchMatch[1];
           console.debug("replaceInFileTool - Search part length:", searchPart.length);
-          console.debug("replaceInFileTool - Search part:", JSON.stringify(searchPart.substring(0, 100) + (searchPart.length > 100 ? "..." : "")));
-          
+          console.debug(
+            "replaceInFileTool - Search part:",
+            JSON.stringify(searchPart.substring(0, 100) + (searchPart.length > 100 ? "..." : "")),
+          );
+
           // Check if the search part exists in the current code (exact match)
           const exactMatch = currentCode.includes(searchPart);
           console.debug("replaceInFileTool - Exact match found:", exactMatch);
-          
+
           // Check if the search part exists in the current code (ignoring whitespace)
           const codeNoWS = currentCode.replace(/\s+/g, "");
           const searchNoWS = searchPart.replace(/\s+/g, "");
           const flexibleMatch = codeNoWS.includes(searchNoWS);
           console.debug("replaceInFileTool - Match ignoring whitespace:", flexibleMatch);
-          
+
           // If there's a flexible match but not an exact match, suggest checking whitespace
           if (flexibleMatch && !exactMatch) {
             return createErrorResponse(
@@ -154,7 +157,7 @@ export const replaceInFileTool = tool(
             );
           }
         }
-        
+
         return createErrorResponse(
           currentCode,
           `No changes were made to the file. Please check the SEARCH/REPLACE blocks for exact matching with the file content.`,

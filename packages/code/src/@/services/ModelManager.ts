@@ -40,9 +40,6 @@ export class ModelManager implements IModelManager {
 
       let codeInstance = this.models.get(codeSpace);
       if (!codeInstance) {
-    
-        
-    
         codeInstance = new Code({
           codeSpace,
           code: codeContent,
@@ -50,9 +47,7 @@ export class ModelManager implements IModelManager {
           css: "",
           messages: [] as Message[],
           transpiled: "",
-        }
-    
-        );
+        });
         await codeInstance.init();
         this.models.set(codeSpace, codeInstance);
       }

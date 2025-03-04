@@ -2,10 +2,10 @@ import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
+import { initializeMonaco } from "@/services/editorUtils";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
-import { initializeMonaco } from "@/services/editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {

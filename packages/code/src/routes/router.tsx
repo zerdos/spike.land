@@ -1,8 +1,10 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { exposeCsess } from "@/lib/code-session";
 import { ICode, ICodeSession } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import { init } from "@/lib/tw-dev-setup";
+import { CodeSessionBC } from "@/services/CodeSessionBc";
 import { ClerkProvider } from "@clerk/clerk-react";
 import {
   createRootRoute,
@@ -14,8 +16,6 @@ import {
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
-import { exposeCsess } from "@/lib/code-session";
-import { CodeSessionBC } from "@/services/CodeSessionBc";
 // init()
 // Define route types
 interface RouteWithPageParams {
@@ -65,7 +65,7 @@ const App: React.FC = () => {
     if (codeSpace && location.pathname === `/live/${codeSpace}`) {
       (async () => {
         await init();
-     
+
         const cSess = await exposeCsess();
         setState(cSess);
 

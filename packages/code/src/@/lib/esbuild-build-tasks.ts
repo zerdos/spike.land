@@ -12,14 +12,14 @@ const isProduction = environment === "production";
 
 const createEntryPoints = async (dir: string): Promise<string[]> => {
   const result: string[] = [];
-  
+
   async function processDirectory(currentDir: string, basePath: string): Promise<void> {
     const items = await readdir(path.join(basePath, currentDir));
-    
+
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
       const itemStat = await stat(itemPath);
-      
+
       if (itemStat.isDirectory()) {
         // If it's a directory, process it recursively
         await processDirectory(path.join(currentDir, item), basePath);
@@ -29,7 +29,7 @@ const createEntryPoints = async (dir: string): Promise<string[]> => {
       }
     }
   }
-  
+
   await processDirectory(dir, "src/@");
   return result;
 };
@@ -182,14 +182,14 @@ export async function buildServiceWorker(): Promise<void> {
 
 const createAliases = async (dir: string): Promise<Record<string, string>> => {
   const result: Record<string, string> = {};
-  
+
   async function processDirectory(currentDir: string, basePath: string): Promise<void> {
     const items = await readdir(path.join(basePath, currentDir));
-    
+
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
       const itemStat = await stat(itemPath);
-      
+
       if (itemStat.isDirectory()) {
         // If it's a directory, process it recursively
         await processDirectory(path.join(currentDir, item), basePath);
@@ -202,7 +202,7 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
       }
     }
   }
-  
+
   await processDirectory(dir, "src/@");
   return result;
 };

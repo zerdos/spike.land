@@ -1,6 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
-import { createNewMessage } from "../../workflows/message-handlers";
 import { describe, expect, it, vi } from "vitest";
+import { createNewMessage } from "../../workflows/message-handlers";
 
 vi.mock("@/lib/ai-handler");
 vi.mock("@/lib/ai-config", () => ({

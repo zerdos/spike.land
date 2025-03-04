@@ -8,7 +8,6 @@ export const routes = {
   "/start": "temp",
 };
 
-
 export const ROUTES = {
   /**
    * Live coding route pattern

@@ -93,7 +93,6 @@ export interface IWebSocketManager {
 import { ICodeSession, Message, MessageResponse } from "@/lib/interfaces";
 import { WebSocketEventType } from "@/services/enums";
 
-
 /**
  * WebSocket event handler type
  */

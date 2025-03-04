@@ -5,11 +5,11 @@ import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
-import { Mutex } from "async-mutex";
-import { screenshot } from "@/services/editorUtils";
 import { CodeProcessor } from "@/services/CodeProcessor";
+import { screenshot } from "@/services/editorUtils";
 import { ModelManager } from "@/services/ModelManager";
 import { SessionManager } from "@/services/SessionManager";
+import { Mutex } from "async-mutex";
 
 // Mutex for thread-safe code access
 const mutex = new Mutex();
@@ -31,14 +31,14 @@ export class Code implements ICode {
 
   private sessionManager: SessionManager;
 
-  constructor(private session: ICodeSession,) {
-    this.session= sanitizeSession(session);
-    const codeSpace = session.codeSpace
+  constructor(private session: ICodeSession) {
+    this.session = sanitizeSession(session);
+    const codeSpace = session.codeSpace;
 
-    this.codeSpace = session.codeSpace 
+    this.codeSpace = session.codeSpace;
     this.sessionManager = new SessionManager(codeSpace);
     this.sessionManager.init(session);
-  
+
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
     this.setSession({
@@ -323,15 +323,16 @@ export class Code implements ICode {
 
 let cSess: ICode | null = null;
 
-export const exposeCsess = async(): Promise<ICode> => {
+export const exposeCsess = async (): Promise<ICode> => {
   if (cSess) return cSess;
 
   const codeSpace = getCodeSpace(location.pathname);
 
-  const session = await fetch(`/api/room/${codeSpace}/session.json`).then((res) => res.json()) as ICodeSession;
+  const session = await fetch(`/api/room/${codeSpace}/session.json`).then((res) =>
+    res.json()
+  ) as ICodeSession;
   cSess = new Code(session);
   Object.assign(globalThis, { cSess });
 
   return cSess;
-}
-  
+};
