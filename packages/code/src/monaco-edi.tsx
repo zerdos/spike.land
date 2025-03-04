@@ -239,14 +239,37 @@ export const startMonaco = async ({
   codeSpace,
   onChange,
 }: EditorConfig): Promise<EditorModel> => {
-  if (!mod[codeSpace]) {
-    mod[codeSpace] = await startMonacoPristine({
-      code,
-      container,
-      codeSpace,
-      onChange,
-    });
+  // If we already have a model for this codeSpace, check if it's still valid
+  if (mod[codeSpace]) {
+    try {
+      // Check if the container is still in the DOM
+      if (container && document.body.contains(container)) {
+        return mod[codeSpace];
+      } else {
+        // Container is no longer in the DOM, clean up the old model
+        console.debug(`Container for ${codeSpace} is no longer in the DOM, creating new model`);
+        // Use requestAnimationFrame to ensure we're not unmounting during render
+        requestAnimationFrame(() => {
+          delete mod[codeSpace];
+        });
+      }
+    } catch (error) {
+      console.error(`Error checking model for ${codeSpace}:`, error);
+      // Use requestAnimationFrame to ensure we're not unmounting during render
+      requestAnimationFrame(() => {
+        delete mod[codeSpace];
+      });
+    }
   }
+  
+  // Create a new model
+  mod[codeSpace] = await startMonacoPristine({
+    code,
+    container,
+    codeSpace,
+    onChange,
+  });
+  
   return mod[codeSpace];
 };
 

@@ -326,22 +326,25 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     }, 5000);
 
     return () => {
-      // Clear interval
-      clearInterval(metricsInterval);
+      // Use requestAnimationFrame to ensure we're not cleaning up during render
+      requestAnimationFrame(() => {
+        // Clear interval
+        clearInterval(metricsInterval);
 
-      // Abort any pending operations
-      controller.current.abort();
+        // Abort any pending operations
+        controller.current.abort();
 
-      // Final metrics capture
-      metrics.current.changeCount = 0;
-      metrics.current.skippedCount = 0;
-      externalMetrics.current.updateCount = 0;
-      externalMetrics.current.skippedCount = 0;
+        // Final metrics capture
+        metrics.current.changeCount = 0;
+        metrics.current.skippedCount = 0;
+        externalMetrics.current.updateCount = 0;
+        externalMetrics.current.skippedCount = 0;
 
-      // Log cleanup
-      console.debug("[Editor] Component cleanup completed", {
-        codeSpace,
-        timestamp: new Date().toISOString(),
+        // Log cleanup
+        console.debug("[Editor] Component cleanup completed", {
+          codeSpace,
+          timestamp: new Date().toISOString(),
+        });
       });
     };
   }, [codeSpace]);

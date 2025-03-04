@@ -174,6 +174,7 @@ async function renderApp(
     let renderedApp = renderedApps.get(rootEl);
 
     if (!renderedApp) {
+      // First time rendering - create a new root
       myRoot.render(
         <ThemeProvider>
           <React.Fragment>
@@ -197,18 +198,59 @@ async function renderApp(
         App: AppToRender,
         cssCache,
         cleanup: () => {
-          myRoot.unmount();
-          if (cssCache.sheet) {
-            cssCache.sheet.flush();
-          }
-          rootEl.remove();
-          renderedApps.delete(rootEl);
+          // Use requestAnimationFrame to ensure we're not unmounting during render
+          requestAnimationFrame(() => {
+            myRoot.unmount();
+            if (cssCache.sheet) {
+              cssCache.sheet.flush();
+            }
+            rootEl.remove();
+            renderedApps.delete(rootEl);
+          });
         },
       });
 
-      renderedApp = renderedApps.get(
-        rootEl,
+      renderedApp = renderedApps.get(rootEl);
+    } else {
+      // Update existing root with new content
+      // Instead of unmounting and creating a new root, update the existing one
+      const existingRoot = renderedApp.rRoot;
+      
+      // Update the render with new content
+      existingRoot.render(
+        <ThemeProvider>
+          <React.Fragment>
+            <CacheProvider value={cssCache}>
+              {emptyApp
+                ? <AppToRender />
+                : (
+                  <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
+                    <AppWithScreenSize AppToRender={AppToRender} />
+                  </ErrorBoundary>
+                )}
+            </CacheProvider>{" "}
+            {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+          </React.Fragment>
+        </ThemeProvider>,
       );
+      
+      // Update the stored reference with new values
+      renderedApps.set(rootEl, {
+        ...renderedApp,
+        App: AppToRender,
+        cssCache,
+        cleanup: () => {
+          // Use requestAnimationFrame to ensure we're not unmounting during render
+          requestAnimationFrame(() => {
+            existingRoot.unmount();
+            if (cssCache.sheet) {
+              cssCache.sheet.flush();
+            }
+            rootEl.remove();
+            renderedApps.delete(rootEl);
+          });
+        },
+      });
     }
 
     if (!renderedApp) {
