@@ -2,7 +2,7 @@ import { CodeSessionBC } from "@/services/CodeSessionBc";
 import { RenderService } from "@/services/RenderService";
 import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
-import { ServiceWorkerManager } from "@/services/worker/ServiceWorkerManager";
+import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 
 export const main = async (codeSpace: string) => {
   try {

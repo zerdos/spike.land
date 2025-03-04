@@ -1,7 +1,7 @@
 import type { RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { RenderService } from "../RenderService";
+import { RenderService } from "@/services/RenderService";
 
 // Mock dependencies
 vi.mock("@/lib/md5", () => ({
