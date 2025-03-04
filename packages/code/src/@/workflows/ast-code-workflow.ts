@@ -229,20 +229,20 @@ export const createAstWorkflow = (initialState: AgentState) => {
 
         // Verify code integrity after workflow execution
         if (finalState.code !== initialState.code) {
-          const finalhash = md5(finalState.code);
-          const isIntegrityValid = verifyCodeIntegrity(finalState.code, finalhash);
+          const finalHash = md5(finalState.code);
+          const isIntegrityValid = verifyCodeIntegrity(finalState.code, finalHash);
 
           if (!isIntegrityValid) {
             throw new WorkflowError("Code integrity verification failed", {
               hash: hash,
-              finalHash: finalhash,
+              finalHash: finalHash,
             });
           }
 
           // Update hash in final state
-          finalState.hash = finalhash;
+          finalState.hash = finalHash;
           console.log("Code integrity verified with updated hash", {
-            hash: finalhash,
+            hash: finalHash,
           });
         }
 

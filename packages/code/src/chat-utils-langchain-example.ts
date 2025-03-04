@@ -75,19 +75,19 @@ export const setupAndRun = async (
 
       // Verify final code integrity
       if (result.code !== initialCode) {
-        const finalhash = result.hash || md5(result.code);
+        const finalHash = result.hash || md5(result.code);
         const actualHash = md5(result.code);
 
-        if (finalhash !== actualHash) {
+        if (finalHash !== actualHash) {
           throw new CodeModWorkflowError("Code integrity verification failed", {
-            expectedHash: finalhash,
+            expectedHash: finalHash,
             actualHash,
           });
         }
 
         console.log("Code modification successful with integrity verified", {
           hash: hash,
-          finalHash: finalhash,
+          finalHash: finalHash,
         });
       }
 

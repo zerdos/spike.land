@@ -137,7 +137,7 @@ const ChatInterface: React.FC<{
             prompt,
             images,
             code: currentSession.code,
-          }, cSess);
+          });
         });
       }
     }

@@ -14,8 +14,7 @@ export const createWorkflowWithStringReplace = workflowCreator;
  * It delegates to the refactored implementation in workflow-creator.ts
  */
 export const handleSendMessage = async (
-  props: HandleSendMessageProps,
-  cSess: ICode,
+  props: HandleSendMessageProps
 ): Promise<void> => {
-  return processMessage(props, cSess);
+  return processMessage(props);
 };

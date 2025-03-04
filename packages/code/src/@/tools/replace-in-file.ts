@@ -128,7 +128,9 @@ export const createReplaceInFileTool = () =>
         log("Changes detected, updating file");
 
         // Set the modified code
+        console.log("Modified code:", modifiedCode);
         const success = await cSess.setCode(modifiedCode);
+        console.log("Success:", success);
 
         if (!success) {
           return createErrorResponse(

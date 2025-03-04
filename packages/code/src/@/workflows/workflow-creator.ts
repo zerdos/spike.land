@@ -31,10 +31,9 @@ const workflowCache: Record<string, WorkflowInvokeResult> = {};
  * Creates a workflow with string replace capability
  */
 export function createWorkflowWithStringReplace(
-  initialState: AgentState,
-  _Sess: ICode,
+  initialState: AgentState
 ): WorkflowInvokeResult {
-  const cSess = _Sess || globalThis as unknown as { cSess: ICode; };
+  const {cSess} = globalThis as unknown as { cSess: ICode; };
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
@@ -153,18 +152,18 @@ export function createWorkflowWithStringReplace(
 
         if (finalState.code !== initialState.code) {
           // Calculate hash with caching for final code
-          const finalhash = getHashWithCache(finalState.code);
+          const finalHash = getHashWithCache(finalState.code);
 
-          if (!verifyCodeIntegrity(finalState.code, finalhash)) {
+          if (!verifyCodeIntegrity(finalState.code, finalHash)) {
             throw createCodeIntegrityError(
               "Code integrity",
               initialState.hash,
-              finalhash,
+              finalHash,
               finalState.code.length,
             );
           }
 
-          finalState.hash = finalhash;
+          finalState.hash = finalHash;
 
           // Track code modification
           telemetry.trackCodeModification("update", {
@@ -213,9 +212,9 @@ export async function handleSendMessage(
     prompt: string;
     images?: ImageData[];
     code: string;
-  },
-  cSess: ICode,
+  }
 ): Promise<void> {
+  const cSess = globalThis as unknown as { cSess: ICode; };
   // Get or create workflow for this code space
   const workflow = workflowCache[codeSpace] || await createWorkflowWithStringReplace({
     code: code,
@@ -225,7 +224,7 @@ export async function handleSendMessage(
     isStreaming: false,
     messages: [],
     hash: getHashWithCache(code),
-  }, cSess);
+  });
 
   // Cache the workflow for future use
   workflowCache[codeSpace] = workflow;
