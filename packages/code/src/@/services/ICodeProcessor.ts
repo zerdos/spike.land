@@ -1,4 +1,4 @@
-import { RunMessageResult } from "../websocket/types";
+import { RunMessageResult } from "@/services/types";
 
 export interface ICodeProcessor {
   /**

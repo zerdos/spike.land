@@ -1,7 +1,7 @@
 import { ICodeSession } from "@/lib/interfaces";
-import { formatCode, transpileCode } from "../../components/editorUtils";
-import { RenderService } from "../render/RenderService";
-import { IWebSocketManager, RunMessageResult } from "../websocket/types";
+import { formatCode, transpileCode } from "./editorUtils";
+import { RenderService } from "./RenderService";
+import { IWebSocketManager, RunMessageResult } from "./types";
 
 export class CodeProcessor {
   private static renderService: RenderService;

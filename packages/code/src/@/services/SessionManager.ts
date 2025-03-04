@@ -1,8 +1,8 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { CodeSessionBC } from "../CodeSessionBc";
-import type { ISessionManager } from "../interfaces/ISessionManager";
+import { CodeSessionBC } from "./CodeSessionBc";
+import type { ISessionManager } from "./ISessionManager";
 
 /**
  * SessionManager is responsible for managing the session state and synchronizing it across clients.

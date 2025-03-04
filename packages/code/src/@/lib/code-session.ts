@@ -6,11 +6,10 @@ import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { Mutex } from "async-mutex";
-import { cs } from "date-fns/locale";
-import { screenshot } from "src/components/editorUtils";
-import { CodeProcessor } from "src/services/code/CodeProcessor";
-import { ModelManager } from "src/services/code/ModelManager";
-import { SessionManager } from "src/services/code/SessionManager";
+import { screenshot } from "@/services/editorUtils";
+import { CodeProcessor } from "@/services/CodeProcessor";
+import { ModelManager } from "@/services/ModelManager";
+import { SessionManager } from "@/services/SessionManager";
 
 // Mutex for thread-safe code access
 const mutex = new Mutex();

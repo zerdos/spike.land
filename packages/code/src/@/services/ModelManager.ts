@@ -1,5 +1,5 @@
-import { Code } from "@/workers/code.session.worker";
-import type { IExtraModelsResult, IModelManager } from "../interfaces/IModelManager";
+import { Code } from "@/lib/code-session";
+import type { IExtraModelsResult, IModelManager } from "@/lib/interfaces";
 import { Message } from "@/lib/interfaces";
 
 export class ModelManager implements IModelManager {

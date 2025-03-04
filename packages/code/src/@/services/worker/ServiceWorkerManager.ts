@@ -1,5 +1,5 @@
 import { setupServiceWorker } from "@/lib/hydrate";
-import { IServiceWorkerManager } from "../websocket/types";
+import { IServiceWorkerManager } from "@/services/types";
 
 interface IExtendedWindow extends Window {
   __IS_IFRAME__: boolean;

@@ -14,8 +14,8 @@ import {
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
 import { AppToRender } from "../AppToRender";
-import { exposeCsess } from "@/workers/code.session.worker";
-import { CodeSessionBC } from "../services/CodeSessionBc";
+import { exposeCsess } from "@/lib/code-session";
+import { CodeSessionBC } from "@/services/CodeSessionBc";
 // init()
 // Define route types
 interface RouteWithPageParams {

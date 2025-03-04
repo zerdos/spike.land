@@ -1,8 +1,8 @@
-import { CodeSessionBC } from "./services/CodeSessionBc";
-import { RenderService } from "./services/render/RenderService";
-import type { IWebSocketManager, WebSocketDependencies } from "./services/websocket/types";
-import { WebSocketManager } from "./services/websocket/WebSocketManager";
-import { ServiceWorkerManager } from "./services/worker/ServiceWorkerManager";
+import { CodeSessionBC } from "@/services/CodeSessionBc";
+import { RenderService } from "@/services/RenderService";
+import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
+import { WebSocketManager } from "@/services/WebSocketManager";
+import { ServiceWorkerManager } from "@/services/worker/ServiceWorkerManager";
 
 export const main = async (codeSpace: string) => {
   try {

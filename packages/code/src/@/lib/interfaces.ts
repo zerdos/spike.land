@@ -261,6 +261,18 @@ export interface ChatDrawerProps {
   screenshot: () => Promise<ImageData>;
 }
 
+export interface IExtraModelsResult {
+  [codeSpace: string]: string;
+}
+
+export interface IModelManager {
+  getModel(codeSpace: string): ICode | undefined;
+  setModel(codeSpace: string, model: ICode): void;
+  updateModelsByCode(newCodes: string): Promise<string>;
+  getCurrentCodeWithExtraModels(): Promise<string>;
+  release(): Promise<void>;
+}
+
 export interface ChatContainerProps {
   messages: Message[];
   setEditingMessageId: (id: string) => void;

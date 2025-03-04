@@ -5,7 +5,7 @@ import { wait } from "@/lib/wait";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
-import { initializeMonaco } from "./editorUtils";
+import { initializeMonaco } from "@/services/editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {

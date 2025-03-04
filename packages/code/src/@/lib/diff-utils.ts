@@ -77,6 +77,20 @@ export function replacePreservingWhitespace(
   search: string,
   replace: string,
 ): string {
+  // Debug logging to help diagnose matching issues
+  console.debug("replacePreservingWhitespace - Text length:", text.length);
+  console.debug("replacePreservingWhitespace - Search length:", search.length);
+  console.debug("replacePreservingWhitespace - Replace length:", replace.length);
+  
+  // Log the first few characters of each to help identify issues
+  console.debug("replacePreservingWhitespace - Text start:", JSON.stringify(text.substring(0, 50)));
+  console.debug("replacePreservingWhitespace - Search:", JSON.stringify(search));
+  
+  // Check if search exists in text (ignoring whitespace)
+  const textNoWS = text.replace(/\s+/g, "");
+  const searchNoWS = search.replace(/\s+/g, "");
+  console.debug("replacePreservingWhitespace - Search exists in text (ignoring whitespace):", textNoWS.includes(searchNoWS));
+  
   // Handle empty search string
   if (!search) return text;
 
@@ -113,17 +127,31 @@ export function replacePreservingWhitespace(
 
   // For multiline text with newlines but not the special case above
   if (search.includes("\n")) {
+    console.debug("replacePreservingWhitespace - Handling multiline search");
+    
     // Try direct string replacement first
     const directReplaceResult = text.replace(search, replace);
-    if (directReplaceResult !== text) {
+    const directReplaceWorked = directReplaceResult !== text;
+    console.debug("replacePreservingWhitespace - Direct replacement worked:", directReplaceWorked);
+    
+    if (directReplaceWorked) {
       return directReplaceResult;
     }
 
     // If direct replacement didn't work, try a more flexible approach
     const searchNoWhitespace = search.replace(/\s+/g, "");
     const textNoWhitespace = text.replace(/\s+/g, "");
-
-    if (textNoWhitespace.includes(searchNoWhitespace)) {
+    
+    const flexibleMatch = textNoWhitespace.includes(searchNoWhitespace);
+    console.debug("replacePreservingWhitespace - Flexible match (ignoring whitespace):", flexibleMatch);
+    
+    // Log the first few characters of each (without whitespace) to help identify issues
+    console.debug("replacePreservingWhitespace - Text without whitespace (first 50 chars):", 
+      textNoWhitespace.substring(0, 50) + (textNoWhitespace.length > 50 ? "..." : ""));
+    console.debug("replacePreservingWhitespace - Search without whitespace:", 
+      searchNoWhitespace.substring(0, 50) + (searchNoWhitespace.length > 50 ? "..." : ""));
+    
+    if (flexibleMatch) {
       // Find the start and end indices in the original text
       let startIndex = 0;
       let searchIndex = 0;
@@ -159,6 +187,29 @@ export function replacePreservingWhitespace(
   }
 
   // For regular single-line text replacement, use regex with escaped search string
-  const regex = new RegExp(escapeRegExp(search), "g");
-  return text.replace(regex, replace);
+  console.debug("replacePreservingWhitespace - Handling single-line search");
+  
+  // Check for exact match first
+  const exactMatch = text.includes(search);
+  console.debug("replacePreservingWhitespace - Exact match for single-line search:", exactMatch);
+  
+  if (exactMatch) {
+    // Use simple string replacement for exact matches
+    console.debug("replacePreservingWhitespace - Using simple string replacement");
+    return text.split(search).join(replace);
+  }
+  
+  // If no exact match, try regex
+  console.debug("replacePreservingWhitespace - Using regex replacement");
+  const escapedSearch = escapeRegExp(search);
+  console.debug("replacePreservingWhitespace - Escaped search:", escapedSearch);
+  
+  const regex = new RegExp(escapedSearch, "g");
+  const result = text.replace(regex, replace);
+  
+  // Check if regex replacement worked
+  const regexWorked = result !== text;
+  console.debug("replacePreservingWhitespace - Regex replacement worked:", regexWorked);
+  
+  return result;
 }

@@ -1,7 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { RunMessageResult } from "src/services/websocket/types";
+import { RunMessageResult } from "./types";
 
 export interface EditorState {
   started: boolean;
@@ -245,6 +245,6 @@ export interface EditorInstance {
 export async function initializeMonaco(
   options: EditorInitOptions,
 ): Promise<EditorInstance> {
-  const { startMonaco } = await import("../monaco-edi");
+  const { startMonaco } = await import("@/components/app/monaco-edi");
   return await startMonaco(options);
 }

@@ -1,7 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { nextDay } from "date-fns";
 import { useRef, useState } from "react";
-import type { EditorState } from "../components/editorUtils";
+import type { EditorState } from "@/services/editorUtils";
 import type { ErrorType } from "../components/ErrorMessages";
 import { isMobile } from "../isMobile";
 import { useContext } from "./useContext";

@@ -91,7 +91,8 @@ export interface IWebSocketManager {
 }
 
 import { ICodeSession, Message, MessageResponse } from "@/lib/interfaces";
-import { WebSocketEventType } from "./enums";
+import { WebSocketEventType } from "@/services/enums";
+
 
 /**
  * WebSocket event handler type
@@ -113,4 +114,4 @@ export interface WebSocketSubscription {
 /**
  * Re-export enums from separate file
  */
-export { WebSocketEventType, WebSocketState } from "./enums";
+export { WebSocketEventType, WebSocketState } from "@/services/enums";
