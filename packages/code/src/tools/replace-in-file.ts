@@ -1,7 +1,7 @@
 import { updateSearchReplace } from "@/lib/chat-utils";
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import type { CodeModification } from "@/types/chat-langchain";
+import type { CodeModification } from "../workflows/chat-langchain";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 

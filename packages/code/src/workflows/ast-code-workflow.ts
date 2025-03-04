@@ -1,6 +1,6 @@
 import { initialClaude } from "@/lib/initial-claude";
 import { md5 } from "@/lib/md5";
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";

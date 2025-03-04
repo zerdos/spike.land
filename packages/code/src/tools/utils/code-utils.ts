@@ -6,7 +6,7 @@ import {
 import { updateSearchReplace } from "@/lib/chat-utils";
 import { md5 } from "@/lib/md5";
 
-import { CodeChangeMetrics } from "@/types/workflow";
+import { CodeChangeMetrics } from "../../workflows/workflow";
 
 /**
  * Verify code integrity using document hash

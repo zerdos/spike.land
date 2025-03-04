@@ -1,11 +1,11 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import type { ICode, ImageData } from "@/lib/interfaces";
-import type { AgentState } from "@/types/chat-langchain";
+import type { AgentState } from "../workflows/chat-langchain";
 import type { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { toolResponseCache } from "@/workers/caching";
+import { toolResponseCache } from "./caching";
 import { metrics } from "@/lib/metrics";
-import { telemetry } from "@/lib/telemetry";
+import { telemetry } from "./telemetry";
 import { createCodeIntegrityError, WorkflowError } from "../tools/utils/error-handlers";
 import {
   extractToolResponseMetadata,

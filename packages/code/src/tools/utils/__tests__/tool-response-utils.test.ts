@@ -1,5 +1,5 @@
 import { md5 } from "@/lib/md5";
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 import { AIMessage } from "@langchain/core/messages";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {

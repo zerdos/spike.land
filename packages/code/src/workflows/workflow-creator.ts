@@ -4,15 +4,15 @@ import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces"
 import { replaceInFileTool } from "../tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "../tools/utils/code-utils";
 
-import type { AgentState } from "@/types/chat-langchain";
-import type { WorkflowContinueResult } from "@/types/workflow";
+import type { AgentState } from "../workflows/chat-langchain";
+import type { WorkflowContinueResult } from "./workflow";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import { telemetry } from "@/lib/telemetry";
+import { telemetry } from "./telemetry";
 import {
   createCodeIntegrityError,
   handleWorkflowError,

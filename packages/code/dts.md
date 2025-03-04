@@ -1777,7 +1777,7 @@ declare global {
 
 ```ts
 import type { StateGraphArgs } from "@langchain/langgraph/web";
-import { AgentState } from "./chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 export interface CodeChangeMetrics {
   sizeChange: number;
   lineCount: {
@@ -1895,7 +1895,7 @@ export declare class FileCacheManager {
 # src/@/utils/tool-response-utils.d.ts
 
 ```ts
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 import { ToolResponseMetadata } from "@/types/workflow";
 import { AIMessage } from "@langchain/core/messages";
 export declare const extractToolResponseMetadata: (
@@ -2059,7 +2059,7 @@ import "@tailwindcss/browser";
 # src/@/workflows/ast-code-workflow.d.ts
 
 ```ts
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 export declare const createAstWorkflow: (initialState: AgentState) => {
   invoke: (
     prompt: string,
@@ -2073,7 +2073,7 @@ export declare const createAstWorkflow: (initialState: AgentState) => {
 # src/@/workflows/chat-langchain-workflow.d.ts
 
 ```ts
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 export declare const createWorkflowWithStringReplace: (initialState: AgentState) => {
   invoke: (prompt: string) => Promise<import("@langchain/langgraph/web").StateType<any>>;
 };

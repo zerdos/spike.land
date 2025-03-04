@@ -1,6 +1,6 @@
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { AgentState } from "@/types/chat-langchain";
+import { AgentState } from "../workflows/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, SystemMessage } from "@langchain/core/messages";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

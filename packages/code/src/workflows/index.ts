@@ -3,7 +3,7 @@
  * It re-exports the functionality from the original implementation.
  */
 
-import { createWorkflowWithStringReplace, handleSendMessage } from "./chat-langchain-workflow";
+import { createWorkflowWithStringReplace, handleSendMessage } from "../workflows/chat-langchain-workflow";
 
 export { createWorkflowWithStringReplace, handleSendMessage };
 
