@@ -151,7 +151,7 @@ const buildOptions = {
   entryPoints: ['src/index.ts'],
   bundle: true,
   format: 'esm',
-  target: 'es2020',
+  target: 'es2024',
   outfile: 'dist/worker.js'
 };
 ```

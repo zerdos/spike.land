@@ -52,7 +52,7 @@ const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
     mangleQuoted: true,
     ignoreAnnotations: false,
     platform: "browser",
-    target: "es2022",
+    target: "es2024",
     format: "iife",
     outdir: "dist/@/workers/monaco",
     minify: true,
@@ -161,7 +161,7 @@ export async function buildServiceWorker(): Promise<void> {
       "worker_threads",
     ],
     minifyWhitespace: false,
-    target: "es2022",
+    target: "es2024",
   });
 
   await build({
@@ -176,7 +176,7 @@ export async function buildServiceWorker(): Promise<void> {
       "worker_threads",
     ],
     minifyWhitespace: true,
-    target: "es2022",
+    target: "es2024",
   });
 }
 
@@ -256,7 +256,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     mangleQuoted: false,
     sourcemap: false,
     splitting: false,
-    target: "es2022",
+    target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
     platform: "node",
@@ -302,7 +302,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     sourcemap: false,
     ignoreAnnotations: false,
     legalComments: "none",
-    target: "es2022",
+    target: "es2024",
     external: undefined,
     alias: undefined,
     outdir: "./dist/@/",
@@ -352,7 +352,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     mangleQuoted: false,
     sourcemap: false,
     outdir: "dist/",
-    target: "es2022",
+    target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
     platform: "browser",

@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
 
     /* Specify what module code is generated. */
-    "module": "es2022",
+    "module": "es2024",
     /* Specify how TypeScript looks up a file from a given module specifier. */
     "moduleResolution": "Bundler",
     /* Specify type package names to be included without being referenced in a source file. */

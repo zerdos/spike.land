@@ -103,7 +103,7 @@ import * as esbuild from 'esbuild-wasm';
 async function transpile(code: string) {
   const result = await esbuild.transform(code, {
     loader: 'tsx',
-    target: 'es2020',
+    target: 'es2024',
     format: 'esm',
     sourcemap: true
   });

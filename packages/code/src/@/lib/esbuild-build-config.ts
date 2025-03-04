@@ -6,7 +6,7 @@ import { makeEnv } from "./esbuild-make-env.ts";
 import { fetchPlugin } from "./esbuild-fetch-plugin.ts";
 
 export const buildOptions: BuildOptions = {
-  target: "es2022",
+  target: "es2024",
   sourcemap: false,
   outdir: "dist",
 
