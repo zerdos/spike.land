@@ -45,8 +45,18 @@ class SessMock implements ICode {
     this.broadCastSessChanged();
   }
 
-  setMessages(messages: Message[]) {
-    this.session.messages = messages;
+  addMessage(newMessage: Message): boolean {
+    this.session.messages.push(newMessage);
+    this.broadCastSessChanged();
+    return true;
+  }
+
+  removeMessages(): boolean {
+    if (this.session.messages.length === 0) {
+      return false;
+    }
+    this.session.messages = [];
+    this.broadCastSessChanged();
     return true;
   }
 

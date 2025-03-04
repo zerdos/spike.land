@@ -1,6 +1,6 @@
 import { AIService } from "@/lib/ai-service";
 import type { Message } from "@/lib/interfaces";
-import { handleSendMessage } from "@/workers/chat-utils.worker";
+import { handleSendMessage } from "@/workflows/chat-langchain-workflow";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
 // Mock BroadcastChannel
@@ -18,8 +18,25 @@ const mockSelf = {
   postMessage: vi.fn(),
 } as MockWorkerScope;
 
+// Mock cSess object
+const mockCSess = {
+  getCodeSpace: vi.fn().mockReturnValue("test-space"),
+  getCode: vi.fn().mockResolvedValue("// Test code"),
+  getMessages: vi.fn().mockReturnValue([]),
+  addMessage: vi.fn().mockReturnValue(true),
+  removeMessages: vi.fn().mockReturnValue(true),
+  setCode: vi.fn().mockResolvedValue(true),
+  screenshot: vi.fn(),
+  init: vi.fn(),
+  setSession: vi.fn(),
+  getSession: vi.fn(),
+  addMessageChunk: vi.fn(),
+  sub: vi.fn(),
+};
+
 global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
-(global as unknown as { self: MockWorkerScope; }).self = mockSelf;
+(global as unknown as { self: MockWorkerScope; cSess: typeof mockCSess }).self = mockSelf;
+(global as unknown as { cSess: typeof mockCSess }).cSess = mockCSess;
 
 describe("handleSendMessage", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;

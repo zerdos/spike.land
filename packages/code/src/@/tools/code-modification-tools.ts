@@ -57,14 +57,22 @@ export const codeModificationTool = tool(
           role: "assistant" as const,
           content: instructions,
         };
-        cSess.setMessages([...messages, aiMessage]);
+        cSess.addMessage(aiMessage);
       } // If the last message is from the AI, update it with the instructions
       else if (lastMessage && lastMessage.role === "assistant") {
-        const updatedMessages = [...messages.slice(0, -1), {
+        // First remove all messages
+        cSess.removeMessages();
+        
+        // Then add each message up to the last one
+        for (let i = 0; i < messages.length - 1; i++) {
+          cSess.addMessage(messages[i]);
+        }
+        
+        // Finally add the updated message
+        cSess.addMessage({
           ...lastMessage,
           content: instructions,
-        }];
-        cSess.setMessages(updatedMessages);
+        });
       }
 
       // Use single modification method

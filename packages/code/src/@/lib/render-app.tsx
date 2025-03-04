@@ -56,7 +56,7 @@ export const importFromString = async (code: string) => {
 
     const module = await import(/* @vite-ignore */ blobUrl);
     if (!module.default) {
-      console.error("Module does not have a default export:", {code, module});
+      console.error("Module does not have a default export:", { code, module });
       return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
     }
     return module.default as FlexibleComponentType;
@@ -72,7 +72,7 @@ export const importFromString = async (code: string) => {
 
     const module = await import(filePath);
     if (!module.default) {
-      console.error("Module does not have a default export:", {code, module, filePath});
+      console.error("Module does not have a default export:", { code, module, filePath });
       return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
     }
     return module.default as FlexibleComponentType;
@@ -215,7 +215,7 @@ async function renderApp(
       // Update existing root with new content
       // Instead of unmounting and creating a new root, update the existing one
       const existingRoot = renderedApp.rRoot;
-      
+
       // Update the render with new content
       existingRoot.render(
         <ThemeProvider>
@@ -233,7 +233,7 @@ async function renderApp(
           </React.Fragment>
         </ThemeProvider>,
       );
-      
+
       // Update the stored reference with new values
       renderedApps.set(rootEl, {
         ...renderedApp,

@@ -3,7 +3,7 @@ import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { CodeSessionBC } from "../CodeSessionBc";
 import type { ISessionManager } from "../interfaces/ISessionManager";
-
+import { messagesPush } from "@/lib/chat-utils";
 interface BroadcastMessage extends ICodeSession {
   sender: string;
 }
@@ -36,52 +36,70 @@ export class SessionManager implements ISessionManager {
 
     const oldSession = sanitizeSession(this.session);
     if (this.session.messages.length === 0) {
-      this.setMessages([{
+      this.addMessage({
         id: Date.now().toString(),
         role: "assistant",
         content: chunk,
-      }]);
+      });
       return;
     }
 
     const lastMessage = this.session.messages[this.session.messages.length - 1];
     if (lastMessage.role !== "assistant") {
-      this.setMessages([
-        ...this.session.messages,
-        { id: Date.now().toString(), role: "assistant", content: chunk },
-      ]);
+      this.addMessage({
+        id: Date.now().toString(),
+        role: "assistant",
+        content: chunk,
+      });
       return;
     }
 
     lastMessage.content += chunk;
+    const newSession = sanitizeSession({...this.session, messages: [
+      ...this.session.messages.slice(0, this.session.messages.length - 1),
+      lastMessage,
+    ]}); 
+
+    this.session = newSession;  
     this.broadcastSession(oldSession);
   }
 
-  setMessages(messages: Message[]): boolean {
+  addMessage(newMessage: Message): boolean {
     if (!this.session) return false;
+    
     const oldSession = sanitizeSession(this.session);
     const currentMessages = this.session.messages;
-
-    if (messages.length === currentMessages.length) {
-      // No changes if both are empty
-      if (!messages.length) return false;
-
-      // Compare last messages, then check hashes
-      if (
-        messages[messages.length - 1].content ===
-          currentMessages[currentMessages.length - 1].content
-      ) {
-        const before = md5(JSON.stringify(currentMessages));
-        const after = md5(JSON.stringify(messages));
-        if (before === after) return false;
-      }
+    
+    // Use messagesPush to add the new message following the rules
+    const updatedMessages = messagesPush(currentMessages, newMessage);
+    
+    // Check if messages actually changed
+    if (md5(JSON.stringify(updatedMessages)) === md5(JSON.stringify(currentMessages))) {
+      return false;
     }
-
+    
     this.session = sanitizeSession({
       ...this.session,
-      messages,
+      messages: updatedMessages,
     });
-
+    
+    this.broadcastSession(oldSession);
+    return true;
+  }
+  
+  removeMessages(): boolean {
+    if (!this.session) return false;
+    
+    // If there are no messages, nothing to remove
+    if (this.session.messages.length === 0) return false;
+    
+    const oldSession = sanitizeSession(this.session);
+    
+    this.session = sanitizeSession({
+      ...this.session,
+      messages: [],
+    });
+    
     this.broadcastSession(oldSession);
     return true;
   }

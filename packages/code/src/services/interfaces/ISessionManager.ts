@@ -14,11 +14,17 @@ export interface ISessionManager {
   addMessageChunk(chunk: string): void;
 
   /**
-   * Update session messages
-   * @param messages New messages array
-   * @returns true if messages were updated, false if no changes
+   * Add a new message to the session
+   * @param newMessage Message to add
+   * @returns true if message was added, false if no changes
    */
-  setMessages(messages: Message[]): boolean;
+  addMessage(newMessage: Message): boolean;
+
+  /**
+   * Remove all messages from the session
+   * @returns true if messages were removed, false if no changes
+   */
+  removeMessages(): boolean;
 
   /**
    * Subscribe to session changes

@@ -29,11 +29,8 @@ export interface ChatHeaderProps {
 }
 
 export interface HandleSendMessageProps {
-  messages: Message[];
-  codeSpace: string;
   prompt: string;
   images: ImageData[];
-  code: string;
 }
 
 export interface MessageInputProps {
@@ -75,7 +72,8 @@ export interface ICode {
   screenshot: () => Promise<ImageData>;
   addMessageChunk: (chunk: string) => void;
   getMessages: () => Message[];
-  setMessages: (messages: Message[]) => boolean;
+  addMessage: (newMessage: Message) => boolean;
+  removeMessages: () => boolean;
   // currentCodeWithExtraModels: () => Promise<string>;
   // setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(

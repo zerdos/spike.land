@@ -152,11 +152,21 @@ const createMockSession = (initialMessages: Message[] = []) => {
     setSession: vi.fn(),
     init: vi.fn(),
     getMessages: vi.fn().mockReturnValue(messages),
-    setMessages: vi.fn().mockImplementation(async (newMessages: Message[]) => {
-      messages = newMessages.map((msg) => ({ ...msg }));
+    addMessage: vi.fn().mockImplementation((newMessage: Message) => {
+      messages.push({ ...newMessage });
       const updatedSession = {
         ...session,
         messages: messages.map((msg) => ({ ...msg })),
+      };
+      subscribers.forEach((sub) => sub(updatedSession));
+      return true;
+    }),
+    removeMessages: vi.fn().mockImplementation(() => {
+      if (messages.length === 0) return false;
+      messages = [];
+      const updatedSession = {
+        ...session,
+        messages: [],
       };
       subscribers.forEach((sub) => sub(updatedSession));
       return true;
@@ -238,6 +248,6 @@ describe("ChatInterface", () => {
       fireEvent.click(resetButton);
     });
 
-    expect(mockSession.setMessages).toHaveBeenCalledWith([]);
+    expect(mockSession.removeMessages).toHaveBeenCalled();
   });
 });

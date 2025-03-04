@@ -45,29 +45,6 @@ export const Hello = () => {
 };
 
 export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
-  useEffect(() => {
-    Object.assign(globalThis, {
-      setupAndRun: async (prompt: string) => {
-        var process = {
-          env: {
-            NODE_ENV: "development",
-          },
-        };
-        const { setupAndRun } = await import("./chat-utils-langchain-example");
-        setupAndRun(prompt, cSess).catch(console.error);
-      },
-      setupAndRunAst: async (prompt: string) => {
-        var process = {
-          env: {
-            NODE_ENV: "development",
-          },
-        };
-        const { setupAndRunAst } = await import("./ast-code-workflow-example");
-        setupAndRunAst(prompt, cSess).catch(console.error);
-      },
-    });
-  }, []);
-
   const maybeKey = codeSpace.split("-")[1];
 
   const [isOpen, setIsOpen] = useState(

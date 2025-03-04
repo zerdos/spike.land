@@ -261,7 +261,7 @@ export const startMonaco = async ({
       });
     }
   }
-  
+
   // Create a new model
   mod[codeSpace] = await startMonacoPristine({
     code,
@@ -269,7 +269,7 @@ export const startMonaco = async ({
     codeSpace,
     onChange,
   });
-  
+
   return mod[codeSpace];
 };
 
@@ -335,21 +335,21 @@ async function startMonacoPristine({
     try {
       console.log("Running TypeScript check");
       const currentCode = model.getValue();
-      
+
       // First, check for import statements that might need type definitions
       const importRegex = /import\s+(?:{[^}]*}|\*\s+as\s+[^;]+|[^;]+)\s+from\s+['"]([^'"]+)['"]/g;
       const imports = [...currentCode.matchAll(importRegex)].map(match => match[1]);
-      
+
       if (imports.length > 0) {
         console.log("Detected imports:", imports);
         // Always refresh ATA first when imports are present
         await refreshAta(currentCode);
         await fetchAndCreateExtraModels(currentCode, originToUse);
-        
+
         // Wait a moment for types to be loaded
         await wait(100);
       }
-      
+
       // Now check for errors
       const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
 
@@ -363,34 +363,37 @@ async function startMonacoPristine({
       if (syntacticDiagnostics.length > 0) {
         console.error("Syntactic diagnostics:", syntacticDiagnostics);
       }
-      
+
       // Check for missing modules and try to resolve them
-      const missingModuleErrors = semanticDiagnostics.filter(d => 
+      const missingModuleErrors = semanticDiagnostics.filter(d =>
         d.messageText.toString().includes("Cannot find module")
       );
-      
+
       if (missingModuleErrors.length > 0) {
         console.log("Missing module errors detected:", missingModuleErrors);
-        
+
         // Try another ATA refresh with more aggressive settings
         languages.typescript.typescriptDefaults.setDiagnosticsOptions({
           noSuggestionDiagnostics: false,
           noSemanticValidation: false,
           noSyntaxValidation: false,
         });
-        
+
         await refreshAta(currentCode);
-        
+
         // Re-check after refreshing types
-        const updatedSemanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
-        
+        const updatedSemanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(
+          uri.toString(),
+        );
+
         if (updatedSemanticDiagnostics.length < semanticDiagnostics.length) {
           console.log("Successfully resolved some type errors after ATA refresh");
         } else {
-          console.warn("Some modules still missing types after ATA refresh:", 
-            updatedSemanticDiagnostics.filter(d => 
+          console.warn(
+            "Some modules still missing types after ATA refresh:",
+            updatedSemanticDiagnostics.filter(d =>
               d.messageText.toString().includes("Cannot find module")
-            )
+            ),
           );
         }
       }
@@ -426,7 +429,7 @@ async function startMonacoPristine({
     lastValueHashToBeSet: "",
     setValue: async (newCode: string) => {
       const lastHash = md5(newCode);
-      
+
       // Prevent recursive updates
       if (editorModel.silent) {
         console.debug("Skipping setValue while silent");
@@ -441,7 +444,7 @@ async function startMonacoPristine({
       }
 
       editorModel.lastValueHashToBeSet = lastHash;
-      
+
       // Handle recently changed content
       if (recentlyChanged.has(lastHash)) {
         console.debug("Content was recently changed, debouncing update");
@@ -463,9 +466,9 @@ async function startMonacoPristine({
           [],
           [{
             range: model.getFullModelRange(),
-            text: newCode
+            text: newCode,
           }],
-          () => null
+          () => null,
         );
 
         // Restore view state if available
@@ -477,7 +480,6 @@ async function startMonacoPristine({
         // Mark this content as recently changed
         recentlyChanged.add(lastHash);
         setTimeout(() => recentlyChanged.delete(lastHash), 1000);
-
       } catch (error) {
         console.error("Error updating editor value:", error);
       } finally {
@@ -531,13 +533,13 @@ async function startMonacoPristine({
   const isUpdating = { current: false };
   const pendingUpdate = { current: null as string | null };
   const previousContent = { current: model.getValue() };
-  
+
   // Track previous imports to detect changes
   const getImports = (code: string) => {
     const importRegex = /import\s+(?:{[^}]*}|\*\s+as\s+[^;]+|[^;]+)\s+from\s+['"]([^'"]+)['"]/g;
     return [...code.matchAll(importRegex)].map(match => match[1]);
   };
-  
+
   const previousImports = { current: getImports(model.getValue()) };
 
   model.onDidChangeContent(() => {
@@ -554,15 +556,16 @@ async function startMonacoPristine({
       try {
         const content = pendingUpdate.current || model.getValue();
         pendingUpdate.current = null;
-        
+
         // Check if imports have changed
         const currentImports = getImports(content);
-        const importsChanged = JSON.stringify(currentImports) !== JSON.stringify(previousImports.current);
-        
+        const importsChanged =
+          JSON.stringify(currentImports) !== JSON.stringify(previousImports.current);
+
         if (importsChanged) {
           console.log("Imports changed, triggering immediate type check");
           previousImports.current = currentImports;
-          
+
           // Skip throttling for import changes to provide faster feedback
           await throttledOnChange.flush();
           await tsCheck();
@@ -571,7 +574,7 @@ async function startMonacoPristine({
           await throttledOnChange();
           await throttledTsCheck();
         }
-        
+
         previousContent.current = content;
 
         // Handle any updates that came in while processing
@@ -585,9 +588,7 @@ async function startMonacoPristine({
       }
     };
 
-    processUpdate().catch(error => 
-      console.error("Error processing content update:", error)
-    );
+    processUpdate().catch(error => console.error("Error processing content update:", error));
   });
 
   return editorModel;

@@ -1,7 +1,7 @@
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "@/config/workflow-config";
 import { messagesPush } from "@/lib/chat-utils";
 import { initialClaude } from "@/lib/initial-claude";
-import type { ICode, ImageData } from "@/lib/interfaces";
+import type { HandleSendMessageProps, ICode, ImageData } from "@/lib/interfaces";
 import { createReplaceInFileTool } from "@/tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "@/tools/utils/code-utils";
 import {
@@ -31,9 +31,9 @@ const workflowCache: Record<string, WorkflowInvokeResult> = {};
  * Creates a workflow with string replace capability
  */
 export function createWorkflowWithStringReplace(
-  initialState: AgentState
+  initialState: AgentState,
 ): WorkflowInvokeResult {
-  const {cSess} = globalThis as unknown as { cSess: ICode; };
+  const { cSess } = globalThis as unknown as { cSess: ICode; };
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
@@ -98,7 +98,8 @@ export function createWorkflowWithStringReplace(
         const messages = cSess.getMessages();
         const userMessageToSave = await createNewMessage(images, prompt);
 
-        await cSess.setMessages(messagesPush(messages, userMessageToSave));
+        // Use messagesPush to create the updated messages array, then add the message
+        await cSess.addMessage(userMessageToSave);
 
         const systemMessage = new SystemMessage(initialClaude);
         const hash = getHashWithCache(initialState.code);
@@ -123,11 +124,11 @@ export function createWorkflowWithStringReplace(
 
         // Save the user message to cSess
         if (cSess) {
-          await cSess.setMessages(messagesPush(cSess.getMessages(), {
+          await cSess.addMessage({
             id: Date.now().toString(),
             role: "user",
             content: prompt,
-          }));
+          });
         }
 
         const initialStateWithMessages: ExtendedAgentState = {
@@ -206,15 +207,11 @@ export function createWorkflowWithStringReplace(
  * Handles sending a message to the workflow
  */
 export async function handleSendMessage(
-  { messages, codeSpace, prompt, images, code }: {
-    messages: unknown[];
-    codeSpace: string;
-    prompt: string;
-    images?: ImageData[];
-    code: string;
-  }
+  { prompt, images }: HandleSendMessageProps,
 ): Promise<void> {
-  const cSess = globalThis as unknown as { cSess: ICode; };
+  const { cSess } = globalThis as unknown as { cSess: ICode; };
+  const codeSpace = cSess.getCodeSpace();
+  const code = await cSess.getCode();
   // Get or create workflow for this code space
   const workflow = workflowCache[codeSpace] || await createWorkflowWithStringReplace({
     code: code,

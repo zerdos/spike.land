@@ -2,7 +2,7 @@ import { ChatDrawer } from "@/components/app/chat-drawer";
 import { useLocalStorage } from "@/external/use-local-storage";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
-import type { ICode, ICodeSession } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
 import { handleSendMessage } from "@/workers/chat-utils-langchain.worker";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -45,7 +45,7 @@ const ChatInterface: React.FC<{
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const resetChat = useCallback((): void => {
-    cSess.setMessages([]);
+    cSess.removeMessages();
     setMessages([]);
     setInput("");
     setEditingMessageId(null);
@@ -92,14 +92,17 @@ const ChatInterface: React.FC<{
       content: editInput,
     };
 
-    // Create new messages array with updated message and remove subsequent messages
-    const updatedMessages = [
-      ...messages.slice(0, messageIndex),
-      updatedMessage,
-    ];
-
-    // Update session with new messages
-    cSess.setMessages(updatedMessages);
+    // First remove all messages
+    cSess.removeMessages();
+    
+    // Then add each message up to the edited one
+    for (let i = 0; i < messageIndex; i++) {
+      cSess.addMessage(messages[i]);
+    }
+    
+    // Finally add the updated message
+    cSess.addMessage(updatedMessage);
+    
     setEditingMessageId(null);
     setEditInput("");
   }, [editInput, cSess]);
@@ -132,11 +135,8 @@ const ChatInterface: React.FC<{
 
         cSess.getSession().then((currentSession) => {
           handleSendMessage({
-            messages: currentSession.messages,
-            codeSpace,
             prompt,
             images,
-            code: currentSession.code,
           });
         });
       }

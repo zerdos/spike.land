@@ -153,7 +153,7 @@ export async function processMessage(
         role: "assistant" as const,
         content: typeof response.content === "string" ? response.content : "",
       };
-      await cSess.setMessages([...cSess.getMessages(), aiMessageForChat]);
+      await cSess.addMessage(aiMessageForChat);
     }
 
     // Handle case where code is not returned in the tool response

@@ -1,5 +1,5 @@
 import type { ImageData } from "@/lib/interfaces";
-import { createNewMessage } from "@/workers/chat-utils.worker";
+import { createNewMessage } from "@/workflows/message-handlers";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/ai-handler");

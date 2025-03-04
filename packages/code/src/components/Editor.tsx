@@ -77,11 +77,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           // Prevent unnecessary updates
           if (newHash !== lastHash) {
             setLastHash(newHash);
-            
+
             // Debounce state updates
             await wait(0);
             if (signal.aborted) return;
-            
+
             setEditorState((prev) => ({ ...prev, code: formatted }));
             await cSess.setCode(formatted);
             await throttledTypeCheck();
@@ -109,7 +109,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           console.error("Content change error:", e);
         } finally {
           isProcessingChange.current = false;
-          
+
           // Process any pending change
           if (pendingChange.current !== null) {
             const nextChange = pendingChange.current;
@@ -135,7 +135,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   // Create refs at the component level, not inside hooks
   const externalUpdateState = useRef({
     isUpdating: false,
-    pendingUpdate: null as string | null
+    pendingUpdate: null as string | null,
   });
 
   // Optimized external code change listener
@@ -179,18 +179,18 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         externalUpdateState.current.isUpdating = true;
         try {
           setLastHash(newHash);
-          
+
           // Only update state if code actually changed
           if (code !== editorState.code && editorState.setValue) {
             const newState = { ...editorState, code };
             setEditorState(newState);
-            
+
             // Debounce setValue to prevent rapid updates
             await wait(0);
             if (!externalUpdateState.current.isUpdating) return; // Check if still relevant
-            
+
             editorState.setValue(code);
-            
+
             const syncTime = performance.now() - now;
             lifetimeMetrics.current.longestSyncTime = Math.max(
               lifetimeMetrics.current.longestSyncTime,
@@ -207,7 +207,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           console.error("[Editor] Error updating editor value:", error);
         } finally {
           externalUpdateState.current.isUpdating = false;
-          
+
           // Handle any pending updates
           if (externalUpdateState.current.pendingUpdate) {
             const nextUpdate = externalUpdateState.current.pendingUpdate;

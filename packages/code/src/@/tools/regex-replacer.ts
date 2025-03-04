@@ -4,7 +4,7 @@ import { ICode, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "@/types/chat-langchain";
 import { tool } from "@langchain/core/tools";
-import { tr } from "date-fns/locale";
+
 import { z } from "zod";
 
 function createErrorResponse(
@@ -119,13 +119,11 @@ export const codeModificationTool = tool(
         `)
         .join("\n");
 
-      await cSess.setMessages(
-        messagesPush(cSess.getMessages(), {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: instructionsStr,
-        }),
-      );
+      await cSess.addMessage({
+        id: Date.now().toString(),
+        role: "assistant",
+        content: instructionsStr,
+      });
 
       await cSess.setCode(modifiedCode);
 

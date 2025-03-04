@@ -106,12 +106,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 setEditingMessageId={setEditingMessageId}
                 onNewPrompt={async (prompt: string) => {
                   handleSendMessage({
-                    messages,
-                    codeSpace: cSess.getCodeSpace(),
-                    code: await cSess.getCode(),
                     prompt,
                     images: [],
-                  }, cSess);
+                  });
                 }}
                 isDarkMode={isDarkMode}
               />

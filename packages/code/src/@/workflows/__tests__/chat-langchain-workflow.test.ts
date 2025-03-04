@@ -21,7 +21,8 @@ describe("chat-langchain-workflow", () => {
   const mockSession = {
     getCode: vi.fn().mockResolvedValue("retrieved code"),
     getMessages: vi.fn().mockReturnValue([]),
-    setMessages: vi.fn(),
+    addMessage: vi.fn(),
+    removeMessages: vi.fn(),
     setCode: vi.fn(), // Mock setCode to avoid side effects
   };
 
@@ -48,21 +49,25 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("workflow creation", () => {
-    const mockSession = {
-      getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages: vi.fn().mockReturnValue([]),
-      setMessages: vi.fn(),
-      setCode: vi.fn(), // Mock setCode to avoid side effects
-    } as unknown as ICode;
+    beforeEach(() => {
+      // Mock the global cSess object
+      (globalThis as any).cSess = {
+        getCode: vi.fn().mockResolvedValue("retrieved code"),
+        getMessages: vi.fn().mockReturnValue([]),
+        addMessage: vi.fn(),
+        removeMessages: vi.fn(),
+        setCode: vi.fn(), // Mock setCode to avoid side effects
+      };
+    });
 
     it("should create workflow with initial state", () => {
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
       expect(workflow).toHaveProperty("invoke");
       expect(typeof workflow.invoke).toBe("function");
     });
 
     it("should initialize ChatAnthropic with correct configuration", () => {
-      createWorkflowWithStringReplace(mockInitialState, mockSession);
+      createWorkflowWithStringReplace(mockInitialState);
       expect(ChatAnthropic).toHaveBeenCalledWith(
         expect.objectContaining({
           streaming: false,
@@ -73,13 +78,6 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("workflow invocation", () => {
-    const mockSession = {
-      getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages: () => [],
-      setMessages: vi.fn(),
-      setCode: vi.fn(), // Mock setCode to avoid side effects
-    } as unknown as ICode;
-
     const mockToolResponse = new AIMessage({
       content: "Modified code",
       additional_kwargs: {
@@ -96,6 +94,15 @@ describe("chat-langchain-workflow", () => {
     });
 
     beforeEach(() => {
+      // Mock the global cSess object
+      (globalThis as any).cSess = {
+        getCode: vi.fn().mockResolvedValue("retrieved code"),
+        getMessages: vi.fn().mockReturnValue([]),
+        addMessage: vi.fn(),
+        removeMessages: vi.fn(),
+        setCode: vi.fn(), // Mock setCode to avoid side effects
+      };
+      
       vi.mocked(ChatAnthropic).mockImplementation(
         () =>
           ({
@@ -106,7 +113,7 @@ describe("chat-langchain-workflow", () => {
     });
 
     it("should process messages and return updated state", async () => {
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
       const result = await workflow.invoke("Modify the code");
 
       expect(result).toBeDefined();
@@ -121,7 +128,7 @@ describe("chat-langchain-workflow", () => {
         hash: md5("function original() {}"),
       };
 
-      const workflow = createWorkflowWithStringReplace(initialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(initialState);
       const result = await workflow.invoke("Verify code integrity");
 
       expect(result.hash).toBeDefined();
@@ -152,7 +159,7 @@ describe("chat-langchain-workflow", () => {
           }) as any,
       );
 
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
 
       await expect(workflow.invoke("Introduce error")).rejects.toThrow(
         "failed to compile: syntax error",
@@ -168,7 +175,7 @@ describe("chat-langchain-workflow", () => {
         hash: md5(largeCode),
       };
 
-      const workflow = createWorkflowWithStringReplace(initialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(initialState);
       await workflow.invoke("Optimize tokens");
 
       expect(console.log).toHaveBeenCalledWith(
@@ -177,13 +184,14 @@ describe("chat-langchain-workflow", () => {
     });
 
     it("should handle missing code in tool response", async () => {
-      // Create a mock session with getCode that returns "retrieved code"
-      const mockSessionWithCode = {
+      // Update the global cSess object with specific mock for this test
+      (globalThis as any).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
-        getMessages: () => [],
-        setMessages: vi.fn(),
-        setCode: vi.fn(),
-      } as unknown as ICode;
+        getMessages: vi.fn().mockReturnValue([]),
+        addMessage: vi.fn(),
+        removeMessages: vi.fn(),
+        setCode: vi.fn(), // Mock setCode to avoid side effects
+      };
 
       const responseWithoutCode = new AIMessage({
         content: "No code returned",
@@ -207,23 +215,27 @@ describe("chat-langchain-workflow", () => {
           }) as any,
       );
 
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSessionWithCode);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
       const result = await workflow.invoke("Get code from session");
 
       expect(result).toBeDefined();
       expect(result.hash).toBe(md5("retrieved code"));
       expect(console.error).not.toHaveBeenCalled();
-      expect(mockSessionWithCode.getCode).toHaveBeenCalled();
+      expect((globalThis as any).cSess.getCode).toHaveBeenCalled();
     });
   });
 
   describe("error handling", () => {
-    const mockSession = {
-      getCode: vi.fn().mockResolvedValue("retrieved code"),
-      getMessages: () => [],
-      setMessages: vi.fn(),
-      setCode: vi.fn(), // Mock setCode to avoid side effects
-    } as unknown as ICode;
+    beforeEach(() => {
+      // Mock the global cSess object
+      (globalThis as any).cSess = {
+        getCode: vi.fn().mockResolvedValue("retrieved code"),
+        getMessages: vi.fn().mockReturnValue([]),
+        addMessage: vi.fn(),
+        removeMessages: vi.fn(),
+        setCode: vi.fn(), // Mock setCode to avoid side effects
+      };
+    });
 
     it("should handle workflow errors gracefully", async () => {
       vi.mocked(ChatAnthropic).mockImplementation(
@@ -234,7 +246,7 @@ describe("chat-langchain-workflow", () => {
           }) as any,
       );
 
-      const workflow = createWorkflowWithStringReplace(mockInitialState, mockSession);
+      const workflow = createWorkflowWithStringReplace(mockInitialState);
 
       await expect(workflow.invoke("Generate error")).rejects.toThrow();
       expect(console.error).toHaveBeenCalled();
@@ -257,7 +269,7 @@ describe("chat-langchain-workflow", () => {
           }) as any,
       );
 
-      const workflow = createWorkflowWithStringReplace(corruptedState, mockSession);
+      const workflow = createWorkflowWithStringReplace(corruptedState);
 
       await expect(workflow.invoke("Check integrity")).rejects.toThrow("Code integrity");
     });

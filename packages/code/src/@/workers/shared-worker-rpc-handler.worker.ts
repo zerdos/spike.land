@@ -1,4 +1,4 @@
-import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { RpcProvider } from "worker-rpc";
 
 interface SharedWorkerGlobalScope {
@@ -19,9 +19,6 @@ interface WorkerFunctions {
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
-  handleSendMessage: (
-    { codeSpace, prompt, images, code, messages }: HandleSendMessageProps,
-  ) => Promise<string>;
   setConnections: (signal: string, sess: ICodeSession) => void;
 }
 
@@ -52,7 +49,6 @@ const workerFiles: Record<keyof WorkerFunctions, string[]> = {
   prettierCss: ["prettier-esm"],
   ata: ["dts", "ata"],
   transpile: ["transpile"],
-  handleSendMessage: ["chat-utils", "transpile", "prettier-esm"],
   build: ["transpile"],
   tsx: ["dts"],
   setConnections: ["socket"],

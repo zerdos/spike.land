@@ -100,8 +100,12 @@ export class Code implements ICode {
     this.sessionManager.addMessageChunk(chunk);
   }
 
-  setMessages(messages: Message[]): boolean {
-    return this.sessionManager.setMessages(messages);
+  addMessage(newMessage: Message): boolean {
+    return this.sessionManager.addMessage(newMessage);
+  }
+
+  removeMessages(): boolean {
+    return this.sessionManager.removeMessages();
   }
 
   async setCode(
