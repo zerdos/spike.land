@@ -1,4 +1,4 @@
-import { updateSearchReplace } from "@/lib/chat-utils";
+import { updateSearchReplace, SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import type { CodeModification } from "../workflows/chat-langchain";
@@ -289,11 +289,14 @@ Critical rules:
       path: z.string().describe("The path of the file to modify"),
       hash: z.string().describe("The hash of the file to modify for version control"),
       diff: z.string().describe(`One or more SEARCH/REPLACE blocks following this exact format:
-<<<<<<< SEARCH
+\`\`\`
+${SEARCH_REPLACE_MARKERS.SEARCH_START}
 [exact content to find]
-=======
+${SEARCH_REPLACE_MARKERS.SEPARATOR}
 [new content to replace with]
->>>>>>> REPLACE`),
+${SEARCH_REPLACE_MARKERS.REPLACE_END}
+\`\`\`
+`),
     }),
   },
 );
