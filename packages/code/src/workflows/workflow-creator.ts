@@ -12,7 +12,7 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
-import { telemetry } from "../lib/telemetry";
+import { telemetry } from "@/lib/telemetry";
 import {
   createCodeIntegrityError,
   handleWorkflowError,

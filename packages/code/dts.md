@@ -2876,7 +2876,7 @@ export default JSX;
 # src/lib/caching.d.ts
 
 ```ts
-import { CodeAnalysis } from "../utils/code-analysis";
+import { CodeAnalysis } from "@/workers/code-analysis.worker";
 type CacheValue = string | CodeAnalysis | {
   hash?: string;
   modifiedCodeHash?: string;

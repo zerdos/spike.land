@@ -208,9 +208,10 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
 };
 
 const uiEntryPoints = await createEntryPoints("components/ui");
+
+const appEntryPoints = await createEntryPoints("components/app");
 const libEntryPoints = await createEntryPoints("lib");
 const externalEntryPoints = await createEntryPoints("external");
-const appEntryPoints = await createEntryPoints("components/app");
 const hooksEntryPoints = await createEntryPoints("hooks");
 // const configEntryPoints = await createEntryPoints("config");
 const servicesEntryPoints = await createEntryPoints("services");
@@ -231,9 +232,9 @@ const standaloneEntryPoints = [
 
 const extraAliases = {
   ...await createAliases("components/ui"),
+  ...await createAliases("components/app"),
   ...await createAliases("lib"),
   ...await createAliases("external"),
-  ...await createAliases("components/app"),
   ...await createAliases("hooks"),
   ...await createAliases("services"),
   // ...await createAliases("workflows"),

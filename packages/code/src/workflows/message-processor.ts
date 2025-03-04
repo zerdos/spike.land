@@ -3,9 +3,9 @@ import type { ICode, ImageData } from "@/lib/interfaces";
 import type { AgentState } from "@/types/chat-langchain";
 import type { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { toolResponseCache } from "../lib/caching";
-import { metrics } from "../lib/metrics";
-import { telemetry } from "../lib/telemetry";
+import { toolResponseCache } from "@/lib/caching";
+import { metrics } from "@/lib/metrics";
+import { telemetry } from "@/lib/telemetry";
 import { createCodeIntegrityError, WorkflowError } from "../tools/utils/error-handlers";
 import {
   extractToolResponseMetadata,

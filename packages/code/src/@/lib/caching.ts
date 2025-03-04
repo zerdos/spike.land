@@ -1,5 +1,5 @@
 import { LRUCache } from "lru-cache";
-import { CodeAnalysis } from "../utils/code-analysis";
+import { CodeAnalysis } from "@/workers/code-analysis.worker";
 import {
   codeAnalysisCacheMetrics,
   hashCacheMetrics,
