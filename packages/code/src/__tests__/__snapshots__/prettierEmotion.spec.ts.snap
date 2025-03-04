@@ -1,0 +1,85 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`addSomeFixesIfNeeded > adds default export if 'export default' is missing 1`] = `"export const myUtilityFN = () => {};"`;
+
+exports[`addSomeFixesIfNeeded > adds default export if 'export default' is missing and 'const App' is present 1`] = `"const App = () => {};"`;
+
+exports[`addSomeFixesIfNeeded > adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
+"import { css } from "@emotion/react";
+css={css\`
+         color: red;
+       \`}
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing 1`] = `
+"FC<{ prop: string }>
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `
+"useState(0)
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > doesn't add extra css' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
+"
+    import { css } from "@emotion/css";
+
+
+    css={css\`
+             color: red;
+           \`}
+    
+    
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > handles external state 1`] = `
+"
+    
+    import { css } from '@emotion/css'
+
+const color = 'white'
+
+render(
+  <div
+    className={css\`
+                   padding: 32px;
+                   background-color: hotpink;
+                   font-size: 24px;
+                   border-radius: 4px;
+                 \`}
+  >
+    Hover to change color.
+  </div>
+)
+  
+
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
+"import { css } from "@emotion/react";
+css={css\`
+         color: red;
+       \`} css={css\`
+           font-size: 16px;
+         \`}
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > removes block comments 1`] = `
+"
+    <div>
+    
+    </div>
+
+export default () => <></>; // Empty default export"
+`;

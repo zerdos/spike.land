@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Code } from "./CodeSession";
+import { Code } from "../../@/lib/code-session";
 
 // Mock swVersion
 vi.mock("/swVersion.mjs", () => ({
@@ -7,20 +7,20 @@ vi.mock("/swVersion.mjs", () => ({
 }));
 
 // Mock dependencies
-vi.mock("../lib/make-sess", () => ({
+vi.mock("../../@/lib/make-sess", () => ({
   computeSessionHash: vi.fn().mockReturnValue("mockHash"),
   sanitizeSession: vi.fn().mockImplementation((session) => session),
 }));
 
-vi.mock("../lib/md5", () => ({
+vi.mock("../../@/lib/md5", () => ({
   md5: vi.fn().mockReturnValue("mockMd5"),
 }));
 
-vi.mock("../lib/shared", () => ({
+vi.mock("../../@/lib/shared", () => ({
   connect: vi.fn().mockResolvedValue(() => {}),
 }));
 
-vi.mock("../components/editorUtils", () => ({
+vi.mock("../../@/services/editorUtils", () => ({
   formatCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   transpileCode: vi.fn().mockImplementation((code) => Promise.resolve(code)),
   runCode: vi.fn().mockImplementation(() =>
@@ -110,8 +110,15 @@ describe("Code", () => {
       webSocketManager: mockWebSocketManager,
     };
 
-    // Initialize Code instance
-    cSess = new Code("testCodeSpace");
+    // Initialize Code instance with a mock session
+    cSess = new Code({
+      code: "",
+      codeSpace: "testCodeSpace",
+      html: "",
+      css: "",
+      messages: [],
+      transpiled: ""
+    });
 
     // Mock sessionManager methods
     const mockSession = {

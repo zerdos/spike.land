@@ -11,10 +11,27 @@ import { importMapReplace } from "./importmap-utils.ts";
 const isProduction = environment === "production";
 
 const createEntryPoints = async (dir: string): Promise<string[]> => {
-  const files = await readdir(`src/@/${dir}`);
-  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`).filter(
-    (file) => !file.endsWith(".d.ts"),
-  );
+  const result: string[] = [];
+  
+  async function processDirectory(currentDir: string, basePath: string): Promise<void> {
+    const items = await readdir(path.join(basePath, currentDir));
+    
+    for (const item of items) {
+      const itemPath = path.join(basePath, currentDir, item);
+      const itemStat = await stat(itemPath);
+      
+      if (itemStat.isDirectory()) {
+        // If it's a directory, process it recursively
+        await processDirectory(path.join(currentDir, item), basePath);
+      } else if (!item.endsWith(".d.ts") && !item.endsWith(".md")) {
+        // If it's a file and not a declaration file or markdown file, add it to the result
+        result.push(path.join(basePath, currentDir, item));
+      }
+    }
+  }
+  
+  await processDirectory(dir, "src/@");
+  return result;
 };
 
 const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
@@ -164,13 +181,30 @@ export async function buildServiceWorker(): Promise<void> {
 }
 
 const createAliases = async (dir: string): Promise<Record<string, string>> => {
-  const files = await readdir(`src/@/${dir}`);
-  return Object.fromEntries(
-    files.map((file) => [
-      `@/${dir}/${file}`.replace(/\.(ts|tsx)$/, ""),
-      `/@/${dir}/${file.replace(/\.(ts|tsx)$/, ".mjs")}`,
-    ]),
-  );
+  const result: Record<string, string> = {};
+  
+  async function processDirectory(currentDir: string, basePath: string): Promise<void> {
+    const items = await readdir(path.join(basePath, currentDir));
+    
+    for (const item of items) {
+      const itemPath = path.join(basePath, currentDir, item);
+      const itemStat = await stat(itemPath);
+      
+      if (itemStat.isDirectory()) {
+        // If it's a directory, process it recursively
+        await processDirectory(path.join(currentDir, item), basePath);
+      } else if (item.endsWith(".ts") || item.endsWith(".tsx")) {
+        // If it's a TypeScript file, add it to the result
+        const relativePath = path.join(currentDir, item);
+        const importPath = `@/${relativePath}`.replace(/\.(ts|tsx)$/, "");
+        const targetPath = `/@/${relativePath.replace(/\.(ts|tsx)$/, ".mjs")}`;
+        result[importPath] = targetPath;
+      }
+    }
+  }
+  
+  await processDirectory(dir, "src/@");
+  return result;
 };
 
 const uiEntryPoints = await createEntryPoints("components/ui");
@@ -188,6 +222,9 @@ const standaloneEntryPoints = [
   ...externalEntryPoints,
   ...appEntryPoints,
   ...hooksEntryPoints,
+  ...servicesEntryPoints,
+  ...workflows,
+  ...tools,
 ];
 
 const extraAliases = {
@@ -264,7 +301,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     target: "es2024",
     external: undefined,
     alias: undefined,
-    outdir: "dist/@/",
+    outdir: "./dist/@/",
     platform: "browser",
     plugins: [
       ...buildOptions.plugins,
