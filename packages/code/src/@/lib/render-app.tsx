@@ -37,7 +37,6 @@ export function AppWithScreenSize(
   return <AppToRender width={width} height={height} />;
 }
 
-
 export const importFromString = async (code: string) => {
   const codeSpace = getCodeSpace(location.pathname);
 

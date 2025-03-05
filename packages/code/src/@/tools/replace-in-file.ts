@@ -42,4 +42,3 @@ function parseDiff(diff: string): { search: string; replace: string; }[] {
 
   return parts;
 }
-
