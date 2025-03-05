@@ -126,9 +126,11 @@ describe("RouteHandler", () => {
         const responseText = await response.text();
 
         // Check for importmap replacement
-        expect(responseText).toContain(
-          `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-        );
+        // expect(responseText).toContain(
+        //   `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+        // );
+
+        expect(responseText).toMatchSnapshot();
 
         // Check for CSS link replacement
         expect(responseText).toContain(

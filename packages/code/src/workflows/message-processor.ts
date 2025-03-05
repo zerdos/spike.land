@@ -1,9 +1,9 @@
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { metrics } from "@/lib/metrics";
-import type { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
-import { isRetryableError, withRetry } from "../utils/retry";
+import type {  ChatAnthropicCallOptions } from "@langchain/anthropic";
+import { AIMessage, AIMessageChunk, HumanMessage } from "@langchain/core/messages";
+import {  MODEL_NAME } from "../config/workflow-config";
+import { isRetryableError } from "../utils/retry";
 import type { AgentState } from "../workflows/chat-langchain";
 import { toolResponseCache } from "./caching";
 import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
@@ -15,13 +15,15 @@ import {
   updateToolCallsWithCodeFlag,
 } from "./tools/utils/tool-response-utils";
 import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types";
+import { Runnable } from "@langchain/core/runnables";
+import { BaseLanguageModelInput } from "@langchain/core/language_models/base";
 
 /**
  * Processes a message in the workflow
  */
 export async function processMessage(
   state: AgentState,
-  model: ChatAnthropic,
+  model:  Runnable<BaseLanguageModelInput, AIMessageChunk, ChatAnthropicCallOptions>,
   cSess: ICode,
   initialState: AgentState,
 ): Promise<Partial<AgentState>> {
@@ -85,23 +87,8 @@ export async function processMessage(
       }))),
     );
 
-    const response = await withRetry(
-      () => model.invoke(cleanedState.messages),
-      {
-        maxRetries: 3,
-        initialDelay: 1000,
-        maxDelay: 10000,
-        onRetry: (attempt, error, delay) => {
-          telemetry.trackEvent("model.retry", {
-            attempt: attempt.toString(),
-            error: error.message,
-            delay: delay.toString(),
-          });
-          console.warn(`Retrying model invocation (${attempt}/3) after error: ${error.message}`);
-        },
-      },
-    );
-
+    const response =await  model.invoke(cleanedState.messages)
+  
     // Log if the response contains tool calls
     console.log(
       "Model response has tool calls:",

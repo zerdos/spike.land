@@ -43,7 +43,7 @@ export function createWorkflowWithStringReplace(
   // Create the replace-in-file tool with the provided code session
 
   const tools = [getReplaceInFileTool(cSess)];
-  const toolNode = new ToolNode(tools);
+  const toolNode = new ToolNode(tools, { name: "tools",  });
 
   // Create the model with bound tools
   const baseModel = new ChatAnthropic({
@@ -54,10 +54,9 @@ export function createWorkflowWithStringReplace(
     anthropicApiUrl: ANTHROPIC_API_CONFIG.getApiUrl(initialState.origin),
     temperature: ANTHROPIC_API_CONFIG.temperature,
     maxTokens: ANTHROPIC_API_CONFIG.maxTokens,
-  });
+  }).bindTools(tools);  
 
-  // Bind tools to the model
-  const modelWithTools = baseModel.bindTools(tools);
+
 
   // Create the graph state reducers
   const graphState = createGraphStateReducers();
@@ -105,8 +104,8 @@ export function createWorkflowWithStringReplace(
 
   // Use type assertion for StateGraph initialization as it expects a specific structure
   const workflow = new StateGraph({ channels: graphState } as any)
-    .addNode("process", processMessageNode)
     .addNode("tools", toolNode)
+    .addNode("process", processMessageNode)
     .addEdge("__start__", "process")
     .addConditionalEdges("process", shouldContinue, {
       process: "process",
@@ -137,27 +136,7 @@ export function createWorkflowWithStringReplace(
             content: prompt + `
 <path>/live/${codeSpace}.tsx</path>
 <code>${code}</code>
-<hash>${hash}</hash>
-
-You are equipped with a tool called 'replace_in_file' to modify the code.
-
-Tool: replace_in_file
-Description: Modifies a file by replacing specific sections of code.
-Parameters:
-- path: The file path to modify. In this case: /live/${codeSpace}.tsx
-- diff: A set of SEARCH/REPLACE blocks to apply changes.
-
-Example:
-\`\`\`
-<<<<<<< SEARCH
-// Existing code line
-=======
-// New code line
->>>>>>> REPLACE
-\`\`\`
-
-Use this tool to make precise changes to the code.
-`,
+<hash>${hash}</hash>`,
             additional_kwargs: {
               path: `/live/${codeSpace}.tsx`,
               code: initialState.code,

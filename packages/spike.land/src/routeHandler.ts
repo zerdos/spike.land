@@ -382,18 +382,10 @@ hQIDAQAB
   }
   private async handleDefaultRoute(): Promise<Response> {
     // const url = new URL(r);
-    const { html, codeSpace } = this.code.getSession();
-    const respText = HTML.replace(
-      `<script type="importmap"></script>`,
-      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-    ).replace(
-      `<!-- Inline LINK for initial theme -->`,
-      `<link rel="preload" href="/live/${codeSpace}/index.css" as="style" />
-       <link rel="stylesheet" href="/live/${codeSpace}/index.css" />`,
-    ).replace(
-      '<div id="embed"></div>',
-      `<div id="embed">${html}</div>`,
-    );
+    const { html, codeSpace, css } = this.code.getSession();
+    const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
+      .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace("${html}", html);
+
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
