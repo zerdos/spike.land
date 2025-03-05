@@ -37,24 +37,13 @@ export function AppWithScreenSize(
   return <AppToRender width={width} height={height} />;
 }
 
-const createJsBlob = (code: string): string => {
-  const processedCode = importMapReplace(
-    code.replace("importMapReplace", ""),
-    origin,
-  ).replace(/from "\/(?!\/)/g, `from "${origin}/`);
-
-  return URL.createObjectURL(
-    new Blob([processedCode], { type: "application/javascript" }),
-  );
-};
 
 export const importFromString = async (code: string) => {
   const codeSpace = getCodeSpace(location.pathname);
-  let blobUrl: string | null = null;
 
   try {
     const createJsBlob = async (code: string): Promise<string> =>
-      await createObjectURL(
+      await URL.createObjectURL(
         new Blob([
           importMapReplace(code.split("importMapReplace").join(""), origin).split(
             `from "/`,
