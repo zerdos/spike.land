@@ -1,5 +1,11 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { IMessageHandlerService, IServiceWorkerManager, WebSocketDependencies, MessageData, ISessionSynchronizer } from "@/services/types";
+import {
+  IMessageHandlerService,
+  IServiceWorkerManager,
+  ISessionSynchronizer,
+  MessageData,
+  WebSocketDependencies,
+} from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -73,13 +79,13 @@ describe("WebSocketManager", () => {
 
     // Save original location
     originalLocation = location;
-    
+
     // Use Object.defineProperty to avoid type issues
     const newLocation = { ...originalLocation };
     newLocation.pathname = "/test-path";
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(window, "location", {
       value: newLocation,
-      writable: true
+      writable: true,
     });
 
     // Setup mock dependencies
@@ -128,11 +134,11 @@ describe("WebSocketManager", () => {
 
   afterEach(() => {
     // Restore original location
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(window, "location", {
       value: originalLocation,
-      writable: true
+      writable: true,
     });
-    
+
     vi.useRealTimers();
     window.onmessage = null;
     storedCallback = null;
@@ -192,9 +198,9 @@ describe("WebSocketManager", () => {
       // Set path before initializing
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
 
       // Initialize and wait for callbacks
@@ -212,11 +218,11 @@ describe("WebSocketManager", () => {
     it("should handle live-cms route", async () => {
       const newLocation = { ...location };
       newLocation.pathname = "/live-cms/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
-      
+
       await webSocketManager.init();
 
       expect(mockSessionSynchronizer.init).toHaveBeenCalled();
@@ -226,11 +232,11 @@ describe("WebSocketManager", () => {
     it.skip("should handle dehydrated page route", async () => {
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space/dehydrated";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
-      
+
       const mockEmbed = document.createElement("div");
       mockEmbed.id = "embed";
       document.body.appendChild(mockEmbed);
@@ -356,11 +362,11 @@ describe("WebSocketManager", () => {
 
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
-      
+
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
 
       // Verify error handling
@@ -377,11 +383,11 @@ describe("WebSocketManager", () => {
 
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
-      
+
       await expect(webSocketManager.init()).rejects.toThrow(
         "Connection timeout",
       );
@@ -400,12 +406,12 @@ describe("WebSocketManager", () => {
         .mockResolvedValue({} as any); // Subsequent calls succeed
 
       mockSessionSynchronizer.init = mockInit;
-      
+
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
 
       // Initialize and expect initial failure
@@ -430,12 +436,12 @@ describe("WebSocketManager", () => {
       // Mock persistent error
       const error = new Error("Persistent error");
       mockSessionSynchronizer.init = vi.fn().mockRejectedValue(error);
-      
+
       const newLocation = { ...location };
       newLocation.pathname = "/live/test-space";
-      Object.defineProperty(window, 'location', {
+      Object.defineProperty(window, "location", {
         value: newLocation,
-        writable: true
+        writable: true,
       });
 
       // Initial attempt

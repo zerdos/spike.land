@@ -8,7 +8,7 @@ export const createMockCodeSession = (initialCode: string = "// Test code"): ICo
   // Mock session data
   let code = initialCode;
   let messages: Message[] = [];
-  
+
   // Create the mock session object
   const mockSession: ICode = {
     getCode: vi.fn().mockImplementation(() => Promise.resolve(code)),
@@ -25,39 +25,45 @@ export const createMockCodeSession = (initialCode: string = "// Test code"): ICo
       messages = [];
       return true;
     }),
-    getSession: vi.fn().mockImplementation(() => Promise.resolve({
-      code,
-      codeSpace: "test-space",
-      html: "<div>Test</div>",
-      css: ".test { color: red; }",
-      messages,
-      transpiled: code,
-    })),
+    getSession: vi.fn().mockImplementation(() =>
+      Promise.resolve({
+        code,
+        codeSpace: "test-space",
+        html: "<div>Test</div>",
+        css: ".test { color: red; }",
+        messages,
+        transpiled: code,
+      })
+    ),
     setSession: vi.fn().mockImplementation((session: ICodeSession) => {
       code = session.code;
       messages = [...session.messages];
     }),
-    init: vi.fn().mockImplementation(() => Promise.resolve({
-      code,
-      codeSpace: "test-space",
-      html: "<div>Test</div>",
-      css: ".test { color: red; }",
-      messages,
-      transpiled: code,
-    })),
-    screenshot: vi.fn().mockImplementation(() => Promise.resolve({
-      imageName: "test.png",
-      url: "data:image/png;base64,test",
-      src: "data:image/png;base64,test",
-      mediaType: "image/png",
-      data: "test",
-      type: "image"
-    })),
+    init: vi.fn().mockImplementation(() =>
+      Promise.resolve({
+        code,
+        codeSpace: "test-space",
+        html: "<div>Test</div>",
+        css: ".test { color: red; }",
+        messages,
+        transpiled: code,
+      })
+    ),
+    screenshot: vi.fn().mockImplementation(() =>
+      Promise.resolve({
+        imageName: "test.png",
+        url: "data:image/png;base64,test",
+        src: "data:image/png;base64,test",
+        mediaType: "image/png",
+        data: "test",
+        type: "image",
+      })
+    ),
     addMessageChunk: vi.fn(),
     getCodeSpace: vi.fn().mockImplementation(() => "test-space"),
-    sub: vi.fn().mockImplementation(() => () => {})
+    sub: vi.fn().mockImplementation(() => () => {}),
   };
-  
+
   return mockSession;
 };
 
@@ -66,10 +72,10 @@ export const createMockCodeSession = (initialCode: string = "// Test code"): ICo
  */
 export const setupGlobalMockSession = (initialCode: string = "// Test code"): ICode => {
   const mockSession = createMockCodeSession(initialCode);
-  
+
   // Set up the global cSess object
   (global as any).cSess = mockSession;
-  
+
   return mockSession;
 };
 

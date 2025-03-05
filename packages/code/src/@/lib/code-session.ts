@@ -11,7 +11,6 @@ import { ModelManager } from "@/services/ModelManager";
 import { SessionManager } from "@/services/SessionManager";
 import { Mutex } from "async-mutex";
 
-
 // Mutex for thread-safe code access
 const mutex = new Mutex();
 
@@ -41,7 +40,6 @@ export class Code implements ICode {
     this.codeSpace = session.codeSpace;
     this.sessionManager = new SessionManager(codeSpace);
     this.sessionManager.init(session);
-   
 
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
@@ -55,16 +53,22 @@ export class Code implements ICode {
     return this.sessionManager.getSession();
   }
 
-  setSession(session: ICodeSession): void {
-    if (computeSessionHash(session) === computeSessionHash(this.currentSession)) {
+  setSession(session: ICodeSession & { sender?: string; }): void {
+    // Extract the sender property if it exists
+    const { sender, ...sessionWithoutSender } = session;
+
+    if (computeSessionHash(sessionWithoutSender) === computeSessionHash(this.currentSession)) {
       console.log("⚠️ No changes to session, skipping update");
       return;
     }
 
-    this.currentSession = sanitizeSession(session);
+    this.currentSession = sanitizeSession(sessionWithoutSender);
     this.session = this.currentSession;
-    console.log("🔄 CodeSession.setSession called with session:", this.currentSession);
-    this.sessionManager.updateSession(session);
+    console.log(
+      `🔄 CodeSession.setSession called with session${sender ? ` from sender: ${sender}` : ""}:`,
+      this.currentSession,
+    );
+    this.sessionManager.updateSession(sessionWithoutSender);
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
@@ -208,10 +212,10 @@ export class Code implements ICode {
     skipRunning = false,
   ): Promise<string> {
     console.log("🔄 CodeSession.setCode called with code length:", rawCode.length);
-    
+
     // Store current code before any updates
     const currentCode = this.currentSession?.code || "";
-    
+
     if (this.isRunning) {
       this.pendingRun = rawCode;
       while (this.isRunning) {
@@ -244,7 +248,7 @@ export class Code implements ICode {
 
     // Store current code for fallback
     const currentCode = this.currentSession?.code || "";
-    
+
     if (skipRunning) {
       // For skipRunning, check if code is unchanged
       if (rawCode === currentCode) {
@@ -325,7 +329,6 @@ export class Code implements ICode {
   }
 }
 
-
 /**
  * Cache for storing code sessions by codeSpace identifier
  */
@@ -338,11 +341,11 @@ const codeSessionCache: Record<string, Code> = {};
  */
 async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
   const response = await fetch(`/api/room/${codeSpaceId}/session.json`);
-  
+
   if (!response.ok) {
     throw new Error(`Failed to fetch code session: ${response.status}`);
   }
-  
+
   return response.json();
 }
 
@@ -352,7 +355,7 @@ async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
  * @returns Promise resolving to a Code instance
  */
 export async function getCodeSession(
-  codeSpaceId = getCodeSpace(location.pathname)
+  codeSpaceId = getCodeSpace(location.pathname),
 ): Promise<ICode> {
   // Return cached session if it exists
   if (codeSessionCache[codeSpaceId]) {
@@ -365,10 +368,9 @@ export async function getCodeSession(
     const codeSession = new Code(sessionData);
     await codeSession.init(sessionData);
 
-    
     // Cache the session
     codeSessionCache[codeSpaceId] = codeSession;
-    
+
     return codeSession;
   } catch (error) {
     console.error(`Failed to get code session for ${codeSpaceId}:`, error);

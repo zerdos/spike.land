@@ -1,6 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
-import type { AgentState } from "../workflows/chat-langchain";
 import type { AIMessage } from "@langchain/core/messages";
+import type { AgentState } from "../workflows/chat-langchain";
 
 /**
  * Extended agent state with additional properties for workflow processing

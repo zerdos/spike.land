@@ -19,9 +19,12 @@ export interface MockFileSystemFile {
 export interface MockFileSystemDirectory {
   kind: "directory";
   name: string;
-  getDirectoryHandle: (name: string, options?: { create?: boolean }) => Promise<MockFileSystemDirectory>;
-  getFileHandle: (name: string, options?: { create?: boolean }) => Promise<MockFileSystemFile>;
-  removeEntry: (name: string, options?: { recursive?: boolean }) => Promise<void>;
+  getDirectoryHandle: (
+    name: string,
+    options?: { create?: boolean; },
+  ) => Promise<MockFileSystemDirectory>;
+  getFileHandle: (name: string, options?: { create?: boolean; }) => Promise<MockFileSystemFile>;
+  removeEntry: (name: string, options?: { recursive?: boolean; }) => Promise<void>;
   entries: () => AsyncIterableIterator<[string, MockFileSystemFile | MockFileSystemDirectory]>;
 }
 
@@ -87,7 +90,7 @@ export const mockFileSystem: Record<string, MockFileSystemFile | MockFileSystemD
       throw new Error("Not a file");
     }),
     removeEntry: vi.fn().mockResolvedValue(undefined),
-    entries: vi.fn().mockImplementation(async function* () {
+    entries: vi.fn().mockImplementation(async function*() {
       for (const [key, value] of Object.entries(mockFileSystem)) {
         if (key.startsWith("test/")) {
           yield [key.replace("test/", ""), value];
@@ -144,7 +147,7 @@ export const mockDirectoryHandle: MockFileSystemDirectory = {
     throw new Error("Not a file");
   }),
   removeEntry: vi.fn().mockResolvedValue(undefined),
-  entries: vi.fn().mockImplementation(async function* () {
+  entries: vi.fn().mockImplementation(async function*() {
     for (const [key, value] of Object.entries(mockFileSystem)) {
       if (!key.includes("/")) {
         yield [key, value];
@@ -164,7 +167,7 @@ export const mockNavigator = {
 export const setupTest = () => {
   // Reset all mocks
   vi.clearAllMocks();
-  
+
   // Reset mock file system
   mockFileSystem["test.txt"] = {
     kind: "file",
@@ -180,7 +183,7 @@ export const setupTest = () => {
       close: vi.fn().mockResolvedValue(undefined),
     }),
   };
-  
+
   // Reset mock directory handle
   mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
     if (mockFileSystem[name]?.kind === "file") {

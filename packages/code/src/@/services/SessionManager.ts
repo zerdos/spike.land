@@ -1,9 +1,9 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { SessionSynchronizer } from "./SessionSynchronizer";
-import type { ISessionManager } from "./ISessionManager";
 import { connect } from "@/lib/shared";
+import type { ISessionManager } from "./ISessionManager";
+import { SessionSynchronizer } from "./SessionSynchronizer";
 
 /**
  * SessionManager is responsible for managing the session state and synchronizing it across clients.
@@ -18,7 +18,7 @@ export class SessionManager implements ISessionManager {
   private session: ICodeSession | null = null;
   private user: string;
   private sessionSynchronizer: SessionSynchronizer;
-  private releaseWorker = () => {}
+  private releaseWorker = () => {};
 
   constructor(codeSpace: string) {
     // Determine the user ID (anonymous hashing if needed)
@@ -38,19 +38,23 @@ export class SessionManager implements ISessionManager {
 
     if (this.session) {
       const session = this.session!;
- 
 
-    this.releaseWorker = await connect({
-      signal: `${this.user} ${session.codeSpace}`,
-      sess: session,
-    });
-    const codeSpace = this.session.codeSpace; 
-  }
+      this.releaseWorker = await connect({
+        signal: `${this.user} ${session.codeSpace}`,
+        sess: session,
+      });
+      const codeSpace = this.session.codeSpace;
+    }
     return this.session;
   }
 
   subscribe(callback: (session: ICodeSession) => void): () => void {
-    return this.sessionSynchronizer.subscribe(callback);
+    // Wrap the callback to handle the sender property
+    return this.sessionSynchronizer.subscribe((sessionWithSender) => {
+      // Extract the sender property and pass only the ICodeSession part to the callback
+      const { sender, ...sessionWithoutSender } = sessionWithSender;
+      callback(sessionWithoutSender as ICodeSession);
+    });
   }
 
   getSession(): ICodeSession {

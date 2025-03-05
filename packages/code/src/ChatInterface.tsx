@@ -129,7 +129,7 @@ const ChatInterface: React.FC<{
           handleSendMessage({
             prompt,
             images,
-            cSess
+            cSess,
           });
         });
       }

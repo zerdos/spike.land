@@ -1,27 +1,27 @@
-import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { initialClaude } from "@/lib/initial-claude";
 import type { ICode, ImageData } from "@/lib/interfaces";
+import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import { getReplaceInFileTool } from "./tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
-import type { AgentState } from "../workflows/chat-langchain";
-import type { WorkflowContinueResult } from "./workflow";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
+import type { AgentState } from "../workflows/chat-langchain";
+import { getHashWithCache } from "./code-processing";
+import { createNewMessage } from "./message-handlers";
+import { processMessage } from "./message-processor";
+import { createGraphStateReducers } from "./state-reducers";
 import { telemetry } from "./telemetry";
 import {
   createCodeIntegrityError,
   handleWorkflowError,
   WorkflowError,
 } from "./tools/utils/error-handlers";
-import { getHashWithCache } from "./code-processing";
-import { createNewMessage } from "./message-handlers";
-import { processMessage } from "./message-processor";
-import { createGraphStateReducers } from "./state-reducers";
+import type { WorkflowContinueResult } from "./workflow";
 import type { ExtendedAgentState, WorkflowInvokeResult } from "./workflow-types";
 
 // Module cache for workflows
@@ -31,7 +31,8 @@ export const workflowCache: Record<string, WorkflowInvokeResult> = {};
  * Creates a workflow with string replace capability
  */
 export function createWorkflowWithStringReplace(
-  initialState: AgentState, cSess: ICode,
+  initialState: AgentState,
+  cSess: ICode,
 ): WorkflowInvokeResult {
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
@@ -72,31 +73,32 @@ export function createWorkflowWithStringReplace(
       console.log("shouldContinue: Ending due to error:", state.lastError);
       return "end";
     }
-    
+
     const lastMessage = state.messages[state.messages.length - 1];
-    
+
     // Debug logging to verify if tool calls are being generated
     console.log("shouldContinue: Last message type:", lastMessage?.constructor?.name);
     if (lastMessage && "tool_calls" in lastMessage) {
       const toolCalls = lastMessage.tool_calls || [];
       if (Array.isArray(toolCalls) && toolCalls.length > 0) {
-        console.log("shouldContinue: Tool calls detected:", 
-          JSON.stringify(toolCalls.map((tc: any) => ({ 
-            name: tc.name, 
-            args: typeof tc.args === 'string' ? '(string)' : Object.keys(tc.args || {})
-          })))
+        console.log(
+          "shouldContinue: Tool calls detected:",
+          JSON.stringify(toolCalls.map((tc: any) => ({
+            name: tc.name,
+            args: typeof tc.args === "string" ? "(string)" : Object.keys(tc.args || {}),
+          }))),
         );
       } else {
         console.log("shouldContinue: No tool calls in message");
       }
     }
-    
+
     const result = lastMessage instanceof HumanMessage ||
         (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls) &&
           lastMessage.tool_calls.length > 0)
       ? "tools"
       : "end";
-      
+
     console.log("shouldContinue: Returning", result);
     return result;
   };

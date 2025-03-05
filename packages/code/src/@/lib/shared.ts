@@ -14,7 +14,6 @@ export function sharedUtility() {
   return "shared-functionality";
 }
 
-
 type WorkerPort = MessagePort | Worker;
 
 class WorkerWrapper {

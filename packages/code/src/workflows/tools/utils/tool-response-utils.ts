@@ -1,9 +1,9 @@
 import { md5 } from "@/lib/md5";
 
 import { AIMessage } from "@langchain/core/messages";
-import { estimateTokenSavings } from "./code-utils";
 import { AgentState } from "../../chat-langchain";
 import { ToolResponseMetadata } from "../../workflow";
+import { estimateTokenSavings } from "./code-utils";
 
 /**
  * Extract hash and other metadata from tool response
@@ -88,7 +88,10 @@ export const updateToolCallsWithCodeFlag = (
 ): Array<any> => {
   return toolCalls.map(toolCall => {
     // Handle both code_modification and replace_in_file tools
-    if ((toolCall.name === "code_modification" || toolCall.name === "replace_in_file") && toolCall.args) {
+    if (
+      (toolCall.name === "code_modification" || toolCall.name === "replace_in_file") &&
+      toolCall.args
+    ) {
       try {
         const args = typeof toolCall.args === "string"
           ? JSON.parse(toolCall.args)
@@ -97,8 +100,8 @@ export const updateToolCallsWithCodeFlag = (
         // Log the tool call for debugging
         console.log(`Updating tool call for ${toolCall.name}:`, {
           toolName: toolCall.name,
-          originalArgs: JSON.stringify(args).substring(0, 100) + '...',
-          returnModifiedCode
+          originalArgs: JSON.stringify(args).substring(0, 100) + "...",
+          returnModifiedCode,
         });
 
         return {

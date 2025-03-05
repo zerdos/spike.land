@@ -1,5 +1,4 @@
 import { md5 } from "@/lib/md5";
-import { AgentState } from "../workflows/chat-langchain";
 import { AIMessage } from "@langchain/core/messages";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
@@ -7,6 +6,7 @@ import {
   handleMissingCodeResponse,
   updateToolCallsWithCodeFlag,
 } from "../tool-response-utils";
+import { AgentState } from "../workflows/chat-langchain";
 
 describe("tool-response-utils", () => {
   describe("extractToolResponseMetadata", () => {

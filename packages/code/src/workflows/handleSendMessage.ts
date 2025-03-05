@@ -1,14 +1,14 @@
 import type { HandleSendMessageProps } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
 import { getHashWithCache } from "./code-processing";
-import { workflowCache, createWorkflowWithStringReplace } from "./workflow-creator";
+import { createWorkflowWithStringReplace, workflowCache } from "./workflow-creator";
 
 /**
  * Handles sending a message to the workflow
  */
 
 export async function handleSendMessage(
-  { prompt, images, cSess }: HandleSendMessageProps
+  { prompt, images, cSess }: HandleSendMessageProps,
 ): Promise<AgentState> {
   const codeSpace = cSess.getCodeSpace();
   const code = await cSess.getCode();
@@ -32,6 +32,6 @@ export async function handleSendMessage(
   const finalState = await workflow.invoke(prompt, images || []);
 
   console.log("Final workflow state:", finalState);
-  
+
   return finalState;
 }

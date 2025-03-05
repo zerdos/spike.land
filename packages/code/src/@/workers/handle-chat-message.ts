@@ -1,3 +1,1 @@
-export {
-  handleSendMessage,
-} from "../../workflows/handleSendMessage";
+export { handleSendMessage } from "../../workflows/handleSendMessage";

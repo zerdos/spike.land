@@ -142,7 +142,7 @@ const EditorRoute = createRoute({
     codeSpace: params.codeSpace,
   }),
   loader: async ({ params: { codeSpace } }) => ({
-    codeSpace
+    codeSpace,
   }),
   component: () => <App />,
 });

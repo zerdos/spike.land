@@ -89,7 +89,7 @@ class SessionPatcher {
       return {
         oldHash,
         hashCode,
-        patch: [] // Always include patch property, even if empty
+        patch: [], // Always include patch property, even if empty
       };
     }
 
@@ -100,7 +100,7 @@ class SessionPatcher {
     return {
       oldHash,
       hashCode,
-      patch: diff
+      patch: diff,
     };
   }
 }

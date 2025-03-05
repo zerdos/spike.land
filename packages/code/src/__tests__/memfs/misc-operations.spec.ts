@@ -1,12 +1,6 @@
+import FS, { cwd, readFileSync } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import FS, { 
-  cwd,
-  readFileSync
-} from "@/lib/memfs/index";
-import { 
-  mockNavigator, 
-  setupTest
-} from "./setup";
+import { mockNavigator, setupTest } from "./setup";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);
@@ -28,10 +22,10 @@ describe("memfs miscellaneous operations", () => {
       // Mock the global object with a file
       const globalFiles = globalThis as unknown as Record<string, string>;
       globalFiles["/sync-test.txt"] = "sync content";
-      
+
       const content = readFileSync("/sync-test.txt");
       expect(content).toBe("sync content");
-      
+
       // Clean up
       delete globalFiles["/sync-test.txt"];
     });

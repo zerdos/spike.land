@@ -1,13 +1,13 @@
+import { ICode } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { HumanMessage, AIMessage, SystemMessage, BaseMessage } from "@langchain/core/messages";
+import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { ICode } from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
-import { getReplaceInFileTool } from "./tools/replace-in-file";
 import { getSystemPrompt } from "../config/system-prompts";
 import { AgentState, CodeModification } from "./chat-langchain";
+import { getReplaceInFileTool } from "./tools/replace-in-file";
 
 /**
  * Creates a workflow with string replace capability
@@ -17,7 +17,7 @@ import { AgentState, CodeModification } from "./chat-langchain";
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Get the global code session
   const cSess = (globalThis as any).cSess as ICode;
-  
+
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
     modelName: "claude-3-opus-20240229",
@@ -27,7 +27,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   // Create the replace-in-file tool
   const replaceInFileTool = getReplaceInFileTool(cSess);
-  
+
   // Bind tools to the model
   const modelWithTools = anthropic.bindTools([replaceInFileTool]);
 
@@ -42,7 +42,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const verifyCodeIntegrity = (code: string, hash: string): boolean => {
     const currentHash = md5(code);
     if (currentHash !== hash) {
-      console.error(`Code integrity violation: hash mismatch. Expected ${hash}, got ${currentHash}`);
+      console.error(
+        `Code integrity violation: hash mismatch. Expected ${hash}, got ${currentHash}`,
+      );
       return false;
     }
     return true;
@@ -50,9 +52,11 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   // Process tool responses
   const processToolResponse = async (message: AIMessage): Promise<AgentState> => {
-    if (!message.additional_kwargs?.tool_responses || 
-        !Array.isArray(message.additional_kwargs.tool_responses) || 
-        message.additional_kwargs.tool_responses.length === 0) {
+    if (
+      !message.additional_kwargs?.tool_responses ||
+      !Array.isArray(message.additional_kwargs.tool_responses) ||
+      message.additional_kwargs.tool_responses.length === 0
+    ) {
       return state;
     }
 
@@ -63,7 +67,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
     try {
       const modification = JSON.parse(toolResponse.content) as CodeModification;
-      
+
       if (typeof modification === "string") {
         return {
           ...state,
@@ -71,12 +75,12 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           hash: md5(modification),
         };
       }
-      
+
       if (modification.error) {
         console.error(`Code modification error: ${modification.error}`);
         throw new Error(modification.error);
       }
-      
+
       // If code is not provided, use the current code from the session
       if (!modification.code) {
         console.log("No code provided in tool response, using session code");
@@ -87,7 +91,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
           hash: modification.hash || md5(sessionCode),
         };
       }
-      
+
       return {
         ...state,
         code: modification.code,
@@ -106,32 +110,32 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       if (!verifyCodeIntegrity(state.code, state.hash)) {
         throw new Error("Code integrity violation: hash mismatch");
       }
-      
+
       try {
         // Optimize token usage for large code
         if (state.code.length > 3000) {
           console.log("Performance optimization: Large code detected, optimizing token usage");
         }
-        
+
         // Create messages array with system message and user input
         const messages: BaseMessage[] = [
           systemMessage,
           ...state.messages,
           new HumanMessage(userInput),
         ];
-        
+
         // Invoke the model with tools
         const response = await modelWithTools.invoke(messages);
-        
+
         // Process the response
         const newState = await processToolResponse(response);
-        
+
         // Update the state with the new message
         state = {
           ...newState,
           messages: [...state.messages, new HumanMessage(userInput), response],
         };
-        
+
         return state;
       } catch (error) {
         console.error("Workflow error:", error);
@@ -150,7 +154,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 export const createChatLangchainWorkflow = (
   cSess: ICode,
   apiKey: string,
-  model: string = "claude-3-opus-20240229"
+  model: string = "claude-3-opus-20240229",
 ) => {
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({

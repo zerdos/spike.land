@@ -1,11 +1,11 @@
-import { LRUCache } from "lru-cache";
-import { CodeAnalysis } from "@/workers/code-analysis.worker";
 import {
   codeAnalysisCacheMetrics,
   hashCacheMetrics,
   metrics,
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
+import { CodeAnalysis } from "@/workers/code-analysis.worker";
+import { LRUCache } from "lru-cache";
 
 type CacheValue = string | CodeAnalysis | {
   hash?: string;

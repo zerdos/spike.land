@@ -1,11 +1,11 @@
-import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import { RenderService } from "@/services/RenderService";
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
+import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
 
 export const main = async (codeSpace: string) => {
-  try { 
+  try {
     const renderService = new RenderService(codeSpace);
     // const cSess = new Code(codeSpace);
     // await cSess.init();

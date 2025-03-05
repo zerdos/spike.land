@@ -81,7 +81,7 @@ export interface ISessionSynchronizer {
   /** Get current session */
   getSession(): ICodeSession | null;
   /** Post session update to other tabs */
-  broadcastSession(session: ICodeSession): void;
+  broadcastSession(session: ICodeSession & { sender: string; }): void;
   /** Close and cleanup resources */
   close(): void;
 }

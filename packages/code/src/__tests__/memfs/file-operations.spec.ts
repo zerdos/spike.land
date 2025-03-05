@@ -1,18 +1,11 @@
+import { appendFile, copyFile, readFile, rename, unlink, writeFile } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { 
-  readFile,
-  writeFile,
-  appendFile,
-  unlink,
-  copyFile,
-  rename
-} from "@/lib/memfs/index";
-import { 
-  mockDirectoryHandle, 
+import {
+  mockDirectoryHandle,
   mockFileSystem,
-  mockNavigator, 
+  MockFileSystemFile,
+  mockNavigator,
   setupTest,
-  MockFileSystemFile
 } from "./setup";
 
 // Apply mocks
@@ -31,9 +24,9 @@ describe("memfs file operations", () => {
 
     it("should throw error for non-existent file", async () => {
       mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(new Error("Not found"));
-      
+
       await expect(readFile("/nonexistent.txt")).rejects.toThrow();
-      
+
       // Restore original mock
       mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
         if (mockFileSystem[name]?.kind === "file") {
@@ -65,8 +58,10 @@ describe("memfs file operations", () => {
   describe("writeFile", () => {
     it("should write content to file", async () => {
       await writeFile("/new-file.txt", "new content");
-      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-file.txt", { create: true });
-      
+      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-file.txt", {
+        create: true,
+      });
+
       const fileHandle = await mockDirectoryHandle.getFileHandle("new-file.txt");
       const writable = await fileHandle.createWritable();
       expect(writable.write).toHaveBeenCalledWith("new content");
@@ -78,10 +73,10 @@ describe("memfs file operations", () => {
     it("should append content to existing file", async () => {
       // First read the existing content
       const existingContent = await readFile("/test.txt");
-      
+
       // Then append new content
       await appendFile("/test.txt", " appended");
-      
+
       // Verify the file was written with combined content
       const fileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
       const writable = await fileHandle.createWritable();
@@ -90,7 +85,9 @@ describe("memfs file operations", () => {
 
     it("should create file if it doesn't exist", async () => {
       await appendFile("/new-append.txt", "new content");
-      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-append.txt", { create: true });
+      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-append.txt", {
+        create: true,
+      });
     });
   });
 
@@ -104,12 +101,12 @@ describe("memfs file operations", () => {
   describe("copyFile", () => {
     it("should copy a file", async () => {
       await copyFile("/test.txt", "/copy.txt");
-      
+
       // Verify source was read
       const sourceFileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
       const sourceFile = await sourceFileHandle.getFile();
       expect(sourceFile.text).toHaveBeenCalled();
-      
+
       // Verify destination was written
       const destFileHandle = await mockDirectoryHandle.getFileHandle("copy.txt");
       const writable = await destFileHandle.createWritable();
@@ -121,17 +118,17 @@ describe("memfs file operations", () => {
   describe("rename", () => {
     it("should rename a file", async () => {
       await rename("/test.txt", "/renamed.txt");
-      
+
       // Verify source was read
       const sourceFileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
       const sourceFile = await sourceFileHandle.getFile();
       expect(sourceFile.text).toHaveBeenCalled();
-      
+
       // Verify destination was written
       const destFileHandle = await mockDirectoryHandle.getFileHandle("renamed.txt");
       const writable = await destFileHandle.createWritable();
       expect(writable.write).toHaveBeenCalledWith("test content");
-      
+
       // Verify source was deleted
       expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test.txt");
     });

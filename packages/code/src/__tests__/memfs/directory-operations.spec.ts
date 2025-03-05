@@ -1,15 +1,11 @@
+import { mkdir, rmdir, stat } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { 
-  mkdir,
-  stat,
-  rmdir
-} from "@/lib/memfs/index";
-import { 
-  mockDirectoryHandle, 
+import {
+  mockDirectoryHandle,
   mockFileSystem,
-  mockNavigator, 
+  MockFileSystemFile,
+  mockNavigator,
   setupTest,
-  MockFileSystemFile
 } from "./setup";
 
 // Apply mocks
@@ -23,13 +19,15 @@ describe("memfs directory operations", () => {
   describe("mkdir", () => {
     it("should create a directory", async () => {
       await mkdir("/newdir");
-      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("newdir", { create: true });
+      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("newdir", {
+        create: true,
+      });
     });
 
     it("should create nested directories", async () => {
       await mkdir("/test/nested");
       expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("test", { create: true });
-      
+
       const testDirHandle = await mockDirectoryHandle.getDirectoryHandle("test");
       expect(testDirHandle.getDirectoryHandle).toHaveBeenCalledWith("nested", { create: true });
     });
@@ -50,20 +48,20 @@ describe("memfs directory operations", () => {
     it("should return directory stats", async () => {
       // We need to modify the mock to ensure stat returns a directory
       // The current implementation is returning null for directories
-      
+
       // Create a mock directory stat result
       const mockDirStat = {
         kind: "directory",
         name: "test",
         relativePath: "/test",
         entries: {},
-        handle: mockFileSystem["test"]
+        handle: mockFileSystem["test"],
       };
-      
+
       // Spy on the stat function
       const originalStat = stat;
       const statSpy = vi.fn().mockResolvedValue(mockDirStat);
-      
+
       // Use the spy for this test
       try {
         const result = await statSpy("/test");
@@ -77,10 +75,10 @@ describe("memfs directory operations", () => {
 
     it("should return null for non-existent path", async () => {
       mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(new Error("Not found"));
-      
+
       const result = await stat("/nonexistent");
       expect(result).toBeNull();
-      
+
       // Restore original mock
       mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
         if (mockFileSystem[name]?.kind === "file") {

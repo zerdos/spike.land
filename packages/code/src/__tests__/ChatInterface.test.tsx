@@ -36,12 +36,12 @@ vi.mock("@/components/app/chat-drawer", () => ({
 }));
 
 // Other imports after mocks
+import { ChatInterface } from "@/../ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
 import { fireEvent, waitFor } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import { act } from "react";
-import { ChatInterface } from "@/../ChatInterface";
 
 // Mock BroadcastChannel with proper event handling
 class MockBroadcastChannel {

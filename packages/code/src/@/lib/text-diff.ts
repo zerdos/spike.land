@@ -1,6 +1,6 @@
 import { ICodeSession, Message } from "@/lib/interfaces";
+import { Change, diffChars, diffLines } from "diff";
 import { applyPatch, compare, Operation, ReplaceOperation } from "fast-json-patch";
-import { diffChars, diffLines, Change } from "diff";
 
 // Extend the Operation type to include our custom diff property
 interface StringDiffOperation extends ReplaceOperation<any> {
@@ -26,42 +26,42 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
   if (oldStr.length < STRING_DIFF_THRESHOLD || newStr.length < STRING_DIFF_THRESHOLD) {
     return { op: "replace", path, value: newStr };
   }
-  
+
   // For very large strings, we need to be extra careful about diff size
   if (oldStr.length > LARGE_STRING_THRESHOLD || newStr.length > LARGE_STRING_THRESHOLD) {
     // Check if the change is small and localized
     const changeSize = Math.abs(newStr.length - oldStr.length);
     const isSmallChange = changeSize < oldStr.length * 0.01; // Change is less than 1% of the string
-    
+
     if (isSmallChange) {
       // For small changes in large strings, try line-level diff first
       const lineDiff = diffLines(oldStr, newStr);
       const lineDiffSize = JSON.stringify(lineDiff).length;
-      
+
       // If line diff is smaller than the full string, use it
       if (lineDiffSize < newStr.length * 0.9) { // Ensure it's at least 10% smaller
         return {
           op: "replace",
           path,
           value: newStr,
-          _diff: lineDiff
+          _diff: lineDiff,
         } as StringDiffOperation;
       }
-      
+
       // Otherwise try character-level diff
       const charDiff = diffChars(oldStr, newStr);
       const charDiffSize = JSON.stringify(charDiff).length;
-      
+
       // If char diff is smaller than the full string, use it
       if (charDiffSize < newStr.length * 0.9) { // Ensure it's at least 10% smaller
         return {
           op: "replace",
           path,
           value: newStr,
-          _diff: charDiff
+          _diff: charDiff,
         } as StringDiffOperation;
       }
-      
+
       // If neither diff is small enough, fall back to regular replace
       return { op: "replace", path, value: newStr };
     } else {
@@ -71,13 +71,13 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
   } else {
     // For moderately sized strings, use character-level diff
     const diff = diffChars(oldStr, newStr);
-    
+
     // Return a specialized operation that contains the diff
     return {
       op: "replace",
       path,
       value: newStr,
-      _diff: diff
+      _diff: diff,
     } as StringDiffOperation;
   }
 }
@@ -93,31 +93,32 @@ export function createDiff(
   // Create a copy of the sessions to work with
   const originalCopy = { ...original, messages: [] };
   const revisionCopy = { ...revision, messages: [] };
-  
+
   // Handle long string properties specifically
   const stringDiffs: StringDiffOperation[] = [];
-  
+
   // Check each property for long strings
   for (const key of Object.keys(revisionCopy)) {
     const originalValue = (originalCopy as any)[key];
     const revisionValue = (revisionCopy as any)[key];
-    
+
     // If both are strings and at least one is long
     if (
-      typeof originalValue === 'string' && 
-      typeof revisionValue === 'string' &&
-      (originalValue.length >= STRING_DIFF_THRESHOLD || revisionValue.length >= STRING_DIFF_THRESHOLD) &&
+      typeof originalValue === "string" &&
+      typeof revisionValue === "string" &&
+      (originalValue.length >= STRING_DIFF_THRESHOLD ||
+        revisionValue.length >= STRING_DIFF_THRESHOLD) &&
       originalValue !== revisionValue
     ) {
       // Create a specialized diff for this string property
       stringDiffs.push(createStringDiff(`/${key}`, originalValue, revisionValue));
-      
+
       // Set both values to the same to prevent standard diff from including this property
       (originalCopy as any)[key] = "PLACEHOLDER_FOR_DIFF";
       (revisionCopy as any)[key] = "PLACEHOLDER_FOR_DIFF";
     }
   }
-  
+
   // Create a standard diff for non-message and non-long-string changes
   const standardDiff = compare(originalCopy, revisionCopy);
 
@@ -268,30 +269,30 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
       if (op.op === "replace" && (op as StringDiffOperation)._diff) {
         try {
           const path = op.path;
-          const pathParts = path.split('/').filter(p => p !== '');
-          
+          const pathParts = path.split("/").filter(p => p !== "");
+
           // Navigate to the target object
           let target = sessionCopy;
           for (let i = 0; i < pathParts.length - 1; i++) {
             target = (target as any)[pathParts[i]];
           }
-          
+
           // Get the property name
           const propName = pathParts[pathParts.length - 1];
-          
+
           // Get the current value
           const currentValue = (target as any)[propName];
-          
-          if (typeof currentValue === 'string') {
+
+          if (typeof currentValue === "string") {
             // Apply the character diff using our helper function
             const diff = (op as StringDiffOperation)._diff!;
             let newValue = applyCharDiff(currentValue, diff);
-            
+
             // If our diff application failed, fall back to the full value
-            if (newValue === currentValue || newValue === '') {
+            if (newValue === currentValue || newValue === "") {
               newValue = op.value;
             }
-            
+
             (target as any)[propName] = newValue;
           } else {
             // If not a string, fall back to standard replace
@@ -303,11 +304,10 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
           standardOperations.push({
             op: "replace",
             path: op.path,
-            value: op.value
+            value: op.value,
           });
         }
-      }
-      // Handle custom appendContent operation
+      } // Handle custom appendContent operation
       else if (op.op === "add" && op.path.includes("/appendContent")) {
         try {
           const messagePath = op.path.replace("/appendContent", "");
@@ -370,10 +370,10 @@ function applyCharDiff(original: string, changes: Change[]): string {
       return fullTextChange.value;
     }
   }
-  
-  let result = '';
+
+  let result = "";
   let currentPos = 0;
-  
+
   for (const change of changes) {
     if (change.added) {
       // Add new content
@@ -385,7 +385,7 @@ function applyCharDiff(original: string, changes: Change[]): string {
     }
     // Skip removed content
   }
-  
+
   return result;
 }
 
@@ -396,17 +396,17 @@ function applyCharDiff(original: string, changes: Change[]): string {
 function findInsertPosition(text: string, change: Change): number {
   // If this is the first change, insert at the beginning
   if (!change.value) return 0;
-  
+
   // Look for context before this change
-  let contextBefore = '';
+  let contextBefore = "";
   let i = 0;
-  
+
   // Try to find some context before this change
   while (contextBefore.length < 10 && i < text.length) {
     contextBefore = text.substring(text.length - i - 1, text.length);
     i++;
   }
-  
+
   // If we have context, try to find it in the text
   if (contextBefore.length > 0) {
     const pos = text.lastIndexOf(contextBefore);
@@ -414,7 +414,7 @@ function findInsertPosition(text: string, change: Change): number {
       return pos + contextBefore.length;
     }
   }
-  
+
   // Default to end of string if we can't find a better position
   return text.length;
 }

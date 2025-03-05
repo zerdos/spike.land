@@ -1,8 +1,8 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import type {
-  ISessionSynchronizer,
   IMessageHandlerService,
   IServiceWorkerManager,
+  ISessionSynchronizer,
   MessageData,
   WebSocketDependencies,
 } from "@/services/types";

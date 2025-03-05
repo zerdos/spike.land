@@ -5,7 +5,7 @@ import { ISessionSynchronizer } from "./types";
 /**
  * SessionSynchronizer enables cross-tab communication for code sessions
  * using the BroadcastChannel API.
- * 
+ *
  * This class is responsible for:
  * 1. Synchronizing session state across multiple browser tabs/windows
  * 2. Broadcasting session updates to all connected clients
@@ -14,11 +14,11 @@ import { ISessionSynchronizer } from "./types";
 export class SessionSynchronizer implements ISessionSynchronizer {
   private broadcastChannel: BroadcastChannel;
   private session: ICodeSession | null = null;
-  private subscribers: Array<(session: ICodeSession & {sender: string}) => void> = [];
+  private subscribers: Array<(session: ICodeSession & { sender: string; }) => void> = [];
 
   /**
    * Creates a new SessionSynchronizer for the specified code space
-   * 
+   *
    * @param codeSpace - The identifier for the code space to synchronize
    * @param session - Optional initial session data
    */
@@ -32,7 +32,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
     // Set up message handler for incoming session updates
     this.broadcastChannel.onmessage = (
-      { data }: MessageEvent<ICodeSession & {sender: string}>,
+      { data }: MessageEvent<ICodeSession & { sender: string; }>,
     ) => {
       try {
         if (!this.session) {
@@ -43,13 +43,13 @@ export class SessionSynchronizer implements ISessionSynchronizer {
             ...this.session,
             ...data,
             // Special handling for messages array to prevent overwriting
-            messages: data.messages ? 
+            messages: data.messages
               // If data contains messages, use them (they should be complete)
-              [...data.messages] : 
+              ? [...data.messages]
               // Otherwise keep existing messages
-              [...this.session.messages],
+              : [...this.session.messages],
           });
-          
+
           this.session = newSession;
         }
 
@@ -63,11 +63,11 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Notifies all subscribers with the current session
-   * 
+   *
    * @param session - The session to notify subscribers with
    * @private
    */
-  private notifySubscribers(session: ICodeSession & {sender: string}): void {
+  private notifySubscribers(session: ICodeSession & { sender: string; }): void {
     this.subscribers.forEach((cb) => {
       try {
         cb(session);
@@ -79,7 +79,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Gets the current code from the session
-   * 
+   *
    * @returns Promise resolving to the current code
    */
   async getCode(): Promise<string> {
@@ -91,7 +91,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Gets the current session
-   * 
+   *
    * @returns The current session or null if not initialized
    */
   getSession(): ICodeSession | null {
@@ -100,7 +100,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Initializes the session, either with provided data or by fetching from the server
-   * 
+   *
    * @param session - Optional session data to initialize with
    * @returns Promise resolving to the initialized session
    */
@@ -110,16 +110,16 @@ export class SessionSynchronizer implements ISessionSynchronizer {
         this.session = sanitizeSession(session);
         return this.session;
       }
-      
+
       if (this.session) {
         return this.session;
       }
-      
+
       const response = await fetch(`/live/${this.codeSpace}/session.json`);
       if (!response.ok) {
         throw new Error(`Failed to fetch session: ${response.status}`);
       }
-      
+
       const data = await response.json();
       this.session = sanitizeSession(data);
       return this.session;
@@ -140,11 +140,11 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Subscribes to session updates
-   * 
+   *
    * @param callback - Function to call when session changes
    * @returns Unsubscribe function
    */
-  subscribe(callback: (session: ICodeSession & {sender: string}) => void): () => void {
+  subscribe(callback: (session: ICodeSession & { sender: string; }) => void): () => void {
     this.subscribers.push(callback);
     return () => {
       this.subscribers = this.subscribers.filter((cb) => cb !== callback);
@@ -153,10 +153,10 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
   /**
    * Broadcasts a session update to all connected clients
-   * 
+   *
    * @param session - Session data to broadcast
    */
-  broadcastSession(session: ICodeSession & {sender: string}): void {
+  broadcastSession(session: ICodeSession & { sender: string; }): void {
     console.log("Broadcasting session", session);
     try {
       if (!this.session) {
@@ -173,7 +173,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
 
       this.session = sanitizeSession(session);
       this.broadcastChannel.postMessage(session);
-      
+
       // Finally notify our subscribers
       this.notifySubscribers(session);
     } catch (error) {
@@ -188,7 +188,6 @@ export class SessionSynchronizer implements ISessionSynchronizer {
     try {
       this.broadcastChannel.close();
       this.subscribers = [];
-      
     } catch (error) {
       console.error("Error closing broadcast channel:", error);
     }

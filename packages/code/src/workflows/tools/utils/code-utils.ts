@@ -1,10 +1,10 @@
+import { updateSearchReplace } from "@/lib/chat-utils";
+import { md5 } from "@/lib/md5";
 import {
   COMPLEX_CHANGE_THRESHOLD,
   SIGNIFICANT_CHANGE_RATIO,
   SMALL_FILE_THRESHOLD,
 } from "../../../config/workflow-config";
-import { updateSearchReplace } from "@/lib/chat-utils";
-import { md5 } from "@/lib/md5";
 
 import { CodeChangeMetrics } from "../../workflow";
 
@@ -42,7 +42,7 @@ export const shouldReturnFullCode = (
   // Calculate change ratio
   const changeSize = Math.abs(modifiedCode.length - currentCode.length);
   const changeRatio = changeSize / currentCode.length;
-  
+
   return changeRatio > SIGNIFICANT_CHANGE_RATIO;
 };
 /**

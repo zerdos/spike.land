@@ -107,7 +107,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                   handleSendMessage({
                     prompt,
                     images: [],
-                    cSess
+                    cSess,
                   });
                 }}
                 isDarkMode={isDarkMode}

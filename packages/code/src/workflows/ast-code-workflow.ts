@@ -1,6 +1,5 @@
 import { initialClaude } from "@/lib/initial-claude";
 import { md5 } from "@/lib/md5";
-import { AgentState } from "../workflows/chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -8,6 +7,7 @@ import type { StateGraphArgs } from "@langchain/langgraph/web";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
 import { v4 as uuidv4 } from "uuid";
+import { AgentState } from "../workflows/chat-langchain";
 import { astCodeModificationTool } from "./tools/ast-code-modification";
 import { WorkflowError } from "./tools/utils/error-handlers";
 

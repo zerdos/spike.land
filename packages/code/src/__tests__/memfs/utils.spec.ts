@@ -1,13 +1,6 @@
+import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { 
-  getDirectoryEntriesRecursive, 
-  getDirectoryHandleAndFileName
-} from "@/lib/memfs/index";
-import { 
-  mockDirectoryHandle, 
-  mockNavigator, 
-  setupTest 
-} from "./setup";
+import { mockDirectoryHandle, mockNavigator, setupTest } from "./setup";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);

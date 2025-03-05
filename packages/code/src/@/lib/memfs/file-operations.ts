@@ -1,6 +1,6 @@
-import { getDirectoryHandleAndFileName } from './utils';
-import { StatResult } from './types';
-import { stat } from './directory-operations';
+import { stat } from "./directory-operations";
+import { StatResult } from "./types";
+import { getDirectoryHandleAndFileName } from "./utils";
 
 /**
  * Write content to a file
@@ -13,7 +13,7 @@ export const writeFile = async (
 ): Promise<void> => {
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
   if (!fileName) throw new Error("Invalid file path");
-  
+
   const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
   const writable = await fileHandle.createWritable();
   await writable.write(content);
@@ -32,7 +32,7 @@ export const appendFile = async (
   try {
     // Try to read existing content
     const existingContent = await readFile(filePath).catch(() => "");
-    
+
     // Write combined content
     await writeFile(filePath, existingContent + content);
   } catch (error) {
@@ -49,7 +49,7 @@ export const appendFile = async (
 export const readFile = async (filePath: string): Promise<string> => {
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
   if (!fileName) throw new Error("Invalid file path");
-  
+
   const fileHandle = await dirHandle.getFileHandle(fileName);
   const file = await fileHandle.getFile();
   return await file.text();
@@ -62,7 +62,7 @@ export const readFile = async (filePath: string): Promise<string> => {
 export const unlink = async (filePath: string): Promise<void> => {
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
   if (!fileName) throw new Error("Invalid file path");
-  
+
   await dirHandle.removeEntry(fileName);
 };
 
@@ -89,14 +89,14 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
     await unlink(oldPath);
   } catch (error) {
     // If not a file, try as directory
-    const entries = await import('./directory-operations').then(m => m.readdir(oldPath));
-    await import('./directory-operations').then(m => m.mkdir(newPath));
-    
+    const entries = await import("./directory-operations").then(m => m.readdir(oldPath));
+    await import("./directory-operations").then(m => m.mkdir(newPath));
+
     // Copy all entries recursively
     for (const entry of entries) {
       const sourcePath = `${oldPath}/${entry}`;
       const destPath = `${newPath}/${entry}`;
-      
+
       // Check if it's a file or directory
       const statResult = await stat(sourcePath);
       if (statResult?.kind === "file") {
@@ -105,17 +105,17 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
         await unlink(sourcePath);
       } else if (statResult?.kind === "directory") {
         // Recursively handle subdirectories
-        await import('./directory-operations').then(m => m.mkdir(destPath));
-        const subEntries = await import('./directory-operations').then(m => m.readdir(sourcePath));
+        await import("./directory-operations").then(m => m.mkdir(destPath));
+        const subEntries = await import("./directory-operations").then(m => m.readdir(sourcePath));
         for (const subEntry of subEntries) {
           await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`);
         }
-        await import('./directory-operations').then(m => m.rmdir(sourcePath));
+        await import("./directory-operations").then(m => m.rmdir(sourcePath));
       }
     }
-    
+
     // Remove old directory
-    await import('./directory-operations').then(m => m.rmdir(oldPath));
+    await import("./directory-operations").then(m => m.rmdir(oldPath));
   }
 };
 

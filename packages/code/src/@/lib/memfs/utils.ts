@@ -1,4 +1,4 @@
-import { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from './types';
+import { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from "./types";
 
 /**
  * Normalize a file path to handle different formats
@@ -7,11 +7,11 @@ import { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from '
  */
 export const normalizePath = (filePath: string): string => {
   // Remove leading slash if present
-  let normalizedPath = filePath.startsWith('/') ? filePath.slice(1) : filePath;
-  
+  let normalizedPath = filePath.startsWith("/") ? filePath.slice(1) : filePath;
+
   // Remove trailing slash if present
-  normalizedPath = normalizedPath.endsWith('/') ? normalizedPath.slice(0, -1) : normalizedPath;
-  
+  normalizedPath = normalizedPath.endsWith("/") ? normalizedPath.slice(0, -1) : normalizedPath;
+
   return normalizedPath;
 };
 
@@ -21,7 +21,10 @@ export const normalizePath = (filePath: string): string => {
  * @param nestedPath Path to the file
  * @returns File information
  */
-export const handleFile = async (handle: FileSystemFileHandle, nestedPath: string): Promise<FileSystemFileEntry> => {
+export const handleFile = async (
+  handle: FileSystemFileHandle,
+  nestedPath: string,
+): Promise<FileSystemFileEntry> => {
   const file = await handle.getFile();
   return {
     name: handle.name,

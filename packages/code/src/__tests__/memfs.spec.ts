@@ -1,8 +1,8 @@
 // This file serves as an entry point for all memfs tests
 // The actual tests are in the memfs/ directory
 
-import { describe, it, expect } from "vitest";
 import FS from "@/lib/memfs/index";
+import { describe, expect, it } from "vitest";
 
 describe("memfs", () => {
   it("should import all tests from the memfs directory", () => {

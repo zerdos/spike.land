@@ -1,10 +1,12 @@
-import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
 import type { ICode, ImageData } from "@/lib/interfaces";
-import type { AgentState } from "../workflows/chat-langchain";
+import { metrics } from "@/lib/metrics";
 import type { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
+import { isRetryableError, withRetry } from "../utils/retry";
+import type { AgentState } from "../workflows/chat-langchain";
 import { toolResponseCache } from "./caching";
-import { metrics } from "@/lib/metrics";
+import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
 import { telemetry } from "./telemetry";
 import { createCodeIntegrityError, WorkflowError } from "./tools/utils/error-handlers";
 import {
@@ -12,8 +14,6 @@ import {
   handleMissingCodeResponse,
   updateToolCallsWithCodeFlag,
 } from "./tools/utils/tool-response-utils";
-import { isRetryableError, withRetry } from "../utils/retry";
-import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
 import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types";
 
 /**
@@ -72,16 +72,19 @@ export async function processMessage(
 
     // Use retry mechanism for model invocation
     telemetry.startTimer("model.invoke");
-    
+
     // Log the messages being sent to the model for debugging
-    console.log("Invoking model with messages:", 
+    console.log(
+      "Invoking model with messages:",
       JSON.stringify(cleanedState.messages.map(m => ({
         type: m.constructor.name,
-        content: typeof m.content === 'string' ? m.content.substring(0, 100) + '...' : '(non-string content)',
-        has_tool_calls: 'tool_calls' in m && Array.isArray(m.tool_calls) && m.tool_calls.length > 0
-      })))
+        content: typeof m.content === "string"
+          ? m.content.substring(0, 100) + "..."
+          : "(non-string content)",
+        has_tool_calls: "tool_calls" in m && Array.isArray(m.tool_calls) && m.tool_calls.length > 0,
+      }))),
     );
-    
+
     const response = await withRetry(
       () => model.invoke(cleanedState.messages),
       {
@@ -98,10 +101,12 @@ export async function processMessage(
         },
       },
     );
-    
+
     // Log if the response contains tool calls
-    console.log("Model response has tool calls:", 
-      'tool_calls' in response && Array.isArray(response.tool_calls) && response.tool_calls.length > 0
+    console.log(
+      "Model response has tool calls:",
+      "tool_calls" in response && Array.isArray(response.tool_calls) &&
+        response.tool_calls.length > 0,
     );
     const modelDuration = telemetry.stopTimer("model.invoke");
 

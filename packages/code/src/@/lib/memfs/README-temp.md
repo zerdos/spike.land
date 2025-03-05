@@ -16,26 +16,26 @@ The MemFS module is organized into several files:
 ## Usage
 
 ```typescript
-import FS, { readFile, writeFile, mkdir } from '@/lib/memfs';
+import FS, { mkdir, readFile, writeFile } from "@/lib/memfs";
 
 // Using individual functions
 async function example() {
   // Create a directory
-  await mkdir('/example');
-  
+  await mkdir("/example");
+
   // Write a file
-  await writeFile('/example/test.txt', 'Hello, world!');
-  
+  await writeFile("/example/test.txt", "Hello, world!");
+
   // Read a file
-  const content = await readFile('/example/test.txt');
+  const content = await readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 
 // Using the default export
 async function exampleWithDefault() {
-  await FS.mkdir('/example');
-  await FS.writeFile('/example/test.txt', 'Hello, world!');
-  const content = await FS.readFile('/example/test.txt');
+  await FS.mkdir("/example");
+  await FS.writeFile("/example/test.txt", "Hello, world!");
+  const content = await FS.readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 ```
@@ -83,6 +83,7 @@ Run the tests with:
 cd packages/code
 npx vitest run memfs
 ```
+
 # MemFS - In-Memory File System
 
 MemFS is a Node.js-like file system implementation that works in the browser using the File System Access API. It provides a Promise-based API similar to Node.js's `fs.promises` module.
@@ -101,26 +102,26 @@ The MemFS module is organized into several files:
 ## Usage
 
 ```typescript
-import FS, { readFile, writeFile, mkdir } from '@/lib/memfs';
+import FS, { mkdir, readFile, writeFile } from "@/lib/memfs";
 
 // Using individual functions
 async function example() {
   // Create a directory
-  await mkdir('/example');
-  
+  await mkdir("/example");
+
   // Write a file
-  await writeFile('/example/test.txt', 'Hello, world!');
-  
+  await writeFile("/example/test.txt", "Hello, world!");
+
   // Read a file
-  const content = await readFile('/example/test.txt');
+  const content = await readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 
 // Using the default export
 async function exampleWithDefault() {
-  await FS.mkdir('/example');
-  await FS.writeFile('/example/test.txt', 'Hello, world!');
-  const content = await FS.readFile('/example/test.txt');
+  await FS.mkdir("/example");
+  await FS.writeFile("/example/test.txt", "Hello, world!");
+  const content = await FS.readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 ```
@@ -182,26 +183,26 @@ The MemFS module is organized into several files:
 ## Usage
 
 ```typescript
-import FS, { readFile, writeFile, mkdir } from '@/lib/memfs';
+import FS, { mkdir, readFile, writeFile } from "@/lib/memfs";
 
 // Using individual functions
 async function example() {
   // Create a directory
-  await mkdir('/example');
-  
+  await mkdir("/example");
+
   // Write a file
-  await writeFile('/example/test.txt', 'Hello, world!');
-  
+  await writeFile("/example/test.txt", "Hello, world!");
+
   // Read a file
-  const content = await readFile('/example/test.txt');
+  const content = await readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 
 // Using the default export
 async function exampleWithDefault() {
-  await FS.mkdir('/example');
-  await FS.writeFile('/example/test.txt', 'Hello, world!');
-  const content = await FS.readFile('/example/test.txt');
+  await FS.mkdir("/example");
+  await FS.writeFile("/example/test.txt", "Hello, world!");
+  const content = await FS.readFile("/example/test.txt");
   console.log(content); // 'Hello, world!'
 }
 ```
@@ -248,3 +249,4 @@ Run the tests with:
 ```bash
 cd packages/code
 npx vitest run memfs
+```

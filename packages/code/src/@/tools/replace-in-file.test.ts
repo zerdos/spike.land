@@ -1,7 +1,7 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { replaceInFile } from "./replace-in-file";
 import * as fs from "fs";
 import * as path from "path";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { replaceInFile } from "./replace-in-file";
 
 // Mock fs module
 vi.mock("fs", () => ({
@@ -118,7 +118,7 @@ function farewell() {
 
   it("should create directories if they don't exist", async () => {
     vi.mocked(fs.promises.access).mockRejectedValueOnce(new Error("Directory doesn't exist"));
-    
+
     const diff = `<<<<<<< SEARCH
 function hello() {
   console.log("Hello, world!");
@@ -183,14 +183,14 @@ function hello() {
   console.log("Hello, updated world!");
   return 100;
 }
-`;  // Missing the closing delimiter
+`; // Missing the closing delimiter
 
     await expect(replaceInFile(mockPath, malformedDiff)).rejects.toThrow("Malformed diff string");
   });
 
   it("should handle files that don't exist", async () => {
     vi.mocked(fs.existsSync).mockReturnValueOnce(false);
-    
+
     const diff = `<<<<<<< SEARCH
 function hello() {
   console.log("Hello, world!");

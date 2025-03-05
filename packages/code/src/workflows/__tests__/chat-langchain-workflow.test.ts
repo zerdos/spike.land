@@ -1,9 +1,9 @@
 import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { AgentState } from "../chat-langchain";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, SystemMessage } from "@langchain/core/messages";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { AgentState } from "../chat-langchain";
 import { createWorkflowWithStringReplace } from "../chat-langchain-workflow";
 
 vi.mock("@langchain/anthropic", () => ({

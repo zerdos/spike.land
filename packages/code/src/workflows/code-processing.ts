@@ -1,7 +1,7 @@
-import { DEFAULT_RETURN_MODIFIED_CODE } from "../config/workflow-config";
 import { md5 } from "@/lib/md5";
-import { hashCache } from "./caching";
 import { metrics } from "@/lib/metrics";
+import { DEFAULT_RETURN_MODIFIED_CODE } from "../config/workflow-config";
+import { hashCache } from "./caching";
 import { shouldReturnFullCode } from "./tools/utils/code-utils";
 
 /**
@@ -33,7 +33,10 @@ export const determineReturnModifiedCode = (
 ): boolean => {
   for (const toolCall of toolCalls) {
     // Handle both code_modification and replace_in_file tools
-    if ((toolCall.name === "code_modification" || toolCall.name === "replace_in_file") && toolCall.args) {
+    if (
+      (toolCall.name === "code_modification" || toolCall.name === "replace_in_file") &&
+      toolCall.args
+    ) {
       try {
         const args = typeof toolCall.args === "string"
           ? JSON.parse(toolCall.args)
@@ -42,14 +45,14 @@ export const determineReturnModifiedCode = (
         // Log the tool call for debugging
         console.log(`Determining returnModifiedCode for ${toolCall.name}:`, {
           toolName: toolCall.name,
-          argsKeys: Object.keys(args || {})
+          argsKeys: Object.keys(args || {}),
         });
 
         // For code_modification tool
         if (toolCall.name === "code_modification" && args.instructions) {
           return shouldReturnFullCode(args.instructions, code);
         }
-        
+
         // For replace_in_file tool
         if (toolCall.name === "replace_in_file" && args.diff) {
           return shouldReturnFullCode(args.diff, code);
@@ -59,7 +62,7 @@ export const determineReturnModifiedCode = (
       }
     }
   }
-  
+
   console.log("Using default return modified code setting:", DEFAULT_RETURN_MODIFIED_CODE);
   return DEFAULT_RETURN_MODIFIED_CODE;
 };
