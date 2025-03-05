@@ -3,6 +3,7 @@ import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { SessionSynchronizer } from "./SessionSynchronizer";
 import type { ISessionManager } from "./ISessionManager";
+import { connect } from "@/lib/shared";
 
 /**
  * SessionManager is responsible for managing the session state and synchronizing it across clients.
@@ -17,6 +18,7 @@ export class SessionManager implements ISessionManager {
   private session: ICodeSession | null = null;
   private user: string;
   private sessionSynchronizer: SessionSynchronizer;
+  private releaseWorker = () => {}
 
   constructor(codeSpace: string) {
     // Determine the user ID (anonymous hashing if needed)
@@ -33,6 +35,17 @@ export class SessionManager implements ISessionManager {
 
   async init(initialSession?: ICodeSession): Promise<ICodeSession> {
     this.session = await this.sessionSynchronizer.init(initialSession);
+
+    if (this.session) {
+      const session = this.session!;
+ 
+
+    this.releaseWorker = await connect({
+      signal: `${this.user} ${session.codeSpace}`,
+      sess: session,
+    });
+    const codeSpace = this.session.codeSpace; 
+  }
     return this.session;
   }
 
@@ -126,7 +139,7 @@ export class SessionManager implements ISessionManager {
         messages: diff.messages || this.session.messages,
         codeSpace: this.session.codeSpace,
         transpiled: this.session.transpiled,
-        sender: "Editor",
+        sender: this.user,
       };
 
       this.sessionSynchronizer.broadcastSession(broadcastData);
@@ -134,6 +147,7 @@ export class SessionManager implements ISessionManager {
   }
 
   async release(): Promise<void> {
+    this.releaseWorker();
     this.sessionSynchronizer.close();
   }
 }

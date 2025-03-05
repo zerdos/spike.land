@@ -3,7 +3,7 @@ import { messagesPush } from "@/lib/chat-utils";
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-import { connect } from "@/lib/shared";
+
 import { wait } from "@/lib/wait";
 import { CodeProcessor } from "@/services/CodeProcessor";
 import { screenshot } from "@/services/editorUtils";
@@ -72,10 +72,6 @@ export class Code implements ICode {
       session ??
         await fetch(`/api/room/${this.codeSpace}/session.json`).then((res) => res.json()),
     );
-    this.releaseWorker = await connect({
-      signal: `${this.codeSpace} ${initializedSession.codeSpace}`,
-      sess: initializedSession,
-    });
 
     this.setSession(initializedSession);
 

@@ -157,7 +157,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * 
    * @param session - Session data to broadcast
    */
-  broadcastSession(session: ICodeSession): void {
+  broadcastSession(session: ICodeSession & {sender: string}): void {
     console.log("Broadcasting session", session);
     try {
       // First update our local session
@@ -181,6 +181,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
     try {
       this.broadcastChannel.close();
       this.subscribers = [];
+      
     } catch (error) {
       console.error("Error closing broadcast channel:", error);
     }
