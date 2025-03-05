@@ -10,11 +10,14 @@ it("parses input from URL", () => {
 
   expect(input).toMatchInlineSnapshot(`
     {
-      "cfg": 4,
-      "output_format": "png",
-      "output_quality": 80,
-      "prompt": "test",
-      "prompt_strength": 0.9,
+      "aspect_ratio": "16:9",
+      "cfg": 3.5,
+      "negative_prompt": "",
+      "output_format": "webp",
+      "output_quality": 90,
+      "prompt": "a photo of vibrant artistic graffiti on a wall saying "SD3 medium"",
+      "prompt_strength": 0.85,
+      "steps": 28,
     }
   `);
 });

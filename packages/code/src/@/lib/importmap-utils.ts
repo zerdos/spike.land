@@ -108,7 +108,7 @@ function processQueryAndHash(path: string): {
 
 function shouldTransformPath(path: string): boolean {
   return (
-    !path.includes("?bundle=false") &&
+    !path.includes("?bundle=true") &&
     !path.startsWith("data:") &&
     !path.startsWith("http://") &&
     !path.startsWith("https://") &&
@@ -126,14 +126,6 @@ function getExportsString(match: string): string {
     .join(",") || "";
 }
 
-function combineUrl(base: string, path: string): string {
-  if (/^https?:\/\//.test(path) || path.startsWith("/live/")) {
-    return path;
-  }
-
-  const cleanedPath = path.startsWith("/") ? path.slice(1) : path;
-  return !path.startsWith(".") ? `${base}/${cleanedPath}` : path;
-}
 
 function getMappedPath(
   path: string,
@@ -205,9 +197,7 @@ function getMappedPath(
 }
 
 export function importMapReplace(
-  code: string,
-  origin: string = "",
-  impMap: ImportMap = importMap,
+  code: string
 ): string {
   // Prevent double processing
   if (code.includes("/** importMapReplace */") || code.includes("/* esm.sh")) {

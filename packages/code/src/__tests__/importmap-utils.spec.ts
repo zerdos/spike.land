@@ -1,4 +1,4 @@
-import { ImportMap } from "@/lib/import-map";
+import type { ImportMap } from "@/lib/import-map";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { describe, expect, it } from "vitest";
 
@@ -167,6 +167,8 @@ describe("importMapReplace", () => {
     "App specific imports": {
       "should handle @/lib imports": `import { cn } from "@/lib/utils";`,
       "should handle react-extra libs": `import { extras } from "react-extras";`,
+      "should not transform when already transformed":
+        `import { foo } from "/special?bundle=true";`,
     },
   };
 

@@ -16,6 +16,14 @@ import { extras } from "/react-extras?bundle=true&external=react,react-dom,frame
 }
 `;
 
+exports[`importMapReplace > App specific imports: should not transform when already transformed 1`] = `
+{
+  "code": "import { foo } from "/special?bundle=true";",
+  "result": "/** importMapReplace */
+import { foo } from "/special?bundle=true";",
+}
+`;
+
 exports[`importMapReplace > Basic imports: basic named imports 1`] = `
 {
   "code": "import { prop, prop2 } from "foo";",

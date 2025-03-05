@@ -6,7 +6,6 @@ exports[`RouteHandler > Route Handlers > handleDefaultRoute > should return HTML
   <head>
     <base href="/" />
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>spike.land</title>
     <link
@@ -37,8 +36,12 @@ exports[`RouteHandler > Route Handlers > handleDefaultRoute > should return HTML
       }
     </script>
   </head>
+  <style>
+  mock css
+  </style>
 
   <body>
+    
     <div id="embed">mock html</div>
     <script type="module" src="/start.mjs"></script>
   </body>
