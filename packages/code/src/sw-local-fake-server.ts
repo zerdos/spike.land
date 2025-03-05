@@ -155,7 +155,7 @@ async function handleIndexJs(
   }
 
   return new Response(
-    importMapReplace(session.transpiled, ""),
+    importMapReplace(session.transpiled),
     {
       headers: {
         "Content-Type": "application/javascript; charset=UTF-8",

@@ -44,7 +44,7 @@ export const importFromString = async (code: string) => {
     const createJsBlob = async (code: string): Promise<string> =>
       await URL.createObjectURL(
         new Blob([
-          importMapReplace(code.split("importMapReplace").join(""), origin).split(
+          importMapReplace(code.split("importMapReplace").join("")).split(
             `from "/`,
           ).join(
             `from "${origin}/`,
@@ -156,7 +156,10 @@ async function renderApp(
     // Ensure AppToRender is defined before rendering
     if (!AppToRender) {
       console.error("AppToRender is undefined, using fallback component");
-      AppToRender = () => <div>Error: Component could not be loaded</div>;
+      function FallbackErrorComponent() {
+        return <div>Error: Component could not be loaded</div>;
+      }
+      AppToRender = FallbackErrorComponent;
     }
     let renderedApp = renderedApps.get(rootEl);
 

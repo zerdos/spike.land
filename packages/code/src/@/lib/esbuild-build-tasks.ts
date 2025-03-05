@@ -407,7 +407,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
           // If it's a file, process it
           if (filePath.includes("worker")) continue;
           const content = await readFile(filePath, "utf8");
-          const newContent = importMapReplace(content, "");
+          const newContent = importMapReplace(content);
           await writeFile(filePath, newContent);
         }
       }

@@ -126,7 +126,6 @@ function getExportsString(match: string): string {
     .join(",") || "";
 }
 
-
 function getMappedPath(
   path: string,
   exportsParam: string = "",
@@ -197,7 +196,7 @@ function getMappedPath(
 }
 
 export function importMapReplace(
-  code: string
+  code: string,
 ): string {
   // Prevent double processing
   if (code.includes("/** importMapReplace */") || code.includes("/* esm.sh")) {
