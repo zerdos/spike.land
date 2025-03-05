@@ -1,8 +1,10 @@
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { metrics } from "@/lib/metrics";
-import type {  ChatAnthropicCallOptions } from "@langchain/anthropic";
+import type { ChatAnthropicCallOptions } from "@langchain/anthropic";
+import { BaseLanguageModelInput } from "@langchain/core/language_models/base";
 import { AIMessage, AIMessageChunk, HumanMessage } from "@langchain/core/messages";
-import {  MODEL_NAME } from "../config/workflow-config";
+import { Runnable } from "@langchain/core/runnables";
+import { MODEL_NAME } from "../config/workflow-config";
 import { isRetryableError } from "../utils/retry";
 import type { AgentState } from "../workflows/chat-langchain";
 import { toolResponseCache } from "./caching";
@@ -15,15 +17,13 @@ import {
   updateToolCallsWithCodeFlag,
 } from "./tools/utils/tool-response-utils";
 import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types";
-import { Runnable } from "@langchain/core/runnables";
-import { BaseLanguageModelInput } from "@langchain/core/language_models/base";
 
 /**
  * Processes a message in the workflow
  */
 export async function processMessage(
   state: AgentState,
-  model:  Runnable<BaseLanguageModelInput, AIMessageChunk, ChatAnthropicCallOptions>,
+  model: Runnable<BaseLanguageModelInput, AIMessageChunk, ChatAnthropicCallOptions>,
   cSess: ICode,
   initialState: AgentState,
 ): Promise<Partial<AgentState>> {
@@ -87,8 +87,8 @@ export async function processMessage(
       }))),
     );
 
-    const response =await  model.invoke(cleanedState.messages)
-  
+    const response = await model.invoke(cleanedState.messages);
+
     // Log if the response contains tool calls
     console.log(
       "Model response has tool calls:",

@@ -384,8 +384,10 @@ hQIDAQAB
     // const url = new URL(r);
     const { html, codeSpace, css } = this.code.getSession();
     const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
-      .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace("${html}", html);
-
+      .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
+        "${html}",
+        html,
+      );
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",

@@ -46,16 +46,16 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
           value: `__APPEND__${appendedContent}`,
           _diff: [
             { value: "", count: 0 }, // Empty unchanged content
-            { value: appendedContent, added: true, count: appendedContent.length }
+            { value: appendedContent, added: true, count: appendedContent.length },
           ],
         } as StringDiffOperation;
       } else {
         // For moderately sized strings, use a regular diff
         const minimalDiff = [
           { value: oldStr, count: oldStr.length },
-          { value: appendedContent, added: true, count: appendedContent.length }
+          { value: appendedContent, added: true, count: appendedContent.length },
         ];
-        
+
         return {
           op: "replace",
           path,
@@ -65,7 +65,7 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
       }
     }
   }
-  
+
   // Special case 2: Check if we're inserting a small amount of content in the middle of a large string
   if (oldStr.length > LARGE_STRING_THRESHOLD && newStr.length > LARGE_STRING_THRESHOLD) {
     // Check if the change is small (less than 100 chars)
@@ -73,22 +73,24 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
     if (changeSize < 100) {
       // Try to find where the insertion happened
       let prefixLength = 0;
-      while (prefixLength < oldStr.length && 
-             prefixLength < newStr.length && 
-             oldStr[prefixLength] === newStr[prefixLength]) {
+      while (
+        prefixLength < oldStr.length &&
+        prefixLength < newStr.length &&
+        oldStr[prefixLength] === newStr[prefixLength]
+      ) {
         prefixLength++;
       }
-      
+
       // If we found a common prefix
       if (prefixLength > 0) {
         // Check if the rest of the string after the insertion is the same
         const oldSuffix = oldStr.substring(prefixLength);
         const newMiddle = newStr.substring(prefixLength);
-        
+
         if (newMiddle.endsWith(oldSuffix)) {
           // We found an insertion in the middle
           const insertedContent = newMiddle.substring(0, newMiddle.length - oldSuffix.length);
-          
+
           // Create a specialized operation for insertion
           // For large strings, don't include the full string in the diff
           // Instead, create a special operation that only includes the insertion position and content
@@ -99,7 +101,7 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
               value: `__INSERT__${prefixLength}__${insertedContent}`,
               _diff: [
                 { value: "", count: 0 }, // Empty unchanged content
-                { value: insertedContent, added: true, count: insertedContent.length }
+                { value: insertedContent, added: true, count: insertedContent.length },
               ],
             } as StringDiffOperation;
           } else {
@@ -111,7 +113,7 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
               _diff: [
                 { value: oldStr.substring(0, prefixLength), count: prefixLength },
                 { value: insertedContent, added: true, count: insertedContent.length },
-                { value: oldSuffix, count: oldSuffix.length }
+                { value: oldSuffix, count: oldSuffix.length },
               ],
             } as StringDiffOperation;
           }
@@ -455,29 +457,29 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
  */
 function applyCharDiff(original: string, changes: Change[], value?: string): string {
   // Special case 1: Check if this is our optimized append operation
-  if (value && typeof value === 'string' && value.startsWith('__APPEND__')) {
+  if (value && typeof value === "string" && value.startsWith("__APPEND__")) {
     // Extract the appended content from the value
-    const appendedContent = value.substring('__APPEND__'.length);
+    const appendedContent = value.substring("__APPEND__".length);
     // Simply append it to the original string
     return original + appendedContent;
   }
-  
+
   // Special case 2: Check if this is our optimized insert operation
-  if (value && typeof value === 'string' && value.startsWith('__INSERT__')) {
+  if (value && typeof value === "string" && value.startsWith("__INSERT__")) {
     try {
       // Format is __INSERT__[position]__[content]
-      const parts = value.split('__');
+      const parts = value.split("__");
       if (parts.length >= 3) {
         const position = parseInt(parts[1], 10);
-        const insertedContent = parts.slice(2).join('__'); // In case the content itself contains __
-        
+        const insertedContent = parts.slice(2).join("__"); // In case the content itself contains __
+
         // Insert the content at the specified position
         if (!isNaN(position) && position >= 0 && position <= original.length) {
           return original.substring(0, position) + insertedContent + original.substring(position);
         }
       }
     } catch (err) {
-      console.warn('Error parsing insert operation:', err);
+      console.warn("Error parsing insert operation:", err);
       // Fall back to regular diff application
     }
   }

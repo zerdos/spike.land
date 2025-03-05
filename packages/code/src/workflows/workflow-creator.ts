@@ -43,7 +43,7 @@ export function createWorkflowWithStringReplace(
   // Create the replace-in-file tool with the provided code session
 
   const tools = [getReplaceInFileTool(cSess)];
-  const toolNode = new ToolNode(tools, { name: "tools",  });
+  const toolNode = new ToolNode(tools, { name: "tools" });
 
   // Create the model with bound tools
   const baseModel = new ChatAnthropic({
@@ -54,9 +54,7 @@ export function createWorkflowWithStringReplace(
     anthropicApiUrl: ANTHROPIC_API_CONFIG.getApiUrl(initialState.origin),
     temperature: ANTHROPIC_API_CONFIG.temperature,
     maxTokens: ANTHROPIC_API_CONFIG.maxTokens,
-  }).bindTools(tools);  
-
-
+  }).bindTools(tools);
 
   // Create the graph state reducers
   const graphState = createGraphStateReducers();

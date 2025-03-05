@@ -1,16 +1,15 @@
-import { Delta, DiffPatcher } from 'jsondiffpatch';
-import { ICodeSession } from '@/lib/interfaces';
-import DiffMatchPatch from 'diff-match-patch';
+import { ICodeSession } from "@/lib/interfaces";
+import DiffMatchPatch from "diff-match-patch";
+import { Delta, DiffPatcher } from "jsondiffpatch";
 // The diff can be any valid Delta type from jsondiffpatch
-export type ICodeSessionDiff = Delta
-
+export type ICodeSessionDiff = Delta;
 
 // Create an instance of DiffPatcher with optional configuration
 const diffPatcher = new DiffPatcher({
   // Enable text diffing for strings (optional customization)
   textDiff: {
     diffMatchPatch: DiffMatchPatch,
-    minLength: 60  // Optional: only diff strings longer than this length
+    minLength: 60, // Optional: only diff strings longer than this length
   },
   // Configure array handling if your messages array requires special treatment
   arrays: {

@@ -1,6 +1,6 @@
+import { applyDiff, createDiff } from "@/lib/text-diff";
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "./interfaces";
-import { applyDiff, createDiff } from "@/lib/text-diff";
 
 describe("diff-utils", () => {
   // Helper function to create a test session
@@ -128,6 +128,5 @@ describe("diff-utils", () => {
 
       expect(result.messages[0].content).toBe("Partial response with more text");
     });
-
   });
 });
