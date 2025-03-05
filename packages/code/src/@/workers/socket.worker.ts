@@ -174,7 +174,7 @@ export async function setConnections(
       );
       const oldSession = connection.oldSession;
       const newSession = sanitizeSession(updatedSession);
-      const patch = generateSessionPatch(newSession, oldSession);
+      const patch = generateSessionPatch(oldSession, newSession);
 
       logger.debug(`Sending patch to WebSocket for ${codeSpace}`, {
         patchSize: JSON.stringify(patch).length,

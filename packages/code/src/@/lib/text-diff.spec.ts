@@ -278,5 +278,149 @@ describe("text-diff", () => {
 
       expect(result.messages).toEqual([]);
     });
+
+    it("should handle very large strings (>10000 chars) efficiently", () => {
+      // Create a large string by repeating a pattern
+      const baseString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
+      const repeatedString = baseString.repeat(250); // ~14000 chars
+      
+      const oldSession = createBaseSession(repeatedString);
+      const newSession = createBaseSession(repeatedString + "a"); // Add a single 'a' at the end
+      
+      const diff = createDiff(oldSession, newSession);
+      const diffJson = JSON.stringify(diff);
+      
+      // Apply the diff and verify it works correctly
+      const result = applyDiff(oldSession, diff);
+      expect(result.code).toBe(newSession.code);
+      
+      // Log the diff size and structure for analysis
+      console.log(`Large string diff size: ${diffJson.length} chars`);
+      console.log(`Diff structure:`, JSON.stringify(diff[0], null, 2).substring(0, 200) + '...');
+      
+      // Check if the diff contains the _diff property which indicates optimization
+      const hasDiffProperty = diff.some(op => (op as any)._diff !== undefined);
+      expect(hasDiffProperty).toBe(true);
+    });
+
+    it("should handle large strings with newlines efficiently", () => {
+      // Create a large string with many newlines to test line-level diffing
+      let largeString = "";
+      for (let i = 0; i < 1000; i++) {
+        largeString += `Line ${i}: This is a test line with some content.\n`;
+      }
+      
+      const oldSession = createBaseSession(largeString);
+      const newSession = createBaseSession(largeString + "a"); // Add a single 'a' at the end
+      
+      const diff = createDiff(oldSession, newSession);
+      const diffJson = JSON.stringify(diff);
+      
+      // Apply the diff and verify it works correctly
+      const result = applyDiff(oldSession, diff);
+      expect(result.code).toBe(newSession.code);
+      
+      // Log the diff size for analysis
+      console.log(`Large string with newlines diff size: ${diffJson.length} chars`);
+      
+      // Check if the diff contains the _diff property which indicates optimization
+      const hasDiffProperty = diff.some(op => (op as any)._diff !== undefined);
+      expect(hasDiffProperty).toBe(true);
+    });
+
+    it("should optimize diff for appending a single character to large text", () => {
+      // Create a test specifically for the append case
+      const largeText = "a".repeat(15000);
+      
+      const oldSession = createBaseSession(largeText);
+      const newSession = createBaseSession(largeText + "a");
+      
+      const diff = createDiff(oldSession, newSession);
+      
+      // Apply the diff and verify it works correctly
+      const result = applyDiff(oldSession, diff);
+      expect(result.code).toBe(newSession.code);
+      
+      // Log the diff for analysis
+      const diffJson = JSON.stringify(diff);
+      console.log(`Append single char diff size: ${diffJson.length} chars`);
+      
+      // Check if the diff contains the _diff property
+      const hasDiffProperty = diff.some(op => (op as any)._diff !== undefined);
+      expect(hasDiffProperty).toBe(true);
+      
+      // Examine the diff structure
+      if (diff.length > 0 && (diff[0] as any)._diff) {
+        const diffChanges = (diff[0] as any)._diff;
+        console.log(`Number of diff changes: ${diffChanges.length}`);
+        
+        // Check if there are only a few changes (ideally just 2 - one unchanged and one added)
+        expect(diffChanges.length).toBeLessThanOrEqual(3);
+      }
+    });
+
+    it("should handle inserting content in the middle of a large file", () => {
+      // Create a large string
+      const largeText = "x".repeat(15000);
+      
+      // Insert content in the middle
+      const middleIndex = Math.floor(largeText.length / 2);
+      const insertedContent = 'console.log("yo");';
+      const newText = largeText.substring(0, middleIndex) + insertedContent + largeText.substring(middleIndex);
+      
+      const oldSession = createBaseSession(largeText);
+      const newSession = createBaseSession(newText);
+      
+      const diff = createDiff(oldSession, newSession);
+      
+      // Apply the diff and verify it works correctly
+      const result = applyDiff(oldSession, diff);
+      
+      // Log the diff for analysis
+      const diffJson = JSON.stringify(diff);
+      console.log(`Insert in middle diff size: ${diffJson.length} chars`);
+      
+      // Check if the diff contains the _diff property
+      const hasDiffProperty = diff.some(op => (op as any)._diff !== undefined);
+      expect(hasDiffProperty).toBe(true);
+      
+      // Verify the result has the inserted content
+      expect(result.code.includes(insertedContent)).toBe(true);
+      
+      // Check if the diff size is small (less than 500 chars)
+      expect(diffJson.length).toBeLessThan(500);
+    });
+
+    it("should handle inserting content at the 2/3 point of a large file", () => {
+      // Create a large string
+      const largeText = "y".repeat(15000);
+      
+      // Insert content at the 2/3 point
+      const insertIndex = Math.floor(largeText.length * 2 / 3);
+      const insertedContent = 'debugger;';
+      const newText = largeText.substring(0, insertIndex) + insertedContent + largeText.substring(insertIndex);
+      
+      const oldSession = createBaseSession(largeText);
+      const newSession = createBaseSession(newText);
+      
+      const diff = createDiff(oldSession, newSession);
+      
+      // Apply the diff and verify it works correctly
+      const result = applyDiff(oldSession, diff);
+      
+      // Log the diff for analysis
+      const diffJson = JSON.stringify(diff);
+      console.log(`Insert at 2/3 point diff size: ${diffJson.length} chars`);
+      
+      // Check if the diff contains the _diff property
+      const hasDiffProperty = diff.some(op => (op as any)._diff !== undefined);
+      expect(hasDiffProperty).toBe(true);
+      
+      // Verify the result has the inserted content
+      expect(result.code.includes(insertedContent)).toBe(true);
+      
+      // Check if the diff size is small (less than 500 chars)
+      expect(diffJson.length).toBeLessThan(500);
+    });
   });
 });

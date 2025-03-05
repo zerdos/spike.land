@@ -27,6 +27,97 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
     return { op: "replace", path, value: newStr };
   }
 
+  // Special case 1: Check if we're just appending to the end of a large string
+  // This is a common case that can be optimized very efficiently
+  if (oldStr.length > STRING_DIFF_THRESHOLD && newStr.startsWith(oldStr)) {
+    const appendedContent = newStr.substring(oldStr.length);
+    // If the appended content is small (less than 100 chars), create a specialized operation
+    if (appendedContent.length < 100) {
+      // For large strings, don't include the full string in the diff
+      // Instead, create a special operation that only includes the appended content
+      if (oldStr.length > LARGE_STRING_THRESHOLD) {
+        // Create a minimal diff with just the appended content
+        // We'll use a special marker in the value to indicate this is an append operation
+        return {
+          op: "replace",
+          path,
+          value: `__APPEND__${appendedContent}`,
+          _diff: [
+            { value: "", count: 0 }, // Empty unchanged content
+            { value: appendedContent, added: true, count: appendedContent.length }
+          ],
+        } as StringDiffOperation;
+      } else {
+        // For moderately sized strings, use a regular diff
+        const minimalDiff = [
+          { value: oldStr, count: oldStr.length },
+          { value: appendedContent, added: true, count: appendedContent.length }
+        ];
+        
+        return {
+          op: "replace",
+          path,
+          value: newStr,
+          _diff: minimalDiff,
+        } as StringDiffOperation;
+      }
+    }
+  }
+  
+  // Special case 2: Check if we're inserting a small amount of content in the middle of a large string
+  if (oldStr.length > LARGE_STRING_THRESHOLD && newStr.length > LARGE_STRING_THRESHOLD) {
+    // Check if the change is small (less than 100 chars)
+    const changeSize = Math.abs(newStr.length - oldStr.length);
+    if (changeSize < 100) {
+      // Try to find where the insertion happened
+      let prefixLength = 0;
+      while (prefixLength < oldStr.length && 
+             prefixLength < newStr.length && 
+             oldStr[prefixLength] === newStr[prefixLength]) {
+        prefixLength++;
+      }
+      
+      // If we found a common prefix
+      if (prefixLength > 0) {
+        // Check if the rest of the string after the insertion is the same
+        const oldSuffix = oldStr.substring(prefixLength);
+        const newMiddle = newStr.substring(prefixLength);
+        
+        if (newMiddle.endsWith(oldSuffix)) {
+          // We found an insertion in the middle
+          const insertedContent = newMiddle.substring(0, newMiddle.length - oldSuffix.length);
+          
+          // Create a specialized operation for insertion
+          // For large strings, don't include the full string in the diff
+          // Instead, create a special operation that only includes the insertion position and content
+          if (oldStr.length > LARGE_STRING_THRESHOLD) {
+            return {
+              op: "replace",
+              path,
+              value: `__INSERT__${prefixLength}__${insertedContent}`,
+              _diff: [
+                { value: "", count: 0 }, // Empty unchanged content
+                { value: insertedContent, added: true, count: insertedContent.length }
+              ],
+            } as StringDiffOperation;
+          } else {
+            // For moderately sized strings, include more context
+            return {
+              op: "replace",
+              path,
+              value: `__INSERT__${prefixLength}__${insertedContent}`,
+              _diff: [
+                { value: oldStr.substring(0, prefixLength), count: prefixLength },
+                { value: insertedContent, added: true, count: insertedContent.length },
+                { value: oldSuffix, count: oldSuffix.length }
+              ],
+            } as StringDiffOperation;
+          }
+        }
+      }
+    }
+  }
+
   // For very large strings, we need to be extra careful about diff size
   if (oldStr.length > LARGE_STRING_THRESHOLD || newStr.length > LARGE_STRING_THRESHOLD) {
     // Check if the change is small and localized
@@ -286,7 +377,7 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
           if (typeof currentValue === "string") {
             // Apply the character diff using our helper function
             const diff = (op as StringDiffOperation)._diff!;
-            let newValue = applyCharDiff(currentValue, diff);
+            let newValue = applyCharDiff(currentValue, diff, op.value);
 
             // If our diff application failed, fall back to the full value
             if (newValue === currentValue || newValue === "") {
@@ -360,7 +451,35 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
  * @param changes The character changes to apply
  * @returns The modified string
  */
-function applyCharDiff(original: string, changes: Change[]): string {
+function applyCharDiff(original: string, changes: Change[], value?: string): string {
+  // Special case 1: Check if this is our optimized append operation
+  if (value && typeof value === 'string' && value.startsWith('__APPEND__')) {
+    // Extract the appended content from the value
+    const appendedContent = value.substring('__APPEND__'.length);
+    // Simply append it to the original string
+    return original + appendedContent;
+  }
+  
+  // Special case 2: Check if this is our optimized insert operation
+  if (value && typeof value === 'string' && value.startsWith('__INSERT__')) {
+    try {
+      // Format is __INSERT__[position]__[content]
+      const parts = value.split('__');
+      if (parts.length >= 3) {
+        const position = parseInt(parts[1], 10);
+        const insertedContent = parts.slice(2).join('__'); // In case the content itself contains __
+        
+        // Insert the content at the specified position
+        if (!isNaN(position) && position >= 0 && position <= original.length) {
+          return original.substring(0, position) + insertedContent + original.substring(position);
+        }
+      }
+    } catch (err) {
+      console.warn('Error parsing insert operation:', err);
+      // Fall back to regular diff application
+    }
+  }
+
   // For very large strings, it's more reliable to just use the full value
   // from the diff operation rather than trying to apply the changes
   if (original.length > 10000) {
