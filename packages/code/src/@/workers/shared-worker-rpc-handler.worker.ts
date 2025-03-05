@@ -1,4 +1,5 @@
 import type { ICodeSession } from "@/lib/interfaces";
+import { use } from "react";
 import { RpcProvider } from "worker-rpc";
 
 interface SharedWorkerGlobalScope {
@@ -19,7 +20,7 @@ interface WorkerFunctions {
   transpile: (code: string, originToUse: string) => Promise<string>;
   build: (params: BuildParams) => Promise<unknown>;
   tsx: (code: string) => Promise<string[]>;
-  setConnections: (signal: string, sess: ICodeSession) => void;
+  setConnections: (user: string, codeSpace: string, sess: ICodeSession) => void;
 }
 
 const self:
@@ -89,10 +90,15 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
   rpcProvider.registerSignalHandler(
     "connect",
     async ({ signal, sess }: { signal: string; sess: ICodeSession; }) => {
-      console.log("Connecting to signal", signal, sess);
+      const [user, codeSpace] = signal.split(" ");
+      console.log("Connecting to signal", {
+        user,
+        codeSpace,
+        sess,
+      });
 
       lazyLoadScript("socket");
-      await (globalThis as unknown as typeof self).setConnections(signal, sess);
+      await (globalThis as unknown as typeof self).setConnections(user, codeSpace, sess);
     },
   );
 };

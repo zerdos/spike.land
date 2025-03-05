@@ -1,6 +1,5 @@
-import { getBroadcastChannel } from "@/lib/broadcast-channel";
 import { ICodeSession } from "@/lib/interfaces";
-import { sanitizeSession } from "@/lib/make-sess";
+import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { ISessionSynchronizer } from "./types";
 
 /**
@@ -15,7 +14,7 @@ import { ISessionSynchronizer } from "./types";
 export class SessionSynchronizer implements ISessionSynchronizer {
   private broadcastChannel: BroadcastChannel;
   private session: ICodeSession | null = null;
-  private subscribers: Array<(session: ICodeSession) => void> = [];
+  private subscribers: Array<(session: ICodeSession & {sender: string}) => void> = [];
 
   /**
    * Creates a new SessionSynchronizer for the specified code space
@@ -29,11 +28,11 @@ export class SessionSynchronizer implements ISessionSynchronizer {
     }
 
     // Create a broadcast channel for this code space
-    this.broadcastChannel = getBroadcastChannel(this.codeSpace);
+    this.broadcastChannel = new BroadcastChannel(`codeSpace-${codeSpace}`);
 
     // Set up message handler for incoming session updates
     this.broadcastChannel.onmessage = (
-      { data }: MessageEvent<ICodeSession>,
+      { data }: MessageEvent<ICodeSession & {sender: string}>,
     ) => {
       try {
         if (!this.session) {
@@ -55,7 +54,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
         }
 
         // Notify all subscribers with a copy of the session
-        this.notifySubscribers(this.session);
+        this.notifySubscribers(data);
       } catch (error) {
         console.error("Error in SessionSynchronizer message handler:", error);
       }
@@ -68,7 +67,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * @param session - The session to notify subscribers with
    * @private
    */
-  private notifySubscribers(session: ICodeSession): void {
+  private notifySubscribers(session: ICodeSession & {sender: string}): void {
     this.subscribers.forEach((cb) => {
       try {
         cb(session);
@@ -145,7 +144,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * @param callback - Function to call when session changes
    * @returns Unsubscribe function
    */
-  subscribe(callback: (session: ICodeSession) => void): () => void {
+  subscribe(callback: (session: ICodeSession & {sender: string}) => void): () => void {
     this.subscribers.push(callback);
     return () => {
       this.subscribers = this.subscribers.filter((cb) => cb !== callback);
@@ -160,15 +159,23 @@ export class SessionSynchronizer implements ISessionSynchronizer {
   broadcastSession(session: ICodeSession & {sender: string}): void {
     console.log("Broadcasting session", session);
     try {
-      // First update our local session
-      const sanitizedSession = sanitizeSession(session);
-      this.session = sanitizedSession;
-      
-      // Then broadcast to other tabs
-      this.broadcastChannel.postMessage(sanitizedSession);
+      if (!this.session) {
+        this.session = sanitizeSession(session);
+        this.broadcastChannel.postMessage(session);
+        this.notifySubscribers(session);
+        return;
+      }
+      const currentSessionHash = computeSessionHash(this.session);
+      const newSessionHash = computeSessionHash(sanitizeSession(session));
+      if (currentSessionHash === newSessionHash) {
+        return;
+      }
+
+      this.session = sanitizeSession(session);
+      this.broadcastChannel.postMessage(session);
       
       // Finally notify our subscribers
-      this.notifySubscribers(sanitizedSession);
+      this.notifySubscribers(session);
     } catch (error) {
       console.error("Error in SessionSynchronizer.broadcastSession", error);
     }
