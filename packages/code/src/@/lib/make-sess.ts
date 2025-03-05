@@ -93,8 +93,11 @@ class SessionPatcher {
       };
     }
 
-    const patch = createDiff(sanitizedOldSess, sanitizedNewSess);
-    return { oldHash, hashCode, patch };
+    return {
+      oldHash,
+      hashCode,
+      patch: createDiff(sanitizedOldSess, sanitizedNewSess)
+    };
   }
 }
 

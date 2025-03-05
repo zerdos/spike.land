@@ -7,8 +7,6 @@ import {
   sanitizeSession,
 } from "@/lib/common-functions";
 import type { ICodeSession } from "@/lib/interfaces";
-import type { CodePatch } from "@/lib/make-sess";
-import { wait } from "@/lib/wait";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
@@ -91,8 +89,8 @@ export async function setConnections(
   let sessionSynchronizer = sessionSynchronizers.get(codeSpace);
   if (!sessionSynchronizer) {
     sessionSynchronizer = new SessionSynchronizer(codeSpace, sess);
-    await sessionSynchronizer.init(sess);
     sessionSynchronizers.set(codeSpace, sessionSynchronizer);
+    
   }
 
   const connection: Connection = {
@@ -107,21 +105,21 @@ export async function setConnections(
 
   connections.set(codeSpace, connection);
   
-  sessionSynchronizer.subscribe(async (updatedSession: ICodeSession) => {
-    const release = await mutex.acquire();
+  sessionSynchronizer.subscribe( (updatedSession: ICodeSession) => {
     try {
       // Check if the session has a sender property and if it matches the connection user
-      if ('sender' in updatedSession && updatedSession.sender !== connection.user) {
+      if (! ('sender' in updatedSession
+      )) {
         return;
       }
       const oldSession = connection.oldSession;
       const newSession = sanitizeSession(updatedSession);
-      const patch = generateSessionPatch(oldSession, newSession);
+      const patch = generateSessionPatch( newSession, oldSession);
       connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user }));
       connection.oldSession = newSession;
       connection.hashCode = computeSessionHash(newSession);
-    } finally {
-      release();
+    } catch (error) {
+      console.error("[SocketWorker] Error handling session update:", error);
     }
   });
 
@@ -236,22 +234,27 @@ self.addEventListener("connect", (event: MessageEvent) => {
   port.addEventListener("message", async (evt: MessageEvent) => {
     try {
       const data = evt.data;
-      const session: SessionMessageData = data.payload.session;
-      if (data.type === 'connect') {
-        codeSpace = data.codeSpace || '';
+      const session: SessionMessageData = data.payload.sess;
+      const {codeSpace} = session;
+      // const [user, codeSpace] = data.signal.split(" ");
+
+      if (data.id === 'connect') {
         const count = activePorts.get(codeSpace) || 0;
         activePorts.set(codeSpace, count + 1);
         return;
       }
 
-      codeSpace = session.codeSpace || '';
-      const connection = connections.get(codeSpace);
-      if (connection) {
-        const sessionWithSender: SessionMessageData = {
-          ...session,
-          sender: connection.user,
-        };
-        connection.sessionSynchronizer.broadcastSession(sessionWithSender as ICodeSession & {sender: string});
+      if (session ) {
+        const connection = connections.get(session.codeSpace);
+        if (connection) {
+          // Create a new session object with the sender property
+          const sessionWithSender = {
+            ...session,
+            sender: connection.user || 'unknown',
+          };
+          // Use a type assertion to tell TypeScript this is the correct type
+          connection.sessionSynchronizer.broadcastSession(sessionWithSender as ICodeSession & { sender: string });
+        }
       }
     } catch (error) {
       console.error("[SocketWorker] Error handling port message:", error);

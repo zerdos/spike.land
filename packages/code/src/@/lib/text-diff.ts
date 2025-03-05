@@ -256,17 +256,13 @@ export function createDiff(
  * Applies a diff to a code session
  * Handles optimized message operations and string diffs
  */
-export function applyDiff(
-  sess: ICodeSession,
-  patch: ICodeSessionDiff,
-): ICodeSession {
-  // Create a copy of the session to work with
-  const sessionCopy = JSON.parse(JSON.stringify(sess)) as ICodeSession;
-
+export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSession {
   try {
-    // Process custom operations first
+    // Create a copy of the session to work with
+    const sessionCopy = JSON.parse(JSON.stringify(sess)) as ICodeSession;
     const standardOperations: Operation[] = [];
 
+    // Process all operations
     for (const op of patch) {
       // Handle string diff operations
       if (op.op === "replace" && (op as StringDiffOperation)._diff) {
@@ -340,16 +336,21 @@ export function applyDiff(
       }
     }
 
-    // Apply remaining standard operations
+    // Apply remaining standard operations if any
     if (standardOperations.length > 0) {
-      return applyPatch(sessionCopy, standardOperations).newDocument;
+      try {
+        return applyPatch(sessionCopy, standardOperations).newDocument;
+      } catch (err) {
+        console.error("Error applying standard operations:", err);
+        return JSON.parse(JSON.stringify(sess));
+      }
     }
+
+    return sessionCopy;
   } catch (err) {
     console.error("Error applying diff:", err);
-    // Return the original session if there's an error
+    return JSON.parse(JSON.stringify(sess));
   }
-
-  return sessionCopy;
 }
 
 /**

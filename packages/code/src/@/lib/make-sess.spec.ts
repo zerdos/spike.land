@@ -11,9 +11,17 @@ import type { ICodeSession } from "./interfaces";
 import { md5 } from "./md5";
 
 // Mock dependencies
-vi.mock("./md5", () => ({
-  md5: vi.fn((input) => `md5-${typeof input === 'string' ? input.substring(0, 10) : 'mock'}`)
-}));
+  vi.mock("./md5", () => ({
+    md5: vi.fn((input) => {
+      if (typeof input === 'string') {
+        return `md5-${input.substring(0, 10)}`;
+      }
+      if (typeof input === 'object') {
+        return `md5-${JSON.stringify(input).substring(0, 10)}`;
+      }
+      return 'md5-mock';
+    })
+  }));
 
 vi.mock("./text-diff", () => ({
   createDiff: vi.fn(() => [{ op: "replace", path: "/code", value: "updated code" }]),
@@ -123,15 +131,15 @@ describe("make-sess", () => {
   describe("applySessionPatch", () => {
     it("should apply a patch to a session", () => {
       const session = createTestSession();
-      const oldHash = "old-hash";
-      const hashCode = "new-hash";
-      
-      // Mock the computeSessionHash function to return expected values
-      vi.mocked(md5).mockReturnValueOnce(oldHash).mockReturnValueOnce(hashCode);
+      // Create initial hash for the session
+      const initialHash = computeSessionHash(session);
+      // Create hash for the expected modified session
+      const modifiedSession = { ...session, code: "updated code" };
+      const newHash = computeSessionHash(modifiedSession);
       
       const patch: CodePatch = {
-        oldHash,
-        hashCode,
+        oldHash: initialHash,
+        hashCode: newHash,
         patch: [{ op: "replace" as const, path: "/code", value: "updated code" }]
       };
       
@@ -158,13 +166,11 @@ describe("make-sess", () => {
     
     it("should return the sanitized session if no patch is provided", () => {
       const session = createTestSession();
-      
-      // Mock the computeSessionHash function to return the expected hash
-      vi.mocked(md5).mockReturnValueOnce("same-hash");
+      const initialHash = computeSessionHash(session);
       
       const patch: CodePatch = {
-        oldHash: "same-hash",
-        hashCode: "new-hash"
+        oldHash: initialHash,
+        hashCode: initialHash
       };
       
       const result = applySessionPatch(session, patch);

@@ -3,16 +3,16 @@ import { diffLines, diffWords } from "diff";
 describe("text-diff", () => {
   describe("diffLines", () => {
     it("should identify added lines", () => {
-      const oldText = "line 1\nline 2\nline 3";
-      const newText = "line 1\nline 2\nline 3\nline 4";
+      const oldText = "line 1\nline 2\n";
+      const newText = "line 1\nline 2\nline 3\n";
       
       const result = diffLines(oldText, newText);
       
-      expect(result).toHaveLength(3);
-      expect(result[0].value).toBe("line 1\nline 2\nline 3\n");
+      expect(result).toHaveLength(2);
+      expect(result[0].value).toBe("line 1\nline 2\n");
       expect(result[0].added).toBeUndefined();
       expect(result[0].removed).toBeUndefined();
-      expect(result[1].value).toBe("line 4");
+      expect(result[1].value).toBe("line 3\n");
       expect(result[1].added).toBe(true);
     });
 

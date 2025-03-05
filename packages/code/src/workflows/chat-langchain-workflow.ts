@@ -49,7 +49,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   };
 
   // Process tool responses
-  const processToolResponse = (message: AIMessage): AgentState => {
+  const processToolResponse = async (message: AIMessage): Promise<AgentState> => {
     if (!message.additional_kwargs?.tool_responses || 
         !Array.isArray(message.additional_kwargs.tool_responses) || 
         message.additional_kwargs.tool_responses.length === 0) {
@@ -80,9 +80,11 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       // If code is not provided, use the current code from the session
       if (!modification.code) {
         console.log("No code provided in tool response, using session code");
+        const sessionCode = await cSess.getCode();
         return {
           ...state,
-          hash: modification.hash,
+          code: sessionCode,
+          hash: modification.hash || md5(sessionCode),
         };
       }
       
@@ -122,7 +124,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         const response = await modelWithTools.invoke(messages);
         
         // Process the response
-        const newState = processToolResponse(response);
+        const newState = await processToolResponse(response);
         
         // Update the state with the new message
         state = {

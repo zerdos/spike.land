@@ -28,19 +28,22 @@ export const shouldReturnFullCode = (
   instructions: string,
   currentCode: string,
 ): boolean => {
-  // Always return full code for small files
-  if (currentCode.length < SMALL_FILE_THRESHOLD) return true;
+  // Always return full code for small files or undefined input
+  if (!currentCode || currentCode.length < SMALL_FILE_THRESHOLD) return true;
+  if (!instructions) return true;
 
-  const blocks = updateSearchReplace(instructions, currentCode);
-  if (blocks.length === 0) return true;
+  // Return full code for complex instructions
+  if (instructions.length > COMPLEX_CHANGE_THRESHOLD) return true;
 
-  let totalChangeSize = 0;
-  let complexChanges = instructions.length > COMPLEX_CHANGE_THRESHOLD;
+  // Check the size of potential changes
+  const modifiedCode = updateSearchReplace(instructions, currentCode);
+  if (modifiedCode === currentCode) return true;
 
-  const changeRatio = totalChangeSize / currentCode.length;
-  if (changeRatio > SIGNIFICANT_CHANGE_RATIO) return true;
-
-  return complexChanges;
+  // Calculate change ratio
+  const changeSize = Math.abs(modifiedCode.length - currentCode.length);
+  const changeRatio = changeSize / currentCode.length;
+  
+  return changeRatio > SIGNIFICANT_CHANGE_RATIO;
 };
 /**
  * Calculate changes between original and modified code

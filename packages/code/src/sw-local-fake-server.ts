@@ -150,6 +150,7 @@ async function handleIndexJs(
     await cSessions[codeSpace].broadcastSession({
       ...session,
       transpiled,
+      sender: 'sw-local-fake-server',
     });
   }
 
