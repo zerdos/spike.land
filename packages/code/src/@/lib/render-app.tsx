@@ -53,7 +53,6 @@ export const importFromString = async (code: string) => {
   let blobUrl: string | null = null;
 
   try {
-
     const createJsBlob = async (code: string): Promise<string> =>
       await createObjectURL(
         new Blob([
@@ -82,7 +81,6 @@ export const importFromString = async (code: string) => {
     console.log("File written to", filePath);
     return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
     // Fall back to blob URL approach
-  
   }
 };
 

@@ -44,67 +44,67 @@ export class CodeProcessor {
       };
 
       if (!skipRunning) {
-      try {
-        // Check if window.frames[0] exists and has webSocketManager
-        if (window.frames[0] && 'webSocketManager' in window.frames[0]) {
-          const runResult = await (window.frames[0] as unknown as {
-            webSocketManager: IWebSocketManager;
-          }).webSocketManager.handleRunMessage(transpiled);
-          
-          if (!runResult) {
-            return false;
+        try {
+          // Check if window.frames[0] exists and has webSocketManager
+          if (window.frames[0] && "webSocketManager" in window.frames[0]) {
+            const runResult = await (window.frames[0] as unknown as {
+              webSocketManager: IWebSocketManager;
+            }).webSocketManager.handleRunMessage(transpiled);
+
+            if (!runResult) {
+              return false;
+            }
+
+            if (runResult.html && runResult.html !== processedSession.html) {
+              processedSession.html = runResult.html;
+            }
+
+            if (runResult.css && runResult.css !== processedSession.css) {
+              processedSession.css = runResult.css;
+            }
+            return {
+              ...getSession(),
+              ...runResult,
+              code,
+              transpiled,
+            };
+          } else {
+            console.warn("WebSocketManager not found in iframe. HTML and CSS will not be updated.");
+            // Create a mock WebSocketManager to handle the run message
+            const mockWebSocketManager: IWebSocketManager = {
+              init: async () => {},
+              handleRunMessage: async (transpiled: string) => {
+                try {
+                  const renderService = new RenderService(getSession().codeSpace);
+                  return await renderService.handleRender(
+                    await renderService.updateRenderedApp({ transpiled }),
+                  );
+                } catch (error) {
+                  console.error("Error in mock handleRunMessage:", error);
+                  return false;
+                }
+              },
+              cleanup: () => {},
+            };
+
+            const runResult = await mockWebSocketManager.handleRunMessage(transpiled);
+
+            if (!runResult) {
+              return false;
+            }
+
+            if (runResult.html && runResult.html !== processedSession.html) {
+              processedSession.html = runResult.html;
+            }
+
+            if (runResult.css && runResult.css !== processedSession.css) {
+              processedSession.css = runResult.css;
+            }
           }
-          
-          if (runResult.html && runResult.html !== processedSession.html) {
-            processedSession.html = runResult.html;
-          }
-          
-          if (runResult.css && runResult.css !== processedSession.css) {
-            processedSession.css = runResult.css;
-          }
-          return {
-            ...getSession(),
-            ...runResult,
-            code,
-            transpiled,
-          }
-        } else {
-          console.warn("WebSocketManager not found in iframe. HTML and CSS will not be updated.");
-          // Create a mock WebSocketManager to handle the run message
-          const mockWebSocketManager: IWebSocketManager = {
-            init: async () => {},
-            handleRunMessage: async (transpiled: string) => {
-              try {
-                const renderService = new RenderService(getSession().codeSpace);
-                return await renderService.handleRender(
-                  await renderService.updateRenderedApp({ transpiled })
-                );
-              } catch (error) {
-                console.error("Error in mock handleRunMessage:", error);
-                return false;
-              }
-            },
-            cleanup: () => {}
-          };
-          
-          const runResult = await mockWebSocketManager.handleRunMessage(transpiled);
-          
-          if (!runResult) {
-            return false;
-          }
-          
-          if (runResult.html && runResult.html !== processedSession.html) {
-            processedSession.html = runResult.html;
-          }
-          
-          if (runResult.css && runResult.css !== processedSession.css) {
-            processedSession.css = runResult.css;
-          }
+        } catch (error) {
+          console.error("Error running code:", error);
+          return false;
         }
-      } catch (error) {
-        console.error("Error running code:", error);
-        return false;
-      }
       }
 
       if (signal.aborted) {
