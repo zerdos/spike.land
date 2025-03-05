@@ -26,5 +26,5 @@
 
   ],
   "exclude": ["dts", "node_modules", "dist", "functions"],
-  "include": ["eslint.config.mjs"]
+  "include": ["eslint.config.js"]
 }

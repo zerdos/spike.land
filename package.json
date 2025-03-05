@@ -4,6 +4,7 @@
   "description": "our monorepo",
   "repository": "git@github.com:zerdos/spike.land.git",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "type": "module",
   "private": true,
   "workspaces": [
     "packages/*",
