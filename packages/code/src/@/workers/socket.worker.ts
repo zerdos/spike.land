@@ -107,10 +107,11 @@ export async function setConnections(
 
   connections.set(codeSpace, connection);
   
-  sessionSynchronizer.subscribe(async (updatedSession: ICodeSession & {sender: string}) => {
+  sessionSynchronizer.subscribe(async (updatedSession: ICodeSession) => {
     const release = await mutex.acquire();
     try {
-      if (updatedSession.sender !== connection.user) {
+      // Check if the session has a sender property and if it matches the connection user
+      if ('sender' in updatedSession && updatedSession.sender !== connection.user) {
         return;
       }
       const oldSession = connection.oldSession;
@@ -182,7 +183,7 @@ async function handleSocketMessage(
     const ws = connection.webSocket;
     if (data.type === "ping") return;
 
-    if (data.error === "old hashes not matching") {
+      if (data.error === "old hashes not matching") {
       const sess = await fetchInitialSession(codeSpace);
       const hashCode = computeSessionHash(sess);
       if (hashCode === data.hash) {
@@ -191,7 +192,7 @@ async function handleSocketMessage(
         connection.sessionSynchronizer.broadcastSession({
           ...sess,
           sender: SENDER_WORKER_HASH_MATCH,
-        });
+        } as ICodeSession & {sender: string});
       }
       const patch = generateSessionPatch(sess, connection.oldSession);
       ws.send(JSON.stringify({ ...patch, name: connection.user }));
@@ -206,7 +207,7 @@ async function handleSocketMessage(
         connection.sessionSynchronizer.broadcastSession({
           ...sess,
           sender: SENDER_WORKER_HASH_MATCH,
-        });
+        } as ICodeSession & {sender: string});
       }
       return;
     }
@@ -219,7 +220,7 @@ async function handleSocketMessage(
         connection.sessionSynchronizer.broadcastSession({
           ...sess,
           sender: data.name || SENDER_WORKER_HANDLE_CHANGES,
-        });
+        } as ICodeSession & {sender: string});
         return;
       }
     }
@@ -237,20 +238,20 @@ self.addEventListener("connect", (event: MessageEvent) => {
       const data = evt.data;
       const session: SessionMessageData = data.payload.session;
       if (data.type === 'connect') {
-        codeSpace = data.codeSpace;
+        codeSpace = data.codeSpace || '';
         const count = activePorts.get(codeSpace) || 0;
         activePorts.set(codeSpace, count + 1);
         return;
       }
 
-      codeSpace = session.codeSpace;
+      codeSpace = session.codeSpace || '';
       const connection = connections.get(codeSpace);
       if (connection) {
         const sessionWithSender: SessionMessageData = {
           ...session,
           sender: connection.user,
         };
-        connection.sessionSynchronizer.broadcastSession(sessionWithSender);
+        connection.sessionSynchronizer.broadcastSession(sessionWithSender as ICodeSession & {sender: string});
       }
     } catch (error) {
       console.error("[SocketWorker] Error handling port message:", error);
