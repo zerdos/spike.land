@@ -62,6 +62,12 @@ export class CodeProcessor {
           if (runResult.css && runResult.css !== processedSession.css) {
             processedSession.css = runResult.css;
           }
+          return {
+            ...getSession(),
+            ...runResult,
+            code,
+            transpiled,
+          }
         } else {
           console.warn("WebSocketManager not found in iframe. HTML and CSS will not be updated.");
           // Create a mock WebSocketManager to handle the run message
