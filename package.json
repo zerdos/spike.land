@@ -25,7 +25,7 @@
     "test:e2e": "playwright test tests/*.spec.ts",
     "clean": "yarn workspaces foreach --all -p run clean",
     "lint": "yarn eslint && yarn fmt",
-    "eslint": "eslint --config eslint.config.cjs .",
+    "eslint": "eslint --config eslint.config.js .",
     "fmt": "yarn dprint fmt \"packages/**/*\"",
     "ci": "yarn install && yarn lint && yarn build:all && yarn test",
     "release": "yarn clean && yarn build:all && yarn deploy:full",
@@ -35,6 +35,8 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.7.5",
     "@cloudflare/workers-types": "4.20250303.0",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
     "@types/node": "22.13.9",
     "@types/react": "19.0.10",
     "@types/ws": "8.18.0",
