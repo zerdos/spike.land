@@ -11,6 +11,7 @@ import { ModelManager } from "@/services/ModelManager";
 import { SessionManager } from "@/services/SessionManager";
 import { Mutex } from "async-mutex";
 
+
 // Mutex for thread-safe code access
 const mutex = new Mutex();
 
@@ -40,6 +41,7 @@ export class Code implements ICode {
     this.codeSpace = session.codeSpace;
     this.sessionManager = new SessionManager(codeSpace);
     this.sessionManager.init(session);
+   
 
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
@@ -54,8 +56,14 @@ export class Code implements ICode {
   }
 
   setSession(session: ICodeSession): void {
+    if (computeSessionHash(session) === computeSessionHash(this.currentSession)) {
+      console.log("⚠️ No changes to session, skipping update");
+      return;
+    }
+
     this.currentSession = sanitizeSession(session);
     this.session = this.currentSession;
+    console.log("🔄 CodeSession.setSession called with session:", this.currentSession);
     this.sessionManager.updateSession(session);
   }
 
@@ -359,6 +367,8 @@ export async function getCodeSession(
   try {
     const sessionData = await fetchCodeSession(codeSpaceId);
     const codeSession = new Code(sessionData);
+    await codeSession.init(sessionData);
+
     
     // Cache the session
     codeSessionCache[codeSpaceId] = codeSession;

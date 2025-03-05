@@ -158,6 +158,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * @param session - Session data to broadcast
    */
   broadcastSession(session: ICodeSession): void {
+    console.log("Broadcasting session", session);
     try {
       // First update our local session
       const sanitizedSession = sanitizeSession(session);
