@@ -1,13 +1,15 @@
-import { ICodeSession, Message } from "@/lib/interfaces";
+import { ICodeSession } from "@/lib/interfaces";
 import { Change, diffChars, diffLines } from "diff";
 import { applyPatch, compare, Operation, ReplaceOperation } from "fast-json-patch";
+// Import the ICodeSessionDiff type from json-diff to ensure consistency
 
 // Extend the Operation type to include our custom diff property
 interface StringDiffOperation extends ReplaceOperation<any> {
   _diff?: Change[];
 }
 
-export interface ICodeSessionDiff extends Array<Operation | StringDiffOperation> {}
+// Define our own array type that will be compatible with Delta
+export type ICodeSessionDiff = Array<Operation | StringDiffOperation>;
 
 // Threshold for using diff-based approach for string properties
 const STRING_DIFF_THRESHOLD = 80;

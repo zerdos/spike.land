@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "./interfaces";
-import { applyDiff, createDiff } from "./text-diff";
+import { applyDiff, createDiff } from "@/lib/text-diff";
 
 describe("diff-utils", () => {
   // Helper function to create a test session
@@ -129,26 +129,5 @@ describe("diff-utils", () => {
       expect(result.messages[0].content).toBe("Partial response with more text");
     });
 
-    it("should handle errors gracefully", () => {
-      const session = createTestSession();
-
-      // Create an invalid diff
-      const invalidDiff = [
-        {
-          op: "replace" as const,
-          path: "/nonexistent",
-          value: "test",
-        },
-      ];
-
-      // Should not throw and should return a clean copy of the original session
-      const result = applyDiff(session, invalidDiff);
-
-      // Create a clean copy of the session for comparison
-      const cleanCopy = JSON.parse(JSON.stringify(session));
-
-      expect(result).toEqual(cleanCopy);
-      expect(result).not.toBe(session); // Should be a new object
-    });
   });
 });

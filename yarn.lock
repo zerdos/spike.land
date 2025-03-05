@@ -4496,6 +4496,7 @@ __metadata:
     "@types/babel__generator": "npm:7.6.8"
     "@types/babel__traverse": "npm:7.20.6"
     "@types/diff": "npm:7.0.1"
+    "@types/diff-match-patch": "npm:^1"
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.14"
     "@types/mime-db": "npm:1.43.5"
@@ -4540,6 +4541,7 @@ __metadata:
     csstype: "npm:3.1.3"
     detective-typescript: "npm:14.0.0"
     diff: "npm:7.0.0"
+    diff-match-patch: "npm:^1.0.5"
     embla-carousel-react: "npm:8.5.2"
     esbuild: "npm:0.25.0"
     esbuild-plugin-copy: "npm:2.1.1"
@@ -4566,6 +4568,7 @@ __metadata:
     input-otp: "npm:1.4.2"
     jest: "npm:29.7.0"
     jsdom: "npm:26.0.0"
+    jsondiffpatch: "npm:^0.6.0"
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
     lru-cache: "npm:^11.0.2"
@@ -5621,6 +5624,13 @@ __metadata:
   dependencies:
     "@types/ms": "npm:*"
   checksum: 10c0/5dcd465edbb5a7f226e9a5efd1f399c6172407ef5840686b73e3608ce135eeca54ae8037dcd9f16bdb2768ac74925b820a8b9ecc588a58ca09eca6acabe33e2f
+  languageName: node
+  linkType: hard
+
+"@types/diff-match-patch@npm:^1, @types/diff-match-patch@npm:^1.0.36":
+  version: 1.0.36
+  resolution: "@types/diff-match-patch@npm:1.0.36"
+  checksum: 10c0/0bad011ab138baa8bde94e7815064bb881f010452463272644ddbbb0590659cb93f7aa2776ff442c6721d70f202839e1053f8aa62d801cc4166f7a3ea9130055
   languageName: node
   linkType: hard
 
@@ -8976,6 +8986,13 @@ __metadata:
   version: 0.0.1159816
   resolution: "devtools-protocol@npm:0.0.1159816"
   checksum: 10c0/704795ac59b78a6b322d69b94d39df7ae67396098f09fd609c027890a2b20c5a10531dad66e566e425dda5973e75a0ff7facac77bba1f1ee00a6124aec367be1
+  languageName: node
+  linkType: hard
+
+"diff-match-patch@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "diff-match-patch@npm:1.0.5"
+  checksum: 10c0/142b6fad627b9ef309d11bd935e82b84c814165a02500f046e2773f4ea894d10ed3017ac20454900d79d4a0322079f5b713cf0986aaf15fce0ec4a2479980c86
   languageName: node
   linkType: hard
 
@@ -12938,6 +12955,19 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: 10c0/5a04eed94810fa55c5ea138b2f7a5c12b97c3750bc63d11e511dcecbfef758003861522a070c2272764ee0f4e3e323862f386945aeb5b85b87ee43f084ba586c
+  languageName: node
+  linkType: hard
+
+"jsondiffpatch@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "jsondiffpatch@npm:0.6.0"
+  dependencies:
+    "@types/diff-match-patch": "npm:^1.0.36"
+    chalk: "npm:^5.3.0"
+    diff-match-patch: "npm:^1.0.5"
+  bin:
+    jsondiffpatch: bin/jsondiffpatch.js
+  checksum: 10c0/f7822e48a8ef8b9f7c6024cc59b7d3707a9fe6d84fd776d169de5a1803ad551ffe7cfdc7587f3900f224bc70897355884ed43eb1c8ccd02e7f7b43a7ebcfed4f
   languageName: node
   linkType: hard
 
