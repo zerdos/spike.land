@@ -3,7 +3,6 @@
   <head>
     <base href="/" />
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>spike.land</title>
     <link
@@ -15,14 +14,32 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
       rel="stylesheet"
     />
-    <link rel="preload" href="/live/${codeSpace}/index.css" as="style" />
-    <link rel="stylesheet" href="/assets/${codeSpace}/index.css" />
 
-    <script type="importmap">${JSON.stringify(importMap)}</script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "/@/",
+          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+          "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
+          "@emotion/styled": "/emotionStyled.mjs", 
+          "react/jsx-runtime": "/jsx.mjs",
+          "react-dom/server": "/reactDomServer.mjs",
+          "react-dom/client": "/reactDomClient.mjs",
+          "@emotion/react": "/emotion.mjs",
+          "react": "/reactMod.mjs",
+          "framer-motion": "/@/workers/framer-motion.mjs",
+          "react-dom": "/reactDom.mjs"
+        }
+      }
+    </script>
   </head>
+  <style>
+  /* criticalCss */
+  </style>
 
   <body>
-    <div id="embed"></div>
+    
+    <div id="embed">${html}</div>
     <script type="module" src="/start.mjs"></script>
   </body>
 </html>
