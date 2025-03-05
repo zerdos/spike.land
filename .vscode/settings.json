@@ -81,7 +81,25 @@
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
-    "**/.hg/store/**": true
+    "**/.hg/store/**": true,
+    "**/dist/**": true,
+    "**/dist-vite/**": true,
+    "**/build/**": true,
+    "**/.cache/**": true
+  },
+  "typescript.disableDirectoryWatching": [
+    "**/dist/**",
+    "**/dist-vite/**",
+    "**/build/**",
+    "**/.cache/**",
+    "**/node_modules/**"
+  ],
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",
