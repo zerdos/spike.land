@@ -342,6 +342,7 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
         return applyPatch(sessionCopy, standardOperations).newDocument;
       } catch (err) {
         console.error("Error applying standard operations:", err);
+        // Return a clean copy of the original session without any partial changes
         return JSON.parse(JSON.stringify(sess));
       }
     }

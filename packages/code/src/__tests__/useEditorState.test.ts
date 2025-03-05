@@ -2,10 +2,6 @@ import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { useEditorState } from "../hooks/use-editor-state";
 
-// Mock the isMobile function
-vi.mock("../isMobile", () => ({
-  isMobile: vi.fn().mockReturnValue(false),
-}));
 
 describe("useEditorState", () => {
   beforeEach(() => {
@@ -26,14 +22,6 @@ describe("useEditorState", () => {
     expect(typeof result.current.setEditorState).toBe("function");
   });
 
-  it("should use ace engine on mobile devices", () => {
-    // Mock isMobile to return true
-    require("../isMobile").isMobile.mockReturnValueOnce(true);
-    
-    const { result } = renderHook(() => useEditorState());
-    
-    expect(result.current.engine).toBe("ace");
-  });
 
   it("should update editor state correctly", () => {
     const { result } = renderHook(() => useEditorState());

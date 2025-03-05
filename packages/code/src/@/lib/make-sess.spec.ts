@@ -117,14 +117,14 @@ describe("make-sess", () => {
       expect(patch.patch).toBeDefined();
     });
     
-    it("should return a patch without diff for identical sessions", () => {
+    it("should return a patch with empty diff for identical sessions", () => {
       const session = createTestSession();
       
       const patch = generateSessionPatch(session, session);
       
       expect(patch).toBeDefined();
       expect(patch.oldHash).toBe(patch.hashCode);
-      expect(patch.patch).toBeUndefined();
+      expect(patch.patch).toStrictEqual([]);
     });
   });
   
@@ -145,7 +145,7 @@ describe("make-sess", () => {
       
       const result = applySessionPatch(session, patch);
       
-      expect(result).toBeDefined();
+      expect(result).toEqual(modifiedSession);  
       expect(result.code).toBe("updated code");
     });
     

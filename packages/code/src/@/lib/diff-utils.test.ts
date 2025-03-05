@@ -141,10 +141,13 @@ describe("diff-utils", () => {
         }
       ];
       
-      // Should not throw and should return a copy of the original session
+      // Should not throw and should return a clean copy of the original session
       const result = applyDiff(session, invalidDiff);
       
-      expect(result).toEqual(session);
+      // Create a clean copy of the session for comparison
+      const cleanCopy = JSON.parse(JSON.stringify(session));
+      
+      expect(result).toEqual(cleanCopy);
       expect(result).not.toBe(session); // Should be a new object
     });
   });

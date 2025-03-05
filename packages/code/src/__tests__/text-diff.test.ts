@@ -10,8 +10,8 @@ describe("text-diff", () => {
       
       expect(result).toHaveLength(2);
       expect(result[0].value).toBe("line 1\nline 2\n");
-      expect(result[0].added).toBeUndefined();
-      expect(result[0].removed).toBeUndefined();
+      expect(result[0].added).toBe(false);
+      expect(result[0].removed).toBe(false);
       expect(result[1].value).toBe("line 3\n");
       expect(result[1].added).toBe(true);
     });

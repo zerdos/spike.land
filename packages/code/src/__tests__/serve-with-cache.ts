@@ -1,212 +1,186 @@
-import { createHash } from "crypto";
-import { promises as fs } from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { md5 } from "@/lib/md5";
+import { routes } from "@/lib/routes";
+import { lookup } from "mime-types";
 
-/**
- * Cache configuration
- */
-interface CacheConfig {
-  maxAge: number;
-  directory: string;
-  bypassCache?: boolean;
+// Simplified getContentType function
+function getContentType(path: string) {
+  return lookup(path) || "application/octet-stream";
 }
 
-/**
- * Cache statistics
- */
-interface CacheStats {
-  cacheSize: number;
-  itemCount: number;
-  oldestItem: number;
-  newestItem: number;
-}
+export const serveWithCache = (
+  files: Record<string, string>,
+  cacheToUse: () => Promise<Cache>,
+) => {
+  const ASSET_HASH = files["ASSET_HASH"] || md5(JSON.stringify(files));
 
-/**
- * Default cache configuration
- */
-const DEFAULT_CACHE_CONFIG: CacheConfig = {
-  maxAge: 3600 * 1000, // 1 hour
-  directory: ".cache",
-};
-
-/**
- * Serves a resource with caching
- * @param url The URL to fetch
- * @param options Fetch options
- * @param cacheConfig Cache configuration
- * @returns The response
- */
-export async function serveWithCache(
-  url: string,
-  options: RequestInit = {},
-  cacheConfig: Partial<CacheConfig> = {}
-): Promise<Response> {
-  // Merge cache config with defaults
-  const config = { ...DEFAULT_CACHE_CONFIG, ...cacheConfig };
-  
-  // Create a hash of the URL and options to use as the cache key
-  const key = createHash("md5")
-    .update(url + JSON.stringify(options))
-    .digest("hex");
-  
-  // Create the cache directory if it doesn't exist
-  const cacheDir = path.resolve(process.cwd(), config.directory);
-  await fs.mkdir(cacheDir, { recursive: true });
-  
-  const cachePath = path.join(cacheDir, key);
-  
-  // Check if we should bypass the cache
-  if (!config.bypassCache) {
-    try {
-      // Check if the cache file exists and is not expired
-      const stats = await fs.stat(cachePath);
-      const age = Date.now() - stats.mtimeMs;
-      
-      if (age < config.maxAge) {
-        // Cache hit
-        const cachedData = await fs.readFile(cachePath, "utf-8");
-        const { status, headers, body } = JSON.parse(cachedData);
-        
-        return new Response(body, {
-          status,
-          headers: new Headers(headers),
-        });
-      }
-    } catch (error) {
-      // Cache miss or error, continue to fetch
-    }
-  }
-  
-  try {
-    // Fetch the resource
-    const response = await fetch(url, options);
-    
-    // Don't cache failed responses
-    if (!response.ok) {
-      return response;
-    }
-    
-    // Clone the response to read the body
-    const clonedResponse = response.clone();
-    
-    // Read the body as text
-    const body = await clonedResponse.text();
-    
-    // Create a cache entry
-    const cacheEntry = {
-      url,
-      status: response.status,
-      statusText: response.statusText,
-      headers: Object.fromEntries(response.headers.entries()),
-      body,
-      timestamp: Date.now(),
-    };
-    
-    // Write the cache entry to disk
-    await fs.writeFile(cachePath, JSON.stringify(cacheEntry));
-    
-    // Return the original response
-    return new Response(body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: response.headers,
+  let _fileCache: Cache | null | undefined;
+  const fileCachePromise = cacheToUse()
+    .then((cache) => {
+      _fileCache = cache;
+      return cache;
+    })
+    .catch((error) => {
+      console.error("Cache creation failed:", error);
+      _fileCache = null; // Indicate that cache is unavailable
     });
-  } catch (error) {
-    console.error("Error fetching resource:", error);
-    throw error;
-  }
-}
 
-/**
- * Clears the cache
- * @param urlOrConfig URL to clear or cache configuration
- */
-export async function clearCache(
-  urlOrConfig?: string | Partial<CacheConfig>
-): Promise<void> {
-  // Handle different parameter types
-  let config = { ...DEFAULT_CACHE_CONFIG };
-  let specificUrl: string | undefined;
-  
-  if (typeof urlOrConfig === "string") {
-    specificUrl = urlOrConfig;
-  } else if (urlOrConfig) {
-    config = { ...config, ...urlOrConfig };
-  }
-  
-  const cacheDir = path.resolve(process.cwd(), config.directory);
-  
-  try {
-    if (specificUrl) {
-      // Clear cache for specific URL
-      const key = createHash("md5")
-        .update(specificUrl)
-        .digest("hex");
-      const cachePath = path.join(cacheDir, key);
-      await fs.unlink(cachePath);
-    } else {
-      // Clear all cache
-      const files = await fs.readdir(cacheDir);
-      
-      // Delete each file
-      await Promise.all(
-        files.map((file) => fs.unlink(path.join(cacheDir, file)))
-      );
-    }
-  } catch (error) {
-    // Directory doesn't exist or other error
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
+  const isAsset = (request: Request) => {
+    const url = new URL(request.url);
+    const pathname = url.pathname.startsWith("/")
+      ? url.pathname.slice(1)
+      : url.pathname;
+    const assetPath = pathname.startsWith(ASSET_HASH + "/")
+      ? pathname.slice(ASSET_HASH.length + 1)
+      : pathname;
+    return assetPath in files || pathname in files;
+  };
 
-/**
- * Gets cache statistics
- * @param cacheConfig Cache configuration
- * @returns Cache statistics
- */
-export async function getCacheStats(
-  cacheConfig: Partial<CacheConfig> = {}
-): Promise<CacheStats> {
-  const config = { ...DEFAULT_CACHE_CONFIG, ...cacheConfig };
-  const cacheDir = path.resolve(process.cwd(), config.directory);
-  
-  try {
-    // Get all files in the cache directory
-    const files = await fs.readdir(cacheDir);
-    
-    let totalSize = 0;
-    let oldestTimestamp = Date.now();
-    let newestTimestamp = 0;
-    
-    // Get stats for each file
-    for (const file of files) {
-      const filePath = path.join(cacheDir, file);
-      const stats = await fs.stat(filePath);
-      
-      totalSize += stats.size;
-      oldestTimestamp = Math.min(oldestTimestamp, stats.mtimeMs);
-      newestTimestamp = Math.max(newestTimestamp, stats.mtimeMs);
-    }
-    
-    return {
-      cacheSize: totalSize,
-      itemCount: files.length,
-      oldestItem: oldestTimestamp,
-      newestItem: newestTimestamp,
-    };
-  } catch (error) {
-    // Directory doesn't exist or other error
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return {
-        cacheSize: 0,
-        itemCount: 0,
-        oldestItem: 0,
-        newestItem: 0,
-      };
-    }
-    throw error;
-  }
-}
+  // Instance-specific in-flight requests map
+  const inFlightRequests = new Map<string, Promise<Response>>();
+
+  return {
+    isAsset,
+    shouldBeCached: (request: Request) => {
+      if (isAsset(request)) {
+        return true;
+      }
+      const url = new URL(request.url);
+      if (
+        url.pathname.startsWith("/live/") ||
+        url.pathname.startsWith("/my-cms/") || url.pathname.startsWith("/api/")
+      ) {
+        return false;
+      }
+      return !Object.hasOwn(routes, url.pathname);
+    },
+
+    serve: async (
+      request: Request,
+      assetFetcher: (
+        req: Request,
+        waitUntil: (p: Promise<unknown>) => void,
+      ) => Promise<Response>,
+      waitUntil: (p: Promise<unknown>) => void,
+    ) => {
+      if (request.method !== "GET") {
+        return new Response("Method Not Allowed", { status: 405 });
+      }
+
+      if (!isAsset(request)) {
+        return new Response("Not Found", { status: 404 });
+      }
+
+      const url = new URL(request.url);
+      const pathname = url.pathname.startsWith("/")
+        ? url.pathname.slice(1)
+        : url.pathname;
+      const filePath = pathname.startsWith(ASSET_HASH + "/")
+        ? pathname.slice(ASSET_HASH.length + 1)
+        : pathname;
+
+      if (!(filePath in files)) {
+        return new Response("Not Found", { status: 404 });
+      }
+
+      if (_fileCache === undefined) {
+        await fileCachePromise;
+      }
+
+      const cacheUrl = new URL(request.url);
+      cacheUrl.pathname = files[filePath] || filePath;
+      cacheUrl.search = "";
+      cacheUrl.hash = "";
+
+      const cacheKey = new Request(cacheUrl.toString());
+
+      if (_fileCache) {
+        // Attempt to find the response in the cache
+        const cachedResp = await _fileCache.match(cacheKey);
+        if (cachedResp) return cachedResp.clone();
+
+        if (inFlightRequests.has(request.url)) {
+          // Wait for the in-flight fetch to complete
+          const inFlightResponse = await inFlightRequests.get(request.url)!;
+          return inFlightResponse.clone();
+        }
+
+        // Construct the new URL based on the files mapping
+        const newUrl = new URL(request.url);
+        newUrl.pathname = "/" + (files[filePath] || filePath);
+        newUrl.pathname = newUrl.pathname.replace(ASSET_HASH + "/", "");
+
+        const req = new Request(newUrl.toString(), {
+          method: request.method,
+          headers: request.headers,
+          redirect: request.redirect,
+        });
+
+        // Create a promise to represent the in-flight fetch
+        const inFlightPromise = (async (req: Request) => {
+          const fileParts = (files[filePath] ? files[filePath] : filePath)
+            .split(".");
+          fileParts.pop();
+          const hash = fileParts.pop()!;
+
+          let kvResp: Response;
+          try {
+            kvResp = await assetFetcher(req, waitUntil);
+          } catch (error) {
+            console.error("Asset fetch error:", error);
+            inFlightRequests.delete(request.url);
+            return new Response("Internal Server Error", { status: 500 });
+          }
+
+          if (!kvResp.ok) {
+            inFlightRequests.delete(request.url);
+            return kvResp;
+          }
+
+          // Clone headers and set appropriate Content-Type
+          const headers = new Headers(kvResp.headers);
+          const contentType = getContentType(filePath);
+          headers.set("Content-Type", contentType);
+          headers.set("x-hash", hash);
+
+          // Overwrite the Cache-Control header
+          headers.set("Cache-Control", "public, max-age=604800, immutable");
+          headers.set("Access-Control-Allow-Origin", "*");
+          // Access-Control-Allow-Credentials: true
+          headers.set("Access-Control-Allow-Credentials", "true");
+          // Set security headers
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+
+          const response = new Response(kvResp.body, {
+            status: kvResp.status,
+            statusText: kvResp.statusText,
+            headers,
+          });
+
+          if (response.status === 200) {
+            // Cache the response asynchronously if cache is available
+            waitUntil(
+              _fileCache.put(cacheKey, response.clone()).catch((error) => {
+                console.error("Cache put error:", error);
+              }),
+            );
+          }
+
+          // Remove the in-flight request from the map
+          inFlightRequests.delete(request.url);
+
+          return response;
+        })(req);
+
+        // Store the in-flight promise
+        inFlightRequests.set(request.url, inFlightPromise);
+
+        // Await the in-flight fetch and clone the response before returning
+        const response = await inFlightPromise;
+        return response.clone();
+      }
+
+      // If we reach here, it means the cache is not available
+      return new Response("Service Unavailable", { status: 503 });
+    },
+  };
+};

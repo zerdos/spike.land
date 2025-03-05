@@ -2,8 +2,6 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { applyDiff, createDiff } from "@/lib/text-diff";
 
-export { createDiff };
-
 export interface CodePatch {
   oldHash: string;
   hashCode: string;
@@ -86,17 +84,23 @@ class SessionPatcher {
     const oldHash = computeSessionHash(sanitizedOldSess);
     const hashCode = computeSessionHash(sanitizedNewSess);
 
+    // If the sessions are identical, return a patch with an empty diff
     if (oldHash === hashCode) {
       return {
         oldHash,
         hashCode,
+        patch: [] // Always include patch property, even if empty
       };
     }
 
+    // Create a diff between the sessions
+    const diff = createDiff(sanitizedOldSess, sanitizedNewSess);
+
+    // Return the patch with the diff
     return {
       oldHash,
       hashCode,
-      patch: createDiff(sanitizedOldSess, sanitizedNewSess)
+      patch: diff
     };
   }
 }
