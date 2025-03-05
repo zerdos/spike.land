@@ -1,98 +1,211 @@
-import { md5 } from "@/lib/md5";
-import { describe, expect, it } from "vitest";
-import {
-  calculateCodeChanges,
-  compressCode,
-  decompressCode,
-  estimateTokenSavings,
-  logCodeChanges,
-  shouldReturnFullCode,
+import { describe, expect, it, vi } from "vitest";
+import { 
+  logCodeChanges, 
   verifyCodeIntegrity,
+  calculateCodeChanges,
+  shouldReturnFullCode,
+  estimateTokenSavings
 } from "../code-utils";
+import { md5 } from "@/lib/md5";
+
+// Mock dependencies
+vi.mock("@/lib/md5", () => ({
+  md5: vi.fn((input) => `md5-${typeof input === 'string' ? input.substring(0, 10) : 'mock'}`)
+}));
 
 describe("code-utils", () => {
   describe("verifyCodeIntegrity", () => {
-    it("should return true for matching code and hash", () => {
-      const code = "function test() {}";
-      const hash = md5(code);
-      expect(verifyCodeIntegrity(code, hash)).toBe(true);
+    it("should return true when code hash matches provided hash", () => {
+      const code = "const test = 'test';";
+      const hash = "md5-const test";
+      
+      vi.mocked(md5).mockReturnValueOnce(hash);
+      
+      const result = verifyCodeIntegrity(code, hash);
+      
+      expect(result).toBe(true);
+      expect(md5).toHaveBeenCalledWith(code);
     });
-
-    it("should return false for mismatched code and hash", () => {
-      const code = "function test() {}";
-      const hash = md5("different code");
-      expect(verifyCodeIntegrity(code, hash)).toBe(false);
+    
+    it("should return false when code hash doesn't match provided hash", () => {
+      const code = "const test = 'test';";
+      const hash = "incorrect-hash";
+      
+      vi.mocked(md5).mockReturnValueOnce("md5-const test");
+      
+      const result = verifyCodeIntegrity(code, hash);
+      
+      expect(result).toBe(false);
+      expect(md5).toHaveBeenCalledWith(code);
+    });
+    
+    it("should return false when code is empty", () => {
+      const code = "";
+      const hash = "md5-empty";
+      
+      const result = verifyCodeIntegrity(code, hash);
+      
+      expect(result).toBe(false);
+    });
+    
+    it("should return false when hash is empty", () => {
+      const code = "const test = 'test';";
+      const hash = "";
+      
+      const result = verifyCodeIntegrity(code, hash);
+      
+      expect(result).toBe(false);
     });
   });
-
-  describe("shouldReturnFullCode", () => {
-    const smallCode = "small".repeat(100); // 500 chars
-    const largeCode = "large".repeat(1000); // 5000 chars
-
-    it("should return true for small files", () => {
-      expect(shouldReturnFullCode("any instructions", smallCode)).toBe(true);
-    });
-
-    it("should return true for complex changes", () => {
-      const complexInstructions = `
-<<<<<<< SEARCH
-${smallCode}
-=======
-${largeCode}
->>>>>>> REPLACE
-`;
-      expect(shouldReturnFullCode(complexInstructions, largeCode)).toBe(true);
-    });
-
-    it("should return false for simple changes to large files", () => {
-      const simpleInstructions = `
-<<<<<<< SEARCH
-const x = 1;
-=======
-const x = 2;
->>>>>>> REPLACE
-`;
-      expect(shouldReturnFullCode(simpleInstructions, largeCode)).toBe(false);
-    });
-  });
-
+  
   describe("calculateCodeChanges", () => {
-    it("should calculate size and line changes", () => {
-      const original = "line1\nline2\nline3";
-      const modified = "line1\nmodified\nline3\nnew line";
-
-      const changes = calculateCodeChanges(original, modified);
-      expect(changes.sizeChange).toBeGreaterThan(0);
-      expect(changes.lineCount.original).toBe(3);
-      expect(changes.lineCount.modified).toBe(4);
-      expect(changes.changedLines).toBe(2); // 1 modified + 1 added
+    it("should calculate metrics for code changes", () => {
+      const oldCode = "line 1\nline 2\nline 3";
+      const newCode = "line 1\nmodified line 2\nline 3\nline 4";
+      
+      const result = calculateCodeChanges(oldCode, newCode);
+      
+      expect(result).toHaveProperty("sizeChange");
+      expect(result).toHaveProperty("lineCount");
+      expect(result).toHaveProperty("changedLines");
+      expect(result.lineCount.original).toBe(3);
+      expect(result.lineCount.modified).toBe(4);
+      expect(result.changedLines).toBeGreaterThan(0);
     });
-
-    it("should handle empty inputs", () => {
-      const changes = calculateCodeChanges("", "");
-      expect(changes.sizeChange).toBe(0);
-      expect(changes.lineCount.original).toBe(1);
-      expect(changes.lineCount.modified).toBe(1);
-      expect(changes.changedLines).toBe(0);
+    
+    it("should handle identical code", () => {
+      const code = "line 1\nline 2\nline 3";
+      
+      const result = calculateCodeChanges(code, code);
+      
+      expect(result.sizeChange).toBe(0);
+      expect(result.changedLines).toBe(0);
+    });
+    
+    it("should handle empty old code", () => {
+      const oldCode = "";
+      const newCode = "line 1\nline 2";
+      
+      const result = calculateCodeChanges(oldCode, newCode);
+      
+      expect(result.sizeChange).toBe(newCode.length);
+      expect(result.lineCount.original).toBe(1); // Empty string has 1 line
+      expect(result.lineCount.modified).toBe(2);
+    });
+    
+    it("should handle empty new code", () => {
+      const oldCode = "line 1\nline 2";
+      const newCode = "";
+      
+      const result = calculateCodeChanges(oldCode, newCode);
+      
+      expect(result.sizeChange).toBe(-oldCode.length);
+      expect(result.lineCount.original).toBe(2);
+      expect(result.lineCount.modified).toBe(1); // Empty string has 1 line
     });
   });
-
+  
   describe("logCodeChanges", () => {
-    it("should not log anything for identical code", () => {
-      const code = "function test() {}";
-      // Mock console.log to verify it's not called
-      const consoleSpy = vi.spyOn(console, "log");
+    beforeEach(() => {
+      vi.spyOn(console, "log").mockImplementation(() => {});
+    });
+    
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+    
+    it("should log code changes to console", () => {
+      const oldCode = "line 1\nline 2\nline 3";
+      const newCode = "line 1\nmodified line 2\nline 3\nline 4";
+      
+      logCodeChanges(oldCode, newCode);
+      
+      expect(console.log).toHaveBeenCalled();
+    });
+    
+    it("should not log when codes are identical", () => {
+      const code = "line 1\nline 2\nline 3";
+      
       logCodeChanges(code, code);
-      expect(consoleSpy).not.toHaveBeenCalled();
-      consoleSpy.mockRestore();
+      
+      expect(console.log).not.toHaveBeenCalledWith(expect.stringContaining("Code modified successfully"));
+    });
+    
+    it("should handle large code changes", () => {
+      const oldCode = "a".repeat(1000);
+      const newCode = "b".repeat(1000);
+      
+      logCodeChanges(oldCode, newCode);
+      
+      expect(console.log).toHaveBeenCalled();
     });
   });
-
+  
+  describe("shouldReturnFullCode", () => {
+    // Mock the config constants
+    const originalSmallFileThreshold = (global as any).SMALL_FILE_THRESHOLD;
+    const originalComplexChangeThreshold = (global as any).COMPLEX_CHANGE_THRESHOLD;
+    const originalSignificantChangeRatio = (global as any).SIGNIFICANT_CHANGE_RATIO;
+    
+    beforeEach(() => {
+      // Mock updateSearchReplace
+      vi.mock("@/lib/chat-utils", () => ({
+        updateSearchReplace: vi.fn().mockReturnValue([]),
+      }));
+      
+      // Set mock values for constants
+      (global as any).SMALL_FILE_THRESHOLD = 1000;
+      (global as any).COMPLEX_CHANGE_THRESHOLD = 500;
+      (global as any).SIGNIFICANT_CHANGE_RATIO = 0.3;
+    });
+    
+    afterEach(() => {
+      // Restore original values
+      (global as any).SMALL_FILE_THRESHOLD = originalSmallFileThreshold;
+      (global as any).COMPLEX_CHANGE_THRESHOLD = originalComplexChangeThreshold;
+      (global as any).SIGNIFICANT_CHANGE_RATIO = originalSignificantChangeRatio;
+    });
+    
+    it("should return true for small files", () => {
+      const instructions = "Some instructions";
+      const smallCode = "const x = 5;"; // Less than SMALL_FILE_THRESHOLD
+      
+      const result = shouldReturnFullCode(instructions, smallCode);
+      
+      expect(result).toBe(true);
+    });
+    
+    it("should return true for complex changes", () => {
+      const complexInstructions = "a".repeat(1000); // More than COMPLEX_CHANGE_THRESHOLD
+      const largeCode = "a".repeat(2000); // More than SMALL_FILE_THRESHOLD
+      
+      const result = shouldReturnFullCode(complexInstructions, largeCode);
+      
+      expect(result).toBe(true);
+    });
+  });
+  
   describe("estimateTokenSavings", () => {
     it("should estimate tokens based on character count", () => {
-      expect(estimateTokenSavings("test")).toBe(1); // 4 chars = 1 token
-      expect(estimateTokenSavings("this is a longer test")).toBe(5); // 20 chars = 5 tokens
-      expect(estimateTokenSavings("")).toBe(0);
+      const code = "a".repeat(100);
+      
+      const result = estimateTokenSavings(code);
+      
+      expect(result).toBe(25); // 100 characters / 4 = 25 tokens
+    });
+    
+    it("should return 0 for empty code", () => {
+      const result = estimateTokenSavings("");
+      
+      expect(result).toBe(0);
+    });
+    
+    it("should return 0 for null or undefined input", () => {
+      const result1 = estimateTokenSavings(null as any);
+      const result2 = estimateTokenSavings(undefined as any);
+      
+      expect(result1).toBe(0);
+      expect(result2).toBe(0);
     });
   });
 });

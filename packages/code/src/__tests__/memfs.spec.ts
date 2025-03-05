@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "./memfs";
+import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "@/lib/memfs";
 
 interface MockFileSystemFile {
   kind: "file";

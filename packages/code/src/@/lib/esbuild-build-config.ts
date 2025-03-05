@@ -39,9 +39,9 @@ export const buildOptions: BuildOptions = {
     "os": "os-browserify",
     "crypto": "crypto-browserify",
     assert: "assert",
-    "graceful-fs": "./src/memfs",
-    fs: "./src/memfs",
-    "node:fs": "./src/memfs",
+    "graceful-fs": "./src/@/lib/memfs",
+    fs: "./src/@/lib/memfs",
+    "node:fs": "./src/@/lib/memfs",
   },
   external: [
     "/swVersion.js",

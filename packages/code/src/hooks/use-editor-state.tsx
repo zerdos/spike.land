@@ -1,67 +1,64 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
-import type { EditorState } from "@/services/editorUtils";
-import { useRef, useState } from "react";
-import type { ErrorType } from "../components/ErrorMessages";
+import { useState, useRef, useCallback } from "react";
 import { isMobile } from "../isMobile";
-import { useContext } from "./useContext";
 
+/**
+ * Interface for editor state
+ */
+export interface EditorState {
+  started: boolean;
+  sub: boolean;
+  code: string;
+  setValue: (value: string) => void;
+}
+
+/**
+ * Custom hook for managing editor state
+ * @returns The editor state and functions to update it
+ */
 export const useEditorState = () => {
+  // Create a ref for the editor container
   const containerRef = useRef<HTMLDivElement>(null);
-  const [editorState, setEditorStateInternal] = useState<EditorState>({
+  
+  // Determine the editor engine based on device type
+  const engine = isMobile() ? "ace" : "monaco";
+  
+  // Initialize editor state
+  const [editorState, setEditorState] = useState<EditorState>({
     started: false,
     sub: false,
     code: "",
-    setValue: () => {},
+    setValue: (value: string) => {
+      // Default no-op implementation
+      console.log("Editor not initialized yet, setValue called with:", value);
+    },
   });
-
-  const engine = isMobile() ? "ace" : "monaco";
-
-  // Wrap setState to ensure updates are processed correctly
-  const setEditorState = (
-    updater: EditorState | ((prev: EditorState) => EditorState),
-  ) => {
-    setEditorStateInternal((prev) => {
-      const next = typeof updater === "function" ? updater(prev) : updater;
-
-      // Ensure setValue is preserved if not explicitly changed
-      if (!next.setValue && prev.setValue) {
-        next.setValue = prev.setValue;
+  
+  // Create a wrapper for setEditorState that preserves the setValue function
+  const setEditorStateWrapper = useCallback((newState: EditorState | ((prev: EditorState) => EditorState)) => {
+    setEditorState((prevState) => {
+      // Handle functional updates
+      if (typeof newState === "function") {
+        const updatedState = newState(prevState);
+        // Preserve setValue if not provided in the update
+        return {
+          ...updatedState,
+          setValue: updatedState.setValue || prevState.setValue,
+        };
       }
-
-      // Log state changes in development
-      if (process.env.NODE_ENV === "development") {
-        console.debug("[EditorState] State updated:", {
-          prev,
-          next,
-          timestamp: new Date().toISOString(),
-        });
-      }
-
-      return next;
+      
+      // Handle object updates
+      return {
+        ...newState,
+        // Preserve setValue if not provided in the update
+        setValue: newState.setValue || prevState.setValue,
+      };
     });
-  };
-
+  }, []);
+  
   return {
     containerRef,
     engine,
     editorState,
-    setEditorState,
+    setEditorState: setEditorStateWrapper,
   };
-};
-
-export const useErrorHandling = () => {
-  const [error, setError] = useState<ErrorType>(null);
-  const contextManager = useContext(getCodeSpace(location.pathname));
-
-  const handleError = (errorType: ErrorType, errorMessage: string) => {
-    setError(errorType);
-    contextManager.updateContext("errorLog", errorMessage);
-  };
-
-  const clearError = () => {
-    setError(null);
-    contextManager.updateContext("errorLog", "");
-  };
-
-  return { error, handleError, clearError };
 };

@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import type * as Monaco from "@/workers/monaco-editor.worker";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { cSessMock } from "../config/cSessMock";
-import { CodeHistoryCarousel } from "./AutoSaveHistory";
+import { CodeHistoryCarousel } from "../../components/AutoSaveHistory";
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({

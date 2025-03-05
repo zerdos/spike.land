@@ -129,13 +129,32 @@ export function createWorkflowWithStringReplace(
         const { codeSpace } = initialState;
         const code = initialState.code;
 
-        // Create the user message
+        // Create the user message with tool information
         const userMessage = new HumanMessage(
           {
             content: prompt + `
 <path>/live/${codeSpace}.tsx</path>
 <code>${code}</code>
 <hash>${hash}</hash>
+
+You are equipped with a tool called 'replace_in_file' to modify the code.
+
+Tool: replace_in_file
+Description: Modifies a file by replacing specific sections of code.
+Parameters:
+- path: The file path to modify. In this case: /live/${codeSpace}.tsx
+- diff: A set of SEARCH/REPLACE blocks to apply changes.
+
+Example:
+\`\`\`
+<<<<<<< SEARCH
+// Existing code line
+=======
+// New code line
+>>>>>>> REPLACE
+\`\`\`
+
+Use this tool to make precise changes to the code.
 `,
             additional_kwargs: {
               path: `/live/${codeSpace}.tsx`,

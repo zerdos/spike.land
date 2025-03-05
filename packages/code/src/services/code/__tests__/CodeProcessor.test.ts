@@ -2,13 +2,13 @@ import type { EmotionCache } from "@emotion/cache";
 import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ICodeSession, RenderedApp } from "@/lib/interfaces";
-import { formatCode, transpileCode } from "../../../components/editorUtils";
-import { RenderService } from "../../render/RenderService";
-import type { IWebSocketManager } from "../../websocket/types";
-import { CodeProcessor } from "../CodeProcessor";
+import { formatCode, transpileCode } from "@/services/editorUtils";
+import { RenderService } from "@/services/RenderService";
+import type { IWebSocketManager } from "@/services/types";
+import { CodeProcessor } from "@/services/CodeProcessor";
 
-vi.mock("../../render/RenderService");
-vi.mock("../../../components/editorUtils");
+vi.mock("@/services/RenderService");
+vi.mock("@/services/editorUtils");
 
 describe("CodeProcessor", () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
