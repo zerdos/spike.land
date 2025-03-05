@@ -109,10 +109,8 @@ export function getReplaceInFileTool(cSess: ICode) {
       await cSess.setCode(newContent);
 
       return {
-        success: true,
-        path: args.path,
-        replacements: parseDiff(args.diff).length,
-        hash: md5(newContent),
+        hash: newHash,
+        error: "",
       };
     } catch (error) {
       return {

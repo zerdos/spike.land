@@ -53,15 +53,24 @@ export const importFromString = async (code: string) => {
   let blobUrl: string | null = null;
 
   try {
-    blobUrl = createJsBlob(code);
 
-    const module = await import(/* @vite-ignore */ blobUrl);
-    if (!module.default) {
-      console.error("Module does not have a default export:", { code, module });
-      return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
-    }
-    return module.default as FlexibleComponentType;
+    const createJsBlob = async (code: string): Promise<string> =>
+      await createObjectURL(
+        new Blob([
+          importMapReplace(code.split("importMapReplace").join(""), origin).split(
+            `from "/`,
+          ).join(
+            `from "${origin}/`,
+          ),
+        ], { type: "application/javascript" }),
+      );
+
+    return import(/* @vite-ignore */ await createJsBlob(code)).then((module) =>
+      module.default
+    ) as Promise<FlexibleComponentType>;
   } catch (error) {
+    console.warn("File-based import failed, falling back to blob URL", error);
+
     const filePath = `/live-cms/${codeSpace}-${md5(code)}.mjs`;
     await fetch(filePath, {
       method: "PUT",
@@ -70,18 +79,10 @@ export const importFromString = async (code: string) => {
       },
       body: importMapReplace(code),
     });
-
-    const module = await import(filePath);
-    if (!module.default) {
-      console.error("Module does not have a default export:", { code, module, filePath });
-      return (() => <div>Error: Component has no default export</div>) as FlexibleComponentType;
-    }
-    return module.default as FlexibleComponentType;
-  } finally {
-    // Clean up the blob URL to prevent memory leaks
-    if (blobUrl) {
-      URL.revokeObjectURL(blobUrl);
-    }
+    console.log("File written to", filePath);
+    return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
+    // Fall back to blob URL approach
+  
   }
 };
 
