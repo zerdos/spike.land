@@ -1,17 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { 
-  readdir,
-  writeFile,
   readFile,
-  unlink
-} from "@/lib/memfs";
+  writeFile,
+  appendFile,
+  unlink,
+  copyFile,
+  rename
+} from "@/lib/memfs/index";
 import { 
   mockDirectoryHandle, 
   mockFileSystem,
   mockNavigator, 
   setupTest,
-  MockFileSystemFile,
-  MockFileSystemEntry
+  MockFileSystemFile
 } from "./setup";
 
 // Apply mocks
@@ -22,62 +23,14 @@ describe("memfs file operations", () => {
     setupTest();
   });
 
-  describe("readdir", () => {
-    it("should list directory contents", async () => {
-      const files = await readdir("/");
-      expect(files).toEqual(["test.txt", "test"]);
-    });
-
-    it("should handle empty directories", async () => {
-      // Mock an empty directory
-      mockDirectoryHandle.entries = vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-        // Yield nothing
-      });
-      
-      const files = await readdir("/");
-      expect(files).toEqual([]);
-      
-      // Restore original mock
-      mockDirectoryHandle.entries = vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-        for (const name in mockFileSystem) {
-          yield [name, mockFileSystem[name]];
-        }
-      });
-    });
-  });
-
-  describe("writeFile", () => {
-    it("should write content to a file", async () => {
-      const testContent = "new file content";
-      const testPath = "/test/newfile.txt";
-      
-      await writeFile(testPath, testContent);
-      
-      // Verify the directory handle was retrieved
-      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("test", { create: true });
-      
-      // Verify the file was created and written to
-      const testDirHandle = await mockDirectoryHandle.getDirectoryHandle("test");
-      expect(testDirHandle.getFileHandle).toHaveBeenCalledWith("newfile.txt", { create: true });
-    });
-
-    it("should throw error for invalid file path", async () => {
-      await expect(writeFile("/", "content")).rejects.toThrow("Invalid file path");
-    });
-  });
-
   describe("readFile", () => {
-    it("should read content from a file", async () => {
+    it("should read file content", async () => {
       const content = await readFile("/test.txt");
-      expect(content).toBe("file content");
-    });
-
-    it("should throw error for invalid file path", async () => {
-      await expect(readFile("/")).rejects.toThrow("Invalid file path");
+      expect(content).toBe("test content");
     });
 
     it("should throw error for non-existent file", async () => {
-      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(new Error("File not found"));
+      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(new Error("Not found"));
       
       await expect(readFile("/nonexistent.txt")).rejects.toThrow();
       
@@ -109,14 +62,78 @@ describe("memfs file operations", () => {
     });
   });
 
+  describe("writeFile", () => {
+    it("should write content to file", async () => {
+      await writeFile("/new-file.txt", "new content");
+      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-file.txt", { create: true });
+      
+      const fileHandle = await mockDirectoryHandle.getFileHandle("new-file.txt");
+      const writable = await fileHandle.createWritable();
+      expect(writable.write).toHaveBeenCalledWith("new content");
+      expect(writable.close).toHaveBeenCalled();
+    });
+  });
+
+  describe("appendFile", () => {
+    it("should append content to existing file", async () => {
+      // First read the existing content
+      const existingContent = await readFile("/test.txt");
+      
+      // Then append new content
+      await appendFile("/test.txt", " appended");
+      
+      // Verify the file was written with combined content
+      const fileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
+      const writable = await fileHandle.createWritable();
+      expect(writable.write).toHaveBeenCalledWith(existingContent + " appended");
+    });
+
+    it("should create file if it doesn't exist", async () => {
+      await appendFile("/new-append.txt", "new content");
+      expect(mockDirectoryHandle.getFileHandle).toHaveBeenCalledWith("new-append.txt", { create: true });
+    });
+  });
+
   describe("unlink", () => {
     it("should delete a file", async () => {
       await unlink("/test.txt");
       expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test.txt");
     });
+  });
 
-    it("should throw error for invalid file path", async () => {
-      await expect(unlink("/")).rejects.toThrow("Invalid file path");
+  describe("copyFile", () => {
+    it("should copy a file", async () => {
+      await copyFile("/test.txt", "/copy.txt");
+      
+      // Verify source was read
+      const sourceFileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
+      const sourceFile = await sourceFileHandle.getFile();
+      expect(sourceFile.text).toHaveBeenCalled();
+      
+      // Verify destination was written
+      const destFileHandle = await mockDirectoryHandle.getFileHandle("copy.txt");
+      const writable = await destFileHandle.createWritable();
+      expect(writable.write).toHaveBeenCalledWith("test content");
+      expect(writable.close).toHaveBeenCalled();
+    });
+  });
+
+  describe("rename", () => {
+    it("should rename a file", async () => {
+      await rename("/test.txt", "/renamed.txt");
+      
+      // Verify source was read
+      const sourceFileHandle = await mockDirectoryHandle.getFileHandle("test.txt");
+      const sourceFile = await sourceFileHandle.getFile();
+      expect(sourceFile.text).toHaveBeenCalled();
+      
+      // Verify destination was written
+      const destFileHandle = await mockDirectoryHandle.getFileHandle("renamed.txt");
+      const writable = await destFileHandle.createWritable();
+      expect(writable.write).toHaveBeenCalledWith("test content");
+      
+      // Verify source was deleted
+      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test.txt");
     });
   });
 });

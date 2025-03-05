@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { 
   getDirectoryEntriesRecursive, 
   getDirectoryHandleAndFileName
-} from "@/lib/memfs";
+} from "@/lib/memfs/index";
 import { 
   mockDirectoryHandle, 
   mockNavigator, 

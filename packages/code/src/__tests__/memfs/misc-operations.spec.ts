@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import FS, { 
   cwd,
   readFileSync
-} from "@/lib/memfs";
+} from "@/lib/memfs/index";
 import { 
   mockNavigator, 
   setupTest

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import FS from "@/lib/memfs/index";
 import { mockNavigator, mockDirectoryHandle, mockFileSystem, setupTest } from "./setup";
 
 // Apply mocks
@@ -21,5 +22,23 @@ describe("memfs", () => {
     expect(mockNavigator).toBeDefined();
     expect(mockDirectoryHandle).toBeDefined();
     expect(mockFileSystem).toBeDefined();
+  });
+
+  it("should export a complete FS module", () => {
+    expect(FS).toHaveProperty("readFile");
+    expect(FS).toHaveProperty("writeFile");
+    expect(FS).toHaveProperty("unlink");
+    expect(FS).toHaveProperty("mkdir");
+    expect(FS).toHaveProperty("readdir");
+    expect(FS).toHaveProperty("stat");
+    expect(FS).toHaveProperty("cwd");
+    expect(FS).toHaveProperty("readFileSync");
+    expect(FS).toHaveProperty("open");
+    expect(FS).toHaveProperty("copyFile");
+    expect(FS).toHaveProperty("rename");
+    expect(FS).toHaveProperty("rmdir");
+    expect(FS).toHaveProperty("access");
+    expect(FS).toHaveProperty("truncate");
+    expect(FS).toHaveProperty("appendFile");
   });
 });

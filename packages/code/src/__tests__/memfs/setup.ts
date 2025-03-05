@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 
-// Define mock types that match the File System Access API
+// Mock file system entries
 export interface MockFileSystemFile {
   kind: "file";
   name: string;
@@ -21,22 +21,20 @@ export interface MockFileSystemDirectory {
   name: string;
   getDirectoryHandle: (name: string, options?: { create?: boolean }) => Promise<MockFileSystemDirectory>;
   getFileHandle: (name: string, options?: { create?: boolean }) => Promise<MockFileSystemFile>;
-  entries: () => AsyncGenerator<[string, MockFileSystemEntry], void, unknown>;
-  removeEntry: (name: string) => Promise<void>;
+  removeEntry: (name: string, options?: { recursive?: boolean }) => Promise<void>;
+  entries: () => AsyncIterableIterator<[string, MockFileSystemFile | MockFileSystemDirectory]>;
 }
 
-export type MockFileSystemEntry = MockFileSystemFile | MockFileSystemDirectory;
-
-// Create mock file system entries
-export const mockFileSystem: Record<string, MockFileSystemEntry> = {
+// Create mock file system
+export const mockFileSystem: Record<string, MockFileSystemFile | MockFileSystemDirectory> = {
   "test.txt": {
-    kind: "file" as const,
+    kind: "file",
     name: "test.txt",
     getFile: vi.fn().mockResolvedValue({
       size: 100,
       type: "text/plain",
       lastModified: Date.now(),
-      text: vi.fn().mockResolvedValue("file content"),
+      text: vi.fn().mockResolvedValue("test content"),
     }),
     createWritable: vi.fn().mockResolvedValue({
       write: vi.fn().mockResolvedValue(undefined),
@@ -44,26 +42,30 @@ export const mockFileSystem: Record<string, MockFileSystemEntry> = {
     }),
   },
   "test": {
-    kind: "directory" as const,
+    kind: "directory",
     name: "test",
     getDirectoryHandle: vi.fn().mockImplementation(async (name, options) => {
+      if (mockFileSystem[`test/${name}`]?.kind === "directory") {
+        return mockFileSystem[`test/${name}`] as MockFileSystemDirectory;
+      }
       if (options?.create) {
         const newDir = {
           kind: "directory" as const,
           name,
-          getDirectoryHandle: vi.fn().mockResolvedValue({} as MockFileSystemDirectory),
-          getFileHandle: vi.fn().mockResolvedValue({} as MockFileSystemFile),
-          entries: vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-            // Empty generator
-          }),
+          getDirectoryHandle: vi.fn().mockResolvedValue({}),
+          getFileHandle: vi.fn().mockResolvedValue({}),
           removeEntry: vi.fn().mockResolvedValue(undefined),
+          entries: vi.fn().mockReturnValue([]),
         };
-        mockFileSystem[name] = newDir;
+        mockFileSystem[`test/${name}`] = newDir;
         return newDir;
       }
-      throw new Error("Directory not found");
+      throw new Error("Not a directory");
     }),
     getFileHandle: vi.fn().mockImplementation(async (name, options) => {
+      if (mockFileSystem[`test/${name}`]?.kind === "file") {
+        return mockFileSystem[`test/${name}`] as MockFileSystemFile;
+      }
       if (options?.create) {
         const newFile = {
           kind: "file" as const,
@@ -79,70 +81,38 @@ export const mockFileSystem: Record<string, MockFileSystemEntry> = {
             close: vi.fn().mockResolvedValue(undefined),
           }),
         };
-        mockFileSystem[name] = newFile;
+        mockFileSystem[`test/${name}`] = newFile;
         return newFile;
       }
-      throw new Error("File not found");
-    }),
-    entries: vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-      // Empty generator for test directory
+      throw new Error("Not a file");
     }),
     removeEntry: vi.fn().mockResolvedValue(undefined),
+    entries: vi.fn().mockImplementation(async function* () {
+      for (const [key, value] of Object.entries(mockFileSystem)) {
+        if (key.startsWith("test/")) {
+          yield [key.replace("test/", ""), value];
+        }
+      }
+    }),
   },
 };
 
-// Create mock root directory handle
+// Create mock directory handle
 export const mockDirectoryHandle: MockFileSystemDirectory = {
   kind: "directory",
-  name: "root",
+  name: "",
   getDirectoryHandle: vi.fn(async (name, options) => {
     if (mockFileSystem[name]?.kind === "directory") {
       return mockFileSystem[name] as MockFileSystemDirectory;
     }
     if (options?.create) {
-      const newDir: MockFileSystemDirectory = {
-        kind: "directory",
+      const newDir = {
+        kind: "directory" as const,
         name,
-        getDirectoryHandle: vi.fn().mockImplementation(async (subName, subOptions) => {
-          if (subOptions?.create) {
-            const newSubDir: MockFileSystemDirectory = {
-              kind: "directory",
-              name: subName,
-              getDirectoryHandle: vi.fn().mockResolvedValue({} as MockFileSystemDirectory),
-              getFileHandle: vi.fn().mockResolvedValue({} as MockFileSystemFile),
-              entries: vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-                // Empty generator
-              }),
-              removeEntry: vi.fn().mockResolvedValue(undefined),
-            };
-            return newSubDir;
-          }
-          throw new Error("Directory not found");
-        }),
-        getFileHandle: vi.fn().mockImplementation(async (subName, subOptions) => {
-          if (subOptions?.create) {
-            const newFile: MockFileSystemFile = {
-              kind: "file",
-              name: subName,
-              getFile: vi.fn().mockResolvedValue({
-                size: 0,
-                type: "text/plain",
-                lastModified: Date.now(),
-                text: vi.fn().mockResolvedValue(""),
-              }),
-              createWritable: vi.fn().mockResolvedValue({
-                write: vi.fn().mockResolvedValue(undefined),
-                close: vi.fn().mockResolvedValue(undefined),
-              }),
-            };
-            return newFile;
-          }
-          throw new Error("File not found");
-        }),
-        entries: vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-          // Empty generator
-        }),
+        getDirectoryHandle: vi.fn().mockResolvedValue({}),
+        getFileHandle: vi.fn().mockResolvedValue({}),
         removeEntry: vi.fn().mockResolvedValue(undefined),
+        entries: vi.fn().mockReturnValue([]),
       };
       mockFileSystem[name] = newDir;
       return newDir;
@@ -154,8 +124,8 @@ export const mockDirectoryHandle: MockFileSystemDirectory = {
       return mockFileSystem[name] as MockFileSystemFile;
     }
     if (options?.create) {
-      const newFile: MockFileSystemFile = {
-        kind: "file",
+      const newFile = {
+        kind: "file" as const,
         name,
         getFile: vi.fn().mockResolvedValue({
           size: 0,
@@ -173,47 +143,67 @@ export const mockDirectoryHandle: MockFileSystemDirectory = {
     }
     throw new Error("Not a file");
   }),
-  entries: vi.fn(async function*(): AsyncGenerator<[string, MockFileSystemEntry], void, unknown> {
-    for (const name in mockFileSystem) {
-      yield [name, mockFileSystem[name]];
+  removeEntry: vi.fn().mockResolvedValue(undefined),
+  entries: vi.fn().mockImplementation(async function* () {
+    for (const [key, value] of Object.entries(mockFileSystem)) {
+      if (!key.includes("/")) {
+        yield [key, value];
+      }
     }
-  }),
-  removeEntry: vi.fn(async (name) => {
-    if (mockFileSystem[name]) {
-      delete mockFileSystem[name];
-      return;
-    }
-    throw new Error(`Entry ${name} not found`);
   }),
 };
 
-// Mock navigator.storage
+// Create mock navigator
 export const mockNavigator = {
   storage: {
     getDirectory: vi.fn().mockResolvedValue(mockDirectoryHandle),
   },
 };
 
-// Setup function to reset mocks and file system state
-export function setupTest() {
-  // Reset mocks
+// Setup function to reset mocks before each test
+export const setupTest = () => {
+  // Reset all mocks
   vi.clearAllMocks();
   
-  // Reset the mock file system to a known state
-  Object.keys(mockFileSystem).forEach(key => {
-    if (key !== "test.txt" && key !== "test") {
-      delete mockFileSystem[key];
-    }
-  });
-  
-  // Ensure test.txt has expected content
-  if (mockFileSystem["test.txt"]?.kind === "file") {
-    const fileEntry = mockFileSystem["test.txt"] as MockFileSystemFile;
-    fileEntry.getFile = vi.fn().mockResolvedValue({
+  // Reset mock file system
+  mockFileSystem["test.txt"] = {
+    kind: "file",
+    name: "test.txt",
+    getFile: vi.fn().mockResolvedValue({
       size: 100,
       type: "text/plain",
       lastModified: Date.now(),
-      text: vi.fn().mockResolvedValue("file content"),
-    });
-  }
-}
+      text: vi.fn().mockResolvedValue("test content"),
+    }),
+    createWritable: vi.fn().mockResolvedValue({
+      write: vi.fn().mockResolvedValue(undefined),
+      close: vi.fn().mockResolvedValue(undefined),
+    }),
+  };
+  
+  // Reset mock directory handle
+  mockDirectoryHandle.getFileHandle = vi.fn(async (name, options) => {
+    if (mockFileSystem[name]?.kind === "file") {
+      return mockFileSystem[name] as MockFileSystemFile;
+    }
+    if (options?.create) {
+      const newFile = {
+        kind: "file" as const,
+        name,
+        getFile: vi.fn().mockResolvedValue({
+          size: 0,
+          type: "text/plain",
+          lastModified: Date.now(),
+          text: vi.fn().mockResolvedValue(""),
+        }),
+        createWritable: vi.fn().mockResolvedValue({
+          write: vi.fn().mockResolvedValue(undefined),
+          close: vi.fn().mockResolvedValue(undefined),
+        }),
+      };
+      mockFileSystem[name] = newFile;
+      return newFile;
+    }
+    throw new Error("Not a file");
+  });
+};

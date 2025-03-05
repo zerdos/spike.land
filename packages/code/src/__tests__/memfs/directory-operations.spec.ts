@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { 
   mkdir,
-  stat
-} from "@/lib/memfs";
+  stat,
+  rmdir
+} from "@/lib/memfs/index";
 import { 
   mockDirectoryHandle, 
   mockFileSystem,
@@ -105,6 +106,17 @@ describe("memfs directory operations", () => {
         }
         throw new Error("Not a file");
       });
+    });
+  });
+
+  describe("rmdir", () => {
+    it("should remove a directory", async () => {
+      await rmdir("/test");
+      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test", { recursive: true });
+    });
+
+    it("should throw error for root directory", async () => {
+      await expect(rmdir("/")).rejects.toThrow("Cannot remove root directory");
     });
   });
 });

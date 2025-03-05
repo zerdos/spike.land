@@ -1,5 +1,5 @@
 // Export types
-export * from './memfs/types';
+export * from './types';
 
 // Export utility functions
 export {
@@ -8,7 +8,7 @@ export {
   handleDirectory,
   getDirectoryEntriesRecursive,
   getDirectoryHandleAndFileName
-} from './memfs/utils';
+} from './utils';
 
 // Export file operations
 export {
@@ -20,7 +20,7 @@ export {
   rename,
   truncate,
   readFileSync
-} from './memfs/file-operations';
+} from './file-operations';
 
 // Export directory operations
 export {
@@ -30,18 +30,18 @@ export {
   stat,
   access,
   cwd
-} from './memfs/directory-operations';
+} from './directory-operations';
 
 // Export file handle operations
 export {
   createFileHandle,
   open
-} from './memfs/file-handle';
+} from './file-handle';
 
 // Create a default export with all functions
-import * as fileOperations from './memfs/file-operations';
-import * as directoryOperations from './memfs/directory-operations';
-import * as fileHandleOperations from './memfs/file-handle';
+import * as fileOperations from './file-operations';
+import * as directoryOperations from './directory-operations';
+import * as fileHandleOperations from './file-handle';
 
 // Combine all operations into a single object
 const FS = {
@@ -51,6 +51,6 @@ const FS = {
 };
 
 // Assign all functions to globalThis for global access
-Object.assign(globalThis, {FS});
+Object.assign(globalThis, FS);
 
 export default FS;
