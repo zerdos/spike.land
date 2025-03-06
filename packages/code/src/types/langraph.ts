@@ -94,7 +94,7 @@ export function createNode(
     },
     transform: async function*(generator: AsyncGenerator<unknown>) {
       for await (const value of generator) {
-        yield value AS nodeState;
+        yield value as NodeState;
       }
     },
     getName: () => name,
