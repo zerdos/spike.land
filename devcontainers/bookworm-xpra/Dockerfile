@@ -42,7 +42,7 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         gpg-agent \
         htop \
         inotify-tools \
-        libasound2 \
+        libasound2t64 \
         libayatana-appindicator3-1 \
         libcurl4 \
         libgbm-dev \
