@@ -1,8 +1,8 @@
 // src/importMapUtils.ts
 
-export type ImportMap = {
+export interface ImportMap {
   imports: Record<string, string>;
-};
+}
 
 // Comprehensive sets and configurations
 const FILE_EXTENSIONS = new Set([
@@ -128,8 +128,8 @@ function getExportsString(match: string): string {
 
 function getMappedPath(
   path: string,
-  exportsParam: string = "",
-  hasFromClause: boolean = false,
+  exportsParam = "",
+  hasFromClause = false,
   importMapImports: ImportMap["imports"] = importMap["imports"],
 ): string {
   // Early returns for complex or special paths

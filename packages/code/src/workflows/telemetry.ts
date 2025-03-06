@@ -20,7 +20,7 @@ export interface TelemetryOptions {
 export class Telemetry {
   private static instance: Telemetry;
   private events: TelemetryEvent[] = [];
-  private timers: Map<string, number> = new Map();
+  private timers = new Map<string, number>();
   private options: TelemetryOptions;
 
   private constructor(options: TelemetryOptions = {}) {

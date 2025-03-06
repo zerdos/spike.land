@@ -1,8 +1,7 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
-import { IWebSocketManager, RunMessageResult } from "@/services/types";
+import type { IWebSocketManager, RunMessageResult } from "@/services/types";
 
 export class CodeProcessor {
   private static renderService: RenderService;

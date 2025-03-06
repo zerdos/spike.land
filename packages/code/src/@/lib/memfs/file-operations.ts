@@ -124,7 +124,7 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
  * @param path File path
  * @param len Length to truncate to (default: 0)
  */
-export const truncate = async (path: string, len: number = 0): Promise<void> => {
+export const truncate = async (path: string, len = 0): Promise<void> => {
   const content = await readFile(path);
   await writeFile(path, content.substring(0, len));
 };

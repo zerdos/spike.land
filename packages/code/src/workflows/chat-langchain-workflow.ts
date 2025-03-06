@@ -154,7 +154,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 export const createChatLangchainWorkflow = (
   cSess: ICode,
   apiKey: string,
-  model: string = "claude-3-opus-20240229",
+  model = "claude-3-opus-20240229",
 ) => {
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({

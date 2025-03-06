@@ -11,7 +11,7 @@ function safeDiff(diff: ICodeSessionDiff): any[] {
 
 describe("text-diff", () => {
   // Create base session objects for testing
-  const createBaseSession = (code: string = "const test = 'test';"): ICodeSession => ({
+  const createBaseSession = (code = "const test = 'test';"): ICodeSession => ({
     codeSpace: "test-space",
     code,
     html: "<div>Test</div>",

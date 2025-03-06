@@ -1,6 +1,6 @@
-export type ImportMap = {
+export interface ImportMap {
   imports: Record<string, string>;
-};
+}
 
 export const importMap: ImportMap = {
   imports: {

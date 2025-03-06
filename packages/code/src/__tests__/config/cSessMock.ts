@@ -4,7 +4,7 @@ import { vi } from "vitest";
 /**
  * Creates a mock code session for testing
  */
-export const createMockCodeSession = (initialCode: string = "// Test code"): ICode => {
+export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
   // Mock session data
   let code = initialCode;
   let messages: Message[] = [];
@@ -70,7 +70,7 @@ export const createMockCodeSession = (initialCode: string = "// Test code"): ICo
 /**
  * Creates a global mock code session for testing
  */
-export const setupGlobalMockSession = (initialCode: string = "// Test code"): ICode => {
+export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
   const mockSession = createMockCodeSession(initialCode);
 
   // Set up the global cSess object

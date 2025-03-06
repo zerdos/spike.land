@@ -4,7 +4,7 @@ import type { ICodeSession } from "./interfaces";
 
 describe("diff-utils", () => {
   // Helper function to create a test session
-  const createTestSession = (code: string = "const test = 'test';"): ICodeSession => ({
+  const createTestSession = (code = "const test = 'test';"): ICodeSession => ({
     codeSpace: "test-space",
     code,
     html: "<div>Test</div>",

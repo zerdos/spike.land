@@ -3,9 +3,9 @@ import * as acorn from "acorn";
 import acornJsx from "acorn-jsx";
 import * as acornWalk from "acorn-walk";
 
-export type ImportMap = {
+export interface ImportMap {
   imports: Record<string, string>;
-};
+}
 
 // Configuration
 const FILE_EXTENSIONS = new Set([
@@ -125,8 +125,8 @@ function getExportsFromSpecifiers(specifiers: any[]): string {
 
 function getMappedPath(
   path: string,
-  exportsParam: string = "",
-  hasFromClause: boolean = false,
+  exportsParam = "",
+  hasFromClause = false,
   importMapImports: ImportMap["imports"] = importMap["imports"],
 ): string {
   // Early returns for complex or special paths
@@ -199,7 +199,7 @@ function getMappedPath(
 
 export function importMapReplace(
   code: string,
-  origin: string = "",
+  origin = "",
   impMap: ImportMap = importMap,
 ): string {
   // Handle binary data - convert to string if needed
@@ -247,7 +247,7 @@ export function importMapReplace(
       [];
 
     // Always set to true to be compatible with the original implementation
-    let hasChanges = true;
+    const hasChanges = true;
 
     // Process imports, exports, and dynamic imports
     acornWalk.full(ast, (node: any) => {

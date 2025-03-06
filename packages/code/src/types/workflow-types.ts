@@ -13,12 +13,12 @@ export interface AgentState {
 
 export type WorkflowContinueResult = "process" | "tools" | "end";
 
-export type CompiledWorkflow = {
+export interface CompiledWorkflow {
   invoke: (
     state: AgentState,
     config: { configurable: { thread_id: string; }; },
   ) => Promise<AgentState>;
-};
+}
 
 export interface WorkflowHandler {
   processMessage: (state: AgentState) => Promise<Partial<AgentState>>;

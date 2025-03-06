@@ -21,11 +21,11 @@ export interface CodeAnalysis {
     type: "css" | "tailwind" | "styled-components" | "emotion" | "inline" | "unknown";
     classes: string[];
   };
-  functions: {
+  functions: Array<{
     name: string;
     params: string[];
     isAsync: boolean;
-  }[];
+  }>;
 }
 
 /**

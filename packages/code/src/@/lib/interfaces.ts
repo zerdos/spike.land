@@ -262,9 +262,7 @@ export interface ChatDrawerProps {
   screenshot: () => Promise<ImageData>;
 }
 
-export interface IExtraModelsResult {
-  [codeSpace: string]: string;
-}
+export type IExtraModelsResult = Record<string, string>;
 
 export interface IModelManager {
   getModel(codeSpace: string): ICode | undefined;

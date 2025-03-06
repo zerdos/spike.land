@@ -29,7 +29,7 @@ export class WorkflowMetrics {
   public recordOperation(
     name: string,
     durationMs: number,
-    isError: boolean = false,
+    isError = false,
   ): void {
     if (!this.data[name]) {
       this.data[name] = {

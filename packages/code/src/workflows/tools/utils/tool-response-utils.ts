@@ -83,9 +83,9 @@ export const extractToolResponseMetadata = (
  * Update tool calls with returnModifiedCode parameter based on code analysis
  */
 export const updateToolCallsWithCodeFlag = (
-  toolCalls: Array<any>,
+  toolCalls: any[],
   returnModifiedCode: boolean,
-): Array<any> => {
+): any[] => {
   return toolCalls.map(toolCall => {
     // Handle both code_modification and replace_in_file tools
     if (
