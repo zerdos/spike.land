@@ -56,7 +56,6 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         locales \
         make \
         mc \
-        novnc \
         procps \
         psmisc \
         sudo \
@@ -64,6 +63,7 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         tigervnc-xorg-extension \
         tzdata \
         unzip \
+        websockify \
         wget \
         xdg-utils \
         xfwm4 \

@@ -56,7 +56,6 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         locales \
         make \
         mc \
-        novnc \
         procps \
         psmisc \
         sudo \
@@ -64,6 +63,7 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         tigervnc-xorg-extension \
         tzdata \
         unzip \
+        websockify \
         wget \
         xdg-utils \
         xfwm4 \
@@ -122,17 +122,22 @@ USER 0
 # Set environment variable for the port
 ENV PORT=6080
 
-# Download and set up noVNC
-RUN mkdir -p /tmp/novnc-build && \
+# Download and set up noVNC with error handling
+RUN set -e && \
+    mkdir -p /tmp/novnc-build && \
     cd /tmp/novnc-build && \
-    wget -q https://github.com/novnc/noVNC/archive/refs/tags/v1.5.0.tar.gz && \
+    wget -q https://github.com/novnc/noVNC/archive/refs/tags/v1.5.0.tar.gz || \
+        (echo "Failed to download noVNC, retrying..." && \
+         sleep 5 && \
+         wget -q https://github.com/novnc/noVNC/archive/refs/tags/v1.5.0.tar.gz) && \
     tar -xzf v1.5.0.tar.gz && \
-    rm -rf /usr/share/novnc && \
     mkdir -p /usr/share/novnc && \
-    cp -a noVNC-1.5.0/. /usr/share/novnc/ && \
+    cp -a noVNC-1.5.0/* /usr/share/novnc/ && \
+    if [ -f /usr/share/novnc/vnc.html ]; then \
+        cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html; \
+    fi && \
     cd / && \
-    rm -rf /tmp/novnc-build && \
-    cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+    rm -rf /tmp/novnc-build
 
 # Modify Xvnc-session and Xtigervnc-session configuration
 RUN if [ -f /etc/X11/Xvnc-session ]; then \
@@ -156,6 +161,7 @@ RUN echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gi
     >> /usr/bin/startx
 
 USER ${USER}
+
 ### xfce.Dockerfile
 
 USER 0
