@@ -1,10 +1,12 @@
-import { ICodeSession } from "@/lib/interfaces";
-import { Change, diffChars, diffLines } from "diff";
-import { applyPatch, compare, Operation, ReplaceOperation } from "fast-json-patch";
+import type { ICodeSession } from "@/lib/interfaces";
+import { diffChars, diffLines } from "diff";
+import type { Change } from "diff";
+import { applyPatch, compare } from "fast-json-patch";
+import type { Operation, ReplaceOperation } from "fast-json-patch";
 // Import the ICodeSessionDiff type from json-diff to ensure consistency
 
 // Extend the Operation type to include our custom diff property
-interface StringDiffOperation extends ReplaceOperation<any> {
+interface StringDiffOperation extends ReplaceOperation<string> {
   _diff?: Change[];
 }
 
@@ -194,8 +196,8 @@ export function createDiff(
 
   // Check each property for long strings
   for (const key of Object.keys(revisionCopy)) {
-    const originalValue = (originalCopy as any)[key];
-    const revisionValue = (revisionCopy as any)[key];
+    const originalValue = (originalCopy as Record<string, unknown>)[key];
+    const revisionValue = (revisionCopy as Record<string, unknown>)[key];
 
     // If both are strings and at least one is long
     if (
@@ -209,8 +211,8 @@ export function createDiff(
       stringDiffs.push(createStringDiff(`/${key}`, originalValue, revisionValue));
 
       // Set both values to the same to prevent standard diff from including this property
-      (originalCopy as any)[key] = "PLACEHOLDER_FOR_DIFF";
-      (revisionCopy as any)[key] = "PLACEHOLDER_FOR_DIFF";
+      (originalCopy as Record<string, unknown>)[key] = "PLACEHOLDER_FOR_DIFF";
+      (revisionCopy as Record<string, unknown>)[key] = "PLACEHOLDER_FOR_DIFF";
     }
   }
 
@@ -367,16 +369,16 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
           const pathParts = path.split("/").filter(p => p !== "");
 
           // Navigate to the target object
-          let target = sessionCopy;
+          let target: Record<string, unknown> = sessionCopy as unknown as Record<string, unknown>;
           for (let i = 0; i < pathParts.length - 1; i++) {
-            target = (target as any)[pathParts[i]];
+            target = target[pathParts[i]] as Record<string, unknown>;
           }
 
           // Get the property name
           const propName = pathParts[pathParts.length - 1];
 
           // Get the current value
-          const currentValue = (target as any)[propName];
+          const currentValue = target[propName];
 
           if (typeof currentValue === "string") {
             // Apply the character diff using our helper function
@@ -388,10 +390,10 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
               newValue = op.value;
             }
 
-            (target as any)[propName] = newValue;
+            target[propName] = newValue;
           } else {
             // If not a string, fall back to standard replace
-            (target as any)[propName] = op.value;
+            target[propName] = op.value;
           }
         } catch (err) {
           console.warn(`Error processing string diff operation: ${err}`);
@@ -495,7 +497,6 @@ function applyCharDiff(original: string, changes: Change[], value?: string): str
   }
 
   let result = "";
-  let currentPos = 0;
 
   for (const change of changes) {
     if (change.added) {
@@ -504,40 +505,9 @@ function applyCharDiff(original: string, changes: Change[], value?: string): str
     } else if (!change.removed) {
       // Keep unchanged content
       result += change.value;
-      currentPos += change.value.length;
     }
     // Skip removed content
   }
 
   return result;
-}
-
-/**
- * Helper function to find the correct position to insert added content
- * Uses surrounding context to determine the position
- */
-function findInsertPosition(text: string, change: Change): number {
-  // If this is the first change, insert at the beginning
-  if (!change.value) return 0;
-
-  // Look for context before this change
-  let contextBefore = "";
-  let i = 0;
-
-  // Try to find some context before this change
-  while (contextBefore.length < 10 && i < text.length) {
-    contextBefore = text.substring(text.length - i - 1, text.length);
-    i++;
-  }
-
-  // If we have context, try to find it in the text
-  if (contextBefore.length > 0) {
-    const pos = text.lastIndexOf(contextBefore);
-    if (pos !== -1) {
-      return pos + contextBefore.length;
-    }
-  }
-
-  // Default to end of string if we can't find a better position
-  return text.length;
 }
