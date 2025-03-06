@@ -85,15 +85,17 @@ ARG USER="gitpod"
 ENV USER=${USER}
 
 # Create user in a single layer
-RUN if getent group ${USER_GID} > /dev/null 2>&1; then \
-        groupmod -n ${USER} $(getent group ${USER_GID} | cut -d: -f1); \
+RUN (userdel -r -f "$(id -un 1000)" 2>/dev/null || true) && \
+    (groupdel -f "$(getent group 1000 | cut -d: -f1)" 2>/dev/null || true) && \
+    if getent group ${USER_GID} > /dev/null 2>&1; then \
+        groupmod -n ${USER} $(getent group ${USER_GID} | cut -d: -f1) || groupadd -g ${USER_GID} ${USER}; \
     else \
         groupadd -g ${USER_GID} ${USER}; \
-    fi \
-    && useradd -l -u ${USER_UID} -g ${USER_GID} -G sudo -m -s /usr/bin/zsh ${USER} \
-    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && echo "Set disable_coredump false" >> /etc/sudo.conf \
-    && chown ${USER}:${USER} -R /home/${USER}
+    fi && \
+    useradd -l -u ${USER_UID} -g ${USER_GID} -G sudo -m -s /usr/bin/zsh ${USER} && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    echo "Set disable_coredump false" >> /etc/sudo.conf && \
+    chown ${USER}:${USER} -R /home/${USER} 2>/dev/null || true
 
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \
