@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.12.0
 
 # Stage 1: Node builder for Cypress
-FROM node:slim as node-builder
+FROM node:slim AS node-builder
 
 # Add yarn
 ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.7.0.cjs /usr/local/bin/yarn
@@ -42,7 +42,6 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         gpg-agent \
         htop \
         inotify-tools \
-        libasound2t64 \
         libayatana-appindicator3-1 \
         libcurl4 \
         libgbm-dev \
@@ -70,8 +69,7 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
         xvfb \
         xz-utils \
         zsh \
-    || (apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get update) && \
-        apt-get install --no-install-recommends -y \
+    || (apt-get install --no-install-recommends -y \
             libappindicator3-1 \
             # Continue with remaining packages if libayatana-appindicator3-1 failed
             # (Re-listing all packages that might not have been installed)
