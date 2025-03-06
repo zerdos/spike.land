@@ -87,12 +87,15 @@ ARG USER="gitpod"
 ENV USER=${USER}
 
 # Create user in a single layer
-RUN addgroup --gid ${USER_GID} ${USER} \
-    && adduser --uid ${USER_UID} --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
-    && adduser ${USER} sudo \
-    && chown ${USER}:${USER} -R /home/${USER} \
+RUN if getent group ${USER_GID} > /dev/null 2>&1; then \
+        groupmod -n ${USER} $(getent group ${USER_GID} | cut -d: -f1); \
+    else \
+        groupadd -g ${USER_GID} ${USER}; \
+    fi \
+    && useradd -l -u ${USER_UID} -g ${USER_GID} -G sudo -m -s /usr/bin/zsh ${USER} \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-    && echo "Set disable_coredump false" >> /etc/sudo.conf
+    && echo "Set disable_coredump false" >> /etc/sudo.conf \
+    && chown ${USER}:${USER} -R /home/${USER}
 
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \
