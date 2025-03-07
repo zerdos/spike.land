@@ -1,6 +1,6 @@
 @import "./app/globals.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Custom dark variant */
 @import "./assets/app.css";
 
 @layer base {
@@ -105,7 +105,8 @@
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
-@theme inline {
+/* Theme variables mapping */
+:root {
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -118,9 +119,11 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    outline-color: hsl(var(--ring) / 0.5);
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
