@@ -1,4 +1,4 @@
-import { StatResult } from "./types";
+import type { StatResult } from "./types";
 import { getDirectoryHandleAndFileName, handleDirectory, handleFile, normalizePath } from "./utils";
 
 /**

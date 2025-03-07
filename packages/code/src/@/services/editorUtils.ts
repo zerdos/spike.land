@@ -1,7 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
-import { RunMessageResult } from "./types";
+import type { RunMessageResult } from "./types";
 
 export interface EditorState {
   started: boolean;

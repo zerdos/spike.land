@@ -1,4 +1,5 @@
-import { ImageUrlPart, Message, MessagePart, MessageType } from "@/lib/interfaces";
+import type { ImageUrlPart, Message, MessagePart} from "@/lib/interfaces";
+import { MessageType } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MessageHandlerService } from "../MessageHandlerService";
 

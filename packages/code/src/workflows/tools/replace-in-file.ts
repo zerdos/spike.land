@@ -1,5 +1,5 @@
 import { SEARCH_REPLACE_MARKERS, updateSearchReplace } from "@/lib/chat-utils";
-import { ICode } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";

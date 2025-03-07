@@ -1,7 +1,8 @@
 import { AIMessage } from "@langchain/core/messages";
-import { RunnableConfig, RunnableInterface } from "@langchain/core/runnables";
+import type { RunnableConfig} from "@langchain/core/runnables";
+import { RunnableInterface } from "@langchain/core/runnables";
 import { StateGraph } from "@langchain/langgraph/web";
-import { AgentState } from "./workflow-types";
+import type { AgentState } from "./workflow-types";
 
 /**
  * Interface for iterable readable stream

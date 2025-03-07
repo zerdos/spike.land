@@ -1,4 +1,4 @@
-import { RunMessageResult } from "@/services/types";
+import type { RunMessageResult } from "@/services/types";
 
 export interface ICodeProcessor {
   /**

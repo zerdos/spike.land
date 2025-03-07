@@ -1,6 +1,6 @@
 import { updateSearchReplace } from "@/lib/chat-utils";
 import { SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
-import { ICode, Message } from "@/lib/interfaces";
+import type { ICode, Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { tool } from "@langchain/core/tools";
 import type { CodeModification } from "../chat-langchain";

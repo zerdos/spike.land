@@ -1,4 +1,4 @@
-import { CustomServiceWorkerGlobalScope } from "@/types/service-worker";
+import type { CustomServiceWorkerGlobalScope } from "@/types/service-worker";
 import { CacheUtils } from "./cache-utils";
 
 export class FileCacheManager {

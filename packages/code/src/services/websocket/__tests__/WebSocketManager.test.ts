@@ -1,5 +1,5 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import {
+import type {
   IMessageHandlerService,
   IServiceWorkerManager,
   ISessionSynchronizer,

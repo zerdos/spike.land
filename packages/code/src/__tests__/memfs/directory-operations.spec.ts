@@ -1,9 +1,10 @@
 import { mkdir, rmdir, stat } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import type {
+  MockFileSystemFile} from "./setup";
 import {
   mockDirectoryHandle,
   mockFileSystem,
-  MockFileSystemFile,
   mockNavigator,
   setupTest,
 } from "./setup";

@@ -13,7 +13,9 @@ class MockWebSocket {
   close = vi.fn();
 }
 
-// vi.stubGlobal('WebSocket', MockWebSocket); // commented out
+setupAllMocks();
+
+vi.stubGlobal('WebSocket', MockWebSocket); // commented out
 
 // vi.stubGlobal( // commented out
 //     "WebSocketPair",

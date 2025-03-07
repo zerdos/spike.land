@@ -1,4 +1,4 @@
-import { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from "./types";
+import type { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from "./types";
 
 /**
  * Normalize a file path to handle different formats

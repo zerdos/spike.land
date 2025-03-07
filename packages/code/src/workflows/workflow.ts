@@ -1,5 +1,5 @@
 import type { StateGraphArgs } from "@langchain/langgraph/web";
-import { AgentState } from "../workflows/chat-langchain";
+import type { AgentState } from "../workflows/chat-langchain";
 
 export interface CodeChangeMetrics {
   sizeChange: number;

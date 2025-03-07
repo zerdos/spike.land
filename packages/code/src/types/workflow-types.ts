@@ -1,4 +1,4 @@
-import { AIMessage } from "@langchain/core/messages";
+import type { AIMessage } from "@langchain/core/messages";
 
 export interface AgentState {
   messages: AIMessage[];

@@ -14,24 +14,17 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="preload"
+      href="/live/${codeSpace}/index.css"
+      as="style"
+    />
+    <link
+      href="/live/${codeSpace}/index.css"
+      rel="stylesheet"
+    />
 
-    <script type="importmap">
-      {
-        "imports": {
-          "@/": "/@/",
-          "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-          "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
-          "@emotion/styled": "/emotionStyled.mjs", 
-          "react/jsx-runtime": "/jsx.mjs",
-          "react-dom/server": "/reactDomServer.mjs",
-          "react-dom/client": "/reactDomClient.mjs",
-          "@emotion/react": "/emotion.mjs",
-          "react": "/reactMod.mjs",
-          "framer-motion": "/@/workers/framer-motion.mjs",
-          "react-dom": "/reactDom.mjs"
-        }
-      }
-    </script>
+    <script type="importmap">${JSON.stringify(importMap)}</script>
   </head>
   <style>
   /* criticalCss */

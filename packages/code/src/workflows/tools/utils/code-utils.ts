@@ -6,7 +6,7 @@ import {
   SMALL_FILE_THRESHOLD,
 } from "../../../config/workflow-config";
 
-import { CodeChangeMetrics } from "../../workflow";
+import type { CodeChangeMetrics } from "../../workflow";
 
 /**
  * Verify code integrity using document hash

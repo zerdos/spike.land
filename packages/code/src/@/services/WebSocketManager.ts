@@ -1,10 +1,10 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { DOMError, getErrorMessage, MessageHandlingError, WebSocketError } from "@/lib/errors";
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 import { ROUTES } from "@/lib/routes";
 import { init } from "@/lib/tw-dev-setup";
 import { WebSocketEventType, WebSocketState } from "./enums";
-import {
+import type {
   IWebSocketManager,
   MessageData,
   RunMessageResult,

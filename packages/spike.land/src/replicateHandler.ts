@@ -40,7 +40,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
     const decodedParams = atob(base64Params);
     const urlSearchParams = new URLSearchParams(decodedParams);
 
-    let params: Partial<InputDefaults> = {};
+    const params: Partial<InputDefaults> = {};
 
     urlSearchParams.forEach((value, key) => {
       if (key in INPUT_DEFAULTS) {

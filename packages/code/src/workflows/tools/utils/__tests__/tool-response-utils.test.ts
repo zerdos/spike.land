@@ -6,7 +6,7 @@ import {
   handleMissingCodeResponse,
   updateToolCallsWithCodeFlag,
 } from "../tool-response-utils";
-import { AgentState } from "../workflows/chat-langchain";
+import type { AgentState } from "src/types/workflow-types";
 
 describe("tool-response-utils", () => {
   describe("extractToolResponseMetadata", () => {

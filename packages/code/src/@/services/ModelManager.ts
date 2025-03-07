@@ -1,6 +1,6 @@
 import { Code } from "@/lib/code-session";
 import type { IExtraModelsResult, IModelManager } from "@/lib/interfaces";
-import { Message } from "@/lib/interfaces";
+import type { Message } from "@/lib/interfaces";
 
 export class ModelManager implements IModelManager {
   private models = new Map<string, Code>();

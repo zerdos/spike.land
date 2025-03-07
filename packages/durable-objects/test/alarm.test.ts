@@ -1,6 +1,6 @@
 import { env, runDurableObjectAlarm, runInDurableObject } from "cloudflare:test";
 import { expect, it } from "vitest";
-import { Counter } from "../src/";
+import type { Counter } from "../src/";
 
 it("immediately executes alarm", async () => {
   // Schedule alarm by directly calling instance method

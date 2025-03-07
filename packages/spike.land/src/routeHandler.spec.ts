@@ -3,7 +3,7 @@ const md5Promise = import("@spike-npm-land/code").then((m) => m.md5);
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";
 import { RouteHandler } from "./routeHandler";
-import { WebSocketHandler } from "./websocketHandler";
+import type { WebSocketHandler } from "./websocketHandler";
 
 vi.mock("snakecase-keys", () => ({}));
 

@@ -1,8 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ICodeSession } from "./interfaces";
+import type {
+  CodePatch} from "./make-sess";
 import {
   applySessionPatch,
-  CodePatch,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,

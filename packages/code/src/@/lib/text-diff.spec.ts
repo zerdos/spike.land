@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import type { ICodeSession, Message } from "./interfaces";
 // import { applyDiff , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
-import { applyDiff, createDiff, ICodeSessionDiff } from "./text-diff";
+import type { ICodeSessionDiff } from "./text-diff";
+import { applyDiff, createDiff } from "./text-diff";
 
 // Helper function to safely work with diff results
 function safeDiff(diff: ICodeSessionDiff): any[] {

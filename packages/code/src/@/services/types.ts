@@ -98,8 +98,8 @@ export interface IWebSocketManager {
   cleanup(): void;
 }
 
-import { ICodeSession, Message, MessageResponse } from "@/lib/interfaces";
-import { WebSocketEventType } from "@/services/enums";
+import type { ICodeSession, Message, MessageResponse } from "@/lib/interfaces";
+import type { WebSocketEventType } from "@/services/enums";
 
 /**
  * WebSocket event handler type

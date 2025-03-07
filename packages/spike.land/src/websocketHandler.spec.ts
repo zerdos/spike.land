@@ -1,4 +1,5 @@
-import { computeSessionHash, ICodeSession } from "@spike-npm-land/code";
+import type { ICodeSession } from "@spike-npm-land/code";
+import { computeSessionHash } from "@spike-npm-land/code";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import type { Code } from "./chatRoom";

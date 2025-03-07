@@ -3,7 +3,8 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react-swc";
 import fs from "fs";
 import path from "path";
-import { AppType, defineConfig, ProxyOptions } from "vite";
+import type { AppType, ProxyOptions } from "vite";
+import { defineConfig } from "vite";
 import { importMap } from "./src/@/lib/importmap-utils";
 
 /* ========================================================

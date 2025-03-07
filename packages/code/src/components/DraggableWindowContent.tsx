@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { ActionButtons } from "./ActionButtons";
 import { BreakpointButtons } from "./BreakpointButtons";
 import { ContentWrapper } from "./ContentWrapper";

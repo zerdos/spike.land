@@ -1,6 +1,6 @@
-import { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
-import { ISessionSynchronizer } from "./types";
+import type { ISessionSynchronizer } from "./types";
 
 /**
  * SessionSynchronizer enables cross-tab communication for code sessions

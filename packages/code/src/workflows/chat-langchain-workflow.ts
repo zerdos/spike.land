@@ -1,12 +1,13 @@
-import { ICode } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { ChatAnthropic } from "@langchain/anthropic";
-import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import type { AIMessage, BaseMessage} from "@langchain/core/messages";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { getSystemPrompt } from "../config/system-prompts";
-import { AgentState, CodeModification } from "./chat-langchain";
+import type { AgentState, CodeModification } from "./chat-langchain";
 import { getReplaceInFileTool } from "./tools/replace-in-file";
 
 /**

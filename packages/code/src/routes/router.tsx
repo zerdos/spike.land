@@ -1,7 +1,7 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { getCodeSession } from "@/lib/code-session";
-import { ICode } from "@/lib/interfaces";
+import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import { init } from "@/lib/tw-dev-setup";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";

@@ -1,4 +1,5 @@
-import { applySessionPatch, computeSessionHash, ICodeSession } from "@spike-npm-land/code";
+import type { ICodeSession } from "@spike-npm-land/code";
+import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
 export interface WebsocketSession {
