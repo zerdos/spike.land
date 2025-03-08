@@ -40,15 +40,66 @@ function createErrorResponse(
 }
 
 /**
- * Validates the diff string format
+ * Validates the diff string format and provides detailed error information
  */
-function validateDiff(diff: string): boolean {
+function validateDiff(diff: string): { valid: boolean; reason?: string } {
   if (!diff || typeof diff !== "string") {
-    return false;
+    return { valid: false, reason: "Diff is empty or not a string" };
   }
 
+  // Check for basic markers
+  if (!diff.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
+    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEARCH_START}' marker` };
+  }
+  
+  if (!diff.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
+    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEPARATOR}' marker` };
+  }
+  
+  if (!diff.includes(SEARCH_REPLACE_MARKERS.REPLACE_END)) {
+    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.REPLACE_END}' marker` };
+  }
+
+  // Check for proper sequence and format
   const regex = /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g;
-  return regex.test(diff);
+  if (!regex.test(diff)) {
+    return { 
+      valid: false, 
+      reason: "Invalid diff format. Ensure each block follows the exact format with newlines after each marker" 
+    };
+  }
+
+  return { valid: true };
+}
+
+/**
+ * Normalizes the diff string to handle common formatting issues
+ */
+function normalizeDiff(diff: string): string {
+  // Ensure proper newlines after markers
+  let normalized = diff
+    .replace(/<<<<<<< SEARCH\s*\n/g, "<<<<<<< SEARCH\n")
+    .replace(/\n\s*=======\s*\n/g, "\n=======\n")
+    .replace(/\n\s*>>>>>>> REPLACE/g, "\n>>>>>>> REPLACE");
+  
+  // Fix common whitespace issues in search blocks
+  const blocks = normalized.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g) || [];
+  
+  for (const block of blocks) {
+    const parts = block
+      .replace(/<<<<<<< SEARCH\n/, "")
+      .replace(/\n>>>>>>> REPLACE/, "")
+      .split("\n=======\n");
+      
+    if (parts.length === 2) {
+      const [search, replace] = parts;
+      // Preserve original whitespace in search and replace parts
+      const normalizedBlock = `<<<<<<< SEARCH\n${search}\n=======\n${replace}\n>>>>>>> REPLACE`;
+      normalized = normalized.replace(block, normalizedBlock);
+    }
+  }
+  
+  return normalized;
 }
 
 /**
@@ -88,13 +139,22 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         return createErrorResponse("", "Invalid hash provided", { hash });
       }
 
-      if (!validateDiff(diff)) {
+      // Validate diff format with detailed error information
+      const validation = validateDiff(diff);
+      if (!validation.valid) {
         return createErrorResponse(
           "",
-          "Invalid diff format. Must contain valid SEARCH/REPLACE blocks",
-          { diffLength: diff?.length },
+          `Invalid diff format: ${validation.reason}. Must contain valid SEARCH/REPLACE blocks`,
+          { 
+            diffLength: diff?.length,
+            diffSample: diff?.substring(0, 100) + (diff?.length > 100 ? "..." : ""),
+            reason: validation.reason
+          },
         );
       }
+
+      // Normalize diff to handle common formatting issues
+      diff = normalizeDiff(diff);
 
       // Use the provided code session
       if (!cSess) {

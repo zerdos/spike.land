@@ -1,5 +1,5 @@
 import { tryExtractCodeFromJson } from "./code-processing";
-import { WorkflowError } from "./tools/utils/error-handlers";
+import { ErrorType, WorkflowError } from "./tools/utils/error-handlers";
 import type { GraphStateReducers } from "./workflow-types";
 
 /**
@@ -43,7 +43,12 @@ export function createGraphStateReducers(): GraphStateReducers {
           return prev;
         } catch (error) {
           console.error("Code reduction error:", error);
-          throw new WorkflowError("Code reduction failed", { error, input: next });
+          throw new WorkflowError(
+            "Code reduction failed", 
+            ErrorType.Unexpected, 
+            { error, input: next },
+            "There was an error processing the code. Try simplifying your request."
+          );
         }
       },
     },

@@ -11,7 +11,7 @@ import type { AgentState } from "../workflows/chat-langchain";
 import { toolResponseCache } from "./caching";
 import { determineReturnModifiedCode, getHashWithCache } from "./code-processing";
 import { telemetry } from "./telemetry";
-import { createCodeIntegrityError, WorkflowError } from "./tools/utils/error-handlers";
+import { createCodeIntegrityError, ErrorType, WorkflowError } from "./tools/utils/error-handlers";
 import {
   extractToolResponseMetadata,
   handleMissingCodeResponse,
@@ -57,7 +57,7 @@ export async function processMessage(
     let returnModifiedCode = false;
 
     if (lastMessage && !("content" in lastMessage)) {
-      throw new WorkflowError("Invalid message format");
+      throw new WorkflowError("Invalid message format", ErrorType.Unexpected);
     }
 
     if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
@@ -182,7 +182,7 @@ export async function processMessage(
 
     if (compilationError) {
       console.warn("Compilation error detected", compilationError);
-      throw new WorkflowError("failed to compile: syntax error");
+      throw new WorkflowError("failed to compile: syntax error", ErrorType.Compilation);
     }
 
     if (state.code !== updatedState.code && updatedState.code && !hash) {
@@ -195,10 +195,15 @@ export async function processMessage(
       state.code === updatedState.code &&
       state.code !== initialState.code
     ) {
-      throw new WorkflowError("Code modification failed", {
-        initialCodeLength: state.code.length,
-        currentCodeLength: state.code.length,
-      });
+      throw new WorkflowError(
+        "Code modification failed", 
+        ErrorType.ToolExecution, 
+        {
+          initialCodeLength: state.code.length,
+          currentCodeLength: state.code.length,
+        },
+        "Try breaking your changes into smaller, more targeted modifications."
+      );
     }
 
     // Record processing duration and success

@@ -32,7 +32,8 @@ export class FileChangeManager {
   private currentState: Record<string, FileState> = {};
   private pendingChanges: PendingChange[] = [];
   private retryCount: Record<string, number> = {};
-  private maxRetries = 3;
+  private maxRetries = 5; // Increased from 3 to 5 for more recovery attempts
+  private lastFailedSearches: Record<string, string[]> = {}; // Track failed searches for better error reporting
 
   /**
    * Creates a new FileChangeManager instance
@@ -228,14 +229,17 @@ export class FileChangeManager {
   }
 
   /**
-   * Adds context lines to a search block to improve matching
+   * Adds context lines to a search block to improve matching with enhanced algorithms
    * @param block The original search/replace block
    * @param content The file content
    * @returns A search/replace block with added context
    */
   private addContextToSearchBlock(block: SearchReplaceBlock, content: string): SearchReplaceBlock {
-    // If the search block already matches, return it unchanged
+    console.log("Attempting to add context to search block");
+    
+    // If the search block already matches exactly, return it unchanged
     if (content.includes(block.search)) {
+      console.log("Exact match found, no context needed");
       return block;
     }
     
@@ -244,6 +248,18 @@ export class FileChangeManager {
     const contentNoWS = content.replace(/\s+/g, "");
     
     if (!contentNoWS.includes(searchNoWS)) {
+      console.log("No match found even with flexible whitespace matching");
+      
+      // Try fuzzy matching as a last resort
+      const fuzzyMatch = this.findFuzzyMatch(block.search, content);
+      if (fuzzyMatch) {
+        console.log("Fuzzy match found, using it for context");
+        return {
+          search: fuzzyMatch,
+          replace: block.replace
+        };
+      }
+      
       // If we can't find it even with flexible matching, return unchanged
       return block;
     }
@@ -252,7 +268,56 @@ export class FileChangeManager {
     const lines = content.split("\n");
     const searchLines = block.search.split("\n");
     
-    // Try to find a unique match for the first line of the search block
+    // Try multiple strategies to find the best match
+    
+    // Strategy 1: Match first and last lines
+    if (searchLines.length > 1) {
+      const firstSearchLine = searchLines[0].trim();
+      const lastSearchLine = searchLines[searchLines.length - 1].trim();
+      
+      const firstLineMatches: number[] = [];
+      const lastLineMatches: number[] = [];
+      
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].trim() === firstSearchLine) {
+          firstLineMatches.push(i);
+        }
+        if (lines[i].trim() === lastSearchLine) {
+          lastLineMatches.push(i);
+        }
+      }
+      
+      // Find pairs of first/last line matches that are the right distance apart
+      for (const firstIdx of firstLineMatches) {
+        for (const lastIdx of lastLineMatches) {
+          if (lastIdx - firstIdx === searchLines.length - 1) {
+            console.log("Found matching first/last lines with correct spacing");
+            
+            // Get context before and after
+            const contextWindow = 2;
+            const startIndex = Math.max(0, firstIdx - contextWindow);
+            const endIndex = Math.min(lines.length - 1, lastIdx + contextWindow);
+            
+            // Create new search block with context
+            const newSearch = lines.slice(startIndex, endIndex + 1).join("\n");
+            
+            // Adjust the replace block to include the context
+            const beforeContext = lines.slice(startIndex, firstIdx).join("\n");
+            const afterContext = lines.slice(lastIdx + 1, endIndex + 1).join("\n");
+            const newReplace = beforeContext + (beforeContext ? "\n" : "") + 
+                              block.replace + 
+                              (afterContext ? "\n" : "") + afterContext;
+            
+            return {
+              search: newSearch,
+              replace: newReplace
+            };
+          }
+        }
+      }
+    }
+    
+    // Strategy 2: Try to find a unique match for the first line of the search block
     const firstSearchLine = searchLines[0].trim();
     const potentialMatches: number[] = [];
     
@@ -264,8 +329,9 @@ export class FileChangeManager {
     
     // If we found exactly one match, add context
     if (potentialMatches.length === 1) {
+      console.log("Found unique match for first line");
       const matchIndex = potentialMatches[0];
-      const contextWindow = 2; // Number of context lines to add
+      const contextWindow = 3; // Increased from 2 to 3 for more context
       
       // Get context before
       const startIndex = Math.max(0, matchIndex - contextWindow);
@@ -273,11 +339,11 @@ export class FileChangeManager {
       const endIndex = Math.min(lines.length - 1, matchIndex + searchLines.length + contextWindow);
       
       // Create new search block with context
-      const newSearch = lines.slice(startIndex, endIndex).join("\n");
+      const newSearch = lines.slice(startIndex, endIndex + 1).join("\n");
       
       // Adjust the replace block to include the context
       const beforeContext = lines.slice(startIndex, matchIndex).join("\n");
-      const afterContext = lines.slice(matchIndex + searchLines.length, endIndex).join("\n");
+      const afterContext = lines.slice(matchIndex + searchLines.length, endIndex + 1).join("\n");
       const newReplace = beforeContext + (beforeContext ? "\n" : "") + 
                          block.replace + 
                          (afterContext ? "\n" : "") + afterContext;
@@ -288,12 +354,172 @@ export class FileChangeManager {
       };
     }
     
-    // If we couldn't add context, return the original block
+    // Strategy 3: Try to find the longest common substring
+    if (searchLines.length > 1) {
+      console.log("Trying longest common substring approach");
+      const longestCommonSubstring = this.findLongestCommonSubstring(block.search, content);
+      if (longestCommonSubstring && longestCommonSubstring.length > 20) { // Only use if substantial match
+        const startPos = content.indexOf(longestCommonSubstring);
+        if (startPos !== -1) {
+          // Find line boundaries
+          const beforeContent = content.substring(0, startPos);
+          const linesBefore = beforeContent.split("\n").length - 1;
+          
+          const contextWindow = 3;
+          const startLine = Math.max(0, linesBefore - contextWindow);
+          const endLine = Math.min(lines.length - 1, linesBefore + longestCommonSubstring.split("\n").length + contextWindow);
+          
+          const newSearch = lines.slice(startLine, endLine + 1).join("\n");
+          
+          return {
+            search: newSearch,
+            replace: block.replace
+          };
+        }
+      }
+    }
+    
+    // If we couldn't add context with any strategy, return the original block
+    console.log("Could not add context with any strategy, returning original block");
     return block;
+  }
+  
+  /**
+   * Finds the longest common substring between two strings
+   * @param str1 First string
+   * @param str2 Second string
+   * @returns The longest common substring or null if none found
+   */
+  private findLongestCommonSubstring(str1: string, str2: string): string | null {
+    if (!str1 || !str2) return null;
+    
+    // For very long strings, use a simplified approach
+    if (str1.length > 10000 || str2.length > 10000) {
+      return this.findLongestCommonSubstringSimple(str1, str2);
+    }
+    
+    const m = str1.length;
+    const n = str2.length;
+    let maxLength = 0;
+    let endIndex = 0;
+    
+    // Create a table to store lengths of longest common suffixes
+    const dp: number[][] = Array(m + 1).fill(0).map(() => Array(n + 1).fill(0));
+    
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (str1[i - 1] === str2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+          
+          if (dp[i][j] > maxLength) {
+            maxLength = dp[i][j];
+            endIndex = i;
+          }
+        }
+      }
+    }
+    
+    if (maxLength === 0) return null;
+    
+    return str1.substring(endIndex - maxLength, endIndex);
+  }
+  
+  /**
+   * Simplified version of longest common substring for very long strings
+   */
+  private findLongestCommonSubstringSimple(str1: string, str2: string): string | null {
+    // Use line-by-line approach for long strings
+    const lines1 = str1.split("\n");
+    const lines2 = str2.split("\n");
+    
+    let bestMatch = "";
+    let bestLength = 0;
+    
+    // Try to find matching lines
+    for (let i = 0; i < lines1.length; i++) {
+      const line = lines1[i].trim();
+      if (line.length < 5) continue; // Skip very short lines
+      
+      if (str2.includes(line) && line.length > bestLength) {
+        bestMatch = line;
+        bestLength = line.length;
+      }
+    }
+    
+    // Try to find multi-line matches
+    for (let i = 0; i < lines1.length - 1; i++) {
+      const twoLines = lines1[i] + "\n" + lines1[i + 1];
+      if (str2.includes(twoLines) && twoLines.length > bestLength) {
+        bestMatch = twoLines;
+        bestLength = twoLines.length;
+      }
+    }
+    
+    return bestLength > 0 ? bestMatch : null;
+  }
+  
+  /**
+   * Finds a fuzzy match for a search string in content
+   * @param search The search string
+   * @param content The content to search in
+   * @returns The best matching substring or null if no good match found
+   */
+  private findFuzzyMatch(search: string, content: string): string | null {
+    // For very short search strings, don't attempt fuzzy matching
+    if (search.length < 10) return null;
+    
+    const searchLines = search.split("\n");
+    const contentLines = content.split("\n");
+    
+    // Try to match significant lines (non-empty, not just whitespace or brackets)
+    const significantSearchLines = searchLines.filter(line => {
+      const trimmed = line.trim();
+      return trimmed.length > 5 && !/^[{}[\]();,]*$/.test(trimmed);
+    });
+    
+    if (significantSearchLines.length === 0) return null;
+    
+    // Find the most unique significant line (least likely to have duplicates)
+    let mostUniqueLineIndex = 0;
+    let lowestMatchCount = Infinity;
+    
+    for (let i = 0; i < significantSearchLines.length; i++) {
+      const line = significantSearchLines[i].trim();
+      let matchCount = 0;
+      
+      for (const contentLine of contentLines) {
+        if (contentLine.trim() === line) {
+          matchCount++;
+        }
+      }
+      
+      if (matchCount > 0 && matchCount < lowestMatchCount) {
+        lowestMatchCount = matchCount;
+        mostUniqueLineIndex = i;
+      }
+    }
+    
+    // If we found a unique line, use it to anchor our match
+    if (lowestMatchCount < Infinity) {
+      const anchorLine = significantSearchLines[mostUniqueLineIndex].trim();
+      
+      for (let i = 0; i < contentLines.length; i++) {
+        if (contentLines[i].trim() === anchorLine) {
+          // Found a match for our anchor line
+          const contextWindow = 5;
+          const startIndex = Math.max(0, i - contextWindow);
+          const endIndex = Math.min(contentLines.length - 1, i + contextWindow);
+          
+          return contentLines.slice(startIndex, endIndex + 1).join("\n");
+        }
+      }
+    }
+    
+    return null;
   }
 
   /**
-   * Attempts to recover from a failed change
+   * Attempts to recover from a failed change with enhanced diagnostics and recovery strategies
    * @param path The file path
    * @param content The current file content
    * @param diff The diff that failed to apply
@@ -304,14 +530,35 @@ export class FileChangeManager {
     content: string, 
     diff: string
   ): Promise<{ success: boolean; message: string; content?: string }> {
+    console.log(`Attempting recovery for ${path} (attempt ${this.retryCount[path] || 0 + 1}/${this.maxRetries})`);
+    
     // Increment retry count
     this.retryCount[path] = (this.retryCount[path] || 0) + 1;
     
+    // Initialize failed searches array if needed
+    if (!this.lastFailedSearches[path]) {
+      this.lastFailedSearches[path] = [];
+    }
+    
     // Check if we've exceeded max retries
     if (this.retryCount[path] > this.maxRetries) {
+      // Provide detailed error information about what failed
+      const failedSearches = this.lastFailedSearches[path];
+      let detailedMessage = `Failed to apply changes after ${this.maxRetries} attempts.`;
+      
+      if (failedSearches.length > 0) {
+        detailedMessage += " The following search blocks could not be matched:\n";
+        failedSearches.forEach((search, i) => {
+          // Truncate long search blocks for readability
+          const truncated = search.length > 100 ? search.substring(0, 100) + "..." : search;
+          detailedMessage += `\n${i + 1}. ${truncated}`;
+        });
+        detailedMessage += "\n\nPlease check these blocks for exact matching.";
+      }
+      
       return {
         success: false,
-        message: `Failed to apply changes after ${this.maxRetries} attempts. Please check the SEARCH/REPLACE blocks for exact matching.`
+        message: detailedMessage
       };
     }
     
@@ -324,7 +571,11 @@ export class FileChangeManager {
       };
     }
     
-    // Try each block individually with flexible matching
+    // Track which blocks failed to match for better error reporting
+    const failedBlocks: string[] = [];
+    
+    // Strategy 1: Try each block individually with flexible whitespace matching
+    console.log("Recovery strategy 1: Flexible whitespace matching");
     let modifiedContent = content;
     let anySuccess = false;
     
@@ -339,9 +590,14 @@ export class FileChangeManager {
         
         // If the content changed, we had a successful replacement
         if (result !== modifiedContent) {
+          console.log("Successfully applied block with flexible whitespace matching");
           modifiedContent = result;
           anySuccess = true;
+        } else {
+          failedBlocks.push(block.search);
         }
+      } else {
+        failedBlocks.push(block.search);
       }
     }
     
@@ -353,7 +609,8 @@ export class FileChangeManager {
       };
     }
     
-    // Try with expanded context
+    // Strategy 2: Try with expanded context
+    console.log("Recovery strategy 2: Expanded context matching");
     const expandedBlocks = blocks.map(block => {
       return this.addContextToSearchBlock(block, content);
     });
@@ -368,6 +625,7 @@ export class FileChangeManager {
         const result = replacePreservingWhitespace(expandedContent, block.search, block.replace);
         
         if (result !== expandedContent) {
+          console.log("Successfully applied block with expanded context");
           expandedContent = result;
           expandedSuccess = true;
         }
@@ -382,9 +640,117 @@ export class FileChangeManager {
       };
     }
     
+    // Strategy 3: Try semantic matching (matching by code structure rather than exact text)
+    console.log("Recovery strategy 3: Semantic matching");
+    const semanticResult = this.attemptSemanticMatching(content, blocks);
+    
+    if (semanticResult.success && semanticResult.content) {
+      return {
+        success: true,
+        message: "Applied changes with semantic matching",
+        content: semanticResult.content
+      };
+    }
+    
+    // Update the failed searches for better error reporting
+    this.lastFailedSearches[path] = failedBlocks;
+    
+    // Provide a more detailed error message
+    let errorMessage = "Failed to apply changes. The SEARCH blocks could not be matched in the file content.";
+    
+    // Add specific suggestions based on the content
+    if (failedBlocks.length > 0) {
+      const firstFailedBlock = failedBlocks[0];
+      const firstFailedLines = firstFailedBlock.split("\n");
+      
+      if (firstFailedLines.length > 1) {
+        // For multi-line blocks, suggest checking indentation and whitespace
+        errorMessage += " Check for exact whitespace, indentation, and line endings in multi-line blocks.";
+      } else {
+        // For single-line blocks, suggest checking for exact character matching
+        errorMessage += " Check for exact character-by-character matching in search blocks.";
+      }
+    }
+    
     return {
       success: false,
-      message: "Failed to apply changes. The SEARCH blocks could not be matched in the file content."
+      message: errorMessage
+    };
+  }
+  
+  /**
+   * Attempts to match blocks based on code structure rather than exact text
+   * @param content The file content
+   * @param blocks The search/replace blocks
+   * @returns A result with success status and possibly modified content
+   */
+  private attemptSemanticMatching(
+    content: string,
+    blocks: SearchReplaceBlock[]
+  ): { success: boolean; content?: string } {
+    let modifiedContent = content;
+    let anySuccess = false;
+    
+    for (const block of blocks) {
+      // Try to match by code structure (ignoring comments, whitespace variations)
+      const searchLines = block.search.split("\n");
+      const contentLines = modifiedContent.split("\n");
+      
+      // Extract "significant" parts of each search line (removing comments, normalizing whitespace)
+      const significantSearchLines = searchLines.map(line => {
+        // Remove comments
+        let significant = line.replace(/\/\/.*$/, "").replace(/\/\*.*\*\//g, "");
+        // Normalize whitespace
+        significant = significant.trim().replace(/\s+/g, " ");
+        return significant;
+      }).filter(line => line.length > 0);
+      
+      // If we don't have any significant lines, skip this block
+      if (significantSearchLines.length === 0) continue;
+      
+      // Try to find a sequence of lines in the content that match our significant search lines
+      for (let i = 0; i <= contentLines.length - significantSearchLines.length; i++) {
+        let allMatch = true;
+        let matchedLines = 0;
+        
+        for (let j = 0; j < significantSearchLines.length; j++) {
+          if (!significantSearchLines[j]) continue; // Skip empty lines
+          
+          // Get the significant part of the content line
+          const contentLine = contentLines[i + matchedLines];
+          const significantContentLine = contentLine
+            .replace(/\/\/.*$/, "")
+            .replace(/\/\*.*\*\//g, "")
+            .trim()
+            .replace(/\s+/g, " ");
+          
+          if (significantContentLine !== significantSearchLines[j]) {
+            allMatch = false;
+            break;
+          }
+          
+          matchedLines++;
+        }
+        
+        if (allMatch && matchedLines > 0) {
+          // Found a semantic match, replace these lines with the replacement
+          const replaceLines = block.replace.split("\n");
+          const newContentLines = [
+            ...contentLines.slice(0, i),
+            ...replaceLines,
+            ...contentLines.slice(i + matchedLines)
+          ];
+          
+          modifiedContent = newContentLines.join("\n");
+          anySuccess = true;
+          break;
+        }
+      }
+    }
+    
+    return {
+      success: anySuccess,
+      content: anySuccess ? modifiedContent : undefined
     };
   }
 
