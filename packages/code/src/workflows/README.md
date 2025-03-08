@@ -1,45 +1,74 @@
-# Chat Langchain Workflow
+# Enhanced Langchain Agent Workflow
 
-This directory contains the implementation of the chat-langchain workflow, which provides a way to interact with a language model to modify code based on user prompts.
+This directory contains an improved implementation of the Langchain agent workflow with enhanced file change management capabilities.
 
-## Overview
+## Key Components
 
-The workflow handles:
+### FileChangeManager
 
-- Message processing and tool invocation
-- Code integrity verification
-- Caching for performance optimization
-- Error handling and retries
+The `FileChangeManager` class (`tools/utils/file-change-manager.ts`) provides several improvements to the file change process:
 
-## File Structure
+1. **Better Hash Management**
+   - Maintains a short-term memory of the most recent successful hash
+   - Automatically retries with corrected hash when hash mismatches occur
+   - Validates hash before submitting changes
 
-The implementation has been refactored into smaller, more focused modules:
+2. **Smarter SEARCH/REPLACE Blocks**
+   - Adds context lines to SEARCH blocks to ensure unique matches
+   - Optimizes blocks for better matching accuracy
+   - Provides line number hints for critical sections
 
-- **chat-langchain-workflow.ts**: The original implementation (maintained for backward compatibility)
-- **index.ts**: Main entry point that re-exports functionality from the original implementation
-- **message-handlers.ts**: Functions for creating and handling messages
-- **code-processing.ts**: Functions for code extraction, hashing, and modification
-- **workflow-types.ts**: Type definitions for the workflow
-- **state-reducers.ts**: State management for the workflow
-- **message-processor.ts**: Core message processing logic
-- **workflow-creator.ts**: Factory for creating workflow instances
+3. **Atomic Change Batching**
+   - Groups related changes into single tool calls
+   - Uses multi-block diffs for complex changes
+   - Analyzes dependencies between changes
 
-## Refactoring Benefits
+4. **Error Recovery Improvements**
+   - Automatically expands context when SEARCH blocks fail to match
+   - Implements difference analysis between attempted SEARCH blocks and current content
+   - Adds fallback pattern matching when exact line matches fail
 
-The refactoring of the original monolithic file into smaller, focused modules provides several benefits:
+5. **State Management**
+   - Maintains a simple in-memory model of the file's current state
+   - Tracks pending changes that haven't been confirmed
+   - Provides version diff visualization for complex multi-step changes
 
-1. **Improved Readability**: Each module has a clear, single responsibility
-2. **Better Maintainability**: Changes to one aspect of the workflow only require changes to a single file
-3. **Enhanced Testability**: Smaller modules are easier to test in isolation
-4. **Clearer Dependencies**: The dependencies between different parts of the workflow are more explicit
-5. **Type Safety**: Improved type definitions make the code more robust
+### Enhanced Replace-in-File Tool
 
-## Future Improvements
+The `getEnhancedReplaceInFileTool` function (`tools/enhanced-replace-in-file.ts`) provides an improved version of the replace-in-file tool that uses the FileChangeManager for better file change handling.
 
-Potential future improvements to the workflow:
+### Enhanced Workflow Creator
 
-1. Complete migration to the new modular structure
-2. Add unit tests for each module
-3. Improve error handling and recovery mechanisms
-4. Enhance caching strategies for better performance
-5. Add more documentation and examples
+The `createEnhancedWorkflowWithStringReplace` function (`enhanced-workflow-creator.ts`) creates a workflow that uses the enhanced replace-in-file tool for improved file change management.
+
+## Usage
+
+To use the enhanced workflow in your application:
+
+```typescript
+import { createEnhancedWorkflowWithStringReplace } from './workflows';
+
+// Create an enhanced workflow
+const workflow = createEnhancedWorkflowWithStringReplace(initialState, codeSession);
+
+// Invoke the workflow
+const result = await workflow.invoke(prompt, images);
+```
+
+## Benefits
+
+Using the enhanced workflow provides several benefits:
+
+1. **Reduced Conversation Length**: The enhanced workflow can reduce the number of back-and-forth messages needed to complete a task by handling hash management, context expansion, and change batching automatically.
+
+2. **Improved Success Rate**: The enhanced workflow has better error recovery mechanisms, which can improve the success rate of file changes.
+
+3. **Better User Experience**: The enhanced workflow provides clearer error messages and progress updates, which can improve the user experience.
+
+## Implementation Details
+
+The enhanced workflow uses the same interface as the original workflow, so it can be used as a drop-in replacement. The main difference is that it uses the enhanced replace-in-file tool, which in turn uses the FileChangeManager for better file change handling.
+
+The FileChangeManager maintains a state of the file being modified, including the current content, hash, and pending changes. When a change is submitted, the FileChangeManager validates the hash, optimizes the SEARCH/REPLACE blocks, applies the changes, and updates the state.
+
+If a change fails to apply, the FileChangeManager attempts to recover by trying different strategies, such as expanding the context or using flexible whitespace matching. If all recovery strategies fail, the FileChangeManager returns an error with a clear message.

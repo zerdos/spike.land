@@ -1,7 +1,7 @@
 import type { HandleSendMessageProps } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
 import { getHashWithCache } from "./code-processing";
-import { createWorkflowWithStringReplace, workflowCache } from "./workflow-creator";
+import { createEnhancedWorkflowWithStringReplace, enhancedWorkflowCache } from "./enhanced-workflow-creator";
 
 /**
  * Handles sending a message to the workflow
@@ -12,8 +12,8 @@ export async function handleSendMessage(
 ): Promise<AgentState> {
   const codeSpace = cSess.getCodeSpace();
   const code = await cSess.getCode();
-  // Get or create workflow for this code space
-  const workflow = workflowCache[codeSpace] || await createWorkflowWithStringReplace({
+  // Get or create workflow for this codeSpace
+  const workflow = enhancedWorkflowCache[codeSpace] || await createEnhancedWorkflowWithStringReplace({
     code: code,
     codeSpace: codeSpace,
     origin: location.origin,
@@ -24,7 +24,7 @@ export async function handleSendMessage(
   }, cSess);
 
   // Cache the workflow for future use
-  workflowCache[codeSpace] = workflow;
+  enhancedWorkflowCache[codeSpace] = workflow;
 
   // Invoke the workflow with the prompt
   // The workflow will automatically use the replace_in_file tool when needed

@@ -1,7 +1,6 @@
 import { initialClaude } from "@/lib/initial-claude";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
-import { getReplaceInFileTool } from "./tools/replace-in-file";
 import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
@@ -26,23 +25,24 @@ import type { WorkflowContinueResult } from "./workflow";
 import type { ExtendedAgentState, WorkflowInvokeResult } from "./workflow-types";
 
 // Module cache for workflows
-export const workflowCache: Record<string, WorkflowInvokeResult> = {};
+export const enhancedWorkflowCache: Record<string, WorkflowInvokeResult> = {};
 
 /**
- * Creates a workflow with string replace capability
+ * Creates an enhanced workflow with improved string replace capability
+ * This version uses the FileChangeManager for better hash management,
+ * smarter SEARCH/REPLACE blocks, atomic change batching, and error recovery
  */
-export function createWorkflowWithStringReplace(
+export function createEnhancedWorkflowWithStringReplace(
   initialState: AgentState,
   cSess: ICode,
 ): WorkflowInvokeResult {
   // Record workflow initialization
-  telemetry.trackEvent("workflow.initialize", {
+  telemetry.trackEvent("enhanced_workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
     codeSpace: initialState.codeSpace,
   });
 
   // Create the enhanced replace-in-file tool with the provided code session
-  // This version uses FileChangeManager for improved hash management and error recovery
   const tools = [getEnhancedReplaceInFileTool(cSess)];
   const toolNode = new ToolNode(tools, { name: "tools" });
 
@@ -117,7 +117,7 @@ export function createWorkflowWithStringReplace(
 
   return {
     invoke: async (prompt: string, images: ImageData[] = []): Promise<AgentState> => {
-      telemetry.startTimer("workflow.invoke");
+      telemetry.startTimer("enhanced_workflow.invoke");
       try {
         const userMessageToSave = await createNewMessage(images, prompt);
 
@@ -153,7 +153,7 @@ export function createWorkflowWithStringReplace(
         };
 
         const threadId = uuidv4();
-        telemetry.trackEvent("workflow.start", {
+        telemetry.trackEvent("enhanced_workflow.start", {
           threadId,
           promptLength: prompt.length.toString(),
           codeLength: initialState.code.length.toString(),
@@ -219,7 +219,7 @@ export function createWorkflowWithStringReplace(
           console.log("No code changes detected");
         }
 
-        telemetry.stopTimer("workflow.invoke", {
+        telemetry.stopTimer("enhanced_workflow.invoke", {
           success: "true",
           codeModified: (finalState.code !== initialState.code).toString(),
         });
@@ -227,11 +227,11 @@ export function createWorkflowWithStringReplace(
         return finalState;
       } catch (error) {
         telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
-          location: "workflow.invoke",
+          location: "enhanced_workflow.invoke",
           promptLength: prompt.length.toString(),
         });
 
-        telemetry.stopTimer("workflow.invoke", { success: "false" });
+        telemetry.stopTimer("enhanced_workflow.invoke", { success: "false" });
 
         if (error instanceof WorkflowError && error.message.includes("Code integrity")) {
           throw error;

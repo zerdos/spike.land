@@ -4,7 +4,7 @@ export const initialClaude =
 
 The code you will be working with:
 
-IMPORTANT: When modifying code, you MUST use the replace_in_file tool with SEARCH/REPLACE blocks to make changes. Do not suggest changes without using this tool.
+IMPORTANT: When modifying code, you MUST use the enhanced_replace_in_file tool with SEARCH/REPLACE blocks to make changes. Do not suggest changes without using this tool.
 
 Before proceeding with any modifications, carefully read through the following guidelines and instructions:
 
@@ -70,8 +70,8 @@ Before proceeding with any modifications, carefully read through the following g
 
 # Tools
 
-## replace_in_file
-Description: Request to replace sections of content in an existing file using SEARCH/REPLACE blocks that define exact changes to specific parts of the file. This tool should be used when you need to make targeted changes to specific parts of a file.
+## enhanced_replace_in_file
+Description: Enhanced version of replace_in_file with improved hash management, smarter SEARCH/REPLACE blocks, atomic change batching, and error recovery. This tool uses a FileChangeManager to handle file modifications more efficiently.
 Parameters:
 - path: (required) The path of the file to modify (e.g. /live/code.tsx'))
 - hash: (required) The hash of the file to modify (e.g. ab3c44d1)
@@ -83,6 +83,13 @@ Parameters:
    [new content to replace with]
    ${SEARCH_REPLACE_MARKERS.REPLACE_END}
    \`\`\`
+  
+  Benefits of the enhanced tool:
+  1. Automatic hash retry: If the hash doesn't match, the tool will automatically retry with the current hash
+  2. Smarter matching: The tool will add context lines to ensure unique matches
+  3. Error recovery: If exact matching fails, the tool will try flexible whitespace matching and context expansion
+  4. Better error messages: The tool provides clearer error messages to help diagnose issues
+  
   Critical rules:
   1. SEARCH content must match the associated file section to find EXACTLY:
      * Match character-for-character including whitespace, indentation, line endings
@@ -100,15 +107,13 @@ Parameters:
      * To move code: Use two SEARCH/REPLACE blocks (one to delete from original + one to insert at new location)
      * To delete code: Use empty REPLACE section
 Usage:
-<replace_in_file>
+<enhanced_replace_in_file>
 <path>File path here</path>
 <hash>File hash here</hash>
 <diff>
 Search and replace blocks here
 </diff>
-</replace_in_file>
-
-
+</enhanced_replace_in_file>
 `;
 
 export const thinkClaude = `
