@@ -111,7 +111,7 @@ export class Code implements ICode {
     const oldSession = sanitizeSession(this.currentSession);
 
     // If there are no messages, create a new assistant message
-    if (this.currentSession.messages.length === 0) {
+    if (oldSession.messages.length === 0) {
       this.addMessage({
         id: Date.now().toString(),
         role: "assistant",
@@ -121,7 +121,7 @@ export class Code implements ICode {
     }
 
     // Get the last message
-    const lastMessage = this.currentSession.messages[this.currentSession.messages.length - 1];
+    const lastMessage = oldSession.messages[oldSession.messages.length - 1];
 
     // If the last message is not from the assistant, create a new assistant message
     if (lastMessage.role !== "assistant") {
@@ -140,7 +140,7 @@ export class Code implements ICode {
     const newSession = sanitizeSession({
       ...this.currentSession,
       messages: [
-        ...this.currentSession.messages.slice(0, this.currentSession.messages.length - 1),
+        ...oldSession.messages.slice(0, oldSession.messages.length - 1),
         lastMessage,
       ],
     });

@@ -28,10 +28,11 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
     apt-get install --no-install-recommends -y \
         apt-transport-https \
         apt-utils \
+        ca-certificates \
+        curl \
         autocutsel \
         build-essential \
         bzip2 \
-        curl \
         dbus \
         dbus-x11 \
         dirmngr \
