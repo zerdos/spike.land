@@ -17,6 +17,12 @@ interface FileState {
   hash: string;
   lastSuccessfulHash: string;
   pendingChanges: PendingChange[];
+  changeHistory: {
+    timestamp: number;
+    changeSize: number;
+    hash: string;
+  }[];
+  consecutiveMinorChanges: number;
 }
 
 interface SearchReplaceBlock {
@@ -34,6 +40,9 @@ export class FileChangeManager {
   private retryCount: Record<string, number> = {};
   private maxRetries = 5; // Increased from 3 to 5 for more recovery attempts
   private lastFailedSearches: Record<string, string[]> = {}; // Track failed searches for better error reporting
+  private maxConsecutiveMinorChanges = 3; // Maximum number of consecutive minor changes allowed
+  private minSignificantChangeSize = 10; // Minimum number of characters changed to be considered significant
+  private maxChangesPerHour = 20; // Maximum number of changes allowed per hour to prevent infinite loops
 
   /**
    * Creates a new FileChangeManager instance
@@ -89,7 +98,9 @@ export class FileChangeManager {
         content: currentContent,
         hash: currentHash,
         lastSuccessfulHash: currentHash,
-        pendingChanges: []
+        pendingChanges: [],
+        changeHistory: [],
+        consecutiveMinorChanges: 0
       };
     }
 
@@ -138,6 +149,37 @@ export class FileChangeManager {
         };
       }
     }
+    
+    // Check if the change is significant enough to apply
+    const changeSize = Math.abs(modifiedContent.length - currentContent.length);
+    const isMinorChange = changeSize < this.minSignificantChangeSize;
+    
+    // Check for rate limiting
+    const now = Date.now();
+    const oneHourAgo = now - (60 * 60 * 1000);
+    const recentChanges = this.currentState[path]?.changeHistory?.filter(
+      change => change.timestamp > oneHourAgo
+    ).length || 0;
+    
+    // Check if we're exceeding the rate limit
+    if (recentChanges >= this.maxChangesPerHour) {
+      return {
+        success: false,
+        message: `Too many changes in a short period (${recentChanges} in the last hour). Please wait before making more changes to prevent potential infinite loops.`
+      };
+    }
+    
+    // Check for consecutive minor changes
+    if (isMinorChange) {
+      const currentConsecutiveMinorChanges = (this.currentState[path]?.consecutiveMinorChanges || 0) + 1;
+      
+      if (currentConsecutiveMinorChanges > this.maxConsecutiveMinorChanges) {
+        return {
+          success: false,
+          message: `Multiple minor changes detected (${currentConsecutiveMinorChanges} consecutive changes with less than ${this.minSignificantChangeSize} characters modified). The changes appear to be trivial or unnecessary. Please make more substantial changes or stop modifying this file.`
+        };
+      }
+    }
 
     // Update the file with modified content
     try {
@@ -154,11 +196,29 @@ export class FileChangeManager {
       
       // Update state with new content
       const newHash = md5(modifiedContent);
+      
+      // Update change history
+      const changeHistory = [
+        ...(this.currentState[path]?.changeHistory || []),
+        {
+          timestamp: Date.now(),
+          changeSize,
+          hash: newHash
+        }
+      ];
+      
+      // Update consecutive minor changes counter
+      const consecutiveMinorChanges = isMinorChange 
+        ? (this.currentState[path]?.consecutiveMinorChanges || 0) + 1
+        : 0;
+      
       this.currentState[path] = {
         content: modifiedContent,
         hash: newHash,
         lastSuccessfulHash: newHash,
-        pendingChanges: []
+        pendingChanges: [],
+        changeHistory,
+        consecutiveMinorChanges
       };
       
       // Update hash cache
@@ -171,9 +231,20 @@ export class FileChangeManager {
       const bytesChanged = modifiedContent.length - currentContent.length;
       const linesChanged = modifiedContent.split("\n").length - currentContent.split("\n").length;
       
+      // Add a warning about minor changes if needed
+      let message = `Changes applied successfully: ${bytesChanged > 0 ? "+" : ""}${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`;
+      
+      if (isMinorChange) {
+        message += `\nNote: This change was relatively minor (${changeSize} characters). Consider making more substantial changes or stopping if the task is complete.`;
+      }
+      
+      if (consecutiveMinorChanges > 1) {
+        message += `\nWarning: ${consecutiveMinorChanges} consecutive minor changes detected. Further minor changes may be rejected.`;
+      }
+      
       return { 
         success: true, 
-        message: `Changes applied successfully: ${bytesChanged > 0 ? "+" : ""}${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`,
+        message,
         hash: newHash
       };
     } catch (error) {

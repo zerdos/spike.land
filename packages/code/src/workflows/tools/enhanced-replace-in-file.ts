@@ -23,7 +23,7 @@ function log(
 }
 
 /**
- * Creates an error response with consistent format
+ * Creates an error response with consistent format and helpful guidance
  */
 function createErrorResponse(
   currentCode: string,
@@ -31,10 +31,21 @@ function createErrorResponse(
   additionalProps: Record<string, unknown> = {},
 ): CodeModification {
   log(errorMessage, "error", additionalProps);
+  
+  // Check if the error is related to minor changes or rate limiting
+  const isMinorChangeError = errorMessage.includes("minor changes") || 
+                            errorMessage.includes("trivial") ||
+                            errorMessage.includes("changes in a short period");
+  
+  // Add guidance about stopping unnecessary changes
+  const enhancedMessage = isMinorChangeError
+    ? `${errorMessage}\n\nIMPORTANT: Only make changes when necessary. If your task is complete, stop making changes.`
+    : errorMessage;
+  
   return {
     code: currentCode,
     hash: md5(currentCode),
-    error: errorMessage,
+    error: enhancedMessage,
     ...additionalProps,
   };
 }
@@ -201,12 +212,20 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
           // Continue execution even if adding message chunk fails
         }
 
+        // Check if the message contains warnings about minor changes or rate limiting
+        const hasWarnings = result.message.includes("minor changes") || 
+                           result.message.includes("consecutive minor changes") ||
+                           result.message.includes("changes in a short period");
+        
         // Return success response with minimal information to save tokens
+        // Include a stronger message if warnings were detected
         return {
           // Don't return the full code to save tokens
           code: "", // Empty string instead of full code
           hash: result.hash || md5(await cSess.getCode()),
-          error: result.message,
+          error: hasWarnings 
+            ? `${result.message}\n\nIMPORTANT: Only make changes when necessary. If your task is complete, stop making changes.`
+            : result.message,
         };
       } catch (error) {
         log("Unexpected error occurred", "error", {
@@ -256,7 +275,10 @@ Critical rules:
    * Each line must be complete. Never truncate lines mid-way through as this can cause matching failures.
 4. Special operations:
    * To move code: Use two SEARCH/REPLACE blocks (one to delete from original + one to insert at new location)
-   * To delete code: Use empty REPLACE section`,
+   * To delete code: Use empty REPLACE section
+   
+IMPORTANT: Only make changes when necessary. Avoid making trivial or cosmetic changes that don't meaningfully improve the code.
+Multiple minor changes in succession will be rejected to prevent infinite loops. When your task is complete, stop making changes.`,
       schema: z.object({
         path: z.string().describe("The path of the file to modify"),
         hash: z.string().describe("The hash of the file to modify for version control"),
