@@ -14,7 +14,6 @@ permissions:
   packages: write
 
 env:
-  BUILDKIT_PROGRESS: plain
   DOCKER_BUILDKIT: 1
 
 jobs:
@@ -40,7 +39,7 @@ jobs:
       contents: read
       packages: write
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix: ${{ fromJson(needs.prepare-metadata.outputs.matrix) }}
 
     steps:
@@ -104,11 +103,11 @@ jobs:
         run: |
           # Convert platform to safe format for tags
           PLATFORM_TAG=$(echo "${{ matrix.platform }}" | tr '/' '-')
-          echo "PLATFORM_TAG=${PLATFORM_TAG}" >> $GITHUB_ENV
+          echo "platform_tag=${PLATFORM_TAG}" >> $GITHUB_OUTPUT
           
           # Use more specific cache tags to improve hit rates
-          echo "CACHE_FROM=type=local,src=/tmp/.buildx-cache,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},type=registry,ref=devimages/${{ matrix.image-name }}:latest" >> $GITHUB_ENV
-          echo "CACHE_TO=type=local,dest=/tmp/.buildx-cache-new,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},mode=max" >> $GITHUB_ENV
+          echo "cache_from=type=local,src=/tmp/.buildx-cache,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},type=registry,ref=devimages/${{ matrix.image-name }}:latest" >> $GITHUB_OUTPUT
+          echo "cache_to=type=local,dest=/tmp/.buildx-cache-new,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},mode=max" >> $GITHUB_OUTPUT
 
       - name: Calculate layer cache hash
         id: layer-cache-hash
@@ -129,8 +128,10 @@ jobs:
             devimages/${{ matrix.image-name }}:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: |
-            ${{ env.CACHE_FROM }}
-          cache-to: ${{ env.CACHE_TO }}
+            type=local,src=/tmp/.buildx-cache
+            type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${{ steps.cache-keys.outputs.platform_tag }}
+            type=registry,ref=devimages/${{ matrix.image-name }}:latest
+          cache-to: ${{ steps.cache-keys.outputs.cache_to }}
           pull: true
           no-cache-filters: |
             */dist-upgrade
