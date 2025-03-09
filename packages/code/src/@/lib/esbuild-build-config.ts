@@ -1,7 +1,7 @@
 import type { BuildOptions } from "esbuild";
 
 import type { Environment } from "./esbuild-make-env";
-import { makeEnv } from "./esbuild-make-env.ts";
+import { makeEnv } from "./esbuild-make-env";
 
 import { fetchPlugin } from "./esbuild-fetch-plugin.ts";
 

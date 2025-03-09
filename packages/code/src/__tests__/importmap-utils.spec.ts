@@ -1,25 +1,8 @@
-import type { ImportMap } from "@/lib/import-map";
 import { importMapReplace } from "@/lib/importmap-utils";
 import { describe, expect, it } from "vitest";
 
 describe("importMapReplace", () => {
-  const origin = "";
 
-  const importMap: ImportMap = {
-    imports: {
-      "/@/": "/@/",
-      "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-      "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
-      "@emotion/styled": "/emotionStyled.mjs",
-      "react/jsx-runtime": "/jsx.mjs",
-      "react-dom/server": "/reactDomServer.mjs",
-      "react-dom/client": "/reactDomClient.mjs",
-      "@emotion/react": "/emotion.mjs",
-      "react": "/reactMod.mjs",
-      "framer-motion": "/@/workers/framer-motion.mjs",
-      "react-dom": "/reactDom.mjs",
-    },
-  };
 
   const scenarios = {
     // Basic imports
@@ -176,7 +159,7 @@ describe("importMapReplace", () => {
   for (const [description, testCases] of Object.entries(scenarios)) {
     for (const [name, code] of Object.entries(testCases)) {
       it(`${description}: ${name}`, () => {
-        const result = importMapReplace(code, origin, importMap);
+        const result = importMapReplace(code);
         expect({ result, code }).toMatchSnapshot();
       });
     }
@@ -184,13 +167,8 @@ describe("importMapReplace", () => {
 
   // Test with custom importMap
   it("should respect custom importMap", () => {
-    const customImportMap = {
-      imports: {
-        "custom-module": "https://example.com/custom-module",
-      },
-    };
     const code = `import { feature } from "custom-module";`;
-    const result = importMapReplace(code, origin, customImportMap);
+    const result = importMapReplace(code);
     expect({ result, code }).toMatchSnapshot();
   });
 
@@ -200,7 +178,7 @@ describe("importMapReplace", () => {
     const decoder = new TextDecoder();
     const buffer = encoder.encode(`import { foo } from "bar";`);
     const input = decoder.decode(buffer);
-    const result = importMapReplace(input, origin);
+    const result = importMapReplace(input);
     expect(result).toMatchSnapshot();
   });
 });

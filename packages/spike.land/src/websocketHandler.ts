@@ -135,6 +135,7 @@ export class WebSocketHandler {
           session.webSocket.send(JSON.stringify({
             type: "error",
             message: "Session hash mismatch",
+            
           }));
           return;
         }

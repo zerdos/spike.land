@@ -17,11 +17,11 @@ interface FileState {
   hash: string;
   lastSuccessfulHash: string;
   pendingChanges: PendingChange[];
-  changeHistory: {
+  changeHistory: Array<{
     timestamp: number;
     changeSize: number;
     hash: string;
-  }[];
+  }>;
   consecutiveMinorChanges: number;
 }
 
@@ -845,7 +845,7 @@ export class FileChangeManager {
    * @param changes An array of changes to batch
    * @returns A single batched change
    */
-  batchChanges(changes: { path: string; hash: string; diff: string }[]): { path: string; hash: string; diff: string } {
+  batchChanges(changes: Array<{ path: string; hash: string; diff: string }>): { path: string; hash: string; diff: string } {
     // Only batch changes for the same file
     const firstChange = changes[0];
     const samePath = changes.every(change => change.path === firstChange.path);
