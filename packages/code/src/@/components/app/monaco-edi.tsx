@@ -576,7 +576,7 @@ async function startMonacoPristine({
 
         // Handle any updates that came in while processing
         if (pendingUpdate.current) {
-          const nextContent = pendingUpdate.current;
+          const _nextContent = pendingUpdate.current;
           pendingUpdate.current = null;
           await processUpdate();
         }

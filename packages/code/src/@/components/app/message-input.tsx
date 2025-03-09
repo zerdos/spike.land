@@ -28,7 +28,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
   const handleSend = async () => {
     const session = await cSess.getSession();
-    const { code, messages } = session;
+    const { code: _code, messages: _messages } = session;
 
     localStorage.setItem("streaming-" + getCodeSpace(location.pathname), "true");
 

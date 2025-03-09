@@ -9,8 +9,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { useScreenshot } from "./hooks/useScreenshot";
 
-let isStreamingTimeout: NodeJS.Timeout | null = null;
-
 const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
@@ -29,13 +27,20 @@ const ChatInterface: React.FC<{
     false,
   );
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     if (isStreaming) {
-      isStreamingTimeout = setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setIsStreaming(false);
       }, 5000);
     }
-  }, [isStreaming]);
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isStreaming, setIsStreaming]);
 
   const [input, setInput] = useDictation("");
 
@@ -125,7 +130,7 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-        cSess.getSession().then((currentSession) => {
+        cSess.getSession().then((_currentSession) => {
           handleSendMessage({
             prompt,
             images,

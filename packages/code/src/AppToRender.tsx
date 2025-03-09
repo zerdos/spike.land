@@ -2,7 +2,7 @@ import { Bot, History } from "@/external/lucide-react";
 import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";

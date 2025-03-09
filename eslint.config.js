@@ -46,6 +46,8 @@ export default [
       // React rules
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+      "react/display-name": "off",
+      "react/jsx-uses-react": "off",
       
       // TypeScript rules
       "@typescript-eslint/no-unused-vars": [

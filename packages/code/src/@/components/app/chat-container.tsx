@@ -56,7 +56,7 @@ export const ChatContainer: React.FC<
     handleCancelEdit,
     handleSaveEdit,
     onNewPrompt,
-    handleEditMessage,
+    handleEditMessage: _handleEditMessage,
     isStreaming,
     isDarkMode,
   } = props;

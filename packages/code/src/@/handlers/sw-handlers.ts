@@ -1,4 +1,6 @@
 import { enhancedFetch } from "../../enhancedFetch";
+import { fakeServer } from "../../sw-local-fake-server";
+import { serveWithCache } from "../../serve-with-cache";
 import { CacheUtils, CDN_DOMAIN } from "../../workflows/tools/utils/cache-utils";
 import { ConfigManager } from "../../workflows/tools/utils/config-manager";
 import { FileCacheManager } from "../../workflows/tools/utils/file-cache";
@@ -17,8 +19,6 @@ export class ServiceWorkerHandlers {
 
   async handleInstall(): Promise<void> {
     console.log("Service Worker installing.");
-    const queuedFetch = new QueuedFetch(4);
-
     try {
       const config = await this.configManager.getConfig();
 
@@ -36,7 +36,7 @@ export class ServiceWorkerHandlers {
         const myKeys = new Set(myCacheKeys.map((request) => request.url));
         const missing = CacheUtils.setDifference(allKeys, myKeys);
 
-        const stillMissing = await CacheUtils.getMissingFiles(
+        const _stillMissing = await CacheUtils.getMissingFiles(
           missing,
           cacheNames,
           myCache,
@@ -119,7 +119,7 @@ export class ServiceWorkerHandlers {
 
     if (request.method === "GET" && url.pathname.includes("/live/")) {
       event.respondWith(
-        fakeServer(request).catch((error) => {
+        fakeServer(request).catch((error: Error) => {
           console.error("Error in fakeServer:", error);
           return fetch(request);
         }),
@@ -152,7 +152,7 @@ export class ServiceWorkerHandlers {
       (req: Request) => {
         const url = new URL(req.url);
         const file = url.pathname.slice(1);
-        const cacheFile = this.sw.files[file];
+        const _cacheFile = this.sw.files[file];
         // const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
         return CacheUtils.retry(() => fetch(file));
       },
