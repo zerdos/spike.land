@@ -1,4 +1,4 @@
-import { serveWithCache } from "@/lib/serve-with-cache";
+import { serveWithCache } from "../@/lib/serve-with-cache"
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies
@@ -619,7 +619,7 @@ describe("serveWithCache", () => {
       },
     };
 
-    vi.mocked(await import("@/lib/importmap-utils")).importMap = importMapMock;
+    vi.mocked(await import("../@/lib/importmap-utils")).importMap = importMapMock;
 
     const { serve } = serveWithCache(files, cacheToUse);
 
