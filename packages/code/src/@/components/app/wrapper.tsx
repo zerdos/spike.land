@@ -40,7 +40,7 @@ export const Wrapper: React.FC<WrapperProps> = (
   return (
     <div
       ref={containerRef}
-      css={scale
+      style={scale
         ? { transform: `scale(${scale})`, transformOrigin: "0 0" }
         : {}}
       data-testid="wrapper-container"

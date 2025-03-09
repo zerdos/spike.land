@@ -1,5 +1,5 @@
 import { throttle } from "@/lib/throttle";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function useWindowSize(delay = 250) {
   const [windowSize, setWindowSize] = useState({
@@ -7,8 +7,9 @@ function useWindowSize(delay = 250) {
     height: innerHeight,
   });
 
-  const handleResize = useCallback(
-    throttle(
+  // Create the resize handler with throttle using useMemo
+  const handleResize = useMemo(() => {
+    return throttle(
       () => {
         setWindowSize({
           width: innerWidth,
@@ -16,14 +17,13 @@ function useWindowSize(delay = 250) {
         });
       },
       delay,
-      { edges: ["leading", "trailing"] },
-    ),
-    [delay],
-  );
+      { edges: ["leading", "trailing"] }
+    );
+  }, [delay]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-    handleResize();
+    handleResize(); // Initial call
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 

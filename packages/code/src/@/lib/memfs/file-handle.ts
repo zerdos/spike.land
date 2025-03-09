@@ -134,7 +134,7 @@ class FileHandleImpl implements FileHandle {
     throw new Error("Method not implemented");
   }
 
-  readableWebStream(options?: { type: "bytes"; }): ReadableStream<Uint8Array> {
+  readableWebStream(_options?: { type: "bytes"; }): ReadableStream<Uint8Array> {
     throw new Error("Method not implemented");
   }
 

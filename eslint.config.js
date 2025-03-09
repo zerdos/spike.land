@@ -4,6 +4,7 @@ import js from "@eslint/js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -14,6 +15,7 @@ const compat = new FlatCompat({
 
 export default [
   js.configs.recommended,
+
   
   // Global ignores
   {
@@ -48,6 +50,8 @@ export default [
       "react/prop-types": "off",
       "react/display-name": "off",
       "react/jsx-uses-react": "off",
+      "react/no-unknown-property": "off",
+
       
       // TypeScript rules
       "@typescript-eslint/no-unused-vars": [
@@ -71,7 +75,7 @@ export default [
       
       // General rules
       "prefer-const": "error",
-      "no-undef": "off"
+      "no-undef": "off",
     },
     languageOptions: {
       ecmaVersion: 2022,

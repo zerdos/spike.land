@@ -12,6 +12,8 @@
     "outDir": "dist",
     "composite": true,
     "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
