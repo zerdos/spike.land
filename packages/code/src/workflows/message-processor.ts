@@ -134,7 +134,7 @@ export async function processMessage(
       });
     }
 
-    const { hash, modifiedCodeHash, compilationError, codeWasReturned } = metadata;
+    const { hash, compilationError, codeWasReturned } = metadata;
 
     const updatedState = {
       ...cleanedState,
