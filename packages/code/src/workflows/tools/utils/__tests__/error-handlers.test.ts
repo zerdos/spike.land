@@ -4,6 +4,7 @@ import {
   createCompilationError,
   handleWorkflowError,
   WorkflowError,
+  ErrorType,
 } from "../error-handlers";
 
 describe("error-handlers", () => {
@@ -11,7 +12,7 @@ describe("error-handlers", () => {
     it("should create error with message and context", () => {
       const message = "Test error";
       const context = { key: "value" };
-      const error = new WorkflowError(message, context);
+      const error = new WorkflowError(message, undefined, context);
 
       expect(error.message).toBe(message);
       expect(error.context).toEqual(context);
@@ -30,6 +31,7 @@ describe("error-handlers", () => {
   describe("handleWorkflowError", () => {
     beforeEach(() => {
       vi.spyOn(console, "error").mockImplementation(() => {});
+      vi.spyOn(console, "warn").mockImplementation(() => {});
     });
 
     afterEach(() => {
@@ -37,38 +39,45 @@ describe("error-handlers", () => {
     });
 
     it("should handle WorkflowError with context", () => {
-      const error = new WorkflowError("Test error", { key: "value" });
+      const error = new WorkflowError("Test error", undefined, { key: "value" });
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
         "Workflow Error:",
-        "Test error",
-        { key: "value" },
+        error.getUserFriendlyMessage(),
+        error.context
       );
     });
 
     it("should handle code integrity error", () => {
-      const error = new WorkflowError("Code integrity validation failed");
+      const error = new WorkflowError("Code integrity validation failed", ErrorType.CodeIntegrity);
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
-        expect.stringContaining("Code integrity"),
+        "Code integrity validation failed:",
+        error.getUserFriendlyMessage()
+      );
+      expect(console.error).toHaveBeenCalledWith(
+        "Context:",
+        JSON.stringify(error.context, null, 2)
       );
     });
 
     it("should handle compilation error", () => {
-      const error = new WorkflowError("failed to compile");
+      const error = new WorkflowError("failed to compile", ErrorType.Compilation);
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
-        expect.stringContaining("Compilation errors"),
+        "Compilation errors detected:",
+        error.getUserFriendlyMessage()
       );
     });
 
     it("should handle unknown errors", () => {
       const error = new Error("Unknown error");
-
-      expect(() => handleWorkflowError(error)).toThrow(WorkflowError);
+      
+      const result = handleWorkflowError(error);
+      expect(result).toBeInstanceOf(WorkflowError);
       expect(console.error).toHaveBeenCalledWith("Unexpected Error:", error);
     });
   });
@@ -89,10 +98,10 @@ describe("error-handlers", () => {
 
       expect(error).toBeInstanceOf(WorkflowError);
       expect(error.message).toContain(message);
-      expect(error.context).toEqual({
+      expect(error.context).toMatchObject({
         expectedHash,
         actualHash,
-        codeLength,
+        codeLength
       });
     });
   });
@@ -110,11 +119,11 @@ describe("error-handlers", () => {
       );
 
       expect(error).toBeInstanceOf(WorkflowError);
-      expect(error.message).toBe("Compilation failed");
-      expect(error.context).toEqual({
+      expect(error.message).toBe("Compilation failed: Syntax error");
+      expect(error.context).toMatchObject({
         error: errorMessage,
         originalHash: hash,
-        modifiedHash: modifiedCodeHash,
+        modifiedHash: modifiedCodeHash
       });
     });
 
@@ -122,10 +131,10 @@ describe("error-handlers", () => {
       const error = createCompilationError("Syntax error");
 
       expect(error).toBeInstanceOf(WorkflowError);
-      expect(error.context).toEqual({
+      expect(error.context).toMatchObject({
         error: "Syntax error",
         originalHash: undefined,
-        modifiedHash: undefined,
+        modifiedHash: undefined
       });
     });
   });
