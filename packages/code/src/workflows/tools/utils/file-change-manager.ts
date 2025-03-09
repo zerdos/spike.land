@@ -2,7 +2,6 @@ import { SEARCH_REPLACE_MARKERS, updateSearchReplace } from "@/lib/chat-utils";
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { getHashWithCache } from "../../code-processing";
 import { hashCache } from "../../caching";
 
 interface PendingChange {
@@ -392,8 +391,8 @@ export class FileChangeManager {
     const firstSearchLine = searchLines[0].trim();
     const potentialMatches: number[] = [];
     
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].trim() === firstSearchLine) {
+    for (const [i, line] of lines.entries()) {
+      if (line.trim() === firstSearchLine) {
         potentialMatches.push(i);
       }
     }
@@ -501,21 +500,21 @@ export class FileChangeManager {
   private findLongestCommonSubstringSimple(str1: string, str2: string): string | null {
     // Use line-by-line approach for long strings
     const lines1 = str1.split("\n");
-    const lines2 = str2.split("\n");
+    const _lines2 = str2.split("\n");
     
     let bestMatch = "";
     let bestLength = 0;
     
     // Try to find matching lines
-      for (const line of lines1) {
-        const trimmedLine = line.trim();
-        if (trimmedLine.length < 5) continue; // Skip very short lines
-        
-        if (str2.includes(trimmedLine) && trimmedLine.length > bestLength) {
-          bestMatch = trimmedLine;
-          bestLength = trimmedLine.length;
-        }
+    for (const line of lines1) {
+      const trimmedLine = line.trim();
+      if (trimmedLine.length < 5) continue; // Skip very short lines
+      
+      if (str2.includes(trimmedLine) && trimmedLine.length > bestLength) {
+        bestMatch = trimmedLine;
+        bestLength = trimmedLine.length;
       }
+    }
     
     // Try to find multi-line matches
     for (const [i, line] of lines1.slice(0, -1).entries()) {
@@ -574,8 +573,8 @@ export class FileChangeManager {
     if (lowestMatchCount < Infinity) {
       const anchorLine = significantSearchLines[mostUniqueLineIndex].trim();
       
-      for (let i = 0; i < contentLines.length; i++) {
-        if (contentLines[i].trim() === anchorLine) {
+      for (const [i, line] of contentLines.entries()) {
+        if (line.trim() === anchorLine) {
           // Found a match for our anchor line
           const contextWindow = 5;
           const startIndex = Math.max(0, i - contextWindow);
@@ -780,12 +779,18 @@ export class FileChangeManager {
       if (significantSearchLines.length === 0) continue;
       
       // Try to find a sequence of lines in the content that match our significant search lines
-      for (let i = 0; i <= contentLines.length - significantSearchLines.length; i++) {
+      // Create an array of possible starting indices
+      const possibleStartIndices = Array.from(
+        { length: contentLines.length - significantSearchLines.length + 1 },
+        (_, i) => i
+      );
+
+      for (const i of possibleStartIndices) {
         let allMatch = true;
         let matchedLines = 0;
         
-        for (let j = 0; j < significantSearchLines.length; j++) {
-          if (!significantSearchLines[j]) continue; // Skip empty lines
+        for (const [_j, searchLine] of significantSearchLines.entries()) {
+          if (!searchLine) continue; // Skip empty lines
           
           // Get the significant part of the content line
           const contentLine = contentLines[i + matchedLines];
@@ -795,7 +800,7 @@ export class FileChangeManager {
             .trim()
             .replace(/\s+/g, " ");
           
-          if (significantContentLine !== significantSearchLines[j]) {
+          if (significantContentLine !== searchLine) {
             allMatch = false;
             break;
           }
