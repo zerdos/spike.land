@@ -1,4 +1,4 @@
-import type { HandleSendMessageProps, ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import AlwaysSupportedSharedWorker from "@/lib/shared-w-polyfill";
 import { getTransferables, hasTransferables } from "@/lib/transferables";
 import type { MyBuildOptions } from "@/lib/transpile";

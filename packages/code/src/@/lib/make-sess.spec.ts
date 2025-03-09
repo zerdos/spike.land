@@ -26,7 +26,7 @@ vi.mock("./md5", () => ({
 
 vi.mock("./text-diff", () => ({
   createDiff: vi.fn(() => [{ op: "replace", path: "/code", value: "updated code" }]),
-  applyDiff: vi.fn((session, diff) => ({
+  applyDiff: vi.fn((session, _diff) => ({
     ...session,
     code: "updated code",
   })),

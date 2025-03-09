@@ -4,7 +4,7 @@ import * as t from "@babel/types";
 import { codeAnalysisCache } from "../../workflows/caching";
 
 // Helper type for semantic diff to handle nullable component names
-type ComponentMetadata = Omit<CodeAnalysis, "componentName"> & {
+type _ComponentMetadata = Omit<CodeAnalysis, "componentName"> & {
   componentName: string;
 };
 

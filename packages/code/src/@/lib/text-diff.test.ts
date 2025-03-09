@@ -2,6 +2,14 @@ import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "./interfaces";
 import { applyDiff, createDiff } from "./text-diff";
 
+// Define an interface for the operation with _diff property
+interface StringDiffOperation {
+  op: string;
+  path: string;
+  value: string;
+  _diff?: unknown;
+}
+
 describe("text-diff with string optimization", () => {
   // Create a sample session with a long string property
   const createSampleSession = (code: string): ICodeSession => ({
@@ -29,12 +37,12 @@ describe("text-diff with string optimization", () => {
     const stringDiffOp = diff.find(op =>
       op.op === "replace" &&
       op.path === "/code" &&
-      (op as any)._diff !== undefined
+      (op as StringDiffOperation)._diff !== undefined
     );
 
     // Verify that we're using string diff
     expect(stringDiffOp).toBeDefined();
-    expect((stringDiffOp as any)._diff).toBeDefined();
+    expect((stringDiffOp as StringDiffOperation)._diff).toBeDefined();
 
     // Apply the diff and check the result
     const result = applyDiff(original, diff);
@@ -60,7 +68,7 @@ describe("text-diff with string optimization", () => {
 
     // Verify that we're not using string diff
     expect(replaceOp).toBeDefined();
-    expect((replaceOp as any)._diff).toBeUndefined();
+    expect((replaceOp as StringDiffOperation)._diff).toBeUndefined();
 
     // Apply the diff and check the result
     const result = applyDiff(original, diff);

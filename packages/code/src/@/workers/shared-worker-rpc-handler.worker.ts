@@ -1,5 +1,4 @@
 import type { ICodeSession } from "@/lib/interfaces";
-import { use } from "react";
 import { RpcProvider } from "worker-rpc";
 
 interface SharedWorkerGlobalScope {

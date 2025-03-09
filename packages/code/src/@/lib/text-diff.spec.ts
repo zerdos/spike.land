@@ -5,7 +5,7 @@ import type { ICodeSessionDiff } from "./text-diff";
 import { applyDiff, createDiff } from "./text-diff";
 
 // Helper function to safely work with diff results
-function safeDiff(diff: ICodeSessionDiff): any[] {
+function safeDiff(diff: ICodeSessionDiff): ICodeSessionDiff {
   if (!diff) return [];
   return diff;
 }

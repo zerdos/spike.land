@@ -1,5 +1,4 @@
 import { stat } from "./directory-operations";
-import { StatResult } from "./types";
 import { getDirectoryHandleAndFileName } from "./utils";
 
 /**
@@ -35,7 +34,7 @@ export const appendFile = async (
 
     // Write combined content
     await writeFile(filePath, existingContent + content);
-  } catch (error) {
+  } catch (_error) {
     // If file doesn't exist, create it with the new content
     await writeFile(filePath, content);
   }
@@ -87,7 +86,7 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
     const content = await readFile(oldPath);
     await writeFile(newPath, content);
     await unlink(oldPath);
-  } catch (error) {
+  } catch (_error) {
     // If not a file, try as directory
     const entries = await import("./directory-operations").then(m => m.readdir(oldPath));
     await import("./directory-operations").then(m => m.mkdir(newPath));

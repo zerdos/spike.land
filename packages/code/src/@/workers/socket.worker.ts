@@ -93,16 +93,16 @@ const LOG_CONFIG = {
 
 // Logging utility functions
 const logger = {
-  debug: (message: string, ...args: any[]) => {
+  debug: (message: string, ...args: unknown[]) => {
     if (LOG_CONFIG.debug) console.debug(`[SocketWorker][DEBUG] ${message}`, ...args);
   },
-  info: (message: string, ...args: any[]) => {
+  info: (message: string, ...args: unknown[]) => {
     if (LOG_CONFIG.info) console.info(`[SocketWorker][INFO] ${message}`, ...args);
   },
-  warn: (message: string, ...args: any[]) => {
+  warn: (message: string, ...args: unknown[]) => {
     if (LOG_CONFIG.warn) console.warn(`[SocketWorker][WARN] ${message}`, ...args);
   },
-  error: (message: string, ...args: any[]) => {
+  error: (message: string, ...args: unknown[]) => {
     console.error(`[SocketWorker][ERROR] ${message}`, ...args);
   },
   log: (message: string, startTime: number) => {
@@ -116,7 +116,7 @@ const logger = {
 logger.info("Initializing socket worker...");
 
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
-const SENDER_WORKER_HASH_MISMATCH = "WORKER_HASH_MISMATCH";
+const _SENDER_WORKER_HASH_MISMATCH = "WORKER_HASH_MISMATCH";
 const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 
 export async function setConnections(
@@ -161,7 +161,6 @@ export async function setConnections(
 
   logger.debug(`Setting up session subscription for codeSpace: ${codeSpace}`);
   sessionSynchronizer.subscribe((updatedSession: ICodeSession) => {
-    const updateStartTime = Date.now();
     try {
       // Check if the session has a sender property
       if (!("sender" in updatedSession)) {
@@ -170,7 +169,7 @@ export async function setConnections(
       }
 
       logger.debug(
-        `Processing session update from sender: ${(updatedSession as any).sender} for ${codeSpace}`,
+        `Processing session update from sender: ${(updatedSession as SessionMessageData).sender} for ${codeSpace}`,
       );
       const oldSession = connection.oldSession;
       const newSession = sanitizeSession(updatedSession);

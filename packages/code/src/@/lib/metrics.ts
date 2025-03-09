@@ -115,14 +115,14 @@ export const metrics = WorkflowMetrics.getInstance();
  */
 export function measure(operationName: string) {
   return function measureDecorator(
-    _target: any,
+    _target: Record<string, unknown>,
     _propertyKey: string,
     descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value;
 
     // Preserve the original method type
-    descriptor.value = function wrapped(this: any, ...args: any[]) {
+    descriptor.value = function wrapped(this: unknown, ...args: unknown[]) {
       const start = performance.now();
       const result = originalMethod.apply(this, args);
 

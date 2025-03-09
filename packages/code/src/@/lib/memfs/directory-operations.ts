@@ -86,17 +86,17 @@ export const stat = async (filePath: string): Promise<StatResult> => {
         // Try to get as file
         const fileHandle = await dirHandle.getFileHandle(fileName);
         return await handleFile(fileHandle, filePath);
-      } catch (error) {
+      } catch (_error) {
         try {
           // Try to get as directory
           const subDirHandle = await dirHandle.getDirectoryHandle(fileName);
           return await handleDirectory(subDirHandle, filePath);
-        } catch (error) {
+        } catch (_error) {
           return null;
         }
       }
     }
-  } catch (error) {
+  } catch (_error) {
     return null;
   }
 };
@@ -106,7 +106,7 @@ export const stat = async (filePath: string): Promise<StatResult> => {
  * @param filePath Path to check
  * @param mode Access mode (not used in this implementation)
  */
-export const access = async (filePath: string, mode?: number): Promise<void> => {
+export const access = async (filePath: string, _mode?: number): Promise<void> => {
   const statResult = await stat(filePath);
   if (statResult === null) {
     throw new Error(`ENOENT: no such file or directory, access '${filePath}'`);

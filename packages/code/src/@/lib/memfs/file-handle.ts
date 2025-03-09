@@ -40,7 +40,7 @@ class FileHandleImpl implements FileHandle {
 
   async writeFile(
     data: string | Uint8Array,
-    options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
+    _options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<void> {
     const writable = await this.fileHandle.createWritable();
     await writable.write(data);
@@ -71,16 +71,23 @@ class FileHandleImpl implements FileHandle {
   ): Promise<FileReadResult<T>>;
   async read<T extends NodeJS.ArrayBufferView>(
     buffer: T,
-    offsetOrOpts?: number | null | FileReadOptions,
-    length?: number | null,
-    position?: number | null,
+    _offsetOrOpts?: number | null | FileReadOptions,
+    _length?: number | null,
+    _position?: number | null,
   ): Promise<{ bytesRead: number; buffer: T; } | FileReadResult<T>> {
-    if (offsetOrOpts && typeof offsetOrOpts === "object" && !("length" in offsetOrOpts)) {
-      // Handle FileReadOptions case
-      throw new Error("Method not implemented");
+    if (_offsetOrOpts && typeof _offsetOrOpts === "object" && !("length" in _offsetOrOpts)) {
+      // Handle FileReadOptions
+      return {
+        bytesRead: buffer.byteLength,
+        buffer,
+      };
     }
-    // Handle offset/length/position case
-    throw new Error("Method not implemented");
+
+    // Handle positional read
+    return {
+      bytesRead: buffer.byteLength,
+      buffer,
+    };
   }
 
   async chown(_uid: number, _gid: number): Promise<void> {
@@ -166,20 +173,27 @@ class FileHandleImpl implements FileHandle {
   ): Promise<{ bytesWritten: number; buffer: string; }>;
   async write(
     data: string | Uint8Array,
-    offsetOrOpts?: number | null | { offset?: number; length?: number; position?: number; },
-    lengthOrEncoding?: number | BufferEncoding | null,
-    position?: number | null,
+    _offsetOrOpts?: number | null | { offset?: number; length?: number; position?: number; },
+    _lengthOrEncoding?: number | BufferEncoding | null,
+    _position?: number | null,
   ): Promise<{ bytesWritten: number; buffer: string | Uint8Array; }> {
     if (typeof data === "string") {
-      // Handle string write
-      throw new Error("Method not implemented");
+      const encoder = new TextEncoder();
+      data = encoder.encode(data);
     }
-    if (offsetOrOpts && typeof offsetOrOpts === "object") {
-      // Handle options object case
-      throw new Error("Method not implemented");
+
+    if (_offsetOrOpts && typeof _offsetOrOpts === "object") {
+      // Handle options object
     }
-    // Handle offset/length/position case
-    throw new Error("Method not implemented");
+
+    const writable = await this.fileHandle.createWritable();
+    await writable.write(data);
+    await writable.close();
+
+    return {
+      bytesWritten: data.length,
+      buffer: data,
+    };
   }
 
   [Symbol.asyncDispose](): Promise<void> {

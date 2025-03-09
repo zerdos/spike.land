@@ -43,7 +43,6 @@ export class SessionManager implements ISessionManager {
         signal: `${this.user} ${session.codeSpace}`,
         sess: session,
       });
-      const codeSpace = this.session.codeSpace;
     }
     return this.session;
   }
@@ -52,7 +51,7 @@ export class SessionManager implements ISessionManager {
     // Wrap the callback to handle the sender property
     return this.sessionSynchronizer.subscribe((sessionWithSender) => {
       // Extract the sender property and pass only the ICodeSession part to the callback
-      const { sender, ...sessionWithoutSender } = sessionWithSender;
+      const { sender: _sender, ...sessionWithoutSender } = sessionWithSender;
       callback(sessionWithoutSender as ICodeSession);
     });
   }

@@ -115,7 +115,7 @@ function shouldTransformPath(path: string): boolean {
   );
 }
 
-function getExportsFromSpecifiers(specifiers: any[]): string {
+function getExportsFromSpecifiers(specifiers: Array<{ type: string; imported?: { name: string }; local: { name: string } }>): string {
   return specifiers
     .filter(spec => spec.type === "ImportSpecifier")
     .map(spec => spec.imported?.name || spec.local.name)
@@ -199,7 +199,7 @@ function getMappedPath(
 
 export function importMapReplace(
   code: string,
-  origin = "",
+  _origin = "",
   impMap: ImportMap = importMap,
 ): string {
   // Handle binary data - convert to string if needed
@@ -208,7 +208,7 @@ export function importMapReplace(
       code = (code as unknown as {
         toString(): string;
       }).toString();
-    } catch (e) {
+    } catch (_e) {
       return code;
     }
   }
@@ -224,7 +224,7 @@ export function importMapReplace(
   try {
     // Set up AST parser
     const parser = acorn.Parser.extend(acornJsx());
-    let ast: any;
+    let ast: acorn.Node;
 
     try {
       // Parse the code using acorn with JSX plugin
@@ -233,21 +233,15 @@ export function importMapReplace(
         ecmaVersion: "latest",
         allowAwaitOutsideFunction: true,
         allowImportExportEverywhere: true,
-        locations: true,
-        ranges: true,
       });
-    } catch (error) {
-      console.error("AST parsing failed, falling back to original code:", error);
+    } catch (e) {
+      // If parsing fails, return the original code
       return code;
     }
 
-    // Create working variables
     const codeLines = code.split("\n");
     const changes: Array<{ line: number; column: number; length: number; replacement: string; }> =
       [];
-
-    // Always set to true to be compatible with the original implementation
-    const hasChanges = true;
 
     // Process imports, exports, and dynamic imports
     acornWalk.full(ast, (node: any) => {
