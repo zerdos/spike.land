@@ -349,11 +349,11 @@ export class FileChangeManager {
       const firstLineMatches: number[] = [];
       const lastLineMatches: number[] = [];
       
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].trim() === firstSearchLine) {
+      for (const [i, line] of lines.entries()) {
+        if (line.trim() === firstSearchLine) {
           firstLineMatches.push(i);
         }
-        if (lines[i].trim() === lastSearchLine) {
+        if (line.trim() === lastSearchLine) {
           lastLineMatches.push(i);
         }
       }
@@ -507,19 +507,19 @@ export class FileChangeManager {
     let bestLength = 0;
     
     // Try to find matching lines
-    for (let i = 0; i < lines1.length; i++) {
-      const line = lines1[i].trim();
-      if (line.length < 5) continue; // Skip very short lines
-      
-      if (str2.includes(line) && line.length > bestLength) {
-        bestMatch = line;
-        bestLength = line.length;
+      for (const line of lines1) {
+        const trimmedLine = line.trim();
+        if (trimmedLine.length < 5) continue; // Skip very short lines
+        
+        if (str2.includes(trimmedLine) && trimmedLine.length > bestLength) {
+          bestMatch = trimmedLine;
+          bestLength = trimmedLine.length;
+        }
       }
-    }
     
     // Try to find multi-line matches
-    for (let i = 0; i < lines1.length - 1; i++) {
-      const twoLines = lines1[i] + "\n" + lines1[i + 1];
+    for (const [i, line] of lines1.slice(0, -1).entries()) {
+      const twoLines = line + "\n" + lines1[i + 1];
       if (str2.includes(twoLines) && twoLines.length > bestLength) {
         bestMatch = twoLines;
         bestLength = twoLines.length;
