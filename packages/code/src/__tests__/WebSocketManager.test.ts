@@ -107,7 +107,7 @@ describe("WebSocketManager", () => {
     };
 
     mockSessionSynchronizer = {
-      init: vi.fn().mockResolvedValue({} as any),
+      init: vi.fn().mockResolvedValue({} as ISessionSynchronizer),
       subscribe: vi.fn().mockImplementation((callback) => {
         storedCallback = callback;
         return () => {
@@ -333,7 +333,7 @@ describe("WebSocketManager", () => {
       // Setup mock with specific behavior
       mockSessionSynchronizer.init = vi.fn()
         .mockRejectedValueOnce(networkError)
-        .mockResolvedValue({} as any);
+        .mockResolvedValue({} as ISessionSynchronizer);
 
       location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow("Network error");
@@ -366,7 +366,7 @@ describe("WebSocketManager", () => {
       const error = new Error("Recoverable error");
       const mockInit = vi.fn()
         .mockRejectedValueOnce(error) // First call fails
-        .mockResolvedValue({} as any); // Subsequent calls succeed
+        .mockResolvedValue({} as ISessionSynchronizer); // Subsequent calls succeed
 
       mockSessionSynchronizer.init = mockInit;
       location.pathname = "/live/test-space";

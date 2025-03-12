@@ -3,6 +3,17 @@ import * as acorn from "acorn";
 import acornJsx from "acorn-jsx";
 import * as acornWalk from "acorn-walk";
 
+// Define types for the AST nodes we're working with
+interface ImportExportNode {
+  type: string;
+  source?: {
+    value: string;
+    start: number;
+    end: number;
+  };
+  specifiers?: Array<{ type: string; imported?: { name: string }; local: { name: string } }>;
+}
+
 export interface ImportMap {
   imports: Record<string, string>;
 }
@@ -234,7 +245,7 @@ export function importMapReplace(
         allowAwaitOutsideFunction: true,
         allowImportExportEverywhere: true,
       });
-    } catch (e) {
+    } catch (_e) {
       // If parsing fails, return the original code
       return code;
     }
@@ -244,6 +255,7 @@ export function importMapReplace(
       [];
 
     // Process imports, exports, and dynamic imports
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     acornWalk.full(ast, (node: any) => {
       try {
         // Handle import declarations

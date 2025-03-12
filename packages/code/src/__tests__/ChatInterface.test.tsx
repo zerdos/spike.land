@@ -39,7 +39,7 @@ vi.mock("@/components/app/chat-drawer", () => ({
 import { ChatInterface } from "@/../ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
-import { fireEvent, waitFor } from "@testing-library/dom";
+import { fireEvent } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import { act } from "react";
 
