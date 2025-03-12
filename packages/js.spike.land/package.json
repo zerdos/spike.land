@@ -22,7 +22,7 @@
     "@cloudflare/kv-asset-handler": "0.3.4",
     "rimraf": "6.0.1",
     "typescript": "5.8.2",
-    "wrangler": "3.114.0"
+    "wrangler": "3.114.1"
   },
   "dependencies": {
     "@spike-npm-land/code": "0.9.56",
