@@ -2,6 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
+    "allowImportingTsExtensions": true,
     "incremental": true,
     "isolatedModules": true,
     "target": "esnext",

@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as RouterImport } from './routes/router'
-import { Route as testsRouterTestImport } from './routes/__tests__/router.test'
+import { Route as testsRouterSpecImport } from './routes/__tests__/router.spec'
 
 // Create/Update Routes
 
@@ -22,9 +22,9 @@ const RouterRoute = RouterImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const testsRouterTestRoute = testsRouterTestImport.update({
-  id: '/__tests__/router/test',
-  path: '/router/test',
+const testsRouterSpecRoute = testsRouterSpecImport.update({
+  id: '/__tests__/router/spec',
+  path: '/router/spec',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +39,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RouterImport
       parentRoute: typeof rootRoute
     }
-    '/__tests__/router/test': {
-      id: '/__tests__/router/test'
-      path: '/router/test'
-      fullPath: '/router/test'
-      preLoaderRoute: typeof testsRouterTestImport
+    '/__tests__/router/spec': {
+      id: '/__tests__/router/spec'
+      path: '/router/spec'
+      fullPath: '/router/spec'
+      preLoaderRoute: typeof testsRouterSpecImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/router': typeof RouterRoute
-  '/router/test': typeof testsRouterTestRoute
+  '/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRoutesByTo {
   '/router': typeof RouterRoute
-  '/router/test': typeof testsRouterTestRoute
+  '/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/router': typeof RouterRoute
-  '/__tests__/router/test': typeof testsRouterTestRoute
+  '/__tests__/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/router' | '/router/test'
+  fullPaths: '/router' | '/router/spec'
   fileRoutesByTo: FileRoutesByTo
-  to: '/router' | '/router/test'
-  id: '__root__' | '/router' | '/__tests__/router/test'
+  to: '/router' | '/router/spec'
+  id: '__root__' | '/router' | '/__tests__/router/spec'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   RouterRoute: typeof RouterRoute
-  testsRouterTestRoute: typeof testsRouterTestRoute
+  testsRouterSpecRoute: typeof testsRouterSpecRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   RouterRoute: RouterRoute,
-  testsRouterTestRoute: testsRouterTestRoute,
+  testsRouterSpecRoute: testsRouterSpecRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +97,14 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/router",
-        "/__tests__/router/test"
+        "/__tests__/router/spec"
       ]
     },
     "/router": {
       "filePath": "router.tsx"
     },
-    "/__tests__/router/test": {
-      "filePath": "__tests__/router.test.tsx"
+    "/__tests__/router/spec": {
+      "filePath": "__tests__/router.spec.tsx"
     }
   }
 }

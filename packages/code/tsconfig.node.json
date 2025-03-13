@@ -13,7 +13,7 @@
     "composite": true,
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
+    "jsxImportSource": "@emotion/react",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
