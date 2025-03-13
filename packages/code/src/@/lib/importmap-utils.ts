@@ -5,7 +5,7 @@ export interface ImportMap {
 }
 
 // Comprehensive sets and configurations
-const FILE_EXTENSIONS = new Set([
+const SUPPORTED_FILE_EXTENSIONS: Set<string> = new Set([
   ".js",
   ".mjs",
   ".ts",
@@ -39,8 +39,8 @@ const FILE_EXTENSIONS = new Set([
   ".env.staging",
 ]);
 
-const WORKER_PATTERNS = ["/workers/", ".worker"];
-const COMPONENT_PATTERNS = [
+const WORKER_PATH_PATTERNS: string[] = ["/workers/", ".worker"];
+const COMPONENT_PATH_PATTERNS: string[] = [
   "@/components/",
   "@/services/",
   "@/config/",
@@ -53,7 +53,7 @@ const COMPONENT_PATTERNS = [
   "@/hooks",
 ];
 
-const EXTERNAL_DEPENDENCIES = [
+const EXTERNAL_MODULE_DEPENDENCIES: string[] = [
   "react",
   "react-dom",
   "framer-motion",
@@ -61,7 +61,7 @@ const EXTERNAL_DEPENDENCIES = [
   "@emotion/styled",
 ];
 
-export const importMap: ImportMap = {
+const DEFAULT_IMPORT_MAP: ImportMap = {
   imports: {
     "/@/": "/@/",
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
@@ -77,25 +77,29 @@ export const importMap: ImportMap = {
   },
 };
 
+export const importMap: ImportMap = DEFAULT_IMPORT_MAP;
+
 // Utility Functions
 function hasKnownExtension(path: string): boolean {
-  const lastDotIndex = path.lastIndexOf(".");
-  return lastDotIndex !== -1 && FILE_EXTENSIONS.has(path.slice(lastDotIndex));
+  const lastDotIndex: number = path.lastIndexOf(".");
+  return lastDotIndex !== -1 && SUPPORTED_FILE_EXTENSIONS.has(path.slice(lastDotIndex));
 }
 
 function isWorkerFile(path: string): boolean {
-  return WORKER_PATTERNS.some(pattern => path.includes(pattern));
+  return WORKER_PATH_PATTERNS.some((pattern) => path.includes(pattern));
 }
 
 function isComponentFile(path: string): boolean {
-  return COMPONENT_PATTERNS.some(pattern => path.includes(pattern));
+  return COMPONENT_PATH_PATTERNS.some((pattern) => path.includes(pattern));
 }
 
-function processQueryAndHash(path: string): {
+interface PathParts {
   basePath: string;
   query: string;
   hash: string;
-} {
+}
+
+function processQueryAndHash(path: string): PathParts {
   const [pathPart, hash] = path.split("#");
   const [basePath, query] = pathPart.split("?");
 
@@ -118,18 +122,21 @@ function shouldTransformPath(path: string): boolean {
 }
 
 function getExportsString(match: string): string {
-  const namedImports = match.match(/\{([^}]*)\}/s)?.[1];
-  return namedImports
-    ?.split(",")
-    .map((s) => s.trim().split(" as ")[0])
-    .filter(Boolean)
-    .join(",") || "";
+  const namedImportsMatch = match.match(/\{([^}]*)\}/s);
+  const namedImports: string | undefined = namedImportsMatch?.[1];
+  return (
+    namedImports
+      ?.split(",")
+      .map((s) => s.trim().split(" as ")[0])
+      .filter(Boolean)
+      .join(",") || ""
+  );
 }
 
 function getMappedPath(
   path: string,
-  exportsParam = "",
-  hasFromClause = false,
+  exportsParam: string = "",
+  hasFromClause: boolean = false,
   importMapImports: ImportMap["imports"] = importMap["imports"],
 ): string {
   // Early returns for complex or special paths
@@ -142,11 +149,11 @@ function getMappedPath(
 
   // Handle worker files
   if (isWorkerFile(basePath)) {
-    const baseWithoutExt = hasKnownExtension(basePath)
+    const baseWithoutExt: string = hasKnownExtension(basePath)
       ? basePath.substring(0, basePath.lastIndexOf("."))
       : basePath;
-    const extension = hasFromClause ? ".mjs" : ".js";
-    const resultPath = baseWithoutExt + extension;
+    const extension: string = hasFromClause ? ".mjs" : ".js";
+    const resultPath: string = baseWithoutExt + extension;
 
     return !resultPath.startsWith(".") && !resultPath.startsWith("/")
       ? `/${resultPath}`
@@ -155,11 +162,11 @@ function getMappedPath(
 
   // Handle component and special files
   if (isComponentFile(basePath)) {
-    const baseWithoutExt = hasKnownExtension(basePath)
+    const baseWithoutExt: string = hasKnownExtension(basePath)
       ? basePath.substring(0, basePath.lastIndexOf("."))
       : basePath;
-    const extension = ".mjs";
-    const resultPath = baseWithoutExt + extension;
+    const extension: string = ".mjs";
+    const resultPath: string = baseWithoutExt + extension;
 
     return !resultPath.startsWith(".") && !resultPath.startsWith("/")
       ? `/${resultPath}`
@@ -171,7 +178,7 @@ function getMappedPath(
     !hasKnownExtension(basePath) &&
     (basePath.startsWith(".") || basePath.startsWith("/"))
   ) {
-    const extension = basePath.endsWith("/") ? "index.mjs" : ".mjs";
+    const extension: string = basePath.endsWith("/") ? "index.mjs" : ".mjs";
     return `${basePath}${extension}${existingQuery}${hash}`;
   }
 
@@ -182,9 +189,9 @@ function getMappedPath(
 
   // Handle non-relative paths
   if (!basePath.startsWith(".") && !basePath.startsWith("/")) {
-    const params = [
+    const params: string[] = [
       "bundle=true",
-      `external=${EXTERNAL_DEPENDENCIES.join(",")}`,
+      `external=${EXTERNAL_MODULE_DEPENDENCIES.join(",")}`,
     ];
 
     if (exportsParam) params.push(`exports=${exportsParam}`);
@@ -195,9 +202,7 @@ function getMappedPath(
   return basePath + existingQuery + hash;
 }
 
-export function importMapReplace(
-  code: string,
-): string {
+export function importMapReplace(code: string): string {
   // Prevent double processing
   if (code.includes("/** importMapReplace */") || code.includes("/* esm.sh")) {
     return code;
@@ -211,7 +216,7 @@ export function importMapReplace(
     /^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm,
     (match, pre, q1, path, q2) => {
       if (!shouldTransformPath(path)) return match;
-      const fullPath = getMappedPath(path, "", false);
+      const fullPath: string = getMappedPath(path, "", false);
       return `${pre}${q1}${fullPath}${q2}`;
     },
   );
@@ -225,11 +230,11 @@ export function importMapReplace(
       const pathMatch = match.match(/['"]([^'"]+)['"]/);
       if (!pathMatch) return match;
 
-      const importPath = pathMatch[1];
+      const importPath: string = pathMatch[1];
       if (!shouldTransformPath(importPath)) return match;
 
-      const exportsParam = getExportsString(match);
-      const mappedPath = getMappedPath(importPath, exportsParam, true);
+      const exportsParam: string = getExportsString(match);
+      const mappedPath: string = getMappedPath(importPath, exportsParam, true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );
@@ -243,11 +248,11 @@ export function importMapReplace(
       const pathMatch = match.match(/['"]([^'"]+)['"]/);
       if (!pathMatch) return match;
 
-      const exportPath = pathMatch[1];
+      const exportPath: string = pathMatch[1];
       if (!shouldTransformPath(exportPath)) return match;
 
-      const exportsParam = getExportsString(match);
-      const mappedPath = getMappedPath(exportPath, exportsParam, true);
+      const exportsParam: string = getExportsString(match);
+      const mappedPath: string = getMappedPath(exportPath, exportsParam, true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );
@@ -259,15 +264,13 @@ export function importMapReplace(
       const pathMatch = match.match(/['"]([^'"]+)['"]/);
       if (!pathMatch) return match;
 
-      const importPath = pathMatch[1];
+      const importPath: string = pathMatch[1];
       if (!shouldTransformPath(importPath)) return match;
 
-      const mappedPath = getMappedPath(importPath, "", true);
+      const mappedPath: string = getMappedPath(importPath, "", true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );
 
   return `/** importMapReplace */\n${code}`;
 }
-
-export default importMap;
