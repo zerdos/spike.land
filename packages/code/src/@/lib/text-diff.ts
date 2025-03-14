@@ -1,5 +1,5 @@
 import type { ICodeSession } from "@/lib/interfaces";
-import { diffChars, diffLines } from "diff";
+import { diffChars } from "diff";
 import type { Change } from "diff";
 import { applyPatch, compare } from "fast-json-patch";
 import type { Operation, ReplaceOperation } from "fast-json-patch";
@@ -16,7 +16,7 @@ interface StringDiffOperation extends ReplaceOperation<string> {
 export type ICodeSessionDiff = Array<Operation | StringDiffOperation>;
 
 const STRING_DIFF_THRESHOLD = 80;
-const LARGE_STRING_THRESHOLD = 10000;
+const LARGE_STRING_THRESHOLD = 240;
 const MAX_DIFF_RATIO = 0.001; // Further reduced for better optimization
 
 function optimizeStringDiff(oldStr: string, newStr: string): Change[] | null {
