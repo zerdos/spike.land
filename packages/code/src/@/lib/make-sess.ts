@@ -67,7 +67,7 @@ class SessionPatcher {
       codePatch.patch,
     );
 
-    const newHash = computeSessionHash(parsedSession);
+    const newHash = SessionPatcher.computeSessionHash(parsedSession);
     if (newHash !== codePatch.hashCode) {
       throw new Error("New hash does not match:" + newHash + " !== " + codePatch.hashCode + "\n" + JSON.stringify(codePatch) + "\n" + JSON.stringify(parsedSession));
     }
@@ -81,8 +81,8 @@ class SessionPatcher {
     const sanitizedOldSess = SessionPatcher.sanitizeSession(oldSess);
     const sanitizedNewSess = SessionPatcher.sanitizeSession(newSess);
 
-    const oldHash = computeSessionHash(sanitizedOldSess);
-    const hashCode = computeSessionHash(sanitizedNewSess);
+    const oldHash = SessionPatcher.computeSessionHash(sanitizedOldSess);
+    const hashCode = SessionPatcher.computeSessionHash(sanitizedNewSess);
 
     // If the sessions are identical, return a patch with an empty diff
     if (oldHash === hashCode) {
@@ -103,7 +103,7 @@ class SessionPatcher {
 
     // Validate that the patch can be applied
     const patchedSession = applyDiff(sanitizedOldSess, diff);
-    const patchedHash = computeSessionHash(patchedSession);
+    const patchedHash = SessionPatcher.computeSessionHash(patchedSession);
     if (patchedHash !== hashCode) {
 
       // If the patch is invalid, throw an error in such a format, that it can be easily added as a new integration test

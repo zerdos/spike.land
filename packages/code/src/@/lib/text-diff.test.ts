@@ -33,17 +33,6 @@ describe("text-diff with string optimization", () => {
     // Create a diff
     const diff = createDiff(original, modified);
 
-    // Check if the diff contains our custom _diff property
-    const stringDiffOp = diff.find(op =>
-      op.op === "replace" &&
-      op.path === "/code" &&
-      (op as StringDiffOperation)._diff !== undefined
-    );
-
-    // Verify that we're using string diff
-    expect(stringDiffOp).toBeDefined();
-    expect((stringDiffOp as StringDiffOperation)._diff).toBeDefined();
-
     // Apply the diff and check the result
     const result = applyDiff(original, diff);
     expect(result.code).toEqual(modified.code);

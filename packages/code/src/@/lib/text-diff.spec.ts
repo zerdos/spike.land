@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ICodeSession, Message, MessagePart } from "./interfaces";
+import type { ICodeSession, Message, MessagePart, TextPart } from "./interfaces";
 // import { applyDiff , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
 import type { ICodeSessionDiff } from "./text-diff";
 import { applyDiff, createDiff } from "./text-diff";
@@ -175,24 +175,10 @@ describe("text-diff", () => {
       ];
 
       const diff = createDiff(oldSession, newSession);
-      const safeArray = safeDiff(diff);
-
-      expect(diff).toBeDefined();
-      expect(safeArray.length).toBeGreaterThan(0);
-      expect(diff).toMatchInlineSnapshot(`
-        [
-          {
-            "op": "replace",
-            "path": "/messages/1/content",
-            "value": [
-              {
-                "text": "Original text added",
-                "type": "text",
-              },
-            ],
-          },
-        ]
-      `);
+      const recreatedSession = applyDiff(oldSession, diff);
+      
+      expect(recreatedSession.messages.length).toBe(2);
+      expect((recreatedSession.messages[1].content[0] as TextPart).text).toBe("Original text added");
     });
   });
 
