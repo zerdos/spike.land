@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "../interfaces";
 import { applySessionPatch, computeSessionHash, generateSessionPatch } from "../make-sess";
+import { tr } from "date-fns/locale";
+import { transpile } from "typescript";
 
 describe("Session Patch Integration Tests", () => {
   const createTestSession = (modifications = {}): ICodeSession => ({
@@ -175,4 +177,27 @@ describe("Session Patch Integration Tests", () => {
       expect(result.messages).toEqual([]);
     });
   });
+
+  it("should handle live errors correctly", async () => {
+    const {originalCode, targetCode, originalTransformedCode, modifiedTransformed} = await import("./fixtures/live-error-bug-01");
+    const initialSession = createTestSession({
+      code: originalCode,
+      transpiled: originalTransformedCode,
+      messages: [{ id: "1", role: "user", content: "Hello" }]
+    });
+
+    const modifiedSession = createTestSession({
+      code: targetCode,
+      transpiled: modifiedTransformed,
+      messages: [{ id: "1", role: "user", content: "Hello" }]
+    });
+
+    const patch = generateSessionPatch(initialSession, modifiedSession);
+    const result = applySessionPatch(initialSession, patch);
+
+    expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+    expect(result).toEqual(modifiedSession);
+  });
+
+
 });

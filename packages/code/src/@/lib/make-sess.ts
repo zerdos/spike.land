@@ -50,7 +50,7 @@ class SessionPatcher {
     codePatch: CodePatch,
   ): ICodeSession {
     const sanitizedSession = SessionPatcher.sanitizeSession(sess);
-    const currentHash = computeSessionHash(sanitizedSession);
+    const currentHash = SessionPatcher.computeSessionHash(sanitizedSession);
 
     if (currentHash !== codePatch.oldHash) {
       throw new Error(
@@ -69,7 +69,7 @@ class SessionPatcher {
 
     const newHash = computeSessionHash(parsedSession);
     if (newHash !== codePatch.hashCode) {
-      throw new Error("New hash does not match");
+      throw new Error("New hash does not match:" + newHash + " !== " + codePatch.hashCode + "\n" + JSON.stringify(codePatch) + "\n" + JSON.stringify(parsedSession));
     }
     return parsedSession;
   }
@@ -95,13 +95,34 @@ class SessionPatcher {
 
     // Create a diff between the sessions
     const diff = createDiff(sanitizedOldSess, sanitizedNewSess);
-
-    // Return the patch with the diff
-    return {
+    const codePatch = {
       oldHash,
       hashCode,
       patch: diff,
     };
+
+    // Validate that the patch can be applied
+    const patchedSession = applyDiff(sanitizedOldSess, diff);
+    const patchedHash = computeSessionHash(patchedSession);
+    if (patchedHash !== hashCode) {
+
+      // If the patch is invalid, throw an error in such a format, that it can be easily added as a new integration test
+      throw new Error(
+        `Patch is invalid: ${patchedHash} !== ${hashCode}\n` +
+        `Old: ${JSON.stringify(sanitizedOldSess)}\n` +
+        `New: ${JSON.stringify(sanitizedNewSess)}\n` +
+        `Patch: ${JSON.stringify(diff)}\n` +
+        `Patched: ${JSON.stringify(patchedSession)}\n` +
+        `Old hash: ${oldHash}\n` +
+        `New hash: ${hashCode}`,
+        
+      );
+    }
+
+
+    return codePatch;
+
+  
   }
 }
 
