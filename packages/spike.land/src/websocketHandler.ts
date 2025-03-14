@@ -1,5 +1,5 @@
 import type { ICodeSession } from "@spike-npm-land/code";
-import { applySessionPatch, computeSessionHash } from "@spike-npm-land/code";
+import { applySessionDelta, computeSessionHash } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
 export interface WebsocketSession {
@@ -140,7 +140,7 @@ export class WebSocketHandler {
           return;
         }
 
-        const patchedSession = applySessionPatch(currentSession, data);
+        const patchedSession = applySessionDelta(currentSession, data);
         await this.code.updateAndBroadcastSession(patchedSession);
 
         session.webSocket.send(JSON.stringify({

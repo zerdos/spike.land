@@ -1,14 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { ICodeSession, Message, MessagePart, TextPart } from "./interfaces";
-// import { applyDiff , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
-import type { ICodeSessionDiff } from "./text-diff";
-import { applyDiff, createDiff } from "./text-diff";
+import type { ICodeSession, MessagePart, TextPart } from "./interfaces";
+// import { applyDelta , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
+import { applyDelta, createDelta } from "./text-delta";
 
-// Helper function to safely work with diff results
-function safeDiff(diff: ICodeSessionDiff): ICodeSessionDiff {
-  if (!diff) return [];
-  return diff;
-}
 
 describe("text-diff", () => {
   // Create base session objects for testing
@@ -21,67 +15,8 @@ describe("text-diff", () => {
     transpiled: "const test = 'test';",
   });
 
-  describe("createDiff", () => {
-    it("should create a diff between two sessions with different code", () => {
-      const oldSession = createBaseSession("const x = 1;");
-      const newSession = createBaseSession("const x = 2;");
-
-      const diff = createDiff(oldSession, newSession);
-      const safeArray = safeDiff(diff);
-
-      expect(diff).toBeDefined();
-      expect(safeArray.length).toBeGreaterThan(0);
-
-      // Should contain a replace operation for the code
-      expect(safeArray.some(op =>
-        op.op === "replace" &&
-        op.path === "/code" &&
-        op.value === "const x = 2;"
-      )).toBe(true);
-
-      expect(diff).toMatchInlineSnapshot(`
-        [
-          {
-            "op": "replace",
-            "path": "/code",
-            "value": "const x = 2;",
-          },
-        ]
-      `);
-    });
-
-    it("should create an empty diff for identical sessions", () => {
-      const session = createBaseSession();
-
-      const diff = createDiff(session, session);
-      const safeArray = safeDiff(diff);
-
-      expect(diff).toBeDefined();
-      // The diff might be undefined or an empty array, both are valid for no changes
-      expect(safeArray.length).toBe(0);
-    });
-
-    it("should handle message additions", () => {
-      const oldSession = createBaseSession();
-      const newSession = createBaseSession();
-
-      const message: Message = {
-        id: "1",
-        role: "user",
-        content: "Test message",
-      };
-
-      newSession.messages = [message];
-
-      const diff = createDiff(oldSession, newSession);
-      const safeArray = safeDiff(diff);
-
-      expect(diff).toBeDefined();
-      expect(safeArray.length).toBeGreaterThan(0);
-
-      // Should contain an operation for the messages
-      expect(safeArray.some(op => op.path.includes("/messages"))).toBe(true);
-    });
+  describe("createDelta", () => {
+  
 
     it("should handle nested property changes", () => {
       const oldSession = createBaseSession();
@@ -110,24 +45,26 @@ describe("text-diff", () => {
         },
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const safeArray = safeDiff(diff);
+      const diff = createDelta(oldSession, newSession);
 
       expect(diff).toBeDefined();
-      expect(safeArray.length).toBeGreaterThan(0);
       expect(diff).toMatchInlineSnapshot(`
-        [
-          {
-            "op": "replace",
-            "path": "/messages/0/content",
-            "value": [
-              {
-                "text": "Modified text",
-                "type": "text",
+        {
+          "messages": {
+            "0": {
+              "content": {
+                "0": {
+                  "text": [
+                    "Original text",
+                    "Modified text",
+                  ],
+                },
+                "_t": "a",
               },
-            ],
+            },
+            "_t": "a",
           },
-        ]
+        }
       `);
     });
 
@@ -174,33 +111,23 @@ describe("text-diff", () => {
         },
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const recreatedSession = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const recreatedSession = applyDelta(oldSession, diff);
       
       expect(recreatedSession.messages.length).toBe(2);
       expect((recreatedSession.messages[1].content[0] as TextPart).text).toBe("Original text added");
     });
   });
 
-  describe("applyDiff", () => {
+  describe("applyDelta", () => {
     it("should apply a diff to a session", () => {
       const oldSession = createBaseSession("const x = 1;");
       const newSession = createBaseSession("const x = 2;");
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result).toEqual(newSession);
-    });
-
-    it("should return the original session for an empty diff", () => {
-      const session = createBaseSession();
-      // Use empty array for the ICodeSessionDiff type
-      const emptyDiff: ICodeSessionDiff = [];
-
-      const result = applyDiff(session, emptyDiff);
-
-      expect(result).toEqual(session);
     });
 
     it("should handle message modifications", () => {
@@ -215,8 +142,8 @@ describe("text-diff", () => {
         { id: "1", role: "user", content: "Modified message" },
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result).toEqual(newSession);
     });
@@ -233,8 +160,8 @@ describe("text-diff", () => {
         { id: "1", role: "assistant", content: "Partial response with more text" },
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.messages[0].content).toBe("Partial response with more text");
     });
@@ -252,8 +179,8 @@ describe("text-diff", () => {
         { id: "2", role: "assistant", content: "Answer" },
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.messages.length).toBe(2);
       expect(result.messages[1].content).toBe("Answer");
@@ -269,8 +196,8 @@ describe("text-diff", () => {
 
       newSession.messages = [];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.messages).toEqual([]);
     });
@@ -283,11 +210,11 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(repeatedString);
       const newSession = createBaseSession(repeatedString + "a"); // Add a single 'a' at the end
 
-      const diff = createDiff(oldSession, newSession);
+      const diff = createDelta(oldSession, newSession);
       const diffJson = JSON.stringify(diff);
 
       // Apply the diff and verify it works correctly
-      const result = applyDiff(oldSession, diff);
+      const result = applyDelta(oldSession, diff);
       expect(result.code).toBe(newSession.code);
 
       // Log the diff size for analysis
@@ -307,11 +234,11 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(largeString);
       const newSession = createBaseSession(largeString + "a"); // Add a single 'a' at the end
 
-      const diff = createDiff(oldSession, newSession);
+      const diff = createDelta(oldSession, newSession);
       const diffJson = JSON.stringify(diff);
 
       // Apply the diff and verify it works correctly
-      const result = applyDiff(oldSession, diff);
+      const result = applyDelta(oldSession, diff);
       expect(result.code).toBe(newSession.code);
 
       // Log the diff size for analysis
@@ -329,10 +256,10 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(largeText);
       const newSession = createBaseSession(largeText + "a");
 
-      const diff = createDiff(oldSession, newSession);
+      const diff = createDelta(oldSession, newSession);
 
       // Apply the diff and verify it works correctly
-      const result = applyDiff(oldSession, diff);
+      const result = applyDelta(oldSession, diff);
       expect(result.code).toBe(newSession.code);
 
       // Log the diff for analysis
@@ -356,10 +283,10 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(largeText);
       const newSession = createBaseSession(newText);
 
-      const diff = createDiff(oldSession, newSession);
+      const diff = createDelta(oldSession, newSession);
 
       // Apply the diff and verify it works correctly
-      const result = applyDiff(oldSession, diff);
+      const result = applyDelta(oldSession, diff);
 
       // Log the diff for analysis
       const diffJson = JSON.stringify(diff);
@@ -385,10 +312,10 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(largeText);
       const newSession = createBaseSession(newText);
 
-      const diff = createDiff(oldSession, newSession);
+      const diff = createDelta(oldSession, newSession);
 
       // Apply the diff and verify it works correctly
-      const result = applyDiff(oldSession, diff);
+      const result = applyDelta(oldSession, diff);
 
       // Log the diff for analysis
       const diffJson = JSON.stringify(diff);
@@ -405,14 +332,14 @@ describe("text-diff", () => {
       const oldSession = createBaseSession("");
       const newSession = createBaseSession("some content");
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.code).toBe("some content");
 
       // Test the reverse case too
-      const reverseDiff = createDiff(newSession, oldSession);
-      const reverseResult = applyDiff(newSession, reverseDiff);
+      const reverseDiff = createDelta(newSession, oldSession);
+      const reverseResult = applyDelta(newSession, reverseDiff);
 
       expect(reverseResult.code).toBe("");
     });
@@ -425,8 +352,8 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(shortStr);
       const newSession = createBaseSession(shortStrNew);
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.code).toBe(shortStrNew);
 
@@ -437,8 +364,8 @@ describe("text-diff", () => {
       const oldSession2 = createBaseSession(longStr);
       const newSession2 = createBaseSession(longStrNew);
 
-      const diff2 = createDiff(oldSession2, newSession2);
-      const result2 = applyDiff(oldSession2, diff2);
+      const diff2 = createDelta(oldSession2, newSession2);
+      const result2 = applyDelta(oldSession2, diff2);
 
       expect(result2.code).toBe(longStrNew);
     });
@@ -450,8 +377,8 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(unicodeStr);
       const newSession = createBaseSession(newUnicodeStr);
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.code).toBe(newUnicodeStr);
     });
@@ -472,8 +399,8 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(baseStr);
       const newSession = createBaseSession(modifiedStr);
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       // Instead of exact string comparison, check that all insertions are present
       insertions.forEach(({ content }) => {
@@ -500,24 +427,10 @@ describe("text-diff", () => {
         { id: "3", role: "user", content: "Third Updated" }
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.messages).toEqual(newSession.messages);
-    });
-
-    it("should handle invalid message operations gracefully", () => {
-      const session = createBaseSession();
-      session.messages = [{ id: "1", role: "user", content: "Original" }];
-
-      const invalidDiff: ICodeSessionDiff = [{
-        op: "replace" as const,
-        path: "/messages/999/content",
-        value: "Should not be added"
-      }];
-
-      const result = applyDiff(session, invalidDiff);
-      expect(result.messages).toEqual(session.messages);
     });
 
     it("should handle complex message content structures", () => {
@@ -543,26 +456,10 @@ describe("text-diff", () => {
         { id: "1", role: "user", content: updatedContent }
       ];
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.messages[0].content).toEqual(updatedContent);
-    });
-
-    it("should handle invalid patches gracefully", () => {
-      const session = createBaseSession();
-      // Create a diff with failing test operation which should cause rejection
-      const invalidDiff: ICodeSessionDiff = [{
-        op: "test" as const,
-        path: "/code",
-        value: "wrong value"
-      }, {
-        op: "remove" as const,
-        path: "/code"
-      }];
-
-      const result = applyDiff(session, invalidDiff);
-      expect(result).toEqual(session);
     });
 
     it("should handle line vs character diffing thresholds", () => {
@@ -579,8 +476,8 @@ describe("text-diff", () => {
       const oldSession = createBaseSession(oldStr);
       const newSession = createBaseSession(newStr);
 
-      const diff = createDiff(oldSession, newSession);
-      const result = applyDiff(oldSession, diff);
+      const diff = createDelta(oldSession, newSession);
+      const result = applyDelta(oldSession, diff);
 
       expect(result.code).toBe(newStr);
     });

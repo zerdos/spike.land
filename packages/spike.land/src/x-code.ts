@@ -1,6 +1,6 @@
-import type { CodePatch, ICodeSession } from "@spike-npm-land/code";
+import type { SessionDelta, ICodeSession } from "@spike-npm-land/code";
 import {
-  applySessionPatch,
+  applySessionDelta,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
@@ -10,7 +10,7 @@ import type Env from "./env";
 export interface CodeHistoryEntry {
   timestamp: number;
   hash: string;
-  patch?: CodePatch;
+  patch?: SessionDelta;
   previousEntryId?: string;
 }
 
@@ -175,7 +175,7 @@ export class CodeHistoryManager {
     for (let i = entries.length - 1; i >= 0; i--) {
       const entry = entries[i];
       if (entry.patch) {
-        targetSession = applySessionPatch(targetSession, {
+        targetSession = applySessionDelta(targetSession, {
           ...entry.patch,
           patch: entry.patch.reversePatch,
           reversePatch: entry.patch.patch,
@@ -211,7 +211,7 @@ export class CodeHistoryManager {
     // Apply patches sequentially
     for (const entry of entries) {
       if (entry.patch) {
-        session = applySessionPatch(session, entry.patch);
+        session = applySessionDelta(session, entry.patch);
       }
     }
 

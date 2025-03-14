@@ -1,11 +1,10 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
-import { applyDiff, createDiff } from "@/lib/text-diff";
-
-export interface CodePatch {
+import { applyDelta, createDelta } from "./delta";
+export interface SessionDelta {
   oldHash: string;
   hashCode: string;
-  patch?: ReturnType<typeof createDiff>;
+  delta: ReturnType<typeof createDelta>;
 }
 
 class SessionPatcher {
@@ -45,31 +44,31 @@ class SessionPatcher {
     return JSON.stringify(SessionPatcher.sanitizeSession(s));
   }
 
-  public static applySessionPatch(
+  public static applySessionDelta(
     sess: ICodeSession,
-    codePatch: CodePatch,
+    sessionDelta: SessionDelta,
   ): ICodeSession {
     const sanitizedSession = SessionPatcher.sanitizeSession(sess);
     const currentHash = SessionPatcher.computeSessionHash(sanitizedSession);
 
-    if (currentHash !== codePatch.oldHash) {
+    if (currentHash !== sessionDelta.oldHash) {
       throw new Error(
-        `Old hash does not match: ${currentHash} !== ${codePatch.oldHash}`,
+        `Old hash does not match: ${currentHash} !== ${sessionDelta.oldHash}`,
       );
     }
 
-    if (!codePatch.patch) {
+    if (!sessionDelta.delta) {
       return sanitizedSession;
     }
 
-    const parsedSession = applyDiff(
+    const parsedSession = applyDelta(
       sanitizedSession,
-      codePatch.patch,
+      sessionDelta.delta,
     );
 
     const newHash = SessionPatcher.computeSessionHash(parsedSession);
-    if (newHash !== codePatch.hashCode) {
-      throw new Error("New hash does not match:" + newHash + " !== " + codePatch.hashCode + "\n" + JSON.stringify(codePatch) + "\n" + JSON.stringify(parsedSession));
+    if (newHash !== sessionDelta.hashCode) {
+      throw new Error("New hash does not match:" + newHash + " !== " + sessionDelta.hashCode + "\n" + JSON.stringify(sessionDelta) + "\n" + JSON.stringify(parsedSession));
     }
     return parsedSession;
   }
@@ -77,32 +76,32 @@ class SessionPatcher {
   public static generateSessionPatch(
     oldSess: ICodeSession,
     newSess: ICodeSession,
-  ): CodePatch {
+  ): SessionDelta {
     const sanitizedOldSess = SessionPatcher.sanitizeSession(oldSess);
     const sanitizedNewSess = SessionPatcher.sanitizeSession(newSess);
 
     const oldHash = SessionPatcher.computeSessionHash(sanitizedOldSess);
     const hashCode = SessionPatcher.computeSessionHash(sanitizedNewSess);
 
-    // If the sessions are identical, return a patch with an empty diff
+    // If the sessions are identical, return a patch with an empty delta
     if (oldHash === hashCode) {
       return {
         oldHash,
         hashCode,
-        patch: [], // Always include patch property, even if empty
+        delta: [], // Always include delta property, even if empty
       };
     }
 
-    // Create a diff between the sessions
-    const diff = createDiff(sanitizedOldSess, sanitizedNewSess);
-    const codePatch = {
+    // Create a delta between the sessions
+    const delta = createDelta(sanitizedOldSess, sanitizedNewSess);
+    const sessionDelta = {
       oldHash,
       hashCode,
-      patch: diff,
+      delta,
     };
 
     // Validate that the patch can be applied
-    const patchedSession = applyDiff(sanitizedOldSess, diff);
+    const patchedSession = applyDelta(sanitizedOldSess, delta);
     const patchedHash = SessionPatcher.computeSessionHash(patchedSession);
     if (patchedHash !== hashCode) {
 
@@ -111,7 +110,7 @@ class SessionPatcher {
         `Patch is invalid: ${patchedHash} !== ${hashCode}\n` +
         `Old: ${JSON.stringify(sanitizedOldSess)}\n` +
         `New: ${JSON.stringify(sanitizedNewSess)}\n` +
-        `Patch: ${JSON.stringify(diff)}\n` +
+        `Patch: ${JSON.stringify(delta)}\n` +
         `Patched: ${JSON.stringify(patchedSession)}\n` +
         `Old hash: ${oldHash}\n` +
         `New hash: ${hashCode}`,
@@ -120,7 +119,7 @@ class SessionPatcher {
     }
 
 
-    return codePatch;
+    return sessionDelta;
 
   
   }
@@ -129,5 +128,5 @@ class SessionPatcher {
 export const computeSessionHash = (s: ICodeSession) => SessionPatcher.computeSessionHash(s);
 export const sanitizeSession = SessionPatcher.sanitizeSession;
 export const sessionToJSON = SessionPatcher.sessionToJSON;
-export const applySessionPatch = SessionPatcher.applySessionPatch;
+export const applySessionDelta = SessionPatcher.applySessionDelta;
 export const generateSessionPatch = SessionPatcher.generateSessionPatch;

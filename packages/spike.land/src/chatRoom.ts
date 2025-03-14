@@ -237,7 +237,7 @@ export class Code implements DurableObject {
     });
   }
 
-  // async updateSessionStorage(msg: CodePatch) {
+  // async updateSessionStorage(msg: SessionDelta) {
   //   if (!this.session.codeSpace) {
   //     throw new Error("CodeSpace not set");
   //   }

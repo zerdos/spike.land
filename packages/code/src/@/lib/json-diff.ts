@@ -26,7 +26,7 @@ const diffPatcher = new DiffPatcher({
  * @param revision The updated code session.
  * @returns A delta representing the differences.
  */
-export function createDiff(original: ICodeSession, revision: ICodeSession) {
+export function createDelta(original: ICodeSession, revision: ICodeSession) {
   // jsondiffpatch will compute differences for all properties, including strings and arrays.
   return diffPatcher.diff(original, revision);
 }
@@ -37,7 +37,7 @@ export function createDiff(original: ICodeSession, revision: ICodeSession) {
  * @param delta The delta to apply.
  * @returns The updated code session.
  */
-export function applyDiff(session: ICodeSession, delta: ICodeSessionDiff): ICodeSession {
+export function applyDelta(session: ICodeSession, delta: ICodeSessionDiff): ICodeSession {
   if (!delta) {
     return session;
   }

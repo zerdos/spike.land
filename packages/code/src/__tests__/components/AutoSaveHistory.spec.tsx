@@ -24,7 +24,7 @@ vi.mock("@src/hooks/getCodeSpace", () => ({
 describe.skip("CodeHistoryCarousel", () => {
   (globalThis as unknown as { monaco: typeof Monaco; }).monaco = {
     editor: {
-      createDiffEditor: vi.fn().mockReturnValue({
+      createDeltaEditor: vi.fn().mockReturnValue({
         setModel: vi.fn(),
         dispose: vi.fn(),
       }),

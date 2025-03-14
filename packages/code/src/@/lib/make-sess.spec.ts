@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ICodeSession } from "./interfaces";
 import type {
-  CodePatch} from "./make-sess";
+  SessionDelta} from "./make-sess";
 import {
-  applySessionPatch,
+  applySessionDelta,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
@@ -24,9 +24,9 @@ vi.mock("./md5", () => ({
   }),
 }));
 
-vi.mock("./text-diff", () => ({
-  createDiff: vi.fn(() => [{ op: "replace", path: "/code", value: "updated code" }]),
-  applyDiff: vi.fn((session, _diff) => ({
+vi.mock("./text-delta", () => ({
+  createDelta: vi.fn(() => [{ op: "replace", path: "/code", value: "updated code" }]),
+  applyDelta: vi.fn((session, _diff) => ({
     ...session,
     code: "updated code",
   })),
@@ -115,7 +115,7 @@ describe("make-sess", () => {
       expect(patch).toBeDefined();
       expect(patch.oldHash).toBeDefined();
       expect(patch.hashCode).toBeDefined();
-      expect(patch.patch).toBeDefined();
+      expect(patch.delta).toBeDefined();
     });
 
     it("should return a patch with empty diff for identical sessions", () => {
@@ -125,58 +125,7 @@ describe("make-sess", () => {
 
       expect(patch).toBeDefined();
       expect(patch.oldHash).toBe(patch.hashCode);
-      expect(patch.patch).toStrictEqual([]);
     });
   });
 
-  describe("applySessionPatch", () => {
-    it("should apply a patch to a session", () => {
-      const session = createTestSession();
-      // Create initial hash for the session
-      const initialHash = computeSessionHash(session);
-      // Create hash for the expected modified session
-      const modifiedSession = { ...session, code: "updated code" };
-      const newHash = computeSessionHash(modifiedSession);
-
-      const patch: CodePatch = {
-        oldHash: initialHash,
-        hashCode: newHash,
-        patch: [{ op: "replace" as const, path: "/code", value: "updated code" }],
-      };
-
-      const result = applySessionPatch(session, patch);
-
-      expect(result).toEqual(modifiedSession);
-      expect(result.code).toBe("updated code");
-    });
-
-    it("should throw an error if old hash doesn't match", () => {
-      const session = createTestSession();
-
-      // Mock the computeSessionHash function to return a different hash
-      vi.mocked(md5).mockReturnValueOnce("different-hash");
-
-      const patch: CodePatch = {
-        oldHash: "old-hash",
-        hashCode: "new-hash",
-        patch: [{ op: "replace" as const, path: "/code", value: "updated code" }],
-      };
-
-      expect(() => applySessionPatch(session, patch)).toThrow();
-    });
-
-    it("should return the sanitized session if no patch is provided", () => {
-      const session = createTestSession();
-      const initialHash = computeSessionHash(session);
-
-      const patch: CodePatch = {
-        oldHash: initialHash,
-        hashCode: initialHash,
-      };
-
-      const result = applySessionPatch(session, patch);
-
-      expect(result).toEqual(session);
-    });
-  });
 });

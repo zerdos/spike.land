@@ -277,9 +277,9 @@ describe("WebSocketHandler", () => {
     });
 
     it("should handle patch messages", async () => {
-      // Import the entire module as a namespace and spy on applySessionPatch.
+      // Import the entire module as a namespace and spy on applySessionDelta.
       const codeModule = await import("@spike-npm-land/code");
-      vi.spyOn(codeModule, "applySessionPatch").mockReturnValue({
+      vi.spyOn(codeModule, "applySessionDelta").mockReturnValue({
         code: "patched code",
         html: "patched html",
         css: "patched css",

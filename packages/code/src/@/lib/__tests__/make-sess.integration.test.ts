@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "../interfaces";
-import { applySessionPatch, computeSessionHash, generateSessionPatch } from "../make-sess";
+import { applySessionDelta, computeSessionHash, generateSessionPatch } from "../make-sess";
 import { tr } from "date-fns/locale";
 import { transpile } from "typescript";
 
@@ -27,7 +27,7 @@ describe("Session Patch Integration Tests", () => {
 
       // Generate and apply patch
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       // Verify hashes match
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
@@ -46,7 +46,7 @@ describe("Session Patch Integration Tests", () => {
   
         // Generate and apply patch
         const patch = generateSessionPatch(initialSession, modifiedSession);
-        const result = applySessionPatch(initialSession, patch);
+        const result = applySessionDelta(initialSession, patch);
   
         // Check that the result is different from the initial session
         expect(result.code).not.toBe(initialSession.code);
@@ -76,7 +76,7 @@ describe("Session Patch Integration Tests", () => {
       const modifiedSession = createTestSession({ code: appendedString });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result.code).toBe(modifiedSession.code);
@@ -99,7 +99,7 @@ describe("Session Patch Integration Tests", () => {
       const modifiedSession = createTestSession({ messages: modifiedMessages });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result.messages).toEqual(modifiedMessages);
@@ -120,7 +120,7 @@ describe("Session Patch Integration Tests", () => {
       const modifiedSession = createTestSession({ messages: modifiedMessages });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result.messages).toEqual(modifiedMessages);
@@ -145,7 +145,7 @@ describe("Session Patch Integration Tests", () => {
       });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result).toEqual(modifiedSession);
@@ -158,7 +158,7 @@ describe("Session Patch Integration Tests", () => {
       const modifiedSession = createTestSession({ code: "const x = 1;", html: "<div/>" });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result).toEqual(modifiedSession);
@@ -171,7 +171,7 @@ describe("Session Patch Integration Tests", () => {
       const modifiedSession = createTestSession({ messages: [] });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionPatch(initialSession, patch);
+      const result = applySessionDelta(initialSession, patch);
 
       expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
       expect(result.messages).toEqual([]);
@@ -193,7 +193,7 @@ describe("Session Patch Integration Tests", () => {
     });
 
     const patch = generateSessionPatch(initialSession, modifiedSession);
-    const result = applySessionPatch(initialSession, patch);
+    const result = applySessionDelta(initialSession, patch);
 
     expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
     expect(result).toEqual(modifiedSession);

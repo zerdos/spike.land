@@ -8,12 +8,13 @@
  */
 
 import {
-  applySessionPatch,
+  applySessionDelta,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
 } from "@/lib/common-functions";
 import type { ICodeSession } from "@/lib/interfaces";
+import type { createDelta } from "@/lib/text-delta";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
@@ -59,6 +60,7 @@ interface WsMessage {
   hashCode: string;
   hash: string;
   name?: string;
+  delta: ReturnType<typeof createDelta>;
 }
 
 interface SessionMessageData extends ICodeSession {
@@ -427,7 +429,7 @@ async function handleSocketMessage(
         logger.info(`Applying session patch for ${codeSpace}: ${data.oldHash} -> ${data.hashCode}`);
 
         const patchStartTime = Date.now();
-        const sess = applySessionPatch(connection.oldSession, data);
+        const sess = applySessionDelta(connection.oldSession, data);
         logger.log(`Session patch applied for ${codeSpace}`, patchStartTime);
 
         connection.oldSession = sess;

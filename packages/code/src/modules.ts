@@ -21,11 +21,11 @@ export { importMapReplace };
 export { serverFetchUrl } from "@/lib/enhanced-fetch";
 
 import type { ICodeSession } from "@/lib/interfaces";
-import type { CodePatch } from "@/lib/make-sess.ts";
+import type { SessionDelta } from "@/lib/make-sess.ts";
 export { fakeServer } from "./sw-local-fake-server";
 
 import {
-  applySessionPatch,
+  applySessionDelta,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
@@ -35,5 +35,5 @@ import {
 export { importMap };
 
 export { computeSessionHash, generateSessionPatch, sessionToJSON };
-export type { CodePatch, ICodeSession };
-export { applySessionPatch, sanitizeSession };
+export type { SessionDelta, ICodeSession };
+export { applySessionDelta, sanitizeSession };

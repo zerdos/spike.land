@@ -1,9 +1,9 @@
 // packages/code/src/@/lib/common-functions.ts
 
 import type { ICodeSession } from "@/lib/interfaces";
-import type { CodePatch } from "@/lib/make-sess";
+import type { SessionDelta } from "@/lib/make-sess";
 import {
-  applySessionPatch as originalApplySessionPatch,
+  applySessionDelta as originalApplySessionPatch,
   computeSessionHash as originalComputeSessionHash,
   generateSessionPatch as originalGenerateSessionPatch,
   sanitizeSession as originalSanitizeSession,
@@ -23,12 +23,12 @@ export function sanitizeSession(session: ICodeSession): ICodeSession {
  * Generates a patch between two sessions.
  * @param newSession The newer session
  * @param oldSession The older session
- * @returns A CodePatch describing the difference
+ * @returns A SessionDelta describing the difference
  */
 export function generateSessionPatch(
   newSession: ICodeSession,
   oldSession: ICodeSession,
-): CodePatch {
+): SessionDelta {
   return originalGenerateSessionPatch(newSession, oldSession);
 }
 
@@ -38,11 +38,11 @@ export function generateSessionPatch(
  * @param patch The patch to apply
  * @returns The updated session
  */
-export function applySessionPatch(
+export function applySessionDelta(
   oldSession: ICodeSession,
-  patch: CodePatch,
+  delta: SessionDelta,
 ): ICodeSession {
-  return originalApplySessionPatch(oldSession, patch);
+  return originalApplySessionPatch(oldSession, delta);
 }
 
 /**
