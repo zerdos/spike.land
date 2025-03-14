@@ -65,6 +65,17 @@ const EXTERNAL_DEPENDENCIES = [
 export const importMap: ImportMap = {
   imports: {
     "/@/": "/@/",
+    "var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+import { jsx, jsxs } from "@emotion/react/jsx-runtime";
+var stdin_default = /* @__PURE__ */ __name(() => /* @__PURE__ */ jsxs("div", { children: [
+  /* @__PURE__ */ jsx("h1", { children: "404 - for now." }),
+  /* @__PURE__ */ jsx("h2", { children: "But you can edit even this page and share with your friends." })
+] }), "default");
+export {
+  stdin_default as default
+};
+"
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     "@emotion/react/jsx-dev-runtime": "/emotionJsxRuntime.mjs",
     "@emotion/styled": "/emotionStyled.mjs",

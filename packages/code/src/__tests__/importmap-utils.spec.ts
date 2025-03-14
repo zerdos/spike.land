@@ -126,6 +126,7 @@ describe("importMapReplace", () => {
       "side-effect only imports": `import "polyfill";`,
       "mixed default and namespace imports": `import Default, * as All from "my-module";`,
     },
+    
 
     // Edge cases
     "Edge cases": {
@@ -145,6 +146,14 @@ describe("importMapReplace", () => {
         export { bar } from "module2";
         // Final comment
       `,
+      "no imports": `export default () => (
+        <div>
+          <h1>404 - for now.</h1>
+          <h2>
+            But you can edit even this page and share with your friends.
+          </h2>
+        </div>
+      );`
     },
     // App specific imports
     "App specific imports": {

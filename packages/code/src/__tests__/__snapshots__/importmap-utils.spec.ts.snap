@@ -158,6 +158,28 @@ exports[`importMapReplace > Edge cases: multiple import patterns in same file 1`
 }
 `;
 
+exports[`importMapReplace > Edge cases: no imports 1`] = `
+{
+  "code": "export default () => (
+        <div>
+          <h1>404 - for now.</h1>
+          <h2>
+            But you can edit even this page and share with your friends.
+          </h2>
+        </div>
+      );",
+  "result": "/** importMapReplace */
+export default () => (
+        <div>
+          <h1>404 - for now.</h1>
+          <h2>
+            But you can edit even this page and share with your friends.
+          </h2>
+        </div>
+      );",
+}
+`;
+
 exports[`importMapReplace > Edge cases: should not transform when bundling flag is false 1`] = `
 {
   "code": "import { comp } from "http://localhost:3000/special?bundle=false";",

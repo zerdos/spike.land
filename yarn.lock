@@ -676,7 +676,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20250312.0, @cloudflare/workers-types@npm:^4.20221111.1":
+"@cloudflare/workers-types@npm:4.20250313.0":
+  version: 4.20250313.0
+  resolution: "@cloudflare/workers-types@npm:4.20250313.0"
+  checksum: 10c0/f5cb0a640b6174288fdf672cea0cacdf3f5ff1719f90b57aa9c462a17c19b04dc89edaec7c4ad5d41e28c050b9ac70f2a1db169efad5fde3ef7700ba0953b7a1
+  languageName: node
+  linkType: hard
+
+"@cloudflare/workers-types@npm:^4.20221111.1":
   version: 4.20250312.0
   resolution: "@cloudflare/workers-types@npm:4.20250312.0"
   checksum: 10c0/78f931f1335e0009f532f190ead9b40050fcc6e943de058dcfda8395bdd8d7abc56fc50ca16fce15753c5c7881453dd10d9a062efac9e8088cb8b4e4be90a707
@@ -2789,7 +2796,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-compose-refs@npm:1.1.1":
+"@radix-ui/react-compose-refs@npm:1.1.1, @radix-ui/react-compose-refs@npm:^1.1.1":
   version: 1.1.1
   resolution: "@radix-ui/react-compose-refs@npm:1.1.1"
   peerDependencies:
@@ -2876,7 +2883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:1.1.6, @radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.2, @radix-ui/react-dialog@npm:^1.1.4, @radix-ui/react-dialog@npm:^1.1.6":
+"@radix-ui/react-dialog@npm:1.1.6, @radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.4, @radix-ui/react-dialog@npm:^1.1.6":
   version: 1.1.6
   resolution: "@radix-ui/react-dialog@npm:1.1.6"
   dependencies:
@@ -3365,7 +3372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-primitive@npm:2.0.2, @radix-ui/react-primitive@npm:^2.0.0":
+"@radix-ui/react-primitive@npm:2.0.2, @radix-ui/react-primitive@npm:^2.0.2":
   version: 2.0.2
   resolution: "@radix-ui/react-primitive@npm:2.0.2"
   dependencies:
@@ -4364,7 +4371,7 @@ __metadata:
   resolution: "@spike-land/durable-objects@workspace:packages/durable-objects"
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:0.8.0"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     "@types/node": "npm:22.13.10"
     miniflare: "npm:4.20250310.0"
     typescript: "npm:5.8.2"
@@ -4398,7 +4405,7 @@ __metadata:
     "@clerk/clerk-sdk-node": "npm:5.1.6"
     "@cloudflare/kv-asset-handler": "npm:0.4.0"
     "@cloudflare/vitest-pool-workers": "npm:0.8.0"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     "@eslint/js": "npm:9.22.0"
     "@remix-run/cloudflare": "npm:2.16.0"
     "@remix-run/react": "npm:2.16.0"
@@ -4454,7 +4461,7 @@ __metadata:
     "@babel/types": "npm:7.26.10"
     "@clerk/clerk-react": "npm:5.24.2"
     "@clerk/nextjs": "npm:6.12.5"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     "@emotion/babel-plugin": "npm:11.13.5"
     "@emotion/cache": "npm:11.14.0"
     "@emotion/css-prettifier": "npm:1.2.0"
@@ -4509,7 +4516,7 @@ __metadata:
     "@tailwindcss/typography": "npm:0.5.16"
     "@tailwindcss/vite": "npm:4.0.14"
     "@tanstack/react-router": "npm:1.114.17"
-    "@tanstack/react-virtual": "npm:3.13.3"
+    "@tanstack/react-virtual": "npm:3.13.4"
     "@tanstack/router-plugin": "npm:1.114.17"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
@@ -4538,7 +4545,7 @@ __metadata:
     "@types/serve-handler": "npm:6.1.4"
     "@types/text-encoding": "npm:0.0.40"
     "@types/uuid": "npm:10.0.0"
-    "@types/web": "npm:0.0.211"
+    "@types/web": "npm:0.0.212"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:8.26.1"
     "@typescript/ata": "npm:0.9.7"
@@ -4559,7 +4566,7 @@ __metadata:
     buffer: "npm:6.0.3"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:2.1.1"
-    cmdk: "npm:1.0.4"
+    cmdk: "npm:1.1.1"
     concurrently: "npm:9.1.2"
     constants: "npm:0.0.2"
     crypto-browserify: "npm:3.12.1"
@@ -4598,7 +4605,7 @@ __metadata:
     localforage: "npm:1.10.0"
     lodash: "npm:4.17.21"
     lru-cache: "npm:^11.0.2"
-    lucide-react: "npm:^0.479.0"
+    lucide-react: "npm:^0.482.0"
     microdiff: "npm:1.5.0"
     mime-db: "npm:1.53.0"
     mime-types: "npm:2.1.35"
@@ -4672,7 +4679,7 @@ __metadata:
     uvu: "npm:0.5.6"
     v8: "npm:0.1.0"
     vaul: "npm:^1.1.2"
-    vite: "npm:6.2.1"
+    vite: "npm:6.2.2"
     vite-tsconfig-paths: "npm:5.1.4"
     vitest: "npm:3.0.8"
     vm-browserify: "npm:1.1.2"
@@ -4779,7 +4786,7 @@ __metadata:
   dependencies:
     "@cloudflare/puppeteer": "npm:0.0.14"
     "@cloudflare/vitest-pool-workers": "npm:^0.8.0"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     "@types/esprima": "npm:4.0.6"
     "@types/node": "npm:22.13.10"
     "@vitest/runner": "npm:3.0.8"
@@ -5241,15 +5248,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:3.13.3":
-  version: 3.13.3
-  resolution: "@tanstack/react-virtual@npm:3.13.3"
+"@tanstack/react-virtual@npm:3.13.4":
+  version: 3.13.4
+  resolution: "@tanstack/react-virtual@npm:3.13.4"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.13.3"
+    "@tanstack/virtual-core": "npm:3.13.4"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/6f34325dc196632373b6d72c2b770bc3c5e4bfdeb3a3307567cf7d09d7a3b9353abead1374e4378da72c8fdc8cd652c10c1a8729458738b67d3b988ab6abe81d
+  checksum: 10c0/45cf785fa2984d536218aa546dc0b515cd6be2c8160987d01815a5b182fc517923d41d7f852fad718132ffc17faed94093a8318158ad6b338fdaba3243485da3
   languageName: node
   linkType: hard
 
@@ -5341,10 +5348,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.13.3":
-  version: 3.13.3
-  resolution: "@tanstack/virtual-core@npm:3.13.3"
-  checksum: 10c0/305995b61aec5d37c9b8bb06dceb208994e8ee6fdb92dc8445f8062e14b5011a57d46588eae28f5bf79e401baccb3a700e8ea0241f6f6c8db9216778e96b721b
+"@tanstack/virtual-core@npm:3.13.4":
+  version: 3.13.4
+  resolution: "@tanstack/virtual-core@npm:3.13.4"
+  checksum: 10c0/00ed3054e5f1370fe61d3fc9eec40ca0f18b66cfcb4a0bbce1a26397518c90145a0b493e463992b352842760bb8b0ec40969f07e3bb94dc6e68064f3973fe41a
   languageName: node
   linkType: hard
 
@@ -6073,10 +6080,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/web@npm:0.0.211":
-  version: 0.0.211
-  resolution: "@types/web@npm:0.0.211"
-  checksum: 10c0/54f9eb0c9fdbf4e1b1e7bce3158ebbacf76789a409f7f97e0fc6b7f28e9594253b3e784966cb2adca0e049130fa9a0bfafecbfcf930c03d3cf7022c3edf3d025
+"@types/web@npm:0.0.212":
+  version: 0.0.212
+  resolution: "@types/web@npm:0.0.212"
+  checksum: 10c0/267bf929c37d994e8d71bb4ba6aca9a340cd8baef001e0ade590183921d444d578a5c926fab0d74b8b8fc2d2847b440deea258fb6e6381b25935b106bad672b3
   languageName: node
   linkType: hard
 
@@ -8042,18 +8049,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmdk@npm:1.0.4":
-  version: 1.0.4
-  resolution: "cmdk@npm:1.0.4"
+"cmdk@npm:1.1.1":
+  version: 1.1.1
+  resolution: "cmdk@npm:1.1.1"
   dependencies:
-    "@radix-ui/react-dialog": "npm:^1.1.2"
+    "@radix-ui/react-compose-refs": "npm:^1.1.1"
+    "@radix-ui/react-dialog": "npm:^1.1.6"
     "@radix-ui/react-id": "npm:^1.1.0"
-    "@radix-ui/react-primitive": "npm:^2.0.0"
-    use-sync-external-store: "npm:^1.2.2"
+    "@radix-ui/react-primitive": "npm:^2.0.2"
   peerDependencies:
     react: ^18 || ^19 || ^19.0.0-rc
     react-dom: ^18 || ^19 || ^19.0.0-rc
-  checksum: 10c0/8c37568c9b52cb44a7b8f1414d622100cea0368f564167f4a1bc5c97ba3ba2b392ab4871f691c60a9a414a7295fb702c2f941e6556d6861a48657bb4e82fd979
+  checksum: 10c0/5605ac4396ec9bc65c82f954da19dd89a0636a54026df72780e2470da1381f9d57434a80a53f2d57eaa4e759660a3ebba9232b74258dc09970576591eae03116
   languageName: node
   linkType: hard
 
@@ -11287,7 +11294,7 @@ __metadata:
   resolution: "hello-ai@workspace:packages/hello-ai"
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:0.8.0"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     typescript: "npm:5.8.2"
     vitest: "npm:3.0.8"
     wrangler: "npm:4.0.0"
@@ -11339,7 +11346,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "honox@workspace:packages/honox"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     hono: "npm:4.7.4"
     wrangler: "npm:4.0.0"
   languageName: unknown
@@ -13541,12 +13548,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.479.0":
-  version: 0.479.0
-  resolution: "lucide-react@npm:0.479.0"
+"lucide-react@npm:^0.482.0":
+  version: 0.482.0
+  resolution: "lucide-react@npm:0.482.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/a0a13aea535cfcd85a38f66bcc931110af28f232457334a6ed0cd1393f565be28139495864831d835c57bd071b5ddd3036b66eda3a2e8c5d401ece71ee29d970
+  checksum: 10c0/02ffc5e29da9306da856612fa089b168d4100b0bc70ea182d51e4abc43ee43227647573befd58d341fc1bef4b989e49eb5e41f11817b5bd01d5e8ada4abfbdca
   languageName: node
   linkType: hard
 
@@ -14458,7 +14465,7 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@cloudflare/vitest-pool-workers": "npm:0.8.0"
-    "@cloudflare/workers-types": "npm:4.20250312.0"
+    "@cloudflare/workers-types": "npm:4.20250313.0"
     "@emotion/eslint-plugin": "npm:^11.12.0"
     "@emotion/react": "npm:^11.14.0"
     "@eslint/eslintrc": "npm:^3.3.0"
@@ -19273,7 +19280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.2.2, use-sync-external-store@npm:^1.4.0":
+"use-sync-external-store@npm:^1.4.0":
   version: 1.4.0
   resolution: "use-sync-external-store@npm:1.4.0"
   peerDependencies:
@@ -19538,7 +19545,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:6.2.1, vite@npm:^5.0.0 || ^6.0.0":
+"vite@npm:6.2.2":
+  version: 6.2.2
+  resolution: "vite@npm:6.2.2"
+  dependencies:
+    esbuild: "npm:^0.25.0"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.5.3"
+    rollup: "npm:^4.30.1"
+  peerDependencies:
+    "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
+    jiti: ">=1.21.0"
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    sass-embedded: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.16.0
+    tsx: ^4.8.1
+    yaml: ^2.4.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    jiti:
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+    tsx:
+      optional: true
+    yaml:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10c0/52f5b1c10cfe5e3b6382c6de1811ebbf76df9b5a8bab3d65169446c6b54a5f1528f775b1548009a6d8aad11def20fba046bb3e9abb10c0c2c9ccd78118623bb8
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.0.0 || ^6.0.0":
   version: 6.2.1
   resolution: "vite@npm:6.2.1"
   dependencies:
