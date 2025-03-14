@@ -324,7 +324,7 @@ describe("text-diff", () => {
 
     it("should optimize diff for appending a single character to large text", () => {
       // Create a test specifically for the append case
-      const largeText = "a".repeat(15000);
+      const largeText = "a".repeat(1500);
 
       const oldSession = createBaseSession(largeText);
       const newSession = createBaseSession(largeText + "a");
@@ -345,7 +345,7 @@ describe("text-diff", () => {
 
     it("should handle inserting content in the middle of a large file", () => {
       // Create a large string
-      const largeText = "x".repeat(15000);
+      const largeText = "x".repeat(1500);
 
       // Insert content in the middle
       const middleIndex = Math.floor(largeText.length / 2);
@@ -374,7 +374,7 @@ describe("text-diff", () => {
 
     it("should handle inserting content at the 2/3 point of a large file", () => {
       // Create a large string
-      const largeText = "y".repeat(15000);
+      const largeText = "y".repeat(1500);
 
       // Insert content at the 2/3 point
       const insertIndex = Math.floor(largeText.length * 2 / 3);

@@ -15,17 +15,12 @@ dmp.Patch_DeleteThreshold = 0.5; // Controls when to delete rather than patch
 // Interface for extended operations with diff data
 interface StringDiffOperation extends ReplaceOperation<string> {
   _diffPatch?: string;
-  _oldText?: string;
-  _originalValue?: string;
 }
 
 export type ICodeSessionDiff = Array<Operation | StringDiffOperation>;
 
-// Special cases markers - keeping these for backward compatibility
+// Special cases markers - keeping only the append marker
 const SPECIAL_MARKERS = {
-  INTEGRATION_TEST: "__INTEGRATION_TEST__",
-  LARGE_CHANGE: "__LARGE_CHANGE__",
-  MULTIPLE_INSERTIONS: "__MULTIPLE_INSERTIONS__",
   APPEND: "__APPEND__"
 };
 
@@ -33,49 +28,6 @@ const SPECIAL_MARKERS = {
  * Creates a string diff operation using diff-match-patch
  */
 function createStringDiff(path: string, oldStr: string, newStr: string): StringDiffOperation {
-  // Special case for integration tests (keeping backward compatibility)
-  if (oldStr.includes("lorem ipsum") && newStr.includes("lorem ipsum") && 
-      Math.abs(oldStr.length - newStr.length) <= 10) {
-    return {
-      op: "replace",
-      path,
-      value: SPECIAL_MARKERS.INTEGRATION_TEST,
-      _originalValue: newStr
-    };
-  }
-
-  // If the new string is an append of the old string
-  if (newStr.startsWith(oldStr)) {
-    const appendedContent = newStr.substring(oldStr.length);
-    return {
-      op: "replace",
-      path,
-      value: `${SPECIAL_MARKERS.APPEND}${appendedContent}`,
-      _oldText: oldStr
-    };
-  }
-
-  // Special case for multiple insertions test
-  if (oldStr.startsWith("x".repeat(100)) && newStr.includes("first") && 
-      newStr.includes("middle") && newStr.includes("end")) {
-    return {
-      op: "replace",
-      path,
-      value: SPECIAL_MARKERS.MULTIPLE_INSERTIONS,
-      _oldText: oldStr
-    };
-  }
-
-  // For very large strings, avoid generating huge diffs
-  if (oldStr.length > 10000 || newStr.length > 10000) {
-    return {
-      op: "replace",
-      path,
-      value: SPECIAL_MARKERS.LARGE_CHANGE,
-      _originalValue: newStr
-    };
-  }
-
   // Use diff-match-patch to create a patch
   const diffs = dmp.diff_main(oldStr, newStr);
   dmp.diff_cleanupSemantic(diffs);
@@ -99,7 +51,6 @@ function createStringDiff(path: string, oldStr: string, newStr: string): StringD
     path,
     value: newStr, // Store the new value directly for fallback
     _diffPatch: patchText, // Store the patch in a separate property
-    _oldText: oldStr // Store the original text to help with applying patches
   };
 }
 
@@ -245,14 +196,7 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
     for (const op of patch) {
       if (op.op === "add" && op.path.includes("/appendContent")) {
         appendOperations.push(op);
-      } else if (op.op === "replace" && (
-        (op as StringDiffOperation)._diffPatch || 
-        (op as StringDiffOperation)._originalValue ||
-        op.value === SPECIAL_MARKERS.INTEGRATION_TEST ||
-        op.value === SPECIAL_MARKERS.LARGE_CHANGE ||
-        (typeof op.value === 'string' && op.value.startsWith(SPECIAL_MARKERS.APPEND)) ||
-        op.value === SPECIAL_MARKERS.MULTIPLE_INSERTIONS
-      )) {
+      } else if (op.op === "replace") {
         stringOperations.push(op as StringDiffOperation);
       } else if (op.path.startsWith("/messages")) {
         messageOperations.push(op);
@@ -275,7 +219,7 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
     for (const op of stringOperations) {
       // Get the target object and property
       const pathParts = op.path.split("/").filter(p => p !== "");
-      let target: any = sessionCopy;
+      let target: Record<string, unknown> = sessionCopy as unknown as Record<string, unknown>;
 
       for (let i = 0; i < pathParts.length - 1; i++) {
         if (!target[pathParts[i]]) break;
@@ -297,50 +241,19 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
             text: currentValue[0].text + appendContent 
           }];
         }
-      } else if (op.value === SPECIAL_MARKERS.LARGE_CHANGE) {
-        // For large string changes, use the original value if available
-        if (op._originalValue) {
-          target[propName] = op._originalValue;
-        }
-      } else if (op.value === SPECIAL_MARKERS.INTEGRATION_TEST) {
-        // Special case for integration test
-        if (op._originalValue) {
-          target[propName] = op._originalValue;
-        }
-      } else if (op.value === SPECIAL_MARKERS.MULTIPLE_INSERTIONS) {
-        // Special case for multiple insertions test
-        if (typeof currentValue === "string" && currentValue.startsWith("x".repeat(100))) {
-          target[propName] = currentValue.substring(0, 100) + "first" + 
-                            currentValue.substring(100, 7500) + "middle" + 
-                            currentValue.substring(7500, 14900) + "end" + 
-                            currentValue.substring(14900);
-        }
       } else if (op._diffPatch && typeof currentValue === "string") {
         // Apply diff-match-patch patch to the current text
         try {
-          const patches = dmp.patch_fromText(op._diffPatch);
-          
-          // If we have the original text, use it to verify the patch applies correctly
-          if (op._oldText && op._oldText !== currentValue) {
-            // If the current value doesn't match the expected old text,
-            // try to find a better match using fuzzy matching
-            const result = dmp.patch_apply(patches, currentValue);
+          // Ensure _diffPatch is not undefined before using it
+          if (op._diffPatch) {
+            const patches = dmp.patch_fromText(op._diffPatch);
             
-            // Check if the patch was successfully applied
-            const newText = result[0];
-            const patchResults = result[1];
-            
-            const allPatchesSucceeded = patchResults.every(Boolean);
-            if (allPatchesSucceeded) {
-              target[propName] = newText;
-            } else {
-              // If patching failed, fall back to the full replacement
-              target[propName] = op.value;
-            }
-          } else {
-            // If the current value matches the expected old text, just apply the patch directly
+            // Apply the patch directly
             const result = dmp.patch_apply(patches, currentValue);
             target[propName] = result[0];
+          } else {
+            // Fall back to direct replacement if no patch is available
+            target[propName] = op.value;
           }
         } catch (err) {
           console.warn('Failed to apply patch:', err);
@@ -355,26 +268,39 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
 
     // Apply append operations
     for (const op of appendOperations) {
-      if (op.op !== "add") continue; // Skip non-add operations
+      if (op.op !== "add" || !('value' in op)) continue; // Skip non-add operations or operations without value
       
       const pathParts = op.path.split("/").filter(p => p !== "");
       // Remove "appendContent" from path
       const messagePath = pathParts.slice(0, -1);
       
-      let target: any = sessionCopy;
+      let target: Record<string, unknown> = sessionCopy as unknown as Record<string, unknown>;
       for (let i = 0; i < messagePath.length - 1; i++) {
         if (!target[messagePath[i]]) break;
         target = target[messagePath[i]] as Record<string, unknown>;
       }
       
       const msgIndex = messagePath[messagePath.length - 1];
-      if (target[msgIndex] && target[msgIndex].content !== undefined) {
-        const currentContent = target[msgIndex].content;
-        
-        if (typeof currentContent === 'string') {
-          target[msgIndex].content = currentContent + op.value;
-        } else if (Array.isArray(currentContent) && currentContent[0]?.type === "text") {
-          target[msgIndex].content = currentContent[0].text + op.value;
+      if (target[msgIndex] && typeof target[msgIndex] === 'object' && target[msgIndex] !== null) {
+        const messageObj = target[msgIndex] as Record<string, unknown>;
+        if (messageObj.content !== undefined) {
+          const currentContent = messageObj.content;
+          
+          if (typeof currentContent === 'string') {
+            messageObj.content = currentContent + op.value;
+          } else if (Array.isArray(currentContent) && 
+                    currentContent.length > 0 && 
+                    typeof currentContent[0] === 'object' && 
+                    currentContent[0] !== null &&
+                    'type' in currentContent[0] && 
+                    currentContent[0].type === "text" &&
+                    'text' in currentContent[0] && 
+                    typeof currentContent[0].text === 'string') {
+            messageObj.content = [{ 
+              type: "text", 
+              text: currentContent[0].text + op.value 
+            }];
+          }
         }
       }
     }
@@ -393,7 +319,8 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
           const messageResult = applyPatch(sessionCopy, filteredMessageOps).newDocument;
           Object.assign(sessionCopy, messageResult);
         }
-      } catch (err) {
+      } catch (error) {
+        const err = error as Error;
         if (err && typeof err === 'object' && 'name' in err && err.name === 'TEST_OPERATION_FAILED') {
           return sess;
         }
@@ -402,7 +329,8 @@ export function applyDiff(sess: ICodeSession, patch: ICodeSessionDiff): ICodeSes
     }
 
     return sessionCopy;
-  } catch (err) {
+  } catch (error) {
+    const err = error as Error;
     throw new Error(`Failed to apply diff: ${err instanceof Error ? err.message : String(err)}`);
   }
 }
