@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ICodeSession, Message } from "./interfaces";
+import type { ICodeSession, Message, MessagePart } from "./interfaces";
 // import { applyDiff , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
 import type { ICodeSessionDiff } from "./text-diff";
 import { applyDiff, createDiff } from "./text-diff";
@@ -413,6 +413,187 @@ describe("text-diff", () => {
 
       // Check if the diff size is small (much smaller than the full string)
       expect(diffJson.length).toBeLessThan(largeText.length / 10);
+    });
+
+    it("should handle empty strings", () => {
+      const oldSession = createBaseSession("");
+      const newSession = createBaseSession("some content");
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.code).toBe("some content");
+
+      // Test the reverse case too
+      const reverseDiff = createDiff(newSession, oldSession);
+      const reverseResult = applyDiff(newSession, reverseDiff);
+
+      expect(reverseResult.code).toBe("");
+    });
+
+    it("should handle strings at threshold boundaries", () => {
+      // Test string just below STRING_DIFF_THRESHOLD (80)
+      const shortStr = "x".repeat(79);
+      const shortStrNew = shortStr + "y";
+      
+      const oldSession = createBaseSession(shortStr);
+      const newSession = createBaseSession(shortStrNew);
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.code).toBe(shortStrNew);
+
+      // Test string just above threshold
+      const longStr = "x".repeat(81);
+      const longStrNew = longStr + "y";
+
+      const oldSession2 = createBaseSession(longStr);
+      const newSession2 = createBaseSession(longStrNew);
+
+      const diff2 = createDiff(oldSession2, newSession2);
+      const result2 = applyDiff(oldSession2, diff2);
+
+      expect(result2.code).toBe(longStrNew);
+    });
+
+    it("should handle unicode and special characters", () => {
+      const unicodeStr = "Hello 👋 World 🌍 \\n \\t 你好";
+      const newUnicodeStr = "Hello 👋 Updated 🌍 World \\n \\t 你好";
+
+      const oldSession = createBaseSession(unicodeStr);
+      const newSession = createBaseSession(newUnicodeStr);
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.code).toBe(newUnicodeStr);
+    });
+
+    it("should handle multiple insertions in large strings", () => {
+      const baseStr = "x".repeat(15000);
+      let modifiedStr = baseStr;
+      const insertions = [
+        { pos: 100, content: "first" },
+        { pos: 7500, content: "middle" },
+        { pos: 14900, content: "end" }
+      ];
+
+      insertions.forEach(({ pos, content }) => {
+        modifiedStr = modifiedStr.slice(0, pos) + content + modifiedStr.slice(pos);
+      });
+
+      const oldSession = createBaseSession(baseStr);
+      const newSession = createBaseSession(modifiedStr);
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.code).toBe(modifiedStr);
+      insertions.forEach(({ content }) => {
+        expect(result.code.includes(content)).toBe(true);
+      });
+    });
+
+    it("should handle multiple message updates in a single diff", () => {
+      const oldSession = createBaseSession();
+      const newSession = createBaseSession();
+
+      oldSession.messages = [
+        { id: "1", role: "user", content: "First" },
+        { id: "2", role: "assistant", content: "Second" },
+        { id: "3", role: "user", content: "Third" }
+      ];
+
+      newSession.messages = [
+        { id: "1", role: "user", content: "First Updated" },
+        { id: "2", role: "assistant", content: "Second Updated" },
+        { id: "3", role: "user", content: "Third Updated" }
+      ];
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.messages).toEqual(newSession.messages);
+    });
+
+    it("should handle invalid message operations gracefully", () => {
+      const session = createBaseSession();
+      session.messages = [{ id: "1", role: "user", content: "Original" }];
+
+      const invalidDiff: ICodeSessionDiff = [{
+        op: "replace" as const,
+        path: "/messages/999/content",
+        value: "Should not be added"
+      }];
+
+      const result = applyDiff(session, invalidDiff);
+      expect(result.messages).toEqual(session.messages);
+    });
+
+    it("should handle complex message content structures", () => {
+      const oldSession = createBaseSession();
+      const newSession = createBaseSession();
+
+      const complexContent: MessagePart[] = [
+        { type: "text", text: "Hello" },
+        { type: "text", text: "console.log('test');" },
+        { type: "text", text: "one\ntwo" }
+      ];
+
+      oldSession.messages = [
+        { id: "1", role: "user", content: complexContent }
+      ];
+
+      const updatedContent: MessagePart[] = [
+        ...complexContent,
+        { type: "text", text: "New block" }
+      ];
+
+      newSession.messages = [
+        { id: "1", role: "user", content: updatedContent }
+      ];
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.messages[0].content).toEqual(updatedContent);
+    });
+
+    it("should handle invalid patches gracefully", () => {
+      const session = createBaseSession();
+      // Create a diff with failing test operation which should cause rejection
+      const invalidDiff: ICodeSessionDiff = [{
+        op: "test" as const,
+        path: "/code",
+        value: "wrong value"
+      }, {
+        op: "remove" as const,
+        path: "/code"
+      }];
+
+      const result = applyDiff(session, invalidDiff);
+      expect(result).toEqual(session);
+    });
+
+    it("should handle line vs character diffing thresholds", () => {
+      // Create a large string with many lines
+      const lines = Array.from({ length: 1000 }, (_, i) => `Line ${i}\n`);
+      const oldStr = lines.join("");
+      
+      // Modify a few lines in the middle
+      const modifiedLines = [...lines];
+      modifiedLines[500] = "Modified Line 500\n";
+      modifiedLines[501] = "Modified Line 501\n";
+      const newStr = modifiedLines.join("");
+
+      const oldSession = createBaseSession(oldStr);
+      const newSession = createBaseSession(newStr);
+
+      const diff = createDiff(oldSession, newSession);
+      const result = applyDiff(oldSession, diff);
+
+      expect(result.code).toBe(newStr);
     });
   });
 });

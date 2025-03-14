@@ -1,6 +1,6 @@
 import { md5 } from "@/lib/md5";
 import { ata, prettierToThrow } from "@/lib/shared";
-import { throttle } from "@/lib/throttle";
+// import { throttle } from "@/lib/throttle";
 import { wait } from "@/lib/wait";
 import { editor, languages, Uri, version } from "@/workers/monaco-editor.worker";
 import type { editor as Editor } from "monaco-editor";
@@ -503,10 +503,8 @@ async function startMonacoPristine({
   });
   const recentlyChanged = new Set<string>();
 
-  const throttledTsCheck = throttle(() => tsCheck(), 10000);
   // Increase throttle time and add debounce for editor changes
-  const throttledOnChange = throttle(
-    async () => {
+  const onChangeAddRecentlyChanged = async () => {
       const code = model.getValue();
       const formattedText = await prettierToThrow({
         code,
@@ -519,12 +517,8 @@ async function startMonacoPristine({
       setTimeout(() => {
         recentlyChanged.delete(hashOfCode);
       }, 1000);
-    },
-    300, // Reduce throttle time to 300ms for better responsiveness
-    {
-      edges: ["leading", "trailing"], // Trigger on both edges for faster initial response
-    },
-  );
+    }
+
 
   // Use refs to track ongoing content updates and previous content
   const isUpdating = { current: false };
@@ -559,18 +553,17 @@ async function startMonacoPristine({
         const importsChanged =
           JSON.stringify(currentImports) !== JSON.stringify(previousImports.current);
 
-        if (importsChanged) {
-          console.log("Imports changed, triggering immediate type check");
+        // Check if the user has finished editing or if imports have changed
+        if (!editorModel.isEdit || importsChanged) {
+          console.log("User finished editing or imports changed, saving changes");
           previousImports.current = currentImports;
-
-          // Skip throttling for import changes to provide faster feedback
-          await throttledOnChange.flush();
-          await tsCheck();
-        } else {
-          // Normal update flow for non-import changes
-          await throttledOnChange();
-          await throttledTsCheck();
+          
+          // Save changes to Cloudflare worker
+          await onChangeAddRecentlyChanged();
         }
+        
+        // Always run type checking after changes
+        await tsCheck();
 
         previousContent.current = content;
 
