@@ -36,7 +36,7 @@ class SessionPatcher {
   }
 
   public static validateSession(cx: Partial<ICodeSession>): void {
-    if (!cx.codeSpace || !cx.code || cx.messages === undefined) {
+    if (!cx.codeSpace || cx.code === undefined || cx.messages === undefined) {
       throw new Error("Invalid session object - missing required fields" + JSON.stringify(cx));
     }
   }
