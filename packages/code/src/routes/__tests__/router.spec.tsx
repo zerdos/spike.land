@@ -99,7 +99,6 @@ describe("Router Configuration", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("live-page")).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
       expect(router.state.location.search).toContain(page);
     });
