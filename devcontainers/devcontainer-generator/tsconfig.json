@@ -1,15 +1,19 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "ESNext",
+    "incremental": true,
+    "noEmit": true,
     "resolveJsonModule": true,
     "module": "ESNext",
     "declaration": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "sourceMap": true,
-    "outDir": "./lib",
+    "lib": ["ESNext"],
+    "outDir": "./dist",
     "strict": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "src/dist"],
+  "exclude": ["node_modules", "dist"],
 }

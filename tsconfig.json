@@ -3,6 +3,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "incremental": true,
     "isolatedModules": true,
     "target": "esnext",
@@ -18,14 +19,12 @@
     "types": ["@cloudflare/workers-types"]
   },
   "references": [
+    { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
     { "path": "./packages/code/tsconfig.json" },
-
     { "path": "./packages/code/tsconfig.spec.json" },
     { "path": "./packages/spike.land/tsconfig.json" },
     { "path": "./packages/durable-objects/tsconfig.json" },
-    
-
   ],
-  "exclude": ["dts", "node_modules", "dist", "functions"],
+  "exclude": ["dts", "node_modules", "dist"],
   "include": ["eslint.config.js"]
 }
