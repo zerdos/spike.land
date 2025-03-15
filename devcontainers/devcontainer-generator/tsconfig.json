@@ -4,6 +4,7 @@
     "target": "ESNext",
     "incremental": true,
     "noEmit": true,
+    "types": ["node"],
     "resolveJsonModule": true,
     "module": "ESNext",
     "declaration": true,
@@ -14,6 +15,6 @@
     "outDir": "./dist",
     "strict": true
   },
-  "include": ["src"],
+  "include": ["src", "templates", "versions.json"],
   "exclude": ["node_modules", "dist"],
 }
