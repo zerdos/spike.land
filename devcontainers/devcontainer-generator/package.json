@@ -20,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "22.13.10",
-    "esbuild": "^0.25.1",
+    "esbuild": "0.25.1",
     "typescript": "5.8.2"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
