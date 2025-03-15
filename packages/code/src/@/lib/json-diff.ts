@@ -1,6 +1,6 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import DiffMatchPatch from "diff-match-patch";
-import type { Delta} from "jsondiffpatch";
+import type { Delta } from "jsondiffpatch";
 import { DiffPatcher } from "jsondiffpatch";
 // The diff can be any valid Delta type from jsondiffpatch
 export type ICodeSessionDiff = Delta;

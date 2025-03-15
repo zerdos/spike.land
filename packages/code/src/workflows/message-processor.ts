@@ -2,7 +2,7 @@ import type { ICode, ImageData } from "@/lib/interfaces";
 import { metrics } from "@/lib/metrics";
 import type { ChatAnthropicCallOptions } from "@langchain/anthropic";
 import type { BaseLanguageModelInput } from "@langchain/core/language_models/base";
-import type { AIMessage, AIMessageChunk} from "@langchain/core/messages";
+import type { AIMessage, AIMessageChunk } from "@langchain/core/messages";
 import { HumanMessage } from "@langchain/core/messages";
 import type { Runnable } from "@langchain/core/runnables";
 import { MODEL_NAME } from "../config/workflow-config";
@@ -196,13 +196,13 @@ export async function processMessage(
       state.code !== initialState.code
     ) {
       throw new WorkflowError(
-        "Code modification failed", 
-        ErrorType.ToolExecution, 
+        "Code modification failed",
+        ErrorType.ToolExecution,
         {
           initialCodeLength: state.code.length,
           currentCodeLength: state.code.length,
         },
-        "Try breaking your changes into smaller, more targeted modifications."
+        "Try breaking your changes into smaller, more targeted modifications.",
       );
     }
 

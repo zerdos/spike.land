@@ -1,1 +1,1 @@
-export * from "./text-delta"
+export * from "./text-delta";

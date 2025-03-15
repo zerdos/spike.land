@@ -2,8 +2,6 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import { describe, expect, it } from "vitest";
 
 describe("importMapReplace", () => {
-
-
   const scenarios = {
     // Basic imports
     "Basic imports": {
@@ -126,7 +124,6 @@ describe("importMapReplace", () => {
       "side-effect only imports": `import "polyfill";`,
       "mixed default and namespace imports": `import Default, * as All from "my-module";`,
     },
-    
 
     // Edge cases
     "Edge cases": {
@@ -153,7 +150,7 @@ describe("importMapReplace", () => {
             But you can edit even this page and share with your friends.
           </h2>
         </div>
-      );`
+      );`,
     },
     // App specific imports
     "App specific imports": {

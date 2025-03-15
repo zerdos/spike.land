@@ -11,7 +11,7 @@ interface ImportExportNode {
     start: number;
     end: number;
   };
-  specifiers?: Array<{ type: string; imported?: { name: string }; local: { name: string } }>;
+  specifiers?: Array<{ type: string; imported?: { name: string; }; local: { name: string; }; }>;
 }
 
 export interface ImportMap {
@@ -126,7 +126,9 @@ function shouldTransformPath(path: string): boolean {
   );
 }
 
-function getExportsFromSpecifiers(specifiers: Array<{ type: string; imported?: { name: string }; local: { name: string } }>): string {
+function getExportsFromSpecifiers(
+  specifiers: Array<{ type: string; imported?: { name: string; }; local: { name: string; }; }>,
+): string {
   return specifiers
     .filter(spec => spec.type === "ImportSpecifier")
     .map(spec => spec.imported?.name || spec.local.name)

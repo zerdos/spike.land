@@ -68,7 +68,10 @@ class SessionPatcher {
 
     const newHash = SessionPatcher.computeSessionHash(parsedSession);
     if (newHash !== sessionDelta.hashCode) {
-      throw new Error("New hash does not match:" + newHash + " !== " + sessionDelta.hashCode + "\n" + JSON.stringify(sessionDelta) + "\n" + JSON.stringify(parsedSession));
+      throw new Error(
+        "New hash does not match:" + newHash + " !== " + sessionDelta.hashCode + "\n" +
+          JSON.stringify(sessionDelta) + "\n" + JSON.stringify(parsedSession),
+      );
     }
     return parsedSession;
   }
@@ -104,24 +107,19 @@ class SessionPatcher {
     const patchedSession = applyDelta(sanitizedOldSess, delta);
     const patchedHash = SessionPatcher.computeSessionHash(patchedSession);
     if (patchedHash !== hashCode) {
-
       // If the patch is invalid, throw an error in such a format, that it can be easily added as a new integration test
       throw new Error(
         `Patch is invalid: ${patchedHash} !== ${hashCode}\n` +
-        `Old: ${JSON.stringify(sanitizedOldSess)}\n` +
-        `New: ${JSON.stringify(sanitizedNewSess)}\n` +
-        `Patch: ${JSON.stringify(delta)}\n` +
-        `Patched: ${JSON.stringify(patchedSession)}\n` +
-        `Old hash: ${oldHash}\n` +
-        `New hash: ${hashCode}`,
-        
+          `Old: ${JSON.stringify(sanitizedOldSess)}\n` +
+          `New: ${JSON.stringify(sanitizedNewSess)}\n` +
+          `Patch: ${JSON.stringify(delta)}\n` +
+          `Patched: ${JSON.stringify(patchedSession)}\n` +
+          `Old hash: ${oldHash}\n` +
+          `New hash: ${hashCode}`,
       );
     }
 
-
     return sessionDelta;
-
-  
   }
 }
 

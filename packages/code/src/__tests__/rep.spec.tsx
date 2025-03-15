@@ -122,7 +122,7 @@ describe("replacePreservingWhitespace", () => {
       `// Some comment
   const a = 1;`,
       `// Modified code
-  const x = 42;`
+  const x = 42;`,
     );
     expect(result).toBe(`function foo() {
   // Modified code

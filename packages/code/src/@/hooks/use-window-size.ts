@@ -17,7 +17,7 @@ function useWindowSize(delay = 250) {
         });
       },
       delay,
-      { edges: ["leading", "trailing"] }
+      { edges: ["leading", "trailing"] },
     );
   }, [delay]);
 

@@ -1,13 +1,7 @@
 import { appendFile, copyFile, readFile, rename, unlink, writeFile } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type {
-  MockFileSystemFile} from "./setup";
-import {
-  mockDirectoryHandle,
-  mockFileSystem,
-  mockNavigator,
-  setupTest,
-} from "./setup";
+import type { MockFileSystemFile } from "./setup";
+import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from "./setup";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);

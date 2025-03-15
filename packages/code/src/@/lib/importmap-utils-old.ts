@@ -1,6 +1,6 @@
 // src/importMapUtils.ts
 
-import type { ImportMap} from "@/lib/import-map";
+import type { ImportMap } from "@/lib/import-map";
 import { importMap as defaultImportMap } from "@/lib/import-map";
 
 export const importMap: ImportMap = defaultImportMap;

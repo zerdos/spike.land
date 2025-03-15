@@ -171,7 +171,9 @@ export async function setConnections(
       }
 
       logger.debug(
-        `Processing session update from sender: ${(updatedSession as SessionMessageData).sender} for ${codeSpace}`,
+        `Processing session update from sender: ${
+          (updatedSession as SessionMessageData).sender
+        } for ${codeSpace}`,
       );
       const oldSession = connection.oldSession;
       const newSession = sanitizeSession(updatedSession);

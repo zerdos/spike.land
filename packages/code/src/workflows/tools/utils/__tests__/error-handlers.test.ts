@@ -2,9 +2,9 @@ import { describe, expect, it, vi } from "vitest";
 import {
   createCodeIntegrityError,
   createCompilationError,
+  ErrorType,
   handleWorkflowError,
   WorkflowError,
-  ErrorType,
 } from "../error-handlers";
 
 describe("error-handlers", () => {
@@ -45,7 +45,7 @@ describe("error-handlers", () => {
       expect(console.error).toHaveBeenCalledWith(
         "Workflow Error:",
         error.getUserFriendlyMessage(),
-        error.context
+        error.context,
       );
     });
 
@@ -55,11 +55,11 @@ describe("error-handlers", () => {
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
         "Code integrity validation failed:",
-        error.getUserFriendlyMessage()
+        error.getUserFriendlyMessage(),
       );
       expect(console.error).toHaveBeenCalledWith(
         "Context:",
-        JSON.stringify(error.context, null, 2)
+        JSON.stringify(error.context, null, 2),
       );
     });
 
@@ -69,13 +69,13 @@ describe("error-handlers", () => {
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
         "Compilation errors detected:",
-        error.getUserFriendlyMessage()
+        error.getUserFriendlyMessage(),
       );
     });
 
     it("should handle unknown errors", () => {
       const error = new Error("Unknown error");
-      
+
       const result = handleWorkflowError(error);
       expect(result).toBeInstanceOf(WorkflowError);
       expect(console.error).toHaveBeenCalledWith("Unexpected Error:", error);
@@ -101,7 +101,7 @@ describe("error-handlers", () => {
       expect(error.context).toMatchObject({
         expectedHash,
         actualHash,
-        codeLength
+        codeLength,
       });
     });
   });
@@ -123,7 +123,7 @@ describe("error-handlers", () => {
       expect(error.context).toMatchObject({
         error: errorMessage,
         originalHash: hash,
-        modifiedHash: modifiedCodeHash
+        modifiedHash: modifiedCodeHash,
       });
     });
 
@@ -134,7 +134,7 @@ describe("error-handlers", () => {
       expect(error.context).toMatchObject({
         error: "Syntax error",
         originalHash: undefined,
-        modifiedHash: undefined
+        modifiedHash: undefined,
       });
     });
   });

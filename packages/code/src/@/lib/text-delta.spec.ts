@@ -3,7 +3,6 @@ import type { ICodeSession, MessagePart, TextPart } from "./interfaces";
 // import { applyDelta , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
 import { applyDelta, createDelta } from "./text-delta";
 
-
 describe("text-diff", () => {
   // Create base session objects for testing
   const createBaseSession = (code = "const test = 'test';"): ICodeSession => ({
@@ -16,8 +15,6 @@ describe("text-diff", () => {
   });
 
   describe("createDelta", () => {
-  
-
     it("should handle nested property changes", () => {
       const oldSession = createBaseSession();
       const newSession = createBaseSession();
@@ -113,9 +110,11 @@ describe("text-diff", () => {
 
       const diff = createDelta(oldSession, newSession);
       const recreatedSession = applyDelta(oldSession, diff);
-      
+
       expect(recreatedSession.messages.length).toBe(2);
-      expect((recreatedSession.messages[1].content[0] as TextPart).text).toBe("Original text added");
+      expect((recreatedSession.messages[1].content[0] as TextPart).text).toBe(
+        "Original text added",
+      );
     });
   });
 
@@ -348,7 +347,7 @@ describe("text-diff", () => {
       // Test string just below STRING_DIFF_THRESHOLD (80)
       const shortStr = "x".repeat(79);
       const shortStrNew = shortStr + "y";
-      
+
       const oldSession = createBaseSession(shortStr);
       const newSession = createBaseSession(shortStrNew);
 
@@ -389,7 +388,7 @@ describe("text-diff", () => {
       const insertions = [
         { pos: 100, content: "first" },
         { pos: 7500, content: "middle" },
-        { pos: 14900, content: "end" }
+        { pos: 14900, content: "end" },
       ];
 
       insertions.forEach(({ pos, content }) => {
@@ -406,7 +405,7 @@ describe("text-diff", () => {
       insertions.forEach(({ content }) => {
         expect(result.code.includes(content)).toBe(true);
       });
-      
+
       // Check that the length is correct
       expect(result.code.length).toBe(modifiedStr.length);
     });
@@ -418,13 +417,13 @@ describe("text-diff", () => {
       oldSession.messages = [
         { id: "1", role: "user", content: "First" },
         { id: "2", role: "assistant", content: "Second" },
-        { id: "3", role: "user", content: "Third" }
+        { id: "3", role: "user", content: "Third" },
       ];
 
       newSession.messages = [
         { id: "1", role: "user", content: "First Updated" },
         { id: "2", role: "assistant", content: "Second Updated" },
-        { id: "3", role: "user", content: "Third Updated" }
+        { id: "3", role: "user", content: "Third Updated" },
       ];
 
       const diff = createDelta(oldSession, newSession);
@@ -440,20 +439,20 @@ describe("text-diff", () => {
       const complexContent: MessagePart[] = [
         { type: "text", text: "Hello" },
         { type: "text", text: "console.log('test');" },
-        { type: "text", text: "one\ntwo" }
+        { type: "text", text: "one\ntwo" },
       ];
 
       oldSession.messages = [
-        { id: "1", role: "user", content: complexContent }
+        { id: "1", role: "user", content: complexContent },
       ];
 
       const updatedContent: MessagePart[] = [
         ...complexContent,
-        { type: "text", text: "New block" }
+        { type: "text", text: "New block" },
       ];
 
       newSession.messages = [
-        { id: "1", role: "user", content: updatedContent }
+        { id: "1", role: "user", content: updatedContent },
       ];
 
       const diff = createDelta(oldSession, newSession);
@@ -466,7 +465,7 @@ describe("text-diff", () => {
       // Create a large string with many lines
       const lines = Array.from({ length: 1000 }, (_, i) => `Line ${i}\n`);
       const oldStr = lines.join("");
-      
+
       // Modify a few lines in the middle
       const modifiedLines = [...lines];
       modifiedLines[500] = "Modified Line 500\n";

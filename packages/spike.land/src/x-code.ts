@@ -1,4 +1,4 @@
-import type { SessionDelta, ICodeSession } from "@spike-npm-land/code";
+import type { ICodeSession, SessionDelta } from "@spike-npm-land/code";
 import {
   applySessionDelta,
   computeSessionHash,

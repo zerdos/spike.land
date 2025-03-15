@@ -1,7 +1,7 @@
-import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
-import type { ExtraLib } from "./types";
-import { modelCache, originToUse } from "./config";
 import { wait } from "@/lib/wait";
+import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
+import { modelCache, originToUse } from "./config";
+import type { ExtraLib } from "./types";
 
 /**
  * Fetch and create extra models for imports
@@ -53,7 +53,9 @@ export async function fetchAndCreateExtraModels(
  */
 export async function refreshAta(
   code: string,
-  ata: (options: { code: string; originToUse: string }) => Promise<{ filePath: string; content: string }[]>
+  ata: (
+    options: { code: string; originToUse: string; },
+  ) => Promise<{ filePath: string; content: string; }[]>,
 ): Promise<void> {
   try {
     const extraLibs: ExtraLib[] = (await ata({ code, originToUse })).map(
@@ -129,13 +131,13 @@ export function setupResponsiveEditor(editorInstance: editor.IStandaloneCodeEdit
     if (resizeHandler.timeout) {
       clearTimeout(resizeHandler.timeout);
     }
-    
+
     resizeHandler.timeout = setTimeout(() => {
       editorInstance.layout();
-      
+
       // Apply different settings based on screen size
       const width = window.innerWidth;
-      
+
       if (width < 768) {
         // Mobile settings
         editorInstance.updateOptions({
@@ -160,16 +162,16 @@ export function setupResponsiveEditor(editorInstance: editor.IStandaloneCodeEdit
       }
     }, 100);
   };
-  
+
   // Initialize with current size
   resizeHandler();
-  
+
   // Add event listener
-  window.addEventListener('resize', resizeHandler);
-  
+  window.addEventListener("resize", resizeHandler);
+
   // Return cleanup function
   return () => {
-    window.removeEventListener('resize', resizeHandler);
+    window.removeEventListener("resize", resizeHandler);
     if (resizeHandler.timeout) {
       clearTimeout(resizeHandler.timeout);
     }
@@ -190,7 +192,7 @@ declare global {
  */
 export async function checkTypeScriptErrors(
   model: editor.ITextModel,
-  uri: Uri
+  uri: Uri,
 ): Promise<void> {
   try {
     console.log("Running TypeScript check");

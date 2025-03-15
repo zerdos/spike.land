@@ -35,5 +35,5 @@ import {
 export { importMap };
 
 export { computeSessionHash, generateSessionPatch, sessionToJSON };
-export type { SessionDelta, ICodeSession };
+export type { ICodeSession, SessionDelta };
 export { applySessionDelta, sanitizeSession };

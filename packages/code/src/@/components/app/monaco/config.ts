@@ -42,12 +42,12 @@ export const responsiveSettings: ResponsiveSettings = {
     glyphMargin: false,
     guides: { indentation: false },
   },
-  
+
   // Tablet-specific settings
   tablet: {
     fontSize: 14,
     lineHeight: 1.5,
-    minimap: { 
+    minimap: {
       enabled: true,
       maxColumn: 60,
       scale: 2,
@@ -66,7 +66,7 @@ export const responsiveSettings: ResponsiveSettings = {
     folding: true,
     lineNumbers: "on",
   },
-  
+
   // Desktop-specific settings
   desktop: {
     fontSize: 14,
@@ -89,7 +89,7 @@ export const responsiveSettings: ResponsiveSettings = {
       scrollByPage: false,
       alwaysConsumeMouseWheel: true,
     },
-  }
+  },
 };
 
 // Base editor configuration object
@@ -132,13 +132,13 @@ export function getEditorOptions(): Editor.IStandaloneEditorConstructionOptions 
   // Detect device type
   const width = window.innerWidth;
   let deviceType: keyof ResponsiveSettings = "desktop";
-  
+
   if (width < 768) {
     deviceType = "mobile";
   } else if (width < 1024) {
     deviceType = "tablet";
   }
-  
+
   // Merge base options with device-specific options
   return {
     ...baseEditorOptions,

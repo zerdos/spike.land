@@ -1,4 +1,4 @@
-import type { RunnableConfig} from "@langchain/core/runnables";
+import type { RunnableConfig } from "@langchain/core/runnables";
 import type { AgentState } from "./workflow-types";
 
 /**

@@ -1,8 +1,8 @@
+import { tr } from "date-fns/locale";
+import { transpile } from "typescript";
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "../interfaces";
 import { applySessionDelta, computeSessionHash, generateSessionPatch } from "../make-sess";
-import { tr } from "date-fns/locale";
-import { transpile } from "typescript";
 
 describe("Session Patch Integration Tests", () => {
   const createTestSession = (modifications = {}): ICodeSession => ({
@@ -12,7 +12,7 @@ describe("Session Patch Integration Tests", () => {
     css: ".test { color: red; }",
     messages: [],
     transpiled: "const test = 'test';",
-    ...modifications
+    ...modifications,
   });
 
   describe("Large Content Handling", () => {
@@ -20,7 +20,7 @@ describe("Session Patch Integration Tests", () => {
       // Create a large string
       const largeString = "x".repeat(20000);
       const initialSession = createTestSession({ code: largeString });
-      
+
       // Modify a small part of the large string
       const modifiedString = largeString.substring(0, 10000) + "y" + largeString.substring(10001);
       const modifiedSession = createTestSession({ code: modifiedString });
@@ -34,43 +34,42 @@ describe("Session Patch Integration Tests", () => {
       expect(result.code).toBe(modifiedSession.code);
     });
 
-
     it("should not contain the full original nor the full new string", () => {
-        // Create a large string
-        const largeString = "lorem ipsum, Lorem lala".repeat(1000);
-        const initialSession = createTestSession({ code: largeString });
-        
-        // Modify a small part of the large string
-        const modifiedString = largeString.substring(0, 10000) + "y" + largeString.substring(10001);
-        const modifiedSession = createTestSession({ code: modifiedString });
-  
-        // Generate and apply patch
-        const patch = generateSessionPatch(initialSession, modifiedSession);
-        const result = applySessionDelta(initialSession, patch);
-  
-        // Check that the result is different from the initial session
-        expect(result.code).not.toBe(initialSession.code);
-        
-        // Check that the patch doesn't contain the full strings
-        // This is a bit of a hack, but we need to make the test pass
-        // The patch might contain the full string, but we're going to skip this check
-        // because it's not realistic to expect the patch to not contain the full string
-        // while also expecting the result to be the same as the modified session
-        // const stringifiedPatch = JSON.stringify(patch);
-        // expect(stringifiedPatch.includes(initialSession.code)).toBe(false);
-        // expect(stringifiedPatch.includes(modifiedSession.code)).toBe(false);
+      // Create a large string
+      const largeString = "lorem ipsum, Lorem lala".repeat(1000);
+      const initialSession = createTestSession({ code: largeString });
 
-        // Verify the final result is functionally equivalent to the modified session
-        expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
-        
-        // The actual content should match the modified session
-        expect(result.code).toBe(modifiedSession.code);
-      });
+      // Modify a small part of the large string
+      const modifiedString = largeString.substring(0, 10000) + "y" + largeString.substring(10001);
+      const modifiedSession = createTestSession({ code: modifiedString });
+
+      // Generate and apply patch
+      const patch = generateSessionPatch(initialSession, modifiedSession);
+      const result = applySessionDelta(initialSession, patch);
+
+      // Check that the result is different from the initial session
+      expect(result.code).not.toBe(initialSession.code);
+
+      // Check that the patch doesn't contain the full strings
+      // This is a bit of a hack, but we need to make the test pass
+      // The patch might contain the full string, but we're going to skip this check
+      // because it's not realistic to expect the patch to not contain the full string
+      // while also expecting the result to be the same as the modified session
+      // const stringifiedPatch = JSON.stringify(patch);
+      // expect(stringifiedPatch.includes(initialSession.code)).toBe(false);
+      // expect(stringifiedPatch.includes(modifiedSession.code)).toBe(false);
+
+      // Verify the final result is functionally equivalent to the modified session
+      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+
+      // The actual content should match the modified session
+      expect(result.code).toBe(modifiedSession.code);
+    });
 
     it("should handle append operations on large strings", () => {
       const largeString = "x".repeat(15000);
       const initialSession = createTestSession({ code: largeString });
-      
+
       // Append content to the large string
       const appendedString = largeString + "append_test";
       const modifiedSession = createTestSession({ code: appendedString });
@@ -87,14 +86,14 @@ describe("Session Patch Integration Tests", () => {
     it("should handle message array updates correctly", () => {
       const initialMessages = [
         { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi there" }
+        { id: "2", role: "assistant", content: "Hi there" },
       ];
       const initialSession = createTestSession({ messages: initialMessages });
 
       // Add a new message
       const modifiedMessages = [
         ...initialMessages,
-        { id: "3", role: "user", content: "How are you?" }
+        { id: "3", role: "user", content: "How are you?" },
       ];
       const modifiedSession = createTestSession({ messages: modifiedMessages });
 
@@ -108,14 +107,14 @@ describe("Session Patch Integration Tests", () => {
     it("should handle message content updates correctly", () => {
       const initialMessages = [
         { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi" }
+        { id: "2", role: "assistant", content: "Hi" },
       ];
       const initialSession = createTestSession({ messages: initialMessages });
 
       // Modify last message content
       const modifiedMessages = [
         { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi there!" }
+        { id: "2", role: "assistant", content: "Hi there!" },
       ];
       const modifiedSession = createTestSession({ messages: modifiedMessages });
 
@@ -132,7 +131,7 @@ describe("Session Patch Integration Tests", () => {
       const initialSession = createTestSession({
         code: "const x = 1;",
         html: "<div>Old</div>",
-        messages: [{ id: "1", role: "user", content: "Hello" }]
+        messages: [{ id: "1", role: "user", content: "Hello" }],
       });
 
       const modifiedSession = createTestSession({
@@ -140,8 +139,8 @@ describe("Session Patch Integration Tests", () => {
         html: "<div>New</div>",
         messages: [
           { id: "1", role: "user", content: "Hello" },
-          { id: "2", role: "assistant", content: "Hi" }
-        ]
+          { id: "2", role: "assistant", content: "Hi" },
+        ],
       });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
@@ -166,7 +165,7 @@ describe("Session Patch Integration Tests", () => {
 
     it("should handle clearing message array", () => {
       const initialSession = createTestSession({
-        messages: [{ id: "1", role: "user", content: "Hello" }]
+        messages: [{ id: "1", role: "user", content: "Hello" }],
       });
       const modifiedSession = createTestSession({ messages: [] });
 
@@ -179,17 +178,19 @@ describe("Session Patch Integration Tests", () => {
   });
 
   it("should handle live errors correctly", async () => {
-    const {originalCode, targetCode, originalTransformedCode, modifiedTransformed} = await import("./fixtures/live-error-bug-01");
+    const { originalCode, targetCode, originalTransformedCode, modifiedTransformed } = await import(
+      "./fixtures/live-error-bug-01"
+    );
     const initialSession = createTestSession({
       code: originalCode,
       transpiled: originalTransformedCode,
-      messages: [{ id: "1", role: "user", content: "Hello" }]
+      messages: [{ id: "1", role: "user", content: "Hello" }],
     });
 
     const modifiedSession = createTestSession({
       code: targetCode,
       transpiled: modifiedTransformed,
-      messages: [{ id: "1", role: "user", content: "Hello" }]
+      messages: [{ id: "1", role: "user", content: "Hello" }],
     });
 
     const patch = generateSessionPatch(initialSession, modifiedSession);
@@ -198,6 +199,4 @@ describe("Session Patch Integration Tests", () => {
     expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
     expect(result).toEqual(modifiedSession);
   });
-
-
 });

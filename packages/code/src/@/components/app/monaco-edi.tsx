@@ -1,6 +1,6 @@
 import { ata, prettierToThrow } from "@/lib/shared";
-import type { EditorConfig, EditorModel } from "./monaco/types";
 import { startMonaco as initMonaco } from "./monaco";
+import type { EditorConfig, EditorModel } from "./monaco/types";
 
 // Store for editor models
 const mod: Record<string, EditorModel> = {};
@@ -42,7 +42,7 @@ export const startMonacoEditor = async ({
   mod[codeSpace] = await initMonaco(
     { code, container, codeSpace, onChange },
     ata,
-    prettierToThrow
+    prettierToThrow,
   );
 
   return mod[codeSpace];

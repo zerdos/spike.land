@@ -24,10 +24,10 @@ export interface EditorModel {
 }
 
 export interface EditorState {
-  isUpdating: { current: boolean };
-  pendingUpdate: { current: string | null };
-  previousContent: { current: string };
-  previousImports: { current: string[] };
+  isUpdating: { current: boolean; };
+  pendingUpdate: { current: string | null; };
+  previousContent: { current: string; };
+  previousImports: { current: string[]; };
 }
 
 export interface ResponsiveSettings {

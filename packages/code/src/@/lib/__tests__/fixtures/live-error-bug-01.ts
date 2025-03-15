@@ -202,7 +202,7 @@ const PuppyTimeCalculator = () => {
   );
 };
 
-export default PuppyTimeCalculator;`
+export default PuppyTimeCalculator;`;
 
 export const targetCode = `// pixie.tsx
 import React, { useState, useEffect } from "react";
@@ -409,7 +409,6 @@ const PuppyTimeCalculator = () => {
 };
 
 export default PuppyTimeCalculator;`;
-
 
 export const originalTransformedCode = `var __defProp = Object.defineProperty;
 var __name = (target, value) =\u003E __defProp(target, "
@@ -847,7 +846,6 @@ export {
   stdin_default as default
 };`;
 
-
 export const modifiedTransformed = `var __defProp = Object.defineProperty;
 var __name = (target, value) =\u003E __defProp(target, "
 name"
@@ -1283,5 +1281,3 @@ var stdin_default = PuppyTimeCalculator;
 export {
   stdin_default as default
 };`;
-
-

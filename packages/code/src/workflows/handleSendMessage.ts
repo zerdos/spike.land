@@ -1,7 +1,10 @@
 import type { HandleSendMessageProps } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
 import { getHashWithCache } from "./code-processing";
-import { createEnhancedWorkflowWithStringReplace, enhancedWorkflowCache } from "./enhanced-workflow-creator";
+import {
+  createEnhancedWorkflowWithStringReplace,
+  enhancedWorkflowCache,
+} from "./enhanced-workflow-creator";
 
 /**
  * Handles sending a message to the workflow
@@ -13,15 +16,16 @@ export async function handleSendMessage(
   const codeSpace = cSess.getCodeSpace();
   const code = await cSess.getCode();
   // Get or create workflow for this codeSpace
-  const workflow = enhancedWorkflowCache[codeSpace] || await createEnhancedWorkflowWithStringReplace({
-    code: code,
-    codeSpace: codeSpace,
-    origin: location.origin,
-    lastError: "",
-    isStreaming: false,
-    messages: [],
-    hash: getHashWithCache(code),
-  }, cSess);
+  const workflow = enhancedWorkflowCache[codeSpace] ||
+    await createEnhancedWorkflowWithStringReplace({
+      code: code,
+      codeSpace: codeSpace,
+      origin: location.origin,
+      lastError: "",
+      isStreaming: false,
+      messages: [],
+      hash: getHashWithCache(code),
+    }, cSess);
 
   // Cache the workflow for future use
   enhancedWorkflowCache[codeSpace] = workflow;

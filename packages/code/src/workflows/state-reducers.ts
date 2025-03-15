@@ -44,10 +44,10 @@ export function createGraphStateReducers(): GraphStateReducers {
         } catch (error) {
           console.error("Code reduction error:", error);
           throw new WorkflowError(
-            "Code reduction failed", 
-            ErrorType.Unexpected, 
+            "Code reduction failed",
+            ErrorType.Unexpected,
             { error, input: next },
-            "There was an error processing the code. Try simplifying your request."
+            "There was an error processing the code. Try simplifying your request.",
           );
         }
       },

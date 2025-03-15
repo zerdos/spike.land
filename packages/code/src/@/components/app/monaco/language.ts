@@ -10,7 +10,7 @@ export function registerLanguages(): void {
   // Configure TypeScript language defaults
   languages.typescript.typescriptDefaults.setCompilerOptions(getCompilerOptions());
   languages.typescript.typescriptDefaults.setDiagnosticsOptions(getDiagnosticsOptions());
-  
+
   // Set mode configuration for TypeScript
   languages.typescript.typescriptDefaults.setModeConfiguration({
     completionItems: true,
@@ -21,48 +21,48 @@ export function registerLanguages(): void {
     documentHighlights: true,
     documentRangeFormattingEdits: true,
   });
-  
+
   // Configure language features for TypeScript/TSX
-  languages.onLanguage('typescript', () => {
-    languages.setLanguageConfiguration('typescript', {
+  languages.onLanguage("typescript", () => {
+    languages.setLanguageConfiguration("typescript", {
       // This pattern supports component names with dot notation like motion.div
       wordPattern: /(-?\d*\.\d\w*)|([a-zA-Z_$][\w$]*(?:\.[\w$]+)*)/g,
       comments: {
-        lineComment: '//',
-        blockComment: ['/*', '*/']
+        lineComment: "//",
+        blockComment: ["/*", "*/"],
       },
       brackets: [
-        ['{', '}'],
-        ['[', ']'],
-        ['(', ')']
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
       ],
       autoClosingPairs: [
-        { open: '{', close: '}' },
-        { open: '[', close: ']' },
-        { open: '(', close: ')' },
+        { open: "{", close: "}" },
+        { open: "[", close: "]" },
+        { open: "(", close: ")" },
         { open: '"', close: '"' },
-        { open: '\'', close: '\'' },
-        { open: '`', close: '`' },
-        { open: '/**', close: ' */' },
+        { open: "'", close: "'" },
+        { open: "`", close: "`" },
+        { open: "/**", close: " */" },
       ],
       surroundingPairs: [
-        { open: '{', close: '}' },
-        { open: '[', close: ']' },
-        { open: '(', close: ')' },
+        { open: "{", close: "}" },
+        { open: "[", close: "]" },
+        { open: "(", close: ")" },
         { open: '"', close: '"' },
-        { open: '\'', close: '\'' },
-        { open: '`', close: '`' },
+        { open: "'", close: "'" },
+        { open: "`", close: "`" },
       ],
       folding: {
         markers: {
           start: /^\s*\/\/\s*#?region\b/,
-          end: /^\s*\/\/\s*#?endregion\b/
-        }
+          end: /^\s*\/\/\s*#?endregion\b/,
+        },
       },
       indentationRules: {
         increaseIndentPattern: /^((?!\/\/).)*(\{[^}"'`]*|\([^)"'`]*|\[[^\]"'`]*)$/,
         decreaseIndentPattern: /^\s*(}|\)|\])$/,
-      }
+      },
     });
   });
 }
@@ -73,14 +73,14 @@ export function registerLanguages(): void {
  */
 export function configureJsxSupport(uri: string): void {
   // If this is a TSX file, ensure JSX syntax highlighting is enabled
-  if (uri.endsWith('.tsx')) {
+  if (uri.endsWith(".tsx")) {
     // Register JSX tokens provider if needed
     languages.typescript.typescriptDefaults.setCompilerOptions({
       ...languages.typescript.typescriptDefaults.getCompilerOptions(),
       jsx: languages.typescript.JsxEmit.ReactJSX,
-      jsxFactory: 'React.createElement',
-      jsxFragmentFactory: 'React.Fragment',
-      jsxImportSource: '@emotion/react'
+      jsxFactory: "React.createElement",
+      jsxFragmentFactory: "React.Fragment",
+      jsxImportSource: "@emotion/react",
     });
   }
 }
@@ -90,7 +90,7 @@ export function configureJsxSupport(uri: string): void {
  * @param prettierToThrow Function to format code using Prettier
  */
 export function registerFormattingProvider(
-  prettierToThrow: (options: { code: string; toThrow: boolean }) => Promise<string>
+  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
 ): void {
   languages.registerDocumentFormattingEditProvider("typescript", {
     provideDocumentFormattingEdits: async (model) => {

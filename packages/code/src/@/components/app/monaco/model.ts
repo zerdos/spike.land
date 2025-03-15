@@ -1,18 +1,18 @@
-import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
 import { md5 } from "@/lib/md5";
 import { wait } from "@/lib/wait";
-import type { EditorConfig, EditorModel, EditorState } from "./types";
+import { editor, languages, Uri, version as monacoVersion } from "@/workers/monaco-editor.worker";
 import { getEditorOptions } from "./config";
-import { registerFormattingProvider, registerLanguages, configureJsxSupport } from "./language";
-import { 
-  checkTypeScriptErrors, 
-  fetchAndCreateExtraModels, 
-  getImports, 
-  loadMonacoCss, 
-  refreshAta, 
-  setupResponsiveEditor 
-} from "./utils";
 import { originToUse } from "./config";
+import { configureJsxSupport, registerFormattingProvider, registerLanguages } from "./language";
+import type { EditorConfig, EditorModel, EditorState } from "./types";
+import {
+  checkTypeScriptErrors,
+  fetchAndCreateExtraModels,
+  getImports,
+  loadMonacoCss,
+  refreshAta,
+  setupResponsiveEditor,
+} from "./utils";
 
 // Store for editor models
 const modelStore: Record<string, EditorModel> = {};
@@ -24,15 +24,18 @@ const modelStore: Record<string, EditorModel> = {};
  * @param prettierToThrow Prettier formatting function
  * @param version Monaco editor version
  */
-export async function startMonaco({
-  code,
-  container,
-  codeSpace,
-  onChange,
-}: EditorConfig, 
-  ata: (options: { code: string; originToUse: string }) => Promise<{ filePath: string; content: string }[]>,
-  prettierToThrow: (options: { code: string; toThrow: boolean }) => Promise<string>,
-  version: string = monacoVersion
+export async function startMonaco(
+  {
+    code,
+    container,
+    codeSpace,
+    onChange,
+  }: EditorConfig,
+  ata: (
+    options: { code: string; originToUse: string; },
+  ) => Promise<{ filePath: string; content: string; }[]>,
+  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
+  version: string = monacoVersion,
 ): Promise<EditorModel> {
   // If we already have a model for this codeSpace, check if it's still valid
   if (modelStore[codeSpace]) {
@@ -58,12 +61,17 @@ export async function startMonaco({
   }
 
   // Create a new model
-  modelStore[codeSpace] = await createEditorModel({
-    code,
-    container,
-    codeSpace,
-    onChange,
-  }, ata, prettierToThrow, version);
+  modelStore[codeSpace] = await createEditorModel(
+    {
+      code,
+      container,
+      codeSpace,
+      onChange,
+    },
+    ata,
+    prettierToThrow,
+    version,
+  );
 
   return modelStore[codeSpace];
 }
@@ -75,23 +83,26 @@ export async function startMonaco({
  * @param prettierToThrow Prettier formatting function
  * @param version Monaco editor version
  */
-async function createEditorModel({
-  code,
-  container,
-  codeSpace,
-  onChange,
-}: EditorConfig,
-  ata: (options: { code: string; originToUse: string }) => Promise<{ filePath: string; content: string }[]>,
-  prettierToThrow: (options: { code: string; toThrow: boolean }) => Promise<string>,
-  version: string = monacoVersion
+async function createEditorModel(
+  {
+    code,
+    container,
+    codeSpace,
+    onChange,
+  }: EditorConfig,
+  ata: (
+    options: { code: string; originToUse: string; },
+  ) => Promise<{ filePath: string; content: string; }[]>,
+  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
+  version: string = monacoVersion,
 ): Promise<EditorModel> {
   // Initialize languages and compiler options
   registerLanguages();
-  
+
   // Process code and prepare for editor
   await fetchAndCreateExtraModels(code, originToUse);
   await refreshAta(code, ata);
-  
+
   // Create URI for the model
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
   let model = editor.getModel(uri);
@@ -101,7 +112,7 @@ async function createEditorModel({
   } else {
     // Create a new model
     model = editor.createModel(code, "typescript", uri);
-    
+
     // Configure JSX support for TSX files
     configureJsxSupport(uri.toString());
   }
@@ -274,11 +285,11 @@ async function createEditorModel({
         if (!editorModel.isEdit || importsChanged) {
           console.log("User finished editing or imports changed, saving changes");
           editorState.previousImports.current = currentImports;
-          
+
           // Save changes
           await onChangeAddRecentlyChanged();
         }
-        
+
         // Always run type checking after changes
         if (ttt.checking === 0) {
           ttt.checking = 1;
@@ -313,6 +324,6 @@ async function createEditorModel({
       myEditor.dispose();
       model.dispose();
       delete modelStore[codeSpace];
-    }
+    },
   };
 }

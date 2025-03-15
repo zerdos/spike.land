@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ICodeSession } from "./interfaces";
-import type {
-  SessionDelta} from "./make-sess";
+import type { SessionDelta } from "./make-sess";
 import {
   applySessionDelta,
   computeSessionHash,
@@ -127,5 +126,4 @@ describe("make-sess", () => {
       expect(patch.oldHash).toBe(patch.hashCode);
     });
   });
-
 });

@@ -46,7 +46,7 @@ The `createEnhancedWorkflowWithStringReplace` function (`enhanced-workflow-creat
 To use the enhanced workflow in your application:
 
 ```typescript
-import { createEnhancedWorkflowWithStringReplace } from './workflows';
+import { createEnhancedWorkflowWithStringReplace } from "./workflows";
 
 // Create an enhanced workflow
 const workflow = createEnhancedWorkflowWithStringReplace(initialState, codeSession);

@@ -1,8 +1,8 @@
 import { initialClaude } from "@/lib/initial-claude";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
-import { getReplaceInFileTool } from "./tools/replace-in-file";
 import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
+import { getReplaceInFileTool } from "./tools/replace-in-file";
 import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
 import { ChatAnthropic } from "@langchain/anthropic";

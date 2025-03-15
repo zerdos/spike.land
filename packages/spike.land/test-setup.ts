@@ -15,7 +15,7 @@ class MockWebSocket {
 
 setupAllMocks();
 
-vi.stubGlobal('WebSocket', MockWebSocket); // commented out
+vi.stubGlobal("WebSocket", MockWebSocket); // commented out
 
 // vi.stubGlobal( // commented out
 //     "WebSocketPair",

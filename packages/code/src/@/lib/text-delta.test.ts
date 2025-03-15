@@ -1,6 +1,6 @@
+import { applyDelta, createDelta } from "@/lib/delta";
 import { describe, expect, it } from "vitest";
 import type { ICodeSession } from "./interfaces";
-import { applyDelta, createDelta } from "@/lib/delta";
 
 // Define an interface for the operation with _diff property
 interface StringDiffOperation {
@@ -37,7 +37,6 @@ describe("text-diff with string optimization", () => {
     const result = applyDelta(original, diff);
     expect(result.code).toEqual(modified.code);
   });
-
 
   it("should handle nested message content with string diffs", () => {
     // Create a session with a message containing a long content string

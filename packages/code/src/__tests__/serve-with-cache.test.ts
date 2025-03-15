@@ -1,5 +1,5 @@
-import { serveWithCache } from "../@/lib/serve-with-cache"
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { serveWithCache } from "../@/lib/serve-with-cache";
 
 // Mock dependencies
 vi.mock("@/lib/importmap-utils", () => ({

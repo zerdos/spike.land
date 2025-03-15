@@ -1,10 +1,10 @@
+import { SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import { SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
-import { FileChangeManager } from "./utils/file-change-manager";
 import type { CodeModification } from "../chat-langchain";
+import { FileChangeManager } from "./utils/file-change-manager";
 
 // Logger function for consistent logging format
 function log(
@@ -31,17 +31,17 @@ function createErrorResponse(
   additionalProps: Record<string, unknown> = {},
 ): CodeModification {
   log(errorMessage, "error", additionalProps);
-  
+
   // Check if the error is related to minor changes or rate limiting
-  const isMinorChangeError = errorMessage.includes("minor changes") || 
-                            errorMessage.includes("trivial") ||
-                            errorMessage.includes("changes in a short period");
-  
+  const isMinorChangeError = errorMessage.includes("minor changes") ||
+    errorMessage.includes("trivial") ||
+    errorMessage.includes("changes in a short period");
+
   // Add guidance about stopping unnecessary changes
   const enhancedMessage = isMinorChangeError
     ? `${errorMessage}\n\nIMPORTANT: Only make changes when necessary. If your task is complete, stop making changes.`
     : errorMessage;
-  
+
   return {
     code: currentCode,
     hash: md5(currentCode),
@@ -53,7 +53,7 @@ function createErrorResponse(
 /**
  * Validates the diff string format and provides detailed error information
  */
-function validateDiff(diff: string): { valid: boolean; reason?: string } {
+function validateDiff(diff: string): { valid: boolean; reason?: string; } {
   if (!diff || typeof diff !== "string") {
     return { valid: false, reason: "Diff is empty or not a string" };
   }
@@ -62,11 +62,11 @@ function validateDiff(diff: string): { valid: boolean; reason?: string } {
   if (!diff.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
     return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEARCH_START}' marker` };
   }
-  
+
   if (!diff.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
     return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEPARATOR}' marker` };
   }
-  
+
   if (!diff.includes(SEARCH_REPLACE_MARKERS.REPLACE_END)) {
     return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.REPLACE_END}' marker` };
   }
@@ -74,9 +74,10 @@ function validateDiff(diff: string): { valid: boolean; reason?: string } {
   // Check for proper sequence and format
   const regex = /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g;
   if (!regex.test(diff)) {
-    return { 
-      valid: false, 
-      reason: "Invalid diff format. Ensure each block follows the exact format with newlines after each marker" 
+    return {
+      valid: false,
+      reason:
+        "Invalid diff format. Ensure each block follows the exact format with newlines after each marker",
     };
   }
 
@@ -92,16 +93,17 @@ function normalizeDiff(diff: string): string {
     .replace(/<<<<<<< SEARCH\s*\n/g, "<<<<<<< SEARCH\n")
     .replace(/\n\s*=======\s*\n/g, "\n=======\n")
     .replace(/\n\s*>>>>>>> REPLACE/g, "\n>>>>>>> REPLACE");
-  
+
   // Fix common whitespace issues in search blocks
-  const blocks = normalized.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g) || [];
-  
+  const blocks =
+    normalized.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g) || [];
+
   for (const block of blocks) {
     const parts = block
       .replace(/<<<<<<< SEARCH\n/, "")
       .replace(/\n>>>>>>> REPLACE/, "")
       .split("\n=======\n");
-      
+
     if (parts.length === 2) {
       const [search, replace] = parts;
       // Preserve original whitespace in search and replace parts
@@ -109,7 +111,7 @@ function normalizeDiff(diff: string): string {
       normalized = normalized.replace(block, normalizedBlock);
     }
   }
-  
+
   return normalized;
 }
 
@@ -117,14 +119,14 @@ function normalizeDiff(diff: string): string {
  * Creates an enhanced replace-in-file tool with a provided code session
  * This version uses the FileChangeManager for improved hash management,
  * smarter SEARCH/REPLACE blocks, atomic change batching, and error recovery
- * 
+ *
  * @param cSess The code session to use for file operations
  * @returns A tool for replacing content in files with enhanced capabilities
  */
 export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
   // Create a FileChangeManager instance
   const fileChangeManager = new FileChangeManager(cSess);
-  
+
   return tool(
     async (
       {
@@ -139,7 +141,9 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
     ): Promise<CodeModification> => {
       console.log("🔄 enhancedReplaceInFileTool", { path, hash: hash.substring(0, 8) });
 
-      log(`Starting enhanced replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
+      log(`Starting enhanced replace operation for file: ${path}`, "info", {
+        hash: hash.substring(0, 8),
+      });
 
       // Input validation
       if (!path || typeof path !== "string") {
@@ -156,10 +160,10 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         return createErrorResponse(
           "",
           `Invalid diff format: ${validation.reason}. Must contain valid SEARCH/REPLACE blocks`,
-          { 
+          {
             diffLength: diff?.length,
             diffSample: diff?.substring(0, 100) + (diff?.length > 100 ? "..." : ""),
-            reason: validation.reason
+            reason: validation.reason,
           },
         );
       }
@@ -183,7 +187,7 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
 
         // Submit the change using FileChangeManager
         const result = await fileChangeManager.submitChange(path, hash, diff);
-        
+
         if (!result.success) {
           // If the error is due to hash mismatch but we have a new hash, return it
           if (result.hash && result.message.includes("Document has been modified")) {
@@ -193,10 +197,10 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
               error: result.message,
             };
           }
-          
+
           return createErrorResponse(currentCode, result.message);
         }
-        
+
         // Add a longer delay before adding the message chunk to ensure code changes are fully processed
         console.log(
           "⏳ Waiting for code changes to be fully processed before adding message chunk...",
@@ -213,17 +217,17 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         }
 
         // Check if the message contains warnings about minor changes or rate limiting
-        const hasWarnings = result.message.includes("minor changes") || 
-                           result.message.includes("consecutive minor changes") ||
-                           result.message.includes("changes in a short period");
-        
+        const hasWarnings = result.message.includes("minor changes") ||
+          result.message.includes("consecutive minor changes") ||
+          result.message.includes("changes in a short period");
+
         // Return success response with minimal information to save tokens
         // Include a stronger message if warnings were detected
         return {
           // Don't return the full code to save tokens
           code: "", // Empty string instead of full code
           hash: result.hash || md5(await cSess.getCode()),
-          error: hasWarnings 
+          error: hasWarnings
             ? `${result.message}\n\nIMPORTANT: Only make changes when necessary. If your task is complete, stop making changes.`
             : result.message,
         };

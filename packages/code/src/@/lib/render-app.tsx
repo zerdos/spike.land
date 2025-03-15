@@ -8,10 +8,10 @@ import ErrorBoundary from "@/components/app/error-boundary";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import useWindowSize from "@/hooks/use-window-size";
+import { importMapReplace } from "@/lib/importmap-utils";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
-import { importMapReplace } from "@/lib/importmap-utils";
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -22,7 +22,7 @@ const renderedApps = (globalThis as GlobalWithRenderedApps).renderedApps =
   new WeakMap<HTMLElement, RenderedApp>();
 
 let firstRender = true;
-const origin = typeof location !== 'undefined' ? location.origin : '';
+const origin = typeof location !== "undefined" ? location.origin : "";
 
 export function AppWithScreenSize(
   { AppToRender }: { AppToRender: FlexibleComponentType; },
@@ -38,11 +38,12 @@ export function AppWithScreenSize(
 }
 
 export const importFromString = async (code: string) => {
-  const codeSpace = getCodeSpace(typeof location !== 'undefined' ? location.pathname : '');
-  
+  const codeSpace = getCodeSpace(typeof location !== "undefined" ? location.pathname : "");
+
   // Check if we're in a browser environment
-  const isBrowser = typeof window !== 'undefined' && typeof URL !== 'undefined' && typeof Blob !== 'undefined';
-  
+  const isBrowser = typeof window !== "undefined" && typeof URL !== "undefined" &&
+    typeof Blob !== "undefined";
+
   // In a browser environment, try the Blob URL approach first
   if (isBrowser) {
     try {
@@ -65,17 +66,18 @@ export const importFromString = async (code: string) => {
       console.warn("Using file-based import approach instead of Blob URL", error);
     }
   }
-  
+
   // For Node.js test environment, return a mock component directly
   if (!isBrowser) {
     console.log("Test environment - using mock component");
-    return (() => React.createElement('div', null, 'Mock Component for Testing')) as FlexibleComponentType;
+    return (() =>
+      React.createElement("div", null, "Mock Component for Testing")) as FlexibleComponentType;
   }
-  
+
   // File-based approach (only for browser environment)
   try {
-    const filePath = `/live-cms/${codeSpace || 'test-space'}-${md5(code)}.mjs`;
-    
+    const filePath = `/live-cms/${codeSpace || "test-space"}-${md5(code)}.mjs`;
+
     // Write the file using fetch
     await fetch(filePath, {
       method: "PUT",
@@ -85,13 +87,18 @@ export const importFromString = async (code: string) => {
       body: importMapReplace(code),
     });
     console.log("File written to", filePath);
-    
+
     // Import the file
     return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
   } catch (error) {
     console.error("All import methods failed", error);
     // Return a simple component as fallback
-    return (() => React.createElement('div', null, 'Import Error: Component could not be loaded')) as FlexibleComponentType;
+    return (() =>
+      React.createElement(
+        "div",
+        null,
+        "Import Error: Component could not be loaded",
+      )) as FlexibleComponentType;
   }
 };
 
@@ -100,15 +107,15 @@ async function renderApp(
 ): Promise<RenderedApp | null> {
   try {
     // Check if we're in a browser environment
-    const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
-    
+    const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+
     // In Node.js environment during tests, create a mock element
     if (!isBrowser) {
       console.log("Test environment - mocking DOM elements");
-      
+
       // Create a mock element for testing
       const mockElement = {} as unknown as HTMLDivElement;
-      
+
       // Return a mock rendered app for testing
       if (App) {
         return {
@@ -121,13 +128,13 @@ async function renderApp(
           },
         };
       }
-      
+
       // Try to import the component
       try {
         const AppToRender = await importFromString(
-          transpiled || code || "export default ()=><div>Mock App for Testing</div>"
+          transpiled || code || "export default ()=><div>Mock App for Testing</div>",
         );
-        
+
         return {
           rootElement: mockElement,
           rRoot: { unmount: () => {} } as Root,
@@ -142,7 +149,7 @@ async function renderApp(
         return null;
       }
     }
-    
+
     // Browser environment - normal flow
     const rootEl = rootElement ||
       document.getElementById("embed") as HTMLDivElement ||

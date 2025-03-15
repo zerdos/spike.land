@@ -8,7 +8,7 @@ export enum ErrorType {
   HashMismatch = "HASH_MISMATCH",
   SchemaValidation = "SCHEMA_VALIDATION",
   ToolExecution = "TOOL_EXECUTION",
-  Unexpected = "UNEXPECTED"
+  Unexpected = "UNEXPECTED",
 }
 
 /**
@@ -31,11 +31,11 @@ export class WorkflowError extends Error {
    */
   getUserFriendlyMessage(): string {
     let message = this.message;
-    
+
     if (this.recoverySuggestion) {
       message += `\n\nSuggestion: ${this.recoverySuggestion}`;
     }
-    
+
     return message;
   }
 }
@@ -47,63 +47,63 @@ export function handleWorkflowError(error: unknown): WorkflowError {
   if (error instanceof WorkflowError) {
     // Log with appropriate level based on error type
     const logLevel = error.errorType === ErrorType.Unexpected ? "error" : "warn";
-    
+
     // Add specific handling based on error type
     switch (error.errorType) {
       case ErrorType.CodeIntegrity:
         console.error("Code integrity validation failed:", error.getUserFriendlyMessage());
         console.error("Context:", JSON.stringify(error.context, null, 2));
         break;
-        
+
       case ErrorType.Compilation:
         console.error("Compilation errors detected:", error.getUserFriendlyMessage());
         console.error("These can be fixed with a new modification or by rolling back.");
         break;
-        
+
       case ErrorType.SearchReplace:
         console.warn("Search/Replace pattern failure:", error.getUserFriendlyMessage());
         console.warn("Check for exact whitespace, indentation, and line endings in your patterns.");
         break;
-        
+
       case ErrorType.HashMismatch:
         console.warn("Hash mismatch detected:", error.getUserFriendlyMessage());
         console.warn("The document may have been modified since the last operation.");
         break;
-        
+
       case ErrorType.SchemaValidation:
         console.warn("Schema validation error:", error.getUserFriendlyMessage());
         console.warn("Check that your input matches the expected format.");
         break;
-        
+
       default:
         console[logLevel]("Workflow Error:", error.getUserFriendlyMessage(), error.context);
     }
-    
+
     throw error;
   }
 
   // Handle non-WorkflowError errors
   console.error("Unexpected Error:", error);
-  
+
   if (error instanceof Error) {
     // Create a more detailed workflow error
     return new WorkflowError(
-      `Unexpected error: ${error.message}`, 
+      `Unexpected error: ${error.message}`,
       ErrorType.Unexpected,
       {
         context: error.stack,
         originalError: error,
       },
-      "Try simplifying your request or breaking it into smaller steps."
+      "Try simplifying your request or breaking it into smaller steps.",
     );
   }
-  
+
   // For completely unknown errors
   return new WorkflowError(
-    "Unexpected workflow error", 
+    "Unexpected workflow error",
     ErrorType.Unexpected,
     { originalError: error },
-    "Try a different approach or simplify your request."
+    "Try a different approach or simplify your request.",
   );
 }
 
@@ -120,9 +120,9 @@ export function createCodeIntegrityError(
   const recoverySuggestion = hashDiff
     ? "The document has been modified since the last operation. Try again with the current hash."
     : "There may be an issue with the hash calculation. Try refreshing the document.";
-  
+
   return new WorkflowError(
-    `Code integrity error: ${message}`, 
+    `Code integrity error: ${message}`,
     ErrorType.CodeIntegrity,
     {
       expectedHash,
@@ -131,7 +131,7 @@ export function createCodeIntegrityError(
       codeLength,
       timestamp: new Date().toISOString(),
     },
-    recoverySuggestion
+    recoverySuggestion,
   );
 }
 
@@ -144,17 +144,17 @@ export function createCompilationError(
   modifiedCodeHash?: string,
 ): WorkflowError {
   // Extract useful information from the error message
-  const errorLines = error.split('\n');
+  const errorLines = error.split("\n");
   const firstErrorLine = errorLines[0] || "Unknown compilation error";
-  
+
   // Try to extract line number and error type
   const lineMatch = firstErrorLine.match(/line (\d+)/i);
   const lineNumber = lineMatch ? parseInt(lineMatch[1]) : undefined;
-  
+
   // Determine error type for better recovery suggestion
   let errorType = "syntax";
   let recoverySuggestion = "Check for syntax errors like missing brackets, semicolons, or typos.";
-  
+
   if (error.includes("undefined") || error.includes("not defined")) {
     errorType = "reference";
     recoverySuggestion = "Check for undefined variables or missing imports.";
@@ -162,9 +162,9 @@ export function createCompilationError(
     errorType = "type";
     recoverySuggestion = "Check for type mismatches or incorrect function parameters.";
   }
-  
+
   return new WorkflowError(
-    `Compilation failed: ${firstErrorLine}`, 
+    `Compilation failed: ${firstErrorLine}`,
     ErrorType.Compilation,
     {
       error,
@@ -174,7 +174,7 @@ export function createCompilationError(
       modifiedHash: modifiedCodeHash,
       timestamp: new Date().toISOString(),
     },
-    recoverySuggestion
+    recoverySuggestion,
   );
 }
 
@@ -184,24 +184,24 @@ export function createCompilationError(
 export function createSearchReplaceError(
   message: string,
   searchPattern: string,
-  context?: Record<string, unknown>
+  context?: Record<string, unknown>,
 ): WorkflowError {
   // Truncate long search patterns for readability
-  const truncatedPattern = searchPattern.length > 100 
-    ? searchPattern.substring(0, 100) + "..." 
+  const truncatedPattern = searchPattern.length > 100
+    ? searchPattern.substring(0, 100) + "..."
     : searchPattern;
-  
+
   // Determine if it's likely a whitespace issue
-  const isWhitespaceIssue = searchPattern.includes("\n") || 
-                            searchPattern.includes("  ") ||
-                            searchPattern.includes("\t");
-  
+  const isWhitespaceIssue = searchPattern.includes("\n") ||
+    searchPattern.includes("  ") ||
+    searchPattern.includes("\t");
+
   const recoverySuggestion = isWhitespaceIssue
     ? "Check for exact whitespace, indentation, and line endings in your search pattern."
     : "Ensure your search pattern exactly matches the text in the file, including all characters.";
-  
+
   return new WorkflowError(
-    `Search/Replace error: ${message}`, 
+    `Search/Replace error: ${message}`,
     ErrorType.SearchReplace,
     {
       searchPattern: truncatedPattern,
@@ -209,7 +209,7 @@ export function createSearchReplaceError(
       ...context,
       timestamp: new Date().toISOString(),
     },
-    recoverySuggestion
+    recoverySuggestion,
   );
 }
 
@@ -219,10 +219,10 @@ export function createSearchReplaceError(
 export function createHashMismatchError(
   expectedHash: string,
   actualHash: string,
-  context?: Record<string, unknown>
+  context?: Record<string, unknown>,
 ): WorkflowError {
   return new WorkflowError(
-    "Hash mismatch! The document has been modified since the last operation.", 
+    "Hash mismatch! The document has been modified since the last operation.",
     ErrorType.HashMismatch,
     {
       expectedHash,
@@ -230,7 +230,7 @@ export function createHashMismatchError(
       ...context,
       timestamp: new Date().toISOString(),
     },
-    "Try again with the current hash value, or refresh the document."
+    "Try again with the current hash value, or refresh the document.",
   );
 }
 
@@ -241,10 +241,10 @@ export function createSchemaValidationError(
   message: string,
   schema: string,
   providedValue: unknown,
-  context?: Record<string, unknown>
+  context?: Record<string, unknown>,
 ): WorkflowError {
   return new WorkflowError(
-    `Schema validation error: ${message}`, 
+    `Schema validation error: ${message}`,
     ErrorType.SchemaValidation,
     {
       schema,
@@ -252,6 +252,6 @@ export function createSchemaValidationError(
       ...context,
       timestamp: new Date().toISOString(),
     },
-    "Check that your input matches the expected format and contains all required fields."
+    "Check that your input matches the expected format and contains all required fields.",
   );
 }
