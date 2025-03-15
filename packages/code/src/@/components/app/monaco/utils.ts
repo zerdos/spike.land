@@ -55,7 +55,7 @@ export async function refreshAta(
   code: string,
   ata: (
     options: { code: string; originToUse: string; },
-  ) => Promise<{ filePath: string; content: string; }[]>,
+  ) => Promise<Array<{ filePath: string; content: string; }>>,
 ): Promise<void> {
   try {
     const extraLibs: ExtraLib[] = (await ata({ code, originToUse })).map(

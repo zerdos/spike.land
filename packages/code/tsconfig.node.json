@@ -11,6 +11,7 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "composite": true,
+    "esModuleInterop": true,
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
@@ -25,6 +26,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts"],
+  "include": ["vite.config.ts", "src/@/lib/importmap-utils.ts", "eslint.config.js"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

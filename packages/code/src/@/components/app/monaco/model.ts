@@ -33,7 +33,7 @@ export async function startMonaco(
   }: EditorConfig,
   ata: (
     options: { code: string; originToUse: string; },
-  ) => Promise<{ filePath: string; content: string; }[]>,
+  ) => Promise<Array<{ filePath: string; content: string; }>>,
   prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
   version: string = monacoVersion,
 ): Promise<EditorModel> {
@@ -92,7 +92,7 @@ async function createEditorModel(
   }: EditorConfig,
   ata: (
     options: { code: string; originToUse: string; },
-  ) => Promise<{ filePath: string; content: string; }[]>,
+  ) => Promise<Array<{ filePath: string; content: string; }>>,
   prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
   version: string = monacoVersion,
 ): Promise<EditorModel> {
