@@ -34,6 +34,7 @@
     "types:cp": "cp -r dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && cp -r dts/src/@ dist/.",
     "// Testing": "",
     "test": "sh scripts/run-tests.sh",
+    "test:tsx": "yarn vitest run src/@/lib/__tests__/tsx-to-js.integration.spec.ts",
     "test:full": "yarn types:check && yarn lint && yarn test",
     "// Utils": "",
     "clean": "rm -rf .tsBuildInfo dist dts dist-vite && mkdir -p dist dts dist-vite",
