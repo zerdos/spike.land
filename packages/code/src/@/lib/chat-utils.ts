@@ -106,11 +106,23 @@ function parseCodeBlock(block: string): string | null {
   }
 
   // Handle alternative format with multiple separators
-  const content = lines.join("\n").split(SEARCH_REPLACE_MARKERS.SEPARATOR);
-  if (content.length >= 2) {
+  const separatorIndices = [];
+  let startIdx = 0;
+  const fullContent = lines.join("\n");
+  
+  while (true) {
+    const idx = fullContent.indexOf(SEARCH_REPLACE_MARKERS.SEPARATOR, startIdx);
+    if (idx === -1) break;
+    separatorIndices.push(idx);
+    startIdx = idx + SEARCH_REPLACE_MARKERS.SEPARATOR.length;
+  }
+
+  if (separatorIndices.length > 0) {
+    const search = fullContent.substring(0, separatorIndices[0]).trim();
+    const replace = fullContent.substring(separatorIndices[0] + SEARCH_REPLACE_MARKERS.SEPARATOR.length, separatorIndices[1] || fullContent.length).trim();
     return formatCodeModification({
-      search: content[0].trim(),
-      replace: content[1].trim(),
+      search,
+      replace,
     });
   }
 
