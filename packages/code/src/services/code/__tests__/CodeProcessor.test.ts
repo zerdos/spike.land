@@ -64,13 +64,13 @@ describe("CodeProcessor", () => {
     };
 
     // Mock window.frames
-    Object.defineProperty(window, 'frames', {
+    Object.defineProperty(window, "frames", {
       value: [
         {
-          webSocketManager: mockWebSocketManager
-        }
+          webSocketManager: mockWebSocketManager,
+        },
       ],
-      writable: true
+      writable: true,
     });
 
     codeProcessor = new CodeProcessor(mockCodeSpace);
@@ -79,9 +79,9 @@ describe("CodeProcessor", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    Object.defineProperty(window, 'frames', {
+    Object.defineProperty(window, "frames", {
       value: [],
-      writable: true
+      writable: true,
     });
   });
 

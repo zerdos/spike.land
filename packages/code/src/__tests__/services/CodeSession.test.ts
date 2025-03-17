@@ -38,9 +38,9 @@ describe("Code", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    Object.defineProperty(window, 'frames', {
+    Object.defineProperty(window, "frames", {
       value: [],
-      writable: true
+      writable: true,
     });
   });
 
@@ -110,13 +110,13 @@ describe("Code", () => {
     }
 
     // Mock window.frames
-    Object.defineProperty(window, 'frames', {
+    Object.defineProperty(window, "frames", {
       value: [
         {
-          webSocketManager: mockWebSocketManager
-        }
+          webSocketManager: mockWebSocketManager,
+        },
       ],
-      writable: true
+      writable: true,
     });
 
     // Create base session for testing

@@ -109,7 +109,7 @@ function parseCodeBlock(block: string): string | null {
   const separatorIndices = [];
   let startIdx = 0;
   const fullContent = lines.join("\n");
-  
+
   while (true) {
     const idx = fullContent.indexOf(SEARCH_REPLACE_MARKERS.SEPARATOR, startIdx);
     if (idx === -1) break;
@@ -119,7 +119,10 @@ function parseCodeBlock(block: string): string | null {
 
   if (separatorIndices.length > 0) {
     const search = fullContent.substring(0, separatorIndices[0]).trim();
-    const replace = fullContent.substring(separatorIndices[0] + SEARCH_REPLACE_MARKERS.SEPARATOR.length, separatorIndices[1] || fullContent.length).trim();
+    const replace = fullContent.substring(
+      separatorIndices[0] + SEARCH_REPLACE_MARKERS.SEPARATOR.length,
+      separatorIndices[1] || fullContent.length,
+    ).trim();
     return formatCodeModification({
       search,
       replace,
@@ -175,11 +178,11 @@ export const extractCodeModification = (response: string): string[] => {
   for (const block of codeBlockMatches) {
     // First clean up any code fences in the entire block
     const cleanBlock = block
-      .replace(/```[\s\S]*?\n/g, '') // Remove all opening code fences
-      .replace(/\n```(\s*)$/g, '')   // Remove all closing code fences
-      .replace(/```/g, '')           // Remove any remaining code fences
+      .replace(/```[\s\S]*?\n/g, "") // Remove all opening code fences
+      .replace(/\n```(\s*)$/g, "") // Remove all closing code fences
+      .replace(/```/g, "") // Remove any remaining code fences
       .trim();
-    
+
     // Handle both standard and broken formats
     if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
       // Standard format
@@ -190,13 +193,13 @@ export const extractCodeModification = (response: string): string[] => {
     } else if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
       // Broken format with just separators
       const sections = cleanBlock.split(SEARCH_REPLACE_MARKERS.SEPARATOR);
-      
+
       // Always take the first section as search and the second as replace
       // Skip the third section if it exists
       if (sections.length >= 2) {
         const search = sections[0].trim();
         const replace = sections[1].trim();
-        
+
         if (search && replace) {
           modifications.push(formatCodeModification({
             search,

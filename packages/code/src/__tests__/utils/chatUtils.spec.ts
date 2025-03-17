@@ -76,12 +76,15 @@ describe("updateSearchReplace", () => {
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
-    console.log('Expected:', `
+    console.log(
+      "Expected:",
+      `
     const a = 10;
     const b = 2;
     const c = 3;
-    `);
-    console.log('Actual:', result);
+    `,
+    );
+    console.log("Actual:", result);
     expect(result).toBe(`
     const a = 10;
     const b = 2;
@@ -130,12 +133,15 @@ some text between
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
-    console.log('Expected:', `
+    console.log(
+      "Expected:",
+      `
     const a = 10;
     const b = 20;
     const c = 30;
-    `);
-    console.log('Actual:', result);
+    `,
+    );
+    console.log("Actual:", result);
     expect(result).toBe(`
     const a = 10;
     const b = 20;
@@ -208,8 +214,8 @@ describe("loadMessages", () => {
   beforeEach(() => {
     mockLocalStorage = {};
     getItemSpy = vi.fn((key: string) => mockLocalStorage[key] || null);
-    
-    Object.defineProperty(window, 'localStorage', {
+
+    Object.defineProperty(window, "localStorage", {
       value: {
         getItem: getItemSpy,
         setItem: vi.fn((key: string, value: string) => {
@@ -217,9 +223,9 @@ describe("loadMessages", () => {
         }),
         clear: vi.fn(() => {
           mockLocalStorage = {};
-        })
+        }),
       },
-      writable: true
+      writable: true,
     });
   });
 

@@ -32,19 +32,19 @@ describe("Router Configuration", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Mock fetch globally
     global.fetch = vi.fn().mockImplementation((url) => {
-      if (url.toString().includes('/live/test-space/index.js')) {
+      if (url.toString().includes("/live/test-space/index.js")) {
         return Promise.resolve({
           ok: true,
-          text: () => Promise.resolve('// Test code'),
-          json: () => Promise.resolve({ code: '// Test code' }),
+          text: () => Promise.resolve("// Test code"),
+          json: () => Promise.resolve({ code: "// Test code" }),
         });
       }
       return Promise.resolve({
         ok: true,
-        text: () => Promise.resolve(''),
+        text: () => Promise.resolve(""),
         json: () => Promise.resolve({}),
       });
     });
