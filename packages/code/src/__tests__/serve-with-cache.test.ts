@@ -675,11 +675,11 @@ describe("serveWithCache", () => {
     });
     vi.mocked(assetFetcher).mockResolvedValue(fetchedResponse);
 
-    const result = await serve(
+    const result = (await serve(
       new Request("https://example.com/abc123/main.js?v=1#somehash"),
       assetFetcher,
       waitUntil,
-    );
+    )).clone();
 
     expect(await result.text()).toBe("console.log('query and hash');");
     expect(result.headers.get("Content-Type")).toBe("application/javascript");

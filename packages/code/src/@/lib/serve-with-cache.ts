@@ -176,7 +176,7 @@ export const serveWithCache = (
 
         // Await the in-flight fetch and clone the response before returning
         const response = await inFlightPromise;
-        return response.clone();
+        return response;
       }
 
       // If we reach here, it means the cache is not available
