@@ -1,6 +1,6 @@
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { router as baseRouter } from "../router";
 
 // Mock components
@@ -32,7 +32,28 @@ describe("Router Configuration", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    
+    // Mock fetch globally
+    global.fetch = vi.fn().mockImplementation((url) => {
+      if (url.toString().includes('/live/test-space/index.js')) {
+        return Promise.resolve({
+          ok: true,
+          text: () => Promise.resolve('// Test code'),
+          json: () => Promise.resolve({ code: '// Test code' }),
+        });
+      }
+      return Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve(''),
+        json: () => Promise.resolve({}),
+      });
+    });
+
     router = createTestRouter();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("should handle editor route with code space parameter", async () => {

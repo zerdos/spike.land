@@ -44,6 +44,3 @@ describe('tsxToMjs', () => {
     expect(prettifiedOutput).toBe(prettifiedExpectedOutput);
   });
 });
-
-});
-  });

@@ -63,10 +63,15 @@ describe("CodeProcessor", () => {
       cleanup: vi.fn(),
     };
 
-    // Mock window.frames[0]
-    (window as unknown as WindowWithWebSocket).frames[0] = {
-      webSocketManager: mockWebSocketManager,
-    };
+    // Mock window.frames
+    Object.defineProperty(window, 'frames', {
+      value: [
+        {
+          webSocketManager: mockWebSocketManager
+        }
+      ],
+      writable: true
+    });
 
     codeProcessor = new CodeProcessor(mockCodeSpace);
   });
@@ -74,7 +79,10 @@ describe("CodeProcessor", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    delete (window as unknown as WindowWithWebSocket).frames[0];
+    Object.defineProperty(window, 'frames', {
+      value: [],
+      writable: true
+    });
   });
 
   describe("process", () => {

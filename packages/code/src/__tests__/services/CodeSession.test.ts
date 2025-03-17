@@ -38,7 +38,10 @@ describe("Code", () => {
   afterEach(() => {
     vi.clearAllMocks();
     // Reset iframe mock
-    delete (window as unknown as { frames: Record<number, unknown>; }).frames[0];
+    Object.defineProperty(window, 'frames', {
+      value: [],
+      writable: true
+    });
   });
 
   beforeEach(async () => {
@@ -106,10 +109,15 @@ describe("Code", () => {
       }>;
     }
 
-    // Mock window.frames[0]
-    (window as unknown as MockWindow).frames[0] = {
-      webSocketManager: mockWebSocketManager,
-    };
+    // Mock window.frames
+    Object.defineProperty(window, 'frames', {
+      value: [
+        {
+          webSocketManager: mockWebSocketManager
+        }
+      ],
+      writable: true
+    });
 
     // Create base session for testing
     const baseSession: ICodeSession = {

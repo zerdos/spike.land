@@ -190,9 +190,25 @@ describe("extractCodeModification", () => {
 });
 
 describe("loadMessages", () => {
+  let mockLocalStorage: Record<string, string>;
+  let getItemSpy: ReturnType<typeof vi.fn>;
+
   beforeEach(() => {
-    vi.spyOn(Storage.prototype, "getItem");
-    localStorage.clear();
+    mockLocalStorage = {};
+    getItemSpy = vi.fn((key: string) => mockLocalStorage[key] || null);
+    
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        getItem: getItemSpy,
+        setItem: vi.fn((key: string, value: string) => {
+          mockLocalStorage[key] = value;
+        }),
+        clear: vi.fn(() => {
+          mockLocalStorage = {};
+        })
+      },
+      writable: true
+    });
   });
 
   it("should load messages from localStorage", () => {
@@ -201,7 +217,7 @@ describe("loadMessages", () => {
       { role: "user", content: "Hello" },
       { role: "assistant", content: "Hi there" },
     ];
-    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(messages));
+    mockLocalStorage[`chatMessages-${codeSpace}`] = JSON.stringify(messages);
 
     const result = loadMessages(codeSpace);
     expect(result).toEqual(messages);
@@ -217,7 +233,7 @@ describe("loadMessages", () => {
       { content: "This should be filtered out" },
       { role: "assistant", content: "Hi there" },
     ];
-    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(messages));
+    mockLocalStorage[`chatMessages-${codeSpace}`] = JSON.stringify(messages);
 
     const result = loadMessages(codeSpace);
     expect(result).toEqual([
@@ -235,7 +251,7 @@ describe("loadMessages", () => {
       { role: "assistant", content: "I'm doing well" },
       { role: "user", content: "Great!" },
     ];
-    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(messages));
+    mockLocalStorage[`chatMessages-${codeSpace}`] = JSON.stringify(messages);
 
     const result = loadMessages(codeSpace);
     expect(result).toEqual([

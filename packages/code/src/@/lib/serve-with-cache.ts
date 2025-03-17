@@ -136,6 +136,9 @@ export const serveWithCache = (
             return kvResp;
           }
 
+          // Clone the body before consuming it
+          const bodyClone = await kvResp.clone().arrayBuffer();
+
           // Clone headers and set appropriate Content-Type
           const headers = new Headers(kvResp.headers);
           const contentType = getContentType(filePath);
@@ -150,7 +153,7 @@ export const serveWithCache = (
           // Set security headers
           headers.set("Cross-Origin-Embedder-Policy", "require-corp");
 
-          const response = new Response(kvResp.body, {
+          const response = new Response(bodyClone, {
             status: kvResp.status,
             statusText: kvResp.statusText,
             headers,
@@ -168,15 +171,15 @@ export const serveWithCache = (
           // Remove the in-flight request from the map
           inFlightRequests.delete(request.url);
 
-          return response;
+          return response.clone();
         })(req);
 
         // Store the in-flight promise
         inFlightRequests.set(request.url, inFlightPromise);
 
-        // Await the in-flight fetch and clone the response before returning
+        // Await the in-flight fetch and ensure we return a cloned response
         const response = await inFlightPromise;
-        return response;
+        return response.clone();
       }
 
       // If we reach here, it means the cache is not available
