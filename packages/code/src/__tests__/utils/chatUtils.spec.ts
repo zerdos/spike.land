@@ -76,6 +76,12 @@ describe("updateSearchReplace", () => {
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
+    console.log('Expected:', `
+    const a = 10;
+    const b = 2;
+    const c = 3;
+    `);
+    console.log('Actual:', result);
     expect(result).toBe(`
     const a = 10;
     const b = 2;
@@ -124,6 +130,12 @@ some text between
     `;
 
     const result = updateSearchReplace(instructions, codeNow);
+    console.log('Expected:', `
+    const a = 10;
+    const b = 20;
+    const c = 30;
+    `);
+    console.log('Actual:', result);
     expect(result).toBe(`
     const a = 10;
     const b = 20;

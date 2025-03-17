@@ -172,20 +172,40 @@ export const extractCodeModification = (response: string): string[] => {
   const codeBlockMatches = response.match(/```[\s\S]*?```/g) || [];
   console.debug("extractCodeModification - Code block matches count:", codeBlockMatches.length);
 
-  codeBlockMatches.forEach((block, index) => {
-    console.debug(`extractCodeModification - Code block ${index + 1} length:`, block.length);
-    const modification = parseCodeBlock(block);
-    if (modification) {
-      console.debug(`extractCodeModification - Successfully parsed code block ${index + 1}`);
-      modifications.push(modification);
-    } else {
-      console.warn(`extractCodeModification - Failed to parse code block ${index + 1}`);
-      console.debug(
-        `extractCodeModification - Code block ${index + 1} content:`,
-        block.substring(0, 50) + (block.length > 50 ? "..." : ""),
-      );
+  for (const block of codeBlockMatches) {
+    // First clean up any code fences in the entire block
+    const cleanBlock = block
+      .replace(/```[\s\S]*?\n/g, '') // Remove all opening code fences
+      .replace(/\n```(\s*)$/g, '')   // Remove all closing code fences
+      .replace(/```/g, '')           // Remove any remaining code fences
+      .trim();
+    
+    // Handle both standard and broken formats
+    if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
+      // Standard format
+      const modification = parseCodeBlock(block);
+      if (modification) {
+        modifications.push(modification);
+      }
+    } else if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
+      // Broken format with just separators
+      const sections = cleanBlock.split(SEARCH_REPLACE_MARKERS.SEPARATOR);
+      
+      // Always take the first section as search and the second as replace
+      // Skip the third section if it exists
+      if (sections.length >= 2) {
+        const search = sections[0].trim();
+        const replace = sections[1].trim();
+        
+        if (search && replace) {
+          modifications.push(formatCodeModification({
+            search,
+            replace,
+          }));
+        }
+      }
     }
-  });
+  }
 
   console.debug("extractCodeModification - Total modifications extracted:", modifications.length);
   return modifications;
