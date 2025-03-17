@@ -8,7 +8,7 @@ import { resolve } from "path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [react(), wasm(), topLevelAwait()  ],
+  plugins: [react(), wasm(), topLevelAwait()],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src/@'),
@@ -17,13 +17,11 @@ export default defineConfig({
   
   test: {
     globals: true,
-    environment: "happy-dom",
+    environment: "jsdom",
     setupFiles: ["./src/setupTests.ts"],
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     alias: {
       "@": resolve(__dirname, "./src/@"),
-    },
-    
-    // threads: false // Disable threading to handle WASM imports
+    }
   },
 });

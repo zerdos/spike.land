@@ -166,6 +166,7 @@
     "fetch-retry": "6.0.0",
     "file-type": "20.4.1",
     "framer-motion": "12.5.0",
+    "gojs": "^3.0.19",
     "html2canvas": "1.4.1",
     "html2canvas-pro": "1.5.8",
     "i18next": "24.2.3",
