@@ -1,14 +1,32 @@
+
+import { importMapReplace, importMap } from "@/lib/importmap-utils";
 import type { ICodeSession } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
 import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
-import type { IWebSocketManager, RunMessageResult } from "@/services/types";
+import type {  RunMessageResult } from "@/services/types";
 
 export class CodeProcessor {
   private static renderService: RenderService;
+  private currentIframe: HTMLIFrameElement | null = null;
+  private currentMessageHandler: ((event: MessageEvent) => void) | null = null;
 
   constructor(codeSpace: string) {
     if (!CodeProcessor.renderService) {
       CodeProcessor.renderService = new RenderService(codeSpace);
+    }
+  }
+
+  private cleanupPreviousRender() {
+    // Remove any previous iframe and event listener to prevent old values from resolving
+    if (this.currentIframe && this.currentIframe.parentNode) {
+      this.currentIframe.parentNode.removeChild(this.currentIframe);
+      this.currentIframe = null;
+    }
+    
+    if (this.currentMessageHandler) {
+      window.removeEventListener("message", this.currentMessageHandler);
+      this.currentMessageHandler = null;
     }
   }
 
@@ -22,6 +40,7 @@ export class CodeProcessor {
     signal: AbortSignal,
     getSession: () => ICodeSession,
   ): Promise<ICodeSession | false> {
+    const origin = window.location.origin;
     if (signal.aborted) return false;
     try {
       const code = await this.formatCode(rawCode);
@@ -38,69 +57,125 @@ export class CodeProcessor {
       }
 
       const processedSession = {
-        html: getSession().html,
-        css: getSession().css,
+        code,
+        transpiled,
       };
-
+      
+ 
       if (!skipRunning) {
         try {
-          // Check if window.frames[0] exists and has webSocketManager
-          if (window.frames[0] && "webSocketManager" in window.frames[0]) {
-            const runResult = await (window.frames[0] as unknown as {
-              webSocketManager: IWebSocketManager;
-            }).webSocketManager.handleRunMessage(transpiled);
+          // Clean up any existing render process
+          // this.cleanupPreviousRender();
 
-            if (!runResult) {
-              return false;
-            }
-
-            if (runResult.html && runResult.html !== processedSession.html) {
-              processedSession.html = runResult.html;
-            }
-
-            if (runResult.css && runResult.css !== processedSession.css) {
-              processedSession.css = runResult.css;
-            }
-            return {
-              ...getSession(),
-              ...runResult,
-              code,
-              transpiled,
-            };
-          } else {
-            console.warn("WebSocketManager not found in iframe. HTML and CSS will not be updated.");
-            // Create a mock WebSocketManager to handle the run message
-            const mockWebSocketManager: IWebSocketManager = {
-              init: async () => {},
-              handleRunMessage: async (transpiled: string) => {
-                try {
-                  const renderService = new RenderService(getSession().codeSpace);
-                  return await renderService.handleRender(
-                    await renderService.updateRenderedApp({ transpiled }),
+          const blobUrlForTranspiledCode = URL.createObjectURL(
+                    new Blob([
+                      importMapReplace(transpiled.split("importMapReplace").join("")).split(
+                        `from "/`,
+                      ).join(
+                        `from "${origin}/`,
+                      ),
+                    ], { type: "application/javascript" }),
                   );
+          // Create an iframe which renders the transpiled code
+          
+          const iframeSource = `<!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            
+            <style>
+              body {
+                margin: 0;
+                padding: 0;
+              }
+            </style>
+            <script src="${origin}/@/workers/tw.worker.js"></script>
+            <script type="importmap">
+              ${JSON.stringify(importMap)}
+            </script>
+          </head>
+          <body>
+            <div id="embed"></div>
+            <script type="module">
+             import App from "${blobUrlForTranspiledCode}";
+             import { renderApp } from "${origin}/@/lib/render-app.mjs";
+             import { wait } from "${origin}/@/lib/wait.mjs";
+
+                           let iteration = 0;
+
+             renderApp({App:App}).then( async(renderedApp) => {
+
+             while (renderedApp.rootElement.innerHTML === "" && iteration < 100) {
+              iteration++;
+            await wait(1);
+            }
+
+              renderedApp.toHtmlAndCss(renderedApp).then(({ html, css }) => {
+               window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${md5(transpiled)}", data: { html, css } }, "*");
+             });
+             }
+             );
+
+            
+
+            </script>
+          </body>
+          </html>`;
+          // Create and store iframe reference
+          const iframe = document.createElement("iframe");
+          this.currentIframe = iframe;
+          iframe.style.display = "none";
+          document.body.appendChild(iframe);
+          iframe.srcdoc = iframeSource;
+          
+          // Create a Promise for handling the render result
+          const renderPromise = new Promise<void>((resolve, reject) => {
+            const messageHandler = (event: MessageEvent) => {
+              if (event.data.type === "rendered" && event.data.requestId === md5(transpiled)) {
+                try {
+                  const iteration = event.data.iteration;
+                  const { html, css } = event.data.data;
+                  console.log(`Rendered in ${iteration} iterations`);
+                  if (!html) {
+                    reject(new Error("Render produced empty HTML"));
+                    return;
+                  }
+                  Object.assign(processedSession, { html, css });
+                  console.log("Processed session:", processedSession);
+                  resolve();
                 } catch (error) {
-                  console.error("Error in mock handleRunMessage:", error);
-                  return false;
+                  reject(new Error(`Error processing render result: ${error}`));
                 }
-              },
-              cleanup: () => {},
+              }
             };
-
-            const runResult = await mockWebSocketManager.handleRunMessage(transpiled);
-
-            if (!runResult) {
-              return false;
-            }
-
-            if (runResult.html && runResult.html !== processedSession.html) {
-              processedSession.html = runResult.html;
-            }
-
-            if (runResult.css && runResult.css !== processedSession.css) {
-              processedSession.css = runResult.css;
-            }
-          }
+            
+            // Store reference to the message handler for cleanup
+            this.currentMessageHandler = messageHandler;
+            window.addEventListener("message", messageHandler);
+            
+            // First timeout for render operation (2 seconds)
+            setTimeout(() => {
+              reject(new Error("Render timeout - iframe didn't respond within 2 seconds"));
+            }, 2000);
+          });
+          
+          // Second timeout for overall process (5 seconds)
+          const timeoutPromise = new Promise<void>((_, reject) => {
+            setTimeout(() => {
+              reject(new Error("Process timeout - operation took longer than 5 seconds"));
+            }, 5000);
+          });
+          
+          // Race the render against both timeouts
+          await Promise.race([renderPromise, timeoutPromise]);
+          
+          // Clean up after successful render
+          // this.cleanupPreviousRender();
         } catch (error) {
+          // Clean up on error
+          // this.cleanupPreviousRender();
           console.error("Error running code:", error);
           return false;
         }

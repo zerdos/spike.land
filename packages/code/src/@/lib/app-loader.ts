@@ -1,7 +1,7 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { getCodeSession } from "@/lib/code-session";
 import type { ICode } from "@/lib/interfaces";
-import { init } from "@/lib/tw-dev-setup";
+// import { init } from "@/lib/tw-dev-setup";
 import { main } from "@/lib/ws";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 
@@ -78,7 +78,7 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
 
   try {
     // Initialize tailwind
-    await init();
+    // await init();
 
     // Get code session
     const cSess = await getCodeSession(codeSpace);

@@ -38,9 +38,9 @@ vi.mock("@/hooks/use-code-space", () => ({
   getCodeSpace: vi.fn().mockReturnValue("test-space"),
 }));
 
-vi.mock("@/lib/tw-dev-setup", () => ({
-  init: vi.fn().mockResolvedValue(undefined),
-}));
+// vi.mock("@/lib/tw-dev-setup", () => ({
+//   init: vi.fn().mockResolvedValue(undefined),
+// }));
 
 vi.mock("@/lib/errors", () => ({
   DOMError: class extends Error {

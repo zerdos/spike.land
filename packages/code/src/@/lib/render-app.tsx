@@ -1,6 +1,6 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import React, {} from "react";
+import React from "react";
 import { createRoot, type Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
@@ -120,6 +120,7 @@ async function renderApp(
       if (App) {
         return {
           rootElement: mockElement,
+          toHtmlAndCss,
           rRoot: { unmount: () => {} } as Root,
           App,
           cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
@@ -137,6 +138,7 @@ async function renderApp(
 
         return {
           rootElement: mockElement,
+          toHtmlAndCss,
           rRoot: { unmount: () => {} } as Root,
           App: AppToRender,
           cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
@@ -262,6 +264,7 @@ async function renderApp(
         rRoot: myRoot,
         App: AppToRender,
         cssCache,
+        toHtmlAndCss,
         cleanup: () => {
           // Use requestAnimationFrame to ensure we're not unmounting during render
           requestAnimationFrame(() => {
@@ -333,3 +336,72 @@ async function renderApp(
 }
 
 export { renderApp };
+
+const htmlDecode = (input: string)=> {
+  return input
+    .split("><").join(">\n<")
+    .replace(/&amp;/g, "&")
+    .replace(/&gt;/g, ">")
+    .replace(/&lt;/g, "<")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ");
+}
+
+
+const toHtmlAndCss = async (
+  renderedNew: RenderedApp,
+): Promise<{ css: string; html: string }> => {
+  {
+    if (renderedNew === null) {
+      return {
+        css: "",
+        html: "",
+      };
+    }
+
+    const { cssCache, rootElement } = renderedNew;
+
+    const html = htmlDecode(rootElement.innerHTML).split(cssCache.key)
+      .join("x");
+    const emotionGlobalStyles = [
+      ...document.querySelectorAll<HTMLStyleElement>(
+        `style[data-emotion='${cssCache.key}-global']`,
+      )
+        .values(),
+    ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
+
+    const emotionStyles = [
+      ...emotionGlobalStyles,
+      ...[...cssCache.sheet.tags].map((
+        tag: HTMLStyleElement,
+      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+    ].join("\n")
+      .split(cssCache.key).join("x");
+
+    console.log("Emotion styles:", emotionStyles);
+
+    const tailWindClasses = [
+      ...document.querySelectorAll<HTMLStyleElement>("head > style"),
+    ].map(
+      (z) => z.innerHTML,
+    ).join("\n");
+
+    const tailWindClassesXWithoutComments = tailWindClasses.replace(
+      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+      "",
+    );
+    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`)
+      .join(`\\[`).split(
+        `\\\\]`,
+      ).join(`\\]`);
+
+    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+
+    return {
+      css: cssStrings,
+      html,
+    }
+  }
+}
+  

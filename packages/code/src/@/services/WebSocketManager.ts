@@ -2,7 +2,7 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import { DOMError, getErrorMessage, MessageHandlingError, WebSocketError } from "@/lib/errors";
 import type { Message } from "@/lib/interfaces";
 import { ROUTES } from "@/lib/routes";
-import { init } from "@/lib/tw-dev-setup";
+// import { init } from "@/lib/tw-dev-setup";
 import { WebSocketEventType, WebSocketState } from "./enums";
 import type {
   IWebSocketManager,
@@ -97,7 +97,7 @@ export class WebSocketManager implements IWebSocketManager {
    */
   private async initializeResources(): Promise<void> {
     try {
-      await init();
+      // await init();
       // console.log("Resource loading complete");
     } catch (error) {
       console.error("Resource initialization error:", error);
