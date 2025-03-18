@@ -7,7 +7,7 @@ import {
   useAuth,
   UserButton,
 } from "@clerk/clerk-react";
-import { type FC, useState, memo } from "react";
+import { type FC, memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -24,15 +24,15 @@ import { cn } from "@/lib/utils";
  */
 export const Hello: FC = memo(() => {
   const { isSignedIn, userId } = useAuth();
-  
+
   if (!isSignedIn) {
     return <div className="text-sm text-gray-500">Not signed in</div>;
   }
-  
+
   return <h2 className="text-sm font-medium truncate max-w-[120px]">{userId}</h2>;
 });
 
-Hello.displayName = 'Hello';
+Hello.displayName = "Hello";
 
 /**
  * Header component with authentication controls
@@ -53,7 +53,7 @@ const Header: FC = memo(() => {
   );
 });
 
-Header.displayName = 'Header';
+Header.displayName = "Header";
 
 /**
  * Action buttons component for the bottom right corner
@@ -64,10 +64,10 @@ interface ActionButtonsProps {
   onToggleHistory: () => void;
 }
 
-const ActionButtons: FC<ActionButtonsProps> = memo(({ 
-  isOpen, 
-  onToggleChat, 
-  onToggleHistory 
+const ActionButtons: FC<ActionButtonsProps> = memo(({
+  isOpen,
+  onToggleChat,
+  onToggleHistory,
 }) => {
   return (
     <div className="fixed bottom-4 right-4 flex flex-col gap-2 z-[1001]">
@@ -100,7 +100,7 @@ const ActionButtons: FC<ActionButtonsProps> = memo(({
   );
 });
 
-ActionButtons.displayName = 'ActionButtons';
+ActionButtons.displayName = "ActionButtons";
 
 /**
  * History modal component
@@ -108,7 +108,7 @@ ActionButtons.displayName = 'ActionButtons';
 interface HistoryModalProps {
   isVisible: boolean;
   codeSpace: string;
-  cSess: AppComponentProps['cSess'];
+  cSess: AppComponentProps["cSess"];
   onClose: () => void;
 }
 
@@ -116,10 +116,10 @@ const HistoryModal: FC<HistoryModalProps> = memo(({
   isVisible,
   codeSpace,
   cSess,
-  onClose
+  onClose,
 }) => {
   if (!isVisible) return null;
-  
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
       <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
@@ -134,7 +134,7 @@ const HistoryModal: FC<HistoryModalProps> = memo(({
   );
 });
 
-HistoryModal.displayName = 'HistoryModal';
+HistoryModal.displayName = "HistoryModal";
 
 /**
  * Main application component that renders the code editor, preview, and tools
@@ -149,7 +149,7 @@ export const AppToRender: FC<AppComponentProps> = memo(({
   const [isOpen, setIsOpen] = useState(
     maybeKey && sessionStorage.getItem(maybeKey) ? true : false,
   );
-  
+
   // History modal state
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
@@ -168,25 +168,25 @@ export const AppToRender: FC<AppComponentProps> = memo(({
         <main className="flex-1 relative overflow-hidden">
           {/* Live preview window */}
           <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
-            <iframe 
-              title="Live preview" 
+            <iframe
+              title="Live preview"
               src={`/live/${codeSpace}/`}
-              className="w-full h-full border-0" 
+              className="w-full h-full border-0"
             />
           </DraggableWindow>
 
           <RainbowWrapper>
             {/* Code editor */}
             <Editor codeSpace={codeSpace} cSess={cSess} />
-            
+
             {/* Action buttons */}
-            <ActionButtons 
+            <ActionButtons
               isOpen={isOpen}
               onToggleChat={handleToggleChat}
               onToggleHistory={handleToggleAutoSaveHistory}
             />
           </RainbowWrapper>
-          
+
           {/* History modal */}
           <HistoryModal
             isVisible={showAutoSaveHistory}
@@ -208,4 +208,4 @@ export const AppToRender: FC<AppComponentProps> = memo(({
   );
 });
 
-AppToRender.displayName = 'AppToRender';
+AppToRender.displayName = "AppToRender";
