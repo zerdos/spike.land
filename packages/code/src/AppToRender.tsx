@@ -170,7 +170,7 @@ export const AppToRender: FC<AppComponentProps> = memo(({
           <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
             <iframe 
               title="Live preview" 
-              src={`/live/${codeSpace}/iframe`}
+              src={`/live/${codeSpace}/`}
               className="w-full h-full border-0" 
             />
           </DraggableWindow>

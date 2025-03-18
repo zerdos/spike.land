@@ -47,7 +47,6 @@ export async function fakeServer(request: Request) {
     request.url.includes("/hydrated") ||
     request.url.includes("/worker") ||
     request.url.includes("/dehydrated") ||
-    request.url.includes("/iframe") ||
     request.url.endsWith("/") ||
     !request.url.includes("/live") ||
     request.url.includes("/embed") ||
@@ -77,7 +76,7 @@ function handleEditorResponse(codeSpace: string) {
     `<script type="importmap">${JSON.stringify(importMap)}</script>`,
   ).replace(
     '<div id="embed"></div>',
-    `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/iframe"></iframe></div>`,
+    `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/"></iframe></div>`,
   );
 
   const headers = new Headers({

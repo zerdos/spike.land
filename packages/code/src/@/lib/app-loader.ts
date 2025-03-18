@@ -136,5 +136,5 @@ export const initializeSessionSync = async (
  */
 export const shouldInitWebSocket = (pathname: string, codeSpace: string | null): boolean => {
   if (!pathname || !codeSpace) return false;
-  return pathname === `/live/${codeSpace}/iframe`;
+  return pathname === `/live/${codeSpace}/`;
 };

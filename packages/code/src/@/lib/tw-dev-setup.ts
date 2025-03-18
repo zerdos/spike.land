@@ -3,7 +3,7 @@ interface ResourceLoader {
 }
 
 class ResourceLoaderImpl implements ResourceLoader {
-  private static readonly IFRAME_PATH = "/iframe";
+  private static readonly IFRAME_PATH = "/";
 
   private static initialized = false;
 
