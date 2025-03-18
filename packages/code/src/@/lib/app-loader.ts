@@ -3,6 +3,7 @@ import { getCodeSession } from "@/lib/code-session";
 import type { ICode } from "@/lib/interfaces";
 import { init } from "@/lib/tw-dev-setup";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
+import { main } from "@/lib/ws";
 
 // Centralized type definitions
 export interface AppContext {
@@ -54,7 +55,7 @@ export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
 
   try {
     // Import using a relative path to match the project structure
-    const { main } = await import("../../ws");
+  
     await main(codeSpace);
     console.log(`WebSocket initialized for code space: ${codeSpace}`);
   } catch (error) {

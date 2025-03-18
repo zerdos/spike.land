@@ -125,7 +125,7 @@ if (navigator.serviceWorker) {
 }
 
 // Export initializeApp as a proxy to app-loader's initializeAppEnvironment
-export const initializeApp = initializeAppEnvironment;
+export const initializeApp = async () => await initializeAppEnvironment();
 
 // Make setupServiceWorker available globally for debugging
 Object.assign(window, { setupServiceWorker });
