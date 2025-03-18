@@ -1,117 +1,54 @@
-// import type { ICode } from "@/lib/interfaces";
 import type { Workbox } from "workbox-window";
+import { initializeAppEnvironment } from "@/lib/app-loader";
 
-// export const renderPreviewWindow = async (
-//   { codeSpace, cSess, AppToRender }: {
-//     codeSpace: string;
-//     cSess: ICode;
-//     AppToRender: React.FC<{ codeSpace: string; cSess: ICode; }>;
-//   },
-// ) => {
-//   //   import { renderApp } from "@/lib/render-app";
-//   // import { ClerkProvider } from "@clerk/clerk-react";
-//   // import { AppToRender } from "./AppToRender";
-
-//   const renderAppPromise = import("@/external/render-app");
-//   const ClerkProviderPromise = import("@clerk/clerk-react");
-
-//   const [
-//     { renderApp },
-//     { ClerkProvider },
-//   ] = await Promise.all([renderAppPromise, ClerkProviderPromise]);
-
-//   const App = () => (
-//     <ClerkProvider
-//       publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-//       afterSignOutUrl="/"
-//     >
-//       <AppToRender codeSpace={codeSpace} cSess={cSess} />
-//     </ClerkProvider>
-//   );
-
-//   return renderApp({ App });
-// };
-
-// Add global type definition for the Workbox instance
+/**
+ * Type definitions for global window extensions
+ */
 declare global {
   interface Window {
     __WB_INSTANCE?: Workbox;
   }
 }
 
-export const setupServiceWorker = async () => {
+/**
+ * Sets up and registers the service worker
+ * Controls caching and update behavior
+ */
+export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {
   console.log("Setting up service worker...");
   
-  // Check if service workers are supported
+  // Skip if service workers aren't supported
   if (!("serviceWorker" in navigator)) {
     console.log("Service worker not supported in this browser");
     return null;
   }
   
-  // Skip service worker on localhost for development unless specifically enabled
+  // Skip on localhost for development unless explicitly enabled
   if (location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")) {
-    console.log("Service worker disabled on localhost. Set localStorage.enable_sw_dev = true to enable.");
+    console.log("Service worker disabled on localhost (enable with localStorage.enable_sw_dev = true)");
     return null;
   }
 
   try {
-    // Import Workbox from CDN
-    const { Workbox, messageSW } = await import("workbox-window");
-    console.log("Workbox imported successfully");
-
-    // Create a new Workbox instance with the service worker URL
+    // Import Workbox dynamically
+    const { Workbox } = await import("workbox-window");
+    
+    // Create and configure Workbox instance
     const wb = new Workbox("/sw.js");
     
-    // Listen for service worker state changes
-    wb.addEventListener('installed', event => {
-      if (event.isUpdate) {
-        console.log('Service worker has been updated');
-        
-        // Notify user of update - you could show a UI prompt here
-        if (confirm('New version available! Reload to update?')) {
-          window.location.reload();
-        }
-      } else {
-        console.log('Service worker installed for the first time');
-      }
-    });
-    
-    // Listen for controlled changes
-    wb.addEventListener('controlling', () => {
-      console.log('Service worker is now controlling the page');
-    });
-    
-    // Handle service worker messages
-    wb.addEventListener('message', event => {
-      console.log('Message from service worker:', event.data);
-      
-      // Handle cache update notifications
-      if (event.data?.type === 'CACHE_UPDATED') {
-        console.log('Cache has been updated:', event.data.message);
-      }
-      
-      // Handle reload requests
-      if (event.data === 'reload') {
-        window.location.reload();
-      }
-    });
+    // Configure service worker event listeners
+    configureServiceWorkerEvents(wb);
     
     // Register the service worker
-    const sw = await wb.register().catch(error => {
+    const registration = await wb.register().catch(error => {
       console.error('Service worker registration failed:', error);
       return null;
     });
     
-    if (sw) {
-      console.log("Service worker registered successfully", sw);
-      
-      // Store the Workbox instance for future reference
-      window.__WB_INSTANCE = wb as Workbox;
-      
-
-      console.log("Service worker is ready to use");
-      
-      return sw;
+    if (registration) {
+      console.log("Service worker registered successfully");
+      window.__WB_INSTANCE = wb;
+      return registration;
     }
     
     return null;
@@ -121,37 +58,44 @@ export const setupServiceWorker = async () => {
   }
 };
 
-// Add to window for debug access
-Object.assign(window, { setupServiceWorker });
+/**
+ * Configures event listeners for the service worker
+ */
+function configureServiceWorkerEvents(wb: Workbox): void {
+  // Handle installation events
+  wb.addEventListener('installed', event => {
+    if (event.isUpdate) {
+      console.log('Service worker has been updated');
+      
+      // Prompt user to update
+      if (confirm('New version available! Reload to update?')) {
+        window.location.reload();
+      }
+    } else {
+      console.log('Service worker installed for the first time');
+    }
+  });
+  
+  // Handle controlling events
+  wb.addEventListener('controlling', () => {
+    console.log('Service worker is now controlling the page');
+  });
+  
+  // Handle messages from service worker
+  wb.addEventListener('message', event => {
+    console.log('Message from service worker:', event.data);
+    
+    if (event.data?.type === 'CACHE_UPDATED') {
+      console.log('Cache has been updated:', event.data.message);
+    }
+    
+    if (event.data === 'reload') {
+      window.location.reload();
+    }
+  });
+}
 
-export const initializeApp = async () => {
-  console.log("Initializing app...");
-
-  try {
-    const [
-      { enhancedFetch },
-      { useArchive, useSpeedy },
-    ] = await Promise.all([
-      import("@/lib/enhanced-fetch"),
-      import("@/lib/use-archive"),
-    ]);
-    console.log("Modules imported successfully");
-
-    // Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
-    Object.assign(globalThis, {
-      enhancedFetch,
-      useArchive,
-      useSpeedy,
-    });
-    console.log("Global objects assigned");
-
-    console.log("App initialization completed");
-  } catch (error) {
-    console.error("Error initializing app:", error);
-  }
-};
-
-// Setup service worker message listeners outside the function to ensure they're available
+// Setup global service worker message listeners
 if (navigator.serviceWorker) {
   navigator.serviceWorker.addEventListener("message", (event) => {
     console.log("Service worker message received:", event.data);
@@ -160,12 +104,11 @@ if (navigator.serviceWorker) {
       window.location.reload();
     }
     
-    // Handle any structured messages
+    // Process structured messages
     if (event.data?.type) {
       switch (event.data.type) {
         case 'CACHE_UPDATED':
           console.log('Cache has been updated:', event.data.message);
-          // You could show a toast notification here
           break;
           
         case 'ERROR':
@@ -178,3 +121,9 @@ if (navigator.serviceWorker) {
     }
   });
 }
+
+// Export initializeApp as a proxy to app-loader's initializeAppEnvironment
+export const initializeApp = initializeAppEnvironment;
+
+// Make setupServiceWorker available globally for debugging
+Object.assign(window, { setupServiceWorker });

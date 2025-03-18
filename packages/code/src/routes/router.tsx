@@ -1,10 +1,8 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { getCodeSession } from "@/lib/code-session";
 import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
-import { init } from "@/lib/tw-dev-setup";
-import { SessionSynchronizer } from "@/services/SessionSynchronizer";
+import { loadApp, initializeSessionSync } from "@/lib/app-loader";
 import {
   createRootRoute,
   createRoute,
@@ -55,63 +53,81 @@ Object.keys(routes).forEach((path) => {
   dynamicRoutes.push(landingRoute);
 });
 
+/**
+ * Main application component that handles loading app context and session sync
+ */
 const App: React.FC = () => {
-  const [AppToRender, setAppToRender ] = useState<React.FC<{ codeSpace: string; cSess: ICode; }> | null>(null);
-  const [cSess, setState] = useState<ICode | null>(null);
-  const codeSpace = getCodeSpace(location.pathname);
+  const [appContext, setAppContext] = useState<{
+    codeSpace: string;
+    cSess: ICode;
+    AppComponent: React.FC<{ codeSpace: string; cSess: ICode }>;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const pathname = location.pathname;
 
+  // Load app context on mount
   useEffect(() => {
-    if (codeSpace && location.pathname === `/live/${codeSpace}`) {
-      (async () => {
-        await init();
-
-        const cSess = await getCodeSession();
-        setState(cSess);
-
-        const { AppToRender } = await import("../AppToRender");
-        setAppToRender(AppToRender);
-
-        const { initializeApp } = await import("@/lib/hydrate");
-        await initializeApp();
-      })();
-    }
-  }, []);
-
-  useEffect(() => {
-    let unSub: () => void = () => {};
-
-    if (cSess) {
-      (async () => {
-        Object.assign(globalThis, { cSess });
-        const sessionSync = new SessionSynchronizer(codeSpace);
-        await sessionSync.init(await cSess.getSession());
-
-        unSub = sessionSync.subscribe((sess) => {
-          cSess.setSession(sess);
-          setState(cSess);
+    const codeSpace = getCodeSpace(pathname);
+    
+    if (codeSpace && pathname === `/live/${codeSpace}`) {
+      setIsLoading(true);
+      
+      loadApp(pathname)
+        .then(context => {
+          if (context) {
+            setAppContext(context);
+          }
+        })
+        .catch(error => {
+          console.error("Error loading app:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
-        setState(cSess);
-      })();
+    } else {
+      setIsLoading(false);
     }
-    return () => unSub();
-  }, [cSess]);
+  }, [pathname]);
 
-  // If codeSpace is null, we shouldn't try to render anything that requires it
+  // Initialize session sync when app context is available
+  useEffect(() => {
+    let unsubscribe: () => void = () => {};
+
+    if (appContext) {
+      const { codeSpace, cSess } = appContext;
+      
+      initializeSessionSync(codeSpace, cSess)
+        .then(unsub => {
+          unsubscribe = unsub;
+        })
+        .catch(error => {
+          console.error("Error initializing session sync:", error);
+        });
+    }
+
+    return () => unsubscribe();
+  }, [appContext]);
+
+  // Handle loading state
+  if (isLoading) {
+    return <div>Loading application...</div>;
+  }
+
+  // Handle null codeSpace
+  const codeSpace = getCodeSpace(pathname);
   if (!codeSpace) {
     return <div>Invalid route or codeSpace not found</div>;
   }
 
-  return cSess && AppToRender
-    ? (
-      <>
-          <AppToRender codeSpace={codeSpace} cSess={cSess} />
-      </>
-    )
-    : (
-      <>
-        <Wrapper codeSpace={codeSpace} />
-      </>
-    );
+  // Render app or wrapper based on app context
+  return appContext ? (
+    <appContext.AppComponent 
+      codeSpace={appContext.codeSpace} 
+      cSess={appContext.cSess} 
+    />
+  ) : (
+    <Wrapper codeSpace={codeSpace} />
+  );
 };
 
 // Live page route with code space and page parameters
