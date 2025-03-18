@@ -94,17 +94,11 @@ function handleEditorResponse(codeSpace: string) {
 }
 
 function handleHtmlResponse(session: ICodeSession, HTML: string) {
-  const { codeSpace } = session;
-  const respText = HTML.replace(
-    `<script type="importmap"></script>`,
-    `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-  ).replace(
-    `<!-- Inline LINK for initial theme -->`,
-    `<link rel="preload" href="/live/${codeSpace}/index.css" as="style" />
-     <link rel="stylesheet" href="/live/${codeSpace}/index.css" />`,
-  ).replace(
-    '<div id="embed"></div>',
-    `<div id="embed">${session.html}</div>`,
+  const { codeSpace, html, css } = session;
+  const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
+  .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
+    "${html}",
+    html,
   );
 
   const headers = new Headers({

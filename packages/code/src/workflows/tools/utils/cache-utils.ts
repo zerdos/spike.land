@@ -17,7 +17,7 @@ export class CacheUtils {
     } catch (error) {
       if (retries > 0) {
         await new Promise((resolve) => setTimeout(resolve, delay));
-        return this.retry(operation, retries - 1, delay);
+        return this.retry(operation, retries - 1, delay * 1.5); // Exponential backoff
       }
       throw error;
     }
@@ -34,15 +34,55 @@ export class CacheUtils {
   static async cleanOldCaches(currentCacheName: string): Promise<void> {
     try {
       const cacheNames = await caches.keys();
+      
+      // Keep track of which caches we're deleting
+      const cachesToDelete = cacheNames.filter(
+        (name) => name !== currentCacheName && 
+                  name !== CDN_CACHE_NAME && 
+                  // Only delete caches that follow our naming pattern
+                  (name.startsWith('sw-file-cache-') || name.startsWith('static-cache-'))
+      );
+      
+      if (cachesToDelete.length > 0) {
+        console.log(`Cleaning up ${cachesToDelete.length} old caches`);
+      }
 
       await Promise.all(
-        cacheNames
-          .filter((name) => name !== currentCacheName && name !== CDN_CACHE_NAME)
-          .map((name) => caches.delete(name)),
+        cachesToDelete.map(async (name) => {
+          await caches.delete(name);
+          console.log(`Deleted old cache: ${name}`);
+        }),
       );
     } catch (error) {
       console.error("Error during cache cleanup:", error);
     }
+  }
+  
+  /**
+   * Checks if a response is stale based on cache time
+   */
+  static isResponseStale(response: Response, maxAge = MAX_CACHE_AGE): boolean {
+    const dateHeader = response.headers.get("date");
+    if (!dateHeader) return true;
+    
+    const cacheDate = new Date(dateHeader).getTime();
+    return Date.now() - cacheDate > maxAge;
+  }
+  
+  /**
+   * Gets cached response metadata
+   */
+  static getResponseMetadata(response: Response): Record<string, string> {
+    const metadata: Record<string, string> = {};
+    
+    // Extract all x-* headers as metadata
+    response.headers.forEach((value, key) => {
+      if (key.toLowerCase().startsWith('x-')) {
+        metadata[key] = value;
+      }
+    });
+    
+    return metadata;
   }
 
   static async handleCDNRequest(request: Request): Promise<Response> {
@@ -50,36 +90,52 @@ export class CacheUtils {
     const cachedResponse = await cache.match(request);
 
     if (cachedResponse) {
-      // Check if cache is still valid (less than a week old)
-      const dateHeader = cachedResponse.headers.get("date");
-      if (dateHeader) {
-        const cacheDate = new Date(dateHeader).getTime();
-        if (Date.now() - cacheDate < MAX_CACHE_AGE) {
-          return cachedResponse;
-        }
+      // Check if cache is still valid
+      if (!this.isResponseStale(cachedResponse)) {
+        return cachedResponse;
       }
+      console.log(`Stale cache for CDN request: ${request.url}`);
     }
 
     // If no cache or cache is old, fetch from network
     try {
-      const response = await fetch(request);
+      const response = await this.retry(() => fetch(request.clone()));
+      
       if (response.ok && response.status === 200) {
-        // Clone the response before caching it
-        await cache.put(request, response.clone());
+        // Add caching metadata
+        const responseToCache = new Response(await response.clone().blob(), {
+          status: response.status,
+          statusText: response.statusText,
+          headers: new Headers(response.headers)
+        });
+        
+        // Add cache metadata
+        responseToCache.headers.set("x-cached-at", new Date().toISOString());
+        responseToCache.headers.set("x-cache-source", "CDN");
+        
+        // Store in cache
+        await cache.put(request, responseToCache);
+        console.log(`Cached CDN response for: ${request.url}`);
+        
         return response;
       }
+      
       // If network request fails but we have a cached response, return it
       if (cachedResponse) {
         console.log("Serving stale cache for:", request.url);
         return cachedResponse;
       }
+      
       return response;
     } catch (error) {
+      console.error(`Error fetching from CDN: ${request.url}`, error);
+      
       // If network request fails and we have a cached response, return it
       if (cachedResponse) {
         console.log("Serving stale cache after error for:", request.url);
         return cachedResponse;
       }
+      
       throw error;
     }
   }
@@ -89,8 +145,15 @@ export class CacheUtils {
     cacheNames: string[],
     myCache: Cache,
   ): Promise<Set<string>> {
-    // console.log("Missing files:", [...missing].join(", "));
+    if (missing.size === 0) {
+      return missing;
+    }
+    
+    console.log(`Attempting to recover ${missing.size} files from old caches`);
+    
     // Copy missing items from old caches
+    let recoveredCount = 0;
+    
     for (const cacheName of cacheNames) {
       const oldCache = await caches.open(cacheName);
       const oldCacheKeys = await oldCache.keys();
@@ -98,19 +161,44 @@ export class CacheUtils {
 
       const oldCacheHasItems = CacheUtils.setIntersection(oldKeys, missing);
 
-      await Promise.all([...oldCacheHasItems].map(async (url) => {
-        const request = new Request(url);
-        const response = await oldCache.match(request);
-        if (response) {
-          await myCache.put(request, response.clone());
-        }
-      }));
+      if (oldCacheHasItems.size > 0) {
+        console.log(`Found ${oldCacheHasItems.size} files in cache: ${cacheName}`);
+        
+        await Promise.all([...oldCacheHasItems].map(async (url) => {
+          const request = new Request(url);
+          const response = await oldCache.match(request);
+          if (response) {
+            // Add metadata about source cache
+            const responseToCache = new Response(await response.clone().blob(), {
+              status: response.status,
+              statusText: response.statusText,
+              headers: new Headers(response.headers)
+            });
+            
+            // Add cache metadata
+            responseToCache.headers.set("x-copied-from-cache", cacheName);
+            responseToCache.headers.set("x-copied-at", new Date().toISOString());
+            
+            await myCache.put(request, responseToCache);
+            recoveredCount++;
+          }
+        }));
+      }
     }
 
+    console.log(`Recovered ${recoveredCount} files from old caches`);
+    
+    // Check what's still missing
     const updatedMyCacheKeys = await myCache.keys();
     const updatedMyKeys = new Set(
       updatedMyCacheKeys.map((request) => request.url),
     );
-    return CacheUtils.setDifference(missing, updatedMyKeys);
+    const stillMissing = CacheUtils.setDifference(missing, updatedMyKeys);
+    
+    if (stillMissing.size > 0) {
+      console.log(`Still missing ${stillMissing.size} files after recovery`);
+    }
+    
+    return stillMissing;
   }
 }

@@ -21,41 +21,63 @@ export class ServiceWorkerHandlers {
     console.log("Service Worker installing.");
     try {
       const config = await this.configManager.getConfig();
-
-      if (this.sw.swVersion === config.swVersion) {
-        console.log("SwVersion matches. Fetching files.");
-
-        await this.fileCacheManager.initializeFilesCache();
-
-        const myCache = await caches.open(this.sw.fileCacheName);
-        const cacheNames = (await caches.keys())
-          .filter((cacheName) => cacheName !== this.sw.fileCacheName);
-
-        const allKeys = this.fileCacheManager.getAllFileUrls();
-        const myCacheKeys = await myCache.keys();
-        const myKeys = new Set(myCacheKeys.map((request) => request.url));
-        const missing = CacheUtils.setDifference(allKeys, myKeys);
-
-        const _stillMissing = await CacheUtils.getMissingFiles(
-          missing,
-          cacheNames,
-          myCache,
+      
+      console.log(`Current SW version: ${this.sw.swVersion}, Config version: ${config.swVersion}`);
+      
+      // Initialize file cache regardless of version
+      await this.fileCacheManager.initializeFilesCache();
+      
+      // Open cache for this version
+      const myCache = await caches.open(this.sw.fileCacheName);
+      
+      // Get all previous cache names
+      const cacheNames = (await caches.keys())
+        .filter((cacheName) => cacheName !== this.sw.fileCacheName);
+      
+      // Get all file URLs that should be cached
+      const allKeys = this.fileCacheManager.getAllFileUrls();
+      
+      // Check what's already in our cache
+      const myCacheKeys = await myCache.keys();
+      const myKeys = new Set(myCacheKeys.map((request) => request.url));
+      
+      // Find what's missing
+      const missing = CacheUtils.setDifference(allKeys, myKeys);
+      console.log(`Found ${missing.size} files to cache`);
+      
+      // Try to copy from old caches first to avoid unnecessary network requests
+      const stillMissing = await CacheUtils.getMissingFiles(
+        missing,
+        cacheNames,
+        myCache,
+      );
+      
+      console.log(`Still need to fetch ${stillMissing.size} files`);
+      
+      // Create a simple fetch wrapper for caching
+      const queuedFetch = {
+        fetch: (request: Request, init?: RequestInit) => fetch(request, init)
+      };
+      
+      // Fetch and cache remaining files
+      if (stillMissing.size > 0) {
+        await Promise.allSettled(
+          [...stillMissing].map(async (url) =>
+            this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
+          ),
         );
-        // console.log("Still missing files:", [...stillMissing].join(", "));
-
-        // await Promise.allSettled(
-        //   [...stillMissing].map(async (url) =>
-        //     this.fileCacheManager.fetchAndCacheFile(url, queuedFetch, myCache)
-        //   ),
-        // );
-
-        // await this.fileCacheManager.validateCacheIntegrity();
-        await this.sw.skipWaiting();
-
-        await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
-
-        console.log("Service Worker installed successfully.");
       }
+      
+      // Validate cache integrity
+      await this.fileCacheManager.validateCacheIntegrity();
+      
+      // Skip waiting to activate immediately
+      await this.sw.skipWaiting();
+      
+      // Clean up old caches
+      await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
+      
+      console.log("Service Worker installed successfully.");
     } catch (error) {
       console.error("Service Worker installation failed:", error);
       throw error;
@@ -65,11 +87,25 @@ export class ServiceWorkerHandlers {
   async handleActivate(): Promise<void> {
     try {
       console.log("Service Worker activating.");
-
-      // await this.fileCacheManager.validateCacheIntegrity();
+      
+      // Do a final validation of cache integrity
+      await this.fileCacheManager.validateCacheIntegrity();
+      
+      // Clean up old caches again (just to be safe)
       await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
+      
+      // Take control of all clients
       await this.sw.clients.claim();
-
+      
+      // Notify clients to reload if needed
+      const clients = await this.sw.clients.matchAll({ type: 'window' });
+      for (const client of clients) {
+        client.postMessage({ 
+          type: 'CACHE_UPDATED',
+          message: 'New service worker activated with updated cache'
+        });
+      }
+      
       console.log("Service Worker activated and controlling.");
     } catch (error) {
       console.error("Service Worker activation failed:", error);
@@ -89,6 +125,15 @@ export class ServiceWorkerHandlers {
 
     if (request.method !== "GET") {
       event.respondWith(fetch(request));
+      return;
+    }
+    
+    // Check if this is a request for a file that we know about from swVersion.js
+    const filePath = url.pathname.slice(1); // Remove leading slash
+    const hashedFile = this.sw.files[filePath];
+    
+    if (hashedFile) {
+      event.respondWith(this.serveFromCache(filePath, hashedFile, event));
       return;
     }
 
@@ -127,6 +172,7 @@ export class ServiceWorkerHandlers {
       return;
     }
 
+    // For all other requests, try network first with fallback to enhanced fetch
     event.respondWith(
       CacheUtils.retry(() => fetch(request))
         .catch(() =>
@@ -136,6 +182,41 @@ export class ServiceWorkerHandlers {
           })
         ),
     );
+  }
+
+  private async serveFromCache(
+    filePath: string, 
+    hashedFile: string, 
+    event: FetchEvent
+  ): Promise<Response> {
+    try {
+      // Open our cache
+      const cache = await caches.open(this.sw.fileCacheName);
+      
+      // Try to get the file from cache using the hashed filename
+      const cacheKey = new Request(new URL("/" + hashedFile, location.origin).toString());
+      const cachedResponse = await cache.match(cacheKey);
+      
+      if (cachedResponse) {
+        // If we have it in cache, return it immediately
+        return cachedResponse;
+      }
+      
+      // If not in cache, fetch it from network
+      console.log(`Cache miss for ${filePath}, fetching from network`);
+      const response = await fetch(cacheKey);
+      
+      // Cache the response for next time
+      if (response.ok) {
+        event.waitUntil(cache.put(cacheKey, response.clone()));
+      }
+      
+      return response;
+    } catch (error) {
+      console.error(`Error serving ${filePath} from cache:`, error);
+      // Fall back to normal fetch if there's an error
+      return fetch(new URL("/" + filePath, location.origin).toString());
+    }
   }
 
   private handleServeRequest(
@@ -152,8 +233,15 @@ export class ServiceWorkerHandlers {
       (req: Request) => {
         const url = new URL(req.url);
         const file = url.pathname.slice(1);
-        const _cacheFile = this.sw.files[file];
-        // const newUrl = cacheFile ? req.url.replace(file, cacheFile) : req.url;
+        const cacheFile = this.sw.files[file];
+        
+        if (cacheFile) {
+          // If we have a hashed version, use that
+          const newUrl = new URL("/" + cacheFile, url.origin).toString();
+          return CacheUtils.retry(() => fetch(newUrl));
+        }
+        
+        // Otherwise fetch the original file
         return CacheUtils.retry(() => fetch(file));
       },
       event.waitUntil.bind(event),

@@ -1,4 +1,5 @@
 // import type { ICode } from "@/lib/interfaces";
+import type { Workbox } from "workbox-window";
 
 // export const renderPreviewWindow = async (
 //   { codeSpace, cSess, AppToRender }: {
@@ -31,54 +32,97 @@
 //   return renderApp({ App });
 // };
 
+// Add global type definition for the Workbox instance
+declare global {
+  interface Window {
+    __WB_INSTANCE?: Workbox;
+  }
+}
+
 export const setupServiceWorker = async () => {
   console.log("Setting up service worker...");
+  
+  // Check if service workers are supported
   if (!("serviceWorker" in navigator)) {
-    console.log("Service worker not supported");
-    return;
+    console.log("Service worker not supported in this browser");
+    return null;
   }
-  // delete all service workers
-  const registrations = await navigator.serviceWorker.getRegistrations();
-  for (const registration of registrations) {
-    await registration.unregister();
+  
+  // Skip service worker on localhost for development unless specifically enabled
+  if (location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")) {
+    console.log("Service worker disabled on localhost. Set localStorage.enable_sw_dev = true to enable.");
+    return null;
   }
-  console.log("All service workers unregistered");
-  return;
-  // if (location.hostname === "localhost") return;
 
-  // const { Workbox } = await import("workbox-window");
-  // console.log("Workbox imported");
+  try {
+    // Import Workbox from CDN
+    const { Workbox, messageSW } = await import("workbox-window");
+    console.log("Workbox imported successfully");
 
-  // const wb = new Workbox("/sw.js");
-  // const sw = await wb.register();
+    // Create a new Workbox instance with the service worker URL
+    const wb = new Workbox("/sw.js");
+    
+    // Listen for service worker state changes
+    wb.addEventListener('installed', event => {
+      if (event.isUpdate) {
+        console.log('Service worker has been updated');
+        
+        // Notify user of update - you could show a UI prompt here
+        if (confirm('New version available! Reload to update?')) {
+          window.location.reload();
+        }
+      } else {
+        console.log('Service worker installed for the first time');
+      }
+    });
+    
+    // Listen for controlled changes
+    wb.addEventListener('controlling', () => {
+      console.log('Service worker is now controlling the page');
+    });
+    
+    // Handle service worker messages
+    wb.addEventListener('message', event => {
+      console.log('Message from service worker:', event.data);
+      
+      // Handle cache update notifications
+      if (event.data?.type === 'CACHE_UPDATED') {
+        console.log('Cache has been updated:', event.data.message);
+      }
+      
+      // Handle reload requests
+      if (event.data === 'reload') {
+        window.location.reload();
+      }
+    });
+    
+    // Register the service worker
+    const sw = await wb.register().catch(error => {
+      console.error('Service worker registration failed:', error);
+      return null;
+    });
+    
+    if (sw) {
+      console.log("Service worker registered successfully", sw);
+      
+      // Store the Workbox instance for future reference
+      window.__WB_INSTANCE = wb as Workbox;
+      
 
-  // console.log("Workbox instance created");
-
-  // console.log("Active service worker:", sw);
-
-  // if (!sw) {
-  //   console.log("Service worker not found, registering");
-  //   return wb.active;
-  // }
-
-  // if (sw.active?.state === "redundant") {
-  //   console.log("Service worker is redundant, updating");
-  //   await wb.update();
-  //   return wb.active;
-  // }
-
-  // if (sw.active?.state === "activated") {
-  //   console.log("Service worker is already activated");
-
-  //   return sw;
-  // }
-
-  // console.log("Service worker setup completed");
-  // return sw;
+      console.log("Service worker is ready to use");
+      
+      return sw;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error("Error setting up service worker:", error);
+    return null;
+  }
 };
-// };
 
-Object.assign(globalThis, { setupServiceWorker });
+// Add to window for debug access
+Object.assign(window, { setupServiceWorker });
 
 export const initializeApp = async () => {
   console.log("Initializing app...");
@@ -106,11 +150,31 @@ export const initializeApp = async () => {
     console.error("Error initializing app:", error);
   }
 };
+
+// Setup service worker message listeners outside the function to ensure they're available
 if (navigator.serviceWorker) {
   navigator.serviceWorker.addEventListener("message", (event) => {
     console.log("Service worker message received:", event.data);
+    
     if (event.data === "reload") {
-      location.reload();
+      window.location.reload();
+    }
+    
+    // Handle any structured messages
+    if (event.data?.type) {
+      switch (event.data.type) {
+        case 'CACHE_UPDATED':
+          console.log('Cache has been updated:', event.data.message);
+          // You could show a toast notification here
+          break;
+          
+        case 'ERROR':
+          console.error('Service worker error:', event.data.message);
+          break;
+          
+        default:
+          console.log('Unknown message type from service worker:', event.data);
+      }
     }
   });
 }

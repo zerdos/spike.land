@@ -15,7 +15,6 @@ import {
   RouterProvider,
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
-import { AppToRender } from "../AppToRender";
 // init()
 // Define route types
 interface RouteWithPageParams {
@@ -58,6 +57,7 @@ Object.keys(routes).forEach((path) => {
 });
 
 const App: React.FC = () => {
+  const [AppToRender, setAppToRender ] = useState<React.FC<{ codeSpace: string; cSess: ICode; }> | null>(null);
   const [cSess, setState] = useState<ICode | null>(null);
   const codeSpace = getCodeSpace(location.pathname);
 
@@ -68,6 +68,9 @@ const App: React.FC = () => {
 
         const cSess = await getCodeSession();
         setState(cSess);
+
+        const { AppToRender } = await import("../AppToRender");
+        setAppToRender(AppToRender);
 
         const { initializeApp } = await import("@/lib/hydrate");
         await initializeApp();
@@ -93,7 +96,7 @@ const App: React.FC = () => {
     return () => unSub();
   }, [cSess]);
 
-  return cSess
+  return cSess && AppToRender
     ? (
       <>
         <ClerkProvider
