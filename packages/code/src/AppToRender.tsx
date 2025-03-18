@@ -1,5 +1,5 @@
 import { Bot, History } from "@/external/lucide-react";
-import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, useAuth, UserButton, ClerkProvider } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useState } from "react";
@@ -10,10 +10,12 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
+
 // import { fakeServer } from "./sw-local-fake-server";
 
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
+import { Code } from "@/lib/code-session";
 
 const Header: FC = () => {
   return (
@@ -44,7 +46,10 @@ export const Hello = () => {
   return <h2>{userId}</h2>;
 };
 
-export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
+export const AppToRender: FC<AppToRenderProps> = ({
+  codeSpace,
+  cSess,
+}) => {
   const maybeKey = codeSpace.split("-")[1];
 
   const [isOpen, setIsOpen] = useState(
@@ -70,6 +75,10 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         overflow: hidden;
       `}
     >
+        <ClerkProvider
+          publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
+          afterSignOutUrl="/"
+        >
       <Header />
       <div className="flex-1 relative overflow-hidden">
         <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
@@ -125,6 +134,7 @@ export const AppToRender: FC<AppToRenderProps> = ({ codeSpace, cSess }) => {
         isOpen={isOpen}
         onClose={handleToggleChat}
       />
+      </ClerkProvider>
     </div>
   );
 };

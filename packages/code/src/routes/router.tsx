@@ -5,7 +5,6 @@ import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import { init } from "@/lib/tw-dev-setup";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
-import { ClerkProvider } from "@clerk/clerk-react";
 import {
   createRootRoute,
   createRoute,
@@ -85,26 +84,27 @@ const App: React.FC = () => {
       (async () => {
         Object.assign(globalThis, { cSess });
         const sessionSync = new SessionSynchronizer(codeSpace);
-        sessionSync.init(await cSess.getSession());
+        await sessionSync.init(await cSess.getSession());
 
         unSub = sessionSync.subscribe((sess) => {
           cSess.setSession(sess);
           setState(cSess);
         });
+        setState(cSess);
       })();
     }
     return () => unSub();
   }, [cSess]);
 
+  // If codeSpace is null, we shouldn't try to render anything that requires it
+  if (!codeSpace) {
+    return <div>Invalid route or codeSpace not found</div>;
+  }
+
   return cSess && AppToRender
     ? (
       <>
-        <ClerkProvider
-          publishableKey="pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ"
-          afterSignOutUrl="/"
-        >
           <AppToRender codeSpace={codeSpace} cSess={cSess} />
-        </ClerkProvider>
       </>
     )
     : (
