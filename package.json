@@ -34,13 +34,13 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.0",
-    "@cloudflare/workers-types": "4.20250313.0",
+    "@cloudflare/vitest-pool-workers": "0.8.1",
+    "@cloudflare/workers-types": "4.20250317.0",
     "@emotion/eslint-plugin": "11.12.0",
     "@eslint/eslintrc": "3.3.0",
     "@eslint/js": "9.22.0",
     "@types/node": "22.13.10",
-    "@types/react": "19.0.10",
+    "@types/react": "19.0.11",
     "@types/ws": "8.18.0",
     "@typescript-eslint/parser": "8.26.1",
     "@yarnpkg/sdks": "3.2.1",
@@ -50,7 +50,7 @@
     "rollup": "^4.36.0",
     "typescript": "5.8.2",
     "typescript-eslint": "8.26.1",
-    "vitest": "3.0.8"
+    "vitest": "3.0.9"
   },
   "packageManager": "yarn@4.7.0",
   "dependencies": {

@@ -1,5 +1,5 @@
-import type { Workbox } from "workbox-window";
 import { initializeAppEnvironment } from "@/lib/app-loader";
+import type { Workbox } from "workbox-window";
 
 /**
  * Type definitions for global window extensions
@@ -16,41 +16,43 @@ declare global {
  */
 export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {
   console.log("Setting up service worker...");
-  
+
   // Skip if service workers aren't supported
   if (!("serviceWorker" in navigator)) {
     console.log("Service worker not supported in this browser");
     return null;
   }
-  
+
   // Skip on localhost for development unless explicitly enabled
   if (location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")) {
-    console.log("Service worker disabled on localhost (enable with localStorage.enable_sw_dev = true)");
+    console.log(
+      "Service worker disabled on localhost (enable with localStorage.enable_sw_dev = true)",
+    );
     return null;
   }
 
   try {
     // Import Workbox dynamically
     const { Workbox } = await import("workbox-window");
-    
+
     // Create and configure Workbox instance
     const wb = new Workbox("/sw.js");
-    
+
     // Configure service worker event listeners
     configureServiceWorkerEvents(wb);
-    
+
     // Register the service worker
     const registration = await wb.register().catch(error => {
-      console.error('Service worker registration failed:', error);
+      console.error("Service worker registration failed:", error);
       return null;
     });
-    
+
     if (registration) {
       console.log("Service worker registered successfully");
       window.__WB_INSTANCE = wb;
       return registration;
     }
-    
+
     return null;
   } catch (error) {
     console.error("Error setting up service worker:", error);
@@ -63,33 +65,33 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
  */
 function configureServiceWorkerEvents(wb: Workbox): void {
   // Handle installation events
-  wb.addEventListener('installed', event => {
+  wb.addEventListener("installed", event => {
     if (event.isUpdate) {
-      console.log('Service worker has been updated');
-      
+      console.log("Service worker has been updated");
+
       // Prompt user to update
-      if (confirm('New version available! Reload to update?')) {
+      if (confirm("New version available! Reload to update?")) {
         window.location.reload();
       }
     } else {
-      console.log('Service worker installed for the first time');
+      console.log("Service worker installed for the first time");
     }
   });
-  
+
   // Handle controlling events
-  wb.addEventListener('controlling', () => {
-    console.log('Service worker is now controlling the page');
+  wb.addEventListener("controlling", () => {
+    console.log("Service worker is now controlling the page");
   });
-  
+
   // Handle messages from service worker
-  wb.addEventListener('message', event => {
-    console.log('Message from service worker:', event.data);
-    
-    if (event.data?.type === 'CACHE_UPDATED') {
-      console.log('Cache has been updated:', event.data.message);
+  wb.addEventListener("message", event => {
+    console.log("Message from service worker:", event.data);
+
+    if (event.data?.type === "CACHE_UPDATED") {
+      console.log("Cache has been updated:", event.data.message);
     }
-    
-    if (event.data === 'reload') {
+
+    if (event.data === "reload") {
       window.location.reload();
     }
   });
@@ -99,24 +101,24 @@ function configureServiceWorkerEvents(wb: Workbox): void {
 if (navigator.serviceWorker) {
   navigator.serviceWorker.addEventListener("message", (event) => {
     console.log("Service worker message received:", event.data);
-    
+
     if (event.data === "reload") {
       window.location.reload();
     }
-    
+
     // Process structured messages
     if (event.data?.type) {
       switch (event.data.type) {
-        case 'CACHE_UPDATED':
-          console.log('Cache has been updated:', event.data.message);
+        case "CACHE_UPDATED":
+          console.log("Cache has been updated:", event.data.message);
           break;
-          
-        case 'ERROR':
-          console.error('Service worker error:', event.data.message);
+
+        case "ERROR":
+          console.error("Service worker error:", event.data.message);
           break;
-          
+
         default:
-          console.log('Unknown message type from service worker:', event.data);
+          console.log("Unknown message type from service worker:", event.data);
       }
     }
   });

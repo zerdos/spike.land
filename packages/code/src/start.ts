@@ -3,12 +3,8 @@ import { App } from "./App";
 import { router } from "./routes/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { initializeWebSocket, shouldInitWebSocket } from "@/lib/app-loader";
 import { RouterError } from "@/lib/errors";
-import { 
-  initializeWebSocket, 
-  shouldRenderApp, 
-  shouldInitWebSocket 
-} from "@/lib/app-loader";
 
 /**
  * Global error handler
@@ -38,14 +34,13 @@ router.load().then(async () => {
         console.error("WebSocket initialization failed:", error);
         throw new RouterError(
           "WebSocket initialization failed",
-          `/live/${codeSpace}/iframe`
+          `/live/${codeSpace}/iframe`,
         );
       }
     }
 
     // Render the main app
     await renderApp({ App });
-
   } catch (error) {
     handleError(error);
   }

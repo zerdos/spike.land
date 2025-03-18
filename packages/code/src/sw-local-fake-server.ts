@@ -96,10 +96,10 @@ function handleEditorResponse(codeSpace: string) {
 function handleHtmlResponse(session: ICodeSession, HTML: string) {
   const { codeSpace, html, css } = session;
   const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
-  .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
-    "${html}",
-    html,
-  );
+    .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
+      "${html}",
+      html,
+    );
 
   const headers = new Headers({
     "Access-Control-Allow-Origin": "*",

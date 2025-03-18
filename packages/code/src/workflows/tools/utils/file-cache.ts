@@ -38,14 +38,14 @@ export class FileCacheManager {
   ): Promise<void> {
     const { pathname, origin } = new URL(url);
     const cacheKey = pathname.slice(1);
-    
+
     // Get original file path from cache key
     const originalPath = this.filesByCacheKeys[cacheKey];
     if (!originalPath) {
       console.warn(`No original path found for cache key: ${cacheKey}`);
       return;
     }
-    
+
     // Create request for the original file
     const request = new Request(
       new URL("/" + originalPath, origin).toString(),
@@ -58,10 +58,10 @@ export class FileCacheManager {
 
     try {
       await this.validateFileHash(url, hash!);
-      
+
       // Create a proper cache request for storing
       const cacheRequest = new Request(new URL("/" + cacheKey, origin).toString());
-      
+
       // First check if another worker already cached this file
       const existingResponse = await myCache.match(cacheRequest);
       if (existingResponse) {
@@ -79,7 +79,7 @@ export class FileCacheManager {
         console.warn(
           `Hash mismatch for ${url}. Expected: ${hash}, Received: ${
             response.headers.get("x-hash")
-          }. Using file anyway.`
+          }. Using file anyway.`,
         );
       }
 
@@ -88,13 +88,13 @@ export class FileCacheManager {
         const responseToCache = new Response(await response.clone().blob(), {
           status: response.status,
           statusText: response.statusText,
-          headers: new Headers(response.headers)
+          headers: new Headers(response.headers),
         });
-        
+
         // Add cache metadata
         responseToCache.headers.set("x-cached-at", new Date().toISOString());
         responseToCache.headers.set("x-original-path", originalPath);
-        
+
         await myCache.put(cacheRequest, responseToCache);
         console.log(`Cached file ${url} successfully`);
       } else {
@@ -108,29 +108,32 @@ export class FileCacheManager {
 
   async initializeFilesCache(): Promise<void> {
     const myCache = await caches.open(this.sw.fileCacheName);
-    
+
     // Always update the files.json in cache to ensure it's current
     await myCache.put(
       "/files.json",
       new Response(JSON.stringify(this.sw.files), {
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "x-cache-version": this.sw.swVersion,
-          "x-cached-at": new Date().toISOString()
+          "x-cached-at": new Date().toISOString(),
         },
       }),
     );
-    
+
     // Store the swVersion as well for easy reference
     await myCache.put(
       "/swVersion.json",
-      new Response(JSON.stringify({ 
-        version: this.sw.swVersion,
-        timestamp: new Date().toISOString(),
-        fileCount: Object.keys(this.sw.files).length
-      }), {
-        headers: { "Content-Type": "application/json" },
-      }),
+      new Response(
+        JSON.stringify({
+          version: this.sw.swVersion,
+          timestamp: new Date().toISOString(),
+          fileCount: Object.keys(this.sw.files).length,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+      ),
     );
   }
 
@@ -143,26 +146,26 @@ export class FileCacheManager {
 
     // Remove system files from the missing list
     const systemFiles = ["/files.json", "/swVersion.json"].map(
-      file => new URL(file, location.origin).toString()
+      file => new URL(file, location.origin).toString(),
     );
-    
+
     systemFiles.forEach(file => missing.delete(file));
 
     if (missing.size > 0) {
       console.warn(
-        `Cache integrity check: Missing ${missing.size} files: ${[...missing].slice(0, 5).join(", ")}${missing.size > 5 ? '...' : ''}`,
+        `Cache integrity check: Missing ${missing.size} files: ${
+          [...missing].slice(0, 5).join(", ")
+        }${missing.size > 5 ? "..." : ""}`,
       );
-      
+
       // Don't throw an error, just log a warning - we can still function with a partial cache
       // Instead, consider refetching the missing files
       const queuedFetch = {
-        fetch: (request: Request, init?: RequestInit) => fetch(request, init)
+        fetch: (request: Request, init?: RequestInit) => fetch(request, init),
       };
-      
+
       await Promise.allSettled(
-        [...missing].map(async (url) =>
-          this.fetchAndCacheFile(url, queuedFetch, myCache)
-        ),
+        [...missing].map(async (url) => this.fetchAndCacheFile(url, queuedFetch, myCache)),
       );
     } else {
       console.log("Cache integrity check passed: All files present");

@@ -1,6 +1,6 @@
-import type { ICode } from "@/lib/interfaces";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { getCodeSession } from "@/lib/code-session";
+import type { ICode } from "@/lib/interfaces";
 import { init } from "@/lib/tw-dev-setup";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 
@@ -36,7 +36,7 @@ export const initializeAppEnvironment = async (): Promise<void> => {
       useArchive,
       useSpeedy,
     });
-    
+
     console.log("App environment initialized successfully");
   } catch (error) {
     console.error("Error initializing app environment:", error);
@@ -54,7 +54,7 @@ export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
 
   try {
     // Import using a relative path to match the project structure
-    const { main } = await import("../../../ws");
+    const { main } = await import("../../ws");
     await main(codeSpace);
     console.log(`WebSocket initialized for code space: ${codeSpace}`);
   } catch (error) {
@@ -69,7 +69,7 @@ export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
  */
 export const loadApp = async (pathname: string): Promise<AppContext | null> => {
   const codeSpace = getCodeSpace(pathname);
-  
+
   if (!codeSpace) {
     console.error("Cannot load app: Invalid codeSpace from pathname", pathname);
     return null;
@@ -78,17 +78,17 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
   try {
     // Initialize tailwind
     await init();
-    
+
     // Get code session
     const cSess = await getCodeSession(codeSpace);
-    
+
     // Load the app component dynamically
     // Import using a relative path to match the project structure
-    const { AppToRender } = await import("../../../AppToRender");
-    
+    const { AppToRender } = await import("../../AppToRender");
+
     // Initialize app environment
     await initializeAppEnvironment();
-    
+
     return {
       codeSpace,
       cSess,
@@ -105,7 +105,7 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
  */
 export const initializeSessionSync = async (
   codeSpace: string,
-  cSess: ICode
+  cSess: ICode,
 ): Promise<() => void> => {
   if (!codeSpace || !cSess) {
     console.error("Cannot initialize session sync: missing codeSpace or cSess");
@@ -115,11 +115,11 @@ export const initializeSessionSync = async (
   try {
     // Make cSess available globally for debugging
     Object.assign(globalThis, { cSess });
-    
+
     // Initialize session synchronizer
     const sessionSync = new SessionSynchronizer(codeSpace);
     await sessionSync.init(await cSess.getSession());
-    
+
     // Return the unsubscribe function
     return sessionSync.subscribe((sess) => {
       cSess.setSession(sess);
@@ -129,20 +129,6 @@ export const initializeSessionSync = async (
     console.error("Error initializing session sync:", error);
     return () => {};
   }
-};
-
-/**
- * Utility to check if a route should render the app
- */
-export const shouldRenderApp = (pathname: string): boolean => {
-  if (!pathname) return false;
-
-  const isLiveRoute = pathname.startsWith("/live/");
-  const isLiveCMSRoute = pathname.startsWith("/live-cms/");
-  const isDehydratedRoute = pathname.endsWith("dehydrated");
-  const isTrailingSlash = pathname.endsWith("/");
-
-  return (isLiveRoute || isLiveCMSRoute) && !isDehydratedRoute && !isTrailingSlash;
 };
 
 /**

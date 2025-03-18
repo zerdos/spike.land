@@ -1,8 +1,8 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
+import { initializeSessionSync, loadApp } from "@/lib/app-loader";
 import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
-import { loadApp, initializeSessionSync } from "@/lib/app-loader";
 import {
   createRootRoute,
   createRoute,
@@ -57,21 +57,23 @@ Object.keys(routes).forEach((path) => {
  * Main application component that handles loading app context and session sync
  */
 const App: React.FC = () => {
-  const [appContext, setAppContext] = useState<{
-    codeSpace: string;
-    cSess: ICode;
-    AppComponent: React.FC<{ codeSpace: string; cSess: ICode }>;
-  } | null>(null);
+  const [appContext, setAppContext] = useState<
+    {
+      codeSpace: string;
+      cSess: ICode;
+      AppComponent: React.FC<{ codeSpace: string; cSess: ICode; }>;
+    } | null
+  >(null);
   const [isLoading, setIsLoading] = useState(true);
   const pathname = location.pathname;
 
   // Load app context on mount
   useEffect(() => {
     const codeSpace = getCodeSpace(pathname);
-    
+
     if (codeSpace && pathname === `/live/${codeSpace}`) {
       setIsLoading(true);
-      
+
       loadApp(pathname)
         .then(context => {
           if (context) {
@@ -95,7 +97,7 @@ const App: React.FC = () => {
 
     if (appContext) {
       const { codeSpace, cSess } = appContext;
-      
+
       initializeSessionSync(codeSpace, cSess)
         .then(unsub => {
           unsubscribe = unsub;
@@ -120,14 +122,14 @@ const App: React.FC = () => {
   }
 
   // Render app or wrapper based on app context
-  return appContext ? (
-    <appContext.AppComponent 
-      codeSpace={appContext.codeSpace} 
-      cSess={appContext.cSess} 
-    />
-  ) : (
-    <Wrapper codeSpace={codeSpace} />
-  );
+  return appContext
+    ? (
+      <appContext.AppComponent
+        codeSpace={appContext.codeSpace}
+        cSess={appContext.cSess}
+      />
+    )
+    : <Wrapper codeSpace={codeSpace} />;
 };
 
 // Live page route with code space and page parameters

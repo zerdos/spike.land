@@ -1,11 +1,11 @@
 import { Bot, History } from "@/external/lucide-react";
-import { 
-  SignedIn, 
-  SignedOut, 
-  SignInButton, 
-  useAuth, 
-  UserButton, 
-  ClerkProvider 
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  useAuth,
+  UserButton,
 } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import type { FC } from "react";
@@ -18,9 +18,8 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 
-import type { ICode } from "@/lib/interfaces";
-import { cn } from "@/lib/utils";
 import { AppComponentProps } from "@/lib/app-loader";
+import { cn } from "@/lib/utils";
 
 // Auth component that displays different content based on authentication status
 
@@ -84,7 +83,7 @@ export const AppToRender: FC<AppComponentProps> = ({
       >
         <History className="h-6 w-6" />
       </Button>
-      
+
       {!isOpen && (
         <Button
           onClick={handleToggleChat}
@@ -101,7 +100,7 @@ export const AppToRender: FC<AppComponentProps> = ({
   );
 
   // History carousel modal when active
-  const renderHistoryModal = () => 
+  const renderHistoryModal = () =>
     showAutoSaveHistory && (
       <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
@@ -130,7 +129,7 @@ export const AppToRender: FC<AppComponentProps> = ({
         afterSignOutUrl="/"
       >
         <Header />
-        
+
         <div className="flex-1 relative overflow-hidden">
           {/* Live preview window */}
           <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
@@ -140,10 +139,10 @@ export const AppToRender: FC<AppComponentProps> = ({
           <RainbowWrapper>
             {/* Code editor */}
             <Editor codeSpace={codeSpace} cSess={cSess} />
-            
+
             {/* History modal (conditionally rendered) */}
             {renderHistoryModal()}
-            
+
             {/* Action buttons */}
             {renderActionButtons()}
           </RainbowWrapper>
