@@ -32,30 +32,19 @@ try {
   try {
     // Get hashed filenames for dependencies
     const swDepsInFiles = sw.files["sw-deps.js"]?.split(".") || [];
-    const transpileWorkerInFiles = sw.files["@/workers/transpile.worker.js"]?.split(".") || [];
 
     // Extract hash portions
     let swDepsHash = "";
-    let transpileWorkerHash = "";
 
     if (swDepsInFiles.length >= 2) {
       swDepsInFiles.pop(); // Remove js extension
       swDepsHash = swDepsInFiles.pop() || ""; // Get hash
     }
 
-    if (transpileWorkerInFiles.length >= 2) {
-      transpileWorkerInFiles.pop(); // Remove js extension
-      transpileWorkerHash = transpileWorkerInFiles.pop() || ""; // Get hash
-    }
-
     // Import dependencies with cache-busting hashes
     const scripts = [];
 
-    if (transpileWorkerHash) {
-      scripts.push("/@/workers/transpile.worker.js" + "?hash=" + transpileWorkerHash);
-    } else {
-      scripts.push("/@/workers/transpile.worker.js");
-    }
+    scripts.push("/@/workers/transpile.worker.js");
 
     if (swDepsHash) {
       scripts.push("/sw-deps.js" + "?hash=" + swDepsHash);

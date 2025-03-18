@@ -2,8 +2,8 @@ import { getCodeSpace } from "@/hooks/use-code-space";
 import { getCodeSession } from "@/lib/code-session";
 import type { ICode } from "@/lib/interfaces";
 import { init } from "@/lib/tw-dev-setup";
-import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import { main } from "@/lib/ws";
+import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 
 // Centralized type definitions
 export interface AppContext {
@@ -55,7 +55,7 @@ export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
 
   try {
     // Import using a relative path to match the project structure
-  
+
     await main(codeSpace);
     console.log(`WebSocket initialized for code space: ${codeSpace}`);
   } catch (error) {
@@ -137,5 +137,5 @@ export const initializeSessionSync = async (
  */
 export const shouldInitWebSocket = (pathname: string, codeSpace: string | null): boolean => {
   if (!pathname || !codeSpace) return false;
-  return pathname === `/live/${codeSpace}/`;
+  return pathname === `/live/${codeSpace}`;
 };

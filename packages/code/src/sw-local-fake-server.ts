@@ -1,7 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
-import { transpile } from "@/lib/shared";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type {} from "./def";
 import HTML from "./index.html";
@@ -37,7 +36,7 @@ export async function fakeServer(request: Request) {
   } else if (
     request.url.includes("/index.js")
   ) {
-    return await handleIndexJs(request, session, codeSpace);
+    return await handleIndexJs(request, session);
   } else if (
     request.url.includes("/index.css")
   ) {
@@ -130,23 +129,7 @@ function handleIndexCss(
 async function handleIndexJs(
   request: Request,
   session: ICodeSession,
-  codeSpace: string,
 ) {
-  console.log("Transpiled request:", request.url);
-
-  if (typeof session.transpiled !== "string" || session.transpiled === "") {
-    const transpiled = await transpile({
-      code: session.code,
-      originToUse: "",
-    }) as unknown as string;
-    session.transpiled = transpiled;
-    await cSessions[codeSpace].broadcastSession({
-      ...session,
-      transpiled,
-      sender: "sw-local-fake-server",
-    });
-  }
-
   return new Response(
     importMapReplace(session.transpiled),
     {

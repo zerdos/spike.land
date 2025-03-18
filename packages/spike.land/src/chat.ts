@@ -26,6 +26,15 @@ const main = {
         },
       });
     }
+    if (url.pathname === "/swVersion.json") {
+      return new Response(JSON.stringify({ swVersion: ASSET_HASH }), {
+        headers: {
+          "Content-Type": "application/json",
+          "x-hash": ASSET_HASH,
+          "cache-control": "public, max-age=0, must-revalidate",
+        },
+      });
+    }
 
     const kvServer = serveWithCache(
       files,

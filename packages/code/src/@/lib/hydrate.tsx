@@ -1,4 +1,5 @@
 import { initializeAppEnvironment } from "@/lib/app-loader";
+import { swVersion } from "@/lib/sw-version";
 import type { Workbox } from "workbox-window";
 
 /**
@@ -33,6 +34,23 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
 
   try {
     // Import Workbox dynamically
+
+    // check if we have sw installed
+    const oldRegistration = await navigator.serviceWorker.getRegistration();
+
+    if (oldRegistration) {
+      const oldSwVersion = localStorage.getItem("swVersion");
+      const serverVersion = await fetch("/swVersion.json").then((res) =>
+        res.json().then((data: { swVersion: string; }) => data.swVersion)
+      );
+      if (oldSwVersion === swVersion && serverVersion === swVersion) {
+        console.log("Service worker is already registered");
+        return oldRegistration;
+      }
+
+      oldRegistration.unregister();
+    }
+
     const { Workbox } = await import("workbox-window");
 
     // Create and configure Workbox instance
@@ -46,6 +64,7 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
       console.error("Service worker registration failed:", error);
       return null;
     });
+    localStorage.setItem("swVersion", swVersion);
 
     if (registration) {
       console.log("Service worker registered successfully");
