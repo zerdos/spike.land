@@ -3,7 +3,7 @@ import { messagesPush } from "@/lib/chat-utils";
 import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
-
+import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { CodeProcessor } from "@/services/CodeProcessor";
 import { screenshot } from "@/services/editorUtils";
@@ -72,13 +72,30 @@ export class Code implements ICode {
   }
 
   async init(session: ICodeSession | null = null): Promise<ICodeSession> {
-    const initializedSession: ICodeSession = await this.sessionManager.init(
-      session ??
-        await fetch(`/api/room/${this.codeSpace}/session.json`).then((res) => res.json()),
+    if (session) {
+      const initializedSession = await this.sessionManager.init(session);
+      this.setSession(initializedSession);
+      return initializedSession;
+    }
+    
+    const { data: response, error: fetchError } = await tryCatch(
+      fetch(`/api/room/${this.codeSpace}/session.json`)
     );
-
+    
+    if (fetchError) {
+      console.error(`Failed to fetch session for ${this.codeSpace}:`, fetchError);
+      throw new Error(`Failed to fetch session: ${fetchError.message}`);
+    }
+    
+    const { data: sessionData, error: jsonError } = await tryCatch(response.json());
+    
+    if (jsonError) {
+      console.error(`Failed to parse session JSON for ${this.codeSpace}:`, jsonError);
+      throw new Error(`Failed to parse session JSON: ${jsonError.message}`);
+    }
+    
+    const initializedSession = await this.sessionManager.init(sessionData);
     this.setSession(initializedSession);
-
     return initializedSession;
   }
 
@@ -96,7 +113,10 @@ export class Code implements ICode {
 
   async getCode(): Promise<string> {
     if (mutex.isLocked()) {
-      await mutex.waitForUnlock();
+      const { error: mutexError } = await tryCatch(mutex.waitForUnlock());
+      if (mutexError) {
+        console.error("Error waiting for mutex unlock:", mutexError);
+      }
     }
     return this.currentSession?.code || "";
   }
@@ -230,14 +250,16 @@ export class Code implements ICode {
     this.isRunning = true;
     this.pendingRun = null;
 
-    try {
-      return await this.updateCodeInternal(rawCode, skipRunning);
-    } catch (error) {
+    const { data: result, error } = await tryCatch(this.updateCodeInternal(rawCode, skipRunning));
+    
+    this.isRunning = false;
+    
+    if (error) {
       console.error("❌ CodeSession.setCode failed with error:", error);
       return currentCode;
-    } finally {
-      this.isRunning = false;
     }
+    
+    return result;
   }
 
   private async updateCodeInternal(
@@ -273,15 +295,17 @@ export class Code implements ICode {
     const signal = this.setCodeController.signal;
 
     console.log("🔄 Processing code with CodeProcessor");
-    const result = await this.codeProcessor.process(
-      rawCode,
-      skipRunning,
-      signal,
-      () => this.currentSession,
+    const { data: result, error: processError } = await tryCatch(
+      this.codeProcessor.process(
+        rawCode,
+        skipRunning,
+        signal,
+        () => this.currentSession,
+      )
     );
 
-    if (!result) {
-      console.log("⚠️ CodeProcessor returned no result, returning current code");
+    if (processError || !result) {
+      console.log("⚠️ CodeProcessor returned no result or error:", processError);
       return currentCode;
     }
 
@@ -301,11 +325,29 @@ export class Code implements ICode {
   }
 
   async setModelsByCurrentCode(newCodes: string): Promise<string> {
-    return this.modelManager.updateModelsByCode(newCodes);
+    const { data: result, error } = await tryCatch(
+      this.modelManager.updateModelsByCode(newCodes)
+    );
+    
+    if (error) {
+      console.error("Failed to update models by code:", error);
+      throw error;
+    }
+    
+    return result;
   }
 
   async currentCodeWithExtraModels(): Promise<string> {
-    return this.modelManager.getCurrentCodeWithExtraModels();
+    const { data: result, error } = await tryCatch(
+      this.modelManager.getCurrentCodeWithExtraModels()
+    );
+    
+    if (error) {
+      console.error("Failed to get current code with extra models:", error);
+      throw error;
+    }
+    
+    return result;
   }
 
   sub(callback: (session: ICodeSession) => void): () => void {
@@ -314,10 +356,17 @@ export class Code implements ICode {
 
   async release(): Promise<void> {
     this.releaseWorker();
-    await Promise.all([
-      this.sessionManager.release(),
-      this.modelManager.release(),
-    ]);
+    
+    const { error } = await tryCatch(
+      Promise.all([
+        this.sessionManager.release(),
+        this.modelManager.release(),
+      ])
+    );
+    
+    if (error) {
+      console.error("Error during release:", error);
+    }
   }
 
   screenshot(): Promise<ImageData> {
@@ -325,7 +374,12 @@ export class Code implements ICode {
   }
 
   async run(): Promise<void> {
-    await this.init();
+    const { error } = await tryCatch(this.init());
+    
+    if (error) {
+      console.error("Failed to initialize during run:", error);
+      throw error;
+    }
   }
 }
 
@@ -340,13 +394,25 @@ const codeSessionCache: Record<string, Code> = {};
  * @returns Promise resolving to the session data
  */
 async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
-  const response = await fetch(`/api/room/${codeSpaceId}/session.json`);
+  const { data: response, error: fetchError } = await tryCatch(
+    fetch(`/api/room/${codeSpaceId}/session.json`)
+  );
+  
+  if (fetchError) {
+    throw new Error(`Failed to fetch code session: ${fetchError.message}`);
+  }
 
   if (!response.ok) {
     throw new Error(`Failed to fetch code session: ${response.status}`);
   }
 
-  return response.json();
+  const { data: sessionData, error: jsonError } = await tryCatch(response.json());
+  
+  if (jsonError) {
+    throw new Error(`Failed to parse code session JSON: ${jsonError.message}`);
+  }
+  
+  return sessionData;
 }
 
 /**
@@ -364,9 +430,21 @@ export async function getCodeSession(
 
   // Fetch and create a new session
   try {
-    const sessionData = await fetchCodeSession(codeSpaceId);
+    const { data: sessionData, error: fetchError } = await tryCatch(fetchCodeSession(codeSpaceId));
+    
+    if (fetchError) {
+      console.error(`Failed to get code session for ${codeSpaceId}:`, fetchError);
+      throw fetchError;
+    }
+    
     const codeSession = new Code(sessionData);
-    await codeSession.init(sessionData);
+    
+    const { error: initError } = await tryCatch(codeSession.init(sessionData));
+    
+    if (initError) {
+      console.error(`Failed to initialize session for ${codeSpaceId}:`, initError);
+      throw initError;
+    }
 
     // Cache the session
     codeSessionCache[codeSpaceId] = codeSession;
