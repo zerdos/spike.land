@@ -18,8 +18,8 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.1",
-    "@cloudflare/workers-types": "4.20250317.0",
+    "@cloudflare/vitest-pool-workers": "0.8.2",
+    "@cloudflare/workers-types": "4.20250319.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.13.10",
     "@vitest/runner": "3.0.9",
@@ -28,7 +28,7 @@
     "rimraf": "6.0.1",
     "typescript": "5.8.2",
     "vitest": "3.0.9",
-    "wrangler": "4.1.0"
+    "wrangler": "4.2.0"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "0.0.14"
