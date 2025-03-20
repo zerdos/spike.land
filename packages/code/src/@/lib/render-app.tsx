@@ -12,6 +12,7 @@ import { importMapReplace } from "@/lib/importmap-utils";
 import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
+import {tryCatch} from "@/lib/try-catch";
 
 type GlobalWithRenderedApps = typeof globalThis & {
   renderedApps: WeakMap<HTMLElement, RenderedApp>;
@@ -46,24 +47,31 @@ export const importFromString = async (code: string) => {
 
   // In a browser environment, try the Blob URL approach first
   if (isBrowser) {
-    try {
-      const createJsBlob = async (code: string): Promise<string> =>
-        await URL.createObjectURL(
-          new Blob([
-            importMapReplace(code.split("importMapReplace").join("")).split(
-              `from "/`,
-            ).join(
-              `from "${origin}/`,
-            ),
-          ], { type: "application/javascript" }),
-        );
-
-      return import(/* @vite-ignore */ await createJsBlob(code)).then((module) =>
-        module.default
-      ) as Promise<FlexibleComponentType>;
-    } catch (error) {
-      // This is expected in Node.js environment, so we'll only log in browser
-      console.warn("Using file-based import approach instead of Blob URL", error);
+    const createJsBlob = async (code: string): Promise<string> =>
+      await URL.createObjectURL(
+        new Blob([
+          importMapReplace(code.split("importMapReplace").join("")).split(
+            `from "/`,
+          ).join(
+            `from "${origin}/`,
+          ),
+        ], { type: "application/javascript" }),
+      );
+    
+    const { data: blobUrl, error: blobError } = await tryCatch(createJsBlob(code));
+    
+    if (blobUrl) {
+      const { data: module, error: importError } = await tryCatch(
+        import(/* @vite-ignore */ blobUrl)
+      );
+      
+      if (module) {
+        return module.default as FlexibleComponentType;
+      } else {
+        console.warn("Using file-based import approach instead of Blob URL", importError);
+      }
+    } else {
+      console.warn("Failed to create blob URL", blobError);
     }
   }
 
@@ -75,23 +83,38 @@ export const importFromString = async (code: string) => {
   }
 
   // File-based approach (only for browser environment)
-  try {
-    const filePath = `/live-cms/${codeSpace || "test-space"}-${md5(code)}.mjs`;
+  const filePath = `/live-cms/${codeSpace || "test-space"}-${md5(code)}.mjs`;
 
-    // Write the file using fetch
-    await fetch(filePath, {
+  // Write the file using fetch
+  const { error: fetchError } = await tryCatch(
+    fetch(filePath, {
       method: "PUT",
       headers: {
         "Content-Type": "text/javascript",
       },
       body: importMapReplace(code),
-    });
-    console.log("File written to", filePath);
+    })
+  );
+  
+  if (fetchError) {
+    console.error("Failed to write file", fetchError);
+    return (() =>
+      React.createElement(
+        "div",
+        null,
+        "Import Error: Failed to write component file",
+      )) as FlexibleComponentType;
+  }
+  
+  console.log("File written to", filePath);
 
-    // Import the file
-    return import(filePath).then((module) => module.default) as Promise<FlexibleComponentType>;
-  } catch (error) {
-    console.error("All import methods failed", error);
+  // Import the file
+  const { data: module, error: importError } = await tryCatch(import(filePath));
+  
+  if (module) {
+    return module.default as FlexibleComponentType;
+  } else {
+    console.error("All import methods failed", importError);
     // Return a simple component as fallback
     return (() =>
       React.createElement(
@@ -105,53 +128,55 @@ export const importFromString = async (code: string) => {
 async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
 ): Promise<RenderedApp | null> {
-  try {
-    // Check if we're in a browser environment
-    const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+  // Check if we're in a browser environment
+  const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
 
-    // In Node.js environment during tests, create a mock element
-    if (!isBrowser) {
-      console.log("Test environment - mocking DOM elements");
+  // In Node.js environment during tests, create a mock element
+  if (!isBrowser) {
+    console.log("Test environment - mocking DOM elements");
 
-      // Create a mock element for testing
-      const mockElement = {} as unknown as HTMLDivElement;
+    // Create a mock element for testing
+    const mockElement = {} as unknown as HTMLDivElement;
 
-      // Return a mock rendered app for testing
-      if (App) {
-        return {
-          rootElement: mockElement,
-          toHtmlAndCss,
-          rRoot: { unmount: () => {} } as Root,
-          App,
-          cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
-          cleanup: () => {
-            console.log("Mock cleanup called");
-          },
-        };
-      }
-
-      // Try to import the component
-      try {
-        const AppToRender = await importFromString(
-          transpiled || code || "export default ()=><div>Mock App for Testing</div>",
-        );
-
-        return {
-          rootElement: mockElement,
-          toHtmlAndCss,
-          rRoot: { unmount: () => {} } as Root,
-          App: AppToRender,
-          cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
-          cleanup: () => {
-            console.log("Mock cleanup called");
-          },
-        };
-      } catch (error) {
-        console.error("Error importing component in test environment:", error);
-        return null;
-      }
+    // Return a mock rendered app for testing
+    if (App) {
+      return {
+        rootElement: mockElement,
+        toHtmlAndCss,
+        rRoot: { unmount: () => {} } as Root,
+        App,
+        cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
+        cleanup: () => {
+          console.log("Mock cleanup called");
+        },
+      };
     }
 
+    // Try to import the component
+    const { data: AppToRender, error: importError } = await tryCatch(
+      importFromString(
+        transpiled || code || "export default ()=><div>Mock App for Testing</div>",
+      )
+    );
+
+    if (importError) {
+      console.error("Error importing component in test environment:", importError);
+      return null;
+    }
+
+    return {
+      rootElement: mockElement,
+      toHtmlAndCss,
+      rRoot: { unmount: () => {} } as Root,
+      App: AppToRender,
+      cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
+      cleanup: () => {
+        console.log("Mock cleanup called");
+      },
+    };
+  }
+
+  try {
     // Browser environment - normal flow
     const rootEl = rootElement ||
       document.getElementById("embed") as HTMLDivElement ||
@@ -171,42 +196,95 @@ async function renderApp(
         code?.indexOf("as default") === -1
       ) {
         emptyApp = true;
-        AppToRender = await importFromString(
-          "export default ()=><div>Empty App</div>",
+        const { data: emptyAppComponent, error: importError } = await tryCatch(
+          importFromString("export default ()=><div>Empty App</div>")
         );
+        
+        if (importError) {
+          console.error("Error importing empty app:", importError);
+          return null;
+        }
+        
+        AppToRender = emptyAppComponent;
       } else {
         let codeToUse = transpiled;
 
         if (!codeToUse && code) {
-          const transpiled = await transpile({
-            code,
-            originToUse: origin,
-          });
+          const { data: transpiledCode, error: transpileError } = await tryCatch(
+            transpile({
+              code,
+              originToUse: origin,
+            })
+          );
 
-          codeToUse = transpiled;
+          if (transpileError) {
+            console.error("Error transpiling code:", transpileError);
+            codeToUse = "export default ()=><div>Error: Failed to transpile code</div>";
+          } else {
+            codeToUse = transpiledCode;
+          }
         } else if (!codeToUse) {
           console.error("No code to transpile");
           codeToUse = "export default ()=><div>Error: No code to transpile</div>";
         }
 
-        AppToRender = await importFromString(codeToUse);
+        const { data: appComponent, error: importError } = await tryCatch(
+          importFromString(codeToUse)
+        );
+        
+        if (importError) {
+          console.error("Error importing component:", importError);
+          return null;
+        }
+        
+        AppToRender = appComponent;
       }
     } else if (codeSpace) {
       const indexJs = `${origin}/live/${codeSpace}/index.js`;
-      const res = await fetch(indexJs);
-      if (!res || !res.ok) {
-        AppToRender = await importFromString(
-          "export default ()=><div>Mock App for Testing</div>",
+      
+      const { data: response, error: fetchError } = await tryCatch(fetch(indexJs));
+      
+      if (fetchError || !response || !response.ok) {
+        const { data: mockApp, error: importError } = await tryCatch(
+          importFromString("export default ()=><div>Mock App for Testing</div>")
         );
+        
+        if (importError) {
+          console.error("Error importing mock app:", importError);
+          return null;
+        }
+        
+        AppToRender = mockApp;
       } else {
-        const codeToUse = await res.text();
+        const { data: codeToUse, error: textError } = await tryCatch(response.text());
+        
+        if (textError) {
+          console.error("Error reading response text:", textError);
+          return null;
+        }
 
-        AppToRender = await importFromString(codeToUse);
+        const { data: appComponent, error: importError } = await tryCatch(
+          importFromString(codeToUse)
+        );
+        
+        if (importError) {
+          console.error("Error importing component from codeSpace:", importError);
+          return null;
+        }
+        
+        AppToRender = appComponent;
       }
     } else {
-      AppToRender = await importFromString(
-        "export default ()=><div>Mock App for Testing</div>",
+      const { data: mockApp, error: importError } = await tryCatch(
+        importFromString("export default ()=><div>Mock App for Testing</div>")
       );
+      
+      if (importError) {
+        console.error("Error importing fallback mock app:", importError);
+        return null;
+      }
+      
+      AppToRender = mockApp;
     }
 
     const myRoot = root || renderedApps.get(rootEl)?.rRoot ||
@@ -360,48 +438,74 @@ const toHtmlAndCss = async (
       };
     }
 
-    const { cssCache, rootElement } = renderedNew;
+    try {
+      const { cssCache, rootElement } = renderedNew;
 
-    const html = htmlDecode(rootElement.innerHTML).split(cssCache.key)
-      .join("x");
-    const emotionGlobalStyles = [
-      ...document.querySelectorAll<HTMLStyleElement>(
-        `style[data-emotion='${cssCache.key}-global']`,
-      )
-        .values(),
-    ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
+      const html = htmlDecode(rootElement.innerHTML).split(cssCache.key)
+        .join("x");
+        
+      // Get emotion global styles
+      const { data: emotionGlobalStylesData, error: emotionGlobalStylesError } = await tryCatch(Promise.resolve(
+        [...document.querySelectorAll<HTMLStyleElement>(
+          `style[data-emotion='${cssCache.key}-global']`,
+        ).values()]
+      ));
+      
+      if (emotionGlobalStylesError) {
+        console.error("Error getting emotion global styles:", emotionGlobalStylesError);
+        return { css: "", html };
+      }
+      
+      const emotionGlobalStyles = emotionGlobalStylesData.map(
+        (x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n")
+      );
 
-    const emotionStyles = [
-      ...emotionGlobalStyles,
-      ...[...cssCache.sheet.tags].map((
-        tag: HTMLStyleElement,
-      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
-    ].join("\n")
-      .split(cssCache.key).join("x");
+      // Get emotion styles
+      const emotionStyles = [
+        ...emotionGlobalStyles,
+        ...[...cssCache.sheet.tags].map((
+          tag: HTMLStyleElement,
+        ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+      ].join("\n")
+        .split(cssCache.key).join("x");
 
-    console.log("Emotion styles:", emotionStyles);
+      console.log("Emotion styles:", emotionStyles);
 
-    const tailWindClasses = [
-      ...document.querySelectorAll<HTMLStyleElement>("head > style"),
-    ].map(
-      (z) => z.innerHTML,
-    ).join("\n");
+      // Get tailwind styles
+      const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(Promise.resolve(
+        [...document.querySelectorAll<HTMLStyleElement>("head > style")]
+      ));
+      
+      if (tailwindStylesError) {
+        console.error("Error getting tailwind styles:", tailwindStylesError);
+        return { css: emotionStyles, html };
+      }
+      
+      const tailWindClasses = tailwindStyles.map(
+        (z) => z.innerHTML,
+      ).join("\n");
 
-    const tailWindClassesXWithoutComments = tailWindClasses.replace(
-      /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
-      "",
-    );
-    const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`)
-      .join(`\\[`).split(
-        `\\\\]`,
-      ).join(`\\]`);
+      const tailWindClassesXWithoutComments = tailWindClasses.replace(
+        /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
+        "",
+      );
+      const tailWindClassesX = tailWindClassesXWithoutComments.split(`\\\\[`)
+        .join(`\\[`).split(
+          `\\\\]`,
+        ).join(`\\]`);
 
-    const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
+      const cssStrings = [emotionStyles, tailWindClassesX].join("\n");
 
-    return {
-      css: cssStrings,
-      html,
+      return {
+        css: cssStrings,
+        html,
+      };
+    } catch (error) {
+      console.error("Error in toHtmlAndCss:", error);
+      return {
+        css: "",
+        html: "",
+      };
     }
   }
 }
-  
