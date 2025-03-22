@@ -222,6 +222,10 @@ describe("CodeProcessor", () => {
         rRoot: createRoot(rootElement),
         cssCache: mockEmotionCache,
         cleanup: vi.fn(),
+        toHtmlAndCss: vi.fn().mockResolvedValue({
+          html: mockResult.html,
+          css: mockResult.css,
+        }),
       };
 
       vi.mocked(RenderService.prototype.updateRenderedApp).mockResolvedValue(
@@ -259,6 +263,10 @@ describe("CodeProcessor", () => {
         rRoot: createRoot(rootElement),
         cssCache: mockEmotionCache,
         cleanup: vi.fn(),
+        toHtmlAndCss: vi.fn().mockResolvedValue({
+          html: "<div>Test</div>",
+          css: ".test { color: red; }",
+        }),
       };
 
       vi.mocked(RenderService.prototype.updateRenderedApp).mockResolvedValue(

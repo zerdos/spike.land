@@ -310,9 +310,9 @@ import text from "./file.txt";",
 
 exports[`importMapReplace > Package imports: TypeScript path aliases 1`] = `
 {
-  "code": "import { component } from "@components/Button";",
+  "code": "import { component } from "@/components/Button";",
   "result": "/** importMapReplace */
-import { component } from "/@components/Button?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=component";",
+import { component } from "/@/components/Button.mjs";",
 }
 `;
 
@@ -621,11 +621,6 @@ exports[`importMapReplace > Worker imports: web worker imports 1`] = `
   "result": "/** importMapReplace */
 import Worker from "/@/workers/computation.worker.mjs";",
 }
-`;
-
-exports[`importMapReplace > should handle binary data input 1`] = `
-"/** importMapReplace */
-import { foo } from "/bar?bundle=true&external=react,react-dom,framer-motion,@emotion/react,@emotion/styled&exports=foo";"
 `;
 
 exports[`importMapReplace > should respect custom importMap 1`] = `

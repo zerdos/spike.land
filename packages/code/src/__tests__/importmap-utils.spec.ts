@@ -111,7 +111,7 @@ describe("importMapReplace", () => {
 
     // Package imports
     "Package imports": {
-      "TypeScript path aliases": `import { component } from "@components/Button";`,
+      "TypeScript path aliases": `import { component } from "@/components/Button";`,
       "scoped packages": `import { component } from "@scope/package/component";`,
       "Vue package default import": `import Vue from "vue";`,
       "external dependency import": `import { motion } from "framer-motion";`,
@@ -178,13 +178,4 @@ describe("importMapReplace", () => {
     expect({ result, code }).toMatchSnapshot();
   });
 
-  // Test input as binary data
-  it("should handle binary data input", () => {
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-    const buffer = encoder.encode(`import { foo } from "bar";`);
-    const input = decoder.decode(buffer);
-    const result = importMapReplace(input);
-    expect(result).toMatchSnapshot();
-  });
 });

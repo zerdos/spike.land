@@ -22,7 +22,7 @@ export interface AppComponentProps {
  * Loads modules that should be available globally
  */
 export const initializeAppEnvironment = async (): Promise<void> => {
-  try {
+  
     const [
       { enhancedFetch },
       { useArchive, useSpeedy },
@@ -39,10 +39,7 @@ export const initializeAppEnvironment = async (): Promise<void> => {
     });
 
     console.log("App environment initialized successfully");
-  } catch (error) {
-    console.error("Error initializing app environment:", error);
-    throw error;
-  }
+  
 };
 
 /**
@@ -108,12 +105,8 @@ export const initializeSessionSync = async (
   codeSpace: string,
   cSess: ICode,
 ): Promise<() => void> => {
-  if (!codeSpace || !cSess) {
-    console.error("Cannot initialize session sync: missing codeSpace or cSess");
-    return () => {};
-  }
 
-  try {
+  
     // Make cSess available globally for debugging
     Object.assign(globalThis, { cSess });
 
@@ -126,10 +119,7 @@ export const initializeSessionSync = async (
       cSess.setSession(sess);
       // Note: setState callback would be handled by the component
     });
-  } catch (error) {
-    console.error("Error initializing session sync:", error);
-    return () => {};
-  }
+  
 };
 
 /**

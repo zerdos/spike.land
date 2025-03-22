@@ -429,7 +429,7 @@ export async function getCodeSession(
   }
 
   // Fetch and create a new session
-  try {
+  
     const { data: sessionData, error: fetchError } = await tryCatch(fetchCodeSession(codeSpaceId));
     
     if (fetchError) {
@@ -450,8 +450,5 @@ export async function getCodeSession(
     codeSessionCache[codeSpaceId] = codeSession;
 
     return codeSession;
-  } catch (error) {
-    console.error(`Failed to get code session for ${codeSpaceId}:`, error);
-    throw error;
-  }
+  
 }
