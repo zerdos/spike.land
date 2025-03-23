@@ -43,10 +43,14 @@ export class CodeProcessor {
     const origin = window.location.origin;
     if (signal.aborted) return false;
 
-    // Format code
     const { data: code, error: formatError } = await tryCatch(this.formatCode(rawCode));
-    if (signal.aborted || formatError) {
-      if (formatError) console.error("Error formatting code:", formatError);
+
+    if (signal.aborted) {
+      return false;
+    }
+
+    if (formatError) {
+      console.error("Error formatting code:", formatError);
       return false;
     }
 
