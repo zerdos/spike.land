@@ -1,10 +1,10 @@
-import { importMapReplace, importMap } from "@/lib/importmap-utils";
+import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { tryCatch } from "@/lib/try-catch";
 import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
-import type {  RunMessageResult } from "@/services/types";
+import type { RunMessageResult } from "@/services/types";
 
 export class CodeProcessor {
   private static renderService: RenderService;
@@ -23,7 +23,7 @@ export class CodeProcessor {
       this.currentIframe.parentNode.removeChild(this.currentIframe);
       this.currentIframe = null;
     }
-    
+
     if (this.currentMessageHandler) {
       window.removeEventListener("message", this.currentMessageHandler);
       this.currentMessageHandler = null;
@@ -42,7 +42,7 @@ export class CodeProcessor {
   ): Promise<ICodeSession | false> {
     const origin = window.location.origin;
     if (signal.aborted) return false;
-    
+
     // Format code
     const { data: code, error: formatError } = await tryCatch(this.formatCode(rawCode));
     if (signal.aborted || formatError) {
@@ -60,7 +60,7 @@ export class CodeProcessor {
       if (transpileError) console.error("Error transpiling code:", transpileError);
       return false;
     }
-    
+
     if (getSession().transpiled === transpiled) {
       return getSession();
     }
@@ -69,7 +69,7 @@ export class CodeProcessor {
       code,
       transpiled,
     };
-    
+
     if (!skipRunning) {
       try {
         // Clean up any existing render process
@@ -85,14 +85,14 @@ export class CodeProcessor {
                 `from "${origin}/`,
               ),
             ], { type: "application/javascript" }),
-          ))
+          )),
         );
-        
+
         if (blobError) {
           console.error("Error creating blob URL:", blobError);
           return false;
         }
-        
+
         // Create an iframe which renders the transpiled code
         const iframeSource = `<!DOCTYPE html>
         <html lang="en">
@@ -129,7 +129,9 @@ export class CodeProcessor {
           }
 
             renderedApp.toHtmlAndCss(renderedApp).then(({ html, css }) => {
-             window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${md5(transpiled)}", data: { html, css } }, "*");
+             window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${
+          md5(transpiled)
+        }", data: { html, css } }, "*");
            });
            }
            );
@@ -139,14 +141,14 @@ export class CodeProcessor {
           </script>
         </body>
         </html>`;
-        
+
         // Create and store iframe reference
         const iframe = document.createElement("iframe");
         this.currentIframe = iframe;
         iframe.style.display = "none";
         document.body.appendChild(iframe);
         iframe.srcdoc = iframeSource;
-        
+
         // Create a Promise for handling the render result
         const renderPromise = new Promise<void>((resolve, reject) => {
           const messageHandler = (event: MessageEvent) => {
@@ -167,34 +169,34 @@ export class CodeProcessor {
               }
             }
           };
-          
+
           // Store reference to the message handler for cleanup
           this.currentMessageHandler = messageHandler;
           window.addEventListener("message", messageHandler);
-          
+
           // First timeout for render operation (2 seconds)
           setTimeout(() => {
             reject(new Error("Render timeout - iframe didn't respond within 2 seconds"));
           }, 2000);
         });
-        
+
         // Second timeout for overall process (5 seconds)
         const timeoutPromise = new Promise<void>((_, reject) => {
           setTimeout(() => {
             reject(new Error("Process timeout - operation took longer than 5 seconds"));
           }, 5000);
         });
-        
+
         // Race the render against both timeouts
         const { error: raceError } = await tryCatch(Promise.race([renderPromise, timeoutPromise]));
-        
+
         if (raceError) {
           console.error("Error during rendering:", raceError);
           // Clean up on error
           // this.cleanupPreviousRender();
           return false;
         }
-        
+
         // Clean up after successful render
         // this.cleanupPreviousRender();
       } catch (error) {
@@ -219,28 +221,28 @@ export class CodeProcessor {
 
   private async formatCode(code: string): Promise<string> {
     const { data, error } = await tryCatch(formatCode(code));
-    
+
     if (error) {
       console.error("Error formatting code:", { code });
       throw new Error(`Error formatting code: ${error}`);
     }
-    
+
     return data;
   }
 
   private async transpileCode(code: string): Promise<string> {
     const { data: transpiled, error } = await tryCatch(transpileCode(code));
-    
+
     if (error) {
       console.log("Error Transpiled code:", { code });
       throw new Error(`Error transpiling code: ${error}`);
     }
-    
+
     if (!transpiled) {
       console.log("Error Transpiled code:", { code });
       throw new Error("Transpilation resulted in empty output");
     }
-    
+
     return transpiled;
   }
 
@@ -249,18 +251,18 @@ export class CodeProcessor {
     const { data: renderedApp, error: updateError } = await tryCatch(
       CodeProcessor.renderService.updateRenderedApp({
         transpiled,
-      })
+      }),
     );
-    
+
     if (updateError) {
       console.error("Error updating rendered app:", { transpiled });
       throw new Error(`Error updating rendered app: ${updateError}`);
     }
-    
+
     const { data: result, error: renderError } = await tryCatch(
-      CodeProcessor.renderService.handleRender(renderedApp)
+      CodeProcessor.renderService.handleRender(renderedApp),
     );
-    
+
     if (renderError) {
       console.error("Error handling render:", { transpiled });
       throw new Error(`Error handling render: ${renderError}`);

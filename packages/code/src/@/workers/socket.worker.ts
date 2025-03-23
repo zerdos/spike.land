@@ -13,9 +13,9 @@ import {
   generateSessionPatch,
   sanitizeSession,
 } from "@/lib/common-functions";
-import { tryCatch } from "@/lib/try-catch";
 import type { ICodeSession } from "@/lib/interfaces";
 import type { createDelta } from "@/lib/text-delta";
+import { tryCatch } from "@/lib/try-catch";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type { Socket, SocketDelegate } from "@github/stable-socket";
 import { BufferedSocket, StableSocket } from "@github/stable-socket";
@@ -185,14 +185,16 @@ export async function setConnections(
     });
 
     const { error: sendError } = await tryCatch(
-      Promise.resolve(connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user })))
+      Promise.resolve(
+        connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user })),
+      ),
     );
-    
+
     if (sendError) {
       logger.error(`Error sending patch to WebSocket for ${codeSpace}:`, sendError);
       return;
     }
-    
+
     connection.oldSession = newSession;
 
     const newHashCode = computeSessionHash(newSession);
@@ -305,7 +307,7 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   logger.info(`Fetching initial session for ${codeSpace} from ${url}`);
 
   const { data: response, error: fetchError } = await tryCatch(fetch(url));
-  
+
   if (fetchError) {
     logger.error(`Error fetching initial session for ${codeSpace}:`, fetchError);
     throw fetchError;
@@ -317,8 +319,10 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
     throw new Error(errorMsg);
   }
 
-  const { data: rawSession, error: jsonError } = await tryCatch(response.json() as Promise<ICodeSession>);
-  
+  const { data: rawSession, error: jsonError } = await tryCatch(
+    response.json() as Promise<ICodeSession>,
+  );
+
   if (jsonError) {
     logger.error(`Error parsing JSON for ${codeSpace}:`, jsonError);
     throw jsonError;
@@ -345,12 +349,12 @@ async function handleSocketMessage(
   logger.debug(`Handling socket message for ${codeSpace}, type: ${data.type || "unknown"}`);
 
   const { data: release, error: mutexError } = await tryCatch(mutex.acquire());
-  
+
   if (mutexError) {
     logger.error(`Failed to acquire mutex for ${codeSpace}:`, mutexError);
     return;
   }
-  
+
   logger.debug(`Acquired mutex for ${codeSpace}`);
 
   try {
@@ -373,12 +377,12 @@ async function handleSocketMessage(
 
       logger.info(`Fetching fresh session for ${codeSpace} due to hash mismatch`);
       const { data: sess, error: fetchError } = await tryCatch(fetchInitialSession(codeSpace));
-      
+
       if (fetchError) {
         logger.error(`Failed to fetch fresh session for ${codeSpace}:`, fetchError);
         return;
       }
-      
+
       const hashCode = computeSessionHash(sess);
 
       logger.debug(`Fresh session hash for ${codeSpace}: ${hashCode}`);
@@ -395,9 +399,9 @@ async function handleSocketMessage(
               ...sess,
               sender: SENDER_WORKER_HASH_MATCH,
             } as ICodeSession & { sender: string; },
-          ))
+          )),
         );
-        
+
         if (broadcastError) {
           logger.error(`Failed to broadcast hash match session for ${codeSpace}:`, broadcastError);
         }
@@ -415,15 +419,15 @@ async function handleSocketMessage(
           JSON.stringify(patch).length
         } bytes`,
       );
-      
+
       const { error: sendError } = await tryCatch(
-        Promise.resolve(ws.send(JSON.stringify({ ...patch, name: connection.user })))
+        Promise.resolve(ws.send(JSON.stringify({ ...patch, name: connection.user }))),
       );
-      
+
       if (sendError) {
         logger.error(`Failed to send patch after hash mismatch for ${codeSpace}:`, sendError);
       }
-      
+
       return;
     }
 
@@ -434,12 +438,12 @@ async function handleSocketMessage(
 
       logger.info(`Fetching fresh session for ${codeSpace} due to hash difference`);
       const { data: sess, error: fetchError } = await tryCatch(fetchInitialSession(codeSpace));
-      
+
       if (fetchError) {
         logger.error(`Failed to fetch fresh session for ${codeSpace}:`, fetchError);
         return;
       }
-      
+
       const freshHash = computeSessionHash(sess);
 
       logger.debug(`Fresh session hash for ${codeSpace}: ${freshHash}`);
@@ -456,9 +460,9 @@ async function handleSocketMessage(
               ...sess,
               sender: SENDER_WORKER_HASH_MATCH,
             } as ICodeSession & { sender: string; },
-          ))
+          )),
         );
-        
+
         if (broadcastError) {
           logger.error(`Failed to broadcast hash match session for ${codeSpace}:`, broadcastError);
         }
@@ -480,14 +484,14 @@ async function handleSocketMessage(
 
         const patchStartTime = Date.now();
         const { data: sess, error: patchError } = await tryCatch(
-          Promise.resolve(applySessionDelta(connection.oldSession, data))
+          Promise.resolve(applySessionDelta(connection.oldSession, data)),
         );
-        
+
         if (patchError) {
           logger.error(`Failed to apply session delta for ${codeSpace}:`, patchError);
           return;
         }
-        
+
         logger.log(`Session patch applied for ${codeSpace}`, patchStartTime);
 
         connection.oldSession = sess;
@@ -502,13 +506,13 @@ async function handleSocketMessage(
               ...sess,
               sender,
             } as ICodeSession & { sender: string; },
-          ))
+          )),
         );
-        
+
         if (broadcastError) {
           logger.error(`Failed to broadcast patched session for ${codeSpace}:`, broadcastError);
         }
-        
+
         return;
       } else {
         logger.warn(`Cannot apply patch for ${codeSpace}: hash conditions not met`);
@@ -537,7 +541,7 @@ self.addEventListener("connect", (event: MessageEvent) => {
 
   port.addEventListener("message", async (evt: MessageEvent) => {
     const startTime = Date.now();
-    
+
     const data = evt.data;
     logger.debug(`Received message on port ${portId}, id: ${data.id || "unknown"}`);
 
@@ -577,11 +581,14 @@ self.addEventListener("connect", (event: MessageEvent) => {
         const { error: broadcastError } = await tryCatch(
           Promise.resolve(connection.sessionSynchronizer.broadcastSession(
             sessionWithSender as ICodeSession & { sender: string; },
-          ))
+          )),
         );
-        
+
         if (broadcastError) {
-          logger.error(`Error broadcasting session from port ${portId} for ${session.codeSpace}:`, broadcastError);
+          logger.error(
+            `Error broadcasting session from port ${portId} for ${session.codeSpace}:`,
+            broadcastError,
+          );
         } else {
           logger.debug(`Session broadcast completed for ${session.codeSpace} from port ${portId}`);
         }

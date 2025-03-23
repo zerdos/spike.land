@@ -22,24 +22,22 @@ export interface AppComponentProps {
  * Loads modules that should be available globally
  */
 export const initializeAppEnvironment = async (): Promise<void> => {
-  
-    const [
-      { enhancedFetch },
-      { useArchive, useSpeedy },
-    ] = await Promise.all([
-      import("@/lib/enhanced-fetch"),
-      import("@/lib/use-archive"),
-    ]);
+  const [
+    { enhancedFetch },
+    { useArchive, useSpeedy },
+  ] = await Promise.all([
+    import("@/lib/enhanced-fetch"),
+    import("@/lib/use-archive"),
+  ]);
 
-    // Make utilities available globally for debugging and development
-    Object.assign(globalThis, {
-      enhancedFetch,
-      useArchive,
-      useSpeedy,
-    });
+  // Make utilities available globally for debugging and development
+  Object.assign(globalThis, {
+    enhancedFetch,
+    useArchive,
+    useSpeedy,
+  });
 
-    console.log("App environment initialized successfully");
-  
+  console.log("App environment initialized successfully");
 };
 
 /**
@@ -105,21 +103,18 @@ export const initializeSessionSync = async (
   codeSpace: string,
   cSess: ICode,
 ): Promise<() => void> => {
+  // Make cSess available globally for debugging
+  Object.assign(globalThis, { cSess });
 
-  
-    // Make cSess available globally for debugging
-    Object.assign(globalThis, { cSess });
+  // Initialize session synchronizer
+  const sessionSync = new SessionSynchronizer(codeSpace);
+  await sessionSync.init(await cSess.getSession());
 
-    // Initialize session synchronizer
-    const sessionSync = new SessionSynchronizer(codeSpace);
-    await sessionSync.init(await cSess.getSession());
-
-    // Return the unsubscribe function
-    return sessionSync.subscribe((sess) => {
-      cSess.setSession(sess);
-      // Note: setState callback would be handled by the component
-    });
-  
+  // Return the unsubscribe function
+  return sessionSync.subscribe((sess) => {
+    cSess.setSession(sess);
+    // Note: setState callback would be handled by the component
+  });
 };
 
 /**

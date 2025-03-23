@@ -77,23 +77,23 @@ export class Code implements ICode {
       this.setSession(initializedSession);
       return initializedSession;
     }
-    
+
     const { data: response, error: fetchError } = await tryCatch(
-      fetch(`/api/room/${this.codeSpace}/session.json`)
+      fetch(`/api/room/${this.codeSpace}/session.json`),
     );
-    
+
     if (fetchError) {
       console.error(`Failed to fetch session for ${this.codeSpace}:`, fetchError);
       throw new Error(`Failed to fetch session: ${fetchError.message}`);
     }
-    
+
     const { data: sessionData, error: jsonError } = await tryCatch(response.json());
-    
+
     if (jsonError) {
       console.error(`Failed to parse session JSON for ${this.codeSpace}:`, jsonError);
       throw new Error(`Failed to parse session JSON: ${jsonError.message}`);
     }
-    
+
     const initializedSession = await this.sessionManager.init(sessionData);
     this.setSession(initializedSession);
     return initializedSession;
@@ -251,14 +251,14 @@ export class Code implements ICode {
     this.pendingRun = null;
 
     const { data: result, error } = await tryCatch(this.updateCodeInternal(rawCode, skipRunning));
-    
+
     this.isRunning = false;
-    
+
     if (error) {
       console.error("❌ CodeSession.setCode failed with error:", error);
       return currentCode;
     }
-    
+
     return result;
   }
 
@@ -301,7 +301,7 @@ export class Code implements ICode {
         skipRunning,
         signal,
         () => this.currentSession,
-      )
+      ),
     );
 
     if (processError || !result) {
@@ -326,27 +326,27 @@ export class Code implements ICode {
 
   async setModelsByCurrentCode(newCodes: string): Promise<string> {
     const { data: result, error } = await tryCatch(
-      this.modelManager.updateModelsByCode(newCodes)
+      this.modelManager.updateModelsByCode(newCodes),
     );
-    
+
     if (error) {
       console.error("Failed to update models by code:", error);
       throw error;
     }
-    
+
     return result;
   }
 
   async currentCodeWithExtraModels(): Promise<string> {
     const { data: result, error } = await tryCatch(
-      this.modelManager.getCurrentCodeWithExtraModels()
+      this.modelManager.getCurrentCodeWithExtraModels(),
     );
-    
+
     if (error) {
       console.error("Failed to get current code with extra models:", error);
       throw error;
     }
-    
+
     return result;
   }
 
@@ -356,14 +356,14 @@ export class Code implements ICode {
 
   async release(): Promise<void> {
     this.releaseWorker();
-    
+
     const { error } = await tryCatch(
       Promise.all([
         this.sessionManager.release(),
         this.modelManager.release(),
-      ])
+      ]),
     );
-    
+
     if (error) {
       console.error("Error during release:", error);
     }
@@ -375,7 +375,7 @@ export class Code implements ICode {
 
   async run(): Promise<void> {
     const { error } = await tryCatch(this.init());
-    
+
     if (error) {
       console.error("Failed to initialize during run:", error);
       throw error;
@@ -395,9 +395,9 @@ const codeSessionCache: Record<string, Code> = {};
  */
 async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
   const { data: response, error: fetchError } = await tryCatch(
-    fetch(`/api/room/${codeSpaceId}/session.json`)
+    fetch(`/api/room/${codeSpaceId}/session.json`),
   );
-  
+
   if (fetchError) {
     throw new Error(`Failed to fetch code session: ${fetchError.message}`);
   }
@@ -407,11 +407,11 @@ async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
   }
 
   const { data: sessionData, error: jsonError } = await tryCatch(response.json());
-  
+
   if (jsonError) {
     throw new Error(`Failed to parse code session JSON: ${jsonError.message}`);
   }
-  
+
   return sessionData;
 }
 
@@ -429,26 +429,25 @@ export async function getCodeSession(
   }
 
   // Fetch and create a new session
-  
-    const { data: sessionData, error: fetchError } = await tryCatch(fetchCodeSession(codeSpaceId));
-    
-    if (fetchError) {
-      console.error(`Failed to get code session for ${codeSpaceId}:`, fetchError);
-      throw fetchError;
-    }
-    
-    const codeSession = new Code(sessionData);
-    
-    const { error: initError } = await tryCatch(codeSession.init(sessionData));
-    
-    if (initError) {
-      console.error(`Failed to initialize session for ${codeSpaceId}:`, initError);
-      throw initError;
-    }
 
-    // Cache the session
-    codeSessionCache[codeSpaceId] = codeSession;
+  const { data: sessionData, error: fetchError } = await tryCatch(fetchCodeSession(codeSpaceId));
 
-    return codeSession;
-  
+  if (fetchError) {
+    console.error(`Failed to get code session for ${codeSpaceId}:`, fetchError);
+    throw fetchError;
+  }
+
+  const codeSession = new Code(sessionData);
+
+  const { error: initError } = await tryCatch(codeSession.init(sessionData));
+
+  if (initError) {
+    console.error(`Failed to initialize session for ${codeSpaceId}:`, initError);
+    throw initError;
+  }
+
+  // Cache the session
+  codeSessionCache[codeSpaceId] = codeSession;
+
+  return codeSession;
 }

@@ -177,5 +177,4 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code);
     expect({ result, code }).toMatchSnapshot();
   });
-
 });

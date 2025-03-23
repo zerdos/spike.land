@@ -104,8 +104,8 @@ export interface RenderedApp {
   cssCache: EmotionCache;
   cleanup: () => void;
   toHtmlAndCss: (
-      renderedNew: RenderedApp 
-    ) => Promise<{ css: string; html: string; }> 
+    renderedNew: RenderedApp,
+  ) => Promise<{ css: string; html: string; }>;
 }
 
 export interface ImageData {
