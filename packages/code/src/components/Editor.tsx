@@ -4,11 +4,10 @@ import { prettierToThrow } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { initializeMonaco } from "@/services/editorUtils";
-import React, {  useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { EditorNode } from "./ErrorReminder";
-import { tryCatch } from "@/lib/try-catch";
 
 interface EditorProps {
   codeSpace: string;
@@ -32,89 +31,77 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
-
   const handleContentChange = async (newCode: string) => {
-      if (!session) return;
+    if (!session) return;
 
-      const now = Date.now();
+    const now = Date.now();
 
+    const processChange = async (code: string) => {
+      // Abort previous operation if any
+      controller.current.abort();
+      controller.current = new AbortController();
+      const { signal } = controller.current;
 
-    
-      const processChange = async (code: string) => {
-     
+      const { data: formatted, error } = await tryCatch(prettierToThrow({
+        code,
+        toThrow: false,
+      }));
 
-        
-          // Abort previous operation if any
-          controller.current.abort();
-          controller.current = new AbortController();
-          const { signal } = controller.current;
+      if (error) {
+        console.error("[Editor] Prettier error:", error);
+        return;
+      }
 
-          const {data: formatted, error} = await tryCatch( prettierToThrow({
-            code,
-            toThrow: false,
-          }));
+      if (signal.aborted) return;
 
-          if (error) {
-            console.error("[Editor] Prettier error:", error);
-            return;
-          }
+      const newHash = md5(formatted);
+      const startSync = performance.now();
+
+      // Prevent unnecessary updates
+      if (newHash !== lastHash) {
+        setLastHash(newHash);
 
         // Debounce state updates
         await wait(10);
         if (signal.aborted) return;
 
-          const newHash = md5(formatted);
-          const startSync = performance.now();
+        setEditorState((prev) => ({ ...prev, code: formatted }));
+        const { data: newCode, error: saveError } = await tryCatch(cSess.setCode(formatted));
+        if (saveError) {
+          console.error("[Editor] Error saving code:", saveError);
+          return;
+        }
+        if (newCode !== formatted) {
+          console.error("[Editor] Code mismatch after save:", {
+            newCode,
+            formatted,
+          });
+          return;
+        }
 
-          // Prevent unnecessary updates
-          if (newHash !== lastHash) {
-            setLastHash(newHash);
-
-            // Debounce state updates
-            await wait(10);
-            if (signal.aborted) return;
-
-            setEditorState((prev) => ({ ...prev, code: formatted }));
-            const {data: newCode, error: saveError} = await tryCatch(cSess.setCode(formatted));
-            if (saveError) {
-              console.error("[Editor] Error saving code:", saveError);
-              return;
-            }
-            if (newCode !== formatted) {
-              console.error("[Editor] Code mismatch after save:", {
-                newCode,
-                formatted,
-              });
-              return;
-            }
-
-            const { error: typeErrorError} = await tryCatch(throttledTypeCheck());
-            if (typeErrorError) {
-              console.error("[Editor] Type check error:", typeErrorError);
-              return;
-            }
-          }
-
-          // Update metrics
-          const syncTime = performance.now() - startSync;
-          lifetimeMetrics.current.longestSyncTime = Math.max(
-            lifetimeMetrics.current.longestSyncTime,
-            syncTime,
-          );
-
-          
+        const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
+        if (typeErrorError) {
+          console.error("[Editor] Type check error:", typeErrorError);
+          return;
+        }
       }
-      
 
-      await processChange(newCode);
-      const time = Date.now() - now;
-      console.debug("[Editor] Local change processed:", {
-        time,
-        codeLength: newCode.length,
-        timestamp: new Date().toISOString(),
-      });
-    }
-  
+      // Update metrics
+      const syncTime = performance.now() - startSync;
+      lifetimeMetrics.current.longestSyncTime = Math.max(
+        lifetimeMetrics.current.longestSyncTime,
+        syncTime,
+      );
+    };
+
+    await processChange(newCode);
+    const time = Date.now() - now;
+    console.debug("[Editor] Local change processed:", {
+      time,
+      codeLength: newCode.length,
+      timestamp: new Date().toISOString(),
+    });
+  };
 
   // Track external change metrics
   const externalMetrics = useRef({
