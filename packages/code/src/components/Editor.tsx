@@ -3,10 +3,11 @@ import { md5 } from "@/lib/md5";
 import { prettierToThrow } from "@/lib/shared";
 import { wait } from "@/lib/wait";
 import { initializeMonaco } from "@/services/editorUtils";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {  useEffect, useMemo, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { EditorNode } from "./ErrorReminder";
+import { tryCatch } from "@/lib/try-catch";
 
 interface EditorProps {
   codeSpace: string;
@@ -30,44 +31,32 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
-  // Track performance metrics
-  const metrics = useRef({
-    lastChangeTime: 0,
-    changeCount: 0,
-    skippedCount: 0,
-    lastLogTime: 0,
-  });
 
-  const isProcessingChange = useRef(false);
-  const pendingChange = useRef<string | null>(null);
-
-  const handleContentChange = useCallback(
-    async (newCode: string) => {
+  const handleContentChange = async (newCode: string) => {
       if (!session) return;
 
-      const now = performance.now();
-      metrics.current.lastChangeTime = now;
-      metrics.current.changeCount++;
+      const now = Date.now();
 
-      // If already processing a change, queue this one
-      if (isProcessingChange.current) {
-        pendingChange.current = newCode;
-        return;
-      }
 
+    
       const processChange = async (code: string) => {
-        isProcessingChange.current = true;
+     
 
-        try {
+        
           // Abort previous operation if any
           controller.current.abort();
           controller.current = new AbortController();
           const { signal } = controller.current;
 
-          const formatted = await prettierToThrow({
+          const {data: formatted, error} = await tryCatch( prettierToThrow({
             code,
             toThrow: false,
-          });
+          }));
+
+          if (error) {
+            console.error("[Editor] Prettier error:", error);
+            return;
+          }
 
           if (signal.aborted) return;
 
@@ -79,12 +68,28 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
             setLastHash(newHash);
 
             // Debounce state updates
-            await wait(0);
+            await wait(10);
             if (signal.aborted) return;
 
             setEditorState((prev) => ({ ...prev, code: formatted }));
-            await cSess.setCode(formatted);
-            await throttledTypeCheck();
+            const {data: newCode, error: saveError} = await tryCatch(cSess.setCode(formatted));
+            if (saveError) {
+              console.error("[Editor] Error saving code:", saveError);
+              return;
+            }
+            if (newCode !== formatted) {
+              console.error("[Editor] Code mismatch after save:", {
+                newCode,
+                formatted,
+              });
+              return;
+            }
+
+            const { error: typeErrorError} = await tryCatch(throttledTypeCheck());
+            if (typeErrorError) {
+              console.error("[Editor] Type check error:", typeErrorError);
+              return;
+            }
           }
 
           // Update metrics
@@ -94,35 +99,19 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
             syncTime,
           );
 
-          if (now - metrics.current.lastLogTime > 5000) {
-            console.debug("[Editor] Performance metrics:", {
-              changeCount: metrics.current.changeCount,
-              skippedCount: metrics.current.skippedCount,
-              syncTime,
-              timestamp: new Date().toISOString(),
-            });
-            metrics.current.lastLogTime = now;
-            metrics.current.changeCount = 0;
-            metrics.current.skippedCount = 0;
-          }
-        } catch (e) {
-          console.error("Content change error:", e);
-        } finally {
-          isProcessingChange.current = false;
-
-          // Process any pending change
-          if (pendingChange.current !== null) {
-            const nextChange = pendingChange.current;
-            pendingChange.current = null;
-            await processChange(nextChange);
-          }
-        }
-      };
+          
+      }
+      
 
       await processChange(newCode);
-    },
-    [cSess, session, lastHash, setEditorState, throttledTypeCheck],
-  );
+      const time = Date.now() - now;
+      console.debug("[Editor] Local change processed:", {
+        time,
+        codeLength: newCode.length,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  
 
   // Track external change metrics
   const externalMetrics = useRef({
@@ -306,48 +295,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
   }, [codeSpace]);
 
-  // Consolidated cleanup and metrics tracking
-  useEffect(() => {
-    // Set up metrics update interval
-    const metricsInterval = setInterval(() => {
-      // Update local metrics
-      lifetimeMetrics.current.totalLocalChanges += metrics.current.changeCount;
-      lifetimeMetrics.current.totalSkippedChanges += metrics.current.skippedCount;
-
-      // Update external metrics
-      lifetimeMetrics.current.totalExternalChanges += externalMetrics.current.updateCount;
-      lifetimeMetrics.current.totalSkippedChanges += externalMetrics.current.skippedCount;
-
-      // Reset current counters after capturing their values
-      metrics.current.changeCount = 0;
-      metrics.current.skippedCount = 0;
-      externalMetrics.current.updateCount = 0;
-      externalMetrics.current.skippedCount = 0;
-    }, 5000);
-
-    return () => {
-      // Use requestAnimationFrame to ensure we're not cleaning up during render
-      requestAnimationFrame(() => {
-        // Clear interval
-        clearInterval(metricsInterval);
-
-        // Abort any pending operations
-        controller.current.abort();
-
-        // Final metrics capture
-        metrics.current.changeCount = 0;
-        metrics.current.skippedCount = 0;
-        externalMetrics.current.updateCount = 0;
-        externalMetrics.current.skippedCount = 0;
-
-        // Log cleanup
-        console.debug("[Editor] Component cleanup completed", {
-          codeSpace,
-          timestamp: new Date().toISOString(),
-        });
-      });
-    };
-  }, [codeSpace]);
 
   if (!session) return null;
 
