@@ -684,7 +684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dmsnell/diff-match-patch@npm:^1.1.0":
+"@dmsnell/diff-match-patch@npm:1.1.0, @dmsnell/diff-match-patch@npm:^1.1.0":
   version: 1.1.0
   resolution: "@dmsnell/diff-match-patch@npm:1.1.0"
   checksum: 10/fe4127b57a3f972839688d8b6abf325c2633106a1ee1da900e584c3057ed543797f009749fb6b77879e3dac0096755b09a9a224f9bd97a40eefba8f4665d5ace
@@ -4282,6 +4282,7 @@ __metadata:
     "@clerk/clerk-react": "npm:5.25.5"
     "@clerk/nextjs": "npm:6.12.12"
     "@cloudflare/workers-types": "npm:4.20250327.0"
+    "@dmsnell/diff-match-patch": "npm:1.1.0"
     "@emotion/babel-plugin": "npm:11.13.5"
     "@emotion/cache": "npm:11.14.0"
     "@emotion/css-prettifier": "npm:1.2.0"
@@ -4394,7 +4395,6 @@ __metadata:
     date-fns: "npm:4.1.0"
     detective-typescript: "npm:14.0.0"
     diff: "npm:7.0.0"
-    diff-match-patch: "npm:1.0.5"
     embla-carousel-react: "npm:8.5.2"
     encode-utf8: "npm:^2.0.0"
     esbuild: "npm:0.25.1"
@@ -8851,13 +8851,6 @@ __metadata:
   version: 0.0.1159816
   resolution: "devtools-protocol@npm:0.0.1159816"
   checksum: 10/e09d52944a3c5a61ea0bd80244cf323a2ef944527e20f08683e284ccc48b9970ec4cb2ec6dac948662654d58c3bee55c4e3b2896adfa3fe04c03bf626defe052
-  languageName: node
-  linkType: hard
-
-"diff-match-patch@npm:1.0.5":
-  version: 1.0.5
-  resolution: "diff-match-patch@npm:1.0.5"
-  checksum: 10/fd1ab417eba9559bda752a4dfc9a8ac73fa2ca8b146d29d153964b437168e301c09d8a688fae0cd81d32dc6508a4918a94614213c85df760793f44e245173bb6
   languageName: node
   linkType: hard
 
