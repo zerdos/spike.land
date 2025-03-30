@@ -41,9 +41,12 @@ describe("StartWithPrompt", () => {
     render(<StartWithPrompt />);
     const textarea = screen.getByPlaceholderText(
       "Enter your prompt here or paste an image...",
-    );
+    ) as HTMLTextAreaElement;
+    
     await userEvent.type(textarea, "Test prompt");
-    expect(textarea).toHaveValue("Test prompt");
+    
+    // Check using the value property directly
+    expect(textarea.value).toBe("Test prompt");
   });
 
   it("shows upload image button", () => {
@@ -104,11 +107,15 @@ describe("StartWithPrompt", () => {
     (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
       isDarkMode: true,
     });
+    
     const { container } = render(<StartWithPrompt />);
-
-    expect(container.firstChild).toHaveClass(
-      "bg-gradient-to-br from-gray-900 to-gray-800 text-white",
-    );
+    
+    // Use a simpler selector to verify dark mode styles
+    const mainElement = container.firstChild as HTMLElement;
+    expect(mainElement.className).toContain("bg-gradient-to-br");
+    expect(mainElement.className).toContain("from-gray-900");
+    expect(mainElement.className).toContain("to-gray-800");
+    expect(mainElement.className).toContain("text-white");
   });
 
   it("removes an image when the remove button is clicked", async () => {
@@ -125,9 +132,15 @@ describe("StartWithPrompt", () => {
     // Upload an image
     await userEvent.upload(fileInput, file);
 
-    // Wait for the image to be added
+    // Wait for the image to be added - use a combination of queries
     await waitFor(() => {
-      expect(screen.getByAltText("Uploaded 0")).toBeInTheDocument();
+      // First check for the image container
+      const imageGallery = container.querySelector(".flex.flex-wrap.gap-4.mt-4");
+      expect(imageGallery?.children.length).toBeGreaterThan(0);
+      
+      // Then check for the image element
+      const uploadedImage = container.querySelector('img[alt="Uploaded 0"]');
+      expect(uploadedImage).not.toBeNull();
     });
 
     // Find and click the remove button
@@ -136,7 +149,8 @@ describe("StartWithPrompt", () => {
 
     // Check if the image is removed
     await waitFor(() => {
-      expect(screen.queryByAltText("Uploaded 0")).toBeNull();
+      const uploadedImage = container.querySelector('img[alt="Uploaded 0"]');
+      expect(uploadedImage).toBeNull();
     });
   });
 
