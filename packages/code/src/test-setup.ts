@@ -1,5 +1,4 @@
-import "@testing-library/jest-dom";
-import { vi } from 'vitest';
+import { vi } from 'vitest'
 
 // Mock matchMedia for all tests
 Object.defineProperty(window, 'matchMedia', {
@@ -16,10 +15,4 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Mock URL.createObjectURL which is not available in jsdom
-if (!window.URL.createObjectURL) {
-  Object.defineProperty(window.URL, 'createObjectURL', {
-    writable: true,
-    value: vi.fn().mockImplementation(_blob => 'mock-blob-url'),
-  });
-}
+// Add other global mocks here if needed 
