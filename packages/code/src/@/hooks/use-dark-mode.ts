@@ -8,7 +8,13 @@ export const useDarkMode = () => {
     if (storedDarkMode !== null) {
       return storedDarkMode === "true";
     } else {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (!window.matchMedia || typeof window.matchMedia !== 'function') return false;
+      
+      try {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      } catch (e) {
+        return false;
+      }
     }
   };
 
@@ -18,18 +24,24 @@ export const useDarkMode = () => {
   );
 
   useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    );
+    if (!window.matchMedia || typeof window.matchMedia !== 'function') return;
+    
+    try {
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      );
 
-    const handleChange = (event: MediaQueryListEvent) => {
-      if (localStorage.getItem("darkMode") === null) {
-        setIsDarkMode(event.matches);
-      }
-    };
+      const handleChange = (event: MediaQueryListEvent) => {
+        if (localStorage.getItem("darkMode") === null) {
+          setIsDarkMode(event.matches);
+        }
+      };
 
-    darkModeMediaQuery.addEventListener("change", handleChange);
-    return () => darkModeMediaQuery.removeEventListener("change", handleChange);
+      darkModeMediaQuery.addEventListener("change", handleChange);
+      return () => darkModeMediaQuery.removeEventListener("change", handleChange);
+    } catch (e) {
+      return;
+    }
   }, [setIsDarkMode]);
 
   useEffect(() => {
