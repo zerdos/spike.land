@@ -8,6 +8,7 @@ export type {
   MessagePart,
   RenderedApp,
 } from "@/lib/interfaces.ts";
+export { tryCatch } from "@/lib/try-catch.ts";
 import HTML from "./index.html";
 
 export { HTML };

@@ -1,5 +1,5 @@
 import type { ICodeSession } from "@spike-npm-land/code";
-import { applySessionDelta, computeSessionHash } from "@spike-npm-land/code";
+import { applySessionDelta, computeSessionHash, tryCatch } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
 export interface WebsocketSession {
@@ -7,7 +7,8 @@ export interface WebsocketSession {
   name?: string;
   quit: boolean;
   subscribedTopics: Set<string>;
-  pongReceived: boolean;
+  lastPingTime?: number;
+  lastPongTime?: number;
   blockedMessages: any[];
 }
 
@@ -39,7 +40,7 @@ export class WebSocketHandler {
       webSocket,
       quit: false,
       subscribedTopics: new Set(),
-      pongReceived: true,
+      lastPongTime: Date.now(),
       blockedMessages: [],
     };
 
@@ -53,19 +54,27 @@ export class WebSocketHandler {
 
     // Setup ping interval
     const pingInterval = setInterval(() => {
-      if (!session.pongReceived) {
-        webSocket.close();
-        clearInterval(pingInterval);
-        return;
+      const now = Date.now();
+      const pingTimeout = 30000; // 30 seconds timeout
+
+      // Only check for timeout if we've sent at least one ping
+      if (session.lastPingTime) {
+        // Check if the last pong is older than our ping timeout
+        if (!session.lastPongTime || (now - session.lastPongTime) > pingTimeout) {
+          // No pong received within timeout period, close the connection
+          webSocket.close();
+          clearInterval(pingInterval);
+          return;
+        }
       }
-      session.pongReceived = false;
+
+      // Send a new ping and record the time
+      session.lastPingTime = now;
       webSocket.send(JSON.stringify({ type: "ping" }));
     }, 30000);
 
     // Handle messages
-    webSocket.addEventListener("message", (msg: MessageEvent) => {
-      this.processWsMessage(msg, session);
-    });
+    webSocket.onmessage = (msg: MessageEvent) => this.processWsMessage(msg, session);
 
     // Handle close
     webSocket.addEventListener("close", () => {
@@ -87,7 +96,7 @@ export class WebSocketHandler {
     }
 
     if (data.type === "pong") {
-      session.pongReceived = true;
+      session.lastPongTime = Date.now();
       return;
     }
 
@@ -126,36 +135,34 @@ export class WebSocketHandler {
     }
 
     if (data.patch) {
-      try {
-        const currentSession = this.code.getSession();
-        const currentHash = computeSessionHash(currentSession);
+      const currentSession = this.code.getSession();
+      const currentHash = computeSessionHash(currentSession);
 
-        if (currentHash !== data.oldHash) {
-          console.error("Hash mismatch");
-          session.webSocket.send(JSON.stringify({
-            type: "error",
-            message: "Session hash mismatch",
-          }));
-          return;
-        }
-
-        const patchedSession = applySessionDelta(currentSession, data);
-        await this.code.updateAndBroadcastSession(patchedSession);
-
-        session.webSocket.send(JSON.stringify({
-          type: "ack",
-          hashCode: computeSessionHash(patchedSession),
-        }));
-      } catch (error) {
-        console.error("Error applying patch:", error);
-        const errorMessage = error instanceof Error
-          ? error.message
-          : "Unknown error";
+      if (currentHash !== data.oldHash) {
+        console.error("Hash mismatch");
         session.webSocket.send(JSON.stringify({
           type: "error",
-          message: "Failed to apply patch " + errorMessage,
+          message: "Session hash mismatch",
         }));
+        return;
       }
+
+      const patchedSession = applySessionDelta(currentSession, data);
+      const { error } = await tryCatch(this.code.updateAndBroadcastSession(patchedSession));
+      if (error) {
+        session.webSocket.send(JSON.stringify({
+          type: "error",
+          message: "Failed to apply patch " + error.message,
+        }));
+        return;
+      }
+
+      // Only send acknowledgment if no error occurred
+      session.webSocket.send(JSON.stringify({
+        type: "ack",
+        hashCode: computeSessionHash(patchedSession),
+      }));
+
       return;
     }
 

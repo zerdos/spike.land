@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
-import { vi, afterEach } from 'vitest';
+import { afterEach, vi } from "vitest";
 
 // Mock matchMedia for all tests
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
     matches: false,
@@ -18,25 +18,42 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock URL.createObjectURL which is not available in jsdom
 if (!window.URL.createObjectURL) {
-  Object.defineProperty(window.URL, 'createObjectURL', {
+  Object.defineProperty(window.URL, "createObjectURL", {
     writable: true,
-    value: vi.fn().mockImplementation(_blob => 'mock-blob-url'),
+    value: vi.fn().mockImplementation(_blob => "mock-blob-url"),
   });
 }
 
 // Fix for "Right-hand side of 'instanceof' is not an object" error in React
-class MockHTMLElement {}
-class MockElement extends MockHTMLElement {}
-class MockHTMLInputElement extends MockHTMLElement {}
-class MockHTMLTextAreaElement extends MockHTMLElement {}
-class MockHTMLSelectElement extends MockHTMLElement {}
+// Only define these if they don't already exist to avoid breaking instanceof checks
+if (!global.HTMLElement) {
+  const MockHTMLElement = function() {} as any;
+  global.HTMLElement = MockHTMLElement;
+}
 
-// Create proper instanceof checks for DOM elements
-global.HTMLElement = MockHTMLElement as any;
-global.Element = MockElement as any;
-global.HTMLInputElement = MockHTMLInputElement as any;
-global.HTMLTextAreaElement = MockHTMLTextAreaElement as any;
-global.HTMLSelectElement = MockHTMLSelectElement as any;
+if (!global.Element) {
+  const MockElement = function() {} as any;
+  Object.setPrototypeOf(MockElement.prototype, global.HTMLElement.prototype);
+  global.Element = MockElement;
+}
+
+if (!global.HTMLInputElement) {
+  const MockHTMLInputElement = function() {} as any;
+  Object.setPrototypeOf(MockHTMLInputElement.prototype, global.HTMLElement.prototype);
+  global.HTMLInputElement = MockHTMLInputElement;
+}
+
+if (!global.HTMLTextAreaElement) {
+  const MockHTMLTextAreaElement = function() {} as any;
+  Object.setPrototypeOf(MockHTMLTextAreaElement.prototype, global.HTMLElement.prototype);
+  global.HTMLTextAreaElement = MockHTMLTextAreaElement;
+}
+
+if (!global.HTMLSelectElement) {
+  const MockHTMLSelectElement = function() {} as any;
+  Object.setPrototypeOf(MockHTMLSelectElement.prototype, global.HTMLElement.prototype);
+  global.HTMLSelectElement = MockHTMLSelectElement;
+}
 
 // This helps ensure all assertions are cleaned up properly
 afterEach(() => {

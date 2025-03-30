@@ -8,8 +8,8 @@ export const useDarkMode = () => {
     if (storedDarkMode !== null) {
       return storedDarkMode === "true";
     } else {
-      if (!window.matchMedia || typeof window.matchMedia !== 'function') return false;
-      
+      if (!window.matchMedia || typeof window.matchMedia !== "function") return false;
+
       try {
         return window.matchMedia("(prefers-color-scheme: dark)").matches;
       } catch (e) {
@@ -24,8 +24,8 @@ export const useDarkMode = () => {
   );
 
   useEffect(() => {
-    if (!window.matchMedia || typeof window.matchMedia !== 'function') return;
-    
+    if (!window.matchMedia || typeof window.matchMedia !== "function") return;
+
     try {
       const darkModeMediaQuery = window.matchMedia(
         "(prefers-color-scheme: dark)",

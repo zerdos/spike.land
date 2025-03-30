@@ -241,7 +241,7 @@ describe("ChatInterface", () => {
           cSess={mockSession}
           onClose={vi.fn()}
         />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     // First make sure the chat drawer is rendered

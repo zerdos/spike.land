@@ -1,5 +1,5 @@
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
-import { render, screen, waitFor, cleanup } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { router as baseRouter } from "../router";
 
@@ -57,7 +57,7 @@ describe("Router Configuration", () => {
     cleanup(); // Make sure React testing cleanup runs after each test
     vi.restoreAllMocks();
   });
-  
+
   // This ensures the test environment is cleaned up properly after all tests
   afterAll(() => {
     cleanup();
@@ -74,7 +74,7 @@ describe("Router Configuration", () => {
     await waitFor(() => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
-    
+
     unmount(); // Make sure to unmount the component
   });
 
@@ -89,7 +89,7 @@ describe("Router Configuration", () => {
     await waitFor(() => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
-    
+
     unmount(); // Make sure to unmount the component
   });
 
@@ -106,7 +106,7 @@ describe("Router Configuration", () => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
       expect(router.state.location.search).toContain(page);
     });
-    
+
     unmount(); // Make sure to unmount the component
   });
 
@@ -132,7 +132,7 @@ describe("Router Configuration", () => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
       expect(router.state.location.search).toContain(page);
     });
-    
+
     unmount(); // Make sure to unmount the component
   });
 
@@ -149,7 +149,7 @@ describe("Router Configuration", () => {
     await waitFor(() => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
-    
+
     unmount(); // Make sure to unmount the component
   });
 });
