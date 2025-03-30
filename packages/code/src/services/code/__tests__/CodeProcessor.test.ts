@@ -57,7 +57,7 @@ describe("CodeProcessor", () => {
     vi.clearAllMocks();
 
     // Mock matchMedia for tests
-    Object.defineProperty(window, 'matchMedia', {
+    Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: vi.fn().mockImplementation(query => ({
         matches: false,
@@ -156,21 +156,21 @@ describe("CodeProcessor", () => {
           requestId: "md5-hash", // This would be the md5 of the transpiled code
           data: {
             html: "<div>Mocked HTML</div>",
-            css: "/* Mocked CSS */"
-          }
-        }
+            css: "/* Mocked CSS */",
+          },
+        },
       };
 
       // Mock URL.createObjectURL
       global.URL.createObjectURL = vi.fn().mockReturnValue("mock-blob-url");
-      
+
       // Mock document methods
       document.createElement = vi.fn().mockImplementation((tagName) => {
-        if (tagName === 'iframe') {
+        if (tagName === "iframe") {
           return {
             style: {},
-            srcdoc: '',
-            parentNode: { removeChild: vi.fn() }
+            srcdoc: "",
+            parentNode: { removeChild: vi.fn() },
           };
         }
         return {};
@@ -259,7 +259,7 @@ describe("CodeProcessor", () => {
       // Mock createRoot to avoid DOM element errors
       const mockRoot = {
         render: vi.fn(),
-        unmount: vi.fn()
+        unmount: vi.fn(),
       };
       (createRoot as any).mockReturnValue(mockRoot);
 
@@ -297,7 +297,7 @@ describe("CodeProcessor", () => {
       // Mock createRoot to avoid DOM element errors
       const mockRoot = {
         render: vi.fn(),
-        unmount: vi.fn()
+        unmount: vi.fn(),
       };
       (createRoot as any).mockReturnValue(mockRoot);
 
@@ -313,14 +313,14 @@ describe("CodeProcessor", () => {
       vi.mocked(RenderService.prototype.updateRenderedApp).mockResolvedValue(
         mockRenderedApp,
       );
-      
+
       // Mock handleRender to throw an error
       vi.mocked(RenderService.prototype.handleRender).mockRejectedValue(
-        new Error("Render failed")
+        new Error("Render failed"),
       );
 
       await expect(codeProcessor.runCode(mockTranspiled)).rejects.toThrow(
-        "Render failed"
+        "Render failed",
       );
     });
   });

@@ -67,7 +67,7 @@ describe("Wrapper", () => {
     container = document.createElement("div");
     document.body.appendChild(container);
     vi.clearAllMocks();
-    
+
     // Mock iframe-related methods
     Element.prototype.getBoundingClientRect = vi.fn(() => ({
       width: 100,

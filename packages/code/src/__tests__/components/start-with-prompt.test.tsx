@@ -42,9 +42,9 @@ describe("StartWithPrompt", () => {
     const textarea = screen.getByPlaceholderText(
       "Enter your prompt here or paste an image...",
     ) as HTMLTextAreaElement;
-    
+
     await userEvent.type(textarea, "Test prompt");
-    
+
     // Check using the value property directly
     expect(textarea.value).toBe("Test prompt");
   });
@@ -107,9 +107,9 @@ describe("StartWithPrompt", () => {
     (useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
       isDarkMode: true,
     });
-    
+
     const { container } = render(<StartWithPrompt />);
-    
+
     // Use a simpler selector to verify dark mode styles
     const mainElement = container.firstChild as HTMLElement;
     expect(mainElement.className).toContain("bg-gradient-to-br");
@@ -137,7 +137,7 @@ describe("StartWithPrompt", () => {
       // First check for the image container
       const imageGallery = container.querySelector(".flex.flex-wrap.gap-4.mt-4");
       expect(imageGallery?.children.length).toBeGreaterThan(0);
-      
+
       // Then check for the image element
       const uploadedImage = container.querySelector('img[alt="Uploaded 0"]');
       expect(uploadedImage).not.toBeNull();
