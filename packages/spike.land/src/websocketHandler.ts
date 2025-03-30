@@ -70,7 +70,8 @@ export class WebSocketHandler {
 
       // Send a new ping and record the time
       session.lastPingTime = now;
-      webSocket.send(JSON.stringify({ type: "ping" }));
+      const hashCode = computeSessionHash(this.code.getSession());
+      webSocket.send(JSON.stringify({ type: "ping", hashCode }));
     }, 30000);
 
     // Handle messages
@@ -108,6 +109,12 @@ export class WebSocketHandler {
         }
         this.topics.get(topic)?.add(session.webSocket);
       }
+      // Send acknowledgment for subscribe
+      session.webSocket.send(JSON.stringify({
+        type: "ack",
+        action: "subscribe",
+        topics: data.topics
+      }));
       return;
     }
 
@@ -116,6 +123,12 @@ export class WebSocketHandler {
         session.subscribedTopics.delete(topic);
         this.topics.get(topic)?.delete(session.webSocket);
       }
+      // Send acknowledgment for unsubscribe
+      session.webSocket.send(JSON.stringify({
+        type: "ack",
+        action: "unsubscribe",
+        topics: data.topics
+      }));
       return;
     }
 
@@ -131,10 +144,16 @@ export class WebSocketHandler {
           subscriber.send(message);
         }
       }
+      // Send acknowledgment for publish
+      session.webSocket.send(JSON.stringify({
+        type: "ack",
+        action: "publish",
+        topic: data.topic
+      }));
       return;
     }
 
-    if (data.patch) {
+    if (data.oldHash) {
       const currentSession = this.code.getSession();
       const currentHash = computeSessionHash(currentSession);
 
@@ -174,9 +193,22 @@ export class WebSocketHandler {
       return;
     }
 
-    if (data.name) {
+    if (data.name && session.name !== data.name) {
       session.name = data.name;
+      // Send acknowledgment for name update
+      session.webSocket.send(JSON.stringify({
+        type: "ack",
+        action: "nameUpdate",
+        name: data.name
+      }));
     }
+    
+    // Add catch-all response for any unhandled message types
+    session.webSocket.send(JSON.stringify({
+      type: "ack",
+      message: "Message received",
+      receivedType: data.type || "unknown"
+    }));
   };
 
   getActiveUsers(codeSpace: string): string[] {
