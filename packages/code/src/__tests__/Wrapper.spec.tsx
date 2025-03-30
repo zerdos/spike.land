@@ -50,14 +50,36 @@ vi.mock("@/components/app/wrapper", async () => {
   };
 });
 
+// Mock document.createElement for the iframe
+vi.mock("react-dom", () => {
+  return {
+    createPortal: vi.fn((children) => children),
+  };
+});
+
+// Mock URL.createObjectURL
+global.URL.createObjectURL = vi.fn(() => "blob:mock-url");
+
 describe("Wrapper", () => {
   let container: HTMLElement;
-  URL.createObjectURL = vi.fn();
 
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
     vi.clearAllMocks();
+    
+    // Mock iframe-related methods
+    Element.prototype.getBoundingClientRect = vi.fn(() => ({
+      width: 100,
+      height: 100,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => {},
+    }));
   });
 
   afterEach(() => {
@@ -69,8 +91,7 @@ describe("Wrapper", () => {
       render(<Wrapper code="export default ()=><>Test</>" />, { container });
     });
 
-    await waitFor(() => {
-      expect(screen.getByTestId("wrapper-container")).toBeInTheDocument();
-    }, { timeout: 10000 });
+    // Use a more reliable way to check for rendering
+    expect(container.querySelector('[data-testid="wrapper-container"]')).not.toBeNull();
   }, 15000);
 });

@@ -1,6 +1,6 @@
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
-import { render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor, cleanup } from "@testing-library/react";
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { router as baseRouter } from "../router";
 
 // Mock components
@@ -52,8 +52,15 @@ describe("Router Configuration", () => {
     router = createTestRouter();
   });
 
+  // Clean up after each test to avoid lingering effects
   afterEach(() => {
+    cleanup(); // Make sure React testing cleanup runs after each test
     vi.restoreAllMocks();
+  });
+  
+  // This ensures the test environment is cleaned up properly after all tests
+  afterAll(() => {
+    cleanup();
   });
 
   it("should handle editor route with code space parameter", async () => {
@@ -62,12 +69,13 @@ describe("Router Configuration", () => {
       params: { codeSpace },
     });
 
-    render(<RouterProvider router={router} />);
+    const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      // expect(screen.getByTestId('live-page')).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
+    
+    unmount(); // Make sure to unmount the component
   });
 
   it("should handle live page route", async () => {
@@ -76,12 +84,13 @@ describe("Router Configuration", () => {
       params: { codeSpace },
     });
 
-    render(<RouterProvider router={router} />);
+    const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      // expect(screen.getByTestId('live-page')).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
+    
+    unmount(); // Make sure to unmount the component
   });
 
   it.skip("should handle live page route with parameters", async () => {
@@ -91,13 +100,14 @@ describe("Router Configuration", () => {
       search: { page },
     });
 
-    render(<RouterProvider router={router} />);
+    const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      // expect(screen.getByTestId('live-page')).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
       expect(router.state.location.search).toContain(page);
     });
+    
+    unmount(); // Make sure to unmount the component
   });
 
   it.skip("should handle multiple route navigations", async () => {
@@ -106,10 +116,9 @@ describe("Router Configuration", () => {
       params: { codeSpace },
     });
 
-    render(<RouterProvider router={router} />);
+    const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      // expect(screen.getByTestId('live-page')).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
     });
 
@@ -123,6 +132,8 @@ describe("Router Configuration", () => {
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
       expect(router.state.location.search).toContain(page);
     });
+    
+    unmount(); // Make sure to unmount the component
   });
 
   it("should initialize app for editor route", async () => {
@@ -133,12 +144,12 @@ describe("Router Configuration", () => {
       params: { codeSpace },
     });
 
-    render(<RouterProvider router={router} />);
+    const { unmount } = render(<RouterProvider router={router} />);
 
     await waitFor(() => {
-      // expect(screen.getByTestId('live-page')).toBeInTheDocument();
       expect(router.state.location.pathname).toBe(`/live/${codeSpace}`);
-      // expect(initializeApp).toHaveBeenCalled();
     });
+    
+    unmount(); // Make sure to unmount the component
   });
 });

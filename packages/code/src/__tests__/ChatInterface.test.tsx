@@ -39,8 +39,8 @@ vi.mock("@/components/app/chat-drawer", () => ({
 import { ChatInterface } from "@/../ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
-import { fireEvent } from "@testing-library/dom";
-import { render } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/dom";
+import { render, screen } from "@testing-library/react";
 import { act } from "react";
 
 // Mock BroadcastChannel with proper event handling
@@ -233,18 +233,26 @@ describe("ChatInterface", () => {
     ];
     mockSession = createMockSession(initialMessages);
 
-    const { getByTestId } = renderWithContext(
-      <ChatInterface
-        isOpen={true}
-        codeSpace="test-space"
-        cSess={mockSession}
-        onClose={vi.fn()}
-      />,
+    render(
+      <ThemeProvider>
+        <ChatInterface
+          isOpen={true}
+          codeSpace="test-space"
+          cSess={mockSession}
+          onClose={vi.fn()}
+        />
+      </ThemeProvider>
     );
 
+    // First make sure the chat drawer is rendered
+    const chatDrawer = await screen.findByTestId("chat-drawer");
+    expect(chatDrawer).toBeTruthy();
+
+    // Then find the reset button
+    const resetButton = await screen.findByTestId("reset-chat-button");
+    expect(resetButton).toBeTruthy();
+
     await act(async () => {
-      const resetButton = getByTestId("reset-chat-button");
-      expect(resetButton).toBeInTheDocument();
       fireEvent.click(resetButton);
     });
 
