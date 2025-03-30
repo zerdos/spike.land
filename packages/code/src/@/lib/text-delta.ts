@@ -1,4 +1,4 @@
-import { diff_match_patch as DiffMatchPatch } from "diff-match-patch";
+import { diff_match_patch as DiffMatchPatch } from "@dmsnell/diff-match-patch";
 import { create as createDiffPatch } from "jsondiffpatch";
 // Configure jsondiffpatch to produce as small deltas as possible.
 
