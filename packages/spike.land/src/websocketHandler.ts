@@ -113,7 +113,7 @@ export class WebSocketHandler {
       session.webSocket.send(JSON.stringify({
         type: "ack",
         action: "subscribe",
-        topics: data.topics
+        topics: data.topics,
       }));
       return;
     }
@@ -127,7 +127,7 @@ export class WebSocketHandler {
       session.webSocket.send(JSON.stringify({
         type: "ack",
         action: "unsubscribe",
-        topics: data.topics
+        topics: data.topics,
       }));
       return;
     }
@@ -148,7 +148,7 @@ export class WebSocketHandler {
       session.webSocket.send(JSON.stringify({
         type: "ack",
         action: "publish",
-        topic: data.topic
+        topic: data.topic,
       }));
       return;
     }
@@ -199,15 +199,15 @@ export class WebSocketHandler {
       session.webSocket.send(JSON.stringify({
         type: "ack",
         action: "nameUpdate",
-        name: data.name
+        name: data.name,
       }));
     }
-    
+
     // Add catch-all response for any unhandled message types
     session.webSocket.send(JSON.stringify({
       type: "ack",
       message: "Message received",
-      receivedType: data.type || "unknown"
+      receivedType: data.type || "unknown",
     }));
   };
 
