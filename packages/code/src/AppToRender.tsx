@@ -16,8 +16,8 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 
-import { type AppComponentProps } from "./app-loader";
 import { cn } from "@/lib/utils";
+import { type AppComponentProps } from "./app-loader";
 
 /**
  * User info component that displays authentication status

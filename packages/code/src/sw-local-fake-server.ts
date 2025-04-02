@@ -99,16 +99,16 @@ async function handleEditorResponse(codeSpace: string) {
 async function handleHtmlResponse(session: ICodeSession) {
   // Fetch index.html content
   const htmlResponse = await fetch("/index.html");
-   if (!htmlResponse.ok) {
-     return new Response("Failed to fetch base HTML", { status: 500 });
-   }
+  if (!htmlResponse.ok) {
+    return new Response("Failed to fetch base HTML", { status: 500 });
+  }
   const baseHtml = await htmlResponse.text();
 
   const { codeSpace, html, css } = session;
   // Use fetched baseHtml instead of the imported variable
-  const respText = baseHtml.replace('${JSON.stringify(importMap)}', JSON.stringify(importMap))
-    .replaceAll('${codeSpace}', codeSpace).replace('/* criticalCss */', css).replace(
-      '${html}',
+  const respText = baseHtml.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
+    .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
+      "${html}",
       html,
     );
 

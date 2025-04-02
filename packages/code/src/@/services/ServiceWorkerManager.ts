@@ -1,9 +1,6 @@
-
-import type { IServiceWorkerManager } from "@/services/types";
 import { swVersion } from "@/lib/sw-version";
+import type { IServiceWorkerManager } from "@/services/types";
 import type { Workbox } from "workbox-window";
-
-
 
 /**
  * Type definitions for global window extensions
@@ -13,8 +10,6 @@ declare global {
     __WB_INSTANCE?: Workbox;
   }
 }
-
-
 
 export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {
   console.log("Setting up service worker...");
@@ -166,6 +161,5 @@ export class ServiceWorkerManager implements IServiceWorkerManager {
     }
   }
 }
-
 
 Object.assign(window, { setupServiceWorker });

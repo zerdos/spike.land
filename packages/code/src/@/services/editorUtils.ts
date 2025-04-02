@@ -1,6 +1,7 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { prettierToThrow, transpile } from "@/lib/shared";
+import { tryCatch } from "@/lib/try-catch";
 import type { RunMessageResult } from "./types";
 
 export interface EditorState {
@@ -246,5 +247,19 @@ export async function initializeMonaco(
   options: EditorInitOptions,
 ): Promise<EditorInstance> {
   const { startMonaco } = await import("@/components/app/monaco-edi");
-  return await startMonaco(options);
+  const { data, error } = await tryCatch(startMonaco(options));
+  if (error) {
+    throw new Error(`Monaco initialization failed: ${error}`);
+  }
+  if (!data) {
+    throw new Error("Monaco initialization failed: No data returned");
+  }
+  const { getValue, silent, getErrors, isEdit, setValue } = data;
+  return {
+    getValue,
+    silent,
+    getErrors,
+    isEdit,
+    setValue,
+  };
 }

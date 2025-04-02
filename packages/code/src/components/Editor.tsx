@@ -23,11 +23,28 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
   // Initialize session with optimized state tracking
   useEffect(() => {
-    cSess.getSession().then((initialSession) => {
-      setSession(initialSession);
-      setLastHash(md5(initialSession.code));
-    });
-  }, [cSess]);
+    if (!cSess) {
+      console.error("[Editor] Code session is null");
+      return;
+    }
+
+    const sortSession = async () => {
+      const { data: sortedSession, error } = await tryCatch(
+        cSess.getSession(),
+      );
+      if (error) {
+        console.error("[Editor] Error fetching session:", error);
+        return;
+      }
+      if (!sortedSession) {
+        console.error("[Editor] Sorted session is null");
+        return;
+      }
+      setSession(sortedSession);
+      setLastHash(md5(sortedSession.code));
+    };
+    sortSession();
+  }, []);
 
   const initializeEditor = useMemo(() => initializeMonaco, []);
 
@@ -225,9 +242,17 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           code: session.code,
           onChange: handleContentChange,
         }));
-        
+
         if (error) {
           console.error("[Editor] Initialization error:", error);
+          return;
+        }
+        if (!setValue) {
+          console.error("[Editor] setValue is null");
+          return;
+        }
+        if (typeof setValue !== "function") {
+          console.error("[Editor] setValue is not a function");
           return;
         }
 

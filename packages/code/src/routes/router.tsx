@@ -1,6 +1,5 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { initializeSessionSync, loadApp } from "../app-loader";
 import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import {
@@ -12,6 +11,7 @@ import {
   RouterProvider,
 } from "@tanstack/react-router";
 import { createContext, useEffect, useState } from "react";
+import { initializeSessionSync, loadApp } from "../app-loader";
 // init()
 // Define route types
 interface RouteWithPageParams {
@@ -42,8 +42,7 @@ Object.keys(routes).forEach((path) => {
   const landingRoute = createRoute({
     getParentRoute: () => rootRoute,
     path,
-    component: () => <Wrapper codeSpace={routes[path as keyof typeof routes]} />
-    
+    component: () => <Wrapper codeSpace={routes[path as keyof typeof routes]} />,
   });
 
   dynamicRoutes.push(landingRoute);
