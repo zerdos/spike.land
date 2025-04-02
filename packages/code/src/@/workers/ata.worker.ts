@@ -170,17 +170,17 @@ export async function ata({
       const resolvedTypingsPath = typingsPath === "index.d.mts"
         ? "index.d.ts"
         : typingsPath;
-      const typingsUrl = `https://unpkg.com/${npmPackage}/${resolvedTypingsPath}`;
+      const typingsUrl = `${originToUse}/${npmPackage}/${resolvedTypingsPath}`;
       const typingsResp = await queuedFetch.fetch(typingsUrl, {
         redirect: "follow",
       });
       if (!typingsResp.ok) return;
 
-      const content = (await typingsResp.text()).split("https://unpkg.com/")
+      const content = (await typingsResp.text()).split(originToUse)
         .join("");
       if (!content || content.startsWith("Cannot find")) return;
 
-      const typeUrl = typingsResp.url.replace("https://unpkg.com", originToUse);
+      const typeUrl = typingsResp.url;
       impRes[
         resolvedTypingsPath === "index.d.ts"
           ? npmPackage
@@ -417,7 +417,6 @@ async function generateExtraLibs(
   return Promise.all(
     entries.map(async (x) => {
       const filePath = impRes[x].url
-        .replace("https://unpkg.com", originToUse)
         .replace(originToUse, "");
       const content = impRes[x].content
         .split(`import mod from "/`).join(`import mod from "`)

@@ -38,11 +38,6 @@ export const fetchPlugin = (origin: string) => ({
       };
     });
 
-    // When a URL is loaded, we want to actually download the content
-    // from the internet. This has just enough logic to be able to
-    // handle the example import from unpkg.com but in reality this
-    // would probably need to be more complex.
-
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       let argsPath = args.path;
       Object.keys(importMap.imports).map((pkg) => {

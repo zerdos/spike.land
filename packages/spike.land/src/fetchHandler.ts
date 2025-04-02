@@ -132,7 +132,7 @@ function handleWebSocket(request: Request): Response {
 
 const handleUnpkg = (path: string[]): Promise<Response> =>
   fetch(
-    new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
+   path.join("/")
   );
 
 function handleImportMapJson(): Response {
