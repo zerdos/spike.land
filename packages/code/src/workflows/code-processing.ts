@@ -79,9 +79,9 @@ export const getHashWithCache = (code: string, operationName = "hash.calculation
     return cachedHash;
   }
 
-  const hashStart = performance.now();
+  const hashStart = Date.now();
   const hash = md5(code);
-  const hashDuration = performance.now() - hashStart;
+  const hashDuration = Date.now() - hashStart;
   metrics.recordOperation(operationName, hashDuration);
   hashCache.set(cacheKey, hash);
 

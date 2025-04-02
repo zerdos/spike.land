@@ -70,9 +70,9 @@ async function testPerformance() {
   const uncachedUrl = "/some-uncached-resource";
 
   async function timeRequest(url: string) {
-    const start = performance.now();
+    const start = Date.now();
     await fetch(url);
-    return performance.now() - start;
+    return Date.now() - start;
   }
 
   const cachedTime = await timeRequest(cachedUrl);

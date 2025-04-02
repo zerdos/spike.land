@@ -255,9 +255,9 @@ Key metrics to track:
    async function benchmark() {
      const results = [];
      for (let i = 0; i < 10000; i++) {
-       const start = performance.now();
+       const start = Date.now();
        await messageHandler.process(generateMessage());
-       results.push(performance.now() - start);
+       results.push(Date.now() - start);
      }
      return analyzeResults(results);
    }

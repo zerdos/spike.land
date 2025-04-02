@@ -30,7 +30,7 @@ export async function processMessage(
 ): Promise<Partial<AgentState>> {
   // Start performance tracking
   telemetry.startTimer("processMessage");
-  const start = performance.now();
+  const start = Date.now();
   try {
     if (state.hash && state.code) {
       // Calculate hash with caching
@@ -120,9 +120,9 @@ export async function processMessage(
       metadata = cachedResponse as ToolResponseMetadata;
       metrics.recordOperation("toolResponse.cache.hit", 0);
     } else {
-      const metadataStart = performance.now();
+      const metadataStart = Date.now();
       metadata = extractToolResponseMetadata(response, state);
-      const metadataDuration = performance.now() - metadataStart;
+      const metadataDuration = Date.now() - metadataStart;
       metrics.recordOperation("toolResponse.extraction", metadataDuration);
 
       // Cache the result with proper type conversion
@@ -207,7 +207,7 @@ export async function processMessage(
     }
 
     // Record processing duration and success
-    const duration = performance.now() - start;
+    const duration = Date.now() - start;
     metrics.recordOperation("processMessage", duration);
     telemetry.stopTimer("processMessage", {
       codeModified: (state.code !== updatedState.code).toString(),
@@ -232,7 +232,7 @@ export async function processMessage(
       isRetryable: isRetryableError(error).toString(),
     });
 
-    const duration = performance.now() - start;
+    const duration = Date.now() - start;
     metrics.recordOperation("processMessage", duration, true);
     telemetry.stopTimer("processMessage", { success: "false" });
 

@@ -123,23 +123,23 @@ export function measure(operationName: string) {
 
     // Preserve the original method type
     descriptor.value = function wrapped(this: unknown, ...args: unknown[]) {
-      const start = performance.now();
+      const start = Date.now();
       const result = originalMethod.apply(this, args);
 
       // Handle both async and sync methods
       if (result instanceof Promise) {
         return result.then(value => {
-          const duration = performance.now() - start;
+          const duration = Date.now() - start;
           metrics.recordOperation(operationName, duration);
           return value;
         }).catch(error => {
-          const duration = performance.now() - start;
+          const duration = Date.now() - start;
           metrics.recordOperation(operationName, duration, true);
           throw error;
         });
       }
 
-      const duration = performance.now() - start;
+      const duration = Date.now() - start;
       metrics.recordOperation(operationName, duration);
       return result;
     };

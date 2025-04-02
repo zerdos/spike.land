@@ -48,9 +48,9 @@ export class CacheStore<T extends CacheValue> {
   }
 
   get(key: string): T | undefined {
-    const start = performance.now();
+    const start = Date.now();
     const value = this.cache.get(key);
-    const duration = performance.now() - start;
+    const duration = Date.now() - start;
 
     if (value !== undefined) {
       this.metrics.recordHit();
@@ -64,9 +64,9 @@ export class CacheStore<T extends CacheValue> {
   }
 
   set(key: string, value: T): void {
-    const start = performance.now();
+    const start = Date.now();
     this.cache.set(key, value);
-    metrics.recordOperation("cache.set", performance.now() - start);
+    metrics.recordOperation("cache.set", Date.now() - start);
   }
 
   has(key: string): boolean {

@@ -134,9 +134,9 @@ describe("Performance", () => {
     const service = new MessageHandlerService();
     const messages = generateTestMessages(1000);
 
-    const start = performance.now();
+    const start = Date.now();
     await Promise.all(messages.map((msg) => service.handleMessage(msg)));
-    const duration = performance.now() - start;
+    const duration = Date.now() - start;
 
     expect(duration).toBeLessThan(5000); // 5 seconds max
   });
@@ -146,9 +146,9 @@ describe("Performance", () => {
     const results = [];
 
     for (let i = 0; i < 100; i++) {
-      const start = performance.now();
+      const start = Date.now();
       await service.handleMessage(generateMessage());
-      results.push(performance.now() - start);
+      results.push(Date.now() - start);
     }
 
     const avgTime = results.reduce((a, b) => a + b) / results.length;

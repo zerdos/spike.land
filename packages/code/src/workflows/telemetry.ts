@@ -65,7 +65,7 @@ export class Telemetry {
   }
 
   public startTimer(name: string): void {
-    this.timers.set(name, performance.now());
+    this.timers.set(name, Date.now());
   }
 
   public stopTimer(
@@ -74,7 +74,7 @@ export class Telemetry {
   ): number | undefined {
     const start = this.timers.get(name);
     if (start) {
-      const duration = performance.now() - start;
+      const duration = Date.now() - start;
       this.timers.delete(name);
 
       this.trackEvent(

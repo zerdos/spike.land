@@ -4,7 +4,7 @@ import { prettierToThrow } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { initializeMonaco } from "@/services/editorUtils";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { EditorNode } from "./ErrorReminder";
@@ -46,8 +46,6 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     sortSession();
   }, []);
 
-  const initializeEditor = useMemo(() => initializeMonaco, []);
-
   const handleContentChange = async (newCode: string) => {
     if (!session) return;
 
@@ -72,7 +70,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       if (signal.aborted) return;
 
       const newHash = md5(formatted);
-      const startSync = performance.now();
+      const startSync = Date.now();
 
       // Prevent unnecessary updates
       if (newHash !== lastHash) {
@@ -104,7 +102,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
       }
 
       // Update metrics
-      const syncTime = performance.now() - startSync;
+      const syncTime = Date.now() - startSync;
       lifetimeMetrics.current.longestSyncTime = Math.max(
         lifetimeMetrics.current.longestSyncTime,
         syncTime,
@@ -139,7 +137,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     if (!editorState.started || !cSess || !cSess.sub || !session) return;
 
     const unsubscribe = cSess.sub(async (sess: ICodeSession) => {
-      const now = performance.now();
+      const now = Date.now();
       const newHash = md5(sess.code);
 
       // Skip if content hasn't changed
@@ -187,7 +185,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
             editorState.setValue(code);
 
-            const syncTime = performance.now() - now;
+            const syncTime = Date.now() - now;
             lifetimeMetrics.current.longestSyncTime = Math.max(
               lifetimeMetrics.current.longestSyncTime,
               syncTime,
@@ -236,7 +234,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           containerRef: !!containerRef.current,
         });
 
-        const { data: setValue, error } = await tryCatch(initializeEditor({
+        const { data: setValue, error } = await tryCatch(initializeMonaco({
           container: containerRef.current,
           codeSpace,
           code: session.code,
@@ -275,21 +273,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
 
     initEditor();
-  }, [
-    containerRef,
-    editorState.started,
-    setEditorState,
-    initializeEditor,
-    codeSpace,
-    session,
-    handleContentChange,
-    errorType,
-    throttledTypeCheck,
-  ]);
+  }, []);
 
   // Track aggregate metrics across component lifetime
   const lifetimeMetrics = useRef({
-    startTime: performance.now(),
+    startTime: Date.now(),
     totalLocalChanges: 0,
     totalExternalChanges: 0,
     totalSkippedChanges: 0,
@@ -299,7 +287,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
   // Monitor component cleanup and log final statistics
   useEffect(() => {
     return () => {
-      const duration = (performance.now() - lifetimeMetrics.current.startTime) /
+      const duration = (Date.now() - lifetimeMetrics.current.startTime) /
         1000;
       console.info("[Editor] Component lifetime metrics:", {
         durationSeconds: duration.toFixed(2),

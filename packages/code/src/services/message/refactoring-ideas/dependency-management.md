@@ -250,9 +250,9 @@ class DependencyPerformance {
   private metrics = new Map<string, PerformanceMetrics>();
 
   track(dependency: string, operation: () => Promise<void>): Promise<void> {
-    const start = performance.now();
+    const start = Date.now();
     return operation().finally(() => {
-      const duration = performance.now() - start;
+      const duration = Date.now() - start;
       this.updateMetrics(dependency, duration);
     });
   }

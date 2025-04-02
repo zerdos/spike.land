@@ -145,7 +145,7 @@ export function useDictation(
     const bufferLength = analyser.fftSize;
     const dataArray = new Uint8Array(bufferLength);
 
-    let silenceStart = performance.now();
+    let silenceStart = Date.now();
     let stoppedRecording = false;
 
     const checkSilence = () => {
@@ -158,12 +158,12 @@ export function useDictation(
       }
       const rms = Math.sqrt(sum / bufferLength);
       if (rms < silenceThreshold) {
-        if (performance.now() - silenceStart > maxSilenceDuration) {
+        if (Date.now() - silenceStart > maxSilenceDuration) {
           stoppedRecording = true;
           stopRecording();
         }
       } else {
-        silenceStart = performance.now();
+        silenceStart = Date.now();
       }
       requestAnimationFrame(checkSilence);
     };
