@@ -3,7 +3,7 @@ import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type {} from "./def";
-import HTML from "./index.html";
+// Removed invalid HTML import: import HTML from "./index.html";
 
 import type { ICodeSession } from "@/lib/interfaces";
 import { sessionToJSON } from "@/lib/make-sess";
@@ -53,15 +53,13 @@ export async function fakeServer(request: Request) {
     request.url.endsWith(`/live/${codeSpace}/xxx`) ||
     request.url.endsWith(`/live/${codeSpace}/`)
   ) {
-    // let html = HTML;
-    // if (request.url.includes("localhost")) {
-    // html = await fetch(HTML).then((resp) => resp.text());
-    // }
-    return handleHtmlResponse(session, HTML);
+    // Fetch HTML content on demand
+    return await handleHtmlResponse(session);
   } else if (
     request.url.endsWith(`/live/${codeSpace}`)
   ) {
-    return handleEditorResponse(codeSpace);
+    // Fetch HTML content on demand
+    return await handleEditorResponse(codeSpace);
   } else {
     console.log("Default request:", request.url);
 
@@ -69,9 +67,16 @@ export async function fakeServer(request: Request) {
   }
 }
 
-function handleEditorResponse(codeSpace: string) {
-  const respText = HTML.replace(
-    `<script type="importmap"></script>`,
+async function handleEditorResponse(codeSpace: string) {
+  // Fetch index.html content
+  const htmlResponse = await fetch("/index.html");
+  if (!htmlResponse.ok) {
+    return new Response("Failed to fetch base HTML", { status: 500 });
+  }
+  const baseHtml = await htmlResponse.text();
+
+  const respText = baseHtml.replace(
+    '<script type="importmap">${JSON.stringify(importMap)}</script>', // Match the template literal placeholder
     `<script type="importmap">${JSON.stringify(importMap)}</script>`,
   ).replace(
     '<div id="embed"></div>',
@@ -91,11 +96,19 @@ function handleEditorResponse(codeSpace: string) {
   return new Response(respText, { status: 200, headers });
 }
 
-function handleHtmlResponse(session: ICodeSession, HTML: string) {
+async function handleHtmlResponse(session: ICodeSession) {
+  // Fetch index.html content
+  const htmlResponse = await fetch("/index.html");
+   if (!htmlResponse.ok) {
+     return new Response("Failed to fetch base HTML", { status: 500 });
+   }
+  const baseHtml = await htmlResponse.text();
+
   const { codeSpace, html, css } = session;
-  const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
-    .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
-      "${html}",
+  // Use fetched baseHtml instead of the imported variable
+  const respText = baseHtml.replace('${JSON.stringify(importMap)}', JSON.stringify(importMap))
+    .replaceAll('${codeSpace}', codeSpace).replace('/* criticalCss */', css).replace(
+      '${html}',
       html,
     );
 

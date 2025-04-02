@@ -1,5 +1,5 @@
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, waitFor } from "@testing-library/react";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { router as baseRouter } from "../router";
 
@@ -8,7 +8,7 @@ vi.mock("../pages/LivePage", () => ({
   default: () => <div data-testid="live-page">Live Page</div>,
 }));
 
-vi.mock("@/lib/hydrate", () => ({
+vi.mock("@/services/ServiceWorkerManager", () => ({
   initializeApp: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -137,7 +137,7 @@ describe("Router Configuration", () => {
   });
 
   it("should initialize app for editor route", async () => {
-    await import("@/lib/hydrate");
+    await import("@/services/ServiceWorkerManager");
 
     await router.navigate({
       to: "/live/$codeSpace",

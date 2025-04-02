@@ -4,6 +4,7 @@ import type { ICode } from "@/lib/interfaces";
 // import { init } from "@/lib/tw-dev-setup";
 import { main } from "@/lib/ws";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
+import { tryCatch } from "@/lib/try-catch";
 
 // Centralized type definitions
 export interface AppContext {
@@ -76,11 +77,17 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
     // await init();
 
     // Get code session
-    const cSess = await getCodeSession(codeSpace);
+    const {data: cSess, error} = await tryCatch(getCodeSession(codeSpace));
+    if (error) {
+      console.error("Error getting code session:", error);
+      return null;
+    }
+
+
 
     // Load the app component dynamically
     // Import using a relative path to match the project structure
-    const { AppToRender } = await import("../../AppToRender");
+    const { AppToRender } = await import("./AppToRender");
 
     // Initialize app environment
     await initializeAppEnvironment();

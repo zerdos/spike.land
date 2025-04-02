@@ -1,6 +1,6 @@
 import { Wrapper } from "@/components/app/wrapper";
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { initializeSessionSync, loadApp } from "@/lib/app-loader";
+import { initializeSessionSync, loadApp } from "../app-loader";
 import type { ICode } from "@/lib/interfaces";
 import { routes } from "@/lib/routes";
 import {
@@ -42,12 +42,8 @@ Object.keys(routes).forEach((path) => {
   const landingRoute = createRoute({
     getParentRoute: () => rootRoute,
     path,
-    component: () => (
-      <>
-        <h1>{path}</h1>
-        <Wrapper codeSpace={routes[path as keyof typeof routes]} />
-      </>
-    ),
+    component: () => <Wrapper codeSpace={routes[path as keyof typeof routes]} />
+    
   });
 
   dynamicRoutes.push(landingRoute);
@@ -99,8 +95,8 @@ const App: React.FC = () => {
       const { codeSpace, cSess } = appContext;
 
       initializeSessionSync(codeSpace, cSess)
-        .then(unsub => {
-          unsubscribe = unsub;
+        .then(unSub => {
+          unsubscribe = unSub;
         })
         .catch(error => {
           console.error("Error initializing session sync:", error);

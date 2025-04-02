@@ -219,12 +219,17 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
           containerRef: !!containerRef.current,
         });
 
-        const { setValue } = await initializeEditor({
+        const { data: setValue, error } = await tryCatch(initializeEditor({
           container: containerRef.current,
           codeSpace,
           code: session.code,
           onChange: handleContentChange,
-        });
+        }));
+        
+        if (error) {
+          console.error("[Editor] Initialization error:", error);
+          return;
+        }
 
         setEditorState((prev) => ({
           ...prev,

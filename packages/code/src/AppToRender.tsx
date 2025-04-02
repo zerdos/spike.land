@@ -16,7 +16,7 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 
-import { type AppComponentProps } from "@/lib/app-loader";
+import { type AppComponentProps } from "./app-loader";
 import { cn } from "@/lib/utils";
 
 /**

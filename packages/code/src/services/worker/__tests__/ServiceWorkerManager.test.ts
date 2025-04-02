@@ -1,7 +1,7 @@
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 
 // Mock hydrate module
-vi.mock("@/lib/hydrate", () => ({
+vi.mock("@/services/ServiceWorkerManager", () => ({
   setupServiceWorker: vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -46,7 +46,7 @@ describe("ServiceWorkerManager", () => {
     });
 
     await serviceWorkerManager.setup();
-    const { setupServiceWorker } = await import("@/lib/hydrate");
+    const { setupServiceWorker } = await import("@/services/ServiceWorkerManager");
     expect(setupServiceWorker).toHaveBeenCalled();
   });
 
@@ -58,7 +58,7 @@ describe("ServiceWorkerManager", () => {
     });
 
     await serviceWorkerManager.setup();
-    const { setupServiceWorker } = vi.mocked(await import("@/lib/hydrate"));
+    const { setupServiceWorker } = vi.mocked(await import("@/services/ServiceWorkerManager"));
     expect(setupServiceWorker).not.toHaveBeenCalled();
   });
 
@@ -69,7 +69,7 @@ describe("ServiceWorkerManager", () => {
     });
 
     const testError = new Error("Test error");
-    const { setupServiceWorker } = vi.mocked(await import("@/lib/hydrate"));
+    const { setupServiceWorker } = vi.mocked(await import("@/services/ServiceWorkerManager"));
     setupServiceWorker.mockRejectedValueOnce(testError);
 
     await expect(serviceWorkerManager.setup()).rejects.toThrow(testError);
