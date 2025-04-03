@@ -88,7 +88,7 @@ const App: React.FC = () => {
         });
     } else {
       // If no codeSpace is found, set loading to false
-      console.log("No codeSpace found for pathname:", pathname);
+      console.log("No codeSpace found for pathname:", {pathname, codeSpace});
       setIsLoading(false);
     }
   }, [pathname]);
