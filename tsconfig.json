@@ -15,8 +15,7 @@
     "paths": {
       "@/*": ["./packages/code/src/@/*"],
     },
-    "esModuleInterop": true,
-    "types": ["@cloudflare/workers-types"]
+    "esModuleInterop": true
   },
   "references": [
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },

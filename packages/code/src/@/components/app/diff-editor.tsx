@@ -24,13 +24,13 @@ export const DiffViewer: FC<DiffViewerProps> = ({ original, modified }) => {
       <pre
         className={cn(
           "font-mono text-sm whitespace-pre-wrap break-words p-6 overflow-x-auto",
-          isDarkMode ? "text-gray-300" : "text-gray-700",
-        )}
-      >
-        {d(original ?? "", modified ?? original).map((part, index) => (
-          <span
-            key={index}
-            className={cn("transition-colors duration-200", {
+           isDarkMode ? "text-gray-300" : "text-gray-700",
+         )}
+       >
+         {d(original ?? "", modified ?? original).map((part: Diff.Change, index: number) => (
+           <span
+             key={index}
+             className={cn("transition-colors duration-200", {
               "bg-emerald-900/50 text-emerald-200": part.added && isDarkMode,
               "bg-emerald-100/50 text-emerald-800": part.added && !isDarkMode,
               "bg-rose-900/50 text-rose-200": part.removed && isDarkMode,

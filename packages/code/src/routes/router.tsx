@@ -68,20 +68,27 @@ const App: React.FC = () => {
 
     if (codeSpace && pathname === `/live/${codeSpace}`) {
       setIsLoading(true);
+      console.log("Loading app for codeSpace:", codeSpace);
 
       loadApp(pathname)
         .then(context => {
           if (context) {
+            console.log("App loaded successfully:", context);
             setAppContext(context);
           }
         })
         .catch(error => {
+
           console.error("Error loading app:", error);
         })
         .finally(() => {
+          // Set loading state to false after app loading
+          console.log("App loading finished");
           setIsLoading(false);
         });
     } else {
+      // If no codeSpace is found, set loading to false
+      console.log("No codeSpace found for pathname:", pathname);
       setIsLoading(false);
     }
   }, [pathname]);
@@ -187,9 +194,6 @@ export interface RouterState {
 }
 
 export type AppRouter = typeof router;
-
-// Re-export RouterProvider
-export { RouterProvider };
 
 // Export RouterComponent with proper types
 interface RouterComponentProps {

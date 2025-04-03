@@ -1,5 +1,4 @@
 /// <reference lib="dom" />
-/// <reference types="@types/web" />
 
 /**
  * Represents the prototype from which all typed arrays are derived. This can be used to check if an object is a typed array.
