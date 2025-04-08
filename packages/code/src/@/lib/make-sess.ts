@@ -29,7 +29,13 @@ class SessionPatcher {
       code: p.code || "",
       html: p.html || "",
       css: p.css || "",
-      transpiled: p.transpiled || "",
+      transpiled: p.transpiled || `import { createElement as e } from "react";
+      export default () => (
+        e("div", null,
+          e("h1", null, "404 - for now."),
+          e("h2", null, "But you can edit even this page and share with your friends.")
+        )
+      );`,
       messages: p.messages ? JSON.parse(JSON.stringify(p.messages)) : [],
     };
   }

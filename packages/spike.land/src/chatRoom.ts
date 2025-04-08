@@ -56,6 +56,13 @@ export class Code implements DurableObject {
           </h2>
         </div>
       );`,
+      transpiled: `import { createElement as e } from "react";
+      export default () => (
+        e("div", null,
+          e("h1", null, "404 - for now."),
+          e("h2", null, "But you can edit even this page and share with your friends.")
+        )
+      );`,
       messages: [],
       html: "<div></div>",
       css: "",
