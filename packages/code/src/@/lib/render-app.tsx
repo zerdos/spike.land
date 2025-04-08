@@ -345,12 +345,7 @@ async function renderApp(
   } else if (codeSpace && !transpiled && !code) {
     console.log("Rendering static Editor UI for codeSpace:", codeSpace);
     // Use type assertion to satisfy FlexibleComponentType requirement
-    AppToRender = (() =>
-      React.createElement(
-        "div",
-        null,
-        "Error: No component provided",
-      )) as FlexibleComponentType;
+    AppToRender = (await import(`${origin}/live/${codeSpace}/index.js`)).default as FlexibleComponentType;
     // 3. If code or transpiled code is provided, handle dynamic import/transpilation.
   } else if (transpiled || code) {
     if (
