@@ -19,9 +19,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "22.13.15",
+    "@types/node": "22.14.1",
     "esbuild": "0.25.2",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
 }
