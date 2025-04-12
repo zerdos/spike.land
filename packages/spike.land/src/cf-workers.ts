@@ -4,7 +4,7 @@ import type Env from "./env.js";
 import R2BucketHandler from "./r2bucket.js";
 
 import { CodeRateLimiter } from "./rateLimiter.js";
-import { createHandler, createResponse } from "./types/cloudflare.js";
+import { createHandler } from "./types/cloudflare.js";
 import { Users } from "./users.js";
 
 async function handleRequest(
@@ -30,9 +30,6 @@ async function handleRequest(
     return R2BucketHandler.fetch(r2Request, env, ctx);
   }
 
-  if (!chat.fetch) {
-    return createResponse("Chat handler not available", { status: 503 });
-  }
   return chat.fetch(request, env, ctx) as Promise<Response>;
 }
 

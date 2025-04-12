@@ -76,7 +76,19 @@ const main = {
         assetFetcher,
         (p: Promise<unknown>) => ctx.waitUntil(p),
       );
+    } else if (Object.keys(files).includes(url.pathname.slice(1))) {
+      
+      return new Response(
+        JSON.stringify(files),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-hash": ASSET_HASH,
+          },
+        },
+      );
     }
+
     //   "files.json": async () => handleFilesJson(),
 
     const logger = new KVLogger("myapp", env.KV);
