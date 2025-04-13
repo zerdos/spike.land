@@ -60,7 +60,9 @@ export class FileCacheManager {
       await this.validateFileHash(url, hash!);
 
       // Create a proper cache request for storing
-      const cacheRequest = new Request(new URL("/" + cacheKey, origin).toString());
+      const cacheRequest = new Request(
+        new URL("/" + cacheKey, origin).toString(),
+      );
 
       // First check if another worker already cached this file
       const existingResponse = await myCache.match(cacheRequest);
@@ -75,7 +77,10 @@ export class FileCacheManager {
       );
 
       // Validate hash if header is present (optional validation)
-      if (response.headers.has("x-hash") && response.headers.get("x-hash") !== hash) {
+      if (
+        response.headers.has("x-hash") &&
+        response.headers.get("x-hash") !== hash
+      ) {
         console.warn(
           `Hash mismatch for ${url}. Expected: ${hash}, Received: ${
             response.headers.get("x-hash")
@@ -146,10 +151,10 @@ export class FileCacheManager {
 
     // Remove system files from the missing list
     const systemFiles = ["/files.json", "/swVersion.json"].map(
-      file => new URL(file, location.origin).toString(),
+      (file) => new URL(file, location.origin).toString(),
     );
 
-    systemFiles.forEach(file => missing.delete(file));
+    systemFiles.forEach((file) => missing.delete(file));
 
     if (missing.size > 0) {
       console.warn(

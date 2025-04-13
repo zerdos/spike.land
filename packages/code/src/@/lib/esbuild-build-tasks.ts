@@ -13,7 +13,10 @@ const isProduction = environment === "production";
 const createEntryPoints = async (dir: string): Promise<string[]> => {
   const result: string[] = [];
 
-  async function processDirectory(currentDir: string, basePath: string): Promise<void> {
+  async function processDirectory(
+    currentDir: string,
+    basePath: string,
+  ): Promise<void> {
     const items = await readdir(path.join(basePath, currentDir));
 
     for (const item of items) {
@@ -188,7 +191,10 @@ export async function buildServiceWorker(): Promise<void> {
 const createAliases = async (dir: string): Promise<Record<string, string>> => {
   const result: Record<string, string> = {};
 
-  async function processDirectory(currentDir: string, basePath: string): Promise<void> {
+  async function processDirectory(
+    currentDir: string,
+    basePath: string,
+  ): Promise<void> {
     const items = await readdir(path.join(basePath, currentDir));
 
     for (const item of items) {

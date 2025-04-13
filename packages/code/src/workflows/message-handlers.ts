@@ -20,9 +20,9 @@ export async function createNewMessage(
         image_url: { url: imageUrl },
       };
     })
-    .filter((content): content is { type: "image_url"; image_url: { url: string; }; } =>
-      content !== null
-    );
+    .filter((
+      content,
+    ): content is { type: "image_url"; image_url: { url: string; }; } => content !== null);
 
   const content = imagesContent.length > 0
     ? [...imagesContent, {

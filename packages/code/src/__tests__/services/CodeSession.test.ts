@@ -135,27 +135,34 @@ describe("Code", () => {
     // Mock sessionManager methods with state tracking
     let mockSession = { ...baseSession };
 
-    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => ({ ...mockSession }));
-    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation((session) => {
-      mockSession = { ...mockSession, ...session };
-    });
-    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(async (session) => {
-      if (session) {
+    vi.spyOn(cSess["sessionManager"], "getSession").mockImplementation(() => ({
+      ...mockSession,
+    }));
+    vi.spyOn(cSess["sessionManager"], "updateSession").mockImplementation(
+      (session) => {
         mockSession = { ...mockSession, ...session };
-      }
-      return { ...mockSession };
-    });
-
-    // Mock modelManager methods with mockSession access
-    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(
-      async () => {
-        const code = mockSession.code || "";
-        if (code.includes("./extraModel")) {
-          return `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``;
-        }
-        return `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``;
       },
     );
+    vi.spyOn(cSess["sessionManager"], "init").mockImplementation(
+      async (session) => {
+        if (session) {
+          mockSession = { ...mockSession, ...session };
+        }
+        return { ...mockSession };
+      },
+    );
+
+    // Mock modelManager methods with mockSession access
+    vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
+      .mockImplementation(
+        async () => {
+          const code = mockSession.code || "";
+          if (code.includes("./extraModel")) {
+            return `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``;
+          }
+          return `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``;
+        },
+      );
 
     await cSess.init(); // Wait for initialization to complete
   });
@@ -173,9 +180,10 @@ describe("Code", () => {
       const mockGetCurrentCodeWithExtraModels = vi.fn().mockResolvedValue(
         `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``,
       );
-      vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(
-        mockGetCurrentCodeWithExtraModels,
-      );
+      vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
+        .mockImplementation(
+          mockGetCurrentCodeWithExtraModels,
+        );
 
       const result = await cSess.currentCodeWithExtraModels();
 
@@ -201,9 +209,10 @@ console.log("Hello, World!");
       const mockGetCurrentCodeWithExtraModels = vi.fn().mockResolvedValue(
         `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``,
       );
-      vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels").mockImplementation(
-        mockGetCurrentCodeWithExtraModels,
-      );
+      vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
+        .mockImplementation(
+          mockGetCurrentCodeWithExtraModels,
+        );
 
       const result = await cSess.currentCodeWithExtraModels();
 

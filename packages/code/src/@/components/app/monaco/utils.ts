@@ -101,14 +101,16 @@ export async function refreshAta(
  */
 export function getImports(code: string): string[] {
   const importRegex = /import\s+(?:{[^}]*}|\*\s+as\s+[^;]+|[^;]+)\s+from\s+['"]([^'"]+)['"]/g;
-  return [...code.matchAll(importRegex)].map(match => match[1]);
+  return [...code.matchAll(importRegex)].map((match) => match[1]);
 }
 
 /**
  * Load CSS for Monaco editor
  * @param version The Monaco editor version (defaults to the imported version)
  */
-export async function loadMonacoCss(version: string = monacoVersion): Promise<void> {
+export async function loadMonacoCss(
+  version: string = monacoVersion,
+): Promise<void> {
   const link = document.createElement("link");
   const promiseIsResolved = new Promise<void>((resolve) => {
     link.onload = () => resolve();
@@ -125,7 +127,9 @@ export async function loadMonacoCss(version: string = monacoVersion): Promise<vo
  * Handle window resize for responsive editor
  * @param editorInstance The Monaco editor instance
  */
-export function setupResponsiveEditor(editorInstance: editor.IStandaloneCodeEditor): () => void {
+export function setupResponsiveEditor(
+  editorInstance: editor.IStandaloneCodeEditor,
+): () => void {
   const resizeHandler = () => {
     // Debounce resize events
     if (resizeHandler.timeout) {
@@ -237,9 +241,10 @@ export async function checkTypeScriptErrors(
       });
 
       // Re-check after refreshing types
-      const updatedSemanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(
-        uri.toString(),
-      );
+      const updatedSemanticDiagnostics = await typeScriptWorker
+        .getSemanticDiagnostics(
+          uri.toString(),
+        );
 
       if (updatedSemanticDiagnostics.length < semanticDiagnostics.length) {
         console.log("Successfully resolved some type errors");

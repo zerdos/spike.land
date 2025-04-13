@@ -22,7 +22,8 @@ describe("Session Patch Integration Tests", () => {
       const initialSession = createTestSession({ code: largeString });
 
       // Modify a small part of the large string
-      const modifiedString = largeString.substring(0, 10000) + "y" + largeString.substring(10001);
+      const modifiedString = largeString.substring(0, 10000) + "y" +
+        largeString.substring(10001);
       const modifiedSession = createTestSession({ code: modifiedString });
 
       // Generate and apply patch
@@ -30,7 +31,9 @@ describe("Session Patch Integration Tests", () => {
       const result = applySessionDelta(initialSession, patch);
 
       // Verify hashes match
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result.code).toBe(modifiedSession.code);
     });
 
@@ -40,7 +43,8 @@ describe("Session Patch Integration Tests", () => {
       const initialSession = createTestSession({ code: largeString });
 
       // Modify a small part of the large string
-      const modifiedString = largeString.substring(0, 10000) + "y" + largeString.substring(10001);
+      const modifiedString = largeString.substring(0, 10000) + "y" +
+        largeString.substring(10001);
       const modifiedSession = createTestSession({ code: modifiedString });
 
       // Generate and apply patch
@@ -60,7 +64,9 @@ describe("Session Patch Integration Tests", () => {
       // expect(stringifiedPatch.includes(modifiedSession.code)).toBe(false);
 
       // Verify the final result is functionally equivalent to the modified session
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
 
       // The actual content should match the modified session
       expect(result.code).toBe(modifiedSession.code);
@@ -77,7 +83,9 @@ describe("Session Patch Integration Tests", () => {
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result.code).toBe(modifiedSession.code);
     });
   });
@@ -100,7 +108,9 @@ describe("Session Patch Integration Tests", () => {
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result.messages).toEqual(modifiedMessages);
     });
 
@@ -121,7 +131,9 @@ describe("Session Patch Integration Tests", () => {
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result.messages).toEqual(modifiedMessages);
     });
   });
@@ -146,7 +158,9 @@ describe("Session Patch Integration Tests", () => {
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result).toEqual(modifiedSession);
     });
   });
@@ -154,12 +168,17 @@ describe("Session Patch Integration Tests", () => {
   describe("Edge Cases", () => {
     it("should handle empty string properties", () => {
       const initialSession = createTestSession({ code: "", html: "" });
-      const modifiedSession = createTestSession({ code: "const x = 1;", html: "<div/>" });
+      const modifiedSession = createTestSession({
+        code: "const x = 1;",
+        html: "<div/>",
+      });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result).toEqual(modifiedSession);
     });
 
@@ -172,13 +191,20 @@ describe("Session Patch Integration Tests", () => {
       const patch = generateSessionPatch(initialSession, modifiedSession);
       const result = applySessionDelta(initialSession, patch);
 
-      expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+      expect(computeSessionHash(result)).toBe(
+        computeSessionHash(modifiedSession),
+      );
       expect(result.messages).toEqual([]);
     });
   });
 
   it("should handle live errors correctly", async () => {
-    const { originalCode, targetCode, originalTransformedCode, modifiedTransformed } = await import(
+    const {
+      originalCode,
+      targetCode,
+      originalTransformedCode,
+      modifiedTransformed,
+    } = await import(
       "./fixtures/live-error-bug-01"
     );
     const initialSession = createTestSession({
@@ -196,7 +222,9 @@ describe("Session Patch Integration Tests", () => {
     const patch = generateSessionPatch(initialSession, modifiedSession);
     const result = applySessionDelta(initialSession, patch);
 
-    expect(computeSessionHash(result)).toBe(computeSessionHash(modifiedSession));
+    expect(computeSessionHash(result)).toBe(
+      computeSessionHash(modifiedSession),
+    );
     expect(result).toEqual(modifiedSession);
   });
 });

@@ -117,8 +117,15 @@ export function logCacheStats(): void {
   console.log("Hash Cache:", hashCacheMetrics.getStats());
   console.log("Code Analysis Cache:", codeAnalysisCacheMetrics.getStats());
   console.log("Tool Response Cache:", toolResponseCacheMetrics.getStats());
-  console.log("\nTotal Operations:", metrics.getMetrics("cache.set")?.count || 0);
-  console.log("Average Set Duration:", metrics.getMetrics("cache.set")?.avgTime.toFixed(2), "ms");
+  console.log(
+    "\nTotal Operations:",
+    metrics.getMetrics("cache.set")?.count || 0,
+  );
+  console.log(
+    "Average Set Duration:",
+    metrics.getMetrics("cache.set")?.avgTime.toFixed(2),
+    "ms",
+  );
   console.log(
     "Cache Hit Rate:",
     (

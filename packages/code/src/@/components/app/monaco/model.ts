@@ -34,7 +34,9 @@ export async function startMonaco(
   ata: (
     options: { code: string; originToUse: string; },
   ) => Promise<Array<{ filePath: string; content: string; }>>,
-  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
+  prettierToThrow: (
+    options: { code: string; toThrow: boolean; },
+  ) => Promise<string>,
   version: string = monacoVersion,
 ): Promise<EditorModel> {
   // If we already have a model for this codeSpace, check if it's still valid
@@ -45,7 +47,9 @@ export async function startMonaco(
         return modelStore[codeSpace];
       } else {
         // Container is no longer in the DOM, clean up the old model
-        console.debug(`Container for ${codeSpace} is no longer in the DOM, creating new model`);
+        console.debug(
+          `Container for ${codeSpace} is no longer in the DOM, creating new model`,
+        );
         // Use requestAnimationFrame to ensure we're not unmounting during render
         requestAnimationFrame(() => {
           delete modelStore[codeSpace];
@@ -93,7 +97,9 @@ async function createEditorModel(
   ata: (
     options: { code: string; originToUse: string; },
   ) => Promise<Array<{ filePath: string; content: string; }>>,
-  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
+  prettierToThrow: (
+    options: { code: string; toThrow: boolean; },
+  ) => Promise<string>,
   version: string = monacoVersion,
 ): Promise<EditorModel> {
   // Initialize languages and compiler options
@@ -278,12 +284,14 @@ async function createEditorModel(
 
         // Check if imports have changed
         const currentImports = getImports(content);
-        const importsChanged =
-          JSON.stringify(currentImports) !== JSON.stringify(editorState.previousImports.current);
+        const importsChanged = JSON.stringify(currentImports) !==
+          JSON.stringify(editorState.previousImports.current);
 
         // Check if the user has finished editing or if imports have changed
         if (!editorModel.isEdit || importsChanged) {
-          console.log("User finished editing or imports changed, saving changes");
+          console.log(
+            "User finished editing or imports changed, saving changes",
+          );
           editorState.previousImports.current = currentImports;
 
           // Save changes
@@ -313,7 +321,7 @@ async function createEditorModel(
       }
     };
 
-    processUpdate().catch(error => console.error("Error processing content update:", error));
+    processUpdate().catch((error) => console.error("Error processing content update:", error));
   });
 
   // Add cleanup method to the model

@@ -50,7 +50,10 @@ export interface GraphStateReducers {
     reducer: (_prev: string | undefined, next: string) => string;
   };
   filePath: {
-    reducer: (_prev: string | undefined, next: string | undefined) => string | undefined;
+    reducer: (
+      _prev: string | undefined,
+      next: string | undefined,
+    ) => string | undefined;
   };
 }
 

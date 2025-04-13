@@ -57,7 +57,10 @@ const toHtmlAndCss = async (
     );
 
     if (emotionGlobalStylesError) {
-      console.error("Error getting emotion global styles:", emotionGlobalStylesError);
+      console.error(
+        "Error getting emotion global styles:",
+        emotionGlobalStylesError,
+      );
       return { css: "", html };
     }
 
@@ -77,9 +80,11 @@ const toHtmlAndCss = async (
     // console.log("Emotion styles:", emotionStyles); // Reduced logging
 
     // Get tailwind styles
-    const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(Promise.resolve(
-      [...document.querySelectorAll<HTMLStyleElement>("head > style")],
-    ));
+    const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(
+      Promise.resolve(
+        [...document.querySelectorAll<HTMLStyleElement>("head > style")],
+      ),
+    );
 
     if (tailwindStylesError) {
       console.error("Error getting tailwind styles:", tailwindStylesError);
@@ -133,10 +138,13 @@ export function AppWithScreenSize(
 }
 
 export const importFromString = async (code: string) => {
-  const codeSpace = getCodeSpace(typeof location !== "undefined" ? location.pathname : "");
+  const codeSpace = getCodeSpace(
+    typeof location !== "undefined" ? location.pathname : "",
+  );
 
   // Check if we're in a browser environment
-  const isBrowser = typeof window !== "undefined" && typeof URL !== "undefined" &&
+  const isBrowser = typeof window !== "undefined" &&
+    typeof URL !== "undefined" &&
     typeof Blob !== "undefined";
 
   // In a browser environment, try the Blob URL approach first
@@ -152,7 +160,9 @@ export const importFromString = async (code: string) => {
         ], { type: "application/javascript" }),
       );
 
-    const { data: blobUrl, error: blobError } = await tryCatch(createJsBlob(code));
+    const { data: blobUrl, error: blobError } = await tryCatch(
+      createJsBlob(code),
+    );
 
     if (blobUrl) {
       const { data: module, error: importError } = await tryCatch(
@@ -162,7 +172,10 @@ export const importFromString = async (code: string) => {
       if (module) {
         return module.default as FlexibleComponentType;
       } else {
-        console.warn("Using file-based import approach instead of Blob URL", importError);
+        console.warn(
+          "Using file-based import approach instead of Blob URL",
+          importError,
+        );
       }
     } else {
       console.warn("Failed to create blob URL", blobError);
@@ -173,7 +186,11 @@ export const importFromString = async (code: string) => {
   if (!isBrowser) {
     console.log("Test environment - using mock component");
     return (() =>
-      React.createElement("div", null, "Mock Component for Testing")) as FlexibleComponentType;
+      React.createElement(
+        "div",
+        null,
+        "Mock Component for Testing",
+      )) as FlexibleComponentType;
   }
 
   // File-based approach (only for browser environment)
@@ -224,7 +241,8 @@ async function renderApp(
   { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
 ): Promise<RenderedApp> {
   // Check if we're in a browser environment
-  const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+  const isBrowser = typeof window !== "undefined" &&
+    typeof document !== "undefined";
 
   // In Node.js environment during tests, create a mock element
   if (!isBrowser) {
@@ -240,7 +258,9 @@ async function renderApp(
         toHtmlAndCss,
         rRoot: { unmount: () => {} } as Root,
         App,
-        cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
+        cssCache: { sheet: { flush: () => {} } } as ReturnType<
+          typeof createCache
+        >,
         cleanup: () => {
           console.log("Mock cleanup called");
         },
@@ -254,7 +274,8 @@ async function renderApp(
     try {
       const result = await tryCatch(
         importFromString(
-          transpiled || code || "export default ()=><div>Mock App for Testing</div>",
+          transpiled || code ||
+            "export default ()=><div>Mock App for Testing</div>",
         ),
       );
       // Explicitly cast result.data if necessary, or ensure importFromString returns the correct type
@@ -263,18 +284,27 @@ async function renderApp(
       importError = result.error ?? undefined;
     } catch (e) {
       importError = e instanceof Error ? e : new Error(String(e));
-      console.error("Caught exception during importFromString in test env:", importError);
+      console.error(
+        "Caught exception during importFromString in test env:",
+        importError,
+      );
     }
 
     // Ensure AppToRender is defined even if import fails in test env
     if (importError || !AppToRender) {
       console.error(
         "Error importing component in test environment, using fallback.",
-        importError ? `Error: ${importError.message}` : "No component returned.",
+        importError
+          ? `Error: ${importError.message}`
+          : "No component returned.",
       );
       // Use a simple fallback component for tests
       AppToRender = (() =>
-        React.createElement("div", null, "Test Fallback Error Component")) as FlexibleComponentType;
+        React.createElement(
+          "div",
+          null,
+          "Test Fallback Error Component",
+        )) as FlexibleComponentType;
     }
 
     return {
@@ -282,7 +312,9 @@ async function renderApp(
       toHtmlAndCss,
       rRoot: { unmount: () => {} } as Root,
       App: AppToRender,
-      cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
+      cssCache: { sheet: { flush: () => {} } } as ReturnType<
+        typeof createCache
+      >,
       cleanup: () => {
         console.log("Mock cleanup called");
       },
@@ -314,7 +346,11 @@ async function renderApp(
     console.log("Rendering static Editor UI for codeSpace:", codeSpace);
     // Use type assertion to satisfy FlexibleComponentType requirement
     AppToRender = (() =>
-      React.createElement("div", null, "Error: No component provided")) as FlexibleComponentType;
+      React.createElement(
+        "div",
+        null,
+        "Error: No component provided",
+      )) as FlexibleComponentType;
     // 3. If code or transpiled code is provided, handle dynamic import/transpilation.
   } else if (transpiled || code) {
     if (
@@ -330,7 +366,9 @@ async function renderApp(
       if (importError || !emptyAppComponent) {
         console.error(
           "Error importing empty app, using fallback.",
-          importError ? `Error: ${importError.message}` : "No component returned.",
+          importError
+            ? `Error: ${importError.message}`
+            : "No component returned.",
         );
         AppToRender = FallbackErrorComponent; // Use the defined fallback
       } else {
@@ -366,7 +404,9 @@ async function renderApp(
       if (importError || !appComponent) {
         console.error(
           "Error importing component, using fallback.",
-          importError ? `Error: ${importError.message}` : "No component returned.",
+          importError
+            ? `Error: ${importError.message}`
+            : "No component returned.",
         );
         AppToRender = FallbackErrorComponent; // Use the defined fallback
       } else {
@@ -382,7 +422,9 @@ async function renderApp(
     );
     const indexJs = `${origin}/live/${codeSpace}/index.js`; // This path is for user code preview, not editor UI
 
-    const { data: response, error: fetchError } = await tryCatch(fetch(indexJs));
+    const { data: response, error: fetchError } = await tryCatch(
+      fetch(indexJs),
+    );
 
     if (fetchError || !response || !response.ok) {
       const { data: mockApp, error: importError } = await tryCatch(
@@ -393,14 +435,18 @@ async function renderApp(
       if (importError || !mockApp) {
         console.error(
           "Error importing mock app, using fallback.",
-          importError ? `Error: ${importError.message}` : "No component returned.",
+          importError
+            ? `Error: ${importError.message}`
+            : "No component returned.",
         );
         AppToRender = FallbackErrorComponent; // Use the defined fallback
       } else {
         AppToRender = mockApp;
       }
     } else {
-      const { data: codeToUse, error: textError } = await tryCatch(response.text());
+      const { data: codeToUse, error: textError } = await tryCatch(
+        response.text(),
+      );
 
       if (textError || !codeToUse) {
         console.error(
@@ -416,7 +462,9 @@ async function renderApp(
         if (importError || !appComponent) {
           console.error(
             "Error importing component from codeSpace, using fallback.",
-            importError ? `Error: ${importError.message}` : "No component returned.",
+            importError
+              ? `Error: ${importError.message}`
+              : "No component returned.",
           );
           AppToRender = FallbackErrorComponent; // Use the defined fallback
         } else {
@@ -433,7 +481,9 @@ async function renderApp(
     if (importError || !mockApp) {
       console.error(
         "Error importing fallback mock app, using fallback.",
-        importError ? `Error: ${importError.message}` : "No component returned.",
+        importError
+          ? `Error: ${importError.message}`
+          : "No component returned.",
       );
       AppToRender = FallbackErrorComponent; // Use the defined fallback
     } else {
@@ -535,7 +585,10 @@ async function renderApp(
         myRoot.render(<FallbackErrorComponent />);
         AppToRender = FallbackErrorComponent; // Ensure AppToRender is the fallback
       } catch (fallbackRenderError) {
-        console.error("Error rendering even the FallbackErrorComponent:", fallbackRenderError);
+        console.error(
+          "Error rendering even the FallbackErrorComponent:",
+          fallbackRenderError,
+        );
         // Cannot render anything, but still need to return a valid structure
         AppToRender = () => <div>Critical Render Error</div>; // Minimal possible component
       }
@@ -589,7 +642,10 @@ async function renderApp(
         existingRoot.render(<FallbackErrorComponent />);
         AppToRender = FallbackErrorComponent; // Ensure AppToRender is the fallback
       } catch (fallbackRenderError) {
-        console.error("Error rendering FallbackErrorComponent during update:", fallbackRenderError);
+        console.error(
+          "Error rendering FallbackErrorComponent during update:",
+          fallbackRenderError,
+        );
         AppToRender = () => <div>Critical Update Render Error</div>; // Minimal component
       }
 

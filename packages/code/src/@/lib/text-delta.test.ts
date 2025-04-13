@@ -28,7 +28,9 @@ describe("text-diff with string optimization", () => {
 
     // Create original and modified sessions
     const original = createSampleSession(longString);
-    const modified = createSampleSession(longString + " Added some text at the end.");
+    const modified = createSampleSession(
+      longString + " Added some text at the end.",
+    );
 
     // Create a diff
     const diff = createDelta(original, modified);
@@ -74,6 +76,8 @@ describe("text-diff with string optimization", () => {
 
     // Apply the diff and check the result
     const result = applyDelta(originalSession, diff);
-    expect(result.messages[0].content).toEqual(modifiedSession.messages[0].content);
+    expect(result.messages[0].content).toEqual(
+      modifiedSession.messages[0].content,
+    );
   });
 });

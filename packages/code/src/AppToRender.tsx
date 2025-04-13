@@ -154,8 +154,8 @@ export const AppToRender: FC<AppComponentProps> = memo(({
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
   // Event handlers
-  const handleToggleAutoSaveHistory = () => setShowAutoSaveHistory(prev => !prev);
-  const handleToggleChat = () => setIsOpen(prev => !prev);
+  const handleToggleAutoSaveHistory = () => setShowAutoSaveHistory((prev) => !prev);
+  const handleToggleChat = () => setIsOpen((prev) => !prev);
 
   return (
     <div className="h-[100dvh] h-[100svh] flex flex-col relative overflow-hidden">

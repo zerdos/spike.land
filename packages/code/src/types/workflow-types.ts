@@ -34,6 +34,9 @@ export interface WorkflowChannels {
   isStreaming: { reducer: (prev: boolean, next: boolean) => boolean; };
   hash: { reducer: (prev: string | undefined, next: string) => string; };
   filePath: {
-    reducer: (prev: string | undefined, next: string | undefined) => string | undefined;
+    reducer: (
+      prev: string | undefined,
+      next: string | undefined,
+    ) => string | undefined;
   };
 }

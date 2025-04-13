@@ -70,7 +70,9 @@ export const getReplaceInFileTool = (cSess: ICode) =>
     ): Promise<CodeModification> => {
       console.log("🔄 replaceInFileTool", { path, hash, diff });
 
-      log(`Starting replace operation for file: ${path}`, "info", { hash: hash.substring(0, 8) });
+      log(`Starting replace operation for file: ${path}`, "info", {
+        hash: hash.substring(0, 8),
+      });
 
       // Input validation
       if (!path || typeof path !== "string") {
@@ -100,7 +102,10 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         const currentCode = await cSess.getCode();
 
         if (!currentCode) {
-          return createErrorResponse("", "Failed to retrieve file content or file is empty");
+          return createErrorResponse(
+            "",
+            "Failed to retrieve file content or file is empty",
+          );
         }
 
         // Verify document hash to ensure code integrity
@@ -131,10 +136,16 @@ export const getReplaceInFileTool = (cSess: ICode) =>
           const searchMatch = diff.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======/);
           if (searchMatch && searchMatch[1]) {
             const searchPart = searchMatch[1];
-            console.debug("replaceInFileTool - Search part length:", searchPart.length);
+            console.debug(
+              "replaceInFileTool - Search part length:",
+              searchPart.length,
+            );
             console.debug(
               "replaceInFileTool - Search part:",
-              JSON.stringify(searchPart.substring(0, 100) + (searchPart.length > 100 ? "..." : "")),
+              JSON.stringify(
+                searchPart.substring(0, 100) +
+                  (searchPart.length > 100 ? "..." : ""),
+              ),
             );
 
             // Check if the search part exists in the current code (exact match)
@@ -145,7 +156,10 @@ export const getReplaceInFileTool = (cSess: ICode) =>
             const codeNoWS = currentCode.replace(/\s+/g, "");
             const searchNoWS = searchPart.replace(/\s+/g, "");
             const flexibleMatch = codeNoWS.includes(searchNoWS);
-            console.debug("replaceInFileTool - Match ignoring whitespace:", flexibleMatch);
+            console.debug(
+              "replaceInFileTool - Match ignoring whitespace:",
+              flexibleMatch,
+            );
 
             // If there's a flexible match but not an exact match, suggest checking whitespace
             if (flexibleMatch && !exactMatch) {
@@ -183,7 +197,7 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         console.log(
           "⏳ Waiting for code changes to be fully processed before adding message chunk...",
         );
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Log before adding message chunk
         console.log(
@@ -194,7 +208,10 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         try {
           // Store the current hash before adding message chunk
           const beforeMessageChunkHash = md5(await cSess.getCode());
-          console.log("📊 Hash before addMessageChunk:", beforeMessageChunkHash);
+          console.log(
+            "📊 Hash before addMessageChunk:",
+            beforeMessageChunkHash,
+          );
 
           // Add the message chunk
           await cSess.addMessageChunk(diff);
@@ -209,7 +226,9 @@ export const getReplaceInFileTool = (cSess: ICode) =>
               "⚠️ Code hash changed after addMessageChunk! This indicates a potential issue.",
             );
           } else {
-            console.log("✅ Code hash remained the same after addMessageChunk - good!");
+            console.log(
+              "✅ Code hash remained the same after addMessageChunk - good!",
+            );
           }
         } catch (chunkError) {
           console.error("❌ Error adding message chunk:", chunkError);
@@ -225,7 +244,8 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         // Return success response with minimal information to save tokens
         // Include a summary of changes in the error field (which is displayed to the user)
         const bytesChanged = modifiedCode.length - currentCode.length;
-        const linesChanged = modifiedCode.split("\n").length - currentCode.split("\n").length;
+        const linesChanged = modifiedCode.split("\n").length -
+          currentCode.split("\n").length;
 
         return {
           // Don't return the full code to save tokens
@@ -246,7 +266,9 @@ export const getReplaceInFileTool = (cSess: ICode) =>
           currentCode = await cSess.getCode();
         } catch (getCodeError) {
           log("Failed to retrieve code after error", "error", {
-            error: getCodeError instanceof Error ? getCodeError.message : "Unknown error",
+            error: getCodeError instanceof Error
+              ? getCodeError.message
+              : "Unknown error",
           });
         }
 
@@ -285,8 +307,11 @@ Critical rules:
    * To delete code: Use empty REPLACE section`,
       schema: z.object({
         path: z.string().describe("The path of the file to modify"),
-        hash: z.string().describe("The hash of the file to modify for version control"),
-        diff: z.string().describe(`One or more SEARCH/REPLACE blocks following this exact format:
+        hash: z.string().describe(
+          "The hash of the file to modify for version control",
+        ),
+        diff: z.string().describe(
+          `One or more SEARCH/REPLACE blocks following this exact format:
 \`\`\`
 ${SEARCH_REPLACE_MARKERS.SEARCH_START}
 [exact content to find]
@@ -294,7 +319,8 @@ ${SEARCH_REPLACE_MARKERS.SEPARATOR}
 [new content to replace with]
 ${SEARCH_REPLACE_MARKERS.REPLACE_END}
 \`\`\`
-`),
+`,
+        ),
       }),
     },
   );

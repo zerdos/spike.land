@@ -52,7 +52,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   };
 
   // Process tool responses
-  const processToolResponse = async (message: AIMessage): Promise<AgentState> => {
+  const processToolResponse = async (
+    message: AIMessage,
+  ): Promise<AgentState> => {
     if (
       !message.additional_kwargs?.tool_responses ||
       !Array.isArray(message.additional_kwargs.tool_responses) ||
@@ -115,7 +117,9 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       try {
         // Optimize token usage for large code
         if (state.code.length > 3000) {
-          console.log("Performance optimization: Large code detected, optimizing token usage");
+          console.log(
+            "Performance optimization: Large code detected, optimizing token usage",
+          );
         }
 
         // Create messages array with system message and user input

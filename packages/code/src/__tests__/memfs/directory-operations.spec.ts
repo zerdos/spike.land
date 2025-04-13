@@ -14,17 +14,27 @@ describe("memfs directory operations", () => {
   describe("mkdir", () => {
     it("should create a directory", async () => {
       await mkdir("/newdir");
-      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("newdir", {
-        create: true,
-      });
+      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith(
+        "newdir",
+        {
+          create: true,
+        },
+      );
     });
 
     it("should create nested directories", async () => {
       await mkdir("/test/nested");
-      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith("test", { create: true });
+      expect(mockDirectoryHandle.getDirectoryHandle).toHaveBeenCalledWith(
+        "test",
+        { create: true },
+      );
 
-      const testDirHandle = await mockDirectoryHandle.getDirectoryHandle("test");
-      expect(testDirHandle.getDirectoryHandle).toHaveBeenCalledWith("nested", { create: true });
+      const testDirHandle = await mockDirectoryHandle.getDirectoryHandle(
+        "test",
+      );
+      expect(testDirHandle.getDirectoryHandle).toHaveBeenCalledWith("nested", {
+        create: true,
+      });
     });
 
     it("should throw error for invalid directory path", async () => {
@@ -69,7 +79,9 @@ describe("memfs directory operations", () => {
     });
 
     it("should return null for non-existent path", async () => {
-      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(new Error("Not found"));
+      mockDirectoryHandle.getFileHandle = vi.fn().mockRejectedValue(
+        new Error("Not found"),
+      );
 
       const result = await stat("/nonexistent");
       expect(result).toBeNull();
@@ -105,7 +117,9 @@ describe("memfs directory operations", () => {
   describe("rmdir", () => {
     it("should remove a directory", async () => {
       await rmdir("/test");
-      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test", { recursive: true });
+      expect(mockDirectoryHandle.removeEntry).toHaveBeenCalledWith("test", {
+        recursive: true,
+      });
     });
 
     it("should throw error for root directory", async () => {

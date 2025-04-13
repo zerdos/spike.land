@@ -3,7 +3,9 @@ export type { FileHandle } from "node:fs/promises";
 /**
  * Custom types for our implementation
  */
-export type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string; };
+export type FileSystemEntry = Partial<FileSystemHandle> & {
+  relativePath: string;
+};
 
 /**
  * FileSystemFileEntry type for file stats

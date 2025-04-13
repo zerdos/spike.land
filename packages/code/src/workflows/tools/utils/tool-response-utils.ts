@@ -33,7 +33,8 @@ export const extractToolResponseMetadata = (
         typeof toolResponse === "object" &&
         toolResponse !== null &&
         "name" in toolResponse &&
-        (toolResponse.name === "code_modification" || toolResponse.name === "replace_in_file") &&
+        (toolResponse.name === "code_modification" ||
+          toolResponse.name === "replace_in_file") &&
         "content" in toolResponse
       ) {
         let content: Record<string, unknown> = {};
@@ -46,7 +47,10 @@ export const extractToolResponseMetadata = (
             console.warn("Failed to parse tool response content", e);
             continue;
           }
-        } else if (typeof toolResponse.content === "object" && toolResponse.content !== null) {
+        } else if (
+          typeof toolResponse.content === "object" &&
+          toolResponse.content !== null
+        ) {
           content = toolResponse.content as Record<string, unknown>;
         } else {
           continue;
@@ -57,7 +61,10 @@ export const extractToolResponseMetadata = (
           metadata.hash = content.hash;
         }
 
-        if ("modifiedCodeHash" in content && typeof content.modifiedCodeHash === "string") {
+        if (
+          "modifiedCodeHash" in content &&
+          typeof content.modifiedCodeHash === "string"
+        ) {
           metadata.modifiedCodeHash = content.modifiedCodeHash;
         }
 
@@ -69,7 +76,8 @@ export const extractToolResponseMetadata = (
         }
 
         // Check if code was returned in the response
-        metadata.codeWasReturned = "code" in content && content.code !== undefined;
+        metadata.codeWasReturned = "code" in content &&
+          content.code !== undefined;
 
         break;
       }
@@ -86,10 +94,11 @@ export const updateToolCallsWithCodeFlag = (
   toolCalls: any[],
   returnModifiedCode: boolean,
 ): any[] => {
-  return toolCalls.map(toolCall => {
+  return toolCalls.map((toolCall) => {
     // Handle both code_modification and replace_in_file tools
     if (
-      (toolCall.name === "code_modification" || toolCall.name === "replace_in_file") &&
+      (toolCall.name === "code_modification" ||
+        toolCall.name === "replace_in_file") &&
       toolCall.args
     ) {
       try {
@@ -112,7 +121,10 @@ export const updateToolCallsWithCodeFlag = (
           },
         };
       } catch (e) {
-        console.warn(`Failed to update tool call args for ${toolCall.name}:`, e);
+        console.warn(
+          `Failed to update tool call args for ${toolCall.name}:`,
+          e,
+        );
         return toolCall;
       }
     }

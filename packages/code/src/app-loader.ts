@@ -46,7 +46,9 @@ export const initializeAppEnvironment = async (): Promise<void> => {
  */
 export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
   if (!codeSpace) {
-    throw new Error("Cannot initialize WebSocket: codeSpace is null or undefined");
+    throw new Error(
+      "Cannot initialize WebSocket: codeSpace is null or undefined",
+    );
   }
 
   try {
@@ -125,7 +127,10 @@ export const initializeSessionSync = async (
 /**
  * Utility to check if a route should initialize WebSocket
  */
-export const shouldInitWebSocket = (pathname: string, codeSpace: string | null): boolean => {
+export const shouldInitWebSocket = (
+  pathname: string,
+  codeSpace: string | null,
+): boolean => {
   if (!pathname || !codeSpace) return false;
   return pathname === `/live/${codeSpace}`;
 };

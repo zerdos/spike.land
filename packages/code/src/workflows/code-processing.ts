@@ -34,7 +34,8 @@ export const determineReturnModifiedCode = (
   for (const toolCall of toolCalls) {
     // Handle both code_modification and replace_in_file tools
     if (
-      (toolCall.name === "code_modification" || toolCall.name === "replace_in_file") &&
+      (toolCall.name === "code_modification" ||
+        toolCall.name === "replace_in_file") &&
       toolCall.args
     ) {
       try {
@@ -63,14 +64,20 @@ export const determineReturnModifiedCode = (
     }
   }
 
-  console.log("Using default return modified code setting:", DEFAULT_RETURN_MODIFIED_CODE);
+  console.log(
+    "Using default return modified code setting:",
+    DEFAULT_RETURN_MODIFIED_CODE,
+  );
   return DEFAULT_RETURN_MODIFIED_CODE;
 };
 
 /**
  * Gets a hash for the given code, using cache when available
  */
-export const getHashWithCache = (code: string, operationName = "hash.calculation"): string => {
+export const getHashWithCache = (
+  code: string,
+  operationName = "hash.calculation",
+): string => {
   const cacheKey = code;
   const cachedHash = hashCache.get(cacheKey);
 

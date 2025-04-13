@@ -29,7 +29,11 @@ declare let self: SharedWorkerGlobalScope & {
   createWorkflow: unknown;
   tsx: unknown;
   updateSearchReplace: unknown;
-  setConnections: (user: string, codeSpace: string, sess: ICodeSession) => Promise<void>;
+  setConnections: (
+    user: string,
+    codeSpace: string,
+    sess: ICodeSession,
+  ) => Promise<void>;
   sessionSynchronizers: Map<string, SessionSynchronizer>;
   activePorts: Map<string, number>;
 };
@@ -97,13 +101,19 @@ const LOG_CONFIG = {
 // Logging utility functions
 const logger = {
   debug: (message: string, ...args: unknown[]) => {
-    if (LOG_CONFIG.debug) console.debug(`[SocketWorker][DEBUG] ${message}`, ...args);
+    if (LOG_CONFIG.debug) {
+      console.debug(`[SocketWorker][DEBUG] ${message}`, ...args);
+    }
   },
   info: (message: string, ...args: unknown[]) => {
-    if (LOG_CONFIG.info) console.info(`[SocketWorker][INFO] ${message}`, ...args);
+    if (LOG_CONFIG.info) {
+      console.info(`[SocketWorker][INFO] ${message}`, ...args);
+    }
   },
   warn: (message: string, ...args: unknown[]) => {
-    if (LOG_CONFIG.warn) console.warn(`[SocketWorker][WARN] ${message}`, ...args);
+    if (LOG_CONFIG.warn) {
+      console.warn(`[SocketWorker][WARN] ${message}`, ...args);
+    }
   },
   error: (message: string, ...args: unknown[]) => {
     console.error(`[SocketWorker][ERROR] ${message}`, ...args);
@@ -130,20 +140,28 @@ export async function setConnections(
   const startTime = Date.now();
   const sess = sanitizeSession(_sess);
 
-  logger.info(`Setting up connection for codeSpace: ${codeSpace}, user: ${user}`);
+  logger.info(
+    `Setting up connection for codeSpace: ${codeSpace}, user: ${user}`,
+  );
 
   if (connections.has(codeSpace)) {
-    logger.debug(`Connection for codeSpace ${codeSpace} already exists, skipping setup`);
+    logger.debug(
+      `Connection for codeSpace ${codeSpace} already exists, skipping setup`,
+    );
     return;
   }
 
   let sessionSynchronizer = sessionSynchronizers.get(codeSpace);
   if (!sessionSynchronizer) {
-    logger.debug(`Creating new SessionSynchronizer for codeSpace: ${codeSpace}`);
+    logger.debug(
+      `Creating new SessionSynchronizer for codeSpace: ${codeSpace}`,
+    );
     sessionSynchronizer = new SessionSynchronizer(codeSpace, sess);
     sessionSynchronizers.set(codeSpace, sessionSynchronizer);
   } else {
-    logger.debug(`Using existing SessionSynchronizer for codeSpace: ${codeSpace}`);
+    logger.debug(
+      `Using existing SessionSynchronizer for codeSpace: ${codeSpace}`,
+    );
   }
 
   const hashCode = computeSessionHash(sess);
@@ -166,7 +184,9 @@ export async function setConnections(
   sessionSynchronizer.subscribe(async (updatedSession: ICodeSession) => {
     // Check if the session has a sender property
     if (!("sender" in updatedSession)) {
-      logger.debug(`Ignoring session update without sender property for ${codeSpace}`);
+      logger.debug(
+        `Ignoring session update without sender property for ${codeSpace}`,
+      );
       return;
     }
 
@@ -186,12 +206,17 @@ export async function setConnections(
 
     const { error: sendError } = await tryCatch(
       Promise.resolve(
-        connection.webSocket.send(JSON.stringify({ ...patch, name: connection.user })),
+        connection.webSocket.send(
+          JSON.stringify({ ...patch, name: connection.user }),
+        ),
       ),
     );
 
     if (sendError) {
-      logger.error(`Error sending patch to WebSocket for ${codeSpace}:`, sendError);
+      logger.error(
+        `Error sending patch to WebSocket for ${codeSpace}:`,
+        sendError,
+      );
       return;
     }
 
@@ -211,7 +236,9 @@ export async function setConnections(
 
 function createWebSocket(codeSpace: string): Socket {
   const protocol = location.protocol === "https:" ? "wss:" : "ws:";
-  const host = location.host === "localhost" ? "testing.spike.land" : location.host;
+  const host = location.host === "localhost"
+    ? "testing.spike.land"
+    : location.host;
   const url = `${protocol}//${host}/live/${codeSpace}/websocket`;
 
   logger.info(`Creating WebSocket connection to: ${url}`);
@@ -221,7 +248,9 @@ function createWebSocket(codeSpace: string): Socket {
       logger.info(`WebSocket connection opened for ${codeSpace}`);
       const connection = connections.get(codeSpace);
       if (!connection) {
-        logger.error(`Connection for ${codeSpace} not found during socketDidOpen`);
+        logger.error(
+          `Connection for ${codeSpace} not found during socketDidOpen`,
+        );
         return;
       }
 
@@ -252,7 +281,9 @@ function createWebSocket(codeSpace: string): Socket {
 
     socketDidReceiveMessage(socket: Socket, message: string) {
       const messageSize = message.length;
-      const messagePreview = message.length > 100 ? message.substring(0, 97) + "..." : message;
+      const messagePreview = message.length > 100
+        ? message.substring(0, 97) + "..."
+        : message;
       logger.debug(
         `Received WebSocket message for ${codeSpace} (${messageSize} bytes): ${messagePreview}`,
       );
@@ -271,17 +302,25 @@ function createWebSocket(codeSpace: string): Socket {
           .then(() => {
             logger.log(`Handled socket message for ${codeSpace}`, startTime);
           })
-          .catch(error => {
-            logger.error(`Error handling socket message for ${codeSpace}:`, error);
+          .catch((error) => {
+            logger.error(
+              `Error handling socket message for ${codeSpace}:`,
+              error,
+            );
           });
       } catch (error) {
-        logger.error(`Failed to parse WebSocket message for ${codeSpace}:`, error);
+        logger.error(
+          `Failed to parse WebSocket message for ${codeSpace}:`,
+          error,
+        );
       }
     },
 
     socketShouldRetry(_socket: Socket, code: number): boolean {
       const shouldRetry = code !== 1008;
-      logger.debug(`Socket retry decision for ${codeSpace}: ${shouldRetry} (code: ${code})`);
+      logger.debug(
+        `Socket retry decision for ${codeSpace}: ${shouldRetry} (code: ${code})`,
+      );
       return shouldRetry;
     },
 
@@ -309,13 +348,18 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   const { data: response, error: fetchError } = await tryCatch(fetch(url));
 
   if (fetchError) {
-    logger.error(`Error fetching initial session for ${codeSpace}:`, fetchError);
+    logger.error(
+      `Error fetching initial session for ${codeSpace}:`,
+      fetchError,
+    );
     throw fetchError;
   }
 
   if (!response.ok) {
     const errorMsg = `HTTP error: ${response.status} ${response.statusText}`;
-    logger.error(`Failed to fetch initial session for ${codeSpace}: ${errorMsg}`);
+    logger.error(
+      `Failed to fetch initial session for ${codeSpace}: ${errorMsg}`,
+    );
     throw new Error(errorMsg);
   }
 
@@ -346,7 +390,9 @@ async function handleSocketMessage(
   codeSpace: string,
 ): Promise<void> {
   const startTime = Date.now();
-  logger.debug(`Handling socket message for ${codeSpace}, type: ${data.type || "unknown"}`);
+  logger.debug(
+    `Handling socket message for ${codeSpace}, type: ${data.type || "unknown"}`,
+  );
 
   const { data: release, error: mutexError } = await tryCatch(mutex.acquire());
 
@@ -372,14 +418,25 @@ async function handleSocketMessage(
     }
 
     if (data.error === "old hashes not matching") {
-      logger.warn(`Hash mismatch detected for ${codeSpace}: old hashes not matching`);
-      logger.debug(`Current hash: ${connection.hashCode}, server hash: ${data.hash || "unknown"}`);
+      logger.warn(
+        `Hash mismatch detected for ${codeSpace}: old hashes not matching`,
+      );
+      logger.debug(
+        `Current hash: ${connection.hashCode}, server hash: ${data.hash || "unknown"}`,
+      );
 
-      logger.info(`Fetching fresh session for ${codeSpace} due to hash mismatch`);
-      const { data: sess, error: fetchError } = await tryCatch(fetchInitialSession(codeSpace));
+      logger.info(
+        `Fetching fresh session for ${codeSpace} due to hash mismatch`,
+      );
+      const { data: sess, error: fetchError } = await tryCatch(
+        fetchInitialSession(codeSpace),
+      );
 
       if (fetchError) {
-        logger.error(`Failed to fetch fresh session for ${codeSpace}:`, fetchError);
+        logger.error(
+          `Failed to fetch fresh session for ${codeSpace}:`,
+          fetchError,
+        );
         return;
       }
 
@@ -403,7 +460,10 @@ async function handleSocketMessage(
         );
 
         if (broadcastError) {
-          logger.error(`Failed to broadcast hash match session for ${codeSpace}:`, broadcastError);
+          logger.error(
+            `Failed to broadcast hash match session for ${codeSpace}:`,
+            broadcastError,
+          );
         }
       } else {
         logger.warn(
@@ -421,11 +481,16 @@ async function handleSocketMessage(
       );
 
       const { error: sendError } = await tryCatch(
-        Promise.resolve(ws.send(JSON.stringify({ ...patch, name: connection.user }))),
+        Promise.resolve(
+          ws.send(JSON.stringify({ ...patch, name: connection.user })),
+        ),
       );
 
       if (sendError) {
-        logger.error(`Failed to send patch after hash mismatch for ${codeSpace}:`, sendError);
+        logger.error(
+          `Failed to send patch after hash mismatch for ${codeSpace}:`,
+          sendError,
+        );
       }
 
       return;
@@ -436,11 +501,18 @@ async function handleSocketMessage(
         `Hash mismatch for ${codeSpace}: local=${connection.hashCode}, server=${data.hash}`,
       );
 
-      logger.info(`Fetching fresh session for ${codeSpace} due to hash difference`);
-      const { data: sess, error: fetchError } = await tryCatch(fetchInitialSession(codeSpace));
+      logger.info(
+        `Fetching fresh session for ${codeSpace} due to hash difference`,
+      );
+      const { data: sess, error: fetchError } = await tryCatch(
+        fetchInitialSession(codeSpace),
+      );
 
       if (fetchError) {
-        logger.error(`Failed to fetch fresh session for ${codeSpace}:`, fetchError);
+        logger.error(
+          `Failed to fetch fresh session for ${codeSpace}:`,
+          fetchError,
+        );
         return;
       }
 
@@ -449,7 +521,9 @@ async function handleSocketMessage(
       logger.debug(`Fresh session hash for ${codeSpace}: ${freshHash}`);
 
       if (data.hash === freshHash) {
-        logger.info(`Server hash matches fresh session for ${codeSpace}: ${freshHash}`);
+        logger.info(
+          `Server hash matches fresh session for ${codeSpace}: ${freshHash}`,
+        );
         connection.hashCode = data.hash;
         connection.oldSession = sess;
 
@@ -464,7 +538,10 @@ async function handleSocketMessage(
         );
 
         if (broadcastError) {
-          logger.error(`Failed to broadcast hash match session for ${codeSpace}:`, broadcastError);
+          logger.error(
+            `Failed to broadcast hash match session for ${codeSpace}:`,
+            broadcastError,
+          );
         }
       } else {
         logger.warn(
@@ -479,8 +556,13 @@ async function handleSocketMessage(
         `Received patch data for ${codeSpace}: oldHash=${data.oldHash}, newHash=${data.hashCode}`,
       );
 
-      if (connection.hashCode !== data.hashCode && connection.hashCode === data.oldHash) {
-        logger.info(`Applying session patch for ${codeSpace}: ${data.oldHash} -> ${data.hashCode}`);
+      if (
+        connection.hashCode !== data.hashCode &&
+        connection.hashCode === data.oldHash
+      ) {
+        logger.info(
+          `Applying session patch for ${codeSpace}: ${data.oldHash} -> ${data.hashCode}`,
+        );
 
         const patchStartTime = Date.now();
         const { data: sess, error: patchError } = await tryCatch(
@@ -488,7 +570,10 @@ async function handleSocketMessage(
         );
 
         if (patchError) {
-          logger.error(`Failed to apply session delta for ${codeSpace}:`, patchError);
+          logger.error(
+            `Failed to apply session delta for ${codeSpace}:`,
+            patchError,
+          );
           return;
         }
 
@@ -498,7 +583,9 @@ async function handleSocketMessage(
         connection.hashCode = data.hashCode;
 
         const sender = data.name || SENDER_WORKER_HANDLE_CHANGES;
-        logger.debug(`Broadcasting patched session for ${codeSpace} from sender: ${sender}`);
+        logger.debug(
+          `Broadcasting patched session for ${codeSpace} from sender: ${sender}`,
+        );
 
         const { error: broadcastError } = await tryCatch(
           Promise.resolve(connection.sessionSynchronizer.broadcastSession(
@@ -510,12 +597,17 @@ async function handleSocketMessage(
         );
 
         if (broadcastError) {
-          logger.error(`Failed to broadcast patched session for ${codeSpace}:`, broadcastError);
+          logger.error(
+            `Failed to broadcast patched session for ${codeSpace}:`,
+            broadcastError,
+          );
         }
 
         return;
       } else {
-        logger.warn(`Cannot apply patch for ${codeSpace}: hash conditions not met`);
+        logger.warn(
+          `Cannot apply patch for ${codeSpace}: hash conditions not met`,
+        );
         logger.debug(
           `Current hash: ${connection.hashCode}, patch oldHash: ${data.oldHash}, patch newHash: ${data.hashCode}`,
         );
@@ -543,10 +635,14 @@ self.addEventListener("connect", (event: MessageEvent) => {
     const startTime = Date.now();
 
     const data = evt.data;
-    logger.debug(`Received message on port ${portId}, id: ${data.id || "unknown"}`);
+    logger.debug(
+      `Received message on port ${portId}, id: ${data.id || "unknown"}`,
+    );
 
     if (!data.payload || !data.payload.sess) {
-      logger.warn(`Invalid message format on port ${portId}, missing payload or session`);
+      logger.warn(
+        `Invalid message format on port ${portId}, missing payload or session`,
+      );
       return;
     }
 
@@ -554,7 +650,9 @@ self.addEventListener("connect", (event: MessageEvent) => {
     const { codeSpace: sessionCodeSpace } = session;
     codeSpace = sessionCodeSpace; // Store for port close handler
 
-    logger.debug(`Message for codeSpace: ${sessionCodeSpace} on port ${portId}`);
+    logger.debug(
+      `Message for codeSpace: ${sessionCodeSpace} on port ${portId}`,
+    );
 
     if (data.id === "connect") {
       const count = activePorts.get(sessionCodeSpace) || 0;
@@ -569,7 +667,9 @@ self.addEventListener("connect", (event: MessageEvent) => {
     if (session) {
       const connection = connections.get(session.codeSpace);
       if (connection) {
-        logger.debug(`Broadcasting session from port ${portId} for ${session.codeSpace}`);
+        logger.debug(
+          `Broadcasting session from port ${portId} for ${session.codeSpace}`,
+        );
 
         // Create a new session object with the sender property
         const sessionWithSender = {
@@ -590,7 +690,9 @@ self.addEventListener("connect", (event: MessageEvent) => {
             broadcastError,
           );
         } else {
-          logger.debug(`Session broadcast completed for ${session.codeSpace} from port ${portId}`);
+          logger.debug(
+            `Session broadcast completed for ${session.codeSpace} from port ${portId}`,
+          );
         }
       } else {
         logger.warn(
@@ -599,7 +701,10 @@ self.addEventListener("connect", (event: MessageEvent) => {
       }
     }
 
-    logger.log(`Port message handled for ${sessionCodeSpace} on port ${portId}`, startTime);
+    logger.log(
+      `Port message handled for ${sessionCodeSpace} on port ${portId}`,
+      startTime,
+    );
   });
 
   port.addEventListener("close", () => {
@@ -607,7 +712,9 @@ self.addEventListener("connect", (event: MessageEvent) => {
 
     if (codeSpace) {
       const count = activePorts.get(codeSpace) || 0;
-      logger.debug(`Port ${portId} closed for codeSpace ${codeSpace}, current count: ${count}`);
+      logger.debug(
+        `Port ${portId} closed for codeSpace ${codeSpace}, current count: ${count}`,
+      );
 
       if (count <= 1) {
         logger.info(`Last port for ${codeSpace} closed, cleaning up resources`);
@@ -646,7 +753,9 @@ function cleanupCodeSpace(codeSpace: string): void {
       logger.debug(`Removing connection from connections map for ${codeSpace}`);
       connections.delete(codeSpace);
 
-      logger.debug(`Removing synchronizer from sessionSynchronizers map for ${codeSpace}`);
+      logger.debug(
+        `Removing synchronizer from sessionSynchronizers map for ${codeSpace}`,
+      );
       sessionSynchronizers.delete(codeSpace);
 
       logger.debug(`Cleaning up message tracking for ${codeSpace}`);

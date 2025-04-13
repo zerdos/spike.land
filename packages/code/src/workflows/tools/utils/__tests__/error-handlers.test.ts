@@ -39,7 +39,9 @@ describe("error-handlers", () => {
     });
 
     it("should handle WorkflowError with context", () => {
-      const error = new WorkflowError("Test error", undefined, { key: "value" });
+      const error = new WorkflowError("Test error", undefined, {
+        key: "value",
+      });
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
@@ -50,7 +52,10 @@ describe("error-handlers", () => {
     });
 
     it("should handle code integrity error", () => {
-      const error = new WorkflowError("Code integrity validation failed", ErrorType.CodeIntegrity);
+      const error = new WorkflowError(
+        "Code integrity validation failed",
+        ErrorType.CodeIntegrity,
+      );
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(
@@ -64,7 +69,10 @@ describe("error-handlers", () => {
     });
 
     it("should handle compilation error", () => {
-      const error = new WorkflowError("failed to compile", ErrorType.Compilation);
+      const error = new WorkflowError(
+        "failed to compile",
+        ErrorType.Compilation,
+      );
 
       expect(() => handleWorkflowError(error)).toThrow(error);
       expect(console.error).toHaveBeenCalledWith(

@@ -8,8 +8,12 @@ import { getCompilerOptions, getDiagnosticsOptions } from "./config";
  */
 export function registerLanguages(): void {
   // Configure TypeScript language defaults
-  languages.typescript.typescriptDefaults.setCompilerOptions(getCompilerOptions());
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions(getDiagnosticsOptions());
+  languages.typescript.typescriptDefaults.setCompilerOptions(
+    getCompilerOptions(),
+  );
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+    getDiagnosticsOptions(),
+  );
 
   // Set mode configuration for TypeScript
   languages.typescript.typescriptDefaults.setModeConfiguration({
@@ -90,7 +94,9 @@ export function configureJsxSupport(uri: string): void {
  * @param prettierToThrow Function to format code using Prettier
  */
 export function registerFormattingProvider(
-  prettierToThrow: (options: { code: string; toThrow: boolean; }) => Promise<string>,
+  prettierToThrow: (
+    options: { code: string; toThrow: boolean; },
+  ) => Promise<string>,
 ): void {
   languages.registerDocumentFormattingEditProvider("typescript", {
     provideDocumentFormattingEdits: async (model) => {
@@ -118,5 +124,7 @@ export function registerFormattingProvider(
  * @param enable Whether to enable validation
  */
 export function setTypeScriptValidation(enable: boolean): void {
-  languages.typescript.typescriptDefaults.setDiagnosticsOptions(getDiagnosticsOptions(enable));
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions(
+    getDiagnosticsOptions(enable),
+  );
 }

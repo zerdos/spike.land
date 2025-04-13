@@ -49,13 +49,13 @@ export async function withRetry<T>(
       if (
         !(error instanceof Error) ||
         attempt >= maxRetries ||
-        !retryableErrors.some(e => error.message.includes(e))
+        !retryableErrors.some((e) => error.message.includes(e))
       ) {
         throw error;
       }
 
       onRetry(attempt, error, delay);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
 
       // Exponential backoff with max delay cap
       delay = Math.min(delay * 2, maxDelay);
@@ -68,5 +68,5 @@ export async function withRetry<T>(
  */
 export function isRetryableError(error: unknown): boolean {
   return error instanceof Error &&
-    RETRYABLE_ERRORS.some(e => error.message.includes(e));
+    RETRYABLE_ERRORS.some((e) => error.message.includes(e));
 }

@@ -61,7 +61,10 @@ export class FileChangeManager {
     hash: string,
     diff: string,
   ): Promise<{ success: boolean; message: string; hash?: string; }> {
-    console.log("FileChangeManager.submitChange", { path, hash: hash.substring(0, 8) });
+    console.log("FileChangeManager.submitChange", {
+      path,
+      hash: hash.substring(0, 8),
+    });
 
     // Validate inputs
     if (!path || !hash || !diff) {
@@ -109,7 +112,9 @@ export class FileChangeManager {
     if (hash !== currentHash) {
       // Check if the provided hash matches the last successful hash
       if (hash === this.currentState[path].lastSuccessfulHash) {
-        console.log("Hash matches last successful hash, proceeding with change");
+        console.log(
+          "Hash matches last successful hash, proceeding with change",
+        );
         // Continue with the last successful hash
       } else {
         // Auto-retry with corrected hash if this is a new attempt
@@ -132,7 +137,10 @@ export class FileChangeManager {
     }
 
     // Process the diff to create optimized SEARCH/REPLACE blocks
-    const optimizedDiff = this.optimizeSearchReplaceBlocks(diff, currentContent);
+    const optimizedDiff = this.optimizeSearchReplaceBlocks(
+      diff,
+      currentContent,
+    );
 
     // Apply the changes
     let modifiedContent = updateSearchReplace(optimizedDiff, currentContent);
@@ -140,7 +148,11 @@ export class FileChangeManager {
     // Check if changes were applied
     if (modifiedContent === currentContent) {
       // Try recovery strategies
-      const recoveryResult = await this.attemptRecovery(path, currentContent, diff);
+      const recoveryResult = await this.attemptRecovery(
+        path,
+        currentContent,
+        diff,
+      );
       if (recoveryResult.success && recoveryResult.content) {
         modifiedContent = recoveryResult.content;
       } else {
@@ -159,7 +171,7 @@ export class FileChangeManager {
     const now = Date.now();
     const oneHourAgo = now - (60 * 60 * 1000);
     const recentChanges = this.currentState[path]?.changeHistory?.filter(
-      change => change.timestamp > oneHourAgo,
+      (change) => change.timestamp > oneHourAgo,
     ).length || 0;
 
     // Check if we're exceeding the rate limit
@@ -233,7 +245,8 @@ export class FileChangeManager {
 
       // Calculate change metrics
       const bytesChanged = modifiedContent.length - currentContent.length;
-      const linesChanged = modifiedContent.split("\n").length - currentContent.split("\n").length;
+      const linesChanged = modifiedContent.split("\n").length -
+        currentContent.split("\n").length;
 
       // Add a warning about minor changes if needed
       let message = `Changes applied successfully: ${
@@ -269,18 +282,21 @@ export class FileChangeManager {
    * @param currentContent The current file content
    * @returns An optimized diff string
    */
-  private optimizeSearchReplaceBlocks(diff: string, currentContent: string): string {
+  private optimizeSearchReplaceBlocks(
+    diff: string,
+    currentContent: string,
+  ): string {
     // Extract all SEARCH/REPLACE blocks
     const blocks = this.extractSearchReplaceBlocks(diff);
     if (blocks.length === 0) return diff;
 
     // Process each block to add context if needed
-    const optimizedBlocks = blocks.map(block => {
+    const optimizedBlocks = blocks.map((block) => {
       return this.addContextToSearchBlock(block, currentContent);
     });
 
     // Recombine blocks into a single diff
-    return optimizedBlocks.map(block => {
+    return optimizedBlocks.map((block) => {
       return `${SEARCH_REPLACE_MARKERS.SEARCH_START}\n${block.search}\n${SEARCH_REPLACE_MARKERS.SEPARATOR}\n${block.replace}\n${SEARCH_REPLACE_MARKERS.REPLACE_END}`;
     }).join("\n\n");
   }
@@ -313,7 +329,10 @@ export class FileChangeManager {
    * @param content The file content
    * @returns A search/replace block with added context
    */
-  private addContextToSearchBlock(block: SearchReplaceBlock, content: string): SearchReplaceBlock {
+  private addContextToSearchBlock(
+    block: SearchReplaceBlock,
+    content: string,
+  ): SearchReplaceBlock {
     console.log("Attempting to add context to search block");
 
     // If the search block already matches exactly, return it unchanged
@@ -375,14 +394,19 @@ export class FileChangeManager {
             // Get context before and after
             const contextWindow = 2;
             const startIndex = Math.max(0, firstIdx - contextWindow);
-            const endIndex = Math.min(lines.length - 1, lastIdx + contextWindow);
+            const endIndex = Math.min(
+              lines.length - 1,
+              lastIdx + contextWindow,
+            );
 
             // Create new search block with context
             const newSearch = lines.slice(startIndex, endIndex + 1).join("\n");
 
             // Adjust the replace block to include the context
             const beforeContext = lines.slice(startIndex, firstIdx).join("\n");
-            const afterContext = lines.slice(lastIdx + 1, endIndex + 1).join("\n");
+            const afterContext = lines.slice(lastIdx + 1, endIndex + 1).join(
+              "\n",
+            );
             const newReplace = beforeContext + (beforeContext ? "\n" : "") +
               block.replace +
               (afterContext ? "\n" : "") + afterContext;
@@ -415,14 +439,20 @@ export class FileChangeManager {
       // Get context before
       const startIndex = Math.max(0, matchIndex - contextWindow);
       // Get context after
-      const endIndex = Math.min(lines.length - 1, matchIndex + searchLines.length + contextWindow);
+      const endIndex = Math.min(
+        lines.length - 1,
+        matchIndex + searchLines.length + contextWindow,
+      );
 
       // Create new search block with context
       const newSearch = lines.slice(startIndex, endIndex + 1).join("\n");
 
       // Adjust the replace block to include the context
       const beforeContext = lines.slice(startIndex, matchIndex).join("\n");
-      const afterContext = lines.slice(matchIndex + searchLines.length, endIndex + 1).join("\n");
+      const afterContext = lines.slice(
+        matchIndex + searchLines.length,
+        endIndex + 1,
+      ).join("\n");
       const newReplace = beforeContext + (beforeContext ? "\n" : "") +
         block.replace +
         (afterContext ? "\n" : "") + afterContext;
@@ -436,7 +466,10 @@ export class FileChangeManager {
     // Strategy 3: Try to find the longest common substring
     if (searchLines.length > 1) {
       console.log("Trying longest common substring approach");
-      const longestCommonSubstring = this.findLongestCommonSubstring(block.search, content);
+      const longestCommonSubstring = this.findLongestCommonSubstring(
+        block.search,
+        content,
+      );
       if (longestCommonSubstring && longestCommonSubstring.length > 20) { // Only use if substantial match
         const startPos = content.indexOf(longestCommonSubstring);
         if (startPos !== -1) {
@@ -448,7 +481,8 @@ export class FileChangeManager {
           const startLine = Math.max(0, linesBefore - contextWindow);
           const endLine = Math.min(
             lines.length - 1,
-            linesBefore + longestCommonSubstring.split("\n").length + contextWindow,
+            linesBefore + longestCommonSubstring.split("\n").length +
+              contextWindow,
           );
 
           const newSearch = lines.slice(startLine, endLine + 1).join("\n");
@@ -462,7 +496,9 @@ export class FileChangeManager {
     }
 
     // If we couldn't add context with any strategy, return the original block
-    console.log("Could not add context with any strategy, returning original block");
+    console.log(
+      "Could not add context with any strategy, returning original block",
+    );
     return block;
   }
 
@@ -472,7 +508,10 @@ export class FileChangeManager {
    * @param str2 Second string
    * @returns The longest common substring or null if none found
    */
-  private findLongestCommonSubstring(str1: string, str2: string): string | null {
+  private findLongestCommonSubstring(
+    str1: string,
+    str2: string,
+  ): string | null {
     if (!str1 || !str2) return null;
 
     // For very long strings, use a simplified approach
@@ -509,7 +548,10 @@ export class FileChangeManager {
   /**
    * Simplified version of longest common substring for very long strings
    */
-  private findLongestCommonSubstringSimple(str1: string, str2: string): string | null {
+  private findLongestCommonSubstringSimple(
+    str1: string,
+    str2: string,
+  ): string | null {
     // Use line-by-line approach for long strings
     const lines1 = str1.split("\n");
     const _lines2 = str2.split("\n");
@@ -554,7 +596,7 @@ export class FileChangeManager {
     const contentLines = content.split("\n");
 
     // Try to match significant lines (non-empty, not just whitespace or brackets)
-    const significantSearchLines = searchLines.filter(line => {
+    const significantSearchLines = searchLines.filter((line) => {
       const trimmed = line.trim();
       return trimmed.length > 5 && !/^[{}[\]();,]*$/.test(trimmed);
     });
@@ -636,7 +678,9 @@ export class FileChangeManager {
         detailedMessage += " The following search blocks could not be matched:\n";
         failedSearches.forEach((search, i) => {
           // Truncate long search blocks for readability
-          const truncated = search.length > 100 ? search.substring(0, 100) + "..." : search;
+          const truncated = search.length > 100
+            ? search.substring(0, 100) + "..."
+            : search;
           detailedMessage += `\n${i + 1}. ${truncated}`;
         });
         detailedMessage += "\n\nPlease check these blocks for exact matching.";
@@ -672,11 +716,17 @@ export class FileChangeManager {
 
       if (contentNoWS.includes(searchNoWS)) {
         // Found a match with flexible whitespace, try to apply it
-        const result = replacePreservingWhitespace(modifiedContent, block.search, block.replace);
+        const result = replacePreservingWhitespace(
+          modifiedContent,
+          block.search,
+          block.replace,
+        );
 
         // If the content changed, we had a successful replacement
         if (result !== modifiedContent) {
-          console.log("Successfully applied block with flexible whitespace matching");
+          console.log(
+            "Successfully applied block with flexible whitespace matching",
+          );
           modifiedContent = result;
           anySuccess = true;
         } else {
@@ -697,7 +747,7 @@ export class FileChangeManager {
 
     // Strategy 2: Try with expanded context
     console.log("Recovery strategy 2: Expanded context matching");
-    const expandedBlocks = blocks.map(block => {
+    const expandedBlocks = blocks.map((block) => {
       return this.addContextToSearchBlock(block, content);
     });
 
@@ -706,9 +756,15 @@ export class FileChangeManager {
     let expandedSuccess = false;
 
     for (const block of expandedBlocks) {
-      if (block.search !== blocks.find(b => b.replace === block.replace)?.search) {
+      if (
+        block.search !== blocks.find((b) => b.replace === block.replace)?.search
+      ) {
         // This block has been expanded with context, try to apply it
-        const result = replacePreservingWhitespace(expandedContent, block.search, block.replace);
+        const result = replacePreservingWhitespace(
+          expandedContent,
+          block.search,
+          block.replace,
+        );
 
         if (result !== expandedContent) {
           console.log("Successfully applied block with expanded context");
@@ -785,13 +841,16 @@ export class FileChangeManager {
       const contentLines = modifiedContent.split("\n");
 
       // Extract "significant" parts of each search line (removing comments, normalizing whitespace)
-      const significantSearchLines = searchLines.map(line => {
+      const significantSearchLines = searchLines.map((line) => {
         // Remove comments
-        let significant = line.replace(/\/\/.*$/, "").replace(/\/\*.*\*\//g, "");
+        let significant = line.replace(/\/\/.*$/, "").replace(
+          /\/\*.*\*\//g,
+          "",
+        );
         // Normalize whitespace
         significant = significant.trim().replace(/\s+/g, " ");
         return significant;
-      }).filter(line => line.length > 0);
+      }).filter((line) => line.length > 0);
 
       // If we don't have any significant lines, skip this block
       if (significantSearchLines.length === 0) continue;
@@ -873,7 +932,7 @@ export class FileChangeManager {
   ): { path: string; hash: string; diff: string; } {
     // Only batch changes for the same file
     const firstChange = changes[0];
-    const samePath = changes.every(change => change.path === firstChange.path);
+    const samePath = changes.every((change) => change.path === firstChange.path);
 
     if (!samePath || changes.length <= 1) {
       return firstChange;
@@ -888,7 +947,7 @@ export class FileChangeManager {
     }
 
     // Combine blocks into a single diff
-    const batchedDiff = allBlocks.map(block => {
+    const batchedDiff = allBlocks.map((block) => {
       return `${SEARCH_REPLACE_MARKERS.SEARCH_START}\n${block.search}\n${SEARCH_REPLACE_MARKERS.SEPARATOR}\n${block.replace}\n${SEARCH_REPLACE_MARKERS.REPLACE_END}`;
     }).join("\n\n");
 

@@ -24,7 +24,11 @@ import type { ExtendedAgentState, ToolResponseMetadata } from "./workflow-types"
  */
 export async function processMessage(
   state: AgentState,
-  model: Runnable<BaseLanguageModelInput, AIMessageChunk, ChatAnthropicCallOptions>,
+  model: Runnable<
+    BaseLanguageModelInput,
+    AIMessageChunk,
+    ChatAnthropicCallOptions
+  >,
   cSess: ICode,
   initialState: AgentState,
 ): Promise<Partial<AgentState>> {
@@ -60,17 +64,32 @@ export async function processMessage(
       throw new WorkflowError("Invalid message format", ErrorType.Unexpected);
     }
 
-    if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
-      returnModifiedCode = determineReturnModifiedCode(lastMessage.tool_calls, state.code);
+    if (
+      lastMessage && "tool_calls" in lastMessage &&
+      Array.isArray(lastMessage.tool_calls)
+    ) {
+      returnModifiedCode = determineReturnModifiedCode(
+        lastMessage.tool_calls,
+        state.code,
+      );
     }
 
-    if (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls)) {
+    if (
+      lastMessage && "tool_calls" in lastMessage &&
+      Array.isArray(lastMessage.tool_calls)
+    ) {
       const updatedToolCalls = updateToolCallsWithCodeFlag(
         lastMessage.tool_calls,
         returnModifiedCode,
       );
-      const updatedLastMessage = { ...lastMessage, tool_calls: updatedToolCalls } as AIMessage;
-      cleanedState.messages = [...state.messages.slice(0, -1), updatedLastMessage];
+      const updatedLastMessage = {
+        ...lastMessage,
+        tool_calls: updatedToolCalls,
+      } as AIMessage;
+      cleanedState.messages = [
+        ...state.messages.slice(0, -1),
+        updatedLastMessage,
+      ];
     }
 
     // Use retry mechanism for model invocation
@@ -79,12 +98,13 @@ export async function processMessage(
     // Log the messages being sent to the model for debugging
     console.log(
       "Invoking model with messages:",
-      JSON.stringify(cleanedState.messages.map(m => ({
+      JSON.stringify(cleanedState.messages.map((m) => ({
         type: m.constructor.name,
         content: typeof m.content === "string"
           ? m.content.substring(0, 100) + "..."
           : "(non-string content)",
-        has_tool_calls: "tool_calls" in m && Array.isArray(m.tool_calls) && m.tool_calls.length > 0,
+        has_tool_calls: "tool_calls" in m && Array.isArray(m.tool_calls) &&
+          m.tool_calls.length > 0,
       }))),
     );
 
@@ -149,7 +169,8 @@ export async function processMessage(
       currentHumanMessage instanceof HumanMessage &&
       currentHumanMessage.additional_kwargs?.images
     ) {
-      const images = currentHumanMessage.additional_kwargs.images as ImageData[];
+      const images = currentHumanMessage.additional_kwargs
+        .images as ImageData[];
       (updatedState as ExtendedAgentState).images = images;
       (updatedState as ExtendedAgentState).hasImages = images.length > 0;
     }
@@ -170,7 +191,11 @@ export async function processMessage(
       // Ensure hash is a string before passing to handleMissingCodeResponse
       const hashToUse = hash || "";
       // Pass cSess to handleMissingCodeResponse
-      const latestCode = await handleMissingCodeResponse(hashToUse, state, cSess);
+      const latestCode = await handleMissingCodeResponse(
+        hashToUse,
+        state,
+        cSess,
+      );
       if (latestCode) {
         updatedState.code = latestCode;
         // Update hash if needed
@@ -182,7 +207,10 @@ export async function processMessage(
 
     if (compilationError) {
       console.warn("Compilation error detected", compilationError);
-      throw new WorkflowError("failed to compile: syntax error", ErrorType.Compilation);
+      throw new WorkflowError(
+        "failed to compile: syntax error",
+        ErrorType.Compilation,
+      );
     }
 
     if (state.code !== updatedState.code && updatedState.code && !hash) {
@@ -226,11 +254,14 @@ export async function processMessage(
     };
 
     // Record error in telemetry
-    telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
-      location: "processMessage",
-      codeLength: state.code?.length?.toString() || "0",
-      isRetryable: isRetryableError(error).toString(),
-    });
+    telemetry.trackError(
+      error instanceof Error ? error : new Error(String(error)),
+      {
+        location: "processMessage",
+        codeLength: state.code?.length?.toString() || "0",
+        isRetryable: isRetryableError(error).toString(),
+      },
+    );
 
     const duration = Date.now() - start;
     metrics.recordOperation("processMessage", duration, true);

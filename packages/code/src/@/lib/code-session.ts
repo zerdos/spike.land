@@ -57,7 +57,10 @@ export class Code implements ICode {
     // Extract the sender property if it exists
     const { sender, ...sessionWithoutSender } = session;
 
-    if (computeSessionHash(sessionWithoutSender) === computeSessionHash(this.currentSession)) {
+    if (
+      computeSessionHash(sessionWithoutSender) ===
+        computeSessionHash(this.currentSession)
+    ) {
       console.log("⚠️ No changes to session, skipping update");
       return;
     }
@@ -83,14 +86,22 @@ export class Code implements ICode {
     );
 
     if (fetchError) {
-      console.error(`Failed to fetch session for ${this.codeSpace}:`, fetchError);
+      console.error(
+        `Failed to fetch session for ${this.codeSpace}:`,
+        fetchError,
+      );
       throw new Error(`Failed to fetch session: ${fetchError.message}`);
     }
 
-    const { data: sessionData, error: jsonError } = await tryCatch(response.json());
+    const { data: sessionData, error: jsonError } = await tryCatch(
+      response.json(),
+    );
 
     if (jsonError) {
-      console.error(`Failed to parse session JSON for ${this.codeSpace}:`, jsonError);
+      console.error(
+        `Failed to parse session JSON for ${this.codeSpace}:`,
+        jsonError,
+      );
       throw new Error(`Failed to parse session JSON: ${jsonError.message}`);
     }
 
@@ -125,7 +136,10 @@ export class Code implements ICode {
    * Adds a message chunk to the last assistant message or creates a new one
    */
   addMessageChunk(chunk: string): void {
-    console.log("🔄 CodeSession.addMessageChunk called with chunk length:", chunk.length);
+    console.log(
+      "🔄 CodeSession.addMessageChunk called with chunk length:",
+      chunk.length,
+    );
 
     // Create a copy of the current session for tracking changes
     const oldSession = sanitizeSession(this.currentSession);
@@ -175,7 +189,10 @@ export class Code implements ICode {
    * Adds a new message to the session
    */
   addMessage(newMessage: Message): boolean {
-    console.log("🔄 CodeSession.addMessage called with message:", newMessage.role);
+    console.log(
+      "🔄 CodeSession.addMessage called with message:",
+      newMessage.role,
+    );
 
     // Create a copy of the current messages
     const currentMessages = [...this.currentSession.messages];
@@ -184,7 +201,10 @@ export class Code implements ICode {
     const updatedMessages = messagesPush(currentMessages, newMessage);
 
     // Check if messages actually changed
-    if (md5(JSON.stringify(updatedMessages)) === md5(JSON.stringify(currentMessages))) {
+    if (
+      md5(JSON.stringify(updatedMessages)) ===
+        md5(JSON.stringify(currentMessages))
+    ) {
       console.log("⚠️ No changes to messages, skipping update");
       return false;
     }
@@ -231,7 +251,10 @@ export class Code implements ICode {
     rawCode: string,
     skipRunning = false,
   ): Promise<string> {
-    console.log("🔄 CodeSession.setCode called with code length:", rawCode.length);
+    console.log(
+      "🔄 CodeSession.setCode called with code length:",
+      rawCode.length,
+    );
 
     // Store current code before any updates
     const currentCode = this.currentSession?.code || "";
@@ -250,7 +273,9 @@ export class Code implements ICode {
     this.isRunning = true;
     this.pendingRun = null;
 
-    const { data: result, error } = await tryCatch(this.updateCodeInternal(rawCode, skipRunning));
+    const { data: result, error } = await tryCatch(
+      this.updateCodeInternal(rawCode, skipRunning),
+    );
 
     this.isRunning = false;
 
@@ -266,7 +291,10 @@ export class Code implements ICode {
     rawCode: string,
     skipRunning: boolean,
   ): Promise<string> {
-    console.log("🔄 CodeSession.updateCodeInternal called with code length:", rawCode.length);
+    console.log(
+      "🔄 CodeSession.updateCodeInternal called with code length:",
+      rawCode.length,
+    );
 
     // Store current code for fallback
     const currentCode = this.currentSession?.code || "";
@@ -305,7 +333,10 @@ export class Code implements ICode {
     );
 
     if (processError || !result) {
-      console.log("⚠️ CodeProcessor returned no result or error:", processError);
+      console.log(
+        "⚠️ CodeProcessor returned no result or error:",
+        processError,
+      );
       return currentCode;
     }
 
@@ -318,7 +349,7 @@ export class Code implements ICode {
     this.setSession(processedSession);
 
     // Wait a small amount of time to ensure the session update is processed
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     console.log("✅ Code update completed successfully");
     return processedSession.code;
@@ -406,7 +437,9 @@ async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
     throw new Error(`Failed to fetch code session: ${response.status}`);
   }
 
-  const { data: sessionData, error: jsonError } = await tryCatch(response.json());
+  const { data: sessionData, error: jsonError } = await tryCatch(
+    response.json(),
+  );
 
   if (jsonError) {
     throw new Error(`Failed to parse code session JSON: ${jsonError.message}`);
@@ -430,7 +463,9 @@ export async function getCodeSession(
 
   // Fetch and create a new session
 
-  const { data: sessionData, error: fetchError } = await tryCatch(fetchCodeSession(codeSpaceId));
+  const { data: sessionData, error: fetchError } = await tryCatch(
+    fetchCodeSession(codeSpaceId),
+  );
 
   if (fetchError) {
     console.error(`Failed to get code session for ${codeSpaceId}:`, fetchError);
@@ -442,7 +477,10 @@ export async function getCodeSession(
   const { error: initError } = await tryCatch(codeSession.init(sessionData));
 
   if (initError) {
-    console.error(`Failed to initialize session for ${codeSpaceId}:`, initError);
+    console.error(
+      `Failed to initialize session for ${codeSpaceId}:`,
+      initError,
+    );
     throw initError;
   }
 

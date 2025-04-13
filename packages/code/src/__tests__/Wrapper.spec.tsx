@@ -92,6 +92,7 @@ describe("Wrapper", () => {
     });
 
     // Use a more reliable way to check for rendering
-    expect(container.querySelector('[data-testid="wrapper-container"]')).not.toBeNull();
+    expect(container.querySelector('[data-testid="wrapper-container"]')).not
+      .toBeNull();
   }, 15000);
 });

@@ -46,37 +46,61 @@ export class WorkflowError extends Error {
 export function handleWorkflowError(error: unknown): WorkflowError {
   if (error instanceof WorkflowError) {
     // Log with appropriate level based on error type
-    const logLevel = error.errorType === ErrorType.Unexpected ? "error" : "warn";
+    const logLevel = error.errorType === ErrorType.Unexpected
+      ? "error"
+      : "warn";
 
     // Add specific handling based on error type
     switch (error.errorType) {
       case ErrorType.CodeIntegrity:
-        console.error("Code integrity validation failed:", error.getUserFriendlyMessage());
+        console.error(
+          "Code integrity validation failed:",
+          error.getUserFriendlyMessage(),
+        );
         console.error("Context:", JSON.stringify(error.context, null, 2));
         break;
 
       case ErrorType.Compilation:
-        console.error("Compilation errors detected:", error.getUserFriendlyMessage());
-        console.error("These can be fixed with a new modification or by rolling back.");
+        console.error(
+          "Compilation errors detected:",
+          error.getUserFriendlyMessage(),
+        );
+        console.error(
+          "These can be fixed with a new modification or by rolling back.",
+        );
         break;
 
       case ErrorType.SearchReplace:
-        console.warn("Search/Replace pattern failure:", error.getUserFriendlyMessage());
-        console.warn("Check for exact whitespace, indentation, and line endings in your patterns.");
+        console.warn(
+          "Search/Replace pattern failure:",
+          error.getUserFriendlyMessage(),
+        );
+        console.warn(
+          "Check for exact whitespace, indentation, and line endings in your patterns.",
+        );
         break;
 
       case ErrorType.HashMismatch:
         console.warn("Hash mismatch detected:", error.getUserFriendlyMessage());
-        console.warn("The document may have been modified since the last operation.");
+        console.warn(
+          "The document may have been modified since the last operation.",
+        );
         break;
 
       case ErrorType.SchemaValidation:
-        console.warn("Schema validation error:", error.getUserFriendlyMessage());
+        console.warn(
+          "Schema validation error:",
+          error.getUserFriendlyMessage(),
+        );
         console.warn("Check that your input matches the expected format.");
         break;
 
       default:
-        console[logLevel]("Workflow Error:", error.getUserFriendlyMessage(), error.context);
+        console[logLevel](
+          "Workflow Error:",
+          error.getUserFriendlyMessage(),
+          error.context,
+        );
     }
 
     throw error;

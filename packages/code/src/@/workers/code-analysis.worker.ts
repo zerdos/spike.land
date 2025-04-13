@@ -18,7 +18,13 @@ export interface CodeAnalysis {
     setters: string[];
   };
   styling: {
-    type: "css" | "tailwind" | "styled-components" | "emotion" | "inline" | "unknown";
+    type:
+      | "css"
+      | "tailwind"
+      | "styled-components"
+      | "emotion"
+      | "inline"
+      | "unknown";
     classes: string[];
   };
   functions: Array<{
@@ -86,7 +92,10 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
       // Find component declaration
       ExportDefaultDeclaration(path) {
-        if (t.isFunctionDeclaration(path.node.declaration) && path.node.declaration.id) {
+        if (
+          t.isFunctionDeclaration(path.node.declaration) &&
+          path.node.declaration.id
+        ) {
           analysis.componentName = path.node.declaration.id.name;
         } else if (t.isIdentifier(path.node.declaration)) {
           analysis.componentName = path.node.declaration.name;
@@ -97,11 +106,11 @@ export function analyzeReactCode(code: string): CodeAnalysis {
       FunctionDeclaration(path) {
         if (path.node.id) {
           const name = path.node.id.name;
-          const params = path.node.params.map(param => {
+          const params = path.node.params.map((param) => {
             if (t.isIdentifier(param)) return param.name;
             if (t.isObjectPattern(param)) {
               return param.properties
-                .map(prop => {
+                .map((prop) => {
                   if (t.isObjectProperty(prop) && t.isIdentifier(prop.key)) {
                     analysis.props.push(prop.key.name);
                     return prop.key.name;
@@ -124,7 +133,10 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 
       // Find hooks usage
       CallExpression(path) {
-        if (t.isIdentifier(path.node.callee) && path.node.callee.name.startsWith("use")) {
+        if (
+          t.isIdentifier(path.node.callee) &&
+          path.node.callee.name.startsWith("use")
+        ) {
           const hookName = path.node.callee.name;
           if (!analysis.hooks.includes(hookName)) {
             analysis.hooks.push(hookName);
@@ -144,12 +156,17 @@ export function analyzeReactCode(code: string): CodeAnalysis {
       // Find JSX class names for styling analysis
       JSXAttribute(path) {
         if (t.isJSXIdentifier(path.node.name)) {
-          if (path.node.name.name === "className" && t.isStringLiteral(path.node.value)) {
+          if (
+            path.node.name.name === "className" &&
+            t.isStringLiteral(path.node.value)
+          ) {
             const classes = path.node.value.value.split(" ");
             analysis.styling.classes.push(...classes);
 
             // Detect Tailwind usage
-            if (classes.some(cls => /^(bg-|text-|p-|m-|flex|grid|w-|h-)/.test(cls))) {
+            if (
+              classes.some((cls) => /^(bg-|text-|p-|m-|flex|grid|w-|h-)/.test(cls))
+            ) {
               analysis.styling.type = "tailwind";
             }
           } else if (path.node.name.name === "css") {
@@ -174,7 +191,10 @@ export function analyzeReactCode(code: string): CodeAnalysis {
 /**
  * Generate a semantic diff between two versions of a component
  */
-export function generateSemanticDiff(originalCode: string, modifiedCode: string) {
+export function generateSemanticDiff(
+  originalCode: string,
+  modifiedCode: string,
+) {
   // Get analysis and ensure component names are present
   const original = analyzeReactCode(originalCode);
   const modified = analyzeReactCode(modifiedCode);
@@ -204,20 +224,20 @@ export function generateSemanticDiff(originalCode: string, modifiedCode: string)
 
   return {
     componentRenamed: originalMeta.componentName !== modifiedMeta.componentName,
-    addedHooks: modifiedMeta.hooks.filter(h => !originalMeta.hooks.includes(h)),
-    removedHooks: originalMeta.hooks.filter(h => !modifiedMeta.hooks.includes(h)),
-    addedProps: modified.props.filter(p => !original.props.includes(p)),
-    removedProps: original.props.filter(p => !modified.props.includes(p)),
-    addedImports: modified.imports.filter(i => !original.imports.includes(i)),
-    removedImports: original.imports.filter(i => !modified.imports.includes(i)),
+    addedHooks: modifiedMeta.hooks.filter((h) => !originalMeta.hooks.includes(h)),
+    removedHooks: originalMeta.hooks.filter((h) => !modifiedMeta.hooks.includes(h)),
+    addedProps: modified.props.filter((p) => !original.props.includes(p)),
+    removedProps: original.props.filter((p) => !modified.props.includes(p)),
+    addedImports: modified.imports.filter((i) => !original.imports.includes(i)),
+    removedImports: original.imports.filter((i) => !modified.imports.includes(i)),
     stateChanges: {
-      added: modified.state.variables.filter(v => !original.state.variables.includes(v)),
-      removed: original.state.variables.filter(v => !modified.state.variables.includes(v)),
+      added: modified.state.variables.filter((v) => !original.state.variables.includes(v)),
+      removed: original.state.variables.filter((v) => !modified.state.variables.includes(v)),
     },
     stylingChanges: {
       typeChanged: original.styling.type !== modified.styling.type,
-      addedClasses: modified.styling.classes.filter(c => !original.styling.classes.includes(c)),
-      removedClasses: original.styling.classes.filter(c => !modified.styling.classes.includes(c)),
+      addedClasses: modified.styling.classes.filter((c) => !original.styling.classes.includes(c)),
+      removedClasses: original.styling.classes.filter((c) => !modified.styling.classes.includes(c)),
     },
   };
 }
@@ -225,7 +245,10 @@ export function generateSemanticDiff(originalCode: string, modifiedCode: string)
 /**
  * Check if code changes maintain semantic integrity
  */
-export function verifySemanticIntegrity(originalCode: string, modifiedCode: string): {
+export function verifySemanticIntegrity(
+  originalCode: string,
+  modifiedCode: string,
+): {
   valid: boolean;
   reason?: string;
 } {
@@ -242,7 +265,7 @@ export function verifySemanticIntegrity(originalCode: string, modifiedCode: stri
       };
     }
 
-    const criticalImportsRemoved = diff.removedImports.filter(imp =>
+    const criticalImportsRemoved = diff.removedImports.filter((imp) =>
       imp.startsWith(".") || // Internal project imports
       imp.includes("'") || // Aliased internal imports
       /^react(-dom)?$/.test(imp) // React core imports
@@ -267,7 +290,9 @@ export function verifySemanticIntegrity(originalCode: string, modifiedCode: stri
     }
 
     if (diff.stateChanges.removed.length > 0) {
-      breakingChanges.push(`State variables removed: ${diff.stateChanges.removed.join(", ")}`);
+      breakingChanges.push(
+        `State variables removed: ${diff.stateChanges.removed.join(", ")}`,
+      );
     }
 
     if (breakingChanges.length > 0) {

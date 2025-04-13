@@ -22,7 +22,9 @@ export class ServiceWorkerHandlers {
     try {
       const config = await this.configManager.getConfig();
 
-      console.log(`Current SW version: ${this.sw.swVersion}, Config version: ${config.swVersion}`);
+      console.log(
+        `Current SW version: ${this.sw.swVersion}, Config version: ${config.swVersion}`,
+      );
 
       // Initialize file cache regardless of version
       await this.fileCacheManager.initializeFilesCache();
@@ -194,7 +196,9 @@ export class ServiceWorkerHandlers {
       const cache = await caches.open(this.sw.fileCacheName);
 
       // Try to get the file from cache using the hashed filename
-      const cacheKey = new Request(new URL("/" + hashedFile, location.origin).toString());
+      const cacheKey = new Request(
+        new URL("/" + hashedFile, location.origin).toString(),
+      );
       const cachedResponse = await cache.match(cacheKey);
 
       if (cachedResponse) {

@@ -60,15 +60,24 @@ function validateDiff(diff: string): { valid: boolean; reason?: string; } {
 
   // Check for basic markers
   if (!diff.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
-    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEARCH_START}' marker` };
+    return {
+      valid: false,
+      reason: `Missing '${SEARCH_REPLACE_MARKERS.SEARCH_START}' marker`,
+    };
   }
 
   if (!diff.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
-    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.SEPARATOR}' marker` };
+    return {
+      valid: false,
+      reason: `Missing '${SEARCH_REPLACE_MARKERS.SEPARATOR}' marker`,
+    };
   }
 
   if (!diff.includes(SEARCH_REPLACE_MARKERS.REPLACE_END)) {
-    return { valid: false, reason: `Missing '${SEARCH_REPLACE_MARKERS.REPLACE_END}' marker` };
+    return {
+      valid: false,
+      reason: `Missing '${SEARCH_REPLACE_MARKERS.REPLACE_END}' marker`,
+    };
   }
 
   // Check for proper sequence and format
@@ -95,8 +104,9 @@ function normalizeDiff(diff: string): string {
     .replace(/\n\s*>>>>>>> REPLACE/g, "\n>>>>>>> REPLACE");
 
   // Fix common whitespace issues in search blocks
-  const blocks =
-    normalized.match(/<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g) || [];
+  const blocks = normalized.match(
+    /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/g,
+  ) || [];
 
   for (const block of blocks) {
     const parts = block
@@ -139,7 +149,10 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         diff: string;
       },
     ): Promise<CodeModification> => {
-      console.log("🔄 enhancedReplaceInFileTool", { path, hash: hash.substring(0, 8) });
+      console.log("🔄 enhancedReplaceInFileTool", {
+        path,
+        hash: hash.substring(0, 8),
+      });
 
       log(`Starting enhanced replace operation for file: ${path}`, "info", {
         hash: hash.substring(0, 8),
@@ -162,7 +175,8 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
           `Invalid diff format: ${validation.reason}. Must contain valid SEARCH/REPLACE blocks`,
           {
             diffLength: diff?.length,
-            diffSample: diff?.substring(0, 100) + (diff?.length > 100 ? "..." : ""),
+            diffSample: diff?.substring(0, 100) +
+              (diff?.length > 100 ? "..." : ""),
             reason: validation.reason,
           },
         );
@@ -182,7 +196,10 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         const currentCode = await cSess.getCode();
 
         if (!currentCode) {
-          return createErrorResponse("", "Failed to retrieve file content or file is empty");
+          return createErrorResponse(
+            "",
+            "Failed to retrieve file content or file is empty",
+          );
         }
 
         // Submit the change using FileChangeManager
@@ -190,7 +207,9 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
 
         if (!result.success) {
           // If the error is due to hash mismatch but we have a new hash, return it
-          if (result.hash && result.message.includes("Document has been modified")) {
+          if (
+            result.hash && result.message.includes("Document has been modified")
+          ) {
             return {
               code: currentCode,
               hash: result.hash,
@@ -205,7 +224,7 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
         console.log(
           "⏳ Waiting for code changes to be fully processed before adding message chunk...",
         );
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         try {
           // Add the message chunk
@@ -242,7 +261,9 @@ export const getEnhancedReplaceInFileTool = (cSess: ICode) => {
           currentCode = await cSess.getCode();
         } catch (getCodeError) {
           log("Failed to retrieve code after error", "error", {
-            error: getCodeError instanceof Error ? getCodeError.message : "Unknown error",
+            error: getCodeError instanceof Error
+              ? getCodeError.message
+              : "Unknown error",
           });
         }
 
@@ -285,8 +306,11 @@ IMPORTANT: Only make changes when necessary. Avoid making trivial or cosmetic ch
 Multiple minor changes in succession will be rejected to prevent infinite loops. When your task is complete, stop making changes.`,
       schema: z.object({
         path: z.string().describe("The path of the file to modify"),
-        hash: z.string().describe("The hash of the file to modify for version control"),
-        diff: z.string().describe(`One or more SEARCH/REPLACE blocks following this exact format:
+        hash: z.string().describe(
+          "The hash of the file to modify for version control",
+        ),
+        diff: z.string().describe(
+          `One or more SEARCH/REPLACE blocks following this exact format:
 \`\`\`
 ${SEARCH_REPLACE_MARKERS.SEARCH_START}
 [exact content to find]
@@ -294,7 +318,8 @@ ${SEARCH_REPLACE_MARKERS.SEPARATOR}
 [new content to replace with]
 ${SEARCH_REPLACE_MARKERS.REPLACE_END}
 \`\`\`
-`),
+`,
+        ),
       }),
     },
   );

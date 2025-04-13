@@ -43,7 +43,9 @@ export class CodeProcessor {
     const origin = window.location.origin;
     if (signal.aborted) return false;
 
-    const { data: code, error: formatError } = await tryCatch(this.formatCode(rawCode));
+    const { data: code, error: formatError } = await tryCatch(
+      this.formatCode(rawCode),
+    );
 
     if (signal.aborted) {
       return false;
@@ -59,9 +61,13 @@ export class CodeProcessor {
     }
 
     // Transpile code
-    const { data: transpiled, error: transpileError } = await tryCatch(this.transpileCode(code));
+    const { data: transpiled, error: transpileError } = await tryCatch(
+      this.transpileCode(code),
+    );
     if (signal.aborted || transpileError) {
-      if (transpileError) console.error("Error transpiling code:", transpileError);
+      if (transpileError) {
+        console.error("Error transpiling code:", transpileError);
+      }
       return false;
     }
 
@@ -83,11 +89,12 @@ export class CodeProcessor {
         const { data: blobUrlForTranspiledCode, error: blobError } = await tryCatch(
           Promise.resolve(URL.createObjectURL(
             new Blob([
-              importMapReplace(transpiled.split("importMapReplace").join("")).split(
-                `from "/`,
-              ).join(
-                `from "${origin}/`,
-              ),
+              importMapReplace(transpiled.split("importMapReplace").join(""))
+                .split(
+                  `from "/`,
+                ).join(
+                  `from "${origin}/`,
+                ),
             ], { type: "application/javascript" }),
           )),
         );
@@ -156,7 +163,10 @@ export class CodeProcessor {
         // Create a Promise for handling the render result
         const renderPromise = new Promise<void>((resolve, reject) => {
           const messageHandler = (event: MessageEvent) => {
-            if (event.data.type === "rendered" && event.data.requestId === md5(transpiled)) {
+            if (
+              event.data.type === "rendered" &&
+              event.data.requestId === md5(transpiled)
+            ) {
               try {
                 const iteration = event.data.iteration;
                 const { html, css } = event.data.data;
@@ -180,19 +190,29 @@ export class CodeProcessor {
 
           // First timeout for render operation (2 seconds)
           setTimeout(() => {
-            reject(new Error("Render timeout - iframe didn't respond within 2 seconds"));
+            reject(
+              new Error(
+                "Render timeout - iframe didn't respond within 2 seconds",
+              ),
+            );
           }, 2000);
         });
 
         // Second timeout for overall process (5 seconds)
         const timeoutPromise = new Promise<void>((_, reject) => {
           setTimeout(() => {
-            reject(new Error("Process timeout - operation took longer than 5 seconds"));
+            reject(
+              new Error(
+                "Process timeout - operation took longer than 5 seconds",
+              ),
+            );
           }, 5000);
         });
 
         // Race the render against both timeouts
-        const { error: raceError } = await tryCatch(Promise.race([renderPromise, timeoutPromise]));
+        const { error: raceError } = await tryCatch(
+          Promise.race([renderPromise, timeoutPromise]),
+        );
 
         if (raceError) {
           console.error("Error during rendering:", raceError);

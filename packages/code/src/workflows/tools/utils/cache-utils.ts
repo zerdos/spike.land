@@ -41,7 +41,8 @@ export class CacheUtils {
           name !== currentCacheName &&
           name !== CDN_CACHE_NAME &&
           // Only delete caches that follow our naming pattern
-          (name.startsWith("sw-file-cache-") || name.startsWith("static-cache-")),
+          (name.startsWith("sw-file-cache-") ||
+            name.startsWith("static-cache-")),
       );
 
       if (cachesToDelete.length > 0) {
@@ -163,22 +164,30 @@ export class CacheUtils {
       const oldCacheHasItems = CacheUtils.setIntersection(oldKeys, missing);
 
       if (oldCacheHasItems.size > 0) {
-        console.log(`Found ${oldCacheHasItems.size} files in cache: ${cacheName}`);
+        console.log(
+          `Found ${oldCacheHasItems.size} files in cache: ${cacheName}`,
+        );
 
         await Promise.all([...oldCacheHasItems].map(async (url) => {
           const request = new Request(url);
           const response = await oldCache.match(request);
           if (response) {
             // Add metadata about source cache
-            const responseToCache = new Response(await response.clone().blob(), {
-              status: response.status,
-              statusText: response.statusText,
-              headers: new Headers(response.headers),
-            });
+            const responseToCache = new Response(
+              await response.clone().blob(),
+              {
+                status: response.status,
+                statusText: response.statusText,
+                headers: new Headers(response.headers),
+              },
+            );
 
             // Add cache metadata
             responseToCache.headers.set("x-copied-from-cache", cacheName);
-            responseToCache.headers.set("x-copied-at", new Date().toISOString());
+            responseToCache.headers.set(
+              "x-copied-at",
+              new Date().toISOString(),
+            );
 
             await myCache.put(request, responseToCache);
             recoveredCount++;

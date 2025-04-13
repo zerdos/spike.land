@@ -77,7 +77,9 @@ describe("replace-in-file tool", () => {
     const tool = getReplaceInFileTool(mockCodeSession);
 
     // Mock the updateSearchReplace function to return updated content
-    vi.mocked(updateSearchReplace).mockReturnValueOnce("const updated = 'updated';");
+    vi.mocked(updateSearchReplace).mockReturnValueOnce(
+      "const updated = 'updated';",
+    );
 
     const result = await tool.invoke({
       path: "/path/to/file.ts",
@@ -91,7 +93,9 @@ const updated = 'updated';
 
     expect(mockCodeSession.getCode).toHaveBeenCalled();
     expect(updateSearchReplace).toHaveBeenCalled();
-    expect(mockCodeSession.setCode).toHaveBeenCalledWith("const updated = 'updated';");
+    expect(mockCodeSession.setCode).toHaveBeenCalledWith(
+      "const updated = 'updated';",
+    );
     expect(mockCodeSession.addMessageChunk).toHaveBeenCalled();
 
     expect(result).toHaveProperty("hash");
@@ -153,10 +157,14 @@ const updated = 'updated';
     const tool = getReplaceInFileTool(mockCodeSession);
 
     // Mock the updateSearchReplace function to return updated content
-    vi.mocked(updateSearchReplace).mockReturnValueOnce("const updated = 'updated';");
+    vi.mocked(updateSearchReplace).mockReturnValueOnce(
+      "const updated = 'updated';",
+    );
 
     // Mock setCode to throw an error
-    vi.mocked(mockCodeSession.setCode).mockRejectedValueOnce(new Error("Failed to update code"));
+    vi.mocked(mockCodeSession.setCode).mockRejectedValueOnce(
+      new Error("Failed to update code"),
+    );
 
     const result = await tool.invoke({
       path: "/path/to/file.ts",

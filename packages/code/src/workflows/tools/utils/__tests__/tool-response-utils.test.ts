@@ -173,7 +173,11 @@ describe("tool-response-utils", () => {
         hash: "old-hash",
       };
 
-      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
+      const result = await handleMissingCodeResponse(
+        mockHash,
+        state,
+        mockCodeSession,
+      );
 
       expect(result).toBe(mockCode);
       expect(console.log).toHaveBeenCalledWith(
@@ -196,7 +200,11 @@ describe("tool-response-utils", () => {
       const wrongCode = "different code";
       mockCodeSession.getCode = vi.fn().mockResolvedValue(wrongCode);
 
-      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
+      const result = await handleMissingCodeResponse(
+        mockHash,
+        state,
+        mockCodeSession,
+      );
 
       expect(result).toBeUndefined();
       expect(console.warn).toHaveBeenCalledWith(
@@ -223,7 +231,11 @@ describe("tool-response-utils", () => {
         new Error("Session error"),
       );
 
-      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
+      const result = await handleMissingCodeResponse(
+        mockHash,
+        state,
+        mockCodeSession,
+      );
 
       expect(result).toBeUndefined();
       expect(console.warn).toHaveBeenCalledWith(
@@ -243,7 +255,11 @@ describe("tool-response-utils", () => {
         hash: mockHash,
       };
 
-      const result = await handleMissingCodeResponse(mockHash, state, mockCodeSession);
+      const result = await handleMissingCodeResponse(
+        mockHash,
+        state,
+        mockCodeSession,
+      );
 
       expect(result).toBeUndefined();
       expect(mockCodeSession.getCode).not.toHaveBeenCalled();

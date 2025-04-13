@@ -154,15 +154,22 @@ export const extractCodeModification = (response: string): string[] => {
 
   // Extract modifications from regular format
   const regexMatches = response.match(CODE_MODIFICATION_REGEX) || [];
-  console.debug("extractCodeModification - Regex matches count:", regexMatches.length);
+  console.debug(
+    "extractCodeModification - Regex matches count:",
+    regexMatches.length,
+  );
 
   if (regexMatches.length > 0 && regexMatches[0]) {
     console.debug(
       "extractCodeModification - First regex match:",
-      regexMatches[0].substring(0, 50) + (regexMatches[0].length > 50 ? "..." : ""),
+      regexMatches[0].substring(0, 50) +
+        (regexMatches[0].length > 50 ? "..." : ""),
     );
   } else {
-    console.debug("extractCodeModification - Regex pattern used:", CODE_MODIFICATION_REGEX);
+    console.debug(
+      "extractCodeModification - Regex pattern used:",
+      CODE_MODIFICATION_REGEX,
+    );
     console.debug(
       "extractCodeModification - Response sample:",
       response.substring(0, 100) + (response.length > 100 ? "..." : ""),
@@ -173,7 +180,10 @@ export const extractCodeModification = (response: string): string[] => {
 
   // Extract modifications from code blocks
   const codeBlockMatches = response.match(/```[\s\S]*?```/g) || [];
-  console.debug("extractCodeModification - Code block matches count:", codeBlockMatches.length);
+  console.debug(
+    "extractCodeModification - Code block matches count:",
+    codeBlockMatches.length,
+  );
 
   for (const block of codeBlockMatches) {
     // First clean up any code fences in the entire block
@@ -210,7 +220,10 @@ export const extractCodeModification = (response: string): string[] => {
     }
   }
 
-  console.debug("extractCodeModification - Total modifications extracted:", modifications.length);
+  console.debug(
+    "extractCodeModification - Total modifications extracted:",
+    modifications.length,
+  );
   return modifications;
 };
 
@@ -257,7 +270,10 @@ function parseModification(mod: string): CodeModification | null {
     };
   }
 
-  console.warn("parseModification - Failed to parse modification, parts count:", parts.length);
+  console.warn(
+    "parseModification - Failed to parse modification, parts count:",
+    parts.length,
+  );
   return null;
 }
 
@@ -298,16 +314,24 @@ function applyCodeModifications(
   applyAll = true,
 ): string {
   console.debug("applyCodeModifications - Code length:", code.length);
-  console.debug("applyCodeModifications - Modifications count:", modifications.length);
+  console.debug(
+    "applyCodeModifications - Modifications count:",
+    modifications.length,
+  );
   console.debug("applyCodeModifications - Apply all:", applyAll);
 
   try {
     let result = code;
     const modsToApply = applyAll ? modifications : modifications.slice(0, 1);
-    console.debug("applyCodeModifications - Mods to apply count:", modsToApply.length);
+    console.debug(
+      "applyCodeModifications - Mods to apply count:",
+      modsToApply.length,
+    );
 
     modsToApply.forEach((mod, index) => {
-      console.debug(`applyCodeModifications - Applying modification ${index + 1}`);
+      console.debug(
+        `applyCodeModifications - Applying modification ${index + 1}`,
+      );
       const parsed = parseModification(mod);
 
       if (parsed) {
@@ -338,10 +362,18 @@ function applyCodeModifications(
 
         // Check if the modification was applied
         const changed = beforeLength !== afterLength || result !== code;
-        console.debug(`applyCodeModifications - Modification ${index + 1} applied:`, changed);
-        console.debug(`applyCodeModifications - Length change:`, afterLength - beforeLength);
+        console.debug(
+          `applyCodeModifications - Modification ${index + 1} applied:`,
+          changed,
+        );
+        console.debug(
+          `applyCodeModifications - Length change:`,
+          afterLength - beforeLength,
+        );
       } else {
-        console.warn(`applyCodeModifications - Failed to parse modification ${index + 1}`);
+        console.warn(
+          `applyCodeModifications - Failed to parse modification ${index + 1}`,
+        );
       }
     });
 
@@ -352,8 +384,14 @@ function applyCodeModifications(
     return result;
   } catch (error) {
     console.error("Error applying code modifications:", error);
-    console.error("Error details:", error instanceof Error ? error.message : String(error));
-    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+    console.error(
+      "Error details:",
+      error instanceof Error ? error.message : String(error),
+    );
+    console.error(
+      "Error stack:",
+      error instanceof Error ? error.stack : "No stack trace",
+    );
     return code;
   }
 }
@@ -365,14 +403,22 @@ export const updateSearchReplace = (
   instructions: string,
   codeNow: string,
 ): string => {
-  console.debug("updateSearchReplace - Instructions length:", instructions.length);
+  console.debug(
+    "updateSearchReplace - Instructions length:",
+    instructions.length,
+  );
   console.debug("updateSearchReplace - Code length:", codeNow.length);
 
   const modifications = extractCodeModification(instructions);
-  console.debug("updateSearchReplace - Extracted modifications count:", modifications.length);
+  console.debug(
+    "updateSearchReplace - Extracted modifications count:",
+    modifications.length,
+  );
 
   if (modifications.length === 0) {
-    console.warn("updateSearchReplace - No modifications extracted from instructions");
+    console.warn(
+      "updateSearchReplace - No modifications extracted from instructions",
+    );
     console.debug("updateSearchReplace - Instructions:", instructions);
     return codeNow;
   }
@@ -387,7 +433,10 @@ export const updateSearchReplace = (
     // Parse the modification to get search and replace parts
     const parsed = parseModification(mod);
     if (parsed) {
-      console.debug(`updateSearchReplace - Search part ${index + 1} length:`, parsed.search.length);
+      console.debug(
+        `updateSearchReplace - Search part ${index + 1} length:`,
+        parsed.search.length,
+      );
       console.debug(
         `updateSearchReplace - Replace part ${index + 1} length:`,
         parsed.replace.length,
@@ -395,7 +444,10 @@ export const updateSearchReplace = (
 
       // Check if search exists in code (exact match)
       const exactMatch = codeNow.includes(parsed.search);
-      console.debug(`updateSearchReplace - Exact match for modification ${index + 1}:`, exactMatch);
+      console.debug(
+        `updateSearchReplace - Exact match for modification ${index + 1}:`,
+        exactMatch,
+      );
 
       // Check if search exists in code (ignoring whitespace)
       const codeNoWS = codeNow.replace(/\s+/g, "");
@@ -405,7 +457,9 @@ export const updateSearchReplace = (
         codeNoWS.includes(searchNoWS),
       );
     } else {
-      console.warn(`updateSearchReplace - Failed to parse modification ${index + 1}`);
+      console.warn(
+        `updateSearchReplace - Failed to parse modification ${index + 1}`,
+      );
     }
   });
 

@@ -348,7 +348,9 @@ describe("WebSocketManager", () => {
 
     it("should handle timeout errors", async () => {
       const timeoutError = new Error("Connection timeout");
-      mockSessionSynchronizer.init = vi.fn().mockRejectedValueOnce(timeoutError);
+      mockSessionSynchronizer.init = vi.fn().mockRejectedValueOnce(
+        timeoutError,
+      );
 
       location.pathname = "/live/test-space";
       await expect(webSocketManager.init()).rejects.toThrow(

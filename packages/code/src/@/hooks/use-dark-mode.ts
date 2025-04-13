@@ -8,7 +8,9 @@ export const useDarkMode = () => {
     if (storedDarkMode !== null) {
       return storedDarkMode === "true";
     } else {
-      if (!window.matchMedia || typeof window.matchMedia !== "function") return false;
+      if (!window.matchMedia || typeof window.matchMedia !== "function") {
+        return false;
+      }
 
       try {
         return window.matchMedia("(prefers-color-scheme: dark)").matches;

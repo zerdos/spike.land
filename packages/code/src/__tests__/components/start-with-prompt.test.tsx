@@ -135,7 +135,9 @@ describe("StartWithPrompt", () => {
     // Wait for the image to be added - use a combination of queries
     await waitFor(() => {
       // First check for the image container
-      const imageGallery = container.querySelector(".flex.flex-wrap.gap-4.mt-4");
+      const imageGallery = container.querySelector(
+        ".flex.flex-wrap.gap-4.mt-4",
+      );
       expect(imageGallery?.children.length).toBeGreaterThan(0);
 
       // Then check for the image element

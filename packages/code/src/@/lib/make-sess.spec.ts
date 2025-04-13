@@ -24,7 +24,9 @@ vi.mock("./md5", () => ({
 }));
 
 vi.mock("./text-delta", () => ({
-  createDelta: vi.fn(() => [{ op: "replace", path: "/code", value: "updated code" }]),
+  createDelta: vi.fn(
+    () => [{ op: "replace", path: "/code", value: "updated code" }],
+  ),
   applyDelta: vi.fn((session, _diff) => ({
     ...session,
     code: "updated code",

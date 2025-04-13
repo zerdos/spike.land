@@ -66,7 +66,9 @@ export function createWorkflowWithStringReplace(
   };
 
   // Ensure the shouldContinue function is compatible with StateGraph
-  const shouldContinue = async (state: AgentState): Promise<WorkflowContinueResult> => {
+  const shouldContinue = async (
+    state: AgentState,
+  ): Promise<WorkflowContinueResult> => {
     if (state.lastError) {
       console.log("shouldContinue: Ending due to error:", state.lastError);
       return "end";
@@ -75,7 +77,10 @@ export function createWorkflowWithStringReplace(
     const lastMessage = state.messages[state.messages.length - 1];
 
     // Debug logging to verify if tool calls are being generated
-    console.log("shouldContinue: Last message type:", lastMessage?.constructor?.name);
+    console.log(
+      "shouldContinue: Last message type:",
+      lastMessage?.constructor?.name,
+    );
     if (lastMessage && "tool_calls" in lastMessage) {
       const toolCalls = lastMessage.tool_calls || [];
       if (Array.isArray(toolCalls) && toolCalls.length > 0) {
@@ -83,7 +88,9 @@ export function createWorkflowWithStringReplace(
           "shouldContinue: Tool calls detected:",
           JSON.stringify(toolCalls.map((tc: any) => ({
             name: tc.name,
-            args: typeof tc.args === "string" ? "(string)" : Object.keys(tc.args || {}),
+            args: typeof tc.args === "string"
+              ? "(string)"
+              : Object.keys(tc.args || {}),
           }))),
         );
       } else {
@@ -92,7 +99,8 @@ export function createWorkflowWithStringReplace(
     }
 
     const result = lastMessage instanceof HumanMessage ||
-        (lastMessage && "tool_calls" in lastMessage && Array.isArray(lastMessage.tool_calls) &&
+        (lastMessage && "tool_calls" in lastMessage &&
+          Array.isArray(lastMessage.tool_calls) &&
           lastMessage.tool_calls.length > 0)
       ? "tools"
       : "end";
@@ -116,7 +124,10 @@ export function createWorkflowWithStringReplace(
   const app = workflow.compile({ checkpointer: new MemorySaver() });
 
   return {
-    invoke: async (prompt: string, images: ImageData[] = []): Promise<AgentState> => {
+    invoke: async (
+      prompt: string,
+      images: ImageData[] = [],
+    ): Promise<AgentState> => {
       telemetry.startTimer("workflow.invoke");
       try {
         const userMessageToSave = await createNewMessage(images, prompt);
@@ -193,7 +204,9 @@ export function createWorkflowWithStringReplace(
 
         // Check if the code has been modified during workflow execution
         if (finalState.code !== initialState.code) {
-          console.log("Code changes detected in finalState, applying changes...");
+          console.log(
+            "Code changes detected in finalState, applying changes...",
+          );
 
           // Add timestamp to the modified code
           const newCodeWithDate = finalState.code + `
@@ -226,14 +239,20 @@ export function createWorkflowWithStringReplace(
 
         return finalState;
       } catch (error) {
-        telemetry.trackError(error instanceof Error ? error : new Error(String(error)), {
-          location: "workflow.invoke",
-          promptLength: prompt.length.toString(),
-        });
+        telemetry.trackError(
+          error instanceof Error ? error : new Error(String(error)),
+          {
+            location: "workflow.invoke",
+            promptLength: prompt.length.toString(),
+          },
+        );
 
         telemetry.stopTimer("workflow.invoke", { success: "false" });
 
-        if (error instanceof WorkflowError && error.message.includes("Code integrity")) {
+        if (
+          error instanceof WorkflowError &&
+          error.message.includes("Code integrity")
+        ) {
           throw error;
         }
         handleWorkflowError(error);

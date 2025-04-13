@@ -47,7 +47,10 @@ export const codeModificationTool = tool(
         );
       }
 
-      if (!instructions?.length || !instructions.every(i => i.search && i.replace)) {
+      if (
+        !instructions?.length ||
+        !instructions.every((i) => i.search && i.replace)
+      ) {
         return createErrorResponse(
           currentCode,
           "Invalid instructions format. Expected array of {search, replace} objects.",
@@ -61,7 +64,9 @@ export const codeModificationTool = tool(
       // Process each regex instruction
       for (const [index, { search, replace }] of instructions.entries()) {
         if (!search.trim() || !replace.trim()) {
-          validationErrors.push(`Instruction ${index + 1}: Empty search/replace pattern`);
+          validationErrors.push(
+            `Instruction ${index + 1}: Empty search/replace pattern`,
+          );
           continue;
         }
 
@@ -82,7 +87,9 @@ export const codeModificationTool = tool(
           // Apply replacement
           const newCode = modifiedCode.replace(regex, replace);
           if (newCode === modifiedCode) {
-            validationErrors.push(`Pattern ${index + 1}: '${search}' not found`);
+            validationErrors.push(
+              `Pattern ${index + 1}: '${search}' not found`,
+            );
           }
           modifiedCode = newCode;
         } catch (error) {
@@ -171,10 +178,14 @@ export const codeModificationTool = tool(
             search: z
               .string()
               .min(1)
-              .describe("Regex pattern (use /pattern/flags format for best results)"),
+              .describe(
+                "Regex pattern (use /pattern/flags format for best results)",
+              ),
             replace: z
               .string()
-              .describe("Replacement text (can use regex capture groups like $1)"),
+              .describe(
+                "Replacement text (can use regex capture groups like $1)",
+              ),
           }),
         )
         .min(1)

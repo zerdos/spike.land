@@ -71,14 +71,13 @@ const App: React.FC = () => {
       console.log("Loading app for codeSpace:", codeSpace);
 
       loadApp(pathname)
-        .then(context => {
+        .then((context) => {
           if (context) {
             console.log("App loaded successfully:", context);
             setAppContext(context);
           }
         })
-        .catch(error => {
-
+        .catch((error) => {
           console.error("Error loading app:", error);
         })
         .finally(() => {
@@ -88,7 +87,7 @@ const App: React.FC = () => {
         });
     } else {
       // If no codeSpace is found, set loading to false
-      console.log("No codeSpace found for pathname:", {pathname, codeSpace});
+      console.log("No codeSpace found for pathname:", { pathname, codeSpace });
       setIsLoading(false);
     }
   }, [pathname]);
@@ -101,10 +100,10 @@ const App: React.FC = () => {
       const { codeSpace, cSess } = appContext;
 
       initializeSessionSync(codeSpace, cSess)
-        .then(unSub => {
+        .then((unSub) => {
           unsubscribe = unSub;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error initializing session sync:", error);
         });
     }

@@ -60,10 +60,15 @@ vi.mock("@/lib/try-catch", () => ({
   // Simplified tryCatch mock for testing purposes
   tryCatch: vi.fn(async (promiseOrFn) => {
     try {
-      const result = typeof promiseOrFn === "function" ? await promiseOrFn() : await promiseOrFn;
+      const result = typeof promiseOrFn === "function"
+        ? await promiseOrFn()
+        : await promiseOrFn;
       return { data: result, error: null };
     } catch (error) {
-      return { data: null, error: error instanceof Error ? error : new Error(String(error)) };
+      return {
+        data: null,
+        error: error instanceof Error ? error : new Error(String(error)),
+      };
     }
   }),
 }));
@@ -81,7 +86,9 @@ import { type FlexibleComponentType } from "@/lib/interfaces"; // Import the typ
 describe("renderApp", () => {
   let rootElement: HTMLDivElement;
   // Explicitly type the spy using the imported MockInstance type
-  let importFromStringSpy: MockInstance<(code: string) => Promise<FlexibleComponentType>>;
+  let importFromStringSpy: MockInstance<
+    (code: string) => Promise<FlexibleComponentType>
+  >;
 
   beforeEach(() => {
     // Reset mocks before each test
@@ -118,7 +125,10 @@ describe("renderApp", () => {
 
     // Act
     // Use the imported renderApp directly
-    const renderedApp = await RenderAppModule.renderApp({ code: "invalid code", rootElement });
+    const renderedApp = await RenderAppModule.renderApp({
+      code: "invalid code",
+      rootElement,
+    });
 
     // Assert
     expect(renderedApp).toBeDefined();
@@ -138,10 +148,17 @@ describe("renderApp", () => {
   // --- NEW TEST CASE ---
   it("should use static AppToRender when only codeSpace is provided", async () => {
     // Arrange: Ensure importFromString spy is set up (default is success, but shouldn't be called)
-    importFromStringSpy.mockResolvedValue(() => <div>Should Not Be Called</div>);
+    importFromStringSpy.mockResolvedValue(() => (
+      <div>
+        Should Not Be Called
+      </div>
+    ));
 
     // Act: Call renderApp with only codeSpace
-    const renderedApp = await RenderAppModule.renderApp({ codeSpace: "editor-route", rootElement });
+    const renderedApp = await RenderAppModule.renderApp({
+      codeSpace: "editor-route",
+      rootElement,
+    });
 
     // Assert
     expect(renderedApp).toBeDefined();

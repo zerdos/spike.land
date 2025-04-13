@@ -70,7 +70,10 @@ export const unlink = async (filePath: string): Promise<void> => {
  * @param srcPath Source file path
  * @param destPath Destination file path
  */
-export const copyFile = async (srcPath: string, destPath: string): Promise<void> => {
+export const copyFile = async (
+  srcPath: string,
+  destPath: string,
+): Promise<void> => {
   const content = await readFile(srcPath);
   await writeFile(destPath, content);
 };
@@ -80,7 +83,10 @@ export const copyFile = async (srcPath: string, destPath: string): Promise<void>
  * @param oldPath Old path
  * @param newPath New path
  */
-export const rename = async (oldPath: string, newPath: string): Promise<void> => {
+export const rename = async (
+  oldPath: string,
+  newPath: string,
+): Promise<void> => {
   // For files, copy content and delete original
   try {
     const content = await readFile(oldPath);
@@ -88,8 +94,8 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
     await unlink(oldPath);
   } catch (_error) {
     // If not a file, try as directory
-    const entries = await import("./directory-operations").then(m => m.readdir(oldPath));
-    await import("./directory-operations").then(m => m.mkdir(newPath));
+    const entries = await import("./directory-operations").then((m) => m.readdir(oldPath));
+    await import("./directory-operations").then((m) => m.mkdir(newPath));
 
     // Copy all entries recursively
     for (const entry of entries) {
@@ -104,17 +110,19 @@ export const rename = async (oldPath: string, newPath: string): Promise<void> =>
         await unlink(sourcePath);
       } else if (statResult?.kind === "directory") {
         // Recursively handle subdirectories
-        await import("./directory-operations").then(m => m.mkdir(destPath));
-        const subEntries = await import("./directory-operations").then(m => m.readdir(sourcePath));
+        await import("./directory-operations").then((m) => m.mkdir(destPath));
+        const subEntries = await import("./directory-operations").then((m) =>
+          m.readdir(sourcePath)
+        );
         for (const subEntry of subEntries) {
           await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`);
         }
-        await import("./directory-operations").then(m => m.rmdir(sourcePath));
+        await import("./directory-operations").then((m) => m.rmdir(sourcePath));
       }
     }
 
     // Remove old directory
-    await import("./directory-operations").then(m => m.rmdir(oldPath));
+    await import("./directory-operations").then((m) => m.rmdir(oldPath));
   }
 };
 

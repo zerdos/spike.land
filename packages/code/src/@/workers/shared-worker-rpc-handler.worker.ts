@@ -97,7 +97,11 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
       });
 
       lazyLoadScript("socket");
-      await (globalThis as unknown as typeof self).setConnections(user, codeSpace, sess);
+      await (globalThis as unknown as typeof self).setConnections(
+        user,
+        codeSpace,
+        sess,
+      );
     },
   );
 };

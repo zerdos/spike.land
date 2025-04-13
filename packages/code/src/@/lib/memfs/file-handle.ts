@@ -22,8 +22,12 @@ class FileHandleImpl implements FileHandle {
     // No-op
   }
 
-  readFile(options?: { encoding?: null; flag?: string; } | null): Promise<Buffer>;
-  readFile(options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding): Promise<string>;
+  readFile(
+    options?: { encoding?: null; flag?: string; } | null,
+  ): Promise<Buffer>;
+  readFile(
+    options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding,
+  ): Promise<string>;
   async readFile(
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<string | Buffer> {
@@ -75,7 +79,10 @@ class FileHandleImpl implements FileHandle {
     _length?: number | null,
     _position?: number | null,
   ): Promise<{ bytesRead: number; buffer: T; } | FileReadResult<T>> {
-    if (_offsetOrOpts && typeof _offsetOrOpts === "object" && !("length" in _offsetOrOpts)) {
+    if (
+      _offsetOrOpts && typeof _offsetOrOpts === "object" &&
+      !("length" in _offsetOrOpts)
+    ) {
       // Handle FileReadOptions
       return {
         bytesRead: buffer.byteLength,
@@ -95,7 +102,12 @@ class FileHandleImpl implements FileHandle {
   }
 
   createReadStream(
-    _options?: { encoding?: BufferEncoding; start?: number; end?: number; highWaterMark?: number; },
+    _options?: {
+      encoding?: BufferEncoding;
+      start?: number;
+      end?: number;
+      highWaterMark?: number;
+    },
   ): ReadStream {
     throw new Error("Method not implemented");
   }
@@ -173,7 +185,11 @@ class FileHandleImpl implements FileHandle {
   ): Promise<{ bytesWritten: number; buffer: string; }>;
   async write(
     data: string | Uint8Array,
-    _offsetOrOpts?: number | null | { offset?: number; length?: number; position?: number; },
+    _offsetOrOpts?: number | null | {
+      offset?: number;
+      length?: number;
+      position?: number;
+    },
     _lengthOrEncoding?: number | BufferEncoding | null,
     _position?: number | null,
   ): Promise<{ bytesWritten: number; buffer: string | Uint8Array; }> {
@@ -230,7 +246,8 @@ export const open = async (
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(path);
   if (!fileName) throw new Error("Invalid file path");
 
-  const create = flags === "w" || flags === "w+" || flags === "a" || flags === "a+";
+  const create = flags === "w" || flags === "w+" || flags === "a" ||
+    flags === "a+";
   const fileHandle = await dirHandle.getFileHandle(fileName, { create });
 
   return createFileHandle(fileHandle, path);

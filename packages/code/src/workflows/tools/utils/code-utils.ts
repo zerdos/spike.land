@@ -11,7 +11,10 @@ import type { CodeChangeMetrics } from "../../workflow";
 /**
  * Verify code integrity using document hash
  */
-export const verifyCodeIntegrity = (code: string, expectedHash: string): boolean => {
+export const verifyCodeIntegrity = (
+  code: string,
+  expectedHash: string,
+): boolean => {
   const actualHash = md5(code);
   if (actualHash !== expectedHash) {
     console.error(`Hash mismatch! Expected ${expectedHash} got ${actualHash}`);
@@ -48,7 +51,10 @@ export const shouldReturnFullCode = (
 /**
  * Calculate changes between original and modified code
  */
-export const calculateCodeChanges = (original: string, modified: string): CodeChangeMetrics => {
+export const calculateCodeChanges = (
+  original: string,
+  modified: string,
+): CodeChangeMetrics => {
   const sizeChange = modified.length - original.length;
   const originalLines = original.split("\n");
   const modifiedLines = modified.split("\n");
@@ -79,7 +85,10 @@ export const calculateCodeChanges = (original: string, modified: string): CodeCh
 /**
  * Log code changes with detailed metrics
  */
-export const logCodeChanges = (initialCode: string, finalCode: string): void => {
+export const logCodeChanges = (
+  initialCode: string,
+  finalCode: string,
+): void => {
   if (initialCode === finalCode) return;
 
   const hash = md5(initialCode);

@@ -207,13 +207,19 @@ ${REPLACE_END}
 </div>`;
 
     // Apply the incorrect search/replace patterns
-    const incorrectResult = updateSearchReplace(incorrectInstructions, originalCode);
+    const incorrectResult = updateSearchReplace(
+      incorrectInstructions,
+      originalCode,
+    );
 
     // Verify the incorrect patterns don't work as expected
     expect(incorrectResult).not.toBe(expectedResult);
 
     // Apply the correct search/replace patterns
-    const correctResult = updateSearchReplace(correctInstructions, originalCode);
+    const correctResult = updateSearchReplace(
+      correctInstructions,
+      originalCode,
+    );
 
     // Verify the correct patterns work as expected
     expect(correctResult).toBe(expectedResult);

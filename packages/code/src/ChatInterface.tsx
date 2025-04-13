@@ -19,7 +19,7 @@ const ChatInterface: React.FC<{
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  useEffect(() => cSess.sub(session => setMessages(session.messages)), []);
+  useEffect(() => cSess.sub((session) => setMessages(session.messages)), []);
 
   const codeSpace = cSess.getCodeSpace();
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(

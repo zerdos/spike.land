@@ -128,11 +128,11 @@ export function measure(operationName: string) {
 
       // Handle both async and sync methods
       if (result instanceof Promise) {
-        return result.then(value => {
+        return result.then((value) => {
           const duration = Date.now() - start;
           metrics.recordOperation(operationName, duration);
           return value;
-        }).catch(error => {
+        }).catch((error) => {
           const duration = Date.now() - start;
           metrics.recordOperation(operationName, duration, true);
           throw error;

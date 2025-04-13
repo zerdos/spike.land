@@ -11,7 +11,9 @@ declare global {
   }
 }
 
-export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {
+export const setupServiceWorker = async (): Promise<
+  ServiceWorkerRegistration | null
+> => {
   console.log("Setting up service worker...");
 
   // Skip if service workers aren't supported
@@ -21,7 +23,9 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
   }
 
   // Skip on localhost for development unless explicitly enabled
-  if (location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")) {
+  if (
+    location.hostname === "localhost" && !localStorage.getItem("enable_sw_dev")
+  ) {
     console.log(
       "Service worker disabled on localhost (enable with localStorage.enable_sw_dev = true)",
     );
@@ -56,7 +60,7 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
     configureServiceWorkerEvents(wb);
 
     // Register the service worker
-    const registration = await wb.register().catch(error => {
+    const registration = await wb.register().catch((error) => {
       console.error("Service worker registration failed:", error);
       return null;
     });
@@ -80,7 +84,7 @@ export const setupServiceWorker = async (): Promise<ServiceWorkerRegistration | 
  */
 function configureServiceWorkerEvents(wb: Workbox): void {
   // Handle installation events
-  wb.addEventListener("installed", event => {
+  wb.addEventListener("installed", (event) => {
     if (event.isUpdate) {
       console.log("Service worker has been updated");
 
@@ -99,7 +103,7 @@ function configureServiceWorkerEvents(wb: Workbox): void {
   });
 
   // Handle messages from service worker
-  wb.addEventListener("message", event => {
+  wb.addEventListener("message", (event) => {
     console.log("Message from service worker:", event.data);
 
     if (event.data?.type === "CACHE_UPDATED") {

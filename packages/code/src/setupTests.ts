@@ -4,7 +4,7 @@ import { afterEach, vi } from "vitest";
 // Mock matchMedia for all tests
 Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -20,7 +20,7 @@ Object.defineProperty(window, "matchMedia", {
 if (!window.URL.createObjectURL) {
   Object.defineProperty(window.URL, "createObjectURL", {
     writable: true,
-    value: vi.fn().mockImplementation(_blob => "mock-blob-url"),
+    value: vi.fn().mockImplementation((_blob) => "mock-blob-url"),
   });
 }
 
@@ -39,19 +39,28 @@ if (!global.Element) {
 
 if (!global.HTMLInputElement) {
   const MockHTMLInputElement = function() {} as any;
-  Object.setPrototypeOf(MockHTMLInputElement.prototype, global.HTMLElement.prototype);
+  Object.setPrototypeOf(
+    MockHTMLInputElement.prototype,
+    global.HTMLElement.prototype,
+  );
   global.HTMLInputElement = MockHTMLInputElement;
 }
 
 if (!global.HTMLTextAreaElement) {
   const MockHTMLTextAreaElement = function() {} as any;
-  Object.setPrototypeOf(MockHTMLTextAreaElement.prototype, global.HTMLElement.prototype);
+  Object.setPrototypeOf(
+    MockHTMLTextAreaElement.prototype,
+    global.HTMLElement.prototype,
+  );
   global.HTMLTextAreaElement = MockHTMLTextAreaElement;
 }
 
 if (!global.HTMLSelectElement) {
   const MockHTMLSelectElement = function() {} as any;
-  Object.setPrototypeOf(MockHTMLSelectElement.prototype, global.HTMLElement.prototype);
+  Object.setPrototypeOf(
+    MockHTMLSelectElement.prototype,
+    global.HTMLElement.prototype,
+  );
   global.HTMLSelectElement = MockHTMLSelectElement;
 }
 

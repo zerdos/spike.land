@@ -264,14 +264,18 @@ describe("chat-langchain-workflow", () => {
       vi.mocked(ChatAnthropic).mockImplementation(
         () =>
           ({
-            invoke: vi.fn().mockResolvedValue(new AIMessage({ content: "Test response" })),
+            invoke: vi.fn().mockResolvedValue(
+              new AIMessage({ content: "Test response" }),
+            ),
             bindTools: vi.fn().mockReturnThis(),
           }) as any,
       );
 
       const workflow = createWorkflowWithStringReplace(corruptedState);
 
-      await expect(workflow.invoke("Check integrity")).rejects.toThrow("Code integrity");
+      await expect(workflow.invoke("Check integrity")).rejects.toThrow(
+        "Code integrity",
+      );
     });
   });
 });

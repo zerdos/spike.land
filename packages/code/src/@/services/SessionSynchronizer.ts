@@ -14,7 +14,9 @@ import type { ISessionSynchronizer } from "./types";
 export class SessionSynchronizer implements ISessionSynchronizer {
   private broadcastChannel: BroadcastChannel;
   private session: ICodeSession | null = null;
-  private subscribers: Array<(session: ICodeSession & { sender: string; }) => void> = [];
+  private subscribers: Array<
+    (session: ICodeSession & { sender: string; }) => void
+  > = [];
 
   /**
    * Creates a new SessionSynchronizer for the specified code space
@@ -144,7 +146,9 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * @param callback - Function to call when session changes
    * @returns Unsubscribe function
    */
-  subscribe(callback: (session: ICodeSession & { sender: string; }) => void): () => void {
+  subscribe(
+    callback: (session: ICodeSession & { sender: string; }) => void,
+  ): () => void {
     this.subscribers.push(callback);
     return () => {
       this.subscribers = this.subscribers.filter((cb) => cb !== callback);

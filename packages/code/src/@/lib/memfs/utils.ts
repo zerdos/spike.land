@@ -10,7 +10,9 @@ export const normalizePath = (filePath: string): string => {
   let normalizedPath = filePath.startsWith("/") ? filePath.slice(1) : filePath;
 
   // Remove trailing slash if present
-  normalizedPath = normalizedPath.endsWith("/") ? normalizedPath.slice(0, -1) : normalizedPath;
+  normalizedPath = normalizedPath.endsWith("/")
+    ? normalizedPath.slice(0, -1)
+    : normalizedPath;
 
   return normalizedPath;
 };
@@ -95,7 +97,9 @@ export const getDirectoryEntriesRecursive = async (
  */
 export const getDirectoryHandleAndFileName = async (
   filePath: string,
-): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined; }> => {
+): Promise<
+  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined; }
+> => {
   const normalizedPath = normalizePath(filePath);
   const pathParts = normalizedPath.split("/").filter((x) => x);
   const fileName = pathParts.pop();

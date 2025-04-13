@@ -32,7 +32,11 @@ router.load().then(async () => {
   if (codeSpace && shouldInitWebSocket(pathname, codeSpace)) {
     const { error } = await tryCatch(initializeWebSocket(codeSpace));
     if (error) {
-      console.error("WebSocket initialization error:", { error, codeSpace, pathname });
+      console.error("WebSocket initialization error:", {
+        error,
+        codeSpace,
+        pathname,
+      });
     }
   }
 

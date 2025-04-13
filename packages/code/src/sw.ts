@@ -67,7 +67,7 @@ try {
     console.log("Service Worker install event triggered");
     event.waitUntil(
       handlers.handleInstall()
-        .catch(error => {
+        .catch((error) => {
           console.error("Error during installation:", error);
           // Re-throw to properly mark installation as failed
           throw error;
@@ -79,7 +79,7 @@ try {
     console.log("Service Worker activate event triggered");
     event.waitUntil(
       handlers.handleActivate()
-        .catch(error => {
+        .catch((error) => {
           console.error("Error during activation:", error);
           throw error;
         }),

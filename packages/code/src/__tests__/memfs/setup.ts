@@ -23,13 +23,24 @@ export interface MockFileSystemDirectory {
     name: string,
     options?: { create?: boolean; },
   ) => Promise<MockFileSystemDirectory>;
-  getFileHandle: (name: string, options?: { create?: boolean; }) => Promise<MockFileSystemFile>;
-  removeEntry: (name: string, options?: { recursive?: boolean; }) => Promise<void>;
-  entries: () => AsyncIterableIterator<[string, MockFileSystemFile | MockFileSystemDirectory]>;
+  getFileHandle: (
+    name: string,
+    options?: { create?: boolean; },
+  ) => Promise<MockFileSystemFile>;
+  removeEntry: (
+    name: string,
+    options?: { recursive?: boolean; },
+  ) => Promise<void>;
+  entries: () => AsyncIterableIterator<
+    [string, MockFileSystemFile | MockFileSystemDirectory]
+  >;
 }
 
 // Create mock file system
-export const mockFileSystem: Record<string, MockFileSystemFile | MockFileSystemDirectory> = {
+export const mockFileSystem: Record<
+  string,
+  MockFileSystemFile | MockFileSystemDirectory
+> = {
   "test.txt": {
     kind: "file",
     name: "test.txt",

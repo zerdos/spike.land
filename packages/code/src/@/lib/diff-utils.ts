@@ -180,7 +180,7 @@ function findBestLineByLineMatch(
   // Find significant lines in the search (non-empty, not just brackets/punctuation)
   const significantSearchLines = searchLines
     .map((line, index) => ({ line: line.trim(), index }))
-    .filter(item => item.line.length > 5 && !/^[{}[\]();,]*$/.test(item.line));
+    .filter((item) => item.line.length > 5 && !/^[{}[\]();,]*$/.test(item.line));
 
   if (significantSearchLines.length === 0) return null;
 
@@ -222,7 +222,10 @@ function findBestLineByLineMatch(
     // Calculate the offset from the anchor line to the first line of the search
     const offset = bestAnchorLine.index;
     const startLineIndex = Math.max(0, anchorIndex - offset);
-    const endLineIndex = Math.min(textLines.length, startLineIndex + searchLines.length);
+    const endLineIndex = Math.min(
+      textLines.length,
+      startLineIndex + searchLines.length,
+    );
 
     // Extract the potential match
     const potentialMatchLines = textLines.slice(startLineIndex, endLineIndex);
@@ -237,7 +240,9 @@ function findBestLineByLineMatch(
 
       if (searchLine === textLine) {
         matchScore += 1;
-      } else if (textLine.includes(searchLine) || searchLine.includes(textLine)) {
+      } else if (
+        textLine.includes(searchLine) || searchLine.includes(textLine)
+      ) {
         matchScore += 0.5;
       } else {
         const similarity = stringSimilarity(searchLine, textLine);
@@ -259,7 +264,10 @@ function findBestLineByLineMatch(
 
   // If we found a good match, return it
   if (bestMatchScore > 0.7 && bestMatchIndex !== -1) {
-    const matchedLines = textLines.slice(bestMatchIndex, bestMatchIndex + bestMatchLength);
+    const matchedLines = textLines.slice(
+      bestMatchIndex,
+      bestMatchIndex + bestMatchLength,
+    );
     const matchedText = matchedLines.join("\n");
 
     // Calculate the start index in the original text
@@ -286,18 +294,29 @@ export function replacePreservingWhitespace(
   // Debug logging to help diagnose matching issues
   console.debug("replacePreservingWhitespace - Text length:", text.length);
   console.debug("replacePreservingWhitespace - Search length:", search.length);
-  console.debug("replacePreservingWhitespace - Replace length:", replace.length);
+  console.debug(
+    "replacePreservingWhitespace - Replace length:",
+    replace.length,
+  );
 
   // Log the first few characters of each to help identify issues
-  console.debug("replacePreservingWhitespace - Text start:", JSON.stringify(text.substring(0, 50)));
-  console.debug("replacePreservingWhitespace - Search:", JSON.stringify(search));
+  console.debug(
+    "replacePreservingWhitespace - Text start:",
+    JSON.stringify(text.substring(0, 50)),
+  );
+  console.debug(
+    "replacePreservingWhitespace - Search:",
+    JSON.stringify(search),
+  );
 
   // Handle empty search string
   if (!search) return text;
 
   // Strategy 1: Try exact match first (most reliable)
   if (text.includes(search)) {
-    console.debug("replacePreservingWhitespace - Exact match found, using simple replacement");
+    console.debug(
+      "replacePreservingWhitespace - Exact match found, using simple replacement",
+    );
     return text.split(search).join(replace);
   }
 
@@ -306,7 +325,9 @@ export function replacePreservingWhitespace(
   const normalizedSearch = normalizeWhitespace(search);
 
   if (normalizedText.includes(normalizedSearch)) {
-    console.debug("replacePreservingWhitespace - Normalized whitespace match found");
+    console.debug(
+      "replacePreservingWhitespace - Normalized whitespace match found",
+    );
 
     // Find the start and end positions in the normalized text
     const startPos = normalizedText.indexOf(normalizedSearch);
@@ -343,27 +364,33 @@ export function replacePreservingWhitespace(
       originalEndPos = text.length;
     }
 
-    return text.substring(0, originalStartPos) + replace + text.substring(originalEndPos);
+    return text.substring(0, originalStartPos) + replace +
+      text.substring(originalEndPos);
   }
 
   // Strategy 3: For multiline text, try line-by-line matching
   if (search.includes("\n")) {
-    console.debug("replacePreservingWhitespace - Trying line-by-line matching for multiline text");
+    console.debug(
+      "replacePreservingWhitespace - Trying line-by-line matching for multiline text",
+    );
 
     const lineByLineMatch = findBestLineByLineMatch(search, text);
     if (lineByLineMatch) {
       console.debug("replacePreservingWhitespace - Line-by-line match found");
       return text.substring(0, lineByLineMatch.startIndex) +
         replace +
-        text.substring(lineByLineMatch.startIndex + lineByLineMatch.match.length);
+        text.substring(
+          lineByLineMatch.startIndex + lineByLineMatch.match.length,
+        );
     }
 
     // Special case for the tricky test with "quick brown" spanning multiple lines
     if (search === "quick brown" && text.includes("quick \n")) {
       const lines = text.split("\n");
-      const quickIndex = lines.findIndex(line => line.includes("quick"));
+      const quickIndex = lines.findIndex((line) => line.includes("quick"));
       if (
-        quickIndex >= 0 && quickIndex < lines.length - 1 && lines[quickIndex + 1].includes("brown")
+        quickIndex >= 0 && quickIndex < lines.length - 1 &&
+        lines[quickIndex + 1].includes("brown")
       ) {
         const result = [...lines];
         result[quickIndex] = result[quickIndex].replace("quick", "very slow");
@@ -380,20 +407,25 @@ export function replacePreservingWhitespace(
 
       const result = findTextBetween(text, searchStart, searchEnd);
       if (result) {
-        return text.substring(0, result.startIndex) + replace + text.substring(result.endIndex);
+        return text.substring(0, result.startIndex) + replace +
+          text.substring(result.endIndex);
       }
     }
   }
 
   // Strategy 4: Try flexible whitespace matching
-  console.debug("replacePreservingWhitespace - Trying flexible whitespace matching");
+  console.debug(
+    "replacePreservingWhitespace - Trying flexible whitespace matching",
+  );
 
   // Remove all whitespace for comparison
   const textNoWS = text.replace(/\s+/g, "");
   const searchNoWS = search.replace(/\s+/g, "");
 
   if (textNoWS.includes(searchNoWS)) {
-    console.debug("replacePreservingWhitespace - Flexible whitespace match found");
+    console.debug(
+      "replacePreservingWhitespace - Flexible whitespace match found",
+    );
 
     // Find the start and end indices in the original text
     let startIndex = 0;
@@ -445,7 +477,9 @@ export function replacePreservingWhitespace(
   }
 
   // Strategy 6: Check for high similarity as a last resort
-  console.debug("replacePreservingWhitespace - Checking for high similarity matches");
+  console.debug(
+    "replacePreservingWhitespace - Checking for high similarity matches",
+  );
 
   // For single-line searches, check the text line by line
   if (!search.includes("\n")) {

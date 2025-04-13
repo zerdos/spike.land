@@ -9,7 +9,7 @@ import { getDirectoryHandleAndFileName, handleDirectory, handleFile, normalizePa
 export const readdir = async (filePath: string): Promise<string[]> => {
   try {
     const { dirHandle } = await getDirectoryHandleAndFileName(filePath);
-    const entries = await import("./utils").then(m => m.getDirectoryEntriesRecursive(dirHandle));
+    const entries = await import("./utils").then((m) => m.getDirectoryEntriesRecursive(dirHandle));
     return Object.keys(entries);
   } catch (error) {
     console.error(`Error reading directory ${filePath}:`, error);
@@ -55,7 +55,9 @@ export const rmdir = async (filePath: string): Promise<void> => {
   let currentHandle = await navigator.storage.getDirectory();
 
   for (const part of pathParts) {
-    currentHandle = await currentHandle.getDirectoryHandle(part, { create: false });
+    currentHandle = await currentHandle.getDirectoryHandle(part, {
+      create: false,
+    });
   }
 
   await currentHandle.removeEntry(dirName, { recursive: true });
@@ -76,7 +78,9 @@ export const stat = async (filePath: string): Promise<StatResult> => {
       return await handleDirectory(rootHandle, "/");
     }
 
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
 
     if (!fileName) {
       // It's a directory path
@@ -106,7 +110,10 @@ export const stat = async (filePath: string): Promise<StatResult> => {
  * @param filePath Path to check
  * @param mode Access mode (not used in this implementation)
  */
-export const access = async (filePath: string, _mode?: number): Promise<void> => {
+export const access = async (
+  filePath: string,
+  _mode?: number,
+): Promise<void> => {
   const statResult = await stat(filePath);
   if (statResult === null) {
     throw new Error(`ENOENT: no such file or directory, access '${filePath}'`);

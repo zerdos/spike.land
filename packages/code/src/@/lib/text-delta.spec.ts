@@ -156,13 +156,19 @@ describe("text-diff", () => {
       ];
 
       newSession.messages = [
-        { id: "1", role: "assistant", content: "Partial response with more text" },
+        {
+          id: "1",
+          role: "assistant",
+          content: "Partial response with more text",
+        },
       ];
 
       const diff = createDelta(oldSession, newSession);
       const result = applyDelta(oldSession, diff);
 
-      expect(result.messages[0].content).toBe("Partial response with more text");
+      expect(result.messages[0].content).toBe(
+        "Partial response with more text",
+      );
     });
 
     it("should handle adding new messages", () => {
@@ -241,7 +247,9 @@ describe("text-diff", () => {
       expect(result.code).toBe(newSession.code);
 
       // Log the diff size for analysis
-      console.log(`Large string with newlines diff size: ${diffJson.length} chars`);
+      console.log(
+        `Large string with newlines diff size: ${diffJson.length} chars`,
+      );
 
       // For this test, we're just verifying the diff works correctly
       // We don't need to check for the _diff property since it's an implementation detail
@@ -392,7 +400,8 @@ describe("text-diff", () => {
       ];
 
       insertions.forEach(({ pos, content }) => {
-        modifiedStr = modifiedStr.slice(0, pos) + content + modifiedStr.slice(pos);
+        modifiedStr = modifiedStr.slice(0, pos) + content +
+          modifiedStr.slice(pos);
       });
 
       const oldSession = createBaseSession(baseStr);

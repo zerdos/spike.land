@@ -30,7 +30,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     const session = await cSess.getSession();
     const { code: _code, messages: _messages } = session;
 
-    localStorage.setItem("streaming-" + getCodeSpace(location.pathname), "true");
+    localStorage.setItem(
+      "streaming-" + getCodeSpace(location.pathname),
+      "true",
+    );
 
     const result = await handleSendMessage({
       prompt: input,
@@ -39,7 +42,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     });
     await cSess.setCode(result.code);
 
-    localStorage.setItem("streaming-" + getCodeSpace(location.pathname), JSON.stringify(false));
+    localStorage.setItem(
+      "streaming-" + getCodeSpace(location.pathname),
+      JSON.stringify(false),
+    );
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending

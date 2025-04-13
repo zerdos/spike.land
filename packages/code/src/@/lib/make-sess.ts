@@ -12,7 +12,9 @@ class SessionPatcher {
     const { codeSpace, code, html, css, transpiled, messages } = cx;
     const hashObj = {
       codeSpace,
-      messages: md5((messages || []).map((m) => md5(JSON.stringify(m))).join("")),
+      messages: md5(
+        (messages || []).map((m) => md5(JSON.stringify(m))).join(""),
+      ),
       code: md5(code),
       html: md5(html),
       css: md5(css),
@@ -42,7 +44,9 @@ class SessionPatcher {
 
   public static validateSession(cx: Partial<ICodeSession>): void {
     if (!cx.codeSpace || cx.code === undefined || cx.messages === undefined) {
-      throw new Error("Invalid session object - missing required fields" + JSON.stringify(cx));
+      throw new Error(
+        "Invalid session object - missing required fields" + JSON.stringify(cx),
+      );
     }
   }
 
@@ -75,7 +79,8 @@ class SessionPatcher {
     const newHash = SessionPatcher.computeSessionHash(parsedSession);
     if (newHash !== sessionDelta.hashCode) {
       throw new Error(
-        "New hash does not match:" + newHash + " !== " + sessionDelta.hashCode + "\n" +
+        "New hash does not match:" + newHash + " !== " + sessionDelta.hashCode +
+          "\n" +
           JSON.stringify(sessionDelta) + "\n" + JSON.stringify(parsedSession),
       );
     }

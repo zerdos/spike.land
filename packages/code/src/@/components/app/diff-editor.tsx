@@ -24,9 +24,9 @@ export const DiffViewer: FC<DiffViewerProps> = ({ original, modified }) => {
       <pre
         className={cn(
           "font-mono text-sm whitespace-pre-wrap break-words p-6 overflow-x-auto",
-           isDarkMode ? "text-gray-300" : "text-gray-700",
-         )}
-       >
+          isDarkMode ? "text-gray-300" : "text-gray-700",
+        )}
+      >
          {d(original ?? "", modified ?? original).map((part: Diff.Change, index: number) => (
            <span
              key={index}

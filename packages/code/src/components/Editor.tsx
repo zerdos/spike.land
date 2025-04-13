@@ -81,7 +81,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         if (signal.aborted) return;
 
         setEditorState((prev) => ({ ...prev, code: formatted }));
-        const { data: newCode, error: saveError } = await tryCatch(cSess.setCode(formatted));
+        const { data: newCode, error: saveError } = await tryCatch(
+          cSess.setCode(formatted),
+        );
         if (saveError) {
           console.error("[Editor] Error saving code:", saveError);
           return;

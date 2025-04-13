@@ -23,7 +23,9 @@ export const startMonacoEditor = async ({
         return mod[codeSpace];
       } else {
         // Container is no longer in the DOM, clean up the old model
-        console.debug(`Container for ${codeSpace} is no longer in the DOM, creating new model`);
+        console.debug(
+          `Container for ${codeSpace} is no longer in the DOM, creating new model`,
+        );
         // Use requestAnimationFrame to ensure we're not unmounting during render
         requestAnimationFrame(() => {
           delete mod[codeSpace];

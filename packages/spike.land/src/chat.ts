@@ -77,7 +77,6 @@ const main = {
         (p: Promise<unknown>) => ctx.waitUntil(p),
       );
     } else if (Object.keys(files).includes(url.pathname.slice(1))) {
-      
       return new Response(
         JSON.stringify(files),
         {

@@ -85,11 +85,11 @@ function hasKnownExtension(path: string): boolean {
 }
 
 function isWorkerFile(path: string): boolean {
-  return WORKER_PATTERNS.some(pattern => path.includes(pattern));
+  return WORKER_PATTERNS.some((pattern) => path.includes(pattern));
 }
 
 function isComponentFile(path: string): boolean {
-  return COMPONENT_PATTERNS.some(pattern => path.includes(pattern));
+  return COMPONENT_PATTERNS.some((pattern) => path.includes(pattern));
 }
 
 function processQueryAndHash(path: string): {
@@ -207,7 +207,13 @@ export function importMapReplace(
   code = code.replace(/\r\n/g, "\n");
 
   // Helper function for replacing imports
-  const replaceImport = (match: string, pre: string, q1: string, path: string, q2: string) => {
+  const replaceImport = (
+    match: string,
+    pre: string,
+    q1: string,
+    path: string,
+    q2: string,
+  ) => {
     if (!shouldTransformPath(path)) return match;
     const fullPath = getMappedPath(path, "", false);
     return `${pre}${q1}${fullPath}${q2}`;
