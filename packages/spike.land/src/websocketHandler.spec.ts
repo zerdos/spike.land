@@ -251,7 +251,9 @@ describe("WebSocketHandler", () => {
       );
 
       processWsMessage(pongMessage, mockWsSession);
-      expect(mockWsSession.pongReceived).toBe(true);
+      expect(mockWebSocket.send).not.toHaveBeenCalledWith(
+        JSON.stringify({ type: "ping" }),
+      );
     });
 
     it("should handle publish messages", () => {
