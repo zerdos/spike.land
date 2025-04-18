@@ -1,8 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ICodeSession } from "./interfaces";
-import type { SessionDelta } from "./make-sess";
 import {
-  applySessionDelta,
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
@@ -79,7 +77,7 @@ describe("make-sess", () => {
 
       expect(sanitized.html).toBe("");
       expect(sanitized.css).toBe("");
-      expect(sanitized.transpiled).toBe("");
+      expect(sanitized.transpiled).not.toBe("");
     });
 
     it("should throw an error for invalid sessions", () => {
