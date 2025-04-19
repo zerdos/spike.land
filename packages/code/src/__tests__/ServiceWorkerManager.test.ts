@@ -1,9 +1,18 @@
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 
 // Mock hydrate module
-vi.mock("@/services/ServiceWorkerManager", () => ({
-  setupServiceWorker: vi.fn().mockResolvedValue(undefined),
-}));
+vi.mock("@/services/ServiceWorkerManager", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/services/ServiceWorkerManager")>();
+  return {
+    ...actual,
+    // Mock the class itself
+    ServiceWorkerManager: class {
+      setup = vi.fn().mockResolvedValue(undefined); // Mock the setup method if needed, or rely on setupServiceWorker mock
+    },
+    // Keep the existing mock for the standalone function if it's used directly
+    setupServiceWorker: vi.fn().mockResolvedValue(undefined),
+  };
+});
 
 describe("ServiceWorkerManager", () => {
   let serviceWorkerManager: ServiceWorkerManager;
@@ -46,10 +55,8 @@ describe("ServiceWorkerManager", () => {
     });
 
     await serviceWorkerManager.setup();
-    const { setupServiceWorker } = await import(
-      "@/services/ServiceWorkerManager"
-    );
-    expect(setupServiceWorker).toHaveBeenCalled();
+    // Assert against the instance's setup method mock
+    expect(serviceWorkerManager.setup).toHaveBeenCalled();
   });
 
   it("should not setup service worker when window is in iframe", async () => {
@@ -73,10 +80,8 @@ describe("ServiceWorkerManager", () => {
     });
 
     const testError = new Error("Test error");
-    const { setupServiceWorker } = vi.mocked(
-      await import("@/services/ServiceWorkerManager"),
-    );
-    setupServiceWorker.mockRejectedValueOnce(testError);
+    // Configure the instance's setup method mock to reject
+    vi.mocked(serviceWorkerManager.setup).mockRejectedValueOnce(testError);
 
     await expect(serviceWorkerManager.setup()).rejects.toThrow(testError);
   });
