@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { vi, Mock } from 'vitest';
+import { render, waitFor } from '@testing-library/react';
 import { Editor } from '../Editor';
 import { useEditorState } from '../../hooks/use-editor-state';
 import { useErrorHandling } from '../../hooks/useErrorHandling';
-import { initializeMonaco } from '../../services/editorUtils';
-import type { ICode, ICodeSession } from '../../lib/interfaces';
+import type { ICode, ICodeSession } from '@/lib/interfaces';
+import { sanitizeSession } from 'src/modules';
 
 // Define the mock function beforehand
 const mockInitializeMonacoFn = vi.fn();
@@ -14,7 +15,7 @@ vi.mock('../../hooks/use-editor-state');
 vi.mock('../../hooks/useErrorHandling');
 // Mock the module factory using the predefined mock function
 vi.mock('../../services/editorUtils', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('../../services/editorUtils')>();
+  const actual = await importOriginal<typeof import('@/services/editorUtils')>();
   return {
     ...actual,
     initializeMonaco: mockInitializeMonacoFn, // Use the predefined mock function
@@ -30,7 +31,7 @@ describe('Editor Component', () => {
   let mockCSess: ICode;
   let mockSessionData: ICodeSession;
   let mockContainerRef: React.RefObject<HTMLDivElement>;
-  let mockSetValue: vi.Mock;
+  let mockSetValue: Mock;
 
   beforeEach(() => {
     // Reset mocks before each test
@@ -40,16 +41,29 @@ describe('Editor Component', () => {
     // Assign a div element to the ref for initialization - make it writable
     mockContainerRef = { current: document.createElement('div') }; // Simpler and writable
 
-    mockSessionData = {
+    mockSessionData = sanitizeSession({
       code: 'console.log("hello");',
-      // Add other necessary mock properties for ICodeSession if needed
-    };
+      transpiled: '',
+      css: '',
+      html: '',
+      codeSpace: 'test-space',
+      messages: [],
+    });
 
     mockCSess = {
       getSession: vi.fn().mockResolvedValue(mockSessionData),
       setCode: vi.fn().mockResolvedValue(mockSessionData.code),
       sub: vi.fn().mockReturnValue(() => {}), // Mock unsubscribe function
-      // Add other necessary mock methods/properties for ICode if needed
+      setSession: vi.fn(),
+      init: vi.fn(),
+      screenshot: vi.fn(),
+      addMessageChunk: vi.fn(),
+      getMessages: vi.fn(),
+      // Add missing ICode interface methods/properties
+      addMessage: vi.fn(),
+      removeMessages: vi.fn(),
+      getCode: vi.fn(),
+      getCodeSpace: vi.fn(),
     };
 
     // Mock return values for hooks
@@ -76,15 +90,18 @@ describe('Editor Component', () => {
                containerRef: mockContainerRef,
                editorState: { ...newState },
                setEditorState: vi.fn(), // Keep the setter mock simple after update
+               engine: "monaco",
              });
           }
         }
       }),
+      engine: "monaco",
     });
 
     mockUseErrorHandling.mockReturnValue({
       errorType: null,
       throttledTypeCheck: vi.fn().mockResolvedValue(undefined),
+      setErrorType: vi.fn(),
     });
 
     // Mock initializeMonaco to return a mock editor instance using the correct reference
