@@ -225,18 +225,26 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
     };
   }, [editorState, cSess, session, lastHash, setEditorState]);
 
-  // Initialize the editor once containerRef is available
+  // Initialize the editor once containerRef is available and session is loaded
   useEffect(() => {
     const initEditor = async () => {
+      // Add check for session existence here
       if (!session || !containerRef.current || editorState.started) return;
 
       try {
         console.debug("[Editor] Initializing editor", {
           codeSpace,
           containerRef: !!containerRef.current,
+          sessionCodeLength: session.code.length, // Added for debugging
         });
 
-        const { data: setValue, error } = await tryCatch(initializeMonaco({
+        // Ensure container is valid
+        if (!containerRef.current) {
+          console.error("[Editor] Container ref is not available.");
+          return;
+        }
+
+        const { data: editorInstance, error } = await tryCatch(initializeMonaco({
           container: containerRef.current,
           codeSpace,
           code: session.code,
@@ -245,22 +253,22 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         if (error) {
           console.error("[Editor] Initialization error:", error);
+          // Potentially set an error state here for the UI
           return;
         }
-        if (!setValue) {
-          console.error("[Editor] setValue is null");
+        // Check if the returned instance and its setValue method are valid
+        if (!editorInstance || typeof editorInstance.setValue !== 'function') {
+          console.error("[Editor] Initialization failed: Invalid editor instance or setValue method.", editorInstance);
           return;
         }
-        if (typeof setValue !== "function") {
-          console.error("[Editor] setValue is not a function");
-          return;
-        }
+
 
         setEditorState((prev) => ({
           ...prev,
           started: true,
           code: session.code,
-          setValue,
+          // Directly use the returned instance's methods
+          setValue: editorInstance.setValue,
         }));
 
         // Run initial type check after editor is ready
@@ -270,12 +278,13 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
 
         console.debug("[Editor] Editor initialized successfully");
       } catch (error) {
-        console.error("[Editor] Initialization error:", error);
+        console.error("[Editor] Uncaught Initialization error:", error);
       }
     };
 
     initEditor();
-  }, []);
+    // Add session to the dependency array
+  }, [session, codeSpace, editorState.started, errorType, throttledTypeCheck]); // Added session and other relevant dependencies
 
   // Track aggregate metrics across component lifetime
   const lifetimeMetrics = useRef({
