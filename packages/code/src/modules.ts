@@ -9,9 +9,10 @@ export type {
   RenderedApp,
 } from "@/lib/interfaces.ts";
 export { tryCatch } from "@/lib/try-catch.ts";
-import HTML from "./index.html";
 
+import HTML from "./index.html";
 export { HTML };
+
 export { serveWithCache } from "@/lib/serve-with-cache.ts";
 
 export { md5 } from "@/lib/md5.ts";
