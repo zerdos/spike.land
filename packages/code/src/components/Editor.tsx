@@ -271,11 +271,13 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
           return;
         }
         // Check if the returned instance and its setValue method are valid
-        if (!editorInstance || typeof editorInstance.setValue !== 'function') {
-          console.error("[Editor] Initialization failed: Invalid editor instance or setValue method.", editorInstance);
+        if (!editorInstance || typeof editorInstance.setValue !== "function") {
+          console.error(
+            "[Editor] Initialization failed: Invalid editor instance or setValue method.",
+            editorInstance,
+          );
           return;
         }
-
 
         setEditorState((prev) => ({
           ...prev,

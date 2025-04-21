@@ -1,23 +1,23 @@
-vi.mock('@/services/editorUtils', () => ({
+vi.mock("@/services/editorUtils", () => ({
   initializeMonaco: vi.fn(),
 }));
-vi.mock('../../hooks/use-editor-state');
-vi.mock('../../hooks/useErrorHandling');
+vi.mock("../../hooks/use-editor-state");
+vi.mock("../../hooks/useErrorHandling");
 
-import React from 'react';
-import { vi, Mock } from 'vitest';
-import { render, waitFor } from '@testing-library/react';
-import { Editor } from '../Editor';
-import { useEditorState } from '../../hooks/use-editor-state';
-import { useErrorHandling } from '../../hooks/useErrorHandling';
-import type { ICode, ICodeSession } from '@/lib/interfaces';
-import { sanitizeSession } from '@/lib/make-sess';
-import * as editorUtils from '@/services/editorUtils';
+import type { ICode, ICodeSession } from "@/lib/interfaces";
+import { sanitizeSession } from "@/lib/make-sess";
+import * as editorUtils from "@/services/editorUtils";
+import { render, waitFor } from "@testing-library/react";
+import React from "react";
+import { Mock, vi } from "vitest";
+import { useEditorState } from "../../hooks/use-editor-state";
+import { useErrorHandling } from "../../hooks/useErrorHandling";
+import { Editor } from "../Editor";
 
 const mockUseEditorState = vi.mocked(useEditorState);
 const mockUseErrorHandling = vi.mocked(useErrorHandling);
 
-describe('Editor Component', () => {
+describe("Editor Component", () => {
   let mockCSess: ICode;
   let mockSessionData: ICodeSession;
   let mockContainerRef: React.RefObject<HTMLDivElement>;
@@ -27,14 +27,14 @@ describe('Editor Component', () => {
     vi.clearAllMocks();
 
     mockSetValue = vi.fn();
-    mockContainerRef = { current: document.createElement('div') };
+    mockContainerRef = { current: document.createElement("div") };
 
     mockSessionData = sanitizeSession({
       code: 'console.log("hello");',
-      transpiled: '',
-      css: '',
-      html: '',
-      codeSpace: 'test-space',
+      transpiled: "",
+      css: "",
+      html: "",
+      codeSpace: "test-space",
       messages: [],
     });
 
@@ -58,15 +58,15 @@ describe('Editor Component', () => {
       editorState: {
         started: false,
         sub: false,
-        code: '',
+        code: "",
         setValue: mockSetValue,
       },
       setEditorState: vi.fn((updateFn) => {
-        if (typeof updateFn === 'function') {
+        if (typeof updateFn === "function") {
           const newState = updateFn({
             started: false,
             sub: false,
-            code: '',
+            code: "",
             setValue: mockSetValue,
           });
           if (newState.started) {
@@ -98,7 +98,7 @@ describe('Editor Component', () => {
     });
   });
 
-  it('should initialize Monaco editor after session is loaded', async () => {
+  it("should initialize Monaco editor after session is loaded", async () => {
     render(<Editor codeSpace="test-space" cSess={mockCSess} />);
 
     await waitFor(() => {
@@ -113,7 +113,7 @@ describe('Editor Component', () => {
 
     expect(mockInitializeMonaco).toHaveBeenCalledWith({
       container: mockContainerRef.current,
-      codeSpace: 'test-space',
+      codeSpace: "test-space",
       code: mockSessionData.code,
       onChange: expect.any(Function),
     });

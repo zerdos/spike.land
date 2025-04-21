@@ -347,9 +347,11 @@ async function renderApp(
     // Use type assertion to satisfy FlexibleComponentType requirement
     // Use a mock component in test environment to avoid ESM loader errors
     if (typeof window === "undefined") {
-      AppToRender = (() => React.createElement("div", null, "Mocked AppToRender")) as FlexibleComponentType;
-    }  else {
-      AppToRender = (await import(`${origin}/live/${codeSpace}/index.js`)).default as FlexibleComponentType;
+      AppToRender = (() =>
+        React.createElement("div", null, "Mocked AppToRender")) as FlexibleComponentType;
+    } else {
+      AppToRender = (await import(`${origin}/live/${codeSpace}/index.js`))
+        .default as FlexibleComponentType;
     }
     // 3. If code or transpiled code is provided, handle dynamic import/transpilation.
   } else if (transpiled || code) {

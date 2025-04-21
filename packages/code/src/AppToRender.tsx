@@ -193,8 +193,10 @@ export const AppToRender: FC<AppComponentProps> = memo(({
           </DraggableWindow>
 
           <RainbowWrapper>
-            {/* Code editor.
-                Pass replaceIframe so the editor/code processor can replace the preview iframe after rendering. */}
+            {
+              /* Code editor.
+                Pass replaceIframe so the editor/code processor can replace the preview iframe after rendering. */
+            }
             <Editor codeSpace={codeSpace} cSess={cSess} replaceIframe={replaceIframe} />
 
             {/* Action buttons */}
