@@ -50,7 +50,7 @@ export async function fakeServer(request: Request) {
     request.url.includes("/dehydrated") ||
     request.url.endsWith("/") ||
     !request.url.includes("/live") ||
-    request.url.includes("/embed") || 
+    request.url.includes("/embed") ||
     request.url.includes("/public") ||
     request.url.endsWith(`/live/${codeSpace}/xxx`) ||
     request.url.endsWith(`/live/${codeSpace}/`)

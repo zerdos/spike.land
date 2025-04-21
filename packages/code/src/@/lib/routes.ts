@@ -70,5 +70,5 @@ export const RouteUtils = {
    */
   shouldRenderApp: (pathname: string): boolean =>
     (RouteUtils.isLiveRoute(pathname) || RouteUtils.isLiveCMSRoute(pathname)) &&
-    !RouteUtils.isDehydratedRoute(pathname)
+    !RouteUtils.isDehydratedRoute(pathname),
 } as const;

@@ -144,5 +144,4 @@ describe("renderApp", () => {
     expect(renderedApp?.cleanup).toBeDefined();
     expect(renderedApp?.toHtmlAndCss).toBeDefined();
   });
-
 });

@@ -11,7 +11,6 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
- 
 type AnyFunction = (...args: any[]) => any;
 
 function memoize<T extends AnyFunction>(
@@ -49,9 +48,8 @@ export function memoizeWithAbort<T extends AnyFunction>(
   keyResolver?: (...args: Parameters<T>) => string,
 ): MemoizedFunctionWithAbort<T> {
   interface Callbacks {
-     
     resolve: (value: any) => void;
-     
+
     reject: (reason?: any) => void;
     signal: AbortSignal;
   }
@@ -76,7 +74,6 @@ export function memoizeWithAbort<T extends AnyFunction>(
         ) as ReturnType<T>;
       }
 
-       
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -85,11 +82,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
       });
 
       promise.then(
-         
         (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-         
         (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },
@@ -105,12 +100,10 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
       const callbacks: Callbacks[] = [];
       const promise = fn(...fnArgs).then(
-         
         (value: any) => {
           cache.delete(key);
           return value;
         },
-         
         (error: any) => {
           cache.delete(key);
           throw error;
@@ -119,7 +112,6 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
       cache.set(key, { promise, callbacks });
 
-       
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -128,11 +120,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
       });
 
       promise.then(
-         
         (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-         
         (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },
