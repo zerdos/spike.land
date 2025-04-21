@@ -7,7 +7,7 @@ import {
   useAuth,
   UserButton,
 } from "@clerk/clerk-react";
-import { type FC, memo, useState } from "react";
+import React, { type FC, memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "./ChatInterface";
@@ -153,6 +153,21 @@ export const AppToRender: FC<AppComponentProps> = memo(({
   // History modal state
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
+  // Ref to the iframe DOM node in the draggable window.
+  const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
+
+  /**
+   * Replaces the iframe DOM node in the draggable window with a new one.
+   * Used by CodeProcessor to show the rendered result without reloading src.
+   */
+  const replaceIframe = (newIframe: HTMLIFrameElement) => {
+    const oldIframe = iframeRef.current;
+    if (oldIframe && oldIframe.parentNode) {
+      oldIframe.parentNode.replaceChild(newIframe, oldIframe);
+      iframeRef.current = newIframe;
+    }
+  };
+
   // Event handlers
   const handleToggleAutoSaveHistory = () => setShowAutoSaveHistory((prev) => !prev);
   const handleToggleChat = () => setIsOpen((prev) => !prev);
@@ -168,7 +183,9 @@ export const AppToRender: FC<AppComponentProps> = memo(({
         <main className="flex-1 relative overflow-hidden">
           {/* Live preview window */}
           <DraggableWindow isChatOpen={isOpen} codeSpace={codeSpace}>
+            {/* Attach a ref to the iframe so it can be replaced in the DOM */}
             <iframe
+              ref={iframeRef}
               title="Live preview"
               src={`/live/${codeSpace}/`}
               className="w-full h-full border-0"
@@ -176,8 +193,9 @@ export const AppToRender: FC<AppComponentProps> = memo(({
           </DraggableWindow>
 
           <RainbowWrapper>
-            {/* Code editor */}
-            <Editor codeSpace={codeSpace} cSess={cSess} />
+            {/* Code editor.
+                Pass replaceIframe so the editor/code processor can replace the preview iframe after rendering. */}
+            <Editor codeSpace={codeSpace} cSess={cSess} replaceIframe={replaceIframe} />
 
             {/* Action buttons */}
             <ActionButtons

@@ -348,10 +348,7 @@ async function renderApp(
     // Use a mock component in test environment to avoid ESM loader errors
     if (typeof window === "undefined") {
       AppToRender = (() => React.createElement("div", null, "Mocked AppToRender")) as FlexibleComponentType;
-    } else if (origin.startsWith("http")) {
-      // Avoid using http: scheme in test or unsupported environments
-      AppToRender = (() => React.createElement("div", null, "Unsupported URL scheme")) as FlexibleComponentType;
-    } else {
+    }  else {
       AppToRender = (await import(`${origin}/live/${codeSpace}/index.js`)).default as FlexibleComponentType;
     }
     // 3. If code or transpiled code is provided, handle dynamic import/transpilation.

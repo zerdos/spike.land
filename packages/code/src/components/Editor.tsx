@@ -9,12 +9,25 @@ import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { EditorNode } from "./ErrorReminder";
 
+/**
+ * EditorProps now includes setIframeSrc, which allows the editor/code processor
+ * to update the draggable window's iframe after a successful render.
+ */
+/**
+ * EditorProps now includes replaceIframe, which allows the editor/code processor
+ * to replace the draggable window's iframe DOM node after a successful render.
+ */
 interface EditorProps {
   codeSpace: string;
   cSess: ICode;
+  /**
+   * Optional callback to replace the preview iframe DOM node after rendering.
+   * Passed down from AppToRender.
+   */
+  replaceIframe?: (newIframe: HTMLIFrameElement) => void;
 }
 
-export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
+export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe }) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
   const [session, setSession] = useState<ICodeSession | null>(null);
@@ -81,8 +94,9 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess }) => {
         if (signal.aborted) return;
 
         setEditorState((prev) => ({ ...prev, code: formatted }));
+        // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
         const { data: newCode, error: saveError } = await tryCatch(
-          cSess.setCode(formatted),
+          cSess.setCode(formatted, false, replaceIframe),
         );
         if (saveError) {
           console.error("[Editor] Error saving code:", saveError);

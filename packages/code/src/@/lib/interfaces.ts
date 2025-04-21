@@ -80,8 +80,8 @@ export interface ICode {
   setCode(
     rawCode: string,
     skipRunning?: boolean,
-    transpiled?: string,
-  ): Promise<string | boolean>;
+    replaceIframe?: (newIframe: HTMLIFrameElement) => void,
+  ): Promise<string>;
   getCode(): Promise<string>;
   getCodeSpace(): string;
   sub: (fn: (sess: ICodeSession) => void) => () => void;

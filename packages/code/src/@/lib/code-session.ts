@@ -250,6 +250,7 @@ export class Code implements ICode {
   async setCode(
     rawCode: string,
     skipRunning = false,
+    replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
     console.log(
       "🔄 CodeSession.setCode called with code length:",
@@ -274,7 +275,7 @@ export class Code implements ICode {
     this.pendingRun = null;
 
     const { data: result, error } = await tryCatch(
-      this.updateCodeInternal(rawCode, skipRunning),
+      this.updateCodeInternal(rawCode, skipRunning, replaceIframe),
     );
 
     this.isRunning = false;
@@ -290,6 +291,7 @@ export class Code implements ICode {
   private async updateCodeInternal(
     rawCode: string,
     skipRunning: boolean,
+    replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
     console.log(
       "🔄 CodeSession.updateCodeInternal called with code length:",
@@ -329,6 +331,7 @@ export class Code implements ICode {
         skipRunning,
         signal,
         () => this.currentSession,
+        replaceIframe,
       ),
     );
 

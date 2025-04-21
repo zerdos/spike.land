@@ -34,11 +34,16 @@ export class CodeProcessor {
    * Formats and transpiles the code (optionally runs it),
    * then returns updated session info or false on failure.
    */
+  /**
+   * Processes code: formats, transpiles, and (optionally) runs it.
+   * If replaceIframe is provided, replaces the draggable window's iframe DOM node to show the rendered result.
+   */
   async process(
     rawCode: string,
     skipRunning: boolean,
     signal: AbortSignal,
     getSession: () => ICodeSession,
+    replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<ICodeSession | false> {
     const origin = window.location.origin;
     if (signal.aborted) return false;
@@ -113,7 +118,10 @@ export class CodeProcessor {
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           
           <style>
-            body {
+            html,body, #embed {
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
               margin: 0;
               padding: 0;
             }
@@ -153,12 +161,21 @@ export class CodeProcessor {
         </body>
         </html>`;
 
-        // Create and store iframe reference
-        const iframe = document.createElement("iframe");
-        this.currentIframe = iframe;
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
-        iframe.srcdoc = iframeSource;
+        // If replaceIframe is provided, create a new iframe and replace the draggable window's iframe DOM node
+        if (replaceIframe) {
+          const newIframe = document.createElement("iframe");
+          newIframe.srcdoc = iframeSource;
+          newIframe.title = "Live preview";
+          newIframe.className = "w-full h-full border-0";
+          replaceIframe(newIframe);
+        } else {
+          // Fallback: create a hidden iframe for legacy/compatibility
+          const iframe = document.createElement("iframe");
+          this.currentIframe = iframe;
+          iframe.style.display = "none";
+          document.body.appendChild(iframe);
+          iframe.srcdoc = iframeSource;
+        }
 
         // Create a Promise for handling the render result
         const renderPromise = new Promise<void>((resolve, reject) => {
