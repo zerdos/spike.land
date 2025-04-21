@@ -106,10 +106,12 @@ async function createEditorModel(
   registerLanguages();
 
   // Process code and prepare for editor
-  await fetchAndCreateExtraModels(code, originToUse);
-  await refreshAta(code, ata);
+  
+  fetchAndCreateExtraModels(code, originToUse).then(()=>refreshAta(code, ata)).catch((error) => {
+    console.error("Error fetching extra models:", error);   
 
-  // Create URI for the model
+  });
+   // Create URI for the model
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
   let model = editor.getModel(uri);
 
