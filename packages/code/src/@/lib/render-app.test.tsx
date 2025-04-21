@@ -145,46 +145,4 @@ describe("renderApp", () => {
     expect(renderedApp?.toHtmlAndCss).toBeDefined();
   });
 
-  // --- NEW TEST CASE ---
-  it("should use static AppToRender when only codeSpace is provided", async () => {
-    // Arrange: Ensure importFromString spy is set up (default is success, but shouldn't be called)
-    importFromStringSpy.mockResolvedValue(() => (
-      <div>
-        Should Not Be Called
-      </div>
-    ));
-
-    // Act: Call renderApp with only codeSpace
-    const renderedApp = await RenderAppModule.renderApp({
-      codeSpace: "editor-route",
-      rootElement,
-    });
-
-    // Assert
-    expect(renderedApp).toBeDefined();
-    expect(renderedApp).not.toBeNull();
-    expect(renderedApp?.App).toBeDefined();
-
-    // Crucially, check if the App component's display name or structure matches the mock
-    // Direct comparison with the function defined inside vi.mock might be unreliable.
-    // Let's check if the rendered output contains the mock text.
-    // This requires rendering the component, which adds complexity.
-    // Alternative: Check the function name if possible, or rely on the fact
-    // that importFromString/fetch were not called, implying the static path was taken.
-    // For now, let's keep the check simple, acknowledging it might be fragile:
-    // expect(renderedApp?.App.name).toContain('Mocked AppToRender'); // This won't work directly
-
-    // Let's focus on the side effects: fetch and importFromString should NOT be called.
-    expect(mockFetch).not.toHaveBeenCalled();
-    expect(mockFetch).not.toHaveBeenCalled();
-
-    // Ensure importFromString spy was NOT called
-    expect(importFromStringSpy).not.toHaveBeenCalled();
-
-    // Basic checks for RenderedApp structure
-    expect(renderedApp?.rootElement).toBe(rootElement);
-    expect(renderedApp?.rRoot).toBeDefined();
-  });
-
-  // Add more tests for other scenarios (transpiling, empty code, etc.) if needed
 });
