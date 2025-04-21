@@ -63,6 +63,10 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
     if (!session) return;
 
     const now = Date.now();
+    console.log("[Editor] Monaco editor change detected (button press or edit)", {
+      codeLength: newCode.length,
+      timestamp: new Date().toISOString(),
+    });
 
     const processChange = async (code: string) => {
       // Abort previous operation if any
@@ -70,6 +74,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
       controller.current = new AbortController();
       const { signal } = controller.current;
 
+      console.log("[Editor] Formatting code with Prettier...");
       const { data: formatted, error } = await tryCatch(prettierToThrow({
         code,
         toThrow: false,
@@ -79,6 +84,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         console.error("[Editor] Prettier error:", error);
         return;
       }
+      console.log("[Editor] Code formatted.");
 
       if (signal.aborted) return;
 
@@ -94,6 +100,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         if (signal.aborted) return;
 
         setEditorState((prev) => ({ ...prev, code: formatted }));
+        console.log("[Editor] Saving code to session...");
         // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
         const { data: newCode, error: saveError } = await tryCatch(
           cSess.setCode(formatted, false, replaceIframe),
@@ -109,11 +116,12 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
           });
           return;
         }
+        console.log("[Editor] Code saved and propagated to session.");
 
         const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
         if (typeErrorError) {
           console.error("[Editor] Type check error:", typeErrorError);
-          return;
+          // Do not block saving/processing on type errors
         }
       }
 
@@ -123,6 +131,11 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         lifetimeMetrics.current.longestSyncTime,
         syncTime,
       );
+      console.log("[Editor] Code propagation complete.", {
+        syncTime,
+        codeLength: formatted.length,
+        timestamp: new Date().toISOString(),
+      });
     };
 
     await processChange(newCode);
