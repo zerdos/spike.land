@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.d.ts",
+    "src",
     "src/assets/tw-js.js"
   ],
   "exclude": [
