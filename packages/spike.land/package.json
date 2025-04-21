@@ -22,7 +22,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.0",
     "@cloudflare/vitest-pool-workers": "0.8.18",
-    "@cloudflare/workers-types": "4.20250420.0",
+    "@cloudflare/workers-types": "4.20250421.0",
     "@eslint/js": "9.25.0",
     "@rollup/plugin-commonjs": "28.0.3",
     "@rollup/plugin-node-resolve": "16.0.1",
@@ -30,8 +30,8 @@
     "@types/mime-db": "1.43.5",
     "@types/mime-types": "2.1.4",
     "@typescript-eslint/parser": "8.30.1",
-    "@vitest/runner": "3.1.1",
-    "@vitest/snapshot": "3.1.1",
+    "@vitest/runner": "3.1.2",
+    "@vitest/snapshot": "3.1.2",
     "cross-env": "7.0.3",
     "esbuild": "0.25.2",
     "eslint-plugin-react-hooks": "5.2.0",
@@ -40,7 +40,7 @@
     "rimraf": "6.0.1",
     "rollup": "4.40.0",
     "typescript": "5.8.3",
-    "vitest": "3.1.1",
+    "vitest": "3.1.2",
     "vitest-environment-miniflare": "2.14.4",
     "wrangler": "4.12.0"
   },

@@ -19,15 +19,15 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.8.18",
-    "@cloudflare/workers-types": "4.20250420.0",
+    "@cloudflare/workers-types": "4.20250421.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.14.1",
-    "@vitest/runner": "3.1.1",
-    "@vitest/snapshot": "3.1.1",
+    "@vitest/runner": "3.1.2",
+    "@vitest/snapshot": "3.1.2",
     "esprima": "4.0.1",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
-    "vitest": "3.1.1",
+    "vitest": "3.1.2",
     "wrangler": "4.12.0"
   },
   "dependencies": {
