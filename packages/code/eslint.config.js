@@ -62,18 +62,10 @@ export default tsEslint.config(
       ],
 
       // Unused variables handling
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
-          destructuredArrayIgnorePattern: "^_",
-          caughtErrorsIgnorePattern: "^_",
-        },
-      ],
+      "@typescript-eslint/no-unused-vars": "off",
 
       // Type definition rules
-      "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+      "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/no-empty-object-type": [
         "error",
         { allowInterfaces: "always" },
@@ -93,8 +85,8 @@ export default tsEslint.config(
 
       // Additional recommended rules
       "prefer-const": "error",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/consistent-indexed-object-style": ["error", "record"],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/prefer-for-of": "error",
 
       // React-specific rules

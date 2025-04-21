@@ -11,7 +11,7 @@ export interface EditorState {
   setValue: (code: string) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 type AnyFunction = (...args: any[]) => any;
 
 function memoize<T extends AnyFunction>(
@@ -49,9 +49,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
   keyResolver?: (...args: Parameters<T>) => string,
 ): MemoizedFunctionWithAbort<T> {
   interface Callbacks {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     resolve: (value: any) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     reject: (reason?: any) => void;
     signal: AbortSignal;
   }
@@ -76,7 +76,7 @@ export function memoizeWithAbort<T extends AnyFunction>(
         ) as ReturnType<T>;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -85,11 +85,11 @@ export function memoizeWithAbort<T extends AnyFunction>(
       });
 
       promise.then(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },
@@ -105,12 +105,12 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
       const callbacks: Callbacks[] = [];
       const promise = fn(...fnArgs).then(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (value: any) => {
           cache.delete(key);
           return value;
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (error: any) => {
           cache.delete(key);
           throw error;
@@ -119,7 +119,7 @@ export function memoizeWithAbort<T extends AnyFunction>(
 
       cache.set(key, { promise, callbacks });
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       
       const newPromise = new Promise<any>((resolve, reject) => {
         callbacks.push({ resolve, reject, signal });
         signal.addEventListener("abort", () => {
@@ -128,11 +128,11 @@ export function memoizeWithAbort<T extends AnyFunction>(
       });
 
       promise.then(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (value: any) => {
           callbacks.forEach((cb) => cb.resolve(value));
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         (error: any) => {
           callbacks.forEach((cb) => cb.reject(error));
         },

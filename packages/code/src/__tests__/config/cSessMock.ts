@@ -79,7 +79,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
   const mockSession = createMockCodeSession(initialCode);
 
   // Set up the global cSess object
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   (global as any).cSess = mockSession;
 
   return mockSession;
@@ -89,7 +89,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
  * Cleans up the global mock session
  */
 export const cleanupGlobalMockSession = (): void => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   delete (global as any).cSess;
 };
 
