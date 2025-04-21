@@ -3,6 +3,8 @@ import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type {} from "./def";
+import HTML from "./index.html";
+
 // Removed invalid HTML import: import HTML from "./index.html";
 
 import type { ICodeSession } from "@/lib/interfaces";
@@ -48,7 +50,7 @@ export async function fakeServer(request: Request) {
     request.url.includes("/dehydrated") ||
     request.url.endsWith("/") ||
     !request.url.includes("/live") ||
-    request.url.includes("/embed") ||
+    request.url.includes("/embed") || 
     request.url.includes("/public") ||
     request.url.endsWith(`/live/${codeSpace}/xxx`) ||
     request.url.endsWith(`/live/${codeSpace}/`)
@@ -98,11 +100,11 @@ async function handleEditorResponse(codeSpace: string) {
 
 async function handleHtmlResponse(session: ICodeSession) {
   // Fetch index.html content
-  const htmlResponse = await fetch("/index.html");
-  if (!htmlResponse.ok) {
-    return new Response("Failed to fetch base HTML", { status: 500 });
-  }
-  const baseHtml = await htmlResponse.text();
+  // const htmlResponse = await fetch("/index.html");
+  // if (!htmlResponse.ok) {
+  //   return new Response("Failed to fetch base HTML", { status: 500 });
+  // }
+  const baseHtml = HTML;
 
   const { codeSpace, html, css } = session;
   // Use fetched baseHtml instead of the imported variable
