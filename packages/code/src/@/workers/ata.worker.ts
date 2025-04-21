@@ -239,7 +239,7 @@ export async function ata({
       console.log(`virtual file: ${fileName}`, impRes[fileName]);
     }
 
-    if (impRes[newBase].content.length > 0) {
+    if (impRes[newBase].content.length > 0 && impRes[newBase].content !== "Types not found") {
       try {
         await ataRecursive(impRes[newBase].content, impRes[newBase].url);
       } catch (error) {
