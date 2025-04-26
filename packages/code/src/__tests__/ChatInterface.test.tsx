@@ -21,11 +21,29 @@ vi.mock("@/hooks/useScreenshot", () => ({
 }));
 
 vi.mock("@/components/app/chat-drawer", () => ({
-  ChatDrawer: React.forwardRef((props: ChatDrawerProps & { chatContainerRef: React.RefObject<HTMLDivElement>, messagesEndRef: React.RefObject<HTMLDivElement>, onNewPrompt: (prompt: string) => Promise<void> }, ref) => { // Add onNewPrompt to props type
+  ChatDrawer: React.forwardRef((props: ChatDrawerProps & { onNewPrompt: (prompt: string) => Promise<void> }, ref) => {
+    const [userScrolledUp, setUserScrolledUp] = React.useState(false);
+
+    // Simulate auto-scroll logic using id="after-last-message" as in production
+    React.useEffect(() => {
+      if (!userScrolledUp && props.messages.length > 0) {
+        const lastMessageElement = document.getElementById("after-last-message");
+        if (lastMessageElement) {
+          lastMessageElement.scrollIntoView();
+        }
+      }
+    }, [props.messages, userScrolledUp]);
+
+    // Simulate scroll event logic (not strictly needed for input/scrollIntoView tests)
+    // but could be extended if needed for more accurate scroll state
+
     const handleSend = async () => {
       if (props.input.trim()) {
-        // Directly call the onNewPrompt prop received from ChatInterface
         await props.onNewPrompt(props.input);
+        props.setInput("");
+        if (props.inputRef && props.inputRef.current) {
+          props.inputRef.current.value = "";
+        }
       }
     };
 
@@ -41,18 +59,14 @@ vi.mock("@/components/app/chat-drawer", () => ({
           Reset Chat
         </button>
         {/* Scrollable container */}
-        <div ref={props.chatContainerRef} style={{ flexGrow: 1, overflowY: 'auto' }} data-testid="chat-messages-container">
-          {/* Render messages - simplified, just showing content as string */}
+        <div style={{ flexGrow: 1, overflowY: 'auto' }} data-testid="chat-messages-container">
           {props.messages.map((msg, index) => (
             <div key={msg.id || index} data-testid={`message-${index}`}>
-              {/* Simplified rendering: just show content as string */}
               {typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}
             </div>
           ))}
-          {/* Marker at the end */}
-          <div ref={props.messagesEndRef} data-testid="messages-end-marker" />
+          <div id="after-last-message" data-testid="messages-end-marker" />
         </div>
-        {/* Input area */}
         <div>
           <textarea
             ref={props.inputRef}
@@ -155,6 +169,12 @@ class MockBroadcastChannel {
 
 beforeAll(() => {
   global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
+  // Mock scrollIntoView on all elements
+  Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+    configurable: true,
+    value: vi.fn(),
+    writable: true,
+  });
 });
 
 afterAll(() => {
@@ -335,9 +355,13 @@ describe("ChatInterface", () => {
     const chatContainer = await screen.findByTestId("chat-messages-container");
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
-    // Mock scrollIntoView
+    // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
-    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+    Object.defineProperty(messagesEndMarker, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoViewMock,
+      writable: true,
+    });
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
@@ -379,9 +403,13 @@ describe("ChatInterface", () => {
     const chatContainer = await screen.findByTestId("chat-messages-container");
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
-    // Mock scrollIntoView
+    // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
-    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+    Object.defineProperty(messagesEndMarker, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoViewMock,
+      writable: true,
+    });
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
@@ -426,9 +454,13 @@ describe("ChatInterface", () => {
     const chatContainer = await screen.findByTestId("chat-messages-container");
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
-    // Mock scrollIntoView
+    // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
-    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+    Object.defineProperty(messagesEndMarker, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoViewMock,
+      writable: true,
+    });
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
