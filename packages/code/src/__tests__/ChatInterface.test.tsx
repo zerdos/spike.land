@@ -1,4 +1,5 @@
 import type { ChatDrawerProps } from "@/lib/interfaces";
+import React, { useRef, useState } from "react"; // Import React, useRef, useState
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies first
@@ -20,19 +21,50 @@ vi.mock("@/hooks/useScreenshot", () => ({
 }));
 
 vi.mock("@/components/app/chat-drawer", () => ({
-  ChatDrawer: (props: ChatDrawerProps) => (
-    <div role="dialog" aria-label="chat drawer" data-testid="chat-drawer">
-      <span data-testid="darkMode">{props.isDarkMode ? "dark" : "light"}</span>
-      <button
-        role="button"
-        aria-label="Reset Chat"
-        onClick={props.handleResetChat}
-        data-testid="reset-chat-button"
-      >
-        Reset Chat
-      </button>
-    </div>
-  ),
+  ChatDrawer: React.forwardRef((props: ChatDrawerProps & { chatContainerRef: React.RefObject<HTMLDivElement>, messagesEndRef: React.RefObject<HTMLDivElement>, onNewPrompt: (prompt: string) => Promise<void> }, ref) => { // Add onNewPrompt to props type
+    const handleSend = async () => {
+      if (props.input.trim()) {
+        // Directly call the onNewPrompt prop received from ChatInterface
+        await props.onNewPrompt(props.input);
+      }
+    };
+
+    return (
+      <div role="dialog" aria-label="chat drawer" data-testid="chat-drawer" style={{ height: '300px', overflowY: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <span data-testid="darkMode">{props.isDarkMode ? "dark" : "light"}</span>
+        <button
+          role="button"
+          aria-label="Reset Chat"
+          onClick={props.handleResetChat}
+          data-testid="reset-chat-button"
+        >
+          Reset Chat
+        </button>
+        {/* Scrollable container */}
+        <div ref={props.chatContainerRef} style={{ flexGrow: 1, overflowY: 'auto' }} data-testid="chat-messages-container">
+          {/* Render messages - simplified, just showing content as string */}
+          {props.messages.map((msg, index) => (
+            <div key={msg.id || index} data-testid={`message-${index}`}>
+              {/* Simplified rendering: just show content as string */}
+              {typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}
+            </div>
+          ))}
+          {/* Marker at the end */}
+          <div ref={props.messagesEndRef} data-testid="messages-end-marker" />
+        </div>
+        {/* Input area */}
+        <div>
+          <textarea
+            ref={props.inputRef}
+            value={props.input}
+            onChange={(e) => props.setInput(e.target.value)}
+            data-testid="message-input"
+          />
+          <button onClick={handleSend} data-testid="send-button">Send</button>
+        </div>
+      </div>
+    );
+  }),
 }));
 
 // Other imports after mocks
@@ -257,5 +289,193 @@ describe("ChatInterface", () => {
     });
 
     expect(mockSession.removeMessages).toHaveBeenCalled();
+  });
+
+  it("clears the input field after sending a message", async () => {
+    renderWithContext(
+      <ChatInterface
+        isOpen={true}
+        codeSpace="test-space"
+        cSess={mockSession}
+        onClose={vi.fn()}
+      />
+    );
+
+    const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+    const sendButton = await screen.findByTestId("send-button");
+
+    // Type a message
+    fireEvent.change(inputElement, { target: { value: "Hello AI" } });
+    // Wait for the input value to be updated in the DOM
+    await waitFor(() => {
+      expect(inputElement.value).toBe("Hello AI");
+    });
+
+    // Click send
+    await act(async () => {
+      fireEvent.click(sendButton);
+    });
+
+    // Wait for the input to be cleared
+    await waitFor(() => {
+      expect(inputElement.value).toBe("");
+    });
+  });
+
+  it("auto-scrolls to the bottom when new messages arrive during streaming if at the bottom", async () => {
+    renderWithContext(
+      <ChatInterface
+        isOpen={true}
+        codeSpace="test-space"
+        cSess={mockSession}
+        onClose={vi.fn()}
+      />
+    );
+
+    const chatContainer = await screen.findByTestId("chat-messages-container");
+    const messagesEndMarker = await screen.findByTestId("messages-end-marker");
+
+    // Mock scrollIntoView
+    const scrollIntoViewMock = vi.fn();
+    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+
+    // Simulate sending a message to trigger streaming
+    await act(async () => {
+      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const sendButton = await screen.findByTestId("send-button");
+      fireEvent.change(inputElement, { target: { value: "Start streaming" } });
+      fireEvent.click(sendButton);
+    });
+
+    // Simulate receiving streaming chunks
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 1");
+    });
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 2");
+    });
+
+    // Wait for the messages to appear in the DOM
+    await waitFor(() => {
+      expect(screen.getByText(/Chunk 1Chunk 2/)).toBeInTheDocument(); // Check for combined content
+    });
+
+    // Expect scrollIntoView to have been called
+    await waitFor(() => {
+      expect(scrollIntoViewMock).toHaveBeenCalled();
+    });
+  });
+
+  it("does not auto-scroll when new messages arrive during streaming if scrolled up", async () => {
+    renderWithContext(
+      <ChatInterface
+        isOpen={true}
+        codeSpace="test-space"
+        cSess={mockSession}
+        onClose={vi.fn()}
+      />
+    );
+
+    const chatContainer = await screen.findByTestId("chat-messages-container");
+    const messagesEndMarker = await screen.findByTestId("messages-end-marker");
+
+    // Mock scrollIntoView
+    const scrollIntoViewMock = vi.fn();
+    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+
+    // Simulate sending a message to trigger streaming
+    await act(async () => {
+      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const sendButton = await screen.findByTestId("send-button");
+      fireEvent.change(inputElement, { target: { value: "Start streaming" } });
+      fireEvent.click(sendButton);
+    });
+
+    // Simulate receiving initial chunks to make the container scrollable
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 1\n".repeat(20)); // Add enough content to make it scrollable
+    });
+
+    // Manually scroll up
+    await act(() => {
+      chatContainer.scrollTop = 0; // Scroll to the top
+      fireEvent.scroll(chatContainer); // Trigger scroll event
+    });
+
+    // Simulate receiving more streaming chunks
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 2");
+    });
+
+    // Expect scrollIntoView NOT to have been called
+    await waitFor(() => {
+      expect(scrollIntoViewMock).not.toHaveBeenCalled();
+    });
+  });
+
+  it("resumes auto-scrolling when scrolled back to bottom during streaming", async () => {
+    renderWithContext(
+      <ChatInterface
+        isOpen={true}
+        codeSpace="test-space"
+        cSess={mockSession}
+        onClose={vi.fn()}
+      />
+    );
+
+    const chatContainer = await screen.findByTestId("chat-messages-container");
+    const messagesEndMarker = await screen.findByTestId("messages-end-marker");
+
+    // Mock scrollIntoView
+    const scrollIntoViewMock = vi.fn();
+    messagesEndMarker.scrollIntoView = scrollIntoViewMock;
+
+    // Simulate sending a message to trigger streaming
+    await act(async () => {
+      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const sendButton = await screen.findByTestId("send-button");
+      fireEvent.change(inputElement, { target: { value: "Start streaming" } });
+      fireEvent.click(sendButton);
+    });
+
+    // Simulate receiving initial chunks to make the container scrollable
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 1\n".repeat(20)); // Add enough content to make it scrollable
+    });
+
+    // Manually scroll up
+    await act(() => {
+      chatContainer.scrollTop = 0; // Scroll to the top
+      fireEvent.scroll(chatContainer); // Trigger scroll event
+    });
+
+    // Simulate receiving more streaming chunks (should not auto-scroll)
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 2");
+    });
+
+    // Expect scrollIntoView NOT to have been called yet
+    await waitFor(() => {
+      expect(scrollIntoViewMock).not.toHaveBeenCalled();
+    });
+
+    // Manually scroll back to the bottom
+    await act(() => {
+      chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
+      fireEvent.scroll(chatContainer); // Trigger scroll event
+    });
+
+    // Add a wait here to ensure userScrolledUp state updates
+    await new Promise(resolve => setTimeout(resolve, 50)); // Wait for 50ms
+
+    // Simulate receiving more streaming chunks (should now auto-scroll)
+    await act(async () => {
+      mockSession.addMessageChunk("Chunk 3");
+    });
+
+    // Expect scrollIntoView to have been called
+    await waitFor(() => {
+      expect(scrollIntoViewMock).toHaveBeenCalled();
+    });
   });
 });

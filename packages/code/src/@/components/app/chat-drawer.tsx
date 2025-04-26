@@ -6,7 +6,7 @@ import { Bot } from "@/external/lucide-react";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import { handleSendMessage } from "@/workers/handle-chat-message";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Drawer } from "vaul";
 
 export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
@@ -44,10 +44,13 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
       isOpen ? "hidden" : "flex",
     ), [isOpen]);
 
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
+  const [userScrolledUp, setUserScrolledUp] = useState(false);
+
   const lastMessage = messages.slice(-1)[0] || null;
 
   useEffect(() => {
-    if (lastMessage) {
+    if (lastMessage && !userScrolledUp) { // Only scroll if not scrolled up
       const lastMessageElement = document.getElementById(
         "after-last-message",
       );
@@ -55,7 +58,33 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
         lastMessageElement.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [lastMessage?.content]);
+  }, [messages, userScrolledUp]); // Change dependency to messages array
+
+  // Add useEffect for scroll event listener
+  useEffect(() => {
+    const container = scrollAreaRef.current; // Directly use the ref's current value
+    if (!container) return;
+
+    const handleScroll = () => {
+      // Check if the user is at the bottom
+      const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1; // Add a small buffer
+
+      if (userScrolledUp && isAtBottom) {
+        // If user was scrolled up but now scrolled back to bottom, reset the flag
+        setUserScrolledUp(false);
+      } else if (!isAtBottom) {
+        // If user scrolls up, set the flag
+        setUserScrolledUp(true);
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, [userScrolledUp]); // Re-run if userScrolledUp state changes
+
 
   return (
     <Drawer.Root direction="right" open={isOpen} modal={false}>
@@ -92,7 +121,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
               handleResetChat={handleResetChat}
               onClose={onClose}
             />
-            <ScrollArea className="flex-grow">
+            <ScrollArea className="flex-grow" ref={scrollAreaRef}> {/* Add ref here */}
               <ChatContainer
                 messages={messages}
                 editingMessageId={editingMessageId}
@@ -104,11 +133,15 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 isStreaming={isStreaming}
                 setEditingMessageId={setEditingMessageId}
                 onNewPrompt={async (prompt: string) => {
-                  handleSendMessage({
+                  await handleSendMessage({
                     prompt,
                     images: [],
                     cSess,
                   });
+                  setInput(""); // Clear the input state
+                  if (inputRef.current) {
+                    inputRef.current.value = ""; // Clear the input ref value
+                  }
                 }}
                 isDarkMode={isDarkMode}
               />
