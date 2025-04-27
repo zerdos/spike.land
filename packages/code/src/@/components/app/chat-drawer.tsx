@@ -9,87 +9,78 @@ import { handleSendMessage } from "@/workers/handle-chat-message";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Drawer } from "vaul";
 
-export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
-  isOpen,
-  onClose,
-  isDarkMode,
-  toggleDarkMode,
-  handleResetChat,
-  isStreaming,
-  cSess,
-  input,
-  setInput,
-  inputRef,
-  isScreenshotLoading,
-  screenshotImage,
-  messages,
-  handleScreenshotClick,
-  handleCancelScreenshot,
-  setEditingMessageId,
-  editingMessageId,
-  editInput,
-  setEditInput,
-  handleEditMessage,
-  handleCancelEdit,
-  handleSaveEdit,
-  screenshot,
-}) => {
-  const handleButtonClick = useCallback(() => {
-    onClose();
-  }, [onClose]);
-
-  const buttonClassName = useMemo(() =>
-    cn(
-      "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
-      isOpen ? "hidden" : "flex",
-    ), [isOpen]);
+export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
+  const {
+    isOpen,
+    onClose,
+    isDarkMode,
+    toggleDarkMode,
+    handleResetChat,
+    isStreaming,
+    cSess,
+    input,
+    setInput,
+    inputRef,
+    isScreenshotLoading,
+    screenshotImage,
+    messages,
+    handleScreenshotClick,
+    handleCancelScreenshot,
+    setEditingMessageId,
+    editingMessageId,
+    editInput,
+    setEditInput,
+    handleEditMessage,
+    handleCancelEdit,
+    handleSaveEdit,
+    screenshot,
+  } = props;
 
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const [userScrolledUp, setUserScrolledUp] = useState(false);
 
-  const lastMessage = messages.slice(-1)[0] || null;
+  // Memoize button class for performance
+  const buttonClassName = useMemo(
+    () =>
+      cn(
+        "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
+        isOpen ? "hidden" : "flex"
+      ),
+    [isOpen]
+  );
 
+  // Only scroll to bottom if user is at the bottom
   useEffect(() => {
-    if (lastMessage) {
-      const container = scrollAreaRef.current;
-      if (container) {
-        const isAtBottom =
-          container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
-        if (isAtBottom) {
-          const lastMessageElement = document.getElementById("after-last-message");
-          if (lastMessageElement) {
-            lastMessageElement.scrollIntoView({ behavior: "smooth" });
-          }
-        }
-      }
+    if (!messages.length) return;
+    const container = scrollAreaRef.current;
+    if (!container) return;
+    const isAtBottom =
+      container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+    if (isAtBottom) {
+      const lastMessageElement = document.getElementById("after-last-message");
+      lastMessageElement?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]); // Only depend on messages
+  }, [messages]);
 
-  // Add useEffect for scroll event listener
+  // Track user scroll position
   useEffect(() => {
-    const container = scrollAreaRef.current; // Directly use the ref's current value
+    const container = scrollAreaRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      // Check if the user is at the bottom
-      const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1; // Add a small buffer
-
-      if (userScrolledUp && isAtBottom) {
-        // If user was scrolled up but now scrolled back to bottom, reset the flag
-        setUserScrolledUp(false);
-      } else if (!isAtBottom) {
-        // If user scrolls up, set the flag
-        setUserScrolledUp(true);
-      }
+      const isAtBottom =
+        container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+      setUserScrolledUp(!isAtBottom);
     };
 
     container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-    };
-  }, [userScrolledUp]); // Re-run if userScrolledUp state changes
-
+  // Handler for closing the drawer
+  const handleButtonClick = useCallback(() => {
+    onClose();
+  }, [onClose]);
 
   return (
     <Drawer.Root direction="right" open={isOpen} modal={false} data-testid="chat-drawer">
@@ -97,7 +88,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
         onClick={handleButtonClick}
         className={cn(
           buttonClassName,
-          "relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white",
+          "relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white"
         )}
       >
         <Bot className="h-6 w-6" />
@@ -108,11 +99,13 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
           className={cn(
             "fixed inset-y-0 right-0 z-10 outline-none flex",
             "w-full sm:w-[400px] md:w-[512px]",
-            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
+            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
           )}
-          style={{
-            "--initial-transform": "translateX(100%)",
-          } as React.CSSProperties}
+          style={
+            {
+              "--initial-transform": "translateX(100%)",
+            } as React.CSSProperties
+          }
         >
           <div className="flex flex-col h-full w-full" data-testid="chat-drawer">
             <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>
@@ -126,7 +119,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
               handleResetChat={handleResetChat}
               onClose={onClose}
             />
-            <ScrollArea className="flex-grow" ref={scrollAreaRef}> {/* Add ref here */}
+            <ScrollArea className="flex-grow" ref={scrollAreaRef}>
               <ChatContainer
                 messages={messages}
                 editingMessageId={editingMessageId}

@@ -44,10 +44,8 @@ const TypingIndicator: React.FC<TypingIndicatorProps> = React.memo((
   </div>
 ));
 
-export const ChatContainer: React.FC<
-  ChatContainerProps
-> = React.memo((props) => {
-  const {
+export const ChatContainer: React.FC<ChatContainerProps> = React.memo(
+  ({
     messages,
     setEditingMessageId,
     editingMessageId,
@@ -59,61 +57,59 @@ export const ChatContainer: React.FC<
     handleEditMessage: _handleEditMessage,
     isStreaming,
     isDarkMode,
-  } = props;
+  }) => {
+    const [typingIndicatorMustShow, setTypingIndicatorMustShow] = useState(isStreaming);
 
-  const [typingIndicatorMustShow, setTypingIndicatorMustShow] = useState(
-    isStreaming,
-  );
+    useEffect(() => {
+      let timeoutId: NodeJS.Timeout | undefined;
+      if (isStreaming) {
+        setTypingIndicatorMustShow(true);
+      } else {
+        timeoutId = setTimeout(() => setTypingIndicatorMustShow(false), 1000);
+      }
+      return () => {
+        if (timeoutId) clearTimeout(timeoutId);
+      };
+    }, [isStreaming]);
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    if (isStreaming) {
-      setTypingIndicatorMustShow(true);
-    } else {
-      timeoutId = setTimeout(() => {
-        setTypingIndicatorMustShow(false);
-      }, 1000);
-    }
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [isStreaming]);
+    const renderMessage = useCallback(
+      (message: Message) => (
+        <ChatMessage
+          key={message.id}
+          message={message}
+          isSelected={editingMessageId === message.id}
+          onDoubleClick={() => setEditingMessageId(message.id)}
+          isEditing={editingMessageId === message.id}
+          editInput={editInput}
+          setEditInput={setEditInput}
+          handleCancelEdit={handleCancelEdit}
+          handleSaveEdit={handleSaveEdit}
+          isDarkMode={isDarkMode}
+          onNewPrompt={onNewPrompt}
+        />
+      ),
+      [editingMessageId, editInput, isDarkMode, setEditingMessageId, setEditInput, handleCancelEdit, handleSaveEdit, onNewPrompt]
+    );
 
-  const renderMessage = useCallback(
-    (message: Message) => (
-      <ChatMessage
-        key={message.id}
-        message={message}
-        isSelected={editingMessageId === message.id}
-        onDoubleClick={() => setEditingMessageId(message.id)}
-        isEditing={editingMessageId === message.id}
-        editInput={editInput}
-        setEditInput={setEditInput}
-        handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
-        isDarkMode={isDarkMode}
-        onNewPrompt={onNewPrompt}
-      />
-    ),
-    [
-      editingMessageId,
-      editInput,
-      isDarkMode,
-    ],
-  );
+    const memoizedMessages = useMemo(() => messages.map(renderMessage), [
+      messages,
+      renderMessage,
+    ]);
 
-  const memoizedMessages = useMemo(() => messages.map(renderMessage), [
-    messages,
-    renderMessage,
-  ]);
-
-  return (
-    <div className="p-4 space-y-4" data-testid="chat-messages-container">
-      {memoizedMessages}
-      {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
-    </div>
-  );
-});
+    return (
+      <section
+        className="p-4 space-y-4"
+        data-testid="chat-messages-container"
+        role="log"
+        aria-live={isStreaming ? "polite" : undefined}
+        aria-busy={isStreaming}
+      >
+        {memoizedMessages}
+        {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
+      </section>
+    );
+  }
+);
 
 ChatContainer.displayName = "ChatContainer";
 

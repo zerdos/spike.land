@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { handleSendMessage } from "@/workers/handle-chat-message";
 import React, { useRef, useState } from "react";
 
-export const MessageInput: React.FC<MessageInputProps> = ({
+export const MessageInput: React.FC<MessageInputProps> = React.memo(({
   input,
   setInput,
   cSess,
@@ -26,13 +26,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSend = async () => {
-    const session = await cSess.getSession();
-    const { code: _code, messages: _messages } = session;
-
+  // Memoized handlers for performance and clarity
+  const handleSend = React.useCallback(async () => {
     localStorage.setItem(
       "streaming-" + getCodeSpace(location.pathname),
-      "true",
+      "true"
     );
 
     const result = await handleSendMessage({
@@ -44,18 +42,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
     localStorage.setItem(
       "streaming-" + getCodeSpace(location.pathname),
-      JSON.stringify(false),
+      JSON.stringify(false)
     );
-    setInput(""); // Clear input after sending
-    if (inputRef && inputRef.current) {
-      inputRef.current.value = ""; // Also clear the DOM value
-    }
-    handleCancelScreenshot(); // Clear screenshot after sending
-    setUploadedImages([]); // Clear uploaded images after sending
+    setInput("");
+    if (inputRef?.current) inputRef.current.value = "";
+    handleCancelScreenshot();
+    setUploadedImages([]);
     return result;
-  };
+  }, [input, uploadedImages, cSess, setInput, inputRef, handleCancelScreenshot]);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
       Array.from(files).forEach((file) => {
@@ -64,19 +60,20 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         });
       });
     }
-  };
+  }, []);
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-  };
+  }, []);
 
-  const makeScreenshot = async () => {
+  const makeScreenshot = React.useCallback(async () => {
+    setIsScreenshotLoading(true);
     const imageData = await screenshot();
     setUploadedImages((prev) => [...prev, imageData]);
     setIsScreenshotLoading(false);
-  };
+  }, [screenshot]);
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const files = event.dataTransfer.files;
     if (files) {
@@ -88,12 +85,24 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         }
       });
     }
-  };
+  }, []);
 
-  const removeUploadedImage = (index: number) => {
+  const removeUploadedImage = React.useCallback((index: number) => {
     setUploadedImages((prev) => prev.filter((_, i) => i !== index));
-  };
+  }, []);
 
+  // Keyboard handler for Enter to send
+  const handleKeyPress = React.useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    },
+    [handleSend]
+  );
+
+  // Accessibility: aria-labels for buttons, alt text for images
   return (
     <div
       className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}
@@ -115,17 +124,17 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   size="sm"
                   className="absolute top-1 right-1"
                   onClick={handleCancelScreenshot}
+                  aria-label="Remove screenshot"
                 >
                   <X className="h-3 w-3" />
                 </Button>
               </div>
             )}
             {uploadedImages.map((image, index) => (
-              <div key={index} className="relative">
+              <div key={image.src} className="relative">
                 <img
-                  key={image.src}
                   src={image.src}
-                  alt={`Uploaded ${index}`}
+                  alt={`Uploaded image ${index + 1}`}
                   className="max-w-[100px] h-auto rounded-lg"
                 />
                 <Button
@@ -133,6 +142,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   size="sm"
                   className="absolute top-1 right-1"
                   onClick={() => removeUploadedImage(index)}
+                  aria-label={`Remove uploaded image ${index + 1}`}
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -146,39 +156,35 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             disabled={isStreaming}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
-              }
-            }}
+            onKeyPress={handleKeyPress}
             placeholder="Type a message..."
             className={cn(
               "flex-1 min-h-[40px] max-h-[120px] resize-none",
-              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900",
+              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"
             )}
             ref={inputRef}
+            aria-label="Message input"
           />
           <div className="flex items-center space-x-2">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  onClick={() => makeScreenshot()}
+                  onClick={makeScreenshot}
                   variant={screenshotImage ? "secondary" : "outline"}
                   size="icon"
                   disabled={isScreenshotLoading}
+                  aria-label="Attach screenshot"
                   className={cn(
                     "transition-all duration-300",
                     isScreenshotLoading ? "animate-pulse" : "",
-                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600",
+                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
                   )}
                 >
-                  {isScreenshotLoading
-                    ? (
-                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary">
-                      </div>
-                    )
-                    : <Camera className="h-4 w-4" />}
+                  {isScreenshotLoading ? (
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary" />
+                  ) : (
+                    <Camera className="h-4 w-4" />
+                  )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-2">
@@ -194,6 +200,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   onClick={() => fileInputRef.current?.click()}
                   variant="outline"
                   size="icon"
+                  aria-label="Upload image"
                   className="bg-gradient-to-r from-green-500 to-teal-500 text-white hover:from-green-600 hover:to-teal-600"
                 >
                   <Upload className="h-4 w-4" />
@@ -206,11 +213,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
             <Button
               data-testid="send-button"
-              onClick={async () => console.log(await handleSend())}
-              disabled={isStreaming ||
-                input.trim() === "" && !screenshotImage &&
-                  uploadedImages.length === 0}
+              onClick={handleSend}
+              disabled={
+                isStreaming ||
+                (input.trim() === "" && !screenshotImage && uploadedImages.length === 0)
+              }
               size="icon"
+              aria-label="Send message"
             >
               <Send className="h-4 w-4" />
             </Button>
@@ -224,7 +233,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         accept="image/*"
         multiple
         className="hidden"
+        aria-label="Upload image file"
       />
     </div>
   );
-};
+});
