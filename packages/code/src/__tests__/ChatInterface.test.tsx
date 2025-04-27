@@ -281,6 +281,7 @@ describe("ChatInterface", () => {
   });
 
   it("auto-scrolls to the bottom when new messages arrive during streaming if at the bottom", async () => {
+    // Setup
     renderWithContext(
       <ChatInterface
         isOpen={true}
@@ -295,8 +296,8 @@ describe("ChatInterface", () => {
 
     // Simulate being at the bottom
     Object.defineProperty(chatContainer, "scrollHeight", { value: 1000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 1000, configurable: true });
-    chatContainer.scrollTop = 0;
+    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    chatContainer.scrollTop = 500; // Scrolled to bottom (scrollHeight - clientHeight)
 
     // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
@@ -334,6 +335,7 @@ describe("ChatInterface", () => {
   });
 
   it("does not auto-scroll when new messages arrive during streaming if scrolled up", async () => {
+    // Setup
     renderWithContext(
       <ChatInterface
         isOpen={true}
@@ -348,8 +350,8 @@ describe("ChatInterface", () => {
 
     // Simulate being scrolled up (not at bottom)
     Object.defineProperty(chatContainer, "scrollHeight", { value: 2000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 1000, configurable: true });
-    chatContainer.scrollTop = 0;
+    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    chatContainer.scrollTop = 0; // Scrolled to top
 
     // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
@@ -407,8 +409,8 @@ describe("ChatInterface", () => {
 
     // Simulate being scrolled up (not at bottom)
     Object.defineProperty(chatContainer, "scrollHeight", { value: 2000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 1000, configurable: true });
-    chatContainer.scrollTop = 0;
+    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    chatContainer.scrollTop = 0; // Scrolled to top
 
     // Override scrollIntoView with a spy for this element
     const scrollIntoViewMock = vi.fn();
@@ -450,10 +452,10 @@ describe("ChatInterface", () => {
       expect(scrollIntoViewMock).not.toHaveBeenCalled();
     });
 
-    // Manually scroll back to the bottom
+    // Manually scroll back to the bottom - set scrollTop to scrollHeight - clientHeight
     await act(() => {
-      chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
-      fireEvent.scroll(chatContainer); // Trigger scroll event
+      chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
+      fireEvent.scroll(chatContainer);
     });
 
     // Add a wait here to ensure userScrolledUp state updates
