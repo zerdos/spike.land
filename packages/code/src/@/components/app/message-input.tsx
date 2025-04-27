@@ -142,6 +142,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         )}
         <div className="flex items-end space-x-2">
           <Textarea
+            data-testid="message-input"
             disabled={isStreaming}
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -204,6 +205,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </Popover>
 
             <Button
+              data-testid="send-button"
               onClick={async () => console.log(await handleSend())}
               disabled={isStreaming ||
                 input.trim() === "" && !screenshotImage &&

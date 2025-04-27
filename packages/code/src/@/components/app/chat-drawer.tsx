@@ -92,7 +92,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
 
 
   return (
-    <Drawer.Root direction="right" open={isOpen} modal={false}>
+    <Drawer.Root direction="right" open={isOpen} modal={false} data-testid="chat-drawer">
       <Drawer.Trigger
         onClick={handleButtonClick}
         className={cn(
@@ -114,7 +114,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
             "--initial-transform": "translateX(100%)",
           } as React.CSSProperties}
         >
-          <div className="flex flex-col h-full w-full">
+          <div className="flex flex-col h-full w-full" data-testid="chat-drawer">
             <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>
             <Drawer.Description className="sr-only">
               A chat interface for interacting with the AI assistant. Contains message history and
@@ -150,7 +150,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
                 }}
                 isDarkMode={isDarkMode}
               />
-              <div id="after-last-message" />
+              <div id="after-last-message" data-testid="messages-end-marker" />
             </ScrollArea>
             <MessageInput
               input={input}

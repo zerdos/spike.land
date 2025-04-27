@@ -108,7 +108,7 @@ export const ChatContainer: React.FC<
   ]);
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4" data-testid="chat-messages-container">
       {memoizedMessages}
       {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
     </div>

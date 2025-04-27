@@ -26,6 +26,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
             size="icon"
             onClick={handleResetChat}
             aria-label="Reset Chat"
+            data-testid="reset-chat-button"
           >
             <RefreshCw className="h-4 w-4" />
           </Button>
