@@ -119,7 +119,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
               handleResetChat={handleResetChat}
               onClose={onClose}
             />
-            <ScrollArea className="flex-grow" ref={scrollAreaRef}>
+            <ScrollArea className="flex-grow h-full overflow-hidden" ref={scrollAreaRef}>
               <ChatContainer
                 messages={messages}
                 editingMessageId={editingMessageId}
