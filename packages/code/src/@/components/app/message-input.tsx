@@ -47,6 +47,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       JSON.stringify(false),
     );
     setInput(""); // Clear input after sending
+    if (inputRef && inputRef.current) {
+      inputRef.current.value = ""; // Also clear the DOM value
+    }
     handleCancelScreenshot(); // Clear screenshot after sending
     setUploadedImages([]); // Clear uploaded images after sending
     return result;

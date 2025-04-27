@@ -50,15 +50,20 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo(({
   const lastMessage = messages.slice(-1)[0] || null;
 
   useEffect(() => {
-    if (lastMessage && !userScrolledUp) { // Only scroll if not scrolled up
-      const lastMessageElement = document.getElementById(
-        "after-last-message",
-      );
-      if (lastMessageElement) {
-        lastMessageElement.scrollIntoView({ behavior: "smooth" });
+    if (lastMessage) {
+      const container = scrollAreaRef.current;
+      if (container) {
+        const isAtBottom =
+          container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+        if (isAtBottom) {
+          const lastMessageElement = document.getElementById("after-last-message");
+          if (lastMessageElement) {
+            lastMessageElement.scrollIntoView({ behavior: "smooth" });
+          }
+        }
       }
     }
-  }, [messages, userScrolledUp]); // Change dependency to messages array
+  }, [messages]); // Only depend on messages
 
   // Add useEffect for scroll event listener
   useEffect(() => {
