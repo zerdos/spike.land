@@ -103,7 +103,7 @@ export async function ata({
       .map((y) => extraLibs.find((p) => p.filePath === y))
       .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""))
       .map((c) => ({
-        filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+        filePath: c!.filePath.replace(originToUse, ""),
         content: c!.content,
       }));
   } catch (error) {
@@ -170,7 +170,7 @@ export async function ata({
       const resolvedTypingsPath = typingsPath === "index.d.mts"
         ? "index.d.ts"
         : typingsPath;
-      const typingsUrl = `${originToUse}/${npmPackage}/${resolvedTypingsPath}`;
+      const typingsUrl = `${originToUse}/${npmPackage}/${resolvedTypingsPath}`.replace(/([^:]\/)\/+/g, "$1");
       const typingsResp = await queuedFetch.fetch(typingsUrl, {
         redirect: "follow",
       });
@@ -194,7 +194,7 @@ export async function ata({
       if (resolvedTypingsPath !== "index.d.ts") {
         const newBasePath = new URL(typeUrl).pathname;
         impRes[npmPackage] = {
-          url: `${originToUse}/${npmPackage}/index.d.ts`,
+          url: `${originToUse}/${npmPackage}/index.d.ts`.replace(/([^:]\/)\/+/g, "$1"),
           content: `
             import mod from "${newBasePath}";
             export * from "${newBasePath}";
@@ -284,7 +284,7 @@ async function resolveNonRelativeRef(
   try {
     // First attempt: Try with wildcard
     const wildcardResponse = await queuedFetch.fetch(
-      `${originToUse}/*${ref}`,
+      `${originToUse}/*${ref}`.replace(/([^:]\/)\/+/g, "$1"),
       { redirect: "follow" },
     );
 
@@ -298,14 +298,14 @@ async function resolveNonRelativeRef(
 
     // Second attempt: Try direct path
     const directResponse = await queuedFetch.fetch(
-      `${originToUse}/${ref}`,
+      `${originToUse}/${ref}`.replace(/([^:]\/)\/+/g, "$1"),
       { redirect: "follow" },
     );
 
     if (!directResponse.ok) {
       // Third attempt: Try with .d.ts extension
       const dtsResponse = await queuedFetch.fetch(
-        `${originToUse}/${ref}.d.ts`,
+        `${originToUse}/${ref}.d.ts`.replace(/([^:]\/)\/+/g, "$1"),
         { redirect: "follow" },
       );
 
@@ -377,7 +377,7 @@ function cleanPathsAndReferences(
   Object.keys(impRes).forEach((x) => {
     const data = impRes[x];
     impRes[x] = {
-      url: data.url,
+      url: data.url.split(originToUse).join(""),
       ref: data.ref,
       content: data.content.split(originToUse).join(""),
     };
@@ -431,18 +431,19 @@ function getFileNameForRef(
   baseUrl: string,
   originToUse: string,
 ): string {
-  const fileName = new URL(
-    ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
-      ref.includes(".mts")
-      ? ref
-      : `${ref}/index.d.ts`,
-    ref.startsWith(".") ? baseUrl : originToUse,
-  )
-    .toString()
+  const normalizedRef = ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
+    ref.includes(".mts")
+    ? ref
+    : `${ref}/index.d.ts`;
+  
+  const base = ref.startsWith(".") ? baseUrl : originToUse;
+  const url = new URL(normalizedRef, base);
+  
+  return url.toString()
     .replace(".js", ".d.ts")
     .replace(".mjs", ".d.ts")
-    .replace(".mts", ".d.ts");
-  return fileName;
+    .replace(".mts", ".d.ts")
+    .replace(/([^:]\/)\/+/g, "$1"); // Normalize any double slashes
 }
 
 Object.assign(self, { ata });
