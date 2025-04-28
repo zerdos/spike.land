@@ -48,6 +48,26 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
+    
+    // Set transition for smooth color changes
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    
+    // Apply theme colors dynamically
+    if (isDarkMode) {
+      document.body.style.backgroundColor = '#1a1a1a';
+      document.body.style.color = '#ffffff';
+      document.documentElement.style.setProperty('--primary-color', '#4a9eff');
+      document.documentElement.style.setProperty('--secondary-color', '#666666');
+      document.documentElement.style.setProperty('--background-secondary', '#2d2d2d');
+      document.documentElement.style.setProperty('--text-secondary', '#cccccc');
+    } else {
+      document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#000000';
+      document.documentElement.style.setProperty('--primary-color', '#0066cc');
+      document.documentElement.style.setProperty('--secondary-color', '#888888');
+      document.documentElement.style.setProperty('--background-secondary', '#f5f5f5');
+      document.documentElement.style.setProperty('--text-secondary', '#444444');
+    }
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
