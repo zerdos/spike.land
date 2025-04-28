@@ -236,8 +236,8 @@ export interface EditorInstance {
 export async function initializeMonaco(
   options: EditorInitOptions,
 ): Promise<EditorInstance> {
-  const { startMonaco } = await import("@/components/app/monaco-edi");
-  const { data, error } = await tryCatch(startMonaco(options));
+  const { startMonacoEditor } = await import("@/components/app/monaco-edi");
+  const { data, error } = await tryCatch(startMonacoEditor(options));
   if (error) {
     throw new Error(`Monaco initialization failed: ${error}`);
   }

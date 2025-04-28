@@ -1,6 +1,6 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
-import { setupTypeAcquisition } from "@typescript/ata";
-import ts from "typescript";
+// import { setupTypeAcquisition } from "@typescript/ata";
+// import ts from "typescript";
 const self = globalThis;
 
 interface ImportResult {
@@ -19,43 +19,43 @@ const tsx = (globalThis as unknown as { tsx: (code: string) => Promise<string[]>
     code: string,
   ) => Promise<string[]>;
 
-export const myATA = async (code: string) => {
-  const limitedFetch = new QueuedFetch(4, 1000, 0);
+// export const myATA = async (code: string) => {
+//   const limitedFetch = new QueuedFetch(4, 1000, 0);
 
-  const vfsPromise = new Promise<Map<string, string>>((resolve) =>
-    setupTypeAcquisition({
-      projectName: "My ATA Project",
-      logger: console,
-      fetcher: limitedFetch.fetch.bind(limitedFetch) as typeof fetch,
-      typescript: ts,
-      delegate: {
-        receivedFile: (_fileContent: string, filePath: string) => {
-          console.log("ATA received file", { filePath });
-        },
-        started: () => console.log("ATA start"),
-        progress: (downloaded: number, total: number) =>
-          console.log(`Got ${downloaded} out of ${total}`),
-        finished: (vfs) => {
-          console.log("ATA done");
-          resolve(vfs);
-        },
-      },
-    })(code)
-  );
+//   const vfsPromise = new Promise<Map<string, string>>((resolve) =>
+//     setupTypeAcquisition({
+//       projectName: "My ATA Project",
+//       logger: console,
+//       fetcher: limitedFetch.fetch.bind(limitedFetch) as typeof fetch,
+//       typescript: ts,
+//       delegate: {
+//         receivedFile: (_fileContent: string, filePath: string) => {
+//           console.log("ATA received file", { filePath });
+//         },
+//         started: () => console.log("ATA start"),
+//         progress: (downloaded: number, total: number) =>
+//           console.log(`Got ${downloaded} out of ${total}`),
+//         finished: (vfs) => {
+//           console.log("ATA done");
+//           resolve(vfs);
+//         },
+//       },
+//     })(code)
+//   );
 
-  const fileMap = await vfsPromise;
-  const monacoExtraLibs: ExtraLib[] = [];
-  for (const [filePath, content] of fileMap.entries()) {
-    // Strip off the leading 13 characters and remove "@types/"
-    const cleanFilePath = filePath.slice(13).split("@types/").join("").split(
-      "ts5.0/",
-    ).join("")
-      .split("v18/").join("");
-    if (monacoExtraLibs.some((x) => x.filePath === cleanFilePath)) continue;
-    monacoExtraLibs.push({ filePath: cleanFilePath, content });
-  }
-  return monacoExtraLibs;
-};
+//   const fileMap = await vfsPromise;
+//   const monacoExtraLibs: ExtraLib[] = [];
+//   for (const [filePath, content] of fileMap.entries()) {
+//     // Strip off the leading 13 characters and remove "@types/"
+//     const cleanFilePath = filePath.slice(13).split("@types/").join("").split(
+//       "ts5.0/",
+//     ).join("")
+//       .split("v18/").join("");
+//     if (monacoExtraLibs.some((x) => x.filePath === cleanFilePath)) continue;
+//     monacoExtraLibs.push({ filePath: cleanFilePath, content });
+//   }
+//   return monacoExtraLibs;
+// };
 
 export async function ata({
   code,
@@ -76,10 +76,17 @@ export async function ata({
       initialImports.map(async (r) => {
         if (originToUse.endsWith(".d.ts")) return;
         try {
-          const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
+          const resp = await queuedFetch.fetch(`/${r}.d.ts`);
           const content = await resp.text();
           impRes[r] = { url: resp.url, ref: "", content };
-          await ataRecursive(content, new URL(resp.url).origin);
+          let baseUrl = new URL(resp.url);
+          // set the origin to the baseUrl
+          baseUrl = new URL(baseUrl.href,originToUse);
+          impRes[r].url = baseUrl.toString();
+          impRes[r].ref = r;
+          // Recursively fetch cleanPathsAndReference
+
+          await ataRecursive(content, new URL(resp.url).href);
         } catch (error) {
           console.error("error", error);
         }
@@ -110,8 +117,9 @@ export async function ata({
     console.error("error", error);
   }
 
-  const ataBIG = await myATA(code);
-  return [...ataBIG, ...thisATA];
+  // const ataBIG = await myATA(code);
+  return thisATA;
+  // [...ataBIG, ...thisATA];
 
   async function ataRecursive(fileContent: string, baseUrl: string) {
     // Extract references from code comments and run tsx on it
@@ -358,17 +366,33 @@ function cleanPathsAndReferences(
           content: data.content
             .split(impRes[x].url)
             .join(x)
+            .split('https://spike.land')
+            .join("")
+            .split("https://esm.sh")
+            .join("")
             .split(`https://${originToUse}/${x}`)
             .join(impRes[x].ref)
+            .split(`${originToUse}/${x}`)
+            .join(impRes[x].ref)
+            .split(originToUse)
+            .join("")
             .replace(vNumbers, subst)
             .split("/@types/")
             .join("/")
-            .replaceAll(versionNumbers, ""),
+            .split(`/${x}`)
+            .join(impRes[x].ref)
+            .replaceAll(versionNumbers, "")
+            .replace(/\.d\.ts\//, '/'), // Clean up any .d.ts in middle of paths
           url: data.url
+            .split('https://spike.land')
+            .join("")
+            .split("https://esm.sh")
+            .join("")
             .replace(vNumbers, subst)
             .split("/@types/")
             .join("/")
-            .replaceAll(versionNumbers, ""),
+            .replaceAll(versionNumbers, "")
+            .replace(/\.d\.ts\//, '/'), // Clean up any .d.ts in middle of paths
         };
       });
     });
@@ -431,19 +455,23 @@ function getFileNameForRef(
   baseUrl: string,
   originToUse: string,
 ): string {
-  const normalizedRef = ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
-    ref.includes(".mts")
-    ? ref
-    : `${ref}/index.d.ts`;
+  // Remove .d.ts if it's in the middle of the path
+  const cleanRef = ref.replace(/\.d\.ts\//, '/');
   
-  const base = ref.startsWith(".") ? baseUrl : originToUse;
+  const normalizedRef = cleanRef.includes("d.ts") || cleanRef.includes(".mjs") ||
+    cleanRef.includes(".js") || cleanRef.includes(".mts")
+    ? cleanRef
+    : `${cleanRef}/index.d.ts`;
+  
+  const base = cleanRef.startsWith(".") ? baseUrl : originToUse;
   const url = new URL(normalizedRef, base);
   
   return url.toString()
-    .replace(".js", ".d.ts")
-    .replace(".mjs", ".d.ts")
-    .replace(".mts", ".d.ts")
-    .replace(/([^:]\/)\/+/g, "$1"); // Normalize any double slashes
+    .replace(/\.js(\/|$)/, '.d.ts$1')
+    .replace(/\.mjs(\/|$)/, '.d.ts$1')
+    .replace(/\.mts(\/|$)/, '.d.ts$1')
+    .replace(/([^:]\/)\/+/g, "$1") // Normalize any double slashes
+    .replace(/\.d\.ts\//, '/'); // Clean up any remaining .d.ts in the middle of paths
 }
 
 Object.assign(self, { ata });
