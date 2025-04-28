@@ -204,10 +204,9 @@ export async function ata({
         impRes[npmPackage] = {
           url: `${originToUse}/${npmPackage}/index.d.ts`.replace(/([^:]\/)\/+/g, "$1"),
           content: `
-            import mod from "${newBasePath}";
-            export * from "${newBasePath}";
-            export default mod;
-          `,
+import mod from "${npmPackage}";
+export * from "${npmPackage}";
+export default mod;`,
           ref: npmPackage,
         };
       }
@@ -238,10 +237,9 @@ export async function ata({
       impRes[fileName] = {
         url: fileName,
         content: `
-          import mod from "${newBase}";
-          export * from "${newBase}";
-          export default mod;
-        `,
+import mod from "${ref}";
+export * from "${ref}";
+export default mod;`,
         ref,
       };
       console.log(`virtual file: ${fileName}`, impRes[fileName]);
