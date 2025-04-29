@@ -148,7 +148,8 @@ export async function ata({
   // Add common dependencies that might not be explicitly imported in user code
   const augmentedCode = `${code}
 import "react";
-import "@emotion/react/jsx-runtime";
+import "@emotion/react";
+import * as JSXruntime "@emotion/react/jsx-runtime";
 // Add other common implicit dependencies if necessary
 `;
 
