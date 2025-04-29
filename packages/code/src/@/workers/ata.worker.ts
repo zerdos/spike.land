@@ -206,12 +206,13 @@ import "@emotion/react/jsx-runtime";
 
     for (const specifier of importSpecifiers) {
       if (specifier.startsWith(aliasPrefix)) {
-        const mappedPath = specifier.substring(aliasPrefix.length);
+        const mappedPath = specifier;
         // Construct the expected final path *after* cleaning
         const expectedCleanedPath = cleanFilePath(`/${mappedPath}.d.ts`, originToUse); // Assume .d.ts extension
 
         if (!processedLibs[expectedCleanedPath]) {
-          const fetchUrl = `${originToUse}/${mappedPath}.d.ts`;
+          // Construct URL with single quotes around the path as requested
+          const fetchUrl = `${originToUse}/'${mappedPath}.d.ts`;
           console.log(
             `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' not found in VFS. Attempting fetch: ${fetchUrl}`,
           );
