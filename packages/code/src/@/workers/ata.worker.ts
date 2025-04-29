@@ -55,8 +55,7 @@ function cleanFileContent(content: string, originToUse: string): string {
   // Clean paths within the content
   cleaned = cleaned
     .replace(/\/node_modules\//g, "/")
-    .replace(/@types\//g, "")
-    .replace(/\/v\d+\//g, "/");
+    .replace(/@types\//g, "");
 
   // Remove version numbers like @1.2.3
   cleaned = cleaned.replace(/@(\^)?\d+(\.)?\d+(\.)?\d+/g, "");
@@ -68,9 +67,6 @@ function cleanFileContent(content: string, originToUse: string): string {
   cleaned = cleaned
     .replace(/from "\//g, 'from "')
     .replace(/path="\//g, 'path="');
-
-  // Remove any double slashes
-  cleaned = cleaned.replace(/\/\//g, "/");
 
   // Ensure it doesn't end with .d.ts/
   cleaned = cleaned.replace(/\.d\.ts\//g, "/");
@@ -212,7 +208,7 @@ import "@emotion/react/jsx-runtime";
 
         if (!processedLibs[expectedCleanedPath]) {
           // Construct URL with single quotes around the path as requested
-          const fetchUrl = `${originToUse}/'${mappedPath}.d.ts`;
+          const fetchUrl = `${originToUse}/${mappedPath}.d.ts`;
           console.log(
             `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' not found in VFS. Attempting fetch: ${fetchUrl}`,
           );
@@ -270,7 +266,20 @@ import "@emotion/react/jsx-runtime";
       .sort((a, b) => a.filePath.localeCompare(b.filePath));
 
     console.log("[ATA] Enhanced ATA process finished.", { finalResultCount: extraLibs.length });
-    return extraLibs;
+
+    // remove the unnecessary files
+
+    const filteredLibs = extraLibs.filter(lib =>{
+
+      if (lib.filePath.endsWith("/package.json")) {
+        const search = lib.filePath.replace("/package.json", "/index.d.ts");
+        return !extraLibs.some(lib => lib.filePath === search);
+      }
+      return true;
+    }
+    );  
+    
+    return filteredLibs;
   } catch (error) {
     console.error("[ATA] Failed during enhanced type acquisition process:", error);
     return []; // Return empty array on failure
