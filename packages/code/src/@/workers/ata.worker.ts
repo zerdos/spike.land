@@ -80,7 +80,7 @@ export async function ata({
   const impRes: Record<string, ImportResult> = {};
   let thisATA: ExtraLib[] = [];
 
-  const initialImports = (await tsx(code)).filter((x) => x.includes("@/"));
+  const initialImports = (await tsx(code));//filter((x) => x.includes("@/"));
 
   console.log("initialImports", initialImports);
 
@@ -162,7 +162,10 @@ export async function ata({
 
   // const ataBIG = await myATA(code);
   console.log("[ATA] Returning from ata function", { resultCount: thisATA.length });
-  return thisATA;
+  return thisATA.map((x) => ({
+    filePath: x.filePath.startsWith("/") ? x.filePath : `/${x.filePath}`,
+    content: x.content,
+    }));
   // [...ataBIG, ...thisATA];
 
   async function ataRecursive(fileContent: string, baseUrl: string) {
@@ -212,7 +215,22 @@ export async function ata({
     console.log("[ATA] Entered tryToExtractUrlFromPackageJson", { npmPackage });
 
 
+
     if (impRes[npmPackage]) return;
+
+    if (npmPackage.includes("https://")) return;
+    if (hasFileExtension(npmPackage)) return;
+    if (npmPackage.startsWith("@/")) {
+      const dtsRes = await queuedFetch.fetch(
+        `${originToUse}/${npmPackage}.d.ts`,
+        { redirect: "follow" },
+      );
+      if (!dtsRes.ok) return;
+      const content = await dtsRes.text();
+      impRes[npmPackage] = { url: dtsRes.url, ref: npmPackage, content };
+      await ataRecursive(content, dtsRes.url);
+      return;
+    }
 
     const codeToAst = `import mod from "${npmPackage}";
     export * from "${npmPackage}";`
