@@ -75,6 +75,7 @@ export async function ata({
   code: string;
   originToUse: string;
 }): Promise<ExtraLib[]> {
+  console.log("[ATA] Entered ata function", { codeLength: code?.length, originToUse });
   const queuedFetch = new QueuedFetch(4, 2000);
   const impRes: Record<string, ImportResult> = {};
   let thisATA: ExtraLib[] = [];
@@ -160,21 +161,27 @@ export async function ata({
   }
 
   // const ataBIG = await myATA(code);
+  console.log("[ATA] Returning from ata function", { resultCount: thisATA.length });
   return thisATA;
   // [...ataBIG, ...thisATA];
 
   async function ataRecursive(fileContent: string, baseUrl: string) {
+    console.log("[ATA] Entered ataRecursive", { fileContentLength: fileContent?.length, baseUrl });
     // Extract references from code comments and run tsx on it
     let references = await tsx(fileContent);
     references = [
       ...new Set([...references, ...extractReferencePaths(fileContent)]),
     ];
 
+    console.log("[ATA] ataRecursive: raw references", { references });
+    console.log("[ATA] ataRecursive: resolving references", { referencesCount: references.length });
     await Promise.all(
       references.map(async (r: string) => {
-        if (impRes[r]) return;
-        await tryToExtractUrlFromPackageJson(r);
-        if (impRes[r]) return;
+        // Clean up reference string
+        const cleanedRef = r.replace(/^['"`{]+|['"`}]+$/g, "");
+        if (impRes[cleanedRef]) return;
+        await tryToExtractUrlFromPackageJson(cleanedRef);
+        if (impRes[cleanedRef]) return;
 
         let newBase: string | null | undefined = null;
 
@@ -196,11 +203,13 @@ export async function ata({
         }
       }),
     );
+    console.log("[ATA] ataRecursive: resolved all references", { referencesCount: references.length });
   }
 
 
   
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+    console.log("[ATA] Entered tryToExtractUrlFromPackageJson", { npmPackage });
 
 
     if (impRes[npmPackage]) return;
@@ -321,15 +330,18 @@ export default mod;`,
   }
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
+    console.log("[ATA] Entered handleNewBase", { newBase, ref, baseUrl });
     if (impRes[newBase]) return;
 
     impRes[newBase] = { ref, url: newBase, content: "" };
+    console.log("[ATA] handleNewBase: fetching newBase", { newBase });
     impRes[newBase].content = await queuedFetch
       .fetch(newBase, { redirect: "follow" })
       .then(async (dtsRes) => {
         impRes[newBase].url = dtsRes.url;
         return dtsRes.text();
       });
+    console.log("[ATA] handleNewBase: fetched newBase", { newBase, contentLength: impRes[newBase].content?.length });
 
     const fileName = getFileNameForRef(ref, baseUrl, originToUse);
     if (!impRes[fileName]) {
