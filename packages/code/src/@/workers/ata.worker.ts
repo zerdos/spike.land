@@ -1,6 +1,7 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
 import { Mutex } from "async-mutex";
+import { url } from "node:inspector";
 import ts from "typescript";
 const self = globalThis;
 
@@ -52,7 +53,7 @@ export const myATA = async (code: string) => {
   const monacoExtraLibs: ExtraLib[] = [];
   for (const [filePath, content] of fileMap.entries()) {
     // Strip off the leading 13 characters and remove "@types/"
-    const cleanFilePath = filePath.slice(13).split("@types/").join("").split(
+    const cleanFilePath = new URL(filePath, origin).href.split("@types/").join("").split(
       "ts5.0/",
     ).join("")
       .split("v18/").join("")
@@ -118,15 +119,20 @@ export async function ata({
           await ataRecursive(impRes[r]['content'], impRes[r]['url']);
           console.log("Already processed", r);
           return;}
-        if (originToUse.endsWith(".d.ts")) return;
         try {
-          const resp = await queuedFetch.fetch(`/${r}.d.ts`);
+          const link = r.startsWith("/") ? r : `/${r}`;
+          const resp = await queuedFetch.fetch(`${link}.d.ts`);
+          if (!resp.ok) {
+            console.log("Not found", r);
+            return;
+          }
           const content = await resp.text();
+          if (!content || content.startsWith("Cannot find") || content.includes('- error *')) return;
           impRes[r] = { url: resp.url, ref: "", content };
           let baseUrl = new URL(resp.url);
           // set the origin to the baseUrl
           baseUrl = new URL(baseUrl.href,originToUse);
-          impRes[r].url = baseUrl.toString();
+          impRes[r].url = baseUrl.href;
           impRes[r].ref = r;
           await ataRecursive(impRes[r]['content'], impRes[r]['url']);
           // Recursively fetch cleanPathsAndReference
@@ -139,11 +145,11 @@ export async function ata({
     cleanPathsAndReferences(impRes, originToUse);
 
     // Add extra Emotion libs for css prop and JSX runtime
-    const extras = getEmotionExtras(originToUse);
+    // const extras = getEmotionExtras(originToUse);
 
     const extraLibs = [
       ...(await generateExtraLibs(impRes, originToUse)),
-      ...extras,
+      // ...extras,
     ];
 
     // Remove duplicates, sort, and clean file paths
@@ -533,29 +539,6 @@ function cleanPathsAndReferences(
       content: data.content.split(originToUse).join("")
     };
   });
-}
-
-function getEmotionExtras(originToUse: string): ExtraLib[] {
-  return [
-    {
-      filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
-      content: `
-  import type { Interpolation } from '@emotion/react';    
-  declare module 'react' {
-  interface Attributes {
-    css?: Interpolation<unknown>;
-  }
-}`,
-    },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
-  ];
 }
 
 async function generateExtraLibs(
