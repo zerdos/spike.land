@@ -53,12 +53,17 @@ function cleanFileContent(content: string, originToUse: string): string {
   let cleaned = content
     .replace(new RegExp(originToUse, "g"), "")
     .replace(/https:\/\/spike\.land/g, "")
-    .replace(/https:\/\/esm\.sh/g, "");
+    .replace(/https:\/\/esm\.sh/g, "")
+    ;
 
   // Clean paths within the content
   cleaned = cleaned
     .replace(/\/node_modules\//g, "/")
-    .replace(/@types\//g, "");
+    .replace(/@types\//g, "")
+    .replace(/dist\//g, "")
+    .replace(/types\//g, "")
+    .replace(/src\//g, "")
+    .replace(/declarations\//g, "");
 
   // Remove version numbers like @1.2.3
   cleaned = cleaned.replace(/@(\^)?\d+(\.)?\d+(\.)?\d+/g, "");
