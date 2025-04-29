@@ -88,7 +88,16 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(
           onNewPrompt={onNewPrompt}
         />
       ),
-      [editingMessageId, editInput, isDarkMode, setEditingMessageId, setEditInput, handleCancelEdit, handleSaveEdit, onNewPrompt]
+      [
+        editingMessageId,
+        editInput,
+        isDarkMode,
+        setEditingMessageId,
+        setEditInput,
+        handleCancelEdit,
+        handleSaveEdit,
+        onNewPrompt,
+      ],
     );
 
     const memoizedMessages = useMemo(() => messages.map(renderMessage), [
@@ -108,7 +117,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
       </section>
     );
-  }
+  },
 );
 
 ChatContainer.displayName = "ChatContainer";

@@ -30,7 +30,7 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
   const handleSend = React.useCallback(async () => {
     localStorage.setItem(
       "streaming-" + getCodeSpace(location.pathname),
-      "true"
+      "true",
     );
 
     const result = await handleSendMessage({
@@ -42,7 +42,7 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
 
     localStorage.setItem(
       "streaming-" + getCodeSpace(location.pathname),
-      JSON.stringify(false)
+      JSON.stringify(false),
     );
     setInput("");
     if (inputRef?.current) inputRef.current.value = "";
@@ -99,7 +99,7 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
         handleSend();
       }
     },
-    [handleSend]
+    [handleSend],
   );
 
   // Accessibility: aria-labels for buttons, alt text for images
@@ -160,7 +160,7 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
             placeholder="Type a message..."
             className={cn(
               "flex-1 min-h-[40px] max-h-[120px] resize-none",
-              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"
+              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900",
             )}
             ref={inputRef}
             aria-label="Message input"
@@ -177,14 +177,14 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
                   className={cn(
                     "transition-all duration-300",
                     isScreenshotLoading ? "animate-pulse" : "",
-                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+                    "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600",
                   )}
                 >
-                  {isScreenshotLoading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary" />
-                  ) : (
-                    <Camera className="h-4 w-4" />
-                  )}
+                  {isScreenshotLoading
+                    ? (
+                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary" />
+                    )
+                    : <Camera className="h-4 w-4" />}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-2">
@@ -214,10 +214,8 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
             <Button
               data-testid="send-button"
               onClick={handleSend}
-              disabled={
-                isStreaming ||
-                (input.trim() === "" && !screenshotImage && uploadedImages.length === 0)
-              }
+              disabled={isStreaming ||
+                (input.trim() === "" && !screenshotImage && uploadedImages.length === 0)}
               size="icon"
               aria-label="Send message"
             >

@@ -44,9 +44,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     () =>
       cn(
         "fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]",
-        isOpen ? "hidden" : "flex"
+        isOpen ? "hidden" : "flex",
       ),
-    [isOpen]
+    [isOpen],
   );
 
   // Only scroll to bottom if user is at the bottom
@@ -54,8 +54,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (!messages.length) return;
     const container = scrollAreaRef.current;
     if (!container) return;
-    const isAtBottom =
-      container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+    const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
     if (isAtBottom) {
       const lastMessageElement = document.getElementById("after-last-message");
       lastMessageElement?.scrollIntoView({ behavior: "smooth" });
@@ -68,8 +67,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (!container) return;
 
     const handleScroll = () => {
-      const isAtBottom =
-        container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+      const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
       setUserScrolledUp(!isAtBottom);
     };
 
@@ -88,7 +86,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
         onClick={handleButtonClick}
         className={cn(
           buttonClassName,
-          "relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white"
+          "relative flex h-10 flex-shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-4 text-sm font-medium shadow-sm transition-all hover:bg-[#FAFAFA] dark:bg-[#161615] dark:hover:bg-[#1A1A19] dark:text-white",
         )}
       >
         <Bot className="h-6 w-6" />
@@ -99,13 +97,11 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
           className={cn(
             "fixed inset-y-0 right-0 z-10 outline-none flex",
             "w-full sm:w-[400px] md:w-[512px]",
-            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
+            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
           )}
-          style={
-            {
-              "--initial-transform": "translateX(100%)",
-            } as React.CSSProperties
-          }
+          style={{
+            "--initial-transform": "translateX(100%)",
+          } as React.CSSProperties}
         >
           <div className="flex flex-col h-full w-full" data-testid="chat-drawer">
             <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>

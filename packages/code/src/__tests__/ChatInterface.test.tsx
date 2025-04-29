@@ -20,7 +20,6 @@ vi.mock("@/hooks/useScreenshot", () => ({
   })),
 }));
 
-
 // Other imports after mocks
 import { ChatInterface } from "@/../ChatInterface";
 import { ThemeProvider } from "@/components/ui/theme-provider";
@@ -258,7 +257,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
@@ -288,7 +287,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     const chatContainer = await screen.findByTestId("chat-messages-container");
@@ -342,7 +341,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     const chatContainer = await screen.findByTestId("chat-messages-container");
@@ -401,7 +400,7 @@ describe("ChatInterface", () => {
         codeSpace="test-space"
         cSess={mockSession}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     const chatContainer = await screen.findByTestId("chat-messages-container");

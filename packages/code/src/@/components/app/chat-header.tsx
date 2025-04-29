@@ -11,9 +11,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
       () =>
         cn(
           "p-4 font-bold flex justify-between items-center",
-          isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
+          isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
         ),
-      [isDarkMode]
+      [isDarkMode],
     );
 
     return (
@@ -41,7 +41,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = React.memo(
         </nav>
       </header>
     );
-  }
+  },
 );
 
 ChatHeader.displayName = "ChatHeader";

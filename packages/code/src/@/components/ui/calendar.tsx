@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DayPicker, type ButtonProps } from "react-day-picker";
+import { type ButtonProps, DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -61,14 +61,12 @@ function Calendar({
             className={cn(
               buttonVariants({ variant: "outline" }),
               "size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-              className
+              className,
             )}
           >
-            {dir === "previous" ? (
-              <ChevronLeftIcon className="size-4" />
-            ) : (
-              <ChevronRightIcon className="size-4" />
-            )}
+            {dir === "previous"
+              ? <ChevronLeftIcon className="size-4" />
+              : <ChevronRightIcon className="size-4" />}
           </button>
         ),
       }}

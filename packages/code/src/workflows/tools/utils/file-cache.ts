@@ -1,3 +1,4 @@
+import { QueuedFetch } from "@/lib/queued-fetch";
 import type { CustomServiceWorkerGlobalScope } from "@/types/service-worker";
 import { CacheUtils } from "./cache-utils";
 
@@ -72,9 +73,7 @@ export class FileCacheManager {
       }
 
       // Fetch file from network with no-store to ensure fresh content
-      const response = await CacheUtils.retry(() =>
-        queuedFetch.fetch(request, { cache: "no-store" })
-      );
+      const response = await CacheUtils.retry(() => queuedFetch.fetch(request));
 
       // Validate hash if header is present (optional validation)
       if (
@@ -165,13 +164,12 @@ export class FileCacheManager {
 
       // Don't throw an error, just log a warning - we can still function with a partial cache
       // Instead, consider refetching the missing files
-      const queuedFetch = {
-        fetch: (request: Request, init?: RequestInit) => fetch(request, init),
-      };
+      const queuedFetch = new QueuedFetch(4, 1000, 100);
 
       await Promise.allSettled(
         [...missing].map(async (url) => this.fetchAndCacheFile(url, queuedFetch, myCache)),
       );
+      console.log(`Refetched ${missing.size} missing files.`);
     } else {
       console.log("Cache integrity check passed: All files present");
     }
