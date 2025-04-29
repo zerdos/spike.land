@@ -22,8 +22,11 @@ function cleanFilePath(filePath: string, originToUse: string): string {
   cleaned = cleaned
     .replace(/\/node_modules\//g, "/")
     .replace(/@types\//g, "")
+    .replace(/dist\//g, "")
+    .replace(/types\//g, "")
+    .replace(/src\//g, "")
+    .replace(/declarations\//g, "")
     .replace(/\/v\d+\//g, "/");
-
   // Remove specific TS version paths if they appear
   cleaned = cleaned.replace(/ts\d+\.\d+\//g, "");
 
@@ -142,17 +145,23 @@ export async function ata({
   const queuedFetch = new QueuedFetch(4, 10000, 100); // Keep adjusted settings
 
   // 1. Extract imports from the original code first
-  const importSpecifiers = extractImportSpecifiers(code);
-  console.log("[ATA] Extracted import specifiers:", importSpecifiers);
-
-  // Add common dependencies that might not be explicitly imported in user code
-  const augmentedCode = `${code}
+  const extCode = `${code}
 import "react";
 import "@emotion/react";
-import * as JSXruntime "@emotion/react/jsx-runtime";
+import * as JSXruntime "@emotion/react/jsx-runtime.d.ts";
+import "react/jsx-runtime";
+import "react/jsx-dev-runtime";
+import "react/jsx-runtime/jsx-dev-runtime";
+import "react/jsx-runtime/jsx-dev-runtime.d.ts";
+import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
+import "react/jsx-dev-runtime/jsx-dev-runtime";
+import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 // Add other common implicit dependencies if necessary
-`;
+`
+  const importSpecifiers = extractImportSpecifiers(extCode);
+  console.log("[ATA] Extracted import specifiers:", importSpecifiers);
 
+ 
   try {
     // 2. Run ATA
     const vfs = await new Promise<Map<string, string>>((resolve, reject) => {
@@ -175,7 +184,7 @@ import * as JSXruntime "@emotion/react/jsx-runtime";
             },
           },
         });
-        ataInstance(augmentedCode);
+        ataInstance(extCode);
       } catch (error) {
         console.error("[ATA] Error initializing setupTypeAcquisition:", error);
         reject(error);
@@ -219,7 +228,7 @@ import * as JSXruntime "@emotion/react/jsx-runtime";
               .then(async (response) => {
                 if (response.ok) {
                   const content = await response.text();
-                  const finalFilePath = cleanFilePath(response.url, originToUse); // Use the final URL after redirects
+                  const finalFilePath = cleanFilePath(fetchUrl, originToUse); // Use the final URL after redirects
                   const cleanedContent = cleanFileContent(content, originToUse);
 
                   if (!processedLibs[finalFilePath]) {
