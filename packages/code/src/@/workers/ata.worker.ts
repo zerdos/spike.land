@@ -1,7 +1,6 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
 import { Mutex } from "async-mutex";
-import { url } from "node:inspector";
 import ts from "typescript";
 const self = globalThis;
 
@@ -84,6 +83,7 @@ export async function ata({
   const initialImports = (await tsx(code));//filter((x) => x.includes("@/"));
 
   console.log("initialImports", initialImports);
+  initialImports.push("react", "@emotion/react/jsx-runtime");
 
   // Remove duplicates
   const uniqueImports = [...new Set(initialImports)];
