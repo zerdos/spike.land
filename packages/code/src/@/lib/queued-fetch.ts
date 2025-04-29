@@ -40,13 +40,9 @@ export class QueuedFetch {
 
       const request = async () => {
         try {
-          if (this.retries > 0) {
-            const response = await this.fetchWithRetry(input, init);
-            resolve(response);
-          } else {
-            const response = await fetch(input, init);
-            resolve(response);
-          }
+          // Directly use fetchWithRetry, as it handles the retries=0 case.
+          const response = await this.fetchWithRetry(input, init);
+          resolve(response);
         } catch (error) {
           reject(error);
         } finally {
@@ -62,9 +58,12 @@ export class QueuedFetch {
 
   private processQueue() {
     while (this.ongoingRequests < this.maxConcurrent && this.queue.length > 0) {
+      // Array.shift() performance is generally acceptable in V8 for moderate queue sizes.
+      // Replacing it might add complexity without significant gains unless profiling proves otherwise.
       const request = this.queue.shift();
       if (request) {
         this.ongoingRequests++;
+        // No need to await here; the request function handles its own lifecycle.
         request();
       }
     }
