@@ -34,8 +34,8 @@
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.22",
-    "@cloudflare/workers-types": "4.20250429.0",
+    "@cloudflare/vitest-pool-workers": "0.8.23",
+    "@cloudflare/workers-types": "4.20250430.0",
     "@emotion/eslint-plugin": "11.12.0",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.25.1",
