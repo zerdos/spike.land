@@ -285,18 +285,16 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 
     console.log("[ATA] Enhanced ATA process finished.", { finalResultCount: extraLibs.length });
 
-    // remove the unnecessary files
-
-    const filteredLibs = extraLibs.filter(lib =>{
-
+    // Optimized package.json filtering
+    const filePaths = new Set(extraLibs.map(lib => lib.filePath));
+    const filteredLibs = extraLibs.filter(lib => {
       if (lib.filePath.endsWith("/package.json")) {
-        const search = lib.filePath.replace("/package.json", "/index.d.ts");
-        return !extraLibs.some(lib => lib.filePath === search);
+        const indexDts = lib.filePath.replace("/package.json", "/index.d.ts");
+        return !filePaths.has(indexDts);
       }
       return true;
-    }
-    );  
-    
+    });
+
     return filteredLibs;
 }
 
