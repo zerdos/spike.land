@@ -292,6 +292,10 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
         const indexDts = lib.filePath.replace("/package.json", "/index.d.ts");
         return !filePaths.has(indexDts);
       }
+      if (lib.filePath.endsWith(".mts")) {
+        const mts = lib.filePath.replace(".mts", ".d.ts");
+        return !filePaths.has(mts);
+      }
       return true;
     });
 
