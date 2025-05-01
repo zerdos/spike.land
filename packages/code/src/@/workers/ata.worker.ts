@@ -1,5 +1,6 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
 import { setupTypeAcquisition } from "@typescript/ata";
+import { tryCatch } from "@/lib/try-catch";
 import ts from "typescript";
 
 // Keep the globalThis reference style for shared worker compatibility
@@ -167,36 +168,34 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
   console.log("[ATA] Extracted import specifiers:", importSpecifiers);
 
  
-  try {
-    // 2. Run ATA
-    const vfs = await new Promise<Map<string, string>>((resolve, reject) => {
-      try {
-        const ataInstance = setupTypeAcquisition({
-          projectName: "MonacoEditorTypes",
-          typescript: ts,
-          logger: console,
-          fetcher: queuedFetch.fetch.bind(queuedFetch) as typeof fetch,
-          delegate: {
-            started: () => console.log("[ATA] Type acquisition started."),
-            progress: (downloaded, total) => console.log(`[ATA] Progress: ${downloaded}/${total}`),
-            receivedFile: (fileContent, filePath) =>
-              console.log(`[ATA] Received: ${filePath} (${fileContent.length} chars)`),
-            errorMessage: (userFacingMessage, error) =>
-              console.error(`[ATA] Error: ${userFacingMessage}`, error),
-            finished: (vfsMap) => {
-              console.log(`[ATA] Type acquisition finished. ${vfsMap.size} files in VFS.`);
-              resolve(vfsMap);
-            },
+  // 2. Run ATA
+  const { data: vfs, error: vfsError } = await tryCatch(new Promise<Map<string, string>>((resolve) => setupTypeAcquisition({
+        projectName: "MonacoEditorTypes",
+        typescript: ts,
+        logger: console,
+        fetcher: queuedFetch.fetch.bind(queuedFetch) as typeof fetch,
+        delegate: {
+          started: () => console.log("[ATA] Type acquisition started."),
+          progress: (downloaded, total) => console.log(`[ATA] Progress: ${downloaded}/${total}`),
+          receivedFile: (fileContent, filePath) =>
+            console.log(`[ATA] Received: ${filePath} (${fileContent.length} chars)`),
+          errorMessage: (userFacingMessage, error) =>
+            console.error(`[ATA] Error: ${userFacingMessage}`, error),
+          finished: (vfsMap) => {
+            console.log(`[ATA] Type acquisition finished. ${vfsMap.size} files in VFS.`);
+            resolve(vfsMap);
           },
-        });
-        ataInstance(extCode);
-      } catch (error) {
-        console.error("[ATA] Error initializing setupTypeAcquisition:", error);
-        reject(error);
-      }
-    });
+        },
+      })(extCode)
+    
+  ));
 
-    // 3. Process ATA VFS
+  if (vfsError) {
+    console.error("[ATA] Failed to acquire types:", vfsError);
+    return [];
+  }
+
+  // 3. Process ATA VFS
     const processedLibs: Record<string, string> = {};
     for (const [filePath, content] of vfs.entries()) {
       const cleanedPath = cleanFilePath(filePath, originToUse);
@@ -272,7 +271,11 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
     }
 
     // Wait for all alias fetches to complete
-    await Promise.all(aliasFetchPromises);
+    const { error: aliasError } = await tryCatch(Promise.all(aliasFetchPromises));
+    if (aliasError) {
+      console.error("[ATA] Error during alias fetches:", aliasError);
+      // Continue, but log the error
+    }
     console.log("[ATA] Finished processing aliased imports.");
 
     // 5. Finalize
@@ -295,10 +298,6 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
     );  
     
     return filteredLibs;
-  } catch (error) {
-    console.error("[ATA] Failed during enhanced type acquisition process:", error);
-    return []; // Return empty array on failure
-  }
 }
 
 // Assign to self for SharedWorker context
