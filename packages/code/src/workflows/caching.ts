@@ -4,10 +4,9 @@ import {
   metrics,
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
-import type { CodeAnalysis } from "@/workers/code-analysis.worker";
 import { LRUCache } from "lru-cache";
 
-type CacheValue = string | CodeAnalysis | {
+type CacheValue = string | {
   hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
@@ -92,11 +91,6 @@ export class CacheStore<T extends CacheValue> {
 export const hashCache = new CacheStore<string>({
   name: "hash",
   metrics: hashCacheMetrics,
-});
-
-export const codeAnalysisCache = new CacheStore<CodeAnalysis>({
-  name: "codeAnalysis",
-  metrics: codeAnalysisCacheMetrics,
 });
 
 interface ToolResponse {

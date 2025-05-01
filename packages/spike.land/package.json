@@ -42,11 +42,11 @@
     "typescript": "5.8.3",
     "vitest": "3.1.2",
     "vitest-environment-miniflare": "2.14.4",
-    "wrangler": "4.14.0"
+    "wrangler": "4.13.2"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.40.1",
-    "@clerk/backend": "1.30.1",
+    "@clerk/backend": "1.30.2",
     "@clerk/clerk-sdk-node": "5.1.6",
     "@remix-run/cloudflare": "2.16.5",
     "@remix-run/react": "2.16.5",
