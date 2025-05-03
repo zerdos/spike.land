@@ -9,7 +9,7 @@ export interface WebsocketSession {
   subscribedTopics: Set<string>;
   lastPingTime?: number;
   lastPongTime?: number;
-  blockedMessages: any[];
+  blockedMessages: (string | object)[];
 }
 
 export class WebSocketHandler {
@@ -29,8 +29,24 @@ export class WebSocketHandler {
     this.topics = topics;
   }
 
-  pushToWsSession(session: Partial<ICodeSession>) {
-    this.wsSessions.push(session as WebsocketSession);
+  /**
+   * Adds a new WebsocketSession to the session list in a type-safe way.
+   */
+  pushToWsSession(session: WebsocketSession) {
+    this.wsSessions.push(session);
+  }
+
+  /**
+   * Utility to safely send a message over a WebSocket.
+   */
+  private safeSend(ws: WebSocket, message: string | object) {
+    if (ws.readyState === 1) {
+      try {
+        ws.send(typeof message === "string" ? message : JSON.stringify(message));
+      } catch (err) {
+        console.error("WebSocket send error:", err);
+      }
+    }
   }
 
   handleWebsocketSession(webSocket: WebSocket) {
@@ -47,10 +63,10 @@ export class WebSocketHandler {
     this.wsSessions.push(session);
 
     // Send initial handshake
-    webSocket.send(JSON.stringify({
+    this.safeSend(webSocket, {
       type: "handshake",
       hash: computeSessionHash(this.code.getSession()),
-    }));
+    });
 
     // Setup ping interval
     const pingInterval = setInterval(() => {
@@ -71,7 +87,7 @@ export class WebSocketHandler {
       // Send a new ping and record the time
       session.lastPingTime = now;
       const hashCode = computeSessionHash(this.code.getSession());
-      webSocket.send(JSON.stringify({ type: "ping", hashCode }));
+      this.safeSend(webSocket, { type: "ping", hashCode });
     }, 30000);
 
     // Handle messages
@@ -92,7 +108,7 @@ export class WebSocketHandler {
     const data = JSON.parse(msg.data as string);
 
     if (data.type === "ping") {
-      session.webSocket.send(JSON.stringify({ type: "pong" }));
+      this.safeSend(session.webSocket, { type: "pong" });
       return;
     }
 
@@ -110,11 +126,11 @@ export class WebSocketHandler {
         this.topics.get(topic)?.add(session.webSocket);
       }
       // Send acknowledgment for subscribe
-      session.webSocket.send(JSON.stringify({
+      this.safeSend(session.webSocket, {
         type: "ack",
         action: "subscribe",
         topics: data.topics,
-      }));
+      });
       return;
     }
 
@@ -124,11 +140,11 @@ export class WebSocketHandler {
         this.topics.get(topic)?.delete(session.webSocket);
       }
       // Send acknowledgment for unsubscribe
-      session.webSocket.send(JSON.stringify({
+      this.safeSend(session.webSocket, {
         type: "ack",
         action: "unsubscribe",
         topics: data.topics,
-      }));
+      });
       return;
     }
 
@@ -141,15 +157,15 @@ export class WebSocketHandler {
           data: data.data,
         });
         for (const subscriber of subscribers) {
-          subscriber.send(message);
+          this.safeSend(subscriber, message);
         }
       }
       // Send acknowledgment for publish
-      session.webSocket.send(JSON.stringify({
+      this.safeSend(session.webSocket, {
         type: "ack",
         action: "publish",
         topic: data.topic,
-      }));
+      });
       return;
     }
 
@@ -159,28 +175,28 @@ export class WebSocketHandler {
 
       if (currentHash !== data.oldHash) {
         console.error("Hash mismatch");
-        session.webSocket.send(JSON.stringify({
+        this.safeSend(session.webSocket, {
           type: "error",
           message: "Session hash mismatch",
-        }));
+        });
         return;
       }
 
       const patchedSession = applySessionDelta(currentSession, data);
       const { error } = await tryCatch(this.code.updateAndBroadcastSession(patchedSession));
       if (error) {
-        session.webSocket.send(JSON.stringify({
+        this.safeSend(session.webSocket, {
           type: "error",
           message: "Failed to apply patch " + error.message,
-        }));
+        });
         return;
       }
 
       // Only send acknowledgment if no error occurred
-      session.webSocket.send(JSON.stringify({
+      this.safeSend(session.webSocket, {
         type: "ack",
         hashCode: computeSessionHash(patchedSession),
-      }));
+      });
 
       return;
     }
@@ -188,46 +204,76 @@ export class WebSocketHandler {
     if (data.target) {
       const targetSession = this.wsSessions.find((s) => s.name === data.target);
       if (targetSession && targetSession.webSocket.readyState === 1) {
-        targetSession.webSocket.send(msg.data);
+        this.safeSend(targetSession.webSocket, msg.data);
       }
       return;
     }
 
     if (data.name && session.name !== data.name) {
       session.name = data.name;
+
+      // Deliver blocked messages from previous sessions with the same name
+      for (const prevSession of this.wsSessions) {
+        if (
+          prevSession !== session &&
+          prevSession.name === data.name &&
+          Array.isArray(prevSession.blockedMessages) &&
+          prevSession.blockedMessages.length > 0
+        ) {
+          for (const blockedMsg of prevSession.blockedMessages) {
+            try {
+              this.safeSend(
+                session.webSocket,
+                blockedMsg
+              );
+            } catch (e) {
+              // If sending fails, re-queue to current session
+              session.blockedMessages.push(blockedMsg);
+            }
+          }
+          prevSession.blockedMessages = [];
+        }
+      }
+
       // Send acknowledgment for name update
-      session.webSocket.send(JSON.stringify({
+      this.safeSend(session.webSocket, {
         type: "ack",
         action: "nameUpdate",
         name: data.name,
-      }));
+      });
     }
 
     // Add catch-all response for any unhandled message types
-    session.webSocket.send(JSON.stringify({
+    this.safeSend(session.webSocket, {
       type: "ack",
       message: "Message received",
       receivedType: data.type || "unknown",
-    }));
+    });
   };
 
   getActiveUsers(codeSpace: string): string[] {
     return this.wsSessions
       .filter((session) => session.subscribedTopics.has(codeSpace))
       .map((session) => session.name || "anonymous")
-      .filter(Boolean);
+      .filter(Boolean)
   }
 
-  broadcast(message: any, excludeSession?: WebsocketSession) {
+  async broadcast(message: any, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
-      if (session.webSocket.readyState === 1 && session !== excludeSession) {
+      if (session !== excludeSession) {
         try {
-          session.webSocket.send(
-            typeof message === "string" ? message : JSON.stringify(message),
+          this.safeSend(
+            session.webSocket,
+            message
           );
         } catch (error) {
           console.error("Error broadcasting to session:", error);
-          session.webSocket.close();
+          session.blockedMessages.push(message);
+          try {
+            session.webSocket.close();
+          } catch (closeErr) {
+            console.error("Error closing websocket:", closeErr);
+          }
         }
       }
     }
