@@ -258,24 +258,14 @@ export class WebSocketHandler {
       .filter(Boolean)
   }
 
-  async broadcast(message: any, excludeSession?: WebsocketSession) {
+  broadcast(message: any, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
-      if (session !== excludeSession) {
-        try {
+      if (session.name !== excludeSession?.name) {
           this.safeSend(
             session.webSocket,
             message
-          );
-        } catch (error) {
-          console.error("Error broadcasting to session:", error);
-          session.blockedMessages.push(message);
-          try {
-            session.webSocket.close();
-          } catch (closeErr) {
-            console.error("Error closing websocket:", closeErr);
-          }
-        }
-      }
+        );
+    }
     }
   }
 }

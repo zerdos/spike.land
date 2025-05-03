@@ -274,7 +274,7 @@ export class Code implements DurableObject {
   //   // this.autoSave();
   // }
 
-  updateAndBroadcastSession(
+  async updateAndBroadcastSession( // Add async keyword
     newSession: ICodeSession,
     wsSession?: WebsocketSession,
   ) {
@@ -283,13 +283,16 @@ export class Code implements DurableObject {
     const hashCode = computeSessionHash(newSession);
 
     if (oldHash === hashCode) {
-      return;
+      return; // No change needed
     }
 
+    // Attempt to save the new session first and wait for it to complete
+    await this.state.storage.put("session", newSession); // Save the intended new state
+
+    // If save is successful (i.e., did not throw), update in-memory state and broadcast
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
     this.wsHandler.broadcast(patch, wsSession);
-    this.state.storage.put("session", this.session);
   }
 
   getState() {
