@@ -185,7 +185,7 @@ async function handleSessionJson(
 
   if (initialisedSessions.has(codeSpace)) {
     initialisedSessions.add(codeSpace);
-    const session = sanitizeSession(
+    session = sanitizeSession(
       await fetch(request.url.replace("/live/", "/api/room/")).then(
         (r) => r.json(),
       ),

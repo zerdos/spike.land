@@ -298,6 +298,7 @@ export class RouteHandler {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
+        content_hash: md5(body),
         "Content-Encoding": "gzip",
         "Content-Type": "application/json; charset=UTF-8",
       },
