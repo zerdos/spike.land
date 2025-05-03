@@ -224,7 +224,7 @@ export class WebSocketHandler {
             try {
               this.safeSend(
                 session.webSocket,
-                blockedMsg
+                blockedMsg,
               );
             } catch (e) {
               // If sending fails, re-queue to current session
@@ -255,17 +255,17 @@ export class WebSocketHandler {
     return this.wsSessions
       .filter((session) => session.subscribedTopics.has(codeSpace))
       .map((session) => session.name || "anonymous")
-      .filter(Boolean)
+      .filter(Boolean);
   }
 
   broadcast(message: any, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
       if (session.name !== excludeSession?.name) {
-          this.safeSend(
-            session.webSocket,
-            message
+        this.safeSend(
+          session.webSocket,
+          message,
         );
-    }
+      }
     }
   }
 }

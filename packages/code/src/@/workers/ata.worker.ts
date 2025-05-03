@@ -1,6 +1,6 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
-import { setupTypeAcquisition } from "@typescript/ata";
 import { tryCatch } from "@/lib/try-catch";
+import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
 
 // Keep the globalThis reference style for shared worker compatibility
@@ -54,8 +54,7 @@ function cleanFileContent(content: string, originToUse: string): string {
   let cleaned = content
     .replace(new RegExp(originToUse, "g"), "")
     .replace(/https:\/\/spike\.land/g, "")
-    .replace(/https:\/\/esm\.sh/g, "")
-    ;
+    .replace(/https:\/\/esm\.sh/g, "");
 
   // Clean paths within the content
   cleaned = cleaned
@@ -163,13 +162,14 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 import "react/jsx-dev-runtime/jsx-dev-runtime";
 import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 // Add other common implicit dependencies if necessary
-`
+`;
   const importSpecifiers = extractImportSpecifiers(extCode);
   console.log("[ATA] Extracted import specifiers:", importSpecifiers);
 
- 
   // 2. Run ATA
-  const { data: vfs, error: vfsError } = await tryCatch(new Promise<Map<string, string>>((resolve) => setupTypeAcquisition({
+  const { data: vfs, error: vfsError } = await tryCatch(
+    new Promise<Map<string, string>>((resolve) =>
+      setupTypeAcquisition({
         projectName: "MonacoEditorTypes",
         typescript: ts,
         logger: console,
@@ -187,8 +187,8 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
           },
         },
       })(extCode)
-    
-  ));
+    ),
+  );
 
   if (vfsError) {
     console.error("[ATA] Failed to acquire types:", vfsError);
@@ -196,110 +196,110 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
   }
 
   // 3. Process ATA VFS
-    const processedLibs: Record<string, string> = {};
-    for (const [filePath, content] of vfs.entries()) {
-      const cleanedPath = cleanFilePath(filePath, originToUse);
-      const cleanedContent = cleanFileContent(content, originToUse);
-      if (!processedLibs[cleanedPath]) {
-        processedLibs[cleanedPath] = cleanedContent;
+  const processedLibs: Record<string, string> = {};
+  for (const [filePath, content] of vfs.entries()) {
+    const cleanedPath = cleanFilePath(filePath, originToUse);
+    const cleanedContent = cleanFileContent(content, originToUse);
+    if (!processedLibs[cleanedPath]) {
+      processedLibs[cleanedPath] = cleanedContent;
+    } else {
+      console.log(
+        `[ATA] Duplicate cleaned path from VFS: ${cleanedPath}. Keeping first version.`,
+      );
+    }
+  }
+  console.log(`[ATA] Processed ${Object.keys(processedLibs).length} libs from initial VFS.`);
+
+  // 4. Identify & Fetch Missing Aliased Imports
+  const aliasPrefix = "@/";
+  const aliasFetchPromises: Array<Promise<void>> = [];
+
+  for (const specifier of importSpecifiers) {
+    if (specifier.startsWith(aliasPrefix)) {
+      const mappedPath = specifier;
+      // Construct the expected final path *after* cleaning
+      const expectedCleanedPath = cleanFilePath(`/${mappedPath}.d.ts`, originToUse); // Assume .d.ts extension
+
+      if (!processedLibs[expectedCleanedPath]) {
+        // Construct URL with single quotes around the path as requested
+        const fetchUrl = `${originToUse}/${mappedPath}.d.ts`;
+        console.log(
+          `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' not found in VFS. Attempting fetch: ${fetchUrl}`,
+        );
+
+        aliasFetchPromises.push(
+          queuedFetch.fetch(fetchUrl)
+            .then(async (response) => {
+              if (response.ok) {
+                const content = await response.text();
+                const finalFilePath = cleanFilePath(fetchUrl, originToUse); // Use the final URL after redirects
+                const cleanedContent = cleanFileContent(content, originToUse);
+
+                if (!processedLibs[finalFilePath]) {
+                  processedLibs[finalFilePath] = cleanedContent;
+                  console.log(
+                    `[ATA] Successfully fetched and added aliased lib: ${finalFilePath}`,
+                  );
+                } else {
+                  console.log(
+                    `[ATA] Fetched aliased lib already exists (possibly due to redirect): ${finalFilePath}`,
+                  );
+                }
+
+                // Recursively fetch imports from this newly added file?
+                // For simplicity, let's assume the initial ATA run + direct alias fetches are sufficient.
+                // Adding recursion here would significantly increase complexity.
+              } else {
+                console.warn(
+                  `[ATA] Failed to fetch aliased import ${specifier} from ${fetchUrl}: ${response.status} ${response.statusText}`,
+                );
+              }
+            })
+            .catch(error => {
+              console.error(
+                `[ATA] Error fetching aliased import ${specifier} from ${fetchUrl}:`,
+                error,
+              );
+            }),
+        );
       } else {
         console.log(
-          `[ATA] Duplicate cleaned path from VFS: ${cleanedPath}. Keeping first version.`,
+          `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' already processed by ATA.`,
         );
       }
     }
-    console.log(`[ATA] Processed ${Object.keys(processedLibs).length} libs from initial VFS.`);
+  }
 
-    // 4. Identify & Fetch Missing Aliased Imports
-    const aliasPrefix = "@/";
-    const aliasFetchPromises: Array<Promise<void>> = [];
+  // Wait for all alias fetches to complete
+  const { error: aliasError } = await tryCatch(Promise.all(aliasFetchPromises));
+  if (aliasError) {
+    console.error("[ATA] Error during alias fetches:", aliasError);
+    // Continue, but log the error
+  }
+  console.log("[ATA] Finished processing aliased imports.");
 
-    for (const specifier of importSpecifiers) {
-      if (specifier.startsWith(aliasPrefix)) {
-        const mappedPath = specifier;
-        // Construct the expected final path *after* cleaning
-        const expectedCleanedPath = cleanFilePath(`/${mappedPath}.d.ts`, originToUse); // Assume .d.ts extension
+  // 5. Finalize
+  const extraLibs: ExtraLib[] = Object.entries(processedLibs)
+    .map(([filePath, content]) => ({ filePath, content }))
+    .sort((a, b) => a.filePath.localeCompare(b.filePath));
 
-        if (!processedLibs[expectedCleanedPath]) {
-          // Construct URL with single quotes around the path as requested
-          const fetchUrl = `${originToUse}/${mappedPath}.d.ts`;
-          console.log(
-            `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' not found in VFS. Attempting fetch: ${fetchUrl}`,
-          );
+  console.log("[ATA] Enhanced ATA process finished.", { finalResultCount: extraLibs.length });
 
-          aliasFetchPromises.push(
-            queuedFetch.fetch(fetchUrl)
-              .then(async (response) => {
-                if (response.ok) {
-                  const content = await response.text();
-                  const finalFilePath = cleanFilePath(fetchUrl, originToUse); // Use the final URL after redirects
-                  const cleanedContent = cleanFileContent(content, originToUse);
-
-                  if (!processedLibs[finalFilePath]) {
-                    processedLibs[finalFilePath] = cleanedContent;
-                    console.log(
-                      `[ATA] Successfully fetched and added aliased lib: ${finalFilePath}`,
-                    );
-                  } else {
-                    console.log(
-                      `[ATA] Fetched aliased lib already exists (possibly due to redirect): ${finalFilePath}`,
-                    );
-                  }
-
-                  // Recursively fetch imports from this newly added file?
-                  // For simplicity, let's assume the initial ATA run + direct alias fetches are sufficient.
-                  // Adding recursion here would significantly increase complexity.
-                } else {
-                  console.warn(
-                    `[ATA] Failed to fetch aliased import ${specifier} from ${fetchUrl}: ${response.status} ${response.statusText}`,
-                  );
-                }
-              })
-              .catch(error => {
-                console.error(
-                  `[ATA] Error fetching aliased import ${specifier} from ${fetchUrl}:`,
-                  error,
-                );
-              }),
-          );
-        } else {
-          console.log(
-            `[ATA] Alias '${specifier}' mapped to '${expectedCleanedPath}' already processed by ATA.`,
-          );
-        }
-      }
+  // Optimized package.json filtering
+  const filePaths = new Set(extraLibs.map(lib => lib.filePath));
+  const filteredLibs = extraLibs.filter(lib => {
+    if (lib.filePath.endsWith("/package.json")) {
+      const indexDts = lib.filePath.replace("/package.json", "/index.d.ts");
+      return !filePaths.has(indexDts);
     }
-
-    // Wait for all alias fetches to complete
-    const { error: aliasError } = await tryCatch(Promise.all(aliasFetchPromises));
-    if (aliasError) {
-      console.error("[ATA] Error during alias fetches:", aliasError);
-      // Continue, but log the error
+    if (lib.filePath.endsWith(".mts")) {
+      const mts = lib.filePath.replace(".mts", ".d.ts").replace(".d.d", ".d");
+      return !filePaths.has(mts);
     }
-    console.log("[ATA] Finished processing aliased imports.");
+    return true;
+  });
 
-    // 5. Finalize
-    const extraLibs: ExtraLib[] = Object.entries(processedLibs)
-      .map(([filePath, content]) => ({ filePath, content }))
-      .sort((a, b) => a.filePath.localeCompare(b.filePath));
-
-    console.log("[ATA] Enhanced ATA process finished.", { finalResultCount: extraLibs.length });
-
-    // Optimized package.json filtering
-    const filePaths = new Set(extraLibs.map(lib => lib.filePath));
-    const filteredLibs = extraLibs.filter(lib => {
-      if (lib.filePath.endsWith("/package.json")) {
-        const indexDts = lib.filePath.replace("/package.json", "/index.d.ts");
-        return !filePaths.has(indexDts);
-      }
-      if (lib.filePath.endsWith(".mts")) {
-        const mts = lib.filePath.replace(".mts", ".d.ts").replace(".d.d", ".d");
-        return !filePaths.has(mts);
-      }
-      return true;
-    });
-
-    return filteredLibs;
+  return filteredLibs;
 }
 
 // Assign to self for SharedWorker context

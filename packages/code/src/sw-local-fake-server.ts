@@ -8,7 +8,7 @@ import HTML from "./index.html";
 // Removed invalid HTML import: import HTML from "./index.html";
 
 import type { ICodeSession } from "@/lib/interfaces";
-import { sessionToJSON } from "@/lib/make-sess";
+import { sanitizeSession, sessionToJSON } from "@/lib/make-sess";
 
 const cSessions: Record<string, SessionSynchronizer> = {};
 
@@ -30,7 +30,7 @@ export async function fakeServer(request: Request) {
   if (
     request.url.includes("/session.json")
   ) {
-    return handleSessionJson(request, session);
+    return await handleSessionJson(request, session);
   } else if (
     request.url.includes("/index.tsx")
   ) {
@@ -174,11 +174,29 @@ function handleIndexTsx(
   });
 }
 
-function handleSessionJson(
+const initialisedSessions = new Set<string>();
+
+async function handleSessionJson(
   request: Request,
   session: ICodeSession,
 ) {
   console.log("Session request:", request.url);
+  const codeSpace = getCodeSpace(request.url);
+
+  if (initialisedSessions.has(codeSpace)) {
+    initialisedSessions.add(codeSpace);
+    const session = sanitizeSession(
+      await fetch(request.url.replace("/live/", "/api/room/")).then(
+        (r) => r.json(),
+      ),
+    );
+    cSessions[codeSpace] = cSessions[codeSpace] ||
+      new SessionSynchronizer(
+        codeSpace,
+        session,
+      );
+  }
+  // const session = await cSessions[codeSpace].init();
 
   return new Response(sessionToJSON(session), {
     headers: {

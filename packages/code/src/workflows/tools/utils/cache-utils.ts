@@ -93,10 +93,10 @@ export class CacheUtils {
 
     if (cachedResponse) {
       // Check if cache is still valid
-      if (!this.isResponseStale(cachedResponse)) {
-        return cachedResponse;
-      }
-      console.log(`Stale cache for CDN request: ${request.url}`);
+      // if (!this.isResponseStale(cachedResponse)) {
+      return cachedResponse;
+      // }
+      // console.log(`Stale cache for CDN request: ${request.url}`);
     }
 
     // If no cache or cache is old, fetch from network
