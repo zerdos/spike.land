@@ -1,11 +1,11 @@
-import { describe, expect, it, vi } from "vitest";
 import {
   createCodeIntegrityError,
   createCompilationError,
   ErrorType,
   handleWorkflowError,
   WorkflowError,
-} from "../error-handlers";
+} from "@/../workflows/tools/utils/error-handlers";
+import { describe, expect, it, vi } from "vitest";
 
 describe("error-handlers", () => {
   describe("WorkflowError", () => {

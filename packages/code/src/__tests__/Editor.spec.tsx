@@ -1,8 +1,8 @@
 vi.mock("@/services/editorUtils", () => ({
   initializeMonaco: vi.fn(),
 }));
-vi.mock("../../hooks/use-editor-state");
-vi.mock("../../hooks/useErrorHandling");
+vi.mock("../hooks/use-editor-state");
+vi.mock("../hooks/useErrorHandling");
 
 import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
@@ -10,9 +10,9 @@ import * as editorUtils from "@/services/editorUtils";
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { Mock, vi } from "vitest";
-import { useEditorState } from "../../hooks/use-editor-state";
-import { useErrorHandling } from "../../hooks/useErrorHandling";
-import { Editor } from "../Editor";
+import { Editor } from "../components/Editor";
+import { useEditorState } from "../hooks/use-editor-state";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 
 const mockUseEditorState = vi.mocked(useEditorState);
 const mockUseErrorHandling = vi.mocked(useErrorHandling);

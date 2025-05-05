@@ -1,7 +1,7 @@
+import { router as baseRouter } from "@/../routes/router";
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { cleanup, render, waitFor } from "@testing-library/react";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { router as baseRouter } from "../router.tsx";
 
 // Mock components
 vi.mock("../pages/LivePage", () => ({
@@ -137,7 +137,7 @@ describe("Router Configuration", () => {
   });
 
   it("should initialize app for editor route", async () => {
-    await import("@/services/ServiceWorkerManager.tsx");
+    await import("@/services/ServiceWorkerManager");
 
     await router.navigate({
       to: "/live/$codeSpace",

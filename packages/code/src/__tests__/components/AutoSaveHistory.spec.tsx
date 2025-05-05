@@ -2,8 +2,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "@/workers/monaco-editor.worker";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CodeHistoryCarousel } from "../../components/AutoSaveHistory";
-import { cSessMock } from "../config/cSessMock";
+import { CodeHistoryCarousel } from "../../components/AutoSaveHistory.js";
+import { cSessMock } from "../config/cSessMock.js";
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({

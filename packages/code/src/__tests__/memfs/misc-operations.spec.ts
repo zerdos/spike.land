@@ -1,6 +1,6 @@
 import FS, { cwd, readFileSync } from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockNavigator, setupTest } from "./setup";
+import { mockNavigator, setupTest } from "./setup.js";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);

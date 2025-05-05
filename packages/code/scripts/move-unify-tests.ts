@@ -14,7 +14,7 @@ function walk(dir: string, fileList: string[] = []) {
   for (const entry of fs.readdirSync(dir)) {
     const fullPath = path.join(dir, entry);
     if (fs.statSync(fullPath).isDirectory()) {
-      if (entry === "__tests__") continue; // We'll handle __tests__ separately
+      // Recursively walk into subdirectories
       walk(fullPath, fileList);
     } else {
       fileList.push(fullPath);
@@ -34,7 +34,7 @@ function getRelativeTestPath(file: string) {
   rel = rel.replace(/^__tests__\//, "");
   // Remove .test. and .spec. from filename for mapping
   return rel.replace(/\.spec\.tsx?$/, "").replace(/\.spec\.ts$/, "")
-            .replace(/\.test\.tsx?$/, "").replace(/\.test\.ts$/, "");
+    .replace(/\.test\.tsx?$/, "").replace(/\.test\.ts$/, "");
 }
 
 function getSourceFileForTest(testFile: string) {

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import type { ICodeSession, MessagePart, TextPart } from "@/lib/interfaces";
+import { describe, expect, it } from "vitest";
 // import { applyDelta , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
 import { applyDelta, createDelta } from "@/lib/text-delta";
 

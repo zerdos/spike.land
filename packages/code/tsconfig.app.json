@@ -12,9 +12,10 @@
     "paths": {
       "@/*": ["./src/@/*"]
     },
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals"],
     "skipLibCheck": true,
     "moduleResolution": "bundler",
+    "module": "Preserve",
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
     "jsxImportSource": "@emotion/react",
@@ -27,11 +28,6 @@
   "include": ["src"],
   "exclude": [
     "node_modules",
-    "dts",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/*.spec.tsx",
-    "**/*.test.tsx",
-    "src/routes/__tests__/*"
+    "dts"
   ]
 }

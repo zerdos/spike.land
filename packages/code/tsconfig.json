@@ -8,18 +8,11 @@
   "exclude": [
     "node_modules",
     "dts",
-    "dist",
-    "**/__tests__/**",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "src/routes/__tests__/*",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "dist"
   ],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.spec.json" }
+    { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
     "baseUrl": ".",

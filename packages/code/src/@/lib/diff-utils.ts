@@ -292,31 +292,31 @@ export function replacePreservingWhitespace(
   replace: string,
 ): string {
   // Debug logging to help diagnose matching issues
-  console.debug("replacePreservingWhitespace - Text length:", text.length);
-  console.debug("replacePreservingWhitespace - Search length:", search.length);
-  console.debug(
-    "replacePreservingWhitespace - Replace length:",
-    replace.length,
-  );
+  // console.debug("replacePreservingWhitespace - Text length:", text.length);
+  // console.debug("replacePreservingWhitespace - Search length:", search.length);
+  // console.debug(
+  //   "replacePreservingWhitespace - Replace length:",
+  //   replace.length,
+  // );
 
-  // Log the first few characters of each to help identify issues
-  console.debug(
-    "replacePreservingWhitespace - Text start:",
-    JSON.stringify(text.substring(0, 50)),
-  );
-  console.debug(
-    "replacePreservingWhitespace - Search:",
-    JSON.stringify(search),
-  );
+  // // Log the first few characters of each to help identify issues
+  // console.debug(
+  //   "replacePreservingWhitespace - Text start:",
+  //   JSON.stringify(text.substring(0, 50)),
+  // );
+  // console.debug(
+  //   "replacePreservingWhitespace - Search:",
+  //   JSON.stringify(search),
+  // );
 
   // Handle empty search string
   if (!search) return text;
 
   // Strategy 1: Try exact match first (most reliable)
   if (text.includes(search)) {
-    console.debug(
-      "replacePreservingWhitespace - Exact match found, using simple replacement",
-    );
+    // console.debug(
+    //   "replacePreservingWhitespace - Exact match found, using simple replacement",
+    // );
     return text.split(search).join(replace);
   }
 
@@ -325,9 +325,9 @@ export function replacePreservingWhitespace(
   const normalizedSearch = normalizeWhitespace(search);
 
   if (normalizedText.includes(normalizedSearch)) {
-    console.debug(
-      "replacePreservingWhitespace - Normalized whitespace match found",
-    );
+    // console.debug(
+    //   "replacePreservingWhitespace - Normalized whitespace match found",
+    // );
 
     // Find the start and end positions in the normalized text
     const startPos = normalizedText.indexOf(normalizedSearch);
@@ -370,9 +370,9 @@ export function replacePreservingWhitespace(
 
   // Strategy 3: For multiline text, try line-by-line matching
   if (search.includes("\n")) {
-    console.debug(
-      "replacePreservingWhitespace - Trying line-by-line matching for multiline text",
-    );
+    // console.debug(
+    //   "replacePreservingWhitespace - Trying line-by-line matching for multiline text",
+    // );
 
     const lineByLineMatch = findBestLineByLineMatch(search, text);
     if (lineByLineMatch) {
@@ -423,9 +423,9 @@ export function replacePreservingWhitespace(
   const searchNoWS = search.replace(/\s+/g, "");
 
   if (textNoWS.includes(searchNoWS)) {
-    console.debug(
-      "replacePreservingWhitespace - Flexible whitespace match found",
-    );
+    // console.debug(
+    //   "replacePreservingWhitespace - Flexible whitespace match found",
+    // );
 
     // Find the start and end indices in the original text
     let startIndex = 0;
@@ -469,7 +469,7 @@ export function replacePreservingWhitespace(
 
     // Check if regex replacement worked
     if (regexResult !== text) {
-      console.debug("replacePreservingWhitespace - Regex replacement worked");
+      // console.debug("replacePreservingWhitespace - Regex replacement worked");
       return regexResult;
     }
   } catch (error) {
@@ -477,9 +477,9 @@ export function replacePreservingWhitespace(
   }
 
   // Strategy 6: Check for high similarity as a last resort
-  console.debug(
-    "replacePreservingWhitespace - Checking for high similarity matches",
-  );
+  // console.debug(
+  //   "replacePreservingWhitespace - Checking for high similarity matches",
+  // );
 
   // For single-line searches, check the text line by line
   if (!search.includes("\n")) {
@@ -496,18 +496,18 @@ export function replacePreservingWhitespace(
     }
 
     if (bestLineIndex !== -1) {
-      console.debug(
-        `replacePreservingWhitespace - Found similar line at index ${bestLineIndex} with similarity ${bestSimilarity}`,
-      );
+      // console.debug(
+      //   `replacePreservingWhitespace - Found similar line at index ${bestLineIndex} with similarity ${bestSimilarity}`,
+      // );
       const result = [...textLines];
       result[bestLineIndex] = replace;
       return result.join("\n");
     }
   }
 
-  // If all strategies failed, return the original text
-  console.debug(
-    "replacePreservingWhitespace - All matching strategies failed, returning original text",
-  );
+  // // If all strategies failed, return the original text
+  // console.debug(
+  //   "replacePreservingWhitespace - All matching strategies failed, returning original text",
+  // );
   return text;
 }

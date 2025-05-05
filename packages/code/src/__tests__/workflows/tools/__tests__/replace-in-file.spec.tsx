@@ -1,8 +1,8 @@
+import { getReplaceInFileTool } from "@/../workflows/tools/replace-in-file";
 import { updateSearchReplace } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getReplaceInFileTool } from "../replace-in-file";
 
 // Mock dependencies
 vi.mock("@/lib/chat-utils", () => ({

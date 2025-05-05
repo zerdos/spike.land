@@ -1,8 +1,6 @@
-import { tr } from "date-fns/locale";
-import { transpile } from "typescript";
+import type { ICodeSession } from "@/lib/interfaces";
+import { applySessionDelta, computeSessionHash, generateSessionPatch } from "@/lib/make-sess";
 import { describe, expect, it } from "vitest";
-import type { ICodeSession } from "../interfaces";
-import { applySessionDelta, computeSessionHash, generateSessionPatch } from "../make-sess";
 
 describe("Session Patch Integration Tests", () => {
   const createTestSession = (modifications = {}): ICodeSession => ({
@@ -205,7 +203,7 @@ describe("Session Patch Integration Tests", () => {
       originalTransformedCode,
       modifiedTransformed,
     } = await import(
-      "./fixtures/live-error-bug-01"
+      "@/../__tests__/fixtures/live-error-bug-01"
     );
     const initialSession = createTestSession({
       code: originalCode,

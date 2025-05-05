@@ -65,7 +65,6 @@ const App: React.FC = () => {
 
   // Load app context on mount
   useEffect(() => {
-
     if (codeSpace && pathname === `/live/${codeSpace}`) {
       setIsLoading(true);
       console.log("Loading app for codeSpace:", codeSpace);

@@ -1,6 +1,6 @@
+import { ScreenshotService } from "@/../services/screenshot/ScreenshotService";
 import type { ImageData } from "@/lib/interfaces";
 import { beforeEach, describe, expect, it, type Mock, vi } from "vitest";
-import { ScreenshotService } from "../ScreenshotService";
 
 // Mock dependencies
 vi.mock("@/external/html2canvas", () => ({

@@ -1,4 +1,3 @@
-import { describe, expect, it, vi } from "vitest";
 import type { ICodeSession } from "@/lib/interfaces";
 import {
   computeSessionHash,
@@ -7,6 +6,7 @@ import {
   sessionToJSON,
 } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
+import { describe, expect, it, vi } from "vitest";
 
 // Mock dependencies
 vi.mock("@/lib/md5", () => ({

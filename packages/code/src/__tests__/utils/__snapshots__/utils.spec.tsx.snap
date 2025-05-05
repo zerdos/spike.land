@@ -1,0 +1,122 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getParts > should handle incomplete search and replace markers 1`] = `
+{
+  "content": "first change:",
+  "type": "text",
+}
+`;
+
+exports[`getParts > should handle incomplete search and replace markers 2`] = `
+{
+  "content": "<<<<<<< SEARCH
+      const a = 1;
+      =======
+      const a = 2;
+      =======
+    second change:
+      <<<<<<< SEARCH
+      let b = 3;
+      =======
+      let b =
+    ",
+  "language": "diff",
+  "type": "code",
+}
+`;
+
+exports[`getParts > should handle multiple search and replace markers 1`] = `
+{
+  "parts": [
+    {
+      "content": "first change:",
+      "type": "text",
+    },
+    {
+      "content": "<<<<<<< SEARCH
+      const a = 1;
+      =======
+      const a = 2;
+      >>>>>>> REPLACE
+",
+      "language": "diff",
+      "type": "code",
+    },
+    {
+      "content": "second change:",
+      "type": "text",
+    },
+    {
+      "content": "<<<<<<< SEARCH
+      let b = 3;
+      =======
+      let b = 4;
+      >>>>>>> REPLACE
+",
+      "language": "diff",
+      "type": "code",
+    },
+  ],
+  "state": {
+    "accumulatedContent": "",
+    "accumulatedDiffContent": "",
+    "isInCodeBlock": false,
+    "isInDiffBlock": false,
+  },
+}
+`;
+
+exports[`getParts > should handle nested code blocks 1`] = `
+{
+  "parts": [
+    {
+      "content": "Outer block:",
+      "type": "text",
+    },
+    {
+      "content": "function example() {
+  console.log(\`Inner block:
+",
+      "language": "javascript",
+      "type": "code",
+    },
+    {
+      "content": "json
+{"key": "value"}
+\`\`\`\`);
+}
+\`\`\`",
+      "type": "text",
+    },
+  ],
+  "state": {
+    "accumulatedContent": "",
+    "accumulatedDiffContent": "",
+    "isInCodeBlock": false,
+    "isInDiffBlock": false,
+  },
+}
+`;
+
+exports[`getParts > should handle search and replace markers 1`] = `
+[
+  {
+    "content": "Before",
+    "type": "text",
+  },
+  {
+    "content": "<<<<<<< SEARCH
+old code
+=======
+new code
+>>>>>>> REPLACE
+",
+    "language": "diff",
+    "type": "code",
+  },
+  {
+    "content": "After",
+    "type": "text",
+  },
+]
+`;

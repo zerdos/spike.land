@@ -1,12 +1,12 @@
-import { md5 } from "@/lib/md5";
-import { describe, expect, it, vi } from "vitest";
 import {
   calculateCodeChanges,
   estimateTokenSavings,
   logCodeChanges,
   shouldReturnFullCode,
   verifyCodeIntegrity,
-} from "../code-utils";
+} from "@/../workflows/tools/utils/code-utils";
+import { md5 } from "@/lib/md5";
+import { describe, expect, it, vi } from "vitest";
 
 // Mock dependencies
 vi.mock("@/lib/md5", () => ({

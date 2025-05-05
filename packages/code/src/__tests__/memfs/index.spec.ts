@@ -1,6 +1,6 @@
 import FS from "@/lib/memfs/index";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from "./setup";
+import { mockDirectoryHandle, mockFileSystem, mockNavigator, setupTest } from "./setup.js";
 
 // Apply mocks
 vi.stubGlobal("navigator", mockNavigator);
