@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.8.24",
-    "@cloudflare/workers-types": "4.20250503.0",
+    "@cloudflare/workers-types": "4.20250505.0",
     "@types/esprima": "4.0.6",
     "@types/node": "22.15.3",
     "@vitest/runner": "3.1.2",

@@ -22,7 +22,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.0",
     "@cloudflare/vitest-pool-workers": "0.8.24",
-    "@cloudflare/workers-types": "4.20250503.0",
+    "@cloudflare/workers-types": "4.20250505.0",
     "@eslint/js": "9.26.0",
     "@rollup/plugin-commonjs": "28.0.3",
     "@rollup/plugin-node-resolve": "16.0.1",
