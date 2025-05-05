@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
-import type { ICodeSession } from "./interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import {
   computeSessionHash,
   generateSessionPatch,
   sanitizeSession,
   sessionToJSON,
-} from "./make-sess";
-import { md5 } from "./md5";
+} from "@/lib/make-sess";
+import { md5 } from "@/lib/md5";
 
 // Mock dependencies
-vi.mock("./md5", () => ({
+vi.mock("@/lib/md5", () => ({
   md5: vi.fn((input) => {
     if (typeof input === "string") {
       return `md5-${input.substring(0, 10)}`;
@@ -21,7 +21,7 @@ vi.mock("./md5", () => ({
   }),
 }));
 
-vi.mock("./text-delta", () => ({
+vi.mock("@/lib/text-delta", () => ({
   createDelta: vi.fn(
     () => [{ op: "replace", path: "/code", value: "updated code" }],
   ),

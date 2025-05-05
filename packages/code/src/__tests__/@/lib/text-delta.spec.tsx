@@ -1,6 +1,6 @@
 import { applyDelta, createDelta } from "@/lib/delta";
 import { describe, expect, it } from "vitest";
-import type { ICodeSession } from "./interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 
 // Define an interface for the operation with _diff property
 interface StringDiffOperation {

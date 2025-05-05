@@ -114,5 +114,5 @@
     ".vscode/tailwind.json"
   ],
   "MutableAI.upsell": false,
-  "typescript.tsdk": ".yarn/sdks/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

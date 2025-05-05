@@ -1,20 +1,17 @@
 {
-  "extends": "./tsconfig.json",
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/__tests__/**/*.test.ts",
-    "src/__tests__/**/*.test.tsx"
+    "src/__tests__/**/*.spec.ts",
+    "src/__tests__/**/*.spec.tsx"
   ],
-  "exclude": ["node_modules", "dts"],
+  "exclude": ["node_modules", "dts", "dist"],
   "compilerOptions": {
     "types": ["vitest/globals"],
     "target": "esnext",
-    "module": "esnext",
-    "noEmit": true
+    "composite": true,
+    "module": "NodeNext",
+    "paths": {
+      "@/*": ["./src/@/*"]
+    },
+    "baseUrl": "./"
   }
 }

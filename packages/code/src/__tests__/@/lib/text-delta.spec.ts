@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { ICodeSession, MessagePart, TextPart } from "./interfaces";
+import type { ICodeSession, MessagePart, TextPart } from "@/lib/interfaces";
 // import { applyDelta , ICodeSessionDiff as JsonDiffSessionDiff } from "./json-diff";
-import { applyDelta, createDelta } from "./text-delta";
+import { applyDelta, createDelta } from "@/lib/text-delta";
 
 describe("text-diff", () => {
   // Create base session objects for testing

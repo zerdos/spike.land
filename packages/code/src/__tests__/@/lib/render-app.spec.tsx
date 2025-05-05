@@ -2,7 +2,7 @@ import React from "react";
 // Import MockInstance type explicitly
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 // Import ALL named exports from the module under test
-import * as RenderAppModule from "./render-app";
+import * as RenderAppModule from "@/lib/render-app";
 
 // --- Mocks ---
 
@@ -12,11 +12,11 @@ vi.mock("../../AppToRender", () => ({
 }));
 
 // Mock other dependencies (BEFORE importing the module under test if possible, though imports are hoisted)
-vi.mock("./importmap-utils", () => ({
+vi.mock("@/lib/importmap-utils", () => ({
   importMapReplace: vi.fn((code) => code),
 }));
 
-vi.mock("./shared", () => ({
+vi.mock("@/lib/shared", () => ({
   transpile: vi.fn(({ code }) => Promise.resolve(code)),
 }));
 
