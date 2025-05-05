@@ -61,10 +61,10 @@ const App: React.FC = () => {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const pathname = location.pathname;
+  const codeSpace = getCodeSpace(pathname);
 
   // Load app context on mount
   useEffect(() => {
-    const codeSpace = getCodeSpace(pathname);
 
     if (codeSpace && pathname === `/live/${codeSpace}`) {
       setIsLoading(true);
@@ -113,11 +113,9 @@ const App: React.FC = () => {
 
   // Handle loading state
   if (isLoading) {
-    return <div>Loading application...</div>;
+    return <iframe src={`/live/${codeSpace}/`} style={{ width: "100hw", height: "100vh" }} />;
   }
 
-  // Handle null codeSpace
-  const codeSpace = getCodeSpace(pathname);
   if (!codeSpace) {
     return <div>Invalid route or codeSpace not found</div>;
   }
