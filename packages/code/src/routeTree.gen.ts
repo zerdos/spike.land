@@ -12,19 +12,12 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as RouterImport } from './routes/router'
-import { Route as testsRouterSpecImport } from './routes/__tests__/router.spec'
 
 // Create/Update Routes
 
 const RouterRoute = RouterImport.update({
   id: '/router',
   path: '/router',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const testsRouterSpecRoute = testsRouterSpecImport.update({
-  id: '/__tests__/router/spec',
-  path: '/router/spec',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,13 +32,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RouterImport
       parentRoute: typeof rootRoute
     }
-    '/__tests__/router/spec': {
-      id: '/__tests__/router/spec'
-      path: '/router/spec'
-      fullPath: '/router/spec'
-      preLoaderRoute: typeof testsRouterSpecImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -53,37 +39,32 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/router': typeof RouterRoute
-  '/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRoutesByTo {
   '/router': typeof RouterRoute
-  '/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/router': typeof RouterRoute
-  '/__tests__/router/spec': typeof testsRouterSpecRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/router' | '/router/spec'
+  fullPaths: '/router'
   fileRoutesByTo: FileRoutesByTo
-  to: '/router' | '/router/spec'
-  id: '__root__' | '/router' | '/__tests__/router/spec'
+  to: '/router'
+  id: '__root__' | '/router'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   RouterRoute: typeof RouterRoute
-  testsRouterSpecRoute: typeof testsRouterSpecRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   RouterRoute: RouterRoute,
-  testsRouterSpecRoute: testsRouterSpecRoute,
 }
 
 export const routeTree = rootRoute
@@ -96,15 +77,11 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/router",
-        "/__tests__/router/spec"
+        "/router"
       ]
     },
     "/router": {
       "filePath": "router.tsx"
-    },
-    "/__tests__/router/spec": {
-      "filePath": "__tests__/router.spec.tsx"
     }
   }
 }
