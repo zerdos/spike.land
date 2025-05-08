@@ -15,7 +15,7 @@ __metadata:
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
-  checksum: 10/bdc35758b552bcf045733ac047fb7f9a07c4678b944c641adfbd41f798b4b91fffd0fdc0df2578d9b0afc7b4d636aa6e110ead5d6281a2adc1ab90efd7f057f8
+  checksum: 10/bdc35758b552b45733ac047fb7f9a07c4678b944c641adfbd41f798b4b91fffd0fdc0df2578d9b0afc7b4d636aa6e110ead5d6281a2adc1ab90efd7f057f8
   languageName: node
   linkType: hard
 
@@ -510,22 +510,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:0.8.26":
-  version: 0.8.26
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.8.26"
+"@cloudflare/vitest-pool-workers@npm:0.8.27":
+  version: 0.8.27
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.8.27"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
     devalue: "npm:^4.3.0"
     miniflare: "npm:4.20250507.0"
     semver: "npm:^7.7.1"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 2.0.x - 3.1.x
     "@vitest/snapshot": 2.0.x - 3.1.x
     vitest: 2.0.x - 3.1.x
-  checksum: 10/4943f8f8a561f94afd27b55c10012e9f033c3f23a635caf06c10cbf051b8332a76a8f2bad24050a680bdd19901fb020d78a7ff749d385f9ea0ce3af0c0e57d93
+  checksum: 10/0a6de7a9369f5214376ad2e8e8ee9c23671e1599d444ac7251696d2459e7eb5e986c73f89329612b62aeed4baced4b1fb4ca6759c2188e3abf4f95dcd06f7b8d
   languageName: node
   linkType: hard
 
@@ -5167,13 +5167,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/durable-objects@workspace:packages/durable-objects"
   dependencies:
-    "@cloudflare/vitest-pool-workers": "npm:0.8.26"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.27"
     "@cloudflare/workers-types": "npm:4.20250508.0"
     "@types/node": "npm:22.15.16"
     miniflare: "npm:4.20250507.0"
     typescript: "npm:5.8.3"
     vitest: "npm:3.1.3"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
   languageName: unknown
   linkType: soft
 
@@ -5201,7 +5201,7 @@ __metadata:
     "@clerk/backend": "npm:1.31.4"
     "@clerk/clerk-sdk-node": "npm:5.1.6"
     "@cloudflare/kv-asset-handler": "npm:0.4.0"
-    "@cloudflare/vitest-pool-workers": "npm:0.8.26"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.27"
     "@cloudflare/workers-types": "npm:4.20250508.0"
     "@eslint/js": "npm:9.26.0"
     "@remix-run/cloudflare": "npm:2.16.5"
@@ -5242,7 +5242,7 @@ __metadata:
     typescript: "npm:5.8.3"
     vitest: "npm:3.1.3"
     vitest-environment-miniflare: "npm:2.14.4"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
   languageName: unknown
   linkType: soft
 
@@ -5582,7 +5582,7 @@ __metadata:
   resolution: "@spike-npm-land/renderer@workspace:packages/spike-land-renderer"
   dependencies:
     "@cloudflare/puppeteer": "npm:1.0.2"
-    "@cloudflare/vitest-pool-workers": "npm:0.8.26"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.27"
     "@cloudflare/workers-types": "npm:4.20250508.0"
     "@types/esprima": "npm:4.0.6"
     "@types/node": "npm:22.15.16"
@@ -5592,7 +5592,7 @@ __metadata:
     rimraf: "npm:6.0.1"
     typescript: "npm:5.8.3"
     vitest: "npm:3.1.3"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
   languageName: unknown
   linkType: soft
 
@@ -5613,7 +5613,7 @@ __metadata:
     esbuild-wasm: "npm:0.25.4"
     rimraf: "npm:6.0.1"
     typescript: "npm:5.8.3"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
   languageName: unknown
   linkType: soft
 
@@ -12079,11 +12079,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "hello-ai@workspace:packages/hello-ai"
   dependencies:
-    "@cloudflare/vitest-pool-workers": "npm:0.8.26"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.27"
     "@cloudflare/workers-types": "npm:4.20250508.0"
     typescript: "npm:5.8.3"
     vitest: "npm:3.1.3"
-    wrangler: "npm:4.14.3"
+    wrangler: "npm:4.14.4"
   languageName: unknown
   linkType: soft
 
@@ -14645,7 +14645,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/vitest-pool-workers": "npm:0.8.26"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.27"
     "@cloudflare/workers-types": "npm:4.20250508.0"
     "@emotion/eslint-plugin": "npm:11.12.0"
     "@emotion/react": "npm:11.14.0"
@@ -20255,9 +20255,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:4.14.3":
-  version: 4.14.3
-  resolution: "wrangler@npm:4.14.3"
+"wrangler@npm:4.14.4":
+  version: 4.14.4
+  resolution: "wrangler@npm:4.14.4"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.4.0"
     "@cloudflare/unenv-preset": "npm:2.3.1"
@@ -20282,7 +20282,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/ba154316ec4da98ba7d38401a7e575cccfa2549a57fc09ebf6530d91d61febc2679331964ebbde4e0443db6396b8f8f2843d3876249e50280daae5d2c8554f1a
+  checksum: 10/17b04e748cc182f0cfe96e8d90bd88de21e1a167614ade70ddcac0719964cb3a26b9eae4ab45f218d9a864f7abac2981de4bedf2a0ae4e8d71654e6461c18d3f
   languageName: node
   linkType: hard
 
