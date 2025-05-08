@@ -286,8 +286,52 @@ export class Code implements DurableObject {
       return; // No change needed
     }
 
-    // Attempt to save the new session first and wait for it to complete
-    await this.state.storage.put("session", newSession); // Save the intended new state
+    // Attempt to save the new session parts first and wait for them to complete
+const { code, transpiled, html, css, ...sessionCoreData } = newSession;
+const codeSpace = newSession.codeSpace!;
+const r2HtmlKey = `r2_html_${codeSpace}`;
+const r2CssKey = `r2_css_${codeSpace}`;
+
+// DEBUG: log split data sizes before saving
+const encoder = new TextEncoder();
+const coreSize = encoder.encode(JSON.stringify(sessionCoreData)).length;
+const codeSize = encoder.encode(code || "").length;
+const transpiledSize = encoder.encode(transpiled || "").length;
+console.log(`split-data sizes: core=${coreSize} bytes, code=${codeSize} bytes, transpiled=${transpiledSize} bytes`);
+if (coreSize > 131072) console.warn(`session_core too large: ${coreSize}`);
+if (codeSize > 131072) console.warn(`session_code too large: ${codeSize}`);
+if (transpiledSize > 131072) console.warn(`session_transpiled too large: ${transpiledSize}`);
+    // Save each part separately to pinpoint storage errors
+    try {
+      await this.state.storage.put("session_core", sessionCoreData);
+    } catch (e) {
+      console.error("Failed to save session_core:", e);
+      throw e;
+    }
+    try {
+      await this.state.storage.put("session_code", code);
+    } catch (e) {
+      console.error("Failed to save session_code:", e);
+      throw e;
+    }
+    try {
+      await this.state.storage.put("session_transpiled", transpiled);
+    } catch (e) {
+      console.error("Failed to save session_transpiled:", e);
+      throw e;
+    }
+    try {
+      await this.env.R2.put(r2HtmlKey, html || "");
+    } catch (e) {
+      console.error("Failed to save html to R2:", e);
+      throw e;
+    }
+    try {
+      await this.env.R2.put(r2CssKey, css || "");
+    } catch (e) {
+      console.error("Failed to save css to R2:", e);
+      throw e;
+    }
 
     // If save is successful (i.e., did not throw), update in-memory state and broadcast
     this.session = newSession;
