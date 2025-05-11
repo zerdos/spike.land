@@ -107,7 +107,7 @@ describe("code-utils", () => {
 
   describe("logCodeChanges", () => {
     beforeEach(() => {
-      vi.spyOn(console, "log").mockImplementation(() => {});
+      vi.spyOn(console, "warn").mockImplementation(() => {});
     });
 
     afterEach(() => {

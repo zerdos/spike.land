@@ -75,7 +75,7 @@ describe("MessageHandlerService", () => {
       const result = await messageHandler.handleMessage(message);
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe("Invalid message content type");
+      expect(result.error).toBe("No text content found in message parts");
     });
 
     it("should handle invalid content type", async () => {

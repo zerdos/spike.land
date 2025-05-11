@@ -186,7 +186,7 @@ describe("extractCodeModification", () => {
     expect(result).toHaveLength(2);
   });
 
-  it("should handle code blocks with search and replace markers", () => {
+  it("should handle code blocks with search and replace markers (when diff is inside markdown)", () => {
     const response = `
       \`\`\`tsx
       <<<<<<< SEARCH
@@ -197,13 +197,25 @@ describe("extractCodeModification", () => {
       \`\`\`
     `;
     const result = extractCodeModification(response);
-    expect(result).toHaveLength(2);
-    expect(result[0]).toContain("<<<<<<< SEARCH");
-    expect(result[0]).toContain("=======");
-    expect(result[0]).toContain(">>>>>>> REPLACE");
-    expect(result[1]).toContain("const a = 1;");
-    expect(result[1]).toContain("=======");
-    expect(result[1]).toContain("const a = 2;");
+    // Expect one unique, formatted modification block.
+    // parseSingleDiffBlock trims search and replace parts from the markdown content,
+    // and formatCodeModification reconstructs the diff block.
+    expect(result).toHaveLength(1);
+
+    // The content inside the markdown block is:
+    // <<<<<<< SEARCH
+    //       const a = 1;
+    //       =======
+    //       const a = 2;
+    //       >>>>>>> REPLACE
+    // parseSingleDiffBlock will extract "const a = 1;" and "const a = 2;" after trimming.
+    // formatCodeModification will then build the canonical diff block string.
+    const expectedBlock = `<<<<<<< SEARCH
+const a = 1;
+=======
+const a = 2;
+>>>>>>> REPLACE`;
+    expect(result[0]).toBe(expectedBlock);
   });
 });
 

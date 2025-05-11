@@ -96,8 +96,17 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
   const fullBlockMatch = blockText.match(fullBlockRegex);
 
   if (fullBlockMatch) {
-    searchText = fullBlockMatch[1].trim();
-    replaceText = fullBlockMatch[2].trim();
+    const searchContent = fullBlockMatch[1];
+    const replaceContentRaw = fullBlockMatch[2];
+
+    // If the raw replace content itself contains more separators,
+    // take only the part before the first such internal separator.
+    const replaceParts = replaceContentRaw.split(separatorMarker);
+    const finalReplaceContent = replaceParts[0];
+
+    const searchText = searchContent.trim();
+    const replaceText = finalReplaceContent.trim();
+
     // Search text cannot be empty, replace text can be empty (for deletions)
     if (searchText) {
       return { search: searchText, replace: replaceText };
@@ -105,17 +114,21 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
   } else {
     // Fallback for content that might be just the inner parts of a diff,
     // or a malformed block. This is more lenient.
+    // This handles cases where the content is like "SEARCH_CONTENT ======= REPLACE_CONTENT"
+    // potentially with extra "=======" and content afterwards, which should be ignored.
     const parts = blockText.split(separatorMarker);
-    if (parts.length >= 2) {
+    if (parts.length >= 2) { // We need at least one separator to define search and replace parts
       searchText = parts[0]
-        .replace(new RegExp(`^${searchMarker}\\n?`), "")
-        .trim();
-      // For replaceText, take everything after the first separator,
-      // and remove a potential trailing replaceMarker.
-      replaceText = parts.slice(1).join(separatorMarker)
-        .replace(new RegExp(`\\n?${replaceMarker}$`), "")
+        .replace(new RegExp(`^${searchMarker}\\n?`), "") // Attempt to strip SEARCH marker if accidentally included
         .trim();
 
+      // Replace text is the content of the second part (parts[1])
+      // Any subsequent parts (from further separators) are ignored.
+      replaceText = parts[1]
+        .replace(new RegExp(`\\n?${replaceMarker}$`), "") // Attempt to strip REPLACE marker if accidentally included
+        .trim();
+
+      // Only return a valid object if searchText is not empty. Replace text can be empty (for deletions).
       if (searchText) {
         return { search: searchText, replace: replaceText };
       }

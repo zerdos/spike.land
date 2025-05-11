@@ -136,12 +136,6 @@ style={{
 >>>>>>> REPLACE
 
 <<<<<<< SEARCH
-import { ClipboardIcon } from "@heroicons/react/24/outline";
-=======
-import { ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
 const [copied, setCopied] = useState(false);
 =======
 const [copied, setCopied] = useState(false);
