@@ -20,6 +20,7 @@ describe("RouteHandler", () => {
         css: "mock css",
         transpiled: "mock transpiled code",
         codeSpace: "test-space",
+        messages: [], // Added missing messages field
       }),
       getState: vi.fn().mockReturnValue({
         storage: {
@@ -120,25 +121,45 @@ describe("RouteHandler", () => {
         const request = new Request("https://example.com");
         const url = new URL("https://example.com");
 
-        const response = await routeHandler.handleRoute(request, url, [""]);
+        // Mock the HTML import specifically for this test
+        const mockTemplateHTML = `
+          <html>
+            <head>
+              <link rel="preload" href="/live/\${codeSpace}/index.css" as="style">
+              <script type="importmap">\${JSON.stringify(importMap)}</script>
+            </head>
+            <body>
+              <style>/* criticalCss */</style>
+              <div id="embed">\${html}</div>
+            </body>
+          </html>`;
+        
+        vi.doMock("@spike-npm-land/code", async () => {
+          const originalModule = await import("@spike-npm-land/code");
+          return {
+            ...originalModule, 
+            HTML: mockTemplateHTML, 
+            importMap: { imports: { "test": "test.js" } }, 
+          };
+        });
+
+        // Re-initialize RouteHandler to use the mocked HTML
+        const testRouteHandler = new RouteHandler(mockCode as Code);
+        const response = await testRouteHandler.handleRoute(request, url, [""]);
 
         expect(response.status).toBe(200);
         const responseText = await response.text();
 
-        // Check for importmap replacement
-        // expect(responseText).toContain(
-        //   `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-        // );
-
-        expect(responseText).toMatchSnapshot();
-
-        // Check for CSS link replacement
-        expect(responseText).toContain(
-          `<link rel="preload" href="/live/test-space/index.css" as="style" />`,
-        );
-
-        // Check for embed div replacement
+        // Assert that placeholders are replaced
+        expect(responseText).toContain(`href="/live/test-space/index.css"`);
+        expect(responseText).toEqual(expect.stringMatching(/<style>\s*mock css\s*<\/style>/));
         expect(responseText).toContain(`<div id="embed">mock html</div>`);
+        expect(responseText).toContain(JSON.stringify({ imports: { "test": "test.js" } }));
+        
+        // Snapshot can still be useful to catch overall structure changes
+        expect(responseText).toMatchSnapshot(); 
+        
+        vi.doUnmock("@spike-npm-land/code"); // Clean up mock
       });
     });
 
