@@ -20,7 +20,7 @@ export class KVLogger {
 
     try {
       await kv.put(key, value);
-      console.warn(`Log entry saved: ${key}`);
+      console.log(`Log entry saved: ${key}`);
     } catch (error) {
       console.error("Failed to save log entry:", error);
     }

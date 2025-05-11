@@ -118,15 +118,23 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
     // potentially with extra "=======" and content afterwards, which should be ignored.
     const parts = blockText.split(separatorMarker);
     if (parts.length >= 2) { // We need at least one separator to define search and replace parts
-      searchText = parts[0]
-        .replace(new RegExp(`^${searchMarker}\\n?`), "") // Attempt to strip SEARCH marker if accidentally included
-        .trim();
+      // Trim the part first, then check for and remove markers.
+      let tempSearch = parts[0].trim();
+      if (tempSearch.startsWith(searchMarker)) {
+        // Remove marker and then trim any leading whitespace from the actual search content.
+        tempSearch = tempSearch.substring(searchMarker.length).trimStart();
+      }
+      searchText = tempSearch;
 
       // Replace text is the content of the second part (parts[1])
       // Any subsequent parts (from further separators) are ignored.
-      replaceText = parts[1]
-        .replace(new RegExp(`\\n?${replaceMarker}$`), "") // Attempt to strip REPLACE marker if accidentally included
-        .trim();
+      // Trim the part first, then check for and remove markers.
+      let tempReplace = parts[1].trim();
+      if (tempReplace.endsWith(replaceMarker)) {
+        // Remove marker and then trim any trailing whitespace from the actual replace content.
+        tempReplace = tempReplace.substring(0, tempReplace.length - replaceMarker.length).trimEnd();
+      }
+      replaceText = tempReplace;
 
       // Only return a valid object if searchText is not empty. Replace text can be empty (for deletions).
       if (searchText) {
@@ -156,15 +164,28 @@ export const extractCodeModification = (response: string): string[] => {
   // Strategy 1: Find standard diff blocks directly in the response
   const directMatches = response.match(CODE_MODIFICATION_REGEX) || [];
   for (const match of directMatches) {
-    if (!seenModifications.has(match)) {
-      modifications.push(match);
-      seenModifications.add(match);
+    // Parse the direct match to get a canonical form for the 'seen' set
+    const parsedDirectMatch = parseSingleDiffBlock(match);
+    if (parsedDirectMatch) {
+      const canonicalDirectMatch = formatCodeModification(parsedDirectMatch);
+      if (!seenModifications.has(canonicalDirectMatch)) {
+        modifications.push(match); // Push the original match
+        seenModifications.add(canonicalDirectMatch); // Add canonical form to seen set
+      }
+    } else {
+      // Fallback: if parsing fails (shouldn't happen for valid CODE_MODIFICATION_REGEX match),
+      // add the raw match to avoid missing it, though de-duplication might be imperfect.
+      if (!seenModifications.has(match)) {
+        modifications.push(match);
+        seenModifications.add(match);
+      }
     }
   }
 
   // Strategy 2: Find markdown code blocks and try to parse their content
-  // Regex to capture content within ``` ```, optionally with a language tag
-  const codeBlockRegex = /```(?:[a-zA-Z0-9\-_]+)?\n([\s\S]*?)\n```/g;
+  // Regex to capture content within ``` ```, optionally with a language tag.
+  // Allows for optional whitespace before the closing ``` via \s*
+  const codeBlockRegex = /```(?:[a-zA-Z0-9\-_]+)?\n([\s\S]*?)\n\s*```/g;
   let markdownMatch;
   while ((markdownMatch = codeBlockRegex.exec(response)) !== null) {
     const blockContent = markdownMatch[1].trim(); // Content within the backticks
@@ -182,7 +203,7 @@ export const extractCodeModification = (response: string): string[] => {
   //   "extractCodeModification - Total modifications extracted:",
   //   modifications.length,
   // );
-  return modifications;
+  return modifications.sort();
 };
 
 /**

@@ -262,7 +262,7 @@ describe("ApiHandler", () => {
 
   <body>
     <div id="embed"></div>
-    <script type="module" src="./src/start.ts"></script>
+    <script type="module" src="/start.mjs"></script>
   </body>
 </html>`);
     });

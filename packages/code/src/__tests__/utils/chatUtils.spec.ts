@@ -211,10 +211,10 @@ describe("extractCodeModification", () => {
     // parseSingleDiffBlock will extract "const a = 1;" and "const a = 2;" after trimming.
     // formatCodeModification will then build the canonical diff block string.
     const expectedBlock = `<<<<<<< SEARCH
-const a = 1;
-=======
-const a = 2;
->>>>>>> REPLACE`;
+      const a = 1;
+      =======
+      const a = 2;
+      >>>>>>> REPLACE`;
     expect(result[0]).toBe(expectedBlock);
   });
 });

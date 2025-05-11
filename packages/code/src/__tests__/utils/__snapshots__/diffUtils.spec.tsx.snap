@@ -2,6 +2,71 @@
 
 exports[`diffUtils > should do partial5 1`] = `
 "<<<<<<< SEARCH
+        <div className='relative'>
+          <button
+            className='text-gray-600 hover:text-gray-800 ml-2 transition-colors duration-200'
+            onClick={() => {
+              navigator.clipboard.writeText(value);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}>
+            <ClipboardIcon className='w-5 h-5' />
+          </button>
+          {copied && (
+            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-800 text-white text-xs rounded shadow-lg'>
+              Copied!
+            </div>
+          )}
+        </div>
+=======
+        <div className='relative'>
+          <button
+            className='text-gray-300 hover:text-white ml-2 transition-colors duration-200'
+            onClick={() => {
+              navigator.clipboard.writeText(value);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+              setIconIndex((iconIndex + 1) % icons.length);
+            }}>
+            <Icon className='w-5 h-5' />
+          </button>
+          {copied && (
+            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-700 text-white text-xs rounded shadow-lg'>
+              Copied!
+            </div>
+          )}
+        </div>
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+        style={{
+          ...tomorrow,
+          'pre[class*="language-"]': {
+            ...tomorrow['pre[class*="language-"]'],
+            background: "#f8f8f8",
+            padding: "1rem",
+          },
+          'code[class*="language-"]': {
+            ...tomorrow['code[class*="language-"]'],
+            color: "#333",
+          },
+        }}
+=======
+        style={{
+          ...tomorrow,
+          'pre[class*="language-"]': {
+            ...tomorrow['pre[class*="language-"]'],
+            background: "#1a202c",
+            padding: "1rem",
+          },
+          'code[class*="language-"]': {
+            ...tomorrow['code[class*="language-"]'],
+            color: "#e2e8f0",
+          },
+        }}
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
     <div className='w-full font-mono text-sm rounded-lg overflow-hidden shadow-lg bg-white'>
       <div className='bg-gray-200 px-4 py-2 flex items-center space-x-2'>
         <div className='w-3 h-3 rounded-full bg-red-500'></div>
@@ -15,170 +80,18 @@ exports[`diffUtils > should do partial5 1`] = `
 >>>>>>> REPLACE
 
 <<<<<<< SEARCH
-        style={{
-          ...tomorrow,
-          'pre[class*="language-"]': {
-            ...tomorrow['pre[class*="language-"]'],
-            background: "#f8f8f8",
-            padding: "1rem",
-          },
-          'code[class*="language-"]': {
-            ...tomorrow['code[class*="language-"]'],
-            color: "#333",
-          },
-        }}
+  const [copied, setCopied] = useState(false);
 =======
-        style={{
-          ...tomorrow,
-          'pre[class*="language-"]': {
-            ...tomorrow['pre[class*="language-"]'],
-            background: "#1a202c",
-            padding: "1rem",
-          },
-          'code[class*="language-"]': {
-            ...tomorrow['code[class*="language-"]'],
-            color: "#e2e8f0",
-          },
-        }}
+  const [copied, setCopied] = useState(false);
+  const [iconIndex, setIconIndex] = useState(0);
+  const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];
+  const Icon = icons[iconIndex];
 >>>>>>> REPLACE
 
 <<<<<<< SEARCH
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 =======
 import { ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-  const [copied, setCopied] = useState(false);
-=======
-  const [copied, setCopied] = useState(false);
-  const [iconIndex, setIconIndex] = useState(0);
-  const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];
-  const Icon = icons[iconIndex];
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-        <div className='relative'>
-          <button
-            className='text-gray-600 hover:text-gray-800 ml-2 transition-colors duration-200'
-            onClick={() => {
-              navigator.clipboard.writeText(value);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}>
-            <ClipboardIcon className='w-5 h-5' />
-          </button>
-          {copied && (
-            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-800 text-white text-xs rounded shadow-lg'>
-              Copied!
-            </div>
-          )}
-        </div>
-=======
-        <div className='relative'>
-          <button
-            className='text-gray-300 hover:text-white ml-2 transition-colors duration-200'
-            onClick={() => {
-              navigator.clipboard.writeText(value);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-              setIconIndex((iconIndex + 1) % icons.length);
-            }}>
-            <Icon className='w-5 h-5' />
-          </button>
-          {copied && (
-            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-700 text-white text-xs rounded shadow-lg'>
-              Copied!
-            </div>
-          )}
-        </div>
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-<div className='w-full font-mono text-sm rounded-lg overflow-hidden shadow-lg bg-white'>
-      <div className='bg-gray-200 px-4 py-2 flex items-center space-x-2'>
-        <div className='w-3 h-3 rounded-full bg-red-500'></div>
-        <div className='w-3 h-3 rounded-full bg-yellow-500'></div>
-        <div className='w-3 h-3 rounded-full bg-green-500'></div>
-      </div>
-      <div className='bg-gray-100 text-gray-800 py-2 px-4 text-sm border-b border-gray-300 flex justify-between items-center'>
-=======
-<div className='w-full font-mono text-sm rounded-lg overflow-hidden shadow-lg bg-gray-900'>
-      <div className='bg-gray-800 text-gray-200 py-2 px-4 text-sm border-b border-gray-700 flex justify-between items-center'>
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-style={{
-          ...tomorrow,
-          'pre[class*="language-"]': {
-            ...tomorrow['pre[class*="language-"]'],
-            background: "#f8f8f8",
-            padding: "1rem",
-          },
-          'code[class*="language-"]': {
-            ...tomorrow['code[class*="language-"]'],
-            color: "#333",
-          },
-        }}
-=======
-style={{
-          ...tomorrow,
-          'pre[class*="language-"]': {
-            ...tomorrow['pre[class*="language-"]'],
-            background: "#1a202c",
-            padding: "1rem",
-          },
-          'code[class*="language-"]': {
-            ...tomorrow['code[class*="language-"]'],
-            color: "#e2e8f0",
-          },
-        }}
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-const [copied, setCopied] = useState(false);
-=======
-const [copied, setCopied] = useState(false);
-  const [iconIndex, setIconIndex] = useState(0);
-  const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];
-  const Icon = icons[iconIndex];
->>>>>>> REPLACE
-
-<<<<<<< SEARCH
-<div className='relative'>
-          <button
-            className='text-gray-600 hover:text-gray-800 ml-2 transition-colors duration-200'
-            onClick={() => {
-              navigator.clipboard.writeText(value);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}>
-            <ClipboardIcon className='w-5 h-5' />
-          </button>
-          {copied && (
-            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-800 text-white text-xs rounded shadow-lg'>
-              Copied!
-            </div>
-          )}
-        </div>
-=======
-<div className='relative'>
-          <button
-            className='text-gray-300 hover:text-white ml-2 transition-colors duration-200'
-            onClick={() => {
-              navigator.clipboard.writeText(value);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-              setIconIndex((iconIndex + 1) % icons.length);
-            }}>
-            <Icon className='w-5 h-5' />
-          </button>
-          {copied && (
-            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-700 text-white text-xs rounded shadow-lg'>
-              Copied!
-            </div>
-          )}
-        </div>
 >>>>>>> REPLACE"
 `;
 
