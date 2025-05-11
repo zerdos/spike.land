@@ -406,7 +406,7 @@ function _performReactRender({
         attribute="class"
         defaultTheme="system"
         enableSystem
-        storageKey="theme" // Or "darkMode" to try and reuse old key
+        storageKey="darkMode" // Ensure this matches useDarkMode's localStorage key
       >
         <CustomThemeProvider>
           <React.Fragment>

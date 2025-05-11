@@ -1,15 +1,15 @@
-import { useTheme as useNextTheme } from "next-themes";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { createContext, useContext } from "react";
 import type { ReactNode } from "react";
 
-type CustomTheme = "light" | "dark";
+type Theme = "light" | "dark";
 
-interface CustomThemeContextType {
-  theme: CustomTheme | undefined; // next-themes can return 'system' or undefined initially
-  setTheme: (theme: CustomTheme) => void;
+interface ThemeContextType {
+  theme: Theme;
+  setTheme: (theme: Theme) => void; // This will effectively call toggleDarkMode
 }
 
-const CustomThemeProviderContext = createContext<CustomThemeContextType | undefined>(
+const ThemeProviderContext = createContext<ThemeContextType | undefined>(
   undefined,
 );
 
@@ -18,33 +18,37 @@ export function ThemeProvider({
 }: {
   children: ReactNode;
 }) {
-  const { theme: nextTheme, setTheme: setNextTheme } = useNextTheme();
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  // Adapt next-themes's theme to our "light" | "dark" type
-  // For simplicity, if nextTheme is 'system' or undefined, we might default or handle it.
-  // However, next-themes typically resolves 'system' to 'light' or 'dark'.
-  const currentTheme: CustomTheme = nextTheme === "dark" ? "dark" : "light";
+  const theme: Theme = isDarkMode ? "dark" : "light";
 
-  const value: CustomThemeContextType = {
-    theme: currentTheme,
-    setTheme: (newTheme: CustomTheme) => setNextTheme(newTheme),
+  const value = {
+    theme,
+    // setTheme now just toggles. If a specific theme is passed,
+    // it only toggles if the passed theme is different from the current one.
+    setTheme: (newTheme: Theme) => {
+      if ((newTheme === "dark" && !isDarkMode) || (newTheme === "light" && isDarkMode)) {
+        toggleDarkMode();
+      }
+    },
   };
 
-  // The useEffect for class manipulation is removed as next-themes handles it.
+  // No useEffect needed here to manage 'dark' class on documentElement,
+  // as next-themes (used by NextThemesProvider in render-app.tsx) handles it.
 
   return (
-    <CustomThemeProviderContext.Provider value={value}>
+    <ThemeProviderContext.Provider value={value}>
       <div className="transition-colors duration-600">
         {children}
       </div>
-    </CustomThemeProviderContext.Provider>
+    </ThemeProviderContext.Provider>
   );
 }
 
-export const useCustomTheme = () => {
-  const context = useContext(CustomThemeProviderContext);
+export const useTheme = () => { // Renamed back from useCustomTheme
+  const context = useContext(ThemeProviderContext);
   if (context === undefined) {
-    throw new Error("useCustomTheme must be used within a ThemeProvider");
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 };
