@@ -5,6 +5,13 @@ import { domAnimation, LazyMotion, m } from "framer-motion";
 
 export const ThemeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  // The new useDarkMode handles mounting, so if !isDarkMode and toggleDarkMode is a console.warn,
+  // it implies it's not mounted yet. We can render a placeholder.
+  // However, the useDarkMode hook now returns a default isDarkMode=false before mount,
+  // so the UI will render correctly for light mode initially.
+  // The toggleDarkMode will only work client-side after mount.
+
   return (
     <LazyMotion features={domAnimation}>
       <m.div

@@ -133,13 +133,13 @@ describe("RouteHandler", () => {
               <div id="embed">\${html}</div>
             </body>
           </html>`;
-        
+
         vi.doMock("@spike-npm-land/code", async () => {
           const originalModule = await import("@spike-npm-land/code");
           return {
-            ...originalModule, 
-            HTML: mockTemplateHTML, 
-            importMap: { imports: { "test": "test.js" } }, 
+            ...originalModule,
+            HTML: mockTemplateHTML,
+            importMap: { imports: { "test": "test.js" } },
           };
         });
 
@@ -155,10 +155,10 @@ describe("RouteHandler", () => {
         expect(responseText).toEqual(expect.stringMatching(/<style>\s*mock css\s*<\/style>/));
         expect(responseText).toContain(`<div id="embed">mock html</div>`);
         expect(responseText).toContain(JSON.stringify({ imports: { "test": "test.js" } }));
-        
+
         // Snapshot can still be useful to catch overall structure changes
-        expect(responseText).toMatchSnapshot(); 
-        
+        expect(responseText).toMatchSnapshot();
+
         vi.doUnmock("@spike-npm-land/code"); // Clean up mock
       });
     });

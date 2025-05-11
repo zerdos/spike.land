@@ -1,78 +1,32 @@
-import { useLocalStorage } from "@/external/use-local-storage";
-import { useEffect } from "react";
+import { useTheme as useNextTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export const useDarkMode = () => {
-  const getInitialDarkMode = (): boolean => {
-    if (typeof window === "undefined") return false;
-    const storedDarkMode = localStorage.getItem("darkMode");
-    if (storedDarkMode !== null) {
-      return storedDarkMode === "true";
-    } else {
-      if (!window.matchMedia || typeof window.matchMedia !== "function") {
-        return false;
-      }
+  const { setTheme, resolvedTheme } = useNextTheme();
+  const [mounted, setMounted] = useState(false);
 
-      try {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches;
-      } catch (e) {
-        return false;
-      }
-    }
-  };
-
-  const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>(
-    "darkMode",
-    getInitialDarkMode(),
-  );
-
+  // useEffect only runs on the client, so now we can show the UI
   useEffect(() => {
-    if (!window.matchMedia || typeof window.matchMedia !== "function") return;
+    setMounted(true);
+  }, []);
 
-    try {
-      const darkModeMediaQuery = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      );
-
-      const handleChange = (event: MediaQueryListEvent) => {
-        if (localStorage.getItem("darkMode") === null) {
-          setIsDarkMode(event.matches);
-        }
-      };
-
-      darkModeMediaQuery.addEventListener("change", handleChange);
-      return () => darkModeMediaQuery.removeEventListener("change", handleChange);
-    } catch (e) {
-      return;
-    }
-  }, [setIsDarkMode]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-
-    // Set transition for smooth color changes
-    document.body.style.transition = "background-color 0.3s ease, color 0.3s ease";
-
-    // Apply theme colors dynamically
-    if (isDarkMode) {
-      document.body.style.backgroundColor = "#1a1a1a";
-      document.body.style.color = "#ffffff";
-      document.documentElement.style.setProperty("--primary-color", "#4a9eff");
-      document.documentElement.style.setProperty("--secondary-color", "#666666");
-      document.documentElement.style.setProperty("--background-secondary", "#2d2d2d");
-      document.documentElement.style.setProperty("--text-secondary", "#cccccc");
-    } else {
-      document.body.style.backgroundColor = "#ffffff";
-      document.body.style.color = "#000000";
-      document.documentElement.style.setProperty("--primary-color", "#0066cc");
-      document.documentElement.style.setProperty("--secondary-color", "#888888");
-      document.documentElement.style.setProperty("--background-secondary", "#f5f5f5");
-      document.documentElement.style.setProperty("--text-secondary", "#444444");
-    }
-  }, [isDarkMode]);
+  // resolvedTheme is the actual theme ('light' or 'dark') even if 'theme' is 'system'
+  // Only determine isDarkMode after the component has mounted to avoid hydration mismatch
+  const isDarkMode = mounted ? resolvedTheme === "dark" : false; // Default to false SSR
 
   const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    // Use resolvedTheme to decide the next state
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
+
+  if (!mounted) {
+    // Return a default/non-functional state during SSR or before mount
+    // to prevent hydration issues if consumers try to use these values immediately.
+    return {
+      isDarkMode: false, // Consistent with the initial state of isDarkMode above
+      toggleDarkMode: () => console.warn("toggleDarkMode called before mounted"),
+    };
+  }
 
   return { isDarkMode, toggleDarkMode };
 };

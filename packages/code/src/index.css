@@ -34,6 +34,12 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom theme properties from use-dark-mode.ts */
+    --primary-color: #0066cc;
+    --secondary-color: #888888;
+    --background-secondary: #f5f5f5;
+    --text-secondary: #444444;
   }
 
   .dark {
@@ -65,6 +71,12 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom theme properties from use-dark-mode.ts */
+    --primary-color: #4a9eff;
+    --secondary-color: #666666;
+    --background-secondary: #2d2d2d;
+    --text-secondary: #cccccc;
   }
 }
 
@@ -77,6 +89,7 @@
     @apply antialiased;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+    transition: background-color 0.3s ease, color 0.3s ease;
     @media screen and (prefers-reduced-motion: no-preference) {
       @apply motion-safe:transition-all;
     }

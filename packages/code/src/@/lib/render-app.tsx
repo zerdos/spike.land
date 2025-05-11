@@ -5,7 +5,7 @@ import { createRoot, type Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ThemeProvider as CustomThemeProvider } from "@/components/ui/theme-provider"; // Renamed to avoid conflict
 import { getCodeSpace } from "@/hooks/use-code-space";
 import useWindowSize from "@/hooks/use-window-size";
 import { importMapReplace } from "@/lib/importmap-utils";
@@ -13,6 +13,7 @@ import type { FlexibleComponentType, IRenderApp, RenderedApp } from "@/lib/inter
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
+import { ThemeProvider as NextThemesProvider } from "next-themes"; // Added next-themes provider
 
 // Moved toHtmlAndCss function definition before renderApp
 const htmlDecode = (input: string) => {
@@ -401,20 +402,27 @@ function _performReactRender({
 }: PerformReactRenderParams): RenderedApp {
   try {
     reactRoot.render(
-      <ThemeProvider>
-        <React.Fragment>
-          <CacheProvider value={cssCache}>
-            {emptyApp
-              ? <AppToRender />
-              : (
-                <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
-                  <AppWithScreenSize AppToRender={AppToRender} />
-                </ErrorBoundary>
-              )}
-          </CacheProvider>{" "}
-          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-        </React.Fragment>
-      </ThemeProvider>,
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        storageKey="theme" // Or "darkMode" to try and reuse old key
+      >
+        <CustomThemeProvider>
+          <React.Fragment>
+            <CacheProvider value={cssCache}>
+              {emptyApp
+                ? <AppToRender />
+                : (
+                  <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
+                    <AppWithScreenSize AppToRender={AppToRender} />
+                  </ErrorBoundary>
+                )}
+            </CacheProvider>{" "}
+            {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+          </React.Fragment>
+        </CustomThemeProvider>
+      </NextThemesProvider>,
     );
     const newRenderedApp = {
       rootElement: rootEl,

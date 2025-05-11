@@ -1,15 +1,15 @@
-import { useDarkMode } from "@/hooks/use-dark-mode";
-import { createContext, useContext, useEffect } from "react";
+import { useTheme as useNextTheme } from "next-themes";
+import { createContext, useContext } from "react";
 import type { ReactNode } from "react";
 
-type Theme = "light" | "dark";
+type CustomTheme = "light" | "dark";
 
-interface ThemeContextType {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
+interface CustomThemeContextType {
+  theme: CustomTheme | undefined; // next-themes can return 'system' or undefined initially
+  setTheme: (theme: CustomTheme) => void;
 }
 
-const ThemeProviderContext = createContext<ThemeContextType | undefined>(
+const CustomThemeProviderContext = createContext<CustomThemeContextType | undefined>(
   undefined,
 );
 
@@ -18,36 +18,33 @@ export function ThemeProvider({
 }: {
   children: ReactNode;
 }) {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { theme: nextTheme, setTheme: setNextTheme } = useNextTheme();
 
-  const theme: Theme = isDarkMode ? "dark" : "light";
+  // Adapt next-themes's theme to our "light" | "dark" type
+  // For simplicity, if nextTheme is 'system' or undefined, we might default or handle it.
+  // However, next-themes typically resolves 'system' to 'light' or 'dark'.
+  const currentTheme: CustomTheme = nextTheme === "dark" ? "dark" : "light";
 
-  const value = {
-    theme,
-    setTheme: (mode: Theme) =>
-      ((mode === "dark" && !isDarkMode) || (mode === "light" && isDarkMode)) &&
-      toggleDarkMode(),
+  const value: CustomThemeContextType = {
+    theme: currentTheme,
+    setTheme: (newTheme: CustomTheme) => setNextTheme(newTheme),
   };
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-  }, [theme]);
+  // The useEffect for class manipulation is removed as next-themes handles it.
 
   return (
-    <ThemeProviderContext.Provider value={value}>
+    <CustomThemeProviderContext.Provider value={value}>
       <div className="transition-colors duration-600">
         {children}
       </div>
-    </ThemeProviderContext.Provider>
+    </CustomThemeProviderContext.Provider>
   );
 }
 
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
+export const useCustomTheme = () => {
+  const context = useContext(CustomThemeProviderContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error("useCustomTheme must be used within a ThemeProvider");
   }
   return context;
 };
