@@ -4,8 +4,8 @@ import type {
   MessageHandlerConfig,
   MessageResponse,
 } from "@/lib/interfaces";
-import { tryCatch } from "@/lib/try-catch";
 import { MessageType } from "@/lib/interfaces";
+import { tryCatch } from "@/lib/try-catch";
 
 /**
  * Service for handling and processing different types of messages
@@ -161,7 +161,9 @@ export class MessageHandlerService {
           throw new Error("Unhandled message type");
       }
     } catch (e) { // Catching synchronous errors from getTextFromContent or unhandled type
-      throw new Error(e instanceof Error ? e.message : "Invalid message content type or unhandled type");
+      throw new Error(
+        e instanceof Error ? e.message : "Invalid message content type or unhandled type",
+      );
     }
   }
 }

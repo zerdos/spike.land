@@ -1,5 +1,5 @@
-import type { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from "./types";
 import { tryCatch } from "../try-catch";
+import type { FileSystemDirectoryEntry, FileSystemEntry, FileSystemFileEntry } from "./types";
 
 /**
  * Normalize a file path to handle different formats

@@ -67,7 +67,7 @@ export const processImage = (file: File): Promise<ImageData> => {
               // Self-invoking async function to handle awaits
               (async () => {
                 try {
-                  console.log("Resizing image to", size);
+                  console.warn("Resizing image to", size);
                   const resized = await resizeImage(img, size);
                   res(resized);
                 } catch (resizeError) {
@@ -81,13 +81,21 @@ export const processImage = (file: File): Promise<ImageData> => {
 
           const { data: resizedBlobData, error: resizeError } = await tryCatch(resizeStepPromise);
           if (resizeError || !resizedBlobData) {
-            throw new Error(`Image resizing failed: ${resizeError?.message || 'Unknown resize error'}`);
+            throw new Error(
+              `Image resizing failed: ${resizeError?.message || "Unknown resize error"}`,
+            );
           }
           blob = resizedBlobData;
 
-          const { data: newArrayBuffer, error: blobToArrayBufferError } = await tryCatch(blob.arrayBuffer());
+          const { data: newArrayBuffer, error: blobToArrayBufferError } = await tryCatch(
+            blob.arrayBuffer(),
+          );
           if (blobToArrayBufferError || !newArrayBuffer) {
-            throw new Error(`Failed to get arrayBuffer from resized blob: ${blobToArrayBufferError?.message || 'Unknown error'}`);
+            throw new Error(
+              `Failed to get arrayBuffer from resized blob: ${
+                blobToArrayBufferError?.message || "Unknown error"
+              }`,
+            );
           }
           arrayBuffer = newArrayBuffer;
           size -= 300;
@@ -98,7 +106,9 @@ export const processImage = (file: File): Promise<ImageData> => {
         const imageName = file.name;
         const url = location.origin + `/my-cms/${md5Body}/${imageName}`;
 
-        const { error: putError } = await tryCatch(fetch(url, { method: "PUT", body: arrayBuffer }));
+        const { error: putError } = await tryCatch(
+          fetch(url, { method: "PUT", body: arrayBuffer }),
+        );
         if (putError) {
           throw new Error(`Failed to upload image: ${putError.message}`);
         }

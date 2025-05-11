@@ -30,7 +30,7 @@ describe("Editor Component", () => {
     mockContainerRef = { current: document.createElement("div") };
 
     mockSessionData = sanitizeSession({
-      code: 'console.log("hello");',
+      code: 'console.warn("hello");',
       transpiled: "",
       css: "",
       html: "",

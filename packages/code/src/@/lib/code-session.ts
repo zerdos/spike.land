@@ -61,13 +61,13 @@ export class Code implements ICode {
       computeSessionHash(sessionWithoutSender) ===
         computeSessionHash(this.currentSession)
     ) {
-      console.log("⚠️ No changes to session, skipping update");
+      console.warn("⚠️ No changes to session, skipping update");
       return;
     }
 
     this.currentSession = sanitizeSession(sessionWithoutSender);
     this.session = this.currentSession;
-    console.log(
+    console.warn(
       `🔄 CodeSession.setSession called with session${sender ? ` from sender: ${sender}` : ""}:`,
       this.currentSession,
     );
@@ -136,7 +136,7 @@ export class Code implements ICode {
    * Adds a message chunk to the last assistant message or creates a new one
    */
   addMessageChunk(chunk: string): void {
-    console.log(
+    console.warn(
       "🔄 CodeSession.addMessageChunk called with chunk length:",
       chunk.length,
     );
@@ -182,14 +182,14 @@ export class Code implements ICode {
     // Update the session
     this.setSession(newSession);
 
-    console.log("✅ CodeSession.addMessageChunk completed successfully");
+    console.warn("✅ CodeSession.addMessageChunk completed successfully");
   }
 
   /**
    * Adds a new message to the session
    */
   addMessage(newMessage: Message): boolean {
-    console.log(
+    console.warn(
       "🔄 CodeSession.addMessage called with message:",
       newMessage.role,
     );
@@ -205,7 +205,7 @@ export class Code implements ICode {
       md5(JSON.stringify(updatedMessages)) ===
         md5(JSON.stringify(currentMessages))
     ) {
-      console.log("⚠️ No changes to messages, skipping update");
+      console.warn("⚠️ No changes to messages, skipping update");
       return false;
     }
 
@@ -218,7 +218,7 @@ export class Code implements ICode {
     // Update the session
     this.setSession(newSession);
 
-    console.log("✅ CodeSession.addMessage completed successfully");
+    console.warn("✅ CodeSession.addMessage completed successfully");
     return true;
   }
 
@@ -226,11 +226,11 @@ export class Code implements ICode {
    * Removes all messages from the session
    */
   removeMessages(): boolean {
-    console.log("🔄 CodeSession.removeMessages called");
+    console.warn("🔄 CodeSession.removeMessages called");
 
     // If there are no messages, nothing to remove
     if (this.currentSession.messages.length === 0) {
-      console.log("⚠️ No messages to remove");
+      console.warn("⚠️ No messages to remove");
       return false;
     }
 
@@ -243,7 +243,7 @@ export class Code implements ICode {
     // Update the session
     this.setSession(newSession);
 
-    console.log("✅ CodeSession.removeMessages completed successfully");
+    console.warn("✅ CodeSession.removeMessages completed successfully");
     return true;
   }
 
@@ -252,7 +252,7 @@ export class Code implements ICode {
     skipRunning = false,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
-    console.log(
+    console.warn(
       "🔄 CodeSession.setCode called with code length:",
       rawCode.length,
     );
@@ -266,7 +266,7 @@ export class Code implements ICode {
         await wait(100);
       }
       if (this.pendingRun !== rawCode) {
-        console.log("Skipping outdated run request");
+        console.warn("Skipping outdated run request");
         return currentCode;
       }
     }
@@ -293,7 +293,7 @@ export class Code implements ICode {
     skipRunning: boolean,
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<string> {
-    console.log(
+    console.warn(
       "🔄 CodeSession.updateCodeInternal called with code length:",
       rawCode.length,
     );
@@ -304,10 +304,10 @@ export class Code implements ICode {
     if (skipRunning) {
       // For skipRunning, check if code is unchanged
       if (rawCode === currentCode) {
-        console.log("⚠️ Code unchanged, returning current code");
+        console.warn("⚠️ Code unchanged, returning current code");
         return currentCode;
       }
-      console.log("🔄 Skipping running, just updating session");
+      console.warn("🔄 Skipping running, just updating session");
       const updatedSession = sanitizeSession({
         ...this.currentSession,
         code: rawCode,
@@ -317,14 +317,14 @@ export class Code implements ICode {
     }
 
     if (this.setCodeController) {
-      console.log("🔄 Aborting previous setCode operation");
+      console.warn("🔄 Aborting previous setCode operation");
       this.setCodeController.abort();
     }
 
     this.setCodeController = new AbortController();
     const signal = this.setCodeController.signal;
 
-    console.log("🔄 Processing code with CodeProcessor");
+    console.warn("🔄 Processing code with CodeProcessor");
     const { data: result, error: processError } = await tryCatch(
       this.codeProcessor.process(
         rawCode,
@@ -336,14 +336,14 @@ export class Code implements ICode {
     );
 
     if (processError || !result) {
-      console.log(
+      console.warn(
         "⚠️ CodeProcessor returned no result or error:",
         processError,
       );
       return currentCode;
     }
 
-    console.log("✅ Updating session with processed code");
+    console.warn("✅ Updating session with processed code");
     // Update our local session
     const processedSession = sanitizeSession({
       ...this.currentSession,
@@ -354,7 +354,7 @@ export class Code implements ICode {
     // Wait a small amount of time to ensure the session update is processed
     await new Promise((resolve) => setTimeout(resolve, 50));
 
-    console.log("✅ Code update completed successfully");
+    console.warn("✅ Code update completed successfully");
     return processedSession.code;
   }
 

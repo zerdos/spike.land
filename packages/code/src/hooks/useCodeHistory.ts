@@ -1,7 +1,7 @@
+import { tryCatch } from "@/lib/try-catch";
 import { useCallback, useEffect, useState } from "react";
 import type { Version } from "../codeHistoryUtils";
 import { loadVersionHistory } from "../codeHistoryUtils";
-import { tryCatch } from "@/lib/try-catch";
 
 interface HistoryItem {
   code: string;

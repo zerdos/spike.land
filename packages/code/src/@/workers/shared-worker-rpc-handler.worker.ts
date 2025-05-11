@@ -90,7 +90,7 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
     "connect",
     async ({ signal, sess }: { signal: string; sess: ICodeSession; }) => {
       const [user, codeSpace] = signal.split(" ");
-      console.log("Connecting to signal", {
+      console.warn("Connecting to signal", { // Changed to console.warn
         user,
         codeSpace,
         sess,

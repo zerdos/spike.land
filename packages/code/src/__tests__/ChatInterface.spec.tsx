@@ -229,7 +229,7 @@ describe("ChatInterface", () => {
         <ChatInterface
           isOpen={true}
           codeSpace="test-space"
-          cSess={mockSession}
+          codeSession={mockSession} // Renamed cSess
           onClose={vi.fn()}
         />
       </ThemeProvider>,
@@ -255,7 +255,7 @@ describe("ChatInterface", () => {
       <ChatInterface
         isOpen={true}
         codeSpace="test-space"
-        cSess={mockSession}
+        codeSession={mockSession} // Renamed cSess
         onClose={vi.fn()}
       />,
     );
@@ -285,7 +285,7 @@ describe("ChatInterface", () => {
       <ChatInterface
         isOpen={true}
         codeSpace="test-space"
-        cSess={mockSession}
+        codeSession={mockSession} // Renamed cSess
         onClose={vi.fn()}
       />,
     );
@@ -339,7 +339,7 @@ describe("ChatInterface", () => {
       <ChatInterface
         isOpen={true}
         codeSpace="test-space"
-        cSess={mockSession}
+        codeSession={mockSession} // Renamed cSess
         onClose={vi.fn()}
       />,
     );
@@ -398,7 +398,7 @@ describe("ChatInterface", () => {
       <ChatInterface
         isOpen={true}
         codeSpace="test-space"
-        cSess={mockSession}
+        codeSession={mockSession} // Renamed cSess
         onClose={vi.fn()}
       />,
     );

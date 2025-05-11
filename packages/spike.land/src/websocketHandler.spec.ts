@@ -303,8 +303,8 @@ describe("WebSocketHandler", () => {
 
       mockCode.updateAndBroadcastSession = vi.fn();
       const processWsMessageFn = processWsMessage.bind(websocketHandler);
-      console.log("mockPatch:", mockPatch);
-      console.log("mockSession:", mockWsSession);
+      console.warn("mockPatch:", mockPatch);
+      console.warn("mockSession:", mockWsSession);
       await processWsMessageFn(mockPatch, mockWsSession);
 
       expect(mockCode.updateAndBroadcastSession).toHaveBeenCalled();

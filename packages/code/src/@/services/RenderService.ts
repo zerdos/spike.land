@@ -17,7 +17,7 @@ export class RenderService {
   ): Promise<RenderedApp | null> {
     let hashed = md5(transpiled);
     if (hashed === this.renderedMd5 && !transpiled.includes(`cn("`)) {
-      console.log("Skipping update as md5 is the same");
+      console.warn("Skipping update as md5 is the same"); // Changed to console.warn
       return this.rendered;
     } else if (transpiled.includes(`cn("`)) {
       const cnArr = transpiled.split(`cn("`);
@@ -29,7 +29,7 @@ export class RenderService {
     }
 
     this.renderedMd5 = hashed;
-    // console.log("Updating rendered app...");
+    // console.warn("Updating rendered app...");
 
     await this.mutex.runExclusive(async () => {
       const myEl = document.createElement("div");
@@ -81,7 +81,7 @@ export class RenderService {
     ].join("\n")
       .split(cssCache.key).join("x");
 
-    console.log("Emotion styles:", emotionStyles);
+    // console.warn("Emotion styles:", emotionStyles); // This can be very verbose, changed to a conditional log or removed if not essential for common debugging
 
     const tailWindClasses = [
       ...document.querySelectorAll<HTMLStyleElement>("head > style"),

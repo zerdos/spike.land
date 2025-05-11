@@ -50,6 +50,25 @@ export class FileChangeManager {
    */
   constructor(private codeSession: ICode) {}
 
+  private _log(
+    message: string,
+    level: "info" | "warn" | "error" | "debug" = "info",
+    data?: Record<string, unknown> | string, // Allow string for simple data
+  ): void {
+    const timestamp = new Date().toISOString();
+    const logMessage = `[FileChangeManager][${timestamp}] ${message}`;
+
+    // Adhere to no-console rule: only use warn and error directly.
+    // For 'info' and 'debug', we'll use 'warn' to make them visible during development/debugging.
+    const effectiveLevel = (level === "info" || level === "debug") ? "warn" : level;
+
+    if (effectiveLevel === "error") {
+      console.error(`🔄 ${logMessage}`, data || "");
+    } else {
+      console.warn(`🔄 ${logMessage}`, data || "");
+    }
+  }
+
   /**
    * Submits a change to be applied to a file
    * @param path The path of the file to modify
@@ -62,35 +81,70 @@ export class FileChangeManager {
     hash: string,
     diff: string,
   ): Promise<{ success: boolean; message: string; hash?: string; }> {
-    console.log("FileChangeManager.submitChange", {
-      path,
-      hash: hash.substring(0, 8),
-    });
+    this._log("submitChange called", "warn", { path, hash: hash.substring(0, 8) });
 
-    // Validate inputs
+    const validationError = this._validateSubmitChangeInputs(path, hash, diff);
+    if (validationError) return validationError;
+
+    const fileStateResult = await this._initializeFileStateIfNeeded(path);
+    if (!fileStateResult.success || !fileStateResult.content || !fileStateResult.hash) { // Added !fileStateResult.hash check
+      return { success: false, message: fileStateResult.message };
+    }
+    const currentContent = fileStateResult.content; // Changed to const
+    const currentHash = fileStateResult.hash; // Now guaranteed to be string
+
+    const hashVerificationResult = this._verifyHashAndHandleMismatch(path, hash, currentHash, diff);
+    if (hashVerificationResult) return hashVerificationResult;
+
+    const applyChangesResult = await this._applyOptimizedChanges(path, currentContent, diff);
+    if (!applyChangesResult.success || !applyChangesResult.modifiedContent) {
+      return { success: false, message: applyChangesResult.message };
+    }
+    const modifiedContent = applyChangesResult.modifiedContent; // Changed to const
+
+    const policyCheckResult = this._checkChangePolicies(path, currentContent, modifiedContent);
+    if (policyCheckResult) return policyCheckResult;
+
+    const commitResult = await this._commitChangesAndUpdateState(
+      path,
+      currentContent,
+      modifiedContent,
+    );
+    return commitResult;
+  }
+
+  private _validateSubmitChangeInputs(
+    path: string,
+    hash: string,
+    diff: string,
+  ): { success: false; message: string; } | null {
     if (!path || !hash || !diff) {
       return {
         success: false,
         message: "Invalid input: path, hash, and diff are required",
       };
     }
+    return null;
+  }
 
-    // Get current file content
-    const { data: currentContent, error: getContentError } = await tryCatch(this.codeSession.getCode());
-
+  private async _initializeFileStateIfNeeded(
+    path: string,
+  ): Promise<{ success: boolean; message: string; content?: string; hash?: string; }> {
+    const { data: currentContent, error: getContentError } = await tryCatch(
+      this.codeSession.getCode(),
+    );
     if (getContentError || !currentContent) {
       return {
         success: false,
         message: `Error retrieving file content: ${
-          getContentError instanceof Error ? getContentError.message : String(getContentError)|| "File content is empty"
-        }` 
+          getContentError instanceof Error
+            ? getContentError.message
+            : String(getContentError) || "File content is empty"
+        }`,
       };
     }
 
-    // Calculate current hash
     const currentHash = md5(currentContent);
-
-    // Store file state if not already tracked
     if (!this.currentState[path]) {
       this.currentState[path] = {
         content: currentContent,
@@ -101,27 +155,33 @@ export class FileChangeManager {
         consecutiveMinorChanges: 0,
       };
     }
+    return {
+      success: true,
+      message: "State initialized",
+      content: currentContent,
+      hash: currentHash,
+    };
+  }
 
-    // Verify hash integrity
-    if (hash !== currentHash) {
-      // Check if the provided hash matches the last successful hash
-      if (hash === this.currentState[path].lastSuccessfulHash) {
-        console.log(
-          "Hash matches last successful hash, proceeding with change",
-        );
-        // Continue with the last successful hash
+  private _verifyHashAndHandleMismatch(
+    path: string,
+    providedHash: string,
+    currentHash: string,
+    diff: string,
+  ): { success: false; message: string; hash?: string; } | null {
+    if (providedHash !== currentHash) {
+      if (providedHash === this.currentState[path].lastSuccessfulHash) {
+        this._log("Hash matches last successful hash, proceeding with change.", "warn", { path });
+        return null; // Proceed
       } else {
-        // Auto-retry with corrected hash if this is a new attempt
         const pendingChange: PendingChange = {
           path,
-          hash: currentHash, // Use current hash instead of provided hash
+          hash: currentHash,
           diff,
           timestamp: Date.now(),
         };
-
         this.pendingChanges.push(pendingChange);
         this.currentState[path].pendingChanges.push(pendingChange);
-
         return {
           success: false,
           message: "Document has been modified since last hash. Retrying with current hash.",
@@ -129,46 +189,42 @@ export class FileChangeManager {
         };
       }
     }
+    return null; // Hash matches
+  }
 
-    // Process the diff to create optimized SEARCH/REPLACE blocks
-    const optimizedDiff = this.optimizeSearchReplaceBlocks(
-      diff,
-      currentContent,
-    );
-
-    // Apply the changes
+  private async _applyOptimizedChanges(
+    path: string,
+    currentContent: string,
+    diff: string,
+  ): Promise<{ success: boolean; message: string; modifiedContent?: string; }> {
+    const optimizedDiff = this.optimizeSearchReplaceBlocks(diff, currentContent);
     let modifiedContent = updateSearchReplace(optimizedDiff, currentContent);
 
-    // Check if changes were applied
     if (modifiedContent === currentContent) {
-      // Try recovery strategies
-      const recoveryResult = await this.attemptRecovery(
-        path,
-        currentContent,
-        diff,
-      );
+      const recoveryResult = await this.attemptRecovery(path, currentContent, diff);
       if (recoveryResult.success && recoveryResult.content) {
         modifiedContent = recoveryResult.content;
       } else {
-        return {
-          success: false,
-          message: recoveryResult.message,
-        };
+        return { success: false, message: recoveryResult.message };
       }
     }
+    return { success: true, message: "Changes applied", modifiedContent };
+  }
 
-    // Check if the change is significant enough to apply
+  private _checkChangePolicies(
+    path: string,
+    currentContent: string,
+    modifiedContent: string,
+  ): { success: false; message: string; } | null {
     const changeSize = Math.abs(modifiedContent.length - currentContent.length);
     const isMinorChange = changeSize < this.minSignificantChangeSize;
 
-    // Check for rate limiting
     const now = Date.now();
     const oneHourAgo = now - (60 * 60 * 1000);
     const recentChanges = this.currentState[path]?.changeHistory?.filter(
       (change) => change.timestamp > oneHourAgo,
     ).length || 0;
 
-    // Check if we're exceeding the rate limit
     if (recentChanges >= this.maxChangesPerHour) {
       return {
         success: false,
@@ -177,11 +233,9 @@ export class FileChangeManager {
       };
     }
 
-    // Check for consecutive minor changes
     if (isMinorChange) {
       const currentConsecutiveMinorChanges =
         (this.currentState[path]?.consecutiveMinorChanges || 0) + 1;
-
       if (currentConsecutiveMinorChanges > this.maxConsecutiveMinorChanges) {
         return {
           success: false,
@@ -190,17 +244,25 @@ export class FileChangeManager {
         };
       }
     }
+    return null;
+  }
 
-    // Update the file with modified content
-    const { data: setResult, error: setCodeError } = await tryCatch(this.codeSession.setCode(modifiedContent));
-
+  private async _commitChangesAndUpdateState(
+    path: string,
+    originalContent: string,
+    modifiedContent: string,
+  ): Promise<{ success: boolean; message: string; hash?: string; }> {
+    const { data: setResult, error: setCodeError } = await tryCatch(
+      this.codeSession.setCode(modifiedContent),
+    );
     if (setCodeError) {
       return {
         success: false,
-        message: `Error updating file: ${setCodeError instanceof Error ? setCodeError.message : String(setCodeError)}`,
+        message: `Error updating file: ${
+          setCodeError instanceof Error ? setCodeError.message : String(setCodeError)
+        }`,
       };
     }
-
     if (!setResult) {
       return {
         success: false,
@@ -208,48 +270,31 @@ export class FileChangeManager {
       };
     }
 
-    // The setCode method might return the updated content as a string
-    modifiedContent = typeof setResult === "string" ? setResult : modifiedContent;
-
-    // Update state with new content
-    const newHash = md5(modifiedContent);
-
-    // Update change history
-    const changeHistory = [
-      ...(this.currentState[path]?.changeHistory || []),
-      {
-        timestamp: Date.now(),
-        changeSize,
-        hash: newHash,
-      },
-    ];
-
-    // Update consecutive minor changes counter
-    const consecutiveMinorChanges = isMinorChange
-      ? (this.currentState[path]?.consecutiveMinorChanges || 0) + 1
-      : 0;
+    const finalContent = typeof setResult === "string" ? setResult : modifiedContent;
+    const newHash = md5(finalContent);
+    const changeSize = Math.abs(finalContent.length - originalContent.length);
+    const isMinorChange = changeSize < this.minSignificantChangeSize;
 
     this.currentState[path] = {
-      content: modifiedContent,
+      ...this.currentState[path],
+      content: finalContent,
       hash: newHash,
       lastSuccessfulHash: newHash,
       pendingChanges: [],
-      changeHistory,
-      consecutiveMinorChanges,
+      changeHistory: [
+        ...(this.currentState[path]?.changeHistory || []),
+        { timestamp: Date.now(), changeSize, hash: newHash },
+      ],
+      consecutiveMinorChanges: isMinorChange
+        ? (this.currentState[path]?.consecutiveMinorChanges || 0) + 1
+        : 0,
     };
 
-    // Update hash cache
-    hashCache.set(modifiedContent, newHash);
-
-    // Clear retry count for this path
+    hashCache.set(finalContent, newHash);
     this.retryCount[path] = 0;
 
-    // Calculate change metrics
-    const bytesChanged = modifiedContent.length - currentContent.length;
-    const linesChanged = modifiedContent.split("\n").length -
-      currentContent.split("\n").length;
-
-    // Add a warning about minor changes if needed
+    const bytesChanged = finalContent.length - originalContent.length;
+    const linesChanged = finalContent.split("\n").length - originalContent.split("\n").length;
     let message = `Changes applied successfully: ${
       bytesChanged > 0 ? "+" : ""
     }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`;
@@ -258,17 +303,12 @@ export class FileChangeManager {
       message +=
         `\nNote: This change was relatively minor (${changeSize} characters). Consider making more substantial changes or stopping if the task is complete.`;
     }
-
-    if (consecutiveMinorChanges > 1) {
-      message +=
-        `\nWarning: ${consecutiveMinorChanges} consecutive minor changes detected. Further minor changes may be rejected.`;
+    if (this.currentState[path].consecutiveMinorChanges > 1) {
+      message += `\nWarning: ${
+        this.currentState[path].consecutiveMinorChanges
+      } consecutive minor changes detected. Further minor changes may be rejected.`;
     }
-
-    return {
-      success: true,
-      message,
-      hash: newHash,
-    };
+    return { success: true, message, hash: newHash };
   }
 
   /**
@@ -281,16 +321,32 @@ export class FileChangeManager {
     diff: string,
     currentContent: string,
   ): string {
-    // Extract all SEARCH/REPLACE blocks
-    const blocks = this.extractSearchReplaceBlocks(diff);
-    if (blocks.length === 0) return diff;
+    // This function aims to make the SEARCH blocks more robust.
+    // Exact string matching can be brittle if there are minor, inconsequential
+    // differences (e.g., whitespace) between the AI's SEARCH block and the actual code.
+    // By trying to add context or find fuzzy matches, we increase the chances of a successful replacement.
 
-    // Process each block to add context if needed
+    // Extract all individual SEARCH/REPLACE blocks from the provided diff.
+    const blocks = this.extractSearchReplaceBlocks(diff);
+    if (blocks.length === 0) {
+      // If no valid blocks are found, return the original diff to avoid errors.
+      this._log("No valid SEARCH/REPLACE blocks found in diff for optimization.", "warn", {
+        diffPreview: diff.substring(0, 100),
+      });
+      return diff;
+    }
+
+    // Attempt to optimize each block by adding context.
+    // The `addContextToSearchBlock` method tries various strategies to find the
+    // intended search location in `currentContent` and then expands the SEARCH
+    // part of the block to include more surrounding lines. This makes the
+    // SEARCH block more specific and less prone to matching the wrong location
+    // if the original search string was too generic or slightly off.
     const optimizedBlocks = blocks.map((block) => {
       return this.addContextToSearchBlock(block, currentContent);
     });
 
-    // Recombine blocks into a single diff
+    // Reconstruct the full diff string from the (potentially) optimized blocks.
     return optimizedBlocks.map((block) => {
       return `${SEARCH_REPLACE_MARKERS.SEARCH_START}\n${block.search}\n${SEARCH_REPLACE_MARKERS.SEPARATOR}\n${block.replace}\n${SEARCH_REPLACE_MARKERS.REPLACE_END}`;
     }).join("\n\n");
@@ -328,11 +384,13 @@ export class FileChangeManager {
     block: SearchReplaceBlock,
     content: string,
   ): SearchReplaceBlock {
-    console.log("Attempting to add context to search block");
+    this._log("Attempting to add context to search block", "warn", {
+      searchLength: block.search.length,
+    }); // Changed to warn
 
     // If the search block already matches exactly, return it unchanged
     if (content.includes(block.search)) {
-      console.log("Exact match found, no context needed");
+      this._log("Exact match found for search block, no context needed", "warn"); // Changed to warn
       return block;
     }
 
@@ -341,12 +399,12 @@ export class FileChangeManager {
     const contentNoWS = content.replace(/\s+/g, "");
 
     if (!contentNoWS.includes(searchNoWS)) {
-      console.log("No match found even with flexible whitespace matching");
+      this._log("No match found even with flexible whitespace matching for search block", "warn"); // Changed to warn
 
       // Try fuzzy matching as a last resort
       const fuzzyMatch = this.findFuzzyMatch(block.search, content);
       if (fuzzyMatch) {
-        console.log("Fuzzy match found, using it for context");
+        this._log("Fuzzy match found for search block, using it for context", "warn"); // Changed to warn
         return {
           search: fuzzyMatch,
           replace: block.replace,
@@ -384,7 +442,10 @@ export class FileChangeManager {
       for (const firstIdx of firstLineMatches) {
         for (const lastIdx of lastLineMatches) {
           if (lastIdx - firstIdx === searchLines.length - 1) {
-            console.log("Found matching first/last lines with correct spacing");
+            this._log(
+              "Found matching first/last lines with correct spacing for context addition",
+              "warn",
+            ); // Changed to warn
 
             // Get context before and after
             const contextWindow = 2;
@@ -427,7 +488,7 @@ export class FileChangeManager {
 
     // If we found exactly one match, add context
     if (potentialMatches.length === 1) {
-      console.log("Found unique match for first line");
+      this._log("Found unique match for first line of search block for context addition", "warn"); // Changed to warn
       const matchIndex = potentialMatches[0];
       const contextWindow = 3; // Increased from 2 to 3 for more context
 
@@ -460,7 +521,7 @@ export class FileChangeManager {
 
     // Strategy 3: Try to find the longest common substring
     if (searchLines.length > 1) {
-      console.log("Trying longest common substring approach");
+      this._log("Trying longest common substring approach for context addition", "warn"); // Changed to warn
       const longestCommonSubstring = this.findLongestCommonSubstring(
         block.search,
         content,
@@ -491,9 +552,7 @@ export class FileChangeManager {
     }
 
     // If we couldn't add context with any strategy, return the original block
-    console.log(
-      "Could not add context with any strategy, returning original block",
-    );
+    this._log("Could not add context with any strategy, returning original search block", "warn"); // Changed to warn
     return block;
   }
 
@@ -645,14 +704,16 @@ export class FileChangeManager {
    * @returns A recovery result with success status, message, and possibly modified content
    */
   private async attemptRecovery(
+    // This method is called when a direct application of `updateSearchReplace` fails
+    // to modify the `content`. It tries several strategies to make the replacement work.
     path: string,
     content: string,
     diff: string,
   ): Promise<{ success: boolean; message: string; content?: string; }> {
-    console.log(
-      `Attempting recovery for ${path} (attempt ${
-        this.retryCount[path] || 0 + 1
-      }/${this.maxRetries})`,
+    this._log(
+      `Attempting recovery for ${path}`,
+      "warn",
+      { attempt: (this.retryCount[path] || 0) + 1, maxRetries: this.maxRetries },
     );
 
     // Increment retry count
@@ -699,8 +760,14 @@ export class FileChangeManager {
     // Track which blocks failed to match for better error reporting
     const failedBlocks: string[] = [];
 
-    // Strategy 1: Try each block individually with flexible whitespace matching
-    console.log("Recovery strategy 1: Flexible whitespace matching");
+    // Strategy 1: Flexible Whitespace Matching
+    // The primary reason for match failure is often subtle whitespace differences
+    // (e.g., spaces vs. tabs, extra newlines, trailing whitespace) between the AI's
+    // SEARCH block and the actual code. This strategy attempts to match each block
+    // after normalizing whitespace (removing all whitespace for comparison purposes)
+    // and then applies the replacement using `replacePreservingWhitespace` which
+    // tries to maintain the original surrounding whitespace.
+    this._log("Recovery strategy 1: Flexible whitespace matching", "warn", { path });
     let modifiedContent = content;
     let anySuccess = false;
 
@@ -719,9 +786,9 @@ export class FileChangeManager {
 
         // If the content changed, we had a successful replacement
         if (result !== modifiedContent) {
-          console.log(
-            "Successfully applied block with flexible whitespace matching",
-          );
+          this._log("Successfully applied block with flexible whitespace matching", "warn", {
+            search: block.search.substring(0, 50),
+          }); // Changed to warn
           modifiedContent = result;
           anySuccess = true;
         } else {
@@ -740,29 +807,36 @@ export class FileChangeManager {
       };
     }
 
-    // Strategy 2: Try with expanded context
-    console.log("Recovery strategy 2: Expanded context matching");
+    // Strategy 2: Expanded Context Matching
+    // If flexible whitespace matching fails, it might be because the SEARCH block
+    // is too generic and matches multiple places, or the slight differences are
+    // more than just whitespace. This strategy uses `addContextToSearchBlock`
+    // to create a new SEARCH block that includes more surrounding lines from the
+    // original content. This makes the search more specific.
+    this._log("Recovery strategy 2: Expanded context matching", "warn", { path });
     const expandedBlocks = blocks.map((block) => {
+      // `addContextToSearchBlock` tries to find the original search block in the content
+      // using various heuristics and then returns a new block where the .search part
+      // is expanded with more lines from the actual content.
       return this.addContextToSearchBlock(block, content);
     });
 
-    // Apply expanded blocks
+    // Apply these expanded blocks.
     let expandedContent = content;
     let expandedSuccess = false;
 
     for (const block of expandedBlocks) {
-      if (
-        block.search !== blocks.find((b) => b.replace === block.replace)?.search
-      ) {
-        // This block has been expanded with context, try to apply it
+      // Only attempt to apply if `addContextToSearchBlock` actually changed the search part.
+      if (block.search !== blocks.find((b) => b.replace === block.replace)?.search) {
         const result = replacePreservingWhitespace(
           expandedContent,
           block.search,
           block.replace,
         );
-
         if (result !== expandedContent) {
-          console.log("Successfully applied block with expanded context");
+          this._log("Successfully applied block with expanded context", "warn", {
+            search: block.search.substring(0, 50),
+          });
           expandedContent = result;
           expandedSuccess = true;
         }
@@ -777,8 +851,12 @@ export class FileChangeManager {
       };
     }
 
-    // Strategy 3: Try semantic matching (matching by code structure rather than exact text)
-    console.log("Recovery strategy 3: Semantic matching");
+    // Strategy 3: Semantic Matching
+    // If context expansion also fails, this strategy attempts to match blocks based on
+    // the "significant" parts of the code, ignoring comments and normalizing whitespace.
+    // This is a more aggressive fuzzy matching that tries to understand the code's
+    // structure rather than relying on exact text.
+    this._log("Recovery strategy 3: Semantic matching", "warn", { path });
     const semanticResult = this.attemptSemanticMatching(content, blocks);
 
     if (semanticResult.success && semanticResult.content) {
@@ -789,7 +867,8 @@ export class FileChangeManager {
       };
     }
 
-    // Update the failed searches for better error reporting
+    // If all recovery strategies fail, update the list of failed search blocks
+    // to provide a more informative error message to the user/AI.
     this.lastFailedSearches[path] = failedBlocks;
 
     // Provide a more detailed error message

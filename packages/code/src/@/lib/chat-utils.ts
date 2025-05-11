@@ -91,7 +91,7 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
   const fullBlockRegex = new RegExp(
     // Using non-capturing group for optional newline after SEARCH marker
     // Allowing for optional newline before SEPARATOR and REPLACE_END
-    `^${searchMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${separatorMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${replaceMarker}$`
+    `^${searchMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${separatorMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${replaceMarker}$`,
   );
   const fullBlockMatch = blockText.match(fullBlockRegex);
 
@@ -124,13 +124,18 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
   return null;
 }
 
-
 /**
- * Extracts code modifications from a response string
+ * Extracts code modifications from a response string.
+ * AI responses might contain modifications in two primary ways:
+ * 1. Standard diff format: Directly embedded `<<<<<<< SEARCH ... ======= ... >>>>>>> REPLACE` blocks.
+ * 2. Markdown code blocks: Diff content wrapped within triple backticks (e.g., ```diff ... ```).
+ * This function tries to find and parse both, prioritizing direct matches and then
+ * attempting to parse content within markdown code blocks.
+ * It uses a Set to ensure that identical modification blocks are not added multiple times
+ * if they happen to appear in both formats or are repeated.
  */
 export const extractCodeModification = (response: string): string[] => {
-  console.debug("extractCodeModification - Response length:", response.length);
-  // ... (keep existing debug logs if desired)
+  // console.warn("extractCodeModification - Response length:", response.length); // Changed to warn, or can be removed if too verbose
 
   const modifications: string[] = [];
   const seenModifications = new Set<string>(); // To avoid duplicates
@@ -160,51 +165,52 @@ export const extractCodeModification = (response: string): string[] => {
     }
   }
 
-  console.debug(
-    "extractCodeModification - Total modifications extracted:",
-    modifications.length,
-  );
+  // console.warn( // Changed to warn, or can be removed
+  //   "extractCodeModification - Total modifications extracted:",
+  //   modifications.length,
+  // );
   return modifications;
 };
 
-
 /**
- * Parses a code modification string (assumed to be a well-formed diff block)
- * into search and replace parts.
+ * Parses a single, well-formed code modification string (e.g., one complete SEARCH/REPLACE block)
+ * into its constituent search and replace parts.
+ * This function expects the input `mod` to be a string that starts with `<<<<<<< SEARCH`
+ * and ends with `>>>>>>> REPLACE`, containing one `=======` separator.
+ * It trims whitespace from the extracted search and replace contents.
  */
 function parseModification(mod: string): CodeModification | null {
-  console.debug("parseModification - Modification length:", mod.length);
-  console.debug(
-    "parseModification - Contains SEARCH marker:",
-    mod.includes(SEARCH_REPLACE_MARKERS.SEARCH_START),
-  );
-  console.debug(
-    "parseModification - Contains SEPARATOR marker:",
-    mod.includes(SEARCH_REPLACE_MARKERS.SEPARATOR),
-  );
-  console.debug(
-    "parseModification - Contains REPLACE marker:",
-    mod.includes(SEARCH_REPLACE_MARKERS.REPLACE_END),
-  );
-
-  // Log the first few characters to help identify format issues
-  console.debug(
-    "parseModification - Modification start:",
-    JSON.stringify(mod.substring(0, 50) + (mod.length > 50 ? "..." : "")),
-  );
+  // These logs are useful for debugging parsing issues, so changed to warn.
+  // console.warn("parseModification - Modification length:", mod.length);
+  // console.warn(
+  //   "parseModification - Contains SEARCH marker:",
+  //   mod.includes(SEARCH_REPLACE_MARKERS.SEARCH_START),
+  // );
+  // console.warn(
+  //   "parseModification - Contains SEPARATOR marker:",
+  //   mod.includes(SEARCH_REPLACE_MARKERS.SEPARATOR),
+  // );
+  // console.warn(
+  //   "parseModification - Contains REPLACE marker:",
+  //   mod.includes(SEARCH_REPLACE_MARKERS.REPLACE_END),
+  // );
+  // console.warn(
+  //   "parseModification - Modification start:",
+  //   JSON.stringify(mod.substring(0, 50) + (mod.length > 50 ? "..." : "")),
+  // );
 
   const parts = mod
     .replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "")
     .split(SEARCH_REPLACE_MARKERS.SEPARATOR);
 
-  console.debug("parseModification - Split parts count:", parts.length);
+  // console.warn("parseModification - Split parts count:", parts.length); // Useful for debugging
 
   if (parts.length === 2) {
     const search = parts[0].trim();
     const replace = parts[1].trim();
 
-    console.debug("parseModification - Search part length:", search.length);
-    console.debug("parseModification - Replace part length:", replace.length);
+    // console.warn("parseModification - Search part length:", search.length); // Useful for debugging
+    // console.warn("parseModification - Replace part length:", replace.length); // Useful for debugging
 
     return {
       search,
@@ -255,76 +261,79 @@ function applyCodeModifications(
   modifications: string[],
   applyAll = true,
 ): string {
-  console.debug("applyCodeModifications - Code length:", code.length);
-  console.debug(
-    "applyCodeModifications - Modifications count:",
-    modifications.length,
-  );
-  console.debug("applyCodeModifications - Apply all:", applyAll);
+  // console.warn("applyCodeModifications - Code length:", code.length); // Changed to warn
+  // console.warn( // Changed to warn
+  //   "applyCodeModifications - Modifications count:",
+  //   modifications.length,
+  // );
+  // console.warn("applyCodeModifications - Apply all:", applyAll); // Changed to warn
+
+  // This function iterates through a list of modification strings (each being a
+  // complete SEARCH/REPLACE block). For each block, it parses it into
+  // search/replace parts and then applies the replacement to the `code`.
+  // The `replacePreservingWhitespace` utility is used for the actual replacement,
+  // which attempts to be smart about whitespace.
+  // If `applyAll` is false, only the first modification in the list is applied.
+  // This is useful if the AI provides multiple alternative modifications and only one should be tried.
 
   try {
     let result = code;
     const modsToApply = applyAll ? modifications : modifications.slice(0, 1);
-    console.debug(
-      "applyCodeModifications - Mods to apply count:",
-      modsToApply.length,
-    );
+    // console.warn( // Changed to warn
+    //   "applyCodeModifications - Mods to apply count:",
+    //   modsToApply.length,
+    // );
 
     modsToApply.forEach((mod, index) => {
-      console.debug(
-        `applyCodeModifications - Applying modification ${index + 1}`,
-      );
+      // console.warn( // Changed to warn
+      //   `applyCodeModifications - Applying modification ${index + 1}`,
+      // );
       const parsed = parseModification(mod);
 
       if (parsed) {
-        console.debug(
-          `applyCodeModifications - Search part ${index + 1} length:`,
-          parsed.search.length,
-        );
-        console.debug(
-          `applyCodeModifications - Replace part ${index + 1} length:`,
-          parsed.replace.length,
-        );
+        // console.warn( // Changed to warn
+        //   `applyCodeModifications - Search part ${index + 1} length:`,
+        //   parsed.search.length,
+        // );
+        // console.warn( // Changed to warn
+        //  `applyCodeModifications - Replace part ${index + 1} length:`,
+        //  parsed.replace.length,
+        // );
+        // const exactMatch = result.includes(parsed.search);
+        // console.warn( // Changed to warn
+        //   `applyCodeModifications - Exact match for modification ${index + 1}:`,
+        //   exactMatch,
+        // );
 
-        // Check if search exists in result (exact match)
-        const exactMatch = result.includes(parsed.search);
-        console.debug(
-          `applyCodeModifications - Exact match for modification ${index + 1}:`,
-          exactMatch,
-        );
-
-        // Apply the modification
-        const beforeLength = result.length;
         result = replacePreservingWhitespace(
           result,
           parsed.search,
           parsed.replace,
         );
-        const afterLength = result.length;
-
-        // Check if the modification was applied
-        const changed = beforeLength !== afterLength || result !== code;
-        console.debug(
-          `applyCodeModifications - Modification ${index + 1} applied:`,
-          changed,
-        );
-        console.debug(
-          `applyCodeModifications - Length change:`,
-          afterLength - beforeLength,
-        );
+        // const changed = beforeLength !== afterLength || result !== code;
+        // console.warn( // Changed to warn
+        //   `applyCodeModifications - Modification ${index + 1} applied:`,
+        //   changed,
+        // );
+        // console.warn( // Changed to warn
+        //   `applyCodeModifications - Length change:`,
+        //   afterLength - beforeLength,
+        // );
       } else {
         console.warn(
-          `applyCodeModifications - Failed to parse modification ${index + 1}`,
+          `applyCodeModifications - Failed to parse modification ${
+            index + 1
+          }. Modification string: "${mod.substring(0, 100)}..."`,
         );
       }
     });
 
-    // Check if any changes were made
-    const changed = result !== code;
-    console.debug("applyCodeModifications - Overall changes made:", changed);
-
+    // console.warn("applyCodeModifications - Overall changes made:", result !== code); // Changed to warn
     return result;
   } catch (error) {
+    // This catch block is a safety net. Errors during parsing or replacement
+    // should ideally be handled more gracefully, but if an unexpected error occurs,
+    // we log it and return the original code to prevent corruption.
     console.error("Error applying code modifications:", error);
     console.error(
       "Error details:",
@@ -345,59 +354,57 @@ export const updateSearchReplace = (
   instructions: string,
   codeNow: string,
 ): string => {
-  console.debug(
-    "updateSearchReplace - Instructions length:",
-    instructions.length,
-  );
-  console.debug("updateSearchReplace - Code length:", codeNow.length);
+  // console.warn( // Changed to warn
+  //   "updateSearchReplace - Instructions length:",
+  //   instructions.length,
+  // );
+  // console.warn("updateSearchReplace - Code length:", codeNow.length); // Changed to warn
 
   const modifications = extractCodeModification(instructions);
-  console.debug(
-    "updateSearchReplace - Extracted modifications count:",
-    modifications.length,
-  );
+  // console.warn( // Changed to warn
+  //   "updateSearchReplace - Extracted modifications count:",
+  //   modifications.length,
+  // );
 
   if (modifications.length === 0) {
     console.warn(
       "updateSearchReplace - No modifications extracted from instructions",
     );
-    console.debug("updateSearchReplace - Instructions:", instructions);
+    // console.warn("updateSearchReplace - Instructions:", instructions); // Changed to warn
     return codeNow;
   }
 
   // Log each modification
   modifications.forEach((mod, index) => {
-    console.debug(
-      `updateSearchReplace - Modification ${index + 1}:`,
-      mod.substring(0, 100) + (mod.length > 100 ? "..." : ""),
-    );
+    // console.warn( // Changed to warn
+    //   `updateSearchReplace - Modification ${index + 1}:`,
+    //   mod.substring(0, 100) + (mod.length > 100 ? "..." : ""),
+    // );
 
     // Parse the modification to get search and replace parts
     const parsed = parseModification(mod);
     if (parsed) {
-      console.debug(
-        `updateSearchReplace - Search part ${index + 1} length:`,
-        parsed.search.length,
-      );
-      console.debug(
-        `updateSearchReplace - Replace part ${index + 1} length:`,
-        parsed.replace.length,
-      );
+      // console.warn( // Changed to warn
+      //   `updateSearchReplace - Search part ${index + 1} length:`,
+      //   parsed.search.length,
+      // );
+      // console.warn( // Changed to warn
+      //   `updateSearchReplace - Replace part ${index + 1} length:`,
+      //   parsed.replace.length,
+      // );
 
-      // Check if search exists in code (exact match)
-      const exactMatch = codeNow.includes(parsed.search);
-      console.debug(
-        `updateSearchReplace - Exact match for modification ${index + 1}:`,
-        exactMatch,
-      );
+      // const exactMatch = codeNow.includes(parsed.search);
+      // console.warn( // Changed to warn
+      //   `updateSearchReplace - Exact match for modification ${index + 1}:`,
+      //   exactMatch,
+      // );
 
-      // Check if search exists in code (ignoring whitespace)
-      const codeNoWS = codeNow.replace(/\s+/g, "");
-      const searchNoWS = parsed.search.replace(/\s+/g, "");
-      console.debug(
-        `updateSearchReplace - Match ignoring whitespace for modification ${index + 1}:`,
-        codeNoWS.includes(searchNoWS),
-      );
+      // const codeNoWS = codeNow.replace(/\s+/g, "");
+      // const searchNoWS = parsed.search.replace(/\s+/g, "");
+      // console.warn( // Changed to warn
+      //   `updateSearchReplace - Match ignoring whitespace for modification ${index + 1}:`,
+      //   codeNoWS.includes(searchNoWS),
+      // );
     } else {
       console.warn(
         `updateSearchReplace - Failed to parse modification ${index + 1}`,
@@ -407,9 +414,8 @@ export const updateSearchReplace = (
 
   const result = applyCodeModifications(codeNow, modifications, true);
 
-  // Check if any changes were made
-  const changed = result !== codeNow;
-  console.debug("updateSearchReplace - Changes made:", changed);
+  // const changed = result !== codeNow;
+  // console.warn("updateSearchReplace - Changes made:", changed); // Changed to warn
 
   return result;
 };

@@ -14,17 +14,17 @@ export const myATA = async (code: string) => {
       delegate: {
         receivedFile: (code: string, path: string) => {
           // Add code to your runtime at the path...
-          console.log("ATA received file", { code, path });
+          console.warn("ATA received file", { code, path });
         },
         started: () => {
-          console.log("ATA start");
+          console.warn("ATA start");
         },
         progress: (downloaded: number, total: number) => {
-          console.log(`Got ${downloaded} out of ${total}`);
+          console.warn(`Got ${downloaded} out of ${total}`);
         },
         finished: (vfs) => {
           resolve(vfs);
-          console.log("ATA done", vfs);
+          console.warn("ATA done", vfs);
         },
       },
     });

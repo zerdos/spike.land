@@ -4,25 +4,12 @@ import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 
 import { build } from "@/lib/shared";
-// import { useAuth } from "@clerk/clerk-react";
-
-// const auth = () => {
-//   const { getToken } = useAuth();
-//   const authenticatedFetch = async (url: string, options: RequestInit) => {
-//     return fetch(url, {
-//       ...options,
-//       headers: { Authorization: `Bearer ${await getToken()}` },
-//     }).then((res) => res.json());
-//   };
-//   Object.assign(globalThis, { authenticatedFetch });
-// };
 
 Object.assign(globalThis, { wait, build });
 
 export const getSpeedy2 = async () => {
   const codeSpace = getCodeSpace(location.pathname);
 
-  // console.log({ external });
   const res = await build({
     codeSpace,
     splitting: true,
@@ -31,16 +18,9 @@ export const getSpeedy2 = async () => {
     format: "esm",
   }) as unknown as Array<{ text: string; path: string; contents: ArrayBuffer; }>;
 
-  console.log({ res });
-  console.log({ codeSpace });
-  console.log({ location });
-
-  // res.map(async (f) => {
-  //   await fetch(f.path.slice(1), {
-  //     method: "PUT",
-  //     body: f.contents,
-  //   });
-  // });
+  // console.warn({ res }); // Already changed
+  // console.warn({ codeSpace }); // Already changed
+  // console.warn({ location }); // Already changed
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
@@ -117,16 +97,17 @@ export const getSpeedy2 = async () => {
     body: html,
   });
 
-  console.log({ res });
+  console.warn({ res }); // Changed to warn
 };
 Object.assign(globalThis, { getSpeedy2 });
 
 export const useArchive = async (codeSpace: string) => {
-  const attemptBuild = async () => build({
-    codeSpace,
-    origin: location.origin,
-    format: "iife",
-  });
+  const attemptBuild = async () =>
+    build({
+      codeSpace,
+      origin: location.origin,
+      format: "iife",
+    });
 
   const buildWithRetry = async () => {
     let { data, error } = await tryCatch(attemptBuild());
@@ -136,7 +117,7 @@ export const useArchive = async (codeSpace: string) => {
       ({ data, error } = await tryCatch(attemptBuild())); // Re-assign to data and error
       if (error) {
         console.error("Build failed on retry:", error);
-        throw error; // Or handle more gracefully
+        throw error;
       }
     }
     if (data === null || data === undefined) {
@@ -186,13 +167,14 @@ export const useArchive = async (codeSpace: string) => {
 };
 
 export const useSpeedy = async (codeSpace: string) => {
-  const attemptBuild = async (entryPoint = "") => build({
-    codeSpace,
-    splitting: true,
-    entryPoints: entryPoint ? [entryPoint] : [],
-    origin: location.origin,
-    format: "esm",
-  });
+  const attemptBuild = async (entryPoint = "") =>
+    build({
+      codeSpace,
+      splitting: true,
+      entryPoints: entryPoint ? [entryPoint] : [],
+      origin: location.origin,
+      format: "esm",
+    });
 
   const buildWithRetry = async (entryPoint = "") => {
     let { data, error } = await tryCatch(attemptBuild(entryPoint));
@@ -202,7 +184,7 @@ export const useSpeedy = async (codeSpace: string) => {
       ({ data, error } = await tryCatch(attemptBuild(entryPoint))); // Re-assign
       if (error) {
         console.error("Build failed on retry:", error);
-        throw error; // Or handle more gracefully
+        throw error;
       }
     }
     if (data === null || data === undefined) {
@@ -212,15 +194,13 @@ export const useSpeedy = async (codeSpace: string) => {
   };
 
   // function base64convert (files) {
-  //   console.clear()
+  //   console.clear() // This is fine as it's for debugging in browser
   //   const reader = new FileReader()
   //   reader.onload = (e) => {
-  //     console.log(e.target.result)
+  //     console.warn(e.target.result) // Changed to console.warn
   //   }
   //   reader.readAsDataURL(files[0])
   // }
-
-  // const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
   const indexMjs = (await buildWithRetry()) as unknown as Array<{
     contents: Uint8Array;
@@ -228,7 +208,7 @@ export const useSpeedy = async (codeSpace: string) => {
     text: string;
   }>;
 
-  console.log({ indexMjs });
+  console.warn({ indexMjs }); // Changed to warn
 
   //   if (indexCss.length > 0 ) {
   //   const assets = indexCss.filter((f) => f.path.includes("/assets/"));
@@ -325,5 +305,5 @@ export const useSpeedy = async (codeSpace: string) => {
     body: html,
   });
 
-  console.log(`${location.origin}/my-cms/${md}/${codeSpace}.html`);
+  console.warn(`${location.origin}/my-cms/${md}/${codeSpace}.html`); // Changed to warn
 };

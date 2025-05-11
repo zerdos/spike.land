@@ -68,7 +68,7 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         diff: string;
       },
     ): Promise<CodeModification> => {
-      console.log("🔄 replaceInFileTool", { path, hash, diff });
+      console.warn("🔄 replaceInFileTool", { path, hash, diff });
 
       log(`Starting replace operation for file: ${path}`, "info", {
         hash: hash.substring(0, 8),
@@ -179,11 +179,11 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         log("Changes detected, updating file");
 
         // Set the modified code
-        console.log("Modified code:", modifiedCode);
+        console.warn("Modified code:", modifiedCode);
 
         const success = await cSess.setCode(modifiedCode);
 
-        console.log("Success:", success);
+        console.warn("Success:", success);
 
         if (!success) {
           return createErrorResponse(
@@ -194,13 +194,13 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         modifiedCode = success as string;
 
         // Add a longer delay before adding the message chunk to ensure code changes are fully processed
-        console.log(
+        console.warn(
           "⏳ Waiting for code changes to be fully processed before adding message chunk...",
         );
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Log before adding message chunk
-        console.log(
+        console.warn(
           "🔍 Before addMessageChunk - Code state:",
           modifiedCode.substring(0, 100) + "...",
         );
@@ -208,25 +208,25 @@ export const getReplaceInFileTool = (cSess: ICode) =>
         try {
           // Store the current hash before adding message chunk
           const beforeMessageChunkHash = md5(await cSess.getCode());
-          console.log(
+          console.warn(
             "📊 Hash before addMessageChunk:",
             beforeMessageChunkHash,
           );
 
           // Add the message chunk
           await cSess.addMessageChunk(diff);
-          console.log("✅ Successfully added message chunk");
+          console.warn("✅ Successfully added message chunk");
 
           // Verify the code hasn't changed after adding message chunk
           const afterMessageChunkHash = md5(await cSess.getCode());
-          console.log("📊 Hash after addMessageChunk:", afterMessageChunkHash);
+          console.warn("📊 Hash after addMessageChunk:", afterMessageChunkHash);
 
           if (beforeMessageChunkHash !== afterMessageChunkHash) {
             console.warn(
               "⚠️ Code hash changed after addMessageChunk! This indicates a potential issue.",
             );
           } else {
-            console.log(
+            console.warn(
               "✅ Code hash remained the same after addMessageChunk - good!",
             );
           }

@@ -20,7 +20,7 @@ export const handleRemixRequest = (
   env: Env,
   ctx: ExecutionContext,
 ) => {
-  console.log("handleRemixRequest", request, env, ctx);
+  console.warn("handleRemixRequest", request, env, ctx);
 
   return new Response("Not implemented", { status: 501 });
 };

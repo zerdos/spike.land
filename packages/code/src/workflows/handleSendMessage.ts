@@ -11,10 +11,10 @@ import {
  */
 
 export async function handleSendMessage(
-  { prompt, images, cSess }: HandleSendMessageProps,
+  { prompt, images, cSess: codeSession }: HandleSendMessageProps, // Renamed cSess
 ): Promise<AgentState> {
-  const codeSpace = cSess.getCodeSpace();
-  const code = await cSess.getCode();
+  const codeSpace = codeSession.getCodeSpace(); // Renamed cSess
+  const code = await codeSession.getCode(); // Renamed cSess
   // Get or create workflow for this codeSpace
   const workflow = enhancedWorkflowCache[codeSpace] ||
     await createEnhancedWorkflowWithStringReplace({
@@ -25,7 +25,7 @@ export async function handleSendMessage(
       isStreaming: false,
       messages: [],
       hash: getHashWithCache(code),
-    }, cSess);
+    }, codeSession); // Renamed cSess
 
   // Cache the workflow for future use
   enhancedWorkflowCache[codeSpace] = workflow;
@@ -35,7 +35,7 @@ export async function handleSendMessage(
   // through the ToolNode and model.bindTools setup in createWorkflowWithStringReplace
   const finalState = await workflow.invoke(prompt, images || []);
 
-  console.log("Final workflow state:", finalState);
+  console.warn("Final workflow state:", finalState); // Changed to warn
 
   return finalState;
 }

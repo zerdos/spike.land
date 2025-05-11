@@ -1,9 +1,9 @@
+import { tryCatch } from "@/lib/try-catch";
 import { RenderService } from "@/services/RenderService";
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
-import { tryCatch } from "@/lib/try-catch";
 
 export const main = async (codeSpace: string) => {
   const mainProcess = async () => {
@@ -37,11 +37,11 @@ export const main = async (codeSpace: string) => {
           return data;
         },
         handleMessage: (event) => {
-          console.log("Message received:", event);
+          console.warn("Message received:", event);
           return Promise.resolve({ success: true });
         },
         cleanup: () => {
-          console.log("Cleaning up message handler");
+          console.warn("Cleaning up message handler");
         },
       },
       serviceWorker: new ServiceWorkerManager(),

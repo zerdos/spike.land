@@ -44,7 +44,7 @@ export const determineReturnModifiedCode = (
           : toolCall.args;
 
         // Log the tool call for debugging
-        console.log(`Determining returnModifiedCode for ${toolCall.name}:`, {
+        console.warn(`Determining returnModifiedCode for ${toolCall.name}:`, {
           toolName: toolCall.name,
           argsKeys: Object.keys(args || {}),
         });
@@ -64,7 +64,7 @@ export const determineReturnModifiedCode = (
     }
   }
 
-  console.log(
+  console.warn(
     "Using default return modified code setting:",
     DEFAULT_RETURN_MODIFIED_CODE,
   );

@@ -6,6 +6,9 @@ import { formatCode, transpileCode } from "@/services/editorUtils";
 import { RenderService } from "@/services/RenderService";
 import type { RunMessageResult } from "@/services/types";
 
+const RENDER_OPERATION_TIMEOUT_MS = 2000;
+const OVERALL_PROCESS_TIMEOUT_MS = 5000;
+
 export class CodeProcessor {
   private static renderService: RenderService;
   private currentIframe: HTMLIFrameElement | null = null;
@@ -86,38 +89,80 @@ export class CodeProcessor {
     };
 
     if (!skipRunning) {
-      try {
-        // Clean up any existing render process
-        // this.cleanupPreviousRender();
+      // Call the helper method to handle iframe execution.
+      // Pass processedSession so it can be updated with html and css.
+      const executionSuccessful = await this._handleCodeExecutionInIframe(
+        transpiled,
+        origin,
+        replaceIframe,
+        processedSession,
+      );
+      if (!executionSuccessful) {
+        // If iframe execution failed, an error would have been logged by the helper.
+        // Return false to indicate overall processing failure.
+        return false;
+      }
+    }
 
-        // Create blob URL for transpiled code
-        const { data: blobUrlForTranspiledCode, error: blobError } = await tryCatch(
-          Promise.resolve(URL.createObjectURL(
-            new Blob([
-              importMapReplace(transpiled.split("importMapReplace").join(""))
-                .split(
-                  `from "/`,
-                ).join(
-                  `from "${origin}/`,
-                ),
-            ], { type: "application/javascript" }),
-          )),
-        );
+    if (signal.aborted) {
+      return false;
+    }
 
-        if (blobError) {
-          console.error("Error creating blob URL:", blobError);
-          return false;
-        }
+    return {
+      ...getSession(),
+      ...processedSession,
+      code,
+      transpiled,
+    };
+  }
 
-        // Create an iframe which renders the transpiled code
-        const iframeSource = `<!DOCTYPE html>
+  // This new private helper method encapsulates the logic for creating and managing
+  // the iframe used for sandboxed code execution and rendering.
+  private async _handleCodeExecutionInIframe(
+    transpiled: string,
+    origin: string,
+    replaceIframe: ((newIframe: HTMLIFrameElement) => void) | undefined,
+    // processedSession is passed by reference and will be mutated with html and css
+    processedSession: { code: string; transpiled: string; html?: string; css?: string; },
+  ): Promise<boolean> { // Returns true on success, false on failure
+    try {
+      // The cleanupPreviousRender was commented out. If uncommented,
+      // its purpose is to ensure that any previous rendering iframe and its associated
+      // message listener are removed before starting a new render. This prevents
+      // multiple iframes from existing or old listeners from incorrectly processing messages.
+      // this.cleanupPreviousRender();
+
+      // Create a Blob URL for the transpiled JavaScript code.
+      // This is necessary to import the code as a module in the sandboxed iframe.
+      // The importMapReplace function ensures that import paths are correctly resolved
+      // according to the project's import map.
+      const { data: blobUrlForTranspiledCode, error: blobError } = await tryCatch(
+        Promise.resolve(URL.createObjectURL(
+          new Blob([
+            importMapReplace(transpiled.split("importMapReplace").join(""))
+              .split(
+                `from "/`,
+              ).join(
+                `from "${origin}/`,
+              ),
+          ], { type: "application/javascript" }),
+        )),
+      );
+
+      if (blobError) {
+        console.error("Error creating blob URL:", blobError);
+        return false;
+      }
+
+      // Create an iframe which renders the transpiled code
+      const iframeSource = `<!DOCTYPE html>
         <html lang="en">
         <head>
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           
-          <style>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             html,body, #embed {
               width: 100%;
               height: 100%;
@@ -149,125 +194,146 @@ export class CodeProcessor {
 
             renderedApp.toHtmlAndCss(renderedApp).then(({ html, css }) => {
              window.parent.postMessage({ type: "rendered", iteration: iteration, requestId: "${
-          md5(transpiled)
-        }", data: { html, css } }, "*");
+        md5(transpiled)
+      }", data: { html, css } }, "*");
            });
            }
            );
 
           
-
+          /*
+           * The script inside the iframe imports the transpiled code (App) from the Blob URL.
+           * It then uses \`renderApp\` (imported from an mjs bundle) to render the App.
+           * A loop \`while (renderedApp.rootElement.innerHTML === "" && iteration < 100)\`
+           * waits for the app to render something into the #embed div, with a timeout (100 iterations * 1ms wait).
+           * Once rendered, it extracts HTML and CSS using \`toHtmlAndCss\` and posts it back to the parent window
+           * using \`window.parent.postMessage\`. The \`requestId\` (md5 of transpiled code) ensures the parent
+           * window can match this message to the correct render operation.
+           */
           </script>
         </body>
         </html>`;
 
-        // If replaceIframe is provided, create a new iframe and replace the draggable window's iframe DOM node
-        if (replaceIframe) {
-          const newIframe = document.createElement("iframe");
-          newIframe.srcdoc = iframeSource;
-          newIframe.title = "Live preview";
-          newIframe.className = "w-full h-full border-0";
-          replaceIframe(newIframe);
-        } else {
-          // Fallback: create a hidden iframe for legacy/compatibility
-          const iframe = document.createElement("iframe");
-          this.currentIframe = iframe;
-          iframe.style.display = "none";
-          document.body.appendChild(iframe);
-          iframe.srcdoc = iframeSource;
-        }
+      // If a `replaceIframe` callback is provided (e.g., by DraggableWindow),
+      // it's used to directly replace the preview iframe's DOM node. This allows
+      // for a more seamless update of the preview.
+      if (replaceIframe) {
+        const newIframe = document.createElement("iframe");
+        newIframe.srcdoc = iframeSource;
+        newIframe.title = "Live preview";
+        newIframe.className = "w-full h-full border-0";
+        replaceIframe(newIframe);
+      } else {
+        // Fallback: If no `replaceIframe` callback is given, a hidden iframe is created
+        // and appended to the body. This might be for older implementations or specific
+        // use cases where direct DOM replacement isn't desired/possible.
+        const iframe = document.createElement("iframe");
+        this.currentIframe = iframe;
+        iframe.style.display = "none"; // Hidden as it's only for code execution and message passing
+        document.body.appendChild(iframe);
+        iframe.srcdoc = iframeSource;
+      }
 
-        // Create a Promise for handling the render result
-        const renderPromise = new Promise<void>((resolve, reject) => {
-          const messageHandler = (event: MessageEvent) => {
-            if (
-              event.data.type === "rendered" &&
-              event.data.requestId === md5(transpiled)
-            ) {
-              try {
-                const iteration = event.data.iteration;
-                const { html, css } = event.data.data;
-                console.log(`Rendered in ${iteration} iterations`);
-                if (!html) {
-                  reject(new Error("Render produced empty HTML"));
-                  return;
-                }
-                Object.assign(processedSession, { html, css });
-                console.log("Processed session:", processedSession);
-                resolve();
-              } catch (error) {
-                reject(new Error(`Error processing render result: ${error}`));
+      // This Promise waits for the 'rendered' message from the iframe.
+      // It sets up a message listener that filters for messages with the correct
+      // type ('rendered') and requestId (matching the md5 of the transpiled code).
+      // This ensures that we only process the result of the current render operation.
+      const renderPromise = new Promise<void>((resolve, reject) => {
+        const messageHandler = (event: MessageEvent) => {
+          // Check if the message is from our iframe and matches the current render request
+          if (
+            event.data.type === "rendered" &&
+            event.data.requestId === md5(transpiled)
+          ) {
+            try {
+              const iteration = event.data.iteration;
+              const { html, css } = event.data.data;
+              console.warn(`Rendered in ${iteration} iterations`); // Changed to warn
+              if (!html) {
+                reject(new Error("Render produced empty HTML"));
+                return;
               }
+              Object.assign(processedSession, { html, css });
+              console.warn("Processed session:", processedSession); // Changed to warn
+              resolve();
+            } catch (error) {
+              reject(
+                new Error(
+                  `Error processing render result: ${
+                    error instanceof Error ? error.message : String(error)
+                  }`,
+                ),
+              );
             }
-          };
+          }
+        };
 
-          // Store reference to the message handler for cleanup
-          this.currentMessageHandler = messageHandler;
-          window.addEventListener("message", messageHandler);
+        // Store reference to the message handler so it can be removed later if needed (e.g., in cleanupPreviousRender)
+        this.currentMessageHandler = messageHandler;
+        window.addEventListener("message", messageHandler);
 
-          // First timeout for render operation (2 seconds)
-          setTimeout(() => {
-            reject(
-              new Error(
-                "Render timeout - iframe didn't respond within 2 seconds",
-              ),
-            );
-          }, 2000);
-        });
+        // Timeout for the iframe rendering operation. If the iframe doesn't post back
+        // the 'rendered' message within RENDER_OPERATION_TIMEOUT_MS, this promise rejects.
+        setTimeout(() => {
+          reject(
+            new Error(
+              `Render timeout - iframe didn't respond within ${RENDER_OPERATION_TIMEOUT_MS}ms`,
+            ),
+          );
+        }, RENDER_OPERATION_TIMEOUT_MS);
+      });
 
-        // Second timeout for overall process (5 seconds)
-        const timeoutPromise = new Promise<void>((_, reject) => {
-          setTimeout(() => {
-            reject(
-              new Error(
-                "Process timeout - operation took longer than 5 seconds",
-              ),
-            );
-          }, 5000);
-        });
+      // Overall timeout for the entire `process` step (including iframe rendering).
+      // This acts as a safety net to prevent the process from hanging indefinitely.
+      const timeoutPromise = new Promise<void>((_, reject) => {
+        setTimeout(() => {
+          reject(
+            new Error(
+              `Process timeout - operation took longer than ${OVERALL_PROCESS_TIMEOUT_MS}ms`,
+            ),
+          );
+        }, OVERALL_PROCESS_TIMEOUT_MS);
+      });
 
-        // Race the render against both timeouts
-        const { error: raceError } = await tryCatch(
-          Promise.race([renderPromise, timeoutPromise]),
-        );
+      // Race the `renderPromise` (waiting for iframe message) against the `timeoutPromise`.
+      // The first one to resolve or reject determines the outcome.
+      const { error: raceError } = await tryCatch(
+        Promise.race([renderPromise, timeoutPromise]),
+      );
 
-        if (raceError) {
-          console.error("Error during rendering:", raceError);
-          // Clean up on error
-          // this.cleanupPreviousRender();
-          return false;
-        }
-
-        // Clean up after successful render
+      if (raceError) {
+        console.error("Error during rendering (race condition or timeout):", raceError);
+        // If cleanupPreviousRender were active, it would be called here to remove the failed iframe/listener.
         // this.cleanupPreviousRender();
-      } catch (error) {
-        // Clean up on error
-        // this.cleanupPreviousRender();
-        console.error("Error running code:", error);
         return false;
       }
-    }
 
-    if (signal.aborted) {
-      return false;
+      // If rendering was successful and didn't timeout:
+      // If cleanupPreviousRender were active, it would be called here to clean up the successful render's iframe/listener
+      // if this instance of CodeProcessor is designed to only manage one render at a time.
+      // this.cleanupPreviousRender();
+    } catch (error) {
+      // Catch any other errors that might occur during the try block (e.g., iframe creation issues).
+      // If cleanupPreviousRender were active, it would be called here.
+      // this.cleanupPreviousRender();
+      console.error("Error running code in iframe (outer try-catch):", error);
+      return false; // Indicate failure
     }
-
-    return {
-      ...getSession(),
-      ...processedSession,
-      code,
-      transpiled,
-    };
+    // } // This was an extra closing brace from the original refactor attempt, removing it.
+    return true; // Indicates success
   }
 
   private async formatCode(code: string): Promise<string> {
     const { data, error } = await tryCatch(formatCode(code));
 
     if (error) {
-      console.error("Error formatting code:", { code });
-      throw new Error(`Error formatting code: ${error}`);
+      console.error("Error formatting code:", { code, error }); // Added error to log
+      throw new Error(`Error formatting code: ${error.message || error}`);
     }
-
+    if (!data) { // Added check for null/undefined data
+      console.error("Formatting code returned no data", { code });
+      throw new Error("Formatting code returned no data");
+    }
     return data;
   }
 
@@ -275,12 +341,12 @@ export class CodeProcessor {
     const { data: transpiled, error } = await tryCatch(transpileCode(code));
 
     if (error) {
-      console.log("Error Transpiled code:", { code });
-      throw new Error(`Error transpiling code: ${error}`);
+      console.error("Error Transpiled code:", { code, error }); // Changed to console.error and added error
+      throw new Error(`Error transpiling code: ${error.message || error}`);
     }
 
     if (!transpiled) {
-      console.log("Error Transpiled code:", { code });
+      console.error("Error Transpiled code: Transpilation resulted in empty output", { code }); // Changed to console.error
       throw new Error("Transpilation resulted in empty output");
     }
 

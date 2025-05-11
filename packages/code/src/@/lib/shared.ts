@@ -134,7 +134,9 @@ export const ata = async ({
   const worker = (await init()).getWorker("ata");
   try {
     const { data, error } = await tryCatch(
-      worker.rpc.rpc("ata", { code, originToUse }) as Promise<Array<{ content: string; filePath: string; }>>,
+      worker.rpc.rpc("ata", { code, originToUse }) as Promise<
+        Array<{ content: string; filePath: string; }>
+      >,
     );
     if (error) throw error;
     return data!;

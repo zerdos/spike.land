@@ -1,6 +1,6 @@
+import { tryCatch } from "../try-catch";
 import { stat } from "./directory-operations";
 import { getDirectoryHandleAndFileName } from "./utils";
-import { tryCatch } from "../try-catch";
 
 /**
  * Write content to a file
@@ -55,7 +55,10 @@ export const appendFile = async (
     console.warn(`Initial append failed for ${filePath}, attempting direct write:`, error);
     const { error: directWriteError } = await tryCatch(writeFile(filePath, content));
     if (directWriteError) {
-      console.error(`Direct write also failed for ${filePath} after append attempt:`, directWriteError);
+      console.error(
+        `Direct write also failed for ${filePath} after append attempt:`,
+        directWriteError,
+      );
       throw directWriteError;
     }
   }
@@ -80,7 +83,9 @@ export const readFile = async (filePath: string): Promise<string> => {
     console.error(`Error reading file ${filePath}:`, error);
     throw error;
   }
-  if (data === null || data === undefined) throw new Error(`Read file ${filePath} returned null or undefined`);
+  if (data === null || data === undefined) {
+    throw new Error(`Read file ${filePath} returned null or undefined`);
+  }
   return data;
 };
 
@@ -149,7 +154,9 @@ export const rename = async (
           await unlink(sourcePath);
         } else if (statResult?.kind === "directory") {
           await import("./directory-operations").then((m) => m.mkdir(destPath));
-          const subEntries = await import("./directory-operations").then((m) => m.readdir(sourcePath));
+          const subEntries = await import("./directory-operations").then((m) =>
+            m.readdir(sourcePath)
+          );
           for (const subEntry of subEntries) {
             await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`); // Recursive call
           }
@@ -160,7 +167,10 @@ export const rename = async (
     };
     const { error: dirRenameError } = await tryCatch(doRenameDirectory());
     if (dirRenameError) {
-      console.error(`Error renaming ${oldPath} to ${newPath} (tried as file and directory):`, dirRenameError);
+      console.error(
+        `Error renaming ${oldPath} to ${newPath} (tried as file and directory):`,
+        dirRenameError,
+      );
       throw dirRenameError;
     }
   }

@@ -51,7 +51,7 @@ export async function processMessage(
     }
 
     if (state.code && state.code.length > 1000) {
-      console.log(
+      console.warn(
         `Performance optimization: Processing large code block (${state.code.length} chars)`,
       );
     }
@@ -96,7 +96,7 @@ export async function processMessage(
     telemetry.startTimer("model.invoke");
 
     // Log the messages being sent to the model for debugging
-    console.log(
+    console.warn(
       "Invoking model with messages:",
       JSON.stringify(cleanedState.messages.map((m) => ({
         type: m.constructor.name,
@@ -111,7 +111,7 @@ export async function processMessage(
     const response = await model.invoke(cleanedState.messages);
 
     // Log if the response contains tool calls
-    console.log(
+    console.warn(
       "Model response has tool calls:",
       "tool_calls" in response && Array.isArray(response.tool_calls) &&
         response.tool_calls.length > 0,

@@ -107,20 +107,20 @@ export const toolResponseCache = new CacheStore<ToolResponse>({
 
 // Export cache operation tracking
 export function logCacheStats(): void {
-  console.log("\n=== Cache Performance Stats ===\n");
-  console.log("Hash Cache:", hashCacheMetrics.getStats());
-  console.log("Code Analysis Cache:", codeAnalysisCacheMetrics.getStats());
-  console.log("Tool Response Cache:", toolResponseCacheMetrics.getStats());
-  console.log(
+  console.warn("\n=== Cache Performance Stats ===\n"); // Changed to console.warn
+  console.warn("Hash Cache:", hashCacheMetrics.getStats()); // Changed to console.warn
+  console.warn("Code Analysis Cache:", codeAnalysisCacheMetrics.getStats()); // Changed to console.warn
+  console.warn("Tool Response Cache:", toolResponseCacheMetrics.getStats()); // Changed to console.warn
+  console.warn( // Changed to console.warn
     "\nTotal Operations:",
     metrics.getMetrics("cache.set")?.count || 0,
   );
-  console.log(
+  console.warn( // Changed to console.warn
     "Average Set Duration:",
     metrics.getMetrics("cache.set")?.avgTime.toFixed(2),
     "ms",
   );
-  console.log(
+  console.warn( // Changed to console.warn
     "Cache Hit Rate:",
     (
       (metrics.getMetrics("cache.get.hit")?.count || 0) /

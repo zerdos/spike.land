@@ -20,7 +20,7 @@ export class KVLogger {
 
     try {
       await kv.put(key, value);
-      console.log(`Log entry saved: ${key}`);
+      console.warn(`Log entry saved: ${key}`);
     } catch (error) {
       console.error("Failed to save log entry:", error);
     }
@@ -64,7 +64,7 @@ export class KVLogger {
 //   // Retrieving logs for a specific date
 //   const today = new Date().toISOString().split('T')[0];
 //   const logs = await logger.getLogs(today);
-//   console.log('Today\'s logs:', logs);
+//   console.warn('Today\'s logs:', logs);
 // }
 
 // exampleUsage();

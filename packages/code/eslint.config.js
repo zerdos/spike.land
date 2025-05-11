@@ -50,9 +50,9 @@ export default tsEslint.config(
     },
     rules: {
       // Console statements - changed to 'error' to make it auto-fixable
-      // "no-console": ["error", {
-      //   allow: ["warn", "error"],
-      // }],
+      "no-console": ["error", {
+        allow: ["warn", "error"],
+      }],
 
       // React Refresh rules
       "react-hooks/exhaustive-deps": ["off"],

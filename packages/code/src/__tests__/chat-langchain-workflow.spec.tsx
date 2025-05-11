@@ -178,7 +178,7 @@ describe("chat-langchain-workflow", () => {
       const workflow = createWorkflowWithStringReplace(initialState);
       await workflow.invoke("Optimize tokens");
 
-      expect(console.log).toHaveBeenCalledWith(
+      expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining("Performance optimization"),
       );
     });

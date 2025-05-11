@@ -34,9 +34,9 @@ export const useAutoSave = (
       }
 
       // Save the updated inventory
-      await localStorage.setItem(`${key}_inventory`, JSON.stringify(inventory));
+      localStorage.setItem(`${key}_inventory`, JSON.stringify(inventory));
 
-      console.log(`Data saved at ${new Date(timestamp).toISOString()}`);
+      console.warn(`Data saved at ${new Date(timestamp).toISOString()}`);
     } catch (error) {
       console.error("Error saving data:", error);
     }

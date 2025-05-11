@@ -20,7 +20,7 @@ describe("getParts", () => {
   });
 
   test("should handle text with a single code block", () => {
-    const input = "Here is some code:\n```typescript\nconst x = 5;\nconsole.log(x);\n```";
+    const input = "Here is some code:\n```typescript\nconst x = 5;\nconsole.warn(x);\n```";
     const result = getPartsStreaming(input, false);
     expect(result.parts).toMatchInlineSnapshot(`
       [
@@ -30,7 +30,7 @@ describe("getParts", () => {
         },
         {
           "content": "const x = 5;
-      console.log(x);
+      console.warn(x);
       ",
           "language": "typescript",
           "type": "code",
@@ -104,13 +104,13 @@ describe("getParts", () => {
 
   test("should handle nested code blocks", () => {
     const input =
-      'Outer block:\n```javascript\nfunction example() {\n  console.log(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
+      'Outer block:\n```javascript\nfunction example() {\n  console.warn(`Inner block:\n```json\n{"key": "value"}\n````);\n}\n```';
     const result = getPartsStreaming(input, true);
     expect(result).toMatchSnapshot();
   });
 
   test("should handle an incomplete code block at the end", () => {
-    const input = "Some text\n```javascript\nlet x = 10;\nconsole.log(x);";
+    const input = "Some text\n```javascript\nlet x = 10;\nconsole.warn(x);";
     const result = getPartsStreaming(input, false);
     expect(result).toMatchInlineSnapshot(`
       {
@@ -121,7 +121,7 @@ describe("getParts", () => {
           },
           {
             "content": "let x = 10;
-      console.log(x);",
+      console.warn(x);",
             "language": "javascript",
             "type": "code",
           },

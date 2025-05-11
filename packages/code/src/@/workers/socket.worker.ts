@@ -102,12 +102,12 @@ const LOG_CONFIG = {
 const logger = {
   debug: (message: string, ...args: unknown[]) => {
     if (LOG_CONFIG.debug) {
-      console.debug(`[SocketWorker][DEBUG] ${message}`, ...args);
+      console.warn(`[SocketWorker][DEBUG] ${message}`, ...args); // Changed to console.warn
     }
   },
   info: (message: string, ...args: unknown[]) => {
     if (LOG_CONFIG.info) {
-      console.info(`[SocketWorker][INFO] ${message}`, ...args);
+      console.warn(`[SocketWorker][INFO] ${message}`, ...args); // Changed to console.warn
     }
   },
   warn: (message: string, ...args: unknown[]) => {
@@ -121,7 +121,7 @@ const logger = {
   log: (message: string, startTime: number) => {
     if (LOG_CONFIG.log) {
       const duration = Date.now() - startTime;
-      console.info(`[SocketWorker][log] ${message} (${duration.toFixed(2)}ms)`);
+      console.warn(`[SocketWorker][log] ${message} (${duration.toFixed(2)}ms)`); // Changed to console.warn
     }
   },
 };

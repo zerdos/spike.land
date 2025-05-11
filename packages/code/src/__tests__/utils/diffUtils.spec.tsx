@@ -352,9 +352,9 @@ These changes create a darker, more professional look for the code block compone
       const oldCode = `
 <<<<<<< SEARCH
 const example = () => {
-  console.log("Hello");
+  console.warn("Hello");
   =======
-console.log("World");
+console.warn("World");
   =======
   return "Hello World";
 };
@@ -362,13 +362,13 @@ console.log("World");
       `;
 
       const codeNow = `
-  console.log("Hello");
+  console.warn("Hello");
   return "Hello World";
       `;
 
       const result = await updateSearchReplace(oldCode, codeNow);
       const expected = `
-  console.log("Hello");
+  console.warn("Hello");
   return "Hello World";
       `;
 

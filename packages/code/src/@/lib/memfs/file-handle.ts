@@ -1,4 +1,3 @@
-import { tryCatch } from "../try-catch"; // Added import
 import type { Abortable } from "node:events";
 import type {
   BigIntStats,
@@ -11,6 +10,7 @@ import type {
 import type { FileHandle, FileReadOptions, FileReadResult } from "node:fs/promises";
 import type { Interface } from "node:readline";
 import type { ReadableStream } from "node:stream/web";
+import { tryCatch } from "../try-catch"; // Added import
 
 class FileHandleImpl implements FileHandle {
   readonly fd: number;
@@ -48,7 +48,9 @@ class FileHandleImpl implements FileHandle {
       console.error("Error in FileHandleImpl.readFile:", error);
       throw error;
     }
-    if (data === null || data === undefined) throw new Error("FileHandleImpl.readFile returned null or undefined");
+    if (data === null || data === undefined) {
+      throw new Error("FileHandleImpl.readFile returned null or undefined");
+    }
     return data;
   }
 

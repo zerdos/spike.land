@@ -11,19 +11,19 @@ import { useScreenshot } from "./hooks/useScreenshot";
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
-  cSess: ICode;
+  codeSession: ICode; // Renamed from cSess
   codeSpace: string;
   onClose: () => void;
-}> = React.memo(({ onClose, isOpen, cSess }): React.ReactElement => {
-  const [messages, setMessages] = useState<Message[]>(cSess.getMessages());
+}> = React.memo(({ onClose, isOpen, codeSession }): React.ReactElement => { // Renamed from cSess
+  const [messages, setMessages] = useState<Message[]>(codeSession.getMessages()); // Renamed from cSess
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  useEffect(() => cSess.sub((session) => setMessages(session.messages)), []);
+  useEffect(() => codeSession.sub((session) => setMessages(session.messages)), [codeSession]); // Renamed from cSess and added to deps
 
-  const codeSpace = cSess.getCodeSpace();
+  const localCodeSpace = codeSession.getCodeSpace(); // Renamed from cSess, used local var to avoid conflict with prop
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
-    `streaming-${codeSpace}`,
+    `streaming-${localCodeSpace}`,
     false,
   );
 
@@ -50,7 +50,7 @@ const ChatInterface: React.FC<{
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const resetChat = useCallback((): void => {
-    cSess.removeMessages();
+    codeSession.removeMessages(); // Renamed from cSess
     setMessages([]);
     setInput("");
     setEditingMessageId(null);
@@ -58,7 +58,7 @@ const ChatInterface: React.FC<{
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [setInput]);
+  }, [setInput, codeSession]); // Renamed from cSess and added to deps
 
   useEffect(() => {
     if (isOpen) {
@@ -77,14 +77,14 @@ const ChatInterface: React.FC<{
   }, []);
 
   const handleSaveEdit = useCallback((messageId: string) => {
-    const messages = cSess.getMessages();
-    const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+    const currentMessages = codeSession.getMessages(); // Renamed from cSess
+    const messageIndex = currentMessages.findIndex((msg) => msg.id === messageId);
     if (messageIndex === -1) {
       console.error("Invalid message for editing");
       return;
     }
 
-    const messageToEdit = messages[messageIndex];
+    const messageToEdit = currentMessages[messageIndex];
 
     if (!messageToEdit || messageToEdit.role === "assistant") {
       console.error("Invalid message for editing");
@@ -98,11 +98,11 @@ const ChatInterface: React.FC<{
     };
 
     // Finally add the updated message
-    cSess.addMessage(updatedMessage);
+    codeSession.addMessage(updatedMessage); // Renamed from cSess
 
     setEditingMessageId(null);
     setEditInput("");
-  }, [editInput, cSess]);
+  }, [editInput, codeSession]); // Renamed from cSess and added to deps
 
   const handleResetChat = useCallback((): void => {
     resetChat();
@@ -117,11 +117,11 @@ const ChatInterface: React.FC<{
     screenshotImage,
     handleScreenshotClick,
     handleCancelScreenshot,
-  } = useScreenshot(codeSpace);
+  } = useScreenshot(localCodeSpace); // Used localCodeSpace
 
   useEffect(() => {
-    if (codeSpace.includes("-")) {
-      const maybeKey = codeSpace.split("-")[1];
+    if (localCodeSpace.includes("-")) { // Used localCodeSpace
+      const maybeKey = localCodeSpace.split("-")[1]; // Used localCodeSpace
       const storedData = sessionStorage.getItem(maybeKey);
       if (storedData) {
         const { prompt, images } = JSON.parse(storedData) as {
@@ -130,24 +130,24 @@ const ChatInterface: React.FC<{
         };
         sessionStorage.removeItem(maybeKey);
 
-        cSess.getSession().then((_currentSession) => {
+        codeSession.getSession().then((_currentSession) => { // Renamed from cSess
           handleSendMessage({
             prompt,
             images,
-            cSess,
+            cSess: codeSession, // Renamed from cSess
           });
         });
       }
     }
-  }, [isOpen, codeSpace, setInput, cSess]);
+  }, [isOpen, localCodeSpace, setInput, codeSession]); // Renamed from cSess, used localCodeSpace and added to deps
 
   const memoizedSetEditInput = useCallback((value: string): void => {
     setEditInput(value);
   }, []);
 
   const memoizedScreenshot = useCallback(
-    (): Promise<ImageData> => cSess.screenshot(),
-    [cSess],
+    (): Promise<ImageData> => codeSession.screenshot(), // Renamed from cSess
+    [codeSession], // Renamed from cSess and added to deps
   );
 
   if (!isOpen) return <></>;
@@ -164,7 +164,7 @@ const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={setInput}
-      cSess={cSess}
+      cSess={codeSession} // Renamed from cSess
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}

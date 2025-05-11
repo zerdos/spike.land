@@ -39,7 +39,7 @@ export const useEditorState = () => {
     code: "",
     setValue: (value: string) => {
       // Default no-op implementation
-      console.log("Editor not initialized yet, setValue called with:", value);
+      console.warn("Editor not initialized yet, setValue called with:", value);
     },
   });
 

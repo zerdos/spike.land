@@ -44,13 +44,13 @@ export class CacheUtils {
       );
 
       if (cachesToDelete.length > 0) {
-        console.log(`Cleaning up ${cachesToDelete.length} old caches`);
+        console.warn(`Cleaning up ${cachesToDelete.length} old caches`);
       }
 
       await Promise.all(
         cachesToDelete.map(async (name) => {
           await caches.delete(name);
-          console.log(`Deleted old cache: ${name}`);
+          console.warn(`Deleted old cache: ${name}`);
         }),
       );
     };
@@ -96,7 +96,7 @@ export class CacheUtils {
       // if (!this.isResponseStale(cachedResponse)) {
       return cachedResponse;
       // }
-      // console.log(`Stale cache for CDN request: ${request.url}`);
+      // console.warn(`Stale cache for CDN request: ${request.url}`);
     }
 
     // If no cache or cache is old, fetch from network
@@ -112,12 +112,12 @@ export class CacheUtils {
         responseToCache.headers.set("x-cached-at", new Date().toISOString());
         responseToCache.headers.set("x-cache-source", "CDN");
         await cache.put(request, responseToCache);
-        console.log(`Cached CDN response for: ${request.url}`);
+        console.warn(`Cached CDN response for: ${request.url}`);
         return response;
       }
       // If network request fails but we have a cached response, return it
       if (cachedResponse) {
-        console.log("Serving stale cache for:", request.url);
+        console.warn("Serving stale cache for:", request.url);
         return cachedResponse;
       }
       return response; // Return non-ok response if not cached
@@ -128,7 +128,7 @@ export class CacheUtils {
     if (error) {
       console.error(`Error fetching from CDN: ${request.url}`, error);
       if (cachedResponse) {
-        console.log("Serving stale cache after error for:", request.url);
+        console.warn("Serving stale cache after error for:", request.url);
         return cachedResponse;
       }
       throw error;
@@ -145,7 +145,7 @@ export class CacheUtils {
       return missing;
     }
 
-    console.log(`Attempting to recover ${missing.size} files from old caches`);
+    console.warn(`Attempting to recover ${missing.size} files from old caches`);
 
     // Copy missing items from old caches
     let recoveredCount = 0;
@@ -158,7 +158,7 @@ export class CacheUtils {
       const oldCacheHasItems = CacheUtils.setIntersection(oldKeys, missing);
 
       if (oldCacheHasItems.size > 0) {
-        console.log(
+        console.warn(
           `Found ${oldCacheHasItems.size} files in cache: ${cacheName}`,
         );
 
@@ -190,7 +190,7 @@ export class CacheUtils {
       }
     }
 
-    console.log(`Recovered ${recoveredCount} files from old caches`);
+    console.warn(`Recovered ${recoveredCount} files from old caches`);
 
     // Check what's still missing
     const updatedMyCacheKeys = await myCache.keys();
@@ -200,7 +200,7 @@ export class CacheUtils {
     const stillMissing = CacheUtils.setDifference(missing, updatedMyKeys);
 
     if (stillMissing.size > 0) {
-      console.log(`Still missing ${stillMissing.size} files after recovery`);
+      console.warn(`Still missing ${stillMissing.size} files after recovery`);
     }
 
     return stillMissing;

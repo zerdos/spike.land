@@ -67,7 +67,7 @@ export class FileCacheManager {
 
       const existingResponse = await myCache.match(cacheRequest);
       if (existingResponse) {
-        console.log(`File ${url} already cached, skipping fetch`);
+        console.warn(`File ${url} already cached, skipping fetch`);
         return; // Exit early if already cached
       }
 
@@ -93,7 +93,7 @@ export class FileCacheManager {
         responseToCache.headers.set("x-cached-at", new Date().toISOString());
         responseToCache.headers.set("x-original-path", originalPath);
         await myCache.put(cacheRequest, responseToCache);
-        console.log(`Cached file ${url} successfully`);
+        console.warn(`Cached file ${url} successfully`);
       } else {
         throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
       }
@@ -165,9 +165,9 @@ export class FileCacheManager {
       await Promise.allSettled(
         [...missing].map(async (url) => this.fetchAndCacheFile(url, queuedFetch, myCache)),
       );
-      console.log(`Refetched ${missing.size} missing files.`);
+      console.warn(`Refetched ${missing.size} missing files.`);
     } else {
-      console.log("Cache integrity check passed: All files present");
+      console.warn("Cache integrity check passed: All files present");
     }
   }
 }

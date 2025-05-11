@@ -108,7 +108,7 @@ export class WebSocketManager implements IWebSocketManager {
     //   console.error("Resource initialization error:", error);
     //   // Continue execution as this is non-critical
     // } else {
-    //   // console.log("Resource loading complete");
+    //   // console.warn("Resource loading complete"); // Changed to console.warn
     // }
   }
 
@@ -140,7 +140,7 @@ export class WebSocketManager implements IWebSocketManager {
 
       // Subscribe to code session updates
       this.dependencies.sessionSynchronizer.subscribe((data: MessageData) => {
-        console.log("Code session update:", data);
+        console.warn("Code session update:", data); // Changed to console.warn
         // Additional live page specific handling can be added here
       });
 
@@ -205,11 +205,16 @@ export class WebSocketManager implements IWebSocketManager {
       }
     };
 
-    this.subscribe(WebSocketEventType.MESSAGE, messageHandler as (event: Event | MessageEvent<any>) => void);
+    this.subscribe(
+      WebSocketEventType.MESSAGE,
+      messageHandler as (event: Event | MessageEvent<any>) => void,
+    );
 
     // Set up window message handler
     window.onmessage = async (event: unknown): Promise<void> => {
-      const { error } = await tryCatch(this.dependencies.messageHandler.handleMessage(event as Message));
+      const { error } = await tryCatch(
+        this.dependencies.messageHandler.handleMessage(event as Message),
+      );
       if (error) {
         this.handleError(error);
         // Decide if this should re-throw or just log.
@@ -258,7 +263,7 @@ export class WebSocketManager implements IWebSocketManager {
       this.retryCount++;
       this.state = WebSocketState.RECONNECTING;
       setTimeout(() => {
-        console.log(
+        console.warn( // Changed to console.warn
           `Retrying connection (${this.retryCount}/${this.config.maxRetries})...`,
         );
         this.init().catch(console.error);

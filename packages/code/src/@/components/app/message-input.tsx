@@ -14,7 +14,7 @@ import React, { useRef, useState } from "react";
 export const MessageInput: React.FC<MessageInputProps> = React.memo(({
   input,
   setInput,
-  cSess,
+  cSess: codeSession, // Renamed cSess to codeSession
   isStreaming,
   inputRef,
   screenshot,
@@ -33,18 +33,19 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
       "true",
     );
 
-      setInput("");
-      if (inputRef?.current) inputRef.current.value = "";
-      handleCancelScreenshot();
-      setUploadedImages([]);
+    // Moved these lines to be before the try block to ensure they run even if handleSendMessage throws early
+    setInput("");
+    if (inputRef?.current) inputRef.current.value = "";
+    handleCancelScreenshot();
+    setUploadedImages([]);
 
     try {
       const result = await handleSendMessage({
         prompt: input,
         images: uploadedImages,
-        cSess,
+        cSess: codeSession, // Renamed cSess
       });
-      await cSess.setCode(result.code);
+      await codeSession.setCode(result.code); // Renamed cSess
       return result;
     } finally {
       localStorage.setItem(
@@ -52,7 +53,7 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
         JSON.stringify(false),
       );
     }
-  }, [input, uploadedImages, cSess, setInput, inputRef, handleCancelScreenshot]);
+  }, [input, uploadedImages, codeSession, setInput, inputRef, handleCancelScreenshot]); // Renamed cSess
 
   const handleImageUpload = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;

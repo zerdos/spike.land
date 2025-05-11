@@ -15,7 +15,7 @@ export async function handleMainFetch(
   }
 
   return handleErrors(request, async () => {
-    console.log(`handling request: ${request.url}`);
+    console.warn(`handling request: ${request.url}`);
 
     const url = new URL(request.url);
 

@@ -100,7 +100,9 @@ const updated = 'updated';
 
     expect(result).toHaveProperty("hash");
     expect(result).toHaveProperty("error");
-    expect(typeof result === "string"? result: result.error).toContain("Changes applied successfully");
+    expect(typeof result === "string" ? result : result.error).toContain(
+      "Changes applied successfully",
+    );
   });
 
   it("should return an error if the file hash doesn't match", async () => {
@@ -117,7 +119,9 @@ const updated = 'updated';
     });
 
     expect(result).toHaveProperty("error");
-    expect(typeof result === "string"? result: result.error).toContain("Document has been modified");
+    expect(typeof result === "string" ? result : result.error).toContain(
+      "Document has been modified",
+    );
   });
 
   it("should return an error if the diff format is invalid", async () => {
@@ -130,7 +134,7 @@ const updated = 'updated';
     });
 
     expect(result).toHaveProperty("error");
-    expect(typeof result === "string"? result: result.error).toContain("Invalid diff format");
+    expect(typeof result === "string" ? result : result.error).toContain("Invalid diff format");
   });
 
   it("should return an error if no changes were made", async () => {
@@ -150,7 +154,7 @@ const updated = 'updated';
     });
 
     expect(result).toHaveProperty("error");
-    expect(typeof result === "string"? result: result.error).toContain("No changes were made");
+    expect(typeof result === "string" ? result : result.error).toContain("No changes were made");
   });
 
   it("should handle errors during code update", async () => {
@@ -177,6 +181,8 @@ const updated = 'updated';
     });
 
     expect(result).toHaveProperty("error");
-    expect(typeof result === "string"? result: result.error).toContain("Error in file replacement");
+    expect(typeof result === "string" ? result : result.error).toContain(
+      "Error in file replacement",
+    );
   });
 });

@@ -1,6 +1,6 @@
+import { tryCatch } from "@/lib/try-catch";
 import { useState } from "react";
 import type { FC } from "react";
-import { tryCatch } from "@/lib/try-catch";
 
 export const TextToSpeech: FC = () => {
   const [text, setText] = useState("");

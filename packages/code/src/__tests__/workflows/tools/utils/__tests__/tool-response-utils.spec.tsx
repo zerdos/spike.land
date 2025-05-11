@@ -180,7 +180,7 @@ describe("tool-response-utils", () => {
       );
 
       expect(result).toBe(mockCode);
-      expect(console.log).toHaveBeenCalledWith(
+      expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining("Retrieved latest code"),
       );
       expect(mockCodeSession.getCode).toHaveBeenCalled();

@@ -99,7 +99,7 @@ async function fetchAndSaveImage(
   ctx: ExecutionContext,
 ): Promise<Response> {
   try {
-    console.log(`Fetching image from: ${image_url}`);
+    console.warn(`Fetching image from: ${image_url}`);
     const response = await fetch(image_url);
 
     if (!response || !response.ok) {

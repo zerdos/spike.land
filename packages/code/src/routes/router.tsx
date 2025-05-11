@@ -67,12 +67,12 @@ const App: React.FC = () => {
   useEffect(() => {
     if (codeSpace && pathname === `/live/${codeSpace}`) {
       setIsLoading(true);
-      console.log("Loading app for codeSpace:", codeSpace);
+      console.warn("Loading app for codeSpace:", codeSpace);
 
       loadApp(pathname)
         .then((context) => {
           if (context) {
-            console.log("App loaded successfully:", context);
+            console.warn("App loaded successfully:", context);
             setAppContext(context);
           }
         })
@@ -81,15 +81,15 @@ const App: React.FC = () => {
         })
         .finally(() => {
           // Set loading state to false after app loading
-          console.log("App loading finished");
+          console.warn("App loading finished");
           setIsLoading(false);
         });
     } else {
       // If no codeSpace is found, set loading to false
-      console.log("No codeSpace found for pathname:", { pathname, codeSpace });
+      console.warn("No codeSpace found for pathname:", { pathname, codeSpace });
       setIsLoading(false);
     }
-  }, [pathname]);
+  }, [pathname, codeSpace]); // Added codeSpace to dependency array
 
   // Initialize session sync when app context is available
   useEffect(() => {

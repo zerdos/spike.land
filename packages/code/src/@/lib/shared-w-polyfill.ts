@@ -44,14 +44,19 @@ class SharedWorkerPolyfill {
 
   private initializeWorker() {
     if (!this.worker) { // Guard against null worker
-        console.warn("Worker not initialized, cannot initialize port.");
-        // Initialize port to a mock or throw, to avoid errors if accessed later
-        this.port = {
-            onmessage: null, onmessageerror: null, close: () => {},
-            postMessage: () => {}, start: () => {}, addEventListener: () => {},
-            removeEventListener: () => {}, dispatchEvent: () => false,
-        } as unknown as MessagePort;
-        return;
+      console.warn("Worker not initialized, cannot initialize port.");
+      // Initialize port to a mock or throw, to avoid errors if accessed later
+      this.port = {
+        onmessage: null,
+        onmessageerror: null,
+        close: () => {},
+        postMessage: () => {},
+        start: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => false,
+      } as unknown as MessagePort;
+      return;
     }
     if (process.env.VI_TEST) {
       // Create a mock MessagePort for tests
@@ -131,7 +136,7 @@ class SharedWorkerPolyfill {
     }
     // port.close() should be safe even if port is a mock,
     // but good practice to check if it's truly initialized if worker failed.
-    if (this.port && typeof this.port.close === 'function') {
+    if (this.port && typeof this.port.close === "function") {
       this.port.close();
     }
   }

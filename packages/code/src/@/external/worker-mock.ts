@@ -9,7 +9,7 @@ class MockWorker {
   terminate() {}
   dispatchEvent(event: Event): boolean {
     // Log the event type to use the 'event' parameter
-    console.log("Event dispatched:", event.type);
+    console.warn("Event dispatched:", event.type);
     return true;
   }
 }
@@ -25,7 +25,7 @@ class MockSharedWorker extends MockWorker {
     removeEventListener: () => {},
     dispatchEvent: (event: Event): boolean => {
       // Log the event type to use the 'event' parameter
-      console.log("Event dispatched on SharedWorker port:", event.type);
+      console.warn("Event dispatched on SharedWorker port:", event.type);
       return true;
     },
   };

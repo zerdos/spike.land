@@ -75,7 +75,7 @@ exports[`getParts > should handle nested code blocks 1`] = `
     },
     {
       "content": "function example() {
-  console.log(\`Inner block:
+  console.warn(\`Inner block:
 ",
       "language": "javascript",
       "type": "code",

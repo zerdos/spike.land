@@ -108,14 +108,14 @@ ActionButtons.displayName = "ActionButtons";
 interface HistoryModalProps {
   isVisible: boolean;
   codeSpace: string;
-  cSess: AppComponentProps["cSess"];
+  codeSession: AppComponentProps["cSess"]; // Renamed cSess
   onClose: () => void;
 }
 
 const HistoryModal: FC<HistoryModalProps> = memo(({
   isVisible,
   codeSpace,
-  cSess,
+  codeSession, // Renamed cSess
   onClose,
 }) => {
   if (!isVisible) return null;
@@ -127,7 +127,7 @@ const HistoryModal: FC<HistoryModalProps> = memo(({
           onClose={onClose}
           onRestore={onClose}
           codeSpace={codeSpace}
-          cSess={cSess}
+          cSess={codeSession} // Renamed cSess
         />
       </div>
     </div>
@@ -141,7 +141,7 @@ HistoryModal.displayName = "HistoryModal";
  */
 export const AppToRender: FC<AppComponentProps> = memo(({
   codeSpace,
-  cSess,
+  cSess: codeSession, // Renamed cSess
 }) => {
   const maybeKey = codeSpace.split("-")[1];
 
@@ -197,7 +197,7 @@ export const AppToRender: FC<AppComponentProps> = memo(({
               /* Code editor.
                 Pass replaceIframe so the editor/code processor can replace the preview iframe after rendering. */
             }
-            <Editor codeSpace={codeSpace} cSess={cSess} replaceIframe={replaceIframe} />
+            <Editor codeSpace={codeSpace} cSess={codeSession} replaceIframe={replaceIframe} />
 
             {/* Action buttons */}
             <ActionButtons
@@ -211,14 +211,14 @@ export const AppToRender: FC<AppComponentProps> = memo(({
           <HistoryModal
             isVisible={showAutoSaveHistory}
             codeSpace={codeSpace}
-            cSess={cSess}
+            codeSession={codeSession} // Renamed cSess
             onClose={handleToggleAutoSaveHistory}
           />
         </main>
 
         {/* Chat interface */}
         <ChatInterface
-          cSess={cSess}
+          codeSession={codeSession} // Renamed cSess
           codeSpace={codeSpace}
           isOpen={isOpen}
           onClose={handleToggleChat}

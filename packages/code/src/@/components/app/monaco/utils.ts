@@ -65,7 +65,7 @@ export async function refreshAta(
       }),
     );
 
-    console.log("Setting extra libraries:", { extraLibs });
+    console.warn("Setting extra libraries:", { extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     const mjsFiles = extraLibs.filter((lib) => lib.filePath.endsWith(".mjs"));
@@ -199,14 +199,14 @@ export async function checkTypeScriptErrors(
   uri: Uri,
 ): Promise<void> {
   try {
-    console.log("Running TypeScript check");
+    console.warn("Running TypeScript check");
     const currentCode = model.getValue();
 
     // First, check for import statements that might need type definitions
     const imports = getImports(currentCode);
 
     if (imports.length > 0) {
-      console.log("Detected imports:", imports);
+      console.warn("Detected imports:", imports);
       // Wait a moment for types to be loaded
       await wait(100);
     }
@@ -231,7 +231,7 @@ export async function checkTypeScriptErrors(
     );
 
     if (missingModuleErrors.length > 0) {
-      console.log("Missing module errors detected:", missingModuleErrors);
+      console.warn("Missing module errors detected:", missingModuleErrors);
 
       // Try another refresh with more aggressive settings
       languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -247,7 +247,7 @@ export async function checkTypeScriptErrors(
         );
 
       if (updatedSemanticDiagnostics.length < semanticDiagnostics.length) {
-        console.log("Successfully resolved some type errors");
+        console.warn("Successfully resolved some type errors");
       } else {
         console.warn(
           "Some modules still missing types:",
@@ -260,7 +260,7 @@ export async function checkTypeScriptErrors(
 
     // Log suggestion diagnostics for debugging
     if (suggestionDiagnostics.length > 0) {
-      console.log("Suggestion diagnostics:", suggestionDiagnostics);
+      console.warn("Suggestion diagnostics:", suggestionDiagnostics);
     }
   } catch (error) {
     console.error("Error during TypeScript check:", error);

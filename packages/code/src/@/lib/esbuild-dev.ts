@@ -13,7 +13,7 @@ const getWasmFile = async () => {
   const { promises } = await import("node:fs");
   const { readdir } = promises;
 
-  console.log("Reading ./dist directory for WASM file...");
+  console.warn("Reading ./dist directory for WASM file...");
   const { data: dir, error: readdirError } = await tryCatch(readdir("./dist"));
 
   if (readdirError || !dir) {
@@ -23,7 +23,7 @@ const getWasmFile = async () => {
 
   for await (const file of dir) {
     if (file.includes("esbuild") && file.includes(".wasm")) {
-      console.log("WASM file found:", file);
+      console.warn("WASM file found:", file);
       return file;
     }
   }
@@ -33,35 +33,35 @@ const getWasmFile = async () => {
 };
 
 async function main() {
-  console.log("Building... " + process.env.NODE_ENV);
+  console.warn("Building... " + process.env.NODE_ENV);
   try {
-    console.log("Starting buildWorkers...");
+    console.warn("Starting buildWorkers...");
     await buildWorkers();
-    console.log("buildWorkers completed.");
+    console.warn("buildWorkers completed.");
 
-    console.log("Starting buildMainScripts...");
+    console.warn("Starting buildMainScripts...");
     await buildMainScripts();
-    console.log("buildMainScripts completed.");
+    console.warn("buildMainScripts completed.");
 
-    console.log("Starting buildWasm...");
+    console.warn("Starting buildWasm...");
     await buildWasm();
-    console.log("buildWasm completed.");
+    console.warn("buildWasm completed.");
 
-    // console.log("Starting buildServiceWorker...");
+    // console.warn("Starting buildServiceWorker...");
     await buildServiceWorker();
-    console.log("buildServiceWorker completed.");
+    console.warn("buildServiceWorker completed.");
 
-    console.log("Fetching WASM file...");
+    console.warn("Fetching WASM file...");
     const wasmFile = await getWasmFile();
-    console.log("WASM file retrieved:", wasmFile);
+    console.warn("WASM file retrieved:", wasmFile);
 
-    console.log("Starting buildMainBundle with WASM file...");
+    console.warn("Starting buildMainBundle with WASM file...");
     await buildMainBundle(wasmFile);
-    console.log("buildMainBundle completed.");
+    console.warn("buildMainBundle completed.");
 
-    console.log("Stopping esbuild operations...");
+    console.warn("Stopping esbuild operations...");
     stop();
-    console.log("Build process completed successfully.");
+    console.warn("Build process completed successfully.");
   } catch (error) {
     console.error("Build failed:", error);
   }

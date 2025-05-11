@@ -95,7 +95,7 @@ export const logCodeChanges = (
   const finalHash = md5(finalCode);
   const changes = calculateCodeChanges(initialCode, finalCode);
 
-  console.log("Code modified successfully", {
+  console.warn("Code modified successfully", {
     changes,
     hash,
     finalHash,
@@ -106,7 +106,7 @@ export const logCodeChanges = (
     Math.abs(changes.sizeChange) > 100 ||
     Math.abs(changes.lineCount.modified - changes.lineCount.original) > 10
   ) {
-    console.log("Significant code changes detected:", {
+    console.warn("Significant code changes detected:", {
       sizeChangePct: ((changes.sizeChange / initialCode.length) * 100).toFixed(2) + "%",
       lineChangePct: (((changes.lineCount.modified - changes.lineCount.original) /
         changes.lineCount.original) * 100).toFixed(2) + "%",

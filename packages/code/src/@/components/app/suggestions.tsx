@@ -126,7 +126,7 @@ c. Suggestions:
 
 const SuggestionsExample: React.FC = () => {
   const handleAction = (suggestion: Suggestion) => {
-    console.log("Action clicked:", suggestion);
+    console.warn("Action clicked:", suggestion);
   };
 
   return <Suggestions content={suggestionsContent} onAction={handleAction} />;

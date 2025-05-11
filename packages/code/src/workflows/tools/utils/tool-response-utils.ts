@@ -107,7 +107,7 @@ export const updateToolCallsWithCodeFlag = (
           : toolCall.args;
 
         // Log the tool call for debugging
-        console.log(`Updating tool call for ${toolCall.name}:`, {
+        console.warn(`Updating tool call for ${toolCall.name}:`, {
           toolName: toolCall.name,
           originalArgs: JSON.stringify(args).substring(0, 100) + "...",
           returnModifiedCode,
@@ -156,18 +156,18 @@ export const handleMissingCodeResponse = async (
       latestCode = await codeSession.getCode();
     } else {
       // No code session available, use the current state code as a fallback
-      console.log("No code session available, using current state code");
+      console.warn("No code session available, using current state code");
       return state.code;
     }
 
     // Verify the hash matches
     const latestHash = md5(latestCode);
     if (latestHash === hash) {
-      console.log("Retrieved latest code from session using hash");
+      console.warn("Retrieved latest code from session using hash");
 
       // Log token savings
       const tokenSavings = estimateTokenSavings(latestCode);
-      console.log(
+      console.warn(
         `Token optimization: Saved approximately ${tokenSavings} tokens by not returning code`,
       );
 

@@ -28,7 +28,7 @@ interface ProsCons {
 }
 
 const parseAnalysis = (content: string): Section => {
-  console.log("Parsing content:", content);
+  console.warn("Parsing content:", content);
   const sections: Section = {};
   const lines = content
     .replace(/<\/?react_code_analysis>/g, "")
@@ -100,7 +100,7 @@ const parseAnalysis = (content: string): Section => {
     }
   });
 
-  console.log("Parsed sections:", sections);
+  console.warn("Parsed sections:", sections);
   return sections;
 };
 
@@ -109,7 +109,7 @@ interface AnalysisProps {
 }
 
 export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
-  console.log("Analysis component rendered with content:", content);
+  console.warn("Analysis component rendered with content:", content);
   const sections = parseAnalysis(content);
   const { isDarkMode } = useDarkMode();
 
@@ -167,7 +167,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
   );
 
   const renderSections = () => {
-    console.log("Rendering sections:", sections);
+    console.warn("Rendering sections:", sections);
     type SectionConfig = {
       [K in keyof Section]-?: {
         title: string;
@@ -263,7 +263,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     return Object.entries(sections).map(([key, value]) => {
       const config = sectionConfig[key as keyof Section];
       if (!config) return null;
-      console.log(`Rendering section: ${key}`, value);
+      console.warn(`Rendering section: ${key}`, value);
       return (
         <Section
           key={key}
@@ -334,7 +334,7 @@ Implement a multi-step undo history
 `;
 
 const ReactAnalysis: React.FC = () => {
-  console.log("ReactAnalysis component rendered");
+  console.warn("ReactAnalysis component rendered");
   return <Analysis content={analysisContent} />;
 };
 

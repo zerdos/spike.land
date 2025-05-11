@@ -38,8 +38,8 @@ describe.skip("CodeHistoryCarousel", () => {
       ok: true,
       json: () =>
         Promise.resolve([
-          { timestamp: 1625097600000, code: 'console.log("Version 1");' },
-          { timestamp: 1625184000000, code: 'console.log("Version 2");' },
+          { timestamp: 1625097600000, code: 'console.warn("Version 1");' },
+          { timestamp: 1625184000000, code: 'console.warn("Version 2");' },
         ]),
     })
   ) as unknown as typeof fetch;
@@ -74,7 +74,7 @@ describe.skip("CodeHistoryCarousel", () => {
     // Check if onRestore was called with the correct item
     await waitFor(() => {
       expect(mockOnRestore).toHaveBeenCalledWith(expect.objectContaining({
-        code: 'console.log("Version 2");',
+        code: 'console.warn("Version 2");',
         timestamp: 1625184000000,
       }));
     }, { timeout: 5000 });

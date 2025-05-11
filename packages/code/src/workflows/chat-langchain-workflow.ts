@@ -86,7 +86,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
       // If code is not provided, use the current code from the session
       if (!modification.code) {
-        console.log("No code provided in tool response, using session code");
+        console.warn("No code provided in tool response, using session code");
         const sessionCode = await cSess.getCode();
         return {
           ...state,
@@ -117,7 +117,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       try {
         // Optimize token usage for large code
         if (state.code.length > 3000) {
-          console.log(
+          console.warn(
             "Performance optimization: Large code detected, optimizing token usage",
           );
         }

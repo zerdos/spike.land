@@ -72,7 +72,7 @@ describe("Code", () => {
       }
       if (url.includes("/live/extraModel/index.tsx")) {
         return Promise.resolve({
-          text: () => Promise.resolve('console.log("Extra Model Code");'),
+          text: () => Promise.resolve('console.warn("Extra Model Code");'),
         });
       }
       return Promise.resolve({
@@ -158,9 +158,9 @@ describe("Code", () => {
         async () => {
           const code = mockSession.code || "";
           if (code.includes("./extraModel")) {
-            return `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``;
+            return `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.warn("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.warn("Extra Model Code");\n\`\`\``;
           }
-          return `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``;
+          return `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.warn("Hello, World!");\n\`\`\``;
         },
       );
 
@@ -170,7 +170,7 @@ describe("Code", () => {
   describe("currentCodeWithExtraModels", () => {
     it("should return current code when no extra models are present", async () => {
       // Directly set the code in the session
-      const code = 'console.log("Hello, World!");';
+      const code = 'console.warn("Hello, World!");';
       cSess.setSession({
         ...cSess["currentSession"],
         code,
@@ -178,7 +178,7 @@ describe("Code", () => {
 
       // Mock the getCurrentCodeWithExtraModels method for this specific test
       const mockGetCurrentCodeWithExtraModels = vi.fn().mockResolvedValue(
-        `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.log("Hello, World!");\n\`\`\``,
+        `# testCodeSpace.tsx\n\n\`\`\`tsx\nconsole.warn("Hello, World!");\n\`\`\``,
       );
       vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
         .mockImplementation(
@@ -190,7 +190,7 @@ describe("Code", () => {
       const expected = `# testCodeSpace.tsx
 
 \`\`\`tsx
-console.log("Hello, World!");
+console.warn("Hello, World!");
 \`\`\``;
 
       expect(result.trim()).toBe(expected.trim());
@@ -199,7 +199,7 @@ console.log("Hello, World!");
 
     it("should return current code with extra models", async () => {
       // Directly set the code in the session
-      const code = 'import extra from "./extraModel";\nconsole.log("Hello, World!");';
+      const code = 'import extra from "./extraModel";\nconsole.warn("Hello, World!");';
       cSess.setSession({
         ...cSess["currentSession"],
         code,
@@ -207,7 +207,7 @@ console.log("Hello, World!");
 
       // Mock the getCurrentCodeWithExtraModels method for this specific test
       const mockGetCurrentCodeWithExtraModels = vi.fn().mockResolvedValue(
-        `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.log("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.log("Extra Model Code");\n\`\`\``,
+        `# testCodeSpace.tsx\n\n\`\`\`tsx\nimport extra from "./extraModel";\nconsole.warn("Hello, World!");\n\`\`\`\n\n# extraModel.tsx\n\n\`\`\`tsx\nconsole.warn("Extra Model Code");\n\`\`\``,
       );
       vi.spyOn(cSess["modelManager"], "getCurrentCodeWithExtraModels")
         .mockImplementation(
@@ -220,13 +220,13 @@ console.log("Hello, World!");
 
 \`\`\`tsx
 import extra from "./extraModel";
-console.log("Hello, World!");
+console.warn("Hello, World!");
 \`\`\`
 
 # extraModel.tsx
 
 \`\`\`tsx
-console.log("Extra Model Code");
+console.warn("Extra Model Code");
 \`\`\``;
 
       expect(result.trim()).toBe(expected.trim());

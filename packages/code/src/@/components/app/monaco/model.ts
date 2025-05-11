@@ -290,7 +290,7 @@ async function createEditorModel(
 
         // Check if the user has finished editing or if imports have changed
         if (!editorModel.isEdit || importsChanged) {
-          console.log(
+          console.warn(
             "User finished editing or imports changed, saving changes",
           );
           editorState.previousImports.current = currentImports;

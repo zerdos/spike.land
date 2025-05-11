@@ -1,6 +1,13 @@
 import { serveWithCache } from "@/lib/serve-with-cache";
 import { tryCatch } from "@/lib/try-catch";
 import { enhancedFetch } from "../../enhancedFetch";
+
+// Define message types for service worker communication
+enum ServiceWorkerMessageTypes {
+  CACHE_UPDATED = "CACHE_UPDATED",
+  SKIP_WAITING = "SKIP_WAITING",
+  // Add other message types here as needed
+}
 import { fakeServer } from "../../sw-local-fake-server";
 import { CacheUtils, CDN_DOMAIN } from "../../workflows/tools/utils/cache-utils";
 import { ConfigManager } from "../../workflows/tools/utils/config-manager";
@@ -19,11 +26,11 @@ export class ServiceWorkerHandlers {
   }
 
   async handleInstall(): Promise<void> {
-    console.log("Service Worker installing.");
+    console.warn("Service Worker installing."); // Changed to warn
     const installPromise = async () => {
       const config = await this.configManager.getConfig();
 
-      console.log(
+      console.warn( // Changed to warn
         `Current SW version: ${this.sw.swVersion}, Config version: ${config.swVersion}`,
       );
 
@@ -46,7 +53,7 @@ export class ServiceWorkerHandlers {
 
       // Find what's missing
       const missing = CacheUtils.setDifference(allKeys, myKeys);
-      console.log(`Found ${missing.size} files to cache`);
+      console.warn(`Found ${missing.size} files to cache`); // Changed to warn
 
       // Try to copy from old caches first to avoid unnecessary network requests
       const stillMissing = await CacheUtils.getMissingFiles(
@@ -55,7 +62,7 @@ export class ServiceWorkerHandlers {
         myCache,
       );
 
-      console.log(`Still need to fetch ${stillMissing.size} files`);
+      console.warn(`Still need to fetch ${stillMissing.size} files`); // Changed to warn
 
       // Create a simple fetch wrapper for caching
       const queuedFetch = {
@@ -80,7 +87,7 @@ export class ServiceWorkerHandlers {
       // Clean up old caches
       await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
 
-      console.log("Service Worker installed successfully.");
+      console.warn("Service Worker installed successfully."); // Changed to warn
     };
 
     const { error } = await tryCatch(installPromise());
@@ -93,7 +100,7 @@ export class ServiceWorkerHandlers {
 
   async handleActivate(): Promise<void> {
     const activatePromise = async () => {
-      console.log("Service Worker activating.");
+      console.warn("Service Worker activating."); // Changed to warn
 
       // Do a final validation of cache integrity
       await this.fileCacheManager.validateCacheIntegrity();
@@ -108,12 +115,12 @@ export class ServiceWorkerHandlers {
       const clients = await this.sw.clients.matchAll({ type: "window" });
       for (const client of clients) {
         client.postMessage({
-          type: "CACHE_UPDATED",
+          type: ServiceWorkerMessageTypes.CACHE_UPDATED,
           message: "New service worker activated with updated cache",
         });
       }
 
-      console.log("Service Worker activated and controlling.");
+      console.warn("Service Worker activated and controlling."); // Changed to warn
     };
 
     const { error } = await tryCatch(activatePromise());
@@ -160,7 +167,7 @@ export class ServiceWorkerHandlers {
     );
 
     if (isEditorPath) {
-      console.log("Serving editor:", request.url);
+      console.warn("Serving editor:", request.url); // Changed to warn
       const editorRequest = new Request(
         new URL("/index.html", url.origin).toString(),
       );
@@ -174,7 +181,7 @@ export class ServiceWorkerHandlers {
 
     if (request.method === "GET" && url.pathname.includes("/live/")) {
       event.respondWith(
-        fakeServer(request).catch((error: Error) => {
+        fakeServer(request).catch((error: Error) => { // Keep console.error for actual errors
           console.error("Error in fakeServer:", error);
           return fetch(request);
         }),
@@ -210,7 +217,7 @@ export class ServiceWorkerHandlers {
         return cachedResponse;
       }
 
-      console.log(`Cache miss for ${filePath}, fetching from network`);
+      console.warn(`Cache miss for ${filePath}, fetching from network`); // Changed to warn
       const response = await fetch(cacheKey);
 
       if (response.ok) {

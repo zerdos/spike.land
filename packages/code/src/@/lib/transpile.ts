@@ -91,7 +91,7 @@ export const transpile = async (
       throw error; // Re-throw the original error
     }
     if (data === null || data === undefined) {
-        throw new Error("Transpilation returned null or undefined.");
+      throw new Error("Transpilation returned null or undefined.");
     }
     return data;
   });
@@ -189,7 +189,7 @@ export const build = async ({
   wasmModule = undefined,
   metafile = false,
   format = "esm",
-}: MyBuildOptions): Promise<string | esbuild.OutputFile[] | { error: unknown }> => {
+}: MyBuildOptions): Promise<string | esbuild.OutputFile[] | { error: unknown; }> => {
   return mutex.runExclusive(async () => {
     const buildPromise = async () => {
       await initializeModule(wasmModule, origin);
@@ -226,7 +226,7 @@ export const build = async ({
       return { error };
     }
     if (data === null || data === undefined) {
-        throw new Error("Build returned null or undefined.");
+      throw new Error("Build returned null or undefined.");
     }
     return data;
   });

@@ -210,7 +210,7 @@ export class Code implements DurableObject {
   //     // Update last auto-save time
   //     this.lastAutoSave = currentTime;
 
-  //     console.log("Auto-saved code at", new Date(currentTime).toISOString());
+  //     console.warn("Auto-saved code at", new Date(currentTime).toISOString());
   //   }
   // }
 
@@ -287,20 +287,22 @@ export class Code implements DurableObject {
     }
 
     // Attempt to save the new session parts first and wait for them to complete
-const { code, transpiled, html, css, ...sessionCoreData } = newSession;
-const codeSpace = newSession.codeSpace!;
-const r2HtmlKey = `r2_html_${codeSpace}`;
-const r2CssKey = `r2_css_${codeSpace}`;
+    const { code, transpiled, html, css, ...sessionCoreData } = newSession;
+    const codeSpace = newSession.codeSpace!;
+    const r2HtmlKey = `r2_html_${codeSpace}`;
+    const r2CssKey = `r2_css_${codeSpace}`;
 
-// DEBUG: log split data sizes before saving
-const encoder = new TextEncoder();
-const coreSize = encoder.encode(JSON.stringify(sessionCoreData)).length;
-const codeSize = encoder.encode(code || "").length;
-const transpiledSize = encoder.encode(transpiled || "").length;
-console.log(`split-data sizes: core=${coreSize} bytes, code=${codeSize} bytes, transpiled=${transpiledSize} bytes`);
-if (coreSize > 131072) console.warn(`session_core too large: ${coreSize}`);
-if (codeSize > 131072) console.warn(`session_code too large: ${codeSize}`);
-if (transpiledSize > 131072) console.warn(`session_transpiled too large: ${transpiledSize}`);
+    // DEBUG: log split data sizes before saving
+    const encoder = new TextEncoder();
+    const coreSize = encoder.encode(JSON.stringify(sessionCoreData)).length;
+    const codeSize = encoder.encode(code || "").length;
+    const transpiledSize = encoder.encode(transpiled || "").length;
+    console.warn(
+      `split-data sizes: core=${coreSize} bytes, code=${codeSize} bytes, transpiled=${transpiledSize} bytes`,
+    );
+    if (coreSize > 131072) console.warn(`session_core too large: ${coreSize}`);
+    if (codeSize > 131072) console.warn(`session_code too large: ${codeSize}`);
+    if (transpiledSize > 131072) console.warn(`session_transpiled too large: ${transpiledSize}`);
     // Save each part separately to pinpoint storage errors
     try {
       await this.state.storage.put("session_core", sessionCoreData);

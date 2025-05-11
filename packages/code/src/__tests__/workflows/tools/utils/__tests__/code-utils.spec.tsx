@@ -120,7 +120,7 @@ describe("code-utils", () => {
 
       logCodeChanges(oldCode, newCode);
 
-      expect(console.log).toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalled();
     });
 
     it("should not log when codes are identical", () => {
@@ -128,7 +128,7 @@ describe("code-utils", () => {
 
       logCodeChanges(code, code);
 
-      expect(console.log).not.toHaveBeenCalledWith(
+      expect(console.warn).not.toHaveBeenCalledWith(
         expect.stringContaining("Code modified successfully"),
       );
     });
@@ -139,7 +139,7 @@ describe("code-utils", () => {
 
       logCodeChanges(oldCode, newCode);
 
-      expect(console.log).toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalled();
     });
   });
 

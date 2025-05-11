@@ -22,8 +22,8 @@ try {
   // Import service worker version information
   importScripts("/swVersion.js");
 
-  console.log(`Service Worker initializing with version: ${sw.swVersion}`);
-  console.log(`Found ${Object.keys(sw.files).length} files to manage`);
+  console.warn(`Service Worker initializing with version: ${sw.swVersion}`);
+  console.warn(`Found ${Object.keys(sw.files).length} files to manage`);
 
   // Initialize cache name with version
   sw.fileCacheName = `sw-file-cache-${sw.swVersion}-${CACHE_VERSION}`;
@@ -53,7 +53,7 @@ try {
     }
 
     importScripts(...scripts);
-    console.log("Successfully loaded dependency scripts");
+    console.warn("Successfully loaded dependency scripts");
   } catch (error) {
     console.error("Error loading dependency scripts:", error);
     // Continue anyway - we can still function without these scripts in many cases
@@ -64,7 +64,7 @@ try {
 
   // Register event handlers
   sw.addEventListener("install", (event) => {
-    console.log("Service Worker install event triggered");
+    console.warn("Service Worker install event triggered");
     event.waitUntil(
       handlers.handleInstall()
         .catch((error) => {
@@ -76,7 +76,7 @@ try {
   });
 
   sw.addEventListener("activate", (event) => {
-    console.log("Service Worker activate event triggered");
+    console.warn("Service Worker activate event triggered");
     event.waitUntil(
       handlers.handleActivate()
         .catch((error) => {
@@ -92,14 +92,14 @@ try {
 
   // Add message handler for communication from the client
   sw.addEventListener("message", (event) => {
-    console.log("Service Worker received message:", event.data);
+    console.warn("Service Worker received message:", event.data);
 
     if (event.data?.type === "SKIP_WAITING") {
       sw.skipWaiting();
     }
   });
 
-  console.log("Service Worker initialization complete");
+  console.warn("Service Worker initialization complete");
 } catch (error) {
   console.error("Critical Service Worker initialization error:", error);
 

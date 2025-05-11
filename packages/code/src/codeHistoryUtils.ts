@@ -5,6 +5,8 @@ export interface Version {
   code: string;
 }
 
+import { tryCatch } from "@/lib/try-catch"; // Added import
+
 const VERSION_HISTORY_KEY = "codeVersionHistory";
 const MAX_VERSIONS = 250; // Maximum number of versions to store
 const SAVE_INTERVAL = 60000; // 1 minute in milliseconds
@@ -12,9 +14,24 @@ const SAVE_INTERVAL = 60000; // 1 minute in milliseconds
 export const loadVersionHistory = async (
   codeSpace: string,
 ): Promise<Version[]> => {
-  const res = fetch(`/live/${codeSpace}/auto-save/history`);
+  const fetchPromise = fetch(`/live/${codeSpace}/auto-save/history`);
+  const { data: response, error: fetchError } = await tryCatch(fetchPromise);
 
-  return (await res).json();
+  if (fetchError || !response) {
+    console.error(`Error fetching version history for ${codeSpace}:`, fetchError);
+    return []; // Return empty array on fetch error
+  }
+  if (!response.ok) {
+    console.error(`Error response status for version history ${codeSpace}: ${response.status}`);
+    return []; // Return empty array on bad response
+  }
+
+  const { data: jsonData, error: jsonError } = await tryCatch(response.json());
+  if (jsonError) {
+    console.error(`Error parsing version history JSON for ${codeSpace}:`, jsonError);
+    return []; // Return empty array on JSON parse error
+  }
+  return jsonData || [];
 };
 
 export const saveVersionHistory = (

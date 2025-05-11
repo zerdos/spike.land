@@ -70,21 +70,21 @@ export function createEnhancedWorkflowWithStringReplace(
     state: AgentState,
   ): Promise<WorkflowContinueResult> => {
     if (state.lastError) {
-      console.log("shouldContinue: Ending due to error:", state.lastError);
+      console.warn("shouldContinue: Ending due to error:", state.lastError);
       return "end";
     }
 
     const lastMessage = state.messages[state.messages.length - 1];
 
     // Debug logging to verify if tool calls are being generated
-    console.log(
+    console.warn(
       "shouldContinue: Last message type:",
       lastMessage?.constructor?.name,
     );
     if (lastMessage && "tool_calls" in lastMessage) {
       const toolCalls = lastMessage.tool_calls || [];
       if (Array.isArray(toolCalls) && toolCalls.length > 0) {
-        console.log(
+        console.warn(
           "shouldContinue: Tool calls detected:",
           JSON.stringify(toolCalls.map((tc: any) => ({
             name: tc.name,
@@ -94,7 +94,7 @@ export function createEnhancedWorkflowWithStringReplace(
           }))),
         );
       } else {
-        console.log("shouldContinue: No tool calls in message");
+        console.warn("shouldContinue: No tool calls in message");
       }
     }
 
@@ -105,7 +105,7 @@ export function createEnhancedWorkflowWithStringReplace(
       ? "tools"
       : "end";
 
-    console.log("shouldContinue: Returning", result);
+    console.warn("shouldContinue: Returning", result);
     return result;
   };
 
@@ -204,7 +204,7 @@ export function createEnhancedWorkflowWithStringReplace(
 
         // Check if the code has been modified during workflow execution
         if (finalState.code !== initialState.code) {
-          console.log(
+          console.warn(
             "Code changes detected in finalState, applying changes...",
           );
 
@@ -218,7 +218,7 @@ export function createEnhancedWorkflowWithStringReplace(
           logCodeChanges(initialState.code, finalState.code);
         } else if (newCode !== initialState.code) {
           // Fallback: If finalState.code wasn't updated but session code was
-          console.log(
+          console.warn(
             "Code changes detected in session but not in finalState, applying session changes...",
           );
 
@@ -229,7 +229,7 @@ export function createEnhancedWorkflowWithStringReplace(
           finalState.code = newCodeWithDate;
           logCodeChanges(initialState.code, finalState.code);
         } else {
-          console.log("No code changes detected");
+          console.warn("No code changes detected");
         }
 
         telemetry.stopTimer("enhanced_workflow.invoke", {

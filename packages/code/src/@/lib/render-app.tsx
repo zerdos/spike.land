@@ -77,7 +77,7 @@ const toHtmlAndCss = async (
     ].join("\n")
       .split(cssCache.key).join("x");
 
-    // console.log("Emotion styles:", emotionStyles); // Reduced logging
+    // console.warn("Emotion styles:", emotionStyles); // Reduced logging
 
     // Get tailwind styles
     const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(
@@ -184,7 +184,7 @@ export const importFromString = async (code: string) => {
 
   // For Node.js test environment, return a mock component directly
   if (!isBrowser) {
-    console.log("Test environment - using mock component");
+    console.warn("Test environment - using mock component");
     return (() =>
       React.createElement(
         "div",
@@ -217,7 +217,7 @@ export const importFromString = async (code: string) => {
       )) as FlexibleComponentType;
   }
 
-  console.log("File written to", filePath);
+  console.warn("File written to", filePath);
 
   // Import the file
   const { data: module, error: importError } = await tryCatch(import(filePath));
@@ -236,456 +236,301 @@ export const importFromString = async (code: string) => {
   }
 };
 
-// Changed return type to guarantee a RenderedApp object
-async function renderApp(
-  { rootElement, codeSpace, transpiled, App, code, root }: IRenderApp,
+// --- Helper: Determine Environment ---
+function _determineEnvironment(): boolean {
+  return typeof window !== "undefined" && typeof document !== "undefined";
+}
+
+// --- Helper: Handle Test Environment ---
+async function _handleTestEnvironment(
+  { App, transpiled, code }: Pick<IRenderApp, "App" | "transpiled" | "code">,
 ): Promise<RenderedApp> {
-  // Check if we're in a browser environment
-  const isBrowser = typeof window !== "undefined" &&
-    typeof document !== "undefined";
+  console.warn("Test environment - mocking DOM elements and component loading.");
+  const mockElement = {} as unknown as HTMLDivElement;
 
-  // In Node.js environment during tests, create a mock element
-  if (!isBrowser) {
-    console.log("Test environment - mocking DOM elements");
-
-    // Create a mock element for testing
-    const mockElement = {} as unknown as HTMLDivElement;
-
-    // Return a mock rendered app for testing
-    if (App) {
-      return {
-        rootElement: mockElement,
-        toHtmlAndCss,
-        rRoot: { unmount: () => {} } as Root,
-        App,
-        cssCache: { sheet: { flush: () => {} } } as ReturnType<
-          typeof createCache
-        >,
-        cleanup: () => {
-          console.log("Mock cleanup called");
-        },
-      };
-    }
-
-    // Try to import the component in test environment
-    let AppToRender: FlexibleComponentType | undefined;
-    let importError: Error | undefined;
-
-    try {
-      const result = await tryCatch(
-        importFromString(
-          transpiled || code ||
-            "export default ()=><div>Mock App for Testing</div>",
-        ),
-      );
-      // Explicitly cast result.data if necessary, or ensure importFromString returns the correct type
-      AppToRender = result.data as FlexibleComponentType | undefined;
-      // Handle null from tryCatch, assign undefined if null
-      importError = result.error ?? undefined;
-    } catch (e) {
-      importError = e instanceof Error ? e : new Error(String(e));
-      console.error(
-        "Caught exception during importFromString in test env:",
-        importError,
-      );
-    }
-
-    // Ensure AppToRender is defined even if import fails in test env
-    if (importError || !AppToRender) {
-      console.error(
-        "Error importing component in test environment, using fallback.",
-        importError
-          ? `Error: ${importError.message}`
-          : "No component returned.",
-      );
-      // Use a simple fallback component for tests
-      AppToRender = (() =>
-        React.createElement(
-          "div",
-          null,
-          "Test Fallback Error Component",
-        )) as FlexibleComponentType;
-    }
-
+  if (App) {
     return {
       rootElement: mockElement,
       toHtmlAndCss,
       rRoot: { unmount: () => {} } as Root,
-      App: AppToRender,
-      cssCache: { sheet: { flush: () => {} } } as ReturnType<
-        typeof createCache
-      >,
+      App,
+      cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
       cleanup: () => {
-        console.log("Mock cleanup called");
+        console.warn("Mock cleanup called in test environment");
       },
     };
   }
 
-  // Browser environment - normal flow
-  const rootEl = rootElement ||
-    document.getElementById("embed") as HTMLDivElement ||
+  let AppToRender: FlexibleComponentType | undefined;
+  let importError: Error | undefined;
+  try {
+    const result = await tryCatch(
+      importFromString(transpiled || code || "export default ()=><div>Mock App for Testing</div>"),
+    );
+    AppToRender = result.data as FlexibleComponentType | undefined;
+    importError = result.error ?? undefined;
+  } catch (e) {
+    importError = e instanceof Error ? e : new Error(String(e));
+    console.error("Caught exception during importFromString in test env:", importError);
+  }
+
+  if (importError || !AppToRender) {
+    console.error(
+      "Error importing component in test environment, using fallback.",
+      importError ? `Error: ${importError.message}` : "No component returned.",
+    );
+    AppToRender = (() =>
+      React.createElement("div", null, "Test Fallback Error Component")) as FlexibleComponentType;
+  }
+
+  return {
+    rootElement: mockElement,
+    toHtmlAndCss,
+    rRoot: { unmount: () => {} } as Root,
+    App: AppToRender,
+    cssCache: { sheet: { flush: () => {} } } as ReturnType<typeof createCache>,
+    cleanup: () => {
+      console.warn("Mock cleanup called in test environment");
+    },
+  };
+}
+
+// --- Helper: Setup Browser DOM ---
+function _setupBrowserDOM(rootElementProp?: HTMLDivElement): HTMLDivElement {
+  const rootEl = rootElementProp || document.getElementById("embed") as HTMLDivElement ||
     document.createElement("div");
   if (!document.body.contains(rootEl)) {
     document.body.appendChild(rootEl);
   }
+  return rootEl;
+}
 
-  // Define FallbackErrorComponent at a higher scope
-  function FallbackErrorComponent() {
-    return <div>Error: Component could not be loaded</div>;
-  }
+// --- Helper: Fallback Error Component ---
+function FallbackErrorComponent() {
+  return <div>Error: Component could not be loaded</div>;
+}
 
+// --- Helper: Load Application Component ---
+async function _loadAppComponent(
+  { codeSpace, transpiled, App, code }: IRenderApp,
+  currentOrigin: string,
+): Promise<{ AppToRender: FlexibleComponentType; emptyApp: boolean; }> {
   let AppToRender: FlexibleComponentType | undefined;
   let emptyApp = false;
 
-  // --- Logic Adjustment ---
-  // 1. If App prop is explicitly provided, use it.
   if (App) {
     AppToRender = App;
-    // 2. If ONLY codeSpace is provided (and not App/code/transpiled), use the static Editor UI.
   } else if (codeSpace && !transpiled && !code) {
-    console.log("Rendering static Editor UI for codeSpace:", codeSpace);
-    // Use type assertion to satisfy FlexibleComponentType requirement
-    // Use a mock component in test environment to avoid ESM loader errors
-    if (typeof window === "undefined") {
-      AppToRender = (() =>
-        React.createElement("div", null, "Mocked AppToRender")) as FlexibleComponentType;
-    } else {
-      AppToRender = (await import(`${origin}/live/${codeSpace}/index.js`))
-        .default as FlexibleComponentType;
-    }
-    // 3. If code or transpiled code is provided, handle dynamic import/transpilation.
+    console.warn("Rendering static Editor UI for codeSpace:", codeSpace);
+    AppToRender = (await import(`${currentOrigin}/live/${codeSpace}/index.js`))
+      .default as FlexibleComponentType;
   } else if (transpiled || code) {
-    if (
-      transpiled?.indexOf("stdin_default") === -1 &&
-      code?.indexOf("as default") === -1
-    ) {
+    if (transpiled?.indexOf("stdin_default") === -1 && code?.indexOf("as default") === -1) {
       emptyApp = true;
       const { data: emptyAppComponent, error: importError } = await tryCatch(
         importFromString("export default ()=><div>Empty App</div>"),
       );
-
-      // Ensure AppToRender is defined even if importing empty app fails
-      if (importError || !emptyAppComponent) {
-        console.error(
-          "Error importing empty app, using fallback.",
-          importError
-            ? `Error: ${importError.message}`
-            : "No component returned.",
-        );
-        AppToRender = FallbackErrorComponent; // Use the defined fallback
-      } else {
-        AppToRender = emptyAppComponent;
-      }
+      AppToRender = importError || !emptyAppComponent ? FallbackErrorComponent : emptyAppComponent;
     } else {
       let codeToUse = transpiled;
-
       if (!codeToUse && code) {
         const { data: transpiledCode, error: transpileError } = await tryCatch(
-          transpile({
-            code,
-            originToUse: origin,
-          }),
+          transpile({ code, originToUse: currentOrigin }),
         );
-
-        if (transpileError) {
-          console.error("Error transpiling code:", transpileError);
-          codeToUse = "export default ()=><div>Error: Failed to transpile code</div>";
-        } else {
-          codeToUse = transpiledCode;
-        }
+        codeToUse = transpileError
+          ? "export default ()=><div>Error: Failed to transpile code</div>"
+          : transpiledCode;
       } else if (!codeToUse) {
-        console.error("No code to transpile");
-        codeToUse = "export default ()=><div>Error: No code to transpile</div>";
+        codeToUse = "export default ()=><div>Error: No code provided</div>";
       }
-
       const { data: appComponent, error: importError } = await tryCatch(
-        importFromString(codeToUse),
+        importFromString(codeToUse!),
       );
-
-      // Ensure AppToRender is defined even if import fails
-      if (importError || !appComponent) {
-        console.error(
-          "Error importing component, using fallback.",
-          importError
-            ? `Error: ${importError.message}`
-            : "No component returned.",
-        );
-        AppToRender = FallbackErrorComponent; // Use the defined fallback
-      } else {
-        AppToRender = appComponent;
-      }
+      AppToRender = importError || !appComponent ? FallbackErrorComponent : appComponent;
     }
-    // 4. Fallback: If codeSpace was provided alongside code/transpiled (which shouldn't happen for editor route)
-    //    or if none of the above conditions met (should be rare), attempt dynamic load or mock.
-    //    (This block might need further review based on how renderApp is called elsewhere)
   } else if (codeSpace) {
     console.warn(
-      "renderApp called with codeSpace and potentially other conflicting props, attempting dynamic load as fallback.",
+      "renderApp: Ambiguous props, attempting dynamic load from codeSpace as fallback.",
+      { codeSpace },
     );
-    const indexJs = `${origin}/live/${codeSpace}/index.js`; // This path is for user code preview, not editor UI
-
-    const { data: response, error: fetchError } = await tryCatch(
-      fetch(indexJs),
-    );
-
+    const indexJs = `${currentOrigin}/live/${codeSpace}/index.js`;
+    const { data: response, error: fetchError } = await tryCatch(fetch(indexJs));
     if (fetchError || !response || !response.ok) {
-      const { data: mockApp, error: importError } = await tryCatch(
-        importFromString("export default ()=><div>Mock App for Testing</div>"),
+      const { data: mockApp } = await tryCatch(
+        importFromString("export default ()=><div>Mock App (fetch error)</div>"),
       );
-
-      // Ensure AppToRender is defined even if importing mock app fails
-      if (importError || !mockApp) {
-        console.error(
-          "Error importing mock app, using fallback.",
-          importError
-            ? `Error: ${importError.message}`
-            : "No component returned.",
-        );
-        AppToRender = FallbackErrorComponent; // Use the defined fallback
-      } else {
-        AppToRender = mockApp;
-      }
+      AppToRender = mockApp || FallbackErrorComponent;
     } else {
-      const { data: codeToUse, error: textError } = await tryCatch(
-        response.text(),
-      );
-
+      const { data: codeToUse, error: textError } = await tryCatch(response.text());
       if (textError || !codeToUse) {
-        console.error(
-          "Error reading response text or code is empty, using fallback.",
-          textError ? `Error: ${textError.message}` : "Code was empty.",
-        );
-        AppToRender = FallbackErrorComponent; // Use the defined fallback
+        AppToRender = FallbackErrorComponent;
       } else {
-        const { data: appComponent, error: importError } = await tryCatch(
-          importFromString(codeToUse),
-        );
-
-        if (importError || !appComponent) {
-          console.error(
-            "Error importing component from codeSpace, using fallback.",
-            importError
-              ? `Error: ${importError.message}`
-              : "No component returned.",
-          );
-          AppToRender = FallbackErrorComponent; // Use the defined fallback
-        } else {
-          AppToRender = appComponent;
-        }
+        const { data: appComponent } = await tryCatch(importFromString(codeToUse));
+        AppToRender = appComponent || FallbackErrorComponent;
       }
     }
   } else {
-    const { data: mockApp, error: importError } = await tryCatch(
-      importFromString("export default ()=><div>Mock App for Testing</div>"),
+    console.error("renderApp: No valid parameters provided. Using ultimate fallback.");
+    const { data: mockApp } = await tryCatch(
+      importFromString("export default ()=><div>Ultimate Fallback App</div>"),
     );
+    AppToRender = mockApp || FallbackErrorComponent;
+  }
+  return { AppToRender: AppToRender || FallbackErrorComponent, emptyApp };
+}
 
-    // Ensure AppToRender is defined even if importing fallback mock app fails
-    if (importError || !mockApp) {
-      console.error(
-        "Error importing fallback mock app, using fallback.",
-        importError
-          ? `Error: ${importError.message}`
-          : "No component returned.",
-      );
-      AppToRender = FallbackErrorComponent; // Use the defined fallback
-    } else {
-      AppToRender = mockApp;
+// --- Helper: Perform React Render ---
+interface PerformReactRenderParams {
+  rootEl: HTMLDivElement;
+  reactRoot: Root;
+  AppToRender: FlexibleComponentType;
+  cssCache: ReturnType<typeof createCache>;
+  codeSpace?: string;
+  emptyApp: boolean;
+  cleanupFn: () => void;
+}
+
+function _performReactRender({
+  rootEl,
+  reactRoot,
+  AppToRender,
+  cssCache,
+  codeSpace,
+  emptyApp,
+  cleanupFn,
+}: PerformReactRenderParams): RenderedApp {
+  try {
+    reactRoot.render(
+      <ThemeProvider>
+        <React.Fragment>
+          <CacheProvider value={cssCache}>
+            {emptyApp
+              ? <AppToRender />
+              : (
+                <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
+                  <AppWithScreenSize AppToRender={AppToRender} />
+                </ErrorBoundary>
+              )}
+          </CacheProvider>{" "}
+          {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
+        </React.Fragment>
+      </ThemeProvider>,
+    );
+    const newRenderedApp = {
+      rootElement: rootEl,
+      rRoot: reactRoot,
+      App: AppToRender,
+      cssCache,
+      toHtmlAndCss,
+      cleanup: cleanupFn,
+    };
+    renderedApps.set(rootEl, newRenderedApp);
+    return newRenderedApp;
+  } catch (renderError) {
+    console.error("Error during React render:", renderError);
+    let FallbackApp = FallbackErrorComponent;
+    try {
+      reactRoot.render(<FallbackErrorComponent />);
+    } catch (fallbackRenderError) {
+      console.error("Error rendering FallbackErrorComponent:", fallbackRenderError);
+      FallbackApp = () => <div>Critical Render Error</div>;
     }
+    const errorRenderedApp = {
+      rootElement: rootEl,
+      rRoot: reactRoot,
+      App: FallbackApp,
+      cssCache,
+      toHtmlAndCss,
+      cleanup: cleanupFn,
+    };
+    renderedApps.set(rootEl, errorRenderedApp);
+    return errorRenderedApp;
+  }
+}
+
+// --- Main renderApp Function ---
+async function renderApp(
+  props: IRenderApp,
+): Promise<RenderedApp> {
+  const { rootElement, codeSpace, transpiled, App, code, root } = props;
+
+  if (!_determineEnvironment()) {
+    return _handleTestEnvironment({ App, transpiled, code });
   }
 
-  const myRoot = root || renderedApps.get(rootEl)?.rRoot ||
-    createRoot(rootEl);
+  const rootEl = _setupBrowserDOM(rootElement);
 
-  const cacheKey = md5(transpiled || code || Math.random().toString())
-    .toLocaleLowerCase().replace(/[0-9]/g, "");
-  /// remove the numbers
-  // const cacheKeyNoNumbers = cacheKey.replace(/[0-9]/g, '');
+  const { AppToRender, emptyApp } = await _loadAppComponent(props, origin);
 
+  const myReactRoot = root || renderedApps.get(rootEl)?.rRoot || createRoot(rootEl);
+
+  const cacheKey = md5(transpiled || code || Math.random().toString()).toLocaleLowerCase().replace(
+    /[0-9]/g,
+    "",
+  );
   const parentNode = rootEl.parentNode;
   if (!parentNode) {
-    console.warn("Parent node is null, using document.body as container");
+    console.warn(
+      "renderApp: Parent node of rootEl is null. Emotion cache might not work as expected, using document.body as container.",
+    );
   }
-
   const cssCache = createCache({
     key: firstRender ? "x" : cacheKey,
     speedy: true,
     container: parentNode || document.body,
   });
-
   firstRender = false;
 
-  // Ensure AppToRender is defined before rendering
-  // FallbackErrorComponent is now defined at a higher scope
-  if (!AppToRender) {
-    console.error("AppToRender is undefined, using fallback component");
-    AppToRender = FallbackErrorComponent;
-  }
-  let renderedApp = renderedApps.get(rootEl);
-
-  // Define cleanup function separately for reuse
-  const cleanupFunction = (
-    targetRoot: Root,
-    targetElement: HTMLElement,
-    targetCache: typeof cssCache,
-  ) => {
+  const cleanupFn = () => {
     requestAnimationFrame(() => {
       try {
-        targetRoot.unmount();
+        myReactRoot.unmount();
       } catch (e) {
         console.error("Error during cleanup unmount:", e);
       }
-      if (targetCache.sheet) {
+      if (cssCache.sheet) {
         try {
-          targetCache.sheet.flush();
+          cssCache.sheet.flush();
         } catch (e) {
           console.error("Error during cleanup flush:", e);
         }
       }
       try {
-        targetElement.remove();
+        rootEl.remove();
       } catch (e) {
         console.error("Error during cleanup remove:", e);
       }
-      renderedApps.delete(targetElement);
+      renderedApps.delete(rootEl);
     });
   };
 
-  if (!renderedApp) {
-    // First time rendering - create a new root
-    try {
-      myRoot.render(
-        <ThemeProvider>
-          <React.Fragment>
-            <CacheProvider value={cssCache}>
-              {emptyApp
-                ? <AppToRender />
-                : (
-                  <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
-                    <AppWithScreenSize AppToRender={AppToRender} />
-                  </ErrorBoundary>
-                )}
-            </CacheProvider>{" "}
-            {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-          </React.Fragment>
-        </ThemeProvider>,
-      );
+  let currentRenderedApp = renderedApps.get(rootEl);
 
-      renderedApps.set(rootEl, {
-        rootElement: rootEl,
-        rRoot: myRoot,
-        App: AppToRender,
-        cssCache,
-        toHtmlAndCss,
-        cleanup: () => cleanupFunction(myRoot, rootEl, cssCache),
-      });
-
-      renderedApp = renderedApps.get(rootEl);
-    } catch (renderError) {
-      console.error("Error during initial React render:", renderError);
-      // Attempt to render just the fallback component directly if initial render fails
-      try {
-        myRoot.render(<FallbackErrorComponent />);
-        AppToRender = FallbackErrorComponent; // Ensure AppToRender is the fallback
-      } catch (fallbackRenderError) {
-        console.error(
-          "Error rendering even the FallbackErrorComponent:",
-          fallbackRenderError,
-        );
-        // Cannot render anything, but still need to return a valid structure
-        AppToRender = () => <div>Critical Render Error</div>; // Minimal possible component
-      }
-
-      // Ensure renderedApps map is updated even after render error
-      renderedApps.set(rootEl, {
-        rootElement: rootEl,
-        rRoot: myRoot,
-        App: AppToRender, // Use the potentially updated AppToRender
-        cssCache,
-        toHtmlAndCss,
-        cleanup: () => cleanupFunction(myRoot, rootEl, cssCache),
-      });
-      renderedApp = renderedApps.get(rootEl);
-    }
-  } else {
-    // Update existing root with new content
-    const existingRoot = renderedApp.rRoot;
-    try {
-      // Update the render with new content
-      existingRoot.render(
-        <ThemeProvider>
-          <React.Fragment>
-            <CacheProvider value={cssCache}>
-              {emptyApp
-                ? <AppToRender />
-                : (
-                  <ErrorBoundary {...(codeSpace ? { codeSpace } : {})}>
-                    <AppWithScreenSize AppToRender={AppToRender} />
-                  </ErrorBoundary>
-                )}
-            </CacheProvider>{" "}
-            {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-          </React.Fragment>
-        </ThemeProvider>,
-      );
-
-      // Update the stored reference with new values
-      renderedApps.set(rootEl, {
-        ...renderedApp,
-        App: AppToRender,
-        cssCache, // Update cssCache reference as well
-        cleanup: () => cleanupFunction(existingRoot, rootEl, cssCache),
-      });
-      // Update the local variable after successful update
-      renderedApp = renderedApps.get(rootEl);
-    } catch (renderError) {
-      console.error("Error during React update render:", renderError);
-      // Attempt to render just the fallback component directly if update render fails
-      try {
-        existingRoot.render(<FallbackErrorComponent />);
-        AppToRender = FallbackErrorComponent; // Ensure AppToRender is the fallback
-      } catch (fallbackRenderError) {
-        console.error(
-          "Error rendering FallbackErrorComponent during update:",
-          fallbackRenderError,
-        );
-        AppToRender = () => <div>Critical Update Render Error</div>; // Minimal component
-      }
-
-      // Ensure renderedApps map is updated even after render error
-      // Fix: Use existing rootEl and existingRoot which are guaranteed in this scope
-      renderedApps.set(rootEl, {
-        rootElement: rootEl, // Use rootEl (guaranteed defined)
-        rRoot: existingRoot, // Use existingRoot (guaranteed defined)
-        App: AppToRender, // Use the potentially updated AppToRender
-        cssCache, // Update cssCache reference
-        toHtmlAndCss, // Ensure this is included
-        cleanup: () => cleanupFunction(existingRoot, rootEl, cssCache),
-      });
-      renderedApp = renderedApps.get(rootEl); // Re-fetch the updated entry
-    }
-  }
-
-  // Final check: Ensure renderedApp is defined before returning
-  // If it's still somehow undefined (e.g., map operations failed silently), construct a minimal object.
-  if (!renderedApp) {
-    console.error(
-      "Rendered app is unexpectedly undefined after render/update attempts, returning minimal structure",
-    );
-    // Construct a minimal RenderedApp if something went critically wrong
-    return {
-      rootElement: rootEl, // rootEl should always be defined here
-      toHtmlAndCss,
-      rRoot: myRoot, // myRoot should always be defined here
-      App: AppToRender || FallbackErrorComponent, // Use AppToRender if defined, else fallback
+  if (!currentRenderedApp) {
+    // First time rendering
+    currentRenderedApp = _performReactRender({
+      rootEl,
+      reactRoot: myReactRoot,
+      AppToRender,
       cssCache,
-      cleanup: () => cleanupFunction(myRoot, rootEl, cssCache),
-    };
+      codeSpace,
+      emptyApp,
+      cleanupFn,
+    });
+  } else {
+    // Subsequent render: Update existing
+    currentRenderedApp = _performReactRender({
+      rootEl,
+      reactRoot: currentRenderedApp.rRoot,
+      AppToRender,
+      cssCache,
+      codeSpace,
+      emptyApp,
+      cleanupFn,
+    });
   }
 
-  // console.log("Rendered app:", renderedApp); // Reduced logging verbosity
-
-  return renderedApp;
+  return currentRenderedApp;
 }
-// Ensure renderApp is exported correctly
-// (Double-checking this line is present and has no syntax errors around it)
+
 export { renderApp };

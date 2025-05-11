@@ -1,6 +1,6 @@
 import type RecordRTC from "@/external/record-rtc";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { tryCatch } from "@/lib/try-catch";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseDictationOptions {
   silenceThreshold?: number;
@@ -127,12 +127,13 @@ export function useDictation(
       return;
     }
     if (text === null || text === undefined) {
-       setError("Empty response from API.");
-       return;
+      setError("Empty response from API.");
+      return;
     }
 
-
-    setMessage((prevMessage) => prevMessage + " " + text.replace(/^"|"$/g, "").replace(/\\n/g, "\n").trim());
+    setMessage((prevMessage) =>
+      prevMessage + " " + text.replace(/^"|"$/g, "").replace(/\\n/g, "\n").trim()
+    );
   };
 
   useEffect(() => {
@@ -219,7 +220,10 @@ async function sendData(url: string, data: Record<string, File | string>) {
   }
 
   // If primary fetch failed or was not ok, try fallback
-  console.warn("Primary fetch failed or not ok, trying fallback:", primaryError || primaryResp?.status);
+  console.warn(
+    "Primary fetch failed or not ok, trying fallback:",
+    primaryError || primaryResp?.status,
+  );
   const { data: fallbackResp, error: fallbackError } = await tryCatch(fallbackFetch);
 
   if (fallbackResp && fallbackResp.ok) {

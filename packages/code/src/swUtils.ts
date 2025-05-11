@@ -2,13 +2,13 @@ async function testRegistration() {
   if ("serviceWorker" in navigator) {
     try {
       const registration = await navigator.serviceWorker.register("/sw.js");
-      console.log("SW registered:", registration);
+      console.warn("SW registered:", registration);
 
       await new Promise<void>((resolve) => {
         if (registration.installing) {
           registration.installing.addEventListener("statechange", (e) => {
             if (e.target && (e.target as ServiceWorker).state === "activated") {
-              console.log("SW activated");
+              console.warn("SW activated");
               resolve();
             }
           });
@@ -27,14 +27,14 @@ async function testCaching(swVersion: string) {
   const cacheName = "file-cache-" + swVersion;
   const cache = await caches.open(cacheName);
   const cachedResponses = await cache.matchAll();
-  console.log("Cached resources:", cachedResponses.map((r) => r.url));
+  console.warn("Cached resources:", cachedResponses.map((r) => r.url));
 
   // Test offline functionality
   await new Promise<void>((resolve) => {
     const iframe = document.createElement("iframe");
     iframe.src = "/some-cached-page";
     iframe.onload = () => {
-      console.log("Page loaded from cache while offline");
+      console.warn("Page loaded from cache while offline");
       document.body.removeChild(iframe);
       resolve();
     };
@@ -47,13 +47,13 @@ async function testUpdate() {
   const registration = await navigator.serviceWorker.getRegistration();
   if (registration) {
     registration.addEventListener("updatefound", () => {
-      console.log("New SW version found");
+      console.warn("New SW version found");
       const newWorker = registration.installing;
       if (newWorker) {
         newWorker.addEventListener("statechange", (e: Event) => {
           const target = e.target as ServiceWorker;
           if (target.state === "installed") {
-            console.log("New SW installed and will activate on next load");
+            console.warn("New SW installed and will activate on next load");
           }
         });
       }
@@ -78,8 +78,8 @@ async function testPerformance() {
   const cachedTime = await timeRequest(cachedUrl);
   const uncachedTime = await timeRequest(uncachedUrl);
 
-  console.log(`Cached resource load time: ${cachedTime}ms`);
-  console.log(`Uncached resource load time: ${uncachedTime}ms`);
+  console.warn(`Cached resource load time: ${cachedTime}ms`);
+  console.warn(`Uncached resource load time: ${uncachedTime}ms`);
 }
 
 export async function deleteAllServiceWorkers() {
@@ -99,7 +99,7 @@ export async function deleteAllServiceWorkers() {
           // Wait for all cache delete operations to complete
           await Promise.allSettled(deleteCachePromises);
 
-          console.log("All caches have been cleared.");
+          console.warn("All caches have been cleared.");
         } catch (error) {
           console.error("Error during cache cleanup:", error);
         }
@@ -122,16 +122,16 @@ export async function deleteAllServiceWorkers() {
       // Wait for all unregister operations to complete
       await Promise.all(unregisterPromises);
 
-      console.log("All Service Workers have been unregistered.");
+      console.warn("All Service Workers have been unregistered.");
 
-      console.log(
+      console.warn(
         "Service Worker cleanup complete. You may need to reload the page or close all tabs of this site for changes to take full effect.",
       );
     } catch (error) {
       console.error("Error during Service Worker cleanup:", error);
     }
   } else {
-    console.log("Service Workers are not supported in this browser.");
+    console.warn("Service Workers are not supported in this browser.");
   }
 }
 

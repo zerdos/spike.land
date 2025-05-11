@@ -1,6 +1,6 @@
+import { tryCatch } from "../try-catch";
 import type { StatResult } from "./types";
 import { getDirectoryHandleAndFileName, handleDirectory, handleFile, normalizePath } from "./utils";
-import { tryCatch } from "../try-catch";
 
 /**
  * List directory contents
@@ -100,18 +100,24 @@ export const stat = async (filePath: string): Promise<StatResult> => {
     }
 
     // Try to get as file first
-    const { data: fileHandle, error: fileError } = await tryCatch(dirHandle.getFileHandle(fileName));
+    const { data: fileHandle, error: fileError } = await tryCatch(
+      dirHandle.getFileHandle(fileName),
+    );
     if (fileHandle) {
       return handleFile(fileHandle, filePath);
     }
 
     // If not a file, try as directory
-    const { data: subDirHandle, error: dirError } = await tryCatch(dirHandle.getDirectoryHandle(fileName));
+    const { data: subDirHandle, error: dirError } = await tryCatch(
+      dirHandle.getDirectoryHandle(fileName),
+    );
     if (subDirHandle) {
       return handleDirectory(subDirHandle, filePath);
     }
     // If neither file nor directory, log errors and return null
-    console.warn(`stat: Could not find ${filePath} as file or directory. File error: ${fileError}, Dir error: ${dirError}`);
+    console.warn(
+      `stat: Could not find ${filePath} as file or directory. File error: ${fileError}, Dir error: ${dirError}`,
+    );
     return null;
   };
 

@@ -6,7 +6,7 @@
  * @example
  * ```ts
  * const isTypedArray = (obj: any): obj is TypedArray => obj instanceof TypedArray;
- * console.log(isTypedArray(new Uint8Array(10))); // true
+ * console.warn(isTypedArray(new Uint8Array(10))); // true
  * ```
  */
 
@@ -18,7 +18,7 @@ export const TypedArray: unknown = Object.getPrototypeOf(Int8Array);
  * @example
  * ```ts
  * if (AudioData) {
- *   console.log("AudioData is supported in this environment.");
+ *   console.warn("AudioData is supported in this environment.");
  * }
  * ```
  */
@@ -30,7 +30,7 @@ export const AudioData = globalThis.AudioData;
  * @example
  * ```ts
  * createImageBitmap(blob).then((imageBitmap) => {
- *   console.log(imageBitmap instanceof ImageBitmap); // true
+ *   console.warn(imageBitmap instanceof ImageBitmap); // true
  * });
  * ```
  */
@@ -42,7 +42,7 @@ export const ImageBitmap = globalThis.ImageBitmap;
  * @example
  * ```ts
  * if (VideoFrame) {
- *   console.log("VideoFrame is supported, can manipulate video frames directly.");
+ *   console.warn("VideoFrame is supported, can manipulate video frames directly.");
  * }
  * ```
  */
@@ -55,7 +55,7 @@ export const VideoFrame = globalThis.VideoFrame;
  * ```ts
  * if (OffscreenCanvas) {
  *   const offscreen = new OffscreenCanvas(256, 256);
- *   console.log(offscreen instanceof OffscreenCanvas); // true
+ *   console.warn(offscreen instanceof OffscreenCanvas); // true
  * }
  * ```
  */
@@ -68,7 +68,7 @@ export const OffscreenCanvas = globalThis.OffscreenCanvas;
  * ```ts
  * const peerConnection = new RTCPeerConnection();
  * const dataChannel = peerConnection.createDataChannel("myLabel");
- * console.log(dataChannel instanceof RTCDataChannel); // true
+ * console.warn(dataChannel instanceof RTCDataChannel); // true
  * ```
  */
 export const RTCDataChannel = globalThis.RTCDataChannel;
@@ -79,7 +79,7 @@ export const RTCDataChannel = globalThis.RTCDataChannel;
  * @example
  * ```ts
  * const channel = new MessageChannel();
- * channel.port1.onmessage = (event) => console.log(event.data);
+ * channel.port1.onmessage = (event) => console.warn(event.data);
  * channel.port2.postMessage("Hello, world!");
  * ```
  */
@@ -135,7 +135,7 @@ const structuredCloneExists = "structuredClone" in globalThis;
  * @example
  * ```ts
  * if (AVAILABLE_TRANSFERABLE_OBJECTS.AudioDataExists) {
- *   console.log("AudioData is available for use.");
+ *   console.warn("AudioData is available for use.");
  * }
  * ```
  */
@@ -164,7 +164,7 @@ export const AVAILABLE_TRANSFERABLE_OBJECTS = {
  * @example
  * ```ts
  * function processTypedArray(typedArray: TypeTypedArray) {
- *   console.log(typedArray.byteLength);
+ *   console.warn(typedArray.byteLength);
  * }
  * ```
  */

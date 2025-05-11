@@ -35,7 +35,7 @@ async function example() {
 
   // Read a file
   const content = await readFile("/example/test.txt");
-  console.log(content); // 'Hello, world!'
+  console.warn(content); // 'Hello, world!'
 }
 
 // Using the default export
@@ -43,7 +43,7 @@ async function exampleWithDefault() {
   await FS.mkdir("/example");
   await FS.writeFile("/example/test.txt", "Hello, world!");
   const content = await FS.readFile("/example/test.txt");
-  console.log(content); // 'Hello, world!'
+  console.warn(content); // 'Hello, world!'
 }
 ```
 

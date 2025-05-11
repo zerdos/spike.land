@@ -13,7 +13,7 @@ export function handleErrors(
 
       if (err instanceof Error) {
         stack = err.stack;
-        console.log({ error: err.stack, message: err.message });
+        console.warn({ error: err.stack, message: err.message });
       }
 
       const pair = getWebSocketPair();
@@ -29,7 +29,7 @@ export function handleErrors(
 
       if (err instanceof Error) {
         stack = err.stack || stack;
-        console.log({ error: err.stack, message: err.message });
+        console.warn({ error: err.stack, message: err.message });
       }
 
       return new Response(stack, { status: 500 });

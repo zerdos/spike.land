@@ -63,7 +63,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
     if (!session) return;
 
     const now = Date.now();
-    console.log("[Editor] Monaco editor change detected (button press or edit)", {
+    console.warn("[Editor] Monaco editor change detected (button press or edit)", {
       codeLength: newCode.length,
       timestamp: new Date().toISOString(),
     });
@@ -74,7 +74,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
       controller.current = new AbortController();
       const { signal } = controller.current;
 
-      console.log("[Editor] Formatting code with Prettier...");
+      console.warn("[Editor] Formatting code with Prettier...");
       const { data: formatted, error } = await tryCatch(prettierToThrow({
         code,
         toThrow: false,
@@ -84,7 +84,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         console.error("[Editor] Prettier error:", error);
         return;
       }
-      console.log("[Editor] Code formatted.");
+      console.warn("[Editor] Code formatted.");
 
       if (signal.aborted) return;
 
@@ -100,7 +100,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         if (signal.aborted) return;
 
         setEditorState((prev) => ({ ...prev, code: formatted }));
-        console.log("[Editor] Saving code to session...");
+        console.warn("[Editor] Saving code to session...");
         // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
         const { data: newCode, error: saveError } = await tryCatch(
           cSess.setCode(formatted, false, replaceIframe),
@@ -116,7 +116,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
           });
           return;
         }
-        console.log("[Editor] Code saved and propagated to session.");
+        console.warn("[Editor] Code saved and propagated to session.");
 
         const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
         if (typeErrorError) {
@@ -131,7 +131,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
         lifetimeMetrics.current.longestSyncTime,
         syncTime,
       );
-      console.log("[Editor] Code propagation complete.", {
+      console.warn("[Editor] Code propagation complete.", {
         syncTime,
         codeLength: formatted.length,
         timestamp: new Date().toISOString(),

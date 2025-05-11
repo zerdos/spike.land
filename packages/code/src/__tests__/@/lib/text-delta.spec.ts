@@ -223,7 +223,7 @@ describe("text-diff", () => {
       expect(result.code).toBe(newSession.code);
 
       // Log the diff size for analysis
-      console.log(`Large string diff size: ${diffJson.length} chars`);
+      console.warn(`Large string diff size: ${diffJson.length} chars`); // Changed to console.warn
 
       // Verify the diff is efficient (much smaller than the full string)
       expect(diffJson.length).toBeLessThan(repeatedString.length / 10);
@@ -247,7 +247,7 @@ describe("text-diff", () => {
       expect(result.code).toBe(newSession.code);
 
       // Log the diff size for analysis
-      console.log(
+      console.warn( // Changed to console.warn
         `Large string with newlines diff size: ${diffJson.length} chars`,
       );
 
@@ -271,7 +271,7 @@ describe("text-diff", () => {
 
       // Log the diff for analysis
       const diffJson = JSON.stringify(diff);
-      console.log(`Append single char diff size: ${diffJson.length} chars`);
+      console.warn(`Append single char diff size: ${diffJson.length} chars`); // Changed to console.warn
 
       // Verify the diff is efficient (much smaller than the full string)
       expect(diffJson.length).toBeLessThan(largeText.length / 10);
@@ -283,7 +283,7 @@ describe("text-diff", () => {
 
       // Insert content in the middle
       const middleIndex = Math.floor(largeText.length / 2);
-      const insertedContent = 'console.log("yo");';
+      const insertedContent = 'console.warn("yo");';
       const newText = largeText.substring(0, middleIndex) + insertedContent +
         largeText.substring(middleIndex);
 
@@ -297,7 +297,7 @@ describe("text-diff", () => {
 
       // Log the diff for analysis
       const diffJson = JSON.stringify(diff);
-      console.log(`Insert in middle diff size: ${diffJson.length} chars`);
+      console.warn(`Insert in middle diff size: ${diffJson.length} chars`); // Changed to console.warn
 
       // Verify the result has the inserted content
       expect(result.code.includes(insertedContent)).toBe(true);
@@ -326,7 +326,7 @@ describe("text-diff", () => {
 
       // Log the diff for analysis
       const diffJson = JSON.stringify(diff);
-      console.log(`Insert at 2/3 point diff size: ${diffJson.length} chars`);
+      console.warn(`Insert at 2/3 point diff size: ${diffJson.length} chars`); // Changed to console.warn
 
       // Verify the result has the inserted content
       expect(result.code.includes(insertedContent)).toBe(true);
@@ -447,7 +447,7 @@ describe("text-diff", () => {
 
       const complexContent: MessagePart[] = [
         { type: "text", text: "Hello" },
-        { type: "text", text: "console.log('test');" },
+        { type: "text", text: "console.warn('test');" },
         { type: "text", text: "one\ntwo" },
       ];
 

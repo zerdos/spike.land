@@ -1,6 +1,6 @@
+import { tryCatch } from "@/lib/try-catch";
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { tryCatch } from "@/lib/try-catch";
 
 interface MarkdownWithReadAloudProps {
   children: string;

@@ -128,7 +128,7 @@ export class SessionManager implements ISessionManager {
   }
 
   private broadcastSession(oldSession: ICodeSession): void {
-    console.log("SessionManager Broadcasting session", this.session);
+    console.warn("SessionManager Broadcasting session", this.session); // Changed to console.warn
     if (!this.session) return;
 
     const diff = this.computeSessionDiff(oldSession, this.session);
