@@ -4,6 +4,7 @@ import pluginEstree from "prettier/plugins/estree";
 import postCss from "prettier/plugins/postcss";
 import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
+import { tryCatch } from "./try-catch"; // Added import
 
 /* ============================================================================
    Utility Functions
@@ -175,12 +176,15 @@ export const prettierJs = async ({
   code: string;
   toThrow: boolean;
 }): Promise<string> => {
-  try {
-    return await format(code, prettierConfig);
-  } catch (error) {
+  const formatPromise = format(code, prettierConfig);
+  const { data, error } = await tryCatch(formatPromise);
+
+  if (error) {
     if (toThrow) throw error;
+    console.warn("Prettier JS formatting failed, returning original code:", error);
     return code;
   }
+  return data || code; // Return formatted code or original if data is null/undefined (should not happen with format)
 };
 
 /**
@@ -189,8 +193,8 @@ export const prettierJs = async ({
  * @param inputCSS - The CSS code to format.
  * @returns The formatted CSS.
  */
-export const prettierCss = async (inputCSS: string): Promise<string> =>
-  format(inputCSS, {
+export const prettierCss = async (inputCSS: string): Promise<string> => {
+  const formatPromise = format(inputCSS, {
     parser: "css",
     printWidth: 80,
     tabWidth: 2,
@@ -199,3 +203,11 @@ export const prettierCss = async (inputCSS: string): Promise<string> =>
     trailingComma: "none",
     plugins: [postCss],
   });
+  const { data, error } = await tryCatch(formatPromise);
+
+  if (error) {
+    console.warn("Prettier CSS formatting failed, returning original CSS:", error);
+    return inputCSS;
+  }
+  return data || inputCSS; // Return formatted CSS or original if data is null/undefined
+};

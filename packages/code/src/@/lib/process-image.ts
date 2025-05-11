@@ -1,5 +1,6 @@
 import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { tryCatch } from "./try-catch"; // Added import
 
 const MAX_FILE_SIZE = 600 * 1024; // 600 KB
 
@@ -50,43 +51,75 @@ export const processImage = (file: File): Promise<ImageData> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = async (e) => {
-      try {
-        let arrayBuffer = e.target?.result as ArrayBuffer;
+      const processLogic = async () => {
+        if (!e.target?.result) {
+          throw new Error("FileReader did not load content.");
+        }
+        let arrayBuffer = e.target.result as ArrayBuffer;
         let blob = new Blob([arrayBuffer], { type: file.type });
 
         let size = 1600;
-        // Check if the file size is larger than 600 KB
         while (blob.size > MAX_FILE_SIZE) {
           const img = new Image();
-          const resizedBlob = await new Promise<Blob>((res) => {
-            img.onload = async () => {
-              console.log("Resizing image to", size);
-              const resized = await resizeImage(img, size); // Resize to 800px max dimension
-              res(resized);
+          // Wrapping the image loading and resizing in a promise for tryCatch
+          const resizeStepPromise = new Promise<Blob>((res, rej) => {
+            img.onload = () => {
+              // Self-invoking async function to handle awaits
+              (async () => {
+                try {
+                  console.log("Resizing image to", size);
+                  const resized = await resizeImage(img, size);
+                  res(resized);
+                } catch (resizeError) {
+                  rej(resizeError);
+                }
+              })();
             };
+            img.onerror = () => rej(new Error("Image loading failed for resizing."));
             img.src = URL.createObjectURL(blob);
           });
 
-          blob = resizedBlob;
-          arrayBuffer = await resizedBlob.arrayBuffer();
+          const { data: resizedBlobData, error: resizeError } = await tryCatch(resizeStepPromise);
+          if (resizeError || !resizedBlobData) {
+            throw new Error(`Image resizing failed: ${resizeError?.message || 'Unknown resize error'}`);
+          }
+          blob = resizedBlobData;
+
+          const { data: newArrayBuffer, error: blobToArrayBufferError } = await tryCatch(blob.arrayBuffer());
+          if (blobToArrayBufferError || !newArrayBuffer) {
+            throw new Error(`Failed to get arrayBuffer from resized blob: ${blobToArrayBufferError?.message || 'Unknown error'}`);
+          }
+          arrayBuffer = newArrayBuffer;
           size -= 300;
         }
 
-        const base64Data = await blobToBase64(blob);
+        const base64Data = await blobToBase64(blob); // This returns a Promise, can be awaited directly
         const md5Body = md5(base64Data);
         const imageName = file.name;
         const url = location.origin + `/my-cms/${md5Body}/${imageName}`;
-        await fetch(url, { method: "PUT", body: arrayBuffer });
 
-        resolve({
+        const { error: putError } = await tryCatch(fetch(url, { method: "PUT", body: arrayBuffer }));
+        if (putError) {
+          throw new Error(`Failed to upload image: ${putError.message}`);
+        }
+
+        return {
           imageName,
           url,
           src: url,
           mediaType: file.type,
           data: url,
-        } as ImageData);
-      } catch {
-        reject(new Error("Failed to process image"));
+        } as ImageData;
+      };
+
+      const { data: imageData, error } = await tryCatch(processLogic());
+      if (error) {
+        console.error("Error in processImage onload:", error);
+        reject(new Error(`Failed to process image: ${error.message}`));
+      } else if (imageData) {
+        resolve(imageData);
+      } else {
+        reject(new Error("Image processing did not return data."));
       }
     };
     reader.onerror = () => reject(new Error("Failed to read file"));

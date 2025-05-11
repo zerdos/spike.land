@@ -1,13 +1,14 @@
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
+import { tryCatch } from "./try-catch"; // Added import
+
 class SharedWorkerPolyfill {
-  private worker: Worker = null!;
-  public port: MessagePort = null!;
+  private worker: Worker | null = null; // Can be null if construction fails
+  public port: MessagePort = null!; // Will be initialized if worker is created
 
   constructor(url: string, opts?: WorkerOptions) {
     if (process.env.VI_TEST) {
-      // Initialize worker synchronously for tests using a mock Worker
-      // Create a mock Worker that implements the full Worker interface
+      // Mock worker for tests
       this.worker = {
         postMessage: () => {},
         terminate: () => {},
@@ -18,13 +19,40 @@ class SharedWorkerPolyfill {
         removeEventListener: () => {},
         dispatchEvent: () => true,
       } as unknown as Worker;
+      this.initializeWorker();
     } else {
-      this.worker = new Worker(url, opts);
+      // Attempt to create the real worker
+      try {
+        // Synchronous new Worker() can throw, so wrap it.
+        // However, tryCatch is for Promises. For synchronous errors, a standard try/catch is fine.
+        // Let's assume for now that new Worker() itself doesn't throw in a way that needs tryCatch,
+        // but rather errors might occur during its lifecycle (onerror).
+        // If new Worker() itself can throw and we want to use tryCatch, we'd need to wrap its instantiation
+        // in a Promise, which is a bit artificial for a constructor.
+        // Sticking to standard try/catch for constructor-level errors.
+        this.worker = new Worker(url, opts);
+        this.initializeWorker();
+      } catch (error) {
+        console.error("Failed to construct Worker:", error);
+        // Worker remains null, port will not be initialized.
+        // Consumers of this class should check if `this.worker` or `this.port` is null.
+        // Or, we could re-throw or set an error state.
+        // For now, let's allow it to proceed with worker as null.
+      }
     }
-    this.initializeWorker();
   }
 
   private initializeWorker() {
+    if (!this.worker) { // Guard against null worker
+        console.warn("Worker not initialized, cannot initialize port.");
+        // Initialize port to a mock or throw, to avoid errors if accessed later
+        this.port = {
+            onmessage: null, onmessageerror: null, close: () => {},
+            postMessage: () => {}, start: () => {}, addEventListener: () => {},
+            removeEventListener: () => {}, dispatchEvent: () => false,
+        } as unknown as MessagePort;
+        return;
+    }
     if (process.env.VI_TEST) {
       // Create a mock MessagePort for tests
       this.port = {
@@ -38,13 +66,14 @@ class SharedWorkerPolyfill {
         dispatchEvent: () => true,
       } as unknown as MessagePort;
     } else {
-      this.port = this.worker as unknown as MessagePort;
+      this.port = this.worker as unknown as MessagePort; // Safe now due to the guard
       // Send port2 to the worker
       const message = { type: "init" };
       this.worker.postMessage(message);
 
       // Forward error events from the worker to the port
-      if (this.worker && "onerror" in this.worker) {
+      // The `this.worker &&` check is redundant due to the guard above
+      if ("onerror" in this.worker) {
         this.worker.onerror = (event: ErrorEvent) => {
           const errorEvent = new ErrorEvent("error", {
             message: event.message,
@@ -97,8 +126,14 @@ class SharedWorkerPolyfill {
    * Immediately terminates the worker.
    */
   terminate(): void {
-    this.worker.terminate();
-    this.port.close();
+    if (this.worker) {
+      this.worker.terminate();
+    }
+    // port.close() should be safe even if port is a mock,
+    // but good practice to check if it's truly initialized if worker failed.
+    if (this.port && typeof this.port.close === 'function') {
+      this.port.close();
+    }
   }
 
   /**
@@ -112,11 +147,14 @@ class SharedWorkerPolyfill {
    * Is an EventListener that is called whenever an ErrorEvent of type 'error' occurs.
    */
   get onerror(): ((this: AbstractWorker, ev: ErrorEvent) => void) | null {
-    return "onerror" in this.worker ? this.worker.onerror : null;
+    if (this.worker && "onerror" in this.worker) {
+      return this.worker.onerror;
+    }
+    return null;
   }
 
   set onerror(value: ((this: AbstractWorker, ev: ErrorEvent) => void) | null) {
-    if ("onerror" in this.worker) {
+    if (this.worker && "onerror" in this.worker) {
       this.worker.onerror = value;
     }
   }

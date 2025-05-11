@@ -1,5 +1,6 @@
 import { stat } from "./directory-operations";
 import { getDirectoryHandleAndFileName } from "./utils";
+import { tryCatch } from "../try-catch";
 
 /**
  * Write content to a file
@@ -10,13 +11,20 @@ export const writeFile = async (
   filePath: string,
   content: string,
 ): Promise<void> => {
-  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
-  if (!fileName) throw new Error("Invalid file path");
+  const doWrite = async () => {
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    if (!fileName) throw new Error("Invalid file path for writeFile");
 
-  const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
-  const writable = await fileHandle.createWritable();
-  await writable.write(content);
-  await writable.close();
+    const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
+    const writable = await fileHandle.createWritable();
+    await writable.write(content);
+    await writable.close();
+  };
+  const { error } = await tryCatch(doWrite());
+  if (error) {
+    console.error(`Error writing file ${filePath}:`, error);
+    throw error;
+  }
 };
 
 /**
@@ -28,15 +36,28 @@ export const appendFile = async (
   filePath: string,
   content: string,
 ): Promise<void> => {
-  try {
-    // Try to read existing content
-    const existingContent = await readFile(filePath).catch(() => "");
-
-    // Write combined content
+  const doAppend = async () => {
+    let existingContent = "";
+    const { data: readData, error: readError } = await tryCatch(readFile(filePath));
+    if (readError) {
+      // If readFile fails (e.g. file not found), existingContent remains ""
+      console.warn(`File ${filePath} not found or unreadable for append, creating new file.`);
+    } else {
+      existingContent = readData || "";
+    }
     await writeFile(filePath, existingContent + content);
-  } catch (_error) {
-    // If file doesn't exist, create it with the new content
-    await writeFile(filePath, content);
+  };
+
+  const { error } = await tryCatch(doAppend());
+  if (error) {
+    // If the initial try (including potential readFile failure) fails,
+    // attempt to write the file directly as a fallback (covers file not existing).
+    console.warn(`Initial append failed for ${filePath}, attempting direct write:`, error);
+    const { error: directWriteError } = await tryCatch(writeFile(filePath, content));
+    if (directWriteError) {
+      console.error(`Direct write also failed for ${filePath} after append attempt:`, directWriteError);
+      throw directWriteError;
+    }
   }
 };
 
@@ -46,12 +67,21 @@ export const appendFile = async (
  * @returns File content as string
  */
 export const readFile = async (filePath: string): Promise<string> => {
-  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
-  if (!fileName) throw new Error("Invalid file path");
+  const doRead = async () => {
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    if (!fileName) throw new Error("Invalid file path for readFile");
 
-  const fileHandle = await dirHandle.getFileHandle(fileName);
-  const file = await fileHandle.getFile();
-  return await file.text();
+    const fileHandle = await dirHandle.getFileHandle(fileName);
+    const file = await fileHandle.getFile();
+    return file.text();
+  };
+  const { data, error } = await tryCatch(doRead());
+  if (error) {
+    console.error(`Error reading file ${filePath}:`, error);
+    throw error;
+  }
+  if (data === null || data === undefined) throw new Error(`Read file ${filePath} returned null or undefined`);
+  return data;
 };
 
 /**
@@ -59,10 +89,16 @@ export const readFile = async (filePath: string): Promise<string> => {
  * @param filePath Path to file
  */
 export const unlink = async (filePath: string): Promise<void> => {
-  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
-  if (!fileName) throw new Error("Invalid file path");
-
-  await dirHandle.removeEntry(fileName);
+  const doUnlink = async () => {
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    if (!fileName) throw new Error("Invalid file path for unlink");
+    await dirHandle.removeEntry(fileName);
+  };
+  const { error } = await tryCatch(doUnlink());
+  if (error) {
+    console.error(`Error unlinking file ${filePath}:`, error);
+    throw error;
+  }
 };
 
 /**
@@ -87,42 +123,46 @@ export const rename = async (
   oldPath: string,
   newPath: string,
 ): Promise<void> => {
-  // For files, copy content and delete original
-  try {
+  const doRenameFile = async () => {
     const content = await readFile(oldPath);
     await writeFile(newPath, content);
     await unlink(oldPath);
-  } catch (_error) {
-    // If not a file, try as directory
-    const entries = await import("./directory-operations").then((m) => m.readdir(oldPath));
-    await import("./directory-operations").then((m) => m.mkdir(newPath));
+  };
 
-    // Copy all entries recursively
-    for (const entry of entries) {
-      const sourcePath = `${oldPath}/${entry}`;
-      const destPath = `${newPath}/${entry}`;
+  const { error: fileRenameError } = await tryCatch(doRenameFile());
 
-      // Check if it's a file or directory
-      const statResult = await stat(sourcePath);
-      if (statResult?.kind === "file") {
-        const content = await readFile(sourcePath);
-        await writeFile(destPath, content);
-        await unlink(sourcePath);
-      } else if (statResult?.kind === "directory") {
-        // Recursively handle subdirectories
-        await import("./directory-operations").then((m) => m.mkdir(destPath));
-        const subEntries = await import("./directory-operations").then((m) =>
-          m.readdir(sourcePath)
-        );
-        for (const subEntry of subEntries) {
-          await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`);
+  if (fileRenameError) {
+    // If not a file or file operation failed, try as directory
+    console.warn(`Renaming ${oldPath} as file failed, trying as directory:`, fileRenameError);
+    const doRenameDirectory = async () => {
+      const entries = await import("./directory-operations").then((m) => m.readdir(oldPath));
+      await import("./directory-operations").then((m) => m.mkdir(newPath));
+
+      for (const entry of entries) {
+        const sourcePath = `${oldPath}/${entry}`;
+        const destPath = `${newPath}/${entry}`;
+        const statResult = await stat(sourcePath);
+
+        if (statResult?.kind === "file") {
+          const content = await readFile(sourcePath);
+          await writeFile(destPath, content);
+          await unlink(sourcePath);
+        } else if (statResult?.kind === "directory") {
+          await import("./directory-operations").then((m) => m.mkdir(destPath));
+          const subEntries = await import("./directory-operations").then((m) => m.readdir(sourcePath));
+          for (const subEntry of subEntries) {
+            await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`); // Recursive call
+          }
+          await import("./directory-operations").then((m) => m.rmdir(sourcePath));
         }
-        await import("./directory-operations").then((m) => m.rmdir(sourcePath));
       }
+      await import("./directory-operations").then((m) => m.rmdir(oldPath));
+    };
+    const { error: dirRenameError } = await tryCatch(doRenameDirectory());
+    if (dirRenameError) {
+      console.error(`Error renaming ${oldPath} to ${newPath} (tried as file and directory):`, dirRenameError);
+      throw dirRenameError;
     }
-
-    // Remove old directory
-    await import("./directory-operations").then((m) => m.rmdir(oldPath));
   }
 };
 

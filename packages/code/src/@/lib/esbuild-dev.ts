@@ -7,13 +7,20 @@ import {
 } from "./esbuild-build-tasks.ts";
 
 import { stop } from "./esbuild-operations.ts";
+import { tryCatch } from "./try-catch.ts"; // Added import
 
 const getWasmFile = async () => {
   const { promises } = await import("node:fs");
   const { readdir } = promises;
 
   console.log("Reading ./dist directory for WASM file...");
-  const dir = await readdir("./dist");
+  const { data: dir, error: readdirError } = await tryCatch(readdir("./dist"));
+
+  if (readdirError || !dir) {
+    console.error("Error reading ./dist directory or directory is null:", readdirError);
+    throw new Error("Failed to read ./dist directory for WASM file");
+  }
+
   for await (const file of dir) {
     if (file.includes("esbuild") && file.includes(".wasm")) {
       console.log("WASM file found:", file);

@@ -205,109 +205,113 @@ export type TypeTransferable =
 /**
  * Tests if certain transferable objects are actually supported in a specific js environment when using `structuredClone` and `MessageChannel postMessage`
  */
+import { tryCatch } from "./try-catch"; // Added import
+
 export async function isSupported(): Promise<{
   channel: boolean;
   streams: boolean;
 }> {
-  async function getChannels() {
-    try {
-      if (!MessageChannelExists) {
-        return false;
-      }
+  const getChannels = async () => {
+    if (!MessageChannelExists) {
+      return false;
+    }
 
-      const msgChanl = new MessageChannel();
-      const obj = { port1: msgChanl.port1 };
-      const clonedObj = structuredCloneExists
-        ? structuredClone(obj, {
-          transfer: [
-            msgChanl.port1,
-          ],
-        })
-        : obj;
+    const msgChanl = new MessageChannel();
+    const obj = { port1: msgChanl.port1 };
+    const clonedObj = structuredCloneExists
+      ? structuredClone(obj, {
+        transfer: [
+          msgChanl.port1,
+        ],
+      })
+      : obj;
 
+    const messageChannel = new MessageChannel();
+    const obj1 = { port1: clonedObj.port1 };
+    await new Promise<void>((resolve) => {
+      messageChannel.port1.postMessage(obj1, [
+        obj1.port1,
+      ]);
+      messageChannel.port1.onmessage = () => {
+        resolve();
+      };
+      messageChannel.port2.onmessage = ({ data }) => {
+        messageChannel.port2.postMessage(data, [
+          data.port1,
+        ]);
+      };
+    });
+    messageChannel.port1.close();
+    return true;
+  };
+
+  const getStreams = async () => {
+    if (!StreamExists) {
+      return false;
+    }
+
+    if (!MessageChannelExists && !structuredCloneExists) {
+      return false;
+    }
+
+    const streams = {
+      readonly: new ReadableStream(),
+      writeonly: new WritableStream(),
+      tranformonly: new TransformStream(),
+    };
+
+    const clonedObj = structuredCloneExists
+      ? structuredClone(streams, {
+        transfer: [
+          streams.readonly as unknown as Transferable,
+          streams.writeonly as unknown as Transferable,
+          streams.tranformonly as unknown as Transferable,
+        ],
+      })
+      : streams;
+
+    if (MessageChannelExists) {
       const messageChannel = new MessageChannel();
-      const obj1 = { port1: clonedObj.port1 };
+      const streams1 = clonedObj;
       await new Promise<void>((resolve) => {
-        messageChannel.port1.postMessage(obj1, [
-          obj1.port1,
+        messageChannel.port1.postMessage(streams1, [
+          streams1.readonly as unknown as Transferable,
+          streams1.writeonly as unknown as Transferable,
+          streams1.tranformonly as unknown as Transferable,
         ]);
         messageChannel.port1.onmessage = () => {
           resolve();
         };
         messageChannel.port2.onmessage = ({ data }) => {
-          messageChannel.port2.postMessage(data, [
-            data.port1,
-          ]);
+          messageChannel.port2.postMessage(
+            data,
+            [
+              data.readonly as unknown as Transferable,
+              data.writeonly as unknown as Transferable,
+              data.tranformonly as unknown as Transferable,
+            ].filter((x) => x !== undefined),
+          );
         };
       });
       messageChannel.port1.close();
-    } catch {
-      return false;
     }
-
     return true;
+  };
+
+  const { data: channelSupported, error: channelError } = await tryCatch(getChannels());
+  const { data: streamsSupported, error: streamsError } = await tryCatch(getStreams());
+
+  if (channelError) {
+    console.warn("Channel support check failed:", channelError);
+  }
+  if (streamsError) {
+    console.warn("Streams support check failed:", streamsError);
   }
 
-  async function getStreams() {
-    try {
-      if (!StreamExists) {
-        return false;
-      }
-
-      if (!MessageChannelExists && !structuredCloneExists) {
-        return false;
-      }
-
-      const streams = {
-        readonly: new ReadableStream(),
-        writeonly: new WritableStream(),
-        tranformonly: new TransformStream(),
-      };
-
-      const clonedObj = structuredCloneExists
-        ? structuredClone(streams, {
-          transfer: [
-            streams.readonly as unknown as Transferable,
-            streams.writeonly as unknown as Transferable,
-            streams.tranformonly as unknown as Transferable,
-          ],
-        })
-        : streams;
-
-      if (MessageChannelExists) {
-        const messageChannel = new MessageChannel();
-        const streams1 = clonedObj;
-        await new Promise<void>((resolve) => {
-          messageChannel.port1.postMessage(streams1, [
-            streams1.readonly as unknown as Transferable,
-            streams1.writeonly as unknown as Transferable,
-            streams1.tranformonly as unknown as Transferable,
-          ]);
-          messageChannel.port1.onmessage = () => {
-            resolve();
-          };
-          messageChannel.port2.onmessage = ({ data }) => {
-            messageChannel.port2.postMessage(
-              data,
-              [
-                data.readonly as unknown as Transferable,
-                data.writeonly as unknown as Transferable,
-                data.tranformonly as unknown as Transferable,
-              ].filter((x) => x !== undefined),
-            );
-          };
-        });
-        messageChannel.port1.close();
-      }
-    } catch {
-      return false;
-    }
-
-    return true;
-  }
-
-  const [channel, streams] = await Promise.all([getChannels(), getStreams()]);
-  return { channel, streams };
+  return {
+    channel: !!channelSupported && !channelError,
+    streams: !!streamsSupported && !streamsError,
+  };
 }
 
 /**

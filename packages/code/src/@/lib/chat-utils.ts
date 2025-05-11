@@ -76,146 +76,86 @@ ${mod.replace}
 }
 
 /**
- * Parses a code block to extract search and replace parts
+ * Parses a string that might represent a diff block into a CodeModification object.
+ * Handles fully formed diff blocks or content extracted from other contexts (e.g., markdown).
  */
-function parseCodeBlock(block: string): string | null {
-  const cleanBlock = block.trim();
-  const lines = cleanBlock.split("\n");
+function parseSingleDiffBlock(blockText: string): CodeModification | null {
+  const searchMarker = SEARCH_REPLACE_MARKERS.SEARCH_START;
+  const separatorMarker = SEARCH_REPLACE_MARKERS.SEPARATOR;
+  const replaceMarker = SEARCH_REPLACE_MARKERS.REPLACE_END;
 
-  // Remove code fence markers if present
-  if (lines[0].includes("```")) {
-    lines.shift();
-  }
-  if (lines[lines.length - 1].includes("```")) {
-    lines.pop();
-  }
+  let searchText = "";
+  let replaceText = "";
 
-  // Handle standard SEARCH/REPLACE format
-  if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
-    const content = lines.join("\n")
-      .replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, "")
-      .split(SEARCH_REPLACE_MARKERS.SEPARATOR);
+  // Regex to capture content within a standard diff block
+  const fullBlockRegex = new RegExp(
+    // Using non-capturing group for optional newline after SEARCH marker
+    // Allowing for optional newline before SEPARATOR and REPLACE_END
+    `^${searchMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${separatorMarker}(?:\\n)?([\\s\\S]*?)(?:\\n)?${replaceMarker}$`
+  );
+  const fullBlockMatch = blockText.match(fullBlockRegex);
 
-    if (content.length === 2) {
-      return formatCodeModification({
-        search: content[0].trim(),
-        replace: content[1].trim(),
-      });
+  if (fullBlockMatch) {
+    searchText = fullBlockMatch[1].trim();
+    replaceText = fullBlockMatch[2].trim();
+    // Search text cannot be empty, replace text can be empty (for deletions)
+    if (searchText) {
+      return { search: searchText, replace: replaceText };
     }
-    return null;
+  } else {
+    // Fallback for content that might be just the inner parts of a diff,
+    // or a malformed block. This is more lenient.
+    const parts = blockText.split(separatorMarker);
+    if (parts.length >= 2) {
+      searchText = parts[0]
+        .replace(new RegExp(`^${searchMarker}\\n?`), "")
+        .trim();
+      // For replaceText, take everything after the first separator,
+      // and remove a potential trailing replaceMarker.
+      replaceText = parts.slice(1).join(separatorMarker)
+        .replace(new RegExp(`\\n?${replaceMarker}$`), "")
+        .trim();
+
+      if (searchText) {
+        return { search: searchText, replace: replaceText };
+      }
+    }
   }
-
-  // Handle alternative format with multiple separators
-  const separatorIndices = [];
-  let startIdx = 0;
-  const fullContent = lines.join("\n");
-
-  while (true) {
-    const idx = fullContent.indexOf(SEARCH_REPLACE_MARKERS.SEPARATOR, startIdx);
-    if (idx === -1) break;
-    separatorIndices.push(idx);
-    startIdx = idx + SEARCH_REPLACE_MARKERS.SEPARATOR.length;
-  }
-
-  if (separatorIndices.length > 0) {
-    const search = fullContent.substring(0, separatorIndices[0]).trim();
-    const replace = fullContent.substring(
-      separatorIndices[0] + SEARCH_REPLACE_MARKERS.SEPARATOR.length,
-      separatorIndices[1] || fullContent.length,
-    ).trim();
-    return formatCodeModification({
-      search,
-      replace,
-    });
-  }
-
   return null;
 }
+
 
 /**
  * Extracts code modifications from a response string
  */
 export const extractCodeModification = (response: string): string[] => {
   console.debug("extractCodeModification - Response length:", response.length);
-  console.debug(
-    "extractCodeModification - Contains SEARCH marker:",
-    response.includes(SEARCH_REPLACE_MARKERS.SEARCH_START),
-  );
-  console.debug(
-    "extractCodeModification - Contains SEPARATOR marker:",
-    response.includes(SEARCH_REPLACE_MARKERS.SEPARATOR),
-  );
-  console.debug(
-    "extractCodeModification - Contains REPLACE marker:",
-    response.includes(SEARCH_REPLACE_MARKERS.REPLACE_END),
-  );
+  // ... (keep existing debug logs if desired)
 
   const modifications: string[] = [];
+  const seenModifications = new Set<string>(); // To avoid duplicates
 
-  // Extract modifications from regular format
-  const regexMatches = response.match(CODE_MODIFICATION_REGEX) || [];
-  console.debug(
-    "extractCodeModification - Regex matches count:",
-    regexMatches.length,
-  );
-
-  if (regexMatches.length > 0 && regexMatches[0]) {
-    console.debug(
-      "extractCodeModification - First regex match:",
-      regexMatches[0].substring(0, 50) +
-        (regexMatches[0].length > 50 ? "..." : ""),
-    );
-  } else {
-    console.debug(
-      "extractCodeModification - Regex pattern used:",
-      CODE_MODIFICATION_REGEX,
-    );
-    console.debug(
-      "extractCodeModification - Response sample:",
-      response.substring(0, 100) + (response.length > 100 ? "..." : ""),
-    );
+  // Strategy 1: Find standard diff blocks directly in the response
+  const directMatches = response.match(CODE_MODIFICATION_REGEX) || [];
+  for (const match of directMatches) {
+    if (!seenModifications.has(match)) {
+      modifications.push(match);
+      seenModifications.add(match);
+    }
   }
 
-  modifications.push(...regexMatches);
-
-  // Extract modifications from code blocks
-  const codeBlockMatches = response.match(/```[\s\S]*?```/g) || [];
-  console.debug(
-    "extractCodeModification - Code block matches count:",
-    codeBlockMatches.length,
-  );
-
-  for (const block of codeBlockMatches) {
-    // First clean up any code fences in the entire block
-    const cleanBlock = block
-      .replace(/```[\s\S]*?\n/g, "") // Remove all opening code fences
-      .replace(/\n```(\s*)$/g, "") // Remove all closing code fences
-      .replace(/```/g, "") // Remove any remaining code fences
-      .trim();
-
-    // Handle both standard and broken formats
-    if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEARCH_START)) {
-      // Standard format
-      const modification = parseCodeBlock(block);
-      if (modification) {
-        modifications.push(modification);
-      }
-    } else if (cleanBlock.includes(SEARCH_REPLACE_MARKERS.SEPARATOR)) {
-      // Broken format with just separators
-      const sections = cleanBlock.split(SEARCH_REPLACE_MARKERS.SEPARATOR);
-
-      // Always take the first section as search and the second as replace
-      // Skip the third section if it exists
-      if (sections.length >= 2) {
-        const search = sections[0].trim();
-        const replace = sections[1].trim();
-
-        if (search && replace) {
-          modifications.push(formatCodeModification({
-            search,
-            replace,
-          }));
-        }
+  // Strategy 2: Find markdown code blocks and try to parse their content
+  // Regex to capture content within ``` ```, optionally with a language tag
+  const codeBlockRegex = /```(?:[a-zA-Z0-9\-_]+)?\n([\s\S]*?)\n```/g;
+  let markdownMatch;
+  while ((markdownMatch = codeBlockRegex.exec(response)) !== null) {
+    const blockContent = markdownMatch[1].trim(); // Content within the backticks
+    const parsedDiffObject = parseSingleDiffBlock(blockContent);
+    if (parsedDiffObject) {
+      const formattedModString = formatCodeModification(parsedDiffObject);
+      if (!seenModifications.has(formattedModString)) {
+        modifications.push(formattedModString);
+        seenModifications.add(formattedModString);
       }
     }
   }
@@ -227,8 +167,10 @@ export const extractCodeModification = (response: string): string[] => {
   return modifications;
 };
 
+
 /**
- * Parses a code modification string into search and replace parts
+ * Parses a code modification string (assumed to be a well-formed diff block)
+ * into search and replace parts.
  */
 function parseModification(mod: string): CodeModification | null {
   console.debug("parseModification - Modification length:", mod.length);

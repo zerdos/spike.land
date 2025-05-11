@@ -156,7 +156,12 @@ async function handleEditorResponse(codeSpace: string) {
     `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/"></iframe></div>`,
   );
 
-  const headers = new Headers({
+  const headers = createHtmlResponseHeaders();
+  return new Response(respText, { status: 200, headers });
+}
+
+function createHtmlResponseHeaders(): Headers {
+  return new Headers({
     "Access-Control-Allow-Origin": "*",
     "Cross-Origin-Embedder-Policy": "require-corp",
     "Cross-Origin-Resource-Policy": "cross-origin",
@@ -165,8 +170,6 @@ async function handleEditorResponse(codeSpace: string) {
     "Content-Encoding": "gzip",
     "Content-Type": "text/html; charset=UTF-8",
   });
-
-  return new Response(respText, { status: 200, headers });
 }
 
 async function handleHtmlResponse(session: ICodeSession) {
@@ -189,16 +192,7 @@ async function handleHtmlResponse(session: ICodeSession) {
       html,
     );
 
-  const headers = new Headers({
-    "Access-Control-Allow-Origin": "*",
-    "Cross-Origin-Embedder-Policy": "require-corp",
-    "Cross-Origin-Resource-Policy": "cross-origin",
-    "Cross-Origin-Opener-Policy": "same-origin",
-    "Cache-Control": "no-cache",
-    "Content-Encoding": "gzip",
-    "Content-Type": "text/html; charset=UTF-8",
-  });
-
+  const headers = createHtmlResponseHeaders();
   return new Response(respText, { status: 200, headers });
 }
 

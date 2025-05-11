@@ -1,5 +1,6 @@
 import type { StatResult } from "./types";
 import { getDirectoryHandleAndFileName, handleDirectory, handleFile, normalizePath } from "./utils";
+import { tryCatch } from "../try-catch";
 
 /**
  * List directory contents
@@ -7,14 +8,17 @@ import { getDirectoryHandleAndFileName, handleDirectory, handleFile, normalizePa
  * @returns Array of file and directory names
  */
 export const readdir = async (filePath: string): Promise<string[]> => {
-  try {
+  const doReaddir = async () => {
     const { dirHandle } = await getDirectoryHandleAndFileName(filePath);
     const entries = await import("./utils").then((m) => m.getDirectoryEntriesRecursive(dirHandle));
     return Object.keys(entries);
-  } catch (error) {
+  };
+  const { data, error } = await tryCatch(doReaddir());
+  if (error) {
     console.error(`Error reading directory ${filePath}:`, error);
-    return [];
+    return []; // Return empty array on error as per original logic
   }
+  return data || [];
 };
 
 /**
@@ -22,21 +26,27 @@ export const readdir = async (filePath: string): Promise<string[]> => {
  * @param filePath Path to directory
  */
 export const mkdir = async (filePath: string): Promise<void> => {
-  const normalizedPath = normalizePath(filePath);
-  const pathParts = normalizedPath.split("/").filter((x) => x);
-  const folderName = pathParts.pop();
+  const doMkdir = async () => {
+    const normalizedPath = normalizePath(filePath);
+    const pathParts = normalizedPath.split("/").filter((x) => x);
+    const folderName = pathParts.pop();
 
-  if (!folderName) throw new Error("Invalid directory path");
+    if (!folderName) throw new Error("Invalid directory path for mkdir");
 
-  let currentHandle = await navigator.storage.getDirectory();
+    let currentHandle = await navigator.storage.getDirectory();
 
-  for (const part of pathParts) {
-    currentHandle = await currentHandle.getDirectoryHandle(part, {
-      create: true,
-    });
+    for (const part of pathParts) {
+      currentHandle = await currentHandle.getDirectoryHandle(part, {
+        create: true,
+      });
+    }
+    await currentHandle.getDirectoryHandle(folderName, { create: true });
+  };
+  const { error } = await tryCatch(doMkdir());
+  if (error) {
+    console.error(`Error creating directory ${filePath}:`, error);
+    throw error;
   }
-
-  await currentHandle.getDirectoryHandle(folderName, { create: true });
 };
 
 /**
@@ -44,23 +54,29 @@ export const mkdir = async (filePath: string): Promise<void> => {
  * @param filePath Path to directory
  */
 export const rmdir = async (filePath: string): Promise<void> => {
-  const normalizedPath = normalizePath(filePath);
-  const pathParts = normalizedPath.split("/").filter((x) => x);
+  const doRmdir = async () => {
+    const normalizedPath = normalizePath(filePath);
+    const pathParts = normalizedPath.split("/").filter((x) => x);
 
-  if (pathParts.length === 0) throw new Error("Cannot remove root directory");
+    if (pathParts.length === 0) throw new Error("Cannot remove root directory");
 
-  const dirName = pathParts.pop();
-  if (!dirName) throw new Error("Invalid directory path");
+    const dirName = pathParts.pop();
+    if (!dirName) throw new Error("Invalid directory path for rmdir");
 
-  let currentHandle = await navigator.storage.getDirectory();
+    let currentHandle = await navigator.storage.getDirectory();
 
-  for (const part of pathParts) {
-    currentHandle = await currentHandle.getDirectoryHandle(part, {
-      create: false,
-    });
+    for (const part of pathParts) {
+      currentHandle = await currentHandle.getDirectoryHandle(part, {
+        create: false, // Important: should be false for rmdir parent lookup
+      });
+    }
+    await currentHandle.removeEntry(dirName, { recursive: true });
+  };
+  const { error } = await tryCatch(doRmdir());
+  if (error) {
+    console.error(`Error removing directory ${filePath}:`, error);
+    throw error;
   }
-
-  await currentHandle.removeEntry(dirName, { recursive: true });
 };
 
 /**
@@ -69,40 +85,43 @@ export const rmdir = async (filePath: string): Promise<void> => {
  * @returns File or directory information
  */
 export const stat = async (filePath: string): Promise<StatResult> => {
-  try {
+  const doStat = async (): Promise<StatResult> => {
     const normalizedPath = normalizePath(filePath);
 
-    // Handle root directory
     if (normalizedPath === "") {
       const rootHandle = await navigator.storage.getDirectory();
-      return await handleDirectory(rootHandle, "/");
+      return handleDirectory(rootHandle, "/");
     }
 
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
-      filePath,
-    );
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
 
     if (!fileName) {
-      // It's a directory path
-      return await handleDirectory(dirHandle, filePath);
-    } else {
-      try {
-        // Try to get as file
-        const fileHandle = await dirHandle.getFileHandle(fileName);
-        return await handleFile(fileHandle, filePath);
-      } catch (_error) {
-        try {
-          // Try to get as directory
-          const subDirHandle = await dirHandle.getDirectoryHandle(fileName);
-          return await handleDirectory(subDirHandle, filePath);
-        } catch (_error) {
-          return null;
-        }
-      }
+      return handleDirectory(dirHandle, filePath);
     }
-  } catch (_error) {
+
+    // Try to get as file first
+    const { data: fileHandle, error: fileError } = await tryCatch(dirHandle.getFileHandle(fileName));
+    if (fileHandle) {
+      return handleFile(fileHandle, filePath);
+    }
+
+    // If not a file, try as directory
+    const { data: subDirHandle, error: dirError } = await tryCatch(dirHandle.getDirectoryHandle(fileName));
+    if (subDirHandle) {
+      return handleDirectory(subDirHandle, filePath);
+    }
+    // If neither file nor directory, log errors and return null
+    console.warn(`stat: Could not find ${filePath} as file or directory. File error: ${fileError}, Dir error: ${dirError}`);
+    return null;
+  };
+
+  // The outermost tryCatch is to catch errors from getDirectoryHandleAndFileName or if path is truly invalid
+  const { data, error } = await tryCatch(doStat());
+  if (error) {
+    console.warn(`Error in stat for ${filePath}:`, error); // Use warn as it might be a "file not found" scenario
     return null;
   }
+  return data;
 };
 
 /**

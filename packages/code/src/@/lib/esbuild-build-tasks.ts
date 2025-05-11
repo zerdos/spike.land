@@ -1,7 +1,8 @@
 import { copy } from "esbuild-plugin-copy";
-import { readdir, readFile, stat, writeFile } from "fs/promises";
+import { readdir, readFile, stat, writeFile } from "fs/promises"; // Assuming these are Node.js fs/promises
 import { getCommonBuildOptions } from "./esbuild-build-config.ts";
 import { environment } from "./esbuild-make-env.ts";
+import { tryCatch } from "./try-catch.ts"; // Added import
 import { build } from "./esbuild-operations.ts";
 export type Environment = "development" | "production";
 import path from "path";
@@ -17,23 +18,34 @@ const createEntryPoints = async (dir: string): Promise<string[]> => {
     currentDir: string,
     basePath: string,
   ): Promise<void> {
-    const items = await readdir(path.join(basePath, currentDir));
+    const { data: items, error: readdirError } = await tryCatch(readdir(path.join(basePath, currentDir)));
+    if (readdirError || !items) {
+      console.error(`Error reading directory ${path.join(basePath, currentDir)}:`, readdirError);
+      return; // Skip this directory if readdir fails
+    }
 
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
-      const itemStat = await stat(itemPath);
+      const { data: itemStat, error: statError } = await tryCatch(stat(itemPath));
+
+      if (statError || !itemStat) {
+        console.error(`Error getting stats for ${itemPath}:`, statError);
+        continue; // Skip this item if stat fails
+      }
 
       if (itemStat.isDirectory()) {
-        // If it's a directory, process it recursively
         await processDirectory(path.join(currentDir, item), basePath);
       } else if (!item.endsWith(".d.ts") && !item.endsWith(".md")) {
-        // If it's a file and not a declaration file or markdown file, add it to the result
         result.push(path.join(basePath, currentDir, item));
       }
     }
   }
 
-  await processDirectory(dir, "src/@");
+  const { error } = await tryCatch(processDirectory(dir, "src/@"));
+  if (error) {
+    console.error(`Error creating entry points for directory ${dir}:`, error);
+    return []; // Return empty if top-level processing fails
+  }
   return result;
 };
 
@@ -195,17 +207,23 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
     currentDir: string,
     basePath: string,
   ): Promise<void> {
-    const items = await readdir(path.join(basePath, currentDir));
+    const { data: items, error: readdirError } = await tryCatch(readdir(path.join(basePath, currentDir)));
+    if (readdirError || !items) {
+      console.error(`Error reading directory ${path.join(basePath, currentDir)} for aliases:`, readdirError);
+      return;
+    }
 
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
-      const itemStat = await stat(itemPath);
+      const { data: itemStat, error: statError } = await tryCatch(stat(itemPath));
+      if (statError || !itemStat) {
+        console.error(`Error getting stats for ${itemPath} for aliases:`, statError);
+        continue;
+      }
 
       if (itemStat.isDirectory()) {
-        // If it's a directory, process it recursively
         await processDirectory(path.join(currentDir, item), basePath);
       } else if (item.endsWith(".ts") || item.endsWith(".tsx")) {
-        // If it's a TypeScript file, add it to the result
         const relativePath = path.join(currentDir, item);
         const importPath = `@/${relativePath}`.replace(/\.(ts|tsx)$/, "");
         const targetPath = `/@/${relativePath.replace(/\.(ts|tsx)$/, ".mjs")}`;
@@ -214,7 +232,11 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
     }
   }
 
-  await processDirectory(dir, "src/@");
+  const { error } = await tryCatch(processDirectory(dir, "src/@"));
+  if (error) {
+    console.error(`Error creating aliases for directory ${dir}:`, error);
+    return {}; // Return empty if top-level processing fails
+  }
   return result;
 };
 
@@ -398,27 +420,42 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
   async function runImportMapReplaceOnAllFilesRecursive(
     dir: string,
   ): Promise<void> {
-    try {
-      const files = await readdir(dir);
+    const processDir = async () => {
+      const { data: files, error: readdirError } = await tryCatch(readdir(dir));
+      if (readdirError || !files) {
+        console.error(`Error reading directory ${dir} for import map replacement:`, readdirError);
+        return;
+      }
 
       for (const file of files) {
         const filePath = path.join(dir, file);
-        const fileStat = await stat(filePath);
+        const { data: fileStat, error: statError } = await tryCatch(stat(filePath));
+        if (statError || !fileStat) {
+          console.error(`Error getting stats for ${filePath} for import map replacement:`, statError);
+          continue;
+        }
 
         if (fileStat.isDirectory()) {
-          // If it's a directory, recursively process its contents
-
-          await runImportMapReplaceOnAllFilesRecursive(filePath);
+          await runImportMapReplaceOnAllFilesRecursive(filePath); // Recursive call
         } else {
-          // If it's a file, process it
           if (filePath.includes("worker")) continue;
-          const content = await readFile(filePath, "utf8");
+          const { data: content, error: readFileError } = await tryCatch(readFile(filePath, "utf8"));
+          if (readFileError || content === null || content === undefined) {
+            console.error(`Error reading file ${filePath} for import map replacement:`, readFileError);
+            continue;
+          }
           const newContent = importMapReplace(content);
-          await writeFile(filePath, newContent);
+          const { error: writeFileError } = await tryCatch(writeFile(filePath, newContent));
+          if (writeFileError) {
+            console.error(`Error writing file ${filePath} for import map replacement:`, writeFileError);
+          }
         }
       }
-    } catch (error) {
-      console.error(`Error processing directory ${dir}:`, error);
+    };
+    const { error } = await tryCatch(processDir());
+    if (error) {
+      // This top-level error might catch issues from the initial readdir(dir) if not handled inside processDir
+      console.error(`Error processing directory ${dir} for import map replacement (outer):`, error);
     }
   }
 

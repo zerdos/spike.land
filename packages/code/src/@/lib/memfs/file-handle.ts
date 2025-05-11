@@ -1,3 +1,4 @@
+import { tryCatch } from "../try-catch"; // Added import
 import type { Abortable } from "node:events";
 import type {
   BigIntStats,
@@ -31,32 +32,55 @@ class FileHandleImpl implements FileHandle {
   async readFile(
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<string | Buffer> {
-    const file = await this.fileHandle.getFile();
-    const content = await file.text();
-    if (!options) {
+    const doReadFile = async () => {
+      const file = await this.fileHandle.getFile();
+      const content = await file.text();
+      if (!options) {
+        return Buffer.from(content);
+      }
+      if (typeof options === "string" || (options && "encoding" in options)) {
+        return content;
+      }
       return Buffer.from(content);
+    };
+    const { data, error } = await tryCatch(doReadFile());
+    if (error) {
+      console.error("Error in FileHandleImpl.readFile:", error);
+      throw error;
     }
-    if (typeof options === "string" || (options && "encoding" in options)) {
-      return content;
-    }
-    return Buffer.from(content);
+    if (data === null || data === undefined) throw new Error("FileHandleImpl.readFile returned null or undefined");
+    return data;
   }
 
   async writeFile(
     data: string | Uint8Array,
     _options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<void> {
-    const writable = await this.fileHandle.createWritable();
-    await writable.write(data);
-    await writable.close();
+    const doWriteFile = async () => {
+      const writable = await this.fileHandle.createWritable();
+      await writable.write(data);
+      await writable.close();
+    };
+    const { error } = await tryCatch(doWriteFile());
+    if (error) {
+      console.error("Error in FileHandleImpl.writeFile:", error);
+      throw error;
+    }
   }
 
   async appendFile(
     data: string | Uint8Array,
     options?: BufferEncoding | (ObjectEncodingOptions & Abortable) | null,
   ): Promise<void> {
-    const existingContent = await this.readFile();
-    await this.writeFile(existingContent + data.toString(), options);
+    const doAppendFile = async () => {
+      const existingContent = await this.readFile(); // readFile is already refactored
+      await this.writeFile(existingContent + data.toString(), options); // writeFile is refactored
+    };
+    const { error } = await tryCatch(doAppendFile());
+    if (error) {
+      console.error("Error in FileHandleImpl.appendFile:", error);
+      throw error;
+    }
   }
 
   async chmod(_mode: Mode): Promise<void> {
@@ -198,18 +222,37 @@ class FileHandleImpl implements FileHandle {
       data = encoder.encode(data);
     }
 
-    if (_offsetOrOpts && typeof _offsetOrOpts === "object") {
-      // Handle options object
-    }
-
-    const writable = await this.fileHandle.createWritable();
-    await writable.write(data);
-    await writable.close();
-
-    return {
-      bytesWritten: data.length,
-      buffer: data,
+    // The core write operation
+    const doWrite = async () => {
+      const writable = await this.fileHandle.createWritable();
+      await writable.write(data); // data is already Uint8Array here
+      await writable.close();
+      return {
+        bytesWritten: (data as Uint8Array).length, // Cast to Uint8Array to access length
+        buffer: data, // data is already Uint8Array here
+      };
     };
+
+    // We need to handle the different overloads of write.
+    // The actual writing to the file system is what we wrap with tryCatch.
+    // The logic for handling different parameter types (_offsetOrOpts, etc.)
+    // would typically happen before or after this core async operation.
+    // For simplicity in this refactor, we'll assume the options are processed
+    // and the `data` is ready for the `writable.write` call.
+
+    const { data: writeResult, error } = await tryCatch(doWrite());
+
+    if (error) {
+      console.error("Error in FileHandleImpl.write:", error);
+      throw error;
+    }
+    if (!writeResult) throw new Error("FileHandleImpl.write did not return a result");
+
+    // If the original data was a string, we should probably return a string buffer.
+    // However, the native `fs.promises.FileHandle.write` with a string returns bytesWritten and the string.
+    // Our current `doWrite` returns the Uint8Array. This might need adjustment based on exact compatibility needs.
+    // For now, we return what `doWrite` gives.
+    return writeResult as { bytesWritten: number; buffer: string | Uint8Array; };
   }
 
   [Symbol.asyncDispose](): Promise<void> {
@@ -242,13 +285,21 @@ export const open = async (
   flags: string | number,
   _mode?: Mode,
 ): Promise<FileHandle> => {
-  const { getDirectoryHandleAndFileName } = await import("./utils");
-  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(path);
-  if (!fileName) throw new Error("Invalid file path");
+  const doOpen = async () => {
+    const { getDirectoryHandleAndFileName } = await import("./utils"); // Keep import inside if it's only used here
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(path);
+    if (!fileName) throw new Error("Invalid file path for open");
 
-  const create = flags === "w" || flags === "w+" || flags === "a" ||
-    flags === "a+";
-  const fileHandle = await dirHandle.getFileHandle(fileName, { create });
+    const create = flags === "w" || flags === "w+" || flags === "a" || flags === "a+";
+    const fileHandle = await dirHandle.getFileHandle(fileName, { create });
+    return createFileHandle(fileHandle, path);
+  };
 
-  return createFileHandle(fileHandle, path);
+  const { data: fileHandle, error } = await tryCatch(doOpen());
+  if (error) {
+    console.error(`Error opening file ${path}:`, error);
+    throw error;
+  }
+  if (!fileHandle) throw new Error(`Opening file ${path} returned no handle`);
+  return fileHandle;
 };
