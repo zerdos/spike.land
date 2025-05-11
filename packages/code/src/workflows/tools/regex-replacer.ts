@@ -11,7 +11,6 @@ import { z } from "zod";
 function createErrorResponse(
   currentCode: string,
   errorMessage: string,
-  p0: string,
   additionalProps: Record<string, unknown> = {},
 ) {
   return {
@@ -23,7 +22,7 @@ function createErrorResponse(
   };
 }
 
-export const codeModificationTool = tool(
+export const getRegexReplaceTool = tool(
   async ({
     instructions,
     hash,
@@ -42,7 +41,6 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           "Document hash mismatch. Code has been modified outside this session.",
-          "hash",
           { currentHash },
         );
       }
@@ -54,7 +52,6 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           "Invalid instructions format. Expected array of {search, replace} objects.",
-          "",
         );
       }
 
@@ -103,7 +100,6 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           `Validation errors:\n${validationErrors.join("\n")}`,
-          "regexError",
           { modifiedCode },
         );
       }
@@ -112,7 +108,6 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           "No changes detected. Regex patterns did not match any content.",
-          "noMatches",
         );
       }
 
@@ -141,7 +136,6 @@ export const codeModificationTool = tool(
         return createErrorResponse(
           currentCode,
           "No changes detected. Code remains unchanged.",
-          "noChanges",
         );
       }
 
@@ -153,13 +147,12 @@ export const codeModificationTool = tool(
       return createErrorResponse(
         currentCode,
         error instanceof Error ? error.message : "Code modification failed",
-        "",
         { stack: error instanceof Error ? error.stack : undefined },
       );
     }
   },
   {
-    name: "code_modification",
+    name: "regex_replace",
     description: [
       "Performs code modifications using REGEX SEARCH/REPLACE patterns.",
       "REQUIRES: Array of {search (regex), replace} instructions,",

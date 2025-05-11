@@ -8,7 +8,7 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { getSystemPrompt } from "../config/system-prompts";
 import type { AgentState, CodeModification } from "./chat-langchain";
-import { getReplaceInFileTool } from "./tools/replace-in-file";
+import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
 
 /**
  * Creates a workflow with string replace capability
@@ -27,7 +27,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   });
 
   // Create the replace-in-file tool
-  const replaceInFileTool = getReplaceInFileTool(cSess);
+  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
 
   // Bind tools to the model
   const modelWithTools = anthropic.bindTools([replaceInFileTool]);
@@ -64,7 +64,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
     }
 
     const toolResponse = message.additional_kwargs.tool_responses[0];
-    if (!toolResponse || toolResponse.name !== "code_modification") {
+    // Expect 'enhanced_replace_in_file' which is the name of the tool from getEnhancedReplaceInFileTool
+    if (!toolResponse || toolResponse.name !== "enhanced_replace_in_file") {
       return state;
     }
 
@@ -169,7 +170,7 @@ export const createChatLangchainWorkflow = (
   });
 
   // Create the replace-in-file tool
-  const replaceInFileTool = getReplaceInFileTool(cSess);
+  const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
 
   // Create the system prompt
   const systemPrompt = getSystemPrompt();
