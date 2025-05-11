@@ -82,8 +82,8 @@ export class FileChangeManager {
       return {
         success: false,
         message: `Error retrieving file content: ${
-          getContentError instanceof Error ? getContentError.message : String(getContentError)
-        }` || "File content is empty",
+          getContentError instanceof Error ? getContentError.message : String(getContentError)|| "File content is empty"
+        }` 
       };
     }
 

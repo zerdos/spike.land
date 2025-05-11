@@ -13,10 +13,92 @@ import { sanitizeSession, sessionToJSON } from "@/lib/make-sess";
 
 const cSessions: Record<string, SessionSynchronizer> = {};
 
+interface RouteContext {
+  request: Request;
+  session: ICodeSession;
+  codeSpace: string;
+  pathname: string;
+}
+
+type RouteHandler = (context: RouteContext) => Promise<Response> | Response;
+type RouteCondition = (context: RouteContext) => boolean;
+
+interface RouteConfig {
+  condition: RouteCondition;
+  handler: RouteHandler;
+}
+
+// Define route handlers (keeping existing functions, but they might need slight adjustments for context)
+async function handleEditorResponseInternal(context: RouteContext): Promise<Response> {
+  return handleEditorResponse(context.codeSpace);
+}
+async function handleHtmlResponseInternal(context: RouteContext): Promise<Response> {
+  return handleHtmlResponse(context.session);
+}
+function handleIndexCssInternal(context: RouteContext): Response {
+  return handleIndexCss(context.request, context.session);
+}
+async function handleIndexJsInternal(context: RouteContext): Promise<Response> {
+  return handleIndexJs(context.request, context.session);
+}
+function handleIndexTsxInternal(context: RouteContext): Response {
+  return handleIndexTsx(context.request, context.session);
+}
+async function handleSessionJsonInternal(context: RouteContext): Promise<Response> {
+  return handleSessionJson(context.request, context.session);
+}
+
+function isGeneralHtmlRoute({ request, pathname, codeSpace }: RouteContext): boolean {
+  const url = request.url;
+  // Check if pathname is a key in the routes object
+  const isListedRoute = Object.prototype.hasOwnProperty.call(routes, pathname);
+
+  return (
+    isListedRoute ||
+    url.includes("/hydrated") ||
+    url.includes("/worker") ||
+    url.includes("/dehydrated") ||
+    url.endsWith("/") ||
+    (!url.includes("/live/") && !url.startsWith(location.origin + "/api/")) || // Exclude /api/ routes as well
+    url.includes("/embed") ||
+    url.includes("/public") ||
+    url.endsWith(`/live/${codeSpace}/xxx`) ||
+    url.endsWith(`/live/${codeSpace}/`)
+  );
+}
+
+const routeConfigs: RouteConfig[] = [
+  {
+    condition: ({ request }) => request.url.includes("/session.json"),
+    handler: handleSessionJsonInternal,
+  },
+  {
+    condition: ({ request }) => request.url.includes("/index.tsx"),
+    handler: handleIndexTsxInternal,
+  },
+  {
+    condition: ({ request }) => request.url.includes("/index.js"),
+    handler: handleIndexJsInternal,
+  },
+  {
+    condition: ({ request }) => request.url.includes("/index.css"),
+    handler: handleIndexCssInternal,
+  },
+  {
+    condition: isGeneralHtmlRoute,
+    handler: handleHtmlResponseInternal,
+  },
+  {
+    condition: ({ request, codeSpace }) => request.url.endsWith(`/live/${codeSpace}`), // This should likely be more specific if it's for the editor view itself
+    handler: handleEditorResponseInternal,
+  },
+];
+
 export async function fakeServer(request: Request) {
-  const { pathname } = new URL(request.url.replace("api/room/", "live/"));
+  const { pathname: rawPathname } = new URL(request.url);
+  const pathname = rawPathname.replace("/api/room/", "/live/"); // Normalize path for codespace extraction
   const codeSpace = getCodeSpace(pathname);
-  console.log("CodeSpace:", codeSpace);
+  console.log("CodeSpace:", codeSpace, "Request URL:", request.url, "Normalized Pathname:", pathname);
 
   if (!cSessions[codeSpace]) {
     const sessionFetchPromise = fetch(`/api/room/${codeSpace}/session.json`).then((r) => {
@@ -25,57 +107,30 @@ export async function fakeServer(request: Request) {
     });
     const { data: initialSessionData, error: fetchError } = await tryCatch<ICodeSession>(sessionFetchPromise);
 
-    if (fetchError) {
+    if (fetchError || !initialSessionData) {
       console.error(`Failed to initialize session for ${codeSpace}:`, fetchError);
-      // Handle error appropriately, maybe return an error response or use a default session
-      return new Response(`Error initializing session: ${fetchError.message}`, { status: 500 });
+      return new Response(`Error initializing session: ${fetchError?.message || 'Unknown error'}`, { status: 500 });
     }
     cSessions[codeSpace] = new SessionSynchronizer(codeSpace, initialSessionData);
+    initialisedSessions.add(codeSpace); // Mark as initialized after the first successful fetch
   }
 
   const session = await cSessions[codeSpace]!.init();
-
-
-  if (
-    request.url.includes("/session.json")
-  ) {
-    return await handleSessionJson(request, session);
-  } else if (
-    request.url.includes("/index.tsx")
-  ) {
-    return handleIndexTsx(request, session);
-  } else if (
-    request.url.includes("/index.js")
-  ) {
-    return await handleIndexJs(request, session);
-  } else if (
-    request.url.includes("/index.css")
-  ) {
-    return handleIndexCss(request, session);
-  } else if (
-    pathname in Object.keys(routes) ||
-    request.url.includes("/hydrated") ||
-    request.url.includes("/worker") ||
-    request.url.includes("/dehydrated") ||
-    request.url.endsWith("/") ||
-    !request.url.includes("/live") ||
-    request.url.includes("/embed") ||
-    request.url.includes("/public") ||
-    request.url.endsWith(`/live/${codeSpace}/xxx`) ||
-    request.url.endsWith(`/live/${codeSpace}/`)
-  ) {
-    // Fetch HTML content on demand
-    return await handleHtmlResponse(session);
-  } else if (
-    request.url.endsWith(`/live/${codeSpace}`)
-  ) {
-    // Fetch HTML content on demand
-    return await handleEditorResponse(codeSpace);
-  } else {
-    console.log("Default request:", request.url);
-
-    return fetch(request);
+  if (!session) {
+    console.error(`Session is null after init for ${codeSpace}`);
+    return new Response(`Error initializing session: Session is null`, { status: 500 });
   }
+
+  const context: RouteContext = { request, session, codeSpace, pathname };
+
+  for (const config of routeConfigs) {
+    if (config.condition(context)) {
+      return config.handler(context);
+    }
+  }
+
+  console.log("Default request (no route matched):", request.url);
+  return fetch(request);
 }
 
 async function handleEditorResponse(codeSpace: string) {
@@ -194,31 +249,45 @@ const initialisedSessions = new Set<string>();
 
 async function handleSessionJson(
   request: Request,
-  session: ICodeSession,
+  currentSession: ICodeSession, // Renamed to avoid confusion
 ) {
   console.log("Session request:", request.url);
   const codeSpace = getCodeSpace(request.url);
+  let sessionToReturn = currentSession;
 
-  if (initialisedSessions.has(codeSpace)) { // This logic seems to imply re-fetching if already initialized, which might be intentional or a bug.
-    initialisedSessions.add(codeSpace); // This should likely be outside the if, or the condition inverted.
-    const sessionFetchPromise = fetch(request.url.replace("/live/", "/api/room/")).then((r) => {
-      if (!r.ok) throw new Error(`Failed to re-fetch session for ${codeSpace}: ${r.status}`);
-      return r.json();
-    });
-    const { data: newSessionData, error: fetchError } = await tryCatch<ICodeSession>(sessionFetchPromise);
+  // This condition seems to intend to re-fetch if it's NOT the first time for this codeSpace.
+  // However, `initialisedSessions` is populated when `!cSessions[codeSpace]` is true in `fakeServer`.
+  // If the goal is to always return the latest from the server for /session.json:
+  const sessionFetchPromise = fetch(request.url.replace("/live/", "/api/room/")).then((r) => {
+    if (!r.ok) throw new Error(`Failed to fetch session for ${codeSpace} in handleSessionJson: ${r.status}`);
+    return r.json();
+  });
+  const { data: newSessionData, error: fetchError } = await tryCatch<ICodeSession>(sessionFetchPromise);
 
-    if (fetchError) {
-      console.error(`Failed to re-initialize session for ${codeSpace}:`, fetchError);
-      // Potentially return an error response or use the existing session
-    } else if (newSessionData) {
-      session = sanitizeSession(newSessionData);
-      // This might overwrite an existing SessionSynchronizer or create a new one if cSessions[codeSpace] was somehow cleared.
-      cSessions[codeSpace] = new SessionSynchronizer(codeSpace, session);
+  if (fetchError) {
+    console.error(`Failed to fetch session for ${codeSpace} in handleSessionJson:`, fetchError);
+    // Fallback to currentSession if fetch fails
+  } else if (newSessionData) {
+    sessionToReturn = sanitizeSession(newSessionData);
+    // Update the central SessionSynchronizer if it exists, or create it.
+    // This ensures cSessions[codeSpace] is always up-to-date after a /session.json call.
+    if (cSessions[codeSpace]) {
+        // It's tricky if cSessions[codeSpace] is already being used by other parts.
+        // A full re-initialization might be too disruptive.
+        // For now, let's assume the SessionSynchronizer handles internal updates if its session changes.
+        // Or, we might need a method on SessionSynchronizer to update its internal session.
+        // This part of the logic might need further review based on SessionSynchronizer's capabilities.
+        // For simplicity, we'll re-assign if it's different.
+        const currentSyncSession = await cSessions[codeSpace]!.getSession();
+        if (JSON.stringify(currentSyncSession) !== JSON.stringify(sessionToReturn)) {
+             cSessions[codeSpace] = new SessionSynchronizer(codeSpace, sessionToReturn);
+        }
+    } else {
+        cSessions[codeSpace] = new SessionSynchronizer(codeSpace, sessionToReturn);
     }
   }
-  // const session = await cSessions[codeSpace]!.init(); // init() might be called again if the above logic runs.
 
-  return new Response(sessionToJSON(session), {
+  return new Response(sessionToJSON(sessionToReturn), {
     headers: {
       "Content-Type": "application/json",
       ...request.headers,

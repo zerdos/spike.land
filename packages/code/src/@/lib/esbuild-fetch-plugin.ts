@@ -1,5 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { importMap } from "./importmap-utils.ts";
+import { tryCatch } from "./try-catch.ts";
 
 const urlCache = new Map<string, string>();
 
@@ -63,8 +64,21 @@ export const fetchPlugin = (origin: string) => ({
         argsPath = `/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
       }
 
-      const response = await fetch(argsPath);
-      const contents = await response.text();
+      const { data: response, error: fetchError } = await tryCatch(fetch(argsPath));
+      if (fetchError || !response) {
+        console.error(`Failed to fetch ${argsPath}:`, fetchError);
+        return { contents: `// Failed to fetch ${argsPath}: ${fetchError}`, loader: "js" };
+      }
+      if (!response.ok) {
+        console.error(`Failed to fetch ${argsPath}: Status ${response.status}`);
+        return { contents: `// Failed to fetch ${argsPath}: Status ${response.status}`, loader: "js" };
+      }
+
+      const { data: contents, error: textError } = await tryCatch(response.text());
+      if (textError || contents === null) {
+        console.error(`Failed to read text from ${argsPath}:`, textError);
+        return { contents: `// Failed to read text from ${argsPath}: ${textError}`, loader: "js" };
+      }
 
       const contentType = response.headers.get("content-type") || "";
 
@@ -120,76 +134,78 @@ async function processCSS(
     return css;
   }
 
-  try {
-    // Handle @import statements
-    const importRegex = /@import\s+(?:url\(['"]?(.+?)['"]?\)|['"](.+?)['"])/g;
-    const imports = Array.from(css.matchAll(importRegex));
+  // Handle @import statements
+  const importRegex = /@import\s+(?:url\(['"]?(.+?)['"]?\)|['"](.+?)['"])/g;
+  let match;
+  let processedCss = css;
 
-    const processedImports = await Promise.all(imports.map(async (match) => {
-      const importUrl = match[1] || match[2];
-      const absoluteUrl = new URL(importUrl, baseURL).toString();
+  while ((match = importRegex.exec(css)) !== null) {
+    const importUrl = match[1] || match[2];
+    const absoluteUrl = new URL(importUrl, baseURL).toString();
 
-      if (urlCache.has(absoluteUrl)) {
-        return urlCache.get(absoluteUrl);
-      }
-
-      const importedCSS = await fetch(absoluteUrl).then((res) => res.text());
-      const processedImportedCSS = await processCSS(
-        importedCSS,
-        absoluteUrl,
-        depth + 1,
-      );
-      urlCache.set(absoluteUrl, processedImportedCSS);
-      return processedImportedCSS;
-    }));
-
-    css = css.replace(importRegex, () => processedImports.shift() || "");
-
-    // Handle url() references
-    const urlRegex = /url\(['"]?(.+?)['"]?\)/g;
-    const matches = css.match(urlRegex);
-
-    if (matches) {
-      const urlPromises = matches.map(async (match) => {
-        const url = match.match(/url\(['"]?(.+?)['"]?\)/)?.[1];
-        if (url && !url.startsWith("data:")) {
-          const absoluteUrl = new URL(url, baseURL).toString();
-
-          if (urlCache.has(absoluteUrl)) {
-            return { match, newValue: urlCache.get(absoluteUrl)! };
-          }
-
-          const req = await fetch(absoluteUrl);
-          const contentType = req.headers.get("content-type") || "";
-
-          let newUrlValue: string;
-          if (contentType.includes("font/")) {
-            const content = await req.arrayBuffer();
-            const fontType = contentType.split("/").pop();
-            newUrlValue = `url("data:font/${fontType};base64,${
-              btoa(String.fromCharCode(...new Uint8Array(content)))
-            }")`;
-          } else {
-            newUrlValue = `url("${absoluteUrl}")`;
-          }
-
-          urlCache.set(absoluteUrl, newUrlValue);
-          return { match, newValue: newUrlValue };
-        }
-        return { match, newValue: match };
-      });
-
-      const results = await Promise.all(urlPromises);
-      results.forEach(({ match, newValue }) => {
-        css = css.replace(match, newValue);
-      });
+    if (urlCache.has(absoluteUrl)) {
+      processedCss = processedCss.replace(match[0], urlCache.get(absoluteUrl)!);
+      continue;
     }
 
-    return css;
-  } catch (error) {
-    console.error("Error processing CSS:", error);
-    return css; // Return original CSS if processing fails
+    const { data: importResponse, error: fetchCssError } = await tryCatch(fetch(absoluteUrl));
+    if (fetchCssError || !importResponse || !importResponse.ok) {
+      console.warn(`Failed to fetch imported CSS ${absoluteUrl}:`, fetchCssError || importResponse?.status);
+      continue; // Skip this import if fetching fails
+    }
+
+    const { data: importedCSSText, error: textCssError } = await tryCatch(importResponse.text());
+    if (textCssError || importedCSSText === null) {
+      console.warn(`Failed to read text from imported CSS ${absoluteUrl}:`, textCssError);
+      continue; // Skip if text reading fails
+    }
+
+    const processedImportedCSS = await processCSS(importedCSSText, absoluteUrl, depth + 1);
+    urlCache.set(absoluteUrl, processedImportedCSS);
+    processedCss = processedCss.replace(match[0], processedImportedCSS);
   }
+  css = processedCss; // Update css with processed imports
+
+  // Handle url() references
+  const urlRegex = /url\(['"]?(.+?)['"]?\)/g;
+  const urlMatches = Array.from(css.matchAll(urlRegex));
+
+  for (const urlMatch of urlMatches) {
+    const fullMatch = urlMatch[0];
+    const urlPath = urlMatch[1];
+
+    if (urlPath && !urlPath.startsWith("data:")) {
+      const absoluteUrl = new URL(urlPath, baseURL).toString();
+      if (urlCache.has(absoluteUrl)) {
+        css = css.replace(fullMatch, urlCache.get(absoluteUrl)!);
+        continue;
+      }
+
+      const { data: resourceResponse, error: fetchResourceError } = await tryCatch(fetch(absoluteUrl));
+      if (fetchResourceError || !resourceResponse || !resourceResponse.ok) {
+        console.warn(`Failed to fetch resource ${absoluteUrl}:`, fetchResourceError || resourceResponse?.status);
+        continue; // Skip if fetching fails
+      }
+
+      const contentType = resourceResponse.headers.get("content-type") || "";
+      let newUrlValue: string;
+
+      if (contentType.includes("font/")) {
+        const { data: fontContent, error: arrayBufferError } = await tryCatch(resourceResponse.arrayBuffer());
+        if (arrayBufferError || !fontContent) {
+          console.warn(`Failed to read arrayBuffer for font ${absoluteUrl}:`, arrayBufferError);
+          continue;
+        }
+        const fontType = contentType.split("/").pop();
+        newUrlValue = `url("data:font/${fontType};base64,${btoa(String.fromCharCode(...new Uint8Array(fontContent)))}")`;
+      } else {
+        newUrlValue = `url("${absoluteUrl}")`;
+      }
+      urlCache.set(absoluteUrl, newUrlValue);
+      css = css.replace(fullMatch, newUrlValue);
+    }
+  }
+  return css;
 }
 
 //   return css;
