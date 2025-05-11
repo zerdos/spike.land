@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FC } from "react";
+import { tryCatch } from "@/lib/try-catch";
 
 export const TextToSpeech: FC = () => {
   const [text, setText] = useState("");
@@ -9,7 +10,8 @@ export const TextToSpeech: FC = () => {
 
   const handleSpeak = async () => {
     setIsLoading(true);
-    try {
+
+    const audioPromise = (async () => {
       const response = await fetch("/api/openai/v1/audio/speech", {
         method: "POST",
         headers: {
@@ -33,17 +35,21 @@ export const TextToSpeech: FC = () => {
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
       source.start(0);
+      return arrayBuffer;
+    })();
 
-      setAudioUrl(
-        URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" })),
-      );
-      setIsAudioReady(true);
-    } catch (error) {
+    const { data: audioData, error } = await tryCatch<ArrayBuffer>(audioPromise);
+
+    if (error) {
       console.error("Error generating speech:", error);
       alert("Failed to generate or play audio. Please try again.");
-    } finally {
-      setIsLoading(false);
+    } else if (audioData) {
+      setAudioUrl(
+        URL.createObjectURL(new Blob([audioData], { type: "audio/mpeg" })),
+      );
+      setIsAudioReady(true);
     }
+    setIsLoading(false);
   };
 
   return (

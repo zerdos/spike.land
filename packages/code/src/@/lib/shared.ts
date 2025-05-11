@@ -2,6 +2,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 import AlwaysSupportedSharedWorker from "@/lib/shared-w-polyfill";
 import { getTransferables, hasTransferables } from "@/lib/transferables";
 import type { MyBuildOptions } from "@/lib/transpile";
+import { tryCatch } from "@/lib/try-catch";
 import { Mutex } from "async-mutex";
 import { RpcProvider } from "worker-rpc";
 
@@ -107,15 +108,20 @@ export const prettierToThrow = async ({
 }): Promise<string> => {
   const worker = (await init()).getWorker("prettier");
   try {
-    return await worker.rpc.rpc("prettierJs", { code, toThrow });
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("prettierJs", { code, toThrow }) as Promise<string>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
 };
 
 export const format = async (code: string): Promise<string> => {
-  const formatted = await prettierToThrow({ code, toThrow: false });
-  return formatted;
+  const { data, error } = await tryCatch(prettierToThrow({ code, toThrow: false }));
+  if (error) throw error;
+  return data!;
 };
 
 export const ata = async ({
@@ -127,7 +133,11 @@ export const ata = async ({
 }): Promise<Array<{ content: string; filePath: string; }>> => {
   const worker = (await init()).getWorker("ata");
   try {
-    return await worker.rpc.rpc("ata", { code, originToUse });
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("ata", { code, originToUse }) as Promise<Array<{ content: string; filePath: string; }>>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
@@ -136,7 +146,11 @@ export const ata = async ({
 export const prettierCss = async (code: string): Promise<string> => {
   const worker = (await init()).getWorker("prettier");
   try {
-    return await worker.rpc.rpc("prettierCss", code);
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("prettierCss", code) as Promise<string>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
@@ -147,7 +161,11 @@ export const tsx = async (
 ): Promise<Array<{ content: string; filePath: string; }>> => {
   const worker = (await init()).getWorker("tsx");
   try {
-    return await worker.rpc.rpc("tsc", code);
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("tsc", code) as Promise<Array<{ content: string; filePath: string; }>>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
@@ -156,7 +174,11 @@ export const tsx = async (
 export const createWorkflow = async (q: string): Promise<string> => {
   const worker = (await init()).getWorker("workflow");
   try {
-    return await worker.rpc.rpc("createWorkflow", q);
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("createWorkflow", q) as Promise<string>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
@@ -186,14 +208,18 @@ export const transpile = async ({
     }
     const worker = (await init()).getWorker("esbuild");
     try {
-      return await worker.rpc.rpc("transpile", {
-        code,
-        originToUse,
-        wasmModule,
-      });
-    } catch (e) {
-      console.error(e);
-      throw e;
+      const { data, error } = await tryCatch(
+        worker.rpc.rpc("transpile", {
+          code,
+          originToUse,
+          wasmModule,
+        }) as Promise<string>,
+      );
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+      return data!;
     } finally {
       (await init()).releaseWorker(worker);
     }
@@ -210,14 +236,18 @@ export const build = async ({
 }: MyBuildOptions): Promise<string> => {
   const worker = (await init()).getWorker("esbuild");
   try {
-    return await worker.rpc.rpc("build", {
-      codeSpace,
-      origin,
-      splitting,
-      external,
-      entryPoints,
-      format,
-    });
+    const { data, error } = await tryCatch(
+      worker.rpc.rpc("build", {
+        codeSpace,
+        origin,
+        splitting,
+        external,
+        entryPoints,
+        format,
+      }) as Promise<string>,
+    );
+    if (error) throw error;
+    return data!;
   } finally {
     (await init()).releaseWorker(worker);
   }
@@ -232,6 +262,8 @@ export const connect = async ({
 }): Promise<() => void> => {
   const worker = (await init()).getWorker("connect");
   try {
+    // rpc.signal does not return a promise, so tryCatch is not directly applicable here
+    // If it could error, it would need a synchronous try/catch or a different pattern
     worker.rpc.signal("connect", { signal, sess });
 
     return async () => {
@@ -240,6 +272,6 @@ export const connect = async ({
   } catch (e) {
     console.error(e);
     (await init()).releaseWorker(worker);
-    throw e;
+    throw e; // Re-throw after logging and releasing worker
   }
 };

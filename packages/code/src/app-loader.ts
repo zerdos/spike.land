@@ -51,15 +51,14 @@ export const initializeWebSocket = async (codeSpace: string): Promise<void> => {
     );
   }
 
-  try {
-    // Import using a relative path to match the project structure
+  const wsPromise = main(codeSpace);
+  const { error: wsError } = await tryCatch(wsPromise);
 
-    await main(codeSpace);
-    console.log(`WebSocket initialized for code space: ${codeSpace}`);
-  } catch (error) {
-    console.error("WebSocket initialization failed:", error);
-    throw error;
+  if (wsError) {
+    console.error("WebSocket initialization failed:", wsError);
+    throw wsError;
   }
+  console.log(`WebSocket initialized for code space: ${codeSpace}`);
 };
 
 /**
@@ -74,19 +73,21 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
     return null;
   }
 
-  try {
+  const loadPromise = async () => {
     // Initialize tailwind
     // await init();
 
     // Get code session
-    const { data: cSess, error } = await tryCatch(getCodeSession(codeSpace));
-    if (error) {
-      console.error("Error getting code session:", error);
-      return null;
+    const { data: cSess, error: sessionError } = await tryCatch(getCodeSession(codeSpace));
+    if (sessionError) {
+      console.error("Error getting code session:", sessionError);
+      throw sessionError; // Propagate error to be caught by outer tryCatch
+    }
+    if (!cSess) {
+      throw new Error("Failed to get code session (cSess is null).");
     }
 
     // Load the app component dynamically
-    // Import using a relative path to match the project structure
     const { AppToRender } = await import("./AppToRender");
 
     // Initialize app environment
@@ -97,10 +98,15 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
       cSess,
       AppComponent: AppToRender,
     };
-  } catch (error) {
-    console.error("Error loading app:", error);
+  };
+
+  const { data: appContext, error: loadAppError } = await tryCatch(loadPromise());
+
+  if (loadAppError) {
+    console.error("Error loading app:", loadAppError);
     return null;
   }
+  return appContext;
 };
 
 /**

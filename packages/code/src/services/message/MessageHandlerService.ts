@@ -4,7 +4,7 @@ import type {
   MessageHandlerConfig,
   MessageResponse,
 } from "@/lib/interfaces";
-
+import { tryCatch } from "@/lib/try-catch";
 import { MessageType } from "@/lib/interfaces";
 
 /**
@@ -89,7 +89,7 @@ export class MessageHandlerService {
    * @returns A promise resolving to a MessageResponse
    */
   public async handleMessage(message: Message): Promise<MessageResponse> {
-    try {
+    const handlePromise = async () => {
       if (!this.validateMessage(message)) {
         throw new Error("Invalid message format");
       }
@@ -100,34 +100,39 @@ export class MessageHandlerService {
 
       if (!Object.values(MessageType).includes(message.type as MessageType)) {
         console.error("Unhandled message type:", message.type);
-        return {
-          success: false,
-          error: "Unhandled message type",
-        };
+        // This specific early return needs to be handled carefully with tryCatch
+        // For now, let it throw and be caught by tryCatch, or adjust logic
+        throw new Error("Unhandled message type");
       }
 
       const result = await this.processMessage(message);
       if (typeof result === "object" && result !== null && "error" in result) {
-        return {
-          success: false,
-          error: String(result.error),
-        };
+        // This also needs careful handling with tryCatch's single error path
+        throw new Error(String(result.error));
       }
+      return result;
+    };
 
-      return {
-        success: true,
-        data: result,
-      };
-    } catch (error) {
+    const { data, error } = await tryCatch(handlePromise());
+
+    if (error) {
       if (this.config.logErrors) {
         console.error("Error processing message:", error);
       }
-
+      // Specific error handling for "Unhandled message type"
+      if (error.message === "Unhandled message type") {
+        return { success: false, error: "Unhandled message type" };
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
       };
     }
+
+    return {
+      success: true,
+      data,
+    };
   }
 
   /**
@@ -139,6 +144,9 @@ export class MessageHandlerService {
   private async processMessage(
     message: Message,
   ): Promise<Record<string, unknown>> {
+    // This internal method's try/catch is for synchronous errors within getTextFromContent
+    // or the switch logic. tryCatch is for wrapping the entire async operation.
+    // If getTextFromContent were async, it would be a candidate.
     try {
       const text = this.getTextFromContent(message.content);
 
@@ -152,8 +160,8 @@ export class MessageHandlerService {
         default:
           throw new Error("Unhandled message type");
       }
-    } catch {
-      throw new Error("Invalid message content type");
+    } catch (e) { // Catching synchronous errors from getTextFromContent or unhandled type
+      throw new Error(e instanceof Error ? e.message : "Invalid message content type or unhandled type");
     }
   }
 }

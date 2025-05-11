@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { tryCatch } from "@/lib/try-catch";
 
 interface RestoreStatus {
   type: "loading" | "success" | "error";
@@ -11,24 +12,31 @@ export const useRestoreVersion = (codeSpace: string) => {
   );
 
   const restoreVersion = useCallback(async (timestamp: number) => {
-    try {
-      setRestoreStatus({ type: "loading", message: "Restoring..." });
+    setRestoreStatus({ type: "loading", message: "Restoring..." });
+
+    const restorePromise = async () => {
       const response = await fetch(
         `/live/${codeSpace}/auto-save/restore/${timestamp}`,
       );
       if (!response || !response.ok) {
         throw new Error("Failed to restore version");
       }
+      // No explicit data to return on success for this operation
+    };
+
+    const { error } = await tryCatch(restorePromise());
+
+    if (error) {
+      setRestoreStatus({
+        type: "error",
+        message: error instanceof Error
+          ? error.message
+          : "An unknown error occurred",
+      });
+    } else {
       setRestoreStatus({
         type: "success",
         message: "Version restored successfully!",
-      });
-    } catch (err) {
-      setRestoreStatus({
-        type: "error",
-        message: err instanceof Error
-          ? err.message
-          : "An unknown error occurred",
       });
     }
   }, [codeSpace]);

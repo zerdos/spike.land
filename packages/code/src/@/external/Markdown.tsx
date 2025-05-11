@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { tryCatch } from "@/lib/try-catch";
 
 interface MarkdownWithReadAloudProps {
   children: string;
@@ -15,7 +16,8 @@ const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = (
 
   const handleSpeak = async () => {
     setIsLoading(true);
-    try {
+
+    const audioPromise = (async () => {
       const response = await fetch("/api/openai/v1/audio/speech", {
         method: "POST",
         headers: {
@@ -41,17 +43,21 @@ const MarkdownWithReadAloud: React.FC<MarkdownWithReadAloudProps> = (
       source.buffer = audioBuffer;
       source.connect(audioContext.destination);
       source.start(0);
+      return arrayBuffer;
+    })();
 
-      setAudioUrl(
-        URL.createObjectURL(new Blob([arrayBuffer], { type: "audio/mpeg" })),
-      );
-      setIsAudioReady(true);
-    } catch (error) {
+    const { data: audioData, error } = await tryCatch<ArrayBuffer>(audioPromise);
+
+    if (error) {
       console.error("Error generating speech:", error);
       alert("Failed to generate or play audio. Please try again.");
-    } finally {
-      setIsLoading(false);
+    } else if (audioData) {
+      setAudioUrl(
+        URL.createObjectURL(new Blob([audioData], { type: "audio/mpeg" })),
+      );
+      setIsAudioReady(true);
     }
+    setIsLoading(false);
   };
 
   return (

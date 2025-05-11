@@ -1,3 +1,5 @@
+import { tryCatch } from "@/lib/try-catch";
+
 interface ResourceLoader {
   init(): Promise<boolean>;
 }
@@ -17,17 +19,18 @@ class ResourceLoaderImpl implements ResourceLoader {
       return true;
     }
 
-    try {
-      await this.loadResources();
-      ResourceLoaderImpl.initialized = true;
-      return true;
-    } catch (error) {
+    const { error } = await tryCatch(this.loadResources());
+
+    if (error) {
       console.error("Failed to load resources:", error);
       // Throw error to allow proper error handling by calling code
       throw new Error(
         `Resource loading failed: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
+
+    ResourceLoaderImpl.initialized = true;
+    return true;
   }
 
   private shouldLoadResources(): boolean {

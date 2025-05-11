@@ -1,5 +1,6 @@
 import type { ICodeSession } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
+import { tryCatch } from "@/lib/try-catch";
 import type { ISessionSynchronizer } from "./types";
 
 /**
@@ -107,25 +108,26 @@ export class SessionSynchronizer implements ISessionSynchronizer {
    * @returns Promise resolving to the initialized session
    */
   async init(session?: ICodeSession): Promise<ICodeSession> {
-    try {
-      if (session) {
-        this.session = sanitizeSession(session);
-        return this.session;
-      }
+    if (session) {
+      this.session = sanitizeSession(session);
+      return this.session;
+    }
 
-      if (this.session) {
-        return this.session;
-      }
+    if (this.session) {
+      return this.session;
+    }
 
+    const fetchSessionPromise = async () => {
       const response = await fetch(`/live/${this.codeSpace}/session.json`);
       if (!response.ok) {
         throw new Error(`Failed to fetch session: ${response.status}`);
       }
+      return response.json();
+    };
 
-      const data = await response.json();
-      this.session = sanitizeSession(data);
-      return this.session;
-    } catch (error) {
+    const { data, error } = await tryCatch(fetchSessionPromise());
+
+    if (error) {
       console.error("Error initializing session:", error);
       // Create a minimal valid session if fetch fails
       this.session = sanitizeSession({
@@ -136,8 +138,10 @@ export class SessionSynchronizer implements ISessionSynchronizer {
         transpiled: "",
         messages: [],
       });
-      return this.session;
+    } else {
+      this.session = sanitizeSession(data);
     }
+    return this.session!;
   }
 
   /**

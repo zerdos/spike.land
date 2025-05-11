@@ -2,6 +2,7 @@ import { SEARCH_REPLACE_MARKERS, updateSearchReplace } from "@/lib/chat-utils";
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
 import type { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { tryCatch } from "@/lib/try-catch";
 import { hashCache } from "../../caching";
 
 interface PendingChange {
@@ -75,21 +76,14 @@ export class FileChangeManager {
     }
 
     // Get current file content
-    let currentContent: string;
-    try {
-      currentContent = await this.codeSession.getCode();
-      if (!currentContent) {
-        return {
-          success: false,
-          message: "Failed to retrieve file content or file is empty",
-        };
-      }
-    } catch (error) {
+    const { data: currentContent, error: getContentError } = await tryCatch(this.codeSession.getCode());
+
+    if (getContentError || !currentContent) {
       return {
         success: false,
         message: `Error retrieving file content: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
+          getContentError instanceof Error ? getContentError.message : String(getContentError)
+        }` || "File content is empty",
       };
     }
 
@@ -198,82 +192,83 @@ export class FileChangeManager {
     }
 
     // Update the file with modified content
-    try {
-      const result = await this.codeSession.setCode(modifiedContent);
-      if (!result) {
-        return {
-          success: false,
-          message: "Failed to update the file with the modified content",
-        };
-      }
+    const { data: setResult, error: setCodeError } = await tryCatch(this.codeSession.setCode(modifiedContent));
 
-      // The setCode method might return the updated content as a string
-      modifiedContent = typeof result === "string" ? result : modifiedContent;
-
-      // Update state with new content
-      const newHash = md5(modifiedContent);
-
-      // Update change history
-      const changeHistory = [
-        ...(this.currentState[path]?.changeHistory || []),
-        {
-          timestamp: Date.now(),
-          changeSize,
-          hash: newHash,
-        },
-      ];
-
-      // Update consecutive minor changes counter
-      const consecutiveMinorChanges = isMinorChange
-        ? (this.currentState[path]?.consecutiveMinorChanges || 0) + 1
-        : 0;
-
-      this.currentState[path] = {
-        content: modifiedContent,
-        hash: newHash,
-        lastSuccessfulHash: newHash,
-        pendingChanges: [],
-        changeHistory,
-        consecutiveMinorChanges,
-      };
-
-      // Update hash cache
-      hashCache.set(modifiedContent, newHash);
-
-      // Clear retry count for this path
-      this.retryCount[path] = 0;
-
-      // Calculate change metrics
-      const bytesChanged = modifiedContent.length - currentContent.length;
-      const linesChanged = modifiedContent.split("\n").length -
-        currentContent.split("\n").length;
-
-      // Add a warning about minor changes if needed
-      let message = `Changes applied successfully: ${
-        bytesChanged > 0 ? "+" : ""
-      }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`;
-
-      if (isMinorChange) {
-        message +=
-          `\nNote: This change was relatively minor (${changeSize} characters). Consider making more substantial changes or stopping if the task is complete.`;
-      }
-
-      if (consecutiveMinorChanges > 1) {
-        message +=
-          `\nWarning: ${consecutiveMinorChanges} consecutive minor changes detected. Further minor changes may be rejected.`;
-      }
-
-      return {
-        success: true,
-        message,
-        hash: newHash,
-      };
-    } catch (error) {
+    if (setCodeError) {
       return {
         success: false,
-        message: `Error updating file: ${error instanceof Error ? error.message : String(error)}`,
+        message: `Error updating file: ${setCodeError instanceof Error ? setCodeError.message : String(setCodeError)}`,
       };
     }
+
+    if (!setResult) {
+      return {
+        success: false,
+        message: "Failed to update the file with the modified content (setCode returned no result)",
+      };
+    }
+
+    // The setCode method might return the updated content as a string
+    modifiedContent = typeof setResult === "string" ? setResult : modifiedContent;
+
+    // Update state with new content
+    const newHash = md5(modifiedContent);
+
+    // Update change history
+    const changeHistory = [
+      ...(this.currentState[path]?.changeHistory || []),
+      {
+        timestamp: Date.now(),
+        changeSize,
+        hash: newHash,
+      },
+    ];
+
+    // Update consecutive minor changes counter
+    const consecutiveMinorChanges = isMinorChange
+      ? (this.currentState[path]?.consecutiveMinorChanges || 0) + 1
+      : 0;
+
+    this.currentState[path] = {
+      content: modifiedContent,
+      hash: newHash,
+      lastSuccessfulHash: newHash,
+      pendingChanges: [],
+      changeHistory,
+      consecutiveMinorChanges,
+    };
+
+    // Update hash cache
+    hashCache.set(modifiedContent, newHash);
+
+    // Clear retry count for this path
+    this.retryCount[path] = 0;
+
+    // Calculate change metrics
+    const bytesChanged = modifiedContent.length - currentContent.length;
+    const linesChanged = modifiedContent.split("\n").length -
+      currentContent.split("\n").length;
+
+    // Add a warning about minor changes if needed
+    let message = `Changes applied successfully: ${
+      bytesChanged > 0 ? "+" : ""
+    }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`;
+
+    if (isMinorChange) {
+      message +=
+        `\nNote: This change was relatively minor (${changeSize} characters). Consider making more substantial changes or stopping if the task is complete.`;
+    }
+
+    if (consecutiveMinorChanges > 1) {
+      message +=
+        `\nWarning: ${consecutiveMinorChanges} consecutive minor changes detected. Further minor changes may be rejected.`;
+    }
+
+    return {
+      success: true,
+      message,
+      hash: newHash,
+    };
   }
 
   /**

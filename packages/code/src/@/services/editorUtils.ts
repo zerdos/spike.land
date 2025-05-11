@@ -134,9 +134,8 @@ export function memoizeWithAbort<T extends AnyFunction>(
 }
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
-  try {
-    return await prettierToThrow({ code, toThrow: true });
-  } catch (error) {
+  const { data, error } = await tryCatch(prettierToThrow({ code, toThrow: true }));
+  if (error) {
     const errorMessage = typeof error === "string"
       ? error
       : (error as Error).message || JSON.stringify(error);
@@ -144,16 +143,23 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
       `Prettier formatting failed: ${errorMessage.replace(/\\n/g, "\n").split('"').join('"')}`,
     );
   }
+  if (data === null || data === undefined) {
+    throw new Error("Prettier formatting returned null or undefined.");
+  }
+  return data;
 }, (code: string) => md5(code));
 
 export const transpileCode = memoize(async (code: string): Promise<string> => {
-  try {
-    return await transpile({ code, originToUse: location.origin });
-  } catch (error) {
+  const { data, error } = await tryCatch(transpile({ code, originToUse: location.origin }));
+  if (error) {
     throw new Error(
       `Transpilation failed: ${error instanceof Error ? error.message : String(error)}`,
     );
   }
+  if (data === null || data === undefined) {
+    throw new Error("Transpilation returned null or undefined.");
+  }
+  return data;
 }, (code: string) => md5(code));
 
 export const screenshot = (): Promise<ImageData> => {

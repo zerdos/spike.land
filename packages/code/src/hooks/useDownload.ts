@@ -1,4 +1,5 @@
 import { getSpeedy2 } from "@/lib/use-archive";
+import { tryCatch } from "@/lib/try-catch";
 
 const download = async (
   codeSpace: string,
@@ -9,7 +10,7 @@ const download = async (
   );
   console.log("Starting download process");
 
-  try {
+  const downloadProcess = async () => {
     await getSpeedy2();
     console.log("getSpeedy2 completed");
 
@@ -41,11 +42,16 @@ const download = async (
     URL.revokeObjectURL(blobUrl);
 
     console.log("Download process completed");
-    return;
-  } catch (error) {
+    // Explicitly return void when not returning content
+  };
+
+  const { data, error } = await tryCatch<string | void>(downloadProcess());
+
+  if (error) {
     console.error("Error in useDownload:", error);
     throw error;
   }
+  return data;
 };
 
 export const useDownload = (codeSpace: string, onlyReturn = false) => {

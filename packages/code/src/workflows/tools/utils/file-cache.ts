@@ -1,4 +1,5 @@
 import { QueuedFetch } from "@/lib/queued-fetch";
+import { tryCatch } from "@/lib/try-catch";
 import type { CustomServiceWorkerGlobalScope } from "@/types/service-worker";
 import { CacheUtils } from "./cache-utils";
 
@@ -57,25 +58,21 @@ export class FileCacheManager {
     parts.pop(); // Remove file extension
     const hash = parts.pop(); // Get hash
 
-    try {
+    const doFetchAndCache = async () => {
       await this.validateFileHash(url, hash!);
 
-      // Create a proper cache request for storing
       const cacheRequest = new Request(
         new URL("/" + cacheKey, origin).toString(),
       );
 
-      // First check if another worker already cached this file
       const existingResponse = await myCache.match(cacheRequest);
       if (existingResponse) {
         console.log(`File ${url} already cached, skipping fetch`);
-        return;
+        return; // Exit early if already cached
       }
 
-      // Fetch file from network with no-store to ensure fresh content
       const response = await CacheUtils.retry(() => queuedFetch.fetch(request));
 
-      // Validate hash if header is present (optional validation)
       if (
         response.headers.has("x-hash") &&
         response.headers.get("x-hash") !== hash
@@ -88,23 +85,22 @@ export class FileCacheManager {
       }
 
       if (response.ok) {
-        // Store in cache with the hashed filename as the key
         const responseToCache = new Response(await response.clone().blob(), {
           status: response.status,
           statusText: response.statusText,
           headers: new Headers(response.headers),
         });
-
-        // Add cache metadata
         responseToCache.headers.set("x-cached-at", new Date().toISOString());
         responseToCache.headers.set("x-original-path", originalPath);
-
         await myCache.put(cacheRequest, responseToCache);
         console.log(`Cached file ${url} successfully`);
       } else {
         throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
       }
-    } catch (error) {
+    };
+
+    const { error } = await tryCatch(doFetchAndCache());
+    if (error) {
       console.error(`Error fetching ${url}:`, error);
       throw error;
     }

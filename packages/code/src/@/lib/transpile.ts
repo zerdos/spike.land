@@ -1,7 +1,9 @@
 import { importMap } from "@/lib/importmap-utils";
+import { tryCatch } from "@/lib/try-catch";
 import { Mutex } from "async-mutex";
 import type { BuildOptions } from "esbuild-wasm";
 import { build as esmBuild, initialize, transform } from "esbuild-wasm";
+import type * as esbuild from "esbuild-wasm";
 import { wasmFile } from "../../esbuildWASM";
 import { fetchPlugin } from "./esbuild-fetch-plugin";
 import { makeEnv } from "./esbuild-make-env";
@@ -56,44 +58,42 @@ export const transpile = async (
     originToUse: string;
     wasmModule?: WebAssembly.Module;
   },
-): Promise<string | { error: unknown; }> => {
+): Promise<string> => {
   return mutex.runExclusive(async () => {
-    try {
+    const transpilePromise = async () => {
       await initializeModule(wasmModule, originToUse);
-
-      try {
-        const transformedCode = await transform(code, {
-          loader: "tsx",
-          format: "esm",
-          treeShaking: true,
-          platform: "browser",
-          minify: false,
-
-          charset: "utf8",
-          keepNames: true,
-          tsconfigRaw: {
-            compilerOptions: {
-              jsx: "react-jsx",
-              jsxFragmentFactory: "Fragment",
-              jsxImportSource: "@emotion/react",
-            },
+      const transformedCode = await transform(code, {
+        loader: "tsx",
+        format: "esm",
+        treeShaking: true,
+        platform: "browser",
+        minify: false,
+        charset: "utf8",
+        keepNames: true,
+        tsconfigRaw: {
+          compilerOptions: {
+            jsx: "react-jsx",
+            jsxFragmentFactory: "Fragment",
+            jsxImportSource: "@emotion/react",
           },
-          target: "es2024",
-        });
+        },
+        target: "es2024",
+      });
+      return transformedCode.code;
+    };
 
-        return transformedCode.code;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error during transpile:", error.message);
-        }
-        throw error;
-      }
-    } catch (error) {
+    const { data, error } = await tryCatch<string>(transpilePromise());
+
+    if (error) {
       if (error instanceof Error) {
         console.error("Error during transpile:", error.message);
       }
-      throw error;
+      throw error; // Re-throw the original error
     }
+    if (data === null || data === undefined) {
+        throw new Error("Transpilation returned null or undefined.");
+    }
+    return data;
   });
 };
 
@@ -189,9 +189,9 @@ export const build = async ({
   wasmModule = undefined,
   metafile = false,
   format = "esm",
-}: MyBuildOptions) => {
+}: MyBuildOptions): Promise<string | esbuild.OutputFile[] | { error: unknown }> => {
   return mutex.runExclusive(async () => {
-    try {
+    const buildPromise = async () => {
       await initializeModule(wasmModule, origin);
       const defaultOpts = getDefaultBuildOptions(
         {
@@ -205,24 +205,30 @@ export const build = async ({
         },
       );
 
-      const buildOptions = {
+      const currentBuildOptions = { // Renamed to avoid conflict
         ...defaultOpts,
         external: [
           ...Object.keys(importMap.imports),
         ],
         entryPoints: entryPoints
           ? entryPoints
-          : [`${origin}/live/${codeSpace}/index.tsx`], // Ensure this matches the expected type
-        // ... other properties
+          : [`${origin}/live/${codeSpace}/index.tsx`],
       } as BuildOptions;
 
-      const result = await esmBuild(buildOptions);
+      const result = await esmBuild(currentBuildOptions);
+      return splitting ? result.outputFiles! : result.outputFiles![0].text;
+    };
 
-      return splitting ? result.outputFiles : result.outputFiles![0].text;
-    } catch (error) {
+    const { data, error } = await tryCatch<string | esbuild.OutputFile[]>(buildPromise());
+
+    if (error) {
       console.error("Error during build:", error);
       return { error };
     }
+    if (data === null || data === undefined) {
+        throw new Error("Build returned null or undefined.");
+    }
+    return data;
   });
 };
 

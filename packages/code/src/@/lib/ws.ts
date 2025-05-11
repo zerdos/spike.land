@@ -3,19 +3,18 @@ import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type { IWebSocketManager, WebSocketDependencies } from "@/services/types";
 import { WebSocketManager } from "@/services/WebSocketManager";
+import { tryCatch } from "@/lib/try-catch";
 
 export const main = async (codeSpace: string) => {
-  try {
+  const mainProcess = async () => {
     const renderService = new RenderService(codeSpace);
-    // const cSess = new Code(codeSpace);
-    // await cSess.init();
     const sessionSynchronizer = new SessionSynchronizer(codeSpace);
 
     const websocketDependencies: WebSocketDependencies = {
       sessionSynchronizer,
       messageHandler: {
         handleRunMessage: async (transpiled: string) => {
-          try {
+          const runMessagePromise = async () => {
             if (window.self !== window.parent) {
               return await renderService.handleRender(
                 await renderService.updateRenderedApp({ transpiled }),
@@ -27,15 +26,15 @@ export const main = async (codeSpace: string) => {
               const session = sessionSynchronizer.getSession() ||
                 await sessionSynchronizer.init();
               const { css, html } = session;
-              return Promise.resolve({
-                css,
-                html,
-              });
+              return { css, html }; // Removed Promise.resolve as tryCatch handles promises
             }
-          } catch (error) {
+          };
+          const { data, error } = await tryCatch(runMessagePromise());
+          if (error) {
             console.error("Error handling run message:", error);
             return false;
           }
+          return data;
         },
         handleMessage: (event) => {
           console.log("Message received:", event);
@@ -45,7 +44,6 @@ export const main = async (codeSpace: string) => {
           console.log("Cleaning up message handler");
         },
       },
-
       serviceWorker: new ServiceWorkerManager(),
     };
 
@@ -57,12 +55,15 @@ export const main = async (codeSpace: string) => {
     await webSocketManager.init();
 
     Object.assign(window, { webSocketManager });
-
     return webSocketManager;
-  } catch (error) {
+  };
+
+  const { data, error } = await tryCatch(mainProcess());
+  if (error) {
     console.error("Error in main function:", error);
     throw error;
   }
+  return data;
 };
 
 // Export for global access

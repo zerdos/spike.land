@@ -1,5 +1,6 @@
 import type RecordRTC from "@/external/record-rtc";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { tryCatch } from "@/lib/try-catch";
 
 interface UseDictationOptions {
   silenceThreshold?: number;
@@ -24,38 +25,46 @@ export function useDictation(
   } = options;
 
   const startRecording = useCallback(async () => {
-    try {
-      setError("");
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          sampleRate: 16000,
-          channelCount: 1,
-          echoCancellation: true,
-          noiseSuppression: true,
-        },
-      });
-      mediaStreamRef.current = stream;
+    setError("");
+    const streamPromise = navigator.mediaDevices.getUserMedia({
+      audio: {
+        sampleRate: 16000,
+        channelCount: 1,
+        echoCancellation: true,
+        noiseSuppression: true,
+      },
+    });
 
-      const RecordRTCC = (await import("@/external/record-rtc")).default;
+    const { data: stream, error: streamError } = await tryCatch(streamPromise);
 
-      const recorder = new RecordRTCC(stream, {
-        type: "audio",
-        mimeType: "audio/wav",
-        recorderType: RecordRTCC.StereoAudioRecorder,
-        numberOfAudioChannels: 1,
-        desiredSampRate: 16000,
-        bufferSize: 16384,
-      });
-      mediaRecorderRef.current = recorder;
-
-      recorder.startRecording();
-      setIsRecording(true);
-    } catch (error) {
-      console.error("Error accessing microphone:", error);
+    if (streamError) {
+      console.error("Error accessing microphone:", streamError);
       setError(
         "Unable to access the microphone. Please check your permissions.",
       );
+      return;
     }
+    if (!stream) {
+      setError("Failed to get media stream.");
+      return;
+    }
+
+    mediaStreamRef.current = stream;
+
+    const RecordRTCC = (await import("@/external/record-rtc")).default;
+
+    const recorder = new RecordRTCC(stream, {
+      type: "audio",
+      mimeType: "audio/wav",
+      recorderType: RecordRTCC.StereoAudioRecorder,
+      numberOfAudioChannels: 1,
+      desiredSampRate: 16000,
+      bufferSize: 16384,
+    });
+    mediaRecorderRef.current = recorder;
+
+    recorder.startRecording();
+    setIsRecording(true);
   }, []);
 
   const stopRecording = useCallback(async () => {
@@ -85,30 +94,45 @@ export function useDictation(
       return;
     }
 
-    try {
-      const apiResponse = await sendData("/api/openai", {
+    const { data: apiResponse, error: sendError } = await tryCatch(
+      sendData("/api/openai", {
         "record.wav": new File([audioBlob], "record.wav", {
           type: "audio/wav",
         }),
         model: "whisper-1",
-      });
+      }),
+    );
 
-      if (!apiResponse.ok) {
-        throw new Error(
-          `Whisper API responded with status: ${apiResponse.status}`,
-        );
-      }
-
-      const text = (await apiResponse.text())
-        .replace(/^"|"$/g, "")
-        .replace(/\\n/g, "\n")
-        .trim();
-
-      setMessage((prevMessage) => prevMessage + " " + text);
-    } catch (error) {
-      console.error("Error in audio processing:", error);
-      setError(`An error occurred: ${(error as Error).message}`);
+    if (sendError) {
+      console.error("Error sending audio data:", sendError);
+      setError(`An error occurred: ${(sendError as Error).message}`);
+      return;
     }
+
+    if (!apiResponse) {
+      setError("No response from API.");
+      return;
+    }
+
+    if (!apiResponse.ok) {
+      setError(`Whisper API responded with status: ${apiResponse.status}`);
+      return;
+    }
+
+    const { data: text, error: textError } = await tryCatch(apiResponse.text());
+
+    if (textError) {
+      console.error("Error reading API response text:", textError);
+      setError(`An error occurred while reading response: ${(textError as Error).message}`);
+      return;
+    }
+    if (text === null || text === undefined) {
+       setError("Empty response from API.");
+       return;
+    }
+
+
+    setMessage((prevMessage) => prevMessage + " " + text.replace(/^"|"$/g, "").replace(/\\n/g, "\n").trim());
   };
 
   useEffect(() => {
@@ -185,21 +209,25 @@ async function sendData(url: string, data: Record<string, File | string>) {
     formData.append(name, data[name]);
   }
 
-  try {
-    const resp = await Promise.race([
-      fetch(url, { method: "POST", body: formData }),
-      fetch("/api/whisper", { method: "POST", body: formData }),
-    ]);
-    if (!resp.ok) {
-      return await fetch("/api/whisper", { method: "POST", body: formData });
-    }
-    return resp;
-  } catch {
-    const resp = await fetch("/api/whisper", {
-      method: "POST",
-      body: formData,
-    });
-    if (resp.ok) return resp;
-    return await fetch(url, { method: "POST", body: formData });
+  const primaryFetch = fetch(url, { method: "POST", body: formData });
+  const fallbackFetch = fetch("/api/whisper", { method: "POST", body: formData });
+
+  const { data: primaryResp, error: primaryError } = await tryCatch(primaryFetch);
+
+  if (primaryResp && primaryResp.ok) {
+    return primaryResp;
   }
+
+  // If primary fetch failed or was not ok, try fallback
+  console.warn("Primary fetch failed or not ok, trying fallback:", primaryError || primaryResp?.status);
+  const { data: fallbackResp, error: fallbackError } = await tryCatch(fallbackFetch);
+
+  if (fallbackResp && fallbackResp.ok) {
+    return fallbackResp;
+  }
+
+  // If fallback also failed or was not ok, re-throw the primary error or a new one
+  if (primaryError) throw primaryError;
+  if (fallbackError) throw fallbackError;
+  throw new Error("Both primary and fallback fetches failed or returned non-ok status.");
 }

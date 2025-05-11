@@ -5,6 +5,7 @@ export const RETRY_DELAY = 1000; // 1 second
 export const MAX_CACHE_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 export const CDN_CACHE_NAME = "jsdelivr-cache-v1";
 export const CDN_DOMAIN = "data.jsdelivr.com";
+import { tryCatch } from "@/lib/try-catch";
 
 export class CacheUtils {
   static async retry<T>(
@@ -32,15 +33,12 @@ export class CacheUtils {
   }
 
   static async cleanOldCaches(currentCacheName: string): Promise<void> {
-    try {
+    const doClean = async () => {
       const cacheNames = await caches.keys();
-
-      // Keep track of which caches we're deleting
       const cachesToDelete = cacheNames.filter(
         (name) =>
           name !== currentCacheName &&
           name !== CDN_CACHE_NAME &&
-          // Only delete caches that follow our naming pattern
           (name.startsWith("sw-file-cache-") ||
             name.startsWith("static-cache-")),
       );
@@ -55,7 +53,9 @@ export class CacheUtils {
           console.log(`Deleted old cache: ${name}`);
         }),
       );
-    } catch (error) {
+    };
+    const { error } = await tryCatch(doClean());
+    if (error) {
       console.error("Error during cache cleanup:", error);
     }
   }
@@ -100,46 +100,40 @@ export class CacheUtils {
     }
 
     // If no cache or cache is old, fetch from network
-    try {
+    const fetchAndCache = async () => {
       const response = await this.retry(() => fetch(request.clone()));
 
       if (response.ok && response.status === 200) {
-        // Add caching metadata
         const responseToCache = new Response(await response.clone().blob(), {
           status: response.status,
           statusText: response.statusText,
           headers: new Headers(response.headers),
         });
-
-        // Add cache metadata
         responseToCache.headers.set("x-cached-at", new Date().toISOString());
         responseToCache.headers.set("x-cache-source", "CDN");
-
-        // Store in cache
         await cache.put(request, responseToCache);
         console.log(`Cached CDN response for: ${request.url}`);
-
         return response;
       }
-
       // If network request fails but we have a cached response, return it
       if (cachedResponse) {
         console.log("Serving stale cache for:", request.url);
         return cachedResponse;
       }
+      return response; // Return non-ok response if not cached
+    };
 
-      return response;
-    } catch (error) {
+    const { data: networkResponse, error } = await tryCatch(fetchAndCache());
+
+    if (error) {
       console.error(`Error fetching from CDN: ${request.url}`, error);
-
-      // If network request fails and we have a cached response, return it
       if (cachedResponse) {
         console.log("Serving stale cache after error for:", request.url);
         return cachedResponse;
       }
-
       throw error;
     }
+    return networkResponse!; // networkResponse will be defined if error is null
   }
 
   static async getMissingFiles(

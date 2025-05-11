@@ -1,4 +1,5 @@
 import { serveWithCache } from "@/lib/serve-with-cache";
+import { tryCatch } from "@/lib/try-catch";
 import { enhancedFetch } from "../../enhancedFetch";
 import { fakeServer } from "../../sw-local-fake-server";
 import { CacheUtils, CDN_DOMAIN } from "../../workflows/tools/utils/cache-utils";
@@ -19,7 +20,7 @@ export class ServiceWorkerHandlers {
 
   async handleInstall(): Promise<void> {
     console.log("Service Worker installing.");
-    try {
+    const installPromise = async () => {
       const config = await this.configManager.getConfig();
 
       console.log(
@@ -80,14 +81,18 @@ export class ServiceWorkerHandlers {
       await CacheUtils.cleanOldCaches(this.sw.fileCacheName);
 
       console.log("Service Worker installed successfully.");
-    } catch (error) {
+    };
+
+    const { error } = await tryCatch(installPromise());
+
+    if (error) {
       console.error("Service Worker installation failed:", error);
       throw error;
     }
   }
 
   async handleActivate(): Promise<void> {
-    try {
+    const activatePromise = async () => {
       console.log("Service Worker activating.");
 
       // Do a final validation of cache integrity
@@ -109,7 +114,10 @@ export class ServiceWorkerHandlers {
       }
 
       console.log("Service Worker activated and controlling.");
-    } catch (error) {
+    };
+
+    const { error } = await tryCatch(activatePromise());
+    if (error) {
       console.error("Service Worker activation failed:", error);
       throw error;
     }
@@ -191,36 +199,33 @@ export class ServiceWorkerHandlers {
     hashedFile: string,
     event: FetchEvent,
   ): Promise<Response> {
-    try {
-      // Open our cache
+    const cachePromise = async () => {
       const cache = await caches.open(this.sw.fileCacheName);
-
-      // Try to get the file from cache using the hashed filename
       const cacheKey = new Request(
         new URL("/" + hashedFile, location.origin).toString(),
       );
       const cachedResponse = await cache.match(cacheKey);
 
       if (cachedResponse) {
-        // If we have it in cache, return it immediately
         return cachedResponse;
       }
 
-      // If not in cache, fetch it from network
       console.log(`Cache miss for ${filePath}, fetching from network`);
       const response = await fetch(cacheKey);
 
-      // Cache the response for next time
       if (response.ok) {
         event.waitUntil(cache.put(cacheKey, response.clone()));
       }
-
       return response;
-    } catch (error) {
+    };
+
+    const { data, error } = await tryCatch(cachePromise());
+
+    if (error) {
       console.error(`Error serving ${filePath} from cache:`, error);
-      // Fall back to normal fetch if there's an error
       return fetch(new URL("/" + filePath, location.origin).toString());
     }
+    return data!; // data will be defined if error is null
   }
 
   private handleServeRequest(

@@ -1,6 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { md5 } from "@/lib/md5";
-
+import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 
 import { build } from "@/lib/shared";
@@ -122,22 +122,27 @@ export const getSpeedy2 = async () => {
 Object.assign(globalThis, { getSpeedy2 });
 
 export const useArchive = async (codeSpace: string) => {
+  const attemptBuild = async () => build({
+    codeSpace,
+    origin: location.origin,
+    format: "iife",
+  });
+
   const buildWithRetry = async () => {
-    try {
-      return await build({
-        codeSpace,
-        origin: location.origin,
-        format: "iife",
-      });
-    } catch (e) {
-      console.error("Build failed, retrying after 1 second:", e);
+    let { data, error } = await tryCatch(attemptBuild());
+    if (error) {
+      console.error("Build failed, retrying after 1 second:", error);
       await wait(1000);
-      return await build({
-        codeSpace,
-        origin: location.origin,
-        format: "iife",
-      });
+      ({ data, error } = await tryCatch(attemptBuild())); // Re-assign to data and error
+      if (error) {
+        console.error("Build failed on retry:", error);
+        throw error; // Or handle more gracefully
+      }
     }
+    if (data === null || data === undefined) {
+      throw new Error("Build returned null or undefined.");
+    }
+    return data;
   };
 
   const indexMjs = await buildWithRetry();
@@ -181,26 +186,29 @@ export const useArchive = async (codeSpace: string) => {
 };
 
 export const useSpeedy = async (codeSpace: string) => {
+  const attemptBuild = async (entryPoint = "") => build({
+    codeSpace,
+    splitting: true,
+    entryPoints: entryPoint ? [entryPoint] : [],
+    origin: location.origin,
+    format: "esm",
+  });
+
   const buildWithRetry = async (entryPoint = "") => {
-    try {
-      return await build({
-        codeSpace,
-        splitting: true,
-        entryPoints: entryPoint ? [entryPoint] : [],
-        origin: location.origin,
-        format: "esm",
-      });
-    } catch (e) {
-      console.error("Build failed, retrying after 1 second:", e);
+    let { data, error } = await tryCatch(attemptBuild(entryPoint));
+    if (error) {
+      console.error("Build failed, retrying after 1 second:", error);
       await wait(1000);
-      return await build({
-        codeSpace,
-        splitting: true,
-        entryPoints: entryPoint ? [entryPoint] : [],
-        origin: location.origin,
-        format: "esm",
-      });
+      ({ data, error } = await tryCatch(attemptBuild(entryPoint))); // Re-assign
+      if (error) {
+        console.error("Build failed on retry:", error);
+        throw error; // Or handle more gracefully
+      }
     }
+    if (data === null || data === undefined) {
+      throw new Error("Build returned null or undefined.");
+    }
+    return data;
   };
 
   // function base64convert (files) {
@@ -246,7 +254,7 @@ export const useSpeedy = async (codeSpace: string) => {
   // 2. Proper error handling and logging
   indexMjs.filter((f) => !f.path.endsWith(".css") && !f.path.endsWith(".mjs"))
     .forEach(async (f) => {
-      try {
+      const uploadFont = async () => {
         const body = f.contents;
         const extension = f.path.split(".").pop() as string;
         const mimeType = getMimeType(extension);
@@ -258,11 +266,11 @@ export const useSpeedy = async (codeSpace: string) => {
         });
 
         if (!response || !response.ok) {
-          console.error(
-            `Failed to upload font: ${f.path}, Status: ${response.status}`,
-          );
+          throw new Error(`Failed to upload font: ${f.path}, Status: ${response.status}`);
         }
-      } catch (error) {
+      };
+      const { error } = await tryCatch(uploadFont());
+      if (error) {
         console.error(`Error processing font: ${f.path}`, error);
       }
     });

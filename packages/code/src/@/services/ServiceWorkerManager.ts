@@ -1,4 +1,5 @@
 import { swVersion } from "@/lib/sw-version";
+import { tryCatch } from "@/lib/try-catch";
 import type { IServiceWorkerManager } from "@/services/types";
 import type { Workbox } from "workbox-window";
 
@@ -32,51 +33,52 @@ export const setupServiceWorker = async (): Promise<
     return null;
   }
 
-  try {
-    // Import Workbox dynamically
-
-    // check if we have sw installed
+  const setupPromise = async () => {
     const oldRegistration = await navigator.serviceWorker.getRegistration();
 
     if (oldRegistration) {
       const oldSwVersion = localStorage.getItem("swVersion");
-      const serverVersion = await fetch("/swVersion.json").then((res) =>
-        res.json().then((data: { swVersion: string; }) => data.swVersion)
+      const serverVersionResult = await tryCatch(
+        fetch("/swVersion.json").then((res) =>
+          res.json().then((data: { swVersion: string }) => data.swVersion)
+        )
       );
-      if (oldSwVersion === swVersion && serverVersion === swVersion) {
-        console.log("Service worker is already registered");
+
+      if (serverVersionResult.error) {
+        console.warn("Failed to fetch server SW version, proceeding with registration:", serverVersionResult.error);
+      } else if (oldSwVersion === swVersion && serverVersionResult.data === swVersion) {
+        console.log("Service worker is already registered and up-to-date");
         return oldRegistration;
       }
-
-      oldRegistration.unregister();
+      await oldRegistration.unregister();
     }
 
     const { Workbox } = await import("workbox-window");
-
-    // Create and configure Workbox instance
     const wb = new Workbox("/sw.js");
-
-    // Configure service worker event listeners
     configureServiceWorkerEvents(wb);
 
-    // Register the service worker
-    const registration = await wb.register().catch((error) => {
-      console.error("Service worker registration failed:", error);
+    const registrationResult = await tryCatch(wb.register());
+    if (registrationResult.error) {
+      console.error("Service worker registration failed:", registrationResult.error);
       return null;
-    });
+    }
     localStorage.setItem("swVersion", swVersion);
 
-    if (registration) {
+    if (registrationResult.data) {
       console.log("Service worker registered successfully");
       window.__WB_INSTANCE = wb;
-      return registration;
+      return registrationResult.data;
     }
-
     return null;
-  } catch (error) {
+  };
+
+  const { data: registration, error } = await tryCatch(setupPromise());
+
+  if (error) {
     console.error("Error setting up service worker:", error);
     return null;
   }
+  return registration;
 };
 
 /**
@@ -157,11 +159,10 @@ export class ServiceWorkerManager implements IServiceWorkerManager {
     ) {
       return;
     }
-    try {
-      await setupServiceWorker();
-    } catch (setupError) {
-      console.error("Error setting up service worker:", { setupError });
-      throw setupError;
+    const { error } = await tryCatch(setupServiceWorker());
+    if (error) {
+      console.error("Error setting up service worker:", { error });
+      throw error;
     }
   }
 }

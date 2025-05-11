@@ -4,6 +4,7 @@ import { routes } from "@/lib/routes";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
 import type {} from "./def";
 import HTML from "./index.html";
+import { tryCatch } from "@/lib/try-catch";
 
 // Removed invalid HTML import: import HTML from "./index.html";
 
@@ -17,15 +18,23 @@ export async function fakeServer(request: Request) {
   const codeSpace = getCodeSpace(pathname);
   console.log("CodeSpace:", codeSpace);
 
-  cSessions[codeSpace] = cSessions[codeSpace] ||
-    new SessionSynchronizer(
-      codeSpace,
-      await fetch(`/api/room/${codeSpace}/session.json`).then(
-        (r) => r.json(),
-      ),
-    );
+  if (!cSessions[codeSpace]) {
+    const sessionFetchPromise = fetch(`/api/room/${codeSpace}/session.json`).then((r) => {
+      if (!r.ok) throw new Error(`Failed to fetch initial session for ${codeSpace}: ${r.status}`);
+      return r.json();
+    });
+    const { data: initialSessionData, error: fetchError } = await tryCatch<ICodeSession>(sessionFetchPromise);
 
-  const session = await cSessions[codeSpace].init();
+    if (fetchError) {
+      console.error(`Failed to initialize session for ${codeSpace}:`, fetchError);
+      // Handle error appropriately, maybe return an error response or use a default session
+      return new Response(`Error initializing session: ${fetchError.message}`, { status: 500 });
+    }
+    cSessions[codeSpace] = new SessionSynchronizer(codeSpace, initialSessionData);
+  }
+
+  const session = await cSessions[codeSpace]!.init();
+
 
   if (
     request.url.includes("/session.json")
@@ -70,12 +79,19 @@ export async function fakeServer(request: Request) {
 }
 
 async function handleEditorResponse(codeSpace: string) {
-  // Fetch index.html content
-  const htmlResponse = await fetch("/index.html");
-  if (!htmlResponse.ok) {
+  const { data: htmlResponse, error: fetchHtmlError } = await tryCatch(fetch("/index.html"));
+
+  if (fetchHtmlError || !htmlResponse || !htmlResponse.ok) {
+    console.error("Failed to fetch base HTML for editor:", fetchHtmlError || htmlResponse?.status);
     return new Response("Failed to fetch base HTML", { status: 500 });
   }
-  const baseHtml = await htmlResponse.text();
+
+  const {data: baseHtml, error: textError } = await tryCatch(htmlResponse.text());
+
+  if(textError || baseHtml === null) {
+    console.error("Failed to get text from base HTML for editor:", textError);
+    return new Response("Failed to read base HTML", { status: 500 });
+  }
 
   const respText = baseHtml.replace(
     '<script type="importmap">${JSON.stringify(importMap)}</script>', // Match the template literal placeholder
@@ -183,20 +199,24 @@ async function handleSessionJson(
   console.log("Session request:", request.url);
   const codeSpace = getCodeSpace(request.url);
 
-  if (initialisedSessions.has(codeSpace)) {
-    initialisedSessions.add(codeSpace);
-    session = sanitizeSession(
-      await fetch(request.url.replace("/live/", "/api/room/")).then(
-        (r) => r.json(),
-      ),
-    );
-    cSessions[codeSpace] = cSessions[codeSpace] ||
-      new SessionSynchronizer(
-        codeSpace,
-        session,
-      );
+  if (initialisedSessions.has(codeSpace)) { // This logic seems to imply re-fetching if already initialized, which might be intentional or a bug.
+    initialisedSessions.add(codeSpace); // This should likely be outside the if, or the condition inverted.
+    const sessionFetchPromise = fetch(request.url.replace("/live/", "/api/room/")).then((r) => {
+      if (!r.ok) throw new Error(`Failed to re-fetch session for ${codeSpace}: ${r.status}`);
+      return r.json();
+    });
+    const { data: newSessionData, error: fetchError } = await tryCatch<ICodeSession>(sessionFetchPromise);
+
+    if (fetchError) {
+      console.error(`Failed to re-initialize session for ${codeSpace}:`, fetchError);
+      // Potentially return an error response or use the existing session
+    } else if (newSessionData) {
+      session = sanitizeSession(newSessionData);
+      // This might overwrite an existing SessionSynchronizer or create a new one if cSessions[codeSpace] was somehow cleared.
+      cSessions[codeSpace] = new SessionSynchronizer(codeSpace, session);
+    }
   }
-  // const session = await cSessions[codeSpace].init();
+  // const session = await cSessions[codeSpace]!.init(); // init() might be called again if the above logic runs.
 
   return new Response(sessionToJSON(session), {
     headers: {

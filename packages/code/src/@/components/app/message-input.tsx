@@ -33,22 +33,25 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
       "true",
     );
 
-    const result = await handleSendMessage({
-      prompt: input,
-      images: uploadedImages,
-      cSess,
-    });
-    await cSess.setCode(result.code);
+      setInput("");
+      if (inputRef?.current) inputRef.current.value = "";
+      handleCancelScreenshot();
+      setUploadedImages([]);
 
-    localStorage.setItem(
-      "streaming-" + getCodeSpace(location.pathname),
-      JSON.stringify(false),
-    );
-    setInput("");
-    if (inputRef?.current) inputRef.current.value = "";
-    handleCancelScreenshot();
-    setUploadedImages([]);
-    return result;
+    try {
+      const result = await handleSendMessage({
+        prompt: input,
+        images: uploadedImages,
+        cSess,
+      });
+      await cSess.setCode(result.code);
+      return result;
+    } finally {
+      localStorage.setItem(
+        "streaming-" + getCodeSpace(location.pathname),
+        JSON.stringify(false),
+      );
+    }
   }, [input, uploadedImages, cSess, setInput, inputRef, handleCancelScreenshot]);
 
   const handleImageUpload = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

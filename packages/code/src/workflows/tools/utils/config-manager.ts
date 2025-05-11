@@ -1,3 +1,4 @@
+import { tryCatch } from "@/lib/try-catch";
 import type { Config } from "@/types/service-worker";
 import { CacheUtils } from "./cache-utils";
 
@@ -30,16 +31,18 @@ export class ConfigManager {
   }
 
   private async fetchConfig(): Promise<Config> {
-    try {
+    const fetchPromise = async () => {
       const response = await CacheUtils.retry(async () => {
         const res = await fetch("/sw-config.json");
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res;
       });
+      return response.json() as Promise<Config>;
+    };
 
-      const config = await response.json() as Config;
-      return config;
-    } catch (error) {
+    const { data, error } = await tryCatch<Config>(fetchPromise());
+
+    if (error) {
       console.error("Failed to fetch configuration:", error);
       return {
         killSwitch: true,
@@ -48,5 +51,7 @@ export class ConfigManager {
         validUntil: 0,
       };
     }
+    // data will be defined if error is null
+    return data!;
   }
 }

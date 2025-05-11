@@ -1,5 +1,6 @@
 import type { IframeMessage, ImageData } from "@/lib/interfaces";
 import { processImage } from "@/lib/process-image";
+import { tryCatch } from "@/lib/try-catch";
 
 export class ScreenshotService {
   private readonly codeSpace: string;
@@ -9,7 +10,7 @@ export class ScreenshotService {
   }
 
   public async takeScreenshot(): Promise<void> {
-    try {
+    const screenshotPromise = async () => {
       const html2canvas = (await import("@/external/html2canvas")).default;
       const canvas = await html2canvas(document.body, { imageTimeout: 100 });
 
@@ -17,7 +18,11 @@ export class ScreenshotService {
       const file = this.createScreenshotFile(blob);
       const imageData = await processImage(file);
       this.postScreenshotMessage(imageData);
-    } catch (error) {
+    };
+
+    const { error } = await tryCatch(screenshotPromise());
+
+    if (error) {
       console.error("Error taking screenshot:", error);
       throw error;
     }

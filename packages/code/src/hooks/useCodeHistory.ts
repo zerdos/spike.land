@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Version } from "../codeHistoryUtils";
 import { loadVersionHistory } from "../codeHistoryUtils";
+import { tryCatch } from "@/lib/try-catch";
 
 interface HistoryItem {
   code: string;
@@ -13,22 +14,22 @@ export const useCodeHistory = (codeSpace: string) => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchHistory = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data: Version[] = await loadVersionHistory(codeSpace);
+    setLoading(true);
+    const { data, error: fetchError } = await tryCatch<Version[]>(loadVersionHistory(codeSpace));
+
+    if (fetchError) {
+      setError(
+        fetchError instanceof Error ? fetchError.message : "An unknown error occurred",
+      );
+    } else if (data) {
       setHistory(
         data
           .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
           .sort((a, b) => b.timestamp - a.timestamp)
           .map((version) => ({ ...version, timestamp: version.timestamp })),
       );
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred",
-      );
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   }, [codeSpace]);
 
   useEffect(() => {
