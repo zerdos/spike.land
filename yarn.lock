@@ -4071,9 +4071,9 @@ __metadata:
     framer-motion: "npm:12.10.5"
     globals: "npm:16.1.0"
     gojs: "npm:3.0.21"
-    happy-dom: "npm:17.4.6"
+    happy-dom: "npm:17.4.7"
     html2canvas: "npm:1.4.1"
-    html2canvas-pro: "npm:1.5.10"
+    html2canvas-pro: "npm:1.5.11"
     i18next: "npm:25.1.2"
     immer: "npm:10.1.1"
     immutable: "npm:5.1.2"
@@ -4137,7 +4137,7 @@ __metadata:
     stream-browserify: "npm:3.0.0"
     string_decoder: "npm:1.3.0"
     swr: "npm:2.3.3"
-    tailwind-merge: "npm:3.2.0"
+    tailwind-merge: "npm:3.3.0"
     tailwindcss: "npm:4.1.6"
     tailwindcss-animate: "npm:1.0.7"
     text-encoding: "npm:0.7.0"
@@ -10445,13 +10445,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"happy-dom@npm:17.4.6":
-  version: 17.4.6
-  resolution: "happy-dom@npm:17.4.6"
+"happy-dom@npm:17.4.7":
+  version: 17.4.7
+  resolution: "happy-dom@npm:17.4.7"
   dependencies:
     webidl-conversions: "npm:^7.0.0"
     whatwg-mimetype: "npm:^3.0.0"
-  checksum: 10/e447bb2a470fcc54e73ea230496db2d99f732266798176490bb1b52de4372deca67f578a2abbfaf34917f5a44ffdadc188801d0ce4f446a3731f41a6e0d356cf
+  checksum: 10/8f6af6b3cfea459805fc2db7329ecdf9c7760d29cae20dde85983896de02f7bfcf265533850848a501c9813d94211c0737534c54d28b6c5b2c1bb13daa344211
   languageName: node
   linkType: hard
 
@@ -10712,13 +10712,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html2canvas-pro@npm:1.5.10":
-  version: 1.5.10
-  resolution: "html2canvas-pro@npm:1.5.10"
+"html2canvas-pro@npm:1.5.11":
+  version: 1.5.11
+  resolution: "html2canvas-pro@npm:1.5.11"
   dependencies:
     css-line-break: "npm:^2.1.0"
     text-segmentation: "npm:^1.0.3"
-  checksum: 10/b25c5bc334951fe668889d6515271bf3b502bee819e64d3dd469d7dffd5faac2c65a79274f870772ff1ee25b1d1405cc36c34f61a56b29a924746f4c3ee8e19e
+  checksum: 10/4a8c1df898ff1449ffc20f4b173ef3f1ff6ad096f6405b12100285279b099f22f8c207381be4715d1085e095d8a9d09e4809b67a3cb745c648956fa73b569279
   languageName: node
   linkType: hard
 
@@ -16984,10 +16984,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:3.2.0":
-  version: 3.2.0
-  resolution: "tailwind-merge@npm:3.2.0"
-  checksum: 10/ece231b18bf27cb70847e236d987e254c152e0440dbeb59c08ddf157de79fe89d6b7d1127c75d753e868f31dd77ded38ce8d23a1e405ff735a6642407c671fb9
+"tailwind-merge@npm:3.3.0":
+  version: 3.3.0
+  resolution: "tailwind-merge@npm:3.3.0"
+  checksum: 10/ec6d173581161fb2a015685627b7f2e375a160160f2cd7875fe65fd32f12f4fa68ecb91200623ee9bdde93888db831e80c6eb4d9f5b4a384f64ba77683ce8d13
   languageName: node
   linkType: hard
 
