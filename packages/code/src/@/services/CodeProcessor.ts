@@ -161,14 +161,22 @@ export class CodeProcessor {
           <meta charset="UTF-8">
           <meta http-equiv="X-UA-Compatible" content="IE=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-            html,body, #embed {
-              width: 100%;
-              height: 100%;
-              overflow: hidden;
-              margin: 0;
-              padding: 0;
+          <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+            as="style"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+            rel="stylesheet"
+          />
+          <style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            html,body,#embed {
+              isolation: isolate;
+              height: 100vh; /* Fallback for browsers that don't support dvh/svh */
+              height: 100dvh; /* Use dynamic viewport height */
+              height: 100svh; /* Use static viewport height */
+              font-family: "Roboto Flex", sans-serif;
             }
           </style>
           <script src="${origin}/@/workers/tw.worker.js"></script>
