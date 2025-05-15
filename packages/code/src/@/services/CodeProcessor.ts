@@ -1,3 +1,4 @@
+import { getInitialDarkMode } from "@/hooks/use-dark-mode";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import type { ICodeSession } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
@@ -153,6 +154,7 @@ export class CodeProcessor {
         console.error("Error creating blob URL:", blobError);
         return false;
       }
+      const isDarkMode = getInitialDarkMode();
 
       // Create an iframe which renders the transpiled code
       const iframeSource = `<!DOCTYPE html>
@@ -177,6 +179,13 @@ export class CodeProcessor {
               height: 100dvh; /* Use dynamic viewport height */
               height: 100svh; /* Use static viewport height */
               font-family: "Roboto Flex", sans-serif;
+            }
+            body {
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+              background-color: ${isDarkMode ? "#1e1e1e" : "#ffffff"};
+              color: ${isDarkMode ? "#ffffff" : "#000000"};
             }
           </style>
           <script src="${origin}/@/workers/tw.worker.js"></script>

@@ -1,8 +1,7 @@
 import { useLocalStorage } from "@/external/use-local-storage";
 import { useEffect } from "react";
 
-export const useDarkMode = () => {
-  const getInitialDarkMode = (): boolean => {
+export const getInitialDarkMode = (): boolean => {
     if (typeof window === "undefined") return false;
     const storedDarkMode = localStorage.getItem("darkMode");
     if (storedDarkMode !== null) {
@@ -18,6 +17,9 @@ export const useDarkMode = () => {
       }
     }
   };
+
+export const useDarkMode = () => {
+  
 
   const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>(
     "darkMode",
