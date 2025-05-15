@@ -139,11 +139,11 @@ describe("chat-langchain-workflow", () => {
       const errorResponse = new AIMessage({
         content: "Error in modification",
         additional_kwargs: {
-        tool_responses: [
-          {
-            name: "enhanced_replace_in_file", // Updated tool name
-            content: JSON.stringify({
-              hash: "error-hash",
+          tool_responses: [
+            {
+              name: "enhanced_replace_in_file", // Updated tool name
+              content: JSON.stringify({
+                hash: "error-hash",
                 error: "failed to compile: syntax error",
               }),
             },
@@ -196,11 +196,11 @@ describe("chat-langchain-workflow", () => {
       const responseWithoutCode = new AIMessage({
         content: "No code returned",
         additional_kwargs: {
-        tool_responses: [
-          {
-            name: "enhanced_replace_in_file", // Updated tool name
-            content: JSON.stringify({
-              hash: md5("retrieved code"), // Use the hash of the code that will be retrieved
+          tool_responses: [
+            {
+              name: "enhanced_replace_in_file", // Updated tool name
+              content: JSON.stringify({
+                hash: md5("retrieved code"), // Use the hash of the code that will be retrieved
               }),
             },
           ],

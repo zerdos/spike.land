@@ -1,10 +1,7 @@
 import type { HandleSendMessageProps } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
 import { getHashWithCache } from "./code-processing";
-import {
-  createWorkflowWithStringReplace,
-  workflowCache,
-} from "./workflow-creator";
+import { createWorkflowWithStringReplace, workflowCache } from "./workflow-creator";
 
 /**
  * Handles sending a message to the workflow
