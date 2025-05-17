@@ -94,26 +94,47 @@ export class Code implements DurableObject {
     // console.warn( // Keep this commented unless active debugging is needed
     //   `split-data sizes (save): core=${coreSize} bytes, code=${codeSize} bytes, transpiled=${transpiledSize} bytes`,
     // );
-    if (coreSize > 131072) console.warn(`session_core too large (save): ${coreSize} for ${codeSpace}`);
-    if (codeSize > 131072) console.warn(`session_code too large (save): ${codeSize} for ${codeSpace}`);
-    if (transpiledSize > 131072) console.warn(`session_transpiled too large (save): ${transpiledSize} for ${codeSpace}`);
+    if (coreSize > 131072) {
+      console.warn(`session_core too large (save): ${coreSize} for ${codeSpace}`);
+    }
+    if (codeSize > 131072) {
+      console.warn(`session_code too large (save): ${codeSize} for ${codeSpace}`);
+    }
+    if (transpiledSize > 131072) {
+      console.warn(`session_transpiled too large (save): ${transpiledSize} for ${codeSpace}`);
+    }
 
     const promises = [];
-    promises.push(this.state.storage.put("session_core", sessionCoreData).catch(e => {
-      console.error(`Failed to save session_core for ${codeSpace}:`, e); throw e;
-    }));
-    promises.push(this.state.storage.put("session_code", code || "").catch(e => {
-      console.error(`Failed to save session_code for ${codeSpace}:`, e); throw e;
-    }));
-    promises.push(this.state.storage.put("session_transpiled", transpiled || "").catch(e => {
-      console.error(`Failed to save session_transpiled for ${codeSpace}:`, e); throw e;
-    }));
-    promises.push(this.env.R2.put(r2HtmlKey, html || "").catch(e => {
-      console.error(`Failed to save html to R2 for ${r2HtmlKey}:`, e); throw e;
-    }));
-    promises.push(this.env.R2.put(r2CssKey, css || "").catch(e => {
-      console.error(`Failed to save css to R2 for ${r2CssKey}:`, e); throw e;
-    }));
+    promises.push(
+      this.state.storage.put("session_core", sessionCoreData).catch(e => {
+        console.error(`Failed to save session_core for ${codeSpace}:`, e);
+        throw e;
+      }),
+    );
+    promises.push(
+      this.state.storage.put("session_code", code || "").catch(e => {
+        console.error(`Failed to save session_code for ${codeSpace}:`, e);
+        throw e;
+      }),
+    );
+    promises.push(
+      this.state.storage.put("session_transpiled", transpiled || "").catch(e => {
+        console.error(`Failed to save session_transpiled for ${codeSpace}:`, e);
+        throw e;
+      }),
+    );
+    promises.push(
+      this.env.R2.put(r2HtmlKey, html || "").catch(e => {
+        console.error(`Failed to save html to R2 for ${r2HtmlKey}:`, e);
+        throw e;
+      }),
+    );
+    promises.push(
+      this.env.R2.put(r2CssKey, css || "").catch(e => {
+        console.error(`Failed to save css to R2 for ${r2CssKey}:`, e);
+        throw e;
+      }),
+    );
 
     await Promise.all(promises);
   }
@@ -140,16 +161,18 @@ export class Code implements DurableObject {
         const codeSpace = this.getCodeSpace(url);
 
         // Attempt to load session parts
-        const sessionCore = await this.state.storage.get<Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined>("session_core");
+        const sessionCore = await this.state.storage.get<
+          Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
+        >("session_core");
         let loadedSession: ICodeSession | null = null;
 
         if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
           const code = (await this.state.storage.get<string>("session_code")) ?? "";
           const transpiled = (await this.state.storage.get<string>("session_transpiled")) ?? "";
-          
+
           const r2HtmlKey = `r2_html_${codeSpace}`;
           const r2CssKey = `r2_css_${codeSpace}`;
-          
+
           let html = "";
           try {
             const htmlObject = await this.env.R2.get(r2HtmlKey);
@@ -157,7 +180,7 @@ export class Code implements DurableObject {
           } catch (e) {
             console.error(`Failed to load html from R2 (${r2HtmlKey}):`, e);
           }
-          
+
           let css = "";
           try {
             const cssObject = await this.env.R2.get(r2CssKey);
@@ -174,10 +197,11 @@ export class Code implements DurableObject {
             css,
           };
         } else if (sessionCore && sessionCore.codeSpace !== codeSpace) {
-          console.warn(`Loaded session_core for ${sessionCore.codeSpace} but current room is ${codeSpace}. Discarding loaded core.`);
+          console.warn(
+            `Loaded session_core for ${sessionCore.codeSpace} but current room is ${codeSpace}. Discarding loaded core.`,
+          );
           // This case will fall through to the 'else' block below, treating it as no session found.
         }
-
 
         if (loadedSession) {
           // Ensure the codeSpace from the URL is respected, sanitizeSession handles merging.

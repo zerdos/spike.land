@@ -1,6 +1,6 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import { Code } from "../src/chatRoom";
 import type { ICodeSession } from "@spike-npm-land/code";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { Code } from "../src/chatRoom";
 import type Env from "../src/env"; // Assuming Env type is exported from env.ts
 import { RouteHandler } from "../src/routeHandler";
 import { WebSocketHandler } from "../src/websocketHandler";
@@ -22,7 +22,6 @@ vi.mock("../src/websocketHandler", () => ({
 // Mock global fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
-
 
 describe("Code Durable Object", () => {
   let mockState: DurableObjectState;
@@ -46,7 +45,6 @@ describe("Code Durable Object", () => {
     version: "version",
     writeHttpMetadata: vi.fn(),
   });
-
 
   beforeEach(() => {
     vi.clearAllMocks(); // Clear mocks before each test
@@ -80,13 +78,12 @@ describe("Code Durable Object", () => {
 
     // Re-instantiate mocks for handlers for each test
     (RouteHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
-        handleRoute: vi.fn().mockResolvedValue(new Response("OK")) // Ensure fetch can complete
+      handleRoute: vi.fn().mockResolvedValue(new Response("OK")), // Ensure fetch can complete
     }));
     (WebSocketHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
-        broadcast: vi.fn(),
-        handleWebSocket: vi.fn(),
+      broadcast: vi.fn(),
+      handleWebSocket: vi.fn(),
     }));
-
 
     codeInstance = new Code(mockState, mockEnv);
   });
@@ -113,7 +110,10 @@ describe("Code Durable Object", () => {
       const expectedHtml = "<div>Write your code here!</div>";
       const expectedCss = "";
 
-      expect(mockState.storage.put).toHaveBeenCalledWith("session_core", expect.objectContaining(expectedSessionCore));
+      expect(mockState.storage.put).toHaveBeenCalledWith(
+        "session_core",
+        expect.objectContaining(expectedSessionCore),
+      );
       expect(mockState.storage.put).toHaveBeenCalledWith("session_code", expectedCode);
       expect(mockState.storage.put).toHaveBeenCalledWith("session_transpiled", expect.any(String)); // Transpiled can be complex
       expect(mockEnv.R2.put).toHaveBeenCalledWith(`r2_html_${roomName}`, expectedHtml);
@@ -143,14 +143,17 @@ describe("Code Durable Object", () => {
       } as unknown as Response);
 
       await codeInstance.fetch(request); // Call fetch to trigger initialization
-      
+
       expect(mockFetch).toHaveBeenCalledWith(`https://example.com/live/backupRoom/session.json`);
-      expect(mockState.storage.put).toHaveBeenCalledWith("session_core", expect.objectContaining({ codeSpace: roomName, messages: [] }));
+      expect(mockState.storage.put).toHaveBeenCalledWith(
+        "session_core",
+        expect.objectContaining({ codeSpace: roomName, messages: [] }),
+      );
       expect(mockState.storage.put).toHaveBeenCalledWith("session_code", "backup code");
       expect(mockState.storage.put).toHaveBeenCalledWith("session_transpiled", "transpiled backup");
       expect(mockEnv.R2.put).toHaveBeenCalledWith(`r2_html_${roomName}`, "<p>backup html</p>");
       expect(mockEnv.R2.put).toHaveBeenCalledWith(`r2_css_${roomName}`, "backup_css");
-      
+
       const currentSession = codeInstance.getSession();
       expect(currentSession.codeSpace).toBe(roomName);
       expect(currentSession.code).toBe("backup code");
@@ -160,7 +163,10 @@ describe("Code Durable Object", () => {
       const roomName = "existing-room";
       const testUrl = new URL(`https://example.com/?room=${roomName}`);
       const request = new Request(testUrl.toString());
-      const storedCore: Partial<ICodeSession> = { codeSpace: roomName, messages: [{ text: "hi", type: "user" }] };
+      const storedCore: Partial<ICodeSession> = {
+        codeSpace: roomName,
+        messages: [{ text: "hi", type: "user" }],
+      };
       const storedCode = "console.log('hello');";
       const storedTranspiled = "console.log('hello transpiled');";
       const storedHtml = "<div>Hello</div>";
@@ -213,36 +219,36 @@ describe("Code Durable Object", () => {
       // Mock initializeSession's loading part to set this.session
       (mockState.storage.get as ReturnType<typeof vi.fn>)
         .mockImplementation(async (key: string) => {
-            if (key === "session_core") return { codeSpace: roomName, messages: [] };
-            if (key === "session_code") return initialSession.code;
-            if (key === "session_transpiled") return initialSession.transpiled;
-            return undefined;
+          if (key === "session_core") return { codeSpace: roomName, messages: [] };
+          if (key === "session_code") return initialSession.code;
+          if (key === "session_transpiled") return initialSession.transpiled;
+          return undefined;
         });
       (mockEnv.R2.get as ReturnType<typeof vi.fn>)
         .mockImplementation(async (key: string) => {
-            if (key === `r2_html_${roomName}`) return mockR2Object(initialSession.html!);
-            if (key === `r2_css_${roomName}`) return mockR2Object(initialSession.css!);
-            return undefined;
+          if (key === `r2_html_${roomName}`) return mockR2Object(initialSession.html!);
+          if (key === `r2_css_${roomName}`) return mockR2Object(initialSession.css!);
+          return undefined;
         });
-      
+
       // Initialize by calling fetch
       await codeInstance.fetch(new Request(`https://example.com/?room=${roomName}`));
-      
+
       // Clear mocks from initialization that happened via fetch
       vi.clearAllMocks();
       // Resetup RouteHandler mock as it might have been called during fetch
       (RouteHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
-        handleRoute: vi.fn().mockResolvedValue(new Response("OK")) 
+        handleRoute: vi.fn().mockResolvedValue(new Response("OK")),
       }));
-       // Resetup WebSocketHandler mock for broadcast
+      // Resetup WebSocketHandler mock for broadcast
       (WebSocketHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
         broadcast: vi.fn(), // This is the important one for this test suite
         handleWebSocket: vi.fn(),
       }));
       // Create a new instance of Code with the same state and env, but it will have the mocked WebSocketHandler
-      codeInstance = new Code(mockState, mockEnv); 
+      codeInstance = new Code(mockState, mockEnv);
       // Manually set the session for this new instance to avoid re-initializing and re-triggering puts
-      (codeInstance as any).session = initialSession; 
+      (codeInstance as any).session = initialSession;
       (codeInstance as any).initialized = true;
     });
 
@@ -257,7 +263,10 @@ describe("Code Durable Object", () => {
       await codeInstance.updateAndBroadcastSession(newSession);
       const roomName = initialSession.codeSpace;
 
-      expect(mockState.storage.put).toHaveBeenCalledWith("session_core", expect.objectContaining({ codeSpace: roomName, messages: [] }));
+      expect(mockState.storage.put).toHaveBeenCalledWith(
+        "session_core",
+        expect.objectContaining({ codeSpace: roomName, messages: [] }),
+      );
       expect(mockState.storage.put).toHaveBeenCalledWith("session_code", newSession.code);
       // Transpiled might be recomputed or passed through, check for string
       expect(mockState.storage.put).toHaveBeenCalledWith("session_transpiled", expect.any(String));
