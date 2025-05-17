@@ -75,6 +75,7 @@ describe("makeResponse", () => {
         offset: 0,
         length: 1024,
       },
+      bytes: async () => new TextEncoder().encode(body || ""), // Corrected 'bytes' property to be an async function
     } as R2ObjectBody;
   };
 
