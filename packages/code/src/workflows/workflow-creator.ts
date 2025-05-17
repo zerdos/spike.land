@@ -109,7 +109,7 @@ export function createWorkflowWithStringReplace(
   };
 
   // Use type assertion for StateGraph initialization as it expects a specific structure
-  const workflow = new StateGraph({ channels: graphState } as any)
+  const workflow = new StateGraph({ channels: graphState, recursionLimit: 10 } as any) // Increased recursion limit
     .addNode("tools", toolNode)
     .addNode("process", processMessageNode)
     .addEdge("__start__", "process")

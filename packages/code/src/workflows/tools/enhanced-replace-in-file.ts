@@ -301,7 +301,7 @@ Critical rules:
    * Match character-for-character including whitespace, indentation, line endings
    * Include all comments, docstrings, etc.
 2. SEARCH/REPLACE blocks will ONLY replace the first match occurrence.
-   * Include multiple unique SEARCH/REPLACE blocks if you need to make multiple changes.
+   * Include multiple unique SEARCH/REPLACE blocks if you need to make multiple changes. Strive to include as many SEARCH/REPLACE blocks in a single tool call as feasible, with the goal that each call produces runnable code free of errors.
    * Include *just* enough lines in each SEARCH section to uniquely match each set of lines that need to change.
    * When using multiple SEARCH/REPLACE blocks, list them in the order they appear in the file.
 3. Keep SEARCH/REPLACE blocks concise:
