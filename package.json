@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "dev": "yarn workspace @spike-npm-land/code dev",
+    "dev:local": "concurrently --kill-others-on-fail \"yarn workspace @spike-npm-land/code run build:vite:watch\" \"cd packages/spike.land && sleep 8 && yarn dev\"",
     "dev:fe": "yarn workspace @spike-npm-land/code dev",
     "dev:workers": "yarn workspaces foreach --all -p --include '@spike-npm-land/{code-worker,transpile}' run dev",
     "build:all": "yarn workspaces foreach --all -p run build",
@@ -44,6 +45,7 @@
     "@types/ws": "8.18.1",
     "@typescript-eslint/parser": "8.32.1",
     "@yarnpkg/sdks": "3.2.1",
+    "concurrently": "9.1.2",
     "dprint": "0.49.1",
     "eslint": "9.26.0",
     "eslint-plugin-react": "7.37.5",

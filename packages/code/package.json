@@ -22,6 +22,7 @@
     "build": "yarn clean && yarn build:all",
     "build:all": "concurrently --kill-others-on-fail \"yarn build:vite\" \"yarn build:types\" \"yarn build:workers\" && yarn post-build",
     "build:vite": "vite build",
+    "build:vite:watch": "vite build --watch --outDir dist & yarn types:build",
     "build:workers": "node --experimental-strip-types  src/@/lib/esbuild-dev.ts",
     "build:types": "tsc --build && yarn types:cp",
     "post-build-delete": "yarn remove-extraneous",

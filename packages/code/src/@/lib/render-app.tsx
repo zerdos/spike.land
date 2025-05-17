@@ -221,7 +221,8 @@ export const importFromString = async (code: string) => {
   console.warn("File written to", filePath);
 
   // Import the file
-  const { data: module, error: importError } = await tryCatch(import(filePath));
+  const { data: module, error: importError } = await tryCatch(import(
+     /* @vite-ignore */    filePath));
 
   if (module) {
     return module.default as FlexibleComponentType;
@@ -323,7 +324,9 @@ async function _loadAppComponent(
     AppToRender = App;
   } else if (codeSpace && !transpiled && !code) {
     console.warn("Rendering static Editor UI for codeSpace:", codeSpace);
-    AppToRender = (await import(`${currentOrigin}/live/${codeSpace}/index.js`))
+    AppToRender = (await import(
+       /* @vite-ignore */
+      `${currentOrigin}/live/${codeSpace}/index.js`))
       .default as FlexibleComponentType;
   } else if (transpiled || code) {
     if (transpiled?.indexOf("stdin_default") === -1 && code?.indexOf("as default") === -1) {
