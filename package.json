@@ -49,7 +49,7 @@
     "dprint": "0.49.1",
     "eslint": "9.27.0",
     "eslint-plugin-react": "7.37.5",
-    "rollup": "4.40.2",
+    "rollup": "4.41.0",
     "typescript": "5.8.3",
     "typescript-eslint": "8.32.1",
     "vitest": "3.1.3"

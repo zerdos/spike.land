@@ -131,7 +131,7 @@
     "@tanstack/react-virtual": "3.13.8",
     "@tanstack/router-plugin": "1.120.5",
     "@types/autoprefixer": "10.2.4",
-    "@types/diff": "7.0.2",
+    "@types/diff": "8.0.0",
     "@types/isomorphic-fetch": "0.0.39",
     "@typescript-eslint/typescript-estree": "8.32.1",
     "@typescript/ata": "0.9.7",
