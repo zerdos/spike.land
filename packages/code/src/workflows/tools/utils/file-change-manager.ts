@@ -290,7 +290,7 @@ export class FileChangeManager {
         : 0,
     };
 
-    hashCache.set(finalContent, newHash);
+    hashCache.set(finalContent, { value: newHash });
     this.retryCount[path] = 0;
 
     const bytesChanged = finalContent.length - originalContent.length;

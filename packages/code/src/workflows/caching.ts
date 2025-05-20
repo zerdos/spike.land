@@ -4,9 +4,9 @@ import {
   metrics,
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
-import { LRUCache } from "lru-cache";
+import { LRUCache } from "@/lib/lru-cache";
 
-type CacheValue = string | {
+type CacheValue = {
   hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;
@@ -28,7 +28,7 @@ interface CacheStoreOptions {
   metrics?: CacheMetricsInterface;
 }
 
-export class CacheStore<T extends CacheValue> {
+export class CacheStore<T extends object> {
   private cache: LRUCache<string, T>;
   private metrics: CacheMetricsInterface;
   private name: string;
@@ -87,8 +87,15 @@ export class CacheStore<T extends CacheValue> {
   }
 }
 
+/**
+ * For string cache, wrap string in an object.
+ */
+interface StringCacheValue {
+  value: string;
+}
+
 // Create singleton instances for different types of caches with metrics
-export const hashCache = new CacheStore<string>({
+export const hashCache = new CacheStore<StringCacheValue>({
   name: "hash",
   metrics: hashCacheMetrics,
 });

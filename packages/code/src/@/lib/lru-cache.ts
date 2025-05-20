@@ -360,7 +360,7 @@ export interface LRUCacheEntry<V> {
   start?: LRUCacheMilliseconds;
 }
 
-export class LRUCache<K extends object, V extends object, FC = unknown> {
+export class LRUCache<K extends object | string | number, V extends object, FC = unknown> {
   readonly #max: LRUCacheCount;
   readonly #maxSize: LRUCacheSize;
   readonly #dispose?: LRUCacheDisposer<K, V>;

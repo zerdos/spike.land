@@ -79,7 +79,7 @@ export const getHashWithCache = (
   operationName = "hash.calculation",
 ): string => {
   const cacheKey = code;
-  const cachedHash = hashCache.get(cacheKey);
+  const cachedHash = hashCache.get(cacheKey)?.value;
 
   if (cachedHash) {
     metrics.recordOperation("hash.cache.hit", 0);
@@ -90,7 +90,7 @@ export const getHashWithCache = (
   const hash = md5(code);
   const hashDuration = Date.now() - hashStart;
   metrics.recordOperation(operationName, hashDuration);
-  hashCache.set(cacheKey, hash);
+  hashCache.set(cacheKey, { value: hash });
 
   return hash;
 };
