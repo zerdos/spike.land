@@ -20,17 +20,30 @@ services:
     #   context: .
     #   dockerfile: .devcontainer/Dockerfile
     volumes:
-      # Update this to wherever you want VS Code to mount the folder of your project
-      - .:/workspace:cached
-
-      # Uncomment the next line to use Docker from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker-compose for details.
-      # - /var/run/docker.sock:/var/run/docker.sock
-
-    # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
-    # cap_add:
-    #   - SYS_PTRACE
-    # security_opt:
-    #   - seccomp:unconfined
-
-    # Overrides default command so things don't shut down after the process ends.
-    command: /bin/sh -c "while sleep 1000; do :; done"
+      - ../..:/home/node/workspace:cached
+      - ${HOME:-/home/node}/.config:/home/node/.config:cached
+      - ${HOME:-/home/node}/.vscode:/home/node/.vscode:cached
+      - ${HOME:-/home/node}/.vscode-server:/home/node/.vscode-server:cached
+      - ${HOME:-/home/node}/.cache:/home/node/.cache:cached
+      - ${HOME:-/home/node}/.oh-my-zsh:/home/node/.oh-my-zsh:cached
+    ports:
+      - "3333:3333"
+      - "6080:6080"
+      - "9222:9222"
+      - "8080:8080"
+    ipc: host
+    init: true
+    tty: true
+    stdin_open: true
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 3333 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 2G

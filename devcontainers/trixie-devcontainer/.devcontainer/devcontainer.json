@@ -1,53 +1,49 @@
 {
-  "name": "Development Environment",
-
+  "name": "Spike.land Development Environment",
   "dockerComposeFile": [
     "../docker-compose.yml",
     "docker-compose.yml"
   ],
-
   "service": "devcontainer",
-  "workspaceFolder": "/workspace",
-
-  "settings": {
-    "terminal.integrated.shell.linux": "/usr/bin/zsh",
-    "terminal.integrated.defaultProfile.linux": "zsh",
-    "editor.formatOnSave": true,
-    "files.exclude": {
-      "**/.git": true,
-      "**/.DS_Store": true,
-      "**/node_modules": true
-    },
-    "files.watcherExclude": {
-      "**/.git/objects/**": true,
-      "**/.git/subtree-cache/**": true,
-      "**/node_modules/*/**": true
+  "workspaceFolder": "/home/node/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode.vscode-typescript-next",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "ms-vscode.vscode-typescript",
+        "ms-vscode.vscode-typescript-language-features",
+        "ms-vscode.vscode-typescript-lsp",
+        "ms-vscode.vscode-typescript-pull-requests"
+      ],
+      "settings": {
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 100,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": true,
+        "editor.formatOnType": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        },
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "javascript.updateImportsOnFileMove.enabled": "always",
+        "files.watcherExclude": {
+          "**/node_modules/**": true,
+          "**/dist/**": true
+        }
+      }
     }
   },
-
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers",
-    "github.copilot",
-    "eamodio.gitlens",
-    "streetsidesoftware.code-spell-checker"
-  ],
-
-  "forwardPorts": [3000, 8000, 6080, 5901],
-
-  "postCreateCommand": "echo 'Development container ready!' && yarn install",
-
-  "remoteUser": "${localEnv:USER}",
-
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    },
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "version": "latest",
-      "moby": true
-    }
-  }
+  "forwardPorts": [6080, 3333, 9222, 8080],
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "overrideCommand": false,
+  "shutdownAction": "stopContainer",
+  "initializeCommand": "docker network prune -f",
+  "postStartCommand": "yarn install"
 }
