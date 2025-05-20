@@ -1,10 +1,11 @@
 // module-private names and types
-type Perf = { now: () => number; };
-const perf: Perf = typeof performance === "object" &&
-    performance &&
-    typeof performance.now === "function"
-  ? performance
-  : Date;
+type Perf = { now: () => number };
+const perf: Perf =
+  typeof performance === "object" &&
+  performance &&
+  typeof performance.now === "function"
+    ? performance
+    : { now: () => Date.now() };
 
 const warned = new Set<string>();
 
@@ -103,7 +104,7 @@ class Stack {
   }
   constructor(
     max: number,
-    HeapCls: { new(n: number): NumberArray },
+    HeapCls: new(n: number) => NumberArray,
   ) {
     /* c8 ignore start */
     if (!Stack.#constructing) {
@@ -756,8 +757,8 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     };
     this.#addItemSize = (
       index: Index,
-      size: LRUCache.Size,
-      status?: LRUCache.Status<V>,
+      size: LRUCacheSize,
+      status?: LRUCacheStatus<V>,
     ) => {
       sizes[index] = size;
       if (this.#maxSize) {
@@ -1036,7 +1037,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
   set(
     k: K,
     v: V | BackgroundFetch<V> | undefined,
-    setOptions: LRUCache.SetOptions<K, V, FC> = {},
+    setOptions: LRUCacheSetOptions<K, V, FC> = {},
   ) {
     if (v === undefined) {
       this.delete(k);
@@ -1076,6 +1077,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
           ? this.#evict(false)
           : this.#size
       ) as Index;
+      
       this.#keyList[newIndex] = k;
       this.#valList[newIndex] = v;
       this.#keyMap.set(k, newIndex);
@@ -1133,7 +1135,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     if (ttl !== 0 && !this.#ttls) {
       this.#initializeTTLTracking();
     }
-    if (this.#ttls) {
+    if (this.#ttls && index !== undefined) {
       if (!noUpdateTTL) {
         this.#setItemTTL(index, ttl, start);
       }
@@ -1205,7 +1207,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     return head;
   }
 
-  has(k: K, hasOptions: LRUCache.HasOptions<K, V, FC> = {}) {
+  has(k: K, hasOptions: LRUCacheHasOptions<K, V, FC> = {}) {
     const { updateAgeOnHas = this.updateAgeOnHas, status } = hasOptions;
     const index = this.#keyMap.get(k);
     if (index !== undefined) {
@@ -1236,7 +1238,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     return false;
   }
 
-  peek(k: K, peekOptions: LRUCache.PeekOptions<K, V, FC> = {}) {
+  peek(k: K, peekOptions: LRUCachePeekOptions<K, V, FC> = {}) {
     const { allowStale = this.allowStale } = peekOptions;
     const index = this.#keyMap.get(k);
     if (
@@ -1252,12 +1254,12 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
   #backgroundFetch(
     k: K,
     index: Index | undefined,
-    options: LRUCache.FetchOptions<K, V, FC>,
+    options: LRUCacheFetchOptions<K, V, FC>,
     context: any,
   ): BackgroundFetch<V> {
     const v = index === undefined ? undefined : this.#valList[index] as V | undefined; // Stale value if present
-    if (this.#isBackgroundFetch(this.#valList[index])) { // Check if already fetching
-      return this.#valList[index] as BackgroundFetch<V>;
+  if (this.#isBackgroundFetch(this.#valList[index!])) { // Check if already fetching
+      return this.#valList[index!] as BackgroundFetch<V>;
     }
 
     const ac = new AC() as AbortController; // Use the (potentially polyfilled) AC
@@ -1423,23 +1425,23 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
 
   fetch(
     k: K,
-    fetchOptions?: unknown extends FC ? LRUCache.FetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.FetchOptionsNoContext<K, V>
-      : LRUCache.FetchOptionsWithContext<K, V, FC>,
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
+      : LRUCacheFetchOptionsWithContext<K, V, FC>,
   ): Promise<undefined | V>;
 
   fetch(
     k: unknown extends FC ? K
       : FC extends undefined | void ? K
       : never,
-    fetchOptions?: unknown extends FC ? LRUCache.FetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.FetchOptionsNoContext<K, V>
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
       : never,
   ): Promise<undefined | V>;
 
   async fetch(
     k: K,
-    fetchOptions: LRUCache.FetchOptions<K, V, FC> = {},
+    fetchOptions: LRUCacheFetchOptions<K, V, FC> = {},
   ): Promise<undefined | V> {
     const {
       allowStale = this.allowStale,
@@ -1527,21 +1529,21 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
 
   forceFetch(
     k: K,
-    fetchOptions?: unknown extends FC ? LRUCache.FetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.FetchOptionsNoContext<K, V>
-      : LRUCache.FetchOptionsWithContext<K, V, FC>,
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
+      : LRUCacheFetchOptionsWithContext<K, V, FC>,
   ): Promise<V>;
   forceFetch(
     k: unknown extends FC ? K
       : FC extends undefined | void ? K
       : never,
-    fetchOptions?: unknown extends FC ? LRUCache.FetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.FetchOptionsNoContext<K, V>
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
       : never,
   ): Promise<V>;
   async forceFetch(
     k: K,
-    fetchOptions: LRUCache.FetchOptions<K, V, FC> = {},
+    fetchOptions: LRUCacheFetchOptions<K, V, FC> = {},
   ): Promise<V> {
     const v = await this.fetch(
       k,
@@ -1553,19 +1555,19 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
 
   memo(
     k: K,
-    memoOptions?: unknown extends FC ? LRUCache.MemoOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.MemoOptionsNoContext<K, V>
-      : LRUCache.MemoOptionsWithContext<K, V, FC>,
+    memoOptions?: unknown extends FC ? LRUCacheMemoOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
+      : LRUCacheMemoOptionsWithContext<K, V, FC>,
   ): V;
   memo(
     k: unknown extends FC ? K
       : FC extends undefined | void ? K
       : never,
-    memoOptions?: unknown extends FC ? LRUCache.MemoOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCache.MemoOptionsNoContext<K, V>
+    memoOptions?: unknown extends FC ? LRUCacheMemoOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
       : never,
   ): V;
-  memo(k: K, memoOptions: LRUCache.MemoOptions<K, V, FC> = {}): V {
+  memo(k: K, memoOptions: LRUCacheMemoOptions<K, V, FC> = {}): V {
     const memoMethod = this.#memoMethod;
     if (!memoMethod) {
       throw new Error("no memoMethod provided to constructor");
@@ -1576,12 +1578,12 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     const vv = memoMethod(k, v, {
       options,
       context,
-    } as LRUCache.MemoizerOptions<K, V, FC>);
+    } as LRUCacheMemoizerOptions<K, V, FC>);
     this.set(k, vv, options);
     return vv;
   }
 
-  get(k: K, getOptions: LRUCache.GetOptions<K, V, FC> = {}) {
+  get(k: K, getOptions: LRUCacheGetOptions<K, V, FC> = {}) {
     const {
       allowStale = this.allowStale,
       updateAgeOnGet = this.updateAgeOnGet,
@@ -1652,7 +1654,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
     return this.#delete(k, "delete");
   }
 
-  #delete(k: K, reason: LRUCache.DisposeReason) {
+  #delete(k: K, reason: LRUCacheDisposeReason) {
     let deleted = false;
     if (this.#size !== 0) {
       const index = this.#keyMap.get(k);
@@ -1704,7 +1706,7 @@ export class LRUCache<K extends object, V extends object, FC = unknown> {
   clear() {
     return this.#clear("delete");
   }
-  #clear(reason: LRUCache.DisposeReason) {
+  #clear(reason: LRUCacheDisposeReason) {
     for (const index of this.#rindexes({ allowStale: true })) { // Iterate over all, including stale
       const v = this.#valList[index];
       const k = this.#keyList[index]; // Get key before clearing
