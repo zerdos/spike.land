@@ -18,7 +18,7 @@ export const StartWithPrompt: React.FC = () => {
     event: React.ClipboardEvent<HTMLTextAreaElement>,
   ) => {
     const items = event.clipboardData.items;
-    for (const item of items) {
+    for (const item of Array.from(items)) { // Changed to Array.from(items)
       if (item.type.indexOf("image") !== -1) {
         event.preventDefault();
         const file = item.getAsFile();

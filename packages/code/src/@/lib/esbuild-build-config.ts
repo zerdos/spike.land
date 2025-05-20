@@ -26,6 +26,7 @@ export const buildOptions: BuildOptions = {
     constants: "constants/",
     vm: "vm-browserify",
     events: "events/",
+    "lru-cache": "src/utils/lru-cache.ts",
 
     // events: "events",
 

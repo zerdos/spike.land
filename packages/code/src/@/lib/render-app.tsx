@@ -49,11 +49,9 @@ const toHtmlAndCss = async (
     // Get emotion global styles
     const { data: emotionGlobalStylesData, error: emotionGlobalStylesError } = await tryCatch(
       Promise.resolve(
-        [
-          ...document.querySelectorAll<HTMLStyleElement>(
-            `style[data-emotion='${cssCache.key}-global']`,
-          ).values(),
-        ],
+        Array.from(document.querySelectorAll<HTMLStyleElement>( // Changed to Array.from and removed .values()
+          `style[data-emotion='${cssCache.key}-global']`,
+        )),
       ),
     );
 
@@ -66,7 +64,7 @@ const toHtmlAndCss = async (
     }
 
     const emotionGlobalStyles = emotionGlobalStylesData.map(
-      (x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"),
+      (x) => (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText)).join("\n"), // Added type CSSRule for inner x
     );
 
     // Get emotion styles
@@ -74,7 +72,7 @@ const toHtmlAndCss = async (
       ...emotionGlobalStyles,
       ...[...cssCache.sheet.tags].map((
         tag: HTMLStyleElement,
-      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+      ) => (Array.from(tag.sheet!.cssRules!).map((rule: CSSRule) => rule.cssText))).flat(), // Changed to Array.from and added type CSSRule
     ].join("\n")
       .split(cssCache.key).join("x");
 
@@ -83,7 +81,7 @@ const toHtmlAndCss = async (
     // Get tailwind styles
     const { data: tailwindStyles, error: tailwindStylesError } = await tryCatch(
       Promise.resolve(
-        [...document.querySelectorAll<HTMLStyleElement>("head > style")],
+        Array.from(document.querySelectorAll<HTMLStyleElement>("head > style")), // Changed to Array.from
       ),
     );
 

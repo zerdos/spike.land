@@ -66,28 +66,25 @@ export class RenderService {
 
     const html = this.htmlDecode(rootElement.innerHTML).split(cssCache.key)
       .join("x");
-    const emotionGlobalStyles = [
-      ...document.querySelectorAll<HTMLStyleElement>(
-        `style[data-emotion='${cssCache.key}-global']`,
-      )
-        .values(),
-    ].map((x) => (Array.from(x.sheet!.cssRules).map((x) => x.cssText)).join("\n"));
+    const emotionGlobalStyles = Array.from(document.querySelectorAll<HTMLStyleElement>( // Changed to Array.from and removed .values()
+      `style[data-emotion='${cssCache.key}-global']`,
+    ))
+      .map((x) => (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText)).join("\n")); // Added type CSSRule for inner x
 
     const emotionStyles = [
       ...emotionGlobalStyles,
       ...[...cssCache.sheet.tags].map((
         tag: HTMLStyleElement,
-      ) => ([...tag.sheet!.cssRules!].map((x) => x.cssText))).flat(),
+      ) => (Array.from(tag.sheet!.cssRules!).map((rule: CSSRule) => rule.cssText))).flat(), // Changed to Array.from and added type CSSRule
     ].join("\n")
       .split(cssCache.key).join("x");
 
     // console.warn("Emotion styles:", emotionStyles); // This can be very verbose, changed to a conditional log or removed if not essential for common debugging
 
-    const tailWindClasses = [
-      ...document.querySelectorAll<HTMLStyleElement>("head > style"),
-    ].map(
-      (z) => z.innerHTML,
-    ).join("\n");
+    const tailWindClasses = Array.from(document.querySelectorAll<HTMLStyleElement>("head > style")) // Changed to Array.from
+      .map(
+        (z) => z.innerHTML,
+      ).join("\n");
 
     const tailWindClassesXWithoutComments = tailWindClasses.replace(
       /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm,
