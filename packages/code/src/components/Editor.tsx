@@ -110,12 +110,25 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
           return;
         }
         if (newCode !== formatted) {
-          console.error("[Editor] Code mismatch after save:", {
-            newCode,
-            formatted,
-          });
-          return;
+          console.info(
+            "[Editor]:  The code might has just formatting or comments difference, rendered app not updated",
+          );
+          const { data: finalCode, error: saveError } = await tryCatch(
+            cSess.setCode(formatted, true),
+          );
+          if (saveError) {
+            console.error("[Editor] Error saving final code:", saveError);
+            return;
+          }
+          if (finalCode !== formatted) {
+            console.error("[Editor] Final code mismatch after save:", {
+              finalCode,
+              formatted,
+            });
+            return;
+          }
         }
+
         console.warn("[Editor] Code saved and propagated to session.");
 
         const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
