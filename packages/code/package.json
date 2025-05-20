@@ -68,7 +68,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@clerk/clerk-react": "5.31.4",
+    "@clerk/clerk-react": "5.31.5",
     "@dmsnell/diff-match-patch": "1.1.0",
     "@emotion/cache": "11.14.0",
     "@emotion/css-prettifier": "1.2.0",
@@ -179,7 +179,7 @@
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "@types/events": "^3",
+    "@types/events": "^3.0.3",
     "@types/mime-types": "2.1.4",
     "@types/node": "22.15.19",
     "@types/prettier": "3.0.0",
