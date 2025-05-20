@@ -51,7 +51,7 @@ export default tsEslint.config(
     rules: {
       // Console statements - changed to 'error' to make it auto-fixable
       "no-console": ["error", {
-        allow: ["warn", "error"],
+        allow: ["warn", "error", "info", "debug"],
       }],
 
       // React Refresh rules

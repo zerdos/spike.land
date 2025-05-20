@@ -77,7 +77,7 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
       console.warn("[Editor] Formatting code with Prettier...");
       const { data: formatted, error } = await tryCatch(prettierToThrow({
         code,
-        toThrow: false,
+        toThrow: true,
       }));
 
       if (error) {
