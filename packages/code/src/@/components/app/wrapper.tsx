@@ -27,7 +27,7 @@ export const Wrapper: React.FC<WrapperProps> = ({
     if (!containerRef.current) return;
 
     let isMounted = true;
-    
+
     const renderContent = async () => {
       try {
         // Clean up previous render if it exists
@@ -72,8 +72,8 @@ export const Wrapper: React.FC<WrapperProps> = ({
   }, [codeSpace, transpiled, code]); // Add dependencies to ensure re-rendering when props change
 
   // Calculate style based on scale prop
-  const containerStyle = scale 
-    ? { transform: `scale(${scale})`, transformOrigin: "0 0" } 
+  const containerStyle = scale
+    ? { transform: `scale(${scale})`, transformOrigin: "0 0" }
     : undefined;
 
   return (
