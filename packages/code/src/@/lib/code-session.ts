@@ -327,11 +327,11 @@ export class Code implements ICode {
     if (processError || !processorResult) {
       console.warn(
         "⚠️ CodeProcessor failed or returned no result. Session will not be updated. Error:",
-        processError
+        processError,
       );
       // Return the original code that was in the session before this attempt.
       // 'currentCode' was defined at the beginning of this function.
-      return currentCode; 
+      return currentCode;
     }
 
     // CodeProcessor succeeded. Now, prepare the session data based on its result.
@@ -346,24 +346,33 @@ export class Code implements ICode {
       // We directly update the current session state and inform the sessionManager,
       // bypassing this.setSession()'s computeSessionHash check. This ensures changes
       // like comments (which might not alter the structural hash) are persisted.
-      
+
       // Small optimization: if the processed code is truly identical to what's already
       // in currentSession (both content and structural hash), no need to update.
       const currentSessionHash = computeSessionHash(this.currentSession);
       const processedSessionHash = computeSessionHash(processedSessionData);
 
-      if (processedSessionData.code === this.currentSession.code && processedSessionHash === currentSessionHash) {
-         console.warn("✅ CodeProcessor succeeded (skipRunning=true), but processed code and session hash are identical to current. No direct update needed.");
+      if (
+        processedSessionData.code === this.currentSession.code &&
+        processedSessionHash === currentSessionHash
+      ) {
+        console.warn(
+          "✅ CodeProcessor succeeded (skipRunning=true), but processed code and session hash are identical to current. No direct update needed.",
+        );
       } else {
-        console.warn("✅ CodeProcessor succeeded (skipRunning=true). Directly updating currentSession and sessionManager.");
+        console.warn(
+          "✅ CodeProcessor succeeded (skipRunning=true). Directly updating currentSession and sessionManager.",
+        );
         this.currentSession = processedSessionData; // Update internal state
         this.sessionManager.updateSession(processedSessionData); // Inform the manager
       }
     } else {
       // This is a regular save path (skipRunning=false). Processor succeeded.
-      // Use the standard this.setSession, which includes its own hash checks 
+      // Use the standard this.setSession, which includes its own hash checks
       // to prevent redundant updates if the code is structurally the same.
-      console.warn("✅ CodeProcessor succeeded (skipRunning=false). Updating session via this.setSession().");
+      console.warn(
+        "✅ CodeProcessor succeeded (skipRunning=false). Updating session via this.setSession().",
+      );
       this.setSession(processedSessionData);
     }
 
