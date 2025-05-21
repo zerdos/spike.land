@@ -1,10 +1,9 @@
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
+import type * as SWMTypes from "@/services/ServiceWorkerManager";
 
 // Mock hydrate module
 vi.mock("@/services/ServiceWorkerManager", async (importOriginal) => {
-  const actual = await importOriginal<
-    typeof import("@/services/ServiceWorkerManager")
-  >();
+  const actual = await importOriginal<typeof SWMTypes>();
   return {
     ...actual,
     // Mock the class itself
@@ -70,7 +69,7 @@ describe("ServiceWorkerManager", () => {
 
     await serviceWorkerManager.setup();
     const { setupServiceWorker } = vi.mocked(
-      await import("@/services/ServiceWorkerManager"),
+      await import("@/services/ServiceWorkerManager") as typeof SWMTypes
     );
     expect(setupServiceWorker).not.toHaveBeenCalled();
   });

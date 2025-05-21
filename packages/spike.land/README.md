@@ -1,9 +1,8 @@
-# Cloudflare Edge Chat Demo
+# spike.land Backend Worker
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](../../LICENSE.md)
 
-A Cloudflare Workers-based backend that powers spike.land's real-time
-collaborative code editor with various API endpoints and services.
+This is the main backend for spike.land, a Cloudflare Workers-based application. It provides real-time collaboration features, a comprehensive suite of API services including AI integrations, and robust static asset hosting.
 
 ## Table of Contents
 
