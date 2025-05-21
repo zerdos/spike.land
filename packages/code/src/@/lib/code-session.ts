@@ -301,76 +301,78 @@ export class Code implements ICode {
     // Store current code for fallback
     const currentCode = this.currentSession?.code || "";
 
-    if (skipRunning) {
-      // If skipRunning is true, this is often a "force save" scenario from the editor,
-      // e.g., for comment-only changes that might not alter a structural hash.
-      // We bypass the main setSession's hash check to ensure the update goes through.
-      if (rawCode === this.currentSession.code) {
-        console.warn(
-          "⚠️ Code unchanged (skipRunning=true), and raw code matches current session code. No update needed.",
-        );
-        return this.currentSession.code;
-      }
-
-      console.warn(
-        "🔄 Force updating session state due to skipRunning=true flag.",
-      );
-      const newSessionState = sanitizeSession({ // Ensure session structure is valid
-        ...this.currentSession,
-        code: rawCode, // Use the rawCode provided
-      });
-
-      // Directly update the internal currentSession state
-      this.currentSession = newSessionState;
-      // And directly tell the sessionManager to update, bypassing the hash check in this.setSession()
-      this.sessionManager.updateSession(newSessionState);
-      console.warn(
-        "✅ Session updated directly via sessionManager (skipRunning=true). New code hash:",
-        md5(this.currentSession.code),
-      );
-      return this.currentSession.code; // Return the code that is now in the session
-    }
+    // The 'skipRunning' parameter is passed from Editor.tsx.
+    // It's true if Editor.tsx is attempting a "force save" (e.g. for comment-only changes).
+    // It's false for regular saves where the editor expects the app to run/be validated by the processor.
 
     if (this.setCodeController) {
-      console.warn("🔄 Aborting previous setCode operation");
+      console.warn("🔄 Aborting previous setCode operation (updateCodeInternal)");
       this.setCodeController.abort();
     }
-
     this.setCodeController = new AbortController();
     const signal = this.setCodeController.signal;
 
-    console.warn("🔄 Processing code with CodeProcessor");
-    const { data: result, error: processError } = await tryCatch(
+    console.warn("🔄 Processing code with CodeProcessor (updateCodeInternal)");
+    // Always call the processor. The 'skipRunning' flag informs the processor's behavior.
+    const { data: processorResult, error: processError } = await tryCatch(
       this.codeProcessor.process(
         rawCode,
-        skipRunning,
+        skipRunning, // Pass the flag to the processor
         signal,
         () => this.currentSession,
         replaceIframe,
       ),
     );
 
-    if (processError || !result) {
+    if (processError || !processorResult) {
       console.warn(
-        "⚠️ CodeProcessor returned no result or error:",
-        processError,
+        "⚠️ CodeProcessor failed or returned no result. Session will not be updated. Error:",
+        processError
       );
-      return currentCode;
+      // Return the original code that was in the session before this attempt.
+      // 'currentCode' was defined at the beginning of this function.
+      return currentCode; 
     }
 
-    console.warn("✅ Updating session with processed code");
-    // Update our local session
-    const processedSession = sanitizeSession({
+    // CodeProcessor succeeded. Now, prepare the session data based on its result.
+    const processedSessionData = sanitizeSession({
       ...this.currentSession,
-      ...result,
+      ...processorResult, // Apply changes/data from the processor
     });
-    this.setSession(processedSession);
 
-    // Wait a small amount of time to ensure the session update is processed
+    if (skipRunning) {
+      // This is a "force save" path (e.g., comment-only change where Editor.tsx set skipRunning=true)
+      // AND the processor was successful (e.g., it might do lighter validation or just format).
+      // We directly update the current session state and inform the sessionManager,
+      // bypassing this.setSession()'s computeSessionHash check. This ensures changes
+      // like comments (which might not alter the structural hash) are persisted.
+      
+      // Small optimization: if the processed code is truly identical to what's already
+      // in currentSession (both content and structural hash), no need to update.
+      const currentSessionHash = computeSessionHash(this.currentSession);
+      const processedSessionHash = computeSessionHash(processedSessionData);
+
+      if (processedSessionData.code === this.currentSession.code && processedSessionHash === currentSessionHash) {
+         console.warn("✅ CodeProcessor succeeded (skipRunning=true), but processed code and session hash are identical to current. No direct update needed.");
+      } else {
+        console.warn("✅ CodeProcessor succeeded (skipRunning=true). Directly updating currentSession and sessionManager.");
+        this.currentSession = processedSessionData; // Update internal state
+        this.sessionManager.updateSession(processedSessionData); // Inform the manager
+      }
+    } else {
+      // This is a regular save path (skipRunning=false). Processor succeeded.
+      // Use the standard this.setSession, which includes its own hash checks 
+      // to prevent redundant updates if the code is structurally the same.
+      console.warn("✅ CodeProcessor succeeded (skipRunning=false). Updating session via this.setSession().");
+      this.setSession(processedSessionData);
+    }
+
+    // Wait a small amount of time to ensure the session update is processed by subscribers
     await new Promise((resolve) => setTimeout(resolve, 50));
 
-    console.warn("✅ Code update completed successfully");
-    return processedSession.code;
+    console.warn("✅ Code update process in updateCodeInternal completed successfully.");
+    // Return the code that was effectively set in the session.
+    return processedSessionData.code;
   }
 
   async setModelsByCurrentCode(newCodes: string): Promise<string> {
