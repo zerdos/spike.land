@@ -3343,58 +3343,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/code-worker@workspace:packages/spike.land":
-  version: 0.0.0-use.local
-  resolution: "@spike-npm-land/code-worker@workspace:packages/spike.land"
-  dependencies:
-    "@anthropic-ai/sdk": "npm:0.51.0"
-    "@clerk/backend": "npm:1.32.3"
-    "@clerk/clerk-sdk-node": "npm:5.1.6"
-    "@cloudflare/kv-asset-handler": "npm:0.4.0"
-    "@cloudflare/vitest-pool-workers": "npm:0.8.31"
-    "@cloudflare/workers-types": "npm:4.20250520.0"
-    "@eslint/js": "npm:9.27.0"
-    "@remix-run/cloudflare": "npm:2.16.7"
-    "@remix-run/react": "npm:2.16.7"
-    "@rollup/plugin-commonjs": "npm:28.0.3"
-    "@rollup/plugin-node-resolve": "npm:16.0.1"
-    "@spike-npm-land/code": "npm:0.9.56"
-    "@spike-npm-land/transpile": "npm:0.9.56"
-    "@types/mime-db": "npm:1.43.5"
-    "@types/mime-types": "npm:2.1.4"
-    "@types/node": "npm:22.15.19"
-    "@typescript-eslint/parser": "npm:8.32.1"
-    "@vitest/runner": "npm:3.1.4"
-    "@vitest/snapshot": "npm:3.1.4"
-    async-mutex: "npm:0.5.0"
-    avl: "npm:1.6.0"
-    cross-env: "npm:7.0.3"
-    esbuild: "npm:0.25.4"
-    esbuild-wasm: "npm:0.25.4"
-    eslint: "npm:9.27.0"
-    eslint-plugin-react-hooks: "npm:5.2.0"
-    eslint-plugin-react-refresh: "npm:0.4.20"
-    esm-worker: "npm:0.135.18"
-    globals: "npm:16.1.0"
-    hono: "npm:4.7.10"
-    immutable: "npm:5.1.2"
-    jiti: "npm:2.4.2"
-    mime-db: "npm:1.54.0"
-    mime-types: "npm:3.0.1"
-    miniflare: "npm:4.20250508.3"
-    openai: "npm:4.100.0"
-    openai-edge: "npm:1.2.3"
-    p-map: "npm:7.0.3"
-    p-queue: "npm:8.1.0"
-    replicate: "npm:1.0.1"
-    rimraf: "npm:6.0.1"
-    rollup: "npm:4.41.0"
-    typescript: "npm:5.8.3"
-    vitest: "npm:3.1.4"
-    wrangler: "npm:4.16.0"
-  languageName: unknown
-  linkType: soft
-
 "@spike-npm-land/code@npm:0.9.56, @spike-npm-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/code@workspace:packages/code"
@@ -3554,14 +3502,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-npm-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc":
-  version: 0.0.0-use.local
-  resolution: "@spike-npm-land/eoan-xfce-novnc@workspace:devcontainers/eoan-xfce-novnc"
-  dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
-  languageName: unknown
-  linkType: soft
-
 "@spike-npm-land/esm-sh@workspace:devcontainers/esm-sh":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/esm-sh@workspace:devcontainers/esm-sh"
@@ -3585,14 +3525,6 @@ __metadata:
 "@spike-npm-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/jammy-devcontainer@workspace:devcontainers/jammy-devcontainer"
-  dependencies:
-    "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
-  languageName: unknown
-  linkType: soft
-
-"@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer":
-  version: 0.0.0-use.local
-  resolution: "@spike-npm-land/lunar-devcontainer@workspace:devcontainers/lunar-devcontainer"
   dependencies:
     "@spike-npm-land/devcontainer-generator": "npm:0.9.56"
   languageName: unknown
@@ -3642,6 +3574,58 @@ __metadata:
   resolution: "@spike-npm-land/rolling-devcontainer@workspace:devcontainers/rolling-devcontainer"
   dependencies:
     "@spike-npm-land/devcontainer-generator": "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@spike-npm-land/spike-land-backend@workspace:packages/spike.land":
+  version: 0.0.0-use.local
+  resolution: "@spike-npm-land/spike-land-backend@workspace:packages/spike.land"
+  dependencies:
+    "@anthropic-ai/sdk": "npm:0.51.0"
+    "@clerk/backend": "npm:1.32.3"
+    "@clerk/clerk-sdk-node": "npm:5.1.6"
+    "@cloudflare/kv-asset-handler": "npm:0.4.0"
+    "@cloudflare/vitest-pool-workers": "npm:0.8.31"
+    "@cloudflare/workers-types": "npm:4.20250520.0"
+    "@eslint/js": "npm:9.27.0"
+    "@remix-run/cloudflare": "npm:2.16.7"
+    "@remix-run/react": "npm:2.16.7"
+    "@rollup/plugin-commonjs": "npm:28.0.3"
+    "@rollup/plugin-node-resolve": "npm:16.0.1"
+    "@spike-npm-land/code": "npm:0.9.56"
+    "@spike-npm-land/transpile": "npm:0.9.56"
+    "@types/mime-db": "npm:1.43.5"
+    "@types/mime-types": "npm:2.1.4"
+    "@types/node": "npm:22.15.19"
+    "@typescript-eslint/parser": "npm:8.32.1"
+    "@vitest/runner": "npm:3.1.4"
+    "@vitest/snapshot": "npm:3.1.4"
+    async-mutex: "npm:0.5.0"
+    avl: "npm:1.6.0"
+    cross-env: "npm:7.0.3"
+    esbuild: "npm:0.25.4"
+    esbuild-wasm: "npm:0.25.4"
+    eslint: "npm:9.27.0"
+    eslint-plugin-react-hooks: "npm:5.2.0"
+    eslint-plugin-react-refresh: "npm:0.4.20"
+    esm-worker: "npm:0.135.18"
+    globals: "npm:16.1.0"
+    hono: "npm:4.7.10"
+    immutable: "npm:5.1.2"
+    jiti: "npm:2.4.2"
+    mime-db: "npm:1.54.0"
+    mime-types: "npm:3.0.1"
+    miniflare: "npm:4.20250508.3"
+    openai: "npm:4.100.0"
+    openai-edge: "npm:1.2.3"
+    p-map: "npm:7.0.3"
+    p-queue: "npm:8.1.0"
+    replicate: "npm:1.0.1"
+    rimraf: "npm:6.0.1"
+    rollup: "npm:4.41.0"
+    typescript: "npm:5.8.3"
+    vitest: "npm:3.1.4"
+    wrangler: "npm:4.16.0"
   languageName: unknown
   linkType: soft
 
@@ -8085,18 +8069,6 @@ __metadata:
   checksum: 10/78f91b71e50506f7499c8275d67645f9f4f130e6f12b038853261d1fa7393432da4113baf3508c41b79d933f255089d6d593beea9d4cda89dfd34d0a498cf378
   languageName: node
   linkType: hard
-
-"hello-ai@workspace:packages/hello-ai":
-  version: 0.0.0-use.local
-  resolution: "hello-ai@workspace:packages/hello-ai"
-  dependencies:
-    "@cloudflare/vitest-pool-workers": "npm:0.8.31"
-    "@cloudflare/workers-types": "npm:4.20250520.0"
-    typescript: "npm:5.8.3"
-    vitest: "npm:3.1.4"
-    wrangler: "npm:4.16.0"
-  languageName: unknown
-  linkType: soft
 
 "highlight.js@npm:^10.4.1, highlight.js@npm:~10.7.0":
   version: 10.7.3

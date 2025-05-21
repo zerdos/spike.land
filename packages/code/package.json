@@ -76,7 +76,6 @@
     "@emotion/styled": "11.14.0",
     "@github/stable-socket": "1.1.1",
     "@heroicons/react": "2.2.0",
-    "_comment_@langchain/anthropic": "Used in client-side workflows (e.g., workflow-creator.ts, chat-langchain-workflow.ts) for AI chat functionalities with Anthropic models via Langchain.",
     "@langchain/anthropic": "0.3.20",
     "@langchain/core": "0.3.56",
     "@langchain/langgraph": "0.2.72",
