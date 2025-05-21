@@ -1,4 +1,4 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space.ts";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
