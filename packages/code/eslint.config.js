@@ -48,6 +48,11 @@ export default tsEslint.config(
       "@typescript-eslint": tsEslint.plugin,
       "react": reactPlugin,
     },
+    settings: {
+      react: {
+        version: "19.1.0",
+      },
+    },
     rules: {
       // Console statements - changed to 'error' to make it auto-fixable
       "no-console": ["error", {

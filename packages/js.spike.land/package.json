@@ -1,6 +1,6 @@
 {
   "name": "@spike-npm-land/transpile",
-  "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
+  "description": "Cloudflare Worker providing on-demand JavaScript/TypeScript transpilation services using esbuild for the spike.land collaborative code editor.",
   "version": "0.9.56",
   "type": "module",
   "main": "dist/index.js",
