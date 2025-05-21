@@ -286,7 +286,8 @@ export interface LRUCacheGetOptions<K, V, FC> extends
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Intentionally an empty interface for type clarity/extension
 export interface LRUCachePeekOptions<K, V, FC>
-  extends Pick<LRUCacheOptionsBase<K, V, FC>, "allowStale"> {}
+  extends Pick<LRUCacheOptionsBase<K, V, FC>, "allowStale">
+{}
 
 export interface LRUCacheSetOptions<K, V, FC> extends
   Pick<

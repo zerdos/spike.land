@@ -69,7 +69,7 @@ describe("ServiceWorkerManager", () => {
 
     await serviceWorkerManager.setup();
     const { setupServiceWorker } = vi.mocked(
-      await import("@/services/ServiceWorkerManager") as typeof SWMTypes
+      await import("@/services/ServiceWorkerManager") as typeof SWMTypes,
     );
     expect(setupServiceWorker).not.toHaveBeenCalled();
   });
