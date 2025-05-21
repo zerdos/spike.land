@@ -466,10 +466,7 @@ hQIDAQAB
   private async handleWrapHTMLRoute(): Promise<Response> {
     const { html, codeSpace } = this.code.getSession();
 
-    const respText = HTML.replace(
-      `<script type="importmap"></script>`,
-      `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-    )
+    const respText = HTML.replace("//IMPORTMAP", JSON.stringify(importMap))
       .replace(
         `<!-- Inline LINK for initial theme -->`,
         `<!-- Inline LINK for initial theme -->

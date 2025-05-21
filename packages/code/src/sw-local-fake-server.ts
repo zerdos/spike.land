@@ -193,8 +193,8 @@ async function handleEditorResponse(codeSpace: string) {
   }
 
   const respText = baseHtml.replace(
-    '<script type="importmap">${JSON.stringify(importMap)}</script>', // Match the template literal placeholder
-    `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+    "//IMPORTMAP",
+    JSON.stringify(importMap),
   ).replace(
     '<div id="embed"></div>',
     `<div id="embed"><iframe title="Live preview" src="/live/${codeSpace}/"></iframe></div>`,
