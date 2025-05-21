@@ -132,7 +132,10 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
       let tempReplace = parts[1].trim();
       if (tempReplace.endsWith(replaceMarker)) {
         // Remove marker and then trim any trailing whitespace from the actual replace content.
-        tempReplace = tempReplace.substring(0, tempReplace.length - replaceMarker.length).trimEnd();
+        tempReplace = tempReplace.substring(
+          0,
+          tempReplace.length - replaceMarker.length,
+        ).trimEnd();
       }
       replaceText = tempReplace;
 

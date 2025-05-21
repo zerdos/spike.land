@@ -181,7 +181,10 @@ export const prettierJs = async ({
 
   if (error) {
     if (toThrow) throw error;
-    console.warn("Prettier JS formatting failed, returning original code:", error);
+    console.warn(
+      "Prettier JS formatting failed, returning original code:",
+      error,
+    );
     return code;
   }
   return data || code; // Return formatted code or original if data is null/undefined (should not happen with format)
@@ -206,7 +209,10 @@ export const prettierCss = async (inputCSS: string): Promise<string> => {
   const { data, error } = await tryCatch(formatPromise);
 
   if (error) {
-    console.warn("Prettier CSS formatting failed, returning original CSS:", error);
+    console.warn(
+      "Prettier CSS formatting failed, returning original CSS:",
+      error,
+    );
     return inputCSS;
   }
   return data || inputCSS; // Return formatted CSS or original if data is null/undefined

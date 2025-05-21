@@ -27,7 +27,9 @@ interface EditorProps {
   replaceIframe?: (newIframe: HTMLIFrameElement) => void;
 }
 
-export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe }) => {
+export const Editor: React.FC<EditorProps> = (
+  { codeSpace, cSess, replaceIframe },
+) => {
   const { containerRef, editorState, setEditorState } = useEditorState();
   const { errorType, throttledTypeCheck } = useErrorHandling("monaco");
   const [session, setSession] = useState<ICodeSession | null>(null);
@@ -63,10 +65,13 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
     if (!session) return;
 
     const now = Date.now();
-    console.warn("[Editor] Monaco editor change detected (button press or edit)", {
-      codeLength: newCode.length,
-      timestamp: new Date().toISOString(),
-    });
+    console.warn(
+      "[Editor] Monaco editor change detected (button press or edit)",
+      {
+        codeLength: newCode.length,
+        timestamp: new Date().toISOString(),
+      },
+    );
 
     const processChange = async (code: string) => {
       // Abort previous operation if any
@@ -121,12 +126,19 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
             return;
           }
           if (finalCode !== formatted) {
-            console.error("[Editor] Final code mismatch after save:", {
-              finalCode,
-              formatted,
-            });
-            return;
+            console.warn(
+              "[Editor] Code was normalized by session storage on forced save. Updating to reflect session state.",
+              { received: finalCode, sent: formatted },
+            );
+            // Update editorState and lastHash based on finalCode,
+            // to align with what the session considers the true state.
+            setEditorState((prev) => ({ ...prev, code: finalCode }));
+            setLastHash(md5(finalCode));
+            // No longer treating this as a fatal error, allowing the flow to continue.
+            // The external update listener should handle syncing Monaco's display if cSess broadcasts finalCode.
           }
+          // If finalCode === formatted, the forced save worked as expected.
+          // lastHash is already md5(formatted) from the earlier setLastHash(newHash) call.
         }
 
         console.warn("[Editor] Code saved and propagated to session.");
@@ -284,12 +296,14 @@ export const Editor: React.FC<EditorProps> = ({ codeSpace, cSess, replaceIframe 
           return;
         }
 
-        const { data: editorInstance, error } = await tryCatch(initializeMonaco({
-          container: containerRef.current,
-          codeSpace,
-          code: session.code,
-          onChange: handleContentChange,
-        }));
+        const { data: editorInstance, error } = await tryCatch(
+          initializeMonaco({
+            container: containerRef.current,
+            codeSpace,
+            code: session.code,
+            onChange: handleContentChange,
+          }),
+        );
 
         if (error) {
           console.error("[Editor] Initialization error:", error);

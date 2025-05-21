@@ -66,10 +66,15 @@ export class RenderService {
 
     const html = this.htmlDecode(rootElement.innerHTML).split(cssCache.key)
       .join("x");
-    const emotionGlobalStyles = Array.from(document.querySelectorAll<HTMLStyleElement>( // Changed to Array.from and removed .values()
-      `style[data-emotion='${cssCache.key}-global']`,
-    ))
-      .map((x) => (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText)).join("\n")); // Added type CSSRule for inner x
+    const emotionGlobalStyles = Array.from(
+      document.querySelectorAll<HTMLStyleElement>( // Changed to Array.from and removed .values()
+        `style[data-emotion='${cssCache.key}-global']`,
+      ),
+    )
+      .map((x) =>
+        (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText))
+          .join("\n")
+      ); // Added type CSSRule for inner x
 
     const emotionStyles = [
       ...emotionGlobalStyles,
@@ -81,7 +86,9 @@ export class RenderService {
 
     // console.warn("Emotion styles:", emotionStyles); // This can be very verbose, changed to a conditional log or removed if not essential for common debugging
 
-    const tailWindClasses = Array.from(document.querySelectorAll<HTMLStyleElement>("head > style")) // Changed to Array.from
+    const tailWindClasses = Array.from(
+      document.querySelectorAll<HTMLStyleElement>("head > style"),
+    ) // Changed to Array.from
       .map(
         (z) => z.innerHTML,
       ).join("\n");

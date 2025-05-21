@@ -27,7 +27,10 @@ export function ThemeProvider({
     // setTheme now just toggles. If a specific theme is passed,
     // it only toggles if the passed theme is different from the current one.
     setTheme: (newTheme: Theme) => {
-      if ((newTheme === "dark" && !isDarkMode) || (newTheme === "light" && isDarkMode)) {
+      if (
+        (newTheme === "dark" && !isDarkMode) ||
+        (newTheme === "light" && isDarkMode)
+      ) {
         toggleDarkMode();
       }
     },

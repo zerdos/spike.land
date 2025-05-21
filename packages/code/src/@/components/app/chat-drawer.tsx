@@ -54,7 +54,8 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (!messages.length) return;
     const container = scrollAreaRef.current;
     if (!container) return;
-    const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+    const isAtBottom = container.scrollHeight - container.scrollTop <=
+      container.clientHeight + 1;
     if (isAtBottom) {
       const lastMessageElement = document.getElementById("after-last-message");
       lastMessageElement?.scrollIntoView({ behavior: "smooth" });
@@ -67,7 +68,8 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (!container) return;
 
     const handleScroll = () => {
-      const isAtBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 1;
+      const isAtBottom = container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 1;
       setUserScrolledUp(!isAtBottom);
     };
 
@@ -81,7 +83,12 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   }, [onClose]);
 
   return (
-    <Drawer.Root direction="right" open={isOpen} modal={false} data-testid="chat-drawer">
+    <Drawer.Root
+      direction="right"
+      open={isOpen}
+      modal={false}
+      data-testid="chat-drawer"
+    >
       <Drawer.Trigger
         onClick={handleButtonClick}
         className={cn(
@@ -103,7 +110,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
             "--initial-transform": "translateX(100%)",
           } as React.CSSProperties}
         >
-          <div className="flex flex-col h-full w-full" data-testid="chat-drawer">
+          <div
+            className="flex flex-col h-full w-full"
+            data-testid="chat-drawer"
+          >
             <Drawer.Title className="sr-only">Chat Drawer</Drawer.Title>
             <Drawer.Description className="sr-only">
               A chat interface for interacting with the AI assistant. Contains message history and
@@ -115,7 +125,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
               handleResetChat={handleResetChat}
               onClose={onClose}
             />
-            <ScrollArea className="flex-grow h-full overflow-hidden" ref={scrollAreaRef}>
+            <ScrollArea
+              className="flex-grow h-full overflow-hidden"
+              ref={scrollAreaRef}
+            >
               <ChatContainer
                 messages={messages}
                 editingMessageId={editingMessageId}

@@ -124,7 +124,12 @@ export class CodeProcessor {
     origin: string,
     replaceIframe: ((newIframe: HTMLIFrameElement) => void) | undefined,
     // processedSession is passed by reference and will be mutated with html and css
-    processedSession: { code: string; transpiled: string; html?: string; css?: string; },
+    processedSession: {
+      code: string;
+      transpiled: string;
+      html?: string;
+      css?: string;
+    },
   ): Promise<boolean> { // Returns true on success, false on failure
     try {
       // The cleanupPreviousRender was commented out. If uncommented,
@@ -319,7 +324,10 @@ export class CodeProcessor {
       );
 
       if (raceError) {
-        console.error("Error during rendering (race condition or timeout):", raceError);
+        console.error(
+          "Error during rendering (race condition or timeout):",
+          raceError,
+        );
         // If cleanupPreviousRender were active, it would be called here to remove the failed iframe/listener.
         // this.cleanupPreviousRender();
         return false;
@@ -363,7 +371,10 @@ export class CodeProcessor {
     }
 
     if (!transpiled) {
-      console.error("Error Transpiled code: Transpilation resulted in empty output", { code }); // Changed to console.error
+      console.error(
+        "Error Transpiled code: Transpilation resulted in empty output",
+        { code },
+      ); // Changed to console.error
       throw new Error("Transpilation resulted in empty output");
     }
 

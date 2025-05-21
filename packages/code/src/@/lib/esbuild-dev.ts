@@ -17,7 +17,10 @@ const getWasmFile = async () => {
   const { data: dir, error: readdirError } = await tryCatch(readdir("./dist"));
 
   if (readdirError || !dir) {
-    console.error("Error reading ./dist directory or directory is null:", readdirError);
+    console.error(
+      "Error reading ./dist directory or directory is null:",
+      readdirError,
+    );
     throw new Error("Failed to read ./dist directory for WASM file");
   }
 

@@ -15,11 +15,15 @@ const ChatInterface: React.FC<{
   codeSpace: string;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, codeSession }): React.ReactElement => { // Renamed from cSess
-  const [messages, setMessages] = useState<Message[]>(codeSession.getMessages()); // Renamed from cSess
+  const [messages, setMessages] = useState<Message[]>(
+    codeSession.getMessages(),
+  ); // Renamed from cSess
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  useEffect(() => codeSession.sub((session) => setMessages(session.messages)), [codeSession]); // Renamed from cSess and added to deps
+  useEffect(() => codeSession.sub((session) => setMessages(session.messages)), [
+    codeSession,
+  ]); // Renamed from cSess and added to deps
 
   const localCodeSpace = codeSession.getCodeSpace(); // Renamed from cSess, used local var to avoid conflict with prop
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(

@@ -196,7 +196,9 @@ export class WebSocketManager implements IWebSocketManager {
   private async handleDefaultPage(): Promise<void> {
     const messageHandler = async (event: unknown): Promise<void> => {
       const data = (event as MessageEvent).data;
-      const { error } = await tryCatch(this.dependencies.messageHandler.handleMessage(data));
+      const { error } = await tryCatch(
+        this.dependencies.messageHandler.handleMessage(data),
+      );
       if (error) {
         this.handleError(error);
         // Decide if this should re-throw or just log.
@@ -218,7 +220,9 @@ export class WebSocketManager implements IWebSocketManager {
       if (error) {
         this.handleError(error);
         // Decide if this should re-throw or just log.
-        throw new MessageHandlingError("Failed to handle window message", { event });
+        throw new MessageHandlingError("Failed to handle window message", {
+          event,
+        });
       }
     };
   }

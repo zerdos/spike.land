@@ -64,10 +64,15 @@ export const fetchPlugin = (origin: string) => ({
         argsPath = `/*${args.path}?bundle=true&external=react,react/jsx-runtime,framer-motion`;
       }
 
-      const { data: response, error: fetchError } = await tryCatch(fetch(argsPath));
+      const { data: response, error: fetchError } = await tryCatch(
+        fetch(argsPath),
+      );
       if (fetchError || !response) {
         console.error(`Failed to fetch ${argsPath}:`, fetchError);
-        return { contents: `// Failed to fetch ${argsPath}: ${fetchError}`, loader: "js" };
+        return {
+          contents: `// Failed to fetch ${argsPath}: ${fetchError}`,
+          loader: "js",
+        };
       }
       if (!response.ok) {
         console.error(`Failed to fetch ${argsPath}: Status ${response.status}`);
@@ -77,10 +82,15 @@ export const fetchPlugin = (origin: string) => ({
         };
       }
 
-      const { data: contents, error: textError } = await tryCatch(response.text());
+      const { data: contents, error: textError } = await tryCatch(
+        response.text(),
+      );
       if (textError || contents === null) {
         console.error(`Failed to read text from ${argsPath}:`, textError);
-        return { contents: `// Failed to read text from ${argsPath}: ${textError}`, loader: "js" };
+        return {
+          contents: `// Failed to read text from ${argsPath}: ${textError}`,
+          loader: "js",
+        };
       }
 
       const contentType = response.headers.get("content-type") || "";
@@ -158,7 +168,9 @@ async function processCSS(
     }
 
     // Fetch the imported CSS file.
-    const { data: importResponse, error: fetchCssError } = await tryCatch(fetch(absoluteUrl));
+    const { data: importResponse, error: fetchCssError } = await tryCatch(
+      fetch(absoluteUrl),
+    );
     if (fetchCssError || !importResponse || !importResponse.ok) {
       console.warn(
         `Failed to fetch imported CSS ${absoluteUrl}:`,
@@ -166,20 +178,35 @@ async function processCSS(
       );
       // If fetching fails, the original @import rule remains in `processedCss` (or is replaced with an empty string if we chose to).
       // Here, we choose to skip it, effectively removing the problematic @import.
-      processedCss = processedCss.replace(match[0], `/* Failed to load: ${absoluteUrl} */`);
+      processedCss = processedCss.replace(
+        match[0],
+        `/* Failed to load: ${absoluteUrl} */`,
+      );
       continue;
     }
 
-    const { data: importedCSSText, error: textCssError } = await tryCatch(importResponse.text());
+    const { data: importedCSSText, error: textCssError } = await tryCatch(
+      importResponse.text(),
+    );
     if (textCssError || importedCSSText === null) {
-      console.warn(`Failed to read text from imported CSS ${absoluteUrl}:`, textCssError);
-      processedCss = processedCss.replace(match[0], `/* Failed to read: ${absoluteUrl} */`);
+      console.warn(
+        `Failed to read text from imported CSS ${absoluteUrl}:`,
+        textCssError,
+      );
+      processedCss = processedCss.replace(
+        match[0],
+        `/* Failed to read: ${absoluteUrl} */`,
+      );
       continue;
     }
 
     // Recursively process the fetched CSS content. The `baseURL` for this recursive
     // call will be `absoluteUrl` of the imported file.
-    const processedImportedCSS = await processCSS(importedCSSText, absoluteUrl, depth + 1);
+    const processedImportedCSS = await processCSS(
+      importedCSSText,
+      absoluteUrl,
+      depth + 1,
+    );
     urlCache.set(absoluteUrl, processedImportedCSS); // Cache the processed result.
     // Replace the original @import rule in `processedCss` with the inlined, processed content.
     processedCss = processedCss.replace(match[0], processedImportedCSS);
@@ -218,7 +245,10 @@ async function processCSS(
           fetchResourceError || resourceResponse?.status,
         );
         // Replace with a comment indicating failure, or leave as is.
-        css = css.replace(fullMatchSyntax, `url("/* Failed to load: ${absoluteUrl} */")`);
+        css = css.replace(
+          fullMatchSyntax,
+          `url("/* Failed to load: ${absoluteUrl} */")`,
+        );
         continue;
       }
 
@@ -232,13 +262,21 @@ async function processCSS(
           resourceResponse.arrayBuffer(),
         );
         if (arrayBufferError || !fontContent) {
-          console.warn(`Failed to read arrayBuffer for font ${absoluteUrl}:`, arrayBufferError);
-          css = css.replace(fullMatchSyntax, `url("/* Failed to read font: ${absoluteUrl} */")`);
+          console.warn(
+            `Failed to read arrayBuffer for font ${absoluteUrl}:`,
+            arrayBufferError,
+          );
+          css = css.replace(
+            fullMatchSyntax,
+            `url("/* Failed to read font: ${absoluteUrl} */")`,
+          );
           continue;
         }
         const fontType = contentType.split("/").pop(); // e.g., "woff2", "ttf"
         // Convert ArrayBuffer to base64 string.
-        const base64Font = btoa(String.fromCharCode(...new Uint8Array(fontContent)));
+        const base64Font = btoa(
+          String.fromCharCode(...new Uint8Array(fontContent)),
+        );
         newUrlValue = `url("data:font/${fontType};base64,${base64Font}")`;
       } else {
         // For other resources (e.g., images not being inlined), ensure the URL is absolute.

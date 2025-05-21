@@ -1,10 +1,10 @@
+import { LRUCache } from "@/lib/lru-cache";
 import {
   codeAnalysisCacheMetrics,
   hashCacheMetrics,
   metrics,
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
-import { LRUCache } from "@/lib/lru-cache";
 
 type CacheValue = {
   hash?: string;

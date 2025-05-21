@@ -79,7 +79,9 @@ export const processImage = (file: File): Promise<ImageData> => {
             img.src = URL.createObjectURL(blob);
           });
 
-          const { data: resizedBlobData, error: resizeError } = await tryCatch(resizeStepPromise);
+          const { data: resizedBlobData, error: resizeError } = await tryCatch(
+            resizeStepPromise,
+          );
           if (resizeError || !resizedBlobData) {
             throw new Error(
               `Image resizing failed: ${resizeError?.message || "Unknown resize error"}`,

@@ -112,7 +112,12 @@ const App: React.FC = () => {
 
   // Handle loading state
   if (isLoading) {
-    return <iframe src={`/live/${codeSpace}/`} style={{ width: "100hw", height: "100vh" }} />;
+    return (
+      <iframe
+        src={`/live/${codeSpace}/`}
+        style={{ width: "100hw", height: "100vh" }}
+      />
+    );
   }
 
   if (!codeSpace) {

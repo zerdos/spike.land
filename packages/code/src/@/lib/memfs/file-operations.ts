@@ -12,10 +12,14 @@ export const writeFile = async (
   content: string,
 ): Promise<void> => {
   const doWrite = async () => {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
     if (!fileName) throw new Error("Invalid file path for writeFile");
 
-    const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
+    const fileHandle = await dirHandle.getFileHandle(fileName, {
+      create: true,
+    });
     const writable = await fileHandle.createWritable();
     await writable.write(content);
     await writable.close();
@@ -38,10 +42,14 @@ export const appendFile = async (
 ): Promise<void> => {
   const doAppend = async () => {
     let existingContent = "";
-    const { data: readData, error: readError } = await tryCatch(readFile(filePath));
+    const { data: readData, error: readError } = await tryCatch(
+      readFile(filePath),
+    );
     if (readError) {
       // If readFile fails (e.g. file not found), existingContent remains ""
-      console.warn(`File ${filePath} not found or unreadable for append, creating new file.`);
+      console.warn(
+        `File ${filePath} not found or unreadable for append, creating new file.`,
+      );
     } else {
       existingContent = readData || "";
     }
@@ -52,8 +60,13 @@ export const appendFile = async (
   if (error) {
     // If the initial try (including potential readFile failure) fails,
     // attempt to write the file directly as a fallback (covers file not existing).
-    console.warn(`Initial append failed for ${filePath}, attempting direct write:`, error);
-    const { error: directWriteError } = await tryCatch(writeFile(filePath, content));
+    console.warn(
+      `Initial append failed for ${filePath}, attempting direct write:`,
+      error,
+    );
+    const { error: directWriteError } = await tryCatch(
+      writeFile(filePath, content),
+    );
     if (directWriteError) {
       console.error(
         `Direct write also failed for ${filePath} after append attempt:`,
@@ -71,7 +84,9 @@ export const appendFile = async (
  */
 export const readFile = async (filePath: string): Promise<string> => {
   const doRead = async () => {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
     if (!fileName) throw new Error("Invalid file path for readFile");
 
     const fileHandle = await dirHandle.getFileHandle(fileName);
@@ -95,7 +110,9 @@ export const readFile = async (filePath: string): Promise<string> => {
  */
 export const unlink = async (filePath: string): Promise<void> => {
   const doUnlink = async () => {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
     if (!fileName) throw new Error("Invalid file path for unlink");
     await dirHandle.removeEntry(fileName);
   };
@@ -138,7 +155,10 @@ export const rename = async (
 
   if (fileRenameError) {
     // If not a file or file operation failed, try as directory
-    console.warn(`Renaming ${oldPath} as file failed, trying as directory:`, fileRenameError);
+    console.warn(
+      `Renaming ${oldPath} as file failed, trying as directory:`,
+      fileRenameError,
+    );
     const doRenameDirectory = async () => {
       const entries = await import("./directory-operations").then((m) => m.readdir(oldPath));
       await import("./directory-operations").then((m) => m.mkdir(newPath));
@@ -158,7 +178,10 @@ export const rename = async (
             m.readdir(sourcePath)
           );
           for (const subEntry of subEntries) {
-            await rename(`${sourcePath}/${subEntry}`, `${destPath}/${subEntry}`); // Recursive call
+            await rename(
+              `${sourcePath}/${subEntry}`,
+              `${destPath}/${subEntry}`,
+            ); // Recursive call
           }
           await import("./directory-operations").then((m) => m.rmdir(sourcePath));
         }

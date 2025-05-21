@@ -246,7 +246,9 @@ export const useSpeedy = async (codeSpace: string) => {
         });
 
         if (!response || !response.ok) {
-          throw new Error(`Failed to upload font: ${f.path}, Status: ${response.status}`);
+          throw new Error(
+            `Failed to upload font: ${f.path}, Status: ${response.status}`,
+          );
         }
       };
       const { error } = await tryCatch(uploadFont());

@@ -260,7 +260,9 @@ describe("ChatInterface", () => {
       />,
     );
 
-    const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+    const inputElement = await screen.findByTestId(
+      "message-input",
+    ) as HTMLTextAreaElement;
     const sendButton = await screen.findByTestId("send-button");
 
     // Type a message
@@ -294,8 +296,14 @@ describe("ChatInterface", () => {
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
     // Simulate being at the bottom
-    Object.defineProperty(chatContainer, "scrollHeight", { value: 1000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    Object.defineProperty(chatContainer, "scrollHeight", {
+      value: 1000,
+      configurable: true,
+    });
+    Object.defineProperty(chatContainer, "clientHeight", {
+      value: 500,
+      configurable: true,
+    });
     chatContainer.scrollTop = 500; // Scrolled to bottom (scrollHeight - clientHeight)
 
     // Override scrollIntoView with a spy for this element
@@ -308,7 +316,9 @@ describe("ChatInterface", () => {
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
-      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const inputElement = await screen.findByTestId(
+        "message-input",
+      ) as HTMLTextAreaElement;
       const sendButton = await screen.findByTestId("send-button");
       fireEvent.change(inputElement, { target: { value: "Start streaming" } });
       fireEvent.click(sendButton);
@@ -348,8 +358,14 @@ describe("ChatInterface", () => {
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
     // Simulate being scrolled up (not at bottom)
-    Object.defineProperty(chatContainer, "scrollHeight", { value: 2000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    Object.defineProperty(chatContainer, "scrollHeight", {
+      value: 2000,
+      configurable: true,
+    });
+    Object.defineProperty(chatContainer, "clientHeight", {
+      value: 500,
+      configurable: true,
+    });
     chatContainer.scrollTop = 0; // Scrolled to top
 
     // Override scrollIntoView with a spy for this element
@@ -362,7 +378,9 @@ describe("ChatInterface", () => {
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
-      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const inputElement = await screen.findByTestId(
+        "message-input",
+      ) as HTMLTextAreaElement;
       const sendButton = await screen.findByTestId("send-button");
       fireEvent.change(inputElement, { target: { value: "Start streaming" } });
       fireEvent.click(sendButton);
@@ -407,8 +425,14 @@ describe("ChatInterface", () => {
     const messagesEndMarker = await screen.findByTestId("messages-end-marker");
 
     // Simulate being scrolled up (not at bottom)
-    Object.defineProperty(chatContainer, "scrollHeight", { value: 2000, configurable: true });
-    Object.defineProperty(chatContainer, "clientHeight", { value: 500, configurable: true });
+    Object.defineProperty(chatContainer, "scrollHeight", {
+      value: 2000,
+      configurable: true,
+    });
+    Object.defineProperty(chatContainer, "clientHeight", {
+      value: 500,
+      configurable: true,
+    });
     chatContainer.scrollTop = 0; // Scrolled to top
 
     // Override scrollIntoView with a spy for this element
@@ -421,7 +445,9 @@ describe("ChatInterface", () => {
 
     // Simulate sending a message to trigger streaming
     await act(async () => {
-      const inputElement = await screen.findByTestId("message-input") as HTMLTextAreaElement;
+      const inputElement = await screen.findByTestId(
+        "message-input",
+      ) as HTMLTextAreaElement;
       const sendButton = await screen.findByTestId("send-button");
       fireEvent.change(inputElement, { target: { value: "Start streaming" } });
       fireEvent.click(sendButton);
@@ -453,12 +479,13 @@ describe("ChatInterface", () => {
 
     // Manually scroll back to the bottom - set scrollTop to scrollHeight - clientHeight
     await act(() => {
-      chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
+      chatContainer.scrollTop = chatContainer.scrollHeight -
+        chatContainer.clientHeight;
       fireEvent.scroll(chatContainer);
     });
 
     // Add a wait here to ensure userScrolledUp state updates
-    await new Promise(resolve => setTimeout(resolve, 50)); // Wait for 50ms
+    await new Promise((resolve) => setTimeout(resolve, 50)); // Wait for 50ms
 
     // Simulate receiving more streaming chunks (should now auto-scroll)
     await act(async () => {

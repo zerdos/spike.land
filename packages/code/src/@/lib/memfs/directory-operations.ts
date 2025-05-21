@@ -93,7 +93,9 @@ export const stat = async (filePath: string): Promise<StatResult> => {
       return handleDirectory(rootHandle, "/");
     }
 
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
 
     if (!fileName) {
       return handleDirectory(dirHandle, filePath);

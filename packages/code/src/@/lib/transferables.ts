@@ -298,8 +298,12 @@ export async function isSupported(): Promise<{
     return true;
   };
 
-  const { data: channelSupported, error: channelError } = await tryCatch(getChannels());
-  const { data: streamsSupported, error: streamsError } = await tryCatch(getStreams());
+  const { data: channelSupported, error: channelError } = await tryCatch(
+    getChannels(),
+  );
+  const { data: streamsSupported, error: streamsError } = await tryCatch(
+    getStreams(),
+  );
 
   if (channelError) {
     console.warn("Channel support check failed:", channelError);

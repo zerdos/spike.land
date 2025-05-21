@@ -248,7 +248,9 @@ class FileHandleImpl implements FileHandle {
       console.error("Error in FileHandleImpl.write:", error);
       throw error;
     }
-    if (!writeResult) throw new Error("FileHandleImpl.write did not return a result");
+    if (!writeResult) {
+      throw new Error("FileHandleImpl.write did not return a result");
+    }
 
     // If the original data was a string, we should probably return a string buffer.
     // However, the native `fs.promises.FileHandle.write` with a string returns bytesWritten and the string.
@@ -292,7 +294,8 @@ export const open = async (
     const { dirHandle, fileName } = await getDirectoryHandleAndFileName(path);
     if (!fileName) throw new Error("Invalid file path for open");
 
-    const create = flags === "w" || flags === "w+" || flags === "a" || flags === "a+";
+    const create = flags === "w" || flags === "w+" || flags === "a" ||
+      flags === "a+";
     const fileHandle = await dirHandle.getFileHandle(fileName, { create });
     return createFileHandle(fileHandle, path);
   };

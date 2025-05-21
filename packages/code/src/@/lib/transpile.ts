@@ -189,7 +189,9 @@ export const build = async ({
   wasmModule = undefined,
   metafile = false,
   format = "esm",
-}: MyBuildOptions): Promise<string | esbuild.OutputFile[] | { error: unknown; }> => {
+}: MyBuildOptions): Promise<
+  string | esbuild.OutputFile[] | { error: unknown; }
+> => {
   return mutex.runExclusive(async () => {
     const buildPromise = async () => {
       await initializeModule(wasmModule, origin);
@@ -219,7 +221,9 @@ export const build = async ({
       return splitting ? result.outputFiles! : result.outputFiles![0].text;
     };
 
-    const { data, error } = await tryCatch<string | esbuild.OutputFile[]>(buildPromise());
+    const { data, error } = await tryCatch<string | esbuild.OutputFile[]>(
+      buildPromise(),
+    );
 
     if (error) {
       console.error("Error during build:", error);

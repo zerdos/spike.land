@@ -96,10 +96,15 @@ function extractImportSpecifiers(code: string): string[] {
 
   function visit(node: ts.Node) {
     // Check for import declarations: import ... from "specifier";
-    if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
+    if (
+      ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)
+    ) {
       imports.push(node.moduleSpecifier.text);
     } // Check for dynamic imports: import("specifier")
-    else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) {
+    else if (
+      ts.isCallExpression(node) &&
+      node.expression.kind === ts.SyntaxKind.ImportKeyword
+    ) {
       const arg = node.arguments[0];
       if (arg && ts.isStringLiteral(arg)) {
         imports.push(arg.text);
@@ -120,18 +125,24 @@ function extractImportSpecifiers(code: string): string[] {
   }
 
   // Also check for triple-slash references in comments
-  ts.forEachLeadingCommentRange(sourceFile.text, sourceFile.getFullStart(), (pos, end, kind) => {
-    if (
-      kind === ts.SyntaxKind.MultiLineCommentTrivia ||
-      kind === ts.SyntaxKind.SingleLineCommentTrivia
-    ) {
-      const commentText = sourceFile.text.substring(pos, end);
-      const match = commentText.match(/<reference\s+path=["']([^"']+)["']\s*\/>/);
-      if (match && match[1]) {
-        imports.push(match[1]);
+  ts.forEachLeadingCommentRange(
+    sourceFile.text,
+    sourceFile.getFullStart(),
+    (pos, end, kind) => {
+      if (
+        kind === ts.SyntaxKind.MultiLineCommentTrivia ||
+        kind === ts.SyntaxKind.SingleLineCommentTrivia
+      ) {
+        const commentText = sourceFile.text.substring(pos, end);
+        const match = commentText.match(
+          /<reference\s+path=["']([^"']+)["']\s*\/>/,
+        );
+        if (match && match[1]) {
+          imports.push(match[1]);
+        }
       }
-    }
-  });
+    },
+  );
 
   visit(sourceFile);
   return [...new Set(imports)]; // Return unique specifiers
@@ -145,7 +156,10 @@ export async function ata({
   code: string;
   originToUse: string;
 }): Promise<ExtraLib[]> {
-  console.warn("[ATA] Starting enhanced ATA process", { codeLength: code?.length, originToUse }); // Changed to console.warn
+  console.warn("[ATA] Starting enhanced ATA process", {
+    codeLength: code?.length,
+    originToUse,
+  }); // Changed to console.warn
 
   const queuedFetch = new QueuedFetch(4, 10000, 100); // Keep adjusted settings
 
@@ -178,11 +192,15 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
           started: () => console.warn("[ATA] Type acquisition started."), // Changed to console.warn
           progress: (downloaded, total) => console.warn(`[ATA] Progress: ${downloaded}/${total}`), // Changed to console.warn
           receivedFile: (fileContent, filePath) =>
-            console.warn(`[ATA] Received: ${filePath} (${fileContent.length} chars)`), // Changed to console.warn
+            console.warn(
+              `[ATA] Received: ${filePath} (${fileContent.length} chars)`,
+            ), // Changed to console.warn
           errorMessage: (userFacingMessage, error) =>
             console.error(`[ATA] Error: ${userFacingMessage}`, error),
           finished: (vfsMap) => {
-            console.warn(`[ATA] Type acquisition finished. ${vfsMap.size} files in VFS.`); // Changed to console.warn
+            console.warn(
+              `[ATA] Type acquisition finished. ${vfsMap.size} files in VFS.`,
+            ); // Changed to console.warn
             resolve(vfsMap);
           },
         },
@@ -208,7 +226,9 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
       );
     }
   }
-  console.warn(`[ATA] Processed ${Object.keys(processedLibs).length} libs from initial VFS.`); // Changed to console.warn
+  console.warn(
+    `[ATA] Processed ${Object.keys(processedLibs).length} libs from initial VFS.`,
+  ); // Changed to console.warn
 
   // 4. Identify & Fetch Missing Aliased Imports
   const aliasPrefix = "@/";
@@ -218,7 +238,10 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
     if (specifier.startsWith(aliasPrefix)) {
       const mappedPath = specifier;
       // Construct the expected final path *after* cleaning
-      const expectedCleanedPath = cleanFilePath(`/${mappedPath}.d.ts`, originToUse); // Assume .d.ts extension
+      const expectedCleanedPath = cleanFilePath(
+        `/${mappedPath}.d.ts`,
+        originToUse,
+      ); // Assume .d.ts extension
 
       if (!processedLibs[expectedCleanedPath]) {
         // Construct URL with single quotes around the path as requested
@@ -255,7 +278,7 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
                 );
               }
             })
-            .catch(error => {
+            .catch((error) => {
               console.error(
                 `[ATA] Error fetching aliased import ${specifier} from ${fetchUrl}:`,
                 error,
@@ -283,11 +306,13 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
     .map(([filePath, content]) => ({ filePath, content }))
     .sort((a, b) => a.filePath.localeCompare(b.filePath));
 
-  console.warn("[ATA] Enhanced ATA process finished.", { finalResultCount: extraLibs.length }); // Changed to console.warn
+  console.warn("[ATA] Enhanced ATA process finished.", {
+    finalResultCount: extraLibs.length,
+  }); // Changed to console.warn
 
   // Optimized package.json filtering
-  const filePaths = new Set(extraLibs.map(lib => lib.filePath));
-  const filteredLibs = extraLibs.filter(lib => {
+  const filePaths = new Set(extraLibs.map((lib) => lib.filePath));
+  const filteredLibs = extraLibs.filter((lib) => {
     if (lib.filePath.endsWith("/package.json")) {
       const indexDts = lib.filePath.replace("/package.json", "/index.d.ts");
       return !filePaths.has(indexDts);

@@ -78,7 +78,9 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
     // await init();
 
     // Get code session
-    const { data: cSess, error: sessionError } = await tryCatch(getCodeSession(codeSpace));
+    const { data: cSess, error: sessionError } = await tryCatch(
+      getCodeSession(codeSpace),
+    );
     if (sessionError) {
       console.error("Error getting code session:", sessionError);
       throw sessionError; // Propagate error to be caught by outer tryCatch
@@ -100,7 +102,9 @@ export const loadApp = async (pathname: string): Promise<AppContext | null> => {
     };
   };
 
-  const { data: appContext, error: loadAppError } = await tryCatch(loadPromise());
+  const { data: appContext, error: loadAppError } = await tryCatch(
+    loadPromise(),
+  );
 
   if (loadAppError) {
     console.error("Error loading app:", loadAppError);

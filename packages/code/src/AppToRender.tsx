@@ -197,7 +197,11 @@ export const AppToRender: FC<AppComponentProps> = memo(({
               /* Code editor.
                 Pass replaceIframe so the editor/code processor can replace the preview iframe after rendering. */
             }
-            <Editor codeSpace={codeSpace} cSess={codeSession} replaceIframe={replaceIframe} />
+            <Editor
+              codeSpace={codeSpace}
+              cSess={codeSession}
+              replaceIframe={replaceIframe}
+            />
 
             {/* Action buttons */}
             <ActionButtons

@@ -123,7 +123,9 @@ export function useDictation(
 
     if (textError) {
       console.error("Error reading API response text:", textError);
-      setError(`An error occurred while reading response: ${(textError as Error).message}`);
+      setError(
+        `An error occurred while reading response: ${(textError as Error).message}`,
+      );
       return;
     }
     if (text === null || text === undefined) {
@@ -132,7 +134,8 @@ export function useDictation(
     }
 
     setMessage((prevMessage) =>
-      prevMessage + " " + text.replace(/^"|"$/g, "").replace(/\\n/g, "\n").trim()
+      prevMessage + " " +
+      text.replace(/^"|"$/g, "").replace(/\\n/g, "\n").trim()
     );
   };
 
@@ -211,9 +214,14 @@ async function sendData(url: string, data: Record<string, File | string>) {
   }
 
   const primaryFetch = fetch(url, { method: "POST", body: formData });
-  const fallbackFetch = fetch("/api/whisper", { method: "POST", body: formData });
+  const fallbackFetch = fetch("/api/whisper", {
+    method: "POST",
+    body: formData,
+  });
 
-  const { data: primaryResp, error: primaryError } = await tryCatch(primaryFetch);
+  const { data: primaryResp, error: primaryError } = await tryCatch(
+    primaryFetch,
+  );
 
   if (primaryResp && primaryResp.ok) {
     return primaryResp;
@@ -224,7 +232,9 @@ async function sendData(url: string, data: Record<string, File | string>) {
     "Primary fetch failed or not ok, trying fallback:",
     primaryError || primaryResp?.status,
   );
-  const { data: fallbackResp, error: fallbackError } = await tryCatch(fallbackFetch);
+  const { data: fallbackResp, error: fallbackError } = await tryCatch(
+    fallbackFetch,
+  );
 
   if (fallbackResp && fallbackResp.ok) {
     return fallbackResp;
@@ -233,5 +243,7 @@ async function sendData(url: string, data: Record<string, File | string>) {
   // If fallback also failed or was not ok, re-throw the primary error or a new one
   if (primaryError) throw primaryError;
   if (fallbackError) throw fallbackError;
-  throw new Error("Both primary and fallback fetches failed or returned non-ok status.");
+  throw new Error(
+    "Both primary and fallback fetches failed or returned non-ok status.",
+  );
 }

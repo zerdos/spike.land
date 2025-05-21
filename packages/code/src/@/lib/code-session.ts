@@ -302,18 +302,33 @@ export class Code implements ICode {
     const currentCode = this.currentSession?.code || "";
 
     if (skipRunning) {
-      // For skipRunning, check if code is unchanged
-      if (rawCode === currentCode) {
-        console.warn("⚠️ Code unchanged, returning current code");
-        return currentCode;
+      // If skipRunning is true, this is often a "force save" scenario from the editor,
+      // e.g., for comment-only changes that might not alter a structural hash.
+      // We bypass the main setSession's hash check to ensure the update goes through.
+      if (rawCode === this.currentSession.code) {
+        console.warn(
+          "⚠️ Code unchanged (skipRunning=true), and raw code matches current session code. No update needed.",
+        );
+        return this.currentSession.code;
       }
-      console.warn("🔄 Skipping running, just updating session");
-      const updatedSession = sanitizeSession({
+
+      console.warn(
+        "🔄 Force updating session state due to skipRunning=true flag.",
+      );
+      const newSessionState = sanitizeSession({ // Ensure session structure is valid
         ...this.currentSession,
-        code: rawCode,
+        code: rawCode, // Use the rawCode provided
       });
-      this.setSession(updatedSession);
-      return rawCode;
+
+      // Directly update the internal currentSession state
+      this.currentSession = newSessionState;
+      // And directly tell the sessionManager to update, bypassing the hash check in this.setSession()
+      this.sessionManager.updateSession(newSessionState);
+      console.warn(
+        "✅ Session updated directly via sessionManager (skipRunning=true). New code hash:",
+        md5(this.currentSession.code),
+      );
+      return this.currentSession.code; // Return the code that is now in the session
     }
 
     if (this.setCodeController) {

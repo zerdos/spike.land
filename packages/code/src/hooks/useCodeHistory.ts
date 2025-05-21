@@ -15,11 +15,15 @@ export const useCodeHistory = (codeSpace: string) => {
 
   const fetchHistory = useCallback(async () => {
     setLoading(true);
-    const { data, error: fetchError } = await tryCatch<Version[]>(loadVersionHistory(codeSpace));
+    const { data, error: fetchError } = await tryCatch<Version[]>(
+      loadVersionHistory(codeSpace),
+    );
 
     if (fetchError) {
       setError(
-        fetchError instanceof Error ? fetchError.message : "An unknown error occurred",
+        fetchError instanceof Error
+          ? fetchError.message
+          : "An unknown error occurred",
       );
     } else if (data) {
       setHistory(

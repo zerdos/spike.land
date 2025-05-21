@@ -49,7 +49,9 @@ export const setupServiceWorker = async (): Promise<
           "Failed to fetch server SW version, proceeding with registration:",
           serverVersionResult.error,
         );
-      } else if (oldSwVersion === swVersion && serverVersionResult.data === swVersion) {
+      } else if (
+        oldSwVersion === swVersion && serverVersionResult.data === swVersion
+      ) {
         console.warn("Service worker is already registered and up-to-date"); // Changed to console.warn
         return oldRegistration;
       }
@@ -62,7 +64,10 @@ export const setupServiceWorker = async (): Promise<
 
     const registrationResult = await tryCatch(wb.register());
     if (registrationResult.error) {
-      console.error("Service worker registration failed:", registrationResult.error);
+      console.error(
+        "Service worker registration failed:",
+        registrationResult.error,
+      );
       return null;
     }
     localStorage.setItem("swVersion", swVersion);

@@ -162,7 +162,10 @@ export const getEnhancedReplaceInFileTool = (codeSession: ICode) => { // Renamed
       },
     ): Promise<CodeModification> => {
       // Use the local log function for initial logging
-      log("enhancedReplaceInFileTool invoked", "warn", { path, hash: hash.substring(0, 8) });
+      log("enhancedReplaceInFileTool invoked", "warn", {
+        path,
+        hash: hash.substring(0, 8),
+      });
 
       log(`Starting enhanced replace operation for file: ${path}`, "warn", { // Changed level to warn
         hash: hash.substring(0, 8),

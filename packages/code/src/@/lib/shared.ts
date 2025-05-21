@@ -119,7 +119,9 @@ export const prettierToThrow = async ({
 };
 
 export const format = async (code: string): Promise<string> => {
-  const { data, error } = await tryCatch(prettierToThrow({ code, toThrow: false }));
+  const { data, error } = await tryCatch(
+    prettierToThrow({ code, toThrow: false }),
+  );
   if (error) throw error;
   return data!;
 };
@@ -164,7 +166,9 @@ export const tsx = async (
   const worker = (await init()).getWorker("tsx");
   try {
     const { data, error } = await tryCatch(
-      worker.rpc.rpc("tsc", code) as Promise<Array<{ content: string; filePath: string; }>>,
+      worker.rpc.rpc("tsc", code) as Promise<
+        Array<{ content: string; filePath: string; }>
+      >,
     );
     if (error) throw error;
     return data!;

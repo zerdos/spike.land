@@ -2,7 +2,9 @@ import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 
 // Mock hydrate module
 vi.mock("@/services/ServiceWorkerManager", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/services/ServiceWorkerManager")>();
+  const actual = await importOriginal<
+    typeof import("@/services/ServiceWorkerManager")
+  >();
   return {
     ...actual,
     // Mock the class itself

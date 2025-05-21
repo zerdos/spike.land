@@ -29,13 +29,18 @@ const createEntryPoints = async (dir: string): Promise<string[]> => {
       readdir(path.join(basePath, currentDir)),
     );
     if (readdirError || !items) {
-      console.error(`Error reading directory ${path.join(basePath, currentDir)}:`, readdirError);
+      console.error(
+        `Error reading directory ${path.join(basePath, currentDir)}:`,
+        readdirError,
+      );
       return; // Skip this directory if readdir fails
     }
 
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
-      const { data: itemStat, error: statError } = await tryCatch(stat(itemPath));
+      const { data: itemStat, error: statError } = await tryCatch(
+        stat(itemPath),
+      );
 
       if (statError || !itemStat) {
         console.error(`Error getting stats for ${itemPath}:`, statError);
@@ -254,9 +259,14 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
 
     for (const item of items) {
       const itemPath = path.join(basePath, currentDir, item);
-      const { data: itemStat, error: statError } = await tryCatch(stat(itemPath));
+      const { data: itemStat, error: statError } = await tryCatch(
+        stat(itemPath),
+      );
       if (statError || !itemStat) {
-        console.error(`Error getting stats for ${itemPath} for aliases:`, statError);
+        console.error(
+          `Error getting stats for ${itemPath} for aliases:`,
+          statError,
+        );
         continue;
       }
 
@@ -500,13 +510,18 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     const processDir = async () => {
       const { data: files, error: readdirError } = await tryCatch(readdir(dir));
       if (readdirError || !files) {
-        console.error(`Error reading directory ${dir} for import map replacement:`, readdirError);
+        console.error(
+          `Error reading directory ${dir} for import map replacement:`,
+          readdirError,
+        );
         return;
       }
 
       for (const file of files) {
         const filePath = path.join(dir, file);
-        const { data: fileStat, error: statError } = await tryCatch(stat(filePath));
+        const { data: fileStat, error: statError } = await tryCatch(
+          stat(filePath),
+        );
         if (statError || !fileStat) {
           console.error(
             `Error getting stats for ${filePath} for import map replacement:`,
@@ -530,7 +545,9 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
             continue;
           }
           const newContent = importMapReplace(content);
-          const { error: writeFileError } = await tryCatch(writeFile(filePath, newContent));
+          const { error: writeFileError } = await tryCatch(
+            writeFile(filePath, newContent),
+          );
           if (writeFileError) {
             console.error(
               `Error writing file ${filePath} for import map replacement:`,
@@ -543,7 +560,10 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     const { error } = await tryCatch(processDir());
     if (error) {
       // This top-level error might catch issues from the initial readdir(dir) if not handled inside processDir
-      console.error(`Error processing directory ${dir} for import map replacement (outer):`, error);
+      console.error(
+        `Error processing directory ${dir} for import map replacement (outer):`,
+        error,
+      );
     }
   }
 

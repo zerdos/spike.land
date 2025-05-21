@@ -60,7 +60,9 @@ export class FileChangeManager {
 
     // Adhere to no-console rule: only use warn and error directly.
     // For 'info' and 'debug', we'll use 'warn' to make them visible during development/debugging.
-    const effectiveLevel = (level === "info" || level === "debug") ? "warn" : level;
+    const effectiveLevel = (level === "info" || level === "debug")
+      ? "warn"
+      : level;
 
     if (effectiveLevel === "error") {
       console.error(`🔄 ${logMessage}`, data || "");
@@ -81,28 +83,47 @@ export class FileChangeManager {
     hash: string,
     diff: string,
   ): Promise<{ success: boolean; message: string; hash?: string; }> {
-    this._log("submitChange called", "warn", { path, hash: hash.substring(0, 8) });
+    this._log("submitChange called", "warn", {
+      path,
+      hash: hash.substring(0, 8),
+    });
 
     const validationError = this._validateSubmitChangeInputs(path, hash, diff);
     if (validationError) return validationError;
 
     const fileStateResult = await this._initializeFileStateIfNeeded(path);
-    if (!fileStateResult.success || !fileStateResult.content || !fileStateResult.hash) { // Added !fileStateResult.hash check
+    if (
+      !fileStateResult.success || !fileStateResult.content ||
+      !fileStateResult.hash
+    ) { // Added !fileStateResult.hash check
       return { success: false, message: fileStateResult.message };
     }
     const currentContent = fileStateResult.content; // Changed to const
     const currentHash = fileStateResult.hash; // Now guaranteed to be string
 
-    const hashVerificationResult = this._verifyHashAndHandleMismatch(path, hash, currentHash, diff);
+    const hashVerificationResult = this._verifyHashAndHandleMismatch(
+      path,
+      hash,
+      currentHash,
+      diff,
+    );
     if (hashVerificationResult) return hashVerificationResult;
 
-    const applyChangesResult = await this._applyOptimizedChanges(path, currentContent, diff);
+    const applyChangesResult = await this._applyOptimizedChanges(
+      path,
+      currentContent,
+      diff,
+    );
     if (!applyChangesResult.success || !applyChangesResult.modifiedContent) {
       return { success: false, message: applyChangesResult.message };
     }
     const modifiedContent = applyChangesResult.modifiedContent; // Changed to const
 
-    const policyCheckResult = this._checkChangePolicies(path, currentContent, modifiedContent);
+    const policyCheckResult = this._checkChangePolicies(
+      path,
+      currentContent,
+      modifiedContent,
+    );
     if (policyCheckResult) return policyCheckResult;
 
     const commitResult = await this._commitChangesAndUpdateState(
@@ -129,7 +150,9 @@ export class FileChangeManager {
 
   private async _initializeFileStateIfNeeded(
     path: string,
-  ): Promise<{ success: boolean; message: string; content?: string; hash?: string; }> {
+  ): Promise<
+    { success: boolean; message: string; content?: string; hash?: string; }
+  > {
     const { data: currentContent, error: getContentError } = await tryCatch(
       this.codeSession.getCode(),
     );
@@ -171,7 +194,11 @@ export class FileChangeManager {
   ): { success: false; message: string; hash?: string; } | null {
     if (providedHash !== currentHash) {
       if (providedHash === this.currentState[path].lastSuccessfulHash) {
-        this._log("Hash matches last successful hash, proceeding with change.", "warn", { path });
+        this._log(
+          "Hash matches last successful hash, proceeding with change.",
+          "warn",
+          { path },
+        );
         return null; // Proceed
       } else {
         const pendingChange: PendingChange = {
@@ -197,11 +224,18 @@ export class FileChangeManager {
     currentContent: string,
     diff: string,
   ): Promise<{ success: boolean; message: string; modifiedContent?: string; }> {
-    const optimizedDiff = this.optimizeSearchReplaceBlocks(diff, currentContent);
+    const optimizedDiff = this.optimizeSearchReplaceBlocks(
+      diff,
+      currentContent,
+    );
     let modifiedContent = updateSearchReplace(optimizedDiff, currentContent);
 
     if (modifiedContent === currentContent) {
-      const recoveryResult = await this.attemptRecovery(path, currentContent, diff);
+      const recoveryResult = await this.attemptRecovery(
+        path,
+        currentContent,
+        diff,
+      );
       if (recoveryResult.success && recoveryResult.content) {
         modifiedContent = recoveryResult.content;
       } else {
@@ -259,7 +293,9 @@ export class FileChangeManager {
       return {
         success: false,
         message: `Error updating file: ${
-          setCodeError instanceof Error ? setCodeError.message : String(setCodeError)
+          setCodeError instanceof Error
+            ? setCodeError.message
+            : String(setCodeError)
         }`,
       };
     }
@@ -270,7 +306,9 @@ export class FileChangeManager {
       };
     }
 
-    const finalContent = typeof setResult === "string" ? setResult : modifiedContent;
+    const finalContent = typeof setResult === "string"
+      ? setResult
+      : modifiedContent;
     const newHash = md5(finalContent);
     const changeSize = Math.abs(finalContent.length - originalContent.length);
     const isMinorChange = changeSize < this.minSignificantChangeSize;
@@ -294,7 +332,8 @@ export class FileChangeManager {
     this.retryCount[path] = 0;
 
     const bytesChanged = finalContent.length - originalContent.length;
-    const linesChanged = finalContent.split("\n").length - originalContent.split("\n").length;
+    const linesChanged = finalContent.split("\n").length -
+      originalContent.split("\n").length;
     let message = `Changes applied successfully: ${
       bytesChanged > 0 ? "+" : ""
     }${bytesChanged} bytes, ${linesChanged > 0 ? "+" : ""}${linesChanged} lines`;
@@ -330,9 +369,13 @@ export class FileChangeManager {
     const blocks = this.extractSearchReplaceBlocks(diff);
     if (blocks.length === 0) {
       // If no valid blocks are found, return the original diff to avoid errors.
-      this._log("No valid SEARCH/REPLACE blocks found in diff for optimization.", "warn", {
-        diffPreview: diff.substring(0, 100),
-      });
+      this._log(
+        "No valid SEARCH/REPLACE blocks found in diff for optimization.",
+        "warn",
+        {
+          diffPreview: diff.substring(0, 100),
+        },
+      );
       return diff;
     }
 
@@ -390,7 +433,10 @@ export class FileChangeManager {
 
     // If the search block already matches exactly, return it unchanged
     if (content.includes(block.search)) {
-      this._log("Exact match found for search block, no context needed", "warn"); // Changed to warn
+      this._log(
+        "Exact match found for search block, no context needed",
+        "warn",
+      ); // Changed to warn
       return block;
     }
 
@@ -399,12 +445,18 @@ export class FileChangeManager {
     const contentNoWS = content.replace(/\s+/g, "");
 
     if (!contentNoWS.includes(searchNoWS)) {
-      this._log("No match found even with flexible whitespace matching for search block", "warn"); // Changed to warn
+      this._log(
+        "No match found even with flexible whitespace matching for search block",
+        "warn",
+      ); // Changed to warn
 
       // Try fuzzy matching as a last resort
       const fuzzyMatch = this.findFuzzyMatch(block.search, content);
       if (fuzzyMatch) {
-        this._log("Fuzzy match found for search block, using it for context", "warn"); // Changed to warn
+        this._log(
+          "Fuzzy match found for search block, using it for context",
+          "warn",
+        ); // Changed to warn
         return {
           search: fuzzyMatch,
           replace: block.replace,
@@ -488,7 +540,10 @@ export class FileChangeManager {
 
     // If we found exactly one match, add context
     if (potentialMatches.length === 1) {
-      this._log("Found unique match for first line of search block for context addition", "warn"); // Changed to warn
+      this._log(
+        "Found unique match for first line of search block for context addition",
+        "warn",
+      ); // Changed to warn
       const matchIndex = potentialMatches[0];
       const contextWindow = 3; // Increased from 2 to 3 for more context
 
@@ -521,7 +576,10 @@ export class FileChangeManager {
 
     // Strategy 3: Try to find the longest common substring
     if (searchLines.length > 1) {
-      this._log("Trying longest common substring approach for context addition", "warn"); // Changed to warn
+      this._log(
+        "Trying longest common substring approach for context addition",
+        "warn",
+      ); // Changed to warn
       const longestCommonSubstring = this.findLongestCommonSubstring(
         block.search,
         content,
@@ -552,7 +610,10 @@ export class FileChangeManager {
     }
 
     // If we couldn't add context with any strategy, return the original block
-    this._log("Could not add context with any strategy, returning original search block", "warn"); // Changed to warn
+    this._log(
+      "Could not add context with any strategy, returning original search block",
+      "warn",
+    ); // Changed to warn
     return block;
   }
 
@@ -713,7 +774,10 @@ export class FileChangeManager {
     this._log(
       `Attempting recovery for ${path}`,
       "warn",
-      { attempt: (this.retryCount[path] || 0) + 1, maxRetries: this.maxRetries },
+      {
+        attempt: (this.retryCount[path] || 0) + 1,
+        maxRetries: this.maxRetries,
+      },
     );
 
     // Increment retry count
@@ -767,7 +831,9 @@ export class FileChangeManager {
     // after normalizing whitespace (removing all whitespace for comparison purposes)
     // and then applies the replacement using `replacePreservingWhitespace` which
     // tries to maintain the original surrounding whitespace.
-    this._log("Recovery strategy 1: Flexible whitespace matching", "warn", { path });
+    this._log("Recovery strategy 1: Flexible whitespace matching", "warn", {
+      path,
+    });
     let modifiedContent = content;
     let anySuccess = false;
 
@@ -786,9 +852,13 @@ export class FileChangeManager {
 
         // If the content changed, we had a successful replacement
         if (result !== modifiedContent) {
-          this._log("Successfully applied block with flexible whitespace matching", "warn", {
-            search: block.search.substring(0, 50),
-          }); // Changed to warn
+          this._log(
+            "Successfully applied block with flexible whitespace matching",
+            "warn",
+            {
+              search: block.search.substring(0, 50),
+            },
+          ); // Changed to warn
           modifiedContent = result;
           anySuccess = true;
         } else {
@@ -813,7 +883,9 @@ export class FileChangeManager {
     // more than just whitespace. This strategy uses `addContextToSearchBlock`
     // to create a new SEARCH block that includes more surrounding lines from the
     // original content. This makes the search more specific.
-    this._log("Recovery strategy 2: Expanded context matching", "warn", { path });
+    this._log("Recovery strategy 2: Expanded context matching", "warn", {
+      path,
+    });
     const expandedBlocks = blocks.map((block) => {
       // `addContextToSearchBlock` tries to find the original search block in the content
       // using various heuristics and then returns a new block where the .search part
@@ -827,16 +899,22 @@ export class FileChangeManager {
 
     for (const block of expandedBlocks) {
       // Only attempt to apply if `addContextToSearchBlock` actually changed the search part.
-      if (block.search !== blocks.find((b) => b.replace === block.replace)?.search) {
+      if (
+        block.search !== blocks.find((b) => b.replace === block.replace)?.search
+      ) {
         const result = replacePreservingWhitespace(
           expandedContent,
           block.search,
           block.replace,
         );
         if (result !== expandedContent) {
-          this._log("Successfully applied block with expanded context", "warn", {
-            search: block.search.substring(0, 50),
-          });
+          this._log(
+            "Successfully applied block with expanded context",
+            "warn",
+            {
+              search: block.search.substring(0, 50),
+            },
+          );
           expandedContent = result;
           expandedSuccess = true;
         }

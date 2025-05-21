@@ -134,7 +134,9 @@ export function memoizeWithAbort<T extends AnyFunction>(
 }
 
 export const formatCode = memoize(async (code: string): Promise<string> => {
-  const { data, error } = await tryCatch(prettierToThrow({ code, toThrow: true }));
+  const { data, error } = await tryCatch(
+    prettierToThrow({ code, toThrow: true }),
+  );
   if (error) {
     const errorMessage = typeof error === "string"
       ? error
@@ -150,7 +152,9 @@ export const formatCode = memoize(async (code: string): Promise<string> => {
 }, (code: string) => md5(code));
 
 export const transpileCode = memoize(async (code: string): Promise<string> => {
-  const { data, error } = await tryCatch(transpile({ code, originToUse: location.origin }));
+  const { data, error } = await tryCatch(
+    transpile({ code, originToUse: location.origin }),
+  );
   if (error) {
     throw new Error(
       `Transpilation failed: ${error instanceof Error ? error.message : String(error)}`,

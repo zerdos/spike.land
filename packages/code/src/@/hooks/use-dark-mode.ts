@@ -26,7 +26,8 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     if (
-      typeof window === "undefined" || !window.matchMedia || typeof window.matchMedia !== "function"
+      typeof window === "undefined" || !window.matchMedia ||
+      typeof window.matchMedia !== "function"
     ) return;
 
     try {

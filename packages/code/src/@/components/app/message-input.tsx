@@ -53,22 +53,35 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
         JSON.stringify(false),
       );
     }
-  }, [input, uploadedImages, codeSession, setInput, inputRef, handleCancelScreenshot]); // Renamed cSess
+  }, [
+    input,
+    uploadedImages,
+    codeSession,
+    setInput,
+    inputRef,
+    handleCancelScreenshot,
+  ]); // Renamed cSess
 
-  const handleImageUpload = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      Array.from(files).forEach((file) => {
-        processImage(file).then((imageData) => {
-          setUploadedImages((prev) => [...prev, imageData]);
+  const handleImageUpload = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      if (files) {
+        Array.from(files).forEach((file) => {
+          processImage(file).then((imageData) => {
+            setUploadedImages((prev) => [...prev, imageData]);
+          });
         });
-      });
-    }
-  }, []);
+      }
+    },
+    [],
+  );
 
-  const handleDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  }, []);
+  const handleDragOver = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+    },
+    [],
+  );
 
   const makeScreenshot = React.useCallback(async () => {
     setIsScreenshotLoading(true);
@@ -77,19 +90,22 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
     setIsScreenshotLoading(false);
   }, [screenshot]);
 
-  const handleDrop = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    if (files) {
-      Array.from(files).forEach((file) => {
-        if (file.type.startsWith("image/")) {
-          processImage(file).then((imageData) => {
-            setUploadedImages((prev) => [...prev, imageData]);
-          });
-        }
-      });
-    }
-  }, []);
+  const handleDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      if (files) {
+        Array.from(files).forEach((file) => {
+          if (file.type.startsWith("image/")) {
+            processImage(file).then((imageData) => {
+              setUploadedImages((prev) => [...prev, imageData]);
+            });
+          }
+        });
+      }
+    },
+    [],
+  );
 
   const removeUploadedImage = React.useCallback((index: number) => {
     setUploadedImages((prev) => prev.filter((_, i) => i !== index));
@@ -219,7 +235,8 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
               data-testid="send-button"
               onClick={handleSend}
               disabled={isStreaming ||
-                (input.trim() === "" && !screenshotImage && uploadedImages.length === 0)}
+                (input.trim() === "" && !screenshotImage &&
+                  uploadedImages.length === 0)}
               size="icon"
               aria-label="Send message"
             >

@@ -1,9 +1,9 @@
 import { LRUCache } from "@/lib/lru-cache";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("LRUCache", () => {
   it("should set and get values", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     expect(cache.get("a")?.value).toBe(1);
@@ -11,7 +11,7 @@ describe("LRUCache", () => {
   });
 
   it("should evict least recently used item when max is exceeded", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     cache.set("c", { value: 3 }); // should evict "a"
@@ -21,7 +21,7 @@ describe("LRUCache", () => {
   });
 
   it("should update recently used order on get", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     cache.get("a"); // "a" becomes most recently used
@@ -32,7 +32,7 @@ describe("LRUCache", () => {
   });
 
   it("should delete values", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     cache.delete("a");
@@ -41,7 +41,7 @@ describe("LRUCache", () => {
   });
 
   it("should clear all values", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     cache.clear();
@@ -51,7 +51,7 @@ describe("LRUCache", () => {
   });
 
   it("should respect maxSize and sizeCalculation", () => {
-    const cache = new LRUCache<string, { value: number }>({
+    const cache = new LRUCache<string, { value: number; }>({
       maxSize: 3,
       sizeCalculation: (v) => v.value,
     });
@@ -67,7 +67,7 @@ describe("LRUCache", () => {
 
   it("should allow custom dispose function", () => {
     const disposed: string[] = [];
-    const cache = new LRUCache<string, { value: number }>({
+    const cache = new LRUCache<string, { value: number; }>({
       max: 2,
       dispose: (v, k, reason) => {
         disposed.push(`${k}:${v.value}:${reason}`);
@@ -82,18 +82,18 @@ describe("LRUCache", () => {
   });
 
   it("should support dump and load", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     const dump = cache.dump();
-    const cache2 = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache2 = new LRUCache<string, { value: number; }>({ max: 2 });
     cache2.load(dump);
     expect(cache2.get("a")?.value).toBe(1);
     expect(cache2.get("b")?.value).toBe(2);
   });
 
   it("should support entries, keys, and values iteration", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     cache.set("b", { value: 2 });
     const entries = Array.from(cache.entries());
@@ -108,7 +108,7 @@ describe("LRUCache", () => {
   });
 
   it("should support has and peek", () => {
-    const cache = new LRUCache<string, { value: number }>({ max: 2 });
+    const cache = new LRUCache<string, { value: number; }>({ max: 2 });
     cache.set("a", { value: 1 });
     expect(cache.has("a")).toBe(true);
     expect(cache.has("b")).toBe(false);

@@ -162,7 +162,9 @@ export class MessageHandlerService {
       }
     } catch (e) { // Catching synchronous errors from getTextFromContent or unhandled type
       throw new Error(
-        e instanceof Error ? e.message : "Invalid message content type or unhandled type",
+        e instanceof Error
+          ? e.message
+          : "Invalid message content type or unhandled type",
       );
     }
   }

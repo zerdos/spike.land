@@ -74,7 +74,9 @@ export const handleDirectory = async (
     console.error(`Error handling directory ${nestedPath}:`, error);
     throw error;
   }
-  if (!data) throw new Error(`Handling directory ${nestedPath} returned no data`);
+  if (!data) {
+    throw new Error(`Handling directory ${nestedPath} returned no data`);
+  }
   return data;
 };
 
@@ -111,7 +113,10 @@ export const getDirectoryEntriesRecursive = async (
 
   const { data: entries, error } = await tryCatch(doGetRecursiveEntries());
   if (error) {
-    console.error(`Error reading directory entries for ${relativePath}:`, error);
+    console.error(
+      `Error reading directory entries for ${relativePath}:`,
+      error,
+    );
     return {}; // Return empty object on error as per original logic
   }
   return entries || {};
@@ -144,9 +149,16 @@ export const getDirectoryHandleAndFileName = async (
 
   const { data, error } = await tryCatch(doGetHandleAndName());
   if (error) {
-    console.error(`Error in getDirectoryHandleAndFileName for ${filePath}:`, error);
+    console.error(
+      `Error in getDirectoryHandleAndFileName for ${filePath}:`,
+      error,
+    );
     throw error;
   }
-  if (!data) throw new Error(`getDirectoryHandleAndFileName for ${filePath} returned no data`);
+  if (!data) {
+    throw new Error(
+      `getDirectoryHandleAndFileName for ${filePath} returned no data`,
+    );
+  }
   return data;
 };

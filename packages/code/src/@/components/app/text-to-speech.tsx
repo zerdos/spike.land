@@ -38,7 +38,9 @@ export const TextToSpeech: FC = () => {
       return arrayBuffer;
     })();
 
-    const { data: audioData, error } = await tryCatch<ArrayBuffer>(audioPromise);
+    const { data: audioData, error } = await tryCatch<ArrayBuffer>(
+      audioPromise,
+    );
 
     if (error) {
       console.error("Error generating speech:", error);

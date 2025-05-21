@@ -18,17 +18,25 @@ export const loadVersionHistory = async (
   const { data: response, error: fetchError } = await tryCatch(fetchPromise);
 
   if (fetchError || !response) {
-    console.error(`Error fetching version history for ${codeSpace}:`, fetchError);
+    console.error(
+      `Error fetching version history for ${codeSpace}:`,
+      fetchError,
+    );
     return []; // Return empty array on fetch error
   }
   if (!response.ok) {
-    console.error(`Error response status for version history ${codeSpace}: ${response.status}`);
+    console.error(
+      `Error response status for version history ${codeSpace}: ${response.status}`,
+    );
     return []; // Return empty array on bad response
   }
 
   const { data: jsonData, error: jsonError } = await tryCatch(response.json());
   if (jsonError) {
-    console.error(`Error parsing version history JSON for ${codeSpace}:`, jsonError);
+    console.error(
+      `Error parsing version history JSON for ${codeSpace}:`,
+      jsonError,
+    );
     return []; // Return empty array on JSON parse error
   }
   return jsonData || [];

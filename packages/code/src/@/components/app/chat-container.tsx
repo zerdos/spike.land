@@ -58,7 +58,9 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(
     isStreaming,
     isDarkMode,
   }) => {
-    const [typingIndicatorMustShow, setTypingIndicatorMustShow] = useState(isStreaming);
+    const [typingIndicatorMustShow, setTypingIndicatorMustShow] = useState(
+      isStreaming,
+    );
 
     useEffect(() => {
       let timeoutId: NodeJS.Timeout | undefined;
