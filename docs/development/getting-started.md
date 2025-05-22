@@ -42,7 +42,8 @@ spike.land/
 │   ├── code/                 # Frontend React application
 │   ├── spike.land/          # Main Cloudflare Worker
 │   ├── js.spike.land/       # Transpiler Worker
-│   └── spike-land-renderer/ # Renderer Worker
+│   ├── spike-land-renderer/ # Renderer Worker
+│   └── durable-objects/     # Durable Objects implementations
 ├── docs/                    # Documentation
 └── devcontainers/          # Development containers
 ```
@@ -70,6 +71,10 @@ spike.land/
 - Server-side rendering
 - Screenshot/PDF generation
 - Puppeteer integration
+
+### Durable Objects (`packages/durable-objects`)
+- Manages stateful logic (e.g., for collaboration)
+- Interacts with the Main Worker
 
 ## Development Workflow
 
@@ -135,10 +140,10 @@ yarn deploy:prod
 ## Development Tools
 
 ### Required Tools
-- Node.js (v22.x)
+- Node.js (v22.11.0 - see .nvmrc)
 - Yarn
 - Git
-- Wrangler CLI (`npm install -g wrangler`)
+- Wrangler CLI (ensure Wrangler CLI is installed - see official Cloudflare documentation)
 
 ### Recommended VS Code Extensions
 - ESLint

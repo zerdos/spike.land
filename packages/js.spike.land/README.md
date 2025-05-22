@@ -33,12 +33,10 @@ A Cloudflare Worker that provides transpilation services using esbuild for spike
 
 #### Building
 
-- `yarn build` - Clean and prepare for deployment
 - `yarn build:worker` - Build worker-specific code
 
 #### Deployment
 
-- `yarn deploy:dev` - Deploy to development environment
 - `yarn deploy:prod` - Deploy to production environment
 
 #### Testing & Utils
@@ -69,9 +67,6 @@ yarn dev:remote
 3. Deploy:
 
 ```bash
-# Deploy to development
-yarn deploy:dev
-
 # Deploy to production
 yarn deploy:prod
 ```
