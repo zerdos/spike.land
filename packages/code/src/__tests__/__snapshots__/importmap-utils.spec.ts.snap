@@ -19,8 +19,7 @@ import { extras } from "/react-extras?bundle=true&external=react,react-dom,frame
 exports[`importMapReplace > App specific imports: should not transform when already transformed 1`] = `
 {
   "code": "import { foo } from "/special?bundle=true";",
-  "result": "/** importMapReplace */
-import { foo } from "/special?bundle=true";",
+  "result": "import { foo } from "/special?bundle=true";",
 }
 `;
 
@@ -136,7 +135,7 @@ exports[`importMapReplace > Edge cases: live path with index.js appending 1`] = 
 {
   "code": "import { Component } from "/live/components";",
   "result": "/** importMapReplace */
-import { Component } from "/live/components";",
+import { Component } from "/live/components.mjs";",
 }
 `;
 
@@ -183,8 +182,7 @@ export default () => (
 exports[`importMapReplace > Edge cases: should not transform when bundling flag is false 1`] = `
 {
   "code": "import { comp } from "http://localhost:3000/special?bundle=false";",
-  "result": "/** importMapReplace */
-import { comp } from "http://localhost:3000/special?bundle=false";",
+  "result": "import { comp } from "http://localhost:3000/special?bundle=false";",
 }
 `;
 
@@ -506,8 +504,7 @@ import module from "/my-module?bundle=true&external=react,react-dom,framer-motio
 exports[`importMapReplace > URL imports: URLs with complex query parameters 1`] = `
 {
   "code": "import { module } from "https://example.com/module?version=1.2.3&format=esm&debug=true";",
-  "result": "/** importMapReplace */
-import { module } from "https://example.com/module?version=1.2.3&format=esm&debug=true";",
+  "result": "import { module } from "https://example.com/module?version=1.2.3&format=esm&debug=true";",
 }
 `;
 
@@ -522,16 +519,14 @@ import { section } from "/module?bundle=true&external=react,react-dom,framer-mot
 exports[`importMapReplace > URL imports: URLs with version tags 1`] = `
 {
   "code": "import { lib } from "https://esm.sh/lodash@4.17.21";",
-  "result": "/** importMapReplace */
-import { lib } from "https://esm.sh/lodash@4.17.21";",
+  "result": "import { lib } from "https://esm.sh/lodash@4.17.21";",
 }
 `;
 
 exports[`importMapReplace > URL imports: data URLs 1`] = `
 {
   "code": "import { foo } from "data:text/javascript,export const foo = 'bar'";",
-  "result": "/** importMapReplace */
-import { foo } from "data:text/javascript,export const foo = 'bar'";",
+  "result": "import { foo } from "data:text/javascript,export const foo = 'bar'";",
 }
 `;
 
@@ -546,24 +541,21 @@ import { MoonIcon, SunIcon, PlusIcon, TrashIcon, PencilIcon } from "/lucide-reac
 exports[`importMapReplace > URL imports: http URLs from different origin 1`] = `
 {
   "code": "import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
-  "result": "/** importMapReplace */
-import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
+  "result": "import { lib } from "http://example.com/lib?bundle=true&exports=foo";",
 }
 `;
 
 exports[`importMapReplace > URL imports: http URLs from same origin 1`] = `
 {
   "code": "import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";",
-  "result": "/** importMapReplace */
-import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";",
+  "result": "import { lib } from "http://localhost:3000/lib?bundle=true&exports=foo";",
 }
 `;
 
 exports[`importMapReplace > URL imports: https URLs 1`] = `
 {
   "code": "import { secure } from "https://example.com/secure-module";",
-  "result": "/** importMapReplace */
-import { secure } from "https://example.com/secure-module";",
+  "result": "import { secure } from "https://example.com/secure-module";",
 }
 `;
 
@@ -571,7 +563,7 @@ exports[`importMapReplace > URL imports: live URLs 1`] = `
 {
   "code": "import { Component } from "/live/components/Button";",
   "result": "/** importMapReplace */
-import { Component } from "/live/components/Button";",
+import { Component } from "/live/components/Button.mjs";",
 }
 `;
 

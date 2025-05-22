@@ -2,64 +2,50 @@
 
 export interface ImportMap {
   imports: Record<string, string>;
+  scopes?: Record<string, Record<string, string>>;
 }
 
-// Configuration Constants
-const FILE_EXTENSIONS = new Set([
-  ".js",
-  ".mjs",
-  ".ts",
-  ".tsx",
-  ".jsx",
-  ".json",
-  ".wasm",
-  ".txt",
-  ".svg",
-  ".md",
-  ".html",
-  ".css",
-  ".scss",
-  ".sass",
-  ".less",
-  ".styl",
-  ".graphql",
-  ".gql",
-  ".yml",
-  ".toml",
-  ".xml",
-  ".csv",
-  ".tsv",
-  ".ini",
-  ".properties",
-  ".env",
-  ".env.local",
-  ".env.development",
-  ".env.test",
-  ".env.production",
-  ".env.staging",
-]);
+export interface ImportMapConfig {
+  fileExtensions: readonly string[];
+  workerPatterns: readonly string[];
+  componentPatterns: readonly string[];
+  externalDependencies: readonly string[];
+  transformParams: {
+    bundleParam: string;
+    externalParam: string;
+  };
+}
 
-const WORKER_PATTERNS = ["/workers/", ".worker"];
-const COMPONENT_PATTERNS = [
-  "@/components/",
-  "@/services/",
-  "@/config/",
-  "@/utils/",
-  "@/tools/",
-  "@/workflows/",
-  "/live/",
-  "@/lib",
-  "@/external",
-  "@/hooks",
-];
+// Configuration Constants - made readonly for better immutability
+const DEFAULT_CONFIG: ImportMapConfig = {
+  fileExtensions: [
+    ".js", ".mjs", ".ts", ".tsx", ".jsx", ".json", ".wasm",
+    ".txt", ".svg", ".md", ".html", ".css", ".scss", ".sass",
+    ".less", ".styl", ".graphql", ".gql", ".yml", ".toml",
+    ".xml", ".csv", ".tsv", ".ini", ".properties",
+    ".env", ".env.local", ".env.development", ".env.test",
+    ".env.production", ".env.staging",
+  ] as const,
+  
+  workerPatterns: ["/workers/", ".worker"] as const,
+  
+  componentPatterns: [
+    "@/components/", "@/services/", "@/config/", "@/utils/",
+    "@/tools/", "@/workflows/", "/live/", "@/lib", "@/external", "@/hooks",
+  ] as const,
+  
+  externalDependencies: [
+    "react", "react-dom", "framer-motion", "@emotion/react", "@emotion/styled",
+  ] as const,
+  
+  transformParams: {
+    bundleParam: "bundle=true",
+    externalParam: "external",
+  },
+} as const;
 
-const EXTERNAL_DEPENDENCIES = [
-  "react",
-  "react-dom",
-  "framer-motion",
-  "@emotion/react",
-  "@emotion/styled",
-];
+// Create sets for O(1) lookups
+const FILE_EXTENSIONS = new Set(DEFAULT_CONFIG.fileExtensions);
 
 // Default Import Map
 export const importMap: ImportMap = {
@@ -78,205 +64,302 @@ export const importMap: ImportMap = {
   },
 };
 
-// Utility Functions
-function hasKnownExtension(path: string): boolean {
-  const lastDotIndex = path.lastIndexOf(".");
-  return lastDotIndex !== -1 && FILE_EXTENSIONS.has(path.slice(lastDotIndex));
+// Compiled regex patterns for better performance
+const REGEX_PATTERNS = {
+  queryHash: /^([^#?]*?)(\?[^#]*)?(#.*)?$/,
+  namedImports: /\{([^}]*)\}/s,
+  simpleImport: /^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm,
+  fromImport: /^(\s*import\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
+  exportFrom: /^(\s*export\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
+  dynamicImport: /(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g,
+  pathInQuotes: /['"]([^'"]+)['"]/,
+  importAlias: /\s+as\s+\w+/g,
+  templateLiteral: /\$\{.*?\}/,
+  urlProtocol: /^https?:\/\//,
+} as const;
+
+// Skip processing markers
+const SKIP_MARKERS = [
+  "/** importMapReplace */",
+  "/* esm.sh",
+  "?bundle=true",
+  "data:",
+  "http://",
+  "https://",
+] as const;
+
+interface PathComponents {
+  readonly basePath: string;
+  readonly query: string;
+  readonly hash: string;
 }
 
-function isWorkerFile(path: string): boolean {
-  return WORKER_PATTERNS.some((pattern) => path.includes(pattern));
+interface TransformContext {
+  readonly config: ImportMapConfig;
+  readonly importMapImports: Record<string, string>;
+  readonly hasFromClause: boolean;
+  readonly exportsParam: string;
 }
 
-function isComponentFile(path: string): boolean {
-  return COMPONENT_PATTERNS.some((pattern) => path.includes(pattern));
+// Utility class for better organization
+class PathUtils {
+  static hasKnownExtension(path: string): boolean {
+    const lastDotIndex = path.lastIndexOf(".");
+    if (lastDotIndex === -1) return false;
+    
+    const extension = path.slice(lastDotIndex);
+    return FILE_EXTENSIONS.has(extension);
+  }
+
+  static matchesPatterns(path: string, patterns: readonly string[]): boolean {
+    return patterns.some(pattern => path.includes(pattern));
+  }
+
+  static isWorkerFile(path: string): boolean {
+    return this.matchesPatterns(path, DEFAULT_CONFIG.workerPatterns);
+  }
+
+  static isComponentFile(path: string): boolean {
+    return this.matchesPatterns(path, DEFAULT_CONFIG.componentPatterns);
+  }
+
+  static parsePathComponents(path: string): PathComponents {
+    const match = path.match(REGEX_PATTERNS.queryHash);
+    if (!match) {
+      return { basePath: path, query: "", hash: "" };
+    }
+
+    const [, basePath = "", query = "", hash = ""] = match;
+    return {
+      basePath,
+      query: query || "",
+      hash: hash || "",
+    };
+  }
+
+  static shouldTransformPath(path: string): boolean {
+    return !SKIP_MARKERS.some(marker => path.includes(marker));
+  }
+
+  static removeExtension(path: string): string {
+    if (!this.hasKnownExtension(path)) return path;
+    return path.substring(0, path.lastIndexOf("."));
+  }
+
+  static ensureLeadingSlash(path: string): string {
+    return path.startsWith(".") || path.startsWith("/") ? path : `/${path}`;
+  }
 }
 
-function processQueryAndHash(path: string): {
-  basePath: string;
-  query: string;
-  hash: string;
-} {
-  const [pathPart, hash] = path.split("#");
-  const [basePath, query] = pathPart.split("?");
+class ImportParser {
+  static extractNamedImports(importStatement: string): string {
+    const match = importStatement.match(REGEX_PATTERNS.namedImports);
+    if (!match?.[1]) return "";
 
-  return {
-    basePath: basePath || "",
-    query: query ? `?${query}` : "",
-    hash: hash ? `#${hash}` : "",
-  };
+    return match[1]
+      .split(",")
+      .map(item => item.trim().replace(REGEX_PATTERNS.importAlias, ""))
+      .filter(Boolean)
+      .join(",");
+  }
+
+  static buildExternalUrl(
+    basePath: string, 
+    exportsParam: string, 
+    config: ImportMapConfig
+  ): string {
+    const params = [config.transformParams.bundleParam];
+    
+    if (config.externalDependencies.length > 0) {
+      params.push(`${config.transformParams.externalParam}=${config.externalDependencies.join(",")}`);
+    }
+    
+    if (exportsParam) {
+      params.push(`exports=${exportsParam}`);
+    }
+
+    return `/${basePath}?${params.join("&")}`;
+  }
 }
 
-function shouldTransformPath(path: string): boolean {
-  return (
-    !path.includes("?bundle=true") &&
-    !path.startsWith("data:") &&
-    !path.startsWith("http://") &&
-    !path.startsWith("https://") &&
-    !path.startsWith("/live/")
-  );
+class PathTransformer {
+  static transform(path: string, context: TransformContext): string {
+    const { basePath, query, hash } = PathUtils.parsePathComponents(path);
+
+    // Early returns for special cases
+    if (this.hasComplexPath(basePath) || context.importMapImports[basePath]) {
+      return path;
+    }
+
+    const transformedBase = this.transformBasePath(basePath, context);
+    return `${transformedBase}${query}${hash}`;
+  }
+
+  private static hasComplexPath(path: string): boolean {
+    return REGEX_PATTERNS.templateLiteral.test(path) || 
+           path.includes("+") || 
+           REGEX_PATTERNS.urlProtocol.test(path);
+  }
+
+  private static transformBasePath(basePath: string, context: TransformContext): string {
+    // Handle worker files
+    if (PathUtils.isWorkerFile(basePath)) {
+      return this.transformWorkerPath(basePath, context.hasFromClause);
+    }
+
+    // Handle component files
+    if (PathUtils.isComponentFile(basePath)) {
+      return this.transformComponentPath(basePath);
+    }
+
+    // Handle directory imports and extensionless files
+    if (this.needsExtension(basePath)) {
+      return this.addExtension(basePath);
+    }
+
+    // Handle external dependencies
+    if (this.isExternalDependency(basePath)) {
+      return ImportParser.buildExternalUrl(basePath, context.exportsParam, context.config);
+    }
+
+    return basePath;
+  }
+
+  private static transformWorkerPath(basePath: string, hasFromClause: boolean): string {
+    const baseWithoutExt = PathUtils.removeExtension(basePath);
+    const extension = hasFromClause ? ".mjs" : ".js";
+    return PathUtils.ensureLeadingSlash(baseWithoutExt + extension);
+  }
+
+  private static transformComponentPath(basePath: string): string {
+    const baseWithoutExt = PathUtils.removeExtension(basePath);
+    return PathUtils.ensureLeadingSlash(baseWithoutExt + ".mjs");
+  }
+
+  private static needsExtension(basePath: string): boolean {
+    return !PathUtils.hasKnownExtension(basePath) && 
+           (basePath.startsWith(".") || basePath.startsWith("/"));
+  }
+
+  private static addExtension(basePath: string): string {
+    const extension = basePath.endsWith("/") ? "index.mjs" : ".mjs";
+    return basePath + extension;
+  }
+
+  private static isExternalDependency(basePath: string): boolean {
+    return !basePath.startsWith(".") && 
+           !basePath.startsWith("/") && 
+           !basePath.startsWith("/live/");
+  }
 }
 
-function getExportsString(match: string): string {
-  const namedImports = match.match(/\{([^}]*)\}/s)?.[1];
-  return namedImports
-    ?.split(",")
-    .map((s) => s.trim().split(" as ")[0])
-    .filter(Boolean)
-    .join(",") || "";
-}
-
+// Main transformation function
 function getMappedPath(
   path: string,
   exportsParam = "",
   hasFromClause = false,
-  importMapImports: ImportMap["imports"] = importMap.imports,
+  importMapImports: Record<string, string> = importMap.imports,
+  config: ImportMapConfig = DEFAULT_CONFIG,
 ): string {
-  const { basePath, query, hash } = processQueryAndHash(path);
-
-  // Early returns for complex or special paths
-  if (path.includes("${") || path.includes("+")) return path;
-
-  // Exact match in import map
-  if (importMapImports[basePath]) return path;
-
-  // Handle worker files
-  if (isWorkerFile(basePath)) {
-    const baseWithoutExt = hasKnownExtension(basePath)
-      ? basePath.substring(0, basePath.lastIndexOf("."))
-      : basePath;
-    const extension = hasFromClause ? ".mjs" : ".js";
-    const resultPath = baseWithoutExt + extension;
-
-    return !resultPath.startsWith(".") && !resultPath.startsWith("/")
-      ? `/${resultPath}`
-      : resultPath;
-  }
-
-  // Handle component and special files
-  if (isComponentFile(basePath)) {
-    const baseWithoutExt = hasKnownExtension(basePath)
-      ? basePath.substring(0, basePath.lastIndexOf("."))
-      : basePath;
-    const extension = ".mjs";
-    const resultPath = baseWithoutExt + extension;
-
-    return !resultPath.startsWith(".") && !resultPath.startsWith("/")
-      ? `/${resultPath}`
-      : resultPath;
-  }
-
-  // Handle directory imports and paths without extension
-  if (
-    !hasKnownExtension(basePath) &&
-    (basePath.startsWith(".") || basePath.startsWith("/"))
-  ) {
-    const extension = basePath.endsWith("/") ? "index.mjs" : ".mjs";
-    return `${basePath}${extension}${query}${hash}`;
-  }
-
-  // Preserve live and absolute URLs
-  if (basePath.startsWith("/live/") || /^https?:\/\//.test(basePath)) {
-    return path;
-  }
-
-  // Handle non-relative paths
-  if (!basePath.startsWith(".") && !basePath.startsWith("/")) {
-    const params = [
-      "bundle=true",
-      `external=${EXTERNAL_DEPENDENCIES.join(",")}`,
-    ];
-
-    if (exportsParam) params.push(`exports=${exportsParam}`);
-
-    return `/${basePath}?${params.join("&")}${query}${hash}`;
-  }
-
-  return `${basePath}${query}${hash}`;
-}
-
-export function importMapReplace(
-  code: string,
-): string {
-  // Prevent double processing
-  if (code.includes("/** importMapReplace */") || code.includes("/* esm.sh")) {
-    return code;
-  }
-
-  // Normalize line endings
-  code = code.replace(/\r\n/g, "\n");
-
-  // Helper function for replacing imports
-  const replaceImport = (
-    match: string,
-    pre: string,
-    q1: string,
-    path: string,
-    q2: string,
-  ) => {
-    if (!shouldTransformPath(path)) return match;
-    const fullPath = getMappedPath(path, "", false);
-    return `${pre}${q1}${fullPath}${q2}`;
+  const context: TransformContext = {
+    config,
+    importMapImports,
+    hasFromClause,
+    exportsParam,
   };
 
-  // Replace simple imports
-  code = code.replace(
-    /^(\s*import\s+)(['"])([^'"]+)(['"];\s*$)/gm,
-    replaceImport,
-  );
+  return PathTransformer.transform(path, context);
+}
 
-  // Replace imports with from clause
-  code = code.replace(
-    /^(\s*import\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
-    (match) => {
-      if (match.includes("/** importMapReplace */")) return match;
+// Code transformation class
+class CodeTransformer {
+  private static readonly PROCESSED_MARKER = "/** importMapReplace */";
 
-      const pathMatch = match.match(/['"]([^'"]+)['"]/);
+  static transform(code: string): string {
+    if (this.isAlreadyProcessed(code)) {
+      return code;
+    }
+
+    let transformedCode = this.normalizeLineEndings(code);
+    transformedCode = this.transformSimpleImports(transformedCode);
+    transformedCode = this.transformFromImports(transformedCode);
+    transformedCode = this.transformExportFromClauses(transformedCode);
+    transformedCode = this.transformDynamicImports(transformedCode);
+    
+
+    return `${this.PROCESSED_MARKER}\n${transformedCode}`;
+  }
+
+  private static isAlreadyProcessed(code: string): boolean {
+    return SKIP_MARKERS.some(marker => code.includes(marker));
+  }
+
+  private static normalizeLineEndings(code: string): string {
+    return code.replace(/\r\n/g, "\n");
+  }
+
+  private static transformSimpleImports(code: string): string {
+    return code.replace(REGEX_PATTERNS.simpleImport, (match, pre, q1, path, q2) => {
+      if (!PathUtils.shouldTransformPath(path)) return match;
+      const fullPath = getMappedPath(path, "", false);
+      return `${pre}${q1}${fullPath}${q2}`;
+    });
+  }
+
+  private static transformFromImports(code: string): string {
+    return this.transformImportExportPattern(code, REGEX_PATTERNS.fromImport);
+  }
+
+  private static transformExportFromClauses(code: string): string {
+    return this.transformImportExportPattern(code, REGEX_PATTERNS.exportFrom);
+  }
+
+  private static transformImportExportPattern(code: string, pattern: RegExp): string {
+    return code.replace(pattern, (match) => {
+      if (match.includes(this.PROCESSED_MARKER)) return match;
+
+      const pathMatch = match.match(REGEX_PATTERNS.pathInQuotes);
       if (!pathMatch) return match;
 
       const importPath = pathMatch[1];
-      if (!shouldTransformPath(importPath)) return match;
+      if (!PathUtils.shouldTransformPath(importPath)) return match;
 
-      const exportsParam = getExportsString(match);
+      const exportsParam = ImportParser.extractNamedImports(match);
       const mappedPath = getMappedPath(importPath, exportsParam, true);
-      return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
-    },
-  );
+      return match.replace(REGEX_PATTERNS.pathInQuotes, `"${mappedPath}"`);
+    });
+  }
 
-  // Replace export from clauses
-  code = code.replace(
-    /^(\s*export\s+[\s\S]*?from\s+['"])([^'"]+)(['"];?)/gm,
-    (match) => {
-      if (match.includes("/** importMapReplace */")) return match;
-
-      const pathMatch = match.match(/['"]([^'"]+)['"]/);
-      if (!pathMatch) return match;
-
-      const exportPath = pathMatch[1];
-      if (!shouldTransformPath(exportPath)) return match;
-
-      const exportsParam = getExportsString(match);
-      const mappedPath = getMappedPath(exportPath, exportsParam, true);
-      return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
-    },
-  );
-
-  // Replace dynamic imports
-  code = code.replace(
-    /(\bimport\s*\(\s*['"])([^'"]+)(['"]\s*\))/g,
-    (match) => {
-      const pathMatch = match.match(/['"]([^'"]+)['"]/);
+  private static transformDynamicImports(code: string): string {
+    return code.replace(REGEX_PATTERNS.dynamicImport, (match) => {
+      const pathMatch = match.match(REGEX_PATTERNS.pathInQuotes);
       if (!pathMatch) return match;
 
       const importPath = pathMatch[1];
-      if (!shouldTransformPath(importPath)) return match;
+      if (!PathUtils.shouldTransformPath(importPath)) return match;
 
       const mappedPath = getMappedPath(importPath, "", true);
-      return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
-    },
-  );
-
-  return `/** importMapReplace */\n${code}`;
+      return match.replace(REGEX_PATTERNS.pathInQuotes, `"${mappedPath}"`);
+    });
+  }
 }
+
+// Main export function with better error handling
+export function importMapReplace(code: string): string {
+  try {
+    return CodeTransformer.transform(code);
+  } catch (error) {
+    console.error("Error in importMapReplace:", error);
+    return code; // Return original code on error
+  }
+}
+
+// Export utilities for testing and advanced usage
+export {
+  DEFAULT_CONFIG,
+  PathUtils,
+  ImportParser,
+  getMappedPath,
+};
 
 export default importMap;
