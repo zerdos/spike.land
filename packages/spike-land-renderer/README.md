@@ -39,7 +39,13 @@ A Cloudflare Worker that provides server-side rendering capabilities for spike.l
 #### Testing
 
 - `yarn test` - Run test suite
+- `yarn test:watch` - Run tests in watch mode
 - `yarn cf-typegen` - Generate TypeScript types for Cloudflare Workers
+
+### Building
+
+- `yarn build:worker` - This package typically does not require a separate build step for the worker code as it's deployed directly. Scripts like `build` might handle cleaning or other pre-deployment tasks.
+- `yarn clean` - Remove build artifacts and temporary directories.
 
 ### Local Development
 

@@ -1,4 +1,4 @@
-# spike.land Backend Worker
+# spike.land - Main Cloudflare Worker Backend
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](../../LICENSE.md)
 
@@ -35,20 +35,6 @@ This is the main backend for spike.land, a Cloudflare Workers-based application.
 - Custom `serveWithCache` implementation
 - Asset versioning with `ASSET_MANIFEST` and `ASSET_HASH`
 - Content-Type header management
-
-## NPM File Management
-
-While the provided code doesn't directly show npm file management, it does use
-several npm packages:
-
-1. `@cloudflare/workers-types` for TypeScript types related to Cloudflare
-   Workers.
-2. `@cloudflare/kv-asset-handler` for handling static assets stored in KV.
-3. `@spike-npm-land/code` for various utility functions and types.
-4. `@clerk/backend` for authentication-related functionality.
-
-The project likely uses a build step to bundle these npm dependencies into the
-worker script.
 
 ## API Reference
 
@@ -109,8 +95,7 @@ For local development, create a `.dev.vars` file with these variables.
 
 #### Building
 
-- `yarn build` - Clean and prepare for deployment
-- `yarn build:worker` - Build worker-specific code
+- `yarn build:worker` - While this script might show 'No build required' or simply execute a placeholder, the actual bundling of the worker from an entry point (e.g., `./src/cf-workers.ts`) is handled by Wrangler during the deployment process (e.g., when running `yarn deploy:dev` or `yarn deploy:prod`).
 
 #### Deployment
 
@@ -119,7 +104,8 @@ For local development, create a `.dev.vars` file with these variables.
 
 #### Testing
 
-- `yarn test` - Run test suite
+- `yarn test:api` - Run the full API test suite, including type checking, linting, and unit tests. This is the most comprehensive test script.
+- `yarn test:unit` - Run unit tests only.
 - `yarn test:watch` - Run tests in watch mode
 
 #### Types & Utils
@@ -151,7 +137,10 @@ yarn dev:remote
 
 ```bash
 # Run tests once
-yarn test
+yarn test:api
+
+# Or run unit tests only
+yarn test:unit
 
 # Run tests in watch mode
 yarn test:watch

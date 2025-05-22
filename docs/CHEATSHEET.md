@@ -75,6 +75,11 @@
   - Request handling
   - Response processing
 
+##### Durable Objects (`packages/durable-objects`)
+- Stateful logic & coordination → [state-management.md](architecture/state-management.md)#durable-objects
+  - Real-time features support
+  - Data persistence strategies
+
 ##### Transpiler (`packages/js.spike.land`)
 - ESBuild integration → [workers.md](architecture/workers.md)#transpiler-worker
   - Configuration
@@ -139,7 +144,7 @@ yarn test:e2e       # E2E tests
 - `package.json` - Root package configuration
 - `tsconfig.json` - TypeScript configuration
 - `vite.config.ts` - Vite build configuration
-- `eslint.config.mts` - ESLint configuration
+- `eslint.config.js` - ESLint configuration
 - `wrangler.toml` - Worker configuration (located in the root directory, packages/js.spike.land, packages/spike-land-renderer, and packages/durable-objects)
 
 ##### Key Directories

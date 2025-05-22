@@ -93,6 +93,8 @@ This project is organized as a monorepo with the following structure:
 │   ├── dev scripts:     # - yarn dev (Local) or yarn dev:remote (Remote)
 │   └── deploy scripts:  # - yarn deploy:dev/prod (Environment-specific)
 │
+├── durable-objects/     # Cloudflare Durable Objects for stateful logic
+│
 ├── js.spike.land/       # Transpiler Worker
 │   ├── dev scripts:     # - yarn dev (Local development)
 │   └── deploy scripts:  # - yarn deploy:dev/prod (Environment-specific)
