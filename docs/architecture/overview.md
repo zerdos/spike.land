@@ -46,6 +46,11 @@ graph TD
 - Generates screenshots and PDFs
 - Handles static rendering tasks
 
+### 5. Durable Objects (`packages/durable-objects`)
+- Provides stateful services for the application.
+- Used for features like real-time collaboration, session management, etc.
+- Works in conjunction with the Main Worker.
+
 ## Data Flow
 
 1. **Code Editing Flow**

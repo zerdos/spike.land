@@ -97,7 +97,7 @@ This project is organized as a monorepo with the following structure:
 │
 ├── js.spike.land/       # Transpiler Worker
 │   ├── dev scripts:     # - yarn dev (Local development)
-│   └── deploy scripts:  # - yarn deploy:dev/prod (Environment-specific)
+│   └── deploy scripts:  # - yarn deploy:prod (Production deployment)
 │
 └── spike-land-renderer/ # Page rendering engine
     ├── dev scripts:     # - yarn dev (Local development)
