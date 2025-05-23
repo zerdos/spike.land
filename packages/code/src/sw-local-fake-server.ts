@@ -193,7 +193,7 @@ async function handleEditorResponse(codeSpace: string) {
   }
 
   const respText = baseHtml.replace(
-    "//IMPORTMAP",
+    "// IMPORTMAP",
     JSON.stringify(importMap),
   ).replace(
     '<div id="embed"></div>',
