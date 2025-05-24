@@ -384,7 +384,7 @@ hQIDAQAB
   private async handleDefaultRoute(): Promise<Response> {
     // const url = new URL(r);
     const { html, codeSpace, css } = this.code.getSession();
-    const respText = HTML.replace("${JSON.stringify(importMap)}", JSON.stringify(importMap))
+    const respText = HTML.replace("// IMPORTMAP", JSON.stringify(importMap))
       .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
         "${html}",
         html,
