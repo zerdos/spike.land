@@ -227,7 +227,7 @@ async function handleHtmlResponse(session: ICodeSession) {
   const { codeSpace, html, css } = session;
   // Use fetched baseHtml instead of the imported variable
   const respText = baseHtml.replace(
-    "${JSON.stringify(importMap)}",
+    "// IMPORTMAP",
     JSON.stringify(importMap),
   )
     .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css)
