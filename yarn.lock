@@ -3498,7 +3498,7 @@ __metadata:
     next-themes: "npm:0.4.6"
     os-browserify: "npm:^0.3.0"
     path-browserify: "npm:1.0.1"
-    postcss: "npm:8.5.3"
+    postcss: "npm:8.5.4"
     postcss-import: "npm:16.1.0"
     prettier: "npm:3.5.3"
     qrious: "npm:4.0.2"
@@ -10401,7 +10401,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.11, nanoid@npm:^3.3.8":
+"nanoid@npm:^3.3.11":
   version: 3.3.11
   resolution: "nanoid@npm:3.3.11"
   bin:
@@ -11155,18 +11155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.5.3":
-  version: 8.5.3
-  resolution: "postcss@npm:8.5.3"
-  dependencies:
-    nanoid: "npm:^3.3.8"
-    picocolors: "npm:^1.1.1"
-    source-map-js: "npm:^1.2.1"
-  checksum: 10/6d7e21a772e8b05bf102636918654dac097bac013f0dc8346b72ac3604fc16829646f94ea862acccd8f82e910b00e2c11c1f0ea276543565d278c7ca35516a7c
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.41, postcss@npm:^8.5.3":
+"postcss@npm:8.5.4, postcss@npm:^8.4.41, postcss@npm:^8.5.3":
   version: 8.5.4
   resolution: "postcss@npm:8.5.4"
   dependencies:
