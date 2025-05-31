@@ -6,16 +6,16 @@ FROM devimage
 USER 0
 
 # Change ownership of the user's home directory and set working directory
-RUN chown ${USER}:${USER} -R /home/${USER} || echo "Failed to chown home directory"
+RUN chown ${USER}:${USER} -R ${USER_HOME} || echo "Failed to chown home directory"
 
 # Switch back to the specified user
 USER ${USER}
 
 # Set the working directory
-WORKDIR /home/${USER}
+WORKDIR ${USER_HOME}
 
 # Install Oh My Zsh with specified plugins and theme
-RUN rm -rf /home/${USER}/.oh-my-zsh \
+RUN rm -rf ${USER_HOME}/.oh-my-zsh \
     && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)" -- \
        -t robbyrussell \
        -p git \

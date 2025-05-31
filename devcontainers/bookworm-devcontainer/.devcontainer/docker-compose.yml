@@ -20,12 +20,12 @@ services:
     #   context: .
     #   dockerfile: .devcontainer/Dockerfile
     volumes:
-      - ../..:/home/node/workspace:cached
-      - ${HOME:-/home/node}/.config:/home/node/.config:cached
-      - ${HOME:-/home/node}/.vscode:/home/node/.vscode:cached
-      - ${HOME:-/home/node}/.vscode-server:/home/node/.vscode-server:cached
-      - ${HOME:-/home/node}/.cache:/home/node/.cache:cached
-      - ${HOME:-/home/node}/.oh-my-zsh:/home/node/.oh-my-zsh:cached
+      - ../..:/home/z/workspace:cached
+      - ${HOME:-/home/z}/.config:/home/z/.config:cached
+      - ${HOME:-/home/z}/.vscode:/home/z/.vscode:cached
+      - ${HOME:-/home/z}/.vscode-server:/home/z/.vscode-server:cached
+      - ${HOME:-/home/z}/.cache:/home/z/.cache:cached
+      - ${HOME:-/home/z}/.oh-my-zsh:/home/z/.oh-my-zsh:cached
     ports:
       - "3333:3333"
       - "6080:6080"

@@ -8,7 +8,7 @@
     "docker-compose.yml"
   ],
   "service": "devcontainer",
-  "workspaceFolder": "/home/node/workspace",
+  "workspaceFolder": "/home/z/workspace",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -43,7 +43,7 @@
     }
   },
   "forwardPorts": [6080, 3333, 9222, 8080],
-  "remoteUser": "node",
+  "remoteUser": "z",
   "updateRemoteUserUID": true,
   "overrideCommand": false,
   "shutdownAction": "stopContainer",
