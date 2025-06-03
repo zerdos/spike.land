@@ -440,7 +440,7 @@ export class LRUCache<
         k: Ki,
         index: number | undefined,
         options: LRUCacheFetchOptions<Ki, Vi, FCi>,
-        context: unknown,
+        context?: FCi,
       ): BackgroundFetch<Vi> =>
         c.#backgroundFetch(
           k,

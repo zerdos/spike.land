@@ -73,7 +73,7 @@ class SessionPatcher {
 
     const parsedSession = applyDelta(
       sanitizedSession,
-      sessionDelta.delta,
+      sessionDelta.delta as ReturnType<typeof createDelta>,
     ) as ICodeSession;
 
     const newHash = SessionPatcher.computeSessionHash(parsedSession);
@@ -102,7 +102,7 @@ class SessionPatcher {
       return {
         oldHash,
         hashCode,
-        delta: [], // Always include delta property, even if empty
+        delta: []as unknown  as ReturnType<typeof createDelta>,
       };
     }
 

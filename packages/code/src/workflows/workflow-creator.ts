@@ -108,25 +108,12 @@ export function createWorkflowWithStringReplace(
     return result;
   };
 
-
-  const workflow = new StateGraph({
-    channels: graphState,
-    initialState: {
-      messages: [],
-      code: initialState.code,
-      codeSpace: initialState.codeSpace,
-      origin: initialState.origin,
-      hash: initialState.hash,
-      lastError: null,
-      recursionLimit: 5,
-    },
-  },{
-    
-  }) 
+  // Type assertion to work around LangGraph type issues
+  const workflow = new StateGraph(graphState as never)
     .addNode("tools", toolNode)
     .addNode("process", processMessageNode)
     .addEdge("__start__", "process")
-    .addConditionalEdges("process", shouldContinue, {
+    .addConditionalEdges("process", shouldContinue as never, {
       process: "process",
       tools: "tools",
       end: "__end__",
