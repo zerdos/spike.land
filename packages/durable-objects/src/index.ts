@@ -12,7 +12,7 @@ export class Counter implements DurableObject {
     void this.state.storage.put("count", this.count);
   }
 
-  fetch(request: Request) {
+  fetch(_request: Request) {
     this.increment();
     return new Response(this.count.toString());
   }

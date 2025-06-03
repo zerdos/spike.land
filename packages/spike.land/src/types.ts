@@ -6,7 +6,7 @@ export interface Env {
   ESM_ORIGIN: string;
   ESM_TOKEN: string;
   OPENAI_API_KEY: string;
-  AI: any;
+  AI: unknown;
   KV: KVNamespace;
   __STATIC_CONTENT: KVNamespace;
   NPM_REGISTRY: string;

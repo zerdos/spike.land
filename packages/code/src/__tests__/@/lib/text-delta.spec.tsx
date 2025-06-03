@@ -3,7 +3,7 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { describe, expect, it } from "vitest";
 
 // Define an interface for the operation with _diff property
-interface StringDiffOperation {
+interface _StringDiffOperation {
   op: string;
   path: string;
   value: string;

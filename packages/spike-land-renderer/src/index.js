@@ -3,9 +3,9 @@ export default {
   async fetch(request, env, ctx) {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
-    const top = searchParams.get("top");
-    const maxRetries = parseInt(searchParams.get("maxRetries") || "3");
-    const retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
+    const _top = searchParams.get("top");
+    const _maxRetries = parseInt(searchParams.get("maxRetries") || "3");
+    const _retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
     if (url) {
       url = new URL(url).toString(); // normalize
       let img = await env.BROWSER_KV_SPIKE_LAND.get(url, {

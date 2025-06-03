@@ -1,6 +1,5 @@
 import type { AgentState } from "@/../workflows/chat-langchain";
 import { createWorkflowWithStringReplace } from "@/../workflows/chat-langchain-workflow";
-import { ICode } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, SystemMessage } from "@langchain/core/messages";
@@ -18,7 +17,7 @@ vi.mock("uuid", () => ({
 }));
 
 describe("chat-langchain-workflow", () => {
-  const mockSession = {
+  const _mockSession = {
     getCode: vi.fn().mockResolvedValue("retrieved code"),
     getMessages: vi.fn().mockReturnValue([]),
     addMessage: vi.fn(),
@@ -26,7 +25,7 @@ describe("chat-langchain-workflow", () => {
     setCode: vi.fn(), // Mock setCode to avoid side effects
   };
 
-  const mockSystemMessage = { content: "System message" };
+  const _mockSystemMessage = { content: "System message" };
   const mockInitialState: AgentState = {
     messages: [],
     origin: "http://localhost",
@@ -51,7 +50,7 @@ describe("chat-langchain-workflow", () => {
   describe("workflow creation", () => {
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as any).cSess = {
+      (globalThis as { cSess?: object }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -95,7 +94,7 @@ describe("chat-langchain-workflow", () => {
 
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as any).cSess = {
+      (globalThis as { cSess?: object }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -108,7 +107,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(mockToolResponse),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any,
+          }) as unknown as ChatAnthropic,
       );
     });
 
@@ -156,7 +155,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(errorResponse),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any,
+          }) as unknown as ChatAnthropic,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
@@ -185,7 +184,7 @@ describe("chat-langchain-workflow", () => {
 
     it("should handle missing code in tool response", async () => {
       // Update the global cSess object with specific mock for this test
-      (globalThis as any).cSess = {
+      (globalThis as { cSess?: object }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -212,7 +211,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockResolvedValue(responseWithoutCode),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any,
+          }) as unknown as ChatAnthropic,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
@@ -221,14 +220,14 @@ describe("chat-langchain-workflow", () => {
       expect(result).toBeDefined();
       expect(result.hash).toBe(md5("retrieved code"));
       expect(console.error).not.toHaveBeenCalled();
-      expect((globalThis as any).cSess.getCode).toHaveBeenCalled();
+      expect((globalThis as { cSess?: { getCode?: () => void } }).cSess?.getCode).toHaveBeenCalled();
     });
   });
 
   describe("error handling", () => {
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as any).cSess = {
+      (globalThis as { cSess?: object }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -243,7 +242,7 @@ describe("chat-langchain-workflow", () => {
           ({
             invoke: vi.fn().mockRejectedValue(new Error("Test error")),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any,
+          }) as unknown as ChatAnthropic,
       );
 
       const workflow = createWorkflowWithStringReplace(mockInitialState);
@@ -268,7 +267,7 @@ describe("chat-langchain-workflow", () => {
               new AIMessage({ content: "Test response" }),
             ),
             bindTools: vi.fn().mockReturnThis(),
-          }) as any,
+          }) as unknown as ChatAnthropic,
       );
 
       const workflow = createWorkflowWithStringReplace(corruptedState);

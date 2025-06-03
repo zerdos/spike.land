@@ -27,18 +27,18 @@ if (!window.URL.createObjectURL) {
 // Fix for "Right-hand side of 'instanceof' is not an object" error in React
 // Only define these if they don't already exist to avoid breaking instanceof checks
 if (!global.HTMLElement) {
-  const MockHTMLElement = function() {} as any;
+  const MockHTMLElement = function() {} as unknown as new() => HTMLElement;
   global.HTMLElement = MockHTMLElement;
 }
 
 if (!global.Element) {
-  const MockElement = function() {} as any;
+  const MockElement = function() {} as unknown as new() => Element;
   Object.setPrototypeOf(MockElement.prototype, global.HTMLElement.prototype);
   global.Element = MockElement;
 }
 
 if (!global.HTMLInputElement) {
-  const MockHTMLInputElement = function() {} as any;
+  const MockHTMLInputElement = function() {} as unknown as new() => HTMLInputElement;
   Object.setPrototypeOf(
     MockHTMLInputElement.prototype,
     global.HTMLElement.prototype,
@@ -47,7 +47,7 @@ if (!global.HTMLInputElement) {
 }
 
 if (!global.HTMLTextAreaElement) {
-  const MockHTMLTextAreaElement = function() {} as any;
+  const MockHTMLTextAreaElement = function() {} as unknown as new() => HTMLTextAreaElement;
   Object.setPrototypeOf(
     MockHTMLTextAreaElement.prototype,
     global.HTMLElement.prototype,
@@ -56,7 +56,7 @@ if (!global.HTMLTextAreaElement) {
 }
 
 if (!global.HTMLSelectElement) {
-  const MockHTMLSelectElement = function() {} as any;
+  const MockHTMLSelectElement = function() {} as unknown as new() => HTMLSelectElement;
   Object.setPrototypeOf(
     MockHTMLSelectElement.prototype,
     global.HTMLElement.prototype,

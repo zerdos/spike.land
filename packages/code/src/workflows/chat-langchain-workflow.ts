@@ -17,7 +17,7 @@ import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
  */
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Get the global code session
-  const cSess = (globalThis as any).cSess as ICode;
+  const cSess = (globalThis as Record<string, unknown>).cSess as ICode;
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
@@ -173,7 +173,7 @@ export const createChatLangchainWorkflow = (
   const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
 
   // Create the system prompt
-  const systemPrompt = getSystemPrompt();
+  const _systemPrompt = getSystemPrompt();
 
   // Create the prompt template for user messages
   const promptTemplate = PromptTemplate.fromTemplate(`

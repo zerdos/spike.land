@@ -136,7 +136,7 @@ describe("WebSocketHandler", () => {
 
       // Get the close handler
       const closeHandler = (mockWebSocket.addEventListener as Mock).mock.calls
-        .find((call: any) => Array.isArray(call) && call[0] === "close")?.[1];
+        .find((call: Array<unknown>) => Array.isArray(call) && call[0] === "close")?.[1];
 
       // Simulate close event
       if (closeHandler) {

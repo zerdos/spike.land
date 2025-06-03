@@ -18,7 +18,7 @@ export const tryExtractCodeFromJson = (jsonString: string): string | null => {
     if (!content?.code && content?.hash) {
       return null;
     }
-  } catch (e) {
+  } catch (_e) {
     // Silently fail on JSON parse errors
   }
   return null;

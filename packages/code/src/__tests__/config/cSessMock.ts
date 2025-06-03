@@ -2,7 +2,7 @@ import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
 import { vi } from "vitest";
 
 // Define type for global with cSess property
-interface GlobalWithCodeSession {
+interface _GlobalWithCodeSession {
   cSess?: ICode;
 }
 
@@ -79,8 +79,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
   const mockSession = createMockCodeSession(initialCode);
 
   // Set up the global cSess object
-
-  (global as any).cSess = mockSession;
+  (global as { cSess?: ICode }).cSess = mockSession;
 
   return mockSession;
 };
@@ -89,7 +88,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
  * Cleans up the global mock session
  */
 export const cleanupGlobalMockSession = (): void => {
-  delete (global as any).cSess;
+  delete (global as { cSess?: ICode }).cSess;
 };
 
 // Create a default mock session for direct import

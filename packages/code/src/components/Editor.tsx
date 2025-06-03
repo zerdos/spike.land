@@ -4,7 +4,7 @@ import { prettierToThrow } from "@/lib/shared";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { initializeMonaco } from "@/services/editorUtils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useEditorState } from "../hooks/use-editor-state";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { EditorNode } from "./ErrorReminder";
@@ -59,9 +59,9 @@ export const Editor: React.FC<EditorProps> = (
       setLastHash(md5(sortedSession.code));
     };
     sortSession();
-  }, []);
+  }, [cSess]);
 
-  const handleContentChange = async (newCode: string) => {
+  const handleContentChange = useCallback(async (newCode: string) => {
     if (!session) return;
 
     const now = Date.now();
@@ -170,7 +170,7 @@ export const Editor: React.FC<EditorProps> = (
       codeLength: newCode.length,
       timestamp: new Date().toISOString(),
     });
-  };
+  }, [session, cSess, lastHash, setLastHash, setEditorState, replaceIframe, throttledTypeCheck]);
 
   // Track external change metrics
   const externalMetrics = useRef({
@@ -340,7 +340,7 @@ export const Editor: React.FC<EditorProps> = (
 
     initEditor();
     // Add session to the dependency array
-  }, [session, codeSpace, editorState.started, errorType, throttledTypeCheck]); // Added session and other relevant dependencies
+  }, [session, codeSpace, editorState.started, errorType, throttledTypeCheck, containerRef, handleContentChange, setEditorState]); // Added session and other relevant dependencies
 
   // Track aggregate metrics across component lifetime
   const lifetimeMetrics = useRef({
@@ -353,18 +353,18 @@ export const Editor: React.FC<EditorProps> = (
 
   // Monitor component cleanup and log final statistics
   useEffect(() => {
+    const metrics = lifetimeMetrics.current;
     return () => {
-      const duration = (Date.now() - lifetimeMetrics.current.startTime) /
-        1000;
+      const duration = (Date.now() - metrics.startTime) / 1000;
       console.info("[Editor] Component lifetime metrics:", {
         durationSeconds: duration.toFixed(2),
-        avgLocalChangesPerMinute: (lifetimeMetrics.current.totalLocalChanges / (duration / 60))
+        avgLocalChangesPerMinute: (metrics.totalLocalChanges / (duration / 60))
           .toFixed(2),
         avgExternalChangesPerMinute:
-          (lifetimeMetrics.current.totalExternalChanges / (duration / 60))
+          (metrics.totalExternalChanges / (duration / 60))
             .toFixed(2),
-        totalSkippedChanges: lifetimeMetrics.current.totalSkippedChanges,
-        longestSyncTimeMs: lifetimeMetrics.current.longestSyncTime.toFixed(2),
+        totalSkippedChanges: metrics.totalSkippedChanges,
+        longestSyncTimeMs: metrics.longestSyncTime.toFixed(2),
         codeSpace,
       });
     };

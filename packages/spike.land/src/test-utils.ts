@@ -17,7 +17,7 @@ export function createMockEnv() {
       aiGatewayLogId: "test-log-id",
       gateway: "test-gateway",
       models: {},
-    } as any, // Type assertion since we're mocking only required parts
+    } as unknown, // Type assertion since we're mocking only required parts
     KV: {
       get: vi.fn(),
       put: vi.fn(),

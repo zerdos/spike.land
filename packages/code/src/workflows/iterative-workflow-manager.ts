@@ -1,6 +1,6 @@
 import type { ICode } from "@/lib/interfaces";
 import type { AgentState } from "./chat-langchain";
-import { getHashWithCache } from "./code-processing";
+import { getHashWithCache as _getHashWithCache } from "./code-processing";
 import { createCodeValidator, type ValidationResult } from "./code-validation";
 import { telemetry } from "./telemetry";
 
@@ -49,9 +49,9 @@ export class IterativeWorkflowManager {
    * Executes workflow with iterative improvements until code is runnable
    */
   async executeWithValidation(
-    workflow: any,
+    workflow: unknown,
     initialPrompt: string,
-    images: any[],
+    images: unknown[],
     codeSession: ICode,
     initialState: AgentState,
   ): Promise<IterationResult> {

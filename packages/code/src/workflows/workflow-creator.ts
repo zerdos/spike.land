@@ -85,7 +85,7 @@ export function createWorkflowWithStringReplace(
       if (Array.isArray(toolCalls) && toolCalls.length > 0) {
         console.warn( // Changed to console.warn
           "shouldContinue: Tool calls detected:",
-          JSON.stringify(toolCalls.map((tc: any) => ({
+          JSON.stringify(toolCalls.map((tc: Record<string, unknown>) => ({
             name: tc.name,
             args: typeof tc.args === "string"
               ? "(string)"
@@ -109,6 +109,7 @@ export function createWorkflowWithStringReplace(
   };
 
   // Use type assertion for StateGraph initialization as it expects a specific structure
+   
   const workflow = new StateGraph(
     { channels: graphState, recursionLimit: 10 } as any,
   ) // Increased recursion limit

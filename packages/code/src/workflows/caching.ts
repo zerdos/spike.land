@@ -6,7 +6,7 @@ import {
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
 
-type CacheValue = {
+type _CacheValue = {
   hash?: string;
   modifiedCodeHash?: string;
   compilationError: boolean;

@@ -1,4 +1,4 @@
-import { importMap } from "@spike-npm-land/code";
+import { importMap as _importMap } from "@spike-npm-land/code";
 const md5Promise = import("@spike-npm-land/code").then((m) => m.md5);
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "./chatRoom";

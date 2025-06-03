@@ -1,7 +1,7 @@
-import { messagesPush, updateSearchReplace } from "@/lib/chat-utils";
+import { messagesPush as _messagesPush, updateSearchReplace as _updateSearchReplace } from "@/lib/chat-utils";
 import { SEARCH_REPLACE_MARKERS } from "@/lib/chat-utils";
 import type { ICode } from "@/lib/interfaces";
-import { Message } from "@/lib/interfaces";
+import { Message as _Message } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { tool } from "@langchain/core/tools";
 import type { CodeModification } from "../chat-langchain";

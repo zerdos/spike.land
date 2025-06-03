@@ -99,7 +99,7 @@ export class CodeValidator {
   /**
    * Validates basic JavaScript/TypeScript syntax using simple pattern matching
    */
-  private async validateSyntax(code: string, filePath: string): Promise<ValidationResult> {
+  private async validateSyntax(code: string, _filePath: string): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
@@ -242,7 +242,7 @@ export class CodeValidator {
   /**
    * Validates imports and dependencies
    */
-  private async validateImports(code: string, codeSession: ICode): Promise<ValidationResult> {
+  private async validateImports(code: string, _codeSession: ICode): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
@@ -340,8 +340,8 @@ export class CodeValidator {
    */
   private async testCompilation(
     code: string,
-    codeSession: ICode,
-    filePath: string,
+    _codeSession: ICode,
+    _filePath: string,
   ): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
@@ -446,7 +446,7 @@ export class CodeValidator {
 
     for (let i = 0; i < code.length; i++) {
       const char = code[i];
-      const prevChar = i > 0 ? code[i - 1] : '';
+      const _prevChar = i > 0 ? code[i - 1] : '';
 
       if (escaped) {
         escaped = false;

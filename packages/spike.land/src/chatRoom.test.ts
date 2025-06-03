@@ -56,13 +56,13 @@ describe("Code Durable Object", () => {
         delete: vi.fn(),
         list: vi.fn(),
         deleteAll: vi.fn(),
-        transaction: vi.fn((closure: () => Promise<any>) => closure()),
+        transaction: vi.fn((closure: () => Promise<unknown>) => closure()),
         getAlarm: vi.fn(),
         setAlarm: vi.fn(),
         deleteAlarm: vi.fn(),
         blockConcurrencyWhile: vi.fn((callback) => callback()),
         // Add other storage methods if used, or cast to unknown then to DurableObjectStorage
-      } as any, // Using 'as any' for brevity, ideally mock all used methods
+      } as unknown, // Using type assertion for brevity, ideally mock all used methods
       id: { toString: () => "test-id", equals: vi.fn(), name: "test-name" } as DurableObjectId,
       waitUntil: vi.fn(),
       blockConcurrencyWhile: vi.fn(async (callback) => await callback()),
@@ -248,8 +248,8 @@ describe("Code Durable Object", () => {
       // Create a new instance of Code with the same state and env, but it will have the mocked WebSocketHandler
       codeInstance = new Code(mockState, mockEnv);
       // Manually set the session for this new instance to avoid re-initializing and re-triggering puts
-      (codeInstance as any).session = initialSession;
-      (codeInstance as any).initialized = true;
+      (codeInstance as unknown as { session: unknown; initialized: boolean }).session = initialSession;
+      (codeInstance as unknown as { session: unknown; initialized: boolean }).initialized = true;
     });
 
     it("should save updated session parts and broadcast changes", async () => {

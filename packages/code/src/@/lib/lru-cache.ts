@@ -42,7 +42,12 @@ if (typeof AC === "undefined") {
       );
     }
     abort(reason: unknown) {
-      const signal = this.signal as any;
+      const signal = this.signal as InstanceType<typeof AS> & {
+        aborted: boolean;
+        reason: unknown;
+        _onabort: Array<(reason: unknown) => void>;
+        onabort?: (reason: unknown) => void;
+      };
       if (signal.aborted) return;
       signal.reason = reason;
       signal.aborted = true;
@@ -940,8 +945,8 @@ export class LRUCache<
   }
 
   forEach(
-    fn: (v: V, k: K, self: LRUCache<K, V, FC>) => any,
-    thisp: any = this,
+    fn: (v: V, k: K, self: LRUCache<K, V, FC>) => void,
+    thisp: object = this,
   ) {
     for (const i of this.#indexes()) {
       const v = this.#valList[i];
@@ -952,8 +957,8 @@ export class LRUCache<
   }
 
   rforEach(
-    fn: (v: V, k: K, self: LRUCache<K, V, FC>) => any,
-    thisp: any = this,
+    fn: (v: V, k: K, self: LRUCache<K, V, FC>) => void,
+    thisp: object = this,
   ) {
     for (const i of this.#rindexes()) {
       const v = this.#valList[i];
@@ -1253,7 +1258,7 @@ export class LRUCache<
     k: K,
     index: Index | undefined,
     options: LRUCacheFetchOptions<K, V, FC>,
-    context: any,
+    context: FC | undefined,
   ): BackgroundFetch<V> {
     const v = index === undefined
       ? undefined
@@ -1271,7 +1276,7 @@ export class LRUCache<
     const fetchOpts = {
       signal: ac.signal,
       options,
-      context,
+      context: context as FC,
     };
 
     const cb = (
@@ -1317,7 +1322,7 @@ export class LRUCache<
       return fetchedValue;
     };
 
-    const eb = (er: any) => {
+    const eb = (er: Error) => {
       if (options.status) {
         options.status.fetchRejected = true;
         options.status.fetchError = er;
@@ -1325,7 +1330,7 @@ export class LRUCache<
       return fetchFail(er);
     };
 
-    const fetchFail = (er: any): V | undefined => {
+    const fetchFail = (er: Error): V | undefined => {
       const { aborted } = ac.signal;
       const allowStaleAborted = aborted && options.allowStaleOnFetchAbort;
       const allowStale = allowStaleAborted ||
@@ -1360,7 +1365,7 @@ export class LRUCache<
 
     const pcall = (
       res: (v: V | undefined) => void,
-      rej: (e: any) => void,
+      rej: (e: Error) => void,
     ) => {
       const fmp = this.#fetchMethod?.(k, v, fetchOpts); // v is staleValue here
       if (fmp && fmp instanceof Promise) {
@@ -1414,7 +1419,7 @@ export class LRUCache<
     return p;
   }
 
-  #isBackgroundFetch(p: any): p is BackgroundFetch<V> {
+  #isBackgroundFetch(p: unknown): p is BackgroundFetch<V> {
     if (!this.#hasFetchMethod) return false;
     const b = p as BackgroundFetch<V>;
     return (
@@ -1547,10 +1552,7 @@ export class LRUCache<
     k: K,
     fetchOptions: LRUCacheFetchOptions<K, V, FC> = {},
   ): Promise<V> {
-    const v = await this.fetch(
-      k,
-      fetchOptions as any, // Cast to avoid complex conditional type error in implementation
-    );
+    const v = await this.fetch(k, fetchOptions as unknown as Parameters<typeof this.fetch>[1]);
     if (v === undefined) throw new Error("fetch() returned undefined");
     return v;
   }

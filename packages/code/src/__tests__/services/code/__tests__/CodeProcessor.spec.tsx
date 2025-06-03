@@ -5,7 +5,7 @@ import { RenderService } from "@/services/RenderService";
 import type { IWebSocketManager } from "@/services/types";
 import type { EmotionCache } from "@emotion/cache";
 import { createRoot } from "react-dom/client";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/services/RenderService");
 vi.mock("@/services/editorUtils");
@@ -47,7 +47,7 @@ describe("CodeProcessor", () => {
   const getSession = () => sessionMock;
 
   // Test interface definition
-  interface WindowWithWebSocket {
+  interface _WindowWithWebSocket {
     frames: Record<number, {
       webSocketManager: IWebSocketManager;
     }>;
@@ -150,7 +150,7 @@ describe("CodeProcessor", () => {
       vi.mocked(formatCode).mockResolvedValue(`formatted`);
 
       // Mock the window message event to simulate iframe response
-      const mockMessageEvent = {
+      const _mockMessageEvent = {
         data: {
           type: "rendered",
           requestId: "md5-hash", // This would be the md5 of the transpiled code
@@ -263,7 +263,7 @@ describe("CodeProcessor", () => {
         render: vi.fn(),
         unmount: vi.fn(),
       };
-      (createRoot as any).mockReturnValue(mockRoot);
+      (vi.mocked(createRoot)).mockReturnValue(mockRoot);
 
       const mockRenderedApp: RenderedApp = {
         rootElement: rootElement,
@@ -301,7 +301,7 @@ describe("CodeProcessor", () => {
         render: vi.fn(),
         unmount: vi.fn(),
       };
-      (createRoot as any).mockReturnValue(mockRoot);
+      (vi.mocked(createRoot)).mockReturnValue(mockRoot);
 
       const rootElement = document.createElement("div");
       const mockRenderedApp: RenderedApp = {

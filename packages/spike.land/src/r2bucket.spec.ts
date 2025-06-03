@@ -198,7 +198,7 @@ describe("R2BucketHandler", () => {
     it("should successfully retrieve object from R2 bucket", async () => {
       const mockBody = new Blob(["test content"]);
       const mockR2Object: R2Object = {
-        writeHttpMetadata: (headers: any) => {
+        writeHttpMetadata: (headers: Headers) => {
           headers.set("X-Test-Header", "test-value");
         },
         httpEtag: "test-etag",

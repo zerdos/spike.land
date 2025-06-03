@@ -1,5 +1,5 @@
 import type { BrowserWorker } from "@cloudflare/puppeteer";
-import puppeteer, { Page } from "@cloudflare/puppeteer";
+import puppeteer, { Page as _Page } from "@cloudflare/puppeteer";
 
 interface Env {
   MY_WORKER_BROWSER: Fetcher;
@@ -10,9 +10,9 @@ export default {
   async fetch(request, env, ctx): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
-    const top = searchParams.get("top");
-    const maxRetries = parseInt(searchParams.get("maxRetries") || "3");
-    const retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
+    const _top = searchParams.get("top");
+    const _maxRetries = parseInt(searchParams.get("maxRetries") || "3");
+    const _retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
 
     if (url) {
       url = new URL(url).toString(); // normalize

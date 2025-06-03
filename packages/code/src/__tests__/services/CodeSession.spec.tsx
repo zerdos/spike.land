@@ -99,7 +99,7 @@ describe("Code", () => {
       cleanup: vi.fn(),
     };
 
-    interface MockWindow {
+    interface _MockWindow {
       frames: Record<number, {
         webSocketManager: {
           handleRunMessage: () => Promise<{ html: string; css: string; }>;

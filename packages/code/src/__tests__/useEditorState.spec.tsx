@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { useEditorState } from "../hooks/use-editor-state";
+import { useEditorState, type EditorState as _EditorState } from "../hooks/use-editor-state";
 
 describe("useEditorState", () => {
   beforeEach(() => {
@@ -50,9 +50,12 @@ describe("useEditorState", () => {
       code: "const x = 5;",
     };
 
-    // Use type assertion to bypass TypeScript's type checking
+    // Use functional update with proper type checking
     act(() => {
-      result.current.setEditorState(partialState as any);
+      result.current.setEditorState((prev) => ({
+        ...prev,
+        ...partialState,
+      }));
     });
 
     // Verify that the original setValue function was preserved

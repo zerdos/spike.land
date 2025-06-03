@@ -1,4 +1,4 @@
-import type { ICodeSession } from "@spike-npm-land/code";
+// Remove unused import
 import { applySessionDelta, computeSessionHash, tryCatch } from "@spike-npm-land/code";
 import type { Code } from "./chatRoom";
 
@@ -226,7 +226,7 @@ export class WebSocketHandler {
                 session.webSocket,
                 blockedMsg,
               );
-            } catch (e) {
+            } catch (_e) {
               // If sending fails, re-queue to current session
               session.blockedMessages.push(blockedMsg);
             }
@@ -258,7 +258,7 @@ export class WebSocketHandler {
       .filter(Boolean);
   }
 
-  broadcast(message: any, excludeSession?: WebsocketSession) {
+  broadcast(message: object | string, excludeSession?: WebsocketSession) {
     for (const session of this.wsSessions) {
       if (session.name !== excludeSession?.name) {
         this.safeSend(

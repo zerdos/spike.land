@@ -145,9 +145,9 @@ describe("code-utils", () => {
 
   describe("shouldReturnFullCode", () => {
     // Mock the config constants
-    const originalSmallFileThreshold = (global as any).SMALL_FILE_THRESHOLD;
-    const originalComplexChangeThreshold = (global as any).COMPLEX_CHANGE_THRESHOLD;
-    const originalSignificantChangeRatio = (global as any).SIGNIFICANT_CHANGE_RATIO;
+    const originalSmallFileThreshold = (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD;
+    const originalComplexChangeThreshold = (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD;
+    const originalSignificantChangeRatio = (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO;
 
     beforeEach(() => {
       // Mock updateSearchReplace
@@ -156,16 +156,16 @@ describe("code-utils", () => {
       }));
 
       // Set mock values for constants
-      (global as any).SMALL_FILE_THRESHOLD = 1000;
-      (global as any).COMPLEX_CHANGE_THRESHOLD = 500;
-      (global as any).SIGNIFICANT_CHANGE_RATIO = 0.3;
+      (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD = 1000;
+      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD = 500;
+      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO = 0.3;
     });
 
     afterEach(() => {
       // Restore original values
-      (global as any).SMALL_FILE_THRESHOLD = originalSmallFileThreshold;
-      (global as any).COMPLEX_CHANGE_THRESHOLD = originalComplexChangeThreshold;
-      (global as any).SIGNIFICANT_CHANGE_RATIO = originalSignificantChangeRatio;
+      (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD = originalSmallFileThreshold;
+      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD = originalComplexChangeThreshold;
+      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO = originalSignificantChangeRatio;
     });
 
     it("should return true for small files", () => {
@@ -203,8 +203,8 @@ describe("code-utils", () => {
     });
 
     it("should return 0 for null or undefined input", () => {
-      const result1 = estimateTokenSavings(null as any);
-      const result2 = estimateTokenSavings(undefined as any);
+      const result1 = estimateTokenSavings(null as unknown as string);
+      const result2 = estimateTokenSavings(undefined as unknown as string);
 
       expect(result1).toBe(0);
       expect(result2).toBe(0);
