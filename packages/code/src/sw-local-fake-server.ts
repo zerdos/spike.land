@@ -1,4 +1,4 @@
-import { getCodeSpace } from "@/hooks/use-code-space";
+import { getCodeSpace } from "@/hooks/use-code-space.ts";
 import { importMap, importMapReplace } from "@/lib/importmap-utils";
 import { routes } from "@/lib/routes";
 import { SessionSynchronizer } from "@/services/SessionSynchronizer";
@@ -193,7 +193,7 @@ async function handleEditorResponse(codeSpace: string) {
   }
 
   const respText = baseHtml.replace(
-    "//IMPORTMAP",
+    "// IMPORTMAP",
     JSON.stringify(importMap),
   ).replace(
     '<div id="embed"></div>',
@@ -227,7 +227,7 @@ async function handleHtmlResponse(session: ICodeSession) {
   const { codeSpace, html, css } = session;
   // Use fetched baseHtml instead of the imported variable
   const respText = baseHtml.replace(
-    "${JSON.stringify(importMap)}",
+    "// IMPORTMAP",
     JSON.stringify(importMap),
   )
     .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css)

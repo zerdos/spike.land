@@ -83,7 +83,13 @@ RUN apt-get update || (sleep 15 && apt-get update) || (sleep 15 && apt-get updat
 ARG USER_UID=1000
 ARG USER_GID=1000
 ARG USER="gitpod"
+ARG HOME
+ARG USERNAME=${USER}
+ARG USER_HOME=${HOME:-/home/${USER}}
 ENV USER=${USER}
+ENV USERNAME=${USERNAME}
+ENV USER_HOME=${USER_HOME}
+ENV HOME=${USER_HOME}
 
 # Create user in a single layer
 RUN (userdel -r -f "$(id -un 1000)" 2>/dev/null || true) && \
@@ -96,12 +102,12 @@ RUN (userdel -r -f "$(id -un 1000)" 2>/dev/null || true) && \
     useradd -l -u ${USER_UID} -g ${USER_GID} -G sudo -m -s /usr/bin/zsh ${USER} && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     echo "Set disable_coredump false" >> /etc/sudo.conf && \
-    chown ${USER}:${USER} -R /home/${USER} 2>/dev/null || true
+    chown ${USER}:${USER} -R ${USER_HOME} 2>/dev/null || true
 
 # Set up start scripts
 RUN touch /usr/bin/startx /usr/bin/startWithBash \
     && chmod +x /usr/bin/startx /usr/bin/startWithBash \
-    && echo "( test -f /home/${USER}/.zshrc || (cp /home/${USER}/.oh-my-zsh/.zshrc /home/${USER}/.zshrc || echo no_zshr) && sudo service dbus start && sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs || echo failed)" >> /usr/bin/startx \
+    && echo "( test -f ${USER_HOME}/.zshrc || (cp ${USER_HOME}/.oh-my-zsh/.zshrc ${USER_HOME}/.zshrc || echo no_zshr) && sudo service dbus start && sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} ${USER_HOME}/tmpfs || echo failed)" >> /usr/bin/startx \
     && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash
 
 
@@ -121,13 +127,13 @@ RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
 
 USER ${USER}
 RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v2.2.1 \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> /home/${USER}/.zshrc \
-  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> /home/${USER}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> /home/${USER}/.bashrc \
-  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> /home/${USER}/.zshrc) || echo no-deno
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.zshrc \
+  && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${USER_HOME}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${USER_HOME}/.bashrc \
+  && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${USER_HOME}/.zshrc) || echo no-deno
 
 USER 0
-RUN (ln /home/${USER}/.deno/bin/deno /usr/bin) || echo no-deno
+RUN (ln ${USER_HOME}/.deno/bin/deno /usr/bin) || echo no-deno
 
 USER ${USER}
 
@@ -201,16 +207,16 @@ rm -rf /var/lib/apt/lists/* || echo "this arch is not supported"
 USER 0
 
 # Change ownership of the user's home directory and set working directory
-RUN chown ${USER}:${USER} -R /home/${USER} || echo "Failed to chown home directory"
+RUN chown ${USER}:${USER} -R ${USER_HOME} || echo "Failed to chown home directory"
 
 # Switch back to the specified user
 USER ${USER}
 
 # Set the working directory
-WORKDIR /home/${USER}
+WORKDIR ${USER_HOME}
 
 # Install Oh My Zsh with specified plugins and theme
-RUN rm -rf /home/${USER}/.oh-my-zsh \
+RUN rm -rf ${USER_HOME}/.oh-my-zsh \
     && sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)" -- \
        -t robbyrussell \
        -p git \
