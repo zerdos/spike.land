@@ -92,5 +92,8 @@ export function createGraphStateReducers(): GraphStateReducers {
     filePath: {
       reducer: (_prev, next) => next,
     },
+    recursionLimit: {
+      reducer: (_prev, next) => next,
+    }
   };
 }

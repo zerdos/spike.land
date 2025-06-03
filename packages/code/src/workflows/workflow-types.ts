@@ -55,6 +55,9 @@ export interface GraphStateReducers {
       next: string | undefined,
     ) => string | undefined;
   };
+  recursionLimit: {
+    reducer: (_prev: number, next: number) => number;
+  };
 }
 
 /**
