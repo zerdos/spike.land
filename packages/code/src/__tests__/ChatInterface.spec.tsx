@@ -1,5 +1,5 @@
-import type { ChatDrawerProps } from "@/lib/interfaces";
-import React, { useRef, useState } from "react"; // Import React, useRef, useState
+import type { ChatDrawerProps as _ChatDrawerProps } from "@/lib/interfaces";
+import React, { useRef as _useRef, useState as _useState } from "react"; // Import React, useRef, useState
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock dependencies first

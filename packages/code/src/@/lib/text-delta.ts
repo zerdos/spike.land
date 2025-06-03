@@ -1,5 +1,5 @@
 import { diff_match_patch as DiffMatchPatch } from "@dmsnell/diff-match-patch";
-import { create as createDiffPatch } from "jsondiffpatch";
+import { create as createDiffPatch, type Delta } from "jsondiffpatch";
 // Configure jsondiffpatch to produce as small deltas as possible.
 
 const diffpatcher = createDiffPatch({
@@ -23,7 +23,7 @@ const diffpatcher = createDiffPatch({
  * @param newObj - The updated session object.
  * @returns A delta representing the changes.
  */
-export function createDelta(oldObj: any, newObj: any): any {
+export function createDelta(oldObj: unknown, newObj: unknown): Delta | unknown[] {
   // jsondiffpatch.diff returns undefined when no differences exist.
   return diffpatcher.diff(oldObj, newObj) || [];
 }
@@ -36,9 +36,12 @@ export function createDelta(oldObj: any, newObj: any): any {
  * @param delta - The delta representing the changes.
  * @returns The new session object with the delta applied.
  */
-export function applyDelta(obj: any, delta: any): any {
+export function applyDelta(obj: unknown, delta: Delta | unknown[]): unknown {
   // Clone the object so that we don't modify the original.
   const clone = JSON.parse(JSON.stringify(obj));
-  diffpatcher.patch(clone, delta);
+  if (Array.isArray(delta) && delta.length === 0) {
+    return clone; // No changes to apply
+  }
+  diffpatcher.patch(clone, delta as Delta);
   return clone;
 }

@@ -12,7 +12,7 @@ export const getInitialDarkMode = (): boolean => {
     }
     try {
       return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   }

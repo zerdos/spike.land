@@ -74,7 +74,7 @@ class SessionPatcher {
     const parsedSession = applyDelta(
       sanitizedSession,
       sessionDelta.delta,
-    );
+    ) as ICodeSession;
 
     const newHash = SessionPatcher.computeSessionHash(parsedSession);
     if (newHash !== sessionDelta.hashCode) {
@@ -115,7 +115,7 @@ class SessionPatcher {
     };
 
     // Validate that the patch can be applied
-    const patchedSession = applyDelta(sanitizedOldSess, delta);
+    const patchedSession = applyDelta(sanitizedOldSess, delta) as ICodeSession;
     const patchedHash = SessionPatcher.computeSessionHash(patchedSession);
     if (patchedHash !== hashCode) {
       // If the patch is invalid, throw an error in such a format, that it can be easily added as a new integration test

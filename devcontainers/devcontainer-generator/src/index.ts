@@ -414,16 +414,16 @@ export class DevcontainerGenerator {
     // Set appropriate template and variables based on version
     if (version === "6") {
       const dotnetVersion = softwareVersions.dotnet6;
-      const shaValues = (softwareVersions.sha.dotnet_sha512 as any)["6.0.400"];
+      const shaValues = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { arm: string; amd: string }>)["6.0.400"] as { arm: string; amd: string };
       
       this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
       this._variables["arm_dotnet_sha512"] = shaValues.arm;
       this._variables["amd_dotnet_sha512"] = shaValues.amd;
       this._enabledTemplates.add("dotnet6");
-    } 
+    }
     else if (version === "3") {
       const dotnetVersion = softwareVersions.dotnet3;
-      const shaRecord = (softwareVersions.sha.dotnet_sha512 as any)[dotnetVersion];
+      const shaRecord = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { amd: string }>)[dotnetVersion];
       const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
       
       this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
@@ -432,7 +432,7 @@ export class DevcontainerGenerator {
     } 
     else {
       const dotnetVersion = softwareVersions.dotnet5;
-      const shaRecord = (softwareVersions.sha.dotnet_sha512 as any)[dotnetVersion];
+      const shaRecord = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { amd: string }>)[dotnetVersion];
       const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
       
       this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;

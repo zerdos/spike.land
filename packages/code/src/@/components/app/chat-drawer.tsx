@@ -37,7 +37,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   } = props;
 
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
-  const [userScrolledUp, setUserScrolledUp] = useState(false);
+  const [_userScrolledUp, setUserScrolledUp] = useState(false);
 
   // Memoize button class for performance
   const buttonClassName = useMemo(

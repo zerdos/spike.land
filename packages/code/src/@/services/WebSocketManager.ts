@@ -209,7 +209,7 @@ export class WebSocketManager implements IWebSocketManager {
 
     this.subscribe(
       WebSocketEventType.MESSAGE,
-      messageHandler as (event: Event | MessageEvent<any>) => void,
+      messageHandler as (event: Event | MessageEvent<unknown>) => void,
     );
 
     // Set up window message handler

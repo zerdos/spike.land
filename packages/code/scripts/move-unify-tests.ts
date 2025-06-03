@@ -23,7 +23,7 @@ function walk(dir: string, fileList: string[] = []) {
   return fileList;
 }
 
-function toSpecName(file: string) {
+function _toSpecName(file: string) {
   return file.replace(/\.test\.tsx?$/, ".spec.tsx").replace(/\.test\.ts$/, ".spec.ts");
 }
 

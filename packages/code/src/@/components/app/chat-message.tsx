@@ -137,7 +137,7 @@ export const ChatMessage = React.memo<ChatMessageProps>((props) => {
         isUser={isUser}
       />
     );
-  }, [message.content, isSystem, isUser]);
+  }, [message.content, isSystem, isUser, onNewPrompt]);
 
   /**
    * Classnames

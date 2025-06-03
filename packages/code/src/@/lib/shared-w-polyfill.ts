@@ -1,6 +1,6 @@
 const sharedWorkerSupported = typeof SharedWorker !== "undefined";
 
-import { tryCatch } from "./try-catch"; // Added import
+import { tryCatch as _tryCatch } from "./try-catch"; // Added import
 
 class SharedWorkerPolyfill {
   private worker: Worker | null = null; // Can be null if construction fails

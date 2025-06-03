@@ -1,4 +1,4 @@
-import { editor, languages } from "@/workers/monaco-editor.worker";
+import { languages } from "@/workers/monaco-editor.worker";
 import type { editor as Editor } from "monaco-editor";
 import type { ResponsiveSettings } from "./types";
 

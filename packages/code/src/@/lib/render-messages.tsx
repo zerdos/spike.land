@@ -106,7 +106,7 @@ const Code = memo<CodeProps>(({ value, language, type, onNewPrompt }) => {
 
     // Default code block
     return <CodeBlock value={trimmedValue} language={language} />;
-  }, [trimmedValue, type, language]);
+  }, [trimmedValue, type, language, onNewPrompt]);
 
   return useMemo(() => renderContent(), [renderContent]);
 });

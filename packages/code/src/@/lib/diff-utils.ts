@@ -1,4 +1,4 @@
-import { tryCatch } from "./try-catch"; // Added import
+import { tryCatch as _tryCatch } from "./try-catch"; // Added import
 
 export const isDiffContent = (content: string): boolean => {
   return content.includes("<<<<<<< SEARCH") || content.includes("=======") ||
