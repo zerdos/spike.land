@@ -108,8 +108,8 @@ export function createWorkflowWithStringReplace(
     return result;
   };
 
-  // Type assertion to work around LangGraph type issues
-  const workflow = new StateGraph(graphState as never)
+  // Use the proper LangGraph annotation schema
+  const workflow = new StateGraph(graphState)
     .addNode("tools", toolNode)
     .addNode("process", processMessageNode)
     .addEdge("__start__", "process")

@@ -1,23 +1,27 @@
+import { Annotation } from "@langchain/langgraph";
+import type { BaseMessage } from "@langchain/core/messages";
 import { tryExtractCodeFromJson } from "./code-processing";
 import { ErrorType, WorkflowError } from "./tools/utils/error-handlers";
-import type { GraphStateReducers } from "./workflow-types";
 
 /**
- * Creates the graph state reducers for the workflow
+ * Creates the graph state schema using LangGraph's Annotation system
  */
-export function createGraphStateReducers(): GraphStateReducers {
-  return {
-    messages: {
+export function createGraphStateReducers() {
+  return Annotation.Root({
+    messages: Annotation<BaseMessage[]>({
       reducer: (prev, next) => [...prev, ...next],
-    },
-    codeSpace: {
+      default: () => [],
+    }),
+    codeSpace: Annotation<string>({
       reducer: (_prev, next) => next,
-    },
-    origin: {
+      default: () => "",
+    }),
+    origin: Annotation<string>({
       reducer: (_prev, next) => next,
-    },
-    code: {
-      reducer: (prev, next) => {
+      default: () => "",
+    }),
+    code: Annotation<string>({
+      reducer: (prev: string, next: unknown): string => {
         try {
           // Direct string return
           if (typeof next === "string") return next;
@@ -25,14 +29,14 @@ export function createGraphStateReducers(): GraphStateReducers {
           // Handle object types
           if (typeof next === "object" && next !== null) {
             // Try to extract code from content field (JSON string)
-            if ("content" in next && typeof next.content === "string") {
-              const extractedCode = tryExtractCodeFromJson(next.content);
+            if ("content" in next && typeof (next as Record<string, unknown>).content === "string") {
+              const extractedCode = tryExtractCodeFromJson((next as Record<string, unknown>).content as string);
               if (extractedCode) return extractedCode;
             }
 
             // Direct code field
-            if ("code" in next && typeof next.code === "string") {
-              return next.code;
+            if ("code" in next && typeof (next as Record<string, unknown>).code === "string") {
+              return (next as Record<string, unknown>).code as string;
             }
 
             // If only hash is present, keep previous code
@@ -51,9 +55,10 @@ export function createGraphStateReducers(): GraphStateReducers {
           );
         }
       },
-    },
-    lastError: {
-      reducer: (prev, next) => {
+      default: () => "",
+    }),
+    lastError: Annotation<string>({
+      reducer: (prev: string, next: unknown): string => {
         try {
           // Direct string errors
           if (typeof next === "string") return next;
@@ -61,7 +66,7 @@ export function createGraphStateReducers(): GraphStateReducers {
           // Object with error property
           if (typeof next === "object" && next !== null) {
             if ("error" in next) {
-              const err = next.error;
+              const err = (next as Record<string, unknown>).error;
               // Handle different error types
               if (typeof err === "string") return err;
               if (err instanceof Error) return err.message;
@@ -79,21 +84,27 @@ export function createGraphStateReducers(): GraphStateReducers {
           return prev;
         }
       },
-    },
-    isStreaming: {
+      default: () => "",
+    }),
+    isStreaming: Annotation<boolean>({
       reducer: (_prev, next) => next,
-    },
-    debugLogs: {
+      default: () => false,
+    }),
+    debugLogs: Annotation<string[]>({
       reducer: (prev, next) => [...prev, ...next],
-    },
-    hash: {
+      default: () => [],
+    }),
+    hash: Annotation<string>({
       reducer: (_prev, next) => next,
-    },
-    filePath: {
+      default: () => "",
+    }),
+    filePath: Annotation<string | undefined>({
       reducer: (_prev, next) => next,
-    },
-    recursionLimit: {
+      default: () => undefined,
+    }),
+    recursionLimit: Annotation<number>({
       reducer: (_prev, next) => next,
-    },
-  };
+      default: () => 10,
+    }),
+  });
 }
