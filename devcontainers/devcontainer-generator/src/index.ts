@@ -1,5 +1,20 @@
 import { readFile } from "fs/promises";
-import * as softwareVersions from "../versions.json" 
+import * as softwareVersions from "../versions.json";
+
+// Constants for magic numbers and default values
+const DEFAULT_TEMPLATE_ORDER = 0;
+const MAX_TEMPLATE_ORDER = 100;
+const NODE_TEMPLATE_ORDER = 10;
+const GIT_TEMPLATE_ORDER = 5;
+const DESKTOP_TEMPLATE_ORDER = 20;
+const TOOL_TEMPLATE_ORDER = 15;
+const DOTNET_TEMPLATE_ORDER = 12;
+const DENO_TEMPLATE_ORDER = 11;
+const KUBERNETES_ORDER = 35;
+const DOCKER_ORDER = 30;
+const VSCODE_ORDER = 40;
+const ZSH_ORDER = 45;
+const DEBIAN_BACKPORTS_ORDER = 1;
 
 // Define template categories for better organization
 export enum TemplateCategory {
@@ -12,68 +27,68 @@ export enum TemplateCategory {
 
 // Template metadata for better organization and validation
 interface TemplateDefinition {
-  id: string;
-  category: TemplateCategory;
-  dependencies?: string[];  // Templates that must be included before this one
-  conflicts?: string[];     // Templates that conflict with this one
-  requiredVars?: string[];  // Variables that must be provided
-  order?: number;           // Order in which templates should be applied
+  readonly id: string;
+  readonly category: TemplateCategory;
+  readonly dependencies?: readonly string[];  // Templates that must be included before this one
+  readonly conflicts?: readonly string[];     // Templates that conflict with this one
+  readonly requiredVars?: readonly string[];  // Variables that must be provided
+  readonly order?: number;           // Order in which templates should be applied
 }
 
 // Template registry for easy discovery and management
-const templateRegistry: Record<string, TemplateDefinition> = {
+const templateRegistry: Readonly<Record<string, TemplateDefinition>> = {
   "base": {
     id: "base",
     category: TemplateCategory.BASE,
-    order: 0
+    order: DEFAULT_TEMPLATE_ORDER
   },
   "node": {
     id: "node",
     category: TemplateCategory.RUNTIME,
     requiredVars: ["NODE_VERSION", "YARN_VERSION"],
-    order: 10
+    order: NODE_TEMPLATE_ORDER
   },
   "node-optimized": {
     id: "node-optimized",
     category: TemplateCategory.RUNTIME,
     requiredVars: ["NODE_VERSION", "YARN_VERSION"],
     conflicts: ["node"],
-    order: 10
+    order: NODE_TEMPLATE_ORDER
   },
   "git": {
     id: "git",
     category: TemplateCategory.TOOL,
     requiredVars: ["GIT_VERSION"],
-    order: 5
+    order: GIT_TEMPLATE_ORDER
   },
   "gitUbuntu": {
     id: "gitUbuntu",
     category: TemplateCategory.TOOL,
     conflicts: ["git"],
-    order: 5
+    order: GIT_TEMPLATE_ORDER
   },
   "xpra": {
     id: "xpra",
     category: TemplateCategory.DESKTOP,
     requiredVars: ["XPRADISTRO"],
-    order: 20
+    order: DESKTOP_TEMPLATE_ORDER
   },
   "noVNC": {
     id: "noVNC",
     category: TemplateCategory.DESKTOP,
     conflicts: ["xpra"],
-    order: 20
+    order: DESKTOP_TEMPLATE_ORDER
   },
   "chrome": {
     id: "google-chrome",
     category: TemplateCategory.TOOL,
-    order: 15
+    order: TOOL_TEMPLATE_ORDER
   },
   "chromium": {
     id: "chromium",
     category: TemplateCategory.TOOL,
     conflicts: ["chrome"],
-    order: 15
+    order: TOOL_TEMPLATE_ORDER
   },
   "xfce": {
     id: "xfce",
@@ -84,75 +99,61 @@ const templateRegistry: Record<string, TemplateDefinition> = {
     id: "docker",
     category: TemplateCategory.TOOL,
     requiredVars: ["DISTRO"],
-    order: 30
+    order: DOCKER_ORDER
   },
   "kubernetes": {
     id: "kubernetes",
     category: TemplateCategory.TOOL,
     dependencies: ["docker"],
     requiredVars: ["DISTRO"],
-    order: 35
-  },
-  "dotnet3": {
-    id: "dotnet3",
-    category: TemplateCategory.RUNTIME,
-    conflicts: ["dotnet5", "dotnet6"],
-    requiredVars: ["DOTNET_SDK_VERSION", "dotnet_sha512"],
-    order: 12
-  },
-  "dotnet5": {
-    id: "dotnet5",
-    category: TemplateCategory.RUNTIME,
-    conflicts: ["dotnet3", "dotnet6"],
-    requiredVars: ["DOTNET_SDK_VERSION", "dotnet_sha512"],
-    order: 12
+    order: KUBERNETES_ORDER
   },
   "dotnet6": {
     id: "dotnet6",
     category: TemplateCategory.RUNTIME,
     conflicts: ["dotnet3", "dotnet5"],
     requiredVars: ["DOTNET_SDK_VERSION", "arm_dotnet_sha512", "amd_dotnet_sha512"],
-    order: 12
+    order: DOTNET_TEMPLATE_ORDER
   },
   "deno": {
     id: "deno",
     category: TemplateCategory.RUNTIME,
     requiredVars: ["DENO_VERSION"],
-    order: 11
+    order: DENO_TEMPLATE_ORDER
   },
   "vscode": {
     id: "vscode",
     category: TemplateCategory.TOOL,
-    order: 40
+    order: VSCODE_ORDER
   },
   "zsh": {
     id: "zsh",
     category: TemplateCategory.UTILITY,
-    order: 45
+    order: ZSH_ORDER
   },
   "android": {
     id: "android",
     category: TemplateCategory.TOOL,
-    order: 35
+    order: KUBERNETES_ORDER
   },
   "cypress": {
     id: "cypress",
     category: TemplateCategory.TOOL,
     requiredVars: ["CYPRESS_VERSION"],
-    order: 15
+    order: TOOL_TEMPLATE_ORDER
   },
   "debianBackports": {
     id: "debianBackports",
     category: TemplateCategory.BASE,
     requiredVars: ["DISTRO"],
-    order: 1
+    order: DEBIAN_BACKPORTS_ORDER
   },
   "suffix": {
     id: "suffix",
     category: TemplateCategory.UTILITY,
-    order: 100 // Always last
+    order: MAX_TEMPLATE_ORDER // Always last
   }
-};
+} as const;
 
 type Base =
   | "stretch"
@@ -176,19 +177,50 @@ type NodeVersion = "lts" | "current";
 type RemoteDesktopType = "xpra" | "noVNC";
 type DotnetVersion = "3" | "5" | "6";
 
+// Type for software versions structure
+interface SoftwareVersions {
+  readonly node: Record<NodeVersion, string>;
+  readonly yarn: string;
+  readonly git: string;
+  readonly deno: string;
+  readonly cypress: string;
+}
+
+// Interface for generation result
+interface GenerationResult {
+  readonly Dockerfile: string;
+  readonly README: string;
+  readonly warnings: readonly string[];
+}
+
+// Interface for feature flags
+interface FeatureFlags {
+  xfce: boolean;
+  docker: boolean;
+  android: boolean;
+  vscode: boolean;
+  xpra: boolean;
+  k8s: boolean;
+  deno: boolean;
+  noVNC: boolean;
+  zsh: boolean;
+  chromium: boolean;
+  chrome: boolean;
+}
+
 /**
  * Enhanced DevcontainerGenerator with improved template management and validation
  */
 export class DevcontainerGenerator {
   private _dockerfile = "";
   private _readme = "";
-  private _dockerTemplates: Record<string, string> = {};
-  private _readmeTemplates: Record<string, string> = {};
-  private _variables: Record<string, string> = {};
-  private _enabledTemplates: Set<string> = new Set();
+  private readonly _dockerTemplates: Record<string, string> = {};
+  private readonly _readmeTemplates: Record<string, string> = {};
+  private readonly _variables: Record<string, string> = {};
+  private readonly _enabledTemplates: Set<string> = new Set();
   
   // Configuration options
-  private _features: Record<string, boolean> = {
+  private readonly _features: FeatureFlags = {
     xfce: false,
     docker: false,
     android: false,
@@ -208,17 +240,34 @@ export class DevcontainerGenerator {
    * @param templateDir Directory containing template files
    */
   constructor(
-    private base: Base,
-    private templateDir: string = "../devcontainer-generator/templates"
+    private readonly base: Base,
+    private readonly templateDir: string = "../devcontainer-generator/templates"
   ) {
+    this.validateBase(base);
+    this.initializeBaseTemplates();
+  }
+
+  /**
+   * Validates the base distribution parameter
+   */
+  private validateBase(base: Base): void {
+    if (!base || typeof base !== 'string') {
+      throw new Error('Base distribution must be a non-empty string');
+    }
+  }
+
+  /**
+   * Initializes base templates and variables
+   */
+  private initializeBaseTemplates(): void {
     // Always add base template
     this._enabledTemplates.add("base");
     this._enabledTemplates.add("suffix");
     
     // Set base distribution as a variable
-    const distro = this.getDistro(base);
-    this._variables["DISTRO"] = `${distro}:${base}`;
-    this._variables["BASE"] = base;
+    const distro = this.getDistro(this.base);
+    this._variables["DISTRO"] = `${distro}:${this.base}`;
+    this._variables["BASE"] = this.base;
   }
 
   /**
@@ -229,40 +278,69 @@ export class DevcontainerGenerator {
       return "gitpod/workspace-full";
     }
     
-    const debianDistros = ["stretch", "buster", "bullseye", "bookworm", "trixie"];
-    return debianDistros.includes(base as string) ? "debian" : "ubuntu";
+    const debianDistros: readonly string[] = ["stretch", "buster", "bullseye", "bookworm", "trixie"];
+    return debianDistros.includes(base) ? "debian" : "ubuntu";
   }
 
   /**
    * Initialize the generator by loading template files
    */
   public async init(): Promise<void> {
-    // Get all template files
     const templateIds = Object.keys(templateRegistry);
     
-    // Load Dockerfile templates
-    for (const id of templateIds) {
+    await Promise.all([
+      this.loadDockerfileTemplates(templateIds),
+      this.loadReadmeTemplates(templateIds)
+    ]);
+  }
+
+  /**
+   * Load all Dockerfile templates
+   */
+  private async loadDockerfileTemplates(templateIds: string[]): Promise<void> {
+    const loadPromises = templateIds.map(async (id) => {
       try {
         const content = await this.loadTemplate(id, "Dockerfile");
         this._dockerTemplates[id] = content;
       } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage = this.getErrorMessage(error);
         console.warn(`Warning: Could not load Dockerfile template for ${id}:`, errorMessage);
         this._dockerTemplates[id] = "";
       }
-    }
+    });
     
-    // Load README templates
-    for (const id of templateIds) {
+    await Promise.all(loadPromises);
+  }
+
+  /**
+   * Load all README templates
+   */
+  private async loadReadmeTemplates(templateIds: string[]): Promise<void> {
+    const loadPromises = templateIds.map(async (id) => {
       try {
         const content = await this.loadTemplate(id, "README");
         this._readmeTemplates[id] = content;
       } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage = this.getErrorMessage(error);
         console.warn(`Warning: Could not load README template for ${id}:`, errorMessage);
         this._readmeTemplates[id] = "";
       }
+    });
+    
+    await Promise.all(loadPromises);
+  }
+
+  /**
+   * Safely extracts error message from unknown error
+   */
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message;
     }
+    if (typeof error === 'string') {
+      return error;
+    }
+    return 'Unknown error';
   }
 
   /**
@@ -271,18 +349,19 @@ export class DevcontainerGenerator {
    * @param optimized Whether to use the optimized multi-stage build template
    */
   public setNodeVersion(nodeType: NodeVersion, optimized = false): this {
-    const nodeVersion = softwareVersions.node[nodeType];
-    const yarnVersion = softwareVersions.yarn;
+    const versions = softwareVersions as SoftwareVersions;
+    const nodeVersion = versions.node[nodeType];
+    const yarnVersion = versions.yarn;
+    
+    if (!nodeVersion) {
+      throw new Error(`Invalid Node.js version type: ${nodeType}`);
+    }
     
     this._variables["NODE_VERSION"] = nodeVersion;
     this._variables["YARN_VERSION"] = yarnVersion;
     
     // Use either the standard or optimized Node.js template
-    if (optimized) {
-      this._enabledTemplates.add("node-optimized");
-    } else {
-      this._enabledTemplates.add("node");
-    }
+    this._enabledTemplates.add(optimized ? "node-optimized" : "node");
     
     return this;
   }
@@ -300,10 +379,12 @@ export class DevcontainerGenerator {
    * Update Git to the latest version or use Ubuntu's package
    */
   public updateGit(forceFromSource = false): this {
+    const versions = softwareVersions as SoftwareVersions;
+    
     if (this.getDistro(this.base) === "ubuntu" && !forceFromSource) {
       this._enabledTemplates.add("gitUbuntu");
     } else {
-      this._variables["GIT_VERSION"] = softwareVersions.git;
+      this._variables["GIT_VERSION"] = versions.git;
       this._enabledTemplates.add("git");
     }
     return this;
@@ -330,8 +411,9 @@ export class DevcontainerGenerator {
    * Enable Deno runtime
    */
   public setDeno(): this {
+    const versions = softwareVersions as SoftwareVersions;
     this._features.deno = true;
-    this._variables["DENO_VERSION"] = softwareVersions.deno;
+    this._variables["DENO_VERSION"] = versions.deno;
     this._enabledTemplates.add("deno");
     return this;
   }
@@ -410,19 +492,9 @@ export class DevcontainerGenerator {
   /**
    * Enable .NET SDK
    */
-  public setDotnet(version: DotnetVersion = "6"): this {
-    // Set appropriate template and variables based on version
-    if (version === "6") {
-      const dotnetVersion = softwareVersions.dotnet6;
-      const shaValues = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { arm: string; amd: string }>)["6.0.400"] as { arm: string; amd: string };
-      
-      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
-      this._variables["arm_dotnet_sha512"] = shaValues.arm;
-      this._variables["amd_dotnet_sha512"] = shaValues.amd;
-      this._enabledTemplates.add("dotnet6");
-    }
+  public setDotnet6(): this {    
+    this._enabledTemplates.add("dotnet6");
 
-    
     return this;
   }
 
@@ -430,7 +502,8 @@ export class DevcontainerGenerator {
    * Enable Cypress for end-to-end testing
    */
   public setCypress(): this {
-    this._variables["CYPRESS_VERSION"] = softwareVersions.cypress;
+    const versions = softwareVersions as SoftwareVersions;
+    this._variables["CYPRESS_VERSION"] = versions.cypress;
     this._enabledTemplates.add("cypress");
     return this;
   }
@@ -443,11 +516,23 @@ export class DevcontainerGenerator {
    */
   private validateConfiguration(): string[] {
     const errors: string[] = [];
-    
-    // Get all enabled templates
     const enabledTemplates = Array.from(this._enabledTemplates);
     
-    // Check for conflicts
+    errors.push(
+      ...this.validateTemplateConflicts(enabledTemplates),
+      ...this.validateTemplateDependencies(enabledTemplates),
+      ...this.validateRequiredVariables(enabledTemplates)
+    );
+    
+    return errors;
+  }
+
+  /**
+   * Validate template conflicts
+   */
+  private validateTemplateConflicts(enabledTemplates: string[]): string[] {
+    const errors: string[] = [];
+    
     for (const templateId of enabledTemplates) {
       const template = templateRegistry[templateId];
       if (!template) {
@@ -464,7 +549,15 @@ export class DevcontainerGenerator {
       }
     }
     
-    // Check for dependencies
+    return errors;
+  }
+
+  /**
+   * Validate template dependencies
+   */
+  private validateTemplateDependencies(enabledTemplates: string[]): string[] {
+    const errors: string[] = [];
+    
     for (const templateId of enabledTemplates) {
       const template = templateRegistry[templateId];
       if (!template) continue;
@@ -478,7 +571,15 @@ export class DevcontainerGenerator {
       }
     }
     
-    // Check for required variables
+    return errors;
+  }
+
+  /**
+   * Validate required variables
+   */
+  private validateRequiredVariables(enabledTemplates: string[]): string[] {
+    const errors: string[] = [];
+    
     for (const templateId of enabledTemplates) {
       const template = templateRegistry[templateId];
       if (!template) continue;
@@ -510,7 +611,7 @@ export class DevcontainerGenerator {
   /**
    * Generate Dockerfile and README based on the selected options
    */
-  public async generate(): Promise<{ Dockerfile: string; README: string; warnings: string[] }> {
+  public async generate(): Promise<GenerationResult> {
     // Initialize templates if not already loaded
     if (Object.keys(this._dockerTemplates).length === 0) {
       await this.init();
@@ -523,14 +624,36 @@ export class DevcontainerGenerator {
     }
     
     const warnings: string[] = [];
+    const sortedTemplates = this.getSortedTemplates();
     
-    // Sort templates by order for correct application
-    const sortedTemplates = Array.from(this._enabledTemplates)
+    // Generate content
+    this.generateDockerfileContent(sortedTemplates, warnings);
+    this.generateReadmeContent(sortedTemplates, warnings);
+    
+    // Clean up duplicate FROM statements
+    this._dockerfile = this.cleanupDockerfile(this._dockerfile);
+    
+    return {
+      Dockerfile: this._dockerfile,
+      README: this._readme,
+      warnings
+    };
+  }
+
+  /**
+   * Get templates sorted by order
+   */
+  private getSortedTemplates(): TemplateDefinition[] {
+    return Array.from(this._enabledTemplates)
       .map(id => templateRegistry[id])
-      .filter(template => template) // Remove any unknown templates
-      .sort((a, b) => (a.order || 0) - (b.order || 0));
-    
-    // Generate Dockerfile content
+      .filter((template): template is TemplateDefinition => Boolean(template))
+      .sort((a, b) => (a.order || DEFAULT_TEMPLATE_ORDER) - (b.order || DEFAULT_TEMPLATE_ORDER));
+  }
+
+  /**
+   * Generate Dockerfile content from templates
+   */
+  private generateDockerfileContent(sortedTemplates: TemplateDefinition[], warnings: string[]): void {
     for (const template of sortedTemplates) {
       const templateContent = this._dockerTemplates[template.id];
       if (!templateContent) {
@@ -541,8 +664,12 @@ export class DevcontainerGenerator {
       const processedContent = this.processTemplate(templateContent, this._variables);
       this._dockerfile += processedContent;
     }
-    
-    // Generate README content
+  }
+
+  /**
+   * Generate README content from templates
+   */
+  private generateReadmeContent(sortedTemplates: TemplateDefinition[], warnings: string[]): void {
     for (const template of sortedTemplates) {
       const templateContent = this._readmeTemplates[template.id];
       if (!templateContent) {
@@ -553,30 +680,33 @@ export class DevcontainerGenerator {
       const processedContent = this.processTemplate(templateContent, this._variables);
       this._readme += processedContent;
     }
-    
-    // Clean up duplicate FROM statements
-    this._dockerfile = this._dockerfile.replace(/FROM devimage\n/g, "");
-    
-    return {
-      Dockerfile: this._dockerfile,
-      README: this._readme,
-      warnings
-    };
   }
 
   /**
-   * Load a template file from the filesy stem
+   * Clean up Dockerfile by removing duplicate FROM statements
+   */
+  private cleanupDockerfile(dockerfile: string): string {
+    return dockerfile.replace(/FROM devimage\n/g, "");
+  }
+
+  /**
+   * Load a template file from the filesystem
    */
   private async loadTemplate(
     filename: string,
     extension: "Dockerfile" | "README",
   ): Promise<string> {
-    const filePath =  `${this.templateDir}/${filename}.${extension}`;
-    try{
-    return await readFile(filePath, 'utf8');
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Could not read file: ${filePath}`);
+    if (!filename || !extension) {
+      throw new Error('Filename and extension are required');
+    }
+    
+    const filePath = `${this.templateDir}/${filename}.${extension}`;
+    
+    try {
+      return await readFile(filePath, 'utf8');
+    } catch (error) {
+      const errorMessage = this.getErrorMessage(error);
+      throw new Error(`Could not read file: ${filePath} - ${errorMessage}`);
+    }
   }
-}
 }

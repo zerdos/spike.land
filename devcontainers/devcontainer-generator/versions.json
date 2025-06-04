@@ -7,14 +7,5 @@
   "deno": "2.2.1",
   "git": "2.48.1",
   "cypress": "14.1.0",
-  "yarn": "1.22.19",
-  "dotnet6": "6.0.400",
-  "sha": {
-    "dotnet_sha512": {
-      "6.0.400": {
-        "amd": "8decbba0a6b09501daede52cbb5a9ae9e5f31ade201918c03efcd1b4cc345ec934f88321704ec3beb1f90f2204934be7259c76f66d9204cbdd15933582602763",
-        "arm": "a21010f9e0e091bf0a4df9dfc4ec9893c056c2b07b10be093ea392a4fa5c8a38bad9535f66e570b45dc25165b685199fb729434b845bcfb35f8b79cceb22c632"
-      }
-    }
-  }
+  "yarn": "4.9.1"
 }
