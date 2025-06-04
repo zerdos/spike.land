@@ -21,40 +21,7 @@ export function createGraphStateReducers() {
       default: () => "",
     }),
     code: Annotation<string>({
-      reducer: (prev: string, next: unknown): string => {
-        try {
-          // Direct string return
-          if (typeof next === "string") return next;
-
-          // Handle object types
-          if (typeof next === "object" && next !== null) {
-            // Try to extract code from content field (JSON string)
-            if ("content" in next && typeof (next as Record<string, unknown>).content === "string") {
-              const extractedCode = tryExtractCodeFromJson((next as Record<string, unknown>).content as string);
-              if (extractedCode) return extractedCode;
-            }
-
-            // Direct code field
-            if ("code" in next && typeof (next as Record<string, unknown>).code === "string") {
-              return (next as Record<string, unknown>).code as string;
-            }
-
-            // If only hash is present, keep previous code
-            if (!("code" in next) && "hash" in next) return prev;
-          }
-
-          // Default: keep previous code
-          return prev;
-        } catch (error) {
-          console.error("Code reduction error:", error);
-          throw new WorkflowError(
-            "Code reduction failed",
-            ErrorType.Unexpected,
-            { error, input: next },
-            "There was an error processing the code. Try simplifying your request.",
-          );
-        }
-      },
+     reducer: (_prev, next) => next,
       default: () => "",
     }),
     lastError: Annotation<string>({
