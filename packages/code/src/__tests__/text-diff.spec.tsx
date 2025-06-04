@@ -1,4 +1,5 @@
 import { diffLines, diffWords } from "diff";
+import { describe, expect, it } from "vitest";
 
 describe("text-diff", () => {
   describe("diffLines", () => {

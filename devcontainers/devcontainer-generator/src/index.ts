@@ -580,8 +580,21 @@ export class DevcontainerGenerator {
     };
   }
 
+  private getShaValue(dotnetVersion: string): string {
+    const shaRecord = softwareVersions.sha.dotnet_sha512 as Record<string, string | { arm: string; amd: string }>;
+    const shaValue = shaRecord[dotnetVersion];
+    if (typeof shaValue === 'string') {
+      return shaValue;
+    } else if (typeof shaValue === 'object') {
+      // Return the AMD SHA for consistency
+      return shaValue.amd;
+    } else {
+      throw new Error(`Unknown SHA format for .NET version ${dotnetVersion}`);
+    }
+  }
+
   /**
-   * Load a template file from the filesystem
+   * Load a template file from the filesy stem
    */
   private async loadTemplate(
     filename: string,

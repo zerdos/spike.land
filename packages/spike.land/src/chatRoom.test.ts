@@ -52,7 +52,7 @@ describe("Code Durable Object", () => {
     mockState = {
       storage: {
         get: vi.fn(),
-        put: vi.fn(),
+        put: vi.fn().mockResolvedValue(undefined),
         delete: vi.fn(),
         list: vi.fn(),
         deleteAll: vi.fn(),
@@ -71,7 +71,7 @@ describe("Code Durable Object", () => {
     mockEnv = {
       R2: {
         get: vi.fn(),
-        put: vi.fn(),
+        put: vi.fn().mockResolvedValue(undefined),
       },
       // Add other env properties if needed by the Code class
     } as unknown as Env;

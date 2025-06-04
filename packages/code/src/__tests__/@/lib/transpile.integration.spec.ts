@@ -5,6 +5,7 @@
 // import { importMapReplace } from "../importmap-utils";
 // import { prettierJs } from "../prettier";
 // import { transpile } from "../transpile";
+import { describe, it } from "vitest";
 
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 

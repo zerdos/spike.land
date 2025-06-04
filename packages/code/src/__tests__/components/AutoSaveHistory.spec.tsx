@@ -2,8 +2,8 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "@/workers/monaco-editor.worker";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CodeHistoryCarousel } from "../../components/AutoSaveHistory.js";
-import { cSessMock } from "../config/cSessMock.js";
+import { CodeHistoryCarousel } from "../../components/AutoSaveHistory";
+import { cSessMock } from "../config/cSessMock";
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({
@@ -17,7 +17,7 @@ vi.mock("@tanstack/react-virtual", () => ({
 }));
 
 // Mock the getCodeSpace hook
-vi.mock("@src/hooks/getCodeSpace", () => ({
+vi.mock("@/hooks/getCodeSpace", () => ({
   getCodeSpace: () => "test-code-space",
 }));
 
