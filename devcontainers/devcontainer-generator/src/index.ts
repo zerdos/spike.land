@@ -421,23 +421,7 @@ export class DevcontainerGenerator {
       this._variables["amd_dotnet_sha512"] = shaValues.amd;
       this._enabledTemplates.add("dotnet6");
     }
-    else if (version === "3") {
-      const dotnetVersion = softwareVersions.dotnet3;
-      const shaValue = this.getShaValue(dotnetVersion);
-      
-      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
-      this._variables["dotnet_sha512"] = shaValue;
-      this._enabledTemplates.add("dotnet3");
-    } 
-    else {
-      const dotnetVersion = softwareVersions.dotnet5;
-      const shaRecord = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { amd: string }>)[dotnetVersion];
-      const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
-      
-      this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
-      this._variables["dotnet_sha512"] = shaValue;
-      this._enabledTemplates.add("dotnet5");
-    }
+
     
     return this;
   }
@@ -578,19 +562,6 @@ export class DevcontainerGenerator {
       README: this._readme,
       warnings
     };
-  }
-
-  private getShaValue(dotnetVersion: string): string {
-    const shaRecord = softwareVersions.sha.dotnet_sha512 as Record<string, string | { arm: string; amd: string }>;
-    const shaValue = shaRecord[dotnetVersion];
-    if (typeof shaValue === 'string') {
-      return shaValue;
-    } else if (typeof shaValue === 'object') {
-      // Return the AMD SHA for consistency
-      return shaValue.amd;
-    } else {
-      throw new Error(`Unknown SHA format for .NET version ${dotnetVersion}`);
-    }
   }
 
   /**
