@@ -77,11 +77,13 @@ export async function handleSendMessage(
   // If iterations failed but we have a final state, add error information
   if (!iterationResult.success && iterationResult.finalState) {
     const errorSummary = iterationResult.errors.join("; ");
-    iterationResult.finalState.lastError = `Code validation failed after ${iterationResult.iterations} iterations: ${errorSummary}`;
-    
+    iterationResult.finalState.lastError =
+      `Code validation failed after ${iterationResult.iterations} iterations: ${errorSummary}`;
+
     // Include validation feedback in the state for the UI
     if (iterationResult.validationResults.length > 0) {
-      const lastValidation = iterationResult.validationResults[iterationResult.validationResults.length - 1];
+      const lastValidation =
+        iterationResult.validationResults[iterationResult.validationResults.length - 1];
       if (lastValidation.errors.length > 0) {
         const validationErrors = lastValidation.errors.slice(0, 3).join("; ");
         iterationResult.finalState.lastError += `. Validation errors: ${validationErrors}`;

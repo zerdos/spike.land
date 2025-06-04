@@ -50,7 +50,7 @@ describe("chat-langchain-workflow", () => {
   describe("workflow creation", () => {
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as { cSess?: object }).cSess = {
+      (globalThis as { cSess?: object; }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -94,7 +94,7 @@ describe("chat-langchain-workflow", () => {
 
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as { cSess?: object }).cSess = {
+      (globalThis as { cSess?: object; }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -184,7 +184,7 @@ describe("chat-langchain-workflow", () => {
 
     it("should handle missing code in tool response", async () => {
       // Update the global cSess object with specific mock for this test
-      (globalThis as { cSess?: object }).cSess = {
+      (globalThis as { cSess?: object; }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),
@@ -220,14 +220,15 @@ describe("chat-langchain-workflow", () => {
       expect(result).toBeDefined();
       expect(result.hash).toBe(md5("retrieved code"));
       expect(console.error).not.toHaveBeenCalled();
-      expect((globalThis as { cSess?: { getCode?: () => void } }).cSess?.getCode).toHaveBeenCalled();
+      expect((globalThis as { cSess?: { getCode?: () => void; }; }).cSess?.getCode)
+        .toHaveBeenCalled();
     });
   });
 
   describe("error handling", () => {
     beforeEach(() => {
       // Mock the global cSess object
-      (globalThis as { cSess?: object }).cSess = {
+      (globalThis as { cSess?: object; }).cSess = {
         getCode: vi.fn().mockResolvedValue("retrieved code"),
         getMessages: vi.fn().mockReturnValue([]),
         addMessage: vi.fn(),

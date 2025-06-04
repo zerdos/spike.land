@@ -157,8 +157,8 @@ async function createEditorModel(
         const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(
           uri.toString(),
         );
-        return diagnostics.map((d: { messageText: string | { messageText: string } }) => 
-          typeof d.messageText === 'string' ? d.messageText : d.messageText.messageText
+        return diagnostics.map((d: { messageText: string | { messageText: string; }; }) =>
+          typeof d.messageText === "string" ? d.messageText : d.messageText.messageText
         );
       } catch (error) {
         console.error("Error getting diagnostics:", error);

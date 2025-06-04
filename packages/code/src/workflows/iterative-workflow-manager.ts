@@ -70,10 +70,10 @@ export class IterativeWorkflowManager {
     try {
       let currentState = initialState;
       let currentPrompt = initialPrompt;
-      
+
       for (let iteration = 0; iteration < this.config.maxIterations; iteration++) {
         result.iterations = iteration + 1;
-        
+
         console.warn(`🔄 Starting iteration ${iteration + 1}/${this.config.maxIterations}`);
         telemetry.trackEvent("iterative.iteration.start", {
           iteration: (iteration + 1).toString(),
@@ -83,7 +83,7 @@ export class IterativeWorkflowManager {
         try {
           // Execute the workflow
           const iterationState = await workflow.invoke(currentPrompt, images);
-          
+
           if (!iterationState) {
             result.errors.push(`Iteration ${iteration + 1}: Workflow returned null state`);
             continue;
@@ -106,20 +106,23 @@ export class IterativeWorkflowManager {
               console.warn(`✅ Code validation successful on iteration ${iteration + 1}`);
               result.success = true;
               result.finalState = currentState;
-              
+
               if (this.config.stopOnFirstSuccess) {
                 break;
               }
             } else {
-              console.warn(`❌ Code validation failed on iteration ${iteration + 1}:`, validationResult.errors);
-              
+              console.warn(
+                `❌ Code validation failed on iteration ${iteration + 1}:`,
+                validationResult.errors,
+              );
+
               // Prepare feedback for next iteration
               const feedback = this.prepareFeedbackPrompt(validationResult, iteration + 1);
               result.improvements.push(feedback);
-              
+
               // Update prompt for next iteration
               currentPrompt = feedback;
-              
+
               // Continue to next iteration
               continue;
             }
@@ -135,12 +138,11 @@ export class IterativeWorkflowManager {
             result.finalState = currentState;
             break;
           }
-
         } catch (iterationError) {
           const errorMessage = `Iteration ${iteration + 1} failed: ${
             iterationError instanceof Error ? iterationError.message : String(iterationError)
           }`;
-          
+
           console.warn(`⚠️ ${errorMessage}`);
           result.errors.push(errorMessage);
 
@@ -166,7 +168,7 @@ export class IterativeWorkflowManager {
           codeSession,
           `/live/${currentState.codeSpace}.tsx`,
         );
-        
+
         result.validationResults.push(finalValidation);
         result.success = finalValidation.isValid;
         result.finalState = currentState;
@@ -180,7 +182,9 @@ export class IterativeWorkflowManager {
 
       // Log final result
       if (result.success) {
-        console.warn(`🎉 Iterative workflow completed successfully after ${result.iterations} iteration(s)`);
+        console.warn(
+          `🎉 Iterative workflow completed successfully after ${result.iterations} iteration(s)`,
+        );
       } else {
         console.warn(`💥 Iterative workflow failed after ${result.iterations} iteration(s)`);
         console.warn("Final errors:", result.errors);
@@ -191,7 +195,6 @@ export class IterativeWorkflowManager {
       }
 
       return result;
-
     } catch (error) {
       telemetry.trackError(
         error instanceof Error ? error : new Error(String(error)),
@@ -206,10 +209,10 @@ export class IterativeWorkflowManager {
         iterations: result.iterations.toString(),
       });
 
-      result.errors.push(`Workflow execution failed: ${
-        error instanceof Error ? error.message : String(error)
-      }`);
-      
+      result.errors.push(
+        `Workflow execution failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
+
       return result;
     }
   }
@@ -224,7 +227,7 @@ export class IterativeWorkflowManager {
   ): Promise<ValidationResult> {
     try {
       const validation = await this.codeValidator.validateCode(code, codeSession, filePath);
-      
+
       telemetry.trackEvent("iterative.validation", {
         isValid: validation.isValid.toString(),
         errorCount: validation.errors.length.toString(),
@@ -249,9 +252,10 @@ export class IterativeWorkflowManager {
   private prepareFeedbackPrompt(validation: ValidationResult, iteration: number): string {
     const errors = validation.errors.slice(0, 3); // Limit to top 3 errors
     const warnings = validation.warnings.slice(0, 2); // Limit to top 2 warnings
-    
-    let feedback = `The code from iteration ${iteration} has validation issues that need to be fixed:\n\n`;
-    
+
+    let feedback =
+      `The code from iteration ${iteration} has validation issues that need to be fixed:\n\n`;
+
     if (errors.length > 0) {
       feedback += "❌ **Critical Errors (must fix):**\n";
       errors.forEach((error, i) => {
@@ -259,7 +263,7 @@ export class IterativeWorkflowManager {
       });
       feedback += "\n";
     }
-    
+
     if (warnings.length > 0) {
       feedback += "⚠️ **Warnings (should fix):**\n";
       warnings.forEach((warning, i) => {
@@ -267,7 +271,7 @@ export class IterativeWorkflowManager {
       });
       feedback += "\n";
     }
-    
+
     if (validation.suggestions.length > 0) {
       feedback += "💡 **Suggestions:**\n";
       validation.suggestions.slice(0, 2).forEach((suggestion, i) => {
@@ -275,11 +279,11 @@ export class IterativeWorkflowManager {
       });
       feedback += "\n";
     }
-    
+
     feedback += `Please fix these issues by making targeted changes to the code. `;
     feedback += `Use multiple SEARCH/REPLACE blocks if needed to address all the problems. `;
     feedback += `Focus on making the code runnable and error-free.`;
-    
+
     return feedback;
   }
 
@@ -288,16 +292,16 @@ export class IterativeWorkflowManager {
    */
   private prepareRecoveryPrompt(errorMessage: string, iteration: number): string {
     let prompt = `An error occurred during iteration ${iteration}: ${errorMessage}\n\n`;
-    
+
     prompt += "Please analyze the error and make the necessary corrections to fix the issue. ";
     prompt += "Common fixes include:\n";
     prompt += "- Fixing syntax errors (missing brackets, semicolons, etc.)\n";
     prompt += "- Correcting import statements\n";
     prompt += "- Ensuring proper TypeScript types\n";
     prompt += "- Fixing JSX structure and closing tags\n\n";
-    
+
     prompt += "Make targeted changes using SEARCH/REPLACE blocks to address the specific error.";
-    
+
     return prompt;
   }
 
@@ -306,18 +310,18 @@ export class IterativeWorkflowManager {
    */
   generateIterationSummary(result: IterationResult): string {
     let summary = `## Workflow Execution Summary\n\n`;
-    
+
     summary += `**Result:** ${result.success ? "✅ Success" : "❌ Failed"}\n`;
     summary += `**Iterations:** ${result.iterations}/${this.config.maxIterations}\n`;
     summary += `**Validations:** ${result.validationResults.length}\n\n`;
-    
+
     if (result.improvements.length > 0) {
       summary += `### Improvements Made\n`;
       result.improvements.forEach((improvement, i) => {
         summary += `**Iteration ${i + 1}:**\n${improvement.substring(0, 200)}...\n\n`;
       });
     }
-    
+
     if (result.errors.length > 0) {
       summary += `### Errors Encountered\n`;
       result.errors.forEach((error, i) => {
@@ -325,24 +329,24 @@ export class IterativeWorkflowManager {
       });
       summary += "\n";
     }
-    
+
     const finalValidation = result.validationResults[result.validationResults.length - 1];
     if (finalValidation) {
       summary += `### Final Validation Status\n`;
       summary += `**Valid:** ${finalValidation.isValid ? "Yes" : "No"}\n`;
-      
+
       if (finalValidation.errors.length > 0) {
         summary += `**Remaining Errors:** ${finalValidation.errors.length}\n`;
         finalValidation.errors.slice(0, 3).forEach((error, i) => {
           summary += `${i + 1}. ${error}\n`;
         });
       }
-      
+
       if (finalValidation.warnings.length > 0) {
         summary += `**Warnings:** ${finalValidation.warnings.length}\n`;
       }
     }
-    
+
     return summary;
   }
 }
@@ -350,6 +354,8 @@ export class IterativeWorkflowManager {
 /**
  * Creates a default iterative workflow manager
  */
-export function createIterativeWorkflowManager(config?: Partial<IterativeConfig>): IterativeWorkflowManager {
+export function createIterativeWorkflowManager(
+  config?: Partial<IterativeConfig>,
+): IterativeWorkflowManager {
   return new IterativeWorkflowManager(config);
 }

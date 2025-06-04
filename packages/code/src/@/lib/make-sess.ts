@@ -102,7 +102,7 @@ class SessionPatcher {
       return {
         oldHash,
         hashCode,
-        delta: []as unknown  as ReturnType<typeof createDelta>,
+        delta: [] as unknown as ReturnType<typeof createDelta>,
       };
     }
 

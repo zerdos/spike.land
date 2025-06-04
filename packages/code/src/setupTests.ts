@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { afterEach, beforeAll, afterAll, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, vi } from "vitest";
 
 // Mock matchMedia for all tests
 Object.defineProperty(window, "matchMedia", {

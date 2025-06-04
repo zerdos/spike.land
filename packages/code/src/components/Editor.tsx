@@ -340,7 +340,16 @@ export const Editor: React.FC<EditorProps> = (
 
     initEditor();
     // Add session to the dependency array
-  }, [session, codeSpace, editorState.started, errorType, throttledTypeCheck, containerRef, handleContentChange, setEditorState]); // Added session and other relevant dependencies
+  }, [
+    session,
+    codeSpace,
+    editorState.started,
+    errorType,
+    throttledTypeCheck,
+    containerRef,
+    handleContentChange,
+    setEditorState,
+  ]); // Added session and other relevant dependencies
 
   // Track aggregate metrics across component lifetime
   const lifetimeMetrics = useRef({
@@ -360,9 +369,8 @@ export const Editor: React.FC<EditorProps> = (
         durationSeconds: duration.toFixed(2),
         avgLocalChangesPerMinute: (metrics.totalLocalChanges / (duration / 60))
           .toFixed(2),
-        avgExternalChangesPerMinute:
-          (metrics.totalExternalChanges / (duration / 60))
-            .toFixed(2),
+        avgExternalChangesPerMinute: (metrics.totalExternalChanges / (duration / 60))
+          .toFixed(2),
         totalSkippedChanges: metrics.totalSkippedChanges,
         longestSyncTimeMs: metrics.longestSyncTime.toFixed(2),
         codeSpace,

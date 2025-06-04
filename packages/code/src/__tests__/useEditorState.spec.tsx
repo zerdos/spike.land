@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { useEditorState, type EditorState as _EditorState } from "../hooks/use-editor-state";
+import { type EditorState as _EditorState, useEditorState } from "../hooks/use-editor-state";
 
 describe("useEditorState", () => {
   beforeEach(() => {

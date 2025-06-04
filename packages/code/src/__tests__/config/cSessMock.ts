@@ -79,7 +79,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
   const mockSession = createMockCodeSession(initialCode);
 
   // Set up the global cSess object
-  (global as { cSess?: ICode }).cSess = mockSession;
+  (global as { cSess?: ICode; }).cSess = mockSession;
 
   return mockSession;
 };
@@ -88,7 +88,7 @@ export const setupGlobalMockSession = (initialCode = "// Test code"): ICode => {
  * Cleans up the global mock session
  */
 export const cleanupGlobalMockSession = (): void => {
-  delete (global as { cSess?: ICode }).cSess;
+  delete (global as { cSess?: ICode; }).cSess;
 };
 
 // Create a default mock session for direct import

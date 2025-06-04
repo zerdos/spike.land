@@ -85,11 +85,10 @@ export class CodeValidator {
         result.isValid = false;
         result.errors.push(...compileResult.errors);
       }
-
     } catch (error) {
       result.isValid = false;
       result.errors.push(
-        `Validation error: ${error instanceof Error ? error.message : String(error)}`
+        `Validation error: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
 
@@ -127,9 +126,10 @@ export class CodeValidator {
         result.errors.push(...syntaxIssues);
         result.isValid = false;
       }
-
     } catch (error) {
-      result.errors.push(`Could not validate syntax: ${error instanceof Error ? error.message : String(error)}`);
+      result.errors.push(
+        `Could not validate syntax: ${error instanceof Error ? error.message : String(error)}`,
+      );
       result.isValid = false;
     }
 
@@ -163,9 +163,10 @@ export class CodeValidator {
         const typeAnnotationIssues = this.checkTypeAnnotations(code);
         result.suggestions.push(...typeAnnotationIssues);
       }
-
     } catch (error) {
-      result.warnings.push(`Type checking failed: ${error instanceof Error ? error.message : String(error)}`);
+      result.warnings.push(
+        `Type checking failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
 
     return result;
@@ -211,7 +212,7 @@ export class CodeValidator {
     const issues: string[] = [];
 
     // Check for 'any' usage
-    if (code.includes(': any')) {
+    if (code.includes(": any")) {
       issues.push("Usage of 'any' type detected - consider using more specific types");
     }
 
@@ -262,28 +263,31 @@ export class CodeValidator {
 
       // Check for common missing dependencies
       const commonDependencies = {
-        'react': ['React', 'useState', 'useEffect', 'useCallback', 'useMemo'],
-        '@types/react': ['React'],
-        'typescript': ['ts'],
+        "react": ["React", "useState", "useEffect", "useCallback", "useMemo"],
+        "@types/react": ["React"],
+        "typescript": ["ts"],
       };
 
       for (const [dep, identifiers] of Object.entries(commonDependencies)) {
         const needsDep = identifiers.some(id => code.includes(id));
-        const hasDep = imports.some(imp => imp === dep || imp.startsWith(dep + '/'));
-        
+        const hasDep = imports.some(imp => imp === dep || imp.startsWith(dep + "/"));
+
         if (needsDep && !hasDep) {
           result.warnings.push(`Consider adding import for ${dep}`);
         }
       }
 
       // Check for relative imports that might not exist
-      const relativeImports = imports.filter(imp => imp.startsWith('./') || imp.startsWith('../'));
+      const relativeImports = imports.filter(imp => imp.startsWith("./") || imp.startsWith("../"));
       if (relativeImports.length > 0) {
-        result.suggestions.push(`Verify that relative imports exist: ${relativeImports.join(', ')}`);
+        result.suggestions.push(
+          `Verify that relative imports exist: ${relativeImports.join(", ")}`,
+        );
       }
-
     } catch (error) {
-      result.warnings.push(`Import validation failed: ${error instanceof Error ? error.message : String(error)}`);
+      result.warnings.push(
+        `Import validation failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
 
     return result;
@@ -308,28 +312,29 @@ export class CodeValidator {
       const hasJSX = /<[A-Z][^>]*>/.test(code);
 
       if (hasJSX && !hasReactImport) {
-        result.errors.push('JSX found but React is not imported');
+        result.errors.push("JSX found but React is not imported");
         result.isValid = false;
       }
 
       if (!hasDefaultExport && !hasNamedExport) {
-        result.warnings.push('No component export found');
+        result.warnings.push("No component export found");
       }
 
       // Check for common React patterns
-      if (code.includes('useState') && !code.includes('import')) {
-        result.suggestions.push('Consider importing useState from React');
+      if (code.includes("useState") && !code.includes("import")) {
+        result.suggestions.push("Consider importing useState from React");
       }
 
       // Check for proper JSX syntax
       const unclosedTags = this.findUnclosedJSXTags(code);
       if (unclosedTags.length > 0) {
-        result.errors.push(`Unclosed JSX tags found: ${unclosedTags.join(', ')}`);
+        result.errors.push(`Unclosed JSX tags found: ${unclosedTags.join(", ")}`);
         result.isValid = false;
       }
-
     } catch (error) {
-      result.warnings.push(`React validation failed: ${error instanceof Error ? error.message : String(error)}`);
+      result.warnings.push(
+        `React validation failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
 
     return result;
@@ -353,7 +358,7 @@ export class CodeValidator {
     try {
       // For now, we'll do a basic check
       // In a real implementation, you might want to use esbuild, swc, or another fast compiler
-      
+
       // Check for obvious compilation issues
       const brackets = this.checkBracketBalance(code);
       if (!brackets.balanced) {
@@ -366,9 +371,10 @@ export class CodeValidator {
         result.isValid = false;
         result.errors.push(`Unbalanced quotes: ${quotes.error}`);
       }
-
     } catch (error) {
-      result.errors.push(`Compilation test failed: ${error instanceof Error ? error.message : String(error)}`);
+      result.errors.push(
+        `Compilation test failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
       result.isValid = false;
     }
 
@@ -389,13 +395,13 @@ export class CodeValidator {
   private findUnclosedJSXTags(code: string): string[] {
     const unclosed: string[] = [];
     const stack: string[] = [];
-    
+
     // Simple JSX tag matching (this is a basic implementation)
     const tagRegex = /<(\/?)([\w-]+)[^>]*>/g;
     let match;
 
     while ((match = tagRegex.exec(code)) !== null) {
-      const isClosing = match[1] === '/';
+      const isClosing = match[1] === "/";
       const tagName = match[2];
 
       if (isClosing) {
@@ -404,7 +410,7 @@ export class CodeValidator {
         }
       } else {
         // Check if it's self-closing
-        if (!match[0].endsWith('/>')) {
+        if (!match[0].endsWith("/>")) {
           stack.push(tagName);
         }
       }
@@ -414,13 +420,13 @@ export class CodeValidator {
     return unclosed;
   }
 
-  private checkBracketBalance(code: string): { balanced: boolean; error?: string } {
-    const brackets = { '(': ')', '[': ']', '{': '}' };
+  private checkBracketBalance(code: string): { balanced: boolean; error?: string; } {
+    const brackets = { "(": ")", "[": "]", "{": "}" };
     const stack: string[] = [];
-    
+
     for (let i = 0; i < code.length; i++) {
       const char = code[i];
-      
+
       if (char in brackets) {
         stack.push(char);
       } else if (Object.values(brackets).includes(char)) {
@@ -432,13 +438,13 @@ export class CodeValidator {
     }
 
     if (stack.length > 0) {
-      return { balanced: false, error: `Unclosed ${stack.join(', ')}` };
+      return { balanced: false, error: `Unclosed ${stack.join(", ")}` };
     }
 
     return { balanced: true };
   }
 
-  private checkQuoteBalance(code: string): { balanced: boolean; error?: string } {
+  private checkQuoteBalance(code: string): { balanced: boolean; error?: string; } {
     let inSingleQuote = false;
     let inDoubleQuote = false;
     let inTemplate = false;
@@ -446,14 +452,14 @@ export class CodeValidator {
 
     for (let i = 0; i < code.length; i++) {
       const char = code[i];
-      const _prevChar = i > 0 ? code[i - 1] : '';
+      const _prevChar = i > 0 ? code[i - 1] : "";
 
       if (escaped) {
         escaped = false;
         continue;
       }
 
-      if (char === '\\') {
+      if (char === "\\") {
         escaped = true;
         continue;
       }
@@ -462,19 +468,19 @@ export class CodeValidator {
         inSingleQuote = !inSingleQuote;
       } else if (char === '"' && !inSingleQuote && !inTemplate) {
         inDoubleQuote = !inDoubleQuote;
-      } else if (char === '`' && !inSingleQuote && !inDoubleQuote) {
+      } else if (char === "`" && !inSingleQuote && !inDoubleQuote) {
         inTemplate = !inTemplate;
       }
     }
 
     if (inSingleQuote) {
-      return { balanced: false, error: 'Unclosed single quote' };
+      return { balanced: false, error: "Unclosed single quote" };
     }
     if (inDoubleQuote) {
-      return { balanced: false, error: 'Unclosed double quote' };
+      return { balanced: false, error: "Unclosed double quote" };
     }
     if (inTemplate) {
-      return { balanced: false, error: 'Unclosed template literal' };
+      return { balanced: false, error: "Unclosed template literal" };
     }
 
     return { balanced: true };

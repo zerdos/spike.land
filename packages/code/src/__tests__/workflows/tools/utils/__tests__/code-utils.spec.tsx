@@ -146,8 +146,10 @@ describe("code-utils", () => {
   describe("shouldReturnFullCode", () => {
     // Mock the config constants
     const originalSmallFileThreshold = (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD;
-    const originalComplexChangeThreshold = (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD;
-    const originalSignificantChangeRatio = (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO;
+    const originalComplexChangeThreshold =
+      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD;
+    const originalSignificantChangeRatio =
+      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO;
 
     beforeEach(() => {
       // Mock updateSearchReplace
@@ -164,8 +166,10 @@ describe("code-utils", () => {
     afterEach(() => {
       // Restore original values
       (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD = originalSmallFileThreshold;
-      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD = originalComplexChangeThreshold;
-      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO = originalSignificantChangeRatio;
+      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD =
+        originalComplexChangeThreshold;
+      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO =
+        originalSignificantChangeRatio;
     });
 
     it("should return true for small files", () => {

@@ -248,8 +248,9 @@ describe("Code Durable Object", () => {
       // Create a new instance of Code with the same state and env, but it will have the mocked WebSocketHandler
       codeInstance = new Code(mockState, mockEnv);
       // Manually set the session for this new instance to avoid re-initializing and re-triggering puts
-      (codeInstance as unknown as { session: unknown; initialized: boolean }).session = initialSession;
-      (codeInstance as unknown as { session: unknown; initialized: boolean }).initialized = true;
+      (codeInstance as unknown as { session: unknown; initialized: boolean; }).session =
+        initialSession;
+      (codeInstance as unknown as { session: unknown; initialized: boolean; }).initialized = true;
     });
 
     it("should save updated session parts and broadcast changes", async () => {

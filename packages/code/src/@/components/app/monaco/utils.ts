@@ -226,8 +226,12 @@ export async function checkTypeScriptErrors(
     }
 
     // Check for missing modules and try to resolve them
-    const missingModuleErrors = semanticDiagnostics.filter((d: { messageText: string | { messageText: string } }) =>
-      (typeof d.messageText === 'string' ? d.messageText : d.messageText.messageText).includes("Cannot find module")
+    const missingModuleErrors = semanticDiagnostics.filter((
+      d: { messageText: string | { messageText: string; }; },
+    ) =>
+      (typeof d.messageText === "string" ? d.messageText : d.messageText.messageText).includes(
+        "Cannot find module",
+      )
     );
 
     if (missingModuleErrors.length > 0) {
@@ -251,8 +255,11 @@ export async function checkTypeScriptErrors(
       } else {
         console.warn(
           "Some modules still missing types:",
-          updatedSemanticDiagnostics.filter((d: { messageText: string | { messageText: string } }) =>
-            (typeof d.messageText === 'string' ? d.messageText : d.messageText.messageText).includes("Cannot find module")
+          updatedSemanticDiagnostics.filter((
+            d: { messageText: string | { messageText: string; }; },
+          ) =>
+            (typeof d.messageText === "string" ? d.messageText : d.messageText.messageText)
+              .includes("Cannot find module")
           ),
         );
       }
