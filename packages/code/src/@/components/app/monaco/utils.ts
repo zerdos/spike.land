@@ -190,6 +190,16 @@ declare global {
 }
 
 /**
+ * Helper function to extract message text from diagnostic objects
+ * @param diagnostic The diagnostic object that may have nested messageText
+ */
+function getMessageText(diagnostic: { messageText: string | { messageText: string; }; }): string {
+  return typeof diagnostic.messageText === "string" 
+    ? diagnostic.messageText 
+    : diagnostic.messageText.messageText;
+}
+
+/**
  * Check for TypeScript errors
  * @param model The Monaco editor model
  * @param uri The URI of the file
@@ -229,9 +239,7 @@ export async function checkTypeScriptErrors(
     const missingModuleErrors = semanticDiagnostics.filter((
       d: { messageText: string | { messageText: string; }; },
     ) =>
-      (typeof d.messageText === "string" ? d.messageText : d.messageText.messageText).includes(
-        "Cannot find module",
-      )
+      getMessageText(d).includes("Cannot find module")
     );
 
     if (missingModuleErrors.length > 0) {
@@ -258,8 +266,7 @@ export async function checkTypeScriptErrors(
           updatedSemanticDiagnostics.filter((
             d: { messageText: string | { messageText: string; }; },
           ) =>
-            (typeof d.messageText === "string" ? d.messageText : d.messageText.messageText)
-              .includes("Cannot find module")
+            getMessageText(d).includes("Cannot find module")
           ),
         );
       }

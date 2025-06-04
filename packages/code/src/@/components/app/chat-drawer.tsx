@@ -37,7 +37,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   } = props;
 
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
-  const [_userScrolledUp, setUserScrolledUp] = useState(false);
+  const [userScrolledUp, setUserScrolledUp] = useState(false);
 
   // Memoize button class for performance
   const buttonClassName = useMemo(
@@ -81,6 +81,19 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   const handleButtonClick = useCallback(() => {
     onClose();
   }, [onClose]);
+
+  // Memoize onNewPrompt to prevent unnecessary re-renders
+  const handleNewPrompt = useCallback(async (prompt: string) => {
+    await handleSendMessage({
+      prompt,
+      images: [],
+      cSess,
+    });
+    setInput(""); // Clear the input state
+    if (inputRef.current) {
+      inputRef.current.value = ""; // Clear the input ref value
+    }
+  }, [cSess, setInput, inputRef]);
 
   return (
     <Drawer.Root
@@ -139,17 +152,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
                 handleEditMessage={handleEditMessage}
                 isStreaming={isStreaming}
                 setEditingMessageId={setEditingMessageId}
-                onNewPrompt={async (prompt: string) => {
-                  await handleSendMessage({
-                    prompt,
-                    images: [],
-                    cSess,
-                  });
-                  setInput(""); // Clear the input state
-                  if (inputRef.current) {
-                    inputRef.current.value = ""; // Clear the input ref value
-                  }
-                }}
+                onNewPrompt={handleNewPrompt}
                 isDarkMode={isDarkMode}
               />
               <div id="after-last-message" data-testid="messages-end-marker" />
