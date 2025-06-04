@@ -116,6 +116,6 @@
     ".vscode/tailwind.json"
   ],
   "MutableAI.upsell": false,
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "vitest.disableWorkspaceWarning": true
 }

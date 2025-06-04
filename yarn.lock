@@ -3451,6 +3451,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.0"
     "@testing-library/user-event": "npm:14.6.1"
     "@types/diff": "npm:8.0.0"
+    "@types/esprima": "npm:^4"
     "@types/events": "npm:^3.0.3"
     "@types/mime-types": "npm:3.0.0"
     "@types/node": "npm:22.15.29"
@@ -3474,6 +3475,7 @@ __metadata:
     detective-typescript: "npm:14.0.0"
     diff: "npm:8.0.2"
     embla-carousel-react: "npm:8.6.0"
+    encoding: "npm:^0.1.13"
     esbuild: "npm:0.25.5"
     esbuild-plugin-copy: "npm:2.1.1"
     esbuild-wasm: "npm:0.25.5"
@@ -3481,6 +3483,7 @@ __metadata:
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:5.2.0"
     eslint-plugin-react-refresh: "npm:0.4.20"
+    esprima: "npm:^4.0.1"
     events: "npm:^3.3.0"
     fetch-retry: "npm:6.0.0"
     framer-motion: "npm:12.16.0"
@@ -3514,8 +3517,10 @@ __metadata:
     react-use: "npm:17.6.0"
     recharts: "npm:2.15.3"
     recordrtc: "npm:5.6.2"
+    rollup: "npm:^4.41.1"
     sonner: "npm:2.0.5"
     stream-browserify: "npm:^3.0.0"
+    supports-color: "npm:^10.0.0"
     swr: "npm:2.3.3"
     tailwind-merge: "npm:3.3.0"
     tailwindcss: "npm:4.1.8"
@@ -3533,6 +3538,8 @@ __metadata:
     workbox-window: "npm:7.3.0"
     worker-rpc: "npm:0.2.0"
     zod: "npm:3.25.51"
+  peerDependencies:
+    supports-color: "*"
   languageName: unknown
   linkType: soft
 
@@ -4396,7 +4403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/esprima@npm:4.0.6":
+"@types/esprima@npm:4.0.6, @types/esprima@npm:^4":
   version: 4.0.6
   resolution: "@types/esprima@npm:4.0.6"
   dependencies:
@@ -6667,7 +6674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding@npm:^0.1.13":
+"encoding@npm:*, encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
   dependencies:
@@ -7254,7 +7261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esprima@npm:4.0.1, esprima@npm:^4.0.1":
+"esprima@npm:*, esprima@npm:4.0.1, esprima@npm:^4.0.1":
   version: 4.0.1
   resolution: "esprima@npm:4.0.1"
   bin:
@@ -12044,7 +12051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:4.41.1, rollup@npm:^4.34.9, rollup@npm:^4.40.0":
+"rollup@npm:*, rollup@npm:4.41.1, rollup@npm:^4.34.9, rollup@npm:^4.40.0, rollup@npm:^4.41.1":
   version: 4.41.1
   resolution: "rollup@npm:4.41.1"
   dependencies:
@@ -13019,6 +13026,13 @@ __metadata:
   version: 4.3.6
   resolution: "stylis@npm:4.3.6"
   checksum: 10/6ebe8a37827124e0caf0704c13d39c121f6e6a8433eb8c67cfce508477b24a4434d1731198ba0b6e453655022bbf5beda93585f38ff420545e5356f925f83761
+  languageName: node
+  linkType: hard
+
+"supports-color@npm:*, supports-color@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "supports-color@npm:10.0.0"
+  checksum: 10/0475bf167d132955139ee0047a59eff1a2fc964c0f896071818a416a18fec4a5a77caa1140b3cafad09212cde78574c905f917d37976eeb45604e0cb320c0461
   languageName: node
   linkType: hard
 
