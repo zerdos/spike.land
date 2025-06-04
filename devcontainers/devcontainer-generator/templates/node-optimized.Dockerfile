@@ -29,7 +29,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_{NODE_VERSION}.x | bash - \
 FROM node-builder AS module-builder
 WORKDIR /build
 COPY package.json yarn.lock* ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Stage 5: Development environment
 FROM base AS development

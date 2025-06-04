@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
 
       - name: Run Linters
         run: yarn eslint
@@ -56,4 +56,4 @@ jobs:
         run: yarn types:check
 
       - name: Run Tests
-        run: yarn test # This runs 'vitest --reporter dot --silent --no-color run'
+        run: cd packages/code && yarn vitest run

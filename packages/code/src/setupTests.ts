@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeAll, afterAll, vi } from "vitest";
 
 // Mock matchMedia for all tests
 Object.defineProperty(window, "matchMedia", {
@@ -63,6 +63,36 @@ if (!global.HTMLSelectElement) {
   );
   global.HTMLSelectElement = MockHTMLSelectElement;
 }
+
+// Silence console output during tests
+const originalConsole = {
+  // eslint-disable-next-line no-console
+  log: console.log,
+  warn: console.warn,
+  error: console.error,
+  info: console.info,
+  debug: console.debug,
+};
+
+beforeAll(() => {
+  // Mock all console methods to be silent
+  // eslint-disable-next-line no-console
+  console.log = vi.fn();
+  console.warn = vi.fn();
+  console.error = vi.fn();
+  console.info = vi.fn();
+  console.debug = vi.fn();
+});
+
+afterAll(() => {
+  // Restore original console methods
+  // eslint-disable-next-line no-console
+  console.log = originalConsole.log;
+  console.warn = originalConsole.warn;
+  console.error = originalConsole.error;
+  console.info = originalConsole.info;
+  console.debug = originalConsole.debug;
+});
 
 // This helps ensure all assertions are cleaned up properly
 afterEach(() => {
