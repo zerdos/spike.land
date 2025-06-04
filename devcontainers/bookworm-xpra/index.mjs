@@ -11,7 +11,7 @@ const run = async () => {
   devGenerator.setZsh();
   devGenerator.setRemoteDesktop("xpra");
   devGenerator.setChrome();
-  // devGenerator.setDotnet("6");
+  // devGenerator.setDotnet6();
   devGenerator.setDeno();
   devGenerator.setVscode();
 
