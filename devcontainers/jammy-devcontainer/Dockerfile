@@ -121,7 +121,7 @@ COPY --from=node:lts-bullseye-slim --link /usr/local/bin/npx /usr/local/bin/npx
 
 
 RUN node --version
-RUN chmod 755 /usr/local/bin/yarn &&   yarn --version
+RUN chmod 755 /usr/local/bin/yarn &&  yarn --version
 
 ### deno.Dockerfile
 

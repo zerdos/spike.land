@@ -29,7 +29,7 @@
     "eslint": "eslint --config eslint.config.js . --cache --max-warnings=100",
     "eslint:fix": "eslint --config eslint.config.js . --fix --cache",
     "fmt": "yarn dprint fmt \"packages/**/*\"",
-    "ci": "yarn install --immutable && yarn lint && yarn build:all && yarn test",
+    "ci": "yarn install --immutable && yarn eslint && yarn build:all && cd packages/code && yarn vitest run",
     "release": "yarn clean && yarn build:all && yarn deploy:full",
     "docker:build": "yarn workspaces foreach --all -p run docker:build",
     "docker:push": "yarn workspaces foreach --all -p run docker:push"
