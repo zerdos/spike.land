@@ -93,7 +93,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (inputRef.current) {
       inputRef.current.value = ""; // Clear the input ref value
     }
-  }, [cSess, setInput, inputRef]);
+  }, [cSess, setInput, inputRef, handleSendMessagex]);
 
   return (
     <Drawer.Root

@@ -28,8 +28,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_{NODE_VERSION}.x | bash - \
 # Stage 4: Build native modules if needed
 FROM node-builder AS module-builder
 WORKDIR /build
-COPY package.json yarn.lock* ./
-RUN yarn install
+COPY package.json yarn.lock* .yarnrc.yml .yarn ./
+RUN yarn install --immutable --immutable-cache
 
 # Stage 5: Development environment
 FROM base AS development
