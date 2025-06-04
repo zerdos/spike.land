@@ -66,7 +66,6 @@ if (!global.HTMLSelectElement) {
 
 // Silence console output during tests
 const originalConsole = {
-   
   log: console.log,
   warn: console.warn,
   error: console.error,
@@ -76,7 +75,6 @@ const originalConsole = {
 
 beforeAll(() => {
   // Mock all console methods to be silent
-   
   console.log = vi.fn();
   console.warn = vi.fn();
   console.error = vi.fn();
@@ -86,7 +84,6 @@ beforeAll(() => {
 
 afterAll(() => {
   // Restore original console methods
-   
   console.log = originalConsole.log;
   console.warn = originalConsole.warn;
   console.error = originalConsole.error;
