@@ -175,7 +175,6 @@ type Base =
 
 type NodeVersion = "lts" | "current";
 type RemoteDesktopType = "xpra" | "noVNC";
-type DotnetVersion = "3" | "5" | "6";
 
 // Type for software versions structure
 interface SoftwareVersions {

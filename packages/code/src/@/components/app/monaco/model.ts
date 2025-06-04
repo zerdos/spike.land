@@ -157,7 +157,7 @@ async function createEditorModel(
         const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(
           uri.toString(),
         );
-        const extractMessageText = (message: string | { messageText: any }): string => {
+        const extractMessageText = (message: string | { messageText: string; }): string => {
           if (typeof message === "string") {
             return message;
           } else if (message && typeof message.messageText !== "undefined") {
@@ -166,7 +166,7 @@ async function createEditorModel(
             return "Unknown diagnostic message";
           }
         };
-        return diagnostics.map((d: { messageText: string | { messageText: any; }; }) =>
+        return diagnostics.map((d: { messageText: string | { messageText: string; }; }) =>
           extractMessageText(d.messageText)
         );
       } catch (error) {
