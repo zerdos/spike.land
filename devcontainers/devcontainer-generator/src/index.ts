@@ -553,19 +553,145 @@ export class DevcontainerGenerator {
 
   /**
    * Validate template dependencies
+   * 
+   * This function performs comprehensive dependency validation to ensure that:
+   * 1. All required dependencies are present and enabled
+   * 2. No circular dependencies exist in the dependency graph
+   * 3. Dependencies are properly ordered (dependencies have lower order values)
+   * 4. All dependency references point to valid templates in the registry
+   * 
+   * The validation prevents runtime errors and ensures that templates are processed
+   * in the correct order during Dockerfile and README generation.
+   * 
+   * @param enabledTemplates Array of template IDs that are currently enabled
+   * @returns Array of error messages describing any validation failures
+   * 
+   * @example
+   * // If kubernetes template is enabled but docker is not:
+   * // Returns: ["Missing dependency: kubernetes requires docker"]
+   * 
+   * // If templates have circular dependencies:
+   * // Returns: ["Circular dependency detected: templateA -> templateB -> templateA"]
+   * 
+   * // If dependency ordering is incorrect:
+   * // Returns: ["Dependency ordering issue: kubernetes (order: 35) depends on docker (order: 30), but dependency should have lower order value"]
    */
   private validateTemplateDependencies(enabledTemplates: string[]): string[] {
     const errors: string[] = [];
     
+    // Validate that templateRegistry is properly initialized
+    if (!templateRegistry || typeof templateRegistry !== 'object') {
+      errors.push("Error: Template registry is not properly initialized");
+      return errors;
+    }
+    
+    // Check direct dependencies
     for (const templateId of enabledTemplates) {
       const template = templateRegistry[templateId];
-      if (!template) continue;
+      if (!template) {
+        errors.push(`Unknown template: ${templateId}`);
+        continue;
+      }
       
       if (template.dependencies) {
         for (const depId of template.dependencies) {
           if (!this._enabledTemplates.has(depId)) {
             errors.push(`Missing dependency: ${templateId} requires ${depId}`);
+          } else {
+            // Validate that the dependency template exists in registry
+            const depTemplate = templateRegistry[depId];
+            if (!depTemplate) {
+              errors.push(`Invalid dependency: ${templateId} depends on unknown template ${depId}`);
+            }
           }
+        }
+      }
+    }
+    
+    // Check for circular dependencies
+    const circularDependencyErrors = this.detectCircularDependencies(enabledTemplates);
+    errors.push(...circularDependencyErrors);
+    
+    // Validate dependency ordering
+    const orderingErrors = this.validateDependencyOrdering(enabledTemplates);
+    errors.push(...orderingErrors);
+    
+    return errors;
+  }
+
+  /**
+   * Detect circular dependencies in the template dependency graph
+   */
+  private detectCircularDependencies(enabledTemplates: string[]): string[] {
+    const errors: string[] = [];
+    const visited = new Set<string>();
+    const recursionStack = new Set<string>();
+    
+    const detectCycle = (templateId: string, path: string[]): boolean => {
+      if (recursionStack.has(templateId)) {
+        const cycleStart = path.indexOf(templateId);
+        const cycle = path.slice(cycleStart).concat(templateId);
+        errors.push(`Circular dependency detected: ${cycle.join(' -> ')}`);
+        return true;
+      }
+      
+      if (visited.has(templateId)) {
+        return false;
+      }
+      
+      visited.add(templateId);
+      recursionStack.add(templateId);
+      
+      const template = templateRegistry[templateId];
+      if (template?.dependencies) {
+        for (const depId of template.dependencies) {
+          if (this._enabledTemplates.has(depId)) {
+            if (detectCycle(depId, [...path, templateId])) {
+              return true;
+            }
+          }
+        }
+      }
+      
+      recursionStack.delete(templateId);
+      return false;
+    };
+    
+    for (const templateId of enabledTemplates) {
+      if (!visited.has(templateId)) {
+        detectCycle(templateId, []);
+      }
+    }
+    
+    return errors;
+  }
+
+  /**
+   * Validate that dependencies are ordered correctly based on template order values
+   */
+  private validateDependencyOrdering(enabledTemplates: string[]): string[] {
+    const errors: string[] = [];
+    
+    for (const templateId of enabledTemplates) {
+      const template = templateRegistry[templateId];
+      if (!template?.dependencies) continue;
+      
+      const templateOrder = template.order || DEFAULT_TEMPLATE_ORDER;
+      
+      for (const depId of template.dependencies) {
+        if (!this._enabledTemplates.has(depId)) continue;
+        
+        const depTemplate = templateRegistry[depId];
+        if (!depTemplate) continue;
+        
+        const depOrder = depTemplate.order || DEFAULT_TEMPLATE_ORDER;
+        
+        // Dependencies should have lower order values (be processed first)
+        if (depOrder >= templateOrder) {
+          errors.push(
+            `Dependency ordering issue: ${templateId} (order: ${templateOrder}) ` +
+            `depends on ${depId} (order: ${depOrder}), but dependency should have lower order value`
+          );
         }
       }
     }
