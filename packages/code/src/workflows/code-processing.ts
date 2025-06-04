@@ -5,26 +5,6 @@ import { hashCache } from "./caching";
 import { shouldReturnFullCode } from "./tools/utils/code-utils";
 
 /**
- * Attempts to extract code from a JSON string
- */
-export const tryExtractCodeFromJson = (jsonString: string): string | null => {
-  try {
-    const content = JSON.parse(jsonString);
-    // Check if content has code property with string value
-    if (content?.code && typeof content.code === "string") {
-      return content.code;
-    }
-    // If no code but has hash, return null to keep previous code
-    if (!content?.code && content?.hash) {
-      return null;
-    }
-  } catch (_e) {
-    // Silently fail on JSON parse errors
-  }
-  return null;
-};
-
-/**
  * Determines whether to return modified code based on tool calls
  */
 export const determineReturnModifiedCode = (
