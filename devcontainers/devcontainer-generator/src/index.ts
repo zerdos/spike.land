@@ -579,9 +579,22 @@ export class DevcontainerGenerator {
   private validateRequiredVariables(enabledTemplates: string[]): string[] {
     const errors: string[] = [];
     
+    // Validate initialization of templateRegistry and variables
+    if (!templateRegistry || typeof templateRegistry !== 'object') {
+      errors.push("Error: templateRegistry is not properly initialized.");
+      return errors;
+    }
+    if (!this._variables || typeof this._variables !== 'object') {
+      errors.push("Error: Variables are not properly initialized.");
+      return errors;
+    }
+    
     for (const templateId of enabledTemplates) {
       const template = templateRegistry[templateId];
-      if (!template) continue;
+      if (!template) {
+        errors.push(`Unknown template: ${templateId}`);
+        continue;
+      }
       
       if (template.requiredVars) {
         for (const varName of template.requiredVars) {
