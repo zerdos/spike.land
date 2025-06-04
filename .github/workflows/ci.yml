@@ -24,27 +24,19 @@ jobs:
       - name: Enable Yarn
         run: corepack enable yarn
 
-      - name: Get Yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
-
-      - name: Cache Yarn cache
+      - name: Cache Yarn cache and PnP files
         uses: actions/cache@v4
-        id: yarn-cache # Cache Yarn cache folder
+        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            ./.yarn/cache
+            ./.yarn/unplugged
+            ./.yarn/install-state.gz
+            ./.pnp.cjs
+            ./.pnp.loader.mjs
+          key: ${{ runner.os }}-yarn-pnp-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Cache node_modules
-        id: node-modules-cache
-        uses: actions/cache@v4
-        with:
-          path: '**/node_modules' # Cache node_modules in all workspaces
-          key: ${{ runner.os }}-${{ matrix.node-version }}-node_modules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-node_modules-
+            ${{ runner.os }}-yarn-pnp-
 
       - name: Install Dependencies
         run: yarn install
