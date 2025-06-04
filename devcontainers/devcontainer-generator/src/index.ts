@@ -423,8 +423,7 @@ export class DevcontainerGenerator {
     }
     else if (version === "3") {
       const dotnetVersion = softwareVersions.dotnet3;
-      const shaRecord = (softwareVersions.sha.dotnet_sha512 as Record<string, string | { amd: string }>)[dotnetVersion];
-      const shaValue = typeof shaRecord === 'string' ? shaRecord : shaRecord.amd;
+      const shaValue = this.getShaValue(dotnetVersion);
       
       this._variables["DOTNET_SDK_VERSION"] = dotnetVersion;
       this._variables["dotnet_sha512"] = shaValue;
