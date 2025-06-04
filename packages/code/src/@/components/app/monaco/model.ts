@@ -157,8 +157,17 @@ async function createEditorModel(
         const diagnostics = await typeScriptWorker.getSuggestionDiagnostics(
           uri.toString(),
         );
-        return diagnostics.map((d: { messageText: string | { messageText: string; }; }) =>
-          typeof d.messageText === "string" ? d.messageText : d.messageText.messageText
+        const extractMessageText = (message: string | { messageText: any }): string => {
+          if (typeof message === "string") {
+            return message;
+          } else if (message && typeof message.messageText !== "undefined") {
+            return extractMessageText(message.messageText);
+          } else {
+            return "Unknown diagnostic message";
+          }
+        };
+        return diagnostics.map((d: { messageText: string | { messageText: any; }; }) =>
+          extractMessageText(d.messageText)
         );
       } catch (error) {
         console.error("Error getting diagnostics:", error);
