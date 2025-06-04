@@ -9,6 +9,78 @@ import { handleSendMessage } from "@/workers/handle-chat-message";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Drawer } from "vaul";
 
+// Constants
+const SCROLL_THRESHOLD = 1;
+const MESSAGES_END_MARKER_ID = "after-last-message";
+
+/**
+ * Determines if the scroll container is at or near the bottom
+ */
+const isScrollAtBottom = (container: HTMLDivElement): boolean => {
+  return container.scrollHeight - container.scrollTop <= container.clientHeight + SCROLL_THRESHOLD;
+};
+
+/**
+ * Scrolls to the bottom of the chat smoothly
+ */
+const scrollToBottom = (): void => {
+  const lastMessageElement = document.getElementById(MESSAGES_END_MARKER_ID);
+  lastMessageElement?.scrollIntoView({ behavior: "smooth" });
+};
+
+/**
+ * Custom hook to manage chat scroll behavior
+ * @param scrollAreaRef - Reference to the scroll container
+ * @param messages - Array of chat messages
+ * @param isStreaming - Whether the chat is currently streaming
+ * @returns Object containing scroll state and methods
+ */
+const useChatScroll = (
+  scrollAreaRef: React.RefObject<HTMLDivElement | null>,
+  messages: unknown[],
+  isStreaming: boolean,
+) => {
+  const [userScrolledUp, setUserScrolledUp] = useState(false);
+
+  /**
+   * Auto-scroll to bottom when new messages arrive, but only if:
+   * 1. User is at the bottom of the chat
+   * 2. User hasn't scrolled up during streaming
+   */
+  useEffect(() => {
+    if (!messages.length) return;
+    const container = scrollAreaRef.current;
+    if (!container) return;
+
+    // Prevent auto-scroll if streaming and user has manually scrolled up
+    if (isStreaming && userScrolledUp) {
+      return;
+    }
+
+    if (isScrollAtBottom(container)) {
+      scrollToBottom();
+    }
+  }, [messages, isStreaming, userScrolledUp, scrollAreaRef]);
+
+  /**
+   * Track user scroll position to determine if they've scrolled up from bottom
+   */
+  useEffect(() => {
+    const container = scrollAreaRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const isAtBottom = isScrollAtBottom(container);
+      setUserScrolledUp(!isAtBottom);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [scrollAreaRef]);
+
+  return { userScrolledUp };
+};
+
 export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   const {
     isOpen,
@@ -37,7 +109,9 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
   } = props;
 
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
-  const [userScrolledUp, setUserScrolledUp] = useState(false);
+
+  // Use custom hook for scroll behavior management
+  useChatScroll(scrollAreaRef, messages, isStreaming);
 
   // Memoize button class for performance
   const buttonClassName = useMemo(
@@ -49,55 +123,25 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     [isOpen],
   );
 
-  // Only scroll to bottom if user is at the bottom and hasn't scrolled up during streaming
-  useEffect(() => {
-    if (!messages.length) return;
-    const container = scrollAreaRef.current;
-    if (!container) return;
-    
-    // If streaming and user has scrolled up, don't auto-scroll
-    if (isStreaming && userScrolledUp) {
-      return;
-    }
-    
-    const isAtBottom = container.scrollHeight - container.scrollTop <=
-      container.clientHeight + 1;
-    if (isAtBottom) {
-      const lastMessageElement = document.getElementById("after-last-message");
-      lastMessageElement?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages, isStreaming, userScrolledUp]);
-
-  // Track user scroll position
-  useEffect(() => {
-    const container = scrollAreaRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const isAtBottom = container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 1;
-      setUserScrolledUp(!isAtBottom);
-    };
-
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Handler for closing the drawer
+  /**
+   * Handler for closing the drawer
+   */
   const handleButtonClick = useCallback(() => {
     onClose();
   }, [onClose]);
 
-  // Memoize onNewPrompt to prevent unnecessary re-renders
+  /**
+   * Memoized handler for new prompts to prevent unnecessary re-renders
+   */
   const handleNewPrompt = useCallback(async (prompt: string) => {
     await handleSendMessage({
       prompt,
       images: [],
       cSess,
     });
-    setInput(""); // Clear the input state
+    setInput("");
     if (inputRef.current) {
-      inputRef.current.value = ""; // Clear the input ref value
+      inputRef.current.value = "";
     }
   }, [cSess, setInput, inputRef]);
 
@@ -161,7 +205,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
                 onNewPrompt={handleNewPrompt}
                 isDarkMode={isDarkMode}
               />
-              <div id="after-last-message" data-testid="messages-end-marker" />
+              <div id={MESSAGES_END_MARKER_ID} data-testid="messages-end-marker" />
             </ScrollArea>
             <MessageInput
               input={input}
