@@ -49,18 +49,24 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     [isOpen],
   );
 
-  // Only scroll to bottom if user is at the bottom
+  // Only scroll to bottom if user is at the bottom and hasn't scrolled up during streaming
   useEffect(() => {
     if (!messages.length) return;
     const container = scrollAreaRef.current;
     if (!container) return;
+    
+    // If streaming and user has scrolled up, don't auto-scroll
+    if (isStreaming && userScrolledUp) {
+      return;
+    }
+    
     const isAtBottom = container.scrollHeight - container.scrollTop <=
       container.clientHeight + 1;
     if (isAtBottom) {
       const lastMessageElement = document.getElementById("after-last-message");
       lastMessageElement?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, isStreaming, userScrolledUp]);
 
   // Track user scroll position
   useEffect(() => {
@@ -93,7 +99,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
     if (inputRef.current) {
       inputRef.current.value = ""; // Clear the input ref value
     }
-  }, [cSess, setInput, inputRef, handleSendMessagex]);
+  }, [cSess, setInput, inputRef]);
 
   return (
     <Drawer.Root
