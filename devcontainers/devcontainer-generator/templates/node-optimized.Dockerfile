@@ -29,7 +29,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_{NODE_VERSION}.x | bash - \
 FROM node-builder AS module-builder
 WORKDIR /build
 COPY package.json yarn.lock* .yarnrc.yml .yarn ./
-RUN yarn install --immutable --immutable-cache
+RUN yarn install --immutable
 
 # Stage 5: Development environment
 FROM base AS development

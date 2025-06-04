@@ -194,8 +194,8 @@ declare global {
  * @param diagnostic The diagnostic object that may have nested messageText
  */
 function getMessageText(diagnostic: { messageText: string | { messageText: string; }; }): string {
-  return typeof diagnostic.messageText === "string" 
-    ? diagnostic.messageText 
+  return typeof diagnostic.messageText === "string"
+    ? diagnostic.messageText
     : diagnostic.messageText.messageText;
 }
 
@@ -238,9 +238,7 @@ export async function checkTypeScriptErrors(
     // Check for missing modules and try to resolve them
     const missingModuleErrors = semanticDiagnostics.filter((
       d: { messageText: string | { messageText: string; }; },
-    ) =>
-      getMessageText(d).includes("Cannot find module")
-    );
+    ) => getMessageText(d).includes("Cannot find module"));
 
     if (missingModuleErrors.length > 0) {
       console.warn("Missing module errors detected:", missingModuleErrors);
@@ -265,9 +263,7 @@ export async function checkTypeScriptErrors(
           "Some modules still missing types:",
           updatedSemanticDiagnostics.filter((
             d: { messageText: string | { messageText: string; }; },
-          ) =>
-            getMessageText(d).includes("Cannot find module")
-          ),
+          ) => getMessageText(d).includes("Cannot find module")),
         );
       }
     }

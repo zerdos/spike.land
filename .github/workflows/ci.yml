@@ -36,7 +36,7 @@ jobs:
             ${{ runner.os }}-yarn-pnp-
 
       - name: Install Dependencies
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable
 
       - name: Run Linters
         run: yarn eslint
