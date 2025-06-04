@@ -5,18 +5,20 @@ describe("getParts", () => {
   test("should handle empty input", () => {
     const input = "";
     const result = getPartsStreaming(input, true);
-    expect(result.parts).toMatchInlineSnapshot([]);
+    expect(result.parts).toMatchInlineSnapshot(`[]`);
   });
 
   test("should handle text without code blocks", () => {
     const input = "This is a simple text message.";
     const result = getPartsStreaming(input, true);
-    expect(result.parts).toMatchInlineSnapshot([
-      {
-        type: "text",
-        content: "This is a simple text message.",
-      },
-    ]);
+    expect(result.parts).toMatchInlineSnapshot(`
+      [
+        {
+          "content": "This is a simple text message.",
+          "type": "text",
+        },
+      ]
+    `);
   });
 
   test("should handle text with a single code block", () => {
