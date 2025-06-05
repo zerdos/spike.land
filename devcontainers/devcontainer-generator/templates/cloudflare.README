@@ -1,0 +1,13 @@
+# Cloudflare Devcontainer
+
+This devcontainer is configured for Cloudflare Workers development.
+
+## Included Software
+
+* Node.js (LTS)
+* Wrangler CLI (Cloudflare Workers CLI)
+
+## Usage
+
+This devcontainer can be used to develop and test Cloudflare Workers.
+Refer to the [Cloudflare Workers documentation](https://developers.cloudflare.com/workers/) for more information.

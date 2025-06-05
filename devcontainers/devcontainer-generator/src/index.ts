@@ -1,5 +1,5 @@
 import { readFile } from "fs/promises";
-import * as softwareVersions from "../versions.json";
+import * as softwareVersions from "../versions.json" assert { type: "json" };
 
 // Constants for magic numbers and default values
 const DEFAULT_TEMPLATE_ORDER = 0;
@@ -120,6 +120,12 @@ const templateRegistry: Readonly<Record<string, TemplateDefinition>> = {
     category: TemplateCategory.RUNTIME,
     requiredVars: ["DENO_VERSION"],
     order: DENO_TEMPLATE_ORDER
+  },
+  "cloudflare": {
+    id: "cloudflare",
+    category: TemplateCategory.TOOL, // Or TemplateCategory.RUNTIME if more appropriate
+    dependencies: ["node-optimized"], // Assuming 'node-optimized' template is used
+    order: 16 // Adjust order as needed, ensure it's unique and logical
   },
   "vscode": {
     id: "vscode",
@@ -348,7 +354,7 @@ export class DevcontainerGenerator {
    * @param optimized Whether to use the optimized multi-stage build template
    */
   public setNodeVersion(nodeType: NodeVersion, optimized = false): this {
-    const versions = softwareVersions as SoftwareVersions;
+    const versions = softwareVersions.default as SoftwareVersions;
     const nodeVersion = versions.node[nodeType];
     const yarnVersion = versions.yarn;
     
@@ -378,7 +384,7 @@ export class DevcontainerGenerator {
    * Update Git to the latest version or use Ubuntu's package
    */
   public updateGit(forceFromSource = false): this {
-    const versions = softwareVersions as SoftwareVersions;
+    const versions = softwareVersions.default as SoftwareVersions;
     
     if (this.getDistro(this.base) === "ubuntu" && !forceFromSource) {
       this._enabledTemplates.add("gitUbuntu");
@@ -410,7 +416,7 @@ export class DevcontainerGenerator {
    * Enable Deno runtime
    */
   public setDeno(): this {
-    const versions = softwareVersions as SoftwareVersions;
+    const versions = softwareVersions.default as SoftwareVersions;
     this._features.deno = true;
     this._variables["DENO_VERSION"] = versions.deno;
     this._enabledTemplates.add("deno");
@@ -501,7 +507,7 @@ export class DevcontainerGenerator {
    * Enable Cypress for end-to-end testing
    */
   public setCypress(): this {
-    const versions = softwareVersions as SoftwareVersions;
+    const versions = softwareVersions.default as SoftwareVersions;
     this._variables["CYPRESS_VERSION"] = versions.cypress;
     this._enabledTemplates.add("cypress");
     return this;

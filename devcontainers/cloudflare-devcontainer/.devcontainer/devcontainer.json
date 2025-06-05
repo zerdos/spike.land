@@ -1,0 +1,19 @@
+{
+  "name": "Cloudflare Devcontainer",
+  "dockerFile": "../Dockerfile", // Corrected path relative to .devcontainer/
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.node",
+        "cloudflare.vscode-cloudflare-wrangler"
+        // Add any other useful extensions for Cloud/Cloudflare development
+      ]
+    }
+  },
+  "forwardPorts": [8787], // Default port for wrangler dev
+  "postCreateCommand": "npm install -g wrangler", // Ensure wrangler is available
+  "remoteUser": "node" // Or "vscode" if that's the user in your base image
+  // "mounts": [ // Optional: Mount local Cloudflare config
+  //   "source=${localEnv:HOME}/.wrangler,target=/home/node/.wrangler,type=bind,consistency=cached"
+  // ]
+}
