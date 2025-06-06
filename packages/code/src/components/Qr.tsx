@@ -34,7 +34,12 @@ export const QRButton: FC<{ url: string; }> = ({ url }) => {
           />
         )
         : (
-          <Button variant="outline" size="lg" aria-label="Toggle QR Code"> {/* Replaced Fab with Button */}
+          <Button
+            variant="outline"
+            size="lg"
+            aria-label="Toggle QR Code"
+            onClick={() => setQR(!showQR)} // Added onClick handler
+          >
             <QrCodeIcon />
           </Button>
         )}

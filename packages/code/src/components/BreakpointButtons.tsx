@@ -1,6 +1,7 @@
+import type { FC } from 'react'; // Added import
 import { motion } from "framer-motion";
 import { Phone, Tablet, Tv } from "./icons";
-import { Toggle } from "@/components/ui/toggle"; // Changed import
+import { Toggle } from "@/components/ui/toggle"; // Cleaned import line
 
 interface BreakpointButtonsProps {
   width: number;
@@ -8,7 +9,7 @@ interface BreakpointButtonsProps {
   breakPoints: number[];
 }
 
-export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
+export const BreakpointButtons: FC<BreakpointButtonsProps> = ({ // Changed React.FC to FC
   width,
   setWidth,
   breakPoints,

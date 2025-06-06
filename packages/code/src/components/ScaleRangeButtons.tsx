@@ -1,5 +1,6 @@
+import type { FC } from 'react'; // Added import
 import { motion } from "framer-motion";
-import { Toggle } from "@/components/ui/toggle"; // Changed import
+import { Toggle } from "@/components/ui/toggle";
 
 interface ScaleRangeButtonsProps {
   scaleRange: number;
@@ -8,7 +9,7 @@ interface ScaleRangeButtonsProps {
   maxScaleRange: number;
 }
 
-export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
+export const ScaleRangeButtons: FC<ScaleRangeButtonsProps> = ({ // Changed React.FC to FC
   scaleRange,
   setScaleRange,
   sizes,

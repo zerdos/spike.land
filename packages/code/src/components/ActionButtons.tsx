@@ -28,8 +28,8 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
       initial={{ height: 0, width: 0 }}
       animate={{ height: "100%", width: 88 }}
     >
-      <div className="p-4 flex overflow-hidden items-center flex-col space-y-2">
-        <TooltipProvider>
+      <TooltipProvider>
+        <div className="p-4 flex overflow-hidden items-center flex-col space-y-2">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -37,6 +37,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
                 size="icon"
                 onClick={() =>
                   document.querySelector("#root")?.requestFullscreen()}
+                aria-label="Toggle Fullscreen"
               >
                 <FullscreenIcon />
               </Button>
@@ -45,29 +46,23 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
               <p>Toggle Fullscreen</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
 
-        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              {/* The QRButton itself might need to be a button or wrapped if it's not already a suitable trigger */}
-              <div> {/* This div might be necessary if QRButton is not a direct button/trigger */}
-                <QRButton url={`${location.origin}/live/${codeSpace}/`} />
-              </div>
+              <QRButton url={`${location.origin}/live/${codeSpace}/`} />
             </TooltipTrigger>
             <TooltipContent side="left">
               <p>Show QR Code</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
 
-        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => window.open(`/live/${codeSpace}/`)}
+                aria-label="Open in New Window"
               >
                 <Share />
               </Button>
@@ -76,12 +71,15 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
               <p>Open in New Window</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
 
-        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" onClick={handleDownload}>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleDownload}
+                aria-label="Download Project"
+              >
                 <FaDownload />
               </Button>
             </TooltipTrigger>
@@ -89,8 +87,8 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
               <p>Download Project</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider>
-      </div>
+        </div>
+      </TooltipProvider>
     </motion.div>
   );
 };

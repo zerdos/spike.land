@@ -31,7 +31,7 @@ This document outlines the guidelines for creating and using UI components in th
 
 ## Using Components
 
-*   Import components from `packages/code/src/@/components/ui`.
+*   Import components using the `@` alias, which maps to `src/@/`. For example: `import { Button } from '@/components/ui/button';`.
 *   Use the component's props to customize its appearance and behavior.
 *   Refer to the component's documentation or stories for examples of how to use it.
 
