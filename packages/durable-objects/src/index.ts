@@ -59,15 +59,12 @@ export class PresenceDurableObject implements DurableObject {
     });
   }
 
-  async handleWebSocketSession(webSocket: WebSocket, request: Request) {
-    // @ts-expect-error TODO: Add types for CF workers
-    webSocket.accept();
+  async handleWebSocketSession(webSocket: WebSocket, request: Request) { // Ensure 'WebSocket' type is used here
+    webSocket.accept(); // The @ts-expect-error comment should be removed
 
     const userId = crypto.randomUUID();
 const userSession: UserSession = { socket: webSocket, status: "online" };
 this.users.set(userId, userSession);
-
-console.log(`User ${userId} connected from ${request.headers.get("CF-Connecting-IP")}, status: online`);
 
 this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online" }));
 
@@ -80,27 +77,28 @@ this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online"
       if (session) {
         session.status = newStatus;
         this.users.set(userId, session); // Update the map
-        console.log(`User ${userId} updated status to: ${newStatus}`);
         this.broadcast(JSON.stringify({ type: "USER_STATUS_UPDATED", userId, status: newStatus }));
       }
     } else {
-      console.log(`Received unhandled message type from ${userId}: ${event.data}`);
+          // Send error for unknown message type
+          if (webSocket.readyState === 1 /* WebSocket.OPEN */) {
+            webSocket.send(JSON.stringify({ type: "ERROR", message: `Unknown message type: ${messageData.type}` }));
+          }
     }
   } catch (e) {
-    console.error(`Failed to parse message from ${userId} or handle status update: ${event.data}`, e);
-    // Optionally send an error message back to the user
-    // webSocket.send(JSON.stringify({ type: "ERROR", message: "Invalid message format" }));
+        // Send error for invalid JSON or other processing errors
+        if (webSocket.readyState === 1 /* WebSocket.OPEN */) {
+          webSocket.send(JSON.stringify({ type: "ERROR", message: "Invalid message format or error processing message" }));
+        }
   }
     });
 
     webSocket.addEventListener("close", async (event) => {
-      console.log(`User ${userId} disconnected. Reason: ${event.reason} Code: ${event.code}`);
       this.users.delete(userId);
       this.broadcast(JSON.stringify({ type: "USER_DISCONNECTED", userId }));
     });
 
     webSocket.addEventListener("error", async (event) => {
-      console.error(`WebSocket error for ${userId}: ${event.error}`);
       if (this.users.has(userId)) {
         this.users.delete(userId);
         this.broadcast(JSON.stringify({ type: "USER_DISCONNECTED", userId, error: true }));
@@ -109,14 +107,35 @@ this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online"
   }
 
   broadcast(message: string) {
-this.users.forEach((session, id) => { // session is now UserSession
-      try {
-    session.socket.send(message);
-      } catch (error) {
-        console.error(`Failed to send message to user ${id}:`, error);
-    // Consider removing user if send fails multiple times or specific errors occur
-        // this.users.delete(id);
+    const usersToDelete = new Set<string>();
+
+    this.users.forEach((session, id) => {
+      // Standard WebSocket readyState values:
+      // CONNECTING = 0
+      // OPEN = 1
+      // CLOSING = 2
+      // CLOSED = 3
+      const WebSocketOPEN = 1; // Define or use WebSocket.OPEN if available globally and correctly typed
+
+      if (session.socket.readyState === WebSocketOPEN) {
+        try {
+          session.socket.send(message);
+        } catch (error) {
+          // Assuming any send error means the client is gone or connection is broken
+          usersToDelete.add(id);
+        }
+      } else {
+        // If socket is not open, mark for deletion
+        usersToDelete.add(id);
       }
+    });
+
+    usersToDelete.forEach(id => {
+      this.users.delete(id);
+      // Optional: Could broadcast a "USER_DISCONNECTED_BY_SERVER" or similar
+      // if this cleanup implies an unexpected disconnection.
+      // For now, just cleaning up the list.
+      // console.log(`Removed user ${id} due to closed/erroring WebSocket during broadcast.`);
     });
   }
 }
