@@ -27,6 +27,15 @@ The frontend React application for spike.land - a real-time collaborative React 
 - Service Workers
 - i18next
 
+## UI Component Guidelines
+
+This project is transitioning towards a standardized UI component library built with [Tailwind CSS](https://tailwindcss.com/)
+and custom components located in `src/@/components/ui`. These components are designed to ensure consistency,
+reusability, accessibility, and performance across the application.
+
+For detailed information on creating and using these UI components, please refer to the
+[UI Component Guidelines](./UI_GUIDELINES.md).
+
 ## Development
 
 ### Prerequisites
@@ -143,6 +152,8 @@ yarn vitest
 ```
 
 ## Contributing
+
+When contributing to the UI, please make sure to follow the [UI Component Guidelines](./UI_GUIDELINES.md).
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
