@@ -5,10 +5,16 @@ compatibility_date = "2024-01-01"
 [durable_objects]
 bindings = [
 	{ name = "COUNTER", class_name = "Counter" },
-	{ name = "SQL", class_name = "SQLiteDurableObject" }
+	{ name = "SQL", class_name = "SQLiteDurableObject" },
+	{ name = "PRESENCE", class_name = "PresenceDurableObject" }
 ]
 
 [[migrations]]
 tag = "v1"
-new_classes = ["Counter"]
+new_classes = ["Counter", "PresenceDurableObject"]
+new_sqlite_classes = ["SQLiteDurableObject"]
+
+[[migrations]]
+tag = "v2"
+new_classes = ["Counter", "PresenceDurableObject"]
 new_sqlite_classes = ["SQLiteDurableObject"]

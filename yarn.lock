@@ -3433,6 +3433,7 @@ __metadata:
     "@vitest/runner": "npm:3.2.1"
     "@vitest/snapshot": "npm:3.2.1"
     miniflare: "npm:4.20250525.1"
+    tinyrainbow: "npm:^2.0.0"
     typescript: "npm:5.8.3"
     vitest: "npm:3.2.1"
     wrangler: "npm:4.19.1"
