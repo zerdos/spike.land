@@ -10,8 +10,11 @@ bindings = [
 ]
 
 [[migrations]]
-tag = "v1" # It might be appropriate to increment the tag or create a new migration block
-           # if this were a real-world scenario with existing deployments.
-           # For this task, modifying the existing one is fine.
+tag = "v1"
+new_classes = ["Counter", "PresenceDurableObject"]
+new_sqlite_classes = ["SQLiteDurableObject"]
+
+[[migrations]]
+tag = "v2"
 new_classes = ["Counter", "PresenceDurableObject"]
 new_sqlite_classes = ["SQLiteDurableObject"]
