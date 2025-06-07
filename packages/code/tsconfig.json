@@ -3,16 +3,17 @@
   "include": [
     "src",
     "src/assets/tw-js.js",
-    "scripts"
+    "scripts",
+    "vite.config.ts",
+    "src/@/lib/importmap-utils.ts",
+    "eslint.config.js"
   ],
   "exclude": [
     "node_modules",
     "dts",
-    "dist"
-  ],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -21,21 +22,31 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "emitDeclarationOnly": true,
-    "target": "ES2020",
+    "target": "ES2022",
     "removeComments": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "lib": ["dom", "esnext", "esnext.asynciterable", "webworker"],
+    "lib": ["dom", "esnext", "esnext.asynciterable", "webworker", "ESNext"],
     "paths": {
       "@/*": ["./src/@/*"]
     },
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "outDir": "dist",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationDir": "./dts",
+    "isolatedModules": true,
+    "noEmit": false,
+    "moduleDetection": "force",
+    "types": ["vite/client", "vitest/globals"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
   }
 }
