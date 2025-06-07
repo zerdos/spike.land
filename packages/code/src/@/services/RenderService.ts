@@ -22,7 +22,9 @@ export class RenderService {
     } else if (transpiled.includes(`cn("`)) {
       const cnArr = transpiled.split(`cn("`);
       for (let i = 1; i < cnArr.length; i++) {
-        cnArr[i] = cnArr[i].split(" ").join("  ");
+        if (cnArr[i]) {
+          cnArr[i] = cnArr[i]!.split(" ").join("  ");
+        }
       }
       transpiled = cnArr.join(`cn( "`);
       hashed = md5(transpiled);
@@ -42,6 +44,8 @@ export class RenderService {
         transpiled,
         codeSpace: this.codeSpace,
         rootElement: myEl,
+        App: undefined, // Add missing optional properties
+        code: undefined, // Add missing optional properties
       });
 
       document.getElementById("embed")?.replaceWith(myEl);
@@ -72,7 +76,7 @@ export class RenderService {
       ),
     )
       .map((x) =>
-        (Array.from(x.sheet!.cssRules).map((rule: CSSRule) => rule.cssText))
+        (x.sheet ? Array.from(x.sheet.cssRules).map((rule: CSSRule) => rule.cssText) : [])
           .join("\n")
       ); // Added type CSSRule for inner x
 
@@ -80,7 +84,8 @@ export class RenderService {
       ...emotionGlobalStyles,
       ...[...cssCache.sheet.tags].map((
         tag: HTMLStyleElement,
-      ) => (Array.from(tag.sheet!.cssRules!).map((rule: CSSRule) => rule.cssText))).flat(), // Changed to Array.from and added type CSSRule
+      ) => (tag.sheet ? Array.from(tag.sheet.cssRules).map((rule: CSSRule) => rule.cssText) : []))
+        .flat(), // Changed to Array.from and added type CSSRule
     ].join("\n")
       .split(cssCache.key).join("x");
 

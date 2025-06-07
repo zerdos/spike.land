@@ -84,7 +84,7 @@ export async function handleSendMessage(
     if (iterationResult.validationResults.length > 0) {
       const lastValidation =
         iterationResult.validationResults[iterationResult.validationResults.length - 1];
-      if (lastValidation.errors.length > 0) {
+      if (lastValidation && lastValidation.errors.length > 0) {
         const validationErrors = lastValidation.errors.slice(0, 3).join("; ");
         iterationResult.finalState.lastError += `. Validation errors: ${validationErrors}`;
       }

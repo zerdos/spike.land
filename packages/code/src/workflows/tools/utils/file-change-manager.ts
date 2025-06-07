@@ -193,7 +193,24 @@ export class FileChangeManager {
     diff: string,
   ): { success: false; message: string; hash?: string; } | null {
     if (providedHash !== currentHash) {
-      if (providedHash === this.currentState[path].lastSuccessfulHash) {
+      const currentState = this.currentState[path]!;
+
+      if (currentState === undefined) {
+        this._log(
+          `No current state found for path ${path}, initializing state.`,
+          "warn",
+        );
+        this.currentState[path] = {
+          content: "",
+          hash: currentHash,
+          lastSuccessfulHash: currentHash,
+          pendingChanges: [],
+          changeHistory: [],
+          consecutiveMinorChanges: 0,
+        };
+      }
+
+      if (providedHash === currentState.lastSuccessfulHash) {
         this._log(
           "Hash matches last successful hash, proceeding with change.",
           "warn",
@@ -208,7 +225,7 @@ export class FileChangeManager {
           timestamp: Date.now(),
         };
         this.pendingChanges.push(pendingChange);
-        this.currentState[path].pendingChanges.push(pendingChange);
+        this.currentState[path]?.pendingChanges.push(pendingChange);
         return {
           success: false,
           message: "Document has been modified since last hash. Retrying with current hash.",
@@ -408,8 +425,8 @@ export class FileChangeManager {
     while ((match = regex.exec(diff)) !== null) {
       if (match.length >= 3) {
         blocks.push({
-          search: match[1].trim(),
-          replace: match[2].trim(),
+          search: match[1]!.trim(),
+          replace: match[2]!.trim(),
         });
       }
     }
@@ -475,8 +492,8 @@ export class FileChangeManager {
 
     // Strategy 1: Match first and last lines
     if (searchLines.length > 1) {
-      const firstSearchLine = searchLines[0].trim();
-      const lastSearchLine = searchLines[searchLines.length - 1].trim();
+      const firstSearchLine = searchLines.at(0)!.trim();
+      const lastSearchLine = searchLines.at(-1)!.trim();
 
       const firstLineMatches: number[] = [];
       const lastLineMatches: number[] = [];
@@ -529,7 +546,7 @@ export class FileChangeManager {
     }
 
     // Strategy 2: Try to find a unique match for the first line of the search block
-    const firstSearchLine = searchLines[0].trim();
+    const firstSearchLine = searchLines[0]!.trim();
     const potentialMatches: number[] = [];
 
     for (const [i, line] of lines.entries()) {
@@ -545,6 +562,13 @@ export class FileChangeManager {
         "warn",
       ); // Changed to warn
       const matchIndex = potentialMatches[0];
+      if (!matchIndex) {
+        this._log(
+          "Match index is 0, returning original block",
+          "warn",
+        ); // Changed to warn
+        return block; // No context to add
+      }
       const contextWindow = 3; // Increased from 2 to 3 for more context
 
       // Get context before
@@ -645,10 +669,10 @@ export class FileChangeManager {
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (str1[i - 1] === str2[j - 1]) {
-          dp[i][j] = dp[i - 1][j - 1] + 1;
+          dp[i]![j] = dp[i - 1]![j - 1]! + 1;
 
-          if (dp[i][j] > maxLength) {
-            maxLength = dp[i][j];
+          if (dp[i]![j]! > maxLength) {
+            maxLength = dp[i]![j]!;
             endIndex = i;
           }
         }
@@ -669,7 +693,6 @@ export class FileChangeManager {
   ): string | null {
     // Use line-by-line approach for long strings
     const lines1 = str1.split("\n");
-    const _lines2 = str2.split("\n");
 
     let bestMatch = "";
     let bestLength = 0;
@@ -723,7 +746,7 @@ export class FileChangeManager {
     let lowestMatchCount = Infinity;
 
     for (let i = 0; i < significantSearchLines.length; i++) {
-      const line = significantSearchLines[i].trim();
+      const line = significantSearchLines[i] ?? "".trim();
       let matchCount = 0;
 
       for (const contentLine of contentLines) {
@@ -740,7 +763,7 @@ export class FileChangeManager {
 
     // If we found a unique line, use it to anchor our match
     if (lowestMatchCount < Infinity) {
-      const anchorLine = significantSearchLines[mostUniqueLineIndex].trim();
+      const anchorLine = significantSearchLines[mostUniqueLineIndex] ?? "".trim();
 
       for (const [i, line] of contentLines.entries()) {
         if (line.trim() === anchorLine) {
@@ -955,7 +978,7 @@ export class FileChangeManager {
 
     // Add specific suggestions based on the content
     if (failedBlocks.length > 0) {
-      const firstFailedBlock = failedBlocks[0];
+      const firstFailedBlock = failedBlocks[0] || "";
       const firstFailedLines = firstFailedBlock.split("\n");
 
       if (firstFailedLines.length > 1) {
@@ -1022,7 +1045,7 @@ export class FileChangeManager {
           if (!searchLine) continue; // Skip empty lines
 
           // Get the significant part of the content line
-          const contentLine = contentLines[i + matchedLines];
+          const contentLine = contentLines[i + matchedLines] ?? "";
           const significantContentLine = contentLine
             .replace(/\/\/.*$/, "")
             .replace(/\/\*.*\*\//g, "")
@@ -1055,7 +1078,7 @@ export class FileChangeManager {
 
     return {
       success: anySuccess,
-      content: anySuccess ? modifiedContent : undefined,
+      content: anySuccess ? modifiedContent : "",
     };
   }
 
@@ -1084,10 +1107,10 @@ export class FileChangeManager {
   ): { path: string; hash: string; diff: string; } {
     // Only batch changes for the same file
     const firstChange = changes[0];
-    const samePath = changes.every((change) => change.path === firstChange.path);
+    const samePath = changes.every((change) => change.path === firstChange?.path);
 
     if (!samePath || changes.length <= 1) {
-      return firstChange;
+      return firstChange!;
     }
 
     // Extract all blocks
@@ -1104,8 +1127,8 @@ export class FileChangeManager {
     }).join("\n\n");
 
     return {
-      path: firstChange.path,
-      hash: firstChange.hash,
+      path: firstChange!.path!,
+      hash: firstChange!.hash!,
       diff: batchedDiff,
     };
   }
@@ -1118,7 +1141,7 @@ export class FileChangeManager {
 
     // Clear pending changes in file states
     for (const path in this.currentState) {
-      this.currentState[path].pendingChanges = [];
+      this.currentState[path]!.pendingChanges = [];
     }
   }
 }

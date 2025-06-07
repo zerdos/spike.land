@@ -98,7 +98,7 @@ function processQueryAndHash(path: string): {
   hash: string;
 } {
   const [pathPart, hash] = path.split("#");
-  const [basePath, query] = pathPart.split("?");
+  const [basePath, query] = (pathPart || "").split("?");
 
   return {
     basePath: basePath || "",
@@ -235,10 +235,10 @@ export function importMapReplace(
       if (!pathMatch) return match;
 
       const importPath = pathMatch[1];
-      if (!shouldTransformPath(importPath)) return match;
+      if (!importPath || !shouldTransformPath(importPath)) return match;
 
       const exportsParam = getExportsString(match);
-      const mappedPath = getMappedPath(importPath, exportsParam, true);
+      const mappedPath = getMappedPath(importPath!, exportsParam, true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );
@@ -253,10 +253,10 @@ export function importMapReplace(
       if (!pathMatch) return match;
 
       const exportPath = pathMatch[1];
-      if (!shouldTransformPath(exportPath)) return match;
+      if (!exportPath || !shouldTransformPath(exportPath)) return match;
 
       const exportsParam = getExportsString(match);
-      const mappedPath = getMappedPath(exportPath, exportsParam, true);
+      const mappedPath = getMappedPath(exportPath!, exportsParam, true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );
@@ -269,9 +269,9 @@ export function importMapReplace(
       if (!pathMatch) return match;
 
       const importPath = pathMatch[1];
-      if (!shouldTransformPath(importPath)) return match;
+      if (!importPath || !shouldTransformPath(importPath)) return match;
 
-      const mappedPath = getMappedPath(importPath, "", true);
+      const mappedPath = getMappedPath(importPath!, "", true);
       return match.replace(/['"][^'"]+['"]/, `"${mappedPath}"`);
     },
   );

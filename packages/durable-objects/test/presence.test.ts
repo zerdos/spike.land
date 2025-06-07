@@ -1,6 +1,6 @@
 // packages/durable-objects/test/presence.test.ts
 import { env } from "cloudflare:test";
-import { expect, it, describe } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("PresenceDurableObject", () => {
   it("should reject non-WebSocket requests", async () => {

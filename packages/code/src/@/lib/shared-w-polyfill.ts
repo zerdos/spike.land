@@ -7,7 +7,7 @@ class SharedWorkerPolyfill {
   public port: MessagePort = null!; // Will be initialized if worker is created
 
   constructor(url: string, opts?: WorkerOptions) {
-    if (process.env.VI_TEST) {
+    if (process.env["VI_TEST"]) {
       // Mock worker for tests
       this.worker = {
         postMessage: () => {},
@@ -58,7 +58,7 @@ class SharedWorkerPolyfill {
       } as unknown as MessagePort;
       return;
     }
-    if (process.env.VI_TEST) {
+    if (process.env["VI_TEST"]) {
       // Create a mock MessagePort for tests
       this.port = {
         onmessage: null,

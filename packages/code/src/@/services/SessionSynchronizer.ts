@@ -89,7 +89,9 @@ export class SessionSynchronizer implements ISessionSynchronizer {
     if (!this.session) {
       this.session = await this.init();
     }
-    return this.session.code;
+    // this.session is guaranteed to be non-null here due to the await this.init()
+    // or if it was already initialized.
+    return this.session!.code;
   }
 
   /**

@@ -64,7 +64,7 @@ const formatCssContent = (cssContent: string, indent: string): string => {
     new RegExp(`${placeholderPrefix}\\d+`, "g"),
     (match) => {
       const index = parseInt(match.replace(placeholderPrefix, ""), 10);
-      return interpolations[index];
+      return interpolations[index] || "";
     },
   );
 };
@@ -105,9 +105,10 @@ export const addSomeFixesIfNeeded = (rawCode: string): string => {
       !code.includes(" css ")
     ) {
       const [firstLine, ...restLines] = header.split("\n");
-      header = firstLine.startsWith("//")
-        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines]
-          .join("\n")
+      header = (firstLine || "").startsWith("//")
+        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines].join(
+          "\n",
+        )
         : ['import { css } from "@emotion/react";', firstLine, ...restLines]
           .join("\n");
     }
@@ -118,9 +119,9 @@ export const addSomeFixesIfNeeded = (rawCode: string): string => {
     const processedSections = parts.map((section) => {
       const [cssContent, afterCss, ...remainingParts] = section.split("`");
       const indent = createSpaceString(currentIndent);
-      currentIndent = (afterCss.split("\n").pop()?.length || 0) + 2;
+      currentIndent = (afterCss?.split("\n").pop()?.length || 0) + 2;
 
-      const formattedCss = formatCssContent(cssContent, indent);
+      const formattedCss = formatCssContent(cssContent || "", indent);
       return `${formattedCss}\n${indent}\`${[afterCss, ...remainingParts].join("`")}`;
     });
 

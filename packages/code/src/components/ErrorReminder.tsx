@@ -71,8 +71,8 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = ({
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3 }}
           onUpdate={(latest) => {
-            if (typeof latest.height === "number") {
-              onHeightChange(latest.height);
+            if (typeof latest["height"] === "number") {
+              onHeightChange(latest["height"]);
             }
           }}
         >

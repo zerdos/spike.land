@@ -22,7 +22,7 @@ export const TypedArray: unknown = Object.getPrototypeOf(Int8Array);
  * }
  * ```
  */
-export const AudioData = globalThis.AudioData;
+export const AudioData = globalThis["AudioData"];
 
 /**
  * Represents the ImageBitmap interface, enabling manipulation of images in a way that is optimized for performance.
@@ -34,7 +34,7 @@ export const AudioData = globalThis.AudioData;
  * });
  * ```
  */
-export const ImageBitmap = globalThis.ImageBitmap;
+export const ImageBitmap = globalThis["ImageBitmap"];
 
 /**
  * Represents the VideoFrame interface, part of the WebCodecs API, allowing low-level manipulation of video frames.
@@ -46,7 +46,7 @@ export const ImageBitmap = globalThis.ImageBitmap;
  * }
  * ```
  */
-export const VideoFrame = globalThis.VideoFrame;
+export const VideoFrame = globalThis["VideoFrame"];
 
 /**
  * Represents the OffscreenCanvas interface, enabling canvas rendering to be done off the main thread.
@@ -59,7 +59,7 @@ export const VideoFrame = globalThis.VideoFrame;
  * }
  * ```
  */
-export const OffscreenCanvas = globalThis.OffscreenCanvas;
+export const OffscreenCanvas = globalThis["OffscreenCanvas"];
 
 /**
  * Represents the RTCDataChannel interface, used for bidirectional peer-to-peer transfers of arbitrary data.
@@ -71,7 +71,7 @@ export const OffscreenCanvas = globalThis.OffscreenCanvas;
  * console.warn(dataChannel instanceof RTCDataChannel); // true
  * ```
  */
-export const RTCDataChannel = globalThis.RTCDataChannel;
+export const RTCDataChannel = globalThis["RTCDataChannel"];
 
 /**
  * Represents the MessageChannel interface, providing a way to send data between different parts of your application.
@@ -83,22 +83,22 @@ export const RTCDataChannel = globalThis.RTCDataChannel;
  * channel.port2.postMessage("Hello, world!");
  * ```
  */
-export const MessageChannel = globalThis.MessageChannel;
+export const MessageChannel = globalThis["MessageChannel"];
 
 /**
  * Represents the ReadableStream interface, providing a way to handle streamed data read operations.
  */
-export const ReadableStream = globalThis.ReadableStream;
+export const ReadableStream = globalThis["ReadableStream"];
 
 /**
  * Represents the WritableStream interface, providing a way to handle streamed data write operations.
  */
-export const WritableStream = globalThis.WritableStream;
+export const WritableStream = globalThis["WritableStream"];
 
 /**
  * Represents the TransformStream interface, allowing data to be transformed as it is passed through the stream.
  */
-export const TransformStream = globalThis.TransformStream;
+export const TransformStream = globalThis["TransformStream"];
 
 const ReadableStreamExists = "ReadableStream" in globalThis;
 const WritableStreamExists = "WritableStream" in globalThis;

@@ -2,7 +2,7 @@
 
 export function extractCurrentTask(aiResponse: string): string {
   const taskMatch = aiResponse.match(/Current task: (.*)/);
-  return taskMatch ? taskMatch[1] : "";
+  return (taskMatch?.[1] ?? "") as string;
 }
 
 export function extractCodeStructure(code: string): string {

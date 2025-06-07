@@ -52,8 +52,8 @@ export class Telemetry {
 
     const event: TelemetryEvent = {
       name,
-      properties,
-      measurements,
+      properties: properties || {},
+      measurements: measurements || {},
       timestamp: new Date(),
     };
 

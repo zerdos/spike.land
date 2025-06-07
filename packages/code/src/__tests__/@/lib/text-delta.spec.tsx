@@ -3,12 +3,6 @@ import type { ICodeSession } from "@/lib/interfaces";
 import { describe, expect, it } from "vitest";
 
 // Define an interface for the operation with _diff property
-interface _StringDiffOperation {
-  op: string;
-  path: string;
-  value: string;
-  _diff?: unknown;
-}
 
 describe("text-diff with string optimization", () => {
   // Create a sample session with a long string property
@@ -76,8 +70,8 @@ describe("text-diff with string optimization", () => {
 
     // Apply the diff and check the result
     const result = applyDelta(originalSession, diff);
-    expect(result.messages[0].content).toEqual(
-      modifiedSession.messages[0].content,
+    expect(result.messages[0]!.content).toEqual(
+      modifiedSession.messages[0]!.content,
     );
   });
 });

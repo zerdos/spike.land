@@ -130,9 +130,9 @@ function stringSimilarity(str1: string, str2: string): number {
     let total = 0;
 
     for (const char in freq1) {
-      total += freq1[char];
-      if (freq2[char]) {
-        matches += Math.min(freq1[char], freq2[char]);
+      total += freq1[char] || 0;
+      if (freq2[char] !== undefined) {
+        matches += Math.min(freq1[char] || 0, freq2[char] || 0);
       }
     }
 
@@ -140,28 +140,31 @@ function stringSimilarity(str1: string, str2: string): number {
   }
 
   // For shorter strings, use a more accurate approach
-  const matrix: number[][] = Array(len1 + 1).fill(0).map(() => Array(len2 + 1).fill(0));
+  const matrix: number[][] = [];
+  for (let i = 0; i <= len1; i++) {
+    matrix.push(Array(len2 + 1).map(() => 0));
+  }
 
   for (let i = 0; i <= len1; i++) {
-    matrix[i][0] = i;
+    matrix[i]![0] = i;
   }
 
   for (let j = 0; j <= len2; j++) {
-    matrix[0][j] = j;
+    matrix[0]![j] = j;
   }
 
   for (let i = 1; i <= len1; i++) {
     for (let j = 1; j <= len2; j++) {
       const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1, // deletion
-        matrix[i][j - 1] + 1, // insertion
-        matrix[i - 1][j - 1] + cost, // substitution
+      matrix[i]![j] = Math.min(
+        matrix[i - 1]![j]! + 1, // deletion
+        matrix[i]![j - 1]! + 1, // insertion
+        matrix[i - 1]![j - 1]! + cost, // substitution
       );
     }
   }
 
-  const distance = matrix[len1][len2];
+  const distance = matrix[len1]![len2]!;
   return 1 - distance / maxDist;
 }
 
@@ -187,8 +190,12 @@ function findBestLineByLineMatch(
   if (significantSearchLines.length === 0) return null;
 
   // Find the most unique significant line to use as an anchor
-  let bestAnchorLine = significantSearchLines[0];
+  let bestAnchorLine: { line: string; index: number; } | undefined = significantSearchLines[0];
   let lowestOccurrences = Infinity;
+
+  if (!bestAnchorLine) { // Handle case where significantSearchLines is empty
+    return null;
+  }
 
   for (const item of significantSearchLines) {
     let occurrences = 0;
@@ -210,7 +217,7 @@ function findBestLineByLineMatch(
   // Find all occurrences of the anchor line
   const anchorMatches: number[] = [];
   for (let i = 0; i < textLines.length; i++) {
-    if (textLines[i].trim() === bestAnchorLine.line) {
+    if (bestAnchorLine && (textLines[i] as string).trim() === bestAnchorLine.line) {
       anchorMatches.push(i);
     }
   }
@@ -222,7 +229,7 @@ function findBestLineByLineMatch(
 
   for (const anchorIndex of anchorMatches) {
     // Calculate the offset from the anchor line to the first line of the search
-    const offset = bestAnchorLine.index;
+    const offset = bestAnchorLine?.index || 0; // Use optional chaining and default to 0
     const startLineIndex = Math.max(0, anchorIndex - offset);
     const endLineIndex = Math.min(
       textLines.length,
@@ -237,8 +244,8 @@ function findBestLineByLineMatch(
     const minLength = Math.min(searchLines.length, potentialMatchLines.length);
 
     for (let i = 0; i < minLength; i++) {
-      const searchLine = searchLines[i].trim();
-      const textLine = potentialMatchLines[i].trim();
+      const searchLine = searchLines[i]?.trim() || ""; // Add optional chaining and default to empty string
+      const textLine = potentialMatchLines[i]?.trim() || ""; // Add optional chaining and default to empty string
 
       if (searchLine === textLine) {
         matchScore += 1;
@@ -275,7 +282,7 @@ function findBestLineByLineMatch(
     // Calculate the start index in the original text
     let startIndex = 0;
     for (let i = 0; i < bestMatchIndex; i++) {
-      startIndex += textLines[i].length + 1; // +1 for the newline
+      startIndex += (textLines[i]?.length || 0) + 1; // Add optional chaining and default to 0
     }
 
     return { match: matchedText, startIndex };
@@ -352,8 +359,8 @@ export function replacePreservingWhitespace(
       // Skip extra whitespace in the original text that was normalized
       if (
         i < text.length - 1 &&
-        /\s/.test(text[i]) && /\s/.test(text[i + 1]) &&
-        normalizeWhitespace(text[i] + text[i + 1]).length === 1
+        /\s/.test(text[i] as string) && /\s/.test(text[i + 1] as string) &&
+        normalizeWhitespace((text[i] as string) + (text[i + 1] as string)).length === 1
       ) {
         continue;
       }
@@ -392,10 +399,10 @@ export function replacePreservingWhitespace(
       const quickIndex = lines.findIndex((line) => line.includes("quick"));
       if (
         quickIndex >= 0 && quickIndex < lines.length - 1 &&
-        lines[quickIndex + 1].includes("brown")
+        (lines[quickIndex + 1] as string).includes("brown")
       ) {
         const result = [...lines];
-        result[quickIndex] = result[quickIndex].replace("quick", "very slow");
+        result[quickIndex] = (result[quickIndex] as string).replace("quick", "very slow");
         result.splice(quickIndex + 1, 1); // Remove the "brown" line
         return result.join("\n");
       }
@@ -407,7 +414,10 @@ export function replacePreservingWhitespace(
       const searchStart = lines[0];
       const searchEnd = lines[lines.length - 1];
 
-      const result = findTextBetween(text, searchStart, searchEnd);
+      if (lines.length < 2) return text; // Ensure searchStart and searchEnd are defined
+      const searchStartStr = searchStart as string;
+      const searchEndStr = searchEnd as string;
+      const result = findTextBetween(text, searchStartStr, searchEndStr);
       if (result) {
         return text.substring(0, result.startIndex) + replace +
           text.substring(result.endIndex);
@@ -434,7 +444,7 @@ export function replacePreservingWhitespace(
     let searchIndex = 0;
 
     for (let i = 0; i < text.length && searchIndex < searchNoWS.length; i++) {
-      if (!/\s/.test(text[i])) {
+      if (!/\s/.test(text[i] as string)) {
         if (text[i] === searchNoWS[searchIndex]) {
           if (searchIndex === 0) startIndex = i;
           searchIndex++;
@@ -454,7 +464,7 @@ export function replacePreservingWhitespace(
       let count = 0;
 
       while (count < searchNoWS.length && endIndex < text.length) {
-        if (!/\s/.test(text[endIndex])) count++;
+        if (!/\s/.test(text[endIndex] as string)) count++;
         endIndex++;
       }
 
@@ -490,7 +500,7 @@ export function replacePreservingWhitespace(
     let bestSimilarity = 0;
 
     for (let i = 0; i < textLines.length; i++) {
-      const similarity = stringSimilarity(textLines[i], search);
+      const similarity = stringSimilarity(textLines[i] || "", search); // Add default to empty string
       if (similarity > 0.8 && similarity > bestSimilarity) {
         bestSimilarity = similarity;
         bestLineIndex = i;

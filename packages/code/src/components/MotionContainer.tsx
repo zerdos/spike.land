@@ -21,10 +21,10 @@ export const MotionContainer = (
         padding: 8,
         top: bottom,
         right: isChatOpen ? window.innerWidth / 2 : 0 + right,
-        backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5),
+        backgroundColor: rgba(bgColor[0] ?? 0, bgColor[1] ?? 0, bgColor[2] ?? 0, 0.5),
         borderRadius: 16,
       }}
-      style={{ backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5) }}
+      style={{ backgroundColor: rgba(bgColor[0] ?? 0, bgColor[1] ?? 0, bgColor[2] ?? 0, 0.5) }}
       css={css`
       z-index: 1002;
       backdrop-filter: blur(15px);

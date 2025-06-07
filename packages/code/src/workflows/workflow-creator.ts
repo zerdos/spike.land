@@ -6,6 +6,7 @@ import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
 import { ChatAnthropic } from "@langchain/anthropic";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import type { RunnableToolLike } from "@langchain/core/runnables";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
@@ -42,7 +43,7 @@ export function createWorkflowWithStringReplace(
 
   // Create the enhanced replace-in-file tool with the provided code session
   // This version uses FileChangeManager for improved hash management and error recovery
-  const tools = [getEnhancedReplaceInFileTool(cSess)];
+  const tools = [getEnhancedReplaceInFileTool(cSess) as unknown as RunnableToolLike];
   const toolNode = new ToolNode(tools, { name: "tools" });
 
   // Create the model with bound tools
@@ -86,10 +87,10 @@ export function createWorkflowWithStringReplace(
         console.warn( // Changed to console.warn
           "shouldContinue: Tool calls detected:",
           JSON.stringify(toolCalls.map((tc: Record<string, unknown>) => ({
-            name: tc.name,
-            args: typeof tc.args === "string"
+            name: tc["name"],
+            args: typeof tc["args"] === "string"
               ? "(string)"
-              : Object.keys(tc.args || {}),
+              : Object.keys(tc["args"] || {}),
           }))),
         );
       } else {

@@ -48,15 +48,15 @@ const cleanMessageText = (text: string, isUser: boolean): string => {
     if (text.includes("<user_prompt>")) {
       const parts = text.split("<user_prompt>");
       const userPrompt = parts[1];
-      const userPromptParts = userPrompt.split("</user_prompt>");
-      return userPromptParts[0].trim();
+      const userPromptParts = userPrompt?.split("</user_prompt>") || [];
+      return userPromptParts[0]!.trim();
     }
 
-    return text
+    return (text || "")
       .split("The user's first message follows:")
-      .pop()!
-      .trim()
-      .split("Reminder from the system:")[0]
+      .pop()
+      ?.trim()
+      .split("Reminder from the system:")[0] || ""
       .trim();
   }
   return text;
@@ -85,8 +85,8 @@ const parseMessageParts = (
       }
     }
 
-    const language = getLanguage(match[1]);
-    const code = match[2];
+    const language = getLanguage(match[1]!);
+    const code = match[2]!;
 
     parts.push({ type: "code", language, content: code });
 

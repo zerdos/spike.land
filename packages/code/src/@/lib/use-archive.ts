@@ -292,7 +292,7 @@ export const useSpeedy = async (codeSpace: string) => {
 <body>
   <div id="embed">${htm}</div>
   <script type="module">
-  ${indexMjs[0].text.split("@import url(").join("//@import url(")}
+  ${indexMjs[0]!.text.split("@import url(").join("//@import url(")}
   </script>
 </body>
 </html>`;

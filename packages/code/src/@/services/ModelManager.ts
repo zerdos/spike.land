@@ -30,18 +30,28 @@ export class ModelManager implements IModelManager {
 
       const codeSpaceMatch = codeSpaceLine.match(/^([\w-.]+)\.tsx$/);
       if (!codeSpaceMatch) continue;
+      if (!codeSpaceMatch || !codeSpaceMatch[1]) continue;
       const codeSpace = codeSpaceMatch[1];
+
+      if (typeof codeSpace !== "string") { // Ensure codeSpace is a string
+        errors.push(`Invalid code space derived from line: ${codeSpaceLine}`);
+        continue;
+      }
 
       const codeContentMatch = lines.join("\n").match(
         /```tsx\s*([\s\S]*?)\s*```/m,
       );
-      if (!codeContentMatch) continue;
+      if (!codeContentMatch || !codeContentMatch[1]) continue;
       const codeContent = codeContentMatch[1];
 
       let codeInstance = this.models.get(codeSpace);
       if (!codeInstance) {
+        if (typeof codeContent !== "string") { // Ensure codeContent is a string
+          errors.push(`Invalid code content for ${codeSpace}`);
+          continue;
+        }
         codeInstance = new Code({
-          codeSpace,
+          codeSpace, // codeSpace is now guaranteed to be a string
           code: codeContent,
           html: "",
           css: "",
@@ -49,16 +59,15 @@ export class ModelManager implements IModelManager {
           transpiled: "",
         });
         await codeInstance.init();
-        this.models.set(codeSpace, codeInstance);
+        this.models.set(codeSpace, codeInstance); // codeSpace is now guaranteed to be a string
       }
 
       const session = await codeInstance.getSession();
-      if (session.code !== codeContent) {
+      if (typeof codeContent === "string" && session.code !== codeContent) { // Ensure codeContent is a string
         const updatedCode = await codeInstance.setCode(
           codeContent + "\n\n\n",
-          codeSpace !== this.currentCodeSpace,
+          codeSpace !== this.currentCodeSpace, // codeSpace is now guaranteed to be a string
         );
-
         if (!updatedCode) {
           errors.push(`Failed to update code for ${codeSpace}`);
         }
@@ -115,8 +124,9 @@ export class ModelManager implements IModelManager {
 
     for (const match of matches) {
       const matchedPath = match[0];
-      const codeSpace = matchedPath.split("/").pop()?.replace(/"$/, "");
-      if (!codeSpace || extraModels[codeSpace]) {
+      const pathParts = matchedPath?.split("/");
+      const codeSpace = pathParts?.[pathParts.length - 1]?.replace(/"$/, "");
+      if (!codeSpace || extraModels[codeSpace] !== undefined) {
         continue;
       }
       const extraModelUrl = new URL(`/live/${codeSpace}/index.tsx`, origin)

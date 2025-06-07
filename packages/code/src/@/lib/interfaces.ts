@@ -1,5 +1,5 @@
 import type { EmotionCache } from "@emotion/cache";
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType } from "react";
 import type { Root } from "react-dom/client";
 
 interface BaseProps {
@@ -50,13 +50,6 @@ export interface MessageInputProps {
   screenshot: () => Promise<ImageData>;
 }
 
-export interface ChatWindowProps {
-  isOpen: boolean;
-  children: ReactNode;
-  isMobile: boolean;
-  isDarkMode: boolean;
-}
-
 export interface ICodeSession {
   code: string;
   codeSpace: string;
@@ -90,10 +83,10 @@ export interface ICode {
 export interface IRenderApp {
   root?: Root;
   rootElement?: HTMLDivElement;
-  App?: FlexibleComponentType;
-  codeSpace?: string;
-  transpiled?: string;
-  code?: string;
+  App: FlexibleComponentType | undefined;
+  codeSpace: string | undefined;
+  transpiled: string | undefined;
+  code: string | undefined;
 }
 
 export interface RenderedApp {

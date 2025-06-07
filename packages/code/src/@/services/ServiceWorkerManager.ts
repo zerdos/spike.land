@@ -165,13 +165,14 @@ export class ServiceWorkerManager implements IServiceWorkerManager {
       (window as unknown as IExtendedWindow).__IS_IFRAME__ === true ||
       window.self !== window.parent
     ) {
-      return;
+      return undefined;
     }
     const { error } = await tryCatch(setupServiceWorker());
     if (error) {
       console.error("Error setting up service worker:", { error });
       throw error;
     }
+    return undefined;
   }
 }
 

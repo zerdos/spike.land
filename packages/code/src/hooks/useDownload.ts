@@ -10,7 +10,7 @@ const download = async (
   );
   console.warn("Starting download process"); // Changed to warn
 
-  const downloadProcess = async () => {
+  const downloadProcess = async (): Promise<string | void> => {
     await getSpeedy2();
     console.warn("getSpeedy2 completed"); // Changed to warn
 

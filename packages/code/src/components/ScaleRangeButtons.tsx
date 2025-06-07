@@ -1,6 +1,6 @@
-import type { FC } from 'react'; // Added import
-import { motion } from "framer-motion";
 import { Toggle } from "@/components/ui/toggle";
+import { motion } from "framer-motion";
+import type { FC } from "react"; // Added import
 
 interface ScaleRangeButtonsProps {
   scaleRange: number;
@@ -30,7 +30,8 @@ export const ScaleRangeButtons: FC<ScaleRangeButtonsProps> = ({ // Changed React
       initial={{ height: 0, width: 0 }}
       animate={{ height: 42, width: "100%" }}
     >
-      <div className="flex"> {/* Wrapper div for grouping Toggle buttons */}
+      <div className="flex">
+        {/* Wrapper div for grouping Toggle buttons */}
         {displaySizes.map((size) => (
           <Toggle
             key={size}

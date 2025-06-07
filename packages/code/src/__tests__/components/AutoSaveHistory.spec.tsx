@@ -69,7 +69,9 @@ describe.skip("CodeHistoryCarousel", () => {
 
     // Find and click the first "Restore" button
     const restoreButtons = screen.getAllByText("Restore");
-    fireEvent.click(restoreButtons[0]);
+    if (restoreButtons[0]) {
+      fireEvent.click(restoreButtons[0]);
+    }
 
     // Check if onRestore was called with the correct item
     await waitFor(() => {

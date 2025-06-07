@@ -1,4 +1,4 @@
-import type { ICodeSession } from "@/lib/interfaces";
+import type { ICodeSession, Message } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
@@ -43,6 +43,9 @@ export class SessionManager implements ISessionManager {
         signal: `${this.user} ${session.codeSpace}`,
         sess: session,
       });
+    }
+    if (!this.session) {
+      throw new Error("Session initialization failed.");
     }
     return this.session;
   }
@@ -112,11 +115,13 @@ export class SessionManager implements ISessionManager {
       } else if (oldSession.messages.length === newSession.messages.length) {
         // If same length, only send the modified message (usually the last one)
         const lastIndex = newSession.messages.length - 1;
+        const oldLastMessage = oldSession.messages[lastIndex];
+        const newLastMessage = newSession.messages[lastIndex];
         if (
-          JSON.stringify(oldSession.messages[lastIndex]) !==
-            JSON.stringify(newSession.messages[lastIndex])
+          oldLastMessage && newLastMessage &&
+          JSON.stringify(oldLastMessage) !== JSON.stringify(newLastMessage)
         ) {
-          diff.messages = [newSession.messages[lastIndex]];
+          diff.messages = [newLastMessage].filter(Boolean) as Message[];
         }
       } else {
         // If message count changed, only send the new messages

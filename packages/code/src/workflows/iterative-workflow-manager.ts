@@ -190,7 +190,7 @@ export class IterativeWorkflowManager {
         console.warn("Final errors:", result.errors);
         if (result.validationResults.length > 0) {
           const lastValidation = result.validationResults[result.validationResults.length - 1];
-          console.warn("Last validation errors:", lastValidation.errors);
+          console.warn("Last validation errors:", lastValidation?.errors);
         }
       }
 

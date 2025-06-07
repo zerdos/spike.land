@@ -22,7 +22,7 @@ export async function fetchAndCreateExtraModels(
 
   try {
     await Promise.all(matches.map(async (match) => {
-      const codeSpace = match[0].split("/").pop();
+      const codeSpace = match[0]!.split("/").pop();
       const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
         .toString();
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
@@ -101,7 +101,7 @@ export async function refreshAta(
  */
 export function getImports(code: string): string[] {
   const importRegex = /import\s+(?:{[^}]*}|\*\s+as\s+[^;]+|[^;]+)\s+from\s+['"]([^'"]+)['"]/g;
-  return [...code.matchAll(importRegex)].map((match) => match[1]);
+  return [...code.matchAll(importRegex)].map((match) => match[1]!);
 }
 
 /**

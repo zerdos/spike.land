@@ -17,7 +17,7 @@ export const getStore = async () => {
   const store: Record<string, unknown> = {};
 
   stores.forEach(([key, value]) => {
-    Object.assign(store, { [key]: value });
+    Object.assign(store, { [key as string]: value });
   });
   return store;
 };

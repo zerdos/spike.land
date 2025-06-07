@@ -259,7 +259,7 @@ export async function initializeMonaco(
   const { startMonacoEditor } = await import("@/components/app/monaco-edi");
   const { data, error } = await tryCatch(startMonacoEditor(options));
   if (error) {
-    throw new Error(`Monaco initialization failed: ${error}`);
+    throw new Error(`Monaco initialization failed: ${String(error)}`);
   }
   if (!data) {
     throw new Error("Monaco initialization failed: No data returned");

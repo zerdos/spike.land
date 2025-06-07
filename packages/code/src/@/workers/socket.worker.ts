@@ -129,7 +129,6 @@ const logger = {
 logger.info("Initializing socket worker...");
 
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
-const _SENDER_WORKER_HASH_MISMATCH = "WORKER_HASH_MISMATCH";
 const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
 
 export async function setConnections(
@@ -264,7 +263,7 @@ function createWebSocket(codeSpace: string): Socket {
       connection.webSocket.send(JSON.stringify(handshakeData));
     },
 
-    socketDidClose(socket: Socket, event: CloseEvent) {
+    socketDidClose(_socket: Socket, event: CloseEvent) {
       logger.info(
         `WebSocket closed for ${codeSpace} with code ${event.code}, reason: "${event.reason}", wasClean: ${event.wasClean}`,
       );
@@ -279,7 +278,7 @@ function createWebSocket(codeSpace: string): Socket {
       }
     },
 
-    socketDidReceiveMessage(socket: Socket, message: string) {
+    socketDidReceiveMessage(_socket: Socket, message: string) {
       const messageSize = message.length;
       const messagePreview = message.length > 100
         ? message.substring(0, 97) + "..."
@@ -631,7 +630,7 @@ self.addEventListener("connect", (event: MessageEvent) => {
 
   logger.info(`New port connected: ${portId}`);
 
-  port.addEventListener("message", async (evt: MessageEvent) => {
+  port?.addEventListener("message", async (evt: MessageEvent) => {
     const startTime = Date.now();
 
     const data = evt.data;
@@ -707,7 +706,7 @@ self.addEventListener("connect", (event: MessageEvent) => {
     );
   });
 
-  port.addEventListener("close", () => {
+  port?.addEventListener("close", () => {
     logger.info(`Port ${portId} closed`);
 
     if (codeSpace) {
@@ -730,7 +729,7 @@ self.addEventListener("connect", (event: MessageEvent) => {
     }
   });
 
-  port.start();
+  port?.start();
   logger.debug(`Port ${portId} started`);
 });
 

@@ -1,66 +1,8 @@
-// module-private names and types
 type Perf = { now: () => number; };
-const perf: Perf = typeof performance === "object" &&
-    performance &&
-    typeof performance.now === "function"
-  ? performance
-  : { now: () => Date.now() };
-
-const warned = new Set<string>();
-
-const emitSimplifiedWarning = (message: string, code: string) => {
-  if (!warned.has(code)) {
-    console.warn(`[LRUCache:${code}] ${message}`);
-    warned.add(code);
-  }
-};
-
-let AC = globalThis.AbortController;
-let AS = globalThis.AbortSignal;
-
-/* c8 ignore start */
-if (typeof AC === "undefined") {
-  // @ts-expect-error Polyfill for environments without AbortSignal
-  AS = class AbortSignal {
-    onabort?: (...a: unknown[]) => unknown;
-    _onabort: Array<(...a: unknown[]) => unknown> = [];
-    reason?: unknown;
-    aborted = false;
-    addEventListener(_: string, fn: (...a: unknown[]) => unknown) {
-      this._onabort.push(fn);
-    }
-  };
-  AC = class AbortController {
-    signal: InstanceType<typeof AS>;
-    constructor() {
-      this.signal = new AS() as InstanceType<typeof AS>;
-      emitSimplifiedWarning(
-        "AbortController is not defined. A minimal polyfill is provided for use by LRUCache.fetch(). " +
-          "This polyfill may not be fully spec-compliant. " +
-          "If using in an environment without native AbortController, consider a full polyfill for broader compatibility.",
-        "NO_ABORT_CONTROLLER",
-      );
-    }
-    abort(reason: unknown) {
-      const signal = this.signal as InstanceType<typeof AS> & {
-        aborted: boolean;
-        reason: unknown;
-        _onabort: Array<(reason: unknown) => void>;
-        onabort?: (reason: unknown) => void;
-      };
-      if (signal.aborted) return;
-      signal.reason = reason;
-      signal.aborted = true;
-      for (const fn of signal._onabort) {
-        fn(reason);
-      }
-      if (typeof signal.onabort === "function") {
-        signal.onabort(reason);
-      }
-    }
-  };
-}
-/* c8 ignore stop */
+const perf: Perf =
+  typeof performance === "object" && performance && typeof performance.now === "function"
+    ? performance
+    : { now: () => Date.now() };
 
 const TYPE = Symbol("type");
 export type PosInt = number & { [TYPE]: "Positive Integer"; };
@@ -72,7 +14,6 @@ const isPosInt = (n: unknown): n is PosInt =>
 export type UintArray = Uint8Array | Uint16Array | Uint32Array;
 export type NumberArray = UintArray | number[];
 
-/* c8 ignore start */
 const getUintArray = (max: number) =>
   !isPosInt(max)
     ? null
@@ -85,7 +26,6 @@ const getUintArray = (max: number) =>
     : max <= Number.MAX_SAFE_INTEGER
     ? ZeroArray
     : null;
-/* c8 ignore stop */
 
 class ZeroArray extends Array<number> {
   constructor(size: number) {
@@ -107,15 +47,10 @@ class Stack {
     Stack.#constructing = false;
     return s;
   }
-  constructor(
-    max: number,
-    HeapCls: new(n: number) => NumberArray,
-  ) {
-    /* c8 ignore start */
+  constructor(max: number, HeapCls: new(n: number) => NumberArray) {
     if (!Stack.#constructing) {
       throw new TypeError("instantiate Stack using Stack.create(n)");
     }
-    /* c8 ignore stop */
     this.heap = new HeapCls(max);
   }
   push(n: Index) {
@@ -126,12 +61,9 @@ class Stack {
   }
 }
 
-/**
- * Promise representing an in-progress {@link LRUCache#fetch} call
- */
 export type BackgroundFetch<V> = Promise<V | undefined> & {
   __returned: BackgroundFetch<V> | undefined;
-  __abortController: AbortController; // Will be the polyfilled or native version
+  __abortController: AbortController;
   __staleWhileFetching: V | undefined;
 };
 
@@ -144,23 +76,10 @@ export type DisposeTask<K, V> = [
 export type LRUCacheSize = number;
 export type LRUCacheMilliseconds = number;
 export type LRUCacheCount = number;
-export type LRUCacheDisposeReason =
-  | "evict"
-  | "set"
-  | "delete"
-  | "expire"
-  | "fetch";
-export type LRUCacheDisposer<K, V> = (
-  value: V,
-  key: K,
-  reason: LRUCacheDisposeReason,
-) => void;
+export type LRUCacheDisposeReason = "evict" | "set" | "delete" | "expire" | "fetch";
+export type LRUCacheDisposer<K, V> = (value: V, key: K, reason: LRUCacheDisposeReason) => void;
 export type LRUCacheInsertReason = "add" | "update" | "replace";
-export type LRUCacheInserter<K, V> = (
-  value: V,
-  key: K,
-  reason: LRUCacheInsertReason,
-) => void;
+export type LRUCacheInserter<K, V> = (value: V, key: K, reason: LRUCacheInsertReason) => void;
 export type LRUCacheSizeCalculator<K, V> = (value: V, key: K) => LRUCacheSize;
 
 export interface LRUCacheFetcherOptions<K, V, FC = unknown> {
@@ -289,10 +208,11 @@ export interface LRUCacheGetOptions<K, V, FC> extends
   status?: LRUCacheStatus<V>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Intentionally an empty interface for type clarity/extension
 export interface LRUCachePeekOptions<K, V, FC>
   extends Pick<LRUCacheOptionsBase<K, V, FC>, "allowStale">
-{}
+{
+  status?: LRUCacheStatus<V>;
+}
 
 export interface LRUCacheSetOptions<K, V, FC> extends
   Pick<
@@ -377,6 +297,7 @@ export class LRUCache<
   readonly #disposeAfter?: LRUCacheDisposer<K, V>;
   readonly #fetchMethod?: LRUCacheFetcher<K, V, FC>;
   readonly #memoMethod?: LRUCacheMemoizer<K, V, FC>;
+  readonly #disposed?: Array<DisposeTask<K, V>>;
 
   ttl: LRUCacheMilliseconds;
   ttlResolution: LRUCacheMilliseconds;
@@ -404,7 +325,6 @@ export class LRUCache<
   #head: Index;
   #tail: Index;
   #free: StackLike;
-  #disposed?: Array<DisposeTask<K, V>>;
   #sizes?: ZeroArray;
   #starts?: ZeroArray;
   #ttls?: ZeroArray;
@@ -523,7 +443,9 @@ export class LRUCache<
     this.#max = max;
     this.#maxSize = maxSize;
     this.maxEntrySize = maxEntrySize || this.#maxSize;
-    this.sizeCalculation = sizeCalculation;
+    if (sizeCalculation) {
+      this.sizeCalculation = sizeCalculation;
+    }
     if (this.sizeCalculation) {
       if (!this.#maxSize && !this.maxEntrySize) {
         throw new TypeError(
@@ -535,23 +457,19 @@ export class LRUCache<
       }
     }
 
-    if (
-      memoMethod !== undefined &&
-      typeof memoMethod !== "function"
-    ) {
+    if (memoMethod !== undefined && typeof memoMethod !== "function") {
       throw new TypeError("memoMethod must be a function if defined");
     }
-    this.#memoMethod = memoMethod;
-
-    if (
-      fetchMethod !== undefined &&
-      typeof fetchMethod !== "function"
-    ) {
-      throw new TypeError(
-        "fetchMethod must be a function if specified",
-      );
+    if (memoMethod) {
+      this.#memoMethod = memoMethod;
     }
-    this.#fetchMethod = fetchMethod;
+
+    if (fetchMethod !== undefined && typeof fetchMethod !== "function") {
+      throw new TypeError("fetchMethod must be a function if specified");
+    }
+    if (fetchMethod) {
+      this.#fetchMethod = fetchMethod;
+    }
     this.#hasFetchMethod = !!fetchMethod;
 
     this.#keyMap = new Map();
@@ -574,9 +492,6 @@ export class LRUCache<
     if (typeof disposeAfter === "function") {
       this.#disposeAfter = disposeAfter;
       this.#disposed = [];
-    } else {
-      this.#disposeAfter = undefined;
-      this.#disposed = undefined;
     }
     this.#hasDispose = !!this.#dispose;
     this.#hasOnInsert = !!this.#onInsert;
@@ -592,15 +507,11 @@ export class LRUCache<
     if (this.maxEntrySize !== 0) {
       if (this.#maxSize !== 0) {
         if (!isPosInt(this.#maxSize)) {
-          throw new TypeError(
-            "maxSize must be a positive integer if specified",
-          );
+          throw new TypeError("maxSize must be a positive integer if specified");
         }
       }
       if (!isPosInt(this.maxEntrySize)) {
-        throw new TypeError(
-          "maxEntrySize must be a positive integer if specified",
-        );
+        throw new TypeError("maxEntrySize must be a positive integer if specified");
       }
       this.#initializeSizeTracking();
     }
@@ -613,27 +524,16 @@ export class LRUCache<
       ? ttlResolution
       : 1;
     this.ttlAutopurge = !!ttlAutopurge;
-    this.ttl = ttl || 0;
+    this.ttl = ttl ?? 0;
     if (this.ttl) {
       if (!isPosInt(this.ttl)) {
-        throw new TypeError(
-          "ttl must be a positive integer if specified",
-        );
+        throw new TypeError("ttl must be a positive integer if specified");
       }
       this.#initializeTTLTracking();
     }
 
     if (this.#max === 0 && this.ttl === 0 && this.#maxSize === 0) {
-      throw new TypeError(
-        "At least one of max, maxSize, or ttl is required",
-      );
-    }
-    if (!this.ttlAutopurge && !this.#max && !this.#maxSize) {
-      emitSimplifiedWarning(
-        "TTL caching without ttlAutopurge, max, or maxSize can " +
-          "result in unbounded memory consumption.",
-        "UNBOUNDED_CACHE",
-      );
+      throw new TypeError("At least one of max, maxSize, or ttl is required");
     }
   }
 
@@ -656,11 +556,9 @@ export class LRUCache<
             this.#delete(this.#keyList[index] as K, "expire");
           }
         }, ttl + 1);
-        /* c8 ignore start */
         if (t.unref) {
           t.unref();
         }
-        /* c8 ignore stop */
       }
     };
 
@@ -672,7 +570,6 @@ export class LRUCache<
       if (ttls[index]) {
         const ttl = ttls[index];
         const start = starts[index];
-        /* c8 ignore next */
         if (!ttl || !start) return;
         status.ttl = ttl;
         status.start = start;
@@ -691,11 +588,9 @@ export class LRUCache<
           () => (cachedNow = 0),
           this.ttlResolution,
         );
-        /* c8 ignore start */
         if (t.unref) {
           t.unref();
         }
-        /* c8 ignore stop */
       }
       return n;
     };
@@ -933,7 +828,7 @@ export class LRUCache<
   find(
     fn: (v: V, k: K, self: LRUCache<K, V, FC>) => boolean,
     getOptions: LRUCacheGetOptions<K, V, FC> = {},
-  ) {
+  ): V | undefined {
     for (const i of this.#indexes()) {
       const v = this.#valList[i];
       const value = this.#isBackgroundFetch(v) ? v.__staleWhileFetching : v;
@@ -942,6 +837,7 @@ export class LRUCache<
         return this.get(this.#keyList[i] as K, getOptions);
       }
     }
+    return undefined;
   }
 
   forEach(
@@ -998,7 +894,10 @@ export class LRUCache<
       }
     }
     if (this.#sizes) {
-      entry.size = this.#sizes[i];
+      const size = this.#sizes[i];
+      if (size !== undefined) {
+        entry.size = size;
+      }
     }
     return entry;
   }
@@ -1014,12 +913,18 @@ export class LRUCache<
       if (value === undefined || key === undefined) continue;
       const entry: LRUCacheEntry<V> = { value };
       if (this.#ttls && this.#starts) {
-        entry.ttl = this.#ttls[i];
+        const ttl = this.#ttls[i];
+        if (ttl !== undefined) {
+          entry.ttl = ttl;
+        }
         const age = perf.now() - (this.#starts[i] as number);
         entry.start = Math.floor(Date.now() - age);
       }
       if (this.#sizes) {
-        entry.size = this.#sizes[i];
+        const size = this.#sizes[i];
+        if (size !== undefined) {
+          entry.size = size;
+        }
       }
       arr.unshift([key, entry]);
     }
@@ -1132,7 +1037,7 @@ export class LRUCache<
       }
 
       if (this.#hasOnInsert) {
-        this.onInsert?.(v as V, k, v === oldVal ? "update" : "replace");
+        this.#onInsert?.(v as V, k, v === oldVal ? "update" : "replace");
       }
     }
     if (ttl !== 0 && !this.#ttls) {
@@ -1219,7 +1124,7 @@ export class LRUCache<
         this.#isBackgroundFetch(v) &&
         v.__staleWhileFetching === undefined
       ) {
-        if (status) status.has = "miss"; // Treat as miss if only background fetch without stale data
+        if (status) status.has = "miss";
         return false;
       }
       if (!this.#isStale(index)) {
@@ -1262,12 +1167,12 @@ export class LRUCache<
   ): BackgroundFetch<V> {
     const v = index === undefined
       ? undefined
-      : this.#valList[index] as V | undefined; // Stale value if present
-    if (this.#isBackgroundFetch(this.#valList[index!])) { // Check if already fetching
+      : this.#valList[index] as V | undefined;
+    if (this.#isBackgroundFetch(this.#valList[index!])) {
       return this.#valList[index!] as BackgroundFetch<V>;
     }
 
-    const ac = new AC() as AbortController; // Use the (potentially polyfilled) AC
+    const ac = new AbortController();
     const { signal: userSignal } = options;
     userSignal?.addEventListener("abort", () => ac.abort(userSignal.reason), {
       signal: ac.signal,
@@ -1300,18 +1205,16 @@ export class LRUCache<
       }
 
       if (index === undefined) {
-        // If index is undefined, we cannot safely access the array
         return fetchedValue;
       }
-      // Ensure index is not undefined before using as an index
       if (typeof index === "number") {
         const currentValInMap: V | BackgroundFetch<V> | undefined = this.#valList[index];
-        if (currentValInMap === p) { // Ensure this promise is still the one in cache for this key
+        if (currentValInMap === p) {
           if (fetchedValue === undefined) {
-            if (p.__staleWhileFetching) { // If fetch returned undefined, but we had a stale value
-              this.#valList[index] = p.__staleWhileFetching; // Restore stale value
+            if (p.__staleWhileFetching) {
+              this.#valList[index] = p.__staleWhileFetching;
             } else {
-              this.#delete(k, "fetch"); // Or delete if no stale value
+              this.#delete(k, "fetch");
             }
           } else {
             if (options.status) options.status.fetchUpdated = true;
@@ -1357,17 +1260,17 @@ export class LRUCache<
           options.status.returnedStale = true;
         }
         return p.__staleWhileFetching;
-      } else if (p.__returned === p) { // Only throw if this promise was the one returned to user
+      } else if (p.__returned === p) {
         throw er;
       }
-      return undefined; // Suppress error if not the returned promise
+      return undefined;
     };
 
     const pcall = (
       res: (v: V | undefined) => void,
       rej: (e: Error) => void,
     ) => {
-      const fmp = this.#fetchMethod?.(k, v, fetchOpts); // v is staleValue here
+      const fmp = this.#fetchMethod?.(k, v, fetchOpts);
       if (fmp && fmp instanceof Promise) {
         fmp.then((val) => {
           if (typeof val === "undefined") {
@@ -1377,26 +1280,23 @@ export class LRUCache<
           }
         }, rej);
       } else {
-        // Handle synchronous return from fetchMethod
         res(fmp as (V | undefined));
       }
 
       ac.signal.addEventListener("abort", () => {
         if (
           !options.ignoreFetchAbort ||
-          options.allowStaleOnFetchAbort // If allowStaleOnFetchAbort, we resolve to undefined to trigger stale return
+          options.allowStaleOnFetchAbort
         ) {
           res(undefined);
           if (options.allowStaleOnFetchAbort && fmp && fmp instanceof Promise) {
-            // If we allow stale on abort, but the fetch is still going,
-            // we need to ensure the cache gets updated when it eventually finishes.
             fmp.then((val) => {
               if (typeof val === "undefined") {
                 cb(undefined, true);
               } else {
                 cb(val as V | undefined, true);
               }
-            }).catch(() => {}); // Update cache, ignore errors here as main promise resolved
+            }).catch(() => {});
           }
         }
       });
@@ -1406,13 +1306,13 @@ export class LRUCache<
     const prom = new Promise(pcall).then(cb, eb);
     const p: BackgroundFetch<V> = Object.assign(prom, {
       __abortController: ac,
-      __staleWhileFetching: v, // v is the stale value
+      __staleWhileFetching: v,
       __returned: undefined,
     });
 
     if (index === undefined) {
-      this.set(k, p, { ...fetchOpts.options, status: undefined });
-      index = this.#keyMap.get(k)!; // Should exist now
+      this.set(k, p, fetchOpts.options);
+      index = this.#keyMap.get(k)!;
     } else {
       this.#valList[index] = p;
     }
@@ -1426,7 +1326,7 @@ export class LRUCache<
       !!b &&
       b instanceof Promise &&
       Object.prototype.hasOwnProperty.call(b, "__staleWhileFetching") &&
-      b.__abortController instanceof AC // Check against the (potentially polyfilled) AC
+      b.__abortController instanceof AbortController
     );
   }
 
@@ -1447,8 +1347,12 @@ export class LRUCache<
   ): Promise<undefined | V>;
 
   async fetch(
-    k: K,
-    fetchOptions: LRUCacheFetchOptions<K, V, FC> = {},
+    k: unknown extends FC ? K
+      : FC extends undefined | void ? K
+      : never,
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
+      : never,
   ): Promise<undefined | V> {
     const {
       allowStale = this.allowStale,
@@ -1467,7 +1371,7 @@ export class LRUCache<
       forceRefresh = false,
       status,
       signal,
-    } = fetchOptions;
+    } = fetchOptions || {};
 
     if (!this.#hasFetchMethod) {
       if (status) status.fetch = "get";
@@ -1475,25 +1379,25 @@ export class LRUCache<
         allowStale,
         updateAgeOnGet,
         noDeleteOnStaleGet,
-        status,
+        ...(status && { status }),
       });
     }
 
-    const options = {
+    const options: LRUCacheFetchOptions<K, V, FC> = {
       allowStale,
       updateAgeOnGet,
       noDeleteOnStaleGet,
       ttl,
       noDisposeOnSet,
       size,
-      sizeCalculation,
       noUpdateTTL,
       noDeleteOnFetchRejection,
       allowStaleOnFetchRejection,
       allowStaleOnFetchAbort,
       ignoreFetchAbort,
-      status,
-      signal,
+      ...(sizeCalculation && { sizeCalculation }),
+      ...(status && { status }),
+      ...(signal && { signal }),
     };
 
     const index = this.#keyMap.get(k);
@@ -1549,10 +1453,14 @@ export class LRUCache<
       : never,
   ): Promise<V>;
   async forceFetch(
-    k: K,
-    fetchOptions: LRUCacheFetchOptions<K, V, FC> = {},
+    k: unknown extends FC ? K
+      : FC extends undefined | void ? K
+      : never,
+    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
+      : never,
   ): Promise<V> {
-    const v = await this.fetch(k, fetchOptions as unknown as Parameters<typeof this.fetch>[1]);
+    const v = await this.fetch(k, fetchOptions);
     if (v === undefined) throw new Error("fetch() returned undefined");
     return v;
   }
@@ -1571,12 +1479,23 @@ export class LRUCache<
       : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
       : never,
   ): V;
-  memo(k: K, memoOptions: LRUCacheMemoOptions<K, V, FC> = {}): V {
+  memo(
+    k: unknown extends FC ? K
+      : FC extends undefined | void ? K
+      : never,
+    memoOptions?: unknown extends FC ? LRUCacheMemoOptions<K, V, FC>
+      : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
+      : never,
+  ): V {
     const memoMethod = this.#memoMethod;
     if (!memoMethod) {
       throw new Error("no memoMethod provided to constructor");
     }
-    const { context, forceRefresh, ...options } = memoOptions;
+    const { context, forceRefresh, ...options } = (memoOptions || {}) as LRUCacheMemoOptions<
+      K,
+      V,
+      FC
+    >;
     const v = this.get(k, options);
     if (!forceRefresh && v !== undefined) return v;
     const vv = memoMethod(k, v, {
@@ -1665,12 +1584,12 @@ export class LRUCache<
       if (index !== undefined) {
         deleted = true;
         if (this.#size === 1) {
-          this.#clear(reason); // Pass reason to #clear
+          this.#clear(reason);
         } else {
           this.#removeItemSize(index);
           const v = this.#valList[index];
           if (this.#isBackgroundFetch(v)) {
-            v.__abortController.abort(new Error(reason)); // Pass reason to abort
+            v.__abortController.abort(new Error(reason));
           } else if (this.#hasDispose || this.#hasDisposeAfter) {
             if (this.#hasDispose) {
               this.#dispose?.(v as V, k, reason);
@@ -1687,10 +1606,10 @@ export class LRUCache<
           } else if (index === this.#head) {
             this.#head = this.#next[index] as Index;
           } else {
-            const pi = this.#prev[index] as Index; // Ensure type
-            this.#next[pi] = this.#next[index] as Index; // Ensure type
-            const ni = this.#next[index] as Index; // Ensure type
-            this.#prev[ni] = this.#prev[index] as Index; // Ensure type
+            const pi = this.#prev[index] as Index;
+            this.#next[pi] = this.#next[index] as Index;
+            const ni = this.#next[index] as Index;
+            this.#prev[ni] = this.#prev[index] as Index;
           }
           this.#size--;
           this.#free.push(index);
@@ -1711,12 +1630,12 @@ export class LRUCache<
     return this.#clear("delete");
   }
   #clear(reason: LRUCacheDisposeReason) {
-    for (const index of this.#rindexes({ allowStale: true })) { // Iterate over all, including stale
+    for (const index of this.#rindexes({ allowStale: true })) {
       const v = this.#valList[index];
-      const k = this.#keyList[index]; // Get key before clearing
+      const k = this.#keyList[index];
       if (this.#isBackgroundFetch(v)) {
-        v.__abortController.abort(new Error(reason)); // Pass reason
-      } else if (k !== undefined && v !== undefined) { // Ensure key and value exist for dispose
+        v.__abortController.abort(new Error(reason));
+      } else if (k !== undefined && v !== undefined) {
         if (this.#hasDispose) {
           this.#dispose?.(v as V, k as K, reason);
         }

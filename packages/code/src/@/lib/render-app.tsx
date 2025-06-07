@@ -425,7 +425,7 @@ interface PerformReactRenderParams {
   reactRoot: Root;
   AppToRender: FlexibleComponentType;
   cssCache: ReturnType<typeof createCache>;
-  codeSpace?: string;
+  codeSpace: string | undefined;
   emptyApp: boolean;
   cleanupFn: () => void;
 }

@@ -42,6 +42,7 @@ export const Wrapper: React.FC<WrapperProps> = ({
           codeSpace,
           transpiled,
           code,
+          App: undefined, // Add this line
         });
 
         // Only update state if the component is still mounted

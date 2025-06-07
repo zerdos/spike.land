@@ -35,7 +35,7 @@ export const getRegexReplaceTool = tool(
     hash: string;
     returnModifiedCode?: boolean;
   }): Promise<CodeModification> => {
-    const cSess = (globalThis as unknown as { cSess: ICode; }).cSess;
+    const cSess = (globalThis as unknown as { cSess: ICode; })["cSess"];
     const currentCode = await cSess.getCode();
     const currentHash = md5(currentCode);
 
@@ -73,12 +73,14 @@ export const getRegexReplaceTool = tool(
         try {
           // Parse regex pattern with optional flags
           const regexLiteralMatch = search.match(/^\/(.*)\/([gimuy]*)$/);
-          let regex: RegExp;
+          let regex: RegExp = new RegExp("");
 
           if (regexLiteralMatch) {
             const [, pattern, flags = ""] = regexLiteralMatch;
             const normalizedFlags = flags.includes("g") ? flags : flags + "g";
-            regex = new RegExp(pattern, normalizedFlags);
+            if (pattern) {
+              regex = new RegExp(pattern, normalizedFlags);
+            }
           } else {
             // Default to case-sensitive global regex
             regex = new RegExp(search, "g");
@@ -144,7 +146,7 @@ export const getRegexReplaceTool = tool(
 
       return {
         hash: md5(veryNewCode),
-        code: returnModifiedCode ? veryNewCode : undefined,
+        code: returnModifiedCode ? veryNewCode : "",
       };
     } catch (error) {
       return createErrorResponse(

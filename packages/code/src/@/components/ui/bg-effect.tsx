@@ -16,7 +16,7 @@ const cornerRotate = keyframes`
 
 const moveToCorner = (point: string) => {
   const [x, y] = point.split(",").map(Number);
-  return `translate(${x - 50}px, ${y - 50}px)`;
+  return `translate(${(x ?? 0) - 50}px, ${(y ?? 0) - 50}px)`;
 };
 
 export const BackgroundEffect = ({ children }: { children: ReactNode; }) => {
@@ -133,10 +133,10 @@ export const BackgroundEffect = ({ children }: { children: ReactNode; }) => {
                 <path
                   key={i}
                   d={`M${point} L${
-                    parseFloat(point.split(",")[0]) +
+                    parseFloat(point.split(",")[0] ?? "0") +
                     60 * Math.cos((i * Math.PI) / 36)
                   },${
-                    parseFloat(point.split(",")[1]) +
+                    parseFloat(point.split(",")[1] ?? "0") +
                     60 * Math.sin((i * Math.PI) / 36)
                   }`}
                   stroke={`url(#grad${index % 4})`}

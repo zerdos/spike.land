@@ -173,7 +173,7 @@ export function createCompilationError(
 
   // Try to extract line number and error type
   const lineMatch = firstErrorLine.match(/line (\d+)/i);
-  const lineNumber = lineMatch ? parseInt(lineMatch[1]) : undefined;
+  const lineNumber = lineMatch && lineMatch[1] ? parseInt(lineMatch[1]) : undefined;
 
   // Determine error type for better recovery suggestion
   let errorType = "syntax";

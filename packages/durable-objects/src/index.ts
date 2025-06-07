@@ -35,10 +35,10 @@ interface UserSession {
 
 export class PresenceDurableObject implements DurableObject {
   state: DurableObjectState;
-  env: DurableObjectEnv; // Or specific Env type if defined
+  env: Env; // Or specific Env type if defined
   users: Map<string, UserSession>; // Store UserSession objects
 
-  constructor(state: DurableObjectState, env: DurableObjectEnv) {
+  constructor(state: DurableObjectState, env: Env) {
     this.state = state;
     this.env = env;
     this.users = new Map();
@@ -59,43 +59,60 @@ export class PresenceDurableObject implements DurableObject {
     });
   }
 
-  async handleWebSocketSession(webSocket: WebSocket, request: Request) { // Ensure 'WebSocket' type is used here
+  async handleWebSocketSession(webSocket: WebSocket, _request: Request) { // Ensure 'WebSocket' type is used here
     webSocket.accept(); // The @ts-expect-error comment should be removed
 
     const userId = crypto.randomUUID();
-const userSession: UserSession = { socket: webSocket, status: "online" };
-this.users.set(userId, userSession);
+    const userSession: UserSession = { socket: webSocket, status: "online" };
+    this.users.set(userId, userSession);
 
-this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online" }));
+    this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online" }));
 
     webSocket.addEventListener("message", async (event) => {
-  try {
-    const messageData = JSON.parse(event.data as string);
-    if (messageData.type === "STATUS_UPDATE" && messageData.payload && typeof messageData.payload.status === 'string') {
-      const newStatus = messageData.payload.status;
-      const session = this.users.get(userId);
-      if (session) {
-        session.status = newStatus;
-        this.users.set(userId, session); // Update the map
-        this.broadcast(JSON.stringify({ type: "USER_STATUS_UPDATED", userId, status: newStatus }));
-      }
-    } else {
+      try {
+        const messageData = JSON.parse(event.data as string);
+        if (
+          messageData.type === "STATUS_UPDATE" && messageData.payload &&
+          typeof messageData.payload.status === "string"
+        ) {
+          const newStatus = messageData.payload.status;
+          const session = this.users.get(userId);
+          if (session) {
+            session.status = newStatus;
+            this.users.set(userId, session); // Update the map
+            this.broadcast(
+              JSON.stringify({ type: "USER_STATUS_UPDATED", userId, status: newStatus }),
+            );
+          }
+        } else {
           // Send error for unknown message type
           if (webSocket.readyState === 1 /* WebSocket.OPEN */) {
-            webSocket.send(JSON.stringify({ type: "ERROR", message: `Unknown message type: ${messageData.type}` }));
+            webSocket.send(
+              JSON.stringify({
+                type: "ERROR",
+                message: `Unknown message type: ${messageData.type}`,
+              }),
+            );
           }
-    }
-  } catch (e) {
+        }
+      } catch (e) {
         // Send error for invalid JSON or other processing errors
         if (webSocket.readyState === 1 /* WebSocket.OPEN */) {
-          webSocket.send(JSON.stringify({ type: "ERROR", message: "Invalid message format or error processing message" }));
+          webSocket.send(
+            JSON.stringify({
+              type: "ERROR",
+              message: "Invalid message format or error processing message" +
+                (e instanceof Error ? `: ${e.message}` : ""),
+            }),
+          );
         }
-  }
+      }
     });
 
     webSocket.addEventListener("close", async (event) => {
       this.users.delete(userId);
       this.broadcast(JSON.stringify({ type: "USER_DISCONNECTED", userId }));
+      event.stopPropagation(); // Prevent further propagation of the close event
     });
 
     webSocket.addEventListener("error", async (event) => {
@@ -103,6 +120,7 @@ this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online"
         this.users.delete(userId);
         this.broadcast(JSON.stringify({ type: "USER_DISCONNECTED", userId, error: true }));
       }
+      event.stopPropagation(); // Prevent further propagation of the error event
     });
   }
 
@@ -120,7 +138,7 @@ this.broadcast(JSON.stringify({ type: "USER_CONNECTED", userId, status: "online"
       if (session.socket.readyState === WebSocketOPEN) {
         try {
           session.socket.send(message);
-        } catch (error) {
+        } catch {
           // Assuming any send error means the client is gone or connection is broken
           usersToDelete.add(id);
         }
@@ -159,6 +177,7 @@ export default <ExportedHandler<Env>> {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const { pathname } = url;
+    console.log({ ctx }, "fetch", pathname);
 
     let id: DurableObjectId;
     let stub: DurableObjectStub | undefined;

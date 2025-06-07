@@ -325,7 +325,6 @@ async function createEditorModel(
 
         // Handle any updates that came in while processing
         if (editorState.pendingUpdate.current) {
-          const _nextContent = editorState.pendingUpdate.current;
           editorState.pendingUpdate.current = null;
           await processUpdate();
         }

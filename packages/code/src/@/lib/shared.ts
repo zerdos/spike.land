@@ -210,7 +210,14 @@ export const transpile = async ({
     }).transpile;
 
     if (tp) {
-      return tp({ code, originToUse, wasmModule });
+      const params: { code: string; originToUse: string; wasmModule?: WebAssembly.Module; } = {
+        code,
+        originToUse,
+      };
+      if (wasmModule) {
+        params.wasmModule = wasmModule;
+      }
+      return tp(params);
     }
     const worker = (await init()).getWorker("esbuild");
     try {

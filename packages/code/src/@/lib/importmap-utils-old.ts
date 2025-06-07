@@ -63,11 +63,12 @@ const ImportDetector = {
 
   extractImportedItems(fullMatch: string): string[] | null {
     const importMatch = fullMatch.match(/import\s*{\s*([^}]+)\s*}/);
-    if (!importMatch) return null;
+    if (!importMatch || !importMatch[1]) return null;
 
     return importMatch[1]
       .split(",")
-      .map((item) => item.trim().split(/\s+as\s+/)[0]);
+      .map((item) => item.trim().split(/\s+as\s+/)[0])
+      .filter((item): item is string => item !== undefined);
   },
 
   isAlreadyProcessed(code: string): boolean {

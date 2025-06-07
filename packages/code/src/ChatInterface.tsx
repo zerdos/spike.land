@@ -126,21 +126,23 @@ const ChatInterface: React.FC<{
   useEffect(() => {
     if (localCodeSpace.includes("-")) { // Used localCodeSpace
       const maybeKey = localCodeSpace.split("-")[1]; // Used localCodeSpace
-      const storedData = sessionStorage.getItem(maybeKey);
-      if (storedData) {
-        const { prompt, images } = JSON.parse(storedData) as {
-          prompt: string;
-          images: ImageData[];
-        };
-        sessionStorage.removeItem(maybeKey);
+      if (maybeKey) {
+        const storedData = sessionStorage.getItem(maybeKey);
+        if (storedData) {
+          const { prompt, images } = JSON.parse(storedData) as {
+            prompt: string;
+            images: ImageData[];
+          };
+          sessionStorage.removeItem(maybeKey);
 
-        codeSession.getSession().then((_currentSession) => { // Renamed from cSess
-          handleSendMessage({
-            prompt,
-            images,
-            cSess: codeSession, // Renamed from cSess
+          codeSession.getSession().then((_currentSession) => { // Renamed from cSess
+            handleSendMessage({
+              prompt,
+              images,
+              cSess: codeSession, // Renamed from cSess
+            });
           });
-        });
+        }
       }
     }
   }, [isOpen, localCodeSpace, setInput, codeSession]); // Renamed from cSess, used localCodeSpace and added to deps

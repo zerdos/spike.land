@@ -1,4 +1,3 @@
-import React from "react";
 // Import MockInstance type explicitly
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 // Import ALL named exports from the module under test
@@ -128,6 +127,9 @@ describe("renderApp", () => {
     const renderedApp = await RenderAppModule.renderApp({
       code: "invalid code",
       rootElement,
+      App: () => <></>,
+      codeSpace: "test",
+      transpiled: "invalid code",
     });
 
     // Assert

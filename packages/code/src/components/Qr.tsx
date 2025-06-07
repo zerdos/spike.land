@@ -4,9 +4,9 @@ import { m } from "framer-motion";
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/button"; // Added import
 import { QRious } from "@/external/react-qrious";
 import { QrCodeIcon } from "./icons";
-import { Button } from "@/components/ui/button"; // Added import
 
 export const QRButton: FC<{ url: string; }> = ({ url }) => {
   const [showQR, setQR] = useState(false);

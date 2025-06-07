@@ -98,8 +98,8 @@ const registerRpcHandlers = (rpcProvider: RpcProvider): void => {
 
       lazyLoadScript("socket");
       await (globalThis as unknown as typeof self).setConnections(
-        user,
-        codeSpace,
+        user || "",
+        codeSpace || "",
         sess,
       );
     },
@@ -112,7 +112,12 @@ const start = (port: MessagePort): void => {
   registerRpcHandlers(rpcProvider);
 };
 
-self.onconnect = (e: MessageEvent) => start(e.ports[0]);
+self.onconnect = (e: MessageEvent) => {
+  const port = e.ports[0];
+  if (port) {
+    start(port);
+  }
+};
 
 if (!("SharedWorkerGlobalScope" in self)) {
   start(self as unknown as MessagePort);

@@ -36,7 +36,7 @@ const getWasmFile = async () => {
 };
 
 async function main() {
-  console.warn("Building... " + process.env.NODE_ENV);
+  console.warn("Building... " + process.env["NODE_ENV"]);
   try {
     console.warn("Starting buildWorkers...");
     await buildWorkers();

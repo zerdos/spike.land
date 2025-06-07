@@ -12,25 +12,10 @@ const OVERALL_PROCESS_TIMEOUT_MS = 5000;
 
 export class CodeProcessor {
   private static renderService: RenderService;
-  private currentIframe: HTMLIFrameElement | null = null;
-  private currentMessageHandler: ((event: MessageEvent) => void) | null = null;
 
   constructor(codeSpace: string) {
     if (!CodeProcessor.renderService) {
       CodeProcessor.renderService = new RenderService(codeSpace);
-    }
-  }
-
-  private cleanupPreviousRender() {
-    // Remove any previous iframe and event listener to prevent old values from resolving
-    if (this.currentIframe && this.currentIframe.parentNode) {
-      this.currentIframe.parentNode.removeChild(this.currentIframe);
-      this.currentIframe = null;
-    }
-
-    if (this.currentMessageHandler) {
-      window.removeEventListener("message", this.currentMessageHandler);
-      this.currentMessageHandler = null;
     }
   }
 
@@ -65,7 +50,7 @@ export class CodeProcessor {
       return false;
     }
 
-    if (code === getSession().code) {
+    if (code === getSession()?.code) {
       return getSession();
     }
 
@@ -250,7 +235,7 @@ export class CodeProcessor {
         // and appended to the body. This might be for older implementations or specific
         // use cases where direct DOM replacement isn't desired/possible.
         const iframe = document.createElement("iframe");
-        this.currentIframe = iframe;
+        // this.currentIframe = iframe;
         iframe.style.display = "none"; // Hidden as it's only for code execution and message passing
         document.body.appendChild(iframe);
         iframe.srcdoc = iframeSource;
@@ -291,7 +276,7 @@ export class CodeProcessor {
         };
 
         // Store reference to the message handler so it can be removed later if needed (e.g., in cleanupPreviousRender)
-        this.currentMessageHandler = messageHandler;
+        // this.currentMessageHandler = messageHandler;
         window.addEventListener("message", messageHandler);
 
         // Timeout for the iframe rendering operation. If the iframe doesn't post back
@@ -353,7 +338,7 @@ export class CodeProcessor {
 
     if (error) {
       console.error("Error formatting code:", { code, error }); // Added error to log
-      throw new Error(`Error formatting code: ${error.message || error}`);
+      throw new Error(`Error formatting code: ${error?.message || String(error)}`);
     }
     if (!data) { // Added check for null/undefined data
       console.error("Formatting code returned no data", { code });
@@ -367,7 +352,7 @@ export class CodeProcessor {
 
     if (error) {
       console.error("Error Transpiled code:", { code, error }); // Changed to console.error and added error
-      throw new Error(`Error transpiling code: ${error.message || error}`);
+      throw new Error(`Error transpiling code: ${error?.message || String(error)}`);
     }
 
     if (!transpiled) {
@@ -391,7 +376,7 @@ export class CodeProcessor {
 
     if (updateError) {
       console.error("Error updating rendered app:", { transpiled });
-      throw new Error(`Error updating rendered app: ${updateError}`);
+      throw new Error(`Error updating rendered app: ${String(updateError)}`);
     }
 
     const { data: result, error: renderError } = await tryCatch(
@@ -400,7 +385,7 @@ export class CodeProcessor {
 
     if (renderError) {
       console.error("Error handling render:", { transpiled });
-      throw new Error(`Error handling render: ${renderError}`);
+      throw new Error(`Error handling render: ${String(renderError)}`);
     }
 
     if (!result) {

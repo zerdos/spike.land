@@ -51,7 +51,7 @@ export const IframeWrapper: React.FC<
 
   return (
     <div ref={containerRef} style={style} className="overflow-hidden">
-      <AspectRatio ratio={fullScreen ? undefined : ratio}>
+      <AspectRatio ratio={fullScreen ? 1 : (ratio ?? 1)}>
         <iframe
           ref={iframeRef}
           title="Live Preview"

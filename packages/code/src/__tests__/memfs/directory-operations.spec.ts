@@ -64,7 +64,6 @@ describe("memfs directory operations", () => {
       };
 
       // Spy on the stat function
-      const _originalStat = stat;
       const statSpy = vi.fn().mockResolvedValue(mockDirStat);
 
       // Use the spy for this test

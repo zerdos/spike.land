@@ -199,7 +199,6 @@ export const build = async ({
         {
           codeSpace,
           origin,
-          entryPoints,
           external,
           metafile,
           splitting,
@@ -218,7 +217,14 @@ export const build = async ({
       } as BuildOptions;
 
       const result = await esmBuild(currentBuildOptions);
-      return splitting ? result.outputFiles! : result.outputFiles![0].text;
+      if (!result.outputFiles || result.outputFiles.length === 0) {
+        throw new Error("Build failed, no output files produced.");
+      }
+      if (splitting) {
+        return result.outputFiles;
+      } else {
+        return result.outputFiles[0]!.text;
+      }
     };
 
     const { data, error } = await tryCatch<string | esbuild.OutputFile[]>(

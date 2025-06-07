@@ -7,5 +7,5 @@ export const getCodeSpace = (pathname: string) => {
     ? routes[pathname as unknown as keyof typeof routes]
     : null;
 
-  return redirect || paths[1];
+  return redirect || paths[1] || "empty";
 };

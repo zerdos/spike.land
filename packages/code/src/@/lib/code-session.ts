@@ -1,6 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { messagesPush } from "@/lib/chat-utils";
-import type { ICode, ICodeSession, ImageData, Message } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData, Message, TextPart } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { tryCatch } from "@/lib/try-catch";
@@ -33,13 +33,13 @@ export class Code implements ICode {
   private currentSession: ICodeSession;
 
   constructor(private session: ICodeSession) {
-    this.currentSession = sanitizeSession(session);
+    this.currentSession = sanitizeSession(this.session);
     this.session = this.currentSession;
-    const codeSpace = session.codeSpace;
+    const codeSpace = this.session.codeSpace;
 
-    this.codeSpace = session.codeSpace;
+    this.codeSpace = this.session.codeSpace;
     this.sessionManager = new SessionManager(codeSpace);
-    this.sessionManager.init(session);
+    this.sessionManager.init(this.session);
 
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
@@ -90,11 +90,11 @@ export class Code implements ICode {
         `Failed to fetch session for ${this.codeSpace}:`,
         fetchError,
       );
-      throw new Error(`Failed to fetch session: ${fetchError.message}`);
+      throw new Error(`Failed to fetch session: ${fetchError?.message || "Unknown error"}`);
     }
 
     const { data: sessionData, error: jsonError } = await tryCatch(
-      response.json(),
+      response!.json(),
     );
 
     if (jsonError) {
@@ -157,8 +157,9 @@ export class Code implements ICode {
     // Get the last message
     const lastMessage = oldSession.messages[oldSession.messages.length - 1];
 
-    // If the last message is not from the assistant, create a new assistant message
-    if (lastMessage.role !== "assistant") {
+    // If the last message is not from the assistant or if there's no last message,
+    // create a new assistant message.
+    if (!lastMessage || lastMessage.role !== "assistant") {
       this.addMessage({
         id: Date.now().toString(),
         role: "assistant",
@@ -168,14 +169,31 @@ export class Code implements ICode {
     }
 
     // Append the chunk to the last assistant message
-    lastMessage.content += chunk;
+    // Ensure content is treated as a string for concatenation.
+    // Assuming MessageContent can be string or structured, we need to handle it.
+    // For simplicity, this example assumes string content or a way to append to it.
+    // If MessageContent is complex, this part needs more sophisticated handling.
+    if (typeof lastMessage.content === "string") {
+      lastMessage.content += chunk;
+    } else {
+      // Handle MessagePart[] case, e.g., by adding a new TextPart or appending to the last TextPart
+      // This is a simplified example; actual implementation depends on MessageContent structure
+      const newTextPart: TextPart = { type: "text", text: chunk };
+      if (Array.isArray(lastMessage.content)) {
+        lastMessage.content.push(newTextPart);
+      } else {
+        // This case should ideally not happen if content is string or MessagePart[]
+        // but as a fallback, create a new array.
+        lastMessage.content = [newTextPart];
+      }
+    }
 
     // Create a new session with the updated messages
     const newSession = sanitizeSession({
       ...this.currentSession,
       messages: [
         ...oldSession.messages.slice(0, oldSession.messages.length - 1),
-        lastMessage,
+        lastMessage, // lastMessage is now guaranteed to be defined and updated
       ],
     });
 
@@ -501,6 +519,10 @@ export async function getCodeSession(
     throw fetchError;
   }
 
+  if (!sessionData) {
+    console.error(`Failed to get code session for ${codeSpaceId}: sessionData is undefined`);
+    throw new Error(`Failed to get code session for ${codeSpaceId}: sessionData is undefined`);
+  }
   const codeSession = new Code(sessionData);
 
   const { error: initError } = await tryCatch(codeSession.init(sessionData));

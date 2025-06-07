@@ -20,7 +20,6 @@ export interface ToolResponseMetadata {
   codeWasReturned: boolean;
 }
 
-
 /**
  * Result of the workflow invocation
  */

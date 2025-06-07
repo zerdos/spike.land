@@ -14,11 +14,11 @@ export const extractArtifacts = (content: string): Artifact[] => {
 
   while ((match = artifactRegex.exec(content)) !== null) {
     extractedArtifacts.push({
-      identifier: match[1],
-      type: match[2],
-      language: match[3],
-      title: match[4],
-      content: match[5].trim(),
+      identifier: match[1]!,
+      type: match[2]!,
+      language: match[3]!,
+      title: match[4]!,
+      content: match[5]!.trim(),
     });
   }
 

@@ -122,10 +122,12 @@ describe("tool-response-utils", () => {
 
       const updated = updateToolCallsWithCodeFlag(toolCalls, true);
 
-      expect(updated[0].args).toEqual({
-        instructions: "test instructions",
-        returnModifiedCode: true,
-      });
+      if (updated[0]) {
+        expect(updated[0]["args"]).toEqual({
+          instructions: "test instructions",
+          returnModifiedCode: true,
+        });
+      }
       expect(updated[1]).toEqual(toolCalls[1]);
     });
 

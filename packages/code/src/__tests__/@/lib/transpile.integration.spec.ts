@@ -7,7 +7,7 @@
 // import { transpile } from "../transpile";
 import { describe, it } from "vitest";
 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
+//
 
 describe("tsxToMjs", () => {
   // Skip this test for now since it requires browser environment

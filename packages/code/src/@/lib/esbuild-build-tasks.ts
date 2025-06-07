@@ -411,8 +411,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     ignoreAnnotations: false,
     legalComments: "none",
     target: "es2024",
-    external: undefined, // Override common externals
-    alias: undefined, // Override common aliases
+    external: [], // Override common externals
+    alias: {}, // Override common aliases
     outdir: "./dist/@/", // Output to a subdirectory for these standalone modules
     platform: "browser",
     plugins: [

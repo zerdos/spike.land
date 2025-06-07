@@ -1,14 +1,9 @@
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { FaDownload } from "@/external/icons";
 import { FullscreenIcon } from "@/external/lucide-react";
 import { motion } from "framer-motion";
 import type { FC } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
 import { Share } from "./icons";
 import { QRButton } from "./Qr.lazy";
 
@@ -35,8 +30,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() =>
-                  document.querySelector("#root")?.requestFullscreen()}
+                onClick={() => document.querySelector("#root")?.requestFullscreen()}
                 aria-label="Toggle Fullscreen"
               >
                 <FullscreenIcon />

@@ -63,7 +63,7 @@ describe("importMapReplace", () => {
       "dynamic imports": `const mod = await import("module");`,
       "dynamic imports with template literals": `const mod = await import(\`./modules/\${name}\`);`,
       "dynamic imports with complex expressions":
-        `const mod = await import(process.env.NODE_ENV === 'production' ? 'prod' : 'dev');`,
+        `const mod = await import(process.env['NODE_ENV'] === 'production' ? 'prod' : 'dev');`,
       "dynamic imports with relative paths": `const mod = await import('./relative/path/module');`,
       "dynamic imports with string concatenation":
         `const mod = await import('./modules/' + name + '/index');`,

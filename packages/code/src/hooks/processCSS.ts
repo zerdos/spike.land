@@ -16,7 +16,7 @@ async function processCSS(
     const imports = Array.from(css.matchAll(importRegex));
 
     const processedImports = await Promise.all(imports.map(async (match) => {
-      const importUrl = match[1] || match[2];
+      const importUrl = match[1]! || match[2]!;
       const absoluteUrl = new URL(importUrl, baseURL).toString();
 
       if (urlCache.has(absoluteUrl)) {

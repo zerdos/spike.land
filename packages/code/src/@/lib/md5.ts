@@ -49,7 +49,7 @@ function intToString(n: number): string {
     num = Math.floor(num / 62);
   } while (num > 0);
 
-  if (base62.length === 0 || !alpha.includes(base62[0])) {
+  if (base62.length === 0 || !alpha.includes(base62[0] || "")) {
     base62 = "a" + base62;
   }
 

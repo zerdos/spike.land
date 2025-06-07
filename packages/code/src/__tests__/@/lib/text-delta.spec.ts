@@ -166,7 +166,7 @@ describe("text-diff", () => {
       const diff = createDelta(oldSession, newSession);
       const result = applyDelta(oldSession, diff);
 
-      expect(result.messages[0].content).toBe(
+      expect(result.messages[0]!.content).toBe(
         "Partial response with more text",
       );
     });
@@ -467,7 +467,7 @@ describe("text-diff", () => {
       const diff = createDelta(oldSession, newSession);
       const result = applyDelta(oldSession, diff);
 
-      expect(result.messages[0].content).toEqual(updatedContent);
+      expect(result.messages[0]!.content).toEqual(updatedContent);
     });
 
     it("should handle line vs character diffing thresholds", () => {

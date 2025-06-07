@@ -152,7 +152,6 @@ export function walkStyleRules(
     if (hasNestedRules(rule)) {
       walkStyleRules(rule, iterator);
     }
-    rule._other = undefined;
     rule.filterSelectors = filterSelectors;
     return iterator(rule) !== false;
   });

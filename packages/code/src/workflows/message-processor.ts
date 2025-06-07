@@ -146,9 +146,10 @@ export async function processMessage(
       metrics.recordOperation("toolResponse.extraction", metadataDuration);
 
       // Cache the result with proper type conversion
+      const hashForCache: string = metadata.hash ?? "";
       toolResponseCache.set(responseKey, {
-        hash: metadata.hash,
-        modifiedCodeHash: metadata.modifiedCodeHash,
+        hash: hashForCache,
+        modifiedCodeHash: metadata.modifiedCodeHash ?? "", // Provide default
         compilationError: !!metadata.compilationError,
         codeWasReturned: metadata.codeWasReturned,
       });
@@ -156,22 +157,21 @@ export async function processMessage(
 
     const { hash, compilationError, codeWasReturned } = metadata;
 
+    const currentHashForState: string = hash ?? ""; // hash from metadata (destructured on L157)
     const updatedState = {
       ...cleanedState,
       messages: [response],
       isStreaming: true,
-      hash,
+      hash: currentHashForState,
     };
 
     // Check for images in the message
     const currentHumanMessage = state.messages[state.messages.length - 1];
     if (
-      currentHumanMessage instanceof HumanMessage &&
-      currentHumanMessage.additional_kwargs?.images
+      currentHumanMessage instanceof HumanMessage && currentHumanMessage.additional_kwargs["images"]
     ) {
-      const images = currentHumanMessage.additional_kwargs
-        .images as ImageData[];
-      (updatedState as ExtendedAgentState).images = images;
+      const images = currentHumanMessage.additional_kwargs["images"] as ImageData[];
+      (updatedState as ExtendedAgentState)["images"] = images;
       (updatedState as ExtendedAgentState).hasImages = images.length > 0;
     }
 

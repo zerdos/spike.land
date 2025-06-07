@@ -17,7 +17,7 @@ import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
  */
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Get the global code session
-  const cSess = (globalThis as Record<string, unknown>).cSess as ICode;
+  const cSess = (globalThis as Record<string, unknown>)["cSess"] as ICode;
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
@@ -55,15 +55,18 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const processToolResponse = async (
     message: AIMessage,
   ): Promise<AgentState> => {
+    const toolResponsesFromKwargs = message.additional_kwargs?.["tool_responses"];
+
     if (
-      !message.additional_kwargs?.tool_responses ||
-      !Array.isArray(message.additional_kwargs.tool_responses) ||
-      message.additional_kwargs.tool_responses.length === 0
+      !toolResponsesFromKwargs ||
+      !Array.isArray(toolResponsesFromKwargs) ||
+      toolResponsesFromKwargs.length === 0
     ) {
       return state;
     }
 
-    const toolResponse = message.additional_kwargs.tool_responses[0];
+    // Now, toolResponsesFromKwargs is known to be a non-empty array.
+    const toolResponse = toolResponsesFromKwargs[0];
     // Expect 'enhanced_replace_in_file' which is the name of the tool from getEnhancedReplaceInFileTool
     if (!toolResponse || toolResponse.name !== "enhanced_replace_in_file") {
       return state;
@@ -173,7 +176,6 @@ export const createChatLangchainWorkflow = (
   const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
 
   // Create the system prompt
-  const _systemPrompt = getSystemPrompt();
 
   // Create the prompt template for user messages
   const promptTemplate = PromptTemplate.fromTemplate(`

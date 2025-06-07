@@ -1,5 +1,5 @@
 import { replacePreservingWhitespace } from "@/lib/diff-utils";
-import type { Message } from "@/lib/interfaces";
+import type { Message, MessageContent, TextPart } from "@/lib/interfaces";
 
 interface CodeModification {
   search: string;
@@ -13,6 +13,18 @@ export const SEARCH_REPLACE_MARKERS = {
   REPLACE_END: ">>>>>>> REPLACE",
 } as const;
 
+function getTextFromMessageContent(content: MessageContent): string {
+  if (typeof content === "string") {
+    return content;
+  }
+  if (Array.isArray(content)) {
+    return content
+      .filter((part): part is TextPart => part.type === "text")
+      .map(part => part.text)
+      .join("");
+  }
+  return "";
+}
 /**
  * Adds or updates a message in the messages array
  * @param messages - The current array of messages
@@ -36,13 +48,16 @@ export function messagesPush(
 
   const lastMessage = messagesCopy[messagesCopy.length - 1];
 
-  if (lastMessage.role === newMessage.role && newMessage.role === "assistant") {
+  if (lastMessage!.role === newMessage.role && newMessage.role === "assistant") {
+    const newMessageText = getTextFromMessageContent(newMessage.content);
+    const lastMessageText = getTextFromMessageContent(lastMessage!.content);
     messagesCopy[messagesCopy.length - 1] = {
-      ...lastMessage,
+      ...lastMessage!,
       id: newMessage.id,
-      content: (newMessage.content as string).startsWith(lastMessage.content as string)
-        ? newMessage.content as string
-        : lastMessage.content as string + newMessage.content as string,
+      role: lastMessage!.role,
+      content: newMessageText.startsWith(lastMessageText)
+        ? newMessageText
+        : lastMessageText + newMessageText,
     };
     return messagesCopy;
   }
@@ -101,11 +116,11 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
 
     // If the raw replace content itself contains more separators,
     // take only the part before the first such internal separator.
-    const replaceParts = replaceContentRaw.split(separatorMarker);
-    const finalReplaceContent = replaceParts[0];
+    const replaceParts = replaceContentRaw?.split(separatorMarker);
+    const finalReplaceContent = replaceParts?.[0];
 
-    const searchText = searchContent.trim();
-    const replaceText = finalReplaceContent.trim();
+    const searchText = searchContent?.trim() ?? "";
+    const replaceText = finalReplaceContent?.trim() ?? "";
 
     // Search text cannot be empty, replace text can be empty (for deletions)
     if (searchText) {
@@ -119,7 +134,7 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
     const parts = blockText.split(separatorMarker);
     if (parts.length >= 2) { // We need at least one separator to define search and replace parts
       // Trim the part first, then check for and remove markers.
-      let tempSearch = parts[0].trim();
+      let tempSearch = parts[0]!.trim();
       if (tempSearch.startsWith(searchMarker)) {
         // Remove marker and then trim any leading whitespace from the actual search content.
         tempSearch = tempSearch.substring(searchMarker.length).trimStart();
@@ -129,7 +144,7 @@ function parseSingleDiffBlock(blockText: string): CodeModification | null {
       // Replace text is the content of the second part (parts[1])
       // Any subsequent parts (from further separators) are ignored.
       // Trim the part first, then check for and remove markers.
-      let tempReplace = parts[1].trim();
+      let tempReplace = parts[1]?.trim() ?? "";
       if (tempReplace.endsWith(replaceMarker)) {
         // Remove marker and then trim any trailing whitespace from the actual replace content.
         tempReplace = tempReplace.substring(
@@ -191,13 +206,15 @@ export const extractCodeModification = (response: string): string[] => {
   const codeBlockRegex = /```(?:[a-zA-Z0-9\-_]+)?\n([\s\S]*?)\n\s*```/g;
   let markdownMatch;
   while ((markdownMatch = codeBlockRegex.exec(response)) !== null) {
-    const blockContent = markdownMatch[1].trim(); // Content within the backticks
-    const parsedDiffObject = parseSingleDiffBlock(blockContent);
-    if (parsedDiffObject) {
-      const formattedModString = formatCodeModification(parsedDiffObject);
-      if (!seenModifications.has(formattedModString)) {
-        modifications.push(formattedModString);
-        seenModifications.add(formattedModString);
+    const blockContent = markdownMatch[1]?.trim(); // Content within the backticks
+    if (typeof blockContent === "string") {
+      const parsedDiffObject = parseSingleDiffBlock(blockContent);
+      if (parsedDiffObject) {
+        const formattedModString = formatCodeModification(parsedDiffObject);
+        if (!seenModifications.has(formattedModString)) {
+          modifications.push(formattedModString);
+          seenModifications.add(formattedModString);
+        }
       }
     }
   }
@@ -243,8 +260,8 @@ function parseModification(mod: string): CodeModification | null {
   // console.warn("parseModification - Split parts count:", parts.length); // Useful for debugging
 
   if (parts.length === 2) {
-    const search = parts[0].trim();
-    const replace = parts[1].trim();
+    const search = parts[0]!.trim();
+    const replace = parts[1]?.trim() ?? "";
 
     // console.warn("parseModification - Search part length:", search.length); // Useful for debugging
     // console.warn("parseModification - Replace part length:", replace.length); // Useful for debugging
@@ -283,7 +300,7 @@ export const loadMessages = (codeSpace: string): Message[] => {
   const validMessages = rawMessages.filter((m) => !!m.role);
 
   return validMessages.reduce((acc, current, index) => {
-    if (index === 0 || current.role !== validMessages[index - 1].role) {
+    if (index === 0 || current.role !== validMessages[index - 1]!.role) {
       acc.push(current);
     }
     return acc;

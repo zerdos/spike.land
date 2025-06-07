@@ -219,5 +219,5 @@ export const readFileSync = (filePath: string): string => {
   const globalFiles = globalThis as unknown as Record<string, string>;
 
   // Check if the filePath exists in the global object and return its content
-  return Object.hasOwn(globalFiles, filePath) ? globalFiles[filePath] : "";
+  return Object.hasOwn(globalFiles, filePath) ? (globalFiles[filePath] || "") : "";
 };

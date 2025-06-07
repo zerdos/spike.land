@@ -1,5 +1,5 @@
-import { Annotation } from "@langchain/langgraph";
 import type { BaseMessage } from "@langchain/core/messages";
+import { Annotation } from "@langchain/langgraph";
 
 /**
  * Creates the graph state schema using LangGraph's Annotation system
@@ -19,7 +19,7 @@ export function createGraphStateReducers() {
       default: () => "",
     }),
     code: Annotation<string>({
-     reducer: (_prev, next) => next,
+      reducer: (_prev, next) => next,
       default: () => "",
     }),
     lastError: Annotation<string>({
@@ -31,7 +31,7 @@ export function createGraphStateReducers() {
           // Object with error property
           if (typeof next === "object" && next !== null) {
             if ("error" in next) {
-              const err = (next as Record<string, unknown>).error;
+              const err = (next as Record<string, unknown>)["error"];
               // Handle different error types
               if (typeof err === "string") return err;
               if (err instanceof Error) return err.message;

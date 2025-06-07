@@ -15,7 +15,7 @@ export const ContentWrapper = (
     transition={{ scale: { type } }}
     className="block rounded-lg"
     style={{
-      backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5),
+      backgroundColor: rgba(bgColor?.[0] ?? 0, bgColor?.[1] ?? 0, bgColor?.[2] ?? 0, 0.5),
     }}
     initial={{ height: innerHeight, width: innerWidth }}
     animate={{

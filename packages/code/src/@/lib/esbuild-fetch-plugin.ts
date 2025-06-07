@@ -45,7 +45,7 @@ export const fetchPlugin = (origin: string) => ({
         if (argsPath.startsWith(pkg)) {
           args.path = args.path.replace(
             pkg,
-            importMap.imports[pkg as keyof typeof importMap.imports],
+            importMap.imports[pkg as keyof typeof importMap.imports] || pkg,
           );
         }
       });
@@ -156,7 +156,7 @@ async function processCSS(
   // We re-assign `css` to `processedCss` inside the loop if we were to re-run exec on the modified string,
   // but here we run exec on the original `css` and replace in `processedCss`.
   while ((match = importRegex.exec(css)) !== null) {
-    const importUrlPath = match[1] || match[2]; // Get the path from either url() or "..."
+    const importUrlPath = match[1]! || match[2]!; // Get the path from either url() or "..."
     // Resolve the import path against the baseURL of the current CSS file.
     // This correctly handles relative paths like "../fonts/font.css".
     const absoluteUrl = new URL(importUrlPath, baseURL).toString();

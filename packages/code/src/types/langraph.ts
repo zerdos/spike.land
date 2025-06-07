@@ -118,9 +118,9 @@ export const createInitialState = (): NodeState => ({
   messages: [],
   codeSpace: "",
   origin: "",
-  code: undefined,
-  lastError: undefined,
+  code: "",
+  lastError: "",
   isStreaming: false,
-  hash: undefined,
-  filePath: undefined,
+  hash: "",
+  filePath: "",
 });

@@ -21,6 +21,8 @@ class FileHandleImpl implements FileHandle {
 
   async close(): Promise<void> {
     // No-op
+
+    return undefined;
   }
 
   readFile(
@@ -223,7 +225,6 @@ class FileHandleImpl implements FileHandle {
       const encoder = new TextEncoder();
       data = encoder.encode(data);
     }
-
     // The core write operation
     const doWrite = async () => {
       const writable = await this.fileHandle.createWritable();

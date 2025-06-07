@@ -12,6 +12,9 @@ export const useErrorHandling = (engine: string) => {
           "@/workers/monaco-editor.worker"
         );
         const model = editor.getModels()[0];
+        if (!model) {
+          return;
+        }
         const worker = await languages.typescript
           .getTypeScriptWorker();
         const client = await worker(model.uri);

@@ -36,7 +36,7 @@ const parseAnalysis = (content: string): Section => {
     .map((line) => line.trim())
     .filter(Boolean);
 
-  let currentSection: keyof Section | "" = "";
+  let currentSection: keyof Section = "concepts";
   let currentSubsection: keyof ProsCons | "" = "";
 
   const sectionMap: Record<string, keyof Section> = {
@@ -52,7 +52,10 @@ const parseAnalysis = (content: string): Section => {
       (key): key is keyof typeof sectionMap => line.startsWith(key),
     );
     if (newSection) {
-      currentSection = sectionMap[newSection];
+      const mappedSection = sectionMap[newSection];
+      if (mappedSection !== undefined) {
+        currentSection = mappedSection;
+      }
       if (!sections[currentSection]) {
         if (currentSection === "proscons") {
           sections.proscons = { pros: [], cons: [] };
@@ -65,6 +68,10 @@ const parseAnalysis = (content: string): Section => {
         } else if (currentSection === "tasks") {
           sections.tasks = [];
         }
+      }
+      // Ensure initial state for concepts if it's the default section
+      if (currentSection === "concepts" && sections.concepts === undefined) {
+        sections.concepts = [];
       }
       if (currentSection === "proscons") {
         currentSubsection = "pros";
@@ -117,7 +124,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
     title: string;
     children: React.ReactNode;
     icon: React.ElementType;
-    listType?: "pro" | "con" | "default";
+    listType: "pro" | "con" | "default" | undefined;
   }
 
   const Section: React.FC<SectionProps> = (
@@ -269,7 +276,7 @@ export const Analysis: React.FC<AnalysisProps> = ({ content }) => {
           key={key}
           title={config.title}
           icon={config.icon}
-          listType={config.listType}
+          listType={config.listType as SectionProps["listType"]}
         >
           {config.render
             ? config.render()

@@ -27,7 +27,7 @@ export const DiffViewer: FC<DiffViewerProps> = ({ original, modified }) => {
           isDarkMode ? "text-gray-300" : "text-gray-700",
         )}
       >
-         {d(original ?? "", modified ?? original).map((part: {
+         {d(original ?? "", ((modified ?? original))).map((part: {
           value: string;
           added?: boolean;
           removed?: boolean;

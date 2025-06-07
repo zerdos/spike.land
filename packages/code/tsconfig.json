@@ -30,7 +30,23 @@
     "jsxImportSource": "@emotion/react",
     "strict": true,
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
     "lib": ["dom", "esnext", "esnext.asynciterable", "webworker", "ESNext"],
     "paths": {
       "@/*": ["./src/@/*"]
@@ -44,9 +60,6 @@
     "isolatedModules": true,
     "noEmit": false,
     "moduleDetection": "force",
-    "types": ["vite/client", "vitest/globals"],
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "types": ["vite/client", "vitest/globals"]
   }
 }

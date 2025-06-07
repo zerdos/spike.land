@@ -181,7 +181,7 @@ export function useDictation(
       analyser.getByteTimeDomainData(dataArray);
       let sum = 0;
       for (let i = 0; i < bufferLength; i++) {
-        const normalized = dataArray[i] / 128 - 1;
+        const normalized = (dataArray[i] as number) / 128 - 1;
         sum += normalized * normalized;
       }
       const rms = Math.sqrt(sum / bufferLength);
@@ -210,7 +210,12 @@ async function sendData(url: string, data: Record<string, File | string>) {
   const formData = new FormData();
 
   for (const name in data) {
-    formData.append(name, data[name]);
+    const value = data[name];
+    if (typeof value === "string") {
+      formData.append(name, value);
+    } else if (value instanceof File) {
+      formData.append(name, value);
+    }
   }
 
   const primaryFetch = fetch(url, { method: "POST", body: formData });

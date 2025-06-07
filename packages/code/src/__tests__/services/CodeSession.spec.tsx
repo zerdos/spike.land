@@ -99,16 +99,6 @@ describe("Code", () => {
       cleanup: vi.fn(),
     };
 
-    interface _MockWindow {
-      frames: Record<number, {
-        webSocketManager: {
-          handleRunMessage: () => Promise<{ html: string; css: string; }>;
-          init: () => void;
-          cleanup: () => void;
-        };
-      }>;
-    }
-
     // Mock window.frames
     Object.defineProperty(window, "frames", {
       value: [

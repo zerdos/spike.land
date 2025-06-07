@@ -42,7 +42,7 @@ router.load().then(async () => {
 
   // Render the main app
   const { error } = await tryCatch(
-    renderApp({ App }),
+    renderApp({ App, codeSpace: "", transpiled: "", code: "" }),
   );
   if (error) {
     console.error("Error rendering app:", { error, App, pathname, codeSpace });

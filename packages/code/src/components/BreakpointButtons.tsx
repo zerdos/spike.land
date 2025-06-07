@@ -1,7 +1,7 @@
-import type { FC } from 'react'; // Added import
-import { motion } from "framer-motion";
-import { Phone, Tablet, Tv } from "./icons";
 import { Toggle } from "@/components/ui/toggle"; // Cleaned import line
+import { motion } from "framer-motion";
+import type { FC } from "react"; // Added import
+import { Phone, Tablet, Tv } from "./icons";
 
 interface BreakpointButtonsProps {
   width: number;
@@ -21,7 +21,8 @@ export const BreakpointButtons: FC<BreakpointButtonsProps> = ({ // Changed React
       initial={{ height: 0, width: 0 }}
       animate={{ height: 42, width: "100%" }}
     >
-      <div className="flex"> {/* Wrapper div for grouping Toggle buttons */}
+      <div className="flex">
+        {/* Wrapper div for grouping Toggle buttons */}
         {breakPoints.map((size, index) => (
           <Toggle
             key={size}

@@ -11,21 +11,11 @@ function Slider({
   max = 100,
   ...props
 }: React.ComponentProps<typeof SliderPrimitive.Root>) {
-  const _values = React.useMemo(
-    () =>
-      Array.isArray(value)
-        ? value
-        : Array.isArray(defaultValue)
-        ? defaultValue
-        : [min, max],
-    [value, defaultValue, min, max],
-  );
-
   return (
     <SliderPrimitive.Root
       data-slot="slider"
-      defaultValue={defaultValue}
-      value={value}
+      defaultValue={defaultValue ?? []}
+      value={value ?? []}
       min={min}
       max={max}
       className={cn(
@@ -48,7 +38,7 @@ function Slider({
         />
       </SliderPrimitive.Track>
       {Array.from(
-        { length: _values.length },
+        { length: value?.length || 0 },
         (_, index) => (
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"

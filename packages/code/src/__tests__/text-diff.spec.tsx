@@ -10,11 +10,11 @@ describe("text-diff", () => {
       const result = diffLines(oldText, newText);
 
       expect(result).toHaveLength(2);
-      expect(result[0].value).toBe("line 1\nline 2\n");
-      expect(result[0].added).toBe(false);
-      expect(result[0].removed).toBe(false);
-      expect(result[1].value).toBe("line 3\n");
-      expect(result[1].added).toBe(true);
+      expect(result[0]!.value).toBe("line 1\nline 2\n");
+      expect(result[0]!.added).toBe(false);
+      expect(result[0]!.removed).toBe(false);
+      expect(result[1]!.value).toBe("line 3\n");
+      expect(result[1]!.added).toBe(true);
     });
 
     it("should identify removed lines", () => {
@@ -24,10 +24,10 @@ describe("text-diff", () => {
       const result = diffLines(oldText, newText);
 
       expect(result).toHaveLength(3);
-      expect(result[0].value).toBe("line 1\n");
-      expect(result[1].value).toBe("line 2\n");
-      expect(result[1].removed).toBe(true);
-      expect(result[2].value).toBe("line 3");
+      expect(result[0]!.value).toBe("line 1\n");
+      expect(result[1]!.value).toBe("line 2\n");
+      expect(result[1]!.removed).toBe(true);
+      expect(result[2]!.value).toBe("line 3");
     });
 
     it("should identify changed lines", () => {
@@ -37,12 +37,12 @@ describe("text-diff", () => {
       const result = diffLines(oldText, newText);
 
       expect(result).toHaveLength(4);
-      expect(result[0].value).toBe("line 1\n");
-      expect(result[1].value).toBe("line 2\n");
-      expect(result[1].removed).toBe(true);
-      expect(result[2].value).toBe("modified line 2\n");
-      expect(result[2].added).toBe(true);
-      expect(result[3].value).toBe("line 3");
+      expect(result[0]!.value).toBe("line 1\n");
+      expect(result[1]!.value).toBe("line 2\n");
+      expect(result[1]!.removed).toBe(true);
+      expect(result[2]!.value).toBe("modified line 2\n");
+      expect(result[2]!.added).toBe(true);
+      expect(result[3]!.value).toBe("line 3");
     });
   });
 
@@ -54,10 +54,10 @@ describe("text-diff", () => {
       const result = diffWords(oldText, newText);
 
       expect(result).toHaveLength(3);
-      expect(result[0].value).toBe("This is a ");
-      expect(result[1].value).toBe("complete ");
-      expect(result[1].added).toBe(true);
-      expect(result[2].value).toBe("test");
+      expect(result[0]!.value).toBe("This is a ");
+      expect(result[1]!.value).toBe("complete ");
+      expect(result[1]!.added).toBe(true);
+      expect(result[2]!.value).toBe("test");
     });
 
     it("should identify removed words", () => {
@@ -67,10 +67,10 @@ describe("text-diff", () => {
       const result = diffWords(oldText, newText);
 
       expect(result).toHaveLength(3);
-      expect(result[0].value).toBe("This is a ");
-      expect(result[1].value).toBe("complete ");
-      expect(result[1].removed).toBe(true);
-      expect(result[2].value).toBe("test");
+      expect(result[0]!.value).toBe("This is a ");
+      expect(result[1]!.value).toBe("complete ");
+      expect(result[1]!.removed).toBe(true);
+      expect(result[2]!.value).toBe("test");
     });
 
     it("should identify changed words", () => {
@@ -80,12 +80,12 @@ describe("text-diff", () => {
       const result = diffWords(oldText, newText);
 
       expect(result).toHaveLength(4);
-      expect(result[0].value).toBe("This ");
-      expect(result[1].value).toBe("is");
-      expect(result[1].removed).toBe(true);
-      expect(result[2].value).toBe("was");
-      expect(result[2].added).toBe(true);
-      expect(result[3].value).toBe(" a test");
+      expect(result[0]!.value).toBe("This ");
+      expect(result[1]!.value).toBe("is");
+      expect(result[1]!.removed).toBe(true);
+      expect(result[2]!.value).toBe("was");
+      expect(result[2]!.added).toBe(true);
+      expect(result[3]!.value).toBe(" a test");
     });
   });
 });

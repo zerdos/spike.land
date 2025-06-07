@@ -20,7 +20,7 @@ export const enhancedFetch = async (
       throw new Error(res.statusText);
     }
     return res;
-  } catch (error) {
+  } catch {
     // console.error("Error in enhancedFetch", error);
 
     return fetch(serverFetchUrl, {
@@ -34,8 +34,6 @@ export const enhancedFetch = async (
         url,
       }),
     });
-    controller.abort();
-    throw error;
   }
 };
 

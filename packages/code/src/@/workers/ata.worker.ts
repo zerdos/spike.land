@@ -4,7 +4,6 @@ import { setupTypeAcquisition } from "@typescript/ata";
 import ts from "typescript";
 
 // Keep the globalThis reference style for shared worker compatibility
-const _self = globalThis;
 
 interface ExtraLib {
   filePath: string;
@@ -137,8 +136,8 @@ function extractImportSpecifiers(code: string): string[] {
         const match = commentText.match(
           /<reference\s+path=["']([^"']+)["']\s*\/>/,
         );
-        if (match && match[1]) {
-          imports.push(match[1]);
+        if (match && match[1]!) {
+          imports.push(match[1]!);
         }
       }
     },
@@ -328,4 +327,4 @@ import "react/jsx-dev-runtime/jsx-dev-runtime.d.ts";
 }
 
 // Assign to self for SharedWorker context
-Object.assign(_self, { ata });
+Object.assign(self, { ata });

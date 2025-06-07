@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     if (this.props.codeSpace) {
       const contextManager = new ContextManager(this.props.codeSpace);
       contextManager.updateContext("errorLog", error.toString());
@@ -34,7 +34,7 @@ export class ErrorBoundary extends React.Component<
     });
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return (
         <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -45,7 +45,7 @@ export class ErrorBoundary extends React.Component<
             We are sorry for the inconvenience. Please try refreshing the page or contact support if
             the problem persists.
           </p>
-          {process.env.NODE_ENV !== "production" && (
+          {process.env["NODE_ENV"] !== "production" && (
             <details className="mt-4">
               <summary>Error Details</summary>
               <pre className="mt-2 p-2 bg-red-50 rounded">

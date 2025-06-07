@@ -108,7 +108,7 @@ export class MessageHandlerService {
       const result = await this.processMessage(message);
       if (typeof result === "object" && result !== null && "error" in result) {
         // This also needs careful handling with tryCatch's single error path
-        throw new Error(String(result.error));
+        throw new Error(String(result["error"]));
       }
       return result;
     };

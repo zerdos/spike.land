@@ -141,7 +141,7 @@ export class CodeValidator {
    */
   private async validateTypes(
     code: string,
-    codeSession: ICode,
+    _codeSession: ICode,
     filePath: string,
   ): Promise<ValidationResult> {
     const result: ValidationResult = {
@@ -258,7 +258,7 @@ export class CodeValidator {
       let match;
 
       while ((match = importRegex.exec(code)) !== null) {
-        imports.push(match[1]);
+        imports.push(match[1]!);
       }
 
       // Check for common missing dependencies
@@ -401,8 +401,8 @@ export class CodeValidator {
     let match;
 
     while ((match = tagRegex.exec(code)) !== null) {
-      const isClosing = match[1] === "/";
-      const tagName = match[2];
+      const isClosing = match[1]! === "/";
+      const tagName = match[2]!;
 
       if (isClosing) {
         if (stack.length === 0 || stack.pop() !== tagName) {
@@ -410,7 +410,7 @@ export class CodeValidator {
         }
       } else {
         // Check if it's self-closing
-        if (!match[0].endsWith("/>")) {
+        if (!match[0]!.endsWith("/>")) {
           stack.push(tagName);
         }
       }
@@ -427,9 +427,9 @@ export class CodeValidator {
     for (let i = 0; i < code.length; i++) {
       const char = code[i];
 
-      if (char in brackets) {
+      if (char && char in brackets) {
         stack.push(char);
-      } else if (Object.values(brackets).includes(char)) {
+      } else if (char && Object.values(brackets).includes(char)) {
         const last = stack.pop();
         if (!last || brackets[last as keyof typeof brackets] !== char) {
           return { balanced: false, error: `Unexpected ${char} at position ${i}` };
@@ -452,7 +452,6 @@ export class CodeValidator {
 
     for (let i = 0; i < code.length; i++) {
       const char = code[i];
-      const _prevChar = i > 0 ? code[i - 1] : "";
 
       if (escaped) {
         escaped = false;
