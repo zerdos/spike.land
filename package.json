@@ -11,8 +11,7 @@
     "devcontainers/*"
   ],
   "scripts": {
-    "dev": "yarn workspace @spike-npm-land/code dev",
-    "dev:local": "concurrently --kill-others-on-fail \"yarn workspace @spike-npm-land/code run build:vite:watch\" \"cd packages/spike.land && sleep 8 && yarn dev\"",
+    "dev": "concurrently --kill-others-on-fail \"yarn workspace @spike-npm-land/code dev\" \"yarn workspace @spike-npm-land/spike-land-backend dev\"",
     "dev:fe": "yarn workspace @spike-npm-land/code dev",
     "dev:workers": "yarn workspaces foreach --all -p --include '@spike-npm-land/{code-worker,transpile}' run dev",
     "build:all": "yarn workspaces foreach --all -p run build",
