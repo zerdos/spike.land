@@ -7,14 +7,14 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.8.36",
-    "@cloudflare/workers-types": "4.20250607.0",
-    "@types/node": "22.15.30",
-    "@vitest/runner": "3.2.2",
-    "@vitest/snapshot": "3.2.2",
+    "@cloudflare/workers-types": "4.20250610.0",
+    "@types/node": "24.0.0",
+    "@vitest/runner": "3.2.3",
+    "@vitest/snapshot": "3.2.3",
     "miniflare": "4.20250525.1",
     "tinyrainbow": "^2.0.0",
     "typescript": "5.8.3",
-    "vitest": "3.2.2",
+    "vitest": "3.2.3",
     "wrangler": "4.19.1"
   }
 }
