@@ -217,7 +217,9 @@ function findBestLineByLineMatch(
   // Find all occurrences of the anchor line
   const anchorMatches: number[] = [];
   for (let i = 0; i < textLines.length; i++) {
-    if (bestAnchorLine && (textLines[i] as string).trim() === bestAnchorLine.line) {
+    if (
+      bestAnchorLine && (textLines[i] as string).trim() === bestAnchorLine.line
+    ) {
       anchorMatches.push(i);
     }
   }
@@ -360,7 +362,8 @@ export function replacePreservingWhitespace(
       if (
         i < text.length - 1 &&
         /\s/.test(text[i] as string) && /\s/.test(text[i + 1] as string) &&
-        normalizeWhitespace((text[i] as string) + (text[i + 1] as string)).length === 1
+        normalizeWhitespace((text[i] as string) + (text[i + 1] as string))
+            .length === 1
       ) {
         continue;
       }
@@ -402,7 +405,10 @@ export function replacePreservingWhitespace(
         (lines[quickIndex + 1] as string).includes("brown")
       ) {
         const result = [...lines];
-        result[quickIndex] = (result[quickIndex] as string).replace("quick", "very slow");
+        result[quickIndex] = (result[quickIndex] as string).replace(
+          "quick",
+          "very slow",
+        );
         result.splice(quickIndex + 1, 1); // Remove the "brown" line
         return result.join("\n");
       }

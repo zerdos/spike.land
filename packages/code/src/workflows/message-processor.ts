@@ -168,9 +168,11 @@ export async function processMessage(
     // Check for images in the message
     const currentHumanMessage = state.messages[state.messages.length - 1];
     if (
-      currentHumanMessage instanceof HumanMessage && currentHumanMessage.additional_kwargs["images"]
+      currentHumanMessage instanceof HumanMessage &&
+      currentHumanMessage.additional_kwargs["images"]
     ) {
-      const images = currentHumanMessage.additional_kwargs["images"] as ImageData[];
+      const images = currentHumanMessage
+        .additional_kwargs["images"] as ImageData[];
       (updatedState as ExtendedAgentState)["images"] = images;
       (updatedState as ExtendedAgentState).hasImages = images.length > 0;
     }

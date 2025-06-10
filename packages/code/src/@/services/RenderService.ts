@@ -76,7 +76,9 @@ export class RenderService {
       ),
     )
       .map((x) =>
-        (x.sheet ? Array.from(x.sheet.cssRules).map((rule: CSSRule) => rule.cssText) : [])
+        (x.sheet
+          ? Array.from(x.sheet.cssRules).map((rule: CSSRule) => rule.cssText)
+          : [])
           .join("\n")
       ); // Added type CSSRule for inner x
 
@@ -84,7 +86,10 @@ export class RenderService {
       ...emotionGlobalStyles,
       ...[...cssCache.sheet.tags].map((
         tag: HTMLStyleElement,
-      ) => (tag.sheet ? Array.from(tag.sheet.cssRules).map((rule: CSSRule) => rule.cssText) : []))
+      ) => (tag.sheet
+        ? Array.from(tag.sheet.cssRules).map((rule: CSSRule) => rule.cssText)
+        : [])
+      )
         .flat(), // Changed to Array.from and added type CSSRule
     ].join("\n")
       .split(cssCache.key).join("x");

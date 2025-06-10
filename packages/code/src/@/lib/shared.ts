@@ -210,7 +210,11 @@ export const transpile = async ({
     }).transpile;
 
     if (tp) {
-      const params: { code: string; originToUse: string; wasmModule?: WebAssembly.Module; } = {
+      const params: {
+        code: string;
+        originToUse: string;
+        wasmModule?: WebAssembly.Module;
+      } = {
         code,
         originToUse,
       };

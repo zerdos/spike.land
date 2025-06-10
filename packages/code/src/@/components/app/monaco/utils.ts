@@ -193,7 +193,9 @@ declare global {
  * Helper function to extract message text from diagnostic objects
  * @param diagnostic The diagnostic object that may have nested messageText
  */
-function getMessageText(diagnostic: { messageText: string | { messageText: string; }; }): string {
+function getMessageText(
+  diagnostic: { messageText: string | { messageText: string; }; },
+): string {
   return typeof diagnostic.messageText === "string"
     ? diagnostic.messageText
     : diagnostic.messageText.messageText;

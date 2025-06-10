@@ -14,7 +14,12 @@ export const ScaledContent = (
     transition={{ zoom: { type: "spring" }, delay: 0 }}
     className="origin-top-left inline-block rounded-lg overflow-hidden"
     style={{
-      backgroundColor: rgba(bgColor[0] || 0, bgColor[1] || 0, bgColor[2] || 0, 0.5),
+      backgroundColor: rgba(
+        bgColor[0] || 0,
+        bgColor[1] || 0,
+        bgColor[2] || 0,
+        0.5,
+      ),
     }}
     initial={{
       height: innerHeight,

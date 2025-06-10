@@ -17,7 +17,8 @@ const MESSAGES_END_MARKER_ID = "after-last-message";
  * Determines if the scroll container is at or near the bottom
  */
 const isScrollAtBottom = (container: HTMLDivElement): boolean => {
-  return container.scrollHeight - container.scrollTop <= container.clientHeight + SCROLL_THRESHOLD;
+  return container.scrollHeight - container.scrollTop <=
+    container.clientHeight + SCROLL_THRESHOLD;
 };
 
 /**
@@ -205,7 +206,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = React.memo((props) => {
                 onNewPrompt={handleNewPrompt}
                 isDarkMode={isDarkMode}
               />
-              <div id={MESSAGES_END_MARKER_ID} data-testid="messages-end-marker" />
+              <div
+                id={MESSAGES_END_MARKER_ID}
+                data-testid="messages-end-marker"
+              />
             </ScrollArea>
             <MessageInput
               input={input}

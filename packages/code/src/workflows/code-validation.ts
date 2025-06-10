@@ -55,7 +55,11 @@ export class CodeValidator {
 
       // Step 2: TypeScript type checking (if enabled and .tsx/.ts file)
       if (this.config.enableTypeChecking && this.isTypeScriptFile(filePath)) {
-        const typeResult = await this.validateTypes(code, codeSession, filePath);
+        const typeResult = await this.validateTypes(
+          code,
+          codeSession,
+          filePath,
+        );
         if (!typeResult.isValid) {
           result.isValid = false;
           result.errors.push(...typeResult.errors);
@@ -80,7 +84,11 @@ export class CodeValidator {
       }
 
       // Step 5: Code compilation test
-      const compileResult = await this.testCompilation(code, codeSession, filePath);
+      const compileResult = await this.testCompilation(
+        code,
+        codeSession,
+        filePath,
+      );
       if (!compileResult.isValid) {
         result.isValid = false;
         result.errors.push(...compileResult.errors);
@@ -98,7 +106,10 @@ export class CodeValidator {
   /**
    * Validates basic JavaScript/TypeScript syntax using simple pattern matching
    */
-  private async validateSyntax(code: string, _filePath: string): Promise<ValidationResult> {
+  private async validateSyntax(
+    code: string,
+    _filePath: string,
+  ): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
@@ -213,7 +224,9 @@ export class CodeValidator {
 
     // Check for 'any' usage
     if (code.includes(": any")) {
-      issues.push("Usage of 'any' type detected - consider using more specific types");
+      issues.push(
+        "Usage of 'any' type detected - consider using more specific types",
+      );
     }
 
     // Check for missing return type annotations on functions
@@ -234,7 +247,9 @@ export class CodeValidator {
     // Check for variables without type annotations
     const variablePattern = /(?:let|const|var)\s+\w+\s*=/g;
     if (variablePattern.test(code)) {
-      suggestions.push("Consider adding type annotations to variables for better type safety");
+      suggestions.push(
+        "Consider adding type annotations to variables for better type safety",
+      );
     }
 
     return suggestions;
@@ -243,7 +258,10 @@ export class CodeValidator {
   /**
    * Validates imports and dependencies
    */
-  private async validateImports(code: string, _codeSession: ICode): Promise<ValidationResult> {
+  private async validateImports(
+    code: string,
+    _codeSession: ICode,
+  ): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
@@ -269,8 +287,8 @@ export class CodeValidator {
       };
 
       for (const [dep, identifiers] of Object.entries(commonDependencies)) {
-        const needsDep = identifiers.some(id => code.includes(id));
-        const hasDep = imports.some(imp => imp === dep || imp.startsWith(dep + "/"));
+        const needsDep = identifiers.some((id) => code.includes(id));
+        const hasDep = imports.some((imp) => imp === dep || imp.startsWith(dep + "/"));
 
         if (needsDep && !hasDep) {
           result.warnings.push(`Consider adding import for ${dep}`);
@@ -278,7 +296,9 @@ export class CodeValidator {
       }
 
       // Check for relative imports that might not exist
-      const relativeImports = imports.filter(imp => imp.startsWith("./") || imp.startsWith("../"));
+      const relativeImports = imports.filter((imp) =>
+        imp.startsWith("./") || imp.startsWith("../")
+      );
       if (relativeImports.length > 0) {
         result.suggestions.push(
           `Verify that relative imports exist: ${relativeImports.join(", ")}`,
@@ -296,7 +316,9 @@ export class CodeValidator {
   /**
    * Validates React component structure and common patterns
    */
-  private async validateReactComponent(code: string): Promise<ValidationResult> {
+  private async validateReactComponent(
+    code: string,
+  ): Promise<ValidationResult> {
     const result: ValidationResult = {
       isValid: true,
       errors: [],
@@ -328,7 +350,9 @@ export class CodeValidator {
       // Check for proper JSX syntax
       const unclosedTags = this.findUnclosedJSXTags(code);
       if (unclosedTags.length > 0) {
-        result.errors.push(`Unclosed JSX tags found: ${unclosedTags.join(", ")}`);
+        result.errors.push(
+          `Unclosed JSX tags found: ${unclosedTags.join(", ")}`,
+        );
         result.isValid = false;
       }
     } catch (error) {
@@ -420,7 +444,9 @@ export class CodeValidator {
     return unclosed;
   }
 
-  private checkBracketBalance(code: string): { balanced: boolean; error?: string; } {
+  private checkBracketBalance(
+    code: string,
+  ): { balanced: boolean; error?: string; } {
     const brackets = { "(": ")", "[": "]", "{": "}" };
     const stack: string[] = [];
 
@@ -432,7 +458,10 @@ export class CodeValidator {
       } else if (char && Object.values(brackets).includes(char)) {
         const last = stack.pop();
         if (!last || brackets[last as keyof typeof brackets] !== char) {
-          return { balanced: false, error: `Unexpected ${char} at position ${i}` };
+          return {
+            balanced: false,
+            error: `Unexpected ${char} at position ${i}`,
+          };
         }
       }
     }
@@ -444,7 +473,9 @@ export class CodeValidator {
     return { balanced: true };
   }
 
-  private checkQuoteBalance(code: string): { balanced: boolean; error?: string; } {
+  private checkQuoteBalance(
+    code: string,
+  ): { balanced: boolean; error?: string; } {
     let inSingleQuote = false;
     let inDoubleQuote = false;
     let inTemplate = false;
@@ -489,6 +520,8 @@ export class CodeValidator {
 /**
  * Creates a default code validator instance
  */
-export function createCodeValidator(config?: Partial<CodeValidationConfig>): CodeValidator {
+export function createCodeValidator(
+  config?: Partial<CodeValidationConfig>,
+): CodeValidator {
   return new CodeValidator(config);
 }

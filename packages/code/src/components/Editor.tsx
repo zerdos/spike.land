@@ -170,7 +170,15 @@ export const Editor: React.FC<EditorProps> = (
       codeLength: newCode.length,
       timestamp: new Date().toISOString(),
     });
-  }, [session, cSess, lastHash, setLastHash, setEditorState, replaceIframe, throttledTypeCheck]);
+  }, [
+    session,
+    cSess,
+    lastHash,
+    setLastHash,
+    setEditorState,
+    replaceIframe,
+    throttledTypeCheck,
+  ]);
 
   // Track external change metrics
   const externalMetrics = useRef({

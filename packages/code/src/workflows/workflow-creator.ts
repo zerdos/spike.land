@@ -43,7 +43,9 @@ export function createWorkflowWithStringReplace(
 
   // Create the enhanced replace-in-file tool with the provided code session
   // This version uses FileChangeManager for improved hash management and error recovery
-  const tools = [getEnhancedReplaceInFileTool(cSess) as unknown as RunnableToolLike];
+  const tools = [
+    getEnhancedReplaceInFileTool(cSess) as unknown as RunnableToolLike,
+  ];
   const toolNode = new ToolNode(tools, { name: "tools" });
 
   // Create the model with bound tools

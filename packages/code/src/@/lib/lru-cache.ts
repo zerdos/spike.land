@@ -1,8 +1,8 @@
 type Perf = { now: () => number; };
-const perf: Perf =
-  typeof performance === "object" && performance && typeof performance.now === "function"
-    ? performance
-    : { now: () => Date.now() };
+const perf: Perf = typeof performance === "object" && performance &&
+    typeof performance.now === "function"
+  ? performance
+  : { now: () => Date.now() };
 
 const TYPE = Symbol("type");
 export type PosInt = number & { [TYPE]: "Positive Integer"; };
@@ -76,10 +76,23 @@ export type DisposeTask<K, V> = [
 export type LRUCacheSize = number;
 export type LRUCacheMilliseconds = number;
 export type LRUCacheCount = number;
-export type LRUCacheDisposeReason = "evict" | "set" | "delete" | "expire" | "fetch";
-export type LRUCacheDisposer<K, V> = (value: V, key: K, reason: LRUCacheDisposeReason) => void;
+export type LRUCacheDisposeReason =
+  | "evict"
+  | "set"
+  | "delete"
+  | "expire"
+  | "fetch";
+export type LRUCacheDisposer<K, V> = (
+  value: V,
+  key: K,
+  reason: LRUCacheDisposeReason,
+) => void;
 export type LRUCacheInsertReason = "add" | "update" | "replace";
-export type LRUCacheInserter<K, V> = (value: V, key: K, reason: LRUCacheInsertReason) => void;
+export type LRUCacheInserter<K, V> = (
+  value: V,
+  key: K,
+  reason: LRUCacheInsertReason,
+) => void;
 export type LRUCacheSizeCalculator<K, V> = (value: V, key: K) => LRUCacheSize;
 
 export interface LRUCacheFetcherOptions<K, V, FC = unknown> {
@@ -507,11 +520,15 @@ export class LRUCache<
     if (this.maxEntrySize !== 0) {
       if (this.#maxSize !== 0) {
         if (!isPosInt(this.#maxSize)) {
-          throw new TypeError("maxSize must be a positive integer if specified");
+          throw new TypeError(
+            "maxSize must be a positive integer if specified",
+          );
         }
       }
       if (!isPosInt(this.maxEntrySize)) {
-        throw new TypeError("maxEntrySize must be a positive integer if specified");
+        throw new TypeError(
+          "maxEntrySize must be a positive integer if specified",
+        );
       }
       this.#initializeSizeTracking();
     }

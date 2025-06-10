@@ -211,7 +211,9 @@ describe("chat-langchain-workflow", () => {
       expect(result).toBeDefined();
       expect(result.hash).toBe(md5("retrieved code"));
       expect(console.error).not.toHaveBeenCalled();
-      expect((globalThis as { cSess?: { getCode?: () => void; }; })["cSess"]?.getCode)
+      expect(
+        (globalThis as { cSess?: { getCode?: () => void; }; })["cSess"]?.getCode,
+      )
         .toHaveBeenCalled();
     });
   });

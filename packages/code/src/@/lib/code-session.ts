@@ -33,7 +33,7 @@ export class Code implements ICode {
   private currentSession: ICodeSession;
 
   constructor(private session: ICodeSession) {
-    this.currentSession = sanitizeSession(session );
+    this.currentSession = sanitizeSession(session);
     this.session = this.currentSession;
     const codeSpace = this.session.codeSpace;
 
@@ -90,7 +90,9 @@ export class Code implements ICode {
         `Failed to fetch session for ${this.codeSpace}:`,
         fetchError,
       );
-      throw new Error(`Failed to fetch session: ${fetchError?.message || "Unknown error"}`);
+      throw new Error(
+        `Failed to fetch session: ${fetchError?.message || "Unknown error"}`,
+      );
     }
 
     const { data: sessionData, error: jsonError } = await tryCatch(
@@ -324,7 +326,9 @@ export class Code implements ICode {
     // It's false for regular saves where the editor expects the app to run/be validated by the processor.
 
     if (this.setCodeController) {
-      console.warn("🔄 Aborting previous setCode operation (updateCodeInternal)");
+      console.warn(
+        "🔄 Aborting previous setCode operation (updateCodeInternal)",
+      );
       this.setCodeController.abort();
     }
     this.setCodeController = new AbortController();
@@ -397,7 +401,9 @@ export class Code implements ICode {
     // Wait a small amount of time to ensure the session update is processed by subscribers
     await new Promise((resolve) => setTimeout(resolve, 50));
 
-    console.warn("✅ Code update process in updateCodeInternal completed successfully.");
+    console.warn(
+      "✅ Code update process in updateCodeInternal completed successfully.",
+    );
     // Return the code that was effectively set in the session.
     return processedSessionData.code;
   }
@@ -520,8 +526,12 @@ export async function getCodeSession(
   }
 
   if (!sessionData) {
-    console.error(`Failed to get code session for ${codeSpaceId}: sessionData is undefined`);
-    throw new Error(`Failed to get code session for ${codeSpaceId}: sessionData is undefined`);
+    console.error(
+      `Failed to get code session for ${codeSpaceId}: sessionData is undefined`,
+    );
+    throw new Error(
+      `Failed to get code session for ${codeSpaceId}: sessionData is undefined`,
+    );
   }
   const codeSession = new Code(sessionData);
 

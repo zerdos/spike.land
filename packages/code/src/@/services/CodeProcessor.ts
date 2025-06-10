@@ -338,7 +338,9 @@ export class CodeProcessor {
 
     if (error) {
       console.error("Error formatting code:", { code, error }); // Added error to log
-      throw new Error(`Error formatting code: ${error?.message || String(error)}`);
+      throw new Error(
+        `Error formatting code: ${error?.message || String(error)}`,
+      );
     }
     if (!data) { // Added check for null/undefined data
       console.error("Formatting code returned no data", { code });
@@ -352,7 +354,9 @@ export class CodeProcessor {
 
     if (error) {
       console.error("Error Transpiled code:", { code, error }); // Changed to console.error and added error
-      throw new Error(`Error transpiling code: ${error?.message || String(error)}`);
+      throw new Error(
+        `Error transpiling code: ${error?.message || String(error)}`,
+      );
     }
 
     if (!transpiled) {

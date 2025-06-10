@@ -106,9 +106,10 @@ export const addSomeFixesIfNeeded = (rawCode: string): string => {
     ) {
       const [firstLine, ...restLines] = header.split("\n");
       header = (firstLine || "").startsWith("//")
-        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines].join(
-          "\n",
-        )
+        ? [firstLine, 'import { css } from "@emotion/react";', ...restLines]
+          .join(
+            "\n",
+          )
         : ['import { css } from "@emotion/react";', firstLine, ...restLines]
           .join("\n");
     }

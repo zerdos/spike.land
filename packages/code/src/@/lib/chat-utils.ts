@@ -20,7 +20,7 @@ function getTextFromMessageContent(content: MessageContent): string {
   if (Array.isArray(content)) {
     return content
       .filter((part): part is TextPart => part.type === "text")
-      .map(part => part.text)
+      .map((part) => part.text)
       .join("");
   }
   return "";
@@ -48,7 +48,9 @@ export function messagesPush(
 
   const lastMessage = messagesCopy[messagesCopy.length - 1];
 
-  if (lastMessage!.role === newMessage.role && newMessage.role === "assistant") {
+  if (
+    lastMessage!.role === newMessage.role && newMessage.role === "assistant"
+  ) {
     const newMessageText = getTextFromMessageContent(newMessage.content);
     const lastMessageText = getTextFromMessageContent(lastMessage!.content);
     messagesCopy[messagesCopy.length - 1] = {

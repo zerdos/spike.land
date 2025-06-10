@@ -55,7 +55,8 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const processToolResponse = async (
     message: AIMessage,
   ): Promise<AgentState> => {
-    const toolResponsesFromKwargs = message.additional_kwargs?.["tool_responses"];
+    const toolResponsesFromKwargs = message.additional_kwargs
+      ?.["tool_responses"];
 
     if (
       !toolResponsesFromKwargs ||

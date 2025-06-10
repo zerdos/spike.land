@@ -763,7 +763,8 @@ export class FileChangeManager {
 
     // If we found a unique line, use it to anchor our match
     if (lowestMatchCount < Infinity) {
-      const anchorLine = significantSearchLines[mostUniqueLineIndex] ?? "".trim();
+      const anchorLine = significantSearchLines[mostUniqueLineIndex] ??
+        "".trim();
 
       for (const [i, line] of contentLines.entries()) {
         if (line.trim() === anchorLine) {
