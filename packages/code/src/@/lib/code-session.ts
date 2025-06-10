@@ -33,7 +33,7 @@ export class Code implements ICode {
   private currentSession: ICodeSession;
 
   constructor(private session: ICodeSession) {
-    this.currentSession = sanitizeSession(this.session);
+    this.currentSession = sanitizeSession(session );
     this.session = this.currentSession;
     const codeSpace = this.session.codeSpace;
 

@@ -42,7 +42,7 @@ describe("tool-response-utils", () => {
       expect(metadata).toEqual({
         hash: "abc123",
         modifiedCodeHash: "def456",
-        compilationError: undefined,
+        compilationError: "",
         codeWasReturned: true,
       });
     });
@@ -98,8 +98,8 @@ describe("tool-response-utils", () => {
 
       expect(metadata).toEqual({
         hash: "previous-hash",
-        modifiedCodeHash: undefined,
-        compilationError: undefined,
+        modifiedCodeHash: "",
+        compilationError: "",
         codeWasReturned: false,
       });
     });
