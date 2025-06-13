@@ -6,15 +6,15 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.37",
-    "@cloudflare/workers-types": "4.20250612.0",
+    "@cloudflare/vitest-pool-workers": "0.8.38",
+    "@cloudflare/workers-types": "4.20250613.0",
     "@types/node": "24.0.1",
     "@vitest/runner": "3.2.3",
     "@vitest/snapshot": "3.2.3",
-    "miniflare": "4.20250604.0",
+    "miniflare": "4.20250604.1",
     "tinyrainbow": "^2.0.0",
     "typescript": "5.8.3",
     "vitest": "3.2.3",
-    "wrangler": "4.19.2"
+    "wrangler": "4.20.0"
   }
 }

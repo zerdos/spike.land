@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
 
 export const ContentWrapper = (
-  { children, scale, innerHeight, width, bgColor, rgba, type }: {
+  { children, scale, innerHeight, width, bgColor, rgba }: {
     children: React.ReactElement;
     scale: number;
     innerHeight: number;
     width: number;
     bgColor: number[];
     rgba: (r: number, g: number, b: number, a: number) => string;
-    type: string;
   },
 ) => (
   <motion.div
-    transition={{ scale: { type } }}
+    transition={{ scale: { type: "spring" } }}
     className="block rounded-lg"
     style={{
       backgroundColor: rgba(

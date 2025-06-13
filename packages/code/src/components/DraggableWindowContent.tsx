@@ -85,7 +85,6 @@ export const DraggableWindowContent: FC<DraggableWindowContentProps> = ({
           {...commonStyleProps}
           scale={scale}
           rgba={rgba}
-          type="spring"
         >
           <ScaledContent
             {...commonStyleProps}
