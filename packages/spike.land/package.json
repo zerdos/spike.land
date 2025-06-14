@@ -5,6 +5,10 @@
   "type": "module",
   "module": "dist/index.js",
   "private": true,
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "scripts": {
     "dev": "wrangler dev",
     "dev:remote": "wrangler dev --remote",
@@ -33,6 +37,8 @@
     "@typescript-eslint/parser": "8.34.0",
     "@vitest/runner": "3.2.3",
     "@vitest/snapshot": "3.2.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "cross-env": "7.0.3",
     "esbuild": "0.25.5",
     "eslint-plugin-react-hooks": "5.2.0",
