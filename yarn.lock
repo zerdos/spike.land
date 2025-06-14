@@ -3567,6 +3567,7 @@ __metadata:
     "@emotion/cache": "npm:11.14.0"
     "@emotion/css-prettifier": "npm:1.2.0"
     "@emotion/react": "npm:11.14.0"
+    "@emotion/sheet": "npm:^1.4.0"
     "@emotion/styled": "npm:11.14.0"
     "@eslint/js": "npm:9.29.0"
     "@github/stable-socket": "npm:1.1.1"
@@ -3575,6 +3576,7 @@ __metadata:
     "@langchain/core": "npm:0.3.58"
     "@langchain/langgraph": "npm:0.3.2"
     "@mui/material": "npm:7.1.1"
+    "@mui/styled-engine": "npm:^7.1.1"
     "@radix-ui/react-accordion": "npm:1.2.11"
     "@radix-ui/react-alert-dialog": "npm:1.1.14"
     "@radix-ui/react-aspect-ratio": "npm:1.1.7"
@@ -3613,6 +3615,9 @@ __metadata:
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/react": "npm:16.3.0"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/aria-query": "npm:^5.0.4"
+    "@types/d3-path": "npm:^3"
+    "@types/d3-time": "npm:^3"
     "@types/diff": "npm:8.0.0"
     "@types/esprima": "npm:^4.0.6"
     "@types/events": "npm:^3.0.3"
@@ -3635,6 +3640,9 @@ __metadata:
     clsx: "npm:2.1.1"
     cmdk: "npm:1.1.1"
     concurrently: "npm:9.1.2"
+    d3-path: "npm:^3.1.0"
+    d3-time: "npm:^3.1.0"
+    deep-eql: "npm:^5.0.2"
     detective-typescript: "npm:14.0.0"
     diff: "npm:8.0.2"
     embla-carousel-react: "npm:8.6.0"
@@ -3657,6 +3665,7 @@ __metadata:
     input-otp: "npm:1.4.2"
     jsdom: "npm:26.1.0"
     jsondiffpatch: "npm:0.7.3"
+    lightningcss: "npm:^1.30.1"
     lucide-react: "npm:0.515.0"
     mime-types: "npm:3.0.1"
     module: "npm:1.2.5"
@@ -4408,7 +4417,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aria-query@npm:^5.0.1":
+"@types/aria-query@npm:^5.0.1, @types/aria-query@npm:^5.0.4":
   version: 5.0.4
   resolution: "@types/aria-query@npm:5.0.4"
   checksum: 10c0/dc667bc6a3acc7bba2bccf8c23d56cb1f2f4defaa704cfef595437107efaa972d3b3db9ec1d66bc2711bfc35086821edd32c302bffab36f2e79b97f312069f08
@@ -4461,7 +4470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/d3-path@npm:*":
+"@types/d3-path@npm:*, @types/d3-path@npm:^3":
   version: 3.1.1
   resolution: "@types/d3-path@npm:3.1.1"
   checksum: 10c0/2c36eb31ebaf2ce4712e793fd88087117976f7c4ed69cc2431825f999c8c77cca5cea286f3326432b770739ac6ccd5d04d851eb65e7a4dbcc10c982b49ad2c02
@@ -4486,7 +4495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/d3-time@npm:*, @types/d3-time@npm:^3.0.0":
+"@types/d3-time@npm:*, @types/d3-time@npm:^3, @types/d3-time@npm:^3.0.0":
   version: 3.0.4
   resolution: "@types/d3-time@npm:3.0.4"
   checksum: 10c0/6d9e2255d63f7a313a543113920c612e957d70da4fb0890931da6c2459010291b8b1f95e149a538500c1c99e7e6c89ffcce5554dd29a31ff134a38ea94b6d174
@@ -6346,7 +6355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"d3-time@npm:1 - 3, d3-time@npm:2.1.1 - 3, d3-time@npm:^3.0.0":
+"d3-time@npm:1 - 3, d3-time@npm:2.1.1 - 3, d3-time@npm:^3.0.0, d3-time@npm:^3.1.0":
   version: 3.1.0
   resolution: "d3-time@npm:3.1.0"
   dependencies:
@@ -6514,7 +6523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-eql@npm:^5.0.1":
+"deep-eql@npm:^5.0.1, deep-eql@npm:^5.0.2":
   version: 5.0.2
   resolution: "deep-eql@npm:5.0.2"
   checksum: 10c0/7102cf3b7bb719c6b9c0db2e19bf0aa9318d141581befe8c7ce8ccd39af9eaa4346e5e05adef7f9bd7015da0f13a3a25dcfe306ef79dc8668aedbecb658dd247
@@ -9599,7 +9608,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lightningcss@npm:1.30.1":
+"lightningcss@npm:1.30.1, lightningcss@npm:^1.30.1":
   version: 1.30.1
   resolution: "lightningcss@npm:1.30.1"
   dependencies:

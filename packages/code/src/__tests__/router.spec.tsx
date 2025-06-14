@@ -1,7 +1,7 @@
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
 import { cleanup, render, waitFor } from "@testing-library/react";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { router as baseRouter } from "../routes/router";
+import { router as baseRouter } from "../app/router";
 
 // Mock components
 vi.mock("../pages/LivePage", () => ({

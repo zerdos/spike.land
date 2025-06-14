@@ -1,7 +1,7 @@
 import { renderApp } from "@/lib/render-app";
 import { tryCatch } from "@/lib/try-catch";
 import { App } from "./App";
-import { router } from "./routes/router";
+import { router } from "./app/router";
 import "./index.css";
 import { getCodeSpace } from "@/hooks/use-code-space";
 import { initializeWebSocket, shouldInitWebSocket } from "./app-loader";

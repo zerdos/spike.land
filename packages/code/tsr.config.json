@@ -1,0 +1,12 @@
+{
+  "routesDirectory": "./src/routes",
+  "generatedRouteTree": "./src/routeTree.gen.ts",
+  "routeFileIgnorePrefix": "-",
+  "quoteStyle": "double",
+  "semicolons": true,
+  "disableTypes": false,
+  "addExtensions": false,
+  "disableLogging": false,
+  "disableManifestGeneration": false,
+  "autoCodeSplitting": false
+}

@@ -80,14 +80,15 @@ export default defineConfig((config) => {
 
   // Server proxy configuration
   const proxyConfig: Record<string, ProxyOptions> = {
-    "^/live/.*/": {
-      target: "https://testing.spike.land/live",
-      changeOrigin: true,
-      rewrite: (url: string) => {
-        console.log("Proxying path:", url);
-        return url.replace(/^\/live/, "");
-      },
-    },
+    // Commented out during development to allow local routing to handle /live paths
+    // "^/live/[^@]+$": {
+    //   target: "https://testing.spike.land/live",
+    //   changeOrigin: true,
+    //   rewrite: (url: string) => {
+    //     console.log("Proxying path:", url);
+    //     return url.replace(/^\/live/, "");
+    //   },
+    // },
     "/sw.js": {
       target: "https://testing.spike.land/sw.js",
       changeOrigin: true,
@@ -101,11 +102,12 @@ export default defineConfig((config) => {
 
   // Include additional proxy only when building, if needed
   if (!isBuild) {
-    proxyConfig["/@"] = {
-      target: "https://testing.spike.land/@",
-      changeOrigin: true,
-      rewrite: (url: string) => url.replace(/^\/@/, ""),
-    };
+    // Commented out during development to allow Vite internals to work
+    // proxyConfig["/@"] = {
+    //   target: "https://testing.spike.land/@",
+    //   changeOrigin: true,
+    //   rewrite: (url: string) => url.replace(/^\/@/, ""),
+    // };
   }
 
   return {
