@@ -3619,7 +3619,6 @@ __metadata:
     "@types/d3-path": "npm:^3"
     "@types/d3-time": "npm:^3"
     "@types/diff": "npm:8.0.0"
-    "@types/esprima": "npm:^4.0.6"
     "@types/events": "npm:^3.0.3"
     "@types/mime-types": "npm:3.0.1"
     "@types/node": "npm:24.0.1"
@@ -3654,7 +3653,6 @@ __metadata:
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:5.2.0"
     eslint-plugin-react-refresh: "npm:0.4.20"
-    esprima: "npm:^4.0.1"
     events: "npm:^3.3.0"
     fetch-retry: "npm:6.0.0"
     framer-motion: "npm:12.18.1"
@@ -3693,7 +3691,6 @@ __metadata:
     sonner: "npm:2.0.5"
     stream-browserify: "npm:^3.0.0"
     string_decoder: "npm:^1.3.0"
-    supports-color: "npm:^10.0.0"
     swr: "npm:2.3.3"
     tailwind-merge: "npm:3.3.1"
     tailwindcss: "npm:4.1.10"
@@ -3712,8 +3709,6 @@ __metadata:
     workbox-window: "npm:7.3.0"
     worker-rpc: "npm:0.2.0"
     zod: "npm:3.25.64"
-  peerDependencies:
-    supports-color: "*"
   languageName: unknown
   linkType: soft
 
@@ -3790,11 +3785,9 @@ __metadata:
     "@cloudflare/puppeteer": "npm:1.0.2"
     "@cloudflare/vitest-pool-workers": "npm:0.8.38"
     "@cloudflare/workers-types": "npm:4.20250613.0"
-    "@types/esprima": "npm:4.0.6"
     "@types/node": "npm:24.0.1"
     "@vitest/runner": "npm:3.2.3"
     "@vitest/snapshot": "npm:3.2.3"
-    esprima: "npm:4.0.1"
     rimraf: "npm:6.0.1"
     typescript: "npm:5.8.3"
     vitest: "npm:3.2.3"
@@ -3853,12 +3846,17 @@ __metadata:
     openai-edge: "npm:1.2.3"
     p-map: "npm:7.0.3"
     p-queue: "npm:8.1.0"
+    react: "npm:^18.0.0"
+    react-dom: "npm:^18.0.0"
     replicate: "npm:1.0.1"
     rimraf: "npm:6.0.1"
     rollup: "npm:4.43.0"
     typescript: "npm:5.8.3"
     vitest: "npm:3.2.3"
     wrangler: "npm:4.20.0"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
   languageName: unknown
   linkType: soft
 
@@ -4531,15 +4529,6 @@ __metadata:
   dependencies:
     diff: "npm:*"
   checksum: 10c0/c6e3376abeac8bc77b33252afc239a3cfc2729ecf59abcf00fa0f0eca8c505fd3a375a99a64afecdbb97fbec77b9a6aa8a8918f4d53fd5b45638d609343717cc
-  languageName: node
-  linkType: hard
-
-"@types/esprima@npm:4.0.6, @types/esprima@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "@types/esprima@npm:4.0.6"
-  dependencies:
-    "@types/estree": "npm:*"
-  checksum: 10c0/58544b9a2a017b9efdb4fafd4b7b1bc49bd1e555ad78a53acc5ef3de9ec208e43d29470d1cd24f2e86bf75605303aab47f4dbf3a1528018fda1e93a23d532edc
   languageName: node
   linkType: hard
 
@@ -6831,7 +6820,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding@npm:*, encoding@npm:^0.1.13":
+"encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
   dependencies:
@@ -7418,7 +7407,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esprima@npm:*, esprima@npm:4.0.1, esprima@npm:^4.0.1, esprima@npm:~4.0.0":
+"esprima@npm:^4.0.1, esprima@npm:~4.0.0":
   version: 4.0.1
   resolution: "esprima@npm:4.0.1"
   bin:
@@ -9770,7 +9759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -11685,6 +11674,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^18.0.0":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    scheduler: "npm:^0.23.2"
+  peerDependencies:
+    react: ^18.3.1
+  checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
+  languageName: node
+  linkType: hard
+
 "react-hook-form@npm:7.57.0":
   version: 7.57.0
   resolution: "react-hook-form@npm:7.57.0"
@@ -11932,6 +11933,15 @@ __metadata:
   version: 19.1.0
   resolution: "react@npm:19.1.0"
   checksum: 10c0/530fb9a62237d54137a13d2cfb67a7db6a2156faed43eecc423f4713d9b20c6f2728b026b45e28fcd72e8eadb9e9ed4b089e99f5e295d2f0ad3134251bdd3698
+  languageName: node
+  linkType: hard
+
+"react@npm:^18.0.0":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
   languageName: node
   linkType: hard
 
@@ -12339,7 +12349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:*, rollup@npm:4.43.0, rollup@npm:^4.34.9, rollup@npm:^4.40.0, rollup@npm:^4.43.0":
+"rollup@npm:4.43.0, rollup@npm:^4.34.9, rollup@npm:^4.40.0, rollup@npm:^4.43.0":
   version: 4.43.0
   resolution: "rollup@npm:4.43.0"
   dependencies:
@@ -12509,6 +12519,15 @@ __metadata:
   dependencies:
     xmlchars: "npm:^2.2.0"
   checksum: 10c0/3847b839f060ef3476eb8623d099aa502ad658f5c40fd60c105ebce86d244389b0d76fcae30f4d0c728d7705ceb2f7e9b34bb54717b6a7dbedaf5dad2d9a4b74
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+  checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
   languageName: node
   linkType: hard
 
@@ -13330,13 +13349,6 @@ __metadata:
   version: 4.3.6
   resolution: "stylis@npm:4.3.6"
   checksum: 10c0/e736d484983a34f7c65d362c67dc79b7bce388054b261c2b7b23d02eaaf280617033f65d44b1ea341854f4331a5074b885668ac8741f98c13a6cfd6443ae85d0
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:*, supports-color@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "supports-color@npm:10.0.0"
-  checksum: 10c0/0e7884dfd02a07b3c6e0b235346f58c19f0201f1e44f7807583581761b354688c8577378785b5a4e3b03110809786c4c808e0e086cd91911f7b8bc59132703a8
   languageName: node
   linkType: hard
 

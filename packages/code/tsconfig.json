@@ -60,6 +60,6 @@
     "isolatedModules": true,
     "noEmit": false,
     "moduleDetection": "force",
-    "types": ["vite/client", "vitest/globals"]
+    "types": ["vite/client", "vitest/globals", "@types/node"]
   }
 }

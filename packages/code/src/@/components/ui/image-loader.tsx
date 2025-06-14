@@ -16,11 +16,11 @@ interface ImageLoaderProps {
   cfg?: number;
   steps?: number;
   prompt: string;
-  aspect_ratio?: keyof RESOLUTION;
-  output_format?: "webp" | "png" | "jpeg";
-  output_quality?: number;
-  negative_prompt?: string;
-  prompt_strength?: number;
+  aspectRatio?: keyof RESOLUTION;
+  outputFormat?: "webp" | "png" | "jpeg";
+  outputQuality?: number;
+  negativePrompt?: string;
+  promptStrength?: number;
   className?: string;
 }
 
@@ -28,11 +28,11 @@ const DEFAULT_PROPS: Required<ImageLoaderProps> = {
   cfg: 3.5,
   steps: 28,
   prompt: "A web app for AI development. spike.land",
-  aspect_ratio: "16:9",
-  output_format: "webp",
-  output_quality: 90,
-  negative_prompt: "",
-  prompt_strength: 0.85,
+  aspectRatio: "16:9",
+  outputFormat: "webp",
+  outputQuality: 90,
+  negativePrompt: "",
+  promptStrength: 0.85,
   className: "",
 };
 
@@ -56,7 +56,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
 
   return (
     <img
-      src={`/replicate/${btoa(params)}.${props.output_format || DEFAULT_PROPS.output_format}`}
+      src={`/replicate/${btoa(params)}.${props.outputFormat || DEFAULT_PROPS.outputFormat}`}
       alt={props.prompt || DEFAULT_PROPS.prompt}
       className={containerClassName}
     />
