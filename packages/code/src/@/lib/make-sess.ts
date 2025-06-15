@@ -24,7 +24,6 @@ class SessionPatcher {
   }
 
   public static sanitizeSession(p: Partial<ICodeSession>): ICodeSession {
-    SessionPatcher.validateSession(p);
 
     return {
       codeSpace: p.codeSpace || "",
@@ -40,14 +39,6 @@ class SessionPatcher {
       );`,
       messages: p.messages ? JSON.parse(JSON.stringify(p.messages)) : [],
     };
-  }
-
-  public static validateSession(cx: Partial<ICodeSession>): void {
-    if (!cx.codeSpace || cx.code === undefined || cx.messages === undefined) {
-      throw new Error(
-        "Invalid session object - missing required fields" + JSON.stringify(cx),
-      );
-    }
   }
 
   public static sessionToJSON(s: ICodeSession): string {

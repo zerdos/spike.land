@@ -82,7 +82,7 @@ export class Code implements ICode {
     }
 
     const { data: response, error: fetchError } = await tryCatch(
-      fetch(`/api/room/${this.codeSpace}/session.json`),
+      fetch(`/live/${this.codeSpace}/session.json`),
     );
 
     if (fetchError) {
@@ -479,7 +479,7 @@ const codeSessionCache: Record<string, Code> = {};
  */
 async function fetchCodeSession(codeSpaceId: string): Promise<ICodeSession> {
   const { data: response, error: fetchError } = await tryCatch(
-    fetch(`/api/room/${codeSpaceId}/session.json`),
+    fetch(`/live/${codeSpaceId}/session.json`),
   );
 
   if (fetchError) {

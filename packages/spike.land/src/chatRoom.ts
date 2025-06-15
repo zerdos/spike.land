@@ -155,7 +155,7 @@ export class Code implements DurableObject {
     this.session = this.backupSession;
 
     await this.state.blockConcurrencyWhile(async () => {
-      try {
+   //   try {
         if (this.initialized) return;
         this.origin = url.origin;
         const codeSpace = this.getCodeSpace(url);
@@ -163,12 +163,12 @@ export class Code implements DurableObject {
         // Attempt to load session parts
         const sessionCore = await this.state.storage.get<
           Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
-        >("session_core");
+        >("session");
         let loadedSession: ICodeSession | null = null;
 
         if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
-          const code = (await this.state.storage.get<string>("session_code")) ?? "";
-          const transpiled = (await this.state.storage.get<string>("session_transpiled")) ?? "";
+          const code = sessionCore.code ||  ((await this.state.storage.get<string>("session_code")) ?? "");
+          const transpiled = sessionCore.transpiled || ((await this.state.storage.get<string>("session_transpiled")) ?? "");
 
           const r2HtmlKey = `r2_html_${codeSpace}`;
           const r2CssKey = `r2_css_${codeSpace}`;
@@ -224,23 +224,42 @@ export class Code implements DurableObject {
               css: "",
             });
           } else {
-            const source = codeSpaceParts.length === 2
-              ? `${this.origin}/live/${codeSpaceParts[0]}/session.json`
-              : `${this.origin}/live/code-main/session.json`;
-
-            try {
-              const response = await fetch(source);
-              if (!response.ok) {
-                throw new Error(`Failed to fetch session: ${response.status}`);
+            // Don't fetch from ourselves - use a default template instead
+            const codeSpaceParts = codeSpace!.split("-");
+            
+            if (codeSpaceParts.length === 2 && codeSpaceParts[0] !== "code") {
+              // For derived codespaces (like "code-main" derived from "code"), 
+              // try to get the base template from a different Durable Object instance
+              try {
+                const baseCodeSpace = codeSpaceParts[0];
+                // Only fetch if it's not the same as our current codeSpace to avoid recursion
+                if (baseCodeSpace !== codeSpace) {
+                  const source = `${this.origin}/live/${baseCodeSpace}/session.json`;
+                  const response = await fetch(source);
+                  if (response.ok) {
+                    const backupCode = await response.json() as ICodeSession;
+                    this.backupSession = sanitizeSession({
+                      ...backupCode,
+                      codeSpace,
+                    });
+                  } else {
+                    throw new Error(`Failed to fetch base session: ${response.status}`);
+                  }
+                } else {
+                  throw new Error("Circular reference avoided");
+                }
+              } catch (error) {
+                console.error("Error fetching backup code from base codeSpace:", error);
+                // Use default backup session if fetch fails
+                this.backupSession = sanitizeSession({
+                  codeSpace,
+                  code: `export default () => (<>Write your code here!</>);`,
+                  html: "<div>Write your code here!</div>",
+                  css: "",
+                });
               }
-              const backupCode = await response.json() as ICodeSession;
-              this.backupSession = sanitizeSession({
-                ...backupCode,
-                codeSpace,
-              });
-            } catch (error) {
-              console.error("Error fetching backup code:", error);
-              // Use default backup session if fetch fails
+            } else {
+              // For base codespaces or single-part names, use default template
               this.backupSession = sanitizeSession({
                 codeSpace,
                 code: `export default () => (<>Write your code here!</>);`,
@@ -249,7 +268,6 @@ export class Code implements DurableObject {
               });
             }
 
-            // this.state.storage.put("session", this.backupSession);
             this.session = this.backupSession;
           }
 
@@ -267,16 +285,16 @@ export class Code implements DurableObject {
         //     }
         //   },
         // );
-      } catch (_error) {
-        console.error("Error initializing session:", _error);
-        this.session = this.backupSession;
-      } finally {
+      // } catch (_error) {
+      //   console.error("Error initializing session:", _error);
+      //   this.session = this.backupSession;
+      // } finally {
         this.initialized = true;
 
         if (this.session) {
           this.xLog(this.session);
         }
-      }
+      // }
     });
 
     this.xLog(this.session);

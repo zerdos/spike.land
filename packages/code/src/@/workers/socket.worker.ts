@@ -340,7 +340,7 @@ function createWebSocket(codeSpace: string): Socket {
 
 async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   const startTime = Date.now();
-  const url = `/api/room/${codeSpace}/session.json`;
+  const url = `/live/${codeSpace}/session.json`;
 
   logger.info(`Fetching initial session for ${codeSpace} from ${url}`);
 

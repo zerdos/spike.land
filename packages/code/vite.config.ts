@@ -80,21 +80,39 @@ export default defineConfig((config) => {
 
   // Server proxy configuration
   const proxyConfig: Record<string, ProxyOptions> = {
-    // Commented out during development to allow local routing to handle /live paths
-    // "^/live/[^@]+$": {
-    //   target: "https://testing.spike.land/live",
-    //   changeOrigin: true,
-    //   rewrite: (url: string) => {
-    //     console.log("Proxying path:", url);
-    //     return url.replace(/^\/live/, "");
-    //   },
-    // },
+    // Proxy /live/*/filename requests to the local worker server
+    // But NOT /live/username (without trailing slash or filename)
+    "^/live/[^/]+/.+": {
+      target: "http://localhost:8787",
+      changeOrigin: true,
+      rewrite: (url: string) => {
+        console.log("Proxying path:", url);
+        return url; // Keep the full path including /live/
+      },
+    },
+    "/reactMod.mjs": {
+      target: "http://localhost:8787/reactMod.mjs",
+      changeOrigin: true,
+      rewrite: (url: string) => url.replace(/^\/reactMod.mjs/, ""),
+    },
+    "/chunk-[a-z0-9]+.mjs": {
+      target: "http://localhost:8787",
+      changeOrigin: true,
+      rewrite: (url: string) => {
+        console.log("Proxying chunk:", url);
+        return url; // Keep the full path including /chunk-*
+      }
+    },
     "/sw.js": {
-      target: "https://testing.spike.land/sw.js",
+      target: "http://localhost:8787/sw.js",
+      changeOrigin: true,
+    },
+    "/swVersion.js": {
+      target: "http://localhost:8787/swVersion.js",
       changeOrigin: true,
     },
     "/swVersion.mjs": {
-      target: "https://testing.spike.land/swVersion.mjs",
+      target: "http://localhost:8787/swVersion.mjs",
       changeOrigin: true,
       rewrite: (url: string) => url.replace(/^\/swVersion.mjs/, ""),
     },
