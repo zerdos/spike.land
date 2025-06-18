@@ -6,15 +6,15 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.38",
-    "@cloudflare/workers-types": "4.20250614.0",
-    "@types/node": "24.0.1",
-    "@vitest/runner": "3.2.3",
-    "@vitest/snapshot": "3.2.3",
-    "miniflare": "4.20250604.1",
+    "@cloudflare/vitest-pool-workers": "0.8.39",
+    "@cloudflare/workers-types": "4.20250618.0",
+    "@types/node": "24.0.3",
+    "@vitest/runner": "3.2.4",
+    "@vitest/snapshot": "3.2.4",
+    "miniflare": "4.20250612.0",
     "tinyrainbow": "^2.0.0",
     "typescript": "5.8.3",
-    "vitest": "3.2.3",
-    "wrangler": "4.20.0"
+    "vitest": "3.2.4",
+    "wrangler": "4.20.1"
   }
 }

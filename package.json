@@ -44,11 +44,11 @@
     "@types/d3-path": "^3.1.1",
     "@types/d3-time": "^3.0.4",
     "@types/events": "^3.0.3",
-    "@types/node": "24.0.1",
+    "@types/node": "24.0.3",
     "@types/react": "^19.1.8",
-    "@typescript-eslint/eslint-plugin": "^8.34.0",
-    "@typescript-eslint/parser": "^8.34.0",
-    "@vitest/utils": "^3.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "@vitest/utils": "^3.2.4",
     "concurrently": "9.1.2",
     "d3-path": "^3.1.0",
     "d3-time": "^3.1.0",
@@ -62,7 +62,7 @@
     "pathe": "^2.0.3",
     "react": "^19.1.0",
     "typescript": "5.8.3",
-    "vitest": "3.2.3"
+    "vitest": "3.2.4"
   },
   "packageManager": "yarn@4.9.2"
 }
