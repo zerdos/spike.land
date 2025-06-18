@@ -167,8 +167,8 @@ export class Code implements DurableObject {
         let loadedSession: ICodeSession | null = null;
 
         if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
-          const code = sessionCore.code ||  ((await this.state.storage.get<string>("session_code")) ?? "");
-          const transpiled = sessionCore.transpiled || ((await this.state.storage.get<string>("session_transpiled")) ?? "");
+          const code =   await this.state.storage.get<string>("session_code") ?? sessionCore.code;
+          const transpiled = await this.state.storage.get<string>("session_transpiled") ?? sessionCore.transpiled;
 
           const r2HtmlKey = `r2_html_${codeSpace}`;
           const r2CssKey = `r2_css_${codeSpace}`;
