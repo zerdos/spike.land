@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.0",
-    "@cloudflare/vitest-pool-workers": "0.8.39",
-    "@cloudflare/workers-types": "4.20250618.0",
+    "@cloudflare/vitest-pool-workers": "0.8.41",
+    "@cloudflare/workers-types": "4.20250619.0",
     "@eslint/js": "9.29.0",
     "@rollup/plugin-commonjs": "28.0.6",
     "@rollup/plugin-node-resolve": "16.0.1",
@@ -45,10 +45,10 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rimraf": "6.0.1",
-    "rollup": "4.43.0",
+    "rollup": "4.44.0",
     "typescript": "5.8.3",
     "vitest": "3.2.4",
-    "wrangler": "4.20.1"
+    "wrangler": "4.20.3"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.54.0",
@@ -68,7 +68,7 @@
     "jiti": "2.4.2",
     "mime-db": "1.54.0",
     "mime-types": "3.0.1",
-    "miniflare": "4.20250612.0",
+    "miniflare": "4.20250617.1",
     "openai": "5.5.1",
     "openai-edge": "1.2.3",
     "p-map": "7.0.3",
