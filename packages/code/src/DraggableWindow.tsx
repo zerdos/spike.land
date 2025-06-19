@@ -81,7 +81,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({
 
   const transition = useMemo(() => ({
     delay,
-    type:  "spring" as const,
+    type: "spring" as const,
     duration: Number(sessionStorage?.getItem("duration")) || 1,
   }), [delay]);
 

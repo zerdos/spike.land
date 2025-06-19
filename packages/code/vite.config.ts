@@ -101,7 +101,7 @@ export default defineConfig((config) => {
       rewrite: (url: string) => {
         console.log("Proxying chunk:", url);
         return url; // Keep the full path including /chunk-*
-      }
+      },
     },
     "/sw.js": {
       target: "http://localhost:8787/sw.js",

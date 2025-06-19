@@ -155,111 +155,103 @@ export class Code implements DurableObject {
     this.session = this.backupSession;
 
     await this.state.blockConcurrencyWhile(async () => {
-   //   try {
-        if (this.initialized) return;
-        this.origin = url.origin;
-        const codeSpace = this.getCodeSpace(url);
+      //   try {
+      if (this.initialized) return;
+      this.origin = url.origin;
+      const codeSpace = this.getCodeSpace(url);
 
-        // Attempt to load session parts
-        const sessionCore = await this.state.storage.get<
-          Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
-        >("session");
-        let loadedSession: ICodeSession | null = null;
+      // Attempt to load session parts
+      const sessionCore = await this.state.storage.get<
+        Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
+      >("session");
+      let loadedSession: ICodeSession | null = null;
 
-        if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
-          const code =   await this.state.storage.get<string>("session_code") ?? sessionCore.code;
-          const transpiled = await this.state.storage.get<string>("session_transpiled") ?? sessionCore.transpiled;
+      if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
+        const code = await this.state.storage.get<string>("session_code") ?? sessionCore.code;
+        const transpiled = await this.state.storage.get<string>("session_transpiled") ??
+          sessionCore.transpiled;
 
-          const r2HtmlKey = `r2_html_${codeSpace}`;
-          const r2CssKey = `r2_css_${codeSpace}`;
+        const r2HtmlKey = `r2_html_${codeSpace}`;
+        const r2CssKey = `r2_css_${codeSpace}`;
 
-          let html = "";
-          try {
-            const htmlObject = await this.env.R2.get(r2HtmlKey);
-            if (htmlObject) html = await htmlObject.text();
-          } catch (e) {
-            console.error(`Failed to load html from R2 (${r2HtmlKey}):`, e);
-          }
-
-          let css = "";
-          try {
-            const cssObject = await this.env.R2.get(r2CssKey);
-            if (cssObject) css = await cssObject.text();
-          } catch (e) {
-            console.error(`Failed to load css from R2 (${r2CssKey}):`, e);
-          }
-
-          loadedSession = {
-            ...sessionCore, // Contains messages, original codeSpace, etc.
-            code,
-            transpiled,
-            html,
-            css,
-          };
-        } else if (sessionCore && sessionCore.codeSpace !== codeSpace) {
-          console.warn(
-            `Loaded session_core for ${sessionCore.codeSpace} but current room is ${codeSpace}. Discarding loaded core.`,
-          );
-          // This case will fall through to the 'else' block below, treating it as no session found.
+        let html = "";
+        try {
+          const htmlObject = await this.env.R2.get(r2HtmlKey);
+          if (htmlObject) html = await htmlObject.text();
+        } catch (e) {
+          console.error(`Failed to load html from R2 (${r2HtmlKey}):`, e);
         }
 
-        if (loadedSession) {
-          // Ensure the codeSpace from the URL is respected, sanitizeSession handles merging.
-          this.session = sanitizeSession({ ...loadedSession, codeSpace });
-        } else {
-          // No valid stored session found, or codespace mismatch, initialize a new one
-          const codeSpaceParts = codeSpace!.split("-");
-          if (codeSpaceParts.length > 2) {
-            throw new Error("Invalid codeSpace");
-          }
+        let css = "";
+        try {
+          const cssObject = await this.env.R2.get(r2CssKey);
+          if (cssObject) css = await cssObject.text();
+        } catch (e) {
+          console.error(`Failed to load css from R2 (${r2CssKey}):`, e);
+        }
 
-          if (codeSpaceParts[0] === "x") {
-            // full empty state
-            this.session = sanitizeSession({
-              codeSpace,
-              messages: [],
-              code: `export default () => (<>Write your code here!</>);
+        loadedSession = {
+          ...sessionCore, // Contains messages, original codeSpace, etc.
+          code,
+          transpiled,
+          html,
+          css,
+        };
+      } else if (sessionCore && sessionCore.codeSpace !== codeSpace) {
+        console.warn(
+          `Loaded session_core for ${sessionCore.codeSpace} but current room is ${codeSpace}. Discarding loaded core.`,
+        );
+        // This case will fall through to the 'else' block below, treating it as no session found.
+      }
+
+      if (loadedSession) {
+        // Ensure the codeSpace from the URL is respected, sanitizeSession handles merging.
+        this.session = sanitizeSession({ ...loadedSession, codeSpace });
+      } else {
+        // No valid stored session found, or codespace mismatch, initialize a new one
+        const codeSpaceParts = codeSpace!.split("-");
+        if (codeSpaceParts.length > 2) {
+          throw new Error("Invalid codeSpace");
+        }
+
+        if (codeSpaceParts[0] === "x") {
+          // full empty state
+          this.session = sanitizeSession({
+            codeSpace,
+            messages: [],
+            code: `export default () => (<>Write your code here!</>);
               `,
-              html: "<div>Write your code here!</div>",
-              css: "",
-            });
-          } else {
-            // Don't fetch from ourselves - use a default template instead
-            const codeSpaceParts = codeSpace!.split("-");
-            
-            if (codeSpaceParts.length === 2 && codeSpaceParts[0] !== "code") {
-              // For derived codespaces (like "code-main" derived from "code"), 
-              // try to get the base template from a different Durable Object instance
-              try {
-                const baseCodeSpace = codeSpaceParts[0];
-                // Only fetch if it's not the same as our current codeSpace to avoid recursion
-                if (baseCodeSpace !== codeSpace) {
-                  const source = `${this.origin}/live/${baseCodeSpace}/session.json`;
-                  const response = await fetch(source);
-                  if (response.ok) {
-                    const backupCode = await response.json() as ICodeSession;
-                    this.backupSession = sanitizeSession({
-                      ...backupCode,
-                      codeSpace,
-                    });
-                  } else {
-                    throw new Error(`Failed to fetch base session: ${response.status}`);
-                  }
+            html: "<div>Write your code here!</div>",
+            css: "",
+          });
+        } else {
+          // Don't fetch from ourselves - use a default template instead
+          const codeSpaceParts = codeSpace!.split("-");
+
+          if (codeSpaceParts.length === 2 && codeSpaceParts[0] !== "code") {
+            // For derived codespaces (like "code-main" derived from "code"),
+            // try to get the base template from a different Durable Object instance
+            try {
+              const baseCodeSpace = codeSpaceParts[0];
+              // Only fetch if it's not the same as our current codeSpace to avoid recursion
+              if (baseCodeSpace !== codeSpace) {
+                const source = `${this.origin}/live/${baseCodeSpace}/session.json`;
+                const response = await fetch(source);
+                if (response.ok) {
+                  const backupCode = await response.json() as ICodeSession;
+                  this.backupSession = sanitizeSession({
+                    ...backupCode,
+                    codeSpace,
+                  });
                 } else {
-                  throw new Error("Circular reference avoided");
+                  throw new Error(`Failed to fetch base session: ${response.status}`);
                 }
-              } catch (error) {
-                console.error("Error fetching backup code from base codeSpace:", error);
-                // Use default backup session if fetch fails
-                this.backupSession = sanitizeSession({
-                  codeSpace,
-                  code: `export default () => (<>Write your code here!</>);`,
-                  html: "<div>Write your code here!</div>",
-                  css: "",
-                });
+              } else {
+                throw new Error("Circular reference avoided");
               }
-            } else {
-              // For base codespaces or single-part names, use default template
+            } catch (error) {
+              console.error("Error fetching backup code from base codeSpace:", error);
+              // Use default backup session if fetch fails
               this.backupSession = sanitizeSession({
                 codeSpace,
                 code: `export default () => (<>Write your code here!</>);`,
@@ -267,33 +259,42 @@ export class Code implements DurableObject {
                 css: "",
               });
             }
-
-            this.session = this.backupSession;
+          } else {
+            // For base codespaces or single-part names, use default template
+            this.backupSession = sanitizeSession({
+              codeSpace,
+              code: `export default () => (<>Write your code here!</>);`,
+              html: "<div>Write your code here!</div>",
+              css: "",
+            });
           }
 
-          // this.state.storage.put("session", this.backupSession); // Old logic
-          this.session = this.backupSession; // Set to backup before potentially saving
-          // Persist the newly initialized session
-          await this._saveSession(this.session);
+          this.session = this.backupSession;
         }
 
-        // Initialize auto-save history
-        // this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then(
-        //   (savedHistory) => {
-        //     if (savedHistory) {
-        //       this.autoSaveHistory = savedHistory;
-        //     }
-        //   },
-        // );
+        // this.state.storage.put("session", this.backupSession); // Old logic
+        this.session = this.backupSession; // Set to backup before potentially saving
+        // Persist the newly initialized session
+        await this._saveSession(this.session);
+      }
+
+      // Initialize auto-save history
+      // this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory").then(
+      //   (savedHistory) => {
+      //     if (savedHistory) {
+      //       this.autoSaveHistory = savedHistory;
+      //     }
+      //   },
+      // );
       // } catch (_error) {
       //   console.error("Error initializing session:", _error);
       //   this.session = this.backupSession;
       // } finally {
-        this.initialized = true;
+      this.initialized = true;
 
-        if (this.session) {
-          this.xLog(this.session);
-        }
+      if (this.session) {
+        this.xLog(this.session);
+      }
       // }
     });
 

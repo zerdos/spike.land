@@ -24,7 +24,6 @@ class SessionPatcher {
   }
 
   public static sanitizeSession(p: Partial<ICodeSession>): ICodeSession {
-
     return {
       codeSpace: p.codeSpace || "",
       code: p.code || "",
