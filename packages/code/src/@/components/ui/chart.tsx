@@ -120,16 +120,34 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}:
-  & React.ComponentProps<typeof RechartsPrimitive.Tooltip>
-  & React.ComponentProps<"div">
-  & {
-    hideLabel?: boolean;
-    hideIndicator?: boolean;
-    indicator?: "line" | "dot" | "dashed";
-    nameKey?: string;
-    labelKey?: string;
-  })
+}: {
+  active?: boolean;
+  payload?: Array<{
+    name?: string;
+    dataKey?: string;
+    value?: number | string;
+    color?: string;
+    payload?: Record<string, any>;
+    fill?: string;
+  }>;
+  className?: string;
+  indicator?: "line" | "dot" | "dashed";
+  hideLabel?: boolean;
+  hideIndicator?: boolean;
+  label?: string;
+  labelFormatter?: (label: string, payload: any[]) => React.ReactNode;
+  labelClassName?: string;
+  formatter?: (
+    value: any,
+    name: string,
+    item: any,
+    index: number,
+    payload: any
+  ) => React.ReactNode;
+  color?: string;
+  nameKey?: string;
+  labelKey?: string;
+} & React.ComponentProps<"div">)
 {
   const { config } = useChart();
 
@@ -148,7 +166,7 @@ function ChartTooltipContent({
     if (labelFormatter) {
       return (
         <div className={cn("font-medium", labelClassName)}>
-          {labelFormatter(value, payload)}
+          {typeof value === "string" ? labelFormatter(value, payload) : null}
         </div>
       );
     }
@@ -186,7 +204,7 @@ function ChartTooltipContent({
         {payload.map((item, index) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          const indicatorColor = color || item.payload.fill || item.color;
+          const indicatorColor = color || (item.payload && item.payload['fill']) || item.color;
 
           return (
             <div
@@ -258,17 +276,23 @@ function ChartLegendContent({
   payload,
   verticalAlign = "bottom",
   nameKey,
-}:
-  & React.ComponentProps<"div">
-  & Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign">
-  & {
-    hideIcon?: boolean;
-    nameKey?: string;
-  })
+}: {
+  className?: string;
+  hideIcon?: boolean;
+  payload?: Array<{
+    value?: string;
+    dataKey?: string;
+    color?: string;
+    icon?: React.ComponentType;
+    name?: string;
+  }>;
+  verticalAlign?: "top" | "bottom";
+  nameKey?: string;
+} & React.ComponentProps<"div">)
 {
   const { config } = useChart();
 
-  if (!payload?.length) {
+  if (!payload || !Array.isArray(payload) || payload.length === 0) {
     return null;
   }
 
@@ -280,8 +304,8 @@ function ChartLegendContent({
         className,
       )}
     >
-      {payload.map((item) => {
-        const key = `${nameKey || item.dataKey || "value"}`;
+      {payload.map((item, index) => {
+        const key = `${nameKey || item.dataKey || String(index) || "value"}`;
         const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
         return (
