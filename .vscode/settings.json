@@ -105,12 +105,11 @@
   "typescript.tsserver.watchOptions": {
     "watchFile": "useFsEvents",
     "watchDirectory": "useFsEvents",
-    "fallbackPolling": "dynamicPriority"
+    "fallbackPolling": "dynamicPriorityPolling"
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",
   "eslint.nodePath": ".yarn/sdks",
-  "eslint.packageManager": "yarn",
   "eslint.validate": [
     "javascript",
     "javascriptreact",

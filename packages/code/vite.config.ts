@@ -139,9 +139,6 @@ export default defineConfig((config) => {
       tailwindcss(),
       react({ jsxImportSource: "@emotion/react" }),
     ],
-    experimental: {
-      skipSsrTransform: true,
-    },
     build: {
       rollupOptions: {
         external: rollupExternal,
