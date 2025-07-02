@@ -44,7 +44,7 @@ export class Code implements ICode {
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
     
-    // Set up re-render handling for transpiled code changes
+    // Set up re-render handling for transpiled code changes and auto-transpilation for code changes
     this.sessionManager.subscribe(async (session) => {
       // Check if session has sender property (extended interface)
       const sessionWithSender = session as ICodeSession & { sender?: string; requiresReRender?: boolean; };
@@ -52,6 +52,13 @@ export class Code implements ICode {
       if (sessionWithSender.requiresReRender && sessionWithSender.sender === "WORKER_TRANSPILED_CHANGE") {
         console.warn("🔄 Handling remote transpiled code change, triggering re-render");
         await this.handleRemoteTranspiledChange(sessionWithSender);
+        return; // Exit early to avoid double processing
+      }
+      
+      // Check if code changed but transpiled is potentially stale (from external sources like MCP)
+      if (this.shouldTriggerAutoTranspilation(this.currentSession, sessionWithSender)) {
+        console.warn("🔄 Detected external code change with stale transpiled code, triggering auto-transpilation");
+        await this.handleExternalCodeChange(sessionWithSender);
       }
     });
     
@@ -503,6 +510,56 @@ export class Code implements ICode {
       }
     } catch (error) {
       console.error("❌ Error handling remote transpiled change:", error);
+    }
+  }
+
+  /**
+   * Determines if auto-transpilation should be triggered based on session changes
+   */
+  private shouldTriggerAutoTranspilation(oldSession: ICodeSession, newSession: ICodeSession & { sender?: string; }): boolean {
+    // Don't auto-transpile if:
+    // 1. Code hasn't changed
+    // 2. This update is from our own re-render process (to prevent loops)
+    // 3. This update is from the user's editor (which handles transpilation itself)
+    // 4. This update is from a transpiled change handler
+    if (
+      oldSession.code === newSession.code ||
+      newSession.sender === "CODE_SESSION_RERENDER" ||
+      newSession.sender === "EDITOR_CODE_CHANGE" ||
+      newSession.sender === "WORKER_TRANSPILED_CHANGE"
+    ) {
+      return false;
+    }
+
+    // Check if transpiled code appears to be stale relative to the code
+    // This is a heuristic - if the code changed but transpiled contains old content or is empty/default
+    const hasStaleTranspiled = 
+      !newSession.transpiled ||
+      newSession.transpiled.includes("Write your code hee!") ||  // Default content
+      newSession.transpiled.includes("stdin_default") && !newSession.code.includes("default"); // Generic transpiled but code changed
+
+    // Trigger auto-transpilation for external updates (like MCP) with stale transpiled code
+    return hasStaleTranspiled;
+  }
+
+  /**
+   * Handles external code changes by triggering transpilation
+   */
+  private async handleExternalCodeChange(session: ICodeSession & { sender?: string; }): Promise<void> {
+    console.warn("🔄 CodeSession.handleExternalCodeChange called for code length:", session.code.length);
+    
+    try {
+      // Temporarily update our current session to match the new session
+      // This prevents the setCode process from thinking nothing changed
+      this.currentSession = sanitizeSession(session);
+      
+      // Use setCode to trigger full transpilation pipeline
+      // skipRunning=false ensures full processing including HTML/CSS generation
+      await this.setCode(session.code, false);
+      
+      console.warn("✅ External code change auto-transpilation completed successfully");
+    } catch (error) {
+      console.error("❌ Error handling external code change:", error);
     }
   }
 

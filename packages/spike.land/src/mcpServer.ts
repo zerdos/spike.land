@@ -32,7 +32,7 @@ export class McpServer {
   private tools: McpTool[] = [
     {
       name: "read_code",
-      description: "Read the current code from the durable object session",
+      description: "Read current code only. Use before making changes to understand the codebase.",
       inputSchema: {
         type: "object",
         properties: {},
@@ -40,7 +40,7 @@ export class McpServer {
     },
     {
       name: "read_html",
-      description: "Read the current HTML output from the durable object session",
+      description: "Read current HTML output only. Lightweight way to check rendering results.",
       inputSchema: {
         type: "object",
         properties: {},
@@ -48,7 +48,7 @@ export class McpServer {
     },
     {
       name: "read_session",
-      description: "Read the complete session data (code, html, css, messages)",
+      description: "Read ALL session data (code+html+css+messages). Use sparingly - prefer specific read tools.",
       inputSchema: {
         type: "object",
         properties: {},
@@ -56,13 +56,14 @@ export class McpServer {
     },
     {
       name: "update_code",
-      description: "Update the code in the durable object session",
+      description: "Replace ALL code with new content. LIMITED to 500 characters max. For larger changes, use edit_code or search_and_replace instead.",
       inputSchema: {
         type: "object",
         properties: {
           code: {
             type: "string",
-            description: "The new code to set",
+            description: "The complete new code to replace ALL existing code (max 500 characters)",
+            maxLength: 500,
           },
         },
         required: ["code"],
@@ -70,7 +71,7 @@ export class McpServer {
     },
     {
       name: "edit_code",
-      description: "Make line-based edits to the code with precise line targeting. Returns git-style diff.",
+      description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files. Use find_lines first to locate target lines.",
       inputSchema: {
         type: "object",
         properties: {
@@ -102,7 +103,7 @@ export class McpServer {
     },
     {
       name: "find_lines",
-      description: "Find line numbers containing specific patterns or text",
+      description: "EFFICIENT: Find line numbers for patterns. Use before edit_code to avoid reading entire file.",
       inputSchema: {
         type: "object",
         properties: {
@@ -120,7 +121,7 @@ export class McpServer {
     },
     {
       name: "search_and_replace",
-      description: "Search for patterns and replace them without needing exact line numbers",
+      description: "MOST EFFICIENT: Replace patterns without needing line numbers. Best for simple text replacements.",
       inputSchema: {
         type: "object",
         properties: {
@@ -368,6 +369,10 @@ export class McpServer {
           throw new Error("Code parameter is required and must be a string");
         }
         
+        if (args.code.length > 500) {
+          throw new Error(`Code too long (${args.code.length} chars). update_code is limited to 500 characters. Use edit_code or search_and_replace for larger changes.`);
+        }
+        
         const updatedSession = {
           ...session,
           code: args.code,
@@ -377,7 +382,7 @@ export class McpServer {
         
         return {
           success: true,
-          message: "Code updated successfully",
+          message: `Code updated successfully (${args.code.length}/500 chars)`,
           codeSpace: session.codeSpace,
         };
       }
