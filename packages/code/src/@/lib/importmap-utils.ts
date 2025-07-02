@@ -140,6 +140,14 @@ function getMappedPath(
   // Exact match in import map
   if (importMapImports[basePath]) return path;
 
+  // Check for prefix matches in import map (e.g., @/components/ui/)
+  for (const [prefix, mappedPrefix] of Object.entries(importMapImports)) {
+    if (basePath.startsWith(prefix) && prefix.endsWith("/")) {
+      const restPath = basePath.slice(prefix.length);
+      return mappedPrefix + restPath + query + hash;
+    }
+  }
+
   // Handle worker files
   if (isWorkerFile(basePath)) {
     const baseWithoutExt = hasKnownExtension(basePath)

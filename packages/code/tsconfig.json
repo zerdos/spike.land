@@ -49,7 +49,8 @@
     "allowUnreachableCode": false,
     "lib": ["dom", "esnext", "esnext.asynciterable", "webworker", "ESNext"],
     "paths": {
-      "@/*": ["shadcn-packaged","./src/@/*"]
+      "@/*": ["./src/@/*"],
+      "shadcn-packaged/*": ["./node_modules/shadcn-packaged/*"]
     },
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
