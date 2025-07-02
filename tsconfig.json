@@ -20,7 +20,6 @@
   "references": [
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
     { "path": "./packages/code/tsconfig.json" },
-    { "path": "./packages/shadcn/tsconfig.json" },
     { "path": "./packages/spike.land/tsconfig.json" },
     { "path": "./packages/durable-objects/tsconfig.json" },
   ],

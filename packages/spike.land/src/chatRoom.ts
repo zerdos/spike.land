@@ -12,12 +12,14 @@ import type Env from "./env";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import type { WebsocketSession } from "./websocketHandler";
+import { McpServer } from "./mcpServer";
 
 export { md5 };
 
 export class Code implements DurableObject {
   private routeHandler: RouteHandler;
   wsHandler: WebSocketHandler;
+  private mcpServer: McpServer;
 
   private origin = "";
   private logs: ICodeSession[] = [];
@@ -72,6 +74,7 @@ export class Code implements DurableObject {
     this.session = this.backupSession;
     this.wsHandler = new WebSocketHandler(this);
     this.routeHandler = new RouteHandler(this);
+    this.mcpServer = new McpServer(this);
   }
 
   private async _saveSession(sessionToSave: ICodeSession): Promise<void> {
@@ -363,6 +366,11 @@ export class Code implements DurableObject {
         } catch (_error) {
           return new Response("Invalid session data", { status: 400 });
         }
+      }
+
+      // Handle MCP server routes
+      if (path[0] === "mcp") {
+        return this.mcpServer.handleRequest(request, url, path);
       }
 
       return this.routeHandler.handleRoute(request, url, path);
