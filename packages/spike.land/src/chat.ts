@@ -45,6 +45,22 @@ const main = {
 
     const [preRoute, codeSpace] = path;
 
+    // Handle MCP server routes
+    if (path[0] === "mcp") {
+      // Extract codeSpace from agent context or headers
+      // The agent should provide the codeSpace it wants to work with
+      const agentCodeSpace = request.headers.get("X-CodeSpace") || 
+                             url.searchParams.get("codeSpace") ||
+                             "default";
+      
+      // Create a temporary durable object stub to handle MCP requests
+      const id = env.CODE.idFromName(agentCodeSpace);
+      const stub = env.CODE.get(id);
+      
+      // Forward the request to the durable object's MCP handler
+      return stub.fetch(request);
+    }
+
     const isEditorPath = request.method === "GET" && preRoute === "live" &&
       url.pathname === `/live/${codeSpace}`;
 

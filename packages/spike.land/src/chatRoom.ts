@@ -142,7 +142,17 @@ export class Code implements DurableObject {
     await Promise.all(promises);
   }
 
-  private getCodeSpace(url: URL): string {
+  private getCodeSpace(url: URL, request?: Request): string {
+    // For MCP requests, try multiple sources for codeSpace
+    if (url.pathname.includes("/mcp")) {
+      const codeSpace = request?.headers.get("X-CodeSpace") ||
+                       url.searchParams.get("codeSpace") ||
+                       url.searchParams.get("room") ||
+                       "default";
+      return codeSpace;
+    }
+    
+    // For regular requests, use the room parameter
     const codeSpace = url.searchParams.get("room");
     if (!codeSpace) {
       throw new Error("CodeSpace not provided in URL parameters");
@@ -150,7 +160,7 @@ export class Code implements DurableObject {
     return codeSpace;
   }
 
-  private async initializeSession(url: URL) {
+  private async initializeSession(url: URL, request?: Request) {
     if (this.initialized) return;
     this.origin = url.origin;
 
@@ -161,7 +171,7 @@ export class Code implements DurableObject {
       //   try {
       if (this.initialized) return;
       this.origin = url.origin;
-      const codeSpace = this.getCodeSpace(url);
+      const codeSpace = this.getCodeSpace(url, request);
 
       // Attempt to load session parts
       const sessionCore = await this.state.storage.get<
@@ -352,7 +362,7 @@ export class Code implements DurableObject {
       // Only initialize session for routes that need it
       if (!this.initialized && path[0] !== "websocket" && path[0] !== "users") {
         try {
-          await this.initializeSession(url);
+          await this.initializeSession(url, request);
         } catch (_error) {
           console.error("Session initialization error:", _error);
           // Continue with backup session
