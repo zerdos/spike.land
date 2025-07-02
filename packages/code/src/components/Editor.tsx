@@ -36,44 +36,7 @@ export const Editor: React.FC<EditorProps> = (
   const [lastHash, setLastHash] = useState<string>("");
   const controller = useRef(new AbortController());
 
-  // Initialize session with optimized state tracking
-  useEffect(() => {
-    if (!cSess) {
-      console.error("[Editor] Code session is null");
-      return;
-    }
-
-    const sortSession = async () => {
-      const { data: sortedSession, error } = await tryCatch(
-        cSess.getSession(),
-      );
-      if (error) {
-        console.error("[Editor] Error fetching session:", error);
-        return;
-      }
-      if (!sortedSession) {
-        console.error("[Editor] Sorted session is null");
-        return;
-      }
-      setSession(sortedSession);
-      setLastHash(md5(sortedSession.code));
-    };
-    sortSession();
-  }, [cSess]);
-
-  const handleContentChange = useCallback(async (newCode: string) => {
-    if (!session) return;
-
-    const now = Date.now();
-    console.warn(
-      "[Editor] Monaco editor change detected (button press or edit)",
-      {
-        codeLength: newCode.length,
-        timestamp: new Date().toISOString(),
-      },
-    );
-
-    const processChange = async (code: string) => {
+      const processChange = async (code: string) => {
       // Abort previous operation if any
       controller.current.abort();
       controller.current = new AbortController();
@@ -163,6 +126,45 @@ export const Editor: React.FC<EditorProps> = (
       });
     };
 
+  // Initialize session with optimized state tracking
+  useEffect(() => {
+    if (!cSess) {
+      console.error("[Editor] Code session is null");
+      return;
+    }
+
+    const sortSession = async () => {
+      const { data: sortedSession, error } = await tryCatch(
+        cSess.getSession(),
+      );
+      if (error) {
+        console.error("[Editor] Error fetching session:", error);
+        return;
+      }
+      if (!sortedSession) {
+        console.error("[Editor] Sorted session is null");
+        return;
+      }
+      setSession(sortedSession);
+      setLastHash(md5(sortedSession.code));
+    };
+    sortSession();
+  }, [cSess]);
+
+  const handleContentChange = useCallback(async (newCode: string) => {
+    if (!session) return;
+
+    const now = Date.now();
+    console.warn(
+      "[Editor] Monaco editor change detected (button press or edit)",
+      {
+        codeLength: newCode.length,
+        timestamp: new Date().toISOString(),
+      },
+    );
+
+
+
     await processChange(newCode);
     const time = Date.now() - now;
     console.debug("[Editor] Local change processed:", {
@@ -232,6 +234,7 @@ export const Editor: React.FC<EditorProps> = (
       }
 
       const updateEditor = async (code: string) => {
+        processChange(code);
         externalUpdateState.current.isUpdating = true;
         try {
           setLastHash(newHash);
