@@ -176,7 +176,7 @@ export class Code implements DurableObject {
       // Attempt to load session parts
       const sessionCore = await this.state.storage.get<
         Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
-      >("session");
+      >("session_core");
       let loadedSession: ICodeSession | null = null;
 
       if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
