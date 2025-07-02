@@ -57,8 +57,20 @@ const main = {
       const id = env.CODE.idFromName(agentCodeSpace);
       const stub = env.CODE.get(id);
       
+      // Ensure the codeSpace is properly included in the forwarded request
+      const forwardedUrl = new URL(request.url);
+      if (!forwardedUrl.searchParams.has("codeSpace")) {
+        forwardedUrl.searchParams.set("codeSpace", agentCodeSpace);
+      }
+      
+      const forwardedRequest = new Request(forwardedUrl.toString(), {
+        method: request.method,
+        headers: request.headers,
+        body: request.body,
+      });
+      
       // Forward the request to the durable object's MCP handler
-      return stub.fetch(request);
+      return stub.fetch(forwardedRequest);
     }
 
     const isEditorPath = request.method === "GET" && preRoute === "live" &&

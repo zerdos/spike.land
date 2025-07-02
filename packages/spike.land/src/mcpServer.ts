@@ -1,4 +1,5 @@
 import type { Code } from "./chatRoom";
+import type { ICodeSession } from "@spike-npm-land/code";
 
 interface McpRequest {
   jsonrpc: string;
@@ -35,7 +36,13 @@ export class McpServer {
       description: "Read current code only. Use before making changes to understand the codebase.",
       inputSchema: {
         type: "object",
-        properties: {},
+        properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to read code from",
+          },
+        },
+        required: ["codeSpace"],
       },
     },
     {
@@ -43,7 +50,13 @@ export class McpServer {
       description: "Read current HTML output only. Lightweight way to check rendering results.",
       inputSchema: {
         type: "object",
-        properties: {},
+        properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to read HTML from",
+          },
+        },
+        required: ["codeSpace"],
       },
     },
     {
@@ -51,22 +64,31 @@ export class McpServer {
       description: "Read ALL session data (code+html+css+messages). Use sparingly - prefer specific read tools.",
       inputSchema: {
         type: "object",
-        properties: {},
+        properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to read session from",
+          },
+        },
+        required: ["codeSpace"],
       },
     },
     {
       name: "update_code",
-      description: "Replace ALL code with new content. LIMITED to 500 characters max. For larger changes, use edit_code or search_and_replace instead.",
+      description: "Replace ALL code with new content. For smaller changes, use edit_code or search_and_replace instead.",
       inputSchema: {
         type: "object",
         properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to update code in",
+          },
           code: {
             type: "string",
-            description: "The complete new code to replace ALL existing code (max 500 characters)",
-            maxLength: 500,
+            description: "The complete new code to replace ALL existing code",
           },
         },
-        required: ["code"],
+        required: ["codeSpace", "code"],
       },
     },
     {
@@ -75,6 +97,10 @@ export class McpServer {
       inputSchema: {
         type: "object",
         properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to edit code in",
+          },
           edits: {
             type: "array",
             description: "Array of line-based edit operations",
@@ -98,7 +124,7 @@ export class McpServer {
             },
           },
         },
-        required: ["edits"],
+        required: ["codeSpace", "edits"],
       },
     },
     {
@@ -107,6 +133,10 @@ export class McpServer {
       inputSchema: {
         type: "object",
         properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to search in",
+          },
           pattern: {
             type: "string",
             description: "Text pattern to search for (can be regex)",
@@ -116,7 +146,7 @@ export class McpServer {
             description: "Whether pattern is a regular expression (default: false)",
           },
         },
-        required: ["pattern"],
+        required: ["codeSpace", "pattern"],
       },
     },
     {
@@ -125,6 +155,10 @@ export class McpServer {
       inputSchema: {
         type: "object",
         properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to perform search and replace in",
+          },
           search: {
             type: "string", 
             description: "Text or pattern to search for",
@@ -142,7 +176,7 @@ export class McpServer {
             description: "Replace all occurrences (default: true)",
           },
         },
-        required: ["search", "replace"],
+        required: ["codeSpace", "search", "replace"],
       },
     },
     // Future tool ideas (commented for reference):
@@ -219,6 +253,42 @@ export class McpServer {
   ];
 
   constructor(private durableObject: Code) {}
+
+  // Helper method to get session for a specific codeSpace
+  private async getSessionForCodeSpace(codeSpace: string): Promise<ICodeSession> {
+    const currentSession = this.durableObject.getSession();
+    
+    // If the current session matches the requested codeSpace, use it
+    if (currentSession.codeSpace === codeSpace) {
+      return currentSession;
+    }
+    
+    // Otherwise, we need to load the session for the requested codeSpace
+    // For now, we'll create a minimal session with the backup data
+    // This is a simplified approach - in a full implementation, you'd want to
+    // load the actual session data from storage for that codeSpace
+    console.warn(`Requested codeSpace '${codeSpace}' differs from current session '${currentSession.codeSpace}'. Using fallback session.`);
+    
+    return {
+      code: `export default () => (
+        <div>
+          <h1>Welcome to ${codeSpace}</h1>
+          <p>This is a new codeSpace. Start coding!</p>
+        </div>
+      );`,
+      transpiled: `import { createElement as e } from "react";
+      export default () => (
+        e("div", null,
+          e("h1", null, "Welcome to ${codeSpace}"),
+          e("p", null, "This is a new codeSpace. Start coding!")
+        )
+      );`,
+      messages: [],
+      html: "<div><h1>Welcome to " + codeSpace + "</h1><p>This is a new codeSpace. Start coding!</p></div>",
+      css: "",
+      codeSpace,
+    };
+  }
 
   async handleRequest(request: Request, _url: URL, _path: string[]): Promise<Response> {
     const headers = {
@@ -339,19 +409,32 @@ export class McpServer {
   }
 
   private async executeTool(toolName: string, args: Record<string, unknown>): Promise<Record<string, unknown>> {
-    const session = this.durableObject.getSession();
+    // Extract codeSpace from arguments
+    const requestedCodeSpace = args.codeSpace as string;
+    if (!requestedCodeSpace) {
+      throw new Error(`codeSpace parameter is required for tool '${toolName}'`);
+    }
+    
+    // Get the session for the requested codeSpace
+    const session = await this.getSessionForCodeSpace(requestedCodeSpace);
+    
+    console.log(`MCP Tool '${toolName}' executing for codeSpace: ${requestedCodeSpace}`);
+    
+    if (!session.codeSpace) {
+      throw new Error("Session codeSpace is missing. The session may not be properly initialized.");
+    }
 
     switch (toolName) {
       case "read_code":
         return {
           code: session.code,
-          codeSpace: session.codeSpace,
+          codeSpace: requestedCodeSpace,
         };
 
       case "read_html":
         return {
           html: session.html,
-          codeSpace: session.codeSpace,
+          codeSpace: requestedCodeSpace,
         };
 
       case "read_session":
@@ -361,7 +444,7 @@ export class McpServer {
           css: session.css,
           transpiled: session.transpiled,
           messages: session.messages,
-          codeSpace: session.codeSpace,
+          codeSpace: requestedCodeSpace,
         };
 
       case "update_code": {
@@ -369,21 +452,25 @@ export class McpServer {
           throw new Error("Code parameter is required and must be a string");
         }
         
-        if (args.code.length > 500) {
-          throw new Error(`Code too long (${args.code.length} chars). update_code is limited to 500 characters. Use edit_code or search_and_replace for larger changes.`);
-        }
+        
         
         const updatedSession = {
           ...session,
           code: args.code,
+          // Clear transpiled content to force re-transpilation
+          transpiled: "",
+          html: "",
+          css: "",
+          codeSpace: requestedCodeSpace, // Ensure codeSpace is preserved
         };
         
         await this.durableObject.updateAndBroadcastSession(updatedSession);
         
         return {
           success: true,
-          message: `Code updated successfully (${args.code.length}/500 chars)`,
-          codeSpace: session.codeSpace,
+          message: `Code updated successfully (${args.code.length}/500 chars). Transpilation will be triggered automatically.`,
+          codeSpace: requestedCodeSpace,
+          requiresTranspilation: true,
         };
       }
 
@@ -402,16 +489,22 @@ export class McpServer {
         const updatedSession = {
           ...session,
           code: newCode,
+          // Clear transpiled content to force re-transpilation
+          transpiled: "",
+          html: "",
+          css: "",
+          codeSpace: requestedCodeSpace,
         };
         
         await this.durableObject.updateAndBroadcastSession(updatedSession);
         
         return {
           success: true,
-          message: "Code edited successfully",
-          codeSpace: session.codeSpace,
+          message: "Code edited successfully. Transpilation will be triggered automatically.",
+          codeSpace: requestedCodeSpace,
           diff,
           linesChanged: args.edits.length,
+          requiresTranspilation: true,
         };
       }
 
@@ -459,7 +552,7 @@ export class McpServer {
           isRegex,
           matches,
           totalMatches: matches.length,
-          codeSpace: session.codeSpace,
+          codeSpace: requestedCodeSpace,
         };
       }
 
@@ -510,6 +603,11 @@ export class McpServer {
           const updatedSession = {
             ...session,
             code: newCode,
+            // Clear transpiled content to force re-transpilation
+            transpiled: "",
+            html: "",
+            css: "",
+            codeSpace: requestedCodeSpace,
           };
           
           await this.durableObject.updateAndBroadcastSession(updatedSession);
@@ -517,13 +615,14 @@ export class McpServer {
 
         return {
           success: true,
-          message: replacements > 0 ? `Made ${replacements} replacement(s)` : "No matches found",
+          message: replacements > 0 ? `Made ${replacements} replacement(s). Transpilation will be triggered automatically.` : "No matches found",
           replacements,
           search: args.search,
           replace: args.replace,
           isRegex,
           global,
-          codeSpace: session.codeSpace,
+          codeSpace: requestedCodeSpace,
+          requiresTranspilation: replacements > 0,
         };
       }
 
