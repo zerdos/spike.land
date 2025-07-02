@@ -370,15 +370,19 @@ export class Code implements DurableObject {
       }
 
       // For MCP requests, ensure session is initialized for the correct codeSpace
-      if (path[0] === "mcp" && this.initialized) {
+      if (path[0] === "mcp") {
         const requestedCodeSpace = this.getCodeSpace(url, request);
-        if (this.session.codeSpace !== requestedCodeSpace) {
-          console.warn(`MCP request for codeSpace '${requestedCodeSpace}' but session is for '${this.session.codeSpace}'. Re-initializing session.`);
+        if (!this.initialized || this.session.codeSpace !== requestedCodeSpace) {
+          if (this.initialized) {
+            console.warn(`MCP request for codeSpace '${requestedCodeSpace}' but session is for '${this.session.codeSpace}'. Re-initializing session.`);
+          } else {
+            console.log(`Initializing session for MCP request with codeSpace '${requestedCodeSpace}'`);
+          }
           this.initialized = false;
           try {
             await this.initializeSession(url, request);
           } catch (_error) {
-            console.error("MCP session re-initialization error:", _error);
+            console.error("MCP session initialization error:", _error);
             // Continue with current session, but log the mismatch
           }
         }

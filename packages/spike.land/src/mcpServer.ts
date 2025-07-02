@@ -258,36 +258,13 @@ export class McpServer {
   private async getSessionForCodeSpace(codeSpace: string): Promise<ICodeSession> {
     const currentSession = this.durableObject.getSession();
     
-    // If the current session matches the requested codeSpace, use it
-    if (currentSession.codeSpace === codeSpace) {
-      return currentSession;
+    // The session should have been properly initialized in the fetch handler
+    // before the MCP request reaches this point
+    if (currentSession.codeSpace !== codeSpace) {
+      throw new Error(`Session codeSpace mismatch: requested '${codeSpace}' but session is for '${currentSession.codeSpace}'. The session should have been initialized correctly.`);
     }
     
-    // Otherwise, we need to load the session for the requested codeSpace
-    // For now, we'll create a minimal session with the backup data
-    // This is a simplified approach - in a full implementation, you'd want to
-    // load the actual session data from storage for that codeSpace
-    console.warn(`Requested codeSpace '${codeSpace}' differs from current session '${currentSession.codeSpace}'. Using fallback session.`);
-    
-    return {
-      code: `export default () => (
-        <div>
-          <h1>Welcome to ${codeSpace}</h1>
-          <p>This is a new codeSpace. Start coding!</p>
-        </div>
-      );`,
-      transpiled: `import { createElement as e } from "react";
-      export default () => (
-        e("div", null,
-          e("h1", null, "Welcome to ${codeSpace}"),
-          e("p", null, "This is a new codeSpace. Start coding!")
-        )
-      );`,
-      messages: [],
-      html: "<div><h1>Welcome to " + codeSpace + "</h1><p>This is a new codeSpace. Start coding!</p></div>",
-      css: "",
-      codeSpace,
-    };
+    return currentSession;
   }
 
   async handleRequest(request: Request, _url: URL, _path: string[]): Promise<Response> {
