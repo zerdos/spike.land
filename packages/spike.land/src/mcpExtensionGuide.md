@@ -15,6 +15,7 @@ The MCP server is implemented in `mcpServer.ts` and provides tools for AI agents
 
 ### Write Operations  
 - `update_code`: Update the code in the session
+- `edit_code`: Make precise line-based edits with git-style diff output
 
 ## Adding New Tools
 
@@ -84,6 +85,85 @@ const env = this.durableObject.getEnv();
 // Access storage directly
 const state = this.durableObject.getState();
 const data = await state.storage.get("key");
+```
+
+## edit_code Tool Usage Examples
+
+The `edit_code` tool allows for precise, token-efficient line-based edits:
+
+### Single Line Edit
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "edit_code",
+    "arguments": {
+      "edits": [
+        {
+          "startLine": 5,
+          "endLine": 5,
+          "newContent": "const newVariable = 'updated value';"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Multi-Line Replacement
+```json
+{
+  "edits": [
+    {
+      "startLine": 10,
+      "endLine": 15,
+      "newContent": "// New function\nconst helper = () => {\n  return 'refactored';\n};"
+    }
+  ]
+}
+```
+
+### Line Deletion
+```json
+{
+  "edits": [
+    {
+      "startLine": 8,
+      "endLine": 10,
+      "newContent": ""
+    }
+  ]
+}
+```
+
+### Multiple Edits (Applied in Order)
+```json
+{
+  "edits": [
+    {
+      "startLine": 1,
+      "endLine": 1,
+      "newContent": "// File header comment"
+    },
+    {
+      "startLine": 20,
+      "endLine": 22,
+      "newContent": "// Refactored section\nif (condition) {\n  doSomething();\n}"
+    }
+  ]
+}
+```
+
+### Response Format
+```json
+{
+  "success": true,
+  "message": "Code edited successfully",
+  "codeSpace": "your-room-name",
+  "diff": "@@ -1,3 +1,4 @@\n+// File header comment\n export default () => (\n   <div>\n     <h1>Hello</h1>",
+  "linesChanged": 2
+}
 ```
 
 ## Example: Adding a CSS Update Tool
@@ -222,6 +302,7 @@ curl -X POST http://your-domain/mcp \
 ### From JavaScript/TypeScript
 
 ```typescript
+// Update entire code
 const response = await fetch("/mcp", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -236,7 +317,36 @@ const response = await fetch("/mcp", {
   })
 });
 
-const result = await response.json();
+// Make line-based edits
+const editResponse = await fetch("/mcp", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    id: 2,
+    method: "tools/call",
+    params: {
+      name: "edit_code",
+      arguments: {
+        edits: [
+          {
+            startLine: 1,
+            endLine: 1,
+            newContent: "// Updated comment\nexport default () => ("
+          },
+          {
+            startLine: 3,
+            endLine: 3,
+            newContent: "    <h1>Hello from Line Edit!</h1>"
+          }
+        ]
+      }
+    }
+  })
+});
+
+const result = await editResponse.json();
+console.log(result.result.content[0].text); // Shows diff and success info
 ```
 
 ## Testing Tools
