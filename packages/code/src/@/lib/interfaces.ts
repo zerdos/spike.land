@@ -57,6 +57,7 @@ export interface ICodeSession {
   css: string;
   messages: Message[];
   transpiled: string;
+  requiresReRender?: boolean; // Flag to indicate re-render needed
 }
 
 export interface ICode {

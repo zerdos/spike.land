@@ -53,9 +53,9 @@ export class SessionManager implements ISessionManager {
   subscribe(callback: (session: ICodeSession) => void): () => void {
     // Wrap the callback to handle the sender property
     return this.sessionSynchronizer.subscribe((sessionWithSender) => {
-      // Extract the sender property and pass only the ICodeSession part to the callback
-      const { sender: _sender, ...sessionWithoutSender } = sessionWithSender;
-      callback(sessionWithoutSender as ICodeSession);
+      // Pass the complete session including sender property to the callback
+      // The callback can decide whether to use the sender property or not
+      callback(sessionWithSender as ICodeSession);
     });
   }
 

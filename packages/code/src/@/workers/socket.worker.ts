@@ -71,6 +71,7 @@ interface WsMessage {
 interface SessionMessageData extends ICodeSession {
   changes?: boolean;
   sender: string;
+  requiresReRender?: boolean;
 }
 
 const connections: Map<string, Connection> = (globalThis as unknown as typeof self).connections ||
@@ -130,6 +131,7 @@ logger.info("Initializing socket worker...");
 
 const SENDER_WORKER_HANDLE_CHANGES = "WORKER_HANDLE_CHANGES";
 const SENDER_WORKER_HASH_MATCH = "WORKER_HASH_MATCH";
+const SENDER_WORKER_TRANSPILED_CHANGE = "WORKER_TRANSPILED_CHANGE";
 
 export async function setConnections(
   user: string,
@@ -578,6 +580,37 @@ async function handleSocketMessage(
 
         logger.log(`Session patch applied for ${codeSpace}`, patchStartTime);
 
+        // Check if transpiled code changed and trigger re-render if needed
+        const oldTranspiled = connection.oldSession.transpiled;
+        const newTranspiled = sess.transpiled;
+        
+        if (oldTranspiled !== newTranspiled) {
+          logger.info(
+            `Transpiled code mismatch detected for ${codeSpace}, triggering re-render`,
+          );
+          logger.debug(
+            `Old transpiled length: ${oldTranspiled?.length || 0}, New transpiled length: ${newTranspiled?.length || 0}`,
+          );
+
+          // Broadcast a special message type for re-render
+          const { error: reRenderBroadcastError } = await tryCatch(
+            Promise.resolve(connection.sessionSynchronizer.broadcastSession(
+              {
+                ...sess,
+                sender: SENDER_WORKER_TRANSPILED_CHANGE,
+                requiresReRender: true,
+              } as ICodeSession & { sender: string; requiresReRender: boolean; },
+            )),
+          );
+
+          if (reRenderBroadcastError) {
+            logger.error(
+              `Failed to broadcast re-render session for ${codeSpace}:`,
+              reRenderBroadcastError,
+            );
+          }
+        }
+
         connection.oldSession = sess;
         connection.hashCode = data.hashCode;
 
@@ -669,6 +702,45 @@ self.addEventListener("connect", (event: MessageEvent) => {
         logger.debug(
           `Broadcasting session from port ${portId} for ${session.codeSpace}`,
         );
+
+        // Check if this is a re-rendered session that needs to be sent to the server
+        if (session.sender === "CODE_SESSION_RERENDER") {
+          logger.info(
+            `Re-rendered session detected for ${session.codeSpace}, sending update to server`,
+          );
+
+          // Send the updated session back to the server
+          const sanitizedSession = sanitizeSession(session);
+          const patch = generateSessionPatch(connection.oldSession, sanitizedSession);
+          
+          logger.debug(
+            `Sending re-render patch to server for ${session.codeSpace}, patch size: ${
+              JSON.stringify(patch).length
+            } bytes`,
+          );
+
+          const { error: sendError } = await tryCatch(
+            Promise.resolve(
+              connection.webSocket.send(
+                JSON.stringify({ ...patch, name: connection.user, type: "sessionUpdate" }),
+              ),
+            ),
+          );
+
+          if (sendError) {
+            logger.error(
+              `Failed to send re-render patch to server for ${session.codeSpace}:`,
+              sendError,
+            );
+          } else {
+            // Update the local reference
+            connection.oldSession = sanitizedSession;
+            connection.hashCode = computeSessionHash(sanitizedSession);
+            logger.info(
+              `Re-render patch sent successfully for ${session.codeSpace}`,
+            );
+          }
+        }
 
         // Create a new session object with the sender property
         const sessionWithSender = {

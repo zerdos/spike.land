@@ -43,6 +43,18 @@ export class Code implements ICode {
 
     this.codeProcessor = new CodeProcessor(codeSpace);
     this.modelManager = new ModelManager(codeSpace, this);
+    
+    // Set up re-render handling for transpiled code changes
+    this.sessionManager.subscribe(async (session) => {
+      // Check if session has sender property (extended interface)
+      const sessionWithSender = session as ICodeSession & { sender?: string; requiresReRender?: boolean; };
+      
+      if (sessionWithSender.requiresReRender && sessionWithSender.sender === "WORKER_TRANSPILED_CHANGE") {
+        console.warn("🔄 Handling remote transpiled code change, triggering re-render");
+        await this.handleRemoteTranspiledChange(sessionWithSender);
+      }
+    });
+    
     this.setSession({
       ...this.currentSession,
       codeSpace,
@@ -455,6 +467,43 @@ export class Code implements ICode {
 
   screenshot(): Promise<ImageData> {
     return screenshot();
+  }
+
+  /**
+   * Handles remote transpiled code changes by re-rendering the app
+   * and updating the session with new HTML/CSS values
+   */
+  private async handleRemoteTranspiledChange(session: ICodeSession & { requiresReRender?: boolean; }): Promise<void> {
+    console.warn("🔄 CodeSession.handleRemoteTranspiledChange called");
+    
+    try {
+      // Use the CodeProcessor to re-render with the new transpiled code
+      const processorResult = await this.codeProcessor.reRenderFromTranspiled(
+        session.transpiled,
+        new AbortController().signal,
+        () => session,
+        undefined // replaceIframe not needed for background re-render
+      );
+      
+      if (processorResult !== false) {
+        console.warn("🔄 Re-render successful, updating session with new HTML/CSS");
+        
+        // Update session with new HTML/CSS from rendering
+        // Remove the requiresReRender flag to prevent loops
+        const { requiresReRender: _requiresReRender, ...sessionWithoutFlag } = processorResult as ICodeSession & { requiresReRender?: boolean; };
+        
+        this.setSession({
+          ...sessionWithoutFlag,
+          sender: "CODE_SESSION_RERENDER"
+        });
+        
+        console.warn("✅ Remote transpiled change handling completed successfully");
+      } else {
+        console.error("❌ Re-render failed for remote transpiled change");
+      }
+    } catch (error) {
+      console.error("❌ Error handling remote transpiled change:", error);
+    }
   }
 
   async run(): Promise<void> {

@@ -370,6 +370,52 @@ export class CodeProcessor {
     return transpiled;
   }
 
+  /**
+   * Re-renders the app using transpiled code directly without formatting or transpiling.
+   * Used when transpiled code changes from the server and we need to update HTML/CSS.
+   */
+  async reRenderFromTranspiled(
+    transpiled: string,
+    signal: AbortSignal,
+    getSession: () => ICodeSession,
+    replaceIframe?: (newIframe: HTMLIFrameElement) => void,
+  ): Promise<ICodeSession | false> {
+    console.warn("🔄 CodeProcessor.reRenderFromTranspiled called");
+    
+    const origin = window.location.origin;
+    if (signal.aborted) return false;
+
+    // Skip formatting and transpiling, go directly to rendering
+    const processedSession = {
+      code: getSession().code,
+      transpiled: transpiled,
+    };
+
+    const executionSuccessful = await this._handleCodeExecutionInIframe(
+      transpiled,
+      origin,
+      replaceIframe,
+      processedSession,
+    );
+
+    if (!executionSuccessful) {
+      console.error("❌ Re-render execution failed");
+      return false;
+    }
+
+    if (signal.aborted) {
+      return false;
+    }
+
+    console.warn("✅ CodeProcessor.reRenderFromTranspiled completed successfully");
+    
+    return {
+      ...getSession(),
+      ...processedSession,
+      transpiled,
+    };
+  }
+
   async runCode(transpiled: string): Promise<RunMessageResult> {
     // Update the rendered app first
     const { data: renderedApp, error: updateError } = await tryCatch(
