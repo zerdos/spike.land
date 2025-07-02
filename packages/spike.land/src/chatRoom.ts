@@ -173,10 +173,24 @@ export class Code implements DurableObject {
       this.origin = url.origin;
       const codeSpace = this.getCodeSpace(url, request);
 
-      // Attempt to load session parts
-      const sessionCore = await this.state.storage.get<
+      // Attempt to load session parts (try new key first, then old key for migration)
+      let sessionCore = await this.state.storage.get<
         Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
       >("session_core");
+      
+      // If no data found with new key, try the old key for backward compatibility
+      if (!sessionCore) {
+        sessionCore = await this.state.storage.get<
+          Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
+        >("session");
+        
+        // If we found data with the old key, migrate it to the new key
+        if (sessionCore) {
+          console.log(`Migrating session data from old key for codeSpace: ${codeSpace}`);
+          await this.state.storage.put("session_core", sessionCore);
+          await this.state.storage.delete("session"); // Clean up old key
+        }
+      }
       let loadedSession: ICodeSession | null = null;
 
       if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
