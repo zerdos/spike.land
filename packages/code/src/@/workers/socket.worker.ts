@@ -5,6 +5,14 @@
  *
  * This worker manages WebSocket connections for real-time collaboration.
  * It handles connection establishment, message processing, and session synchronization.
+ * 
+ * IMPORTANT: The backend is always the source of truth for session data.
+ * When hash mismatches occur, this worker will:
+ * 1. Fetch the current session from the backend
+ * 2. Overwrite local state with the backend data
+ * 3. Broadcast the backend session to all connected clients
+ * 
+ * This ensures all clients stay synchronized with the backend state.
  */
 
 import {
@@ -635,11 +643,52 @@ async function handleSocketMessage(
         return;
       } else {
         logger.warn(
-          `Cannot apply patch for ${codeSpace}: hash conditions not met`,
+          `Cannot apply patch for ${codeSpace}: hash mismatch detected`,
         );
         logger.debug(
           `Current hash: ${connection.hashCode}, patch oldHash: ${data.oldHash}, patch newHash: ${data.hashCode}`,
         );
+
+        // Hash mismatch - fetch backend session as source of truth
+        logger.info(
+          `Fetching backend session for ${codeSpace} due to patch hash mismatch`,
+        );
+        const { data: sess, error: fetchError } = await tryCatch(
+          fetchInitialSession(codeSpace),
+        );
+
+        if (fetchError) {
+          logger.error(
+            `Failed to fetch backend session for ${codeSpace}:`,
+            fetchError,
+          );
+          return;
+        }
+
+        const freshHash = computeSessionHash(sess);
+        connection.oldSession = sess;
+        connection.hashCode = freshHash;
+
+        logger.info(
+          `Updated local session with backend data for ${codeSpace}, new hash: ${freshHash}`,
+        );
+
+        // Broadcast the backend session to all connected clients
+        const { error: broadcastError } = await tryCatch(
+          Promise.resolve(connection.sessionSynchronizer.broadcastSession(
+            {
+              ...sess,
+              sender: SENDER_WORKER_HASH_MATCH,
+            } as ICodeSession & { sender: string; },
+          )),
+        );
+
+        if (broadcastError) {
+          logger.error(
+            `Failed to broadcast backend session for ${codeSpace}:`,
+            broadcastError,
+          );
+        }
       }
     }
 
