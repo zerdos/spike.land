@@ -31,11 +31,11 @@ vi.mock("@/workers/handle-chat-message", () => ({
 }));
 
 vi.mock("@/external/use-local-storage", () => ({
-  useLocalStorage: vi.fn((key, defaultValue) => {
+  useLocalStorage: vi.fn((_key: string, defaultValue: any) => {
     let value = defaultValue;
     return [
       value,
-      (newValue) => {
+      (newValue: any) => {
         value = typeof newValue === "function" ? newValue(value) : newValue;
       },
     ];
