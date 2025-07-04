@@ -1,12 +1,11 @@
 import { initialClaude } from "@/lib/initial-claude";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { ANTHROPIC_API_CONFIG, MODEL_NAME } from "../config/workflow-config";
-import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
+import { loadMcpTools } from "./tools/mcp-tools-loader";
 import { logCodeChanges, verifyCodeIntegrity } from "./tools/utils/code-utils";
 
 import { ChatAnthropic } from "@langchain/anthropic";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
-import type { RunnableToolLike } from "@langchain/core/runnables";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph } from "@langchain/langgraph/web";
 import { MemorySaver } from "@langchain/langgraph/web";
@@ -29,23 +28,20 @@ import type { ExtendedAgentState, WorkflowInvokeResult } from "./workflow-types"
 export const workflowCache: Record<string, WorkflowInvokeResult> = {};
 
 /**
- * Creates a workflow with string replace capability
+ * Creates a workflow with MCP server tools
  */
-export function createWorkflowWithStringReplace(
+export async function createWorkflowWithStringReplace(
   initialState: AgentState,
   cSess: ICode,
-): WorkflowInvokeResult {
+): Promise<WorkflowInvokeResult> {
   // Record workflow initialization
   telemetry.trackEvent("workflow.initialize", {
     codeLength: initialState.code?.length?.toString() || "0",
     codeSpace: initialState.codeSpace,
   });
 
-  // Create the enhanced replace-in-file tool with the provided code session
-  // This version uses FileChangeManager for improved hash management and error recovery
-  const tools = [
-    getEnhancedReplaceInFileTool(cSess) as unknown as RunnableToolLike,
-  ];
+  // Load tools from MCP server
+  const tools = await loadMcpTools(initialState.codeSpace, initialState.origin);
   const toolNode = new ToolNode(tools, { name: "tools" });
 
   // Create the model with bound tools

@@ -427,7 +427,7 @@ async function handleSocketMessage(
       );
 
       logger.info(
-        `Fetching fresh session for ${codeSpace} due to hash mismatch`,
+        `Fetching fresh session from backend for ${codeSpace} due to hash mismatch`,
       );
       const { data: sess, error: fetchError } = await tryCatch(
         fetchInitialSession(codeSpace),
@@ -442,55 +442,49 @@ async function handleSocketMessage(
       }
 
       const hashCode = computeSessionHash(sess);
+      logger.debug(`Fresh session hash from backend for ${codeSpace}: ${hashCode}`);
 
-      logger.debug(`Fresh session hash for ${codeSpace}: ${hashCode}`);
+      // Always update local state with backend session (source of truth)
+      connection.oldSession = sess;
+      connection.hashCode = hashCode;
 
-      if (hashCode === data.hash) {
-        logger.info(`Hash match after refresh for ${codeSpace}: ${hashCode}`);
-        connection.oldSession = sess;
-        connection.hashCode = hashCode;
+      logger.info(
+        `Updated local session with backend data for ${codeSpace}, broadcasting to all clients`,
+      );
+      
+      // Broadcast the backend session to all connected clients
+      const { error: broadcastError } = await tryCatch(
+        Promise.resolve(connection.sessionSynchronizer.broadcastSession(
+          {
+            ...sess,
+            sender: SENDER_WORKER_HASH_MATCH,
+          } as ICodeSession & { sender: string; },
+        )),
+      );
 
-        logger.debug(`Broadcasting hash match session for ${codeSpace}`);
-        const { error: broadcastError } = await tryCatch(
-          Promise.resolve(connection.sessionSynchronizer.broadcastSession(
-            {
-              ...sess,
-              sender: SENDER_WORKER_HASH_MATCH,
-            } as ICodeSession & { sender: string; },
-          )),
-        );
-
-        if (broadcastError) {
-          logger.error(
-            `Failed to broadcast hash match session for ${codeSpace}:`,
-            broadcastError,
-          );
-        }
-      } else {
-        logger.warn(
-          `Hash still mismatched after refresh for ${codeSpace}: local=${hashCode}, server=${
-            data.hash || "unknown"
-          }`,
+      if (broadcastError) {
+        logger.error(
+          `Failed to broadcast backend session for ${codeSpace}:`,
+          broadcastError,
         );
       }
 
-      const patch = generateSessionPatch(sess, connection.oldSession);
-      logger.debug(
-        `Sending patch after hash mismatch for ${codeSpace}, patch size: ${
-          JSON.stringify(patch).length
-        } bytes`,
+      // Send handshake with new hash to re-establish connection
+      const handshakeData = {
+        type: "handShake",
+        name: connection.user,
+        hashCode: hashCode,
+      };
+
+      logger.debug(`Sending new handshake for ${codeSpace} with updated hash`);
+      const { error: handshakeError } = await tryCatch(
+        Promise.resolve(ws.send(JSON.stringify(handshakeData))),
       );
 
-      const { error: sendError } = await tryCatch(
-        Promise.resolve(
-          ws.send(JSON.stringify({ ...patch, name: connection.user })),
-        ),
-      );
-
-      if (sendError) {
+      if (handshakeError) {
         logger.error(
-          `Failed to send patch after hash mismatch for ${codeSpace}:`,
-          sendError,
+          `Failed to send handshake after hash mismatch for ${codeSpace}:`,
+          handshakeError,
         );
       }
 
