@@ -445,7 +445,8 @@ export class McpServer {
           throw new Error("Code parameter is required and must be a string");
         }
         
-        
+        console.log(`[MCP] update_code called for codeSpace: ${requestedCodeSpace}`);
+        console.log(`[MCP] Current code length: ${session.code?.length || 0}, New code length: ${args.code.length}`);
         
         const updatedSession = {
           ...session,
@@ -457,6 +458,7 @@ export class McpServer {
           codeSpace: requestedCodeSpace, // Ensure codeSpace is preserved
         };
         
+        console.log(`[MCP] Broadcasting session update with empty transpiled to trigger re-transpilation`);
         await this.durableObject.updateAndBroadcastSession(updatedSession);
         
         return {

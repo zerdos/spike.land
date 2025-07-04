@@ -3,6 +3,18 @@ import { McpServer } from "./mcpServer";
 import type { Code } from "./chatRoom";
 import type { ICodeSession } from "@spike-npm-land/code";
 
+// Type interface for MCP test responses
+interface TestMcpResponse {
+  result?: {
+    serverInfo?: { name: string; version: string };
+    protocolVersion?: string;
+    capabilities?: { tools: { listChanged: boolean } };
+    tools?: Array<{ name: string; description: string; inputSchema: Record<string, unknown> }>;
+    content?: Array<{ type: string; text: string }>;
+  };
+  error?: { code: number; message: string; data?: string };
+}
+
 // Mock the Code durable object
 const createMockDurableObject = (session: ICodeSession): Code => {
   const mockDO = {
@@ -103,9 +115,9 @@ describe("MCP Server Unit Tests", () => {
       );
       
       expect(response.status).toBe(200);
-      const data = await response.json();
-      expect(data.result.serverInfo.name).toBe("spike.land-mcp-server");
-      expect(data.result.serverInfo.version).toBe("1.0.1");
+      const data = await response.json() as TestMcpResponse;
+      expect(data.result?.serverInfo?.name).toBe("spike.land-mcp-server");
+      expect(data.result?.serverInfo?.version).toBe("1.0.1");
     });
 
     it("should handle initialize method", async () => {
@@ -130,9 +142,9 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
-      expect(data.result.protocolVersion).toBe("2024-11-05");
-      expect(data.result.capabilities.tools.listChanged).toBe(true);
+      const data = await response.json() as TestMcpResponse;
+      expect(data.result?.protocolVersion).toBe("2024-11-05");
+      expect(data.result?.capabilities?.tools?.listChanged).toBe(true);
     });
 
     it("should handle tools/list method", async () => {
@@ -152,9 +164,9 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
-      expect(data.result.tools).toBeInstanceOf(Array);
-      expect(data.result.tools.length).toBeGreaterThan(0);
+      const data = await response.json() as TestMcpResponse;
+      expect(data.result?.tools).toBeInstanceOf(Array);
+      expect(data.result?.tools?.length).toBeGreaterThan(0);
     });
 
     it("should handle invalid JSON", async () => {
@@ -171,9 +183,9 @@ describe("MCP Server Unit Tests", () => {
       );
       
       expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data.error.code).toBe(-32700);
-      expect(data.error.message).toBe("Parse error");
+      const data = await response.json() as TestMcpResponse;
+      expect(data.error?.code).toBe(-32700);
+      expect(data.error?.message).toBe("Parse error");
     });
   });
 
@@ -321,8 +333,8 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
-      const result = JSON.parse(data.result.content[0].text);
+      const data = await response.json() as TestMcpResponse;
+      const result = JSON.parse(data.result?.content?.[0]?.text || "{}");
       expect(result.code).toBe("// Test code");
       expect(result.codeSpace).toBe("test");
     });
@@ -351,8 +363,8 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
-      const result = JSON.parse(data.result.content[0].text);
+      const data = await response.json() as TestMcpResponse;
+      const result = JSON.parse(data.result?.content?.[0]?.text || "{}");
       expect(result.success).toBe(true);
       expect(mockDurableObject.updateAndBroadcastSession).toHaveBeenCalled();
     });
@@ -377,9 +389,9 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
+      const data = await response.json() as TestMcpResponse;
       expect(data.error).toBeDefined();
-      expect(data.error.data).toContain("Tool name is required");
+      expect(data.error?.data).toContain("Tool name is required");
     });
 
     it("should handle unknown tool", async () => {
@@ -403,9 +415,9 @@ describe("MCP Server Unit Tests", () => {
         ["mcp"]
       );
       
-      const data = await response.json();
+      const data = await response.json() as TestMcpResponse;
       expect(data.error).toBeDefined();
-      expect(data.error.data).toContain("Unknown tool: unknown_tool");
+      expect(data.error?.data).toContain("Unknown tool: unknown_tool");
     });
   });
 });

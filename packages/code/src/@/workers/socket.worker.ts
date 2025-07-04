@@ -585,13 +585,40 @@ async function handleSocketMessage(
 
         logger.log(`Session patch applied for ${codeSpace}`, patchStartTime);
 
-        // Check if transpiled code changed and trigger re-render if needed
+        // Check if code changed but transpiled is empty (MCP server update case)
+        const oldCode = connection.oldSession.code;
+        const newCode = sess.code;
         const oldTranspiled = connection.oldSession.transpiled;
         const newTranspiled = sess.transpiled;
         
-        if (oldTranspiled !== newTranspiled) {
+        if (oldCode !== newCode && (!newTranspiled || newTranspiled === "")) {
+          logger.warn(
+            `Code updated but transpiled is empty for ${codeSpace}, needs transpilation`,
+          );
+          logger.debug(
+            `Code changed from ${oldCode?.length || 0} to ${newCode?.length || 0} chars, transpiled is empty`,
+          );
+
+          // Broadcast session update that requires transpilation
+          const { error: transpileBroadcastError } = await tryCatch(
+            Promise.resolve(connection.sessionSynchronizer.broadcastSession(
+              {
+                ...sess,
+                sender: SENDER_WORKER_HANDLE_CHANGES,
+                requiresTranspilation: true,
+              } as ICodeSession & { sender: string; requiresTranspilation?: boolean; },
+            )),
+          );
+
+          if (transpileBroadcastError) {
+            logger.error(
+              `Failed to broadcast transpilation required session for ${codeSpace}:`,
+              transpileBroadcastError,
+            );
+          }
+        } else if (oldTranspiled !== newTranspiled) {
           logger.info(
-            `Transpiled code mismatch detected for ${codeSpace}, triggering re-render`,
+            `Transpiled code changed for ${codeSpace}, triggering re-render`,
           );
           logger.debug(
             `Old transpiled length: ${oldTranspiled?.length || 0}, New transpiled length: ${newTranspiled?.length || 0}`,

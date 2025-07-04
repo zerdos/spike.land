@@ -8,6 +8,11 @@ interface McpResponse {
   jsonrpc: string;
   id: number;
   result?: {
+    protocolVersion?: string;
+    serverInfo?: {
+      name: string;
+      version: string;
+    };
     content?: Array<{
       type: string;
       text: string;
@@ -381,10 +386,10 @@ function anotherFunc(param) {}
         body: "{ invalid json",
       });
 
-      const result = await response.json();
+      const result = await response.json() as McpResponse;
       expect(result.error).toBeDefined();
-      expect(result.error.code).toBe(-32700);
-      expect(result.error.message).toBe("Parse error");
+      expect(result.error?.code).toBe(-32700);
+      expect(result.error?.message).toBe("Parse error");
     });
 
     it("should handle invalid line numbers in edit_code", async () => {

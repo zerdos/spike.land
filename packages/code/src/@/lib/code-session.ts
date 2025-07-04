@@ -47,11 +47,18 @@ export class Code implements ICode {
     // Set up re-render handling for transpiled code changes and auto-transpilation for code changes
     this.sessionManager.subscribe(async (session) => {
       // Check if session has sender property (extended interface)
-      const sessionWithSender = session as ICodeSession & { sender?: string; requiresReRender?: boolean; };
+      const sessionWithSender = session as ICodeSession & { sender?: string; requiresReRender?: boolean; requiresTranspilation?: boolean; };
       
       if (sessionWithSender.requiresReRender && sessionWithSender.sender === "WORKER_TRANSPILED_CHANGE") {
         console.warn("🔄 Handling remote transpiled code change, triggering re-render");
         await this.handleRemoteTranspiledChange(sessionWithSender);
+        return; // Exit early to avoid double processing
+      }
+      
+      // Check if transpilation is explicitly required (e.g., from MCP server updates)
+      if (sessionWithSender.requiresTranspilation) {
+        console.warn("🔄 Session update requires transpilation (MCP update), triggering auto-transpilation");
+        await this.handleExternalCodeChange(sessionWithSender);
         return; // Exit early to avoid double processing
       }
       
@@ -547,6 +554,7 @@ export class Code implements ICode {
    */
   private async handleExternalCodeChange(session: ICodeSession & { sender?: string; }): Promise<void> {
     console.warn("🔄 CodeSession.handleExternalCodeChange called for code length:", session.code.length);
+    console.warn("🔄 Session has empty transpiled:", !session.transpiled || session.transpiled === "");
     
     try {
       // Temporarily update our current session to match the new session
@@ -557,7 +565,21 @@ export class Code implements ICode {
       // skipRunning=false ensures full processing including HTML/CSS generation
       await this.setCode(session.code, false);
       
+      // After transpilation, get the updated session with new transpiled code
+      const updatedSession = this.currentSession;
       console.warn("✅ External code change auto-transpilation completed successfully");
+      console.warn("✅ Transpiled length:", updatedSession.transpiled?.length || 0);
+      
+      // If this was triggered by MCP server (requiresTranspilation flag), 
+      // we need to send the transpiled code back to the server
+      if ((session as any).requiresTranspilation) {
+        console.warn("🔄 Sending transpiled code back to server via broadcast");
+        // Mark the session as coming from CODE_SESSION_RERENDER to trigger server update
+        this.sessionManager.updateSession({
+          ...updatedSession,
+          sender: "CODE_SESSION_RERENDER",
+        } as ICodeSession & { sender: string; });
+      }
     } catch (error) {
       console.error("❌ Error handling external code change:", error);
     }

@@ -23,7 +23,7 @@ export class Code implements DurableObject {
 
   private origin = "";
   private logs: ICodeSession[] = [];
-  private initialized = false;
+  public initialized = false;
 
   private session: ICodeSession;
   private backupSession: ICodeSession;
@@ -456,17 +456,27 @@ export class Code implements DurableObject {
     const oldHash = computeSessionHash(oldSession);
     const hashCode = computeSessionHash(newSession);
 
+    console.log(`[updateAndBroadcastSession] Called for codeSpace: ${newSession.codeSpace}`);
+    console.log(`[updateAndBroadcastSession] Old hash: ${oldHash}, New hash: ${hashCode}`);
+
     if (oldHash === hashCode) {
+      console.log(`[updateAndBroadcastSession] No changes detected, skipping broadcast`);
       return; // No change needed
     }
 
-    // Attempt to save the new session parts first and wait for them to complete
+    console.log(`[updateAndBroadcastSession] Changes detected, saving session...`);
     // Attempt to save the new session parts first and wait for them to complete
     await this._saveSession(newSession);
 
     // If save is successful (i.e., did not throw), update in-memory state and broadcast
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
+    
+    console.log(`[updateAndBroadcastSession] Broadcasting patch to WebSocket clients`);
+    console.log(`[updateAndBroadcastSession] Patch includes code change: ${patch.delta?.code !== undefined}`);
+    console.log(`[updateAndBroadcastSession] Patch includes transpiled change: ${patch.delta?.transpiled !== undefined}`);
+    console.log(`[updateAndBroadcastSession] Active WebSocket sessions: ${this.wsHandler.getWsSessions().length}`);
+    
     this.wsHandler.broadcast(patch, wsSession);
   }
 
