@@ -497,7 +497,7 @@ async function handleSocketMessage(
       );
 
       logger.info(
-        `Fetching fresh session for ${codeSpace} due to hash difference`,
+        `Fetching backend session for ${codeSpace} - backend is source of truth`,
       );
       const { data: sess, error: fetchError } = await tryCatch(
         fetchInitialSession(codeSpace),
@@ -505,44 +505,47 @@ async function handleSocketMessage(
 
       if (fetchError) {
         logger.error(
-          `Failed to fetch fresh session for ${codeSpace}:`,
+          `Failed to fetch backend session for ${codeSpace}:`,
           fetchError,
         );
         return;
       }
 
       const freshHash = computeSessionHash(sess);
+      logger.debug(`Backend session hash for ${codeSpace}: ${freshHash}`);
 
-      logger.debug(`Fresh session hash for ${codeSpace}: ${freshHash}`);
+      // Always trust the backend session as source of truth
+      connection.hashCode = freshHash;
+      connection.oldSession = sess;
 
-      if (data.hash === freshHash) {
-        logger.info(
-          `Server hash matches fresh session for ${codeSpace}: ${freshHash}`,
-        );
-        connection.hashCode = data.hash;
-        connection.oldSession = sess;
+      logger.info(
+        `Overwriting local session with backend data for ${codeSpace}, hash: ${freshHash}`,
+      );
 
-        logger.debug(`Broadcasting hash match session for ${codeSpace}`);
-        const { error: broadcastError } = await tryCatch(
-          Promise.resolve(connection.sessionSynchronizer.broadcastSession(
-            {
-              ...sess,
-              sender: SENDER_WORKER_HASH_MATCH,
-            } as ICodeSession & { sender: string; },
-          )),
-        );
+      // Broadcast the backend session to all connected clients
+      const { error: broadcastError } = await tryCatch(
+        Promise.resolve(connection.sessionSynchronizer.broadcastSession(
+          {
+            ...sess,
+            sender: SENDER_WORKER_HASH_MATCH,
+          } as ICodeSession & { sender: string; },
+        )),
+      );
 
-        if (broadcastError) {
-          logger.error(
-            `Failed to broadcast hash match session for ${codeSpace}:`,
-            broadcastError,
-          );
-        }
-      } else {
-        logger.warn(
-          `Server hash doesn't match fresh session for ${codeSpace}: server=${data.hash}, fresh=${freshHash}`,
+      if (broadcastError) {
+        logger.error(
+          `Failed to broadcast backend session for ${codeSpace}:`,
+          broadcastError,
         );
       }
+
+      // If server hash still doesn't match after fetching backend, log warning but continue
+      if (data.hash !== freshHash) {
+        logger.warn(
+          `Server WebSocket hash (${data.hash}) doesn't match backend session hash (${freshHash}) for ${codeSpace}. Using backend session.`,
+        );
+      }
+
       return;
     }
 
