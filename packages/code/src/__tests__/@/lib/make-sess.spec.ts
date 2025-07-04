@@ -80,12 +80,19 @@ describe("make-sess", () => {
       expect(sanitized.transpiled).not.toBe("");
     });
 
-    it("should throw an error for invalid sessions", () => {
+    it("should provide defaults for missing fields in invalid sessions", () => {
       const invalidSession = {
         code: "const test = 'test';",
       };
 
-      expect(() => sanitizeSession(invalidSession as ICodeSession)).toThrow();
+      const sanitized = sanitizeSession(invalidSession as ICodeSession);
+      
+      expect(sanitized.codeSpace).toBe("");
+      expect(sanitized.code).toBe("const test = 'test';");
+      expect(sanitized.html).toBe("");
+      expect(sanitized.css).toBe("");
+      expect(sanitized.transpiled).toContain("404 - for now");
+      expect(sanitized.messages).toEqual([]);
     });
   });
 
