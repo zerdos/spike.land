@@ -160,7 +160,7 @@ export class Code implements DurableObject {
     return codeSpace;
   }
 
-  private async initializeSession(url: URL, request?: Request) {
+  async initializeSession(url: URL, request?: Request) {
     if (this.initialized) return;
     this.origin = url.origin;
 
@@ -383,21 +383,18 @@ export class Code implements DurableObject {
         }
       }
 
-      // For MCP requests, ensure session is initialized for the correct codeSpace
+      // For MCP requests, we'll handle codeSpace initialization differently
+      // The MCP server will extract codeSpace from the JSON payload
       if (path[0] === "mcp") {
-        const requestedCodeSpace = this.getCodeSpace(url, request);
-        if (!this.initialized || this.session.codeSpace !== requestedCodeSpace) {
-          if (this.initialized) {
-            console.warn(`MCP request for codeSpace '${requestedCodeSpace}' but session is for '${this.session.codeSpace}'. Re-initializing session.`);
-          } else {
-            console.log(`Initializing session for MCP request with codeSpace '${requestedCodeSpace}'`);
-          }
+        // If not initialized, initialize with default codeSpace
+        if (!this.initialized) {
+          console.log("Initializing session for MCP request with default codeSpace");
           this.initialized = false;
           try {
             await this.initializeSession(url, request);
           } catch (_error) {
             console.error("MCP session initialization error:", _error);
-            // Continue with current session, but log the mismatch
+            // Continue with current session
           }
         }
       }

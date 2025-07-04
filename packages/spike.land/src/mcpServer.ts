@@ -258,10 +258,26 @@ export class McpServer {
   private async getSessionForCodeSpace(codeSpace: string): Promise<ICodeSession> {
     const currentSession = this.durableObject.getSession();
     
-    // The session should have been properly initialized in the fetch handler
-    // before the MCP request reaches this point
+    // If the current session is for a different codeSpace, we need to switch
     if (currentSession.codeSpace !== codeSpace) {
-      throw new Error(`Session codeSpace mismatch: requested '${codeSpace}' but session is for '${currentSession.codeSpace}'. The session should have been initialized correctly.`);
+      console.log(`Switching session from '${currentSession.codeSpace}' to '${codeSpace}'`);
+      
+      // Create a new URL with the codeSpace as a room parameter
+      const url = new URL(`http://localhost:8787/?room=${codeSpace}`);
+      
+      // Force re-initialization by setting initialized to false
+      this.durableObject.initialized = false;
+      
+      // Re-initialize the session for the requested codeSpace
+      await this.durableObject.initializeSession(url);
+      
+      // Get the updated session
+      const updatedSession = this.durableObject.getSession();
+      if (updatedSession.codeSpace !== codeSpace) {
+        throw new Error(`Failed to switch to codeSpace '${codeSpace}'`);
+      }
+      
+      return updatedSession;
     }
     
     return currentSession;
