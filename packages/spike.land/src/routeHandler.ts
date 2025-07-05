@@ -895,7 +895,7 @@ After I execute the tool, I'll share the results with you. You can then continue
 
         // Call Anthropic Messages API with system as a top-level parameter
         const aiResponse = await anthropic.messages.create({
-          model: "claude-3-5-sonnet-20241022",
+          model: "claude-sonnet-4-20250514",
           max_tokens: 4096,
           temperature: 0,
           system: systemPrompt,

@@ -21,7 +21,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
-    modelName: "claude-3-opus-20240229",
+    modelName: "claude-sonnet-4-20250514",
     temperature: 0,
     streaming: false,
   });
@@ -164,7 +164,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
 export const createChatLangchainWorkflow = (
   cSess: ICode,
   apiKey: string,
-  model = "claude-3-opus-20240229",
+  model = "claude-sonnet-4-20250514",
 ) => {
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
