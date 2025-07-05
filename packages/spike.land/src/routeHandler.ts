@@ -7,6 +7,7 @@ import {
   sanitizeSession,
   sessionToJSON,
 } from "@spike-npm-land/code";
+import type { Message, MessagePart } from "@spike-npm-land/code";
 
 import type { Code } from "./chatRoom";
 import type _Env from "./env";
@@ -83,6 +84,8 @@ export class RouteHandler {
       // "history": this.handleCodeHistory.bind(this),
       // New route for serving saved versions
       live: this.handleLiveRoute.bind(this),
+      // New route for messages with AI integration
+      messages: this.handleMessagesRoute.bind(this),
     };
 
     return routes[route] || null;
@@ -632,6 +635,138 @@ hQIDAQAB
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
         "Content-Type": "application/json; charset=UTF-8",
+      },
+    });
+  }
+
+  private async handleMessagesRoute(
+    request: Request,
+    _url: URL,
+    _path: string[],
+  ): Promise<Response> {
+    // Handle CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      });
+    }
+
+    const session = this.code.getSession();
+    
+    // GET: Return all messages
+    if (request.method === "GET") {
+      return new Response(JSON.stringify({ messages: session.messages }), {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+    }
+
+    // POST: Add a new message and call AI
+    if (request.method === "POST") {
+      try {
+        const body = await request.json() as { message: string; role?: string };
+        
+        if (!body.message) {
+          return new Response(JSON.stringify({ error: "Message is required" }), {
+            status: 400,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
+
+        // Create user message
+        const userMessage = {
+          id: crypto.randomUUID(),
+          role: (body.role || "user") as "user" | "assistant" | "system",
+          content: body.message,
+        };
+
+        // Add user message to session
+        const updatedSession = {
+          ...session,
+          messages: [...session.messages, userMessage],
+        };
+        await this.code.updateAndBroadcastSession(updatedSession);
+
+        // Get the AI binding from environment
+        const env = this.code.getEnv();
+        
+        // Prepare messages for AI (include context)
+        const aiMessages = session.messages.map((msg: Message) => ({
+          role: msg.role,
+          content: typeof msg.content === "string" ? msg.content : msg.content.map((part: MessagePart) => {
+            if (part.type === "text") return part.text;
+            return "[image]";
+          }).join(""),
+        }));
+        
+        // Add the new user message
+        aiMessages.push({
+          role: userMessage.role,
+          content: userMessage.content as string,
+        });
+
+        // Call Workers AI
+        const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+          messages: aiMessages,
+          stream: false,
+        });
+
+        // Create assistant message with AI response
+        const assistantMessage = {
+          id: crypto.randomUUID(),
+          role: "assistant" as const,
+          content: aiResponse.response || "I couldn't generate a response.",
+        };
+
+        // Add assistant message to session
+        const finalSession = {
+          ...updatedSession,
+          messages: [...updatedSession.messages, assistantMessage],
+        };
+        await this.code.updateAndBroadcastSession(finalSession);
+
+        // Return both messages
+        return new Response(JSON.stringify({
+          userMessage,
+          assistantMessage,
+          messages: finalSession.messages,
+        }), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      } catch (error) {
+        console.error("Error handling message:", error);
+        return new Response(JSON.stringify({ 
+          error: "Failed to process message",
+          details: error instanceof Error ? error.message : "Unknown error",
+        }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+    }
+
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
       },
     });
   }
