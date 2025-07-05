@@ -441,10 +441,15 @@ hQIDAQAB
   }
 
   private async handleLiveRoute(
-    _request: Request,
-    _url: URL,
+    request: Request,
+    url: URL,
     path: string[],
   ): Promise<Response> {
+    // /live/${codeSpace}/mcp
+    if (path[2] === "mcp") {
+      return this.handleMcpRoute(request, url, path);
+    }
+
     if (path[3] === "index.tsx" && path[4]) {
       const timestamp = parseInt(path[4]);
       const savedVersion = await this.code.getState().storage.get(
@@ -465,6 +470,95 @@ hQIDAQAB
     }
 
     return new Response("Not found", { status: 404 });
+  }
+
+  // Handles /live/${codeSpace}/mcp?tool=...&params=...&id=...
+  private async handleMcpRoute(
+    _request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
+    try {
+      const codeSpace = path[1];
+      const tool = url.searchParams.get("tool");
+      const paramsStr = url.searchParams.get("params");
+      const id = url.searchParams.get("id") || crypto.randomUUID();
+
+      if (!tool || !paramsStr) {
+        return new Response(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            id,
+            error: { code: -32602, message: "Missing tool or params" },
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+
+      let parameters: Record<string, unknown> = {};
+      try {
+        parameters = JSON.parse(paramsStr);
+      } catch (e) {
+        return new Response(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            id,
+            error: { code: -32602, message: "Invalid params JSON" },
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+
+      // Use the same logic as executeMcpTool, but direct call
+      try {
+        // Simulate tool execution (replace with actual logic as needed)
+        // For now, just echo tool and params
+        // You may want to call a real tool executor here
+        const result = await this.executeMcpTool(tool, parameters, url.origin);
+
+        return new Response(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            id,
+            result,
+          }),
+          {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      } catch (err: any) {
+        return new Response(
+          JSON.stringify({
+            jsonrpc: "2.0",
+            id,
+            error: { code: -32000, message: err?.message || "Tool error" },
+          }),
+          {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          },
+        );
+      }
+    } catch (err: any) {
+      return new Response(
+        JSON.stringify({
+          jsonrpc: "2.0",
+          id: crypto.randomUUID(),
+          error: { code: -32000, message: err?.message || "Internal error" },
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
   }
 
   private async handleWrapHTMLRoute(): Promise<Response> {
@@ -780,28 +874,32 @@ The current codeSpace is: ${codeSpace}
 
 After I execute the tool, I'll share the results with you. You can then continue the conversation or use more tools as needed.`;
 
-        // Prepare messages for AI
+        // Prepare messages for AI (filtering out system messages and converting them)
         const aiMessages = [
-          { role: "system", content: systemPrompt },
-          ...session.messages.map((msg: Message) => ({
-            role: msg.role,
-            content: typeof msg.content === "string"
-              ? msg.content
-              : msg.content.map((part: MessagePart) => {
-                if (part.type === "text") return part.text;
-                return "[image]";
-              }).join(""),
-          })),
-          { role: userMessage.role, content: userMessage.content as string },
+          ...session.messages
+            .filter((msg: Message) => msg.role !== "system")
+            .map((msg: Message) => ({
+              role: msg.role as "user" | "assistant",
+              content: typeof msg.content === "string"
+                ? msg.content
+                : msg.content.map((part: MessagePart) => {
+                  if (part.type === "text") return part.text;
+                  return "[image]";
+                }).join(""),
+            })),
+          {
+            role: userMessage.role as "user" | "assistant",
+            content: userMessage.content as string,
+          },
         ];
 
-        // Call Workers AI (Anthropic Messages API)
+        // Call Anthropic Messages API with system as a top-level parameter
         const aiResponse = await anthropic.messages.create({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-3-5-sonnet-20241022",
           max_tokens: 4096,
           temperature: 0,
-          messages: aiMessages,
-          stop_sequences: ["<tool_use>"],
+          system: systemPrompt,
+          messages: aiMessages
         });
 
         const responseText = aiResponse.content && Array.isArray(aiResponse.content)
@@ -830,10 +928,10 @@ After I execute the tool, I'll share the results with you. You can then continue
               content: responseText,
             };
 
-            // Add tool result as a system message
+            // Add tool result as an assistant message (since system role isn't allowed in messages)
             const toolResultMessage = {
               id: crypto.randomUUID(),
-              role: "system" as const,
+              role: "assistant" as const,
               content: `Tool execution result:\n${JSON.stringify(mcpResponse, null, 2)}`,
             };
 
@@ -926,24 +1024,23 @@ After I execute the tool, I'll share the results with you. You can then continue
     parameters: Record<string, unknown>,
     origin: string,
   ): Promise<unknown> {
-    const mcpRequest = {
-      jsonrpc: "2.0",
-      id: crypto.randomUUID(),
-      method: "tools/call",
-      params: {
-        name: toolName,
-        arguments: parameters,
-      },
-    };
+    // Use GET to /live/${codeSpace}/mcp?tool=...&params=...&id=...
+    const codeSpace = parameters.codeSpace as string;
+    const id = crypto.randomUUID();
+    const paramsCopy = { ...parameters };
+    delete paramsCopy.codeSpace; // codeSpace is in the path, not params
 
-    // Call the MCP server endpoint
-    const mcpUrl = `${origin}/mcp`;
+    // Always include codeSpace in params for compatibility
+    const paramsObj = { codeSpace, ...paramsCopy };
+    const paramsStr = encodeURIComponent(JSON.stringify(paramsObj));
+    const toolStr = encodeURIComponent(toolName);
+
+    const mcpUrl = `${origin}/live/${codeSpace}/mcp?tool=${toolStr}&params=${paramsStr}&id=${id}`;
     const response = await fetch(mcpUrl, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(mcpRequest),
     });
 
     if (!response.ok) {
