@@ -48,9 +48,9 @@ export class LiveRoutes {
       JSON.stringify({
         jsonrpc: "2.0",
         id: crypto.randomUUID(),
-        error: { 
-          code: -32601, 
-          message: "This MCP route is deprecated. Please use POST /mcp instead" 
+        error: {
+          code: -32601,
+          message: "This MCP route is deprecated. Please use POST /mcp instead",
         },
       }),
       {

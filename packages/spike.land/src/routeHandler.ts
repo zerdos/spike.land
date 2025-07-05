@@ -1,13 +1,13 @@
 import type { Code } from "./chatRoom";
 import {
-  CodeRoutes,
-  WebsocketRoutes,
-  LiveRoutes,
-  UtilityRoutes,
-  AuthRoutes,
-  StorageRoutes,
   AiRoutes,
+  AuthRoutes,
+  CodeRoutes,
   DefaultRoutes,
+  LiveRoutes,
+  StorageRoutes,
+  UtilityRoutes,
+  WebsocketRoutes,
 } from "./routes";
 
 export interface AutoSaveEntry {
@@ -62,7 +62,7 @@ export class RouteHandler {
       // WebSocket routes
       users: this.websocketRoutes.handleUsersRoute.bind(this.websocketRoutes),
       websocket: this.websocketRoutes.handleWebsocketRoute.bind(this.websocketRoutes),
-      
+
       // Code routes
       code: this.codeRoutes.handleCodeRoute.bind(this.codeRoutes),
       "index.tsx": this.codeRoutes.handleCodeRoute.bind(this.codeRoutes),
@@ -71,7 +71,7 @@ export class RouteHandler {
       "index.js": this.codeRoutes.handleJsRoute.bind(this.codeRoutes),
       "index.css": this.codeRoutes.handleCssRoute.bind(this.codeRoutes),
       js: this.codeRoutes.handleJsRoute.bind(this.codeRoutes),
-      
+
       // Live routes
       lazy: this.liveRoutes.handleLazyRoute.bind(this.liveRoutes),
       live: this.liveRoutes.handleLiveRoute.bind(this.liveRoutes),
@@ -79,23 +79,23 @@ export class RouteHandler {
       "wrapper.js": this.liveRoutes.handleWrapRoute.bind(this.liveRoutes),
       wrapped: this.liveRoutes.handleWrapHTMLRoute.bind(this.liveRoutes),
       screenshot: this.liveRoutes.handleScreenShotRoute.bind(this.liveRoutes),
-      
+
       // Utility routes
       request: this.utilityRoutes.handleRequestRoute.bind(this.utilityRoutes),
       list: this.utilityRoutes.handleListRoute.bind(this.utilityRoutes),
       room: this.utilityRoutes.handleRoomRoute.bind(this.utilityRoutes),
       path: this.utilityRoutes.handlePathRoute.bind(this.utilityRoutes),
       env: this.utilityRoutes.handleEnvRoute.bind(this.utilityRoutes),
-      
+
       // Auth routes
       my: this.authRoutes.handleMyCode.bind(this.authRoutes),
-      
+
       // Storage routes
       hashCode: this.storageRoutes.handleHashCodeRoute.bind(this.storageRoutes),
-      
+
       // AI routes
       messages: this.aiRoutes.handleMessagesRoute.bind(this.aiRoutes),
-      
+
       // Default routes
       "": this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       undefined: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),

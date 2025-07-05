@@ -170,17 +170,17 @@ After I execute the tool, I'll share the results with you. You can then continue
           max_tokens: 4096,
           temperature: 0,
           system: systemPrompt,
-          messages: aiMessages
+          messages: aiMessages,
         });
 
         const responseText = aiResponse.content && Array.isArray(aiResponse.content)
           ? aiResponse.content.map((c: unknown) => {
-              if (typeof c === "string") return c;
-              if (typeof c === "object" && c !== null && "text" in c) {
-                return (c as { text: string }).text || "";
-              }
-              return "";
-            }).join("")
+            if (typeof c === "string") return c;
+            if (typeof c === "object" && c !== null && "text" in c) {
+              return (c as { text: string; }).text || "";
+            }
+            return "";
+          }).join("")
           : (typeof aiResponse.content === "string" ? aiResponse.content : "");
 
         // Check if the response contains a tool use request
@@ -303,13 +303,14 @@ After I execute the tool, I'll share the results with you. You can then continue
   ): Promise<unknown> {
     // Make POST request to MCP server with JSON-RPC format
     const id = crypto.randomUUID();
-    
+
     // For code tools, ensure codeSpace is included
-    const isCodeTool = ['read_code', 'update_code', 'edit_code', 'search_and_replace', 'find_lines'].includes(toolName);
+    const isCodeTool = ["read_code", "update_code", "edit_code", "search_and_replace", "find_lines"]
+      .includes(toolName);
     if (isCodeTool && !parameters.codeSpace) {
       parameters.codeSpace = this.code.getSession().codeSpace;
     }
-    
+
     // Create JSON-RPC request
     const mcpRequest = {
       jsonrpc: "2.0",
@@ -317,19 +318,19 @@ After I execute the tool, I'll share the results with you. You can then continue
       method: "tools/call",
       params: {
         name: toolName,
-        arguments: parameters
-      }
+        arguments: parameters,
+      },
     };
-    
+
     // POST to /mcp endpoint
     const mcpUrl = `${origin}/mcp`;
     const response = await fetch(mcpUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CodeSpace": parameters.codeSpace as string || this.code.getSession().codeSpace
+        "X-CodeSpace": parameters.codeSpace as string || this.code.getSession().codeSpace,
       },
-      body: JSON.stringify(mcpRequest)
+      body: JSON.stringify(mcpRequest),
     });
 
     if (!response.ok) {
