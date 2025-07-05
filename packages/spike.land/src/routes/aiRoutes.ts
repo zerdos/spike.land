@@ -27,12 +27,14 @@ export class AiRoutes {
       });
     }
 
-    const session = this.code.getSession();
-    const codeSpace = session.codeSpace;
+
+    const codeSpace = this.code.getSession().codeSpace;
+   
+
 
     // GET: Return all messages
     if (request.method === "GET") {
-      return new Response(JSON.stringify({ messages: session.messages }), {
+      return new Response(JSON.stringify({ messages: this.code.getSession().messages }), {
         status: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -63,12 +65,20 @@ export class AiRoutes {
           content: body.message,
         };
 
+        // Get initial session
+        const initialSession = this.code.getSession();
+        
         // Add user message to session
         let currentSession = {
-          ...session,
-          messages: [...session.messages, userMessage],
+          ...initialSession,
+          messages: [...initialSession.messages, userMessage],
         };
-        await this.code.updateAndBroadcastSession(currentSession);
+        try {
+          await this.code.updateAndBroadcastSession(currentSession);
+        } catch (updateError) {
+          console.error("Error updating session after initial message:", updateError);
+          // Continue anyway - the messages might still be useful even if broadcast failed
+        }
 
         // Get the AI binding from environment
 
@@ -79,7 +89,7 @@ export class AiRoutes {
         });
 
         // Track tool calls to prevent infinite loops
-        const MAX_TOOL_CALLS = 5;
+        const MAX_TOOL_CALLS = 10;
         let toolCallCount = 0;
 
         // Define available MCP tools for the AI
@@ -161,7 +171,7 @@ After I execute the tool, I'll share the results with you. You can then continue
         while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
           // Prepare messages for AI (filtering out system messages and converting them)
           const aiMessages: AnthropicMessage[] = [
-            ...this.code.getSession().messages
+            ...currentSession.messages
               .filter((msg: Message) => msg.role !== "system")
               .map((msg: Message) => ({
                 role: msg.role as "user" | "assistant",
@@ -236,9 +246,10 @@ After I execute the tool, I'll share the results with you. You can then continue
 
               // Update session with both messages
               currentSession = {
-                ...this.code.getSession(),
-                messages: [...this.code.getSession().messages, assistantMessage, toolResultMessage],
+                ...currentSession,
+                messages: [...currentSession.messages, assistantMessage, toolResultMessage],
               };
+              
               
               allMessages.push(assistantMessage, toolResultMessage);
               
@@ -255,8 +266,8 @@ After I execute the tool, I'll share the results with you. You can then continue
               };
               
               currentSession = {
-                ...this.code.getSession(),
-                messages: [...this.code.getSession().messages, errorMessage],
+                ...currentSession,
+                messages: [...currentSession.messages, errorMessage],
               };
               
               allMessages.push(errorMessage);
@@ -271,8 +282,8 @@ After I execute the tool, I'll share the results with you. You can then continue
             };
 
             currentSession = {
-              ...this.code.getSession(),
-              messages: [...this.code.getSession().messages, assistantMessage],
+              ...currentSession,
+              messages: [...currentSession.messages, assistantMessage],
             };
             
             allMessages.push(assistantMessage);
@@ -289,22 +300,27 @@ After I execute the tool, I'll share the results with you. You can then continue
           };
           
           currentSession = {
-            ...this.code.getSession(),
-            messages: [...this.code.getSession().messages, limitMessage],
+            ...currentSession,
+            messages: [...currentSession.messages, limitMessage],
           };
           
           allMessages.push(limitMessage);
         }
 
         // Save the final session state
-        await this.code.updateAndBroadcastSession(currentSession);
+        try {
+          await this.code.updateAndBroadcastSession(currentSession);
+        } catch (updateError) {
+          console.error("Error updating final session state:", updateError);
+          throw new Error(`Failed to save conversation state: ${updateError instanceof Error ? updateError.message : "Unknown error"}`);
+        }
 
         // Return all messages from this conversation
         return new Response(
           JSON.stringify({
             userMessage,
             assistantMessages: allMessages,
-            messages: this.code.getSession().messages,
+            messages: currentSession.messages,
           }),
           {
             status: 200,
