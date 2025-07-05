@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { Message, MessagePart } from "@spike-npm-land/code";
+import type { ICodeSession, Message, MessagePart } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 
 interface AnthropicMessage {
@@ -9,6 +9,23 @@ interface AnthropicMessage {
 
 export class AiRoutes {
   constructor(private code: Code) {}
+
+  private async saveSessionWithSizeCheck(session: ICodeSession): Promise<void> {
+    const sessionSize = JSON.stringify(session).length;
+    console.log(`[AI Routes] Saving session with size: ${sessionSize} bytes`);
+
+    if (sessionSize > 500000) { // 500KB limit
+      console.warn(`[AI Routes] Session too large (${sessionSize} bytes), truncating messages`);
+      // Keep only the last 50 messages
+      const truncatedSession = {
+        ...session,
+        messages: session.messages.slice(-50),
+      };
+      await this.code.updateAndBroadcastSession(truncatedSession);
+    } else {
+      await this.code.updateAndBroadcastSession(session);
+    }
+  }
 
   async handleMessagesRoute(
     request: Request,
@@ -27,10 +44,7 @@ export class AiRoutes {
       });
     }
 
-
     const codeSpace = this.code.getSession().codeSpace;
-   
-
 
     // GET: Return all messages
     if (request.method === "GET") {
@@ -67,8 +81,10 @@ export class AiRoutes {
 
         // Get initial session
         const initialSession = this.code.getSession();
-        console.log(`[AI Routes] Initial session messages count: ${initialSession.messages?.length || 0}`);
-        
+        console.log(
+          `[AI Routes] Initial session messages count: ${initialSession.messages?.length || 0}`,
+        );
+
         // Ensure we have all required session fields
         const completeSession = {
           code: initialSession.code || "",
@@ -78,17 +94,19 @@ export class AiRoutes {
           transpiled: initialSession.transpiled || "",
           messages: initialSession.messages || [],
         };
-        
+
         // Add user message to session
         let currentSession = {
           ...completeSession,
           messages: [...completeSession.messages, userMessage],
         };
-        
-        console.log(`[AI Routes] Session after adding user message: ${currentSession.messages.length} messages`);
-        
+
+        console.log(
+          `[AI Routes] Session after adding user message: ${currentSession.messages.length} messages`,
+        );
+
         try {
-          await this.code.updateAndBroadcastSession(currentSession);
+          await this.saveSessionWithSizeCheck(currentSession);
         } catch (updateError) {
           console.error("Error updating session after initial message:", updateError);
           console.error("Session structure:", {
@@ -97,7 +115,7 @@ export class AiRoutes {
             hasTranspiled: !!currentSession.transpiled,
             hasHtml: !!currentSession.html,
             hasCss: !!currentSession.css,
-            messagesCount: currentSession.messages?.length || 0
+            messagesCount: currentSession.messages?.length || 0,
           });
           // Continue anyway - the messages might still be useful even if broadcast failed
         }
@@ -166,25 +184,55 @@ export class AiRoutes {
 
         // Create system prompt with MCP tools
         const systemPrompt =
-          `You are an AI assistant with access to code modification tools through MCP (Model Context Protocol).
+          `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions.
 
-Available tools:
+## IMPORTANT TOOL USAGE RULES:
+1. You have access to tools through MCP (Model Context Protocol)
+2. Each response should contain ONLY ONE tool call OR a regular message, never both
+3. After each tool call, you will receive the result as a user message
+4. Continue making tool calls until the task is complete
+5. When done with all modifications, simply respond with a summary without any tool calls
+6. Do NOT double-check if code was written properly unless you suspect an error
+7. Trust that successful tool executions mean the code was updated correctly
+
+## Available tools:
 ${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join("\n")}
 
-To use a tool, respond with a JSON block in this format:
+## To use a tool:
+Respond with ONLY a JSON block in this format:
 <tool_use>
 {
-  "tool": "update_code", 
+  "tool": "tool_name",
   "parameters": {
-    "codeSpace": "${codeSpace}",
-    "code": "export default () => <div> Hello, world!</div>;"
+    "param1": "value1",
+    "param2": "value2"
   }
 }
 </tool_use>
 
-The current codeSpace is: ${codeSpace}
+## Current context:
+- CodeSpace: ${codeSpace}
+- Working with React components using JSX syntax with default exports
+- Use Tailwind CSS, shadcn-ui, @emotion/react for styling
+- Implement responsive design
+- Support dark/light mode using useDarkMode hook and ThemeToggle component
+- Use ImageLoader component for generated images
 
-After I execute the tool, I'll share the results with you. You can then continue the conversation or use more tools as needed.`;
+## React Component Guidelines:
+- Components should use default export JSX syntax
+- Use Tailwind CSS, shadcn-ui, @emotion/react, or other npm packages for styling
+- Ensure the design is responsive. For smaller apps, center the content both horizontally and vertically on the page
+- Implement dark/light mode functionality using useDarkMode hook and ThemeToggle component
+- When generating images, use the ImageLoader component with supported aspect ratios
+
+## Process:
+1. First use read_code to understand the current code
+2. Make necessary modifications using edit_code, update_code, or search_and_replace
+3. Each tool call should be in a separate response
+4. Wait for the tool result before proceeding
+5. When all modifications are complete, provide a brief summary
+
+Remember: One tool call per response, or a regular message. Never both.`;
 
         // Conversation loop to handle multiple tool calls
         let shouldContinue = true;
@@ -214,7 +262,7 @@ After I execute the tool, I'll share the results with you. You can then continue
             system: [{
               type: "text",
               text: systemPrompt,
-              cache_control: { type: "ephemeral" }
+              cache_control: { type: "ephemeral" },
             }],
             stop_sequences: ["</tool_use>"],
             messages: aiMessages,
@@ -232,15 +280,15 @@ After I execute the tool, I'll share the results with you. You can then continue
 
           // Check if we need to add the closing tag
           if (responseText.includes("<tool_use>") && !responseText.includes("</tool_use>")) {
-            responseText = responseText + '</tool_use>';
+            responseText = responseText + "</tool_use>";
           }
 
           // Check if the response contains a tool use request
           const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
-          
+
           if (toolUseMatch) {
             toolCallCount++;
-            
+
             try {
               // Parse the tool use request
               const toolRequest = JSON.parse(toolUseMatch[1]);
@@ -259,39 +307,69 @@ After I execute the tool, I'll share the results with you. You can then continue
                 content: responseText,
               };
 
+              // Update session with assistant's tool use message
+              currentSession = {
+                ...currentSession,
+                messages: [...currentSession.messages, assistantMessage],
+              };
+
+              // Save the session after adding assistant message
+              try {
+                await this.saveSessionWithSizeCheck(currentSession);
+              } catch (saveError) {
+                console.error("Error saving session after assistant message:", saveError);
+              }
+
               // Add tool result as a user message for the next iteration
               const toolResultMessage = {
                 id: crypto.randomUUID(),
                 role: "user" as const,
-                content: `Tool "${toolRequest.tool}" executed successfully. Result:\n${JSON.stringify(mcpResponse, null, 2)}`,
+                content: `Tool "${toolRequest.tool}" executed successfully. Result:\n${
+                  JSON.stringify(mcpResponse, null, 2)
+                }`,
               };
 
-              // Update session with both messages
+              // Update session with tool result
               currentSession = {
                 ...currentSession,
-                messages: [...currentSession.messages, assistantMessage, toolResultMessage],
+                messages: [...currentSession.messages, toolResultMessage],
               };
-              
-              
+
+              // Save the session after adding tool result
+              try {
+                await this.saveSessionWithSizeCheck(currentSession);
+              } catch (saveError) {
+                console.error("Error saving session after tool result:", saveError);
+              }
+
               allMessages.push(assistantMessage, toolResultMessage);
-              
+
               // Continue the conversation with the tool result
               shouldContinue = true;
             } catch (toolError) {
               console.error("Error executing tool:", toolError);
-              
+
               // Add error message
               const errorMessage = {
                 id: crypto.randomUUID(),
                 role: "assistant" as const,
-                content: `Error executing tool: ${toolError instanceof Error ? toolError.message : "Unknown error"}`,
+                content: `Error executing tool: ${
+                  toolError instanceof Error ? toolError.message : "Unknown error"
+                }`,
               };
-              
+
               currentSession = {
                 ...currentSession,
                 messages: [...currentSession.messages, errorMessage],
               };
-              
+
+              // Save the session after adding error message
+              try {
+                await this.saveSessionWithSizeCheck(currentSession);
+              } catch (saveError) {
+                console.error("Error saving session after error message:", saveError);
+              }
+
               allMessages.push(errorMessage);
               shouldContinue = false;
             }
@@ -307,7 +385,14 @@ After I execute the tool, I'll share the results with you. You can then continue
               ...currentSession,
               messages: [...currentSession.messages, assistantMessage],
             };
-            
+
+            // Save the session after adding final message
+            try {
+              await this.saveSessionWithSizeCheck(currentSession);
+            } catch (saveError) {
+              console.error("Error saving session after final message:", saveError);
+            }
+
             allMessages.push(assistantMessage);
             shouldContinue = false;
           }
@@ -318,49 +403,26 @@ After I execute the tool, I'll share the results with you. You can then continue
           const limitMessage = {
             id: crypto.randomUUID(),
             role: "assistant" as const,
-            content: "I've reached the maximum number of tool calls allowed in a single conversation. Please start a new message if you need more assistance.",
+            content:
+              "I've reached the maximum number of tool calls allowed in a single conversation. Please start a new message if you need more assistance.",
           };
-          
+
           currentSession = {
             ...currentSession,
             messages: [...currentSession.messages, limitMessage],
           };
-          
+
+          // Save the session after adding limit message
+          try {
+            await this.code.updateAndBroadcastSession(currentSession);
+          } catch (saveError) {
+            console.error("Error saving session after limit message:", saveError);
+          }
+
           allMessages.push(limitMessage);
         }
 
-        // Save the final session state
-        try {
-          // Check if the session is getting too large
-          const sessionSize = JSON.stringify(currentSession).length;
-          console.log(`[AI Routes] Session size before save: ${sessionSize} bytes`);
-          
-          if (sessionSize > 500000) { // 500KB limit
-            console.warn(`[AI Routes] Session too large (${sessionSize} bytes), truncating messages`);
-            // Keep only the last 50 messages
-            const truncatedSession = {
-              ...currentSession,
-              messages: currentSession.messages.slice(-50)
-            };
-            await this.code.updateAndBroadcastSession(truncatedSession);
-          } else {
-            await this.code.updateAndBroadcastSession(currentSession);
-          }
-        } catch (updateError) {
-          console.error("Error updating final session state:", updateError);
-          // Try to save without messages as a fallback
-          try {
-            const sessionWithoutMessages = {
-              ...currentSession,
-              messages: []
-            };
-            await this.code.updateAndBroadcastSession(sessionWithoutMessages);
-            console.warn("[AI Routes] Saved session without messages due to error");
-          } catch (fallbackError) {
-            console.error("Error saving session even without messages:", fallbackError);
-            throw new Error(`Failed to save conversation state: ${updateError instanceof Error ? updateError.message : "Unknown error"}`);
-          }
-        }
+        // No need for final save since we save after each message update
 
         // Return all messages from this conversation
         return new Response(
