@@ -472,93 +472,28 @@ hQIDAQAB
     return new Response("Not found", { status: 404 });
   }
 
-  // Handles /live/${codeSpace}/mcp?tool=...&params=...&id=...
+  // Handles /live/${codeSpace}/mcp - This is just a legacy route that should not be used
+  // The actual MCP server is available at /mcp
   private async handleMcpRoute(
     _request: Request,
-    url: URL,
-    path: string[],
+    _url: URL,
+    _path: string[],
   ): Promise<Response> {
-    try {
-      const codeSpace = path[1];
-      const tool = url.searchParams.get("tool");
-      const paramsStr = url.searchParams.get("params");
-      const id = url.searchParams.get("id") || crypto.randomUUID();
-
-      if (!tool || !paramsStr) {
-        return new Response(
-          JSON.stringify({
-            jsonrpc: "2.0",
-            id,
-            error: { code: -32602, message: "Missing tool or params" },
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
-      }
-
-      let parameters: Record<string, unknown> = {};
-      try {
-        parameters = JSON.parse(paramsStr);
-      } catch (e) {
-        return new Response(
-          JSON.stringify({
-            jsonrpc: "2.0",
-            id,
-            error: { code: -32602, message: "Invalid params JSON" },
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
-      }
-
-      // Use the same logic as executeMcpTool, but direct call
-      try {
-        // Simulate tool execution (replace with actual logic as needed)
-        // For now, just echo tool and params
-        // You may want to call a real tool executor here
-        const result = await this.executeMcpTool(tool, parameters, url.origin);
-
-        return new Response(
-          JSON.stringify({
-            jsonrpc: "2.0",
-            id,
-            result,
-          }),
-          {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
-      } catch (err: any) {
-        return new Response(
-          JSON.stringify({
-            jsonrpc: "2.0",
-            id,
-            error: { code: -32000, message: err?.message || "Tool error" },
-          }),
-          {
-            status: 500,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
-      }
-    } catch (err: any) {
-      return new Response(
-        JSON.stringify({
-          jsonrpc: "2.0",
-          id: crypto.randomUUID(),
-          error: { code: -32000, message: err?.message || "Internal error" },
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
+    // This route should not be used anymore - return an error directing to the correct endpoint
+    return new Response(
+      JSON.stringify({
+        jsonrpc: "2.0",
+        id: crypto.randomUUID(),
+        error: { 
+          code: -32601, 
+          message: "This MCP route is deprecated. Please use POST /mcp instead" 
         },
-      );
-    }
+      }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   }
 
   private async handleWrapHTMLRoute(): Promise<Response> {
@@ -903,7 +838,13 @@ After I execute the tool, I'll share the results with you. You can then continue
         });
 
         const responseText = aiResponse.content && Array.isArray(aiResponse.content)
-          ? aiResponse.content.map((c: any) => typeof c === "string" ? c : c.text || "").join("")
+          ? aiResponse.content.map((c: unknown) => {
+              if (typeof c === "string") return c;
+              if (typeof c === "object" && c !== null && "text" in c) {
+                return (c as { text: string }).text || "";
+              }
+              return "";
+            }).join("")
           : (typeof aiResponse.content === "string" ? aiResponse.content : "");
 
         // Check if the response contains a tool use request
@@ -1024,54 +965,66 @@ After I execute the tool, I'll share the results with you. You can then continue
     parameters: Record<string, unknown>,
     origin: string,
   ): Promise<unknown> {
-    // Use GET to /live/${codeSpace}/mcp?tool=...&params=...&id=...
+    // Make POST request to MCP server with JSON-RPC format
     const id = crypto.randomUUID();
     
-    // Check if this is a code-related tool that needs codeSpace
-    const codeSpace = parameters.codeSpace as string || this.code.getSession().codeSpace;
-    
-    // For code-related tools, we need to handle codeSpace in the URL path
-    // For other tools (like weather), we keep all parameters as-is
+    // For code tools, ensure codeSpace is included
     const isCodeTool = ['read_code', 'update_code', 'edit_code', 'search_and_replace', 'find_lines'].includes(toolName);
-    
-    let paramsObj: Record<string, unknown>;
-    if (isCodeTool && parameters.codeSpace) {
-      // For code tools, remove codeSpace from params since it's in the URL
-      const paramsCopy = { ...parameters };
-      delete paramsCopy.codeSpace;
-      paramsObj = paramsCopy;
-    } else {
-      // For non-code tools, keep all parameters as-is
-      paramsObj = { ...parameters };
+    if (isCodeTool && !parameters.codeSpace) {
+      parameters.codeSpace = this.code.getSession().codeSpace;
     }
     
-    const paramsStr = encodeURIComponent(JSON.stringify(paramsObj));
-    const toolStr = encodeURIComponent(toolName);
-
-    const mcpUrl = `${origin}/live/${codeSpace}/mcp?tool=${toolStr}&params=${paramsStr}&id=${id}`;
+    // Create JSON-RPC request
+    const mcpRequest = {
+      jsonrpc: "2.0",
+      id,
+      method: "tools/call",
+      params: {
+        name: toolName,
+        arguments: parameters
+      }
+    };
+    
+    // POST to /mcp endpoint
+    const mcpUrl = `${origin}/mcp`;
     const response = await fetch(mcpUrl, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-CodeSpace": parameters.codeSpace as string || this.code.getSession().codeSpace
       },
+      body: JSON.stringify(mcpRequest)
     });
 
     if (!response.ok) {
-      throw new Error(`MCP request failed: ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`MCP request failed: ${response.statusText} - ${errorText}`);
     }
 
     const mcpResponse = await response.json() as {
       jsonrpc: string;
       id: string | number;
-      result?: unknown;
+      result?: {
+        content?: Array<{ type: string; text: string; }>;
+      };
       error?: {
         code: number;
         message: string;
+        data?: unknown;
       };
     };
 
     if (mcpResponse.error) {
       throw new Error(`MCP error: ${mcpResponse.error.message}`);
+    }
+
+    // Extract the actual result from the MCP response format
+    if (mcpResponse.result?.content?.[0]?.text) {
+      try {
+        return JSON.parse(mcpResponse.result.content[0].text);
+      } catch {
+        return mcpResponse.result.content[0].text;
+      }
     }
 
     return mcpResponse.result;
