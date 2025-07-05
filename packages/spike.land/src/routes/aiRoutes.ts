@@ -67,16 +67,38 @@ export class AiRoutes {
 
         // Get initial session
         const initialSession = this.code.getSession();
+        console.log(`[AI Routes] Initial session messages count: ${initialSession.messages?.length || 0}`);
+        
+        // Ensure we have all required session fields
+        const completeSession = {
+          code: initialSession.code || "",
+          codeSpace: initialSession.codeSpace || codeSpace,
+          html: initialSession.html || "",
+          css: initialSession.css || "",
+          transpiled: initialSession.transpiled || "",
+          messages: initialSession.messages || [],
+        };
         
         // Add user message to session
         let currentSession = {
-          ...initialSession,
-          messages: [...initialSession.messages, userMessage],
+          ...completeSession,
+          messages: [...completeSession.messages, userMessage],
         };
+        
+        console.log(`[AI Routes] Session after adding user message: ${currentSession.messages.length} messages`);
+        
         try {
           await this.code.updateAndBroadcastSession(currentSession);
         } catch (updateError) {
           console.error("Error updating session after initial message:", updateError);
+          console.error("Session structure:", {
+            codeSpace: currentSession.codeSpace,
+            hasCode: !!currentSession.code,
+            hasTranspiled: !!currentSession.transpiled,
+            hasHtml: !!currentSession.html,
+            hasCss: !!currentSession.css,
+            messagesCount: currentSession.messages?.length || 0
+          });
           // Continue anyway - the messages might still be useful even if broadcast failed
         }
 
@@ -309,10 +331,35 @@ After I execute the tool, I'll share the results with you. You can then continue
 
         // Save the final session state
         try {
-          await this.code.updateAndBroadcastSession(currentSession);
+          // Check if the session is getting too large
+          const sessionSize = JSON.stringify(currentSession).length;
+          console.log(`[AI Routes] Session size before save: ${sessionSize} bytes`);
+          
+          if (sessionSize > 500000) { // 500KB limit
+            console.warn(`[AI Routes] Session too large (${sessionSize} bytes), truncating messages`);
+            // Keep only the last 50 messages
+            const truncatedSession = {
+              ...currentSession,
+              messages: currentSession.messages.slice(-50)
+            };
+            await this.code.updateAndBroadcastSession(truncatedSession);
+          } else {
+            await this.code.updateAndBroadcastSession(currentSession);
+          }
         } catch (updateError) {
           console.error("Error updating final session state:", updateError);
-          throw new Error(`Failed to save conversation state: ${updateError instanceof Error ? updateError.message : "Unknown error"}`);
+          // Try to save without messages as a fallback
+          try {
+            const sessionWithoutMessages = {
+              ...currentSession,
+              messages: []
+            };
+            await this.code.updateAndBroadcastSession(sessionWithoutMessages);
+            console.warn("[AI Routes] Saved session without messages due to error");
+          } catch (fallbackError) {
+            console.error("Error saving session even without messages:", fallbackError);
+            throw new Error(`Failed to save conversation state: ${updateError instanceof Error ? updateError.message : "Unknown error"}`);
+          }
         }
 
         // Return all messages from this conversation
