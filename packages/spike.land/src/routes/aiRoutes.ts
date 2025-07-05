@@ -161,7 +161,7 @@ After I execute the tool, I'll share the results with you. You can then continue
         while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
           // Prepare messages for AI (filtering out system messages and converting them)
           const aiMessages: AnthropicMessage[] = [
-            ...currentSession.messages
+            ...this.code.getSession().messages
               .filter((msg: Message) => msg.role !== "system")
               .map((msg: Message) => ({
                 role: msg.role as "user" | "assistant",
@@ -236,8 +236,8 @@ After I execute the tool, I'll share the results with you. You can then continue
 
               // Update session with both messages
               currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, assistantMessage, toolResultMessage],
+                ...this.code.getSession(),
+                messages: [...this.code.getSession().messages, assistantMessage, toolResultMessage],
               };
               
               allMessages.push(assistantMessage, toolResultMessage);
@@ -255,8 +255,8 @@ After I execute the tool, I'll share the results with you. You can then continue
               };
               
               currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, errorMessage],
+                ...this.code.getSession(),
+                messages: [...this.code.getSession().messages, errorMessage],
               };
               
               allMessages.push(errorMessage);
@@ -271,8 +271,8 @@ After I execute the tool, I'll share the results with you. You can then continue
             };
 
             currentSession = {
-              ...currentSession,
-              messages: [...currentSession.messages, assistantMessage],
+              ...this.code.getSession(),
+              messages: [...this.code.getSession().messages, assistantMessage],
             };
             
             allMessages.push(assistantMessage);
@@ -289,8 +289,8 @@ After I execute the tool, I'll share the results with you. You can then continue
           };
           
           currentSession = {
-            ...currentSession,
-            messages: [...currentSession.messages, limitMessage],
+            ...this.code.getSession(),
+            messages: [...this.code.getSession().messages, limitMessage],
           };
           
           allMessages.push(limitMessage);
@@ -304,7 +304,7 @@ After I execute the tool, I'll share the results with you. You can then continue
           JSON.stringify({
             userMessage,
             assistantMessages: allMessages,
-            messages: currentSession.messages,
+            messages: this.code.getSession().messages,
           }),
           {
             status: 200,
