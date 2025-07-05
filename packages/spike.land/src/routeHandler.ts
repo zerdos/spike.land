@@ -1025,13 +1025,26 @@ After I execute the tool, I'll share the results with you. You can then continue
     origin: string,
   ): Promise<unknown> {
     // Use GET to /live/${codeSpace}/mcp?tool=...&params=...&id=...
-    const codeSpace = parameters.codeSpace as string;
     const id = crypto.randomUUID();
-    const paramsCopy = { ...parameters };
-    delete paramsCopy.codeSpace; // codeSpace is in the path, not params
-
-    // Always include codeSpace in params for compatibility
-    const paramsObj = { codeSpace, ...paramsCopy };
+    
+    // Check if this is a code-related tool that needs codeSpace
+    const codeSpace = parameters.codeSpace as string || this.code.getSession().codeSpace;
+    
+    // For code-related tools, we need to handle codeSpace in the URL path
+    // For other tools (like weather), we keep all parameters as-is
+    const isCodeTool = ['read_code', 'update_code', 'edit_code', 'search_and_replace', 'find_lines'].includes(toolName);
+    
+    let paramsObj: Record<string, unknown>;
+    if (isCodeTool && parameters.codeSpace) {
+      // For code tools, remove codeSpace from params since it's in the URL
+      const paramsCopy = { ...parameters };
+      delete paramsCopy.codeSpace;
+      paramsObj = paramsCopy;
+    } else {
+      // For non-code tools, keep all parameters as-is
+      paramsObj = { ...parameters };
+    }
+    
     const paramsStr = encodeURIComponent(JSON.stringify(paramsObj));
     const toolStr = encodeURIComponent(toolName);
 

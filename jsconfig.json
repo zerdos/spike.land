@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./packages/code/src/@/*"]
+    },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false
+  },
+  "include": [
+    "packages/**/*.js",
+    "packages/**/*.jsx",
+    "packages/**/*.ts", 
+    "packages/**/*.tsx",
+    "packages/**/*.json"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "dist",
+    "**/dist",
+    "**/dist-vite",
+    "build",
+    "**/build",
+    ".yarn",
+    "**/.yarn",
+    ".cache",
+    "**/.cache",
+    "**/coverage",
+    "**/*.min.js",
+    "tmp",
+    "**/tmp"
+  ],
+  "typeAcquisition": {
+    "enable": true,
+    "include": ["jest", "node"]
+  }
+}
