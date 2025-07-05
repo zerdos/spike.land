@@ -86,7 +86,7 @@ describe("make-sess", () => {
       };
 
       const sanitized = sanitizeSession(invalidSession as ICodeSession);
-      
+
       expect(sanitized.codeSpace).toBe("");
       expect(sanitized.code).toBe("const test = 'test';");
       expect(sanitized.html).toBe("");

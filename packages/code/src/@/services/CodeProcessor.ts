@@ -381,7 +381,7 @@ export class CodeProcessor {
     replaceIframe?: (newIframe: HTMLIFrameElement) => void,
   ): Promise<ICodeSession | false> {
     console.warn("🔄 CodeProcessor.reRenderFromTranspiled called");
-    
+
     const origin = window.location.origin;
     if (signal.aborted) return false;
 
@@ -408,7 +408,7 @@ export class CodeProcessor {
     }
 
     console.warn("✅ CodeProcessor.reRenderFromTranspiled completed successfully");
-    
+
     return {
       ...getSession(),
       ...processedSession,

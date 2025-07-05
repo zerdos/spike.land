@@ -9,11 +9,13 @@ The MCP server is implemented in `mcpServer.ts` and provides tools for AI agents
 ## Current Tools
 
 ### Read Operations
+
 - `read_code`: Get the current code from the session
 - `read_html`: Get the current HTML output
 - `read_session`: Get complete session data (code, html, css, messages)
 
-### Write Operations  
+### Write Operations
+
 - `update_code`: Update the code in the session
 - `edit_code`: Make precise line-based edits with git-style diff output
 
@@ -92,6 +94,7 @@ const data = await state.storage.get("key");
 The `edit_code` tool allows for precise, token-efficient line-based edits:
 
 ### Single Line Edit
+
 ```json
 {
   "jsonrpc": "2.0",
@@ -112,6 +115,7 @@ The `edit_code` tool allows for precise, token-efficient line-based edits:
 ```
 
 ### Multi-Line Replacement
+
 ```json
 {
   "edits": [
@@ -125,6 +129,7 @@ The `edit_code` tool allows for precise, token-efficient line-based edits:
 ```
 
 ### Line Deletion
+
 ```json
 {
   "edits": [
@@ -138,6 +143,7 @@ The `edit_code` tool allows for precise, token-efficient line-based edits:
 ```
 
 ### Multiple Edits (Applied in Order)
+
 ```json
 {
   "edits": [
@@ -156,6 +162,7 @@ The `edit_code` tool allows for precise, token-efficient line-based edits:
 ```
 
 ### Response Format
+
 ```json
 {
   "success": true,
@@ -215,24 +222,28 @@ case "update_css":
 Here are some advanced tools you could implement:
 
 ### Code Analysis Tools
+
 - `analyze_code`: Parse and analyze code structure
 - `find_dependencies`: Extract import/require statements
 - `check_syntax`: Validate TypeScript/JavaScript syntax
 - `get_metrics`: Calculate complexity, lines of code, etc.
 
 ### Session Management Tools
+
 - `create_backup`: Save current session state
 - `list_backups`: Show available backups
 - `restore_backup`: Restore from a backup
 - `export_session`: Export session to various formats
 
 ### Development Tools
+
 - `format_code`: Auto-format code using prettier
 - `lint_code`: Run ESLint on the code
 - `transpile_preview`: Show transpiled output
 - `run_tests`: Execute test code
 
 ### Collaboration Tools
+
 - `get_active_users`: List connected WebSocket users
 - `send_message`: Send message to all users
 - `get_change_history`: Get recent session changes
@@ -240,15 +251,17 @@ Here are some advanced tools you could implement:
 ## Tool Response Formats
 
 ### Success Response
+
 ```typescript
 return {
   success: true,
   data: yourData,
-  message: "Optional success message"
+  message: "Optional success message",
 };
 ```
 
 ### Error Handling
+
 ```typescript
 // Throw errors for validation issues
 if (!requiredParam) {
@@ -267,7 +280,7 @@ You can add/remove tools at runtime:
 mcpServer.addTool({
   name: "dynamic_tool",
   description: "A dynamically added tool",
-  inputSchema: { type: "object", properties: {} }
+  inputSchema: { type: "object", properties: {} },
 });
 
 // Remove a tool
@@ -309,12 +322,12 @@ const response = await fetch("/mcp", {
   body: JSON.stringify({
     jsonrpc: "2.0",
     id: 1,
-    method: "tools/call", 
+    method: "tools/call",
     params: {
       name: "update_code",
-      arguments: { code: "export default () => <div>Hello World</div>;" }
-    }
-  })
+      arguments: { code: "export default () => <div>Hello World</div>;" },
+    },
+  }),
 });
 
 // Make line-based edits
@@ -332,17 +345,17 @@ const editResponse = await fetch("/mcp", {
           {
             startLine: 1,
             endLine: 1,
-            newContent: "// Updated comment\nexport default () => ("
+            newContent: "// Updated comment\nexport default () => (",
           },
           {
             startLine: 3,
             endLine: 3,
-            newContent: "    <h1>Hello from Line Edit!</h1>"
-          }
-        ]
-      }
-    }
-  })
+            newContent: "    <h1>Hello from Line Edit!</h1>",
+          },
+        ],
+      },
+    },
+  }),
 });
 
 const result = await editResponse.json();
@@ -357,9 +370,9 @@ Create unit tests for your tools:
 describe("MCP Tools", () => {
   test("update_code tool", async () => {
     const result = await mcpServer.executeTool("update_code", {
-      code: "test code"
+      code: "test code",
     });
-    
+
     expect(result.success).toBe(true);
   });
 });

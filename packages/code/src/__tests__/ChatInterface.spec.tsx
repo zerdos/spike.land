@@ -136,7 +136,7 @@ beforeAll(() => {
     value: vi.fn(),
     writable: true,
   });
-  
+
   // Mock location.origin
   Object.defineProperty(window, "location", {
     configurable: true,
@@ -145,7 +145,7 @@ beforeAll(() => {
       href: "http://localhost:3000",
     },
   });
-  
+
   // Mock sessionStorage
   const sessionStorageMock = {
     getItem: vi.fn(),
@@ -157,7 +157,7 @@ beforeAll(() => {
     configurable: true,
     value: sessionStorageMock,
   });
-  
+
   // Mock document.getElementById to return a scrollable element
   const originalGetElementById = document.getElementById;
   document.getElementById = vi.fn((id) => {
@@ -168,7 +168,7 @@ beforeAll(() => {
     }
     return originalGetElementById.call(document, id);
   });
-  
+
   // Mock window.matchMedia
   Object.defineProperty(window, "matchMedia", {
     writable: true,
@@ -266,7 +266,7 @@ describe("ChatInterface", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
     global.BroadcastChannel = MockBroadcastChannel as unknown as typeof BroadcastChannel;
-    
+
     // Ensure window.matchMedia is properly mocked before each test
     if (!window.matchMedia || typeof window.matchMedia !== "function") {
       Object.defineProperty(window, "matchMedia", {
@@ -284,7 +284,7 @@ describe("ChatInterface", () => {
         })),
       });
     }
-    
+
     mockSession = createMockSession();
     const useDarkModeMock = await import("@/hooks/use-dark-mode");
     vi.spyOn(useDarkModeMock, "useDarkMode").mockReturnValue({
@@ -316,7 +316,7 @@ describe("ChatInterface", () => {
         })),
       });
     }
-    
+
     return render(
       <ThemeProvider>
         {ui}

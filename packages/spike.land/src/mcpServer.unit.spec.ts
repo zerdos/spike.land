@@ -1,18 +1,18 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { McpServer } from "./mcpServer";
-import type { Code } from "./chatRoom";
 import type { ICodeSession } from "@spike-npm-land/code";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { Code } from "./chatRoom";
+import { McpServer } from "./mcpServer";
 
 // Type interface for MCP test responses
 interface TestMcpResponse {
   result?: {
-    serverInfo?: { name: string; version: string };
+    serverInfo?: { name: string; version: string; };
     protocolVersion?: string;
-    capabilities?: { tools: { listChanged: boolean } };
-    tools?: Array<{ name: string; description: string; inputSchema: Record<string, unknown> }>;
-    content?: Array<{ type: string; text: string }>;
+    capabilities?: { tools: { listChanged: boolean; }; };
+    tools?: Array<{ name: string; description: string; inputSchema: Record<string, unknown>; }>;
+    content?: Array<{ type: string; text: string; }>;
   };
-  error?: { code: number; message: string; data?: string };
+  error?: { code: number; message: string; data?: string; };
 }
 
 // Mock the Code durable object
@@ -24,7 +24,7 @@ const createMockDurableObject = (session: ICodeSession): Code => {
     initializeSession: vi.fn(),
     updateAndBroadcastSession: vi.fn(),
   } as unknown as Code;
-  
+
   return mockDO;
 };
 
@@ -42,7 +42,7 @@ describe("MCP Server Unit Tests", () => {
       transpiled: "// Transpiled code",
       messages: [],
     };
-    
+
     mockDurableObject = createMockDurableObject(testSession);
     mcpServer = new McpServer(mockDurableObject);
   });
@@ -51,7 +51,7 @@ describe("MCP Server Unit Tests", () => {
     it("should have all expected tools registered", () => {
       const tools = mcpServer.getTools();
       const toolNames = tools.map(t => t.name);
-      
+
       expect(toolNames).toContain("read_code");
       expect(toolNames).toContain("read_html");
       expect(toolNames).toContain("read_session");
@@ -70,17 +70,17 @@ describe("MCP Server Unit Tests", () => {
           properties: {},
         },
       };
-      
+
       mcpServer.addTool(customTool);
       const tools = mcpServer.getTools();
-      
+
       expect(tools).toContainEqual(customTool);
     });
 
     it("should allow removing tools", () => {
       const removed = mcpServer.removeTool("read_code");
       expect(removed).toBe(true);
-      
+
       const tools = mcpServer.getTools();
       const toolNames = tools.map(t => t.name);
       expect(toolNames).not.toContain("read_code");
@@ -92,13 +92,13 @@ describe("MCP Server Unit Tests", () => {
       const request = new Request("http://localhost/mcp", {
         method: "OPTIONS",
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       expect(response.status).toBe(200);
       expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
     });
@@ -107,13 +107,13 @@ describe("MCP Server Unit Tests", () => {
       const request = new Request("http://localhost/mcp", {
         method: "GET",
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       expect(response.status).toBe(200);
       const data = await response.json() as TestMcpResponse;
       expect(data.result?.serverInfo?.name).toBe("spike.land-mcp-server");
@@ -135,13 +135,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       expect(data.result?.protocolVersion).toBe("2024-11-05");
       expect(data.result?.capabilities?.tools?.listChanged).toBe(true);
@@ -157,13 +157,13 @@ describe("MCP Server Unit Tests", () => {
           method: "tools/list",
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       expect(data.result?.tools).toBeInstanceOf(Array);
       expect(data.result?.tools?.length).toBeGreaterThan(0);
@@ -175,13 +175,13 @@ describe("MCP Server Unit Tests", () => {
         headers: { "Content-Type": "application/json" },
         body: "{ invalid json",
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       expect(response.status).toBe(400);
       const data = await response.json() as TestMcpResponse;
       expect(data.error?.code).toBe(-32700);
@@ -197,10 +197,10 @@ describe("MCP Server Unit Tests", () => {
         endLine: 2,
         newContent: "modified line2",
       }];
-      
+
       // Access private method through any cast for testing
       const result = (mcpServer as any).applyLineEdits(originalCode, edits);
-      
+
       expect(result.newCode).toBe("line1\nmodified line2\nline3\nline4");
       expect(result.diff).toContain("-line2");
       expect(result.diff).toContain("+modified line2");
@@ -220,9 +220,9 @@ describe("MCP Server Unit Tests", () => {
           newContent: "modified line4",
         },
       ];
-      
+
       const result = (mcpServer as any).applyLineEdits(originalCode, edits);
-      
+
       expect(result.newCode).toBe("line1\ncombined 2-3\nmodified line4\nline5");
     });
 
@@ -233,9 +233,9 @@ describe("MCP Server Unit Tests", () => {
         endLine: 3,
         newContent: "", // Delete lines 2-3
       }];
-      
+
       const result = (mcpServer as any).applyLineEdits(originalCode, edits);
-      
+
       expect(result.newCode).toBe("line1\nline4");
       expect(result.diff).toContain("-line2");
       expect(result.diff).toContain("-line3");
@@ -248,7 +248,7 @@ describe("MCP Server Unit Tests", () => {
         endLine: 5,
         newContent: "out of bounds",
       }];
-      
+
       expect(() => {
         (mcpServer as any).applyLineEdits(originalCode, edits);
       }).toThrow("exceeds code length");
@@ -268,7 +268,7 @@ describe("MCP Server Unit Tests", () => {
           newContent: "edit2",
         },
       ];
-      
+
       expect(() => {
         (mcpServer as any).applyLineEdits(originalCode, edits);
       }).toThrow("Overlapping edits detected");
@@ -280,12 +280,12 @@ describe("MCP Server Unit Tests", () => {
       // Set up mock to simulate codeSpace switching
       const newSession = { ...testSession, codeSpace: "new-space" };
       let currentSession = testSession;
-      
+
       mockDurableObject.getSession = vi.fn(() => currentSession);
       mockDurableObject.initializeSession = vi.fn(async () => {
         currentSession = newSession;
       });
-      
+
       const request = new Request("http://localhost/mcp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -299,13 +299,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       expect(mockDurableObject.initializeSession).toHaveBeenCalled();
       expect(response.status).toBe(200);
     });
@@ -326,13 +326,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       const result = JSON.parse(data.result?.content?.[0]?.text || "{}");
       expect(result.code).toBe("// Test code");
@@ -356,13 +356,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       const result = JSON.parse(data.result?.content?.[0]?.text || "{}");
       expect(result.success).toBe(true);
@@ -382,13 +382,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       expect(data.error).toBeDefined();
       expect(data.error?.data).toContain("Tool name is required");
@@ -408,13 +408,13 @@ describe("MCP Server Unit Tests", () => {
           },
         }),
       });
-      
+
       const response = await mcpServer.handleRequest(
         request,
         new URL("http://localhost/mcp"),
-        ["mcp"]
+        ["mcp"],
       );
-      
+
       const data = await response.json() as TestMcpResponse;
       expect(data.error).toBeDefined();
       expect(data.error?.data).toContain("Unknown tool: unknown_tool");

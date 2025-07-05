@@ -49,26 +49,26 @@ const main = {
     if (path[0] === "mcp") {
       // Extract codeSpace from agent context or headers
       // The agent should provide the codeSpace it wants to work with
-      const agentCodeSpace = request.headers.get("X-CodeSpace") || 
-                             url.searchParams.get("codeSpace") ||
-                             "default";
-      
+      const agentCodeSpace = request.headers.get("X-CodeSpace") ||
+        url.searchParams.get("codeSpace") ||
+        "default";
+
       // Create a temporary durable object stub to handle MCP requests
       const id = env.CODE.idFromName(agentCodeSpace);
       const stub = env.CODE.get(id);
-      
+
       // Ensure the codeSpace is properly included in the forwarded request
       const forwardedUrl = new URL(request.url);
       if (!forwardedUrl.searchParams.has("codeSpace")) {
         forwardedUrl.searchParams.set("codeSpace", agentCodeSpace);
       }
-      
+
       const forwardedRequest = new Request(forwardedUrl.toString(), {
         method: request.method,
         headers: request.headers,
         body: request.body,
       });
-      
+
       // Forward the request to the durable object's MCP handler
       return stub.fetch(forwardedRequest);
     }

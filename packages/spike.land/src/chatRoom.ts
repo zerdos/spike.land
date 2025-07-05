@@ -9,10 +9,10 @@ import {
 import { handleErrors } from "./handleErrors";
 // import type { AutoSaveEntry } from "./routeHandler";
 import type Env from "./env";
+import { McpServer } from "./mcpServer";
 import { RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 import type { WebsocketSession } from "./websocketHandler";
-import { McpServer } from "./mcpServer";
 
 export { md5 };
 
@@ -146,12 +146,12 @@ export class Code implements DurableObject {
     // For MCP requests, try multiple sources for codeSpace
     if (url.pathname.includes("/mcp")) {
       const codeSpace = request?.headers.get("X-CodeSpace") ||
-                       url.searchParams.get("codeSpace") ||
-                       url.searchParams.get("room") ||
-                       "default";
+        url.searchParams.get("codeSpace") ||
+        url.searchParams.get("room") ||
+        "default";
       return codeSpace;
     }
-    
+
     // For regular requests, use the room parameter
     const codeSpace = url.searchParams.get("room");
     if (!codeSpace) {
@@ -177,13 +177,13 @@ export class Code implements DurableObject {
       let sessionCore = await this.state.storage.get<
         Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
       >("session_core");
-      
+
       // If no data found with new key, try the old key for backward compatibility
       if (!sessionCore) {
         sessionCore = await this.state.storage.get<
           Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
         >("session");
-        
+
         // If we found data with the old key, migrate it to the new key
         if (sessionCore) {
           console.log(`Migrating session data from old key for codeSpace: ${codeSpace}`);
@@ -471,12 +471,20 @@ export class Code implements DurableObject {
     // If save is successful (i.e., did not throw), update in-memory state and broadcast
     this.session = newSession;
     const patch = generateSessionPatch(oldSession, newSession);
-    
+
     console.log(`[updateAndBroadcastSession] Broadcasting patch to WebSocket clients`);
-    console.log(`[updateAndBroadcastSession] Patch includes code change: ${patch.delta?.code !== undefined}`);
-    console.log(`[updateAndBroadcastSession] Patch includes transpiled change: ${patch.delta?.transpiled !== undefined}`);
-    console.log(`[updateAndBroadcastSession] Active WebSocket sessions: ${this.wsHandler.getWsSessions().length}`);
-    
+    console.log(
+      `[updateAndBroadcastSession] Patch includes code change: ${patch.delta?.code !== undefined}`,
+    );
+    console.log(
+      `[updateAndBroadcastSession] Patch includes transpiled change: ${
+        patch.delta?.transpiled !== undefined
+      }`,
+    );
+    console.log(
+      `[updateAndBroadcastSession] Active WebSocket sessions: ${this.wsHandler.getWsSessions().length}`,
+    );
+
     this.wsHandler.broadcast(patch, wsSession);
   }
 

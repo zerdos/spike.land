@@ -1,5 +1,5 @@
-import type { Code } from "./chatRoom";
 import type { ICodeSession } from "@spike-npm-land/code";
+import type { Code } from "./chatRoom";
 
 interface McpRequest {
   jsonrpc: string;
@@ -61,7 +61,8 @@ export class McpServer {
     },
     {
       name: "read_session",
-      description: "Read ALL session data (code+html+css+messages). Use sparingly - prefer specific read tools.",
+      description:
+        "Read ALL session data (code+html+css+messages). Use sparingly - prefer specific read tools.",
       inputSchema: {
         type: "object",
         properties: {
@@ -75,7 +76,8 @@ export class McpServer {
     },
     {
       name: "update_code",
-      description: "Replace ALL code with new content. For smaller changes, use edit_code or search_and_replace instead.",
+      description:
+        "Replace ALL code with new content. For smaller changes, use edit_code or search_and_replace instead.",
       inputSchema: {
         type: "object",
         properties: {
@@ -93,7 +95,8 @@ export class McpServer {
     },
     {
       name: "edit_code",
-      description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files. Use find_lines first to locate target lines.",
+      description:
+        "PREFERRED: Make precise line-based edits. More efficient than update_code for large files. Use find_lines first to locate target lines.",
       inputSchema: {
         type: "object",
         properties: {
@@ -129,7 +132,8 @@ export class McpServer {
     },
     {
       name: "find_lines",
-      description: "EFFICIENT: Find line numbers for patterns. Use before edit_code to avoid reading entire file.",
+      description:
+        "EFFICIENT: Find line numbers for patterns. Use before edit_code to avoid reading entire file.",
       inputSchema: {
         type: "object",
         properties: {
@@ -151,7 +155,8 @@ export class McpServer {
     },
     {
       name: "search_and_replace",
-      description: "MOST EFFICIENT: Replace patterns without needing line numbers. Best for simple text replacements.",
+      description:
+        "MOST EFFICIENT: Replace patterns without needing line numbers. Best for simple text replacements.",
       inputSchema: {
         type: "object",
         properties: {
@@ -160,7 +165,7 @@ export class McpServer {
             description: "The codeSpace identifier to perform search and replace in",
           },
           search: {
-            type: "string", 
+            type: "string",
             description: "Text or pattern to search for",
           },
           replace: {
@@ -195,7 +200,7 @@ export class McpServer {
     //   name: "add_message",
     //   description: "Add a message to the session history",
     //   inputSchema: {
-    //     type: "object", 
+    //     type: "object",
     //     properties: {
     //       message: { type: "string", description: "Message content" },
     //       role: { type: "string", enum: ["user", "assistant"], description: "Message role" }
@@ -257,29 +262,29 @@ export class McpServer {
   // Helper method to get session for a specific codeSpace
   private async getSessionForCodeSpace(codeSpace: string): Promise<ICodeSession> {
     const currentSession = this.durableObject.getSession();
-    
+
     // If the current session is for a different codeSpace, we need to switch
     if (currentSession.codeSpace !== codeSpace) {
       console.log(`Switching session from '${currentSession.codeSpace}' to '${codeSpace}'`);
-      
+
       // Create a new URL with the codeSpace as a room parameter
       const url = new URL(`http://localhost:8787/?room=${codeSpace}`);
-      
+
       // Force re-initialization by setting initialized to false
       this.durableObject.initialized = false;
-      
+
       // Re-initialize the session for the requested codeSpace
       await this.durableObject.initializeSession(url);
-      
+
       // Get the updated session
       const updatedSession = this.durableObject.getSession();
       if (updatedSession.codeSpace !== codeSpace) {
         throw new Error(`Failed to switch to codeSpace '${codeSpace}'`);
       }
-      
+
       return updatedSession;
     }
-    
+
     return currentSession;
   }
 
@@ -370,7 +375,10 @@ export class McpServer {
           if (!params?.name || typeof params.name !== "string") {
             throw new Error("Tool name is required and must be a string");
           }
-          const result = await this.executeTool(params.name, (params.arguments as Record<string, unknown>) || {});
+          const result = await this.executeTool(
+            params.name,
+            (params.arguments as Record<string, unknown>) || {},
+          );
           return {
             jsonrpc: "2.0",
             id,
@@ -401,18 +409,21 @@ export class McpServer {
     }
   }
 
-  private async executeTool(toolName: string, args: Record<string, unknown>): Promise<Record<string, unknown>> {
+  private async executeTool(
+    toolName: string,
+    args: Record<string, unknown>,
+  ): Promise<Record<string, unknown>> {
     // Extract codeSpace from arguments
     const requestedCodeSpace = args.codeSpace as string;
     if (!requestedCodeSpace) {
       throw new Error(`codeSpace parameter is required for tool '${toolName}'`);
     }
-    
+
     // Get the session for the requested codeSpace
     const session = await this.getSessionForCodeSpace(requestedCodeSpace);
-    
+
     console.log(`MCP Tool '${toolName}' executing for codeSpace: ${requestedCodeSpace}`);
-    
+
     if (!session.codeSpace) {
       throw new Error("Session codeSpace is missing. The session may not be properly initialized.");
     }
@@ -444,10 +455,14 @@ export class McpServer {
         if (!args.code || typeof args.code !== "string") {
           throw new Error("Code parameter is required and must be a string");
         }
-        
+
         console.log(`[MCP] update_code called for codeSpace: ${requestedCodeSpace}`);
-        console.log(`[MCP] Current code length: ${session.code?.length || 0}, New code length: ${args.code.length}`);
-        
+        console.log(
+          `[MCP] Current code length: ${
+            session.code?.length || 0
+          }, New code length: ${args.code.length}`,
+        );
+
         const updatedSession = {
           ...session,
           code: args.code,
@@ -457,13 +472,16 @@ export class McpServer {
           css: "",
           codeSpace: requestedCodeSpace, // Ensure codeSpace is preserved
         };
-        
-        console.log(`[MCP] Broadcasting session update with empty transpiled to trigger re-transpilation`);
+
+        console.log(
+          `[MCP] Broadcasting session update with empty transpiled to trigger re-transpilation`,
+        );
         await this.durableObject.updateAndBroadcastSession(updatedSession);
-        
+
         return {
           success: true,
-          message: `Code updated successfully (${args.code.length}/500 chars). Transpilation will be triggered automatically.`,
+          message:
+            `Code updated successfully (${args.code.length}/500 chars). Transpilation will be triggered automatically.`,
           codeSpace: requestedCodeSpace,
           requiresTranspilation: true,
         };
@@ -475,12 +493,15 @@ export class McpServer {
         }
 
         const originalCode = session.code || "";
-        const { newCode, diff } = this.applyLineEdits(originalCode, args.edits as Array<{
-          startLine: number;
-          endLine: number;
-          newContent: string;
-        }>);
-        
+        const { newCode, diff } = this.applyLineEdits(
+          originalCode,
+          args.edits as Array<{
+            startLine: number;
+            endLine: number;
+            newContent: string;
+          }>,
+        );
+
         const updatedSession = {
           ...session,
           code: newCode,
@@ -490,9 +511,9 @@ export class McpServer {
           css: "",
           codeSpace: requestedCodeSpace,
         };
-        
+
         await this.durableObject.updateAndBroadcastSession(updatedSession);
-        
+
         return {
           success: true,
           message: "Code edited successfully. Transpilation will be triggered automatically.",
@@ -511,11 +532,11 @@ export class McpServer {
         const code = session.code || "";
         const lines = code.split("\n");
         const isRegex = args.isRegex === true;
-        const matches: Array<{ lineNumber: number; content: string; matchText: string }> = [];
+        const matches: Array<{ lineNumber: number; content: string; matchText: string; }> = [];
 
         try {
           const searchPattern = isRegex ? new RegExp(args.pattern, "gi") : args.pattern;
-          
+
           lines.forEach((line: string, index: number) => {
             const lineNumber = index + 1;
             if (isRegex) {
@@ -539,7 +560,9 @@ export class McpServer {
             }
           });
         } catch (error) {
-          throw new Error(`Invalid regex pattern: ${error instanceof Error ? error.message : String(error)}`);
+          throw new Error(
+            `Invalid regex pattern: ${error instanceof Error ? error.message : String(error)}`,
+          );
         }
 
         return {
@@ -583,7 +606,8 @@ export class McpServer {
               const index = originalCode.indexOf(searchText);
               if (index !== -1) {
                 replacements = 1;
-                newCode = originalCode.substring(0, index) + args.replace + originalCode.substring(index + searchText.length);
+                newCode = originalCode.substring(0, index) + args.replace +
+                  originalCode.substring(index + searchText.length);
               } else {
                 replacements = 0;
                 newCode = originalCode;
@@ -591,7 +615,9 @@ export class McpServer {
             }
           }
         } catch (error) {
-          throw new Error(`Invalid regex pattern: ${error instanceof Error ? error.message : String(error)}`);
+          throw new Error(
+            `Invalid regex pattern: ${error instanceof Error ? error.message : String(error)}`,
+          );
         }
 
         if (replacements > 0) {
@@ -604,13 +630,15 @@ export class McpServer {
             css: "",
             codeSpace: requestedCodeSpace,
           };
-          
+
           await this.durableObject.updateAndBroadcastSession(updatedSession);
         }
 
         return {
           success: true,
-          message: replacements > 0 ? `Made ${replacements} replacement(s). Transpilation will be triggered automatically.` : "No matches found",
+          message: replacements > 0
+            ? `Made ${replacements} replacement(s). Transpilation will be triggered automatically.`
+            : "No matches found",
           replacements,
           search: args.search,
           replace: args.replace,
@@ -649,11 +677,11 @@ export class McpServer {
   // Apply line-based edits and generate diff
   private applyLineEdits(
     originalCode: string,
-    edits: Array<{ startLine: number; endLine: number; newContent: string }>
-  ): { newCode: string; diff: string } {
+    edits: Array<{ startLine: number; endLine: number; newContent: string; }>,
+  ): { newCode: string; diff: string; } {
     const originalLines = originalCode.split("\n");
     const editsCopy = [...edits].sort((a, b) => b.startLine - a.startLine); // Sort in reverse order to avoid line number shifts
-    
+
     // Validate line numbers
     for (const edit of editsCopy) {
       if (edit.startLine < 1 || edit.endLine < 1) {
@@ -663,7 +691,9 @@ export class McpServer {
         throw new Error("Start line must be less than or equal to end line");
       }
       if (edit.endLine > originalLines.length) {
-        throw new Error(`End line ${edit.endLine} exceeds code length (${originalLines.length} lines)`);
+        throw new Error(
+          `End line ${edit.endLine} exceeds code length (${originalLines.length} lines)`,
+        );
       }
     }
 
@@ -671,56 +701,62 @@ export class McpServer {
     const sortedEdits = [...edits].sort((a, b) => a.startLine - b.startLine);
     for (let i = 1; i < sortedEdits.length; i++) {
       if (sortedEdits[i].startLine <= sortedEdits[i - 1].endLine) {
-        throw new Error(`Overlapping edits detected: lines ${sortedEdits[i - 1].startLine}-${sortedEdits[i - 1].endLine} and ${sortedEdits[i].startLine}-${sortedEdits[i].endLine}`);
+        throw new Error(
+          `Overlapping edits detected: lines ${sortedEdits[i - 1].startLine}-${
+            sortedEdits[i - 1].endLine
+          } and ${sortedEdits[i].startLine}-${sortedEdits[i].endLine}`,
+        );
       }
     }
 
     const modifiedLines = [...originalLines];
     const diffParts: string[] = [];
-    
+
     // Apply edits in reverse order to maintain line numbers
     for (const edit of editsCopy) {
       const startIdx = edit.startLine - 1; // Convert to 0-based
       const endIdx = edit.endLine - 1; // Convert to 0-based
       const removedLines = modifiedLines.slice(startIdx, endIdx + 1);
       const newLines = edit.newContent ? edit.newContent.split("\n") : [];
-      
+
       // Generate diff for this edit
       const contextStart = Math.max(0, startIdx - 2);
       const contextEnd = Math.min(modifiedLines.length - 1, endIdx + 2);
-      
-      const diffHeader = `@@ -${edit.startLine},${edit.endLine - edit.startLine + 1} +${edit.startLine},${newLines.length} @@`;
+
+      const diffHeader = `@@ -${edit.startLine},${
+        edit.endLine - edit.startLine + 1
+      } +${edit.startLine},${newLines.length} @@`;
       const diffLines = [diffHeader];
-      
+
       // Add context before
       for (let i = contextStart; i < startIdx; i++) {
         diffLines.push(` ${modifiedLines[i]}`);
       }
-      
+
       // Add removed lines
       for (const line of removedLines) {
         diffLines.push(`-${line}`);
       }
-      
+
       // Add new lines
       for (const line of newLines) {
         diffLines.push(`+${line}`);
       }
-      
+
       // Add context after
       for (let i = endIdx + 1; i <= Math.min(contextEnd, modifiedLines.length - 1); i++) {
         diffLines.push(` ${modifiedLines[i]}`);
       }
-      
+
       diffParts.unshift(diffLines.join("\n")); // Add to beginning since we're processing in reverse
-      
+
       // Apply the edit
       modifiedLines.splice(startIdx, endIdx - startIdx + 1, ...newLines);
     }
-    
+
     const newCode = modifiedLines.join("\n");
     const diff = diffParts.length > 0 ? diffParts.join("\n\n") : "No changes made";
-    
+
     return { newCode, diff };
   }
 }

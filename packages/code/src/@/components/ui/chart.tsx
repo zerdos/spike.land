@@ -142,13 +142,12 @@ function ChartTooltipContent({
     name: string,
     item: any,
     index: number,
-    payload: any
+    payload: any,
   ) => React.ReactNode;
   color?: string;
   nameKey?: string;
   labelKey?: string;
-} & React.ComponentProps<"div">)
-{
+} & React.ComponentProps<"div">) {
   const { config } = useChart();
 
   const tooltipLabel = React.useMemo(() => {
@@ -204,7 +203,7 @@ function ChartTooltipContent({
         {payload.map((item, index) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          const indicatorColor = color || (item.payload && item.payload['fill']) || item.color;
+          const indicatorColor = color || (item.payload && item.payload["fill"]) || item.color;
 
           return (
             <div
@@ -288,8 +287,7 @@ function ChartLegendContent({
   }>;
   verticalAlign?: "top" | "bottom";
   nameKey?: string;
-} & React.ComponentProps<"div">)
-{
+} & React.ComponentProps<"div">) {
   const { config } = useChart();
 
   if (!payload || !Array.isArray(payload) || payload.length === 0) {

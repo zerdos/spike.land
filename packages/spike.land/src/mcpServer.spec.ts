@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeAll, afterAll, beforeEach } from "vitest";
-import { spawn, ChildProcess } from "child_process";
+import { ChildProcess, spawn } from "child_process";
 import { promisify } from "util";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 const sleep = promisify(setTimeout);
 
@@ -40,7 +40,7 @@ describe("MCP Server Integration Tests", () => {
   async function mcpRequest(
     method: string,
     params: Record<string, unknown> = {},
-    id = 1
+    id = 1,
   ): Promise<McpResponse> {
     const response = await fetch(mcpEndpoint, {
       method: "POST",
@@ -62,7 +62,7 @@ describe("MCP Server Integration Tests", () => {
   async function callTool(
     toolName: string,
     args: Record<string, unknown>,
-    id = 1
+    id = 1,
   ): Promise<McpResponse> {
     return mcpRequest("tools/call", {
       name: toolName,
@@ -73,7 +73,7 @@ describe("MCP Server Integration Tests", () => {
   // Start the wrangler dev server
   beforeAll(async () => {
     console.log("Starting wrangler dev server...");
-    
+
     wranglerProcess = spawn("yarn", ["dev"], {
       cwd: process.cwd(),
       env: { ...process.env, NODE_ENV: "test" },
@@ -152,10 +152,10 @@ describe("MCP Server Integration Tests", () => {
 
       expect(response.result?.tools).toBeDefined();
       expect(Array.isArray(response.result?.tools)).toBe(true);
-      
+
       const tools = response.result?.tools || [];
       const toolNames = tools.map(t => t.name);
-      
+
       expect(toolNames).toContain("read_code");
       expect(toolNames).toContain("read_html");
       expect(toolNames).toContain("read_session");

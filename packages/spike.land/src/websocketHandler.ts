@@ -261,8 +261,14 @@ export class WebSocketHandler {
   broadcast(message: object | string, excludeSession?: WebsocketSession) {
     const messageStr = typeof message === "string" ? message : JSON.stringify(message);
     console.log(`[WebSocketHandler] Broadcasting to ${this.wsSessions.length} sessions`);
-    console.log(`[WebSocketHandler] Message type: ${typeof message === "object" && message !== null ? (message as any).type || "unknown" : "string"}`);
-    
+    console.log(
+      `[WebSocketHandler] Message type: ${
+        typeof message === "object" && message !== null
+          ? (message as any).type || "unknown"
+          : "string"
+      }`,
+    );
+
     let sentCount = 0;
     for (const session of this.wsSessions) {
       if (session.name !== excludeSession?.name) {
@@ -273,7 +279,7 @@ export class WebSocketHandler {
         sentCount++;
       }
     }
-    
+
     console.log(`[WebSocketHandler] Broadcast sent to ${sentCount} sessions`);
   }
 }

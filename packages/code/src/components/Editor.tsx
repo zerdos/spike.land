@@ -36,95 +36,95 @@ export const Editor: React.FC<EditorProps> = (
   const [lastHash, setLastHash] = useState<string>("");
   const controller = useRef(new AbortController());
 
-      const processChange = async (code: string) => {
-      // Abort previous operation if any
-      controller.current.abort();
-      controller.current = new AbortController();
-      const { signal } = controller.current;
+  const processChange = async (code: string) => {
+    // Abort previous operation if any
+    controller.current.abort();
+    controller.current = new AbortController();
+    const { signal } = controller.current;
 
-      console.warn("[Editor] Formatting code with Prettier...");
-      const { data: formatted, error } = await tryCatch(prettierToThrow({
-        code,
-        toThrow: true,
-      }));
+    console.warn("[Editor] Formatting code with Prettier...");
+    const { data: formatted, error } = await tryCatch(prettierToThrow({
+      code,
+      toThrow: true,
+    }));
 
-      if (error) {
-        console.error("[Editor] Prettier error:", error);
-        return;
-      }
-      console.warn("[Editor] Code formatted.");
+    if (error) {
+      console.error("[Editor] Prettier error:", error);
+      return;
+    }
+    console.warn("[Editor] Code formatted.");
 
+    if (signal.aborted) return;
+
+    const newHash = md5(formatted);
+    const startSync = Date.now();
+
+    // Prevent unnecessary updates
+    if (newHash !== lastHash) {
+      setLastHash(newHash);
+
+      // Debounce state updates
+      await wait(10);
       if (signal.aborted) return;
 
-      const newHash = md5(formatted);
-      const startSync = Date.now();
-
-      // Prevent unnecessary updates
-      if (newHash !== lastHash) {
-        setLastHash(newHash);
-
-        // Debounce state updates
-        await wait(10);
-        if (signal.aborted) return;
-
-        setEditorState((prev) => ({ ...prev, code: formatted }));
-        console.warn("[Editor] Saving code to session...");
-        // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
-        const { data: newCode, error: saveError } = await tryCatch(
-          cSess.setCode(formatted, false, replaceIframe),
+      setEditorState((prev) => ({ ...prev, code: formatted }));
+      console.warn("[Editor] Saving code to session...");
+      // Pass replaceIframe to cSess.setCode so the preview iframe DOM node can be replaced after rendering.
+      const { data: newCode, error: saveError } = await tryCatch(
+        cSess.setCode(formatted, false, replaceIframe),
+      );
+      if (saveError) {
+        console.error("[Editor] Error saving code:", saveError);
+        return;
+      }
+      if (newCode !== formatted) {
+        console.info(
+          "[Editor]:  The code might has just formatting or comments difference, rendered app not updated",
+        );
+        const { data: finalCode, error: saveError } = await tryCatch(
+          cSess.setCode(formatted, true),
         );
         if (saveError) {
-          console.error("[Editor] Error saving code:", saveError);
+          console.error("[Editor] Error saving final code:", saveError);
           return;
         }
-        if (newCode !== formatted) {
-          console.info(
-            "[Editor]:  The code might has just formatting or comments difference, rendered app not updated",
+        if (finalCode !== formatted) {
+          console.warn(
+            "[Editor] Code was normalized by session storage on forced save. Updating to reflect session state.",
+            { received: finalCode, sent: formatted },
           );
-          const { data: finalCode, error: saveError } = await tryCatch(
-            cSess.setCode(formatted, true),
-          );
-          if (saveError) {
-            console.error("[Editor] Error saving final code:", saveError);
-            return;
-          }
-          if (finalCode !== formatted) {
-            console.warn(
-              "[Editor] Code was normalized by session storage on forced save. Updating to reflect session state.",
-              { received: finalCode, sent: formatted },
-            );
-            // Update editorState and lastHash based on finalCode,
-            // to align with what the session considers the true state.
-            setEditorState((prev) => ({ ...prev, code: finalCode }));
-            setLastHash(md5(finalCode));
-            // No longer treating this as a fatal error, allowing the flow to continue.
-            // The external update listener should handle syncing Monaco's display if cSess broadcasts finalCode.
-          }
-          // If finalCode === formatted, the forced save worked as expected.
-          // lastHash is already md5(formatted) from the earlier setLastHash(newHash) call.
+          // Update editorState and lastHash based on finalCode,
+          // to align with what the session considers the true state.
+          setEditorState((prev) => ({ ...prev, code: finalCode }));
+          setLastHash(md5(finalCode));
+          // No longer treating this as a fatal error, allowing the flow to continue.
+          // The external update listener should handle syncing Monaco's display if cSess broadcasts finalCode.
         }
-
-        console.warn("[Editor] Code saved and propagated to session.");
-
-        const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
-        if (typeErrorError) {
-          console.error("[Editor] Type check error:", typeErrorError);
-          // Do not block saving/processing on type errors
-        }
+        // If finalCode === formatted, the forced save worked as expected.
+        // lastHash is already md5(formatted) from the earlier setLastHash(newHash) call.
       }
 
-      // Update metrics
-      const syncTime = Date.now() - startSync;
-      lifetimeMetrics.current.longestSyncTime = Math.max(
-        lifetimeMetrics.current.longestSyncTime,
-        syncTime,
-      );
-      console.warn("[Editor] Code propagation complete.", {
-        syncTime,
-        codeLength: formatted.length,
-        timestamp: new Date().toISOString(),
-      });
-    };
+      console.warn("[Editor] Code saved and propagated to session.");
+
+      const { error: typeErrorError } = await tryCatch(throttledTypeCheck());
+      if (typeErrorError) {
+        console.error("[Editor] Type check error:", typeErrorError);
+        // Do not block saving/processing on type errors
+      }
+    }
+
+    // Update metrics
+    const syncTime = Date.now() - startSync;
+    lifetimeMetrics.current.longestSyncTime = Math.max(
+      lifetimeMetrics.current.longestSyncTime,
+      syncTime,
+    );
+    console.warn("[Editor] Code propagation complete.", {
+      syncTime,
+      codeLength: formatted.length,
+      timestamp: new Date().toISOString(),
+    });
+  };
 
   // Initialize session with optimized state tracking
   useEffect(() => {
@@ -162,8 +162,6 @@ export const Editor: React.FC<EditorProps> = (
         timestamp: new Date().toISOString(),
       },
     );
-
-
 
     await processChange(newCode);
     const time = Date.now() - now;

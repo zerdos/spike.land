@@ -1,7 +1,7 @@
-import { tool } from "@langchain/core/tools";
-import type { RunnableToolLike } from "@langchain/core/runnables";
-import { z } from "zod";
 import { md5 } from "@/lib/md5";
+import type { RunnableToolLike } from "@langchain/core/runnables";
+import { tool } from "@langchain/core/tools";
+import { z } from "zod";
 import type { CodeModification } from "../chat-langchain";
 
 interface McpTool {
@@ -26,7 +26,7 @@ export async function loadMcpTools(
   origin: string,
 ): Promise<RunnableToolLike[]> {
   const mcpUrl = `${origin}/api/room/${codeSpace}/mcp`;
-  
+
   try {
     // Request available tools from MCP server
     const response = await fetch(mcpUrl, {
@@ -49,7 +49,7 @@ export async function loadMcpTools(
 
     const result = await response.json() as {
       result?: McpToolsResponse;
-      error?: { message: string };
+      error?: { message: string; };
     };
 
     if (result.error || !result.result?.tools) {
@@ -59,11 +59,11 @@ export async function loadMcpTools(
 
     // Convert MCP tools to LangChain tools
     const tools: RunnableToolLike[] = [];
-    
+
     for (const mcpTool of result.result.tools) {
       // Create Zod schema from MCP input schema
       const schema = createZodSchema(mcpTool.inputSchema);
-      
+
       // Create LangChain tool wrapper
       const langchainTool = tool(
         async (args: unknown): Promise<any> => {
@@ -93,7 +93,7 @@ export async function loadMcpTools(
           }
 
           const toolResult = await toolResponse.json();
-          
+
           if (toolResult.error) {
             throw new Error(`MCP error: ${toolResult.error.message}`);
           }
@@ -103,7 +103,7 @@ export async function loadMcpTools(
             // For code modification tools, return CodeModification format
             return handleCodeModificationResponse(toolResult, typedArgs["path"], origin, codeSpace);
           }
-          
+
           // For other tools, return the raw result
           return toolResult.result;
         },
@@ -113,10 +113,10 @@ export async function loadMcpTools(
           schema: schema as any,
         },
       );
-      
+
       tools.push(langchainTool as unknown as RunnableToolLike);
     }
-    
+
     return tools;
   } catch (error) {
     console.error("Failed to load MCP tools:", error);
@@ -129,11 +129,11 @@ export async function loadMcpTools(
  */
 function createZodSchema(inputSchema: any): z.ZodSchema {
   const schemaObj: Record<string, z.ZodSchema> = {};
-  
+
   if (inputSchema.properties) {
     for (const [key, prop] of Object.entries(inputSchema.properties as Record<string, any>)) {
       let zodType: z.ZodSchema;
-      
+
       switch (prop.type) {
         case "string":
           zodType = z.string();
@@ -153,22 +153,22 @@ function createZodSchema(inputSchema: any): z.ZodSchema {
         default:
           zodType = z.any();
       }
-      
+
       if (prop.description) {
         zodType = zodType.describe(prop.description);
       }
-      
+
       schemaObj[key] = zodType;
     }
   }
-  
+
   const schema = z.object(schemaObj);
-  
+
   // Make non-required fields optional
   if (inputSchema.required && Array.isArray(inputSchema.required)) {
     const requiredSet = new Set(inputSchema.required);
     const partialObj: Record<string, z.ZodSchema> = {};
-    
+
     for (const [key, value] of Object.entries(schemaObj)) {
       if (!requiredSet.has(key)) {
         partialObj[key] = value.optional();
@@ -176,10 +176,10 @@ function createZodSchema(inputSchema: any): z.ZodSchema {
         partialObj[key] = value;
       }
     }
-    
+
     return z.object(partialObj);
   }
-  
+
   return schema;
 }
 
@@ -195,7 +195,7 @@ async function handleCodeModificationResponse(
   try {
     // Extract response text
     const responseText = toolResult.result?.content?.[0]?.text || "";
-    
+
     // Check if operation was successful
     if (!responseText.includes("successfully") && !responseText.includes("Updated")) {
       return {
@@ -204,11 +204,11 @@ async function handleCodeModificationResponse(
         error: responseText || "Unknown MCP error",
       };
     }
-    
+
     // Fetch updated code
     const codePath = path.replace("/live/", "").replace(".tsx", "");
     const codeResponse = await fetch(`${origin}/live/${codePath}/index.tsx`);
-    
+
     if (!codeResponse.ok) {
       return {
         code: "",
@@ -216,10 +216,10 @@ async function handleCodeModificationResponse(
         error: "Failed to fetch updated code",
       };
     }
-    
+
     const updatedCode = await codeResponse.text();
     const newHash = md5(updatedCode);
-    
+
     return {
       code: updatedCode,
       hash: newHash,
@@ -228,7 +228,9 @@ async function handleCodeModificationResponse(
     return {
       code: "",
       hash: "",
-      error: `Failed to process MCP response: ${error instanceof Error ? error.message : "Unknown error"}`,
+      error: `Failed to process MCP response: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
     };
   }
 }
@@ -238,7 +240,7 @@ async function handleCodeModificationResponse(
  */
 function getFallbackTools(_codeSpace: string, _origin: string): RunnableToolLike[] {
   console.warn("Using fallback tool as MCP server tools could not be loaded");
-  
+
   // Return a basic search_and_replace tool as fallback
   const fallbackTool = tool(
     async (_: {
@@ -262,6 +264,6 @@ function getFallbackTools(_codeSpace: string, _origin: string): RunnableToolLike
       }),
     },
   );
-  
+
   return [fallbackTool as unknown as RunnableToolLike];
 }

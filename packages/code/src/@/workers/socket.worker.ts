@@ -5,13 +5,13 @@
  *
  * This worker manages WebSocket connections for real-time collaboration.
  * It handles connection establishment, message processing, and session synchronization.
- * 
+ *
  * IMPORTANT: The backend is always the source of truth for session data.
  * When hash mismatches occur, this worker will:
  * 1. Fetch the current session from the backend
  * 2. Overwrite local state with the backend data
  * 3. Broadcast the backend session to all connected clients
- * 
+ *
  * This ensures all clients stay synchronized with the backend state.
  */
 
@@ -459,7 +459,7 @@ async function handleSocketMessage(
       logger.info(
         `Updated local session with backend data for ${codeSpace}, broadcasting to all clients`,
       );
-      
+
       // Broadcast the backend session to all connected clients
       const { error: broadcastError } = await tryCatch(
         Promise.resolve(connection.sessionSynchronizer.broadcastSession(
@@ -590,13 +590,15 @@ async function handleSocketMessage(
         const newCode = sess.code;
         const oldTranspiled = connection.oldSession.transpiled;
         const newTranspiled = sess.transpiled;
-        
+
         if (oldCode !== newCode && (!newTranspiled || newTranspiled === "")) {
           logger.warn(
             `Code updated but transpiled is empty for ${codeSpace}, needs transpilation`,
           );
           logger.debug(
-            `Code changed from ${oldCode?.length || 0} to ${newCode?.length || 0} chars, transpiled is empty`,
+            `Code changed from ${oldCode?.length || 0} to ${
+              newCode?.length || 0
+            } chars, transpiled is empty`,
           );
 
           // Broadcast session update that requires transpilation
@@ -621,7 +623,9 @@ async function handleSocketMessage(
             `Transpiled code changed for ${codeSpace}, triggering re-render`,
           );
           logger.debug(
-            `Old transpiled length: ${oldTranspiled?.length || 0}, New transpiled length: ${newTranspiled?.length || 0}`,
+            `Old transpiled length: ${oldTranspiled?.length || 0}, New transpiled length: ${
+              newTranspiled?.length || 0
+            }`,
           );
 
           // Broadcast a special message type for re-render
@@ -785,7 +789,7 @@ self.addEventListener("connect", (event: MessageEvent) => {
           // Send the updated session back to the server
           const sanitizedSession = sanitizeSession(session);
           const patch = generateSessionPatch(connection.oldSession, sanitizedSession);
-          
+
           logger.debug(
             `Sending re-render patch to server for ${session.codeSpace}, patch size: ${
               JSON.stringify(patch).length
