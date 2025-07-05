@@ -641,7 +641,7 @@ hQIDAQAB
 
   private async handleMessagesRoute(
     request: Request,
-    _url: URL,
+    url: URL,
     _path: string[],
   ): Promise<Response> {
     // Handle CORS preflight
@@ -657,6 +657,7 @@ hQIDAQAB
     }
 
     const session = this.code.getSession();
+    const codeSpace = session.codeSpace;
     
     // GET: Return all messages
     if (request.method === "GET") {
@@ -669,7 +670,7 @@ hQIDAQAB
       });
     }
 
-    // POST: Add a new message and call AI
+    // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
         const body = await request.json() as { message: string; role?: string };
@@ -701,20 +702,68 @@ hQIDAQAB
         // Get the AI binding from environment
         const env = this.code.getEnv();
         
-        // Prepare messages for AI (include context)
-        const aiMessages = session.messages.map((msg: Message) => ({
-          role: msg.role,
-          content: typeof msg.content === "string" ? msg.content : msg.content.map((part: MessagePart) => {
-            if (part.type === "text") return part.text;
-            return "[image]";
-          }).join(""),
-        }));
-        
-        // Add the new user message
-        aiMessages.push({
-          role: userMessage.role,
-          content: userMessage.content as string,
-        });
+        // Define available MCP tools for the AI
+        const mcpTools = [
+          {
+            name: "read_code",
+            description: "Read current code only. Use before making changes to understand the codebase.",
+            parameters: { codeSpace: "string" }
+          },
+          {
+            name: "update_code", 
+            description: "Replace ALL code with new content. For smaller changes, use edit_code instead.",
+            parameters: { codeSpace: "string", code: "string" }
+          },
+          {
+            name: "edit_code",
+            description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
+            parameters: { codeSpace: "string", startLine: "number", endLine: "number", newContent: "string" }
+          },
+          {
+            name: "search_and_replace",
+            description: "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
+            parameters: { codeSpace: "string", search: "string", replace: "string", matchCase: "boolean", isRegex: "boolean" }
+          },
+          {
+            name: "find_lines",
+            description: "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
+            parameters: { codeSpace: "string", search: "string", matchCase: "boolean", isRegex: "boolean" }
+          }
+        ];
+
+        // Create system prompt with MCP tools
+        const systemPrompt = `You are an AI assistant with access to code modification tools through MCP (Model Context Protocol).
+
+Available tools:
+${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join('\n')}
+
+To use a tool, respond with a JSON block in this format:
+<tool_use>
+{
+  "tool": "tool_name",
+  "parameters": {
+    "param1": "value1",
+    "param2": "value2"
+  }
+}
+</tool_use>
+
+The current codeSpace is: ${codeSpace}
+
+After I execute the tool, I'll share the results with you. You can then continue the conversation or use more tools as needed.`;
+
+        // Prepare messages for AI
+        const aiMessages = [
+          { role: "system", content: systemPrompt },
+          ...session.messages.map((msg: Message) => ({
+            role: msg.role,
+            content: typeof msg.content === "string" ? msg.content : msg.content.map((part: MessagePart) => {
+              if (part.type === "text") return part.text;
+              return "[image]";
+            }).join(""),
+          })),
+          { role: userMessage.role, content: userMessage.content as string }
+        ];
 
         // Call Workers AI
         const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
@@ -722,11 +771,64 @@ hQIDAQAB
           stream: false,
         });
 
-        // Create assistant message with AI response
+        const responseText = aiResponse.response || "I couldn't generate a response.";
+        
+        // Check if the response contains a tool use request
+        const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
+        
+        if (toolUseMatch) {
+          try {
+            // Parse the tool use request
+            const toolRequest = JSON.parse(toolUseMatch[1]);
+            
+            // Execute the MCP tool
+            const mcpResponse = await this.executeMcpTool(toolRequest.tool, toolRequest.parameters, url.origin);
+            
+            // Add AI's response with tool use
+            const assistantMessage = {
+              id: crypto.randomUUID(),
+              role: "assistant" as const,
+              content: responseText,
+            };
+            
+            // Add tool result as a system message
+            const toolResultMessage = {
+              id: crypto.randomUUID(),
+              role: "system" as const,
+              content: `Tool execution result:\n${JSON.stringify(mcpResponse, null, 2)}`,
+            };
+            
+            // Update session with both messages
+            const finalSession = {
+              ...updatedSession,
+              messages: [...updatedSession.messages, assistantMessage, toolResultMessage],
+            };
+            await this.code.updateAndBroadcastSession(finalSession);
+            
+            // Return the messages
+            return new Response(JSON.stringify({
+              userMessage,
+              assistantMessage,
+              toolResultMessage,
+              messages: finalSession.messages,
+            }), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
+          } catch (toolError) {
+            console.error("Error executing tool:", toolError);
+            // Continue with regular response if tool execution fails
+          }
+        }
+
+        // Create regular assistant message (no tool use)
         const assistantMessage = {
           id: crypto.randomUUID(),
           role: "assistant" as const,
-          content: aiResponse.response || "I couldn't generate a response.",
+          content: responseText,
         };
 
         // Add assistant message to session
@@ -769,5 +871,51 @@ hQIDAQAB
         "Access-Control-Allow-Origin": "*",
       },
     });
+  }
+
+  private async executeMcpTool(
+    toolName: string,
+    parameters: Record<string, unknown>,
+    origin: string,
+  ): Promise<unknown> {
+    const mcpRequest = {
+      jsonrpc: "2.0",
+      id: crypto.randomUUID(),
+      method: "tools/call",
+      params: {
+        name: toolName,
+        arguments: parameters,
+      },
+    };
+
+    // Call the MCP server endpoint
+    const mcpUrl = `${origin}/mcp`;
+    const response = await fetch(mcpUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(mcpRequest),
+    });
+
+    if (!response.ok) {
+      throw new Error(`MCP request failed: ${response.statusText}`);
+    }
+
+    const mcpResponse = await response.json() as {
+      jsonrpc: string;
+      id: string | number;
+      result?: unknown;
+      error?: {
+        code: number;
+        message: string;
+      };
+    };
+    
+    if (mcpResponse.error) {
+      throw new Error(`MCP error: ${mcpResponse.error.message}`);
+    }
+
+    return mcpResponse.result;
   }
 }
