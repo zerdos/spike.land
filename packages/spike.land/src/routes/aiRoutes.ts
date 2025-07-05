@@ -133,10 +133,10 @@ ${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join("\n")}
 To use a tool, respond with a JSON block in this format:
 <tool_use>
 {
-  "tool": "tool_name",
+  "tool": "update_code", 
   "parameters": {
-    "param1": "value1",
-    "param2": "value2"
+    "codeSpace": "${codeSpace}",
+    "code": "export default () => <div> Hello, world!</div>;"
   }
 }
 </tool_use>
@@ -170,10 +170,11 @@ After I execute the tool, I'll share the results with you. You can then continue
           max_tokens: 4096,
           temperature: 0,
           system: systemPrompt,
+          stop_sequences: ["</tool_use>"],
           messages: aiMessages,
         });
 
-        const responseText = aiResponse.content && Array.isArray(aiResponse.content)
+        let responseText = aiResponse.content && Array.isArray(aiResponse.content)
           ? aiResponse.content.map((c: unknown) => {
             if (typeof c === "string") return c;
             if (typeof c === "object" && c !== null && "text" in c) {
@@ -183,9 +184,14 @@ After I execute the tool, I'll share the results with you. You can then continue
           }).join("")
           : (typeof aiResponse.content === "string" ? aiResponse.content : "");
 
+        if (responseText.includes("<tool_use>")) {
+          responseText = responseText + '</tool_use>';
+        }
+
         // Check if the response contains a tool use request
         const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
-
+        
+      
         if (toolUseMatch) {
           try {
             // Parse the tool use request
@@ -208,7 +214,7 @@ After I execute the tool, I'll share the results with you. You can then continue
             // Add tool result as an assistant message (since system role isn't allowed in messages)
             const toolResultMessage = {
               id: crypto.randomUUID(),
-              role: "assistant" as const,
+              role: "user" as const,
               content: `Tool execution result:\n${JSON.stringify(mcpResponse, null, 2)}`,
             };
 
