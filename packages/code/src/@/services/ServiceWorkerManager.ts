@@ -167,11 +167,11 @@ export class ServiceWorkerManager implements IServiceWorkerManager {
     ) {
       return undefined;
     }
-    const { error } = await tryCatch(setupServiceWorker());
-    if (error) {
-      console.error("Error setting up service worker:", { error });
-      throw error;
-    }
+    // const { error } = await tryCatch(setupServiceWorker());
+    // if (error) {
+    //   console.error("Error setting up service worker:", { error });
+    //   throw error;
+    // }
     return undefined;
   }
 }

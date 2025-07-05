@@ -2,6 +2,11 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { Message, MessagePart } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 
+interface AnthropicMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export class AiRoutes {
   constructor(private code: Code) {}
 
@@ -59,11 +64,11 @@ export class AiRoutes {
         };
 
         // Add user message to session
-        const updatedSession = {
+        let currentSession = {
           ...session,
           messages: [...session.messages, userMessage],
         };
-        await this.code.updateAndBroadcastSession(updatedSession);
+        await this.code.updateAndBroadcastSession(currentSession);
 
         // Get the AI binding from environment
 
@@ -72,6 +77,10 @@ export class AiRoutes {
         const anthropic = new Anthropic({
           apiKey: env.ANTHROPIC_API_KEY,
         });
+
+        // Track tool calls to prevent infinite loops
+        const MAX_TOOL_CALLS = 5;
+        let toolCallCount = 0;
 
         // Define available MCP tools for the AI
         const mcpTools = [
@@ -145,128 +154,157 @@ The current codeSpace is: ${codeSpace}
 
 After I execute the tool, I'll share the results with you. You can then continue the conversation or use more tools as needed.`;
 
-        // Prepare messages for AI (filtering out system messages and converting them)
-        const aiMessages = [
-          ...session.messages
-            .filter((msg: Message) => msg.role !== "system")
-            .map((msg: Message) => ({
-              role: msg.role as "user" | "assistant",
-              content: typeof msg.content === "string"
-                ? msg.content
-                : msg.content.map((part: MessagePart) => {
-                  if (part.type === "text") return part.text;
-                  return "[image]";
-                }).join(""),
-            })),
-          {
-            role: userMessage.role as "user" | "assistant",
-            content: userMessage.content as string,
-          },
-        ];
+        // Conversation loop to handle multiple tool calls
+        let shouldContinue = true;
+        const allMessages: Message[] = [];
 
-        // Call Anthropic Messages API with system as a top-level parameter
-        const aiResponse = await anthropic.messages.create({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 4096,
-          temperature: 0,
-          system: systemPrompt,
-          stop_sequences: ["</tool_use>"],
-          messages: aiMessages,
-        });
+        while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
+          // Prepare messages for AI (filtering out system messages and converting them)
+          const aiMessages: AnthropicMessage[] = [
+            ...currentSession.messages
+              .filter((msg: Message) => msg.role !== "system")
+              .map((msg: Message) => ({
+                role: msg.role as "user" | "assistant",
+                content: typeof msg.content === "string"
+                  ? msg.content
+                  : msg.content.map((part: MessagePart) => {
+                    if (part.type === "text") return part.text;
+                    return "[image]";
+                  }).join(""),
+              })),
+          ];
 
-        let responseText = aiResponse.content && Array.isArray(aiResponse.content)
-          ? aiResponse.content.map((c: unknown) => {
-            if (typeof c === "string") return c;
-            if (typeof c === "object" && c !== null && "text" in c) {
-              return (c as { text: string; }).text || "";
+          // Call Anthropic Messages API with system as a top-level parameter
+          const aiResponse = await anthropic.messages.create({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 4096,
+            temperature: 0,
+            system: [{
+              type: "text",
+              text: systemPrompt,
+              cache_control: { type: "ephemeral" }
+            }],
+            stop_sequences: ["</tool_use>"],
+            messages: aiMessages,
+          });
+
+          let responseText = aiResponse.content && Array.isArray(aiResponse.content)
+            ? aiResponse.content.map((c: unknown) => {
+              if (typeof c === "string") return c;
+              if (typeof c === "object" && c !== null && "text" in c) {
+                return (c as { text: string; }).text || "";
+              }
+              return "";
+            }).join("")
+            : (typeof aiResponse.content === "string" ? aiResponse.content : "");
+
+          // Check if we need to add the closing tag
+          if (responseText.includes("<tool_use>") && !responseText.includes("</tool_use>")) {
+            responseText = responseText + '</tool_use>';
+          }
+
+          // Check if the response contains a tool use request
+          const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
+          
+          if (toolUseMatch) {
+            toolCallCount++;
+            
+            try {
+              // Parse the tool use request
+              const toolRequest = JSON.parse(toolUseMatch[1]);
+
+              // Execute the MCP tool
+              const mcpResponse = await this.executeMcpTool(
+                toolRequest.tool,
+                toolRequest.parameters,
+                url.origin,
+              );
+
+              // Add AI's response with tool use
+              const assistantMessage = {
+                id: crypto.randomUUID(),
+                role: "assistant" as const,
+                content: responseText,
+              };
+
+              // Add tool result as a user message for the next iteration
+              const toolResultMessage = {
+                id: crypto.randomUUID(),
+                role: "user" as const,
+                content: `Tool "${toolRequest.tool}" executed successfully. Result:\n${JSON.stringify(mcpResponse, null, 2)}`,
+              };
+
+              // Update session with both messages
+              currentSession = {
+                ...currentSession,
+                messages: [...currentSession.messages, assistantMessage, toolResultMessage],
+              };
+              
+              allMessages.push(assistantMessage, toolResultMessage);
+              
+              // Continue the conversation with the tool result
+              shouldContinue = true;
+            } catch (toolError) {
+              console.error("Error executing tool:", toolError);
+              
+              // Add error message
+              const errorMessage = {
+                id: crypto.randomUUID(),
+                role: "assistant" as const,
+                content: `Error executing tool: ${toolError instanceof Error ? toolError.message : "Unknown error"}`,
+              };
+              
+              currentSession = {
+                ...currentSession,
+                messages: [...currentSession.messages, errorMessage],
+              };
+              
+              allMessages.push(errorMessage);
+              shouldContinue = false;
             }
-            return "";
-          }).join("")
-          : (typeof aiResponse.content === "string" ? aiResponse.content : "");
-
-        if (responseText.includes("<tool_use>")) {
-          responseText = responseText + '</tool_use>';
-        }
-
-        // Check if the response contains a tool use request
-        const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
-        
-      
-        if (toolUseMatch) {
-          try {
-            // Parse the tool use request
-            const toolRequest = JSON.parse(toolUseMatch[1]);
-
-            // Execute the MCP tool
-            const mcpResponse = await this.executeMcpTool(
-              toolRequest.tool,
-              toolRequest.parameters,
-              url.origin,
-            );
-
-            // Add AI's response with tool use
+          } else {
+            // No tool use, this is the final response
             const assistantMessage = {
               id: crypto.randomUUID(),
               role: "assistant" as const,
               content: responseText,
             };
 
-            // Add tool result as an assistant message (since system role isn't allowed in messages)
-            const toolResultMessage = {
-              id: crypto.randomUUID(),
-              role: "user" as const,
-              content: `Tool execution result:\n${JSON.stringify(mcpResponse, null, 2)}`,
+            currentSession = {
+              ...currentSession,
+              messages: [...currentSession.messages, assistantMessage],
             };
-
-            // Update session with both messages
-            const finalSession = {
-              ...updatedSession,
-              messages: [...updatedSession.messages, assistantMessage, toolResultMessage],
-            };
-            await this.code.updateAndBroadcastSession(finalSession);
-
-            // Return the messages
-            return new Response(
-              JSON.stringify({
-                userMessage,
-                assistantMessage,
-                toolResultMessage,
-                messages: finalSession.messages,
-              }),
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Content-Type": "application/json; charset=UTF-8",
-                },
-              },
-            );
-          } catch (toolError) {
-            console.error("Error executing tool:", toolError);
-            // Continue with regular response if tool execution fails
+            
+            allMessages.push(assistantMessage);
+            shouldContinue = false;
           }
         }
 
-        // Create regular assistant message (no tool use)
-        const assistantMessage = {
-          id: crypto.randomUUID(),
-          role: "assistant" as const,
-          content: responseText,
-        };
+        // Check if we hit the tool call limit
+        if (toolCallCount >= MAX_TOOL_CALLS && shouldContinue) {
+          const limitMessage = {
+            id: crypto.randomUUID(),
+            role: "assistant" as const,
+            content: "I've reached the maximum number of tool calls allowed in a single conversation. Please start a new message if you need more assistance.",
+          };
+          
+          currentSession = {
+            ...currentSession,
+            messages: [...currentSession.messages, limitMessage],
+          };
+          
+          allMessages.push(limitMessage);
+        }
 
-        // Add assistant message to session
-        const finalSession = {
-          ...updatedSession,
-          messages: [...updatedSession.messages, assistantMessage],
-        };
-        await this.code.updateAndBroadcastSession(finalSession);
+        // Save the final session state
+        await this.code.updateAndBroadcastSession(currentSession);
 
-        // Return both messages
+        // Return all messages from this conversation
         return new Response(
           JSON.stringify({
             userMessage,
-            assistantMessage,
-            messages: finalSession.messages,
+            assistantMessages: allMessages,
+            messages: currentSession.messages,
           }),
           {
             status: 200,
