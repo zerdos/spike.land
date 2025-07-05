@@ -1,3 +1,4 @@
+import Anthropic from "@anthropic-ai/sdk";
 import { createClerkClient } from "@clerk/backend";
 import {
   HTML,
@@ -658,7 +659,7 @@ hQIDAQAB
 
     const session = this.code.getSession();
     const codeSpace = session.codeSpace;
-    
+
     // GET: Return all messages
     if (request.method === "GET") {
       return new Response(JSON.stringify({ messages: session.messages }), {
@@ -673,8 +674,8 @@ hQIDAQAB
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request.json() as { message: string; role?: string };
-        
+        const body = await request.json() as { message: string; role?: string; };
+
         if (!body.message) {
           return new Response(JSON.stringify({ error: "Message is required" }), {
             status: 400,
@@ -700,42 +701,69 @@ hQIDAQAB
         await this.code.updateAndBroadcastSession(updatedSession);
 
         // Get the AI binding from environment
+
         const env = this.code.getEnv();
-        
+
+        const anthropic = new Anthropic({
+          apiKey: env.ANTHROPIC_API_KEY,
+        });
+
         // Define available MCP tools for the AI
         const mcpTools = [
           {
             name: "read_code",
-            description: "Read current code only. Use before making changes to understand the codebase.",
-            parameters: { codeSpace: "string" }
+            description:
+              "Read current code only. Use before making changes to understand the codebase.",
+            parameters: { codeSpace: "string" },
           },
           {
-            name: "update_code", 
-            description: "Replace ALL code with new content. For smaller changes, use edit_code instead.",
-            parameters: { codeSpace: "string", code: "string" }
+            name: "update_code",
+            description:
+              "Replace ALL code with new content. For smaller changes, use edit_code instead.",
+            parameters: { codeSpace: "string", code: "string" },
           },
           {
             name: "edit_code",
-            description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
-            parameters: { codeSpace: "string", startLine: "number", endLine: "number", newContent: "string" }
+            description:
+              "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
+            parameters: {
+              codeSpace: "string",
+              startLine: "number",
+              endLine: "number",
+              newContent: "string",
+            },
           },
           {
             name: "search_and_replace",
-            description: "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
-            parameters: { codeSpace: "string", search: "string", replace: "string", matchCase: "boolean", isRegex: "boolean" }
+            description:
+              "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
+            parameters: {
+              codeSpace: "string",
+              search: "string",
+              replace: "string",
+              matchCase: "boolean",
+              isRegex: "boolean",
+            },
           },
           {
             name: "find_lines",
-            description: "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
-            parameters: { codeSpace: "string", search: "string", matchCase: "boolean", isRegex: "boolean" }
-          }
+            description:
+              "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
+            parameters: {
+              codeSpace: "string",
+              search: "string",
+              matchCase: "boolean",
+              isRegex: "boolean",
+            },
+          },
         ];
 
         // Create system prompt with MCP tools
-        const systemPrompt = `You are an AI assistant with access to code modification tools through MCP (Model Context Protocol).
+        const systemPrompt =
+          `You are an AI assistant with access to code modification tools through MCP (Model Context Protocol).
 
 Available tools:
-${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join('\n')}
+${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join("\n")}
 
 To use a tool, respond with a JSON block in this format:
 <tool_use>
@@ -757,67 +785,81 @@ After I execute the tool, I'll share the results with you. You can then continue
           { role: "system", content: systemPrompt },
           ...session.messages.map((msg: Message) => ({
             role: msg.role,
-            content: typeof msg.content === "string" ? msg.content : msg.content.map((part: MessagePart) => {
-              if (part.type === "text") return part.text;
-              return "[image]";
-            }).join(""),
+            content: typeof msg.content === "string"
+              ? msg.content
+              : msg.content.map((part: MessagePart) => {
+                if (part.type === "text") return part.text;
+                return "[image]";
+              }).join(""),
           })),
-          { role: userMessage.role, content: userMessage.content as string }
+          { role: userMessage.role, content: userMessage.content as string },
         ];
 
-        // Call Workers AI
-        const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+        // Call Workers AI (Anthropic Messages API)
+        const aiResponse = await anthropic.messages.create({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 4096,
+          temperature: 0,
           messages: aiMessages,
-          stream: false,
+          stop_sequences: ["<tool_use>"],
         });
 
-        const responseText = aiResponse.response || "I couldn't generate a response.";
-        
+        const responseText = aiResponse.content && Array.isArray(aiResponse.content)
+          ? aiResponse.content.map((c: any) => typeof c === "string" ? c : c.text || "").join("")
+          : (typeof aiResponse.content === "string" ? aiResponse.content : "");
+
         // Check if the response contains a tool use request
         const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
-        
+
         if (toolUseMatch) {
           try {
             // Parse the tool use request
             const toolRequest = JSON.parse(toolUseMatch[1]);
-            
+
             // Execute the MCP tool
-            const mcpResponse = await this.executeMcpTool(toolRequest.tool, toolRequest.parameters, url.origin);
-            
+            const mcpResponse = await this.executeMcpTool(
+              toolRequest.tool,
+              toolRequest.parameters,
+              url.origin,
+            );
+
             // Add AI's response with tool use
             const assistantMessage = {
               id: crypto.randomUUID(),
               role: "assistant" as const,
               content: responseText,
             };
-            
+
             // Add tool result as a system message
             const toolResultMessage = {
               id: crypto.randomUUID(),
               role: "system" as const,
               content: `Tool execution result:\n${JSON.stringify(mcpResponse, null, 2)}`,
             };
-            
+
             // Update session with both messages
             const finalSession = {
               ...updatedSession,
               messages: [...updatedSession.messages, assistantMessage, toolResultMessage],
             };
             await this.code.updateAndBroadcastSession(finalSession);
-            
+
             // Return the messages
-            return new Response(JSON.stringify({
-              userMessage,
-              assistantMessage,
-              toolResultMessage,
-              messages: finalSession.messages,
-            }), {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json; charset=UTF-8",
+            return new Response(
+              JSON.stringify({
+                userMessage,
+                assistantMessage,
+                toolResultMessage,
+                messages: finalSession.messages,
+              }),
+              {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Content-Type": "application/json; charset=UTF-8",
+                },
               },
-            });
+            );
           } catch (toolError) {
             console.error("Error executing tool:", toolError);
             // Continue with regular response if tool execution fails
@@ -839,29 +881,35 @@ After I execute the tool, I'll share the results with you. You can then continue
         await this.code.updateAndBroadcastSession(finalSession);
 
         // Return both messages
-        return new Response(JSON.stringify({
-          userMessage,
-          assistantMessage,
-          messages: finalSession.messages,
-        }), {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json; charset=UTF-8",
+        return new Response(
+          JSON.stringify({
+            userMessage,
+            assistantMessage,
+            messages: finalSession.messages,
+          }),
+          {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           },
-        });
+        );
       } catch (error) {
         console.error("Error handling message:", error);
-        return new Response(JSON.stringify({ 
-          error: "Failed to process message",
-          details: error instanceof Error ? error.message : "Unknown error",
-        }), {
-          status: 500,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json; charset=UTF-8",
+        return new Response(
+          JSON.stringify({
+            error: "Failed to process message",
+            details: error instanceof Error ? error.message : "Unknown error",
+          }),
+          {
+            status: 500,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           },
-        });
+        );
       }
     }
 
@@ -911,7 +959,7 @@ After I execute the tool, I'll share the results with you. You can then continue
         message: string;
       };
     };
-    
+
     if (mcpResponse.error) {
       throw new Error(`MCP error: ${mcpResponse.error.message}`);
     }

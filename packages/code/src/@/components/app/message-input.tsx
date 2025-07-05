@@ -40,13 +40,11 @@ export const MessageInput: React.FC<MessageInputProps> = React.memo(({
     setUploadedImages([]);
 
     try {
-      const result = await handleSendMessage({
+      await handleSendMessage({
         prompt: input,
         images: uploadedImages,
         cSess: codeSession, // Renamed cSess
       });
-      await codeSession.setCode(result.code); // Renamed cSess
-      return result;
     } finally {
       localStorage.setItem(
         "streaming-" + getCodeSpace(location.pathname),
