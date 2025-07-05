@@ -10,21 +10,13 @@ interface AnthropicMessage {
 export class AiRoutes {
   constructor(private code: Code) {}
 
-  private async saveSessionWithSizeCheck(session: ICodeSession): Promise<void> {
-    const sessionSize = JSON.stringify(session).length;
-    console.log(`[AI Routes] Saving session with size: ${sessionSize} bytes`);
-
-    if (sessionSize > 500000) { // 500KB limit
-      console.warn(`[AI Routes] Session too large (${sessionSize} bytes), truncating messages`);
-      // Keep only the last 50 messages
-      const truncatedSession = {
-        ...session,
-        messages: session.messages.slice(-50),
-      };
-      await this.code.updateAndBroadcastSession(truncatedSession);
-    } else {
-      await this.code.updateAndBroadcastSession(session);
-    }
+  private async saveMessagesFromSession(session: ICodeSession): Promise<void> {
+    // With optimized message storage, we don't need to check total session size
+    // Messages are stored separately and managed automatically
+    console.log(`[AI Routes] Saving session with ${session.messages.length} messages`);
+    
+    // The new message storage system will handle size limits automatically
+    await this.code.updateAndBroadcastSession(session);
   }
 
   async handleMessagesRoute(
@@ -106,7 +98,7 @@ export class AiRoutes {
         );
 
         try {
-          await this.saveSessionWithSizeCheck(currentSession);
+          await this.saveMessagesFromSession(currentSession);
         } catch (updateError) {
           console.error("Error updating session after initial message:", updateError);
           console.error("Session structure:", {
@@ -315,7 +307,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
               // Save the session after adding assistant message
               try {
-                await this.saveSessionWithSizeCheck(currentSession);
+                await this.saveMessagesFromSession(currentSession);
               } catch (saveError) {
                 console.error("Error saving session after assistant message:", saveError);
               }
@@ -329,15 +321,18 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 }`,
               };
 
-              // Update session with tool result
+              // Get the latest session state to preserve any changes made by MCP tools
+              const latestSession = this.code.getSession();
+              
+              // Update session with tool result, preserving code changes from MCP
               currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, toolResultMessage],
+                ...latestSession,
+                messages: [...latestSession.messages, toolResultMessage],
               };
 
               // Save the session after adding tool result
               try {
-                await this.saveSessionWithSizeCheck(currentSession);
+                await this.saveMessagesFromSession(currentSession);
               } catch (saveError) {
                 console.error("Error saving session after tool result:", saveError);
               }
@@ -365,7 +360,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
               // Save the session after adding error message
               try {
-                await this.saveSessionWithSizeCheck(currentSession);
+                await this.saveMessagesFromSession(currentSession);
               } catch (saveError) {
                 console.error("Error saving session after error message:", saveError);
               }
@@ -388,7 +383,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
             // Save the session after adding final message
             try {
-              await this.saveSessionWithSizeCheck(currentSession);
+              await this.saveMessagesFromSession(currentSession);
             } catch (saveError) {
               console.error("Error saving session after final message:", saveError);
             }
