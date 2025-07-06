@@ -16,8 +16,10 @@ export class AiRoutes {
     console.log(`[AI Routes] Saving session with ${session.messages.length} messages`);
     
     // The new message storage system will handle size limits automatically
-    await this.code.updateAndBroadcastSession({...this.code.getSession(), messages: session.messages});
+    // Use the complete session object passed in, which already includes latest state
+    await this.code.updateAndBroadcastSession({...this.code.getSession(), messages: [...session.messages]}); 
   }
+
 
   async handleMessagesRoute(
     request: Request,
@@ -188,7 +190,7 @@ export class AiRoutes {
 7. Trust that successful tool executions mean the code was updated correctly
 
 ## Available tools:
-${mcpTools.map(tool => `- ${tool.name}: ${tool.description}`).join("\n")}
+${mcpTools.map(tool => `- ${tool.name}: ${tool.description}  parameters: ${JSON.stringify(tool.parameters)}`).join("\n")}
 
 ## To use a tool:
 Respond with ONLY a JSON block in this format:
@@ -282,8 +284,9 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
         while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
           // Prepare messages for AI (filtering out system messages and converting them)
+          // Use currentSession.messages to ensure we have the latest message state
           const aiMessages: AnthropicMessage[] = [
-            ...this.code.getSession().messages
+            ...currentSession.messages
               .filter((msg: Message) => msg.role !== "system")
               .map((msg: Message) => ({
                 role: msg.role as "user" | "assistant",
@@ -333,6 +336,23 @@ Remember: One tool call per response, or a regular message. Never both.`;
             toolCallCount++;
 
             try {
+
+              // Add AI's response with tool use
+              const assistantMessage = {
+                id: crypto.randomUUID(),
+                role: "assistant" as const,
+                content: responseText,
+              };
+              currentSession = {
+                ...currentSession,
+                messages: [...currentSession.messages, assistantMessage],
+              };
+              try {
+                await this.saveMessagesFromSession(currentSession);
+              } catch (saveError) {
+                console.error("Error saving session after assistant message:", saveError);
+              }
+              allMessages.push(assistantMessage);
               // Parse the tool use request
               const toolRequest = JSON.parse(toolUseMatch[1]);
 
@@ -343,12 +363,6 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 url.origin,
               );
 
-              // Add AI's response with tool use
-              const assistantMessage = {
-                id: crypto.randomUUID(),
-                role: "assistant" as const,
-                content: responseText,
-              };
 
 
               // Add tool result as a user message for the next iteration
@@ -359,10 +373,13 @@ Remember: One tool call per response, or a regular message. Never both.`;
               };
 
               // Get the latest session state to preserve any changes made by MCP tools
+             
               
               // Update session with tool result, preserving code changes from MCP
-             const currentSession = {
-                messages: [...this.code.getSession().messages, assistantMessage, toolResultMessage],
+              // Use currentSession.messages to maintain our conversation flow, not latestSession.messages
+              currentSession = {
+                ...currentSession,
+                messages: [...currentSession.messages, toolResultMessage],
               };
 
               // Save the session after adding tool result
@@ -372,7 +389,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 console.error("Error saving session after tool result:", saveError);
               }
 
-              allMessages.push(assistantMessage, toolResultMessage);
+              allMessages.push(toolResultMessage);
 
               // Continue the conversation with the tool result
               shouldContinue = true;
