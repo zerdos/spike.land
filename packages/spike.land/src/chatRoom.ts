@@ -77,7 +77,26 @@ export class Code implements DurableObject {
     this.mcpServer = new McpServer(this);
   }
 
-  private async _saveSession(sessionToSave: ICodeSession): Promise<void> {
+  private async _loadSession(): Promise<void> {
+    return await this.state.blockConcurrencyWhile(async () => {
+      const sessionCore = await this.state.storage.get<
+        Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
+      >("session_core");
+      if (!sessionCore) {
+        console.warn("No session_core found, initializing with backup session.");
+        this.session = this.backupSession;
+        return;
+      }
+
+      this.session = { ...this.session, ...sessionCore };
+    });
+  }
+
+  private async _saveSession(): Promise<void> {
+
+    return await this.state.blockConcurrencyWhile(async () => {
+    const sessionToSave: ICodeSession = this.getSession();
+    
     const { code, transpiled, html, css, messages, ...sessionCoreData } = sessionToSave;
     const codeSpace = sessionToSave.codeSpace;
 
@@ -91,8 +110,6 @@ export class Code implements DurableObject {
     const messagesKey = `messages_${codeSpace}`;
 
     // DEBUG: log split data sizes before saving
-    const encoder = new TextEncoder();
-  
    
 
     const promises = [];
@@ -134,6 +151,9 @@ export class Code implements DurableObject {
     );
 
     await Promise.all(promises);
+    console.log(`Session for ${codeSpace} saved successfully.`);
+    }
+    );  
   }
 
   private getCodeSpace(url: URL, request?: Request): string {
@@ -308,9 +328,7 @@ export class Code implements DurableObject {
         }
 
         // this.state.storage.put("session", this.backupSession); // Old logic
-        this.session = this.backupSession; // Set to backup before potentially saving
-        // Persist the newly initialized session
-        await this._saveSession(this.session);
+        this.session = this.backupSession; 
       }
 
       // Initialize auto-save history
@@ -333,7 +351,7 @@ export class Code implements DurableObject {
       // }
     });
 
-    this.xLog(this.session);
+    await this._saveSession(); 
   }
 
   // private setupAutoSave() {
@@ -474,10 +492,11 @@ export class Code implements DurableObject {
 
     console.log(`[updateAndBroadcastSession] Changes detected, saving session...`);
     // Attempt to save the new session parts first and wait for them to complete
-    await this._saveSession(newSession);
 
     // If save is successful (i.e., did not throw), update in-memory state and broadcast
     this.session = newSession;
+    await this._saveSession();
+
     const patch = generateSessionPatch(oldSession, newSession);
 
     console.log(`[updateAndBroadcastSession] Broadcasting patch to WebSocket clients`);
