@@ -1,4 +1,4 @@
-import { importMapReplace, md5, sanitizeSession, sessionToJSON } from "@spike-npm-land/code";
+import { computeSessionHash, importMapReplace, md5, sanitizeSession, sessionToJSON } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 
 export class CodeRoutes {
@@ -22,9 +22,13 @@ export class CodeRoutes {
     url: URL,
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
-    const body = sessionToJSON(
-      sanitizeSession({ ...this.code.getSession(), codeSpace }),
-    );
+    if (codeSpace && codeSpace !== this.code.getSession().codeSpace) {
+      await this.code.updateAndBroadcastSession({...this.code.getSession(), codeSpace});
+    }
+ 
+    const session = this.code.getSession();
+    const hash = computeSessionHash(session);
+    const body = JSON.stringify({ ...session, hash }, null, 2);
     return new Response(body, {
       status: 200,
       headers: {

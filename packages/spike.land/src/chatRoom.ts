@@ -35,7 +35,7 @@ export class Code implements DurableObject {
   // private historyManager: CodeHistoryManager;
   public getSession() {
     const session = this.session;
-    return Object.freeze(session);
+    return sanitizeSession(Object.freeze(session));
   }
 
   constructor(
@@ -77,20 +77,6 @@ export class Code implements DurableObject {
     this.mcpServer = new McpServer(this);
   }
 
-  private async _loadSession(): Promise<void> {
-    return await this.state.blockConcurrencyWhile(async () => {
-      const sessionCore = await this.state.storage.get<
-        Omit<ICodeSession, "code" | "transpiled" | "html" | "css"> | undefined
-      >("session_core");
-      if (!sessionCore) {
-        console.warn("No session_core found, initializing with backup session.");
-        this.session = this.backupSession;
-        return;
-      }
-
-      this.session = { ...this.session, ...sessionCore };
-    });
-  }
 
   private async _saveSession(): Promise<void> {
 
@@ -110,7 +96,7 @@ export class Code implements DurableObject {
     const messagesKey = `messages_${codeSpace}`;
 
     // DEBUG: log split data sizes before saving
-   
+  
 
     const promises = [];
     promises.push(
@@ -144,7 +130,7 @@ export class Code implements DurableObject {
       }),
     );
     promises.push(
-      this.state.storage.put(messagesKey, JSON.stringify(messages || [])).catch(e => {
+      this.env.R2.put(messagesKey, JSON.stringify(messages || [])).catch(e => {
         console.error(`Failed to save messages for ${codeSpace}:`, e);
         throw e;
       }),
@@ -234,9 +220,9 @@ export class Code implements DurableObject {
 
         let messages: unknown[] = [];
         try {
-          const messagesData = await this.state.storage.get<string>(messagesKey);
-          if (messagesData) {
-            messages = JSON.parse(messagesData);
+          const messagesObject = await this.env.R2.get(messagesKey);
+          if (messagesObject) {
+            messages = JSON.parse(await messagesObject.text()) as unknown[];
           }
         } catch (e) {
           console.error(`Failed to load messages from storage (${messagesKey}):`, e);
