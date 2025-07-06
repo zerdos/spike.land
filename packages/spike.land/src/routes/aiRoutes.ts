@@ -220,7 +220,7 @@ import { ImageLoader } from "@/components/ui/image-loader";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MyComponent: React.FC = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode } = useDarkMode();
 
   const [data, setData] = useState<string[]>([]);
   const fetchData = useCallback(async () => {
@@ -240,7 +240,7 @@ const MyComponent: React.FC = () => {
   );
   return (
     <div className={containerClasses}>
-      <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+      <ThemeToggle />
       <AnimatePresence>
         {data.map((item, index) => (
           <motion.div
@@ -283,7 +283,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
         while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
           // Prepare messages for AI (filtering out system messages and converting them)
           const aiMessages: AnthropicMessage[] = [
-            ...currentSession.messages
+            ...this.code.getSession().messages
               .filter((msg: Message) => msg.role !== "system")
               .map((msg: Message) => ({
                 role: msg.role as "user" | "assistant",
@@ -350,35 +350,19 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 content: responseText,
               };
 
-              // Update session with assistant's tool use message
-              currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, assistantMessage],
-              };
-
-              // Save the session after adding assistant message
-              try {
-                await this.saveMessagesFromSession(currentSession);
-              } catch (saveError) {
-                console.error("Error saving session after assistant message:", saveError);
-              }
 
               // Add tool result as a user message for the next iteration
               const toolResultMessage = {
                 id: crypto.randomUUID(),
                 role: "user" as const,
-                content: `Tool "${toolRequest.tool}" executed successfully. Result:\n${
-                  JSON.stringify(mcpResponse, null, 2)
-                }`,
+                content: JSON.stringify(mcpResponse, null, 2),
               };
 
               // Get the latest session state to preserve any changes made by MCP tools
-              const latestSession = this.code.getSession();
               
               // Update session with tool result, preserving code changes from MCP
-              currentSession = {
-                ...latestSession,
-                messages: [...latestSession.messages, toolResultMessage],
+             const currentSession = {
+                messages: [...this.code.getSession().messages, assistantMessage, toolResultMessage],
               };
 
               // Save the session after adding tool result
