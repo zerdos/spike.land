@@ -65,7 +65,7 @@ const App: React.FC = () => {
 
   // Load app context on mount
   useEffect(() => {
-    if (codeSpace && pathname === `/live/${codeSpace}`) {
+    if (codeSpace && pathname ===(`/live/${codeSpace}`)) {
       setIsLoading(true);
       console.warn("Loading app for codeSpace:", codeSpace);
 
@@ -86,7 +86,7 @@ const App: React.FC = () => {
         });
     } else {
       // If no codeSpace is found, set loading to false
-      console.warn("No codeSpace found for pathname:", { pathname, codeSpace });
+      // console.warn("No codeSpace found for pathname:", { pathname, codeSpace });
       setIsLoading(false);
     }
   }, [pathname, codeSpace]); // Added codeSpace to dependency array

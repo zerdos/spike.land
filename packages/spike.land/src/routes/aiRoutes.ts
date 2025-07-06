@@ -16,7 +16,7 @@ export class AiRoutes {
     console.log(`[AI Routes] Saving session with ${session.messages.length} messages`);
     
     // The new message storage system will handle size limits automatically
-    await this.code.updateAndBroadcastSession(session);
+    await this.code.updateAndBroadcastSession({...this.code.getSession(), messages: session.messages});
   }
 
   async handleMessagesRoute(
@@ -210,6 +210,56 @@ Respond with ONLY a JSON block in this format:
 - Support dark/light mode using useDarkMode hook and ThemeToggle component
 - Use ImageLoader component for generated images
 
+\`\`\`typescript  
+
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useDarkMode } from "@/hooks/use-dark-mode";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { cn } from "@/lib/utils";
+import { ImageLoader } from "@/components/ui/image-loader";
+import { motion, AnimatePresence } from "framer-motion";
+
+const MyComponent: React.FC = () => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  const [data, setData] = useState<string[]>([]);
+  const fetchData = useCallback(async () => {
+    // Fetch data logic here
+    const response = await fetch("/api/data");
+    const result = await response.json();
+    setData(result);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+  
+  const containerClasses = cn(
+    "flex flex-col items-center justify-center min-h-screen",
+    isDarkMode ? "dark" : "",
+  );
+  return (
+    <div className={containerClasses}>
+      <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleDarkMode} />
+      <AnimatePresence>
+        {data.map((item, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+          >
+            <ImageLoader src={item} alt={\`Image \${index}\`} aspectRatio="16:9" />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+};
+export default MyComponent;
+
+\`\`\`
+
 ## React Component Guidelines:
 - Components should use default export JSX syntax
 - Use Tailwind CSS, shadcn-ui, @emotion/react, or other npm packages for styling
@@ -250,6 +300,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
           const aiResponse = await anthropic.messages.create({
             model: "claude-sonnet-4-20250514",
             max_tokens: 4096,
+            
             temperature: 0,
             system: [{
               type: "text",
@@ -409,7 +460,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
           // Save the session after adding limit message
           try {
-            await this.code.updateAndBroadcastSession(currentSession);
+            await this.saveMessagesFromSession(currentSession);
           } catch (saveError) {
             console.error("Error saving session after limit message:", saveError);
           }
