@@ -139,7 +139,7 @@ const ChatInterface: React.FC<{
             handleSendMessage({
               prompt,
               images,
-              cSess: codeSession, // Renamed from cSess
+              cSess: codeSession,
             });
           });
         }
@@ -170,7 +170,7 @@ const ChatInterface: React.FC<{
       isStreaming={!!isStreaming}
       input={input}
       setInput={setInput}
-      cSess={codeSession} // Renamed from cSess
+      cSess={codeSession}
       inputRef={inputRef}
       isScreenshotLoading={isScreenshotLoading}
       screenshotImage={screenshotImage}
