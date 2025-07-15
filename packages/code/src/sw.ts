@@ -1,6 +1,6 @@
 import { ServiceWorkerHandlers } from "./@/handlers/sw-handlers";
 import type { CustomServiceWorkerGlobalScope } from "./@/types/service-worker";
-import { CACHE_VERSION } from "./workflows/tools/utils/cache-utils";
+import { CACHE_VERSION } from "./@/lib/cache-utils";
 
 /**
  * Enhanced Service Worker

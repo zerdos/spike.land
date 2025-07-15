@@ -597,7 +597,7 @@ export class Code implements ICode {
 
       // If this was triggered by MCP server (requiresTranspilation flag),
       // we need to send the transpiled code back to the server
-      if ((session as any).requiresTranspilation) {
+      if ((session as ICodeSession & { requiresTranspilation?: boolean }).requiresTranspilation) {
         console.warn("🔄 Sending transpiled code back to server via broadcast");
         // Mark the session as coming from CODE_SESSION_RERENDER to trigger server update
         this.sessionManager.updateSession(

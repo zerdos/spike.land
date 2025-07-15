@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot } from "@/external/lucide-react";
 import type { ChatDrawerProps } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { handleSendMessage } from "@/workers/handle-chat-message";
+import { handleSendMessage } from "@/lib/handle-send-message";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Drawer } from "vaul";
 

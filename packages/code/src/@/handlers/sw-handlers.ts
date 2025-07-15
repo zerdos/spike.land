@@ -9,9 +9,9 @@ enum ServiceWorkerMessageTypes {
   // Add other message types here as needed
 }
 import { fakeServer } from "../../sw-local-fake-server";
-import { CacheUtils, CDN_DOMAIN } from "../../workflows/tools/utils/cache-utils";
-import { ConfigManager } from "../../workflows/tools/utils/config-manager";
-import { FileCacheManager } from "../../workflows/tools/utils/file-cache";
+import { CacheUtils, CDN_DOMAIN } from "@/lib/cache-utils";
+import { ConfigManager } from "@/lib/config-manager";
+import { FileCacheManager } from "@/lib/file-cache";
 import type { CustomServiceWorkerGlobalScope } from "../types/service-worker";
 
 export class ServiceWorkerHandlers {

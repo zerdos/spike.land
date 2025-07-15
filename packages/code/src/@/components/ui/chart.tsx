@@ -127,7 +127,7 @@ function ChartTooltipContent({
     dataKey?: string;
     value?: number | string;
     color?: string;
-    payload?: Record<string, any>;
+    payload?: Record<string, unknown>;
     fill?: string;
   }>;
   className?: string;
@@ -135,14 +135,14 @@ function ChartTooltipContent({
   hideLabel?: boolean;
   hideIndicator?: boolean;
   label?: string;
-  labelFormatter?: (label: string, payload: any[]) => React.ReactNode;
+  labelFormatter?: (label: string, payload: Array<Record<string, unknown>>) => React.ReactNode;
   labelClassName?: string;
   formatter?: (
-    value: any,
+    value: unknown,
     name: string,
-    item: any,
+    item: Record<string, unknown>,
     index: number,
-    payload: any,
+    payload: Record<string, unknown>,
   ) => React.ReactNode;
   color?: string;
   nameKey?: string;

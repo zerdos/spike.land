@@ -36,7 +36,7 @@ export const Editor: React.FC<EditorProps> = (
   const [lastHash, setLastHash] = useState<string>("");
   const controller = useRef(new AbortController());
 
-  const processChange = async (code: string) => {
+  const processChange = useCallback(async (code: string) => {
     // Abort previous operation if any
     controller.current.abort();
     controller.current = new AbortController();
@@ -124,7 +124,7 @@ export const Editor: React.FC<EditorProps> = (
       codeLength: formatted.length,
       timestamp: new Date().toISOString(),
     });
-  };
+  }, [cSess, lastHash, replaceIframe, throttledTypeCheck, setLastHash, setEditorState]);
 
   // Initialize session with optimized state tracking
   useEffect(() => {
@@ -170,15 +170,7 @@ export const Editor: React.FC<EditorProps> = (
       codeLength: newCode.length,
       timestamp: new Date().toISOString(),
     });
-  }, [
-    session,
-    cSess,
-    lastHash,
-    setLastHash,
-    setEditorState,
-    replaceIframe,
-    throttledTypeCheck,
-  ]);
+  }, [session, processChange]);
 
   // Track external change metrics
   const externalMetrics = useRef({
@@ -284,7 +276,7 @@ export const Editor: React.FC<EditorProps> = (
         console.error("[Editor] Error unsubscribing:", error);
       }
     };
-  }, [editorState, cSess, session, lastHash, setEditorState]);
+  }, [editorState, cSess, session, lastHash, setEditorState, processChange]);
 
   // Initialize the editor once containerRef is available and session is loaded
   useEffect(() => {

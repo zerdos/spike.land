@@ -9,8 +9,7 @@ vi.mock("@/hooks/use-code-space", () => ({
 
 vi.mock("@/hooks/use-dictation", () => ({
   useDictation: vi.fn(() => {
-    const { useState } = require("react");
-    return useState("");
+    return _useState("");
   }),
 }));
 
@@ -23,7 +22,7 @@ vi.mock("@/hooks/useScreenshot", () => ({
   })),
 }));
 
-vi.mock("@/workers/handle-chat-message", () => ({
+vi.mock("@/lib/handle-send-message", () => ({
   handleSendMessage: vi.fn().mockResolvedValue({
     code: "test code",
     transpiled: "test transpiled",
@@ -31,11 +30,11 @@ vi.mock("@/workers/handle-chat-message", () => ({
 }));
 
 vi.mock("@/external/use-local-storage", () => ({
-  useLocalStorage: vi.fn((_key: string, defaultValue: any) => {
+  useLocalStorage: vi.fn((_key: string, defaultValue: unknown) => {
     let value = defaultValue;
     return [
       value,
-      (newValue: any) => {
+      (newValue: unknown | ((prev: unknown) => unknown)) => {
         value = typeof newValue === "function" ? newValue(value) : newValue;
       },
     ];
