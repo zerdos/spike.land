@@ -35,7 +35,7 @@ export class Code implements DurableObject {
   // private historyManager: CodeHistoryManager;
   public getSession() {
     const session = this.session;
-    return sanitizeSession(Object.freeze(session));
+    return sanitizeSession(Object.freeze(session)) as ICodeSession;
   }
 
   constructor(
@@ -77,69 +77,65 @@ export class Code implements DurableObject {
     this.mcpServer = new McpServer(this);
   }
 
-
   private async _saveSession(): Promise<void> {
-
     return await this.state.blockConcurrencyWhile(async () => {
-    const sessionToSave: ICodeSession = this.getSession();
-    
-    const { code, transpiled, html, css, messages, ...sessionCoreData } = sessionToSave;
-    const codeSpace = sessionToSave.codeSpace;
+      const sessionToSave: ICodeSession = this.getSession();
 
-    if (!codeSpace) {
-      console.error("Attempted to save session without a codeSpace:", sessionToSave);
-      throw new Error("Cannot save session: codeSpace is missing.");
-    }
+      const { code, transpiled, html, css, messages, ...sessionCoreData } = sessionToSave;
+      const codeSpace = sessionToSave.codeSpace;
 
-    const r2HtmlKey = `r2_html_${codeSpace}`;
-    const r2CssKey = `r2_css_${codeSpace}`;
-    const messagesKey = `messages_${codeSpace}`;
+      if (!codeSpace) {
+        console.error("Attempted to save session without a codeSpace:", sessionToSave);
+        throw new Error("Cannot save session: codeSpace is missing.");
+      }
 
-    // DEBUG: log split data sizes before saving
-  
+      const r2HtmlKey = `r2_html_${codeSpace}`;
+      const r2CssKey = `r2_css_${codeSpace}`;
+      const messagesKey = `messages_${codeSpace}`;
 
-    const promises = [];
-    promises.push(
-      this.state.storage.put("session_core", sessionCoreData).catch(e => {
-        console.error(`Failed to save session_core for ${codeSpace}:`, e);
-        throw e;
-      }),
-    );
-    promises.push(
-      this.state.storage.put("session_code", code || "").catch(e => {
-        console.error(`Failed to save session_code for ${codeSpace}:`, e);
-        throw e;
-      }),
-    );
-    promises.push(
-      this.state.storage.put("session_transpiled", transpiled || "").catch(e => {
-        console.error(`Failed to save session_transpiled for ${codeSpace}:`, e);
-        throw e;
-      }),
-    );
-    promises.push(
-      this.env.R2.put(r2HtmlKey, html || "").catch(e => {
-        console.error(`Failed to save html to R2 for ${r2HtmlKey}:`, e);
-        throw e;
-      }),
-    );
-    promises.push(
-      this.env.R2.put(r2CssKey, css || "").catch(e => {
-        console.error(`Failed to save css to R2 for ${r2CssKey}:`, e);
-        throw e;
-      }),
-    );
-    promises.push(
-      this.env.R2.put(messagesKey, JSON.stringify(messages || [])).catch(e => {
-        console.error(`Failed to save messages for ${codeSpace}:`, e);
-        throw e;
-      }),
-    );
+      // DEBUG: log split data sizes before saving
 
-    await Promise.all(promises);
-    console.log(`Session for ${codeSpace} saved successfully.`);
-    }
-    );  
+      const promises = [];
+      promises.push(
+        this.state.storage.put("session_core", sessionCoreData).catch(e => {
+          console.error(`Failed to save session_core for ${codeSpace}:`, e);
+          throw e;
+        }),
+      );
+      promises.push(
+        this.state.storage.put("session_code", code || "").catch(e => {
+          console.error(`Failed to save session_code for ${codeSpace}:`, e);
+          throw e;
+        }),
+      );
+      promises.push(
+        this.state.storage.put("session_transpiled", transpiled || "").catch(e => {
+          console.error(`Failed to save session_transpiled for ${codeSpace}:`, e);
+          throw e;
+        }),
+      );
+      promises.push(
+        this.env.R2.put(r2HtmlKey, html || "").catch(e => {
+          console.error(`Failed to save html to R2 for ${r2HtmlKey}:`, e);
+          throw e;
+        }),
+      );
+      promises.push(
+        this.env.R2.put(r2CssKey, css || "").catch(e => {
+          console.error(`Failed to save css to R2 for ${r2CssKey}:`, e);
+          throw e;
+        }),
+      );
+      promises.push(
+        this.env.R2.put(messagesKey, JSON.stringify(messages || [])).catch(e => {
+          console.error(`Failed to save messages for ${codeSpace}:`, e);
+          throw e;
+        }),
+      );
+
+      await Promise.all(promises);
+      console.log(`Session for ${codeSpace} saved successfully.`);
+    });
   }
 
   private getCodeSpace(url: URL, request?: Request): string {
@@ -226,7 +222,7 @@ export class Code implements DurableObject {
           }
         } catch (e) {
           console.error(`Failed to load messages from storage (${messagesKey}):`, e);
-        } 
+        }
         // Create the loaded session object with all parts
 
         loadedSession = {
@@ -235,7 +231,7 @@ export class Code implements DurableObject {
           transpiled,
           messages,
           html,
-  
+
           css,
         };
       } else if (sessionCore && sessionCore.codeSpace !== codeSpace) {
@@ -314,7 +310,7 @@ export class Code implements DurableObject {
         }
 
         // this.state.storage.put("session", this.backupSession); // Old logic
-        this.session = this.backupSession; 
+        this.session = this.backupSession;
       }
 
       // Initialize auto-save history
@@ -337,7 +333,7 @@ export class Code implements DurableObject {
       // }
     });
 
-    await this._saveSession(); 
+    await this._saveSession();
   }
 
   // private setupAutoSave() {

@@ -210,7 +210,6 @@ export interface HistoryItemProps {
   cSess: ICode;
 }
 
-
 export type IExtraModelsResult = Record<string, string>;
 
 export interface IModelManager {

@@ -6,7 +6,7 @@ interface Config {
 export class ConfigManager {
   private static instance: ConfigManager;
   private config: Config = {
-    swVersion: '1.0.0'
+    swVersion: "1.0.0",
   };
 
   private constructor() {}

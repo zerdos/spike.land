@@ -1,6 +1,6 @@
-export const CDN_DOMAIN = 'cdn.jsdelivr.net';
+export const CDN_DOMAIN = "cdn.jsdelivr.net";
 
-export const CACHE_VERSION = '1.0.0';
+export const CACHE_VERSION = "1.0.0";
 
 export class CacheUtils {
   static async cleanOldCaches(currentCacheName: string): Promise<void> {
@@ -8,7 +8,7 @@ export class CacheUtils {
     await Promise.all(
       cacheNames
         .filter(name => name !== currentCacheName)
-        .map(name => caches.delete(name))
+        .map(name => caches.delete(name)),
     );
   }
 
@@ -25,13 +25,13 @@ export class CacheUtils {
   static async getMissingFiles(
     missing: Set<string>,
     cacheNames: string[],
-    targetCache: Cache
+    targetCache: Cache,
   ): Promise<Set<string>> {
     const stillMissing = new Set<string>(missing);
-    
+
     for (const cacheName of cacheNames) {
       if (stillMissing.size === 0) break;
-      
+
       const cache = await caches.open(cacheName);
       for (const url of stillMissing) {
         const response = await cache.match(url);
@@ -41,32 +41,32 @@ export class CacheUtils {
         }
       }
     }
-    
+
     return stillMissing;
   }
 
   static async handleCDNRequest(request: Request): Promise<Response> {
-    const cache = await caches.open('cdn-cache');
+    const cache = await caches.open("cdn-cache");
     const cached = await cache.match(request);
-    
+
     if (cached) {
       return cached;
     }
-    
+
     const response = await fetch(request);
     if (response.ok) {
       cache.put(request, response.clone());
     }
-    
+
     return response;
   }
 
   static async retry<T>(
     fn: () => Promise<T>,
-    retries: number = 3
+    retries: number = 3,
   ): Promise<T> {
     let lastError: Error | undefined;
-    
+
     for (let i = 0; i < retries; i++) {
       try {
         return await fn();
@@ -77,7 +77,7 @@ export class CacheUtils {
         }
       }
     }
-    
+
     throw lastError;
   }
 }

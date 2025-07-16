@@ -8,10 +8,10 @@ enum ServiceWorkerMessageTypes {
   SKIP_WAITING = "SKIP_WAITING",
   // Add other message types here as needed
 }
-import { fakeServer } from "../../sw-local-fake-server";
 import { CacheUtils, CDN_DOMAIN } from "@/lib/cache-utils";
 import { ConfigManager } from "@/lib/config-manager";
 import { FileCacheManager } from "@/lib/file-cache";
+import { fakeServer } from "../../sw-local-fake-server";
 import type { CustomServiceWorkerGlobalScope } from "../types/service-worker";
 
 export class ServiceWorkerHandlers {

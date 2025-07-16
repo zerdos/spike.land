@@ -37,13 +37,15 @@ vi.mock("@/external/use-local-storage", () => ({
 }));
 
 vi.mock("@/components/app/assistant-ui-drawer", () => ({
-  AssistantUIDrawer: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-    return isOpen ? (
-      <div data-testid="assistant-ui-drawer">
-        <button onClick={onClose}>Close</button>
-        <button data-testid="reset-chat-button">Reset</button>
-      </div>
-    ) : null;
+  AssistantUIDrawer: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; }) => {
+    return isOpen
+      ? (
+        <div data-testid="assistant-ui-drawer">
+          <button onClick={onClose}>Close</button>
+          <button data-testid="reset-chat-button">Reset</button>
+        </div>
+      )
+      : null;
   },
 }));
 

@@ -1,4 +1,4 @@
-import type { CustomServiceWorkerGlobalScope } from '@/types/service-worker';
+import type { CustomServiceWorkerGlobalScope } from "@/types/service-worker";
 
 interface QueuedFetcher {
   fetch: (request: Request, init?: RequestInit) => Promise<Response>;
@@ -13,26 +13,26 @@ export class FileCacheManager {
 
   async initializeFilesCache(): Promise<void> {
     // Initialize file cache - stub implementation
-    console.log('Initializing file cache...');
+    console.log("Initializing file cache...");
   }
 
   getAllFileUrls(): Set<string> {
     // Return all file URLs that should be cached
     const urls = new Set<string>();
-    
+
     if (this.sw.files) {
-    for (const [, hashedFile] of Object.entries(this.sw.files)) {
-      urls.add(new URL('/' + hashedFile, location.origin).toString());
+      for (const [, hashedFile] of Object.entries(this.sw.files)) {
+        urls.add(new URL("/" + hashedFile, location.origin).toString());
+      }
     }
-    }
-    
+
     return urls;
   }
 
   async fetchAndCacheFile(
     url: string,
     fetcher: QueuedFetcher,
-    cache: Cache
+    cache: Cache,
   ): Promise<void> {
     try {
       const request = new Request(url);
@@ -47,6 +47,6 @@ export class FileCacheManager {
 
   async validateCacheIntegrity(): Promise<void> {
     // Validate cache integrity - stub implementation
-    console.log('Validating cache integrity...');
+    console.log("Validating cache integrity...");
   }
 }

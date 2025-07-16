@@ -1,5 +1,3 @@
-"use client";
-
 import "@assistant-ui/react-markdown/styles/dot.css";
 
 import {
@@ -8,10 +6,10 @@ import {
   useIsMarkdownCodeBlock,
 } from "@assistant-ui/react-markdown";
 import type { CodeHeaderProps } from "@assistant-ui/react-markdown";
-import remarkGfm from "remark-gfm";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import type { FC } from "react";
 import { memo, useState } from "react";
-import { CheckIcon, CopyIcon } from "lucide-react";
+import remarkGfm from "remark-gfm";
 
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
 import { cn } from "@/lib/utils";
@@ -150,9 +148,7 @@ const defaultComponents = memoizeMarkdownComponents({
       {...props}
     />
   ),
-  hr: ({ className, ...props }) => (
-    <hr className={cn("my-5 border-b", className)} {...props} />
-  ),
+  hr: ({ className, ...props }) => <hr className={cn("my-5 border-b", className)} {...props} />,
   table: ({ className, ...props }) => (
     <table
       className={cn(

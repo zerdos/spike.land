@@ -423,20 +423,20 @@ async function handleSocketMessage(
 
     if (data.type === "ping") {
       logger.debug(`Ping received for ${codeSpace}`);
-      
+
       // Check if ping contains hashCode that differs from our local hash
       if (data.hashCode && data.hashCode !== connection.hashCode) {
         logger.warn(
           `Hash mismatch in ping for ${codeSpace}: local=${connection.hashCode}, server=${data.hashCode}`,
         );
-        
+
         logger.info(
           `Fetching backend session for ${codeSpace} due to ping hash mismatch`,
         );
         const { data: sess, error: fetchError } = await tryCatch(
           fetchInitialSession(codeSpace),
         );
-        
+
         if (fetchError) {
           logger.error(
             `Failed to fetch backend session for ${codeSpace} during ping:`,
@@ -444,15 +444,15 @@ async function handleSocketMessage(
           );
           return;
         }
-        
+
         const freshHash = computeSessionHash(sess);
         connection.oldSession = sess;
         connection.hashCode = freshHash;
-        
+
         logger.info(
           `Updated local session with backend data for ${codeSpace} from ping, new hash: ${freshHash}`,
         );
-        
+
         // Broadcast the backend session to all connected clients
         const { error: broadcastError } = await tryCatch(
           Promise.resolve(connection.sessionSynchronizer.broadcastSession(
@@ -462,7 +462,7 @@ async function handleSocketMessage(
             } as ICodeSession & { sender: string; },
           )),
         );
-        
+
         if (broadcastError) {
           logger.error(
             `Failed to broadcast backend session for ${codeSpace} from ping:`,
@@ -470,7 +470,7 @@ async function handleSocketMessage(
           );
         }
       }
-      
+
       return;
     }
 

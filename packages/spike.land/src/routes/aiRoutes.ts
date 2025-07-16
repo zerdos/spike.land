@@ -14,12 +14,14 @@ export class AiRoutes {
     // With optimized message storage, we don't need to check total session size
     // Messages are stored separately and managed automatically
     console.log(`[AI Routes] Saving session with ${session.messages.length} messages`);
-    
+
     // The new message storage system will handle size limits automatically
     // Use the complete session object passed in, which already includes latest state
-    await this.code.updateAndBroadcastSession({...this.code.getSession(), messages: [...session.messages]}); 
+    await this.code.updateAndBroadcastSession({
+      ...this.code.getSession(),
+      messages: [...session.messages],
+    });
   }
-
 
   async handleMessagesRoute(
     request: Request,
@@ -54,10 +56,11 @@ export class AiRoutes {
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request.json() as { message: string; role?: string; };
+        const body = await request
+          .json() as ({ messages: [{ message: string; role?: string; }[]]; });
 
-        if (!body.message) {
-          return new Response(JSON.stringify({ error: "Message is required" }), {
+        if (!body.messages) {
+          return new Response(JSON.stringify({ error: "Messages is required" }), {
             status: 400,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -67,32 +70,22 @@ export class AiRoutes {
         }
 
         // Create user message
-        const userMessage = {
-          id: crypto.randomUUID(),
-          role: (body.role || "user") as "user" | "assistant" | "system",
-          content: body.message,
-        };
-
         // Get initial session
         const initialSession = this.code.getSession();
         console.log(
           `[AI Routes] Initial session messages count: ${initialSession.messages?.length || 0}`,
         );
 
-        // Ensure we have all required session fields
-        const completeSession = {
-          code: initialSession.code || "",
-          codeSpace: initialSession.codeSpace || codeSpace,
-          html: initialSession.html || "",
-          css: initialSession.css || "",
-          transpiled: initialSession.transpiled || "",
-          messages: initialSession.messages || [],
-        };
-
         // Add user message to session
         let currentSession = {
-          ...completeSession,
-          messages: [...completeSession.messages, userMessage],
+          ...initialSession,
+          messages: body.messages,
+        };
+
+        const userMessage: Message = {
+          id: crypto.randomUUID(),
+          role: "user",
+          content: body.messages.at(-1),
         };
 
         console.log(
@@ -190,7 +183,11 @@ export class AiRoutes {
 7. Trust that successful tool executions mean the code was updated correctly
 
 ## Available tools:
-${mcpTools.map(tool => `- ${tool.name}: ${tool.description}  parameters: ${JSON.stringify(tool.parameters)}`).join("\n")}
+${
+            mcpTools.map(tool =>
+              `- ${tool.name}: ${tool.description}  parameters: ${JSON.stringify(tool.parameters)}`
+            ).join("\n")
+          }
 
 ## To use a tool:
 Respond with ONLY a JSON block in this format:
@@ -207,7 +204,7 @@ Respond with ONLY a JSON block in this format:
 ## Current context:
 - CodeSpace: ${codeSpace}
 - Working with React components using JSX syntax with default exports
-- Use Tailwind CSS, shadcn-ui, @emotion/react for styling
+- Use Tailwind CSS, shadcn-ui for styling
 - Implement responsive design
 - Support dark/light mode using useDarkMode hook and ThemeToggle component
 - Use ImageLoader component for generated images
@@ -264,7 +261,7 @@ export default MyComponent;
 
 ## React Component Guidelines:
 - Components should use default export JSX syntax
-- Use Tailwind CSS, shadcn-ui, @emotion/react, or other npm packages for styling
+- Use Tailwind CSS, shadcn-ui or other npm packages for styling
 - Ensure the design is responsive. For smaller apps, center the content both horizontally and vertically on the page
 - Implement dark/light mode functionality using useDarkMode hook and ThemeToggle component
 - When generating images, use the ImageLoader component with supported aspect ratios
@@ -303,7 +300,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
           const aiResponse = await anthropic.messages.create({
             model: "claude-sonnet-4-20250514",
             max_tokens: 4096,
-            
+
             temperature: 0,
             system: [{
               type: "text",
@@ -336,7 +333,6 @@ Remember: One tool call per response, or a regular message. Never both.`;
             toolCallCount++;
 
             try {
-
               // Add AI's response with tool use
               const assistantMessage = {
                 id: crypto.randomUUID(),
@@ -363,8 +359,6 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 url.origin,
               );
 
-
-
               // Add tool result as a user message for the next iteration
               const toolResultMessage = {
                 id: crypto.randomUUID(),
@@ -373,8 +367,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
               };
 
               // Get the latest session state to preserve any changes made by MCP tools
-             
-              
+
               // Update session with tool result, preserving code changes from MCP
               // Use currentSession.messages to maintain our conversation flow, not latestSession.messages
               currentSession = {

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Drawer } from "vaul";
+import { Thread } from "@/components/assistant-ui/thread";
 import { Bot } from "@/external/lucide-react";
+import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import { Thread } from "@/components/assistant-ui/thread";
-import type { ICode } from "@/lib/interfaces";
+import React, { useEffect } from "react";
+import { Drawer } from "vaul";
 // Removed unused Message import
 
 interface AssistantUIDrawerProps {
@@ -17,9 +17,10 @@ interface AssistantUIDrawerProps {
 
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess }) => {
+    const codeSpace = _cSess.getCodeSpace();
     // Create runtime using AI SDK with a custom API endpoint
     const runtime = useChatRuntime({
-      api: "/api/chat", // This will need to be implemented or use cSess methods
+      api: `/live/${codeSpace}/messages`, // This will need to be implemented or use cSess methods
     });
 
     // Sync dark mode with Assistant UI
@@ -68,7 +69,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
               <Drawer.Description className="sr-only">
                 An AI-powered chat assistant to help you with your code.
               </Drawer.Description>
-              
+
               {/* Header with close button */}
               <div className="flex items-center justify-between p-4 border-b">
                 <h2 className="text-lg font-semibold">Assistant</h2>
