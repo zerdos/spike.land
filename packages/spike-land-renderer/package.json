@@ -18,15 +18,15 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.8.53",
-    "@cloudflare/workers-types": "4.20250712.0",
-    "@types/node": "24.0.13",
+    "@cloudflare/vitest-pool-workers": "0.8.54",
+    "@cloudflare/workers-types": "4.20250715.0",
+    "@types/node": "24.0.14",
     "@vitest/runner": "3.2.4",
     "@vitest/snapshot": "3.2.4",
     "rimraf": "6.0.1",
     "typescript": "5.8.3",
     "vitest": "3.2.4",
-    "wrangler": "4.24.3"
+    "wrangler": "4.24.4"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "1.0.3"

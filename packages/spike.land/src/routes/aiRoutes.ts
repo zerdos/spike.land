@@ -1,19 +1,17 @@
-import Anthropic from "@anthropic-ai/sdk";
-import type { Message, MessagePart } from "@spike-npm-land/code";
+import { anthropic } from "@ai-sdk/anthropic";
+import { streamText } from "ai";
+import type { Message } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
+import { z } from "zod";
 
-interface AnthropicMessage {
-  role: "user" | "assistant";
-  content: string;
-}
 
 export class AiRoutes {
   private env: Env;
 
   constructor(private code: Code) {
     // Access env through the Code instance
-    this.env = this.code.getEnv();
+    this.env = (this.code as any).env;
   }
 
   private async loadMessagesFromR2(codeSpace: string): Promise<Message[]> {
@@ -86,8 +84,7 @@ export class AiRoutes {
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request
-          .json() as ({ messages: [{ message: string; role?: string; }[]]; });
+        const body = await request.json();
 
         if (!body.messages) {
           return new Response(JSON.stringify({ error: "Messages is required" }), {
@@ -99,119 +96,123 @@ export class AiRoutes {
           });
         }
 
-        // Use messages from request body
+        // Convert messages to AI SDK format
+        const messages = body.messages.map((msg: any) => {
+          if (typeof msg.content === "string") {
+            return {
+              role: msg.role,
+              content: msg.content,
+            };
+          }
+          // Handle complex content types
+          return {
+            role: msg.role,
+            content: msg.content.map((part: any) => {
+              if (part.type === "text") {
+                return { type: "text", text: part.text };
+              }
+              if (part.type === "image_url") {
+                return { type: "image", image: part.image_url.url };
+              }
+              return { type: "text", text: "[unsupported content]" };
+            }),
+          };
+        });
+
+        // Save messages to R2 for persistence
         const currentMessages: Message[] = body.messages as unknown as Message[];
-        console.log(
-          `[AI Routes] Received ${currentMessages.length} messages from request`,
-        );
-
-        const userMessage: Message = {
-          id: crypto.randomUUID(),
-          role: "user",
-          content: body.messages.at(-1),
-        };
-
-        // Save the messages to R2
         try {
-          await this.saveMessagesFromSession(currentMessages);
+          await this.saveMessagesToR2(codeSpace, currentMessages);
         } catch (updateError) {
-          console.error("Error saving messages:", updateError);
-          // Continue anyway - the messages might still be useful even if save failed
+          console.error("Error saving messages to R2:", updateError);
         }
 
         // Get the AI binding from environment
+        const env = (this.code as any).env;
 
-        const env = this.code.getEnv();
-
-        const anthropic = new Anthropic({
-          apiKey: env.ANTHROPIC_API_KEY,
-        });
-
-        // Track tool calls to prevent infinite loops
-        const MAX_TOOL_CALLS = 10;
-        let toolCallCount = 0;
-
-        // Define available MCP tools for the AI
-        const mcpTools = [
-          {
-            name: "read_code",
-            description:
-              "Read current code only. Use before making changes to understand the codebase.",
-            parameters: { codeSpace: "string" },
-          },
-          {
-            name: "update_code",
-            description:
-              "Replace ALL code with new content. For smaller changes, use edit_code instead.",
-            parameters: { codeSpace: "string", code: "string" },
-          },
-          {
-            name: "edit_code",
-            description:
-              "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
-            parameters: {
-              codeSpace: "string",
-              startLine: "number",
-              endLine: "number",
-              newContent: "string",
+        // Define MCP tools for AI SDK
+        const tools = {
+          read_code: {
+            description: "Read current code only. Use before making changes to understand the codebase.",
+            parameters: z.object({
+              codeSpace: z.string().describe("The code space to read from"),
+            }),
+            execute: async ({ codeSpace }: { codeSpace: string }) => {
+              const result = await this.executeMcpTool("read_code", { codeSpace }, url.origin);
+              return JSON.stringify(result, null, 2);
             },
           },
-          {
-            name: "search_and_replace",
-            description:
-              "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
-            parameters: {
-              codeSpace: "string",
-              search: "string",
-              replace: "string",
-              matchCase: "boolean",
-              isRegex: "boolean",
+          update_code: {
+            description: "Replace ALL code with new content. For smaller changes, use edit_code instead.",
+            parameters: z.object({
+              codeSpace: z.string().describe("The code space to update"),
+              code: z.string().describe("The new code content"),
+            }),
+            execute: async ({ codeSpace, code }: { codeSpace: string; code: string }) => {
+              const result = await this.executeMcpTool("update_code", { codeSpace, code }, url.origin);
+              return JSON.stringify(result, null, 2);
             },
           },
-          {
-            name: "find_lines",
-            description:
-              "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
-            parameters: {
-              codeSpace: "string",
-              search: "string",
-              matchCase: "boolean",
-              isRegex: "boolean",
+          edit_code: {
+            description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
+            parameters: z.object({
+              codeSpace: z.string().describe("The code space to edit"),
+              startLine: z.number().describe("The starting line number"),
+              endLine: z.number().describe("The ending line number"),
+              newContent: z.string().describe("The new content for the specified lines"),
+            }),
+            execute: async ({ codeSpace, startLine, endLine, newContent }: {
+              codeSpace: string;
+              startLine: number;
+              endLine: number;
+              newContent: string;
+            }) => {
+              const result = await this.executeMcpTool("edit_code", { codeSpace, startLine, endLine, newContent }, url.origin);
+              return JSON.stringify(result, null, 2);
             },
           },
-        ];
+          search_and_replace: {
+            description: "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
+            parameters: z.object({
+              codeSpace: z.string().describe("The code space to search in"),
+              search: z.string().describe("The pattern to search for"),
+              replace: z.string().describe("The replacement text"),
+              matchCase: z.boolean().optional().describe("Whether to match case"),
+              isRegex: z.boolean().optional().describe("Whether to use regex"),
+            }),
+            execute: async ({ codeSpace, search, replace, matchCase, isRegex }: {
+              codeSpace: string;
+              search: string;
+              replace: string;
+              matchCase?: boolean;
+              isRegex?: boolean;
+            }) => {
+              const result = await this.executeMcpTool("search_and_replace", { codeSpace, search, replace, matchCase, isRegex }, url.origin);
+              return JSON.stringify(result, null, 2);
+            },
+          },
+          find_lines: {
+            description: "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
+            parameters: z.object({
+              codeSpace: z.string().describe("The code space to search in"),
+              search: z.string().describe("The pattern to search for"),
+              matchCase: z.boolean().optional().describe("Whether to match case"),
+              isRegex: z.boolean().optional().describe("Whether to use regex"),
+            }),
+            execute: async ({ codeSpace, search, matchCase, isRegex }: {
+              codeSpace: string;
+              search: string;
+              matchCase?: boolean;
+              isRegex?: boolean;
+            }) => {
+              const result = await this.executeMcpTool("find_lines", { codeSpace, search, matchCase, isRegex }, url.origin);
+              return JSON.stringify(result, null, 2);
+            },
+          },
+        };
 
-        // Create system prompt with MCP tools
-        const systemPrompt =
-          `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions.
-
-## IMPORTANT TOOL USAGE RULES:
-1. You have access to tools through MCP (Model Context Protocol)
-2. Each response should contain ONLY ONE tool call OR a regular message, never both
-3. After each tool call, you will receive the result as a user message
-4. Continue making tool calls until the task is complete
-5. When done with all modifications, simply respond with a summary without any tool calls
-6. Do NOT double-check if code was written properly unless you suspect an error
-7. Trust that successful tool executions mean the code was updated correctly
-
-## Available tools:
-${
-            mcpTools.map(tool =>
-              `- ${tool.name}: ${tool.description}  parameters: ${JSON.stringify(tool.parameters)}`
-            ).join("\n")
-          }
-
-## To use a tool:
-Respond with ONLY a JSON block in this format:
-<tool_use>
-{
-  "tool": "tool_name",
-  "parameters": {
-    "param1": "value1",
-    "param2": "value2"
-  }
-}
-</tool_use>
+        // Create system prompt
+        const systemPrompt = `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions.
 
 ## Current context:
 - CodeSpace: ${codeSpace}
@@ -221,260 +222,39 @@ Respond with ONLY a JSON block in this format:
 - Support dark/light mode using useDarkMode hook and ThemeToggle component
 - Use ImageLoader component for generated images
 
-\`\`\`typescript  
-
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { useDarkMode } from "@/hooks/use-dark-mode";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { cn } from "@/lib/utils";
-import { ImageLoader } from "@/components/ui/image-loader";
-import { motion, AnimatePresence } from "framer-motion";
-
-const MyComponent: React.FC = () => {
-  const { isDarkMode } = useDarkMode();
-
-  const [data, setData] = useState<string[]>([]);
-  const fetchData = useCallback(async () => {
-    // Fetch data logic here
-    const response = await fetch("/api/data");
-    const result = await response.json();
-    setData(result);
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-  
-  const containerClasses = cn(
-    "flex flex-col items-center justify-center min-h-screen",
-    isDarkMode ? "dark" : "",
-  );
-  return (
-    <div className={containerClasses}>
-      <ThemeToggle />
-      <AnimatePresence>
-        {data.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-          >
-            <ImageLoader src={item} alt={\`Image \${index}\`} aspectRatio="16:9" />
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
-  );
-};
-export default MyComponent;
-
-\`\`\`
-
-## React Component Guidelines:
-- Components should use default export JSX syntax
-- Use Tailwind CSS, shadcn-ui or other npm packages for styling
-- Ensure the design is responsive. For smaller apps, center the content both horizontally and vertically on the page
-- Implement dark/light mode functionality using useDarkMode hook and ThemeToggle component
-- When generating images, use the ImageLoader component with supported aspect ratios
-
 ## Process:
 1. First use read_code to understand the current code
 2. Make necessary modifications using edit_code, update_code, or search_and_replace
-3. Each tool call should be in a separate response
-4. Wait for the tool result before proceeding
-5. When all modifications are complete, provide a brief summary
+3. When all modifications are complete, provide a brief summary`;
 
-Remember: One tool call per response, or a regular message. Never both.`;
-
-        // Conversation loop to handle multiple tool calls
-        let shouldContinue = true;
-        const allMessages: Message[] = [];
-
-        while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
-          // Prepare messages for AI (filtering out system messages and converting them)
-          // Use currentMessages to ensure we have the latest message state
-          const aiMessages: AnthropicMessage[] = [
-            ...currentMessages
-              .filter((msg: Message) => msg.role !== "system")
-              .map((msg: Message) => ({
-                role: msg.role as "user" | "assistant",
-                content: typeof msg.content === "string"
-                  ? msg.content
-                  : msg.content.map((part: MessagePart) => {
-                    if (part.type === "text") return part.text;
-                    return "[image]";
-                  }).join(""),
-              })),
-          ];
-
-          // Call Anthropic Messages API with system as a top-level parameter
-          const aiResponse = await anthropic.messages.create({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 4096,
-
-            temperature: 0,
-            system: [{
-              type: "text",
-              text: systemPrompt,
-              cache_control: { type: "ephemeral" },
-            }],
-            stop_sequences: ["</tool_use>"],
-            messages: aiMessages,
-          });
-
-          let responseText = aiResponse.content && Array.isArray(aiResponse.content)
-            ? aiResponse.content.map((c: unknown) => {
-              if (typeof c === "string") return c;
-              if (typeof c === "object" && c !== null && "text" in c) {
-                return (c as { text: string; }).text || "";
-              }
-              return "";
-            }).join("")
-            : (typeof aiResponse.content === "string" ? aiResponse.content : "");
-
-          // Check if we need to add the closing tag
-          if (responseText.includes("<tool_use>") && !responseText.includes("</tool_use>")) {
-            responseText = responseText + "</tool_use>";
-          }
-
-          // Check if the response contains a tool use request
-          const toolUseMatch = responseText.match(/<tool_use>([\s\S]*?)<\/tool_use>/);
-
-          if (toolUseMatch) {
-            toolCallCount++;
-
-            try {
-              // Add AI's response with tool use
-              const assistantMessage = {
-                id: crypto.randomUUID(),
-                role: "assistant" as const,
-                content: responseText,
-              };
-              currentMessages.push(assistantMessage);
+        // Stream the response using AI SDK
+        const result = await streamText({
+          model: anthropic("claude-3-5-sonnet-20241022"),
+          system: systemPrompt,
+          messages,
+          tools,
+          toolChoice: "auto",
+          maxSteps: 10,
+          onStepFinish: async ({ stepType, toolCalls, toolResults }) => {
+            // Save messages after each step
+            if (stepType === "tool-result" && toolResults) {
               try {
-                await this.saveMessagesFromSession(currentMessages);
-              } catch (saveError) {
-                console.error("Error saving messages after assistant response:", saveError);
+                // Get the current messages from the stream
+                const updatedMessages = await this.loadMessagesFromR2(codeSpace);
+                await this.saveMessagesToR2(codeSpace, updatedMessages);
+              } catch (error) {
+                console.error("Error saving messages after tool call:", error);
               }
-              allMessages.push(assistantMessage);
-              // Parse the tool use request
-              const toolRequest = JSON.parse(toolUseMatch[1]);
-
-              // Execute the MCP tool
-              const mcpResponse = await this.executeMcpTool(
-                toolRequest.tool,
-                toolRequest.parameters,
-                url.origin,
-              );
-
-              // Add tool result as a user message for the next iteration
-              const toolResultMessage = {
-                id: crypto.randomUUID(),
-                role: "user" as const,
-                content: JSON.stringify(mcpResponse, null, 2),
-              };
-
-              // Get the latest session state to preserve any changes made by MCP tools
-
-              // Add tool result to messages
-              currentMessages.push(toolResultMessage);
-
-              // Save the messages after adding tool result
-              try {
-                await this.saveMessagesFromSession(currentMessages);
-              } catch (saveError) {
-                console.error("Error saving session after tool result:", saveError);
-              }
-
-              allMessages.push(toolResultMessage);
-
-              // Continue the conversation with the tool result
-              shouldContinue = true;
-            } catch (toolError) {
-              console.error("Error executing tool:", toolError);
-
-              // Add error message
-              const errorMessage = {
-                id: crypto.randomUUID(),
-                role: "assistant" as const,
-                content: `Error executing tool: ${
-                  toolError instanceof Error ? toolError.message : "Unknown error"
-                }`,
-              };
-
-              currentMessages.push(errorMessage);
-
-              // Save the messages after adding error message
-              try {
-                await this.saveMessagesFromSession(currentMessages);
-              } catch (saveError) {
-                console.error("Error saving session after error message:", saveError);
-              }
-
-              allMessages.push(errorMessage);
-              shouldContinue = false;
             }
-          } else {
-            // No tool use, this is the final response
-            const assistantMessage = {
-              id: crypto.randomUUID(),
-              role: "assistant" as const,
-              content: responseText,
-            };
-
-            currentMessages.push(assistantMessage);
-
-            // Save the messages after adding final message
-            try {
-              await this.saveMessagesFromSession(currentMessages);
-            } catch (saveError) {
-              console.error("Error saving session after final message:", saveError);
-            }
-
-            allMessages.push(assistantMessage);
-            shouldContinue = false;
-          }
-        }
-
-        // Check if we hit the tool call limit
-        if (toolCallCount >= MAX_TOOL_CALLS && shouldContinue) {
-          const limitMessage = {
-            id: crypto.randomUUID(),
-            role: "assistant" as const,
-            content:
-              "I've reached the maximum number of tool calls allowed in a single conversation. Please start a new message if you need more assistance.",
-          };
-
-          currentMessages.push(limitMessage);
-
-          // Save the messages after adding limit message
-          try {
-            await this.saveMessagesFromSession(currentMessages);
-          } catch (saveError) {
-            console.error("Error saving session after limit message:", saveError);
-          }
-
-          allMessages.push(limitMessage);
-        }
-
-        // No need for final save since we save after each message update
-
-        // Return all messages from this conversation
-        return new Response(
-          JSON.stringify({
-            userMessage,
-            assistantMessages: allMessages,
-            messages: currentMessages,
-          }),
-          {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
           },
-        );
+        });
+
+        // Return the streaming response
+        return result.toDataStreamResponse({
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
       } catch (error) {
         console.error("Error handling message:", error);
         return new Response(
