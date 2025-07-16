@@ -1,5 +1,6 @@
 import type { Code } from "./chatRoom";
 import {
+  AiRoutes,
   AuthRoutes,
   CodeRoutes,
   DefaultRoutes,
@@ -22,6 +23,7 @@ export class RouteHandler {
   private authRoutes: AuthRoutes;
   private storageRoutes: StorageRoutes;
   private defaultRoutes: DefaultRoutes;
+  private aiRoutes: AiRoutes;
 
   constructor(private code: Code) {
     // Initialize all route handlers
@@ -32,6 +34,7 @@ export class RouteHandler {
     this.authRoutes = new AuthRoutes(code);
     this.storageRoutes = new StorageRoutes(code);
     this.defaultRoutes = new DefaultRoutes(code);
+    this.aiRoutes = new AiRoutes(code);
   }
 
   async handleRoute(
@@ -76,6 +79,9 @@ export class RouteHandler {
       "wrapper.js": this.liveRoutes.handleWrapRoute.bind(this.liveRoutes),
       wrapped: this.liveRoutes.handleWrapHTMLRoute.bind(this.liveRoutes),
       screenshot: this.liveRoutes.handleScreenShotRoute.bind(this.liveRoutes),
+
+      // AI routes
+      messages: this.aiRoutes.handleMessagesRoute.bind(this.aiRoutes),
 
       // Utility routes
       request: this.utilityRoutes.handleRequestRoute.bind(this.utilityRoutes),

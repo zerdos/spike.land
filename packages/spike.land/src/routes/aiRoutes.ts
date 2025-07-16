@@ -1,10 +1,9 @@
 import { anthropic } from "@ai-sdk/anthropic";
-import { streamText } from "ai";
 import type { Message } from "@spike-npm-land/code";
+import { streamText } from "ai";
+import { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
-import { z } from "zod";
-
 
 export class AiRoutes {
   private env: Env;
@@ -84,7 +83,11 @@ export class AiRoutes {
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request.json() as { messages?: Message[]; system?: string; tools?: Record<string, unknown> };
+        const body = await request.json() as {
+          messages?: Message[];
+          system?: string;
+          tools?: Record<string, unknown>;
+        };
 
         if (!body.messages) {
           return new Response(JSON.stringify({ error: "Messages is required" }), {
@@ -107,15 +110,17 @@ export class AiRoutes {
           // Handle complex content types
           return {
             role: msg.role,
-            content: (msg.content as any[]).map((part: { type: string; text?: string; image_url?: { url: string } }) => {
-              if (part.type === "text") {
-                return { type: "text", text: part.text };
-              }
-              if (part.type === "image_url" && part.image_url) {
-                return { type: "image", image: part.image_url.url };
-              }
-              return { type: "text", text: "[unsupported content]" };
-            }),
+            content: (msg.content as any[]).map(
+              (part: { type: string; text?: string; image_url?: { url: string; }; }) => {
+                if (part.type === "text") {
+                  return { type: "text", text: part.text };
+                }
+                if (part.type === "image_url" && part.image_url) {
+                  return { type: "image", image: part.image_url.url };
+                }
+                return { type: "text", text: "[unsupported content]" };
+              },
+            ),
           };
         });
 
@@ -128,33 +133,40 @@ export class AiRoutes {
         }
 
         // Get the AI binding from environment
-        const _env = (this.code as unknown as { env: Env }).env;
+        const _env = (this.code as unknown as { env: Env; }).env;
 
         // Define MCP tools for AI SDK
         const tools = {
           read_code: {
-            description: "Read current code only. Use before making changes to understand the codebase.",
+            description:
+              "Read current code only. Use before making changes to understand the codebase.",
             parameters: z.object({
               codeSpace: z.string().describe("The code space to read from"),
             }),
-            execute: async ({ codeSpace }: { codeSpace: string }) => {
+            execute: async ({ codeSpace }: { codeSpace: string; }) => {
               const result = await this.executeMcpTool("read_code", { codeSpace }, url.origin);
               return JSON.stringify(result, null, 2);
             },
           },
           update_code: {
-            description: "Replace ALL code with new content. For smaller changes, use edit_code instead.",
+            description:
+              "Replace ALL code with new content. For smaller changes, use edit_code instead.",
             parameters: z.object({
               codeSpace: z.string().describe("The code space to update"),
               code: z.string().describe("The new code content"),
             }),
-            execute: async ({ codeSpace, code }: { codeSpace: string; code: string }) => {
-              const result = await this.executeMcpTool("update_code", { codeSpace, code }, url.origin);
+            execute: async ({ codeSpace, code }: { codeSpace: string; code: string; }) => {
+              const result = await this.executeMcpTool(
+                "update_code",
+                { codeSpace, code },
+                url.origin,
+              );
               return JSON.stringify(result, null, 2);
             },
           },
           edit_code: {
-            description: "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
+            description:
+              "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
             parameters: z.object({
               codeSpace: z.string().describe("The code space to edit"),
               startLine: z.number().describe("The starting line number"),
@@ -167,12 +179,18 @@ export class AiRoutes {
               endLine: number;
               newContent: string;
             }) => {
-              const result = await this.executeMcpTool("edit_code", { codeSpace, startLine, endLine, newContent }, url.origin);
+              const result = await this.executeMcpTool("edit_code", {
+                codeSpace,
+                startLine,
+                endLine,
+                newContent,
+              }, url.origin);
               return JSON.stringify(result, null, 2);
             },
           },
           search_and_replace: {
-            description: "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
+            description:
+              "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
             parameters: z.object({
               codeSpace: z.string().describe("The code space to search in"),
               search: z.string().describe("The pattern to search for"),
@@ -187,12 +205,19 @@ export class AiRoutes {
               matchCase?: boolean;
               isRegex?: boolean;
             }) => {
-              const result = await this.executeMcpTool("search_and_replace", { codeSpace, search, replace, matchCase, isRegex }, url.origin);
+              const result = await this.executeMcpTool("search_and_replace", {
+                codeSpace,
+                search,
+                replace,
+                matchCase,
+                isRegex,
+              }, url.origin);
               return JSON.stringify(result, null, 2);
             },
           },
           find_lines: {
-            description: "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
+            description:
+              "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
             parameters: z.object({
               codeSpace: z.string().describe("The code space to search in"),
               search: z.string().describe("The pattern to search for"),
@@ -205,14 +230,20 @@ export class AiRoutes {
               matchCase?: boolean;
               isRegex?: boolean;
             }) => {
-              const result = await this.executeMcpTool("find_lines", { codeSpace, search, matchCase, isRegex }, url.origin);
+              const result = await this.executeMcpTool("find_lines", {
+                codeSpace,
+                search,
+                matchCase,
+                isRegex,
+              }, url.origin);
               return JSON.stringify(result, null, 2);
             },
           },
         };
 
         // Create system prompt
-        const systemPrompt = `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions.
+        const systemPrompt =
+          `You are an AI assistant specializing in helping users modify and improve React components in an online code editor. Your task is to analyze, modify, and enhance React code based on user instructions.
 
 ## Current context:
 - CodeSpace: ${codeSpace}
