@@ -67,6 +67,10 @@
     "access": "public"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^1.2.12",
+    "@assistant-ui/react": "^0.10.25",
+    "@assistant-ui/react-ai-sdk": "^0.10.15",
+    "@assistant-ui/react-markdown": "^0.10.6",
     "@clerk/clerk-react": "5.34.0",
     "@dmsnell/diff-match-patch": "1.1.0",
     "@emotion/cache": "11.14.0",
@@ -120,6 +124,7 @@
     "@types/node": "24.0.13",
     "@typescript/ata": "0.9.8",
     "@uidotdev/usehooks": "2.4.1",
+    "ai": "^4.3.19",
     "assert": "^2.1.0",
     "async-mutex": "0.5.0",
     "autoprefixer": "10.4.21",
@@ -165,6 +170,7 @@
     "react-use": "17.6.0",
     "recharts": "3.1.0",
     "recordrtc": "5.6.2",
+    "remark-gfm": "^4.0.1",
     "shadcn-packaged": "^2025.7.14",
     "sonner": "2.0.6",
     "stream-browserify": "^3.0.0",

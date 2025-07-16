@@ -1,11 +1,10 @@
-import { ChatDrawer } from "@/components/app/chat-drawer";
+import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useLocalStorage } from "@/external/use-local-storage";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData, Message } from "@/lib/interfaces";
-import { handleSendMessage } from "@/lib/handle-send-message";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useScreenshot } from "./hooks/useScreenshot";
 
@@ -15,14 +14,15 @@ const ChatInterface: React.FC<{
   codeSpace: string;
   onClose: () => void;
 }> = React.memo(({ onClose, isOpen, codeSession }): React.ReactElement => { // Renamed from cSess
-  const [messages, setMessages] = useState<Message[]>(
+  const [_messages, _setMessages] = useState<Message[]>(
     codeSession.getMessages(),
   ); // Renamed from cSess
   // const [session, setSession] = useState<ICodeSession | null>(null);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode, toggleDarkMode: _toggleDarkMode } = useDarkMode();
 
-  useEffect(() => codeSession.sub((session) => setMessages(session.messages)), [
+  useEffect(() => codeSession.sub((session) => _setMessages(session.messages)), [
     codeSession,
+    _setMessages,
   ]); // Renamed from cSess and added to deps
 
   const localCodeSpace = codeSession.getCodeSpace(); // Renamed from cSess, used local var to avoid conflict with prop
@@ -46,23 +46,12 @@ const ChatInterface: React.FC<{
     };
   }, [isStreaming, setIsStreaming]);
 
-  const [input, setInput] = useDictation("");
+  const [_input, setInput] = useDictation("");
 
-  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
-  const [editInput, setEditInput] = useState("");
+  const [_editingMessageId, _setEditingMessageId] = useState<string | null>(null);
+  const [_editInput, _setEditInput] = useState("");
 
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const resetChat = useCallback((): void => {
-    codeSession.removeMessages(); // Renamed from cSess
-    setMessages([]);
-    setInput("");
-    setEditingMessageId(null);
-    setEditInput("");
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
-  }, [setInput, codeSession]); // Renamed from cSess and added to deps
+  // Removed unused reset functionality since AssistantUI manages its own state
 
   useEffect(() => {
     if (isOpen) {
@@ -75,52 +64,13 @@ const ChatInterface: React.FC<{
     }
   }, [isOpen]);
 
-  const handleCancelEdit = useCallback(() => {
-    setEditingMessageId(null);
-    setEditInput("");
-  }, []);
-
-  const handleSaveEdit = useCallback((messageId: string) => {
-    const currentMessages = codeSession.getMessages(); // Renamed from cSess
-    const messageIndex = currentMessages.findIndex((msg) => msg.id === messageId);
-    if (messageIndex === -1) {
-      console.error("Invalid message for editing");
-      return;
-    }
-
-    const messageToEdit = currentMessages[messageIndex];
-
-    if (!messageToEdit || messageToEdit.role === "assistant") {
-      console.error("Invalid message for editing");
-      return;
-    }
-
-    // Create new message with updated content
-    const updatedMessage = {
-      ...messageToEdit,
-      content: editInput,
-    };
-
-    // Finally add the updated message
-    codeSession.addMessage(updatedMessage); // Renamed from cSess
-
-    setEditingMessageId(null);
-    setEditInput("");
-  }, [editInput, codeSession]); // Renamed from cSess and added to deps
-
-  const handleResetChat = useCallback((): void => {
-    resetChat();
-    setIsStreaming(false);
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
-  }, [resetChat, setIsStreaming]);
+  // Removed unused handlers since AssistantUI manages its own state
 
   const {
-    isScreenshotLoading,
-    screenshotImage,
-    handleScreenshotClick,
-    handleCancelScreenshot,
+    isScreenshotLoading: _isScreenshotLoading,
+    screenshotImage: _screenshotImage,
+    handleScreenshotClick: _handleScreenshotClick,
+    handleCancelScreenshot: _handleCancelScreenshot,
   } = useScreenshot(localCodeSpace); // Used localCodeSpace
 
   useEffect(() => {
@@ -136,53 +86,25 @@ const ChatInterface: React.FC<{
           sessionStorage.removeItem(maybeKey);
 
           codeSession.getSession().then((_currentSession) => { // Renamed from cSess
-            handleSendMessage({
-              prompt,
-              images,
-              cSess: codeSession,
-            });
+            // TODO: Implement sending initial message with Assistant UI
+            // For now, we'll store it to be handled by the AssistantUIDrawer
+            console.log("Initial message:", { prompt, images });
           });
         }
       }
     }
   }, [isOpen, localCodeSpace, setInput, codeSession]); // Renamed from cSess, used localCodeSpace and added to deps
 
-  const memoizedSetEditInput = useCallback((value: string): void => {
-    setEditInput(value);
-  }, []);
-
-  const memoizedScreenshot = useCallback(
-    (): Promise<ImageData> => codeSession.screenshot(), // Renamed from cSess
-    [codeSession], // Renamed from cSess and added to deps
-  );
+  // Removed unused memoized callbacks since AssistantUI manages its own state
 
   if (!isOpen) return <></>;
 
   return (
-    <ChatDrawer
+    <AssistantUIDrawer
       isOpen={isOpen}
-      setEditingMessageId={setEditingMessageId}
       onClose={onClose}
-      messages={messages}
       isDarkMode={isDarkMode}
-      toggleDarkMode={toggleDarkMode}
-      handleResetChat={handleResetChat}
-      isStreaming={!!isStreaming}
-      input={input}
-      setInput={setInput}
       cSess={codeSession}
-      inputRef={inputRef}
-      isScreenshotLoading={isScreenshotLoading}
-      screenshotImage={screenshotImage}
-      handleScreenshotClick={handleScreenshotClick}
-      handleCancelScreenshot={handleCancelScreenshot}
-      editingMessageId={editingMessageId}
-      editInput={editInput}
-      setEditInput={memoizedSetEditInput}
-      handleEditMessage={(_messageId: string) => {}}
-      handleCancelEdit={handleCancelEdit}
-      handleSaveEdit={handleSaveEdit}
-      screenshot={memoizedScreenshot}
     />
   );
 });

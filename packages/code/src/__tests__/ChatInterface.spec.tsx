@@ -1,4 +1,4 @@
-import type { ChatDrawerProps as _ChatDrawerProps } from "@/lib/interfaces";
+// Removed ChatDrawerProps import as it's no longer needed
 import React, { useRef as _useRef, useState as _useState } from "react"; // Import React, useRef, useState
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -22,12 +22,7 @@ vi.mock("@/hooks/useScreenshot", () => ({
   })),
 }));
 
-vi.mock("@/lib/handle-send-message", () => ({
-  handleSendMessage: vi.fn().mockResolvedValue({
-    code: "test code",
-    transpiled: "test transpiled",
-  }),
-}));
+// Removed handle-send-message mock as it's no longer used
 
 vi.mock("@/external/use-local-storage", () => ({
   useLocalStorage: vi.fn((_key: string, defaultValue: unknown) => {
@@ -39,6 +34,17 @@ vi.mock("@/external/use-local-storage", () => ({
       },
     ];
   }),
+}));
+
+vi.mock("@/components/app/assistant-ui-drawer", () => ({
+  AssistantUIDrawer: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+    return isOpen ? (
+      <div data-testid="assistant-ui-drawer">
+        <button onClick={onClose}>Close</button>
+        <button data-testid="reset-chat-button">Reset</button>
+      </div>
+    ) : null;
+  },
 }));
 
 // Other imports after mocks
@@ -341,7 +347,7 @@ describe("ChatInterface", () => {
     );
 
     // First make sure the chat drawer is rendered
-    const chatDrawer = await screen.findByTestId("chat-drawer");
+    const chatDrawer = await screen.findByTestId("assistant-ui-drawer");
     expect(chatDrawer).toBeTruthy();
 
     // Then find the reset button

@@ -21,33 +21,10 @@ export interface ParsingState {
 
 export type FlexibleComponentType<P = unknown> = ComponentType<P & BaseProps>;
 
-export interface ChatHeaderProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-  handleResetChat: () => void;
-  onClose: () => void;
-}
-
 export interface HandleSendMessageProps {
   prompt: string;
   images: ImageData[];
   cSess: ICode;
-}
-
-export interface MessageInputProps {
-  input: string;
-  cSess: ICode;
-  isDarkMode: boolean;
-  setInput: (value: string) => void;
-
-  isStreaming: boolean;
-  inputRef: React.RefObject<HTMLTextAreaElement | null>;
-  isScreenshotLoading: boolean;
-
-  screenshotImage: string | null;
-  handleScreenshotClick: () => void;
-  handleCancelScreenshot: () => void;
-  screenshot: () => Promise<ImageData>;
 }
 
 export interface ICodeSession {
@@ -233,31 +210,6 @@ export interface HistoryItemProps {
   cSess: ICode;
 }
 
-export interface ChatDrawerProps {
-  isOpen: boolean;
-  setEditingMessageId: (id: string) => void;
-  onClose: () => void;
-  isDarkMode: boolean;
-  messages: Message[];
-  toggleDarkMode: () => void;
-  handleResetChat: () => void;
-  isStreaming: boolean;
-  input: string;
-  cSess: ICode;
-  setInput: (input: string) => void;
-  inputRef: React.RefObject<HTMLTextAreaElement | null>;
-  isScreenshotLoading: boolean;
-  screenshotImage: string | null;
-  handleScreenshotClick: () => void;
-  handleCancelScreenshot: () => void;
-  editingMessageId: string | null;
-  editInput: string;
-  setEditInput: (input: string) => void;
-  handleEditMessage: (messageId: string) => void;
-  handleCancelEdit: () => void;
-  handleSaveEdit: (messageId: string) => void;
-  screenshot: () => Promise<ImageData>;
-}
 
 export type IExtraModelsResult = Record<string, string>;
 
@@ -267,18 +219,4 @@ export interface IModelManager {
   updateModelsByCode(newCodes: string): Promise<string>;
   getCurrentCodeWithExtraModels(): Promise<string>;
   release(): Promise<void>;
-}
-
-export interface ChatContainerProps {
-  messages: Message[];
-  setEditingMessageId: (id: string) => void;
-  editingMessageId: string | null;
-  editInput: string;
-  setEditInput: (value: string) => void;
-  handleCancelEdit: () => void;
-  handleSaveEdit: (messageId: string) => void;
-  handleEditMessage: (id: string) => void;
-  isStreaming: boolean;
-  isDarkMode: boolean;
-  onNewPrompt: (prompt: string) => void;
 }

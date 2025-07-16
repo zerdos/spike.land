@@ -16,7 +16,10 @@
       "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(ls:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "mcp__assistant-ui__assistantUIDocs",
+      "mcp__assistant-ui__assistantUIExamples",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
