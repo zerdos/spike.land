@@ -18,9 +18,13 @@ interface AssistantUIDrawerProps {
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess }) => {
     const codeSpace = _cSess.getCodeSpace();
+
     // Create runtime using AI SDK with a custom API endpoint
+    // Note: useChatRuntime manages its own message state internally
+    // It doesn't load initial messages from the server - it starts with an empty conversation
+    // Messages are persisted on the server via the POST endpoint when they are sent
     const runtime = useChatRuntime({
-      api: `/live/${codeSpace}/messages`, // This will need to be implemented or use cSess methods
+      api: `/live/${codeSpace}/messages`,
     });
 
     // Sync dark mode with Assistant UI

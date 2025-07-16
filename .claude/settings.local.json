@@ -23,7 +23,8 @@
       "Bash(grep:*)",
       "Bash(yarn install:*)",
       "Bash(curl:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

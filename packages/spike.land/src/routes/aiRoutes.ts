@@ -92,11 +92,24 @@ export class AiRoutes {
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request.json() as {
-          messages?: Message[];
-          system?: string;
-          tools?: Record<string, unknown>;
-        };
+        let body: any;
+        try {
+          const rawBody = await request.text();
+          console.log("[AI Routes] Raw request body:", rawBody);
+          body = JSON.parse(rawBody);
+        } catch (parseError) {
+          console.error("[AI Routes] Failed to parse request body:", parseError);
+          return new Response(JSON.stringify({ 
+            error: "Invalid JSON in request body",
+            details: parseError instanceof Error ? parseError.message : "Unknown parse error"
+          }), {
+            status: 400,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
 
         if (!body.messages) {
           return new Response(JSON.stringify({ error: "Messages is required" }), {
@@ -285,38 +298,44 @@ export class AiRoutes {
 
         // Stream the response using AI SDK
         const anthropic = createAnthropic({
-          apiKey: this.env.ANTHROPIC_API_KEY,
+                  apiKey: this.env.ANTHROPIC_API_KEY
         });
 
-        const result = await streamText({
-          model: anthropic('claude-4-sonnet-20250514', {
-            sendReasoning: true,
-          }),
-          system: systemPrompt,
-          messages,
-          tools,
-          toolChoice: "auto",
-          maxSteps: 10,
-          onStepFinish: async ({ stepType, toolResults }) => {
-            // Save messages after each step
-            if (stepType === "tool-result" && toolResults) {
-              try {
-                // Get the current messages from the stream
-                const updatedMessages = await this.loadMessagesFromR2(codeSpace);
-                await this.saveMessagesToR2(codeSpace, updatedMessages);
-              } catch (error) {
-                console.error("Error saving messages after tool call:", error);
+        console.log("[AI Routes] Creating stream with", messages.length, "messages");
+
+        try {
+          const result = await streamText({
+            model: anthropic('claude-4-sonnet-20250514'),
+            system: systemPrompt,
+            messages,
+            tools,
+
+            toolChoice: "auto",
+            maxSteps: 10,
+            onStepFinish: async ({ stepType, toolResults }) => {
+              // Save messages after each step
+              if (stepType === "tool-result" && toolResults) {
+                try {
+                  // Get the current messages from the stream
+                  const updatedMessages = await this.loadMessagesFromR2(codeSpace);
+                  await this.saveMessagesToR2(codeSpace, updatedMessages);
+                } catch (error) {
+                  console.error("Error saving messages after tool call:", error);
+                }
               }
-            }
-          },
-        });
+            },
+          });
 
-        // Return the streaming response
-        return result.toDataStreamResponse({
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
+          // Return the streaming response
+          return result.toDataStreamResponse({
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          });
+        } catch (streamError) {
+          console.error("[AI Routes] Stream error:", streamError);
+          throw streamError;
+        }
       } catch (error) {
         console.error("Error handling message:", error);
         return new Response(
@@ -368,9 +387,10 @@ export class AiRoutes {
         arguments: parameters,
       },
     };
+    const codeSpace = parameters.codeSpace as string || this.code.getSession().codeSpace;
 
     // POST to /mcp endpoint
-    const mcpUrl = `${origin}/mcp`;
+    const mcpUrl = `${origin}/live/${codeSpace}/mcp`;
     const response = await fetch(mcpUrl, {
       method: "POST",
       headers: {
