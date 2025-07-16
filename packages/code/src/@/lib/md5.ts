@@ -1,4 +1,4 @@
-import { hash } from "@/external/immutable";
+import { hash } from "immutable";
 import { Md5 } from "ts-md5";
 
 const shortHashCache = new Map<string, string>();

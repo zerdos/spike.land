@@ -1,5 +1,5 @@
-import type Env from "./env";
-import { makeResponse } from "./makeResponse";
+// import type Env from "./env";
+// import { makeResponse } from "./makeResponse";
 
 interface ResponseLike {
   text: () => Promise<string>;
@@ -9,58 +9,67 @@ interface ResponseLike {
 export async function handleEsmRequest(
   path: string[],
   request: Request,
-  env: Env,
-  ctx: ExecutionContext,
+  // env: Env,
+  // ctx: ExecutionContext,
 ) {
-  const url = new URL(request.url);
+  const url = new URL(new URL(request.url).pathname, 'https://esm.sh');
+  return fetch(url.toString(), {
+    redirect: "follow",
+  }).then(async (response) => {
+    if (!response.ok) {
+      return response.text().then((text: string) => text.split("https://esm.sh").join(new URL(request.url).origin));
+    }  
+  });
+  // If the request is for a specific path, handle it
 
-  try {
-    const key = url.pathname + url.search;
 
-    const response = await env.R2.get(key);
+  // try {
+  //   const key = url.pathname + url.search;
 
-    if (response) {
-      const responseLike: ResponseLike = {
-        text: () => response.text(),
-        arrayBuffer: () => response.arrayBuffer(),
-      };
-      const headers = makeResponse(response, key).headers;
-      return await esmResponse(responseLike, url, headers);
-    }
+  //   const response = await env.R2.get(key);
 
-    const esmWorker = (await import("./esm.worker")).default;
-    const resp = await esmWorker.fetch(request, env, ctx);
+  //   if (response) {
+  //     const responseLike: ResponseLike = {
+  //       text: () => response.text(),
+  //       arrayBuffer: () => response.arrayBuffer(),
+  //     };
+  //     const headers = makeResponse(response, key).headers;
+  //     return await esmResponse(responseLike, url, headers);
+  //   }
 
-    if (!resp.ok) {
-      return resp;
-    }
+  //   const esmWorker = (await import("./esm.worker")).default;
+  //   const resp = await esmWorker.fetch(request, env, ctx);
 
-    const arrayBuffer = await resp.arrayBuffer();
+  //   if (!resp.ok) {
+  //     return resp;
+  //   }
 
-    // Cache responses in R2 with correct metadata
-    const headerEntries: Array<[string, string]> = [];
-    resp.headers.forEach((value, key) => headerEntries.push([key, value]));
+  //   const arrayBuffer = await resp.arrayBuffer();
 
-    ctx.waitUntil(env.R2.put(key, arrayBuffer, {
-      httpMetadata: Object.fromEntries(headerEntries),
-    }));
+  //   // Cache responses in R2 with correct metadata
+  //   const headerEntries: Array<[string, string]> = [];
+  //   resp.headers.forEach((value, key) => headerEntries.push([key, value]));
 
-    const responseLike: ResponseLike = {
-      text: () => Promise.resolve(new TextDecoder("utf-8").decode(arrayBuffer)),
-      arrayBuffer: () => Promise.resolve(arrayBuffer),
-    };
+  //   ctx.waitUntil(env.R2.put(key, arrayBuffer, {
+  //     httpMetadata: Object.fromEntries(headerEntries),
+  //   }));
 
-    const headers = makeResponse(undefined, key).headers;
-    return await esmResponse(responseLike, url, headers);
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(`Error in handleEsmRequest: ${error.message}`);
-      return new Response(`Internal Server Error: ${error.message}`, {
-        status: 500,
-      });
-    }
-    return new Response("Internal Server Error", { status: 500 });
-  }
+  //   const responseLike: ResponseLike = {
+  //     text: () => Promise.resolve(new TextDecoder("utf-8").decode(arrayBuffer)),
+  //     arrayBuffer: () => Promise.resolve(arrayBuffer),
+  //   };
+
+  //   const headers = makeResponse(undefined, key).headers;
+  //   return await esmResponse(responseLike, url, headers);
+  // } catch (error) {
+  //   if (error instanceof Error) {
+  //     console.error(`Error in handleEsmRequest: ${error.message}`);
+  //     return new Response(`Internal Server Error: ${error.message}`, {
+  //       status: 500,
+  //     });
+  //   }
+  //   return new Response("Internal Server Error", { status: 500 });
+  // }
 }
 
 async function esmResponse(

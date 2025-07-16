@@ -9,6 +9,12 @@ import { ToolService, type AiSdkTool } from "../services/toolService";
 import type { PostRequestBody, MessageContentPart, ErrorResponse } from "../types/aiRoutes";
 import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
 
+// Constants for validation
+const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
+const MAX_MESSAGES_COUNT = 100;
+const VALID_ROLES = ["user", "assistant", "system"] as const;
+type ValidRole = typeof VALID_ROLES[number];
+
 export class PostHandler {
   private storageService: StorageService;
   private toolService: ToolService;
@@ -22,10 +28,21 @@ export class PostHandler {
   }
 
   async handle(request: Request, url: URL): Promise<Response> {
+    const requestId = crypto.randomUUID();
+    
     try {
+      // Validate request size
+      const contentLength = request.headers.get("content-length");
+      if (contentLength && parseInt(contentLength) > 10 * 1024 * 1024) { // 10MB limit
+        return this.createErrorResponse("Request too large", 413);
+      }
+
       const body = await this.parseRequestBody(request);
-      if (!body.messages) {
-        return this.createErrorResponse("Messages is required", 400);
+      
+      // Validate messages
+      const validationError = this.validateMessages(body.messages);
+      if (validationError) {
+        return this.createErrorResponse(validationError, 400);
       }
 
       const codeSpace = this.code.getSession().codeSpace;
@@ -40,14 +57,21 @@ export class PostHandler {
         );
       }
 
-      const mcpServer = this.code.getMcpServer();
-      const tools = this.toolService.generateToolsFromMcp(mcpServer, url.origin);
+      // Generate tools with error handling
+      let tools: Record<string, AiSdkTool> = {};
+      try {
+        const mcpServer = this.code.getMcpServer();
+        tools = this.toolService.generateToolsFromMcp(mcpServer, url.origin);
+        console.log(`[AI Routes][${requestId}] Generated tools from MCP server:`, Object.keys(tools));
+      } catch (toolError) {
+        console.error(`[AI Routes][${requestId}] Failed to generate tools:`, toolError);
+        // Continue without tools rather than failing the entire request
+        tools = {};
+      }
 
-      console.log("[AI Routes] Generated tools from MCP server:", Object.keys(tools));
-
-      return this.createStreamResponse(messages, tools, body, codeSpace);
+      return this.createStreamResponse(messages, tools, body, codeSpace, requestId);
     } catch (error) {
-      console.error("Error handling message:", error);
+      console.error(`[AI Routes][${requestId}] Error handling message:`, error);
       return this.createErrorResponse(
         "Failed to process message",
         500,
@@ -65,19 +89,96 @@ export class PostHandler {
     }
   }
 
+  private validateMessages(messages: unknown): string | null {
+    if (!messages || !Array.isArray(messages)) {
+      return "Messages must be an array";
+    }
+
+    if (messages.length === 0) {
+      return "Messages array cannot be empty";
+    }
+
+    if (messages.length > MAX_MESSAGES_COUNT) {
+      return `Too many messages. Maximum allowed: ${MAX_MESSAGES_COUNT}`;
+    }
+
+    for (let i = 0; i < messages.length; i++) {
+      const msg = messages[i];
+      
+      if (!msg || typeof msg !== "object") {
+        return `Message at index ${i} must be an object`;
+      }
+
+      const typedMsg = msg as Record<string, unknown>;
+      
+      if (!typedMsg.role || typeof typedMsg.role !== "string" || !VALID_ROLES.includes(typedMsg.role as ValidRole)) {
+        return `Message at index ${i} must have a valid role (${VALID_ROLES.join(", ")})`;
+      }
+
+      if (!typedMsg.content) {
+        return `Message at index ${i} must have content`;
+      }
+
+      // Check message size
+      const messageSize = JSON.stringify(typedMsg).length;
+      if (messageSize > MAX_MESSAGE_LENGTH) {
+        return `Message at index ${i} exceeds maximum size limit`;
+      }
+
+      // Validate content structure
+      if (typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)) {
+        return `Message at index ${i} content must be a string or array`;
+      }
+
+      if (Array.isArray(typedMsg.content)) {
+        for (let j = 0; j < typedMsg.content.length; j++) {
+          const part = typedMsg.content[j];
+          if (!part || typeof part !== "object" || !("type" in part)) {
+            return `Message at index ${i}, content part ${j} must have a type`;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  private isValidRole(role: unknown): role is ValidRole {
+    return typeof role === "string" && VALID_ROLES.includes(role as ValidRole);
+  }
+
+  private isMessageContentPart(part: unknown): part is MessageContentPart {
+    return (
+      part !== null &&
+      typeof part === "object" &&
+      "type" in part &&
+      typeof part.type === "string"
+    );
+  }
+
   private convertMessages(messages: Message[]): CoreMessage[] {
     return messages.map((msg: Message) => {
+      if (!this.isValidRole(msg.role)) {
+        throw new Error(`Invalid role: ${msg.role}`);
+      }
+
+      const validRole = msg.role as ValidRole;
+
       if (typeof msg.content === "string") {
         return {
-          role: msg.role as "user" | "assistant" | "system",
+          role: validRole,
           content: msg.content,
         };
       }
       
-      return {
-        role: msg.role as "user" | "assistant" | "system",
-        content: (msg.content as MessageContentPart[]).map(
-          (part: MessageContentPart) => {
+      if (Array.isArray(msg.content)) {
+        return {
+          role: validRole,
+          content: msg.content.map((part: unknown) => {
+            if (!this.isMessageContentPart(part)) {
+              return { type: "text", text: "[invalid content]" };
+            }
+
             if (part.type === "text") {
               return { type: "text", text: part.text || "" };
             }
@@ -85,8 +186,14 @@ export class PostHandler {
               return { type: "image", image: part.image_url.url };
             }
             return { type: "text", text: "[unsupported content]" };
-          },
-        ),
+          }),
+        };
+      }
+
+      // Fallback for unexpected content types
+      return {
+        role: validRole,
+        content: "[invalid content format]",
       };
     });
   }
@@ -95,15 +202,24 @@ export class PostHandler {
     messages: CoreMessage[],
     tools: Record<string, AiSdkTool>,
     body: PostRequestBody,
-    codeSpace: string
+    codeSpace: string,
+    requestId: string
   ): Promise<Response> {
     const systemPrompt = this.createSystemPrompt(codeSpace);
     const anthropic = createAnthropic({
       apiKey: this.env.ANTHROPIC_API_KEY
     });
 
-    console.log("[AI Routes] Creating stream with", messages.length, "messages");
-    console.log("[AI Routes] Messages:", JSON.stringify(messages, null, 2));
+    // Log message count and types instead of full content for privacy
+    const messageSummary = messages.map(m => ({
+      role: m.role,
+      contentLength: typeof m.content === "string" ? m.content.length : m.content.length
+    }));
+    console.log(`[AI Routes][${requestId}] Creating stream with ${messages.length} messages, summary:`, messageSummary);
+
+    // Create a copy of messages to avoid mutation
+    const messagesCopy = JSON.parse(JSON.stringify(body.messages));
+    let streamError: Error | null = null;
 
     try {
       const result = streamText({
@@ -116,32 +232,53 @@ export class PostHandler {
         onStepFinish: async ({ stepType, toolResults }) => {
           if (stepType === "tool-result" && toolResults) {
             try {
-              body.messages.push(...toolResults.map((result) => ({
+              // Work with the copy instead of mutating the original
+              const toolMessages = toolResults.map((result) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
-              })));
+              }));
+              
+              messagesCopy.push(...toolMessages);
 
-              await this.storageService.saveRequestBody(codeSpace, body);
+              // Save the updated copy
+              await this.storageService.saveRequestBody(codeSpace, {
+                ...body,
+                messages: messagesCopy
+              });
             } catch (error) {
-              console.error("Error saving messages after tool call:", error);
+              console.error(`[AI Routes][${requestId}] Error saving messages after tool call:`, error);
+              // Store the error to be handled after stream creation
+              streamError = error instanceof Error ? error : new Error("Failed to save tool results");
             }
           }
         },
       });
 
+      // If there was an error during streaming, we should handle it appropriately
+      if (streamError) {
+        console.warn(`[AI Routes][${requestId}] Stream completed with errors during tool execution`);
+      }
+
       return result.toDataStreamResponse({
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
+        headers: this.getCorsHeaders(),
       });
     } catch (streamError) {
-      console.error("[AI Routes] Stream error details:", {
+      console.error(`[AI Routes][${requestId}] Stream error details:`, {
         message: streamError instanceof Error ? streamError.message : "Unknown error",
         stack: streamError instanceof Error ? streamError.stack : undefined,
-        error: streamError
       });
       throw streamError;
     }
+  }
+
+  private getCorsHeaders(): Record<string, string> {
+    // Use the default CORS headers or create comprehensive ones
+    return DEFAULT_CORS_HEADERS || {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Max-Age": "86400",
+    };
   }
 
   private createSystemPrompt(codeSpace: string): string {
@@ -173,7 +310,7 @@ export class PostHandler {
 
     return new Response(JSON.stringify(errorResponse), {
       status,
-      headers: DEFAULT_CORS_HEADERS,
+      headers: this.getCorsHeaders(),
     });
   }
 }
