@@ -1,4 +1,5 @@
-import { ChildProcess, spawn } from "child_process";
+import type { ChildProcess} from "child_process";
+import { spawn } from "child_process";
 import { promisify } from "util";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
