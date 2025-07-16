@@ -124,6 +124,66 @@ export class McpServer {
         required: ["codeSpace", "search", "replace"],
       },
     },
+    {
+      name: "edit_code",
+      description:
+        "Make precise line-based edits. More efficient than update_code for targeted changes.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to edit code in",
+          },
+          edits: {
+            type: "array",
+            description: "Array of line edits to apply",
+            items: {
+              type: "object",
+              properties: {
+                startLine: {
+                  type: "number",
+                  description: "Starting line number (1-based)",
+                },
+                endLine: {
+                  type: "number",
+                  description: "Ending line number (1-based)",
+                },
+                newContent: {
+                  type: "string",
+                  description: "New content for the specified lines",
+                },
+              },
+              required: ["startLine", "endLine", "newContent"],
+            },
+          },
+        },
+        required: ["codeSpace", "edits"],
+      },
+    },
+    {
+      name: "find_lines",
+      description:
+        "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          codeSpace: {
+            type: "string",
+            description: "The codeSpace identifier to search in",
+          },
+          pattern: {
+            type: "string",
+            description: "Pattern to search for",
+          },
+          isRegex: {
+            type: "boolean",
+            description: "Whether pattern is a regular expression (default: false)",
+          },
+        },
+        required: ["codeSpace", "pattern"],
+      },
+    },
     // Future tool ideas (commented for reference):
     // {
     //   name: "update_css",

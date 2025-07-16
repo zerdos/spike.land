@@ -78,6 +78,10 @@ export class Code implements DurableObject {
     this.mcpServer = new McpServer(this);
   }
 
+  getMcpServer() {
+    return this.mcpServer;
+  }
+
   private async _saveSession(): Promise<void> {
     return await this.state.blockConcurrencyWhile(async () => {
       const sessionToSave: ICodeSession = this.getSession();

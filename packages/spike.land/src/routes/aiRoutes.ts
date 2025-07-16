@@ -4,6 +4,7 @@ import { streamText } from "ai";
 import { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
+import type { McpServer } from "../mcpServer";
 
 // Define types for message content parts
 type MessageContentPart = {
@@ -20,6 +21,103 @@ export class AiRoutes {
   constructor(private code: Code) {
     // Access env through the Code instance
     this.env = this.code.getEnv();
+  }
+
+  /**
+   * Convert JSON Schema to Zod schema
+   * Handles basic types: string, number, boolean, object, array
+   */
+  private jsonSchemaToZod(schema: any): z.ZodTypeAny {
+    if (!schema || !schema.type) {
+      return z.any();
+    }
+
+    switch (schema.type) {
+      case "string": {
+        let stringSchema = z.string();
+        if (schema.description) {
+          stringSchema = stringSchema.describe(schema.description);
+        }
+        return stringSchema;
+      }
+
+      case "number": {
+        let numberSchema = z.number();
+        if (schema.description) {
+          numberSchema = numberSchema.describe(schema.description);
+        }
+        return numberSchema;
+      }
+
+      case "boolean": {
+        let booleanSchema = z.boolean();
+        if (schema.description) {
+          booleanSchema = booleanSchema.describe(schema.description);
+        }
+        return booleanSchema;
+      }
+
+      case "array": {
+        if (schema.items) {
+          const itemSchema = this.jsonSchemaToZod(schema.items);
+          let arraySchema = z.array(itemSchema);
+          if (schema.description) {
+            arraySchema = arraySchema.describe(schema.description);
+          }
+          return arraySchema;
+        }
+        return z.array(z.any());
+      }
+
+      case "object": {
+        if (schema.properties) {
+          const shape: Record<string, z.ZodTypeAny> = {};
+          const required = schema.required || [];
+
+          for (const [key, value] of Object.entries(schema.properties)) {
+            let fieldSchema = this.jsonSchemaToZod(value);
+            
+            // Make field optional if not in required array
+            if (!required.includes(key)) {
+              fieldSchema = fieldSchema.optional();
+            }
+            
+            shape[key] = fieldSchema;
+          }
+
+          return z.object(shape);
+        }
+        return z.object({});
+      }
+
+      default:
+        return z.any();
+    }
+  }
+
+  /**
+   * Generate tools dynamically from MCP server definitions
+   */
+  private generateToolsFromMcp(mcpServer: McpServer, url: URL): Record<string, any> {
+    const mcpTools = mcpServer.getTools();
+    const tools: Record<string, any> = {};
+
+    for (const mcpTool of mcpTools) {
+      // Convert the JSON Schema to Zod schema
+      const zodSchema = this.jsonSchemaToZod(mcpTool.inputSchema);
+
+      // Create the tool definition for AI SDK
+      tools[mcpTool.name] = {
+        description: mcpTool.description,
+        parameters: zodSchema,
+        execute: async (params: any) => {
+          const result = await this.executeMcpTool(mcpTool.name, params, url.origin);
+          return JSON.stringify(result, null, 2);
+        },
+      };
+    }
+
+    return tools;
   }
 
   private async loadMessagesFromR2(codeSpace: string): Promise<Message[]> {
@@ -173,111 +271,11 @@ export class AiRoutes {
           );
         }
 
-        // Define MCP tools for AI SDK
-        const tools = {
-          read_code: {
-            description:
-              "Read current code only. Use before making changes to understand the codebase.",
-            parameters: z.object({
-              codeSpace: z.string().describe("The code space to read from"),
-            }),
-            execute: async ({ codeSpace }: { codeSpace: string; }) => {
-              const result = await this.executeMcpTool("read_code", { codeSpace }, url.origin);
-              return JSON.stringify(result, null, 2);
-            },
-          },
-          update_code: {
-            description:
-              "Replace ALL code with new content. For smaller changes, use edit_code instead.",
-            parameters: z.object({
-              codeSpace: z.string().describe("The code space to update"),
-              code: z.string().describe("The new code content"),
-            }),
-            execute: async ({ codeSpace, code }: { codeSpace: string; code: string; }) => {
-              const result = await this.executeMcpTool(
-                "update_code",
-                { codeSpace, code },
-                url.origin,
-              );
-              return JSON.stringify(result, null, 2);
-            },
-          },
-          edit_code: {
-            description:
-              "PREFERRED: Make precise line-based edits. More efficient than update_code for large files.",
-            parameters: z.object({
-              codeSpace: z.string().describe("The code space to edit"),
-              startLine: z.number().describe("The starting line number"),
-              endLine: z.number().describe("The ending line number"),
-              newContent: z.string().describe("The new content for the specified lines"),
-            }),
-            execute: async ({ codeSpace, startLine, endLine, newContent }: {
-              codeSpace: string;
-              startLine: number;
-              endLine: number;
-              newContent: string;
-            }) => {
-              const result = await this.executeMcpTool("edit_code", {
-                codeSpace,
-                startLine,
-                endLine,
-                newContent,
-              }, url.origin);
-              return JSON.stringify(result, null, 2);
-            },
-          },
-          search_and_replace: {
-            description:
-              "Search for patterns and replace them. Good for renaming or updating multiple occurrences.",
-            parameters: z.object({
-              codeSpace: z.string().describe("The code space to search in"),
-              search: z.string().describe("The pattern to search for"),
-              replace: z.string().describe("The replacement text"),
-              matchCase: z.boolean().optional().describe("Whether to match case"),
-              isRegex: z.boolean().optional().describe("Whether to use regex"),
-            }),
-            execute: async ({ codeSpace, search, replace, matchCase, isRegex }: {
-              codeSpace: string;
-              search: string;
-              replace: string;
-              matchCase?: boolean;
-              isRegex?: boolean;
-            }) => {
-              const result = await this.executeMcpTool("search_and_replace", {
-                codeSpace,
-                search,
-                replace,
-                matchCase,
-                isRegex,
-              }, url.origin);
-              return JSON.stringify(result, null, 2);
-            },
-          },
-          find_lines: {
-            description:
-              "Find line numbers containing a search pattern. Use before edit_code to locate target lines.",
-            parameters: z.object({
-              codeSpace: z.string().describe("The code space to search in"),
-              search: z.string().describe("The pattern to search for"),
-              matchCase: z.boolean().optional().describe("Whether to match case"),
-              isRegex: z.boolean().optional().describe("Whether to use regex"),
-            }),
-            execute: async ({ codeSpace, search, matchCase, isRegex }: {
-              codeSpace: string;
-              search: string;
-              matchCase?: boolean;
-              isRegex?: boolean;
-            }) => {
-              const result = await this.executeMcpTool("find_lines", {
-                codeSpace,
-                search,
-                matchCase,
-                isRegex,
-              }, url.origin);
-              return JSON.stringify(result, null, 2);
-            },
-          },
-        };
+        // Get MCP server and generate tools dynamically
+        const mcpServer = this.code.getMcpServer();
+        const tools = this.generateToolsFromMcp(mcpServer, url);
+
+        console.log("[AI Routes] Generated tools from MCP server:", Object.keys(tools));
 
         // Create system prompt
         const systemPrompt =
