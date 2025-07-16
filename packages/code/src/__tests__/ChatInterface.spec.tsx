@@ -24,7 +24,7 @@ vi.mock("@/hooks/useScreenshot", () => ({
 
 // Removed handle-send-message mock as it's no longer used
 
-vi.mock("@/external/use-local-storage", () => ({
+vi.mock("@/hooks/use-local-storage", () => ({
   useLocalStorage: vi.fn((_key: string, defaultValue: unknown) => {
     let value = defaultValue;
     return [

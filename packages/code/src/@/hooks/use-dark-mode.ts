@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@/external/use-local-storage";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useEffect } from "react";
 
 export const getInitialDarkMode = (): boolean => {

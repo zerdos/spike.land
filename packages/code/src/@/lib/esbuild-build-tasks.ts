@@ -377,10 +377,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     external: [
       "module",
       "string_decoder",
-      "ts-md5",
       "node-html-parser",
-      "immutable",
-      "fast-diff",
       ...(buildOptions.external ?? []),
       "esbuild-wasm",
       "/swVersion.mjs",

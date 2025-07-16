@@ -3773,7 +3773,7 @@ __metadata:
     "@tailwindcss/browser": "npm:4.1.11"
     "@tailwindcss/postcss": "npm:4.1.11"
     "@tailwindcss/vite": "npm:4.1.11"
-    "@tanstack/react-router": "npm:1.127.3"
+    "@tanstack/react-router": "npm:1.128.0"
     "@tanstack/router-plugin": "npm:1.128.0"
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
@@ -4012,7 +4012,7 @@ __metadata:
     mime-db: "npm:1.54.0"
     mime-types: "npm:3.0.1"
     miniflare: "npm:4.20250712.0"
-    openai: "npm:5.10.0"
+    openai: "npm:5.10.1"
     openai-edge: "npm:1.2.3"
     p-map: "npm:7.0.3"
     p-queue: "npm:8.1.0"
@@ -4407,20 +4407,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.127.3":
-  version: 1.127.3
-  resolution: "@tanstack/react-router@npm:1.127.3"
+"@tanstack/react-router@npm:1.128.0":
+  version: 1.128.0
+  resolution: "@tanstack/react-router@npm:1.128.0"
   dependencies:
     "@tanstack/history": "npm:1.121.34"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:1.127.3"
+    "@tanstack/router-core": "npm:1.128.0"
     isbot: "npm:^5.1.22"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/27290603986911f23f1f70bf60541217ed09852f17dfcd0e9cf7dab57c4b0e57fde163a8c2327b3624926c42ce170e284eec100c7e6e343dbbd93084ce8b6cba
+  checksum: 10c0/f7d94f0082b1764490839ff985b5714c6b306d9d0945eb2f4d28e913f2f69d55e73140cc33185a2381f672dfd95d11e1958bdbc84aaf63b85740aecbfd6b6506
   languageName: node
   linkType: hard
 
@@ -4437,22 +4437,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-core@npm:1.127.3":
-  version: 1.127.3
-  resolution: "@tanstack/router-core@npm:1.127.3"
-  dependencies:
-    "@tanstack/history": "npm:1.121.34"
-    "@tanstack/store": "npm:^0.7.0"
-    cookie-es: "npm:^1.2.2"
-    seroval: "npm:^1.3.2"
-    seroval-plugins: "npm:^1.3.2"
-    tiny-invariant: "npm:^1.3.3"
-    tiny-warning: "npm:^1.0.3"
-  checksum: 10c0/d922359e706cbfa67628c7af8b644c907fb907ed0df6432606465348409b745c8857213fcd5180ec890b3b16697dbce2ab2ebe61b834a87823ef3a697852734a
-  languageName: node
-  linkType: hard
-
-"@tanstack/router-core@npm:^1.128.0":
+"@tanstack/router-core@npm:1.128.0, @tanstack/router-core@npm:^1.128.0":
   version: 1.128.0
   resolution: "@tanstack/router-core@npm:1.128.0"
   dependencies:
@@ -11299,9 +11284,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:5.10.0":
-  version: 5.10.0
-  resolution: "openai@npm:5.10.0"
+"openai@npm:5.10.1":
+  version: 5.10.1
+  resolution: "openai@npm:5.10.1"
   peerDependencies:
     ws: ^8.18.0
     zod: ^3.23.8
@@ -11312,7 +11297,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10c0/88167416aa195bd80096df6c622d1fc813a56a1ee6d4672b1dcb1b97cc9c5e41463495d78bfd69cc88631b5d31260de997351281624e46e4095772963d67adda
+  checksum: 10c0/267a843eae4059f86548a6792e00dbb8b0865d712938a04402fa58dcb25b6a3943fa2da04c48b60f1605e90afd131a50c2e535bfbffb997cf161724bf6b78106
   languageName: node
   linkType: hard
 

@@ -1,5 +1,5 @@
 import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
-import { useLocalStorage } from "@/external/use-local-storage";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import type { ICode } from "@/lib/interfaces";

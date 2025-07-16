@@ -1,5 +1,5 @@
 import { Progress } from "@/components/ui/progress";
-import { useLocalStorage } from "@/external/use-local-storage";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 
 interface AIBuildingOverlayProps {
