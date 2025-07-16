@@ -302,6 +302,7 @@ export class AiRoutes {
         });
 
         console.log("[AI Routes] Creating stream with", messages.length, "messages");
+        console.log("[AI Routes] Messages:", JSON.stringify(messages, null, 2));
 
         try {
           const result = await streamText({
@@ -333,7 +334,11 @@ export class AiRoutes {
             },
           });
         } catch (streamError) {
-          console.error("[AI Routes] Stream error:", streamError);
+          console.error("[AI Routes] Stream error details:", {
+            message: streamError instanceof Error ? streamError.message : "Unknown error",
+            stack: streamError instanceof Error ? streamError.stack : undefined,
+            error: streamError
+          });
           throw streamError;
         }
       } catch (error) {
