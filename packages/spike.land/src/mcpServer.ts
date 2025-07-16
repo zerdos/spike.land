@@ -94,66 +94,6 @@ export class McpServer {
       },
     },
     {
-      name: "edit_code",
-      description:
-        "PREFERRED: Make precise line-based edits. More efficient than update_code for large files. Use find_lines first to locate target lines.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          codeSpace: {
-            type: "string",
-            description: "The codeSpace identifier to edit code in",
-          },
-          edits: {
-            type: "array",
-            description: "Array of line-based edit operations",
-            items: {
-              type: "object",
-              properties: {
-                startLine: {
-                  type: "number",
-                  description: "Starting line number (1-based)",
-                },
-                endLine: {
-                  type: "number",
-                  description: "Ending line number (1-based, inclusive)",
-                },
-                newContent: {
-                  type: "string",
-                  description: "New content to replace the lines (can be empty for deletion)",
-                },
-              },
-              required: ["startLine", "endLine", "newContent"],
-            },
-          },
-        },
-        required: ["codeSpace", "edits"],
-      },
-    },
-    {
-      name: "find_lines",
-      description:
-        "EFFICIENT: Find line numbers for patterns. Use before edit_code to avoid reading entire file.",
-      inputSchema: {
-        type: "object",
-        properties: {
-          codeSpace: {
-            type: "string",
-            description: "The codeSpace identifier to search in",
-          },
-          pattern: {
-            type: "string",
-            description: "Text pattern to search for (can be regex)",
-          },
-          isRegex: {
-            type: "boolean",
-            description: "Whether pattern is a regular expression (default: false)",
-          },
-        },
-        required: ["codeSpace", "pattern"],
-      },
-    },
-    {
       name: "search_and_replace",
       description:
         "MOST EFFICIENT: Replace patterns without needing line numbers. Best for simple text replacements.",

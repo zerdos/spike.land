@@ -12,7 +12,11 @@
       "Bash(yarn types:*)",
       "Bash(yarn clean:*)",
       "Bash(yarn add:*)",
-      "Bash(yarn eslint:*)"
+      "Bash(yarn eslint:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
