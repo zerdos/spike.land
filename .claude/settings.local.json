@@ -21,7 +21,8 @@
       "mcp__assistant-ui__assistantUIExamples",
       "Bash(rm:*)",
       "Bash(grep:*)",
-      "Bash(yarn install:*)"
+      "Bash(yarn install:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }

@@ -502,12 +502,12 @@ export class Code implements DurableObject {
     return this.state;
   }
 
-  getEnv() {
-    return this.env;
-  }
-
   getOrigin() {
     return this.origin;
+  }
+
+  getEnv() {
+    return this.env;
   }
 
   // async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
