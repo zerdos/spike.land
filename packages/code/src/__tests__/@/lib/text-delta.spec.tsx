@@ -11,7 +11,7 @@ describe("text-diff with string optimization", () => {
     code,
     html: "<div>Test</div>",
     css: ".test { color: red; }",
-    transpiled: "const x = 1;"
+    transpiled: "const x = 1;",
   });
 
   it("should use string diff for long strings", () => {
@@ -32,5 +32,4 @@ describe("text-diff with string optimization", () => {
     const result = applyDelta(original, diff);
     expect(result.code).toEqual(modified.code);
   });
-
 });

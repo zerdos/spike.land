@@ -90,7 +90,6 @@ export class RouteHandler {
       // Storage routes
       hashCode: this.storageRoutes.handleHashCodeRoute.bind(this.storageRoutes),
 
-
       // Default routes
       "": this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       undefined: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),

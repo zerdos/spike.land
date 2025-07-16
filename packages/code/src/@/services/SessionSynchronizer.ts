@@ -131,7 +131,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
         code: "",
         html: "",
         css: "",
-        transpiled: ""
+        transpiled: "",
       });
     } else {
       this.session = sanitizeSession(data);

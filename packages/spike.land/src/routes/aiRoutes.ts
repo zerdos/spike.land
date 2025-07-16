@@ -45,7 +45,7 @@ export class AiRoutes {
     // Save messages directly to R2
     const codeSpace = this.code.getSession().codeSpace;
     console.log(`[AI Routes] Saving ${messages.length} messages to R2`);
-    
+
     await this.saveMessagesToR2(codeSpace, messages);
 
     // Broadcast session update without messages

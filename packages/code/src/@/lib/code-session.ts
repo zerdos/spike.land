@@ -155,7 +155,6 @@ export class Code implements ICode {
     return this.codeSpace;
   }
 
-
   async getCode(): Promise<string> {
     if (mutex.isLocked()) {
       const { error: mutexError } = await tryCatch(mutex.waitForUnlock());
@@ -165,9 +164,6 @@ export class Code implements ICode {
     }
     return this.currentSession?.code || "";
   }
-
-
-
 
   async setCode(
     rawCode: string,

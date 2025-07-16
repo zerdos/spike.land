@@ -17,7 +17,6 @@ const ChatInterface: React.FC<{
   // const [session, setSession] = useState<ICodeSession | null>(null);
   const { isDarkMode, toggleDarkMode: _toggleDarkMode } = useDarkMode();
 
-
   const localCodeSpace = codeSession.getCodeSpace(); // Renamed from cSess, used local var to avoid conflict with prop
   const [isStreaming, setIsStreaming] = useLocalStorage<boolean>(
     `streaming-${localCodeSpace}`,

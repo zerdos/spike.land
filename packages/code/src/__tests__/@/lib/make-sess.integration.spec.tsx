@@ -87,7 +87,6 @@ describe("Session Patch Integration Tests", () => {
     });
   });
 
-
   describe("Multiple Property Changes", () => {
     it("should handle simultaneous changes to multiple properties", () => {
       const initialSession = createTestSession({
@@ -131,7 +130,6 @@ describe("Session Patch Integration Tests", () => {
       );
       expect(result).toEqual(modifiedSession);
     });
-
   });
 
   it("should handle live errors correctly", async () => {

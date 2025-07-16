@@ -49,7 +49,6 @@ vi.mock("@/components/app/assistant-ui-drawer", () => ({
   },
 }));
 
-
 // Mock BroadcastChannel with proper event handling
 class MockBroadcastChannel {
   private static channels: Map<string, MockBroadcastChannel[]> = new Map<

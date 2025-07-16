@@ -33,7 +33,6 @@ export class Code implements DurableObject {
 
   private xLog: (sess: ICodeSession) => Promise<void>;
 
-
   // private historyManager: CodeHistoryManager;
   public getSession() {
     const session = this.session;

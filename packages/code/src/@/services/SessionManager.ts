@@ -105,7 +105,6 @@ export class SessionManager implements ISessionManager {
       diff.transpiled = newSession.transpiled;
     }
 
-
     return diff;
   }
 
