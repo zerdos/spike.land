@@ -32,6 +32,8 @@ export class Code implements DurableObject {
   // private autoSaveHistory: AutoSaveEntry[] = [];
 
   private xLog: (sess: ICodeSession) => Promise<void>;
+
+
   // private historyManager: CodeHistoryManager;
   public getSession() {
     const session = this.session;

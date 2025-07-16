@@ -37,12 +37,7 @@ describe("CodeProcessor", () => {
     transpiled: "const x = 5;",
     html: "<div></div>",
     codeSpace: mockCodeSpace,
-    css: "css",
-    messages: [
-      { id: "1", role: "user", content: "Test" },
-      { id: "2", role: "assistant", content: "Test" },
-    ],
-  };
+    css: "css"  };
 
   const getSession = () => sessionMock;
 

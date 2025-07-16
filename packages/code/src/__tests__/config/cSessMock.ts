@@ -1,4 +1,4 @@
-import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
+import type { ICode, ICodeSession } from "@/lib/interfaces";
 import { vi } from "vitest";
 
 // Define type for global with cSess property
@@ -9,7 +9,6 @@ import { vi } from "vitest";
 export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
   // Mock session data
   let code = initialCode;
-  let messages: Message[] = [];
 
   // Create the mock session object
   const mockSession: ICode = {
@@ -18,28 +17,17 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
       code = newCode;
       return Promise.resolve(newCode);
     }),
-    getMessages: vi.fn().mockImplementation(() => messages),
-    addMessage: vi.fn().mockImplementation((message: Message) => {
-      messages.push(message);
-      return true;
-    }),
-    removeMessages: vi.fn().mockImplementation(() => {
-      messages = [];
-      return true;
-    }),
     getSession: vi.fn().mockImplementation(() =>
       Promise.resolve({
         code,
         codeSpace: "test-space",
         html: "<div>Test</div>",
         css: ".test { color: red; }",
-        messages,
         transpiled: code,
       })
     ),
     setSession: vi.fn().mockImplementation((session: ICodeSession) => {
       code = session.code;
-      messages = [...session.messages];
     }),
     init: vi.fn().mockImplementation(() =>
       Promise.resolve({
@@ -47,7 +35,6 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
         codeSpace: "test-space",
         html: "<div>Test</div>",
         css: ".test { color: red; }",
-        messages,
         transpiled: code,
       })
     ),
@@ -61,7 +48,6 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
         type: "image",
       })
     ),
-    addMessageChunk: vi.fn(),
     getCodeSpace: vi.fn().mockImplementation(() => "test-space"),
     sub: vi.fn().mockImplementation(() => () => {}),
   };

@@ -8,7 +8,6 @@ describe("Session Patch Integration Tests", () => {
     code: "const test = 'test';",
     html: "<div>Test</div>",
     css: ".test { color: red; }",
-    messages: [],
     transpiled: "const test = 'test';",
     ...modifications,
   });
@@ -88,53 +87,6 @@ describe("Session Patch Integration Tests", () => {
     });
   });
 
-  describe("Message Array Operations", () => {
-    it("should handle message array updates correctly", () => {
-      const initialMessages = [
-        { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi there" },
-      ];
-      const initialSession = createTestSession({ messages: initialMessages });
-
-      // Add a new message
-      const modifiedMessages = [
-        ...initialMessages,
-        { id: "3", role: "user", content: "How are you?" },
-      ];
-      const modifiedSession = createTestSession({ messages: modifiedMessages });
-
-      const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionDelta(initialSession, patch);
-
-      expect(computeSessionHash(result)).toBe(
-        computeSessionHash(modifiedSession),
-      );
-      expect(result.messages).toEqual(modifiedMessages);
-    });
-
-    it("should handle message content updates correctly", () => {
-      const initialMessages = [
-        { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi" },
-      ];
-      const initialSession = createTestSession({ messages: initialMessages });
-
-      // Modify last message content
-      const modifiedMessages = [
-        { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi there!" },
-      ];
-      const modifiedSession = createTestSession({ messages: modifiedMessages });
-
-      const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionDelta(initialSession, patch);
-
-      expect(computeSessionHash(result)).toBe(
-        computeSessionHash(modifiedSession),
-      );
-      expect(result.messages).toEqual(modifiedMessages);
-    });
-  });
 
   describe("Multiple Property Changes", () => {
     it("should handle simultaneous changes to multiple properties", () => {
@@ -180,20 +132,6 @@ describe("Session Patch Integration Tests", () => {
       expect(result).toEqual(modifiedSession);
     });
 
-    it("should handle clearing message array", () => {
-      const initialSession = createTestSession({
-        messages: [{ id: "1", role: "user", content: "Hello" }],
-      });
-      const modifiedSession = createTestSession({ messages: [] });
-
-      const patch = generateSessionPatch(initialSession, modifiedSession);
-      const result = applySessionDelta(initialSession, patch);
-
-      expect(computeSessionHash(result)).toBe(
-        computeSessionHash(modifiedSession),
-      );
-      expect(result.messages).toEqual([]);
-    });
   });
 
   it("should handle live errors correctly", async () => {

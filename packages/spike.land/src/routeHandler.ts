@@ -1,6 +1,5 @@
 import type { Code } from "./chatRoom";
 import {
-  AiRoutes,
   AuthRoutes,
   CodeRoutes,
   DefaultRoutes,
@@ -22,7 +21,6 @@ export class RouteHandler {
   private utilityRoutes: UtilityRoutes;
   private authRoutes: AuthRoutes;
   private storageRoutes: StorageRoutes;
-  private aiRoutes: AiRoutes;
   private defaultRoutes: DefaultRoutes;
 
   constructor(private code: Code) {
@@ -33,7 +31,6 @@ export class RouteHandler {
     this.utilityRoutes = new UtilityRoutes(code);
     this.authRoutes = new AuthRoutes(code);
     this.storageRoutes = new StorageRoutes(code);
-    this.aiRoutes = new AiRoutes(code);
     this.defaultRoutes = new DefaultRoutes(code);
   }
 
@@ -93,8 +90,6 @@ export class RouteHandler {
       // Storage routes
       hashCode: this.storageRoutes.handleHashCodeRoute.bind(this.storageRoutes),
 
-      // AI routes
-      messages: this.aiRoutes.handleMessagesRoute.bind(this.aiRoutes),
 
       // Default routes
       "": this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),

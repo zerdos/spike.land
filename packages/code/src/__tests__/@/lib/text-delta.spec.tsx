@@ -11,8 +11,7 @@ describe("text-diff with string optimization", () => {
     code,
     html: "<div>Test</div>",
     css: ".test { color: red; }",
-    transpiled: "const x = 1;",
-    messages: [],
+    transpiled: "const x = 1;"
   });
 
   it("should use string diff for long strings", () => {
@@ -34,44 +33,4 @@ describe("text-diff with string optimization", () => {
     expect(result.code).toEqual(modified.code);
   });
 
-  it("should handle nested message content with string diffs", () => {
-    // Create a session with a message containing a long content string
-    const longContent =
-      "This is a very long message content that exceeds the threshold of 80 characters. It should trigger the string diff optimization.";
-
-    const originalSession: ICodeSession = {
-      codeSpace: "test-space",
-      code: "const x = 1;",
-      html: "<div>Test</div>",
-      css: ".test { color: red; }",
-      transpiled: "const x = 1;",
-      messages: [
-        {
-          id: "1",
-          role: "assistant",
-          content: longContent,
-        },
-      ],
-    };
-
-    const modifiedSession: ICodeSession = {
-      ...originalSession,
-      messages: [
-        {
-          id: "1",
-          role: "assistant",
-          content: longContent + " Added some text at the end.",
-        },
-      ],
-    };
-
-    // Create a diff
-    const diff = createDelta(originalSession, modifiedSession);
-
-    // Apply the diff and check the result
-    const result = applyDelta(originalSession, diff);
-    expect(result.messages[0]!.content).toEqual(
-      modifiedSession.messages[0]!.content,
-    );
-  });
 });

@@ -1,8 +1,6 @@
 import { getCodeSpace } from "@/hooks/use-code-space";
-import { messagesPush } from "@/lib/chat-utils";
-import type { ICode, ICodeSession, ImageData, Message, TextPart } from "@/lib/interfaces";
+import type { ICode, ICodeSession, ImageData } from "@/lib/interfaces";
 import { computeSessionHash, sanitizeSession } from "@/lib/make-sess";
-import { md5 } from "@/lib/md5";
 import { tryCatch } from "@/lib/try-catch";
 import { wait } from "@/lib/wait";
 import { CodeProcessor } from "@/services/CodeProcessor";
@@ -157,9 +155,6 @@ export class Code implements ICode {
     return this.codeSpace;
   }
 
-  getMessages(): Message[] {
-    return [...this.currentSession.messages];
-  }
 
   async getCode(): Promise<string> {
     if (mutex.isLocked()) {
@@ -171,138 +166,8 @@ export class Code implements ICode {
     return this.currentSession?.code || "";
   }
 
-  /**
-   * Adds a message chunk to the last assistant message or creates a new one
-   */
-  addMessageChunk(chunk: string): void {
-    console.warn(
-      "🔄 CodeSession.addMessageChunk called with chunk length:",
-      chunk.length,
-    );
 
-    // Create a copy of the current session for tracking changes
-    const oldSession = sanitizeSession(this.currentSession);
 
-    // If there are no messages, create a new assistant message
-    if (oldSession.messages.length === 0) {
-      this.addMessage({
-        id: Date.now().toString(),
-        role: "assistant",
-        content: chunk,
-      });
-      return;
-    }
-
-    // Get the last message
-    const lastMessage = oldSession.messages[oldSession.messages.length - 1];
-
-    // If the last message is not from the assistant or if there's no last message,
-    // create a new assistant message.
-    if (!lastMessage || lastMessage.role !== "assistant") {
-      this.addMessage({
-        id: Date.now().toString(),
-        role: "assistant",
-        content: chunk,
-      });
-      return;
-    }
-
-    // Append the chunk to the last assistant message
-    // Ensure content is treated as a string for concatenation.
-    // Assuming MessageContent can be string or structured, we need to handle it.
-    // For simplicity, this example assumes string content or a way to append to it.
-    // If MessageContent is complex, this part needs more sophisticated handling.
-    if (typeof lastMessage.content === "string") {
-      lastMessage.content += chunk;
-    } else {
-      // Handle MessagePart[] case, e.g., by adding a new TextPart or appending to the last TextPart
-      // This is a simplified example; actual implementation depends on MessageContent structure
-      const newTextPart: TextPart = { type: "text", text: chunk };
-      if (Array.isArray(lastMessage.content)) {
-        lastMessage.content.push(newTextPart);
-      } else {
-        // This case should ideally not happen if content is string or MessagePart[]
-        // but as a fallback, create a new array.
-        lastMessage.content = [newTextPart];
-      }
-    }
-
-    // Create a new session with the updated messages
-    const newSession = sanitizeSession({
-      ...this.currentSession,
-      messages: [
-        ...oldSession.messages.slice(0, oldSession.messages.length - 1),
-        lastMessage, // lastMessage is now guaranteed to be defined and updated
-      ],
-    });
-
-    // Update the session
-    this.setSession(newSession);
-
-    console.warn("✅ CodeSession.addMessageChunk completed successfully");
-  }
-
-  /**
-   * Adds a new message to the session
-   */
-  addMessage(newMessage: Message): boolean {
-    console.warn(
-      "🔄 CodeSession.addMessage called with message:",
-      newMessage.role,
-    );
-
-    // Create a copy of the current messages
-    const currentMessages = [...this.currentSession.messages];
-
-    // Use messagesPush to add the new message following the rules
-    const updatedMessages = messagesPush(currentMessages, newMessage);
-
-    // Check if messages actually changed
-    if (
-      md5(JSON.stringify(updatedMessages)) ===
-        md5(JSON.stringify(currentMessages))
-    ) {
-      console.warn("⚠️ No changes to messages, skipping update");
-      return false;
-    }
-
-    // Create a new session with the updated messages
-    const newSession = sanitizeSession({
-      ...this.currentSession,
-      messages: updatedMessages,
-    });
-
-    // Update the session
-    this.setSession(newSession);
-
-    console.warn("✅ CodeSession.addMessage completed successfully");
-    return true;
-  }
-
-  /**
-   * Removes all messages from the session
-   */
-  removeMessages(): boolean {
-    console.warn("🔄 CodeSession.removeMessages called");
-
-    // If there are no messages, nothing to remove
-    if (this.currentSession.messages.length === 0) {
-      console.warn("⚠️ No messages to remove");
-      return false;
-    }
-
-    // Create a new session with empty messages
-    const newSession = sanitizeSession({
-      ...this.currentSession,
-      messages: [],
-    });
-
-    // Update the session
-    this.setSession(newSession);
-
-    console.warn("✅ CodeSession.removeMessages completed successfully");
-    return true;
-  }
 
   async setCode(
     rawCode: string,

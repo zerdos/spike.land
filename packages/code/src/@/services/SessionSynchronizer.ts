@@ -45,12 +45,6 @@ export class SessionSynchronizer implements ISessionSynchronizer {
           const newSession = sanitizeSession({
             ...this.session,
             ...data,
-            // Special handling for messages array to prevent overwriting
-            messages: data.messages
-              // If data contains messages, use them (they should be complete)
-              ? [...data.messages]
-              // Otherwise keep existing messages
-              : [...this.session.messages],
           });
 
           this.session = newSession;
@@ -137,8 +131,7 @@ export class SessionSynchronizer implements ISessionSynchronizer {
         code: "",
         html: "",
         css: "",
-        transpiled: "",
-        messages: [],
+        transpiled: ""
       });
     } else {
       this.session = sanitizeSession(data);

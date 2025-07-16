@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { ICodeSession, Message, MessagePart } from "@spike-npm-land/code";
+import type { Message, MessagePart } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
+import type Env from "../env";
 
 interface AnthropicMessage {
   role: "user" | "assistant";
@@ -8,19 +9,47 @@ interface AnthropicMessage {
 }
 
 export class AiRoutes {
-  constructor(private code: Code) {}
+  private env: Env;
 
-  private async saveMessagesFromSession(session: ICodeSession): Promise<void> {
-    // With optimized message storage, we don't need to check total session size
-    // Messages are stored separately and managed automatically
-    console.log(`[AI Routes] Saving session with ${session.messages.length} messages`);
+  constructor(private code: Code) {
+    // Access env through the Code instance
+    this.env = this.code.getEnv();
+  }
 
-    // The new message storage system will handle size limits automatically
-    // Use the complete session object passed in, which already includes latest state
-    await this.code.updateAndBroadcastSession({
-      ...this.code.getSession(),
-      messages: [...session.messages],
-    });
+  private async loadMessagesFromR2(codeSpace: string): Promise<Message[]> {
+    const messagesKey = `messages_${codeSpace}`;
+    try {
+      const messagesObject = await this.env.R2.get(messagesKey);
+      if (messagesObject) {
+        const messages = JSON.parse(await messagesObject.text()) as Message[];
+        return messages;
+      }
+    } catch (e) {
+      console.error(`Failed to load messages from R2 (${messagesKey}):`, e);
+    }
+    return [];
+  }
+
+  private async saveMessagesToR2(codeSpace: string, messages: Message[]): Promise<void> {
+    const messagesKey = `messages_${codeSpace}`;
+    try {
+      await this.env.R2.put(messagesKey, JSON.stringify(messages));
+      console.log(`[AI Routes] Saved ${messages.length} messages to R2`);
+    } catch (e) {
+      console.error(`Failed to save messages to R2 (${messagesKey}):`, e);
+      throw e;
+    }
+  }
+
+  private async saveMessagesFromSession(messages: Message[]): Promise<void> {
+    // Save messages directly to R2
+    const codeSpace = this.code.getSession().codeSpace;
+    console.log(`[AI Routes] Saving ${messages.length} messages to R2`);
+    
+    await this.saveMessagesToR2(codeSpace, messages);
+
+    // Broadcast session update without messages
+    await this.code.updateAndBroadcastSession(this.code.getSession());
   }
 
   async handleMessagesRoute(
@@ -44,7 +73,8 @@ export class AiRoutes {
 
     // GET: Return all messages
     if (request.method === "GET") {
-      return new Response(JSON.stringify({ messages: this.code.getSession().messages }), {
+      const messages = await this.loadMessagesFromR2(codeSpace);
+      return new Response(JSON.stringify({ messages }), {
         status: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -69,18 +99,11 @@ export class AiRoutes {
           });
         }
 
-        // Create user message
-        // Get initial session
-        const initialSession = this.code.getSession();
+        // Use messages from request body
+        const currentMessages: Message[] = body.messages as unknown as Message[];
         console.log(
-          `[AI Routes] Initial session messages count: ${initialSession.messages?.length || 0}`,
+          `[AI Routes] Received ${currentMessages.length} messages from request`,
         );
-
-        // Add user message to session
-        let currentSession = {
-          ...initialSession,
-          messages: body.messages,
-        };
 
         const userMessage: Message = {
           id: crypto.randomUUID(),
@@ -88,23 +111,12 @@ export class AiRoutes {
           content: body.messages.at(-1),
         };
 
-        console.log(
-          `[AI Routes] Session after adding user message: ${currentSession.messages.length} messages`,
-        );
-
+        // Save the messages to R2
         try {
-          await this.saveMessagesFromSession(currentSession);
+          await this.saveMessagesFromSession(currentMessages);
         } catch (updateError) {
-          console.error("Error updating session after initial message:", updateError);
-          console.error("Session structure:", {
-            codeSpace: currentSession.codeSpace,
-            hasCode: !!currentSession.code,
-            hasTranspiled: !!currentSession.transpiled,
-            hasHtml: !!currentSession.html,
-            hasCss: !!currentSession.css,
-            messagesCount: currentSession.messages?.length || 0,
-          });
-          // Continue anyway - the messages might still be useful even if broadcast failed
+          console.error("Error saving messages:", updateError);
+          // Continue anyway - the messages might still be useful even if save failed
         }
 
         // Get the AI binding from environment
@@ -281,9 +293,9 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
         while (shouldContinue && toolCallCount < MAX_TOOL_CALLS) {
           // Prepare messages for AI (filtering out system messages and converting them)
-          // Use currentSession.messages to ensure we have the latest message state
+          // Use currentMessages to ensure we have the latest message state
           const aiMessages: AnthropicMessage[] = [
-            ...currentSession.messages
+            ...currentMessages
               .filter((msg: Message) => msg.role !== "system")
               .map((msg: Message) => ({
                 role: msg.role as "user" | "assistant",
@@ -339,14 +351,11 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 role: "assistant" as const,
                 content: responseText,
               };
-              currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, assistantMessage],
-              };
+              currentMessages.push(assistantMessage);
               try {
-                await this.saveMessagesFromSession(currentSession);
+                await this.saveMessagesFromSession(currentMessages);
               } catch (saveError) {
-                console.error("Error saving session after assistant message:", saveError);
+                console.error("Error saving messages after assistant response:", saveError);
               }
               allMessages.push(assistantMessage);
               // Parse the tool use request
@@ -368,16 +377,12 @@ Remember: One tool call per response, or a regular message. Never both.`;
 
               // Get the latest session state to preserve any changes made by MCP tools
 
-              // Update session with tool result, preserving code changes from MCP
-              // Use currentSession.messages to maintain our conversation flow, not latestSession.messages
-              currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, toolResultMessage],
-              };
+              // Add tool result to messages
+              currentMessages.push(toolResultMessage);
 
-              // Save the session after adding tool result
+              // Save the messages after adding tool result
               try {
-                await this.saveMessagesFromSession(currentSession);
+                await this.saveMessagesFromSession(currentMessages);
               } catch (saveError) {
                 console.error("Error saving session after tool result:", saveError);
               }
@@ -398,14 +403,11 @@ Remember: One tool call per response, or a regular message. Never both.`;
                 }`,
               };
 
-              currentSession = {
-                ...currentSession,
-                messages: [...currentSession.messages, errorMessage],
-              };
+              currentMessages.push(errorMessage);
 
-              // Save the session after adding error message
+              // Save the messages after adding error message
               try {
-                await this.saveMessagesFromSession(currentSession);
+                await this.saveMessagesFromSession(currentMessages);
               } catch (saveError) {
                 console.error("Error saving session after error message:", saveError);
               }
@@ -421,14 +423,11 @@ Remember: One tool call per response, or a regular message. Never both.`;
               content: responseText,
             };
 
-            currentSession = {
-              ...currentSession,
-              messages: [...currentSession.messages, assistantMessage],
-            };
+            currentMessages.push(assistantMessage);
 
-            // Save the session after adding final message
+            // Save the messages after adding final message
             try {
-              await this.saveMessagesFromSession(currentSession);
+              await this.saveMessagesFromSession(currentMessages);
             } catch (saveError) {
               console.error("Error saving session after final message:", saveError);
             }
@@ -447,14 +446,11 @@ Remember: One tool call per response, or a regular message. Never both.`;
               "I've reached the maximum number of tool calls allowed in a single conversation. Please start a new message if you need more assistance.",
           };
 
-          currentSession = {
-            ...currentSession,
-            messages: [...currentSession.messages, limitMessage],
-          };
+          currentMessages.push(limitMessage);
 
-          // Save the session after adding limit message
+          // Save the messages after adding limit message
           try {
-            await this.saveMessagesFromSession(currentSession);
+            await this.saveMessagesFromSession(currentMessages);
           } catch (saveError) {
             console.error("Error saving session after limit message:", saveError);
           }
@@ -469,7 +465,7 @@ Remember: One tool call per response, or a regular message. Never both.`;
           JSON.stringify({
             userMessage,
             assistantMessages: allMessages,
-            messages: currentSession.messages,
+            messages: currentMessages,
           }),
           {
             status: 200,

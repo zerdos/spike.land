@@ -1,14 +1,24 @@
 import { HTML, importMap, md5 } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
+import { AiRoutes } from "./aiRoutes";
 
 export class LiveRoutes {
-  constructor(private code: Code) {}
+  private aiRoutes: AiRoutes;
+
+  constructor(private code: Code) {
+    this.aiRoutes = new AiRoutes(code);
+  }
 
   async handleLiveRoute(
     request: Request,
     url: URL,
     path: string[],
   ): Promise<Response> {
+    // /live/${codeSpace}/messages
+    if (path[2] === "messages") {
+      return this.aiRoutes.handleMessagesRoute(request, url, path);
+    }
+
     // /live/${codeSpace}/mcp
     if (path[2] === "mcp") {
       return this.handleMcpRoute(request, url, path);

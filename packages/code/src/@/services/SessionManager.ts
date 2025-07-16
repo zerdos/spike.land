@@ -1,4 +1,4 @@
-import type { ICodeSession, Message } from "@/lib/interfaces";
+import type { ICodeSession } from "@/lib/interfaces";
 import { sanitizeSession } from "@/lib/make-sess";
 import { md5 } from "@/lib/md5";
 import { connect } from "@/lib/shared";
@@ -105,29 +105,6 @@ export class SessionManager implements ISessionManager {
       diff.transpiled = newSession.transpiled;
     }
 
-    // Compare messages with optimized diffing
-    if (
-      JSON.stringify(oldSession.messages) !==
-        JSON.stringify(newSession.messages)
-    ) {
-      if (newSession.messages.length === 0) {
-        diff.messages = [];
-      } else if (oldSession.messages.length === newSession.messages.length) {
-        // If same length, only send the modified message (usually the last one)
-        const lastIndex = newSession.messages.length - 1;
-        const oldLastMessage = oldSession.messages[lastIndex];
-        const newLastMessage = newSession.messages[lastIndex];
-        if (
-          oldLastMessage && newLastMessage &&
-          JSON.stringify(oldLastMessage) !== JSON.stringify(newLastMessage)
-        ) {
-          diff.messages = [newLastMessage].filter(Boolean) as Message[];
-        }
-      } else {
-        // If message count changed, only send the new messages
-        diff.messages = newSession.messages.slice(oldSession.messages.length);
-      }
-    }
 
     return diff;
   }
@@ -144,7 +121,6 @@ export class SessionManager implements ISessionManager {
         code: this.session.code,
         html: this.session.html,
         css: this.session.css,
-        messages: diff.messages || this.session.messages,
         codeSpace: this.session.codeSpace,
         transpiled: this.session.transpiled,
         sender: this.user,

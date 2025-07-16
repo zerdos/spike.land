@@ -32,7 +32,6 @@ export interface ICodeSession {
   codeSpace: string;
   html: string;
   css: string;
-  messages: Message[];
   transpiled: string;
   requiresReRender?: boolean; // Flag to indicate re-render needed
 }
@@ -42,10 +41,6 @@ export interface ICode {
   getSession: () => Promise<ICodeSession>;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
-  addMessageChunk: (chunk: string) => void;
-  getMessages: () => Message[];
-  addMessage: (newMessage: Message) => boolean;
-  removeMessages: () => boolean;
   // currentCodeWithExtraModels: () => Promise<string>;
   // setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(

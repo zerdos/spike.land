@@ -92,7 +92,6 @@ describe("make-sess", () => {
       expect(sanitized.html).toBe("");
       expect(sanitized.css).toBe("");
       expect(sanitized.transpiled).toContain("404 - for now");
-      expect(sanitized.messages).toEqual([]);
     });
   });
 

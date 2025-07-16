@@ -1,6 +1,5 @@
 import { Code } from "@/lib/code-session";
 import type { IExtraModelsResult, IModelManager } from "@/lib/interfaces";
-import type { Message } from "@/lib/interfaces";
 
 export class ModelManager implements IModelManager {
   private models = new Map<string, Code>();
@@ -55,7 +54,6 @@ export class ModelManager implements IModelManager {
           code: codeContent,
           html: "",
           css: "",
-          messages: [] as Message[],
           transpiled: "",
         });
         await codeInstance.init();

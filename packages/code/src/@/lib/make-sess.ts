@@ -9,12 +9,9 @@ export interface SessionDelta {
 
 class SessionPatcher {
   public static computeSessionHash(cx: ICodeSession): string {
-    const { codeSpace, code, html, css, transpiled, messages } = cx;
+    const { codeSpace, code, html, css, transpiled } = cx;
     const hashObj = {
       codeSpace,
-      messages: md5(
-        (messages || []).map((m) => md5(JSON.stringify(m))).join(""),
-      ),
       code: md5(code),
       html: md5(html),
       css: md5(css),
@@ -36,7 +33,6 @@ class SessionPatcher {
           e("h2", null, "But you can edit even this page and share with your friends.")
         )
       );`,
-      messages: p.messages ? JSON.parse(JSON.stringify(p.messages)) : [],
     };
   }
 

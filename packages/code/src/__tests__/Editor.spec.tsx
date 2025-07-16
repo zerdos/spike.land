@@ -36,7 +36,6 @@ describe("Editor Component", () => {
       css: "",
       html: "",
       codeSpace: "test-space",
-      messages: [],
     });
 
     mockCSess = {
@@ -46,10 +45,6 @@ describe("Editor Component", () => {
       setSession: vi.fn(),
       init: vi.fn(),
       screenshot: vi.fn(),
-      addMessageChunk: vi.fn(),
-      getMessages: vi.fn(),
-      addMessage: vi.fn(),
-      removeMessages: vi.fn(),
       getCode: vi.fn(),
       getCodeSpace: vi.fn(),
     };

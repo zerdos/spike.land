@@ -62,7 +62,7 @@ export class McpServer {
     {
       name: "read_session",
       description:
-        "Read ALL session data (code+html+css+messages). Use sparingly - prefer specific read tools.",
+        "Read ALL session data (code+html+css). Use sparingly - prefer specific read tools.",
       inputSchema: {
         type: "object",
         properties: {
@@ -386,8 +386,6 @@ export class McpServer {
           code: session.code,
           html: session.html,
           css: session.css,
-          transpiled: session.transpiled,
-          messages: session.messages,
           codeSpace: requestedCodeSpace,
         };
 
@@ -407,7 +405,6 @@ export class McpServer {
           ...session,
           code: args.code,
           // Clear transpiled content to force re-transpilation
-          transpiled: "",
           html: "",
           css: "",
           codeSpace: requestedCodeSpace, // Ensure codeSpace is preserved
