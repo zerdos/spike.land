@@ -11,7 +11,7 @@ export class AiRoutes {
 
   constructor(private code: Code) {
     // Access env through the Code instance
-    this.env = (this.code as any).env;
+    this.env = this.code.getEnv();
   }
 
   private async loadMessagesFromR2(codeSpace: string): Promise<Message[]> {
@@ -84,7 +84,7 @@ export class AiRoutes {
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
       try {
-        const body = await request.json();
+        const body = await request.json() as { messages?: Message[]; system?: string; tools?: Record<string, unknown> };
 
         if (!body.messages) {
           return new Response(JSON.stringify({ error: "Messages is required" }), {
@@ -97,7 +97,7 @@ export class AiRoutes {
         }
 
         // Convert messages to AI SDK format
-        const messages = body.messages.map((msg: any) => {
+        const messages = body.messages.map((msg: Message) => {
           if (typeof msg.content === "string") {
             return {
               role: msg.role,
@@ -107,11 +107,11 @@ export class AiRoutes {
           // Handle complex content types
           return {
             role: msg.role,
-            content: msg.content.map((part: any) => {
+            content: (msg.content as any[]).map((part: { type: string; text?: string; image_url?: { url: string } }) => {
               if (part.type === "text") {
                 return { type: "text", text: part.text };
               }
-              if (part.type === "image_url") {
+              if (part.type === "image_url" && part.image_url) {
                 return { type: "image", image: part.image_url.url };
               }
               return { type: "text", text: "[unsupported content]" };
@@ -128,7 +128,7 @@ export class AiRoutes {
         }
 
         // Get the AI binding from environment
-        const env = (this.code as any).env;
+        const _env = (this.code as unknown as { env: Env }).env;
 
         // Define MCP tools for AI SDK
         const tools = {
@@ -235,7 +235,7 @@ export class AiRoutes {
           tools,
           toolChoice: "auto",
           maxSteps: 10,
-          onStepFinish: async ({ stepType, toolCalls, toolResults }) => {
+          onStepFinish: async ({ stepType, toolResults }) => {
             // Save messages after each step
             if (stepType === "tool-result" && toolResults) {
               try {

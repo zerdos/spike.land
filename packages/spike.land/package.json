@@ -76,7 +76,7 @@
     "p-map": "7.0.3",
     "p-queue": "8.1.0",
     "replicate": "1.0.1",
-    "zod": "^3.25.0"
+    "zod": "^4.0.5"
   },
   "publishConfig": {
     "access": "public"
