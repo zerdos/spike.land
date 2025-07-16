@@ -45,7 +45,7 @@ export class PostHandler {
 
       console.log("[AI Routes] Generated tools from MCP server:", Object.keys(tools));
 
-      return await this.createStreamResponse(messages, tools, body, codeSpace);
+      return this.createStreamResponse(messages, tools, body, codeSpace);
     } catch (error) {
       console.error("Error handling message:", error);
       return this.createErrorResponse(
@@ -106,7 +106,7 @@ export class PostHandler {
     console.log("[AI Routes] Messages:", JSON.stringify(messages, null, 2));
 
     try {
-      const result = await streamText({
+      const result = streamText({
         model: anthropic('claude-4-sonnet-20250514'),
         system: systemPrompt,
         messages,

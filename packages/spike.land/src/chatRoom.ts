@@ -66,7 +66,6 @@ export class Code implements DurableObject {
           e("h2", null, "But you can edit even this page and share with your friends.")
         )
       );`,
-      messages: [],
       html: "<div></div>",
       css: "",
       codeSpace: "default",
@@ -86,7 +85,7 @@ export class Code implements DurableObject {
     return await this.state.blockConcurrencyWhile(async () => {
       const sessionToSave: ICodeSession = this.getSession();
 
-      const { code, transpiled, html, css, messages, ...sessionCoreData } = sessionToSave;
+      const { code, transpiled, html, css, ...sessionCoreData } = sessionToSave;
       const codeSpace = sessionToSave.codeSpace;
 
       if (!codeSpace) {
@@ -96,9 +95,7 @@ export class Code implements DurableObject {
 
       const r2HtmlKey = `r2_html_${codeSpace}`;
       const r2CssKey = `r2_css_${codeSpace}`;
-      const messagesKey = `messages_${codeSpace}`;
 
-      // DEBUG: log split data sizes before saving
 
       const promises = [];
       promises.push(
@@ -128,12 +125,6 @@ export class Code implements DurableObject {
       promises.push(
         this.env.R2.put(r2CssKey, css || "").catch(e => {
           console.error(`Failed to save css to R2 for ${r2CssKey}:`, e);
-          throw e;
-        }),
-      );
-      promises.push(
-        this.env.R2.put(messagesKey, JSON.stringify(messages || [])).catch(e => {
-          console.error(`Failed to save messages for ${codeSpace}:`, e);
           throw e;
         }),
       );
@@ -201,7 +192,6 @@ export class Code implements DurableObject {
 
         const r2HtmlKey = `r2_html_${codeSpace}`;
         const r2CssKey = `r2_css_${codeSpace}`;
-        const messagesKey = `messages_${codeSpace}`;
 
         let html = "";
         try {
@@ -219,22 +209,10 @@ export class Code implements DurableObject {
           console.error(`Failed to load css from R2 (${r2CssKey}):`, e);
         }
 
-        let messages: unknown[] = [];
-        try {
-          const messagesObject = await this.env.R2.get(messagesKey);
-          if (messagesObject) {
-            messages = JSON.parse(await messagesObject.text()) as unknown[];
-          }
-        } catch (e) {
-          console.error(`Failed to load messages from storage (${messagesKey}):`, e);
-        }
-        // Create the loaded session object with all parts
-
         loadedSession = {
           ...sessionCore, // Contains messages, original codeSpace, etc.
           code,
           transpiled,
-          messages,
           html,
 
           css,
@@ -260,7 +238,6 @@ export class Code implements DurableObject {
           // full empty state
           this.session = sanitizeSession({
             codeSpace,
-            messages: [],
             code: `export default () => (<>Write your code here!</>);
               `,
             html: "<div>Write your code here!</div>",

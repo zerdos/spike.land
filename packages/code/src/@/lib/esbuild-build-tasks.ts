@@ -335,15 +335,6 @@ const extraAliases = {
 export async function buildMainBundle(wasmFile: string): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
 
-  // Step 1: Build for Node.js platform (e.g., for Cloudflare Workers or server-side utilities).
-  // - Entry points: `src/cf-esbuild.mjs` (likely a Cloudflare Worker entry) and `src/modules.ts`.
-  // - Format: ESM.
-  // - Aliases: Includes standard Node.js polyfills and specific project aliases.
-  //   - `esbuild-wasm/esbuild.wasm` is aliased to the provided `wasmFile` path.
-  //   - React is aliased to Preact for smaller bundle size if not in production (this logic seems inverted, might be a TODO).
-  // - Externals: Includes Node.js built-in modules, common large libraries (`ts-md5`, `immutable`, etc.),
-  //   and esbuild-wasm related files to prevent them from being bundled.
-  // This build is likely for serverless functions or environments where Node.js APIs are available.
   await build({
     ...buildOptions,
     format: "esm",
@@ -370,8 +361,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
 
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       // ...(isProduction ? {} : {
-      "react": "preact/compat",
-      "react-dom": "preact/compat",
+      // "react": "preact/compat",
+      // "react-dom": "preact/compat",
       // }),
     },
     external: [

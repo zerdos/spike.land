@@ -42,7 +42,7 @@ export class AiRoutes {
 
     // POST: Add a new message and call AI with MCP tools
     if (request.method === "POST") {
-      return await this.postHandler.handle(request, url);
+      return this.postHandler.handle(request, url);
     }
 
     return new Response("Method not allowed", {

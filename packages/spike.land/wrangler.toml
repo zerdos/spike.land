@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
-compatibility_date = "2024-09-02"
+compatibility_date = "2025-07-15"
 
 
 
