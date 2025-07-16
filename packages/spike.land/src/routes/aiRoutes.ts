@@ -1,9 +1,18 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
 import { streamText } from "ai";
 import { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
+
+// Define types for message content parts
+type MessageContentPart = {
+  type: string;
+  text?: string;
+  image_url?: {
+    url: string;
+  };
+};
 
 export class AiRoutes {
   private env: Env;
@@ -110,8 +119,8 @@ export class AiRoutes {
           // Handle complex content types
           return {
             role: msg.role,
-            content: (msg.content as any[]).map(
-              (part: { type: string; text?: string; image_url?: { url: string; }; }) => {
+            content: (msg.content as MessageContentPart[]).map(
+              (part: MessageContentPart) => {
                 if (part.type === "text") {
                   return { type: "text", text: part.text };
                 }
@@ -134,6 +143,22 @@ export class AiRoutes {
 
         // Get the AI binding from environment
         const _env = (this.code as unknown as { env: Env; }).env;
+
+        // Check if API key is configured
+        if (!this.env.ANTHROPIC_API_KEY || this.env.ANTHROPIC_API_KEY === "your-api-key-here") {
+          return new Response(
+            JSON.stringify({
+              error: "ANTHROPIC_API_KEY not configured. Please add your API key to .dev.vars file.",
+            }),
+            {
+              status: 503,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            },
+          );
+        }
 
         // Define MCP tools for AI SDK
         const tools = {
@@ -259,8 +284,14 @@ export class AiRoutes {
 3. When all modifications are complete, provide a brief summary`;
 
         // Stream the response using AI SDK
+        const anthropic = createAnthropic({
+          apiKey: this.env.ANTHROPIC_API_KEY,
+        });
+
         const result = await streamText({
-          model: anthropic("claude-3-5-sonnet-20241022"),
+          model: anthropic('claude-4-sonnet-20250514', {
+            sendReasoning: true,
+          }),
           system: systemPrompt,
           messages,
           tools,
