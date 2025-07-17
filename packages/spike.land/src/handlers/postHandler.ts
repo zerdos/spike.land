@@ -39,6 +39,14 @@ export class PostHandler {
 
       const body = await this.parseRequestBody(request);
       
+      // Validate and fix tools if present in the request
+      if (body.tools && Array.isArray(body.tools)) {
+        const toolValidationError = this.validateAndFixTools(body.tools);
+        if (toolValidationError) {
+          return this.createErrorResponse(toolValidationError, 400);
+        }
+      }
+      
       // Validate messages
       const validationError = this.validateMessages(body.messages);
       if (validationError) {
@@ -137,6 +145,51 @@ export class PostHandler {
             return `Message at index ${i}, content part ${j} must have a type`;
           }
         }
+      }
+    }
+
+    return null;
+  }
+
+  private validateAndFixTools(tools: unknown[]): string | null {
+    if (!Array.isArray(tools)) {
+      return "Tools must be an array";
+    }
+
+    for (let i = 0; i < tools.length; i++) {
+      const tool = tools[i];
+      
+      if (!tool || typeof tool !== "object") {
+        return `Tool at index ${i} must be an object`;
+      }
+
+      const typedTool = tool as Record<string, unknown>;
+      
+      // Check required fields
+      if (!typedTool.name || typeof typedTool.name !== "string") {
+        return `Tool at index ${i} must have a name`;
+      }
+
+      if (!typedTool.input_schema || typeof typedTool.input_schema !== "object") {
+        return `Tool at index ${i} must have an input_schema object`;
+      }
+
+      const inputSchema = typedTool.input_schema as Record<string, unknown>;
+      
+      // Fix the common issue: if input_schema.type is "string", change it to "object"
+      if (inputSchema.type === "string") {
+        console.log(`[AI Routes] Fixing tool ${typedTool.name}: changing input_schema.type from "string" to "object"`);
+        inputSchema.type = "object";
+        
+        // If there are no properties defined, add an empty properties object
+        if (!inputSchema.properties) {
+          inputSchema.properties = {};
+        }
+      }
+      
+      // Validate that input_schema.type is now "object"
+      if (inputSchema.type !== "object") {
+        return `Tool at index ${i} (${typedTool.name}) must have input_schema.type set to "object", but found "${inputSchema.type}"`;
       }
     }
 

@@ -12,7 +12,7 @@ export interface PostRequestBody {
   messages: Message[];
   runConfig?: Record<string, unknown>;
   state?: unknown;
-  tools?: Record<string, unknown>;
+  tools?: Record<string, unknown> | unknown[];
   unstable_assistantMessageId?: string;
 }
 

@@ -1,23 +1,16 @@
 import type { Message } from "@spike-npm-land/code";
 import type Env from "../env";
-
-export interface RequestBody {
-  messages: Message[];
-  runConfig?: Record<string, unknown>;
-  state?: unknown;
-  tools?: Record<string, unknown>;
-  unstable_assistantMessageId?: string;
-}
+import type { PostRequestBody } from "../types/aiRoutes";
 
 export class StorageService {
   constructor(private env: Env) {}
 
-  async loadRequestBody(codeSpace: string): Promise<RequestBody | null> {
+  async loadRequestBody(codeSpace: string): Promise<PostRequestBody | null> {
     const bodyKey = `request_body_${codeSpace}`;
     try {
       const bodyObject = await this.env.R2.get(bodyKey);
       if (bodyObject) {
-        const body = JSON.parse(await bodyObject.text()) as RequestBody;
+        const body = JSON.parse(await bodyObject.text()) as PostRequestBody;
         return body;
       }
     } catch (e) {
@@ -26,7 +19,7 @@ export class StorageService {
     return null;
   }
 
-  async saveRequestBody(codeSpace: string, body: RequestBody): Promise<void> {
+  async saveRequestBody(codeSpace: string, body: PostRequestBody): Promise<void> {
     const bodyKey = `request_body_${codeSpace}`;
     try {
       await this.env.R2.put(bodyKey, JSON.stringify(body));
