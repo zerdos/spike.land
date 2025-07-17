@@ -280,7 +280,7 @@ export class PostHandler {
         tools: tools.reduce((acc, tool) => {
           acc[tool.name] = {
             description: tool.description,
-            inputSchema: tool.inputSchema,
+            parameters: tool.inputSchema,
             execute: async (args: Record<string, unknown>) => {
               try {
                 const response = await this.code.getMcpServer().executeTool(
@@ -302,11 +302,7 @@ export class PostHandler {
             },
           };
           return acc;
-        }, {} as Record<string, {
-          description: string;
-          inputSchema: McpTool["inputSchema"];
-          execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
-        }>),
+        }, {} as any),
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {

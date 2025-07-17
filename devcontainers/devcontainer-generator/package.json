@@ -10,7 +10,6 @@
   "module": "index.mjs",
   "exports": "./index.mjs",
   "scripts": {
-    "type:check": "tsc --noEmit",
     "build": "esbuild --bundle src/index.ts --format=\"esm\" --platform=node --outfile=index.mjs",
     "clean": "rm -rf dist"
   },

@@ -4,6 +4,8 @@
     "src",
     "src/assets/tw-js.js",
     "scripts",
+    "src/**/*.ts",
+    "src/**/*.tsx", 
     "vite.config.ts",
     "src/@/lib/importmap-utils.ts",
     "eslint.config.js"

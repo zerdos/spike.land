@@ -29,7 +29,9 @@
       "Bash(yarn vitest run:*)",
       "Bash(vitest run:*)",
       "Bash(touch:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(yarn tsc:*)",
+      "Bash(yarn list:*)"
     ],
     "deny": []
   }
