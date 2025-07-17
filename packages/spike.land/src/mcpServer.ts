@@ -19,7 +19,7 @@ interface McpResponse {
   };
 }
 
-interface McpTool {
+export interface McpTool {
   name: string;
   description: string;
   inputSchema: {
@@ -30,7 +30,7 @@ interface McpTool {
 }
 
 export class McpServer {
-  private tools: McpTool[] = [
+  tools: McpTool[] = [
     {
       name: "read_code",
       description: "Read current code only. Use before making changes to understand the codebase.",
@@ -256,6 +256,7 @@ export class McpServer {
     //   inputSchema: { type: "object", properties: {} }
     // }
   ];
+
 
   constructor(private durableObject: Code) {}
 

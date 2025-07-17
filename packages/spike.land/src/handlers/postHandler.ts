@@ -5,9 +5,9 @@ import type { CoreMessage } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import { StorageService } from "../services/storageService";
-import { ToolService, type AiSdkTool } from "../services/toolService";
 import type { PostRequestBody, MessageContentPart, ErrorResponse } from "../types/aiRoutes";
 import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
+import type { McpTool } from "../mcpServer";
 
 // Constants for validation
 const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
@@ -17,14 +17,12 @@ type ValidRole = typeof VALID_ROLES[number];
 
 export class PostHandler {
   private storageService: StorageService;
-  private toolService: ToolService;
 
   constructor(
     private code: Code,
     private env: Env,
   ) {
     this.storageService = new StorageService(env);
-    this.toolService = new ToolService(code);
   }
 
   async handle(request: Request, url: URL): Promise<Response> {
@@ -39,13 +37,27 @@ export class PostHandler {
 
       const body = await this.parseRequestBody(request);
       
-      // Validate and fix tools if present in the request
-      if (body.tools && Array.isArray(body.tools)) {
-        const toolValidationError = this.validateAndFixTools(body.tools);
-        if (toolValidationError) {
-          return this.createErrorResponse(toolValidationError, 400);
+      // Log if tools are present in the request
+      if (body.tools) {
+        console.log(`[AI Routes][${requestId}] Request contains tools:`, 
+          Array.isArray(body.tools) ? 
+            `Array with ${body.tools.length} tools` : 
+            `Object with keys: ${Object.keys(body.tools).join(', ')}`
+        );
+        
+        // If tools are provided as an array with invalid schemas, log warning
+        if (Array.isArray(body.tools)) {
+          const invalidTools = body.tools.filter((tool: any) => 
+            tool?.input_schema?.type === "string"
+          );
+          if (invalidTools.length > 0) {
+            console.warn(`[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid input_schema.type="string". These will be ignored.`);
+          }
         }
       }
+      
+      // We ignore tools from the request body and only use MCP-generated tools
+      console.log(`[AI Routes][${requestId}] Ignoring tools from request body, will use MCP-generated tools instead.`);
       
       // Validate messages
       const validationError = this.validateMessages(body.messages);
@@ -66,18 +78,16 @@ export class PostHandler {
       }
 
       // Generate tools with error handling
-      let tools: Record<string, AiSdkTool> = {};
-      try {
-        const mcpServer = this.code.getMcpServer();
-        tools = this.toolService.generateToolsFromMcp(mcpServer, url.origin);
-        console.log(`[AI Routes][${requestId}] Generated tools from MCP server:`, Object.keys(tools));
-      } catch (toolError) {
-        console.error(`[AI Routes][${requestId}] Failed to generate tools:`, toolError);
-        // Continue without tools rather than failing the entire request
-        tools = {};
-      }
 
-      return this.createStreamResponse(messages, tools, body, codeSpace, requestId);
+
+      const tools = this.code.getMcpServer().tools;
+     
+
+      // Remove tools from body to ensure we only use MCP-generated tools
+      const bodyWithoutTools = { ...body };
+      delete bodyWithoutTools.tools;
+      
+      return this.createStreamResponse(messages, tools, bodyWithoutTools, codeSpace, requestId);
     } catch (error) {
       console.error(`[AI Routes][${requestId}] Error handling message:`, error);
       return this.createErrorResponse(
@@ -151,51 +161,6 @@ export class PostHandler {
     return null;
   }
 
-  private validateAndFixTools(tools: unknown[]): string | null {
-    if (!Array.isArray(tools)) {
-      return "Tools must be an array";
-    }
-
-    for (let i = 0; i < tools.length; i++) {
-      const tool = tools[i];
-      
-      if (!tool || typeof tool !== "object") {
-        return `Tool at index ${i} must be an object`;
-      }
-
-      const typedTool = tool as Record<string, unknown>;
-      
-      // Check required fields
-      if (!typedTool.name || typeof typedTool.name !== "string") {
-        return `Tool at index ${i} must have a name`;
-      }
-
-      if (!typedTool.input_schema || typeof typedTool.input_schema !== "object") {
-        return `Tool at index ${i} must have an input_schema object`;
-      }
-
-      const inputSchema = typedTool.input_schema as Record<string, unknown>;
-      
-      // Fix the common issue: if input_schema.type is "string", change it to "object"
-      if (inputSchema.type === "string") {
-        console.log(`[AI Routes] Fixing tool ${typedTool.name}: changing input_schema.type from "string" to "object"`);
-        inputSchema.type = "object";
-        
-        // If there are no properties defined, add an empty properties object
-        if (!inputSchema.properties) {
-          inputSchema.properties = {};
-        }
-      }
-      
-      // Validate that input_schema.type is now "object"
-      if (inputSchema.type !== "object") {
-        return `Tool at index ${i} (${typedTool.name}) must have input_schema.type set to "object", but found "${inputSchema.type}"`;
-      }
-    }
-
-    return null;
-  }
-
   private isValidRole(role: unknown): role is ValidRole {
     return typeof role === "string" && VALID_ROLES.includes(role as ValidRole);
   }
@@ -253,7 +218,7 @@ export class PostHandler {
 
   private async createStreamResponse(
     messages: CoreMessage[],
-    tools: Record<string, AiSdkTool>,
+    tools: McpTool[],
     body: PostRequestBody,
     codeSpace: string,
     requestId: string
@@ -281,7 +246,7 @@ export class PostHandler {
         model: anthropic('claude-4-sonnet-20250514'),
         system: systemPrompt,
         messages,
-        tools,
+        tools: tools as unknown as any,
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {
