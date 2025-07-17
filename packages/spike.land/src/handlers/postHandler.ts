@@ -90,7 +90,7 @@ export class PostHandler {
       const bodyWithoutTools = { ...body };
       delete bodyWithoutTools.tools;
 
-      return this.createStreamResponse(messages, tools, bodyWithoutTools, codeSpace, requestId);
+      return await this.createStreamResponse(messages, tools, bodyWithoutTools, codeSpace, requestId);
     } catch (error) {
       console.error(`[AI Routes][${requestId}] Error handling message:`, error);
       return this.createErrorResponse(

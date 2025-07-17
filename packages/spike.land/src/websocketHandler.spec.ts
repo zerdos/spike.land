@@ -113,7 +113,7 @@ describe("WebSocketHandler", () => {
       // Simulate pong response
       const messageHandler = mockWebSocket.onmessage;
       if (messageHandler) {
-        messageHandler({ data: JSON.stringify({ type: "pong" }) } as MessageEvent);
+        messageHandler.call(mockWebSocket, { data: JSON.stringify({ type: "pong" }) } as MessageEvent);
       }
 
       // First scheduled ping
@@ -125,7 +125,7 @@ describe("WebSocketHandler", () => {
 
       // Simulate pong response again
       if (messageHandler) {
-        messageHandler({ data: JSON.stringify({ type: "pong" }) } as MessageEvent);
+        messageHandler.call(mockWebSocket, { data: JSON.stringify({ type: "pong" }) } as MessageEvent);
       }
 
       // Second scheduled ping

@@ -27,7 +27,9 @@
       "Bash(find:*)",
       "Bash(mv:*)",
       "Bash(yarn vitest run:*)",
-      "Bash(vitest run:*)"
+      "Bash(vitest run:*)",
+      "Bash(touch:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }
