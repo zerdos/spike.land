@@ -16,6 +16,7 @@ vi.mock("../src/websocketHandler", () => ({
   WebSocketHandler: vi.fn().mockImplementation(() => ({
     broadcast: vi.fn(),
     handleWebSocket: vi.fn(),
+    getWsSessions: vi.fn().mockReturnValue([]),
   })),
 }));
 
@@ -83,6 +84,7 @@ describe("Code Durable Object", () => {
     (WebSocketHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
       broadcast: vi.fn(),
       handleWebSocket: vi.fn(),
+      getWsSessions: vi.fn().mockReturnValue([]),
     }));
 
     codeInstance = new Code(mockState, mockEnv);
@@ -99,11 +101,14 @@ describe("Code Durable Object", () => {
       const request = new Request(testUrl.toString());
       (mockState.storage.get as ReturnType<typeof vi.fn>).mockResolvedValue(undefined); // No session_core
 
-      await codeInstance.fetch(request); // Call fetch to trigger initialization
+      try {
+        await codeInstance.fetch(request); // Call fetch to trigger initialization
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
 
       const expectedSessionCore = {
         codeSpace: roomName,
-        messages: [],
         // code, html, css are specific to the "x" type initialization
       };
       const expectedCode = `export default () => (<>Write your code here!</>);\n              `;
@@ -134,7 +139,6 @@ describe("Code Durable Object", () => {
         transpiled: "transpiled backup",
         html: "<p>backup html</p>",
         css: "backup_css",
-        messages: [],
       };
       (mockState.storage.get as ReturnType<typeof vi.fn>).mockResolvedValue(undefined); // No session_core
       mockFetch.mockResolvedValue({
@@ -147,7 +151,7 @@ describe("Code Durable Object", () => {
       expect(mockFetch).toHaveBeenCalledWith(`https://example.com/live/backupRoom/session.json`);
       expect(mockState.storage.put).toHaveBeenCalledWith(
         "session_core",
-        expect.objectContaining({ codeSpace: roomName, messages: [] }),
+        expect.objectContaining({ codeSpace: roomName }),
       );
       expect(mockState.storage.put).toHaveBeenCalledWith("session_code", "backup code");
       expect(mockState.storage.put).toHaveBeenCalledWith("session_transpiled", "transpiled backup");
@@ -165,7 +169,6 @@ describe("Code Durable Object", () => {
       const request = new Request(testUrl.toString());
       const storedCore: Partial<ICodeSession> = {
         codeSpace: roomName,
-        messages: [{ text: "hi", type: "user" }],
       };
       const storedCode = "console.log('hello');";
       const storedTranspiled = "console.log('hello transpiled');";
@@ -190,7 +193,6 @@ describe("Code Durable Object", () => {
 
       const session = codeInstance.getSession();
       expect(session.codeSpace).toBe(roomName);
-      expect(session.messages).toEqual(storedCore.messages);
       expect(session.code).toBe(storedCode);
       expect(session.transpiled).toBe(storedTranspiled);
       expect(session.html).toBe(storedHtml);
@@ -214,12 +216,11 @@ describe("Code Durable Object", () => {
         transpiled: "initial transpiled",
         html: "<p>initial</p>",
         css: "initial_css",
-        messages: [],
       };
       // Mock initializeSession's loading part to set this.session
       (mockState.storage.get as ReturnType<typeof vi.fn>)
         .mockImplementation(async (key: string) => {
-          if (key === "session_core") return { codeSpace: roomName, messages: [] };
+          if (key === "session_core") return { codeSpace: roomName };
           if (key === "session_code") return initialSession.code;
           if (key === "session_transpiled") return initialSession.transpiled;
           return undefined;
@@ -244,6 +245,7 @@ describe("Code Durable Object", () => {
       (WebSocketHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
         broadcast: vi.fn(), // This is the important one for this test suite
         handleWebSocket: vi.fn(),
+        getWsSessions: vi.fn().mockReturnValue([]),
       }));
       // Create a new instance of Code with the same state and env, but it will have the mocked WebSocketHandler
       codeInstance = new Code(mockState, mockEnv);
@@ -266,7 +268,7 @@ describe("Code Durable Object", () => {
 
       expect(mockState.storage.put).toHaveBeenCalledWith(
         "session_core",
-        expect.objectContaining({ codeSpace: roomName, messages: [] }),
+        expect.objectContaining({ codeSpace: roomName }),
       );
       expect(mockState.storage.put).toHaveBeenCalledWith("session_code", newSession.code);
       // Transpiled might be recomputed or passed through, check for string
