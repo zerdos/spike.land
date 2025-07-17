@@ -24,7 +24,8 @@
       "Bash(yarn install:*)",
       "Bash(curl:*)",
       "Bash(pkill:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
