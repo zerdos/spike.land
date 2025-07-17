@@ -205,9 +205,11 @@ export class PostHandler {
     codeSpace: string,
     requestId: string
   ): Promise<Response> {
+    const origin = this.code.getOrigin();
     const systemPrompt = this.createSystemPrompt(codeSpace);
     const anthropic = createAnthropic({
-      apiKey: this.env.ANTHROPIC_API_KEY
+      baseURL: `${origin}/anthropic`,
+      apiKey: `will be added later`,
     });
 
     // Log message count and types instead of full content for privacy
@@ -222,7 +224,7 @@ export class PostHandler {
     let streamError: Error | null = null;
 
     try {
-      const result = streamText({
+      const result = await streamText({
         model: anthropic('claude-4-sonnet-20250514'),
         system: systemPrompt,
         messages,
@@ -261,6 +263,10 @@ export class PostHandler {
 
       return result.toDataStreamResponse({
         headers: this.getCorsHeaders(),
+        getErrorMessage: (error) => {
+          console.error(`[AI Routes][${requestId}] Error during streaming:`, error);
+          return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
+        }
       });
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
