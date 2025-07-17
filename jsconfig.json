@@ -20,7 +20,7 @@
   "include": [
     "packages/**/*.js",
     "packages/**/*.jsx",
-    "packages/**/*.ts", 
+    "packages/**/*.ts",
     "packages/**/*.tsx",
     "packages/**/*.json"
   ],

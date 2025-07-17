@@ -29,7 +29,10 @@ export class CodeRoutes {
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     if (codeSpace && codeSpace !== this.code.getSession().codeSpace) {
-      await this.code.updateAndBroadcastSession({ ...this.code.getSession(), codeSpace });
+      await this.code.updateAndBroadcastSession({
+        ...this.code.getSession(),
+        codeSpace,
+      });
     }
 
     const session = this.code.getSession();

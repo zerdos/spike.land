@@ -24,10 +24,10 @@ jobs:
       date: ${{ steps.date.outputs.date }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-      
+
       - id: set-matrix
         run: |
           echo 'matrix={"image-name":["rolling-devcontainer","bookworm-devcontainer","trixie-devcontainer"],"platform":["linux/amd64","linux/arm64"]}' >> $GITHUB_OUTPUT
@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      
+
       - name: Cache Docker layers
         uses: actions/cache@v4
         with:
@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          
+
       - name: Extract version
         id: extract_version
         uses: Saionaro/extract-package-version@v1.3.0
@@ -104,7 +104,7 @@ jobs:
           # Convert platform to safe format for tags
           PLATFORM_TAG=$(echo "${{ matrix.platform }}" | tr '/' '-')
           echo "platform_tag=${PLATFORM_TAG}" >> $GITHUB_OUTPUT
-          
+
           # Use more specific cache tags to improve hit rates
           echo "cache_from=type=local,src=/tmp/.buildx-cache,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},type=registry,ref=devimages/${{ matrix.image-name }}:latest" >> $GITHUB_OUTPUT
           echo "cache_to=type=local,dest=/tmp/.buildx-cache-new,type=registry,ref=devimages/${{ matrix.image-name }}:buildcache-${PLATFORM_TAG},mode=max" >> $GITHUB_OUTPUT
@@ -167,24 +167,24 @@ jobs:
           if ! command -v jq &> /dev/null; then
             sudo apt-get update && sudo apt-get install -y jq
           fi
-          
+
           # Get token for DockerHub API
           TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "${{ secrets.DOCKERHUB_USERNAME }}", "password": "${{ secrets.DOCKERHUB_TOKEN }}"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
-          
+
           # Only delete buildcache tags that are more than 7 days old
           CUTOFF_DATE=$(date -d "7 days ago" +%s)
-          
+
           # Get list of tags
           echo "Fetching tags for devimages/${{ matrix.image-name }}"
           TAGS=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags?page_size=100" | jq -r '.results[] | select(.name | contains("buildcache")) | .name')
-          
+
           # Loop through tags and check last_updated
           for TAG in $TAGS; do
             # Get tag info
             TAG_INFO=$(curl -s -H "Authorization: JWT ${TOKEN}" "https://hub.docker.com/v2/repositories/devimages/${{ matrix.image-name }}/tags/${TAG}/")
             LAST_UPDATED=$(echo "$TAG_INFO" | jq -r '.last_updated')
             LAST_UPDATED_TS=$(date -d "$LAST_UPDATED" +%s)
-            
+
             # If older than cutoff, delete
             if [ $LAST_UPDATED_TS -lt $CUTOFF_DATE ]; then
               echo "Deleting old tag: $TAG (last updated: $LAST_UPDATED)"
@@ -200,35 +200,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image-name: ["rolling-devcontainer", "bookworm-devcontainer", "trixie-devcontainer"]
-    
+        image-name: [
+          "rolling-devcontainer",
+          "bookworm-devcontainer",
+          "trixie-devcontainer",
+        ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          
+
       - name: Docker Login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Extract version
         id: extract_version
         uses: Saionaro/extract-package-version@v1.3.0
         with:
           path: devcontainers/${{ matrix.image-name }}
-          
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
+
       - name: Create multi-platform manifest
         run: |
           # We're skipping explicit manifest creation since the docker/build-push-action
           # already creates multi-platform images when different platforms are built
           # This job ensures all platforms are built before finalizing
-          
+
           # Verify the images exist
           docker buildx imagetools inspect devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }}
           docker buildx imagetools inspect devimages/${{ matrix.image-name }}:latest

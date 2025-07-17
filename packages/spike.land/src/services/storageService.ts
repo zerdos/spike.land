@@ -19,7 +19,10 @@ export class StorageService {
     return null;
   }
 
-  async saveRequestBody(codeSpace: string, body: PostRequestBody): Promise<void> {
+  async saveRequestBody(
+    codeSpace: string,
+    body: PostRequestBody,
+  ): Promise<void> {
     const bodyKey = `request_body_${codeSpace}`;
     try {
       await this.env.R2.put(bodyKey, JSON.stringify(body));

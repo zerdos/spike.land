@@ -2,7 +2,9 @@
 
 ## Overview
 
-The system employs a multi-layered state management approach across different components:
+The system employs a multi-layered state management approach across different
+components:
+
 - Frontend state management using React hooks and context
 - Route state management using TanStack Router
 - Distributed state coordination across multiple clients
@@ -12,6 +14,7 @@ The system employs a multi-layered state management approach across different co
 ## Route State Management
 
 ### Route Types and Parameters
+
 ```typescript
 // Core route parameter types
 interface RouteParams {
@@ -33,37 +36,42 @@ interface RouterState {
 ```
 
 ### Route Context Integration
+
 ```typescript
 // Router context configuration
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
-  context: createContext<{
-    params: RouteParams | RouteWithPageParams;
-    search: SearchParams;
-  } | null>(null),
+  context: createContext<
+    {
+      params: RouteParams | RouteWithPageParams;
+      search: SearchParams;
+    } | null
+  >(null),
 });
 ```
 
 ## Frontend State Management
 
 ### Component-Level State
+
 ```typescript
 // Example of local component state
 function Editor({ initialCode }: EditorProps) {
   const [code, setCode] = useState(initialCode);
   const [cursor, setCursor] = useState({ line: 0, column: 0 });
-  
+
   const handleChange = useCallback((newCode: string) => {
     setCode(newCode);
     broadcastChange(newCode);
   }, []);
-  
+
   // ...
 }
 ```
 
 ### Route-Aware State Management
+
 ```typescript
 // App state integrated with routing
 const App: React.FC = () => {
@@ -93,6 +101,7 @@ const App: React.FC = () => {
 ```
 
 ### Session State Management
+
 ```typescript
 class CodeSessionBC {
   private broadcastChannel: BroadcastChannel;
@@ -123,25 +132,26 @@ class CodeSessionBC {
 ## Worker State Management
 
 ### Durable Object State
+
 ```typescript
 // Example Durable Object state management
 export class CollaborationRoom implements DurableObject {
   private state: DurableObjectState;
   private sessions: Map<string, WebSocket>;
-  
+
   constructor(state: DurableObjectState) {
     this.state = state;
     this.sessions = new Map();
-    
+
     // Load persistent state
     this.state.blockConcurrencyWhile(async () => {
       await this.loadState();
     });
   }
-  
+
   // Handle state updates
   async updateDocument(newContent: string) {
-    await this.state.storage.put('document', newContent);
+    await this.state.storage.put("document", newContent);
     this.broadcastUpdate();
   }
 }
@@ -150,6 +160,7 @@ export class CollaborationRoom implements DurableObject {
 ## Route-Aware State Updates
 
 ### Navigation State Updates
+
 ```typescript
 // Example route transition handling
 interface RouteTransition {
@@ -161,18 +172,19 @@ interface RouteTransition {
 const handleRouteTransition = async (transition: RouteTransition) => {
   // Handle state cleanup from previous route
   await cleanupPreviousState(transition.from);
-  
+
   // Initialize state for new route
   await initializeNewState(transition.to, transition.params);
 };
 ```
 
 ### State Persistence Per Route
+
 ```typescript
 // Example route-specific state persistence
 const persistRouteState = async (
   pathname: string,
-  state: RouteParams | RouteWithPageParams
+  state: RouteParams | RouteWithPageParams,
 ) => {
   const key = `route:${pathname}`;
   await this.state.storage.put(key, state);
@@ -187,29 +199,31 @@ const loadRouteState = async (pathname: string) => {
 ## State Conflict Resolution
 
 ### Route Parameter Resolution
+
 ```typescript
 // Example route parameter conflict resolution
 function resolveRouteParams(
-  params: RouteParams | RouteWithPageParams
+  params: RouteParams | RouteWithPageParams,
 ): ResolvedParams {
   return {
     codeSpace: sanitizeCodeSpace(params.codeSpace),
-    page: 'page' in params ? sanitizePage(params.page) : undefined,
+    page: "page" in params ? sanitizePage(params.page) : undefined,
   };
 }
 
 function sanitizeCodeSpace(codeSpace: string): string {
-  return codeSpace.replace(/[^a-zA-Z0-9-]/g, '-');
+  return codeSpace.replace(/[^a-zA-Z0-9-]/g, "-");
 }
 ```
 
 ### State Migration
+
 ```typescript
 // Example state migration
 class StateMigration {
   async migrateState(version: number) {
     const currentState = await this.loadState();
-    
+
     switch (version) {
       case 2:
         await this.migrateV1ToV2(currentState);
@@ -218,7 +232,7 @@ class StateMigration {
         await this.migrateV2ToV3(currentState);
         break;
     }
-    
+
     await this.saveState(currentState);
   }
 }
@@ -227,6 +241,7 @@ class StateMigration {
 ## Error Recovery
 
 ### State Backup
+
 ```typescript
 // Example backup strategy
 class StateBackup {
@@ -234,10 +249,10 @@ class StateBackup {
     const state = await this.exportState();
     await R2.put(
       `backup-${Date.now()}`,
-      JSON.stringify(state)
+      JSON.stringify(state),
     );
   }
-  
+
   async restore(timestamp: number) {
     const backup = await R2.get(`backup-${timestamp}`);
     const state = JSON.parse(await backup.text());
@@ -247,11 +262,12 @@ class StateBackup {
 ```
 
 ### Route Error Recovery
+
 ```typescript
 // Example route error handling with state recovery
 const handleRouteError = async (error: Error) => {
-  console.error('Route Error:', error);
-  
+  console.error("Route Error:", error);
+
   // Attempt state recovery
   try {
     await recoverRouteState();
@@ -263,6 +279,7 @@ const handleRouteError = async (error: Error) => {
 ```
 
 ## Related Documentation
+
 - [Frontend Architecture](./frontend.md)
 - [Data Flow](./data-flow.md)
 - [Workers Architecture](./workers.md)

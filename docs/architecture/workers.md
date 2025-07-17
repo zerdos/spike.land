@@ -2,7 +2,8 @@
 
 ## Overview
 
-The system uses three specialized Cloudflare Workers that work together to provide different services:
+The system uses three specialized Cloudflare Workers that work together to
+provide different services:
 
 ```mermaid
 graph TD
@@ -25,7 +26,9 @@ graph TD
 ## 1. Main Worker (spike.land)
 
 ### Purpose
+
 Serves as the primary backend for the application, handling:
+
 - Authentication and authorization
 - Real-time collaboration
 - Asset serving
@@ -35,11 +38,12 @@ Serves as the primary backend for the application, handling:
 ### Components
 
 #### Durable Objects
+
 ```typescript
 // Example chat room implementation
 export class ChatRoom implements DurableObject {
   private sessions: Map<string, WebSocket>;
-  
+
   async fetch(request: Request) {
     if (request.headers.get("Upgrade") === "websocket") {
       return this.handleWebSocket(request);
@@ -50,6 +54,7 @@ export class ChatRoom implements DurableObject {
 ```
 
 #### Storage Integration
+
 ```typescript
 // Example KV and R2 usage
 async function serveAsset(key: string) {
@@ -64,13 +69,16 @@ async function serveAsset(key: string) {
 ```
 
 #### AI Service Integration
-- Uses `AIHandler` to manage interactions with different AI services (OpenAI, Anthropic).
+
+- Uses `AIHandler` to manage interactions with different AI services (OpenAI,
+  Anthropic).
 - Configures the AI services with API endpoints, throttling, and retry logic.
 - Prepares content for AI requests using `prepareClaudeContent`.
+
 ```typescript
 // Example AI service routing
 async function handleAI(request: Request) {
-  const service = request.url.includes('/openai') ? openAI : anthropic;
+  const service = request.url.includes("/openai") ? openAI : anthropic;
   return service.process(request);
 }
 
@@ -87,7 +95,9 @@ class AIHandler {
 ## 2. Transpiler Worker (js.spike.land)
 
 ### Purpose
+
 Handles code transpilation and bundling using esbuild:
+
 - TypeScript to JavaScript conversion
 - Module bundling
 - Code optimization
@@ -96,22 +106,24 @@ Handles code transpilation and bundling using esbuild:
 ### Implementation
 
 #### ESBuild Integration
+
 ```typescript
 // Example transpilation setup
-import * as esbuild from 'esbuild-wasm';
+import * as esbuild from "esbuild-wasm";
 
 async function transpile(code: string) {
   const result = await esbuild.transform(code, {
-    loader: 'tsx',
-    target: 'es2024',
-    format: 'esm',
-    sourcemap: true
+    loader: "tsx",
+    target: "es2024",
+    format: "esm",
+    sourcemap: true,
   });
   return result;
 }
 ```
 
 #### Caching Layer
+
 ```typescript
 // Example caching implementation
 async function getCachedResult(key: string) {
@@ -128,7 +140,9 @@ async function getCachedResult(key: string) {
 ## 3. Renderer Worker (spike-land-renderer)
 
 ### Purpose
+
 Provides server-side rendering capabilities:
+
 - HTML generation
 - Screenshot capture
 - PDF generation
@@ -137,9 +151,10 @@ Provides server-side rendering capabilities:
 ### Implementation
 
 #### Puppeteer Integration
+
 ```typescript
 // Example rendering setup
-import { launch } from '@cloudflare/puppeteer';
+import { launch } from "@cloudflare/puppeteer";
 
 async function renderPage(url: string) {
   const browser = await launch();
@@ -152,6 +167,7 @@ async function renderPage(url: string) {
 ```
 
 #### Caching Strategy
+
 ```typescript
 // Example render caching
 async function getCachedRender(url: string) {
@@ -167,6 +183,7 @@ async function getCachedRender(url: string) {
 ```
 
 ### Service Worker
+
 - Implements caching strategies for static assets.
 - Handles offline functionality.
 - Manages background updates.
@@ -174,17 +191,19 @@ async function getCachedRender(url: string) {
 ## Inter-Worker Communication
 
 ### Direct Communication
+
 ```typescript
 // Example worker-to-worker fetch
 async function fetchTranspiler(code: string) {
-  return fetch('https://js.spike.land/transpile', {
-    method: 'POST',
-    body: JSON.stringify({ code })
+  return fetch("https://js.spike.land/transpile", {
+    method: "POST",
+    body: JSON.stringify({ code }),
   });
 }
 ```
 
 ### Shared Resources
+
 - KV namespaces for configuration
 - R2 buckets for asset storage
 - Durable Objects for state management
@@ -192,6 +211,7 @@ async function fetchTranspiler(code: string) {
 ## Development Environment
 
 ### Local Setup
+
 ```bash
 # Start all workers
 yarn dev:workers
@@ -203,6 +223,7 @@ yarn workspace spike-land-renderer dev
 ```
 
 ### Testing
+
 ```bash
 # Run worker tests
 yarn workspace @spike-npm-land/code-worker test
@@ -211,12 +232,14 @@ yarn workspace @spike-npm-land/code-worker test
 ## Deployment
 
 ### Development
+
 ```bash
 # Deploy to dev environment
 yarn deploy:dev
 ```
 
 ### Production
+
 ```bash
 # Deploy to production
 yarn deploy:prod
@@ -225,19 +248,21 @@ yarn deploy:prod
 ## Error Handling
 
 ### Worker Errors
+
 ```typescript
 // Example error handling
 async function handleRequest(request: Request) {
   try {
     return await processRequest(request);
   } catch (error) {
-    console.error('Worker error:', error);
-    return new Response('Internal Error', { status: 500 });
+    console.error("Worker error:", error);
+    return new Response("Internal Error", { status: 500 });
   }
 }
 ```
 
 ### Circuit Breaking
+
 ```typescript
 // Example circuit breaker
 class CircuitBreaker {
@@ -246,7 +271,7 @@ class CircuitBreaker {
 
   async execute(fn: () => Promise<Response>) {
     if (this.isOpen()) {
-      throw new Error('Circuit breaker is open');
+      throw new Error("Circuit breaker is open");
     }
     try {
       return await fn();
@@ -261,12 +286,14 @@ class CircuitBreaker {
 ## Monitoring
 
 ### Metrics
+
 - Request counts and latencies
 - Error rates
 - Worker CPU and memory usage
 - Cache hit rates
 
 ### Logging
+
 ```typescript
 // Example structured logging
 function logRequest(request: Request, response: Response) {
@@ -274,7 +301,7 @@ function logRequest(request: Request, response: Response) {
     url: request.url,
     method: request.method,
     status: response.status,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   }));
 }
 ```
@@ -282,18 +309,20 @@ function logRequest(request: Request, response: Response) {
 ## Security
 
 ### Authentication
+
 ```typescript
 // Example auth middleware
 async function authenticate(request: Request) {
-  const token = request.headers.get('Authorization');
+  const token = request.headers.get("Authorization");
   if (!token) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response("Unauthorized", { status: 401 });
   }
   return verifyToken(token);
 }
 ```
 
 ### Rate Limiting
+
 ```typescript
 // Example rate limiter
 export class RateLimiter implements DurableObject {
@@ -302,15 +331,14 @@ export class RateLimiter implements DurableObject {
   async checkLimit(ip: string): Promise<boolean> {
     const now = Date.now();
     const recentRequests = this.requests.get(ip) || [];
-    const validRequests = recentRequests.filter(time => 
-      now - time < 60000
-    );
+    const validRequests = recentRequests.filter((time) => now - time < 60000);
     return validRequests.length < 100;
   }
 }
 ```
 
 ## Related Documentation
+
 - [Data Flow](./data-flow.md)
 - [Build Process](../development/build-process.md)
 - [Deployment](../workflows/deployment.md)

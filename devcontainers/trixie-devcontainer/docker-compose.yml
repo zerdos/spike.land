@@ -11,7 +11,7 @@ services:
         USER: ${USER:-gitpod}
     privileged: true
     shm_size: 8gb
-    platform: ${PLATFORM:-linux/amd64}  # Default to amd64, but allow overriding
+    platform: ${PLATFORM:-linux/amd64} # Default to amd64, but allow overriding
     tmpfs:
       - /tmpfs:exec,size=8g,uid=${UID:-1000},gid=${GID:-1000}
     environment:
@@ -25,10 +25,10 @@ services:
       - ${HOME:-/home}/.gitconfig:${HOME:-/home}/.gitconfig:ro
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "6080:6080"  # noVNC
-      - "5901:5901"  # VNC
-      - "3000:3000"  # Common dev server port
-      - "8000:8000"  # Another common dev server port
+      - "6080:6080" # noVNC
+      - "5901:5901" # VNC
+      - "3000:3000" # Common dev server port
+      - "8000:8000" # Another common dev server port
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:6080"]

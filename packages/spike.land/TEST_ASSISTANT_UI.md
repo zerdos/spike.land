@@ -2,11 +2,13 @@
 
 ## Setup Complete
 
-The integration between `assistant-ui` and your spike.land backend has been enhanced with debug logging to help identify any issues.
+The integration between `assistant-ui` and your spike.land backend has been
+enhanced with debug logging to help identify any issues.
 
 ### Added Debug Logging
 
-Added console logs to help debug message processing and identify the root cause of the error
+Added console logs to help debug message processing and identify the root cause
+of the error
 
 ## Testing Instructions
 
@@ -22,7 +24,8 @@ Added console logs to help debug message processing and identify the root cause 
    yarn dev
    ```
 
-3. **Open the app** and click the bot icon in the bottom right to open the Assistant UI drawer
+3. **Open the app** and click the bot icon in the bottom right to open the
+   Assistant UI drawer
 
 4. **Test with a simple message** like:
    - "Hello, can you help me?"
@@ -47,9 +50,11 @@ Added console logs to help debug message processing and identify the root cause 
 
 ### Common Issues:
 
-- **"ANTHROPIC_API_KEY not configured"**: Make sure `.dev.vars` has a valid API key
+- **"ANTHROPIC_API_KEY not configured"**: Make sure `.dev.vars` has a valid API
+  key
 - **Network errors**: Ensure both frontend and backend servers are running
-- **CORS errors**: The backend should already handle CORS, but check if requests are reaching the backend
+- **CORS errors**: The backend should already handle CORS, but check if requests
+  are reaching the backend
 
 ## What's Working Now
 

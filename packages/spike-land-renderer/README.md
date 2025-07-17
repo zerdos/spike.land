@@ -1,6 +1,7 @@
 # spike-land-renderer
 
-A Cloudflare Worker that provides server-side rendering capabilities for spike.land using Puppeteer.
+A Cloudflare Worker that provides server-side rendering capabilities for
+spike.land using Puppeteer.
 
 ## Features
 
@@ -44,7 +45,9 @@ A Cloudflare Worker that provides server-side rendering capabilities for spike.l
 
 ### Building
 
-- `yarn build:worker` - This package typically does not require a separate build step for the worker code as it's deployed directly. Scripts like `build` might handle cleaning or other pre-deployment tasks.
+- `yarn build:worker` - This package typically does not require a separate build
+  step for the worker code as it's deployed directly. Scripts like `build` might
+  handle cleaning or other pre-deployment tasks.
 - `yarn clean` - Remove build artifacts and temporary directories.
 
 ### Local Development

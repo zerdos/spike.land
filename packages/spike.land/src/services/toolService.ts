@@ -21,7 +21,10 @@ export class ToolService {
   /**
    * Generate tools dynamically from MCP server definitions
    */
-  generateToolsFromMcp(mcpServer: McpServer, origin: string): Record<string, AiSdkTool> {
+  generateToolsFromMcp(
+    mcpServer: McpServer,
+    origin: string,
+  ): Record<string, AiSdkTool> {
     const mcpTools = mcpServer.getTools();
     const tools: Record<string, AiSdkTool> = {};
 
@@ -34,7 +37,11 @@ export class ToolService {
         description: mcpTool.description,
         parameters: zodSchema,
         execute: async (params: ToolExecuteParams) => {
-          const result = await this.executeMcpTool(mcpTool.name, params, origin);
+          const result = await this.executeMcpTool(
+            mcpTool.name,
+            params,
+            origin,
+          );
           return JSON.stringify(result, null, 2);
         },
       };
@@ -52,7 +59,13 @@ export class ToolService {
     const id = crypto.randomUUID();
 
     // For code tools, ensure codeSpace is included
-    const isCodeTool = ["read_code", "update_code", "edit_code", "search_and_replace", "find_lines"]
+    const isCodeTool = [
+      "read_code",
+      "update_code",
+      "edit_code",
+      "search_and_replace",
+      "find_lines",
+    ]
       .includes(toolName);
     if (isCodeTool && !parameters.codeSpace) {
       parameters.codeSpace = this.code.getSession().codeSpace;
@@ -68,7 +81,8 @@ export class ToolService {
         arguments: parameters,
       },
     };
-    const codeSpace = parameters.codeSpace as string || this.code.getSession().codeSpace;
+    const codeSpace = parameters.codeSpace as string ||
+      this.code.getSession().codeSpace;
 
     // POST to /mcp endpoint
     const mcpUrl = `${origin}/live/${codeSpace}/mcp`;
@@ -76,14 +90,17 @@ export class ToolService {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CodeSpace": parameters.codeSpace as string || this.code.getSession().codeSpace,
+        "X-CodeSpace": parameters.codeSpace as string ||
+          this.code.getSession().codeSpace,
       },
       body: JSON.stringify(mcpRequest),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`MCP request failed: ${response.statusText} - ${errorText}`);
+      throw new Error(
+        `MCP request failed: ${response.statusText} - ${errorText}`,
+      );
     }
 
     const mcpResponse = await response.json() as {

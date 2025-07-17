@@ -1,10 +1,12 @@
 # Getting Started
 
-This guide will help you set up and start developing with the spike.land codebase. It covers both local development and understanding the key components.
+This guide will help you set up and start developing with the spike.land
+codebase. It covers both local development and understanding the key components.
 
 ## Quick Start
 
 1. **Clone and Install**
+
 ```bash
 # Clone the repository
 git clone https://github.com/zerdos/spike.land.git
@@ -15,6 +17,7 @@ yarn install
 ```
 
 2. **Configure Environment**
+
 ```bash
 # Create development variables for Cloudflare Workers
 cat > .dev.vars << EOL
@@ -25,6 +28,7 @@ EOL
 ```
 
 3. **Start Development Environment**
+
 ```bash
 # Start everything (frontend + workers)
 yarn dev
@@ -51,28 +55,33 @@ spike.land/
 ## Key Components
 
 ### Frontend Application (`packages/code`)
+
 - React 19-based UI
 - Real-time collaboration features
 - Monaco Editor integration
 - Service Worker capabilities
 
 ### Main Worker (`packages/spike.land`)
+
 - Authentication and authorization
 - Real-time collaboration backend
 - Asset serving
 - AI service integration
 
 ### Transpiler Worker (`packages/js.spike.land`)
+
 - Code transpilation service
 - ESBuild integration
 - Module bundling
 
 ### Renderer Worker (`packages/spike-land-renderer`)
+
 - Server-side rendering
 - Screenshot/PDF generation
 - Puppeteer integration
 
 ### Durable Objects (`packages/durable-objects`)
+
 - Manages stateful logic (e.g., for collaboration)
 - Interacts with the Main Worker
 
@@ -129,23 +138,28 @@ yarn deploy:prod
 ## Configuration Files
 
 ### Frontend (`packages/code`)
+
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration
 - `tailwind.config.js` - Tailwind CSS configuration
 
 ### Workers
+
 - `wrangler.toml` - Cloudflare Worker configuration
 - `tsconfig.json` - TypeScript configuration
 
 ## Development Tools
 
 ### Required Tools
+
 - Node.js (v22.11.0 - see .nvmrc)
 - Yarn
 - Git
-- Wrangler CLI (ensure Wrangler CLI is installed - see official Cloudflare documentation)
+- Wrangler CLI (ensure Wrangler CLI is installed - see official Cloudflare
+  documentation)
 
 ### Recommended VS Code Extensions
+
 - ESLint
 - Prettier
 - TypeScript and JavaScript
@@ -157,6 +171,7 @@ yarn deploy:prod
 ### 1. Adding a New Feature
 
 1. Create feature branch
+
 ```bash
 git checkout -b feature/new-feature
 ```
@@ -244,6 +259,7 @@ yarn lint
 ## Contributing
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines on:
+
 - Code style and standards
 - Pull request process
 - Testing requirements

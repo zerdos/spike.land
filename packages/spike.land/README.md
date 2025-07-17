@@ -2,7 +2,9 @@
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](../../LICENSE.md)
 
-This is the main backend for spike.land, a Cloudflare Workers-based application. It provides real-time collaboration features, a comprehensive suite of API services including AI integrations, and robust static asset hosting.
+This is the main backend for spike.land, a Cloudflare Workers-based application.
+It provides real-time collaboration features, a comprehensive suite of API
+services including AI integrations, and robust static asset hosting.
 
 ## Table of Contents
 
@@ -95,7 +97,11 @@ For local development, create a `.dev.vars` file with these variables.
 
 #### Building
 
-- `yarn build:worker` - While this script might show 'No build required' or simply execute a placeholder, the actual bundling of the worker from an entry point (e.g., `./src/cf-workers.ts`) is handled by Wrangler during the deployment process (e.g., when running `yarn deploy:dev` or `yarn deploy:prod`).
+- `yarn build:worker` - While this script might show 'No build required' or
+  simply execute a placeholder, the actual bundling of the worker from an entry
+  point (e.g., `./src/cf-workers.ts`) is handled by Wrangler during the
+  deployment process (e.g., when running `yarn deploy:dev` or
+  `yarn deploy:prod`).
 
 #### Deployment
 
@@ -104,7 +110,8 @@ For local development, create a `.dev.vars` file with these variables.
 
 #### Testing
 
-- `yarn test:api` - Run the full API test suite, including type checking, linting, and unit tests. This is the most comprehensive test script.
+- `yarn test:api` - Run the full API test suite, including type checking,
+  linting, and unit tests. This is the most comprehensive test script.
 - `yarn test:unit` - Run unit tests only.
 - `yarn test:watch` - Run tests in watch mode
 

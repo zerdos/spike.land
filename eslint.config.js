@@ -4,7 +4,6 @@ import js from "@eslint/js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -16,7 +15,6 @@ const compat = new FlatCompat({
 export default [
   js.configs.recommended,
 
-  
   // Global ignores
   {
     ignores: [
@@ -30,17 +28,17 @@ export default [
       "**/*.d.ts",
       "**/dist-vite/**/*",
       "**/test-mocks/**/*",
-      "**/tests/**/*"
-    ]
+      "**/tests/**/*",
+    ],
   },
-  
+
   // TypeScript files
   ...compat.extends(
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
   ),
-  
+
   // Common config for JS and TS
   {
     files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
@@ -52,27 +50,26 @@ export default [
       "react/jsx-uses-react": "off",
       "react/no-unknown-property": "off",
 
-      
       // TypeScript rules
       "@typescript-eslint/no-unused-vars": [
-        "warn", 
+        "warn",
         {
           "argsIgnorePattern": "^_",
           "varsIgnorePattern": "^_",
           "destructuredArrayIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_"
-        }
+          "caughtErrorsIgnorePattern": "^_",
+        },
       ],
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {
           "prefer": "type-imports",
           "disallowTypeAnnotations": true,
-          "fixStyle": "separate-type-imports"
-        }
+          "fixStyle": "separate-type-imports",
+        },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
-      
+
       // General rules
       "prefer-const": "error",
       "no-undef": "off",
@@ -86,33 +83,33 @@ export default [
         "__dirname": "readonly",
         "__filename": "readonly",
         "fetch": "readonly",
-        "WebSocket": "readonly"
+        "WebSocket": "readonly",
       },
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
-        }
-      }
+          jsx: true,
+        },
+      },
     },
     settings: {
       react: {
-        version: "19.0"
-      }
-    }
+        version: "19.0",
+      },
+    },
   },
-  
+
   // .mjs specific rules
   {
     files: ["**/*.mjs"],
     languageOptions: {
       globals: {
         "process": "readonly",
-        "console": "readonly"
-      }
+        "console": "readonly",
+      },
     },
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
-      "no-unused-expressions": "off"
-    }
-  }
+      "no-unused-expressions": "off",
+    },
+  },
 ];

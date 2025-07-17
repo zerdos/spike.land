@@ -30,7 +30,9 @@ const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 export function parseInputFromUrl(urlString: string): InputDefaults {
   try {
     const url = new URL(urlString);
-    const match = url.pathname.match(/^\/replicate\/([^.]+)\.(?:webp|png|jpeg)$/);
+    const match = url.pathname.match(
+      /^\/replicate\/([^.]+)\.(?:webp|png|jpeg)$/,
+    );
 
     if (!match) {
       return INPUT_DEFAULTS;

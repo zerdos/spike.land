@@ -473,7 +473,10 @@ describe("WebSocketHandler", () => {
 
       // Verify error handling - safeSend logs error but doesn't close connection
       expect(mockWebSocket1.close).not.toHaveBeenCalled();
-      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", expect.any(Error));
+      expect(consoleError).toHaveBeenCalledWith(
+        "WebSocket send error:",
+        expect.any(Error),
+      );
 
       consoleError.mockRestore();
     });

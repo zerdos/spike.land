@@ -97,7 +97,9 @@ describe("PostHandler", () => {
 
     beforeEach(() => {
       // Setup mock stream response
-      mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
+      mockToDataStreamResponse = vi.fn().mockReturnValue(
+        new Response("stream"),
+      );
       mockStreamResponse = {
         toDataStreamResponse: mockToDataStreamResponse,
         warnings: [],
@@ -128,13 +130,19 @@ describe("PostHandler", () => {
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic to return a proper AnthropicProvider
-      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
-      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      const anthropicProvider = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      ) as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
       anthropicProvider.tools = {} as any;
       anthropicProvider.textEmbeddingModel = vi.fn();
-      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
+      vi.mocked(createAnthropic).mockReturnValue(
+        anthropicProvider as AnthropicProvider,
+      );
     });
 
     it("should handle valid request successfully", async () => {
@@ -258,26 +266,36 @@ describe("PostHandler", () => {
       await postHandler.handle(mockRequest, mockUrl);
 
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Found 1 tools with invalid input_schema.type="string"'),
+        expect.stringContaining(
+          'Found 1 tools with invalid input_schema.type="string"',
+        ),
       );
     });
 
     it("should handle stream errors", async () => {
       // Log spies
-      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(
+        () => {},
+      );
 
       // Override the default mock to reject when called
       vi.mocked(streamText).mockReset();
       vi.mocked(streamText).mockRejectedValue(new Error("Stream failed"));
 
       // Mock createAnthropic properly
-      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
-      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      const anthropicProvider = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      ) as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
       anthropicProvider.tools = {} as any;
       anthropicProvider.textEmbeddingModel = vi.fn();
-      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
+      vi.mocked(createAnthropic).mockReturnValue(
+        anthropicProvider as AnthropicProvider,
+      );
 
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
@@ -293,13 +311,17 @@ describe("PostHandler", () => {
 
       // Verify error was logged
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining("[AI Routes][test-uuid-123] Stream error details:"),
+        expect.stringContaining(
+          "[AI Routes][test-uuid-123] Stream error details:",
+        ),
         expect.objectContaining({
           message: "Stream failed",
         }),
       );
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining("[AI Routes][test-uuid-123] Error handling message:"),
+        expect.stringContaining(
+          "[AI Routes][test-uuid-123] Error handling message:",
+        ),
         expect.any(Error),
       );
 
@@ -403,7 +425,9 @@ describe("PostHandler", () => {
     it("should reject non-array messages", () => {
       expect(callValidateMessages(null)).toBe("Messages must be an array");
       expect(callValidateMessages({})).toBe("Messages must be an array");
-      expect(callValidateMessages("messages")).toBe("Messages must be an array");
+      expect(callValidateMessages("messages")).toBe(
+        "Messages must be an array",
+      );
     });
 
     it("should reject empty messages array", () => {
@@ -412,13 +436,21 @@ describe("PostHandler", () => {
 
     it("should reject too many messages", () => {
       const messages = Array(101).fill({ role: "user", content: "test" });
-      expect(callValidateMessages(messages)).toBe("Too many messages. Maximum allowed: 100");
+      expect(callValidateMessages(messages)).toBe(
+        "Too many messages. Maximum allowed: 100",
+      );
     });
 
     it("should reject invalid message objects", () => {
-      expect(callValidateMessages([null])).toBe("Message at index 0 must be an object");
-      expect(callValidateMessages(["string"])).toBe("Message at index 0 must be an object");
-      expect(callValidateMessages([123])).toBe("Message at index 0 must be an object");
+      expect(callValidateMessages([null])).toBe(
+        "Message at index 0 must be an object",
+      );
+      expect(callValidateMessages(["string"])).toBe(
+        "Message at index 0 must be an object",
+      );
+      expect(callValidateMessages([123])).toBe(
+        "Message at index 0 must be an object",
+      );
     });
 
     it("should reject invalid roles", () => {
@@ -430,13 +462,17 @@ describe("PostHandler", () => {
 
     it("should reject missing content", () => {
       const messages = [{ role: "user" }];
-      expect(callValidateMessages(messages)).toBe("Message at index 0 must have content");
+      expect(callValidateMessages(messages)).toBe(
+        "Message at index 0 must have content",
+      );
     });
 
     it("should reject oversized messages", () => {
       const largeContent = "x".repeat(100001);
       const messages = [{ role: "user", content: largeContent }];
-      expect(callValidateMessages(messages)).toBe("Message at index 0 exceeds maximum size limit");
+      expect(callValidateMessages(messages)).toBe(
+        "Message at index 0 exceeds maximum size limit",
+      );
     });
 
     it("should reject invalid content types", () => {
@@ -467,7 +503,10 @@ describe("PostHandler", () => {
           role: "user",
           content: [
             { type: "text", text: "Hello" },
-            { type: "image_url", image_url: { url: "https://example.com/image.jpg" } },
+            {
+              type: "image_url",
+              image_url: { url: "https://example.com/image.jpg" },
+            },
           ],
         },
       ];
@@ -500,7 +539,10 @@ describe("PostHandler", () => {
           role: "user",
           content: [
             { type: "text", text: "Hello" },
-            { type: "image_url", image_url: { url: "https://example.com/img.jpg" } },
+            {
+              type: "image_url",
+              image_url: { url: "https://example.com/img.jpg" },
+            },
           ],
         },
       ];
@@ -575,12 +617,18 @@ describe("PostHandler", () => {
         },
       ];
 
-      expect(() => callConvertMessages(messages)).toThrow("Invalid role: invalid");
+      expect(() => callConvertMessages(messages)).toThrow(
+        "Invalid role: invalid",
+      );
     });
   });
 
   describe("createErrorResponse", () => {
-    const callCreateErrorResponse = (error: string, status: number, details?: string) => {
+    const callCreateErrorResponse = (
+      error: string,
+      status: number,
+      details?: string,
+    ) => {
       return (postHandler as any).createErrorResponse(error, status, details);
     };
 
@@ -588,12 +636,18 @@ describe("PostHandler", () => {
       const response = callCreateErrorResponse("Test error", 400);
 
       expect(response.status).toBe(400);
-      expect(response.headers.get("Content-Type")).toBe("application/json; charset=UTF-8");
+      expect(response.headers.get("Content-Type")).toBe(
+        "application/json; charset=UTF-8",
+      );
       expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
     });
 
     it("should create error response with details", async () => {
-      const response = callCreateErrorResponse("Test error", 500, "Detailed info");
+      const response = callCreateErrorResponse(
+        "Test error",
+        500,
+        "Detailed info",
+      );
 
       expect(response.status).toBe(500);
       const body = await response.json();
@@ -696,7 +750,9 @@ describe("PostHandler", () => {
       const tools: McpTool[] = mockMcpServer.tools;
       const body: PostRequestBody = { messages: [] };
 
-      const mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
+      const mockToDataStreamResponse = vi.fn().mockReturnValue(
+        new Response("stream"),
+      );
       const mockStreamResponse = {
         toDataStreamResponse: mockToDataStreamResponse,
         warnings: [],
@@ -725,13 +781,19 @@ describe("PostHandler", () => {
       } as unknown as StreamTextResult<any, any>;
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
-      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      const anthropicProvider = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      ) as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
       anthropicProvider.tools = {} as any;
       anthropicProvider.textEmbeddingModel = vi.fn();
-      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
+      vi.mocked(createAnthropic).mockReturnValue(
+        anthropicProvider as AnthropicProvider,
+      );
 
       await (postHandler as any).createStreamResponse(
         messages,
@@ -802,13 +864,19 @@ describe("PostHandler", () => {
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic properly
-      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
-      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      const anthropicProvider = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      ) as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue(
+        "claude-4-sonnet-20250514",
+      );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
       anthropicProvider.tools = {} as any;
       anthropicProvider.textEmbeddingModel = vi.fn();
-      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
+      vi.mocked(createAnthropic).mockReturnValue(
+        anthropicProvider as AnthropicProvider,
+      );
 
       await (postHandler as any).createStreamResponse(
         [],

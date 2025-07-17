@@ -260,12 +260,16 @@ export class McpServer {
   constructor(private durableObject: Code) {}
 
   // Helper method to get session for a specific codeSpace
-  private async getSessionForCodeSpace(codeSpace: string): Promise<ICodeSession> {
+  private async getSessionForCodeSpace(
+    codeSpace: string,
+  ): Promise<ICodeSession> {
     const currentSession = this.durableObject.getSession();
 
     // If the current session is for a different codeSpace, we need to switch
     if (currentSession.codeSpace !== codeSpace) {
-      console.log(`Switching session from '${currentSession.codeSpace}' to '${codeSpace}'`);
+      console.log(
+        `Switching session from '${currentSession.codeSpace}' to '${codeSpace}'`,
+      );
 
       // Create a new URL with the codeSpace as a room parameter
       const url = new URL(`http://localhost:8787/?room=${codeSpace}`);
@@ -288,7 +292,11 @@ export class McpServer {
     return currentSession;
   }
 
-  async handleRequest(request: Request, _url: URL, _path: string[]): Promise<Response> {
+  async handleRequest(
+    request: Request,
+    _url: URL,
+    _path: string[],
+  ): Promise<Response> {
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -334,7 +342,10 @@ export class McpServer {
             data: error instanceof Error ? error.message : String(error),
           },
         };
-        return new Response(JSON.stringify(errorResponse), { status: 400, headers });
+        return new Response(JSON.stringify(errorResponse), {
+          status: 400,
+          headers,
+        });
       }
     }
 
@@ -386,7 +397,9 @@ export class McpServer {
               content: [
                 {
                   type: "text",
-                  text: typeof result === "string" ? result : JSON.stringify(result, null, 2),
+                  text: typeof result === "string"
+                    ? result
+                    : JSON.stringify(result, null, 2),
                 },
               ],
             },
@@ -422,10 +435,14 @@ export class McpServer {
     // Get the session for the requested codeSpace
     const session = await this.getSessionForCodeSpace(requestedCodeSpace);
 
-    console.log(`MCP Tool '${toolName}' executing for codeSpace: ${requestedCodeSpace}`);
+    console.log(
+      `MCP Tool '${toolName}' executing for codeSpace: ${requestedCodeSpace}`,
+    );
 
     if (!session.codeSpace) {
-      throw new Error("Session codeSpace is missing. The session may not be properly initialized.");
+      throw new Error(
+        "Session codeSpace is missing. The session may not be properly initialized.",
+      );
     }
 
     switch (toolName) {
@@ -454,7 +471,9 @@ export class McpServer {
           throw new Error("Code parameter is required and must be a string");
         }
 
-        console.log(`[MCP] update_code called for codeSpace: ${requestedCodeSpace}`);
+        console.log(
+          `[MCP] update_code called for codeSpace: ${requestedCodeSpace}`,
+        );
         console.log(
           `[MCP] Current code length: ${
             session.code?.length || 0
@@ -529,10 +548,14 @@ export class McpServer {
         const code = session.code || "";
         const lines = code.split("\n");
         const isRegex = args.isRegex === true;
-        const matches: Array<{ lineNumber: number; content: string; matchText: string; }> = [];
+        const matches: Array<
+          { lineNumber: number; content: string; matchText: string; }
+        > = [];
 
         try {
-          const searchPattern = isRegex ? new RegExp(args.pattern, "gi") : args.pattern;
+          const searchPattern = isRegex
+            ? new RegExp(args.pattern, "gi")
+            : args.pattern;
 
           lines.forEach((line: string, index: number) => {
             const lineNumber = index + 1;
@@ -595,7 +618,10 @@ export class McpServer {
           } else {
             const searchText = args.search;
             if (global) {
-              const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+              const regex = new RegExp(
+                searchText.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+                "g",
+              );
               const matches = originalCode.match(regex);
               replacements = matches ? matches.length : 0;
               newCode = originalCode.replace(regex, args.replace);
@@ -658,7 +684,7 @@ export class McpServer {
 
   // Helper method to remove tools
   removeTool(toolName: string): boolean {
-    const index = this.tools.findIndex(tool => tool.name === toolName);
+    const index = this.tools.findIndex((tool) => tool.name === toolName);
     if (index !== -1) {
       this.tools.splice(index, 1);
       return true;
@@ -741,7 +767,11 @@ export class McpServer {
       }
 
       // Add context after
-      for (let i = endIdx + 1; i <= Math.min(contextEnd, modifiedLines.length - 1); i++) {
+      for (
+        let i = endIdx + 1;
+        i <= Math.min(contextEnd, modifiedLines.length - 1);
+        i++
+      ) {
         diffLines.push(` ${modifiedLines[i]}`);
       }
 
@@ -752,7 +782,9 @@ export class McpServer {
     }
 
     const newCode = modifiedLines.join("\n");
-    const diff = diffParts.length > 0 ? diffParts.join("\n\n") : "No changes made";
+    const diff = diffParts.length > 0
+      ? diffParts.join("\n\n")
+      : "No changes made";
 
     return { newCode, diff };
   }

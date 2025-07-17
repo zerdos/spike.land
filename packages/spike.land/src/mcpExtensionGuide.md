@@ -1,10 +1,13 @@
 # MCP Server Extension Guide
 
-This guide explains how to extend the MCP (Model Context Protocol) server functionality in the spike.land durable object.
+This guide explains how to extend the MCP (Model Context Protocol) server
+functionality in the spike.land durable object.
 
 ## Overview
 
-The MCP server is implemented in `mcpServer.ts` and provides tools for AI agents to interact with the durable object's session data. The server follows the MCP specification and provides a clean, extensible architecture.
+The MCP server is implemented in `mcpServer.ts` and provides tools for AI agents
+to interact with the durable object's session data. The server follows the MCP
+specification and provides a clean, extensible architecture.
 
 ## Current Tools
 

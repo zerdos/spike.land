@@ -13,14 +13,14 @@
     "composite": true,
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["./packages/code/src/@/*"],
+      "@/*": ["./packages/code/src/@/*"]
     },
     "esModuleInterop": true
   },
   "references": [
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
-    { "path": "./packages/code/tsconfig.json" },  
-    { "path": "./packages/spike.land/tsconfig.json" },
+    { "path": "./packages/code/tsconfig.json" },
+    { "path": "./packages/spike.land/tsconfig.json" }
   ],
   "exclude": ["dts", "node_modules", "dist"],
   "include": ["eslint.config.js"]

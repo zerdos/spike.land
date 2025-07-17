@@ -152,7 +152,9 @@ describe("RouteHandler", () => {
 
         // Assert that placeholders are replaced
         expect(responseText).toContain(`href="/live/test-space/index.css"`);
-        expect(responseText).toEqual(expect.stringMatching(/<style>\s*mock css\s*<\/style>/));
+        expect(responseText).toEqual(
+          expect.stringMatching(/<style>\s*mock css\s*<\/style>/),
+        );
         expect(responseText).toContain(`<div id="embed">mock html</div>`);
         // Check that the import map exists and contains expected imports
         expect(responseText).toContain('type="importmap"');

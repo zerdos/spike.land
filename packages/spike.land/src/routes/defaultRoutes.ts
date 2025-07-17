@@ -7,7 +7,8 @@ export class DefaultRoutes {
   async handleDefaultRoute(): Promise<Response> {
     const { html, codeSpace, css } = this.code.getSession();
     const respText = HTML.replace("// IMPORTMAP", JSON.stringify(importMap))
-      .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css).replace(
+      .replaceAll("${codeSpace}", codeSpace).replace("/* criticalCss */", css)
+      .replace(
         "${html}",
         html,
       );

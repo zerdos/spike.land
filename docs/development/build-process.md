@@ -1,6 +1,7 @@
 # Build Process
 
-This document details the build system and processes across all packages in the spike.land monorepo.
+This document details the build system and processes across all packages in the
+spike.land monorepo.
 
 ## Overview
 
@@ -47,6 +48,7 @@ yarn lint           # Lint all packages
 ### Package-Specific Builds
 
 #### Frontend (`packages/code`)
+
 ```bash
 # Development
 yarn workspace @spike-npm-land/code dev         # Start dev server
@@ -60,17 +62,20 @@ yarn workspace @spike-npm-land/code build:types # TypeScript build
 ```
 
 #### Main Worker (`packages/spike.land`)
+
 ```bash
 yarn workspace @spike-npm-land/code-worker build        # Build worker
 yarn workspace @spike-npm-land/code-worker build:worker # Worker-specific build
 ```
 
 #### Transpiler Worker (`packages/js.spike.land`)
+
 ```bash
 yarn workspace @spike-npm-land/transpile build # Build transpiler worker
 ```
 
 #### Renderer Worker (`packages/spike-land-renderer`)
+
 ```bash
 yarn workspace spike-land-renderer build # Build renderer worker
 ```
@@ -113,27 +118,28 @@ rm -rf .tsBuildInfo
 // vite.config.ts example
 export default defineConfig({
   build: {
-    target: 'esnext',
-    outDir: 'dist',
+    target: "esnext",
+    outDir: "dist",
     rollupOptions: {
       external: [...externals],
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          editor: ['monaco-editor']
-        }
-      }
-    }
+          vendor: ["react", "react-dom"],
+          editor: ["monaco-editor"],
+        },
+      },
+    },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom']
-  }
+    include: ["react", "react-dom"],
+  },
 });
 ```
 
 ### 4. Worker Builds
 
 #### Main Worker
+
 ```toml
 # wrangler.toml configuration
 name = "spike-land"
@@ -145,14 +151,15 @@ command = "yarn build"
 ```
 
 #### Transpiler Worker
+
 ```typescript
 // ESBuild configuration
 const buildOptions = {
-  entryPoints: ['src/index.ts'],
+  entryPoints: ["src/index.ts"],
   bundle: true,
-  format: 'esm',
-  target: 'es2024',
-  outfile: 'dist/worker.js'
+  format: "esm",
+  target: "es2024",
+  outfile: "dist/worker.js",
 };
 ```
 
@@ -163,21 +170,22 @@ const buildOptions = {
 const assetPipeline = {
   images: {
     // Image optimization
-    formats: ['webp', 'avif'],
-    sizes: [640, 1280, 1920]
+    formats: ["webp", "avif"],
+    sizes: [640, 1280, 1920],
   },
   styles: {
     // CSS processing
     tailwind: true,
     autoprefixer: true,
-    purge: true
-  }
+    purge: true,
+  },
 };
 ```
 
 ## Build Environments
 
 ### Development
+
 ```bash
 # Environment variables
 NODE_ENV=development
@@ -185,6 +193,7 @@ VITE_API_URL=http://localhost:8787
 ```
 
 ### Testing
+
 ```bash
 # Environment variables
 NODE_ENV=test
@@ -192,6 +201,7 @@ VITE_API_URL=https://testing.spike.land
 ```
 
 ### Production
+
 ```bash
 # Environment variables
 NODE_ENV=production
@@ -201,41 +211,45 @@ VITE_API_URL=https://spike.land
 ## Build Optimization
 
 ### Code Splitting
+
 ```typescript
 // Dynamic imports for route-based code splitting
-const Editor = lazy(() => import('./components/Editor'));
-const Preview = lazy(() => import('./components/Preview'));
+const Editor = lazy(() => import("./components/Editor"));
+const Preview = lazy(() => import("./components/Preview"));
 ```
 
 ### Tree Shaking
+
 ```typescript
 // Build output analysis
-import { visualizer } from 'rollup-plugin-visualizer';
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
     visualizer({
-      filename: 'dist/stats.html',
-      gzipSize: true
-    })
-  ]
+      filename: "dist/stats.html",
+      gzipSize: true,
+    }),
+  ],
 });
 ```
 
 ### Asset Optimization
+
 ```typescript
 // Asset handling configuration
 const assetConfig = {
   inlineLimit: 4096, // Inline assets < 4kb
-  assetsDir: 'assets',
-  assetFileNames: '[hash][extname]',
-  chunkFileNames: '[hash].js'
+  assetsDir: "assets",
+  assetFileNames: "[hash][extname]",
+  chunkFileNames: "[hash].js",
 };
 ```
 
 ## Build Verification
 
 ### Type Checking
+
 ```bash
 # Full type check
 yarn types:check
@@ -245,6 +259,7 @@ yarn types:build
 ```
 
 ### Testing
+
 ```bash
 # Run all tests
 vik
@@ -257,6 +272,7 @@ yarn lint
 ```
 
 ### Bundle Analysis
+
 ```bash
 # Generate bundle analysis
 yarn build --analyze
@@ -268,6 +284,7 @@ open dist/stats.html
 ## Deployment Process
 
 ### Development Deployment
+
 ```bash
 # Deploy to development
 yarn deploy:dev
@@ -279,6 +296,7 @@ yarn deploy:dev
 ```
 
 ### Production Deployment
+
 ```bash
 # Deploy to production
 yarn deploy:prod
@@ -317,11 +335,13 @@ yarn deploy:prod
 ### Build Logs
 
 Location of important build logs:
+
 - TypeScript: `tsconfig.tsbuildinfo`
 - Vite: `node_modules/.vite/`
 - Workers: `.wrangler/`
 
 ## Related Documentation
+
 - [Getting Started](./getting-started.md)
 - [Frontend Architecture](../architecture/frontend.md)
 - [Workers Architecture](../architecture/workers.md)

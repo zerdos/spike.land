@@ -1,6 +1,7 @@
 # @spike-npm-land/transpile
 
-A Cloudflare Worker that provides transpilation services using esbuild for spike.land's real-time collaborative code editor.
+A Cloudflare Worker that provides transpilation services using esbuild for
+spike.land's real-time collaborative code editor.
 
 ## Features
 
@@ -83,7 +84,8 @@ workers_dev = true
 
 ## API Endpoints
 
-The worker exposes transpilation endpoints that accept JavaScript/TypeScript code and return the transpiled output.
+The worker exposes transpilation endpoints that accept JavaScript/TypeScript
+code and return the transpiled output.
 
 For detailed API documentation, see the source code comments in `src/index.ts`.
 

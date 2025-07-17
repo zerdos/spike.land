@@ -114,7 +114,9 @@ export class PostHandler {
       console.error("[AI Routes] Failed to parse request body:", parseError);
       throw new Error(
         `Invalid JSON in request body: ${
-          parseError instanceof Error ? parseError.message : "Unknown parse error"
+          parseError instanceof Error
+            ? parseError.message
+            : "Unknown parse error"
         }`,
       );
     }
@@ -160,7 +162,9 @@ export class PostHandler {
       }
 
       // Validate content structure
-      if (typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)) {
+      if (
+        typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)
+      ) {
         return `Message at index ${i} content must be a string or array`;
       }
 
@@ -247,9 +251,11 @@ export class PostHandler {
     });
 
     // Log message count and types instead of full content for privacy
-    const messageSummary = messages.map(m => ({
+    const messageSummary = messages.map((m) => ({
       role: m.role,
-      contentLength: typeof m.content === "string" ? m.content.length : m.content.length,
+      contentLength: typeof m.content === "string"
+        ? m.content.length
+        : m.content.length,
     }));
     console.log(
       `[AI Routes][${requestId}] Creating stream with ${messages.length} messages, summary:`,
@@ -308,13 +314,18 @@ export class PostHandler {
       return result.toDataStreamResponse({
         headers: this.getCorsHeaders(),
         getErrorMessage: (error) => {
-          console.error(`[AI Routes][${requestId}] Error during streaming:`, error);
+          console.error(
+            `[AI Routes][${requestId}] Error during streaming:`,
+            error,
+          );
           return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
         },
       });
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
-        message: streamError instanceof Error ? streamError.message : "Unknown error",
+        message: streamError instanceof Error
+          ? streamError.message
+          : "Unknown error",
         stack: streamError instanceof Error ? streamError.stack : undefined,
       });
       throw streamError;

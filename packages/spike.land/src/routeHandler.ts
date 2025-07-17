@@ -61,7 +61,9 @@ export class RouteHandler {
     > = {
       // WebSocket routes
       users: this.websocketRoutes.handleUsersRoute.bind(this.websocketRoutes),
-      websocket: this.websocketRoutes.handleWebsocketRoute.bind(this.websocketRoutes),
+      websocket: this.websocketRoutes.handleWebsocketRoute.bind(
+        this.websocketRoutes,
+      ),
 
       // Code routes
       code: this.codeRoutes.handleCodeRoute.bind(this.codeRoutes),
@@ -102,7 +104,9 @@ export class RouteHandler {
       "null": this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       hydrated: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       worker: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
-      dehydrated: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
+      dehydrated: this.defaultRoutes.handleDefaultRoute.bind(
+        this.defaultRoutes,
+      ),
       iframe: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       embed: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),
       public: this.defaultRoutes.handleDefaultRoute.bind(this.defaultRoutes),

@@ -1,8 +1,9 @@
 # Data Flow Architecture
 
-## Overview 
+## Overview
 
-This document describes how data flows through the spike.land system, including real-time collaboration, asset serving, and AI interactions.
+This document describes how data flows through the spike.land system, including
+real-time collaboration, asset serving, and AI interactions.
 
 ## Core Data Flows
 
@@ -49,6 +50,7 @@ sequenceDiagram
 ## Real-time Collaboration Flow
 
 ### WebSocket Connection
+
 ```typescript
 // Example WebSocket setup
 class CollaborationManager {
@@ -69,10 +71,11 @@ class CollaborationManager {
 The Main Worker manages WebSocket connections for real-time collaboration.
 
 ### State Synchronization
+
 ```typescript
 // Example state sync
 interface StateUpdate {
-  type: 'insert' | 'delete' | 'replace';
+  type: "insert" | "delete" | "replace";
   position: number;
   content?: string;
   length?: number;
@@ -80,14 +83,14 @@ interface StateUpdate {
 
 function applyUpdate(doc: string, update: StateUpdate): string {
   switch (update.type) {
-    case 'insert':
-      return doc.slice(0, update.position) + 
-             update.content + 
-             doc.slice(update.position);
-    case 'delete':
-      return doc.slice(0, update.position) + 
-             doc.slice(update.position + update.length!);
-    // ...
+    case "insert":
+      return doc.slice(0, update.position) +
+        update.content +
+        doc.slice(update.position);
+    case "delete":
+      return doc.slice(0, update.position) +
+        doc.slice(update.position + update.length!);
+      // ...
   }
 }
 ```
@@ -95,6 +98,7 @@ function applyUpdate(doc: string, update: StateUpdate): string {
 ## Code Processing Flow
 
 ### Edit to Execution
+
 1. **Code Input**
    ```typescript
    // Frontend code capture
@@ -107,9 +111,9 @@ function applyUpdate(doc: string, update: StateUpdate): string {
    ```typescript
    // Transpiler worker request
    async function transpileCode(content: string) {
-     const response = await fetch('https://js.spike.land/transpile', {
-       method: 'POST',
-       body: JSON.stringify({ content })
+     const response = await fetch("https://js.spike.land/transpile", {
+       method: "POST",
+       body: JSON.stringify({ content }),
      });
      return response.json();
    }
@@ -120,7 +124,7 @@ function applyUpdate(doc: string, update: StateUpdate): string {
    // Code execution
    function executeCode(transpiled: string) {
      const worker = new Worker(
-       URL.createObjectURL(new Blob([transpiled]))
+       URL.createObjectURL(new Blob([transpiled])),
      );
      worker.onmessage = handleResult;
    }
@@ -129,6 +133,7 @@ function applyUpdate(doc: string, update: StateUpdate): string {
 ## Asset Management Flow
 
 ### Static Assets
+
 ```mermaid
 graph TD
     A[Client Request] --> B{Cache Check}
@@ -141,28 +146,30 @@ graph TD
 ```
 
 ### Dynamic Assets
+
 ```typescript
 // Example asset routing
 async function routeAsset(request: Request) {
   const url = new URL(request.url);
-  
+
   // Check if it's a static asset
   if (isStaticAsset(url.pathname)) {
     return serveFromKV(url.pathname);
   }
-  
+
   // Check if it's a dynamic asset
   if (isDynamicAsset(url.pathname)) {
     return generateAsset(url.pathname, request);
   }
-  
-  return new Response('Not Found', { status: 404 });
+
+  return new Response("Not Found", { status: 404 });
 }
 ```
 
 ## Data Storage Hierarchy
 
 ### Storage Tiers
+
 ```mermaid
 graph TD
     A[Browser] --> B[Memory Cache]
@@ -172,20 +179,21 @@ graph TD
 ```
 
 ### Cache Strategy
+
 ```typescript
 // Example cache strategy implementation
 async function fetchWithCache(key: string) {
   // Check memory cache
   const memCache = await caches.match(key);
   if (memCache) return memCache;
-  
+
   // Check KV
   const kvCache = await KV.get(key);
   if (kvCache) {
     await caches.put(key, kvCache);
     return kvCache;
   }
-  
+
   // Fetch from R2
   const r2Data = await R2.get(key);
   if (r2Data) {
@@ -197,7 +205,8 @@ async function fetchWithCache(key: string) {
 
 ## AI Integration Flow
 
-### Request Processing 
+### Request Processing
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -218,16 +227,17 @@ sequenceDiagram
 ```
 
 ### AI Service Integration
+
 ```typescript
 // Example AI service router
 class AIServiceRouter {
   private services = new Map<string, AIService>();
-  
+
   constructor() {
-    this.services.set('openai', new OpenAIService());
-    this.services.set('anthropic', new AnthropicService());
+    this.services.set("openai", new OpenAIService());
+    this.services.set("anthropic", new AnthropicService());
   }
-  
+
   async route(request: Request) {
     const service = this.getService(request);
     return service.process(request);
@@ -238,6 +248,7 @@ class AIServiceRouter {
 ## Error Handling Flow
 
 ### Error Propagation
+
 ```mermaid
 graph TD
     A[Error Occurs] --> B{Type?}
@@ -249,6 +260,7 @@ graph TD
 ```
 
 ### Error Recovery
+
 ```typescript
 // Example error recovery
 class ErrorHandler {
@@ -267,11 +279,12 @@ class ErrorHandler {
 ## Monitoring and Logging Flow
 
 ### Data Collection
+
 ```typescript
 // Example monitoring setup
 interface MetricPoint {
   timestamp: number;
-  type: string; 
+  type: string;
   value: number;
   metadata: Record<string, string>;
 }
@@ -287,6 +300,7 @@ class Monitoring {
 ```
 
 ### Log Aggregation
+
 ```mermaid
 graph TD
     A[Log Entry] --> B[Worker Logger]
@@ -298,6 +312,7 @@ graph TD
 ```
 
 ## Related Documentation
+
 - [Frontend Architecture](./frontend.md)
 - [Workers Architecture](./workers.md)
 - [State Management](./state-management.md)

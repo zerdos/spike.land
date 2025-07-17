@@ -155,7 +155,7 @@ describe("MCP Server Integration Tests", () => {
       expect(Array.isArray(response.result?.tools)).toBe(true);
 
       const tools = response.result?.tools || [];
-      const toolNames = tools.map(t => t.name);
+      const toolNames = tools.map((t) => t.name);
 
       expect(toolNames).toContain("read_code");
       expect(toolNames).toContain("read_html");
@@ -200,12 +200,16 @@ export default () => {
       const readResponse = await callTool("read_code", {
         codeSpace: testCodeSpace,
       });
-      const readContent = JSON.parse(readResponse.result?.content?.[0]?.text || "{}");
+      const readContent = JSON.parse(
+        readResponse.result?.content?.[0]?.text || "{}",
+      );
       expect(readContent.code).toBe(testCode);
 
       // Verify the code was actually persisted by fetching the file directly
       await sleep(100); // Give time for async operations
-      const fileResponse = await fetch(`${baseUrl}/live/${testCodeSpace}/index.tsx`);
+      const fileResponse = await fetch(
+        `${baseUrl}/live/${testCodeSpace}/index.tsx`,
+      );
       expect(fileResponse.status).toBe(200);
       const fileContent = await fileResponse.text();
       expect(fileContent).toBe(testCode);
@@ -233,11 +237,15 @@ export default () => {
       expect(content.success).toBe(true);
       expect(content.linesChanged).toBe(1);
       expect(content.diff).toContain("-  return <div>Hello E2E!</div>;");
-      expect(content.diff).toContain("+  return <div>Hello E2E - Edited!</div>;");
+      expect(content.diff).toContain(
+        "+  return <div>Hello E2E - Edited!</div>;",
+      );
 
       // Verify the edit was persisted via HTTP
       await sleep(100);
-      const fileResponse = await fetch(`${baseUrl}/live/${testCodeSpace}/index.tsx`);
+      const fileResponse = await fetch(
+        `${baseUrl}/live/${testCodeSpace}/index.tsx`,
+      );
       const fileContent = await fileResponse.text();
       expect(fileContent).toContain("Hello E2E - Edited!");
     });
@@ -290,14 +298,18 @@ function sayHello() {
       const readResponse = await callTool("read_code", {
         codeSpace: testCodeSpace,
       });
-      const readContent = JSON.parse(readResponse.result?.content?.[0]?.text || "{}");
+      const readContent = JSON.parse(
+        readResponse.result?.content?.[0]?.text || "{}",
+      );
       expect(readContent.code).toContain("Integration Test");
       expect(readContent.code).toContain("Hello Integration!");
       expect(readContent.code).not.toContain("E2E");
 
       // Verify replacements via HTTP
       await sleep(100);
-      const fileResponse = await fetch(`${baseUrl}/live/${testCodeSpace}/index.tsx`);
+      const fileResponse = await fetch(
+        `${baseUrl}/live/${testCodeSpace}/index.tsx`,
+      );
       const fileContent = await fileResponse.text();
       expect(fileContent).toContain("Integration Test");
       expect(fileContent).toContain("Hello Integration!");

@@ -89,7 +89,10 @@ export class Code implements DurableObject {
       const codeSpace = sessionToSave.codeSpace;
 
       if (!codeSpace) {
-        console.error("Attempted to save session without a codeSpace:", sessionToSave);
+        console.error(
+          "Attempted to save session without a codeSpace:",
+          sessionToSave,
+        );
         throw new Error("Cannot save session: codeSpace is missing.");
       }
 
@@ -98,31 +101,36 @@ export class Code implements DurableObject {
 
       const promises = [];
       promises.push(
-        this.state.storage.put("session_core", sessionCoreData).catch(e => {
+        this.state.storage.put("session_core", sessionCoreData).catch((e) => {
           console.error(`Failed to save session_core for ${codeSpace}:`, e);
           throw e;
         }),
       );
       promises.push(
-        this.state.storage.put("session_code", code || "").catch(e => {
+        this.state.storage.put("session_code", code || "").catch((e) => {
           console.error(`Failed to save session_code for ${codeSpace}:`, e);
           throw e;
         }),
       );
       promises.push(
-        this.state.storage.put("session_transpiled", transpiled || "").catch(e => {
-          console.error(`Failed to save session_transpiled for ${codeSpace}:`, e);
-          throw e;
-        }),
+        this.state.storage.put("session_transpiled", transpiled || "").catch(
+          (e) => {
+            console.error(
+              `Failed to save session_transpiled for ${codeSpace}:`,
+              e,
+            );
+            throw e;
+          },
+        ),
       );
       promises.push(
-        this.env.R2.put(r2HtmlKey, html || "").catch(e => {
+        this.env.R2.put(r2HtmlKey, html || "").catch((e) => {
           console.error(`Failed to save html to R2 for ${r2HtmlKey}:`, e);
           throw e;
         }),
       );
       promises.push(
-        this.env.R2.put(r2CssKey, css || "").catch(e => {
+        this.env.R2.put(r2CssKey, css || "").catch((e) => {
           console.error(`Failed to save css to R2 for ${r2CssKey}:`, e);
           throw e;
         }),
@@ -177,7 +185,9 @@ export class Code implements DurableObject {
 
         // If we found data with the old key, migrate it to the new key
         if (sessionCore) {
-          console.log(`Migrating session data from old key for codeSpace: ${codeSpace}`);
+          console.log(
+            `Migrating session data from old key for codeSpace: ${codeSpace}`,
+          );
           await this.state.storage.put("session_core", sessionCore);
           await this.state.storage.delete("session"); // Clean up old key
         }
@@ -185,7 +195,8 @@ export class Code implements DurableObject {
       let loadedSession: ICodeSession | null = null;
 
       if (sessionCore && sessionCore.codeSpace === codeSpace) { // Ensure loaded core is for the correct codespace
-        const code = await this.state.storage.get<string>("session_code") ?? sessionCore.code;
+        const code = await this.state.storage.get<string>("session_code") ??
+          sessionCore.code;
         const transpiled = await this.state.storage.get<string>("session_transpiled") ??
           sessionCore.transpiled;
 
@@ -262,13 +273,18 @@ export class Code implements DurableObject {
                     codeSpace,
                   });
                 } else {
-                  throw new Error(`Failed to fetch base session: ${response.status}`);
+                  throw new Error(
+                    `Failed to fetch base session: ${response.status}`,
+                  );
                 }
               } else {
                 throw new Error("Circular reference avoided");
               }
             } catch (error) {
-              console.error("Error fetching backup code from base codeSpace:", error);
+              console.error(
+                "Error fetching backup code from base codeSpace:",
+                error,
+              );
               // Use default backup session if fetch fails
               this.backupSession = sanitizeSession({
                 codeSpace,
@@ -376,7 +392,9 @@ export class Code implements DurableObject {
       if (path[0] === "mcp") {
         // If not initialized, initialize with default codeSpace
         if (!this.initialized) {
-          console.log("Initializing session for MCP request with default codeSpace");
+          console.log(
+            "Initializing session for MCP request with default codeSpace",
+          );
           this.initialized = false;
           try {
             await this.initializeSession(url, request);
@@ -444,15 +462,23 @@ export class Code implements DurableObject {
     const oldHash = computeSessionHash(oldSession);
     const hashCode = computeSessionHash(newSession);
 
-    console.log(`[updateAndBroadcastSession] Called for codeSpace: ${newSession.codeSpace}`);
-    console.log(`[updateAndBroadcastSession] Old hash: ${oldHash}, New hash: ${hashCode}`);
+    console.log(
+      `[updateAndBroadcastSession] Called for codeSpace: ${newSession.codeSpace}`,
+    );
+    console.log(
+      `[updateAndBroadcastSession] Old hash: ${oldHash}, New hash: ${hashCode}`,
+    );
 
     if (oldHash === hashCode) {
-      console.log(`[updateAndBroadcastSession] No changes detected, skipping broadcast`);
+      console.log(
+        `[updateAndBroadcastSession] No changes detected, skipping broadcast`,
+      );
       return; // No change needed
     }
 
-    console.log(`[updateAndBroadcastSession] Changes detected, saving session...`);
+    console.log(
+      `[updateAndBroadcastSession] Changes detected, saving session...`,
+    );
     // Attempt to save the new session parts first and wait for them to complete
 
     // If save is successful (i.e., did not throw), update in-memory state and broadcast
@@ -461,7 +487,9 @@ export class Code implements DurableObject {
 
     const patch = generateSessionPatch(oldSession, newSession);
 
-    console.log(`[updateAndBroadcastSession] Broadcasting patch to WebSocket clients`);
+    console.log(
+      `[updateAndBroadcastSession] Broadcasting patch to WebSocket clients`,
+    );
     console.log(
       `[updateAndBroadcastSession] Patch includes code change: ${patch.delta?.code !== undefined}`,
     );

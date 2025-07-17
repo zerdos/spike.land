@@ -106,7 +106,13 @@
     "watchFile": "useFsEvents",
     "watchDirectory": "useFsEvents",
     "fallbackPolling": "dynamicPriorityPolling",
-    "excludeDirectories": ["**/node_modules", "**/dist", "**/dist-vite", "**/.yarn", "**/build"]
+    "excludeDirectories": [
+      "**/node_modules",
+      "**/dist",
+      "**/dist-vite",
+      "**/.yarn",
+      "**/build"
+    ]
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsserver.log": "off",

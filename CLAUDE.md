@@ -1,6 +1,7 @@
 # Development Guidelines for spike.land
 
 ## Build & Test Commands
+
 - Build all: `yarn build:all`
 - Build frontend: `yarn build:fe`
 - Run dev server: `yarn dev`
@@ -14,6 +15,7 @@
 - Run package tests: `cd packages/package-name && vitest run`
 
 ## Code Style Guidelines
+
 - TypeScript with strict types, use type imports with `import type`
 - React 19 with JSX components (no React import needed)
 - Line width: 100 chars, 2 space indentation, LF line endings
@@ -26,6 +28,7 @@
 - Error handling: prefer early returns and detailed error messages
 
 ## ESLint Setup
+
 - Single unified ESLint config handles the entire monorepo
 - VSCode ESLint extension will show the same errors as CLI commands
 - To set up VSCode integration, add to settings.json:

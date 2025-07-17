@@ -9,7 +9,13 @@ interface TestMcpResponse {
     serverInfo?: { name: string; version: string; };
     protocolVersion?: string;
     capabilities?: { tools: { listChanged: boolean; }; };
-    tools?: Array<{ name: string; description: string; inputSchema: Record<string, unknown>; }>;
+    tools?: Array<
+      {
+        name: string;
+        description: string;
+        inputSchema: Record<string, unknown>;
+      }
+    >;
     content?: Array<{ type: string; text: string; }>;
   };
   error?: { code: number; message: string; data?: string; };
@@ -50,7 +56,7 @@ describe("MCP Server Unit Tests", () => {
   describe("Tool Registration", () => {
     it("should have all expected tools registered", () => {
       const tools = mcpServer.getTools();
-      const toolNames = tools.map(t => t.name);
+      const toolNames = tools.map((t) => t.name);
 
       expect(toolNames).toContain("read_code");
       expect(toolNames).toContain("read_html");
@@ -82,7 +88,7 @@ describe("MCP Server Unit Tests", () => {
       expect(removed).toBe(true);
 
       const tools = mcpServer.getTools();
-      const toolNames = tools.map(t => t.name);
+      const toolNames = tools.map((t) => t.name);
       expect(toolNames).not.toContain("read_code");
     });
   });
