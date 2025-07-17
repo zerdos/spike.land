@@ -6,7 +6,6 @@
     "noEmit": true,
     "types": ["node"],
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
     "module": "ESNext",
     "declaration": true,
     "moduleResolution": "node",
