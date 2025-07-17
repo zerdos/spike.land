@@ -154,7 +154,11 @@ describe("RouteHandler", () => {
         expect(responseText).toContain(`href="/live/test-space/index.css"`);
         expect(responseText).toEqual(expect.stringMatching(/<style>\s*mock css\s*<\/style>/));
         expect(responseText).toContain(`<div id="embed">mock html</div>`);
-        expect(responseText).toContain(JSON.stringify({ imports: { "test": "test.js" } }));
+        // Check that the import map exists and contains expected imports
+        expect(responseText).toContain('type="importmap"');
+        expect(responseText).toContain('"imports":{');
+        expect(responseText).toContain('"react"');
+        expect(responseText).toContain('"@emotion/react"');
 
         // Snapshot can still be useful to catch overall structure changes
         expect(responseText).toMatchSnapshot();

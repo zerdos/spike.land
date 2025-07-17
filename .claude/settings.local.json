@@ -26,7 +26,8 @@
       "Bash(pkill:*)",
       "Bash(find:*)",
       "Bash(mv:*)",
-      "Bash(yarn vitest run:*)"
+      "Bash(yarn vitest run:*)",
+      "Bash(vitest run:*)"
     ],
     "deny": []
   }
