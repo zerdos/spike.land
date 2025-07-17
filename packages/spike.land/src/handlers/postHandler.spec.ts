@@ -1,4 +1,4 @@
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
 import { streamText, type StreamTextResult } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -126,10 +126,15 @@ describe("PostHandler", () => {
       } as unknown as StreamTextResult<any, any>;
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
-      
-      // Mock createAnthropic to return a function that returns the model
-      const anthropicMock = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
-      vi.mocked(createAnthropic).mockReturnValue(anthropicMock);
+
+      // Mock createAnthropic to return a proper AnthropicProvider
+      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      anthropicProvider.chat = vi.fn();
+      anthropicProvider.messages = vi.fn();
+      anthropicProvider.tools = {} as any;
+      anthropicProvider.textEmbeddingModel = vi.fn();
+      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
     });
 
     it("should handle valid request successfully", async () => {
@@ -253,25 +258,26 @@ describe("PostHandler", () => {
       await postHandler.handle(mockRequest, mockUrl);
 
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Found 1 tools with invalid input_schema.type=\"string\""),
+        expect.stringContaining('Found 1 tools with invalid input_schema.type="string"'),
       );
     });
 
     it("should handle stream errors", async () => {
       // Log spies
       const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-      
+
       // Override the default mock to reject when called
       vi.mocked(streamText).mockReset();
-      vi.mocked(streamText).mockImplementation(async () => {
-        const error = new Error("Stream failed");
-        // Force the error to be caught by our try-catch
-        return Promise.reject(error);
-      });
-      
-      // Mock createAnthropic properly  
-      const anthropicMock = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
-      vi.mocked(createAnthropic).mockReturnValue(anthropicMock);
+      vi.mocked(streamText).mockRejectedValue(new Error("Stream failed"));
+
+      // Mock createAnthropic properly
+      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      anthropicProvider.chat = vi.fn();
+      anthropicProvider.messages = vi.fn();
+      anthropicProvider.tools = {} as any;
+      anthropicProvider.textEmbeddingModel = vi.fn();
+      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
 
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
@@ -301,16 +307,18 @@ describe("PostHandler", () => {
       const body = await response.json() as any;
       expect(body.error).toBe("Failed to process message");
       expect(body.details).toBe("Stream failed");
-      
+
       consoleErrorSpy.mockRestore();
     });
 
     it("should handle tool execution in onStepFinish", async () => {
       let onStepFinishCallback: any;
-      vi.mocked(streamText).mockImplementation(async (options) => {
-        onStepFinishCallback = options.onStepFinish;
-        return mockStreamResponse;
-      });
+      vi.mocked(streamText).mockImplementation(
+        (async (options: any) => {
+          onStepFinishCallback = options.onStepFinish;
+          return mockStreamResponse;
+        }) as any,
+      );
 
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
@@ -338,13 +346,15 @@ describe("PostHandler", () => {
     it("should handle errors during tool result saving", async () => {
       const consoleErrorSpy = vi.spyOn(console, "error");
       let onStepFinishCallback: any;
-      vi.mocked(streamText).mockImplementation(async (options) => {
-        onStepFinishCallback = options.onStepFinish;
-        return mockStreamResponse;
-      });
+      vi.mocked(streamText).mockImplementation(
+        (async (options: any) => {
+          onStepFinishCallback = options.onStepFinish;
+          return mockStreamResponse;
+        }) as any,
+      );
 
       // Make saveRequestBody fail on second call
-      mockStorageService.saveRequestBody
+      (mockStorageService.saveRequestBody as any)
         .mockResolvedValueOnce(undefined)
         .mockRejectedValueOnce(new Error("Storage failed"));
 
@@ -689,11 +699,39 @@ describe("PostHandler", () => {
       const mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
       const mockStreamResponse = {
         toDataStreamResponse: mockToDataStreamResponse,
-      };
+        warnings: [],
+        usage: {},
+        sources: [],
+        files: [],
+        finishReason: "stop",
+        text: "response text",
+        toolCalls: [],
+        toolResults: [],
+        rawCall: {},
+        rawResponse: {},
+        request: {},
+        response: {},
+        providerMetadata: {},
+        experimental_providerMetadata: {},
+        reasoning: undefined,
+        reasoningDetails: undefined,
+        steps: [],
+        experimental_steps: [],
+        object: "text-completion",
+        experimental_completion: {},
+        experimental_objectGeneration: {},
+        experimental_telemetry: {},
+        experimental_usage: {},
+      } as unknown as StreamTextResult<any, any>;
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      const anthropicMock = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
-      vi.mocked(createAnthropic).mockReturnValue(anthropicMock);
+      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      anthropicProvider.chat = vi.fn();
+      anthropicProvider.messages = vi.fn();
+      anthropicProvider.tools = {} as any;
+      anthropicProvider.textEmbeddingModel = vi.fn();
+      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
 
       await (postHandler as any).createStreamResponse(
         messages,
@@ -737,12 +775,40 @@ describe("PostHandler", () => {
 
       const mockStreamResponse = {
         toDataStreamResponse: mockToDataStreamResponse,
-      };
+        warnings: [],
+        usage: {},
+        sources: [],
+        files: [],
+        finishReason: "stop",
+        text: "response text",
+        toolCalls: [],
+        toolResults: [],
+        rawCall: {},
+        rawResponse: {},
+        request: {},
+        response: {},
+        providerMetadata: {},
+        experimental_providerMetadata: {},
+        reasoning: undefined,
+        reasoningDetails: undefined,
+        steps: [],
+        experimental_steps: [],
+        object: "text-completion",
+        experimental_completion: {},
+        experimental_objectGeneration: {},
+        experimental_telemetry: {},
+        experimental_usage: {},
+      } as unknown as StreamTextResult<any, any>;
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic properly
-      const anthropicMock = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
-      vi.mocked(createAnthropic).mockReturnValue(anthropicMock);
+      const anthropicProvider = vi.fn().mockReturnValue("claude-4-sonnet-20250514") as any;
+      anthropicProvider.languageModel = vi.fn().mockReturnValue("claude-4-sonnet-20250514");
+      anthropicProvider.chat = vi.fn();
+      anthropicProvider.messages = vi.fn();
+      anthropicProvider.tools = {} as any;
+      anthropicProvider.textEmbeddingModel = vi.fn();
+      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider as AnthropicProvider);
 
       await (postHandler as any).createStreamResponse(
         [],

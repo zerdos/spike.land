@@ -55,7 +55,7 @@ describe("Code Durable Object", () => {
 
   beforeEach(() => {
     vi.clearAllMocks(); // Clear mocks before each test
-    
+
     // Reset initialized flag to ensure proper initialization
     vi.resetModules();
 
