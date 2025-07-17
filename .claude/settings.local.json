@@ -25,7 +25,8 @@
       "Bash(curl:*)",
       "Bash(pkill:*)",
       "Bash(find:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(yarn vitest run:*)"
     ],
     "deny": []
   }

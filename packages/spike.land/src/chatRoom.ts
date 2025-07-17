@@ -96,7 +96,6 @@ export class Code implements DurableObject {
       const r2HtmlKey = `r2_html_${codeSpace}`;
       const r2CssKey = `r2_css_${codeSpace}`;
 
-
       const promises = [];
       promises.push(
         this.state.storage.put("session_core", sessionCoreData).catch(e => {

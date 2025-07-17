@@ -18,8 +18,6 @@ export class AiRoutes {
     this.postHandler = new PostHandler(this.code, this.env);
   }
 
-
- 
   async handleMessagesRoute(
     request: Request,
     url: URL,
@@ -52,5 +50,4 @@ export class AiRoutes {
       },
     });
   }
-
 }

@@ -1,9 +1,11 @@
 # Testing Assistant UI Integration
 
 ## Setup Complete
+
 The integration between `assistant-ui` and your spike.land backend has been enhanced with debug logging to help identify any issues.
 
 ### Added Debug Logging
+
 Added console logs to help debug message processing and identify the root cause of the error
 
 ## Testing Instructions
@@ -28,6 +30,7 @@ Added console logs to help debug message processing and identify the root cause 
    - "Create a simple hello world component"
 
 ## Expected Behavior
+
 - The assistant should respond without errors
 - You should see console logs in the terminal showing:
   - `[AI Routes] Raw request body: ...`
@@ -37,16 +40,19 @@ Added console logs to help debug message processing and identify the root cause 
 ## Troubleshooting
 
 ### If you still see errors:
+
 1. Check the browser console for detailed error messages
 2. Check the terminal running `yarn dev` for backend logs
 3. Verify the API key in `.dev.vars` is valid
 
 ### Common Issues:
+
 - **"ANTHROPIC_API_KEY not configured"**: Make sure `.dev.vars` has a valid API key
 - **Network errors**: Ensure both frontend and backend servers are running
 - **CORS errors**: The backend should already handle CORS, but check if requests are reaching the backend
 
 ## What's Working Now
+
 - ✅ Correct model name for Claude 3.5 Sonnet
 - ✅ Proper MCP endpoint routing
 - ✅ Message format compatibility between assistant-ui and AI SDK
@@ -54,6 +60,7 @@ Added console logs to help debug message processing and identify the root cause 
 - ✅ API key validation
 
 ## Next Steps (Optional Enhancements)
+
 1. Add message persistence loading on initial mount
 2. Implement proper message history management
 3. Add typing indicators

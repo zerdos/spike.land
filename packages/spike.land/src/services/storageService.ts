@@ -23,7 +23,9 @@ export class StorageService {
     const bodyKey = `request_body_${codeSpace}`;
     try {
       await this.env.R2.put(bodyKey, JSON.stringify(body));
-      console.log(`[Storage Service] Saved request body with ${body.messages.length} messages to R2`);
+      console.log(
+        `[Storage Service] Saved request body with ${body.messages.length} messages to R2`,
+      );
     } catch (e) {
       console.error(`Failed to save request body to R2 (${bodyKey}):`, e);
       throw e;

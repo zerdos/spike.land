@@ -4,10 +4,10 @@ import { streamText } from "ai";
 import type { CoreMessage } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
-import { StorageService } from "../services/storageService";
-import type { PostRequestBody, MessageContentPart, ErrorResponse } from "../types/aiRoutes";
-import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
 import type { McpTool } from "../mcpServer";
+import { StorageService } from "../services/storageService";
+import type { ErrorResponse, MessageContentPart, PostRequestBody } from "../types/aiRoutes";
+import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
 
 // Constants for validation
 const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
@@ -27,7 +27,7 @@ export class PostHandler {
 
   async handle(request: Request, url: URL): Promise<Response> {
     const requestId = crypto.randomUUID();
-    
+
     try {
       // Validate request size
       const contentLength = request.headers.get("content-length");
@@ -36,29 +36,34 @@ export class PostHandler {
       }
 
       const body = await this.parseRequestBody(request);
-      
+
       // Log if tools are present in the request
       if (body.tools) {
-        console.log(`[AI Routes][${requestId}] Request contains tools:`, 
-          Array.isArray(body.tools) ? 
-            `Array with ${body.tools.length} tools` : 
-            `Object with keys: ${Object.keys(body.tools).join(', ')}`
+        console.log(
+          `[AI Routes][${requestId}] Request contains tools:`,
+          Array.isArray(body.tools)
+            ? `Array with ${body.tools.length} tools`
+            : `Object with keys: ${Object.keys(body.tools).join(", ")}`,
         );
-        
+
         // If tools are provided as an array with invalid schemas, log warning
         if (Array.isArray(body.tools)) {
-          const invalidTools = body.tools.filter((tool: any) => 
+          const invalidTools = body.tools.filter((tool: any) =>
             tool?.input_schema?.type === "string"
           );
           if (invalidTools.length > 0) {
-            console.warn(`[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid input_schema.type="string". These will be ignored.`);
+            console.warn(
+              `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid input_schema.type="string". These will be ignored.`,
+            );
           }
         }
       }
-      
+
       // We ignore tools from the request body and only use MCP-generated tools
-      console.log(`[AI Routes][${requestId}] Ignoring tools from request body, will use MCP-generated tools instead.`);
-      
+      console.log(
+        `[AI Routes][${requestId}] Ignoring tools from request body, will use MCP-generated tools instead.`,
+      );
+
       // Validate messages
       const validationError = this.validateMessages(body.messages);
       if (validationError) {
@@ -73,27 +78,25 @@ export class PostHandler {
       if (!this.env.ANTHROPIC_API_KEY) {
         return this.createErrorResponse(
           "ANTHROPIC_API_KEY not configured. Please add your API key to .dev.vars file.",
-          503
+          503,
         );
       }
 
       // Generate tools with error handling
 
-
       const tools = this.code.getMcpServer().tools;
-     
 
       // Remove tools from body to ensure we only use MCP-generated tools
       const bodyWithoutTools = { ...body };
       delete bodyWithoutTools.tools;
-      
+
       return this.createStreamResponse(messages, tools, bodyWithoutTools, codeSpace, requestId);
     } catch (error) {
       console.error(`[AI Routes][${requestId}] Error handling message:`, error);
       return this.createErrorResponse(
         "Failed to process message",
         500,
-        error instanceof Error ? error.message : "Unknown error"
+        error instanceof Error ? error.message : "Unknown error",
       );
     }
   }
@@ -103,7 +106,11 @@ export class PostHandler {
       return await request.json();
     } catch (parseError) {
       console.error("[AI Routes] Failed to parse request body:", parseError);
-      throw new Error(`Invalid JSON in request body: ${parseError instanceof Error ? parseError.message : "Unknown parse error"}`);
+      throw new Error(
+        `Invalid JSON in request body: ${
+          parseError instanceof Error ? parseError.message : "Unknown parse error"
+        }`,
+      );
     }
   }
 
@@ -122,14 +129,17 @@ export class PostHandler {
 
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
-      
+
       if (!msg || typeof msg !== "object") {
         return `Message at index ${i} must be an object`;
       }
 
       const typedMsg = msg as Record<string, unknown>;
-      
-      if (!typedMsg.role || typeof typedMsg.role !== "string" || !VALID_ROLES.includes(typedMsg.role as ValidRole)) {
+
+      if (
+        !typedMsg.role || typeof typedMsg.role !== "string" ||
+        !VALID_ROLES.includes(typedMsg.role as ValidRole)
+      ) {
         return `Message at index ${i} must have a valid role (${VALID_ROLES.join(", ")})`;
       }
 
@@ -188,7 +198,7 @@ export class PostHandler {
           content: msg.content,
         };
       }
-      
+
       if (Array.isArray(msg.content)) {
         return {
           role: validRole,
@@ -221,7 +231,7 @@ export class PostHandler {
     tools: McpTool[],
     body: PostRequestBody,
     codeSpace: string,
-    requestId: string
+    requestId: string,
   ): Promise<Response> {
     const origin = this.code.getOrigin();
     const systemPrompt = this.createSystemPrompt(codeSpace);
@@ -233,9 +243,12 @@ export class PostHandler {
     // Log message count and types instead of full content for privacy
     const messageSummary = messages.map(m => ({
       role: m.role,
-      contentLength: typeof m.content === "string" ? m.content.length : m.content.length
+      contentLength: typeof m.content === "string" ? m.content.length : m.content.length,
     }));
-    console.log(`[AI Routes][${requestId}] Creating stream with ${messages.length} messages, summary:`, messageSummary);
+    console.log(
+      `[AI Routes][${requestId}] Creating stream with ${messages.length} messages, summary:`,
+      messageSummary,
+    );
 
     // Create a copy of messages to avoid mutation
     const messagesCopy = JSON.parse(JSON.stringify(body.messages));
@@ -243,7 +256,7 @@ export class PostHandler {
 
     try {
       const result = await streamText({
-        model: anthropic('claude-4-sonnet-20250514'),
+        model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
         tools: tools as unknown as any,
@@ -257,18 +270,23 @@ export class PostHandler {
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));
-              
+
               messagesCopy.push(...toolMessages);
 
               // Save the updated copy
               await this.storageService.saveRequestBody(codeSpace, {
                 ...body,
-                messages: messagesCopy
+                messages: messagesCopy,
               });
             } catch (error) {
-              console.error(`[AI Routes][${requestId}] Error saving messages after tool call:`, error);
+              console.error(
+                `[AI Routes][${requestId}] Error saving messages after tool call:`,
+                error,
+              );
               // Store the error to be handled after stream creation
-              streamError = error instanceof Error ? error : new Error("Failed to save tool results");
+              streamError = error instanceof Error
+                ? error
+                : new Error("Failed to save tool results");
             }
           }
         },
@@ -276,7 +294,9 @@ export class PostHandler {
 
       // If there was an error during streaming, we should handle it appropriately
       if (streamError) {
-        console.warn(`[AI Routes][${requestId}] Stream completed with errors during tool execution`);
+        console.warn(
+          `[AI Routes][${requestId}] Stream completed with errors during tool execution`,
+        );
       }
 
       return result.toDataStreamResponse({
@@ -284,7 +304,7 @@ export class PostHandler {
         getErrorMessage: (error) => {
           console.error(`[AI Routes][${requestId}] Error during streaming:`, error);
           return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
-        }
+        },
       });
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
@@ -325,7 +345,7 @@ export class PostHandler {
   private createErrorResponse(
     error: string,
     status: number,
-    details?: string
+    details?: string,
   ): Response {
     const errorResponse: ErrorResponse = { error };
     if (details) {

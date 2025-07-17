@@ -62,12 +62,12 @@ export class JsonSchemaToZodConverter {
 
           for (const [key, value] of Object.entries(schema.properties)) {
             let fieldSchema = this.convert(value);
-            
+
             // Make field optional if not in required array
             if (!required.includes(key)) {
               fieldSchema = fieldSchema.optional();
             }
-            
+
             shape[key] = fieldSchema;
           }
 

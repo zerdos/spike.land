@@ -6,7 +6,7 @@ export class GetHandler {
 
   async handle(codeSpace: string): Promise<Response> {
     const requestBody = await this.storageService.loadRequestBody(codeSpace);
-    
+
     if (requestBody) {
       return new Response(JSON.stringify(requestBody), {
         status: 200,

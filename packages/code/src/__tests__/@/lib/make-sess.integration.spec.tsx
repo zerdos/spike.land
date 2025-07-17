@@ -91,12 +91,12 @@ describe("Session Patch Integration Tests", () => {
     it("should handle simultaneous changes to multiple properties", () => {
       const initialSession = createTestSession({
         code: "const x = 1;",
-        html: "<div>Old</div>"
+        html: "<div>Old</div>",
       });
 
       const modifiedSession = createTestSession({
         code: "const x = 2;",
-        html: "<div>New</div>"
+        html: "<div>New</div>",
       });
 
       const patch = generateSessionPatch(initialSession, modifiedSession);
@@ -138,12 +138,12 @@ describe("Session Patch Integration Tests", () => {
     );
     const initialSession = createTestSession({
       code: originalCode,
-      transpiled: originalTransformedCode
+      transpiled: originalTransformedCode,
     });
 
     const modifiedSession = createTestSession({
       code: targetCode,
-      transpiled: modifiedTransformed
+      transpiled: modifiedTransformed,
     });
 
     const patch = generateSessionPatch(initialSession, modifiedSession);
