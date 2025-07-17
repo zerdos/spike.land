@@ -10,12 +10,12 @@
     "react-dom": "^18.0.0"
   },
   "scripts": {
-    "dev": "wrangler dev",
-    "dev:remote": "wrangler dev --remote",
+    "dev": "npx wrangler dev",
+    "dev:remote": "npx wrangler dev --remote",
     "// build": "yarn clean",
     "build:worker": "echo 'No build required - using direct deployment'",
-    "w:deploy:dev": "wrangler deploy --env=testing -- minify ./src/cf-workers.ts",
-    "w:deploy:prod": "wrangler deploy --minify ./src/cf-workers.ts",
+    "w:deploy:dev": "npx wrangler deploy --env=testing -- minify ./src/cf-workers.ts",
+    "w:deploy:prod": "npx wrangler deploy --minify ./src/cf-workers.ts",
     "clean": "rimraf dist",
     "lint": "eslint .",
     "types:check": "tsc --noEmit",
@@ -47,8 +47,7 @@
     "rimraf": "6.0.1",
     "rollup": "4.45.1",
     "typescript": "5.8.3",
-    "vitest": "3.2.4",
-    "wrangler": "4.24.4"
+    "vitest": "3.2.4"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",

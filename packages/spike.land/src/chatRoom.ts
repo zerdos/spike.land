@@ -291,7 +291,6 @@ export class Code implements DurableObject {
         }
 
         // this.state.storage.put("session", this.backupSession); // Old logic
-        this.session = this.backupSession;
       }
 
       // Initialize auto-save history

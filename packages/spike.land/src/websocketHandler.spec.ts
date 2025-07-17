@@ -100,9 +100,12 @@ describe("WebSocketHandler", () => {
       // Advance timer to trigger ping
       vi.advanceTimersByTime(30000);
 
-      // Verify ping was sent
+      // Verify ping was sent with hashCode
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
+        expect.stringContaining('"type":"ping"'),
+      );
+      expect(mockWebSocket.send).toHaveBeenCalledWith(
+        expect.stringContaining('"hashCode":'),
       );
 
       // Simulate pong response
@@ -112,8 +115,9 @@ describe("WebSocketHandler", () => {
 
       // First scheduled ping
       vi.advanceTimersByTime(30000);
+      expect(mockWebSocket.send).toHaveBeenCalledTimes(3); // handshake + 2 pings
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        JSON.stringify({ type: "ping" }),
+        expect.stringContaining('"type":"ping"'),
       );
 
       // Simulate pong response again
@@ -366,6 +370,18 @@ describe("WebSocketHandler", () => {
       websocketHandler.handleWebsocketSession(mockWebSocket1);
       websocketHandler.handleWebsocketSession(mockWebSocket2);
 
+      // Verify handshake was sent
+      expect(mockWebSocket1.send).toHaveBeenCalledTimes(1);
+      expect(mockWebSocket2.send).toHaveBeenCalledTimes(1);
+      
+      // Clear the handshake calls
+      (mockWebSocket1.send as Mock).mockClear();
+      (mockWebSocket2.send as Mock).mockClear();
+
+      // Verify sessions were added
+      const sessions = websocketHandler.getWsSessions();
+      expect(sessions).toHaveLength(2);
+
       const broadcastMessage = "test broadcast";
       websocketHandler.broadcast(broadcastMessage);
 
@@ -401,9 +417,9 @@ describe("WebSocketHandler", () => {
       // Broadcast after handshake
       websocketHandler.broadcast("test message");
 
-      // Verify error handling
-      expect(mockWebSocket1.close).toHaveBeenCalled();
-      expect(consoleError).toHaveBeenCalled();
+      // Verify error handling - safeSend logs error but doesn't close connection
+      expect(mockWebSocket1.close).not.toHaveBeenCalled();
+      expect(consoleError).toHaveBeenCalledWith("WebSocket send error:", expect.any(Error));
 
       consoleError.mockRestore();
     });

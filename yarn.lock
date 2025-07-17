@@ -94,9 +94,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/claude-code@npm:^1.0.53":
-  version: 1.0.53
-  resolution: "@anthropic-ai/claude-code@npm:1.0.53"
+"@anthropic-ai/claude-code@npm:^1.0.54":
+  version: 1.0.54
+  resolution: "@anthropic-ai/claude-code@npm:1.0.54"
   dependencies:
     "@img/sharp-darwin-arm64": "npm:^0.33.5"
     "@img/sharp-darwin-x64": "npm:^0.33.5"
@@ -119,7 +119,7 @@ __metadata:
       optional: true
   bin:
     claude: cli.js
-  checksum: 10c0/7faf92e34127f4876833b5e13335184ea0e38d58ee83cdb743d2fcd2a70097e4b209031e8a32971b5a71cff45d87ed4f38086c4d0ddf25a7b916b5f6fc8b233c
+  checksum: 10c0/7e3030bbd704effa5f53ad7bfc957b40bcef9f9a7070881fe3ef66a31bb089b770a80e88bb55b7baf4b684ccaaa7334c22408c5d2b326e41ce255dec87004966
   languageName: node
   linkType: hard
 
@@ -3852,8 +3852,8 @@ __metadata:
     util: "npm:^0.12.5"
     uuid: "npm:11.1.0"
     vaul: "npm:1.1.2"
-    vite: "npm:7.0.4"
-    vite-plugin-top-level-await: "npm:1.5.0"
+    vite: "npm:7.0.5"
+    vite-plugin-top-level-await: "npm:1.6.0"
     vite-plugin-wasm: "npm:3.5.0"
     vitest: "npm:3.2.4"
     window-async-local-storage: "npm:1.1.0"
@@ -4006,7 +4006,6 @@ __metadata:
     rollup: "npm:4.45.1"
     typescript: "npm:5.8.3"
     vitest: "npm:3.2.4"
-    wrangler: "npm:4.24.4"
     zod: "npm:^4.0.5"
   peerDependencies:
     react: ^18.0.0
@@ -4126,7 +4125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.10.16, @swc/core@npm:^1.11.31":
+"@swc/core@npm:^1.11.31, @swc/core@npm:^1.12.14":
   version: 1.12.14
   resolution: "@swc/core@npm:1.12.14"
   dependencies:
@@ -4185,6 +4184,13 @@ __metadata:
   dependencies:
     "@swc/counter": "npm:^0.1.3"
   checksum: 10c0/edbfe4a72257f40137e27b537bc17d47ccab28de7727471b859c00a1e67f5feac5e01e4b4e0a2365907ce024bb8c3de4b26b6260733e1b601094db54ae9b7477
+  languageName: node
+  linkType: hard
+
+"@swc/wasm@npm:^1.12.14":
+  version: 1.12.14
+  resolution: "@swc/wasm@npm:1.12.14"
+  checksum: 10c0/d2a611fe3b7e17418182d0810ab36965f80fb00629e90fb3a83c3fccc78a530d9df9bc8f1235e83900bd06341041df93ed14fa913071b883a2c9b477b9b6cfc8
   languageName: node
   linkType: hard
 
@@ -10892,7 +10898,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@anthropic-ai/claude-code": "npm:^1.0.53"
+    "@anthropic-ai/claude-code": "npm:^1.0.54"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/sheet": "npm:^1.4.0"
     "@eslint/eslintrc": "npm:3.3.1"
@@ -14603,21 +14609,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:10.0.0":
+  version: 10.0.0
+  resolution: "uuid@npm:10.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 10c0/eab18c27fe4ab9fb9709a5d5f40119b45f2ec8314f8d4cf12ce27e4c6f4ffa4a6321dc7db6c515068fa373c075b49691ba969f0010bf37f44c37ca40cd6bf7fe
+  languageName: node
+  linkType: hard
+
 "uuid@npm:11.1.0":
   version: 11.1.0
   resolution: "uuid@npm:11.1.0"
   bin:
     uuid: dist/esm/bin/uuid
   checksum: 10c0/34aa51b9874ae398c2b799c88a127701408cd581ee89ec3baa53509dd8728cbb25826f2a038f9465f8b7be446f0fbf11558862965b18d21c993684297628d4d3
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "uuid@npm:10.0.0"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 10c0/eab18c27fe4ab9fb9709a5d5f40119b45f2ec8314f8d4cf12ce27e4c6f4ffa4a6321dc7db6c515068fa373c075b49691ba969f0010bf37f44c37ca40cd6bf7fe
   languageName: node
   linkType: hard
 
@@ -14765,16 +14771,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-top-level-await@npm:1.5.0":
-  version: 1.5.0
-  resolution: "vite-plugin-top-level-await@npm:1.5.0"
+"vite-plugin-top-level-await@npm:1.6.0":
+  version: 1.6.0
+  resolution: "vite-plugin-top-level-await@npm:1.6.0"
   dependencies:
     "@rollup/plugin-virtual": "npm:^3.0.2"
-    "@swc/core": "npm:^1.10.16"
-    uuid: "npm:^10.0.0"
+    "@swc/core": "npm:^1.12.14"
+    "@swc/wasm": "npm:^1.12.14"
+    uuid: "npm:10.0.0"
   peerDependencies:
     vite: ">=2.8"
-  checksum: 10c0/e582091e9cb020415d243937073a137bf30b6a2fd9af85fa7f96610d113ecab7bdb1aed2c4f35df22c54aaf4209be4d607bcb7de532e04e4e2619f9e22e395f6
+  checksum: 10c0/499054e67f38ce925b1bae270cc334e1ee42194d00cae084792a5a00c7f246f27f3fd7798e0d4cfe07510f1c7620288bcbcf463570e7650f57977ac0591bf8da
   languageName: node
   linkType: hard
 
@@ -14787,7 +14794,62 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.0.4, vite@npm:^5.0.0 || ^6.0.0 || ^7.0.0-0":
+"vite@npm:7.0.5":
+  version: 7.0.5
+  resolution: "vite@npm:7.0.5"
+  dependencies:
+    esbuild: "npm:^0.25.0"
+    fdir: "npm:^6.4.6"
+    fsevents: "npm:~2.3.3"
+    picomatch: "npm:^4.0.2"
+    postcss: "npm:^8.5.6"
+    rollup: "npm:^4.40.0"
+    tinyglobby: "npm:^0.2.14"
+  peerDependencies:
+    "@types/node": ^20.19.0 || >=22.12.0
+    jiti: ">=1.21.0"
+    less: ^4.0.0
+    lightningcss: ^1.21.0
+    sass: ^1.70.0
+    sass-embedded: ^1.70.0
+    stylus: ">=0.54.8"
+    sugarss: ^5.0.0
+    terser: ^5.16.0
+    tsx: ^4.8.1
+    yaml: ^2.4.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    jiti:
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+    tsx:
+      optional: true
+    yaml:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10c0/95fb7f393adc2d2428e0e033ed4ea599323118f645415c35db3df40bd2c5a2962b0b4c967f35cfb80ca04efb1eb51bdb5f4b63529bb5f9aa3603d9fbeb50543f
+  languageName: node
+  linkType: hard
+
+"vite@npm:^5.0.0 || ^6.0.0 || ^7.0.0-0":
   version: 7.0.4
   resolution: "vite@npm:7.0.4"
   dependencies:
