@@ -51,11 +51,14 @@ function ensureDirExists(filePath: string) {
 
 function main() {
   const allFiles = walk(SRC_DIR);
-  const testFiles = allFiles.filter(f => TEST_FILE_REGEX.test(f));
+  const testFiles = allFiles.filter((f) => TEST_FILE_REGEX.test(f));
 
   for (const oldPath of testFiles) {
     // 1. Rename .test. to .spec. if needed
-    let newPath = oldPath.replace(/\.test\.tsx?$/, ".spec.tsx").replace(/\.test\.ts$/, ".spec.ts");
+    let newPath = oldPath.replace(/\.test\.tsx?$/, ".spec.tsx").replace(
+      /\.test\.ts$/,
+      ".spec.ts",
+    );
 
     if (oldPath !== newPath && fs.existsSync(oldPath)) {
       fs.renameSync(oldPath, newPath);
@@ -65,7 +68,10 @@ function main() {
     // 2. Move to __tests__ root, preserving relative path from src/
     const relFromSrc = path.relative(SRC_DIR, newPath);
     // Remove any leading __tests__/ from the relative path
-    const relNoTests = relFromSrc.replace(/^__tests__\//, "").replace(/^[^/]+\/__tests__\//, "");
+    const relNoTests = relFromSrc.replace(/^__tests__\//, "").replace(
+      /^[^/]+\/__tests__\//,
+      "",
+    );
     const destPath = path.join(TESTS_DIR, relNoTests);
     if (path.resolve(newPath) !== path.resolve(destPath)) {
       ensureDirExists(destPath);

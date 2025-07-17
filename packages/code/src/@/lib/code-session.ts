@@ -55,7 +55,9 @@ export class Code implements ICode {
         sessionWithSender.requiresReRender &&
         sessionWithSender.sender === "WORKER_TRANSPILED_CHANGE"
       ) {
-        console.warn("🔄 Handling remote transpiled code change, triggering re-render");
+        console.warn(
+          "🔄 Handling remote transpiled code change, triggering re-render",
+        );
         await this.handleRemoteTranspiledChange(sessionWithSender);
         return; // Exit early to avoid double processing
       }
@@ -70,7 +72,12 @@ export class Code implements ICode {
       }
 
       // Check if code changed but transpiled is potentially stale (from external sources like MCP)
-      if (this.shouldTriggerAutoTranspilation(this.currentSession, sessionWithSender)) {
+      if (
+        this.shouldTriggerAutoTranspilation(
+          this.currentSession,
+          sessionWithSender,
+        )
+      ) {
         console.warn(
           "🔄 Detected external code change with stale transpiled code, triggering auto-transpilation",
         );
@@ -374,7 +381,9 @@ export class Code implements ICode {
       );
 
       if (processorResult !== false) {
-        console.warn("🔄 Re-render successful, updating session with new HTML/CSS");
+        console.warn(
+          "🔄 Re-render successful, updating session with new HTML/CSS",
+        );
 
         // Update session with new HTML/CSS from rendering
         // Remove the requiresReRender flag to prevent loops
@@ -387,7 +396,9 @@ export class Code implements ICode {
           sender: "CODE_SESSION_RERENDER",
         });
 
-        console.warn("✅ Remote transpiled change handling completed successfully");
+        console.warn(
+          "✅ Remote transpiled change handling completed successfully",
+        );
       } else {
         console.error("❌ Re-render failed for remote transpiled change");
       }
@@ -421,7 +432,8 @@ export class Code implements ICode {
     // This is a heuristic - if the code changed but transpiled contains old content or is empty/default
     const hasStaleTranspiled = !newSession.transpiled ||
       newSession.transpiled.includes("Write your code hee!") || // Default content
-      newSession.transpiled.includes("stdin_default") && !newSession.code.includes("default"); // Generic transpiled but code changed
+      newSession.transpiled.includes("stdin_default") &&
+        !newSession.code.includes("default"); // Generic transpiled but code changed
 
     // Trigger auto-transpilation for external updates (like MCP) with stale transpiled code
     return hasStaleTranspiled;
@@ -453,12 +465,20 @@ export class Code implements ICode {
 
       // After transpilation, get the updated session with new transpiled code
       const updatedSession = this.currentSession;
-      console.warn("✅ External code change auto-transpilation completed successfully");
-      console.warn("✅ Transpiled length:", updatedSession.transpiled?.length || 0);
+      console.warn(
+        "✅ External code change auto-transpilation completed successfully",
+      );
+      console.warn(
+        "✅ Transpiled length:",
+        updatedSession.transpiled?.length || 0,
+      );
 
       // If this was triggered by MCP server (requiresTranspilation flag),
       // we need to send the transpiled code back to the server
-      if ((session as ICodeSession & { requiresTranspilation?: boolean; }).requiresTranspilation) {
+      if (
+        (session as ICodeSession & { requiresTranspilation?: boolean; })
+          .requiresTranspilation
+      ) {
         console.warn("🔄 Sending transpiled code back to server via broadcast");
         // Mark the session as coming from CODE_SESSION_RERENDER to trigger server update
         this.sessionManager.updateSession(

@@ -498,7 +498,9 @@ async function handleSocketMessage(
       }
 
       const hashCode = computeSessionHash(sess);
-      logger.debug(`Fresh session hash from backend for ${codeSpace}: ${hashCode}`);
+      logger.debug(
+        `Fresh session hash from backend for ${codeSpace}: ${hashCode}`,
+      );
 
       // Always update local state with backend session (source of truth)
       connection.oldSession = sess;
@@ -656,7 +658,10 @@ async function handleSocketMessage(
                 ...sess,
                 sender: SENDER_WORKER_HANDLE_CHANGES,
                 requiresTranspilation: true,
-              } as ICodeSession & { sender: string; requiresTranspilation?: boolean; },
+              } as ICodeSession & {
+                sender: string;
+                requiresTranspilation?: boolean;
+              },
             )),
           );
 
@@ -836,7 +841,10 @@ self.addEventListener("connect", (event: MessageEvent) => {
 
           // Send the updated session back to the server
           const sanitizedSession = sanitizeSession(session);
-          const patch = generateSessionPatch(connection.oldSession, sanitizedSession);
+          const patch = generateSessionPatch(
+            connection.oldSession,
+            sanitizedSession,
+          );
 
           logger.debug(
             `Sending re-render patch to server for ${session.codeSpace}, patch size: ${
@@ -847,7 +855,11 @@ self.addEventListener("connect", (event: MessageEvent) => {
           const { error: sendError } = await tryCatch(
             Promise.resolve(
               connection.webSocket.send(
-                JSON.stringify({ ...patch, name: connection.user, type: "sessionUpdate" }),
+                JSON.stringify({
+                  ...patch,
+                  name: connection.user,
+                  type: "sessionUpdate",
+                }),
               ),
             ),
           );

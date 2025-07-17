@@ -1,6 +1,7 @@
 # @spike-npm-land/code
 
-The frontend React application for spike.land - a real-time collaborative React page editor with TypeScript support.
+The frontend React application for spike.land - a real-time collaborative React
+page editor with TypeScript support.
 
 ## Features
 
@@ -29,12 +30,13 @@ The frontend React application for spike.land - a real-time collaborative React 
 
 ## UI Component Guidelines
 
-This project is transitioning towards a standardized UI component library built with [Tailwind CSS](https://tailwindcss.com/)
-and custom components located in `src/@/components/ui`. These components are designed to ensure consistency,
+This project is transitioning towards a standardized UI component library built
+with [Tailwind CSS](https://tailwindcss.com/) and custom components located in
+`src/@/components/ui`. These components are designed to ensure consistency,
 reusability, accessibility, and performance across the application.
 
-For detailed information on creating and using these UI components, please refer to the
-[UI Component Guidelines](./UI_GUIDELINES.md).
+For detailed information on creating and using these UI components, please refer
+to the [UI Component Guidelines](./UI_GUIDELINES.md).
 
 ## Development
 
@@ -53,7 +55,8 @@ yarn install
 
 #### Development
 
-- `yarn dev` - Start all development processes concurrently (Vite, TypeScript, Workers)
+- `yarn dev` - Start all development processes concurrently (Vite, TypeScript,
+  Workers)
 - `yarn dev:vite` - Start Vite development server only
 - `yarn dev:workers` - Start worker development processes
 
@@ -153,7 +156,8 @@ yarn vitest
 
 ## Contributing
 
-When contributing to the UI, please make sure to follow the [UI Component Guidelines](./UI_GUIDELINES.md).
+When contributing to the UI, please make sure to follow the
+[UI Component Guidelines](./UI_GUIDELINES.md).
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)

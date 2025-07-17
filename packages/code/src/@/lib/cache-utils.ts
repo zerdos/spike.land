@@ -7,8 +7,8 @@ export class CacheUtils {
     const cacheNames = await caches.keys();
     await Promise.all(
       cacheNames
-        .filter(name => name !== currentCacheName)
-        .map(name => caches.delete(name)),
+        .filter((name) => name !== currentCacheName)
+        .map((name) => caches.delete(name)),
     );
   }
 
@@ -73,7 +73,7 @@ export class CacheUtils {
       } catch (error) {
         lastError = error as Error;
         if (i < retries - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+          await new Promise((resolve) => setTimeout(resolve, 1000 * (i + 1)));
         }
       }
     }

@@ -59,7 +59,9 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
             className={cn(
               "fixed inset-y-0 right-0 z-10 outline-none flex",
               "w-full sm:w-[400px] md:w-[512px]",
-              isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800",
+              isDarkMode
+                ? "bg-gray-800 text-white"
+                : "bg-gray-100 text-gray-800",
             )}
             style={{
               "--initial-transform": "translateX(100%)",

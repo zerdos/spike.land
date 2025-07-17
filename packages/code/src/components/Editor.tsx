@@ -124,7 +124,14 @@ export const Editor: React.FC<EditorProps> = (
       codeLength: formatted.length,
       timestamp: new Date().toISOString(),
     });
-  }, [cSess, lastHash, replaceIframe, throttledTypeCheck, setLastHash, setEditorState]);
+  }, [
+    cSess,
+    lastHash,
+    replaceIframe,
+    throttledTypeCheck,
+    setLastHash,
+    setEditorState,
+  ]);
 
   // Initialize session with optimized state tracking
   useEffect(() => {

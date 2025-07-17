@@ -136,7 +136,7 @@
     ".vscode/tailwind.json"
   ],
   "MutableAI.upsell": false,
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "vitest.disableWorkspaceWarning": true,
   "typescript.preferences.includePackageJsonAutoImports": "auto",
   "javascript.preferences.includePackageJsonAutoImports": "auto",

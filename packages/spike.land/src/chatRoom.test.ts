@@ -55,6 +55,9 @@ describe("Code Durable Object", () => {
 
   beforeEach(() => {
     vi.clearAllMocks(); // Clear mocks before each test
+    
+    // Reset initialized flag to ensure proper initialization
+    vi.resetModules();
 
     mockState = {
       storage: {
@@ -90,7 +93,7 @@ describe("Code Durable Object", () => {
 
     // Re-instantiate mocks for handlers for each test
     (RouteHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
-      handleRoute: vi.fn().mockResolvedValue(new Response("OK")), // Ensure fetch can complete
+      handleRoute: vi.fn().mockResolvedValue(new Response("OK", { status: 200 })), // Ensure fetch can complete
     }));
     (WebSocketHandler as ReturnType<typeof vi.fn>).mockImplementation(() => ({
       broadcast: vi.fn(),
@@ -112,11 +115,11 @@ describe("Code Durable Object", () => {
       const request = new Request(testUrl.toString());
       (mockState.storage.get as ReturnType<typeof vi.fn>).mockResolvedValue(undefined); // No session_core
 
-      try {
-        await codeInstance.fetch(request); // Call fetch to trigger initialization
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
+      const response = await codeInstance.fetch(request); // Call fetch to trigger initialization
+      expect(response).toBeDefined(); // Ensure fetch completes successfully
+
+      // Wait a bit to ensure async operations complete
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const expectedSessionCore = {
         codeSpace: roomName,

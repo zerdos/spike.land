@@ -407,7 +407,9 @@ export class CodeProcessor {
       return false;
     }
 
-    console.warn("✅ CodeProcessor.reRenderFromTranspiled completed successfully");
+    console.warn(
+      "✅ CodeProcessor.reRenderFromTranspiled completed successfully",
+    );
 
     return {
       ...getSession(),

@@ -40,7 +40,9 @@ const ChatInterface: React.FC<{
 
   const [_input, setInput] = useDictation("");
 
-  const [_editingMessageId, _setEditingMessageId] = useState<string | null>(null);
+  const [_editingMessageId, _setEditingMessageId] = useState<string | null>(
+    null,
+  );
   const [_editInput, _setEditInput] = useState("");
 
   // Removed unused reset functionality since AssistantUI manages its own state
