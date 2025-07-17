@@ -204,8 +204,12 @@ describe("MCP Server Unit Tests", () => {
         newContent: "modified line2",
       }];
 
+      type Edits = typeof edits;
+
       // Access private method through cast for testing
-      const result = (mcpServer as unknown as { applyLineEdits: (code: string, edits: any[]) => { newCode: string; diff: string } }).applyLineEdits(originalCode, edits);
+      const result = (mcpServer as unknown as {
+        applyLineEdits: (code: string, edits: Edits) => { newCode: string; diff: string; };
+      }).applyLineEdits(originalCode, edits);
 
       expect(result.newCode).toBe("line1\nmodified line2\nline3\nline4");
       expect(result.diff).toContain("-line2");
@@ -227,7 +231,11 @@ describe("MCP Server Unit Tests", () => {
         },
       ];
 
-      const result = (mcpServer as unknown as { applyLineEdits: (code: string, edits: any[]) => { newCode: string; diff: string } }).applyLineEdits(originalCode, edits);
+      type Edits = typeof edits;
+
+      const result = (mcpServer as unknown as {
+        applyLineEdits: (code: string, edits: Edits) => { newCode: string; diff: string; };
+      }).applyLineEdits(originalCode, edits);
 
       expect(result.newCode).toBe("line1\ncombined 2-3\nmodified line4\nline5");
     });
@@ -240,7 +248,11 @@ describe("MCP Server Unit Tests", () => {
         newContent: "", // Delete lines 2-3
       }];
 
-      const result = (mcpServer as unknown as { applyLineEdits: (code: string, edits: any[]) => { newCode: string; diff: string } }).applyLineEdits(originalCode, edits);
+      type Edits = typeof edits;
+
+      const result = (mcpServer as unknown as {
+        applyLineEdits: (code: string, edits: Edits) => { newCode: string; diff: string; };
+      }).applyLineEdits(originalCode, edits);
 
       expect(result.newCode).toBe("line1\nline4");
       expect(result.diff).toContain("-line2");
@@ -255,8 +267,12 @@ describe("MCP Server Unit Tests", () => {
         newContent: "out of bounds",
       }];
 
+      type Edits = typeof edits;
+
       expect(() => {
-        (mcpServer as unknown as { applyLineEdits: (code: string, edits: any[]) => { newCode: string; diff: string } }).applyLineEdits(originalCode, edits);
+        (mcpServer as unknown as {
+          applyLineEdits: (code: string, edits: Edits) => { newCode: string; diff: string; };
+        }).applyLineEdits(originalCode, edits);
       }).toThrow("exceeds code length");
     });
 
@@ -274,9 +290,12 @@ describe("MCP Server Unit Tests", () => {
           newContent: "edit2",
         },
       ];
+      type Edits = typeof edits;
 
       expect(() => {
-        (mcpServer as unknown as { applyLineEdits: (code: string, edits: any[]) => { newCode: string; diff: string } }).applyLineEdits(originalCode, edits);
+        (mcpServer as unknown as {
+          applyLineEdits: (code: string, edits: Edits) => { newCode: string; diff: string; };
+        }).applyLineEdits(originalCode, edits);
       }).toThrow("Overlapping edits detected");
     });
   });

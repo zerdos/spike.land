@@ -363,7 +363,7 @@ describe("WebSocketHandler", () => {
     it("minimal broadcast test", () => {
       // Minimal WebSocketHandler implementation
       class TestHandler {
-        wsSessions: { webSocket: { send: vi.Mock; readyState: number } }[] = [];
+        wsSessions: { webSocket: { send: Mock; readyState: number; }; }[] = [];
 
         broadcast(message: string) {
           for (const session of this.wsSessions) {
@@ -420,7 +420,8 @@ describe("WebSocketHandler", () => {
       const broadcastMessage = "test broadcast";
 
       // Debug: Check wsSessions directly and session names
-      const internalSessions = (websocketHandler as unknown as { wsSessions: WebsocketSession[] }).wsSessions;
+      const internalSessions =
+        (websocketHandler as unknown as { wsSessions: WebsocketSession[]; }).wsSessions;
       expect(internalSessions).toHaveLength(2);
       expect(internalSessions[0].webSocket).toBe(mockWebSocket1);
       expect(internalSessions[1].webSocket).toBe(mockWebSocket2);

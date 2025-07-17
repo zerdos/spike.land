@@ -1,8 +1,4 @@
-import {
-  computeSessionHash,
-  importMapReplace,
-  md5,
-} from "@spike-npm-land/code";
+import { computeSessionHash, importMapReplace, md5 } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 
 export class CodeRoutes {

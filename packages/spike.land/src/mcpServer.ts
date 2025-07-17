@@ -422,7 +422,7 @@ export class McpServer {
     }
   }
 
-  private async executeTool(
+  public async executeTool(
     toolName: string,
     args: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {

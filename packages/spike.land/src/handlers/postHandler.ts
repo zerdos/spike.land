@@ -277,7 +277,36 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: tools as Record<string, unknown>,
+        tools: tools.reduce((acc, tool) => {
+          acc[tool.name] = {
+            description: tool.description,
+            inputSchema: tool.inputSchema,
+            execute: async (args: Record<string, unknown>) => {
+              try {
+                const response = await this.code.getMcpServer().executeTool(
+                  tool.name,
+                  { ...args, codeSpace },
+                );
+                return response;
+              } catch (error) {
+                console.error(
+                  `[AI Routes][${requestId}] Error executing tool ${tool.name}:`,
+                  error,
+                );
+                throw new Error(
+                  `Failed to execute tool ${tool.name}: ${
+                    error instanceof Error ? error.message : "Unknown error"
+                  }`,
+                );
+              }
+            },
+          };
+          return acc;
+        }, {} as Record<string, {
+          description: string;
+          inputSchema: McpTool["inputSchema"];
+          execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+        }>),
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {

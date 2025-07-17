@@ -4,6 +4,8 @@ import path from "path";
 
 export default defineWorkersConfig({
   test: {
+    reporters: ["hanging-process", "dot"],
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     poolOptions: {
       workers: {
         wrangler: {
@@ -17,6 +19,7 @@ export default defineWorkersConfig({
     alias: {
       replicate: path.resolve(__dirname, "__mocks__/replicate.js"),
       "snakecase-keys": path.resolve(__dirname, "__mocks__/snakecase-keys.js"),
+      cookie: path.resolve(__dirname, "__mocks__/cookie.js"),
     },
   },
 });
