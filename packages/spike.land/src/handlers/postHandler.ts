@@ -25,7 +25,7 @@ export class PostHandler {
     this.storageService = new StorageService(env);
   }
 
-  async handle(request: Request, url: URL): Promise<Response> {
+  async handle(request: Request, _url: URL): Promise<Response> {
     const requestId = crypto.randomUUID();
 
     try {
@@ -48,8 +48,14 @@ export class PostHandler {
 
         // If tools are provided as an array with invalid schemas, log warning
         if (Array.isArray(body.tools)) {
-          const invalidTools = body.tools.filter((tool: any) =>
-            tool?.input_schema?.type === "string"
+          const invalidTools = body.tools.filter((tool: unknown) =>
+            tool &&
+            typeof tool === "object" &&
+            "input_schema" in tool &&
+            tool.input_schema &&
+            typeof tool.input_schema === "object" &&
+            "type" in tool.input_schema &&
+            tool.input_schema.type === "string"
           );
           if (invalidTools.length > 0) {
             console.warn(
@@ -271,7 +277,7 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: tools as unknown as any,
+        tools: tools as Record<string, unknown>,
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {

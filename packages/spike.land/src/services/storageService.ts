@@ -1,4 +1,3 @@
-import type { Message } from "@spike-npm-land/code";
 import type Env from "../env";
 import type { PostRequestBody } from "../types/aiRoutes";
 

@@ -2,8 +2,6 @@ import {
   computeSessionHash,
   importMapReplace,
   md5,
-  sanitizeSession,
-  sessionToJSON,
 } from "@spike-npm-land/code";
 import type { Code } from "../chatRoom";
 

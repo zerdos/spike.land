@@ -1,6 +1,7 @@
 import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
-import { streamText, type StreamTextResult } from "ai";
+import { streamText, type StreamTextResult, type CoreTool } from "ai";
+import type { R2Bucket } from "@cloudflare/workers-types";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
@@ -18,14 +19,14 @@ vi.mock("../services/storageService");
 const mockRandomUUID = vi.fn(() => "test-uuid-123");
 global.crypto = {
   randomUUID: mockRandomUUID,
-} as any;
+} as unknown as Crypto;
 
 describe("PostHandler", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
   let mockStorageService: StorageService;
-  let mockMcpServer: any;
+  let mockMcpServer: { tools: McpTool[] };
   let mockRequest: Request;
   let mockUrl: URL;
 
@@ -61,7 +62,7 @@ describe("PostHandler", () => {
     // Setup mock Env
     mockEnv = {
       ANTHROPIC_API_KEY: "test-api-key",
-      R2: {} as any,
+      R2: {} as unknown as R2Bucket,
     } as Env;
 
     // Setup mock StorageService
@@ -92,8 +93,8 @@ describe("PostHandler", () => {
   });
 
   describe("handle", () => {
-    let mockStreamResponse: any;
-    let mockToDataStreamResponse: any;
+    let mockStreamResponse: StreamTextResult<Record<string, CoreTool<any, any>>, any>;
+    let mockToDataStreamResponse: vi.Mock;
 
     beforeEach(() => {
       // Setup mock stream response
@@ -125,20 +126,20 @@ describe("PostHandler", () => {
         experimental_objectGeneration: {},
         experimental_telemetry: {},
         experimental_usage: {},
-      } as unknown as StreamTextResult<any, any>;
+      } as unknown as StreamTextResult<Record<string, CoreTool<any, any>>, any>;
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic to return a proper AnthropicProvider
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
-      ) as any;
+      ) as unknown as AnthropicProvider;
       anthropicProvider.languageModel = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {} as any;
+      anthropicProvider.tools = {} as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -183,7 +184,7 @@ describe("PostHandler", () => {
       const response = await postHandler.handle(mockRequest, mockUrl);
 
       expect(response.status).toBe(413);
-      const body = await response.json() as any;
+      const body = await response.json() as { error: string };
       expect(body.error).toBe("Request too large");
     });
 
@@ -197,7 +198,7 @@ describe("PostHandler", () => {
       const response = await postHandler.handle(mockRequest, mockUrl);
 
       expect(response.status).toBe(500);
-      const body = await response.json() as any;
+      const body = await response.json() as { error: string; details?: string };
       expect(body.error).toBe("Failed to process message");
       expect(body.details).toContain("Invalid JSON");
     });
@@ -218,7 +219,7 @@ describe("PostHandler", () => {
       const response = await postHandler.handle(mockRequest, mockUrl);
 
       expect(response.status).toBe(503);
-      const body = await response.json() as any;
+      const body = await response.json() as { error: string };
       expect(body.error).toContain("ANTHROPIC_API_KEY not configured");
     });
 
@@ -285,13 +286,13 @@ describe("PostHandler", () => {
       // Mock createAnthropic properly
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
-      ) as any;
+      ) as unknown as AnthropicProvider;
       anthropicProvider.languageModel = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {} as any;
+      anthropicProvider.tools = {} as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -326,7 +327,7 @@ describe("PostHandler", () => {
       );
 
       expect(response.status).toBe(500);
-      const body = await response.json() as any;
+      const body = await response.json() as { error: string; details?: string };
       expect(body.error).toBe("Failed to process message");
       expect(body.details).toBe("Stream failed");
 
@@ -339,7 +340,7 @@ describe("PostHandler", () => {
         (async (options: any) => {
           onStepFinishCallback = options.onStepFinish;
           return mockStreamResponse;
-        }) as any,
+        }) as unknown as (options: any) => Promise<StreamTextResult<Record<string, CoreTool<any, any>>, any>>,
       );
 
       const requestBody: PostRequestBody = {
@@ -372,11 +373,11 @@ describe("PostHandler", () => {
         (async (options: any) => {
           onStepFinishCallback = options.onStepFinish;
           return mockStreamResponse;
-        }) as any,
+        }) as unknown as (options: any) => Promise<StreamTextResult<Record<string, CoreTool<any, any>>, any>>,
       );
 
       // Make saveRequestBody fail on second call
-      (mockStorageService.saveRequestBody as any)
+      (mockStorageService.saveRequestBody as vi.Mock)
         .mockResolvedValueOnce(undefined)
         .mockRejectedValueOnce(new Error("Storage failed"));
 
@@ -409,7 +410,7 @@ describe("PostHandler", () => {
 
   describe("validateMessages", () => {
     const callValidateMessages = (messages: unknown) => {
-      return (postHandler as any).validateMessages(messages);
+      return (postHandler as unknown as { validateMessages: (messages: unknown) => string | null }).validateMessages(messages);
     };
 
     it("should accept valid messages", () => {
@@ -516,7 +517,7 @@ describe("PostHandler", () => {
 
   describe("convertMessages", () => {
     const callConvertMessages = (messages: Message[]) => {
-      return (postHandler as any).convertMessages(messages);
+      return (postHandler as unknown as { convertMessages: (messages: Message[]) => any }).convertMessages(messages);
     };
 
     it("should convert string content messages", () => {
@@ -566,8 +567,8 @@ describe("PostHandler", () => {
           role: "user",
           content: [
             { type: "text", text: "Valid" },
-            "invalid" as any,
-            { type: "unknown" } as any,
+            "invalid" as unknown as any,
+            { type: "unknown" } as unknown as any,
           ],
         },
       ];
@@ -585,7 +586,7 @@ describe("PostHandler", () => {
       const messages: Message[] = [
         {
           role: "user",
-          content: [{ type: "text" } as any],
+          content: [{ type: "text" } as unknown as any],
         },
       ];
 
@@ -598,7 +599,7 @@ describe("PostHandler", () => {
       const messages: Message[] = [
         {
           role: "user",
-          content: 123 as any,
+          content: 123 as unknown as any,
         },
       ];
 
@@ -612,7 +613,7 @@ describe("PostHandler", () => {
     it("should throw on invalid role", () => {
       const messages: Message[] = [
         {
-          role: "invalid" as any,
+          role: "invalid" as unknown as any,
           content: "test",
         },
       ];
@@ -629,7 +630,7 @@ describe("PostHandler", () => {
       status: number,
       details?: string,
     ) => {
-      return (postHandler as any).createErrorResponse(error, status, details);
+      return (postHandler as unknown as { createErrorResponse: (error: string, status: number, details?: string) => Response }).createErrorResponse(error, status, details);
     };
 
     it("should create error response without details", () => {
@@ -660,7 +661,7 @@ describe("PostHandler", () => {
 
   describe("createSystemPrompt", () => {
     const callCreateSystemPrompt = (codeSpace: string) => {
-      return (postHandler as any).createSystemPrompt(codeSpace);
+      return (postHandler as unknown as { createSystemPrompt: (codeSpace: string) => string }).createSystemPrompt(codeSpace);
     };
 
     it("should create system prompt with codeSpace", () => {
@@ -675,7 +676,7 @@ describe("PostHandler", () => {
 
   describe("getCorsHeaders", () => {
     const callGetCorsHeaders = () => {
-      return (postHandler as any).getCorsHeaders();
+      return (postHandler as unknown as { getCorsHeaders: () => Record<string, string> }).getCorsHeaders();
     };
 
     it("should return CORS headers", () => {
@@ -688,7 +689,7 @@ describe("PostHandler", () => {
 
   describe("isValidRole", () => {
     const callIsValidRole = (role: unknown) => {
-      return (postHandler as any).isValidRole(role);
+      return (postHandler as unknown as { isValidRole: (role: unknown) => boolean }).isValidRole(role);
     };
 
     it("should validate roles correctly", () => {
@@ -703,7 +704,7 @@ describe("PostHandler", () => {
 
   describe("isMessageContentPart", () => {
     const callIsMessageContentPart = (part: unknown) => {
-      return (postHandler as any).isMessageContentPart(part);
+      return (postHandler as unknown as { isMessageContentPart: (part: unknown) => boolean }).isMessageContentPart(part);
     };
 
     it("should validate message content parts", () => {
@@ -718,7 +719,7 @@ describe("PostHandler", () => {
 
   describe("parseRequestBody", () => {
     const callParseRequestBody = async (request: Request) => {
-      return (postHandler as any).parseRequestBody(request);
+      return (postHandler as unknown as { parseRequestBody: (request: Request) => Promise<PostRequestBody> }).parseRequestBody(request);
     };
 
     it("should parse valid JSON", async () => {
@@ -778,24 +779,24 @@ describe("PostHandler", () => {
         experimental_objectGeneration: {},
         experimental_telemetry: {},
         experimental_usage: {},
-      } as unknown as StreamTextResult<any, any>;
+      } as unknown as StreamTextResult<Record<string, CoreTool<any, any>>, any>;
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
-      ) as any;
+      ) as unknown as AnthropicProvider;
       anthropicProvider.languageModel = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {} as any;
+      anthropicProvider.tools = {} as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
       );
 
-      await (postHandler as any).createStreamResponse(
+      await (postHandler as unknown as { createStreamResponse: (messages: any, tools: any, body: any, codeSpace: string, requestId: string) => Promise<Response> }).createStreamResponse(
         messages,
         tools,
         body,
@@ -860,25 +861,25 @@ describe("PostHandler", () => {
         experimental_objectGeneration: {},
         experimental_telemetry: {},
         experimental_usage: {},
-      } as unknown as StreamTextResult<any, any>;
+      } as unknown as StreamTextResult<Record<string, CoreTool<any, any>>, any>;
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic properly
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
-      ) as any;
+      ) as unknown as AnthropicProvider;
       anthropicProvider.languageModel = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {} as any;
+      anthropicProvider.tools = {} as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
       );
 
-      await (postHandler as any).createStreamResponse(
+      await (postHandler as unknown as { createStreamResponse: (messages: any, tools: any, body: any, codeSpace: string, requestId: string) => Promise<Response> }).createStreamResponse(
         [],
         [],
         { messages: [] },
