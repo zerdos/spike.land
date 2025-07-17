@@ -19,9 +19,8 @@
   },
   "references": [
     { "path": "./devcontainers/devcontainer-generator/tsconfig.json" },
-    { "path": "./packages/code/tsconfig.json" },
+    { "path": "./packages/code/tsconfig.json" },  
     { "path": "./packages/spike.land/tsconfig.json" },
-    { "path": "./packages/durable-objects/tsconfig.json" },
   ],
   "exclude": ["dts", "node_modules", "dist"],
   "include": ["eslint.config.js"]

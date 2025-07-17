@@ -3688,23 +3688,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spike-land/durable-objects@workspace:packages/durable-objects":
-  version: 0.0.0-use.local
-  resolution: "@spike-land/durable-objects@workspace:packages/durable-objects"
-  dependencies:
-    "@cloudflare/vitest-pool-workers": "npm:0.8.54"
-    "@cloudflare/workers-types": "npm:4.20250715.0"
-    "@types/node": "npm:24.0.14"
-    "@vitest/runner": "npm:3.2.4"
-    "@vitest/snapshot": "npm:3.2.4"
-    miniflare: "npm:4.20250712.0"
-    tinyrainbow: "npm:^2.0.0"
-    typescript: "npm:5.8.3"
-    vitest: "npm:3.2.4"
-    wrangler: "npm:4.24.4"
-  languageName: unknown
-  linkType: soft
-
 "@spike-npm-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer":
   version: 0.0.0-use.local
   resolution: "@spike-npm-land/bookworm-devcontainer@workspace:devcontainers/bookworm-devcontainer"

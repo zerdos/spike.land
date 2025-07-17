@@ -6,7 +6,6 @@ export default defineConfig({
       "./packages/spike-land-renderer/vitest.config.ts",
       "./packages/code/vitest.config.ts",
       "./packages/spike.land/vitest.config.ts",
-      "./packages/durable-objects/vitest.config.ts"
     ]
   }
 })
