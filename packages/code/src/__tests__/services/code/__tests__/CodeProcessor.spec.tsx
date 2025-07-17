@@ -114,18 +114,6 @@ describe("CodeProcessor", () => {
           "codeSpace": "test-space",
           "css": "css",
           "html": "<div></div>",
-          "messages": [
-            {
-              "content": "Test",
-              "id": "1",
-              "role": "user",
-            },
-            {
-              "content": "Test",
-              "id": "2",
-              "role": "assistant",
-            },
-          ],
           "transpiled": "transpiled",
         }
       `);

@@ -38,7 +38,6 @@ describe("make-sess", () => {
     code: "const test = 'test';",
     html: "<div>Test</div>",
     css: ".test { color: red; }",
-    messages: [],
     transpiled: "const test = 'test';",
   });
 
@@ -67,7 +66,6 @@ describe("make-sess", () => {
       const partialSession = {
         codeSpace: "test-space",
         code: "const test = 'test';",
-        messages: [],
         html: "",
         css: "",
         transpiled: "",

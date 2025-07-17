@@ -1,5 +1,6 @@
 import { ServiceWorkerManager } from "@/services/ServiceWorkerManager";
 import type * as SWMTypes from "@/services/ServiceWorkerManager";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock hydrate module
 vi.mock("@/services/ServiceWorkerManager", async (importOriginal) => {
