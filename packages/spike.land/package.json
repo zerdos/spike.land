@@ -27,7 +27,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.0",
     "@cloudflare/vitest-pool-workers": "0.8.55",
-    "@cloudflare/workers-types": "4.20250715.0",
+    "@cloudflare/workers-types": "4.20250718.0",
     "@eslint/js": "9.31.0",
     "@rollup/plugin-commonjs": "28.0.6",
     "@rollup/plugin-node-resolve": "16.0.1",
@@ -52,10 +52,8 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",
     "@anthropic-ai/sdk": "0.56.0",
-    "@clerk/backend": "2.4.5",
+    "@clerk/backend": "2.5.0",
     "@clerk/clerk-sdk-node": "5.1.6",
-    "@remix-run/cloudflare": "2.16.8",
-    "@remix-run/react": "2.16.8",
     "@spike-npm-land/code": "0.9.56",
     "@types/node": "24.0.14",
     "ai": "^4.3.19",
@@ -75,7 +73,7 @@
     "p-map": "7.0.3",
     "p-queue": "8.1.0",
     "replicate": "1.0.1",
-    "zod": "^4.0.5"
+    "zod": "3.24.1"
   },
   "publishConfig": {
     "access": "public"
