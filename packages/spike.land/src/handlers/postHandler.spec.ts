@@ -149,7 +149,7 @@ describe("PostHandler", () => {
         textEditor_20241022: vi.fn(),
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
-        computer_20241022: vi.fn()
+        computer_20241022: vi.fn(),
       } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
@@ -309,7 +309,7 @@ describe("PostHandler", () => {
         textEditor_20241022: vi.fn(),
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
-        computer_20241022: vi.fn()
+        computer_20241022: vi.fn(),
       } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
@@ -374,12 +374,14 @@ describe("PostHandler", () => {
       await postHandler.handle(mockRequest, mockUrl);
 
       // Simulate tool execution
-      await onStepFinishCallback!({
-        stepType: "tool-result",
-        toolResults: [
-          { toolCallId: "1", result: { output: "test" } },
-        ] as Array<{ toolCallId: string; result: { output: string } }>,
-      } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0]);
+      await onStepFinishCallback!(
+        {
+          stepType: "tool-result",
+          toolResults: [
+            { toolCallId: "1", result: { output: "test" } },
+          ] as Array<{ toolCallId: string; result: { output: string; }; }>,
+        } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
+      );
 
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledTimes(2);
     });
@@ -412,12 +414,14 @@ describe("PostHandler", () => {
       await postHandler.handle(mockRequest, mockUrl);
 
       // Simulate tool execution
-      await onStepFinishCallback!({
-        stepType: "tool-result",
-        toolResults: [
-          { toolCallId: "1", result: { output: "test" } },
-        ] as Array<{ toolCallId: string; result: { output: string } }>,
-      } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0]);
+      await onStepFinishCallback!(
+        {
+          stepType: "tool-result",
+          toolResults: [
+            { toolCallId: "1", result: { output: "test" } },
+          ] as Array<{ toolCallId: string; result: { output: string; }; }>,
+        } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
+      );
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining("Error saving messages after tool call:"),
@@ -588,8 +592,8 @@ describe("PostHandler", () => {
           role: "user",
           content: [
             { type: "text", text: "Valid" },
-            "invalid" as unknown as { type: string; text?: string },
-            { type: "unknown" } as unknown as { type: string; text?: string },
+            "invalid" as unknown as { type: string; text?: string; },
+            { type: "unknown" } as unknown as { type: string; text?: string; },
           ],
         },
       ];
@@ -607,7 +611,7 @@ describe("PostHandler", () => {
       const messages: Message[] = [
         {
           role: "user",
-          content: [{ type: "text" } as { type: string; text?: string }],
+          content: [{ type: "text" } as { type: string; text?: string; }],
         },
       ];
 
@@ -826,7 +830,7 @@ describe("PostHandler", () => {
         textEditor_20241022: vi.fn(),
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
-        computer_20241022: vi.fn()
+        computer_20241022: vi.fn(),
       } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
@@ -935,7 +939,7 @@ describe("PostHandler", () => {
         textEditor_20241022: vi.fn(),
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
-        computer_20241022: vi.fn()
+        computer_20241022: vi.fn(),
       } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
@@ -961,7 +965,7 @@ describe("PostHandler", () => {
       // The getErrorMessage callback should have been captured during toDataStreamResponse call
       const capturedCall = mockToDataStreamResponse.mock.calls[0]?.[0];
       const errorCallback = capturedCall?.getErrorMessage;
-      
+
       if (errorCallback) {
         const errorMessage = errorCallback(new Error("Test error"));
         expect(errorMessage).toBe("Streaming error: Test error");
