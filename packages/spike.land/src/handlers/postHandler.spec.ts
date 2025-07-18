@@ -11,8 +11,8 @@ import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";
 
 // Type aliases for cleaner code
-type ToolRecord = Record<string, any>;
-type StreamResult = StreamTextResult<any, unknown>;
+type _ToolRecord = Record<string, unknown>;
+type StreamResult = StreamTextResult<Record<string, unknown>, unknown>;
 
 // Mock all external dependencies
 vi.mock("@ai-sdk/anthropic");
@@ -150,7 +150,7 @@ describe("PostHandler", () => {
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
         computer_20241022: vi.fn()
-      } as any;
+      } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -310,7 +310,7 @@ describe("PostHandler", () => {
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
         computer_20241022: vi.fn()
-      } as any;
+      } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -378,8 +378,8 @@ describe("PostHandler", () => {
         stepType: "tool-result",
         toolResults: [
           { toolCallId: "1", result: { output: "test" } },
-        ] as any,
-      } as any);
+        ] as Array<{ toolCallId: string; result: { output: string } }>,
+      } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0]);
 
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledTimes(2);
     });
@@ -416,8 +416,8 @@ describe("PostHandler", () => {
         stepType: "tool-result",
         toolResults: [
           { toolCallId: "1", result: { output: "test" } },
-        ] as any,
-      } as any);
+        ] as Array<{ toolCallId: string; result: { output: string } }>,
+      } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0]);
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining("Error saving messages after tool call:"),
@@ -588,8 +588,8 @@ describe("PostHandler", () => {
           role: "user",
           content: [
             { type: "text", text: "Valid" },
-            "invalid" as any,
-            { type: "unknown" } as any,
+            "invalid" as unknown as { type: string; text?: string },
+            { type: "unknown" } as unknown as { type: string; text?: string },
           ],
         },
       ];
@@ -607,7 +607,7 @@ describe("PostHandler", () => {
       const messages: Message[] = [
         {
           role: "user",
-          content: [{ type: "text" } as any],
+          content: [{ type: "text" } as { type: string; text?: string }],
         },
       ];
 
@@ -827,7 +827,7 @@ describe("PostHandler", () => {
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
         computer_20241022: vi.fn()
-      } as any;
+      } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -885,10 +885,10 @@ describe("PostHandler", () => {
 
     it("should handle getErrorMessage callback", async () => {
       const consoleErrorSpy = vi.spyOn(console, "error");
-      let capturedGetErrorMessageCallback: ((error: Error) => string) | undefined;
+      let _capturedGetErrorMessageCallback: ((error: Error) => string) | undefined;
 
       const mockToDataStreamResponse = vi.fn().mockImplementation((options) => {
-        capturedGetErrorMessageCallback = options.getErrorMessage;
+        _capturedGetErrorMessageCallback = options.getErrorMessage;
         return new Response("stream");
       });
 
@@ -936,7 +936,7 @@ describe("PostHandler", () => {
         textEditor_20250124: vi.fn(),
         computer_20250124: vi.fn(),
         computer_20241022: vi.fn()
-      } as any;
+      } as Record<string, unknown>;
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,

@@ -302,7 +302,11 @@ export class PostHandler {
             },
           };
           return acc;
-        }, {} as any),
+        }, {} as Record<string, {
+          description: string;
+          parameters: McpTool["inputSchema"];
+          execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+        }>),
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {
