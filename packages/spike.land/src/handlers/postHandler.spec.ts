@@ -3,6 +3,7 @@ import type { R2Bucket } from "@cloudflare/workers-types";
 import type { Message } from "@spike-npm-land/code";
 import { type CoreMessage, streamText, type StreamTextResult } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
@@ -895,13 +896,13 @@ describe("PostHandler", () => {
         tools: tools.reduce((acc, tool) => {
           acc[tool.name] = {
             description: tool.description,
-            parameters: tool.inputSchema,
+            parameters: expect.any(Object), // Zod schema object
             execute: expect.any(Function),
           };
           return acc;
         }, {} as Record<string, {
           description: string;
-          parameters: McpTool["inputSchema"];
+          parameters: z.ZodTypeAny;
           execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
         }>),
         toolChoice: "auto",

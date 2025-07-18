@@ -2,12 +2,14 @@ import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
 import { streamText } from "ai";
 import type { CoreMessage } from "ai";
+import type { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
 import { StorageService } from "../services/storageService";
 import type { ErrorResponse, MessageContentPart, PostRequestBody } from "../types/aiRoutes";
 import { DEFAULT_CORS_HEADERS } from "../types/aiRoutes";
+import { JsonSchemaToZodConverter } from "../utils/jsonSchemaToZod";
 
 // Constants for validation
 const MAX_MESSAGE_LENGTH = 100000; // 100KB per message
@@ -17,12 +19,14 @@ type ValidRole = typeof VALID_ROLES[number];
 
 export class PostHandler {
   private storageService: StorageService;
+  private schemaConverter: JsonSchemaToZodConverter;
 
   constructor(
     private code: Code,
     private env: Env,
   ) {
     this.storageService = new StorageService(env);
+    this.schemaConverter = new JsonSchemaToZodConverter();
   }
 
   async handle(request: Request, _url: URL): Promise<Response> {
@@ -273,15 +277,36 @@ export class PostHandler {
     let streamError: Error | null = null;
 
     try {
-      const result = await streamText({
-        model: anthropic("claude-4-sonnet-20250514"),
-        system: systemPrompt,
-        messages,
-        tools: tools.reduce((acc, tool) => {
-          acc[tool.name] = {
-            description: tool.description,
-            parameters: tool.inputSchema,
-            execute: async (args: Record<string, unknown>) => {
+      // Log tools structure for debugging
+      console.log(
+        `[AI Routes][${requestId}] Processing ${tools.length} tools for streaming`,
+      );
+      
+      const processedTools = tools.reduce((acc, tool) => {
+        if (!tool.inputSchema) {
+          console.warn(
+            `[AI Routes][${requestId}] Tool '${tool.name}' has no inputSchema, skipping`,
+          );
+          return acc;
+        }
+        
+        // Log the tool structure for debugging
+        console.log(
+          `[AI Routes][${requestId}] Processing tool '${tool.name}':`,
+          {
+            hasInputSchema: !!tool.inputSchema,
+            inputSchemaType: tool.inputSchema?.type,
+            inputSchemaKeys: tool.inputSchema ? Object.keys(tool.inputSchema) : [],
+          },
+        );
+        
+        // Convert JSON Schema to Zod schema for AI SDK
+        const zodSchema = this.schemaConverter.convert(tool.inputSchema);
+        
+        acc[tool.name] = {
+          description: tool.description,
+          parameters: zodSchema,
+          execute: async (args: Record<string, unknown>) => {
               try {
                 const response = await this.code.getMcpServer().executeTool(
                   tool.name,
@@ -304,9 +329,15 @@ export class PostHandler {
           return acc;
         }, {} as Record<string, {
           description: string;
-          parameters: McpTool["inputSchema"];
+          parameters: z.ZodTypeAny;
           execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
-        }>),
+        }>);
+        
+        const result = await streamText({
+          model: anthropic("claude-4-sonnet-20250514"),
+          system: systemPrompt,
+          messages,
+          tools: processedTools,
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {
