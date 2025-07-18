@@ -11,8 +11,12 @@ import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";
 
 // Type aliases for cleaner code
-type _ToolRecord = Record<string, unknown>;
-type StreamResult = StreamTextResult<Record<string, unknown>, unknown>;
+type MockTool = {
+  parameters: Record<string, unknown>;
+  execute?: (args: unknown) => Promise<unknown>;
+};
+type MockToolSet = Record<string, MockTool>;
+type StreamResult = StreamTextResult<MockToolSet, unknown>;
 
 // Mock all external dependencies
 vi.mock("@ai-sdk/anthropic");
@@ -24,6 +28,52 @@ const mockRandomUUID = vi.fn(() => "test-uuid-123");
 global.crypto = {
   randomUUID: mockRandomUUID,
 } as unknown as Crypto;
+
+// Helper function to create mock tools
+const createMockTools = () => ({
+  bash_20241022: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.bash_20241022",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  bash_20250124: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.bash_20250124",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  textEditor_20241022: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.textEditor_20241022",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  textEditor_20250124: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.textEditor_20250124",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  computer_20250124: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.computer_20250124",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  computer_20241022: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.computer_20241022",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+});
 
 describe("PostHandler", () => {
   let postHandler: PostHandler;
@@ -135,26 +185,20 @@ describe("PostHandler", () => {
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
       // Mock createAnthropic to return a proper AnthropicProvider
-      const anthropicProvider = vi.fn().mockReturnValue(
-        "claude-4-sonnet-20250514",
+      const mockTools = createMockTools();
+
+      const anthropicProvider = Object.assign(
+        vi.fn().mockReturnValue("claude-4-sonnet-20250514"),
+        {
+          languageModel: vi.fn().mockReturnValue("claude-4-sonnet-20250514"),
+          chat: vi.fn(),
+          messages: vi.fn(),
+          tools: mockTools,
+          textEmbeddingModel: vi.fn(),
+        },
       ) as unknown as AnthropicProvider;
-      anthropicProvider.languageModel = vi.fn().mockReturnValue(
-        "claude-4-sonnet-20250514",
-      );
-      anthropicProvider.chat = vi.fn();
-      anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {
-        bash_20241022: vi.fn(),
-        bash_20250124: vi.fn(),
-        textEditor_20241022: vi.fn(),
-        textEditor_20250124: vi.fn(),
-        computer_20250124: vi.fn(),
-        computer_20241022: vi.fn(),
-      } as Record<string, unknown>;
-      anthropicProvider.textEmbeddingModel = vi.fn();
-      vi.mocked(createAnthropic).mockReturnValue(
-        anthropicProvider as AnthropicProvider,
-      );
+      
+      vi.mocked(createAnthropic).mockReturnValue(anthropicProvider);
     });
 
     it("should handle valid request successfully", async () => {
@@ -303,14 +347,7 @@ describe("PostHandler", () => {
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {
-        bash_20241022: vi.fn(),
-        bash_20250124: vi.fn(),
-        textEditor_20241022: vi.fn(),
-        textEditor_20250124: vi.fn(),
-        computer_20250124: vi.fn(),
-        computer_20241022: vi.fn(),
-      } as Record<string, unknown>;
+      anthropicProvider.tools = createMockTools();
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -824,14 +861,7 @@ describe("PostHandler", () => {
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {
-        bash_20241022: vi.fn(),
-        bash_20250124: vi.fn(),
-        textEditor_20241022: vi.fn(),
-        textEditor_20250124: vi.fn(),
-        computer_20250124: vi.fn(),
-        computer_20241022: vi.fn(),
-      } as Record<string, unknown>;
+      anthropicProvider.tools = createMockTools();
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
@@ -933,14 +963,7 @@ describe("PostHandler", () => {
       );
       anthropicProvider.chat = vi.fn();
       anthropicProvider.messages = vi.fn();
-      anthropicProvider.tools = {
-        bash_20241022: vi.fn(),
-        bash_20250124: vi.fn(),
-        textEditor_20241022: vi.fn(),
-        textEditor_20250124: vi.fn(),
-        computer_20250124: vi.fn(),
-        computer_20241022: vi.fn(),
-      } as Record<string, unknown>;
+      anthropicProvider.tools = createMockTools();
       anthropicProvider.textEmbeddingModel = vi.fn();
       vi.mocked(createAnthropic).mockReturnValue(
         anthropicProvider as AnthropicProvider,
