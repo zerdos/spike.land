@@ -51,7 +51,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn
 
       - name: Build frontend
         run: yarn build:fe
@@ -60,6 +60,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy --env=testing
           workingDirectory: packages/spike.land

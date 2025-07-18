@@ -31,7 +31,9 @@
       "Bash(touch:*)",
       "Bash(sed:*)",
       "Bash(yarn tsc:*)",
-      "Bash(yarn list:*)"
+      "Bash(yarn list:*)",
+      "Bash(yarn explain:*)",
+      "Bash(npm info:*)"
     ],
     "deny": []
   }
