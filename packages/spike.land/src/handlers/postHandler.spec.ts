@@ -861,13 +861,13 @@ describe("PostHandler", () => {
         tools: tools.reduce((acc, tool) => {
           acc[tool.name] = {
             description: tool.description,
-            inputSchema: tool.inputSchema,
+            parameters: tool.inputSchema,
             execute: expect.any(Function),
           };
           return acc;
         }, {} as Record<string, {
           description: string;
-          inputSchema: McpTool["inputSchema"];
+          parameters: McpTool["inputSchema"];
           execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
         }>),
         toolChoice: "auto",

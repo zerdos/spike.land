@@ -138,6 +138,7 @@
     "nocheck",
     "noconflict",
     "novnc",
+    "nvmrc",
     "okikio",
     "onpolyfill",
     "OPENAI",
