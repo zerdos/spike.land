@@ -23,7 +23,10 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn && yarn build:all
+        run: yarn
+      
+      - name: Build all
+        run: yarn build:all || yarn build:all 
 
       - name: Run ESLint
         run: yarn lint
