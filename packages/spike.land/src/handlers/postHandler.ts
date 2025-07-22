@@ -41,7 +41,7 @@ export class PostHandler {
 
       const body = await this.parseRequestBody(request);
 
-      // Log if tools are present in the request
+      // Validate and clean tools in the request body
       if (body.tools) {
         console.log(
           `[AI Routes][${requestId}] Request contains tools:`,
@@ -50,20 +50,40 @@ export class PostHandler {
             : `Object with keys: ${Object.keys(body.tools).join(", ")}`,
         );
 
-        // If tools are provided as an array with invalid schemas, log warning
+        // Check for various invalid tool formats and clean them
         if (Array.isArray(body.tools)) {
-          const invalidTools = body.tools.filter((tool: unknown) =>
-            tool &&
-            typeof tool === "object" &&
-            "input_schema" in tool &&
-            tool.input_schema &&
-            typeof tool.input_schema === "object" &&
-            "type" in tool.input_schema &&
-            tool.input_schema.type === "string"
-          );
+          const invalidTools: unknown[] = [];
+          
+          body.tools.forEach((tool: unknown, index: number) => {
+            // Check for tools with invalid schema formats
+            if (tool && typeof tool === "object") {
+              const toolObj = tool as Record<string, unknown>;
+              
+              // Check for custom.input_schema pattern (AI SDK format)
+              if ("custom" in toolObj && toolObj.custom && typeof toolObj.custom === "object") {
+                const custom = toolObj.custom as Record<string, unknown>;
+                if ("input_schema" in custom && custom.input_schema && typeof custom.input_schema === "object") {
+                  const schema = custom.input_schema as Record<string, unknown>;
+                  if ("type" in schema && schema.type !== "object") {
+                    invalidTools.push({ index, reason: "custom.input_schema.type is not 'object'", value: schema.type });
+                  }
+                }
+              }
+              
+              // Check for direct input_schema pattern
+              if ("input_schema" in toolObj && toolObj.input_schema && typeof toolObj.input_schema === "object") {
+                const schema = toolObj.input_schema as Record<string, unknown>;
+                if ("type" in schema && schema.type !== "object") {
+                  invalidTools.push({ index, reason: "input_schema.type is not 'object'", value: schema.type });
+                }
+              }
+            }
+          });
+          
           if (invalidTools.length > 0) {
             console.warn(
-              `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid input_schema.type="string". These will be ignored.`,
+              `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid schemas:`,
+              invalidTools,
             );
           }
         }
