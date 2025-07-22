@@ -325,15 +325,18 @@ describe("PostHandler", () => {
         expect.arrayContaining([
           expect.objectContaining({
             index: 0,
-            reason: "input_schema.type is not 'object'",
+            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
             value: "string",
+            note: "See https://github.com/vercel/ai/issues/7333"
           }),
           expect.objectContaining({
             index: 1,
-            reason: "input_schema.type is not 'object'",
+            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
             value: "number",
+            note: "See https://github.com/vercel/ai/issues/7333"
           }),
         ]),
+        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
       );
     });
 
@@ -372,6 +375,7 @@ describe("PostHandler", () => {
             value: "string",
           }),
         ]),
+        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
       );
     });
 
@@ -417,8 +421,9 @@ describe("PostHandler", () => {
         expect.arrayContaining([
           expect.objectContaining({
             index: 1,
-            reason: "input_schema.type is not 'object'",
+            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
             value: "string",
+            note: "See https://github.com/vercel/ai/issues/7333"
           }),
           expect.objectContaining({
             index: 2,
@@ -427,10 +432,12 @@ describe("PostHandler", () => {
           }),
           expect.objectContaining({
             index: 3,
-            reason: "input_schema.type is not 'object'",
+            reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
             value: "array",
+            note: "See https://github.com/vercel/ai/issues/7333"
           }),
         ]),
+        expect.stringContaining("This is a known issue with AI SDK v4 and Claude Sonnet 4"),
       );
     });
 
