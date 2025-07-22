@@ -7,6 +7,6 @@ export default async function teardown() {
   // Give a bit of time for cleanup
   await new Promise(resolve => setTimeout(resolve, 100));
   
-  // Force exit to prevent hanging
-  process.exit(0);
+  // Allow process to exit naturally after cleanup
+  // Ensure all asynchronous operations are completed
 }
