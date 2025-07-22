@@ -21,7 +21,7 @@
     "deploy:dev": "NODE_ENV=development yarn build:fe && cd packages/spike.land && yarn w:deploy:dev",
     "deploy:prod": "NODE_ENV=production yarn build:fe && cd packages/spike.land && yarn w:deploy:prod",
     "deploy:full": "yarn fmt && git add . && yarn build:all && yarn w:deploy:dev && yarn w:deploy:prod && git commit -m 'deploy' && git pull && git push",
-    "types:check": "tsc -b -f",
+    "types:check": "tsc -b -f && yarn lint",
     "types:build": "yarn workspaces foreach --all -p run types:build",
     "test": "vitest --reporter dot --silent --no-color run",
     "test:e2e": "playwright test tests/*.spec.ts",
