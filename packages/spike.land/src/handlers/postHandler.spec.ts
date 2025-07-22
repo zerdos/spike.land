@@ -11,7 +11,6 @@ import { StorageService } from "../services/storageService";
 import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StreamResult = StreamTextResult<any, unknown>;
 
@@ -195,7 +194,7 @@ describe("PostHandler", () => {
           textEmbeddingModel: vi.fn(),
         },
       ) as unknown as AnthropicProvider;
-      
+
       vi.mocked(createAnthropic).mockReturnValue(anthropicProvider);
     });
 

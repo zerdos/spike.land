@@ -281,7 +281,7 @@ export class PostHandler {
       console.log(
         `[AI Routes][${requestId}] Processing ${tools.length} tools for streaming`,
       );
-      
+
       const processedTools = tools.reduce((acc, tool) => {
         if (!tool.inputSchema) {
           console.warn(
@@ -289,7 +289,7 @@ export class PostHandler {
           );
           return acc;
         }
-        
+
         // Log the tool structure for debugging
         console.log(
           `[AI Routes][${requestId}] Processing tool '${tool.name}':`,
@@ -299,45 +299,45 @@ export class PostHandler {
             inputSchemaKeys: tool.inputSchema ? Object.keys(tool.inputSchema) : [],
           },
         );
-        
+
         // Convert JSON Schema to Zod schema for AI SDK
         const zodSchema = this.schemaConverter.convert(tool.inputSchema);
-        
+
         acc[tool.name] = {
           description: tool.description,
           parameters: zodSchema,
           execute: async (args: Record<string, unknown>) => {
-              try {
-                const response = await this.code.getMcpServer().executeTool(
-                  tool.name,
-                  { ...args, codeSpace },
-                );
-                return response;
-              } catch (error) {
-                console.error(
-                  `[AI Routes][${requestId}] Error executing tool ${tool.name}:`,
-                  error,
-                );
-                throw new Error(
-                  `Failed to execute tool ${tool.name}: ${
-                    error instanceof Error ? error.message : "Unknown error"
-                  }`,
-                );
-              }
-            },
-          };
-          return acc;
-        }, {} as Record<string, {
-          description: string;
-          parameters: z.ZodTypeAny;
-          execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
-        }>);
-        
-        const result = await streamText({
-          model: anthropic("claude-4-sonnet-20250514"),
-          system: systemPrompt,
-          messages,
-          tools: processedTools,
+            try {
+              const response = await this.code.getMcpServer().executeTool(
+                tool.name,
+                { ...args, codeSpace },
+              );
+              return response;
+            } catch (error) {
+              console.error(
+                `[AI Routes][${requestId}] Error executing tool ${tool.name}:`,
+                error,
+              );
+              throw new Error(
+                `Failed to execute tool ${tool.name}: ${
+                  error instanceof Error ? error.message : "Unknown error"
+                }`,
+              );
+            }
+          },
+        };
+        return acc;
+      }, {} as Record<string, {
+        description: string;
+        parameters: z.ZodTypeAny;
+        execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+      }>);
+
+      const result = await streamText({
+        model: anthropic("claude-4-sonnet-20250514"),
+        system: systemPrompt,
+        messages,
+        tools: processedTools,
         toolChoice: "auto",
         maxSteps: 10,
         onStepFinish: async ({ stepType, toolResults }) => {
