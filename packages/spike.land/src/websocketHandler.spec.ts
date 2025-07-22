@@ -110,16 +110,6 @@ describe("WebSocketHandler", () => {
 
     it("should schedule periodic ping", () => {
       vi.useFakeTimers();
-      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
-
-      const _mockSession = {
-        webSocket: mockWebSocket,
-        name: "test",
-        quit: false,
-        subscribedTopics: new Set(),
-        pongReceived: true,
-        blockedMessages: [],
-      };
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
 
@@ -179,7 +169,6 @@ describe("WebSocketHandler", () => {
 
     it("should cleanup ping timeout on close", () => {
       vi.useFakeTimers();
-      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
