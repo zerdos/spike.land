@@ -9,8 +9,8 @@ if (typeof process !== "undefined" && process.setMaxListeners) {
 afterAll(() => {
   // Force cleanup of any remaining timers
   if (typeof global.clearInterval === "function") {
-    // Clear all intervals from 1 to 10000 (brute force cleanup)
-    for (let i = 1; i < 10000; i++) {
+    // Clear all intervals from 1 to MAX_TIMER_ID (brute force cleanup)
+    for (let i = 1; i < MAX_TIMER_ID; i++) {
       try {
         clearInterval(i);
       } catch {
