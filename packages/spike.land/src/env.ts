@@ -18,4 +18,5 @@ export default interface Env {
   LIMITERS: DurableObjectNamespace;
   R2: R2Bucket;
   X9: R2Bucket;
+  DISABLE_AI_TOOLS?: string; // Set to "true" to disable AI tools (workaround for AI SDK v4 issue)
 }
