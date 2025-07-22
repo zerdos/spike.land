@@ -33,6 +33,14 @@ export class PostHandler {
     const requestId = crypto.randomUUID();
 
     try {
+      // Log incoming request details for debugging
+      console.log(`[AI Routes][${requestId}] Incoming request:`, {
+        method: request.method,
+        url: request.url,
+        contentType: request.headers.get("content-type"),
+        contentLength: request.headers.get("content-length"),
+      });
+
       // Validate request size
       const contentLength = request.headers.get("content-length");
       if (contentLength && parseInt(contentLength) > 10 * 1024 * 1024) { // 10MB limit
@@ -42,6 +50,10 @@ export class PostHandler {
       const body = await this.parseRequestBody(request);
 
       // Validate and clean tools in the request body
+      // NOTE: There's a known issue with AI SDK v4 when using Claude Sonnet 4
+      // The tool() helper generates input_schema.type: "string" instead of "object"
+      // See: https://github.com/vercel/ai/issues/7333
+      // Workaround: Use direct JSON schema format instead of the tool() helper
       if (body.tools) {
         console.log(
           `[AI Routes][${requestId}] Request contains tools:`,
@@ -74,7 +86,12 @@ export class PostHandler {
               if ("input_schema" in toolObj && toolObj.input_schema && typeof toolObj.input_schema === "object") {
                 const schema = toolObj.input_schema as Record<string, unknown>;
                 if ("type" in schema && schema.type !== "object") {
-                  invalidTools.push({ index, reason: "input_schema.type is not 'object'", value: schema.type });
+                  invalidTools.push({ 
+                    index, 
+                    reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)", 
+                    value: schema.type,
+                    note: "See https://github.com/vercel/ai/issues/7333"
+                  });
                 }
               }
             }
@@ -84,6 +101,7 @@ export class PostHandler {
             console.warn(
               `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid schemas:`,
               invalidTools,
+              "\nThis is a known issue with AI SDK v4 and Claude Sonnet 4. Tools should use direct JSON schema format instead of the tool() helper.",
             );
           }
         }
