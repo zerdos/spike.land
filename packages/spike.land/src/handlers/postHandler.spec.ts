@@ -301,12 +301,14 @@ describe("PostHandler", () => {
       );
     });
 
-    it("should warn about invalid tool schemas", async () => {
+    it("should warn about invalid tool schemas with direct input_schema", async () => {
       const consoleWarnSpy = vi.spyOn(console, "warn");
       const requestBody: PostRequestBody = {
         messages: [{ role: "user", content: "Hello" }],
         tools: [
           { input_schema: { type: "string" } },
+          { input_schema: { type: "number" } },
+          { input_schema: { type: "object" } }, // Valid, should not be warned
         ],
       };
 
@@ -319,9 +321,169 @@ describe("PostHandler", () => {
       await postHandler.handle(mockRequest, mockUrl);
 
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining(
-          'Found 1 tools with invalid input_schema.type="string"',
-        ),
+        expect.stringContaining("Found 2 tools with invalid schemas:"),
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: 0,
+            reason: "input_schema.type is not 'object'",
+            value: "string",
+          }),
+          expect.objectContaining({
+            index: 1,
+            reason: "input_schema.type is not 'object'",
+            value: "number",
+          }),
+        ]),
+      );
+    });
+
+    it("should warn about invalid tool schemas with custom.input_schema pattern", async () => {
+      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const requestBody: PostRequestBody = {
+        messages: [{ role: "user", content: "Hello" }],
+        tools: [
+          {
+            custom: {
+              input_schema: { type: "string" },
+            },
+          },
+          {
+            custom: {
+              input_schema: { type: "object" }, // Valid
+            },
+          },
+        ],
+      };
+
+      mockRequest = new Request("https://test.spike.land/api/post", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+
+      await postHandler.handle(mockRequest, mockUrl);
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Found 1 tools with invalid schemas:"),
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: 0,
+            reason: "custom.input_schema.type is not 'object'",
+            value: "string",
+          }),
+        ]),
+      );
+    });
+
+    it("should handle tools with mixed valid and invalid schemas", async () => {
+      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const consoleLogSpy = vi.spyOn(console, "log");
+      const requestBody: PostRequestBody = {
+        messages: [{ role: "user", content: "Hello" }],
+        tools: [
+          { name: "tool1", input_schema: { type: "object" } }, // Valid
+          { name: "tool2", input_schema: { type: "string" } }, // Invalid direct
+          {
+            name: "tool3",
+            custom: {
+              input_schema: { type: "boolean" }, // Invalid custom
+            },
+          },
+          {
+            name: "tool4",
+            custom: {
+              input_schema: { type: "object" }, // Valid custom
+            },
+            input_schema: { type: "array" }, // Invalid direct (both patterns)
+          },
+        ],
+      };
+
+      mockRequest = new Request("https://test.spike.land/api/post", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+
+      await postHandler.handle(mockRequest, mockUrl);
+
+      expect(consoleLogSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Request contains tools:"),
+        "Array with 4 tools",
+      );
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Found 3 tools with invalid schemas:"),
+        expect.arrayContaining([
+          expect.objectContaining({
+            index: 1,
+            reason: "input_schema.type is not 'object'",
+            value: "string",
+          }),
+          expect.objectContaining({
+            index: 2,
+            reason: "custom.input_schema.type is not 'object'",
+            value: "boolean",
+          }),
+          expect.objectContaining({
+            index: 3,
+            reason: "input_schema.type is not 'object'",
+            value: "array",
+          }),
+        ]),
+      );
+    });
+
+    it("should handle tools as object instead of array", async () => {
+      const consoleLogSpy = vi.spyOn(console, "log");
+      const requestBody: PostRequestBody = {
+        messages: [{ role: "user", content: "Hello" }],
+        tools: {
+          tool1: { input_schema: { type: "object" } },
+          tool2: { input_schema: { type: "string" } },
+        },
+      };
+
+      mockRequest = new Request("https://test.spike.land/api/post", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+
+      await postHandler.handle(mockRequest, mockUrl);
+
+      expect(consoleLogSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Request contains tools:"),
+        "Object with keys: tool1, tool2",
+      );
+    });
+
+    it("should not warn when no invalid tools are present", async () => {
+      const consoleWarnSpy = vi.spyOn(console, "warn");
+      const requestBody: PostRequestBody = {
+        messages: [{ role: "user", content: "Hello" }],
+        tools: [
+          { name: "tool1", input_schema: { type: "object" } },
+          {
+            name: "tool2",
+            custom: {
+              input_schema: { type: "object" },
+            },
+          },
+        ],
+      };
+
+      mockRequest = new Request("https://test.spike.land/api/post", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+
+      await postHandler.handle(mockRequest, mockUrl);
+
+      expect(consoleWarnSpy).not.toHaveBeenCalledWith(
+        expect.stringContaining("Found"),
+        expect.anything(),
       );
     });
 
