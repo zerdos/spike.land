@@ -6,6 +6,7 @@ export default defineWorkersConfig({
   test: {
     reporters: ["hanging-process", "dot"],
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    setupFiles: ["./vitest.setup.ts"],
     poolOptions: {
       workers: {
         wrangler: {
