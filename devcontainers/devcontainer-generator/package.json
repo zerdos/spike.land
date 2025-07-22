@@ -18,8 +18,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "24.0.14",
-    "esbuild": "0.25.6",
+    "@types/node": "24.0.15",
+    "esbuild": "0.25.8",
     "typescript": "5.8.3"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"

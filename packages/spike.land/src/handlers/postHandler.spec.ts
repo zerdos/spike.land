@@ -11,13 +11,8 @@ import { StorageService } from "../services/storageService";
 import type { PostRequestBody } from "../types/aiRoutes";
 import { PostHandler } from "./postHandler";
 
-// Type aliases for cleaner code
-type MockTool = {
-  parameters: Record<string, unknown>;
-  execute?: (args: unknown) => Promise<unknown>;
-};
-type MockToolSet = Record<string, MockTool>;
-type StreamResult = StreamTextResult<MockToolSet, unknown>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type StreamResult = StreamTextResult<any, unknown>;
 
 // Mock all external dependencies
 vi.mock("@ai-sdk/anthropic");
@@ -183,7 +178,8 @@ describe("PostHandler", () => {
         experimental_usage: {},
       } as unknown as StreamResult;
 
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
 
       // Mock createAnthropic to return a proper AnthropicProvider
       const mockTools = createMockTools();
@@ -198,7 +194,7 @@ describe("PostHandler", () => {
           textEmbeddingModel: vi.fn(),
         },
       ) as unknown as AnthropicProvider;
-      
+
       vi.mocked(createAnthropic).mockReturnValue(anthropicProvider);
     });
 
@@ -852,7 +848,8 @@ describe("PostHandler", () => {
         experimental_telemetry: {},
         experimental_usage: {},
       } as unknown as StreamResult;
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
 
       const anthropicProvider = vi.fn().mockReturnValue(
         "claude-4-sonnet-20250514",
@@ -953,7 +950,8 @@ describe("PostHandler", () => {
         experimental_telemetry: {},
         experimental_usage: {},
       } as unknown as StreamResult;
-      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse as any);
 
       // Mock createAnthropic properly
       const anthropicProvider = vi.fn().mockReturnValue(

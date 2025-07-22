@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.8.55",
-    "@cloudflare/workers-types": "4.20250718.0",
-    "@types/node": "24.0.14",
+    "@cloudflare/workers-types": "4.20250722.0",
+    "@types/node": "24.0.15",
     "@vitest/runner": "3.2.4",
     "@vitest/snapshot": "3.2.4",
     "rimraf": "6.0.1",
