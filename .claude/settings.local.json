@@ -36,7 +36,8 @@
       "Bash(npm info:*)",
       "Bash(NODE_OPTIONS=\"--max-old-space-size=4096 --no-warnings\" yarn test)",
       "Bash(gh pr create:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(git cherry-pick:*)"
     ],
     "deny": []
   }

@@ -371,13 +371,22 @@ export class PostHandler {
         execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
       }>);
 
+      // Check if we should disable tools due to AI SDK compatibility issues
+      const disableTools = this.env.DISABLE_AI_TOOLS === "true";
+      
+      if (disableTools) {
+        console.warn(
+          `[AI Routes][${requestId}] AI tools are disabled via DISABLE_AI_TOOLS environment variable`,
+        );
+      }
+
       const result = await streamText({
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: processedTools,
-        toolChoice: "auto",
-        maxSteps: 10,
+        tools: disableTools ? undefined : processedTools,
+        toolChoice: disableTools ? undefined : "auto",
+        maxSteps: disableTools ? undefined : 10,
         onStepFinish: async ({ stepType, toolResults }) => {
           if (stepType === "tool-result" && toolResults) {
             try {
