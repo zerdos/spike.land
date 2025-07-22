@@ -1,6 +1,6 @@
 import type { ICodeSession } from "@spike-npm-land/code";
 import { computeSessionHash } from "@spike-npm-land/code";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Mock } from "vitest";
 import type { Code } from "./chatRoom";
 import { WebSocketHandler } from "./websocketHandler";
@@ -18,9 +18,20 @@ describe("WebSocketHandler", () => {
     codeSpace: "codeSpace",
   };
 
+  // Increase max listeners for tests to prevent warnings
+  const originalMaxListeners = process.getMaxListeners();
+  beforeAll(() => {
+    process.setMaxListeners(50);
+  });
+
+  afterAll(() => {
+    process.setMaxListeners(originalMaxListeners);
+  });
+
   beforeEach(() => {
-    // Reset all mocks
+    // Reset all mocks and timers
     vi.resetAllMocks();
+    vi.clearAllTimers();
 
     // Mock the Code object
     mockCode = {
@@ -62,6 +73,26 @@ describe("WebSocketHandler", () => {
     websocketHandler = new WebSocketHandler(mockCode as Code);
   });
 
+  afterEach(() => {
+    // Clean up any remaining WebSocket sessions
+    const sessions = websocketHandler.getWsSessions();
+    sessions.forEach(session => {
+      session.quit = true;
+      if (session.webSocket && typeof session.webSocket.close === "function") {
+        session.webSocket.close();
+      }
+    });
+    // Clear the sessions array
+    sessions.length = 0;
+  });
+
+  afterEach(() => {
+    // Clear all timers to prevent memory leaks
+    vi.clearAllTimers();
+    // Ensure we're back to real timers
+    vi.useRealTimers();
+  });
+
   describe("handleWebsocketSession", () => {
     it("should accept the websocket and send initial handshake", () => {
       websocketHandler.handleWebsocketSession(mockWebSocket);
@@ -79,6 +110,7 @@ describe("WebSocketHandler", () => {
 
     it("should schedule periodic ping", () => {
       vi.useFakeTimers();
+      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
 
       const _mockSession = {
         webSocket: mockWebSocket,
@@ -140,11 +172,14 @@ describe("WebSocketHandler", () => {
         expect.stringContaining('"type":"ping"'),
       );
 
+      // Clear all timers before restoring
+      vi.clearAllTimers();
       vi.useRealTimers();
     });
 
     it("should cleanup ping timeout on close", () => {
       vi.useFakeTimers();
+      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
@@ -164,6 +199,8 @@ describe("WebSocketHandler", () => {
       expect(session.quit).toBe(true);
       expect(websocketHandler.getWsSessions().length).toBe(0);
 
+      // Clear all timers before restoring
+      vi.clearAllTimers();
       vi.useRealTimers();
     });
   });

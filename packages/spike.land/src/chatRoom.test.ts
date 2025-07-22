@@ -113,6 +113,7 @@ describe("Code Durable Object", () => {
   });
 
   afterEach(() => {
+    vi.clearAllTimers();
     vi.restoreAllMocks();
   });
 
@@ -129,7 +130,9 @@ describe("Code Durable Object", () => {
       expect(response).toBeDefined(); // Ensure fetch completes successfully
 
       // Wait a bit to ensure async operations complete
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await vi.waitFor(() => {
+        return (mockState.storage.put as ReturnType<typeof vi.fn>).mock.calls.length > 0;
+      }, { timeout: 200 });
 
       const expectedSessionCore = {
         codeSpace: roomName,

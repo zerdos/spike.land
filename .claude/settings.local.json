@@ -33,7 +33,8 @@
       "Bash(yarn tsc:*)",
       "Bash(yarn list:*)",
       "Bash(yarn explain:*)",
-      "Bash(npm info:*)"
+      "Bash(npm info:*)",
+      "Bash(NODE_OPTIONS=\"--max-old-space-size=4096 --no-warnings\" yarn test)"
     ],
     "deny": []
   }
