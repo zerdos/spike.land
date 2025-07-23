@@ -1,29 +1,39 @@
-import { createAnthropic } from "@ai-sdk/anthropic";
-import { streamText } from "ai";
+import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
+import { streamText, type StreamTextResult } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
+import { StorageService } from "../services/storageService";
 import { PostHandler } from "./postHandler";
 
 // Mock dependencies
 vi.mock("@ai-sdk/anthropic");
 vi.mock("ai");
-vi.mock("../services/storageService", () => ({
-  StorageService: vi.fn().mockImplementation(() => ({
-    saveRequestBody: vi.fn().mockResolvedValue(undefined),
-  })),
-}));
+vi.mock("../services/storageService");
 
 describe("PostHandler - Tool Schema Validation", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
+  let mockStreamResponse: StreamTextResult<any, unknown>;
+  let mockToDataStreamResponse: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     // Reset mocks
     vi.clearAllMocks();
+    
+    // Setup mock stream response
+    mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
+    mockStreamResponse = {
+      toDataStreamResponse: mockToDataStreamResponse,
+      warnings: [],
+      usage: {},
+      experimental_providerMetadata: undefined,
+    } as unknown as StreamTextResult<any, unknown>;
+    
+    // Default mock for streamText
+    vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
     // Setup mock environment
     mockEnv = {
@@ -74,7 +84,13 @@ describe("PostHandler - Tool Schema Validation", () => {
         executeTool: vi.fn(),
       }),
     } as unknown as Code;
-
+    
+    // Mock StorageService
+    const mockStorageService = {
+      saveRequestBody: vi.fn().mockResolvedValue(undefined),
+    };
+    vi.mocked(StorageService).mockImplementation(() => mockStorageService as any);
+    
     postHandler = new PostHandler(mockCode, mockEnv);
   });
 
@@ -95,16 +111,14 @@ describe("PostHandler - Tool Schema Validation", () => {
       let capturedTools: Record<string, any> | undefined;
       
       // Mock streamText to capture the tools being passed
-      vi.mocked(streamText).mockImplementation(async (options: any) => {
+      vi.mocked(streamText).mockImplementation(((options: any) => {
         capturedTools = options.tools;
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+        return Promise.resolve(mockStreamResponse);
+      }) as any);
 
-      // Mock createAnthropic to return a function that returns a model identifier
-      const mockModel = "claude-4-sonnet-20250514";
-      vi.mocked(createAnthropic).mockReturnValue(() => mockModel);
+      // Mock createAnthropic to return a provider
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -124,7 +138,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       expect(typeof capturedTools).toBe("object");
       
       // Each tool should have description, parameters (Zod schema), and execute function
-      Object.entries(capturedTools!).forEach(([toolName, tool]: [string, any]) => {
+      Object.entries(capturedTools!).forEach(([_toolName, tool]: [string, any]) => {
         expect(tool).toHaveProperty("description");
         expect(tool).toHaveProperty("parameters");
         expect(tool).toHaveProperty("execute");
@@ -192,14 +206,13 @@ describe("PostHandler - Tool Schema Validation", () => {
       mockEnv.DISABLE_AI_TOOLS = "true";
       
       let capturedOptions: any;
-      vi.mocked(streamText).mockImplementation(async (options: any) => {
+      vi.mocked(streamText).mockImplementation(((options: any) => {
         capturedOptions = options;
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+        return Promise.resolve(mockStreamResponse);
+      }) as any);
 
-      vi.mocked(createAnthropic).mockReturnValue(() => "claude-4-sonnet-20250514");
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -222,14 +235,13 @@ describe("PostHandler - Tool Schema Validation", () => {
     it("should not wrap tools in 'custom' property", async () => {
       let capturedTools: any;
       
-      vi.mocked(streamText).mockImplementation(async (options: any) => {
+      vi.mocked(streamText).mockImplementation(((options: any) => {
         capturedTools = options.tools;
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+        return Promise.resolve(mockStreamResponse);
+      }) as any);
 
-      vi.mocked(createAnthropic).mockReturnValue(() => "claude-4-sonnet-20250514");
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -252,14 +264,13 @@ describe("PostHandler - Tool Schema Validation", () => {
     it("should create valid tool execute functions", async () => {
       let capturedTools: any;
       
-      vi.mocked(streamText).mockImplementation(async (options: any) => {
+      vi.mocked(streamText).mockImplementation(((options: any) => {
         capturedTools = options.tools;
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+        return Promise.resolve(mockStreamResponse);
+      }) as any);
 
-      vi.mocked(createAnthropic).mockReturnValue(() => "claude-4-sonnet-20250514");
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       // Mock executeTool to return a response
       const mockExecuteTool = vi.fn().mockResolvedValue({ success: true });
@@ -289,13 +300,10 @@ describe("PostHandler - Tool Schema Validation", () => {
     it("should validate tool schemas before sending to streamText", async () => {
       const consoleSpy = vi.spyOn(console, "log");
       
-      vi.mocked(streamText).mockImplementation(async () => {
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      vi.mocked(createAnthropic).mockReturnValue(() => "claude-4-sonnet-20250514");
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -334,13 +342,10 @@ describe("PostHandler - Tool Schema Validation", () => {
         inputSchema: undefined as any,
       });
 
-      vi.mocked(streamText).mockImplementation(async () => {
-        return {
-          toDataStreamResponse: vi.fn().mockReturnValue(new Response()),
-        } as any;
-      });
+      vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      vi.mocked(createAnthropic).mockReturnValue(() => "claude-4-sonnet-20250514");
+      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
