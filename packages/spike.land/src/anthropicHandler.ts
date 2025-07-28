@@ -26,15 +26,16 @@ export async function handleAnthropicRequest(
 
     // Clone request to ensure body stream can be consumed
     const clonedRequest = originalRequest.clone();
-    
+
     // Log the request body to debug tool format issues
     if (clonedRequest.method === "POST") {
       try {
         const bodyText = await clonedRequest.clone().text();
         const bodyJson = JSON.parse(bodyText);
         if (bodyJson.tools) {
-          console.log("[Anthropic Proxy] Request contains tools:", 
-            JSON.stringify(bodyJson.tools, null, 2)
+          console.log(
+            "[Anthropic Proxy] Request contains tools:",
+            JSON.stringify(bodyJson.tools, null, 2),
           );
         }
       } catch (_e) {
