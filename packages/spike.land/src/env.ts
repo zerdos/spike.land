@@ -19,4 +19,5 @@ export default interface Env {
   R2: R2Bucket;
   X9: R2Bucket;
   DISABLE_AI_TOOLS?: string; // Set to "true" to disable AI tools (workaround for AI SDK v4 issue)
+  DEBUG_ANTHROPIC_PROXY?: string; // Set to "true" to enable debug logging in Anthropic proxy
 }

@@ -65,38 +65,49 @@ export class PostHandler {
         // Check for various invalid tool formats and clean them
         if (Array.isArray(body.tools)) {
           const invalidTools: unknown[] = [];
-          
+
           body.tools.forEach((tool: unknown, index: number) => {
             // Check for tools with invalid schema formats
             if (tool && typeof tool === "object") {
               const toolObj = tool as Record<string, unknown>;
-              
+
               // Check for custom.input_schema pattern (AI SDK format)
               if ("custom" in toolObj && toolObj.custom && typeof toolObj.custom === "object") {
                 const custom = toolObj.custom as Record<string, unknown>;
-                if ("input_schema" in custom && custom.input_schema && typeof custom.input_schema === "object") {
+                if (
+                  "input_schema" in custom && custom.input_schema &&
+                  typeof custom.input_schema === "object"
+                ) {
                   const schema = custom.input_schema as Record<string, unknown>;
                   if ("type" in schema && schema.type !== "object") {
-                    invalidTools.push({ index, reason: "custom.input_schema.type is not 'object'", value: schema.type });
+                    invalidTools.push({
+                      index,
+                      reason: "custom.input_schema.type is not 'object'",
+                      value: schema.type,
+                    });
                   }
                 }
               }
-              
+
               // Check for direct input_schema pattern
-              if ("input_schema" in toolObj && toolObj.input_schema && typeof toolObj.input_schema === "object") {
+              if (
+                "input_schema" in toolObj && toolObj.input_schema &&
+                typeof toolObj.input_schema === "object"
+              ) {
                 const schema = toolObj.input_schema as Record<string, unknown>;
                 if ("type" in schema && schema.type !== "object") {
-                  invalidTools.push({ 
-                    index, 
-                    reason: "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)", 
+                  invalidTools.push({
+                    index,
+                    reason:
+                      "input_schema.type is not 'object' (AI SDK v4 issue with Claude Sonnet 4)",
                     value: schema.type,
-                    note: "See https://github.com/vercel/ai/issues/7333"
+                    note: "See https://github.com/vercel/ai/issues/7333",
                   });
                 }
               }
             }
           });
-          
+
           if (invalidTools.length > 0) {
             console.warn(
               `[AI Routes][${requestId}] Found ${invalidTools.length} tools with invalid schemas:`,
@@ -373,7 +384,7 @@ export class PostHandler {
 
       // Check if we should disable tools due to AI SDK compatibility issues
       const disableTools = this.env.DISABLE_AI_TOOLS === "true";
-      
+
       if (disableTools) {
         console.warn(
           `[AI Routes][${requestId}] AI tools are disabled via DISABLE_AI_TOOLS environment variable`,
@@ -387,7 +398,7 @@ export class PostHandler {
         tools: disableTools ? undefined : processedTools,
         toolChoice: disableTools ? undefined : "auto",
         maxSteps: disableTools ? undefined : 10,
-        onStepFinish: async ({ stepType, toolResults }) => {
+        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }) => {
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original

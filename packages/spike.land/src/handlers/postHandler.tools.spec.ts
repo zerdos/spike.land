@@ -22,7 +22,7 @@ describe("PostHandler - Tool Schema Validation", () => {
   beforeEach(() => {
     // Reset mocks
     vi.clearAllMocks();
-    
+
     // Setup mock stream response
     mockToDataStreamResponse = vi.fn().mockReturnValue(new Response("stream"));
     mockStreamResponse = {
@@ -31,7 +31,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       usage: {},
       experimental_providerMetadata: undefined,
     } as unknown as StreamTextResult<any, unknown>;
-    
+
     // Default mock for streamText
     vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
@@ -84,13 +84,13 @@ describe("PostHandler - Tool Schema Validation", () => {
         executeTool: vi.fn(),
       }),
     } as unknown as Code;
-    
+
     // Mock StorageService
     const mockStorageService = {
       saveRequestBody: vi.fn().mockResolvedValue(undefined),
     };
     vi.mocked(StorageService).mockImplementation(() => mockStorageService as any);
-    
+
     postHandler = new PostHandler(mockCode, mockEnv);
   });
 
@@ -109,15 +109,19 @@ describe("PostHandler - Tool Schema Validation", () => {
 
     it("should convert tools to correct format for AI SDK", async () => {
       let capturedTools: Record<string, any> | undefined;
-      
+
       // Mock streamText to capture the tools being passed
-      vi.mocked(streamText).mockImplementation(((options: any) => {
-        capturedTools = options.tools;
-        return Promise.resolve(mockStreamResponse);
-      }) as any);
+      vi.mocked(streamText).mockImplementation(
+        ((options: any) => {
+          capturedTools = options.tools;
+          return Promise.resolve(mockStreamResponse);
+        }) as any,
+      );
 
       // Mock createAnthropic to return a provider
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
@@ -132,11 +136,11 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Verify streamText was called
       expect(streamText).toHaveBeenCalled();
-      
+
       // Verify tools were passed in the correct format
       expect(capturedTools).toBeDefined();
       expect(typeof capturedTools).toBe("object");
-      
+
       // Each tool should have description, parameters (Zod schema), and execute function
       Object.entries(capturedTools!).forEach(([_toolName, tool]: [string, any]) => {
         expect(tool).toHaveProperty("description");
@@ -147,26 +151,28 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it("should validate that Zod schemas are created from inputSchema", async () => {
-      const JsonSchemaToZodConverter = await import("../utils/jsonSchemaToZod").then(m => m.JsonSchemaToZodConverter);
+      const JsonSchemaToZodConverter = await import("../utils/jsonSchemaToZod").then(m =>
+        m.JsonSchemaToZodConverter
+      );
       const converter = new JsonSchemaToZodConverter();
-      
+
       const mcpServer = mockCode.getMcpServer();
       const tools = mcpServer.tools;
 
       tools.forEach((tool) => {
         const zodSchema = converter.convert(tool.inputSchema);
-        
+
         // Verify the Zod schema is created correctly
         expect(zodSchema).toBeDefined();
         expect(zodSchema._def).toBeDefined(); // Zod internal structure
-        
+
         // Test parsing with valid data
-        const validData = tool.name === "read_code" 
+        const validData = tool.name === "read_code"
           ? { codeSpace: "test" }
           : { codeSpace: "test", code: "console.log('hello')" };
-          
+
         expect(() => zodSchema.parse(validData)).not.toThrow();
-        
+
         // Test parsing with invalid data (missing required fields)
         expect(() => zodSchema.parse({})).toThrow();
       });
@@ -195,7 +201,9 @@ describe("PostHandler - Tool Schema Validation", () => {
         // This is the validation that should prevent the error
         expect(() => {
           if (tool.inputSchema.type !== "object") {
-            throw new Error(`Tool ${tool.name} has invalid inputSchema.type: ${tool.inputSchema.type}. Must be 'object'`);
+            throw new Error(
+              `Tool ${tool.name} has invalid inputSchema.type: ${tool.inputSchema.type}. Must be 'object'`,
+            );
           }
         }).toThrow();
       });
@@ -204,14 +212,18 @@ describe("PostHandler - Tool Schema Validation", () => {
     it("should handle DISABLE_AI_TOOLS environment variable", async () => {
       // Set the environment variable
       mockEnv.DISABLE_AI_TOOLS = "true";
-      
-      let capturedOptions: any;
-      vi.mocked(streamText).mockImplementation(((options: any) => {
-        capturedOptions = options;
-        return Promise.resolve(mockStreamResponse);
-      }) as any);
 
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      let capturedOptions: any;
+      vi.mocked(streamText).mockImplementation(
+        ((options: any) => {
+          capturedOptions = options;
+          return Promise.resolve(mockStreamResponse);
+        }) as any,
+      );
+
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
@@ -234,13 +246,17 @@ describe("PostHandler - Tool Schema Validation", () => {
   describe("Tool Format Sent to API", () => {
     it("should not wrap tools in 'custom' property", async () => {
       let capturedTools: any;
-      
-      vi.mocked(streamText).mockImplementation(((options: any) => {
-        capturedTools = options.tools;
-        return Promise.resolve(mockStreamResponse);
-      }) as any);
 
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(streamText).mockImplementation(
+        ((options: any) => {
+          capturedTools = options.tools;
+          return Promise.resolve(mockStreamResponse);
+        }) as any,
+      );
+
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
@@ -263,13 +279,17 @@ describe("PostHandler - Tool Schema Validation", () => {
 
     it("should create valid tool execute functions", async () => {
       let capturedTools: any;
-      
-      vi.mocked(streamText).mockImplementation(((options: any) => {
-        capturedTools = options.tools;
-        return Promise.resolve(mockStreamResponse);
-      }) as any);
 
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      vi.mocked(streamText).mockImplementation(
+        ((options: any) => {
+          capturedTools = options.tools;
+          return Promise.resolve(mockStreamResponse);
+        }) as any,
+      );
+
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       // Mock executeTool to return a response
@@ -299,10 +319,12 @@ describe("PostHandler - Tool Schema Validation", () => {
   describe("Schema Validation Before API Call", () => {
     it("should validate tool schemas before sending to streamText", async () => {
       const consoleSpy = vi.spyOn(console, "log");
-      
+
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
@@ -317,10 +339,10 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Check that tool processing logs show correct schema type
       // The actual log message is "[AI Routes][requestId] Processing tool 'toolname':"
-      const toolLogs = consoleSpy.mock.calls.filter(call => 
+      const toolLogs = consoleSpy.mock.calls.filter(call =>
         typeof call[0] === "string" && call[0].includes("Processing tool")
       );
-      
+
       expect(toolLogs.length).toBeGreaterThan(0);
       toolLogs.forEach(log => {
         // The log data is in the second argument
@@ -333,7 +355,7 @@ describe("PostHandler - Tool Schema Validation", () => {
 
     it("should skip tools without inputSchema", async () => {
       const consoleWarnSpy = vi.spyOn(console, "warn");
-      
+
       // Add a tool without inputSchema
       const tools = mockCode.getMcpServer().tools;
       tools.push({
@@ -344,7 +366,9 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
 
-      const mockProvider = vi.fn(() => ({ id: "claude-4-sonnet-20250514" })) as unknown as AnthropicProvider;
+      const mockProvider = vi.fn(() => ({
+        id: "claude-4-sonnet-20250514",
+      })) as unknown as AnthropicProvider;
       vi.mocked(createAnthropic).mockReturnValue(mockProvider);
 
       const request = new Request("https://test.spike.land/api/post", {
@@ -359,9 +383,10 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Verify warning was logged - check all warn calls
       const warnCalls = consoleWarnSpy.mock.calls;
-      const hasExpectedWarning = warnCalls.some(call => 
-        call.some(arg => 
-          typeof arg === "string" && arg.includes("Tool 'invalid_tool' has no inputSchema, skipping")
+      const hasExpectedWarning = warnCalls.some(call =>
+        call.some(arg =>
+          typeof arg === "string" &&
+          arg.includes("Tool 'invalid_tool' has no inputSchema, skipping")
         )
       );
       expect(hasExpectedWarning).toBe(true);
