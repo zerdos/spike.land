@@ -398,7 +398,7 @@ export class PostHandler {
         tools: disableTools ? undefined : processedTools,
         toolChoice: disableTools ? undefined : "auto",
         maxSteps: disableTools ? undefined : 10,
-        onStepFinish: async ({ stepType, toolResults }) => {
+        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }) => {
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original

@@ -96,3 +96,4 @@ When completing any development task:
 - **AI SDK v4 tool compatibility with Claude Sonnet 4**: The AI SDK v4 has a known issue where the `tool()` helper generates incorrect schema format for Claude. See https://github.com/vercel/ai/issues/7333
   - **Workaround**: Set `DISABLE_AI_TOOLS=true` in your environment variables to disable tools temporarily
   - **Alternative**: Use direct JSON schema format instead of the AI SDK's `tool()` helper
+  - **Debug Mode**: Set `DEBUG_ANTHROPIC_PROXY=true` to enable debug logging for Anthropic proxy requests
