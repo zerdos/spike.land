@@ -349,7 +349,16 @@ export class PostHandler {
           },
         );
 
+        // Validate that the inputSchema has type: 'object'
+        if (tool.inputSchema.type !== "object") {
+          console.error(
+            `[AI Routes][${requestId}] Tool '${tool.name}' has invalid inputSchema.type: '${tool.inputSchema.type}', expected 'object'`,
+          );
+          return acc;
+        }
+
         // Convert JSON Schema to Zod schema for AI SDK
+        // The AI SDK requires Zod schemas for tool parameters
         const zodSchema = this.schemaConverter.convert(tool.inputSchema);
 
         acc[tool.name] = {
@@ -389,6 +398,27 @@ export class PostHandler {
         console.warn(
           `[AI Routes][${requestId}] AI tools are disabled via DISABLE_AI_TOOLS environment variable`,
         );
+      }
+
+      // Log the tools being sent to debug the format issue
+      if (!disableTools && processedTools) {
+        console.log(
+          `[AI Routes][${requestId}] Sending tools to streamText:`,
+          JSON.stringify(Object.keys(processedTools)),
+        );
+        
+        // Enable debug mode for Anthropic proxy if needed
+        if (this.env.DEBUG_ANTHROPIC_PROXY === "true") {
+          console.log(
+            `[AI Routes][${requestId}] Full tools object:`,
+            JSON.stringify(processedTools, (key, value) => {
+              if (key === "execute" || key === "parameters") {
+                return "[Function/Schema]";
+              }
+              return value;
+            }, 2),
+          );
+        }
       }
 
       const result = await streamText({

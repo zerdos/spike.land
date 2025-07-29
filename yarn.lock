@@ -3775,7 +3775,7 @@ __metadata:
     window-async-local-storage: "npm:1.1.0"
     workbox-window: "npm:7.3.0"
     worker-rpc: "npm:0.2.0"
-    zod: "npm:4.0.13"
+    zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
@@ -3920,7 +3920,7 @@ __metadata:
     rollup: "npm:4.46.1"
     typescript: "npm:5.8.3"
     vitest: "npm:3.2.4"
-    zod: "npm:4.0.13"
+    zod: "npm:^3.23.8"
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
@@ -15243,17 +15243,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:4.0.13, zod@npm:^4.0.10":
-  version: 4.0.13
-  resolution: "zod@npm:4.0.13"
-  checksum: 10c0/e0e3dd3680bcf21fd550ee9777b39ef3c2e06376aab73e713afe82938f5f00c319ca1df20c66480789168bfce4251dc9f7e6aa80021de42857cc6384042b7413
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.22.3, zod@npm:^3.24.2, zod@npm:^3.25.67":
+"zod@npm:^3.22.3, zod@npm:^3.23.8, zod@npm:^3.24.2, zod@npm:^3.25.67":
   version: 3.25.76
   resolution: "zod@npm:3.25.76"
   checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
+  languageName: node
+  linkType: hard
+
+"zod@npm:^4.0.10":
+  version: 4.0.13
+  resolution: "zod@npm:4.0.13"
+  checksum: 10c0/e0e3dd3680bcf21fd550ee9777b39ef3c2e06376aab73e713afe82938f5f00c319ca1df20c66480789168bfce4251dc9f7e6aa80021de42857cc6384042b7413
   languageName: node
   linkType: hard
 
