@@ -1,12 +1,10 @@
-import { Thread } from "@/components/assistant-ui/thread";
 import { Bot } from "@/external/lucide-react";
 import type { ICode } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { AssistantRuntimeProvider } from "@assistant-ui/react";
-import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
-// Removed unused Message import
+import type { Message } from "ai";
+import { AssistantUIChat } from "./assistant-ui-chat";
 
 interface AssistantUIDrawerProps {
   isOpen: boolean;
@@ -18,14 +16,32 @@ interface AssistantUIDrawerProps {
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess }) => {
     const codeSpace = _cSess.getCodeSpace();
+    const [messagesLoaded, setMessagesLoaded] = useState(false);
+    const [savedMessages, setSavedMessages] = useState<Message[]>([]);
 
-    // Create runtime using AI SDK with a custom API endpoint
-    // Note: useChatRuntime manages its own message state internally
-    // It doesn't load initial messages from the server - it starts with an empty conversation
-    // Messages are persisted on the server via the POST endpoint when they are sent
-    const runtime = useChatRuntime({
-      api: `/live/${codeSpace}/messages`,
-    });
+    // Load existing messages when drawer opens
+    useEffect(() => {
+      if (isOpen && !messagesLoaded) {
+        const loadMessages = async () => {
+          try {
+            const response = await fetch(`/live/${codeSpace}/messages`);
+            if (response.ok) {
+              const data = await response.json();
+              if (data.messages && Array.isArray(data.messages)) {
+                setSavedMessages(data.messages);
+              }
+            }
+          } catch (error) {
+            console.error("Failed to load messages:", error);
+          } finally {
+            setMessagesLoaded(true);
+          }
+        };
+        
+        loadMessages();
+      }
+    }, [isOpen, codeSpace, messagesLoaded]);
+
 
     // Sync dark mode with Assistant UI
     useEffect(() => {
@@ -102,9 +118,16 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
               </div>
 
               {/* Assistant UI Thread */}
-              <AssistantRuntimeProvider runtime={runtime}>
-                <Thread />
-              </AssistantRuntimeProvider>
+              {messagesLoaded ? (
+                <AssistantUIChat 
+                  codeSpace={codeSpace} 
+                  initialMessages={savedMessages} 
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-gray-500">Loading messages...</div>
+                </div>
+              )}
             </div>
           </Drawer.Content>
         </Drawer.Portal>
