@@ -1,7 +1,6 @@
 import { StartWithPrompt } from "@/components/ui/start-with-prompt";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
-import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -13,15 +12,12 @@ vi.mock("@/hooks/use-dark-mode");
 vi.mock("@/hooks/use-dictation");
 vi.mock("@/lib/md5");
 vi.mock("@/lib/process-image");
-<<<<<<< HEAD
 vi.mock("framer-motion", () => ({
   motion: {
     img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => <img {...props}>{children}</img>,
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
 }));
-=======
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
 
 // Mock location
 const mockLocation = {
@@ -46,29 +42,21 @@ describe("StartWithPrompt Integration Flow", () => {
       toggleDarkMode: vi.fn(),
     });
 
-<<<<<<< HEAD
     // Default mock for useDictation - will be overridden in individual tests
     vi.mocked(useDictation).mockReturnValue(["", mockSetPrompt, {
       isRecording: false,
       isProcessing: false,
       error: "",
     }] as const);
-=======
-    vi.mocked(useDictation).mockImplementation((initialValue) => [initialValue, mockSetPrompt]);
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     vi.mocked(md5).mockReturnValue("test-hash-123");
     vi.mocked(processImage).mockResolvedValue({
       src: "data:image/png;base64,processed",
       imageName: "processed-image.png",
-<<<<<<< HEAD
       url: "http://example.com/processed-image.png",
       mediaType: "image/png",
       data: "processed",
       type: "image",
     } as unknown as ImageData);
-=======
-    });
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
   });
 
   afterEach(() => {
@@ -77,7 +65,6 @@ describe("StartWithPrompt Integration Flow", () => {
 
   describe("Complete User Flow", () => {
     it("should handle the complete flow from prompt entry to navigation", async () => {
-<<<<<<< HEAD
       // Override the mock to return the expected value
       const testPrompt = "Create a todo list application";
       vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
@@ -92,18 +79,6 @@ describe("StartWithPrompt Integration Flow", () => {
       // 1. User enters a prompt (the mock already has the value)
       const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
       expect(textarea).toHaveValue(testPrompt);
-=======
-      const user = userEvent.setup();
-      
-      render(<StartWithPrompt />);
-
-      // 1. User enters a prompt
-      const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
-      await user.type(textarea, "Create a todo list application");
-
-      // Verify prompt was set
-      expect(mockSetPrompt).toHaveBeenLastCalledWith("Create a todo list application");
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
 
       // 2. User clicks Generate
       const generateButton = screen.getByRole("button", { name: /generate/i });
@@ -115,11 +90,7 @@ describe("StartWithPrompt Integration Flow", () => {
       
       const parsedData = JSON.parse(storedData!);
       expect(parsedData).toEqual({
-<<<<<<< HEAD
         prompt: testPrompt,
-=======
-        prompt: "Create a todo list application",
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
         images: [],
       });
 
@@ -128,7 +99,6 @@ describe("StartWithPrompt Integration Flow", () => {
     });
 
     it("should handle prompt with images", async () => {
-<<<<<<< HEAD
       // Override the mock to return the expected value
       const testPrompt = "Recreate this design";
       vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
@@ -143,15 +113,6 @@ describe("StartWithPrompt Integration Flow", () => {
       // 1. Verify prompt is set
       const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
       expect(textarea).toHaveValue(testPrompt);
-=======
-      const user = userEvent.setup();
-      
-      render(<StartWithPrompt />);
-
-      // 1. User enters a prompt
-      const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
-      await user.type(textarea, "Recreate this design");
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
 
       // 2. User uploads an image
       const file = new File(["dummy content"], "design.png", { type: "image/png" });
@@ -176,7 +137,6 @@ describe("StartWithPrompt Integration Flow", () => {
       const parsedData = JSON.parse(storedData!);
       
       expect(parsedData).toEqual({
-<<<<<<< HEAD
         prompt: testPrompt,
         images: [{
           src: "data:image/png;base64,processed",
@@ -185,12 +145,6 @@ describe("StartWithPrompt Integration Flow", () => {
           mediaType: "image/png",
           data: "processed",
           type: "image",
-=======
-        prompt: "Recreate this design",
-        images: [{
-          src: "data:image/png;base64,processed",
-          imageName: "processed-image.png",
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
         }],
       });
 
@@ -198,7 +152,6 @@ describe("StartWithPrompt Integration Flow", () => {
     });
 
     it("should handle paste image functionality", async () => {
-<<<<<<< HEAD
       // Set up the mock with a prompt value
       const testPrompt = "Analyze this pasted image";
       vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
@@ -208,8 +161,6 @@ describe("StartWithPrompt Integration Flow", () => {
       }] as const);
       
       const user = userEvent.setup();
-=======
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
       render(<StartWithPrompt />);
 
       const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
@@ -230,7 +181,6 @@ describe("StartWithPrompt Integration Flow", () => {
         const uploadedImages = screen.getAllByAltText(/Uploaded/);
         expect(uploadedImages).toHaveLength(1);
       });
-<<<<<<< HEAD
       
       const generateButton = screen.getByRole("button", { name: /generate/i });
       await user.click(generateButton);
@@ -243,20 +193,6 @@ describe("StartWithPrompt Integration Flow", () => {
         expect(parsedData.images).toHaveLength(1);
         expect(parsedData.prompt).toBe(testPrompt);
       });
-=======
-
-      // Add prompt and generate
-      fireEvent.change(textarea, { target: { value: "Analyze this pasted image" } });
-      
-      const generateButton = screen.getByRole("button", { name: /generate/i });
-      fireEvent.click(generateButton);
-
-      const storedData = sessionStorage.getItem("test-hash-123");
-      const parsedData = JSON.parse(storedData!);
-      
-      expect(parsedData.images).toHaveLength(1);
-      expect(parsedData.prompt).toBe("Analyze this pasted image");
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     });
 
     it("should handle drag and drop images", async () => {
@@ -282,7 +218,6 @@ describe("StartWithPrompt Integration Flow", () => {
       });
     });
 
-<<<<<<< HEAD
     it("should disable upload button when image limit is reached", async () => {
       render(<StartWithPrompt />);
 
@@ -300,44 +235,6 @@ describe("StartWithPrompt Integration Flow", () => {
       // Wait for image to be processed
       await waitFor(() => {
         expect(screen.getByAltText("Uploaded 0")).toBeInTheDocument();
-=======
-    it("should limit to 5 images maximum", async () => {
-      render(<StartWithPrompt />);
-
-      // Upload 5 images
-      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      
-      for (let i = 0; i < 5; i++) {
-        const file = new File(["content"], `image${i}.png`, { type: "image/png" });
-        fireEvent.change(fileInput, { target: { files: [file] } });
-        
-        await waitFor(() => {
-          const uploadedImages = screen.getAllByAltText(/Uploaded/);
-          expect(uploadedImages).toHaveLength(i + 1);
-        });
-      }
-
-      // Upload button should be disabled
-      const uploadButton = screen.getByRole("button", { name: /upload image/i });
-      expect(uploadButton).toHaveAttribute("aria-disabled", "true");
-
-      // Try to upload another image via paste - should not work
-      const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
-      const file = new File(["data"], "extra.png", { type: "image/png" });
-      const clipboardData = {
-        items: [{
-          type: "image/png",
-          getAsFile: () => file,
-        }],
-      };
-
-      fireEvent.paste(textarea, { clipboardData });
-
-      // Should still have only 5 images
-      await waitFor(() => {
-        const uploadedImages = screen.getAllByAltText(/Uploaded/);
-        expect(uploadedImages).toHaveLength(5);
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
       });
     });
 
