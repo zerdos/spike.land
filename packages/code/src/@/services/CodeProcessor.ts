@@ -173,7 +173,6 @@ export class CodeProcessor {
             body {
               margin: 0;
               padding: 0;
-              overflow: hidden;
               background-color: ${isDarkMode ? "#1e1e1e" : "#ffffff"};
               color: ${isDarkMode ? "#ffffff" : "#000000"};
             }
