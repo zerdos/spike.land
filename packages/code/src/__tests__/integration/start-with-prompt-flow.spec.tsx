@@ -14,9 +14,9 @@ vi.mock("@/lib/md5");
 vi.mock("@/lib/process-image");
 vi.mock("framer-motion", () => ({
   motion: {
-    img: ({ children, ...props }: any) => <img {...props}>{children}</img>,
+    img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => <img {...props}>{children}</img>,
   },
-  AnimatePresence: ({ children }: any) => children,
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 // Mock location
@@ -56,7 +56,7 @@ describe("StartWithPrompt Integration Flow", () => {
       mediaType: "image/png",
       data: "processed",
       type: "image",
-    } as any);
+    } as unknown as ImageData);
   });
 
   afterEach(() => {
