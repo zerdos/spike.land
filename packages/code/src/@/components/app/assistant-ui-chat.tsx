@@ -4,6 +4,7 @@ import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import React, { useEffect } from "react";
 import type { Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
+import type { ThreadMessageLike } from "@assistant-ui/react";
 
 interface AssistantUIChatProps {
   codeSpace: string;
@@ -24,7 +25,7 @@ export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
     // Create runtime with initial messages
     const runtime = useChatRuntime({
       api: `/live/${codeSpace}/messages`,
-      initialMessages: filteredMessages as Message[], // Type assertion for compatibility
+      initialMessages: filteredMessages as unknown as ThreadMessageLike[],
     });
 
     return (

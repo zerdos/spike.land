@@ -74,7 +74,7 @@ describe("ChatInterface", () => {
     );
 
     expect(AssistantUIDrawer).toHaveBeenCalled();
-    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
     expect(callArgs.isOpen).toBe(true);
     expect(callArgs.isDarkMode).toBe(false);
     expect(callArgs.cSess).toBe(mockCodeSession);
@@ -87,6 +87,10 @@ describe("ChatInterface", () => {
       {
         src: "data:image/png;base64,test",
         imageName: "test.png",
+        url: "http://example.com/test.png",
+        mediaType: "image/png",
+        data: "test",
+        type: "image",
       },
     ];
 
@@ -126,7 +130,7 @@ describe("ChatInterface", () => {
 
     await waitFor(() => {
       const calls = (AssistantUIDrawer as Mock).mock.calls;
-      const lastCall = calls[calls.length - 1][0];
+      const lastCall = calls[calls.length - 1]?.[0];
       expect(lastCall.initialPrompt).toEqual({
         prompt: mockPrompt,
         images: mockImages,
@@ -165,7 +169,7 @@ describe("ChatInterface", () => {
     }).not.toThrow();
 
     // Should still render with null initial prompt
-    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
     expect(callArgs.initialPrompt).toBe(null);
 
     consoleSpy.mockRestore();
@@ -181,7 +185,7 @@ describe("ChatInterface", () => {
       />
     );
 
-    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
     expect(callArgs.initialPrompt).toBe(null);
   });
 
@@ -244,7 +248,7 @@ describe("ChatInterface", () => {
       />
     );
 
-    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
     expect(callArgs.onClose).toBe(onCloseMock);
   });
 
@@ -284,7 +288,7 @@ describe("ChatInterface", () => {
 
     await waitFor(() => {
       const calls = (AssistantUIDrawer as Mock).mock.calls;
-      const lastCall = calls[calls.length - 1][0];
+      const lastCall = calls[calls.length - 1]?.[0];
       expect(lastCall.initialPrompt).toEqual({
         prompt: "",
         images: [],

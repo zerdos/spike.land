@@ -111,6 +111,10 @@ describe("AssistantUIDrawer", () => {
         {
           src: "data:image/png;base64,test",
           imageName: "mockup.png",
+          url: "http://example.com/mockup.png",
+          mediaType: "image/png",
+          data: "test",
+          type: "image",
         },
       ] as ImageData[],
     };

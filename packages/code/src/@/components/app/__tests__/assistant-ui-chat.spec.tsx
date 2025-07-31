@@ -214,10 +214,18 @@ describe("AssistantUIChat", () => {
         {
           src: "data:image/png;base64,test1",
           imageName: "design1.png",
+          url: "http://example.com/design1.png",
+          mediaType: "image/png",
+          data: "test1",
+          type: "image",
         },
         {
           src: "data:image/png;base64,test2",
           imageName: "design2.png",
+          url: "http://example.com/design2.png",
+          mediaType: "image/png",
+          data: "test2",
+          type: "image",
         },
       ] as ImageData[],
     };
