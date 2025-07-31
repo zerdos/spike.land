@@ -248,7 +248,7 @@ describe("AssistantUIChat", () => {
     consoleSpy.mockRestore();
   });
 
-  it("should handle empty initial prompt", () => {
+  it("should not send empty initial prompt", () => {
     const initialPrompt = {
       prompt: "",
       images: [] as ImageData[],
@@ -262,8 +262,28 @@ describe("AssistantUIChat", () => {
       />
     );
 
-    expect(mockComposerRuntime.setText).toHaveBeenCalledWith("");
-    expect(mockComposerRuntime.send).toHaveBeenCalled();
+    // Should not send empty prompts
+    expect(mockComposerRuntime.setText).not.toHaveBeenCalled();
+    expect(mockComposerRuntime.send).not.toHaveBeenCalled();
+  });
+
+  it("should not send whitespace-only prompts", () => {
+    const initialPrompt = {
+      prompt: "   \n\t  ",
+      images: [] as ImageData[],
+    };
+
+    render(
+      <AssistantUIChat
+        codeSpace="test-space"
+        initialMessages={[]}
+        initialPrompt={initialPrompt}
+      />
+    );
+
+    // Should not send whitespace-only prompts
+    expect(mockComposerRuntime.setText).not.toHaveBeenCalled();
+    expect(mockComposerRuntime.send).not.toHaveBeenCalled();
   });
 
   it("should not send if thread runtime is not available", () => {

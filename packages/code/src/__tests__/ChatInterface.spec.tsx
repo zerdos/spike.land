@@ -4,6 +4,7 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScreenshot } from "../hooks/useScreenshot";
 import { useDictation } from "@/hooks/use-dictation";
+import { toast } from "@/hooks/use-toast";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
@@ -13,6 +14,9 @@ vi.mock("@/hooks/use-dark-mode");
 vi.mock("@/hooks/use-local-storage");
 vi.mock("../hooks/useScreenshot");
 vi.mock("@/hooks/use-dictation");
+vi.mock("@/hooks/use-toast", () => ({
+  toast: vi.fn(),
+}));
 vi.mock("@/components/app/assistant-ui-drawer", () => ({
   AssistantUIDrawer: vi.fn(() => null),
 }));
@@ -141,7 +145,7 @@ describe("ChatInterface", () => {
     expect(sessionStorage.getItem(testKey)).toBeNull();
   });
 
-  it("should handle invalid JSON in sessionStorage gracefully", () => {
+  it("should handle invalid JSON in sessionStorage gracefully and show toast", async () => {
     const testKey = "invalid123";
     const codeSpaceWithKey = `x-${testKey}`;
 
@@ -168,9 +172,21 @@ describe("ChatInterface", () => {
       );
     }).not.toThrow();
 
+    // Should show toast notification
+    await waitFor(() => {
+      expect(toast).toHaveBeenCalledWith({
+        title: "Failed to load saved prompt",
+        description: "The saved prompt data was corrupted and could not be loaded.",
+        variant: "destructive",
+      });
+    });
+
     // Should still render with null initial prompt
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
     expect(callArgs.initialPrompt).toBe(null);
+
+    // Verify sessionStorage was cleared
+    expect(sessionStorage.getItem(testKey)).toBeNull();
 
     consoleSpy.mockRestore();
   });

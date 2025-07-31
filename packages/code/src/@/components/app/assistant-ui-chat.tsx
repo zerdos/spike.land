@@ -1,7 +1,7 @@
 import { Thread } from "@/components/assistant-ui/thread";
 import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import type { Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
 import type { ThreadMessageLike } from "@assistant-ui/react";
@@ -45,13 +45,23 @@ const AutoSendInitialPrompt: React.FC<{
   } | null | undefined;
 }> = ({ initialPrompt }) => {
   const threadRuntime = useThreadRuntime();
+  const hasSentRef = useRef(false);
   
   useEffect(() => {
-    if (initialPrompt && threadRuntime) {
+    // Prevent multiple sends and validate prompt
+    if (
+      initialPrompt && 
+      threadRuntime && 
+      !hasSentRef.current &&
+      initialPrompt.prompt.trim() // Only send non-empty prompts
+    ) {
       // Get the composer runtime from the thread runtime
       const composerRuntime = threadRuntime.composer;
       
       if (composerRuntime) {
+        // Mark as sent before actually sending to prevent race conditions
+        hasSentRef.current = true;
+        
         // Set the text and send it
         composerRuntime.setText(initialPrompt.prompt);
         composerRuntime.send();

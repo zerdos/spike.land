@@ -2,6 +2,7 @@ import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { toast } from "@/hooks/use-toast";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import React, { useEffect, useRef, useState } from "react";
@@ -91,6 +92,13 @@ const ChatInterface: React.FC<{
           } catch (error) {
             console.error("Failed to parse stored prompt data:", error);
             sessionStorage.removeItem(maybeKey);
+            
+            // Notify user about the corrupted data
+            toast({
+              title: "Failed to load saved prompt",
+              description: "The saved prompt data was corrupted and could not be loaded.",
+              variant: "destructive",
+            });
           }
         }
       }
