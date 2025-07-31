@@ -1,6 +1,7 @@
 import { StartWithPrompt } from "@/components/ui/start-with-prompt";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
+import type { ImageData } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { processImage } from "@/lib/process-image";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
