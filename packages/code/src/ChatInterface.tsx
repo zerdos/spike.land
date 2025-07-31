@@ -92,7 +92,6 @@ const ChatInterface: React.FC<{
           } catch (error) {
             console.error("Failed to parse stored prompt data:", error);
             sessionStorage.removeItem(maybeKey);
-<<<<<<< HEAD
             
             // Notify user about the corrupted data
             toast({
@@ -100,8 +99,6 @@ const ChatInterface: React.FC<{
               description: "The saved prompt data was corrupted and could not be loaded.",
               variant: "destructive",
             });
-=======
->>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
           }
         }
       }
