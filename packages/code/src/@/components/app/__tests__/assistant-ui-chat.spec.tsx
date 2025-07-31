@@ -708,5 +708,5 @@ describe("AssistantUIChat", () => {
       // Should maintain order but filter out tool messages
       expect(calls?.initialMessages?.map(m => m.id)).toEqual(["1", "2", "4", "6"]);
     });
-  });
+  })
 });

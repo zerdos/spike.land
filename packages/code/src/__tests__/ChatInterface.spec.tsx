@@ -4,7 +4,10 @@ import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScreenshot } from "../hooks/useScreenshot";
 import { useDictation } from "@/hooks/use-dictation";
+<<<<<<< HEAD
 import { toast } from "@/hooks/use-toast";
+=======
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
@@ -14,9 +17,12 @@ vi.mock("@/hooks/use-dark-mode");
 vi.mock("@/hooks/use-local-storage");
 vi.mock("../hooks/useScreenshot");
 vi.mock("@/hooks/use-dictation");
+<<<<<<< HEAD
 vi.mock("@/hooks/use-toast", () => ({
   toast: vi.fn(),
 }));
+=======
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
 vi.mock("@/components/app/assistant-ui-drawer", () => ({
   AssistantUIDrawer: vi.fn(() => null),
 }));
@@ -78,7 +84,11 @@ describe("ChatInterface", () => {
     );
 
     expect(AssistantUIDrawer).toHaveBeenCalled();
+<<<<<<< HEAD
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
+=======
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     expect(callArgs.isOpen).toBe(true);
     expect(callArgs.isDarkMode).toBe(false);
     expect(callArgs.cSess).toBe(mockCodeSession);
@@ -91,10 +101,13 @@ describe("ChatInterface", () => {
       {
         src: "data:image/png;base64,test",
         imageName: "test.png",
+<<<<<<< HEAD
         url: "http://example.com/test.png",
         mediaType: "image/png",
         data: "test",
         type: "image",
+=======
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
       },
     ];
 
@@ -134,7 +147,11 @@ describe("ChatInterface", () => {
 
     await waitFor(() => {
       const calls = (AssistantUIDrawer as Mock).mock.calls;
+<<<<<<< HEAD
       const lastCall = calls[calls.length - 1]?.[0];
+=======
+      const lastCall = calls[calls.length - 1][0];
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
       expect(lastCall.initialPrompt).toEqual({
         prompt: mockPrompt,
         images: mockImages,
@@ -145,7 +162,11 @@ describe("ChatInterface", () => {
     expect(sessionStorage.getItem(testKey)).toBeNull();
   });
 
+<<<<<<< HEAD
   it("should handle invalid JSON in sessionStorage gracefully and show toast", async () => {
+=======
+  it("should handle invalid JSON in sessionStorage gracefully", () => {
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     const testKey = "invalid123";
     const codeSpaceWithKey = `x-${testKey}`;
 
@@ -172,6 +193,7 @@ describe("ChatInterface", () => {
       );
     }).not.toThrow();
 
+<<<<<<< HEAD
     // Should show toast notification
     await waitFor(() => {
       expect(toast).toHaveBeenCalledWith({
@@ -188,6 +210,12 @@ describe("ChatInterface", () => {
     // Verify sessionStorage was cleared
     expect(sessionStorage.getItem(testKey)).toBeNull();
 
+=======
+    // Should still render with null initial prompt
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+    expect(callArgs.initialPrompt).toBe(null);
+
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     consoleSpy.mockRestore();
   });
 
@@ -201,7 +229,11 @@ describe("ChatInterface", () => {
       />
     );
 
+<<<<<<< HEAD
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
+=======
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     expect(callArgs.initialPrompt).toBe(null);
   });
 
@@ -264,7 +296,11 @@ describe("ChatInterface", () => {
       />
     );
 
+<<<<<<< HEAD
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
+=======
+    const callArgs = (AssistantUIDrawer as Mock).mock.calls[0][0];
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
     expect(callArgs.onClose).toBe(onCloseMock);
   });
 
@@ -304,7 +340,11 @@ describe("ChatInterface", () => {
 
     await waitFor(() => {
       const calls = (AssistantUIDrawer as Mock).mock.calls;
+<<<<<<< HEAD
       const lastCall = calls[calls.length - 1]?.[0];
+=======
+      const lastCall = calls[calls.length - 1][0];
+>>>>>>> 06dcd6226 (feat: integrate start-with-prompt to send first message in chat)
       expect(lastCall.initialPrompt).toEqual({
         prompt: "",
         images: [],

@@ -425,5 +425,5 @@ describe("AssistantUIDrawer", () => {
       const lastCall = allCalls[allCalls.length - 1][0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
-  });
+  })
 });
