@@ -1,5 +1,5 @@
 import { Bot } from "@/external/lucide-react";
-import type { ICode } from "@/lib/interfaces";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
@@ -11,10 +11,14 @@ interface AssistantUIDrawerProps {
   onClose: () => void;
   isDarkMode: boolean;
   cSess: ICode;
+  initialPrompt?: {
+    prompt: string;
+    images: ImageData[];
+  } | null | undefined;
 }
 
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
-  ({ isOpen, onClose, isDarkMode, cSess: _cSess }) => {
+  ({ isOpen, onClose, isDarkMode, cSess: _cSess, initialPrompt }) => {
     const codeSpace = _cSess.getCodeSpace();
     const [messagesLoaded, setMessagesLoaded] = useState(false);
     const [savedMessages, setSavedMessages] = useState<Message[]>([]);
@@ -122,6 +126,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
                 <AssistantUIChat 
                   codeSpace={codeSpace} 
                   initialMessages={savedMessages} 
+                  initialPrompt={initialPrompt}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full">
