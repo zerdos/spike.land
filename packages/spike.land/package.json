@@ -27,7 +27,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.4.0",
     "@cloudflare/vitest-pool-workers": "0.8.58",
-    "@cloudflare/workers-types": "4.20250726.0",
+    "@cloudflare/workers-types": "4.20250731.0",
     "@eslint/js": "9.32.0",
     "@rollup/plugin-commonjs": "28.0.6",
     "@rollup/plugin-node-resolve": "16.0.1",
@@ -45,14 +45,14 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "rimraf": "6.0.1",
-    "rollup": "4.46.1",
+    "rollup": "4.46.2",
     "typescript": "5.8.3",
     "vitest": "3.2.4"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",
     "@anthropic-ai/sdk": "0.57.0",
-    "@clerk/backend": "2.6.0",
+    "@clerk/backend": "2.6.1",
     "@clerk/clerk-sdk-node": "5.1.6",
     "@spike-npm-land/code": "0.9.56",
     "@types/node": "24.1.0",
@@ -68,12 +68,12 @@
     "mime-db": "1.54.0",
     "mime-types": "3.0.1",
     "miniflare": "4.20250726.0",
-    "openai": "5.10.2",
+    "openai": "5.11.0",
     "openai-edge": "1.2.3",
     "p-map": "7.0.3",
     "p-queue": "8.1.0",
     "replicate": "1.0.1",
-    "zod": "^3.23.8"
+    "zod": "^3.25.76"
   },
   "publishConfig": {
     "access": "public"
