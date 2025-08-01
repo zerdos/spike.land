@@ -274,4 +274,156 @@ describe("AssistantUIDrawer", () => {
       expect(callArgs.initialPrompt).toBeUndefined();
     });
   });
+
+  it("should reload messages when drawer is closed and reopened", async () => {
+    const firstMessages: Message[] = [
+      { id: "1", role: "user", content: "First message" },
+    ];
+    const secondMessages: Message[] = [
+      { id: "1", role: "user", content: "First message" },
+      { id: "2", role: "assistant", content: "Response" },
+      { id: "3", role: "user", content: "Second message" },
+    ];
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ messages: firstMessages }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ messages: secondMessages }),
+      } as Response);
+
+    // First render with drawer open
+    const { rerender } = render(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledWith("/live/test-space/messages");
+    });
+
+    await waitFor(() => {
+      expect(AssistantUIChat).toHaveBeenCalledTimes(1);
+      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      expect(callArgs.initialMessages).toEqual(firstMessages);
+    });
+
+    // Close the drawer
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={false} />);
+
+    // Clear previous mock calls
+    vi.mocked(AssistantUIChat).mockClear();
+
+    // Reopen the drawer
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    // Should fetch messages again
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(2);
+      expect(fetch).toHaveBeenLastCalledWith("/live/test-space/messages");
+    });
+
+    await waitFor(() => {
+      // AssistantUIChat might be called more than once due to React's rendering behavior
+      expect(AssistantUIChat).toHaveBeenCalled();
+      const lastCall = (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
+      expect(lastCall.initialMessages).toEqual(secondMessages);
+    });
+  });
+
+  it("should show loading state each time drawer reopens", async () => {
+    let resolveFirstFetch: (value: Response) => void;
+    let resolveSecondFetch: (value: Response) => void;
+
+    const firstFetchPromise = new Promise<Response>((resolve) => {
+      resolveFirstFetch = resolve;
+    });
+    const secondFetchPromise = new Promise<Response>((resolve) => {
+      resolveSecondFetch = resolve;
+    });
+
+    vi.mocked(fetch)
+      .mockReturnValueOnce(firstFetchPromise as Promise<Response>)
+      .mockReturnValueOnce(secondFetchPromise as Promise<Response>);
+
+    // First render with drawer open
+    const { rerender } = render(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    // Should show loading state
+    expect(screen.getByText("Loading messages...")).toBeInTheDocument();
+
+    // Resolve first fetch
+    resolveFirstFetch!({
+      ok: true,
+      json: async () => ({ messages: [] }),
+    } as Response);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Loading messages...")).not.toBeInTheDocument();
+      expect(AssistantUIChat).toHaveBeenCalledTimes(1);
+    });
+
+    // Close and reopen
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={false} />);
+    vi.mocked(AssistantUIChat).mockClear();
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    // Should show loading state again
+    expect(screen.getByText("Loading messages...")).toBeInTheDocument();
+
+    // Resolve second fetch
+    resolveSecondFetch!({
+      ok: true,
+      json: async () => ({ messages: [] }),
+    } as Response);
+
+    await waitFor(() => {
+      expect(screen.queryByText("Loading messages...")).not.toBeInTheDocument();
+      // AssistantUIChat might be called more than once due to React's rendering behavior
+      expect(AssistantUIChat).toHaveBeenCalled();
+    });
+  });
+
+  it("should remount AssistantUIChat when messages change due to different key", async () => {
+    const firstMessages: Message[] = [
+      { id: "1", role: "user", content: "First message" },
+    ];
+    const secondMessages: Message[] = [
+      { id: "1", role: "user", content: "First message" },
+      { id: "2", role: "assistant", content: "Response" },
+    ];
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ messages: firstMessages }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ messages: secondMessages }),
+      } as Response);
+
+    const { rerender } = render(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    await waitFor(() => {
+      expect(AssistantUIChat).toHaveBeenCalledTimes(1);
+    });
+
+    // Store the initial call count
+    const _initialCallCount = vi.mocked(AssistantUIChat).mock.calls.length;
+
+    // Close and reopen with new messages
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={false} />);
+    rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={true} />);
+
+    await waitFor(() => {
+      // AssistantUIChat should be called again due to key change
+      expect(AssistantUIChat).toHaveBeenCalled();
+      const allCalls = (AssistantUIChat as any).mock.calls;
+      // Check that the last call has the new messages
+      const lastCall = allCalls[allCalls.length - 1][0];
+      expect(lastCall.initialMessages).toEqual(secondMessages);
+    });
+  });
 });

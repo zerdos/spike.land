@@ -25,7 +25,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
 
     // Load existing messages when drawer opens
     useEffect(() => {
-      if (isOpen && !messagesLoaded) {
+      if (isOpen) {
         const loadMessages = async () => {
           try {
             const response = await fetch(`/live/${codeSpace}/messages`);
@@ -42,9 +42,10 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
           }
         };
         
+        setMessagesLoaded(false); // Reset to show loading state
         loadMessages();
       }
-    }, [isOpen, codeSpace, messagesLoaded]);
+    }, [isOpen, codeSpace]);
 
 
     // Sync dark mode with Assistant UI
@@ -124,6 +125,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
               {/* Assistant UI Thread */}
               {messagesLoaded ? (
                 <AssistantUIChat 
+                  key={`${codeSpace}-${savedMessages.length}`}
                   codeSpace={codeSpace} 
                   initialMessages={savedMessages} 
                   initialPrompt={initialPrompt}
