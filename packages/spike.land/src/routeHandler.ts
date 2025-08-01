@@ -43,7 +43,7 @@ export class RouteHandler {
     path: string[],
   ): Promise<Response> {
     const firstPath = path[0];
-    if (!firstPath) {
+    if (firstPath === undefined) {
       return new Response("Not found", { status: 404 });
     }
     const routeHandler = this.getRouteHandler(firstPath);
