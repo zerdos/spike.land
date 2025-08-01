@@ -1,5 +1,5 @@
 import { Bot } from "@/external/lucide-react";
-import type { ICode } from "@/lib/interfaces";
+import type { ICode, ImageData } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
@@ -11,17 +11,21 @@ interface AssistantUIDrawerProps {
   onClose: () => void;
   isDarkMode: boolean;
   cSess: ICode;
+  initialPrompt?: {
+    prompt: string;
+    images: ImageData[];
+  } | null | undefined;
 }
 
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
-  ({ isOpen, onClose, isDarkMode, cSess: _cSess }) => {
+  ({ isOpen, onClose, isDarkMode, cSess: _cSess, initialPrompt }) => {
     const codeSpace = _cSess.getCodeSpace();
     const [messagesLoaded, setMessagesLoaded] = useState(false);
     const [savedMessages, setSavedMessages] = useState<Message[]>([]);
 
     // Load existing messages when drawer opens
     useEffect(() => {
-      if (isOpen && !messagesLoaded) {
+      if (isOpen) {
         const loadMessages = async () => {
           try {
             const response = await fetch(`/live/${codeSpace}/messages`);
@@ -38,9 +42,10 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
           }
         };
         
+        setMessagesLoaded(false); // Reset to show loading state
         loadMessages();
       }
-    }, [isOpen, codeSpace, messagesLoaded]);
+    }, [isOpen, codeSpace]);
 
 
     // Sync dark mode with Assistant UI
@@ -120,8 +125,10 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
               {/* Assistant UI Thread */}
               {messagesLoaded ? (
                 <AssistantUIChat 
+                  key={`${codeSpace}-${savedMessages.length}`}
                   codeSpace={codeSpace} 
                   initialMessages={savedMessages} 
+                  initialPrompt={initialPrompt}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full">

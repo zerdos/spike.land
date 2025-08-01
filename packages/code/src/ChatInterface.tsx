@@ -2,6 +2,7 @@ import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { useDictation } from "@/hooks/use-dictation";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { toast } from "@/hooks/use-toast";
 import type { ICode } from "@/lib/interfaces";
 import type { ImageData } from "@/lib/interfaces";
 import React, { useEffect, useRef, useState } from "react";
@@ -38,12 +39,18 @@ const ChatInterface: React.FC<{
     };
   }, [isStreaming, setIsStreaming]);
 
-  const [_input, setInput] = useDictation("");
+  const [_input, _setInput] = useDictation("");
 
   const [_editingMessageId, _setEditingMessageId] = useState<string | null>(
     null,
   );
   const [_editInput, _setEditInput] = useState("");
+
+  // State to hold initial prompt data
+  const [initialPrompt, setInitialPrompt] = useState<{
+    prompt: string;
+    images: ImageData[];
+  } | null>(null);
 
   // Removed unused reset functionality since AssistantUI manages its own state
 
@@ -73,21 +80,30 @@ const ChatInterface: React.FC<{
       if (maybeKey) {
         const storedData = sessionStorage.getItem(maybeKey);
         if (storedData) {
-          const { prompt, images } = JSON.parse(storedData) as {
-            prompt: string;
-            images: ImageData[];
-          };
-          sessionStorage.removeItem(maybeKey);
+          try {
+            const { prompt, images } = JSON.parse(storedData) as {
+              prompt: string;
+              images: ImageData[];
+            };
+            sessionStorage.removeItem(maybeKey);
 
-          codeSession.getSession().then((_currentSession) => { // Renamed from cSess
-            // TODO: Implement sending initial message with Assistant UI
-            // For now, we'll store it to be handled by the AssistantUIDrawer
-            console.log("Initial message:", { prompt, images });
-          });
+            // Store the initial prompt data to pass to AssistantUIDrawer
+            setInitialPrompt({ prompt, images });
+          } catch (error) {
+            console.error("Failed to parse stored prompt data:", error);
+            sessionStorage.removeItem(maybeKey);
+            
+            // Notify user about the corrupted data
+            toast({
+              title: "Failed to load saved prompt",
+              description: "The saved prompt data was corrupted and could not be loaded.",
+              variant: "destructive",
+            });
+          }
         }
       }
     }
-  }, [isOpen, localCodeSpace, setInput, codeSession]); // Renamed from cSess, used localCodeSpace and added to deps
+  }, [localCodeSpace]); // Only depend on localCodeSpace
 
   // Removed unused memoized callbacks since AssistantUI manages its own state
 
@@ -99,6 +115,7 @@ const ChatInterface: React.FC<{
       onClose={onClose}
       isDarkMode={isDarkMode}
       cSess={codeSession}
+      initialPrompt={initialPrompt}
     />
   );
 });
