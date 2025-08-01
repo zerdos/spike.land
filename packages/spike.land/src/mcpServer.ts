@@ -723,11 +723,15 @@ export class McpServer {
     // Check for overlapping edits
     const sortedEdits = [...edits].sort((a, b) => a.startLine - b.startLine);
     for (let i = 1; i < sortedEdits.length; i++) {
-      if (sortedEdits[i].startLine <= sortedEdits[i - 1].endLine) {
+      const currentEdit = sortedEdits[i];
+      const previousEdit = sortedEdits[i - 1];
+      if (!currentEdit || !previousEdit) continue;
+      
+      if (currentEdit.startLine <= previousEdit.endLine) {
         throw new Error(
-          `Overlapping edits detected: lines ${sortedEdits[i - 1].startLine}-${
-            sortedEdits[i - 1].endLine
-          } and ${sortedEdits[i].startLine}-${sortedEdits[i].endLine}`,
+          `Overlapping edits detected: lines ${previousEdit.startLine}-${
+            previousEdit.endLine
+          } and ${currentEdit.startLine}-${currentEdit.endLine}`,
         );
       }
     }

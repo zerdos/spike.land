@@ -34,7 +34,7 @@ export function parseInputFromUrl(urlString: string): InputDefaults {
       /^\/replicate\/([^.]+)\.(?:webp|png|jpeg)$/,
     );
 
-    if (!match) {
+    if (!match || !match[1]) {
       return INPUT_DEFAULTS;
     }
 

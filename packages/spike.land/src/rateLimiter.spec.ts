@@ -3,7 +3,7 @@ import { CodeRateLimiter } from "./rateLimiter";
 
 // Mock handleErrors to pass through the handler
 vi.mock("./handleErrors", () => ({
-  handleErrors: vi.fn((request, handler) => handler()),
+  handleErrors: vi.fn((_request, handler) => handler()),
 }));
 
 describe("CodeRateLimiter", () => {

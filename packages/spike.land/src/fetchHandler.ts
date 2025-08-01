@@ -64,7 +64,11 @@ Sitemap: ${new URL(request.url).origin}/sitemap.xml
     live: async () => handleLiveRequest(path, request, env),
   };
 
-  const handler = handlers[path[0]];
+  const firstPath = path[0];
+  if (!firstPath) {
+    return handleEsmRequest(path, request, env, ctx);
+  }
+  const handler = handlers[firstPath];
   return handler ? handler() : handleEsmRequest(path, request, env, ctx);
 }
 

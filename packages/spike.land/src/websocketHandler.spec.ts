@@ -105,7 +105,11 @@ describe("WebSocketHandler", () => {
       // Verify that the session was added
       const sessions = websocketHandler.getWsSessions();
       expect(sessions.length).toBe(1);
-      expect(sessions[0].webSocket).toBe(mockWebSocket);
+      const firstSession = sessions[0];
+      if (!firstSession) {
+        throw new Error("Expected session to exist");
+      }
+      expect(firstSession.webSocket).toBe(mockWebSocket);
     });
 
     it("should schedule periodic ping", () => {
@@ -172,6 +176,9 @@ describe("WebSocketHandler", () => {
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
       const session = websocketHandler.getWsSessions()[0];
+      if (!session) {
+        throw new Error("Session not found");
+      }
 
       // Get the close handler
       const closeHandler = (mockWebSocket.addEventListener as Mock).mock.calls
@@ -185,7 +192,9 @@ describe("WebSocketHandler", () => {
       }
 
       // Verify session is cleaned up
-      expect(session.quit).toBe(true);
+      if (session) {
+        expect(session.quit).toBe(true);
+      }
       expect(websocketHandler.getWsSessions().length).toBe(0);
 
       // Clear all timers before restoring
@@ -210,7 +219,12 @@ describe("WebSocketHandler", () => {
 
       // Get the first (and only) session
       const sessions = websocketHandler.getWsSessions();
-      mockWsSession = sessions[0];
+      const session = sessions[0];
+      if (!session) {
+        throw new Error("Session not found");
+      }
+      // Assign in one step to help TypeScript flow analysis
+      mockWsSession = session;
       mockWsSession.subscribedTopics = new Set();
 
       // Simulate setting a name
@@ -449,15 +463,20 @@ describe("WebSocketHandler", () => {
       const internalSessions =
         (websocketHandler as unknown as { wsSessions: WebsocketSession[]; }).wsSessions;
       expect(internalSessions).toHaveLength(2);
-      expect(internalSessions[0].webSocket).toBe(mockWebSocket1);
-      expect(internalSessions[1].webSocket).toBe(mockWebSocket2);
+      const firstInternalSession = internalSessions[0];
+      const secondInternalSession = internalSessions[1];
+      if (!firstInternalSession || !secondInternalSession) {
+        throw new Error("Expected both sessions to exist");
+      }
+      expect(firstInternalSession.webSocket).toBe(mockWebSocket1);
+      expect(secondInternalSession.webSocket).toBe(mockWebSocket2);
 
       // Check session names (they should be undefined)
-      expect(internalSessions[0].name).toBeUndefined();
-      expect(internalSessions[1].name).toBeUndefined();
+      expect(firstInternalSession.name).toBeUndefined();
+      expect(secondInternalSession.name).toBeUndefined();
 
       // Manually call send to verify mocks work
-      internalSessions[0].webSocket.send("manual test");
+      firstInternalSession.webSocket.send("manual test");
       expect(mockWebSocket1.send).toHaveBeenCalledWith("manual test");
       (mockWebSocket1.send as Mock).mockClear();
 

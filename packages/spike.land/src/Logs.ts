@@ -13,8 +13,10 @@ export class KVLogger {
   ): Promise<void> {
     const timestamp = new Date();
     const kv = this.store;
-    const dateString = timestamp.toISOString().split("T")[0]; // YYYY-MM-DD
-    const timeString = timestamp.toISOString().split("T")[1].split(".")[0]; // HH:MM:SS
+    const isoString = timestamp.toISOString();
+    const [datePart, timePart] = isoString.split("T");
+    const dateString = datePart ?? ""; // YYYY-MM-DD
+    const timeString = timePart?.split(".")[0] ?? ""; // HH:MM:SS
     const key = `${this.prefix}:${dateString}:${timeString}`;
     const value = JSON.stringify({ level, message });
 

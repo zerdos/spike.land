@@ -344,6 +344,12 @@ const main = {
           });
         } catch (error) {
           console.error("Error generating TURN credentials:", error);
+          return new Response(JSON.stringify({ error: "Failed to generate TURN credentials" }), {
+            status: 500,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
         }
       }
 
