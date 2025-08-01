@@ -99,11 +99,20 @@ const mockThreadRuntime: ThreadRuntime = {
 } as unknown as ThreadRuntime;
 
 describe("AssistantUIChat", () => {
-  const mockRuntime = { mock: "runtime" };
+  // Create a minimal mock runtime that satisfies the type requirements
+  const mockRuntime = {
+    thread: mockThreadRuntime,
+    messages: [],
+    setMessages: vi.fn(),
+    append: vi.fn(),
+    startRun: vi.fn(),
+    cancelRun: vi.fn(),
+    subscribe: vi.fn(),
+  } as unknown as ReturnType<typeof useChatRuntime>;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(useChatRuntime).mockReturnValue(mockRuntime as any);
+    vi.mocked(useChatRuntime).mockReturnValue(mockRuntime);
     vi.mocked(useThreadRuntime).mockReturnValue(mockThreadRuntime);
   });
 
@@ -149,7 +158,8 @@ describe("AssistantUIChat", () => {
     render(
       <AssistantUIChat
         codeSpace="test-space"
-        initialMessages={messages as any}
+        // @ts-expect-error - Test uses custom Message type with 'data' role
+        initialMessages={messages}
       />
     );
 
@@ -172,8 +182,9 @@ describe("AssistantUIChat", () => {
     );
 
     expect(AssistantRuntimeProvider).toHaveBeenCalled();
-    const callArgs = (AssistantRuntimeProvider as any).mock.calls[0][0];
-    expect(callArgs.runtime).toBe(mockRuntime);
+    const mockAssistantRuntimeProvider = vi.mocked(AssistantRuntimeProvider);
+    const callArgs = mockAssistantRuntimeProvider.mock.calls[0]?.[0];
+    expect(callArgs?.runtime).toBe(mockRuntime);
   });
 
   it("should auto-send initial prompt when provided", () => {
@@ -302,7 +313,7 @@ describe("AssistantUIChat", () => {
   });
 
   it("should not send if thread runtime is not available", () => {
-    vi.mocked(useThreadRuntime).mockReturnValueOnce(null as any);
+    vi.mocked(useThreadRuntime).mockReturnValueOnce(null as unknown as ThreadRuntime);
 
     const initialPrompt = {
       prompt: "Test prompt",
@@ -325,7 +336,7 @@ describe("AssistantUIChat", () => {
     const runtimeWithoutComposer = {
       ...mockThreadRuntime,
       composer: undefined,
-    } as any;
+    } as unknown as ThreadRuntime;
 
     vi.mocked(useThreadRuntime).mockReturnValueOnce(runtimeWithoutComposer);
 
@@ -457,7 +468,8 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          initialMessages={messagesWithToolCalls as any}
+          // @ts-expect-error - Test uses custom Message type with 'tool' role
+          initialMessages={messagesWithToolCalls}
         />
       );
 
@@ -511,7 +523,8 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          initialMessages={messagesWithMultipleTools as any}
+          // @ts-expect-error - Test uses custom Message type with tool_calls
+          initialMessages={messagesWithMultipleTools}
         />
       );
 
@@ -571,7 +584,8 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          initialMessages={messagesWithComplexTools as any}
+          // @ts-expect-error - Test uses custom Message type with tool_calls
+          initialMessages={messagesWithComplexTools}
         />
       );
 
@@ -629,7 +643,8 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          initialMessages={messagesWithToolError as any}
+          // @ts-expect-error - Test uses custom Message type with 'tool' role
+          initialMessages={messagesWithToolError}
         />
       );
 
@@ -700,7 +715,8 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          initialMessages={interleavedMessages as any}
+          // @ts-expect-error - Test uses custom Message type with 'tool' role
+          initialMessages={interleavedMessages}
         />
       );
 

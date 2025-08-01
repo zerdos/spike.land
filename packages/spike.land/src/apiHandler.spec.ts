@@ -125,7 +125,7 @@ describe("ApiHandler", () => {
       );
 
       expect(mockEnv.CODE?.idFromString).toHaveBeenCalledWith("a".repeat(16));
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe(
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0]?.[0]).toBe(
         "mock-id-from-string",
       );
       expect(await response.text()).toBe("Room fetch result");
@@ -143,7 +143,7 @@ describe("ApiHandler", () => {
       );
 
       expect(mockEnv.CODE?.idFromName).toHaveBeenCalledWith("testroom");
-      expect((mockEnv.CODE?.get as Mock).mock.calls[0][0]).toBe(
+      expect((mockEnv.CODE?.get as Mock).mock.calls[0]?.[0]).toBe(
         "mock-id-from-name",
       );
       expect(await response.text()).toBe("Room fetch result");
