@@ -27,14 +27,14 @@ export class RouteHandler {
 
   constructor(private code: Code) {
     // Initialize all route handlers
-    this.codeRoutes = new CodeRoutes(code);
-    this.websocketRoutes = new WebsocketRoutes(code);
-    this.liveRoutes = new LiveRoutes(code);
-    this.utilityRoutes = new UtilityRoutes(code);
-    this.authRoutes = new AuthRoutes(code);
-    this.storageRoutes = new StorageRoutes(code);
-    this.defaultRoutes = new DefaultRoutes(code);
-    this.aiRoutes = new AiRoutes(code);
+    this.codeRoutes = new CodeRoutes(this.code);
+    this.websocketRoutes = new WebsocketRoutes(this.code);
+    this.liveRoutes = new LiveRoutes(this.code);
+    this.utilityRoutes = new UtilityRoutes(this.code);
+    this.authRoutes = new AuthRoutes(this.code);
+    this.storageRoutes = new StorageRoutes(this.code);
+    this.defaultRoutes = new DefaultRoutes(this.code);
+    this.aiRoutes = new AiRoutes(this.code);
   }
 
   async handleRoute(
@@ -42,7 +42,11 @@ export class RouteHandler {
     url: URL,
     path: string[],
   ): Promise<Response> {
-    const routeHandler = this.getRouteHandler(path[0]);
+    const firstPath = path[0];
+    if (!firstPath) {
+      return new Response("Not found", { status: 404 });
+    }
+    const routeHandler = this.getRouteHandler(firstPath);
     return routeHandler
       ? routeHandler(request, url, path)
       : new Response("Not found", { status: 404 });

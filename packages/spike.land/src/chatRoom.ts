@@ -27,8 +27,8 @@ export class Code implements DurableObject {
 
   private session: ICodeSession;
   private backupSession: ICodeSession;
-  private autoSaveInterval = 60000; // 1 minute in milliseconds
-  private lastAutoSave = 0;
+  private _autoSaveInterval = 60000; // 1 minute in milliseconds
+  private _lastAutoSave = 0;
   // private autoSaveHistory: AutoSaveEntry[] = [];
 
   private xLog: (sess: ICodeSession) => Promise<void>;

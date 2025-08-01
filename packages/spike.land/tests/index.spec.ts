@@ -13,7 +13,7 @@ interface MockEnv {
 
 // Mock worker implementation
 const worker = {
-  fetch: async (request: Request, env: MockEnv, ctx: ExecutionContext) => {
+  fetch: async (_request: Request, _env: MockEnv, _ctx: ExecutionContext) => {
     return new Response("Hello World!");
   },
 };
@@ -46,7 +46,7 @@ class MockDurableObjectId {
 
 // Mock Response with webSocket property
 class MockResponse extends Response {
-  webSocket: any = null;
+  override webSocket: any = null;
 }
 
 describe("Hello World worker", () => {
