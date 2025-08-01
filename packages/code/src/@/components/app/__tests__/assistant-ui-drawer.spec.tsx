@@ -411,7 +411,7 @@ describe("AssistantUIDrawer", () => {
     });
 
     // Store the initial call count
-    const _initialCallCount = vi.mocked(AssistantUIChat).mock.calls.length;
+    // const _initialCallCount = vi.mocked(AssistantUIChat).mock.calls.length;
 
     // Close and reopen with new messages
     rerender(<AssistantUIDrawer {...getDefaultProps()} isOpen={false} />);

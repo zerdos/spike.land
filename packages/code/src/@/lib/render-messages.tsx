@@ -9,6 +9,22 @@ import { getPartsStreaming } from "@/lib/get-parts";
 import type { ParsingState } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { memo, useCallback, useMemo, useRef } from "react";
+// Note: The Message type from "ai" package doesn't include tool_calls
+// so we extend it here for compatibility
+interface MessageWithToolCalls {
+  id: string;
+  role: "user" | "system" | "assistant" | "tool" | "data";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: "function";
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 interface CodeProps {
   value: string;
@@ -159,3 +175,61 @@ export const ChatMessageBlock = memo<ChatMessageBlockProps>(
 ChatMessageBlock.displayName = "ChatMessageBlock";
 
 export default ChatMessageBlock;
+
+// Types for message content parts
+export interface TextContentPart {
+  type: "text";
+  text: string;
+}
+
+export interface ToolCallContentPart {
+  type: "tool-call";
+  toolCallId: string;
+  toolName: string;
+  args: unknown;
+  result?: unknown;
+}
+
+export type MessageContentPart = TextContentPart | ToolCallContentPart;
+
+/**
+ * Renders a message into content parts for display.
+ * Handles both text content and tool calls.
+ */
+export function renderMessage(message: MessageWithToolCalls): MessageContentPart[] {
+  const parts: MessageContentPart[] = [];
+
+  // Add text content if present
+  if (message.content) {
+    parts.push({
+      type: "text",
+      text: message.content,
+    });
+  }
+
+  // Add tool calls if present
+  if (message.tool_calls && Array.isArray(message.tool_calls)) {
+    for (const toolCall of message.tool_calls) {
+      let args: unknown = {};
+      
+      // Try to parse arguments as JSON
+      if (toolCall.function.arguments) {
+        try {
+          args = JSON.parse(toolCall.function.arguments);
+        } catch (_e) {
+          // If parsing fails, use empty object
+          args = {};
+        }
+      }
+
+      parts.push({
+        type: "tool-call",
+        toolCallId: toolCall.id,
+        toolName: toolCall.function.name,
+        args,
+      });
+    }
+  }
+
+  return parts;
+}

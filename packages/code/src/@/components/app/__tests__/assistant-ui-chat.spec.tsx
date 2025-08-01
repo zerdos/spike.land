@@ -9,8 +9,23 @@ import {
   type ThreadRuntime,
 } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import type { Message } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Extended Message type for testing (includes tool_calls)
+interface Message {
+  id: string;
+  role: "user" | "system" | "assistant" | "tool" | "data";
+  content: string;
+  tool_calls?: Array<{
+    id: string;
+    type: "function";
+    function: {
+      name: string;
+      arguments: string;
+    };
+  }>;
+  tool_call_id?: string;
+}
 
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
@@ -127,14 +142,14 @@ describe("AssistantUIChat", () => {
     const messages: Message[] = [
       { id: "1", role: "user", content: "Hello" },
       { id: "2", role: "assistant", content: "Hi" },
-      { id: "3", role: "data", content: "Should be filtered" } as any,
+      { id: "3", role: "data", content: "Should be filtered" },
       { id: "4", role: "system", content: "System message" },
     ];
 
     render(
       <AssistantUIChat
         codeSpace="test-space"
-        initialMessages={messages}
+        initialMessages={messages as any}
       />
     );
 
@@ -401,5 +416,297 @@ describe("AssistantUIChat", () => {
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledWith(longPrompt);
     expect(mockComposerRuntime.send).toHaveBeenCalled();
+  });
+
+  describe("tool call messages", () => {
+    it("should handle messages with tool calls", () => {
+      const messagesWithToolCalls: Message[] = [
+        {
+          id: "1",
+          role: "user",
+          content: "Calculate the weather forecast",
+        },
+        {
+          id: "2",
+          role: "assistant",
+          content: "I'll help you with the weather forecast.",
+          tool_calls: [
+            {
+              id: "tool_1",
+              type: "function",
+              function: {
+                name: "get_weather",
+                arguments: JSON.stringify({ location: "New York", units: "fahrenheit" }),
+              },
+            },
+          ],
+        },
+        {
+          id: "3",
+          role: "tool",
+          content: JSON.stringify({ temperature: 72, condition: "sunny" }),
+          tool_call_id: "tool_1",
+        },
+        {
+          id: "4",
+          role: "assistant",
+          content: "The weather in New York is 72°F and sunny.",
+        },
+      ];
+
+      render(
+        <AssistantUIChat
+          codeSpace="test-space"
+          initialMessages={messagesWithToolCalls as any}
+        />
+      );
+
+      // Should filter out tool messages (role: "tool") but keep others
+      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          initialMessages: expect.arrayContaining([
+            expect.objectContaining({ id: "1", role: "user" }),
+            expect.objectContaining({ id: "2", role: "assistant" }),
+            expect.objectContaining({ id: "4", role: "assistant" }),
+          ]),
+        })
+      );
+    });
+
+    it("should handle multiple tool calls in a single message", () => {
+      const messagesWithMultipleTools: Message[] = [
+        {
+          id: "1",
+          role: "assistant",
+          content: "Let me gather multiple pieces of information.",
+          tool_calls: [
+            {
+              id: "tool_1",
+              type: "function",
+              function: {
+                name: "get_weather",
+                arguments: JSON.stringify({ location: "Tokyo" }),
+              },
+            },
+            {
+              id: "tool_2",
+              type: "function",
+              function: {
+                name: "get_time",
+                arguments: JSON.stringify({ timezone: "Asia/Tokyo" }),
+              },
+            },
+            {
+              id: "tool_3",
+              type: "function",
+              function: {
+                name: "search_restaurants",
+                arguments: JSON.stringify({ location: "Tokyo", cuisine: "sushi" }),
+              },
+            },
+          ],
+        },
+      ];
+
+      render(
+        <AssistantUIChat
+          codeSpace="test-space"
+          initialMessages={messagesWithMultipleTools as any}
+        />
+      );
+
+      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          initialMessages: expect.arrayContaining([
+            expect.objectContaining({
+              id: "1",
+              role: "assistant",
+              tool_calls: expect.arrayContaining([
+                expect.objectContaining({
+                  function: expect.objectContaining({ name: "get_weather" }),
+                }),
+                expect.objectContaining({
+                  function: expect.objectContaining({ name: "get_time" }),
+                }),
+                expect.objectContaining({
+                  function: expect.objectContaining({ name: "search_restaurants" }),
+                }),
+              ]),
+            }),
+          ]),
+        })
+      );
+    });
+
+    it("should handle tool calls with complex arguments", () => {
+      const complexArgs = {
+        query: "machine learning papers",
+        filters: {
+          yearRange: { start: 2020, end: 2024 },
+          authors: ["John Doe", "Jane Smith"],
+          topics: ["neural networks", "transformers"],
+        },
+        limit: 50,
+        sortBy: "relevance",
+      };
+
+      const messagesWithComplexTools: Message[] = [
+        {
+          id: "1",
+          role: "assistant",
+          content: "Searching for papers...",
+          tool_calls: [
+            {
+              id: "tool_1",
+              type: "function",
+              function: {
+                name: "search_papers",
+                arguments: JSON.stringify(complexArgs),
+              },
+            },
+          ],
+        },
+      ];
+
+      render(
+        <AssistantUIChat
+          codeSpace="test-space"
+          initialMessages={messagesWithComplexTools as any}
+        />
+      );
+
+      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          initialMessages: expect.arrayContaining([
+            expect.objectContaining({
+              tool_calls: expect.arrayContaining([
+                expect.objectContaining({
+                  function: expect.objectContaining({
+                    arguments: JSON.stringify(complexArgs),
+                  }),
+                }),
+              ]),
+            }),
+          ]),
+        })
+      );
+    });
+
+    it("should handle tool error responses", () => {
+      const messagesWithToolError: Message[] = [
+        {
+          id: "1",
+          role: "assistant",
+          content: "Let me check that for you.",
+          tool_calls: [
+            {
+              id: "tool_1",
+              type: "function",
+              function: {
+                name: "database_query",
+                arguments: JSON.stringify({ query: "SELECT * FROM users" }),
+              },
+            },
+          ],
+        },
+        {
+          id: "2",
+          role: "tool",
+          content: JSON.stringify({
+            error: "Database connection failed",
+            code: "DB_CONNECTION_ERROR",
+            details: "Unable to connect to database server",
+          }),
+          tool_call_id: "tool_1",
+        },
+        {
+          id: "3",
+          role: "assistant",
+          content: "I encountered an error while accessing the database.",
+        },
+      ];
+
+      render(
+        <AssistantUIChat
+          codeSpace="test-space"
+          initialMessages={messagesWithToolError as any}
+        />
+      );
+
+      // Tool messages should be filtered out
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
+      expect(calls?.initialMessages).not.toContainEqual(
+        expect.objectContaining({ role: "tool" })
+      );
+    });
+
+    it("should preserve message order with interleaved tool calls", () => {
+      const interleavedMessages: Message[] = [
+        {
+          id: "1",
+          role: "user",
+          content: "What's the weather and time in multiple cities?",
+        },
+        {
+          id: "2",
+          role: "assistant",
+          content: "I'll check the weather and time for you.",
+          tool_calls: [
+            {
+              id: "tool_1",
+              type: "function",
+              function: {
+                name: "get_weather",
+                arguments: JSON.stringify({ location: "London" }),
+              },
+            },
+          ],
+        },
+        {
+          id: "3",
+          role: "tool",
+          content: JSON.stringify({ temperature: 15, condition: "cloudy" }),
+          tool_call_id: "tool_1",
+        },
+        {
+          id: "4",
+          role: "assistant",
+          content: "London is 15°C and cloudy. Let me check Paris next.",
+          tool_calls: [
+            {
+              id: "tool_2",
+              type: "function",
+              function: {
+                name: "get_weather",
+                arguments: JSON.stringify({ location: "Paris" }),
+              },
+            },
+          ],
+        },
+        {
+          id: "5",
+          role: "tool",
+          content: JSON.stringify({ temperature: 18, condition: "sunny" }),
+          tool_call_id: "tool_2",
+        },
+        {
+          id: "6",
+          role: "assistant",
+          content: "Paris is 18°C and sunny.",
+        },
+      ];
+
+      render(
+        <AssistantUIChat
+          codeSpace="test-space"
+          initialMessages={interleavedMessages as any}
+        />
+      );
+
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      // Should maintain order but filter out tool messages
+      expect(calls?.initialMessages?.map(m => m.id)).toEqual(["1", "2", "4", "6"]);
+    });
   });
 });
