@@ -7,7 +7,7 @@ interface ResponseLike {
 }
 
 export async function handleEsmRequest(
-  path: string[],
+  _path: string[],
   request: Request,
   env: Env,
   ctx: ExecutionContext,

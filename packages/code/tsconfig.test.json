@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dts",
+    "dist"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vitest/globals", "@types/node", "vite/client"]
+  }
+}

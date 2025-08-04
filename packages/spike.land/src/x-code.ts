@@ -174,6 +174,7 @@ export class CodeHistoryManager {
     // Apply patches in reverse order
     for (let i = entries.length - 1; i >= 0; i--) {
       const entry = entries[i];
+      if (!entry) continue;
       if (entry.patch) {
         targetSession = applySessionDelta(targetSession, {
           ...entry.patch,
