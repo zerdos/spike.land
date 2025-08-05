@@ -68,7 +68,7 @@ export default [
           "fixStyle": "separate-type-imports",
         },
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
 
       // General rules
       "prefer-const": "error",
