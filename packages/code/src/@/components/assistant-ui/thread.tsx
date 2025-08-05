@@ -19,9 +19,9 @@ import {
 import type { FC } from "react";
 
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
+import { ToolCall, ToolCallGroup } from "@/components/assistant-ui/tool-call";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
 import { Button } from "@/components/ui/button";
-import { ToolCall, ToolCallGroup } from "@/components/assistant-ui/tool-call";
 
 export const Thread: FC = () => {
   return (

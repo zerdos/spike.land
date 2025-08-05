@@ -211,7 +211,7 @@ export function renderMessage(message: MessageWithToolCalls): MessageContentPart
   if (message.tool_calls && Array.isArray(message.tool_calls)) {
     for (const toolCall of message.tool_calls) {
       let args: unknown = {};
-      
+
       // Try to parse arguments as JSON
       if (toolCall.function.arguments) {
         try {
