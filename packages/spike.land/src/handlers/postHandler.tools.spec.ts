@@ -115,7 +115,7 @@ describe("PostHandler - Tool Schema Validation", () => {
         (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return mockStreamResponse;
-        }) as typeof streamText,
+        }) as unknown as typeof streamText,
       );
 
       // Mock createAnthropic to return a provider
@@ -218,7 +218,7 @@ describe("PostHandler - Tool Schema Validation", () => {
         (async (options: Parameters<typeof streamText>[0]) => {
           capturedOptions = options;
           return mockStreamResponse;
-        }) as typeof streamText,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -250,7 +250,7 @@ describe("PostHandler - Tool Schema Validation", () => {
         (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return mockStreamResponse;
-        }) as typeof streamText,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -283,7 +283,7 @@ describe("PostHandler - Tool Schema Validation", () => {
         (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return mockStreamResponse;
-        }) as typeof streamText,
+        }) as unknown as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
