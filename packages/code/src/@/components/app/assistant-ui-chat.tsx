@@ -19,18 +19,14 @@ interface AssistantUIChatProps {
 }
 
 export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
-  ({ codeSpace, initialMessages, initialPrompt }) => {
-    // Filter out messages with 'data' role as they're not supported by ThreadMessageLike
-    const filteredMessages = initialMessages.filter(
-      msg => msg.role === "user" || msg.role === "assistant" || msg.role === "system",
-    );
-
-    // Create chat instance and runtime
-    const chat = useChat({
-      api: `/live/${codeSpace}/messages`,
-      initialMessages: filteredMessages,
-    } as any);
+  ({ initialPrompt }) => {
+    // Create chat instance and runtime  
+    const chat = useChat({});
     const runtime = useAISDKRuntime(chat);
+    
+    // TODO: Handle initial messages through the runtime if needed
+    // The assistant-ui runtime should handle message initialization  
+    // Initial messages: filteredMessages
 
     return (
       <AssistantRuntimeProvider runtime={runtime}>

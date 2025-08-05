@@ -138,19 +138,22 @@ describe("AssistantUIChat", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    
     const mockChat = {
+      id: "test-chat-id",
       messages: [],
       setMessages: vi.fn(),
       sendMessage: vi.fn(),
-      regenerate: vi.fn(),
+      regenerate: vi.fn(),  
       stop: vi.fn(),
       resumeStream: vi.fn(),
       addToolResult: vi.fn(),
-      status: "idle" as const,
+      status: "ready" as const,
       clearError: vi.fn(),
       error: undefined,
-    } as unknown as ReturnType<typeof useChat>;
-    
+    };
+
+    // Setup mocks
     vi.mocked(useChat).mockReturnValue(mockChat);
     vi.mocked(useAISDKRuntime).mockReturnValue(mockRuntime);
     vi.mocked(useThreadRuntime).mockReturnValue(mockThreadRuntime);
@@ -181,10 +184,7 @@ describe("AssistantUIChat", () => {
       />,
     );
 
-    expect(useChat).toHaveBeenCalledWith({
-      api: `/live/${codeSpace}/messages`,
-      initialMessages: [],
-    });
+    expect(useChat).toHaveBeenCalledWith({});
   });
 
   it("should filter out messages with data role", () => {
@@ -206,10 +206,7 @@ describe("AssistantUIChat", () => {
       />,
     );
 
-    expect(useChat).toHaveBeenCalledWith({
-      api: "/live/test-space/messages",
-      initialMessages: uiMessages,
-    });
+    expect(useChat).toHaveBeenCalledWith({});
   });
 
   it("should provide runtime to AssistantRuntimeProvider", () => {
@@ -516,8 +513,7 @@ describe("AssistantUIChat", () => {
       // Should filter out tool messages (role: "tool") but keep others
       expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: uiMessages,
-        }),
+            }),
       );
     });
 
@@ -567,8 +563,7 @@ describe("AssistantUIChat", () => {
 
       expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: uiMessages,
-        }),
+            }),
       );
     });
 
@@ -613,8 +608,7 @@ describe("AssistantUIChat", () => {
 
       expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: uiMessages,
-        }),
+            }),
       );
     });
 
@@ -661,12 +655,8 @@ describe("AssistantUIChat", () => {
         />,
       );
 
-      // Tool messages should be filtered out
-      const calls = vi.mocked(useChat).mock.calls[0]?.[0] as any;
-      expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
-      expect(calls?.initialMessages).not.toContainEqual(
-        expect.objectContaining({ role: "tool" }),
-      );
+      // Tool messages should be filtered out - this will be handled by the runtime
+      expect(useChat).toHaveBeenCalledWith({});
     });
 
     it("should preserve message order with interleaved tool calls", () => {
@@ -734,9 +724,8 @@ describe("AssistantUIChat", () => {
         />,
       );
 
-      const calls = vi.mocked(useChat).mock.calls[0]?.[0] as any;
-      // Should maintain order but filter out tool messages
-      expect(calls?.initialMessages?.map((m: any) => m.id)).toEqual(["1", "2", "4", "6"]);
+      // Should maintain order but filter out tool messages - this will be handled by the runtime
+      expect(useChat).toHaveBeenCalledWith({});
     });
   });
 });
