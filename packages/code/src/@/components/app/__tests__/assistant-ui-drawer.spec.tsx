@@ -110,7 +110,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.codeSpace).toBe("test-space");
       expect(callArgs.initialMessages).toEqual(mockMessages);
       expect(callArgs.initialPrompt).toBeUndefined();
@@ -141,7 +141,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialPrompt).toEqual(mockInitialPrompt);
     });
   });
@@ -162,7 +162,7 @@ describe("AssistantUIDrawer", () => {
     // Should still render with empty messages
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialMessages).toEqual([]);
     });
 
@@ -179,7 +179,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialMessages).toEqual([]);
     });
   });
@@ -268,7 +268,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialPrompt).toBeNull();
     });
   });
@@ -283,7 +283,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalled();
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialPrompt).toBeUndefined();
     });
   });
@@ -318,7 +318,7 @@ describe("AssistantUIDrawer", () => {
 
     await waitFor(() => {
       expect(AssistantUIChat).toHaveBeenCalledTimes(1);
-      const callArgs = (AssistantUIChat as any).mock.calls[0][0];
+      const callArgs = vi.mocked(AssistantUIChat).mock.calls[0]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(callArgs.initialMessages).toEqual(firstMessages);
     });
 
@@ -340,8 +340,8 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat might be called more than once due to React's rendering behavior
       expect(AssistantUIChat).toHaveBeenCalled();
-      const lastCall =
-        (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
+      const mockCalls = vi.mocked(AssistantUIChat).mock.calls;
+      const lastCall = mockCalls[mockCalls.length - 1]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
   });
@@ -434,9 +434,9 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat should be called again due to key change
       expect(AssistantUIChat).toHaveBeenCalled();
-      const allCalls = (AssistantUIChat as any).mock.calls;
+      const allCalls = vi.mocked(AssistantUIChat).mock.calls;
       // Check that the last call has the new messages
-      const lastCall = allCalls[allCalls.length - 1][0];
+      const lastCall = allCalls[allCalls.length - 1]?.[0] as Parameters<typeof AssistantUIChat>[0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
   });

@@ -429,12 +429,12 @@ export class PostHandler {
         toolChoice: disableTools ? undefined : "auto",
         // maxSteps: disableTools ? undefined : 10, // TODO: Uncomment when AI SDK supports this
         onStepFinish: disableTools ? undefined : async (step) => {
-          const stepType = (step as any).stepType;
-          const toolResults = (step as any).toolResults;
+          const stepType = (step as { stepType?: string }).stepType;
+          const toolResults = (step as { toolResults?: unknown[] }).toolResults;
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = toolResults.map((result: any) => ({
+              const toolMessages = toolResults.map((result: unknown) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));

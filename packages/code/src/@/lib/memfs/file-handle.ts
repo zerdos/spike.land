@@ -65,7 +65,7 @@ class FileHandleImpl implements FileHandle {
       // Ensure we have a proper ArrayBuffer-backed Uint8Array
       const writeData = typeof data === 'string' ? data : 
         data.buffer instanceof ArrayBuffer ? data : new Uint8Array(data);
-      await writable.write(writeData as any);
+      await writable.write(writeData as FileSystemWriteChunkType);
       await writable.close();
     };
     const { error } = await tryCatch(doWriteFile());
@@ -177,7 +177,7 @@ class FileHandleImpl implements FileHandle {
     throw new Error("Method not implemented");
   }
 
-  readableWebStream(_options?: any): ReadableStream<any> {
+  readableWebStream(_options?: unknown): ReadableStream<Uint8Array> {
     throw new Error("Method not implemented");
   }
 
@@ -233,7 +233,7 @@ class FileHandleImpl implements FileHandle {
       const writable = await this.fileHandle.createWritable();
       // Ensure we have a proper ArrayBuffer-backed Uint8Array
       const writeData = data.buffer instanceof ArrayBuffer ? data : new Uint8Array(data);
-      await writable.write(writeData as any);
+      await writable.write(writeData as FileSystemWriteChunkType);
       await writable.close();
       return {
         bytesWritten: (data as Uint8Array).length, // Cast to Uint8Array to access length

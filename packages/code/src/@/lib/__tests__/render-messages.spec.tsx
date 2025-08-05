@@ -251,7 +251,7 @@ describe("renderMessage with tool calls", () => {
       toolCallId: "tool_1",
       toolName: "process_data",
     });
-    const toolCallPart = result[1] as any;
+    const toolCallPart = result[1] as { type: "tool-call"; toolCallId: string; toolName: string; args: unknown };
     expect(JSON.stringify(toolCallPart.args)).toBe(JSON.stringify(largeData));
   });
 
