@@ -406,7 +406,7 @@ export class PostHandler {
           `[AI Routes][${requestId}] Sending tools to streamText:`,
           JSON.stringify(Object.keys(processedTools)),
         );
-        
+
         // Enable debug mode for Anthropic proxy if needed
         if (this.env.DEBUG_ANTHROPIC_PROXY === "true") {
           console.log(

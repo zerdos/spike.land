@@ -1,14 +1,14 @@
 import { AssistantUIChat } from "@/components/app/assistant-ui-chat";
 import { Thread } from "@/components/assistant-ui/thread";
 import type { ImageData } from "@/lib/interfaces";
-import { render } from "@testing-library/react";
 import {
   AssistantRuntimeProvider,
-  useThreadRuntime,
   type ComposerRuntime,
   type ThreadRuntime,
+  useThreadRuntime,
 } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
+import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Extended Message type for testing (includes tool_calls)
@@ -125,7 +125,7 @@ describe("AssistantUIChat", () => {
       <AssistantUIChat
         codeSpace="test-space"
         initialMessages={[]}
-      />
+      />,
     );
 
     expect(Thread).toHaveBeenCalled();
@@ -133,12 +133,12 @@ describe("AssistantUIChat", () => {
 
   it("should create runtime with correct API endpoint", () => {
     const codeSpace = "my-test-space";
-    
+
     render(
       <AssistantUIChat
         codeSpace={codeSpace}
         initialMessages={[]}
-      />
+      />,
     );
 
     expect(useChatRuntime).toHaveBeenCalledWith({
@@ -160,7 +160,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         // @ts-expect-error - Test uses custom Message type with 'data' role
         initialMessages={messages}
-      />
+      />,
     );
 
     expect(useChatRuntime).toHaveBeenCalledWith({
@@ -178,7 +178,7 @@ describe("AssistantUIChat", () => {
       <AssistantUIChat
         codeSpace="test-space"
         initialMessages={[]}
-      />
+      />,
     );
 
     expect(AssistantRuntimeProvider).toHaveBeenCalled();
@@ -198,7 +198,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledWith("Create a weather app");
@@ -211,7 +211,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={null}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).not.toHaveBeenCalled();
@@ -224,7 +224,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={undefined}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).not.toHaveBeenCalled();
@@ -233,7 +233,7 @@ describe("AssistantUIChat", () => {
 
   it("should handle initial prompt with images", () => {
     const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
-    
+
     const initialPrompt = {
       prompt: "Analyze this design",
       images: [
@@ -261,14 +261,14 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledWith("Analyze this design");
     expect(mockComposerRuntime.send).toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
       "Images detected in initial prompt:",
-      initialPrompt.images
+      initialPrompt.images,
     );
 
     consoleSpy.mockRestore();
@@ -285,7 +285,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     // Should not send empty prompts
@@ -304,7 +304,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     // Should not send whitespace-only prompts
@@ -325,7 +325,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).not.toHaveBeenCalled();
@@ -351,7 +351,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     // Verify setText and send were not called since composer is undefined
@@ -370,7 +370,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledTimes(1);
@@ -382,7 +382,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     // Should not send again
@@ -401,11 +401,11 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledWith(
-      'Create a "Hello, World!" app with <script> tags & emojis 🎉'
+      'Create a "Hello, World!" app with <script> tags & emojis 🎉',
     );
     expect(mockComposerRuntime.send).toHaveBeenCalled();
   });
@@ -422,7 +422,7 @@ describe("AssistantUIChat", () => {
         codeSpace="test-space"
         initialMessages={[]}
         initialPrompt={initialPrompt}
-      />
+      />,
     );
 
     expect(mockComposerRuntime.setText).toHaveBeenCalledWith(longPrompt);
@@ -470,7 +470,7 @@ describe("AssistantUIChat", () => {
           codeSpace="test-space"
           // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolCalls}
-        />
+        />,
       );
 
       // Should filter out tool messages (role: "tool") but keep others
@@ -481,7 +481,7 @@ describe("AssistantUIChat", () => {
             expect.objectContaining({ id: "2", role: "assistant" }),
             expect.objectContaining({ id: "4", role: "assistant" }),
           ]),
-        })
+        }),
       );
     });
 
@@ -525,7 +525,7 @@ describe("AssistantUIChat", () => {
           codeSpace="test-space"
           // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithMultipleTools}
-        />
+        />,
       );
 
       expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
@@ -547,7 +547,7 @@ describe("AssistantUIChat", () => {
               ]),
             }),
           ]),
-        })
+        }),
       );
     });
 
@@ -586,7 +586,7 @@ describe("AssistantUIChat", () => {
           codeSpace="test-space"
           // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithComplexTools}
-        />
+        />,
       );
 
       expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
@@ -602,7 +602,7 @@ describe("AssistantUIChat", () => {
               ]),
             }),
           ]),
-        })
+        }),
       );
     });
 
@@ -645,14 +645,14 @@ describe("AssistantUIChat", () => {
           codeSpace="test-space"
           // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolError}
-        />
+        />,
       );
 
       // Tool messages should be filtered out
       const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
-        expect.objectContaining({ role: "tool" })
+        expect.objectContaining({ role: "tool" }),
       );
     });
 
@@ -717,12 +717,12 @@ describe("AssistantUIChat", () => {
           codeSpace="test-space"
           // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={interleavedMessages}
-        />
+        />,
       );
 
       const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
       // Should maintain order but filter out tool messages
       expect(calls?.initialMessages?.map(m => m.id)).toEqual(["1", "2", "4", "6"]);
     });
-  })
+  });
 });
