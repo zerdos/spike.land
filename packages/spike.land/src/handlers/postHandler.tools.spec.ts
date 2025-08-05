@@ -112,10 +112,10 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock streamText to capture the tools being passed
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
-          return Promise.resolve(mockStreamResponse);
-        }),
+          return mockStreamResponse;
+        }) as typeof streamText,
       );
 
       // Mock createAnthropic to return a provider
@@ -215,10 +215,10 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       let capturedOptions: Parameters<typeof streamText>[0] | undefined;
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        (async (options: Parameters<typeof streamText>[0]) => {
           capturedOptions = options;
-          return Promise.resolve(mockStreamResponse);
-        }),
+          return mockStreamResponse;
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -247,10 +247,10 @@ describe("PostHandler - Tool Schema Validation", () => {
       let capturedTools: ToolSet | undefined;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
-          return Promise.resolve(mockStreamResponse);
-        }),
+          return mockStreamResponse;
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -280,10 +280,10 @@ describe("PostHandler - Tool Schema Validation", () => {
       let capturedTools: ToolSet | undefined;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        (async (options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
-          return Promise.resolve(mockStreamResponse);
-        }),
+          return mockStreamResponse;
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
