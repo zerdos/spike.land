@@ -131,7 +131,6 @@ vi.mock("@assistant-ui/react", () => ({
               return <TextComponent key={idx} text={part.text || ""} />;
             }
             if (part.type === "tool-call" && components?.tools?.Fallback) {
-              const ToolComponent = components.tools.Fallback;
               return (
                 <div key={idx} data-testid="tool-call">
                   <button>{part.toolName || ""}</button>
