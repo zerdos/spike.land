@@ -55,6 +55,13 @@ const createMockTools = () => ({
     parameters: {} as never,
     execute: vi.fn(),
   }),
+  textEditor_20250429: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.textEditor_20250429",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
   computer_20250124: vi.fn().mockReturnValue({
     type: "provider-defined",
     id: "anthropic.computer_20250124",
@@ -65,6 +72,13 @@ const createMockTools = () => ({
   computer_20241022: vi.fn().mockReturnValue({
     type: "provider-defined",
     id: "anthropic.computer_20241022",
+    args: {},
+    parameters: {} as never,
+    execute: vi.fn(),
+  }),
+  webSearch_20250305: vi.fn().mockReturnValue({
+    type: "provider-defined",
+    id: "anthropic.webSearch_20250305",
     args: {},
     parameters: {} as never,
     execute: vi.fn(),
@@ -583,7 +597,7 @@ describe("PostHandler", () => {
           toolResults: [
             { toolCallId: "1", result: { output: "test" } },
           ] as Array<{ toolCallId: string; result: { output: string; }; }>,
-        } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
+        } as unknown as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
       );
 
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledTimes(2);
@@ -623,7 +637,7 @@ describe("PostHandler", () => {
           toolResults: [
             { toolCallId: "1", result: { output: "test" } },
           ] as Array<{ toolCallId: string; result: { output: string; }; }>,
-        } as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
+        } as unknown as Parameters<NonNullable<Parameters<typeof streamText>[0]["onStepFinish"]>>[0],
       );
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(

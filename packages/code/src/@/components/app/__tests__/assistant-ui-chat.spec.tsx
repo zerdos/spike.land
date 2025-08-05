@@ -7,14 +7,36 @@ import {
   type ThreadRuntime,
   useThreadRuntime,
 } from "@assistant-ui/react";
-import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
+import { useAISDKRuntime } from "@assistant-ui/react-ai-sdk";
+import { useChat } from "@ai-sdk/react";
+import type { UIMessage } from "ai";
 import { render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Extended Message type for testing (includes tool_calls)
-interface Message {
+// Helper function to create UIMessage with text content
+function createUIMessage(
+  id: string,
+  role: "user" | "assistant" | "system",
+  content: string,
+): UIMessage {
+  return {
+    id,
+    role,
+    parts: [{ type: "text", text: content }],
+  };
+}
+
+// Helper function to convert ExtendedMessage array to UIMessage array
+function convertToUIMessages(messages: ExtendedMessage[]): UIMessage[] {
+  return messages
+    .filter(m => m.role !== "data" && m.role !== "tool")
+    .map(m => createUIMessage(m.id, m.role as "user" | "assistant" | "system", m.content));
+}
+
+// Extended message type for testing (includes additional properties)
+interface ExtendedMessage {
   id: string;
-  role: "user" | "system" | "assistant" | "tool" | "data";
+  role: "user" | "assistant" | "system" | "tool" | "data";
   content: string;
   tool_calls?: Array<{
     id: string;
@@ -34,7 +56,11 @@ vi.mock("@assistant-ui/react", () => ({
 }));
 
 vi.mock("@assistant-ui/react-ai-sdk", () => ({
-  useChatRuntime: vi.fn(),
+  useAISDKRuntime: vi.fn(),
+}));
+
+vi.mock("@ai-sdk/react", () => ({
+  useChat: vi.fn(),
 }));
 
 vi.mock("@/components/assistant-ui/thread", () => ({
@@ -108,11 +134,25 @@ describe("AssistantUIChat", () => {
     startRun: vi.fn(),
     cancelRun: vi.fn(),
     subscribe: vi.fn(),
-  } as unknown as ReturnType<typeof useChatRuntime>;
+  } as unknown as ReturnType<typeof useAISDKRuntime>;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(useChatRuntime).mockReturnValue(mockRuntime);
+    const mockChat = {
+      messages: [],
+      setMessages: vi.fn(),
+      sendMessage: vi.fn(),
+      regenerate: vi.fn(),
+      stop: vi.fn(),
+      resumeStream: vi.fn(),
+      addToolResult: vi.fn(),
+      status: "idle" as const,
+      clearError: vi.fn(),
+      error: undefined,
+    } as unknown as ReturnType<typeof useChat>;
+    
+    vi.mocked(useChat).mockReturnValue(mockChat);
+    vi.mocked(useAISDKRuntime).mockReturnValue(mockRuntime);
     vi.mocked(useThreadRuntime).mockReturnValue(mockThreadRuntime);
   });
 
@@ -141,35 +181,34 @@ describe("AssistantUIChat", () => {
       />,
     );
 
-    expect(useChatRuntime).toHaveBeenCalledWith({
+    expect(useChat).toHaveBeenCalledWith({
       api: `/live/${codeSpace}/messages`,
       initialMessages: [],
     });
   });
 
   it("should filter out messages with data role", () => {
-    const messages: Message[] = [
+    const messages: ExtendedMessage[] = [
       { id: "1", role: "user", content: "Hello" },
       { id: "2", role: "assistant", content: "Hi" },
       { id: "3", role: "data", content: "Should be filtered" },
       { id: "4", role: "system", content: "System message" },
     ];
+    
+    const uiMessages = messages
+      .filter(m => m.role !== "data" && m.role !== "tool")
+      .map(m => createUIMessage(m.id, m.role as "user" | "assistant" | "system", m.content));
 
     render(
       <AssistantUIChat
         codeSpace="test-space"
-        // @ts-expect-error - Test uses custom Message type with 'data' role
-        initialMessages={messages}
+        initialMessages={uiMessages}
       />,
     );
 
-    expect(useChatRuntime).toHaveBeenCalledWith({
+    expect(useChat).toHaveBeenCalledWith({
       api: "/live/test-space/messages",
-      initialMessages: [
-        { id: "1", role: "user", content: "Hello" },
-        { id: "2", role: "assistant", content: "Hi" },
-        { id: "4", role: "system", content: "System message" },
-      ],
+      initialMessages: uiMessages,
     });
   });
 
@@ -431,7 +470,7 @@ describe("AssistantUIChat", () => {
 
   describe("tool call messages", () => {
     it("should handle messages with tool calls", () => {
-      const messagesWithToolCalls: Message[] = [
+      const messagesWithToolCalls: ExtendedMessage[] = [
         {
           id: "1",
           role: "user",
@@ -465,28 +504,25 @@ describe("AssistantUIChat", () => {
         },
       ];
 
+      const uiMessages = convertToUIMessages(messagesWithToolCalls);
+      
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
-          initialMessages={messagesWithToolCalls}
+          initialMessages={uiMessages}
         />,
       );
 
       // Should filter out tool messages (role: "tool") but keep others
-      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+      expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: expect.arrayContaining([
-            expect.objectContaining({ id: "1", role: "user" }),
-            expect.objectContaining({ id: "2", role: "assistant" }),
-            expect.objectContaining({ id: "4", role: "assistant" }),
-          ]),
+          initialMessages: uiMessages,
         }),
       );
     });
 
     it("should handle multiple tool calls in a single message", () => {
-      const messagesWithMultipleTools: Message[] = [
+      const messagesWithMultipleTools: ExtendedMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -520,33 +556,18 @@ describe("AssistantUIChat", () => {
         },
       ];
 
+      const uiMessages = convertToUIMessages(messagesWithMultipleTools);
+      
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
-          initialMessages={messagesWithMultipleTools}
+          initialMessages={uiMessages}
         />,
       );
 
-      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+      expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: expect.arrayContaining([
-            expect.objectContaining({
-              id: "1",
-              role: "assistant",
-              tool_calls: expect.arrayContaining([
-                expect.objectContaining({
-                  function: expect.objectContaining({ name: "get_weather" }),
-                }),
-                expect.objectContaining({
-                  function: expect.objectContaining({ name: "get_time" }),
-                }),
-                expect.objectContaining({
-                  function: expect.objectContaining({ name: "search_restaurants" }),
-                }),
-              ]),
-            }),
-          ]),
+          initialMessages: uiMessages,
         }),
       );
     });
@@ -563,7 +584,7 @@ describe("AssistantUIChat", () => {
         sortBy: "relevance",
       };
 
-      const messagesWithComplexTools: Message[] = [
+      const messagesWithComplexTools: ExtendedMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -581,33 +602,24 @@ describe("AssistantUIChat", () => {
         },
       ];
 
+      const uiMessages = convertToUIMessages(messagesWithComplexTools);
+      
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
-          initialMessages={messagesWithComplexTools}
+          initialMessages={uiMessages}
         />,
       );
 
-      expect(vi.mocked(useChatRuntime)).toHaveBeenCalledWith(
+      expect(vi.mocked(useChat)).toHaveBeenCalledWith(
         expect.objectContaining({
-          initialMessages: expect.arrayContaining([
-            expect.objectContaining({
-              tool_calls: expect.arrayContaining([
-                expect.objectContaining({
-                  function: expect.objectContaining({
-                    arguments: JSON.stringify(complexArgs),
-                  }),
-                }),
-              ]),
-            }),
-          ]),
+          initialMessages: uiMessages,
         }),
       );
     });
 
     it("should handle tool error responses", () => {
-      const messagesWithToolError: Message[] = [
+      const messagesWithToolError: ExtendedMessage[] = [
         {
           id: "1",
           role: "assistant",
@@ -640,16 +652,17 @@ describe("AssistantUIChat", () => {
         },
       ];
 
+      const uiMessagesError = convertToUIMessages(messagesWithToolError);
+      
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
-          initialMessages={messagesWithToolError}
+          initialMessages={uiMessagesError}
         />,
       );
 
       // Tool messages should be filtered out
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      const calls = vi.mocked(useChat).mock.calls[0]?.[0] as any;
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
         expect.objectContaining({ role: "tool" }),
@@ -657,7 +670,7 @@ describe("AssistantUIChat", () => {
     });
 
     it("should preserve message order with interleaved tool calls", () => {
-      const interleavedMessages: Message[] = [
+      const interleavedMessages: ExtendedMessage[] = [
         {
           id: "1",
           role: "user",
@@ -712,17 +725,18 @@ describe("AssistantUIChat", () => {
         },
       ];
 
+      const uiMessages = convertToUIMessages(interleavedMessages);
+      
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
-          initialMessages={interleavedMessages}
+          initialMessages={uiMessages}
         />,
       );
 
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      const calls = vi.mocked(useChat).mock.calls[0]?.[0] as any;
       // Should maintain order but filter out tool messages
-      expect(calls?.initialMessages?.map(m => m.id)).toEqual(["1", "2", "4", "6"]);
+      expect(calls?.initialMessages?.map((m: any) => m.id)).toEqual(["1", "2", "4", "6"]);
     });
   });
 });

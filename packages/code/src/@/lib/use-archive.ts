@@ -241,7 +241,7 @@ export const useSpeedy = async (codeSpace: string) => {
 
         const response = await fetch(f.path.slice(1), {
           method: "PUT",
-          body,
+          body: (body.buffer instanceof ArrayBuffer ? body : new Uint8Array(body)) as any,
           headers: { "Content-Type": mimeType },
         });
 

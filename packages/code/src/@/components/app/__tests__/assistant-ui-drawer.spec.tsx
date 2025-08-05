@@ -3,8 +3,21 @@ import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { Message } from "ai";
+import type { UIMessage } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Helper function to create UIMessage with text content
+function createUIMessage(
+  id: string,
+  role: "user" | "assistant" | "system",
+  content: string,
+): UIMessage {
+  return {
+    id,
+    role,
+    parts: [{ type: "text", text: content }],
+  };
+}
 
 // Mock dependencies
 vi.mock("@/components/app/assistant-ui-chat", () => ({
@@ -79,9 +92,9 @@ describe("AssistantUIDrawer", () => {
   });
 
   it("should load messages when drawer opens", async () => {
-    const mockMessages: Message[] = [
-      { id: "1", role: "user", content: "Hello" },
-      { id: "2", role: "assistant", content: "Hi there!" },
+    const mockMessages: UIMessage[] = [
+      createUIMessage("1", "user", "Hello"),
+      createUIMessage("2", "assistant", "Hi there!"),
     ];
 
     vi.mocked(fetch).mockResolvedValueOnce({
@@ -276,13 +289,13 @@ describe("AssistantUIDrawer", () => {
   });
 
   it("should reload messages when drawer is closed and reopened", async () => {
-    const firstMessages: Message[] = [
-      { id: "1", role: "user", content: "First message" },
+    const firstMessages: UIMessage[] = [
+      createUIMessage("1", "user", "First message"),
     ];
-    const secondMessages: Message[] = [
-      { id: "1", role: "user", content: "First message" },
-      { id: "2", role: "assistant", content: "Response" },
-      { id: "3", role: "user", content: "Second message" },
+    const secondMessages: UIMessage[] = [
+      createUIMessage("1", "user", "First message"),
+      createUIMessage("2", "assistant", "Response"),
+      createUIMessage("3", "user", "Second message"),
     ];
 
     vi.mocked(fetch)
@@ -387,12 +400,12 @@ describe("AssistantUIDrawer", () => {
   });
 
   it("should remount AssistantUIChat when messages change due to different key", async () => {
-    const firstMessages: Message[] = [
-      { id: "1", role: "user", content: "First message" },
+    const firstMessages: UIMessage[] = [
+      createUIMessage("1", "user", "First message"),
     ];
-    const secondMessages: Message[] = [
-      { id: "1", role: "user", content: "First message" },
-      { id: "2", role: "assistant", content: "Response" },
+    const secondMessages: UIMessage[] = [
+      createUIMessage("1", "user", "First message"),
+      createUIMessage("2", "assistant", "Response"),
     ];
 
     vi.mocked(fetch)

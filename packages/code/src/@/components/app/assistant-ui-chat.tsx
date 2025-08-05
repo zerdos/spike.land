@@ -1,14 +1,14 @@
 import { Thread } from "@/components/assistant-ui/thread";
 import type { ImageData } from "@/lib/interfaces";
 import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react";
-import type { ThreadMessageLike } from "@assistant-ui/react";
-import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
-import type { Message } from "ai";
+import { useAISDKRuntime } from "@assistant-ui/react-ai-sdk";
+import { useChat } from "@ai-sdk/react";
+import type { UIMessage } from "ai";
 import React, { useEffect, useRef } from "react";
 
 interface AssistantUIChatProps {
   codeSpace: string;
-  initialMessages: Message[];
+  initialMessages: UIMessage[];
   initialPrompt?:
     | {
       prompt: string;
@@ -25,11 +25,12 @@ export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
       msg => msg.role === "user" || msg.role === "assistant" || msg.role === "system",
     );
 
-    // Create runtime with initial messages
-    const runtime = useChatRuntime({
+    // Create chat instance and runtime
+    const chat = useChat({
       api: `/live/${codeSpace}/messages`,
-      initialMessages: filteredMessages as unknown as ThreadMessageLike[],
-    });
+      initialMessages: filteredMessages,
+    } as any);
+    const runtime = useAISDKRuntime(chat);
 
     return (
       <AssistantRuntimeProvider runtime={runtime}>

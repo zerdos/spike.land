@@ -62,7 +62,10 @@ class FileHandleImpl implements FileHandle {
   ): Promise<void> {
     const doWriteFile = async () => {
       const writable = await this.fileHandle.createWritable();
-      await writable.write(data);
+      // Ensure we have a proper ArrayBuffer-backed Uint8Array
+      const writeData = typeof data === 'string' ? data : 
+        data.buffer instanceof ArrayBuffer ? data : new Uint8Array(data);
+      await writable.write(writeData as any);
       await writable.close();
     };
     const { error } = await tryCatch(doWriteFile());
@@ -174,7 +177,7 @@ class FileHandleImpl implements FileHandle {
     throw new Error("Method not implemented");
   }
 
-  readableWebStream(_options?: { type: "bytes"; }): ReadableStream<Uint8Array> {
+  readableWebStream(_options?: any): ReadableStream<any> {
     throw new Error("Method not implemented");
   }
 
@@ -228,7 +231,9 @@ class FileHandleImpl implements FileHandle {
     // The core write operation
     const doWrite = async () => {
       const writable = await this.fileHandle.createWritable();
-      await writable.write(data); // data is already Uint8Array here
+      // Ensure we have a proper ArrayBuffer-backed Uint8Array
+      const writeData = data.buffer instanceof ArrayBuffer ? data : new Uint8Array(data);
+      await writable.write(writeData as any);
       await writable.close();
       return {
         bytesWritten: (data as Uint8Array).length, // Cast to Uint8Array to access length
@@ -275,7 +280,7 @@ export const createFileHandle = (
   fileHandle: FileSystemFileHandle,
   _path: string,
 ): FileHandle => {
-  return new FileHandleImpl(fileHandle);
+  return new FileHandleImpl(fileHandle) as FileHandle;
 };
 
 /**

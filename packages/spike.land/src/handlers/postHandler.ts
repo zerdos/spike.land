@@ -427,12 +427,14 @@ export class PostHandler {
         messages,
         tools: disableTools ? undefined : processedTools,
         toolChoice: disableTools ? undefined : "auto",
-        maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }) => {
+        // maxSteps: disableTools ? undefined : 10, // TODO: Uncomment when AI SDK supports this
+        onStepFinish: disableTools ? undefined : async (step) => {
+          const stepType = (step as any).stepType;
+          const toolResults = (step as any).toolResults;
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = toolResults.map((result) => ({
+              const toolMessages = toolResults.map((result: any) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));
@@ -465,15 +467,8 @@ export class PostHandler {
         );
       }
 
-      return result.toDataStreamResponse({
+      return result.toTextStreamResponse({
         headers: this.getCorsHeaders(),
-        getErrorMessage: (error) => {
-          console.error(
-            `[AI Routes][${requestId}] Error during streaming:`,
-            error,
-          );
-          return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
-        },
       });
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {

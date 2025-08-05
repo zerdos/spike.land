@@ -1,7 +1,7 @@
 import { Bot } from "@/external/lucide-react";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import type { Message } from "ai";
+import type { UIMessage } from "ai";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
 import { AssistantUIChat } from "./assistant-ui-chat";
@@ -24,7 +24,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess, initialPrompt }) => {
     const codeSpace = _cSess.getCodeSpace();
     const [messagesLoaded, setMessagesLoaded] = useState(false);
-    const [savedMessages, setSavedMessages] = useState<Message[]>([]);
+    const [savedMessages, setSavedMessages] = useState<UIMessage[]>([]);
 
     // Load existing messages when drawer opens
     useEffect(() => {
