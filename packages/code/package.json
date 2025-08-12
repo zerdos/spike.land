@@ -68,8 +68,9 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.12",
+    "@ai-sdk/react": "^0.0.24",
     "@assistant-ui/react": "^0.10.33",
-    "@assistant-ui/react-ai-sdk": "^0.10.16",
+    "@assistant-ui/react-ai-sdk": "alpha",
     "@assistant-ui/react-markdown": "^0.10.6",
     "@clerk/clerk-react": "5.38.0",
     "@dmsnell/diff-match-patch": "1.1.0",

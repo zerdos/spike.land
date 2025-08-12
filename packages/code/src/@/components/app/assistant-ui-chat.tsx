@@ -1,10 +1,10 @@
 import { Thread } from "@/components/assistant-ui/thread";
 import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react";
-import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
+import { useAISDKRuntime } from "@assistant-ui/react-ai-sdk";
+import { useChat } from "@ai-sdk/react";
 import React, { useEffect, useRef } from "react";
 import type { Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
-import type { ThreadMessageLike } from "@assistant-ui/react";
 
 interface AssistantUIChatProps {
   codeSpace: string;
@@ -17,16 +17,13 @@ interface AssistantUIChatProps {
 
 export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
   ({ codeSpace, initialMessages, initialPrompt }) => {
-    // Filter out messages with 'data' role as they're not supported by ThreadMessageLike
-    const filteredMessages = initialMessages.filter(
-      msg => msg.role === 'user' || msg.role === 'assistant' || msg.role === 'system'
-    );
-    
-    // Create runtime with initial messages
-    const runtime = useChatRuntime({
+    const chat = useChat({
       api: `/live/${codeSpace}/messages`,
-      initialMessages: filteredMessages as unknown as ThreadMessageLike[],
+      initialMessages,
+      id: codeSpace,
     });
+    // @ts-expect-error - The `useChat` hook from `@ai-sdk/react` is not fully compatible with the `useAISDKRuntime` hook from `@assistant-ui/react-ai-sdk@alpha`.
+    const runtime = useAISDKRuntime(chat);
 
     return (
       <AssistantRuntimeProvider runtime={runtime}>
