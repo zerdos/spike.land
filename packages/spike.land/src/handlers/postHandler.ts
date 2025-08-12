@@ -1,6 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
-import { streamText } from "ai";
+import { convertToCoreMessages, streamText } from "ai";
 import type { CoreMessage } from "ai";
 import type { z } from "zod";
 import type { Code } from "../chatRoom";
@@ -129,8 +129,8 @@ export class PostHandler {
         return this.createErrorResponse(validationError, 400);
       }
 
-      const codeSpace = this.code.getSession().codeSpace;
-      const messages = this.convertMessages(body.messages);
+      const codeSpace = this.code.getSession().codespace;
+      const messages = convertToCoreMessages(body.messages);
 
       await this.storageService.saveRequestBody(codeSpace, body);
 
@@ -238,61 +238,6 @@ export class PostHandler {
     }
 
     return null;
-  }
-
-  private isValidRole(role: unknown): role is ValidRole {
-    return typeof role === "string" && VALID_ROLES.includes(role as ValidRole);
-  }
-
-  private isMessageContentPart(part: unknown): part is MessageContentPart {
-    return (
-      part !== null &&
-      typeof part === "object" &&
-      "type" in part &&
-      typeof part.type === "string"
-    );
-  }
-
-  private convertMessages(messages: Message[]): CoreMessage[] {
-    return messages.map((msg: Message) => {
-      if (!this.isValidRole(msg.role)) {
-        throw new Error(`Invalid role: ${msg.role}`);
-      }
-
-      const validRole = msg.role as ValidRole;
-
-      if (typeof msg.content === "string") {
-        return {
-          role: validRole,
-          content: msg.content,
-        };
-      }
-
-      if (Array.isArray(msg.content)) {
-        return {
-          role: validRole,
-          content: msg.content.map((part: unknown) => {
-            if (!this.isMessageContentPart(part)) {
-              return { type: "text", text: "[invalid content]" };
-            }
-
-            if (part.type === "text") {
-              return { type: "text", text: part.text || "" };
-            }
-            if (part.type === "image_url" && part.image_url) {
-              return { type: "image", image: part.image_url.url };
-            }
-            return { type: "text", text: "[unsupported content]" };
-          }),
-        };
-      }
-
-      // Fallback for unexpected content types
-      return {
-        role: validRole,
-        content: "[invalid content format]",
-      };
-    });
   }
 
   private async createStreamResponse(
@@ -465,16 +410,15 @@ export class PostHandler {
         );
       }
 
-      return result.toDataStreamResponse({
-        headers: this.getCorsHeaders(),
-        getErrorMessage: (error) => {
-          console.error(
-            `[AI Routes][${requestId}] Error during streaming:`,
-            error,
-          );
-          return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
-        },
-      });
+      const response = result.toUIMessageStreamResponse();
+
+      // Add CORS headers to the response
+      const corsHeaders = this.getCorsHeaders();
+      for (const [key, value] of Object.entries(corsHeaders)) {
+        response.headers.set(key, value);
+      }
+
+      return response;
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
         message: streamError instanceof Error
