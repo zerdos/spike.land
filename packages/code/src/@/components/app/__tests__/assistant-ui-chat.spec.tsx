@@ -649,7 +649,7 @@ describe("AssistantUIChat", () => {
       );
 
       // Tool messages should be filtered out
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as any;
       expect(calls?.initialMessages).toHaveLength(2); // Only assistant messages
       expect(calls?.initialMessages).not.toContainEqual(
         expect.objectContaining({ role: "tool" })
@@ -720,9 +720,9 @@ describe("AssistantUIChat", () => {
         />
       );
 
-      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0];
+      const calls = vi.mocked(useChatRuntime).mock.calls[0]?.[0] as any;
       // Should maintain order but filter out tool messages
-      expect(calls?.initialMessages?.map(m => m.id)).toEqual(["1", "2", "4", "6"]);
+      expect(calls?.initialMessages?.map((m: any) => m.id)).toEqual(["1", "2", "4", "6"]);
     });
   })
 });

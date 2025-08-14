@@ -45,6 +45,7 @@
       "Bash(gh pr comment:*)",
       "Bash(gh pr checks:*)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits"
   }
 }

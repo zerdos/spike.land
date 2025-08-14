@@ -4,7 +4,6 @@ import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import React, { useEffect, useRef } from "react";
 import type { Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
-import type { ThreadMessageLike } from "@assistant-ui/react";
 
 interface AssistantUIChatProps {
   codeSpace: string;
@@ -17,16 +16,16 @@ interface AssistantUIChatProps {
 
 export const AssistantUIChat: React.FC<AssistantUIChatProps> = React.memo(
   ({ codeSpace, initialMessages, initialPrompt }) => {
-    // Filter out messages with 'data' role as they're not supported by ThreadMessageLike
+    // Filter out messages with 'data' role as they're not supported
     const filteredMessages = initialMessages.filter(
       msg => msg.role === 'user' || msg.role === 'assistant' || msg.role === 'system'
     );
     
-    // Create runtime with initial messages
+    // Use the assistant-ui chat runtime directly
     const runtime = useChatRuntime({
       api: `/live/${codeSpace}/messages`,
-      initialMessages: filteredMessages as unknown as ThreadMessageLike[],
-    });
+      initialMessages: filteredMessages,
+    } as any);
 
     return (
       <AssistantRuntimeProvider runtime={runtime}>
