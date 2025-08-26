@@ -484,7 +484,7 @@ export class PostHandler {
       if (typeof (result as any)?.toDataStreamResponse === 'function') {
         return (result as any).toDataStreamResponse({
           headers: this.getCorsHeaders(),
-          getErrorMessage: (error) => {
+          getErrorMessage: (error: any) => {
             console.error(
               `[AI Routes][${requestId}] Error during streaming:`,
               error,
