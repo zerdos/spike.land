@@ -28,7 +28,7 @@ jobs:
       run: yarn install --frozen-lockfile
     
     - name: Build application
-      run: yarn build:all
+      run: yarn build:fe
     
     - name: Install Playwright Browsers
       run: yarn playwright install --with-deps
@@ -62,7 +62,7 @@ jobs:
       run: yarn install --frozen-lockfile
     
     - name: Build application
-      run: yarn build:all
+      run: yarn build:fe
     
     - name: Install Playwright Chromium
       run: yarn playwright install chromium --with-deps
