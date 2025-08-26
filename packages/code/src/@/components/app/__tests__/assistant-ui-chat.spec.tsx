@@ -158,7 +158,6 @@ describe("AssistantUIChat", () => {
     render(
       <AssistantUIChat
         codeSpace="test-space"
-        // @ts-expect-error - Test uses custom Message type with 'data' role
         initialMessages={messages}
       />
     );
@@ -468,7 +467,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolCalls}
         />
       );
@@ -523,7 +521,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithMultipleTools}
         />
       );
@@ -584,7 +581,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithComplexTools}
         />
       );
@@ -643,7 +639,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolError}
         />
       );
@@ -715,7 +710,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={interleavedMessages}
         />
       );

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix-chat
   pull_request:
     branches:
       - main

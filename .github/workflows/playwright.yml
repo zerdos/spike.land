@@ -1,0 +1,81 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main, fix-chat ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  playwright:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Build application
+      run: yarn build:all
+    
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    
+    - name: Run Playwright tests
+      run: yarn playwright test --shard=${{ matrix.shard }}/2
+      env:
+        CI: true
+    
+    - name: Upload Playwright Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report-${{ matrix.shard }}
+        path: playwright-report/
+        retention-days: 7
+
+  smoke-tests:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Build application
+      run: yarn build:all
+    
+    - name: Install Playwright Chromium
+      run: yarn playwright install chromium --with-deps
+    
+    - name: Run Smoke Tests
+      run: yarn playwright test --grep @smoke
+      env:
+        CI: true
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: smoke-test-results
+        path: test-results/
+        retention-days: 7

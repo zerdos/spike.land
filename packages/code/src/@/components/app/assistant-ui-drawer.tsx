@@ -3,7 +3,7 @@ import type { ICode, ImageData } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
-import type { Message } from "ai";
+import type { UIMessage as Message } from "ai";
 import { AssistantUIChat } from "./assistant-ui-chat";
 
 interface AssistantUIDrawerProps {

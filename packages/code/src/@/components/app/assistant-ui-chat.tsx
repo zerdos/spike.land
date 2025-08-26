@@ -2,7 +2,7 @@ import { Thread } from "@/components/assistant-ui/thread";
 import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import React, { useEffect, useRef } from "react";
-import type { Message } from "ai";
+import type { UIMessage as Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
 
 interface AssistantUIChatProps {
