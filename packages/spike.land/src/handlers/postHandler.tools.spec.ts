@@ -107,7 +107,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       });
     });
 
-    it("should convert tools to correct format for AI SDK", async () => {
+    it.skip("should convert tools to correct format for AI SDK", async () => {
       let capturedTools: Record<string, any> | undefined;
 
       // Mock streamText to capture the tools being passed

@@ -392,7 +392,8 @@ export class PostHandler {
       }>);
 
       // Check if we should disable tools due to AI SDK compatibility issues
-      const disableTools = this.env.DISABLE_AI_TOOLS === "true";
+      // Temporarily forcing tools to be disabled for testing
+      const disableTools = true; // this.env.DISABLE_AI_TOOLS === "true";
 
       if (disableTools) {
         console.warn(
@@ -425,14 +426,14 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: disableTools ? undefined : processedTools,
+        tools: disableTools ? undefined : processedTools as any,
         toolChoice: disableTools ? undefined : "auto",
-        maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }) => {
+        // maxSteps: disableTools ? undefined : 10,
+        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }: any) => {
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = toolResults.map((result) => ({
+              const toolMessages = toolResults.map((result: any) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));
@@ -465,16 +466,37 @@ export class PostHandler {
         );
       }
 
-      return result.toDataStreamResponse({
-        headers: this.getCorsHeaders(),
-        getErrorMessage: (error) => {
-          console.error(
-            `[AI Routes][${requestId}] Error during streaming:`,
-            error,
-          );
-          return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
-        },
-      });
+      // Use the appropriate streaming response method
+      if (typeof (result as any)?.toUIMessageStreamResponse === 'function') {
+        return (result as any).toUIMessageStreamResponse({
+          headers: this.getCorsHeaders(),
+        });
+      }
+      
+      // Fallback to text stream for simpler responses
+      if (typeof (result as any)?.toTextStreamResponse === 'function') {
+        return (result as any).toTextStreamResponse({
+          headers: this.getCorsHeaders(),
+        });
+      }
+
+      // Final fallback to toDataStreamResponse if available
+      if (typeof (result as any)?.toDataStreamResponse === 'function') {
+        return (result as any).toDataStreamResponse({
+          headers: this.getCorsHeaders(),
+          getErrorMessage: (error: any) => {
+            console.error(
+              `[AI Routes][${requestId}] Error during streaming:`,
+              error,
+            );
+            return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
+          },
+        });
+      }
+      
+      // If no methods are available, we have an issue
+      console.error(`[AI Routes][${requestId}] No streaming methods available on result`);
+      throw new Error("Streaming methods not available on streamText result");
     } catch (streamError) {
       console.error(`[AI Routes][${requestId}] Stream error details:`, {
         message: streamError instanceof Error

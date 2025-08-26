@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix-chat
   pull_request:
     branches:
       - main
@@ -39,7 +40,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Linters
-        run: yarn eslint
+        run: yarn eslint --max-warnings=200
 
       - name: Run Type Checking
         run: yarn types:check

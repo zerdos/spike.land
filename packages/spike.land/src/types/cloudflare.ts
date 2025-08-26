@@ -83,7 +83,7 @@ export function createResponse(
       headers.set(key, value);
     });
   }
-  return new Response(body, {
+  return new Response(body as BodyInit, {
     status: init?.status,
     statusText: init?.statusText,
     headers,

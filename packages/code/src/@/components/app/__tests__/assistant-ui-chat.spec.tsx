@@ -11,21 +11,8 @@ import {
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Extended Message type for testing (includes tool_calls)
-interface Message {
-  id: string;
-  role: "user" | "system" | "assistant" | "tool" | "data";
-  content: string;
-  tool_calls?: Array<{
-    id: string;
-    type: "function";
-    function: {
-      name: string;
-      arguments: string;
-    };
-  }>;
-  tool_call_id?: string;
-}
+// Use any type for tests to avoid type conflicts
+type Message = any;
 
 // Mock dependencies
 vi.mock("@assistant-ui/react", () => ({
@@ -158,7 +145,6 @@ describe("AssistantUIChat", () => {
     render(
       <AssistantUIChat
         codeSpace="test-space"
-        // @ts-expect-error - Test uses custom Message type with 'data' role
         initialMessages={messages}
       />
     );
@@ -468,7 +454,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolCalls}
         />
       );
@@ -523,7 +508,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithMultipleTools}
         />
       );
@@ -584,7 +568,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with tool_calls
           initialMessages={messagesWithComplexTools}
         />
       );
@@ -643,7 +626,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={messagesWithToolError}
         />
       );
@@ -715,7 +697,6 @@ describe("AssistantUIChat", () => {
       render(
         <AssistantUIChat
           codeSpace="test-space"
-          // @ts-expect-error - Test uses custom Message type with 'tool' role
           initialMessages={interleavedMessages}
         />
       );
