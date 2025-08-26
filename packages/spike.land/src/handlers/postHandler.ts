@@ -426,14 +426,14 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: disableTools ? undefined : processedTools,
+        tools: disableTools ? undefined : processedTools as any,
         toolChoice: disableTools ? undefined : "auto",
-        maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }) => {
+        // maxSteps: disableTools ? undefined : 10,
+        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }: any) => {
           if (stepType === "tool-result" && toolResults) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = toolResults.map((result) => ({
+              const toolMessages = toolResults.map((result: any) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));
