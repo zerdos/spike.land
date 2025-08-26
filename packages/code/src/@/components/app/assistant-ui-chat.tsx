@@ -2,12 +2,11 @@ import { Thread } from "@/components/assistant-ui/thread";
 import { AssistantRuntimeProvider, useThreadRuntime } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import React, { useEffect, useRef } from "react";
-import type { UIMessage as Message } from "ai";
 import type { ImageData } from "@/lib/interfaces";
 
 interface AssistantUIChatProps {
   codeSpace: string;
-  initialMessages: Message[];
+  initialMessages: any[];
   initialPrompt?: {
     prompt: string;
     images: ImageData[];

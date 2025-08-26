@@ -4,13 +4,8 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import type { ICode } from "@/lib/interfaces";
 import { AssistantUIDrawer } from "./assistant-ui-drawer";
 
-// Define a test-specific Message type
-type Message = {
-  id: string;
-  role: string;
-  content?: string;
-  [key: string]: unknown;
-};
+// Use any type for tests to avoid type conflicts
+type Message = any;
 
 // Mock fetch
 global.fetch = vi.fn();

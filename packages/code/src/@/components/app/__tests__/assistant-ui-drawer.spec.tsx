@@ -3,14 +3,10 @@ import { AssistantUIChat } from "@/components/app/assistant-ui-chat";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-// Define a test-specific Message type
-type Message = {
-  id: string;
-  role: string;
-  content?: string;
-  [key: string]: unknown;
-};
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+// Use any type for tests to avoid type conflicts
+type Message = any;
 
 // Mock dependencies
 vi.mock("@/components/app/assistant-ui-chat", () => ({

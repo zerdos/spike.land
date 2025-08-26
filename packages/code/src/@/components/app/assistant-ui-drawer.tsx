@@ -3,7 +3,6 @@ import type { ICode, ImageData } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { Drawer } from "vaul";
-import type { UIMessage as Message } from "ai";
 import { AssistantUIChat } from "./assistant-ui-chat";
 
 interface AssistantUIDrawerProps {
@@ -21,7 +20,7 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
   ({ isOpen, onClose, isDarkMode, cSess: _cSess, initialPrompt }) => {
     const codeSpace = _cSess.getCodeSpace();
     const [messagesLoaded, setMessagesLoaded] = useState(false);
-    const [savedMessages, setSavedMessages] = useState<Message[]>([]);
+    const [savedMessages, setSavedMessages] = useState<any[]>([]);
 
     // Load existing messages when drawer opens
     useEffect(() => {

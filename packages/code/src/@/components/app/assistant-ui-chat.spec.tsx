@@ -5,14 +5,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { AssistantUIChat } from "./assistant-ui-chat";
 
-// Define a test-specific Message type that matches what our component expects
-type Message = {
-  id: string;
-  role: string;
-  content?: string;
-  tool_calls?: Array<{ id: string; type: string; function: { name: string; arguments: string } }>;
-  [key: string]: unknown;
-};
+// Use any type for tests to avoid type conflicts
+type Message = any;
 
 // Mock the dependencies
 vi.mock("@/components/assistant-ui/thread", () => ({
