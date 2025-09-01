@@ -210,6 +210,105 @@ describe("ApiHandler", () => {
     });
   });
 
+  describe("Chat Route", () => {
+    it("should forward chat request to room messages with valid referer", async () => {
+      const mockRequest = new Request("https://example.com/api/chat", {
+        method: "POST",
+        headers: {
+          "referer": "https://testing.spike.land/live/test-code-space",
+        },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: "Hello" }],
+        }),
+      });
+
+      // Mock the room object fetch to return a successful response
+      const mockRoomObject = {
+        fetch: vi.fn().mockResolvedValue(new Response("Messages processed")),
+      };
+      (mockEnv.CODE?.get as Mock).mockReturnValue(mockRoomObject);
+
+      const response = await handleApiRequest(
+        ["chat"],
+        mockRequest,
+        mockEnv as Env,
+      );
+
+      // Verify it called idFromName with the extracted codeSpace
+      expect(mockEnv.CODE?.idFromName).toHaveBeenCalledWith("test-code-space");
+      expect(mockEnv.CODE?.get).toHaveBeenCalled();
+      expect(mockRoomObject.fetch).toHaveBeenCalled();
+      
+      // Check the forwarded request URL contains messages path
+      const forwardedRequest = mockRoomObject.fetch.mock.calls[0][0] as Request;
+      expect(forwardedRequest.url).toContain("/messages");
+      expect(await response.text()).toBe("Messages processed");
+    });
+
+    it("should return error when referer header is missing", async () => {
+      const mockRequest = new Request("https://example.com/api/chat", {
+        method: "POST",
+        body: JSON.stringify({
+          messages: [{ role: "user", content: "Hello" }],
+        }),
+      });
+
+      const response = await handleApiRequest(
+        ["chat"],
+        mockRequest,
+        mockEnv as Env,
+      );
+
+      expect(response.status).toBe(400);
+      const responseBody = await response.json();
+      expect(responseBody).toEqual({ error: "Missing referer header" });
+    });
+
+    it("should return error when referer path format is invalid", async () => {
+      const mockRequest = new Request("https://example.com/api/chat", {
+        method: "POST",
+        headers: {
+          "referer": "https://testing.spike.land/other/path",
+        },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: "Hello" }],
+        }),
+      });
+
+      const response = await handleApiRequest(
+        ["chat"],
+        mockRequest,
+        mockEnv as Env,
+      );
+
+      expect(response.status).toBe(400);
+      const responseBody = await response.json();
+      expect(responseBody).toEqual({ error: "Invalid referer path format" });
+    });
+
+    it("should return error when referer URL is invalid", async () => {
+      const mockRequest = new Request("https://example.com/api/chat", {
+        method: "POST",
+        headers: {
+          "referer": "not-a-valid-url",
+        },
+        body: JSON.stringify({
+          messages: [{ role: "user", content: "Hello" }],
+        }),
+      });
+
+      const response = await handleApiRequest(
+        ["chat"],
+        mockRequest,
+        mockEnv as Env,
+      );
+
+      expect(response.status).toBe(400);
+      const responseBody = await response.json();
+      expect(responseBody).toEqual({ error: "Invalid referer URL" });
+    });
+  });
+
   describe("Default Response", () => {
     it("should return default HTML response for any unhandled route", async () => {
       const mockRequest = new Request("https://example.com/unknown");

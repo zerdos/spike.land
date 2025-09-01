@@ -7,6 +7,53 @@ export async function handleApiRequest(
   env: Env,
 ): Promise<Response> {
   switch (path[0]) {
+    case "chat": {
+      // Extract codeSpace from referer header
+      const referer = request.headers.get("referer");
+      if (!referer) {
+        return new Response(JSON.stringify({ error: "Missing referer header" }), {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+      }
+
+      // Parse referer URL to extract codeSpace
+      try {
+        const refererUrl = new URL(referer);
+        const pathParts = refererUrl.pathname.split("/");
+        
+        // Check if path is /live/[codeSpace]
+        if (pathParts[1] === "live" && pathParts[2]) {
+          const codeSpace = pathParts[2];
+          
+          // Forward request to /api/room/{codeSpace}/messages
+          return handleApiRequest(
+            ["room", codeSpace, "messages"],
+            request,
+            env,
+          );
+        } else {
+          return new Response(JSON.stringify({ error: "Invalid referer path format" }), {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          });
+        }
+      } catch (_error) {
+        return new Response(JSON.stringify({ error: "Invalid referer URL" }), {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+      }
+    }
     case "server-fetch": {
       if (request.method === "POST") {
         const { url, options } = await request.json<

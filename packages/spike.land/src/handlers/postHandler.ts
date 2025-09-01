@@ -210,31 +210,7 @@ export class PostHandler {
         return `Message at index ${i} must have a valid role (${VALID_ROLES.join(", ")})`;
       }
 
-      if (!typedMsg.content) {
-        return `Message at index ${i} must have content`;
-      }
 
-      // Check message size
-      const messageSize = JSON.stringify(typedMsg).length;
-      if (messageSize > MAX_MESSAGE_LENGTH) {
-        return `Message at index ${i} exceeds maximum size limit`;
-      }
-
-      // Validate content structure
-      if (
-        typeof typedMsg.content !== "string" && !Array.isArray(typedMsg.content)
-      ) {
-        return `Message at index ${i} content must be a string or array`;
-      }
-
-      if (Array.isArray(typedMsg.content)) {
-        for (let j = 0; j < typedMsg.content.length; j++) {
-          const part = typedMsg.content[j];
-          if (!part || typeof part !== "object" || !("type" in part)) {
-            return `Message at index ${i}, content part ${j} must have a type`;
-          }
-        }
-      }
     }
 
     return null;

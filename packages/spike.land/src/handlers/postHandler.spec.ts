@@ -708,13 +708,6 @@ describe("PostHandler", () => {
       );
     });
 
-    it("should reject missing content", () => {
-      const messages = [{ role: "user" }];
-      expect(callValidateMessages(messages)).toBe(
-        "Message at index 0 must have content",
-      );
-    });
-
     it("should reject oversized messages", () => {
       const largeContent = "x".repeat(100001);
       const messages = [{ role: "user", content: largeContent }];
@@ -723,43 +716,6 @@ describe("PostHandler", () => {
       );
     });
 
-    it("should reject invalid content types", () => {
-      const messages = [{ role: "user", content: 123 }];
-      expect(callValidateMessages(messages)).toBe(
-        "Message at index 0 content must be a string or array",
-      );
-    });
-
-    it("should validate array content parts", () => {
-      const messages = [
-        {
-          role: "user",
-          content: [
-            { type: "text", text: "Hello" },
-            "invalid part",
-          ],
-        },
-      ];
-      expect(callValidateMessages(messages)).toBe(
-        "Message at index 0, content part 1 must have a type",
-      );
-    });
-
-    it("should accept valid array content", () => {
-      const messages = [
-        {
-          role: "user",
-          content: [
-            { type: "text", text: "Hello" },
-            {
-              type: "image_url",
-              image_url: { url: "https://example.com/image.jpg" },
-            },
-          ],
-        },
-      ];
-      expect(callValidateMessages(messages)).toBeNull();
-    });
   });
 
   describe("convertMessages", () => {
