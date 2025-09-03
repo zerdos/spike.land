@@ -116,6 +116,178 @@ export default {
         }));
       }
       
+      // Serve HTML at root path
+      if (path === "/" || path === "") {
+        const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat AI Assistant - spike.land</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+
+    .api-section {
+      text-align: left;
+      margin-top: 40px;
+      padding: 20px;
+      background: #f7f7f9;
+      border-radius: 10px;
+    }
+
+    .api-section h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .endpoint {
+      background: white;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .method {
+      display: inline-block;
+      padding: 2px 8px;
+      margin-right: 10px;
+      border-radius: 3px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .method-get {
+      background: #61affe;
+      color: white;
+    }
+
+    .method-post {
+      background: #49cc90;
+      color: white;
+    }
+
+    .method-delete {
+      background: #f93e3e;
+      color: white;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 15px;
+      background: #49cc90;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 AI Chat Assistant</h1>
+    <div class="status">API Status: Online ✅</div>
+    <p>
+      Welcome to the AI Chat Assistant API powered by Cloudflare Workers and AI.
+      This service provides intelligent conversational AI capabilities with real-time messaging support.
+    </p>
+    
+    <div class="api-section">
+      <h2>Available API Endpoints:</h2>
+      
+      <div class="endpoint">
+        <span class="method method-get">GET</span>
+        /api/conversations
+      </div>
+      
+      <div class="endpoint">
+        <span class="method method-post">POST</span>
+        /api/conversations
+      </div>
+      
+      <div class="endpoint">
+        <span class="method method-get">GET</span>
+        /api/conversations/:id
+      </div>
+      
+      <div class="endpoint">
+        <span class="method method-delete">DELETE</span>
+        /api/conversations/:id
+      </div>
+      
+      <div class="endpoint">
+        <span class="method method-post">POST</span>
+        /api/messages
+      </div>
+      
+      <div class="endpoint">
+        <span class="method method-get">GET</span>
+        /api/messages/:conversationId
+      </div>
+    </div>
+
+    <div class="api-section">
+      <h2>WebSocket Endpoint:</h2>
+      <div class="endpoint">
+        wss://spike-chat.spikeland.workers.dev/ws/:conversationId
+      </div>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 14px; color: #999;">
+      Powered by Cloudflare Workers, D1 Database, R2 Storage, and AI Models
+    </p>
+  </div>
+</body>
+</html>`;
+        
+        const response = new Response(htmlContent, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+          },
+        });
+        return this.addCorsHeaders(response, corsHeaders);
+      }
+      
       const response = new Response("Not found", { status: 404 });
       return this.addCorsHeaders(response, corsHeaders);
       

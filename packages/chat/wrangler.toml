@@ -11,7 +11,7 @@ name = "spike-chat-dev"
 [[d1_databases]]
 binding = "DATABASE"
 database_name = "spike-chat-db"
-database_id = "your-database-id-here"
+database_id = "b4d98ac5-c98b-4177-bdce-199874c47b75"
 
 [[r2_buckets]]
 binding = "R2_BUCKET"
@@ -19,7 +19,7 @@ bucket_name = "spike-chat-attachments"
 
 [[kv_namespaces]]
 binding = "KV_STORE"
-id = "your-kv-namespace-id"
+id = "fd3ab87b0de445d4ab1b53c01291bb6a"
 
 [[queues.producers]]
 queue = "chat-queue"
@@ -50,9 +50,10 @@ command = "npm run build"
 [site]
 bucket = "./dist"
 
-[[routes]]
-pattern = "chat.spike.land/*"
-zone_id = "your-zone-id"
+# Routes can be configured later
+# [[routes]]
+# pattern = "chat.spike.land/*"
+# zone_id = "your-zone-id"
 
 [observability]
 enabled = true
