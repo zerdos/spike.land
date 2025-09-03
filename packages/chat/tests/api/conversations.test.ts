@@ -1,11 +1,25 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { ConversationsAPI } from "../../src/api/conversations";
+import { AuthService } from "../../src/utils/auth";
 import type { Env } from "../../src/types";
+
+vi.mock("../../src/utils/auth", () => ({
+  AuthService: vi.fn().mockImplementation(() => ({
+    verifyRequest: vi.fn(),
+    getUserFromClerkId: vi.fn(),
+    checkUserCredits: vi.fn(),
+    deductCredits: vi.fn(),
+    addCredits: vi.fn(),
+    updateSubscription: vi.fn(),
+    createOrUpdateUser: vi.fn(),
+  })),
+}));
 
 describe("ConversationsAPI", () => {
   let api: ConversationsAPI;
   let mockEnv: Env;
   let mockRequest: Request;
+  let mockAuth: any;
 
   beforeEach(() => {
     mockEnv = {
@@ -31,6 +45,7 @@ describe("ConversationsAPI", () => {
     };
 
     api = new ConversationsAPI(mockEnv);
+    mockAuth = (api as any).auth;
   });
 
   describe("list", () => {
@@ -38,6 +53,8 @@ describe("ConversationsAPI", () => {
       mockRequest = new Request("http://localhost/api/conversations", {
         method: "GET",
       });
+
+      mockAuth.verifyRequest.mockResolvedValue(null);
 
       const response = await api.list(mockRequest);
       expect(response.status).toBe(401);
@@ -62,12 +79,12 @@ describe("ConversationsAPI", () => {
         },
       ];
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -82,6 +99,25 @@ describe("ConversationsAPI", () => {
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
       expect(data.data).toEqual(mockConversations);
+    });
+
+    it("should return unauthorized if user not found", async () => {
+      mockRequest = new Request("http://localhost/api/conversations", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer valid-token",
+        },
+      });
+
+      mockAuth.verifyRequest.mockResolvedValue({
+        userId: "user-1",
+        clerkId: "clerk-1",
+      });
+
+      mockAuth.getUserFromClerkId.mockResolvedValue(null);
+
+      const response = await api.list(mockRequest);
+      expect(response.status).toBe(401);
     });
   });
 
@@ -99,12 +135,12 @@ describe("ConversationsAPI", () => {
         }),
       });
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -129,6 +165,41 @@ describe("ConversationsAPI", () => {
       expect(data.data.title).toBe("New Chat");
       expect(data.data.model).toBe("mistral-7b");
     });
+
+    it("should handle missing request body", async () => {
+      mockRequest = new Request("http://localhost/api/conversations", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer valid-token",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      mockAuth.verifyRequest.mockResolvedValue({
+        userId: "user-1",
+        clerkId: "clerk-1",
+      });
+
+      mockAuth.getUserFromClerkId.mockResolvedValue({
+        id: "user-1",
+        email: "test@example.com",
+      });
+
+      mockEnv.DATABASE.run = vi.fn().mockResolvedValue({ success: true });
+      mockEnv.DATABASE.first = vi.fn().mockResolvedValue({
+        id: "new-conv-id",
+        user_id: "user-1",
+        title: "New Conversation",
+        model: "llama-2-7b",
+      });
+
+      const response = await api.create(mockRequest);
+      const data = await response.json();
+
+      expect(response.status).toBe(200);
+      expect(data.success).toBe(true);
+    });
   });
 
   describe("get", () => {
@@ -141,12 +212,12 @@ describe("ConversationsAPI", () => {
         },
       });
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -198,12 +269,12 @@ describe("ConversationsAPI", () => {
         },
       });
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -225,12 +296,12 @@ describe("ConversationsAPI", () => {
         },
       });
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -256,12 +327,12 @@ describe("ConversationsAPI", () => {
         },
       });
 
-      vi.spyOn(api as any, "auth").verifyRequest = vi.fn().mockResolvedValue({
+      mockAuth.verifyRequest.mockResolvedValue({
         userId: "user-1",
         clerkId: "clerk-1",
       });
 
-      vi.spyOn(api as any, "auth").getUserFromClerkId = vi.fn().mockResolvedValue({
+      mockAuth.getUserFromClerkId.mockResolvedValue({
         id: "user-1",
         email: "test@example.com",
       });
@@ -272,6 +343,43 @@ describe("ConversationsAPI", () => {
 
       const response = await api.delete(mockRequest, conversationId);
       expect(response.status).toBe(404);
+    });
+  });
+
+  describe("updateTitle", () => {
+    it("should update conversation title", async () => {
+      const conversationId = "conv-123";
+      mockRequest = new Request(`http://localhost/api/conversations/${conversationId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer valid-token",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: "Updated Title",
+        }),
+      });
+
+      mockAuth.verifyRequest.mockResolvedValue({
+        userId: "user-1",
+        clerkId: "clerk-1",
+      });
+
+      mockAuth.getUserFromClerkId.mockResolvedValue({
+        id: "user-1",
+        email: "test@example.com",
+      });
+
+      mockEnv.DATABASE.run = vi.fn().mockResolvedValue({
+        meta: { changes: 1 },
+      });
+
+      const response = await api.updateTitle(mockRequest, conversationId);
+      const data = await response.json();
+
+      expect(response.status).toBe(200);
+      expect(data.success).toBe(true);
+      expect(data.message).toBe("Title updated successfully");
     });
   });
 });

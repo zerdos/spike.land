@@ -1,6 +1,38 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import { ChatRoom } from "../../src/durable-objects/ChatRoom";
 import type { Env } from "../../src/types";
+
+// Mock WebSocketPair for Node environment
+class MockWebSocket {
+  readyState: number;
+  accept: () => void;
+  send: (data: string) => void;
+  addEventListener: (event: string, handler: Function) => void;
+  close: () => void;
+  
+  static READY_STATE_CONNECTING = 0;
+  static READY_STATE_OPEN = 1;
+  static READY_STATE_CLOSING = 2;
+  static READY_STATE_CLOSED = 3;
+
+  constructor() {
+    this.readyState = MockWebSocket.READY_STATE_CONNECTING;
+    this.accept = vi.fn(() => {
+      this.readyState = MockWebSocket.READY_STATE_OPEN;
+    });
+    this.send = vi.fn();
+    this.addEventListener = vi.fn();
+    this.close = vi.fn(() => {
+      this.readyState = MockWebSocket.READY_STATE_CLOSED;
+    });
+  }
+}
+
+global.WebSocketPair = vi.fn(() => {
+  const client = new MockWebSocket();
+  const server = new MockWebSocket();
+  return [client, server];
+}) as any;
 
 describe("ChatRoom", () => {
   let chatRoom: ChatRoom;
@@ -8,9 +40,21 @@ describe("ChatRoom", () => {
   let mockEnv: Env;
 
   beforeEach(() => {
+    // Mock the WebSocket constants
+    global.WebSocket = {
+      READY_STATE_CONNECTING: 0,
+      READY_STATE_OPEN: 1,
+      READY_STATE_CLOSING: 2,
+      READY_STATE_CLOSED: 3,
+    } as any;
+    
     mockState = {} as DurableObjectState;
     mockEnv = {} as Env;
     chatRoom = new ChatRoom(mockState, mockEnv);
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   describe("WebSocket handling", () => {
@@ -23,9 +67,39 @@ describe("ChatRoom", () => {
         },
       });
 
+      // Mock Response to allow status 101
+      const OriginalResponse = global.Response;
+      global.Response = vi.fn((body: any, init: any) => {
+        if (init?.status === 101) {
+          // Create a mock response object that looks like a WebSocket upgrade
+          return {
+            status: 101,
+            webSocket: init.webSocket,
+            headers: new Headers(),
+            ok: false,
+            statusText: "Switching Protocols",
+            body: null,
+            bodyUsed: false,
+            type: "basic",
+            url: "",
+            redirected: false,
+            clone: vi.fn(),
+            arrayBuffer: vi.fn(),
+            blob: vi.fn(),
+            formData: vi.fn(),
+            json: vi.fn(),
+            text: vi.fn(),
+          } as any;
+        }
+        return new OriginalResponse(body, init);
+      }) as any;
+
       const response = await chatRoom.fetch(request);
       expect(response.status).toBe(101);
       expect(response.webSocket).toBeDefined();
+      
+      // Restore original Response
+      global.Response = OriginalResponse;
     });
 
     it("should reject non-WebSocket requests to /websocket", async () => {
@@ -90,7 +164,7 @@ describe("ChatRoom", () => {
         accept: vi.fn(),
         send: vi.fn(),
         addEventListener: vi.fn(),
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       (chatRoom as any).handleSession(
@@ -115,7 +189,7 @@ describe("ChatRoom", () => {
             closeHandler.mockImplementation(handler);
           }
         }),
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       (chatRoom as any).handleSession(
@@ -140,14 +214,14 @@ describe("ChatRoom", () => {
         accept: vi.fn(),
         send: vi.fn(),
         addEventListener: vi.fn(),
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       const mockWebSocket2 = {
         accept: vi.fn(),
         send: vi.fn(),
         addEventListener: vi.fn(),
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       (chatRoom as any).sessions.set("session-1", mockWebSocket1);
@@ -179,7 +253,7 @@ describe("ChatRoom", () => {
             errorHandler.mockImplementation(handler);
           }
         }),
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       (chatRoom as any).handleSession(
@@ -201,11 +275,11 @@ describe("ChatRoom", () => {
   describe("Alarm cleanup", () => {
     it("should clean up closed connections during alarm", async () => {
       const mockClosedWebSocket = {
-        readyState: WebSocket.READY_STATE_CLOSED,
+        readyState: MockWebSocket.READY_STATE_CLOSED,
       } as any;
 
       const mockOpenWebSocket = {
-        readyState: WebSocket.READY_STATE_OPEN,
+        readyState: MockWebSocket.READY_STATE_OPEN,
       } as any;
 
       (chatRoom as any).sessions.set("closed-session", mockClosedWebSocket);

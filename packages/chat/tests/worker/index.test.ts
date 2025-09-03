@@ -1,11 +1,50 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import worker from "../../src/worker/index";
 import type { Env } from "../../src/types";
+
+// Mock modules at the top level
+vi.mock("../../src/api/conversations", () => ({
+  ConversationsAPI: vi.fn().mockImplementation(() => ({
+    list: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: [] }), { status: 200 })),
+    create: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: {} }), { status: 200 })),
+    get: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: {} }), { status: 200 })),
+    delete: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+    updateTitle: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+  })),
+}));
+
+vi.mock("../../src/api/messages", () => ({
+  MessagesAPI: vi.fn().mockImplementation(() => ({
+    send: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+    list: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: [] }), { status: 200 })),
+    regenerate: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+  })),
+}));
+
+vi.mock("../../src/webhooks/clerk", () => ({
+  handleClerkWebhook: vi.fn().mockResolvedValue(
+    new Response("OK", { status: 200 })
+  ),
+}));
+
+vi.mock("../../src/webhooks/stripe", () => ({
+  handleStripeWebhook: vi.fn().mockResolvedValue(
+    new Response("OK", { status: 200 })
+  ),
+}));
+
+vi.mock("../../src/utils/auth", () => ({
+  AuthService: vi.fn().mockImplementation(() => ({
+    verifyRequest: vi.fn().mockResolvedValue(null),
+    getUserFromClerkId: vi.fn().mockResolvedValue(null),
+  })),
+}));
 
 describe("Worker", () => {
   let mockEnv: Env;
 
   beforeEach(() => {
+    vi.clearAllMocks();
     mockEnv = {
       DATABASE: {
         prepare: vi.fn().mockReturnThis(),
@@ -20,7 +59,9 @@ describe("Worker", () => {
       CHAT_ROOM: {
         idFromName: vi.fn().mockReturnValue("room-id"),
         get: vi.fn().mockReturnValue({
-          fetch: vi.fn().mockResolvedValue(new Response("OK", { status: 101 })),
+          fetch: vi.fn().mockResolvedValue(
+            new Response(null, { status: 200 })
+          ),
         }),
       } as any,
       AI: {} as any,
@@ -32,6 +73,10 @@ describe("Worker", () => {
       STRIPE_PRICE_ID_BUSINESS: "price_business",
       JWT_SECRET: "test-jwt-secret",
     };
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   describe("CORS handling", () => {
@@ -56,12 +101,6 @@ describe("Worker", () => {
         },
       });
 
-      vi.mock("../../src/api/conversations", () => ({
-        ConversationsAPI: vi.fn().mockImplementation(() => ({
-          list: vi.fn().mockResolvedValue(new Response("{}", { status: 200 })),
-        })),
-      }));
-
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
@@ -70,16 +109,6 @@ describe("Worker", () => {
 
   describe("Route handling", () => {
     it("should route to conversations API for GET /api/conversations", async () => {
-      const mockList = vi.fn().mockResolvedValue(
-        new Response(JSON.stringify({ success: true, data: [] }), { status: 200 })
-      );
-
-      vi.mock("../../src/api/conversations", () => ({
-        ConversationsAPI: vi.fn().mockImplementation(() => ({
-          list: mockList,
-        })),
-      }));
-
       const request = new Request("http://localhost/api/conversations", {
         method: "GET",
       });
@@ -90,16 +119,6 @@ describe("Worker", () => {
     });
 
     it("should route to messages API for POST /api/messages", async () => {
-      const mockSend = vi.fn().mockResolvedValue(
-        new Response(JSON.stringify({ success: true }), { status: 200 })
-      );
-
-      vi.mock("../../src/api/messages", () => ({
-        MessagesAPI: vi.fn().mockImplementation(() => ({
-          send: mockSend,
-        })),
-      }));
-
       const request = new Request("http://localhost/api/messages", {
         method: "POST",
         body: JSON.stringify({ conversationId: "123", content: "test" }),
@@ -111,12 +130,6 @@ describe("Worker", () => {
     });
 
     it("should handle webhook routes", async () => {
-      vi.mock("../../src/webhooks/clerk", () => ({
-        handleClerkWebhook: vi.fn().mockResolvedValue(
-          new Response("OK", { status: 200 })
-        ),
-      }));
-
       const request = new Request("http://localhost/api/webhooks/clerk", {
         method: "POST",
         body: JSON.stringify({ type: "user.created" }),
@@ -148,27 +161,49 @@ describe("Worker", () => {
       expect(response.status).toBe(404);
       expect(await response.text()).toBe("Not found");
     });
+
+    it("should serve HTML at root path", async () => {
+      const request = new Request("http://localhost/");
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+      
+      const html = await response.text();
+      expect(html).toContain("<!DOCTYPE html>");
+      expect(html).toContain("AI Chat Assistant");
+      expect(html).toContain("API Status: Online");
+    });
+
+    it("should serve HTML at empty path", async () => {
+      const request = new Request("http://localhost");
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    });
   });
 
   describe("User profile endpoint", () => {
     it("should get user profile for authenticated request", async () => {
-      const mockVerifyRequest = vi.fn().mockResolvedValue({
-        userId: "user-1",
-        clerkId: "clerk-1",
-      });
-
-      const mockGetUserFromClerkId = vi.fn().mockResolvedValue({
-        id: "user-1",
-        email: "test@example.com",
-        name: "Test User",
-      });
-
-      vi.mock("../../src/utils/auth", () => ({
-        AuthService: vi.fn().mockImplementation(() => ({
-          verifyRequest: mockVerifyRequest,
-          getUserFromClerkId: mockGetUserFromClerkId,
-        })),
-      }));
+      // Create a new mock instance with the needed methods
+      const mockAuthInstance = {
+        verifyRequest: vi.fn().mockResolvedValue({
+          userId: "user-1",
+          clerkId: "clerk-1",
+        }),
+        getUserFromClerkId: vi.fn().mockResolvedValue({
+          id: "user-1",
+          email: "test@example.com",
+          name: "Test User",
+        }),
+      };
+      
+      // Override the mock to return our instance
+      const { AuthService } = await import("../../src/utils/auth");
+      (AuthService as any).mockImplementation(() => mockAuthInstance);
 
       const request = new Request("http://localhost/api/user/profile", {
         method: "GET",
@@ -185,10 +220,11 @@ describe("Worker", () => {
     });
 
     it("should return 401 for unauthenticated profile request", async () => {
-      vi.mock("../../src/utils/auth", () => ({
-        AuthService: vi.fn().mockImplementation(() => ({
-          verifyRequest: vi.fn().mockResolvedValue(null),
-        })),
+      // Ensure AuthService returns null for unauthenticated requests
+      const { AuthService } = await import("../../src/utils/auth");
+      (AuthService as any).mockImplementation(() => ({
+        verifyRequest: vi.fn().mockResolvedValue(null),
+        getUserFromClerkId: vi.fn().mockResolvedValue(null),
       }));
 
       const request = new Request("http://localhost/api/user/profile", {
@@ -203,11 +239,13 @@ describe("Worker", () => {
 
   describe("Error handling", () => {
     it("should handle errors gracefully", async () => {
-      vi.mock("../../src/api/conversations", () => ({
-        ConversationsAPI: vi.fn().mockImplementation(() => ({
-          list: vi.fn().mockRejectedValue(new Error("Database error")),
-        })),
-      }));
+      // Create a mock that throws an error
+      const mockConversationsInstance = {
+        list: vi.fn().mockRejectedValue(new Error("Database error")),
+      };
+      
+      const { ConversationsAPI } = await import("../../src/api/conversations");
+      (ConversationsAPI as any).mockImplementation(() => mockConversationsInstance);
 
       const request = new Request("http://localhost/api/conversations", {
         method: "GET",
@@ -219,6 +257,36 @@ describe("Worker", () => {
       expect(response.status).toBe(500);
       expect(data.success).toBe(false);
       expect(data.error).toBe("Internal server error");
+    });
+
+    it("should handle invalid JSON in request body", async () => {
+      // Create a mock that throws an error when parsing invalid JSON
+      const mockConversationsInstance = {
+        create: vi.fn().mockImplementation(async (req: Request) => {
+          try {
+            await req.json(); // This will throw for invalid JSON
+          } catch {
+            throw new Error("Invalid JSON");
+          }
+          return new Response(JSON.stringify({ success: true }), { status: 200 });
+        }),
+      };
+      
+      const { ConversationsAPI } = await import("../../src/api/conversations");
+      (ConversationsAPI as any).mockImplementation(() => mockConversationsInstance);
+
+      const request = new Request("http://localhost/api/conversations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "invalid-json",
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      // The error will be caught and a 500 returned
+      expect(response.status).toBe(500);
     });
   });
 
@@ -277,6 +345,92 @@ describe("Worker", () => {
       expect(newResponse.headers.get("Access-Control-Allow-Origin")).toBe("*");
       expect(newResponse.headers.get("Access-Control-Allow-Methods")).toBe("GET, POST");
       expect(newResponse.headers.get("Content-Type")).toBe("text/plain");
+    });
+  });
+
+  describe("Conversation endpoints", () => {
+    it("should handle GET /api/conversations/:id", async () => {
+      // Set up the mock to return successful responses
+      const { ConversationsAPI } = await import("../../src/api/conversations");
+      (ConversationsAPI as any).mockImplementation(() => ({
+        get: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: { conversation: {}, messages: [] } }), { status: 200 })),
+      }));
+
+      const request = new Request("http://localhost/api/conversations/conv-123", {
+        method: "GET",
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+
+    it("should handle DELETE /api/conversations/:id", async () => {
+      // Set up the mock to return successful responses
+      const { ConversationsAPI } = await import("../../src/api/conversations");
+      (ConversationsAPI as any).mockImplementation(() => ({
+        delete: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+      }));
+
+      const request = new Request("http://localhost/api/conversations/conv-123", {
+        method: "DELETE",
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+
+    it("should handle PUT /api/conversations/:id", async () => {
+      // Set up the mock to return successful responses
+      const { ConversationsAPI } = await import("../../src/api/conversations");
+      (ConversationsAPI as any).mockImplementation(() => ({
+        updateTitle: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+      }));
+
+      const request = new Request("http://localhost/api/conversations/conv-123", {
+        method: "PUT",
+        body: JSON.stringify({ title: "New Title" }),
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe("Message endpoints", () => {
+    it("should handle GET /api/messages/:conversationId", async () => {
+      const request = new Request("http://localhost/api/messages/conv-123", {
+        method: "GET",
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+
+    it("should handle POST /api/messages/:id/regenerate", async () => {
+      const request = new Request("http://localhost/api/messages/msg-123/regenerate", {
+        method: "POST",
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe("Stripe webhook", () => {
+    it("should handle Stripe webhook", async () => {
+      const request = new Request("http://localhost/api/webhooks/stripe", {
+        method: "POST",
+        body: JSON.stringify({ type: "payment_intent.succeeded" }),
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
     });
   });
 });
