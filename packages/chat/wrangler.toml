@@ -1,0 +1,58 @@
+name = "spike-chat"
+main = "src/worker/index.ts"
+compatibility_date = "2024-12-30"
+
+[env.production]
+name = "spike-chat-production"
+
+[env.development]
+name = "spike-chat-dev"
+
+[[d1_databases]]
+binding = "DATABASE"
+database_name = "spike-chat-db"
+database_id = "your-database-id-here"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "spike-chat-attachments"
+
+[[kv_namespaces]]
+binding = "KV_STORE"
+id = "your-kv-namespace-id"
+
+[[queues.producers]]
+queue = "chat-queue"
+binding = "QUEUE"
+
+[[queues.consumers]]
+queue = "chat-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom"]
+
+[ai]
+binding = "AI"
+
+[vars]
+CLERK_PUBLISHABLE_KEY = "pk_test_your-key"
+
+[build]
+command = "npm run build"
+
+[site]
+bucket = "./dist"
+
+[[routes]]
+pattern = "chat.spike.land/*"
+zone_id = "your-zone-id"
+
+[observability]
+enabled = true

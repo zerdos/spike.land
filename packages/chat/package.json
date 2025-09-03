@@ -1,0 +1,39 @@
+{
+  "name": "@spike/chat",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:all": "npm run test && npm run test:e2e",
+    "types:check": "tsc --noEmit",
+    "lint": "eslint src",
+    "fmt": "prettier --write src"
+  },
+  "dependencies": {
+    "@clerk/backend": "^1.18.0",
+    "@cloudflare/ai": "^1.0.68",
+    "@cloudflare/workers-types": "^4.20241230.0",
+    "nanoid": "^5.0.9",
+    "stripe": "^17.6.0",
+    "svix": "^1.44.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^8.57.1",
+    "miniflare": "^3.20241230.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "wrangler": "^3.99.0"
+  }
+}
