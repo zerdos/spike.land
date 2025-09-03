@@ -72,20 +72,11 @@ describe("WebSocketHandler", () => {
       // Verify that the session was added
       const sessions = websocketHandler.getWsSessions();
       expect(sessions.length).toBe(1);
-      expect(sessions[0].webSocket).toBe(mockWebSocket);
+      expect(sessions[0]?.webSocket).toBe(mockWebSocket);
     });
 
     it("should schedule periodic ping", () => {
       vi.useFakeTimers();
-
-      const _mockSession = {
-        webSocket: mockWebSocket,
-        name: "test",
-        quit: false,
-        subscribedTopics: new Set(),
-        pongReceived: true,
-        blockedMessages: [],
-      };
 
       websocketHandler.handleWebsocketSession(mockWebSocket);
 
@@ -146,7 +137,7 @@ describe("WebSocketHandler", () => {
       }
 
       // Verify session is cleaned up
-      expect(session.quit).toBe(true);
+      expect(session?.quit).toBe(true);
       expect(websocketHandler.getWsSessions().length).toBe(0);
 
       vi.useRealTimers();
@@ -169,7 +160,11 @@ describe("WebSocketHandler", () => {
 
       // Get the first (and only) session
       const sessions = websocketHandler.getWsSessions();
-      mockWsSession = sessions[0];
+      const session = sessions[0];
+      if (!session) {
+        throw new Error("No session found");
+      }
+      mockWsSession = session;
       mockWsSession.subscribedTopics = new Set();
 
       // Simulate setting a name
