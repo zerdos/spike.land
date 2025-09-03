@@ -1114,7 +1114,7 @@ describe("PostHandler", () => {
         capturedGetErrorMessageCallback = options.getErrorMessage;
         return new Response("stream");
       });
-      
+
       // Verify the callback was captured (used to ensure proper setup)
       expect(capturedGetErrorMessageCallback).toBeUndefined(); // Will be defined after streamText is called
 

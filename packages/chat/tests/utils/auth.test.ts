@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { AuthService } from "../../src/utils/auth";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../../src/types";
+import { AuthService } from "../../src/utils/auth";
 
 vi.mock("@clerk/backend", () => ({
   verifyToken: vi.fn(),
@@ -86,7 +86,7 @@ describe("AuthService", () => {
       const result = await authService.getUserFromClerkId("clerk-1");
       expect(result).toEqual(mockUser);
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        "SELECT * FROM users WHERE clerk_id = ?"
+        "SELECT * FROM users WHERE clerk_id = ?",
       );
     });
 
@@ -115,7 +115,7 @@ describe("AuthService", () => {
 
       expect(userId).toBe("new-user-id");
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        expect.stringContaining("INSERT INTO users")
+        expect.stringContaining("INSERT INTO users"),
       );
     });
   });
@@ -178,7 +178,7 @@ describe("AuthService", () => {
 
       await authService.deductCredits("user-1", 5);
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        expect.stringContaining("UPDATE users SET credits = credits - ?")
+        expect.stringContaining("UPDATE users SET credits = credits - ?"),
       );
     });
   });
@@ -189,7 +189,7 @@ describe("AuthService", () => {
 
       await authService.addCredits("user-1", 100);
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        "UPDATE users SET credits = credits + ? WHERE id = ?"
+        "UPDATE users SET credits = credits + ? WHERE id = ?",
       );
       expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith(100, "user-1");
     });
@@ -201,7 +201,7 @@ describe("AuthService", () => {
 
       await authService.updateSubscription("user-1", "pro");
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        "UPDATE users SET subscription_tier = ?, credits = ? WHERE id = ?"
+        "UPDATE users SET subscription_tier = ?, credits = ? WHERE id = ?",
       );
       expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith("pro", 500, "user-1");
     });

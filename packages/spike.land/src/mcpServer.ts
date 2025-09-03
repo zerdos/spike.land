@@ -726,12 +726,10 @@ export class McpServer {
       const currentEdit = sortedEdits[i];
       const previousEdit = sortedEdits[i - 1];
       if (!currentEdit || !previousEdit) continue;
-      
+
       if (currentEdit.startLine <= previousEdit.endLine) {
         throw new Error(
-          `Overlapping edits detected: lines ${previousEdit.startLine}-${
-            previousEdit.endLine
-          } and ${currentEdit.startLine}-${currentEdit.endLine}`,
+          `Overlapping edits detected: lines ${previousEdit.startLine}-${previousEdit.endLine} and ${currentEdit.startLine}-${currentEdit.endLine}`,
         );
       }
     }

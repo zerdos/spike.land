@@ -12,7 +12,7 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
-  
+
   projects: [
     {
       name: "chromium",
@@ -35,7 +35,7 @@ export default defineConfig({
       use: { ...devices["iPhone 12"] },
     },
   ],
-  
+
   webServer: {
     command: "npm run dev",
     url: "http://localhost:8787",

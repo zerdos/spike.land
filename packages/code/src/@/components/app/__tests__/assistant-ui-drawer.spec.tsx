@@ -1,5 +1,5 @@
-import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { AssistantUIChat } from "@/components/app/assistant-ui-chat";
+import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -14,24 +14,24 @@ vi.mock("@/components/app/assistant-ui-chat", () => ({
 }));
 vi.mock("vaul", () => ({
   Drawer: {
-    Root: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
+    Root: ({ children, open }: { children: React.ReactNode; open: boolean; }) =>
       open ? <div data-testid="drawer-root">{children}</div> : null,
-    Trigger: ({ children, onClick }: { children: React.ReactNode; onClick: () => void }) => (
+    Trigger: ({ children, onClick }: { children: React.ReactNode; onClick: () => void; }) => (
       <button onClick={onClick} data-testid="drawer-trigger">
         {children}
       </button>
     ),
-    Portal: ({ children }: { children: React.ReactNode }) => (
+    Portal: ({ children }: { children: React.ReactNode; }) => (
       <div data-testid="drawer-portal">{children}</div>
     ),
     Overlay: () => <div data-testid="drawer-overlay" />,
-    Content: ({ children, className }: { children: React.ReactNode; className?: string }) => (
+    Content: ({ children, className }: { children: React.ReactNode; className?: string; }) => (
       <div data-testid="drawer-content" className={className}>{children}</div>
     ),
-    Title: ({ children }: { children: React.ReactNode }) => (
+    Title: ({ children }: { children: React.ReactNode; }) => (
       <h2 data-testid="drawer-title">{children}</h2>
     ),
-    Description: ({ children }: { children: React.ReactNode }) => (
+    Description: ({ children }: { children: React.ReactNode; }) => (
       <p data-testid="drawer-description">{children}</p>
     ),
   },
@@ -67,7 +67,7 @@ describe("AssistantUIDrawer", () => {
 
   it("should not render when isOpen is false", () => {
     const { container } = render(
-      <AssistantUIDrawer {...getDefaultProps()} isOpen={false} />
+      <AssistantUIDrawer {...getDefaultProps()} isOpen={false} />,
     );
 
     expect(container.querySelector('[data-testid="drawer-root"]')).toBeNull();
@@ -144,7 +144,7 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       expect(consoleSpy).toHaveBeenCalledWith(
         "Failed to load messages:",
-        expect.any(Error)
+        expect.any(Error),
       );
     });
 
@@ -205,10 +205,10 @@ describe("AssistantUIDrawer", () => {
 
     // Find the close button (the second button in the drawer)
     const buttons = screen.getAllByRole("button");
-    const closeButton = buttons.find(button => 
+    const closeButton = buttons.find(button =>
       button.className.includes("p-2 rounded-lg hover:bg-gray-200")
     );
-    
+
     if (closeButton) {
       await userEvent.click(closeButton);
       expect(onCloseMock).toHaveBeenCalled();
@@ -219,7 +219,7 @@ describe("AssistantUIDrawer", () => {
 
   it("should render loading state while messages are being fetched", () => {
     vi.mocked(fetch).mockImplementation(
-      () => new Promise(() => {}) // Never resolves
+      () => new Promise(() => {}), // Never resolves
     );
 
     render(<AssistantUIDrawer {...getDefaultProps()} />);
@@ -329,7 +329,8 @@ describe("AssistantUIDrawer", () => {
     await waitFor(() => {
       // AssistantUIChat might be called more than once due to React's rendering behavior
       expect(AssistantUIChat).toHaveBeenCalled();
-      const lastCall = (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
+      const lastCall =
+        (AssistantUIChat as any).mock.calls[(AssistantUIChat as any).mock.calls.length - 1][0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
   });
@@ -427,5 +428,5 @@ describe("AssistantUIDrawer", () => {
       const lastCall = allCalls[allCalls.length - 1][0];
       expect(lastCall.initialMessages).toEqual(secondMessages);
     });
-  })
+  });
 });

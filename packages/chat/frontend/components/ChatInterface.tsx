@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import type { Message, Conversation } from "../../src/types";
+import { useEffect, useRef, useState } from "react";
+import type { Conversation, Message } from "../../src/types";
 
 interface ChatInterfaceProps {
   conversation: Conversation;
@@ -19,19 +19,19 @@ export function ChatInterface({
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || sending) return;
-    
+
     const message = input;
     setInput("");
     setSending(true);
-    
+
     try {
       await onSendMessage(message);
     } catch (error) {
@@ -41,7 +41,7 @@ export function ChatInterface({
       setSending(false);
     }
   };
-  
+
   return (
     <div className="chat-interface">
       <div className="chat-header">
@@ -50,7 +50,7 @@ export function ChatInterface({
           Model: {conversation.model}
         </div>
       </div>
-      
+
       <div className="chat-messages">
         {messages.map((message) => (
           <div
@@ -82,7 +82,7 @@ export function ChatInterface({
         )}
         <div ref={messagesEndRef} />
       </div>
-      
+
       <form onSubmit={handleSubmit} className="chat-input-form">
         <input
           type="text"

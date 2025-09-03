@@ -12,7 +12,12 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
-    "test:all": "npm run test && npm run test:e2e",
+    "test:cucumber": "cucumber-js",
+    "test:cucumber:smoke": "cucumber-js --tags @smoke",
+    "test:cucumber:ci": "cucumber-js --profile ci",
+    "test:cucumber:report": "cucumber-js --format html:test-results/cucumber-report.html",
+    "test:cucumber:parallel": "cucumber-js --parallel 3",
+    "test:all": "npm run test && npm run test:cucumber",
     "types:check": "tsc --noEmit",
     "lint": "eslint src",
     "fmt": "prettier --write src"
@@ -27,11 +32,16 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@cucumber/pretty-formatter": "^2.1.0",
     "@playwright/test": "^1.49.0",
+    "@types/node": "^24.3.0",
     "@vitest/coverage-v8": "^2.1.8",
     "eslint": "^8.57.1",
     "miniflare": "^3.20241230.0",
+    "playwright-bdd": "^8.4.0",
     "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",
     "wrangler": "^4.33.2"

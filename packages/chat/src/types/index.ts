@@ -19,7 +19,7 @@ export interface User {
   clerk_id: string;
   email: string;
   name?: string;
-  subscription_tier: 'free' | 'pro' | 'business';
+  subscription_tier: "free" | "pro" | "business";
   credits: number;
   stripe_customer_id?: string;
   created_at: string;
@@ -39,7 +39,7 @@ export interface Message {
   id: string;
   conversation_id: string;
   user_id: string;
-  role: 'user' | 'assistant' | 'system';
+  role: "user" | "assistant" | "system";
   content: string;
   tokens_used: number;
   created_at: string;
@@ -50,7 +50,7 @@ export interface Subscription {
   user_id: string;
   stripe_subscription_id?: string;
   stripe_price_id?: string;
-  status: 'active' | 'canceled' | 'past_due' | 'trialing';
+  status: "active" | "canceled" | "past_due" | "trialing";
   current_period_start?: string;
   current_period_end?: string;
   cancel_at_period_end: boolean;
@@ -64,7 +64,7 @@ export interface Transaction {
   stripe_payment_intent_id?: string;
   amount: number;
   credits: number;
-  status: 'pending' | 'completed' | 'failed';
+  status: "pending" | "completed" | "failed";
   created_at: string;
 }
 
@@ -80,7 +80,7 @@ export interface Attachment {
 }
 
 export interface WebSocketMessage {
-  type: 'message' | 'typing' | 'presence' | 'error';
+  type: "message" | "typing" | "presence" | "error";
   conversationId?: string;
   message?: Message;
   userId?: string;
@@ -90,7 +90,7 @@ export interface WebSocketMessage {
 export interface AIRequest {
   model: string;
   messages: Array<{
-    role: 'user' | 'assistant' | 'system';
+    role: "user" | "assistant" | "system";
     content: string;
   }>;
   temperature?: number;

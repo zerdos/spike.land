@@ -15,9 +15,11 @@ vi.mock("@/lib/md5");
 vi.mock("@/lib/process-image");
 vi.mock("framer-motion", () => ({
   motion: {
-    img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => <img {...props}>{children}</img>,
+    img: ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown; }) => (
+      <img {...props}>{children}</img>
+    ),
   },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
+  AnimatePresence: ({ children }: { children: React.ReactNode; }) => children,
 }));
 
 // Mock location
@@ -44,11 +46,13 @@ describe("StartWithPrompt Integration Flow", () => {
     });
 
     // Default mock for useDictation - will be overridden in individual tests
-    vi.mocked(useDictation).mockReturnValue(["", mockSetPrompt, {
-      isRecording: false,
-      isProcessing: false,
-      error: "",
-    }] as const);
+    vi.mocked(useDictation).mockReturnValue(
+      ["", mockSetPrompt, {
+        isRecording: false,
+        isProcessing: false,
+        error: "",
+      }] as const,
+    );
     vi.mocked(md5).mockReturnValue("test-hash-123");
     vi.mocked(processImage).mockResolvedValue({
       src: "data:image/png;base64,processed",
@@ -68,12 +72,14 @@ describe("StartWithPrompt Integration Flow", () => {
     it("should handle the complete flow from prompt entry to navigation", async () => {
       // Override the mock to return the expected value
       const testPrompt = "Create a todo list application";
-      vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
-        isRecording: false,
-        isProcessing: false,
-        error: "",
-      }] as const);
-      
+      vi.mocked(useDictation).mockReturnValue(
+        [testPrompt, mockSetPrompt, {
+          isRecording: false,
+          isProcessing: false,
+          error: "",
+        }] as const,
+      );
+
       const user = userEvent.setup();
       render(<StartWithPrompt />);
 
@@ -88,7 +94,7 @@ describe("StartWithPrompt Integration Flow", () => {
       // 3. Verify data was stored in sessionStorage
       const storedData = sessionStorage.getItem("test-hash-123");
       expect(storedData).toBeTruthy();
-      
+
       const parsedData = JSON.parse(storedData!);
       expect(parsedData).toEqual({
         prompt: testPrompt,
@@ -102,12 +108,14 @@ describe("StartWithPrompt Integration Flow", () => {
     it("should handle prompt with images", async () => {
       // Override the mock to return the expected value
       const testPrompt = "Recreate this design";
-      vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
-        isRecording: false,
-        isProcessing: false,
-        error: "",
-      }] as const);
-      
+      vi.mocked(useDictation).mockReturnValue(
+        [testPrompt, mockSetPrompt, {
+          isRecording: false,
+          isProcessing: false,
+          error: "",
+        }] as const,
+      );
+
       const user = userEvent.setup();
       render(<StartWithPrompt />);
 
@@ -118,7 +126,7 @@ describe("StartWithPrompt Integration Flow", () => {
       // 2. User uploads an image
       const file = new File(["dummy content"], "design.png", { type: "image/png" });
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      
+
       await waitFor(() => {
         fireEvent.change(fileInput, { target: { files: [file] } });
       });
@@ -136,7 +144,7 @@ describe("StartWithPrompt Integration Flow", () => {
       // 4. Verify data was stored with images
       const storedData = sessionStorage.getItem("test-hash-123");
       const parsedData = JSON.parse(storedData!);
-      
+
       expect(parsedData).toEqual({
         prompt: testPrompt,
         images: [{
@@ -155,17 +163,19 @@ describe("StartWithPrompt Integration Flow", () => {
     it("should handle paste image functionality", async () => {
       // Set up the mock with a prompt value
       const testPrompt = "Analyze this pasted image";
-      vi.mocked(useDictation).mockReturnValue([testPrompt, mockSetPrompt, {
-        isRecording: false,
-        isProcessing: false,
-        error: "",
-      }] as const);
-      
+      vi.mocked(useDictation).mockReturnValue(
+        [testPrompt, mockSetPrompt, {
+          isRecording: false,
+          isProcessing: false,
+          error: "",
+        }] as const,
+      );
+
       const user = userEvent.setup();
       render(<StartWithPrompt />);
 
       const textarea = screen.getByPlaceholderText("Enter your prompt here or paste an image...");
-      
+
       // Create a paste event with an image
       const file = new File(["image data"], "pasted.png", { type: "image/png" });
       const clipboardData = {
@@ -182,14 +192,14 @@ describe("StartWithPrompt Integration Flow", () => {
         const uploadedImages = screen.getAllByAltText(/Uploaded/);
         expect(uploadedImages).toHaveLength(1);
       });
-      
+
       const generateButton = screen.getByRole("button", { name: /generate/i });
       await user.click(generateButton);
 
       await waitFor(() => {
         const storedData = sessionStorage.getItem("test-hash-123");
         expect(storedData).toBeTruthy();
-        
+
         const parsedData = JSON.parse(storedData!);
         expect(parsedData.images).toHaveLength(1);
         expect(parsedData.prompt).toBe(testPrompt);
@@ -225,14 +235,14 @@ describe("StartWithPrompt Integration Flow", () => {
       // The component starts with 0 images, so upload button should be enabled
       const uploadButton = screen.getByRole("button", { name: /upload image/i });
       expect(uploadButton).toHaveAttribute("aria-disabled", "false");
-      
+
       // We can't actually test 5 uploads without complex mocking of the component state,
       // so we'll test the basic functionality instead
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
       const file = new File(["content"], "test.png", { type: "image/png" });
-      
+
       fireEvent.change(fileInput, { target: { files: [file] } });
-      
+
       // Wait for image to be processed
       await waitFor(() => {
         expect(screen.getByAltText("Uploaded 0")).toBeInTheDocument();
@@ -241,13 +251,13 @@ describe("StartWithPrompt Integration Flow", () => {
 
     it("should handle image removal", async () => {
       const user = userEvent.setup();
-      
+
       render(<StartWithPrompt />);
 
       // Upload an image
       const file = new File(["content"], "test.png", { type: "image/png" });
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      
+
       fireEvent.change(fileInput, { target: { files: [file] } });
 
       await waitFor(() => {
@@ -287,7 +297,7 @@ describe("StartWithPrompt Integration Flow", () => {
       vi.mocked(md5).mockReturnValueOnce("hash-2");
       fireEvent.change(
         screen.getByPlaceholderText("Enter your prompt here or paste an image..."),
-        { target: { value: "Second prompt" } }
+        { target: { value: "Second prompt" } },
       );
       fireEvent.click(screen.getByRole("button", { name: /generate/i }));
 
@@ -304,7 +314,7 @@ describe("StartWithPrompt Integration Flow", () => {
       // Should still navigate with empty prompt
       const storedData = sessionStorage.getItem("test-hash-123");
       const parsedData = JSON.parse(storedData!);
-      
+
       expect(parsedData).toEqual({
         prompt: "",
         images: [],
@@ -315,7 +325,7 @@ describe("StartWithPrompt Integration Flow", () => {
 
     it("should navigate to templates when template button is clicked", async () => {
       const user = userEvent.setup();
-      
+
       render(<StartWithPrompt />);
 
       const templateButton = screen.getByRole("button", { name: /choose from templates/i });
@@ -332,13 +342,13 @@ describe("StartWithPrompt Integration Flow", () => {
 
       const file = new File(["content"], "error.png", { type: "image/png" });
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      
+
       fireEvent.change(fileInput, { target: { files: [file] } });
 
       await waitFor(() => {
         expect(consoleSpy).toHaveBeenCalledWith(
           "Error processing image:",
-          expect.any(Error)
+          expect.any(Error),
         );
       });
 

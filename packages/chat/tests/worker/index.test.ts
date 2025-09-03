@@ -1,35 +1,51 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import worker from "../../src/worker/index";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../../src/types";
+import worker from "../../src/worker/index";
 
 // Mock modules at the top level
 vi.mock("../../src/api/conversations", () => ({
   ConversationsAPI: vi.fn().mockImplementation(() => ({
-    list: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: [] }), { status: 200 })),
-    create: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: {} }), { status: 200 })),
-    get: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: {} }), { status: 200 })),
-    delete: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
-    updateTitle: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+    list: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true, data: [] }), { status: 200 }),
+    ),
+    create: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true, data: {} }), { status: 200 }),
+    ),
+    get: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true, data: {} }), { status: 200 }),
+    ),
+    delete: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), { status: 200 }),
+    ),
+    updateTitle: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), { status: 200 }),
+    ),
   })),
 }));
 
 vi.mock("../../src/api/messages", () => ({
   MessagesAPI: vi.fn().mockImplementation(() => ({
-    send: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
-    list: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: [] }), { status: 200 })),
-    regenerate: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+    send: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), { status: 200 }),
+    ),
+    list: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true, data: [] }), { status: 200 }),
+    ),
+    regenerate: vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), { status: 200 }),
+    ),
   })),
 }));
 
 vi.mock("../../src/webhooks/clerk", () => ({
   handleClerkWebhook: vi.fn().mockResolvedValue(
-    new Response("OK", { status: 200 })
+    new Response("OK", { status: 200 }),
   ),
 }));
 
 vi.mock("../../src/webhooks/stripe", () => ({
   handleStripeWebhook: vi.fn().mockResolvedValue(
-    new Response("OK", { status: 200 })
+    new Response("OK", { status: 200 }),
   ),
 }));
 
@@ -60,7 +76,7 @@ describe("Worker", () => {
         idFromName: vi.fn().mockReturnValue("room-id"),
         get: vi.fn().mockReturnValue({
           fetch: vi.fn().mockResolvedValue(
-            new Response(null, { status: 200 })
+            new Response(null, { status: 200 }),
           ),
         }),
       } as any,
@@ -169,7 +185,7 @@ describe("Worker", () => {
 
       expect(response.status).toBe(200);
       expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
-      
+
       const html = await response.text();
       expect(html).toContain("<!DOCTYPE html>");
       expect(html).toContain("AI Chat Assistant");
@@ -200,7 +216,7 @@ describe("Worker", () => {
           name: "Test User",
         }),
       };
-      
+
       // Override the mock to return our instance
       const { AuthService } = await import("../../src/utils/auth");
       (AuthService as any).mockImplementation(() => mockAuthInstance);
@@ -243,7 +259,7 @@ describe("Worker", () => {
       const mockConversationsInstance = {
         list: vi.fn().mockRejectedValue(new Error("Database error")),
       };
-      
+
       const { ConversationsAPI } = await import("../../src/api/conversations");
       (ConversationsAPI as any).mockImplementation(() => mockConversationsInstance);
 
@@ -271,7 +287,7 @@ describe("Worker", () => {
           return new Response(JSON.stringify({ success: true }), { status: 200 });
         }),
       };
-      
+
       const { ConversationsAPI } = await import("../../src/api/conversations");
       (ConversationsAPI as any).mockImplementation(() => mockConversationsInstance);
 
@@ -353,7 +369,12 @@ describe("Worker", () => {
       // Set up the mock to return successful responses
       const { ConversationsAPI } = await import("../../src/api/conversations");
       (ConversationsAPI as any).mockImplementation(() => ({
-        get: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true, data: { conversation: {}, messages: [] } }), { status: 200 })),
+        get: vi.fn().mockResolvedValue(
+          new Response(
+            JSON.stringify({ success: true, data: { conversation: {}, messages: [] } }),
+            { status: 200 },
+          ),
+        ),
       }));
 
       const request = new Request("http://localhost/api/conversations/conv-123", {
@@ -369,7 +390,9 @@ describe("Worker", () => {
       // Set up the mock to return successful responses
       const { ConversationsAPI } = await import("../../src/api/conversations");
       (ConversationsAPI as any).mockImplementation(() => ({
-        delete: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+        delete: vi.fn().mockResolvedValue(
+          new Response(JSON.stringify({ success: true }), { status: 200 }),
+        ),
       }));
 
       const request = new Request("http://localhost/api/conversations/conv-123", {
@@ -385,7 +408,9 @@ describe("Worker", () => {
       // Set up the mock to return successful responses
       const { ConversationsAPI } = await import("../../src/api/conversations");
       (ConversationsAPI as any).mockImplementation(() => ({
-        updateTitle: vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 })),
+        updateTitle: vi.fn().mockResolvedValue(
+          new Response(JSON.stringify({ success: true }), { status: 200 }),
+        ),
       }));
 
       const request = new Request("http://localhost/api/conversations/conv-123", {

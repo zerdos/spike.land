@@ -42,24 +42,24 @@ describe("AssistantUIChat", () => {
   it("should render the Thread component", () => {
     const messages: Message[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     expect(screen.getByTestId("thread")).toBeInTheDocument();
   });
 
   it("should provide the runtime to AssistantRuntimeProvider", () => {
     const messages: Message[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     expect(AssistantRuntimeProvider).toHaveBeenCalled();
     const mockFn = AssistantRuntimeProvider as unknown as ReturnType<typeof vi.fn>;
     const callArgs = mockFn.mock?.calls[0]?.[0];
-    expect(callArgs).toHaveProperty('runtime', mockRuntime);
+    expect(callArgs).toHaveProperty("runtime", mockRuntime);
   });
 
   it("should create runtime with correct API endpoint", () => {
     const messages: Message[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     expect(useChatRuntime).toHaveBeenCalledWith({
       api: `/live/${mockCodeSpace}/messages`,
       initialMessages: messages,
@@ -73,15 +73,15 @@ describe("AssistantUIChat", () => {
       { id: "3", role: "data", content: "Some data" },
       { id: "4", role: "system", content: "System message" },
     ];
-    
+
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     const expectedMessages = [
       { id: "1", role: "user", content: "Hello" },
       { id: "2", role: "assistant", content: "Hi there" },
       { id: "4", role: "system", content: "System message" },
     ];
-    
+
     expect(useChatRuntime).toHaveBeenCalledWith({
       api: `/live/${mockCodeSpace}/messages`,
       initialMessages: expectedMessages,
@@ -91,7 +91,7 @@ describe("AssistantUIChat", () => {
   it("should handle empty initial messages", () => {
     const messages: Message[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     expect(useChatRuntime).toHaveBeenCalledWith({
       api: `/live/${mockCodeSpace}/messages`,
       initialMessages: [],
@@ -101,7 +101,7 @@ describe("AssistantUIChat", () => {
   it("should render Thread component from assistant-ui", () => {
     const messages: Message[] = [];
     render(<AssistantUIChat codeSpace={mockCodeSpace} initialMessages={messages} />);
-    
+
     expect(Thread).toHaveBeenCalled();
   });
 

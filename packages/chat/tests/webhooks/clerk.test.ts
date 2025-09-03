@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { handleClerkWebhook } from "../../src/webhooks/clerk";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../../src/types";
+import { handleClerkWebhook } from "../../src/webhooks/clerk";
 
 vi.mock("svix", () => ({
   Webhook: vi.fn().mockImplementation(() => ({
@@ -68,7 +68,7 @@ describe("handleClerkWebhook", () => {
         createOrUpdateUser: vi.fn().mockResolvedValue("user-id"),
       };
       vi.spyOn(await import("../../src/utils/auth"), "AuthService").mockImplementation(
-        () => authServiceMock as any
+        () => authServiceMock as any,
       );
 
       const response = await handleClerkWebhook(request, mockEnv);
@@ -114,7 +114,7 @@ describe("handleClerkWebhook", () => {
 
       expect(response.status).toBe(200);
       expect(mockEnv.DATABASE.prepare).toHaveBeenCalledWith(
-        "DELETE FROM users WHERE clerk_id = ?"
+        "DELETE FROM users WHERE clerk_id = ?",
       );
       expect(mockEnv.DATABASE.bind).toHaveBeenCalledWith("clerk-user-123");
     });
@@ -160,7 +160,7 @@ describe("handleClerkWebhook", () => {
       expect(mockEnv.KV_STORE.put).toHaveBeenCalledWith(
         "session:session-123",
         expect.stringContaining("user-123"),
-        { expirationTtl: 86400 }
+        { expirationTtl: 86400 },
       );
     });
 

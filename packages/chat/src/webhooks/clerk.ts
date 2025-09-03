@@ -1,17 +1,17 @@
+import { Webhook } from "svix";
 import type { Env } from "../types";
 import { AuthService } from "../utils/auth";
-import { Webhook } from "svix";
 
 export async function handleClerkWebhook(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   try {
     const body = await request.text();
     const headers = Object.fromEntries(request.headers.entries());
-    
+
     const webhook = new Webhook(env.CLERK_WEBHOOK_SECRET);
-    
+
     let event: any;
     try {
       event = webhook.verify(body, headers);
@@ -19,9 +19,9 @@ export async function handleClerkWebhook(
       console.error("Webhook verification failed:", error);
       return new Response("Invalid signature", { status: 400 });
     }
-    
+
     const authService = new AuthService(env);
-    
+
     switch (event.type) {
       case "user.created":
       case "user.updated": {
@@ -33,22 +33,22 @@ export async function handleClerkWebhook(
         });
         break;
       }
-      
+
       case "user.deleted": {
         const userId = event.data.id;
-        
+
         await env.DATABASE.prepare(
-          "DELETE FROM users WHERE clerk_id = ?"
+          "DELETE FROM users WHERE clerk_id = ?",
         )
           .bind(userId)
           .run();
         break;
       }
-      
+
       case "session.created": {
         const sessionData = event.data;
         const cacheKey = `session:${sessionData.id}`;
-        
+
         await env.KV_STORE.put(
           cacheKey,
           JSON.stringify({
@@ -58,24 +58,24 @@ export async function handleClerkWebhook(
           }),
           {
             expirationTtl: 86400,
-          }
+          },
         );
         break;
       }
-      
+
       case "session.ended":
       case "session.revoked": {
         const sessionId = event.data.id;
         const cacheKey = `session:${sessionId}`;
-        
+
         await env.KV_STORE.delete(cacheKey);
         break;
       }
-      
+
       default:
         console.log("Unhandled webhook event type:", event.type);
     }
-    
+
     return new Response("OK", { status: 200 });
   } catch (error) {
     console.error("Clerk webhook error:", error);

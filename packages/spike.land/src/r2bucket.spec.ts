@@ -59,7 +59,6 @@ describe("R2BucketHandler", () => {
         delete: vi.fn(),
         list: vi.fn(),
         getWithMetadata: vi.fn(),
-        deleteBulk: vi.fn(),
       } as KVNamespace,
       __STATIC_CONTENT: {
         get: vi.fn(),
@@ -67,7 +66,6 @@ describe("R2BucketHandler", () => {
         delete: vi.fn(),
         list: vi.fn(),
         getWithMetadata: vi.fn(),
-        deleteBulk: vi.fn(),
       } as KVNamespace,
       CODE: {
         newUniqueId: vi.fn(),

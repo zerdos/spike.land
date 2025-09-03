@@ -1,41 +1,41 @@
-import type { Env, AIRequest } from "../types";
+import type { AIRequest, Env } from "../types";
 
 export class AIService {
   private env: Env;
-  
+
   constructor(env: Env) {
     this.env = env;
   }
-  
+
   async generateResponse(request: AIRequest): Promise<string> {
     try {
       const modelName = this.getModelName(request.model);
-      
+
       const response = await this.env.AI.run(modelName as any, {
         messages: request.messages,
         temperature: request.temperature ?? 0.7,
         max_tokens: request.max_tokens ?? 1000,
       } as any);
-      
+
       if (typeof response === "string") {
         return response;
       }
-      
+
       if (response && typeof response === "object" && "response" in response) {
         return response.response as string;
       }
-      
+
       throw new Error("Invalid AI response format");
     } catch (error) {
       console.error("AI generation error:", error);
       throw new Error("Failed to generate AI response");
     }
   }
-  
+
   async countTokens(text: string): Promise<number> {
     return Math.ceil(text.length / 4);
   }
-  
+
   async moderateContent(content: string): Promise<boolean> {
     try {
       const response = await this.env.AI.run("@cf/meta/llama-guard-2-8b" as any, {
@@ -46,23 +46,24 @@ export class AIService {
           },
         ],
       } as any);
-      
+
       const result = typeof response === "string" ? response : (response as any)?.response;
-      
+
       return !result?.toLowerCase().includes("unsafe");
     } catch (error) {
       console.error("Content moderation error:", error);
       return true;
     }
   }
-  
-  async generateTitle(messages: Array<{ role: string; content: string }>): Promise<string> {
+
+  async generateTitle(messages: Array<{ role: string; content: string; }>): Promise<string> {
     try {
-      const prompt = `Based on this conversation, generate a short, descriptive title (max 50 chars):
+      const prompt =
+        `Based on this conversation, generate a short, descriptive title (max 50 chars):
 ${messages.slice(0, 3).map(m => `${m.role}: ${m.content.slice(0, 100)}`).join("\n")}
 
 Title:`;
-      
+
       const response = await this.env.AI.run("@cf/meta/llama-2-7b-chat-int8", {
         messages: [
           {
@@ -77,24 +78,24 @@ Title:`;
         temperature: 0.5,
         max_tokens: 20,
       });
-      
+
       const title = typeof response === "string" ? response : response?.response;
-      
+
       return (title as string)?.trim().slice(0, 50) || "New Conversation";
     } catch (error) {
       console.error("Title generation error:", error);
       return "New Conversation";
     }
   }
-  
+
   async summarizeConversation(
-    messages: Array<{ role: string; content: string }>
+    messages: Array<{ role: string; content: string; }>,
   ): Promise<string> {
     try {
       const conversationText = messages
         .map(m => `${m.role}: ${m.content}`)
         .join("\n");
-      
+
       const response = await this.env.AI.run("@cf/meta/llama-2-7b-chat-int8", {
         messages: [
           {
@@ -109,14 +110,14 @@ Title:`;
         temperature: 0.3,
         max_tokens: 150,
       });
-      
+
       return typeof response === "string" ? response : response?.response || "";
     } catch (error) {
       console.error("Summarization error:", error);
       return "";
     }
   }
-  
+
   private getModelName(model: string): string {
     const modelMap: Record<string, string> = {
       "llama-2-7b": "@cf/meta/llama-2-7b-chat-int8",
@@ -130,10 +131,10 @@ Title:`;
       "openchat": "@cf/openchat/openchat-3.5-0106",
       "gemma": "@cf/google/gemma-7b-it-lora",
     };
-    
+
     return modelMap[model] || "@cf/meta/llama-2-7b-chat-int8";
   }
-  
+
   async extractKeywords(text: string): Promise<string[]> {
     try {
       const response = await this.env.AI.run("@cf/meta/llama-2-7b-chat-int8", {
@@ -150,7 +151,7 @@ Title:`;
         temperature: 0.3,
         max_tokens: 50,
       });
-      
+
       const keywords = typeof response === "string" ? response : response?.response || "";
       return keywords.split(",").map(k => k.trim()).filter(Boolean);
     } catch (error) {

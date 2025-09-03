@@ -23,38 +23,40 @@ export function ConversationList({
           New Chat
         </button>
       </div>
-      
+
       <div className="conversation-items">
-        {conversations.length === 0 ? (
-          <div className="empty-state">
-            <p>No conversations yet</p>
-            <button onClick={onCreateConversation}>Start your first chat</button>
-          </div>
-        ) : (
-          conversations.map((conversation) => (
-            <div
-              key={conversation.id}
-              className={`conversation-item ${
-                conversation.id === currentConversationId ? "active" : ""
-              }`}
-              onClick={() => onSelectConversation(conversation)}
-            >
-              <div className="conversation-title">{conversation.title}</div>
-              <div className="conversation-meta">
-                {new Date(conversation.updated_at).toLocaleDateString()}
-              </div>
-              <button
-                className="delete-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDeleteConversation(conversation.id);
-                }}
-              >
-                Delete
-              </button>
+        {conversations.length === 0
+          ? (
+            <div className="empty-state">
+              <p>No conversations yet</p>
+              <button onClick={onCreateConversation}>Start your first chat</button>
             </div>
-          ))
-        )}
+          )
+          : (
+            conversations.map((conversation) => (
+              <div
+                key={conversation.id}
+                className={`conversation-item ${
+                  conversation.id === currentConversationId ? "active" : ""
+                }`}
+                onClick={() => onSelectConversation(conversation)}
+              >
+                <div className="conversation-title">{conversation.title}</div>
+                <div className="conversation-meta">
+                  {new Date(conversation.updated_at).toLocaleDateString()}
+                </div>
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteConversation(conversation.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            ))
+          )}
       </div>
     </div>
   );

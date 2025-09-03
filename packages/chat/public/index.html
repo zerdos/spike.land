@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat AI Assistant - spike.land</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat AI Assistant - spike.land</title>
+    <style>
     * {
       margin: 0;
       padding: 0;
@@ -12,7 +12,9 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
@@ -26,7 +28,7 @@
       max-width: 1200px;
       background: white;
       border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       overflow: hidden;
       display: flex;
       height: 80vh;
@@ -82,7 +84,7 @@
 
     .conversation-item.active {
       background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .chat-container {
@@ -131,7 +133,7 @@
       background: white;
       color: #333;
       border-bottom-left-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .chat-input-container {
@@ -184,11 +186,11 @@
       padding: 15px;
       background: white;
       border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .typing-indicator::after {
-      content: '...';
+      content: "...";
       animation: typing 1.5s infinite;
     }
 
@@ -253,286 +255,292 @@
         max-width: 85%;
       }
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <button class="new-chat-btn" onclick="createNewChat()">+ New Chat</button>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <button class="new-chat-btn" onclick="createNewChat()">+ New Chat</button>
+        </div>
+        <div class="conversation-list" id="conversationList">
+          <!-- Conversations will be loaded here -->
+        </div>
       </div>
-      <div class="conversation-list" id="conversationList">
-        <!-- Conversations will be loaded here -->
+
+      <div class="chat-container">
+        <div id="authContainer" class="auth-container" style="display: none">
+          <h1>Welcome to AI Chat Assistant</h1>
+          <p>Please authenticate to start chatting</p>
+          <button class="auth-btn" onclick="mockAuth()">Sign In (Demo)</button>
+        </div>
+
+        <div id="chatInterface" style="display: none">
+          <div class="chat-header">
+            <h2 id="conversationTitle">AI Chat Assistant</h2>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be displayed here -->
+          </div>
+          <div class="chat-input-container">
+            <form class="chat-input-form" onsubmit="sendMessage(event)">
+              <input
+                type="text"
+                class="chat-input"
+                id="messageInput"
+                placeholder="Type your message..."
+                autocomplete="off"
+              />
+              <button type="submit" class="send-btn" id="sendBtn">Send</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="chat-container">
-      <div id="authContainer" class="auth-container" style="display: none;">
-        <h1>Welcome to AI Chat Assistant</h1>
-        <p>Please authenticate to start chatting</p>
-        <button class="auth-btn" onclick="mockAuth()">Sign In (Demo)</button>
-      </div>
-
-      <div id="chatInterface" style="display: none;">
-        <div class="chat-header">
-          <h2 id="conversationTitle">AI Chat Assistant</h2>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-          <!-- Messages will be displayed here -->
-        </div>
-        <div class="chat-input-container">
-          <form class="chat-input-form" onsubmit="sendMessage(event)">
-            <input 
-              type="text" 
-              class="chat-input" 
-              id="messageInput"
-              placeholder="Type your message..."
-              autocomplete="off"
-            />
-            <button type="submit" class="send-btn" id="sendBtn">Send</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
+    <script>
     let currentUser = null;
-    let currentConversation = null;
-    let authToken = null;
-    let isLoading = false;
+      let currentConversation = null;
+      let authToken = null;
+      let isLoading = false;
 
-    // Initialize app
-    window.addEventListener('DOMContentLoaded', () => {
-      checkAuth();
-    });
-
-    function checkAuth() {
-      // Check if we have a mock auth token
-      authToken = localStorage.getItem('authToken');
-      if (authToken) {
-        currentUser = { id: 'demo-user', email: 'demo@example.com' };
-        showChatInterface();
-        loadConversations();
-      } else {
-        showAuthScreen();
-      }
-    }
-
-    function showAuthScreen() {
-      document.getElementById('authContainer').style.display = 'block';
-      document.getElementById('chatInterface').style.display = 'none';
-    }
-
-    function showChatInterface() {
-      document.getElementById('authContainer').style.display = 'none';
-      document.getElementById('chatInterface').style.display = 'flex';
-      document.getElementById('chatInterface').style.flexDirection = 'column';
-    }
-
-    function mockAuth() {
-      // Mock authentication for demo
-      authToken = 'demo-token-' + Date.now();
-      localStorage.setItem('authToken', authToken);
-      currentUser = { id: 'demo-user', email: 'demo@example.com' };
-      showChatInterface();
-      createNewChat();
-    }
-
-    async function apiRequest(endpoint, options = {}) {
-      const url = `/api${endpoint}`;
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
-          ...options.headers
-        }
+      // Initialize app
+      window.addEventListener("DOMContentLoaded", () => {
+        checkAuth();
       });
 
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.status}`);
-      }
-
-      return response.json();
-    }
-
-    async function loadConversations() {
-      try {
-        const data = await apiRequest('/conversations');
-        displayConversations(data.data || []);
-      } catch (error) {
-        console.error('Failed to load conversations:', error);
-        // For demo, show empty list
-        displayConversations([]);
-      }
-    }
-
-    function displayConversations(conversations) {
-      const listEl = document.getElementById('conversationList');
-      listEl.innerHTML = '';
-
-      if (conversations.length === 0) {
-        listEl.innerHTML = '<div style="padding: 20px; text-align: center; color: #999;">No conversations yet</div>';
-        return;
-      }
-
-      conversations.forEach(conv => {
-        const item = document.createElement('div');
-        item.className = 'conversation-item';
-        if (currentConversation?.id === conv.id) {
-          item.className += ' active';
+      function checkAuth() {
+        // Check if we have a mock auth token
+        authToken = localStorage.getItem("authToken");
+        if (authToken) {
+          currentUser = { id: "demo-user", email: "demo@example.com" };
+          showChatInterface();
+          loadConversations();
+        } else {
+          showAuthScreen();
         }
-        item.innerHTML = `
-          <div style="font-weight: 500;">${conv.title || 'New Conversation'}</div>
+      }
+
+      function showAuthScreen() {
+        document.getElementById("authContainer").style.display = "block";
+        document.getElementById("chatInterface").style.display = "none";
+      }
+
+      function showChatInterface() {
+        document.getElementById("authContainer").style.display = "none";
+        document.getElementById("chatInterface").style.display = "flex";
+        document.getElementById("chatInterface").style.flexDirection = "column";
+      }
+
+      function mockAuth() {
+        // Mock authentication for demo
+        authToken = "demo-token-" + Date.now();
+        localStorage.setItem("authToken", authToken);
+        currentUser = { id: "demo-user", email: "demo@example.com" };
+        showChatInterface();
+        createNewChat();
+      }
+
+      async function apiRequest(endpoint, options = {}) {
+        const url = `/api${endpoint}`;
+        const response = await fetch(url, {
+          ...options,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`,
+            ...options.headers,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status}`);
+        }
+
+        return response.json();
+      }
+
+      async function loadConversations() {
+        try {
+          const data = await apiRequest("/conversations");
+          displayConversations(data.data || []);
+        } catch (error) {
+          console.error("Failed to load conversations:", error);
+          // For demo, show empty list
+          displayConversations([]);
+        }
+      }
+
+      function displayConversations(conversations) {
+        const listEl = document.getElementById("conversationList");
+        listEl.innerHTML = "";
+
+        if (conversations.length === 0) {
+          listEl.innerHTML =
+            '<div style="padding: 20px; text-align: center; color: #999;">No conversations yet</div>';
+          return;
+        }
+
+        conversations.forEach(conv => {
+          const item = document.createElement("div");
+          item.className = "conversation-item";
+          if (currentConversation?.id === conv.id) {
+            item.className += " active";
+          }
+          item.innerHTML = `
+          <div style="font-weight: 500;">${conv.title || "New Conversation"}</div>
           <div style="font-size: 12px; color: #999; margin-top: 5px;">
             ${new Date(conv.updated_at).toLocaleDateString()}
           </div>
         `;
-        item.onclick = () => selectConversation(conv);
-        listEl.appendChild(item);
-      });
-    }
-
-    async function createNewChat() {
-      try {
-        const data = await apiRequest('/conversations', {
-          method: 'POST',
-          body: JSON.stringify({
-            title: 'New Conversation',
-            model: 'llama-2-7b'
-          })
+          item.onclick = () => selectConversation(conv);
+          listEl.appendChild(item);
         });
-        currentConversation = data.data;
-        document.getElementById('conversationTitle').textContent = currentConversation.title;
-        document.getElementById('chatMessages').innerHTML = '';
-        loadConversations();
-      } catch (error) {
-        console.error('Failed to create conversation:', error);
-        // For demo, create a mock conversation
-        currentConversation = {
-          id: 'demo-conv-' + Date.now(),
-          title: 'Demo Conversation',
-          created_at: new Date().toISOString()
-        };
-        document.getElementById('conversationTitle').textContent = currentConversation.title;
-        document.getElementById('chatMessages').innerHTML = '';
       }
-    }
 
-    async function selectConversation(conv) {
-      currentConversation = conv;
-      document.getElementById('conversationTitle').textContent = conv.title;
-      
-      // Update active state
-      document.querySelectorAll('.conversation-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      event.currentTarget.classList.add('active');
-
-      // Load messages
-      try {
-        const data = await apiRequest(`/conversations/${conv.id}`);
-        displayMessages(data.data.messages || []);
-      } catch (error) {
-        console.error('Failed to load messages:', error);
-        displayMessages([]);
-      }
-    }
-
-    function displayMessages(messages) {
-      const messagesEl = document.getElementById('chatMessages');
-      messagesEl.innerHTML = '';
-
-      messages.forEach(msg => {
-        addMessageToUI(msg.content, msg.role);
-      });
-
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    async function sendMessage(event) {
-      event.preventDefault();
-
-      const input = document.getElementById('messageInput');
-      const message = input.value.trim();
-      
-      if (!message || isLoading || !currentConversation) return;
-
-      input.value = '';
-      isLoading = true;
-      updateSendButton();
-
-      // Add user message to UI
-      addMessageToUI(message, 'user');
-
-      // Show typing indicator
-      showTypingIndicator();
-
-      try {
-        const data = await apiRequest('/messages', {
-          method: 'POST',
-          body: JSON.stringify({
-            conversationId: currentConversation.id,
-            content: message
-          })
-        });
-
-        removeTypingIndicator();
-        
-        if (data.data) {
-          addMessageToUI(data.data.content, 'assistant');
+      async function createNewChat() {
+        try {
+          const data = await apiRequest("/conversations", {
+            method: "POST",
+            body: JSON.stringify({
+              title: "New Conversation",
+              model: "llama-2-7b",
+            }),
+          });
+          currentConversation = data.data;
+          document.getElementById("conversationTitle").textContent =
+            currentConversation.title;
+          document.getElementById("chatMessages").innerHTML = "";
+          loadConversations();
+        } catch (error) {
+          console.error("Failed to create conversation:", error);
+          // For demo, create a mock conversation
+          currentConversation = {
+            id: "demo-conv-" + Date.now(),
+            title: "Demo Conversation",
+            created_at: new Date().toISOString(),
+          };
+          document.getElementById("conversationTitle").textContent =
+            currentConversation.title;
+          document.getElementById("chatMessages").innerHTML = "";
         }
-      } catch (error) {
-        console.error('Failed to send message:', error);
-        removeTypingIndicator();
-        
-        // For demo, add a mock response
-        setTimeout(() => {
-          addMessageToUI('I apologize, but I am currently unable to process your request. This is a demo mode. Please check your authentication or try again later.', 'assistant');
-        }, 500);
-      } finally {
-        isLoading = false;
+      }
+
+      async function selectConversation(conv) {
+        currentConversation = conv;
+        document.getElementById("conversationTitle").textContent = conv.title;
+
+        // Update active state
+        document.querySelectorAll(".conversation-item").forEach(item => {
+          item.classList.remove("active");
+        });
+        event.currentTarget.classList.add("active");
+
+        // Load messages
+        try {
+          const data = await apiRequest(`/conversations/${conv.id}`);
+          displayMessages(data.data.messages || []);
+        } catch (error) {
+          console.error("Failed to load messages:", error);
+          displayMessages([]);
+        }
+      }
+
+      function displayMessages(messages) {
+        const messagesEl = document.getElementById("chatMessages");
+        messagesEl.innerHTML = "";
+
+        messages.forEach(msg => {
+          addMessageToUI(msg.content, msg.role);
+        });
+
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      async function sendMessage(event) {
+        event.preventDefault();
+
+        const input = document.getElementById("messageInput");
+        const message = input.value.trim();
+
+        if (!message || isLoading || !currentConversation) return;
+
+        input.value = "";
+        isLoading = true;
         updateSendButton();
+
+        // Add user message to UI
+        addMessageToUI(message, "user");
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        try {
+          const data = await apiRequest("/messages", {
+            method: "POST",
+            body: JSON.stringify({
+              conversationId: currentConversation.id,
+              content: message,
+            }),
+          });
+
+          removeTypingIndicator();
+
+          if (data.data) {
+            addMessageToUI(data.data.content, "assistant");
+          }
+        } catch (error) {
+          console.error("Failed to send message:", error);
+          removeTypingIndicator();
+
+          // For demo, add a mock response
+          setTimeout(() => {
+            addMessageToUI(
+              "I apologize, but I am currently unable to process your request. This is a demo mode. Please check your authentication or try again later.",
+              "assistant",
+            );
+          }, 500);
+        } finally {
+          isLoading = false;
+          updateSendButton();
+        }
       }
-    }
 
-    function addMessageToUI(content, role) {
-      const messagesEl = document.getElementById('chatMessages');
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message message-${role}`;
-      
-      const contentDiv = document.createElement('div');
-      contentDiv.className = 'message-content';
-      contentDiv.textContent = content;
-      
-      messageDiv.appendChild(contentDiv);
-      messagesEl.appendChild(messageDiv);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
+      function addMessageToUI(content, role) {
+        const messagesEl = document.getElementById("chatMessages");
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `message message-${role}`;
 
-    function showTypingIndicator() {
-      const messagesEl = document.getElementById('chatMessages');
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'message message-assistant';
-      typingDiv.id = 'typingIndicator';
-      typingDiv.innerHTML = '<div class="typing-indicator"></div>';
-      messagesEl.appendChild(typingDiv);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "message-content";
+        contentDiv.textContent = content;
 
-    function removeTypingIndicator() {
-      const indicator = document.getElementById('typingIndicator');
-      if (indicator) {
-        indicator.remove();
+        messageDiv.appendChild(contentDiv);
+        messagesEl.appendChild(messageDiv);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
       }
-    }
 
-    function updateSendButton() {
-      const btn = document.getElementById('sendBtn');
-      btn.disabled = isLoading;
-      btn.textContent = isLoading ? 'Sending...' : 'Send';
-    }
-  </script>
-</body>
+      function showTypingIndicator() {
+        const messagesEl = document.getElementById("chatMessages");
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "message message-assistant";
+        typingDiv.id = "typingIndicator";
+        typingDiv.innerHTML = '<div class="typing-indicator"></div>';
+        messagesEl.appendChild(typingDiv);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function removeTypingIndicator() {
+        const indicator = document.getElementById("typingIndicator");
+        if (indicator) {
+          indicator.remove();
+        }
+      }
+
+      function updateSendButton() {
+        const btn = document.getElementById("sendBtn");
+        btn.disabled = isLoading;
+        btn.textContent = isLoading ? "Sending..." : "Send";
+      }
+    </script>
+  </body>
 </html>

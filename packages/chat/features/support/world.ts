@@ -1,0 +1,83 @@
+import { IWorldOptions, setWorldConstructor, World } from "@cucumber/cucumber";
+import { Browser, BrowserContext, chromium, firefox, Page, webkit } from "@playwright/test";
+import { ChatPage } from "../page-objects/ChatPage";
+import { ConversationPage } from "../page-objects/ConversationPage";
+import { LandingPage } from "../page-objects/LandingPage";
+
+export interface CustomWorld extends World {
+  browser: Browser;
+  context: BrowserContext;
+  page: Page;
+  chatPage: ChatPage;
+  landingPage: LandingPage;
+  conversationPage: ConversationPage;
+}
+
+export class CustomWorldImpl extends World implements CustomWorld {
+  browser!: Browser;
+  context!: BrowserContext;
+  page!: Page;
+  chatPage!: ChatPage;
+  landingPage!: LandingPage;
+  conversationPage!: ConversationPage;
+
+  constructor(options: IWorldOptions) {
+    super(options);
+  }
+
+  async init() {
+    const browserType = process.env.BROWSER || "chromium";
+
+    switch (browserType) {
+      case "firefox":
+        this.browser = await firefox.launch({ headless: process.env.HEADLESS !== "false" });
+        break;
+      case "webkit":
+        this.browser = await webkit.launch({ headless: process.env.HEADLESS !== "false" });
+        break;
+      default:
+        this.browser = await chromium.launch({ headless: process.env.HEADLESS !== "false" });
+    }
+
+    this.context = await this.browser.newContext({
+      baseURL: process.env.BASE_URL || "http://localhost:8787",
+      viewport: { width: 1280, height: 720 },
+      ignoreHTTPSErrors: true,
+      ...(process.env.DEVICE && {
+        ...this.getDeviceConfig(process.env.DEVICE),
+      }),
+    });
+
+    this.page = await this.context.newPage();
+
+    // Initialize page objects
+    this.chatPage = new ChatPage(this.page);
+    this.landingPage = new LandingPage(this.page);
+    this.conversationPage = new ConversationPage(this.page);
+
+    // Add auth token if needed
+    await this.page.addInitScript(() => {
+      if (process.env.AUTH_TOKEN) {
+        localStorage.setItem("auth_token", process.env.AUTH_TOKEN);
+      }
+    });
+  }
+
+  async cleanup() {
+    await this.page?.close();
+    await this.context?.close();
+    await this.browser?.close();
+  }
+
+  private getDeviceConfig(device: string) {
+    const devices = {
+      "iPhone 12": webkit.devices["iPhone 12"],
+      "Pixel 5": chromium.devices["Pixel 5"],
+      "iPad Mini": webkit.devices["iPad Mini landscape"],
+      "Galaxy S21": chromium.devices["Galaxy S21"],
+    };
+    return devices[device as keyof typeof devices] || {};
+  }
+}
+
+setWorldConstructor(CustomWorldImpl);

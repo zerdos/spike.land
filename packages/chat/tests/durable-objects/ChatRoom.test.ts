@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ChatRoom } from "../../src/durable-objects/ChatRoom";
 import type { Env } from "../../src/types";
 
@@ -9,7 +9,7 @@ class MockWebSocket {
   send: (data: string) => void;
   addEventListener: (event: string, handler: Function) => void;
   close: () => void;
-  
+
   static READY_STATE_CONNECTING = 0;
   static READY_STATE_OPEN = 1;
   static READY_STATE_CLOSING = 2;
@@ -47,7 +47,7 @@ describe("ChatRoom", () => {
       READY_STATE_CLOSING: 2,
       READY_STATE_CLOSED: 3,
     } as any;
-    
+
     mockState = {} as DurableObjectState;
     mockEnv = {} as Env;
     chatRoom = new ChatRoom(mockState, mockEnv);
@@ -97,7 +97,7 @@ describe("ChatRoom", () => {
       const response = await chatRoom.fetch(request);
       expect(response.status).toBe(101);
       expect(response.webSocket).toBeDefined();
-      
+
       // Restore original Response
       global.Response = OriginalResponse;
     });
@@ -171,7 +171,7 @@ describe("ChatRoom", () => {
         mockWebSocket,
         "session-1",
         "user-1",
-        "conv-1"
+        "conv-1",
       );
 
       expect(mockWebSocket.accept).toHaveBeenCalled();
@@ -196,7 +196,7 @@ describe("ChatRoom", () => {
         mockWebSocket,
         "session-1",
         "user-1",
-        "conv-1"
+        "conv-1",
       );
 
       expect((chatRoom as any).sessions.has("session-1")).toBe(true);
@@ -228,7 +228,7 @@ describe("ChatRoom", () => {
       (chatRoom as any).sessions.set("session-2", mockWebSocket2);
 
       const broadcastSpy = vi.spyOn(chatRoom as any, "broadcastToOthers");
-      
+
       (chatRoom as any).broadcastToOthers("session-1", {
         type: "typing",
         userId: "user-1",
@@ -260,14 +260,14 @@ describe("ChatRoom", () => {
         mockWebSocket,
         "session-1",
         "user-1",
-        "conv-1"
+        "conv-1",
       );
 
       // Send invalid JSON
       messageHandler({ data: "invalid-json{" });
 
       expect(mockWebSocket.send).toHaveBeenCalledWith(
-        expect.stringContaining("error")
+        expect.stringContaining("error"),
       );
     });
   });
@@ -296,7 +296,7 @@ describe("ChatRoom", () => {
     it("should return 404 for unknown routes", async () => {
       const request = new Request("http://localhost/unknown");
       const response = await chatRoom.fetch(request);
-      
+
       expect(response.status).toBe(404);
       expect(await response.text()).toBe("Not found");
     });

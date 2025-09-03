@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MessagesAPI } from "../../src/api/messages";
 import type { Env } from "../../src/types";
 
@@ -300,7 +300,7 @@ describe("MessagesAPI", () => {
           headers: {
             Authorization: "Bearer valid-token",
           },
-        }
+        },
       );
 
       mockAuth.verifyRequest.mockResolvedValue({

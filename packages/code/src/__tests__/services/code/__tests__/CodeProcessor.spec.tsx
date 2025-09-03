@@ -38,9 +38,20 @@ describe("CodeProcessor", () => {
     html: "<div></div>",
     codeSpace: mockCodeSpace,
     css: "css",
+    messages: [
+      { id: "1", role: "user", content: "Test" },
+      { id: "2", role: "assistant", content: "Test" },
+    ],
   };
 
   const getSession = () => sessionMock;
+
+  // Test interface definition
+  interface _WindowWithWebSocket {
+    frames: Record<number, {
+      webSocketManager: IWebSocketManager;
+    }>;
+  }
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -114,6 +125,18 @@ describe("CodeProcessor", () => {
           "codeSpace": "test-space",
           "css": "css",
           "html": "<div></div>",
+          "messages": [
+            {
+              "content": "Test",
+              "id": "1",
+              "role": "user",
+            },
+            {
+              "content": "Test",
+              "id": "2",
+              "role": "assistant",
+            },
+          ],
           "transpiled": "transpiled",
         }
       `);
@@ -127,6 +150,16 @@ describe("CodeProcessor", () => {
       vi.mocked(formatCode).mockResolvedValue(`formatted`);
 
       // Mock the window message event to simulate iframe response
+      const _mockMessageEvent = {
+        data: {
+          type: "rendered",
+          requestId: "md5-hash", // This would be the md5 of the transpiled code
+          data: {
+            html: "<div>Mocked HTML</div>",
+            css: "/* Mocked CSS */",
+          },
+        },
+      };
 
       // Mock URL.createObjectURL
       global.URL.createObjectURL = vi.fn().mockReturnValue("mock-blob-url");

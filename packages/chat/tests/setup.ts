@@ -1,4 +1,4 @@
-import { beforeAll, afterEach, vi } from "vitest";
+import { afterEach, beforeAll, vi } from "vitest";
 
 beforeAll(() => {
   // Increase max listeners to prevent warnings
@@ -11,7 +11,7 @@ afterEach(() => {
   // Clear all mocks after each test
   vi.clearAllMocks();
   vi.clearAllTimers();
-  
+
   // Reset all module mocks
   vi.resetModules();
 });

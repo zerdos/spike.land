@@ -407,7 +407,7 @@ export class PostHandler {
           `[AI Routes][${requestId}] Sending tools to streamText:`,
           JSON.stringify(Object.keys(processedTools)),
         );
-        
+
         // Enable debug mode for Anthropic proxy if needed
         if (this.env.DEBUG_ANTHROPIC_PROXY === "true") {
           console.log(
@@ -467,21 +467,21 @@ export class PostHandler {
       }
 
       // Use the appropriate streaming response method
-      if (typeof (result as any)?.toUIMessageStreamResponse === 'function') {
+      if (typeof (result as any)?.toUIMessageStreamResponse === "function") {
         return (result as any).toUIMessageStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
-      
+
       // Fallback to text stream for simpler responses
-      if (typeof (result as any)?.toTextStreamResponse === 'function') {
+      if (typeof (result as any)?.toTextStreamResponse === "function") {
         return (result as any).toTextStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
 
       // Final fallback to toDataStreamResponse if available
-      if (typeof (result as any)?.toDataStreamResponse === 'function') {
+      if (typeof (result as any)?.toDataStreamResponse === "function") {
         return (result as any).toDataStreamResponse({
           headers: this.getCorsHeaders(),
           getErrorMessage: (error: any) => {
@@ -493,7 +493,7 @@ export class PostHandler {
           },
         });
       }
-      
+
       // If no methods are available, we have an issue
       console.error(`[AI Routes][${requestId}] No streaming methods available on result`);
       throw new Error("Streaming methods not available on streamText result");

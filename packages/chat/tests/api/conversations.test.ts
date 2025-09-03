@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ConversationsAPI } from "../../src/api/conversations";
-import { AuthService } from "../../src/utils/auth";
 import type { Env } from "../../src/types";
+import { AuthService } from "../../src/utils/auth";
 
 vi.mock("../../src/utils/auth", () => ({
   AuthService: vi.fn().mockImplementation(() => ({

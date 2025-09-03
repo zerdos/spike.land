@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { AIService } from "../../src/utils/ai";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Env } from "../../src/types";
+import { AIService } from "../../src/utils/ai";
 
 describe("AIService", () => {
   let aiService: AIService;
@@ -34,7 +34,7 @@ describe("AIService", () => {
           messages: [{ role: "user", content: "Hello" }],
           temperature: 0.7,
           max_tokens: 1000,
-        })
+        }),
       );
     });
 
@@ -58,7 +58,7 @@ describe("AIService", () => {
         expect.objectContaining({
           temperature: 0.5,
           max_tokens: 500,
-        })
+        }),
       );
     });
 
@@ -69,7 +69,7 @@ describe("AIService", () => {
         aiService.generateResponse({
           model: "llama-2-7b",
           messages: [{ role: "user", content: "Hello" }],
-        })
+        }),
       ).rejects.toThrow("Failed to generate AI response");
     });
   });
@@ -120,7 +120,7 @@ describe("AIService", () => {
 
     it("should limit title to 50 characters", async () => {
       mockEnv.AI.run = vi.fn().mockResolvedValue(
-        "This is a very long title that exceeds the maximum character limit of fifty"
+        "This is a very long title that exceeds the maximum character limit of fifty",
       );
 
       const messages = [
@@ -145,7 +145,9 @@ describe("AIService", () => {
 
   describe("summarizeConversation", () => {
     it("should summarize conversation", async () => {
-      mockEnv.AI.run = vi.fn().mockResolvedValue("User asked about AI. Assistant explained machine learning basics.");
+      mockEnv.AI.run = vi.fn().mockResolvedValue(
+        "User asked about AI. Assistant explained machine learning basics.",
+      );
 
       const messages = [
         { role: "user", content: "What is AI?" },
@@ -172,7 +174,9 @@ describe("AIService", () => {
     it("should extract keywords from text", async () => {
       mockEnv.AI.run = vi.fn().mockResolvedValue("weather, temperature, forecast, rain");
 
-      const result = await aiService.extractKeywords("What's the weather forecast for tomorrow? Will it rain?");
+      const result = await aiService.extractKeywords(
+        "What's the weather forecast for tomorrow? Will it rain?",
+      );
       expect(result).toEqual(["weather", "temperature", "forecast", "rain"]);
     });
 
@@ -195,7 +199,7 @@ describe("AIService", () => {
 
       for (const { input, expected } of testCases) {
         mockEnv.AI.run = vi.fn().mockResolvedValue("response");
-        
+
         await aiService.generateResponse({
           model: input,
           messages: [{ role: "user", content: "test" }],
@@ -203,7 +207,7 @@ describe("AIService", () => {
 
         expect(mockEnv.AI.run).toHaveBeenCalledWith(
           expected,
-          expect.any(Object)
+          expect.any(Object),
         );
       }
     });

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 // Mock assistant-ui components
 vi.mock("@assistant-ui/react", () => ({
@@ -38,9 +38,7 @@ vi.mock("@assistant-ui/react", () => ({
       }
       return <div>{children}</div>;
     },
-    ScrollToBottom: ({ children, ...props }: any) => (
-      <button {...props}>{children}</button>
-    ),
+    ScrollToBottom: ({ children, ...props }: any) => <button {...props}>{children}</button>,
     Suggestion: ({ children, prompt, ...props }: any) => (
       <button {...props}>{children || prompt}</button>
     ),
@@ -101,7 +99,7 @@ vi.mock("@assistant-ui/react", () => ({
 
 // Mock child components
 vi.mock("../markdown-text", () => ({
-  MarkdownText: ({ text }: { text: string }) => <span>{text}</span>,
+  MarkdownText: ({ text }: { text: string; }) => <span>{text}</span>,
 }));
 
 vi.mock("../tooltip-icon-button", () => ({
@@ -287,7 +285,7 @@ describe("Thread", () => {
     it("shows send button when not running", () => {
       (window as any).__mockIsRunning = false;
       render(<Thread />);
-      
+
       const sendButton = screen.getByTitle("Send");
       expect(sendButton).toBeInTheDocument();
     });
@@ -295,7 +293,7 @@ describe("Thread", () => {
     it("shows cancel button when running", () => {
       (window as any).__mockIsRunning = true;
       render(<Thread />);
-      
+
       const cancelButton = screen.getByTitle("Cancel");
       expect(cancelButton).toBeInTheDocument();
     });
