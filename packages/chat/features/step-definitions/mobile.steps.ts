@@ -1,6 +1,6 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world.js";
+import type { CustomWorld } from "../support/world.js";
 
 Then("I should see the mobile menu button", async function(this: CustomWorld) {
   const isVisible = await this.conversationPage.isMobileMenuButtonVisible();

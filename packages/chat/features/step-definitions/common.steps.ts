@@ -1,6 +1,6 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world.js";
+import type { CustomWorld } from "../support/world.js";
 
 // Navigation steps
 Given("I am on the landing page", async function(this: CustomWorld) {

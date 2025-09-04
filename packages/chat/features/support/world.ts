@@ -1,5 +1,7 @@
-import { IWorldOptions, setWorldConstructor, World } from "@cucumber/cucumber";
-import { Browser, BrowserContext, chromium, firefox, Page, webkit } from "@playwright/test";
+import type { IWorldOptions} from "@cucumber/cucumber";
+import { setWorldConstructor, World } from "@cucumber/cucumber";
+import type { Browser, BrowserContext, Page} from "@playwright/test";
+import { chromium, firefox, webkit } from "@playwright/test";
 import { ChatPage } from "../page-objects/ChatPage.js";
 import { ConversationPage } from "../page-objects/ConversationPage.js";
 import { LandingPage } from "../page-objects/LandingPage.js";

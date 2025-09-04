@@ -1,6 +1,6 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world.js";
+import type { CustomWorld } from "../support/world.js";
 
 Given("another user is in the same conversation", async function(this: CustomWorld) {
   // Mock another user in conversation
