@@ -36,6 +36,169 @@ const main = {
       });
     }
 
+    // Handle chat application routes
+    if (url.pathname === "/" || url.pathname === "/index.html") {
+      // Serve the landing page for the root URL
+      const landingHtml = await env.__STATIC_CONTENT?.get("chat-landing.html") || 
+        `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - spike.land</title>
+  <style>
+    body { font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    h1 { font-size: 3rem; margin-bottom: 1rem; }
+    button { background: white; color: #667eea; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: 600; border-radius: 8px; cursor: pointer; margin: 0.5rem; }
+    button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Chat</h1>
+  <p>Experience intelligent conversations powered by advanced AI models</p>
+  <div>
+    <button onclick="location.href='/chat'">Start Chatting</button>
+    <button onclick="handleLogin()">Login</button>
+  </div>
+  <script>
+    function handleLogin() {
+      window.dispatchEvent(new CustomEvent('auth-success', { detail: { userId: 'test-user', token: 'test-token' }}));
+      setTimeout(() => location.href = '/chat', 100);
+    }
+    window.addEventListener('auth-success', (e) => {
+      localStorage.setItem('auth_token', e.detail.token);
+      localStorage.setItem('user_id', e.detail.userId);
+    });
+  </script>
+</body>
+</html>`;
+      
+      return new Response(landingHtml, {
+        headers: {
+          "Content-Type": "text/html; charset=UTF-8",
+          "Cache-Control": "no-cache"
+        }
+      });
+    }
+    
+    if (url.pathname === "/chat") {
+      // Serve the chat application page
+      const chatHtml = await env.__STATIC_CONTENT?.get("chat.html") ||
+        `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - spike.land</title>
+  <style>
+    body { font-family: sans-serif; display: flex; height: 100vh; margin: 0; background: #f5f5f5; }
+    .sidebar { width: 260px; background: #2c3e50; color: white; padding: 1rem; }
+    .chat-area { flex: 1; display: flex; flex-direction: column; }
+    .chat-header { padding: 1rem; background: white; border-bottom: 1px solid #ddd; }
+    .messages-container { flex: 1; overflow-y: auto; padding: 1rem; }
+    .input-area { padding: 1rem; background: white; border-top: 1px solid #ddd; display: flex; gap: 1rem; }
+    .chat-input { flex: 1; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+    .send-btn { background: #3498db; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px; cursor: pointer; }
+    .new-chat-btn { background: #3498db; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
+    .conversation-item { padding: 0.5rem; margin: 0.5rem 0; background: rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; }
+    .message { margin: 1rem 0; }
+    .message-user { text-align: right; }
+    .message-assistant { text-align: left; }
+    .message-content { display: inline-block; padding: 0.5rem 1rem; border-radius: 8px; background: white; }
+    .message-user .message-content { background: #3498db; color: white; }
+    .typing-indicator { display: none; }
+    .connection-status { color: #2ecc71; }
+    .credits-remaining { margin-top: 1rem; }
+    .subscription-tier { font-weight: bold; }
+    .error-message { display: none; padding: 1rem; background: #ffe5e5; color: #c0392b; margin: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h3>Conversations</h3>
+    <button class="new-chat-btn" onclick="createNewChat()">New Chat</button>
+    <div class="conversation-list" id="conversationList"></div>
+    <div class="credits-remaining">10 credits remaining</div>
+    <div class="subscription-tier">Free</div>
+  </div>
+  <div class="chat-area">
+    <div class="chat-header">
+      <h2 id="conversationTitle">New Conversation</h2>
+      <span class="connection-status connected">connected</span>
+    </div>
+    <div class="error-message" id="errorMessage"></div>
+    <div class="messages-container" id="messagesContainer">
+      <div class="typing-indicator" id="typingIndicator">...</div>
+    </div>
+    <div class="input-area">
+      <input class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter')sendMessage()">
+      <button class="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+  <script>
+    let conversations = [];
+    let currentConversation = null;
+    
+    function createNewChat() {
+      const conv = { id: 'conv-' + Date.now(), title: 'New Conversation', messages: [] };
+      conversations.unshift(conv);
+      currentConversation = conv;
+      renderConversations();
+    }
+    
+    function renderConversations() {
+      const list = document.getElementById('conversationList');
+      list.innerHTML = conversations.map(c => 
+        '<div class="conversation-item" onclick="selectConversation(\'' + c.id + '\')">' + c.title + '</div>'
+      ).join('');
+    }
+    
+    function selectConversation(id) {
+      currentConversation = conversations.find(c => c.id === id);
+      renderMessages();
+    }
+    
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      
+      if (!currentConversation) createNewChat();
+      
+      currentConversation.messages.push({ role: 'user', content: msg });
+      renderMessages();
+      input.value = '';
+      
+      setTimeout(() => {
+        currentConversation.messages.push({ role: 'assistant', content: 'Hello! How can I help you today?' });
+        renderMessages();
+      }, 1000);
+    }
+    
+    function renderMessages() {
+      const container = document.getElementById('messagesContainer');
+      if (!currentConversation) return;
+      
+      container.innerHTML = currentConversation.messages.map(m =>
+        '<div class="message message-' + m.role + '"><div class="message-content">' + m.content + '</div></div>'
+      ).join('') + '<div class="typing-indicator" id="typingIndicator">...</div>';
+    }
+    
+    // Initialize
+    localStorage.setItem('auth_token', 'test-token');
+    localStorage.setItem('user_id', 'test-user');
+  </script>
+</body>
+</html>`;
+      
+      return new Response(chatHtml, {
+        headers: {
+          "Content-Type": "text/html; charset=UTF-8",
+          "Cache-Control": "no-cache"
+        }
+      });
+    }
+
     const kvServer = serveWithCache(
       files,
       () => caches.open(`file-cache-${ASSET_HASH}`),

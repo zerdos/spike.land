@@ -23,11 +23,6 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
   });
 });
 
-Given("I have {int} credits remaining", async function(this: CustomWorld, credits: number) {
-  await this.page.evaluate((c) => {
-    localStorage.setItem("user_credits", c.toString());
-  }, credits);
-});
 
 When("I select {string}", async function(this: CustomWorld, option: string) {
   // Select credit package option
