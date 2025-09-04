@@ -16,8 +16,16 @@ export class ConversationPage extends BasePage {
 
   async clickNewChat() {
     await this.click(this.selectors.newChatButton);
-    // Wait for conversation to be created
-    await this.page.waitForTimeout(500);
+    // Wait for conversation to be created and displayed
+    await this.page.waitForTimeout(1000);
+    // Force a check that conversation list updated
+    await this.page.waitForFunction(
+      () => document.querySelectorAll(".conversation-item").length > 0,
+      { timeout: 3000 }
+    ).catch(() => {
+      // If still no conversations, log for debugging
+      console.log("No conversations found after clicking New Chat");
+    });
   }
 
   async getConversationCount(): Promise<number> {

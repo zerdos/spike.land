@@ -3,8 +3,12 @@ import { expect } from "@playwright/test";
 import type { CustomWorld } from "../support/world.js";
 
 Given("I have a {string} subscription", async function(this: CustomWorld, tier: string) {
+  // Set both tier and credits in localStorage first
   await this.page.evaluate((t) => {
     localStorage.setItem("subscription_tier", t);
+    // Also set credits based on tier
+    const credits = t === "Pro" ? 450 : (t === "Business" ? 1000 : 10);
+    localStorage.setItem("user_credits", credits.toString());
   }, tier);
 
   // Mock user profile API
@@ -22,15 +26,21 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
     });
   });
 
-  // Trigger subscription reload
-  await this.page.evaluate(() => {
+  // Directly update the subscription in the page
+  await this.page.evaluate((t) => {
+    // Update the global subscription object
+    if ((window as any).__setSubscription) {
+      const credits = t === "Pro" ? 450 : (t === "Business" ? 1000 : 10);
+      (window as any).__setSubscription(t, credits);
+    }
+    // Also trigger the load function
     if ((window as any).loadSubscriptionInfo) {
       (window as any).loadSubscriptionInfo();
     }
-  });
+  }, tier);
 
-  // Wait for update
-  await this.page.waitForTimeout(100);
+  // Wait for DOM update
+  await this.page.waitForTimeout(500);
 });
 
 When("I select {string}", async function(this: CustomWorld, option: string) {

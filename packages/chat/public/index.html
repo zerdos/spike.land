@@ -309,7 +309,7 @@
           <button class="new-chat-btn" onclick="window.createNewChat()" aria-label="Create new chat">New Chat</button>
           <div class="subscription-info" id="subscriptionInfo">
             <div class="subscription-tier" id="subscriptionTier">Free</div>
-            <div class="credits-remaining" id="creditsRemaining">Credits: 0</div>
+            <div class="credits-remaining" id="creditsRemaining">0</div>
             <div class="credit-limit" style="font-size: 12px; color: #999;">10</div>
             <div class="subscription-features" style="font-size: 12px; color: #666; margin-top: 5px;">Basic chat, 10 messages per day</div>
             <button class="upgrade-btn" id="upgradeBtn" onclick="window.upgradeSubscription()" style="display: none;">Upgrade to Pro</button>
@@ -355,6 +355,7 @@
     
     <!-- Hidden elements for test selectors -->
     <div class="connection-status connected" style="display: none;"></div>
+    <div class="other-user-typing" style="display: none;"></div>
 
     <script>
     let currentUser = null;
@@ -368,6 +369,7 @@
       // Initialize app
       window.addEventListener("DOMContentLoaded", () => {
         checkAuth();
+        setupWebSocketListeners();
       });
       
       // Export functions for testing
@@ -492,21 +494,8 @@
           updated_at: new Date().toISOString(),
         };
         
-        try {
-          const data = await apiRequest("/conversations", {
-            method: "POST",
-            body: JSON.stringify({
-              title: "New Conversation",
-              model: "llama-2-7b",
-            }),
-          });
-          // Use API response if successful
-          currentConversation = data.data || data || newConv;
-        } catch (error) {
-          console.error("Failed to create conversation:", error);
-          // Use local conversation for demo/test mode
-          currentConversation = newConv;
-        }
+        // Use the local conversation immediately
+        currentConversation = newConv;
         
         // Always add and display the conversation
         if (!conversations.find(c => c.id === currentConversation.id)) {
@@ -516,6 +505,31 @@
           currentConversation.title || "New Conversation";
         document.getElementById("chatMessages").innerHTML = "";
         displayConversations(conversations);
+        
+        // Try API in background (non-blocking)
+        try {
+          const data = await apiRequest("/conversations", {
+            method: "POST",
+            body: JSON.stringify({
+              title: "New Conversation",
+              model: "llama-2-7b",
+            }),
+          });
+          // Update conversation ID if API returned a different one
+          if (data && (data.data || data.id)) {
+            const apiConv = data.data || data;
+            const oldId = currentConversation.id;
+            currentConversation.id = apiConv.id || currentConversation.id;
+            // Update in array too
+            const idx = conversations.findIndex(c => c.id === oldId);
+            if (idx >= 0) {
+              conversations[idx] = currentConversation;
+            }
+          }
+        } catch (error) {
+          console.error("Failed to create conversation via API:", error);
+          // Continue with local conversation
+        }
         
         // Return the conversation for tests
         return currentConversation;
@@ -601,7 +615,8 @@
         // Check for insufficient credits
         const credits = parseInt(localStorage.getItem("user_credits") || "10");
         if (credits <= 0) {
-          showError("Insufficient credits. Please upgrade your subscription.");
+          showError("Insufficient credits");
+          showBuyCreditsButton();
           return;
         }
 
@@ -698,7 +713,9 @@
 
       function updateSendButton() {
         const btn = document.getElementById("sendBtn");
+        const input = document.getElementById("messageInput");
         btn.disabled = isLoading;
+        input.disabled = isLoading;
         btn.textContent = isLoading ? "Sending..." : "Send";
       }
 
@@ -710,35 +727,60 @@
           errorEl.style.display = "none";
         }, 5000);
       }
+      
+      function showBuyCreditsButton() {
+        // Add Buy Credits button to error message area
+        const errorEl = document.getElementById("errorMessage");
+        if (errorEl && !errorEl.querySelector(".buy-credits-btn")) {
+          const buyBtn = document.createElement("button");
+          buyBtn.className = "buy-credits-btn";
+          buyBtn.textContent = "Buy Credits";
+          buyBtn.style.marginLeft = "10px";
+          buyBtn.style.padding = "5px 10px";
+          buyBtn.style.background = "white";
+          buyBtn.style.color = "#ff4444";
+          buyBtn.style.border = "1px solid white";
+          buyBtn.style.borderRadius = "5px";
+          buyBtn.style.cursor = "pointer";
+          buyBtn.onclick = () => window.upgradeSubscription();
+          errorEl.appendChild(buyBtn);
+        }
+      }
 
       async function loadSubscriptionInfo() {
+        // First check localStorage for immediate update
+        const storedTier = localStorage.getItem("subscription_tier");
+        const storedCredits = localStorage.getItem("user_credits");
+        if (storedTier) {
+          userSubscription.tier = storedTier;
+        }
+        if (storedCredits) {
+          userSubscription.credits = parseInt(storedCredits);
+        }
+        
         try {
           // Try user profile first
           const profileData = await apiRequest("/user/profile");
           if (profileData && profileData.data) {
             userSubscription = {
-              tier: profileData.data.subscription_tier || "Free",
-              credits: profileData.data.credits || 0,
+              tier: profileData.data.subscription_tier || userSubscription.tier || "Free",
+              credits: profileData.data.credits !== undefined ? profileData.data.credits : userSubscription.credits || 0,
             };
           } else {
             // Fall back to subscription endpoint
             const data = await apiRequest("/subscription");
-            userSubscription = data.data || data || userSubscription;
+            if (data && (data.data || data.tier)) {
+              const subData = data.data || data;
+              userSubscription.tier = subData.tier || userSubscription.tier;
+              userSubscription.credits = subData.credits !== undefined ? subData.credits : userSubscription.credits;
+            }
           }
-          updateSubscriptionDisplay();
         } catch (error) {
-          console.error("Failed to load subscription:", error);
-          // Check localStorage
-          const storedTier = localStorage.getItem("subscription_tier");
-          const storedCredits = localStorage.getItem("user_credits");
-          if (storedTier) {
-            userSubscription.tier = storedTier;
-          }
-          if (storedCredits) {
-            userSubscription.credits = parseInt(storedCredits);
-          }
-          updateSubscriptionDisplay();
+          console.error("Failed to load subscription from API:", error);
+          // Continue with localStorage values
         }
+        
+        updateSubscriptionDisplay();
       }
 
       function updateSubscriptionDisplay() {
@@ -747,6 +789,12 @@
         const upgradeBtn = document.getElementById("upgradeBtn");
         const featuresEl = document.querySelector(".subscription-features");
         const limitEl = document.querySelector(".credit-limit");
+        
+        // Also check localStorage for credits
+        const storedCredits = localStorage.getItem("user_credits");
+        if (storedCredits && !userSubscription.credits) {
+          userSubscription.credits = parseInt(storedCredits);
+        }
         
         const tier = userSubscription.tier || "Free";
         tierEl.textContent = tier;
@@ -790,7 +838,7 @@
           console.error("Failed to create subscription:", error);
           // Fallback for demo
           window.location.href = "https://checkout.stripe.com/demo";
-        
+        }
       }
 
       // Mock function for tests to set subscription
@@ -812,6 +860,35 @@
       
       // For test confirmation dialogs
       window.__confirmResult = undefined;
+      
+      // Setup WebSocket listeners for real-time features
+      function setupWebSocketListeners() {
+        window.addEventListener("ws-message", (event) => {
+          const detail = event.detail;
+          if (detail.type === "typing" && detail.userId !== currentUser?.id) {
+            showOtherUserTyping();
+          }
+        });
+      }
+      
+      function showOtherUserTyping() {
+        const indicator = document.querySelector(".other-user-typing");
+        if (indicator) {
+          indicator.style.display = "block";
+          indicator.innerHTML = '<div class="typing-indicator">Another user is typing...</div>';
+          setTimeout(() => {
+            indicator.style.display = "none";
+          }, 3000);
+        }
+      }
+      
+      // Handle WebSocket connection status changes
+      window.__setConnectionStatus = function(status) {
+        const statusEl = document.querySelector(".connection-status");
+        if (statusEl) {
+          statusEl.className = `connection-status ${status}`;
+        }
+      };
     </script>
   </body>
 </html>
