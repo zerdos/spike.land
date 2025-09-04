@@ -1,8 +1,7 @@
 {
   "default": {
     "paths": ["features/**/*.feature"],
-    "require-module": ["tsx"],
-    "require": ["features/**/*.ts"],
+    "import": ["features/**/*.ts"],
     "format": ["@cucumber/pretty-formatter"],
     "formatOptions": {
       "snippetInterface": "async-await"
