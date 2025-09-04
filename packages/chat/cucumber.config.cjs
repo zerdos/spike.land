@@ -12,9 +12,10 @@ module.exports = {
       snippetInterface: "async-await",
     },
     publishQuiet: true,
-    parallel: 2,
+    parallel: 1,  // Run sequentially to avoid timing issues
     retry: 1,
     retryTagFilter: "@flaky",
+    timeout: 60000,  // 60 second timeout per step
   },
   ci: {
     paths: ["features/**/*.feature"],

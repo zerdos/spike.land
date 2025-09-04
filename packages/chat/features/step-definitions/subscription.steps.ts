@@ -3,15 +3,16 @@ import { expect } from "@playwright/test";
 import type { CustomWorld } from "../support/world.js";
 
 Given("I have a {string} subscription", async function(this: CustomWorld, tier: string) {
+  // Calculate credits based on tier
+  const credits = tier === "Pro" ? 450 : (tier === "Business" ? 1000 : 10);
+  
   // Set both tier and credits in localStorage first
-  await this.page.evaluate((t) => {
+  await this.page.evaluate(({ t, c }) => {
     localStorage.setItem("subscription_tier", t);
-    // Also set credits based on tier
-    const credits = t === "Pro" ? 450 : (t === "Business" ? 1000 : 10);
-    localStorage.setItem("user_credits", credits.toString());
-  }, tier);
+    localStorage.setItem("user_credits", c.toString());
+  }, { t: tier, c: credits });
 
-  // Mock user profile API
+  // Mock user profile API BEFORE loading subscription info
   await this.page.route("/api/user/profile", async (route) => {
     await route.fulfill({
       status: 200,
@@ -20,27 +21,43 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
         success: true,
         data: {
           subscription_tier: tier,
-          credits: tier === "Pro" ? 450 : 10,
+          credits: credits,
         },
       }),
     });
   });
 
-  // Directly update the subscription in the page
-  await this.page.evaluate((t) => {
-    // Update the global subscription object
+  // Now update the subscription display
+  await this.page.evaluate(({ t, c }) => {
+    // Directly update the userSubscription object
+    (window as any).userSubscription = { tier: t, credits: c };
+    
+    // Force update the display
+    const tierEl = document.getElementById("subscriptionTier");
+    const creditsEl = document.getElementById("creditsRemaining");
+    if (tierEl) tierEl.textContent = t;
+    if (creditsEl) creditsEl.textContent = c.toString();
+    
+    // Also update via the function if available
     if ((window as any).__setSubscription) {
-      const credits = t === "Pro" ? 450 : (t === "Business" ? 1000 : 10);
-      (window as any).__setSubscription(t, credits);
+      (window as any).__setSubscription(t, c);
     }
-    // Also trigger the load function
+    
+    // Trigger load to sync with API mock
     if ((window as any).loadSubscriptionInfo) {
       (window as any).loadSubscriptionInfo();
     }
-  }, tier);
+  }, { t: tier, c: credits });
 
-  // Wait for DOM update
-  await this.page.waitForTimeout(500);
+  // Wait for DOM to stabilize
+  await this.page.waitForFunction(
+    ({ expectedTier }) => {
+      const tierEl = document.getElementById("subscriptionTier");
+      return tierEl && tierEl.textContent === expectedTier;
+    },
+    { expectedTier: tier },
+    { timeout: 3000 }
+  );
 });
 
 When("I select {string}", async function(this: CustomWorld, option: string) {

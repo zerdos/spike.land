@@ -4,7 +4,12 @@ import type { CustomWorld } from "../support/world.js";
 
 Given("I have created a new conversation", async function(this: CustomWorld) {
   await this.conversationPage.clickNewChat();
-  await this.page.waitForTimeout(500); // Wait for conversation to be created
+  // Wait for the conversation to actually appear in the list
+  await this.page.waitForFunction(
+    () => document.querySelectorAll(".conversation-item").length > 0,
+    { timeout: 5000 }
+  );
+  await this.page.waitForTimeout(100); // Small additional wait for stability
 });
 
 Given("I have the following conversations:", async function(this: CustomWorld, dataTable) {

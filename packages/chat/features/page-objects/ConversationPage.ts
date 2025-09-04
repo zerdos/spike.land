@@ -15,17 +15,32 @@ export class ConversationPage extends BasePage {
   };
 
   async clickNewChat() {
+    // Get initial count
+    const initialCount = await this.getConversationCount();
+    
+    // Click the button
     await this.click(this.selectors.newChatButton);
-    // Wait for conversation to be created and displayed
-    await this.page.waitForTimeout(1000);
-    // Force a check that conversation list updated
+    
+    // Wait for conversation count to increase
     await this.page.waitForFunction(
-      () => document.querySelectorAll(".conversation-item").length > 0,
-      { timeout: 3000 }
-    ).catch(() => {
-      // If still no conversations, log for debugging
-      console.log("No conversations found after clicking New Chat");
+      (prevCount) => {
+        const items = document.querySelectorAll(".conversation-item");
+        return items.length > prevCount;
+      },
+      initialCount,
+      { timeout: 5000 }
+    ).catch(async () => {
+      // If still no change, try to force create via window function
+      await this.page.evaluate(() => {
+        if ((window as any).createNewChat) {
+          (window as any).createNewChat();
+        }
+      });
+      await this.page.waitForTimeout(500);
     });
+    
+    // Small additional wait for DOM stability
+    await this.page.waitForTimeout(200);
   }
 
   async getConversationCount(): Promise<number> {

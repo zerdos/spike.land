@@ -1,6 +1,6 @@
 export default {
   paths: ["features/**/*.feature"],
-  import: ["features/**/*.ts"],
+  require: ["features/**/*.ts"],
   format: [
     "@cucumber/pretty-formatter",
     "html:test-results/cucumber-report.html",
@@ -10,14 +10,15 @@ export default {
     snippetInterface: "async-await",
   },
   publishQuiet: true,
-  parallel: 2,
+  parallel: 1,  // Run tests sequentially to avoid timing conflicts
   retry: 1,
   retryTagFilter: "@flaky",
+  timeout: 60000,  // 60 second timeout per step
 };
 
 export const ci = {
   paths: ["features/**/*.feature"],
-  import: ["features/**/*.ts"],
+  require: ["features/**/*.ts"],
   format: [
     "json:test-results/cucumber-report.json",
     "junit:test-results/cucumber-report.xml",

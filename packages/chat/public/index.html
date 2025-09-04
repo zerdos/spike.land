@@ -372,9 +372,10 @@
         setupWebSocketListeners();
       });
       
-      // Export functions for testing
+      // Export functions and variables for testing
       window.loadSubscriptionInfo = loadSubscriptionInfo;
       window.loadConversations = loadConversations;
+      window.userSubscription = userSubscription;
 
       function checkAuth() {
         // Check if we have a mock auth token (test uses auth_token, demo uses authToken)
