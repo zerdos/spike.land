@@ -16,6 +16,8 @@ export class ConversationPage extends BasePage {
 
   async clickNewChat() {
     await this.click(this.selectors.newChatButton);
+    // Wait for conversation to be created
+    await this.page.waitForTimeout(500);
   }
 
   async getConversationCount(): Promise<number> {
@@ -47,7 +49,11 @@ export class ConversationPage extends BasePage {
   }
 
   async confirmDeletion() {
-    await this.click(this.selectors.confirmButton);
+    // Set the confirm result for the test
+    await this.page.evaluate(() => {
+      (window as any).__confirmResult = true;
+    });
+    // Dialog is handled automatically in the delete function
   }
 
   async selectConversation(index: number = 0) {

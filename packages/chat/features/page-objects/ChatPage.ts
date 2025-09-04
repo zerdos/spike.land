@@ -134,6 +134,8 @@ export class ChatPage extends BasePage {
   }
 
   async verifyMessageInChat(message: string): Promise<boolean> {
+    // Wait a bit for message to appear in DOM
+    await this.page.waitForTimeout(500);
     const allMessages = await this.page.locator(".message-user, .message-assistant")
       .allTextContents();
     return allMessages.some(m => m.includes(message));

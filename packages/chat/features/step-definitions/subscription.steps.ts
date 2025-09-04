@@ -21,6 +21,16 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
       }),
     });
   });
+  
+  // Trigger subscription reload
+  await this.page.evaluate(() => {
+    if ((window as any).loadSubscriptionInfo) {
+      (window as any).loadSubscriptionInfo();
+    }
+  });
+  
+  // Wait for update
+  await this.page.waitForTimeout(100);
 });
 
 
