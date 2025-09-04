@@ -29,7 +29,9 @@ export async function handleClerkWebhook(
         await authService.createOrUpdateUser({
           clerk_id: userData.id,
           email: userData.email_addresses[0]?.email_address || "",
-          name: `${userData.first_name || ""} ${userData.last_name || ""}`.trim() || undefined,
+          name:
+            `${userData.first_name || ""} ${userData.last_name || ""}`.trim() ||
+            undefined,
         });
         break;
       }
@@ -37,9 +39,7 @@ export async function handleClerkWebhook(
       case "user.deleted": {
         const userId = event.data.id;
 
-        await env.DATABASE.prepare(
-          "DELETE FROM users WHERE clerk_id = ?",
-        )
+        await env.DATABASE.prepare("DELETE FROM users WHERE clerk_id = ?")
           .bind(userId)
           .run();
         break;

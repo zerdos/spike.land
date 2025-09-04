@@ -79,7 +79,10 @@ export class AuthService {
     }
   }
 
-  async checkUserCredits(userId: string, required: number = 1): Promise<boolean> {
+  async checkUserCredits(
+    userId: string,
+    required: number = 1,
+  ): Promise<boolean> {
     try {
       const user = await this.env.DATABASE.prepare(
         "SELECT credits, subscription_tier FROM users WHERE id = ?",

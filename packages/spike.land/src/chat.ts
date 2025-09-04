@@ -39,7 +39,7 @@ const main = {
     // Handle chat application routes
     if (url.pathname === "/" || url.pathname === "/index.html") {
       // Serve the landing page for the root URL
-      const landingHtml = await env.__STATIC_CONTENT?.get("chat-landing.html") || 
+      const landingHtml = await env.__STATIC_CONTENT?.get("chat-landing.html") ||
         `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,15 +72,15 @@ const main = {
   </script>
 </body>
 </html>`;
-      
+
       return new Response(landingHtml, {
         headers: {
           "Content-Type": "text/html; charset=UTF-8",
-          "Cache-Control": "no-cache"
-        }
+          "Cache-Control": "no-cache",
+        },
       });
     }
-    
+
     if (url.pathname === "/chat") {
       // Serve the chat application page
       const chatHtml = await env.__STATIC_CONTENT?.get("chat.html") ||
@@ -190,12 +190,12 @@ const main = {
   </script>
 </body>
 </html>`;
-      
+
       return new Response(chatHtml, {
         headers: {
           "Content-Type": "text/html; charset=UTF-8",
-          "Cache-Control": "no-cache"
-        }
+          "Cache-Control": "no-cache",
+        },
       });
     }
 

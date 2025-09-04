@@ -47,7 +47,8 @@ export async function handleStripeWebhook(
             .first();
 
           if (user) {
-            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+            const subscription =
+              await stripe.subscriptions.retrieve(subscriptionId);
             const priceId = subscription.items.data[0]?.price.id;
 
             let tier: "free" | "pro" | "business" = "free";
@@ -77,7 +78,9 @@ export async function handleStripeWebhook(
                 subscriptionId,
                 priceId,
                 subscription.status,
-                new Date(subscription.current_period_start * 1000).toISOString(),
+                new Date(
+                  subscription.current_period_start * 1000,
+                ).toISOString(),
                 new Date(subscription.current_period_end * 1000).toISOString(),
               )
               .run();
@@ -146,8 +149,14 @@ export async function handleStripeWebhook(
           .first();
 
         if (dbSubscription) {
-          if (subscription.status === "canceled" || subscription.status === "unpaid") {
-            await authService.updateSubscription(dbSubscription.user_id as string, "free");
+          if (
+            subscription.status === "canceled" ||
+            subscription.status === "unpaid"
+          ) {
+            await authService.updateSubscription(
+              dbSubscription.user_id as string,
+              "free",
+            );
           }
         }
         break;
@@ -163,7 +172,10 @@ export async function handleStripeWebhook(
           .first();
 
         if (dbSubscription) {
-          await authService.updateSubscription(dbSubscription.user_id as string, "free");
+          await authService.updateSubscription(
+            dbSubscription.user_id as string,
+            "free",
+          );
 
           await env.DATABASE.prepare(
             "UPDATE subscriptions SET status = 'canceled' WHERE stripe_subscription_id = ?",
@@ -198,7 +210,10 @@ export async function handleStripeWebhook(
               tier = "business";
             }
 
-            await authService.updateSubscription(dbSubscription.user_id as string, tier);
+            await authService.updateSubscription(
+              dbSubscription.user_id as string,
+              tier,
+            );
           }
         }
         break;

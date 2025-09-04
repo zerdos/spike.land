@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat - spike.land</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - spike.land</title>
+    <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -14,7 +16,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    
+
     .container {
       flex: 1;
       display: flex;
@@ -23,14 +25,14 @@
       align-items: center;
       padding: 2rem;
     }
-    
+
     h1 {
       color: white;
       font-size: 3rem;
       margin-bottom: 1rem;
       text-align: center;
     }
-    
+
     p {
       color: rgba(255, 255, 255, 0.9);
       font-size: 1.2rem;
@@ -38,7 +40,7 @@
       margin-bottom: 2rem;
       max-width: 600px;
     }
-    
+
     button {
       background: white;
       color: #667eea;
@@ -51,27 +53,27 @@
       transition: transform 0.2s, box-shadow 0.2s;
       margin: 0.5rem;
     }
-    
+
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-    
+
     button:active {
       transform: translateY(0);
     }
-    
+
     .button-group {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
     }
-    
+
     .hero {
       text-align: center;
     }
-    
+
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -80,69 +82,71 @@
       margin: 3rem auto;
       padding: 0 2rem;
     }
-    
+
     .feature {
       background: rgba(255, 255, 255, 0.1);
       padding: 1.5rem;
       border-radius: 8px;
       color: white;
     }
-    
+
     .feature h3 {
       margin-bottom: 0.5rem;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="hero">
-      <h1>Welcome to Chat</h1>
-      <p>Experience intelligent conversations powered by advanced AI models</p>
-      <div class="button-group">
-        <button onclick="startChatting()">Start Chatting</button>
-        <button onclick="login()">Login</button>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <h1>Welcome to Chat</h1>
+        <p>Experience intelligent conversations powered by advanced AI models</p>
+        <div class="button-group">
+          <button onclick="startChatting()">Start Chatting</button>
+          <button onclick="login()">Login</button>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature">
+          <h3>Multiple AI Models</h3>
+          <p>Choose from various AI models including GPT-4, Claude, and more</p>
+        </div>
+        <div class="feature">
+          <h3>Conversation History</h3>
+          <p>Save and manage all your conversations in one place</p>
+        </div>
+        <div class="feature">
+          <h3>Real-time Responses</h3>
+          <p>Get instant responses with WebSocket-powered real-time communication</p>
+        </div>
       </div>
     </div>
-    
-    <div class="features">
-      <div class="feature">
-        <h3>Multiple AI Models</h3>
-        <p>Choose from various AI models including GPT-4, Claude, and more</p>
-      </div>
-      <div class="feature">
-        <h3>Conversation History</h3>
-        <p>Save and manage all your conversations in one place</p>
-      </div>
-      <div class="feature">
-        <h3>Real-time Responses</h3>
-        <p>Get instant responses with WebSocket-powered real-time communication</p>
-      </div>
-    </div>
-  </div>
-  
-  <script>
+
+    <script>
     function startChatting() {
-      window.location.href = '/chat';
-    }
-    
-    function login() {
-      // Mock authentication for testing
-      window.dispatchEvent(new CustomEvent('auth-success', {
-        detail: { userId: 'test-user', token: 'test-token' }
-      }));
-      
-      // Redirect to chat after mock auth
-      setTimeout(() => {
-        window.location.href = '/chat';
-      }, 100);
-    }
-    
-    // Listen for auth events
-    window.addEventListener('auth-success', (event) => {
-      console.log('Authentication successful:', event.detail);
-      localStorage.setItem('auth_token', event.detail.token);
-      localStorage.setItem('user_id', event.detail.userId);
-    });
-  </script>
-</body>
+        window.location.href = "/chat";
+      }
+
+      function login() {
+        // Mock authentication for testing
+        window.dispatchEvent(
+          new CustomEvent("auth-success", {
+            detail: { userId: "test-user", token: "test-token" },
+          }),
+        );
+
+        // Redirect to chat after mock auth
+        setTimeout(() => {
+          window.location.href = "/chat";
+        }, 100);
+      }
+
+      // Listen for auth events
+      window.addEventListener("auth-success", (event) => {
+        console.log("Authentication successful:", event.detail);
+        localStorage.setItem("auth_token", event.detail.token);
+        localStorage.setItem("user_id", event.detail.userId);
+      });
+    </script>
+  </body>
 </html>

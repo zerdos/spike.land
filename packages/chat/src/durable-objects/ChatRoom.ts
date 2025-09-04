@@ -21,7 +21,7 @@ export class ChatRoom implements DurableObject {
     }
 
     if (url.pathname === "/broadcast" && request.method === "POST") {
-      const message = await request.json() as WebSocketMessage;
+      const message = (await request.json()) as WebSocketMessage;
       await this.broadcast(message);
       return new Response("OK", { status: 200 });
     }
@@ -89,10 +89,12 @@ export class ChatRoom implements DurableObject {
           await this.broadcast(message);
         }
       } catch (error) {
-        webSocket.send(JSON.stringify({
-          type: "error",
-          error: "Invalid message format",
-        }));
+        webSocket.send(
+          JSON.stringify({
+            type: "error",
+            error: "Invalid message format",
+          }),
+        );
       }
     });
 
@@ -127,8 +129,7 @@ export class ChatRoom implements DurableObject {
           new Promise<void>((resolve) => {
             try {
               webSocket.send(messageStr);
-            } catch {
-            }
+            } catch {}
             resolve();
           }),
         );
@@ -154,8 +155,7 @@ export class ChatRoom implements DurableObject {
           new Promise<void>((resolve) => {
             try {
               webSocket.send(messageStr);
-            } catch {
-            }
+            } catch {}
             resolve();
           }),
         );

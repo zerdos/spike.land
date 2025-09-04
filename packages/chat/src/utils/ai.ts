@@ -11,11 +11,14 @@ export class AIService {
     try {
       const modelName = this.getModelName(request.model);
 
-      const response = await this.env.AI.run(modelName as any, {
-        messages: request.messages,
-        temperature: request.temperature ?? 0.7,
-        max_tokens: request.max_tokens ?? 1000,
-      } as any);
+      const response = await this.env.AI.run(
+        modelName as any,
+        {
+          messages: request.messages,
+          temperature: request.temperature ?? 0.7,
+          max_tokens: request.max_tokens ?? 1000,
+        } as any,
+      );
 
       if (typeof response === "string") {
         return response;
@@ -38,16 +41,20 @@ export class AIService {
 
   async moderateContent(content: string): Promise<boolean> {
     try {
-      const response = await this.env.AI.run("@cf/meta/llama-guard-2-8b" as any, {
-        messages: [
-          {
-            role: "user",
-            content: content,
-          },
-        ],
-      } as any);
+      const response = await this.env.AI.run(
+        "@cf/meta/llama-guard-2-8b" as any,
+        {
+          messages: [
+            {
+              role: "user",
+              content: content,
+            },
+          ],
+        } as any,
+      );
 
-      const result = typeof response === "string" ? response : (response as any)?.response;
+      const result =
+        typeof response === "string" ? response : (response as any)?.response;
 
       return !result?.toLowerCase().includes("unsafe");
     } catch (error) {
@@ -56,11 +63,15 @@ export class AIService {
     }
   }
 
-  async generateTitle(messages: Array<{ role: string; content: string; }>): Promise<string> {
+  async generateTitle(
+    messages: Array<{ role: string; content: string }>,
+  ): Promise<string> {
     try {
-      const prompt =
-        `Based on this conversation, generate a short, descriptive title (max 50 chars):
-${messages.slice(0, 3).map(m => `${m.role}: ${m.content.slice(0, 100)}`).join("\n")}
+      const prompt = `Based on this conversation, generate a short, descriptive title (max 50 chars):
+${messages
+  .slice(0, 3)
+  .map((m) => `${m.role}: ${m.content.slice(0, 100)}`)
+  .join("\n")}
 
 Title:`;
 
@@ -68,7 +79,8 @@ Title:`;
         messages: [
           {
             role: "system",
-            content: "You are a title generator. Generate only the title, nothing else.",
+            content:
+              "You are a title generator. Generate only the title, nothing else.",
           },
           {
             role: "user",
@@ -79,7 +91,8 @@ Title:`;
         max_tokens: 20,
       });
 
-      const title = typeof response === "string" ? response : response?.response;
+      const title =
+        typeof response === "string" ? response : response?.response;
 
       return (title as string)?.trim().slice(0, 50) || "New Conversation";
     } catch (error) {
@@ -89,11 +102,11 @@ Title:`;
   }
 
   async summarizeConversation(
-    messages: Array<{ role: string; content: string; }>,
+    messages: Array<{ role: string; content: string }>,
   ): Promise<string> {
     try {
       const conversationText = messages
-        .map(m => `${m.role}: ${m.content}`)
+        .map((m) => `${m.role}: ${m.content}`)
         .join("\n");
 
       const response = await this.env.AI.run("@cf/meta/llama-2-7b-chat-int8", {
@@ -123,13 +136,13 @@ Title:`;
       "llama-2-7b": "@cf/meta/llama-2-7b-chat-int8",
       "llama-2-7b-fp16": "@cf/meta/llama-2-7b-chat-fp16",
       "mistral-7b": "@cf/mistral/mistral-7b-instruct-v0.1",
-      "codellama": "@cf/meta/codellama-7b-instruct-awq",
+      codellama: "@cf/meta/codellama-7b-instruct-awq",
       "phi-2": "@cf/microsoft/phi-2",
       "qwen-1.5": "@cf/qwen/qwen1.5-14b-chat-awq",
-      "deepseek": "@cf/deepseek-ai/deepseek-math-7b-instruct",
-      "tinyllama": "@cf/tinyllama/tinyllama-1.1b-chat-v1.0",
-      "openchat": "@cf/openchat/openchat-3.5-0106",
-      "gemma": "@cf/google/gemma-7b-it-lora",
+      deepseek: "@cf/deepseek-ai/deepseek-math-7b-instruct",
+      tinyllama: "@cf/tinyllama/tinyllama-1.1b-chat-v1.0",
+      openchat: "@cf/openchat/openchat-3.5-0106",
+      gemma: "@cf/google/gemma-7b-it-lora",
     };
 
     return modelMap[model] || "@cf/meta/llama-2-7b-chat-int8";
@@ -141,7 +154,8 @@ Title:`;
         messages: [
           {
             role: "system",
-            content: "Extract 3-5 key topics from the text. Return only comma-separated keywords.",
+            content:
+              "Extract 3-5 key topics from the text. Return only comma-separated keywords.",
           },
           {
             role: "user",
@@ -152,8 +166,12 @@ Title:`;
         max_tokens: 50,
       });
 
-      const keywords = typeof response === "string" ? response : response?.response || "";
-      return keywords.split(",").map(k => k.trim()).filter(Boolean);
+      const keywords =
+        typeof response === "string" ? response : response?.response || "";
+      return keywords
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean);
     } catch (error) {
       console.error("Keyword extraction error:", error);
       return [];

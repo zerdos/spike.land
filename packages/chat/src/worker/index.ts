@@ -17,7 +17,8 @@ export default {
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
+      "Access-Control-Allow-Headers":
+        "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
       "Access-Control-Max-Age": "86400",
     };
 
@@ -58,12 +59,18 @@ export default {
         }
 
         if (method === "DELETE") {
-          const response = await conversationsAPI.delete(request, conversationId);
+          const response = await conversationsAPI.delete(
+            request,
+            conversationId,
+          );
           return this.addCorsHeaders(response, corsHeaders);
         }
 
         if (method === "PUT") {
-          const response = await conversationsAPI.updateTitle(request, conversationId);
+          const response = await conversationsAPI.updateTitle(
+            request,
+            conversationId,
+          );
           return this.addCorsHeaders(response, corsHeaders);
         }
       }
@@ -80,7 +87,9 @@ export default {
         return this.addCorsHeaders(response, corsHeaders);
       }
 
-      const regenerateMatch = path.match(/^\/api\/messages\/([^\/]+)\/regenerate$/);
+      const regenerateMatch = path.match(
+        /^\/api\/messages\/([^\/]+)\/regenerate$/,
+      );
       if (regenerateMatch && method === "POST") {
         const messageId = regenerateMatch[1];
         const response = await messagesAPI.regenerate(request, messageId);
@@ -314,7 +323,10 @@ export default {
     }
   },
 
-  addCorsHeaders(response: Response, headers: Record<string, string>): Response {
+  addCorsHeaders(
+    response: Response,
+    headers: Record<string, string>,
+  ): Response {
     const newResponse = new Response(response.body, response);
     Object.entries(headers).forEach(([key, value]) => {
       newResponse.headers.set(key, value);

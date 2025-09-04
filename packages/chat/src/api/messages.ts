@@ -27,7 +27,7 @@ export class MessagesAPI {
     }
 
     try {
-      const body = await request.json() as {
+      const body = (await request.json()) as {
         conversationId: string;
         content: string;
         attachments?: any[];
@@ -263,7 +263,9 @@ export class MessagesAPI {
 
       await this.auth.deductCredits(user.id);
 
-      const roomId = this.env.CHAT_ROOM.idFromName((message as any).conversation_id as string);
+      const roomId = this.env.CHAT_ROOM.idFromName(
+        (message as any).conversation_id as string,
+      );
       const room = this.env.CHAT_ROOM.get(roomId);
 
       await room.fetch("https://chat/broadcast", {

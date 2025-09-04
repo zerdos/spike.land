@@ -56,7 +56,7 @@ export class ConversationsAPI {
     }
 
     try {
-      const body = await request.json() as { title?: string; model?: string; };
+      const body = (await request.json()) as { title?: string; model?: string };
       const { title, model = "llama-2-7b" } = body;
 
       const id = nanoid();
@@ -177,7 +177,7 @@ export class ConversationsAPI {
     }
 
     try {
-      const { title } = await request.json() as { title: string; };
+      const { title } = (await request.json()) as { title: string };
 
       const result = await this.env.DATABASE.prepare(
         `UPDATE conversations 
