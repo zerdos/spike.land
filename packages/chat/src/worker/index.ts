@@ -4,6 +4,7 @@ import type { Env } from "../types";
 import { AuthService } from "../utils/auth";
 import { handleClerkWebhook } from "../webhooks/clerk";
 import { handleStripeWebhook } from "../webhooks/stripe";
+import { chatHTML } from "./chatHTML";
 
 export { ChatRoom } from "../durable-objects/ChatRoom";
 
@@ -116,6 +117,17 @@ export default {
             headers: request.headers,
           }),
         );
+      }
+
+      // Serve chat HTML at /chat path
+      if (path === "/chat") {
+        return new Response(chatHTML, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            ...corsHeaders,
+          },
+        });
       }
 
       // Serve HTML at root path

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+export const chatHTML = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -76,6 +76,7 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s;
+      position: relative;
     }
 
     .conversation-item:hover {
@@ -85,6 +86,20 @@
     .conversation-item.active {
       background: white;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .conversation-title {
+      font-weight: 500;
+    }
+
+    .delete-btn {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .chat-container {
@@ -201,6 +216,14 @@
       30% {
         transform: translateY(-10px);
       }
+    }
+
+    .error-message {
+      padding: 10px;
+      background: #ff4444;
+      color: white;
+      border-radius: 5px;
+      margin: 10px 20px;
     }
 
     .auth-container {
@@ -347,25 +370,25 @@
 
       async function apiRequest(endpoint, options = {}) {
         // Check for mock responses first (used in tests)
-        const mockKey = `${options.method || 'GET'} ${endpoint}`;
+        const mockKey = \`\${options.method || 'GET'} \${endpoint}\`;
         if (window.__mockAPIResponses[mockKey]) {
           const mockResponse = window.__mockAPIResponses[mockKey];
           delete window.__mockAPIResponses[mockKey]; // Use mock only once
           return Promise.resolve(mockResponse);
         }
 
-        const url = `/api${endpoint}`;
+        const url = \`/api\${endpoint}\`;
         const response = await fetch(url, {
           ...options,
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${authToken}`,
+            "Authorization": \`Bearer \${authToken}\`,
             ...options.headers,
           },
         });
 
         if (!response.ok) {
-          throw new Error(`API request failed: ${response.status}`);
+          throw new Error(\`API request failed: \${response.status}\`);
         }
 
         return response.json();
@@ -393,15 +416,15 @@
           if (currentConversation?.id === conv.id) {
             item.className += " active";
           }
-          item.innerHTML = `
-          <div class="conversation-title" style="font-weight: 500;">${conv.title || "New Conversation"}</div>
+          item.innerHTML = \`
+          <div class="conversation-title" style="font-weight: 500;">\${conv.title || "New Conversation"}</div>
           <div style="font-size: 12px; color: #999; margin-top: 5px;">
-            ${new Date(conv.updated_at).toLocaleDateString()}
+            \${new Date(conv.updated_at).toLocaleDateString()}
           </div>
-          <button class="delete-btn" onclick="deleteConversation('${conv.id}')" style="margin-top: 5px; padding: 5px 10px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer;">
+          <button class="delete-btn" onclick="deleteConversation('\${conv.id}')" style="margin-top: 5px; padding: 5px 10px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer;">
             Delete
           </button>
-        `;
+        \`;
           item.onclick = (e) => {
             if (!e.target.classList.contains('delete-btn')) {
               selectConversation(conv);
@@ -453,7 +476,7 @@
 
         // Load messages
         try {
-          const data = await apiRequest(`/conversations/${conv.id}`);
+          const data = await apiRequest(\`/conversations/\${conv.id}\`);
           displayMessages(data.data.messages || []);
         } catch (error) {
           console.error("Failed to load messages:", error);
@@ -467,7 +490,7 @@
         }
 
         try {
-          await apiRequest(`/conversations/${conversationId}`, {
+          await apiRequest(\`/conversations/\${conversationId}\`, {
             method: "DELETE",
           });
           conversations = conversations.filter(c => c.id !== conversationId);
@@ -536,14 +559,17 @@
         } catch (error) {
           console.error("Failed to send message:", error);
           removeTypingIndicator();
-
-          // For demo, add a mock response
+          
+          // Show error message
+          const errorEl = document.createElement("div");
+          errorEl.className = "error-message";
+          errorEl.textContent = "Failed to send message";
+          document.getElementById("chatMessages").appendChild(errorEl);
+          
+          // Remove error after 3 seconds
           setTimeout(() => {
-            addMessageToUI(
-              "I apologize, but I am currently unable to process your request. This is a demo mode. Please check your authentication or try again later.",
-              "assistant",
-            );
-          }, 500);
+            errorEl.remove();
+          }, 3000);
         } finally {
           isLoading = false;
           updateSendButton();
@@ -553,7 +579,7 @@
       function addMessageToUI(content, role) {
         const messagesEl = document.getElementById("chatMessages");
         const messageDiv = document.createElement("div");
-        messageDiv.className = `message message-${role}`;
+        messageDiv.className = \`message message-\${role}\`;
 
         const contentDiv = document.createElement("div");
         contentDiv.className = "message-content";
@@ -588,4 +614,4 @@
       }
     </script>
   </body>
-</html>
+</html>`;
