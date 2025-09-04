@@ -44,11 +44,11 @@ binding = "AI"
 [vars]
 CLERK_PUBLISHABLE_KEY = "pk_test_your-key"
 
+[site]
+bucket = "./public"
+
 [build]
 command = "npm run build"
-
-[site]
-bucket = "./dist"
 
 # Routes can be configured later
 # [[routes]]
