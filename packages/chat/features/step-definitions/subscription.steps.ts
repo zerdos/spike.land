@@ -1,6 +1,6 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { CustomWorld } from "../support/world";
+import { CustomWorld } from "../support/world.js";
 
 Given("I have a {string} subscription", async function(this: CustomWorld, tier: string) {
   await this.page.evaluate((t) => {

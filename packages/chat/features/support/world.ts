@@ -1,8 +1,8 @@
 import { IWorldOptions, setWorldConstructor, World } from "@cucumber/cucumber";
 import { Browser, BrowserContext, chromium, firefox, Page, webkit } from "@playwright/test";
-import { ChatPage } from "../page-objects/ChatPage";
-import { ConversationPage } from "../page-objects/ConversationPage";
-import { LandingPage } from "../page-objects/LandingPage";
+import { ChatPage } from "../page-objects/ChatPage.js";
+import { ConversationPage } from "../page-objects/ConversationPage.js";
+import { LandingPage } from "../page-objects/LandingPage.js";
 
 export interface CustomWorld extends World {
   browser: Browser;

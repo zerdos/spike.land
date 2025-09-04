@@ -5200,6 +5200,7 @@ __metadata:
     stripe: "npm:^17.6.0"
     svix: "npm:^1.44.0"
     ts-node: "npm:^10.9.2"
+    tsx: "npm:^4.20.5"
     typescript: "npm:^5.7.2"
     vitest: "npm:^2.1.8"
     wrangler: "npm:^4.33.2"

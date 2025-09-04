@@ -1,7 +1,7 @@
 import { After, AfterAll, Before, BeforeAll, setDefaultTimeout, Status } from "@cucumber/cucumber";
 import * as fs from "fs";
 import * as path from "path";
-import { CustomWorld } from "./world";
+import { CustomWorld } from "./world.js";
 
 // Set default timeout for all steps
 setDefaultTimeout(30 * 1000); // 30 seconds
