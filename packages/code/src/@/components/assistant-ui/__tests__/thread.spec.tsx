@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Type definitions for mock components and data
 interface MockMessage {
@@ -147,13 +147,22 @@ vi.mock("@assistant-ui/react", () => ({
             }
             if (part.type === "tool-call" && components?.tools?.Fallback) {
               const ToolComponent = components.tools.Fallback;
+              const toolProps: {
+                toolName?: string;
+                toolCallId?: string; 
+                args?: Record<string, unknown>;
+                result?: Record<string, unknown>;
+              } = {};
+              
+              if (part.toolName !== undefined) toolProps.toolName = part.toolName;
+              if (part.toolCallId !== undefined) toolProps.toolCallId = part.toolCallId;
+              if (part.args !== undefined) toolProps.args = part.args;
+              if (part.result !== undefined) toolProps.result = part.result;
+              
               return (
                 <ToolComponent
                   key={idx}
-                  toolName={part.toolName}
-                  toolCallId={part.toolCallId}
-                  args={part.args}
-                  result={part.result}
+                  {...toolProps}
                 />
               );
             }

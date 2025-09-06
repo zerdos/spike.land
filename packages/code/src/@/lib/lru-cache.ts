@@ -374,9 +374,9 @@ export class LRUCache<
   readonly #maxSize: LRUCacheSize;
   readonly #dispose?: LRUCacheDisposer<K, V>;
   readonly #onInsert?: LRUCacheInserter<K, V>;
-  readonly #disposeAfter?: LRUCacheDisposer<K, V>;
-  readonly #fetchMethod?: LRUCacheFetcher<K, V, FC>;
-  readonly #memoMethod?: LRUCacheMemoizer<K, V, FC>;
+  readonly #disposeAfter: LRUCacheDisposer<K, V> | undefined;
+  readonly #fetchMethod: LRUCacheFetcher<K, V, FC> | undefined;
+  readonly #memoMethod: LRUCacheMemoizer<K, V, FC> | undefined;
 
   ttl: LRUCacheMilliseconds;
   ttlResolution: LRUCacheMilliseconds;
@@ -387,7 +387,7 @@ export class LRUCache<
   noDisposeOnSet: boolean;
   noUpdateTTL: boolean;
   maxEntrySize: LRUCacheSize;
-  sizeCalculation?: LRUCacheSizeCalculator<K, V>;
+  sizeCalculation: LRUCacheSizeCalculator<K, V> | undefined;
   noDeleteOnFetchRejection: boolean;
   noDeleteOnStaleGet: boolean;
   allowStaleOnFetchAbort: boolean;
@@ -404,7 +404,7 @@ export class LRUCache<
   #head: Index;
   #tail: Index;
   #free: StackLike;
-  #disposed?: Array<DisposeTask<K, V>>;
+  #disposed: Array<DisposeTask<K, V>> | undefined;
   #sizes?: ZeroArray;
   #starts?: ZeroArray;
   #ttls?: ZeroArray;
@@ -446,7 +446,7 @@ export class LRUCache<
           k,
           index as Index | undefined,
           options,
-          context,
+          context as FCi,
         ),
       moveToTail: (index: number): void => c.#moveToTail(index as Index),
       indexes: (options?: { allowStale: boolean; }) => c.#indexes(options),
@@ -523,7 +523,7 @@ export class LRUCache<
     this.#max = max;
     this.#maxSize = maxSize;
     this.maxEntrySize = maxEntrySize || this.#maxSize;
-    this.sizeCalculation = sizeCalculation;
+    this.sizeCalculation = sizeCalculation || undefined;
     if (this.sizeCalculation) {
       if (!this.#maxSize && !this.maxEntrySize) {
         throw new TypeError(
@@ -541,7 +541,7 @@ export class LRUCache<
     ) {
       throw new TypeError("memoMethod must be a function if defined");
     }
-    this.#memoMethod = memoMethod;
+    this.#memoMethod = memoMethod || undefined;
 
     if (
       fetchMethod !== undefined &&
@@ -551,7 +551,7 @@ export class LRUCache<
         "fetchMethod must be a function if specified",
       );
     }
-    this.#fetchMethod = fetchMethod;
+    this.#fetchMethod = fetchMethod || undefined;
     this.#hasFetchMethod = !!fetchMethod;
 
     this.#keyMap = new Map();
@@ -933,7 +933,7 @@ export class LRUCache<
   find(
     fn: (v: V, k: K, self: LRUCache<K, V, FC>) => boolean,
     getOptions: LRUCacheGetOptions<K, V, FC> = {},
-  ) {
+  ): V | undefined {
     for (const i of this.#indexes()) {
       const v = this.#valList[i];
       const value = this.#isBackgroundFetch(v) ? v.__staleWhileFetching : v;
@@ -942,6 +942,7 @@ export class LRUCache<
         return this.get(this.#keyList[i] as K, getOptions);
       }
     }
+    return undefined;
   }
 
   forEach(
@@ -998,7 +999,7 @@ export class LRUCache<
       }
     }
     if (this.#sizes) {
-      entry.size = this.#sizes[i];
+      entry.size = this.#sizes[i] || 0;
     }
     return entry;
   }
@@ -1014,12 +1015,12 @@ export class LRUCache<
       if (value === undefined || key === undefined) continue;
       const entry: LRUCacheEntry<V> = { value };
       if (this.#ttls && this.#starts) {
-        entry.ttl = this.#ttls[i];
-        const age = perf.now() - (this.#starts[i] as number);
+        entry.ttl = this.#ttls[i] || 0;
+        const age = perf.now() - (this.#starts[i] || 0);
         entry.start = Math.floor(Date.now() - age);
       }
       if (this.#sizes) {
-        entry.size = this.#sizes[i];
+        entry.size = this.#sizes[i] || 0;
       }
       arr.unshift([key, entry]);
     }
@@ -1411,7 +1412,8 @@ export class LRUCache<
     });
 
     if (index === undefined) {
-      this.set(k, p, { ...fetchOpts.options, status: undefined });
+      const setOptions: LRUCacheSetOptions<K, V, FC> = { ...fetchOpts.options };
+      this.set(k, p, setOptions);
       index = this.#keyMap.get(k)!; // Should exist now
     } else {
       this.#valList[index] = p;
@@ -1432,18 +1434,7 @@ export class LRUCache<
 
   fetch(
     k: K,
-    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
-      : LRUCacheFetchOptionsWithContext<K, V, FC>,
-  ): Promise<undefined | V>;
-
-  fetch(
-    k: unknown extends FC ? K
-      : FC extends undefined | void ? K
-      : never,
-    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
-      : never,
+    fetchOptions?: LRUCacheFetchOptions<K, V, FC>,
   ): Promise<undefined | V>;
 
   async fetch(
@@ -1471,30 +1462,39 @@ export class LRUCache<
 
     if (!this.#hasFetchMethod) {
       if (status) status.fetch = "get";
-      return this.get(k, {
+      const getOptions: LRUCacheGetOptions<K, V, FC> = {
         allowStale,
         updateAgeOnGet,
         noDeleteOnStaleGet,
-        status,
-      });
+      };
+      if (status !== undefined) {
+        getOptions.status = status;
+      }
+      return this.get(k, getOptions);
     }
 
-    const options = {
+    const options: LRUCacheFetchOptions<K, V, FC> = {
       allowStale,
       updateAgeOnGet,
       noDeleteOnStaleGet,
       ttl,
       noDisposeOnSet,
       size,
-      sizeCalculation,
       noUpdateTTL,
       noDeleteOnFetchRejection,
       allowStaleOnFetchRejection,
       allowStaleOnFetchAbort,
       ignoreFetchAbort,
-      status,
-      signal,
     };
+    if (sizeCalculation !== undefined) {
+      options.sizeCalculation = sizeCalculation;
+    }
+    if (status !== undefined) {
+      options.status = status;
+    }
+    if (signal !== undefined) {
+      options.signal = signal;
+    }
 
     const index = this.#keyMap.get(k);
     if (index === undefined) {
@@ -1536,17 +1536,7 @@ export class LRUCache<
 
   forceFetch(
     k: K,
-    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
-      : LRUCacheFetchOptionsWithContext<K, V, FC>,
-  ): Promise<V>;
-  forceFetch(
-    k: unknown extends FC ? K
-      : FC extends undefined | void ? K
-      : never,
-    fetchOptions?: unknown extends FC ? LRUCacheFetchOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheFetchOptionsNoContext<K, V>
-      : never,
+    fetchOptions?: LRUCacheFetchOptions<K, V, FC>,
   ): Promise<V>;
   async forceFetch(
     k: K,
@@ -1559,17 +1549,7 @@ export class LRUCache<
 
   memo(
     k: K,
-    memoOptions?: unknown extends FC ? LRUCacheMemoOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
-      : LRUCacheMemoOptionsWithContext<K, V, FC>,
-  ): V;
-  memo(
-    k: unknown extends FC ? K
-      : FC extends undefined | void ? K
-      : never,
-    memoOptions?: unknown extends FC ? LRUCacheMemoOptions<K, V, FC>
-      : FC extends undefined | void ? LRUCacheMemoOptionsNoContext<K, V>
-      : never,
+    memoOptions?: LRUCacheMemoOptions<K, V, FC>,
   ): V;
   memo(k: K, memoOptions: LRUCacheMemoOptions<K, V, FC> = {}): V {
     const memoMethod = this.#memoMethod;

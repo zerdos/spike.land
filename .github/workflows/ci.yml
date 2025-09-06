@@ -49,3 +49,11 @@ jobs:
         env:
           NODE_OPTIONS: "--disable-warning=DEP0040"
         run: cd packages/code && yarn vitest run
+
+      - name: Install Playwright Browsers for Chat Tests
+        run: cd packages/chat && npx playwright install chromium
+
+      - name: Run Chat Cucumber Tests
+        env:
+          NODE_OPTIONS: "--disable-warning=DEP0040"
+        run: cd packages/chat && yarn test:cucumber
