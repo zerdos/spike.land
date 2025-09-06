@@ -93,9 +93,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/claude-code@npm:1.0.98":
-  version: 1.0.98
-  resolution: "@anthropic-ai/claude-code@npm:1.0.98"
+"@anthropic-ai/claude-code@npm:1.0.108":
+  version: 1.0.108
+  resolution: "@anthropic-ai/claude-code@npm:1.0.108"
   dependencies:
     "@img/sharp-darwin-arm64": "npm:^0.33.5"
     "@img/sharp-darwin-x64": "npm:^0.33.5"
@@ -118,7 +118,7 @@ __metadata:
       optional: true
   bin:
     claude: cli.js
-  checksum: 10c0/1c02b05af51f7c05a673327a9e6e3ac5dc7d36f47359086d9b3f7e9b64441af4fec119be69a105c6a55537c41132f0c331e6b8af4b743443b915c2594dddf44d
+  checksum: 10c0/d06e265b030fa523f5215bf4292adb4a0af0d0ecc84e5a85a4cf4e9dcda73ede3208c197b23142b9db963ce6989f409016042108c6febb9ab27e3fdc138994f3
   languageName: node
   linkType: hard
 
@@ -13080,7 +13080,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@anthropic-ai/claude-code": "npm:1.0.98"
+    "@anthropic-ai/claude-code": "npm:1.0.108"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/sheet": "npm:^1.4.0"
     "@eslint/eslintrc": "npm:3.3.1"
