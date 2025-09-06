@@ -7,7 +7,7 @@ Given("I have created a new conversation", async function(this: CustomWorld) {
   // Wait for the conversation to actually appear in the list
   await this.page.waitForFunction(
     () => document.querySelectorAll(".conversation-item").length > 0,
-    { timeout: 5000 }
+    { timeout: 5000 },
   );
   await this.page.waitForTimeout(100); // Small additional wait for stability
 });

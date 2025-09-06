@@ -10,10 +10,10 @@ export default {
     snippetInterface: "async-await",
   },
   publishQuiet: true,
-  parallel: 1,  // Run tests sequentially to avoid timing conflicts
+  parallel: 1, // Run tests sequentially to avoid timing conflicts
   retry: 1,
   retryTagFilter: "@flaky",
-  timeout: 60000,  // 60 second timeout per step
+  timeout: 60000, // 60 second timeout per step
 };
 
 export const ci = {

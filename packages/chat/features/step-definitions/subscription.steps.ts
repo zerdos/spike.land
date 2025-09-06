@@ -2,10 +2,20 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import type { CustomWorld } from "../support/world.js";
 
+// Type definitions for window object extensions used in tests
+interface WindowWithSubscription extends Window {
+  userSubscription?: {
+    tier: string;
+    credits: number;
+  };
+  __setSubscription?: (tier: string, credits: number) => void;
+  loadSubscriptionInfo?: () => void;
+}
+
 Given("I have a {string} subscription", async function(this: CustomWorld, tier: string) {
   // Calculate credits based on tier
   const credits = tier === "Pro" ? 450 : (tier === "Business" ? 1000 : 10);
-  
+
   // Set both tier and credits in localStorage first
   await this.page.evaluate(({ t, c }) => {
     localStorage.setItem("subscription_tier", t);
@@ -30,22 +40,22 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
   // Now update the subscription display
   await this.page.evaluate(({ t, c }) => {
     // Directly update the userSubscription object
-    (window as any).userSubscription = { tier: t, credits: c };
-    
+    (window as WindowWithSubscription).userSubscription = { tier: t, credits: c };
+
     // Force update the display
     const tierEl = document.getElementById("subscriptionTier");
     const creditsEl = document.getElementById("creditsRemaining");
     if (tierEl) tierEl.textContent = t;
     if (creditsEl) creditsEl.textContent = c.toString();
-    
+
     // Also update via the function if available
-    if ((window as any).__setSubscription) {
-      (window as any).__setSubscription(t, c);
+    if ((window as WindowWithSubscription).__setSubscription) {
+      (window as WindowWithSubscription).__setSubscription(t, c);
     }
-    
+
     // Trigger load to sync with API mock
-    if ((window as any).loadSubscriptionInfo) {
-      (window as any).loadSubscriptionInfo();
+    if ((window as WindowWithSubscription).loadSubscriptionInfo) {
+      (window as WindowWithSubscription).loadSubscriptionInfo();
     }
   }, { t: tier, c: credits });
 
@@ -56,7 +66,7 @@ Given("I have a {string} subscription", async function(this: CustomWorld, tier: 
       return tierEl && tierEl.textContent === expectedTier;
     },
     { expectedTier: tier },
-    { timeout: 3000 }
+    { timeout: 3000 },
   );
 });
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-interface JsonSchemaType {
+export interface JsonSchemaType {
   type?: string;
   description?: string;
   properties?: Record<string, JsonSchemaType>;
@@ -13,7 +13,7 @@ export class JsonSchemaToZodConverter {
    * Convert JSON Schema to Zod schema
    * Handles basic types: string, number, boolean, object, array
    */
-  convert(schema: JsonSchemaType): z.ZodTypeAny {
+  convert(schema: JsonSchemaType | null | undefined): z.ZodTypeAny {
     if (!schema || !schema.type) {
       return z.any();
     }

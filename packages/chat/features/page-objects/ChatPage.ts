@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 import { BasePage } from "./BasePage.js";
 
 export class ChatPage extends BasePage {
@@ -126,7 +125,7 @@ export class ChatPage extends BasePage {
     });
   }
 
-  async mockMessageAPISuccess(response: any) {
+  async mockMessageAPISuccess(response: unknown) {
     await this.mockAPIResponse("/api/messages", {
       status: 200,
       body: { success: true, data: response },

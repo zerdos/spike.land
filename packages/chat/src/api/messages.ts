@@ -30,7 +30,9 @@ export class MessagesAPI {
       const body = (await request.json()) as {
         conversationId: string;
         content: string;
-        attachments?: any[];
+        attachments?: Array<
+          { filename: string; content: string | ArrayBuffer; contentType?: string; }
+        >;
       };
       const { conversationId, content, attachments = [] } = body;
 
@@ -79,13 +81,13 @@ export class MessagesAPI {
         .bind(conversationId)
         .all();
 
-      const messages = previousMessages.map((m: any) => ({
+      const messages = previousMessages.map((m: Record<string, unknown>) => ({
         role: m.role as "user" | "assistant" | "system",
         content: m.content as string,
       }));
 
       const aiResponse = await this.ai.generateResponse({
-        model: (conversation as any).model || "llama-2-7b",
+        model: (conversation as Record<string, unknown>).model as string || "llama-2-7b",
         messages,
       });
 
@@ -240,13 +242,13 @@ export class MessagesAPI {
         .bind(message.conversation_id, messageId)
         .all();
 
-      const messages = previousMessages.map((m: any) => ({
+      const messages = previousMessages.map((m: Record<string, unknown>) => ({
         role: m.role as "user" | "assistant" | "system",
         content: m.content as string,
       }));
 
       const aiResponse = await this.ai.generateResponse({
-        model: (message as any).model || "llama-2-7b",
+        model: (message as Record<string, unknown>).model as string || "llama-2-7b",
         messages,
         temperature: 0.8,
       });
@@ -264,7 +266,7 @@ export class MessagesAPI {
       await this.auth.deductCredits(user.id);
 
       const roomId = this.env.CHAT_ROOM.idFromName(
-        (message as any).conversation_id as string,
+        (message as Record<string, unknown>).conversation_id as string,
       );
       const room = this.env.CHAT_ROOM.get(roomId);
 
@@ -289,7 +291,7 @@ export class MessagesAPI {
         success: true,
         data: {
           id: messageId,
-          conversation_id: (message as any).conversation_id as string,
+          conversation_id: (message as Record<string, unknown>).conversation_id as string,
           user_id: user.id,
           role: "assistant",
           content: aiResponse,
@@ -306,7 +308,7 @@ export class MessagesAPI {
   private async handleAttachments(
     messageId: string,
     userId: string,
-    attachments: any[],
+    attachments: Array<{ filename: string; content: string | ArrayBuffer; contentType?: string; }>,
   ): Promise<void> {
     for (const attachment of attachments) {
       const { filename, content, contentType } = attachment;
@@ -328,14 +330,14 @@ export class MessagesAPI {
           userId,
           filename,
           contentType,
-          content.length,
+          typeof content === "string" ? content.length : content.byteLength,
           r2Key,
         )
         .run();
     }
   }
 
-  private json<T = any>(response: APIResponse<T>): Response {
+  private json<T = unknown>(response: APIResponse<T>): Response {
     return new Response(JSON.stringify(response), {
       status: 200,
       headers: {

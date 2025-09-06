@@ -17,8 +17,7 @@ export default {
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers":
-        "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-User-Id, X-Conversation-Id",
       "Access-Control-Max-Age": "86400",
     };
 
@@ -49,7 +48,7 @@ export default {
         return this.addCorsHeaders(response, corsHeaders);
       }
 
-      const conversationMatch = path.match(/^\/api\/conversations\/([^\/]+)$/);
+      const conversationMatch = path.match(/^\/api\/conversations\/([^/]+)$/);
       if (conversationMatch) {
         const conversationId = conversationMatch[1];
 
@@ -80,7 +79,7 @@ export default {
         return this.addCorsHeaders(response, corsHeaders);
       }
 
-      const messagesMatch = path.match(/^\/api\/messages\/([^\/]+)$/);
+      const messagesMatch = path.match(/^\/api\/messages\/([^/]+)$/);
       if (messagesMatch && method === "GET") {
         const conversationId = messagesMatch[1];
         const response = await messagesAPI.list(request, conversationId);
@@ -88,7 +87,7 @@ export default {
       }
 
       const regenerateMatch = path.match(
-        /^\/api\/messages\/([^\/]+)\/regenerate$/,
+        /^\/api\/messages\/([^/]+)\/regenerate$/,
       );
       if (regenerateMatch && method === "POST") {
         const messageId = regenerateMatch[1];
@@ -334,7 +333,7 @@ export default {
     return newResponse;
   },
 
-  async queue(batch: MessageBatch<any>, env: Env): Promise<void> {
+  async queue(batch: MessageBatch<unknown>, _env: Env): Promise<void> {
     for (const message of batch.messages) {
       try {
         console.log("Processing queue message:", message.body);

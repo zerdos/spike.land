@@ -1,4 +1,13 @@
+import type { Conversation } from "../../src/types/index.js";
 import { BasePage } from "./BasePage.js";
+
+// Extend window interface for test-specific functions
+declare global {
+  interface Window {
+    createNewChat?: () => void;
+    __confirmResult?: boolean;
+  }
+}
 
 export class ConversationPage extends BasePage {
   // Selectors
@@ -17,10 +26,10 @@ export class ConversationPage extends BasePage {
   async clickNewChat() {
     // Get initial count
     const initialCount = await this.getConversationCount();
-    
+
     // Click the button
     await this.click(this.selectors.newChatButton);
-    
+
     // Wait for conversation count to increase
     await this.page.waitForFunction(
       (prevCount) => {
@@ -28,17 +37,17 @@ export class ConversationPage extends BasePage {
         return items.length > prevCount;
       },
       initialCount,
-      { timeout: 5000 }
+      { timeout: 5000 },
     ).catch(async () => {
       // If still no change, try to force create via window function
       await this.page.evaluate(() => {
-        if ((window as any).createNewChat) {
-          (window as any).createNewChat();
+        if (window.createNewChat) {
+          window.createNewChat();
         }
       });
       await this.page.waitForTimeout(500);
     });
-    
+
     // Small additional wait for DOM stability
     await this.page.waitForTimeout(200);
   }
@@ -74,7 +83,7 @@ export class ConversationPage extends BasePage {
   async confirmDeletion() {
     // Set the confirm result for the test
     await this.page.evaluate(() => {
-      (window as any).__confirmResult = true;
+      window.__confirmResult = true;
     });
     // Dialog is handled automatically in the delete function
   }
@@ -109,14 +118,14 @@ export class ConversationPage extends BasePage {
     return await this.getText(this.selectors.chatHeader);
   }
 
-  async mockConversationsList(conversations: any[]) {
+  async mockConversationsList(conversations: Conversation[]) {
     await this.mockAPIResponse("/api/conversations", {
       status: 200,
       body: { success: true, data: conversations },
     });
   }
 
-  async createMockConversation(conversation: any) {
+  async createMockConversation(conversation: Partial<Conversation>): Promise<Conversation> {
     return {
       id: conversation.id || `conv-${Date.now()}`,
       user_id: conversation.user_id || "user-1",

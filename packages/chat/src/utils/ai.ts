@@ -1,5 +1,24 @@
 import type { AIRequest, Env } from "../types";
 
+// Cloudflare AI Types
+interface AIRunOptions {
+  messages?: Array<{
+    role: "user" | "assistant" | "system";
+    content: string;
+  }>;
+  temperature?: number;
+  max_tokens?: number;
+}
+
+interface AIResponse {
+  response?: string;
+}
+
+// For Cloudflare AI, we need to bypass the strict typing for now
+interface CloudflareAI {
+  run(model: string, options: AIRunOptions): Promise<string | AIResponse>;
+}
+
 export class AIService {
   private env: Env;
 
@@ -11,13 +30,13 @@ export class AIService {
     try {
       const modelName = this.getModelName(request.model);
 
-      const response = await this.env.AI.run(
-        modelName as any,
+      const response = await (this.env.AI as unknown as CloudflareAI).run(
+        modelName,
         {
           messages: request.messages,
           temperature: request.temperature ?? 0.7,
           max_tokens: request.max_tokens ?? 1000,
-        } as any,
+        },
       );
 
       if (typeof response === "string") {
@@ -41,8 +60,8 @@ export class AIService {
 
   async moderateContent(content: string): Promise<boolean> {
     try {
-      const response = await this.env.AI.run(
-        "@cf/meta/llama-guard-2-8b" as any,
+      const response = await (this.env.AI as unknown as CloudflareAI).run(
+        "@cf/meta/llama-guard-2-8b",
         {
           messages: [
             {
@@ -50,11 +69,10 @@ export class AIService {
               content: content,
             },
           ],
-        } as any,
+        },
       );
 
-      const result =
-        typeof response === "string" ? response : (response as any)?.response;
+      const result = typeof response === "string" ? response : (response as AIResponse)?.response;
 
       return !result?.toLowerCase().includes("unsafe");
     } catch (error) {
@@ -64,14 +82,17 @@ export class AIService {
   }
 
   async generateTitle(
-    messages: Array<{ role: string; content: string }>,
+    messages: Array<{ role: string; content: string; }>,
   ): Promise<string> {
     try {
-      const prompt = `Based on this conversation, generate a short, descriptive title (max 50 chars):
-${messages
-  .slice(0, 3)
-  .map((m) => `${m.role}: ${m.content.slice(0, 100)}`)
-  .join("\n")}
+      const prompt =
+        `Based on this conversation, generate a short, descriptive title (max 50 chars):
+${
+          messages
+            .slice(0, 3)
+            .map((m) => `${m.role}: ${m.content.slice(0, 100)}`)
+            .join("\n")
+        }
 
 Title:`;
 
@@ -79,8 +100,7 @@ Title:`;
         messages: [
           {
             role: "system",
-            content:
-              "You are a title generator. Generate only the title, nothing else.",
+            content: "You are a title generator. Generate only the title, nothing else.",
           },
           {
             role: "user",
@@ -91,8 +111,7 @@ Title:`;
         max_tokens: 20,
       });
 
-      const title =
-        typeof response === "string" ? response : response?.response;
+      const title = typeof response === "string" ? response : response?.response;
 
       return (title as string)?.trim().slice(0, 50) || "New Conversation";
     } catch (error) {
@@ -102,7 +121,7 @@ Title:`;
   }
 
   async summarizeConversation(
-    messages: Array<{ role: string; content: string }>,
+    messages: Array<{ role: string; content: string; }>,
   ): Promise<string> {
     try {
       const conversationText = messages
@@ -154,8 +173,7 @@ Title:`;
         messages: [
           {
             role: "system",
-            content:
-              "Extract 3-5 key topics from the text. Return only comma-separated keywords.",
+            content: "Extract 3-5 key topics from the text. Return only comma-separated keywords.",
           },
           {
             role: "user",
@@ -166,8 +184,7 @@ Title:`;
         max_tokens: 50,
       });
 
-      const keywords =
-        typeof response === "string" ? response : response?.response || "";
+      const keywords = typeof response === "string" ? response : response?.response || "";
       return keywords
         .split(",")
         .map((k) => k.trim())

@@ -103,7 +103,7 @@ export interface AuthContext {
   sessionId?: string;
 }
 
-export interface APIResponse<T = any> {
+export interface APIResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;

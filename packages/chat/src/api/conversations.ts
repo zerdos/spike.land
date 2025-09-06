@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import type { APIResponse, Conversation, Env, Message } from "../types";
+import type { APIResponse, Conversation, Env } from "../types";
 import { AuthService } from "../utils/auth";
 
 export class ConversationsAPI {
@@ -56,7 +56,7 @@ export class ConversationsAPI {
     }
 
     try {
-      const body = (await request.json()) as { title?: string; model?: string };
+      const body = (await request.json()) as { title?: string; model?: string; };
       const { title, model = "llama-2-7b" } = body;
 
       const id = nanoid();
@@ -177,7 +177,7 @@ export class ConversationsAPI {
     }
 
     try {
-      const { title } = (await request.json()) as { title: string };
+      const { title } = (await request.json()) as { title: string; };
 
       const result = await this.env.DATABASE.prepare(
         `UPDATE conversations 
@@ -201,7 +201,7 @@ export class ConversationsAPI {
     }
   }
 
-  private json<T = any>(response: APIResponse<T>): Response {
+  private json<T = unknown>(response: APIResponse<T>): Response {
     return new Response(JSON.stringify(response), {
       status: 200,
       headers: {

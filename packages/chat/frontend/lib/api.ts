@@ -1,4 +1,11 @@
-import type { APIResponse, Conversation, Message } from "../../src/types";
+import type {
+  APIResponse,
+  Attachment,
+  Conversation,
+  Message,
+  Subscription,
+  User,
+} from "../../src/types";
 
 const API_BASE = "/api";
 
@@ -75,7 +82,7 @@ class ChatAPI {
   async sendMessage(data: {
     conversationId: string;
     content: string;
-    attachments?: any[];
+    attachments?: Attachment[];
   }): Promise<Message> {
     return this.request<Message>("/messages", {
       method: "POST",
@@ -99,7 +106,7 @@ class ChatAPI {
     });
   }
 
-  async getUserProfile(): Promise<any> {
+  async getUserProfile(): Promise<User> {
     return this.request("/user/profile");
   }
 
@@ -116,7 +123,7 @@ class ChatAPI {
     });
   }
 
-  async getSubscriptionStatus(): Promise<any> {
+  async getSubscriptionStatus(): Promise<Subscription> {
     return this.request("/subscription/status");
   }
 }

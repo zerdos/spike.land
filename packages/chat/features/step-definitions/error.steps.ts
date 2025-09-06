@@ -1,5 +1,4 @@
-import { Given, Then, When } from "@cucumber/cucumber";
-import { expect } from "@playwright/test";
+import { Given } from "@cucumber/cucumber";
 import type { CustomWorld } from "../support/world.js";
 
 Given("the network connection is offline", async function(this: CustomWorld) {

@@ -2,6 +2,20 @@ import { Webhook } from "svix";
 import type { Env } from "../types";
 import { AuthService } from "../utils/auth";
 
+interface ClerkWebhookEvent {
+  type: string;
+  data: {
+    id: string;
+    first_name?: string;
+    last_name?: string;
+    email_addresses?: Array<{ email_address: string; }>;
+    user_id?: string;
+    created_at?: number;
+    expire_at?: number;
+    [key: string]: unknown;
+  };
+}
+
 export async function handleClerkWebhook(
   request: Request,
   env: Env,
@@ -12,9 +26,9 @@ export async function handleClerkWebhook(
 
     const webhook = new Webhook(env.CLERK_WEBHOOK_SECRET);
 
-    let event: any;
+    let event: ClerkWebhookEvent;
     try {
-      event = webhook.verify(body, headers);
+      event = webhook.verify(body, headers) as ClerkWebhookEvent;
     } catch (error) {
       console.error("Webhook verification failed:", error);
       return new Response("Invalid signature", { status: 400 });
@@ -27,10 +41,9 @@ export async function handleClerkWebhook(
       case "user.updated": {
         const userData = event.data;
         await authService.createOrUpdateUser({
-          clerk_id: userData.id,
-          email: userData.email_addresses[0]?.email_address || "",
-          name:
-            `${userData.first_name || ""} ${userData.last_name || ""}`.trim() ||
+          clerk_id: userData.id as string,
+          email: userData.email_addresses?.[0]?.email_address || "",
+          name: `${userData.first_name || ""} ${userData.last_name || ""}`.trim() ||
             undefined,
         });
         break;

@@ -47,8 +47,7 @@ export async function handleStripeWebhook(
             .first();
 
           if (user) {
-            const subscription =
-              await stripe.subscriptions.retrieve(subscriptionId);
+            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
             const priceId = subscription.items.data[0]?.price.id;
 
             let tier: "free" | "pro" | "business" = "free";

@@ -52,7 +52,7 @@ export abstract class BasePage {
     return await this.page.waitForResponse(url);
   }
 
-  async mockAPIResponse(url: string | RegExp, response: any) {
+  async mockAPIResponse(url: string | RegExp, response: { status?: number; body?: unknown; }) {
     await this.page.route(url, async (route) => {
       await route.fulfill({
         status: response.status || 200,
@@ -82,7 +82,10 @@ export abstract class BasePage {
     return this.page.url();
   }
 
-  async evaluateScript<T>(script: string | Function, arg?: any): Promise<T> {
+  async evaluateScript<T, Args = unknown>(
+    script: string | ((arg?: Args) => T | Promise<T>),
+    arg?: Args,
+  ): Promise<T> {
     return await this.page.evaluate(script, arg);
   }
 

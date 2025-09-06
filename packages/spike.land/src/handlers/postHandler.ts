@@ -1,7 +1,7 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
 import { streamText } from "ai";
-import type { CoreMessage } from "ai";
+import type { CoreMessage, StreamTextResult, StepResult } from "ai";
 import type { z } from "zod";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
@@ -426,14 +426,14 @@ export class PostHandler {
         model: anthropic("claude-4-sonnet-20250514"),
         system: systemPrompt,
         messages,
-        tools: disableTools ? undefined : processedTools as any,
+        tools: disableTools ? undefined : processedTools,
         toolChoice: disableTools ? undefined : "auto",
         // maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async ({ stepType, toolResults }: any) => {
-          if (stepType === "tool-result" && toolResults) {
+        onStepFinish: disableTools ? undefined : async (stepResult: StepResult<Record<string, unknown>>) => {
+          if (stepResult.toolResults && stepResult.toolResults.length > 0) {
             try {
               // Work with the copy instead of mutating the original
-              const toolMessages = toolResults.map((result: any) => ({
+              const toolMessages = stepResult.toolResults.map((result: unknown) => ({
                 role: "assistant" as const,
                 content: JSON.stringify(result),
               }));
@@ -467,32 +467,24 @@ export class PostHandler {
       }
 
       // Use the appropriate streaming response method
-      if (typeof (result as any)?.toUIMessageStreamResponse === "function") {
-        return (result as any).toUIMessageStreamResponse({
+      if (typeof (result as StreamTextResult<Record<string, unknown>, unknown>)?.toUIMessageStreamResponse === "function") {
+        return (result as StreamTextResult<Record<string, unknown>, unknown>).toUIMessageStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
 
       // Fallback to text stream for simpler responses
-      if (typeof (result as any)?.toTextStreamResponse === "function") {
-        return (result as any).toTextStreamResponse({
+      if (typeof (result as StreamTextResult<Record<string, unknown>, unknown>)?.toTextStreamResponse === "function") {
+        return (result as StreamTextResult<Record<string, unknown>, unknown>).toTextStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
 
-      // Final fallback to toDataStreamResponse if available
-      if (typeof (result as any)?.toDataStreamResponse === "function") {
-        return (result as any).toDataStreamResponse({
-          headers: this.getCorsHeaders(),
-          getErrorMessage: (error: any) => {
-            console.error(
-              `[AI Routes][${requestId}] Error during streaming:`,
-              error,
-            );
-            return `Streaming error: ${error instanceof Error ? error.message : "Unknown error"}`;
-          },
-        });
-      }
+      // If no methods are available, return a fallback response
+      return new Response(JSON.stringify({ error: "Streaming not supported" }), {
+        status: 500,
+        headers: this.getCorsHeaders(),
+      });
 
       // If no methods are available, we have an issue
       console.error(`[AI Routes][${requestId}] No streaming methods available on result`);

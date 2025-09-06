@@ -14,6 +14,32 @@ import { PostHandler } from "./postHandler";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StreamResult = StreamTextResult<any, unknown>;
 
+// Mock type that matches what the test needs while avoiding 'any'
+interface MockStepResult {
+  toolResults: Array<{
+    toolCallId: string;
+    result: { output: string };
+  }>;
+  // Add required properties from StepResult to satisfy type constraints
+  content: Array<unknown>;
+  text: string;
+  reasoning: Array<unknown>;
+  reasoningText?: string;
+  files: Array<unknown>;
+  sources: Array<unknown>;
+  toolCalls: Array<unknown>;
+  staticToolCalls: Array<unknown>;
+  dynamicToolCalls: Array<unknown>;
+  staticToolResults: Array<unknown>;
+  dynamicToolResults: Array<unknown>;
+  finishReason: string;
+  usage: unknown;
+  warnings?: Array<unknown>;
+  request: unknown;
+  response: unknown;
+  providerMetadata?: unknown;
+}
+
 // Mock all external dependencies
 vi.mock("@ai-sdk/anthropic");
 vi.mock("ai");
@@ -600,11 +626,24 @@ describe("PostHandler", () => {
       // Simulate tool execution
       await onStepFinishCallback!(
         {
-          stepType: "tool-result",
           toolResults: [
             { toolCallId: "1", result: { output: "test" } },
-          ] as Array<{ toolCallId: string; result: { output: string; }; }>,
-        } as any,
+          ],
+          content: [],
+          text: "",
+          reasoning: [],
+          files: [],
+          sources: [],
+          toolCalls: [],
+          staticToolCalls: [],
+          dynamicToolCalls: [],
+          staticToolResults: [],
+          dynamicToolResults: [],
+          finishReason: "stop",
+          usage: {},
+          request: {},
+          response: {},
+        } as MockStepResult,
       );
 
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledTimes(2);
@@ -640,11 +679,24 @@ describe("PostHandler", () => {
       // Simulate tool execution
       await onStepFinishCallback!(
         {
-          stepType: "tool-result",
           toolResults: [
             { toolCallId: "1", result: { output: "test" } },
-          ] as Array<{ toolCallId: string; result: { output: string; }; }>,
-        } as any,
+          ],
+          content: [],
+          text: "",
+          reasoning: [],
+          files: [],
+          sources: [],
+          toolCalls: [],
+          staticToolCalls: [],
+          dynamicToolCalls: [],
+          staticToolResults: [],
+          dynamicToolResults: [],
+          finishReason: "stop",
+          usage: {},
+          request: {},
+          response: {},
+        } as MockStepResult,
       );
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(

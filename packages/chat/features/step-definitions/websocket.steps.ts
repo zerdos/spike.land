@@ -2,11 +2,19 @@ import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import type { CustomWorld } from "../support/world.js";
 
+// Extend window object to include test-specific properties
+declare global {
+  interface Window {
+    __otherUserId?: string;
+    __conversationId?: string;
+  }
+}
+
 Given("another user is in the same conversation", async function(this: CustomWorld) {
   // Mock another user in conversation
   await this.page.evaluate(() => {
-    (window as any).__otherUserId = "other-user-123";
-    (window as any).__conversationId = "conv-123";
+    window.__otherUserId = "other-user-123";
+    window.__conversationId = "conv-123";
   });
 });
 

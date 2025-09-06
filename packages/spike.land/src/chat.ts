@@ -148,9 +148,9 @@ const main = {
     
     function renderConversations() {
       const list = document.getElementById('conversationList');
-      list.innerHTML = conversations.map(c => 
-        '<div class="conversation-item" onclick="selectConversation(\'' + c.id + '\')">' + c.title + '</div>'
-      ).join('');
+      list.innerHTML = conversations.map(function(c) { 
+        return '<div class="conversation-item" onclick="selectConversation(' + "'" + c.id + "'" + ')">' + c.title + '</div>';
+      }).join('');
     }
     
     function selectConversation(id) {

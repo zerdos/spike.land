@@ -42,7 +42,7 @@ After(async function(this: CustomWorld, { result, pickle }) {
 
     // Log console errors
     const consoleLogs = await this.page.evaluate(() => {
-      return (window as any).__consoleLogs || [];
+      return (window as Window & { __consoleLogs?: string[]; }).__consoleLogs || [];
     });
 
     if (consoleLogs.length > 0) {

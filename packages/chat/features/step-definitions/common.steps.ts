@@ -12,9 +12,11 @@ Given("I am on the chat page", async function(this: CustomWorld) {
   // Wait a moment for page initialization
   await this.page.waitForTimeout(500);
   // Ensure chat interface is shown if logged in
-  await this.page.waitForSelector("#chatInterface", { state: "visible", timeout: 5000 }).catch(() => {
-    console.log("Chat interface not visible, might not be logged in");
-  });
+  await this.page.waitForSelector("#chatInterface", { state: "visible", timeout: 5000 }).catch(
+    () => {
+      console.log("Chat interface not visible, might not be logged in");
+    },
+  );
 });
 
 Given("I am logged in as a user", async function(this: CustomWorld) {

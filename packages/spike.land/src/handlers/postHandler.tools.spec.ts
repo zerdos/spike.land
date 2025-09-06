@@ -16,7 +16,7 @@ describe("PostHandler - Tool Schema Validation", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
-  let mockStreamResponse: StreamTextResult<any, unknown>;
+  let mockStreamResponse: StreamTextResult<Record<string, unknown>, unknown>;
   let mockToDataStreamResponse: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       warnings: [],
       usage: {},
       experimental_providerMetadata: undefined,
-    } as unknown as StreamTextResult<any, unknown>;
+    } as unknown as StreamTextResult<Record<string, unknown>, unknown>;
 
     // Default mock for streamText
     vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
@@ -89,7 +89,7 @@ describe("PostHandler - Tool Schema Validation", () => {
     const mockStorageService = {
       saveRequestBody: vi.fn().mockResolvedValue(undefined),
     };
-    vi.mocked(StorageService).mockImplementation(() => mockStorageService as any);
+    vi.mocked(StorageService).mockImplementation(() => mockStorageService as StorageService);
 
     postHandler = new PostHandler(mockCode, mockEnv);
   });
@@ -108,14 +108,14 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it.skip("should convert tools to correct format for AI SDK", async () => {
-      let capturedTools: Record<string, any> | undefined;
+      let capturedTools: Record<string, unknown> | undefined;
 
       // Mock streamText to capture the tools being passed
       vi.mocked(streamText).mockImplementation(
-        ((options: any) => {
+        ((options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as any,
+        }) as typeof streamText,
       );
 
       // Mock createAnthropic to return a provider
@@ -142,11 +142,11 @@ describe("PostHandler - Tool Schema Validation", () => {
       expect(typeof capturedTools).toBe("object");
 
       // Each tool should have description, parameters (Zod schema), and execute function
-      Object.entries(capturedTools!).forEach(([_toolName, tool]: [string, any]) => {
+      Object.entries(capturedTools!).forEach(([_toolName, tool]: [string, unknown]) => {
         expect(tool).toHaveProperty("description");
         expect(tool).toHaveProperty("parameters");
         expect(tool).toHaveProperty("execute");
-        expect(typeof tool.execute).toBe("function");
+        expect(typeof (tool as { execute: unknown }).execute).toBe("function");
       });
     });
 
@@ -213,12 +213,12 @@ describe("PostHandler - Tool Schema Validation", () => {
       // Set the environment variable
       mockEnv.DISABLE_AI_TOOLS = "true";
 
-      let capturedOptions: any;
+      let capturedOptions: Parameters<typeof streamText>[0];
       vi.mocked(streamText).mockImplementation(
-        ((options: any) => {
+        ((options: Parameters<typeof streamText>[0]) => {
           capturedOptions = options;
           return Promise.resolve(mockStreamResponse);
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -245,13 +245,13 @@ describe("PostHandler - Tool Schema Validation", () => {
 
   describe("Tool Format Sent to API", () => {
     it("should not wrap tools in 'custom' property", async () => {
-      let capturedTools: any;
+      let capturedTools: Record<string, unknown>;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: any) => {
+        ((options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -271,20 +271,20 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Ensure tools don't have a 'custom' wrapper
       if (capturedTools) {
-        Object.entries(capturedTools).forEach(([_, tool]: [string, any]) => {
+        Object.entries(capturedTools).forEach(([_, tool]: [string, unknown]) => {
           expect(tool).not.toHaveProperty("custom");
         });
       }
     });
 
     it("should create valid tool execute functions", async () => {
-      let capturedTools: any;
+      let capturedTools: Record<string, unknown>;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: any) => {
+        ((options: Parameters<typeof streamText>[0]) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as any,
+        }) as typeof streamText,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -294,7 +294,7 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock executeTool to return a response
       const mockExecuteTool = vi.fn().mockResolvedValue({ success: true });
-      (mockCode.getMcpServer() as any).executeTool = mockExecuteTool;
+      (mockCode.getMcpServer() as { executeTool: typeof mockExecuteTool }).executeTool = mockExecuteTool;
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -346,7 +346,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       expect(toolLogs.length).toBeGreaterThan(0);
       toolLogs.forEach(log => {
         // The log data is in the second argument
-        const logData = log[1] as any;
+        const logData = log[1] as Record<string, unknown>;
         if (logData && logData.inputSchemaType) {
           expect(logData.inputSchemaType).toBe("object");
         }
@@ -361,7 +361,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       tools.push({
         name: "invalid_tool",
         description: "Tool without schema",
-        inputSchema: undefined as any,
+        inputSchema: undefined as unknown as McpTool['inputSchema'],
       });
 
       vi.mocked(streamText).mockResolvedValue(mockStreamResponse);

@@ -302,17 +302,35 @@
     </style>
   </head>
   <body>
-    <nav role="navigation" aria-label="Main navigation" style="display: none;"></nav>
+    <nav role="navigation" aria-label="Main navigation" style="display: none"></nav>
     <main class="container" id="app" class="main-content">
       <div class="sidebar">
         <div class="sidebar-header">
-          <button class="new-chat-btn" onclick="window.createNewChat()" aria-label="Create new chat">New Chat</button>
+          <button
+            class="new-chat-btn"
+            onclick="window.createNewChat()"
+            aria-label="Create new chat"
+          >
+            New Chat
+          </button>
           <div class="subscription-info" id="subscriptionInfo">
             <div class="subscription-tier" id="subscriptionTier">Free</div>
             <div class="credits-remaining" id="creditsRemaining">0</div>
-            <div class="credit-limit" style="font-size: 12px; color: #999;">10</div>
-            <div class="subscription-features" style="font-size: 12px; color: #666; margin-top: 5px;">Basic chat, 10 messages per day</div>
-            <button class="upgrade-btn" id="upgradeBtn" onclick="window.upgradeSubscription()" style="display: none;">Upgrade to Pro</button>
+            <div class="credit-limit" style="font-size: 12px; color: #999">10</div>
+            <div
+              class="subscription-features"
+              style="font-size: 12px; color: #666; margin-top: 5px"
+            >
+              Basic chat, 10 messages per day
+            </div>
+            <button
+              class="upgrade-btn"
+              id="upgradeBtn"
+              onclick="window.upgradeSubscription()"
+              style="display: none"
+            >
+              Upgrade to Pro
+            </button>
           </div>
         </div>
         <div class="conversation-list" id="conversationList">
@@ -346,16 +364,18 @@
                 aria-label="Chat message input"
                 aria-labelledby="messageInput"
               />
-              <button type="submit" class="send-btn" id="sendBtn" aria-label="Send message">Send</button>
+              <button type="submit" class="send-btn" id="sendBtn" aria-label="Send message">
+                Send
+              </button>
             </form>
           </div>
         </div>
       </div>
     </main>
-    
+
     <!-- Hidden elements for test selectors -->
-    <div class="connection-status connected" style="display: none;"></div>
-    <div class="other-user-typing" style="display: none;"></div>
+    <div class="connection-status connected" style="display: none"></div>
+    <div class="other-user-typing" style="display: none"></div>
 
     <script>
     let currentUser = null;
@@ -371,7 +391,7 @@
         checkAuth();
         setupWebSocketListeners();
       });
-      
+
       // Export functions and variables for testing
       window.loadSubscriptionInfo = loadSubscriptionInfo;
       window.loadConversations = loadConversations;
@@ -381,7 +401,10 @@
         // Check if we have a mock auth token (test uses auth_token, demo uses authToken)
         authToken = localStorage.getItem("auth_token") || localStorage.getItem("authToken");
         if (authToken) {
-          currentUser = { id: localStorage.getItem("user_id") || "demo-user", email: "demo@example.com" };
+          currentUser = {
+            id: localStorage.getItem("user_id") || "demo-user",
+            email: "demo@example.com",
+          };
           showChatInterface();
           // Small delay to ensure DOM is ready
           setTimeout(() => loadConversations(), 100);
@@ -416,11 +439,11 @@
 
       async function apiRequest(endpoint, options = {}) {
         // Check for mock responses first (used in tests)
-        const mockKey = `${options.method || 'GET'} ${endpoint}`;
+        const mockKey = `${options.method || "GET"} ${endpoint}`;
         if (window.__mockAPIResponses[mockKey]) {
           const mockResponse = window.__mockAPIResponses[mockKey];
           // Don't delete for GET requests, allow reuse
-          if (options.method && options.method !== 'GET') {
+          if (options.method && options.method !== "GET") {
             delete window.__mockAPIResponses[mockKey];
           }
           return Promise.resolve(mockResponse);
@@ -468,7 +491,9 @@
             item.className += " active";
           }
           item.innerHTML = `
-          <div class="conversation-title" style="font-weight: 500;">${conv.title || "New Conversation"}</div>
+          <div class="conversation-title" style="font-weight: 500;">${
+            conv.title || "New Conversation"
+          }</div>
           <div style="font-size: 12px; color: #999; margin-top: 5px;">
             ${new Date(conv.updated_at || conv.created_at).toLocaleDateString()}
           </div>
@@ -477,7 +502,7 @@
           </button>
         `;
           item.onclick = (e) => {
-            if (!e.target.classList.contains('delete-btn')) {
+            if (!e.target.classList.contains("delete-btn")) {
               selectConversation(conv);
             }
           };
@@ -494,10 +519,10 @@
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         };
-        
+
         // Use the local conversation immediately
         currentConversation = newConv;
-        
+
         // Always add and display the conversation
         if (!conversations.find(c => c.id === currentConversation.id)) {
           conversations.unshift(currentConversation);
@@ -506,7 +531,7 @@
           currentConversation.title || "New Conversation";
         document.getElementById("chatMessages").innerHTML = "";
         displayConversations(conversations);
-        
+
         // Try API in background (non-blocking)
         try {
           const data = await apiRequest("/conversations", {
@@ -531,10 +556,10 @@
           console.error("Failed to create conversation via API:", error);
           // Continue with local conversation
         }
-        
+
         // Return the conversation for tests
         return currentConversation;
-      }
+      };
 
       async function selectConversation(conv) {
         currentConversation = conv;
@@ -555,10 +580,10 @@
 
       async function deleteConversation(conversationId) {
         // For tests, use dialog result if set
-        const shouldDelete = window.__confirmResult !== undefined ? 
-          window.__confirmResult : 
-          confirm("Are you sure you want to delete this conversation?");
-        
+        const shouldDelete = window.__confirmResult !== undefined
+          ? window.__confirmResult
+          : confirm("Are you sure you want to delete this conversation?");
+
         if (!shouldDelete) {
           return;
         }
@@ -607,7 +632,7 @@
         if (!message || isLoading) {
           return;
         }
-        
+
         // Create conversation if needed
         if (!currentConversation) {
           await createNewChat();
@@ -659,7 +684,10 @@
             if (data.success === false && data.error) {
               showError(data.error);
             } else if (data.data) {
-              addMessageToUI(data.data.content || "Hello! How can I help you today?", "assistant");
+              addMessageToUI(
+                data.data.content || "Hello! How can I help you today?",
+                "assistant",
+              );
             }
           } else {
             // Mock response for demo
@@ -687,7 +715,7 @@
         messageDiv.appendChild(contentDiv);
         messagesEl.appendChild(messageDiv);
         messagesEl.scrollTop = messagesEl.scrollHeight;
-        
+
         // Remove any message not appearing error
         const errorEl = document.getElementById("errorMessage");
         if (errorEl && errorEl.style.display === "block") {
@@ -728,7 +756,7 @@
           errorEl.style.display = "none";
         }, 5000);
       }
-      
+
       function showBuyCreditsButton() {
         // Add Buy Credits button to error message area
         const errorEl = document.getElementById("errorMessage");
@@ -758,14 +786,16 @@
         if (storedCredits) {
           userSubscription.credits = parseInt(storedCredits);
         }
-        
+
         try {
           // Try user profile first
           const profileData = await apiRequest("/user/profile");
           if (profileData && profileData.data) {
             userSubscription = {
               tier: profileData.data.subscription_tier || userSubscription.tier || "Free",
-              credits: profileData.data.credits !== undefined ? profileData.data.credits : userSubscription.credits || 0,
+              credits: profileData.data.credits !== undefined
+                ? profileData.data.credits
+                : userSubscription.credits || 0,
             };
           } else {
             // Fall back to subscription endpoint
@@ -773,14 +803,16 @@
             if (data && (data.data || data.tier)) {
               const subData = data.data || data;
               userSubscription.tier = subData.tier || userSubscription.tier;
-              userSubscription.credits = subData.credits !== undefined ? subData.credits : userSubscription.credits;
+              userSubscription.credits = subData.credits !== undefined
+                ? subData.credits
+                : userSubscription.credits;
             }
           }
         } catch (error) {
           console.error("Failed to load subscription from API:", error);
           // Continue with localStorage values
         }
-        
+
         updateSubscriptionDisplay();
       }
 
@@ -790,17 +822,17 @@
         const upgradeBtn = document.getElementById("upgradeBtn");
         const featuresEl = document.querySelector(".subscription-features");
         const limitEl = document.querySelector(".credit-limit");
-        
+
         // Also check localStorage for credits
         const storedCredits = localStorage.getItem("user_credits");
         if (storedCredits && !userSubscription.credits) {
           userSubscription.credits = parseInt(storedCredits);
         }
-        
+
         const tier = userSubscription.tier || "Free";
         tierEl.textContent = tier;
         creditsEl.textContent = userSubscription.credits || 0;
-        
+
         // Update features text based on tier
         if (featuresEl && limitEl) {
           if (tier.toLowerCase() === "pro") {
@@ -814,7 +846,7 @@
             limitEl.textContent = "10";
           }
         }
-        
+
         // Show upgrade button for free tier
         if (tier.toLowerCase() === "free") {
           upgradeBtn.style.display = "block";
@@ -827,7 +859,7 @@
         try {
           const response = await apiRequest("/subscription/create", {
             method: "POST",
-            body: JSON.stringify({ plan: "pro" })
+            body: JSON.stringify({ plan: "pro" }),
           });
           if (response.data && response.data.url) {
             window.location.href = response.data.url;
@@ -840,7 +872,7 @@
           // Fallback for demo
           window.location.href = "https://checkout.stripe.com/demo";
         }
-      }
+      };
 
       // Mock function for tests to set subscription
       window.__setSubscription = function(tier, credits) {
@@ -852,16 +884,16 @@
       window.__setErrorState = function(error) {
         errorState = error;
       };
-      
+
       // Mock function to set API responses for Playwright tests
       window.__setMockAPIResponse = function(method, endpoint, response) {
         const mockKey = `${method} ${endpoint}`;
         window.__mockAPIResponses[mockKey] = response;
       };
-      
+
       // For test confirmation dialogs
       window.__confirmResult = undefined;
-      
+
       // Setup WebSocket listeners for real-time features
       function setupWebSocketListeners() {
         window.addEventListener("ws-message", (event) => {
@@ -871,18 +903,19 @@
           }
         });
       }
-      
+
       function showOtherUserTyping() {
         const indicator = document.querySelector(".other-user-typing");
         if (indicator) {
           indicator.style.display = "block";
-          indicator.innerHTML = '<div class="typing-indicator">Another user is typing...</div>';
+          indicator.innerHTML =
+            '<div class="typing-indicator">Another user is typing...</div>';
           setTimeout(() => {
             indicator.style.display = "none";
           }, 3000);
         }
       }
-      
+
       // Handle WebSocket connection status changes
       window.__setConnectionStatus = function(status) {
         const statusEl = document.querySelector(".connection-status");

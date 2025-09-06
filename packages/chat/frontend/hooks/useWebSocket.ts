@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { WebSocketMessage } from "../../src/types";
+import type { Message, WebSocketMessage } from "../../src/types";
 
 export function useWebSocket(
   conversationId: string,
@@ -86,7 +86,7 @@ export function useWebSocket(
     }
   };
 
-  const sendMessage = (message: any) => {
+  const sendMessage = (message: Message) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({
         type: "message",

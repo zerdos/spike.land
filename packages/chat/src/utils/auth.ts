@@ -1,5 +1,5 @@
 import { verifyToken } from "@clerk/backend";
-import type { AuthContext, Env } from "../types";
+import type { AuthContext, Env, User } from "../types";
 
 export class AuthService {
   private env: Env;
@@ -37,7 +37,7 @@ export class AuthService {
     }
   }
 
-  async getUserFromClerkId(clerkId: string): Promise<any | null> {
+  async getUserFromClerkId(clerkId: string): Promise<User | null> {
     try {
       const result = await this.env.DATABASE.prepare(
         "SELECT * FROM users WHERE clerk_id = ?",
@@ -45,7 +45,7 @@ export class AuthService {
         .bind(clerkId)
         .first();
 
-      return result;
+      return result ? result as unknown as User : null;
     } catch (error) {
       console.error("Database error:", error);
       return null;

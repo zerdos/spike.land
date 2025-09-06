@@ -1,4 +1,4 @@
-import { Given, Then, When } from "@cucumber/cucumber";
+import { When } from "@cucumber/cucumber";
 import type { CustomWorld } from "../support/world.js";
 
 When("I successfully authenticate", async function(this: CustomWorld) {

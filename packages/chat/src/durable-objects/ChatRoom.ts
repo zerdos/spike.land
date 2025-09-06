@@ -88,7 +88,7 @@ export class ChatRoom implements DurableObject {
         } else if (message.type === "message") {
           await this.broadcast(message);
         }
-      } catch (error) {
+      } catch (_error) {
         webSocket.send(
           JSON.stringify({
             type: "error",
@@ -129,7 +129,9 @@ export class ChatRoom implements DurableObject {
           new Promise<void>((resolve) => {
             try {
               webSocket.send(messageStr);
-            } catch {}
+            } catch (_error) {
+              // Ignore WebSocket send errors
+            }
             resolve();
           }),
         );
@@ -155,7 +157,9 @@ export class ChatRoom implements DurableObject {
           new Promise<void>((resolve) => {
             try {
               webSocket.send(messageStr);
-            } catch {}
+            } catch (_error) {
+              // Ignore WebSocket send errors
+            }
             resolve();
           }),
         );
