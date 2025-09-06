@@ -1,10 +1,10 @@
 import type { ICode, ICodeSession, Message } from "@/lib/interfaces";
 import { vi } from "vitest";
 
-// Define type for global with cSess property
-interface _GlobalWithCodeSession {
-  cSess?: ICode;
-}
+// Define type for global with cSess property (unused, but may be needed for future tests)
+// interface _GlobalWithCodeSession {
+//   cSess?: ICode;
+// }
 
 /**
  * Creates a mock code session for testing
@@ -14,14 +14,13 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
   let code = initialCode;
   let messages: Message[] = [];
 
-  // Create the mock session object
-  const mockSession: ICode = {
+  // Create the mock session object with extended properties
+  const mockSession: ICode & { addMessage?: (message: Message) => boolean; removeMessages?: () => boolean; } = {
     getCode: vi.fn().mockImplementation(() => Promise.resolve(code)),
     setCode: vi.fn().mockImplementation((newCode: string) => {
       code = newCode;
       return Promise.resolve(newCode);
     }),
-    getMessages: vi.fn().mockImplementation(() => messages),
     addMessage: vi.fn().mockImplementation((message: Message) => {
       messages.push(message);
       return true;
@@ -64,7 +63,7 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
         type: "image",
       })
     ),
-    addMessageChunk: vi.fn(),
+    // addMessageChunk removed as it's not part of ICode interface
     getCodeSpace: vi.fn().mockImplementation(() => "test-space"),
     sub: vi.fn().mockImplementation(() => () => {}),
   };

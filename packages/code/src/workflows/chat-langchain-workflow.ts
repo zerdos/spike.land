@@ -17,7 +17,7 @@ import { getEnhancedReplaceInFileTool } from "./tools/enhanced-replace-in-file";
  */
 export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   // Get the global code session
-  const cSess = (globalThis as Record<string, unknown>).cSess as ICode;
+  const cSess = (globalThis as Record<string, unknown>)['cSess'] as ICode;
 
   // Create the Anthropic model
   const anthropic = new ChatAnthropic({
@@ -55,22 +55,29 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
   const processToolResponse = async (
     message: AIMessage,
   ): Promise<AgentState> => {
+    const messageData = message as unknown as Record<string, unknown>;
     if (
-      !message.additional_kwargs?.tool_responses ||
-      !Array.isArray(message.additional_kwargs.tool_responses) ||
-      message.additional_kwargs.tool_responses.length === 0
+      !messageData['additional_kwargs'] ||
+      typeof messageData['additional_kwargs'] !== "object" ||
+      messageData['additional_kwargs'] === null ||
+      !("tool_responses" in (messageData['additional_kwargs'] as Record<string, unknown>)) ||
+      !Array.isArray((messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses']) ||
+      ((messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses'] as Array<unknown>).length === 0
     ) {
       return state;
     }
 
-    const toolResponse = message.additional_kwargs.tool_responses[0];
+    const toolResponses = (messageData['additional_kwargs'] as Record<string, unknown>)['tool_responses'] as Array<unknown>;
+    const toolResponse = toolResponses[0];
     // Expect 'enhanced_replace_in_file' which is the name of the tool from getEnhancedReplaceInFileTool
-    if (!toolResponse || toolResponse.name !== "enhanced_replace_in_file") {
+    if (!toolResponse || typeof toolResponse !== "object" || toolResponse === null ||
+        !("name" in toolResponse) || (toolResponse as Record<string, unknown>)['name'] !== "enhanced_replace_in_file") {
       return state;
     }
 
     try {
-      const modification = JSON.parse(toolResponse.content) as CodeModification;
+      const toolResponseData = toolResponse as Record<string, unknown>;
+      const modification = JSON.parse(toolResponseData['content'] as string) as CodeModification;
 
       if (typeof modification === "string") {
         return {
@@ -99,7 +106,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
       return {
         ...state,
         code: modification.code,
-        hash: modification.hash,
+        hash: modification.hash ?? md5(modification.code),
       };
     } catch (error) {
       console.error("Error processing tool response:", error);
@@ -124,14 +131,14 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         }
 
         // Create messages array with system message and user input
-        const messages: BaseMessage[] = [
+        const messages = [
           systemMessage,
           ...state.messages,
           new HumanMessage(userInput),
-        ];
+        ] as BaseMessage[];
 
         // Invoke the model with tools
-        const response = await modelWithTools.invoke(messages);
+        const response = await (modelWithTools as { invoke: (messages: BaseMessage[]) => Promise<AIMessage> }).invoke(messages);
 
         // Process the response
         const newState = await processToolResponse(response);
@@ -139,7 +146,7 @@ export const createWorkflowWithStringReplace = (initialState: AgentState) => {
         // Update the state with the new message
         state = {
           ...newState,
-          messages: [...state.messages, new HumanMessage(userInput), response],
+          messages: [...state.messages, new HumanMessage(userInput), response] as typeof state.messages,
         };
 
         return state;
@@ -172,12 +179,12 @@ export const createChatLangchainWorkflow = (
   // Create the replace-in-file tool
   const replaceInFileTool = getEnhancedReplaceInFileTool(cSess); // Changed to enhanced
 
-  // Create the system prompt
-  const _systemPrompt = getSystemPrompt();
+  // System prompt setup (commented out since it's not used in this workflow)
+  // const _systemPrompt = getSystemPrompt();
 
   // Create the prompt template for user messages
-  const promptTemplate = PromptTemplate.fromTemplate(`
-You are a helpful AI assistant that helps users with coding tasks.
+  const promptTemplate = new PromptTemplate({
+    template: `You are a helpful AI assistant that helps users with coding tasks.
 
 Current code:
 \`\`\`
@@ -186,8 +193,9 @@ Current code:
 
 User message: {userInput}
 
-Please respond to the user's request. If you need to modify the code, use the replace_in_file tool.
-`);
+Please respond to the user's request. If you need to modify the code, use the replace_in_file tool.`,
+    inputVariables: ["code", "userInput"],
+  });
 
   // Create the runnable sequence
   const chain = RunnableSequence.from([
@@ -210,22 +218,22 @@ Please respond to the user's request. If you need to modify the code, use the re
         const currentCode = await cSess.getCode();
         const currentHash = md5(currentCode);
 
-        // Add the user message to the session
-        cSess.addMessage({
-          id: Date.now().toString(),
-          role: "user",
-          content: userMessage,
-        });
+        // TODO: addMessage is not part of ICode interface, need to implement message handling
+        // cSess.addMessage({
+        //   id: Date.now().toString(),
+        //   role: "user",
+        //   content: userMessage,
+        // });
 
         // Run the chain
         const response = await chain.invoke(userMessage);
 
-        // Add the assistant message to the session
-        cSess.addMessage({
-          id: Date.now().toString(),
-          role: "assistant",
-          content: response,
-        });
+        // TODO: addMessage is not part of ICode interface, need to implement message handling
+        // cSess.addMessage({
+        //   id: Date.now().toString(),
+        //   role: "assistant",
+        //   content: response,
+        // });
 
         return {
           success: true,

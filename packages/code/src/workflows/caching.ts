@@ -6,12 +6,13 @@ import {
   toolResponseCacheMetrics,
 } from "@/lib/metrics";
 
-type _CacheValue = {
-  hash?: string;
-  modifiedCodeHash?: string;
-  compilationError: boolean;
-  codeWasReturned: boolean;
-};
+// Unused type, commented out to suppress TypeScript warning
+// type _CacheValue = {
+//   hash?: string;
+//   modifiedCodeHash?: string;
+//   compilationError: boolean;
+//   codeWasReturned: boolean;
+// };
 
 /**
  * Generic cache store with LRU eviction policy
@@ -31,7 +32,8 @@ interface CacheStoreOptions {
 export class CacheStore<T extends object> {
   private cache: LRUCache<string, T>;
   private metrics: CacheMetricsInterface;
-  private name: string;
+  // @ts-expect-error - Intentionally unused field for future debugging
+  private _name: string;
 
   constructor(options: CacheStoreOptions = {}) {
     this.cache = new LRUCache({
@@ -39,7 +41,7 @@ export class CacheStore<T extends object> {
       ttl: options.ttl || 1000 * 60 * 30, // 30 minutes default TTL
     });
 
-    this.name = options.name || "default";
+    this._name = options.name || "default";
     this.metrics = options.metrics || {
       recordHit: () => {},
       recordMiss: () => {},

@@ -49,7 +49,7 @@ export class IterativeWorkflowManager {
    * Executes workflow with iterative improvements until code is runnable
    */
   async executeWithValidation(
-    workflow: unknown,
+    workflow: { invoke: (prompt: string, images: unknown[]) => Promise<AgentState> },
     initialPrompt: string,
     images: unknown[],
     codeSession: ICode,
@@ -146,9 +146,9 @@ export class IterativeWorkflowManager {
           result.errors.push(errorMessage);
 
           telemetry.trackError(
+            "iterative.iteration",
             iterationError instanceof Error ? iterationError : new Error(String(iterationError)),
             {
-              location: "iterative.iteration",
               iteration: (iteration + 1).toString(),
             },
           );
@@ -189,16 +189,18 @@ export class IterativeWorkflowManager {
         console.warn("Final errors:", result.errors);
         if (result.validationResults.length > 0) {
           const lastValidation = result.validationResults[result.validationResults.length - 1];
-          console.warn("Last validation errors:", lastValidation.errors);
+          if (lastValidation) {
+            console.warn("Last validation errors:", lastValidation.errors);
+          }
         }
       }
 
       return result;
     } catch (error) {
       telemetry.trackError(
+        "iterative.execution.outer",
         error instanceof Error ? error : new Error(String(error)),
         {
-          location: "iterative.execution.outer",
           iterations: result.iterations.toString(),
         },
       );

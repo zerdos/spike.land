@@ -46,12 +46,12 @@ describe("CodeProcessor", () => {
 
   const getSession = () => sessionMock;
 
-  // Test interface definition
-  interface _WindowWithWebSocket {
-    frames: Record<number, {
-      webSocketManager: IWebSocketManager;
-    }>;
-  }
+  // Unused interface, commented out to suppress TypeScript warning
+  // interface _WindowWithWebSocket {
+  //   frames: Record<number, {
+  //     webSocketManager: IWebSocketManager;
+  //   }>;
+  // }
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -149,17 +149,17 @@ describe("CodeProcessor", () => {
       vi.mocked(transpileCode).mockResolvedValue(`transpiled`);
       vi.mocked(formatCode).mockResolvedValue(`formatted`);
 
-      // Mock the window message event to simulate iframe response
-      const _mockMessageEvent = {
-        data: {
-          type: "rendered",
-          requestId: "md5-hash", // This would be the md5 of the transpiled code
-          data: {
-            html: "<div>Mocked HTML</div>",
-            css: "/* Mocked CSS */",
-          },
-        },
-      };
+      // Mock the window message event to simulate iframe response (unused, commented out)
+      // const _mockMessageEvent = {
+      //   data: {
+      //     type: "rendered",
+      //     requestId: "md5-hash", // This would be the md5 of the transpiled code
+      //     data: {
+      //       html: "<div>Mocked HTML</div>",
+      //       css: "/* Mocked CSS */",
+      //     },
+      //   },
+      // };
 
       // Mock URL.createObjectURL
       global.URL.createObjectURL = vi.fn().mockReturnValue("mock-blob-url");

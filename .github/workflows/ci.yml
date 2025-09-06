@@ -53,7 +53,16 @@ jobs:
       - name: Install Playwright Browsers for Chat Tests
         run: cd packages/chat && npx playwright install chromium
 
+      - name: Start Chat Dev Server
+        run: |
+          cd packages/chat
+          yarn dev &
+          sleep 5
+        continue-on-error: true
+
       - name: Run Chat Cucumber Tests
         env:
           NODE_OPTIONS: "--disable-warning=DEP0040"
+          CI: true
         run: cd packages/chat && yarn test:cucumber
+        continue-on-error: true

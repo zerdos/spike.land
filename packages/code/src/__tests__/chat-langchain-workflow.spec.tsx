@@ -17,15 +17,16 @@ vi.mock("uuid", () => ({
 }));
 
 describe("chat-langchain-workflow", () => {
-  const _mockSession = {
-    getCode: vi.fn().mockResolvedValue("retrieved code"),
-    getMessages: vi.fn().mockReturnValue([]),
-    addMessage: vi.fn(),
-    removeMessages: vi.fn(),
-    setCode: vi.fn(), // Mock setCode to avoid side effects
-  };
+  // Removed unused mock variables to suppress TypeScript warnings
+  // const _mockSession = {
+  //   getCode: vi.fn().mockResolvedValue("retrieved code"),
+  //   getMessages: vi.fn().mockReturnValue([]),
+  //   addMessage: vi.fn(),
+  //   removeMessages: vi.fn(),
+  //   setCode: vi.fn(), // Mock setCode to avoid side effects
+  // };
 
-  const _mockSystemMessage = { content: "System message" };
+  // const _mockSystemMessage = { content: "System message" };
   const mockInitialState: AgentState = {
     messages: [],
     origin: "http://localhost",
@@ -77,20 +78,7 @@ describe("chat-langchain-workflow", () => {
   });
 
   describe("workflow invocation", () => {
-    const mockToolResponse = new AIMessage({
-      content: "Modified code",
-      additional_kwargs: {
-        tool_responses: [
-          {
-            name: "enhanced_replace_in_file", // Updated tool name
-            content: JSON.stringify({
-              hash: "new-hash",
-              code: "function modified() {}",
-            }),
-          },
-        ],
-      },
-    });
+    const mockToolResponse = new AIMessage("Modified code");
 
     beforeEach(() => {
       // Mock the global cSess object
@@ -135,20 +123,7 @@ describe("chat-langchain-workflow", () => {
     });
 
     it("should handle compilation errors", async () => {
-      const errorResponse = new AIMessage({
-        content: "Error in modification",
-        additional_kwargs: {
-          tool_responses: [
-            {
-              name: "enhanced_replace_in_file", // Updated tool name
-              content: JSON.stringify({
-                hash: "error-hash",
-                error: "failed to compile: syntax error",
-              }),
-            },
-          ],
-        },
-      });
+      const errorResponse = new AIMessage("Error in modification");
 
       vi.mocked(ChatAnthropic).mockImplementation(
         () =>
@@ -192,19 +167,7 @@ describe("chat-langchain-workflow", () => {
         setCode: vi.fn(), // Mock setCode to avoid side effects
       };
 
-      const responseWithoutCode = new AIMessage({
-        content: "No code returned",
-        additional_kwargs: {
-          tool_responses: [
-            {
-              name: "enhanced_replace_in_file", // Updated tool name
-              content: JSON.stringify({
-                hash: md5("retrieved code"), // Use the hash of the code that will be retrieved
-              }),
-            },
-          ],
-        },
-      });
+      const responseWithoutCode = new AIMessage("No code returned");
 
       vi.mocked(ChatAnthropic).mockImplementation(
         () =>
@@ -257,7 +220,7 @@ describe("chat-langchain-workflow", () => {
         ...mockInitialState,
         code: "corrupted code",
         hash: md5("original code"),
-        messages: [new SystemMessage("Test")],
+        messages: [new SystemMessage("Test")] as AgentState["messages"],
       };
 
       // Mock ChatAnthropic to return a simple response
@@ -265,7 +228,7 @@ describe("chat-langchain-workflow", () => {
         () =>
           ({
             invoke: vi.fn().mockResolvedValue(
-              new AIMessage({ content: "Test response" }),
+              new AIMessage("Test response"),
             ),
             bindTools: vi.fn().mockReturnThis(),
           }) as unknown as ChatAnthropic,

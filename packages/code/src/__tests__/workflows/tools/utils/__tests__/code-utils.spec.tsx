@@ -145,11 +145,11 @@ describe("code-utils", () => {
 
   describe("shouldReturnFullCode", () => {
     // Mock the config constants
-    const originalSmallFileThreshold = (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD;
+    const originalSmallFileThreshold = (globalThis as Record<string, unknown>)['SMALL_FILE_THRESHOLD'];
     const originalComplexChangeThreshold =
-      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD;
+      (globalThis as Record<string, unknown>)['COMPLEX_CHANGE_THRESHOLD'];
     const originalSignificantChangeRatio =
-      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO;
+      (globalThis as Record<string, unknown>)['SIGNIFICANT_CHANGE_RATIO'];
 
     beforeEach(() => {
       // Mock updateSearchReplace
@@ -158,17 +158,17 @@ describe("code-utils", () => {
       }));
 
       // Set mock values for constants
-      (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD = 1000;
-      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD = 500;
-      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO = 0.3;
+      (globalThis as Record<string, unknown>)['SMALL_FILE_THRESHOLD'] = 1000;
+      (globalThis as Record<string, unknown>)['COMPLEX_CHANGE_THRESHOLD'] = 500;
+      (globalThis as Record<string, unknown>)['SIGNIFICANT_CHANGE_RATIO'] = 0.3;
     });
 
     afterEach(() => {
       // Restore original values
-      (globalThis as Record<string, unknown>).SMALL_FILE_THRESHOLD = originalSmallFileThreshold;
-      (globalThis as Record<string, unknown>).COMPLEX_CHANGE_THRESHOLD =
+      (globalThis as Record<string, unknown>)['SMALL_FILE_THRESHOLD'] = originalSmallFileThreshold;
+      (globalThis as Record<string, unknown>)['COMPLEX_CHANGE_THRESHOLD'] =
         originalComplexChangeThreshold;
-      (globalThis as Record<string, unknown>).SIGNIFICANT_CHANGE_RATIO =
+      (globalThis as Record<string, unknown>)['SIGNIFICANT_CHANGE_RATIO'] =
         originalSignificantChangeRatio;
     });
 
