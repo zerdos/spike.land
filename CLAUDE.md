@@ -44,9 +44,14 @@ spike.land is a real-time collaborative code playground built with:
 - `packages/spike-land-renderer`: Frontend renderer components
 - `packages/code-worker`: Web Worker for code execution
 - `packages/transpile`: TypeScript/JSX transpilation service
+- `packages/chat`: AI chat application with real-time messaging
+  - Deployed at: https://spike-chat-dev.spikeland.workers.dev
+  - Features: Conversation management, WebSocket support, subscription tiers
+  - Testing: Cucumber tests with Playwright for E2E testing
 
 ## Build & Test Commands
 
+### General Commands
 - Build all: `yarn build:all`
 - Build frontend: `yarn build:fe`
 - Run dev server: `yarn dev`
@@ -59,18 +64,33 @@ spike.land is a real-time collaborative code playground built with:
 - Run single test: `vitest run src/path/to/test.spec.ts`
 - Run package tests: `cd packages/package-name && vitest run`
 
+### Chat Package Specific Commands
+- Run dev server: `cd packages/chat && yarn dev`
+- Deploy to development: `cd packages/chat && yarn deploy --env development`
+- Deploy to production: `cd packages/chat && yarn deploy --env production`
+- Run Cucumber tests: `cd packages/chat && yarn test:cucumber`
+- Run smoke tests: `cd packages/chat && yarn test:cucumber:smoke`
+
 ## Code Style Guidelines
 
+### TypeScript Requirements
+- **NEVER use `any` type** - ESLint will fail the build
+  - Use specific types, generics, or `unknown` instead
+  - For external libraries without types, create proper type definitions
+  - For dynamic objects, use `Record<string, unknown>` or define interfaces
 - TypeScript with strict types, use type imports with `import type`
+- Interfaces preferred over type aliases
+
+### React & JavaScript Standards
 - React 19 with JSX components (no React import needed)
 - Line width: 100 chars, 2 space indentation, LF line endings
 - Double quotes for strings, semicolons required
 - Use trailing commas for multi-line lists/objects
-- Interfaces preferred over type aliases
 - Variable naming: camelCase for variables, PascalCase for components/classes
 - Prefix unused variables with underscore (e.g., `_unused`)
-- Avoid using `any` type, use more specific types or `unknown`
 - Error handling: prefer early returns and detailed error messages
+
+### Testing Standards
 - Mock imports in tests using vi.mock() at module level
 - Clean up timers and event listeners in test afterEach hooks
 
@@ -127,3 +147,7 @@ When completing any development task:
   - **Workaround**: Set `DISABLE_AI_TOOLS=true` in your environment variables to disable tools temporarily
   - **Alternative**: Use direct JSON schema format instead of the AI SDK's `tool()` helper
   - **Debug Mode**: Set `DEBUG_ANTHROPIC_PROXY=true` to enable debug logging for Anthropic proxy requests
+- **ES Module configuration for Chat Package**: The chat package uses ES modules with TypeScript
+  - Cucumber tests run with `npx tsx` for proper TypeScript support
+  - Configuration in `cucumber.json` uses `import` instead of `require`
+  - Node v20+ requires `--import` flag instead of deprecated `--loader`
