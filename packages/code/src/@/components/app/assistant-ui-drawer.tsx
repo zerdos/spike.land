@@ -10,10 +10,13 @@ interface AssistantUIDrawerProps {
   onClose: () => void;
   isDarkMode: boolean;
   cSess: ICode;
-  initialPrompt?: {
-    prompt: string;
-    images: ImageData[];
-  } | null | undefined;
+  initialPrompt?:
+    | {
+      prompt: string;
+      images: ImageData[];
+    }
+    | null
+    | undefined;
 }
 
 export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
@@ -40,12 +43,11 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
             setMessagesLoaded(true);
           }
         };
-        
+
         setMessagesLoaded(false); // Reset to show loading state
         loadMessages();
       }
     }, [isOpen, codeSpace]);
-
 
     // Sync dark mode with Assistant UI
     useEffect(() => {
@@ -122,18 +124,20 @@ export const AssistantUIDrawer: React.FC<AssistantUIDrawerProps> = React.memo(
               </div>
 
               {/* Assistant UI Thread */}
-              {messagesLoaded ? (
-                <AssistantUIChat 
-                  key={`${codeSpace}-${savedMessages.length}`}
-                  codeSpace={codeSpace} 
-                  initialMessages={savedMessages} 
-                  initialPrompt={initialPrompt}
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full">
-                  <div className="text-gray-500">Loading messages...</div>
-                </div>
-              )}
+              {messagesLoaded
+                ? (
+                  <AssistantUIChat
+                    key={`${codeSpace}-${savedMessages.length}`}
+                    codeSpace={codeSpace}
+                    initialMessages={savedMessages}
+                    initialPrompt={initialPrompt}
+                  />
+                )
+                : (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-gray-500">Loading messages...</div>
+                  </div>
+                )}
             </div>
           </Drawer.Content>
         </Drawer.Portal>

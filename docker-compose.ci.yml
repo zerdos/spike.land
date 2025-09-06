@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  ci:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+    environment:
+      - NODE_ENV=test
+      - CI=true
+      - NODE_OPTIONS=--disable-warning=DEP0040
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.yarn/cache
+    working_dir: /app
+    command: yarn ci

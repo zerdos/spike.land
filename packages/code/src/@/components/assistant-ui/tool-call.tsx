@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ChevronRightIcon, ChevronDownIcon, WrenchIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronRightIcon, WrenchIcon } from "lucide-react";
 import { useState } from "react";
 import type { FC } from "react";
 
@@ -24,18 +24,16 @@ export const ToolCall: FC<ToolCallProps> = ({
     <div
       className={cn(
         "border border-border/50 rounded-lg overflow-hidden my-2",
-        className
+        className,
       )}
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center gap-2 px-3 py-2 bg-muted/30 hover:bg-muted/50 transition-colors text-left"
       >
-        {isExpanded ? (
-          <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
-        ) : (
-          <ChevronRightIcon className="w-4 h-4 text-muted-foreground" />
-        )}
+        {isExpanded
+          ? <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
+          : <ChevronRightIcon className="w-4 h-4 text-muted-foreground" />}
         <WrenchIcon className="w-4 h-4 text-primary" />
         <span className="font-mono text-sm font-medium">{name}</span>
         {isExecuting && (
@@ -44,7 +42,7 @@ export const ToolCall: FC<ToolCallProps> = ({
           </span>
         )}
       </button>
-      
+
       {isExpanded && (
         <div className="border-t border-border/50">
           {args && Object.keys(args).length > 0 && (
@@ -57,15 +55,15 @@ export const ToolCall: FC<ToolCallProps> = ({
               </pre>
             </div>
           )}
-          
+
           {result !== undefined && (
             <div className="px-3 py-2">
               <div className="text-xs font-medium text-muted-foreground mb-1">
                 Result
               </div>
               <pre className="text-xs font-mono bg-muted/20 rounded p-2 overflow-x-auto max-h-48 overflow-y-auto">
-                {typeof result === "string" 
-                  ? result 
+                {typeof result === "string"
+                  ? result
                   : JSON.stringify(result, null, 2)}
               </pre>
             </div>
@@ -77,7 +75,7 @@ export const ToolCall: FC<ToolCallProps> = ({
 };
 
 // Component to group multiple consecutive tool calls
-export const ToolCallGroup: FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ToolCallGroup: FC<{ children: React.ReactNode; }> = ({ children }) => {
   return (
     <div className="rounded-lg border border-border/50 bg-muted/10 p-2 my-2">
       <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">

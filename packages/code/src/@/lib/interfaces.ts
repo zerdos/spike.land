@@ -34,6 +34,7 @@ export interface ICodeSession {
   css: string;
   transpiled: string;
   requiresReRender?: boolean; // Flag to indicate re-render needed
+  messages: Message[]; // Array of messages for chat functionality
 }
 
 export interface ICode {

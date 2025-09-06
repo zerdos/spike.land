@@ -1,13 +1,13 @@
-import { ChatInterface } from "../ChatInterface";
 import { AssistantUIDrawer } from "@/components/app/assistant-ui-drawer";
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import { useLocalStorage } from "@/hooks/use-local-storage";
-import { useScreenshot } from "../hooks/useScreenshot";
 import { useDictation } from "@/hooks/use-dictation";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { toast } from "@/hooks/use-toast";
 import type { ICode, ImageData } from "@/lib/interfaces";
 import { render, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "vitest";
+import { ChatInterface } from "../ChatInterface";
+import { useScreenshot } from "../hooks/useScreenshot";
 
 // Mock dependencies
 vi.mock("@/hooks/use-dark-mode");
@@ -61,7 +61,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="test-space"
         onClose={vi.fn()}
-      />
+      />,
     );
 
     expect(container.firstChild).toBeNull();
@@ -74,7 +74,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="test-space"
         onClose={vi.fn()}
-      />
+      />,
     );
 
     expect(AssistantUIDrawer).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe("ChatInterface", () => {
     // Store data in sessionStorage
     sessionStorage.setItem(
       testKey,
-      JSON.stringify({ prompt: mockPrompt, images: mockImages })
+      JSON.stringify({ prompt: mockPrompt, images: mockImages }),
     );
 
     // Mock getCodeSpace to return our test code space
@@ -119,7 +119,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSessionWithKey}
         codeSpace={codeSpaceWithKey}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     // Force re-render to trigger effect
@@ -129,7 +129,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSessionWithKey}
         codeSpace={codeSpaceWithKey}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     await waitFor(() => {
@@ -168,7 +168,7 @@ describe("ChatInterface", () => {
           codeSession={mockCodeSessionWithKey}
           codeSpace={codeSpaceWithKey}
           onClose={vi.fn()}
-        />
+        />,
       );
     }).not.toThrow();
 
@@ -198,7 +198,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="regular-space"
         onClose={vi.fn()}
-      />
+      />,
     );
 
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
@@ -216,7 +216,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="test-space"
         onClose={vi.fn()}
-      />
+      />,
     );
 
     // Fast-forward time by 5 seconds
@@ -240,7 +240,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="test-space"
         onClose={vi.fn()}
-      />
+      />,
     );
 
     await waitFor(() => {
@@ -261,7 +261,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSession}
         codeSpace="test-space"
         onClose={onCloseMock}
-      />
+      />,
     );
 
     const callArgs = (AssistantUIDrawer as Mock).mock.calls[0]?.[0];
@@ -275,7 +275,7 @@ describe("ChatInterface", () => {
     // Store empty data
     sessionStorage.setItem(
       testKey,
-      JSON.stringify({ prompt: "", images: [] })
+      JSON.stringify({ prompt: "", images: [] }),
     );
 
     const mockCodeSessionWithKey = {
@@ -289,7 +289,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSessionWithKey}
         codeSpace={codeSpaceWithKey}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     // Force re-render to trigger effect
@@ -299,7 +299,7 @@ describe("ChatInterface", () => {
         codeSession={mockCodeSessionWithKey}
         codeSpace={codeSpaceWithKey}
         onClose={vi.fn()}
-      />
+      />,
     );
 
     await waitFor(() => {

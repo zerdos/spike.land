@@ -59,9 +59,16 @@ jobs:
       - name: Build frontend
         run: yarn build:fe
 
-      - name: Deploy to Cloudflare Workers (Dev)
+      - name: Deploy spike.land to Cloudflare Workers (Dev)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env=testing
           workingDirectory: packages/spike.land
+
+      - name: Deploy Chat App to Cloudflare Workers (Dev)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --env=development
+          workingDirectory: packages/chat

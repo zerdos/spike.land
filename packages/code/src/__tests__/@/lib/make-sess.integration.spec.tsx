@@ -9,6 +9,7 @@ describe("Session Patch Integration Tests", () => {
     html: "<div>Test</div>",
     css: ".test { color: red; }",
     transpiled: "const test = 'test';",
+    messages: [],
     ...modifications,
   });
 

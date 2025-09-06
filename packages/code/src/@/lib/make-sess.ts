@@ -33,6 +33,7 @@ class SessionPatcher {
           e("h2", null, "But you can edit even this page and share with your friends.")
         )
       );`,
+      messages: p.messages || [],
     };
   }
 
