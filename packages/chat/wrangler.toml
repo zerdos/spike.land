@@ -48,7 +48,7 @@ CLERK_PUBLISHABLE_KEY = "pk_test_your-key"
 bucket = "./public"
 
 [build]
-command = "npm run build"
+command = "vite build"
 
 # Routes can be configured later
 # [[routes]]

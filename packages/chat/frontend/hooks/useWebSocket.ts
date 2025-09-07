@@ -1,31 +1,52 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Message, WebSocketMessage } from "../../src/types";
 
-export function useWebSocket(
-  conversationId: string,
-  userId: string,
-  enabled: boolean = true,
-) {
-  const wsRef = useRef<WebSocket | null>(null);
-  const [connected, setConnected] = useState(false);
-  const [typingUsers, setTypingUsers] = useState<Set<string>>(new Set());
+interface UseWebSocketOptions {
+  onMessage?: (data: WebSocketMessage) => void;
+  onConnect?: () => void;
+  onDisconnect?: () => void;
+  conversationId?: string;
+  userId?: string;
+  enabled?: boolean;
+}
 
-  useEffect(() => {
-    if (!enabled || !conversationId || !userId) return;
+export function useWebSocket({
+  onMessage,
+  onConnect,
+  onDisconnect,
+  conversationId,
+  userId,
+  enabled = true,
+}: UseWebSocketOptions = {}) {
+  const wsRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [typingUsers, setTypingUsers] = useState<Set<string>>(new Set());
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
+  const reconnectAttemptsRef = useRef(0);
+
+  const connect = useCallback(() => {
+    if (!enabled) return;
 
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/ws/${conversationId}`;
+    const wsUrl = conversationId 
+      ? `${protocol}//${window.location.host}/ws/${conversationId}`
+      : `${protocol}//${window.location.host}/ws`;
 
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 
     ws.onopen = () => {
-      setConnected(true);
-      ws.send(JSON.stringify({
-        type: "presence",
-        userId,
-        conversationId,
-      }));
+      setIsConnected(true);
+      reconnectAttemptsRef.current = 0;
+      onConnect?.();
+      
+      if (userId && conversationId) {
+        ws.send(JSON.stringify({
+          type: "presence",
+          userId,
+          conversationId,
+        }));
+      }
     };
 
     ws.onmessage = (event) => {
@@ -56,6 +77,8 @@ export function useWebSocket(
             console.error("WebSocket error:", message.error);
             break;
         }
+        
+        onMessage?.(message);
       } catch (error) {
         console.error("Failed to parse WebSocket message:", error);
       }
@@ -63,30 +86,56 @@ export function useWebSocket(
 
     ws.onerror = (error) => {
       console.error("WebSocket error:", error);
-      setConnected(false);
+      setIsConnected(false);
     };
 
     ws.onclose = () => {
-      setConnected(false);
+      setIsConnected(false);
+      onDisconnect?.();
+      
+      // Attempt to reconnect with exponential backoff
+      if (enabled && reconnectAttemptsRef.current < 5) {
+        const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 10000);
+        reconnectAttemptsRef.current++;
+        
+        reconnectTimeoutRef.current = setTimeout(() => {
+          connect();
+        }, delay);
+      }
     };
+  }, [enabled, conversationId, userId, onMessage, onConnect, onDisconnect]);
+
+  useEffect(() => {
+    connect();
 
     return () => {
-      ws.close();
-      wsRef.current = null;
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+      }
+      if (wsRef.current) {
+        wsRef.current.close();
+        wsRef.current = null;
+      }
     };
-  }, [conversationId, userId, enabled]);
+  }, [connect]);
 
-  const sendTyping = () => {
+  const sendMessage = useCallback((data: unknown) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(data));
+    }
+  }, []);
+
+  const sendTyping = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN && userId && conversationId) {
       wsRef.current.send(JSON.stringify({
         type: "typing",
         userId,
         conversationId,
       }));
     }
-  };
+  }, [userId, conversationId]);
 
-  const sendMessage = (message: Message) => {
+  const sendChatMessage = useCallback((message: Message) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({
         type: "message",
@@ -94,12 +143,27 @@ export function useWebSocket(
         message,
       }));
     }
-  };
+  }, [conversationId]);
 
   return {
-    connected,
+    isConnected,
+    connected: isConnected, // Alias for compatibility
     typingUsers,
-    sendTyping,
     sendMessage,
+    sendTyping,
+    sendChatMessage,
   };
+}
+
+// Export original signature for backward compatibility
+export function useWebSocketLegacy(
+  conversationId: string,
+  userId: string,
+  enabled: boolean = true,
+) {
+  return useWebSocket({
+    conversationId,
+    userId,
+    enabled,
+  });
 }

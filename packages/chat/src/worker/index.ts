@@ -127,6 +127,15 @@ export default {
         );
       }
 
+      // Serve static assets
+      if (path.startsWith("/assets/")) {
+        // In development, assets are served from the dist folder
+        // In production, this will be handled by Cloudflare's site configuration
+        if (env.ASSETS) {
+          return env.ASSETS.fetch(request);
+        }
+      }
+
       // Serve chat HTML at /chat path
       if (path === "/chat") {
         return new Response(chatHTML, {
@@ -140,7 +149,14 @@ export default {
 
       // Serve HTML at root path
       if (path === "/" || path === "") {
-        const htmlContent = `<!DOCTYPE html>
+        return new Response(chatHTML, {
+          status: 200,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            ...corsHeaders,
+          },
+        });
+        /*const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -307,7 +323,7 @@ export default {
             "Content-Type": "text/html; charset=utf-8",
           },
         });
-        return this.addCorsHeaders(response, corsHeaders);
+        return this.addCorsHeaders(response, corsHeaders);*/
       }
 
       const response = new Response("Not found", { status: 404 });

@@ -14,6 +14,19 @@ class ChatAPI {
     endpoint: string,
     options: RequestInit = {},
   ): Promise<T> {
+    // Check for mock responses first (used in tests)
+    const mockKey = `${options.method || "GET"} ${endpoint}`;
+    if (typeof window !== "undefined" && (window as any).__mockAPIResponses) {
+      const mockResponse = (window as any).__mockAPIResponses[mockKey];
+      if (mockResponse) {
+        // Don't delete for GET requests, allow reuse
+        if (options.method && options.method !== "GET") {
+          delete (window as any).__mockAPIResponses[mockKey];
+        }
+        return Promise.resolve(mockResponse.data || mockResponse);
+      }
+    }
+
     const token = await this.getAuthToken();
 
     const response = await fetch(`${API_BASE}${endpoint}`, {
@@ -40,6 +53,11 @@ class ChatAPI {
   }
 
   private async getAuthToken(): Promise<string> {
+    // Check localStorage for test/demo tokens first
+    const authToken = localStorage.getItem("auth_token") || localStorage.getItem("authToken");
+    if (authToken) {
+      return authToken;
+    }
     // This would integrate with Clerk to get the current session token
     // For now, returning a placeholder
     return "clerk-token-here";
@@ -126,6 +144,74 @@ class ChatAPI {
   async getSubscriptionStatus(): Promise<Subscription> {
     return this.request("/subscription/status");
   }
+
+  async getSubscriptionInfo(): Promise<{
+    tier: string;
+    credits: number;
+    features: string;
+    limit: number;
+  }> {
+    try {
+      const profile = await this.getUserProfile();
+      return {
+        tier: profile.subscription_tier || "Free",
+        credits: profile.credits || 0,
+        features: this.getFeaturesByTier(profile.subscription_tier || "free"),
+        limit: this.getLimitByTier(profile.subscription_tier || "free"),
+      };
+    } catch {
+      // Fallback to subscription endpoint
+      try {
+        const sub = await this.getSubscriptionStatus();
+        const tier = this.getTierFromSubscription(sub);
+        return {
+          tier,
+          credits: 0, // Would need to get from user profile
+          features: this.getFeaturesByTier(tier.toLowerCase() as any),
+          limit: this.getLimitByTier(tier.toLowerCase() as any),
+        };
+      } catch {
+        // Default values
+        return {
+          tier: "Free",
+          credits: 0,
+          features: "Basic chat, 10 messages per day",
+          limit: 10,
+        };
+      }
+    }
+  }
+
+  private getTierFromSubscription(sub: Subscription): string {
+    if (sub.status === "active") {
+      if (sub.stripe_price_id?.includes("pro")) return "Pro";
+      if (sub.stripe_price_id?.includes("business")) return "Business";
+    }
+    return "Free";
+  }
+
+  private getFeaturesByTier(tier: "free" | "pro" | "business"): string {
+    switch (tier) {
+      case "pro":
+        return "Unlimited chat, priority support";
+      case "business":
+        return "All features, API access";
+      default:
+        return "Basic chat, 10 messages per day";
+    }
+  }
+
+  private getLimitByTier(tier: "free" | "pro" | "business"): number {
+    switch (tier) {
+      case "pro":
+        return 1000;
+      case "business":
+        return 99999;
+      default:
+        return 10;
+    }
+  }
 }
 
 export const chatAPI = new ChatAPI();
+export const api = chatAPI; // Alias for compatibility

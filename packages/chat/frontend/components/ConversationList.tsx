@@ -2,34 +2,26 @@ import type { Conversation } from "../../src/types";
 
 interface ConversationListProps {
   conversations: Conversation[];
-  currentConversationId?: string;
-  onSelectConversation: (conversation: Conversation) => void;
-  onCreateConversation: () => void;
-  onDeleteConversation: (conversationId: string) => void;
+  currentConversation?: Conversation | null;
+  onSelect: (conversation: Conversation) => void;
+  onDelete: (conversationId: string) => void;
 }
 
 export function ConversationList({
   conversations,
-  currentConversationId,
-  onSelectConversation,
-  onCreateConversation,
-  onDeleteConversation,
+  currentConversation,
+  onSelect,
+  onDelete,
 }: ConversationListProps) {
+  const currentConversationId = currentConversation?.id;
   return (
     <div className="conversation-list">
-      <div className="conversation-list-header">
-        <h3>Conversations</h3>
-        <button onClick={onCreateConversation} className="new-chat-btn">
-          New Chat
-        </button>
-      </div>
-
       <div className="conversation-items">
         {conversations.length === 0
           ? (
             <div className="empty-state">
               <p>No conversations yet</p>
-              <button onClick={onCreateConversation}>Start your first chat</button>
+              <p className="empty-state-hint">Click "New Chat" to start</p>
             </div>
           )
           : (
@@ -39,9 +31,11 @@ export function ConversationList({
                 className={`conversation-item ${
                   conversation.id === currentConversationId ? "active" : ""
                 }`}
-                onClick={() => onSelectConversation(conversation)}
+                onClick={() => onSelect(conversation)}
               >
-                <div className="conversation-title">{conversation.title}</div>
+                <div className="conversation-title">
+                  {conversation.title || "New Conversation"}
+                </div>
                 <div className="conversation-meta">
                   {new Date(conversation.updated_at).toLocaleDateString()}
                 </div>
@@ -49,7 +43,7 @@ export function ConversationList({
                   className="delete-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onDeleteConversation(conversation.id);
+                    onDelete(conversation.id);
                   }}
                 >
                   Delete

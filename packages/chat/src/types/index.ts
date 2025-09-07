@@ -5,6 +5,7 @@ export interface Env {
   QUEUE: Queue;
   CHAT_ROOM: DurableObjectNamespace;
   AI: Ai;
+  ASSETS?: Fetcher;
   CLERK_SECRET_KEY: string;
   CLERK_WEBHOOK_SECRET: string;
   STRIPE_SECRET_KEY: string;
@@ -16,11 +17,11 @@ export interface Env {
 
 export interface User {
   id: string;
-  clerk_id: string;
+  clerk_id?: string;
   email: string;
   name?: string;
-  subscription_tier: "free" | "pro" | "business";
-  credits: number;
+  subscription_tier?: "free" | "pro" | "business";
+  credits?: number;
   stripe_customer_id?: string;
   created_at: string;
   updated_at: string;
@@ -38,10 +39,10 @@ export interface Conversation {
 export interface Message {
   id: string;
   conversation_id: string;
-  user_id: string;
+  user_id?: string;
   role: "user" | "assistant" | "system";
   content: string;
-  tokens_used: number;
+  tokens_used?: number;
   created_at: string;
 }
 
