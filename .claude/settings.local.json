@@ -43,7 +43,8 @@
       "Bash(gh run view:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr comment:*)",
-      "Bash(gh pr checks:*)"
+      "Bash(gh pr checks:*)",
+      "Bash(yarn eslint)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
