@@ -16,7 +16,8 @@ describe("PostHandler - Tool Schema Validation", () => {
   let postHandler: PostHandler;
   let mockCode: Code;
   let mockEnv: Env;
-  let mockStreamResponse: StreamTextResult<Record<string, unknown>, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let mockStreamResponse: StreamTextResult<any, any>;
   let mockToDataStreamResponse: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -30,7 +31,8 @@ describe("PostHandler - Tool Schema Validation", () => {
       warnings: [],
       usage: {},
       experimental_providerMetadata: undefined,
-    } as unknown as StreamTextResult<Record<string, unknown>, unknown>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as unknown as StreamTextResult<any, any>;
 
     // Default mock for streamText
     vi.mocked(streamText).mockResolvedValue(mockStreamResponse);
@@ -89,7 +91,11 @@ describe("PostHandler - Tool Schema Validation", () => {
     const mockStorageService = {
       saveRequestBody: vi.fn().mockResolvedValue(undefined),
     };
-    vi.mocked(StorageService).mockImplementation(() => mockStorageService as StorageService);
+    vi.mocked(StorageService).mockImplementation(() => ({
+      ...mockStorageService,
+      loadRequestBody: vi.fn(),
+      env: mockEnv,
+    } as unknown as StorageService));
 
     postHandler = new PostHandler(mockCode, mockEnv);
   });
@@ -112,10 +118,12 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock streamText to capture the tools being passed
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((options: any) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as typeof streamText,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any,
       );
 
       // Mock createAnthropic to return a provider
@@ -213,12 +221,15 @@ describe("PostHandler - Tool Schema Validation", () => {
       // Set the environment variable
       mockEnv.DISABLE_AI_TOOLS = "true";
 
-      let capturedOptions: Parameters<typeof streamText>[0];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let capturedOptions: any;
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((options: any) => {
           capturedOptions = options;
           return Promise.resolve(mockStreamResponse);
-        }) as typeof streamText,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -245,13 +256,16 @@ describe("PostHandler - Tool Schema Validation", () => {
 
   describe("Tool Format Sent to API", () => {
     it("should not wrap tools in 'custom' property", async () => {
-      let capturedTools: Record<string, unknown>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let capturedTools: any;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((options: any) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as typeof streamText,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -270,7 +284,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Ensure tools don't have a 'custom' wrapper
-      if (capturedTools) {
+      if (capturedTools!) {
         Object.entries(capturedTools).forEach(([_, tool]: [string, unknown]) => {
           expect(tool).not.toHaveProperty("custom");
         });
@@ -278,13 +292,16 @@ describe("PostHandler - Tool Schema Validation", () => {
     });
 
     it("should create valid tool execute functions", async () => {
-      let capturedTools: Record<string, unknown>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let capturedTools: any;
 
       vi.mocked(streamText).mockImplementation(
-        ((options: Parameters<typeof streamText>[0]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((options: any) => {
           capturedTools = options.tools;
           return Promise.resolve(mockStreamResponse);
-        }) as typeof streamText,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any,
       );
 
       const mockProvider = vi.fn(() => ({
@@ -294,7 +311,7 @@ describe("PostHandler - Tool Schema Validation", () => {
 
       // Mock executeTool to return a response
       const mockExecuteTool = vi.fn().mockResolvedValue({ success: true });
-      (mockCode.getMcpServer() as { executeTool: typeof mockExecuteTool }).executeTool = mockExecuteTool;
+      (mockCode.getMcpServer() as unknown as { executeTool: typeof mockExecuteTool }).executeTool = mockExecuteTool;
 
       const request = new Request("https://test.spike.land/api/post", {
         method: "POST",
@@ -307,7 +324,7 @@ describe("PostHandler - Tool Schema Validation", () => {
       await postHandler.handle(request, new URL("https://test.spike.land"));
 
       // Test execute function for read_code tool
-      if (capturedTools && capturedTools.read_code) {
+      if (capturedTools! && capturedTools!.read_code) {
         const result = await capturedTools.read_code.execute({ codeSpace: "test" });
         // The execute function merges the codeSpace from session ("test-space") with the args
         expect(mockExecuteTool).toHaveBeenCalledWith("read_code", { codeSpace: "test-space" });

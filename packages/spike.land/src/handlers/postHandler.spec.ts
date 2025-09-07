@@ -1,7 +1,7 @@
 import { type AnthropicProvider, createAnthropic } from "@ai-sdk/anthropic";
 import type { R2Bucket } from "@cloudflare/workers-types";
 import type { Message } from "@spike-npm-land/code";
-import { type CoreMessage, streamText, type StreamTextResult } from "ai";
+import { type CoreMessage, streamText, type StreamTextResult, type StepResult } from "ai";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { z } from "zod";
 import type { Code } from "../chatRoom";
@@ -14,31 +14,8 @@ import { PostHandler } from "./postHandler";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StreamResult = StreamTextResult<any, unknown>;
 
-// Mock type that matches what the test needs while avoiding 'any'
-interface MockStepResult {
-  toolResults: Array<{
-    toolCallId: string;
-    result: { output: string };
-  }>;
-  // Add required properties from StepResult to satisfy type constraints
-  content: Array<unknown>;
-  text: string;
-  reasoning: Array<unknown>;
-  reasoningText?: string;
-  files: Array<unknown>;
-  sources: Array<unknown>;
-  toolCalls: Array<unknown>;
-  staticToolCalls: Array<unknown>;
-  dynamicToolCalls: Array<unknown>;
-  staticToolResults: Array<unknown>;
-  dynamicToolResults: Array<unknown>;
-  finishReason: string;
-  usage: unknown;
-  warnings?: Array<unknown>;
-  request: unknown;
-  response: unknown;
-  providerMetadata?: unknown;
-}
+// Mock type that matches what the test needs
+type MockStepResult = StepResult<Record<string, never>>;
 
 // Mock all external dependencies
 vi.mock("@ai-sdk/anthropic");
@@ -632,6 +609,7 @@ describe("PostHandler", () => {
           content: [],
           text: "",
           reasoning: [],
+          reasoningText: "",
           files: [],
           sources: [],
           toolCalls: [],
@@ -643,7 +621,9 @@ describe("PostHandler", () => {
           usage: {},
           request: {},
           response: {},
-        } as MockStepResult,
+          warnings: undefined,
+          providerMetadata: undefined,
+        } as unknown as MockStepResult,
       );
 
       expect(mockStorageService.saveRequestBody).toHaveBeenCalledTimes(2);
@@ -685,6 +665,7 @@ describe("PostHandler", () => {
           content: [],
           text: "",
           reasoning: [],
+          reasoningText: "",
           files: [],
           sources: [],
           toolCalls: [],
@@ -696,7 +677,9 @@ describe("PostHandler", () => {
           usage: {},
           request: {},
           response: {},
-        } as MockStepResult,
+          warnings: undefined,
+          providerMetadata: undefined,
+        } as unknown as MockStepResult,
       );
 
       expect(consoleErrorSpy).toHaveBeenCalledWith(

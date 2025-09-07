@@ -1,8 +1,7 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import type { Message } from "@spike-npm-land/code";
-import { streamText } from "ai";
-import type { CoreMessage, StreamTextResult, StepResult } from "ai";
-import type { z } from "zod";
+import { streamText, tool } from "ai";
+import type { CoreMessage } from "ai";
 import type { Code } from "../chatRoom";
 import type Env from "../env";
 import type { McpTool } from "../mcpServer";
@@ -331,65 +330,65 @@ export class PostHandler {
         `[AI Routes][${requestId}] Processing ${tools.length} tools for streaming`,
       );
 
-      const processedTools = tools.reduce((acc, tool) => {
-        if (!tool.inputSchema) {
+      const processedTools = tools.reduce((acc, mcpTool) => {
+        if (!mcpTool.inputSchema) {
           console.warn(
-            `[AI Routes][${requestId}] Tool '${tool.name}' has no inputSchema, skipping`,
+            `[AI Routes][${requestId}] Tool '${mcpTool.name}' has no inputSchema, skipping`,
           );
           return acc;
         }
 
         // Log the tool structure for debugging
         console.log(
-          `[AI Routes][${requestId}] Processing tool '${tool.name}':`,
+          `[AI Routes][${requestId}] Processing tool '${mcpTool.name}':`,
           {
-            hasInputSchema: !!tool.inputSchema,
-            inputSchemaType: tool.inputSchema?.type,
-            inputSchemaKeys: tool.inputSchema ? Object.keys(tool.inputSchema) : [],
+            hasInputSchema: !!mcpTool.inputSchema,
+            inputSchemaType: mcpTool.inputSchema?.type,
+            inputSchemaKeys: mcpTool.inputSchema ? Object.keys(mcpTool.inputSchema) : [],
           },
         );
 
         // Validate that the inputSchema has type: 'object'
-        if (tool.inputSchema.type !== "object") {
+        if (mcpTool.inputSchema.type !== "object") {
           console.error(
-            `[AI Routes][${requestId}] Tool '${tool.name}' has invalid inputSchema.type: '${tool.inputSchema.type}', expected 'object'`,
+            `[AI Routes][${requestId}] Tool '${mcpTool.name}' has invalid inputSchema.type: '${mcpTool.inputSchema.type}', expected 'object'`,
           );
           return acc;
         }
 
         // Convert JSON Schema to Zod schema for AI SDK
         // The AI SDK requires Zod schemas for tool parameters
-        const zodSchema = this.schemaConverter.convert(tool.inputSchema);
+        const zodSchema = this.schemaConverter.convert(mcpTool.inputSchema);
 
-        acc[tool.name] = {
-          description: tool.description,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const aiTool = (tool as any)({
+          description: mcpTool.description,
           parameters: zodSchema,
-          execute: async (args: Record<string, unknown>) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          execute: async (args: any) => {
             try {
               const response = await this.code.getMcpServer().executeTool(
-                tool.name,
+                mcpTool.name,
                 { ...args, codeSpace },
               );
               return response;
             } catch (error) {
               console.error(
-                `[AI Routes][${requestId}] Error executing tool ${tool.name}:`,
+                `[AI Routes][${requestId}] Error executing tool ${mcpTool.name}:`,
                 error,
               );
               throw new Error(
-                `Failed to execute tool ${tool.name}: ${
+                `Failed to execute tool ${mcpTool.name}: ${
                   error instanceof Error ? error.message : "Unknown error"
                 }`,
               );
             }
           },
-        };
+        });
+        acc[mcpTool.name] = aiTool;
         return acc;
-      }, {} as Record<string, {
-        description: string;
-        parameters: z.ZodTypeAny;
-        execute: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
-      }>);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      }, {} as Record<string, any>);
 
       // Check if we should disable tools due to AI SDK compatibility issues
       // Temporarily forcing tools to be disabled for testing
@@ -429,7 +428,7 @@ export class PostHandler {
         tools: disableTools ? undefined : processedTools,
         toolChoice: disableTools ? undefined : "auto",
         // maxSteps: disableTools ? undefined : 10,
-        onStepFinish: disableTools ? undefined : async (stepResult: StepResult<Record<string, unknown>>) => {
+        onStepFinish: disableTools ? undefined : async (stepResult) => {
           if (stepResult.toolResults && stepResult.toolResults.length > 0) {
             try {
               // Work with the copy instead of mutating the original
@@ -467,15 +466,15 @@ export class PostHandler {
       }
 
       // Use the appropriate streaming response method
-      if (typeof (result as StreamTextResult<Record<string, unknown>, unknown>)?.toUIMessageStreamResponse === "function") {
-        return (result as StreamTextResult<Record<string, unknown>, unknown>).toUIMessageStreamResponse({
+      if (typeof result?.toUIMessageStreamResponse === "function") {
+        return result.toUIMessageStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
 
       // Fallback to text stream for simpler responses
-      if (typeof (result as StreamTextResult<Record<string, unknown>, unknown>)?.toTextStreamResponse === "function") {
-        return (result as StreamTextResult<Record<string, unknown>, unknown>).toTextStreamResponse({
+      if (typeof result?.toTextStreamResponse === "function") {
+        return result.toTextStreamResponse({
           headers: this.getCorsHeaders(),
         });
       }
