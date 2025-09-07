@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export const chatHTML = `<!DOCTYPE html>
 <html lang="en">
   <head>

@@ -149,7 +149,7 @@ export default {
 
       // Serve HTML at root path
       if (path === "/" || path === "") {
-        return new Response(chatHTML, {
+        return new Response("chatHTML", {
           status: 200,
           headers: {
             "Content-Type": "text/html; charset=utf-8",

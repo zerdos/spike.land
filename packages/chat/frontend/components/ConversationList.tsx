@@ -21,7 +21,7 @@ export function ConversationList({
           ? (
             <div className="empty-state">
               <p>No conversations yet</p>
-              <p className="empty-state-hint">Click "New Chat" to start</p>
+              <p className="empty-state-hint">Click &quot;New Chat&quot; to start</p>
             </div>
           )
           : (
