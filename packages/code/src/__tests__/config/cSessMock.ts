@@ -63,6 +63,11 @@ export const createMockCodeSession = (initialCode = "// Test code"): ICode => {
         type: "image",
       })
     ),
+    currentCodeWithExtraModels: vi.fn().mockImplementation(() => Promise.resolve(code)),
+    setModelsByCurrentCode: vi.fn().mockImplementation((newCode: string) => {
+      code = newCode;
+      return Promise.resolve(newCode);
+    }),
     // addMessageChunk removed as it's not part of ICode interface
     getCodeSpace: vi.fn().mockImplementation(() => "test-space"),
     sub: vi.fn().mockImplementation(() => () => {}),
