@@ -42,8 +42,8 @@ export interface ICode {
   getSession: () => Promise<ICodeSession>;
   init: () => Promise<ICodeSession>;
   screenshot: () => Promise<ImageData>;
-  // currentCodeWithExtraModels: () => Promise<string>;
-  // setModelsByCurrentCode: (code: string) => Promise<string>;
+  currentCodeWithExtraModels: () => Promise<string>;
+  setModelsByCurrentCode: (code: string) => Promise<string>;
   setCode(
     rawCode: string,
     skipRunning?: boolean,

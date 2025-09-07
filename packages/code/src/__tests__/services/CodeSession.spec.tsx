@@ -9,8 +9,30 @@ vi.mock("/swVersion.mjs", () => ({
 
 // Mock dependencies
 vi.mock("@/lib/make-sess", () => ({
-  computeSessionHash: vi.fn().mockReturnValue("mockHash"),
-  sanitizeSession: vi.fn().mockImplementation((session) => session),
+  computeSessionHash: vi.fn(() => "mockHash"),
+  sanitizeSession: vi.fn((session: any) => {
+    if (!session) {
+      return {
+        codeSpace: "",
+        code: "",
+        html: "",
+        css: "",
+        transpiled: "",
+        messages: [],
+      };
+    }
+    return {
+      codeSpace: session.codeSpace || "",
+      code: session.code || "",
+      html: session.html || "",
+      css: session.css || "",
+      transpiled: session.transpiled || "",
+      messages: session.messages || [],
+    };
+  }),
+  sessionToJSON: vi.fn((s: any) => JSON.stringify(s)),
+  applySessionDelta: vi.fn((s: any) => s),
+  generateSessionPatch: vi.fn(() => ({ oldHash: "", hashCode: "", delta: [] })),
 }));
 
 vi.mock("@/lib/md5", () => ({
@@ -31,6 +53,53 @@ vi.mock("@/services/editorUtils", () => ({
     dataUrl: "data:image/png;base64,...",
   }),
 }));
+
+// Mock SessionManager
+vi.mock("@/services/SessionManager", () => {
+  return {
+    SessionManager: class MockSessionManager {
+      constructor(_codeSpace: string) {}
+      init = vi.fn((session: any) => Promise.resolve(session || {}));
+      getSession = vi.fn(() => ({}));
+      updateSession = vi.fn();
+      subscribe = vi.fn(() => () => {});
+      release = vi.fn(() => Promise.resolve());
+    },
+  };
+});
+
+// Mock ModelManager  
+vi.mock("@/services/ModelManager", () => {
+  return {
+    ModelManager: class MockModelManager {
+      constructor(_codeSpace: string, _code: any) {}
+      updateModelsByCode = vi.fn(() => Promise.resolve(""));
+      getCurrentCodeWithExtraModels = vi.fn(() => Promise.resolve(""));
+      release = vi.fn(() => Promise.resolve());
+    },
+  };
+});
+
+// Mock CodeProcessor
+vi.mock("@/services/CodeProcessor", () => {
+  return {
+    CodeProcessor: class MockCodeProcessor {
+      constructor(_codeSpace: string) {}
+      process = vi.fn(() => Promise.resolve({
+        code: "",
+        html: "",
+        css: "",
+        transpiled: "",
+      }));
+      reRenderFromTranspiled = vi.fn(() => Promise.resolve({
+        code: "",
+        html: "",
+        css: "",
+        transpiled: "",
+      }));
+    },
+  };
+});
 
 describe("Code", () => {
   let cSess: Code;
