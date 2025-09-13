@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "// Development": "",
-    "dev": "concurrently \"yarn dev:vite\" \"yarn types:watch\" \"yarn dev:workers\"",
+    "dev": "concurrently --kill-others-on-fail=false \"yarn dev:vite\" \"yarn types:watch\" \"yarn dev:workers\"",
     "dev:vite": "vite",
     "dev:workers": "tsx src/@/lib/esbuild-dev.ts --watch",
     "// Build": "",
