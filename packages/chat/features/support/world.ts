@@ -42,9 +42,12 @@ export class CustomWorldImpl extends World implements CustomWorld {
     }
 
     this.context = await this.browser.newContext({
-      baseURL: process.env.BASE_URL || "http://localhost:8787",
+      baseURL: process.env.BASE_URL || "http://localhost:3000",
       viewport: { width: 1280, height: 720 },
       ignoreHTTPSErrors: true,
+      extraHTTPHeaders: {
+        "x-test-mode": "true",
+      },
       ...(process.env.DEVICE && {
         ...this.getDeviceConfig(process.env.DEVICE),
       }),
@@ -57,11 +60,26 @@ export class CustomWorldImpl extends World implements CustomWorld {
     this.landingPage = new LandingPage(this.page);
     this.conversationPage = new ConversationPage(this.page);
 
-    // Add auth token if needed
+    // Initialize test environment in browser
     await this.page.addInitScript(() => {
+      // Set test mode flag
+      (window as any).__TEST_MODE__ = true;
+
+      // Add auth token if needed
       if (process.env.AUTH_TOKEN) {
         localStorage.setItem("auth_token", process.env.AUTH_TOKEN);
       }
+
+      // Mock console.error to capture errors during tests
+      const originalConsoleError = console.error;
+      (window as any).__TEST_CONSOLE_ERRORS__ = [];
+      console.error = (...args) => {
+        (window as any).__TEST_CONSOLE_ERRORS__.push(args);
+        originalConsoleError.apply(console, args);
+      };
+
+      // Set up Next.js test environment
+      (window as any).__NEXT_DATA__ = (window as any).__NEXT_DATA__ || {};
     });
   }
 

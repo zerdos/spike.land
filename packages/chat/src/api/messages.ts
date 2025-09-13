@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import type { APIResponse, Env, Message } from "../types";
 import { AIService } from "../utils/ai";
 import { AuthService } from "../utils/auth";
+import { calculateCredits } from "../lib/stripe";
 
 export class MessagesAPI {
   private env: Env;
@@ -50,7 +51,8 @@ export class MessagesAPI {
         return this.notFound();
       }
 
-      const hasCredits = await this.auth.checkUserCredits(user.id);
+      const requiredCredits = calculateCredits(content);
+      const hasCredits = await this.auth.checkUserCredits(user.id, requiredCredits);
       if (!hasCredits) {
         return this.error("Insufficient credits", 402);
       }
@@ -101,7 +103,7 @@ export class MessagesAPI {
         .bind(assistantMessageId, conversationId, user.id, aiResponse, tokens)
         .run();
 
-      await this.auth.deductCredits(user.id);
+      await this.auth.deductCredits(user.id, requiredCredits);
 
       await this.env.DATABASE.prepare(
         "UPDATE conversations SET updated_at = datetime('now') WHERE id = ?",

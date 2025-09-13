@@ -6,6 +6,7 @@ import type {
   Subscription,
   User,
 } from "../../src/types";
+import { auth } from "./clerk";
 
 const API_BASE = "/api";
 
@@ -53,14 +54,19 @@ class ChatAPI {
   }
 
   private async getAuthToken(): Promise<string> {
-    // Check localStorage for test/demo tokens first
+    // Check localStorage for test/demo tokens first (for testing)
     const authToken = localStorage.getItem("auth_token") || localStorage.getItem("authToken");
-    if (authToken) {
+    if (authToken && authToken.startsWith("demo-")) {
       return authToken;
     }
-    // This would integrate with Clerk to get the current session token
-    // For now, returning a placeholder
-    return "clerk-token-here";
+
+    // Get Clerk session token
+    const clerkToken = await auth.getSessionToken();
+    if (clerkToken) {
+      return clerkToken;
+    }
+
+    throw new Error("No authentication token available");
   }
 
   async getConversations(): Promise<Conversation[]> {

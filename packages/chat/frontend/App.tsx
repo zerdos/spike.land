@@ -5,10 +5,13 @@ import { ConversationList } from "./components/ConversationList";
 import { LandingPage } from "./components/LandingPage";
 import { SubscriptionStatus } from "./components/SubscriptionStatus";
 import { ConnectionStatus } from "./components/ConnectionStatus";
+import { UserButton } from "./components/auth/UserButton";
 import { useWebSocket } from "./hooks/useWebSocket";
+import { useAuth } from "./hooks/useAuth";
 import { api } from "./lib/api";
 
 export function App() {
+  const auth = useAuth();
   const [user, setUser] = useState<User | null>(null);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<Conversation | null>(null);
@@ -29,20 +32,35 @@ export function App() {
     },
   });
 
+  // Handle Clerk authentication state
   useEffect(() => {
-    checkAuth();
-  }, []);
+    if (auth.isSignedIn && auth.user) {
+      // Convert Clerk user to our User type
+      const userData: User = {
+        id: auth.user.id,
+        clerk_id: auth.user.id,
+        email: auth.user.emailAddresses[0]?.emailAddress || "",
+        name: auth.user.fullName || auth.user.firstName || "",
+        created_at: new Date(auth.user.createdAt || Date.now()).toISOString(),
+        updated_at: new Date(auth.user.updatedAt || Date.now()).toISOString(),
+      };
+      setUser(userData);
+    } else {
+      setUser(null);
+    }
+  }, [auth.isSignedIn, auth.user]);
 
   useEffect(() => {
-    if (user) {
+    if (user && auth.isSignedIn) {
       loadConversations();
       loadSubscriptionInfo();
     }
-  }, [user]);
+  }, [user, auth.isSignedIn]);
 
+  // Fallback auth check for demo mode
   const checkAuth = () => {
     const authToken = localStorage.getItem("auth_token") || localStorage.getItem("authToken");
-    if (authToken) {
+    if (authToken && authToken.startsWith("demo-")) {
       const userId = localStorage.getItem("user_id") || "demo-user";
       setUser({
         id: userId,
@@ -219,7 +237,17 @@ export function App() {
     }
   };
 
-  if (!user) {
+  // Show loading state while Clerk is initializing
+  if (!auth.isLoaded) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show auth screen if not signed in
+  if (!auth.isSignedIn || !user) {
     return <LandingPage onAuth={handleAuth} />;
   }
 
@@ -230,6 +258,9 @@ export function App() {
           <button className="new-chat-btn" onClick={createNewConversation}>
             New Chat
           </button>
+          {auth.user && (
+            <UserButton user={auth.user} onSignOut={auth.signOut} />
+          )}
           <SubscriptionStatus
             subscription={subscription}
             onUpgrade={upgradeSubscription}

@@ -1,9 +1,13 @@
 import { ConversationsAPI } from "../api/conversations";
 import { MessagesAPI } from "../api/messages";
+import { ChatAPI } from "../api/chat";
+import { WebSocketAPI } from "../api/websocket";
+import { handleCheckoutSession, handleOptions as handleCheckoutOptions } from "../api/stripe/checkout";
+import { handleStripeWebhook } from "../api/stripe/webhook";
+import { handleSubscriptionStatus, handleCreatePortalSession, handleOptions as handleSubscriptionOptions } from "../api/subscription";
 import type { Env } from "../types";
 import { AuthService } from "../utils/auth";
 import { handleClerkWebhook } from "../webhooks/clerk";
-import { handleStripeWebhook } from "../webhooks/stripe";
 import { chatHTML } from "./chatHTML";
 
 export { ChatRoom } from "../durable-objects/ChatRoom";
@@ -34,8 +38,46 @@ export default {
         return await handleStripeWebhook(request, env);
       }
 
+      // Chat API endpoint
+      const chatAPI = new ChatAPI(env);
+      if (path === "/api/chat" && method === "POST") {
+        const response = await chatAPI.chat(request);
+        return this.addCorsHeaders(response, corsHeaders);
+      }
+
+      // Stripe checkout session
+      if (path === "/api/stripe/checkout") {
+        if (method === "OPTIONS") {
+          return await handleCheckoutOptions();
+        }
+        if (method === "POST") {
+          return await handleCheckoutSession(request, env);
+        }
+      }
+
+      // Stripe portal session
+      if (path === "/api/stripe/portal") {
+        if (method === "OPTIONS") {
+          return await handleSubscriptionOptions();
+        }
+        if (method === "POST") {
+          return await handleCreatePortalSession(request, env);
+        }
+      }
+
+      // Subscription status
+      if (path === "/api/subscription/status") {
+        if (method === "OPTIONS") {
+          return await handleSubscriptionOptions();
+        }
+        if (method === "GET") {
+          return await handleSubscriptionStatus(request, env);
+        }
+      }
+
       const conversationsAPI = new ConversationsAPI(env);
       const messagesAPI = new MessagesAPI(env);
+      const websocketAPI = new WebSocketAPI(env);
       const authService = new AuthService(env);
 
       if (path === "/api/conversations" && method === "GET") {
@@ -115,16 +157,21 @@ export default {
         return this.addCorsHeaders(response, corsHeaders);
       }
 
+      // WebSocket connections
       if (path.startsWith("/ws/")) {
-        const conversationId = path.replace("/ws/", "");
-        const roomId = env.CHAT_ROOM.idFromName(conversationId);
-        const room = env.CHAT_ROOM.get(roomId);
+        const response = await websocketAPI.handleWebSocketUpgrade(request);
+        return this.addCorsHeaders(response, corsHeaders);
+      }
 
-        return room.fetch(
-          new Request("https://chat/websocket", {
-            headers: request.headers,
-          }),
-        );
+      // WebSocket API endpoints
+      if (path === "/api/websocket" && method === "POST") {
+        const response = await websocketAPI.broadcastMessage(request);
+        return this.addCorsHeaders(response, corsHeaders);
+      }
+
+      if (path === "/api/websocket/info" && method === "GET") {
+        const response = await websocketAPI.getConnectionInfo(request);
+        return this.addCorsHeaders(response, corsHeaders);
       }
 
       // Serve static assets

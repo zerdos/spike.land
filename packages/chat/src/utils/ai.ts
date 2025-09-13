@@ -14,6 +14,13 @@ interface AIResponse {
   response?: string;
 }
 
+export interface AIServiceResponse {
+  success: boolean;
+  response?: string;
+  tokensUsed?: number;
+  error?: string;
+}
+
 // For Cloudflare AI, we need to bypass the strict typing for now
 interface CloudflareAI {
   run(model: string, options: AIRunOptions): Promise<string | AIResponse>;
@@ -26,7 +33,7 @@ export class AIService {
     this.env = env;
   }
 
-  async generateResponse(request: AIRequest): Promise<string> {
+  async generateResponse(request: AIRequest): Promise<AIServiceResponse> {
     try {
       const modelName = this.getModelName(request.model);
 
@@ -39,18 +46,28 @@ export class AIService {
         },
       );
 
+      let responseText: string;
       if (typeof response === "string") {
-        return response;
+        responseText = response;
+      } else if (response && typeof response === "object" && "response" in response) {
+        responseText = response.response as string;
+      } else {
+        throw new Error("Invalid AI response format");
       }
 
-      if (response && typeof response === "object" && "response" in response) {
-        return response.response as string;
-      }
+      const tokensUsed = await this.countTokens(responseText);
 
-      throw new Error("Invalid AI response format");
+      return {
+        success: true,
+        response: responseText,
+        tokensUsed,
+      };
     } catch (error) {
       console.error("AI generation error:", error);
-      throw new Error("Failed to generate AI response");
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Failed to generate AI response",
+      };
     }
   }
 

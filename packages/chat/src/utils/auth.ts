@@ -94,7 +94,7 @@ export class AuthService {
         return false;
       }
 
-      if (user.subscription_tier === "business") {
+      if (user.subscription_tier === "enterprise") {
         return true;
       }
 
@@ -113,7 +113,7 @@ export class AuthService {
         .bind(userId)
         .first();
 
-      if (user?.subscription_tier === "business") {
+      if (user?.subscription_tier === "enterprise") {
         return;
       }
 
@@ -143,13 +143,13 @@ export class AuthService {
 
   async updateSubscription(
     userId: string,
-    tier: "free" | "pro" | "business",
+    tier: "free" | "pro" | "enterprise",
   ): Promise<void> {
     try {
       const creditsMap = {
-        free: 10,
-        pro: 500,
-        business: 999999,
+        free: 100,
+        pro: 2000,
+        enterprise: 10000,
       };
 
       await this.env.DATABASE.prepare(

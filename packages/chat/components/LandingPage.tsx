@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { User } from "../../src/types";
+import { SignIn } from "./auth/SignIn";
+import { SignUp } from "./auth/SignUp";
 
 interface LandingPageProps {
   onAuth: (user: User) => void;
@@ -7,6 +9,7 @@ interface LandingPageProps {
 
 export function LandingPage({ onAuth }: LandingPageProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [authMode, setAuthMode] = useState<"landing" | "signin" | "signup">("landing");
 
   const handleStartChatting = () => {
     setIsLoading(true);
@@ -26,33 +29,70 @@ export function LandingPage({ onAuth }: LandingPageProps) {
     }, 500);
   };
 
-  const handleLogin = () => {
-    // Handle actual login flow
-    console.log("Login clicked");
-    handleStartChatting(); // For now, use the same flow
+  const handleSignIn = () => {
+    setAuthMode("signin");
   };
+
+  const handleSignUp = () => {
+    setAuthMode("signup");
+  };
+
+  const handleBackToLanding = () => {
+    setAuthMode("landing");
+  };
+
+  // Show authentication components based on mode
+  if (authMode === "signin") {
+    return (
+      <div className="landing-page">
+        <div className="auth-back-button">
+          <button onClick={handleBackToLanding}>← Back to Home</button>
+        </div>
+        <SignIn onSuccess={handleBackToLanding} onSignUpClick={() => setAuthMode("signup")} />
+      </div>
+    );
+  }
+
+  if (authMode === "signup") {
+    return (
+      <div className="landing-page">
+        <div className="auth-back-button">
+          <button onClick={handleBackToLanding}>← Back to Home</button>
+        </div>
+        <SignUp onSuccess={handleBackToLanding} onSignInClick={() => setAuthMode("signin")} />
+      </div>
+    );
+  }
 
   return (
     <div className="landing-page">
       <div className="hero">
         <h1>Welcome to AI Chat Assistant</h1>
         <p>Experience the power of AI-driven conversations</p>
-        
+
         <div className="landing-buttons">
           <button
             className="auth-btn start-chatting-btn"
             onClick={handleStartChatting}
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : "Start Chatting"}
+            {isLoading ? "Loading..." : "Start Chatting (Demo)"}
           </button>
-          
+
           <button
             className="auth-btn login-btn"
-            onClick={handleLogin}
+            onClick={handleSignIn}
             disabled={isLoading}
           >
-            Login
+            Sign In
+          </button>
+
+          <button
+            className="auth-btn signup-btn"
+            onClick={handleSignUp}
+            disabled={isLoading}
+          >
+            Sign Up
           </button>
         </div>
       </div>
@@ -142,6 +182,41 @@ export function LandingPage({ onAuth }: LandingPageProps) {
           background: #667eea;
           color: white;
           transform: translateY(-2px);
+        }
+
+        .signup-btn {
+          padding: 15px 40px;
+          background: #28a745;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          font-size: 18px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .signup-btn:hover:not(:disabled) {
+          background: #218838;
+          transform: translateY(-2px);
+        }
+
+        .auth-back-button {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+        }
+
+        .auth-back-button button {
+          background: transparent;
+          border: 1px solid #ccc;
+          padding: 8px 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          color: #666;
+        }
+
+        .auth-back-button button:hover {
+          background: #f5f5f5;
         }
         
         .features {
