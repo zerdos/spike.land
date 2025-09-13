@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";

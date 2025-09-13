@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { Conversation, User } from "../../../src/types";
 import { Header } from "../../components/layout/header";

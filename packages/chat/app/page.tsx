@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import type { User } from "../../src/types";
 import { Header } from "../components/layout/header";

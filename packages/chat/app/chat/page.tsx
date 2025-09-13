@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { Conversation, Message, User } from "../../../src/types";
 import { ChatInterface } from "../../components/ChatInterface";

@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertCircle, ArrowLeft, CreditCard } from "lucide-react";
 import { useRouter } from "next/navigation";
 
