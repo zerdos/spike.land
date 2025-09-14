@@ -855,9 +855,9 @@ describe("PostHandler", () => {
   });
 
   describe("convertMessages", () => {
-    const callConvertMessages = (messages: any[]) => {
+    const callConvertMessages = (messages: unknown[]) => {
       return (postHandler as unknown as {
-        convertMessages: (messages: any[]) => CoreMessage[];
+        convertMessages: (messages: unknown[]) => CoreMessage[];
       }).convertMessages(messages);
     };
 

@@ -15,6 +15,26 @@ const MAX_MESSAGES_COUNT = 100;
 const VALID_ROLES = ["user", "assistant", "system"] as const;
 type ValidRole = typeof VALID_ROLES[number];
 
+// Types for message formats
+interface MessagePart {
+  type: string;
+  text?: string;
+  url?: string;
+  image?: string;
+  image_url?: {
+    url: string;
+  };
+}
+
+interface MessageWithParts {
+  role: string;
+  id?: string;
+  parts?: MessagePart[];
+  content?: string | MessageContentPart[];
+}
+
+type CoreMessage = ModelMessage;
+
 export class PostHandler {
   private storageService: StorageService;
   private schemaConverter: JsonSchemaToZodConverter;
@@ -128,7 +148,7 @@ export class PostHandler {
       }
 
       const codeSpace = this.code.getSession().codeSpace;
-      const messages = this.convertMessages(body.messages as any[]);
+      const messages = this.convertMessages(body.messages as MessageWithParts[]);
 
       await this.storageService.saveRequestBody(codeSpace, body);
 
@@ -271,8 +291,8 @@ export class PostHandler {
     );
   }
 
-  private convertMessages(messages: any[]): ModelMessage[] {
-    return messages.map((msg: any) => {
+  private convertMessages(messages: MessageWithParts[]): CoreMessage[] {
+    return messages.map((msg: MessageWithParts) => {
       if (!this.isValidRole(msg.role)) {
         throw new Error(`Invalid role: ${msg.role}`);
       }
@@ -281,7 +301,7 @@ export class PostHandler {
 
       // Handle messages with 'parts' field (frontend format)
       if (msg.parts && Array.isArray(msg.parts)) {
-        const content = msg.parts.map((part: any) => {
+        const content = msg.parts.map((part: MessagePart) => {
           if (part.type === "text") {
             return { type: "text" as const, text: part.text || "" };
           }
