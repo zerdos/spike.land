@@ -1,6 +1,6 @@
 # Cloudflare Workers Deployment Guide
 
-This document provides comprehensive instructions for deploying the Spike Chat application to Cloudflare Workers using Next.js and @cloudflare/next-on-pages.
+This document provides comprehensive instructions for deploying the Spike Chat application to Cloudflare Workers using Next.js and @opennextjs/cloudflare.
 
 ## Table of Contents
 
@@ -159,7 +159,7 @@ npm run build:cloudflare
 
 The build script (`scripts/build-for-cloudflare.js`) performs:
 
-1. **Dependency Check**: Installs @cloudflare/next-on-pages if missing
+1. **Dependency Check**: Ensures @opennextjs/cloudflare is installed
 2. **Clean Build**: Removes previous build artifacts
 3. **Next.js Build**: Compiles the Next.js application
 4. **Cloudflare Transform**: Converts Next.js output for Workers
@@ -291,7 +291,7 @@ ls -lh .vercel/output/static/_worker.js
 
 #### 1. Build Failures
 
-**Issue**: `@cloudflare/next-on-pages` build fails
+**Issue**: `@opennextjs/cloudflare` build fails
 
 ```bash
 # Solution: Clear cache and rebuild
@@ -375,8 +375,8 @@ Be aware of Cloudflare Workers limits:
 ### Support & Documentation
 
 - [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
-- [Next.js on Cloudflare Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/)
-- [@cloudflare/next-on-pages](https://github.com/cloudflare/next-on-pages)
+- [OpenNext for Cloudflare Workers](https://opennext.js.org/cloudflare)
+- [@opennextjs/cloudflare](https://github.com/opennextjs/cloudflare)
 - [Cloudflare Discord Community](https://discord.cloudflare.com/)
 
 ## Security Considerations

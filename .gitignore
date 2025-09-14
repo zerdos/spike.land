@@ -29,6 +29,7 @@ packages/*/build/
 packages/*/.next/
 packages/*/.nuxt/
 packages/*/.output/
+packages/*/.open-next/
 packages/*/worker/
 packages/*/.cache/
 packages/*/.parcel-cache/

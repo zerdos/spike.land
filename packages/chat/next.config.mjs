@@ -86,3 +86,9 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+// Initialize OpenNext Cloudflare for development
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+if (process.env.NODE_ENV === "development") {
+  initOpenNextCloudflareForDev();
+}
