@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 # Environment configurations
 [env.production]
 name = "spike-chat-nextjs"
-vars = { NODE_ENV = "production" }
+vars = { NODE_ENV = "production", NEXT_RUNTIME = "edge" }
 
 # [[env.production.durable_objects.bindings]]
 # name = "CHAT_ROOM"
